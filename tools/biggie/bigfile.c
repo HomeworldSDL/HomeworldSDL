@@ -12,6 +12,7 @@
 
 #ifndef WIN32
     #include <dirent.h>
+    #include <sys/param.h>
 #endif
 
 #include "bigfile.h"
@@ -2120,8 +2121,6 @@ int bigExtract(char *bigFilename, int numFiles, char *filenames[], int optFreshe
         printf("ERROR: Extract operation not supported yet.\n");
 #else
 
-    #define DUMPDIR "bigFileContents"
-
     FILE *fp;
     bigTOC toc;
 
@@ -2160,10 +2159,16 @@ int bigExtract(char *bigFilename, int numFiles, char *filenames[], int optFreshe
         char *compressedFile   = NULL,                   // memory buffers for the compressed...
              *uncompressedFile = NULL;                   //     and uncompressed files
 
+        char outdir[MAXPATHLEN];                         // directory output files are written to
         FILE *output;                                    // file writing file handle
-        char outfilename[BF_MAX_FILENAME_LENGTH];        // the full path/filename of the output file
+        char outfilename[BF_MAX_FILENAME_LENGTH];        // the path/filename of the output file
         
-        printf("\nExtracting %d files from %s to %s\n\n", toc.numFiles, bigFilename, DUMPDIR);
+        // output directory name will be something like "Homeworld.big.contents"
+        strcpy(outdir, bigFilename);
+        strcat(outdir, ".contents");
+        
+        printf("\nExtracting %d files from:\n    %s\nto:\n    %s\n\n",
+               toc.numFiles, bigFilename, outdir);
         
         // go through the table of contents
         for (i = 0; i < toc.numFiles; i++)
@@ -2241,7 +2246,8 @@ int bigExtract(char *bigFilename, int numFiles, char *filenames[], int optFreshe
             
             // this isn't strictly necessary but Homeworld.big will create a
             // hell of a mess otherwise; semi-bug
-            strcpy(outfilename, DUMPDIR "/");
+            strcpy(outfilename, outdir);
+            strcat(outfilename, "/");
             
             // fiddle directory delimiters
             strcat(outfilename, filename);
@@ -2263,9 +2269,16 @@ int bigExtract(char *bigFilename, int numFiles, char *filenames[], int optFreshe
             {
                 char mkdir[1024];
                 *ptr = '\0';
-                strcpy(mkdir, "/bin/mkdir -p ");
-                strcat(mkdir, outfilename);                    
+                
+                // quoting path to ensure characters like spaces are parsed correctly
+                strcpy(mkdir, "/bin/mkdir -p '");
+                strcat(mkdir, outfilename);
+                strcat(mkdir, "'");
+                
+                // actually create the directory
                 system(mkdir);
+                
+                // put the string back the way it was before
                 *ptr = '/';
             }
             

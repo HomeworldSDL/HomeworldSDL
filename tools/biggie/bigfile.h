@@ -60,7 +60,13 @@
 //          Fixed fast-create sorting bug.
 // Gary changed interface of bigCRC function
 
-#define BIGGIE_VERSION "2.11"
+//  2.11    version number when included with Homeworld source code release
+
+//  3.00    2005/01/22 Laurence Passmore
+//          Jumping to v3 to clearly distinguish the Homeworld SDL version.
+//          Added extract functionality (no individual file extract though).
+
+#define BIGGIE_VERSION "3.00"
 //  increment this when significant features are added or bugs fixed
 // (keep this string the same length)
 
