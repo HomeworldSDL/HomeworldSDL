@@ -12,14 +12,14 @@ lib_LTLIBRARIES = librgl.la librglsw.la
 # Not quite ready for prime time...
 #nodist_LTLIBRARIES = librglu.la librglfx.la
 
-librgl_la_SOURCES = asm.c asm.h asm-asm.c clip.c clip.h fixed.h gldefines.h hash.c hash.h invert.c kgl.c kgl.h kgl_macros.h kvb.c kvb.h maths.c maths.h rglext.c rglext.h wgl.c
+librgl_la_SOURCES = asm.c asm.h clip.c clip.h fixed.h gldefines.h hash.c hash.h invert.c kgl.c kgl.h kgl_macros.h kvb.c kvb.h maths.c maths.h rglext.c rglext.h wgl.c
 librgl_la_LDFLAGS = -avoid-version -no-undefined
 
 #librglu_la_SOURCES = fixed.h gldefines.h hash.h invert.c kgl.h kgl_macros.h kglu.c kvb.h maths.c maths.h rglext.h
 #librglu_la_LIBADD = librgl.la
 #librglu_la_LDFLAGS = -avoid-version -no-undefined
 
-librglsw_la_SOURCES = asm.c asm.h asm-asm.c sdldraw.c kgl.h lines.c lines.h linetemp.h newblendtextri.c newpersptri.c newrgbapersptri.c newrgbatextri.c newtextri.c newtriangle.c newtriangle.h newtritemp.h scan.c scan.h span.c span.h stipple.c.h stipple.h swdriver.c swdrv.h
+librglsw_la_SOURCES = asm.c asm.h sdldraw.c kgl.h lines.c lines.h linetemp.h newblendtextri.c newpersptri.c newrgbapersptri.c newrgbatextri.c newtextri.c newtriangle.c newtriangle.h newtritemp.h scan.c scan.h span.c span.h stipple.c.h stipple.h swdriver.c swdrv.h
 librglsw_la_LIBADD = librgl.la
 librglsw_la_LDFLAGS = -avoid-version -no-undefined
 
@@ -36,21 +36,7 @@ asm.o: asm.c
 	else rm -f "$(DEPDIR)/$*.Tpo"; exit 1; \
 	fi
 
-asm-asm.o: asm-asm.c
-	if $(COMPILE) -msse -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" \
-	  -c -o $@ `test -f '$<' || echo '$(srcdir)/'`$<; \
-	then mv "$(DEPDIR)/$*.Tpo" "$(DEPDIR)/$*.Po"; \
-	else rm -f "$(DEPDIR)/$*.Tpo"; exit 1; \
-	fi
-
 asm.lo: asm.c
-	if $(LTCOMPILE) -msse -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" \
-	  -c -o $@ `test -f '$<' || echo '$(srcdir)/'`$<; \
-	then mv "$(DEPDIR)/$*.Tpo" "$(DEPDIR)/$*.Plo"; \
-	else rm -f "$(DEPDIR)/$*.Tpo"; exit 1; \
-	fi
-
-asm-asm.lo: asm-asm.c
 	if $(LTCOMPILE) -msse -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" \
 	  -c -o $@ `test -f '$<' || echo '$(srcdir)/'`$<; \
 	then mv "$(DEPDIR)/$*.Tpo" "$(DEPDIR)/$*.Plo"; \
