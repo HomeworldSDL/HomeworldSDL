@@ -1,5 +1,5 @@
 Homeworld SDL - Source Installation Instructions
-Version 0.1.1 alpha
+Version 0.2 alpha
 http://www.thereisnospork.com/projects/homeworld/
 ---
 
@@ -15,17 +15,18 @@ SDL/Linux port by Ted Cipicchio <ted@thereisnospork.com>
 *** IMPORTANT BUILD INSTRUCTIONS - MUST READ!! ***
 
 Please read through the following instructions if you plan to build and run
-Homeworld in Linux:
+Homeworld SDL:
 
-Homeworld for Linux is still fairly early in development, and as such the
-code is somewhat of a mess right now.  Since Homeworld was not designed to be
-compiled and installed using the typical "configure/make/make install" process
-found with most open source Unix software, you'll need to keep a few things in
-mind while trying to get the game running.
+Homeworld SDL is still fairly early in development, and as such the code is
+somewhat of a mess right now.  Since Homeworld was not designed to be compiled
+and installed using the typical "configure/make/make install" process found
+with most open source Unix software, you'll need to keep a few things in mind
+while trying to get the game running.
 
-First, make sure you have SDL 1.2.6 or later installed.  You will also need
-GCC 3 or later.  There are currently issues with using GCC 2.95.x which are
-being looked at.
+First, make sure you have SDL 1.2 or later installed.  You will also need GCC
+3.3 or later.  GCC 3.x versions prior to 3.3 have problems compiling various
+sections of the Homeworld code and will crash upon attempt.  GCC 2.95.x does
+not provide support for SSE/SSE2 instructions and will not work.
 
 The build process itself is relatively straight-forward, as running
 "./configure" followed by "make" from within the project's directory will
@@ -47,9 +48,7 @@ directory):
 - Update.big
 
 Other data files may be used at a later time as progress continues, but for
-now these will do.  Note that the files in the "Movies" directory will more
-than likely never be used, as they use the Bink codec and would require a
-commercial license for playback.
+now these will do.
 
 The binary will be able to find the game data in one of two ways:
 
@@ -65,7 +64,7 @@ The binary will be able to find the game data in one of two ways:
   if you put the game data in a directory called "hw", you would only need to
   change to that directory and run "homeworld" without specifying anything for
   "HW_Data", and the executable should be able to find the data without any
-  problem
+  problem.
 
 For saved games, you will also need to create a "SavedGames" directory within
 the same directory as the Homeworld data.  This directory will also need to
@@ -78,9 +77,9 @@ contain the following subdirectories:
 These mirror the saved game directory structure in the original Homeworld.
 Note that directory names are case-sensitive, and they should be writable by
 whatever user you use to run the game.  Also note that unlike in the original
-Homeworld, we don't use the "MultiPlayer" save game directory, as the Linux
-port does not have multiplayer support (such code was not released due to
-licensing).
+Homeworld, we don't use the "MultiPlayer" save game directory, as Homeworld
+SDL currently does not have multiplayer support (such code was not released
+due to licensing).
 
 You should also create a "ScreenShots" directory if you want to save
 screenshots.  This will also need to be writable by the user used to run the
@@ -88,15 +87,13 @@ game.
 
 (Eventually, these directories will no longer be needed, as we're trying to
 move all saved games and user settings into a directory called ".homeworld"
-within the user's home directory.  This is already done for settings, and will
-likely be done for saved games in the next release.)
+within the user's home directory.  This has already been done for the game
+settings.)
 
 Even though the data is installed, you will still need to have the Homeworld
-CD in your CD-ROM drive AND mounted.  This may no longer be needed at a later
-point (assuming Relic has no issues with disabling all the CD checking code).
-The game will check that the CD is mounted on "/mnt/cdrom", but if you use a
-different mount point, you will need specify it with the "HW_CDROM"
-environment variable.
+CD in your CD-ROM drive AND mounted.  The game will check that the CD is
+mounted on "/mnt/cdrom", but if you use a different mount point, you will need
+to specify it using the "HW_CDROM" environment variable.
 
 NOW you should be able to start the game...but wait!  There's one last thing
 you need to know!
@@ -113,11 +110,6 @@ renderer.  To do so, perform the following steps:
 - Choose a resultion from the "Resolution" box (any resolution you choose will
   do fine).
 - Click on the "Accept!" button in the bottom-right corner of the screen.
-
-(Note that there is currently a bug where the front end and menus are
-displayed incorrectly when switching resolutions.  For now, if you change the
-resolution, just quit and restart Homeworld and everything should be displayed
-fine.)
 
 The game will now attempt to switch to the OpenGL renderer.  If everything
 goes okay, you should be presented with a confirmation that the settings you

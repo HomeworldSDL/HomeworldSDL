@@ -1,5 +1,5 @@
 Homeworld SDL - COPYING
-Version 0.1.1 alpha
+Version 0.2 alpha
 http://www.thereisnospork.com/projects/homeworld/
 ---
 
@@ -28,10 +28,6 @@ and LGPL).  Copies of these licenses have been included in additional
 
 Simple DirectMedia Layer (SDL) is licensed under the LGPL.  The source code to
 SDL is available at http://www.libsdl.org/
-
-GNU libstdc++-v3 is licensed under the GPL.  The source code to GNU libstdc++
-is included with the source for the GNU Compiler Collection (GCC), available
-at http://gcc.gnu.org/
 
 Headers for Glide 2 have also been thrown into the source package.  They are
 taken from the open-source Glide 2 library, which is licensed under the 3dfx

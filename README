@@ -1,5 +1,5 @@
 Homeworld SDL - README
-Version 0.1.1 alpha
+Version 0.2 alpha
 http://www.thereisnospork.com/projects/homeworld/
 ---
 
@@ -27,36 +27,16 @@ This a Linux port of the Homeworld code released by Relic.  It is still in a
 very early state, and many of the features (and stability) of the Windows
 version are not yet implemented.
 
-Current features include:
-- OpenGL support
-- Saved game compatability with the Windows version
-
-Features yet to be ported:
-- Software and Glide renderers
-- Sound support :(
-
-Cutscenes are stored in Bink format, which requires a license for playback.
-As such, support for in-game cutscenes is not planned.
-
-Network support in Homeworld uses a third-party library whose source was also
-not included with the game source.  As such, network support is currently not
-planned, but it is possible that it may be reimplemented at a later time
-(although not compatible with WONnet or the original Windows version of
-Homeworld).
-
 ------------------------------------------------------------------------------
 
 * Frequently Unasked Questions (FUQ) *
-
-This is only the first release, so there aren't really any frequently asked
-questions at this time.  Here's a few I'm anticipating though...
 
 Q. When I try to run the game, I get the message "Invalid or missing Homeworld
    CD. Please insert valid CD." on the command line.
 
 A. The game still requires the original Homeworld CD to run.  The CD will need
    to be mounted prior to starting the game.
-   
+
    The game assumes your CD mount point is "/mnt/cdrom", but if this is not
    the case, you will need to specify your mount point using the "HW_CDROM"
    environment variable.  Just set it to the path used as the CD mount point.
@@ -103,7 +83,7 @@ Q. Why do I have no sound?
 A. It's not quite there yet. :(  For starters, the Homeworld sound code was
    heavily tied into Windows and DirectSound.  On top of that, various sound
    related functions are used for which the source was not provided.  It is
-   unknown when sound will be ready, but rest assured it is planned.
+   currently unknown when sound will be available.
 
 ---
 
@@ -118,7 +98,7 @@ A. The Windows version of Homeworld relies on a 3rd party library for network
 
    It may be possible to recreate network support from scratch for use with
    this version of Homeworld (although not compatible with WONnet or the
-   Windows version of the game), but it is not planned at this time.
+   Windows version of the game).
 
 ---
 
@@ -131,9 +111,8 @@ A. Chances are, you're trying to use the software renderer.  The software
 
    Only the OpenGL renderer can be used to play a game at this point of time.
    You can select it by performing the following steps:
-   
-   - Select "Options" from the main game menu.
 
+   - Select "Options" from the main game menu.
    - Select "Video" from the available options sub-menus listed on the right
      side of the screen.
    - Select "(GL) Default OpenGL" from the "Rendering System" box.
@@ -149,16 +128,47 @@ A. Chances are, you're trying to use the software renderer.  The software
    The settings you choose will also be saved when you quit, so you don't have
    to reselect the OpenGL renderer every time.
 
+---
+
+Q. When I try to load a saved game from either the original Windows version of
+   Homeworld or from a previous version of Homeworld SDL (earlier than 0.2), I
+   get a message stating "Error, invalid version of save game file."
+
+A. The original version of Homeworld created saved games that are inherently
+   non-portable.  Specifically, it used offsets to functions in the mission
+   code to save the current state of AI-controlled objects at the time of
+   saving.  These offsets often change when using a different compiler,
+   compiler version, compiler flags, or platform, thus often preventing saved
+   games from loading properly.  This didn't cause any issues with the
+   original Homeworld since Relic could make sure they used the same compiler
+   and compiler flags throughout the life cycle of the game.  Unfortunately,
+   since there are many versions of GCC being used on many different
+   platforms, we cannot ensure that the same code is being generated for
+   everyone.
+
+   As of Homeworld SDL 0.2, the game saving and loading code has been changed
+   to save information that is not specific to any particular build of
+   Homeworld SDL, regardless of the compiler version or options.  To avoid any
+   further issues, Homeworld SDL will also now refuse to load any games saved
+   using the original Homeworld.
+
+   Since Homeworld SDL versions before 0.2 used the same saved game code as
+   the original Homeworld, games saved using such versions are also no longer
+   compatible with Homeworld SDL 0.2 or later.
+
+   (I know I said before that saved games were compatible with the Windows
+   version.  Of course, that was before I realized Homeworld used function
+   pointers to save game information.  Sorry about that...)
 
 ---
 
 Q. I'm having some other issue that's not covered in this document.
 
 A. That's understandable. =]  This still a very early release, and as such is
-   far from being considered "complete".  If you come across a bug not
-   mentioned in this document, the BUGS file included in the package, or at
-   the project website (listed at the top of this document), please let us
-   know about the bug.  It would help to include as much information as
-   possible about your system and what actions were performed to expose the
-   bug.  If the bug can be reproduced, it will make hunting down and fixing
-   the bug much easier.
+   far from being considered "complete".  A Bugzilla database is provided at
+   <http://homeworld.dnsalias.net/bugzilla/>, where you can submit any bugs
+   you come across.  Before you submit a bug, we ask that you make sure it
+   isn't a bug that has already been submitted.  It would also help to include
+   as much information as possible about your system and what actions were
+   performed to expose the bug.  If the bug can be reproduced, it will make
+   hunting down and fixing the bug much easier.
