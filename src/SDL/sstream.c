@@ -1379,7 +1379,8 @@ Recover:
 			}
 		}
 		
-		// Sleep(SOUND_STREAM_SLEEP);
+#warning This should use semaphores!
+		SDL_Delay(SOUND_STREAM_SLEEP);
 	}
 	
 	/* clean up all the streams */
