@@ -856,8 +856,9 @@ void glCapStartup(void)
 #ifndef _MACOSX_FIX_ME
         glGetIntegerv(GL_DOUBLEBUFFER, &param);
         glCapDoubleBuffer = param ? TRUE : FALSE;
-#endif
+#else
 		glCapDoubleBuffer = TRUE;
+#endif
 
         //is this a 3dfx GL?
         if (strcasecmp(GLC_VENDOR, voodooVendor) == 0)
