@@ -4192,7 +4192,7 @@ void rndRenderTask(void)
                 result = VirtualFree(buf, 0, MEM_RELEASE);
                 dbgAssert(result);
 #else
-                result = munmap(buf, 0);
+                result = munmap(buf, 3*MAIN_WindowWidth*MAIN_WindowHeight);
                 dbgAssert(result != -1);
 #endif
             }

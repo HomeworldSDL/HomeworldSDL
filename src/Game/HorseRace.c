@@ -451,6 +451,9 @@ void hrChooseRandomBitmap(char *pFilenameBuffer)
          chosenFileIndex = 0, currentFileIndex = 0, Result;
     char BigName[PATH_MAX], CurDir[PATH_MAX], NewDir[PATH_MAX];
 
+    // Remember the current directory
+    getcwd(CurDir, PATH_MAX);
+
     NewDir[0] = 0;
     strcpy(NewDir, filePathPrepend("ScreenShots", FF_UserSettingsPath));
 
@@ -562,9 +565,6 @@ void hrChooseRandomBitmap(char *pFilenameBuffer)
     }
     else // look in the big file for fallback images
     {   
-        /*GetCurrentDirectory(511, CurDir);*/
-        getcwd(CurDir, PATH_MAX);
-
         // First, find screen shots listed in the BigFile
 #ifdef _WIN32
         handle = fileOpen("ScreenShots\\ShotList.script", FF_ReturnNULLOnFail | FF_TextMode);
