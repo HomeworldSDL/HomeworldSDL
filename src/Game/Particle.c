@@ -2045,7 +2045,7 @@ sdword partAdvanceMeshMorph(meshSystem* psys, particle* p)
     //find the trivial next
     frame = (sdword)p->meshFrame + 1;
     next = animblock + frame;
-    if (next->mesh == NULL || (sdword)next->mesh == -1)
+    if (next->mesh == NULL || next->mesh == 0x7fffffff)
     {
         if (p->loopCount == 0)
         {
