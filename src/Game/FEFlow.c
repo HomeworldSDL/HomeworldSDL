@@ -659,6 +659,7 @@ udword feScrollBarProcess(regionhandle region, sdword ID, udword event, udword d
 ----------------------------------------------------------------------------*/
 udword feListWindowProcess(regionhandle region, sdword ID, udword event, udword data)
 {
+    featom *atom = (featom *)ID;
     listwindowhandle listwindow = (listwindowhandle)region;
 
     dbgAssert(atom->type == FA_ListWindow);

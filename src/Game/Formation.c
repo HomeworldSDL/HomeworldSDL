@@ -321,6 +321,7 @@ void formationBiggestThenClosestOptimum(SelectCommand *selection,TypeOfFormation
 void formationArrangeOptimum(struct CommandToDo *formationtodo)
 {
     SelectCommand *selection = formationtodo->selection;
+    sdword numShips = selection->numShips;
 
     dbgAssert(numShips >= ABSOLUTE_MIN_SHIPS_IN_FORMATION);
 
