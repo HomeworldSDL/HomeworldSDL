@@ -572,7 +572,7 @@ void animShutdown(void)
 ----------------------------------------------------------------------------*/
 bool animBinkPlay(sdword a, sdword b)
 {
-#ifdef _MACOSX_FIX_ME /* One more time...BINK!@#1 */
+#if 0 /* One more time...BINK!@#1 */
     bool rval;
     char filename[1024], scriptname[1024];
     void animBinkEnd(void);

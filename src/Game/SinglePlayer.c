@@ -1520,69 +1520,73 @@ bool UpdateArrivingShip(Ship *ship,hvector *topoint,bool midLevel)
             }
             switch (shipSinglePlayerGameInfo->hsState)
             {
-            case HS_SLICING_OUTOF:
-                if ( midLevel || (NoneDoingHS(HS_POPUP_OUTOF) && NoneDoingHS(HS_FINISHED)) )
-                {
-                    if(!singlePlayerGame)
+                case HS_SLICING_OUTOF:
+                    if ( midLevel || (NoneDoingHS(HS_POPUP_OUTOF) && NoneDoingHS(HS_FINISHED)) )
                     {
-                        CommandToDo *command = getShipAndItsCommand(&universe.mainCommandLayer,ship);
-                        if(command != NULL)
+                        if(!singlePlayerGame)
                         {
-                            if(command->ordertype.order == COMMAND_MP_HYPERSPACEING)
+                            CommandToDo *command = getShipAndItsCommand(&universe.mainCommandLayer,ship);
+                            if(command != NULL)
                             {
-                                //if its a capital ship (docked ships won't have this command)
-                                if(universe.totaltimeelapsed - command->hyperSpaceingTime < TW_HYPERSPACE_TELEGRAPH_WAIT_TIME)
+                                if(command->ordertype.order == COMMAND_MP_HYPERSPACEING)
                                 {
-                                    //ship hasn't waited long enough for incomming hs...
-                                    //so don't
-                                    goto noupdateonincomminghs;
+                                    //if its a capital ship (docked ships won't have this command)
+                                    if(universe.totaltimeelapsed - command->hyperSpaceingTime < TW_HYPERSPACE_TELEGRAPH_WAIT_TIME)
+                                    {
+                                        //ship hasn't waited long enough for incomming hs...
+                                        //so don't
+                                        goto noupdateonincomminghs;
+                                    }
                                 }
                             }
                         }
-                    }
-                    hsUpdate(ship);
-noupdateonincomminghs:;
-                }
-                break;
-            case HS_COLLAPSE_OUTOF:
-                if (ship->soundevent.hyperspaceHandle != SOUND_NOTINITED)
-                {
-                    soundEventStopSound(ship->soundevent.hyperspaceHandle, 1);
-                    ship->soundevent.hyperspaceHandle = SOUND_NOTINITED;
-                }
-                if ((!midLevel) && (ship == universe.curPlayerPtr->PlayerMothership))
-                {
-                    if (AllDoingExceptMe(HS_INACTIVE, ship))
-                    {
                         hsUpdate(ship);
+    noupdateonincomminghs:;
                     }
-                }
-                else
-                {
-                    if(!singlePlayerGame)
+                    break;
+                    
+                case HS_COLLAPSE_OUTOF:
+                    if (ship->soundevent.hyperspaceHandle != SOUND_NOTINITED)
                     {
-                        if(gravwellIsShipStuckForHyperspaceing(ship))
+                        soundEventStopSound(ship->soundevent.hyperspaceHandle, 1);
+                        ship->soundevent.hyperspaceHandle = SOUND_NOTINITED;
+                    }
+                    if ((!midLevel) && (ship == universe.curPlayerPtr->PlayerMothership))
+                    {
+                        if (AllDoingExceptMe(HS_INACTIVE, ship))
                         {
-                            //ship is stuck here because of a gravwell gen somewhere
-                            goto noupdateHSMP;
+                            hsUpdate(ship);
                         }
                     }
+                    else
+                    {
+                        if(!singlePlayerGame)
+                        {
+                            if(gravwellIsShipStuckForHyperspaceing(ship))
+                            {
+                                //ship is stuck here because of a gravwell gen somewhere
+                                goto noupdateHSMP;
+                            }
+                        }
+                        hsUpdate(ship);
+    noupdateHSMP:;
+                    }
+                    break;
+                    
+                case HS_INACTIVE:
+                    if (universe.totaltimeelapsed > shipSinglePlayerGameInfo->timeToHyperspace)
+                    {
+                        thisShipArrived = TRUE;
+                    }
+                    break;
+                    
+                default:
                     hsUpdate(ship);
-noupdateHSMP:;
-                }
-                break;
-            case HS_INACTIVE:
-                if (universe.totaltimeelapsed > shipSinglePlayerGameInfo->timeToHyperspace)
-                {
-                    thisShipArrived = TRUE;
-                }
-                break;
-            default:
-                hsUpdate(ship);
+                    break;
             }
+
+        default:
             break;
-    default:
-        break;
     }
 
     if (thisShipArrived)
@@ -2581,6 +2585,7 @@ hyperspacefailed:
                 singlePlayerGameInfo.hyperspaceFails = FALSE;
             }
             break;
+            
         default:
             break;
     }
