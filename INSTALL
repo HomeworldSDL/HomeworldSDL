@@ -1,5 +1,5 @@
 Homeworld SDL - Source Installation Instructions
-Version 0.2 alpha
+Version 0.3 alpha
 http://www.thereisnospork.com/projects/homeworld/
 ---
 
@@ -66,30 +66,6 @@ The binary will be able to find the game data in one of two ways:
   "HW_Data", and the executable should be able to find the data without any
   problem.
 
-For saved games, you will also need to create a "SavedGames" directory within
-the same directory as the Homeworld data.  This directory will also need to
-contain the following subdirectories:
-
-- Training      (for saving your point in the training mission)
-- SinglePlayer  (for saving single-player games)
-- RecordedGames (for saving recorded games)
-
-These mirror the saved game directory structure in the original Homeworld.
-Note that directory names are case-sensitive, and they should be writable by
-whatever user you use to run the game.  Also note that unlike in the original
-Homeworld, we don't use the "MultiPlayer" save game directory, as Homeworld
-SDL currently does not have multiplayer support (such code was not released
-due to licensing).
-
-You should also create a "ScreenShots" directory if you want to save
-screenshots.  This will also need to be writable by the user used to run the
-game.
-
-(Eventually, these directories will no longer be needed, as we're trying to
-move all saved games and user settings into a directory called ".homeworld"
-within the user's home directory.  This has already been done for the game
-settings.)
-
 Even though the data is installed, you will still need to have the Homeworld
 CD in your CD-ROM drive AND mounted.  The game will check that the CD is
 mounted on "/mnt/cdrom", but if you use a different mount point, you will need
@@ -117,6 +93,18 @@ requested were changed.  Select "Yes", and you should be ready to go!
 
 The settings you choose will also be saved when you quit, so you don't have to
 reselect the OpenGL renderer every time.
+
+------------------------------------------------------------------------------
+
+*** UPGRADING FROM HOMEWORLD SDL 0.2? ***
+
+As of Homeworld SDL 0.3, the location of saved games has moved.  Saved games
+are now stored within the ".homeworld" directory in your home directory.  To
+use your old saved games, just move the "SavedGames" directory from the game
+directory to "~/.homeworld".  Note that saved games from the Windows version
+of Homeworld and Homeworld SDL versions prior to 0.2 still do not work with
+recent versions of Homeworld SDL.  Also, the game directory no longer needs to
+be writable for users who want to run the game.
 
 ------------------------------------------------------------------------------
 

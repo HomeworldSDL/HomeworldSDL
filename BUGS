@@ -1,4 +1,4 @@
-Known bugs (as of 2003-11-23):
+Known bugs (as of 2004-08-01):
 
 - Software renderer currently does not render 3D graphics properly (looks like
   it's not rendering any 3D for the most part, with triangles popping at
@@ -17,10 +17,6 @@ Known bugs (as of 2003-11-23):
   game will no longer attempt to load saved games from the original Homeworld
   or from Homeworld SDL versions prior to 0.2.
 
-- On a similar note to the previous bug, big-endian systems (i.e. PowerPC) are
-  not supported at this time (this is related to file loading in general and
-  not just saved game loading).
-
 - If you are currently running in OpenGL mode and you switch to software mode,
   you will be presented with a blank screen (not including a couple things
   drawn in the bottom left corner).  Basically, don't switch back to software
@@ -29,10 +25,6 @@ Known bugs (as of 2003-11-23):
 - Certain systems configurations appear to be currently unable to switch to
   the OpenGL renderer.  This is being looked into.
 
-- Certain keyboard shortcuts do not currently work (i.e. "r" does not bring up
-  the Research menu, "m" does not bring up the movement disk while in the
-  Sensors Manager).
-
 - Rendering will cease to work properly from time to time when exiting the
   sensors manager.  In particular, this tends to happen when playing a
-  skirmish against the CPU.  The cause for this is currently unknown.
+  skirmish against the CPU.  This may actually be fixed by now.

@@ -1,5 +1,5 @@
 Homeworld SDL - README
-Version 0.2 alpha
+Version 0.3 alpha
 http://www.thereisnospork.com/projects/homeworld/
 ---
 
@@ -78,15 +78,6 @@ A. This is caused by the fact that Homeworld cannot load the software
 
 ---
 
-Q. Why do I have no sound?
-
-A. It's not quite there yet. :(  For starters, the Homeworld sound code was
-   heavily tied into Windows and DirectSound.  On top of that, various sound
-   related functions are used for which the source was not provided.  It is
-   currently unknown when sound will be available.
-
----
-
 Q. When I try to start a network game, I get the message "Could not start
    Internet TCP/IP" (or "Could not start LAN IPX or LAN TCP/IP" for a LAN
    game), yet my network connection is working just fine.
@@ -127,6 +118,16 @@ A. Chances are, you're trying to use the software renderer.  The software
 
    The settings you choose will also be saved when you quit, so you don't have
    to reselect the OpenGL renderer every time.
+
+---
+
+Q. Where are my saved games?
+
+A. As of Homeworld SDL 0.3, saved games and screenshots are stored in
+   "~/.homeworld".  If you have saved games from Homeworld SDL 0.2, you can
+   still use them by copying the the "SavedGames" directory from the game
+   directory to "~/.homeworld" (saved games from Homeworld SDL versions prior
+   to 0.2 are not supported, though).
 
 ---
 
