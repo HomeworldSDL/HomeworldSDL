@@ -30,6 +30,10 @@
     #define PATH_MAX MAX_PATH
 #endif
 
+#ifdef _MACOSX
+    #include <sys/param.h>
+#endif
+
 /*-------------------------------------------------------------------------
    Declare size of integers in bytes by compiler type
 --------------------------------------------------------------------------*/
