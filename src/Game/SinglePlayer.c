@@ -2946,6 +2946,81 @@ KASWatchFunction IndexToWatchFunction(sdword index)
     return WatchFunctionAddress(index);
 }
 
+/* Get the proper FSM function list for the given mission index. */
+const void **FunctionListAddress(sdword i)
+{
+    switch (i)
+    {
+        case 0:     return Mission01_FunctionPointers;
+        case 1:     return Mission02_FunctionPointers;
+        case 2:     return Mission03_FunctionPointers;
+        case 3:     return Mission04_FunctionPointers;
+#ifdef OEM
+        case 4:     return Mission05_OEM_FunctionPointers;
+#else
+        case 4:     return Mission05_FunctionPointers;
+        case 5:     return Mission06_FunctionPointers;
+        case 6:     return Mission07_FunctionPointers;
+        case 7:     return Mission08_FunctionPointers;
+        case 8:     return Mission09_FunctionPointers;
+        case 9:     return Mission10_FunctionPointers;
+        case 10:     return Mission11_FunctionPointers;
+        case 11:     return Mission12_FunctionPointers;
+        case 12:     return Mission13_FunctionPointers;
+        case 13:     return Mission14_FunctionPointers;
+        case 14:     return Mission15_FunctionPointers;
+        case 15:     return Mission16_FunctionPointers;
+#endif
+        case 16:     return Tutorial1_FunctionPointers;
+    }
+
+    return NULL;
+}
+
+/* Get the size of an FSM function list for the given mission index. */
+udword FunctionListSize(sdword i)
+{
+    switch (i)
+    {
+        case 0:     return Mission01_FunctionPointerCount;
+        case 1:     return Mission02_FunctionPointerCount;
+        case 2:     return Mission03_FunctionPointerCount;
+        case 3:     return Mission04_FunctionPointerCount;
+#ifdef OEM
+        case 4:     return Mission05_OEM_FunctionPointerCount;
+#else
+        case 4:     return Mission05_FunctionPointerCount;
+        case 5:     return Mission06_FunctionPointerCount;
+        case 6:     return Mission07_FunctionPointerCount;
+        case 7:     return Mission08_FunctionPointerCount;
+        case 8:     return Mission09_FunctionPointerCount;
+        case 9:     return Mission10_FunctionPointerCount;
+        case 10:     return Mission11_FunctionPointerCount;
+        case 11:     return Mission12_FunctionPointerCount;
+        case 12:     return Mission13_FunctionPointerCount;
+        case 13:     return Mission14_FunctionPointerCount;
+        case 14:     return Mission15_FunctionPointerCount;
+        case 15:     return Mission16_FunctionPointerCount;
+#endif
+        case 16:     return Tutorial1_FunctionPointerCount;
+    }
+
+    return 0;
+}
+
+/* Get the the FSM function list for the given level index. */
+const void** IndexToFunctionList(sdword index)
+{
+    if (index == -1)
+    {
+        return NULL;
+    }
+
+    dbgAssert(index >= 0);
+    dbgAssert(index < NUMBER_SINGLEPLAYER_MISSIONS);
+    return FunctionListAddress(index);
+}
+
 //nisplaying *singlePlayerNISPlaying = NULL;
 
 sdword singlePlayerNisNumber = -1;

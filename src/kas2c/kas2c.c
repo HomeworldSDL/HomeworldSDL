@@ -17,7 +17,9 @@
 
 extern char *yytname[];
 
-extern FILE *yyin, *yyout, *yyhout;
+extern FILE *yyin, *yyout, *yyhout, *yyfout;
+
+extern unsigned int functionCount;
 
 extern int yynerrs;
 
@@ -1555,6 +1557,11 @@ void kasInitializeStart(void)
 
     // prototype
     fprintf(yyhout, "void %s(void);\n", funcName);
+
+    // function pointer
+    if (yyfout)
+        fprintf(yyfout, "\t(void*)%s,\n", funcName);
+    functionCount++;
 }
 
 void kasInitializeEnd(void)
@@ -1642,6 +1649,11 @@ void kasWatchStart(void)
 
     // prototype
     fprintf(yyhout, "void %s(void);\n", funcName);
+
+    // function pointer
+    if (yyfout)
+        fprintf(yyfout, "\t(void*)%s,\n", funcName);
+    functionCount++;
 }
 
 void kasWatchEnd(void)

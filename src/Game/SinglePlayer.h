@@ -192,6 +192,9 @@ void SaveSinglePlayerGame(void);
 sdword WatchFunctionToIndex(KASWatchFunction watchFunction);
 KASWatchFunction IndexToWatchFunction(sdword index);
 
+udword FunctionListSize(sdword i);
+const void** IndexToFunctionList(sdword index);
+
 #if SP_NISLET_TEST
 void spNISletTestAttempt(sdword index);
 #endif

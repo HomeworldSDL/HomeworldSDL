@@ -1,7 +1,8 @@
 #ifndef __KAS2C_H
 #define __KAS2C_H
 
-#define KAS2C_VERSION "2.05"
+//#define KAS2C_VERSION "2.05"
+#define KAS2C_VERSION "2.05sdl"
 
 // "depth" of script we're currently parsing at
 #define LEVEL_LEVEL 0

@@ -1371,8 +1371,23 @@ sdword kasConvertFuncPtrToOffset(void *func)
     }
     else
     {
+        udword i;
+        const void** func_list;
+        udword func_list_size;
 
-        return ((ubyte *)func) - ((ubyte *)IndexToWatchFunction(singlePlayerGameInfo.currentMission-1));
+        func_list =
+            IndexToFunctionList(singlePlayerGameInfo.currentMission - 1);
+        func_list_size = (func_list
+            ? FunctionListSize(singlePlayerGameInfo.currentMission - 1)
+            : 0);
+
+        for (i = 0; i < func_list_size; i++)
+        {
+            if (func_list[i] == (void*)func)
+                return (sdword)i;
+        }
+
+        return -1;
     }
 }
 
@@ -1384,7 +1399,18 @@ void *kasConvertOffsetToFuncPtr(sdword offset)
     }
     else
     {
-        return (void *)( ((ubyte *)IndexToWatchFunction(singlePlayerGameInfo.currentMission-1)) + offset);
+        const void** func_list;
+        udword func_list_size;
+
+        func_list =
+            IndexToFunctionList(singlePlayerGameInfo.currentMission - 1);
+        func_list_size = (func_list
+            ? FunctionListSize(singlePlayerGameInfo.currentMission - 1)
+            : 0);
+
+        return ((udword)offset < func_list_size
+            ? func_list[offset]
+            : NULL);
     }
 }
 

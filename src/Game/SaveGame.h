@@ -10,7 +10,10 @@
 #include "SpaceObj.h"
 #include "ShipSelect.h"
 
-#define SAVE_VERSION_NUMBER             0x10ad0027
+/* Save game version for original Homeworld. */
+/*#define SAVE_VERSION_NUMBER             0x10ad0027*/
+/* Save game version for Homeworld SDL. */
+#define SAVE_VERSION_NUMBER             0x10ad0028
 
 #define BASIC_STRUCTURE                 0x80000000
 #define VARIABLE_STRUCTURE              0x40000000
