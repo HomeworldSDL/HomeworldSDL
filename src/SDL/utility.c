@@ -4350,7 +4350,7 @@ char *utyGameSystemsInit(void)
 
     // create the autorun lock file
     utyLockFilehandle = 0;
-    utyLockFilehandle = fileOpen(utyLockFilename, FF_WriteMode|FF_IgnoreBIG);
+    utyLockFilehandle = fileOpen(utyLockFilename, FF_WriteMode|FF_IgnoreBIG|FF_UserSettingsPath);
 
     if (regStartup() != OKAY)                               //startup the region processor
     {
