@@ -10,11 +10,11 @@
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <mmsystem.h>
+#include <string.h>
 #include <dsound.h>
 #include <process.h>
 #endif
 
-#include <string.h>
 #include "Types.h"
 #include "Switches.h"
 #include "Debug.h"
@@ -43,7 +43,6 @@ sdword numstreams;
 bool ssOldFormatVCE = FALSE;
 #endif
 
-/*extern LPDIRECTSOUND lpDirectSound;*/
 extern CHANNEL channels[];
 extern SENTENCELUT *SentenceLUT;
 extern bool soundinited;
@@ -83,7 +82,11 @@ void soundstreamquery(sdword maxstreams, sdword *pbuffersize, sdword *pstreamers
 
 sdword streamStartThread(void)
 {
-	return (SOUND_ERR);
+	streamer.status = SOUND_PLAYING;
+
+	SDL_CreateThread(isoundstreamupdate, NULL);
+			
+	return (SOUND_OK);
 }
 
 
@@ -215,8 +218,8 @@ sdword soundstreamcreatebuffer(void *pstreambuffer, sdword size, uword bitrate)
 			pstream->playing = FALSE;
 			memset(pstream->buffer, 0, pstream->buffersize);
 			
-			/*fqAcModel(NULL, NULL, 0, pstream->delaybuffer1, DELAY_BUF_SIZE, &(pstream->delaypos1));
-			fqAcModel(NULL, NULL, 0, pstream->delaybuffer2, DELAY_BUF_SIZE, &(pstream->delaypos2));*/
+			fqAcModel(NULL, NULL, 0, pstream->delaybuffer1, DELAY_BUF_SIZE, &(pstream->delaypos1));
+			fqAcModel(NULL, NULL, 0, pstream->delaybuffer2, DELAY_BUF_SIZE, &(pstream->delaypos2));
 			break;
 		}
 	}
@@ -573,7 +576,129 @@ sdword soundstreamqueuePatch(sdword streamhandle, sdword filehandle, sdword offs
 ----------------------------------------------------------------------------*/	
 sdword soundstreamvolume(sdword handle, sword vol, real32 fadetime)
 {
+	CHANNEL *pchan;
+	sdword channel;
+	bool stop = FALSE;
+	sdword fadeblocks = -1;
+	STREAM *pstream;
+	sdword i;
+
+	if (!soundinited)
+	{
+		return (SOUND_ERR);
+	}
+	
+	if (streamer.status != SOUND_PLAYING)
+	{
 	return (SOUND_ERR);
+	}
+
+	if (vol > SOUND_VOL_MAX)
+	{
+		vol = SOUND_VOL_MAX;
+	}
+	else if (vol == -1)
+	{
+		vol = SOUND_VOL_MIN;
+		stop = TRUE;
+	}
+	else if (vol <= SOUND_VOL_MIN)
+	{
+		vol = SOUND_VOL_MIN;
+	}
+
+	channel = SNDchannel(handle);
+
+	if (channel < 0)
+	{
+		return (SOUND_ERR);
+	}
+
+	pchan = &speechchannels[channel];
+
+	if (pchan != NULL)
+	{
+		fadeblocks = (sdword)(fadetime * SOUND_FADE_TIMETOBLOCKS);
+
+		if (fadeblocks < NUM_FADE_BLOCKS)
+		{
+			fadeblocks = NUM_FADE_BLOCKS;
+		}
+
+		if ((vol != pchan->voltarget) || stop)
+		{
+			if (vol == (sword)pchan->volume)
+			{
+				pchan->voltarget = vol;
+				pchan->volticksleft = 1;
+				pchan->volfade = 0.0f;
+			}
+			else if (fadeblocks > 0)
+			{
+				pchan->voltarget = vol;
+				pchan->volticksleft = fadeblocks;
+				pchan->volfade = (real32)(pchan->voltarget - pchan->volume) / (real32)pchan->volticksleft;
+
+				if (pchan->volfade == 0.0f)
+				{
+					pchan->volfade = 0.01f;
+					if (pchan->voltarget < pchan->volume)
+					{
+						pchan->volfade = -0.01f;
+					}
+				}
+			}
+			else if (fadeblocks == -1)
+			{
+				pchan->voltarget = vol;
+				pchan->volfade = 0.01f;
+				pchan->volticksleft = ((sword)pchan->volume - vol) * 100;
+				if (pchan->volticksleft < 0)
+				{
+					pchan->volticksleft *= -1;
+				}
+			}
+			else
+			{
+				pchan->volume = vol;
+				pchan->voltarget = vol;
+				pchan->volticksleft = 1;
+				pchan->volfade = 0.0f;
+			}
+			
+			if (stop)
+			{
+				pchan->status = SOUND_STOPPING;
+				/* need to clean up the queue */
+				pstream = &streams[channel];
+				pstream->writeindex = pstream->playindex;
+                if (pstream->status == SOUND_STREAM_INUSE)
+				{
+					pstream->queueindex = pstream->writeindex;
+				}
+				else
+				{
+					pstream->queueindex = pstream->writeindex + 1;
+					if (pstream->queueindex >= SOUND_MAX_STREAM_QUEUE)
+					{
+						pstream->queueindex = 0;
+					}
+				}
+//				pstream->queue[pstream->writeindex].fhandle = SOUND_ERR;
+				pstream->numqueued = 0;
+				for (i = 0; i < SOUND_MAX_STREAM_QUEUE; i++)
+				{
+					if (i != pstream->playindex)
+					{
+						pstream->queue[i].fhandle = SOUND_ERR;
+					}
+				}
+
+			}
+		}
+	}
+
+	return (SOUND_OK);
 }
 
 /*-----------------------------------------------------------------------------
@@ -905,7 +1030,353 @@ void isoundstreamcleanup(void)
 ----------------------------------------------------------------------------*/	
 void isoundstreamupdate(void *dummy)
 {
+	sdword i;
+	STREAM *pstream;
+	CHANNEL *pchan;
+	sdword ret;
+	sdword readsize;
+	Uint8 *bufferpos;
+	sdword bufsize;
+	STREAMQUEUE *pqueue;
+	
+	if (streams == NULL)
+	{
 	/* not inited yet */
 	return;
+	}
+
+	while (soundinited && (streamer.status >= SOUND_STOPPED))
+	{
+		if (streamer.status == SOUND_STOPPING)
+		{
+			/* check and see if its done yet */
+			if (streamer.timeout <= mixerticks)
+			{
+				isoundstreamcleanup();
+				streamer.timeout = 0;
+				streamer.status = SOUND_STOPPED;
+			}
+		}
+		
+		if (bSoundDeactivated && (streamer.status == SOUND_PLAYING)  && !bSoundPaused)
+		{
+//			isoundstreamcleanup();
+//			streamer.status = SOUND_STOPPED;
+			streamer.status = SOUND_PAUSED;
+		}
+		
+		if ((streamer.status >= SOUND_PLAYING) && (streamer.status < SOUND_PAUSED))
+		{
+			if (bSoundPaused && (streamer.status == SOUND_PLAYING))
+			{
+				streamer.status = SOUND_STOPPING;
+			}
+			
+			for (i = 0; i < numstreams; i++)
+			{
+				pstream = &streams[i];
+				pchan = &speechchannels[i];
+				pqueue = &pstream->queue[pstream->writeindex];
+		
+				if (pstream->status == SOUND_STREAM_STARTING)
+				{
+					pstream->playindex = pstream->writeindex;
+
+					ret = isoundstreamreadheader(pstream);
+					if (ret != SOUND_OK)
+					{
+						// bad
+						/* dbgMessagef("\nsoundstreamupdate95: couldn't read stream header.");
+						pqueue->fhandle = SOUND_ERR;
+						dbgMessagef("\nisoundstreamreadheader returned %d\n", ret);
+						dbgAssert(FALSE); */
+						goto Recover;
+					}
+					else
+					{
+						if ((pstream->readblock != pstream->writeblock) && (pstream->blockstatus[pstream->readblock] == 0))
+						{
+							pstream->writeblock = pstream->readblock;
+						}
+						pstream->status = SOUND_STREAM_WRITING;
+						pchan->volfactorL = pqueue->volfactorL;
+						pchan->volfactorR = pqueue->volfactorR;
+						
+						pchan->voltarget = pqueue->vol;
+						if (pqueue->fadetime != 0.0f)
+						{
+							pchan->volume = 0.0f;
+							pchan->volticksleft = (sdword)(pqueue->fadetime * SOUND_FADE_TIMETOBLOCKS);
+							pchan->volfade = (real32)(pchan->voltarget - pchan->volume) / (real32)pchan->volticksleft;
+	
+							if (pchan->volfade == 0.0f)
+							{
+								pchan->volfade = 0.01f;
+								if (pchan->voltarget < pchan->volume)
+								{
+									pchan->volfade = -0.01f;
+								}
+							}
+						}
+						else
+						{
+							pchan->volume = (real32)pqueue->vol;
+							pchan->volticksleft = 0;
+							pchan->volfade = 0.0f;
+						}
+	
+						pchan->pan = pqueue->pan;
+						pchan->numchannels = pqueue->numchannels;
+						pchan->bitrate = pqueue->bitrate;
+						pchan->amountread = 0;
+						
+						bufsize = SOUND_STREAM_BUFFER_SIZE;
+						
+						if (bufsize % ((pchan->bitrate >> 3) * 8))
+						{
+							bufsize /= ((pchan->bitrate >> 3) * 8);
+							bufsize *= ((pchan->bitrate >> 3) * 8);
+						}
+						pstream->buffersize = bufsize;
+						pstream->blocksize = pstream->buffersize / 2;
+						pchan->endpos = (sbyte *)(pstream->buffer + pstream->buffersize);
+						pchan->currentpos = (sbyte *)pstream->buffer;
+						
+						pstream->numtoplay--;
+						pchan->status = SOUND_PLAYING;
+					}
+				}
+		
+				if (pstream->status == SOUND_STREAM_WRITING)
+				{
+					if (pstream->blockstatus[pstream->writeblock] == 0)
+					{
+						if (pstream->dataleft == 0)
+						{	/* HMMM, WE'RE OUT OF DATA HERE */
+							if (pqueue->flags & SOUND_FLAGS_LOOPING)
+							{
+								/* LOOKS LIKE A LOOPER, BACK TO THE START YOU GO */
+								isoundstreamreadheader(pstream);
+							}
+							else
+							{
+								/* IS THERE ANOTHER STREAM IN THE HOUSE? */
+								pqueue->fhandle = SOUND_ERR;
+								
+								pqueue->nextplay = pstream->buffer + (pstream->blocksize * pstream->writeblock);
+								
+								pstream->writeindex++;
+					
+								if (pstream->writeindex >= SOUND_MAX_STREAM_QUEUE)
+								{
+									pstream->writeindex = 0;
+								}
+								
+								pqueue = &pstream->queue[pstream->writeindex];
+		
+								if (pqueue->fhandle != SOUND_ERR)
+								{
+									isoundstreamreadheader(pstream);
+								}
+								else
+								{
+									pstream->status = SOUND_STREAM_INUSE;
+									pstream->queueindex = 0;
+									pstream->writeindex = 0;
+									pstream->numqueued = 0;
+									pchan->status = SOUND_STOPPING;
+									continue;
+								}
+							}
+						}
+		
+						if (pstream->dataleft >= pstream->blocksize)
+						{
+							/* WE HAVE LOTS OF DATA HERE */
+							ret = isoundstreamreadblock(pqueue, (void *)(pstream->buffer + (pstream->blocksize * pstream->writeblock)), pstream->lastpos, pstream->blocksize);
+							
+							if (ret != pstream->blocksize)
+							{
+								/* yuck, bad */
+								/* dbgMessagef("\nsoundstreamupdate95: couldn't read file block.");*/
+								goto Recover;
+							}
+				
+							pstream->lastpos += ret;
+							pstream->dataleft -= pstream->blocksize;
+						}
+						else
+						{
+							/* HMMM, GETTING KINDA LOW, NEED A TOP UP */
+							ret = isoundstreamreadblock(pqueue, (void *)(pstream->buffer + (pstream->blocksize * pstream->writeblock)), pstream->lastpos, pstream->dataleft);
+							
+							if (ret != pstream->dataleft)
+							{
+								/* yuck, bad */
+								/* dbgMessagef("\nsoundstreamupdate95: couldn't read file block."); */
+								goto Recover;
+							}
+							pstream->lastpos += ret;
+		
+							if (!(pqueue->flags & SOUND_FLAGS_LOOPING))
+							{
+								/* IS THERE ANOTHER STREAM IN THE HOUSE? */
+								pqueue->fhandle = SOUND_ERR;
+								
+								pqueue->nextplay = pstream->buffer + (pstream->blocksize * pstream->writeblock) + pstream->dataleft;
+								
+								pstream->writeindex++;
+					
+								if (pstream->writeindex >= SOUND_MAX_STREAM_QUEUE)
+								{
+									pstream->writeindex = 0;
+								}
+								
+								pqueue = &pstream->queue[pstream->writeindex];
+							}
+							
+							readsize = pstream->blocksize - pstream->dataleft;
+							bufferpos = pstream->buffer + (pstream->blocksize * pstream->writeblock) + pstream->dataleft;
+							pstream->dataleft = 0;
+				
+							if (pqueue->fhandle != SOUND_ERR)
+							{
+								/* LOOKS LIKE WE HAVE ANOTHER STREAM HERE */
+								isoundstreamreadheader(pstream);
+		
+								if (pstream->dataleft >= readsize)
+								{
+									/* read a block of data */
+									ret = isoundstreamreadblock(pqueue, (void *)(bufferpos), pstream->lastpos, readsize);
+									
+									if (ret != readsize)
+									{
+										/* yuck, bad */
+									}
+									pstream->lastpos += ret;
+									pstream->dataleft -= readsize;
+								}
+								else
+								{
+									ret = isoundstreamreadblock(pqueue, (void *)(bufferpos), pstream->lastpos, pstream->dataleft);
+									
+									if (ret != pstream->dataleft)
+									{
+										/*bad*/
+										/* dbgAssert(FALSE); */
+										goto Recover;
+									}
+		
+									if (pstream->writeindex + 1 >= SOUND_MAX_STREAM_QUEUE)
+									{
+										if (pstream->queue[0].fhandle != SOUND_ERR)
+										{
+											memset(bufferpos + pstream->dataleft, 0, readsize - pstream->dataleft);
+										}
+										else
+										{
+											pstream->writepos = bufferpos + pstream->dataleft;
+										}
+									}
+									else
+									{
+										if (pstream->queue[pstream->writeindex+1].fhandle != SOUND_ERR)
+										{
+											memset(bufferpos + pstream->dataleft, 0, readsize - pstream->dataleft);
+										}
+										else
+										{
+											pstream->writepos = bufferpos + pstream->dataleft;
+										}
+									}
+									pstream->lastpos += ret;
+									pstream->dataleft = 0;
+								}
+							}
+							else
+							{
+								/* NO MORE STREAMS FOR NOW, BYE, BYE */
+								pstream->writepos = bufferpos;
+								pstream->status = SOUND_STREAM_INUSE;
+								pstream->queueindex = 0;
+								pstream->writeindex = 0;
+								pstream->numqueued = 0;
+								pchan->status = SOUND_STOPPING;
+							}
+						}
+						pstream->blockstatus[pstream->writeblock++] = 1;
+						if (pstream->writeblock >= 2)
+						{
+							pstream->writeblock = 0;
+						}
+					}
+				}
+
+				continue;
+
+Recover:
+				{
+					/* IS THERE ANOTHER STREAM IN THE HOUSE? */
+					pqueue->fhandle = SOUND_ERR;
+					
+					pqueue->nextplay = pstream->buffer + (pstream->blocksize * pstream->writeblock);
+					
+					pstream->writeindex++;
+		
+					if (pstream->writeindex >= SOUND_MAX_STREAM_QUEUE)
+					{
+						pstream->writeindex = 0;
+					}
+					
+					pqueue = &pstream->queue[pstream->writeindex];
+
+					if (pqueue->fhandle != SOUND_ERR)
+					{
+						isoundstreamreadheader(pstream);
+					}
+					else
+					{
+						pstream->status = SOUND_STREAM_INUSE;
+						pstream->queueindex = 0;
+						pstream->writeindex = 0;
+						pstream->numqueued = 0;
+						pchan->status = SOUND_STOPPING;
+						continue;
+					}
+				}
+			}
+		}
+		else if (streamer.status == SOUND_STOPPED)
+		{
+			/* mixer is paused so don't do nothing */
+			if (!bSoundPaused)	// && (!bSoundDeactivated))
+			{
+				streamer.status = SOUND_PLAYING;
+			}
+		}
+		else if (streamer.status == SOUND_PAUSED)
+		{
+			if (!bSoundDeactivated)
+			{
+				streamer.status = SOUND_PLAYING;
+			}
+		}
+		
+		// Sleep(SOUND_STREAM_SLEEP);
+	}
+	
+	/* clean up all the streams */
+    for (i = 0; i < numstreams; i++)
+	{
+		streams[i].status = SOUND_STREAM_INUSE;
+		streams[i].buffersize = SOUND_STREAM_BUFFER_SIZE;
+		memset(streams[i].buffer, 0, SOUND_STREAM_BUFFER_SIZE);
+		speechchannels[i].currentpos = speechchannels[i].freqdata = (sbyte *)streams[i].buffer;
+		streams[i].writepos = streams[i].buffer;
+		streams[i].readblock = 0;
+		streams[i].writeblock = 0;
+	}
+
+	streamer.status = SOUND_FREE;
 }
 

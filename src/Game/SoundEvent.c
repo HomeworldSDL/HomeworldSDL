@@ -879,7 +879,6 @@ nextship:
         objnode = objnode->prev;
     }
 
-    soundupdate();
 }
 #endif
 

@@ -1,6 +1,8 @@
 #ifndef ___SOUNDCMN_H
 #define ___SOUNDCMN_H
 
+#include <SDL.h>
+
 #include "fqcodec.h"
 #include "fqeffect.h"
 #include "Types.h"
@@ -19,10 +21,12 @@
 /* Basic replacement for WAVEFORMATEX. */
 typedef struct
 {
-	int    frequency;
 	Uint16 format;
-	int    channels;
-	int    chunkSize;
+        Uint16 channels;
+        Uint32 frequency;
+        Uint32 avgBytesPerSecond;
+        Uint16 blockAlign;
+/*        Unit16 bitsPerSample; */
 } SDLWAVEFORMAT;
 
 typedef struct
@@ -216,7 +220,7 @@ typedef struct
 } SOUNDCOMPONENT;
 
 /* functions */
-sdword isoundmixerinit(SDLWAVEFORMAT *pcmwf);
+sdword isoundmixerinit(SDL_AudioSpec *aspec);
 void isoundmixerrestore(void);
 void isoundstreamupdate(void *dummy);
 
@@ -228,7 +232,7 @@ sdword SNDcreatehandle(sdword channel);
 PATCH *SNDgetpatch(void *bankaddress, sdword patnum);
 
 sdword smixCreateDSoundBuffer(SDLWAVEFORMAT *pcmwf);
-sdword smixInitMixBuffer(SDLWAVEFORMAT *pcmwf);
+sdword smixInitMixBuffer(SDL_AudioSpec *aspec);
 
 sdword streamStartThread(void);
 

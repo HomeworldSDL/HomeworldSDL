@@ -600,7 +600,6 @@ void speechEventClose(void)
 void speechEventUpdate(void)
 {
     /* must call this so the streamer gets updated */
-    soundupdate();
     speechQueueUpdate();
 }
 

@@ -47,8 +47,6 @@ real32 masterEQ[FQ_SIZE];
 bool bSoundPaused = FALSE;
 bool bSoundDeactivated = FALSE;
 
-SDLWAVEFORMAT gWaveFormat;
-
 sdword numbanks = 0;
 sdword numchans[4] = {0,0,0,0};
 BANKPOINTERS bankpointers[4];
@@ -175,30 +173,7 @@ real32 soundusage(void)
 }
 
 
-/*-----------------------------------------------------------------------------
-	Name		:
-	Description	:
-	Inputs		:
-	Outputs		:
-	Return		:
-----------------------------------------------------------------------------*/	
-void soundupdate(void)
-{
-	return;
-}
-
-
-sdword soundStartDSound(void)
-{
-	/* I'll get here some day... */
-	return SOUND_ERR;
-}
-
-
-void soundStopDSound(void)
-{
-}
-
+extern void soundfeedercb(void *userdata, Uint8 *stream, int len);
 
 /*-----------------------------------------------------------------------------
 	Name		:
@@ -207,9 +182,10 @@ void soundStopDSound(void)
 	Outputs		:
 	Return		:
 ----------------------------------------------------------------------------*/
-sdword soundinit(sdword mode)
+sdword soundinit(bool mode)
 {
-	sdword i;
+	SDL_AudioSpec aspec;
+	sdword i, result;
 
 	// clean up the channels
 	for (i = 0; i < soundnumvoices; i++)
@@ -228,14 +204,31 @@ sdword soundinit(sdword mode)
 	streamer.status = SOUND_FREE;
 	streamer.timeout = 0;
 
-	// Set up wave format structure.
-	gWaveFormat.frequency = FQ_RATE;
-	gWaveFormat.format = AUDIO_S16SYS;
-	gWaveFormat.channels = 2;
-	gWaveFormat.chunkSize = 1024;
+	useWaveout = TRUE;
+	useDSound = FALSE;
+	coopDSound = FALSE;
+	bDirectSoundCertified = FALSE;
 
-	/* DAMMIT YOU'RE NOT TRYING!@#$12 */
-	return SOUND_ERR;
+	// Set up wave format structure.
+	aspec.freq = FQ_RATE;
+	aspec.format = AUDIO_S16;
+	aspec.channels = 2;
+	aspec.samples = FQ_SIZE;
+	aspec.callback = soundfeedercb;
+	aspec.userdata = NULL;
+
+	if (SDL_OpenAudio(&aspec, NULL) < 0) {
+	    dbgMessagef("Couldn't open audio: %s\n", SDL_GetError());
+	    result = SOUND_ERR;
+	}
+	else if (isoundmixerinit(&aspec) != SOUND_OK) {
+	    dbgMessagef("Unable to init mixer subsystem\n");
+	    result = SOUND_ERR;
+	} else {
+	    soundinited = TRUE;
+	    result = SOUND_OK;
+	}
+	return result;
 }
 
 

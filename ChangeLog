@@ -1,5 +1,10 @@
 Homeworld SDL - Change log
 
+* 0.3:
+- Enable sound.  Audio is decoded using converted versions of the Windows .obj
+  binaries provided by Relic.  SDL is used for audio output.  Many thanks to
+  Steve Freeland.
+
 * 0.2 (2003-11-23):
 - Game no longer crashes during explosions (in the code, memcpy() was used
   where memmove() should have been used in etgCallbackOpen()

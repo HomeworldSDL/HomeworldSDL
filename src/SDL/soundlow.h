@@ -153,7 +153,7 @@ void soundPanicReset(void);	// mixer.c
 
 /* functions */
 //sdword soundinit(HWND hWnd, sdword mode);
-sdword soundinit(sdword mode);
+sdword soundinit(bool mode);
 //sdword soundreinit(HWND hWnd);
 sdword soundreinit();
 void soundrestore(void);

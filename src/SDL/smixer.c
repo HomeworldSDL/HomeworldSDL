@@ -36,27 +36,21 @@
 #define MIX_PANIC_DUR			16L	// approx 4 seconds - dur*fps
 
 /* function prototypes */
-void isoundmixerthreadWAVEOUT(void *dummy);
-void isoundmixerthreadDSOUND(void *dummy);
-void isoundmixerqueueWAVEOUT();
+void isoundmixerthreadSDL(void *dummy);
+void isoundmixerqueueSDL();
 sdword isoundmixerprocess(void *pBuf1, udword nSize1, void *pBuf2, udword nSize2);
 sdword isoundmixerdecodeEffect(sbyte *readptr, real32 *writeptr1, real32 *writeptr2, ubyte *exponent, sdword size, uword bitrate, EFFECT *effect);
 #define isoundmixerdecode(a, b, c, d, e, f)		isoundmixerdecodeEffect(a, b, c, d, e, f, NULL);
 
 /* variables */
-#if 0
-byte waveoutbuffer[WO_MIX_BUFFER_SIZE];
-WAVEHDR wh;
-HWAVEOUT hwo;
-MMRESULT mmresult;
-MMTIME mmtime;
-WAVEFORMATEX woFormat;
+struct fake_wavehdr {
+    char *lpData;
+    udword dwBufferLength;
+    udword dwFlags;
+} WaveHead[WO_NUM_BUFFER_BLOCKS];
 
-LPSTR pWaveBuf[WO_NUM_BUFFER_BLOCKS];
-WAVEHDR WaveHead[WO_NUM_BUFFER_BLOCKS];	// pointers to wave header information
-#endif
+ubyte waveoutbuffer[WO_MIX_BUFFER_SIZE];
 
-sdword nBufRIndex = 0;
 sdword nBufWIndex = 0;
 
 udword mixerticks = 0;
@@ -75,8 +69,6 @@ sdword dctmode = FQ_MNORM;	// DCT mode
 sdword dctsize = FQ_HSIZE;	// DCT block size
 
 sdword dctpanicmode = SOUND_MODE_NORM;	// DCT panic mode, normal by default
-
-/*LPDIRECTSOUNDBUFFER lpMixBuffer = NULL;*/
 
 real32 timebufferL[FQ_DSIZE], timebufferR[FQ_DSIZE], temptimeL[FQ_DSIZE], temptimeR[FQ_DSIZE];
 real32 mixbuffer1L[FQ_SIZE], mixbuffer1R[FQ_SIZE], mixbuffer2L[FQ_SIZE], mixbuffer2R[FQ_SIZE];
@@ -135,7 +127,7 @@ void soundMixerSetMode(sdword mode)		// mode SOUND_MODE_NORM or SOUND_MODE_AUTO 
 
 		// set block size for effects
 		dctsize=FQ_QSIZE;
-		/*fqSize(dctsize);*/
+		fqSize(dctsize);
 
 		// set panic mode
 		dctpanicmode=SOUND_MODE_NORM;
@@ -150,7 +142,7 @@ void soundMixerSetMode(sdword mode)		// mode SOUND_MODE_NORM or SOUND_MODE_AUTO 
 
 		// set block size for effects
 		dctsize=FQ_HSIZE;
-		/*fqSize(dctsize);*/
+		fqSize(dctsize);
 
 		// set panic mode
 		dctpanicmode=SOUND_MODE_AUTO;
@@ -164,7 +156,7 @@ void soundMixerSetMode(sdword mode)		// mode SOUND_MODE_NORM or SOUND_MODE_AUTO 
 
 	// set block size for effects
 	dctsize=FQ_HSIZE;
-	/*fqSize(dctsize);*/
+	fqSize(dctsize);
 
 	// set panic mode
 	dctpanicmode=SOUND_MODE_NORM;
@@ -181,15 +173,24 @@ void soundPanicReset(void)
 }
 
 
-sdword smixInitMixBuffer(SDLWAVEFORMAT *pcmwf)
+sdword smixInitMixBuffer(SDL_AudioSpec *aspec)
 {
-    buffersize = DS_MIX_BUFFER_SIZE;
-    dwBlockSize = buffersize / DS_NUM_BUFFER_BLOCKS;
-    dwMixAhead = DS_MIX_BUFFER_AHEAD;
+        unsigned i;
 
+	buffersize = WO_MIX_BUFFER_SIZE;
+	dwBlockSize = buffersize / WO_NUM_BUFFER_BLOCKS;
+	dwMixAhead = WO_MIX_BUFFER_AHEAD;
+
+	for (i = 0; i < WO_NUM_BUFFER_BLOCKS; i++)
+	{
+		WaveHead[i].lpData =
+		    (unsigned char *)(waveoutbuffer + (dwBlockSize * i));
+		WaveHead[i].dwBufferLength = dwBlockSize;
+		WaveHead[i].dwFlags = 0;
+
+	}
 	return (SOUND_OK);
 }
-
 
 /*-----------------------------------------------------------------------------
 	Name		:
@@ -198,21 +199,22 @@ sdword smixInitMixBuffer(SDLWAVEFORMAT *pcmwf)
 	Outputs		:
 	Return		:
 ----------------------------------------------------------------------------*/	
-sdword isoundmixerinit(SDLWAVEFORMAT *pcmwf)
+sdword isoundmixerinit(SDL_AudioSpec *aspec)
 {
-#if 0
+
 	// Initialize codec
-	/*fqInitDequant();*/
+	fqInitDequant();
 
 	// Set random number generator for effects
-	/*fqRand((int (*)(int))ranRandomFnSimple,RAN_Sound);*/
+	fqRand((int (*)(int))ranRandomFnSimple,RAN_Sound);
 
 	// Set square root function for effects
-	/*fqSqrt((double (*)(double))fmathSqrtDouble);*/
+	fqSqrt((double (*)(double))fmathSqrtDouble);
 
 	// Set block size for effects
-	/*fqSize(dctsize);*/
+	fqSize(dctsize);
 
+#if 0
 	if (bDirectSoundCertified)
 	{
 		// Create the Direct Sound buffer
@@ -221,40 +223,28 @@ sdword isoundmixerinit(SDLWAVEFORMAT *pcmwf)
 			return (SOUND_ERR);
 		}
 	}
+#endif
 
 	// init the iDCT function
-	/*
 	if (SOUND_OK != fqDecBlock(mixbuffer1L, mixbuffer2L, timebufferL, temptimeL, FQ_MINIT, FQ_MINIT))
 	{
 		return (SOUND_ERR);
 	}
-	*/
 
-	/*
 	if (SOUND_OK != fqDecBlock(mixbuffer1R, mixbuffer2R, timebufferR, temptimeR, FQ_MINIT, FQ_MINIT))
 	{
 		return (SOUND_ERR);
 	}
-	*/
 
-	// start the thread
-	if (smixInitMixBuffer(pcmwf) != SOUND_OK)
+	if (smixInitMixBuffer(aspec) != SOUND_OK)
 	{
 		return (SOUND_ERR);
 	}
 
-	if (bDirectSoundCertified)
-	{
-		_beginthread(isoundmixerthreadDSOUND, 0, NULL);
-	}
-	else
-	{
-		_beginthread(isoundmixerthreadWAVEOUT, 0, NULL);
-	}
+	// start the thread
+	SDL_CreateThread(isoundmixerthreadSDL, NULL);
 
 	return (SOUND_OK);
-#endif
-	return SOUND_ERR;
 }
 
 
@@ -268,29 +258,6 @@ sdword isoundmixerinit(SDLWAVEFORMAT *pcmwf)
 void isoundmixerrestore(void)
 {
 	mixer.timeout = 0;
-#if 0
-	HRESULT hr;
-	sdword i;
-
-	if (bDirectSoundCertified)
-	{
-		mixer.timeout = 0;
-		hr = lpMixBuffer->lpVtbl->Stop(lpMixBuffer);
-//		mixer.status = SOUND_FREE;
-		lpMixBuffer->lpVtbl->Release(lpMixBuffer);
-	}
-	else
-	{
-		mixer.timeout = 0;
-		mmresult = waveOutReset(hwo);
-//		mixer.status = SOUND_FREE;
-		for (i = 0; i < WO_NUM_BUFFER_BLOCKS; i++)
-		{
-			mmresult = waveOutUnprepareHeader(hwo, &WaveHead[i], sizeof(WAVEHDR));
-		}
-		mmresult = waveOutClose(hwo);
-	}
-#endif
 }
 
 
@@ -334,7 +301,7 @@ sdword isoundmixerprocess(void *pBuf1, udword nSize1, void *pBuf2, udword nSize2
 
 						// set block size for effects
 						dctsize=FQ_QSIZE;
-						/*fqSize(dctsize);*/
+						fqSize(dctsize);
 					}
 
 					// check voice mode
@@ -370,7 +337,7 @@ sdword isoundmixerprocess(void *pBuf1, udword nSize1, void *pBuf2, udword nSize2
 
 						// set block size for effects
 						dctsize=FQ_HSIZE;
-						/*fqSize(dctsize);*/
+						fqSize(dctsize);
 					}
 
 					// check voice mode
@@ -518,8 +485,8 @@ sdword isoundmixerprocess(void *pBuf1, udword nSize1, void *pBuf2, udword nSize2
 	//					fqMix(pchan->mixbuffer1,channels[SNDchannel(pqueue->mixHandle)].mixbuffer1, pchan->volfactorL);
 	//					fqMix(pchan->mixbuffer2,channels[SNDchannel(pqueue->mixHandle)].mixbuffer2, pchan->volfactorL);
 						chan = SNDchannel(pqueue->mixHandle);
-						/*fqMix(pchan->mixbuffer1,channels[chan].mixbuffer1, 1.0f);	//channels[chan].volfactorL);*/
-						/*fqMix(pchan->mixbuffer2,channels[chan].mixbuffer2, 1.0f);	//channels[chan].volfactorL);*/
+						fqMix(pchan->mixbuffer1,channels[chan].mixbuffer1, 1.0f);	//channels[chan].volfactorL);
+						fqMix(pchan->mixbuffer2,channels[chan].mixbuffer2, 1.0f);	//channels[chan].volfactorL);
 					}
 	
 					/* do the EQ and Delay or Acoustic Model stuff */
@@ -528,32 +495,32 @@ sdword isoundmixerprocess(void *pBuf1, udword nSize1, void *pBuf2, udword nSize2
 						if (pqueue->eq->flags && STREAM_FLAGS_EQ)
 						{
 							/* equalize this sucker */
-							/*fqEqualize(pchan->mixbuffer1, pqueue->eq->eq);*/
-							/*fqEqualize(pchan->mixbuffer2, pqueue->eq->eq);*/
+							fqEqualize(pchan->mixbuffer1, pqueue->eq->eq);
+							fqEqualize(pchan->mixbuffer2, pqueue->eq->eq);
 						}
 					}
 		
 					if (pqueue->effect != NULL)
 					{
 						// Add tone
-						/*fqAddToneE(pchan->mixbuffer1, pqueue->effect);*/
-						/*fqAddToneE(pchan->mixbuffer2, pqueue->effect);*/
+						fqAddToneE(pchan->mixbuffer1, pqueue->effect);
+						fqAddToneE(pchan->mixbuffer2, pqueue->effect);
 				
 						// Generate break
-						/*fqAddBreakE(pchan->mixbuffer1, pqueue->effect);*/
-						/*fqAddBreakE(pchan->mixbuffer2, pqueue->effect);*/
+						fqAddBreakE(pchan->mixbuffer1, pqueue->effect);
+						fqAddBreakE(pchan->mixbuffer2, pqueue->effect);
 						
 						// Add noise
-						/*fqAddNoiseE(pchan->mixbuffer1, pqueue->effect);*/
-						/*fqAddNoiseE(pchan->mixbuffer2, pqueue->effect);*/
+						fqAddNoiseE(pchan->mixbuffer1, pqueue->effect);
+						fqAddNoiseE(pchan->mixbuffer2, pqueue->effect);
 					
 						// Limit
-						/*fqLimitE(pchan->mixbuffer1, pqueue->effect);*/
-						/*fqLimitE(pchan->mixbuffer2, pqueue->effect);*/
+						fqLimitE(pchan->mixbuffer1, pqueue->effect);
+						fqLimitE(pchan->mixbuffer2, pqueue->effect);
 	
 						// Filter
-						/*fqFilterE(pchan->mixbuffer1, pqueue->effect);*/
-						/*fqFilterE(pchan->mixbuffer2, pqueue->effect);*/
+						fqFilterE(pchan->mixbuffer1, pqueue->effect);
+						fqFilterE(pchan->mixbuffer2, pqueue->effect);
 	
 						scaleLevel = pqueue->effect->fScaleLev;
 					}
@@ -562,24 +529,24 @@ sdword isoundmixerprocess(void *pBuf1, udword nSize1, void *pBuf2, udword nSize2
 					{
 						if (pqueue->delay->flags & STREAM_FLAGS_ACMODEL)
 						{
-							/*fqAcModel(pchan->mixbuffer1, pqueue->delay->eq, pqueue->delay->duration,
+							fqAcModel(pchan->mixbuffer1, pqueue->delay->eq, pqueue->delay->duration,
 									  pstream->delaybuffer1, DELAY_BUF_SIZE, &(pstream->delaypos1));
 							fqAcModel(pchan->mixbuffer2, pqueue->delay->eq, pqueue->delay->duration,
-									  pstream->delaybuffer2, DELAY_BUF_SIZE, &(pstream->delaypos2));*/
+									  pstream->delaybuffer2, DELAY_BUF_SIZE, &(pstream->delaypos2));
 						}
 						else if (pqueue->delay->flags & STREAM_FLAGS_DELAY)
 						{
-							/*fqDelay(pchan->mixbuffer1, pqueue->delay->level, pqueue->delay->duration,
+							fqDelay(pchan->mixbuffer1, pqueue->delay->level, pqueue->delay->duration,
 									  pstream->delaybuffer1, DELAY_BUF_SIZE, &(pstream->delaypos1));
 							fqDelay(pchan->mixbuffer2, pqueue->delay->level, pqueue->delay->duration,
-									  pstream->delaybuffer2, DELAY_BUF_SIZE, &(pstream->delaypos2));*/
+									  pstream->delaybuffer2, DELAY_BUF_SIZE, &(pstream->delaypos2));
 						}
 					}
 				}
 	
 				/* add it to mix buffer */
-				/*fqMix(mixbuffer1L,pchan->mixbuffer1,pchan->volfactorL * scaleLevel);
-				fqMix(mixbuffer2L,pchan->mixbuffer2,pchan->volfactorL * scaleLevel);*/
+				fqMix(mixbuffer1L,pchan->mixbuffer1,pchan->volfactorL * scaleLevel);
+				fqMix(mixbuffer2L,pchan->mixbuffer2,pchan->volfactorL * scaleLevel);
 
 				/* if this is stereo, do the right channel */
 				if (pchan->numchannels == SOUND_STEREO)
@@ -617,13 +584,13 @@ sdword isoundmixerprocess(void *pBuf1, udword nSize1, void *pBuf2, udword nSize2
 					}
 */
 
-					/*fqMix(mixbuffer1R,pchan->mixbuffer1R,pchan->volfactorR * scaleLevel);
-					fqMix(mixbuffer2R,pchan->mixbuffer2R,pchan->volfactorR * scaleLevel);*/
+					fqMix(mixbuffer1R,pchan->mixbuffer1R,pchan->volfactorR * scaleLevel);
+					fqMix(mixbuffer2R,pchan->mixbuffer2R,pchan->volfactorR * scaleLevel);
 				}
 				else
 				{
-					/*fqMix(mixbuffer1R,pchan->mixbuffer1,pchan->volfactorR * scaleLevel);
-					fqMix(mixbuffer2R,pchan->mixbuffer2,pchan->volfactorR * scaleLevel);*/
+					fqMix(mixbuffer1R,pchan->mixbuffer1,pchan->volfactorR * scaleLevel);
+					fqMix(mixbuffer2R,pchan->mixbuffer2,pchan->volfactorR * scaleLevel);
 				}
 	
 				/* this is a clock for the fequency filtering/effects */
@@ -633,7 +600,7 @@ sdword isoundmixerprocess(void *pBuf1, udword nSize1, void *pBuf2, udword nSize2
 				}
 	
 				if ((pchan->currentpos == (sbyte *)(pstream->buffer + (pstream->blocksize * (pstream->readblock + 1)))) ||
-					(pchan->currentpos == pstream->writepos))
+					(pchan->currentpos == (sbyte *)pstream->writepos))
 				{
 					pstream->blockstatus[pstream->readblock++] = 0;
 					if (pstream->readblock >= 2)
@@ -799,49 +766,49 @@ sdword isoundmixerprocess(void *pBuf1, udword nSize1, void *pBuf2, udword nSize2
 			/******************************************************/
 #if 1
 			/* do pitch shift */
-			/*fqPitchShift(pchan->mixbuffer1, pchan->pitch);
-			fqPitchShift(pchan->mixbuffer2, pchan->pitch);*/
+			fqPitchShift(pchan->mixbuffer1, pchan->pitch);
+			fqPitchShift(pchan->mixbuffer2, pchan->pitch);
 #endif
 
 			if (pchan->usecardiod)
 			{
 				/* apply cardiod filter for fake doppler */
-				/*fqEqualize(pchan->mixbuffer1, pchan->cardiodfilter);
-				fqEqualize(pchan->mixbuffer2, pchan->cardiodfilter);*/
+				fqEqualize(pchan->mixbuffer1, pchan->cardiodfilter);
+				fqEqualize(pchan->mixbuffer2, pchan->cardiodfilter);
 			}
 			
 			/* equalize this sucker */
-			/*fqEqualize(pchan->mixbuffer1, pchan->filter);
-			fqEqualize(pchan->mixbuffer2, pchan->filter);*/
+			fqEqualize(pchan->mixbuffer1, pchan->filter);
+			fqEqualize(pchan->mixbuffer2, pchan->filter);
 
 			if (!pchan->mute)
 			{
-				/*fqMix(mixbuffer1L,pchan->mixbuffer1,pchan->volfactorL);
+				fqMix(mixbuffer1L,pchan->mixbuffer1,pchan->volfactorL);
 				fqMix(mixbuffer2L,pchan->mixbuffer2,pchan->volfactorL);
 				fqMix(mixbuffer1R,pchan->mixbuffer1,pchan->volfactorR);
-				fqMix(mixbuffer2R,pchan->mixbuffer2,pchan->volfactorR);*/
+				fqMix(mixbuffer2R,pchan->mixbuffer2,pchan->volfactorR);
 			}
 		}
 		
 	}
 	
-	/*fqEqualize(mixbuffer1L, MasterEQ);
+	fqEqualize(mixbuffer1L, MasterEQ);
 	fqEqualize(mixbuffer2L, MasterEQ);
 	fqEqualize(mixbuffer1R, MasterEQ);
 	fqEqualize(mixbuffer2R, MasterEQ);
 
 	fqDecBlock(mixbuffer1L, mixbuffer2L, timebufferL, temptimeL, dctmode, FQ_MNORM);
-	fqDecBlock(mixbuffer1R, mixbuffer2R, timebufferR, temptimeR, dctmode, FQ_MNORM);*/
+	fqDecBlock(mixbuffer1R, mixbuffer2R, timebufferR, temptimeR, dctmode, FQ_MNORM);
 
 	if (!reverseStereo)
 	{
 		/* play normally */
-		/*fqWriteTBlock(timebufferL, timebufferR, 2, pBuf1, nSize1, pBuf2, nSize2);*/
+		fqWriteTBlock(timebufferL, timebufferR, 2, pBuf1, nSize1, pBuf2, nSize2);
 	}
 	else
 	{
 		/* swap the left and right channels */
-		/*fqWriteTBlock(timebufferR, timebufferL, 2, pBuf1, nSize1, pBuf2, nSize2);*/
+		fqWriteTBlock(timebufferR, timebufferL, 2, pBuf1, nSize1, pBuf2, nSize2);
 	}
 
 	mixerticks++;
@@ -869,11 +836,11 @@ sdword isoundmixerdecodeEffect(sbyte *readptr, real32 *writeptr1, real32 *writep
 	
 	if (effect != NULL)
 	{
-		/*fqGenQNoiseE(tempblock, bitrate, effect);*/
+		fqGenQNoiseE(tempblock, bitrate, effect);
 	}
 
-	/*fqDequantBlock(tempblock, writeptr1, writeptr2, exponent,
-					FQ_LEN, bitrate, size);*/
+	fqDequantBlock(tempblock, writeptr1, writeptr2, exponent,
+					FQ_LEN, bitrate, size);
 
 	return (bitrate >> 3);
 }
@@ -885,205 +852,29 @@ sdword isoundmixerdecodeEffect(sbyte *readptr, real32 *writeptr1, real32 *writep
 	Outputs		:
 	Return		:
 ----------------------------------------------------------------------------*/	
-void isoundmixerthreadDSOUND(void *dummy)
+SDL_sem *audio_ready;
+SDL_sem *audio_received;
+
+void isoundmixerthreadSDL(void *dummy)
 {
-#if 0
-	unsigned long i,dataleft;
-	short *lpvWritePtr;
-	LPVOID lpvPtr1, lpvPtr2;
-	DWORD dwLength1, dwLength2;
-	HRESULT hr;
-	DWORD			dwCurrentPlayCursor;
-	DWORD			dwCurrentWriteCursor;
-	DWORD	dwReadAhead;
-	DWORD	dwPlayAhead;
-	bool	missed = FALSE;
-	bool	mix = FALSE;
-	bool	test = FALSE;
-
-	mixer.status = SOUND_PLAYING;	
-
-	while (soundinited && (mixer.status >= SOUND_STOPPED))
-	{
-		if (mixer.status >= SOUND_PLAYING)
-		{
-			/* write block to DSound buffer */					
-			hr = lpMixBuffer->lpVtbl->GetCurrentPosition(lpMixBuffer, &dwCurrentPlayCursor, &dwCurrentWriteCursor);
-			
-			dwReadAhead = dwCurrentPlayCursor + dwMixAhead;
-			if (dwReadAhead >= buffersize)
-			{
-				dwReadAhead -= buffersize;
-			}
-		
-			dwPlayAhead = dwWritePos + (buffersize - dwMixAhead);
-			if (dwPlayAhead >= buffersize)
-			{
-				dwPlayAhead -= buffersize;
-			}
-	
-			if ((dwReadAhead >= dwWritePos) && (dwCurrentPlayCursor >= dwPlayAhead))
-			{
-				mix = TRUE;
-			}
-			else if ((dwReadAhead >= dwWritePos) && (dwCurrentPlayCursor + buffersize >= dwPlayAhead)
-					 && (dwWritePos > dwCurrentPlayCursor))
-			{
-				mix = TRUE;
-			}
-			else if ((dwCurrentPlayCursor >= dwPlayAhead) && (dwReadAhead + buffersize >= dwWritePos)
-					 && (dwWritePos > dwCurrentPlayCursor))
-			{
-				mix = TRUE;
-			}
-			else
-			{
-				mix = FALSE;
-			}
-	
-			if (mix)
-			{
-				/* lock primary buffer */
-				hr = lpMixBuffer->lpVtbl->Lock(lpMixBuffer, dwWritePos, dwBlockSize,
-						  &lpvPtr1, &dwLength1, &lpvPtr2, &dwLength2, 0L);
-		
-				/* successful */
-				if (hr == DS_OK)
-				{
-					lpvWritePtr = (short *)lpvPtr1;
-					dataleft = (unsigned long)dwLength1;
-			
-					for (i = 0; i < dwBlockSize; i += MIX_BLOCK_SIZE)
-					{
-						dataleft -= MIX_BLOCK_SIZE;
-		
-						if (dataleft > 0)
-						{
-							// process 256 samples, 16-bit (independent of # of channels)
-							isoundmixerprocess(lpvWritePtr, FQ_SIZE * sizeof(short), NULL, 0);
-							lpvWritePtr += FQ_SIZE * sizeof(short);
-						}
-						else
-						if (dataleft < 0)
-						{
-							// process 256 samples, 16-bit (independent of # of channels)
-							isoundmixerprocess(lpvWritePtr, (dataleft/2 + (FQ_SIZE * sizeof(short))),lpvPtr2, (0 - dataleft/2));
-							lpvWritePtr = (short *)lpvPtr2 + dataleft/2;
-							dataleft = (unsigned long)dwLength2 + dataleft;
-						}
-						else	/* if (dataleft == 0) */
-						{
-							// process 256 samples, 16-bit (independent of # of channels)
-							isoundmixerprocess(lpvWritePtr, FQ_SIZE * sizeof(short), NULL, 0);
-							lpvWritePtr = (short *)lpvPtr2;
-							dataleft = (unsigned long)dwLength2;
-						}
-					}
-		
-					hr = lpMixBuffer->lpVtbl->Unlock(lpMixBuffer, lpvPtr1, dwLength1, lpvPtr2, dwLength2);
-					dbgAssert(hr == DS_OK);
-	
-					dwWritePos += dwBlockSize;
-				
-					if (dwWritePos >= buffersize)
-					{
-						dwWritePos -= buffersize;
-					}
-				}
-				else	/* primary buffer not ready yet */
-				{
-					Sleep(DS_MIX_SLEEP);
-				}
-			}
-			else
-			{
-				Sleep(DS_MIX_SLEEP);
-			}
-	
-			if (mixer.status == SOUND_STOPPING)
-			{
-				/* check and see if its done yet */
-				if (mixer.timeout <= mixerticks)
-				{
-					lpMixBuffer->lpVtbl->Stop(lpMixBuffer);
-					mixer.timeout = 0;
-					mixer.status = SOUND_STOPPED;
-				}
-			}
-			
-			if (bSoundPaused && (mixer.status == SOUND_PLAYING))
-			{
-				mixer.status = SOUND_STOPPING;
-			}
-			if (bSoundDeactivated && (mixer.status == SOUND_PLAYING))
-			{
-				lpMixBuffer->lpVtbl->Stop(lpMixBuffer);
-				mixer.status = SOUND_STOPPED;
-			}
-		}
-		else if (mixer.status == SOUND_STOPPED)
-		{
-			/* mixer is paused so don't do nothing */
-			if ((!bSoundPaused) && (!bSoundDeactivated))
-			{
-				/* write 0's to mixer buffer */
-				/* lock primary buffer */
-				lpMixBuffer->lpVtbl->Lock(lpMixBuffer, 0, buffersize,
-							&lpvPtr1, &dwLength1, &lpvPtr2, &dwLength2, 0L);
-				
-				memset((byte *)lpvPtr1, 0, buffersize);
-				
-				lpMixBuffer->lpVtbl->Unlock(lpMixBuffer, lpvPtr1, dwLength1, lpvPtr2, dwLength2);
-			
-				/* start playing some silence */
-				lpMixBuffer->lpVtbl->SetCurrentPosition(lpMixBuffer, 0);
-				lpMixBuffer->lpVtbl->Play(lpMixBuffer, 0, 0, DSBPLAY_LOOPING);
-			
-				mixer.status = SOUND_PLAYING;
-			}
-			else
-			{
-				Sleep(0L);
-			}
-		}
-	}
-
-	// hr = lpMixBuffer->lpVtbl->Stop(lpMixBuffer);
-
-	/* clean out the buffer */
-	mixer.status = SOUND_FREE;
-
-	_endthread();
-#endif
-}
-
-
-/*-----------------------------------------------------------------------------
-	Name		:
-	Description	:
-	Inputs		:
-	Outputs		:
-	Return		:
-----------------------------------------------------------------------------*/	
-void isoundmixerthreadWAVEOUT(void *dummy)
-{
-#if 0
 	sdword i;
 	
 	bool	missed = FALSE;
 	bool	mix = FALSE;
 	bool	test = FALSE;
 
-	DWORD flags;
+	udword flags;
 
-	memset(&waveoutbuffer, 0, buffersize);
+	audio_ready = SDL_CreateSemaphore(0);
+	audio_received = SDL_CreateSemaphore(0);
 
-	nBufRIndex = 0;
+	SDL_PauseAudio(0);
+
 	nBufWIndex = 0;
 	for(i=0;i<WO_NUM_BUFFER_BLOCKS-1;i++)
 	{
-		isoundmixerqueueWAVEOUT();
-		Sleep(0);
+		isoundmixerqueueSDL();
+		// Sleep(0);
 	}
 
 	mixer.status = SOUND_PLAYING;
@@ -1092,22 +883,7 @@ void isoundmixerthreadWAVEOUT(void *dummy)
 	{
 		if (mixer.status >= SOUND_PLAYING)
 		{
-			// check flags field
-			flags=WaveHead[nBufRIndex].dwFlags&(DWORD)(WHDR_DONE|WHDR_PREPARED|WHDR_BEGINLOOP|WHDR_ENDLOOP|WHDR_INQUEUE);
-			if((flags == (DWORD)(WHDR_DONE|WHDR_PREPARED)) || (flags == (DWORD)WHDR_PREPARED))
-			{
-				isoundmixerqueueWAVEOUT();
-
-				nBufRIndex++;
-				if (nBufRIndex >= WO_NUM_BUFFER_BLOCKS)
-				{
-					nBufRIndex = 0;
-				}
-			}
-			else
-			{
-				Sleep(WO_MIX_SLEEP);
-			}
+		        isoundmixerqueueSDL();
 
 			if (mixer.status == SOUND_STOPPING)
 			{
@@ -1116,7 +892,7 @@ void isoundmixerthreadWAVEOUT(void *dummy)
 				{
 					mixer.timeout = 0;
 
-					mmresult = waveOutReset(hwo);
+					// mmresult = waveOutReset(hwo);
 					// dbgAssert(mmresult == MMSYSERR_NOERROR);
 
 					mixer.status = SOUND_STOPPED;
@@ -1130,7 +906,7 @@ void isoundmixerthreadWAVEOUT(void *dummy)
 
 			if (bSoundDeactivated && (mixer.status == SOUND_PLAYING))
 			{
-				mmresult = waveOutReset(hwo);
+			        // mmresult = waveOutReset(hwo);//
 				// dbgAssert(mmresult == MMSYSERR_NOERROR);
 
 				mixer.status = SOUND_STOPPED;
@@ -1143,19 +919,18 @@ void isoundmixerthreadWAVEOUT(void *dummy)
 			{
 				memset(&waveoutbuffer, 0, buffersize);
 			
-				nBufRIndex = 0;
 				nBufWIndex = 0;
 				for(i=0;i<WO_NUM_BUFFER_BLOCKS-1;i++)
 				{
-					isoundmixerqueueWAVEOUT();
-					Sleep(0L);
+					isoundmixerqueueSDL();
+					// Sleep(0L);
 				}
 
 				mixer.status = SOUND_PLAYING;
 			}
 			else
 			{
-				Sleep(0L);
+			    // Sleep(0L);
 			}
 		}
 	}
@@ -1163,29 +938,21 @@ void isoundmixerthreadWAVEOUT(void *dummy)
 	// mmresult = waveOutReset(hwo);
 	// dbgAssert(mmresult == MMSYSERR_NOERROR);
 
+	SDL_DestroySemaphore(audio_ready);
+	SDL_DestroySemaphore(audio_received);
+
 	mixer.status = SOUND_FREE;
 
-	_endthread();
-#endif
+	// _endthread();
 }
 
-/*-----------------------------------------------------------------------------
-	Name		:
-	Description	:
-	Inputs		:
-	Outputs		:
-	Return		:
-----------------------------------------------------------------------------*/	
-void isoundmixerqueueWAVEOUT()
+void isoundmixerqueueSDL()
 {
-#if 0
 	udword i, dataleft;
 	short *lpvWritePtr;
-	LPVOID lpvPtr2=NULL;
-	DWORD dwLength2=0;
 
-	// aet flags field
-	WaveHead[nBufWIndex].dwFlags = (DWORD)WHDR_PREPARED;
+	// set flags field
+	// WaveHead[nBufWIndex].dwFlags = (DWORD)WHDR_PREPARED;
 
 	lpvWritePtr = (short *)WaveHead[nBufWIndex].lpData;
 	dataleft = WaveHead[nBufWIndex].dwBufferLength;
@@ -1198,13 +965,15 @@ void isoundmixerqueueWAVEOUT()
 		{
 			// process 256 samples, 16-bit (independent of # of channels)
 			isoundmixerprocess(lpvWritePtr, FQ_SIZE * sizeof(short), NULL, 0);
+			/* write(adump_fd, lpvWritePtr, FQ_SIZE * sizeof(short)); */
 			lpvWritePtr += FQ_SIZE * sizeof(short);
 		}
 		// dbgAssert(dataleft >= 0);
 	}
 	
 	// write data to waveout device
-	mmresult = waveOutWrite(hwo, (LPWAVEHDR)&WaveHead[nBufWIndex], sizeof(WAVEHDR));
+	SDL_SemPost(audio_ready);
+	SDL_SemWait(audio_received);
 	// dbgAssert(mmresult == MMSYSERR_NOERROR);
 
 	nBufWIndex++;
@@ -1214,5 +983,14 @@ void isoundmixerqueueWAVEOUT()
 	}
 
 	return;
-#endif
 }
+
+void soundfeedercb(void *userdata, Uint8 *stream, int len)
+{
+    SDL_SemWait(audio_ready);
+    dbgAssert(len == (int)WaveHead[nBufWIndex].dwBufferLength);
+    memcpy(stream, WaveHead[nBufWIndex].lpData, len);
+    SDL_SemPost(audio_received);
+    return;
+}
+
