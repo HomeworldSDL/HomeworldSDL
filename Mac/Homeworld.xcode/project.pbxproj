@@ -177,6 +177,34 @@
 			refType = 4;
 			sourceTree = "<group>";
 		};
+		3507D813079955A400F093F4 = {
+			buildActionMask = 12;
+			comments = "Copies in extra files into the deployment bundle (primarily the SDL framework) and cleans up some garbage files.";
+			files = (
+			);
+			inputPaths = (
+			);
+			isa = PBXShellScriptBuildPhase;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/zsh;
+			shellScript = "# force the shell; XCode really likes sh regardless of configuration\n/bin/zsh\n\n# This tidies up the deployment bundle and so only needs to be done in deployment builds but\n# the text is wrong for the \"run script only during deployment builds\" check box; it's actually\n# for toggling *install* builds so we have to check the build style ourselves\n\ncase \"${BUILD_STYLE}\" in\n\n    Deployment)\n\n        # copy in the SDL framework\n        mkdir -p ./build/Homeworld.app/Contents/Frameworks\n        cp -pR /Library/Frameworks/SDL.framework ./build/Homeworld.app/Contents/Frameworks\n\n        # remove the SDL framework headers (and associated symlink)\n        rm -f  ./build/Homeworld.app/Contents/Frameworks/SDL.framework/Headers\n        rm -rf ./build/Homeworld.app/Contents/Frameworks/SDL.framework/Versions/Current/Headers\n\n        # copy in the correct InfoPlist.strings file\n        mkdir -p ./build/Homeworld.app/Contents/Resources/English.lproj\n        cp ./English.lproj/HomeworldPlist.strings ./build/Homeworld.app/Contents/Resources/English.lproj/InfoPlist.strings\n\n        # clean up any Subversion files that may have been pulled in\n        find ./build/Homeworld.app/ -name '.svn' -exec rm -rf {} \\;\n\n        # clean up Mac OS X .DS_Store folder files\n        find ./build/Homeworld.app/ -name '.DS_Store' -exec rm {} \\;\n\n        # end of case condition\n        ;;\n\nesac";
+		};
+		3507D89707996FCC00F093F4 = {
+			buildActionMask = 2147483647;
+			comments = "Copies in extra files into the deployment bundle (primarily the SDL framework) and cleans up some garbage files.";
+			files = (
+			);
+			inputPaths = (
+			);
+			isa = PBXShellScriptBuildPhase;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/zsh;
+			shellScript = "# force the shell; XCode really likes sh regardless of configuration\n/bin/zsh\n\n# This tidies up the deployment bundle and so only needs to be done in deployment builds but\n# the text is wrong for the \"run script only during deployment builds\" check box; it's actually\n# for toggling *install* builds so we have to check the build style ourselves\n\ncase \"${BUILD_STYLE}\" in\n\n    Deployment)\n\n        # copy in the SDL framework\n        mkdir -p ./build/Raider\\ Retreat.app/Contents/Frameworks\n        cp -pR /Library/Frameworks/SDL.framework ./build/Raider\\ Retreat.app/Contents/Frameworks\n\n        # remove the SDL framework headers (and associated symlink)\n        rm -f  ./build/Raider\\ Retreat.app/Contents/Frameworks/SDL.framework/Headers\n        rm -rf ./build/Raider\\ Retreat.app/Contents/Frameworks/SDL.framework/Versions/Current/Headers\n\n        # copy in the correct InfoPlist.strings file\n        mkdir -p ./build/Raider\\ Retreat.app/Contents/Resources/English.lproj\n        cp ./English.lproj/RaiderRetreatPlist.strings ./build/Raider\\ Retreat.app/Contents/Resources/English.lproj/InfoPlist.strings\n\n        # clean up any Subversion files that may have been pulled in\n        find ./build/Raider\\ Retreat.app/ -name '.svn' -exec rm -rf {} \\;\n\n        # clean up Mac OS X .DS_Store folder files\n        find ./build/Raider\\ Retreat.app/ -name '.DS_Store' -exec rm {} \\;\n\n        # end of case condition\n        ;;\n\nesac";
+		};
 		3510B754077C8863007B8838 = {
 			fileRef = 90BD9229064AEE7A003E3D39;
 			isa = PBXBuildFile;
@@ -209,10 +237,12 @@
 		};
 		3516C82D077C41B0001AA863 = {
 			buildPhases = (
+				35BE70E007937E0B00AEFC3C,
 				3516C82E077C41B0001AA863,
 				3516C942077C41B0001AA863,
 				3516C946077C41B0001AA863,
 				3516CA6A077C41B0001AA863,
+				3507D89707996FCC00F093F4,
 			);
 			buildRules = (
 			);
@@ -4061,6 +4091,90 @@
 			settings = {
 			};
 		};
+		355BE77707935BD200F82BB0 = {
+			buildActionMask = 2147483647;
+			comments = "This script ensures that kas2c is compiled and then converts the mission.kas files into their equivalent .c and .h files prior to full compilation of the project.";
+			files = (
+			);
+			inputPaths = (
+				../src/SinglePlayer/Mission01.kas,
+				../src/SinglePlayer/Mission02.kas,
+				../src/SinglePlayer/Mission03.kas,
+				../src/SinglePlayer/Mission04.kas,
+				../src/SinglePlayer/Mission05.kas,
+				../src/SinglePlayer/Mission06.kas,
+				../src/SinglePlayer/Mission07.kas,
+				../src/SinglePlayer/Mission08.kas,
+				../src/SinglePlayer/Mission09.kas,
+				../src/SinglePlayer/Mission10.kas,
+				../src/SinglePlayer/Mission11.kas,
+				../src/SinglePlayer/Mission12.kas,
+				../src/SinglePlayer/Mission13.kas,
+				../src/SinglePlayer/Mission14.kas,
+				../src/SinglePlayer/Mission15.kas,
+				../src/SinglePlayer/Mission16.kas,
+				../src/SinglePlayer/Swarmer.kash,
+				../src/SinglePlayer/Utilities.kash,
+				../src/Tutorials/Tutorial1.kas,
+			);
+			isa = PBXShellScriptBuildPhase;
+			outputPaths = (
+				../src/Generated/Mission01.c,
+				../src/Generated/Mission01.func.c,
+				../src/Generated/Mission01.h,
+				../src/Generated/Mission02.c,
+				../src/Generated/Mission02.func.c,
+				../src/Generated/Mission02.h,
+				../src/Generated/Mission03.c,
+				../src/Generated/Mission03.func.c,
+				../src/Generated/Mission03.h,
+				../src/Generated/Mission04.c,
+				../src/Generated/Mission04.func.c,
+				../src/Generated/Mission04.h,
+				../src/Generated/Mission05.c,
+				../src/Generated/Mission05.func.c,
+				../src/Generated/Mission05.h,
+				../src/Generated/Mission06.c,
+				../src/Generated/Mission06.func.c,
+				../src/Generated/Mission06.h,
+				../src/Generated/Mission07.c,
+				../src/Generated/Mission07.func.c,
+				../src/Generated/Mission07.h,
+				../src/Generated/Mission08.c,
+				../src/Generated/Mission08.func.c,
+				../src/Generated/Mission08.h,
+				../src/Generated/Mission09.c,
+				../src/Generated/Mission09.func.c,
+				../src/Generated/Mission09.h,
+				../src/Generated/Mission10.c,
+				../src/Generated/Mission10.func.c,
+				../src/Generated/Mission10.h,
+				../src/Generated/Mission11.c,
+				../src/Generated/Mission11.func.c,
+				../src/Generated/Mission11.h,
+				../src/Generated/Mission12.c,
+				../src/Generated/Mission12.func.c,
+				../src/Generated/Mission12.h,
+				../src/Generated/Mission13.c,
+				../src/Generated/Mission13.func.c,
+				../src/Generated/Mission13.h,
+				../src/Generated/Mission14.c,
+				../src/Generated/Mission14.func.c,
+				../src/Generated/Mission14.h,
+				../src/Generated/Mission15.c,
+				../src/Generated/Mission15.func.c,
+				../src/Generated/Mission15.h,
+				../src/Generated/Mission16.c,
+				../src/Generated/Mission16.func.c,
+				../src/Generated/Mission16.h,
+				../src/Generated/Tutorial1.c,
+				../src/Generated/Tutorial1.func.c,
+				../src/Generated/Tutorial1.h,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/zsh;
+			shellScript = "# force the shell; XCode really likes sh regardless of configuration\n/bin/zsh\n\n# make sure that kas2c is compiled\ncd ../tools/kas2c\n./kas2c-MacOSX-compile.sh\n\n# now compile the *.kas mission files\ncd ../../src/\n\nfor Y in SinglePlayer Tutorials\ndo\n    # change to the .kas folders in turn\n    cd $Y\n\n    for X in *.kas\n    do\n        # get the mission name\n        `/bin/echo $X | /usr/bin/awk -F '\\.' '{print \"export MISSION=\" $1}'`\n\n        # use gcc's preprocessor to produce the input for kas2c; the grep -v is\n        # to strip a gcc #pragma that kas2c cannot cope with\n        /usr/bin/gcc -E -x c $MISSION.kas | /usr/bin/grep -v \\#pragma > $MISSION.kp\n\n        # produce the actual mission .h and .c files\n        ../../tools/kas2c/kas2c $MISSION.kp $MISSION.c $MISSION.h $MISSION.func.c\n    done\n\n    # move the .h and .c files to the Generated folder\n    mv *.h *.c ../Generated\n\n    # clean up the intermediate .kp files\n    rm *.kp\n\n    # return to src root\n    cd ..\n\ndone";
+		};
 		35A501A6078CB77000E7D8E2 = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
@@ -4068,6 +4182,44 @@
 			path = RaiderRetreat.plist;
 			refType = 4;
 			sourceTree = "<group>";
+		};
+		35BE70E007937E0B00AEFC3C = {
+			buildActionMask = 2147483647;
+			comments = "This script ensures that kas2c is compiled and then converts the mission.kas files into their equivalent .c and .h files prior to full compilation of the project.";
+			files = (
+			);
+			inputPaths = (
+				../src/SinglePlayer/Mission01.kas,
+				../src/SinglePlayer/Mission02.kas,
+				../src/SinglePlayer/Mission03.kas,
+				../src/SinglePlayer/Mission04.kas,
+				../src/SinglePlayer/Mission05_OEM.kas,
+				../src/Tutorials/Tutorial1.kas,
+			);
+			isa = PBXShellScriptBuildPhase;
+			outputPaths = (
+				../src/Generated/Mission01.c,
+				../src/Generated/Mission01.func.c,
+				../src/Generated/Mission01.h,
+				../src/Generated/Mission02.c,
+				../src/Generated/Mission02.func.c,
+				../src/Generated/Mission02.h,
+				../src/Generated/Mission03.c,
+				../src/Generated/Mission03.func.c,
+				../src/Generated/Mission03.h,
+				../src/Generated/Mission04.c,
+				../src/Generated/Mission04.func.c,
+				../src/Generated/Mission04.h,
+				../src/Generated/Mission05_OEM.c,
+				../src/Generated/Mission05_OEM.func.c,
+				../src/Generated/Mission05_OEM.h,
+				../src/Generated/Tutorial1.c,
+				../src/Generated/Tutorial1.func.c,
+				../src/Generated/Tutorial1.h,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/zsh;
+			shellScript = "# force the shell; XCode really likes sh regardless of configuration\n/bin/zsh\n\n# make sure that kas2c is compiled\ncd ../tools/kas2c\n./kas2c-MacOSX-compile.sh\n\n# now compile the *.kas mission files\ncd ../../src/\n\nfor Y in SinglePlayer Tutorials\ndo\n    # change to the .kas folders in turn\n    cd $Y\n\n    for X in *.kas\n    do\n        # get the mission name\n        `/bin/echo $X | /usr/bin/awk -F '\\.' '{print \"export MISSION=\" $1}'`\n\n        # use gcc's preprocessor to produce the input for kas2c; the grep -v is\n        # to strip a gcc #pragma that kas2c cannot cope with\n        /usr/bin/gcc -E -x c $MISSION.kas | /usr/bin/grep -v \\#pragma > $MISSION.kp\n\n        # produce the actual mission .h and .c files\n        ../../tools/kas2c/kas2c $MISSION.kp $MISSION.c $MISSION.h $MISSION.func.c\n    done\n\n    # move the .h and .c files to the Generated folder\n    mv *.h *.c ../Generated\n\n    # clean up the intermediate .kp files\n    rm *.kp\n\n    # return to src root\n    cd ..\n\ndone";
 		};
 		35DAEDC5077BAF4D0080465A = {
 			fileEncoding = 30;
@@ -4143,10 +4295,12 @@
 //8D4
 		8D1107260486CEB800E47090 = {
 			buildPhases = (
+				355BE77707935BD200F82BB0,
 				8D1107270486CEB800E47090,
 				8D1107290486CEB800E47090,
 				8D11072C0486CEB800E47090,
 				8D11072E0486CEB800E47090,
+				3507D813079955A400F093F4,
 			);
 			buildRules = (
 			);
