@@ -1906,15 +1906,7 @@ void etgEffectCodeExecute(etgeffectstatic *stat, Effect *effect, udword codeBloc
     udword opcode;
     sdword size;
     ubyte *pOpcode;
-/*
-#if ETG_ERROR_CHECKING
-    if (etgExecStackIndex >= ETG_ExecStackDepth - 1)
-    {
-        dbgFatalf(ETG, "Overflowed exec stack of depth %d", ETG_ExecStackDepth);
-    }
-#endif
-    etgExecStackIndex++;
-*/
+
 	//this function does not interface well with optimized code which assumes 
 	//certain variables will not get stomped, hence the pushes
 #if defined (_MSC_VER)
@@ -1928,16 +1920,31 @@ void etgEffectCodeExecute(etgeffectstatic *stat, Effect *effect, udword codeBloc
 		push edi
 	}
 #elif defined (__GNUC__) && defined (__i386__)
-	__asm__ __volatile__ (
-		"pushl %eax\n\t"
-		"pushl %ebx\n\t"
-		"pushl %ecx\n\t"
-		"pushl %edx\n\t"
-		"pushl %esi\n\t"
-		"pushl %edi\n\t" );
+	/* Using an array should guarantee it's in memory, right? */
+	Uint32 savedreg[6];
+ 	__asm__ __volatile__ (
+		"movl %%eax, %0\n\t"
+		"movl %%ebx, %1\n\t"
+		"movl %%ecx, %2\n\t"
+		"movl %%edx, %3\n\t"
+		"movl %%esi, %4\n\t"
+		"movl %%edi, %5\n\t" : :
+		"m" (savedreg[0]), "m" (savedreg[1]), "m" (savedreg[2]),
+		"m" (savedreg[3]), "m" (savedreg[4]), "m" (savedreg[5]));
 #else
 	#error Opcode-handler functions currently only supported on x86 platforms.
 #endif
+
+/*
+#if ETG_ERROR_CHECKING
+    if (etgExecStackIndex >= ETG_ExecStackDepth - 1)
+    {
+        dbgFatalf(ETG, "Overflowed exec stack of depth %d", ETG_ExecStackDepth);
+    }
+#endif
+    etgExecStackIndex++;
+*/
+
     etgExecStack.etgCodeBlockIndex = codeBlock;
     //set the proper code block and code length
     //start at beginning of code.  !!!We may want to implement the yield() function.
@@ -1980,12 +1987,14 @@ void etgEffectCodeExecute(etgeffectstatic *stat, Effect *effect, udword codeBloc
 	}
 #elif defined (__GNUC__) && defined (__i386__)
 	__asm__ __volatile__ (
-		"popl %edi\n\t"
-		"popl %esi\n\t"
-		"popl %edx\n\t"
-		"popl %ecx\n\t"
-		"popl %ebx\n\t"
-		"popl %eax\n\t" );
+		"movl %0, %%eax\n\t"
+		"movl %1, %%ebx\n\t"
+		"movl %2, %%ecx\n\t"
+		"movl %3, %%edx\n\t"
+		"movl %4, %%esi\n\t"
+		"movl %5, %%edi\n\t" : :
+		"m" (savedreg[0]), "m" (savedreg[1]), "m" (savedreg[2]),
+		"m" (savedreg[3]), "m" (savedreg[4]), "m" (savedreg[5]));
 #endif
 }
 
