@@ -490,8 +490,8 @@ opres* opRes = NULL;
 
 fonthandle opRenderListFont = 0;
 listwindowhandle opRenderListWindow = NULL;
-sdword opRenderNumber;
-sdword opRenderCurrentSelected;
+sdword opRenderNumber = -1;
+sdword opRenderCurrentSelected = -1;
 
 sliderhandle EffectsSlider = NULL;
 
@@ -2674,12 +2674,14 @@ void opResListSet(rdevice* dev)
     fonthandle oldfont;
 
     mode = dev->modes;
+	
     nModes = 0;
     while (mode != NULL)
     {
         nModes++;
         mode = mode->next;
     }
+	
     opResNumber = nModes;
     opResCurrentSelected = 0;
 

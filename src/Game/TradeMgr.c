@@ -655,7 +655,7 @@ void tmTechListDraw(featom *atom, regionhandle region)
     sdword x, y, index;
     color c;
     fonthandle currentFont;
-    bool       newline;
+    bool       newline = FALSE;
     sdword     numlines, buyable=0;
     sdword     price;
 

@@ -825,7 +825,7 @@ sdword isoundmixerdecodeEffect(sbyte *readptr, real32 *writeptr1, real32 *writep
 ----------------------------------------------------------------------------*/	
 void isoundmixerqueueSDL(Uint8 *stream, int len)
 {
-	udword i, size_written = 0;
+	udword size_written = 0;
 
 	dbgAssert((len % MIX_BLOCK_SIZE) == 0);
 

@@ -1001,8 +1001,6 @@ sdword rndSmallInit(rndinitdata* initData, bool GL)
     Outputs     : ??
     Return      : ERROR if an error occurred.
 ----------------------------------------------------------------------------*/
-static GLfloat lightPosition0[] = {10000.0f, 1.0f, 1.0f, 0.1f};
-
 sdword rndInit(rndinitdata *initData)
 {
     static GLfloat  ambientProperties[] = {0.9f, 0.5f, 0.5f, 1.0f};

@@ -367,7 +367,6 @@ void SaveFilePacketToFile(FilePacket *fpacket)
 
     FILE *outFile;
     char file[PATH_MAX];
-    char *ch0, ch1;
     sdword lengthWrote;
     sdword filecontentssize = fpacket->packetheader.frame;
     sdword filenamesize = fpacket->packetheader.numberOfCommands;
