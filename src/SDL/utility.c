@@ -4033,12 +4033,12 @@ char* utyGameSystemsPreInit(void)
 			fileUserSettingsPathSet("C:\\HomeworldData");
 		}
 #else
-		// Attempt to use ~/.homeworld if we can get the user's home
-		// directory, else use the Homeworld data directory.
+		// Use the user's own Homeworld configuration dir if possible or
+		// else use the Homeworld data directory itself.
 		if ((dataEnvironment = getenv("HOME")) != NULL)
 		{
 			char tempPath[PATH_MAX];
-			snprintf(tempPath, PATH_MAX, "%s/.homeworld", dataEnvironment);
+			snprintf(tempPath, PATH_MAX, "%s/" CONFIGDIR, dataEnvironment);
 			fileUserSettingsPathSet(tempPath);
 		}
 		else if ((dataEnvironment = getenv("HW_Data")) != NULL)

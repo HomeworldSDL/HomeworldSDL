@@ -44,9 +44,6 @@
 #define METAKEY                 SDLK_LMETA      // Apple/Command/"Windows" key
 /*#define LMETAKEY                SDLK_LMETA*/
 /*#define RMETAKEY                SDLK_RMETA*/
-#define PAUSEKEY                SDLK_PAUSE
-#define SCROLLKEY               SDLK_SCROLLOCK
-#define PRINTKEY                SDLK_PRINT
 #define CAPSLOCKKEY             SDLK_CAPSLOCK
 #define ESCKEY                  SDLK_ESCAPE
 #define ARRLEFT                 SDLK_LEFT
@@ -123,6 +120,9 @@
 #define F10KEY                  SDLK_F10
 #define F11KEY                  SDLK_F11
 #define F12KEY                  SDLK_F12
+#define PRINTKEY                SDLK_PRINT      // F13 on Apple Extended keyboard
+#define SCROLLKEY               SDLK_SCROLLOCK  // F14 (caught by MacOSX: -brightness)
+#define PAUSEKEY                SDLK_PAUSE      // F15 (caught by MacOSX: +brightness)
 #define TILDEKEY                SDLK_BACKQUOTE
 #define NUMMINUSKEY             SDLK_KP_MINUS
 #define NUMPLUSKEY              SDLK_KP_PLUS
