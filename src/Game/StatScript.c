@@ -366,7 +366,7 @@ void scriptSetUbyteCB(char *directory,char *field,void *dataToFillIn)
 {
     udword readval;
 
-    sscanf(field,"%d",&readval);
+    sscanf(field,"%u",&readval);
 
     *((ubyte *)dataToFillIn) = (ubyte)readval;
 }
@@ -384,7 +384,7 @@ void scriptSetUwordCB(char *directory,char *field,void *dataToFillIn)
 {
     udword readval;
 
-    sscanf(field,"%d",&readval);
+    sscanf(field,"%u",&readval);
 
     *((uword *)dataToFillIn) = (uword)readval;
 }
@@ -396,7 +396,7 @@ void scriptSetSdwordCB(char *directory,char *field,void *dataToFillIn)
 
 void scriptSetUdwordCB(char *directory,char *field,void *dataToFillIn)
 {
-    sscanf(field,"%d",(udword *)dataToFillIn);
+    sscanf(field,"%u",(udword *)dataToFillIn);
 }
 
 /*-----------------------------------------------------------------------------
@@ -440,7 +440,7 @@ void scriptSetBitUdword(char *directoryy,char *field,void *dataToFillIn)
 
     if (strncasecmp(field, "BIT",3) == 0)
     {
-        sscanf(field+3,"%d", &readval);
+        sscanf(field+3,"%u", &readval);
 
         *((udword *)dataToFillIn) |= (1 << readval);
     }
@@ -452,7 +452,7 @@ void scriptSetBitUword(char *directory,char *field,void *dataToFillIn)
 
     if (strncasecmp(field, "BIT",3) == 0)
     {
-        sscanf(field+3,"%d", &readval);
+        sscanf(field+3,"%u", &readval);
 
         *((uword *)dataToFillIn) |= (uword)(1 << readval);
     }

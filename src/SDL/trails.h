@@ -17,16 +17,16 @@
 /*=============================================================================
     Switches:
 =============================================================================*/
-#ifndef HW_Release
+#ifdef HW_Release
 
-#define TRAIL_ERROR_CHECKING       1               //general error checking
-#define TRAIL_VERBOSE_LEVEL        1               //print extra info
+#define TRAIL_ERROR_CHECKING       0               //general error checking
+#define TRAIL_VERBOSE_LEVEL        0               //print extra info
 #define TRAIL_GATHER_STATS         0               //gather performance stats
 
 #else //HW_Debug
 
-#define TRAIL_ERROR_CHECKING       0               //general error checking
-#define TRAIL_VERBOSE_LEVEL        0               //print extra info
+#define TRAIL_ERROR_CHECKING       1               //general error checking
+#define TRAIL_VERBOSE_LEVEL        1               //print extra info
 #define TRAIL_GATHER_STATS         0               //gather performance stats
 
 #endif //HW_Debug
@@ -34,7 +34,11 @@
 /*=============================================================================
     Definitions:
 =============================================================================*/
-#define TP_KeyColor                 0x00ffffff  //high bit clear means this is a key color
+#ifdef ENDIAN_BIG
+    #define TP_KeyColor  0xffffff00
+#else
+    #define TP_KeyColor  0x00ffffff  //high bit (alpha) clear means this is a key color
+#endif
 
 /*=============================================================================
     Type definitions:

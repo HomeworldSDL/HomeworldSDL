@@ -16,7 +16,7 @@
 =============================================================================*/
 typedef udword rgbquad;
 typedef udword rgbaquad;
-typedef rgbquad color;
+typedef rgbaquad color;
 
 /*=============================================================================
     Macros:
@@ -24,14 +24,14 @@ typedef rgbquad color;
 //create RGB/RGBA quads
 #ifdef ENDIAN_BIG
 
-    #define colRGB(r,g,b)       (0x000000ff | (((ubyte)(r)) << 24) | (((ubyte)(g)) << 16) | (((ubyte)(b)) << 8))
-    #define colRGBA(r,g,b,a)    ((((udword)(r)) << 24) | (((udword)(g)) << 16) | (((udword)(b)) << 8) | (udword)(a))
+    #define colRGB(r,g,b)       colRGBA((r),(g),(b),0x000000ff)
+    #define colRGBA(r,g,b,a)    ((((udword)(r)) << 24) | (((udword)(g)) << 16) | (((udword)(b)) << 8) | ((udword)(a)))
     
     //extract elements from RGB/RGBA quads
-    #define colRed(rgb)         ((ubyte)(((rgb) & 0xff000000) >> 24))
-    #define colGreen(rgb)       ((ubyte)(((rgb) & 0x00ff0000) >> 16))
-    #define colBlue(rgb)        ((ubyte)(((rgb) & 0x0000ff00) >> 8))
-    #define colAlpha(rgba)      ((ubyte)((rgba) & 0x000000ff))
+    #define colRed(rgb)         ((ubyte)(((udword)(rgb) & 0xff000000) >> 24))
+    #define colGreen(rgb)       ((ubyte)(((udword)(rgb) & 0x00ff0000) >> 16))
+    #define colBlue(rgb)        ((ubyte)(((udword)(rgb) & 0x0000ff00) >> 8))
+    #define colAlpha(rgba)      ((ubyte)((udword)(rgba) & 0x000000ff))
     
 #else
 
@@ -49,8 +49,8 @@ typedef rgbquad color;
 #define colClampRed(rgb)    colClamp256(colRed(rgb))
 #define colClampGreen(rgb)  colClamp256(colGreen(rgb))
 #define colClampBlue(rgb)   colClamp256(colBlue(rgb))
-#define colClampAlpha(rgba) colClamp256(colAlpha(rgb))
-#define colReal32(c)        ((real32)(c) / 256.0f)
+#define colClampAlpha(rgba) colClamp256(colAlpha(rgba))
+#define colReal32(c)        ((real32)(c) / 255.0f)
 
 //stock colors
 #define colWhite            colRGB(255, 255, 255)
@@ -61,8 +61,8 @@ typedef rgbquad color;
 //convert between ubyte colors (0..255) and floating point colors (0..1)
 #define colUbyteToReal(b)   ((real32)(b) / 255.0f)
 #define colRealToUbyte(r)   ((ubyte)((r) * 255.0f))
-#define colUdwordToReal(b)  ((real32)(b) / 256.0f)
-#define colRealToUdword(r)  ((udword)((r) * 256.0f))
+#define colUdwordToReal(b)  ((real32)(b) / 255.0f)
+#define colRealToUdword(r)  ((udword)((r) * 255.0f))
 
 #define colClamp256(n)      ((n) < 0 ? 0 : ((n) > 255 ? 255 : (n)))
 

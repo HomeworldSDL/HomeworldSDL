@@ -115,19 +115,19 @@ scriptEntry TrailTweaks[] =
     makeEntry(BURN_RATIOSCALE, scriptSetReal32CB),
     makeEntry(BURN_RATIOMIN, scriptSetReal32CB),
     makeEntry(BURN_SIZESCALE, scriptSetReal32CB),
-    makeEntry(BURN_COLORADJUST, scriptSetSwordCB),
+    makeEntry(BURN_COLORADJUST, scriptSetSdwordCB),
     makeEntry(RANDOMBURN_FREQ, scriptSetReal32CB),
-    makeEntry(COLORADJUST_FREQ, scriptSetSwordCB),
-    makeEntry(COLOR_ADJUST, scriptSetSwordCB),
+    makeEntry(COLORADJUST_FREQ, scriptSetSdwordCB),
+    makeEntry(COLOR_ADJUST, scriptSetSdwordCB),
     makeEntry(TRAIL_EXPONENT_BASE, scriptSetReal32CB),
     makeEntry(TRAIL_EXPONENT_RANGE, scriptSetReal32CB),
-    makeEntry(TRAIL_GLOW_1_RED, scriptSetSwordCB),
-    makeEntry(TRAIL_GLOW_1_GREEN, scriptSetSwordCB),
-    makeEntry(TRAIL_GLOW_1_BLUE, scriptSetSwordCB),
-    makeEntry(TRAIL_GLOW_2_RED, scriptSetSwordCB),
-    makeEntry(TRAIL_GLOW_2_GREEN, scriptSetSwordCB),
-    makeEntry(TRAIL_GLOW_2_BLUE, scriptSetSwordCB),
-    makeEntry(TRAIL_EXPANSION_TICKS, scriptSetSwordCB),
+    makeEntry(TRAIL_GLOW_1_RED, scriptSetSdwordCB),
+    makeEntry(TRAIL_GLOW_1_GREEN, scriptSetSdwordCB),
+    makeEntry(TRAIL_GLOW_1_BLUE, scriptSetSdwordCB),
+    makeEntry(TRAIL_GLOW_2_RED, scriptSetSdwordCB),
+    makeEntry(TRAIL_GLOW_2_GREEN, scriptSetSdwordCB),
+    makeEntry(TRAIL_GLOW_2_BLUE, scriptSetSdwordCB),
+    makeEntry(TRAIL_EXPANSION_TICKS, scriptSetSdwordCB),
     endEntry
 };
 
@@ -1500,7 +1500,6 @@ void trailLineFuzzySheath(sdword LOD, sdword i, vector* vectora, vector* vectorb
     static color  cb;
 
     //setup
-
     scaleFactor = NLipsScaleFactor;
 
     VECCOPY(&from, vectora);
@@ -1672,8 +1671,8 @@ void trailLineBillboard(
 ----------------------------------------------------------------------------*/
 color trailSurpriseColorAdjust(sdword index, sdword max, color c)
 {
-    sdword r, g, b;
-    sdword randval;
+    ubyte r, g, b;
+    ubyte randval;
 
     if ((COLOR_ADJUST == 0) || (COLORADJUST_FREQ == 0) || (index > (max - 5)))
     {
@@ -1689,7 +1688,7 @@ color trailSurpriseColorAdjust(sdword index, sdword max, color c)
     g = colGreen(c);
     b = colBlue(c);
 
-    randval = ranRandom(RAN_Trails3) % COLOR_ADJUST;
+    randval = (ubyte)(ranRandom(RAN_Trails3) % COLOR_ADJUST);
 
     if (ranRandom(RAN_Trails4) & 1)
     {
@@ -1703,7 +1702,7 @@ color trailSurpriseColorAdjust(sdword index, sdword max, color c)
         g = MAX2(g-randval,0);
         b = MAX2(b-randval,0);
     }
-
+	
     return colRGB(r,g,b);
 }
 
@@ -2205,6 +2204,7 @@ static void trailSegmentsRead(char *directory,char *field,void *dataToFillIn)
     nScanned = sscanf(field, "%d", &tpNSegments);
     dbgAssert(nScanned == 1);
     dbgAssert(tpNSegments > 1 && tpNSegments < 1000);
+    
     for (teamIndex = 0; teamIndex < MAX_MULTIPLAYER_PLAYERS; teamIndex++)
     {
         tpColorArray[teamIndex] = memAlloc(sizeof(color) * tpNSegments, "Temp. Color Array", 0);
@@ -2341,9 +2341,10 @@ void trailRecolorize(trailstatic *trailStatic)
             if ((trailStatic->segmentColor[teamIndex][index] & (~TP_KeyColor)) == 0)
             {                                               //if this color is set
                 trailStatic->segmentColor[teamIndex][index] = //set new control point color
-                    teColorSchemes[teamIndex].trailColors[cpIndex] & TP_KeyColor;
+                         teColorSchemes[teamIndex].trailColors[cpIndex] & TP_KeyColor;
                 cpIndex++;                                  //update control point index
                 dbgAssert(cpIndex <= TE_NumberTrailColors);
+                
                 for (j = lastIndex + 1; j < index; j++)
                 {                                           //between last valid color to this one
                     red = (colRed(trailStatic->segmentColor[teamIndex][lastIndex]) * (index - j) +
@@ -2354,6 +2355,7 @@ void trailRecolorize(trailstatic *trailStatic)
                         colBlue(trailStatic->segmentColor[teamIndex][index]) * (j - lastIndex)) / (index - lastIndex);
                     trailStatic->segmentColor[teamIndex][j] = colRGB(red, green, blue);//interpolate the colors
                 }
+				
                 lastIndex = index;
             }
         }
