@@ -116,6 +116,9 @@ void demBlockWrite(void *data, sdword length)
 
     if (*demFileSaveName)
     {
+        if (!fileMakeDestinationDirectory(demFileSaveName))
+            return;
+
         appendfile = fopen(demFileSaveName, "ab");
         if (appendfile != NULL)
         {
@@ -135,6 +138,7 @@ void demBlockWrite(void *data, sdword length)
 ----------------------------------------------------------------------------*/
 void demRecordStart(char *fileName, demstatesave saveFunction)
 {
+    char *fullFileName;
     demoheader header;
     ubyte *stateBuffer;
 #if DEM_RANDY_SAVE
@@ -164,8 +168,9 @@ void demRecordStart(char *fileName, demstatesave saveFunction)
     }
 
     //open the file         (actually, delete it, and every time we will open it in append write mode)
-    strcpy(demFileSaveName,fileName);
-    remove(fileName);
+    fullFileName = filePathPrepend(fileName, FF_UserSettingsPath);
+    strcpy(demFileSaveName, fullFileName);
+    remove(fullFileName);
 
     demBlockWrite(&header, sizeof(header));
     if (header.initialStateSize > 0)
@@ -176,9 +181,15 @@ void demRecordStart(char *fileName, demstatesave saveFunction)
 #if DEM_CHECKSUM
     if (logEnable == LOG_VERBOSE)
     {
-        netlogfile = fopen(DEM_LogFileName, "wb");
-        fclose(netlogfile);
-        netlogfile = NULL;
+        char *demLogFileNameFull = filePathPrepend(
+            DEM_LogFileName, FF_UserSettingsPath);
+        if (fileMakeDestinationDirectory(demLogFileNameFull))
+        {
+            netlogfile = fopen(demLogFileNameFull, "wb");
+            if (netlogfile)
+                fclose(netlogfile);
+            netlogfile = NULL;
+        }
     }
 #endif
     demPacketNumber = 0;
@@ -209,10 +220,15 @@ void demStateSave(void)
     {
         if (logEnable == LOG_VERBOSE)
         {
-            netlogfile = fopen(DEM_LogFileName, "at");
-            if (netlogfile)
+            char *demLogFileNameFull = filePathPrepend(
+                DEM_LogFileName, FF_UserSettingsPath);
+            if (fileMakeDestinationDirectory(demLogFileNameFull))
             {
-                fprintf(netlogfile, "************* Demo packet #%d   Task time %.4f\n", demPacketNumber, taskTimeElapsed);
+                netlogfile = fopen(demLogFileNameFull, "at");
+                if (netlogfile)
+                {
+                    fprintf(netlogfile, "************* Demo packet #%d   Task time %.4f\n", demPacketNumber, taskTimeElapsed);
+                }
             }
         }
         state.univCheckSum = univGetChecksum(&numShips);
@@ -364,9 +380,15 @@ void demPlayStart(char *fileName, demstateload loadFunction, demplayfinished fin
 #if DEM_CHECKSUM
     if (logEnable == LOG_VERBOSE)
     {
-        netlogfile = fopen(DEM_LogFileName, "wb");
-        fclose(netlogfile);
-        netlogfile = NULL;
+        char *demLogFileNameFull = filePathPrepend(
+            DEM_LogFileName, FF_UserSettingsPath);
+        if (fileMakeDestinationDirectory(demLogFileNameFull))
+        {
+            netlogfile = fopen(demLogFileNameFull, "wb");
+            if (netlogfile)
+                fclose(netlogfile);
+            netlogfile = NULL;
+        }
     }
 #endif
     demFinishFunction = finishFunction;
@@ -433,10 +455,15 @@ void demStateLoad(void)
         nDemoPlays++;
         if (logEnable == LOG_VERBOSE)
         {
-            netlogfile = fopen(DEM_LogFileName, "at");
-            if (netlogfile)
+            char *demLogFileNameFull = filePathPrepend(
+                DEM_LogFileName, FF_UserSettingsPath);
+            if (fileMakeDestinationDirectory(demLogFileNameFull))
             {
-                fprintf(netlogfile, "************* Demo packet #%d   Task time %.4f\n", demPacketNumber, taskTimeElapsed);
+                netlogfile = fopen(demLogFileNameFull, "at");
+                if (netlogfile)
+                {
+                    fprintf(netlogfile, "************* Demo packet #%d   Task time %.4f\n", demPacketNumber, taskTimeElapsed);
+                }
             }
         }
         univCheckSum = univGetChecksum(&numShips);

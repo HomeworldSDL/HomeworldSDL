@@ -449,9 +449,21 @@ sdword lodAutoSave(lodinfo *LOD)
     sdword level;
     FILE *fp;
     char *filePath;
+    char *lodFileNameFull;
     real32 baseScalar = 1.0f, stripeScalar = 1.0f;
 
-    fp = fopen(LOD->fileName, "wt");
+    lodFileNameFull = filePathPrepend(LOD->fileName, FF_UserSettingsPath);
+
+    if (!fileMakeDestinationDirectory(lodFileNameFull))
+    {
+        dbgWarningf(
+            DBG_Loc,
+            "Cannot create destination directory for file '%s'.",
+            LOD->fileName);
+        return ERROR;
+    }
+
+    fp = fopen(lodFileNameFull, "wt");
     if (fp == NULL)
     {
         dbgWarningf(DBG_Loc, "Cannot open '%s' for writing - not checked out?", LOD->fileName);

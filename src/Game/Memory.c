@@ -9,6 +9,7 @@
 #include "Debug.h"
 #include "Key.h"
 #include "Task.h"
+#include "File.h"
 #include "Memory.h"
 #if MEM_VOLATILE_CLEARING
 #include <time.h>
@@ -185,6 +186,10 @@ void memCookieNameAdd(char *name, sdword length)
 ----------------------------------------------------------------------------*/
 sdword memStartup(void *heapStart, sdword heapSize, memgrowcallback grow)
 {
+#if MEM_FILE_NV
+    char *memNonVolatileFileName;
+#endif
+
     if ((sizeof(mbhcookie) != 32) || (sizeof(memcookie) != 32))
     {
         dbgFatalf(DBG_Loc, "Bad cookie size: %d, %d", sizeof(mbhcookie), sizeof(memcookie));
@@ -208,10 +213,20 @@ sdword memStartup(void *heapStart, sdword heapSize, memgrowcallback grow)
     memModuleInit = TRUE;
 
 #if MEM_FILE_NV
-    memNonVolatileFile = fopen("mem.nv", "wt");
-    if (memNonVolatileFile == NULL)
+    memNonVolatileFileName = filePathPrepend("mem.nv", FF_UserSettingsPath);
+
+    if (!fileMakeDestinationDirectory(memNonVolatileFileName))
     {
-        dbgMessage("\nError creating log file mem.nv.");
+        dbgMessage("\nError creating the path for mem.nv.");
+        memNonVolatileFile = NULL;
+    }
+    else
+    {
+        memNonVolatileFile = fopen(memNonVolatileFileName, "wt");
+        if (memNonVolatileFile == NULL)
+        {
+            dbgMessage("\nError creating log file mem.nv.");
+        }
     }
 #endif
     memGrowthAllocate = grow;
@@ -2098,16 +2113,36 @@ void memAnalysisCreateForPool(mempool *pool, FILE *fpAnalysis, FILE *fpMap)
 ----------------------------------------------------------------------------*/
 void memAnalysisCreate(void)
 {
+    char *memAnalysisFileNameFull, *memMapFileNameFull;
     FILE *fpAnalysis, *fpMap;
     sdword index;
 
     dbgMessagef("\nSaving detailed analysis to '%s' and map to '%s'", MEM_ANALYSIS_FILE_NAME, MEM_MAP_FILE_NAME);
 
-    fpAnalysis = fopen(MEM_ANALYSIS_FILE_NAME, "wt");
-    fpMap = fopen(MEM_MAP_FILE_NAME, "wt");
+    memAnalysisFileNameFull = filePathPrepend(
+        MEM_ANALYSIS_FILE_NAME, FF_UserSettingsPath);
+    memMapFileNameFull = filePathPrepend(
+        MEM_MAP_FILE_NAME, FF_UserSettingsPath);
+
+    if (!fileMakeDestinationDirectory(memAnalysisFileNameFull))
+    {
+        dbgWarningf(
+            DBG_Loc,
+            "Error creating destination directory for memory analysis files.");
+        return;
+    }
+
+    fpAnalysis = fopen(memAnalysisFileNameFull, "wt");
+    fpMap = fopen(memMapFileNameFull, "wt");
     if (fpMap == NULL || fpAnalysis == NULL)
     {
         dbgWarningf(DBG_Loc, "Error opening either '%s' or '%s'.", MEM_ANALYSIS_FILE_NAME, MEM_MAP_FILE_NAME);
+
+        if (fpMap)
+            fclose(fpMap);
+        else if (fpAnalysis)
+            fclose(fpAnalysis);
+
         return;
     }
 

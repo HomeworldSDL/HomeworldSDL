@@ -3040,11 +3040,17 @@ void universeStaticInit(void)
     StaticInfo *staticinfo;
     udword max,count;
 #if UNIV_SHIP_LOADFREE_LOG
+    char *fileNameFull;
     FILE *logFile = NULL;
 
     if (univLoadFreeLog)
     {
-        logFile = fopen(UNIV_LOAD_FREE_FILENAME, "at");
+        fileNameFull = filePathPrepend(
+            UNIV_LOAD_FREE_FILENAME,
+            FF_UserSettingsPath);
+
+        if (fileMakeDestinationDirectory(fileNameFull))
+            logFile = fopen(fileNameFull, "at");
     }
     if (logFile)
     {
@@ -4676,7 +4682,7 @@ void gameStatsInitForReal()
     GameStatsDebugHeader header;
     fileDelete(gamestatsfilename);
 
-    fh = fileOpen(gamestatsfilename,FF_AppendMode);
+    fh = fileOpen(gamestatsfilename, FF_AppendMode | FF_UserSettingsPath);
     dbgAssert(!fileUsingBigfile(fh));
     fp = fileStream(fh);
 
@@ -4701,7 +4707,7 @@ void gameStatsUpdateLogFile(sdword framenum)
         gameStatsInitForReal();
         needToInit=FALSE;
     }
-    fh = fileOpen(gamestatsfilename,FF_AppendMode);
+    fh = fileOpen(gamestatsfilename, FF_AppendMode | FF_UserSettingsPath);
     dbgAssert(!fileUsingBigfile(fh));
     fp = fileStream(fh);
 
@@ -5253,7 +5259,7 @@ void writeGameStatsToFile(char *filename)
         return;
     }
 
-    statsFH = fileOpen(filename, FF_WriteMode | FF_TextMode | FF_ReturnNULLOnFail);
+    statsFH = fileOpen(filename, FF_WriteMode | FF_TextMode | FF_ReturnNULLOnFail | FF_UserSettingsPath);
     if (!statsFH)
     {
         return;

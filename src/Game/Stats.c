@@ -1359,7 +1359,7 @@ void statsPrintTableRaceXVsRaceY(FILE *tablefile,ShipRace racei,ShipRace racej)
 void statsPrintTable(void)
 {
     ShipRace racei,racej;
-    filehandle tablefileFH = fileOpen("stattable.txt", FF_IgnoreBIG | FF_WriteMode | FF_TextMode);
+    filehandle tablefileFH = fileOpen("stattable.txt", FF_IgnoreBIG | FF_WriteMode | FF_TextMode | FF_UserSettingsPath);
     FILE *tablefile;
 
     dbgAssert(!fileUsingBigfile(tablefileFH));

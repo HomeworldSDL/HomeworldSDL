@@ -15,6 +15,7 @@
 #include "debugwnd.h"
 #include "Task.h"
 #include "Debug.h"
+#include "File.h"
 
 /*=============================================================================
     Data:
@@ -245,7 +246,7 @@ sdword dbgNonFatalf(char *file, sdword line, char *format, ...)
     Return      : filename of file written to, or NULL on error
 ----------------------------------------------------------------------------*/
 #if DBG_STACK_CONTEXT
-static char dbgStackFilename[256];
+static char dbgStackFilename[PATH_MAX + 1];
 udword dbgStackBase = 0;
 char *dbgStackDump(void)
 {
@@ -284,7 +285,12 @@ char *dbgStackDump(void)
             *blankPtr = '-';
         }
     }
-    fp = fopen(dbgStackFilename, "wb");                     //open the dump file
+
+    blankPtr = filePathPrepend(dbgStackFilename, FF_UserSettingsPath);
+    if (!fileMakeDestinationDirectory(blankPtr))
+        return NULL;
+
+    fp = fopen(blankPtr, "wb");                             //open the dump file
     if (fp == NULL)
     {
         return(NULL);

@@ -491,9 +491,21 @@ void rndGLStateLogFunction(char *location)
     GLboolean bools[MAX_BOOLS];
     char totalString[256];
     char valueString[128];
+    char *fileNameFull;
     FILE *f;
 
-    f = fopen(rndGLStateLogFileName, "at");
+    fileNameFull = filePathPrepend(rndGLStateLogFileName, FF_UserSettingsPath);
+
+    if (!fileMakeDestinationDirectory(fileNameFull))
+    {
+        dbgMessagef(
+            "\nError creating directory for '%s' for GL state logging.",
+            rndGLStateLogFileName);
+
+        return;
+    }
+
+    f = fopen(fileNameFull, "at");
     if (f == NULL)
     {
         dbgMessagef("\nError opening '%s' for GL state logging.", rndGLStateLogFileName);
@@ -874,13 +886,13 @@ bool setupPixelFormat()
 	    SDL_GL_SetAttribute( SDL_GL_MULTISAMPLEBUFFERS, 1 );
 	    SDL_GL_SetAttribute( SDL_GL_MULTISAMPLESAMPLES, FSAA );
 	}
-	
+
 	if (SDL_SetVideoMode (MAIN_WindowWidth, MAIN_WindowHeight, MAIN_WindowDepth, flags) == NULL)
 	{
 	    fprintf (stderr, "Couldn't set FSAA video mode: %s\n", SDL_GetError ());
 	    SDL_GL_SetAttribute( SDL_GL_MULTISAMPLEBUFFERS, 0 );
 	    SDL_GL_SetAttribute( SDL_GL_MULTISAMPLESAMPLES, 0 );
-		
+
 	    if (SDL_SetVideoMode (MAIN_WindowWidth, MAIN_WindowHeight, MAIN_WindowDepth, flags) == NULL)
 	    {
 		fprintf (stderr, "Couldn't set video mode: %s\n", SDL_GetError ());
@@ -3217,7 +3229,7 @@ renderDefault:
                 }
                 etgEffectDraw(effect);
                 break;
-                
+
             default:
                 dbgFatalf(DBG_Loc, "Undefined object type %d", spaceobj->objtype);
 dontdraw3:;
@@ -3333,7 +3345,7 @@ udword rndLoadTarga(char* filename, sdword* width, sdword* height)
     head.colorMapType = *pdata++;
     head.imageType = *pdata++;
     psdata = (uword*)pdata;
-    
+
 #ifdef ENDIAN_BIG
     head.colorMapStartIndex = LittleShort(*psdata);
     pdata += 2;
@@ -3971,6 +3983,7 @@ void rndRenderTask(void)
 #if RND_GL_STATE_DEBUG
         if (keyIsHit(GKEY) && keyIsStuck(LKEY))
         {                                                   //if starting a new round of state saving
+            static char *fileNameFull;
             static FILE *f;
             keyClearSticky(LKEY);
             rndGLStateSaving = TRUE;
@@ -3983,10 +3996,16 @@ void rndRenderTask(void)
                 sprintf(rndGLStateLogFileName, "gl%d.state", rndGLStateLogIndex);
             }
             rndGLStateLogIndex++;
-            f = fopen(rndGLStateLogFileName, "wt");         //open the file to clean it out
-            if (f != NULL)
+
+            fileNameFull = filePathPrepend(
+                rndGLStateLogFileName, FF_UserSettingsPath);
+            if (fileMakeDestinationDirectory(fileNameFull))
             {
-                fclose(f);                                  //close the file
+                f = fopen(fileNameFull, "wt");              //open the file to clean it out
+                if (f != NULL)
+                {
+                    fclose(f);                              //close the file
+                }
             }
         }
 #endif

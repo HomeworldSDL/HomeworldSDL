@@ -478,7 +478,7 @@ void hrChooseRandomBitmap(char *pFilenameBuffer)
     FileCount = BigFileCount;
 
     NewDir[0] = 0;
-    strcpy(NewDir, filePathPrepend("ScreenShots", 0));
+    strcpy(NewDir, filePathPrepend("ScreenShots", FF_UserSettingsPath));
 
 
     // Switch to the screenshots directory and count the ones in there

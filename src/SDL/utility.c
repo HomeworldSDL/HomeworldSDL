@@ -187,7 +187,7 @@ void utyRegistryOptionsRead(void)
             {
                 case REG_UDWORD:
                     if (next_tok)
-                        sscanf( next_tok, "%d", (int)curr_reg->data );
+                        sscanf( next_tok, "%u", (udword*)curr_reg->data );
                     else
                         *(udword*)curr_reg->data = 0;
                 break;
@@ -4017,6 +4017,40 @@ char* utyGameSystemsPreInit(void)
 */
     }
 
+	// Attempt to set the user settings path.
+	if (UserSettingsPathPrepended == FALSE)
+	{
+#ifdef _WIN32
+		// Use the same directory as the Homeworld data (similar to the
+		// functionality in the original Homeworld).
+		if ((dataEnvironment = getenv("HW_Data")) != NULL)
+		{
+			fileUserSettingsPathSet(dataEnvironment);
+		}
+		else
+		{
+			fileUserSettingsPathSet("");
+		}
+#else
+		// Attempt to use ~/.homeworld if we can get the user's home
+		// directory, else use the Homeworld data directory.
+		if ((dataEnvironment = getenv("HOME")) != NULL)
+		{
+			char tempPath[PATH_MAX];
+			snprintf(tempPath, PATH_MAX, "%s/.homeworld", dataEnvironment);
+			fileUserSettingsPathSet(tempPath);
+		}
+		else if ((dataEnvironment = getenv("HW_Data")) != NULL)
+		{
+			fileUserSettingsPathSet(dataEnvironment);
+		}
+		else
+		{
+			fileUserSettingsPathSet("");
+		}
+#endif
+	}
+
 
 #if MAIN_Password && MAIN_CDCheck
     if (mainCDCheckEnabled)
@@ -4202,6 +4236,7 @@ char* utyGameSystemsPreInit(void)
         }
         if (CompareBigfiles)
         {
+			dataEnvironment = getenv("HW_Data");
             if (!dataEnvironment || !dataEnvironment[0])
                 // in absence of environment vars (like in a retail install), assume
                 // data file structure will start alongside the EXE

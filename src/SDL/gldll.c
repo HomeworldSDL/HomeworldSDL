@@ -291,12 +291,18 @@ void APIENTRY myGenTextures(GLsizei n, GLuint* textureNames)
 #else
 void APIENTRY myGenTextures(GLsizei n, GLuint* textureNames)
 {
+    char *genOutFileName;
     int i;
 
     _glGenTextures(n, textureNames);
     if (genOut == NULL)
     {
-        genOut = fopen("gentex.txt", "wt");
+        genOutFileName = filePathPrepend("gentex.txt", FF_UserSettingsPath);
+
+        if (!fileMakeDestinationDirectory(genOutFileName))
+            return;
+
+        genOut = fopen(genOutFileName, "wt");
         if (genOut == NULL)
         {
             return;
@@ -486,6 +492,9 @@ GLboolean glDLLGetProcs(char* dllName)
 {
     int DynalinkFailed = 0;
     Uint32 sdl_flags;
+#if VERTEX_WRAPPERS
+    char *voutFileName;
+#endif
 
 #if TEXIMAGE_WRAPPERS
     int index;
@@ -542,7 +551,7 @@ GLboolean glDLLGetProcs(char* dllName)
     else
     {
         glDLLEnvironment();
-        
+
         #if 0 // #ifdef _MACOSX_FIX_ME
         // On OS X SDL_GL_LoadLibrary does nothing, so we must check if the given dll exists.
         {
@@ -569,7 +578,10 @@ GLboolean glDLLGetProcs(char* dllName)
     bOpenGlLoaded = TRUE;
 
 #if VERTEX_WRAPPERS
-    vout = fopen("vout.dat", "wt");
+    voutFileName = filePathPrepend("vout.dat", FF_UserSettingsPath);
+
+    if (fileMakeDestinationDirectory(voutFileName))
+        vout = fopen(voutFileName, "wt");
 #endif
 
 #ifdef _MACOSX_FIX_ME

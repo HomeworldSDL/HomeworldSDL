@@ -688,7 +688,7 @@ meshdata *meshLoad(char *inFileName)
 	vertsDone = ( udword *)malloc( header.nPolygonObjects * sizeof( udword ) );
 	normsDone = ( udword *)malloc( header.nPolygonObjects * sizeof( udword ) );
 	polysDone = ( udword *)malloc( header.nPolygonObjects * sizeof( udword ) );
-	
+
 	memset( vertsDone, 0, header.nPolygonObjects * sizeof( udword ) );
 	memset( normsDone, 0, header.nPolygonObjects * sizeof( udword ) );
 	memset( polysDone, 0, header.nPolygonObjects * sizeof( udword ) );
@@ -765,10 +765,10 @@ meshdata *meshLoad(char *inFileName)
 		object->pMother        = ( polygonobject *)LittleLong( ( udword )object->pMother );
 		object->pDaughter      = ( polygonobject *)LittleLong( ( udword )object->pDaughter );
 		object->pSister        = ( polygonobject *)LittleLong( ( udword )object->pSister );
-        
+
         // anonymous block so I can declare mptr with limited scope and not have
         // a plain C compiler complain
-		{ 
+		{
             real32 *mptr = ( real32 *)&object->localMatrix;
 		    for( i=0; i<16; i++ )
             {
@@ -873,7 +873,7 @@ meshdata *meshLoad(char *inFileName)
 				object->pPolygonList[i].t2 = LittleFloat( object->pPolygonList[i].t2 );
 				object->pPolygonList[i].flags = LittleShort( object->pPolygonList[i].flags );
 			}
-			
+
 			polysDone[polysDoneCount++] = object->pPolygonList;
 		}
     }
@@ -896,7 +896,7 @@ meshdata *meshLoad(char *inFileName)
 
 	} // ENDIAN_BIG:    end of for(index < mesh->nLocalMaterials...) loop
       // everyone else: end of for(index < mesh->nPolygonObjects)    loop
-        
+
     if (allowPacking && mainOnlyPacking && (fileName != pagedName))
     {
         for (index = 0; index < mesh->nLocalMaterials + mesh->nPublicMaterials; index++)
@@ -1558,9 +1558,15 @@ void meshObjectOutput(polygonobject* object, materialentry* materials, sdword iC
 {
     sdword iPoly;
     polyentry* polygon;
+    char *fileNameFull;
     FILE* out;
 
-    out = fopen("uv.txt", "at");
+    fileNameFull = filePathPrepend("uv.txt", FF_UserSettingsPath);
+
+    if (!fileMakeDestinationDirectory(fileNameFull))
+        return;
+
+    out = fopen(fileNameFull, "at");
     if (out == NULL)
     {
         return;

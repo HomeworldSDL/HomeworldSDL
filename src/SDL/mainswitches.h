@@ -15,6 +15,7 @@ extern bool DebugWindow;
 extern sdword MemoryHeapSize;
 extern bool FilePathPrepended;
 extern bool CDROMPathPrepended;
+extern bool UserSettingsPathPrepended;
 extern bool mouseClipped;
 extern bool startupClipMouse;
 extern bool showFrontEnd;

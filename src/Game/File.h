@@ -60,6 +60,7 @@
 #define FF_CDROM                128             //open from CD-ROM
 #define FF_IgnoreBIG            256             //don't look in .BIG file, only try to load from disk
 #define FF_IgnorePrepend        512             //don't add stock path to beginning of file names
+#define FF_UserSettingsPath     1024            //use ~/.homeworld as the base path
 
 //names of log files
 #define FN_OpenLog              "open.log"
@@ -109,10 +110,12 @@ typedef struct {
 void filePrependPathSet(char *path);
 char *filePathPrepend(char *path, udword flags);
 void fileCDROMPathSet(char *path);
+void fileUserSettingsPathSet(char *path);
 #else
 #define filePrependPathSet(p)
 #define filePathPrepend(p,f)
 #define fileCDROMPathSet(p)
+#define fileUserSettingsPathSet(p)
 #endif
 
 extern char filePrependPath[];
@@ -141,6 +144,8 @@ sdword fileUsingBigfile(filehandle handle);
 FILE *fileStream(filehandle handle);
 
 //utility functions
+bool8 fileMakeDirectory(const char *directoryName);
+bool8 fileMakeDestinationDirectory(const char *fileName);
 sdword fileExistsInBigFile(char *_fileName);
 sdword fileExists(char *fileName, udword flags);
 sdword fileSizeGet(char *fileName, udword flags);

@@ -61,6 +61,7 @@ udword ranRandomFn(sdword ranIndex)
     ranstream *stream;
 
 #if RAN_DEBUG_CALLER
+    char *fileNameFull;
     char *truncatedFile;
     FILE *fp;
 
@@ -72,15 +73,20 @@ udword ranRandomFn(sdword ranIndex)
         }
         if (ranLogIndex >= RAN_LogBufferLength)
         {
-            fp = fopen(RAN_LogFile, ranLogCleared ? "at" : "wt");
-            if (fp != NULL)
+            fileNameFull = filePathPrepend(RAN_LogFile, FF_UserSettingsPath);
+
+            if (fileMakeDestinationDirectory(fileNameFull))
             {
-                ranLogCleared = TRUE;
-                for (ranLogIndex = 0; ranLogIndex < RAN_LogBufferLength; ranLogIndex++)
+                fp = fopen(fileNameFull, ranLogCleared ? "at" : "wt");
+                if (fp != NULL)
                 {
-                    fprintf(fp, "%s(%d): %d\n", ranLogBuffer[ranLogIndex].file, ranLogBuffer[ranLogIndex].line, ranLogBuffer[ranLogIndex].univCounter);
+                    ranLogCleared = TRUE;
+                    for (ranLogIndex = 0; ranLogIndex < RAN_LogBufferLength; ranLogIndex++)
+                    {
+                        fprintf(fp, "%s(%d): %d\n", ranLogBuffer[ranLogIndex].file, ranLogBuffer[ranLogIndex].line, ranLogBuffer[ranLogIndex].univCounter);
+                    }
+                    fclose(fp);
                 }
-                fclose(fp);
             }
             ranLogIndex = 0;
         }
@@ -235,20 +241,26 @@ void ranStartup(void)
 void ranShutdown(void)
 {
 #if RAN_DEBUG_CALLER
+    char *fileNameFull;
     FILE *fp;
     sdword index;
 
     if (ranLogBuffer != NULL)
     {
-        fp = fopen(RAN_LogFile, ranLogCleared ? "at" : "wt");
-        if (fp != NULL)
+        fileNameFull = filePathPrepend(RAN_LogFile, FF_UserSettingsPath);
+
+        if (fileMakeDestinationDirectory(fileNameFull))
         {
-            ranLogCleared = TRUE;
-            for (index = 0; index < ranLogIndex; index++)
+            fp = fopen(fileNameFull, ranLogCleared ? "at" : "wt");
+            if (fp != NULL)
             {
-                fprintf(fp, "%s(%d): %d\n", ranLogBuffer[index].file, ranLogBuffer[index].line, ranLogBuffer[index].univCounter);
+                ranLogCleared = TRUE;
+                for (index = 0; index < ranLogIndex; index++)
+                {
+                    fprintf(fp, "%s(%d): %d\n", ranLogBuffer[index].file, ranLogBuffer[index].line, ranLogBuffer[index].univCounter);
+                }
+                fclose(fp);
             }
-            fclose(fp);
         }
         ranLogIndex = 0;
         memFree(ranLogBuffer);

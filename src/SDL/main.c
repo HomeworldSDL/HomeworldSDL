@@ -183,6 +183,7 @@ bool DebugWindow = FALSE;
 sdword MemoryHeapSize = MEM_HeapSizeDefault;
 bool FilePathPrepended = FALSE;
 bool CDROMPathPrepended = FALSE;
+bool UserSettingsPathPrepended = FALSE;
 #if MAIN_MOUSE_FREE
 bool startupClipMouse = TRUE;
 #endif
@@ -631,6 +632,13 @@ bool CDROMPathSet(char *string)
     fileCDROMPathSet(string);
     CDROMPathPrepended = TRUE;
     return TRUE;
+}
+
+bool UserSettingsPathSet(char *string)
+{
+	fileUserSettingsPathSet(string);
+	UserSettingsPathPrepended = TRUE;
+	return TRUE;
 }
 
 bool EnableFileLoadLog(char *string)
@@ -1150,6 +1158,7 @@ commandoption commandOptions[] =
     entryFnParam("/heap",           HeapSizeSet,                        " <n> - Sets size of global memory heap to [n]."),
     entryFnParam("/prepath",        PrependPathSet,                     " <path> - Sets path to search for opening files."),
     entryFnParam("/CDpath",         CDROMPathSet,                       " <path> - Sets path to CD-ROM in case of ambiguity."),
+    entryFnParam("/settingspath",   UserSettingsPathSet,                " <path> - Sets the path to store settings, saved games, and screenshots (defaults to ~/.homeworld)."),
 #if MAIN_MOUSE_FREE
 #ifndef HW_Release
     entryVr("/freemouse",           startupClipMouse, FALSE,            " - Mouse free to move about entire screen at startup.  Use <CTRL>F11 to toggle during play."),

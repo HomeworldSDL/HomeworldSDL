@@ -789,9 +789,14 @@ void kasTakeADump(void)
     udword i, remaining;
     Timer *tp;
 
-    fullName = filePathPrepend(fileName, 0);
+    fullName = filePathPrepend(fileName, FF_UserSettingsPath);
+
+    if (!fileMakeDestinationDirectory(fullName))
+        return;
 
     fp = fopen(fullName, "wt");
+    if (!fp)
+        return;
 
     fprintf(fp, "%s\n\n", CurrentMissionName);
 

@@ -55,9 +55,10 @@ extern FILE *updateFP;
     Data:
 =============================================================================*/
 #if FILE_PREPEND_PATH
-char filePrependPath[PATH_MAX];
-char fileCDROMPath[PATH_MAX];
-char filePrependedPath[PATH_MAX];
+char filePrependPath[PATH_MAX + 1];
+char fileCDROMPath[PATH_MAX + 1];
+char fileUserSettingsPath[PATH_MAX + 1];
+char filePrependedPath[PATH_MAX + 1];
 #endif
 
 // filehandles are an index into this array
@@ -109,6 +110,343 @@ static void fileNameReplaceSlashes (char* fileName)
 
 
 /*-----------------------------------------------------------------------------
+    Name        : fileNameReducePath
+    Description : Removes extraneous slashes in the given path and reduces
+                  occurences of "." and "..".
+    Inputs      : pathName - File path.
+    Return      : (None.)
+----------------------------------------------------------------------------*/
+static void fileNameReducePath (char *pathName)
+{
+    size_t pathLen;
+
+    char *pathElem[PATH_MAX];
+    udword pathElemCount;
+
+    size_t searchLoc;
+    bool8 isPathAbsolute;
+
+    udword i;
+
+    dbgAssert(pathName != NULL);
+
+    pathLen = strlen(pathName);
+
+    /* Reduce slashes. */
+    for (i = 1; i < pathLen; i++)
+    {
+        char chPrev = pathName[i - 1];
+        char chCurr = pathName[i];
+        if ((chPrev == '/' || chPrev == '\\') &&
+            (chCurr == '/' || chCurr == '\\'))
+        {
+            memmove(pathName + i - 1, pathName + i, pathLen - i + 1);
+            pathLen--;
+            i--;
+        }
+    }
+
+    /* Remove trailing slashes. */
+    while (pathName[pathLen - 1] == '/' ||
+           pathName[pathLen - 1] == '\\')
+    {
+        pathLen--;
+        pathName[pathLen] = '\0';
+    }
+
+    /* Split up the path string into an array containing each path
+       component. */
+    pathElem[0] = pathName;
+    pathElemCount = 1;
+
+    searchLoc = strcspn(pathName, "/\\");
+    while (searchLoc != pathLen)
+    {
+        size_t searchLocPrev = searchLoc;
+
+        pathName[searchLoc] = '\0';
+
+        pathElem[pathElemCount] = pathName + searchLoc + 1;
+        pathElemCount++;
+
+        searchLoc = strcspn(pathName + searchLocPrev + 1, "/\\");
+        searchLoc += searchLocPrev + 1;
+    }
+
+#ifdef _WIN32
+    isPathAbsolute = (isalpha[pathName[0]] && pathName[1] == ':' &&
+        pathName[2] == '\0');
+#else
+    isPathAbsolute = (pathName[0] == '\0');
+#endif
+
+    if (isPathAbsolute)
+    {
+        /* Skip over the root path element, we don't need to look at it for
+           now. */
+        pathElemCount--;
+        if (pathElemCount != 0)
+        {
+            memmove(pathElem, pathElem + 1, sizeof(char *) * pathElemCount);
+        }
+    }
+
+    /* Using our array of path components, reduce any occurences of "." and
+       "..". */
+    for (i = 0; i < pathElemCount; i++)
+    {
+        char *currentElem = pathElem[i];
+
+        if (currentElem[0] != '.')
+            continue;
+
+        if (currentElem[1] == '\0')
+        {
+            /* The current path element refers to the current directory ("."),
+               so we can remove it. */
+            pathElemCount--;
+            if (i < pathElemCount)
+            {
+                memmove(pathElem + i, pathElem + i + 1,
+                    sizeof(char *) * pathElemCount - i);
+            }
+            i--;
+
+            continue;
+        }
+
+        if (!(currentElem[1] == '.' && currentElem[2] == '\0'))
+            continue;
+
+        /* The current path element refers to the parent directory (".."). */
+        if (i == 0)
+        {
+            if (isPathAbsolute)
+            {
+                dbgMessagef("\nfileNameReducePath(): Attempted to reach a "
+                            "parent directory of the root directory.");
+
+                /* Attempting to reach a directory below the root directory, so
+                   just get rid of the current element. */
+                pathElemCount--;
+                if (pathElemCount != 0)
+                {
+                    memmove(pathElem, pathElem + 1,
+                        sizeof(char *) * pathElemCount);
+                }
+                i--;
+            }
+
+            continue;
+        }
+
+        if (!strcmp(pathElem[i - 1], ".."))
+        {
+            /* Previous path element also represents the previous directory, so
+               keep this element and allow further traversal up the directory
+               tree. */
+            continue;
+        }
+
+        /* Remove the current and previous path elements. */
+        dbgAssert(pathElemCount >= 2);
+        pathElemCount--;
+        if (i < pathElemCount)
+        {
+            memmove(pathElem + i - 1, pathElem + i + 1,
+                sizeof(char *) * pathElemCount - i);
+        }
+        pathElemCount--;
+        i -= 2;
+    }
+
+    /* Rebuild the path string. */
+    pathLen = 0;
+
+    if (isPathAbsolute)
+    {
+#ifdef _WIN32
+        pathName[2] = '\\';
+        pathLen = 3;
+#else
+        pathName[0] = '/';
+        pathLen = 1;
+#endif
+    }
+
+    if (pathElemCount == 0)
+    {
+        pathName[pathLen] = '\0';
+        return;
+    }
+
+    for (i = 0; i < pathElemCount; i++)
+    {
+        char *currentElem = pathElem[i];
+        size_t elemLen = strlen(currentElem);
+
+        memmove(pathName + pathLen, currentElem,
+            sizeof(char) * elemLen);
+
+        pathLen += elemLen;
+#ifdef _WIN32
+        pathName[pathLen] = '\\';
+#else
+        pathName[pathLen] = '/';
+#endif
+        pathLen++;
+    }
+
+    /* Remove the trailing slash. */
+    pathName[pathLen - 1] = '\0';
+}
+
+
+/*-----------------------------------------------------------------------------
+    Name        : fileMakeDirectory
+    Description : Creates the specified directory, creating parent directories
+                  as necessary.
+    Inputs      : directoryName - Name of the directory to create.
+    Return      : TRUE if successful, FALSE if not.
+----------------------------------------------------------------------------*/
+bool8 fileMakeDirectory (const char *directoryName)
+{
+    char directoryCopy[PATH_MAX + 1];
+    size_t directoryLen;
+
+    char *ch;
+    udword i;
+
+    dbgAssert(directoryName != NULL);
+    dbgAssert(strlen(directoryName) <= PATH_MAX);
+
+    /* Make a copy of the directory name with which we can modify as needed. */
+    strncpy(directoryCopy, directoryName, PATH_MAX);
+    directoryCopy[PATH_MAX] = '\0';
+
+    /* Reduce the path name. */
+    fileNameReducePath(directoryCopy);
+
+    directoryLen = strlen(directoryCopy);
+    if (directoryLen == 0)
+        return TRUE;
+
+#ifdef _WIN32
+    if (directoryCopy[directoryLen - 1] != '\\')
+    {
+        directoryCopy[directoryLen] = '\\';
+        directoryLen++;
+        directoryCopy[directoryLen] = '\0';
+    }
+#else
+    if (directoryCopy[directoryLen - 1] != '/')
+    {
+        directoryCopy[directoryLen] = '/';
+        directoryLen++;
+        directoryCopy[directoryLen] = '\0';
+    }
+#endif
+
+    /* Find the first path element that isn't the root directory or a parent
+       directory delimiter. */
+#ifdef _WIN32
+    ch = strchr(directoryCopy, '\\');
+    if (ch)
+    {
+        *ch = '\0';
+
+        if (isalpha(directoryCopy[0]) && directoryCopy[1] == ':' &&
+            directoryCopy[2] == '\0')
+        {
+            *ch = '\\';
+            ch = strchr(ch + 1, '\\');
+            *ch = '\0';
+        }
+    }
+#else
+    ch = strchr(directoryCopy, '/');
+    if (ch)
+    {
+        *ch = '\0';
+
+        if (directoryCopy[0] == '\0')
+        {
+            *ch = '/';
+            ch = strchr(ch + 1, '/');
+            *ch = '\0';
+        }
+    }
+#endif
+
+    /* Create each directory as needed. */
+    struct stat fileStat;
+    while (ch)
+    {
+        *ch = 0;
+
+        /* Check if the directory exists. */
+        if (stat(directoryCopy, &fileStat) == 0)
+        {
+            /* A filesystem entry exists, so make sure it's a directory. */
+            if (!S_ISDIR(fileStat.st_mode))
+                return FALSE;
+        }
+        else
+        {
+            /* Attempt to create the directory. */
+            if (mkdir(directoryCopy, 0777) == -1)
+                return FALSE;
+        }
+
+        /* Continue with the next path element. */
+#ifdef _WIN32
+        *ch = '\\';
+        ch = strchr(ch + 1, '\\');
+#else
+        *ch = '/';
+        ch = strchr(ch + 1, '/');
+#endif
+    }
+
+    return TRUE;
+}
+
+
+/*-----------------------------------------------------------------------------
+    Name        : fileMakeDestinationDirectory
+    Description : Creates the directory in which the given file resides.
+    Inputs      : fileName - path and name of file.
+    Return      : TRUE if the directory exists or could be created, FALSE if
+                  not.
+----------------------------------------------------------------------------*/
+bool8 fileMakeDestinationDirectory(const char *fileName)
+{
+    char *directoryName[PATH_MAX + 1];
+    char *ch0, *ch1;
+
+    dbgAssert(fileName);
+
+    /* Make a copy of the directory name string, excluding the file itself. */
+    strncpy(directoryName, fileName, PATH_MAX);
+    directoryName[PATH_MAX] = '\0';
+
+    ch0 = strrchr(directoryName, '/');
+    ch1 = strrchr(directoryName, '\\');
+    if (ch1 > ch0)
+        ch0 = ch1;
+
+    /* If the file is in the current directory, assume the directory exists. */
+    if (!ch0)
+        return TRUE;
+
+    /* Create the directory. */
+    *ch0 = '\0';
+
+    return fileMakeDirectory(directoryName);
+}
+
+
+/*-----------------------------------------------------------------------------
     Name        : fileLoadAlloc
     Description : Loads specified file into memory after allocating memory for it.
     Inputs      : fileName - path and name of file to be loaded.
@@ -135,7 +473,7 @@ sdword fileLoadAlloc(char *_fileName, void **address, udword flags)
     dbgAssert(address != NULL);
 
     //  try to load from bigfile
-    if (!IgnoreBigfiles && !bitTest(flags, FF_CDROM|FF_IgnoreBIG))
+    if (!IgnoreBigfiles && !bitTest(flags, FF_CDROM|FF_IgnoreBIG|FF_UserSettingsPath))
     {
         // possibly still skip the bigfile version of the file
         // if there's something newer available in the filesystem
@@ -258,7 +596,7 @@ sdword fileLoad(char *_fileName, void *address, udword flags)
     sdword existsInMainBigfile;
 
     //  try to load from bigfile
-    if (!IgnoreBigfiles && !bitTest(flags, FF_CDROM|FF_IgnoreBIG))
+    if (!IgnoreBigfiles && !bitTest(flags, FF_CDROM|FF_IgnoreBIG|FF_UserSettingsPath))
     {
         // possibly still skip the bigfile version of the file
         // if there's something newer available in the filesystem
@@ -358,6 +696,15 @@ sdword fileSave(char *_fileName, void *address, sdword length)
     fileName = filePathPrepend(_fileName, 0);               //get full path
     fileNameReplaceSlashes(fileName);
 
+    if (!fileMakeDestinationDirectory(fileName))
+    {
+        dbgFatalf(
+            DBG_Loc,
+            "fileSave: unable to create destination directory for file %s",
+            fileName);
+        return 0;
+    }
+
     if ((outFile = fopen(fileName, "wb")) == NULL)           //open the file
     {
         dbgFatalf(DBG_Loc, "fileSave: couldn't open file %s", fileName);
@@ -375,7 +722,7 @@ sdword fileSave(char *_fileName, void *address, sdword length)
     fclose(outFile);
 
 #if FILE_VERBOSE_LEVEL >= 2
-    dbgMessagef("\fileSave: saved %d bytes of '%s' to 0x%x", length, fileName, address);
+    dbgMessagef("\nfileSave: saved %d bytes of '%s' to 0x%x", length, fileName, address);
 #endif
 
     return lengthWrote;
@@ -425,7 +772,7 @@ sdword fileExists(char *_fileName, udword flags)
     sdword existsInBigfile;
     sdword fileNum;
 
-    if (!IgnoreBigfiles && !bitTest(flags, FF_CDROM|FF_IgnoreBIG))
+    if (!IgnoreBigfiles && !bitTest(flags, FF_CDROM|FF_IgnoreBIG|FF_UserSettingsPath))
     {
         // possibly still skip the bigfile version of the file
         // if there's something newer available in the filesystem
@@ -484,7 +831,7 @@ sdword fileSizeGet(char *_fileName, udword flags)
     sdword fileNum;
     sdword existsInBigfile;
 
-    if (!IgnoreBigfiles && !bitTest(flags, FF_CDROM|FF_IgnoreBIG))
+    if (!IgnoreBigfiles && !bitTest(flags, FF_CDROM|FF_IgnoreBIG|FF_UserSettingsPath))
     {
         // possibly still skip the bigfile version of the file
         // if there's something newer available in the filesystem
@@ -586,7 +933,7 @@ filehandle fileOpen(char *_fileName, udword flags)
     strcpy(filesOpen[fh].path, _fileName);
 
     //  try to load from bigfile
-    if (!IgnoreBigfiles && !bitTest(flags, FF_CDROM|FF_IgnoreBIG))
+    if (!IgnoreBigfiles && !bitTest(flags, FF_CDROM|FF_IgnoreBIG|FF_UserSettingsPath))
     {
         // possibly still skip the bigfile version of the file
         // if there's something newer available in the filesystem
@@ -807,6 +1154,16 @@ filehandle fileOpen(char *_fileName, udword flags)
         }
         else
             logfileLogf(FILELOADSLOG, "%-80s |       [F] |\n", _fileName);
+    }
+
+    if (bitTest(flags, FF_AppendMode | FF_WriteMode) &&
+        !fileMakeDestinationDirectory(fileName))
+    {
+        dbgFatalf(
+            DBG_Loc,
+            "fileOpen: unable to create destination directory for file %s",
+            fileName);
+        return 0;
     }
 
     if ((file = fopen(fileName, access)) == NULL)
@@ -1252,10 +1609,42 @@ void fileCDROMPathSet(char *path)
 }
 
 /*-----------------------------------------------------------------------------
+    Name        : fileUserSettingsPathSet
+    Description : Like above, but it sets the user settings path for storing
+                  configuration settings, saved games, and screenshots
+                  (typically ~/.homeworld)
+    Inputs      : path - path for user settings
+    Outputs     :
+    Return      :
+----------------------------------------------------------------------------*/
+void fileUserSettingsPathSet(char *path)
+{
+    unsigned int path_len;
+    dbgAssert(path != NULL);
+    strcpy(fileUserSettingsPath, path);                     //make copy of specified path
+
+    path_len = strlen(fileUserSettingsPath);
+    dbgAssert(path_len);
+#ifdef _WIN32
+    if (fileUserSettingsPath[path_len - 1] != '\\')
+    {                                                       //make sure a backslash is on the end
+        strcat(fileUserSettingsPath, "\\");                 //put a backslash on the end
+    }
+#else
+    if (fileUserSettingsPath[path_len - 1] != '\\' &&
+        fileUserSettingsPath[path_len - 1] != '/')
+    {                                       /* make sure a slash is on the end */
+        strcat(fileUserSettingsPath, "/");  /* put a slash on the end */
+    }
+#endif
+}
+
+/*-----------------------------------------------------------------------------
     Name        : filePathPrepend
     Description : Prepend the default path for opening files.
     Inputs      : fileName - file name/relative path to add to end of default path
-                  flags - flags for the file we want.  Only the FF_CDROM flag is used
+                  flags - flags for the file we want.  Only the FF_CDROM and
+                          FF_UserSettingsPath flags are used
     Outputs     : Copies prepend path to global variable and concatenates fileName
     Return      : pointer to new full path
 ----------------------------------------------------------------------------*/
@@ -1271,6 +1660,10 @@ char *filePathPrepend(char *fileName, udword flags)
     {
         strcpy(filePrependedPath,fileName);     // just copy, don't actually prepend
         return(filePrependedPath);
+    }
+    else if (bitTest(flags, FF_UserSettingsPath))
+    {
+        strcpy(filePrependedPath, fileUserSettingsPath);
     }
     else if (bitTest(flags, FF_CDROM))
     {

@@ -12,6 +12,7 @@
 #include <stdarg.h>
 #include <string.h>
 #include <strings.h>
+#include <ctype.h>
 #include "Types.h"
 #include "Debug.h"
 #include "Memory.h"

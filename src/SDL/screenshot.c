@@ -17,7 +17,7 @@ static void _numberify(char* dirname)
 {
     int   i;
     FILE* outfile;
-    char  filename[32], testname[128];
+    char  filename[32], testname[PATH_MAX + 1];
 
     filename[0] = '\0';
 
@@ -41,24 +41,16 @@ static void _numberify(char* dirname)
 
 void ssSaveScreenshot(ubyte* buf)
 {
-    char* dir;
-    char fname[128];
+    char *fname;
     FILE* out;
     unsigned char *pTempLine;
     long Top, Bot, i, Size;
 
     JPEGDATA jp;
 
-    dir = getenv("HW_Data");
-    if (dir == NULL)
-    {
-        strcpy(fname, "screenshots\\");
-    }
-    else
-    {
-        strcpy(fname, dir);
-        strcat(fname, "\\screenshots\\");
-    }
+    fname = filePathPrepend("ScreenShots/", FF_UserSettingsPath);
+    if (!fileMakeDirectory(fname))
+        return;
 
     _numberify(fname);
 

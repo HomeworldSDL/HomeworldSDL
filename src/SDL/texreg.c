@@ -142,7 +142,7 @@ void trNoPalReadjustWithoutPending(void);
 sdword trLitPaletteBitDepth(void)
 {
     sdword bits = 0;
-    
+
 #ifndef _MACOSX_FIX_ME
     dbgAssert(glLitColorTableEXT != NULL);
     glLitColorTableEXT(0, 0, 0, 0, 0, &bits);
@@ -234,7 +234,7 @@ void trReload(void)
         trLitPaletteBits = 0;
 #ifndef _MACOSX_FIX_ME
     }
-#endif 
+#endif
 
     if (RGL)
     {
@@ -305,7 +305,7 @@ void trStartup(void)
         trLitPaletteBits = 0;
 #ifndef _MACOSX_FIX_ME
     }
-#endif 
+#endif
 
     if (RGL)
     {
@@ -2835,7 +2835,8 @@ llelement *trListFileLoad(char *name, sdword *number)
             if (list[index].nShared != 0)
             {
                 (ubyte *)list[index].sharedTo += (udword)sharingBlock;
-                
+
+#ifdef ENDIAN_BIG
                 // anonymous block so I can declare i with limited scope and not have
                 // a plain C compiler complain
                 {
@@ -2845,6 +2846,7 @@ llelement *trListFileLoad(char *name, sdword *number)
                         list[index].sharedTo[i] = LittleLong( list[index].sharedTo[i] );
                     }
                 }
+#endif
             }
         }
     }
@@ -4290,6 +4292,7 @@ void trNoPalFilter(sdword bEnable, sdword handle)
 #if TR_TEXTURE_USAGE
 void trTextureUsageList(char *fileName)
 {
+    char *fileNameFull;
     FILE *fp;
     char directoryName[256], *pSlash;
     sdword index = 0;
@@ -4318,7 +4321,13 @@ void trTextureUsageList(char *fileName)
             break;
         }
     }
-    fp = fopen(fileName, "wt");
+
+    fileNameFull = filePathPrepend(fileName, FF_UserSettingsPath);
+
+    if (!fileMakeDestinationDirectory(fileNameFull))
+        return;
+
+    fp = fopen(fileNameFull, "wt");
     if (fp == NULL)
     {
         return;

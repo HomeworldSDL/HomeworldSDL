@@ -602,7 +602,7 @@ bool SaveGame(char *filename)
 {
     sdword i;
 
-    savefile = fileOpen(filename,FF_WriteMode|FF_ReturnNULLOnFail);
+    savefile = fileOpen(filename, FF_WriteMode | FF_ReturnNULLOnFail | FF_UserSettingsPath);
     if (savefile == NULL)
     {
         return FALSE;
@@ -687,7 +687,7 @@ sdword VerifySaveFile(char *filename)
 {
     sdword verify;
 
-    savefile = fileOpen(filename,FF_ReturnNULLOnFail);
+    savefile = fileOpen(filename, FF_ReturnNULLOnFail | FF_UserSettingsPath);
     if (savefile == NULL)
     {
         return VERIFYSAVEFILE_ERROROPENING;
@@ -714,7 +714,7 @@ void PreLoadGame(char *filename)
 {
     sdword verify;
 
-    savefile = fileOpen(filename,0);
+    savefile = fileOpen(filename, FF_UserSettingsPath);
     verify = LoadVersionInfo();
     if (verify != VERIFYSAVEFILE_OK)
     {

@@ -366,13 +366,22 @@ void SaveFilePacketToFile(FilePacket *fpacket)
     // and file.c, file.h is not reentrant (and we're not writing to a big file)
 
     FILE *outFile;
-    char file[250];
+    char file[PATH_MAX];
+    char *ch0, ch1;
     sdword lengthWrote;
     sdword filecontentssize = fpacket->packetheader.frame;
     sdword filenamesize = fpacket->packetheader.numberOfCommands;
 
     strcpy(file,filePrependPath);
     strcat(file,fpacket->filename);
+
+    if (!fileMakeDestinationDirectory(file))
+    {
+        titanDebug("autodownloadmap: WARNING could not create destination "
+                   "directory for %s\n",
+                   file);
+        return;
+    }
 
     if ((outFile = fopen(file, "wb")) == NULL)           //open the file
     {

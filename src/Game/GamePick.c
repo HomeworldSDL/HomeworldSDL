@@ -256,7 +256,7 @@ sdword gpCountTrainingSavegames(void)
 #ifdef _WIN32
     strcat(fileSearch, "*.*");
 
-    startHandle = handle = _findfirst(filePathPrepend(fileSearch, 0), &find);
+    startHandle = handle = _findfirst(filePathPrepend(fileSearch, FF_UserSettingsPath), &find);
 
     while (handle != -1)
     {
@@ -268,7 +268,7 @@ sdword gpCountTrainingSavegames(void)
         handle = _findnext(startHandle, &find);
     }
 #else
-    dp = opendir(filePathPrepend(fileSearch, 0));
+    dp = opendir(filePathPrepend(fileSearch, FF_UserSettingsPath));
     if (!dp)
         return 0;
 
@@ -324,7 +324,7 @@ void gpTitleListLoad(void)
 #ifdef _WIN32
     strcat(fileSearch,"*.*");
 
-    startHandle = handle = _findfirst(filePathPrepend(fileSearch, 0), &find);
+    startHandle = handle = _findfirst(filePathPrepend(fileSearch, FF_UserSettingsPath), &find);
 
     while (handle != -1)
     {
@@ -365,7 +365,7 @@ alreadyLoaded:;
         handle = _findnext(startHandle, &find);
     }
 #else
-    dp = opendir(filePathPrepend(fileSearch, 0));
+    dp = opendir(filePathPrepend(fileSearch, FF_UserSettingsPath));
 
     if (dp)
     {

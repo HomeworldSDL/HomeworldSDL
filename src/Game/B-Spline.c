@@ -29,6 +29,7 @@
 void bsStartup(void)
 {
 #if BS_TEST
+    char *fileName;
     FILE *fp;
     splinecurve *curve;
     static real32 points[] = {0.0f, 1.0f, -1.0f, -0.5f, 0.0f, -2.0f, -1.2f};
@@ -39,7 +40,8 @@ void bsStartup(void)
     real32 time, value = 0.0f;
     sdword point;
 
-    fp = fopen("b-spline.chart", "wt");
+    fileName = filePathPrepend("b-spline.chart", FF_UserSettingsPath);
+    fp = fopen(fileName, "wt");
     if (fp != NULL)
     {
         curve = bsCurveStart(7, points, times, tcbs, TRUE);
