@@ -1,0 +1,4 @@
+Homeworld SDL - Change log
+
+* Sat Oct 11 2003:
+- Initial release (no sound or network support, OpenGL rendering only)

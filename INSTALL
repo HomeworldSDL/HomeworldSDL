@@ -1,0 +1,145 @@
+Homeworld SDL - Source Installation Instructions
+Version 0.1 alpha
+http://www.thereisnospork.com/projects/homeworld/
+---
+
+Homeworld © 1999-2000 Sierra On-Line, Inc.  All Rights Reserved.
+Homeworld is a registered trademark, and Sierra and Sierra Studios are
+registered trademarks of Sierra On-Line, Inc.  Relic is a trademark of Relic
+Entertainment, Inc.
+
+SDL/Linux port by Ted Cipicchio <ted@thereisnospork.com>
+
+------------------------------------------------------------------------------
+
+*** IMPORTANT BUILD INSTRUCTIONS - MUST READ!! ***
+
+Please read through the following instructions if you plan to build and run
+Homeworld in Linux:
+
+Homeworld for Linux is still fairly early in development, and as such the
+code is somewhat of a mess right now.  Since Homeworld was not designed to be
+compiled and installed using the typical "configure/make/make install" process
+found with most open source Unix software, you'll need to keep a few things in
+mind while trying to get the game running.
+
+The build process itself is relatively straight-forward, as running
+"./configure" followed by "make" from within the project's directory will
+still build the required files.  I have tried to set everything up such that
+"make install" will work, but you will still need to do a few things before
+running.
+
+The game requires that you have the data files from the original Homeworld.
+They have not been provided as they are not freely available, and the game
+will not run without them.  You will need at least the follwing data files
+(all within the same directory):
+
+- Homeworld.big
+- devstats.dat
+- Update.big (if it exists, which it should if you patched the game)
+
+Other data files may be used at a later time as progress continues, but for
+now these will do.  Note that the files in the "Movies" directory will more
+than likely never be used, as they use the Bink codec and would require a
+commercial license for playback.
+
+The binary will be able to find the game data in one of two ways:
+
+- The environment variable "HW_Data" (case-sensitive, without quotes) can be
+  set to the path where the game data is located.  For example, if you put the
+  data in /usr/local/share/homeworld, you could run the game by typing the
+  following from the command line:
+
+    HW_Data=/usr/local/share/homeworld homeworld
+
+- If the "HW_Data" environment variable is not set, or the path specified by
+  it cannot be found, the game will check the current directory.  For example,
+  if you put the game data in a directory called "hw", you would only need to
+  change to that directory and run "homeworld" without specifying anything for
+  "HW_Data", and the executable should be able to find the data without any
+  problem
+
+For saved games, you will also need to create a "SavedGames" directory within
+the same directory as the Homeworld data.  This directory will also need to
+contain the following subdirectories:
+
+- Training      (for saving your point in the training mission)
+- SinglePlayer  (for saving single-player games)
+- RecordedGames (for saving recorded games)
+
+These mirror the saved game directory structure in the original Homeworld.
+Note that directory names are case-sensitive, and they should be writable by
+whatever user you use to run the game.  Also note that unlike in the original
+Homeworld, we don't use the "MultiPlayer" save game directory, as the Linux
+port does not have multiplayer support (such code was not released due to
+licensing).
+
+You should also create a "ScreenShots" directory if you want to save
+screenshots.  This will also need to be writable by the user used to run the
+game.
+
+(Eventually, these directories will no longer be needed, as we're trying to
+move all saved games and user settings into a directory called ".homeworld"
+within the user's home directory.  This is already done for settings, and will
+likely be done for saved games in the next release.)
+
+Even though the data is installed, you will still need to have the Homeworld
+CD in your CD-ROM drive AND mounted.  This may no longer be needed at a later
+point (assuming Relic has no issues with disabling all the CD checking code).
+The game will check that the CD is mounted on "/mnt/cdrom", but if you use a
+different mount point, you will need specify it with the "HW_CDROM"
+environment variable.
+
+NOW you should be able to start the game...but wait!  There's one last thing
+you need to know!
+
+When Homeworld first starts up, it uses the software renderer.  Unfortunately,
+the porting of the software renderer is not yet complete (3D geometry will not
+render properly, if at all), so you will need to switch to the OpenGL
+renderer.  To do so, perform the following steps:
+
+- Select "Options" from the main game menu.
+- Select "Video" from the available options sub-menus listed on the right side
+  of the screen.
+- Select "(GL) Default OpenGL" from the "Rendering System" box.
+- Choose a resultion from the "Resolution" box (any resolution you choose will
+  do fine).
+- Click on the "Accept!" button in the bottom-right corner of the screen.
+
+(Note that there is currently a bug where the front end and menus are
+displayed incorrectly when switching resolutions.  For now, if you change the
+resolution, just quit and restart Homeworld and everything should be displayed
+fine.)
+
+The game will now attempt to switch to the OpenGL renderer.  If everything
+goes okay, you should be presented with a confirmation that the settings you
+requested were changed.  Select "Yes", and you should be ready to go!
+
+The settings you choose will also be saved when you quit, so you don't have to
+reselect the OpenGL renderer every time.
+
+------------------------------------------------------------------------------
+
+*** A NOTE ABOUT OPTIMIZATION ***
+
+Various parts of the Homeworld source code do not play particularly well when
+compiler optimization is enabled (i.e. using the "-O" or "-O[123]" flags with
+GCC).  The source files containing such problem areas have been pinpointed in
+the game code, and steps have been made to disable optimization for these
+files until the code can be altered such that enabling optimization won't
+thrash the output.  On the other hand, there are issues with the software
+renderer that affect 2D drawing (such as the menus) which have not been
+pinpointed yet.  For the time being, the software renderer cannot be built
+with compiler optimizations, so optimization has been disabled for ALL of the
+rgl library code.
+
+Also of note is that the "-fomit-frame-pointer" flag should not be used, as
+Homeworld uses various assembly techniques that rely on the frame pointer for
+many functions.  While the original Windows version uses "#pragma" statements
+to force this on a per-function basis, GCC only provides the
+"-fno-omit-frame-pointer" flag to force the frame pointer on a per-file basis.
+Because of this, most of the game will be compiled with support for the frame
+pointer regardless of the optimization level.  In the future, the functions
+that rely on the frame pointer may be separated from the rest of the code such
+that the game can benefit from the potential speed increase provided by the
+"-fomit-frame-pointer" flag.

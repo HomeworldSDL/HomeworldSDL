@@ -1,0 +1,164 @@
+Homeworld SDL - README
+Version 0.1 alpha
+http://www.thereisnospork.com/projects/homeworld/
+---
+
+Homeworld © 1999-2000 Sierra On-Line, Inc.  All Rights Reserved.
+Homeworld is a registered trademark, and Sierra and Sierra Studios are
+registered trademarks of Sierra On-Line, Inc.  Relic is a trademark of Relic
+Entertainment, Inc.
+
+SDL/Linux port by Ted Cipicchio <ted@thereisnospork.com>
+
+------------------------------------------------------------------------------
+
+(Please refer to the file INSTALL for installation instructions, along with
+building instructions if you are using the source package.  It contains some
+very important information on getting Homeworld to work under Linux.)
+
+---
+
+On September 26, 2003, Relic Entertainment released the source code to
+Homeworld, a 3D real-time strategy game set in space.  Homeworld, originally
+released in 1999, was dubbed "Game of the Year" by PC Gamer and "Strategy Game
+of the Year" by Computer Gaming World.
+
+This a Linux port of the Homeworld code released by Relic.  It is still in a
+very early state, and many of the features (and stability) of the Windows
+version are not yet implemented.
+
+Current features include:
+- OpenGL support
+- Saved game compatability with the Windows version
+
+Features yet to be ported:
+- Software and Glide renderers
+- Sound support :(
+
+Cutscenes are stored in Bink format, which requires a license for playback.
+As such, support for in-game cutscenes is not planned.
+
+Network support in Homeworld uses a third-party library whose source was also
+not included with the game source.  As such, network support is currently not
+planned, but it is possible that it may be reimplemented at a later time
+(although not compatible with WONnet or the original Windows version of
+Homeworld).
+
+------------------------------------------------------------------------------
+
+* Frequently Unasked Questions (FUQ) *
+
+This is only the first release, so there aren't really any frequently asked
+questions at this time.  Here's a few I'm anticipating though...
+
+Q. When I try to run the game, I get the message "Invalid or missing Homeworld
+   CD. Please insert valid CD." on the command line.
+
+A. The game still requires the original Homeworld CD to run.  The CD will need
+   to be mounted prior to starting the game.
+   
+   The game assumes your CD mount point is "/mnt/cdrom", but if this is not
+   the case, you will need to specify your mount point using the "HW_CDROM"
+   environment variable.  Just set it to the path used as the CD mount point.
+   For example, if your CD is mounted on "/mnt/dvdrom", you can specify the
+   following line at a command prompt prior to running the game:
+
+     export HW_CDROM=/mnt/dvdrom
+
+   CD checking may be removed in a later release.  Not much besides the
+   Windows-specific code, network, and sound code have been changed from the
+   original source.  Initial development has focused around changing what is
+   necessary to get the game up and running under Linux, so most of the
+   original code (including parts of CD checking) is still intact.
+
+---
+
+Q. When I try to run the game, I get the message "Fatal Error: Couldn't
+   initialize default rendering system. Error creating window" on the command
+   line.
+
+A. This is caused by the fact that Homeworld cannot load the software
+   renderer (librgl.so and librglsw.so).  If you installed the game from
+   source, these are likely to be in the default library installation
+   directory (probably "/usr/local/lib" or "/usr/lib").  If you are using the
+   pre-built version, here's a few ideas that might help:
+
+   - Check to make sure the "lib" directory exists in the same directory as
+     the Homeworld executable.  This directory should contain the files
+     "librgl.so" and "librglsw.so".
+
+   - Make sure you are trying to run the game from the same directory as the
+     Homeworld executable ("homeworld") and the "lib" directory.  Also make
+     sure the file "homeworld.bin" exists in the same directory ("homeworld"
+     is simply a wrapper script which is used to make sure the required
+     libraries can be found by the game at runtime).
+
+   Remember that this is still a work in progress.  You can always try to
+   build from source, too. :)
+
+---
+
+Q. Why do I have no sound?
+
+A. It's not quite there yet. :(  For starters, the Homeworld sound code was
+   heavily tied into Windows and DirectSound.  On top of that, various sound
+   related functions are used for which the source was not provided.  It is
+   unknown when sound will be ready, but rest assured it is planned.
+
+---
+
+Q. When I try to start a network game, I get the message "Could not start
+   Internet TCP/IP" (or "Could not start LAN IPX or LAN TCP/IP" for a LAN
+   game), yet my network connection is working just fine.
+
+A. The Windows version of Homeworld relies on a 3rd party library for network
+   support, including support for Internet play using WONnet.  Unfortunately,
+   Relic could not release the source to this library, and as such it could
+   not be ported to Linux.
+
+   It may be possible to recreate network support from scratch for use with
+   this version of Homeworld (although not compatible with WONnet or the
+   Windows version of the game), but it is not planned at this time.
+
+---
+
+Q. When I try to start a game, I can't see anything, or I see only text and
+   messages (and possibly stars).
+
+A. Chances are, you're trying to use the software renderer.  The software
+   renderer is selected by default when you start up the game for the first
+   time, but it unfortunately does not work completely yet.
+
+   Only the OpenGL renderer can be used to play a game at this point of time.
+   You can select it by performing the following steps:
+   
+   - Select "Options" from the main game menu.
+
+   - Select "Video" from the available options sub-menus listed on the right
+     side of the screen.
+   - Select "(GL) Default OpenGL" from the "Rendering System" box.
+   - Choose a resultion from the "Resolution" box (any resolution you choose
+     will do fine).
+   - Click on the "Accept!" button in the bottom-right corner of the screen.
+
+   The game will now attempt to switch to the OpenGL renderer.  If everything
+   goes smoothly, you should be presented with a confirmation that the
+   settings you requested were changed.  Select "Yes", and you should be ready
+   to go!
+
+   The settings you choose will also be saved when you quit, so you don't have
+   to reselect the OpenGL renderer every time.
+
+
+---
+
+Q. I'm having some other issue that's not covered in this document.
+
+A. That's understandable. =]  This still a very early release, and as such is
+   far from being considered "complete".  If you come across a bug not
+   mentioned in this document, the BUGS file included in the package, or at
+   the project website (listed at the top of this document), please let us
+   know about the bug.  It would help to include as much information as
+   possible about your system and what actions were performed to expose the
+   bug.  If the bug can be reproduced, it will make hunting down and fixing
+   the bug much easier.

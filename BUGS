@@ -1,0 +1,15 @@
+Known bugs (as of 2003-10-11):
+
+- Software renderer currently does not render 3D graphics properly (looks like
+  it's not rendering any 3D for the most part, with triangles popping at
+  various times).
+
+- Various warnings (i.e. MEX files not found) are given during level loading
+  (single player game or training mission).  I'm not sure whether this is a
+  bug with porting the game or with the original code.
+
+- Switching resolutions (with the OpenGL renderer) will cause the front end
+  to display incorrectly (user interface is off center, main menu displays
+  with a black border if the new resolution is higher than the old
+  resolution).  3D rendering is not affected.  Restarting Homeworld causes the
+  new display settings to initialize correctly.
