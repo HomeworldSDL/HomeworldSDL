@@ -20,6 +20,11 @@
 
 #define EQ_STEP			0.1
 
+#ifdef _WIN32
+#define SDL_BUFFERSIZE  4*FQ_SIZE
+#else
+#define SDL_BUFFERSIZE  FQ_SIZE
+#endif
 
 typedef struct
 {
@@ -42,7 +47,6 @@ bool soundinited = FALSE;
 BANK *bank;
 PATCH *patches;
 sdword channelsinuse = 0;
-bool bDirectSoundCertified = FALSE;
 real32 masterEQ[FQ_SIZE];
 bool bSoundPaused = FALSE;
 bool bSoundDeactivated = FALSE;
@@ -153,6 +157,9 @@ void sounddeactivate(bool bDeactivate)
 	if (soundinited)
 	{
 		bSoundDeactivated=bDeactivate;
+		if (! bDeactivate) {
+		    SDL_PauseAudio(FALSE);
+		}
 	}
 
 	/* reset panic mode */
@@ -211,13 +218,12 @@ sdword soundinit(bool mode)
 	useWaveout = TRUE;
 	useDSound = FALSE;
 	coopDSound = FALSE;
-	bDirectSoundCertified = FALSE;
 
 	// Set up wave format structure.
 	aspec.freq = FQ_RATE;
 	aspec.format = AUDIO_S16;
 	aspec.channels = 2;
-	aspec.samples = FQ_SIZE;
+	aspec.samples = SDL_BUFFERSIZE;
 	aspec.callback = soundfeedercb;
 	aspec.userdata = NULL;
 
@@ -230,8 +236,13 @@ sdword soundinit(bool mode)
 	    result = SOUND_ERR;
 	} else {
 	    soundinited = TRUE;
+	    SDL_PauseAudio(FALSE);
+	    mixer.status = SOUND_PLAYING;
 	    result = SOUND_OK;
 	}
+
+	dbgAssert(aspec.samples == SDL_BUFFERSIZE);
+
 	return result;
 }
 
@@ -242,7 +253,6 @@ sdword soundreinit()
 	useWaveout = TRUE;
 	useDSound = FALSE;
 	coopDSound = FALSE;
-	bDirectSoundCertified = FALSE;
 
 	return SOUND_ERR;
 }
@@ -287,6 +297,8 @@ void soundpause(bool bPause)
 			mixer.timeout = mixerticks + SOUND_FADE_MIXER;
 			streamer.timeout = mixerticks + SOUND_FADE_MIXER;
 		}
+		/* No SDL_PauseAudio(TRUE) immediately here; that
+		   happens in smixer.c after the above timeout */
 
 		bSoundPaused = bPause;
 
@@ -299,7 +311,8 @@ void soundpause(bool bPause)
 				musicEventUpdateVolume();
 				SDL_Delay(0);
 			}
-
+		} else {
+		    SDL_PauseAudio(FALSE);
 		}
 	}
 }
