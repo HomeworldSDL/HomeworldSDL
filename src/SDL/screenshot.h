@@ -9,7 +9,7 @@
 #ifndef _SCREENSHOT_H
 #define _SCREENSHOT_H
 
-#define SS_SCREENSHOTS          1
+#define SS_SCREENSHOTS         1
 #ifndef HW_Release
 
 #define SS_ERROR_CHECKING      1               //basic error checking
@@ -18,7 +18,7 @@
 #else //HW_Debug
 
 #define SS_ERROR_CHECKING      0               //no error ckecking in retail
-#define SS_VERBOSE_LEVEL       0               //don't print any verbose strings in retail
+#define SS_VERBOSE_LEVEL       1               //SDL prints screenshot path; was 0 for retail
 
 #endif //HW_Debug
 #include "Types.h"

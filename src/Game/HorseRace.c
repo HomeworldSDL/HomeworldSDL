@@ -447,39 +447,15 @@ void hrChooseRandomBitmap(char *pFilenameBuffer)
     FILE* fp;
 #endif
     filehandle handle;
-    long FileCount, BigFileCount, WhichFile, Result;
+    long userScreenShotCount = 0, BigFileCount = 0,
+         chosenFileIndex = 0, currentFileIndex = 0, Result;
     char BigName[PATH_MAX], CurDir[PATH_MAX], NewDir[PATH_MAX];
-
-    FileCount = BigFileCount = 0;
-
-    /*GetCurrentDirectory(511, CurDir);*/
-    getcwd(CurDir, PATH_MAX);
-
-    // First, find screen shots listed in the BigFile
-#ifdef _WIN32
-    handle = fileOpen("ScreenShots\\ShotList.script", FF_ReturnNULLOnFail | FF_TextMode);
-#else
-    handle = fileOpen("ScreenShots/ShotList.script", FF_ReturnNULLOnFail | FF_TextMode);
-#endif
-    if(handle)
-    {
-        do {
-            Result = fileLineRead(handle, BigName, 512);
-
-            if(Result != FR_EndOfFile && Result > 0)    // Found one!
-                BigFileCount++;
-
-        } while(Result != FR_EndOfFile);
-
-        fileClose(handle);
-    }
-
-    // Tell the file count how many pics were in the BigFile
-    FileCount = BigFileCount;
 
     NewDir[0] = 0;
     strcpy(NewDir, filePathPrepend("ScreenShots", FF_UserSettingsPath));
 
+    // Prefer user screenshots over pre-saved ones; they're more likely to be 
+    // at a higher resolution, not to mention more interesting...
 
     // Switch to the screenshots directory and count the ones in there
     /*SetCurrentDirectory(NewDir);*/
@@ -491,7 +467,7 @@ void hrChooseRandomBitmap(char *pFilenameBuffer)
         do {
             if( ((FindData.attrib & _A_SUBDIR) == 0) &&
                 ((FindData.attrib & _A_HIDDEN) == 0) )
-                FileCount++;
+                userScreenShotCount++;
         } while (_findnext(hFind, &FindData) == 0);
         _findclose(hFind);
     }
@@ -517,58 +493,17 @@ void hrChooseRandomBitmap(char *pFilenameBuffer)
                 continue;
             fclose(fp);
 
-            FileCount++;
+            userScreenShotCount++;
         }
 
         closedir(dp);
     }
 #endif
 
-    // Did we find any at all?
-    if(FileCount == 0)
+    if (userScreenShotCount > 0)
     {
-        pFilenameBuffer[0] = 0;
-        /*SetCurrentDirectory(CurDir);*/
-        chdir(CurDir);
-        return;
-    }
+        chosenFileIndex = (utyTimerLast % 32777) % userScreenShotCount;
 
-    WhichFile = (utyTimerLast % 32777) % FileCount;
-
-    if(WhichFile < BigFileCount)
-    {
-        // The file we want is in the bigfile script
-#ifdef _WIN32
-        handle = fileOpen("ScreenShots\\ShotList.script", FF_ReturnNULLOnFail | FF_TextMode);
-#else
-        handle = fileOpen("ScreenShots/ShotList.script", FF_ReturnNULLOnFail | FF_TextMode);
-#endif
-        if(handle)
-        {
-            do {
-                Result = fileLineRead(handle, BigName, 512);
-
-                if(Result != FR_EndOfFile && Result > 0)    // Found one!
-                    WhichFile--;
-
-            } while( (WhichFile >= 0) && (Result != FR_EndOfFile));
-#ifdef _WIN32
-            strcpy(pFilenameBuffer, "ScreenShots\\");
-#else
-            strcpy(pFilenameBuffer, "ScreenShots/");
-#endif
-            strcat(pFilenameBuffer, BigName);
-            /*SetCurrentDirectory(CurDir);*/
-            chdir(CurDir);
-            return;
-        }
-    }
-    else
-    {
-        // The file we want is in the screenshots directory, so
-        // remove BigFileCount from the file index we're looking for
-        WhichFile -= BigFileCount;
-        FileCount = 0;
 #ifdef _WIN32
         hFind = _findfirst("*.jpg", &FindData);
         if(hFind != -1)
@@ -577,7 +512,7 @@ void hrChooseRandomBitmap(char *pFilenameBuffer)
                 if( ((FindData.attrib & _A_SUBDIR) == 0) &&
                     ((FindData.attrib & _A_HIDDEN) == 0) )
                 {
-                    if(FileCount == WhichFile)
+                    if(currentFileIndex == chosenFileIndex)
                     {
                         _findclose(hFind);
                         SetCurrentDirectory(CurDir);
@@ -586,7 +521,7 @@ void hrChooseRandomBitmap(char *pFilenameBuffer)
                         return;
                     }
                     else
-                        FileCount++;
+                        currentFileIndex++;
                 }
             } while (_findnext(hFind, &FindData) == 0);
         }
@@ -609,14 +544,15 @@ void hrChooseRandomBitmap(char *pFilenameBuffer)
                     continue;
                 fclose(fp);
 
-                if (FileCount != WhichFile)
+                if (currentFileIndex != chosenFileIndex)
                 {
-                    FileCount++;
+                    currentFileIndex++;
                     continue;
                 }
 
-                strcpy(pFilenameBuffer, "ScreenShots/");
+                strcat(pFilenameBuffer, filePathPrepend("ScreenShots/", FF_UserSettingsPath));
                 strcat(pFilenameBuffer, dir_entry->d_name);
+                
                 break;
             }
 
@@ -624,6 +560,64 @@ void hrChooseRandomBitmap(char *pFilenameBuffer)
         }
 #endif
     }
+    else // look in the big file for fallback images
+    {   
+        /*GetCurrentDirectory(511, CurDir);*/
+        getcwd(CurDir, PATH_MAX);
+
+        // First, find screen shots listed in the BigFile
+#ifdef _WIN32
+        handle = fileOpen("ScreenShots\\ShotList.script", FF_ReturnNULLOnFail | FF_TextMode);
+#else
+        handle = fileOpen("ScreenShots/ShotList.script", FF_ReturnNULLOnFail | FF_TextMode);
+#endif
+        if(handle)
+        {
+            do {
+                Result = fileLineRead(handle, BigName, 512);
+
+                if(Result != FR_EndOfFile && Result > 0)    // Found one!
+                    BigFileCount++;
+
+            } while(Result != FR_EndOfFile);
+
+            fileClose(handle);
+        }
+        
+        if (BigFileCount > 0)
+        {
+            chosenFileIndex = (utyTimerLast % 32777) % BigFileCount;
+
+#ifdef _WIN32
+            handle = fileOpen("ScreenShots\\ShotList.script", FF_ReturnNULLOnFail | FF_TextMode);
+#else
+            handle = fileOpen("ScreenShots/ShotList.script", FF_ReturnNULLOnFail | FF_TextMode);
+#endif
+            if(handle)
+            {
+                do {
+                    Result = fileLineRead(handle, BigName, 512);
+
+                    if(Result != FR_EndOfFile && Result > 0)    // Found one!
+                        chosenFileIndex--;
+
+                } while( (chosenFileIndex >= 0) && (Result != FR_EndOfFile));
+#ifdef _WIN32
+                strcpy(pFilenameBuffer, "ScreenShots\\");
+#else
+                strcpy(pFilenameBuffer, "ScreenShots/");
+#endif
+                strcat(pFilenameBuffer, BigName);
+            }
+        }
+    }
+
+    // Did we find any at all?
+    if(userScreenShotCount == 0 && BigFileCount == 0)
+    {
+        pFilenameBuffer[0] = 0;
+    }
+
     /*SetCurrentDirectory(CurDir);*/
     chdir(CurDir);
 }

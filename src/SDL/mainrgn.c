@@ -2619,7 +2619,12 @@ docapslock:
             break;
 
 #if MR_SCREENSHOTS
+
+        // MAC OS X captures F14/F15 (SCROLLKEY/PAUSEKEY) for changing monitor 
+        // brightness so we remap the screenshot functionality to F13 (PRINTKEY)
         case SCROLLKEY:
+        case PRINTKEY:
+
 #if MAIN_Password
             if (mainScreenShotsEnabled)
 #endif //MAIN_Password
@@ -2634,7 +2639,9 @@ docapslock:
                 rglFeature(RGL_MULTISHOT_END);
             }*/
             break;
+
 #endif //MR_SCREENSHOTS
+
 #if MR_TEST_HPB
         case OKEY:
             if (keyIsHit(CONTROLKEY))
