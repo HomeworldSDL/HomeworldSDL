@@ -518,10 +518,9 @@ void hrChooseRandomBitmap(char *pFilenameBuffer)
                     if(currentFileIndex == chosenFileIndex)
                     {
                         _findclose(hFind);
-                        SetCurrentDirectory(CurDir);
-                        strcpy(pFilenameBuffer, "ScreenShots\\");
+                        strcpy(pFilenameBuffer, filePathPrepend("ScreenShots\\", FF_UserSettingsPath));
                         strcat(pFilenameBuffer, FindData.name);
-                        return;
+                        break;
                     }
                     else
                         currentFileIndex++;
