@@ -12,10 +12,9 @@
 #ifndef ___TYPES_H
 #define ___TYPES_H
 
-#ifdef _KAS2C
-    #ifdef _MACOSX
-        #include "/Library/Frameworks/SDL.framework/Headers/SDL_types.h"
-    #endif
+// Mac OS X tools need to see the SDL framework directly
+#if defined( _MACOSX ) && !defined( HW_Release )
+    #include "/Library/Frameworks/SDL.framework/Headers/SDL_types.h"
 #else
     #include "SDL_types.h"
 #endif

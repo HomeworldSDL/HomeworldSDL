@@ -12,4 +12,6 @@
 
 /usr/bin/lex -i -olexer.c lexer.l
 /usr/bin/yacc -d -o parser.c parser.y
-/usr/bin/gcc lexer.c parser.c parser.h kas2c.c kas2c.h -o kas2c -D_MACOSX -D_KAS2C
+/usr/bin/gcc lexer.c parser.c parser.h kas2c.c kas2c.h -o kas2c -D_MACOSX
+
+exit 0
