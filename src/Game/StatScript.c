@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <strings.h>
+#include <limits.h>
 #include "Types.h"
 #include "ObjTypes.h"
 #include "Debug.h"
@@ -892,7 +893,7 @@ void scriptSetFileSystem(char *directory,char *filename,scriptEntry info[])
     FILE *fh;
     char line[MAX_LINE_CHARS];
     char *name, *value;
-    char fullfilename[80];
+    char fullfilename[PATH_MAX];
     scriptEntry *foundentry;
 
     if (directory != NULL)

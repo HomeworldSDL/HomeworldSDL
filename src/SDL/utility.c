@@ -1137,7 +1137,7 @@ void utyOptionsFileRead(void)
 {
 #ifndef _WIN32
     char* home_dir;
-    char ch_buf[128];
+    char ch_buf[PATH_MAX];
 #endif
     /*
     sdword index;
@@ -1167,7 +1167,7 @@ void utyOptionsFileRead(void)
     if (home_dir)
     {
         strcpy(ch_buf, home_dir);
-        strcat(ch_buf, "/" CONFIGDIR);
+        strcat(ch_buf, "/" CONFIGDIR "/");
     }
     else
     {
