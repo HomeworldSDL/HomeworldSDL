@@ -248,6 +248,7 @@ void spScenarioNameDraw(featom *atom, regionhandle region)
 char *spTitleFind(char *directory, char *fileName)
 {
     char string[256], fullName[PATH_MAX];
+    char *ptr;
     filehandle handle;
     sdword status;
 
@@ -260,12 +261,16 @@ char *spTitleFind(char *directory, char *fileName)
 #endif
     strcat(fullName, fileName);
     strcat(fullName,".level");
+
     handle = fileOpen(fullName, FF_TextMode|FF_ReturnNULLOnFail);
     if (!handle)
     {
         return NULL;
     }
 
+    // go through the .level file and find the title which is expected to look
+    // like ^[<title text>]$ but some editors leave trailing whitespace at the
+    // end which we need to take account of 
     for (;;)
     {
         status = fileLineRead(handle,string,256);
@@ -275,16 +280,33 @@ char *spTitleFind(char *directory, char *fileName)
             break;
         }
 
+        // blank lines, comments (;) etc
         if ((string[0] == '\n') || (string[0] == '/') || (string[0] == ';') || (string[0] == ' '))
         {
             continue;
         }
 
-        if (strlen(string) >= 3 && *string == '[' && string[strlen(string) - 1] == ']')
+        if (string[0] == '[')
         {
-            fileClose(handle);
-            string[strlen(string) - 1] = 0;
-            return(memStringDupe(&string[1]));
+            // could use strchr here to find the closing square bracket but there is
+            // always the possibility someone has created a map with square brackets
+            // in the name so for the sake of backwards compatibility...
+            
+            // look for '[' starting at end of string
+            ptr = string + strlen(string) - 1; // last character
+            while (*ptr != ']' && ptr > string)
+            {
+                ptr--;
+            }
+            
+            // title must be at least one character so string must be at least three
+            // with enclosing square brackets: "t" -> "[t]"
+            if (strlen(string) >= 3 && *ptr == ']')
+            {
+                fileClose(handle);
+                *ptr = '\0';
+                return(memStringDupe(&string[1]));
+            }
         }
     }
 
@@ -389,8 +411,7 @@ void spTitleListLoad(void)
                 memset(fileName, 0, PATH_MAX);
                 memStrncpy(fileName, nameBuffer, pString - nameBuffer + 1);//copy the start of the string
                 memStrncpy(bitmapfileName, nameBuffer, pString - nameBuffer + 1);//copy the start of the string
-                strcat(fileName, "%d");                     //make something like:
-                strcat(fileName, pString + 1);              //'StdGame%d.level'
+                strcat(fileName, "%d");                     //make something like: 'StdGame%d'
             }
         }
 
@@ -437,6 +458,7 @@ void spTitleListLoad(void)
             spScenarioListLength += SP_ScenarioListGrowth;
             spScenarios = memRealloc(spScenarios, spScenarioListLength * sizeof(spscenario), "spScenarios", NonVolatile);
         }
+		
         dbgAssert(spNumberScenarios < spScenarioListLength);
         spScenarios[spNumberScenarios].fileSpec = memStringDupe(fileName);
         spScenarios[spNumberScenarios].bitmapfileSpec = memStringDupe(bitmapfileName);
@@ -469,8 +491,7 @@ alreadyLoaded:;
                 memset(fileName, 0, PATH_MAX);
                 strncpy(fileName, find.name, pString - find.name);//copy the start of the string
                 memStrncpy(bitmapfileName, find.name, pString - find.name + 1);//copy the start of the string
-                strcat(fileName, "%d");                     //make something like:
-                strcat(fileName, pString + 1);              //'StdGame%d.level'
+                strcat(fileName, "%d");                     //make something like: 'StdGame%d'
             }
         }
         if (numplayers == 0)
@@ -540,16 +561,17 @@ alreadyLoadedFromFileSystem:;
 
             fileName[0] = 0;
             numplayers = 0;
-            while ((pString = strpbrk(pString, "0123456789")))
-            {                                               /*search for a numeral character*/
-				sscanf( pString, "%d", &numplayers );
-                memset(fileName, 0, PATH_MAX);
-                strncpy(fileName, dir_entry->d_name,
-                    pString - dir_entry->d_name);           /*copy the start of the string*/
-                memStrncpy(bitmapfileName, dir_entry->d_name,
-                    pString - dir_entry->d_name + 1);       /*copy the start of the string*/
-                strcat(fileName, "%d");                     /*make something like:*/
-                strcat(fileName, pString + 1);              /*'StdGame%d.level'*/
+			
+            for (pString = dir_entry->d_name; *pString != 0; pString++)
+            {                                                   //search for a numeral character
+                if (strchr("0123456789", *pString) != NULL)
+                {                                               //if this is a numeral
+                    sscanf( pString, "%d", &numplayers );
+                    memset(fileName, 0, PATH_MAX);
+                    memStrncpy(fileName, dir_entry->d_name, pString - dir_entry->d_name + 1);       //copy the start of the string
+                    memStrncpy(bitmapfileName, dir_entry->d_name, pString - dir_entry->d_name + 1); //copy the start of the string
+                    strcat(fileName, "%d");                     //make something like: 'StdGame%d'
+                }
             }
 
             if (numplayers == 0)
@@ -561,6 +583,7 @@ alreadyLoadedFromFileSystem:;
             title = spTitleFind("MultiPlayer/", dir_entry->d_name);
             if (title == NULL)
                 continue;
+                
 #if MAIN_Password
             if (!mainEnableSpecialMissions)
             {                                               /*if this is an "off-limits" mission*/
@@ -592,6 +615,7 @@ alreadyLoadedFromFileSystem:;
                 spScenarioListLength += SP_ScenarioListGrowth;
                 spScenarios = memRealloc(spScenarios, spScenarioListLength * sizeof(spscenario), "spScenarios", NonVolatile);
             }
+			
             dbgAssert(spNumberScenarios < spScenarioListLength);
             spScenarios[spNumberScenarios].fileSpec = memStringDupe(fileName);
             spScenarios[spNumberScenarios].bitmapfileSpec = memStringDupe(bitmapfileName);
