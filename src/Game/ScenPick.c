@@ -292,7 +292,7 @@ char *spTitleFind(char *directory, char *fileName)
             // always the possibility someone has created a map with square brackets
             // in the name so for the sake of backwards compatibility...
             
-            // look for '[' starting at end of string
+            // look for ']' starting at end of string
             ptr = string + strlen(string) - 1; // last character
             while (*ptr != ']' && ptr > string)
             {
