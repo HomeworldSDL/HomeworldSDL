@@ -1,7 +1,8 @@
-#if defined(__LITTLE_ENDIAN__)
+//#if defined(__LITTLE_ENDIAN__)
+#ifndef ENDIAN_BIG
 
     /* Actor Flags */
-    #define ACTOR_PILOT_FLAG						1023		//	0x000003FF
+    #define ACTOR_PILOT_FLAG						1024		//	0x00000400
     #define ACTOR_FLEETCOMMAND_FLAG					2048        //  0x00000800
     #define ACTOR_FLEETINTEL_FLAG					4096        //  0x00001000
     #define ACTOR_TRADERS_FLAG						8192        //  0x00002000
