@@ -1,1 +1,1 @@
-SUBDIRS = config src
+SUBDIRS = config tools src

@@ -1,7 +1,7 @@
 INCLUDES = -I$(top_srcdir)/src/Game -I$(top_srcdir)/src/JPG -I$(top_srcdir)/src/rgl -I$(top_srcdir)/src/SDL -I$(top_srcdir)/src/Ships
 
 # Note the ordering (we haven't defined the dependencies too strongly).
-SUBDIRS = kas2c Generated Game JPG rgl SDL Ships obj
+SUBDIRS = Generated Game JPG rgl SDL Ships obj
 
 bin_PROGRAMS = homeworld
 

@@ -10,8 +10,8 @@ libhw_Generated_a_SOURCES = Mission01.c Mission01.func.c Mission01.h Mission02.c
 
 # Kinda weak dependency on kas2c (doesn't build it if it doesn't exist), but
 # we should be fine as long as it's built first.
-%.c %.h %.func.c: %.kp $(top_builddir)/src/kas2c/kas2c$(EXEEXT)
-	$(top_builddir)/src/kas2c/kas2c$(EXEEXT) $< $(basename $@).c $(basename $@).h $(basename $@).func.c
+%.c %.h %.func.c: %.kp $(top_builddir)/tools/kas2c/kas2c$(EXEEXT)
+	$(top_builddir)/tools/kas2c/kas2c$(EXEEXT) $< $(basename $@).c $(basename $@).h $(basename $@).func.c
 
 # Single-player missions (note the "-x c" option to force C
 # preprocessing...don't know if this is very portable)
