@@ -1112,6 +1112,8 @@ void keyPressDown(udword key)
         key = SDLK_LCTRL;
     else if (key == SDLK_RALT)
         key = SDLK_LALT;
+    else if (key == SDLK_RMETA) // Apple/Command/"Windows" key
+        key = SDLK_LMETA;
 
     bool bypass = FALSE, shift = FALSE;
     keyScanType originalKey = keySaveScan[key];
@@ -1195,6 +1197,8 @@ void keyRepeat(udword key)
         key = SDLK_LCTRL;
     else if (key == SDLK_RALT)
         key = SDLK_LALT;
+    else if (key == SDLK_RMETA) // Apple/Command/"Windows" key
+        key = SDLK_LMETA;
 
 #if KEY_ERROR_CHECKING
     dbgAssert(key < KEY_TOTAL_KEYS);
@@ -1231,6 +1235,8 @@ void keyPressUp(udword key)
         key = SDLK_LCTRL;
     else if (key == SDLK_RALT)
         key = SDLK_LALT;
+    else if (key == SDLK_RMETA) // Apple/Command/"Windows" key
+        key = SDLK_LMETA;
 
     keySaveScan[key].keypressed = 0;
     keySaveScan[key].keynumpressed = 0;
@@ -1372,6 +1378,8 @@ void keyBufferAdd(udword key, bool bShift)
         key = SDLK_LCTRL;
     else if (key == SDLK_RALT)
         key = SDLK_LALT;
+    else if (key == SDLK_RMETA) // Apple/Command/"Windows" key
+        key = SDLK_LMETA;
 
     for (i = 0; keysToNotBuffer[i]; i++)
     {

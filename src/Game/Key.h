@@ -41,6 +41,9 @@
 #define ALTKEY                  SDLK_LALT
 /*#define LALTKEY                 SDLK_LALT*/
 /*#define RALTKEY                 SDLK_RALT*/
+#define METAKEY                 SDLK_LMETA      // Apple/Command/"Windows" key
+/*#define LMETAKEY                SDLK_LMETA*/
+/*#define RMETAKEY                SDLK_RMETA*/
 #define PAUSEKEY                SDLK_PAUSE
 #define SCROLLKEY               SDLK_SCROLLOCK
 #define PRINTKEY                SDLK_PRINT

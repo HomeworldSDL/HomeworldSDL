@@ -78,8 +78,8 @@ char svShipViewFontName[SV_FontNameLength] = SV_DefaultFont;
 char svShipStatFontName[SV_FontNameLength] = SV_StatFont;
 
 
-//for printing numbers
-char buf[20];
+// storage for printing numbers and some strings relating to Ship statistics
+char buf[40];
 
 /*=============================================================================
     Data:
@@ -184,13 +184,13 @@ real32 svMaxZoomStandardFrigate       = 1000.0;
 
 */
 
-
 Camera svCamera;
 
-real32 svAngle = -150.0;
-real32 svDeclination = -20;
-real32 svZoomOutScalar=1.1f;
-real32 svZoomInScalar=1.05f;
+real32 svAngle         = -150.0;
+real32 svDeclination   = -20.0;
+real32 svZoomOutScalar = 1.1f;
+real32 svZoomInScalar  = 1.05f;
+
 scriptEntry ShipViewTweaks[] =
 {
     makeEntry(svAngle, scriptSetReal32CB),
@@ -617,11 +617,9 @@ void svShipViewRender(featom* atom, regionhandle region)
     sdword x, y;
     keyindex key;
     char* keystring;
-    bool resetRender;
+    bool resetRender = FALSE;
     char    temp[100];
-
-    resetRender = FALSE;
-
+    
     //test if we'll need a mesh callback from glcPageFlip later
     if (glcActive())
     {
@@ -722,12 +720,14 @@ void svShipViewRender(featom* atom, regionhandle region)
             mouseCursorHide();
             mousePositionSet(svMouseCentreX, svMouseCentreY); // Reset position so it doesn't walk off region
         }
-        else
+        else // auto rotate ship model
         {
-            // Default rotation and return declination to normal
-
-            //uncomment for free rotation
-            //svCamera.angle += 0.001f*savecamMouseX;
+            // continual 360 degree yaw rotation
+            svCamera.angle += DEG_TO_RAD(1);
+            
+            // collapse pitch to default declination
+            svCamera.declination += 0.02 * (DEG_TO_RAD(svDeclination) - svCamera.declination);
+            
             if (svMouseInside) mouseCursorShow();
         }
     }
@@ -1062,7 +1062,7 @@ void svManeuverRender(featom *atom, regionhandle region)
 {
     rectangle *rect = &region->rect;
     fonthandle currentFont;
-    char maneuverability[100];
+    char maneuverability[100] = "";
     ShipStaticInfo *info = GetShipStaticInfoSafe(svShipType, universe.curPlayerPtr->race);
 
     svManeuverRegion = region;

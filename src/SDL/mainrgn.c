@@ -1575,9 +1575,20 @@ void mrKeyPress(sdword ID)
     //now translate
     //ID = (sdword)opKeyTranslate((keyindex)ID);
 
-    // Drew's keybinding
-    ID = (sdword)kbCheckBindings(ID);
-
+// Q is a special case for MacOSX in that it forms part of the standard keyboard shortcut
+// for "quit". kbCheckBindings() checks if the key is bound to a *game* feature and if not
+// returns 0. Hence we lose the fact that Q was pressed before we reach the switch()
+// handler code unless we explicitly skip that lookup. Of course having checked for it
+// here we could also put the handler code here too but for consistency that's been left
+// in the switch().
+#ifdef _MACOSX                  
+    if (ID != QKEY)
+#endif
+    {
+        // Drew's keybinding
+        ID = (sdword)kbCheckBindings(ID);
+    }
+    
     if (ID == CAPSLOCKKEY)
     {
         goto docapslock;        // TO always on
@@ -2071,7 +2082,7 @@ cancelfocus:
             break;
 
         case EKEY:
-            caseEKey:
+        //    caseEKey:
 
             if (NoShift() && ((!(tutorial==TUTORIAL_ONLY)) || tutEnable.bBandSelect))
             {                                               //'E': select everyone onscreen
@@ -2302,6 +2313,7 @@ cancelfocus:
                 mrMoveShips(NULL, NULL);
             }
             break;
+
         case RKEY:
 #if ETG_RELOAD_KEY
             if (!multiPlayerGame && keyIsHit(CONTROLKEY))
@@ -2383,7 +2395,24 @@ cancelfocus:
             }
 #endif
             break;
+
         case QKEY:
+#ifdef _MACOSX_FIX_ME
+            if (keyIsHit(METAKEY))  // Command-Q; player wants to quit!
+            {
+                // Ideally we'd have an "are you sure" dialog at this point but the nice
+                // dialogs that HW already has for this purpose have built-in fallbacks
+                // when they are cancelled which we don't want. Specifically, something
+                // like: feScreenStart(ghMainRegion, "Quit_game");
+                // will draw the main menu when cancelled, whilst "Quit_game2" draws the
+                // in-game "escape" menu. The first is a complete mess and cannot be
+                // undone; the second is no better than using the escape menu directly.
+                // Until we work out how to add a new Quit_ structure we just quit, no
+                // questions asked.
+                utyGameQuit(NULL, NULL);
+            }
+#endif
+
             if (pilotView)
                 bitToggle(universe.mainCameraCommand.ccMode,CCMODE_PILOT_SHIP);
             break;

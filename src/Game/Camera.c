@@ -174,10 +174,10 @@ void cameraRotateAbout(Camera *camera,vector about,real32 deg)
 
     matMakeRotAboutZ(&rotzmatrix,(real32)cos(rot),(real32)sin(rot));
 
+    camera->oldlookatpoint = camera->lookatpoint;
     vecSub(position,camera->lookatpoint,about);
     matMultiplyMatByVec(&rotatedposition,&rotzmatrix,&position);
     vecAdd(camera->lookatpoint,about,rotatedposition);
-    camera->oldlookatpoint = camera->lookatpoint;
 
     vecSub(position,camera->eyeposition,about);
     matMultiplyMatByVec(&rotatedposition,&rotzmatrix,&position);
@@ -186,11 +186,11 @@ void cameraRotateAbout(Camera *camera,vector about,real32 deg)
 
 void cameraCopyPositionInfo(Camera *dst,Camera *src)
 {
-    dst->angle = src->angle;
-    dst->declination = src->declination;
-    dst->distance = src->distance;
-    dst->eyeposition = src->eyeposition;
-    dst->lookatpoint  = src->lookatpoint;
+    dst->angle          = src->angle;
+    dst->declination    = src->declination;
+    dst->distance       = src->distance;
+    dst->eyeposition    = src->eyeposition;
+    dst->lookatpoint    = src->lookatpoint;
     dst->oldlookatpoint = src->oldlookatpoint;
 }
 
@@ -202,25 +202,25 @@ void cameraInit(Camera *camera,real32 distance)
     camera->declination = 0.0f;
     camera->distance = distance;
 
-    memset(&camera->lookatpoint, 0, sizeof(camera));
-    memset(&camera->oldlookatpoint, 0, sizeof(camera));
+    memset(&camera->lookatpoint,    0, sizeof(vector));
+    memset(&camera->oldlookatpoint, 0, sizeof(vector));
 
     vecSet(camera->upvector,0.0f,0.0f,1.0f);
 
     cameraSetEyePosition(camera);
 
-    camera->fieldofview = CAMERA_FIELD_OF_VIEW;
+    camera->fieldofview   = CAMERA_FIELD_OF_VIEW;
     camera->clipPlaneNear = CAMERA_CLIP_NEAR;
-    camera->clipPlaneFar = CAMERA_CLIP_FAR;
-    camera->closestZoom = CAMERA_MIN_ZOOMOUT_DISTANCE;
-    camera->farthestZoom = CAMERA_MAX_ZOOMOUT_DISTANCE;
-    camera->ignoreZoom = FALSE;
+    camera->clipPlaneFar  = CAMERA_CLIP_FAR;
+    camera->closestZoom   = CAMERA_MIN_ZOOMOUT_DISTANCE;
+    camera->farthestZoom  = CAMERA_MAX_ZOOMOUT_DISTANCE;
+    camera->ignoreZoom    = FALSE;
 }
 
 void cameraChangeLookatpoint(Camera *camera,vector *newlookatpoint)
 {
-    camera->lookatpoint = *newlookatpoint;
-    camera->oldlookatpoint = *newlookatpoint;
+    camera->oldlookatpoint = camera->lookatpoint;
+    camera->lookatpoint    = *newlookatpoint;
 
     cameraSetEyePosition(camera);
 }
@@ -306,17 +306,17 @@ void cameraZoom(Camera *camera,real32 zoomfactor, bool EnforceShipDistances)
             camera->distance = camera->farthestZoom;
         }
 
-                if(EnforceShipDistances)
-                {
-                minZoom = cameraMinimumZoom(camera);
-                        if (camera->distance < minZoom)
-                                camera->distance = minZoom;
-                }
-                else
-                {
-                        if(camera->distance < camera->closestZoom)
-                        camera->distance = camera->closestZoom;
-                }
+        if(EnforceShipDistances)
+        {
+            minZoom = cameraMinimumZoom(camera);
+            if (camera->distance < minZoom)
+                camera->distance = minZoom;
+        }
+        else
+        {
+            if(camera->distance < camera->closestZoom)
+                camera->distance = camera->closestZoom;
+        }
     }
 }
 
@@ -331,7 +331,7 @@ void cameraZoom(Camera *camera,real32 zoomfactor, bool EnforceShipDistances)
 ----------------------------------------------------------------------------*/
 sdword cameraControl(Camera *camera, bool EnforceShipDistances)
 {
-sdword UserAction = 0;
+    sdword UserAction = 0;
 
     if (wheel_down)
     {
@@ -349,7 +349,7 @@ sdword UserAction = 0;
     {
         if (wheel_up)
         {
-//                      keyScanCode[FLYWHEEL_UP].keynumpressed=0;
+            // keyScanCode[FLYWHEEL_UP].keynumpressed=0;
             keyClearRepeat(FLYWHEEL_UP);
             wheel_up = FALSE;
         }
