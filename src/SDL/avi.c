@@ -11,6 +11,9 @@
  * we're doing...
  */
 
+/* Doesn't work */
+#undef _WIN32
+
 #ifdef _WIN32
 #include <windows.h>
 #include <vfw.h>

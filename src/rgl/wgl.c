@@ -4,7 +4,7 @@
 
 #ifdef _WIN32
     #define DLL __declspec(dllexport)
-    #define API __stdcall
+    #define API
 #else
     #include <X11/Xutil.h>
     #define DLL

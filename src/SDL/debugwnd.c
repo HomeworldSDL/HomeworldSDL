@@ -2,6 +2,10 @@
     DEBUGWND.C: Code to draw a debug window
 =============================================================================*/
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -22,9 +26,9 @@ sdword dbwEnabled = FALSE;
 sdword dbwWindowX, dbwWindowY;                  //top-left corner of window
 sdword dbwWindowWidth, dbwWindowHeight;         //width of the window (in characters)
 sdword dbwFontWidth, dbwFontHeight;             //width and height of font characters (assumes fixed-pitch)
-/*HWND   hDebugWindow;                            //HWND for the debug window*/
-/*HDC    hDebugDC;                                //device context for debug window*/
-/*LOGFONT dbwLogicalFont;                                //current debug window font*/
+HWND   hDebugWindow;                            //HWND for the debug window
+HDC    hDebugDC;                                //device context for debug window
+LOGFONT dbwLogicalFont;                                //current debug window font
 udword hDebugFont;                              //font handle for selection into DC
 
 //data for the individual panes

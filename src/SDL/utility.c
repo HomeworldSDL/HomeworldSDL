@@ -4029,7 +4029,8 @@ char* utyGameSystemsPreInit(void)
 		}
 		else
 		{
-			fileUserSettingsPathSet("");
+#warning This is a temporary hack.  Somebody needs to fix this!
+			fileUserSettingsPathSet("C:\\HomeworldData");
 		}
 #else
 		// Attempt to use ~/.homeworld if we can get the user's home

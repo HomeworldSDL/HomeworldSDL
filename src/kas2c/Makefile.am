@@ -7,4 +7,4 @@ AM_YFLAGS="-d"
 AM_LFLAGS="-i"
 
 kas2c_SOURCES = parser.y lexer.l kas2c.c kas2c.h
-kas2c_LDADD = @LEXLIB@
+kas2c_LDADD = @LEXLIB@ @SDL_LIBS@

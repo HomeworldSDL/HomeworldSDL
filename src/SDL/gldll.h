@@ -138,7 +138,6 @@ typedef void (APIENTRY * DISABLECLIENTSTATEproc)(GLenum);
 typedef void (APIENTRY * ARRAYELEMENTproc)(GLint);
 
 typedef WGLPROC (APIENTRY * WGETPROCADDRESSproc)(char*);
-typedef void (APIENTRY * WSWAPBUFFERSproc)(void);
 #ifdef _WIN32
 typedef unsigned int (APIENTRY * WCREATECONTEXTproc)(int);
 typedef unsigned int (APIENTRY * WDELETECONTEXTproc)(int);
@@ -148,6 +147,8 @@ typedef BOOL (APIENTRY * WSETPIXELFORMATproc)(HDC, int, PIXELFORMATDESCRIPTOR co
 typedef int (APIENTRY * WGETPIXELFORMATproc)(HDC);
 typedef int (APIENTRY * WDESCRIBEPIXELFORMATproc)(HDC, int, UINT, LPPIXELFORMATDESCRIPTOR);
 typedef BOOL (APIENTRY * WSWAPBUFFERSproc)(HDC);
+#else
+typedef void (APIENTRY * WSWAPBUFFERSproc)(void);
 #endif
 
 extern LOCKARRAYSEXTproc glLockArraysEXT;

@@ -49,7 +49,7 @@
 #include "GameChat.h"
 #include "SaveGame.h" // for ConvertNumToPointerInList
 
-#ifdef _MSC_VER
+#ifdef _WIN32
 #define strncasecmp _strnicmp
 #define wcscasecmp wcsicmp
 #endif

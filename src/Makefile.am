@@ -10,7 +10,13 @@ hw_JPG_OBJECTS = ./JPG/interfce.o ./JPG/jcapimin.o ./JPG/jcapistd.o ./JPG/jccoef
 
 hw_SDL_OBJECTS = ./SDL/avi.o ./SDL/color.o ./SDL/font.o ./SDL/glcaps.o ./SDL/glcompat.o ./SDL/gldll.o ./SDL/light.o ./SDL/LinkEnd.o ./SDL/LinkStart.o ./SDL/main.o ./SDL/mainrgn.o ./SDL/mouse.o ./SDL/prim2d.o ./SDL/prim3d.o ./SDL/Queue.o ./SDL/render.o ./SDL/rglu.o ./SDL/rinit.o ./SDL/screenshot.o ./SDL/smixer.o ./SDL/soundlow.o ./SDL/sstglide.o ./SDL/sstream.o ./SDL/Subtitle.o ./SDL/texreg.o ./SDL/TimeoutTimer.o ./SDL/TitanInterfaceC.stub.o ./SDL/Titan.o ./SDL/trails.o ./SDL/utility.o
 
-hw_W32_CONVERTED_OBJECTS = ./obj/dct.o ./obj/fqcodec.o ./obj/fqeffect.o ./obj/fquant.o ./SDL/mixfft.o ./SDL/win32glue.o
+if !PLATFORM_WIN32
+hw_SDL_OBJECTS += ./SDL/win32glue.o
+hw_W32_CONVERTED_OBJECTS = ./obj/dct.o ./obj/fqcodec.o ./obj/fqeffect.o ./obj/fquant.o ./SDL/mixfft.o
+else
+hw_SDL_OBJECTS += ./SDL/debugwnd.o
+hw_W32_CONVERTED_OBJECTS = ./obj/dct.munged ./obj/fqcodec.munged ./obj/fqeffect.munged ./obj/fquant.munged ./SDL/mixfft.o
+endif
 
 # Note the ordering (we haven't defined the dependencies too strongly).
 SUBDIRS = kas2c Generated Game JPG rgl SDL Ships
@@ -18,4 +24,7 @@ SUBDIRS = kas2c Generated Game JPG rgl SDL Ships
 bin_PROGRAMS = homeworld
 
 #homeworld_LDADD = $(top_builddir)/src/Generated/libhw_Generated.a $(top_builddir)/src/Game/libhw_Game.a $(top_builddir)/src/JPG/libhw_JPG.a $(top_builddir)/src/SDL/libhw_SDL.a $(top_builddir)/src/Ships/libhw_Ships.a
-homeworld_LDADD = $(hw_Generated_OBJECTS) $(hw_Game_OBJECTS) $(hw_Ships_OBJECTS) $(hw_JPG_OBJECTS) $(hw_SDL_OBJECTS) $(hw_W32_CONVERTED_OBJECTS)
+homeworld_LDADD = $(hw_Generated_OBJECTS) $(hw_Game_OBJECTS) $(hw_Ships_OBJECTS) $(hw_JPG_OBJECTS) $(hw_SDL_OBJECTS) $(hw_W32_CONVERTED_OBJECTS) @SDL_LIBS@
+
+%.munged: %.o
+	objcopy $^ --prefix-symbols _ --redefine-sym _chkstk=__chkstk $@

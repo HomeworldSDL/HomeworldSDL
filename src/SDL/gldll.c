@@ -20,7 +20,7 @@
 #include "devstats.h"
 #include "main.h"
 
-#ifndef _MACOSX
+#if !defined(_MACOSX) && !defined(_WIN32)
     #include <dlfcn.h>
 #endif
 

@@ -11,6 +11,7 @@
 #include <limits.h>
 #include <stdarg.h>
 #include <sys/stat.h>
+#include <ctype.h>
 
 #include "Types.h"
 #include "Memory.h"
@@ -174,7 +175,7 @@ static void fileNameReducePath (char *pathName)
     }
 
 #ifdef _WIN32
-    isPathAbsolute = (isalpha[pathName[0]] && pathName[1] == ':' &&
+    isPathAbsolute = (isalpha(pathName[0]) && pathName[1] == ':' &&
         pathName[2] == '\0');
 #else
     isPathAbsolute = (pathName[0] == '\0');
@@ -421,7 +422,7 @@ bool8 fileMakeDirectory (const char *directoryName)
 ----------------------------------------------------------------------------*/
 bool8 fileMakeDestinationDirectory(const char *fileName)
 {
-    char *directoryName[PATH_MAX + 1];
+    char directoryName[PATH_MAX + 1];
     char *ch0, *ch1;
 
     dbgAssert(fileName);

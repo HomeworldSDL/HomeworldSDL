@@ -8,7 +8,7 @@
 
 #ifdef _WIN32
 #define DLL __declspec(dllexport)
-#define API __stdcall
+#define API
 #else
 #define DLL
 #define API

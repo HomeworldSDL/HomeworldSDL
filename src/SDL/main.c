@@ -156,6 +156,10 @@ sdword mainHeightAdd = 0;
 sdword mainWindowWidth = 640;
 sdword mainWindowHeight = 480;
 sdword mainWindowDepth = 16;
+#ifdef _WIN32
+void *ghMainWindow = NULL;
+void *ghInstance = NULL;
+#endif
 
 extern bool CompareBigfiles;
 extern bool IgnoreBigfiles;
@@ -217,7 +221,7 @@ char mainGLToSelect[512] = "";
 char mainD3DToSelect[128] = "";
 char deviceToSelect[128] = "";
 #ifdef _WIN32
-char glToSelect[512] = "rgl.dll";
+char glToSelect[512] = "librgl.dll";
 #else
 char glToSelect[512] = "librgl.so";
 #endif
@@ -2005,7 +2009,9 @@ bool mainStartupGL(char* data)
 
     renderData.width = MAIN_WindowWidth;
     renderData.height = MAIN_WindowHeight;
-    /*renderData.hWnd = ghMainWindow;*/
+#ifdef _WIN32
+    renderData.hWnd = ghMainWindow;
+#endif
     renderData.hWnd = 0;
     if (!rndSmallInit(&renderData, TRUE))
     {
@@ -2133,7 +2139,9 @@ bool mainStartupParticularRGL(char* device, char* data)
 
     renderData.width = MAIN_WindowWidth;
     renderData.height = MAIN_WindowHeight;
-    /*renderData.hWnd = ghMainWindow;*/
+#ifdef _WIN32
+    renderData.hWnd = ghMainWindow;
+#endif
     renderData.hWnd = 0;
     if (!rndSmallInit(&renderData, FALSE))
     {

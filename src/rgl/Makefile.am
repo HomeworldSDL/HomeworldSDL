@@ -20,7 +20,7 @@ librgl_la_LDFLAGS = -avoid-version -no-undefined
 #librglu_la_LDFLAGS = -avoid-version -no-undefined
 
 librglsw_la_SOURCES = asm.c asm.h sdldraw.c kgl.h lines.c lines.h linetemp.h newblendtextri.c newpersptri.c newrgbapersptri.c newrgbatextri.c newtextri.c newtriangle.c newtriangle.h newtritemp.h scan.c scan.h span.c span.h stipple.c.h stipple.h swdriver.c swdrv.h
-librglsw_la_LIBADD = librgl.la
+librglsw_la_LIBADD = librgl.la -lSDL
 librglsw_la_LDFLAGS = -avoid-version -no-undefined
 
 #librglfx_la_SOURCES = fxdriver.c fxdrv.h fxtmg.c kgl.h
