@@ -241,7 +241,7 @@ ResNozzleStatic *mexGetResNozzleStatic(void *mex)
 
     if (mex == NULL)
     {
-        dbgMessage("\nWarning: ResNozzle info not retrieved.  Mesh extensions not loaded");
+        dbgMessage("WARNING: ResNozzle info not retrieved. Mesh extensions not loaded");
         return NULL;
     }
 
@@ -267,7 +267,7 @@ RepairNozzleStatic *mexGetRepairNozzleStatic(void *mex)
 
     if (mex == NULL)
     {
-        dbgMessage("\nWarning: RepairNozzle info not retrieved.  Mesh extensions not loaded");
+        dbgMessage("WARNING: RepairNozzle info not retrieved. Mesh extensions not loaded");
         return NULL;
     }
 
@@ -291,7 +291,7 @@ TractorBeamStatic *mexGetTractorBeamStatic(void *mex)
 
     if (mex == NULL)
     {
-        dbgMessage("\nWarning: ResNozzle info not retrieved.  Mesh extensions not loaded");
+        dbgMessage("\WARNING: ResNozzle info not retrieved. Mesh extensions not loaded");
         return NULL;
     }
 
@@ -321,7 +321,7 @@ void mexGetGunStaticInfo(GunStaticInfo *gunstaticinfo,void *mex)
     if (mex == NULL)
     {
 //        dbgFatal(DBG_Loc,"Could not get gun info because mesh extensions were not loaded");
-        dbgMessage("\nWarning: Gun info not retrieved.  Mesh extensions not loaded");
+        dbgMessage("WARNING: Gun info not retrieved. Mesh extensions not loaded");
         return;
     }
 
@@ -345,7 +345,7 @@ void mexGetGunStaticInfo(GunStaticInfo *gunstaticinfo,void *mex)
         }
         else
         {
-            dbgMessagef("\nWarning: Could not find gun in mex at %x",mex);
+            dbgMessagef("WARNING: Could not find gun in mex at %x",mex);
         }
     }
 }
@@ -359,7 +359,7 @@ void mexGetDockStaticInfo(DockStaticInfo *dockstaticinfo,void *mex)
 
     if (mex == NULL)
     {
-        dbgMessage("\nWarning: Dock info not retrieved.  Mesh extensions not loaded");
+        dbgMessage("WARNING: Dock info not retrieved. Mesh extensions not loaded");
         return;
     }
 
@@ -378,7 +378,7 @@ void mexGetDockStaticInfo(DockStaticInfo *dockstaticinfo,void *mex)
         }
         else
         {
-            dbgMessagef("\nWarning: Could not find dock point in mex at %x",mex);
+            dbgMessagef("WARNING: Could not find dock point in mex at %x",mex);
         }
     }
 }
@@ -392,7 +392,7 @@ void mexGetSalvageStaticInfo(SalvageStaticInfo *salvagestaticinfo,void *mex)
 
     if (mex == NULL)
     {
-        dbgMessage("\nWarning: Salvage info not retrieved.  Mesh extensions not loaded");
+        dbgMessage("WARNING: Salvage info not retrieved. Mesh extensions not loaded");
         return;
     }
 
@@ -411,7 +411,7 @@ void mexGetSalvageStaticInfo(SalvageStaticInfo *salvagestaticinfo,void *mex)
         }
         else
         {
-            dbgMessagef("\nWarning: Could not find salvage point in mex at %x",mex);
+            dbgMessagef("WARNING: Could not find salvage point in mex at %x",mex);
         }
     }
 }
@@ -425,7 +425,7 @@ void mexGetNAVLightStaticInfo(NAVLightStaticInfo *navlightstaticinfo,void *mex)
 
     if (mex == NULL)
     {
-        dbgMessage("\nWarning: NAV Light info not retrieved.  Mesh extensions not loaded");
+        dbgMessage("WARNING: NAV Light info not retrieved. Mesh extensions not loaded");
         return;
     }
 
@@ -442,7 +442,7 @@ void mexGetNAVLightStaticInfo(NAVLightStaticInfo *navlightstaticinfo,void *mex)
         }
         else
         {
-            dbgMessagef("\nWarning: Could not find NAVLight point in mex at %x",mex);
+            dbgMessagef("WARNING: Could not find NAVLight point in mex at %x",mex);
         }
     }
 }

@@ -1393,7 +1393,7 @@ static void loadMexDataCB(char *directory,char *field,void *dataToFillIn)
         }
         else
         {
-            dbgMessagef("\n WARNING: Could not locate mex %s",fullfilename);
+            dbgMessagef("WARNING: Could not locate mex %s",fullfilename);
             *((void **)dataToFillIn) = defaultmex;
         }
     }
@@ -1436,7 +1436,7 @@ void gunGetDefaultOrientationFromBindings(GunStatic *gunstatic,ShipStaticInfo *s
     }
     else
     {
-        dbgMessagef("\nWARNING: could not set gunbindings for ship %d",statinfo->shiptype);
+        dbgMessagef("WARNING: could not set gunbindings for ship %d",statinfo->shiptype);
     }
 
 /*
@@ -1890,7 +1890,7 @@ void InitStatMissileInfo(MissileStaticInfo *missileStatInfo,ShipRace race)
 
     if (!fileExists(fullshipname,0))
     {
-        dbgMessagef("\nWarning: Could not find Missile for %s",ShipRaceToStr(race));
+        dbgMessagef("WARNING: Could not find Missile for %s",ShipRaceToStr(race));
         return;
     }
 
@@ -1938,7 +1938,7 @@ void InitStatMineInfo(MissileStaticInfo *mineStatInfo,ShipRace race)
 
     if (!fileExists(fullshipname,0))
     {
-        dbgMessagef("\nWarning: Could not find Mine for %s",ShipRaceToStr(race));
+        dbgMessagef("WARNING: Could not find Mine for %s",ShipRaceToStr(race));
         return;
     }
 
@@ -4318,7 +4318,7 @@ void unitCapDeleteShip(Ship *ship, Player *player)
         if (player->totalships < 0)
         {
             player->totalships = 0;
-            dbgMessagef("\nWarning: total shipcount in unit caps went below 0");
+            dbgMessagef("WARNING: total shipcount in unit caps went below 0");
         }
 
         player->shiptotals[ship->shiptype]--;
@@ -4327,7 +4327,7 @@ void unitCapDeleteShip(Ship *ship, Player *player)
         if (player->shiptotals[ship->shiptype] < 0)
         {
             player->shiptotals[ship->shiptype] = 0;
-            dbgMessagef("\nWarning: shipcount of shiptype %d went below 0");
+            dbgMessagef("WARNING: shipcount of shiptype %d went below 0");
         }
 
         player->classtotals[ship->staticinfo->shipclass]--;
@@ -4336,7 +4336,7 @@ void unitCapDeleteShip(Ship *ship, Player *player)
         if (player->classtotals[ship->staticinfo->shipclass] < 0)
         {
             player->classtotals[ship->staticinfo->shipclass] = 0;
-            dbgMessagef("\nWarning: classtotals of class %d went below 0",ship->staticinfo->shipclass);
+            dbgMessagef("WARNING: classtotals of class %d went below 0",ship->staticinfo->shipclass);
         }
         bitClear(ship->specialFlags2,SPECIAL_2_InUnitCaps);
     }

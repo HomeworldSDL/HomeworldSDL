@@ -178,7 +178,7 @@ void teShutdown(void)
 /*-----------------------------------------------------------------------------
     Name        : teColorAdjust
     Description : Adjust a color according to a HLS colorizing table.
-    Inputs      : baseColor - origional color
+    Inputs      : baseColor - original color
                   colorize - HLS parameters to adjust by.
     Outputs     :
     Return      : newly adjusted color
@@ -189,6 +189,7 @@ color teColorAdjust(color baseColor, trhlscolorize *colorize)
     colRGBToHLS(&hue, &lum, &sat, colUbyteToReal(colRed(baseColor)),
                 colUbyteToReal(colGreen(baseColor)),
                 colUbyteToReal(colBlue(baseColor)));
+                
     hue += colorize->hue;
     if (hue < 0)
     {
@@ -208,7 +209,9 @@ color teColorAdjust(color baseColor, trhlscolorize *colorize)
     {
         sat = 1.0f;
     }
+    
     colHLSToRGB(&red, &green, &blue, hue, lum, sat);
+        
     return(colRGB(colRealToUbyte(red), colRealToUbyte(green), colRealToUbyte(blue)));
 }
 
@@ -234,6 +237,7 @@ void teTeamColorsSet(sdword iTeam, color baseColor, color stripeColor)
         red = colUbyteToReal(colRed(baseColor));
         green = colUbyteToReal(colGreen(baseColor));
         blue = colUbyteToReal(colBlue(baseColor));
+        
         colRGBToHSV(&hue, &sat, &val, red, green, blue);
         if (colRealToUbyte(val) < cpDarkestColor0 * TE_DarkColorGraceFactor)
         {                                                   //is trying to set his ships to black
