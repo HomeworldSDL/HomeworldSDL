@@ -4597,7 +4597,7 @@ void gameStatsAddShip(Ship *ship,sdword playerIndex)
     universe.gameStats.playerStats[playerIndex].totalForEachClass[ship->staticinfo->shipclass]++;
     universe.gameStats.totalRUsInAllShips += ship->staticinfo->buildCost;
     universe.gameStats.playerStats[playerIndex].totalRUsInCurrentShips += ship->staticinfo->buildCost;
-    universe.gameStats.totalShipsInGame;
+    universe.gameStats.totalShipsInGame++;
 }
 
 

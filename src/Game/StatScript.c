@@ -1285,14 +1285,19 @@ done:
 
 void scriptSetDockPointCB(char *directory,char *field,void *dataToFillIn)
 {
-    char docktypestr[30];
+    char docktypestr[30] = "";
+
     DockStaticPoint *dockstaticpoint = (DockStaticPoint *)dataToFillIn;
 
     RemoveCommasFromString(field);
 
-    sscanf(field,"%s %s %f %f %f %d %d",&dockstaticpoint->name,docktypestr,
-                               &dockstaticpoint->flyawaydist,&dockstaticpoint->mindist,&dockstaticpoint->maxdist,
-                               &dockstaticpoint->headingdirection, &dockstaticpoint->updirection);
+    sscanf(field,"%s %s %f %f %f %d %d", &dockstaticpoint->name,
+                                         docktypestr,
+                                         &dockstaticpoint->flyawaydist,
+                                         &dockstaticpoint->mindist,
+                                         &dockstaticpoint->maxdist,
+                                         &dockstaticpoint->headingdirection,
+                                         &dockstaticpoint->updirection);
 
     dockstaticpoint->type = StrToDockPointType(docktypestr);
 }

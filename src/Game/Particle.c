@@ -65,7 +65,7 @@ static GLfloat illumSave[4];
 static bool wasStippled;
 
 //function called for each particle created
-void (*partCreateCallback)(sdword userValue, void *userData) = NULL;
+void (*partCreateCallback)(sdword userValue, ubyte *userData) = NULL;
 sdword partCreateUserValue = 0;
 ubyte *partCreateUserData = NULL;
 
@@ -3999,8 +3999,8 @@ void partSetAlphaMode(udword mode)
 
 void partCreateCallbackSet(void (*function)(sdword userValue, ubyte *userData), sdword userValue, ubyte *userData)
 {
-    partCreateCallback = function;
+    partCreateCallback  = function;
     partCreateUserValue = userValue;
-    partCreateUserData = userData;
+    partCreateUserData  = userData;
 }
 

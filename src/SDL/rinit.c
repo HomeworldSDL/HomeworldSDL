@@ -996,7 +996,7 @@ int rinEnumerateDevices(void)
     rdevice  primaryDev;
     bool primaryVal;
     int voodoo, maxWidth;
-
+    
 #if 0	/* CRC log only used by Direct3D. */
     if (mainOutputCRC)
     {
@@ -1132,7 +1132,7 @@ int rinEnumerateDevices(void)
         }
     }
 
-#ifdef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_ME
     //add software renderer, an explicitly known device
     dev = (rdevice*)rinMemAlloc(sizeof(rdevice));
     dev->devcaps = 0;

@@ -4255,7 +4255,11 @@ void CheckPlayerWin(void)
             //all living players on same team?
             //find allies of first player, make sure all other living players
             // are allies
-            universe.players[sigsPlayerIndex].Allies;
+
+            // This statement does nothing but presumably was meant to do something. I'm leaving it
+            // here in case someone debugging this code realises it forms part of the solution...
+            //universe.players[sigsPlayerIndex].Allies;
+            
             for (i=0; ((i<universe.numPlayers) && alliedvictory); i++)
             {
                 if (universe.players[i].playerState == PLAYER_ALIVE)
@@ -4838,8 +4842,6 @@ void univDeleteDeadDerelicts()
 ----------------------------------------------------------------------------*/
 void DeleteDeadMissile(Missile *missile, sdword deathBy)
 {
-    real32 damagetaken = missile->damage;
-    MissileStaticInfo *missilestaticinfo = (MissileStaticInfo *)missile->staticinfo;
     etgeffectstatic *stat;
     sdword LOD;
     bool fatalHit;

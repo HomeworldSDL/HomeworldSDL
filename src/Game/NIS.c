@@ -4574,7 +4574,7 @@ nisheader *nisLoad(char *fileName, char *scriptName)
 	header.nEvents           = LittleLong( header.nEvents );
 	header.events            = ( nisevent *)LittleLong( ( udword )header.events );
 	header.nGenericObjects   = LittleLong( header.nGenericObjects );
-	header.genericObject     = ( nisgenericobject **)LittleLong( header.genericObject );
+	header.genericObject     = ( nisgenericobject **)LittleLong( ( udword )header.genericObject );
 	header.iLookyObject      = LittleLong( header.iLookyObject );
 #endif
 

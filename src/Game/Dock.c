@@ -1753,7 +1753,6 @@ bool dockFlyOutOfCone(Ship *ship,Ship *dockwith,sdword headingdirection,sdword u
 
 bool dockFlyAboveMothershipDoor(Ship *ship,Ship *dockwith)
 {
-    DockStaticPoint *dockstaticpoint = ship->dockvars.dockstaticpoint;
     vector destination;
     vector dest1;
     vector heading,up,right;
@@ -1787,7 +1786,6 @@ bool dockFlyAboveMothershipDoor(Ship *ship,Ship *dockwith)
 
 bool dockFlyToBottomOfDoor1(Ship *ship,Ship *dockwith)
 {
-    DockStaticPoint *dockstaticpoint = ship->dockvars.dockstaticpoint;
     vector destination;
     vector dest1;
     vector heading,up,right,doorheading,doorup;
@@ -1825,7 +1823,6 @@ bool dockFlyToBottomOfDoor1(Ship *ship,Ship *dockwith)
 
 bool dockFlyToBottomOfDoor2(Ship *ship,Ship *dockwith)
 {
-    DockStaticPoint *dockstaticpoint = ship->dockvars.dockstaticpoint;
     vector destination;
     vector dest1;
     vector heading,up,right;
@@ -1858,7 +1855,6 @@ bool dockFlyToBottomOfDoor2(Ship *ship,Ship *dockwith)
 }
 bool dockFlyToBottomOfDoor3(Ship *ship,Ship *dockwith)
 {
-    DockStaticPoint *dockstaticpoint = ship->dockvars.dockstaticpoint;
     vector destination;
     vector dest1;
     vector heading,up,right;
@@ -1892,7 +1888,6 @@ bool dockFlyToBottomOfDoor3(Ship *ship,Ship *dockwith)
 
 bool dockFlyToDoor(Ship *ship,Ship *dockwith)
 {
-    DockStaticPoint *dockstaticpoint = ship->dockvars.dockstaticpoint;
     vector destination;
     vector heading,up,right;
     matrix coordsysWS;

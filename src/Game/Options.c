@@ -2337,7 +2337,7 @@ void opSpeaker(char* name, featom* atom)
     }
     else
     {
-        opSpeakerSetting = (ubyte)atom->pData;
+        opSpeakerSetting = (sdword)atom->pData;
     }
 
     opEQHelper();
@@ -2351,7 +2351,7 @@ void opSoundQualitySet(char* name, featom* atom)
     }
     else
     {
-        opSoundQuality = (ubyte)atom->pData;
+        opSoundQuality = (sdword)atom->pData;
     }
 
     soundMixerSetMode(opSoundQuality);
@@ -2391,7 +2391,7 @@ void opLighting(char* name, featom* atom)
     }
     else
     {
-        opLightingVal = (ubyte)atom->pData;
+        opLightingVal = (sdword)atom->pData;
     }
 }
 
@@ -2482,7 +2482,7 @@ void opEffects(char* name, featom* atom)
     }
     else
     {
-        opEffectsVal = (ubyte)atom->pData;
+        opEffectsVal = (sdword)atom->pData;
     }
 
     opEffectsHelper();
@@ -3233,7 +3233,7 @@ void opVoice(char* name, featom* atom)
     }
     else
     {
-        opVoiceSetting = (ubyte)atom->pData;
+        opVoiceSetting = (sdword)atom->pData;
     }
 
     switch (opVoiceSetting)

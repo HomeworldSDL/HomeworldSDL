@@ -71,9 +71,6 @@ ShipType tutFEContextMenuShipType;
 static char tutLastLessonName[256] = "";
 static char tutCurrLessonName[256] = "";
 
-static const sbyte ExpandY = 0;
-static const sbyte ExpandX = 1;
-
 /*
 sdword  tutTextPointerType = 0;
 sdword  tutPointerX, tutPointerY;
