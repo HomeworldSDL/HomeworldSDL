@@ -12,7 +12,7 @@
 \cf0 (password required; ask for an account from Aaron Plattner: plattner@caltech.edu)\
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
 \cf0 \
-You will also need to download and install the (pre-compiled) SDL framework (current version 1.2):\
+You will also need to download and install the (pre-compiled) SDL framework (current version 1.2.n):\
 \
     http://www.libsdl.org/index.php\
 \
@@ -30,10 +30,13 @@ Helpful things to know:\
 1) The Macintosh projects for the Homeworld port live in:\
    .../homeworld/Mac\
 \
-2) MacOSX related #defines are listed in:\
+2) Mac OS X related #defines are listed in:\
    .../homeworld/Mac/Homeworld_Prefix.h\
 \
-3) toggle full screen/windowed mode:\
+3) Toggle full screen/windowed mode:\
    .../homeworld/src/SDL/main.c: bool fullScreen = TRUE;\
 \
+4) SDLMain.nib is currently the version supplied with SDL 1.2.8. so you may need to update it should you have a different version of SDL installed on your system.\
+\
+5) There are two targets: Homeworld and Raider Retreat. Raider Retreat is the special OEM version of Homeworld that consists of the first four missions and a mission removed from the original game.\
 }
