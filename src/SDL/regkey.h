@@ -20,7 +20,7 @@
     #define BASEKEYNAME "SOFTWARE\\Sierra On-Line\\Homeworld"
 
     #ifdef _MACOSX
-        #define CONFIGDIR "Library/Homeworld"
+        #define CONFIGDIR "Library/Application\ Support/Homeworld"
     #else
         #define CONFIGDIR ".homeworld"
     #endif
