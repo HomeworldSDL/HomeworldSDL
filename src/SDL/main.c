@@ -675,7 +675,7 @@ bool SelectMSGL(char* string)
 bool SelectD3D(char* string)
 {
 #ifdef _WIN32
-    memStrncpy(glToSelect, "rgl.dll", 512 - 1);
+    memStrncpy(glToSelect, "librgl.dll", 512 - 1);
 #else
     memStrncpy(glToSelect, "librgl.so", 512 - 1);
 #endif
@@ -2121,7 +2121,7 @@ bool mainStartupParticularRGL(char* device, char* data)
     mainRescaleMainWindow();
 
 #ifdef _WIN32
-    memStrncpy(glToSelect, "rgl.dll", 512 - 1);
+    memStrncpy(glToSelect, "librgl.dll", 512 - 1);
 #else
     memStrncpy(glToSelect, "librgl.so", 512 - 1);
 #endif
@@ -2343,8 +2343,8 @@ void mainSaveRender(void)
 void mainSetupSoftware(void)
 {
 #ifdef _WIN32
-    strcpy(glToSelect, "rgl.dll");
-    strcpy(mainGLToSelect, "rgl.dll");
+    strcpy(glToSelect, "librgl.dll");
+    strcpy(mainGLToSelect, "librgl.dll");
     strcpy(deviceToSelect, "sw");
     strcpy(mainDeviceToSelect, "sw");
     strcpy(mainD3DToSelect, "");
@@ -2983,8 +2983,8 @@ static bool InitWindow ()
         strcpy(deviceToSelect, "sw");
         strcpy(mainDeviceToSelect, "sw");
 #ifdef _WIN32
-        strcpy(glToSelect, "rgl.dll");
-        strcpy(mainGLToSelect, "rgl.dll");
+        strcpy(glToSelect, "librgl.dll");
+        strcpy(mainGLToSelect, "librgl.dll");
 #else
         strcpy(glToSelect, "librgl.so");
         strcpy(mainGLToSelect, "librgl.so");
