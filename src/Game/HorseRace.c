@@ -878,7 +878,7 @@ char CurDir[PATH_MAX], NewDir[PATH_MAX];
             //fixed width for singleplayer game images
             DestXSize = 640;
             DestYSize = 480;
-            hrBackgroundImage = (unsigned long*)malloc(DestXSize * DestYSize * 4);
+            hrBackgroundImage = (udword*)malloc(DestXSize * DestYSize * 4);
         }
         else
         {
@@ -887,7 +887,7 @@ char CurDir[PATH_MAX], NewDir[PATH_MAX];
                 //no DrawPixels support, must use glcompat 640x480 quilting
                 DestXSize = 640;
                 DestYSize = 480;
-                hrBackgroundImage = (unsigned long*)malloc(DestXSize * DestYSize * 4);
+                hrBackgroundImage = (udword*)malloc(DestXSize * DestYSize * 4);
             }
             else
             {
@@ -897,7 +897,7 @@ char CurDir[PATH_MAX], NewDir[PATH_MAX];
                     DestXSize = (long)((float)MAIN_WindowWidth * Scale);
                     DestYSize = (long)((float)MAIN_WindowHeight * Scale);
 
-                    hrBackgroundImage = (unsigned long *)malloc(DestXSize * DestYSize * 4);
+                    hrBackgroundImage = (udword *)malloc(DestXSize * DestYSize * 4);
                 } while((hrBackgroundImage == NULL) && (Scale > 0.4f));
             }
         }
@@ -913,7 +913,7 @@ char CurDir[PATH_MAX], NewDir[PATH_MAX];
         IncX = (float)XSize / (float)DestXSize;
         IncY = (float)YSize / (float)DestYSize;
 
-        pDest = hrBackgroundImage;
+        pDest = (unsigned long*)hrBackgroundImage;
         if((IncX < 1.0f) && (IncY < 1.0f) && (pDest != NULL))
         {
             SrcY = 0.0f;
@@ -922,7 +922,11 @@ char CurDir[PATH_MAX], NewDir[PATH_MAX];
                 SrcX = 0.0f;
                 for(DestX = 0; DestX < DestXSize; DestX++)
                 {
+#ifdef ENDIAN_BIG
+                    pDest[DestX] = LittleLong( hrGetInterpPixel(pTempImage, XSize, SrcX, SrcY) );
+#else
                     pDest[DestX] = hrGetInterpPixel(pTempImage, XSize, SrcX, SrcY);
+#endif
                     SrcX += IncX;
                 }
                 pDest += DestXSize;
@@ -938,7 +942,12 @@ char CurDir[PATH_MAX], NewDir[PATH_MAX];
                 for(DestX = 0; DestX < DestXSize; DestX++)
                 {
                     pRGB = &pTempImage[ (((unsigned long)SrcY * XSize) + (unsigned long)SrcX) * 3 ];
+
+#ifdef ENDIAN_BIG
+                    pDest[DestX] = LittleLong( 0xff000000 + ((unsigned long)pRGB[0]) + ((unsigned long)pRGB[1] << 8) + ((unsigned long)pRGB[2] << 16) );
+#else
                     pDest[DestX] = 0xff000000 + ((unsigned long)pRGB[0]) + ((unsigned long)pRGB[1] << 8) + ((unsigned long)pRGB[2] << 16);
+#endif
 
                     SrcX += IncX;
                 }

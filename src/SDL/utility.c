@@ -7,20 +7,25 @@
 #include "SDL.h"
 #include "SDL_syswm.h"
 
-#ifdef _WIN32
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-#include <winreg.h>
-#include <shellapi.h>
-#else
-#include <sys/mman.h>
-#include <unistd.h>
-#include <X11/Xlib.h>
-#include <X11/keysym.h>
-#endif
-
 #include <stdlib.h>
 #include <stdio.h>
+
+#ifdef _WIN32
+    #define WIN32_LEAN_AND_MEAN
+    #include <windows.h>
+    #include <winreg.h>
+    #include <shellapi.h>
+#elif defined(_MACOSX)
+    #include <sys/types.h>
+    #include <sys/mman.h>
+    #include <unistd.h>
+#else
+    #include <sys/mman.h>
+    #include <unistd.h>
+    #include <X11/Xlib.h>
+    #include <X11/keysym.h>
+#endif
+
 #include <string.h>
 #include <strings.h>
 #include <ctype.h>
@@ -30,6 +35,7 @@
 #include "LilOptions.h"
 #include "AutoDownloadMap.h"
 #include "regkey.h"
+
 
 #ifdef _MSC_VER
 #define strcasecmp _stricmp
@@ -181,7 +187,7 @@ void utyRegistryOptionsRead(void)
             {
                 case REG_UDWORD:
                     if (next_tok)
-                        *(udword*)curr_reg->data = (udword)atoi(next_tok);
+                        sscanf( next_tok, "%d", (int)curr_reg->data );
                     else
                         *(udword*)curr_reg->data = 0;
                 break;
@@ -421,8 +427,6 @@ extern unsigned char *updateNewerAvailable;
 =============================================================================*/
 
 bool utilPlayingIntro = FALSE;
-
-unsigned long HomeworldCRC[4] = { 0,0,0,0 };    // dont use udword, this goes in TitanInterfaceC.h
 
 static char* dataEnvironment = NULL;
 
@@ -1827,7 +1831,7 @@ void FancyFightPreLoad(void);
 void gameStart(char *loadfilename)
 {
     char *useScenarioFile = 0;
-    Player *player;
+    Player *player = NULL;
     uword i;
     //udword numCompPlayers = 0;
 
@@ -3709,7 +3713,7 @@ void scriptSetHomeworldCRC(char *directory,char *field,void *dataToFillIn)
     HomeworldCRC[1] = 0;
     HomeworldCRC[2] = 0;
     HomeworldCRC[3] = 0;
-    sscanf(field,"%x %x %x %x",&HomeworldCRC[0],&HomeworldCRC[1],&HomeworldCRC[2],&HomeworldCRC[3]);
+    sscanf(field,"%x %x %x %x",(int)&HomeworldCRC[0],(int)&HomeworldCRC[1],(int)&HomeworldCRC[2],(int)&HomeworldCRC[3]);
     onlygetfirstcrc = TRUE;
 }
 
@@ -4102,6 +4106,7 @@ char* utyGameSystemsPreInit(void)
 #endif
 #endif
 #endif
+
     // check data dir on HD...
     if (!fileExists(utyMusicFilename, 0))
     {
@@ -4125,11 +4130,16 @@ char* utyGameSystemsPreInit(void)
     //start up the memory manager
     if (MemoryHeapSize == MEM_HeapSizeDefault)
     {                                                       //if the user has not specified a heap size
-        sdword newSize;
+        sdword newSize = 0;
 #ifdef _WIN32
         MEMORYSTATUS memStat;
         GlobalMemoryStatus(&memStat);
         newSize = (sdword)((real32)memStat.dwTotalPhys * MEM_HeapDefaultScalar);
+#elif defined(_MACOSX)
+		int phys_pages = 32768;
+		int page_size = getpagesize();
+		newSize = (sdword)((real32)phys_pages * (real32)page_size
+            * MEM_HeapDefaultScalar);
 #else
         long phys_pages = sysconf(_SC_PHYS_PAGES);
         long page_size = sysconf (_SC_PAGE_SIZE);
@@ -4213,7 +4223,7 @@ char* utyGameSystemsPreInit(void)
         HomeworldCRC[0] = utyCodeCRCCompute();
         if (!IgnoreBigfiles)
         {
-            bigCRC(&HomeworldCRC[1],&HomeworldCRC[2]);
+            bigCRC((udword*)&HomeworldCRC[1],(udword*)&HomeworldCRC[2]);
         }
         else
         {
@@ -4370,7 +4380,10 @@ char *utyGameSystemsInit(void)
     //show the opening plugscreens later
 #endif
 
+#ifndef _MACOSX_FIX_ME
 DONE_INTROS:
+#endif
+
     utilPlayingIntro = FALSE;
 
     renderData.width = MAIN_WindowWidth;                    //setup data for
@@ -4562,7 +4575,10 @@ DONE_INTROS:
 
     opUpdateSettings();
 
+#ifndef _MACOSX_FIX_ME
     soundEventPlayMusic(SOUND_FRONTEND_TRACK);
+#endif
+
 //    if (!nisEnabled)
 //    {
         feScreenStart(ghMainRegion, "Main_game_screen");
@@ -5250,7 +5266,12 @@ udword utyCodeCRCCompute(void)
         start = (size_t)linkEndCode;
         count = (size_t)linkStartCode - start;
     }
+
+#ifdef _MACOSX_FIX_ME
+	return((udword)crc32Compute( (ubyte*)start, 2));
+#else
     return((udword)crc32Compute(start, count));
+#endif
 }
 
 /*-----------------------------------------------------------------------------
@@ -5323,7 +5344,7 @@ void utyToggleKeyStatesSave(void)
 void utyToggleKeyStatesRestore(void)
 {
     Uint8* state;
-#ifndef _WIN32
+#if !defined(_WIN32) && !defined(_MACOSX)
     SDL_SysWMinfo info;
     SDL_VERSION(&info.version);
     SDL_GetWMInfo(&info);
@@ -5350,7 +5371,7 @@ void utyToggleKeyStatesRestore(void)
 
         // Simulate a key release
         keybd_event( VK_CAPITAL, 0x45, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, 0);
-#else
+#elif !defined(_MACOSX)
         xe.xkey.keycode = XKeysymToKeycode(info.info.x11.display, XK_Caps_Lock);
 
         // Simulate a key press
@@ -5372,7 +5393,7 @@ void utyToggleKeyStatesRestore(void)
 
         // Simulate a key release
         keybd_event( VK_SCROLL, 0x45, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, 0);
-#else
+#elif !defined(_MACOSX)
         xe.xkey.keycode = XKeysymToKeycode(info.info.x11.display, XK_Scroll_Lock);
 
         // Simulate a key press
@@ -5394,7 +5415,7 @@ void utyToggleKeyStatesRestore(void)
 
         // Simulate a key release
         keybd_event( VK_NUMLOCK, 0x45, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, 0);
-#else
+#elif !defined(_MACOSX)
         xe.xkey.keycode = XKeysymToKeycode(info.info.x11.display, XK_Num_Lock);
 
         // Simulate a key press

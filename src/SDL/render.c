@@ -38,16 +38,17 @@
 #define USE_RND_HINT        0
 #define WILL_TWO_PASS       0
 
+#include <stdio.h>
+#include <stdlib.h>
+
 #ifdef _WIN32
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
+    #define WIN32_LEAN_AND_MEAN
+    #include <windows.h>
 #else
-#include <sys/mman.h>
+    #include <sys/mman.h>
 #endif
 
 #include "glinc.h"
-#include <stdio.h>
-#include <stdlib.h>
 #include <math.h>
 #include <float.h>
 #include "Debug.h"
@@ -644,7 +645,9 @@ void rndFrameRateTaskFunction(void)
 
     taskYield(0);
 
+#ifndef C_ONLY
     while (1)
+#endif
     {
         taskStackSaveCond(0);
         rndFrameRate = rndFrameCount - rndFrameRateStart;   //number of frames since last printed
@@ -702,7 +705,9 @@ void rndPolyStatsTaskFunction(void)
 
     taskYield(0);
 
+#ifndef C_ONLY
     while (1)
+#endif
     {
         taskStackSaveCond(0);
 
@@ -825,6 +830,19 @@ void rndCapScaleCapStatsTaskFunction(void)
 bool setupPixelFormat()
 {
 	Uint32 flags;
+	static Uint32 lastWidth  = 0;
+	static Uint32 lastHeight = 0;
+	static Uint32 lastDepth  = 0;
+	static bool   lastFull   = FALSE;
+
+    // don't bother doing anything if nothing's actually changed
+	if(lastWidth  == MAIN_WindowWidth
+    && lastHeight == MAIN_WindowHeight
+    && lastDepth  == MAIN_WindowDepth
+    && lastFull   == fullScreen)
+    {
+		return TRUE;
+    }
 
 	/* SDL video initialized? */
 	flags = SDL_WasInit(SDL_INIT_EVERYTHING);
@@ -852,7 +870,39 @@ bool setupPixelFormat()
 		MAIN_WindowDepth, flags))
 		return FALSE;
 
+	int FSAA = 0/*os_config_read_uint( NULL, "FSAA", 1 )*/;
+	if ( FSAA ) {
+	    SDL_GL_SetAttribute( SDL_GL_MULTISAMPLEBUFFERS, 1 );
+	    SDL_GL_SetAttribute( SDL_GL_MULTISAMPLESAMPLES, FSAA );
+	}
+	
+	if (SDL_SetVideoMode (MAIN_WindowWidth, MAIN_WindowHeight, MAIN_WindowDepth, flags) == NULL)
+	{
+	    fprintf (stderr, "Couldn't set FSAA video mode: %s\n", SDL_GetError ());
+	    SDL_GL_SetAttribute( SDL_GL_MULTISAMPLEBUFFERS, 0 );
+	    SDL_GL_SetAttribute( SDL_GL_MULTISAMPLESAMPLES, 0 );
+		
+	    if (SDL_SetVideoMode (MAIN_WindowWidth, MAIN_WindowHeight, MAIN_WindowDepth, flags) == NULL)
+	    {
+		fprintf (stderr, "Couldn't set video mode: %s\n", SDL_GetError ());
+		//exit (1);
+                return FALSE;
+	    }
+	}
+
 	SDL_ShowCursor(SDL_DISABLE);
+
+#ifdef _MACOSX_FIX_ME
+	if (!((flags & SDL_FULLSCREEN)))
+    {
+		SDL_WM_GrabInput(SDL_GRAB_ON);
+    }
+#endif
+
+	lastWidth  = MAIN_WindowWidth;
+	lastHeight = MAIN_WindowHeight;
+	lastDepth  = MAIN_WindowDepth;
+	lastFull   = fullScreen;
 
 	return TRUE;
 }
@@ -915,7 +965,7 @@ sdword rndSmallInit(rndinitdata* initData, bool GL)
         initPositionProc = (AUXINITPOSITIONPROC)rwglGetProcAddress("rauxInitPosition");
         dbgAssert(initPositionProc != NULL);
 
-        hGLWindow = initData->hWnd;
+        hGLWindow = (udword)(initData->hWnd);
         rglCreateWindow((GLint)hGLWindow, (GLint)MAIN_WindowWidth, (GLint)MAIN_WindowDepth);
 
         if (!initPositionProc(0, 0, initData->width, initData->height, MAIN_WindowDepth))
@@ -924,8 +974,10 @@ sdword rndSmallInit(rndinitdata* initData, bool GL)
         }
     }
 
-    glLockArraysEXT = (LOCKARRAYSEXTproc)rwglGetProcAddress("glLockArraysEXT");
+#ifndef _MACOSX_FIX_ME
+    glLockArraysEXT   = (LOCKARRAYSEXTproc)rwglGetProcAddress("glLockArraysEXT");
     glUnlockArraysEXT = (UNLOCKARRAYSEXTproc)rwglGetProcAddress("glUnlockArraysEXT");
+#endif
 
     return TRUE;
 }
@@ -979,7 +1031,7 @@ sdword rndInit(rndinitdata *initData)
         initPositionProc = (AUXINITPOSITIONPROC)rwglGetProcAddress("rauxInitPosition");
         dbgAssert(initPositionProc != NULL);
 
-        hGLWindow = initData->hWnd;
+        hGLWindow = (udword)(initData->hWnd);
         rglCreateWindow((GLint)hGLWindow, (GLint)MAIN_WindowWidth, (GLint)MAIN_WindowDepth);
 
         if (!initPositionProc(0, 0, initData->width, initData->height, MAIN_WindowDepth))
@@ -1048,8 +1100,10 @@ sdword rndInit(rndinitdata *initData)
 
     glDepthFunc(glCapDepthFunc);
 
-    glLockArraysEXT = (LOCKARRAYSEXTproc)rwglGetProcAddress("glLockArraysEXT");
+#ifndef _MACOSX_FIX_ME
+    glLockArraysEXT   = (LOCKARRAYSEXTproc)rwglGetProcAddress("glLockArraysEXT");
     glUnlockArraysEXT = (UNLOCKARRAYSEXTproc)rwglGetProcAddress("glUnlockArraysEXT");
+#endif
 
     return(OKAY);
 }
@@ -3163,6 +3217,10 @@ renderDefault:
                    }
                 }
                 etgEffectDraw(effect);
+                break;
+                
+            default:
+                dbgFatalf(DBG_Loc, "Undefined object type %d", spaceobj->objtype);
 dontdraw3:;
             }
             objnode = objnode->next;
@@ -3276,6 +3334,26 @@ udword rndLoadTarga(char* filename, sdword* width, sdword* height)
     head.colorMapType = *pdata++;
     head.imageType = *pdata++;
     psdata = (uword*)pdata;
+    
+#ifdef ENDIAN_BIG
+    head.colorMapStartIndex = LittleShort(*psdata);
+    pdata += 2;
+    psdata = (uword*)pdata;
+    head.colorMapNumEntries = LittleShort(*psdata);
+    pdata += 2;
+    head.colorMapBitsPerEntry = *pdata++;
+    psdata = (uword*)pdata;
+    head.imageOffsetX = LittleShort((sword)*psdata);
+    pdata += 2;
+    psdata = (uword*)pdata;
+    head.imageOffsetY = LittleShort((sword)*psdata);
+    pdata += 2;
+    psdata = (uword*)pdata;
+    head.imageWidth = LittleShort(*psdata);
+    pdata += 2;
+    psdata = (uword*)pdata;
+    head.imageHeight = LittleShort(*psdata);
+#else
     head.colorMapStartIndex = *psdata;
     pdata += 2;
     psdata = (uword*)pdata;
@@ -3293,6 +3371,8 @@ udword rndLoadTarga(char* filename, sdword* width, sdword* height)
     pdata += 2;
     psdata = (uword*)pdata;
     head.imageHeight = *psdata;
+#endif
+
     pdata += 2;
     head.pixelDepth = *pdata++;
     head.imageDescriptor = *pdata++;
@@ -3879,7 +3959,9 @@ void rndRenderTask(void)
 #endif
     taskYield(0);
 
+#ifndef C_ONLY
     while (1)
+#endif
     {
         taskStackSaveCond(0);
         primErrorMessagePrint();
@@ -3965,7 +4047,7 @@ void rndRenderTask(void)
         {
             rndDrawScissorBars(rndScissorEnabled);
         }
-        glDisable(GL_SCISSOR_TEST);                         //in case the scene was rendered with scissoring, turn it off properlu.
+        glDisable(GL_SCISSOR_TEST);                         //in case the scene was rendered with scissoring, turn it off properly.
 
 
         /* need to update audio event layer */

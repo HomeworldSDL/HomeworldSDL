@@ -187,6 +187,8 @@ bool physUpdateBulletPosVel(Bullet *bullet,real32 phystimeelapsed)
                             case GUN_NewGimble:
                                 gunOrientGimbleGun(ship,gun,bullet->target);
                                 break;
+                            default:
+                                break;
                         }
                     }
 

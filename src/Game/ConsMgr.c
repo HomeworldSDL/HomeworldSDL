@@ -4826,7 +4826,7 @@ void SaveConsMgrDetermListCB(void *stuff)
 {
     cmDetermProgress_t copy = *((cmDetermProgress_t *)stuff);
 
-    copy.creator = SpaceObjRegistryGetID((SpaceObj *)copy.creator);
+    copy.creator = (ShipPtr)SpaceObjRegistryGetID((SpaceObj *)copy.creator);
 
     SaveStructureOfSize(&copy,sizeof(copy));
 }

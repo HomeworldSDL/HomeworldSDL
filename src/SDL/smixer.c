@@ -120,6 +120,8 @@ void soundMixerGetMode(sdword *mode)	// mode SOUND_MODE_NORM or SOUND_MODE_AUTO 
 
 void soundMixerSetMode(sdword mode)		// mode SOUND_MODE_NORM or SOUND_MODE_AUTO or SOUND_MODE_LOW
 {
+#ifndef _MACOSX_FIX_ME
+
 	if(mode == SOUND_MODE_LOW)
 	{
 		// set DCT mode
@@ -161,6 +163,8 @@ void soundMixerSetMode(sdword mode)		// mode SOUND_MODE_NORM or SOUND_MODE_AUTO 
 	// set panic mode
 	dctpanicmode=SOUND_MODE_NORM;
 
+#endif // _MACOSX_FIX_ME
+
 	return;
 }
 
@@ -201,6 +205,7 @@ sdword smixInitMixBuffer(SDL_AudioSpec *aspec)
 ----------------------------------------------------------------------------*/	
 sdword isoundmixerinit(SDL_AudioSpec *aspec)
 {
+#ifndef _MACOSX_FIX_ME
 
 	// Initialize codec
 	fqInitDequant();
@@ -244,6 +249,8 @@ sdword isoundmixerinit(SDL_AudioSpec *aspec)
 	// start the thread
 	SDL_CreateThread(isoundmixerthreadSDL, NULL);
 
+#endif // _MACOSX_FIX_ME
+
 	return (SOUND_OK);
 }
 
@@ -270,6 +277,8 @@ void isoundmixerrestore(void)
 ----------------------------------------------------------------------------*/	
 sdword isoundmixerprocess(void *pBuf1, udword nSize1, void *pBuf2, udword nSize2)
 {
+#ifndef _MACOSX_FIX_ME
+
 	sdword i, amountread;
 	CHANNEL	*pchan;
 	STREAM *pstream;
@@ -813,6 +822,8 @@ sdword isoundmixerprocess(void *pBuf1, udword nSize1, void *pBuf2, udword nSize2
 
 	mixerticks++;
 
+#endif // _MAOSX_FIX_ME
+
 	return (SOUND_OK);
 }
 
@@ -826,6 +837,8 @@ sdword isoundmixerprocess(void *pBuf1, udword nSize1, void *pBuf2, udword nSize2
 ----------------------------------------------------------------------------*/
 sdword isoundmixerdecodeEffect(sbyte *readptr, real32 *writeptr1, real32 *writeptr2, ubyte *exponent, sdword size, uword bitrate, EFFECT *effect)
 {
+#ifndef _MACOSX_FIX_ME
+
     sbyte tempblock[FQ_LEN];
 
 	memset(tempblock, 0, FQ_LEN);
@@ -843,6 +856,7 @@ sdword isoundmixerdecodeEffect(sbyte *readptr, real32 *writeptr1, real32 *writep
 					FQ_LEN, bitrate, size);
 
 	return (bitrate >> 3);
+#endif 
 }
 
 /*-----------------------------------------------------------------------------

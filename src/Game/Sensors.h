@@ -261,8 +261,8 @@ void smUpdateHyperspaceStatus(bool goForLaunch);
 
 //logic handlers for main region
 void smNULL(void);
-void (*smHoldLeft)(void);
-void (*smHoldRight)(void);
+extern void (*smHoldLeft)(void);
+extern void (*smHoldRight)(void);
 
 /*=============================================================================
     Save Game stuff:

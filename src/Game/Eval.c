@@ -349,6 +349,8 @@ static double logical_expression()
 
       case  NEQ:  e1 = (e1 != e2);
                   break;
+      default:
+            break;
 
     } /* switch */
 
@@ -393,6 +395,7 @@ static double expression()
       case PLUS:  e += p;
                   break;
       case MINUS: e -= p;
+      default:	break;
     } /* switch */
 
   } /* while */
@@ -432,6 +435,7 @@ static double multiply()
                     math_err(DIV_ZERO);
                     return(0.0);
                   }
+        default: break;
     } /* switch */
 
   } /* while */
@@ -526,6 +530,7 @@ static double factor()
                                   }
                                   f = pow(f, tmp);
                                   break;
+                        default: break;
 
                     } /* switch func */
 
@@ -671,7 +676,8 @@ static double factor()
                                    break;
 
                            /* ...add more functions here... */
-
+                        default:
+                            break;
                     } /* switch func */
 
                     if (cur_token != CLOSED_PAR) {

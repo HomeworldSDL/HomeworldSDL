@@ -175,7 +175,7 @@ void Carrier_PreFix(Ship *ship)
     sdword i;
     for(i=0;i<MAX_NUM_DROP;i++)
     {
-        spec->droptarget[i] = SpaceObjRegistryGetID((SpaceObj *)spec->droptarget[i]);
+        spec->droptarget[i] = (SpaceObjRotImpTargGuidanceShipDerelict*)SpaceObjRegistryGetID((SpaceObj *)spec->droptarget[i]);
     }
 }
 

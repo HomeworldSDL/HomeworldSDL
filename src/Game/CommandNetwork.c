@@ -151,7 +151,7 @@ void ReceivedSyncPacketCB(ubyte *packet,udword sizeofPacket)
     dbgAssert(((HWPacketHeader *)packet)->type == PACKETTYPE_SYNC);
 
     LockQueue(&ProcessSyncPktQ);
-    Enqueue(&ProcessSyncPktQ,packet,sizeofPacket);
+    HWEnqueue(&ProcessSyncPktQ,packet,sizeofPacket);
     UnLockQueue(&ProcessSyncPktQ);
 }
 
@@ -170,7 +170,7 @@ void ReceivedCmdPacketCB(ubyte *packet,udword sizeofPacket)
     if (IAmCaptain)
     {
         LockQueue(&ProcessCmdPktQ);
-        Enqueue(&ProcessCmdPktQ,packet,sizeofPacket);
+        HWEnqueue(&ProcessCmdPktQ,packet,sizeofPacket);
         UnLockQueue(&ProcessCmdPktQ);
     }
     // else throw packet away
@@ -189,7 +189,7 @@ void ReceivedRequestedSyncPacketCB(ubyte *packet,udword sizeofPacket)
     dbgAssert(((HWPacketHeader *)packet)->type == PACKETTYPE_REQUESTEDSYNC);
 
     LockQueue(&ProcessRequestedSyncPktQ);
-    Enqueue(&ProcessRequestedSyncPktQ,packet,sizeofPacket);
+    HWEnqueue(&ProcessRequestedSyncPktQ,packet,sizeofPacket);
     UnLockQueue(&ProcessRequestedSyncPktQ);
 }
 
@@ -250,7 +250,7 @@ void ReceivedTransferCaptaincyPacketCB(ubyte *packet,udword sizeofPacket)
     dbgAssert(((HWPacketHeader *)packet)->type == PACKETTYPE_TRANSFERCAPTAINCY);
 
     LockQueue(&ProcessCaptaincyPktQ);
-    Enqueue(&ProcessCaptaincyPktQ,packet,sizeofPacket);
+    HWEnqueue(&ProcessCaptaincyPktQ,packet,sizeofPacket);
     UnLockQueue(&ProcessCaptaincyPktQ);
 }
 
@@ -470,6 +470,8 @@ void SetTargetID(TargetID *targetID,SpaceObjRotImpTarg *target)
 
         case OBJ_DerelictType:
             targetID->objNumber = ((Derelict *)target)->derelictID.derelictNumber;
+            break;
+        default:
             break;
     }
 }
@@ -1914,7 +1916,7 @@ WaitPacketStatus clWaitSyncPacket(CommandLayer *comlayer)
         }
         else
         {
-            sizeofPacket = Dequeue(&ProcessRequestedSyncPktQ,&packet);       // actually dequeue it
+            sizeofPacket = HWDequeue(&ProcessRequestedSyncPktQ,&packet);       // actually HWDequeue it
             dbgAssert(sizeofPacket > 0);
             copypacket = memAlloc(sizeofPacket,"cp(copypacket)",Pyrophoric);
             memcpy(copypacket,packet,sizeofPacket);
@@ -1963,12 +1965,12 @@ WaitPacketStatus clWaitSyncPacket(CommandLayer *comlayer)
 
             if (((HWPacketHeader *)packet)->frame == receivedPacketNumber)
             {
-                sizeofPacket = Dequeue(&ProcessSyncPktQ,&packet);       // actually dequeue it
+                sizeofPacket = HWDequeue(&ProcessSyncPktQ,&packet);       // actually HWDequeue it
                 dbgAssert(sizeofPacket > 0);
                 break;
             }
 
-            // frame is > receivedPacketNumber, don't dequeue it,
+            // frame is > receivedPacketNumber, don't HWDequeue it,
             if (!explicitlyRequestingPackets)       // and request packets receivedPacketNumber..frame-1 (but only once)
             {
                 explicitlyRequestingFrom = receivedPacketNumber;
@@ -1986,7 +1988,7 @@ WaitPacketStatus clWaitSyncPacket(CommandLayer *comlayer)
             return NO_PACKET;
 
 getnextpacket:
-            sizeofPacket = Dequeue(&ProcessSyncPktQ,&packet);       // actually dequeue it
+            sizeofPacket = HWDequeue(&ProcessSyncPktQ,&packet);       // actually HWDequeue it
             dbgAssert(sizeofPacket > 0);
             numPackets = queueNumberEntries(ProcessSyncPktQ);
             if (numPackets == 0)
@@ -2047,7 +2049,9 @@ void captainServerTask(void)
 
     taskYield(0);
 
+#ifndef C_ONLY
     for(;;)
+#endif
     {
         taskStackSaveCond(0);
         if ( (recordFakeSendPackets) ||
@@ -2077,7 +2081,7 @@ void captainServerTask(void)
             while (queueNumberEntries(ProcessCmdPktQ) > 0)
             {
                 curqinfo = &qinfos[numCommands];
-                curqinfo->qsizeof = Dequeue(&ProcessCmdPktQ,(ubyte **)&curqinfo->qdata);
+                curqinfo->qsizeof = HWDequeue(&ProcessCmdPktQ,(ubyte **)&curqinfo->qdata);
                 dbgAssert(curqinfo->qsizeof > 0);
                 dbgAssert(curqinfo->qdata != NULL);
                 dbgAssert(numCommands < qTotalNumberEntries);
@@ -2164,6 +2168,7 @@ donecap:;
         taskStackRestoreCond();
         taskYield(0);
     }
+
     taskExit();
 }
 #pragma optimize("", on)

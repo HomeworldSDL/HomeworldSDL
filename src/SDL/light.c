@@ -317,12 +317,31 @@ void lightParseHSF(char* fileName)
         fileLoad(fileName, buf, 0);
 
         hsfHeader = (HSFFileHeader*)buf;
+
+#ifdef ENDIAN_BIG
+		hsfHeader->version = LittleLong( hsfHeader->version );
+		hsfHeader->nLights = LittleLong( hsfHeader->nLights );
+#endif
+
         numLights = 0;
         while (pos <= (sdword)(fileSize - sizeof(HSFLight)))
         {
             lightinfo* linfo;
 
             hsfLight = (HSFLight*)(buf + pos);
+
+#ifdef ENDIAN_BIG
+			hsfLight->type      = LittleLong( hsfLight->type );
+			hsfLight->x         = LittleFloat( hsfLight->x );
+			hsfLight->y         = LittleFloat( hsfLight->y );
+			hsfLight->z         = LittleFloat( hsfLight->z );
+			hsfLight->h         = LittleFloat( hsfLight->h );
+			hsfLight->p         = LittleFloat( hsfLight->p );
+			hsfLight->b         = LittleFloat( hsfLight->b );
+			hsfLight->coneAngle = LittleFloat( hsfLight->coneAngle );
+			hsfLight->edgeAngle = LittleFloat( hsfLight->edgeAngle );
+			hsfLight->intensity = LittleFloat( hsfLight->intensity );
+#endif
 
             if (hsfLight->type != L_AmbientLight)
             {

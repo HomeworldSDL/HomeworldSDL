@@ -122,9 +122,9 @@ startupbit;
 //flag stating system has started properly
 extern sdword utySystemStarted;
 extern regionhandle ghMainRegion;
-sdword enableTextures;
-sdword enableSmoothing;
-sdword enableStipple;
+extern sdword enableTextures;
+extern sdword enableSmoothing;
+extern sdword enableStipple;
 extern ShipRace whichRaceSelected;
 
 extern color utyBaseColor;

@@ -161,7 +161,7 @@ typedef struct
 wkTradeType;
 
 extern wkTradeType wkTradeShips[WK_MAX_SHIPS];
-bool wkTradeStuffActive;
+extern bool wkTradeStuffActive;
 void mrTradeStuffTest(sdword *a, sdword *b);
 void wkTradeUpdate(void);
 

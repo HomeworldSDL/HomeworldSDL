@@ -1673,7 +1673,7 @@ sdword feResRepositionY(sdword y)
 
 /*-----------------------------------------------------------------------------
     Name        : feResRescaleBackground
-    Description : rescales a background region to fill a higher res that 640x480
+    Description : rescales a background region to fill a higher res than 640x480
     Inputs      : atom - the atom to resize
     Outputs     :
     Return      :
@@ -1784,6 +1784,12 @@ fibfileheader *feScreensLoad(char *fileName)
 
     fileLoadAlloc(fileName, (void **)&loadAddress, NonVolatile);     //load in the file
     header = (fibfileheader *)loadAddress;                  //get a pointer to the header
+
+#ifdef ENDIAN_BIG
+	header->version = LittleShort( header->version );
+	header->nScreens = LittleShort( header->nScreens );
+#endif
+
 #if FEF_ERROR_CHECKING
     if (strcmp(header->identify, FIB_Identify))             //verify header string
     {
@@ -1797,8 +1803,18 @@ fibfileheader *feScreensLoad(char *fileName)
     screen = (fescreen *)(loadAddress + sizeof(fibfileheader));//pointer to first screen
     for (screenIndex = 0; screenIndex < header->nScreens; screenIndex++, screen++)
     {
+#ifdef ENDIAN_BIG
+		screen->name   = ( char *)LittleLong( ( udword )screen->name );
+		screen->flags  = LittleLong( screen->flags );
+		screen->nLinks = LittleShort( screen->nLinks );
+		screen->nAtoms = LittleShort( screen->nAtoms );
+		screen->links  = ( void *)LittleLong( ( udword )screen->links );
+		screen->atoms  = ( void *)LittleLong( ( udword )screen->atoms );
+#endif
+
         dbgAssert(screen->name != NULL);                    //screens need a name
         screen->name += (udword)loadAddress;                //fix up load address
+
         if (((udword)((ubyte *)screen->links) & 0x03) != 0)
         {
             dbgMessagef("\nWARNING links %s not byte aligned",fileName);
@@ -1811,6 +1827,13 @@ fibfileheader *feScreensLoad(char *fileName)
         (ubyte *)screen->atoms += (udword)loadAddress;
         for (index = 0; index < screen->nLinks; index++)
         {                                                   //for each link in screen
+
+#ifdef ENDIAN_BIG
+			screen->links[index].name       = ( char *)LittleLong( ( udword )screen->links[index].name );
+			screen->links[index].flags      = LittleLong( screen->links[index].flags );
+			screen->links[index].linkToName = ( char *)LittleLong( ( udword )screen->links[index].linkToName );
+#endif
+
             if (bitTest(screen->links[index].flags, FL_Enabled))
             {                                               //if link enabled
                 dbgAssert(screen->links[index].name);
@@ -1824,6 +1847,30 @@ fibfileheader *feScreensLoad(char *fileName)
         menuItemsPresent = FALSE;
         for (index = 0; index < screen->nAtoms; index++)
         {                                                   //for each atom in screen
+#ifdef ENDIAN_BIG
+			screen->atoms[index].name = ( char *)LittleLong( ( udword )screen->atoms[index].name );
+			screen->atoms[index].flags = LittleLong( screen->atoms[index].flags );
+			screen->atoms[index].status = LittleLong( screen->atoms[index].status );
+			screen->atoms[index].tabstop = LittleShort( screen->atoms[index].tabstop );
+//			screen->atoms[index].borderColor = LittleLong( screen->atoms[index].borderColor );
+//			screen->atoms[index].contentColor = LittleLong( screen->atoms[index].contentColor );
+			screen->atoms[index].x = LittleShort( screen->atoms[index].x );
+			screen->atoms[index].loadedX = LittleShort( screen->atoms[index].loadedX );
+			screen->atoms[index].y = LittleShort( screen->atoms[index].y );
+			screen->atoms[index].loadedY = LittleShort( screen->atoms[index].loadedY );
+			screen->atoms[index].width = LittleShort( screen->atoms[index].width );
+			screen->atoms[index].loadedWidth = LittleShort( screen->atoms[index].loadedWidth );
+			screen->atoms[index].height = LittleShort( screen->atoms[index].height );
+			screen->atoms[index].loadedHeight = LittleShort( screen->atoms[index].loadedHeight );
+			screen->atoms[index].pData = ( ubyte *)LittleLong( ( udword )screen->atoms[index].pData );
+			screen->atoms[index].attribs = ( ubyte *)LittleLong( ( udword )screen->atoms[index].attribs );
+			screen->atoms[index].drawstyle[0] = LittleLong( screen->atoms[index].drawstyle[0] );
+			screen->atoms[index].drawstyle[1] = LittleLong( screen->atoms[index].drawstyle[1] );
+			screen->atoms[index].region = ( void *)LittleLong( ( udword )screen->atoms[index].region );
+			screen->atoms[index].pad[0] = LittleLong( screen->atoms[index].pad[0] );
+			screen->atoms[index].pad[1] = LittleLong( screen->atoms[index].pad[1] );
+#endif
+
             if (screen->atoms[index].type == FA_MenuItem)
             {
                 menuItemsPresent = TRUE;

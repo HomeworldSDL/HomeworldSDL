@@ -47,8 +47,8 @@
     Tweaks
 =============================================================================*/
 
-real32	SPEECH_MOSHIP_WARNING_TIME;
-real32	SPEECH_WARNING_TIME;
+extern real32	SPEECH_MOSHIP_WARNING_TIME;
+extern real32	SPEECH_WARNING_TIME;
 
 extern Ship *lastshiptospeak;
 extern sdword lastgrouptospeak;

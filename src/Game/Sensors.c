@@ -77,6 +77,9 @@
 void toFieldSphereDraw(ShipPtr ship,real32 radius, real32 scale);
 
 
+void (*smHoldLeft)(void);
+void (*smHoldRight)(void);
+
 /*=============================================================================
     Data:
 =============================================================================*/
@@ -1623,11 +1626,11 @@ void smBlobDrawCloudy(Camera *camera, blob *thisBlob, hmatrix *modelView, hmatri
                 }
                 primPoint3(&obj->posinfo.position, c);
                 break;
-//            default:
+            default:
 //#ifndef DEBUG_COLLBLOBS
 //                dbgAssert(FALSE);       // don't assert if DEBUG_COLLBLOBS because debug collblobs can have bullets,etc.
 //#endif
-//                break;
+                break;
         }
 
 dontRenderThisResource:;
@@ -2685,6 +2688,8 @@ void smCursorTextDraw(rectangle *viewportRect, blob *selectedBlob, sdword sensor
                                 break;
                         }
                         break;
+                    default:
+                        break;
                 }
             }
         }
@@ -2718,6 +2723,8 @@ void smCursorTextDraw(rectangle *viewportRect, blob *selectedBlob, sdword sensor
                             break;
                         case OBJ_DerelictType:
                             cursorText = strGetString(strDerelictShip);
+                            break;
+                        default:
                             break;
                     }
                 }

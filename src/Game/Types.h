@@ -45,9 +45,41 @@ typedef Uint64  uqword;
 typedef float   real32;
 typedef double  real64;
 
-typedef udword  bool;
+#ifndef __cplusplus
+    typedef udword  bool;
+#endif
 typedef sbyte   bool8;
 typedef sword   bool16;
+
+/*-------------------------------------------------------------------------
+	Functions for converting endian-specific values
+--------------------------------------------------------------------------*/
+
+Uint16 SwapShort( Uint16 val );
+Uint32 SwapLong( Uint32 val );
+float  SwapFloat( float val );
+
+#if defined(__i386__) || defined(_WIN32) || defined(__LITTLE_ENDIAN__)
+	#define ENDIAN_LITTLE
+#else
+	#define ENDIAN_BIG
+#endif
+
+#ifdef ENDIAN_BIG
+	#define LittleShort(x)		SwapShort((x))
+	#define LittleLong(x)		SwapLong((x))
+	#define LittleFloat(x)		SwapFloat((x))
+	#define BigShort(x)			(x)
+	#define BigLong(x)			(x)
+	#define BigFloat(x)			(x)
+#else
+	#define LittleShort(x)		(x)
+	#define LittleLong(x)		(x)
+	#define LittleFloat(x)		(x)
+	#define BigShort(x)			SwapShort((x))
+	#define BigLong(x)			SwapLong((x))
+	#define BigFloat(x)			SwapFloat((x))
+#endif
 
 /*-------------------------------------------------------------------------
    Declare common numbers etc.
@@ -120,13 +152,15 @@ typedef sword   bool16;
 --------------------------------------------------------------------------*/
 
 #ifndef max
-#define max(a,b) ((a) > (b) ? (a) : (b))
+    #define max(a,b) ((a) > (b) ? (a) : (b))
 #endif
+
 #ifndef min
-#define min(a,b) ((a) > (b) ? (b) : (a))
+    #define min(a,b) ((a) > (b) ? (b) : (a))
 #endif
-#ifndef abs
-#define abs(a)   ((a) < 0 ? -(a) : (a))
+
+#if !defined(abs) && !defined(_MACOSX)
+    #define abs(a)   ((a) < 0 ? -(a) : (a))
 #endif
 
 #define frandyrandom(stream,n) (ranRandom(stream) * (((real32)(n)) * (1.0f/((real32)UDWORD_Max))))
@@ -203,6 +237,8 @@ typedef sword   bool16;
 #define circleArea(radius)          (PI * radius * (radius))
 #define sphereArea(radius)          (4.0f * PI * (radius) * (radius))
 #define sphereVolume(radius)        (4.0f / 3.0f * PI * (radius) * (radius) * (radius))
+
+#define PATH_MAX	1024
 
 #endif  // ___TYPES_H
 

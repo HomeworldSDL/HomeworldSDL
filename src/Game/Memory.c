@@ -22,6 +22,7 @@
 #define CB_DECL
 #endif
 
+
 /*=============================================================================
     Data:
 =============================================================================*/
@@ -107,7 +108,9 @@ void memStatsTaskFunction(void)
 
     taskYield(0);
 
+#ifndef C_ONLY
     while (1)
+#endif
     {
         taskStackSaveCond(0);
         if (memStatsLogging)
@@ -371,7 +374,9 @@ sdword memReset(void)
         memFree(c);
         memFree(d);
         memFree(f);
+#ifndef _MACOSX_FIX_ME
         memDefragment();
+#endif
     }
 #endif // MEM_MODULE_TEST
 
@@ -459,8 +464,9 @@ sdword memClearDword(void *dest, udword pattern, sdword nDwords)
         :
         : "D" (dest), "c" (nDwords), "a" (pattern) );
 #else
+	udword *d = ( udword *)dest;
     while (nDwords--)
-        (udword*)dest++ = pattern;
+        *d++ = pattern;
 #endif
     return(OKAY);
 }
@@ -1490,11 +1496,11 @@ void memFree(void *pointer)
 
     memCookieVerify(cookie);                                //make sure cookie is valid
 
-    if (pointer < memMainPool.pool || pointer > (void *)memMainPool.last)
+    if (pointer < (void *)memMainPool.pool || pointer > (void *)memMainPool.last)
     {                                                       //if it's not part of the main pool
         for (index = 0, pool = memGrowthPool; index < memNumberGrowthPools; index++, pool++)
         {                                                   //search all existing pools
-            if (pointer > pool->pool && pointer <= (void *)pool->last)
+            if (pointer > (void *)pool->pool && pointer <= (void *)pool->last)
             {
                 goto foundPool;
             }

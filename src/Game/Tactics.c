@@ -33,6 +33,9 @@
 #include "Battle.h"
 
 //global data
+BabyCallBack    *tacticsFlashMenuBaby;
+regionhandle    tacticsMenuRegion;
+
 //special ops tweakables
 real32 kamikazeDamage[TOTAL_NUM_SHIPS];
 real32 kamikazeSpeedBurst;
@@ -77,6 +80,8 @@ bool tacticsAreEnemiesNearby(Ship *leadership, Ship *thisship,real32 retaliateZo
 
 //special ops prototype
 void speedBurstUpdate(Ship *ship);
+
+TacticsInfo tacticsInfo;
 
 scriptEntry TacticsInfotable[] =
 {
@@ -1111,6 +1116,8 @@ neutralstuff:
   //      }
   //      tacticsSpeechForRetaliation(ship);
         break;
+    default:
+        break;
     }
 
 }
@@ -1177,6 +1184,8 @@ void tacticsDelegateSingleAttack(Ship *ship,CommandLayer *comlayer,SelectCommand
         //later don't passive retaliate...simply dodge for now, do it though
         //clPassiveAttack(comlayer,selectone,attack);
         //tacticsSpeechForRetaliation(ship);
+        break;
+    default:
         break;
     }
 

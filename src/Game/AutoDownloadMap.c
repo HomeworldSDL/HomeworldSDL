@@ -7,11 +7,12 @@
 =============================================================================*/
 
 #ifdef _WIN32
-#include <direct.h>
+    #include <direct.h>
 #else
-#include <dirent.h>
-#include <sys/stat.h>
+    #include <sys/stat.h>
+    #include <dirent.h>
 #endif
+
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>

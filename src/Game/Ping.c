@@ -151,7 +151,10 @@ void pingUpdateTask(void)
     static ping *thisPing;
 
     taskYield(0);
+    
+#ifndef C_ONLY
     while (1)
+#endif
     {
         taskStackSaveCond(0);
 

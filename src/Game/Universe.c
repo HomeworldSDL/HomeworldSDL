@@ -85,6 +85,8 @@ DerelictStaticInfo derelictStaticInfos[NUM_DERELICTTYPES];
 MissileStaticInfo missileStaticInfos[NUM_RACES];
 MissileStaticInfo mineStaticInfos[2];               //only race 1 and race 2 have mines
 
+GrowSelection ClampedShipList;       // special GrowSelect which can have NULL's in it
+
 struct SphereStaticInfo *sphereStaticInfo = NULL;
 
 Camera defaultCamera;
@@ -3815,7 +3817,9 @@ void universeUpdateTask(void)
 
     taskYield(0);
 
+#ifndef C_ONLY
     for(;;)
+#endif
     {
         if ((multiPlayerGame) && (startingGame) && (gameIsRunning) && ((IAmCaptain) && (!multiPlayerGameUnderWay)))
         {
@@ -4094,6 +4098,7 @@ alldone2:;
 
         taskYield(0);
     }
+
     taskExit();
 }
 #pragma optimize("", on)

@@ -6,6 +6,7 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
+#include <stdlib.h>
 #include <math.h>
 #include "Types.h"
 #include "color.h"

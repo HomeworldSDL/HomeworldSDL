@@ -1312,6 +1312,8 @@ void bobBlobItemize(blob *thisBlob, sdword sensorsLevel)
 resourceCommon:
                 thisBlob->RUs += ((Resource *)object)->staticinfo->resourcevalue;
                 break;
+            default:
+                break;
         }
     }
 

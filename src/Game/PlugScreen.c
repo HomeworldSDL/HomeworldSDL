@@ -579,7 +579,10 @@ void psRenderTaskFunction(void)
     static regionhandle reg;
 
     taskYield(0);
+    
+#ifndef C_ONLY
     while (1)
+#endif
     {
         primErrorMessagePrint();
 

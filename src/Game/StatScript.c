@@ -65,6 +65,8 @@ extern scriptEntry AutoLODTweaks[];
 extern scriptEntry GatherStatsScriptTable[];
 extern scriptEntry FrontEndColourTweaks[];
 
+char globalScriptFileName[50];  //file name of file loaded in a script callback function
+
 /*=============================================================================
     Private Defines:
 =============================================================================*/
@@ -874,7 +876,6 @@ void scriptSet(char *directory,char *filename,scriptEntry info[])
                 foundentry->setVarCB(directory,value,foundentry->dataPtr);
             }
         }
-
     }
 
     fileClose(fh);

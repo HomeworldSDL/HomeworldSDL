@@ -94,7 +94,7 @@
 void clLaunchShip(CommandLayer *comlayer,SelectCommand *selectcom,ShipPtr receiverShip);
 void startTractorBeam(Ship *ship, SpaceObjRotImpTargGuidanceShipDerelict *target);
 
-
+SalCapCorvetteStatics SalCapCorvetteStatic;
 SalCapCorvetteStatics SalCapCorvetteStaticRace1;
 SalCapCorvetteStatics SalCapCorvetteStaticRace2;
 SalCapCorvetteStatics SalCapCorvetteStaticDawg;

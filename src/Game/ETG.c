@@ -1931,7 +1931,8 @@ void etgEffectCodeExecute(etgeffectstatic *stat, Effect *effect, udword codeBloc
 		"movl %%edi, %5\n\t" : :
 		"m" (savedreg[0]), "m" (savedreg[1]), "m" (savedreg[2]),
 		"m" (savedreg[3]), "m" (savedreg[4]), "m" (savedreg[5]));
-#else
+#elif !defined(_MACOSX)
+    // We know x86 instructions won't work on a PowerPC, thanks. We've coded around it.
 	#error Opcode-handler functions currently only supported on x86 platforms.
 #endif
 
@@ -5686,6 +5687,137 @@ sdword etgVarAssign(Effect *effect, struct etgeffectstatic *stat, ubyte *opcode)
     return(sizeof(etgvariablecopy));
 }
 
+#ifdef _MACOSX_FIX_ME
+/* handle function calls
+
+ This function causes error during compilation of ETG.c with optimization on, and still
+ needs to be fixed. It works (or seems to work) in debug mode, though. It simply calls other
+ functions, but in relly messed way. (etgfunctioncall *)opcode contains a table of paramaters
+ and a pointer to function to call. Number of params can vary from function to function, so 
+ on x86 they simply push every parameter to the stack and then call function without any params.
+ On PowerPC however, parameters are passed using registers (starting from r3 or f1 for floats),
+ that's why I have to iterate trough etgFunctionTable to check types of each param - thanks for
+ that I know what register to use. I'm still not sure if all functions called here are in this
+ table... Second thing is that I have to use this ugly if-else block to put params in right 
+ registers (and I assumed there are max. 8 params, which also may not be true). Anyway, when
+ using optimizatons, compiling stops because of float-handling part of function.
+*/
+sdword etgFunctionCall(Effect *effect, struct etgeffectstatic *stat, ubyte *opcode)
+{
+    udword param, nParams, currParam, currParamF, returnType;
+    sdword index, currEntry = 0;
+	opfunctionentry *entry = &etgFunctionTable[currEntry++];
+	while( entry->name )
+	{
+		if( entry->function == ((etgfunctioncall *)opcode)->function )
+			break;
+
+		entry = &etgFunctionTable[currEntry++];
+	}
+
+	if( !entry->name )
+	{
+		entry = NULL;
+	}
+
+    nParams = ((etgfunctioncall *)opcode)->nParameters;
+    returnType = ((etgfunctioncall *)opcode)->returnValue;
+	currParam = 0;
+	currParamF = 0;
+
+	if (((etgfunctioncall *)opcode)->passThis)
+	{                                                       //pass a 'this' pointer
+		__asm__ (
+			"lwz r3, %0\n"
+			:
+			: "m" (effect)
+			: "r3"
+		);
+
+		currParam++;
+	}
+
+	for (index = 0; index < (sdword)nParams; index++)
+    {                                                       //for each parameter
+		int isFloat = 0;
+        param = ((etgfunctioncall *)opcode)->parameter[index].param;
+        switch (((etgfunctioncall *)opcode)->parameter[index].type)
+        {
+            case EVT_Constant:
+                break;
+            case EVT_Label:
+                dbgAssert(FALSE);
+                break;
+            case EVT_ConstLabel:
+                param = (udword)stat->constData + param;
+                break;
+            case EVT_VarLabel:
+                param = (udword)effect->variable + param;
+                break;
+            default:
+                param = *((udword *)(effect->variable + param));
+                break;
+        }
+
+		if( entry )
+			if (entry->type[index] == EVT_Float)
+				isFloat = 1;
+
+		if (!isFloat)
+		{
+			if( currParam == 0 )
+				__asm__ ( "lwz r3, %0\n" : : "g" (param) : "r3" );
+			else if( currParam == 1 )
+				__asm__ ( "lwz r4, %0\n" : : "g" (param) : "r4" );
+			else if( currParam == 2 )
+				__asm__ ( "lwz r5, %0\n" : : "g" (param) : "r5" );
+			else if( currParam == 3 )
+				__asm__ ( "lwz r6, %0\n" : : "g" (param) : "r6" );
+			else if( currParam == 4 )
+				__asm__ ( "lwz r7, %0\n" : : "g" (param) : "r7" );
+			else if( currParam == 5 )
+				__asm__ ( "lwz r8, %0\n" : : "g" (param) : "r8" );
+			else if( currParam == 6 )
+				__asm__ ( "lwz r9, %0\n" : : "g" (param) : "r9" );
+			else if( currParam == 7 )
+				__asm__ ( "lwz r10, %0\n" : : "g" (param) : "r10" );
+
+			currParam++;
+		}
+		else
+		{
+			float fp = *(float*)&param;
+			if( currParamF == 0 )
+				__asm__ ( "lfs f1, %0\n" : : "g" (fp) : "f1" );
+			else if( currParamF == 1 )
+				__asm__ ( "lfs f2, %0\n" : : "g" (fp) : "f2" );
+			else if( currParamF == 2 )
+				__asm__ ( "lfs f3, %0\n" : : "g" (fp) : "f3" );
+			else if( currParamF == 3 )
+				__asm__ ( "lfs f4, %0\n" : : "g" (fp) : "f4" );
+			else if( currParamF == 4 )
+				__asm__ ( "lfs f5, %0\n" : : "g" (fp) : "f5" );
+			else if( currParamF == 5 )
+				__asm__ ( "lfs f6, %0\n" : : "g" (fp) : "f6" );
+			else if( currParamF == 6 )
+				__asm__ ( "lfs f7, %0\n" : : "g" (fp) : "f7" );
+			else if( currParamF == 7 )
+				__asm__ ( "lfs f8, %0\n" : : "g" (fp) : "f8" );
+
+			currParamF++;
+		}
+	}
+
+	param = ((etgfunctioncall *)opcode)->function();        //call the function
+    if (returnType != 0xffffffff)                           //if a return value is desired
+    {
+        *((udword *)(effect->variable + returnType)) = param;//set the return parameter
+    }
+    return(etgFunctionSize(nParams));
+}
+
+#else // for lucky so and so's with x86 processors...
+
 //handle function calls
 sdword etgFunctionCall(Effect *effect, struct etgeffectstatic *stat, ubyte *opcode)
 {
@@ -5753,6 +5885,8 @@ sdword etgFunctionCall(Effect *effect, struct etgeffectstatic *stat, ubyte *opco
     }
     return(etgFunctionSize(nParams));
 }
+
+#endif // _MACOSX_FIX_ME
 
 //handle 'end'
 sdword etgEnd(Effect *effect, struct etgeffectstatic *stat, ubyte *opcode)

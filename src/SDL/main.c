@@ -123,7 +123,6 @@ udword* devTable = NULL;
 sdword  devTableLength = 0;
 
 static bool mainActuallyQuit = TRUE;
-static udword style;
 
 bool selectedRES = FALSE;
 bool selectedDEVICE = FALSE;
@@ -2196,10 +2195,14 @@ void mainDestroyWindow(void)
 void mainShutdownGL(void)
 {
     rndClose();
+
+#ifndef _MACOSX_FIX_ME
     if (sstLoaded())
     {
         sstShutdown();
     }
+#endif
+
     /*hwDeleteWindow();*/
     mainDestroyWindow();
 }
@@ -2777,6 +2780,9 @@ sdword HandleEvent (const SDL_Event* pEvent)
                 switch (pEvent->button.button)
                 {
                     case SDL_BUTTON_LEFT:
+#ifdef _MACOSX_FIX_ME
+                    case SDL_BUTTON_MIDDLE:
+#endif
                         if (!mbDouble[0] && curr_time - mbDownTime[0] <= 500)
                         {
                             keyPressDown(LMOUSE_DOUBLE);
@@ -2790,7 +2796,7 @@ sdword HandleEvent (const SDL_Event* pEvent)
                         }
                         mbDownTime[0] = curr_time;
                     break;
-
+#ifndef _MACOSX_FIX_ME
                     case SDL_BUTTON_MIDDLE:
                         if (!mbDouble[1] && curr_time - mbDownTime[1] <= 500)
                         {
@@ -2804,7 +2810,7 @@ sdword HandleEvent (const SDL_Event* pEvent)
                         }
                         mbDownTime[1] = curr_time;
                     break;
-
+#endif
                     case SDL_BUTTON_RIGHT:
                         if (!mbDouble[2] && curr_time - mbDownTime[2] <= 500)
                         {
@@ -2836,15 +2842,18 @@ sdword HandleEvent (const SDL_Event* pEvent)
                 switch (pEvent->button.button)
                 {
                     case SDL_BUTTON_LEFT:
+#ifdef _MACOSX_FIX_ME
+                    case SDL_BUTTON_MIDDLE:
+#endif
                         keyPressUp(LMOUSE_BUTTON);
                         keyPressUp(LMOUSE_DOUBLE);
                     break;
-
+#ifndef _MACOSX_FIX_ME
                     case SDL_BUTTON_MIDDLE:
                         keyPressUp(MMOUSE_BUTTON);
                         keyPressUp(MMOUSE_DOUBLE);
                     break;
-
+#endif
                     case SDL_BUTTON_RIGHT:
                         keyPressUp(RMOUSE_BUTTON);
                         keyPressUp(RMOUSE_DOUBLE);
@@ -2881,6 +2890,7 @@ sdword HandleEvent (const SDL_Event* pEvent)
 static bool InitWindow ()
 {
     char d3dToSelect[64];
+	unsigned int rinDevCRC;
 
     /*
      * create a window
@@ -2940,7 +2950,8 @@ static bool InitWindow ()
         }
     }
 
-    if (opDeviceCRC != rinDeviceCRC())
+	rinDevCRC = rinDeviceCRC();
+    if (opDeviceCRC != rinDevCRC)
     {
         opDeviceIndex = -1;
         if (mainAutoRenderer)

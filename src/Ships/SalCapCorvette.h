@@ -47,7 +47,7 @@ typedef struct
     real32 maxPushingVelocitySingle;
     real32 noLightClampingDistance;
 } SalCapCorvetteStatics;
-SalCapCorvetteStatics SalCapCorvetteStatic;
+extern SalCapCorvetteStatics SalCapCorvetteStatic;
 
 //Defs for Salvaging State...
 #define SALVAGE_AT_GET_TECH 0x01

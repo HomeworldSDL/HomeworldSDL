@@ -11,6 +11,7 @@
 #else
 #include <dlfcn.h>
 #endif
+#include "SDL_loadso.h"
 #include <string.h>
 #include <glide.h>
 #include "sstglide.h"
@@ -24,7 +25,7 @@
 
 #ifdef _WIN32
 #define DLL_GETPROCADDRESS(LIB, SYM) GetProcAddress(LIB, SYM)
-#else
+#elif !defined(_MACOSX)
 #define DLL_GETPROCADDRESS(LIB, SYM) dlsym(LIB, SYM)
 #endif
 
@@ -54,14 +55,19 @@ bool sstHardwareExists(sdword* type)
     if (!lib)
         lib = (void*)LoadLibrary("glide2x.dll");
 #else
-    lib = dlopen("libglide2x.so", RTLD_GLOBAL | RTLD_NOW);
+    lib = dlopen("libglide2x.so", RTLD_NOW);
 #endif
     if (!lib)
     {
         return FALSE;
     }
 
+#ifdef _MACOSX
+    sstQueryBoards = (GRSSTQUERYBOARDSproc)SDL_LoadFunction(lib, "grSstQueryBoards");
+#else
     sstQueryBoards = (GRSSTQUERYBOARDSproc)DLL_GETPROCADDRESS(lib, "grSstQueryBoards");
+#endif
+
     if (sstQueryBoards == NULL)
     {
         return FALSE;
@@ -144,7 +150,7 @@ void sstStartup(void)
     if (!lib)
         lib = (void*)LoadLibrary("glide2x.dll");
 #else
-    lib = dlopen("libglide2x.so", RTLD_GLOBAL | RTLD_NOW);
+    lib = dlopen("libglide2x.so", RTLD_NOW);
 #endif
     if (!lib)
     {
@@ -152,11 +158,19 @@ void sstStartup(void)
         return;
     }
 
-    sstLfbLock = (GRLFBLOCKproc)DLL_GETPROCADDRESS(lib, "grLfbLock");
-    sstLfbUnlock = (GRLFBUNLOCKproc)DLL_GETPROCADDRESS(lib, "grLfbUnlock");
-    sstBufferSwap = (GRBUFFERSWAPproc)DLL_GETPROCADDRESS(lib, "grBufferSwap");
-    sstSstIdle = (GRSSTIDLEproc)DLL_GETPROCADDRESS(lib, "grSstIdle");
+#ifdef _MACOSX
+    sstLfbLock     = (GRLFBLOCKproc)SDL_LoadFunction(lib, "grLfbLock");
+    sstLfbUnlock   = (GRLFBUNLOCKproc)SDL_LoadFunction(lib, "grLfbUnlock");
+    sstBufferSwap  = (GRBUFFERSWAPproc)SDL_LoadFunction(lib, "grBufferSwap");
+    sstSstIdle     = (GRSSTIDLEproc)SDL_LoadFunction(lib, "grSstIdle");
+    sstQueryBoards = (GRSSTQUERYBOARDSproc)SDL_LoadFunction(lib, "grSstQueryBoards");
+#else
+    sstLfbLock     = (GRLFBLOCKproc)DLL_GETPROCADDRESS(lib, "grLfbLock");
+    sstLfbUnlock   = (GRLFBUNLOCKproc)DLL_GETPROCADDRESS(lib, "grLfbUnlock");
+    sstBufferSwap  = (GRBUFFERSWAPproc)DLL_GETPROCADDRESS(lib, "grBufferSwap");
+    sstSstIdle     = (GRSSTIDLEproc)DLL_GETPROCADDRESS(lib, "grSstIdle");
     sstQueryBoards = (GRSSTQUERYBOARDSproc)DLL_GETPROCADDRESS(lib, "grSstQueryBoards");
+#endif
 
     if (sstLfbLock == NULL ||
         sstLfbUnlock == NULL ||

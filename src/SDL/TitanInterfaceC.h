@@ -2,7 +2,11 @@
 #ifndef ___TITAN_INTERFACEC_H
 #define ___TITAN_INTERFACEC_H
 
-#include <wchar.h>
+#ifdef _MACOSX
+    #include <stdlib.h>
+#else
+    #include <wchar.h>
+#endif // _MACOSX
 
 // Homeworld Message Types
 #define TITANMSGTYPE_JOINGAMEREQUEST   0x10

@@ -184,6 +184,10 @@ extern void soundfeedercb(void *userdata, Uint8 *stream, int len);
 ----------------------------------------------------------------------------*/
 sdword soundinit(bool mode)
 {
+#ifdef _MACOSX_FIX_ME
+	return SOUND_ERR;
+#endif
+
 	SDL_AudioSpec aspec;
 	sdword i, result;
 
@@ -1142,10 +1146,7 @@ sdword SNDgetchannel(sword patchnum, sdword priority)
 {
 	CHANNEL *pchan;
 	sdword	i;
-	sdword	newchan = 0,
-			dupchan = 0;
 	sdword	channel = SOUND_DEFAULT;
-    udword	dwStatus = 0;
 	sdword	lowchannel = SOUND_DEFAULT;
 	real32	lowvolume = (real32)SOUND_VOL_MAX;
 	sdword	lowticks = 255;

@@ -104,7 +104,7 @@ extern bool ranCallerDebug;
 #define ranRandom(i)    ranRandomFn(i, NULL, 0)
 #define gamerand() ranRandomFn(RAN_Game, __FILE__, __LINE__)
 // if you change RAN_Game in randy.h, change 11 as well.  Don't include randy.h because types.h included in other projects
-#define random(n) (ranRandomFn(RAN_Game, __FILE__, __LINE__) % (n))
+#define randomG(n) (ranRandomFn(RAN_Game, __FILE__, __LINE__) % (n))
 // if you change RAN_Game in randy.h, change 11 as well.  Don't include randy.h because types.h included in other projects
 #define frandom(n) (ranRandomFn(RAN_Game, __FILE__, __LINE__) * (((real32)(n)) * (1.0f/((real32)UDWORD_Max))))
 
@@ -113,13 +113,13 @@ extern bool ranCallerDebug;
 #define ranRandom(i)    ranRandomFn(i)
 #define gamerand() ranRandomFn(RAN_Game)
 // if you change RAN_Game in randy.h, change 11 as well.  Don't include randy.h because types.h included in other projects
-#define random(n) (ranRandomFn(RAN_Game) % (n))
+#define randomG(n) (ranRandomFn(RAN_Game) % (n))
 // if you change RAN_Game in randy.h, change 11 as well.  Don't include randy.h because types.h included in other projects
 #define frandom(n) (ranRandomFn(RAN_Game) * (((real32)(n)) * (1.0f/((real32)UDWORD_Max))))
 
 #endif //RAN_DEBUG_CALLER
 
-#define randombetween(a,b) ( random((b)-(a)+1) + (a) )
+#define randombetween(a,b) ( randomG((b)-(a)+1) + (a) )
 #define frandombetween(a,b) (frandom((b)-(a)) + (a))
 
 #endif //___RANDY_H

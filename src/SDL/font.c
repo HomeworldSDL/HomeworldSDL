@@ -801,6 +801,11 @@ fontheader *fontLoad(char *fileName)
 
     length = fileLoadAlloc(fileName, (void **)(&fileHeader), NonVolatile);
 
+#ifdef ENDIAN_BIG
+	fileHeader->version = LittleLong( fileHeader->version );
+	fileHeader->flags   = LittleLong( fileHeader->flags );
+#endif
+
 #if FONT_ERROR_CHECKING
     if (strcmp(fileHeader->identification, FONT_Identification))
     {                                                       //if wrong header
@@ -812,7 +817,22 @@ fontheader *fontLoad(char *fileName)
     }
 #endif
     header = &fileHeader->header;
-    dbgAssert(fileHeader->flags == 0);                          //!!! don't yet support color or anti-aliased fonts
+	dbgAssert(fileHeader->flags == 0);  //!!! don't yet support color or anti-aliased fonts
+
+#ifdef ENDIAN_BIG
+	header->nCharacters = LittleLong( header->nCharacters );
+	header->spacing     = LittleLong( header->spacing );
+	header->fullHeight  = LittleLong( header->fullHeight );
+	header->baseLine    = LittleLong( header->baseLine );
+	header->name        = ( char *)LittleLong( ( udword )header->name );
+	header->imageWidth  = LittleLong( header->imageWidth );
+	header->imageHeight = LittleLong( header->imageHeight );
+	header->nColors     = LittleLong( header->nColors );
+	header->palette     = ( color *)LittleLong( ( udword )header->palette );
+	header->image       = ( ubyte *)LittleLong( ( udword )header->image );
+	header->glFont      = ( void *)LittleLong( ( udword )header->glFont );
+#endif
+
 #if FONT_VERBOSE_LEVEL >= 2
     dbgMessagef("\nfontLoad: loaded %d bytes and %d characters from file '%s'", length, header->nCharacters, fileName);
 #endif
@@ -825,9 +845,20 @@ fontheader *fontLoad(char *fileName)
     sizeTotal = 0;
     for (index = iCharacter = 0; index < 256; index++)
     {                                                       //for all possible characters
+#ifdef ENDIAN_BIG
+		header->character[index] = ( charheader *)LittleLong( ( udword )header->character[index] );
+#endif
+
         if (header->character[index] != NULL)
         {
             (ubyte *)header->character[index] += (udword)fileHeader;//fix up character pointer
+#ifdef ENDIAN_BIG
+			header->character[index]->width   = LittleShort( header->character[index]->width );
+			header->character[index]->height  = LittleShort( header->character[index]->height );
+			header->character[index]->offsetX = LittleShort( header->character[index]->offsetX );
+			header->character[index]->offsetY = LittleShort( header->character[index]->offsetY );
+#endif
+
             pFileCharacter = (charfileheader *)header->character[index];//get reference to data loaded from disk
             size = (pFileCharacter->width - pFileCharacter->offsetX) *
                    (pFileCharacter->height - pFileCharacter->offsetY);
@@ -851,11 +882,17 @@ fontheader *fontLoad(char *fileName)
         {
             newHeader->character[index] = pCharacter;       //set character * for this character
             pFileCharacter = (charfileheader *)header->character[index];//get reference to data loaded from disk
-            pCharacter->width = pFileCharacter->width;      //duplicate attributes
-            pCharacter->height = pFileCharacter->height;
+
+#ifdef ENDIAN_BIG
+			pFileCharacter->u   = LittleShort( pFileCharacter->u );
+			pFileCharacter->v   = LittleShort( pFileCharacter->v );
+#endif
+
+            pCharacter->width   = pFileCharacter->width;      //duplicate attributes
+            pCharacter->height  = pFileCharacter->height;
             pCharacter->offsetX = pFileCharacter->offsetX;
             pCharacter->offsetY = pFileCharacter->offsetY;
-            pCharacter->bitmap = bitmapBase + sizeUsed;
+            pCharacter->bitmap  = bitmapBase + sizeUsed;
             fontCharacterCreate(pFileCharacter->u + pFileCharacter->offsetX,//create an 8-bit character map
                                 pFileCharacter->v + pFileCharacter->offsetY,
                                 pFileCharacter->width - pFileCharacter->offsetX,
@@ -1111,6 +1148,8 @@ sdword fontPrintN(sdword x, sdword y, color c, char *string, sdword maxCharacter
                 yOffset = 1;
                 xOffset = -1;
                 break;
+			default:
+				break;
         }
         saveType = fontCurrentShadowType;
         fontCurrentShadowType = FS_NONE;

@@ -239,6 +239,7 @@ void mothershipGetCargoPosition(Ship *ship,SpaceObjRotImpTargGuidanceShipDerelic
     if(madLinkInGetDoorInfo(ship,coordsys,position))
     {
         position->x += TW_R1_MOTHERSHIP_DOOR_OFFSET_MODIFIER;
+
         headingdir = mothershipstatics->specialDoorOrientationHeading[((Ship *)cargo)->shiprace][((Ship *)cargo)->shiptype];
         if(headingdir == -1)
             headingdir = 0;

@@ -25,6 +25,8 @@ taskdata *taskData[TSK_NumberTasks];            //pointers to active tasks
 sdword taskMaxTask;                             //highest indexed task enabled
 sdword taskModuleInit = FALSE;
 
+CallBacks callbacks;
+
 //speed of task timer, in Hz
 real32 taskFrequency;
 
@@ -127,7 +129,7 @@ sdword taskStartup(udword frequency)
 #if TASK_TEST                                               //test this crazy module
     {
         taskhandle handle;
-        handle = taskStart(taskTestFunction, 1, 4096, TF_OncePerFrame);
+        handle = taskStart(taskTestFunction, 1, TF_OncePerFrame);
         taskRename(handle, "Task this you commie bastards!");
         taskExecuteAllPending(1);
         taskExecuteAllPending(1);
@@ -251,6 +253,7 @@ taskhandle taskStart(taskfunction function, real32 period, udword flags)
     newTask->ticksPerCall = (udword)(period * taskFrequency);//save ticks per call
 
 #if DBG_STACK_CONTEXT
+#ifndef C_ONLY
 #if defined (_MSC_VER)
     _asm
     {
@@ -265,9 +268,11 @@ taskhandle taskStart(taskfunction function, real32 period, udword flags)
         :
         : "eax" );
 #endif
-#endif//DBG_STACK_CONTEXT
+#endif // C_ONLY
+#endif // DBG_STACK_CONTEXT
     //now that stack is created OK, let's call it's handler function to start it
     taskFunctionContinueSave = taskFunctionContinue;
+#ifndef C_ONLY
 #if defined (_MSC_VER)
     _asm
     {
@@ -406,6 +411,11 @@ taskContinued:
 #else
 #error Function uses inline x86 assembly.
 #endif
+
+#else  // C_ONLY
+	function();  // calling the taskfunction 'function' pointer argument that this function was given
+#endif // C_ONLY
+
 #if TASK_STACK_SAVE
     taskESPDiff = (sdword)(taskESPSaveInitial - taskData[handle]->esp);
     dbgAssert(taskESPDiff >= 0);
@@ -467,7 +477,7 @@ sdword taskExecuteAllPending(sdword ticks)
     static udword localStackSize;
     static udword biggestStackSize;
 #endif
-#if defined (__GNUC__) && defined (__i386__)
+#if defined (__GNUC__) // && defined (__i386__)
     /* See "taskExec_taskReturned" assembly block for an explanation. */
     static ubyte continue_hack;
     continue_hack = 1;
@@ -486,6 +496,7 @@ sdword taskExecuteAllPending(sdword ticks)
 #endif
 
 #if DBG_STACK_CONTEXT
+#ifndef C_ONLY
 #if defined (_MSC_VER)
     _asm
     {
@@ -500,7 +511,8 @@ sdword taskExecuteAllPending(sdword ticks)
         :
         : "eax" );
 #endif
-#endif//DBG_STACK_CONTEXT
+#endif // C_ONLY
+#endif // DBG_STACK_CONTEXT
     if (taskModuleInit == FALSE)
     {   //don't do a taskInitCheck because this sometimes gets called on exiting,
         //after all the tasks are shut down.
@@ -524,6 +536,7 @@ sdword taskExecuteAllPending(sdword ticks)
     dbgAssert(taskCurrentTask == -1);                       //verify we're not in any task currently
 
     //save the global task execution pointers
+#ifndef C_ONLY
 #if defined (_MSC_VER)
     _asm
     {
@@ -545,6 +558,7 @@ sdword taskExecuteAllPending(sdword ticks)
         :
         : "eax" );
 #endif
+#endif // C_ONLY
 #if TASK_STACK_SAVE
     //save a chunk of the stack that might get overwritten by some of the tasks
     biggestStackSize = taskLargestLocals;
@@ -562,7 +576,8 @@ sdword taskExecuteAllPending(sdword ticks)
 #endif
         memcpy(localStack, currentESP, biggestStackSize);
     }
-#endif
+#endif // TASK_STACK_SAVE
+
     for (taskCurrentTask = 0; taskCurrentTask < taskMaxTask; taskCurrentTask++)
     {
         if (taskData[taskCurrentTask] != NULL)              //if this task is enabled
@@ -607,6 +622,7 @@ sdword taskExecuteAllPending(sdword ticks)
 #endif
             //!!! needed?
             //save the current register context
+#ifndef C_ONLY
 #if defined (_MSC_VER)
             _asm
             {
@@ -638,6 +654,7 @@ sdword taskExecuteAllPending(sdword ticks)
                 :
                 : "eax" );
 #endif
+#endif // C_ONLY
             taskProcessIndex++;
 #if TASK_STACK_SAVE
             localStackSize = taskData[taskCurrentTask]->nBytesStack;
@@ -662,6 +679,7 @@ sdword taskExecuteAllPending(sdword ticks)
                 validationCookie = TSK_StackValidation + taskCurrentTask;
 #endif
 */
+#ifndef C_ONLY
 #if defined (_MSC_VER)
                 _asm
                 {
@@ -766,6 +784,14 @@ taskContinued:
                     : "m" (taskCurrentTask), "m" (taskData)
                     : "eax", "edx" );
 #endif
+
+#else  // C_ONLY
+
+	// Call current task function
+	taskData[taskCurrentTask]->function();
+
+#endif // C_ONLY
+
 /*
 #if TASK_STACK_CHECKING
                 if (taskData[taskCurrentTask]->esp < taskESPSave)
@@ -779,6 +805,7 @@ taskContinued:
 */
             }
             //!!! needed?
+#ifndef C_ONLY
 #if defined (_MSC_VER)
             _asm
             {
@@ -810,6 +837,7 @@ taskContinued:
                   "m" (taskEBPSave), "m" (taskEBXSave)
                 : "eax" );
 #endif
+#endif // C_ONLY
 #if TASK_STACK_SAVE
             if (localStackSize > 0)
             {                                           //if this task uses some local stack
@@ -825,6 +853,7 @@ taskContinued:
                 //memcpy((ubyte *)(taskData[taskCurrentTask] + 1), ((ubyte *)taskData[taskCurrentTask]->esp), localStackSize);
             }
 #endif //TASK_STACK_SAVE
+#ifndef C_ONLY
 #if defined (_MSC_VER)
             continue;
 taskReturned:
@@ -867,6 +896,11 @@ taskReturned:
                   "m" (taskEBPSave), "m" (taskEBXSave)
                 : "eax" );
 #endif
+#else  // C_ONLY
+			if (continue_hack)
+                continue;
+#endif // C_ONLY
+
             taskStop(taskCurrentTask);                      //kill the task
         }
     }
@@ -1086,9 +1120,10 @@ void taskCallBackProcess(void)
 
     taskYield(0);
 
+#ifndef C_ONLY
     while(1)
+#endif
     {
-
         taskStackSaveCond(0);
 
         babynode = callbacks.babies.head;

@@ -433,7 +433,9 @@ void nisUpdateTask(void)
 
     taskYield(0);
 
+#ifndef C_ONLY
     while (1)
+#endif
     {
         taskStackSaveCond(0);
         //code for playing in-game NIS's
@@ -3133,6 +3135,8 @@ void nisVolumeSet(nisplaying *NIS, nisevent *event)
 #endif
             soundEventSFXVol(TreatAsReal32(event->param[0]));
             break;
+        default:
+            break;
     }
 }
 
@@ -4553,6 +4557,27 @@ nisheader *nisLoad(char *fileName, char *scriptName)
 
     f = fileOpen(fileName, 0);                              //open the file
     fileBlockRead(f, &header, sizeof(nisheader));           //read the header
+
+#ifdef ENDIAN_BIG
+	header.version           = LittleLong( header.version );
+	header.flags             = LittleLong( header.flags );
+	header.stringBlock       = ( char *)LittleLong( ( udword )header.stringBlock );
+	header.stringBlockLength = LittleLong( header.stringBlockLength );
+	header.length            = LittleFloat( header.length );
+	header.loop              = LittleFloat( header.loop );
+	header.nObjectPaths      = LittleLong( header.nObjectPaths );
+	header.objectPath        = ( spaceobjpath *)LittleLong( ( udword )header.objectPath );
+	header.nCameraPaths      = LittleLong( header.nCameraPaths );
+	header.cameraPath        = ( camerapath *)LittleLong( ( udword )header.cameraPath );
+	header.nLightPaths       = LittleLong( header.nLightPaths );
+	header.lightPath         = ( lightpath *)LittleLong( ( udword )header.lightPath );
+	header.nEvents           = LittleLong( header.nEvents );
+	header.events            = ( nisevent *)LittleLong( ( udword )header.events );
+	header.nGenericObjects   = LittleLong( header.nGenericObjects );
+	header.genericObject     = ( nisgenericobject **)LittleLong( header.genericObject );
+	header.iLookyObject      = LittleLong( header.iLookyObject );
+#endif
+
 #if NIS_ERROR_CHECKING
     if (strcmp(header.identifier, NIS_Identifier) != 0)
     {
@@ -4574,9 +4599,33 @@ nisheader *nisLoad(char *fileName, char *scriptName)
     fileClose(f);                                           //done with the file
     newHeader->flags = 0;
 //    newHeader->name += (udword)newHeader->stringBlock;      //fixup file name
+
     (ubyte *)newHeader->objectPath += (udword)newHeader;//fixup the object motion path array
+
+#ifdef ENDIAN_BIG
+	for (index = 0; index < newHeader->nObjectPaths; index++)
+    {                                                       //for each object motion path
+        objPath = &newHeader->objectPath[index];            //get pointer to this motion path
+		objPath->instance = LittleLong( objPath->instance );
+		objPath->type = LittleLong( objPath->type );
+		objPath->parentIndex = LittleLong( objPath->parentIndex );
+		objPath->race = LittleLong( objPath->race );
+		objPath->nSamples = LittleLong( objPath->nSamples );
+		objPath->timeOffset = LittleFloat( objPath->timeOffset );
+		objPath->times = ( real32 *)LittleLong( ( udword )objPath->times );
+		objPath->parameters = ( tcb *)LittleLong( ( udword )objPath->parameters );
+		objPath->curve[0] = ( real32 *)LittleLong( ( udword )objPath->curve[0] );
+		objPath->curve[1] = ( real32 *)LittleLong( ( udword )objPath->curve[1] );
+		objPath->curve[2] = ( real32 *)LittleLong( ( udword )objPath->curve[2] );
+		objPath->curve[3] = ( real32 *)LittleLong( ( udword )objPath->curve[3] );
+		objPath->curve[4] = ( real32 *)LittleLong( ( udword )objPath->curve[4] );
+		objPath->curve[5] = ( real32 *)LittleLong( ( udword )objPath->curve[5] );
+	}
+#endif
+
     //sort the object headers based upon their parentage
     qsort(newHeader->objectPath, newHeader->nObjectPaths, sizeof(spaceobjpath), nisCompareFunc);
+
     for (index = 0; index < newHeader->nObjectPaths; index++)
     {                                                       //for each object motion path
         objPath = &newHeader->objectPath[index];            //get pointer to this motion path
@@ -4586,6 +4635,23 @@ nisheader *nisLoad(char *fileName, char *scriptName)
         {
             (ubyte *)objPath->curve[j] += (udword)newHeader;
         }
+
+#ifdef ENDIAN_BIG
+		for( j = 0; j < objPath->nSamples; j++ )
+		{
+			int k;
+
+			objPath->times[j]                 = LittleFloat( objPath->times[j] );
+			objPath->parameters[j].tension    = LittleFloat( objPath->parameters[j].tension );
+			objPath->parameters[j].continuity = LittleFloat( objPath->parameters[j].continuity );
+			objPath->parameters[j].bias       = LittleFloat( objPath->parameters[j].bias );
+			
+			for( k = 0; k < 6; k++ )
+			{
+				objPath->curve[k][j] = LittleFloat( objPath->curve[k][j] );
+			}
+		}
+#endif
 
 #if NIS_NORMALIZE_ANGLES
 
@@ -4707,16 +4773,46 @@ foundOne:;
             objPath->parentIndex = -1;
         }
     }
+
     (ubyte *)newHeader->cameraPath += (udword)newHeader;    //fixup the object motion path array
     for (index = 0; index < newHeader->nCameraPaths; index++)
     {                                                       //for each object motion path
         camPath = &newHeader->cameraPath[index];            //get pointer to this motion path
+
+#ifdef ENDIAN_BIG
+		camPath->oLength = LittleFloat( camPath->oLength );
+		camPath->nSamples = LittleLong( camPath->nSamples );
+		camPath->timeOffset = LittleFloat( camPath->timeOffset );
+		camPath->times = ( real32 *)LittleLong( ( udword )camPath->times );
+		camPath->parameters = ( tcb *)LittleLong( ( udword )camPath->parameters );
+#endif
+
         (ubyte *)camPath->parameters += (udword)newHeader;  //fixup the various arrays
         (ubyte *)camPath->times += (udword)newHeader;
         for (j = 0; j < 6; j++)
         {
+#ifdef ENDIAN_BIG
+			camPath->curve[j] = ( real32 *)LittleLong( ( udword )camPath->curve[j] );
+#endif
             (ubyte *)camPath->curve[j] += (udword)newHeader;
         }
+
+#ifdef ENDIAN_BIG
+		for( j = 0; j < camPath->nSamples; j++ )
+		{
+			int k;
+
+			camPath->times[j]                 = LittleFloat( camPath->times[j] );
+			camPath->parameters[j].tension    = LittleFloat( camPath->parameters[j].tension );
+			camPath->parameters[j].continuity = LittleFloat( camPath->parameters[j].continuity );
+			camPath->parameters[j].bias       = LittleFloat( camPath->parameters[j].bias );
+			
+			for( k = 0; k < 6; k++ )
+			{
+				camPath->curve[k][j] = LittleFloat( camPath->curve[k][j] );
+			}
+		}
+#endif
 
 #if NIS_NORMALIZE_ANGLES
         for (j = 3; j < 6; j++)
@@ -4808,6 +4904,8 @@ void nisDelete(nisheader *header)
                 case NEO_SMPTEOn:
                 case NEO_StaticOn:
                     memFree((char *)header->events[index].param[0]);//free the text strings
+                    break;
+                default:
                     break;
             }
         }

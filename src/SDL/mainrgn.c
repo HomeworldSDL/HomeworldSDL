@@ -3771,10 +3771,8 @@ udword mrRegionProcess(regionhandle reg, sdword ID, udword event, udword data)
                     abs(mouseCursorY() - mrOldMouseY) >= selClickBoxHeight)
                 {                                           //if selection rect dragged
                     mrSelectRectBuild(&mrSelectionRect, mrOldMouseX, mrOldMouseY);//select a group of ships
-                    if ((keyIsHit(ALTKEY) && keyIsHit(CONTROLKEY)) | keyIsHit(GKEY))
+                    if ((keyIsHit(ALTKEY) && keyIsHit(CONTROLKEY)) || keyIsHit(GKEY))
                     {                                       //alt key pressed
-//                        if (keyIsHit(CONTROLKEY))
-//                        {                                   //ctrl-alt bandbox: guard
                         if (mrDisabled) goto endReleaseButtonLogic;
 
                         selRectDragAnybody(&(universe.mainCameraCommand.actualcamera), &mrSelectionRect);//most recent selection
@@ -3798,7 +3796,6 @@ udword mrRegionProcess(regionhandle reg, sdword ID, udword event, udword data)
                             }
                             selSelecting.numTargets = 0;
                         }
-//                        }
                     }
                     else if (keyIsHit(ALTKEY))
                     {                                       //alt-bandbox: focus

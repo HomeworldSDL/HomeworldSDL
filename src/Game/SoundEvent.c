@@ -25,6 +25,98 @@
 #define SFX_MAX_STRIKEENGINES   5
 #define SFX_MAX_CAPENGINES      3
 
+real32	SPEECH_MOSHIP_WARNING_TIME;
+real32	SPEECH_WARNING_TIME;
+
+real32 SFX_VOL_FACTOR;
+sdword SFX_MAX_ENGINES;
+sdword SFX_MIN_CAPSHIPS;
+sdword SFX_AMBIENT_VOLUME;
+sdword SFX_NIS_MAX_ENGINES;
+sdword SFX_NIS_MIN_CAPSHIPS;
+real32 SFX_MAX_ENGINE_RANGE;
+bool   SFX_CAPSHIPS_ALWAYS_ON;
+sdword SFX_MAX_AMBIENT;
+real32 SFX_FLOAT_VELOCITY;
+real32 SFX_NIS_FLOAT_VELOCITY;
+real32 SFX_MIN_PERCEPTABLE_VOL;
+
+sword  SFX_HYPERSPACE_VOLUME;
+
+real32 SFX_DAMAGERATIO_LIGHT;
+real32 SFX_DAMAGERATIO_MEDIUM;
+real32 SFX_DAMAGERATIO_HEAVY;
+bool   SFX_DAMAGERATIO_ENABLE;
+
+real32 SFX_CARDIOD_FACTOR;
+real32 SFX_CARDIOD_MIN;
+
+real32 FIGHTER_VELOCITY_LOWPITCH;
+real32 FIGHTER_VELOCITY_HIGHPITCH;
+real32 FIGHTER_VELOCITY_SCALE;
+
+real32 CORVETTE_VELOCITY_LOWPITCH;
+real32 CORVETTE_VELOCITY_HIGHPITCH;
+real32 CORVETTE_VELOCITY_SCALE;
+
+real32 FIGHTER_DOPPLER_SCALE;
+sdword FIGHTER_DOPPLER_LOW;
+sdword FIGHTER_DOPPLER_HIGH;
+bool   FIGHTER_DOPPLER_USEVELOCITY;
+
+real32 CORVETTE_DOPPLER_SCALE;
+sdword CORVETTE_DOPPLER_LOW;
+sdword CORVETTE_DOPPLER_HIGH;
+bool   CORVETTE_DOPPLER_USEVELOCITY;
+
+real32 SPEECH_VOL_FACTOR;
+sword  SPEECH_VOL_LOW;
+sword  SPEECH_VOL_MAX;
+real32 SPEECH_NOISE_FACTOR;
+real32 SPEECH_NOISE_LOW;
+real32 SPEECH_NOISE_HIGH;
+udword SPEECH_FILTER_LOW;
+udword SPEECH_FILTER_HIGH;
+real32 SPEECH_BREAK_THRESHOLD;
+real32 SPEECH_BREAK_RATE_FACTOR;
+udword SPEECH_BREAK_RATE_LOW;
+udword SPEECH_BREAK_RATE_HIGH;
+real32 SPEECH_BREAK_LENGTH_FACTOR;
+udword SPEECH_BREAK_LENGTH_LOW;
+udword SPEECH_BREAK_LENGTH_HIGH;
+real32 SPEECH_CAPSHIP_CHATTER_RANGE;
+sdword SPEECH_CAPSHIP_CHATTER_TIME;
+real32 SPEECH_COMBAT_CHATTER_RANGE;
+sdword SPEECH_COMBAT_CHATTER_TIME;
+real32 SPEECH_DISOBEY_FORCEDATTACK;
+
+real32 SPEECH_MIN_PERCEPTABLE_VOL;
+real32 SPEECH_AMBIENT_LEVEL;
+bool   SPEECH_AMBIENT_ENABLE;
+
+real32 SPEECH_STIKEDAMAGE_MULT;
+real32 SPEECH_CAPDAMAGE_MULT;
+
+real32 SPEECH_SINGLEPLAYER_RATIO;
+real32 SPEECH_STATUS_RATIO;
+real32 SPEECH_CHATTER_RATIO;
+
+real32 MUSIC_DISTANCE_SILENT;
+real32 MUSIC_DISTANCE_MAX;
+real32 MUSIC_MAXGAME_VOL;
+real32 MUSIC_MINACTIVE_VOL;
+real32 MUSIC_MININACTIVE_VOL;
+real32 MUSIC_SENSORS_VOL;
+real32 MUSIC_MANAGERS_VOL;
+real32 MUSIC_TUTORIAL_VOL;
+real32 MUSIC_FADE_TIME;
+real32 MUSIC_MAXBATTLE_VOL;
+real32 MUSIC_MINBATTLE_VOL;
+
+real32 RANDOM_AMBIENCE_MINFREQ;
+sdword RANDOM_AMBIENCE_ADDRANDOM;
+
+
 /*=============================================================================
     Tweaks
 =============================================================================*/
@@ -558,7 +650,16 @@ void soundEventSetActorFlag(sdword actorflag, bool bOn)
 void SEprecalcVolTables(void)
 {
     sdword i, j, index;
-	
+
+#ifdef ENDIAN_BIG	
+        for (j = 0; j< (RangeLUT->rows * RangeLUT->columns); j++ )
+            RangeLUT->lookup[j] = LittleLong( RangeLUT->lookup[j] );
+        for (j = 0; j< (VolumeLUT->rows * VolumeLUT->columns); j++ )
+            VolumeLUT->lookup[j] = LittleLong( VolumeLUT->lookup[j] );
+        for (j=0; j < (FrequencyLUT->columns * FrequencyLUT->rows); j++ )
+            FrequencyLUT->lookup[j] = LittleFloat( FrequencyLUT->lookup[j] );
+#endif
+
 	/* do some precalculations on the volume and range tables, saves a divide, compare, 2 [] and 2 subtractions for every volume update */
 	for (j = 0; j < (VolumeLUT->rows * VolumeLUT->columns); j += VolumeLUT->columns)
 	{
@@ -571,8 +672,8 @@ void SEprecalcVolTables(void)
 			RangeFloatLUT[j+i] = 1.0f / (real32)(RangeLUT->lookup[j+i] - RangeLUT->lookup[j+i-1]);
 		}
 	}
-
-	/* do some precalcs on the Frequency table, saves a compare, [], addition and 2 subtractions for every SEequalize */
+	
+        /* do some precalcs on the Frequency table, saves a compare, [], addition and 2 subtractions for every SEequalize */
 	for (j = 0; j < FrequencyLUT->columns; j++)
 	{
 		FreqLUT[j] = DefaultEQ[j] - FrequencyLUT->lookup[j];
@@ -625,19 +726,37 @@ void soundEventInit(void)
     /* LOAD volume curves */
     strcpy(loadfile, SOUNDFXDIR);
     strcat(loadfile, "Volume.lut");
-    size = fileLoadAlloc(loadfile, &VolumeLUT, NonVolatile);
+    size = fileLoadAlloc(loadfile, (void**)&VolumeLUT, NonVolatile);
     VolumeFloatLUT = memAlloc(size, "Volume Table", NonVolatile);
+
+#ifdef ENDIAN_BIG
+    VolumeLUT->ID      = LittleLong( VolumeLUT->ID );
+    VolumeLUT->columns = LittleShort( VolumeLUT->columns );
+    VolumeLUT->rows    = LittleShort( VolumeLUT->rows );
+#endif
 
     strcpy(loadfile, SOUNDFXDIR);
     strcat(loadfile, "Range.lut");
-    size = fileLoadAlloc(loadfile, &RangeLUT, NonVolatile);
+    size = fileLoadAlloc(loadfile, (void**)&RangeLUT, NonVolatile);
 	RangeFloatLUT = memAlloc(size, "Range Table", NonVolatile);
 
+#ifdef ENDIAN_BIG
+    RangeLUT->ID      = LittleLong( RangeLUT->ID );
+    RangeLUT->columns = LittleShort( RangeLUT->columns );
+    RangeLUT->rows    = LittleShort( RangeLUT->rows );
+#endif
+    
     strcpy(loadfile, SOUNDFXDIR);
     strcat(loadfile, "Frequency.lut");
-    size = fileLoadAlloc(loadfile, &FrequencyLUT, NonVolatile);
+    size = fileLoadAlloc(loadfile, (void**)&FrequencyLUT, NonVolatile);
 	FreqLUT = memAlloc(size, "Frequency Table", NonVolatile);
 
+#ifdef ENDIAN_BIG
+    FrequencyLUT->ID      = LittleLong( FrequencyLUT->ID );
+    FrequencyLUT->columns = LittleShort( FrequencyLUT->columns );
+    FrequencyLUT->rows    = LittleShort( FrequencyLUT->rows );
+#endif
+    
     /* do some pre-calculations on the volume, range and frequency tables */
 	SEprecalcVolTables();
 
@@ -652,17 +771,21 @@ void soundEventInit(void)
     }
 
 #if SPEECH
+#ifndef _MACOSX_FIX_ME
     if (enableSpeech)
+#endif
     {
         if (speechEventInit() != SOUND_OK)
         {
             enableSpeech = FALSE;
         }
     }
-#endif
+#endif // SPEECH
+
     soundeventinited = TRUE;
-#endif
-#endif
+    
+#endif // DIRECTSOUND
+#endif // SOUND
 }
 
 
@@ -2446,19 +2569,57 @@ void SEstopsoundhandle(sdword *shandle, real32 fadetime)
 void SEloadbank(void)
 {
     char loadfile[100];
+    
+#ifdef ENDIAN_BIG
+	int  i;
+#endif
 
     /* new stuff */
     strcpy(loadfile, SOUNDFXDIR);
     strcat(loadfile, "GunEvents.lut");
-    fileLoadAlloc(loadfile, &GunEventsLUT, NonVolatile);
+    fileLoadAlloc(loadfile, (void**)&GunEventsLUT, NonVolatile);
+
+#ifdef ENDIAN_BIG	
+	GunEventsLUT->ID            = LittleLong( GunEventsLUT->ID );
+	GunEventsLUT->checksum      = LittleLong( GunEventsLUT->checksum );
+	GunEventsLUT->numvariations = LittleShort( GunEventsLUT->numvariations );
+	GunEventsLUT->numevents     = LittleShort( GunEventsLUT->numevents );
+	GunEventsLUT->numobjects    = LittleShort( GunEventsLUT->numobjects );
+	int lt = GunEventsLUT->numvariations * GunEventsLUT->numevents * GunEventsLUT->numobjects;
+	for ( i=0; i<lt; i++ )
+		GunEventsLUT->lookup[i] = LittleShort( GunEventsLUT->lookup[i] );
+#endif
 
     strcpy(loadfile, SOUNDFXDIR);
     strcat(loadfile, "ShipCmnEvents.lut");
-    fileLoadAlloc(loadfile, &ShipCmnEventsLUT, NonVolatile);
+    fileLoadAlloc(loadfile, (void**)&ShipCmnEventsLUT, NonVolatile);
 
+#ifdef ENDIAN_BIG
+	ShipCmnEventsLUT->ID            = LittleLong( ShipCmnEventsLUT->ID );
+	ShipCmnEventsLUT->checksum      = LittleLong( ShipCmnEventsLUT->checksum );
+	ShipCmnEventsLUT->numvariations = LittleShort( ShipCmnEventsLUT->numvariations );
+	ShipCmnEventsLUT->numevents     = LittleShort( ShipCmnEventsLUT->numevents );
+	ShipCmnEventsLUT->numobjects    = LittleShort( ShipCmnEventsLUT->numobjects );
+	lt = ShipCmnEventsLUT->numvariations * ShipCmnEventsLUT->numevents * ShipCmnEventsLUT->numobjects;
+	for ( i=0; i<lt; i++ )
+		ShipCmnEventsLUT->lookup[i] = LittleShort( ShipCmnEventsLUT->lookup[i] );
+#endif
+		
     strcpy(loadfile, SOUNDFXDIR);
     strcat(loadfile, "ShipEvents.lut");
-    fileLoadAlloc(loadfile, &ShipEventsLUT, NonVolatile);
+    fileLoadAlloc(loadfile, (void**)&ShipEventsLUT, NonVolatile);
+
+#ifdef ENDIAN_BIG
+	ShipEventsLUT->ID            = LittleLong( ShipEventsLUT->ID );
+	ShipEventsLUT->checksum      = LittleLong( ShipEventsLUT->checksum );
+	ShipEventsLUT->numvariations = LittleShort( ShipEventsLUT->numvariations );
+	ShipEventsLUT->numevents     = LittleShort( ShipEventsLUT->numevents );
+	ShipEventsLUT->numobjects    = LittleShort( ShipEventsLUT->numobjects );
+	lt = ShipEventsLUT->numvariations * ShipEventsLUT->numevents * ShipEventsLUT->numobjects;
+	for ( i=0; i<lt; i++ )
+		ShipEventsLUT->lookup[i] = LittleShort( ShipEventsLUT->lookup[i] );
+#endif
+		
 	if (ShipEventsLUT->checksum != ShipCmnEventsLUT->checksum)
 	{
 		dbgMessage("Lookup tables do not match.  Not from same generate.\n");
@@ -2467,7 +2628,19 @@ void SEloadbank(void)
 
     strcpy(loadfile, SOUNDFXDIR);
     strcat(loadfile, "DerelictEvents.lut");
-    fileLoadAlloc(loadfile, &DerelictEventsLUT, NonVolatile);
+    fileLoadAlloc(loadfile, (void**)&DerelictEventsLUT, NonVolatile);
+
+#ifdef ENDIAN_BIG
+	DerelictEventsLUT->ID            = LittleLong( DerelictEventsLUT->ID );
+	DerelictEventsLUT->checksum      = LittleLong( DerelictEventsLUT->checksum );
+	DerelictEventsLUT->numvariations = LittleShort( DerelictEventsLUT->numvariations );
+	DerelictEventsLUT->numevents     = LittleShort( DerelictEventsLUT->numevents );
+	DerelictEventsLUT->numobjects    = LittleShort( DerelictEventsLUT->numobjects );
+	lt = DerelictEventsLUT->numvariations * DerelictEventsLUT->numevents * DerelictEventsLUT->numobjects;
+	for ( i=0; i<lt; i++ )
+		DerelictEventsLUT->lookup[i] = LittleShort( DerelictEventsLUT->lookup[i] );
+#endif
+		
 	if (DerelictEventsLUT->checksum != ShipCmnEventsLUT->checksum)
 	{
 		dbgMessage("Lookup tables do not match.  Not from same generate.\n");
@@ -2480,7 +2653,19 @@ void SEloadbank(void)
 
     strcpy(loadfile, SOUNDFXDIR);
     strcat(loadfile, "SpecExpEvents.lut");
-    fileLoadAlloc(loadfile, &SpecExpEventsLUT, NonVolatile);
+    fileLoadAlloc(loadfile, (void**)&SpecExpEventsLUT, NonVolatile);
+
+#ifdef ENDIAN_BIG
+	SpecExpEventsLUT->ID            = LittleLong( SpecExpEventsLUT->ID );
+	SpecExpEventsLUT->checksum      = LittleLong( SpecExpEventsLUT->checksum );
+	SpecExpEventsLUT->numvariations = LittleShort( SpecExpEventsLUT->numvariations );
+	SpecExpEventsLUT->numevents     = LittleShort( SpecExpEventsLUT->numevents );
+	SpecExpEventsLUT->numobjects    = LittleShort( SpecExpEventsLUT->numobjects );
+	lt = SpecExpEventsLUT->numvariations * SpecExpEventsLUT->numevents * SpecExpEventsLUT->numobjects;
+	for ( i=0; i<lt; i++ )
+		SpecExpEventsLUT->lookup[i] = LittleShort( SpecExpEventsLUT->lookup[i] );
+#endif
+
 //	if (SpecExpEventsLUT->checksum != SpecEffectEventsLUT->checksum)
 //	{
 //		dbgMessage("Lookup tables do not match.  Not from same generate.\n");
@@ -2489,7 +2674,19 @@ void SEloadbank(void)
 
     strcpy(loadfile, SOUNDFXDIR);
     strcat(loadfile, "SpecHitEvents.lut");
-    fileLoadAlloc(loadfile, &SpecHitEventsLUT, NonVolatile);
+    fileLoadAlloc(loadfile, (void**)&SpecHitEventsLUT, NonVolatile);
+
+#ifdef ENDIAN_BIG
+	SpecHitEventsLUT->ID            = LittleLong( SpecHitEventsLUT->ID );
+	SpecHitEventsLUT->checksum      = LittleLong( SpecHitEventsLUT->checksum );
+	SpecHitEventsLUT->numvariations = LittleShort( SpecHitEventsLUT->numvariations );
+	SpecHitEventsLUT->numevents     = LittleShort( SpecHitEventsLUT->numevents );
+	SpecHitEventsLUT->numobjects    = LittleShort( SpecHitEventsLUT->numobjects );
+	lt = SpecHitEventsLUT->numvariations * SpecHitEventsLUT->numevents * SpecHitEventsLUT->numobjects;
+	for ( i=0; i<lt; i++ )
+		SpecHitEventsLUT->lookup[i] = LittleShort( SpecHitEventsLUT->lookup[i] );
+#endif
+		
 //	if (SpecHitEventsLUT->checksum != SpecEffectEventsLUT->checksum)
 	if (SpecHitEventsLUT->checksum != SpecExpEventsLUT->checksum)
 	{
@@ -2499,11 +2696,22 @@ void SEloadbank(void)
 
     strcpy(loadfile, SOUNDFXDIR);
     strcat(loadfile, "UIEvents.lut");
-    fileLoadAlloc(loadfile, &UIEventsLUT, NonVolatile);
+    fileLoadAlloc(loadfile, (void**)&UIEventsLUT, NonVolatile);
+
+#ifdef ENDIAN_BIG
+	UIEventsLUT->ID = LittleLong( UIEventsLUT->ID );
+	UIEventsLUT->checksum = LittleLong( UIEventsLUT->checksum );
+	UIEventsLUT->numvariations = LittleShort( UIEventsLUT->numvariations );
+	UIEventsLUT->numevents = LittleShort( UIEventsLUT->numevents );
+	UIEventsLUT->numobjects = LittleShort( UIEventsLUT->numobjects );
+	lt = UIEventsLUT->numvariations * UIEventsLUT->numevents * UIEventsLUT->numobjects;
+	for ( i=0; i<lt; i++ )
+		UIEventsLUT->lookup[i] = LittleShort( UIEventsLUT->lookup[i] );
+#endif
 
     strcpy(loadfile, SOUNDFXDIR);
     strcat(loadfile, "Guns.bnk");
-    fileLoadAlloc(loadfile, &GunBank, NonVolatile);
+    fileLoadAlloc(loadfile, (void**)&GunBank, NonVolatile);
 	if (soundbankadd(GunBank) != GunEventsLUT->checksum)
 	{
 		dbgMessage("Lookup tables do not match.  Not from same generate.\n");
@@ -2512,7 +2720,7 @@ void SEloadbank(void)
 
     strcpy(loadfile, SOUNDFXDIR);
     strcat(loadfile, "Ships.bnk");
-    fileLoadAlloc(loadfile, &ShipBank, NonVolatile);
+    fileLoadAlloc(loadfile, (void**)&ShipBank, NonVolatile);
 	if (soundbankadd(ShipBank) != ShipCmnEventsLUT->checksum)
 	{
 		dbgMessage("Ship bank file does not match Lookup tables.  Not from same generate.\n");
@@ -2521,7 +2729,7 @@ void SEloadbank(void)
 
     strcpy(loadfile, SOUNDFXDIR);
     strcat(loadfile, "SpecialEffects.bnk");
-    fileLoadAlloc(loadfile, &SpecialEffectBank, NonVolatile);
+    fileLoadAlloc(loadfile, (void**)&SpecialEffectBank, NonVolatile);
 //	if (soundbankadd(SpecialEffectBank) != SpecEffectEventsLUT->checksum)
 	if (soundbankadd(SpecialEffectBank) != SpecExpEventsLUT->checksum)
 	{
@@ -2531,7 +2739,7 @@ void SEloadbank(void)
 
     strcpy(loadfile, SOUNDFXDIR);
     strcat(loadfile, "UI.bnk");
-    fileLoadAlloc(loadfile, &UIBank, NonVolatile);
+    fileLoadAlloc(loadfile, (void**)&UIBank, NonVolatile);
 	if (soundbankadd(UIBank) != UIEventsLUT->checksum)
 	{
 		dbgMessage("Lookup tables do not match.  Not from same generate.\n");
@@ -2625,7 +2833,9 @@ void soundEventStopCD(void)
 
 void soundEventPlayMusic(sdword tracknum)
 {
+#ifndef _MACOSX_FIX_ME
     musicEventPlay(tracknum);
+#endif
 
     return;
 }
@@ -2633,14 +2843,18 @@ void soundEventPlayMusic(sdword tracknum)
 
 void soundEventStopMusic(real32 fadetime)
 {
+#ifndef _MACOSX_FIX_ME
     musicEventStop(-1, fadetime);
+#endif
     return;
 }
 
 
 void soundEventStopTrack(sdword tracknum, real32 fadetime)
 {
+#ifndef _MACOSX_FIX_ME
     musicEventStop(tracknum, fadetime);
+#endif
     return;
 }
 

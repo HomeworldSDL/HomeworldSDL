@@ -33,9 +33,21 @@ sdword animaticJustPlayed = 0;
  * The animStartup(), animShutdown(), and animBinkPlay() have been replaced
  * with dummy versions (after the block ignored by #if 0) so the game code can
  * stay the same. */
-#if 0
+// LMOP: 20040508
+// Whilst the Linux folks want to zap most of this file for the moment and replace
+// the original code with dummy functions (see above), the MacOSX folks don't.
+// Please replace with a suitable #if you want to turn it back on. Thanks.
+#ifdef _MACOSX_FIX_ME  // was #if 0 (for Linux)
 
-#define USE_3DFX 1
+// NB: Bink players available here: http://www.radgametools.com/bnkdown.htm
+// I'm not sure how easy it will be to incorporate them (rather than SDK), nor
+// whether they'd be happy if we did.
+
+#ifdef _MACOSX_FIX_ME
+    #define USE_3DFX 0
+#else
+    #define USE_3DFX 1
+#endif
 
 #if USE_3DFX
 extern bool gl3Dfx;
@@ -52,7 +64,9 @@ static bool   g_cleared;
 static ubyte* surf888;
 ubyte* surf8888 = NULL;
 
+#ifndef _MACOSX_FIX_ME
 extern HDC hGLDeviceContext;
+#endif
 
 #define NUM_SP_MISSIONS 19
 
@@ -208,7 +222,7 @@ void animSubtitlesDraw(void)
 
     animSubtitlesSetup(FALSE);
 }
-
+#if 0
 /*-----------------------------------------------------------------------------
     Name        : animBinkReverseRGBA
     Description : inplace y-flip an RGBA image (640x480x32)
@@ -234,7 +248,7 @@ void animBinkReverseRGBA(ubyte* surf)
         memcpy(surf + pitch*bot, line, pitch);
     }
 }
-
+#endif
 #if USE_3DFX
 /*-----------------------------------------------------------------------------
     Name        : animBinkDisplay3Dfx
@@ -282,9 +296,14 @@ void animBinkDisplay3Dfx(binkDisplayCallback_proc callback)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
+#ifdef _WIN32
 void animBinkDisplay(binkDisplayCallback_proc callback)
+#else
+void animBinkDisplay()
+#endif
 {
     sdword xOfs, yOfs;
+#if 0
     ubyte* binkSurface = (ubyte*)binkGetSurface();
 
     if (g_frame <= g_displayFrame)
@@ -295,12 +314,14 @@ void animBinkDisplay(binkDisplayCallback_proc callback)
 
     //prepare binkSurface
     callback(NULL, 0, 0, 0);
-
+#endif
     xOfs = (MAIN_WindowWidth  - 640) / 2;
     yOfs = (MAIN_WindowHeight - 480) / 2;
 
     animBinkSetup(TRUE);
     glRasterPos2f((real32)xOfs, (real32)yOfs);
+
+#ifndef _MACOSX_FIX_ME
     switch (RGLtype)
     {
     case GLtype:
@@ -316,6 +337,8 @@ void animBinkDisplay(binkDisplayCallback_proc callback)
     default:
         dbgFatalf(DBG_Loc, "what's this RGLtype: %d [binkSimpleDisplayProc]", RGLtype);
     }
+#endif
+
     animBinkSetup(FALSE);
 
     animSubtitlesDraw();
@@ -403,7 +426,7 @@ nisheader* animLoadNISScript(char* scriptname)
     }
     return newHeader;
 }
-
+#if 0
 /*-----------------------------------------------------------------------------
     Name        : animGenericDecode
     Description : callback once per frame decode
@@ -473,6 +496,10 @@ void animBinkEnd(void)
 
 #endif	/* I hear Bink, but I don't see Bink... */
 
+#endif  // the #if 0/1 right at the very top of this file...
+
+
+
 
 /*-----------------------------------------------------------------------------
     Name        : animStartup
@@ -483,7 +510,7 @@ void animBinkEnd(void)
 ----------------------------------------------------------------------------*/
 void animStartup(void)
 {
-#if 0	/* BINK!@#$1 */
+#ifdef _MACOSX_FIX_ME	/* BINK!@#$1 */
     filehandle lst;
     char   line[128], temp[64];
     sdword level;
@@ -531,7 +558,7 @@ void animStartup(void)
 ----------------------------------------------------------------------------*/
 void animShutdown(void)
 {
-#if 0	/* BINK!@#$3 */
+#ifdef _MACOSX_FIX_ME	/* BINK!@#$3 */
     memset(animlisting, 0, NUM_SP_MISSIONS*sizeof(animlst));
 #endif	/* BONK!@#$1$ */
 }
@@ -545,7 +572,7 @@ void animShutdown(void)
 ----------------------------------------------------------------------------*/
 bool animBinkPlay(sdword a, sdword b)
 {
-#if 0	/* One more time...BINK!@#1 */
+#ifdef _MACOSX_FIX_ME /* One more time...BINK!@#1 */
     bool rval;
     char filename[1024], scriptname[1024];
     void animBinkEnd(void);
@@ -587,12 +614,12 @@ bool animBinkPlay(sdword a, sdword b)
 
     soundEventStopMusic(0.0f);
     soundstopall(0.0f);
-
+#ifndef _MACOSX_FIX_ME
     if (!binkInit(RGLtype))
     {
         return FALSE;
     }
-
+#endif
     rndSetClearColor(colBlack);
     rndClear();
 
@@ -602,18 +629,22 @@ bool animBinkPlay(sdword a, sdword b)
     universe.totaltimeelapsed = 0.0f;
 
     soundEventGetVolume(&animPreviousSFXVolume, &animPreviousSpeechVolume, &animPreviousMusicVolume);
-
+#ifndef _MACOSX_FIX_ME
     rval = binkPlay(filename,
 #if USE_3DFX
                     (gl3Dfx && sstLoaded()) ? animBinkDisplay3Dfx : animBinkDisplay,
 #else
                     animBinkDisplay,
-#endif
+#endif // USE_3DFX
                     animBinkDecode,
                     (trLitPaletteBits == 15) ? S_RGB555 : S_RGB565,
                     FALSE, -1);
+#endif // _MACOSX_FIX_ME
 
-    animBinkEnd();
+#ifndef _WIN32
+	animBinkDisplay();
+#endif
+    //animBinkEnd();
 
     return rval;
 #endif	/* bonk? */

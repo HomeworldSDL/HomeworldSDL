@@ -34,7 +34,7 @@ typedef struct
 } scriptEntry;
 
 ///////DATA!!!!
-char globalScriptFileName[50];  //file name of file loaded in a script callback function
+extern char globalScriptFileName[50];  //file name of file loaded in a script callback function
 
 
 /*=============================================================================

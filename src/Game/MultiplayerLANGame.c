@@ -14,10 +14,14 @@
 
 #include <stdio.h>
 #include <strings.h>
-#include <wchar.h>
+
+#ifndef _MACOSX
+    #include <wchar.h>
+#endif
+
 #include <stdlib.h>
 #include "MultiplayerLANGame.h"
-#include "MultiplayerGame.h"
+//#include "MultiplayerGame.h"
 #include "FEFlow.h"
 #include "utility.h"
 #include "ScenPick.h"
@@ -32,7 +36,7 @@
 #include "Chatting.h"
 #include "CommandNetwork.h"
 #include "Globals.h"
-/*#include "msg\serverstatus.h"*/
+#include "msg/ServerStatus.h"
 #include "ChannelFSM.h"
 #include "ColPick.h"
 #include "mainswitches.h"
@@ -42,7 +46,7 @@
 #include "File.h"
 #include "StatScript.h"
 #include "TimeoutTimer.h"
-#include "Titan.h"*/
+#include "Titan.h"
 #include "TitanNet.h"
 #include "GameChat.h"
 
@@ -1093,6 +1097,7 @@ void lgUserNameWindowInit(char *name, featom *atom)
 
 void lgSeeDetails(char*name,featom*atom)
 {
+#ifndef _MACOSX_FIX_ME
     dbgAssert(LANGame);
 
     if (lgListOfGamesWindow->CurLineSelected!=NULL)
@@ -1103,6 +1108,7 @@ void lgSeeDetails(char*name,featom*atom)
         dbgAssert(SeeingDetailsForGameName[0] != 0);
         mgShowScreen(MGS_Basic_Options_View,TRUE);
     }
+#endif
 }
 
 void lgRequestJoinGame(tpscenario *game)
@@ -1146,6 +1152,7 @@ void lgJoinGame(char*name,featom*atom)
             }
         }
 
+#ifndef _MACOSX_FIX_ME
         if (wcslen(gameinfo->game.directoryCustomInfo.stringdata)>1)
         {
             joingame = &gameinfo->game;
@@ -1155,6 +1162,7 @@ void lgJoinGame(char*name,featom*atom)
         {
             lgRequestJoinGame(&gameinfo->game);
         }
+#endif
     }
 }
 
@@ -1178,7 +1186,7 @@ bool lgListOfGamesCompare(void *firststruct,void *secondstruct)
             return(FALSE);
     }
 
-
+#ifndef _MACOSX_FIX_ME
     switch (lgListOfGamesWindow->sorttype)
     {
         case LG_SortByGameName:
@@ -1218,6 +1226,7 @@ bool lgListOfGamesCompare(void *firststruct,void *secondstruct)
             }
         }
     }
+#endif
 
     return FALSE;
 }
@@ -1407,6 +1416,7 @@ void lgListOfGamesItemDraw(rectangle *rect, listitemhandle data)
     sprintf(temp,"%i",gameinfo->game.directoryCustomInfo.numPlayers);
     fontPrint(x-fontWidth(temp)-fontWidth("W"),y,c,temp);
 
+#ifndef _MACOSX_FIX_ME
     passwordlen = wcslen(gameinfo->game.directoryCustomInfo.stringdata);
 
     wcstombs(temp,gameinfo->game.directoryCustomInfo.stringdata + 1+passwordlen,512);
@@ -1427,6 +1437,7 @@ void lgListOfGamesItemDraw(rectangle *rect, listitemhandle data)
     }
 
     fontMakeCurrent(oldfont);
+#endif
 }
 
 // initilize the list of games window structure to needed settings
@@ -1691,6 +1702,7 @@ void lgSetupGame(char*name,featom*atom)
 
 void lgStartGame(char*name,featom*atom)
 {
+#ifndef _MACOSX_FIX_ME
     sdword i;
 
     if (tpGameCreated.numPlayers == 0)
@@ -1739,6 +1751,7 @@ void lgStartGame(char*name,featom*atom)
     sigsPressedStartGame = TRUE;
 
     lgShutdownMultiPlayerGameScreens();
+#endif // _MACOSX_FIX_ME
 }
 
 void lgGameChatTextEntry(char *name, featom *atom)
@@ -1868,6 +1881,7 @@ void lgDirtyNumPlayerRegions()
 
 void lgCreateGameNow(char *name, featom *atom)
 {
+#ifndef _MACOSX_FIX_ME
     if (SeeingDetailsForGameName[0])
     {
         SeeingDetailsForGameName[0] = 0;
@@ -1938,6 +1952,7 @@ void lgCreateGameNow(char *name, featom *atom)
 
         lgUpdateGameInfo();
     }
+#endif // _MACOSX_FIX_ME
 }
 
 void lgGameNameTextEntry(char *name, featom *atom)
@@ -2066,6 +2081,7 @@ void lgBackFromPassword(char *name, featom *atom)
 
 void lgGoPassword(char *name, featom *atom)
 {
+#ifndef _MACOSX_FIX_ME
     static wchar_t widepasswordentryboxtext[MAX_PASSWORD_LENGTH];
 
     if (joingame!=NULL)
@@ -2081,6 +2097,7 @@ void lgGoPassword(char *name, featom *atom)
             mgShowScreen(LGS_Message_Box,FALSE);
         }
     }
+#endif
 }
 
 
@@ -2209,6 +2226,7 @@ void CopyToTpGameCreatedExceptPlayerColors(CaptainGameInfo *newcaptaingameinfo)
 
 void lgProcessGameHere(lgqueuegamehere *game)
 {
+#ifndef _MACOSX_FIX_ME
     LANAdvert_GameHere *gamehere = &game->gamehere;
 
     // see if gamehere is already in the list
@@ -2291,6 +2309,7 @@ void lgProcessGameHere(lgqueuegamehere *game)
     {
         gameinfo->item = NULL;
     }
+#endif // _MACOSX_FIX_ME
 }
 
 void lgProcessChatMsg(lgqueuechatmsg *chat)
@@ -2535,6 +2554,7 @@ void lgSendChatMessage(char *towho,char *message)
 
 static void lgExplicitlyDeleteGameFromGameList(wchar_t *name)
 {
+#ifndef _MACOSX_FIX_ME
     lggamelist *gameinfo;
     Node     *walk2;
 
@@ -2567,6 +2587,7 @@ static void lgExplicitlyDeleteGameFromGameList(wchar_t *name)
 
         walk2 = walk2->next;
     }
+#endif
 }
 
 #pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
@@ -2578,7 +2599,9 @@ void lgProcessCallBacksTask(void)
 
     taskYield(0);
 
+#ifndef C_ONLY
     while (1)
+#endif
     {
         taskStackSaveCond(0);
 
@@ -2679,7 +2702,7 @@ void lgProcessCallBacksTask(void)
         {
             LockQueue(&lgThreadTransfer);
 
-            sizeofpacket = Dequeue(&lgThreadTransfer, &packet);
+            sizeofpacket = HWDequeue(&lgThreadTransfer, &packet);
             dbgAssert(sizeofpacket > 0);
             copypacket = memAlloc(sizeofpacket,"lg(lgthreadtransfer)", Pyrophoric);
             memcpy(copypacket, packet, sizeofpacket);
@@ -2884,7 +2907,7 @@ void titanReceivedLanBroadcastCB(const void* thePacket, unsigned short theLen)
                 {
                     memcpy(&userhere.userhere,thePacket,sizeof(LANAdvert_UserHere));
 
-                    Enqueue(&lgThreadTransfer, (ubyte *)&userhere, sizeof(userhere));
+                    HWEnqueue(&lgThreadTransfer, (ubyte *)&userhere, sizeof(userhere));
                 }
                 else
                 {
@@ -2903,7 +2926,7 @@ void titanReceivedLanBroadcastCB(const void* thePacket, unsigned short theLen)
                 {
                     memcpy(&gamehere.gamehere,thePacket,sizeof(LANAdvert_GameHere));
 
-                    Enqueue(&lgThreadTransfer, (ubyte *)&gamehere,sizeof(gamehere));
+                    HWEnqueue(&lgThreadTransfer, (ubyte *)&gamehere,sizeof(gamehere));
                 }
                 else
                 {
@@ -2922,7 +2945,7 @@ void titanReceivedLanBroadcastCB(const void* thePacket, unsigned short theLen)
                 {
                     memcpy(&chatmsg.chatmsg,thePacket,sizeof(LANAdvert_ChatMsg));
 
-                    Enqueue(&lgThreadTransfer, (ubyte *)&chatmsg,sizeof(chatmsg));
+                    HWEnqueue(&lgThreadTransfer, (ubyte *)&chatmsg,sizeof(chatmsg));
                 }
                 else
                 {
@@ -2955,7 +2978,7 @@ void lgDisplayMessage(char *message)
     status.header.packettype = LG_QUEUESTATUSINFO;
     strcpy(status.status.message, message);
 
-    Enqueue(&lgThreadTransfer, (ubyte *)&status, sizeof(lgqueuestatusline));
+    HWEnqueue(&lgThreadTransfer, (ubyte *)&status, sizeof(lgqueuestatusline));
 
     UnLockQueue(&lgThreadTransfer);
 }
@@ -2987,7 +3010,7 @@ void lgUpdateGameInfo(void)
         player.player.race        = tpGameCreated.playerInfo[i].race;
         player.player.index       = i;
 
-        Enqueue(&lgThreadTransfer, (ubyte *)&player, sizeof(lgqueuegameplayerinfo));
+        HWEnqueue(&lgThreadTransfer, (ubyte *)&player, sizeof(lgqueuegameplayerinfo));
     }
 
     sigsNumPlayers = tpGameCreated.numPlayers;
@@ -3024,7 +3047,7 @@ void lgNotifyGameDisolved(void)
     LockQueue(&lgThreadTransfer);
 
     disolved.packettype = LG_QUEUEGAMEDISOLVED;
-    Enqueue(&lgThreadTransfer, (ubyte *)&disolved, sizeof(lgqueuegeneral));
+    HWEnqueue(&lgThreadTransfer, (ubyte *)&disolved, sizeof(lgqueuegeneral));
 
     UnLockQueue(&lgThreadTransfer);
 }
@@ -3048,7 +3071,7 @@ void lgProcessGameChatPacket(ChatPacket *packet)
     else
         chat.chat.messagetype = LG_NORMALCHAT;
 
-    Enqueue(&lgThreadTransfer, (ubyte *)&chat, sizeof(lgqueuechatlist));
+    HWEnqueue(&lgThreadTransfer, (ubyte *)&chat, sizeof(lgqueuechatlist));
 
     UnLockQueue(&lgThreadTransfer);
 }

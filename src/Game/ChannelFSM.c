@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <string.h>
 #include "Types.h"
 #include "TitanInterfaceC.h"
@@ -270,11 +271,13 @@ void cNotifyChatConnected(void)
     {
         cChannelFSMState = CS_RoomConnected;
         cChannelStateMachine();
+#ifndef _MACOSX_FIX_ME
         if (wcslen(RemoveGameRequest) >= 1)
         {
             titanRemoveGame(RemoveGameRequest);
             RemoveGameRequest[0] = 0;
         }
+#endif
         return;
     }
 }

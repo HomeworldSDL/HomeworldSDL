@@ -174,6 +174,11 @@ udword soundstreamopenfile(char *pszStreamFile, sdword *handle)
 
 #if VCE_BACKWARDS_COMPATIBLE
     fileBlockRead(streamfile, &identifier, sizeof(identifier));//read in an identifier
+
+#ifdef ENDIAN_BIG
+    identifier = LittleLong( identifier );
+#endif
+
     if (identifier == ID_STREAM_DATA)
     {                                                       //if it's 'DATA'
         ssOldFormatVCE = TRUE;
@@ -183,6 +188,10 @@ udword soundstreamopenfile(char *pszStreamFile, sdword *handle)
 #endif
 
 	fileBlockRead(streamfile, &checksum, sizeof(checksum));
+
+#ifdef ENDIAN_BIG
+    checksum = LittleLong( checksum );
+#endif
 
 	fileSeek(streamfile, 0, FS_Start);
 
@@ -217,9 +226,12 @@ sdword soundstreamcreatebuffer(void *pstreambuffer, sdword size, uword bitrate)
 			pstream->buffer = pstreambuffer;
 			pstream->playing = FALSE;
 			memset(pstream->buffer, 0, pstream->buffersize);
-			
+
+#ifndef _MACOSX_FIX_ME			
 			fqAcModel(NULL, NULL, 0, pstream->delaybuffer1, DELAY_BUF_SIZE, &(pstream->delaypos1));
 			fqAcModel(NULL, NULL, 0, pstream->delaybuffer2, DELAY_BUF_SIZE, &(pstream->delaypos2));
+#endif
+
 			break;
 		}
 	}
@@ -1030,6 +1042,8 @@ void isoundstreamcleanup(void)
 ----------------------------------------------------------------------------*/	
 void isoundstreamupdate(void *dummy)
 {
+#ifndef _MACOSX_FIX_ME
+
 	sdword i;
 	STREAM *pstream;
 	CHANNEL *pchan;
@@ -1378,5 +1392,7 @@ Recover:
 	}
 
 	streamer.status = SOUND_FREE;
+
+#endif // _MACOSX_FIX_ME
 }
 

@@ -9,6 +9,7 @@
 =============================================================================*/
 
 
+#include <SDL_endian.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -282,6 +283,26 @@ void btgGetTexture(char* filename, udword* thandle, sdword* width, sdword* heigh
         head.colorMapType = *pdata++;
         head.imageType = *pdata++;
         psdata = (unsigned short*)pdata;
+
+#ifdef ENDIAN_BIG
+        head.colorMapStartIndex = LittleShort( *psdata );
+        pdata += 2;
+        psdata = (unsigned short*)pdata;
+        head.colorMapNumEntries = LittleShort( *psdata );
+        pdata += 2;
+        head.colorMapBitsPerEntry = *pdata++;
+        psdata = (unsigned short*)pdata;
+        head.imageOffsetX = (signed short)LittleShort( *psdata );
+        pdata += 2;
+        psdata = (unsigned short*)pdata;
+        head.imageOffsetY = (signed short)LittleShort( *psdata );
+        pdata += 2;
+        psdata = (unsigned short*)pdata;
+        head.imageWidth = LittleShort( *psdata );
+        pdata += 2;
+        psdata = (unsigned short*)pdata;
+        head.imageHeight = LittleShort( *psdata );
+#else
         head.colorMapStartIndex = *psdata;
         pdata += 2;
         psdata = (unsigned short*)pdata;
@@ -299,6 +320,8 @@ void btgGetTexture(char* filename, udword* thandle, sdword* width, sdword* heigh
         pdata += 2;
         psdata = (unsigned short*)pdata;
         head.imageHeight = *psdata;
+#endif // ENDIAN_BIG
+
         pdata += 2;
         head.pixelDepth = *pdata++;
         head.imageDescriptor = *pdata++;
@@ -484,6 +507,10 @@ void btgLoad(char* filename)
     udword starSize, fileStarSize;
     udword polySize;
     real32 thetaSave, phiSave;
+    sdword i;
+#ifdef ENDIAN_BIG
+    Uint64 *swap;
+#endif
 
     fileLoadAlloc(filename, (void**)&btgData, 0);
 
@@ -500,6 +527,30 @@ void btgLoad(char* filename)
     headSize = sizeof(btgHeader);
     btgHead = (btgHeader*)memAlloc(headSize, "btg header", 0);
     memcpy(btgHead, btgData, headSize);
+
+#ifdef ENDIAN_BIG
+	btgHead->btgFileVersion = LittleLong( btgHead->btgFileVersion );
+	btgHead->numVerts       = LittleLong( btgHead->numVerts );
+	btgHead->numStars       = LittleLong( btgHead->numStars );
+	btgHead->numPolys       = LittleLong( btgHead->numPolys );
+	btgHead->xScroll        = LittleLong( btgHead->xScroll );
+	btgHead->yScroll        = LittleLong( btgHead->yScroll );
+	btgHead->zoomVal        = LittleLong( btgHead->zoomVal );
+	btgHead->pageWidth      = LittleLong( btgHead->pageWidth );
+	btgHead->pageHeight     = LittleLong( btgHead->pageHeight );
+	btgHead->mRed           = LittleLong( btgHead->mRed );
+	btgHead->mGreen         = LittleLong( btgHead->mGreen );
+	btgHead->mBlue          = LittleLong( btgHead->mBlue );
+	btgHead->mBGRed         = LittleLong( btgHead->mBGRed );
+	btgHead->mBGGreen       = LittleLong( btgHead->mBGGreen );
+	btgHead->mBGBlue        = LittleLong( btgHead->mBGBlue );
+	btgHead->bVerts         = LittleLong( btgHead->bVerts );
+	btgHead->bPolys         = LittleLong( btgHead->bPolys );
+	btgHead->bStars         = LittleLong( btgHead->bStars );
+	btgHead->bOutlines      = LittleLong( btgHead->bOutlines );
+	btgHead->bBlends        = LittleLong( btgHead->bBlends );
+	btgHead->renderMode     = LittleLong( btgHead->renderMode );
+#endif
 
     //set background colour
     universe.backgroundColor = colRGB(btgHead->mBGRed, btgHead->mBGGreen, btgHead->mBGBlue);
@@ -519,6 +570,24 @@ void btgLoad(char* filename)
     {
         btgVerts = (btgVertex*)memAlloc(vertSize, "btg verts", 0);
         memcpy(btgVerts, btgData + headSize, vertSize);
+
+#ifdef ENDIAN_BIG
+		for( i=0; i<btgHead->numVerts; i++ )
+		{
+			btgVerts[i].flags = LittleLong( btgVerts[i].flags );
+			swap  = ( Uint64 *)&btgVerts[i].x;
+			*swap = SDL_SwapLE64( *swap );
+			swap  = ( Uint64 *)&btgVerts[i].y;
+			*swap = SDL_SwapLE64( *swap );
+//			btgVerts[i].x          = LittleFloat( btgVerts[i].x );
+//			btgVerts[i].y          = LittleFloat( btgVerts[i].y );
+			btgVerts[i].red        = LittleLong( btgVerts[i].red );
+			btgVerts[i].green      = LittleLong( btgVerts[i].green );
+			btgVerts[i].blue       = LittleLong( btgVerts[i].blue );
+			btgVerts[i].alpha      = LittleLong( btgVerts[i].alpha );
+			btgVerts[i].brightness = LittleLong( btgVerts[i].brightness );
+		}
+#endif
     }
 
     //stars.  non-trivial munging around
@@ -528,13 +597,15 @@ void btgLoad(char* filename)
     {
         btgStar* outstarp;
         ubyte*   instarp;
+		btgStar* inp;
         udword*  udp;
-        sdword   i, j, tempSize, count, length;
+        sdword   j, tempSize, count, length;
         char     filename[48];
 
         btgStars = (btgStar*)memAlloc(starSize, "btg stars", 0);
         instarp  = btgData + headSize + vertSize;
         outstarp = btgStars;
+		inp = ( btgStar *)instarp;
 
         for (i = 0; i < btgHead->numStars; i++, outstarp++)
         {
@@ -544,11 +615,29 @@ void btgLoad(char* filename)
             instarp += tempSize;
             fileStarSize += tempSize;
 
+#ifdef ENDIAN_BIG
+			 swap = ( Uint64 *)&outstarp->x;
+			*swap = SDL_SwapLE64( *swap );
+			 swap = ( Uint64 *)&outstarp->y;
+			*swap = SDL_SwapLE64( *swap );
+			outstarp->flags = LittleLong( outstarp->flags );
+			outstarp->red   = LittleLong( outstarp->red );
+			outstarp->green = LittleLong( outstarp->green );
+			outstarp->blue  = LittleLong( outstarp->blue );
+			outstarp->alpha = LittleLong( outstarp->alpha );
+#endif
+
             //extract variable-sized filename
             count = 0;
             memset(filename, 0, 48);
             udp = (udword*)instarp;
+
+#ifdef ENDIAN_BIG
+            length = LittleLong( (sdword)*udp );
+#else
             length = (sdword)*udp;
+#endif
+
             instarp += 4;
             fileStarSize += 4;
             for (j = 0; j < length; j++)
@@ -580,6 +669,16 @@ void btgLoad(char* filename)
     {
         btgPolys = (btgPolygon*)memAlloc(polySize, "btg polys", 0);
         memcpy(btgPolys, btgData + headSize + vertSize + fileStarSize, polySize);
+		
+#ifdef ENDIAN_BIG
+		for( i=0; i<btgHead->numPolys; i++ )
+		{
+			btgPolys[i].flags = LittleLong( btgPolys[i].flags );
+			btgPolys[i].v0    = LittleLong( btgPolys[i].v0 );
+			btgPolys[i].v1    = LittleLong( btgPolys[i].v1 );
+			btgPolys[i].v2    = LittleLong( btgPolys[i].v2 );
+		}
+#endif
     }
 
     memFree(btgData);
@@ -1126,7 +1225,7 @@ void btgRender()
                     clipPointToScreenWithMatrices(&pStar->ur, &pscreen, modelview, projection, 0))
                 {
                     sdword width, height;
-
+					
                     width  = btgStars[nStar].width  >> 1;
                     height = btgStars[nStar].height >> 1;
 

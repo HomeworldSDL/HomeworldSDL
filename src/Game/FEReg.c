@@ -782,6 +782,8 @@ lifheader *ferTextureRegisterType(textureregistry *element, textype newtype, tex
             case topright:
                 ferFlipBitmap90((udword *)new_element->lif->data, new_element->lif->width);
                 break;
+            default:
+                break;
         }
     }
     //side texture
@@ -795,6 +797,8 @@ lifheader *ferTextureRegisterType(textureregistry *element, textype newtype, tex
                 ferFlipBitmap90((udword *)new_element->lif->data, new_element->lif->width);
             case top:
                 ferFlipBitmap90((udword *)new_element->lif->data, new_element->lif->width);
+                break;
+            default:
                 break;
         }
     }
@@ -1245,6 +1249,8 @@ void ferDrawCorner(sdword x, sdword y, lifheader *texture, curvetype curve, text
             case bottomright:
                 ferDraw(x - texture->height + FER_CCBM, y + FER_CCBM, texture);
                 break;
+            default:
+                break;
         }
     }
     else
@@ -1262,6 +1268,8 @@ void ferDrawCorner(sdword x, sdword y, lifheader *texture, curvetype curve, text
                 break;
             case bottomright:
                 ferDraw(x - texture->width, y, texture);
+                break;
+            default:
                 break;
         }
     }
@@ -2369,6 +2377,8 @@ void ferDrawCheckbox(rectangle dimensions, ferbuttonstate state)
         case c_off_disabled :
             texture = ferTextureRegister(CHECK_OFF_DISABLED, none, none);
             break;
+        default:
+            break;
     }
     x = texture->width;
     y = texture->height;
@@ -2424,6 +2434,8 @@ void ferDrawRadioButton(rectangle dimensions, ferbuttonstate state)
             break;
         case r_off_disabled :
             texture = ferTextureRegister(RADIO_OFF_DISABLED, none, none);
+            break;
+        default:
             break;
     }
     ferDraw(dimensions.x0, dimensions.y1, texture);
@@ -2627,6 +2639,8 @@ void ferDrawScrollbar(scrollbarhandle shandle, ferscrollbarstate state)
                 tab_mid  = VERTST_ON_MID;
                 tab_bot  = VERTST_ON_BOTTOM;
             break;
+            default:
+                break;
         }
         height = shandle->reg.rect.y1 - shandle->reg.rect.y0;
 

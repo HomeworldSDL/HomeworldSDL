@@ -333,7 +333,7 @@ void TransferCaptaincyUpdate(void)
 
     while (numPackets > 0)
     {
-        sizeofPacket = Dequeue(&ProcessCaptaincyPktQ,&packet);
+        sizeofPacket = HWDequeue(&ProcessCaptaincyPktQ,&packet);
         dbgAssert(sizeofPacket > 0);
         copypacket = memAlloc(sizeofPacket,"cp(miscpacket)",Pyrophoric);
         memcpy(copypacket,packet,sizeofPacket);
@@ -356,7 +356,7 @@ void TransferCaptaincyUpdate(void)
     }
     else
     {
-        sizeofPacket = Dequeue(&ProcessCaptaincyPktQ,&packet);
+        sizeofPacket = HWDequeue(&ProcessCaptaincyPktQ,&packet);
         dbgAssert(sizeofPacket > 0);
         copypacket = memAlloc(sizeofPacket,"cp(miscpacket)",Pyrophoric);
         memcpy(copypacket,packet,sizeofPacket);

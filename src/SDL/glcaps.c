@@ -16,6 +16,7 @@
 #include "devstats.h"
 #include "sstglide.h"
 #include "main.h"
+#include "render.h"
 
 #ifdef _MSC_VER
 #define strcasecmp _stricmp
@@ -221,6 +222,7 @@ typedef void (*RGLD3DSETDEVICEPROC)(char*);
 typedef char* (*RGLD3DGETDEVICEPROC)(void);
 typedef void* (*RGLGETFRAMEBUFFERPROC)(GLint*);
 typedef void (*RGLDRAWPITCHEDPIXELSPROC)(GLint, GLint, GLint, GLint, GLsizei, GLsizei, GLsizei, GLvoid const*);
+
 
 /*-----------------------------------------------------------------------------
     Name        : glCapGetRGLAddresses
@@ -637,7 +639,6 @@ bool glCapValidGL(void)
 ----------------------------------------------------------------------------*/
 static char voodoo2Extensions[] = "GL_EXT_paletted_texture GL_EXT_shared_texture_palette GL_SGIS_multitexture ";
 static char voodooExtensions[]  = "GL_EXT_paletted_texture GL_EXT_shared_texture_palette ";
-static char voodooRenderer[] = "3Dfx";
 static char voodooVendor[] = "3Dfx Interactive Inc.";
 char GENERIC_OPENGL_RENDERER[128];
 void glCapStartup(void)
@@ -648,6 +649,14 @@ void glCapStartup(void)
     char* str;
     extern bool mainFastFrontend;
     extern bool mainNoPalettes;
+
+#ifdef _MACOSX_FIX_ME
+	if( !rndSmallInit( NULL, TRUE ) )
+	{
+		fprintf( stderr, "Cannot initialize OpenGL\n" );
+		return;
+	}
+#endif
 
     GLC_EXTENSIONS = (char const*)glGetString(GL_EXTENSIONS);
     GLC_RENDERER   = (char const*)glGetString(GL_RENDERER);
@@ -844,8 +853,11 @@ void glCapStartup(void)
     else
     {
         //determine double buffering support
+#ifndef _MACOSX_FIX_ME
         glGetIntegerv(GL_DOUBLEBUFFER, &param);
         glCapDoubleBuffer = param ? TRUE : FALSE;
+#endif
+		glCapDoubleBuffer = TRUE;
 
         //is this a 3dfx GL?
         if (strcasecmp(GLC_VENDOR, voodooVendor) == 0)
@@ -864,11 +876,13 @@ void glCapStartup(void)
         glCapDepthFunc = GL_LEQUAL;
     }
 
+#ifndef _MACOSX_FIX_ME
     if (gl3Dfx)
     {
         //load the Glide stuff if we can use it
         sstStartup();
     }
+#endif
 
     //enable/disable linesmoothing as per devcaps et al
     glCapLineSmooth = TRUE;

@@ -3018,6 +3018,8 @@ bool ApplyDamageToTarget(SpaceObjRotImpTarg *target,real32 damagetaken,GunSoundT
                 //charge, but don't take damage
                 DustCloudChargesUp((DustCloud*)target, (sdword)damagetaken, targetWasAlive);
                 return FALSE;
+            default:
+                break;
             }
 
 #if 0
@@ -6510,6 +6512,8 @@ void univFreeResourceContents(Resource *resource)
 
         case OBJ_DustType:
             univFreeDustCloudContents((DustCloud *)resource);
+            break;
+        default:
             break;
     }
 }

@@ -750,7 +750,7 @@ static void glcScaledQuadAt(sdword x, sdword y, sdword xend, sdword yend)
 ----------------------------------------------------------------------------*/
 void glcDisplayRGBABackgroundScaled(ubyte* surface)
 {
-    sdword handles;
+    sdword handles = 0;
     sdword y, x, yend;
 
     rndTextureEnvironment(RTE_Replace);
@@ -801,7 +801,7 @@ void glcDisplayRGBABackgroundScaled(ubyte* surface)
 ----------------------------------------------------------------------------*/
 void glcDisplayRGBABackgroundWithoutScaling(ubyte* surface)
 {
-    sdword handles;
+    sdword handles = 0;
     sdword y, x, yend;
     sdword xOfs, yOfs;
 
@@ -905,7 +905,7 @@ void glcMatrixSetup(bool on)
 ----------------------------------------------------------------------------*/
 void glcDisplayRGBABackground(ubyte* surface)
 {
-    sdword handles;
+    sdword handles = 0;
     sdword xOfs, yOfs;
     sdword y, x, yend;
 
@@ -2361,6 +2361,11 @@ void glcCursorUnder(ubyte* data, sdword width, sdword height, sdword x0, sdword 
 bool glcActivate(bool active)
 {
     bool lastStatus;
+
+#ifdef _MACOSX_FIX_ME  // without this you get a wacky red front end menu
+    active = FALSE;
+#endif
+
     if (!glCapFeatureExists(GL_SWAPFRIENDLY))
     {
         return glcActiveStatus;

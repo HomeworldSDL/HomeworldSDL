@@ -51,7 +51,7 @@ typedef struct
 #define SENSOR_SENSE    1
 #define SENSOR_SENSED   2
 #define SENSOR_SENSED2  3
-color ProximitySensorBlipColor;
+extern color ProximitySensorBlipColor;
 
 /*=============================================================================
     Functions:

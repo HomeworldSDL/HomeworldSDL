@@ -22,14 +22,30 @@ typedef rgbquad color;
     Macros:
 =============================================================================*/
 //create RGB/RGBA quads
-#define colRGB(r,g,b)       (0xff000000 | (((ubyte)(b)) << 16) | (((ubyte)(g)) << 8) | ((ubyte)(r)))
-#define colRGBA(r,g,b,a)    ((((udword)(a)) << 24) | (((udword)(b)) << 16) | (((udword)(g)) << 8) | (udword)(r))
+#ifdef ENDIAN_BIG
 
-//extract elements from RGB/RGBA quads
-#define colRed(rgb)         ((ubyte)((rgb) & 0x000000ff))
-#define colGreen(rgb)       ((ubyte)(((rgb) & 0x0000ff00) >> 8))
-#define colBlue(rgb)        ((ubyte)(((rgb) & 0x00ff0000) >> 16))
-#define colAlpha(rgba)      ((ubyte)(((rgba) & 0xff000000) >> 24))
+    #define colRGB(r,g,b)       (0x000000ff | (((ubyte)(r)) << 24) | (((ubyte)(g)) << 16) | (((ubyte)(b)) << 8))
+    #define colRGBA(r,g,b,a)    ((((udword)(r)) << 24) | (((udword)(g)) << 16) | (((udword)(b)) << 8) | (udword)(a))
+    
+    //extract elements from RGB/RGBA quads
+    #define colRed(rgb)         ((ubyte)(((rgb) & 0xff000000) >> 24))
+    #define colGreen(rgb)       ((ubyte)(((rgb) & 0x00ff0000) >> 16))
+    #define colBlue(rgb)        ((ubyte)(((rgb) & 0x0000ff00) >> 8))
+    #define colAlpha(rgba)      ((ubyte)((rgba) & 0x000000ff))
+    
+#else
+
+    #define colRGB(r,g,b)       (0xff000000 | (((ubyte)(b)) << 16) | (((ubyte)(g)) << 8) | ((ubyte)(r)))
+    #define colRGBA(r,g,b,a)    ((((udword)(a)) << 24) | (((udword)(b)) << 16) | (((udword)(g)) << 8) | (udword)(r))
+    
+    //extract elements from RGB/RGBA quads
+    #define colRed(rgb)         ((ubyte)((rgb) & 0x000000ff))
+    #define colGreen(rgb)       ((ubyte)(((rgb) & 0x0000ff00) >> 8))
+    #define colBlue(rgb)        ((ubyte)(((rgb) & 0x00ff0000) >> 16))
+    #define colAlpha(rgba)      ((ubyte)(((rgba) & 0xff000000) >> 24))
+
+#endif // ENDIAN_BIG
+
 #define colClampRed(rgb)    colClamp256(colRed(rgb))
 #define colClampGreen(rgb)  colClamp256(colGreen(rgb))
 #define colClampBlue(rgb)   colClamp256(colBlue(rgb))

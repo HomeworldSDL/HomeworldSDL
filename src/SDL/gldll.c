@@ -6,6 +6,10 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
+#ifdef _MACOSX
+    #include <CoreServices/CoreServices.h>
+#endif
+
 #include "SDL.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -16,7 +20,9 @@
 #include "devstats.h"
 #include "main.h"
 
-#include <dlfcn.h>
+#ifndef _MACOSX
+    #include <dlfcn.h>
+#endif
 
 extern udword gDevcaps2;
 
@@ -39,9 +45,16 @@ extern udword gDevcaps2;
 #define _WGL_STRINGIZE_NAME( name ) _STRINGIZE_NAME0(wgl##name)
 #define _GL_STRINGIZE_NAME( name) _STRINGIZE_NAME0(gl##name)
 #define _DGL_STRINGIZE_NAME( name ) _STRINGIZE_NAME0(_gl##name)
-#define DYNALINK_GL_FUNCTION( name ) _ERROR_WRAP((*(int (APIENTRY **)())&(gl##name)) = SDL_GL_GetProcAddress(_GL_STRINGIZE_NAME(name)))
-#define DYNALINK_DGL_FUNCTION( name ) _ERROR_WRAP((*(int (APIENTRY **)())&(_gl##name)) = SDL_GL_GetProcAddress(_GL_STRINGIZE_NAME(name)))
-#define DYNALINK_WGL_FUNCTION( name ) _ERROR_WRAP((*(int (APIENTRY **)())&(rwgl##name)) = SDL_GL_GetProcAddress(_WGL_STRINGIZE_NAME(name)))
+
+#ifdef _MACOSX
+    #define DYNALINK_GL_FUNCTION( name ) _ERROR_WRAP((*(int (APIENTRY **)())&(gl##name)) = osxGetProcAddress(_GL_STRINGIZE_NAME(name)))
+    #define DYNALINK_DGL_FUNCTION( name ) _ERROR_WRAP((*(int (APIENTRY **)())&(_gl##name)) = osxGetProcAddress(_GL_STRINGIZE_NAME(name)))
+    #define DYNALINK_WGL_FUNCTION( name ) _ERROR_WRAP((*(int (APIENTRY **)())&(rwgl##name)) = osxGetProcAddress(_WGL_STRINGIZE_NAME(name)))
+#else
+    #define DYNALINK_GL_FUNCTION( name ) _ERROR_WRAP((*(int (APIENTRY **)())&(gl##name)) = SDL_GL_GetProcAddress(_GL_STRINGIZE_NAME(name)))
+    #define DYNALINK_DGL_FUNCTION( name ) _ERROR_WRAP((*(int (APIENTRY **)())&(_gl##name)) = SDL_GL_GetProcAddress(_GL_STRINGIZE_NAME(name)))
+    #define DYNALINK_WGL_FUNCTION( name ) _ERROR_WRAP((*(int (APIENTRY **)())&(rwgl##name)) = SDL_GL_GetProcAddress(_WGL_STRINGIZE_NAME(name)))
+#endif // _MACOSX
 
 #if WRAPPERS
 static GLuint lastBound = 0;
@@ -72,7 +85,7 @@ BINDTEXTUREproc glBindTexture;
 BINDTEXTUREproc _glBindTexture;
 BITMAPproc glBitmap;
 BLENDFUNCproc glBlendFunc;
-CLEARproc glClear;
+CLEARproc glClear = NULL;
 CLEARCOLORproc glClearColor;
 CLEARDEPTHproc glClearDepth;
 CLEARINDEXproc glClearIndex;
@@ -190,6 +203,44 @@ WSETPIXELFORMATproc rwglSetPixelFormat;
 WGETPIXELFORMATproc rwglGetPixelFormat;
 WDESCRIBEPIXELFORMATproc rwglDescribePixelFormat;
 #endif
+
+#ifdef _MACOSX
+char *gDllName = NULL;
+
+void *osxGetProcAddress( char *proc )
+{
+	static Boolean loaded = false;
+
+	// We may want to cache the bundleRef at some point
+    static CFBundleRef bundle = NULL;
+    CFURLRef bundleURL;
+    CFStringRef functionName = CFStringCreateWithCString(kCFAllocatorDefault, proc, kCFStringEncodingASCII);
+    void *function;
+
+	bundleURL = CFURLCreateWithFileSystemPath (kCFAllocatorDefault, CFSTR("/System/Library/Frameworks/OpenGL.framework"), kCFURLPOSIXPathStyle, true);
+//                                                        CFSTR("librgl.so.bundle"), kCFURLPOSIXPathStyle, true);
+
+	if( !bundle )
+	{
+		bundle = CFBundleCreate (kCFAllocatorDefault, bundleURL);
+		assert (bundle != NULL);
+	}
+
+	if( !loaded )
+	{
+		loaded = CFBundleLoadExecutable( bundle );
+		assert( loaded );
+	}
+
+    function = CFBundleGetFunctionPointerForName (bundle, functionName);
+
+    CFRelease ( bundleURL );
+    CFRelease ( functionName );
+//    CFRelease ( bundle );
+
+    return function;
+}
+#endif // _MACOSX
 
 #if VERTEX_WRAPPERS
 FILE* vout;
@@ -491,6 +542,21 @@ GLboolean glDLLGetProcs(char* dllName)
     else
     {
         glDLLEnvironment();
+        
+        #if 0 // #ifdef _MACOSX_FIX_ME
+        // On OS X SDL_GL_LoadLibrary does nothing, so we must check if the given dll exists.
+        {
+		    FILE *dll_test = fopen( "librgl.so.bundle", "rb" );
+		    if( dll_test )
+			    fclose( dll_test );
+		    else
+    		{
+	    		fprintf( stderr, "Cannot load %s library\n", dllName );
+		    	return GL_FALSE;
+	    	}
+	    }
+        #endif
+
         //try loading the .DLL
         if (SDL_GL_LoadLibrary(dllName) == -1)
         {
@@ -504,6 +570,10 @@ GLboolean glDLLGetProcs(char* dllName)
 
 #if VERTEX_WRAPPERS
     vout = fopen("vout.dat", "wt");
+#endif
+
+#ifdef _MACOSX_FIX_ME
+	gDllName = dllName;
 #endif
 
     DYNALINK_GL_FUNCTION(AlphaFunc);
@@ -530,7 +600,11 @@ GLboolean glDLLGetProcs(char* dllName)
     DYNALINK_GL_FUNCTION(Color4f);
     DYNALINK_GL_FUNCTION(Color4ub);
     DYNALINK_GL_FUNCTION(ColorMask);
+#ifdef _MACOSX
+	glColorTable = (COLORTABLEproc)osxGetProcAddress("glColorTableEXT");
+#else
     glColorTable = (COLORTABLEproc)SDL_GL_GetProcAddress("glColorTableEXT");
+#endif // _MACOSX
     DYNALINK_GL_FUNCTION(CullFace);
     DYNALINK_DGL_FUNCTION(DeleteTextures);
 #if DELTEX_WRAPPERS
@@ -673,12 +747,16 @@ GLboolean glDLLGetProcs(char* dllName)
     }
 #endif
 
+#ifdef _MACOSX
+	rwglGetProcAddress = (WGETPROCADDRESSproc)osxGetProcAddress;
+#else
     rwglGetProcAddress = (WGETPROCADDRESSproc)SDL_GL_GetProcAddress("rglGetProcAddress");
     if (!rwglGetProcAddress)
     {
         /* Not an RGL lib, must be regular OpenGL. */
         rwglGetProcAddress = (WGETPROCADDRESSproc)SDL_GL_GetProcAddress;
     }
+#endif // _MACOSX
 
     DYNALINK_GL_FUNCTION(LockArraysEXT);
     DYNALINK_GL_FUNCTION(UnlockArraysEXT);

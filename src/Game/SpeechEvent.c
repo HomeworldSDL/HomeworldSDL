@@ -420,6 +420,11 @@ sdword speechEventInit(void)
     sdword streamersize;
     char loadfile[100];
     sdword i, j;
+    
+#ifdef ENDIAN_BIG
+    sdword p, z;
+#endif
+
 #if 0
     sdword numoffsets;
     sdword index;
@@ -434,8 +439,27 @@ sdword speechEventInit(void)
 #else
     strcat(loadfile, "speechsentence_comp.lut");
 #endif
-    fileLoadAlloc(loadfile, &SentenceLUT, NonVolatile);
+    fileLoadAlloc(loadfile, (void**)&SentenceLUT, NonVolatile);
 
+#ifdef ENDIAN_BIG
+	SentenceLUT->ID         = LittleLong( SentenceLUT->ID );
+	SentenceLUT->checksum   = LittleLong( SentenceLUT->checksum );
+	SentenceLUT->numcolumns = LittleShort( SentenceLUT->numcolumns );
+	SentenceLUT->numevents  = LittleShort( SentenceLUT->numevents );
+	SentenceLUT->numactors  = LittleShort( SentenceLUT->numactors );
+#if defined(Downloadable) || defined(DLPublicBeta)
+	SentenceLUT->compbitrate[3] = LittleShort( SentenceLUT->compbitrate[3] );
+#else
+	SentenceLUT->compbitrate[0] = LittleShort( SentenceLUT->compbitrate[0] );
+	SentenceLUT->compbitrate[1] = LittleShort( SentenceLUT->compbitrate[1] );
+	SentenceLUT->compbitrate[2] = LittleShort( SentenceLUT->compbitrate[2] );
+	SentenceLUT->compbitrate[3] = LittleShort( SentenceLUT->compbitrate[3] );
+#endif // Downloadable
+	for ( z=0; z< (SentenceLUT->numcolumns*(SentenceLUT->numactors*SentenceLUT->numevents)); z++){
+		SentenceLUT->lookup[z] = LittleShort( SentenceLUT->lookup[z] );
+	}
+#endif // ENDIAN_BIG
+	
     strcpy(loadfile, SOUNDFXDIR);
 #ifdef CGW
     strcat(loadfile, "CGWphrase.lut");
@@ -444,7 +468,18 @@ sdword speechEventInit(void)
 #else
     strcat(loadfile, "speechphrase_comp.lut");
 #endif
-    fileLoadAlloc(loadfile, &PhraseLUT, NonVolatile);
+    fileLoadAlloc(loadfile, (void**)&PhraseLUT, NonVolatile);
+
+#ifdef ENDIAN_BIG
+	PhraseLUT->ID = LittleLong( PhraseLUT->ID );
+	PhraseLUT->checksum = LittleLong( PhraseLUT->checksum );
+	PhraseLUT->numcolumns = LittleShort( PhraseLUT->numcolumns );
+	PhraseLUT->numsentences = LittleShort( PhraseLUT->numsentences );
+
+	for ( p=0; p< (PhraseLUT->numcolumns*PhraseLUT->numsentences); p++){
+		PhraseLUT->lookupsy[p] = LittleShort( PhraseLUT->lookupsy[p] );
+	}
+#endif
 
     /* verify sentence and phrase luts */
     if (SentenceLUT->checksum != PhraseLUT->checksum)
@@ -523,7 +558,13 @@ sdword speechEventInit(void)
     /* load the music header file */
     strcpy(loadfile, SOUNDFXDIR);
     strcat(loadfile,musicHeaderName);
-    fileLoadAlloc(loadfile, &musicheader, NonVolatile);
+    fileLoadAlloc(loadfile, (void**)&musicheader, NonVolatile);
+
+#ifdef ENDIAN_BIG
+	musicheader->ID = LittleLong( musicheader->ID );
+	musicheader->checksum = LittleLong( musicheader->checksum );
+	musicheader->numstreams = LittleLong( musicheader->numstreams );
+#endif
 
     /* open music file and compare checksums */
     strcpy(loadfile,utyMusicFilename);

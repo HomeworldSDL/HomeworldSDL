@@ -1911,6 +1911,8 @@ void collCheckBeamColl(blob *thisBlob,Bullet *bullet)
 				}
 			}
             break;
+        default:
+            break;
         }
     }
 
@@ -2063,6 +2065,8 @@ void collCheckBulletTargetColl(blob *thisBlob)
 							}
 						}
 
+                        break;
+                    default:
                         break;
                     }
                 }

@@ -88,7 +88,7 @@ void UnLockQueue(Queue *queue)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void Enqueue(Queue *queue,ubyte *packet,udword sizeofPacket)
+void HWEnqueue(Queue *queue,ubyte *packet,udword sizeofPacket)
 {
     ubyte *writeto;
     udword sizeinQ = sizeof(udword) + sizeofPacket;
@@ -131,7 +131,7 @@ void Enqueue(Queue *queue,ubyte *packet,udword sizeofPacket)
     Outputs     : packet pointer
     Return      : size of data returned
 ----------------------------------------------------------------------------*/
-udword Dequeue(Queue *queue,ubyte **packet)
+udword HWDequeue(Queue *queue,ubyte **packet)
 {
     ubyte *readfrom;
     udword sizeofPacket;

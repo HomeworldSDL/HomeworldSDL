@@ -15,8 +15,8 @@
 /*=============================================================================
     Switches:
 =============================================================================*/
-#define TASK_STACK_SAVE_HACK    1               //save the stack for Windows 95 baby
-#define TASK_STACK_SAVE         1               //save local stack frame the task function may create
+#define TASK_STACK_SAVE_HACK    0               //save the stack for Windows 95 baby
+#define TASK_STACK_SAVE         0               //save local stack frame the task function may create
 
 #ifndef HW_Release
 
@@ -114,7 +114,7 @@ typedef struct
 
 #define BABY_CallBackPeriod   1.0f / 16.0f
 
-CallBacks callbacks;
+extern CallBacks callbacks;
 
 void taskCallBackInit();
 void taskCallBackShutDown();
@@ -164,8 +164,14 @@ extern real32 taskFrequency;
 #endif
 
 //macros for task continuation and exiting
+#ifndef C_ONLY
 #define taskYield(n)    ((void (*)(void))taskFunctionContinue)()
 #define taskExit()     ((void (*)(void))taskFunctionExit)()
+#else
+#define taskYield(n)
+#define taskExit()
+#endif // C_ONLY
+
 //rename the memory block associated with a task
 #define taskRename(t, n)    memRename((void *)taskData[t], (n))
 
@@ -216,4 +222,3 @@ sdword taskExecuteAllPending(sdword ticks);
 //adjust attributes of tasks
 udword taskFrequencySet(taskhandle handle, udword frequency);
 #endif // ___TASK_H
-

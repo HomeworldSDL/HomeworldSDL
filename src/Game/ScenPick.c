@@ -7,10 +7,12 @@
 =============================================================================*/
 
 #ifdef _WIN32
-#include <io.h>
+    #include <io.h>
 #else
-#include <dirent.h>
+    #include <sys/stat.h>
+    #include <dirent.h>
 #endif
+
 #include <stdlib.h>
 #include <string.h>
 #include <strings.h>
@@ -39,7 +41,7 @@
 #include "Strings.h"
 
 #ifdef _MSC_VER
-#define strcasecmp _stricmp
+    #define strcasecmp _stricmp
 #endif
 
 /*=============================================================================
@@ -383,7 +385,7 @@ void spTitleListLoad(void)
         {                                                   //search for a numeral character
             if (strchr("0123456789", *pString) != NULL)
             {                                               //if this is a numeral
-                numplayers = atoi(pString);
+				sscanf( pString, "%d", &numplayers );
                 memset(fileName, 0, PATH_MAX);
                 memStrncpy(fileName, nameBuffer, pString - nameBuffer + 1);//copy the start of the string
                 memStrncpy(bitmapfileName, nameBuffer, pString - nameBuffer + 1);//copy the start of the string
@@ -463,7 +465,7 @@ alreadyLoaded:;
         {                                                   //search for a numeral character
             if (strchr("0123456789", *pString) != NULL)
             {                                               //if this is a numeral
-                numplayers = atoi(pString);
+				sscanf( pString, "%d", &numplayers );
                 memset(fileName, 0, PATH_MAX);
                 strncpy(fileName, find.name, pString - find.name);//copy the start of the string
                 memStrncpy(bitmapfileName, find.name, pString - find.name + 1);//copy the start of the string
@@ -540,7 +542,7 @@ alreadyLoadedFromFileSystem:;
             numplayers = 0;
             while ((pString = strpbrk(pString, "0123456789")))
             {                                               /*search for a numeral character*/
-                numplayers = atoi(pString);
+				sscanf( pString, "%d", &numplayers );
                 memset(fileName, 0, PATH_MAX);
                 strncpy(fileName, dir_entry->d_name,
                     pString - dir_entry->d_name);           /*copy the start of the string*/

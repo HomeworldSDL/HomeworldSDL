@@ -30,8 +30,8 @@ typedef struct
 void InitQueue(Queue *queue,udword buffersize);
 void CloseQueue(Queue *queue);
 void ResetQueue(Queue *queue);
-void Enqueue(Queue *queue,ubyte *packet,udword sizeofPacket);
-udword Dequeue(Queue *queue,ubyte **packet);
+void HWEnqueue(Queue *queue,ubyte *packet,udword sizeofPacket);
+udword HWDequeue(Queue *queue,ubyte **packet);
 udword Peekqueue(Queue *queue,ubyte **packet);
 void LockQueue(Queue *queue);
 void UnLockQueue(Queue *queue);

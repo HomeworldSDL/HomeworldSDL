@@ -46,16 +46,16 @@
 unsigned long TitanActive = FALSE;
 unsigned long TitanReadyToShutdown = FALSE;
 
-TPChannelList tpChannelList;
-TPServerList  tpServerList;
-CaptainGameInfo tpGameCreated;
+extern TPChannelList tpChannelList;
+extern TPServerList  tpServerList;
+extern CaptainGameInfo tpGameCreated;
 wchar_t CurrentChannel[MAX_CHANNEL_NAME_LEN] = L"";
 wchar_t CurrentChannelDescription[MAX_CHANNEL_DESCRIPTION_LEN] = L"";
 unsigned long myIP;
 unsigned long myPort;
 
 int ChannelProtectedFlag = 0;
-wchar_t ChannelPassword[MAX_PASSWORD_LEN] = L"";
+extern wchar_t ChannelPassword[MAX_PASSWORD_LEN];
 
 wchar_t RemoveGameRequest[MAX_TITAN_GAME_NAME_LEN] = L"";
 
@@ -75,17 +75,17 @@ unsigned short TITAN_GAME_EXPIRE_TIME = 3600;
 unsigned long TITAN_CHANNEL_EXPIRE_TIME = 300;
 
 
-unsigned long DIRSERVER_NUM = 1;
-unsigned long AUTHSERVER_NUM = 0;       // get from dirserver now
+unsigned long AUTHSERVER_NUM  = 0;       // get from dirserver now
+unsigned long DIRSERVER_NUM   = 1;
 unsigned long PATCHSERVER_NUM = 1;
 
-unsigned long DIRSERVER_PORTS[MAX_PORTS];
 unsigned long AUTHSERVER_PORTS[MAX_PORTS];
-unsigned long PATCHSERVER_PORTS[MAX_PORTS];
+extern unsigned long DIRSERVER_PORTS[MAX_PORTS];
+extern unsigned long PATCHSERVER_PORTS[MAX_PORTS];
 
 ipString AUTHSERVER_IPSTRINGS[MAX_IPS];
-ipString DIRSERVER_IPSTRINGS[MAX_IPS];
-ipString PATCHSERVER_IPSTRINGS[MAX_IPS];
+extern ipString DIRSERVER_IPSTRINGS[MAX_IPS];
+extern ipString PATCHSERVER_IPSTRINGS[MAX_IPS];
 
 unsigned long GAME_PORT = 2500;
 unsigned long AD_PORT = 2501;
@@ -215,10 +215,12 @@ void ResetChannel(void)
 
 void SetChannel(wchar_t *channel, wchar_t *description)
 {
+#ifndef _MACOSX_FIX_ME
     dbgAssert(wcslen(channel) <= MAX_CHANNEL_NAME_LEN);
     wcscpy(CurrentChannel,channel);
     dbgAssert(wcslen(description) <= MAX_CHANNEL_DESCRIPTION_LEN);
     wcscpy(CurrentChannelDescription,description);
+#endif
 }
 
 wchar_t *GetCurrentChannel(void)
@@ -344,6 +346,7 @@ void titanGameShutdown(void)
 ----------------------------------------------------------------------------*/
 void titanGameEnded(void)
 {
+#ifndef _MACOSX_FIX_ME
     signed int IWasCaptain = IAmCaptain;
 
     mgGameInterestedOff();
@@ -357,6 +360,7 @@ void titanGameEnded(void)
                                                             // to the room before you call it
         }
     }
+#endif
 }
 
 /*-----------------------------------------------------------------------------
@@ -464,6 +468,7 @@ void titanUpdateGameDataCB(const void *blob,unsigned short bloblen)
 
 bool titanKickPlayer(udword i)
 {
+#ifndef _MACOSX_FIX_ME
     unsigned long j;
     DirectoryCustomInfoMax buildDirectoryCustomInfo;
 
@@ -517,10 +522,13 @@ bool titanKickPlayer(udword i)
     {
         return FALSE;
     }
+#endif
+	return FALSE;
 }
 
 unsigned long titanLeaveGameReceivedCB(Address *address,const void *blob,unsigned short bloblen)
 {
+#ifndef _MACOSX_FIX_ME
     unsigned long i,j;
     bool       found=FALSE;
     DirectoryCustomInfoMax buildDirectoryCustomInfo;
@@ -580,7 +588,7 @@ unsigned long titanLeaveGameReceivedCB(Address *address,const void *blob,unsigne
 
         return TRUE;
     }
-
+#endif // _MACOSX_FIX_ME
     return FALSE;
 }
 
@@ -591,7 +599,7 @@ void generateDirectoryCustomInfo(DirectoryCustomInfoMax *buildDirectoryCustomInf
     int n;
 
     dbgAssert(mapnamelen <= MAX_MAPNAME_LEN);
-
+#ifndef _MACOSX_FIX_ME
     if (bitTest(tpGameCreated.flag,MG_PasswordProtected))
     {
         wcscpy(buildDirectoryCustomInfo->stringdata,tpGameCreated.Password);
@@ -602,7 +610,7 @@ void generateDirectoryCustomInfo(DirectoryCustomInfoMax *buildDirectoryCustomInf
         wcscpy(buildDirectoryCustomInfo->stringdata,L"");
         passwordnamelen = wcslen(L"") + 1;
     }
-
+#endif
     dbgAssert(passwordnamelen <= MAX_PASSWORD_LEN);
 
     mbstowcs(buildDirectoryCustomInfo->stringdata + passwordnamelen, tpGameCreated.DisplayMapName, mapnamelen);
@@ -632,6 +640,7 @@ void generateDirectoryCustomInfo(DirectoryCustomInfoMax *buildDirectoryCustomInf
 
 signed long titanRequestReceivedCB(Address *address,const void *blob,unsigned short bloblen)
 {
+#ifndef _MACOSX_FIX_ME
     sdword i;
     DirectoryCustomInfoMax buildDirectoryCustomInfo;
     const PlayerJoinInfo* pInfo;
@@ -715,7 +724,7 @@ signed long titanRequestReceivedCB(Address *address,const void *blob,unsigned sh
         wcscpy(lgMyGameInfo.Name,tpGameCreated.Name);
         lgUpdateGameInfo();
     }
-
+#endif // _MACOSX_FIX_ME
     return REQUEST_RECV_CB_ACCEPT;
 }
 

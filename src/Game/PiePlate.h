@@ -89,8 +89,8 @@ extern real32 pieLineStippleCounter, pieLineStippleSpeed;
 extern color piePointLineColor;
 extern color pieOriginColor;
 extern void (*pieLineDrawCallback)(real32 distance);
-void (*pieMovementCursorDrawCallback)(real32 distance);
-void (*piePlaneDrawCallback)(real32 distance);
+extern void (*pieMovementCursorDrawCallback)(real32 distance);
+extern void (*piePlaneDrawCallback)(real32 distance);
 
 #if PIE_VISUALIZE_VERTICAL
 extern vector pieScreen0, pieScreen1;

@@ -281,7 +281,7 @@ udword GetRandomResourceType(ResourceDistribution *resourceDistribution,bool reg
         index = 1;
     }
 
-    randnum = random(resourceDistribution->sumTotal[index]);
+    randnum = randomG(resourceDistribution->sumTotal[index]);
 
     for (i=0;i<MAXNUM_RESOURCETYPES;i++)
     {
@@ -421,6 +421,8 @@ bool AddResourceToVolumeAtPosition(struct ResourceVolume *volume,bool regrowing,
                 gascloud->resourceVolume = volume;
             }
         }
+        break;
+    default:
         break;
     }
 

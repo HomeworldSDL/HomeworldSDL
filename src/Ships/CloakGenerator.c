@@ -167,9 +167,7 @@ void CloakAddObjectsInProximity(Ship *cloakship)
 {
     Player *playerowner = cloakship->playerowner;
     Node *objnode = universe.ShipList.head;
-    udword num = universe.ShipList.num;
     CloakGeneratorStatics *cloakgeneratorstatics;
-    CloakGeneratorSpec *spec = (CloakGeneratorSpec *)cloakship->ShipSpecifics;  //maybe don't need
     Ship *spaceobj;
     real32 distanceSqr;
     vector diff;

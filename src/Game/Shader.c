@@ -258,6 +258,9 @@ void shUpdateLighting()
 {
     sdword l;
 
+	// shStdBaseColor should be (62.xx, 57.xx, 68.xx)
+	// shBaseColor - (87.xx, 79.xx, 89.xx)
+
     shBaseColor[0] = shGlobalAmbient[0] * shMaterial.ambient[0];
     shBaseColor[1] = shGlobalAmbient[1] * shMaterial.ambient[1];
     shBaseColor[2] = shGlobalAmbient[2] * shMaterial.ambient[2];

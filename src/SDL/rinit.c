@@ -1081,6 +1081,7 @@ int rinEnumerateDevices(void)
     gldev = dev;
     nDevices++;
 
+#ifndef _MACOSX_FIX_ME
     //add possible 3dfx OpenGL device
     voodoo = SST_VOODOO2; //sane default if sstHardwareExists doesn't get called
     if (!(gDevcaps & DEVSTAT_NO_3DFXGL) &&
@@ -1114,6 +1115,7 @@ int rinEnumerateDevices(void)
         rinSortModes(dev);
         nDevices++;
     }
+#endif // _MACOSX_FIX_ME
 
     if (!(gDevcaps & DEVSTAT_NOGL_9X))
     {
@@ -1130,6 +1132,7 @@ int rinEnumerateDevices(void)
         }
     }
 
+#ifdef _MACOSX_FIX_ME
     //add software renderer, an explicitly known device
     dev = (rdevice*)rinMemAlloc(sizeof(rdevice));
     dev->devcaps = 0;
@@ -1168,6 +1171,7 @@ int rinEnumerateDevices(void)
     rinSortModes(dev);
     rinAddDevice(dev);
     nDevices++;
+#endif // _MACOSX
 
 #if 0	/* CRC log only used by Direct3D. */
     if (mainOutputCRC)

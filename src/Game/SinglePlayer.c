@@ -1582,6 +1582,8 @@ noupdateHSMP:;
                 hsUpdate(ship);
             }
             break;
+    default:
+        break;
     }
 
     if (thisShipArrived)
@@ -2579,6 +2581,8 @@ hyperspacefailed:
                 tutGameMessage("Game_HyperspaceFailed");
                 singlePlayerGameInfo.hyperspaceFails = FALSE;
             }
+            break;
+        default:
             break;
     }
 }

@@ -1318,6 +1318,8 @@ void tbCalcTotalShipCommands(void)
         case Aggressive:
             tbShipsAggr++;
             break;
+        default:
+            break;
         }
 
         /*
@@ -1437,6 +1439,8 @@ void tbSetTactics(TacticsType tactic)
         //SetAtom(tbAtomE, FALSE);
         //SetAtom(tbAtomN, FALSE);
         dbgMessage("\nA");
+        break;
+    default:
         break;
     }
 }

@@ -1093,7 +1093,7 @@ void SaveAttackTargets(AttackTargets *multipleAttackTargets)
 
     for (i=0;i<multipleAttackTargets->numAttackTargets;i++)
     {
-        savecontents->TargetPtr[i] = (sdword)SpaceObjRegistryGetID((SpaceObj *)multipleAttackTargets->TargetPtr[i]);
+        savecontents->TargetPtr[i] = (TargetPtr)SpaceObjRegistryGetID((SpaceObj *)multipleAttackTargets->TargetPtr[i]);
     }
 
     SaveThisChunk(chunk);
@@ -1201,7 +1201,7 @@ void SaveDockInfo(Ship *ship)
         }
         else
         {
-            savecontents->dockpoints[i].dockstaticpoint = savecontents->dockpoints[i].dockstaticpoint->dockindex;
+            savecontents->dockpoints[i].dockstaticpoint = (DockStaticPoint*)savecontents->dockpoints[i].dockstaticpoint->dockindex;
         }
     }
 
@@ -2645,6 +2645,8 @@ SpaceObj *LoadSpaceObj()
             dbgAssert(FALSE);
             return NULL;
     }
+
+	return NULL;
 }
 
 typedef struct SaveLLSpaceObj {
@@ -3646,7 +3648,7 @@ void LoadLinkedListOfInsideShips(LinkedList *list)
     while (cur < num)
     {
         insideShip = memAlloc(sizeof(InsideShip),"InsideShip",0);
-        insideShip->ship = loadcontents->ID[cur++];
+        insideShip->ship = (Ship*)loadcontents->ID[cur++];
         if (insideShip->ship != -1)
         {
             listAddNode(list,&insideShip->node,insideShip);

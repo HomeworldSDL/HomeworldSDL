@@ -209,7 +209,7 @@ typedef struct
     Derelict *world[UNIV_NUMBER_WORLDS];        //list of planets
 } Universe;
 
-GrowSelection ClampedShipList;       // special GrowSelect which can have NULL's in it
+extern GrowSelection ClampedShipList;       // special GrowSelect which can have NULL's in it
 
 
 typedef void (*univstatcallback)(StaticInfo *info, ObjType objType);

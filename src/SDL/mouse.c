@@ -500,6 +500,7 @@ void mousePositionSet(sdword x, sdword y)
     mousePoint.y = clientRect.y0 + y;
     SetCursorPos(mousePoint.x, mousePoint.y);               //set Windows mouse location
     */
+
     SDL_WarpMouse(x, y);
 }
 

@@ -170,13 +170,17 @@ void transStartup(void)
 
     if (mainForceKatmai)
     {
+#ifndef _MACOSX_FIX_ME
         transSetKatmaiSupport(1);
+#endif
         haveKatmai = 1;
         haveFXSR = 1;
     }
     else if (!mainAllowKatmai)
     {
+#ifndef _MACOSX_FIX_ME
         transSetKatmaiSupport(0);
+#endif
         haveKatmai = 0;
         haveFXSR = 0;
     }
@@ -219,14 +223,20 @@ void transStartup(void)
                 haveKatmai = 0;
             }
         }
+        
+#ifndef _MACOSX_FIX_ME
         (void)transDetermineKatmaiSupport(haveKatmai);
+#endif
     }
 
+#ifdef _MACOSX_FIX_ME
+    useKatmai = 0;
+#else
     useKatmai = transCanSupportKatmai();
-
     transVertexList = (useKatmai) ? transTransformVertexList_intrin : transTransformVertexList_asm;
     transPerspective = (useKatmai) ? transPerspectiveTransform_intrin : transPerspectiveTransform_asm;
     transGeneral = (useKatmai) ? transGeneralPerspectiveTransform_intrin : transGeneralPerspectiveTransform_asm;
+#endif 
 }
 
 /*-----------------------------------------------------------------------------
@@ -249,7 +259,10 @@ void transShutdown(void)
         memFree(clipVertexList);
         clipVertexList = NULL;
     }
+
+#ifndef _MACOSX_FIX_ME
     kniTransFreeVertexLists();
+#endif
 }
 
 /*-----------------------------------------------------------------------------
@@ -664,7 +677,9 @@ void transTransformCompletely(
 {
     if (useKatmai)
     {
+#ifndef _MACOSX_FIX_ME
         transTransformCompletely_xmm(n, dest, source, m0, m1);
+#endif
     }
     else
     {

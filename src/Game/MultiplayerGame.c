@@ -11,7 +11,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <strings.h>
-#include <wchar.h>
+
+#ifndef _MACOSX
+    #include <wchar.h>
+#endif
+
 #include "MultiplayerGame.h"
 #include "MultiplayerLANGame.h"
 #include "FEFlow.h"
@@ -205,15 +209,14 @@ bool            donepinging     = TRUE;
 bool            mgCreatingNetworkGame = FALSE;
 
 // structures and variables for creating a game.
-CaptainGameInfo tpGameCreated=
+extern CaptainGameInfo tpGameCreated;
 // N    P   M   D   u   p        nc  sf  bs  sr   ii    ia     lt    la   ad  ab  p     f
- {L"", L"", "", "", 0,  {0,0,0},  0,  1,  3,   1, 1440, 2000, 19200, 2000, 50, 50, 0, 22058};
+//= {L"", L"", "", "", 0,  {0,0,0},  0,  1,  3,   1, 1440, 2000, 19200, 2000, 50, 50, 0, 22058};
 
 CaptainGameInfo BackupGameCreated;
 sdword          spCurrentSelectedBack;
 /*char            scenPickBack[]*/
 char           *scenPickBack;
-Address myAddress;
 
 // tweakable fonthandles.
 fonthandle mgListOfGamesFont=0;
@@ -516,9 +519,6 @@ int betaDoneVerifying = 0;
 
 // temporary variable for storing name, in case of cancel
 char tempname[64];
-
-wchar_t GameWereInterestedIn[MAX_TITAN_GAME_NAME_LEN] = L"";
-void *GameWereInterestedInMutex;
 
 CaptainGameInfo joinBackuptpGameCreated;
 bool joinBackuptpGameCreatedValid = FALSE;
@@ -943,9 +943,11 @@ void mgResetNamePassword(void)
 
 void mgGameInterestedIn(wchar_t *interested)
 {
+#ifndef _MACOSX_FIX_ME
     LockMutex(GameWereInterestedInMutex);
     wcscpy(GameWereInterestedIn,interested);
     UnLockMutex(GameWereInterestedInMutex);
+#endif
 }
 
 void mgGameInterestedOff()
@@ -1836,6 +1838,11 @@ void mgSkirmish(char *name, featom *atom)
     tpGameCreated.numComputers  = 1;
     tpGameCreated.numPlayers    = 1;
     mgShowScreen(MGS_Skirmish_Basic, TRUE);
+
+#ifdef _MACOSX_FIX_ME
+	multiPlayerGame = FALSE;
+#endif
+
 #endif
 }
 
@@ -2400,7 +2407,8 @@ void mgChatTextEntry(char*name,featom *atom)
                         aNumChars = mbstowcs(aWideStringP, strptr, (uword)strlen(strptr));
                         if (aNumChars != (size_t)-1)
                         {
-                            SendPrivateChatMessage(&user->userID,1,(uword)(aNumChars*2),aWideStringP);
+                            SendPrivateChatMessage((unsigned long*)(&user->userID), 1,
+                                                   (uword)(aNumChars*2),aWideStringP);
                         }
                     }
                 }
@@ -2717,6 +2725,7 @@ void mgJoinChannelNow(wchar_t *channelname,wchar_t *description)
 
 void mgJoinChannel(char*name,featom*atom)
 {
+#ifndef _MACOSX_FIX_ME
     sdword       i;
     channellist *channelinfo;
 
@@ -2742,6 +2751,7 @@ void mgJoinChannel(char*name,featom*atom)
             }
         }
     }
+#endif
 }
 
 void mgCreateChannel(char*name,featom*atom)
@@ -3013,6 +3023,7 @@ void mgChannelConfirmEntry(char*name, featom *atom)
 
 bool channelAlreadyExists(wchar_t *channelname)
 {
+#ifndef _MACOSX_FIX_ME
     sdword i;
 
     tpLockChannelList();
@@ -3027,6 +3038,7 @@ bool channelAlreadyExists(wchar_t *channelname)
     }
     tpUnLockChannelList();
     return FALSE;
+#endif
 }
 
 void mgCreateChannelNow(char*name,featom *atom)
@@ -3215,7 +3227,8 @@ void mgJoinGame(char*name,featom*atom)
                 return;
             }
         }
-
+        
+#ifndef _MACOSX_FIX_ME
         if (wcslen(gameinfo->game.directoryCustomInfo.stringdata)>1)
         {
             joingame = &gameinfo->game;
@@ -3225,6 +3238,7 @@ void mgJoinGame(char*name,featom*atom)
         {
             mgRequestJoinGame(&gameinfo->game);
         }
+#endif
     }
 }
 
@@ -3267,7 +3281,7 @@ bool mgListOfGamesCompare(void *firststruct,void *secondstruct)
             return(FALSE);
     }
 
-
+#ifndef _MACOSX_FIX_ME
     switch (mgListOfGamesWindow->sorttype)
     {
         case MG_SortByGameName:
@@ -3320,6 +3334,7 @@ bool mgListOfGamesCompare(void *firststruct,void *secondstruct)
 
         }
     }
+#endif // _MACOSX_FIX_ME
 
     return FALSE;
 }
@@ -3517,6 +3532,7 @@ void mgListOfGamesItemDraw(rectangle *rect, listitemhandle data)
     sprintf(temp,"%i",gameinfo->game.directoryCustomInfo.numPlayers);
     fontPrint(x-fontWidth(temp)-fontWidth("W"),y,c,temp);
 
+#ifndef _MACOSX_FIX_ME
     passwordlen = wcslen(gameinfo->game.directoryCustomInfo.stringdata);
 
     wcstombs(temp,gameinfo->game.directoryCustomInfo.stringdata + 1+passwordlen,512);
@@ -3537,6 +3553,7 @@ void mgListOfGamesItemDraw(rectangle *rect, listitemhandle data)
     }
 
     fontMakeCurrent(oldfont);
+#endif
 }
 
 // initilize the list of games window structure to needed settings
@@ -4129,6 +4146,7 @@ void mgDirtyNumPlayerRegions()
 
 bool mgInvalidGameName()
 {
+#ifndef _MACOSX_FIX_ME
     featom  *atomchange;
 
     if (wcslen(tpGameCreated.Name)<2)
@@ -4153,12 +4171,14 @@ bool mgInvalidGameName()
 
         return TRUE;
     }
+#endif
 
     return FALSE;
 }
 
 bool mgInvalidGamePassword()
 {
+#ifndef _MACOSX_FIX_ME
     if (bitTest(tpGameCreated.flag,MG_PasswordProtected))
     {
         if (wcslen(tpGameCreated.Password) < 2)
@@ -4166,6 +4186,7 @@ bool mgInvalidGamePassword()
             return TRUE;
         }
     }
+#endif
 
     return FALSE;
 }
@@ -4210,12 +4231,14 @@ void mgCreateGameNow(char *name, featom *atom)
                 return;
             }
 
+#ifndef _MACOSX_FIX_ME
             if (wcslen(GetCurrentChannel()) <= 0)
             {
                 mgPrepareMessageBox(strGetString(strMustBeInRoomToCreateGame),strGetString(strMustBeInRoomToCreateGame2));
                 mgShowScreen(MGS_Message_Box,FALSE);
                 return;
             }
+#endif
 
             if (mgInvalidGamePassword())
             {
@@ -5505,6 +5528,7 @@ void mgBackFromPassword(char *name, featom *atom)
 
 void mgGoPassword(char *name, featom *atom)
 {
+#ifndef _MACOSX_FIX_ME
     static wchar_t widepasswordentryboxtext[MAX_PASSWORD_LENGTH];
 
     if (joingame!=NULL)
@@ -5520,6 +5544,7 @@ void mgGoPassword(char *name, featom *atom)
             mgShowScreen(MGS_Message_Box,FALSE);
         }
     }
+#endif
 }
 
 void mgBackFromRoomPassword(char *name, featom *atom)
@@ -5529,11 +5554,13 @@ void mgBackFromRoomPassword(char *name, featom *atom)
 
 void mgGoRoomPassword(char *name, featom *atom)
 {
+#ifndef _MACOSX_FIX_ME
     if (wcslen(joinchannelname) >= 2)
     {
         mbstowcs(ChannelPassword,mgGamePasswordEntryEntryBox->textBuffer,strlen(mgGamePasswordEntryEntryBox->textBuffer)+1);
         mgJoinChannelNow(joinchannelname,joinchanneldescription);
     }
+#endif
 }
 
 /*=============================================================================
@@ -5778,6 +5805,7 @@ void mgProcessPingInfo(mgqueuenewping *ping)
 
 void mgProcessGameListGameAdded(mgqueuegamelistgame *added)
 {
+#ifndef _MACOSX_FIX_ME
     Node       *walk;
     gamelist   *gameinfo;
 
@@ -5817,10 +5845,12 @@ void mgProcessGameListGameAdded(mgqueuegamelistgame *added)
     {
         gameinfo->item = NULL;
     }
+#endif
 }
 
 void mgProcessGameListGameRemoved(mgqueuegamelistgame *removed)
 {
+#ifndef _MACOSX_FIX_ME
     Node       *walk;
     gamelist   *gameinfo;
 
@@ -5855,10 +5885,12 @@ foundit:
     }
 
     listDeleteNode(walk);
+#endif
 }
 
 void mgProcessGameListGameChanged(mgqueuegamelistgame *changed)
 {
+#ifndef _MACOSX_FIX_ME
     Node       *walk;
     gamelist   *gameinfo;
 
@@ -5894,6 +5926,7 @@ foundit:
 #endif
         mgListOfGamesWindow->reg.status |= RSF_DrawThisFrame;
     }
+#endif // _MACOSX_FIX_ME
 }
 
 void mgProcessGameListNew(mgqueuegamelistnew *newlist)
@@ -6106,6 +6139,7 @@ void mgProcessKickedOut(void)
 #pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
 void mgProcessCallBacksTask(void)
 {
+#ifndef _MACOSX_FIX_ME
     static Node           *walk;
     static Node           *nextnode;
     static channellist    *channelinfo;
@@ -6117,7 +6151,9 @@ void mgProcessCallBacksTask(void)
 
     taskYield(0);
 
+#ifndef C_ONLY
     while (1)
+#endif
     {
         taskStackSaveCond(0);
 #if defined(OEM) || defined(Downloadable) || defined(CGW)
@@ -6335,7 +6371,7 @@ void mgProcessCallBacksTask(void)
         {
             LockQueue(&mgThreadTransfer);
 
-            sizeofpacket = Dequeue(&mgThreadTransfer, &packet);
+            sizeofpacket = HWDequeue(&mgThreadTransfer, &packet);
             dbgAssert(sizeofpacket > 0);
             copypacket = memAlloc(sizeofpacket,"mg(mgthreadtransfer)", Pyrophoric);
             memcpy(copypacket, packet, sizeofpacket);
@@ -6430,6 +6466,7 @@ void mgProcessCallBacksTask(void)
         taskStackRestoreCond();
         taskYield(0);
     }
+#endif // _MACOSX_FIX_ME
 }
 #pragma optimize("", on)
 
@@ -6647,7 +6684,7 @@ void chatReceiveUserJoinReply(short status, unsigned long userID)
     strcpy(user.user.userName, utyName);
     user.user.userID = userID;
 
-    Enqueue(&mgThreadTransfer, (ubyte *)&user, sizeof(mgqueueuserlist));
+    HWEnqueue(&mgThreadTransfer, (ubyte *)&user, sizeof(mgqueueuserlist));
 
     // Queue up the packet that will say, <you> have joined the room.
     chat.header.packettype = MG_QUEUEROOMCHATINFO;
@@ -6656,7 +6693,7 @@ void chatReceiveUserJoinReply(short status, unsigned long userID)
     chat.chat.index = userID;
     chat.chat.messagetype = MG_MESSAGECHAT;
 
-    Enqueue(&mgThreadTransfer, (ubyte *)&chat, sizeof(mgqueuechatlist));
+    HWEnqueue(&mgThreadTransfer, (ubyte *)&chat, sizeof(mgqueuechatlist));
 
     UnLockQueue(&mgThreadTransfer);
 
@@ -6679,7 +6716,7 @@ void chatReceiveUsersHere(const char *name, unsigned long userID)
     user.user.userID       = userID;
     strcpy(user.user.userName, name);
 
-    Enqueue(&mgThreadTransfer, (ubyte *)&user, sizeof(mgqueueuserlist));
+    HWEnqueue(&mgThreadTransfer, (ubyte *)&user, sizeof(mgqueueuserlist));
 
     UnLockQueue(&mgThreadTransfer);
 }
@@ -6695,7 +6732,7 @@ void chatReceiveUsersJoined(const char *name, unsigned long userID)
     user.user.userID       = userID;
     strcpy(user.user.userName, name);
 
-    Enqueue(&mgThreadTransfer, (ubyte *)&user, sizeof(mgqueueuserlist));
+    HWEnqueue(&mgThreadTransfer, (ubyte *)&user, sizeof(mgqueueuserlist));
 
     // Queue up the packet that will say, <they> have joined the room.
     chat.header.packettype = MG_QUEUEROOMCHATINFO;
@@ -6704,7 +6741,7 @@ void chatReceiveUsersJoined(const char *name, unsigned long userID)
     chat.chat.index = userID;
     chat.chat.messagetype = MG_MESSAGECHAT;
 
-    Enqueue(&mgThreadTransfer, (ubyte *)&chat, sizeof(mgqueuechatlist));
+    HWEnqueue(&mgThreadTransfer, (ubyte *)&chat, sizeof(mgqueuechatlist));
 
     UnLockQueue(&mgThreadTransfer);
 }
@@ -6723,12 +6760,12 @@ void chatReceiveUserLeft(unsigned long userID)
     chat.chat.index = userID;
     chat.chat.messagetype = MG_MESSAGECHAT;
 
-    Enqueue(&mgThreadTransfer, (ubyte *)&chat, sizeof(mgqueuechatlist));
+    HWEnqueue(&mgThreadTransfer, (ubyte *)&chat, sizeof(mgqueuechatlist));
 
     user.header.packettype = MG_QUEUEROOMGONEUSERINFO;
     user.user.userID       = userID;
 
-    Enqueue(&mgThreadTransfer, (ubyte *)&user, sizeof(mgqueueuserlist));
+    HWEnqueue(&mgThreadTransfer, (ubyte *)&user, sizeof(mgqueueuserlist));
 
     UnLockQueue(&mgThreadTransfer);
 }
@@ -6762,7 +6799,7 @@ void chatReceiveMessage(unsigned long originUserID, sdword whisper,unsigned long
             chat.chat.messagetype = MG_NORMALCHAT;
         chat.chat.index  = originUserID;
 
-        Enqueue(&mgThreadTransfer, (ubyte *)&chat, sizeof(mgqueuechatlist));
+        HWEnqueue(&mgThreadTransfer, (ubyte *)&chat, sizeof(mgqueuechatlist));
 
         UnLockQueue(&mgThreadTransfer);
     }
@@ -7091,7 +7128,7 @@ void titanPingReplyReceivedCB(Address *address,unsigned long theLag)
     ping.ping.Port         = GetPortFromInternetAddress(*address);
     ping.ping.pingtime     = theLag;
 
-    Enqueue(&mgThreadTransfer, (ubyte *)&ping, sizeof(mgqueuenewping));
+    HWEnqueue(&mgThreadTransfer, (ubyte *)&ping, sizeof(mgqueuenewping));
 
     UnLockQueue(&mgThreadTransfer);
 }
@@ -7105,7 +7142,7 @@ void mgGameListGameAdded(tpscenario *thegame)
     qgame.header.packettype = MG_QUEUEGAMELISTGAMEADDED;
     qgame.game = *thegame;
 
-    Enqueue(&mgThreadTransfer, (ubyte *)&qgame, sizeof(mgqueuegamelistgame));
+    HWEnqueue(&mgThreadTransfer, (ubyte *)&qgame, sizeof(mgqueuegamelistgame));
 
     UnLockQueue(&mgThreadTransfer);
 }
@@ -7119,7 +7156,7 @@ void mgGameListGameRemoved(tpscenario *thegame)
     qgame.header.packettype = MG_QUEUEGAMELISTGAMEREMOVED;
     qgame.game = *thegame;
 
-    Enqueue(&mgThreadTransfer, (ubyte *)&qgame, sizeof(mgqueuegamelistgame));
+    HWEnqueue(&mgThreadTransfer, (ubyte *)&qgame, sizeof(mgqueuegamelistgame));
 
     UnLockQueue(&mgThreadTransfer);
 }
@@ -7133,7 +7170,7 @@ void mgGameListGameChanged(tpscenario *thegame)
     qgame.header.packettype = MG_QUEUEGAMELISTGAMECHANGED;
     qgame.game = *thegame;
 
-    Enqueue(&mgThreadTransfer, (ubyte *)&qgame, sizeof(mgqueuegamelistgame));
+    HWEnqueue(&mgThreadTransfer, (ubyte *)&qgame, sizeof(mgqueuegamelistgame));
 
     UnLockQueue(&mgThreadTransfer);
 }
@@ -7146,7 +7183,7 @@ void mgGameListNew(void)
 
     qnew.header.packettype = MG_QUEUEGAMELISTNEW;
 
-    Enqueue(&mgThreadTransfer, (ubyte *)&qnew, sizeof(mgqueuegamelistnew));
+    HWEnqueue(&mgThreadTransfer, (ubyte *)&qnew, sizeof(mgqueuegamelistnew));
 
     UnLockQueue(&mgThreadTransfer);
 }
@@ -7170,7 +7207,7 @@ void titanGotNumUsersInRoomCB(const wchar_t *theRoomName, int theNumUsers)
     wcscpy(qnew.channelname,theRoomName);
     qnew.numpeople = theNumUsers;
 
-    Enqueue(&mgThreadTransfer, (ubyte *)&qnew, sizeof(mgqueuenumpeopleroominfo));
+    HWEnqueue(&mgThreadTransfer, (ubyte *)&qnew, sizeof(mgqueuenumpeopleroominfo));
 
     UnLockQueue(&mgThreadTransfer);
 }
@@ -7196,7 +7233,7 @@ void mgDisplayMessage(char *message)
     status.header.packettype = MG_QUEUESTATUSINFO;
     strcpy(status.status.message, message);
 
-    Enqueue(&mgThreadTransfer, (ubyte *)&status, sizeof(mgqueuestatusline));
+    HWEnqueue(&mgThreadTransfer, (ubyte *)&status, sizeof(mgqueuestatusline));
 
     UnLockQueue(&mgThreadTransfer);
 }
@@ -7208,7 +7245,7 @@ void mgNotifyKickedOut(void)
     LockQueue(&mgThreadTransfer);
 
     general.packettype = MG_QUEUEKICKEDOUT;
-    Enqueue(&mgThreadTransfer, (ubyte *)&general, sizeof(general));
+    HWEnqueue(&mgThreadTransfer, (ubyte *)&general, sizeof(general));
 
     UnLockQueue(&mgThreadTransfer);
 }
@@ -7238,7 +7275,7 @@ void mgUpdateGameInfo(void)
         player.player.race        = tpGameCreated.playerInfo[i].race;
         player.player.index       = i;
 
-        Enqueue(&mgThreadTransfer, (ubyte *)&player, sizeof(mgqueuegameplayerinfo));
+        HWEnqueue(&mgThreadTransfer, (ubyte *)&player, sizeof(mgqueuegameplayerinfo));
     }
 
     sigsNumPlayers = tpGameCreated.numPlayers;
@@ -7361,7 +7398,7 @@ void mgChatConnectionFailed(void)
     LockQueue(&mgThreadTransfer);
 
     connfailed.packettype = MG_QUEUECHATDISCONNECTED;
-    Enqueue(&mgThreadTransfer, (ubyte *)&connfailed, sizeof(mgqueuegeneral));
+    HWEnqueue(&mgThreadTransfer, (ubyte *)&connfailed, sizeof(mgqueuegeneral));
 
     UnLockQueue(&mgThreadTransfer);
 }
@@ -7379,7 +7416,7 @@ void mgNotifyGameDisolved(void)
     LockQueue(&mgThreadTransfer);
 
     disolved.packettype = MG_QUEUEGAMEDISOLVED;
-    Enqueue(&mgThreadTransfer, (ubyte *)&disolved, sizeof(mgqueuegeneral));
+    HWEnqueue(&mgThreadTransfer, (ubyte *)&disolved, sizeof(mgqueuegeneral));
 
     UnLockQueue(&mgThreadTransfer);
 }
@@ -7403,7 +7440,7 @@ void mgProcessGameChatPacket(ChatPacket *packet)
     else
         chat.chat.messagetype = MG_NORMALCHAT;
 
-    Enqueue(&mgThreadTransfer, (ubyte *)&chat, sizeof(mgqueuechatlist));
+    HWEnqueue(&mgThreadTransfer, (ubyte *)&chat, sizeof(mgqueuechatlist));
 
     UnLockQueue(&mgThreadTransfer);
 }
@@ -7662,6 +7699,7 @@ void mgDrawListOfServersTitle(rectangle *rect)
 // callback for sorting the server list window
 bool mgListOfServersCompare(void *firststruct,void *secondstruct)
 {
+#ifndef _MACOSX_FIX_ME
     sdword i;
     serverlist *one = (serverlist *)(((listitemhandle)firststruct)->data);
     serverlist *two = (serverlist *)(((listitemhandle)secondstruct)->data);
@@ -7723,6 +7761,7 @@ bool mgListOfServersCompare(void *firststruct,void *secondstruct)
                     return (FALSE);
             }
     }
+#endif
 
     return FALSE;
 }

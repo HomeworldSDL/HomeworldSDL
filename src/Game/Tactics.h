@@ -114,7 +114,7 @@ typedef struct
     real32 tacticsDamageModifierYellow;
 } TacticsInfo;
 
-TacticsInfo tacticsInfo;
+extern TacticsInfo tacticsInfo;
 
 //special operation tweakables
 extern real32 kamikazeDamage[TOTAL_NUM_SHIPS];
@@ -139,8 +139,8 @@ extern real32 ATTACKING_FROM_ABOVE_MIN_RATIO;
 
 //data
 
-BabyCallBack    *tacticsFlashMenuBaby;
-regionhandle    tacticsMenuRegion;
+extern BabyCallBack    *tacticsFlashMenuBaby;
+extern regionhandle    tacticsMenuRegion;
 //ProtoTypes
 
 void tacticsStartUp();

@@ -86,6 +86,10 @@ void fmathInitSqrt()
 
 double fmathSqrtDouble(double f)
 {
+#ifdef _MACOSX
+	return sqrt( f );
+#else
+
     unsigned int e;
     unsigned int *fi = (unsigned int *) &f + MOST_SIG_OFFSET;
 #if 0
@@ -98,7 +102,7 @@ double fmathSqrtDouble(double f)
     {
         return 0.0;
     }
-    
+
     e = (*fi >> EXP_SHIFTS) - EXP_BIAS;
     *fi &= MANT_MASK;
     if (e & 1)
@@ -106,6 +110,7 @@ double fmathSqrtDouble(double f)
     e >>= 1;
     *fi = (fmathsqrt_tab[*fi >> MANT_SHIFTS]) |
     ((e + EXP_BIAS) << EXP_SHIFTS);
+    
 #if 0
     dbgAssert(f > 0.0f);
     error = abs((f - test) / test);
@@ -115,7 +120,10 @@ double fmathSqrtDouble(double f)
     }
     dbgAssert(!_isnan(f));
 #endif
+
     return f;
+
+#endif // _MACOSX
 }
 
 void fmathInit()

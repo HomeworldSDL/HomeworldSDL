@@ -1937,9 +1937,13 @@ long FlagBit;
     }
 
     pFlagMem = (long *)&tutEnable;
-    pFlagMem += Index/32;
+	pFlagMem += Index/32;
 
-    FlagBit = 1 << (Index & 31);
+#ifdef _MACOSX_FIX_ME // ENDIAN_BIG?
+	FlagBit = 1 << (31 - Index & 31);
+#else
+	FlagBit = 1 << (Index & 31);
+#endif
 
     if(Val)
         *pFlagMem |= FlagBit;

@@ -2342,6 +2342,8 @@ bool aishipGuideMine(Missile *mine)
             case OBJ_NebulaType:
             case OBJ_DustType:
                 mine->target = NULL;
+            default:
+                break;
         }
     }
 

@@ -2216,7 +2216,7 @@ udword flightmanGetRandom(FlightManProb *prob,udword flightmanSubtype)
         case FLIGHTMAN_EVASIVE_BEHIND:
             if (prob->sumtotalEvasiveBehind != 0)
             {
-                randnum = random(prob->sumtotalEvasiveBehind);
+                randnum = randomG(prob->sumtotalEvasiveBehind);
 
                 for (i=0;i<FLIGHTMAN_TYPE_EVASIVE_NUM;i++)
                 {
@@ -2232,7 +2232,7 @@ udword flightmanGetRandom(FlightManProb *prob,udword flightmanSubtype)
         case FLIGHTMAN_EVASIVE_FRONT:
             if (prob->sumtotalEvasiveFront != 0)
             {
-                randnum = random(prob->sumtotalEvasiveFront);
+                randnum = randomG(prob->sumtotalEvasiveFront);
 
                 for (i=0;i<FLIGHTMAN_TYPE_EVASIVE_NUM;i++)
                 {
@@ -2248,7 +2248,7 @@ udword flightmanGetRandom(FlightManProb *prob,udword flightmanSubtype)
         case FLIGHTMAN_EVASIVE_PURE:
             if (prob->sumtotalEvasivePure != 0)
             {
-                randnum = random(prob->sumtotalEvasivePure);
+                randnum = randomG(prob->sumtotalEvasivePure);
 
                 for (i=0;i<FLIGHTMAN_TYPE_EVASIVE_NUM;i++)
                 {
@@ -2264,7 +2264,7 @@ udword flightmanGetRandom(FlightManProb *prob,udword flightmanSubtype)
         case FLIGHTMAN_TURNAROUND:
             if (prob->sumtotalTurnaround != 0)
             {
-                randnum = random(prob->sumtotalTurnaround);
+                randnum = randomG(prob->sumtotalTurnaround);
 
                 for (i=0;i<FLIGHTMAN_TYPE_TURNAROUND_NUM;i++)
                 {
@@ -2280,7 +2280,7 @@ udword flightmanGetRandom(FlightManProb *prob,udword flightmanSubtype)
         case FLIGHTMAN_AIP:
             if (prob->sumtotalAIP != 0)
             {
-                randnum = random(prob->sumtotalAIP);
+                randnum = randomG(prob->sumtotalAIP);
 
                 for (i=0;i<FLIGHTMAN_TYPE_AIP_NUM;i++)
                 {
@@ -2315,7 +2315,9 @@ bool flightmanTestRandom(FlightManProb *prob,udword flightmanSubtype,udword flig
             dbgAssert(flightman <= FLIGHTMAN_TYPE_TURNAROUND_END);
             sumtotal = prob->sumtotalTurnaround;
             if (sumtotal == 0) return FALSE;
-            randnum = random(sumtotal);
+
+            randnum = randomG(sumtotal);
+
             if (randnum < prob->flightprobTurnaround[flightman-FLIGHTMAN_TYPE_TURNAROUND_START])
             {
                 return TRUE;
@@ -2327,7 +2329,9 @@ bool flightmanTestRandom(FlightManProb *prob,udword flightmanSubtype,udword flig
             dbgAssert(flightman <= FLIGHTMAN_TYPE_AIP_END);
             sumtotal = prob->sumtotalAIP;
             if (sumtotal == 0) return FALSE;
-            randnum = random(sumtotal);
+
+			randnum = randomG(sumtotal);
+
             if (randnum < prob->flightprobAIP[flightman-FLIGHTMAN_TYPE_AIP_START])
             {
                 return TRUE;
@@ -2339,7 +2343,9 @@ bool flightmanTestRandom(FlightManProb *prob,udword flightmanSubtype,udword flig
             dbgAssert(flightman <= FLIGHTMAN_TYPE_EVASIVE_END);
             sumtotal = prob->sumtotalEvasiveBehind;
             if (sumtotal == 0) return FALSE;
-            randnum = random(sumtotal);
+
+            randnum = randomG(sumtotal);
+
             if (randnum < prob->flightprobEvasiveBehind[flightman-FLIGHTMAN_TYPE_EVASIVE_START])
             {
                 return TRUE;
@@ -2351,7 +2357,9 @@ bool flightmanTestRandom(FlightManProb *prob,udword flightmanSubtype,udword flig
             dbgAssert(flightman <= FLIGHTMAN_TYPE_EVASIVE_END);
             sumtotal = prob->sumtotalEvasiveFront;
             if (sumtotal == 0) return FALSE;
-            randnum = random(sumtotal);
+
+            randnum = randomG(sumtotal);
+
             if (randnum < prob->flightprobEvasiveFront[flightman-FLIGHTMAN_TYPE_EVASIVE_START])
             {
                 return TRUE;
@@ -2363,7 +2371,9 @@ bool flightmanTestRandom(FlightManProb *prob,udword flightmanSubtype,udword flig
             dbgAssert(flightman <= FLIGHTMAN_TYPE_EVASIVE_END);
             sumtotal = prob->sumtotalEvasivePure;
             if (sumtotal == 0) return FALSE;
-            randnum = random(sumtotal);
+
+            randnum = randomG(sumtotal);
+
             if (randnum < prob->flightprobEvasivePure[flightman-FLIGHTMAN_TYPE_EVASIVE_START])
             {
                 return TRUE;

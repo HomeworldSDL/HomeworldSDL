@@ -217,7 +217,7 @@ void aimFix_GetShips(AITeamMove *move)
 
 void aimPreFix_GetShips(AITeamMove *move)
 {
-    move->params.getShips.doneVar = AIVarToNumber(move->params.getShips.doneVar);
+    move->params.getShips.doneVar = (AIVar*)AIVarToNumber(move->params.getShips.doneVar);
 }
 
 #pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"

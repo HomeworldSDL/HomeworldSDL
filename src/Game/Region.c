@@ -916,7 +916,9 @@ void regProcessTask(void)
 {
     taskYield(0);
 
+#ifndef C_ONLY
     while (1)
+#endif
     {
         taskStackSaveCond(0);
 #if REG_VERBOSE_LEVEL >= 2
@@ -957,6 +959,7 @@ void regProcessTask(void)
         taskStackRestoreCond();
         taskYield(0);
     }
+
     taskExit();
 }
 #pragma optimize("", on)

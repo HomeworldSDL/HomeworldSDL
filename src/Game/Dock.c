@@ -2151,7 +2151,7 @@ sdword dockFindLaunchPointRandom(sdword *dockpointindices[],Ship *dockwith,Ship 
     }
     else
     {
-        retval = PotentialIndices[random(foundNumberIndices)];
+        retval = PotentialIndices[randomG(foundNumberIndices)];
     }
 
     memFree(PotentialIndices);
@@ -2487,7 +2487,7 @@ void dockFreeMasterStaticMem(Ship *master)
     Global Functions for use by anyone anywhere anytime
 =============================================================================*/
 
-#define DEBUG_SLAVE
+//#define DEBUG_SLAVE
 /*-----------------------------------------------------------------------------
     Name        : dockMakeMaster
     Description : Turns the ship, master, into a slave receivable ship
@@ -5270,7 +5270,7 @@ bool DroneDocksAtDDDF(struct Ship *ship,struct Ship *dockwith)
 #define RESEARCH_WAIT                   7
 #define RESEARCH_SLAVE                  8
 
-#define DEBUG_RESEARCH_R1
+//#define R1_DEBUG_RESEARCH_DOCKING
 
 #define PIE_POINT_TOLR2   255.0f           //INCREASE THIS...AND MAKE TUNABLE!
 #define PIE_POINT_TOLR1   75.0f           //INCREASE THIS...AND MAKE TUNABLE!
@@ -5593,12 +5593,12 @@ dockin_findlatch:
         */
         else
         {
-        #ifdef DEBUG_RESEARCH_R1
+        #ifdef R1_DEBUG_RESEARCH_DOCKING
             dbgFatalf(DBG_Loc, "\nResearch Ship Race 1 docking error...No free docking point found");
         #endif
         }
 
-#ifdef DEBUG_RESEARCH_R1
+#ifdef R1_DEBUG_RESEARCH_DOCKING
         dbgMessagef("\nRace 1: DOCKWITH    : point %s chosen.",dockwithstatic->dockStaticInfo->dockstaticpoints[dockwithpointindex].name);
         dbgMessagef("\nRace 1: DOCKING SHIP: point %s chosen.",shipstatic->dockStaticInfo->dockstaticpoints[shippointindex].name);
         dbgMessagef("\nNow flying to PiePoint.");
@@ -5658,7 +5658,7 @@ nextdockr1res:
                 goto morer1resdock;
             }
 
-#ifdef DEBUG_RESEARCH_R1
+#ifdef R1_DEBUG_RESEARCH_DOCKING
         dbgMessagef("\nRace 1: Reached Point, now parallel parking.");
 #endif
         }
@@ -5674,7 +5674,7 @@ nextdockr1res:
             speechEventVar(ship, STAT_Research_Docking, 0, 2);
 
             ship->dockvars.dockstate2 = RESEARCH_FINAL_SQUEEZE;
-#ifdef DEBUG_RESEARCH_R1
+#ifdef R1_DEBUG_RESEARCH_DOCKING
         dbgMessagef("\nRace 1: Parallel Parking");
         dbgMessagef("\nAllowing Next Research Ship to start docking!");
 #endif
@@ -5693,7 +5693,7 @@ nextdockr1res:
             ship->posinfo.velocity.y=0.0f;
             ship->posinfo.velocity.z=0.0f;
             ship->dockvars.dockstate2 = RESEARCH_FINAL_SQUEEZE;
-#ifdef DEBUG_RESEARCH_R1
+#ifdef R1_DEBUG_RESEARCH_DOCKING
         dbgMessagef("\nRace 1: Final Docking Phaze....");
 #endif
         }
@@ -5760,7 +5760,7 @@ morer1resdock:
                 soundEvent(ship, Ship_ResearchLockOn);
             }
             ship->dockvars.dockstate2 = RESEARCH_WAIT;
-#ifdef DEBUG_RESEARCH_R1
+#ifdef R1_DEBUG_RESEARCH_DOCKING
         dbgMessagef("\nRace 1: Docked...Slaveing ship, extending docking port.");
 #endif
         }
@@ -5781,7 +5781,7 @@ morer1resdock:
     return FALSE;
 }
 
-#define R2_DEBUG_RESEARCH_DOCKING
+//#define R2_DEBUG_RESEARCH_DOCKING
 
 #define R2_FIND_LATCH                   1
 #define R2_WAIT_FOR_DOCK_POINT          2

@@ -227,7 +227,6 @@ fonthandle tmFont;
 udword          tmCurTexture   = TR_InvalidInternalHandle;
 lifheader      *tmCurTechImage = NULL;
 TechnologyType  tmCurTechTexture = -1;
-sdword          drawstate;
 udword          tmLabTexture[MAX_RACES] = { TR_InvalidInternalHandle, TR_InvalidInternalHandle };
 lifheader      *tmLabImage[MAX_RACES] = { NULL, NULL };
 

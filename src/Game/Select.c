@@ -2112,7 +2112,6 @@ void selSelectedDraw(void)
 {
     sdword index;
     Ship *ship;
-    vector zero = {0.0, 0.0, 0.0};
     fonthandle currentFont = fontCurrentGet();
     sdword currentLOD;
 

@@ -39,7 +39,84 @@ bool mexVerify(void *mex)
 void *mexLoad(char *filename)
 {
     void *address;
+
+#ifdef ENDIAN_BIG
+	MEXFileHeader *mex;
+	MEXChunk *chunk;
+	unsigned char i;
+#endif
+
     fileLoadAlloc(filename,&address,NonVolatile);
+
+#ifdef ENDIAN_BIG
+	mex          = ( MEXFileHeader *)address;
+	mex->version = LittleShort( mex->version );
+	mex->nChunks = LittleShort( mex->nChunks );
+
+	chunk = ( MEXChunk *)( ( ( ubyte *)mex ) + sizeof( MEXFileHeader ) );
+	for( i=0; i<mex->nChunks; i++ )
+	{
+		chunk->chunkSize = LittleLong( chunk->chunkSize );
+
+		if(( strcasecmp( chunk->type, "Gun" ) == 0 )
+	    || ( strcasecmp( chunk->type, "Eng" ) == 0 )
+		|| ( strcasecmp( chunk->type, "Dok" ) == 0 )
+		|| ( strcasecmp( chunk->type, "Sal" ) == 0 ) )
+		{
+			MEXGunChunk *chunk1 = ( MEXGunChunk *)chunk;
+
+			chunk1->position.x = LittleFloat( chunk1->position.x );
+			chunk1->position.y = LittleFloat( chunk1->position.y );
+			chunk1->position.z = LittleFloat( chunk1->position.z );
+
+			chunk1->normal.x = LittleFloat( chunk1->normal.x );
+			chunk1->normal.y = LittleFloat( chunk1->normal.y );
+			chunk1->normal.z = LittleFloat( chunk1->normal.z );
+
+			chunk1->coneAngle = LittleFloat( chunk1->coneAngle );
+			chunk1->edgeAngle = LittleFloat( chunk1->edgeAngle );
+		}
+
+		if( strcasecmp( chunk->type, "Col" ) == 0 )
+		{
+			MEXCollisionSphereChunk *chunk1 = ( MEXCollisionSphereChunk *)chunk;
+
+			chunk1->level = LittleLong( chunk1->level );
+
+			chunk1->offset.x = LittleFloat( chunk1->offset.x );
+			chunk1->offset.y = LittleFloat( chunk1->offset.y );
+			chunk1->offset.z = LittleFloat( chunk1->offset.z );
+
+			chunk1->r = LittleFloat( chunk1->r );
+		}
+		
+		if( strcasecmp( chunk->type, "Rct" ) == 0 )
+		{
+			MEXCollisionRectangleChunk *chunk1 = ( MEXCollisionRectangleChunk *)chunk;
+
+			chunk1->level = LittleLong( chunk1->level );
+
+			chunk1->ox = LittleFloat( chunk1->ox );
+			chunk1->oy = LittleFloat( chunk1->oy );
+			chunk1->oz = LittleFloat( chunk1->oz );
+
+			chunk1->dx = LittleFloat( chunk1->dx );
+			chunk1->dy = LittleFloat( chunk1->dy );
+			chunk1->dz = LittleFloat( chunk1->dz );
+		}
+
+		if( strcasecmp( chunk->type, "Nav" ) == 0 )
+		{
+			MEXNAVLightChunk *chunk1 = ( MEXNAVLightChunk *)chunk;
+
+			chunk1->position.x = LittleFloat( chunk1->position.x );
+			chunk1->position.y = LittleFloat( chunk1->position.y );
+			chunk1->position.z = LittleFloat( chunk1->position.z );
+		}
+
+		chunk = ( MEXChunk *)( ( ( ubyte *)chunk ) + sizeof( MEXChunk ) + chunk->chunkSize );
+	}
+#endif // ENDIAN_BIG
 
     dbgAssert(address != NULL);
     if (!mexVerify(address))
