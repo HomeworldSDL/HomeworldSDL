@@ -1386,7 +1386,7 @@ void horseRaceRender()
     _asm xor eax,eax
     _asm mov regRenderEventIndex, eax
 #elif defined (__GNUC__) && defined (__i386__)
-    __asm__ (
+    __asm__ __volatile__ (
         "xorl %%eax, %%eax\n\t"
         "movl %%eax, %0\n\t"
         : "=m" (regRenderEventIndex) );

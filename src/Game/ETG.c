@@ -1928,7 +1928,7 @@ void etgEffectCodeExecute(etgeffectstatic *stat, Effect *effect, udword codeBloc
 		push edi
 	}
 #elif defined (__GNUC__) && defined (__i386__)
-	__asm__ (
+	__asm__ __volatile__ (
 		"pushl %eax\n\t"
 		"pushl %ebx\n\t"
 		"pushl %ecx\n\t"
@@ -1979,7 +1979,7 @@ void etgEffectCodeExecute(etgeffectstatic *stat, Effect *effect, udword codeBloc
 		pop eax
 	}
 #elif defined (__GNUC__) && defined (__i386__)
-	__asm__ (
+	__asm__ __volatile__ (
 		"popl %edi\n\t"
 		"popl %esi\n\t"
 		"popl %edx\n\t"
@@ -5451,7 +5451,7 @@ void etgCallbackOpen(sdword codeBlock, sdword offset, ubyte *userData)
     createCall = (etgfunctioncall *)userData;
     dbgAssert(createCall->opcode == EOP_Function && createCall->nParameters == 2);
 #endif
-    memcpy(userData + etgFunctionSize(1), userData, etgFunctionSize(2));//move the function forward
+    memmove(userData + etgFunctionSize(1), userData, etgFunctionSize(2));//move the function forward
     //set up the call to partCreateCallbackSet()
     call = (etgfunctioncall *)userData;
     call->opcode = EOP_Function;
@@ -5716,10 +5716,10 @@ sdword etgFunctionCall(Effect *effect, struct etgeffectstatic *stat, ubyte *opco
             push eax
         }
 #elif defined (__GNUC__) && defined (__i386__)
-        __asm__ (                                           /* push it onto the stack */
+        __asm__ __volatile__ (                              /* push it onto the stack */
             "pushl %0\n\t"
             :
-            : "r" (param) );
+            : "a" (param) );
 #endif
     }
     if (((etgfunctioncall *)opcode)->passThis)
@@ -5731,10 +5731,10 @@ sdword etgFunctionCall(Effect *effect, struct etgeffectstatic *stat, ubyte *opco
             push eax
         }
 #elif defined (__GNUC__) && defined (__i386__)
-        __asm__ (                                           /* pass a 'this' pointer */
+        __asm__ __volatile__ (                              /* pass a 'this' pointer */
             "pushl %0\n\t"
             :
-            : "r" (effect) );
+            : "a" (effect) );
 #endif
     }
     param = ((etgfunctioncall *)opcode)->function();        //call the function

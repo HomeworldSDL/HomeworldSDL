@@ -1,5 +1,5 @@
 Homeworld SDL - Source Installation Instructions
-Version 0.1 alpha
+Version 0.1.1 alpha
 http://www.thereisnospork.com/projects/homeworld/
 ---
 
@@ -23,6 +23,10 @@ compiled and installed using the typical "configure/make/make install" process
 found with most open source Unix software, you'll need to keep a few things in
 mind while trying to get the game running.
 
+First, make sure you have SDL 1.2.6 or later installed.  You will also need
+GCC 3 or later.  There are currently issues with using GCC 2.95.x which are
+being looked at.
+
 The build process itself is relatively straight-forward, as running
 "./configure" followed by "make" from within the project's directory will
 still build the required files.  I have tried to set everything up such that
@@ -31,12 +35,16 @@ running.
 
 The game requires that you have the data files from the original Homeworld.
 They have not been provided as they are not freely available, and the game
-will not run without them.  You will need at least the follwing data files
-(all within the same directory):
+will not run without them.  You also need to install the latest Homeworld
+patch.  At the time of writing this, 1.05 is the latest patch version.  You
+can find it at http://www.relicnews.com/
+
+You will need at least the follwing data files (all within the same
+directory):
 
 - Homeworld.big
 - devstats.dat
-- Update.big (if it exists, which it should if you patched the game)
+- Update.big
 
 Other data files may be used at a later time as progress continues, but for
 now these will do.  Note that the files in the "Movies" directory will more

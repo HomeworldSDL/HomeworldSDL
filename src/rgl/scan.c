@@ -100,7 +100,7 @@ void loFPU()
         fldcw   [FPUCW]
     }
 #elif defined (__GNUC__) && defined (__i386__)
-    __asm__ (
+    __asm__ __volatile__ (
         "   fstcw   %0\n"
         "   movw    %0, %%ax\n"
         "   andl    $0xFF, %%eax\n"
@@ -120,7 +120,7 @@ void restoreFPU()
         fldcw [OldFPUCW]
     }
 #elif defined (__GNUC__) && defined (__i386__)
-    __asm__ (
+    __asm__ __volatile__ (
         "   fldcw %0\n"
         :
         : "m" (OldFPUCW) );

@@ -266,7 +266,7 @@ char *dbgStackDump(void)
     _asm mov eax, esp
     _asm mov _ESP, eax
 #elif defined (__GNUC__) && defined (__i386__)
-    __asm__ ( "movl %%esp, %0\n\t" : "=r" (_ESP) );
+    __asm__ __volatile__ ( "movl %%esp, %0\n\t" : "=r" (_ESP) );
 #endif
 
     _ESP = _ESP & (~3);                                     //round off to dword boundary

@@ -166,7 +166,7 @@ static int chkxmmbits(void)
         popa
     }
 #elif defined (__GNUC__) && defined (__i386__)
-    __asm__ (
+    __asm__ __volatile__ (
         "pusha\n\t"
         "movl %%CR4, %%eax\n\t"
         "movl %%eax, %0\n\t"
@@ -184,7 +184,7 @@ static int chkxmmbits(void)
         popa
     }
 #elif defined (__GNUC__) && defined (__i386__)
-    __asm__ (
+    __asm__ __volatile__ (
         "pusha\n\t"
         "movl %%CR0, %%eax\n\t"
         "movl %%eax, %0\n\t"
@@ -500,7 +500,7 @@ extern "C" void transTransformCompletely_xmm(
         pop     esi
     }
 #elif defined (__GNUC__) && defined (__i386__)
-    __asm__ (
+    __asm__ __volatile__ (
              /*
               * assignment
               */

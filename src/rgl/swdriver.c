@@ -1954,7 +1954,7 @@ static void clear_colorbuffer(GLcontext* ctx)
                 pop ecx ;
             }
     #elif defined (__GNUC__) && defined (__i386__)
-            __asm__ (
+            __asm__ __volatile__ (
                 "    .align 16\n"
                 "    rep stosl\n"
                 :

@@ -1209,7 +1209,8 @@ void filePrependPathSet(char *path)
     dbgAssert(path != NULL);
     strcpy(filePrependPath, path);                          //make copy of specified path
 
-    dbgAssert((path_len = strlen(filePrependPath)));
+    path_len = strlen(filePrependPath);
+    dbgAssert(path_len);
 #ifdef _WIN32
     if (filePrependPath[path_len - 1] != '\\')
     {                                                       //make sure a backslash is on the end

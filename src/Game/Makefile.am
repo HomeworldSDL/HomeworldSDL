@@ -18,9 +18,16 @@ KNITransform.o: KNITransform.cpp
 	else rm -f "$(DEPDIR)/$*.Tpo"; exit 1; \
 	fi
 
-# Optimization thrashes Task.c and FastMath.c (although we might want to fix
-# FastMath.c at some point, being that it is straight C).
+# Optimization thrashes Task.c, ETG.c, and FastMath.c (although we should
+# definitely fix FastMath.c at some point, being that it is straight C).
 Task.o: Task.c
+	if $(COMPILE) -O0 -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" \
+	  -c -o $@ `test -f '$<' || echo '$(srcdir)/'`$<; \
+	then mv "$(DEPDIR)/$*.Tpo" "$(DEPDIR)/$*.Po"; \
+	else rm -f "$(DEPDIR)/$*.Tpo"; exit 1; \
+	fi
+
+ETG.o: ETG.c
 	if $(COMPILE) -O0 -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" \
 	  -c -o $@ `test -f '$<' || echo '$(srcdir)/'`$<; \
 	then mv "$(DEPDIR)/$*.Tpo" "$(DEPDIR)/$*.Po"; \

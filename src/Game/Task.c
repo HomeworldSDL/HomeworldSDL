@@ -258,7 +258,7 @@ taskhandle taskStart(taskfunction function, real32 period, udword flags)
         mov     dbgStackBase, eax
     }
 #elif defined (__GNUC__) && defined (__i386__)
-    __asm__ (
+    __asm__ __volatile__ (
         "    movl %%esp, %%eax\n"
         "    movl %%eax, %0\n"
         : "=m" (dbgStackBase)
@@ -334,7 +334,7 @@ taskContinued:
         mov     ebx, eax
     }
 #elif defined (__GNUC__) && defined (__i386__)
-    __asm__ (
+    __asm__ __volatile__ (
         "    movl $(taskStart_taskContinued), %%eax\n"      /*set point to continue from*/
         "    movl %%eax, %0\n"
         : "=m" (taskFunctionContinue)
@@ -343,7 +343,7 @@ taskContinued:
 
         /*taskCurrentTask = handle;*/
 
-    __asm__ (
+    __asm__ __volatile__ (
         "    movl %%esi, %%eax\n"
         "    movl %%eax, %0\n"                              /*save esi,edi*/
         "    movl %%edi, %%eax\n"
@@ -493,7 +493,7 @@ sdword taskExecuteAllPending(sdword ticks)
         mov     dbgStackBase, eax
     }
 #elif defined (__GNUC__) && defined (__i386__)
-    __asm__ (
+    __asm__ __volatile__ (
         "    movl %%esp, %%eax\n"
         "    movl %%eax, %0\n"
         : "=m" (dbgStackBase)
@@ -534,7 +534,7 @@ sdword taskExecuteAllPending(sdword ticks)
         mov     [taskFunctionExit], eax
     }
 #elif defined (__GNUC__) && defined (__i386__)
-    __asm__ (
+    __asm__ __volatile__ (
         "    movl $(taskExec_taskContinued), %%eax\n"
         "    movl %%eax, %0\n"
         "    movl $(taskExec_taskReturned), %%eax\n"
@@ -556,7 +556,7 @@ sdword taskExecuteAllPending(sdword ticks)
             mov     [currentESP], esp
         }
 #elif defined (__GNUC__) && defined (__i386__)
-        __asm__ (
+        __asm__ __volatile__ (
             "    movl %%esp, %0\n"
             : "=m" (currentESP) );
 #endif
@@ -622,7 +622,7 @@ sdword taskExecuteAllPending(sdword ticks)
                 mov     [taskEBXSave], eax
             }
 #elif defined (__GNUC__) && defined (__i386__)
-            __asm__ (
+            __asm__ __volatile__ (
                 "    movl %%esi, %%eax\n"
                 "    movl %%eax, %0\n"                      /*save esi,edi,esp,ebp*/
                 "    movl %%edi, %%eax\n"
@@ -715,7 +715,7 @@ taskContinued:
 //#endif
                 }
 #elif defined (__GNUC__) && defined (__i386__)
-                __asm__ (
+                __asm__ __volatile__ (
                          /*restore register context from the taskdata structure*/
 
                     "    movl %0, %%edx\n"                  /*get edx->taskdata structure*/
@@ -794,7 +794,7 @@ taskContinued:
                 mov     ebx, eax
             }
 #elif defined (__GNUC__) && defined (__i386__)
-            __asm__ (
+            __asm__ __volatile__ (
                 "    movl %0, %%eax\n"                      /*restore esi,edi,ebp,esp*/
                 "    movl %%eax, %%esi\n"
                 "    movl %1, %%eax\n"
@@ -849,7 +849,7 @@ taskReturned:
                force GCC not to do so...bleh... */
             if (continue_hack)
                 continue;
-            __asm__ (
+            __asm__ __volatile__ (
                 "\ntaskExec_taskReturned:\n"
                 "    popl %%eax\n"                          /*remove the IP from the stack because it got here from a CALL*/
                 "    movl %0, %%eax\n"                      /*restore esi,edi,ebp,esp*/

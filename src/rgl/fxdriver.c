@@ -129,7 +129,7 @@ static unsigned short CW, oldCW;
 #elif defined (__GNUC__) && defined (__i386__)
 
 #define loFPU() \
-    __asm__ (                         \
+    __asm__ __volatile__ (            \
         "fstcw %0\n\t"                \
         "movw %0, %%ax\n\t"           \
         "andl $0xFFFFFCFF, %%eax\n\t" \
@@ -140,9 +140,9 @@ static unsigned short CW, oldCW;
         : "eax" );
 
 #define restoreFPU() \
-    __asm__ (            \
-        "fldcw %0\n\t"   \
-        :                \
+    __asm__ __volatile__ ( \
+        "fldcw %0\n\t"     \
+        :                  \
         : "m" (oldCW) );
 
 #else

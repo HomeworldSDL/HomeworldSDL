@@ -7,6 +7,7 @@
 =============================================================================*/
 
 #include <string.h>
+#include <limits.h>
 #include "Types.h"
 #include "LinkedList.h"
 #include "SpaceObj.h"
@@ -464,9 +465,11 @@ void LoadLighting(void)
 {
     Load_StringToAddress(lightCurrentLighting);
 
-    if (strlen(lightCurrentLighting) > 1)
+    if (lightCurrentLighting[0])
     {
-        lightParseHSF(lightCurrentLighting);
+        char tmp_path[PATH_MAX];
+        strcpy(tmp_path, lightCurrentLighting);
+        lightParseHSF(tmp_path);
     }
     else
     {

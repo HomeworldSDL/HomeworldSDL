@@ -13,3 +13,8 @@ Known bugs (as of 2003-10-11):
   with a black border if the new resolution is higher than the old
   resolution).  3D rendering is not affected.  Restarting Homeworld causes the
   new display settings to initialize correctly.
+
+- If you are currently running in OpenGL mode and you switch to software mode,
+  you will be presented with a blank screen (not including a couple things
+  drawn in the bottom left corner).  Basically, don't switch back to software
+  once you have the OpenGL renderer selected.

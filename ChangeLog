@@ -1,4 +1,8 @@
 Homeworld SDL - Change log
 
-* Sat Oct 11 2003:
+* 0.1.1 (2003-10-11):
+- Force ETG.c to compile without optimizations (was getting thrashed in
+  optimization)
+
+* 0.1 (2003-10-11):
 - Initial release (no sound or network support, OpenGL rendering only)
