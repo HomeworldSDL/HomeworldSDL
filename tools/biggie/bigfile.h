@@ -1,7 +1,10 @@
 #ifndef __bigfile_h
 #define __bigfile_h
 
-#include <io.h>
+#ifndef _MACOSX
+    #include <io.h>
+#endif
+
 #include <time.h>
 #include "crc32.h"
 

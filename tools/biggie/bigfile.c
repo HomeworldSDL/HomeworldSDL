@@ -1,7 +1,16 @@
 #include <stdio.h>
 #include <string.h>
-#include <malloc.h>
-//#include <winbase.h>
+
+#ifdef _MACOSX
+    #include <malloc/malloc.h>
+#else
+    #include <malloc.h>
+#endif
+
+#ifndef WIN32
+    #include <dirent.h>
+#endif
+
 #include "bigfile.h"
 #include "crc32.h"
 #include "BitIO.h"
@@ -164,9 +173,37 @@ static char *PrettyDateTime(time_t dt, char *pretty)
 ----------------------------------------------------------------------------*/
 static int bigFileExists(char *filename)
 {
-    struct _finddata_t findData;
+#ifdef WIN32
 
+    struct _finddata_t findData;
     return (_findfirst(filename, &findData) != -1);
+    
+#else
+
+    DIR *dp = opendir(".");
+
+    if (dp)
+    {
+        struct dirent* dir_entry;
+        unsigned int dir_str_len;
+
+        while ((dir_entry = readdir(dp)))
+        {
+            if (dir_entry->d_name[0] == '.')
+                continue;
+            
+            if (strcmp(filename, dir_entry->d_name) == 0)
+            {
+                return 1;
+            }
+        }
+
+        closedir(dp);
+    }
+
+    return 0;
+    
+#endif
 }
 
 /*-----------------------------------------------------------------------------
@@ -184,7 +221,6 @@ static int bigFileExists(char *filename)
 static int bigFilenameRetrieve(bigTOC *toc, int fileNum, FILE *fp, char *filename)
 {
     long fpos = ftell(fp);
-
     fseek(fp, (toc->fileEntries + fileNum)->offset, SEEK_SET);
     fread(filename, 1, (toc->fileEntries + fileNum)->nameLength+1, fp);
     fseek(fp, fpos, SEEK_SET);
@@ -290,11 +326,38 @@ static int bigTOCRead(FILE *fp, bigTOC *toc)
 {
     fread((void *)&(toc->numFiles), sizeof(toc->numFiles), 1, fp);
     fread((void *)&(toc->flags), sizeof(toc->flags), 1, fp);
+
+#ifdef ENDIAN_BIG
+    toc->numFiles = LittleLong(toc->numFiles);
+    toc->flags    = LittleLong(toc->flags);
+#endif
+
     if (toc->numFiles)
     {
-        toc->fileEntries = malloc(sizeof(bigTOCFileEntry) * toc->numFiles);
-        fread((void *)(toc->fileEntries),
-            sizeof(bigTOCFileEntry), toc->numFiles, fp);
+        toc->fileEntries = (bigTOCFileEntry *) malloc(sizeof(bigTOCFileEntry) * toc->numFiles);
+
+#ifdef ENDIAN_BIG
+        {
+            int i = 0;
+            bigTOCFileEntry *toc_file_entry;
+            
+            for (i = 0 ; i < toc->numFiles; i++)
+            {
+                toc_file_entry = (bigTOCFileEntry *)((void *)toc->fileEntries + i * sizeof(bigTOCFileEntry));
+                fread(toc_file_entry, sizeof(bigTOCFileEntry), 1, fp);
+                
+                toc_file_entry->nameCRC1     = LittleLong(toc_file_entry->nameCRC1);
+                toc_file_entry->nameCRC2     = LittleLong(toc_file_entry->nameCRC2);
+                toc_file_entry->nameLength   = LittleShort(toc_file_entry->nameLength);
+                toc_file_entry->storedLength = LittleLong(toc_file_entry->storedLength);
+                toc_file_entry->realLength   = LittleLong(toc_file_entry->realLength);
+                toc_file_entry->offset       = LittleLong(toc_file_entry->offset);
+                toc_file_entry->timeStamp    = LittleLong(toc_file_entry->timeStamp);
+            }
+        }
+#else
+        fread((void *)(toc->fileEntries), sizeof(bigTOCFileEntry), toc->numFiles, fp);
+#endif
     }
     return 1;
 }
@@ -401,8 +464,16 @@ int bigTOCFileExists(bigTOC *toc, char *filename, int *fileNum)
 
     // pretend the filename is in lowercase
     strcpy(filenamei, filename);
+#ifdef WIN32
     _strlwr(filenamei);
-
+#else
+    char *ptr = filenamei;
+    while (*ptr != '\0')
+    {
+        *ptr = tolower(*ptr);
+        ptr++;
+    }
+#endif
     // convert all slashes to backslashes and whittle multiple slashes down to a single one
     filenameSlashMassage(filenamei);
 
@@ -753,7 +824,11 @@ int bigPatch(char *oldfilename, char *newfilename, char *patchfilename, int cons
     // open patch (write)
     if (bigFileExists(patchfilename))
     {
+#ifdef WIN32
         unlink(patchfilename);
+#else
+        remove(patchfilename);
+#endif
         if (bigFileExists(patchfilename))
         {
             if (consoleOutput)
@@ -778,7 +853,7 @@ int bigPatch(char *oldfilename, char *newfilename, char *patchfilename, int cons
     bigHeaderWrite(patchFP);
     patchTOC.numFiles = 0;
     patchTOC.flags = 0;
-    patchTOC.fileEntries = malloc(sizeof(bigTOCFileEntry) * newTOC.numFiles);
+    patchTOC.fileEntries = (bigTOCFileEntry *) malloc(sizeof(bigTOCFileEntry) * newTOC.numFiles);
     curPatchOffset = strlen(BF_FILE_HEADER BF_VERSION)
                         + sizeof(patchTOC.numFiles)
                         + sizeof(patchTOC.flags);
@@ -983,7 +1058,12 @@ int bigAdd(char *bigfilename, int numFiles, char *filenames[], int optCompressio
             {
                 if (consoleOutput)
                     printf("ERROR: Can't open filelist: %s\n", filelistName);
+
+#ifdef WIN32                    
                 unlink(tempfilename);
+#else
+                remove(tempfilename);
+#endif
                 free(moveFiles);
                 return 0;
             }
@@ -1023,7 +1103,11 @@ int bigAdd(char *bigfilename, int numFiles, char *filenames[], int optCompressio
             {
                 //if (consoleOutput)
                 //  printf("\nERROR: Can't add %s\n", filename);
+#ifdef WIN32
                 _unlink(tempfilename);
+#else
+                remove(tempfilename);
+#endif
                 free(moveFiles);
                 return 0;
             }
@@ -1053,7 +1137,11 @@ int bigAdd(char *bigfilename, int numFiles, char *filenames[], int optCompressio
                 else
                     moveFiles[f] = 0;
 
+#ifdef WIN32
                 if (strcmpi(tempshortfilename, filename) && consoleOutput)
+#else
+                if (strcasecmp(tempshortfilename, filename) && consoleOutput)
+#endif
                 {
                     printf(" (%s)", tempshortfilename);
                 }
@@ -1071,7 +1159,11 @@ int bigAdd(char *bigfilename, int numFiles, char *filenames[], int optCompressio
     for (f = 0; f < numFiles; ++f)
         if (moveFiles[f])
         {
+#ifdef WIN32
             if (_unlink(filenames[f]) == -1)
+#else
+            if (remove(filenames[f]) == -1)
+#endif
                 if (consoleOutput)
                     printf("ERROR: Can't (re)move %s\n", filenames[f]);
         }
@@ -1113,7 +1205,12 @@ int bigAdd(char *bigfilename, int numFiles, char *filenames[], int optCompressio
         free(moveFiles);
         return 0;
     }
+
+#ifdef WIN32
     if(_unlink(tempfilename) == -1)
+#else
+    if(remove(tempfilename) == -1)
+#endif
     {
         if (consoleOutput)
             printf("ERROR: Can't remove temporary file %s\n", tempfilename);
@@ -1143,6 +1240,7 @@ int bigAdd(char *bigfilename, int numFiles, char *filenames[], int optCompressio
 ----------------------------------------------------------------------------*/
 int bigFastCreate(char *bigfilename, int numFiles, char *filenames[], int optCompression, int optNewer, int optMove, int optPathnames, int consoleOutput)
 {
+#ifndef _MACOSX_FIX_ME
     char tempshortfilename[BF_MAX_FILENAME_LENGTH+1];
     char tempshortfilenamei[BF_MAX_FILENAME_LENGTH+1];
     char ch;
@@ -1166,7 +1264,11 @@ int bigFastCreate(char *bigfilename, int numFiles, char *filenames[], int optCom
     // either update or create
     if (bigFileExists(bigfilename))
     {
+#ifdef WIN32
         unlink(bigfilename);
+#else
+        remove(bigfilename);
+#endif
         if (bigFileExists(bigfilename))
         {
             if (consoleOutput)
@@ -1244,7 +1346,16 @@ int bigFastCreate(char *bigfilename, int numFiles, char *filenames[], int optCom
 
                 // pretend name is lowercase for consistent CRCs
                 strcpy(tempshortfilenamei, tempshortfilename);
+#ifdef WIN32
                 _strlwr(tempshortfilenamei);
+#else
+                char *ptr = tempshortfilenamei;
+                while (*ptr != '\0')
+                {
+                    *ptr = tolower(*ptr);
+                    ptr++;
+                }
+#endif
 
                 // convert all slashes to backslashes and whittle multiple slashes down to a single one
                 filenameSlashMassage(tempshortfilenamei);
@@ -1303,7 +1414,13 @@ int bigFastCreate(char *bigfilename, int numFiles, char *filenames[], int optCom
                             if (consoleOutput)
                                 printf("\nERROR: Can't find %s\n", filename);
                             fclose(bigFP);
+
+#ifdef WIN32
                             unlink(bigfilename);
+#else
+                            remove(bigfilename);
+#endif
+
                             free(moveFiles);
                             return 0;
                         }
@@ -1321,7 +1438,11 @@ int bigFastCreate(char *bigfilename, int numFiles, char *filenames[], int optCom
                             if (consoleOutput)
                                 printf("ERROR: Can't read %s\n", filename);
                             fclose(bigFP);
+#ifdef WIN32
                             unlink(bigfilename);
+#else
+                            remove(bigfilename);
+#endif
                             free(moveFiles);
                             return 0;
                         }
@@ -1385,7 +1506,11 @@ int bigFastCreate(char *bigfilename, int numFiles, char *filenames[], int optCom
                 if (pass == 2 && consoleOutput)
                 {
                     //printf("[pass %d of 2]", pass);  // don't mention the first passes
+#ifdef WIN32
                     if (strcmpi(tempshortfilename, filename))
+#else
+                    if (strcasecmp(tempshortfilename, filename))
+#endif
                         printf("(%s) ", tempshortfilename);
                     printf("added\n");
                 }
@@ -1432,7 +1557,11 @@ int bigFastCreate(char *bigfilename, int numFiles, char *filenames[], int optCom
     if (!bigSort(bigfilename))
     {
         printf("\nERROR: Can't sort bigfile %s\n", bigfilename);
+#ifdef WIN32
         unlink(bigfilename);
+#else
+        remove(bigfilename);
+#endif
         free(moveFiles);
         return 0;
     }
@@ -1443,7 +1572,11 @@ int bigFastCreate(char *bigfilename, int numFiles, char *filenames[], int optCom
     for (f = 0; f < numFiles; ++f)
         if (moveFiles[f])
         {
+#ifdef WIN32
             if (_unlink(filenames[f]) == -1)
+#else
+            if (_unlink(filenames[f]) == -1)
+#endif
                 if (consoleOutput)
                     printf("ERROR: Can't (re)move %s\n", filenames[f]);
         }
@@ -1465,6 +1598,9 @@ int bigFastCreate(char *bigfilename, int numFiles, char *filenames[], int optCom
     free(crcAdded1);
     free(crcAdded2);
     free(moveFiles);
+    
+#endif // _MACOSX_FIX_ME
+
     return 1;
 }
 
@@ -1489,6 +1625,8 @@ int bigFastCreate(char *bigfilename, int numFiles, char *filenames[], int optCom
 ----------------------------------------------------------------------------*/
 int bigAddFile(char *bigFilename, char *filename, char *storedFilename, int optCompression, int optNewer, int consoleOutput)
 {
+#ifndef _MACOSX_FIX_ME
+
     char tempshortfilenamei[BF_MAX_FILENAME_LENGTH+1];
     FILE *oldfp, *newfp, *datafp;
     bigTOC oldtoc, newtoc;
@@ -1582,7 +1720,16 @@ int bigAddFile(char *bigFilename, char *filename, char *storedFilename, int optC
 
     // pretend name is lowercase for consistent CRCs
     strcpy(tempshortfilenamei, storedFilename);
+#ifdef WIN32
     _strlwr(tempshortfilenamei);
+#else
+    char *ptr = tempshortfilenamei;
+    while (*ptr != '\0')
+    {
+        *ptr = tolower(*ptr);
+        ptr++;
+    }
+#endif
 
     // convert all slashes to backslashes and whittle multiple slashes down to a single one
     filenameSlashMassage(tempshortfilenamei);
@@ -1606,7 +1753,12 @@ int bigAddFile(char *bigFilename, char *filename, char *storedFilename, int optC
         // with the same CRCs
         if (!bigFilenameRetrieve(&oldtoc, fileNum, oldfp, compareFilename))
             goto abort;
+            
+#ifdef WIN32
         if (strcmpi(storedFilename, compareFilename))
+#else
+        if (strcasecmp(storedFilename, compareFilename))
+#endif
         {
             if (consoleOutput)
                     printf("\nERROR: Can't add %s (same CRC as %s)\n",
@@ -1619,7 +1771,11 @@ int bigAddFile(char *bigFilename, char *filename, char *storedFilename, int optC
         {
             fclose (newfp);
             fclose (oldfp);
+#ifdef WIN32
             _unlink(tempFilename);
+#else
+            remove(tempFilename);
+#endif
             return BF_ADD_RES_OLD;
         }
 
@@ -1686,7 +1842,7 @@ int bigAddFile(char *bigFilename, char *filename, char *storedFilename, int optC
         // add new toc entry at end and write the toc
         newtoc.numFiles = oldtoc.numFiles+1;
         newtoc.flags = oldtoc.flags & (~BF_FLAG_TOC_SORTED);  // mark TOC as unsorted now
-        newtoc.fileEntries = malloc(sizeof(bigTOCFileEntry)*(newtoc.numFiles));
+        newtoc.fileEntries = (bigTOCFileEntry *) malloc(sizeof(bigTOCFileEntry)*(newtoc.numFiles));
         memcpy(newtoc.fileEntries, oldtoc.fileEntries, sizeof(bigTOCFileEntry)*oldtoc.numFiles);
         if (oldtoc.numFiles)
         {
@@ -1758,7 +1914,11 @@ int bigAddFile(char *bigFilename, char *filename, char *storedFilename, int optC
     }
 
     // remove tempfile
+#ifdef WIN32
     if(_unlink(tempFilename) == -1)
+#else
+    if(remove(tempFilename) == -1)
+#endif
     {
         if (consoleOutput)
         printf("\nERROR: Can't remove temporary file %s\n", tempFilename);
@@ -1767,7 +1927,11 @@ int bigAddFile(char *bigFilename, char *filename, char *storedFilename, int optC
 
     if (optCompression)
     {
+#ifdef WIN32
         if(_unlink(compressedTempFilename) == -1)
+#else
+        if(remove(compressedTempFilename) == -1)
+#endif
         {
             if (consoleOutput)
             printf("\nERROR: Can't remove temporary file %s\n", compressedTempFilename);
@@ -1783,6 +1947,9 @@ abort:
     free(oldtoc.fileEntries);
     fclose (newfp);
     fclose (oldfp);
+
+#endif // _MACOSX_FIX_ME
+
     return 0;
 }
 
@@ -1820,7 +1987,22 @@ int bigView(char *bigFilename, int consoleOutput)
     unsigned long totalCompressed = 0, totalExpanded = 0;
     int displayCompressed = 0;
     char pRealSize[32], pStoredSize[32], pTimestamp[32], pRatio[16];
+
+#ifdef _WIN32
     struct _finddata_t findData;
+#else
+//        DIR *dp = opendir(".");
+//    if (dp)
+//        struct dirent* dir_entry;
+//        unsigned int dir_str_len;
+//        while ((dir_entry = readdir(dp)))
+//            if (dir_entry->d_name[0] == '.')
+//                continue;
+//            if (strcmp(filename, dir_entry->d_name) == 0)
+//      closedir(dp);
+
+#endif
+    
     char filename[BF_MAX_FILENAME_LENGTH+1];
 
     // open bigfile
@@ -1846,10 +2028,25 @@ int bigView(char *bigFilename, int consoleOutput)
         printf("No files in %s\n", bigFilename);
     else if (consoleOutput)
     {
+#ifdef WIN32
         _findfirst(bigFilename, &findData);
+#endif
 
         printf("\nContents of %s ", bigFilename);
+        
+#ifdef WIN32        
         printf(  "(%s bytes, ", PrettyFilesize(findData.size, pStoredSize));
+#else
+        {
+            long filesize;
+            long fpos = ftell(fp);
+            fseek(fp, 0L, SEEK_END);
+            filesize = ftell(fp);
+            fseek(fp, fpos, SEEK_SET);
+            printf(  "(%d bytes, ", filesize);
+        }
+#endif
+
         printf(  "%s):\n", (toc.flags & BF_FLAG_TOC_SORTED)?"CRC-sorted TOC":"unsorted TOC");
 
         printf("\n             CRC   Stored Size     Real Size  Ratio        Date     Time  Filename\n");

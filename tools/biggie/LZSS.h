@@ -1,6 +1,8 @@
 #ifndef __LZSS_H
 #define __LZSS_H
 
+#include "BitIO.h"
+
 void lzssCompressFile(FILE *input, BIT_FILE *output);
 int  lzssCompressBuffer(char *input, int inputSize, char *output, int outputSize);
 void lzssExpandFile(BIT_FILE *input, FILE *output);

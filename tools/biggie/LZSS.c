@@ -71,12 +71,12 @@ struct tree_s {
 } tree[ WINDOW_SIZE + 1 ];
 
 // local prototypes
-void InitTree( int r );
-void ContractNode( int old_node, int new_node );
-void ReplaceNode( int old_node, int new_node );
-int FindNextNode( int node );
-void DeleteString( int p );
-int AddString( int new_node, int *match_position );
+static void InitTree( int r );
+static void ContractNode( int old_node, int new_node );
+static void ReplaceNode( int old_node, int new_node );
+static int FindNextNode( int node );
+static void DeleteString( int p );
+static int AddString( int new_node, int *match_position );
 
 /*
  * Since the tree is static data, it comes up with every node
