@@ -231,6 +231,7 @@ mrKeyFunction[] =
 
 // Extra keys that are mappable that the mainregion must capture
 #ifndef HW_Debug  //only add these for release builds so that random debug keys will work
+    {{PLUSMINUS   , 0,      0,      0}, 1, RPE_KeyDown},
     {{PAUSEKEY    , 0,      0,      0}, 1, RPE_KeyDown},
     {{PRINTKEY    , 0,      0,      0}, 1, RPE_KeyDown},
     {{ARRUP       , 0,      0,      0}, 1, RPE_KeyDown},
@@ -557,6 +558,8 @@ void mrDockingOrders(char *string, featom *atom)
     dbgMessage("\nDocking orders");
 #endif
 }
+
+
 void mrDeltaFormation(char *string, featom *atom)
 {
     if ((tutorial==TUTORIAL_ONLY) && !tutEnable.bContextFormDelta)
@@ -566,6 +569,8 @@ void mrDeltaFormation(char *string, featom *atom)
     }
     mrSetTheFormation(DELTA_FORMATION);
 }
+
+
 void mrBroadFormation(char *string, featom *atom)
 {
     if ((playPackets) || (universePause) || (mrDisabled))
@@ -580,6 +585,7 @@ void mrBroadFormation(char *string, featom *atom)
     }
     mrSetTheFormation(BROAD_FORMATION);
 }
+
 
 void mrXFormation(char *string, featom *atom)
 {
@@ -596,6 +602,7 @@ void mrXFormation(char *string, featom *atom)
     mrSetTheFormation(DELTA3D_FORMATION);
 }
 
+
 void mrClawFormation(char *string, featom *atom)
 {
     if ((playPackets) || (universePause) || (mrDisabled))
@@ -610,6 +617,7 @@ void mrClawFormation(char *string, featom *atom)
     }
     mrSetTheFormation(CLAW_FORMATION);
 }
+
 
 void mrWallFormation(char *string, featom *atom)
 {
@@ -626,6 +634,7 @@ void mrWallFormation(char *string, featom *atom)
     mrSetTheFormation(WALL_FORMATION);
 }
 
+
 void mrSphereFormation(char *string, featom *atom)
 {
     if ((playPackets) || (universePause) || (mrDisabled))
@@ -641,6 +650,7 @@ void mrSphereFormation(char *string, featom *atom)
     mrSetTheFormation(SPHERE_FORMATION);
 }
 
+
 void mrPicketFormation(char *string, featom *atom)
 {
     if ((playPackets) || (universePause) || (mrDisabled))
@@ -655,6 +665,7 @@ void mrPicketFormation(char *string, featom *atom)
     }
     mrSetTheFormation(CUSTOM_FORMATION);
 }
+
 
 void mrHarvestResources(char *string, featom *atom)
 {
@@ -692,6 +703,8 @@ void mrHarvestResources(char *string, featom *atom)
         }
     }
 }
+
+
 void mrBuildShips(char *string, featom *atom)
 {
     if ((playPackets) || (universePause) || (mrDisabled)) return;
@@ -721,18 +734,15 @@ void mrBuildShips(char *string, featom *atom)
 #endif
 }
 
+
 void mrTradeStuff(char *string, featom *atom)
 {
-
-        tmTradeBegin(ghMainRegion, 0, 0, 0);
+    tmTradeBegin(ghMainRegion, 0, 0, 0);
 
 #if MR_VERBOSE_LEVEL >= 1
     dbgMessage("\nTrading.");
 #endif
 }
-
-
-
 
 
 void mrMoveShips(char *string, featom *atom)
@@ -790,10 +800,14 @@ void mrMoveShips(char *string, featom *atom)
     dbgMessage("\nMove ships.");
 #endif
 }
+
+
 void mrInfo(char *string, featom *atom)
 {
     dbgMessagef("\nInfo - stubbed out.");
 }
+
+
 void mrCancel(char *string, featom *atom)
 {
     if ((playPackets) || (universePause) || (mrDisabled))
@@ -815,6 +829,8 @@ void mrCancel(char *string, featom *atom)
     dbgMessage("\nAll stop - cancel orders.");
 #endif
 }
+
+
 void mrScuttle(char *string, featom *atom)
 {
     static real32 confirmTime=-7.0f;    //initial value
@@ -880,6 +896,8 @@ void mrScuttle(char *string, featom *atom)
         }
     }
 }
+
+
 void mrRetire(char *string, featom *atom)
 {
     if ((playPackets) || (universePause) || (mrDisabled))
@@ -922,9 +940,13 @@ void mrRetire(char *string, featom *atom)
     dbgMessage("\nRetire orders");
 #endif
 }
+
+
 void mrUpdateHyperspaceStatus(bool goForLaunch)
 {
 }
+
+
 void mrHyperspace(char *string, featom *atom)
 {
     extern bool uicButtonReleased;
@@ -944,6 +966,8 @@ void mrHyperspace(char *string, featom *atom)
         }
     }
 }
+
+
 void mrLaunch(char *string, featom *atom)
 {
     if ((playPackets) || (universePause) || (mrDisabled))
@@ -1385,12 +1409,12 @@ void mrScanDebugCodes(sdword ID);
 #endif
 void gpStartInGameEscapeMenu(void);
 
-bool NoShift(void)
+bool NoModifierKeyPressed(void)
 {
     if (keyIsHit(SHIFTKEY) || keyIsHit(CONTROLKEY) || keyIsHit(ALTKEY))
         return FALSE;
-    else
-        return TRUE;
+
+    return TRUE;
 }
 
 void mrSetTheFormation(TypeOfFormation formationtype)
@@ -2038,7 +2062,7 @@ processEscapeKey:
                 //mrTradeStuffTest(NULL, NULL);
 
             }
-            else if (NoShift())
+            else if (NoModifierKeyPressed())
             {
                 if (playPackets)
                     break;  // packet playback or universe paused, can't go into build manager!!
@@ -2049,7 +2073,7 @@ processEscapeKey:
             break;
 
         case CKEY:
-            if (NoShift())
+            if (NoModifierKeyPressed())
             {
 cancelfocus:
                 tutGameMessage("KB_CancelFocus");
@@ -2061,7 +2085,7 @@ cancelfocus:
 
         case DKEY:
 
-            if (NoShift())
+            if (NoModifierKeyPressed())
             {
                 tutGameMessage("KB_Dock");
                 mrDockingOrders(NULL, NULL);
@@ -2084,7 +2108,7 @@ cancelfocus:
         case EKEY:
         //    caseEKey:
 
-            if (NoShift() && ((!(tutorial==TUTORIAL_ONLY)) || tutEnable.bBandSelect))
+            if (NoModifierKeyPressed() && ((!(tutorial==TUTORIAL_ONLY)) || tutEnable.bBandSelect))
             {                                               //'E': select everyone onscreen
                 rectangle fullScreen = {0, 0, MAIN_WindowWidth, MAIN_WindowHeight};
                 MaxSelection tempSelection;
@@ -2105,14 +2129,19 @@ cancelfocus:
                 soundEvent(NULL, UI_Click);
             }
             break;
+			
         case MMOUSE_BUTTON:
         case MMOUSE_DOUBLE:
-        case FKEY:
             if (keyIsHit(ALTKEY))
             {
-                goto focusOnMothership;
+                // attempting to focus on single, possibly enemy, ship but this is handled
+                // elsewhere
+                break;
             }
-            else if ((selSelected.numShips != 0) && NoShift())
+            // fallthrough to FKEY
+			
+        case FKEY:
+			if (selSelected.numShips != 0)
             {
                 MaxSelection tempselected;
 
@@ -2121,13 +2150,14 @@ cancelfocus:
                 soundEvent(NULL, UI_Click);
 
                 tempselected = selSelected;     //copy structure
-                MakeShipMastersIncludeSlaves((SelectCommand *)&tempselected);
-                ccFocus(&universe.mainCameraCommand,(FocusCommand *)&tempselected);
-            }
+				MakeShipMastersIncludeSlaves((SelectCommand *)&tempselected);
+			    ccFocus(&universe.mainCameraCommand,(FocusCommand *)&tempselected);
+			}
             break;
+
         case HKEY:
 
-            if (NoShift())
+            if (NoModifierKeyPressed())
             {
                 tutGameMessage("KB_Harvest");
                 mrHarvestResources(NULL, NULL);
@@ -2190,7 +2220,7 @@ cancelfocus:
 #endif //RND_GL_STATE_DEBUG
 
 
-            if (NoShift())
+            if (NoModifierKeyPressed())
             {
                 tutGameMessage("KB_Launch");
                 mrLaunch(NULL, NULL);
@@ -2307,7 +2337,7 @@ cancelfocus:
                     }
                 }
             }
-            else if (NoShift())
+            else if (NoModifierKeyPressed())
             {
                 tutGameMessage("KB_Move");
                 mrMoveShips(NULL, NULL);
@@ -2330,7 +2360,7 @@ cancelfocus:
             }
 #endif
 
-            if (NoShift())
+            if (NoModifierKeyPressed())
             {
                 tutGameMessage("KB_Research");
                 mrResearch(NULL, NULL);
@@ -2340,7 +2370,7 @@ cancelfocus:
 
         case SKEY:
 
-            if (NoShift())
+            if (NoModifierKeyPressed())
             {
                 tutGameMessage("KB_Scuttle");
                 mrScuttle(NULL, NULL);
@@ -2362,7 +2392,7 @@ cancelfocus:
             }
             break;
         case PKEY:
-            if ((!multiPlayerGame) && NoShift())
+            if ((!multiPlayerGame) && NoModifierKeyPressed())
             {
                 tutGameMessage("KB_Pause");
                 if ((tutorial==TUTORIAL_ONLY) && (!tutEnable.bPauseGame))
@@ -2455,7 +2485,7 @@ cancelfocus:
 
         case VKEY:
 
-            if (NoShift())
+            if (NoModifierKeyPressed())
             {
 forwardfocus:
             tutGameMessage("KB_ForwardFocus");
@@ -2533,7 +2563,7 @@ docapslock:
             break;
 
         case KKEY:
-            if(MakeSelectionKamikazeCapable((SelectCommand *)&selSelected) && NoShift())
+            if(MakeSelectionKamikazeCapable((SelectCommand *)&selSelected) && NoModifierKeyPressed())
             {
                 CommandToDo *command;
                 sdword i;
@@ -2620,10 +2650,15 @@ docapslock:
 
 #if MR_SCREENSHOTS
 
-        // MAC OS X captures F14/F15 (SCROLLKEY/PAUSEKEY) for changing monitor 
-        // brightness so we remap the screenshot functionality to F13 (PRINTKEY)
         case SCROLLKEY:
-        case PRINTKEY:
+
+#ifdef _MACOSX
+        // MAC OS X captures high F-keys for system functions like monitor
+        // brightness and Expose etc so we remap the screenshot functionality to: 
+        case PRINTKEY:     // F13 on extended keyboards
+        case PLUSMINUS:    // key next to the 1 on the top numeric keys under esc for laptops
+                           // which remaps all the function keys to system use
+#endif
 
 #if MAIN_Password
             if (mainScreenShotsEnabled)
@@ -3396,7 +3431,7 @@ void mrObjectClick(Ship *ship)
         }
     }
     else if (keyIsHit(ALTKEY))
-    {                                                       //alt-click: focus on a ship
+    {	                                                       //alt-click: focus on a ship
 #if MR_CAN_FOCUS_ROIDS
         if ((mrCanFocusRoids && !multiPlayerGame) || ship->objtype == OBJ_ShipType || ship->objtype == OBJ_DerelictType)
 #else

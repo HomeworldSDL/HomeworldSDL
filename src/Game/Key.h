@@ -58,6 +58,7 @@
 #define DELETEKEY               SDLK_DELETE
 #define LESSTHAN                SDLK_COMMA
 #define GREATERTHAN             SDLK_PERIOD
+#define PLUSMINUS               SDLK_WORLD_0  // key under ESC and next to upper row numeric 1 
 #define ZEROKEY                 '0'
 #define ONEKEY                  '1'
 #define TWOKEY                  '2'
