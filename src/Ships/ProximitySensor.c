@@ -251,7 +251,7 @@ sdword proxGetBlipRadius(Ship *ship)
     Outputs     :
     Return      : TRUE if the ping times out.
 ----------------------------------------------------------------------------*/
-bool ProximitySensorPingTimeout(struct ping *hellaPing, udword userID, ubyte *userData, bool bRemoveReferences)
+bool ProximitySensorPingTimeout(struct ping *hellaPing, udword userID, char *userData, bool bRemoveReferences)
 {
     ProximitySensorSpec *spec = (ProximitySensorSpec *)((Ship *)userID)->ShipSpecifics;
 

@@ -926,7 +926,7 @@ void lmShipsToLaunchDraw(char *string, featom *atom)
             select.x1 = x+(((rect.x1-rect.x0)*3)/4);
             select.y1 = y-LM_BoxSpacing+fontHeight(" ") + LM_VertSpacing;
             primRectTranslucent2(&select, FEC_ListItemTranslucent);
-            primRectOutline2(&select, 1, FEC_ListItemTranslucentBorder/*selectcol*/ /*);
+            primRectOutline2(&select, 1, FEC_ListItemTranslucentBorder); //selectcol
         }
 
 

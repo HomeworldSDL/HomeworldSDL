@@ -1025,11 +1025,8 @@ void soundEventUpdate(void)
     real32 dist;
     real32 velocity;
     real32 velratio = 1.0f;
-    udword iscapship;
     sdword  numships = 0,
-            numcapships = 0,
-            numabmient = 0;
-    static sdword numbattlechatter = 0;
+            numcapships = 0;
     sword shipangle = 0;
     static real32 tempEQ[SOUND_EQ_SIZE];
     GunInfo *gunInfo;
@@ -1044,7 +1041,6 @@ void soundEventUpdate(void)
     real32 damageratio = 1.0f;
     sdword ambient;
 	ShipSinglePlayerGameInfo *shipSinglePlayerGameInfo;
-	static real32 strikescale = 5.0f;
 	bool damageOn = FALSE;
 	bool noAmbient = FALSE;
 
@@ -1244,7 +1240,7 @@ void soundEventUpdate(void)
 		if (shipclass == CLASS_Fighter)
 		{
 			vol = (sword)(vol * (1.0f - ship->soundevent.coverage));
-			velratio = FIGHTER_VELOCITY_LOWPITCH; + (velocity / ship->staticinfo->staticheader.maxvelocity * FIGHTER_VELOCITY_SCALE);
+			velratio = FIGHTER_VELOCITY_LOWPITCH; //+ (velocity / ship->staticinfo->staticheader.maxvelocity * FIGHTER_VELOCITY_SCALE);
 			if (velratio > FIGHTER_VELOCITY_HIGHPITCH)
 			{
 				velratio = FIGHTER_VELOCITY_HIGHPITCH;
@@ -1253,7 +1249,7 @@ void soundEventUpdate(void)
 		else if (shipclass == CLASS_Corvette)
 		{
 			vol = (sword)(vol * (1.0f - ship->soundevent.coverage));
-			velratio = CORVETTE_VELOCITY_LOWPITCH; + (velocity / ship->staticinfo->staticheader.maxvelocity * CORVETTE_VELOCITY_SCALE);
+			velratio = CORVETTE_VELOCITY_LOWPITCH; //+ (velocity / ship->staticinfo->staticheader.maxvelocity * CORVETTE_VELOCITY_SCALE);
 			if (velratio > CORVETTE_VELOCITY_HIGHPITCH)
 			{
 				velratio = CORVETTE_VELOCITY_HIGHPITCH;

@@ -249,7 +249,6 @@ scriptEntry WarpPreLoadTable[] =
 };
 
 static sdword WarpToLevelEnabled();
-static void SetMissionStartEnemyRUs(char *directory,char *field,void *dataToFillIn);
 static void SetOnMissionCompleteInfo(char *directory,char *field,void *dataToFillIn);
 static void singlePlayerKasMissionStart(sdword missionnum);
 static void singlePlayerStartNis(char *nis, char *script, bool centre, hvector *positionAndAngle);

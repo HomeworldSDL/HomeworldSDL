@@ -995,8 +995,11 @@ int rinEnumerateDevices(void)
     rdevice* gldev;
     rdevice  primaryDev;
     bool primaryVal;
-    int voodoo, maxWidth;
     
+#ifndef _MACOSX_FIX_ME
+    int voodoo, maxWidth;
+#endif
+
 #if 0	/* CRC log only used by Direct3D. */
     if (mainOutputCRC)
     {

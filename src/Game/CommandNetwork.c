@@ -91,7 +91,6 @@ void KeepAliveStartTimers();
 void receivedIAmAlivePacket(HWPacketHeader *packet,udword sizeofPacket);
 void receivedAliveStatusPacket(AliveStatusPacket *packet,udword sizeofPacket);
 
-static void SendCaptainInfoPacket(void);
 void BroadCastHorseRacePacketFromCaptain(ubyte *packet, udword sizeofpacket);
 void BroadCastChatPacketFromCapatain(ChatPacket *packet, udword sizeofpacket);
 

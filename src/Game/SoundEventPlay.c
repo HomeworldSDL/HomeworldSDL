@@ -62,8 +62,6 @@ sdword soundEventPlay(void *object, sdword event, Gun *gun)
     sword pan;
 	sdword i;
     real32 dist;
-    real32 velocity = 0.0f;
-    real32 velratio = 1.0f;
     sdword priority = SOUND_PRIORITY_MIN;
     SpaceObj *spaceobject;
     Effect *effect;
@@ -406,7 +404,6 @@ sdword soundEffectType(Effect *effect, sdword event, sdword objecttype)
     sword vol;
     sword pan;
     real32 dist;
-    sdword priority = SOUND_PRIORITY_MIN;
     real32 tempEQ[SOUND_EQ_SIZE];
     sdword eventflag;
 

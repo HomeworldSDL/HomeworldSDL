@@ -1389,7 +1389,7 @@ typedef struct Ship         // Ship object
     sbyte dontrotateever;
     sbyte dontapplyforceever;
     bool8 shipisattacking;
-    ubyte colorScheme;              //what color scheme does this ship use?
+    sbyte colorScheme;              //what color scheme does this ship use?
     ubyte recentlyAttacked;         // counts down from RECENT_ATTACK_DURATION -- see recentAttacker
     ubyte recentlyFiredUpon;        // same, see firingAtUs
     ubyte chatterBits;              // flags for battle chatter
@@ -1665,7 +1665,7 @@ typedef struct
 
     Node derelictlink;
     DerelictID derelictID;
-    ubyte colorScheme;              //what color scheme does this ship use?
+    sbyte colorScheme;              //what color scheme does this ship use?
     ubyte pad[3];
 
     sdword ambientSoundHandle;      //used by sound engine to keep track of the ambient sound the derelict makes

@@ -335,7 +335,6 @@ void partSetDefaults()
         if ((r) < -1.0f) r = -1.0f; \
         else if ((r) > 1.0f) r = 1.0f;
 
-static psysPtr g_psys = NULL;
 static hmatrix particleHMatrix;
 static matrix  shiprotmatrix;
 static vector  shipposition;

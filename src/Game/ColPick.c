@@ -509,7 +509,7 @@ void cpDirtyPreviewImage()
     Outputs     : updates the current colors (cpBaseRed etc.)
     Return      : 0
 ----------------------------------------------------------------------------*/
-sdword cpValueProcess(regionhandle region, sdword ID, udword event, udword data)
+udword cpValueProcess(regionhandle region, sdword ID, udword event, udword data)
 {
     sdword *hue, *sat, *val, *red, *green, *blue;
     real32 realRed, realGreen, realBlue;
@@ -575,7 +575,8 @@ sdword cpValueProcess(regionhandle region, sdword ID, udword event, udword data)
 
     return(mask);
 }
-sdword cpHueSaturationProcess(regionhandle region, sdword ID, udword event, udword data)
+
+udword cpHueSaturationProcess(regionhandle region, sdword ID, udword event, udword data)
 {
     sdword *hue, *sat, *val, *red, *green, *blue;
     real32 realRed, realGreen, realBlue;

@@ -1556,7 +1556,7 @@ void scriptSetSalvageStatCB(char *directory,char *field,void *dataToFillIn)
 
 void scriptSetSalvagePointCB(char *directory,char *field,void *dataToFillIn)
 {
-    char saltypestr[30];
+    char saltypestr[30] = "";
     SalvageStaticPoint *salvagestaticpoint = (SalvageStaticPoint *)dataToFillIn;
 
     RemoveCommasFromString(field);

@@ -168,6 +168,7 @@ void allianceFormRequestRecievedCB(ChatPacket *packet)
             }
         }
         break;
+        */
         /* //obsolete Now
         case ALLIANCE_RUTRANSFER:
             universe.players[sigsPlayerIndex].resourceUnits += packet->data;

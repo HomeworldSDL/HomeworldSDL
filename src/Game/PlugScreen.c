@@ -749,7 +749,7 @@ void psModeEnd(void)
     Outputs     :
     Return      : void
 ----------------------------------------------------------------------------*/
-ubyte psScreenSkipKey[] = {ESCKEY, SPACEKEY, ENTERKEY, 0};
+udword psScreenSkipKey[] = {ESCKEY, SPACEKEY, ENTERKEY, 0};
 void psScreenStart(char *name)
 {
     sdword index;

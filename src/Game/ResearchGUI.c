@@ -791,7 +791,6 @@ void rmDrawLabButton(LabPrintList *labprint, regionhandle region)
     rectangle rect, progressRect;
     real32 percent, width;
     sdword pos;
-    sdword labid = labprint->labid - 1; // zero based
     PlayerResearchInfo *research = &universe.curPlayerPtr->researchinfo;
 
     rect.x0 = region->rect.x0 + RM_LAB_INSET;
@@ -1725,7 +1724,6 @@ void rmTechImageDraw(featom *atom, regionhandle region)
     char      filename[128];
     sdword    index, lru;
     real32    time=(real32)1.0e22;
-    bool      loaded=FALSE;
     rectangle textureRect;
 
     rmTechImageRegion = region;
@@ -2091,7 +2089,7 @@ void rmUpdateTechList(void)
     PlayerResearchInfo *research=&universe.curPlayerPtr->researchinfo;
     TechnologyType tech;
     sdword index, mask, hastech, canprint=STAT_CANTPRINT;
-    sdword lastHeading = 0, count=0;
+    sdword count=0;
 //    ubyte *data=NULL;
 
     for (index=0;PlayerTechList[index].itemtype!=ITEM_ENDLIST; index++)

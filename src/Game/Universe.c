@@ -184,8 +184,6 @@ static void loadMexDataCB(char *directory,char *field,void *dataToFillIn);
 static void setClassCB(char *directory,char *field,void *dataToFillIn);
 static void scriptSetFramesCB(char *directory,char *field,void *dataToFillIn);
 static void LODScriptLoad(char *directory,char *field,void *dataToFillIn);
-static void setExplosionType(char *directory,char *field,void *dataToFillIn);
-static void scriptSetShipsCB(char *directory,char *field,void *dataToFillIn);
 static void setGunBindInfo(char *directory,char *field,void *dataToFillIn);
 static void setAnimationBindInfo(char *directory,char *field,void *dataToFillIn);
 static void setMadStartInfo(char *directory,char *field,void *dataToFillIn);
@@ -1422,7 +1420,7 @@ static void scriptSetFramesCB(char *directory,char *field,void *dataToFillIn)
 void gunGetDefaultOrientationFromBindings(GunStatic *gunstatic,ShipStaticInfo *statinfo)
 {
     lod *level = &statinfo->staticheader.LOD->level[0];
-    udword numHierarchys = ((meshdata *)level->pData)->nPolygonObjects;
+    //udword numHierarchys = ((meshdata *)level->pData)->nPolygonObjects;
     hmatrix concatenated, nonConcatenated;
 //    mhbinding *binding;
 

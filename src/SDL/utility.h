@@ -178,11 +178,12 @@ void utyForceTopmost(bool bTopMost);
 void utyClipMouse(sdword clip);
 
 void utyNewGameStart(char *name, featom *atom);
+void utyGameQuit(char *name, featom *atom);
 void utyGameQuitToMain(char *name, featom *atom);
 
 //load/save options from disk
 void utyOptionsFileRead(void);
-void utyOptionsFileRead(void);
+void utyOptionsFileWrite(void);
 
 //text entry things
 real32 utyCaretBlinkRate(void);

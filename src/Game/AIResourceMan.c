@@ -99,7 +99,6 @@ sdword NumberOfEasilyAccesibleRUs(Player *player)
 
         numRUs += resource->resourcevalue;
 
-nextnode:
         objnode = objnode->next;
     }
 
