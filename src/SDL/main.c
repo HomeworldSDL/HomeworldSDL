@@ -2797,9 +2797,6 @@ sdword HandleEvent (const SDL_Event* pEvent)
                 switch (pEvent->button.button)
                 {
                     case SDL_BUTTON_LEFT:
-#ifdef _MACOSX_FIX_ME
-                    case SDL_BUTTON_MIDDLE:
-#endif
                         if (!mbDouble[0] && curr_time - mbDownTime[0] <= 500)
                         {
                             keyPressDown(LMOUSE_DOUBLE);
@@ -2813,7 +2810,7 @@ sdword HandleEvent (const SDL_Event* pEvent)
                         }
                         mbDownTime[0] = curr_time;
                     break;
-#ifndef _MACOSX_FIX_ME
+
                     case SDL_BUTTON_MIDDLE:
                         if (!mbDouble[1] && curr_time - mbDownTime[1] <= 500)
                         {
@@ -2827,7 +2824,7 @@ sdword HandleEvent (const SDL_Event* pEvent)
                         }
                         mbDownTime[1] = curr_time;
                     break;
-#endif
+
                     case SDL_BUTTON_RIGHT:
                         if (!mbDouble[2] && curr_time - mbDownTime[2] <= 500)
                         {
@@ -2859,18 +2856,15 @@ sdword HandleEvent (const SDL_Event* pEvent)
                 switch (pEvent->button.button)
                 {
                     case SDL_BUTTON_LEFT:
-#ifdef _MACOSX_FIX_ME
-                    case SDL_BUTTON_MIDDLE:
-#endif
                         keyPressUp(LMOUSE_BUTTON);
                         keyPressUp(LMOUSE_DOUBLE);
                     break;
-#ifndef _MACOSX_FIX_ME
+
                     case SDL_BUTTON_MIDDLE:
                         keyPressUp(MMOUSE_BUTTON);
                         keyPressUp(MMOUSE_DOUBLE);
                     break;
-#endif
+
                     case SDL_BUTTON_RIGHT:
                         keyPressUp(RMOUSE_BUTTON);
                         keyPressUp(RMOUSE_DOUBLE);

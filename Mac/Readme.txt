@@ -18,8 +18,8 @@ You will also need to download and install the (pre-compiled) SDL framework (cur
 \
 Then just choose your IDE environment:\
 \
-    ProjectBuilder => Homeworld.pbproj\
-    XCode          => not yet available but will be shortly :)\
+    XCode          => Homeworld.xcode  (current development IDE)\
+    ProjectBuilder => Homeworld.pbproj (note this project is out-of-date)\
 \
 and you should be able to build a working Macintosh application out-of-the-box. (You will find things a lot easier if you copy the Homeworld game install files (i.e. the game data) into the build directory, so you can start the game with the "build and debug/run" commands.)\
 \
