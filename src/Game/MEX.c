@@ -291,7 +291,7 @@ TractorBeamStatic *mexGetTractorBeamStatic(void *mex)
 
     if (mex == NULL)
     {
-        dbgMessage("\WARNING: ResNozzle info not retrieved. Mesh extensions not loaded");
+        dbgMessage("WARNING: ResNozzle info not retrieved. Mesh extensions not loaded");
         return NULL;
     }
 
