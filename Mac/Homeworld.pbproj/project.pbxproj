@@ -964,8 +964,8 @@
 			);
 			isa = PBXGroup;
 			name = JPG;
-			path = /Users/lmop/Development/Homeworld/Source/Live/homeworld/src/JPG;
-			refType = 0;
+			path = ../src/JPG;
+			refType = 4;
 		};
 		352969B8064AC1DC00000004 = {
 			fileEncoding = 30;
@@ -1772,8 +1772,8 @@
 			);
 			isa = PBXGroup;
 			name = Ships;
-			path = /Users/lmop/Development/Homeworld/Source/Live/homeworld/src/Ships;
-			refType = 0;
+			path = ../src/Ships;
+			refType = 4;
 		};
 		35296C7F064AEBAF00000004 = {
 			fileEncoding = 30;
@@ -2791,8 +2791,8 @@
 			);
 			isa = PBXGroup;
 			name = Generated;
-			path = /Users/lmop/Development/Homeworld/Source/Live/homeworld/src/Generated;
-			refType = 0;
+			path = ../src/Generated;
+			refType = 4;
 		};
 		35296E81064AED8B00000004 = {
 			fileEncoding = 30;
@@ -3496,8 +3496,8 @@
 			);
 			isa = PBXGroup;
 			name = SDL;
-			path = /Users/lmop/Development/Homeworld/Source/Live/homeworld/src/SDL;
-			refType = 0;
+			path = ../src/SDL;
+			refType = 4;
 		};
 		3529705C064B007D00000004 = {
 			fileEncoding = 30;
@@ -4678,8 +4678,8 @@
 			);
 			isa = PBXGroup;
 			name = Game;
-			path = /Users/lmop/Development/Homeworld/Source/Live/homeworld/src/Game;
-			refType = 0;
+			path = ../src/Game;
+			refType = 4;
 		};
 		352979BE064BC11100000004 = {
 			fileEncoding = 30;
@@ -8408,6 +8408,7 @@
 			);
 			isa = PBXGroup;
 			name = src;
+			path = ../src;
 			refType = 4;
 		};
 	};
