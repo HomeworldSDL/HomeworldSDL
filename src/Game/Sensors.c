@@ -3564,6 +3564,9 @@ altCase:
                         }
                     }
                     break;
+                case MKEY:
+                    smDispatch("SM_Dispatch", NULL);
+                    break;
             }
             mrLastKeyPressed = ID;
             mrLastKeyTime = universe.totaltimeelapsed;
@@ -4245,7 +4248,7 @@ void smSensorsBegin(char *name, featom *atom)
 
     //add any additional key messages the sensors manager will need
     regKeyChildAlloc(smViewportRegion, SHIFTKEY, RPE_KeyUp | RPE_KeyDown, smViewportProcess, 1, SHIFTKEY);
-//    regKeyChildAlloc(smViewportRegion, MKEY, RPE_KeyUp | RPE_KeyDown, smViewportProcess, 1, MKEY);
+    regKeyChildAlloc(smViewportRegion, MKEY, RPE_KeyUp | RPE_KeyDown, smViewportProcess, 1, MKEY);
     regKeyChildAlloc(smViewportRegion, FKEY, RPE_KeyUp | RPE_KeyDown, smViewportProcess, 1, FKEY);
     regKeyChildAlloc(smViewportRegion, MMOUSE_BUTTON, RPE_KeyUp | RPE_KeyDown, smViewportProcess, 1, MMOUSE_BUTTON);
 
