@@ -3257,7 +3257,7 @@ void smCullAndFocusSelecting(void)
     smEyeEnd = smCamera.eyeposition;
     smLookEnd = smCamera.lookatpoint;
     smLookStart = centre;
-    vecSub(smEyeStart, smEyeEnd, smEyeEnd);
+    vecSub(smEyeStart, smLookEnd, smEyeEnd);
     vecNormalize(&smEyeStart);
     dbgAssert(smEyeStart.x < (real32)1e19 && smEyeStart.x > (real32)-1e19);
     vecMultiplyByScalar(smEyeStart, CAMERA_FOCUSFAR_DISTANCE);
