@@ -657,7 +657,6 @@ filehandle fileOpen(char *_fileName, udword flags)
                             else
                             {
                                 sdword mainFileNum;
-                                sdword inMain = bigTOCFileExists(&mainTOC, _fileName, (int *)&mainFileNum);
                                 logfileLogf(FILELOADSLOG, " | [M]    %s  | ",
                                             mainNewerAvailable[mainFileNum] == 1 ? "f" : " ");
                             }
@@ -687,7 +686,6 @@ filehandle fileOpen(char *_fileName, udword flags)
                             else
                             {
                                 sdword mainFileNum;
-                                sdword inMain = bigTOCFileExists(&mainTOC, _fileName, (int *)&mainFileNum);
                                 logfileLogf(FILELOADSLOG, " | [M]    %s  | ",
                                             mainNewerAvailable[mainFileNum] == 1 ? "f" : " ");
                             }
@@ -717,7 +715,6 @@ filehandle fileOpen(char *_fileName, udword flags)
                         else
                         {
                             sdword mainFileNum;
-                            sdword inMain = bigTOCFileExists(&mainTOC, _fileName, (int *)&mainFileNum);
                             logfileLogf(FILELOADSLOG, " | [M]    %s  | ",
                                         mainNewerAvailable[mainFileNum] == 1 ? "f" : " ");
                         }
@@ -752,7 +749,6 @@ filehandle fileOpen(char *_fileName, udword flags)
                     else
                     {
                         sdword mainFileNum;
-                        sdword inMain = bigTOCFileExists(&mainTOC, _fileName, (int *)&mainFileNum);
                         logfileLogf(FILELOADSLOG, " | [M]    %s  | ",
                                     mainNewerAvailable[mainFileNum] == 1 ? "f" : " ");
                     }

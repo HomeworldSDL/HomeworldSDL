@@ -1073,8 +1073,11 @@ void btgRender()
     real32 modelview[16], projection[16];
     udword* dlast;
     udword* dnext;
-    extern bool gMosaic;
     static sdword lastFade = 255;
+
+#if MR_KEYBOARD_CHEATS
+    extern bool gMosaic;
+#endif
 
     if (btgHead == NULL)
     {

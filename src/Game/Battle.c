@@ -1316,7 +1316,7 @@ void battlePingEvaluate(void *voidPing, battleping *battlePing)
     Ship *mouthPiece = NULL, *mothership;
     sdword handle;
     CommandToDo *command;
-    SelectCommand *ships;
+    //SelectCommand *ships;
     vector diff;
     udword chances, saveChance[4];
 

@@ -419,7 +419,8 @@ void trInternalTexturesDelete(trhandle handle)
 {
     texreg *reg = trStructure(handle);
     trcolorinfo *oldColorInfos, *newColorInfos;
-    sdword index, colorIndex = trPaletteIndex(handle);
+    sdword index;
+
     udword *handles;
 
     dbgAssert(!trPending(trIndex(handle)));                 //make sure it has internal textures
@@ -2016,7 +2017,6 @@ void trMeshSortListLoad(trmeshsort *sortList)
     sdword index, count;
     sdword paletteIndex;
     texreg *reg, *otherReg;
-    sdword firstIndex = -1;
     trcolorinfo *colorInfo;
     char fullName[PATH_MAX];
     color *colorData;
@@ -2028,6 +2028,7 @@ void trMeshSortListLoad(trmeshsort *sortList)
     ShipRace race;
 
 #if TR_ERROR_CHECKING
+    sdword firstIndex = -1;
     sdword j;
     //make sure all pending textures have the same palette requirements.
     for (index = 0; index < sortList->nTextures; index++)
@@ -3286,7 +3287,6 @@ void trMakeCurrent(trhandle handle)
 {
     ubyte *newPalette;
     texreg *reg;
-    static bool currentAlpha = FALSE;
 
 #if TR_NIL_TEXTURE
     if (GLOBAL_NO_TEXTURES)

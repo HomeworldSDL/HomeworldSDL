@@ -827,7 +827,8 @@ void shSpecularColour(
     else if (specInd == 1)
     {
         vector vpInfNorm[2];
-        real32 alpha0, alpha1;
+        //real32 alpha0;
+        real32 alpha1;
         sdword l, c;
 
         memcpy(&vpInfNorm[0], shLight[0].position, sizeof(vector));

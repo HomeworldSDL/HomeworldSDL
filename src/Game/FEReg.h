@@ -265,7 +265,7 @@ typedef enum
     none,                                       // default texture type
     top, right, left, bottom,                   // texture type for sides
     topleft, topright, bottomleft, bottomright, // texture type for corners
-    decorative                                   // texture type for decorative regions
+    decorative                                  // texture type for decorative regions
 } textype;
 
 typedef enum

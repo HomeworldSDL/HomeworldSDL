@@ -1815,6 +1815,9 @@ textype ferDrawCutout(rectangle dimensions, rectangle cutDimensions,
 
         return left;
     }
+    
+    // NB: should never get here; this is just to keep the compiler happy
+    return none; 
 }
 
 /*-----------------------------------------------------------------------------

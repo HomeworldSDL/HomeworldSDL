@@ -393,9 +393,7 @@ void GravWellGeneratorAddObj(Ship *ship,  Ship *objtoadd)
 void GravAddObjectsInProximity(Ship *gravship)
 {
     Node *objnode = universe.ShipList.head;
-    udword num = universe.ShipList.num;
     GravWellGeneratorStatics *gravwellgeneratorstatics;
-    GravWellGeneratorSpec *spec = (GravWellGeneratorSpec *)gravship->ShipSpecifics;  //maybe don't need
     Ship *ship;
 
     real32 distanceSqr;

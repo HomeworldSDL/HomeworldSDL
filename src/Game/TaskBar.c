@@ -851,7 +851,7 @@ void tbObjectiveItemDraw(rectangle *rect, listitemhandle data)
 {
     sdword     x, y;
     fonthandle oldfont;
-    uiclistitem  *item = data, *listitem;
+    uiclistitem  *listitem;
     tasklistitem  *taskitem = (tasklistitem *)(data->data);
     Objective *objective = (Objective *)((tasklistitem *)(data->data))->objective, *obj;
     char text[TBL_MaxCharsPerLine];
@@ -1339,7 +1339,7 @@ void tbRUs(featom *atom, regionhandle region)
 {
     sdword width;
     fonthandle oldfont;
-    rectangle rect = region->rect;
+    //rectangle rect = region->rect;
 
     oldfont = fontMakeCurrent(tbObjectiveFont);
 
@@ -1359,7 +1359,7 @@ void tbShips(featom *atom, regionhandle region)
 {
     sdword width;
     fonthandle oldfont;
-    rectangle rect = region->rect;
+    //rectangle rect = region->rect;
 
     oldfont = fontMakeCurrent(tbButtonCaptionFont);
 

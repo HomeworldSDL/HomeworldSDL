@@ -2273,7 +2273,6 @@ void etgEffectDraw(Effect *effect)
     sdword index;
     hmatrix coordMatrixX;
     matrix scaledEffectSys;
-    bool bBillboard = FALSE;
     pointSystem *part;
     real32 timeElapsed;
     vector velInverse;

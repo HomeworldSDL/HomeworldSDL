@@ -63,7 +63,7 @@ void ProbeInit(Ship *ship)
 void ProbeHouseKeep(Ship *ship)
 {
     ProbeSpec *spec = (ProbeSpec *) ship->ShipSpecifics;
-    ProbeStatics *probestatics = ((ShipStaticInfo *)(ship->staticinfo))->custstatinfo;
+    //ProbeStatics *probestatics = ((ShipStaticInfo *)(ship->staticinfo))->custstatinfo;
     vector right,heading,testvec;
 
 
@@ -81,7 +81,7 @@ void ProbeHouseKeep(Ship *ship)
             //open wings after being given a move command!
             if(command != NULL && command->ordertype.order == COMMAND_DOCK)
             {
-
+                // don't open sails as we're docking at the end of a mission having not been used during it
             }
             else
             {

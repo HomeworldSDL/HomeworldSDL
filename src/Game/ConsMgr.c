@@ -2517,13 +2517,10 @@ sdword cmLeftArrowProcess(regionhandle region, sdword ID, udword event, udword d
 
     if ( (event == RPE_HoldLeft) && (cmArrowIndex!=-1) && mgAccelerator())
     {
-        bool8 skip = FALSE;
-
         if ((tutorial==TUTORIAL_ONLY) && !tutEnable.bBuildArrows)
             return(0);
 
         cmLeftArrowActive = TRUE;
-
 
         if (keyIsHit(CM_FIVEKEY))
         {

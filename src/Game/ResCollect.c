@@ -460,7 +460,6 @@ bool DustCloudTakesDamage(DustCloud* dustcloud, sdword damagetaken, bool targetW
 ----------------------------------------------------------------------------*/
 void DustCloudChargesUp(DustCloud* dustcloud, sdword damagetaken, bool targetWasAlive)
 {
-    DustCloudStaticInfo* dustcloudstatic = (DustCloudStaticInfo*)dustcloud->staticinfo;
     cloudSystem* csys = (cloudSystem*)dustcloud->stub;
 
     if (!targetWasAlive || csys == NULL)

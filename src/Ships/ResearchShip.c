@@ -476,13 +476,14 @@ void CleanResearchShip(Ship *ship)
 
 void ResearchShipMakeReadyForHyperspace(Ship *ship)
 {
-    ResearchShipSpec *spec = (ResearchShipSpec *)ship->ShipSpecifics;
+//    ResearchShipSpec *spec = (ResearchShipSpec *)ship->ShipSpecifics;
     if(ship->flags & SOF_Slaveable)
     {
         bitClear(ship->slaveinfo->Master->specialFlags,SPECIAL_StopForResearchDocking);
         dockCrushMaster(ship->slaveinfo->Master);
     }
-/*   if(ship->dockvars.reserveddocking != -1)
+/*
+    if(ship->dockvars.reserveddocking != -1)
     {
         sdword dockpointindex;
 

@@ -52,8 +52,8 @@ void DFGFrigateStaticInit(char *directory,char *filename,struct ShipStaticInfo *
 
 void DFGFInit(Ship *ship)
 {
-    DFGFrigateSpec *spec = (DFGFrigateSpec *) ship->ShipSpecifics;
 }
+
 void univDFGFieldEffect(Ship *ship, Bullet *bullet,real32 totaltimeelapsed)
 {
     vector  dir1,shiptobullet;
@@ -62,7 +62,6 @@ void univDFGFieldEffect(Ship *ship, Bullet *bullet,real32 totaltimeelapsed)
     real32 bulletspeed;
     real32 theta;
     matrix rotmatrix,newmatrix,tmpmatrix;
-    DFGFrigateSpec *spec = (DFGFrigateSpec *) ship->ShipSpecifics;
     sdword LOD;
     etglod *etgLOD;
     etgeffectstatic *stat;

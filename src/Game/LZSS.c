@@ -436,7 +436,6 @@ int lzssExpandBuffer(char *input, int inputSize, char *output, int outputSize)
     int match_position;
     BIT_BUFFER *inBuffer;
     char *outBuffer = output;
-    int size = 0;
  
     inBuffer = bitioBufferOpen(input);
 
@@ -483,7 +482,6 @@ int lzssExpandFileToBuffer(BIT_FILE *input, char *output, int outputSize)
     int match_length;
     int match_position;
     char *outBuffer = output;
-    int size = 0;
  
     current_position = 1;
     for ( ; ; ) {

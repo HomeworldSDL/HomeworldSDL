@@ -2458,11 +2458,11 @@ sdword aimProcessSwarmDefense(AITeam *team)
 sdword aimProcessSwarmPod(AITeam *team)
 {
     AITeam *attackSwarm = team->cooperatingTeam, *defenseSwarm = team->cooperatingTeam->cooperatingTeam;
-    paramsSwarmDefense *defParams = &defenseSwarm->curMove->params.swarmdef;
+//    paramsSwarmDefense *defParams = &defenseSwarm->curMove->params.swarmdef;
     AITeamMove *thisMove = team->curMove, *newMove;
     SelectCommand /**enemyShips,*/ *targets;
 //    udword numShips, i;
-    vector current_location, target_location, destination, zerovec = {0,0,0};
+    vector current_location, target_location, destination; //, zerovec = {0,0,0};
     real32 avg_size, dist;
 
     aiuFindArmadaTarget(&target_location, &targets, team->shipList.selection);

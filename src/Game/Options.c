@@ -695,11 +695,9 @@ void opKeyboardDraw(featom *atom, regionhandle region)
 ----------------------------------------------------------------------------*/
 udword opSelectKey(regionhandle region, sdword ID, udword event, udword data)
 {
-    //sdword index;
-    color c = colRGB(250,200,120);
+    //sdword index = cmSelectShipType(region, mouseCursorY());
     uword column=0,row = 0;
 
-    //index = cmSelectShipType(region, mouseCursorY());
     bitClear(data, RF_ShiftBit);
 
     if ((mouseCursorX() > region->rect.x0+OP_KBMarginLeft) &&

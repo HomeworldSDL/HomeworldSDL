@@ -155,6 +155,7 @@ bool MissileDestroyerSpecialTarget(Ship *ship,void *custom)
 
     spec->lasttimeDidSpecialTargeting = universe.totaltimeelapsed;
 
+    // check that the "volley reload time" has passed
     if ((universe.totaltimeelapsed - spec->lasttimeFiredVolley) > mdestroyerstat->missileVolleyTime)
     {
         spec->lasttimeFiredVolley = universe.totaltimeelapsed;
@@ -189,10 +190,7 @@ bool MissileDestroyerSpecialTarget(Ship *ship,void *custom)
                 battleChatterAttempt(SOUND_EVENT_DEFAULT, BCE_COMM_MissleDest_VolleyAttack, ship, SOUND_EVENT_DEFAULT);
             }
         }
-
-
         //////////////////////
-
     }
 
     if (spec->curTargetIndex >= numShipsToTarget)
@@ -249,6 +247,8 @@ bool MissileDestroyerSpecialTarget(Ship *ship,void *custom)
         //didn't try to fire...so lets fly towards a target...lets pick...0
         aishipFlyToShipAvoidingObjs(ship,(Ship *)targets->TargetPtr[0],AISHIP_FastAsPossible|AISHIP_PointInDirectionFlying,0.0f);
     }
+    
+    return FALSE;
 }
 
 CustShipHeader MissileDestroyerHeader =

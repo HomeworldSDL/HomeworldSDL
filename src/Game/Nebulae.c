@@ -1361,7 +1361,6 @@ void nebDrawChunk2(nebChunk* chunk, sdword lod)
 ----------------------------------------------------------------------------*/
 void nebRenderChunk(nebChunk* chunk, sdword lod)
 {
-    vector origin = {0.0f, 0.0f, 0.0f};
     udword i, actualTendrils;
     nebTendril* tendril;
 

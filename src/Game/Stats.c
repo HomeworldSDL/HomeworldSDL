@@ -619,7 +619,6 @@ void GetPostCombatStats(FightStats *fightStats)
 {
     Node *curnode = universe.mainCommandLayer.todolist.head;
     CommandToDo *command;
-    sdword numCommands = universe.mainCommandLayer.todolist.num;
     SelectCommand *selection;
     sdword numShips;
     sdword i;
@@ -1945,13 +1944,13 @@ sdword statsNumShipsNeededToKillFleetStatic(ShipStaticInfo *shipstatic,SelectCom
 // strength of fleet2 against fleet1, e.g. fleet2/fleet1
 real32 statsGetRelativeFleetStrengths(SelectCommand *fleet1,SelectCommand *fleet2)
 {
-    sdword numShips1 = fleet1->numShips;
+    //sdword numShips1 = fleet1->numShips;
     sdword numShips2 = fleet2->numShips;
     sdword j;
-    real32 totalstr1 = 0.0f;
+    //real32 totalstr1 = 0.0f;
     real32 totalstr2 = 0.0f;
 
-    dbgAssert(numShips1 > 0);
+    //dbgAssert(numShips1 > 0);
     dbgAssert(numShips2 > 0);
 #if 0
     for (i=0;i<numShips1;i++)
@@ -1970,11 +1969,11 @@ real32 statsGetRelativeFleetStrengths(SelectCommand *fleet1,SelectCommand *fleet
 // strength of ship against fleet strength, e.g. targetstatic strength / fleet1 strength
 real32 statsGetRelativeFleetStrengthAgainstShip(SelectCommand *fleet1,ShipStaticInfo *targetstatic)
 {
-    sdword numShips1 = fleet1->numShips;
-    real32 totalstr1 = 0.0f;
+    //sdword numShips1 = fleet1->numShips;
+    //real32 totalstr1 = 0.0f;
     real32 totalstr2;
 
-    dbgAssert(numShips1 > 0);
+    //dbgAssert(numShips1 > 0);
 #if 0
     for (i=0;i<numShips1;i++)
     {

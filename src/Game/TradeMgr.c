@@ -472,7 +472,7 @@ void tmCostListDraw(featom *atom, regionhandle region)
     bool        newline=FALSE;
     color c;
     fonthandle currentFont;
-    sdword  numlines,startind=0;
+    sdword  numlines;
 
     currentFont = fontCurrentGet();
     fontMakeCurrent(tmTechListFont);
@@ -635,7 +635,6 @@ sdword tmSelectAvailable(regionhandle region, sdword ID, udword event, udword da
     }
     else if ( (event == RPE_PressRight) && (index!=-1) )
     {
-        bool8 skip = FALSE;
         tmtechinfo = index;
     }
 
@@ -654,11 +653,10 @@ sdword tmSelectAvailable(regionhandle region, sdword ID, udword event, udword da
 void tmTechListDraw(featom *atom, regionhandle region)
 {
     sdword x, y, index;
-    rectangle rect = region->rect;
     color c;
     fonthandle currentFont;
     bool       newline;
-    sdword     numlines, startind=0, buyable=0;
+    sdword     numlines, buyable=0;
     sdword     price;
 
     if (tmTechSelected == -1)
@@ -803,7 +801,6 @@ void tmDialogDraw(featom *atom, regionhandle region)
     bool        justified, done;
     fonthandle oldfont;
 
-    rectangle rect = region->rect;
     char tmKASMissing[] = "Hello there, fellow space travellers!  Until somebdoy gives me some new lines in KAS, that is all I can say.";
 
     tmDialogRegion = region;
@@ -1085,7 +1082,6 @@ void tmTechImageDraw(featom *atom, regionhandle region)
     char      filename[128];
     sdword    index, lru;
     real32    time=(real32)1.0e22;
-    bool      loaded=FALSE;
     rectangle textureRect;
 
     tmTechImageRegion = region;

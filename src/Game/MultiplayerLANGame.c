@@ -1171,7 +1171,10 @@ void lgJoinGame(char*name,featom*atom)
 // callback for sorting the game list window
 bool lgListOfGamesCompare(void *firststruct,void *secondstruct)
 {
+#ifndef _MACOSX_FIX_ME
     sdword i;
+#endif
+
     lggamelist *one = (lggamelist *)(((listitemhandle)firststruct)->data);
     lggamelist *two = (lggamelist *)(((listitemhandle)secondstruct)->data);
 
@@ -1383,9 +1386,12 @@ void lgListOfGamesItemDraw(rectangle *rect, listitemhandle data)
     color       c;
     fonthandle  oldfont;
     lggamelist   *gameinfo = (lggamelist *)data->data;
-    udword passwordlen;
     bool gameinprogress = gameinfo->game.directoryCustomInfo.flag & GAME_IN_PROGRESS;
     bool diffversion = (!CheckNetworkVersionCompatibility(gameinfo->game.directoryCustomInfo.versionInfo));
+
+#ifndef _MACOSX_FIX_ME
+    udword passwordlen;
+#endif
 
     oldfont = fontMakeCurrent(lgListOfGamesFont);
 

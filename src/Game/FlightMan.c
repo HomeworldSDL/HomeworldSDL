@@ -373,10 +373,7 @@ void flightmanTest()
 
 bool flightmanPitchDown(Ship *ship,real32 *totalAngleRotated,real32 degreesToRotate,real32 maxrotspeed,real32 rotaccelmodifier)
 {
-    ShipStaticInfo *shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;
-    real32 rotspeedy;
-
-    rotspeedy = ship->rotinfo.rotspeed.y;
+    real32 rotspeedy = ship->rotinfo.rotspeed.y;
     *totalAngleRotated += universe.phystimeelapsed * rotspeedy;
 
     if (*totalAngleRotated <= -degreesToRotate)
@@ -395,10 +392,7 @@ bool flightmanPitchDown(Ship *ship,real32 *totalAngleRotated,real32 degreesToRot
 
 bool flightmanPitchUp(Ship *ship,real32 *totalAngleRotated,real32 degreesToRotate,real32 maxrotspeed,real32 rotaccelmodifier)
 {
-    ShipStaticInfo *shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;
-    real32 rotspeedy;
-
-    rotspeedy = ship->rotinfo.rotspeed.y;
+    real32 rotspeedy = ship->rotinfo.rotspeed.y;
     *totalAngleRotated += universe.phystimeelapsed * rotspeedy;
 
     if (*totalAngleRotated >= degreesToRotate)
@@ -417,10 +411,7 @@ bool flightmanPitchUp(Ship *ship,real32 *totalAngleRotated,real32 degreesToRotat
 
 bool flightmanRollRight(Ship *ship,real32 *totalAngleRotated,real32 degreesToRotate,real32 maxrotspeed,real32 rotaccelmodifier)
 {
-    ShipStaticInfo *shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;
-    real32 rotspeedz;
-
-    rotspeedz = ship->rotinfo.rotspeed.z;
+    real32 rotspeedz = ship->rotinfo.rotspeed.z;
     *totalAngleRotated += universe.phystimeelapsed * rotspeedz;
 
     if (*totalAngleRotated >= degreesToRotate)
@@ -439,10 +430,7 @@ bool flightmanRollRight(Ship *ship,real32 *totalAngleRotated,real32 degreesToRot
 
 bool flightmanRollLeft(Ship *ship,real32 *totalAngleRotated,real32 degreesToRotate,real32 maxrotspeed,real32 rotaccelmodifier)
 {
-    ShipStaticInfo *shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;
-    real32 rotspeedz;
-
-    rotspeedz = ship->rotinfo.rotspeed.z;
+    real32 rotspeedz = ship->rotinfo.rotspeed.z;
     *totalAngleRotated += universe.phystimeelapsed * rotspeedz;
 
     if (*totalAngleRotated <= -degreesToRotate)
@@ -461,10 +449,7 @@ bool flightmanRollLeft(Ship *ship,real32 *totalAngleRotated,real32 degreesToRota
 
 bool flightmanYawRight(Ship *ship,real32 *totalAngleRotated,real32 degreesToRotate,real32 maxrotspeed,real32 rotaccelmodifier)
 {
-    ShipStaticInfo *shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;
-    real32 rotspeedx;
-
-    rotspeedx = ship->rotinfo.rotspeed.x;
+    real32 rotspeedx = ship->rotinfo.rotspeed.x;
     *totalAngleRotated += universe.phystimeelapsed * rotspeedx;
 
     if (*totalAngleRotated <= -degreesToRotate)
@@ -483,10 +468,7 @@ bool flightmanYawRight(Ship *ship,real32 *totalAngleRotated,real32 degreesToRota
 
 bool flightmanYawLeft(Ship *ship,real32 *totalAngleRotated,real32 degreesToRotate,real32 maxrotspeed,real32 rotaccelmodifier)
 {
-    ShipStaticInfo *shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;
-    real32 rotspeedx;
-
-    rotspeedx = ship->rotinfo.rotspeed.x;
+    real32 rotspeedx = ship->rotinfo.rotspeed.x;
     *totalAngleRotated += universe.phystimeelapsed * rotspeedx;
 
     if (*totalAngleRotated >= degreesToRotate)
@@ -618,7 +600,6 @@ void flightmanFlipTurnInit(Ship *ship,sdword flags)
 bool flightmanFlipTurnExecute(Ship *ship)
 {
     FlipTurnInfo *flipturninfo;
-    ShipStaticInfo *shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;
 
     dbgAssert(ship->flightman == FLIGHTMAN_FLIPTURN);
     flipturninfo = (FlipTurnInfo *)ship->flightmanInfo;
@@ -702,7 +683,6 @@ void flightmanCorkscrewInit(Ship *ship,sdword flags)
 bool flightmanCorkscrewExecute(Ship *ship)
 {
     CorkscrewInfo *corkscrewinfo;
-    ShipStaticInfo *shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;
 
     dbgAssert(ship->flightman == FLIGHTMAN_CORKSCREW);
     corkscrewinfo = (CorkscrewInfo *)ship->flightmanInfo;
@@ -756,7 +736,6 @@ void flightmanImmelmanInit(Ship *ship,sdword flags)
 bool flightmanImmelmanExecute(Ship *ship)
 {
     ImmelmanInfo *immelmaninfo;
-    ShipStaticInfo *shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;
     bool result;
 
     dbgAssert(ship->flightman == FLIGHTMAN_IMMELMAN);
@@ -842,7 +821,6 @@ void flightmanSplitSInit(Ship *ship,sdword flags)
 bool flightmanSplitSExecute(Ship *ship)
 {
     SplitSInfo *splitsinfo;
-    ShipStaticInfo *shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;
     bool result;
 
     dbgAssert(ship->flightman == FLIGHTMAN_SPLIT_S);
@@ -931,7 +909,6 @@ void flightmanHardBankInit(Ship *ship,sdword flags)
 bool flightmanHardBankExecute(Ship *ship)
 {
     HardBankInfo *hardbankinfo;
-    ShipStaticInfo *shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;
     bool result;
 
     dbgAssert(ship->flightman == FLIGHTMAN_HARDBANK);
@@ -1009,7 +986,6 @@ void flightmanSoftBankInit(Ship *ship,sdword flags)
 bool flightmanSoftBankExecute(Ship *ship)
 {
     SoftBankInfo *softbankinfo;
-    ShipStaticInfo *shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;
     bool result;
 
     dbgAssert(ship->flightman == FLIGHTMAN_SOFTBANK);
@@ -1139,7 +1115,6 @@ void flightmanSlalomInit(Ship *ship,sdword flags)
 bool flightmanSlalomExecute(Ship *ship)
 {
     SlalomInfo *slalominfo;
-    ShipStaticInfo *shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;
     vector *curwaypoint;
 
     dbgAssert(ship->flightman == FLIGHTMAN_SLALOM);
@@ -1621,7 +1596,6 @@ void flightmanRollAwayInit(Ship *ship,sdword flags)
 
 bool flightmanRollAwayExecute(Ship *ship)
 {
-    ShipStaticInfo *shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;
     RollAwayInfo *rollawayinfo;
     bool result;
 
@@ -1719,7 +1693,6 @@ void flightmanSplitSEvasiveInit(Ship *ship,sdword flags)
 bool flightmanSplitSEvasiveExecute(Ship *ship)
 {
     SplitSEvasiveInfo *splitsevasiveinfo;
-    ShipStaticInfo *shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;
     bool result;
 
     dbgAssert(ship->flightman == FLIGHTMAN_SPLITS_EVASIVE);
@@ -1821,7 +1794,6 @@ void flightmanHiYoYoInit(Ship *ship,sdword flags)
 bool flightmanHiYoYoExecute(Ship *ship)
 {
     HiYoYoInfo *hiyoyoinfo;
-    ShipStaticInfo *shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;
 
     dbgAssert(ship->flightman == FLIGHTMAN_HIYOYO);
     hiyoyoinfo = (HiYoYoInfo *)ship->flightmanInfo;
@@ -1916,7 +1888,6 @@ void flightmanLoYoYoInit(Ship *ship,sdword flags)
 bool flightmanLoYoYoExecute(Ship *ship)
 {
     LoYoYoInfo *loyoyoinfo;
-    ShipStaticInfo *shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;
 
     dbgAssert(ship->flightman == FLIGHTMAN_LOYOYO);
     loyoyoinfo = (LoYoYoInfo *)ship->flightmanInfo;
@@ -2025,7 +1996,6 @@ void flightmanSideStepInit(Ship *ship,sdword flags)
 bool flightmanSideStepExecute(Ship *ship)
 {
     SideStepInfo *sidestepinfo;
-    ShipStaticInfo *shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;
     bool result;
     bool pitchresult;
 

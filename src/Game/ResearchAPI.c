@@ -677,7 +677,7 @@ sdword rmNumTechRequiredForTech(Player *player, TechnologyType type)
 
 udword rmTechRequiredForTech(Player *player, TechnologyType type)
 {
-    sdword i, numtech=0;
+    sdword i;
     udword techdepend, temp;
 
     temp=player->researchinfo.techstat->TechNeededToResearch[type];
@@ -704,7 +704,7 @@ udword rmTechRequiredForTech(Player *player, TechnologyType type)
 -----------------------------------------------------------------------*/
 udword rmAllTechRequiredforTech(Player *player, TechnologyType type)
 {
-    udword i, numtech=0;
+    udword i;
     udword techdepend,temp;
 
     techdepend = temp = player->researchinfo.techstat->TechNeededToResearch[type];
@@ -731,7 +731,7 @@ udword rmAllTechRequiredforTech(Player *player, TechnologyType type)
 -----------------------------------------------------------------------*/
 udword rmAllTechRequredForShip(Player *player, ShipType type)
 {
-    sdword i, numtech=0;
+    sdword i;
     udword techneeded, temp;
 
     temp = player->researchinfo.techstat->TechNeededToBuildShip[type];
@@ -796,7 +796,6 @@ sdword rmTechRequiredForShip(Player *player, ShipType type)
 ----------------------------------------------------------------------------*/
 bool rmResearchTechForShip(struct Player *player, ShipType type)
 {
-    udword techforship = player->researchinfo.techstat->TechNeededToBuildShip[type];
     udword numtech, techneeded;
     sdword freelab;
     sdword techtoresearch = -1;

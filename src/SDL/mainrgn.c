@@ -2276,7 +2276,6 @@ cancelfocus:
             {
                 focusOnMothership:;
                 {
-                    Ship *mothership = mrMothershipPtr;
                     FocusCommand focus;
                     //focus on mothership
                     if((tutorial==TUTORIAL_ONLY) && !tutEnable.bMothershipFocus)
@@ -4219,7 +4218,6 @@ bool toDrawPulsedLine(vector linestart, vector lineend, real32 pulsesize, color 
     real32 distance, pulsedistance, fadesize;
     vector dirvect, pulsestart, pulseend, fadestart, fadeend;
     bool pulse_at_end = FALSE;
-    udword test = 0;
     bool draw_pulse_beg = TRUE, draw_fadein = FALSE, draw_fadeout = FALSE;
 
     pulse_at_beginning = FALSE;
@@ -4719,10 +4717,9 @@ void toDrawRadialIndicator1(ShipPtr ship, real32 radius, real32 scale,color pass
 {
 
    hmatrix rotmat;
-   vector origin = {0.0, 0.0, 0.0};
-   vector up =    {1.0, 0.0, 0.0};
+   vector up    = {1.0, 0.0, 0.0};
    vector right = {0.0, 1.0, 0.0};
-   vector head =  {0.0, 0.0, 1.0};
+   vector head  = {0.0, 0.0, 1.0};
 
    matrix tmpmat;
    vector lineend,tmpvec1,tmpvec2,tmpvecup1,tmpvecup2,tmpvecright1,tmpvecright2,tmpvechead1,tmpvechead2;
@@ -4935,10 +4932,9 @@ void toDrawRadialIndicator2(ShipPtr ship, real32 radius, real32 scale,color pass
 {
 
    hmatrix rotmat;
-   vector origin = {0.0, 0.0, 0.0};
-   vector up =    {1.0, 0.0, 0.0};
+   vector up    = {1.0, 0.0, 0.0};
    vector right = {0.0, 1.0, 0.0};
-   vector head =  {0.0, 0.0, 1.0};
+   vector head  = {0.0, 0.0, 1.0};
 
    matrix tmpmat;
    vector lineend,tmpvec1,tmpvec2,tmpvecup1,tmpvecup2,tmpvecright1,tmpvecright2,tmpvechead1,tmpvechead2;
@@ -5056,7 +5052,6 @@ void toDrawRadialIndicator2(ShipPtr ship, real32 radius, real32 scale,color pass
    glPopMatrix();
    //stop drawing circles
 
-
    //Turn on 2D primmode
    primModeSet2();
 
@@ -5143,10 +5138,9 @@ void toDrawRadialIndicator3(ShipPtr ship, real32 radius, real32 scale,color pass
 
    hmatrix rotmat;
    real32 newrad;
-   vector origin = {0.0, 0.0, 0.0};
-   vector up =    {1.0, 0.0, 0.0};
+   vector up    = {1.0, 0.0, 0.0};
    vector right = {0.0, 1.0, 0.0};
-   vector head =  {0.0, 0.0, 1.0};
+   vector head  = {0.0, 0.0, 1.0};
    sdword count;
    matrix tmpmat;
    vector circlestart,circlestart2;
@@ -5250,10 +5244,9 @@ void toDrawRadialIndicator4(ShipPtr ship, real32 radius, real32 scale,color pass
 
    hmatrix rotmat;
    real32 newrad;
-   vector origin = {0.0, 0.0, 0.0};
-   vector up =    {1.0, 0.0, 0.0};
+   vector up    = {1.0, 0.0, 0.0};
    vector right = {0.0, 1.0, 0.0};
-   vector head =  {0.0, 0.0, 1.0};
+   vector head  = {0.0, 0.0, 1.0};
    sdword count;
    matrix tmpmat;
    vector circlestart,circlestart2;

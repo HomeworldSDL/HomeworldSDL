@@ -731,7 +731,6 @@ void madAnimBindingMatrix(matrix *destMatrix, vector *destPos, Ship *ship, sdwor
     madanim *anim = ship->madBindings;
     splinecurve *curve;
     vector vec[2];
-    real32 *value = (real32 *)&vec;
     lodinfo *lodInfo;
     mhbinding *bindingListSource;
     hmatrix *hMatrix;

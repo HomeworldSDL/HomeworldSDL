@@ -336,7 +336,6 @@ lod *lodLevelGet(void *spaceObj, vector *camera, vector *ship)
 lod* lodPanicLevelGet(void* spaceObj, vector* camera, vector* ship)
 {
     SpaceObj* obj = (SpaceObj*)spaceObj;
-    lod* LOD = lodLevelGet(spaceObj, camera, ship);
     lodinfo* info = obj->staticinfo->staticheader.LOD;
 
     if (obj->currentLOD == 3)

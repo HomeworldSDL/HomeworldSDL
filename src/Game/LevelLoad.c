@@ -330,7 +330,7 @@ void AddRandomVelocityTowards(SpaceObj *obj,vector *from,vector *towards,real32 
 
 void AddRandomVelocityDirection(SpaceObj *obj,vector *direction,real32 avgVel,real32 deviation)
 {
-    real32 dev2 = deviation*2.0f;
+    //real32 dev2 = deviation*2.0f;
     vector devvector;
 
     devvector.x = 0;//frandom(dev2) - deviation;

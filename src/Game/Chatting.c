@@ -23,9 +23,6 @@
 void recievedChatPacketCB(ubyte *packet,udword sizeofPacket)
 {
 #define chatpacket ((ChatPacket *)packet)
-    char *string = chatpacket->message;
-    uword message_from = ((HWPacketHeader *)packet)->frame;
-
     switch (chatpacket->messageType)
     {
         case CHAT_PACKET:

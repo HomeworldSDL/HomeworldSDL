@@ -2215,7 +2215,7 @@ Ship *aishipmineaquiretarget(Missile *mine)
 {
     blob *MyBlob;
     SelectCommand *shipselection;
-    sdword shipindex = 0;
+    //sdword shipindex = 0;
     Ship *ship;
     Ship *ShiptoRecieveShitPounding = NULL;
     //real32 distanceSqr;

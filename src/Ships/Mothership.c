@@ -164,7 +164,6 @@ void mothershipCleanDoorForHSInstant(Ship *ship)
 void MothershipDoorUpKeep(Ship *ship)
 {
     MothershipSpec *spec = (MothershipSpec *)ship->ShipSpecifics;
-    MothershipStatics *mothershipstatics = (MothershipStatics *)((ship->staticinfo))->custstatinfo;
     vector positionWS,doorHeading,doorRight,doorUp;
     vector heading,up,right;
     matrix coordsysWS;

@@ -575,7 +575,6 @@ extern void *hGLDeviceContext;              //void * is really a HDC
 void psRenderTaskFunction(void)
 {
     static bool shouldSwap;
-    static sdword index;
     static regionhandle reg;
 
     taskYield(0);

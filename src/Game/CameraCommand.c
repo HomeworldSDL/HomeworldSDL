@@ -673,19 +673,15 @@ void CubicLogUnsigned(real32 *pos, real32 *speed, real32 targ, real32 threshold,
 ----------------------------------------------------------------------------*/
 void CameraChase(CameraCommand *cameracommand,real32 zoomfactor)
 {
-Camera *desired = &currentCameraStackEntry(cameracommand)->remembercam;
-vector targetvelocity;
-udword lockedon = 1;
-bool dontUseVelocityPredInChase = FALSE;
-long  Frames, IndZoom, IndAng;
-static real32 oldTime = 0.0f;
-vector deLookVector;
-
-static float angSpeed = 0.0f, decSpeed = 0.0f;
-static float xSpeed = 0.0f, ySpeed = 0.0f;
-static float zSpeed = 0.0f, distSpeed = 0.0f;
-static float eyeXSpeed = 0.0f, eyeYSpeed = 0.0f, eyeZSpeed = 0.0f;
-
+    Camera *desired = &currentCameraStackEntry(cameracommand)->remembercam;
+    vector targetvelocity;
+    bool dontUseVelocityPredInChase = FALSE;
+    long  Frames, IndZoom, IndAng;
+    vector deLookVector;
+    
+    static float angSpeed = 0.0f, decSpeed = 0.0f;
+    static float xSpeed = 0.0f, ySpeed = 0.0f, zSpeed = 0.0f;
+    static float eyeXSpeed = 0.0f, eyeYSpeed = 0.0f, eyeZSpeed = 0.0f;
 
     if (cameracommand->dontUseVelocityPredInChase == TRUE)
     {

@@ -718,11 +718,9 @@ void tacticsSetShipToDoDodge(Ship *ship)
 
 void tacticsDoDodge(Ship *ship)
 {
-    ShipStaticInfo *shipstaticinfo=ship->staticinfo;
 #ifdef DEBUG_TACTICS
     dbgAssert(tacticsOn);
 #endif
-
 
     physApplyForceToObj((SpaceObj *)ship,ship->staticinfo->thruststrengthstat[ship->DodgeDir]*tacticsInfo.DodgeInfo[DODGE_THRUST_MULT][ship->staticinfo->shiptype],ship->DodgeDir);
     if(universe.totaltimeelapsed > ship->DodgeTime)
@@ -884,7 +882,7 @@ void tacticsBeFairToRetreaters(Ship *ship, SelectCommand *targets)
                 }
             }
         }
-nextnode:
+
         node = node->next;
     }
 }
@@ -2065,7 +2063,6 @@ bool tacticsAreEnemiesNearby(Ship *leadership,Ship *thisship, real32 retaliateZo
     sdword objindex = 0;
     SelectCommand *blobships = thisblob->blobShips;
     udword num = blobships->numShips;
-    udword shipIndex = 0;
     Ship *ship;
     vector diff;
     real32 timesincecloak;

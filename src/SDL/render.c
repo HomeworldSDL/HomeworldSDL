@@ -803,7 +803,6 @@ void rndCapScaleCapStatsTaskFunction(void)
     if (selSelected.numShips == 1)
     {
         Ship* ship = selSelected.ShipPtr[0];
-        ShipStaticInfo* shipstaticinfo = (ShipStaticInfo*)ship->staticinfo;
 
         if (ship->trail[0] == NULL)
         {

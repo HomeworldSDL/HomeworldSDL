@@ -474,7 +474,7 @@ void aiplayerChooseEnemies(udword num_players, udword num_human, udword num_comp
     sdword players[MAX_MULTIPLAYER_PLAYERS][MAX_MULTIPLAYER_PLAYERS],
            bigots[MAX_MULTIPLAYER_PLAYERS],
            normcomp[MAX_MULTIPLAYER_PLAYERS];
-    udword humancnt = 0, bigotcnt = 0, normcnt = 0;
+    udword bigotcnt = 0, normcnt = 0;
     udword numbigotsperhuman, numbigotsleftover, numloops, numcompenemies;
     udword slot, i, j;
     sdword giveup;

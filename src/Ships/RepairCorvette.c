@@ -59,13 +59,13 @@ void stopRepairEffect(Ship *ship);
             trackflag = FALSE;                                                              \
         }                                                                                   \
         else                                                                                \
-        {                                                                                       \
-            aitrackZeroVelocity(ship);                                                          \
+        {                                                                                   \
+            aitrackZeroVelocity(ship);                                                      \
         }
-
-//aishipGetTrajectory(ship,(SpaceObjRotImpTarg *)spec->target,&trajectory);         \
-//        range = RangeToTarget(ship,(SpaceObjRotImpTarg *)spec->target,&trajectory);           \
-//                                                                                          \
+/*
+        aishipGetTrajectory(ship,(SpaceObjRotImpTarg *)spec->target,&trajectory);           \
+        range = RangeToTarget(ship,(SpaceObjRotImpTarg *)spec->target,&trajectory);         \
+*/                                                                                          
 
 
 

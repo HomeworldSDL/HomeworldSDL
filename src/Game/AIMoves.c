@@ -173,7 +173,7 @@ void aimCloseGetShips(AITeam *team,AITeamMove *move)
 
 AITeamMove *aimCreateGetShipsNoAdd(AITeam *team, ShipType shiptype, sbyte num_ships, sdword priority, bool8 wait, bool8 remove)
 {
-    TypeOfFormation formation = SAME_FORMATION;
+//    TypeOfFormation formation = SAME_FORMATION;
     AlternativeShips alternatives;
     AITeamMove *newMove = (AITeamMove *)memAlloc(sizeof(AITeamMove), "getshipsmove", 0);
 

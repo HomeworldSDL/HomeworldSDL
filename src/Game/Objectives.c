@@ -218,8 +218,6 @@ void objectiveShutdown(void)
 void objectiveSet(char *label, sdword status)
 {
     Objective *obj = objectiveFind(label);
-    sdword i = 0, completed = 0;
-
 
     if (!obj)
         return;

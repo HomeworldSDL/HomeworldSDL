@@ -1106,7 +1106,7 @@ FontShadowType fontShadowGet(void)
 sdword fontPrintN(sdword x, sdword y, color c, char *string, sdword maxCharacters)
 {
     charheader *character;
-    real32 imageWidth, imageHeight, clipHeight = 0.0f;
+    real32 imageWidth, imageHeight; //, clipHeight = 0.0f;
     sdword clip = 0;
     ubyte ch;
     udword brightRed, brightGreen, brightBlue;

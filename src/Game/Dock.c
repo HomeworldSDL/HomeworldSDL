@@ -360,7 +360,6 @@ Ship *FindAnotherResearchShiptoDockWith(Ship *ship)
     Ship *dockat;
     Ship *closestDockat = NULL;
     ShipStaticInfo *dockatstatic;
-    ShipStaticInfo *shipstatic = (ShipStaticInfo *)ship->staticinfo;
     ResearchShipSpec *spec  = (ResearchShipSpec *)ship->ShipSpecifics;
     real32 timeTest = REALlyBig;
     if(spec->seed == TRUE)
@@ -1755,7 +1754,6 @@ bool dockFlyOutOfCone(Ship *ship,Ship *dockwith,sdword headingdirection,sdword u
 bool dockFlyAboveMothershipDoor(Ship *ship,Ship *dockwith)
 {
     DockStaticPoint *dockstaticpoint = ship->dockvars.dockstaticpoint;
-    real32 backupDistance = dockstaticpoint->flyawaydist;
     vector destination;
     vector dest1;
     vector heading,up,right;
@@ -1790,12 +1788,11 @@ bool dockFlyAboveMothershipDoor(Ship *ship,Ship *dockwith)
 bool dockFlyToBottomOfDoor1(Ship *ship,Ship *dockwith)
 {
     DockStaticPoint *dockstaticpoint = ship->dockvars.dockstaticpoint;
-    real32 backupDistance = dockstaticpoint->flyawaydist;
     vector destination;
     vector dest1;
     vector heading,up,right,doorheading,doorup;
     matrix coordsysWS;
-    bool track = FALSE;
+    //bool track = FALSE;
     bool dest = FALSE;
 
     mothershipGetCargoPosition(dockwith,(SpaceObjRotImpTargGuidanceShipDerelict *)ship,&destination,&coordsysWS,&heading,&up,&right);
@@ -1829,7 +1826,6 @@ bool dockFlyToBottomOfDoor1(Ship *ship,Ship *dockwith)
 bool dockFlyToBottomOfDoor2(Ship *ship,Ship *dockwith)
 {
     DockStaticPoint *dockstaticpoint = ship->dockvars.dockstaticpoint;
-    real32 backupDistance = dockstaticpoint->flyawaydist;
     vector destination;
     vector dest1;
     vector heading,up,right;
@@ -1863,7 +1859,6 @@ bool dockFlyToBottomOfDoor2(Ship *ship,Ship *dockwith)
 bool dockFlyToBottomOfDoor3(Ship *ship,Ship *dockwith)
 {
     DockStaticPoint *dockstaticpoint = ship->dockvars.dockstaticpoint;
-    real32 backupDistance = dockstaticpoint->flyawaydist;
     vector destination;
     vector dest1;
     vector heading,up,right;
@@ -1898,7 +1893,6 @@ bool dockFlyToBottomOfDoor3(Ship *ship,Ship *dockwith)
 bool dockFlyToDoor(Ship *ship,Ship *dockwith)
 {
     DockStaticPoint *dockstaticpoint = ship->dockvars.dockstaticpoint;
-    real32 backupDistance = dockstaticpoint->flyawaydist;
     vector destination;
     vector heading,up,right;
     matrix coordsysWS;
@@ -6183,7 +6177,6 @@ r2dockinstantfinish:
 
 bool LaunchShipFromDefaultShip(Ship *ship,Ship *dockwith)
 {
-    ShipStaticInfo *dockwithstatic = (ShipStaticInfo *)dockwith->staticinfo;
     vector destination;
     vector heading;
 

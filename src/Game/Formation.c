@@ -321,7 +321,6 @@ void formationBiggestThenClosestOptimum(SelectCommand *selection,TypeOfFormation
 void formationArrangeOptimum(struct CommandToDo *formationtodo)
 {
     SelectCommand *selection = formationtodo->selection;
-    sdword numShips = selection->numShips;
 
     dbgAssert(numShips >= ABSOLUTE_MIN_SHIPS_IN_FORMATION);
 
@@ -441,7 +440,11 @@ SphereTableEntry *findSphereTableEntry(sdword numShips)
             return tableentry;
         }
     }
+    
     dbgFatal(DBG_Loc,"\nSphere formation too big");
+    
+    // never going to get here because of the dbgFatal above; this is here just to keep the compiler happy
+    return tableentry;
 }
 
 /*-----------------------------------------------------------------------------
@@ -1879,8 +1882,7 @@ void FormationCalculateOffsets(struct CommandToDo *formationtodo)
             {
                 vector desiredpos = { 0.0f, 0.0f, 0.0f };
                 vector averagepos = { 0.0f, 0.0f, 0.0f };
-                vector error = { 0.0f, 0.0f, 0.0f };
-                vector desiredv = { 0.0f, 0.0f, 0.0f };
+                vector error      = { 0.0f, 0.0f, 0.0f };
                 Ship *ship;
                 real32 minError,totalError;
                 sdword minErrorIndex;
@@ -2417,8 +2419,7 @@ void FormationCalculateSpecialOffsets(struct CommandToDo *formationtodo)
             {
                 vector desiredpos = { 0.0f, 0.0f, 0.0f };
                 vector averagepos = { 0.0f, 0.0f, 0.0f };
-                vector error = { 0.0f, 0.0f, 0.0f };
-                vector desiredv = { 0.0f, 0.0f, 0.0f };
+                vector error      = { 0.0f, 0.0f, 0.0f };
                 Ship *ship;
                 real32 minError,totalError;
                 sdword minErrorIndex;
@@ -2545,7 +2546,7 @@ void formationArrageCrazyOptimum(CommandToDo *formationcommand)
     bool redo = FALSE;
 
     matrix *coordsys;
-    vector center = {0.0f,0.0f,0.0f};
+    //vector center = {0.0f,0.0f,0.0f};
     sdword shipwhogetsit;
     vector tempvec;
     Ship *ship;
@@ -2639,7 +2640,10 @@ void formationArrageCrazyOptimum(CommandToDo *formationcommand)
             matMultiplyMatByVec(&positions[i],coordsys,&ship->formationOffset);
             vecAddTo(positions[i],selection->ShipPtr[0]->posinfo.position);
 
-            selection->ShipPtr[i]->formationOffset;
+            // This line doesn't do anything but it was probably intended to do something...
+            // I've left it here in case someone debugging this code needs this as part of the solution!
+            //selection->ShipPtr[i]->formationOffset;
+
             shipWantsPosition[i]=0;
             shipGetsPosition[i]=0;
             positionTaken[i] = FALSE;

@@ -789,8 +789,6 @@ void trailDrawCapitalGlow(shiptrail* trail, sdword LOD)
     ShipStaticInfo* shipstaticinfo = (ShipStaticInfo*)ship->staticinfo;
     real32 maxvel, mag, velratio;
     vector vel, pos;
-    real32 w = 20.0f;
-    real32 h = 60.0f;
     hmatrix coordMatrixForGL;
     real32 scaleFactor;
     real32 scale[3];

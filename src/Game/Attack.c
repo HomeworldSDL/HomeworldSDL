@@ -45,7 +45,6 @@ scriptStructEntry AttackSideStepParametersScriptTable[] =
 bool needToGoToSameVerticalPlane(Ship *ship,SpaceObjRotImpTarg *target, real32 tolerance, real32 speedToleranceSqr)
 {
     real32 ydist,speedSqr;
-    sdword retValue = 0;
 
     if ((ship->shiptype == Carrier) || (ship->shiptype == MissileDestroyer) || (ship->shiptype == P1Mothership))
     {

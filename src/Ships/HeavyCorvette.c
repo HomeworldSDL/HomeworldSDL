@@ -237,9 +237,6 @@ bool flytoBurstPosition(Ship *ship)
 bool doBurstFire(Ship *ship)
 {
     HeavyCorvetteSpec *spec = (HeavyCorvetteSpec *)ship->ShipSpecifics;
-    GunInfo *gunInfo = ship->gunInfo;
-    sdword numGuns = gunInfo->numGuns;
-    //Gun *gun;
     sdword done;
     vector trajectory,heading;
     real32 range,one_over_range;
@@ -268,8 +265,6 @@ bool doBurstFire(Ship *ship)
 
     //fix later
     spec->bulletLifeTime = range*oneOverburstSpeed;
-
-
 
     bitSet(ship->specialFlags,SPECIAL_BurstFiring);
     done = gunShootGunsAtTarget(ship,&dummyTarg,0.0f,&trajectory);

@@ -1353,7 +1353,6 @@ sdword mgCommandComplete(char *text, char *commandstr, bool preGameChat)
     sdword      j,i,nummatches, command=-1;
     char        toname[64], compname[64];
     bool        done=FALSE;
-    bool        matched=FALSE;
 
     // if not command at all then return NULL
     if (text[0]!='!') return(-1);
@@ -3037,8 +3036,9 @@ bool channelAlreadyExists(wchar_t *channelname)
         }
     }
     tpUnLockChannelList();
-    return FALSE;
 #endif
+
+    return FALSE;
 }
 
 void mgCreateChannelNow(char*name,featom *atom)
@@ -3266,7 +3266,10 @@ void mgListOfGamesBack(char *name, featom *atom)
 // callback for sorting the game list window
 bool mgListOfGamesCompare(void *firststruct,void *secondstruct)
 {
+#ifndef _MACOSX_FIX_ME
     sdword i;
+#endif
+
     gamelist *one = (gamelist *)(((listitemhandle)firststruct)->data);
     gamelist *two = (gamelist *)(((listitemhandle)secondstruct)->data);
 
@@ -3496,9 +3499,12 @@ void mgListOfGamesItemDraw(rectangle *rect, listitemhandle data)
     color       c;
     fonthandle  oldfont;
     gamelist   *gameinfo = (gamelist *)data->data;
-    udword passwordlen;
     bool gameinprogress = gameinfo->game.directoryCustomInfo.flag & GAME_IN_PROGRESS;
     bool diffversion = (!CheckNetworkVersionCompatibility(gameinfo->game.directoryCustomInfo.versionInfo));
+
+#ifndef _MACOSX_FIX_ME
+    udword passwordlen;
+#endif
 
     oldfont = fontMakeCurrent(mgListOfGamesFont);
 

@@ -659,7 +659,6 @@ udword feScrollBarProcess(regionhandle region, sdword ID, udword event, udword d
 ----------------------------------------------------------------------------*/
 udword feListWindowProcess(regionhandle region, sdword ID, udword event, udword data)
 {
-    featom *atom = (featom *)ID;
     listwindowhandle listwindow = (listwindowhandle)region;
 
     dbgAssert(atom->type == FA_ListWindow);
@@ -2246,7 +2245,7 @@ regionhandle feScreenStart(regionhandle parent, char *screenName)
 {
     regionhandle baseRegion, temp;
     fescreen *newScreen;
-    udword numButtons = 0, numRadioButtonsExtra = 0;
+    udword numButtons = 0;
     udword i;
 
     while (feMenuLevel)

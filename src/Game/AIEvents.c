@@ -414,7 +414,7 @@ sdword aieCheckEnemyNotNearby(AITeam *team)
         }
     }
 
-  end:
+//  end:
     aiumemFree(ships);
     return TRUE;
 }

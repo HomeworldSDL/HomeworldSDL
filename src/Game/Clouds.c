@@ -1290,7 +1290,6 @@ void cloudRenderSystem(void* mesh, cloudSystem* system, sdword lod)
     color cloudColor = system->cloudColor;
     udword i;
     bool fogOn;
-    extern vector g_RndPosition;
 
     if (system == NULL)
     {

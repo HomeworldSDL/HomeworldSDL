@@ -3045,8 +3045,6 @@ void kasfKamikazeEveryone(GrowSelection *targets)
 
 void kasfSpecialToggle(void)
 {
-    real32 maxHealth = 0.0, actualHealth = 0.0;
-
     if (!CurrentTeamP || !CurrentTeamP->shipList.selection->numShips)
         return;
     clWrapSpecial(&universe.mainCommandLayer, CurrentTeamP->shipList.selection, NULL);

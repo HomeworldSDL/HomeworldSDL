@@ -621,7 +621,7 @@ void spGoNowHyperspaceCB(char *string, featom *atom)
                 SelectCommand selectone;
 //                if (!(ship->specialFlags & SPECIAL_SinglePlayerWithinHyperSpaceRange))
 //                {
-putinparade:
+//putinparade:
                     selectone.ShipPtr[0] = ship;
                     selectone.numShips = 1;
                     RemoveShipsFromDoingStuff(&universe.mainCommandLayer,&selectone);

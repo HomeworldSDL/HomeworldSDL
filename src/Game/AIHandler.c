@@ -630,7 +630,6 @@ void aihGravWellEnemyNotNearbyHandler(AITeam *team)
 void aihFastDefenseDistressHandler(struct AITeam *team, udword *intvar)
 {
     AITeamMove *newMove, *thisMove = team->curMove;
-    SelectCommand *HandlerShips = (SelectCommand *)(*intvar);
     SelectCommand *enemyShips;
     MaxSelection invadingShips, distressShips;
     udword i;
@@ -716,7 +715,6 @@ void aihFastDefenseDistressHandler(struct AITeam *team, udword *intvar)
 void aihSlowDefenseDistressHandler(struct AITeam *team, udword *intvar)
 {
     AITeamMove *newMove, *thisMove = team->curMove;
-    SelectCommand *HandlerShips = (SelectCommand *)(*intvar);
     SelectCommand *enemyShips;
     MaxSelection distressShips, invadingShips;
     udword i;

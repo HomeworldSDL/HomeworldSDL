@@ -354,12 +354,12 @@ void P2MultiBeamFrigateAttackPassive(Ship *ship,Ship *target,bool rotate)
 
 void P2MultiBeamFrigateHouseKeep(Ship *ship)
 {
-    P2MultiBeamFrigateSpec *spec = (P2MultiBeamFrigateSpec *)ship->ShipSpecifics;
-//    ShipStaticInfo         *shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;
-  //  real32 desiredrotspeed;
-  //  real32 rotspeed;
-
 /*
+    P2MultiBeamFrigateSpec *spec = (P2MultiBeamFrigateSpec *)ship->ShipSpecifics;
+    ShipStaticInfo         *shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;
+    real32 desiredrotspeed;
+    real32 rotspeed;
+
     if (spec->spining)
     {
         if (universe.totaltimeelapsed - spec->aiattacklast > 0.15)
@@ -378,7 +378,7 @@ void P2MultiBeamFrigateHouseKeep(Ship *ship)
                 }
         }
     }
-    */
+*/
 }
 
 CustShipHeader P2MultiBeamFrigateHeader =

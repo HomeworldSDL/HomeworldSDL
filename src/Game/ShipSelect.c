@@ -1767,7 +1767,7 @@ SelectCommand *selectSelectionIntersection(SelectCommand *selection1, SelectComm
 SelectCommand *selectMergeTwoSelections(SelectCommand *selection1, SelectCommand *selection2, udword dealloc)
 {
     SelectCommand *new_selection;
-    udword num_ships = 0, i, j;
+    udword i, j;
 
     if (selection1 == NULL)
     {
@@ -1832,7 +1832,6 @@ SelectCommand *selectMergeTwoSelections(SelectCommand *selection1, SelectCommand
                 break;
         }
     }
-
 
     return new_selection;
 }
@@ -1988,7 +1987,7 @@ void growSelectAddShipNoDuplication(GrowSelection *growSelect, Ship *ship)
 
 bool MakeSelectionKamikazeCapable(SelectCommand *selection)
 {
-    sdword numShips = 0,i;
+    sdword i;
 
     for (i = 0; i < selection->numShips; )
     {

@@ -510,12 +510,17 @@ SelectCommand *convertNetSelectionToSelectCommand(NetSelection *netselection,boo
         else
         {
             shipPlayerIndex = selectCommand->ShipPtr[i]->playerowner->playerIndex;
-            if ((shipPlayerIndex >= 0) && (shipPlayerIndex < tpGameCreated.numPlayers))     // if it's a human ship
-            if (shipPlayerIndex != from)                                                    // do further cheat check - only can control own ship
+            
+            // if it's a human ship
+            if ((shipPlayerIndex >= 0) && (shipPlayerIndex < tpGameCreated.numPlayers))
             {
-                selectCommand->ShipPtr[i] = NULL;       // reject ship
-                someShipsDied = TRUE;
-                someShipsOrderedByWrongPlayer = TRUE;
+                // do further cheat check - only can control own ship
+                if (shipPlayerIndex != from)
+                {
+                    selectCommand->ShipPtr[i] = NULL;       // reject ship
+                    someShipsDied = TRUE;
+                    someShipsOrderedByWrongPlayer = TRUE;
+                }
             }
         }
     }

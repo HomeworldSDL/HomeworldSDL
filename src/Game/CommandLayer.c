@@ -1572,7 +1572,6 @@ bool delegateCommand(CommandToDo *attacktodo,sdword group,sdword doform, SelectC
     sdword numShips = selection->numShips;
     sdword allNotAttacking;
     sdword formationoverride = FALSE;
-    sdword numShipsToAttack = attack->numTargets;
     Ship *ship;
     sdword pee;
     Ship *tempship;
@@ -5335,8 +5334,6 @@ void RemoveAttackTargetFromExtraAttackInfo(SpaceObjRotImpTarg *targettoremove,Co
     sdword i;
     SelectCommand *selection = todo->selection;
     sdword numShips = selection->numShips;
-    AttackCommand *attack = todo->attack;
-    sdword numShipsToAttack = attack->numTargets;
     Ship *ship;
     AttackTargets *multipleAttackTargets;
 
@@ -6363,7 +6360,6 @@ void clPassiveAttack(CommandLayer *comlayer,SelectCommand *selectcom,AttackComma
 ----------------------------------------------------------------------------*/
 void ChangeOrderToSpecial(CommandToDo *alreadycommand,SpecialCommand *targets)
 {
-    SelectCommand *selection = alreadycommand->selection;
     SpecialCommand *specialtargets;
     udword sizeofspecialtargets;
 
@@ -8835,7 +8831,6 @@ processdock:
                     {
                         if (command->dock.wasHarvesting)
                         {
-                            Ship *resourceShip = command->selection->ShipPtr[0];
                             dbgAssert(command->selection->numShips == 1);
 
                             // changing COMMAND_DOCK to COMMAND_COLLECTRESOURCE

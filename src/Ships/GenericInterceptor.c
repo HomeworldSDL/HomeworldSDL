@@ -1225,7 +1225,6 @@ void CloakedFighterHouseKeep(Ship *ship)
 
 bool InterceptorInRange(Ship *ship,SpaceObjRotImpTarg *target)
 {
-    GenericInterceptorSpec *spec = (GenericInterceptorSpec *)ship->ShipSpecifics;
     GenericInterceptorStatics *interceptorstat = (GenericInterceptorStatics *)ship->staticinfo->custstatinfo;
     real32 range;
     uword targetIndex;

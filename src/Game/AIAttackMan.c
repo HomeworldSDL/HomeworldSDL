@@ -230,7 +230,7 @@ void aiaArmada(void)
 ----------------------------------------------------------------------------*/
 ShipPtr aiaGetTakeoutTarget(void)
 {
-    udword i,j=0;
+    udword i;
     ShipPtr targetship;
     SelectCommand *temp_sel;
     SelectCommand *target_sel = memAlloc(sizeofSelectCommand(TOTAL_NUM_SHIPS), "tata", Pyrophoric);

@@ -301,7 +301,6 @@ hvector *kasShipsVectorPtr(char *label)
     static hvector errorPos= {0, 0, 0, 1};  // safe fallback
     static hvector location;
     vector loc;
-    sdword i = 0;
     GrowSelection *grow;
     real32 dummy;
 
