@@ -8,7 +8,7 @@
 #include "LZSS.h"
 
 #ifdef BF_HOMEWORLD
-#include "types.h"
+#include "../../src/Game/Types.h"
 #include "memory.h"
 #include "debug.h"
 #include "file.h"

@@ -9,7 +9,7 @@
 #ifndef ___CRC32_H
 #define ___CRC32_H
 
-#include "types.h"
+#include "../../src/Game/Types.h"
 
 /*=============================================================================
     Type definitions
