@@ -2155,7 +2155,7 @@ sdword partAdvanceTexAnim(billSystem* bsys, particle* p)
             {
                 return frame;   //found the start of the loop
             }
-            else if ((sdword)next->tex == -1)
+            else if (next->tex == 0x7fffffff)
             {
                 return -1;      //error condition
             }
@@ -2165,7 +2165,7 @@ sdword partAdvanceTexAnim(billSystem* bsys, particle* p)
     //find the trivial next
     frame = (sdword)p->currentFrame + 1;
     next = animblock + frame;
-    if ((sdword)next->tex == -1)
+    if (next->tex == 0x7fffffff)
     {
         if (!p->loop)
         {
