@@ -1411,10 +1411,7 @@ void gpStartInGameEscapeMenu(void);
 
 bool NoModifierKeyPressed(void)
 {
-    if (keyIsHit(SHIFTKEY) || keyIsHit(CONTROLKEY) || keyIsHit(ALTKEY))
-        return FALSE;
-
-    return TRUE;
+    return !(keyIsHit(SHIFTKEY) || keyIsHit(CONTROLKEY) || keyIsHit(ALTKEY));
 }
 
 void mrSetTheFormation(TypeOfFormation formationtype)
