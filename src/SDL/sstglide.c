@@ -11,7 +11,6 @@
 #else
 #include <dlfcn.h>
 #endif
-#include "SDL_loadso.h"
 #include <string.h>
 #include <glide.h>
 #include "sstglide.h"
@@ -21,6 +20,12 @@
 #define APIENTRY __stdcall
 #else
 #define APIENTRY
+#endif
+
+#ifdef _WIN32
+#define DLL_GETPROCADDRESS(LIB, SYM) GetProcAddress(LIB, SYM)
+#else
+#define DLL_GETPROCADDRESS(LIB, SYM) dlsym(LIB, SYM)
 #endif
 
 static bool sstHaveGlide = FALSE;
@@ -49,14 +54,14 @@ bool sstHardwareExists(sdword* type)
     if (!lib)
         lib = (void*)LoadLibrary("glide2x.dll");
 #else
-    lib = dlopen("libglide2x.so", RTLD_NOW);
+    lib = dlopen("libglide2x.so", RTLD_GLOBAL | RTLD_NOW);
 #endif
     if (!lib)
     {
         return FALSE;
     }
 
-    sstQueryBoards = (GRSSTQUERYBOARDSproc)SDL_LoadFunction(lib, "grSstQueryBoards");
+    sstQueryBoards = (GRSSTQUERYBOARDSproc)DLL_GETPROCADDRESS(lib, "grSstQueryBoards");
     if (sstQueryBoards == NULL)
     {
         return FALSE;
@@ -139,7 +144,7 @@ void sstStartup(void)
     if (!lib)
         lib = (void*)LoadLibrary("glide2x.dll");
 #else
-    lib = dlopen("libglide2x.so", RTLD_NOW);
+    lib = dlopen("libglide2x.so", RTLD_GLOBAL | RTLD_NOW);
 #endif
     if (!lib)
     {
@@ -147,11 +152,11 @@ void sstStartup(void)
         return;
     }
 
-    sstLfbLock = (GRLFBLOCKproc)SDL_LoadFunction(lib, "grLfbLock");
-    sstLfbUnlock = (GRLFBUNLOCKproc)SDL_LoadFunction(lib, "grLfbUnlock");
-    sstBufferSwap = (GRBUFFERSWAPproc)SDL_LoadFunction(lib, "grBufferSwap");
-    sstSstIdle = (GRSSTIDLEproc)SDL_LoadFunction(lib, "grSstIdle");
-    sstQueryBoards = (GRSSTQUERYBOARDSproc)SDL_LoadFunction(lib, "grSstQueryBoards");
+    sstLfbLock = (GRLFBLOCKproc)DLL_GETPROCADDRESS(lib, "grLfbLock");
+    sstLfbUnlock = (GRLFBUNLOCKproc)DLL_GETPROCADDRESS(lib, "grLfbUnlock");
+    sstBufferSwap = (GRBUFFERSWAPproc)DLL_GETPROCADDRESS(lib, "grBufferSwap");
+    sstSstIdle = (GRSSTIDLEproc)DLL_GETPROCADDRESS(lib, "grSstIdle");
+    sstQueryBoards = (GRSSTQUERYBOARDSproc)DLL_GETPROCADDRESS(lib, "grSstQueryBoards");
 
     if (sstLfbLock == NULL ||
         sstLfbUnlock == NULL ||

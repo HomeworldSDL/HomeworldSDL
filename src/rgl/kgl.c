@@ -8,9 +8,9 @@
 
 #ifdef _WIN32
 #include <windows.h>
+#else
+#include <dlfcn.h>
 #endif
-
-#include "SDL_loadso.h"  // Why not included from "SDL.h"?
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -2792,7 +2792,15 @@ static GLboolean gl_driver_init(GLboolean reload)
         strcat(fname, ".so");
 #endif
 
-        lib = SDL_LoadObject(fname);
+#ifdef _WIN32
+        lib = GetModuleHandle(fname);
+        if (lib == NULL)
+        {
+            lib = LoadLibrary(fname);
+        }
+#else
+        lib = dlopen(fname, RTLD_GLOBAL | RTLD_NOW);
+#endif
         if (lib == NULL)
         {
             strcat(fname, " : couldn't load driver");
@@ -2800,7 +2808,11 @@ static GLboolean gl_driver_init(GLboolean reload)
             return GL_FALSE;
         }
 
-        init_driver = (GLboolean(*)())SDL_LoadFunction(lib, "init_driver");
+#ifdef _WIN32
+        init_driver = (GLboolean(*)())GetProcAddress(lib, "init_driver");
+#else
+        init_driver = (GLboolean(*)())dlsym(lib, "init_driver");
+#endif
         if (init_driver == NULL)
         {
             return GL_FALSE;

@@ -31,7 +31,7 @@ dnl "bool" supported by C++ compiler?
 AC_CXX_BOOL
 
 dnl Check for SDL.
-SDL_VERSION=1.2.6
+SDL_VERSION=1.2.0
 AM_PATH_SDL($SDL_VERSION,
             :,
             AC_MSG_ERROR([*** SDL version $SDL_VERSION not found!])
