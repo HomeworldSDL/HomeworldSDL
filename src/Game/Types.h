@@ -19,6 +19,17 @@
     #include "SDL_types.h"
 #endif
 
+/* Use the value for MAX_PATH as the maximum path length when using Visual
+   C++. */
+#ifdef _MSC_VER
+    #ifndef WIN32_LEAN_AND_MEAN
+        #define WIN32_LEAN_AND_MEAN
+        #include <windows.h>
+    #endif
+
+    #define PATH_MAX MAX_PATH
+#endif
+
 /*-------------------------------------------------------------------------
    Declare size of integers in bytes by compiler type
 --------------------------------------------------------------------------*/
@@ -29,12 +40,14 @@
 /*-----------------------------------------------------------------------------
     Warning turn ons:
 -----------------------------------------------------------------------------*/
+#ifdef _MSC_VER
 #pragma warning( 2 : 4013)  //function undefined
 #pragma warning( 2 : 4035)  //no return value
 #pragma warning( 2 : 4101)  //unreferenced local variable
 #pragma warning( 2 : 4245)  //signed/unsigned mismatch
 #pragma warning( 2 : 4505)  //spots unused local functions
 #pragma warning( 2 : 4706)  //spots '=' instead of '==' in conditional statements
+#endif
 
 /*-------------------------------------------------------------------------
    Declare basic integer data types
@@ -243,7 +256,4 @@ float  SwapFloat( float val );
 #define sphereArea(radius)          (4.0f * PI * (radius) * (radius))
 #define sphereVolume(radius)        (4.0f / 3.0f * PI * (radius) * (radius) * (radius))
 
-#define PATH_MAX	1024
-
 #endif  // ___TYPES_H
-

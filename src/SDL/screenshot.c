@@ -8,6 +8,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <limits.h>
 #include "main.h"
 #include "Debug.h"
 #include "screenshot.h"

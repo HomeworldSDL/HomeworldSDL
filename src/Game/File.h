@@ -1,5 +1,5 @@
 /*=============================================================================
-    FILE.C:  Definitions for file I/O.  This includes .BIG files and regular
+    File.h:  Definitions for file I/O.  This includes .BIG files and regular
         files.
 
     Created June 1997 by Luke Moloney
@@ -34,6 +34,19 @@
 #define FILE_PREPEND_PATH       1               //prepend a fixed path to the start of all file open requests
 
 #endif //HW_Debug
+
+// If not already defined (such as through a configure setting), define
+// whether or not case-insensitive searches for files should be performed
+// based on the target platform.
+#ifndef FILE_CASE_INSENSITIVE_SEARCH
+
+#if defined (_WIN32) || defined (_MACOSX)
+#define FILE_CASE_INSENSITIVE_SEARCH 0
+#else
+#define FILE_CASE_INSENSITIVE_SEARCH 1
+#endif  // defined (_WIN32) || defined (_MACOSX)
+
+#endif  // !defined (FILE_CASE_INSENSITIVE_SEARCH)
 
 /*=============================================================================
     Definitions:
@@ -158,4 +171,3 @@ void logfileLog(char *logfile,char *str);
 void logfileLogf(char *logfile,char *format, ...);
 
 #endif //___FILE_H
-

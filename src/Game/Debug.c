@@ -9,6 +9,7 @@
 #include <stdarg.h>
 #include <string.h>
 #include <time.h>
+#include <limits.h>
 #include "resource.h"
 #include "Types.h"
 #include "utility.h"

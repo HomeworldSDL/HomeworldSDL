@@ -1,9 +1,18 @@
 /*=============================================================================
-    File.C: Functions for reading and saving files, including .BIG files.
+    File.c: Functions for reading and saving files, including .BIG files.
 
     Created June 1997 by Luke Moloney
     Updated August 1998 by Darren Stone - added bigfile support
 =============================================================================*/
+
+#ifdef _WIN32
+    #define WIN32_LEAN_AND_MEAN
+    #include <windows.h>
+    #include <direct.h>
+#else
+    #include <dirent.h>
+    #include <ctype.h>
+#endif
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,7 +20,6 @@
 #include <limits.h>
 #include <stdarg.h>
 #include <sys/stat.h>
-#include <ctype.h>
 
 #include "Types.h"
 #include "Memory.h"
@@ -82,9 +90,9 @@ static sdword decompWorkspaceInUse = FALSE;
 
 /*-----------------------------------------------------------------------------
     Name        : fileNameReplaceSlashes
-    Description : Replaces slashes in the file name with slashes used by the
-                  target platform to separate path components in the local
-                  filesystem.
+    Description : Replaces all backward slashes (\) in the file name with
+                  forward slashes (/) for use with local filesystem
+                  operations.
     Inputs      : fileName - Path and name of file.
     Outputs     : fileName - Modified file name.
     Return      : (None.)
@@ -92,21 +100,23 @@ static sdword decompWorkspaceInUse = FALSE;
                   replaced as needed within BIG file functions).  Slashes are
                   also not condensed as with filenameSlashMassage() in
                   BigFile.c.
+
+                  Windows is the only platform currently supported that does
+                  not typically use forward slashes to separate components in
+                  a path, but its file routines work just fine with forward
+                  slashes.
 ----------------------------------------------------------------------------*/
 static void fileNameReplaceSlashes (char* fileName)
 {
-    char ch;
+	char ch;
 
-    for ( ; (ch = *fileName); fileName++)
-    {
-#ifdef _WIN32
-        if (ch == '/')
-            *fileName = '\\';
-#else
-        if (ch == '\\')
-            *fileName = '/';
-#endif
-    }
+	while ((ch = *fileName))
+	{
+		if (ch == '\\')
+			*fileName = '/';
+
+		fileName++;
+	}
 }
 
 
@@ -117,190 +127,517 @@ static void fileNameReplaceSlashes (char* fileName)
     Inputs      : pathName - File path.
     Return      : (None.)
 ----------------------------------------------------------------------------*/
-static void fileNameReducePath (char *pathName)
+static void fileNameReducePath (char* pathName)
 {
-    size_t pathLen;
+	size_t pathLen;
 
-    char *pathElem[PATH_MAX];
-    udword pathElemCount;
+	char* pathElem[PATH_MAX];
+	udword pathElemCount;
 
-    size_t searchLoc;
-    bool8 isPathAbsolute;
+	size_t searchLoc;
+	bool8 isPathAbsolute;
 
-    udword i;
+	udword i;
 
-    dbgAssert(pathName != NULL);
+	dbgAssert(pathName != NULL);
 
-    pathLen = strlen(pathName);
+	pathLen = strlen(pathName);
 
-    /* Reduce slashes. */
-    for (i = 1; i < pathLen; i++)
-    {
-        char chPrev = pathName[i - 1];
-        char chCurr = pathName[i];
-        if ((chPrev == '/' || chPrev == '\\') &&
-            (chCurr == '/' || chCurr == '\\'))
-        {
-            memmove(pathName + i - 1, pathName + i, pathLen - i + 1);
-            pathLen--;
-            i--;
-        }
-    }
+	/* Reduce slashes. */
+	for (i = 1; i < pathLen; i++)
+	{
+		char chPrev = pathName[i - 1];
+		char chCurr = pathName[i];
+		if ((chPrev == '/' || chPrev == '\\') &&
+		    (chCurr == '/' || chCurr == '\\'))
+		{
+			memmove(pathName + i - 1, pathName + i, pathLen - i + 1);
+			pathLen--;
+			i--;
+		}
+	}
 
-    /* Remove trailing slashes. */
-    while (pathName[pathLen - 1] == '/' ||
-           pathName[pathLen - 1] == '\\')
-    {
-        pathLen--;
-        pathName[pathLen] = '\0';
-    }
+	/* Remove trailing slashes. */
+	while (pathName[pathLen - 1] == '/' ||
+	       pathName[pathLen - 1] == '\\')
+	{
+		pathLen--;
+		pathName[pathLen] = '\0';
+	}
 
-    /* Split up the path string into an array containing each path
-       component. */
-    pathElem[0] = pathName;
-    pathElemCount = 1;
+	/* Split up the path string into an array containing each path
+	   component. */
+	pathElem[0] = pathName;
+	pathElemCount = 1;
 
-    searchLoc = strcspn(pathName, "/\\");
-    while (searchLoc != pathLen)
-    {
-        size_t searchLocPrev = searchLoc;
+	searchLoc = strcspn(pathName, "/\\");
+	while (searchLoc != pathLen)
+	{
+		size_t searchLocPrev = searchLoc;
 
-        pathName[searchLoc] = '\0';
+		pathName[searchLoc] = '\0';
 
-        pathElem[pathElemCount] = pathName + searchLoc + 1;
-        pathElemCount++;
+		pathElem[pathElemCount] = pathName + searchLoc + 1;
+		pathElemCount++;
 
-        searchLoc = strcspn(pathName + searchLocPrev + 1, "/\\");
-        searchLoc += searchLocPrev + 1;
-    }
+		searchLoc = strcspn(pathName + searchLocPrev + 1, "/\\");
+		searchLoc += searchLocPrev + 1;
+	}
 
 #ifdef _WIN32
-    isPathAbsolute = (isalpha(pathName[0]) && pathName[1] == ':' &&
-        pathName[2] == '\0');
+	isPathAbsolute = (isalpha(pathName[0]) && pathName[1] == ':' &&
+		pathName[2] == '\0');
 #else
-    isPathAbsolute = (pathName[0] == '\0');
+	isPathAbsolute = (pathName[0] == '\0');
 #endif
 
-    if (isPathAbsolute)
-    {
-        /* Skip over the root path element, we don't need to look at it for
-           now. */
-        pathElemCount--;
-        if (pathElemCount != 0)
-        {
-            memmove(pathElem, pathElem + 1, sizeof(char *) * pathElemCount);
-        }
-    }
+	if (isPathAbsolute)
+	{
+		/* Skip over the root path element, we don't need to look at it for
+		   now. */
+		pathElemCount--;
+		if (pathElemCount != 0)
+		{
+			memmove(pathElem, pathElem + 1, sizeof(char*) * pathElemCount);
+		}
+	}
 
-    /* Using our array of path components, reduce any occurences of "." and
-       "..". */
-    for (i = 0; i < pathElemCount; i++)
-    {
-        char *currentElem = pathElem[i];
+	/* Using our array of path components, reduce any occurences of "." and
+	   "..". */
+	for (i = 0; i < pathElemCount; i++)
+	{
+		char* currentElem = pathElem[i];
 
-        if (currentElem[0] != '.')
-            continue;
+		if (currentElem[0] != '.')
+			continue;
 
-        if (currentElem[1] == '\0')
-        {
-            /* The current path element refers to the current directory ("."),
-               so we can remove it. */
-            pathElemCount--;
-            if (i < pathElemCount)
-            {
-                memmove(pathElem + i, pathElem + i + 1,
-                    sizeof(char *) * pathElemCount - i);
-            }
-            i--;
+		if (currentElem[1] == '\0')
+		{
+			/* The current path element refers to the current directory ("."),
+			   so we can remove it. */
+			pathElemCount--;
+			if (i < pathElemCount)
+			{
+				memmove(
+					pathElem + i, pathElem + i + 1,
+					sizeof(char*) * pathElemCount - i);
+			}
 
-            continue;
-        }
+			i--;
 
-        if (!(currentElem[1] == '.' && currentElem[2] == '\0'))
-            continue;
+			continue;
+		}
 
-        /* The current path element refers to the parent directory (".."). */
-        if (i == 0)
-        {
-            if (isPathAbsolute)
-            {
-                dbgMessagef("\nfileNameReducePath(): Attempted to reach a "
-                            "parent directory of the root directory.");
+		if (!(currentElem[1] == '.' && currentElem[2] == '\0'))
+			continue;
 
-                /* Attempting to reach a directory below the root directory, so
-                   just get rid of the current element. */
-                pathElemCount--;
-                if (pathElemCount != 0)
-                {
-                    memmove(pathElem, pathElem + 1,
-                        sizeof(char *) * pathElemCount);
-                }
-                i--;
-            }
+		/* The current path element refers to the parent directory (".."). */
+		if (i == 0)
+		{
+			if (isPathAbsolute)
+			{
+				dbgMessagef("\nfileNameReducePath(): Attempted to reach a "
+				            "parent directory of the root directory.");
 
-            continue;
-        }
+				/* Attempting to reach a directory below the root directory, so
+				   just get rid of the current element. */
+				pathElemCount--;
+				if (pathElemCount != 0)
+				{
+					memmove(
+						pathElem, pathElem + 1,
+						sizeof(char*) * pathElemCount);
+				}
 
-        if (!strcmp(pathElem[i - 1], ".."))
-        {
-            /* Previous path element also represents the previous directory, so
-               keep this element and allow further traversal up the directory
-               tree. */
-            continue;
-        }
+				i--;
+			}
 
-        /* Remove the current and previous path elements. */
-        dbgAssert(pathElemCount >= 2);
-        pathElemCount--;
-        if (i < pathElemCount)
-        {
-            memmove(pathElem + i - 1, pathElem + i + 1,
-                sizeof(char *) * pathElemCount - i);
-        }
-        pathElemCount--;
-        i -= 2;
-    }
+			continue;
+		}
 
-    /* Rebuild the path string. */
-    pathLen = 0;
+		if (!strcmp(pathElem[i - 1], ".."))
+		{
+			/* Previous path element also represents the previous directory, so
+			   keep this element and allow further traversal up the directory
+			   tree. */
+			continue;
+		}
 
-    if (isPathAbsolute)
-    {
+		/* Remove the current and previous path elements. */
+		dbgAssert(pathElemCount >= 2);
+		pathElemCount--;
+		if (i < pathElemCount)
+		{
+			memmove(
+				pathElem + i - 1, pathElem + i + 1,
+				sizeof(char*) * pathElemCount - i);
+		}
+
+		pathElemCount--;
+		i -= 2;
+	}
+
+	/* Rebuild the path string. */
+	pathLen = 0;
+
+	if (isPathAbsolute)
+	{
 #ifdef _WIN32
-        pathName[2] = '\\';
-        pathLen = 3;
+		pathName[2] = '/';
+		pathLen = 3;
 #else
-        pathName[0] = '/';
-        pathLen = 1;
+		pathName[0] = '/';
+		pathLen = 1;
 #endif
-    }
+	}
 
-    if (pathElemCount == 0)
-    {
-        pathName[pathLen] = '\0';
-        return;
-    }
+	if (pathElemCount == 0)
+	{
+		pathName[pathLen] = '\0';
+		return;
+	}
 
-    for (i = 0; i < pathElemCount; i++)
-    {
-        char *currentElem = pathElem[i];
-        size_t elemLen = strlen(currentElem);
+	for (i = 0; i < pathElemCount; i++)
+	{
+		char* currentElem = pathElem[i];
+		size_t elemLen = strlen(currentElem);
 
-        memmove(pathName + pathLen, currentElem,
-            sizeof(char) * elemLen);
+		memmove(
+			pathName + pathLen, currentElem, sizeof(char) * elemLen);
 
-        pathLen += elemLen;
-#ifdef _WIN32
-        pathName[pathLen] = '\\';
-#else
-        pathName[pathLen] = '/';
-#endif
-        pathLen++;
-    }
+		pathLen += elemLen;
+		pathName[pathLen] = '/';
+		pathLen++;
+	}
 
-    /* Remove the trailing slash. */
-    pathName[pathLen - 1] = '\0';
+	/* Remove the trailing slash. */
+	pathName[pathLen - 1] = '\0';
 }
+
+
+/*-----------------------------------------------------------------------------
+    Name        : fileNameCorrectCase
+    Description : Perform a case-insensitive search for the given file or
+                  directory, modifying the path string to represent its case
+                  on the filesystem.
+    Inputs      : fileName - Path and name of file.
+    Outputs     : fileName - The modified file name.  This will not be
+                    modified if the file is not found.
+    Return      : TRUE if the file was found, FALSE if not.
+----------------------------------------------------------------------------*/
+#if FILE_CASE_INSENSITIVE_SEARCH
+
+static bool8 fileNameCorrectCase (char* fileName)
+{
+	char fileNameCopy[PATH_MAX + 1];
+	char* pChar;
+	udword pathComponentCount;
+	bool8 isPathAbsolute;
+	udword i;
+
+	dbgAssert(fileName);
+
+	/* Make a copy of the file name string to abuse as we wish. */
+	dbgAssert(strlen(fileName) <= PATH_MAX);
+	strncpy(fileNameCopy, fileName, PATH_MAX);
+	fileNameCopy[PATH_MAX] = '\0';
+
+	/* Compress any directory changes in the path so we can easily search for
+	   directory names while ignoring case. */
+	fileNameReducePath(fileNameCopy);
+	if (fileNameCopy[0] == '\0')
+		return FALSE;
+
+	/* Check if the file name is just a root directory reference. */
+#ifdef _WIN32
+	if (isalpha(fileNameCopy[0]) && strcmp(fileNameCopy + 1, ":/") == 0)
+	{
+		struct stat fileInfo;
+
+		/* Make sure the drive specified exists. */
+		if (stat(fileNameCopy, &fileInfo) != 0)
+			return FALSE;
+
+		dbgAssert(strlen(fileNameCopy) <= strlen(fileName));
+		strcpy(fileName, fileNameCopy);
+
+		return TRUE;
+	}
+#else
+	if (strcmp(fileNameCopy, "/") == 0)
+	{
+		/* We should always have a root directory... */
+		fileName[0] = '/';
+		fileName[1] = '\0';
+
+		return TRUE;
+	}
+#endif
+
+	/* Split the path name components into separate strings. */
+	pathComponentCount = 1;
+	while ((pChar = strrchr(fileNameCopy, '/')))
+	{
+		*pChar = '\0';
+		pathComponentCount++;
+	}
+
+	/* Find the first path component that is not a reference to the parent
+	   directory. */
+	pChar = fileNameCopy;
+	for (i = 0; i < pathComponentCount; i++)
+	{
+		if (strcmp(pChar, "..") != 0)
+			break;
+
+		pChar += strlen(pChar);
+
+		/* Merge all parent directory references with the next path
+		   component. */
+		if (i != pathComponentCount - 1)
+		{
+			*pChar = '/';
+			pChar++;
+		}
+	}
+
+	dbgAssert(i < pathComponentCount);
+	if (i == pathComponentCount)
+	{
+		/* Apparently every element of the path is a parent directory
+		   reference.  Whatever...let's at least check if it exists. */
+		struct stat fileInfo;
+
+		dbgAssert(pathComponentCount == 1);
+
+		if (stat(fileNameCopy, &fileInfo) != 0)
+			return FALSE;
+
+		/* The entry exists, so copy the reduced file name string into the
+		   original string. */
+		dbgAssert(strlen(fileNameCopy) <= strlen(fileName));
+		strcpy(fileName, fileNameCopy);
+
+		return TRUE;
+	}
+
+	/* Check if the path name is an absolute path, merging the first two path
+	   components (the root directory reference and the first path component
+	   following it) if so. */
+	isPathAbsolute = FALSE;
+#ifdef _WIN32
+	if (isalpha(fileNameCopy[0]) && strcmp(fileNameCopy + 1, ":") == 0)
+	{
+		fileNameCopy[2] = '/';
+#else
+	if (fileNameCopy[0] == '\0')
+	{
+		fileNameCopy[0] = '/';
+#endif
+
+		dbgAssert(pathComponentCount > 1);
+		pathComponentCount--;
+
+		isPathAbsolute = TRUE;
+	}
+
+	/* Now we start the search for the given file.  For each path component,
+	   we first do an exact check to see if it exists using the case given
+	   case.  If that fails, we then perform a case-insensitive comparison
+	   against each entry in the directory in which the path element resides.
+	   If a match is found, the file name of the matching entry is copied into
+	   the path string, and the search is continued with the next path
+	   component.  If a match is not found, the search is stopped, and we
+	   return a null pointer immediately. */
+	for (i = 0; i < pathComponentCount; i++)
+	{
+#ifdef _WIN32
+		char filespec[PATH_MAX + 1];
+		struct _finddata_t findData;
+		long hFile;
+		bool foundResult;
+#else
+		struct dirent* pEntry;
+		DIR* pDir;
+#endif
+		struct stat fileInfo;
+
+		/* Check if the current entry exists in the given case. */
+		if (stat(fileNameCopy, &fileInfo) != 0)
+		{
+			/* Temporarily remove the last path delimiter so we can separate
+			   the entry we're searching for from the directory in which it
+			   resides. */
+			pChar = strrchr(fileNameCopy, '/');
+			if (pChar)
+			{
+				if (i == 0 && isPathAbsolute)
+				{
+					/* Special case for the first entry in an absolute path:
+					   keep the trailing slash in the root directory name when
+					   opening the root directory for searching. */
+					char tempChar;
+
+					pChar++;
+					tempChar = *pChar;
+					*pChar = '\0';
+
+#ifdef _WIN32
+					filespec[PATH_MAX] = '\0';
+					strncpy(filespec, fileNameCopy, PATH_MAX);
+					strncat(filespec, "/*.*", PATH_MAX - strlen(filespec));
+#else
+					pDir = opendir(fileNameCopy);
+#endif
+
+					*pChar = tempChar;
+				}
+				else
+				{
+					/* Remove the path delimiter and open the parent
+					   directory. */
+					*pChar = '\0';
+					pChar++;
+
+#ifdef _WIN32
+					filespec[PATH_MAX] = '\0';
+					strncpy(filespec, fileNameCopy, PATH_MAX);
+					strncat(filespec, "/*.*", PATH_MAX - strlen(filespec));
+#else
+					pDir = opendir(fileNameCopy);
+#endif
+				}
+			}
+			else
+			{
+				/* The current entry we're searching for should be in the
+				   current working directory. */
+				pChar = fileNameCopy;
+
+#ifdef _WIN32
+				strcpy(filespec, "*.*");
+#else
+				pDir = opendir(".");
+#endif
+			}
+
+#ifdef _WIN32
+			/* Get the first entry in the directory. */
+			hFile = _findfirst(filespec, &findData);
+			if (hFile == -1)
+				return FALSE;
+
+			/* Search through each entry in the current directory, performing
+			   a case-insensitive check against the entry name. */
+			foundResult = FALSE;
+			do
+			{
+				if (_stricmp(pChar, findData.name) == 0)
+				{
+					foundResult = TRUE;
+					break;
+				}
+			} while (_findnext(hFile, &findData) == 0);
+
+			_findclose(hFile);
+
+			/* Check if a match was found. */
+			if (!foundResult)
+				return FALSE;
+
+			/* Copy over the entry name with the correct case. */
+			strcpy(pChar, findData.name);
+#else
+			/* Make sure we could successfully open the directory. */
+			if (!pDir)
+				return FALSE;
+
+			/* Search through each entry in the current directory, performing
+			   a case-insensitive check against the entry name. */
+			while ((pEntry = readdir(pDir)))
+			{
+				if (strcasecmp(pChar, pEntry->d_name) == 0)
+					break;
+			}
+
+			/* Check if a match was found. */
+			if (!pEntry)
+			{
+				closedir(pDir);
+				return FALSE;
+			}
+
+			/* Copy over the entry name with the correct case. */
+			strcpy(pChar, pEntry->d_name);
+#endif
+
+			/* Restore the full path up to the current entry. */
+			if (pChar != fileNameCopy)
+			{
+				pChar--;
+				*pChar = '/';
+			}
+
+#ifndef _WIN32
+			closedir(pDir);
+#endif
+		}
+
+		/* If this is not the last component of the path name, add a slash to
+		   the end of the current entry to form a full path to the next
+		   entry. */
+		if (i != pathComponentCount - 1)
+		{
+			fileNameCopy[strlen(fileNameCopy)] = '/';
+		}
+	}
+
+	/* Everything checks out with the file name, so copy the case-sensitive
+	   result back over into the original file name string. */
+	dbgAssert(strlen(fileNameCopy) <= strlen(fileName));
+	strcpy(fileName, fileNameCopy);
+
+	return TRUE;
+}
+
+#else  /* FILE_CASE_INSENSITIVE_SEARCH */
+
+/* If we're not manually performing case-insensitive file searches, merely
+   make sure the file exists.  This should allow us to use this function even
+   when we don't want to manually perform case-insensitive searches yet still
+   give the same results on platforms that use case-insensitive file
+   systems. */
+static bool8 fileNameCorrectCase (char* fileName)
+{
+	char fileNameCopy[PATH_MAX + 1];
+	struct stat fileInfo;
+
+	dbgAssert(fileName);
+
+	/* Make a copy of the file name string. */
+	dbgAssert(strlen(fileName) <= PATH_MAX);
+	strncpy(fileNameCopy, fileName, PATH_MAX);
+	fileNameCopy[PATH_MAX] = '\0';
+
+	/* Compress any directory changes in the path and convert all slashes to
+	   forward slashes. */
+	fileNameReducePath(fileNameCopy);
+	if (fileNameCopy[0] == '\0')
+		return FALSE;
+
+	/* Check if the file exists. */
+	if (stat(fileNameCopy, &fileInfo) != 0)
+		return FALSE;
+
+	/* File exists, so copy the reduced path string into the original file
+	   name string. */
+	dbgAssert(strlen(fileNameCopy) <= strlen(fileName));
+	strcpy(fileName, fileNameCopy);
+
+	return TRUE;
+}
+
+#endif  /* FILE_CASE_INSENSITIVE_SEARCH */
 
 
 /*-----------------------------------------------------------------------------
@@ -310,106 +647,82 @@ static void fileNameReducePath (char *pathName)
     Inputs      : directoryName - Name of the directory to create.
     Return      : TRUE if successful, FALSE if not.
 ----------------------------------------------------------------------------*/
-bool8 fileMakeDirectory (const char *directoryName)
+bool8 fileMakeDirectory (const char* directoryName)
 {
-    char directoryCopy[PATH_MAX + 1];
-    size_t directoryLen;
+	char directoryCopy[PATH_MAX + 1];
+	size_t directoryLen;
 
-    char *ch;
-    udword i;
+	char* pChar;
 
-    dbgAssert(directoryName != NULL);
-    dbgAssert(strlen(directoryName) <= PATH_MAX);
+	dbgAssert(directoryName != NULL);
+	dbgAssert(strlen(directoryName) <= PATH_MAX);
 
-    /* Make a copy of the directory name with which we can modify as needed. */
-    strncpy(directoryCopy, directoryName, PATH_MAX);
-    directoryCopy[PATH_MAX] = '\0';
+	/* Make a copy of the directory name with which we can modify as
+	   needed. */
+	strncpy(directoryCopy, directoryName, PATH_MAX);
+	directoryCopy[PATH_MAX] = '\0';
 
-    /* Reduce the path name. */
-    fileNameReducePath(directoryCopy);
+	/* Reduce the path name. */
+	fileNameReducePath(directoryCopy);
 
-    directoryLen = strlen(directoryCopy);
-    if (directoryLen == 0)
-        return TRUE;
+	directoryLen = strlen(directoryCopy);
+	if (directoryLen == 0)
+		return TRUE;
+
+	/* Add a trailing slash to our directory name. */
+	if (directoryCopy[directoryLen - 1] != '/')
+	{
+		directoryCopy[directoryLen] = '/';
+		directoryLen++;
+		directoryCopy[directoryLen] = '\0';
+	}
+
+	/* Find the first path element that isn't the root directory or a parent
+	   directory delimiter. */
+	pChar = strchr(directoryCopy, '/');
+	if (pChar)
+	{
+		*pChar = '\0';
 
 #ifdef _WIN32
-    if (directoryCopy[directoryLen - 1] != '\\')
-    {
-        directoryCopy[directoryLen] = '\\';
-        directoryLen++;
-        directoryCopy[directoryLen] = '\0';
-    }
+		if (isalpha(directoryCopy[0]) && directoryCopy[1] == ':' &&
+		    directoryCopy[2] == '\0')
 #else
-    if (directoryCopy[directoryLen - 1] != '/')
-    {
-        directoryCopy[directoryLen] = '/';
-        directoryLen++;
-        directoryCopy[directoryLen] = '\0';
-    }
+		if (directoryCopy[0] == '\0')
 #endif
+		{
+			*pChar = '/';
+			pChar = strchr(pChar + 1, '/');
+			*pChar = '\0';
+		}
+	}
 
-    /* Find the first path element that isn't the root directory or a parent
-       directory delimiter. */
-#ifdef _WIN32
-    ch = strchr(directoryCopy, '\\');
-    if (ch)
-    {
-        *ch = '\0';
+	/* Create each directory as needed. */
+	struct stat fileStat;
+	while (pChar)
+	{
+		*pChar = 0;
 
-        if (isalpha(directoryCopy[0]) && directoryCopy[1] == ':' &&
-            directoryCopy[2] == '\0')
-        {
-            *ch = '\\';
-            ch = strchr(ch + 1, '\\');
-            *ch = '\0';
-        }
-    }
-#else
-    ch = strchr(directoryCopy, '/');
-    if (ch)
-    {
-        *ch = '\0';
+		/* Check if the directory exists. */
+		if (stat(directoryCopy, &fileStat) == 0)
+		{
+			/* A filesystem entry exists, so make sure it's a directory. */
+			if (!S_ISDIR(fileStat.st_mode))
+				return FALSE;
+		}
+		else
+		{
+			/* Attempt to create the directory. */
+			if (mkdir(directoryCopy, 0777) == -1)
+				return FALSE;
+		}
 
-        if (directoryCopy[0] == '\0')
-        {
-            *ch = '/';
-            ch = strchr(ch + 1, '/');
-            *ch = '\0';
-        }
-    }
-#endif
+		/* Continue with the next path element. */
+		*pChar = '/';
+		pChar = strchr(pChar + 1, '/');
+	}
 
-    /* Create each directory as needed. */
-    struct stat fileStat;
-    while (ch)
-    {
-        *ch = 0;
-
-        /* Check if the directory exists. */
-        if (stat(directoryCopy, &fileStat) == 0)
-        {
-            /* A filesystem entry exists, so make sure it's a directory. */
-            if (!S_ISDIR(fileStat.st_mode))
-                return FALSE;
-        }
-        else
-        {
-            /* Attempt to create the directory. */
-            if (mkdir(directoryCopy, 0777) == -1)
-                return FALSE;
-        }
-
-        /* Continue with the next path element. */
-#ifdef _WIN32
-        *ch = '\\';
-        ch = strchr(ch + 1, '\\');
-#else
-        *ch = '/';
-        ch = strchr(ch + 1, '/');
-#endif
-    }
-
-    return TRUE;
+	return TRUE;
 }
 
 
@@ -420,30 +733,32 @@ bool8 fileMakeDirectory (const char *directoryName)
     Return      : TRUE if the directory exists or could be created, FALSE if
                   not.
 ----------------------------------------------------------------------------*/
-bool8 fileMakeDestinationDirectory(const char *fileName)
+bool8 fileMakeDestinationDirectory (const char* fileName)
 {
-    char directoryName[PATH_MAX + 1];
-    char *ch0, *ch1;
+	char directoryName[PATH_MAX + 1];
+	char* pChar0;
+	char* pChar1;
 
-    dbgAssert(fileName);
+	dbgAssert(fileName);
 
-    /* Make a copy of the directory name string, excluding the file itself. */
-    strncpy(directoryName, fileName, PATH_MAX);
-    directoryName[PATH_MAX] = '\0';
+	/* Make a copy of the directory name string, excluding the file itself. */
+	strncpy(directoryName, fileName, PATH_MAX);
+	directoryName[PATH_MAX] = '\0';
 
-    ch0 = strrchr(directoryName, '/');
-    ch1 = strrchr(directoryName, '\\');
-    if (ch1 > ch0)
-        ch0 = ch1;
+	pChar0 = strrchr(directoryName, '/');
+	pChar1 = strrchr(directoryName, '\\');
+	if (pChar1 > pChar0)
+		pChar0 = pChar1;
 
-    /* If the file is in the current directory, assume the directory exists. */
-    if (!ch0)
-        return TRUE;
+	/* If the file is in the current directory, assume the directory
+	   exists. */
+	if (!pChar0)
+		return TRUE;
 
-    /* Create the directory. */
-    *ch0 = '\0';
+	/* Create the directory. */
+	*pChar0 = '\0';
 
-    return fileMakeDirectory(directoryName);
+	return fileMakeDirectory(directoryName);
 }
 
 
@@ -518,7 +833,7 @@ sdword fileLoadAlloc(char *_fileName, void **address, udword flags)
     // filesystem load
 
     fileName = filePathPrepend(_fileName, flags);           //get full path
-    fileNameReplaceSlashes(fileName);
+    fileNameCorrectCase(fileName);
 
     nameLength = strlen(fileName);                          //set memory name to the
     dbgAssert(nameLength > 1);                              //end of the filename if filename too long
@@ -641,11 +956,11 @@ sdword fileLoad(char *_fileName, void *address, udword flags)
     // filesystem
 
     fileName = filePathPrepend(_fileName, flags);            //get full path
-    fileNameReplaceSlashes(fileName);
+    fileNameCorrectCase(fileName);
 
     length = fileSizeGet(_fileName, flags);                  //get length of file
 
-    if ((inFile = fopen(fileName, "rb")) == NULL)           //open the file
+    if ((inFile = fopen(fileName, "rb")) == NULL)            //open the file
     {
         dbgFatalf(DBG_Loc, "fileLoadAlloc: couldn't open file %s", fileName);
     }
@@ -695,7 +1010,7 @@ sdword fileSave(char *_fileName, void *address, sdword length)
     sdword lengthWrote;
 
     fileName = filePathPrepend(_fileName, 0);               //get full path
-    fileNameReplaceSlashes(fileName);
+    fileNameCorrectCase(fileName);
 
     if (!fileMakeDestinationDirectory(fileName))
     {
@@ -768,7 +1083,6 @@ sdword fileExistsInBigFile(char *_fileName)
 ----------------------------------------------------------------------------*/
 sdword fileExists(char *_fileName, udword flags)
 {
-    struct stat file_stat;
     char *fileName;
     sdword existsInBigfile;
     sdword fileNum;
@@ -799,12 +1113,11 @@ sdword fileExists(char *_fileName, udword flags)
     }
 
     fileName = filePathPrepend(_fileName, flags);            //get full path
-    fileNameReplaceSlashes(fileName);
 
-    if (stat(fileName, &file_stat) != -1)
+    if (fileNameCorrectCase(fileName))
     {
 #if FILE_VERBOSE_LEVEL >= 3
-    dbgMessagef("\nfileExists: '%s' exists", fileName);
+        dbgMessagef("\nfileExists: '%s' exists", fileName);
 #endif
         return(TRUE);
     }
@@ -861,9 +1174,9 @@ sdword fileSizeGet(char *_fileName, udword flags)
     }
 
     fileName = filePathPrepend(_fileName, flags);            //get full path
-    fileNameReplaceSlashes(fileName);
+    fileNameCorrectCase(fileName);
 
-    if ((file = fopen(fileName, "rb")) == NULL)             //open the file
+    if ((file = fopen(fileName, "rb")) == NULL)              //open the file
     {
 #if defined(DLPublicBeta)
         udword *spp;
@@ -1116,7 +1429,7 @@ filehandle fileOpen(char *_fileName, udword flags)
     // resort to the good old disk filesystem
 
     fileName = filePathPrepend(_fileName, flags);            //get full path
-    fileNameReplaceSlashes(fileName);
+    fileNameCorrectCase(fileName);
 
     if (bitTest(flags, FF_AppendMode))
     {
@@ -1131,11 +1444,16 @@ filehandle fileOpen(char *_fileName, udword flags)
         access[0] = 'r';
     }
 
+#ifdef _WIN32
+    /* Only open files in text mode on Windows.  Since text files are assumed
+       to use DOS end-of-line markers, we will handle end-of-line conversions
+       manually on other platforms. */
     if (bitTest(flags, FF_TextMode))
     {
         access[1] = 't';
     }
     else
+#endif
     {
         access[1] = 'b';
     }
@@ -1182,6 +1500,8 @@ filehandle fileOpen(char *_fileName, udword flags)
     filesOpen[fh].inUse = TRUE;
     filesOpen[fh].fileP = file;
     filesOpen[fh].usingBigfile = FALSE;
+    filesOpen[fh].textMode = bitTest(flags, FF_TextMode);
+
     return fh;
 }
 
@@ -1235,22 +1555,22 @@ sdword fileSeek(filehandle handle, sdword offset, sdword whence)
     dbgAssert(handle);
     dbgAssert(filesOpen[handle].inUse);
 
+    /* We can seek to the start of a text file, but that's it. */
+    dbgAssert(!filesOpen[handle].textMode || (whence == FS_Start && !offset));
+
     if (filesOpen[handle].usingBigfile)
     {
         switch (whence)
         {
             case FS_Start:
-                dbgAssert(!filesOpen[handle].textMode || !offset);  // we can seek to the start of a text file, but that's it
                 newLocation =
                     (filesOpen[handle].offsetVirtual = offset);
                 break;
             case FS_Current:
-                dbgAssert(!filesOpen[handle].textMode);
                 newLocation =
                     (filesOpen[handle].offsetVirtual += offset);
                 break;
             case FS_End:
-                dbgAssert(!filesOpen[handle].textMode);
                 newLocation =
                     (filesOpen[handle].offsetVirtual = filesOpen[handle].length - 1 + offset);
                 break;
@@ -1286,10 +1606,10 @@ sdword fileBlockRead(filehandle handle, void *dest, sdword nBytes)
 
     dbgAssert(handle);
     dbgAssert(filesOpen[handle].inUse);
+    dbgAssert(!filesOpen[handle].textMode);
 
     if (filesOpen[handle].usingBigfile)
     {
-        dbgAssert(!filesOpen[handle].textMode);
         dbgAssert(filesOpen[handle].offsetVirtual + nBytes <= filesOpen[handle].length);
         if (filesOpen[handle].decompBuf)
         {
@@ -1338,11 +1658,10 @@ sdword fileBlockReadNoError(filehandle handle, void *dest, sdword nBytes)
 
     dbgAssert(handle);
     dbgAssert(filesOpen[handle].inUse);
+    dbgAssert(!filesOpen[handle].textMode);
 
     if (filesOpen[handle].usingBigfile)
     {
-        dbgAssert(!filesOpen[handle].textMode);
-
         if(filesOpen[handle].offsetVirtual + nBytes > filesOpen[handle].length)
             ReadAmt = filesOpen[handle].length - filesOpen[handle].offsetVirtual;
 
@@ -1383,17 +1702,19 @@ sdword fileLineRead(filehandle handle, char *dest, sdword nChars)
 {
     sdword length;
     int ch;
-    char *retVal;
     char *loc;
+#ifdef _WIN32
+    char *retVal;
+#endif
 
     dbgAssert(nChars > 0);                                  //validate the params
     dbgAssert(handle);
     dbgAssert(dest != NULL);
     dbgAssert(filesOpen[handle].inUse);
+    dbgAssert(filesOpen[handle].textMode);
 
     if (filesOpen[handle].usingBigfile)
     {
-        dbgAssert(filesOpen[handle].textMode);
         if (filesOpen[handle].offsetVirtual >= filesOpen[handle].length)
             return FR_EndOfFile;
 
@@ -1406,25 +1727,37 @@ sdword fileLineRead(filehandle handle, char *dest, sdword nChars)
             {
                 if (filesOpen[handle].offsetVirtual >= filesOpen[handle].length)
                     break;
+
                 // getc
                 ch = *(loc++);
                 ++filesOpen[handle].offsetVirtual;
-                if (ch == 13)
+
+                /* Check if we have reached the end of the line. */
+                if (ch == '\n')
+                    break;
+
+                if (ch == '\r')
                 {
+                    /* Remove the "\n" character if this is a DOS
+                       end-of-line. */
                     // getc
                     ch = *(loc++);
                     ++filesOpen[handle].offsetVirtual;
-                    if (ch != 10)
+                    if (ch != '\n')
                     {
                         // ungetc
                         --loc;
                         --filesOpen[handle].offsetVirtual;
                     }
+
                     break;
                 }
+
+                /* Add the character to the end of the string. */
                 *(dest+length) = ch;
                 ++length;
             }
+
             *(dest+length) = 0;
         }
         else
@@ -1436,19 +1769,32 @@ sdword fileLineRead(filehandle handle, char *dest, sdword nChars)
             {
                 if (feof(filesOpen[handle].bigFP) || filesOpen[handle].offsetVirtual >= filesOpen[handle].length)
                     break;
+
+                /* Get the next character from the file. */
                 ch = getc(filesOpen[handle].bigFP);
                 if (ch == EOF)
                     break;
+
                 ++filesOpen[handle].offsetVirtual;
-                if (ch == 13)
+
+                /* Check if we have reached the end of the line. */
+                if (ch == '\n')
+                    break;
+
+                if (ch == '\r')
                 {
+                    /* Remove the "\n" character if this is a DOS
+                       end-of-line. */
                     ch = getc(filesOpen[handle].bigFP);
-                    if (ch != 10)
+                    if (ch != '\n')
                         ungetc(ch, filesOpen[handle].bigFP);
                     else
                         ++filesOpen[handle].offsetVirtual;
+
                     break;
                 }
+
+                /* Add the character to the end of the string. */
                 *(dest+length) = ch;
                 ++length;
             }
@@ -1464,15 +1810,19 @@ sdword fileLineRead(filehandle handle, char *dest, sdword nChars)
     }
     else
     {
-        if (feof(filesOpen[handle].fileP))                               //check if end of file
+        if (feof(filesOpen[handle].fileP))                      //check if end of file
         {
             return FR_EndOfFile;
         }
-        retVal = fgets(dest, nChars, filesOpen[handle].fileP);  //get the bytes from file
+
+#ifdef _WIN32
+        /* Read a line from the file. */
+        retVal = fgets(dest, nChars, filesOpen[handle].fileP);
         if (retVal != dest)
         {
             return(FR_EndOfFile);
         }
+
         length = strlen(dest);                                  //get length of string
 
         if (length)                                             //if not a blank line
@@ -1483,6 +1833,38 @@ sdword fileLineRead(filehandle handle, char *dest, sdword nChars)
                 length--;                                       //one less character
             }
         }
+#else
+        /* Read a line from the file, manually checking for an end-of-line
+           marker. */
+        length = 0;
+        while (length < nChars - 1)
+        {
+            /* Get the next character from the file. */
+            ch = getc(filesOpen[handle].fileP);
+            if (ch == EOF)
+                break;
+
+            /* Check if we have reached the end of the line. */
+            if (ch == '\n')
+                break;
+
+            if (ch == '\r')
+            {
+                /* Remove the "\n" character if this is a DOS end-of-line. */
+                ch = getc(filesOpen[handle].fileP);
+                if (ch != '\n')
+                    ungetc(ch, filesOpen[handle].fileP);
+
+                break;
+            }
+
+            /* Add the character to the end of the string. */
+            dest[length] = ch;
+            length++;
+        }
+
+        dest[length] = '\0';
+#endif
     }
 
 #if FILE_VERBOSE_LEVEL >= 3
@@ -1509,21 +1891,70 @@ sdword fileCharRead(filehandle handle)
     {
         if (filesOpen[handle].offsetVirtual >= filesOpen[handle].length)
             return EOF;
+
         if (filesOpen[handle].decompBuf)
         {
             ch = filesOpen[handle].decompBuf[filesOpen[handle].offsetVirtual++];
+
+            /* If reading a text file, check for a new line character. */
+            if (filesOpen[handle].textMode && ch == '\r')
+            {
+                /* Remove the "\n" character if this is a DOS end-of-line. */
+                ch = filesOpen[handle].decompBuf[filesOpen[handle].offsetVirtual++];
+                if (ch != '\n')
+                    filesOpen[handle].offsetVirtual--;
+
+                /* Force the character to be a newline character in case this
+                   is a Mac end-of-line. */
+                ch = '\n';
+            }
         }
         else
         {
             fseek(filesOpen[handle].bigFP, filesOpen[handle].offsetVirtual + filesOpen[handle].offsetStart, SEEK_SET);
             ch = fgetc(filesOpen[handle].bigFP);
             if (ch != EOF)
+            {
                 ++filesOpen[handle].offsetVirtual;
+
+                /* If reading a text file, check for a new line character. */
+                if (filesOpen[handle].textMode && ch == '\r')
+                {
+                    /* Remove the "\n" character if this is a DOS
+                       end-of-line. */
+                    ch = fgetc(filesOpen[handle].bigFP);
+                    if (ch != '\n')
+                        ungetc(ch, filesOpen[handle].bigFP);
+                    else
+                        filesOpen[handle].offsetVirtual++;
+
+                    /* Force the character to be a newline character in case
+                       this is a Mac end-of-line. */
+                    ch = '\n';
+                }
+            }
         }
+
         return ch;
     }
-    else
-        return fgetc(filesOpen[handle].fileP);
+
+    /* Read the next character from the local filesystem stream. */
+#ifdef _WIN32
+    return fgetc(filesOpen[handle].fileP);
+#else
+    ch = fgetc(filesOpen[handle].fileP);
+    if (!filesOpen[handle].textMode || ch != '\r')
+        return ch;
+
+    /* Handle possible DOS or Mac line ends. */
+    ch = fgetc(filesOpen[handle].fileP);
+    if (ch != '\n')
+        ungetc(ch, filesOpen[handle].fileP);
+
+    /* Force the character to be a newline character in case this is a Mac
+       end-of-line. */
+    return '\n';
+#endif
 }
 
 
@@ -1731,5 +2162,3 @@ void logfileLogf(char *logfile,char *format, ...)
 
     logfileLog(logfile,buffer);
 }
-
-
