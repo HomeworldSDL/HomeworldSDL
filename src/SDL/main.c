@@ -1490,12 +1490,15 @@ sdword ProcessCommandLine (int argc, char* argv[])
                         break;
                     }
                 }
-                goto stringFound;
+                break;
             }
         }
-        DebugHelpDefault(string);                           //no string found, print help
-        return(-1);
-stringFound:;
+
+        if (!commandOptions[index].parameter)
+        {
+            DebugHelpDefault(string);                       //no string found, print help
+            return(-1);
+        }
     }
     return(OKAY);
 }
@@ -1943,9 +1946,9 @@ void mainRescaleMainWindow(void)
     {
         utyClipMouse(TRUE);
     }
+#endif
 
     (void)utyChangeResolution(MAIN_WindowWidth, MAIN_WindowHeight, MAIN_WindowDepth);
-#endif
 }
 
 /*-----------------------------------------------------------------------------

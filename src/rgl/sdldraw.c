@@ -352,8 +352,8 @@ unsigned char rglswCreateWindow(GLint ihwnd, GLint width)
     }
 
     /* Create a double-buffered display. */
-    flags = SDL_HWSURFACE | SDL_FULLSCREEN | SDL_DOUBLEBUF;
-    if (WINDOWED)
+    flags = SDL_HWSURFACE | SDL_DOUBLEBUF;
+    if (!WINDOWED)
         flags |= SDL_FULLSCREEN;
     if (!(pSurface = SDL_SetVideoMode(SCRWIDTH, SCRHEIGHT, 16, flags)))
         return 0;

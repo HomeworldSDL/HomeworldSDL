@@ -846,8 +846,10 @@ bool setupPixelFormat()
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
 	/* Create OpenGL window. */
+	flags = SDL_HWSURFACE | SDL_OPENGL;
+	if (/* main */ fullScreen) flags |= SDL_FULLSCREEN;
 	if (!SDL_SetVideoMode(MAIN_WindowWidth, MAIN_WindowHeight,
-		MAIN_WindowDepth, SDL_HWSURFACE | SDL_FULLSCREEN | SDL_OPENGL))
+		MAIN_WindowDepth, flags))
 		return FALSE;
 
 	SDL_ShowCursor(SDL_DISABLE);
