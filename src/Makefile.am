@@ -13,12 +13,6 @@ HW_LIBS = \
    ./Ships/libhw_Ships.a \
    ./obj/libhw_Sound.a
 
-if !PLATFORM_WIN32
-   HW_LIBS += ./SDL/win32glue.o
-else
-   HW_LIBS += ./SDL/debugwnd.o
-endif
-
 homeworld$(EXEEXT): $(HW_LIBS)
 	gcc -o $@ -Wl,-\( $(HW_LIBS) -Wl,-\) $(SDL_LIBS)
 
