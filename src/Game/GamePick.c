@@ -78,8 +78,14 @@ static char RecordedGamesPath[] = "SavedGames\\RecordedGames\\";
 //TutorialSavedGamesPath is non-static because it is used in Tutor.c
 char TutorialSavedGamesPath[] = "SavedGames\\Training\\";
 #else
+
 //SinglePlayerSavedGamesPath is non-static because it is used in KASFunc.c
+#if defined(OEM) && defined(_MACOSX)
+char SinglePlayerSavedGamesPath[] = "SavedGames/Raider\ Retreat/";
+#else
 char SinglePlayerSavedGamesPath[] = "SavedGames/SinglePlayer/";
+#endif
+
 static char MultiPlayerSavedGamesPath[] = "SavedGames/MultiPlayer/";
 static char RecordedGamesPath[] = "SavedGames/RecordedGames/";
 //TutorialSavedGamesPath is non-static because it is used in Tutor.c

@@ -13,7 +13,13 @@
 #elif defined(OEM)
 
     #define BASEKEYNAME "SOFTWARE\\Sierra On-Line\\Homeworld OEM"
-    #define CONFIGDIR ".homeworldOEM"
+	
+    #ifdef _MACOSX
+        // the OEM and full version can live alongside so we use the same dir
+        #define CONFIGDIR "Library/Application\ Support/Homeworld"
+    #else
+        #define CONFIGDIR ".homeworldOEM"
+    #endif
 
 #else
 

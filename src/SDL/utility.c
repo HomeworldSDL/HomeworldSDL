@@ -485,7 +485,12 @@ char utyVoiceFilename[] = "HW_comp.vce";
 #endif
 
 // name of other files
-char utyUpdateBigFilename[] = "Update.big"; // name for future updates to main bigfile
+#if defined(OEM) && defined(_MACOSX) // OEM (aka "Raider Retreat")
+    // rename allows this to live alongside 1.05 patch's Update.big in standard installation
+    char utyUpdateBigFilename[] = "OEM_Update.big";
+#else
+    char utyUpdateBigFilename[] = "Update.big"; // name for future updates to main bigfile
+#endif
 char utyPadBigFilename[] = "Extra.big"; // name of pad file
 char utyLockFilename[] = "AutoLock.txt"; // name of autorun lock file
 
@@ -2244,7 +2249,7 @@ void gameStart(char *loadfilename)
     {
         udword techLevel = 0;
 
-        dbgMessagef("\nSYNC NUMBER: %d",gamerand());
+        dbgMessagef("SYNC NUMBER: %d",gamerand());
 
         if ((!singlePlayerGame) && (!bitTest(tpGameCreated.flag,MG_ResearchEnabled)))
         {
