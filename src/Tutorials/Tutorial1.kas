@@ -2,6 +2,16 @@
 //
 //
 
+#ifdef _WIN32
+    #include "..\\Game\\Attributes.h"
+    #include "..\\Game\\FormationDefs.h"
+    #include "..\\Game\\SpeechEvent.h"
+#else
+    #include "../Game/Attributes.h"
+    #include "../Game/FormationDefs.h"
+    #include "../Game/SpeechEvent.h"
+#endif
+
     LOCALIZATION
 
         LSTRING_Intro
@@ -1327,10 +1337,6 @@
 
     ENDL
 
-//includes
-#include "SpeechEvent.h"
-#include "Attributes.h"
-#include "FormationDefs.h"
 
 //defines
 #define CAMERAZoomFar      12000
