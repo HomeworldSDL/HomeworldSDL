@@ -1661,7 +1661,7 @@ void regKeysSet(regionhandle region, sdword nKeys, ...)
     va_start(argPointer, nKeys);
     for (index = 0; index < nKeys; index++)
     {
-        region->key[index] = va_arg(argPointer, keyindex);
+        region->key[index] = tolower(va_arg(argPointer, keyindex));
     }
     va_end(argPointer);
 }
