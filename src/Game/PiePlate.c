@@ -572,7 +572,7 @@ void pieAllShipsToPiePlateDraw(real32 distance)
                  (shipPoint.y - selCentrePoint.y) * (shipPoint.y - selCentrePoint.y)));
         //now draw circle on the plane
         bHeightPointDrawn = FALSE;
-        if (abs(shipPoint.z - planePoint.z) > ship->staticinfo->staticheader.staticCollInfo.collspheresize)
+        if (ABS(shipPoint.z - planePoint.z) > ship->staticinfo->staticheader.staticCollInfo.collspheresize)
         {
             radius = ship->staticinfo->staticheader.staticCollInfo.collspheresize;
             selCircleComputeGeneral(&rndCameraMatrix, &rndProjectionMatrix,
@@ -594,8 +594,8 @@ void pieAllShipsToPiePlateDraw(real32 distance)
         }
 
         //see if this is the closest ship to the cursor
-        length = abs(piePlanePoint.x - planePoint.x) +       //manhattan distance
-            abs(piePlanePoint.y - planePoint.y);
+        length = ABS(piePlanePoint.x - planePoint.x) +       //manhattan distance
+            ABS(piePlanePoint.y - planePoint.y);
         if (length < closestDistance)
         {                                                   //if this ship closest so far
             closestDistance = length;
@@ -733,7 +733,7 @@ void pieMovementCursorDraw(real32 distance)
     sdword nSegments;
 
     stipple = glCapFastFeature(GL_LINE_STIPPLE);
-    if (abs(piePointSpecZ) < pieDottedDistance)
+    if (ABS(piePointSpecZ) < pieDottedDistance)
     {
         if (stipple)
         {
@@ -915,7 +915,6 @@ void piePlaneDraw(real32 distance)
     Return      : TRUE if a valid intersection found, FALSE otherwise
 ----------------------------------------------------------------------------*/
 #define SGN(x)      ((x) < 0.0f ? -1.0f : 1.0f)
-#define ABS(x)      ((x) < 0.0f ? -(x) : (x))
 bool pieMovePointClipToLimits(real32 sizeX, real32 sizeY, real32 sizeZ, vector *pointA, vector *pointB)
 {
     real32 discriminant;
@@ -1005,7 +1004,6 @@ bool pieMovePointClipToLimits(real32 sizeX, real32 sizeY, real32 sizeZ, vector *
     return(TRUE);
 }
 #undef SGN
-#undef ABS
 
 /*-----------------------------------------------------------------------------
     Name        : piePointSpecDraw
@@ -1264,7 +1262,7 @@ void piePointSpecDraw(void)
             pieHeightPoint.y = piePlanePoint.y;
         }
         maxMoveLength = pieMaxMoveVertical;
-        moveLength = abs(pieHeightPoint.z - piePlanePoint.z);
+        moveLength = ABS(pieHeightPoint.z - piePlanePoint.z);
         if (moveLength > maxMoveLength)
         {                                                   //if moved too high
             pieHeightPoint.z = piePlanePoint.z + (pieHeightPoint.z - piePlanePoint.z) * maxMoveLength / moveLength;

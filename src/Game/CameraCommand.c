@@ -411,7 +411,7 @@ DVect LookToObj, LookToCam, nLookToObj, nLookToCam;
 udword CloseOnAngle(real32 *tracking,real32 desired,real32 rate)
 {
     real32 diff = desired - *tracking;
-    real32 absdiff = abs(diff);
+    real32 absdiff = ABS(diff);
 
     if (absdiff > PI)       // at most we will be PI radians off, so if we are "more" than
     {                       // PI radians off we are going the wrong way.
@@ -424,10 +424,10 @@ udword CloseOnAngle(real32 *tracking,real32 desired,real32 rate)
             desired += TWOPI;
         }
         diff = desired - *tracking;
-        absdiff = abs(diff);
+        absdiff = ABS(diff);
     }
 
-    if (abs(diff) < rate)
+    if (ABS(diff) < rate)
     {
         *tracking = desired;
         return 1;
@@ -465,7 +465,7 @@ udword CloseOn(real32 *tracking,real32 desired,real32 rate)
 {
     real32 diff = desired - *tracking;
 
-    if (abs(diff) < rate)
+    if (ABS(diff) < rate)
     {
         *tracking = desired;
         return 1;
@@ -494,7 +494,7 @@ udword CloseOn(real32 *tracking,real32 desired,real32 rate)
 udword CloseOnFast(real32 *tracking,real32 desired,real32 minrate)
 {
     real32 diff = desired - *tracking;
-    real32 dist = abs(diff);
+    real32 dist = ABS(diff);
     real32 rate = dist / 8.0f;
 
     if (rate <= minrate)
@@ -781,7 +781,7 @@ void GetDistanceAngleDeclination(Camera *camera,vector *distvec)
     camera->angle = (real32)atan2(distvec->y,distvec->x);
     value = -distvec->z/camera->distance;
 
-    dbgAssert( abs(value) <= 1.01f );       // USE 1.01 SO ROUND OFF ERRORS DON'T CRASH US
+    dbgAssert( ABS(value) <= 1.01f );       // USE 1.01 SO ROUND OFF ERRORS DON'T CRASH US
 
     if(value < -1.0f)
         value = -1.0f;
@@ -1776,9 +1776,9 @@ sdword ccFocusCullRadiusGeneral(FocusCommand *out, FocusCommand *in, real32 radi
 
     for (out->numShips = index = 0; index < in->numShips; index++)
     {
-        dx = abs(in->ShipPtr[index]->posinfo.position.x - centre->x);
-        dy = abs(in->ShipPtr[index]->posinfo.position.y - centre->y);
-        dz = abs(in->ShipPtr[index]->posinfo.position.z - centre->z);
+        dx = ABS(in->ShipPtr[index]->posinfo.position.x - centre->x);
+        dy = ABS(in->ShipPtr[index]->posinfo.position.y - centre->y);
+        dz = ABS(in->ShipPtr[index]->posinfo.position.z - centre->z);
         distanceSqr = dx * dx + dy * dy + dz * dz;          //compute distance from centre
         if (distanceSqr <= radiusSqr)
         {                                                   //if this ship close enough to the mean

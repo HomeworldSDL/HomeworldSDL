@@ -294,7 +294,7 @@ void alodAdjustScaleFactor(void)
     }
 
     //distance from ideal poly count
-    delta = abs((sdword)(alodTargetPolys - alodNumPolys));
+    delta = ABS((sdword)(alodTargetPolys - alodNumPolys));
 
     alodSetPanic(FALSE);
 

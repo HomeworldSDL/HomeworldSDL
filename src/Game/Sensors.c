@@ -1728,8 +1728,8 @@ real32 smBlobDropLineDistance(blob *thisBlob)
     vector planePoint = thisBlob->centre;
 
     planePoint.z = selCentrePoint.z;
-    return(abs(piePlanePoint.x - planePoint.x) +            //manhattan distance
-            abs(piePlanePoint.y - planePoint.y));
+    return(ABS(piePlanePoint.x - planePoint.x) +            //manhattan distance
+            ABS(piePlanePoint.y - planePoint.y));
 }
 
 /*-----------------------------------------------------------------------------
@@ -1787,7 +1787,7 @@ blob *smBlobsDraw(Camera *camera, LinkedList *list, hmatrix *modelView, hmatrix 
         thisBlob = smBlobSortList[blobIndex];
         closestSortDistance = min(closestSortDistance, thisBlob->cameraSortDistance);
         farthestSortDistance = max(farthestSortDistance, thisBlob->cameraSortDistance);
-        highestBlob = max(highestBlob, abs(thisBlob->centre.z));
+        highestBlob = max(highestBlob, ABS(thisBlob->centre.z));
         moveDistance = smBlobDropLineDistance(thisBlob);
         if (moveDistance < closestMoveDistance)
         {                                                   //closest blob to movement mechanism
@@ -1889,7 +1889,7 @@ blob *smBlobsDraw(Camera *camera, LinkedList *list, hmatrix *modelView, hmatrix 
 #endif
         if (mouseInRectGeneral(o.centreX - o.radiusX, o.centreY - o.radiusY, o.centreX + o.radiusX, o.centreY + o.radiusY))
         {                                                   //if inside bounding box of circle
-            distance = abs(o.centreX - mouseCursorX()) + abs(o.centreY - mouseCursorY());
+            distance = ABS(o.centreX - mouseCursorX()) + ABS(o.centreY - mouseCursorY());
             if (distance < closestDistance)
             {                                               //if closest yet
                 closestDistance = distance;
@@ -2071,7 +2071,7 @@ blob *smBlobsDraw(Camera *camera, LinkedList *list, hmatrix *modelView, hmatrix 
                 p1.x = thisBlob->centre.x;                  //draw from blob to move plane
                 p1.y = thisBlob->centre.y;
                 p1.z = piePlanePoint.z;
-                if (abs(p1.z - p0.z) >= smShortFootLength)
+                if (ABS(p1.z - p0.z) >= smShortFootLength)
                 {
                     primLine3(&p0, &p1, c);                     //draw line to plane
                     selCircleComputeGeneral(modelView, projection, &p1, smBlobCircleSize, &x, &y, &screenRadius);
@@ -3057,7 +3057,7 @@ void smViewportRender(featom *atom, regionhandle region)
         }
         //perform cubic spline interpolation of the panned camera point
         vecSub(rememberVec, smCamera.lookatpoint, smCameraLookatPoint);
-        if (abs(rememberVec.x) + abs(rememberVec.y) + abs(rememberVec.z) > smPanEvalThreshold)
+        if (ABS(rememberVec.x) + ABS(rememberVec.y) + ABS(rememberVec.z) > smPanEvalThreshold)
         {                                                   //if there is any distance between pan point and camera point
             while (frameTicks)
             {
@@ -3202,8 +3202,8 @@ void smNULL(void)
 ----------------------------------------------------------------------------*/
 void smSelectHold(void)
 {
-    if (abs(mouseCursorX() - mrOldMouseX) >= selClickBoxWidth ||
-        abs(mouseCursorY() - mrOldMouseY) >= selClickBoxHeight)
+    if (ABS(mouseCursorX() - mrOldMouseX) >= selClickBoxWidth ||
+        ABS(mouseCursorY() - mrOldMouseY) >= selClickBoxHeight)
     {                                                       //if mouse has moved from anchor point
         mrSelectRectBuild(&smSelectionRect, mrOldMouseX, mrOldMouseY);//create a selection rect
         selRectNone();
@@ -3404,8 +3404,8 @@ udword smViewportProcess(regionhandle region, sdword ID, udword event, udword da
             {
                 Ship *clickedOn = NULL;
 
-                if (abs(mouseCursorX() - mrOldMouseX) < selClickBoxWidth &&
-                    abs(mouseCursorY() - mrOldMouseY) < selClickBoxHeight)
+                if (ABS(mouseCursorX() - mrOldMouseX) < selClickBoxWidth &&
+                    ABS(mouseCursorY() - mrOldMouseY) < selClickBoxHeight)
                 {                                           //if mouse has moved much
                     smSelectionRect.x0 = mouseCursorX() - smSelectionWidth / 2;
                     smSelectionRect.x1 = mouseCursorX() + smSelectionWidth / 2;

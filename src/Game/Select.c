@@ -574,8 +574,8 @@ Ship *selSelectionClick(Node *listHead, Camera *camera, sdword x, sdword y, bool
                     p3 = primPointLineIntersection(xReal, yReal, point[pIndex[base + 3]].x, point[pIndex[base + 3]].y, point[pIndex[base + 0]].x, point[pIndex[base + 0]].y);
                     if (p0 > 0.0f && p1 > 0.0f && p2 > 0.0f && p3 > 0.0f)
                     {                                       //if point inside this poly
-                        distance = abs(primGLToScreenX(ship->collInfo.selCircleX) - x) +
-                            abs(primGLToScreenY(ship->collInfo.selCircleY) - y) +
+                        distance = ABS(primGLToScreenX(ship->collInfo.selCircleX) - x) +
+                            ABS(primGLToScreenY(ship->collInfo.selCircleY) - y) +
                             primGLToScreenScaleX(ship->collInfo.selCircleDepth);
                         if (distance < closestDistance)
                         {
@@ -597,8 +597,8 @@ Ship *selSelectionClick(Node *listHead, Camera *camera, sdword x, sdword y, bool
                 if ((selectRect.x0 <= x) && (x <= selectRect.x1) &&
                     (selectRect.y0 <= y) && (y <= selectRect.y1))
                 {                                           //found a matching object, return
-                    distance = abs(primGLToScreenX(ship->collInfo.selCircleX) - x) +
-                        abs(primGLToScreenY(ship->collInfo.selCircleY) - y) +
+                    distance = ABS(primGLToScreenX(ship->collInfo.selCircleX) - x) +
+                        ABS(primGLToScreenY(ship->collInfo.selCircleY) - y) +
                             primGLToScreenScaleX(ship->collInfo.selCircleDepth);
                     if (distance < closestDistance)
                     {
@@ -662,8 +662,8 @@ SpaceObj *selClickFromArray(SpaceObj **list, sdword length, sdword x, sdword y)
             if ((selectRect.x0 <= x) && (x <= selectRect.x1) &&
                 (selectRect.y0 <= y) && (y <= selectRect.y1))
             {                                           //found a matching object, return
-                distance = abs(primGLToScreenX(((SpaceObjRotImpTarg *)object)->collInfo.selCircleX) - x) +
-                    abs(primGLToScreenY(((SpaceObjRotImpTarg *)object)->collInfo.selCircleY) - y);//manhattan distance
+                distance = ABS(primGLToScreenX(((SpaceObjRotImpTarg *)object)->collInfo.selCircleX) - x) +
+                    ABS(primGLToScreenY(((SpaceObjRotImpTarg *)object)->collInfo.selCircleY) - y);//manhattan distance
                 if (distance < closestDistance)
                 {
                     closestDistance = distance;
@@ -1063,8 +1063,8 @@ void selCircleCompute(hmatrix *modelView, hmatrix *projection, SpaceObjRotImpTar
                 {                                       //if mouse inside this poly
                     if (target->collInfo.selCircleRadius > 0.0f)
                     {
-                        distance = abs(primGLToScreenX(target->collInfo.selCircleX) - mouseCursorX()) +
-                            abs(primGLToScreenY(target->collInfo.selCircleY) - mouseCursorY());
+                        distance = ABS(primGLToScreenX(target->collInfo.selCircleX) - mouseCursorX()) +
+                            ABS(primGLToScreenY(target->collInfo.selCircleY) - mouseCursorY());
                         selShipUnderMouse(target, distance);
                     }
                     break;
@@ -1083,8 +1083,8 @@ checkUnderMouse:
         if ((selectRect.x0 <= mouseCursorX()) && (mouseCursorX() <= selectRect.x1) &&
             (selectRect.y0 <= mouseCursorY()) && (mouseCursorY() <= selectRect.y1))
         {                                               //if under mouse
-            distance = abs(primGLToScreenX(collision->selCircleX) - mouseCursorX()) +
-                abs(primGLToScreenY(collision->selCircleY) - mouseCursorY());
+            distance = ABS(primGLToScreenX(collision->selCircleX) - mouseCursorX()) +
+                ABS(primGLToScreenY(collision->selCircleY) - mouseCursorY());
             selShipUnderMouse(target, distance);
 
         }

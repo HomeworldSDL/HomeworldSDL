@@ -1390,7 +1390,7 @@ void collCheckShipResourceColl(blob *thisBlob)
                 goto nextobj1;
             }
 
-            if ((absdistcheck = abs(distcheck)) > maxdistCollPossible)
+            if ((absdistcheck = ABS(distcheck)) > maxdistCollPossible)
             {
                 goto nocollision;
             }
@@ -1554,7 +1554,7 @@ void collCheckShipDerelictColl(blob *thisBlob)
                 goto nextobj1;
             }
 
-            if ((absdistcheck = abs(distcheck)) > maxdistCollPossible)
+            if ((absdistcheck = ABS(distcheck)) > maxdistCollPossible)
             {
                 goto nocollision;
             }
@@ -2036,7 +2036,7 @@ void collCheckBulletTargetColl(blob *thisBlob)
                         //do bullet/missle target collision with its target only!
                          distcheck = bullet->target->collOptimizeDist - bullet->collOptimizeDist;
 
-                        if (abs(distcheck) > (bullet->target->staticinfo->staticheader.staticCollInfo.collspheresize+bullet->traveldist))
+                        if (ABS(distcheck) > (bullet->target->staticinfo->staticheader.staticCollInfo.collspheresize+bullet->traveldist))
                         {
                             //trivially reject...
                             goto nominecollision;
@@ -2132,7 +2132,7 @@ passagain:
 
                     if ((target->objtype != OBJ_ShipType) || (((Ship *)target)->shiptype != DFGFrigate && ((Ship *)target)->shiptype != DefenseFighter))
                     {
-                        if (abs(distcheck) > (targetstaticheader->staticCollInfo.collspheresize+bullet->traveldist))
+                        if (ABS(distcheck) > (targetstaticheader->staticCollInfo.collspheresize+bullet->traveldist))
                         {
                             goto nexttarget;
                         }
@@ -2370,7 +2370,7 @@ passagain:
 
             targetstaticheader = &target->staticinfo->staticheader;
 
-            if (abs(distcheck) > (targetstaticheader->staticCollInfo.collspheresize+missile->maxtraveldist))
+            if (ABS(distcheck) > (targetstaticheader->staticCollInfo.collspheresize+missile->maxtraveldist))
             {
                 goto nexttarget;
             }
@@ -2535,7 +2535,7 @@ void collCheckMissileResourceColl(blob *thisBlob,MissileType missileType)
 
             targetstaticheader = &target->staticinfo->staticheader;
 
-            if (abs(distcheck) > (targetstaticheader->staticCollInfo.collspheresize+missile->maxtraveldist))
+            if (ABS(distcheck) > (targetstaticheader->staticCollInfo.collspheresize+missile->maxtraveldist))
             {
                 goto nexttarget;
             }
@@ -2694,7 +2694,7 @@ void collCheckMissileDerelictColl(blob *thisBlob,MissileType missileType)
 
             targetstaticheader = &target->staticinfo->staticheader;
 
-            if (abs(distcheck) > (targetstaticheader->staticCollInfo.collspheresize+missile->maxtraveldist))
+            if (ABS(distcheck) > (targetstaticheader->staticCollInfo.collspheresize+missile->maxtraveldist))
             {
                 goto nexttarget;
             }
@@ -2839,7 +2839,7 @@ void collCheckMissileMineColl(blob *thisBlob)
 
             targetstaticheader = &target->staticinfo->staticheader;
 
-            if (abs(distcheck) > (targetstaticheader->staticCollInfo.collspheresize+missile->maxtraveldist))
+            if (ABS(distcheck) > (targetstaticheader->staticCollInfo.collspheresize+missile->maxtraveldist))
             {
                 goto nexttarget;
             }

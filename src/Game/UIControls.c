@@ -4320,8 +4320,8 @@ udword uicDragButtonProcess(regionhandle region, sdword ID, udword event, udword
             }
             else
             {                                               //no dragging yet
-                if (abs(((buttonhandle)region)->clickX - mouseCursorX()) >= UIC_DragButtonThresholdX ||
-                    abs(((buttonhandle)region)->clickY - mouseCursorY()) >= UIC_DragButtonThresholdY)
+                if (ABS(((buttonhandle)region)->clickX - mouseCursorX()) >= UIC_DragButtonThresholdX ||
+                    ABS(((buttonhandle)region)->clickY - mouseCursorY()) >= UIC_DragButtonThresholdY)
                 {                                           //if the mouse has been dragged far enough to be considered a drag
                     //...register the motion
                     ((buttonhandle)region)->bDragged = TRUE;

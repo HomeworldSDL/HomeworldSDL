@@ -1126,14 +1126,14 @@ bool battleShipOnMyTail(Ship *meShip, Ship *badGuyShip)
     if (bogeyPosition.z < 0.0f)
     {                                           //if they're behind us
         //sort of a "Manhattan bogey attitude" check
-        if (abs(bogeyPosition.x) + abs(bogeyPosition.y) < -bogeyPosition.z * batBogeyAspect)
+        if (ABS(bogeyPosition.x) + ABS(bogeyPosition.y) < -bogeyPosition.z * batBogeyAspect)
         {                                       //and they're on our 6
             vecNegate(temp);                    //vector from them to us
             matCopyAndTranspose(&badGuyShip->rotinfo.coordsys, &transpose);//transpose of coordsys
             matMultiplyMatByVec(&bogeyPosition, &transpose, &temp); //our position in badguy's local space
             if (bogeyPosition.z > 0.0f)
             {                                   //if they're ahead of us
-                if (abs(bogeyPosition.x) + abs(bogeyPosition.y) < bogeyPosition.z * batBogeyAspect)
+                if (ABS(bogeyPosition.x) + ABS(bogeyPosition.y) < bogeyPosition.z * batBogeyAspect)
                 {                               //and we're in their sights
                     return(TRUE);
                 }

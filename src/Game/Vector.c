@@ -245,9 +245,9 @@ void vecCapMinMaxVector(vector *vectorToCap,real32 minMagnitude,real32 maxMagnit
 ----------------------------------------------------------------------------*/
 real32 getVectDistSloppy(vector diff)
 {
-    diff.x = abs(diff.x);
-    diff.y = abs(diff.y);
-    diff.z = abs(diff.z);
+    diff.x = ABS(diff.x);
+    diff.y = ABS(diff.y);
+    diff.z = ABS(diff.z);
 
     if (diff.x > diff.y)
     {

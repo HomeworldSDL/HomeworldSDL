@@ -1902,9 +1902,9 @@ void FormationCalculateOffsets(struct CommandToDo *formationtodo)
                 for(i=0;i<numShips;i++)
                 {
                     vecSub(error,selection->ShipPtr[i]->posinfo.position,averagepos);
-                    error.x = abs(error.x);
-                    error.y = abs(error.y);
-                    error.z = abs(error.z);
+                    error.x = ABS(error.x);
+                    error.y = ABS(error.y);
+                    error.z = ABS(error.z);
                     totalError = error.x+error.y+error.z;
                     if(totalError < minError)
                     {
@@ -2439,9 +2439,9 @@ void FormationCalculateSpecialOffsets(struct CommandToDo *formationtodo)
                 for(i=0;i<numShips;i++)
                 {
                     vecSub(error,selection->ShipPtr[i]->posinfo.position,averagepos);
-                    error.x = abs(error.x);
-                    error.y = abs(error.y);
-                    error.z = abs(error.z);
+                    error.x = ABS(error.x);
+                    error.y = ABS(error.y);
+                    error.z = ABS(error.z);
                     totalError = error.x+error.y+error.z;
                     if(totalError < minError)
                     {

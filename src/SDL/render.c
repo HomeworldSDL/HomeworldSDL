@@ -1945,8 +1945,8 @@ void rndPostRenderDebug3DStuff(Camera *camera)
         primLine3(&nisCamera->eyeposition, &cameraVector, flashFlag ? colWhite : colFuscia);
         vecScalarMultiply(upVector, nisCamera->upvector, 200);
         vecAdd(upVector, nisCamera->eyeposition, upVector);
-//        upVector.z -= abs(nisCamera->eyeposition.z - cameraVector.z) +
-//            abs(nisCamera->eyeposition.y - cameraVector.y);
+//        upVector.z -= ABS(nisCamera->eyeposition.z - cameraVector.z) +
+//            ABS(nisCamera->eyeposition.y - cameraVector.y);
         primLine3(&nisCamera->eyeposition, &upVector, colWhite);
 //      if (selSelected.numShips > 0)
 //      {

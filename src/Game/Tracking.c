@@ -172,7 +172,7 @@ void trkTrackValuesDisplayFn(void)
         }
         //print the name of the value
         fontPrint(x - fontWidth(trkValue[index].name), y, trkValue[index].c, trkValue[index].name);
-        delta = abs(*trkValue[index].value - trkValue[index].lastValue) / timeElapsed;//see how much it has changed
+        delta = ABS(*trkValue[index].value - trkValue[index].lastValue) / timeElapsed;//see how much it has changed
         if (delta == 0.0f)
         {                                                   //don't do anything else if it has not changed
             continue;

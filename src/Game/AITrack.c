@@ -730,7 +730,7 @@ bool aitrackHeadingWithBankPitchFunc(Ship *ship,vector *desiredHeading,real32 ac
         return TRUE;     // heading close enough to desired heading, so return
     }
 
-    actualpitchturn = (1.0f - abs(dotprodheading)) * pitchturn;
+    actualpitchturn = (1.0f - ABS(dotprodheading)) * pitchturn;
 
     if (pitchdescend < 0.0f)
     {
@@ -1381,9 +1381,9 @@ bool MoveReachedDestinationVariable(Ship *ship,vector *destination,real32 bounds
 ----------------------------------------------------------------------------*/
 real32 MoveLeftToGo(Ship *ship,vector *destination)
 {
-    real32 absx = abs(destination->x - ship->posinfo.position.x);
-    real32 absy = abs(destination->y - ship->posinfo.position.y);
-    real32 absz = abs(destination->z - ship->posinfo.position.z);
+    real32 absx = ABS(destination->x - ship->posinfo.position.x);
+    real32 absy = ABS(destination->y - ship->posinfo.position.y);
+    real32 absz = ABS(destination->z - ship->posinfo.position.z);
 
     return max(max(absx,absy),absz);
 }

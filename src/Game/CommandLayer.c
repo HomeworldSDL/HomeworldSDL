@@ -5790,7 +5790,7 @@ void InitExtraAttackInfo(SelectCommand *selection,AttackCommand *attack,bool fin
     vecDivideByScalar(avgposSelection,((real32)numShips),temp);
     vecDivideByScalar(avgposTargets,((real32)numTargetsToAttack),temp);
     vecSub(diff,avgposSelection,avgposTargets);
-    diff.z = abs(diff.z);
+    diff.z = ABS(diff.z);
 
     if ((diff.z >= ATTACKING_FROM_ABOVE_MIN_DIST) &&
         (diff.z >= (fsqrt(diff.x*diff.x + diff.y*diff.y)*ATTACKING_FROM_ABOVE_MIN_RATIO)))

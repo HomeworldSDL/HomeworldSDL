@@ -159,8 +159,8 @@ float  SwapFloat( float val );
     #define min(a,b) ((a) > (b) ? (b) : (a))
 #endif
 
-#if !defined(abs) && !defined(_MACOSX)
-    #define abs(a)   ((a) < 0 ? -(a) : (a))
+#if !defined(ABS)
+    #define ABS(a)   ((a) < 0 ? -(a) : (a))
 #endif
 
 #define frandyrandom(stream,n) (ranRandom(stream) * (((real32)(n)) * (1.0f/((real32)UDWORD_Max))))

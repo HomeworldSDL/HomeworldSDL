@@ -113,7 +113,7 @@ double fmathSqrtDouble(double f)
     
 #if 0
     dbgAssert(f > 0.0f);
-    error = abs((f - test) / test);
+    error = ABS((f - test) / test);
     if (error > 0.0001)
     {
         dbgAssert(FALSE);

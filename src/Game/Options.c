@@ -3657,11 +3657,11 @@ void DoSmoothies(void)
                 (smoo->callback)(smoo->buffer, smoo);
             }
 #else
-            if (abs(*(smoo->source)) == smoo->buffer)
+            if (ABS(*(smoo->source)) == smoo->buffer)
             {
                 ; //nothing
             }
-            else if (abs(*(smoo->source) - smoo->buffer) < smoo->threshold)
+            else if (ABS(*(smoo->source) - smoo->buffer) < smoo->threshold)
             {
                 //make same and do last update
                 *(smoo->source) = smoo->buffer;

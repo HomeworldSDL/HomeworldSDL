@@ -850,7 +850,7 @@ void GenericInterceptorAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdi
                         formtype = NO_FORMATION;            // yet another R1 Mothership special consideration
                     }
 
-                    if ( (abs(trajectory.z) >= 0.75) )
+                    if ( (ABS(trajectory.z) >= 0.75) )
                     {
                         //vecScalarMultiply(tmpvec,trajectory,interceptorstat->flyPastDist[ship->tacticstype][targetIndex]);
                         vecScalarMultiply(tmpvec,trajectory,FAKE_FLY_BY_DISTANCE_MUCH_BIGGER_THAN_NEEDED);
@@ -868,7 +868,7 @@ void GenericInterceptorAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdi
                         //vecNormalizeToLength(&tmpvec,interceptorstat->flyPastDist[ship->tacticstype][targetIndex]);
                         vecNormalizeToLength(&tmpvec,FAKE_FLY_BY_DISTANCE_MUCH_BIGGER_THAN_NEEDED);
 
-                        if (abs(trajectory.x) > abs(trajectory.y))
+                        if (ABS(trajectory.x) > ABS(trajectory.y))
                         {
                             matMakeRotAboutY(&tmpmat,(real32)cos(randegf),(real32)sin(randegf));
                         }

@@ -153,9 +153,9 @@ bool ResourceMovingTooFast(Resource *resource)
         maxvelocitychase = MAX_RESOURCE_VELOCITY_TO_CHASE_LEVEL6;
     }
 
-    if ((abs(resource->posinfo.velocity.x) > maxvelocitychase) ||
-        (abs(resource->posinfo.velocity.y) > maxvelocitychase) ||
-        (abs(resource->posinfo.velocity.z) > maxvelocitychase) )
+    if ((ABS(resource->posinfo.velocity.x) > maxvelocitychase) ||
+        (ABS(resource->posinfo.velocity.y) > maxvelocitychase) ||
+        (ABS(resource->posinfo.velocity.z) > maxvelocitychase) )
     {
 #ifdef DEBUG_COLLECTRESOURCES
             dbgMessage("\nResource moving too fast. Picking different one...");

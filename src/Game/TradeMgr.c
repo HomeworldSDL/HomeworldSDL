@@ -1632,7 +1632,7 @@ void wkTradeUpdate(void)
         if (trader->controlrot)
         {
             trader->vang += trader->controlrot*trader->vangacc;
-            if (abs(trader->vang) > trader->vangmax)
+            if (ABS(trader->vang) > trader->vangmax)
             {
                 if (trader->vang>0)
                     trader->vang = trader->vangmax;
@@ -1642,7 +1642,7 @@ void wkTradeUpdate(void)
         }
         else
         {
-            if (abs(trader->vang) < trader->vangacc)
+            if (ABS(trader->vang) < trader->vangacc)
             {
                 trader->vang = 0.0f;
             }

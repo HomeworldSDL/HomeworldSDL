@@ -2404,7 +2404,7 @@ void ApplyDamageToCollidingObjects(SpaceObjRotImpTarg *obj1,SpaceObjRotImpTarg *
     }
 
     vecSub(obj2VelRelToObj1,obj2->posinfo.velocity,obj1->posinfo.velocity);
-    veltangentfactor = abs(vecDotProduct(*distvector,obj2VelRelToObj1));
+    veltangentfactor = ABS(vecDotProduct(*distvector,obj2VelRelToObj1));
     veltangentfactor /= (COLLDAMAGE_VELOCITY_TANGENT_SCALE * dist);
     // now veltangentfactor is equal to k * |vel| cos(theta) where theta is angle between distvector and obj2VelRelToObj1
 

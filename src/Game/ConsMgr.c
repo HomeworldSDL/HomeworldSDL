@@ -4480,7 +4480,7 @@ void cmAdjustRU(cmDetermProgress_t* dprog, sdword amount)
     Player* player = &universe.players[dprog->playerIndex];
     player->resourceUnits += amount;
 
-    universe.gameStats.playerStats[player->playerIndex].totalResourceUnitsSpent += min(player->resourceUnits, abs(amount));
+    universe.gameStats.playerStats[player->playerIndex].totalResourceUnitsSpent += min(player->resourceUnits, ABS(amount));
 
     if (player->resourceUnits < 0)
     {

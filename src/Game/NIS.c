@@ -460,7 +460,7 @@ void nisUpdateTask(void)
         //fade to/from black
         if (nisBlackFade != nisBlackFadeDest)
         {
-            if (abs(nisBlackFade - nisBlackFadeDest) <= UNIVERSE_UPDATE_PERIOD)
+            if (ABS(nisBlackFade - nisBlackFadeDest) <= UNIVERSE_UPDATE_PERIOD)
             {                                           //if the end of the fade
                 nisBlackFade = nisBlackFadeDest;
                 nisBlackFadeRate = 0.0f;
@@ -1856,7 +1856,7 @@ real32 nisUpdate(nisplaying *NIS, real32 timeElapsed)
             }
         }
         //cap the velocity vector of the ship
-        if (abs(tempVect.x) + abs(tempVect.y) + abs(tempVect.z) > 0.0f)
+        if (ABS(tempVect.x) + ABS(tempVect.y) + ABS(tempVect.z) > 0.0f)
         {
             if (NIS->header->objectPath[index].type < NUM_RACES)
             {

@@ -762,7 +762,7 @@ void btgZip(void)
     }
 
     //continue only if approximately equal number of edge verts
-    if (abs(numLeft - numRight) > 1)
+    if (ABS(numLeft - numRight) > 1)
     {
         return;
     }

@@ -1610,7 +1610,7 @@ udword partRenderLineSystem(udword n, particle *p, udword flags)
             vector rv = p->wVel;
             vecNormalize(&rv);
             if (isnan((double)rv.x) || isnan((double)rv.y) || isnan((double)rv.z) ||
-				(abs(rv.x) < REALlySmall && abs(rv.y) <= REALlySmall && abs(rv.z) <= REALlySmall))
+				(ABS(rv.x) < REALlySmall && ABS(rv.y) <= REALlySmall && ABS(rv.z) <= REALlySmall))
             {
                 rv.z = 1.0f;
             }
