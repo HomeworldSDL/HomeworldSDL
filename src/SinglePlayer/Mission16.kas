@@ -3,6 +3,19 @@
 //
 //
 
+#ifdef _WIN32
+    #include "..\\Game\\AIFeatures.h"
+    #include "..\\Game\\Attributes.h"
+    #include "..\\Game\\CommandDefs.h"
+    #include "..\\Game\\SpeechEvent.h"
+#else
+    #include "../Game/AIFeatures.h"
+    #include "../Game/Attributes.h"
+    #include "../Game/CommandDefs.h"
+    #include "../Game/SpeechEvent.h"
+#endif
+
+#include "Utilities.kash"
 
     LOCALIZATION //컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
 
@@ -118,11 +131,7 @@
 
 #define MASTERTEAM          TEAM_ImperialFlagship
 #define MASTERTEAMSHIPS     TEAMSHIPS_ImperialFlagship
-#include "SpeechEvent.h"
-#include "CommandDefs.h"
-#include "AIFeatures.h"
-#include "Utilities.kash"
-#include "Attributes.h"
+
 //-----------------------------------------------------------------------------
 //    Name        : Events
 //    Description : Location for all the fleet intel events

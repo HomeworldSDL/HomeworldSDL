@@ -4,6 +4,16 @@
 //                                                                      //
 //----------------------------------------------------------------------//
 
+#ifdef _WIN32
+    #include "..\\Game\\CommandDefs.h"
+    #include "..\\Game\\SoundMusic.h"
+    #include "..\\Game\\SpeechEvent.h"
+#else
+    #include "../Game/CommandDefs.h"
+    #include "../Game/SoundMusic.h"
+    #include "../Game/SpeechEvent.h"
+#endif
+
 #include "Utilities.kash"
 
     LOCALIZATION //컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
@@ -178,9 +188,6 @@
 
     ENDL //컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
 
-#include "SpeechEvent.h"
-#include "CommandDefs.h"
-#include "SoundMusic.h"
 
 #define MISSION8
 #define MOTHERTEAM         TEAM_MsgSender
@@ -188,7 +195,6 @@
 #define EVENTSTEAM         TEAM_Events
 
 #include "Swarmer.kash"
-
 
 
 //-----------------------------------------------------------------------------

@@ -1,10 +1,16 @@
 //
 //  MISSION11 - Battle against P3 (help the Traders)
 //
-#include "../Game/SpeechEvent.h"
-#include "../Game/SoundMusic.h"
-#include "Attributes.h"
 
+#ifdef _WIN32
+    #include "..\\Game\\Attributes.h"
+    #include "..\\Game\\SoundMusic.h"
+    #include "..\\Game\\SpeechEvent.h"
+#else
+    #include "../Game/Attributes.h"
+    #include "../Game/SoundMusic.h"
+    #include "../Game/SpeechEvent.h"
+#endif
 
     LOCALIZATION //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
@@ -364,14 +370,14 @@ ENDFSM FleetIntel
   FSM Traders
     States Flounder, FlyUpToPlayer, UnderAttackWatch, TradersObliteratePlayer, WaitToHyperspace, HyperspaceOut, NullState;
 
-    INIT
+  INIT
             TeamAttributesSet(ATTRIBUTES_Defector);
-            TeamHealthSet (43);                                     // Tradership is heavily damaged after the fight with the Taiidan
+          TeamHealthSet (43);                                     // Tradership is heavily damaged after the fight with the Taiidan
             TraderGUIDisable (TRUE);
             TeamMakeCrazy (TRUE);
-            Jump Flounder;
-    ENDINIT
-    WATCH
+          Jump Flounder;
+  ENDINIT
+  WATCH
             IFONCE (VarGet ("G_Nis7Complete") = TRUE)
                     TeamHealthSet (33);
             ENDIFONCE
@@ -395,14 +401,14 @@ ENDFSM FleetIntel
             IF (VarGet ("KeepBentusiAliveForever") = TRUE)
                     TeamHealthSet (VarGet ("CurrentTraderHealth"));
             ENDIF
-    ENDWATCH
-  
-  
-    STATE Flounder //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
-        INIT                                                        // Tradership is wounded, so it flounders around (lists?)
+  ENDWATCH
+
+
+  STATE Flounder //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+      INIT                                                        // Tradership is wounded, so it flounders around (lists?)
                 TeamMakeCrazy (TRUE);
-        ENDINIT
-        WATCH
+      ENDINIT
+      WATCH
                 IF (NOT UnderAttack (SHIPS_Null929292))
                         TeamMakeCrazy (FALSE);
                 ENDIF
@@ -410,15 +416,15 @@ ENDFSM FleetIntel
                         TeamMakeCrazy (FALSE);
                         Jump FlyUpToPlayer;
                 ENDIF
-        ENDWATCH
-    ENDSTATE Flounder //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+      ENDWATCH
+  ENDSTATE Flounder //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 
-    STATE FlyUpToPlayer //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
-        INIT
+  STATE FlyUpToPlayer //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+      INIT
                 PatrolPath (PATH_TraderPath);
-        ENDINIT
-        WATCH
+      ENDINIT
+      WATCH
                 IFONCE (PathNextPoint () = 0)
                         VarCreateSet ("G_TradersInPosition", TRUE);
                         Jump WaitToHyperspace;
@@ -429,8 +435,8 @@ ENDFSM FleetIntel
                         VarCreateSet ("G_PlayerHasAttackedTraders", TRUE);
                         Jump UnderAttackWatch;
                 ENDIF
-        ENDWATCH
-    ENDSTATE FlyUpToPlayer //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+      ENDWATCH
+  ENDSTATE FlyUpToPlayer //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 
     STATE UnderAttackWatch //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
@@ -483,10 +489,10 @@ ENDFSM FleetIntel
     ENDSTATE TradersObliteratePlayer //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 
-    STATE WaitToHyperspace //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
-        INIT
-        ENDINIT
-        WATCH
+  STATE WaitToHyperspace //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+      INIT
+      ENDINIT
+      WATCH
                 // if the player stupidly attacks the Traders, give them the warning
                 IF (UnderAttack (SHIPS_Null87238923))
                         VarCreateSet ("G_PlayerHasAttackedTraders", TRUE);
@@ -496,31 +502,31 @@ ENDFSM FleetIntel
                 IF (VarGet ("G_TradersGoNow") =TRUE)
                         Jump HyperspaceOut;
                 ENDIF
-        ENDWATCH
-    ENDSTATE WaitToHyperspace //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+      ENDWATCH
+  ENDSTATE WaitToHyperspace //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 
-    STATE HyperspaceOut //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
-        INIT
+  STATE HyperspaceOut //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+      INIT
                 TeamHyperspaceOut ();
                 Jump NullState;
-        ENDINIT
-        WATCH
-        ENDWATCH
-    ENDSTATE HyperspaceOut //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+      ENDINIT
+      WATCH
+      ENDWATCH
+  ENDSTATE HyperspaceOut //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 
-    STATE NullState //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
-        INIT
-        ENDINIT
-        WATCH
-        ENDWATCH
-    ENDSTATE NullState //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
-  
+  STATE NullState //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+      INIT
+      ENDINIT
+      WATCH
+      ENDWATCH
+  ENDSTATE NullState //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 
-  
-  ENDFSM Traders
+
+
+ENDFSM Traders
 //ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ     Traders     ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
 
 
@@ -532,23 +538,23 @@ ENDFSM FleetIntel
   FSM Cruiser
     States AttackTraders, DefendYourself, AttackPlayerMothership, NullState;
 
-    INIT
-            Jump AttackTraders;
-    ENDINIT
-    WATCH
+  INIT
+          Jump AttackTraders;
+  ENDINIT
+  WATCH
             IFONCE (ObjectiveGet ("DestroyFleet") = TRUE)
                     Jump NullState;
             ENDIFONCE
-    ENDWATCH
-  
-  
-    STATE AttackTraders //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
-        INIT
+  ENDWATCH
+
+
+  STATE AttackTraders //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+      INIT
                 MoveAttack (TEAMSHIPS_Traders);
                 //FindEnemiesNearTeam (SHIPS_Traders, 15000);
                 //MoveAttack (SHIPS_Traders);
-        ENDINIT
-        WATCH
+      ENDINIT
+      WATCH
                 // if you're under attack, defend yourself
                 IF (ThisTeamIs (TEAM_Cruiser))
                         IF (UnderAttack (SHIPS_CruiserUnderAttack))
@@ -599,8 +605,8 @@ ENDFSM FleetIntel
                                 ENDIF
                         ENDIF
                 ENDIF
-        ENDWATCH
-    ENDSTATE AttackTraders //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+      ENDWATCH
+  ENDSTATE AttackTraders //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 
         STATE DefendYourself //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
@@ -695,11 +701,11 @@ ENDFSM FleetIntel
         ENDSTATE DefendYourself //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 
-    STATE AttackPlayerMothership //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
-        INIT
+  STATE AttackPlayerMothership //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+      INIT
                 MoveAttack (SHIPS_PlayerMothership);
-        ENDINIT
-        WATCH
+      ENDINIT
+      WATCH
                 // if you're under attack, defend yourself
                 IF (ThisTeamIs (TEAM_Cruiser))
                         IF (UnderAttack (SHIPS_CruiserUnderAttack))
@@ -750,19 +756,19 @@ ENDFSM FleetIntel
                                 ENDIF
                         ENDIF
                 ENDIF
-        ENDWATCH
-    ENDSTATE AttackPlayerMothership //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+      ENDWATCH
+  ENDSTATE AttackPlayerMothership //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 
 
-    STATE NullState //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
-        INIT
-        ENDINIT
-        WATCH
-        ENDWATCH
-    ENDSTATE NullState //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
-  
-  
-  ENDFSM Cruiser
+  STATE NullState //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+      INIT
+      ENDINIT
+      WATCH
+      ENDWATCH
+  ENDSTATE NullState //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+
+ENDFSM Cruiser
 //ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ     Cruiser     ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ
 
 

@@ -12,7 +12,13 @@
 #ifndef ___TYPES_H
 #define ___TYPES_H
 
-#include "SDL_types.h"
+#ifdef _KAS2C
+    #ifdef _MACOSX
+        #include "/Library/Frameworks/SDL.framework/Headers/SDL_types.h"
+    #endif
+#else
+    #include "SDL_types.h"
+#endif
 
 /*-------------------------------------------------------------------------
    Declare size of integers in bytes by compiler type

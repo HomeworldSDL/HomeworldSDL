@@ -3,9 +3,16 @@
 //        Mission5 OEM - Turanic Lair                                   //
 //                                                                      //
 //----------------------------------------------------------------------//
-#include "..\\Game\\speechevent.h"
-#include "..\\Game\\soundmusic.h"
-#include "attributes.h"
+
+#ifdef _WIN32
+    #include "..\\Game\\Attributes.h"
+    #include "..\\Game\\SoundMusic.h"
+    #include "..\\Game\\SpeechEvent.h"
+#else
+    #include "../Game/Attributes.h"
+    #include "../Game/SoundMusic.h"
+    #include "../Game/SpeechEvent.h"
+#endif
 
     LOCALIZATION //컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
 

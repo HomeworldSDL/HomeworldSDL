@@ -5,9 +5,17 @@
 //            : Secondary Assess enemy fleet
 //            : Secondary Build an Assualt Frigate for use against Turanic Raider Mothership
 //
-#include "../Game/SpeechEvent.h"
-#include "../Game/SoundMusic.h"
-#include "Attributes.h"
+
+#ifdef _WIN32
+    #include "..\\Game\\Attributes.h"
+    #include "..\\Game\\SoundMusic.h"
+    #include "..\\Game\\SpeechEvent.h"
+#else
+    #include "../Game/Attributes.h"
+    #include "../Game/SoundMusic.h"
+    #include "../Game/SpeechEvent.h"
+#endif
+
     LOCALIZATION
 
         LSTRING_LocationCard

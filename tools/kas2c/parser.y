@@ -1,12 +1,17 @@
 %{
 
-#include <malloc.h>
+#ifdef _MACOSX
+    #include <malloc/malloc.h>
+#else
+    #include <malloc.h>
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <strings.h>
 #include <unistd.h>
-#include "Types.h"
+#include "../../src/Game/Types.h"
 #include "kas2c.h"
 
 #ifdef _WIN32

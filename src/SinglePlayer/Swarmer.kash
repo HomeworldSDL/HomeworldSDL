@@ -3,7 +3,7 @@
 #ifndef __SWARMER_KASH
 #define __SWARMER_KASH
 
-#include "Attributes.h"
+#include "../Game/Attributes.h"
 
 //P2 Mothership escape defines
 #define MO_ESCAPE_HEALTH         30     //health where mothership escapes

@@ -1,10 +1,16 @@
 //
-//  MISSION14 - Headshot asteroid
+//  MISSION15 - Headshot asteroid
 //
 
-#include "SpeechEvent.h"
-#include "CommandDefs.h"
-#include "SoundMusic.h"
+#ifdef _WIN32
+    #include "..\\Game\\CommandDefs.h"
+    #include "..\\Game\\SoundMusic.h"
+    #include "..\\Game\\SpeechEvent.h"
+#else
+    #include "../Game/CommandDefs.h"
+    #include "../Game/SoundMusic.h"
+    #include "../Game/SpeechEvent.h"
+#endif
 
 // ---could be from "Subtitle.h" if it didn't include so much extra....
 #define STA_FleetCommand        0

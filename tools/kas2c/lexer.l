@@ -5,7 +5,7 @@
 #include <string.h>
 #include "kas2c.h"
 #include "parser.h"
-#include "Types.h"
+#include "../../src/Game/Types.h"
 
 extern int lineNum;
 extern char curFilename[];

@@ -1,9 +1,14 @@
 //
 //  MISSION01
 //
-#include "../Game/SpeechEvent.h"
-#include "Attributes.h"
 
+#ifdef _WIN32
+    #include "..\\Game\\Attributes.h"
+    #include "..\\Game\\SpeechEvent.h"
+#else
+    #include "../Game/Attributes.h"
+    #include "../Game/SpeechEvent.h"
+#endif
 
     LOCALIZATION //컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
 

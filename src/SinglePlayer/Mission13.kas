@@ -5,7 +5,16 @@
 //                                                             //
 //                                                             //
 //-------------------------------------------------------------//
-#include "../Game/SpeechEvent.h"
+
+#ifdef _WIN32
+    #include "..\\Game\\Attributes.h"
+    #include "..\\Game\\SpeechEvent.h"
+#else
+    #include "../Game/Attributes.h"
+    #include "../Game/SpeechEvent.h"
+#endif
+
+#include "Utilities.kash"
 
 
     LOCALIZATION //ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
@@ -46,9 +55,6 @@
 				"					IPERSPAZIO"
 
     ENDL //ฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤ
-
-#include "Utilities.kash"
-#include "Attributes.h"
 
 //ออออออออออออออออออออ      Mission Flow     อออออออออออออออออออ
 FSM MissionFlow

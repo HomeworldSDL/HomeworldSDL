@@ -2,7 +2,11 @@
 //  MISSION03
 //
 
-#include "SpeechEvent.h"
+#ifdef _WIN32
+    #include "..\\Game\\SpeechEvent.h"
+#else
+    #include "../Game/SpeechEvent.h"
+#endif
 
     LOCALIZATION //컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
 //LString Standards:
