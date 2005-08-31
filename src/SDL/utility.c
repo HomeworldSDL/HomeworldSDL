@@ -45,14 +45,14 @@ extern char mainDeviceToSelect[];
 extern char mainGLToSelect[];
 extern char mainD3DToSelect[];
 
-#define REG_UDWORD 0
-#define REG_STRING 1
+#define REG_UDWORD     0
+#define REG_STRING     1
+#define REG_MAGIC_STR  "D657E436967616D4"   // used for CD-checking code
 
-#define HW_NOTOVERSIZE   1                   // comment to enable oversize-CD code
-#define REG_MAGIC_STR "D657E436967616D4"    // used for oversize-CD code
+#define CD_VALIDATION_ENABLED  0            // toggle checking CD is in drive and anti-piracy checks
 
-udword regMagicNum = 0; // used right below
-char regLanguageVersion[50]; // used right below
+udword regMagicNum = 0;
+char   regLanguageVersion[50];
 
 typedef struct registryOption
 {
@@ -3959,10 +3959,9 @@ char *utyCannotOpenBigMessages[] =
 ----------------------------------------------------------------------------*/
 char* utyGameSystemsPreInit(void)
 {
-#ifndef HW_NOTOVERSIZE // oversized-CD code - variables
-#ifndef OEM
-#ifndef Downloadable
+#if CD_VALIDATION_ENABLED
 #ifdef HW_Release
+#ifdef _WIN32
     HANDLE syshandle;
 
     filehandle handle;
@@ -3975,7 +3974,7 @@ char* utyGameSystemsPreInit(void)
 #endif
 #endif
 #endif
-#endif
+
     memset(utyStartedBits, 0, SSA_NumberBits);              //clear all module startup bits
     globalsInit();
     fmathInit();
@@ -4068,10 +4067,10 @@ char* utyGameSystemsPreInit(void)
     }
 #endif
 
-#ifndef HW_NOTOVERSIZE // oversized-CD code - check
-#ifndef OEM
-#ifndef Downloadable
+#if CD_VALIDATION_ENABLED
 #ifdef HW_Release
+#ifdef _WIN32
+
     // check pad file
     if (!fileExists(utyPadBigFilename, FF_CDROM))
     // if (!fileExists(utyPadBigFilename, FF_IgnoreBIG))
@@ -4142,7 +4141,7 @@ char* utyGameSystemsPreInit(void)
         DeleteFile(tmpfile);
         return(utyInvalidCDMessages[strCurLanguage]);
     }
-#endif
+
 #endif
 #endif
 #endif
