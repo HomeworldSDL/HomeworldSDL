@@ -67,7 +67,7 @@ static real32 ACCELTHRESH = 8.0f;
 static real32 SIZE_MAJOR = 5.0f;
 static real32 SIZE_INC = 1.0f;
 static real32 SIZEINC_INC = 1.0f;
-static real32 SIZE_MAX = 42.0f;
+static real32 SIZE_MAXIMUM = 42.0f;  // NB: was SIZE_MAX but compiler error'd due to namespace clash in stdint.h
 static real32 XADJ = 8.0f;
 static real32 HALFWIDTH = 4.2f;
 static real32 HALFWIDTH_FALLOFF = 0.3f;
@@ -105,7 +105,7 @@ scriptEntry TrailTweaks[] =
     makeEntry(SIZE_MAJOR, scriptSetReal32CB),
     makeEntry(SIZE_INC, scriptSetReal32CB),
     makeEntry(SIZEINC_INC, scriptSetReal32CB),
-    makeEntry(SIZE_MAX, scriptSetReal32CB),
+    makeEntry(SIZE_MAXIMUM, scriptSetReal32CB),
     makeEntry(XADJ, scriptSetReal32CB),
     makeEntry(HALFWIDTH, scriptSetReal32CB),
     makeEntry(HALFWIDTH_FALLOFF, scriptSetReal32CB),
@@ -2079,7 +2079,7 @@ void trailDraw(vector *current, shiptrail *trail, sdword LOD, sdword teamIndex)
         real32 size = SIZE_MAJOR * velratio * NLipsScaleFactor;
         real32 sizeinc = SIZE_INC * velratio * NLipsScaleFactor;
         real32 sizeinc_inc = SIZEINC_INC * velratio * NLipsScaleFactor;
-        real32 sizemax = SIZE_MAX * NLipsScaleFactor;
+        real32 sizemax = SIZE_MAXIMUM * NLipsScaleFactor;
 */
 
         n = MIN2(38, trail->nLength);
