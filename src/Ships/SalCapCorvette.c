@@ -1835,7 +1835,7 @@ reachedit:
         {
             if(!salCapAreEnoughSalvagersTargettingThisTarget(ship,spec->target))
             {
-                //not enough doods targetting this bizitch...play sound event
+                //not enough doods targeting this bizitch...play sound event
                 //with ye'old battler chatter of course
                 ;
             }
@@ -2074,7 +2074,7 @@ reachedit:
             {
                 if(!salCapAreEnoughSalvagersTargettingThisTarget(ship,spec->target))
                 {
-                    //not enough doods targetting this bizitch...play sound event
+                    //not enough doods targeting this bizitch...play sound event
                     ;
                 }
             }
@@ -2794,7 +2794,7 @@ void SalCapCorvetteHouseKeep(Ship *ship)
 */
 }
 
-//Don't forget to clear tractorbeaminfo in ship and derelict structures.!
+//Don't forget to clear tractorbeaminfo in ship and derelict structures!
 void SalCapClose(Ship *ship)
 {
 }
@@ -3350,8 +3350,8 @@ ditchTarget:
 }
 
 
-//counts the number of salvage corvettes in the universe targetting this same ship
-//must already be targetting it
+//counts the number of salvage corvettes in the universe targeting this same ship
+//must already be targeting it
 //returns TRUE if enough are heading towards it to get it
 bool salCapAreEnoughSalvagersTargettingThisTarget(Ship *ship,SpaceObjRotImpTargGuidanceShipDerelict *target)
 {
@@ -3374,7 +3374,7 @@ bool salCapAreEnoughSalvagersTargettingThisTarget(Ship *ship,SpaceObjRotImpTargG
                     //this is a salvage corvette
                     if( ((SalCapCorvetteSpec *)todo->selection->ShipPtr[i]->ShipSpecifics)->target ==target)
                     {
-                        //this salcorvette is targetting this target
+                        //this salcorvette is targeting this target
                         count++;
                     }
                 }

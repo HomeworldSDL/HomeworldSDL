@@ -47,7 +47,7 @@ void objectiveLoad(void);
 // showOnce forces Fleet Intelligence to be drawn once and then deleted
 Objective *objectiveAndFleetIntelligenceCreate(char *label, char *briefDescription, char* fullDescription, bool8 showOnce, bool primary);
 
-// Called independantly if you wish to show fleet intelligence only once and right away
+// Called independently if you wish to show fleet intelligence only once and right away
 FleetIntelligence *fleetIntelligenceCreate(char *description, bool8 showOnce);
 
 Objective *objectiveFind(char *label);

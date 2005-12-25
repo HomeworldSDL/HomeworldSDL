@@ -226,7 +226,7 @@ sdword rndDisplayCollStats = 0;
 #define RND_CollStatsKey            NUMPADSLASH
 #endif
 
-//polygon statistics measurments
+//polygon statistics measurements
 #if RND_POLY_STATS
 #define RND_PolyStatsPeriod         2.0f
 #define RND_PolyStatsSeconds        2.0f

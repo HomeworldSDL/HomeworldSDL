@@ -30,7 +30,7 @@ undoinfo;
 void udStartup(void);
 void udShutdown(void);
 
-//set the lastest thing
+//set the latest thing
 sdword udLatestThingPush(undofunc function, sdword userID, ubyte *userData, sdword length);
 
 //undo the latest thing

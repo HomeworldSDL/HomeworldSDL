@@ -71,7 +71,7 @@
 #define SupportHeading          3
 
 
-// defines for the buttons sizeing
+// defines for the buttons sizing
 #define LB_BUTTONSIZE           45
 #define LB_HALFBUTTON           (LB_BUTTONSIZE/2)
 #define LB_BUTTONSPACE          6

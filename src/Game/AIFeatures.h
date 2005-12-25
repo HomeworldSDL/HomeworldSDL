@@ -28,7 +28,7 @@
 #define AIR_SUPPORT_FRIGATE_REQUESTS        0x00000800      //support frigates are requested
 #define AIR_AGGRESSIVE_RESOURCING           0x00001000      //resource ships are put into aggressive mode
 
-//Hypersapce Feature flags
+//Hyperspace Feature flags
 //Uses the Resource feature bitfield
 #define AIF_HYPERSPACING                    0x01000000      //turns CPU hyperspacing on
 

@@ -193,7 +193,7 @@ SpaceObj *selClickFromArray(SpaceObj **list, sdword length, sdword x, sdword y);
 void selSelectedDraw(void);
 void selSelectingDraw(void);
 
-//commpute centre of selection
+//compute centre of selection
 vector selCentrePointComputeGeneral(MaxSelection *selection, real32 *average_size);
 
 //update selCentrePoint and selAverageSize

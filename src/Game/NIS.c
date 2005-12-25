@@ -3406,7 +3406,7 @@ void nisCurrentObjectClear(char *directory,char *field,void *dataToFillIn)
 {
     nisCurrentObject = -1;
 }
-//sets the time for sebsequent events
+//sets the time for subsequent events
 void nisCurrentTimeSet(char *directory,char *field,void *dataToFillIn)
 {
     unsigned int i;

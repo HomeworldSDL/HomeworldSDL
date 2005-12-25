@@ -2022,7 +2022,7 @@ int bigExtract(char *bigfilename, int numFiles, char *filenames[], int optFreshe
 }
 
 //
-//  the following routines are for ingame compilation only -- not for the command-line tool
+//  the following routines are for in-game compilation only -- not for the command-line tool
 //
 #ifdef BF_HOMEWORLD
 

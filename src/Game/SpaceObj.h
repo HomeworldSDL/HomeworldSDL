@@ -1224,16 +1224,16 @@ typedef struct ShipID
 #define DEATH_Killed_By_Player_Explosion 667
 #define DEATH_Killed_By_Kamikaze        668
 #define DEATH_I_DIDNT_DIE_I_WAS_SALAVAGED 1004 //ship was salvaged!  So deal with gamestats accordingly
-//non player depenedant
+//non player dependent
 #define DEATH_Killed_By_Collision       777 //ship raninto another ship/asteroid/object and died
 #define DEATH_Killed_By_Cloud           888 //Dust Cloud damage kills a ship
 #define DEATH_Killed_By_Dead_Player     999 //player that did killing is dead and unreferenceable
 #define DEATH_BY_GAME_END               1000 //game ended, ship was freed
 #define DEATH_BY_RETIREMENT             1001 //ship was retired by player
 #define DEATH_BY_AFTER_DEAD             1002 //ship self destructed after player was already dead
-#define DEATH_Left_Behind_At_Hyperspace 1003 //ship didn't finish dokcing in time for hyperspace
+#define DEATH_Left_Behind_At_Hyperspace 1003 //ship didn't finish docking in time for hyperspace
 
-//If howDidIDie isn't set with the above, it is assumed to have been POOFED out of existance.
+//If howDidIDie isn't set with the above, it is assumed to have been POOFED out of existence.
 //#define DEATH_By_Poofing                888 //somewheres in the code this ship was poofed out of existence.
 
 //ship struct "specialflags" defines

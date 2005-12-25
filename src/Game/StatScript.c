@@ -1402,7 +1402,7 @@ done:
 
 /************ Overide Docking script setting *******************/
 
-//CB function to set overide points
+//CB function to set override points
 void scriptSetDockOverideCB(char *directory,char *field,void *dataToFillIn)
 {
     char shiptypestr[30];

@@ -289,7 +289,7 @@ void makeShipsControllable(SelectCommand *selection,sdword newCommand);
 // makes list contains ships that can gointo formation..probe is removed
 void makeShipsFormationCapable(SelectCommand *selection);
 
-// removes the player's motership from selection
+// removes the player's mothership from selection
 void makeShipsNotIncludeSinglePlayerMotherships(SelectCommand *selection);
 
 //Removes non Kamikazeable ships

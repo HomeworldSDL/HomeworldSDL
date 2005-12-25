@@ -269,7 +269,7 @@ textentryhandle mgResourceLumpSumIntervalEntryBox   = NULL;
 textentryhandle mgResourceLumpSumAmountEntryBox     = NULL;
 textentryhandle mgGamePasswordEntryEntryBox         = NULL;
 
-// handles for all of the listwindow's
+// handles for all of the listwindows
 listwindowhandle mgChatHistoryWindow            = NULL;
 listwindowhandle mgUserNameWindowWindow         = NULL;
 listwindowhandle mgListOfGamesWindow            = NULL;
@@ -412,7 +412,7 @@ mgCommandInfo mgCommandItalian[] =
 bool        gamestarted     = FALSE;
 bool        newscreen       = FALSE;
 
-// Queue for transfering packets between threads.
+// Queue for transferring packets between threads.
 Queue       mgThreadTransfer;
 
 // mutually exclusive handles for locking data between threads.
@@ -465,7 +465,7 @@ bool   hideallscreens=TRUE;
 // type of query asked for from titan.
 sdword mgQueryType=-1;
 
-// handle for the task that transfers the informatoin from titan to the main game thread.
+// handle for the task that transfers the information from titan to the main game thread.
 taskhandle ProccessCallback=0;
 
 // pointer to the game that we want to join
@@ -482,7 +482,7 @@ char messageBoxString2[256];
 // userid of this player
 udword mgMyChatUserID=0;
 
-// variable that indicates which screen is displayed after a user hits cancel on the conneting screen
+// variable that indicates which screen is displayed after a user hits cancel on the connecting screen
 sdword mgConnectingScreenGoto=-1;
 
 // pre set games
@@ -638,7 +638,7 @@ void mgUnitCapsEnabled              (char *name, featom *atom);
 void mgFuelBurnEnabled              (char *name, featom *atom);
 void mgCratesEnabled                (char *name, featom *atom);
 
-// Callbacks for the Resourceing Optinos game Screen.
+// Callbacks for the Resourcing Options game Screen.
 
 void mgHarvestingEnabled            (char *name, featom *atom);
 void mgStartingResources            (char *name, featom *atom);
@@ -800,7 +800,7 @@ fecallback      mgCallBack[]=
     {mgFuelBurnEnabled              ,   "MG_NoFuelBurn"                 },
     {mgCratesEnabled                ,   "MG_CratesEnabled"              },
 
-// Callbacks for the Resourceing Optinos game Screen.
+// Callbacks for the Resourcing Options game Screen.
     {mgHarvestingEnabled            ,   "MG_HarvestingEnabled"          },
     {mgStartingResources            ,   "MG_StartingResources"          },
     {mgResourceInjections           ,   "MG_ResourceInjections"         },

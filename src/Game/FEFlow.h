@@ -214,7 +214,7 @@ typedef struct tagfeatom
 }
 featom;
 
-//type of a funtion callback for a front end
+//type of a function callback for a front end
 typedef void (*fefunction)(char *name, featom *atom);
 
 //structure for a namestring/callback mapping

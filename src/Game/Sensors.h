@@ -242,7 +242,7 @@ void smPlayerNamesDraw(rectangle *viewportRect);
 //activate the sensors manager.  It will stop itself
 void smSensorsBegin(char *name, featom *atom);
 
-//explicitly close senors manager
+//explicitly close sensors manager
 void smSensorsClose(char *name, featom *atom);
 void smSensorsCloseForGood(void);
 

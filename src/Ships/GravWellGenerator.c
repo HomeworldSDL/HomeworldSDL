@@ -30,7 +30,7 @@ GravWellGeneratorStatics GravWellGeneratorStatic;
 GravWellGeneratorStatics GravWellGeneratorStaticRace1;
 GravWellGeneratorStatics GravWellGeneratorStaticRace2;
 
-//after effect is spawned, wait between these two numbers before re-spawinging
+//after effect is spawned, wait between these two numbers before re-spawning
 #define gravwellEffectLifeLow       3.0f
 #define gravwellEffectLifeHigh      5.0f
 

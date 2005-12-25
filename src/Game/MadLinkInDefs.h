@@ -21,7 +21,7 @@
 #define MAD_ANIMATION_SPECIAL_OPENING           7
 #define MAD_ANIMATION_SPECIAL_CLOSING           8       
 
-//gun Animation Statuse
+//gun Animation Status
 #define MAD_STATUS_NOSTATUS                            0
 
 #define MAD_STATUS_GUNS_OPEN                           1

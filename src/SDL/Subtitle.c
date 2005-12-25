@@ -65,7 +65,7 @@ SDL_sem* subSemaphore;
 //pointer to timer to use currently.  May be different depending on NIS's etc.
 real32 *subTimeElapsed = NULL;
 
-//set to TRUE when a fleet intel event ends for the benifit of KAS
+//set to TRUE when a fleet intel event ends for the benefit of KAS
 sdword subMessageEnded = FALSE;
 
 //retained copy of the player's race and all team colors so we know when to

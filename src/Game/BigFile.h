@@ -68,7 +68,7 @@
 // don't change this!
 #define BF_FILE_HEADER "RBF"
 
-// some things don't get compiled into the commandline tool
+// some things don't get compiled into the command line tool
 
 
 #if defined(HW_Interim) || defined(HW_Release) || defined(HW_Debug)

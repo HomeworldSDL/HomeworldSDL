@@ -173,7 +173,7 @@ typedef struct
 memcookie;
 
 //structure for a cookie in a small block heap.  These cookies are created only once.
-//location of flags and name string must be compatable with the regular cookies because
+//location of flags and name string must be compatible with the regular cookies because
 //some functions are shared between cookie structure formats.
 #if MEM_SMALL_BLOCK_HEAP
 typedef struct

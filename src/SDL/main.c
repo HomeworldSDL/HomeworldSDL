@@ -461,18 +461,18 @@ char *mainPasswordPtr = NULL;
 
 /*-----------------------------------------------------------------------------
     Leak-tracing strings.  Don't delete any old ones, and comment the
-    desitination and date of each string.  Make the string fairly long, and not
+    destination and date of each string.  Make the string fairly long, and not
     obviously a leak string.
 -----------------------------------------------------------------------------*/
 //To: Scott Lynch.  Date: Feb 04 98 By: Luke Moloney
 //static char leakString[] = "MainObjectWindowMenuHelpOptionsForwardCancelButtonMeshPolygon";
-//To: Siearra by CD burned 16 Feb 98 By: Luke Moloney
+//To: Sierra by CD burned 16 Feb 98 By: Luke Moloney
 //static char leakString[] = "MainObjectWindowMenuOptionOptionsForwardButtonCancelMeshPolygon";
-//To: Siearra by CD burned 05 Mar 98 By: Luke Moloney
+//To: Sierra by CD burned 05 Mar 98 By: Luke Moloney
 //static char leakString[] = "MainObjectFastMenuOptionOptionsUpwardButtonCancelMeshPolygon";
-//To: Siearra by CD burned 10 Mar 98 By: Luke Moloney
+//To: Sierra by CD burned 10 Mar 98 By: Luke Moloney
 //static char leakString[] = "MainObjectFastMenuOptionOptionsOnClickCancelMeshPolygonXZY";
-//To: Siearra by CD burned 17 Mar 98 By: Luke Moloney
+//To: Sierra by CD burned 17 Mar 98 By: Luke Moloney
 //static char leakString[] = "MainNonObjectFastMenuSequenceOptionsOnInteractiveCancelMeshPolygonXZY";
 //To: Scott, Jim Veevaert,Mark Hood by CD burned 18 Mar 98 By: Luke Moloney
 //static char leakString[] = "MainNonObjectFastMenuSequenceOptionsOnInteractiveNomenuMeshPolygonXZY";

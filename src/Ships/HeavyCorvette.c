@@ -209,7 +209,7 @@ bool doBurstCharging(Ship *ship)
     return(TRUE);
 }
 
-//this function flys the ship to within range of the desired target location and
+//this function flies the ship to within range of the desired target location and
 //orients itself to fire.  Returns true when in position
 bool flytoBurstPosition(Ship *ship)
 {

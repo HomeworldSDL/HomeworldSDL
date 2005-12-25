@@ -234,7 +234,7 @@ void RemoveShipsFromDoingStuff(CommandLayer *comlayer,SelectCommand *selectcom);
 // Removes ship from being targeted in the command layer
 void RemoveShipFromBeingTargeted(CommandLayer *comlayer,ShipPtr shiptoremove,udword removeFlag);
 
-//ccleans up game when a ship goes out of view..
+// cleans up game when a ship goes out of view..
 void shipHasJustCloaked(Ship *ship);
 
 // cleans up game when a ship becomes disabled
@@ -243,7 +243,7 @@ void shipHasJustBeenDisabled(Ship *ship);
 // when ship just disappeared (SOF_Hide) e.g. univRemoveShipFromOutside
 void shipHasJustDisappeared(Ship *ship);
 
-//REmoves target info from command regarding shiptoremove
+// removes target info from command regarding shiptoremove
 void RemoveShipReferencesFromExtraAttackInfo(Ship *shiptoremove,CommandToDo *todo);
 void RemoveAttackTargetFromExtraAttackInfo(SpaceObjRotImpTarg *targettoremove,CommandToDo *todo);
 void removeShipsFromDockingWithThisShip(Ship *ship);

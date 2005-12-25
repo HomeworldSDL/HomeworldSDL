@@ -2226,7 +2226,7 @@ sdword feScreensDelete(fibfileheader *screens)
     return(0);
 }
 
-// supremem hack of all time, ala drew
+// supreme hack of all time, ala drew
 extern regionhandle regClickedLeft;
 extern regionhandle regClickedLeftLast;  //for making double-clicks work properly
 extern regionhandle regClickedRight;

@@ -1508,7 +1508,7 @@ void tacticsAttackCommandVoided(CommandToDo *command)
 //      retreater.  If, after tunable time (in tactics.script)
 //      retreater comes within looker's passive retaliation zone
 //      and looker isn't doing anything (except waiting to passvie attack
-//      looker will recieve full attack orders to attack retreater.
+//      looker will receive full attack orders to attack retreater.
 void tacticsPutOnLookOutFor(SelectCommand *lookers, Ship *retreater)
 {
     AttackAtom *newattackatom;
@@ -1621,7 +1621,7 @@ bool tacticsAreStrikeCraftInSelection(SelectCommand *selection)
 //name : tacticsMaxDistToTarget
 //
 //desc: returns the distance from the furthest ship, to the target
-//      Used to determine flyin distance for defenders
+//      Used to determine flying distance for defenders
 
 real32 tacticsMaxDistToTarget(SelectCommand *selection,SpaceObjRotImpTarg *target)
 {

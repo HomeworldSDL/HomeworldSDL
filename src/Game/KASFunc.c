@@ -4049,7 +4049,7 @@ void kasfWideScreenOut(sdword frames)
 }
 
 //simulate a subtitle
-static sdword kasfDummyEventNumber = 0;         //incremented to ensure uniquie event numbers
+static sdword kasfDummyEventNumber = 0;         //incremented to ensure unique event numbers
 void kasfSubtitleSimulate(sdword actor, sdword milliseconds, char *speech)
 {
     dbgAssert(milliseconds > 10);

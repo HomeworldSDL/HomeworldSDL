@@ -535,7 +535,7 @@ typedef struct etgeffectstatic
 }
 etgeffectstatic;
 
-//strucutre for LOD of effects
+//structure for LOD of effects
 typedef struct
 {
     sdword nLevels;                             //number of levels

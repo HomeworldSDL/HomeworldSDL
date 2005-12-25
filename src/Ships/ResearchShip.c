@@ -844,7 +844,7 @@ void addMonkeyResearchShipChangePosition(Ship *dockwith, Ship *ship,sdword docki
 }
 
 
-//custom monkey function to add res ships to worldand make them orient themselves correctly
+//custom monkey function to add res ships to world and make them orient themselves correctly
 void addMonkeyResearchShip(Ship *ship)
 {
     SelectCommand selectOne;

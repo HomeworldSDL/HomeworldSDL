@@ -99,7 +99,7 @@ char *trSpecialTextureName[TSM_NumberModes] =
 sdword texLinearFiltering = TRUE;               //enable bi-linear filtering
 sdword texLinearMag = TRUE;
 
-//multiplier to the team color effect mulipliers
+//multiplier to the team color effect multipliers
 real32 trBaseColorScalar = 0.0f;
 real32 trStripeColorScalar = 0.0f;
 

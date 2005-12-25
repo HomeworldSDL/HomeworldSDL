@@ -321,7 +321,7 @@ opparseentry etgParseTable[] =
     parseEntry("createMeshes",  etgCreateParticlesParse, PTF_Parameters),
 */
     parseEntry("createEffects", etgCreateEffectsParse, PTF_Parameters),
-//********** functions/var copys are searched in a different table
+//********** functions/var copies are searched in a different table
     parseEntry(NULL, NULL, 0)
 };
 
@@ -7077,7 +7077,7 @@ void etgChatterEventPlay(Effect *effect, battlechatterevent event)
     Name        : etgDeathCriesPlay
     Description : Play death cry battle chatter for a dying ship
     Inputs      : effect - effect who's ship is blowing up
-    Outputs     : will play a viriety of different battle chatter events based
+    Outputs     : will play a variety of different battle chatter events based
                     on ship class and whatnot.
     Return      :
 ----------------------------------------------------------------------------*/

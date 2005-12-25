@@ -1318,7 +1318,7 @@
 			"Sento che la battaglia è ormai imminente. Quando la tua Fregata è pronta, scommetto che sarai attaccato da un piccolo gruppo di Corvette e di Scout.\n\nSe vuoi mettere in pratica quello che hai imparato, è il momento giusto!"
 
 //        LSTRING_PracticeTip1
-//            "In Homeworld, the basic ships are dependant on each other: Frigates are strong against Corvettes, Corvettes are strong against Fighters and Fighters are strong against Frigates.  Click Next to continue."
+//            "In Homeworld, the basic ships are dependent on each other: Frigates are strong against Corvettes, Corvettes are strong against Fighters and Fighters are strong against Frigates.  Click Next to continue."
 //            "French stuff here"
 //            "German stuff here"
 
@@ -2150,7 +2150,7 @@ FSM Tutorial10
 
 //---------------------------------------------------------------------
 //  In Build Manager: BuildManagerBuildRC
-//  User clicks on the Build button to start building Resouce Collector
+//  User clicks on the Build button to start building Resource Collector
 //---------------------------------------------------------------------
     STATE BuildManagerBuildRC
         INIT
@@ -3054,7 +3054,7 @@ FSM Tutorial10
 
 //---------------------------------------------------------------------
 //  In-Game: ScoutsCloseup
-//  look at the scouts clloseup
+//  look at the scouts closeup
 //---------------------------------------------------------------------
     STATE ScoutsCloseup
         INIT

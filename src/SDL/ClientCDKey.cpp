@@ -1,7 +1,7 @@
 // ClientCDKey
 
 // Class that implements WON CD-Key functionality for use by clients.  Allows conversion
-// to/from human readable string.  Implements persistance to the registry in a secure
+// to/from human readable string.  Implements persistence to the registry in a secure
 // manner.  Implements a lightweight validation check of the key.
 
 
@@ -101,7 +101,7 @@ ClientCDKey::RemoveSkipChars(string& theStrR)
 
 
 // ClientCDKey::ValFromBits
-// Generates unsignec har value starting a bit theOffset and using theBits bits from
+// Generates unsigned char value starting a bit theOffset and using theBits bits from
 // 8 byte buffer.
 char
 ClientCDKey::ValFromBits(const __int64& aBuf, unsigned int theOffset, unsigned int theBits)
@@ -236,7 +236,7 @@ ClientCDKey::ProcessNChar(__int64& theBuf, unsigned int& theOffset, char theChar
 
 
 // ClientCDKey::BuildCChar
-// Extracts a C from buffer starting at offset theOffset.  Extracted C is appened
+// Extracts a C from buffer starting at offset theOffset.  Extracted C is appended
 // to mStrKey.  Cs use 4 bits.  Value of theOffset is incremented by 4.
 void
 ClientCDKey::BuildCChar(const __int64& theBuf, unsigned int& theOffset) const
@@ -389,7 +389,7 @@ ClientCDKey::CreateSymmetricKey(BFSymmetricKey& theSymKeyR) const
 // ** Protected Methods **
 
 // ClientCDKey::LightValidityCheck
-// Perform lightwight validty check on mKey.  Return light checksum.
+// Perform lightwight validity check on mKey.  Return light checksum.
 unsigned char
 ClientCDKey::LightValidityCheck() const
 {
@@ -589,7 +589,7 @@ ClientCDKey::operator=(const ClientCDKey& theKeyR)
 
 
 // ClientCDKey::IsEqual
-// Comapre 2 client keys for equality.
+// Compare 2 client keys for equality.
 bool
 ClientCDKey::IsEqual(const ClientCDKey& theKeyR) const
 {
@@ -644,7 +644,7 @@ ClientCDKey::Init(const __int64& theKeyR)
 
 
 // ClientCDKey::Init(string)
-// Initializes key from human readbale string.  Does not validate key.
+// Initializes key from human readable string.  Does not validate key.
 bool
 ClientCDKey::Init(const string& theKeyR)
 {

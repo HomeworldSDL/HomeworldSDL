@@ -148,7 +148,7 @@ typedef struct
 }
 subtheme;
 
-//structure for commincating new subtitles from the streamer thread
+//structure for communicating new subtitles from the streamer thread
 typedef struct
 {
     sdword actor;

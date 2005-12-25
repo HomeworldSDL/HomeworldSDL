@@ -112,7 +112,7 @@ real32 SEL_MinSelectionRadius;
 real32 selMinSelectionRadius;
 
 #if PIE_MOVE_NEARTO
-//closest ship this frame, used for the movement mechanis's 'move near to' command
+//closest ship this frame, used for the movement mechanism's 'move near to' command
 SpaceObjRotImpTarg *selClosestTarget = NULL;
 sdword selClosestDistance = SDWORD_Max;
 #endif //PIE_MOVE_NEARTO

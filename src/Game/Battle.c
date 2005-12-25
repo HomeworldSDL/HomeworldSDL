@@ -579,7 +579,7 @@ real32 batBogeyAspect           =   BAT_BogeyAspect;
 //retreat parameters
 real32 batRetreatModifier       =   BAT_RetreatModifier;
 
-//global parameter for controling how much chatter there is
+//global parameter for controlling how much chatter there is
 udword batGlobalFrequencyModifier = BAT_GlobalFrequencyModifier;
 real32 batGlobalFrequencyMin     = BAT_GlobalFrequencyMin;  //min/max in log base 2 space
 real32 batGlobalFrequencyMax     = BAT_GlobalFrequencyMax;

@@ -4,7 +4,7 @@
 // ClientCDKey
 
 // Class that implements WON CD-Key functionality for use by clients.  Allows
-// conversion to/from human readable string.  Implements persistance to the registry
+// conversion to/from human readable string.  Implements persistence to the registry
 // in a secure manner.  Implements a lightweight validation check of the key.
 
 #include "../common/won.h"

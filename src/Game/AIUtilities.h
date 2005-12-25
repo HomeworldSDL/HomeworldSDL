@@ -173,7 +173,7 @@ bool aiuShipIsFighter(Ship *ship);
 //finds out if the ship are not good against fighters
 bool aiuShipNotGoodAgainstFighters(Ship *ship);
 
-//function name pretty self explanitory
+//function name pretty self explanatory
 bool aiuSelectionNotGoodAtKillingTheseTargets(SelectCommand *selection, SelectCommand *targets, real32 strengthratio);
 
 //finds out if any of the selection of ships is hidden
@@ -275,7 +275,7 @@ SelectCommand *aiuFindNearbyEnemyShips(Ship *primarytarget,real32 range);
 //finds the most likely enemy target to harass
 ShipPtr aiuFindHarassTarget(SelectCommand *teamShips);
 
-//finds the juciest target for capturing
+//finds the juiciest target for capturing
 //note: SelectCommand structure not used as normal, see function comments
 SelectCommand *aiuFindCaptureTarget(SelectCommand *capturingShips);
 

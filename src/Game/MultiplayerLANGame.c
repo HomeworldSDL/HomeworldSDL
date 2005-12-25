@@ -155,7 +155,7 @@ textentryhandle lgResourceLumpSumIntervalEntryBox   = NULL;
 textentryhandle lgResourceLumpSumAmountEntryBox     = NULL;
 extern textentryhandle mgGamePasswordEntryEntryBox;
 
-// handles for all of the listwindow's
+// handles for all of the listwindows
 listwindowhandle lgChatHistoryWindow            = NULL;
 listwindowhandle lgUserNameWindowWindow         = NULL;
 listwindowhandle lgListOfGamesWindow            = NULL;
@@ -207,7 +207,7 @@ extern LinkedList  listofgamechatinfo;
 extern bool gamestarted;
 bool        lgnewscreen       = FALSE;
 
-// Queue for transfering packets between threads.
+// Queue for transferring packets between threads.
 Queue       lgThreadTransfer;
 
 // mutually exclusive handles for locking data between threads.
@@ -237,7 +237,7 @@ bool   lghideallscreens=TRUE;
 // type of query asked for from titan.
 sdword lgQueryType=-1;
 
-// handle for the task that transfers the informatoin from titan to the main game thread.
+// handle for the task that transfers the information from titan to the main game thread.
 taskhandle lgProccessCallback=0;
 
 // pointer to the game that we want to join

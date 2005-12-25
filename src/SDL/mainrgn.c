@@ -118,7 +118,7 @@ regionhandle ghMainRegion = NULL;
 //tactical overlay on/off flag
 bool mrDrawTactical = FALSE, mrSaveTactical = FALSE;
 
-//help ifno screen up or not
+//help info screen up or not
 bool helpinfoactive = FALSE;
 
 regionhandle helpinforegion;

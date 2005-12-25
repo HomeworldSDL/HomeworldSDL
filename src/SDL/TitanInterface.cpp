@@ -451,7 +451,7 @@ titanAnyoneBroadcastPacket(unsigned char titanMsgType, const void* thePacket, un
     }
 }
 
-// provided for temporary backward compatability
+// provided for temporary backward compatibility
 void titanStartOld(signed long isLan)
 {
 if ( isLan )
@@ -460,7 +460,7 @@ else
     titanStart(0,1);
 }
 
-// note: assumes titanInterface not intialized
+// note: assumes titanInterface not initialized
 unsigned long titanCheckCanNetwork(unsigned long isLan, unsigned long isIP)
 {
     if (!titanInterface)

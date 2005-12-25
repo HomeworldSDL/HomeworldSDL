@@ -664,7 +664,7 @@ char cmShipListFontName[CM_FontNameLength] = CM_ShipListFont;
 // frame count for red flash when ship limits exceeded
 #define CAPS_REDFRAMECOUNT 5;
 
-// Ship Caps exceeded falgs
+// Ship Caps exceeded flags
 real32 ExceededCapsFrames = 0.0;
 uword ShipNumberExceeded = 0;
 
@@ -1285,7 +1285,7 @@ void cmBuildTaskFunction(void)
                                 dbgMessagef("\nConstruction job #%d has finished a %s",
                                             index, ShipTypeToNiceStr(progress->info->shiptype));
 #endif
-//yyy                                clWrapRUTransfer(&universe.mainCommandLayer,0,universe.curPlayerPtr->playerIndex,progress->info->buildCost,RUTRANS_BUILTSHIP);
+//                                clWrapRUTransfer(&universe.mainCommandLayer,0,universe.curPlayerPtr->playerIndex,progress->info->buildCost,RUTRANS_BUILTSHIP);
                                 if (!multiPlayerGame)
                                 {
                                     //xxx

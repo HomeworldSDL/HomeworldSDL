@@ -297,7 +297,7 @@ typedef struct
 }
 nisheader;
 
-//structures for animating spaceobj's, cameras and lights
+//structures for animating spaceobjs, cameras and lights
 typedef struct
 {
     SpaceObjRotImp *spaceobj;                   //object controlled by these splines

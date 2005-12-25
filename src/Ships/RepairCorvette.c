@@ -718,7 +718,7 @@ bool refuelRepairShips(Ship *ship, SelectAnyCommand *targets,real32 rangetoRefue
 
     target = targets->TargetPtr[0];
 
-//needto add
+//need to add
 //repairBeamCapable
 //    real32 healthPerSecond,CapitalDistanceRepairStart;
 //    real32 CapitalDistanceRepairStart2;

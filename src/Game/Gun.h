@@ -50,7 +50,7 @@ bool gunMatrixUpdate(udword flags, hmatrix *startMatrix, hmatrix *matrix, void *
 void gunDrawGunInfo(Ship *ship);
 #endif
 
-//gun location in world code for silly sound boyez
+//gun location in world code for silly sound boys
 void gunGetGunPositionInWorld(vector *positionInWorldCoordSys,matrix *coordsys,Gun *gun);
 
 //compute firepower
