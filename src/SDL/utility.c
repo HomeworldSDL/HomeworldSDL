@@ -3940,7 +3940,7 @@ char *utyIncompatibleBigMessages[] =
     "Archivo incompatible: %s",
     "File incompatibile: %s",
 };
-char *utyCannotOpenBigMessages[] =
+char *utyCannotOpenFileMessages[] =
 {
     "Unable to open file: %s",
     "Impossible d’ouvrir le fichier: %s",
@@ -4152,7 +4152,8 @@ char* utyGameSystemsPreInit(void)
         // check first CDROM drive...
         if (!fileExists(utyMusicFilename, FF_CDROM))
         {
-            return(utyMissingCDMessages[strCurLanguage]);
+            sprintf(errorString, utyCannotOpenFileMessages[strCurLanguage], utyMusicFilename);
+            return(errorString);
         }
     }
 
@@ -4162,7 +4163,8 @@ char* utyGameSystemsPreInit(void)
         // check first CDROM drive...
         if (!fileExists(utyVoiceFilename, FF_CDROM))
         {
-            return(utyMissingCDMessages[strCurLanguage]);
+            sprintf(errorString, utyCannotOpenFileMessages[strCurLanguage], utyVoiceFilename);
+            return(errorString);
         }
     }
 
@@ -4226,7 +4228,7 @@ char* utyGameSystemsPreInit(void)
         }
         else
         {
-            sprintf(errorString, utyCannotOpenBigMessages[strCurLanguage], utyBigFilename);
+            sprintf(errorString, utyCannotOpenFileMessages[strCurLanguage], utyBigFilename);
             return errorString;
         }
     }
