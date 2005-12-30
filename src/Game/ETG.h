@@ -474,8 +474,8 @@ etgnestentry;
 //structure for parsing conditional statements
 typedef struct
 {
-    char symbol[4];                             //comparisson symbol
-    char transpose[4];                          //symbol to use if parameters are reversed
+    char *symbol;                               //comparison symbol
+    char *transpose;                            //symbol to use if parameters are reversed
     etgopcode opcode[4];                        //variable-constant-integer
                                                 //variable-variable-integer
                                                 //variable-constant-Float

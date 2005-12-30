@@ -35,7 +35,7 @@ typedef int (*ftpr)(const void *, const void *);
 
 typedef struct {
   int order;
-  char s[6];
+  char *s;
 } FUNC_ITEM;
 
 /* these are the possible tokens (objects): */

@@ -193,7 +193,8 @@ ubyte   *pmusicbuffer1;
 MUSICHEADER *musicheader;
 sdword  levelTrack = -1;
 
-char relicPlayerNames[MAX_RELIC_NAMES][MAX_PERSONAL_NAME_LEN] = {
+// player names should not exceed MAX_PERSONAL_NAME_LEN characters
+char *relicPlayerNames[MAX_RELIC_NAMES] = {
     "Rupract",
     "SpankMaster3000",
     "SM3K",

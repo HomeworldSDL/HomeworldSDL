@@ -67,7 +67,7 @@ typedef Uint64  uqword;
 typedef float   real32;
 typedef double  real64;
 
-#ifndef __cplusplus
+#ifndef bool                 // was: __cplusplus
     typedef udword  bool;
 #endif
 typedef sbyte   bool8;
@@ -215,7 +215,7 @@ float  SwapFloat( float val );
 #define swap(a,b,temp) \
         (temp) = (a);  \
         (a) = (b);     \
-        (b) = (temp)
+        (b) = (temp);
 #endif
 //integral swap, including pointers
 #define swapInt(a, b)   \
@@ -223,7 +223,7 @@ float  SwapFloat( float val );
         (b) ^= (a);     \
         (a) ^= (b);
 //floating-point swap
-#define swapReal32(a, b)                            \
+#define swapReal32(a, b)                              \
         *((udword *)(&(a))) ^= *((udword *)(&(b)));   \
         *((udword *)(&(b))) ^= *((udword *)(&(a)));   \
         *((udword *)(&(a))) ^= *((udword *)(&(b)));

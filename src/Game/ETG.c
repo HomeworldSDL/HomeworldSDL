@@ -625,15 +625,15 @@ opfunctionentry etgFunctionTable[] =
 //this table handles differing formats of the standard 'if' statement
 etgcondentry etgConditionalTable[] =
 {
-    {"=", "=",  {EOP_EqualVCI,       EOP_EqualVVI,       EOP_EqualVCF,       EOP_EqualVVF}},
-    {"==", "=", {EOP_EqualVCI,       EOP_EqualVVI,       EOP_EqualVCF,       EOP_EqualVVF}},
-    {"!=", "!=",{EOP_NotEqualVCI,    EOP_NotEqualVVI,    EOP_NotEqualVCF,    EOP_NotEqualVVF}},
-    {"<>", "<>",{EOP_NotEqualVCI,    EOP_NotEqualVVI,    EOP_NotEqualVCF,    EOP_NotEqualVVF}},
-    {">", "<=", {EOP_GreaterVCI,     EOP_GreaterVVI,     EOP_GreaterVCF,     EOP_GreaterVVF}},
-    {">=", "<", {EOP_GreaterEqualVCI,EOP_GreaterEqualVVI,EOP_GreaterEqualVCF,EOP_GreaterEqualVVF}},
-    {"<", ">=", {EOP_LessVCI,        EOP_LessVVI,        EOP_LessVCF,        EOP_LessVVF}},
-    {"<=", ">", {EOP_LessEqualVCI,   EOP_LessEqualVVI,   EOP_LessEqualVCF,   EOP_LessEqualVVF}},
-    {"end"}
+    {"=",   "=",   {EOP_EqualVCI,        EOP_EqualVVI,        EOP_EqualVCF,        EOP_EqualVVF         }},
+    {"==",  "=",   {EOP_EqualVCI,        EOP_EqualVVI,        EOP_EqualVCF,        EOP_EqualVVF         }},
+    {"!=",  "!=",  {EOP_NotEqualVCI,     EOP_NotEqualVVI,     EOP_NotEqualVCF,     EOP_NotEqualVVF      }},
+    {"<>",  "<>",  {EOP_NotEqualVCI,     EOP_NotEqualVVI,     EOP_NotEqualVCF,     EOP_NotEqualVVF      }},
+    {">",   "<=",  {EOP_GreaterVCI,      EOP_GreaterVVI,      EOP_GreaterVCF,      EOP_GreaterVVF       }},
+    {">=",  "<",   {EOP_GreaterEqualVCI, EOP_GreaterEqualVVI, EOP_GreaterEqualVCF, EOP_GreaterEqualVVF  }},
+    {"<",   ">=",  {EOP_LessVCI,         EOP_LessVVI,         EOP_LessVCF,         EOP_LessVVF          }},
+    {"<=",  ">",   {EOP_LessEqualVCI,    EOP_LessEqualVVI,    EOP_LessEqualVCF,    EOP_LessEqualVVF     }},
+    {"end", "end", {EOP_Nop,             EOP_Nop,             EOP_Nop,             EOP_Nop              }}
 };
 
 //table for parsing the etg script
@@ -5703,28 +5703,30 @@ sdword etgVarAssign(Effect *effect, struct etgeffectstatic *stat, ubyte *opcode)
 */
 sdword etgFunctionCall(Effect *effect, struct etgeffectstatic *stat, ubyte *opcode)
 {
-    udword param, nParams, currParam, currParamF, returnType;
-    sdword index, currEntry = 0;
-	opfunctionentry *entry = &etgFunctionTable[currEntry++];
-	while( entry->name )
+    udword index       = 0,
+           currEntry   = 0,
+           currParam   = 0,
+           currParamF  = 0,
+           param       = 0,
+           nParams     = ((etgfunctioncall *)opcode)->nParameters,
+           returnValue = ((etgfunctioncall *)opcode)->returnValue;
+           
+	opfunctionentry *entry;
+        
+	while ((entry = &etgFunctionTable[currEntry++])->name != NULL)
 	{
-		if( entry->function == ((etgfunctioncall *)opcode)->function )
+		if (entry->function == ((etgfunctioncall *)opcode)->function)
+        {
 			break;
-
-		entry = &etgFunctionTable[currEntry++];
+        }
 	}
 
-	if( !entry->name )
+	if (entry->name == NULL)
 	{
 		entry = NULL;
 	}
 
-    nParams = ((etgfunctioncall *)opcode)->nParameters;
-    returnType = ((etgfunctioncall *)opcode)->returnValue;
-	currParam = 0;
-	currParamF = 0;
-
-	if (((etgfunctioncall *)opcode)->passThis)
+    if (((etgfunctioncall *)opcode)->passThis)
 	{                                                       //pass a 'this' pointer
 		__asm__ (
 			"lwz r3, %0\n"
@@ -5736,9 +5738,8 @@ sdword etgFunctionCall(Effect *effect, struct etgeffectstatic *stat, ubyte *opco
 		currParam++;
 	}
 
-	for (index = 0; index < (sdword)nParams; index++)
+	for (index = 0; index < nParams; index++)
     {                                                       //for each parameter
-		int isFloat = 0;
         param = ((etgfunctioncall *)opcode)->parameter[index].param;
         switch (((etgfunctioncall *)opcode)->parameter[index].type)
         {
@@ -5758,61 +5759,68 @@ sdword etgFunctionCall(Effect *effect, struct etgeffectstatic *stat, ubyte *opco
                 break;
         }
 
-		if( entry )
-			if (entry->type[index] == EVT_Float)
-				isFloat = 1;
-
-		if (!isFloat)
-		{
-			if( currParam == 0 )
-				__asm__ ( "lwz r3, %0\n" : : "g" (param) : "r3" );
-			else if( currParam == 1 )
-				__asm__ ( "lwz r4, %0\n" : : "g" (param) : "r4" );
-			else if( currParam == 2 )
-				__asm__ ( "lwz r5, %0\n" : : "g" (param) : "r5" );
-			else if( currParam == 3 )
-				__asm__ ( "lwz r6, %0\n" : : "g" (param) : "r6" );
-			else if( currParam == 4 )
-				__asm__ ( "lwz r7, %0\n" : : "g" (param) : "r7" );
-			else if( currParam == 5 )
-				__asm__ ( "lwz r8, %0\n" : : "g" (param) : "r8" );
-			else if( currParam == 6 )
-				__asm__ ( "lwz r9, %0\n" : : "g" (param) : "r9" );
-			else if( currParam == 7 )
-				__asm__ ( "lwz r10, %0\n" : : "g" (param) : "r10" );
-
-			currParam++;
-		}
+        // floats are treated differently due to the way registers work on PPC
+        // (see main comment before function declaration)
+		if (entry != NULL
+        &&  entry->type[index] == EVT_Float)
+        {
+            // now it *really* shouldn't be necessary to do this but for some reason
+            // gcc 4.0 simply will not allow direct references to 'param' with the
+            // address operator (&), or indeed whatever the variable is called in the
+            // 'else' clause's assembly (sic). To get around this we copy the value to a
+            // temporary variable and do the float conversion on that.  
+            udword param_copy = param;
+            float paramf = *((float *)&param_copy);
+        
+			if( currParamF == 0 )
+				__asm__ ( "lfs f1, %0\n" : : "g" (paramf) : "f1" );
+			else if( currParamF == 1 )
+				__asm__ ( "lfs f2, %0\n" : : "g" (paramf) : "f2" );
+			else if( currParamF == 2 )
+				__asm__ ( "lfs f3, %0\n" : : "g" (paramf) : "f3" );
+			else if( currParamF == 3 )
+				__asm__ ( "lfs f4, %0\n" : : "g" (paramf) : "f4" );
+			else if( currParamF == 4 )
+				__asm__ ( "lfs f5, %0\n" : : "g" (paramf) : "f5" );
+			else if( currParamF == 5 )
+				__asm__ ( "lfs f6, %0\n" : : "g" (paramf) : "f6" );
+			else if( currParamF == 6 )
+				__asm__ ( "lfs f7, %0\n" : : "g" (paramf) : "f7" );
+			else if( currParamF == 7 )
+				__asm__ ( "lfs f8, %0\n" : : "g" (paramf) : "f8" );
+            
+            currParamF++;
+        }
 		else
 		{
-			float fp = *(float*)&param;
-			if( currParamF == 0 )
-				__asm__ ( "lfs f1, %0\n" : : "g" (fp) : "f1" );
-			else if( currParamF == 1 )
-				__asm__ ( "lfs f2, %0\n" : : "g" (fp) : "f2" );
-			else if( currParamF == 2 )
-				__asm__ ( "lfs f3, %0\n" : : "g" (fp) : "f3" );
-			else if( currParamF == 3 )
-				__asm__ ( "lfs f4, %0\n" : : "g" (fp) : "f4" );
-			else if( currParamF == 4 )
-				__asm__ ( "lfs f5, %0\n" : : "g" (fp) : "f5" );
-			else if( currParamF == 5 )
-				__asm__ ( "lfs f6, %0\n" : : "g" (fp) : "f6" );
-			else if( currParamF == 6 )
-				__asm__ ( "lfs f7, %0\n" : : "g" (fp) : "f7" );
-			else if( currParamF == 7 )
-				__asm__ ( "lfs f8, %0\n" : : "g" (fp) : "f8" );
+            if( currParam == 0 )
+                __asm__ ( "lwz r3, %0\n" : : "g" (param) : "r3" );
+            else if( currParam == 1 )
+                __asm__ ( "lwz r4, %0\n" : : "g" (param) : "r4" );
+            else if( currParam == 2 )
+                __asm__ ( "lwz r5, %0\n" : : "g" (param) : "r5" );
+            else if( currParam == 3 )
+                __asm__ ( "lwz r6, %0\n" : : "g" (param) : "r6" );
+            else if( currParam == 4 )
+                __asm__ ( "lwz r7, %0\n" : : "g" (param) : "r7" );
+            else if( currParam == 5 )
+                __asm__ ( "lwz r8, %0\n" : : "g" (param) : "r8" );
+            else if( currParam == 6 )
+                __asm__ ( "lwz r9, %0\n" : : "g" (param) : "r9" );
+            else if( currParam == 7 )
+                __asm__ ( "lwz r10, %0\n" : : "g" (param) : "r10" );
 
-			currParamF++;
-		}
+            currParam++;
+        }
 	}
 
-	param = ((etgfunctioncall *)opcode)->function();        //call the function
-    if (returnType != 0xffffffff)                           //if a return value is desired
+	param = ((etgfunctioncall *)opcode)->function();            // call the function
+    if (returnValue != 0xffffffff)                              // if a return value is desired
     {
-        *((udword *)(effect->variable + returnType)) = param;//set the return parameter
+        *((udword *)(effect->variable + returnValue)) = param;  // set the return parameter
     }
-    return(etgFunctionSize(nParams));
+    
+    return (etgFunctionSize(nParams));
 }
 
 #else // for lucky so and so's with x86 processors...
