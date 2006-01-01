@@ -771,7 +771,7 @@ Ship *nisNewObjectCreate(nisplaying *NIS, sdword index, nisheader *header, space
 {
     vector startVector, xyzTemp, xyz;
     matrix tempCoordsys;
-    Ship *newShip;
+    Ship *newShip = NULL;
     ShipRace race;
 
     startVector.x = path->curve[0][0];
@@ -1189,8 +1189,8 @@ nisplaying *nisStart(nisheader *header, vector *position, matrix *coordSystem)
 void nisStop(nisplaying *NIS)
 {
     sdword index, j;
-    Ship *ship;
-    Derelict *derelict;
+    Ship *ship = NULL;
+    Derelict *derelict = NULL;
     real32 currentSFXVolume, currentSpeechVolume, currentMusicVolume;
 
     dbgAssert(NIS != NULL);
@@ -1453,14 +1453,14 @@ void nisStop(nisplaying *NIS)
 #if NIS_SEEKABLE
 void nisSeek(nisplaying *NIS, real32 seekTime)
 {
-    sdword index, j;
-    objectmotion *path;
-    cameramotion *camPath;
+    sdword index = 0, j = 0;
+    objectmotion *path = NULL;
+    cameramotion *camPath = NULL;
 //    nisevent *event;
     real32 currentPos[6];
-    Ship *newShip;
+    Ship *newShip = NULL;
     vector position, startVector;
-    real32 seekAmount;
+    real32 seekAmount = 0.0;
     bool seekRelative;
     splinecurve *curve;
 /*
@@ -2058,10 +2058,10 @@ sdword nisFindObjectByName(nisheader *header, char *name)
     sdword index, instance = 0;
     udword race = R1;
 //    ShipType type;
-    char *pSlash, *pType;
+    char *pSlash = NULL, *pType = NULL;
     char raceString[32];
     char effectName[256];
-    spaceobjpath *path;
+    spaceobjpath *path = NULL;
 
     if ((pSlash = strchr(name, '(')) != NULL)
     {                                                       //find the instance ID, if any
@@ -3390,11 +3390,11 @@ void nisAttackSet(char *directory,char *field,void *dataToFillIn)
 }
 void nisHaltAttackSet(char *directory,char *field,void *dataToFillIn)
 {
-    nisevent *event = nisNewEvent(NEO_HaltAttack);
+    nisNewEvent(NEO_HaltAttack);
 }
 void nisFireSet(char *directory,char *field,void *dataToFillIn)
 {
-    nisevent *event = nisNewEvent(NEO_Fire);
+    nisNewEvent(NEO_Fire);
 }
 //set the current object for subsequent events
 void nisCurrentObjectSet(char *directory,char *field,void *dataToFillIn)
@@ -3656,11 +3656,11 @@ void nisCameraCutSet(char *directory,char *field,void *dataToFillIn)
 }
 void nisBlackScreenSet(char *directory, char *field, void *dataToFillIn)
 {
-    nisevent *event = nisNewEventNoObject(NEO_BlackScreenStart);
+    nisNewEventNoObject(NEO_BlackScreenStart);
 }
 void nisEndBlackScreenSet(char *directory, char *field, void *dataToFillIn)
 {
-    nisevent *event = nisNewEventNoObject(NEO_BlackScreenEnd);
+    nisNewEventNoObject(NEO_BlackScreenEnd);
 }
 void nisTextFontSet(char *directory, char *field, void *dataToFillIn)
 {
@@ -4080,16 +4080,15 @@ void nisColorSchemeSet(char *directory, char *field, void *dataToFillIn)
 void nisMeshAnimationStartSet(char *directory, char *field, void *dataToFillIn)
 {
     nisevent *event = nisNewEvent(NEO_MeshAnimationStart);
-
     event->param[0] = (udword)memStringDupe(field);
 }
 void nisMeshAnimationStopSet(char *directory, char *field, void *dataToFillIn)
 {
-    nisevent *event = nisNewEvent(NEO_MeshAnimationStop);
+    nisNewEvent(NEO_MeshAnimationStop);
 }
 void nisMeshAnimationPauseSet(char *directory, char *field, void *dataToFillIn)
 {
-    nisevent *event = nisNewEvent(NEO_MeshAnimationPause);
+    nisNewEvent(NEO_MeshAnimationPause);
 }
 void nisMeshAnimationSeekSet(char *directory, char *field, void *dataToFillIn)
 {

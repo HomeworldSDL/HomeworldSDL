@@ -542,38 +542,6 @@ void ferMirrorBitmapVert(udword *bitmap, sdword width, sdword height)
 
 
 /*-----------------------------------------------------------------------------
-    Name        : ferChangeTextureColor
-    Description : Changes the color of a texturemap
-    Inputs      : color - the color value that will be added to the texture values
-                  texture - the texturemap to be changed
-    Outputs     : see "description"
-    Return      :
-----------------------------------------------------------------------------*/
-//this function doesn't work properly...  Help it!!!  :-(
-void ferChangeTextureColor(sbyte col_incr, lifheader *texture)
-{
-    color *col  = (color *)(texture->data);
-    sbyte red   = colRed(*col),
-          green = colGreen(*col),
-          blue  = colBlue(*col);
-    udword i, max_i = 2*texture->height * texture->width;
-
-
-    for (i = 0; i < max_i; i++)
-    {
-        red   = (sbyte)(red   + col_incr);
-        green = (sbyte)(green + col_incr);
-        blue  = (sbyte)(blue  + col_incr);
-
-        *col = colRGBA(colClamp256(red), colClamp256(green),
-                       colClamp256(blue), colAlpha(*col));
-        col++;
-        i++;
-    }
-}
-
-
-/*-----------------------------------------------------------------------------
     Name        : ferFindCutoutType
     Description : Checks the corner/side array to find a specific corner/side
     Inputs      : cuts - array of corners/sides

@@ -1851,7 +1851,7 @@ beamnexttarget:
         targetindex++;
     }
 
-nextpass:
+//nextpass:
     pass++;
     if (pass < 2)
     {

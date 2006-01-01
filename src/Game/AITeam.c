@@ -2062,7 +2062,7 @@ AITeam *aitFindGravWellGeneratorCoopTeam(void)
              aitTeamShipClassIs(CLASS_HeavyCruiser, team)) &&
             (!aitTeamShipTypeIs(GravWellGenerator, team) &&
              !aitTeamShipTypeIs(CloakGenerator, team)) &&
-            (aitTeamIsntCoopWithAnotherTeam_GravWell))
+            (aitTeamIsntCoopWithAnotherTeam_GravWell(team)))
         {
             capTeam = team;
             break;

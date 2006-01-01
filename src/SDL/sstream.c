@@ -13,10 +13,10 @@
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <mmsystem.h>
-#include <string.h>
 #include <dsound.h>
 #include <process.h>
 #endif
+#include <string.h>
 
 #include "Types.h"
 #include "Switches.h"
@@ -213,8 +213,8 @@ udword soundstreamopenfile(char *pszStreamFile, sdword *handle)
 sdword soundstreamcreatebuffer(void *pstreambuffer, sdword size, uword bitrate)
 {
 	sdword			channel = 0;
-	CHANNEL			*pchan;
-	STREAM			*pstream;
+	CHANNEL			*pchan = NULL;
+	STREAM			*pstream = NULL;
 	sdword			i;
 
     for (i = 0; i < numstreams; i++)
@@ -735,7 +735,7 @@ sdword ssSubtitleRead(STREAMHEADER *header, filehandle handle, sdword actornum, 
     real32 time;
 #if VCE_BACKWARDS_COMPATIBLE
     STREAMHEADER header2, headerTemp;
-    udword currentOffset;
+    udword currentOffset = 0;
 #endif //VCE_BACKWARDS_COMPATIBLE
 
     length = fileBlockRead(handle, header, sizeof(STREAMHEADER));//read in the "INFO" and length

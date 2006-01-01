@@ -1196,11 +1196,11 @@ char bobAttackClass[] = {CLASS_Fighter, CLASS_Corvette, 0};
 void bobBlobItemize(blob *thisBlob, sdword sensorsLevel)
 {
     sdword index;
-    SpaceObj *object;
+    SpaceObj *object = NULL;
     ubyte shipClass;
     SpaceObjSelection *blobObjects = thisBlob->blobObjects;
     bool bGravWellDetected = FALSE, bProbeDetected = FALSE;
-    Ship *gravWell, *probe;
+    Ship *gravWell = NULL, *probe = NULL;
 
     thisBlob->RUs = 0;
     thisBlob->nRockRUs = thisBlob->nDustRUs = 0;

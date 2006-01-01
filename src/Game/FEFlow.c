@@ -765,7 +765,7 @@ void feStaticTextDraw(regionhandle region)
     fonthandle  fhSave;
     char *string;
     featom *atom = (featom *)region->userID;
-    sdword index, x, width;
+    sdword index, x = 0, width;
 
     for (index = 0, string = (char *)atom->pData; index < strCurLanguage; index++)
     {                                                       //find the next string
@@ -3192,7 +3192,7 @@ void feRadioButtonSet(char *name, sdword index)
 ----------------------------------------------------------------------------*/
 void feToggleButtonSet(char *name, sdword bPressed)
 {
-    featom *atom;
+    featom *atom = NULL;
     buttonhandle button;
     sdword iScreen;
 

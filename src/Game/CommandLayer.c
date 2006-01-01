@@ -1625,7 +1625,7 @@ bool delegateCommand(CommandToDo *attacktodo,sdword group,sdword doform, SelectC
                 shipstaticinfo->custshipheader.CustShipAttackPassive(ship,(Ship *)target,TRUE);
             }
         }
-skipattack:
+//skipattack:
         if(ship->tacticsTalk != 0)
         {
             if(ship->formationcommand->formation.flipselectionfixed != TRUE)
@@ -2096,10 +2096,10 @@ bool processAttackToDoInFormation(CommandToDo *attacktodo)
     sdword numShipsToAttack = attack->numTargets;
     SelectCommand *selection = attacktodo->selection;
     bool alldone;
-    ShipStaticInfo *shipstaticinfo;
-    Ship *ship;
-    SpaceObjRotImpTarg *target;
-    SpaceObjRotImpTarg *leadertarget;
+    ShipStaticInfo *shipstaticinfo = NULL;
+    Ship *ship = NULL;
+    SpaceObjRotImpTarg *target = NULL;
+    SpaceObjRotImpTarg *leadertarget = NULL;
     sdword i;
     sdword should = TRUE;
     bool focusfire = FALSE;
@@ -4643,7 +4643,7 @@ void clMoveThese(CommandLayer *comlayer,SelectCommand *selectcom,vector from,vec
                     //ship is attacking
                     MaxSelection tempSelection;
                     MaxAnySelection targetSelection;
-                    TypeOfFormation formation;
+                    TypeOfFormation formation = NO_FORMATION;
                     bool needFormation;
                     sdword j;
 
@@ -7319,14 +7319,14 @@ bool ShipHasToLaunch(Ship *InsideShip, Ship *ship)
 ----------------------------------------------------------------------------*/
 Ship *clCreateShip(CommandLayer *comlayer,ShipType shipType,ShipRace shipRace,uword playerIndex,ShipPtr creator)
 {
-    Ship *ship;
+    Ship *ship = NULL;
     SelectCommand select;
 
 
     Player *player = &universe.players[playerIndex];
     Ship *mothership, *carrier1=NULL, *carrier2=NULL;
     sword i;
-    udword launchmask;
+    udword launchmask = BIT0;
 
 
     mothership = player->PlayerMothership;

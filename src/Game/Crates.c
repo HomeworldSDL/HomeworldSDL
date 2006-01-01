@@ -188,7 +188,7 @@ void cratesReportCratePlacement(Derelict *crate)
 
 void cratesPlayerFoundACrate(Derelict *crate, Player *player)
 {
-    etglod *etgLOD;
+    etglod *etgLOD = NULL;
     etgeffectstatic *stat;
     vector zero = {0.0f,0.0f,0.0f};
     matrix ident = IdentityMatrix;

@@ -825,7 +825,6 @@ void DefaultShipHarvestsResource(struct Ship *ship,struct Resource *resource)
 ----------------------------------------------------------------------------*/
 void R1ResourcerHarvestsAsteroid(struct Ship *ship,struct Resource *resource)
 {
-    ShipStaticInfo *shipstatic = (ShipStaticInfo *)ship->staticinfo;
     vector trajectory;
     real32 range;
     real32 dist;
@@ -1040,17 +1039,15 @@ void Fix_ShipXHarvestsResourceY(Ship *ship)
 ----------------------------------------------------------------------------*/
 bool processCollectResource(struct CommandToDo *collecttodo)
 {
-    sdword numShips = collecttodo->selection->numShips;
-    Ship *ship;
-    ShipStaticInfo *shipstatic;
-    Resource *resource = collecttodo->collect.resource;
-    Ship *dockship;
+    sdword    numShips  = collecttodo->selection->numShips;
+    Resource *resource  = collecttodo->collect.resource;
+    Ship     *ship      = collecttodo->selection->ShipPtr[0];
+    Ship     *dockship;
+
+    ShipStaticInfo *shipstatic = (ShipStaticInfo *)ship->staticinfo;
 
     dbgAssert(numShips > 0);
     dbgAssert(numShips == 1);
-
-    ship = collecttodo->selection->ShipPtr[0];
-    shipstatic = (ShipStaticInfo *)ship->staticinfo;
 
     if (ship->resources >= shipstatic->maxresources)
     {
@@ -1153,7 +1150,6 @@ letsdock:
 ----------------------------------------------------------------------------*/
 void R1ResourcerAttacksShip(struct Ship *ship,struct SpaceObjRotImpTarg *target,bool passiveAttacking)
 {
-    ShipStaticInfo *shipstatic = (ShipStaticInfo *)ship->staticinfo;
     vector trajectory;
     real32 range;
     real32 dist;

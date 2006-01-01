@@ -400,7 +400,7 @@ void SEupdateNISvol(void)
 -----------------------------------------------------------------------------*/
 real32 SEsetVol(real32 level)
 {
-	real32 vol;
+	real32 vol = 0.0;
 
     if ((level >= 0.0f) && (level <= 1.0f))
     {
@@ -1018,7 +1018,7 @@ void soundEventUpdate(void)
 {
 #if SOUND
     Node *objnode = universe.RenderList.tail;
-    Ship *ship;
+    Ship *ship = NULL;
     ShipClass shipclass;
     sword vol;
     sword pan;
@@ -1031,13 +1031,13 @@ void soundEventUpdate(void)
     static real32 tempEQ[SOUND_EQ_SIZE];
     GunInfo *gunInfo;
     sdword i;
-    Gun *gun;
+    Gun *gun = NULL;
     bool specialon;
     bool ambienton;
 	CloakGeneratorSpec *CGspec;
     GravWellGeneratorSpec *GWspec;
-    CommandToDo *command;
-    Derelict *pDerelict;
+    CommandToDo *command = NULL;
+    Derelict *pDerelict = NULL;
     real32 damageratio = 1.0f;
     sdword ambient;
 	ShipSinglePlayerGameInfo *shipSinglePlayerGameInfo;

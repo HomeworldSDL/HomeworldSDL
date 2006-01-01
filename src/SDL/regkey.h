@@ -16,7 +16,7 @@
 	
     #ifdef _MACOSX
         // the OEM and full version can live alongside so we use the same dir
-        #define CONFIGDIR "Library/Application\ Support/Homeworld"
+        #define CONFIGDIR "Library/Application Support/Homeworld"
     #else
         #define CONFIGDIR ".homeworldOEM"
     #endif
@@ -26,7 +26,7 @@
     #define BASEKEYNAME "SOFTWARE\\Sierra On-Line\\Homeworld"
 
     #ifdef _MACOSX
-        #define CONFIGDIR "Library/Application\ Support/Homeworld"
+        #define CONFIGDIR "Library/Application Support/Homeworld"
     #else
         #define CONFIGDIR ".homeworld"
     #endif

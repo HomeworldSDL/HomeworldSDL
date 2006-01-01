@@ -61,7 +61,7 @@ sdword soundEventPlay(void *object, sdword event, Gun *gun)
     sword vol;
     sword pan;
 	sdword i;
-    real32 dist;
+    real32 dist = 0;
     sdword priority = SOUND_PRIORITY_MIN;
     SpaceObj *spaceobject;
     Effect *effect;

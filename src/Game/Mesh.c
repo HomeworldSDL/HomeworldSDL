@@ -1631,7 +1631,7 @@ void meshObjectRender(polygonobject *object, materialentry *materials, sdword iC
     normalentry *normal, *normalList;
     sdword currentMaterial = -1;
     GLenum mode = GL_SMOOTH;
-    sdword lightOn;
+    sdword lightOn = FALSE;
     bool enableBlend;
 
     glShadeModel(mode);
@@ -2636,7 +2636,7 @@ void meshMorphedObjectRender(
     color  morphLineColor1, morphLineColor2;
     GLboolean texEnabled, lightEnabled, blendEnabled;
 #endif
-    bool lightOn;
+    bool lightOn = FALSE;
     real32 modelview[16], modelviewInv[16];
 
     dbgAssert(object1->nVertices == object2->nVertices);

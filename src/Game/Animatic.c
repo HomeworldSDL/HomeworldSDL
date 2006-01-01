@@ -61,9 +61,6 @@ static sdword subY1;
 static sdword g_frame, g_displayFrame;
 static bool   g_cleared;
 
-static ubyte* surf888;
-ubyte* surf8888 = NULL;
-
 #ifndef _MACOSX_FIX_ME
 extern HDC hGLDeviceContext;
 #endif

@@ -594,7 +594,7 @@ unsigned long titanLeaveGameReceivedCB(Address *address,const void *blob,unsigne
 
 void generateDirectoryCustomInfo(DirectoryCustomInfoMax *buildDirectoryCustomInfo)
 {
-    sdword passwordnamelen;
+    sdword passwordnamelen = 0;
     sdword mapnamelen = strlen(tpGameCreated.DisplayMapName) + 1;
     int n;
 

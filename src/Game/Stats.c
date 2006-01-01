@@ -321,7 +321,7 @@ ShipStaticInfo *ConvertStatIndexToShipStatic(sdword i)
 {
     ShipType shiptype;
     ShipRace shiprace;
-    ShipStaticInfo *shipstatic;
+    ShipStaticInfo *shipstatic = NULL;
 
     ConvertStatIndexToShipRaceType(i,&shiptype,&shiprace);
     shipstatic = GetShipStaticInfo(shiptype,shiprace);

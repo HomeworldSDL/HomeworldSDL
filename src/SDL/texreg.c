@@ -2418,7 +2418,7 @@ void trCramScaleTableCompute(sdword dest[TR_TexSizesX][TR_TexSizesY], sdword sca
     sdword closestWidth, closestHeight, widthToMatch, heightToMatch, width, height;
     sdword xDiff, yDiff;
 
-    dbgAssert(scaleFactor <= 65536);                        //make sire we're not scaling up
+    dbgAssert(scaleFactor <= 65536);                        //make sure we're not scaling up
     for (x = 0; x < TR_TexSizesX; x++)
     {                                                       //for all widths/heights
         for (y = 0; y < TR_TexSizesY; y++)

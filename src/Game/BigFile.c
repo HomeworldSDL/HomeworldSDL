@@ -987,9 +987,9 @@ int bigAdd(char *bigfilename, int numFiles, char *filenames[], int optCompressio
     int f;
     int res;
     int *moveFiles;
-    FILE *fp, *filelistFP;
+    FILE *fp = NULL, *filelistFP = NULL;
     int filelist;
-    char *filelistName;
+    char *filelistName = NULL;
     char filelistLine[BF_MAX_FILENAME_LENGTH+1];
     char filename[BF_MAX_FILENAME_LENGTH+1];
 
@@ -1228,10 +1228,10 @@ int bigFastCreate(char *bigfilename, int numFiles, char *filenames[], int optCom
     int filesAdded = 0, dupesSkipped = 0;
     int pass;
     int f, i, j, index;
-    int *moveFiles;
-    FILE *bigFP, *filelistFP, *dataFP;
+    int *moveFiles = NULL;
+    FILE *bigFP = NULL, *filelistFP = NULL, *dataFP = NULL;
     int filelist;
-    char *filelistName;
+    char *filelistName = NULL;
     char filelistLine[BF_MAX_FILENAME_LENGTH+1];
     char filename[BF_MAX_FILENAME_LENGTH+1];
     bigTOC toc;
@@ -1239,8 +1239,8 @@ int bigFastCreate(char *bigfilename, int numFiles, char *filenames[], int optCom
     bigTOCFileEntry fileEntry;
     unsigned long curOffset;
     int compressedSize;
-    crc32 *crcAdded1, *crcAdded2;
-    int dupe;
+    crc32 *crcAdded1 = NULL, *crcAdded2 = NULL;
+    int dupe = 0;
 
     // either update or create
     if (bigFileExists(bigfilename))

@@ -325,7 +325,7 @@ void formationArrangeOptimum(struct CommandToDo *formationtodo)
 
     dbgAssert(numShips >= ABSOLUTE_MIN_SHIPS_IN_FORMATION);
 
-    if (selection->numShips == 1)
+    if (numShips == 1)
     {
         return;     // only 1 item, so don't sort
     }

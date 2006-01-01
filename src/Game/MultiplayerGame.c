@@ -1682,7 +1682,7 @@ void mgAddChatToRoomChat(chatlist *newchat, listwindowhandle listwindow, LinkedL
     sdword     width,addwidth,nCharacters,length;
     char       temp[512];
     chatlist  *chatinfo;
-    color      col;
+    color      col = mgNormalChatColor;
 
     oldfont = fontMakeCurrent(mgChatWindowFont);
 
@@ -2518,16 +2518,13 @@ void mgChangeColors(char *name, featom *atom)
 
 void mgDrawChatWindowItem(rectangle *rect, listitemhandle data)
 {
-    char            temp[512];
-    sdword          x, y;
-    color           c;
-    fonthandle      oldfont;
-    chatlist       *chatinfo = (chatlist *)data->data;
-
-    oldfont = fontMakeCurrent(mgChatWindowFont);
-
-    x = rect->x0+MG_HorzSpacing;
-    y = rect->y0+MG_VertSpacing/2;
+    char   temp[512];
+    sdword x = rect->x0 + MG_HorzSpacing,
+           y = rect->y0 + MG_VertSpacing / 2;
+    color  c = mgNormalChatColor;
+    
+    fonthandle  oldfont  = fontMakeCurrent(mgChatWindowFont);
+    chatlist   *chatinfo = (chatlist *)data->data;
 
     switch (chatinfo->messagetype)
     {
@@ -3739,16 +3736,13 @@ bool PingAllServers(udword num, void *data, struct BabyCallBack *baby)
 
 void mgGameChatItemDraw(rectangle *rect, listitemhandle data)
 {
-    char            temp[512];
-    sdword          x, y;
-    color           c;
-    fonthandle      oldfont;
-    chatlist       *chatinfo = (chatlist *)data->data;
-
-    oldfont = fontMakeCurrent(mgGameChatFont);
-
-    x = rect->x0+MG_HorzSpacing;
-    y = rect->y0+MG_VertSpacing/2;
+    char   temp[512];
+    sdword x = rect->x0 + MG_HorzSpacing,
+           y = rect->y0 + MG_VertSpacing / 2;
+    color  c = mgNormalChatColor;
+    
+    fonthandle  oldfont  = fontMakeCurrent(mgGameChatFont);
+    chatlist   *chatinfo = (chatlist *)data->data;
 
     switch (chatinfo->messagetype)
     {

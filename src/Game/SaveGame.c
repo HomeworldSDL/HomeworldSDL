@@ -1821,7 +1821,7 @@ void SaveShip(Ship *ship)
     {
         shipstaticinfo->custshipheader.CustShip_Save(ship);
     }
-done:
+//done:
     memFree(chunk);
 }
 
@@ -1957,7 +1957,7 @@ Ship *LoadShip(SaveChunk *chunk)
     {
         shipstaticinfo->custshipheader.CustShip_Load(ship);
     }
-done:
+//done:
     return ship;
 }
 

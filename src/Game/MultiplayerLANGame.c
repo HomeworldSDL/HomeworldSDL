@@ -588,7 +588,7 @@ void lgAddChatToRoomChat(chatlist *newchat, listwindowhandle listwindow, LinkedL
     sdword     width,addwidth,nCharacters,length;
     char       temp[512];
     chatlist  *chatinfo;
-    color      col;
+    color      col = lgNormalChatColor;
 
     oldfont = fontMakeCurrent(lgChatWindowFont);
 
@@ -930,16 +930,13 @@ void lgChangeColors(char *name, featom *atom)
 
 void lgDrawChatWindowItem(rectangle *rect, listitemhandle data)
 {
-    char            temp[512];
-    sdword          x, y;
-    color           c;
-    fonthandle      oldfont;
-    chatlist       *chatinfo = (chatlist *)data->data;
+    char   temp[512];
+    sdword x = rect->x0 + LG_HorzSpacing,
+           y = rect->y0 + LG_VertSpacing / 2;
+    color  c = lgNormalChatColor;
 
-    oldfont = fontMakeCurrent(lgChatWindowFont);
-
-    x = rect->x0+LG_HorzSpacing;
-    y = rect->y0+LG_VertSpacing/2;
+    fonthandle  oldfont  = fontMakeCurrent(lgChatWindowFont);
+    chatlist   *chatinfo = (chatlist *)data->data;
 
     switch (chatinfo->messagetype)
     {
@@ -1514,16 +1511,13 @@ void lgListOfGamesInit(char *name, featom *atom)
 
 void lgGameChatItemDraw(rectangle *rect, listitemhandle data)
 {
-    char            temp[512];
-    sdword          x, y;
-    color           c;
-    fonthandle      oldfont;
-    chatlist       *chatinfo = (chatlist *)data->data;
-
-    oldfont = fontMakeCurrent(lgGameChatFont);
-
-    x = rect->x0+LG_HorzSpacing;
-    y = rect->y0+LG_VertSpacing/2;
+    char    temp[512];
+    sdword  x = rect->x0 + LG_HorzSpacing,
+            y = rect->y0 + LG_VertSpacing / 2;
+    color   c = lgNormalChatColor;
+    
+    fonthandle  oldfont  = fontMakeCurrent(lgGameChatFont);
+    chatlist   *chatinfo = (chatlist *)data->data;
 
     switch (chatinfo->messagetype)
     {

@@ -140,7 +140,10 @@ bool windowNeedsDeleting = FALSE;
 bool mainNoPerspective = FALSE;
 
 bool systemActive = FALSE;              //active flag for the program
+
+#ifndef _MACOSX
 static char windowTitle[] = "Homeworld";//name of window
+#endif
 
 //error strings
 char ersWindowInit[] = "Error creating window";

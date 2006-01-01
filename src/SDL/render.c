@@ -2303,7 +2303,6 @@ void rndMainViewRenderFunction(Camera *camera)
     SpaceObj *spaceobj;
     udword i,numstars;
     Star3d *star;
-    static sdword init = FALSE;
 //    hvector cameraSpace, eyeSpace;
     vector to;
     lod *level;
@@ -2317,7 +2316,7 @@ void rndMainViewRenderFunction(Camera *camera)
     static sdword shipTrails;
     extern sdword trailsUpdated, trailsNotUpdated, trailsRendered;
     sdword colorScheme;
-    bool displayEffect;
+    bool displayEffect = FALSE;
 
     sdword asteroid0Count;
 
