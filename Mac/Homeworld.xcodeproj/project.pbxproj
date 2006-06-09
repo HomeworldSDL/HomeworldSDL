@@ -274,7 +274,6 @@
 		3516C93F077C41B0001AA863 /* SDLMain.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD93C2064AF4F3003E3D39 /* SDLMain.h */; };
 		3516C940077C41B0001AA863 /* Homeworld_Prefix.h in Headers */ = {isa = PBXBuildFile; fileRef = 35517D000732720E00691120 /* Homeworld_Prefix.h */; };
 		3516C941077C41B0001AA863 /* Mission05_OEM.h in Headers */ = {isa = PBXBuildFile; fileRef = 35DAEDC7077BAF4D0080465A /* Mission05_OEM.h */; };
-		3516C944077C41B0001AA863 /* SDLMain.nib in Resources */ = {isa = PBXBuildFile; fileRef = 90623E52064993380088361C /* SDLMain.nib */; };
 		3516C948077C41B0001AA863 /* AIAttackMan.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623BEE064992AE0088361C /* AIAttackMan.c */; };
 		3516C949077C41B0001AA863 /* AIDefenseMan.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623BF0064992AE0088361C /* AIDefenseMan.c */; };
 		3516C94A077C41B0001AA863 /* AIEvents.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623BF2064992AE0088361C /* AIEvents.c */; };
@@ -848,7 +847,6 @@
 		90623E4F064992AF0088361C /* VolTweakDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623D1D064992AF0088361C /* VolTweakDefs.h */; };
 		90623E50064992AF0088361C /* Volume.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D1E064992AF0088361C /* Volume.c */; };
 		90623E51064992AF0088361C /* Volume.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623D1F064992AF0088361C /* Volume.h */; };
-		90623E53064993380088361C /* SDLMain.nib in Resources */ = {isa = PBXBuildFile; fileRef = 90623E52064993380088361C /* SDLMain.nib */; };
 		90BD9144064AC6DC003E3D39 /* interfce.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9108064AC6DB003E3D39 /* interfce.c */; };
 		90BD9145064AC6DC003E3D39 /* interfce.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9109064AC6DB003E3D39 /* interfce.h */; };
 		90BD9146064AC6DC003E3D39 /* jcapimin.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD910A064AC6DB003E3D39 /* jcapimin.c */; };
@@ -1459,7 +1457,6 @@
 		90623D1D064992AF0088361C /* VolTweakDefs.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = VolTweakDefs.h; path = ../src/Game/VolTweakDefs.h; sourceTree = SOURCE_ROOT; };
 		90623D1E064992AF0088361C /* Volume.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Volume.c; path = ../src/Game/Volume.c; sourceTree = SOURCE_ROOT; };
 		90623D1F064992AF0088361C /* Volume.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Volume.h; path = ../src/Game/Volume.h; sourceTree = SOURCE_ROOT; };
-		90623E52064993380088361C /* SDLMain.nib */ = {isa = PBXFileReference; explicitFileType = wrapper.nib; path = SDLMain.nib; sourceTree = "<group>"; };
 		90BD9108064AC6DB003E3D39 /* interfce.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = interfce.c; path = ../src/JPG/interfce.c; sourceTree = SOURCE_ROOT; };
 		90BD9109064AC6DB003E3D39 /* interfce.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = interfce.h; path = ../src/JPG/interfce.h; sourceTree = SOURCE_ROOT; };
 		90BD910A064AC6DB003E3D39 /* jcapimin.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = jcapimin.c; path = ../src/JPG/jcapimin.c; sourceTree = SOURCE_ROOT; };
@@ -1802,7 +1799,6 @@
 				35A501A6078CB77000E7D8E2 /* RaiderRetreat.plist */,
 				351B67AB077E4728002ABC6E /* RaiderRetreatPlist.strings */,
 				351B681E077E567E002ABC6E /* rr.icns */,
-				90623E52064993380088361C /* SDLMain.nib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -3149,7 +3145,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				351B681F077E567E002ABC6E /* rr.icns in Resources */,
-				3516C944077C41B0001AA863 /* SDLMain.nib in Resources */,
 				35CCC93109662605009D918D /* RaiderRetreatPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3159,7 +3154,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3510D46B0784F50E00F840B1 /* guidestone.icns in Resources */,
-				90623E53064993380088361C /* SDLMain.nib in Resources */,
 				35CCC930096625FD009D918D /* HomeworldPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
