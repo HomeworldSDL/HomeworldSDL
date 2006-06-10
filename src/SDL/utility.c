@@ -452,40 +452,40 @@ udword utyNFrameTicks = 0;
 fonthandle ghDefaultFont = 0;
 
 // name of bigfile
-#if defined(CGW)
+#if defined(HW_COMPUTER_GAMING_WORLD_DEMO)
 char utyBigFilename[] = "HomeworldCGW.big";
-#elif defined(Downloadable) || defined(DLPublicBeta)
+#elif defined(HW_DEMO) || defined(HW_PUBLIC_BETA)
 char utyBigFilename[] = "HomeworldDL.big";
-//#elif defined(OEM)
-//char utyBigFilename[] = "HomeworldMOE.big";
+//#elif defined(HW_RAIDER_RETREAT)
+//char utyBigFilename[] = "HomeworldOEM.big";
 #else
 char utyBigFilename[] = "Homeworld.big";
 #endif
 
 // name of music data file
-#if defined(CGW)
+#if defined(HW_COMPUTER_GAMING_WORLD_DEMO)
 char utyMusicFilename[] = "CGW_Music.wxd";
-#elif defined(Downloadable)
+#elif defined(HW_DEMO)
 char utyMusicFilename[] = "DL_Music.wxd";
-#elif defined(DLPublicBeta)
+#elif defined(HW_PUBLIC_BETA)
 char utyMusicFilename[] = "PB_Music.wxd";
-#elif defined(OEM)
+#elif defined(HW_RAIDER_RETREAT)
 char utyMusicFilename[] = "OEM_Music.wxd";
 #else
 char utyMusicFilename[] = "HW_Music.wxd";
 #endif
 
 // name of voice file
-#if  defined(CGW)
+#if  defined(HW_COMPUTER_GAMING_WORLD_DEMO)
 char utyVoiceFilename[] = "CGW_Demo.vce";
-#elif defined(Downloadable) || defined(DLPublicBeta)
+#elif defined(HW_DEMO) || defined(HW_PUBLIC_BETA)
 char utyVoiceFilename[] = "DL_Demo.vce";
 #else
 char utyVoiceFilename[] = "HW_comp.vce";
 #endif
 
 // name of other files
-#if defined(OEM) && defined(_MACOSX) // OEM (aka "Raider Retreat")
+#if defined(HW_RAIDER_RETREAT) && defined(_MACOSX)
     // rename allows this to live alongside 1.05 patch's Update.big in standard installation
     char utyUpdateBigFilename[] = "OEM_Update.big";
 #else
@@ -535,7 +535,7 @@ taskhandle utyRenderTask;
 static bool forceSP = FALSE;
 
 //global flag for demo functionality
-#if defined(CGW) || defined (Downloadable) || defined(DLPublicBeta) || defined(OEM)
+#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined (HW_DEMO) || defined(HW_PUBLIC_BETA) || defined(HW_RAIDER_RETREAT)
 bool utyPlugScreens = FALSE;
 #endif
 bool utyCreditsSequence = FALSE;
@@ -1703,7 +1703,7 @@ void utySensorsBlobsBitmapToggle(char* name, featom* atom)
 void utyLanguageToggle(char* name, featom* atom)
 {
     sdword index;
-//#if defined(CGW) || defined(Downloadable) || defined(DLPublicBeta) || defined(OEM)
+//#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_DEMO) || defined(HW_PUBLIC_BETA) || defined(HW_RAIDER_RETREAT)
 //    //disable this function in demos
 //    bitSet(atom->flags, FAF_Disabled);
 //    bitSet(((region *)atom->region)->status, RSF_RegionDisabled);
@@ -2843,7 +2843,7 @@ bool utyDemoAutoPlay(udword num, void* data, struct BabyCallBack* baby)
 void utySinglePlayerOptions(char *name, featom *atom)
 {
 
-#if defined(Downloadable)
+#if defined(HW_DEMO)
 
     featom *bitchatom;
 
@@ -2855,7 +2855,7 @@ void utySinglePlayerOptions(char *name, featom *atom)
 
 #endif
 
-#if defined(DLPublicBeta)
+#if defined(HW_PUBLIC_BETA)
     //disable this function in demos
     bitSet(atom->flags, FAF_Disabled);
     bitSet(((region *)atom->region)->status, RSF_RegionDisabled);
@@ -2868,7 +2868,7 @@ void utySinglePlayerOptions(char *name, featom *atom)
         taskCallBackRegister(utyDemoAutoPlay, 0, NULL, demAutoDemoWaitTime);
     }
 #endif //DEM_AUTO_DEMO
-#else //defined(DLPublicBeta)
+#else //defined(HW_PUBLIC_BETA)
     if (FEFIRSTCALL(atom))
     {
 #if DEM_AUTO_DEMO
@@ -2893,7 +2893,7 @@ void utySinglePlayerOptions(char *name, featom *atom)
         bitSet(atom->flags, FAF_Disabled);
     }
 #endif //MAIN_Password
-#endif // defined(CGW) || defined(Downloadable) || defined(DLPublicBeta)
+#endif // defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_DEMO) || defined(HW_PUBLIC_BETA)
 }
 
 /*-----------------------------------------------------------------------------
@@ -3226,7 +3226,7 @@ void utyNewGameStart(char *name, featom *atom)
 {
     udword i,j;
 
-#if defined(DLPublicBeta)
+#if defined(HW_PUBLIC_BETA)
     //disable this function in demos
     if (atom != NULL)
     {
@@ -3412,7 +3412,7 @@ void utyNewGameStart(char *name, featom *atom)
 void utyGameQuit(char *name, featom *atom)
 {
     dbgMessagef("\nQuit game, baby!");
-#if defined(CGW) || defined(Downloadable) || defined(DLPublicBeta) || defined(OEM)
+#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_DEMO) || defined(HW_PUBLIC_BETA) || defined(HW_RAIDER_RETREAT)
     if (enableAVI)
     {
         psModeBegin("Plugscreens\\", PMF_CanSkip);
@@ -3446,7 +3446,7 @@ void utyGameQuitToMain(char *name, featom *atom)
 
     gameEnd();
 
-#if defined(CGW) || defined (Downloadable) || defined(DLPublicBeta) || defined(OEM)
+#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined (HW_DEMO) || defined(HW_PUBLIC_BETA) || defined(HW_RAIDER_RETREAT)
     if (utyPlugScreens && enableAVI)
     {
         psModeBegin("Plugscreens\\", PMF_CanSkip);
@@ -3499,7 +3499,7 @@ void utyGameQuitToMain(char *name, featom *atom)
     Return      : void
 ----------------------------------------------------------------------------*/
 /*
-#if defined(CGW) || defined (Downloadable) || defined(DLPublicBeta) || defined(OEM)
+#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined (HW_DEMO) || defined(HW_PUBLIC_BETA) || defined(HW_RAIDER_RETREAT)
 void utyGameQuitToPlugScreens(void)
 {
     feAllScreensDelete();
@@ -4371,7 +4371,7 @@ char *utyGameSystemsInit(void)
     soundEventInit();
     utySet2(SS2_SoundEngine);
 
-#if (!defined(Downloadable) || defined(DLPublicBeta))
+#if (!defined(HW_DEMO) || defined(HW_PUBLIC_BETA))
     /* Intro playing requires a window, which we have not made yet thanks to
        how the code's been butchered. */
 #if 0
@@ -4524,7 +4524,7 @@ DONE_INTROS:
     rmAPIStartup();
     utySet2(SS2_ResearchMgr);
 
-#if defined(CGW) || defined(Downloadable) || defined(DLPublicBeta) || defined(OEM)
+#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_DEMO) || defined(HW_PUBLIC_BETA) || defined(HW_RAIDER_RETREAT)
     psStartup();
     utySet2(SS2_PlugScreen);
 #endif
@@ -4635,7 +4635,7 @@ DONE_INTROS:
         mouseCursorShow();
 //    }
 
-#if (defined(Downloadable) || defined(DLPublicBeta))
+#if (defined(HW_DEMO) || defined(HW_PUBLIC_BETA))
     if (enableAVI)
     {
         primModeSetFunction2();
@@ -4931,7 +4931,7 @@ char *utyGameSystemsShutdown(void)
 
     tmShutdown();
 
-#if defined(CGW) || defined(Downloadable) || defined(DLPublicBeta) || defined(OEM)
+#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_DEMO) || defined(HW_PUBLIC_BETA) || defined(HW_RAIDER_RETREAT)
     if (utyTest2(SS2_PlugScreen))
     {
         psShutdown();

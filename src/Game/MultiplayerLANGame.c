@@ -2605,7 +2605,7 @@ void lgProcessCallBacksTask(void)
     {
         taskStackSaveCond(0);
 
-#if defined(DLPublicBeta) || defined(Downloadable)
+#if defined(HW_PUBLIC_BETA) || defined(HW_DEMO)
         ;
 #else
         if (TTimerUpdate(&lgAdvertiseMyselfTimer))
@@ -2752,7 +2752,7 @@ void lgProcessCallBacksTask(void)
         }
 
         JustDeletedGameFromGameList[0] = 0;
-#endif //defined(CGW) || defined(Downloadable) || defined(DLPublicBeta)  || defined(OEM)
+#endif //defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_DEMO) || defined(HW_PUBLIC_BETA)  || defined(HW_RAIDER_RETREAT)
         taskStackRestoreCond();
         taskYield(0);
     }
@@ -2765,7 +2765,7 @@ void lgProcessCallBacksTask(void)
 
 void lgStartMultiPlayerLANGameScreens(regionhandle region, sdword ID, udword event, udword data, bool AlreadylgLoggedIn)
 {
-#if defined(DLPublicBeta)
+#if defined(HW_PUBLIC_BETA)
     //disable this function in demos
     bitSet(((featom *)ID)->flags, FAF_Disabled);
     bitSet(region->status, RSF_RegionDisabled);
@@ -2816,7 +2816,7 @@ void lgStartMultiPlayerLANGameScreens(regionhandle region, sdword ID, udword eve
         lgPrepareLanLoginScreen();
         mgShowScreen(LGS_LAN_Login,TRUE);
     }
-#endif //defined(CGW) || defined(Downloadable) || defined(DLPublicBeta) || defined(OEM)
+#endif //defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_DEMO) || defined(HW_PUBLIC_BETA) || defined(HW_RAIDER_RETREAT)
 }
 
 void lgShutdownMultiPlayerGameScreens(void)

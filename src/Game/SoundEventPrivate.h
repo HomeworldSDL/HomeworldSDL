@@ -52,7 +52,7 @@
 #endif
 
 #define CGW1 0
-#if defined(Downloadable) || defined(DLPublicBeta)
+#if defined(HW_DEMO) || defined(HW_PUBLIC_BETA)
 #define SE_NUM_ACTORS		4
 #else
 #define SE_NUM_ACTORS		5

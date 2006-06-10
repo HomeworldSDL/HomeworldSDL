@@ -817,7 +817,7 @@ void cpNewRace(char *name, featom *atom)
     color base, stripe;
     color *buffer;
 
-#if defined(Downloadable)
+#if defined(HW_DEMO)
     if (FEFIRSTCALL(atom) && (strcmp(name, "CP_RaceOne")))
     {                                                       //disable the Race 2 region right away
         bitSet(atom->flags, FAF_Disabled);
@@ -848,7 +848,7 @@ void cpNewRace(char *name, featom *atom)
             cpDirtyPreviewImage();
         }
     }
-#if defined(Downloadable)
+#if defined(HW_DEMO)
 forcedToRace1:;
 #endif
     // ensure non-selected button Off, selected On

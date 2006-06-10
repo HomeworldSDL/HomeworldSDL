@@ -4377,7 +4377,7 @@ void kasfSensorsStaticOff(void)
 void kasfGameEnd(void)
 {
 // this stuff only happens during demos
-#if defined(CGW) || defined (Downloadable) || defined(OEM)
+#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined (HW_DEMO) || defined(HW_RAIDER_RETREAT)
     // quit the game here
     universe.quittime = universe.totaltimeelapsed;
     utyPlugScreens = TRUE;

@@ -60,7 +60,7 @@ typedef struct
 	uword	numcolumns;		// how wide is the lookup table
 	uword	numevents;		// how many events are there
 	uword	numactors;		// how many actors are there
-#if defined(Downloadable) || defined(DLPublicBeta)
+#if defined(HW_DEMO) || defined(HW_PUBLIC_BETA)
 	uword	compbitrate[3];	// what bitrate is the speech compressed at for each actor
 #else
 	uword	compbitrate[4];	// what bitrate is the speech compressed at for each actor

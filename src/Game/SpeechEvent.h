@@ -1162,7 +1162,7 @@
 /* SCRAPPED EVENTS REQUESTED TO BE RE-ADDED */
 #define SP_Pilot_SCVetteNotEnough				(807 + ACTOR_PILOT_FLAG + SPEECH_SINGLEPLAYER_FLAG)	//	This is to tell the player they're not using enough SC Vettes.
 
-/* damned OEM mission */
+/* damned Raider Retreat mission */
 #define M04OEM_Intel_Hyperspace					(808 + ACTOR_FLEETINTEL_FLAG + SPEECH_SINGLEPLAYER_FLAG)	//	We've located the origin of the Turanic Raider fleets.  They came from a small, isolated planetoid located in a remote area of the Great Wasteland.  Engage hyperspace.
 #define M05OEM_Intel_PlanetaryDefense			(809 + ACTOR_FLEETINTEL_FLAG + SPEECH_SINGLEPLAYER_FLAG)	//	Sensors indicate a heavily armed planetary defense system which we cannot penetrate.
 #define M05OEM_Intel_HyperspacingIn				(810 + ACTOR_FLEETINTEL_FLAG + SPEECH_SINGLEPLAYER_FLAG)	//  The planetary garrison must have alerted the main Turanic Raider Fleet which is currently Hyperspacing in here.  They are retreating to the planetoid.

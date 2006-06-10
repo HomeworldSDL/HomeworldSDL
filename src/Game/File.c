@@ -1178,7 +1178,7 @@ sdword fileSizeGet(char *_fileName, udword flags)
 
     if ((file = fopen(fileName, "rb")) == NULL)              //open the file
     {
-#if defined(DLPublicBeta)
+#if defined(HW_PUBLIC_BETA)
         udword *spp;
         _asm mov spp,esp
         dbgFatalf(DBG_Loc, "fileSizeGet: file error '%s'.  0x%x-(0x%x,0x%x,0x%x,0x%x,0x%x,0x%x)", fileName, (udword)fileSizeGet, *(spp - 7), *(spp - 6), *(spp - 5), *(spp - 4), *(spp - 3), *(spp - 2), *(spp - 1));

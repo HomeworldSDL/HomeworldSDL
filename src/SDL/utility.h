@@ -137,7 +137,7 @@ extern char dirfile[];
 
 extern udword utyNFrameTicks;
 extern taskhandle utyRenderTask;
-#if defined(CGW) || defined (Downloadable) || defined (OEM)
+#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined (HW_DEMO) || defined (HW_RAIDER_RETREAT)
 extern bool utyPlugScreens;
 #endif
 extern bool utyCreditsSequence;

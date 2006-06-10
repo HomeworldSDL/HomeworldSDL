@@ -366,7 +366,7 @@ sdword spScenarioFind(char *scenarioName)
 ----------------------------------------------------------------------------*/
 void spTitleListLoad(void)
 {
-#if !(defined(CGW) || defined (Downloadable) || defined(DLPublicBeta) || defined(OEM))
+#if !(defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined (HW_DEMO) || defined(HW_PUBLIC_BETA) || defined(HW_RAIDER_RETREAT))
 #ifdef _WIN32
     struct _finddata_t find;
     sdword handle, startHandle;
@@ -388,10 +388,10 @@ void spTitleListLoad(void)
     unsigned int i;
 #endif
 
-#if defined(CGW) || defined(Downloadable) || defined(DLPublicBeta)
+#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_DEMO) || defined(HW_PUBLIC_BETA)
     scriptFile = fileOpen("DemoMissions.script", FF_TextMode);
 #else
-    //oem has all missions!
+    // HW Raider Retreat has all missions!
     scriptFile = fileOpen("multiPlayerMissions.script", FF_TextMode);
 #endif
     dbgAssert(scriptFile != 0);
@@ -471,7 +471,7 @@ alreadyLoaded:;
     }
     fileClose(scriptFile);
 
-#if !(defined(CGW) || defined (Downloadable) || defined(DLPublicBeta) || defined(OEM))
+#if !(defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined (HW_DEMO) || defined(HW_PUBLIC_BETA) || defined(HW_RAIDER_RETREAT))
 #ifdef _WIN32
     startHandle = handle = _findfirst(filePathPrepend("MultiPlayer\\*.", 0), &find);
 
@@ -628,7 +628,7 @@ alreadyLoadedFromFileSystem:;
         closedir(dp);
     }
 #endif   /* _WIN32 */
-#endif //defined(CGW) || defined (Downloadable) || defined(DLPublicBeta) || defined(OEM)
+#endif //defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined (HW_DEMO) || defined(HW_PUBLIC_BETA) || defined(HW_RAIDER_RETREAT)
 
     dbgAssert(spNumberScenarios > 0);
     if (spNumberScenarios > 1)

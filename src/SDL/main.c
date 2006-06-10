@@ -286,18 +286,18 @@ bool mainCDCheckEnabled = TRUE;
 //char versionString[MAX_VERSION_STRING_LEN] = "M24ePublicBeta2";
 //char versionString[MAX_VERSION_STRING_LEN] = "M24fFinalRC5";
 
-#if defined(Downloadable)
+#if defined(HW_DEMO)
 //char networkVersion[] =   "DownloadableRC1";
 char networkVersion[MAX_NETWORKVERSION_STRING_LEN] =   "DLD_05";
-#elif defined(CGW)
+#elif defined(HW_COMPUTER_GAMING_WORLD_DEMO)
 char networkVersion[MAX_NETWORKVERSION_STRING_LEN] =   "CGWtronRC1";
-#elif defined(OEM)
+#elif defined(HW_RAIDER_RETREAT)
 char networkVersion[MAX_NETWORKVERSION_STRING_LEN] =   "OEMV1";
 #else
 char networkVersion[MAX_NETWORKVERSION_STRING_LEN] =   "HomeworldV1C";
 #endif
 
-#if defined(OEM)
+#if defined(HW_RAIDER_RETREAT)
 char minorBuildVersion[] = "051";
 #else
 char minorBuildVersion[] = "06.1";
@@ -3284,7 +3284,7 @@ int main (int argc, char* argv[])
     mainPlayAVIs = FALSE;
     if (errorString == NULL)
     {
-#ifndef Downloadable
+#ifndef HW_DEMO
         if (enableAVI && fullScreen)
         {
             windowNeedsDeleting = TRUE;

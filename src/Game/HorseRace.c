@@ -382,7 +382,7 @@ void hrChooseSinglePlayerBitmap(char* pFilenameBuffer)
     memset(&hrSinglePlayerPos, 0, sizeof(hrSinglePlayerPos));
 
     //image itself
-#if defined(OEM)
+#if defined(HW_RAIDER_RETREAT)
     if (singlePlayerGameInfo.currentMission == 5)
     {
 #ifdef _WIN32

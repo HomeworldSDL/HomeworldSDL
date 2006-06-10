@@ -4077,10 +4077,10 @@
 				GCC_PREFIX_HEADER = Homeworld_Prefix.h;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					HW_Release,
+					HW_RAIDER_RETREAT,
 					C_ONLY,
 					_MACOSX,
 					_MACOSX_FIX_ME,
-					OEM,
 				);
 				GCC_REUSE_STRINGS = NO;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
