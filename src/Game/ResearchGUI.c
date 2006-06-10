@@ -112,10 +112,6 @@
 
 static sdword rmRenderEverythingCounter;
 
-static featom* _rmTechAtom;
-static regionhandle _rmTechRegion;
-static bool _rmTechRender = FALSE;
-
 double chop_temp;
 
 bool rmPaletted;
