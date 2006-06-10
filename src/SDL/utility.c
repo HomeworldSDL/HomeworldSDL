@@ -3714,11 +3714,19 @@ void scriptSetHomeworldCRC(char *directory,char *field,void *dataToFillIn)
     {
         return;
     }
-    HomeworldCRC[0] = 0;
-    HomeworldCRC[1] = 0;
-    HomeworldCRC[2] = 0;
-    HomeworldCRC[3] = 0;
-    sscanf(field,"%x %x %x %x",(int)&HomeworldCRC[0],(int)&HomeworldCRC[1],(int)&HomeworldCRC[2],(int)&HomeworldCRC[3]);
+
+    {
+        // HomeworldCRC is unsigned long; crc is unsigned int
+        // if they are defined to be the same size then direct assignment is possible;
+        // if they are not then "fun" can ensue which is why the long winded setup is here
+        unsigned int crc[4] = { 0, 0, 0, 0 };
+        sscanf(field,"%x %x %x %x", &crc[0], &crc[1], &crc[2], &crc[3]);
+        HomeworldCRC[0] = crc[0];
+        HomeworldCRC[1] = crc[1];
+        HomeworldCRC[2] = crc[2];
+        HomeworldCRC[3] = crc[3];
+    }
+    
     onlygetfirstcrc = TRUE;
 }
 
@@ -4206,7 +4214,7 @@ char* utyGameSystemsPreInit(void)
     utySet(SSA_MemoryHeap);
     if (memStartup(utyMemoryHeap, MemoryHeapSize, utyGrowthHeapAlloc) != OKAY)
     {
-        sprintf(errorString, "Error starting memory manager with heap size %d at 0x%x", MemoryHeapSize, errorString);
+        sprintf(errorString, "Error starting memory manager with heap size %d at 0x%x", MemoryHeapSize, (unsigned int)utyMemoryHeap);
         return(errorString);
     }
     utySet(SSA_MemoryModule);

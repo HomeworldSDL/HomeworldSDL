@@ -252,10 +252,10 @@ bool rndXYZPrint = FALSE;
 #endif
 
 //scaling minimum cap crap
-static sdword RND_CAPSCALECAP_STATS = 0;
 char rndCapScaleCapStatsString[256];
 #if RND_SCALECAP_TWEAK
 #define scaleCapSlopeDelta  0.000001f                       //adjust the scaling cap
+static sdword RND_CAPSCALECAP_STATS = 0;
 static char scaleCapString[256] = "";
 #endif //RND_SCALECAP_TWEAK
 

@@ -24,16 +24,7 @@
 
 bool mexVerify(void *mex)
 {
-    ubyte *curmexptr = (ubyte *)mex;
-
-    if (strcasecmp(curmexptr,"mannngo") == 0)
-    {
-        return TRUE;
-    }
-    else
-    {
-        return FALSE;
-    }
+    return (strcasecmp((char *)mex,"mannngo") == 0);
 }
 
 void *mexLoad(char *filename)
