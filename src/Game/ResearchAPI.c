@@ -995,11 +995,12 @@ void rmAPIStartup(void)
         MultiPlayerCR2TechStatic.TechNeededToBuildShip[index] = 0;
     }
 
-#if (defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_DEMO) /*|| defined(HW_RAIDER_RETREAT)*/)
+#if (defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_DEMO))
     scriptSet(NULL,"DemoResearchDepend.script",TechnologyDependancies);
 #else
     scriptSet(NULL,"ResearchDepend.script",TechnologyDependancies);
 #endif
+
     rmSetPrintList(RM_SPR1,&SinglePlayerR1TechStatic);
     rmSetPrintList(RM_SPR2,&SinglePlayerR2TechStatic);
     rmSetPrintList(RM_MPR1,&MultiPlayerR1TechStatic);
@@ -1141,7 +1142,7 @@ void rmResetStaticInfo(void)
         MultiPlayerCR2TechStatic.TechNeededToBuildShip[index] = 0;
     }
 
-#if (defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_DEMO) /*|| defined(HW_RAIDER_RETREAT)*/)
+#if (defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_DEMO))
     scriptSet(NULL,"DemoResearchDepend.script",TechnologyDependancies);
 #else
     scriptSet(NULL,"ResearchDepend.script",TechnologyDependancies);

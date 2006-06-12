@@ -452,12 +452,11 @@ udword utyNFrameTicks = 0;
 fonthandle ghDefaultFont = 0;
 
 // name of bigfile
+// NB: HW_RAIDER_RETREAT uses the Update.big mechanism
 #if defined(HW_COMPUTER_GAMING_WORLD_DEMO)
 char utyBigFilename[] = "HomeworldCGW.big";
 #elif defined(HW_DEMO) || defined(HW_PUBLIC_BETA)
 char utyBigFilename[] = "HomeworldDL.big";
-//#elif defined(HW_RAIDER_RETREAT)
-//char utyBigFilename[] = "HomeworldOEM.big";
 #else
 char utyBigFilename[] = "Homeworld.big";
 #endif

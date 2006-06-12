@@ -438,9 +438,7 @@ void kasfSensorsStaticOn(void);
 void kasfSensorsStaticOff(void);
 
 //end the game right now and start plugscreens
-//#if defined(GCW) || defined (HW_DEMO) || defined (HW_RAIDER_RETREAT)
 void kasfGameEnd(void);
-//#endif
 
 void kasfSpawnEffect(GrowSelection *ships, char *effectName, sdword parameter);
 
