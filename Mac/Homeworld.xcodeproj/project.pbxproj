@@ -1108,37 +1108,6 @@
 		90BD93C4064AF4F3003E3D39 /* SDLMain.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD93C2064AF4F3003E3D39 /* SDLMain.h */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXBuildStyle section */
-		4A9504CCFFE6A4B311CA0CBA /* Development */ = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				DEBUGGING_SYMBOLS = YES;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				LIBRARY_STYLE = DYNAMIC;
-				OPTIMIZATION_CFLAGS = "-O0";
-				OTHER_LDFLAGS = "";
-				ZERO_LINK = YES;
-			};
-			name = Development;
-		};
-		4A9504CDFFE6A4B311CA0CBA /* Deployment */ = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				DEAD_CODE_STRIPPING = YES;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				LIBRARY_STYLE = STATIC;
-				OTHER_LDFLAGS = "";
-				ZERO_LINK = NO;
-			};
-			name = Deployment;
-		};
-/* End PBXBuildStyle section */
-
 /* Begin PBXFileReference section */
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
@@ -2997,52 +2966,6 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				DEAD_CODE_STRIPPING = NO;
-				FRAMEWORK_SEARCH_PATHS = "";
-				GCC_ENABLE_TRIGRAPHS = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Homeworld_Prefix.h;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					HW_Release,
-					C_ONLY,
-					_MACOSX,
-					_MACOSX_FIX_ME,
-					OEM,
-				);
-				GCC_REUSE_STRINGS = NO;
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
-				GCC_WARN_FOUR_CHARACTER_CONSTANTS = NO;
-				GCC_WARN_UNKNOWN_PRAGMAS = NO;
-				HEADER_SEARCH_PATHS = (
-					../include/Titan,
-					../src/Game,
-					../src/Generated,
-					../src/JPG,
-					../src/rgl,
-					../src/SDL,
-					../src/Ships,
-					../src/SinglePlayer,
-					../src/Tutorials,
-					/Library/Frameworks/SDL.framework/Headers,
-				);
-				INFOPLIST_FILE = RaiderRetreat.plist;
-				INSTALL_PATH = "$(HOME)/Applications";
-				LIBRARY_SEARCH_PATHS = "";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = "Raider Retreat";
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				WARNING_LDFLAGS = "";
-				WRAPPER_EXTENSION = app;
-				ZERO_LINK = NO;
-			};
 			dependencies = (
 			);
 			name = "Raider Retreat";
@@ -3064,51 +2987,6 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				DEAD_CODE_STRIPPING = NO;
-				FRAMEWORK_SEARCH_PATHS = "";
-				GCC_ENABLE_TRIGRAPHS = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Homeworld_Prefix.h;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					HW_Release,
-					C_ONLY,
-					_MACOSX,
-					_MACOSX_FIX_ME,
-				);
-				GCC_REUSE_STRINGS = NO;
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
-				GCC_WARN_FOUR_CHARACTER_CONSTANTS = NO;
-				GCC_WARN_UNKNOWN_PRAGMAS = NO;
-				HEADER_SEARCH_PATHS = (
-					../include/Titan,
-					../src/Game,
-					../src/Generated,
-					../src/JPG,
-					../src/rgl,
-					../src/SDL,
-					../src/Ships,
-					../src/SinglePlayer,
-					../src/Tutorials,
-					/Library/Frameworks/SDL.framework/Headers,
-				);
-				INFOPLIST_FILE = Homeworld.plist;
-				INSTALL_PATH = "$(HOME)/Applications";
-				LIBRARY_SEARCH_PATHS = "";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = Homeworld;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				WARNING_LDFLAGS = "";
-				WRAPPER_EXTENSION = app;
-				ZERO_LINK = NO;
-			};
 			dependencies = (
 			);
 			name = Homeworld;
@@ -3123,12 +3001,6 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = 35CC22230955C2E100504293 /* Build configuration list for PBXProject "Homeworld" */;
-			buildSettings = {
-			};
-			buildStyles = (
-				4A9504CCFFE6A4B311CA0CBA /* Development */,
-				4A9504CDFFE6A4B311CA0CBA /* Deployment */,
-			);
 			hasScannedForEncodings = 1;
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Homeworld */;
 			projectDirPath = "";
