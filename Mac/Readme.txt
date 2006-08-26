@@ -1,37 +1,27 @@
-{\rtf1\mac\ansicpg10000\cocoartf824\cocoasubrtf230
-{\fonttbl\f0\fmodern\fcharset77 Courier;}
-{\colortbl;\red255\green255\blue255;}
-\margl1440\margr1440\vieww13680\viewh10540\viewkind0
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+Welcome to the Homeworld SDL project!
 
-\f0\fs26 \cf0 Welcome to the Homeworld SDL project!\
-\
-The directory containing this Readme also contains all the files specific to building Homeworld SDL for Mac OS X. To be able to build the project you first need to install the pre-compiled SDL Framework on your machine which can be downloaded from:\
-\
-    http://www.libsdl.org/index.php\
-\
-During the course of the project Apple has upgraded its build tools and the Homeworld SDL project files have been upgraded in tandem. Currently there are project files for the following IDEs:\
-\
-    XCode 2.1+     => Homeworld.xcodeproj  (current development IDE)\
-    XCode 1.5      => Homeworld.xcode      (NB: this project is out-of-date)\
-    ProjectBuilder => Homeworld.pbproj     (NB: this project is out-of-date)\
-\
-If you use the XCode 2.1+ project (highly recommended) then you you should be able to build a working Macintosh application out-of-the-box.\
-\
-NB: You will find things a lot easier if you copy the Homeworld game install files (i.e. the game data) into the appropriate build directory for the current active build configuration (e.g. "...Mac/build/Development" when using XCode 2.1+), so that you can start the game with the "build and debug/run" commands.\
-\
-----\
-\
-Helpful things to know:\
-\
-1) The Macintosh projects for the Homeworld port live in:\
-   .../homeworld/Mac\
-\
-2) Mac OS X related #defines are explained in:\
-   .../homeworld/Mac/Homeworld_Prefix.h\
-\
-3) Toggle full screen/windowed mode:\
-   .../homeworld/src/SDL/main.c: bool fullScreen = TRUE;\
-\
-4) There are two targets: "Homeworld" and "Raider Retreat". Raider Retreat is the special OEM version of Homeworld that consists of the first four missions and a mission removed from the original game.\
-}
+The directory containing this Readme also contains all the files specific to building Homeworld SDL for Mac OS X. To be able to build the project you first need to install the pre-compiled SDL Framework on your machine which can be downloaded from:
+
+    http://www.libsdl.org/index.php
+
+The current IDE is Xcode 2.4. If you require them, previous projects for ProjectBuilder/Xcode (not up-to-date obviously) are available in the following tagged versions of the repository tree:
+
+    $SUBVERSION_REPOSITORY/homeworld/tags/20051210-MacOSX-Xcode1.5-SDL1.2.9
+    $SUBVERSION_REPOSITORY/homeworld/tags/20060605-MacOSX-pre-XCode-2.3-Projects
+
+If you use the current Xcode project (highly recommended) then you you should be able to build a working Macintosh application out-of-the-box.
+
+NB: You will find things a lot easier if you copy the Homeworld game files into the directory where Xcode will build your executable (e.g.: ".../Mac/build/Development"). This will allow you run the game using the "build and debug/run" commands.
+
+----
+
+Helpful things to know:
+
+1) There are two targets in the Xcode project: "Homeworld" and "Raider Retreat". Homeworld is the full game. Raider Retreat is a special version of Homeworld that consists of the first four missions and a mission removed from the original game. 
+
+2) Mac OS X related #defines are explained in:
+   .../homeworld/Mac/Homeworld_Prefix.h
+
+3) Toggle full screen/windowed mode:
+   .../homeworld/src/SDL/main.c: bool fullScreen = TRUE;
+
