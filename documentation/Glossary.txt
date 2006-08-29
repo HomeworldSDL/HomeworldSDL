@@ -1,0 +1,124 @@
+-------------------------------------------------------------------------------
+BIG (.big)
+-------------------------------------------------------------------------------
+Don't believe this is an acronym, rather a reference to the fact that by bundling
+together lots of files you end up with one big one...
+
+Homeworld combines a large number of the data files it needs into a single
+compressed file. Such archives are given the .big extension. The main ones in
+are:
+
+Homeworld.big - original archive containing the vast majority of the game data
+
+Update.big    - "corrections" to Homeworld.big. Provided by the 1.05 PC patch
+                and also used by Raider Retreat to add the extra mission's data
+
+Extra.big     - this is not a real .big file. It's a CD disc space "filler"
+                created to try and prevent exact-copy pirate CDs because CDR
+                drives available at the time could only write 650MB discs.
+                Extra.big's additional 220MB took the total data size over that
+                limit and so prevented a fair bit of casual piracy. For the
+                record, the contents of Extra.big is random junk; there isn't
+                anything to extract:
+                http://forums.relicnews.com/archive/index.php/t-4409.html
+
+See tools/biggie for a means of listing/extracting files within a .big archive.
+
+
+-------------------------------------------------------------------------------
+Bink
+-------------------------------------------------------------------------------
+A third-party video compression and playback library used by Homeworld for its
+trademark between-mission black-and-white movies. Bink is licenced by Rad Game
+Tools (http://www.radgametools.com) who also provide stand-alone player software
+(http://www.radgametools.com/bnkdown.htm).
+
+
+-------------------------------------------------------------------------------
+BTG (.btg)
+-------------------------------------------------------------------------------
+Background Tool [of the] Gods!
+
+The panaromic "sky" backgrounds in Homeworld are created with BTG (tools/win32/BTG
+in the original source code released by Relic). This tool is currently Windows
+only. The files created by this tool use the .btg extension.
+
+
+-------------------------------------------------------------------------------
+GEO (.geo)
+-------------------------------------------------------------------------------
+GEO[metry]
+
+Geometry data for ship models etc. Tightly integrated with the LiF file format.
+
+
+-------------------------------------------------------------------------------
+KAS (.kas)
+-------------------------------------------------------------------------------
+Kick Ass Script
+
+Relic's proprietary scripting language for Homeworld. Missions scripts using
+this language are saved with the .kas extension. These files are converted by
+tools/kas2c into compilable C code which is then placed in the src/Generated
+directory.
+
+
+-------------------------------------------------------------------------------
+LiF (.lif)
+-------------------------------------------------------------------------------
+Layered image Format
+
+This format is the image storage method for Homeworld. It is mostly used for
+textures but also finds use for front ends graphics, cursor bitmaps and tutorial
+button graphics. It actually has 2 general formats which share a common header.
+
+
+-------------------------------------------------------------------------------
+NIS
+-------------------------------------------------------------------------------
+Non-Interactive Sequence
+
+The in-game cut-scenes rendered by the Homeworld 3D engine. Indicated by
+the fade-in black-bordered widescreen effect.
+
+
+-------------------------------------------------------------------------------
+Raider Retreat
+-------------------------------------------------------------------------------
+Raider Retreat was a special edition of Homeworld released as a promotion for
+Homeworld Cataclysm. When Homeworld was originally released a mission that
+previously existed between the fourth and fifth missions was removed because
+it was felt to be too hard for beginner players. Once the existence of this
+mission became public knowledge there was widespread demand from Homeworld
+players for this mission to be released. Relic eventually relented and it was
+distributed, along with the previous four missions, as a stand-alone CD to those
+people who preordered Homeworld Cataclysm.
+
+Source code required for this version of Homeworld can be toggled with the
+HW_RAIDER_RETREAT #define. The data files required can be downloaded from:
+
+http://www.homeworldarchives.com/hw1-downloads-raider.html
+
+
+-------------------------------------------------------------------------------
+RGL
+-------------------------------------------------------------------------------
+Relic Graphics Layer
+
+A graphics API wrapper which allows the exact nature of how the graphics are
+being rendered to be "hidden" from the main game. It wraps the APIs for
+software, Direct3D and OpenGL renderers. Does the same job as SDL and could be
+removed; the only caveat is that we would then lose the possibility of using
+a software renderer. See:
+
+http://homesource.nekomimicon.net/sourceforum/viewtopic.php?t=8
+
+
+-------------------------------------------------------------------------------
+SDL
+-------------------------------------------------------------------------------
+Simple Direct Media Layer (http://www.libsdl.org/)
+
+A cross-platform graphics/sound/input API wrapper.
+
+
