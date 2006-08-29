@@ -1,0 +1,397 @@
+----------------------------------------------------------------------------- 
+Originally hosted at: http://mods.relicnews.com/misc/BIGSpec.shtml
+----------------------------------------------------------------------------- 
+
+
+
+BIG FILE FORMAT SPECIFICATION -- RBF1.23 -- v0.8 
+(incomplete) 
+01/04/2000
+
+by: 
+_!Lachesis_atatata! 
+pronounced: 
+shaka >yell< lachesis shaka atatata >yell< 
+(you may yell or scream at your capability. what you yell is irrelevant) 
+
+member of: 
+ICGOMA (International Cooperative Governance Organization of Meaningless Acronyms) 
+
+in conjunction with: 
+UCFEDD (Uraguayan Consortium of Ferrets with Erectile Dysfunction Disorder) 
+APDOFF (Agrarian Paramilitary Defense Organization of Feminist Farmers) 
+MOOOOO (MOOOOO) 
+ 
+
+----------------------------------------------------------------------------- 
+A. INTRODUCTION 
+----------------------------------------------------------------------------- 
+This specification describes the format of .BIG archives used in 
+Homeworld by Relic Entertainment Inc. a BIG archive is a container for 
+other files. instead of distributing hundreds of files separately, files are 
+"packed" together into one larger file. 
+
+at this time, it is not a complete specification. enough information has 
+been learned to extract all files from a BIG archive, but not enough to 
+be able to create one. 
+
+if information from this document is used for implementations or in 
+other documents, please credit me. it's just the nice thing to do. 
+i'll be haunting the message boards, if you have a question, post it. if 
+i don't reply i: 
+1. don't know the answer 
+2. am busy with something at some point on the globe 
+3. am dead 
+
+if there are errors on this document ... oops :) 
+
+----------------------------------------------------------------------------- 
+B. OVERALL LAYOUT 
+----------------------------------------------------------------------------- 
+there are three main areas to the BIG file format arranged 
+sequentially one after the other:
+ 
+1. header 
+2. table of contents 
+3. name/data blobs 
+
+each is described in the sections below. 
+
+----------------------------------------------------------------------------- 
+B1. HEADER AREA 
+----------------------------------------------------------------------------- 
+
+the header area comes at the beginning of the file. it has the normal 
+elements you would expect to be there. there is only one header. 
+
+------------------------------------------------------------------------- 
+
+typedef unsigned long ulong_t; 
+typedef unsigned char ubyte_t; 
+
+const char BIG_FILE_ID[] = { 0x52, 0x42, 0x46, 0x31, 0x2E, 0x32, 0x33 }; 
+
+// note: "RBF1.23" 
+struct header { 
+    char magic_cookie[7]; 
+    ulong_t toc_size; 
+    ulong_t header_unknown; 
+}; 
+
+------------------------------------------------------------------------- 
+
+magic_cookie 
+identifier for the file. The only currently known value for this is 
+contained in BIG_FILE_ID; 
+
+toc_size 
+number of toc_entry structures (*see B2) that are contained in the 
+file. (note: toc stands for Table of Contents) 
+
+header_unknown 
+this field's purpose is unknown. it's value is always 1. does not seem 
+to play a role in anything yet. 
+
+----------------------------------------------------------------------------- 
+B2. TABLE OF CONTENTS AREA 
+----------------------------------------------------------------------------- 
+the table of contents area holds a list of toc_entry structures which 
+comes directly after the header. header.toc_size tells you how many 
+there are. for each file that is in the BIG archive, there is a toc_entry 
+structure. 
+
+------------------------------------------------------------------------- 
+
+struct toc_entry { 
+    ulong_t crc_msb; 
+    ulong_t crc_lsb; 
+    ulong_t name_size; 
+    ulong_t data_compressed_size; 
+    ulong_t data_uncompressed_size; 
+    ulong_t file_offset; 
+    time_t timestamp; 
+    ubyte_t toc_unknown[4]; 
+}; 
+
+-------------------------------------------------------------------------
+
+crc_msb/crc_lsb 
+this is some sort of crc value. crc_msb is the most significant byte and 
+crc_lsb is the least significant byte of a larger 8-byte(64-bit) crc 
+number. exactly how it's generated and how to use it is unknown. 
+(*see crc note below) 
+
+name_size 
+the size(length) of the name in the name_data_blob (*see B3) that 
+this toc_entry refers to. 
+
+data_compressed_size 
+the size of the data in the name_data_blob (*see B3) in compressed 
+form. 
+
+data_uncompressed_size 
+the size of the data in the name_data_blob (*see B3) in uncompressed 
+form. 
+
+file_offset 
+the offset in bytes from the beginning of the BIG file to the 
+name_data_blob (*see B3) that this toc_entry refers to. 
+
+timestamp 
+the date/time of the entry. 
+
+toc_unknown 
+what part this element plays is unknown. what is known is that 
+toc_unknown[0] will be 1 if the data has been compressed and 0 if it 
+has not. (*see toc_unknown note below) toc_unknown[1..3] always 
+seems to equal {0xC9, 0xCA, 0xCB) 
+
+------------------------------------------------------------------------- 
+
+toc_unknown note: 
+sometimes the data is compressed, sometimes it's not. compression 
+can be determined by doing either: 
+
+1. data_compressed_size < data_uncompressed_size or ... 
+2. toc_unknown[0] == 1 
+
+I would personally suggest sticking to option 1 until toc_unknown is 
+fully understood. 
+
+------------------------------------------------------------------------- 
+
+crc note: 
+the entire table of contents seems to be sorted by the 8-byte crc 
+value. why is a complete mystery. the crc itself is most likely used as 
+a data validation mechanism. but to sort on it? it may be that the crc 
+is also being used as a mechanism to uniquely identify a file. i *think* 
+that there are no duplicate crc's. 
+
+----------------------------------------------------------------------------- 
+B3. NAME/DATA BLOB AREA 
+----------------------------------------------------------------------------- 
+the name/data blob area holds a list of name_data_blob structures 
+which comes directly after the table of contents area. a 
+name_data_blob holds the name and data of a file that exists in the 
+BIG archive. each name_data_blob is referred to by a toc_entry 
+structure which gives the sizes of the name and data fields. 
+
+------------------------------------------------------------------------- 
+
+struct name_data_blob { 
+    char name[]; 
+    char data[]; 
+}; 
+
+quick note: 
+the structure above is not legal C. the fields are not fixed length and 
+i've used this notation because it's useful. use the standard techniques 
+of dynamic memory when implementing.
+
+------------------------------------------------------------------------- 
+
+name 
+this is the file name of the original file. it's length is determined from 
+toc_entry.name_size + 1 (note: there IS a terminating null byte) 
+which this name_data_blob is being referred by. it also happens to be 
+encrypted. (*see encryption note below) 
+
+data 
+this is the actual file data. it's length is determined from the 
+toc_entry.data_compressed_size field which this name_data_blob is 
+being referred by. if the data is compressed, the algorithm used is 
+LZSS. (*see compression note below) 
+
+------------------------------------------------------------------------- 
+
+encryption note: 
+as if the world isn't evil enough as it is, some sick sick sick bastard > 
+my kinda programmer actually :) < decided to encrypt the file names 
+so that those lurking hacker types would get all confused and bleary- 
+eyed from trying to hack the format. luckily, i knew this silly 
+encryption trick ... i've used it on others myself. ;) 
+what's used is an XOR run. it's really simple, really fast, and has no 
+redeeming value (ie. compression, secure encryption) other than to 
+screw with people. here's the code for doing it. 
+
+void xor_run(char* buffer, ulong_t buffer_size) 
+{ 
+    char last_char; 
+    ulong_t i; 
+    last_char = (char)0xD5; 
+
+    for (i = 0; i < buffer_size; i++) 
+    { 
+        last_char ^= buffer[i]; 
+        buffer[i] = last_char; 
+    } 
+} 
+
+for those of you who don't catch on, that's both the encryption AND 
+decryption routine. this particular version de/encrypts "in-place" and 
+writes over the buffer you pass in. 
+as an implementation note, don't touch the terminating null when 
+decrypting. pass in toc_entry.name_size, not toc_entry.name_size + 1. 
+
+------------------------------------------------------------------------- 
+
+compression note: 
+compression (decompression) of data is done using the LZSS 
+algorithm. for this particular implementation: 
+
+> very basic LZSS (ie. no huffman a la ZIP) 
+> marker bit of 1 signals passthrough character 
+> marker bit of 0 signals dictionary entry 
+> dictionary entry is composed of 12-bit index and 4-bit length fields 
+
+don't know the LZSS algorithm? go to: 
+
+http://dogma.net/DataCompression/ 
+
+if you look carefully, you will even find a clean LZSS implementation 
+in C up amongst the links that works perfectly. of course, since life 
+isn't fair in the least, i found it about an hour AFTER implementing it 
+myself. ;( 
+
+note: i'm not associated with the link above, or any link off of it. so 
+don't waste your time speculating. 
+
+----------------------------------------------------------------------------- 
+C. >gratzi< 
+-----------------------------------------------------------------------------
+>gratzis< go out to Relic for coming up with Homeworld. very nice. 
+artsy >gratzi< goes to the cutscenes which, though simple, were very 
+effective. special >gratzi< for the music and the voice acting. though 
+not enough music :( 
+
+>gratzi< to the person who eventually creates me this ship: 
+Light Carrier 
+(to support guerilla tactics) 
+as compared to the standard carrier: 
+no space consuming construction facilities 
+a bit smaller 
+a bit lighter 
+a bit faster 
+a bit cheaper 
+more docking ports for faster docking of large wings 
+capacity for more fighters/corvettes 
+a bit faster fighter/corvette repair cycle 
+enough small guns to give a scout/interceptor wing a hard time 
+
+>!bye!< 
+
+
+
+
+
+----------------------------------------------------------------------------- 
+Originally provided in Relic's source: BIGaddendum.doc
+----------------------------------------------------------------------------- 
+
+
+.BIG file specification addendum
+By B1FF ( HYPERLINK "mailto:lmoloney@relic.com" lmoloney@relic.com)
+
+The article listed on RelicNews is pretty complete WRT the .BIG file format.  It was really neat to download the program for viewing and extracting the contents of a bigfile.  We will probably release our bigfile creation program but you will note that our version of the ‘extract’ command was never finished.  Oh the pains of finalling!  
+
+The only thing that was not pick up on was the CRC’s of the bigfile.  The CRC is an 8-byte CRC actually made up of 2 standard 32-bit CRC’s.  Included is some sample code to create these CRC’s.  I think I originally copied this code from Graphics Gem’s several games ago.  It’s pretty standard.  Make note of this algorithm.  It is also used in the .CRC format.
+
+udword CRCTable[] =
+{
+     0x00000000,0x77073096,0xEE0E612C,0x990951BA,
+     0x076DC419,0x706AF48F,0xE963A535,0x9E6495A3,
+     0x0EDB8832,0x79DCB8A4,0xE0D5E91E,0x97D2D988,
+     0x09B64C2B,0x7EB17CBD,0xE7B82D07,0x90BF1D91,
+     0x1DB71064,0x6AB020F2,0xF3B97148,0x84BE41DE,
+     0x1ADAD47D,0x6DDDE4EB,0xF4D4B551,0x83D385C7,
+     0x136C9856,0x646BA8C0,0xFD62F97A,0x8A65C9EC,
+     0x14015C4F,0x63066CD9,0xFA0F3D63,0x8D080DF5,
+     0x3B6E20C8,0x4C69105E,0xD56041E4,0xA2677172,
+     0x3C03E4D1,0x4B04D447,0xD20D85FD,0xA50AB56B,
+     0x35B5A8FA,0x42B2986C,0xDBBBC9D6,0xACBCF940,
+     0x32D86CE3,0x45DF5C75,0xDCD60DCF,0xABD13D59,
+     0x26D930AC,0x51DE003A,0xC8D75180,0xBFD06116,
+     0x21B4F4B5,0x56B3C423,0xCFBA9599,0xB8BDA50F,
+     0x2802B89E,0x5F058808,0xC60CD9B2,0xB10BE924,
+     0x2F6F7C87,0x58684C11,0xC1611DAB,0xB6662D3D,
+
+     0x76DC4190,0x01DB7106,0x98D220BC,0xEFD5102A,
+     0x71B18589,0x06B6B51F,0x9FBFE4A5,0xE8B8D433,
+     0x7807C9A2,0x0F00F934,0x9609A88E,0xE10E9818,
+     0x7F6A0DBB,0x086D3D2D,0x91646C97,0xE6635C01,
+     0x6B6B51F4,0x1C6C6162,0x856530D8,0xF262004E,
+     0x6C0695ED,0x1B01A57B,0x8208F4C1,0xF50FC457,
+     0x65B0D9C6,0x12B7E950,0x8BBEB8EA,0xFCB9887C,
+     0x62DD1DDF,0x15DA2D49,0x8CD37CF3,0xFBD44C65,
+     0x4DB26158,0x3AB551CE,0xA3BC0074,0xD4BB30E2,
+     0x4ADFA541,0x3DD895D7,0xA4D1C46D,0xD3D6F4FB,
+     0x4369E96A,0x346ED9FC,0xAD678846,0xDA60B8D0,
+     0x44042D73,0x33031DE5,0xAA0A4C5F,0xDD0D7CC9,
+     0x5005713C,0x270241AA,0xBE0B1010,0xC90C2086,
+     0x5768B525,0x206F85B3,0xB966D409,0xCE61E49F,
+     0x5EDEF90E,0x29D9C998,0xB0D09822,0xC7D7A8B4,
+     0x59B33D17,0x2EB40D81,0xB7BD5C3B,0xC0BA6CAD,
+
+     0xEDB88320,0x9ABFB3B6,0x03B6E20C,0x74B1D29A,
+     0xEAD54739,0x9DD277AF,0x04DB2615,0x73DC1683,
+     0xE3630B12,0x94643B84,0x0D6D6A3E,0x7A6A5AA8,
+     0xE40ECF0B,0x9309FF9D,0x0A00AE27,0x7D079EB1,
+     0xF00F9344,0x8708A3D2,0x1E01F268,0x6906C2FE,
+     0xF762575D,0x806567CB,0x196C3671,0x6E6B06E7,
+     0xFED41B76,0x89D32BE0,0x10DA7A5A,0x67DD4ACC,
+     0xF9B9DF6F,0x8EBEEFF9,0x17B7BE43,0x60B08ED5,
+     0xD6D6A3E8,0xA1D1937E,0x38D8C2C4,0x4FDFF252,
+     0xD1BB67F1,0xA6BC5767,0x3FB506DD,0x48B2364B,
+     0xD80D2BDA,0xAF0A1B4C,0x36034AF6,0x41047A60,
+     0xDF60EFC3,0xA867DF55,0x316E8EEF,0x4669BE79,
+     0xCB61B38C,0xBC66831A,0x256FD2A0,0x5268E236,
+     0xCC0C7795,0xBB0B4703,0x220216B9,0x5505262F,
+     0xC5BA3BBE,0xB2BD0B28,0x2BB45A92,0x5CB36A04,
+     0xC2D7FFA7,0xB5D0CF31,0x2CD99E8B,0x5BDEAE1D,
+
+     0x9B64C2B0,0xEC63F226,0x756AA39C,0x026D930A,
+     0x9C0906A9,0xEB0E363F,0x72076785,0x05005713,
+     0x95BF4A82,0xE2B87A14,0x7BB12BAE,0x0CB61B38,
+     0x92D28E9B,0xE5D5BE0D,0x7CDCEFB7,0x0BDBDF21,
+     0x86D3D2D4,0xF1D4E242,0x68DDB3F8,0x1FDA836E,
+     0x81BE16CD,0xF6B9265B,0x6FB077E1,0x18B74777,
+     0x88085AE6,0xFF0F6A70,0x66063BCA,0x11010B5C,
+     0x8F659EFF,0xF862AE69,0x616BFFD3,0x166CCF45,
+     0xA00AE278,0xD70DD2EE,0x4E048354,0x3903B3C2,
+     0xA7672661,0xD06016F7,0x4969474D,0x3E6E77DB,
+     0xAED16A4A,0xD9D65ADC,0x40DF0B66,0x37D83BF0,
+     0xA9BCAE53,0xDEBB9EC5,0x47B2CF7F,0x30B5FFE9,
+     0xBDBDF21C,0xCABAC28A,0x53B39330,0x24B4A3A6,
+     0xBAD03605,0xCDD70693,0x54DE5729,0x23D967BF,
+     0xB3667A2E,0xC4614AB8,0x5D681B02,0x2A6F2B94,
+     0xB40BBE37,0xC30C8EA1,0x5A05DF1B,0x2D02EF8D,
+};
+
+/*=============================================================================
+    Functions:
+=============================================================================*/
+/*-----------------------------------------------------------------------------
+    Name        : crc32Compute
+    Description : Compute a 32-bit CRC
+    Inputs      :
+    Outputs     :
+    Return      :
+----------------------------------------------------------------------------*/
+crc32 crc32Compute(ubyte *packet, udword length)
+{
+   udword index, tableIndex;
+   crc32  crc;
+
+   crc = 0xffffffff;
+   for (index = 0; index < length; index++)
+   {
+      tableIndex = (crc ^ *(packet++)) & 0x000000FF;
+      crc = ((crc >> 8) & 0x00FFFFFF) ^ CRCTable[tableIndex];
+   }
+   return(~crc);
+}
+
+The first CRC is the first half of the file name and the second CRC is the second half of the CRC.  Why do such a silly scheme?  It makes it easy to sort the TOC by CRC and do a binary search for a filename.  This makes for faster lookups.  All file requests in our file layer are resolved from the text name to an 8-byte CRC.
+
+As for some unknown data members, the header_unknown member you refer to is always 1.  A bit redundant?  Yes.  The toc_unknown[1..3] can be ignored.  They’re padding that is cleared to something by the compiler.
+

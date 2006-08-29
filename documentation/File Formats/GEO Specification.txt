@@ -1,0 +1,157 @@
+----------------------------------------------------------------------------- 
+Originally provided in Relic's source: GEOSpecification.doc
+----------------------------------------------------------------------------- 
+
+
+
+.GEO File Format Specification
+By B1FF (lmoloney@relic.com)
+
+Preamble
+The .GEO file format is used to store all geometry for Homeworld. It’s a pretty
+simple format but stores complex data. It is tightly integrated with the .LiF
+file format and even refers to the name of the .LiF textures. .GEO files use a
+right-handed coordinate space. Positive Z is the axis of travel for the
+spacecraft and positive X is the right wing.  
+
+File Header
+Like other Homeworld file formats, there is a header chunk.
+
+typedef struct tagGeoFileHeader
+{
+    char    identifier[MESH_FileIDLength];  // File identifier.
+    udword  version;                        // File version.
+    char   *pName;                          // Offset to a file name.
+    udword  fileSize;                       // File size (in bytes), not counting this header.
+    udword  localSize;                      // Object size (in bytes).
+    udword  nPublicMaterials;               // Number of public materials.
+    udword  nLocalMaterials;                // Number of local materials.
+    udword  oPublicMaterial;                //list of public materials
+    udword  oLocalMaterial;                 //list of local materials
+    udword  nPolygonObjects;                // Number of polygon objects.
+    ubyte   reserved[24];                   // Reserved for future use.
+}
+GeoFileHeader;
+
+Identifier: length of 8, value “RMF99ba”.
+Version: 0x00000402
+PName – offset to mesh name
+FileSize – not used
+LocalSize – only used at load time.
+N[Public | Local]Materials – add together to number of materials in mesh.
+OLocalMaterial – offset to material list.
+NPolygonObjects – number of elements in object.
+Reserved – reserved dag nabbit!
+
+Structure of a material
+
+typedef struct tagmaterialentry
+{
+    char  *pName;                           // Offset to name of material (may be a CRC32).
+    color  ambient;                         // Ambient color information.
+    color  diffuse;                         // Diffuse color information.
+    color  specular;                        // Specular color information.
+    real32 kAlpha;                          // Alpha blending information.
+    udword texture;                         // Pointer to texture information (or CRC32).
+    uword  flags;                           // Flags for this material.
+    ubyte  nFullAmbient;                    // Number of self-illuminating colors.
+    bool8  bTexturesRegistered;             // Set to TRUE when texture registered.
+    char   *textureNameSave;                // After the texture has been registered
+}
+materialentry;
+
+pName – offset to material name
+ambient, diffuse, specular – lighting properties.
+KAlpha – not used
+Texture – offset to texture name.  This is the name of a .LiF file without the path or extension.
+Flags – bit flags of the following:
+#define MDF_Smoothing                   2
+#define MDF_AllowFlatShading            4
+#define MDF_2Sided                      8
+#define MDF_BaseColor                   16
+#define MDF_StripeColor                 32
+#define MDF_SelfIllum                   64
+Everything else: used internally
+
+Structure of a polygonObject
+
+typedef struct polygonobject
+{
+    char *pName;                            // Name for animation.
+    ubyte   flags;                          // General flags (see above)
+    ubyte   iObject;                        // fixed up at load time so we know what object index we have when recursively processing
+    uword   nameCRC;                        // 16-bit CRC of name 
+    sdword  nVertices;                      // Number of vertices in vertex list for this object.
+    sdword  nFaceNormals;                   // Number of face normals for this object.
+    sdword  nVertexNormals;                 // Number of vertex normals for this object.
+    sdword  nPolygons;                      // Number of polygons in this object.
+    vertexentry *pVertexList;               // Offset to the vertex list in this object.
+    normalentry *pNormalList;               // Offset to the normal list in this object.
+    polyentry   *pPolygonList;              // Offset to the polygon list in this object.
+    struct polygonobject *pMother;          // link to parent object
+    struct polygonobject *pDaughter;        // link to child object
+    struct polygonobject *pSister;          // link to sibling object
+    hmatrix localMatrix;
+}
+polygonobject;
+
+pName – offset to mesh name.  Used for binding to animations.
+Flags, iObject, nameCRC – used internally.
+NVertices – number of vertices
+NFaceNormals, nVertexNormals, nPolygons – can you guess?
+PVertexList, pNormalList, pPolygonList – offsets to respective primitive lists.
+PMother, pDaughter, pSister – 2-dimentsional linked list of hierarchy.  Feel the estrogen flow!
+LocalMatrix – 4x4 matrix (right-handed) that defines the objects’s default position from the identity matrix.
+
+Structure of vertices and normals.
+These formats are nearly the same:
+
+typedef struct tagvertex
+{
+    real32 x;                               // X component of this vertex.
+    real32 y;                               // Y component of this vertex.
+    real32 z;                               // Z component of this vertex.
+    sdword iVertexNormal;                   // Index into the point normal list.
+}
+vertexentry;
+
+typedef struct tagnormal
+{
+    real32 x;                               // X component of this normal.
+    real32 y;                               // Y component of this normal.
+    real32 z;                               // Z component of this normal.
+    ubyte  pad[4];                          // Reserved for later use.
+}
+normalentry;
+
+iVertexNormal is the index of the normal for this vertex if there is one or 0xffffffff if there is none.
+Pad can be ignored.
+
+Structure of polygons
+typedef struct tagpolygon
+{
+    sdword  iFaceNormal;                    // Index into the face normal list.
+    uword  iV0;                             // Index to V0 of the polygon.
+    uword  iV1;                             // Index to V1 of the polygon.
+    uword  iV2;                             // Index to V2 of the polygon.
+    uword  iMaterial;                       // Index into material list.
+    real32 s0;
+    real32 t0;
+    real32 s1;
+    real32 t1;
+    real32 s2;
+    real32 t2;
+    uword  flags;                           // Flags for this polygon.
+    ubyte reserved[2];
+}
+polyentry;
+
+iFaceNormal is the index in the normal list of the face normal.
+IV[0..2] is the index in the vertex list of the plygon vertices
+Immaterial is the material this ply uses.
+[s | t][0..2] are the s/t coordinates (of the range 0..1) of the vertices in the texture map of the material.
+Flags – used internally.
+Reserved[0] – set to greater than 1.
+Reserved[1] – used internally for paco fixups.  Don’t ask.  It’s a world of hurt!
+
+

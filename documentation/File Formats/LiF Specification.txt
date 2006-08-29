@@ -1,0 +1,180 @@
+----------------------------------------------------------------------------- 
+Originally provided in Relic's source: LiFspecification.doc
+-----------------------------------------------------------------------------
+
+
+.LiF file format specification.
+By B1FF(lmoloney@relic.com)
+
+Preamble
+The .LiF extension (note the wacky capitalization) is short for "Layered image
+Format". This format is the image storage method for Homeworld.  It is mostly
+used for textures but also finds use for front ends graphics, cursor bitmaps
+and tutorial button graphics. It actually has 2 general formats which share
+a common header. Also released will be the tool we use to create .LiF files.
+Initially, we supported many different layers for image blending but in an
+effort to improve loading time and reduce texture usage, we tried crunching
+a 5-dimensional color space into 8 bits using a lossy quantization algorithm.
+I’m not going to explain the alogorithm because I mostly forget how it worked
+– and I created it! Anyhow, here’s the file format.
+
+.LiF File Header
+Here is the header to the file:
+
+//format for the .LiF files
+typedef struct
+{
+    char ident[8];                              //compared to "Willy 7"
+    sdword version;                             //version number
+    sdword flags;                               //to plug straight into texreg flags
+    sdword width, height;                       //dimensions of image
+    crc32 paletteCRC;                           //a CRC of palettes for fast comparison
+    crc32 imageCRC;                             //crc of the unquantized image
+    ubyte *data;                                //actual image
+    color *palette;                             //palette for this image
+    ubyte *teamEffect0, *teamEffect1;           //palettes of team color effect
+//    sdword nSizes;                              //number of sizes encoded
+//    udword image[LLC_NumberImages];             //offset-pointers to the individual images (from end of this header)
+}
+lifheader;
+
+Ident – self-explanatory.
+Version - 0x104 as of release.  Will stay here.
+Flags – bitmasks of the following:
+#define TRF_Alpha                   0x00000008  //alpha channel image
+#define TRF_TeamColor0              0x00000010  //team color flags
+#define TRF_TeamColor1              0x00000020
+All other bitmasks ignored.  TeamColor0 is the base color, TeamColor1 is the stripe color.
+Width, height – size of image.
+PaletteCRC – 32-bit CRC of palette.  All palette CRC’s for a ship should be the same and unique compared to all other ships.  Important for shared palettes!
+ImageCRC – 32-bit CRC of image.  Ignore this.  Only used for creation.
+Data – offset to image data
+Palette – offset to palette (if a paletted image, 0 otherwise)
+TeamEffect0 – Offset to ‘base color influence image or palette’.
+TeamEffect1 – Offset to ‘stripe color influence image or palette’.
+
+If the image has an alpha channel, the image is loaded as an RGBA image. The
+palette is ignored and the TeamEffect0/1 buffers are blended with the main image
+using this algorithm:
+
+/*-----------------------------------------------------------------------------
+    Name        : trBufferColorRGB
+    Description : Colorize an image (or palette) based upon team effect buffers
+    Inputs      : dest - where to put the colorized image
+                  source - where to read the uncolorized version
+                  teamEffect0,1 - team color effect buffers
+                  teamColor0,1 - team colors to colorize to
+                  size - size fo buffer, in pixels
+                  flags - texreg flags telling us how to colorize the image
+                  effectScalar0, effectScalar1 - scalar of
+                    the team effect values to be read.
+    Outputs     :
+    Return      : void
+----------------------------------------------------------------------------*/
+void trBufferColorRGB(color *dest, color *source,
+                      ubyte *teamEffect0, ubyte *teamEffect1,
+                      color teamColor0, color teamColor1,
+                      sdword size, udword flags,
+                      real32 effectScalar0, real32 effectScalar1)
+{
+    real32 teamRed0 = colUbyteToReal(colRed(teamColor0));
+    real32 teamRed1 = colUbyteToReal(colRed(teamColor1));
+    real32 teamGreen0 = colUbyteToReal(colGreen(teamColor0));
+    real32 teamGreen1 = colUbyteToReal(colGreen(teamColor1));
+    real32 teamBlue0 = colUbyteToReal(colBlue(teamColor0));
+    real32 teamBlue1 = colUbyteToReal(colBlue(teamColor1));
+    real32 redSource, greenSource, blueSource, redDest, greenDest, blueDest, effectReal0, effectReal1;
+
+    while (size > 0)
+    {
+        //read the info from buffers into floating point
+        redSource = colUbyteToReal(colRed(*source));
+        greenSource = colUbyteToReal(colGreen(*source));
+        blueSource = colUbyteToReal(colBlue(*source));
+        if (bitTest(flags, TRF_TeamColor0))
+        {
+            effectReal0 = min(1.0f, colUbyteToReal(*teamEffect0) * effectScalar0);
+        }
+        else
+        {
+            effectReal0 = 0.0f;
+        }
+        if (bitTest(flags, TRF_TeamColor1))
+        {
+            effectReal1 = min(1.0f, colUbyteToReal(*teamEffect1) * effectScalar1);
+        }
+        else
+        {
+            effectReal1 = 0.0f;
+        }
+        //blend
+        redDest = redSource * (1.0f - effectReal0) + teamRed0 * effectReal0;
+        redDest = redDest * (1.0f - effectReal1) + teamRed1 * effectReal1;
+        greenDest = greenSource * (1.0f - effectReal0) + teamGreen0 * effectReal0;
+        greenDest = greenDest * (1.0f - effectReal1) + teamGreen1 * effectReal1;
+        blueDest = blueSource * (1.0f - effectReal0) + teamBlue0 * effectReal0;
+        blueDest = blueDest * (1.0f - effectReal1) + teamBlue1 * effectReal1;
+        //write back
+        *dest = colRGBA(colRealToUbyte(redDest), colRealToUbyte(greenDest), colRealToUbyte(blueDest), colAlpha(*source));
+        //update pointers
+        size--;
+        dest++;
+        source++;
+        teamEffect0++;
+        teamEffect1++;
+    }
+}
+
+Note that a paletted image has it’s palette blended with it’s team color
+palettes using the same algorithm.
+
+So there you have the file format. This file format is actually of little use,
+however, unless you want to extract the art from Homeworld. To create .LiF files,
+Relic will release a command-line tool we used to create these files.  
+
+.LiF Listing file (textures.ll)
+Textures.ll is a database of textures used to speed up the measurment of
+textures for texture packing. While you don’t have to add your textures to
+this datbase, you might find it useful to look at. The same tool we use to make
+the .LiF files maintains this database.  
+
+Creating .LiF files.
+.Lif files are created from Adobe Photoshop files (.PSD). These files support
+the layering and blending we so wanted. The ordering of blending is the same
+in our .LiF exporter as in Photoshop. The names of layers determines their usage.
+Following is the recognized names for layers and their common blending mode.
+
+• “COL 1”, “COL1” – base color layer.  Usually overlay mode.
+• “COL 2”, “COL2” – can you guess?
+• “TEX” – The actual texture layer.  Usually base layer, normal blending.
+• “LAB”, “PB”, “PW”, “DIRT” – detail layers
+• “ALPHA” alpha channel, if there is one.  Use multiply and stick it on top of everything.
+
+When you have a list of textures you want to “quantize” into .LiF files,
+use the following batch file, onebunchalifs.bat, or some derivative thereof:
+
+@pushd
+
+@if "%1"==%1 goto about
+
+@cd\homeworld
+
+@if exist datasrc\%1\dependtex.mif del datasrc\%1\dependtex.mif > NUL
+@echo # > datasrc\%1\dependtex.mif
+@for %filename in (datasrc\%1\*.psd) echo TEXTURES += %@name[%filename].lif >> datasrc\%1\dependtex.mif
+@liflist q data\textures.ll datasrc\%1\dependtex.mif
+@del datasrc\%1\dependtex.mif > NUL
+goto end
+
+:about
+    @echo USAGE: OneBunghaLifs <dir_name>
+
+:end
+
+@popd
+
+For example, to make the highest LOD of the R1 Support Frigate, type: 
+
+OneBunchaLifs R1\AdvanceSupportFrigate\Rl0\LOD0
+
+
