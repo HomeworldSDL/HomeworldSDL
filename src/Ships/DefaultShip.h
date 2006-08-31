@@ -1,36 +1,20 @@
-/*=============================================================================
-    Name    : DefaultShip.h
-    Purpose : Definitions for DefaultShip
-
-    Created 6/30/1997 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  DefaultShip.h
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 6/30/1997 by gshaw
+// =============================================================================
 
 #ifndef ___DEFAULTSHIP_H
 #define ___DEFAULTSHIP_H
 
-#include "Types.h"
 #include "SpaceObj.h"
-
-/*=============================================================================
-    Types:
-=============================================================================*/
-
-typedef struct
-{
-    sdword dummy;
-} DefaultShipSpec;
-
-/*=============================================================================
-    Public data:
-=============================================================================*/
-
-void DefaultShipFire(Ship *ship,SpaceObjRotImpTarg *target);
-void DefaultShipAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdist);
 
 extern CustShipHeader DefaultShipHeader;
 extern CustShipHeader DoNothingShipHeader;
 extern CustShipHeader StationaryGunHeader;
 extern CustShipHeader MiningBaseHeader;
+
+void DefaultShipFire(Ship *ship, SpaceObjRotImpTarg *target);
 
 #endif

@@ -17,6 +17,11 @@
 
 typedef struct
 {
+    udword dummy;
+} P1IonArrayFrigateSpec;
+
+typedef struct
+{
     real32 frigateGunRange[NUM_TACTICS_TYPES];
     real32 frigateTooCloseRange[NUM_TACTICS_TYPES];
 } P1IonArrayFrigateStatics;

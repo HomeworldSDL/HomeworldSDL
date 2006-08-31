@@ -17,6 +17,11 @@
 
 typedef struct
 {
+    udword dummy;
+} FloatingCitySpec;
+
+typedef struct
+{
     real32 floatingcityGunRange[NUM_TACTICS_TYPES];
     real32 floatingcityTooCloseRange[NUM_TACTICS_TYPES];
 } FloatingCityStatics;

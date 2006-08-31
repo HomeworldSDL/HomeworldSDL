@@ -25,6 +25,17 @@
 #include "Blobs.h"
 #include "ETG.h"
 
+typedef struct
+{
+    Node objnode;
+    Ship *ship;
+    sdword stoppingstate;
+    real32 xangle;
+    real32 yangle;
+    real32 zangle;
+} GravStruct;
+
+
 GravWellGeneratorStatics GravWellGeneratorStatic;
 
 GravWellGeneratorStatics GravWellGeneratorStaticRace1;

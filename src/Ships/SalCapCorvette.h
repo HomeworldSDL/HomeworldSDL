@@ -1,22 +1,20 @@
-/*=============================================================================
-    Name    : SalCapCorvette.h
-    Purpose : Definitions for Salvage Capture Corvette
-
-    Created 11/5/1997 by khent
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  SalCapCorvette.h
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 11/5/1997 by khent
+// =============================================================================
 
 #ifndef ___SALCAPCORVETTE_H
 #define ___SALCAPCORVETTE_H
 
-#include "Types.h"
-#include "SpaceObj.h"
 #include "Attack.h"
 #include "ShipSelect.h"
+#include "SpaceObj.h"
 
-/*=============================================================================
-    Types:
-=============================================================================*/
+#define SALVAGE_AT_GET_TECH       0x01
+
+#define SAL_WL_FLYTOCONEORIGIN    7
 
 typedef struct
 {
@@ -34,7 +32,6 @@ typedef struct
     real32 noDamageTargetTime;
     sdword groupme;
 	SpaceObjRotImpTargGuidanceShipDerelict *noDamageTarget;
-
 } SalCapCorvetteSpec;
 
 typedef struct
@@ -47,37 +44,24 @@ typedef struct
     real32 maxPushingVelocitySingle;
     real32 noLightClampingDistance;
 } SalCapCorvetteStatics;
-extern SalCapCorvetteStatics SalCapCorvetteStatic;
 
-//Defs for Salvaging State...
-#define SALVAGE_AT_GET_TECH 0x01
-
-#define SAL_WL_FLYTOCONEORIGIN      7
-/*=============================================================================
-    Public data:
-=============================================================================*/
-
-extern CustShipHeader SalCapCorvetteHeader;
 extern CustShipHeader JunkYardDawgHeader;
+extern CustShipHeader SalCapCorvetteHeader;
 
-void SalCapCorvette_RegisterExtraSpaceObjs(Ship *ship);
-
-void SalCapOrderChangedCleanUp(Ship *ship);
-void salcapUpdateClampedShip(Ship *ship);
-void salCapRemoveDerelictReferences(Ship *ship,Derelict *d);
-void SalCapDropTarget(Ship *ship);
-void salCapHarvestTarget(SpaceObjRotImpTargGuidanceShipDerelict *target,Ship *dockwith);
-
-void salCapExtraSpecialOrderCleanUp(SelectCommand *selection,udword ordertype,Ship *dockwith,SelectCommand *targets);
 bool DropTargetInShip(Ship *dockwith,sdword *targetDepotState, SpaceObjRotImpTargGuidanceShipDerelict *target,sdword *dockindex);
+bool isThereAnotherTargetForMe(Ship *ship,SelectAnyCommand *targets);
+void salCapCleanUpCloakingTarget(Ship *ship, Ship *shiptoremove);
+void salCapClearTechBool();
+void SalCapCorvette_RegisterExtraSpaceObjs(Ship *ship);
+void SalCapDropTarget(Ship *ship);
+void salCapExtraSpecialOrderCleanUp(SelectCommand *selection,udword ordertype,Ship *dockwith,SelectCommand *targets);
+void salCapHarvestTarget(SpaceObjRotImpTargGuidanceShipDerelict *target,Ship *dockwith);
+sdword salCapNeedBig(Ship *ship,SpaceObjRotImpTargGuidanceShipDerelict *target);
+void SalCapOrderChangedCleanUp(Ship *ship);
+void salCapRemoveDerelictReferences(Ship *ship,Derelict *d);
 
 #if RND_VISUALIZATION
 void dockDrawSalvageInfo(SpaceObjRotImpTargGuidanceShipDerelict *obj);
 #endif
-void salCapCleanUpCloakingTarget(Ship *ship, Ship *shiptoremove);
-bool salCapAreEnoughSalvagersTargettingThisTarget(Ship *ship,SpaceObjRotImpTargGuidanceShipDerelict *target);
-void salCapClearTechBool();
-bool isThereAnotherTargetForMe(Ship *ship,SelectAnyCommand *targets);
-sdword salCapNeedBig(Ship *ship,SpaceObjRotImpTargGuidanceShipDerelict *target);
 
 #endif

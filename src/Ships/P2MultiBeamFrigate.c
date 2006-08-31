@@ -45,6 +45,14 @@
 
 typedef struct
 {
+    real32 aiattacklast;        // time stamp for spin up and down time count
+    real32 aifirestarttime;     // time stamp for start of firing
+    bool   spining;
+    bool   steady;
+} P2MultiBeamFrigateSpec;
+
+typedef struct
+{
     real32 MBRstat;
     real32 MultiBeamRange[NUM_TACTICS_TYPES];
     real32 AttackRotationSpeed;

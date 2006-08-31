@@ -1,26 +1,16 @@
-/*=============================================================================
-    Name    : DDDFrigate.h
-    Purpose : Definitions for DDDFrigate
-
-    Created 6/30/1997 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  DDDFrigate.h
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 6/30/1997 by gshaw
+// =============================================================================
 
 #ifndef ___DDDFRIGATE_H
 #define ___DDDFRIGATE_H
 
-#include "Types.h"
 #include "SpaceObj.h"
 
-/*=============================================================================
-    Defines:
-=============================================================================*/
-
 #define MAX_NUM_DRONES      24
-
-/*=============================================================================
-    Types:
-=============================================================================*/
 
 typedef struct
 {
@@ -38,22 +28,12 @@ typedef struct
     real32 droneDeploymentRange;
 } DDDFrigateStatics;
 
-/*=============================================================================
-    Public data:
-=============================================================================*/
-
 extern CustShipHeader DDDFrigateHeader;
 
-/*=============================================================================
-    Public functions:
-=============================================================================*/
-
-//void DDDFrigateRemoveShipReferences(Ship *ship,Ship *shiptoremove);
-//void DDDFrigateDied(Ship *ship);
-void DDDFrigateMakeSureItCanGuard(Ship *ship);
-void DDDFrigateMakeReadyForHyperspace(Ship *ship);
-void DDDFrigateJustDisabled(Ship *ship);
-void DDDFrigateSwitchSides(Ship *dddf,sdword player);
 void DDDFrigateDockAllDronesInstantly(Ship *ship);
+void DDDFrigateJustDisabled(Ship *ship);
+void DDDFrigateMakeReadyForHyperspace(Ship *ship);
+void DDDFrigateMakeSureItCanGuard(Ship *ship);
+void DDDFrigateSwitchSides(Ship *dddf, sdword player);
 
 #endif

@@ -1,27 +1,19 @@
-/*=============================================================================
-    Name    : AdvanceSupportFrigate.c
-    Purpose : Specifics for the AdvanceSupportFrigate
+// =============================================================================
+//  AdvanceSupportFrigate.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc.  All rights reserved.
+//  Created 6/30/1997 by gshaw
+// =============================================================================
 
-    Created 6/30/1997 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-#include "Types.h"
-#include "Debug.h"
-#include "SpaceObj.h"
 #include "AdvanceSupportFrigate.h"
-#include "StatScript.h"
-#include "Gun.h"
-#include "Attack.h"
 #include "DefaultShip.h"
 #include "ShipSelect.h"
-#include "AIShip.h"
-#include "Collision.h"
-#include "Dock.h"
-#include "Universe.h"
-#include "CommandLayer.h"
-#include "RepairCorvette.h"
+#include "StatScript.h"
 
+typedef struct
+{
+    udword dummy;
+} AdvanceSupportFrigateSpec;
 
 typedef struct
 {
@@ -30,8 +22,7 @@ typedef struct
     real32 repairApproachDistance;
 } AdvanceSupportFrigateStatics;
 
-AdvanceSupportFrigateStatics    AdvanceSupportFrigateStatic;
-
+AdvanceSupportFrigateStatics AdvanceSupportFrigateStatic;
 AdvanceSupportFrigateStatics AdvanceSupportFrigateStaticRace1;
 AdvanceSupportFrigateStatics AdvanceSupportFrigateStaticRace2;
 
@@ -55,8 +46,8 @@ void AdvanceSupportFrigateStaticInit(char *directory,char *filename,struct ShipS
         asfstat->asfGunRange[i] = statinfo->bulletRange[i];
         asfstat->asfTooCloseRange[i] = statinfo->minBulletRange[i] * 0.9f;
     }
+    
     scriptSetStruct(directory,filename,ASFStaticScriptTable,(ubyte *)asfstat);
-
 }
 
 void AdvanceSupportFrigateAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdist)

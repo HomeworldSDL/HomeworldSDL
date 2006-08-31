@@ -17,6 +17,11 @@
 
 typedef struct
 {
+    sdword dummy;
+} DefaultShipSpec;
+
+typedef struct
+{
     udword dummy;
 } DefaultShipStatics;
 
@@ -24,6 +29,8 @@ typedef struct
 {
     bool dontRecurseKill;
 } MiningBaseSpec;
+
+void DefaultShipAttack(Ship *ship, SpaceObjRotImpTarg *target, real32 maxdist);
 
 void DefaultShipFire(Ship *ship,SpaceObjRotImpTarg *target)
 {

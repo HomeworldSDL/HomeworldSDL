@@ -35,6 +35,11 @@ bool kamikazeAttack(Ship *ship,SelectAnyCommand *targets);
 
 typedef struct
 {
+    udword dummy;
+} GenericDefenderSpec;
+
+typedef struct
+{
     real32 gunRange[NUM_TACTICS_TYPES];
     real32 tooCloseRange[NUM_TACTICS_TYPES];
     real32 CIRCLE_RIGHT_VELOCITY;

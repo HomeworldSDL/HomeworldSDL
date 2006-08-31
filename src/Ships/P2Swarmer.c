@@ -18,6 +18,11 @@
 
 typedef struct
 {
+    AttackSideStep attacksidestep;
+} P2SwarmerSpec;
+
+typedef struct
+{
     AttackSideStepParameters sidestepParameters;
 } P2SwarmerStatics;
 

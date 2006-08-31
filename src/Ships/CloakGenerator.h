@@ -1,34 +1,20 @@
-/*=============================================================================
-    Name    : CloakGenerator.h
-    Purpose : Definitions for the Cloak Generator
-
-    Created 01/06/1998 by bpasechnik
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  CloakGenerator.h
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 01/06/1998 by bpasechnik
+// =============================================================================
 
 #ifndef ___CLOAKGENERATOR_H
 #define ___CLOAKGENERATOR_H
 
-#include "Types.h"
 #include "SpaceObj.h"
-#include "LinkedList.h"
-
-
-/*=============================================================================
-    Types:
-=============================================================================*/
-typedef struct
-{
-    Node cloaknode;
-    SpaceObj *spaceobj;
-    real32  CloakStatus;
-} CloakStruct;
 
 typedef struct
 {
     sdword CloakOn;
     real32 CloakStatus;
-    LinkedList  CloakList;
+    LinkedList CloakList;
     bool CloakLowWarning;
 } CloakGeneratorSpec;
 
@@ -43,21 +29,8 @@ typedef struct
     real32 CloakingRadiusSqr;
 } CloakGeneratorStatics;
 
-
-
-/*=============================================================================
-    Public data:
-=============================================================================*/
-
 extern CustShipHeader CloakGeneratorHeader;
 
-/*=============================================================================
-    Public Functions:
-=============================================================================*/
-
-void CloakGeneratorAddObj(Ship *ship,  SpaceObj *objtoadd);
-//void CloakGeneratorDied(Ship *ship);
-//void CloakGeneratorRemoveShipReferences(Ship *ship,SpaceObj *objtoremove);
 void CloakGeneratorJustDisabled(Ship *ship);
 
 #endif

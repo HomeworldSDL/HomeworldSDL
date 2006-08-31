@@ -93,6 +93,7 @@
 //prototyped here to avoid warning!!!
 void clLaunchShip(CommandLayer *comlayer,SelectCommand *selectcom,ShipPtr receiverShip);
 void startTractorBeam(Ship *ship, SpaceObjRotImpTargGuidanceShipDerelict *target);
+bool salCapAreEnoughSalvagersTargettingThisTarget(Ship *ship,SpaceObjRotImpTargGuidanceShipDerelict *target);
 
 SalCapCorvetteStatics SalCapCorvetteStatic;
 SalCapCorvetteStatics SalCapCorvetteStaticRace1;

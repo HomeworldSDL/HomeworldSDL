@@ -23,6 +23,12 @@
 #include "Attack.h"
 #include "Randy.h"
 
+typedef struct
+{
+    udword dummy;
+} DFGFrigateSpec;
+
+
 DFGFrigateStatics DFGFrigateStatic;
 
 DFGFrigateStatics DFGFrigateStaticRace1;

@@ -1,20 +1,14 @@
-                                   /*=============================================================================
-    Name    : ResearchShip.h
-    Purpose : Definitions for Research Ship
-
-    Created 01/06/98 Bpasechnik
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  ResearchShip.h
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 01/06/98 Bpasechnik
+// =============================================================================
 
 #ifndef ___RESEARCHSHIP_H
 #define ___RESEARCHSHIP_H
 
-#include "Types.h"
 #include "SpaceObj.h"
-
-/*=============================================================================
-    Types:
-=============================================================================*/
 
 typedef struct
 {
@@ -34,6 +28,7 @@ typedef struct
     vector rotate_point;
     real32 rotate_distance;
 } ResearchShipSpec;
+
 typedef struct
 {
     real32 R1final_dock_distance;
@@ -46,25 +41,12 @@ typedef struct
     real32 R2DockFinalDistance;
 } ResearchShipStatics;
 
-/*=============================================================================
-    Public data:
-=============================================================================*/
-
 extern CustShipHeader ResearchShipHeader;
 
-
-/*-----------------------------------------------------------------------------
-    Name        : toFakeOneship
-    Description : Used to 'correct' movement circles for a Slaved ship (which should be a master)
-    Inputs      :
-    Outputs     :
-    Return      :
-----------------------------------------------------------------------------*/
-//to OPTIMIZE THIS:  ONLY CALCULATE SLAVED SHIPS AVERAGE POSITION when slaves are added!
-void toFakeOneShip(Ship *ship, vector *oldpos, real32 *oldradius);
-void toUnFakeOneShip(Ship *ship, vector *oldpos,real32 *oldradius);
-void ResearchShipMakeReadyForHyperspace(Ship *ship);
 void addMonkeyResearchShip(Ship *ship);
 void addMonkeyResearchShipChangePosition(Ship *dockwith, Ship *ship,sdword dockindex);
+void ResearchShipMakeReadyForHyperspace(Ship *ship);
+void toFakeOneShip(Ship *ship, vector *oldpos, real32 *oldradius);
+void toUnFakeOneShip(Ship *ship, vector *oldpos,real32 *oldradius);
 
 #endif

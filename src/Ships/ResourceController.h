@@ -1,29 +1,14 @@
-/*=============================================================================
-    Name    : ResourceController.h
-    Purpose : Definitions for ResourceController
-
-    Created 6/30/1997 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  ResourceController.h
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 6/30/1997 by gshaw
+// =============================================================================
 
 #ifndef ___RESOURCECONTROLLER_H
 #define ___RESOURCECONTROLLER_H
 
-#include "Types.h"
 #include "SpaceObj.h"
-
-/*=============================================================================
-    Types:
-=============================================================================*/
-
-typedef struct
-{
-    sdword dummy;
-} ResourceControllerSpec;
-
-/*=============================================================================
-    Public data:
-=============================================================================*/
 
 extern CustShipHeader ResourceControllerHeader;
 

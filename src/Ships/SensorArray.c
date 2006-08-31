@@ -15,6 +15,11 @@
 typedef struct
 {
     udword dummy;
+} SensorArraySpec;
+
+typedef struct
+{
+    udword dummy;
 } SensorArrayStatics;
 
 SensorArrayStatics SensorArrayStaticRace1;

@@ -1,24 +1,14 @@
-/*=============================================================================
-    Name    : Mothership.h
-    Purpose : Definitions for Mothership
-
-    Created 6/30/1997 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  Mothership.h
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 6/30/1997 by gshaw
+// =============================================================================
 
 #ifndef ___MOTHERSHIP_H
 #define ___MOTHERSHIP_H
 
-#include "Types.h"
 #include "SpaceObj.h"
-
-/*=============================================================================
-    Defines:
-=============================================================================*/
-
-/*=============================================================================
-    Types:
-=============================================================================*/
 
 typedef struct
 {
@@ -43,18 +33,12 @@ typedef struct
     real32 specialDoorInterpolationPerSecond;
 } MothershipStatics;
 
-/*=============================================================================
-    Public data:
-=============================================================================*/
-
 extern CustShipHeader MothershipHeader;
 
-
-// Public Prototypes
 void MothershipAttachObjectToDoor(Ship *ship,SpaceObjRotImpTargGuidanceShipDerelict *object);
+void mothershipCleanDoorForHSInstant(Ship *ship);
 void MothershipDettachObjectFromDoor(Ship *ship);
 void MothershipDoorUpKeep(Ship *ship);
 void mothershipGetCargoPosition(Ship *ship,SpaceObjRotImpTargGuidanceShipDerelict *cargo, vector *position, matrix *coordsys, vector *heading, vector *up,vector *right);
-void mothershipCleanDoorForHSInstant(Ship *ship);
 
 #endif

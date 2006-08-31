@@ -1,20 +1,15 @@
-/*=============================================================================
-    Name    : GravWellGenerator.h
-    Purpose : Definitions for the Gravity Well Generator
-
-    Created 01/06/1998 by bpasechnik
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  GravWellGenerator.h
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 01/06/1998 by bpasechnik
+// =============================================================================
 
 #ifndef ___GRAVWELLGENERATOR_H
 #define ___GRAVWELLGENERATOR_H
 
-#include "Types.h"
 #include "SpaceObj.h"
 
-/*=============================================================================
-    Types:
-=============================================================================*/
 typedef struct
 {
     real32 GravWellRadius;
@@ -31,16 +26,6 @@ typedef struct
 
 typedef struct
 {
-    Node objnode;
-    Ship *ship;
-    sdword stoppingstate;
-    real32 xangle;
-    real32 yangle;
-    real32 zangle;
-} GravStruct;
-
-typedef struct
-{
     sdword GravFieldOn;
     sdword GravFired;
     LinkedList  GravList;
@@ -51,20 +36,10 @@ typedef struct
     Effect *gravityEffect;
 } GravWellGeneratorSpec;
 
-/*=============================================================================
-    Public data:
-=============================================================================*/
-
 extern CustShipHeader GravWellGeneratorHeader;
-/*=============================================================================
-    Prototypes:
-=============================================================================*/
-//void GravWellGeneratorRemoveShipReferences(Ship *ship, SpaceObj *spaceobj);
-//void GravWellGeneratorDied(Ship *ship);
 
 void GravWellGeneratorJustDisabled(Ship *ship);
 bool gravwellIsShipStuckForHyperspaceing(Ship *ship);
 void turnoffGravwell(Ship *ship);
-
 
 #endif

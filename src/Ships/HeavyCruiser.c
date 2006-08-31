@@ -17,6 +17,11 @@
 
 typedef struct
 {
+    udword dummy;
+} HeavyCruiserSpec;
+
+typedef struct
+{
     real32 heavycruiserGunRange[NUM_TACTICS_TYPES];
     real32 heavycruiserTooCloseRange[NUM_TACTICS_TYPES];
 } HeavyCruiserStatics;

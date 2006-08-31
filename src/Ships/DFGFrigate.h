@@ -1,36 +1,14 @@
-/*=============================================================================
-    Name    : DFGFrigate.h
-    Purpose : Definitions for DFGFrigate
-
-    Created 6/30/1997 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  DFGFrigate.h
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 6/30/1997 by gshaw
+// =============================================================================
 
 #ifndef ___DFGFRIGATE_H
 #define ___DFGFRIGATE_H
 
-#include "Types.h"
 #include "SpaceObj.h"
-
-/*=============================================================================
-    Defines:
-=============================================================================*/
-
-/*=============================================================================
-    Function Prototypes:            
-=============================================================================*/
-         
-void univDFGFieldEffect(Ship *ship, Bullet *bullet, real32 totaltimeelapsed);
-
-         
-/*=============================================================================
-    Types:
-=============================================================================*/
-
-typedef struct
-{
-    udword dummy;
-} DFGFrigateSpec;
 
 typedef struct
 {
@@ -42,10 +20,8 @@ typedef struct
     udword angleVariance;
 } DFGFrigateStatics;
 
-/*=============================================================================
-    Public data:
-=============================================================================*/
-
 extern CustShipHeader DFGFrigateHeader;
+
+void univDFGFieldEffect(Ship *ship, Bullet *bullet, real32 totaltimeelapsed);
 
 #endif

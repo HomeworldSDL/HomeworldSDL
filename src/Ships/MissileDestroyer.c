@@ -21,6 +21,18 @@
 #include "AITrack.h"
 #include "Collision.h"
 
+#define VOLLEY_BEGIN        10
+#define VOLLEY_NOT_BEGIN    20
+
+typedef struct
+{
+    real32 lasttimeRegeneratedMissiles;
+    real32 lasttimeFiredVolley;
+    real32 lasttimeDidSpecialTargeting;
+    sdword curTargetIndex;
+    sdword volleyState;
+} MissileDestroyerSpec;
+
 typedef struct
 {
     real32 missiledestroyerGunRange[NUM_TACTICS_TYPES];

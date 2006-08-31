@@ -21,6 +21,15 @@
 #include "Attack.h"
 #include "Battle.h"
 
+typedef struct
+{
+    Node cloaknode;
+    SpaceObj *spaceobj;
+    real32  CloakStatus;
+} CloakStruct;
+
+void CloakGeneratorAddObj(Ship *ship, SpaceObj *objtoadd);
+
 CloakGeneratorStatics CloakGeneratorStatic;
 
 CloakGeneratorStatics CloakGeneratorStaticRace1;

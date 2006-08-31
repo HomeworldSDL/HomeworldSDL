@@ -18,6 +18,12 @@
 
 typedef struct
 {
+    sdword resourcesCollected;
+} ResourceCollectorSpec;
+
+
+typedef struct
+{
     real32 repairApproachDistance;
 } ResourceCollectorStatics;
 

@@ -39,6 +39,48 @@
 //#define DEBUG_AIATTACK
 #endif
 
+typedef struct
+{
+    real32 lasttimefired;
+    real32 aitimekill;              // AI timestamp for when we went into kill mode
+    vector aivec;                   // AI vector when breaking
+    bool16 aiAIPflightman;          // AI boolean indicating if attack in progress (AIP) flight maneuver has been chosen
+    uword activeGun;
+} GenericInterceptorSpec;
+
+typedef struct                      //Inherited From GenericInterceptorSpec
+{
+    real32 lasttimefired;
+    real32 aitimekill;              // AI timestamp for when we went into kill mode
+    vector aivec;                   // AI vector when breaking
+    bool16 aiAIPflightman;          // AI boolean indicating if attack in progress (AIP) flight maneuver has been chosen
+    uword activeGun;
+    real32 CloakingStatus;          // Gradient value for cloaking and decloaking state
+    bool CloakLowWarning;
+    bool ReCloak;
+    real32 ReCloakTime;
+} CloakedFighterSpec;
+
+typedef struct
+{
+    real32 lasttimefired;
+    real32 aitimekill;              // AI timestamp for when we went into kill mode
+    vector aivec;                   // AI vector when breaking
+    bool16 aiAIPflightman;          // AI boolean indicating if attack in progress (AIP) flight maneuver has been chosen
+    uword activeGun;
+    vector rallypoint;
+    vector orig_point;
+    real32 angle;
+    sdword bombingdelay;
+} AttackBomberSpec;
+
+void GenericInterceptorStaticInit(char *directory, char *filename, struct ShipStaticInfo *statinfo);
+void GenericInterceptorInit(Ship *ship);
+void GenericInterceptorFire(Ship *ship, SpaceObjRotImpTarg *target);
+void GenericInterceptorPassiveAttack(Ship *ship, Ship *target, bool rotate);
+void GenericInterceptorPassiveAttack(Ship *ship, Ship *target, bool rotate);
+
+
 #define FAKE_FLY_BY_DISTANCE_MUCH_BIGGER_THAN_NEEDED   15000.0f
 
 sdword FIGHTER_BREAK_ANGLE_MIN = 25;

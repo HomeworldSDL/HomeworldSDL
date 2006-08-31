@@ -17,6 +17,11 @@
 
 typedef struct
 {
+    udword dummy;
+} P1MothershipSpec;
+
+typedef struct
+{
     real32 p1mothershipGunRange[NUM_TACTICS_TYPES];
     real32 p1mothershipTooCloseRange[NUM_TACTICS_TYPES];
 } P1MothershipStatics;

@@ -17,6 +17,12 @@
 
 typedef struct
 {
+    udword dummy;
+} P3StandardShipSpec;
+
+
+typedef struct
+{
     real32 shipGunRange[NUM_TACTICS_TYPES];
     real32 shipTooCloseRange[NUM_TACTICS_TYPES];
 } P3StandardShipStatics;

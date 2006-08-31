@@ -19,6 +19,15 @@
 
 typedef struct
 {
+    AttackSideStep attacksidestep;
+    real32 lasttimeRegeneratedMissiles;
+    real32 lasttimeFiredVolley;
+    real32 lasttimeDidSpecialTargeting;
+    sdword curTargetIndex;
+} P1MissileCorvetteSpec;
+
+typedef struct
+{
     real32 missilecorvetteGunRange[NUM_TACTICS_TYPES];
     real32 missilecorvetteTooCloseRange[NUM_TACTICS_TYPES];
     real32 missileRegenerateTime;

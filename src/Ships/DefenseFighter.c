@@ -29,6 +29,23 @@
 #include "SaveGame.h"
 #include "Randy.h"
 
+typedef struct
+{
+    Node bulletnode;
+    Bullet *bullet;
+    Bullet *laser;
+    real32 CoolDownTime;
+    bool CoolDown;
+    bool LaserDead;
+} DefenseStruct;
+
+typedef struct
+{
+    LinkedList DefenseList;
+    sdword DefenseFighterCanNowRotate;
+    real32 rotate_time_counter;
+} DefenseFighterSpec;
+
 DefenseFighterStatics DefenseFighterStatic;
 
 DefenseFighterStatics DefenseFighterStaticRace1;

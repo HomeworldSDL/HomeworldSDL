@@ -17,6 +17,11 @@
 
 typedef struct
 {
+    udword dummy;
+} P2FuelPodSpec;
+
+typedef struct
+{
     real32 podGunRange[NUM_TACTICS_TYPES];
     real32 podTooCloseRange[NUM_TACTICS_TYPES];
 } P2FuelPodStatics;

@@ -1,21 +1,23 @@
-/*=============================================================================
-    Name    : MinelayerCorvette.h
-    Purpose : Definitions for Minelayer Corvette
-
-    Created 11/5/1997 by khent
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  MinelayerCorvette.h
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 11/5/1997 by khent
+// =============================================================================
 
 #ifndef ___MINELAYERCORVETTE_H
 #define ___MINELAYERCORVETTE_H
 
-#include "Types.h"
 #include "SpaceObj.h"
 #include "Attack.h"
 #include "Formation.h"
-/*=============================================================================
-    Types:
-=============================================================================*/
+
+#define MINE_DROP_ATTACK            0
+#define MINE_DROP_FORMATION         1
+#define MINE_SEARCH_AND_STOP        2
+#define MINE_ATTACK_RUN             3
+#define DO_WALL_FORMATION           4
+
 typedef struct
 {
     AttackSideStepParameters sidestepParameters;
@@ -23,9 +25,7 @@ typedef struct
     real32 MINE_STOP_FRICTION;
     real32 MineSpacing;
     real32 MineDropDistance;
-
     real32 DropStopRadiusSqr;
-
     real32 breakInAwayDist;
     real32 DropRange;
     real32 DropStopRange;
@@ -65,19 +65,9 @@ typedef struct
     real32 lasttimeRegeneratedMines;
 } MinelayerCorvetteSpec;
 
-/*=============================================================================
-    Public data:
-=============================================================================*/
+extern CustShipHeader MinelayerCorvetteHeader;
 
 void MinelayerCorvetteOrderChangedCleanUp(Ship *ship);
 void univUpdateMineWallFormations();
-
-extern CustShipHeader MinelayerCorvetteHeader;
-
-#define MINE_DROP_ATTACK            0
-#define MINE_DROP_FORMATION         1
-#define MINE_SEARCH_AND_STOP        2
-#define MINE_ATTACK_RUN             3
-#define DO_WALL_FORMATION           4
 
 #endif

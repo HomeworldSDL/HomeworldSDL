@@ -17,6 +17,11 @@
 
 typedef struct
 {
+    udword dummy;
+} StandardDestroyerSpec;
+
+typedef struct
+{
     real32 standarddestroyerGunRange[NUM_TACTICS_TYPES];
     real32 standarddestroyerTooCloseRange[NUM_TACTICS_TYPES];
 } StandardDestroyerStatics;

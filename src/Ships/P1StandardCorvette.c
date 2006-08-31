@@ -18,6 +18,11 @@
 
 typedef struct
 {
+    AttackSideStep attacksidestep;
+} P1StandardCorvetteSpec;
+
+typedef struct
+{
     AttackSideStepParameters sidestepParameters;
 } P1StandardCorvetteStatics;
 

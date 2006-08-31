@@ -20,6 +20,11 @@
 
 typedef struct
 {
+    sdword dummy;
+} ResourceControllerSpec;
+
+typedef struct
+{
     real32 repairApproachDistance;
 } ResourceControllerStatics;
 

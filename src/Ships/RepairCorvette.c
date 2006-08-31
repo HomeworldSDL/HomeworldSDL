@@ -74,6 +74,24 @@ void stopRepairEffect(Ship *ship);
             #define DEBUG_REPAIR
 #endif
 
+typedef struct
+{
+    AttackSideStepParameters sidestepParameters;
+    real32 repairApproachDistance;
+
+    real32 approachAndWaitDistance;
+    real32 rotationStopDistance;
+    real32 stopRotMultiplier;
+    real32 sloppyRotThreshold;
+    real32 dockWithRotationSpeed;
+    real32 targetStartDockDistance;
+    real32 startdockTolerance;
+    real32 finaldockDistance;
+    real32 CapitalDistanceRepairStart;
+    real32 capitalShipHealthPerSecond;
+    real32 AngleDotProdThreshold;
+} RepairCorvetteStatics;
+
 RepairCorvetteStatics RepairCorvetteStaticRace1;
 RepairCorvetteStatics RepairCorvetteStaticRace2;
 

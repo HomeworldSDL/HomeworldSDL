@@ -1,20 +1,14 @@
-/*=============================================================================
-    Name    : Probe.h
-    Purpose : Definitions for the Probe
-
-    Created 01/06/1998 by bpasechnik
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  Probe.h
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 01/06/1998 by bpasechnik
+// =============================================================================
 
 #ifndef ___PROBE_H
 #define ___PROBE_H
 
-#include "Types.h"
 #include "SpaceObj.h"
-
-/*=============================================================================
-    Types:
-=============================================================================*/
 
 typedef struct
 {
@@ -27,12 +21,8 @@ typedef struct
     real32 ProbeDispatchMaxVelocity;
 } ProbeStatics;
 
-/*=============================================================================
-    Public data:
-=============================================================================*/
+extern CustShipHeader ProbeHeader;
 
 real32 ProbeGetMaxVelocity(Ship *ship);
-
-extern CustShipHeader ProbeHeader;
 
 #endif

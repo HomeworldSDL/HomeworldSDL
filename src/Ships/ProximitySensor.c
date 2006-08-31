@@ -34,6 +34,11 @@ ProximitySensorStatics ProximitySensorStatic;
 ProximitySensorStatics ProximitySensorStaticRace1;
 ProximitySensorStatics ProximitySensorStaticRace2;
 
+sdword proxGetBlipRadius(Ship *ship);
+bool proxShouldDrawOverlay(Ship *ship);
+udword proxBlipColor(Ship *ship);
+sdword proxBlipThickness(Ship *ship);
+
 scriptStructEntry ProximitySensorStaticScriptTable[] =
 {
     { "SearchRate",    scriptSetUdwordCB, (udword) &(ProximitySensorStatic.SearchRate), (udword) &(ProximitySensorStatic) },
