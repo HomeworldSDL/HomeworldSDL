@@ -92,11 +92,11 @@ SaveChunk *CreateChunk(TypeOfSaveChunk type,sdword contentsSize,void *contents);
 SaveChunk *LoadNextChunk();
 
 sdword SpaceObjRegistryGetID(SpaceObj *obj);
-SpaceObj *SpaceObjRegistryGetObj(sdword ID);
-Ship *SpaceObjRegistryGetShip(sdword ID);
-Resource *SpaceObjRegistryGetResource(sdword ID);
-Bullet *SpaceObjRegistryGetBullet(sdword ID);
-TargetPtr SpaceObjRegistryGetTarget(sdword ID);
+SpaceObj *SpaceObjRegistryGetObj(sdword id);
+Ship *SpaceObjRegistryGetShip(sdword id);
+Resource *SpaceObjRegistryGetResource(sdword id);
+Bullet *SpaceObjRegistryGetBullet(sdword id);
+TargetPtr SpaceObjRegistryGetTarget(sdword id);
 void SaveInfoNumber(sdword info);
 sdword LoadInfoNumber();
 void *ConvertNumToPointerInList(LinkedList *list,sdword num);
