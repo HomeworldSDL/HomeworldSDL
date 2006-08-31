@@ -1,5 +1,5 @@
-#ifndef __bigfile_h
-#define __bigfile_h
+#ifndef ___BIGFILE_H
+#define ___BIGFILE_H
 
 //#include <io.h>
 #include <time.h>

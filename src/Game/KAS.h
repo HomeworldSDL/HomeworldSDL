@@ -1,5 +1,5 @@
-#ifndef __KAS_H
-#define __KAS_H
+#ifndef ___KAS_H
+#define ___KAS_H
 
 #include "AIUtilities.h"
 #include "ShipSelect.h"

@@ -1,5 +1,5 @@
-#ifndef _TUTORIAL_H
-#define _TUTORIAL_H
+#ifndef ___TUTORIAL_H
+#define ___TUTORIAL_H
 
 #include "FEFlow.h"
 
@@ -21,8 +21,8 @@ typedef enum
     TUT_LESSON_HARVEST,
     TUT_LESSON_SENSORS_MANAGER,
     TUT_LESSON_SENSORS_MANAGER_MOVE,
-	TUT_LESSON_ENTER_BUILD_MANAGER,
-	TUT_LESSON_BUILD_SHIP,
+    TUT_LESSON_ENTER_BUILD_MANAGER,
+    TUT_LESSON_BUILD_SHIP,
     TUT_BASIC_FINALE,
     TUT_ADVANCED_INTRO,
     TUT_LESSON_DOCK,
@@ -54,4 +54,4 @@ typedef struct
 //void tutExecute(regionhandle reg);
 //void tutShutdown(void);
 
-#endif // #ifndef _TUTORIAL_H
+#endif

@@ -4,8 +4,8 @@
     Created June 1998 Bryce
 =============================================================================*/
 
-#ifndef TACTICS_H
-#define TACTICS_H
+#ifndef ___TACTICS_H
+#define ___TACTICS_H
 
 #include "SpaceObj.h"
 #include "ObjTypes.h"

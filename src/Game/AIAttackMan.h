@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___AIATTACKMANAGER_H
-#define ___AIATTACKMANAGER_H
+#ifndef ___AIATTACKMAN_H
+#define ___AIATTACKMAN_H
 
 #include "Types.h"
 #include "SpaceObj.h"

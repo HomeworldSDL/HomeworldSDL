@@ -7,7 +7,7 @@
 =============================================================================*/
 
 #ifndef ___PIEPLATE_H
-#define ___PIEPLATE_H   PI
+#define ___PIEPLATE_H
 
 #include "Types.h"
 
@@ -121,5 +121,4 @@ void pieStartup(void);
 bool pieMovePointClipToLimits(real32 sizeX, real32 sizeY, real32 sizeZ, vector *pointA, vector *pointB);
 sdword pieCircleSegmentsCompute(real32 screenRadius);
 
-#endif //___PIEPLATE_H
-
+#endif

@@ -1,3 +1,5 @@
+#ifndef ___PROFILETIMERS_H
+#define ___PROFILETIMERS_H
 
 #include "Types.h"
 
@@ -106,6 +108,8 @@ void profTimerStopLittleFunc(sdword timer);
 #define profTimerRecordOff()
 
 #define profTimerOutputRecordings()
+
+#endif
 
 #endif
 

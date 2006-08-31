@@ -271,5 +271,4 @@ extern void (*smHoldRight)(void);
 void smSave(void);
 void smLoad(void);
 
-#endif //___SENSORS_H
-
+#endif

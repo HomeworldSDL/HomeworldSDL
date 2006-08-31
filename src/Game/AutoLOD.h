@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef _AUTOLOD_H
-#define _AUTOLOD_H
+#ifndef ___AUTOLOD_H
+#define ___AUTOLOD_H
 
 #include "Types.h"
 

@@ -118,5 +118,4 @@ extern bool   zoomOutNow;
 extern bool   zoomInNow;
 
 
-#endif //___CAMERA_H
-
+#endif

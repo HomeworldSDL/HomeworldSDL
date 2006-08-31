@@ -6,6 +6,9 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
+#ifndef ___SINGLEPLAYER_H
+#define ___SINGLEPLAYER_H
+
 #include "Types.h"
 #include "Vector.h"
 #include "Region.h"
@@ -230,3 +233,4 @@ extern real32 HYPERSPACEGATE_WAYPOINTDIST;
 
 extern real32 SINGLEPLAYER_MISSION14_SPHERE_OVERRIDE;
 
+#endif

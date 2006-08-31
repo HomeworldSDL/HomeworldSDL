@@ -86,5 +86,4 @@ void frReloadFonts(void);
 fonthandle frFontRegister(char *fileName);
 void frFontUnregister(fonthandle font);
 
-#endif //___FONTREG_H
-
+#endif

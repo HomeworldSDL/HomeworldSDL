@@ -4,8 +4,8 @@
     Created June 1997 by Gary Shaw
 =============================================================================*/
 
-#ifndef ___LINKEDLIST
-#define ___LINKEDLIST
+#ifndef ___LINKEDLIST_H
+#define ___LINKEDLIST_H
 
 #include "Types.h"
 #include "LinkedList.h"

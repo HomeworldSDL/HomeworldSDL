@@ -260,4 +260,4 @@ float  SwapFloat( float val );
 #define sphereArea(radius)          (4.0f * PI * (radius) * (radius))
 #define sphereVolume(radius)        (4.0f / 3.0f * PI * (radius) * (radius) * (radius))
 
-#endif  // ___TYPES_H
+#endif

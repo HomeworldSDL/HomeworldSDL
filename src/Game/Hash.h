@@ -5,8 +5,8 @@
     Created 1/9/1998 by khent
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
-#ifndef _HASH_H
-#define _HASH_H
+#ifndef ___HASH_H
+#define ___HASH_H
 
 #include "Types.h"
 

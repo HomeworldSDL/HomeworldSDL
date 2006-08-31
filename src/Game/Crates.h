@@ -7,8 +7,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef CRATES_H
-#define CRATES_H
+#ifndef ___CRATES_H
+#define ___CRATES_H
  
 #include "SpaceObj.h"
       

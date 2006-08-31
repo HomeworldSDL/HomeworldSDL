@@ -7,7 +7,7 @@
 =============================================================================*/
 
 #ifndef ___SCENPICK_H
-#define ___SCENPICK_H           3.4444445f
+#define ___SCENPICK_H
 
 #include "Types.h"
 #include "FEFlow.h"
@@ -94,4 +94,4 @@ void spFindMap(char *MapName);
 sdword spScenarioListProcess(regionhandle region, sdword ID, udword event, udword data);
 sdword spScenarioFind(char *scenarioName);
 
-#endif //___SCENPICK_H
+#endif

@@ -170,4 +170,4 @@ void logfileClear(char *logfile);
 void logfileLog(char *logfile,char *str);
 void logfileLogf(char *logfile,char *format, ...);
 
-#endif //___FILE_H
+#endif

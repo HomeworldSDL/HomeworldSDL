@@ -5,8 +5,8 @@
     Defines for begining game horse Race
 
 *****************************************/
-#ifndef HORSERACE_H
-#define HORSERACE_H
+#ifndef ___HORSERACE_H
+#define ___HORSERACE_H
 
 #include "Types.h"
 #include "Globals.h"

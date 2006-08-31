@@ -23,6 +23,4 @@ typedef uword crc16;
 crc32 crc32Compute(ubyte *packet, udword length);
 crc16 crc16Compute(ubyte *packet, udword length);
 
-#endif //___CRC32_H
-
-
+#endif

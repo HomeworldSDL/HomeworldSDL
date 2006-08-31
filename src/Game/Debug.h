@@ -101,5 +101,4 @@ char *dbgStackDump(void);
 
 //special debug mode functions not implemented yet
 
-#endif //___DEBUG_H
-
+#endif

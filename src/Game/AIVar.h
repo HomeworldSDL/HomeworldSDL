@@ -1,5 +1,5 @@
-#ifndef __AIVAR_H
-#define __AIVAR_H
+#ifndef ___AIVAR_H
+#define ___AIVAR_H
 
 #include "Types.h"
 

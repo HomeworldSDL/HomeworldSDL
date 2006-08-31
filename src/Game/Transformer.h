@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef _TRANSFORMER_H
-#define _TRANSFORMER_H
+#ifndef ___TRANSFORMER_H
+#define ___TRANSFORMER_H
 
 #include "Types.h"
 #include "Vector.h"

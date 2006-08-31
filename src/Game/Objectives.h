@@ -1,5 +1,5 @@
-#ifndef __OBJECTIVES_H
-#define __OBJECTIVES_H
+#ifndef ___OBJECTIVES_H
+#define ___OBJECTIVES_H
 
 //
 //  SINGLE-PLAYER MISSION OBJECTIVES

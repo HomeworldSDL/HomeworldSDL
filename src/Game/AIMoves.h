@@ -1,5 +1,5 @@
-#ifndef __AIMOVES_H
-#define __AIMOVES_H
+#ifndef ___AIMOVES_H
+#define ___AIMOVES_H
 
 #include "Vector.h"
 #include "Volume.h"

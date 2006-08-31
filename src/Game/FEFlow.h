@@ -13,7 +13,6 @@
 #include "Types.h"
 #include "Region.h"
 #include "LinkedList.h"
-//#include "UIControls.h"
 
 /*=============================================================================
     Switches:
@@ -369,5 +368,4 @@ bool feAllScreensReposition(void);
 
 udword feButtonProcess(regionhandle region, sdword ID, udword event, udword data);
 
-#endif //___FEFLOW_H
-
+#endif

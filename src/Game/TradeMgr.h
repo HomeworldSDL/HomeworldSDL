@@ -166,4 +166,4 @@ void mrTradeStuffTest(sdword *a, sdword *b);
 void wkTradeUpdate(void);
 
 
-#endif //___TRADEMGR_H
+#endif

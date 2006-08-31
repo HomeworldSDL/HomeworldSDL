@@ -49,4 +49,4 @@ extern sdword starBlueVariance;
 Star3dInfo *star3dInit(udword numStars,real32 innerlimit,real32 outerlimit);
 void star3dClose(Star3dInfo *star3dinfo);
 
-#endif //___STAR3D_H
+#endif

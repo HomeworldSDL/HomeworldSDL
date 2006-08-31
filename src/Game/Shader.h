@@ -6,8 +6,8 @@ Created 22/06/1998 by khent
 Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef _SHADER_H
-#define _SHADER_H
+#ifndef ___SHADER_H
+#define ___SHADER_H
 
 #include "Types.h"
 #include "Vector.h"

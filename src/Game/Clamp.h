@@ -6,6 +6,9 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
+#ifndef ___CLAMP_H
+#define ___CLAMP_H
+
 #include "SpaceObj.h"
 
 //to expand clamping to others than just ships, must modify line
@@ -16,3 +19,4 @@ void clampObjToObj(SpaceObjRotImpTargGuidance *obj,SpaceObjRotImpTargGuidance *d
 void unClampObj(SpaceObjRotImpTargGuidance *obj);
 void updateClampedObject(SpaceObjRotImpTargGuidance *obj);
 
+#endif

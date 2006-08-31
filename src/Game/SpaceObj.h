@@ -4,8 +4,8 @@
     Created June 1997 by Gary Shaw
 =============================================================================*/
 
-#ifndef ___SPACEOBJ
-#define ___SPACEOBJ
+#ifndef ___SPACEOBJ_H
+#define ___SPACEOBJ_H
 
 #include "Types.h"
 #include "Vector.h"

@@ -1,3 +1,6 @@
+#ifndef ___SHIPDEFS_H
+#define ___SHIPDEFS_H
+
 #define AdvanceSupportFrigate           0
 #define AttackBomber                    1
 #define Carrier                         2
@@ -84,3 +87,4 @@
 
 #define TOTAL_OTHER_SHIPS   (TOTAL_P1_SHIPS + TOTAL_P2_SHIPS + TOTAL_P3_SHIPS + TOTAL_TRADERS_SHIPS)
 
+#endif

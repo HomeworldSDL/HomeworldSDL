@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___SOUND_STRUCTS_H
-#define ___SOUND_STRUCTS_H
+#ifndef ___SOUNDSTRUCTS_H
+#define ___SOUNDSTRUCTS_H
 
 #include "Types.h"
 

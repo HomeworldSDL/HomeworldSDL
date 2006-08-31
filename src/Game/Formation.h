@@ -209,5 +209,4 @@ sdword formationRemoveShipFromSelection(struct CommandToDo *formationtodo,Ship *
 extern udword formationSortType[NO_FORMATION];
 extern real32 STRIKECRAFT_PADDING_MODIFIER;
 
-#endif      // ___FORMATION_H
-
+#endif

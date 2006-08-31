@@ -7,8 +7,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___CAMERA_COMMAND_H
-#define ___CAMERA_COMMAND_H
+#ifndef ___CAMERACOMMAND_H
+#define ___CAMERACOMMAND_H
 
 #include "Types.h"
 #include "LinkedList.h"
@@ -153,5 +153,4 @@ void ccGetShipCollCenter(Ship *ship, vector *pos, real32 *rad);
 sdword ccFocusCullRadiusMean(FocusCommand *selection, real32 radiusSqr, vector *centre);
 sdword ccFocusCullRadiusGeneral(FocusCommand *out, FocusCommand *in, real32 radiusSqr, vector *centre);
 
-#endif //___CAMERA_COMMAND_H
-
+#endif

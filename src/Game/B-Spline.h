@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___B_SPLINE_H
-#define ___B_SPLINE_H    444
+#ifndef ___B-SPLINE_H
+#define ___B-SPLINE_H
 
 /*=============================================================================
     Switches:
@@ -73,5 +73,4 @@ void bsCurveRestart(splinecurve *curve);
 real32 bsCurveUpdate(splinecurve *curve, real32 timeElapsed);
 void bsCurveDelete(splinecurve *curve);
 
-#endif //___B_SPLINE_H
-
+#endif

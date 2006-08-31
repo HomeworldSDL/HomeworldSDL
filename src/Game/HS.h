@@ -6,8 +6,8 @@ Created 7/10/1998 by khent
 Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef _HS_H
-#define _HS_H
+#ifndef ___HS_H
+#define ___HS_H
 
 #include "SpaceObj.h"
 

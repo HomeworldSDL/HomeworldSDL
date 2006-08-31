@@ -1,3 +1,6 @@
+#ifndef ___VOLTWEAKDEFS_H
+#define ___VOLTWEAKDEFS_H
+
 /* Engine Sounds first */
 #define Engine_Mothership			0
 #define Engine_HeavyCruiser			1
@@ -87,3 +90,5 @@
 
 /* Derelict Events */
 #define DerelictAmbience			72
+
+#endif

@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef __AIFeatures_H
-#define __AIFeatures_H
+#ifndef ___AIFEATURES_H
+#define ___AIFEATURES_H
 
 // feature types
 #define ResourceFeature  0

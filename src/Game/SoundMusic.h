@@ -1,3 +1,6 @@
+#ifndef ___SOUNDMUSIC_H
+#define ___SOUNDMUSIC_H
+
 /* defines for music tracks in the music file */
 
 /* looping Ambient tracks */
@@ -75,3 +78,4 @@
 #define MUS_FIRST_ANIMATIC			29
 #define MUS_LAST_ANIMATIC			47
 
+#endif

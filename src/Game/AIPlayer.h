@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef __AIPlayer_H
-#define __AIPlayer_H
+#ifndef ___AIPLAYER_H
+#define ___AIPLAYER_H
 
 #include "Types.h"
 #include "ObjTypes.h"

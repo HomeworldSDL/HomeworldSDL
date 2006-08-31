@@ -5,8 +5,9 @@
     Created 11/10/1997 by khent
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
-#ifndef __SCROLLER_H
-#define __SCROLLER_H
+
+#ifndef ___SCROLLER_H
+#define ___SCROLLER_H
 
 #include "prim2d.h"
 #include "UIControls.h"

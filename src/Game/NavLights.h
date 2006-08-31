@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef __NAVLIGHTS_H
-#define __NAVLIGHTS_H
+#ifndef ___NAVLIGHTS_H
+#define ___NAVLIGHTS_H
 
 #include "SpaceObj.h"
 

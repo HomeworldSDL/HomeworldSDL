@@ -7,8 +7,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___COMMAND_LAYER_H
-#define ___COMMAND_LAYER_H
+#ifndef ___COMMANDLAYER_H
+#define ___COMMANDLAYER_H
 
 #include "Types.h"
 #include "Vector.h"
@@ -311,5 +311,4 @@ void protectShip(Ship *ship,Ship *protectThisShip,bool passiveAttacked);
     Data:
 =============================================================================*/
 
-#endif //___COMMAND_LAYER_H
-
+#endif

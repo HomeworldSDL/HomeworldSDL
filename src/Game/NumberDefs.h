@@ -1,3 +1,6 @@
+#ifndef ___NUMBERDEFS_H
+#define ___NUMBERDEFS_H
+
 #define		Zero	0
 #define		One		1
 #define		Two		2
@@ -10,3 +13,4 @@
 #define		Niner	9
 #define		Ten		10
 
+#endif

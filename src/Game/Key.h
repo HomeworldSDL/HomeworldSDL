@@ -213,5 +213,4 @@ udword keyFrenchToEnglish(udword virtkey);
 udword keySpanishToEnglish(udword virtkey);
 udword keyItalianToEnglish(udword virtkey);
 
-#endif //___KEY_H
-
+#endif

@@ -131,4 +131,4 @@ void lodFree(lodinfo *LOD);
 sdword lodAutoSave(lodinfo *LOD);
 #endif
 
-#endif//___LOD_H
+#endif

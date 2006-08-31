@@ -6,11 +6,10 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
+#ifndef ___MADLINKIN_H
+#define ___MADLINKIN_H
 
 #include "CommandLayer.h"
-
-
-//prototypes
 
 //general prototypes
 void madLinkInUpdateMeshAnimations(Ship *ship);
@@ -35,5 +34,5 @@ void madLinkInOpenDoor(Ship *ship);
 void madLinkInCloseDoor(Ship *ship);
 bool madLinkInGetDoorInfo(Ship *ship, matrix *coordsys, vector *position);
 
-
+#endif
 

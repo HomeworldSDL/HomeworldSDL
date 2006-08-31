@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef _BTG_H
-#define _BTG_H
+#ifndef ___BTG_H
+#define ___BTG_H
 
 #include "Types.h"
 

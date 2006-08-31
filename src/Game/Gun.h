@@ -78,5 +78,4 @@ extern bool gunTuningMode;
 extern sdword tuningGun;
 #endif
 
-#endif //___GUN_H
-
+#endif

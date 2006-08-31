@@ -102,5 +102,4 @@ void teTrailColorSet(char *directory,char *field,void *dataToFillIn);
 void teColorSet(char *directory,char *field,void *dataToFillIn);
 void teColorFactorsSet(char *directory,char *field,void *dataToFillIn);
 
-#endif //___TEAMS_H
-
+#endif

@@ -1,5 +1,5 @@
-#ifndef __VOLUME_H
-#define __VOLUME_H
+#ifndef ___VOLUME_H
+#define ___VOLUME_H
 
 typedef enum {
         VOLUME_SPHERE,  // sphere

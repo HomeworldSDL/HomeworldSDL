@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef _AITRACK_H
-#define _AITRACK_H
+#ifndef ___AITRACK_H
+#define ___AITRACK_H
 
 #include "Types.h"
 #include "SpaceObj.h"
@@ -92,5 +92,4 @@ bool aitrackRotationSpeed(Ship *ship, real32 rotspeed, uword track);
 extern real32 STILL_ROT_LO;
 extern real32 STILL_ROT_HI;
 
-#endif //_AITRACK_H
-
+#endif

@@ -194,5 +194,4 @@ void demStateLoad(void);
 sdword demNumberTicksLoad(sdword initial);
 void demNumberTicksSave(sdword nTicks);
 
-#endif //___DEMO_H
-
+#endif

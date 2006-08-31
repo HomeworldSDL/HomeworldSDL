@@ -7,40 +7,6 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-/*=============================================================================
-    Process & draw callback prototypes
-=============================================================================*/
-#if 0
-/*-----------------------------------------------------------------------------
-    Name        : XXX
-    Description : Render callback for YYY
-    Inputs      : region - region we're rendering
-    Outputs     : ...user defined...
-    Return      : void
-----------------------------------------------------------------------------*/
-void XXX(regionhandle region)
-{
-    ;
-}
-
-/*-----------------------------------------------------------------------------
-    Name        : XXX
-    Description : Region processor callback for YYY
-    Inputs      : region - region to handle processing
-                  ID - user-assigned ID set when region created
-                  event - enumeration of event to be processed
-                  data - additional event data (message specific)
-    Outputs     : ...user defined...
-    Return      : flags indicating further operation:
-
-----------------------------------------------------------------------------*/
-udword XXX(regionhandle region, sdword ID, udword event, udword data)
-{
-    return(0);
-}
-
-#endif //0
-
 #ifndef ___REGION_H
 #define ___REGION_H
 
@@ -322,6 +288,4 @@ regionhandle regFindChildByAtomName(regionhandle reg, char *pAtomName);
 udword regNULLProcessFunction(regionhandle region, sdword ID, udword event, udword data);
 
 
-#endif //___REGION_H
-
-
+#endif

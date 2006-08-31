@@ -5,8 +5,8 @@
     Created 4/10/1998 by khent
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
-#ifndef _CLIPPER_H
-#define _CLIPPER_H
+#ifndef ___CLIPPER_H
+#define ___CLIPPER_H
 
 #include "Types.h"
 #include "Vector.h"

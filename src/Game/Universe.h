@@ -335,5 +335,4 @@ bool isStrikeCraft(ShipType type);
 
 void unitCapInitStatics(udword numplayers);
 
-#endif //___UNIVERSE_H
-
+#endif

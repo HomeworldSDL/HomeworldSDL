@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef _NEBULAE_H
-#define _NEBULAE_H
+#ifndef ___NEBULAE_H
+#define ___NEBULAE_H
 
 
 // -----

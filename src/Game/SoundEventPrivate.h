@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___SOUND_PRIV_H
-#define ___SOUND_PRIV_H
+#ifndef ___SOUNDEVENTPRIVATE_H
+#define ___SOUNDEVENTPRIVATE_H
 
 #include <stdio.h>
 #include <stdlib.h>

@@ -318,4 +318,4 @@ void meshHierarchyWalk(meshdata *mesh, meshcallback preMesh, meshcallback postCa
 void meshSetFade(real32 fade);
 void meshSetSpecular(sdword mode, ubyte red, ubyte green, ubyte blue, ubyte alpha); //mode -1 == off
 
-#endif //___MESH_H
+#endif

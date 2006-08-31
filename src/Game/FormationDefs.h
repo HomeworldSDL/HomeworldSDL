@@ -1,3 +1,6 @@
+#ifndef ___FORMATIONDEFS_H
+#define ___FORMATIONDEFS_H
+
 #define DELTA_FORMATION     0
 #define BROAD_FORMATION     1
 #define DELTA3D_FORMATION   2
@@ -10,3 +13,4 @@
 #define NO_FORMATION    (CUSTOM_FORMATION + 1)
 #define SAME_FORMATION  (NO_FORMATION + 1)          //for computer player
 
+#endif

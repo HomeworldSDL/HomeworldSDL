@@ -4,8 +4,8 @@
 
 */
 
-#ifndef TUTOR_H
-#define TUTOR_H
+#ifndef ___TUTOR_H
+#define ___TUTOR_H
 
 #include "Types.h"
 #include "ShipSelect.h"

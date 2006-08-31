@@ -1,5 +1,5 @@
-#ifndef __KASFUNC_H
-#define __KASFUNC_H
+#ifndef ___KASFUNC_H
+#define ___KASFUNC_H
 
 #include "Types.h"
 #include "AIUtilities.h"

@@ -1,5 +1,5 @@
-#ifndef __AIEVENTS_H
-#define __AIEVENTS_H
+#ifndef ___AIEVENTS_H
+#define ___AIEVENTS_H
 
 #include "Types.h"
 #include "ShipSelect.h"

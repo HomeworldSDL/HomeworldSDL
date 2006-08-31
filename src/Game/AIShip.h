@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef AISHIP_H
-#define AISHIP_H
+#ifndef ___AISHIP_H
+#define ___AISHIP_H
 
 #include "Types.h"
 #include "SpaceObj.h"
@@ -145,6 +145,6 @@ void aishipStatsCloseFunc();
 #endif
 
 
-#endif //AISHIP_H
+#endif
 
 

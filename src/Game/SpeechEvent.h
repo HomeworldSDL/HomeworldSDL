@@ -1,3 +1,6 @@
+#ifndef ___SPEECHEVENT_H
+#define ___SPEECHEVENT_H
+
 //#if defined(__LITTLE_ENDIAN__)
 #ifndef ENDIAN_BIG
 
@@ -1191,3 +1194,4 @@
 
 #define SPEECH_FIRST_SP_EVENT					(TUT_Intro & SPEECH_EVENT_MASK)
 
+#endif

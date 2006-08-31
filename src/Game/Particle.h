@@ -5,8 +5,8 @@
     Created 11/13/1997 by khent
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
-#ifndef __PARTICLE_H
-#define __PARTICLE_H
+#ifndef ___PARTICLE_H
+#define ___PARTICLE_H
 
 #include "Matrix.h"
 #include "color.h"

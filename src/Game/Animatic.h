@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef _ANIMATIC_H
-#define _ANIMATIC_H
+#ifndef ___ANIMATIC_H
+#define ___ANIMATIC_H
 
 #include "Types.h"
 

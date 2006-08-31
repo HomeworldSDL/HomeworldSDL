@@ -1,5 +1,5 @@
-#ifndef __LZSS_H
-#define __LZSS_H
+#ifndef ___LZSS_H
+#define ___LZSS_H
 
 void lzssCompressFile(FILE *input, BIT_FILE *output);
 int  lzssCompressBuffer(char *input, int inputSize, char *output, int outputSize);

@@ -5,6 +5,7 @@
     Created 3/9/1998 by fpoiker
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
+
 #ifndef ___FEREG_H
 #define ___FEREG_H
 

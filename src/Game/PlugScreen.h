@@ -97,5 +97,4 @@ void psModeEnd(void);
 void psScreenStart(char *name);
 void psCurrentScreenDelete(void);
 
-#endif //___PLUGSCREEN_H
-
+#endif

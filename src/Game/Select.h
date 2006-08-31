@@ -220,5 +220,5 @@ void selSelectHotKeyGroup(MaxSelection *hotkeygroup);
 #if SEL_DRAW_BOXES
 void selDrawBoxes(SpaceObjRotImpTarg *target);
 #endif
-#endif //___SELECT_H
 
+#endif

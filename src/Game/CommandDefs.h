@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef __COMMANDDEFS_H
-#define __COMMANDDEFS_H
+#ifndef ___COMMANDDEFS_H
+#define ___COMMANDDEFS_H
 
 #define COMMAND_NULL            0
 #define COMMAND_MOVE            1

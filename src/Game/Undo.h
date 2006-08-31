@@ -35,5 +35,5 @@ sdword udLatestThingPush(undofunc function, sdword userID, ubyte *userData, sdwo
 
 //undo the latest thing
 sdword udLatestThingUndo(void);
-#endif //___UNDO_H
 
+#endif

@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___COMMAND_NETWORK_H
-#define ___COMMAND_NETWORK_H
+#ifndef ___COMMANDNETWORK_H
+#define ___COMMANDNETWORK_H
 
 #include "Switches.h"
 #include "Types.h"

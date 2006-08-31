@@ -6,9 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef BOUNTY_H
-#define BOUNTY_H
-
+#ifndef ___BOUNTIES_H
+#define ___BOUNTIES_H
 
 #include "Types.h"
 #include "Universe.h"
@@ -23,4 +22,4 @@ sdword bountyCurrentRusForPlayer(sdword playerIndex);
 sdword getBountyOnShip(Ship *ship);
 void bountyShipWasKilled(Ship *ship);
 
-#endif //BOUNTY_H
+#endif

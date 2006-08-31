@@ -148,5 +148,4 @@ void vecLineIntersectWithXZPlane(vector *result,vector *linepoint1,vector *linep
 void vecLineIntersectWithPlane(vector *dest, vector *Vplane, vector *Vnormal, vector *Vline, vector *Vdirection);
 void vecVectorsBlend(vector *result, vector *start, vector *end, real32 factor);
 
-#endif //___VECTOR_H
-
+#endif

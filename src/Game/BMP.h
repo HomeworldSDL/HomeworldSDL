@@ -72,5 +72,4 @@ typedef struct
 filehandle bmpFileOpen(bmpheader *header, char *fileName);
 void bmpBodyRead(color *dest, filehandle handle, bmpheader *header);
 
-#endif //___BMP_H
-
+#endif

@@ -147,5 +147,4 @@ void tbSensorsHook(void);
 //bump up the taskbar
 void tbForceTaskbar(bool On);
 
-#endif //___TASKBAR_H
-
+#endif

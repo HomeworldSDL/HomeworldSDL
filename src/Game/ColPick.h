@@ -114,5 +114,4 @@ void cpResetRegions(void);
 
 void cpColorsAddToPreviousList(color base, color stripe);
 
-#endif //___COLPICK_H
-
+#endif

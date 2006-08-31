@@ -6,6 +6,9 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
+#ifndef ___SAVEGAME_H
+#define ___SAVEGAME_H
+
 #include "Types.h"
 #include "SpaceObj.h"
 #include "ShipSelect.h"
@@ -148,4 +151,4 @@ sdword VerifySaveFile(char *filename);
 bool LoadInfoNumberOptional(sdword *info);
 SaveChunk *LoadNextChunkSafe();
 
-
+#endif

@@ -24,5 +24,4 @@ udword bitLowExponent2(udword number);
 //find lowest/highest bit set in a number
 udword bitLowBitPosition(udword number);
 
-#endif  /* ___TWIDDLE_H */
-
+#endif

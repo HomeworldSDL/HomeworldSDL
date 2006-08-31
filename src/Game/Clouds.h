@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef _CLOUDS_H
-#define _CLOUDS_H
+#ifndef ___CLOUDS_H
+#define ___CLOUDS_H
 
 #include "Types.h"
 #include "Vector.h"

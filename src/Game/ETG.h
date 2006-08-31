@@ -656,5 +656,4 @@ extern udword etgFRandom(real32 low, real32 high);
 sdword saveEtglodGunEventToIndex(etglod *lod);
 etglod *saveIndexToEtglodGunEvent(sdword index);
 
-#endif //___ETG_H
-
+#endif

@@ -7,7 +7,7 @@
 =============================================================================*/
 
 #ifndef ___MESHANIM_H
-#define ___MESHANIM_H           "steaming mad"
+#define ___MESHANIM_H
 
 #include "Types.h"
 #include "B-Spline.h"
@@ -178,5 +178,4 @@ void Save_madBindings(struct Ship *ship);
 void Load_madBindings(struct Ship *ship);
 void Fix_madBindings(struct Ship *ship);
 
-#endif //___MESHANIM_H
-
+#endif

@@ -138,5 +138,4 @@ void pingNewShipPingCreate(vector *position);
 void pingSave(void);
 void pingLoad(void);
 
-#endif //___PING_H
-
+#endif

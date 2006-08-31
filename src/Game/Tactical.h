@@ -90,5 +90,4 @@ void toAllShipsDraw(void);
 void toLegendDraw(void);
 
 
-#endif //___TACTICAL_H
-
+#endif

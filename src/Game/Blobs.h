@@ -8,7 +8,7 @@
 =============================================================================*/
 
 #ifndef ___BLOBS_H
-#define ___BLOBS_H              1
+#define ___BLOBS_H
 
 #include "Types.h"
 #include "Vector.h"
@@ -217,4 +217,4 @@ extern BobStats bobStats;
 void blobAnalVerifyFn(blob *thisBlob);
 #endif
 
-#endif //___BLOBS_H
+#endif

@@ -5,8 +5,8 @@
 
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
-#ifndef CHATTING_H
-#define CHATTING_H
+#ifndef ___CHATTING_H
+#define ___CHATTING_H
 
 #include "Types.h"
 

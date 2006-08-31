@@ -362,5 +362,4 @@ void uicListWindowPageDown(listwindowhandle listhandle);
 void uicListWindowSetCurItem(listwindowhandle listhandle, listitemhandle item);
 
 
-//...
-#endif //___UICONTROLS_H
+#endif

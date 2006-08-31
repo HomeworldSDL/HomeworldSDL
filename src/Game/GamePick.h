@@ -7,7 +7,7 @@
 =============================================================================*/
 
 #ifndef ___GAMEPICK_H
-#define ___GAMEPICK_H           3.4444445f
+#define ___GAMEPICK_H
 
 #include "Types.h"
 #include "FEFlow.h"
@@ -79,4 +79,4 @@ sdword gpGameListProcess(regionhandle region, sdword ID, udword event, udword da
 
 sdword gpCountTrainingSavegames(void);
 
-#endif //___GAMEPICK_H
+#endif

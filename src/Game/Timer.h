@@ -1,5 +1,5 @@
-#ifndef __TIMER_H
-#define __TIMER_H
+#ifndef ___TIMER_H
+#define ___TIMER_H
 
 #include "Types.h"
 #include "Universe.h"

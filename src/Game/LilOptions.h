@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef _LILOPTIONS_H
-#define _LILOPTIONS_H
+#ifndef ___LILOPTIONS_H
+#define ___LILOPTIONS_H
 
 #include "Types.h"
 

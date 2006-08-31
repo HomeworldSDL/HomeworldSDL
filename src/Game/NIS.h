@@ -9,14 +9,8 @@
 #ifndef ___NIS_H
 #define ___NIS_H
 
-#ifndef ___TYPES_H
 #include "Types.h"
-#endif
-
-#ifndef ___B_SPLINE_H
 #include "B-Spline.h"
-#endif
-
 #include "Camera.h"
 #include "SpaceObj.h"
 #include "Task.h"
@@ -458,5 +452,4 @@ void nisTestAnother(sdword skip);
 #endif
 
 
-#endif //___NIS_H
-
+#endif

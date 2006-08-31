@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___AIDEFENSEMANAGER_H
-#define ___AIDEFENSEMANAGER_H
+#ifndef ___AIDEFENSEMAN_H
+#define ___AIDEFENSEMAN_H
 
 #include "Types.h"
 #include "SpaceObj.h"

@@ -6,6 +6,9 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
+#ifndef ___MADLINKINDEFS_H
+#define ___MADLINKINDEFS_H
+
 //madAnimationFlags Vars
 #define MAD_ANIMATION_NEED_PROC             0x00000001
 #define MAD_NEED_TO_START_NEW_ANIMATION     0x00000002
@@ -44,4 +47,4 @@
 #define MAD_STATUS_SPECIAL_OPENING                     15
 #define MAD_STATUS_SPECIAL_CLOSING                     16
 
-
+#endif

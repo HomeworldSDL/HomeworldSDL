@@ -1,5 +1,5 @@
-#ifndef ___STRINGS_ONLY_H
-#define ___STRINGS_ONLY_H
+#ifndef ___STRINGSONLY_H
+#define ___STRINGSONLY_H
 
 // important: do not include types.h, statscript.h, or any other game/windows include files
 
@@ -674,5 +674,4 @@ extern char *MessageStrings[NumStrings];
 #define strGetString(string) (MessageStrings[string])
 
 
-#endif //___STRINGS_ONLY_H
-
+#endif

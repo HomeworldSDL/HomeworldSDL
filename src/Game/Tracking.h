@@ -7,7 +7,7 @@
 =============================================================================*/
 
 #ifndef ___TRACKING_H
-#define ___TRACKING_H   12
+#define ___TRACKING_H
 
 #include "Types.h"
 #include "color.h"
@@ -73,13 +73,11 @@ trackvalue;
     Functions:
 =============================================================================*/
 #if NUMBER_TRACKING
-
 void trkTrackValueAddFn(char *name, real32 *number, real32 *timer, color c);
 void trkTrackValueRemoveFn(char *name);
 void trkTrackValueRemoveAllFn(void);
-
 void trkTrackValuesDisplayFn(void);
+#endif
 
-#endif //NUMBER_TRACKING
-#endif //___TRACKING_H
 
+#endif

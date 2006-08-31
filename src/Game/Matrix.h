@@ -228,5 +228,4 @@ void matMakeRotAboutY(matrix *matrix,real32 costheta,real32 sintheta);
 void matPrintmatrix(matrix *a);
 void matCopyAndScale(matrix *out, matrix *in, real32 scale);
 
-#endif //___MATRIX_H
-
+#endif

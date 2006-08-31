@@ -394,5 +394,4 @@ char *memStrncpy(char *dest, char *source, sdword count);
 sdword memFreeMemGet(mempool *pool);
 #endif
 
-#endif //___MEMORY_H
-
+#endif

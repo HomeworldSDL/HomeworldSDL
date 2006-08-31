@@ -6,6 +6,9 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
+#ifndef ___GAMESTATS_H
+#define ___GAMESTATS_H
+
 //[x] beside statistics that are functional
 
 //resource units doesn't handle retired resources...
@@ -56,3 +59,4 @@ typedef struct GameStats
     PlayerStats playerStats[MAX_MULTIPLAYER_PLAYERS+1];   //[]
 }GameStats;
 
+#endif

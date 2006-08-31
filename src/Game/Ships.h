@@ -51,5 +51,4 @@
 #include "FloatingCity.h"
 #include "P3StandardShip.h"
 
-#endif //___SHIPS_H
-
+#endif

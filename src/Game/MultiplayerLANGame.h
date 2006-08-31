@@ -6,8 +6,6 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-
-
 #ifndef ___MULTIPLAYERLANGAME_H
 #define ___MULTIPLAYERLANGAME_H
 

@@ -1,5 +1,5 @@
-#ifndef __AIORDERS_H
-#define __AIORDERS_H
+#ifndef ___AIORDERS_H
+#define ___AIORDERS_H
 
 #include "Types.h"
 #include "ShipSelect.h"

@@ -15,18 +15,13 @@
 
 #ifndef ___EVAL_H
 #define ___EVAL_H
-/* types */
 
 typedef enum { ALL_OK, DIV_ZERO, RANGE, SYNTAX } ERR_TYPE;
 
-/* functions */
 
 ERR_TYPE evalSyntaxOK(char *);
 double evalEvaluate(char *str, ERR_TYPE *);
 char *evalErrorString(ERR_TYPE type);
 char *evalNum2Str(double n, char *s);
 
-/* --- End of file eval.h --- */
-
-#endif //___EVAL_H
-
+#endif

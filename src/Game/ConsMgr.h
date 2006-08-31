@@ -174,4 +174,4 @@ void cmBuildTaskFunction(void);
 void LoadConsMgrDetermOptional();
 void SaveConsMgrDetermOptional();
 
-#endif //___CONSMGR_H
+#endif

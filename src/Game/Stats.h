@@ -6,6 +6,9 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
+#ifndef ___STATS_H
+#define ___STATS_H
+
 #include "Types.h"
 #include "ShipDefs.h"
 #include "SpaceObj.h"
@@ -116,3 +119,4 @@ SelectCommand *statsGetMostEfficientShipsToKill(ShipStaticInfo *killer,SelectCom
 /*real32 statsGetStatsChecksum();*/
 udword statsGetStatChecksum();
 
+#endif

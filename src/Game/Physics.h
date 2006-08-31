@@ -34,5 +34,4 @@ void physUpdateObjPosVelDerelicts(Derelict *obj,real32 phystimeelapsed);
 void physUpdateObjPosVelMissile(Missile *obj,real32 phystimeelapsed);
 void physUpdateObjPosVelBasic(SpaceObj *obj,real32 phystimeelapsed);
 
-#endif //___PHYSICS_H
-
+#endif

@@ -7,7 +7,7 @@
 =============================================================================*/
 
 #ifndef ___BATTLE_H
-#define ___BATTLE_H     "Oh, the humanity!"
+#define ___BATTLE_H
 
 /*=============================================================================
     Switches:
@@ -264,5 +264,4 @@ void battleChatterFrequencySet(sdword freq100);
 void battleShipDyingWithTimeToScream(Ship *ship);
 void battleLaunchWelcomeExchange(Ship *ship);
 
-#endif //___BATTLE_H
-
+#endif

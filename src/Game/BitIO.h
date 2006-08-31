@@ -8,8 +8,8 @@
 //
 //
 
-#ifndef _BITIO_H
-#define _BITIO_H
+#ifndef ___BITIO_H
+#define ___BITIO_H
 
 #include <stdio.h>
 

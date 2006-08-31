@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef _FEC_H
-#define _FEC_H
+#ifndef ___FECOLOUR_H
+#define ___FECOLOUR_H
 
 extern color FEC_Background;
 extern color FEC_ListItemTranslucent;

@@ -1,4 +1,3 @@
-
 #ifndef ___AIFLEETMAN_H
 #define ___AIFLEETMAN_H
 
@@ -21,5 +20,5 @@ void aifDefenseManRequestsShipsCB(ShipType shiptype,sdword number,sdword priorit
 void aifTeamRequestsShipsCB(ShipType shiptype,sdword number,struct AITeam *team,char *doneSetVar, sdword priority);
 
 void aifHyperspaceInit(struct AIPlayer *aiplayer);
-#endif
 
+#endif

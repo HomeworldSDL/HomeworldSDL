@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___UNIVERSEUPDATE_H
-#define ___UNIVERSEUPDATE_H
+#ifndef ___UNIVUPDATE_H
+#define ___UNIVUPDATE_H
 
 #include "Types.h"
 #include "Vector.h"
@@ -221,4 +221,3 @@ extern IDToPtrTable DerelictIDToPtr;
 extern IDToPtrTable MissileIDToPtr;
 
 #endif
-

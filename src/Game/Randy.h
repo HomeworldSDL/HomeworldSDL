@@ -122,4 +122,4 @@ extern bool ranCallerDebug;
 #define randombetween(a,b) ( randomG((b)-(a)+1) + (a) )
 #define frandombetween(a,b) (frandom((b)-(a)) + (a))
 
-#endif //___RANDY_H
+#endif

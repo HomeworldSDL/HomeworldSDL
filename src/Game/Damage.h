@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef _DAMAGE_H
-#define _DAMAGE_H
+#ifndef ___DAMAGE_H
+#define ___DAMAGE_H
 
 #include "SpaceObj.h"
 

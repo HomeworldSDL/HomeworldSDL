@@ -5,6 +5,7 @@
     Created 5/7/1998 by ddunlop
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
+
 #ifndef ___STRINGS_H
 #define ___STRINGS_H
 
@@ -38,4 +39,4 @@ void  strSetStringCB(char *directory,char *field,void *dataToFillIn);
 strGamesMessages strNameToEnum(char *string);
 void strSetCurKeyboard(void);
 
-#endif //___STRINGS_H
+#endif

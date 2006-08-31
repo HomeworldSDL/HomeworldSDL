@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___ATTRIBUTES
-#define ___ATTRIBUTES
+#ifndef ___ATTRIBUTES_H
+#define ___ATTRIBUTES_H
 
 #define ATTRIBUTES_StripTechnology          0x0001
 #define ATTRIBUTES_ShellOfResources         0x0002

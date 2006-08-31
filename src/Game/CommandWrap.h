@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___COMMAND_WRAP_H
-#define ___COMMNAD_WRAP_H
+#ifndef ___COMMANDWRAP_H
+#define ___COMMNADWRAP_H
 
 #include "Types.h"
 #include "CommandLayer.h"

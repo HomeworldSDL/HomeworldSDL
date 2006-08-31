@@ -43,4 +43,4 @@ void svDirtyShipView(void);
 
 void svShipViewRender(featom* atom, regionhandle region);
 
-#endif //___SHIPVIEW_H
+#endif
