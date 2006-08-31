@@ -1130,7 +1130,7 @@ void aifAssignNewShips(void)
     Outputs     : Whatever's needed to initialize hyperspacing
     Return      : void
 ----------------------------------------------------------------------------*/
-void aifHyperspaceInit(AIPlayer *aiplayer)
+void aifHyperspaceInit(struct AIPlayer *aiplayer)
 {
     //determine what percentage of RUs to skim for hyperspacing
     //for now, just take off 8%

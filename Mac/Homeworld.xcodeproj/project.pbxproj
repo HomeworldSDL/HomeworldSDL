@@ -19,10 +19,7 @@
 		3516C833077C41B0001AA863 /* AIFleetMan.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623BF6064992AE0088361C /* AIFleetMan.h */; };
 		3516C834077C41B0001AA863 /* AIHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623BF8064992AE0088361C /* AIHandler.h */; };
 		3516C835077C41B0001AA863 /* AIMoves.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623BFA064992AE0088361C /* AIMoves.h */; };
-		3516C836077C41B0001AA863 /* AIMoves1.c.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623BFB064992AE0088361C /* AIMoves1.c.h */; };
-		3516C837077C41B0001AA863 /* AIMoves2.c.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623BFC064992AE0088361C /* AIMoves2.c.h */; };
 		3516C838077C41B0001AA863 /* AIOrders.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623BFE064992AE0088361C /* AIOrders.h */; };
-		3516C839077C41B0001AA863 /* AIOrders2.c.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623BFF064992AE0088361C /* AIOrders2.c.h */; };
 		3516C83A077C41B0001AA863 /* AIPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C01064992AE0088361C /* AIPlayer.h */; };
 		3516C83B077C41B0001AA863 /* AIResourceMan.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C03064992AE0088361C /* AIResourceMan.h */; };
 		3516C83C077C41B0001AA863 /* AIShip.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C05064992AE0088361C /* AIShip.h */; };
@@ -560,11 +557,8 @@
 		90623D2A064992AF0088361C /* AIHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623BF8064992AE0088361C /* AIHandler.h */; };
 		90623D2B064992AF0088361C /* AIMoves.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623BF9064992AE0088361C /* AIMoves.c */; };
 		90623D2C064992AF0088361C /* AIMoves.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623BFA064992AE0088361C /* AIMoves.h */; };
-		90623D2D064992AF0088361C /* AIMoves1.c.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623BFB064992AE0088361C /* AIMoves1.c.h */; };
-		90623D2E064992AF0088361C /* AIMoves2.c.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623BFC064992AE0088361C /* AIMoves2.c.h */; };
 		90623D2F064992AF0088361C /* AIOrders.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623BFD064992AE0088361C /* AIOrders.c */; };
 		90623D30064992AF0088361C /* AIOrders.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623BFE064992AE0088361C /* AIOrders.h */; };
-		90623D31064992AF0088361C /* AIOrders2.c.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623BFF064992AE0088361C /* AIOrders2.c.h */; };
 		90623D32064992AF0088361C /* AIPlayer.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C00064992AE0088361C /* AIPlayer.c */; };
 		90623D33064992AF0088361C /* AIPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C01064992AE0088361C /* AIPlayer.h */; };
 		90623D34064992AF0088361C /* AIResourceMan.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C02064992AE0088361C /* AIResourceMan.c */; };
@@ -1122,7 +1116,7 @@
 		35DAEDC6077BAF4D0080465A /* Mission05_OEM.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission05_OEM.func.c; sourceTree = "<group>"; };
 		35DAEDC7077BAF4D0080465A /* Mission05_OEM.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Mission05_OEM.h; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Homeworld.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Homeworld.plist; sourceTree = "<group>"; };
-		8D1107320486CEB800E47090 /* Homeworld.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Homeworld.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D1107320486CEB800E47090 /* Homeworld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Homeworld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9030AF92066D5D2C00B32218 /* avi.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = avi.c; path = ../src/SDL/avi.c; sourceTree = SOURCE_ROOT; };
 		9030AF93066D5D2C00B32218 /* rinit.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = rinit.c; path = ../src/SDL/rinit.c; sourceTree = SOURCE_ROOT; };
 		90623BEE064992AE0088361C /* AIAttackMan.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = AIAttackMan.c; path = ../src/Game/AIAttackMan.c; sourceTree = SOURCE_ROOT; };
@@ -1138,11 +1132,8 @@
 		90623BF8064992AE0088361C /* AIHandler.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = AIHandler.h; path = ../src/Game/AIHandler.h; sourceTree = SOURCE_ROOT; };
 		90623BF9064992AE0088361C /* AIMoves.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = AIMoves.c; path = ../src/Game/AIMoves.c; sourceTree = SOURCE_ROOT; };
 		90623BFA064992AE0088361C /* AIMoves.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = AIMoves.h; path = ../src/Game/AIMoves.h; sourceTree = SOURCE_ROOT; };
-		90623BFB064992AE0088361C /* AIMoves1.c.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = AIMoves1.c.h; path = ../src/Game/AIMoves1.c.h; sourceTree = SOURCE_ROOT; };
-		90623BFC064992AE0088361C /* AIMoves2.c.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = AIMoves2.c.h; path = ../src/Game/AIMoves2.c.h; sourceTree = SOURCE_ROOT; };
 		90623BFD064992AE0088361C /* AIOrders.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = AIOrders.c; path = ../src/Game/AIOrders.c; sourceTree = SOURCE_ROOT; };
 		90623BFE064992AE0088361C /* AIOrders.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = AIOrders.h; path = ../src/Game/AIOrders.h; sourceTree = SOURCE_ROOT; };
-		90623BFF064992AE0088361C /* AIOrders2.c.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = AIOrders2.c.h; path = ../src/Game/AIOrders2.c.h; sourceTree = SOURCE_ROOT; };
 		90623C00064992AE0088361C /* AIPlayer.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = AIPlayer.c; path = ../src/Game/AIPlayer.c; sourceTree = SOURCE_ROOT; };
 		90623C01064992AE0088361C /* AIPlayer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = AIPlayer.h; path = ../src/Game/AIPlayer.h; sourceTree = SOURCE_ROOT; };
 		90623C02064992AE0088361C /* AIResourceMan.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = AIResourceMan.c; path = ../src/Game/AIResourceMan.c; sourceTree = SOURCE_ROOT; };
@@ -1807,11 +1798,8 @@
 				90623BF8064992AE0088361C /* AIHandler.h */,
 				90623BF9064992AE0088361C /* AIMoves.c */,
 				90623BFA064992AE0088361C /* AIMoves.h */,
-				90623BFB064992AE0088361C /* AIMoves1.c.h */,
-				90623BFC064992AE0088361C /* AIMoves2.c.h */,
 				90623BFD064992AE0088361C /* AIOrders.c */,
 				90623BFE064992AE0088361C /* AIOrders.h */,
-				90623BFF064992AE0088361C /* AIOrders2.c.h */,
 				90623C00064992AE0088361C /* AIPlayer.c */,
 				90623C01064992AE0088361C /* AIPlayer.h */,
 				90623C02064992AE0088361C /* AIResourceMan.c */,
@@ -2406,10 +2394,7 @@
 				3516C833077C41B0001AA863 /* AIFleetMan.h in Headers */,
 				3516C834077C41B0001AA863 /* AIHandler.h in Headers */,
 				3516C835077C41B0001AA863 /* AIMoves.h in Headers */,
-				3516C836077C41B0001AA863 /* AIMoves1.c.h in Headers */,
-				3516C837077C41B0001AA863 /* AIMoves2.c.h in Headers */,
 				3516C838077C41B0001AA863 /* AIOrders.h in Headers */,
-				3516C839077C41B0001AA863 /* AIOrders2.c.h in Headers */,
 				3516C83A077C41B0001AA863 /* AIPlayer.h in Headers */,
 				3516C83B077C41B0001AA863 /* AIResourceMan.h in Headers */,
 				3516C83C077C41B0001AA863 /* AIShip.h in Headers */,
@@ -2675,10 +2660,7 @@
 				90623D28064992AF0088361C /* AIFleetMan.h in Headers */,
 				90623D2A064992AF0088361C /* AIHandler.h in Headers */,
 				90623D2C064992AF0088361C /* AIMoves.h in Headers */,
-				90623D2D064992AF0088361C /* AIMoves1.c.h in Headers */,
-				90623D2E064992AF0088361C /* AIMoves2.c.h in Headers */,
 				90623D30064992AF0088361C /* AIOrders.h in Headers */,
-				90623D31064992AF0088361C /* AIOrders2.c.h in Headers */,
 				90623D33064992AF0088361C /* AIPlayer.h in Headers */,
 				90623D35064992AF0088361C /* AIResourceMan.h in Headers */,
 				90623D37064992AF0088361C /* AIShip.h in Headers */,
