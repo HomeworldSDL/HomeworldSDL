@@ -1,5 +1,5 @@
-#ifndef _TitanPacketMsg_H
-#define _TitanPacketMsg_H
+#ifndef ___TITANPACKETMSG_H
+#define ___TITANPACKETMSG_H
 
 
 #include <string>

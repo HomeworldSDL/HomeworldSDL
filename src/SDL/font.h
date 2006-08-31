@@ -187,4 +187,4 @@ sdword fontHeightf(char *format, ...);
 void glfontRecreate(fontheader* header);
 
 
-#endif //___FONT_H
+#endif

@@ -6,8 +6,8 @@ Created 19/06/1998 by khent
 Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef _GLCAPS_H
-#define _GLCAPS_H
+#ifndef ___GLCAPS_H
+#define ___GLCAPS_H
 
 #ifndef SW_Render
 #ifdef _WIN32

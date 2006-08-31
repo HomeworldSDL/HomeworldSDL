@@ -5,8 +5,8 @@
 //
 // Version 1.6a
 
-#ifndef FQEFFECT_H
-#define FQEFFECT_H
+#ifndef ___FQEFFECT_H
+#define ___FQEFFECT_H
 
 // Constants
 #define UNIFORM		((float)(pRandF(nRandP)&RAND_MAX)/RAND_MAX-0.5F)
@@ -110,4 +110,4 @@ float gaussian();
 }		// extern "C"
 #endif
 
-#endif  // FQEFFECT_H
+#endif

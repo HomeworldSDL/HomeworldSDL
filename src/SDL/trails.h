@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___TRAIL_H
-#define ___TRAIL_H
+#ifndef ___TRAILS_H
+#define ___TRAILS_H
 
 #include "Types.h"
 #include "color.h"
@@ -168,4 +168,4 @@ void trailRecolorize(trailstatic *trailStatic);
 void trailsRecolorize(void);
 void mistrailsRecolorize(void);
 
-#endif //___TRAIL_H
+#endif

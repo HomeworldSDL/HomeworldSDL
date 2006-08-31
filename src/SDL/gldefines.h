@@ -1,3 +1,6 @@
+#ifndef ___GLDEFINES_H
+#define ___GLDEFINES_H
+
 #ifdef _WIN32
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
@@ -1111,3 +1114,5 @@
 #define GL_INDEX_MATERIAL_SGI               0x81B8
 #define GL_INDEX_MATERIAL_PARAMETER_SGI     0x81B9
 #define GL_INDEX_MATERIAL_FACE_SGI          0x81BA
+
+#endif

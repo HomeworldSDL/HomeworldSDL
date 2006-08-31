@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef _RINIT_H
-#define _RINIT_H
+#ifndef ___RINIT_H
+#define ___RINIT_H
 
 typedef struct rmode
 {

@@ -115,5 +115,4 @@ void   dbwPaneClear(sdword pane);
 sdword dbwCursorSet(sdword pane, sdword x, sdword y);
 #endif  /* _WIN32 */
 
-#endif //___DEBUGWND_H
-
+#endif

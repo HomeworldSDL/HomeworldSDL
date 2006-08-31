@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef _SSTGLIDE_H
-#define _SSTGLIDE_H
+#ifndef ___SSTGLIDE_H
+#define ___SSTGLIDE_H
 
 #include "Types.h"
 

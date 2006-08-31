@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef _RGLU_H
-#define _RGLU_H
+#ifndef ___RGLU_H
+#define ___RGLU_H
 
 void rgluPerspective(GLdouble fovy, GLdouble aspect, GLdouble zNear, GLdouble zFar);
 GLint rgluProject(GLdouble objx, GLdouble objy, GLdouble objz,

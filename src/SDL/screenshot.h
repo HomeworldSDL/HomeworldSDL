@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef _SCREENSHOT_H
-#define _SCREENSHOT_H
+#ifndef ___SCREENSHOT_H
+#define ___SCREENSHOT_H
 
 #define SS_SCREENSHOTS         1
 #ifndef HW_Release

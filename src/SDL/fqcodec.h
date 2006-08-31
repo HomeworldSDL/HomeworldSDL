@@ -5,8 +5,8 @@
 //
 // Version 1.6a
 
-#ifndef FQCODEC_H
-#define FQCODEC_H
+#ifndef ___FQCODEC_H
+#define ___FQCODEC_H
 
 // General constants
 #ifndef OK
@@ -77,4 +77,4 @@ int fqWriteTBlock(float *aLBlock,float *aRBlock,short nChan,
 }		// extern "C"
 #endif
 
-#endif  // FQCODEC_H
+#endif

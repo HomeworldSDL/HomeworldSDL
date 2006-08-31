@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef _AVI_H
-#define _AVI_H
+#ifndef ___AVI_H
+#define ___AVI_H
 
 #ifdef __cplusplus
 extern "C" {

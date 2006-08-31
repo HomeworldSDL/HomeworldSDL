@@ -5,8 +5,8 @@
 //
 // Version 1.6a
 
-#ifndef FQUANT_H
-#define FQUANT_H
+#ifndef ___FQUANT_H
+#define ___FQUANT_H
 
 // General constants
 #define FQ_LEN		260			// Block length (bytes)
@@ -72,4 +72,4 @@ int linint(float *xa,float *ya,unsigned long n,float x,float *y);
 }		// extern "C"
 #endif
 
-#endif  // FQUANT_H
+#endif

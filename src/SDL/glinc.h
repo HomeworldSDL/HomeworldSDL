@@ -1,5 +1,5 @@
-#ifndef __GLINC_H
-#define __GLINC_H
+#ifndef ___GLINC_H
+#define ___GLINC_H
 
 #ifdef _WIN32
 #define WIN32_LEAN_AND_MEAN

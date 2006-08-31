@@ -178,5 +178,4 @@ void mrRemoveAllProbesFromSelection();
 void mrNISStarting(void);
 void mrNISStopping(void);
 
-#endif //___MAINRGN_H
-
+#endif

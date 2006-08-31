@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef _DXDRAW_H
-#define _DXDRAW_H
+#ifndef ___DXDRAW_H
+#define ___DXDRAW_H
 
 //used for OpenGL devices that don't like DirectDraw,
 //and for intro video sequences

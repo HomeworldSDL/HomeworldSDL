@@ -3,8 +3,8 @@
 //
 // $History: $
 
-#ifndef WAVE_H
-#define WAVE_H
+#ifndef ___WAVE_H
+#define ___WAVE_H
 
 // General constants
 #ifndef OK

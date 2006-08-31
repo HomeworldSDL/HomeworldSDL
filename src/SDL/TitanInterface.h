@@ -1,5 +1,5 @@
-#ifndef _TitanInterface_H
-#define _TitanInterface_H
+#ifndef ___TITANINTERFACE_H
+#define ___TITANINTERFACE_H
 
 #include "DEQUE"
 #include "MAP"
@@ -426,4 +426,4 @@ private:
     static bool TitanInterface::ReadFromWonstuff(bool restart, unsigned char* theBufferP);
 };
 
-#endif // _TitanInterface_H
+#endif

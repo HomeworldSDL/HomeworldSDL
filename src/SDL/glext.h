@@ -6,8 +6,8 @@ Created 06/07/1998 by khent
 Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef _GLEXT_H
-#define _GLEXT_H
+#ifndef ___GLEXT_H
+#define ___GLEXT_H
 
 #ifndef GL_RESCALE_NORMAL
 #define GL_RESCALE_NORMAL 0x803A

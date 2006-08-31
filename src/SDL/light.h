@@ -100,4 +100,4 @@ void lightSetNumLights(udword numLights);
 
 void lightGetPosition(sdword lightIndex, hvector* position);
 
-#endif //___LIGHT_H
+#endif

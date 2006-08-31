@@ -210,5 +210,4 @@ void mouseCursorTextDraw(void);
 //poll current location of mouse and store internally
 void mousePoll(void);
 
-#endif //___MOUSE_H
-
+#endif

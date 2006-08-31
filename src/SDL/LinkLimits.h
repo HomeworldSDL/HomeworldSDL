@@ -21,5 +21,4 @@ extern char *linkEndData;
 udword linkEndCode(udword var);
 udword linkStartCode(udword var);
 
-#endif //___LINKLIMITS_H
-
+#endif

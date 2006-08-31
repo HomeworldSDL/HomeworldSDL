@@ -1,5 +1,6 @@
 #ifndef ___RESOURCE_H
 #define ___RESOURCE_H
+
 /* TC 2003-09-30: Still using this for some of the codes (particularly
    "CID_*"). */
 
@@ -20,5 +21,4 @@
 #define IDD_CommandLine                 101
 #define IDC_CommandLine                 1003
 
-#endif //___RESOURCE_H
-
+#endif

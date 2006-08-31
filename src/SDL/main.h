@@ -134,5 +134,4 @@ void mainRestoreSoftware(void);
 //video playback module convenience functions
 void mainCleanupAfterVideo(void);
 
-#endif //___MAIN_H
-
+#endif

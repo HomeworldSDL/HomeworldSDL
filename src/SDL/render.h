@@ -185,4 +185,5 @@ void rndGLStateLogFunction(char *location);
 #else
 #define rndGLStateLog(s)
 #endif
-#endif //___RENDER_H
+
+#endif

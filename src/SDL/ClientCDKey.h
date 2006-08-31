@@ -1,5 +1,5 @@
-#ifndef _CLIENTCDKEY_H
-#define _CLIENTCDKEY_H
+#ifndef ___CLIENTCDKEY_H
+#define ___CLIENTCDKEY_H
 
 // ClientCDKey
 

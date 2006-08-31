@@ -5,8 +5,8 @@
         Created June 1997 by Luke Moloney.
 =============================================================================*/
 
-#ifndef ___UITILITY_H
-#define ___UITILITY_H
+#ifndef ___UTILITY_H
+#define ___UTILITY_H
 
 #include "Types.h"
 #include "prim2d.h"
@@ -211,5 +211,4 @@ void utyStartDroppedDialog(sdword playernum);
 
 extern sdword utyPlayerDroppedDisplay;
 
-#endif //___UITILITY_H
-
+#endif

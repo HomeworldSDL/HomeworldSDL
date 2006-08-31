@@ -86,5 +86,4 @@ color colMultiplyClamped(color c, real32 factor);
 sdword colRGBCompare(color *p0, color *p1, sdword nPixels);
 color colBlend(color c0, color c1, real32 factor);
 
-#endif //___COLOR_H
-
+#endif

@@ -4,6 +4,9 @@
     Created Sept 1999 by Janik Joire
 =============================================================================*/
 
+#ifndef ___REGKEY_H
+#define ___REGKEY_H
+
 // Do not change these registry key definitions! The installer depends on them...
 #if defined(HW_DEMO)
 
@@ -30,5 +33,7 @@
     #else
         #define CONFIGDIR ".homeworld"
     #endif
+
+#endif
 
 #endif

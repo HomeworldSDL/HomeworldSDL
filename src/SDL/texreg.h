@@ -365,5 +365,4 @@ void trNoPalResizePool(sdword mb);
 void trNoPalReadjust(void);
 void trNoPalFilter(sdword bEnable, sdword handle);
 
-#endif //___TEXREG_H
-
+#endif

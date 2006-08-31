@@ -48,5 +48,5 @@ void primSolidTexture3Fade(vector *p1, real32 size, color c, trhandle tex, real3
 
 void prim3dStartup(void);
 void prim3dShutdown(void);
-#endif //___PRIM3D_H
 
+#endif

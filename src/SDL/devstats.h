@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef _DEVSTATS_H
-#define _DEVSTATS_H
+#ifndef ___DEVSTATS_H
+#define ___DEVSTATS_H
 
 //bit 00 (000001) disable fast front end d3d, gl
 //bit 01 (000002) disable fast front end gl

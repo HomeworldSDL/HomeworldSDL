@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___TIMEOUT_TIMER_H
-#define ___TIMEOUT_TIMER_H
+#ifndef ___TIMEOUTTIMER_H
+#define ___TIMEOUTTIMER_H
 
 #include "Types.h"
 

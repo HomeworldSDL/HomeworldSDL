@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef _GLCOMPAT_H
-#define _GLCOMPAT_H
+#ifndef ___GLCOMPAT_H
+#define ___GLCOMPAT_H
 
 #include "prim2d.h"
 #include "color.h"

@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef _GLDLL_H
-#define _GLDLL_H
+#ifndef ___GLDLL_H
+#define ___GLDLL_H
 
 typedef unsigned int GLenum;
 typedef unsigned char GLboolean;

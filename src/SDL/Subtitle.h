@@ -7,7 +7,7 @@
 =============================================================================*/
 
 #ifndef ___SUBTITLE_H
-#define ___SUBTITLE_H   "You are not hearing this!"
+#define ___SUBTITLE_H
 
 #include "prim2d.h"
 #include "color.h"
@@ -187,5 +187,4 @@ void subTitlesDraw(subregion *region);
 void subTitlesFadeOut(subregion *region, real32 fadeTime);
 sdword subStringsChop(rectangle *region, fonthandle font, sdword longLength, char *longString, char *chopBuffer, char **choppedStrings);
 
-#endif //___SUBTITLE_H
-
+#endif

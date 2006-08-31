@@ -1,6 +1,5 @@
-
-#ifndef ___TITAN_INTERFACEC_H
-#define ___TITAN_INTERFACEC_H
+#ifndef ___TITANINTERFACEC_H
+#define ___TITANINTERFACEC_H
 
 #ifdef _MACOSX
     #include <stdlib.h>
