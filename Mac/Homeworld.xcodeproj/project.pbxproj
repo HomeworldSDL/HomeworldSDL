@@ -93,7 +93,6 @@
 		3516C87D077C41B0001AA863 /* KeyBindings.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C80064992AE0088361C /* KeyBindings.h */; };
 		3516C87E077C41B0001AA863 /* LagPrint.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C82064992AE0088361C /* LagPrint.h */; };
 		3516C87F077C41B0001AA863 /* LaunchMgr.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C84064992AE0088361C /* LaunchMgr.h */; };
-		3516C880077C41B0001AA863 /* LetterDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C85064992AE0088361C /* LetterDefs.h */; };
 		3516C881077C41B0001AA863 /* LevelLoad.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C87064992AE0088361C /* LevelLoad.h */; };
 		3516C882077C41B0001AA863 /* LilOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C88064992AE0088361C /* LilOptions.h */; };
 		3516C883077C41B0001AA863 /* LinkedList.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C8A064992AE0088361C /* LinkedList.h */; };
@@ -699,7 +698,6 @@
 		90623DB4064992AF0088361C /* LagPrint.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C82064992AE0088361C /* LagPrint.h */; };
 		90623DB5064992AF0088361C /* LaunchMgr.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C83064992AE0088361C /* LaunchMgr.c */; };
 		90623DB6064992AF0088361C /* LaunchMgr.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C84064992AE0088361C /* LaunchMgr.h */; };
-		90623DB7064992AF0088361C /* LetterDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C85064992AE0088361C /* LetterDefs.h */; };
 		90623DB8064992AF0088361C /* LevelLoad.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C86064992AE0088361C /* LevelLoad.c */; };
 		90623DB9064992AF0088361C /* LevelLoad.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C87064992AE0088361C /* LevelLoad.h */; };
 		90623DBA064992AF0088361C /* LilOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C88064992AE0088361C /* LilOptions.h */; };
@@ -1124,7 +1122,7 @@
 		35DAEDC6077BAF4D0080465A /* Mission05_OEM.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission05_OEM.func.c; sourceTree = "<group>"; };
 		35DAEDC7077BAF4D0080465A /* Mission05_OEM.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Mission05_OEM.h; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Homeworld.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Homeworld.plist; sourceTree = "<group>"; };
-		8D1107320486CEB800E47090 /* Homeworld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Homeworld.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D1107320486CEB800E47090 /* Homeworld.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Homeworld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9030AF92066D5D2C00B32218 /* avi.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = avi.c; path = ../src/SDL/avi.c; sourceTree = SOURCE_ROOT; };
 		9030AF93066D5D2C00B32218 /* rinit.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = rinit.c; path = ../src/SDL/rinit.c; sourceTree = SOURCE_ROOT; };
 		90623BEE064992AE0088361C /* AIAttackMan.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = AIAttackMan.c; path = ../src/Game/AIAttackMan.c; sourceTree = SOURCE_ROOT; };
@@ -1278,7 +1276,6 @@
 		90623C82064992AE0088361C /* LagPrint.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = LagPrint.h; path = ../src/Game/LagPrint.h; sourceTree = SOURCE_ROOT; };
 		90623C83064992AE0088361C /* LaunchMgr.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = LaunchMgr.c; path = ../src/Game/LaunchMgr.c; sourceTree = SOURCE_ROOT; };
 		90623C84064992AE0088361C /* LaunchMgr.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = LaunchMgr.h; path = ../src/Game/LaunchMgr.h; sourceTree = SOURCE_ROOT; };
-		90623C85064992AE0088361C /* LetterDefs.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = LetterDefs.h; path = ../src/Game/LetterDefs.h; sourceTree = SOURCE_ROOT; };
 		90623C86064992AE0088361C /* LevelLoad.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = LevelLoad.c; path = ../src/Game/LevelLoad.c; sourceTree = SOURCE_ROOT; };
 		90623C87064992AE0088361C /* LevelLoad.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = LevelLoad.h; path = ../src/Game/LevelLoad.h; sourceTree = SOURCE_ROOT; };
 		90623C88064992AE0088361C /* LilOptions.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = LilOptions.h; path = ../src/Game/LilOptions.h; sourceTree = SOURCE_ROOT; };
@@ -1948,7 +1945,6 @@
 				90623C82064992AE0088361C /* LagPrint.h */,
 				90623C83064992AE0088361C /* LaunchMgr.c */,
 				90623C84064992AE0088361C /* LaunchMgr.h */,
-				90623C85064992AE0088361C /* LetterDefs.h */,
 				90623C86064992AE0088361C /* LevelLoad.c */,
 				90623C87064992AE0088361C /* LevelLoad.h */,
 				90623C88064992AE0088361C /* LilOptions.h */,
@@ -2484,7 +2480,6 @@
 				3516C87D077C41B0001AA863 /* KeyBindings.h in Headers */,
 				3516C87E077C41B0001AA863 /* LagPrint.h in Headers */,
 				3516C87F077C41B0001AA863 /* LaunchMgr.h in Headers */,
-				3516C880077C41B0001AA863 /* LetterDefs.h in Headers */,
 				3516C881077C41B0001AA863 /* LevelLoad.h in Headers */,
 				3516C882077C41B0001AA863 /* LilOptions.h in Headers */,
 				3516C883077C41B0001AA863 /* LinkedList.h in Headers */,
@@ -2754,7 +2749,6 @@
 				90623DB2064992AF0088361C /* KeyBindings.h in Headers */,
 				90623DB4064992AF0088361C /* LagPrint.h in Headers */,
 				90623DB6064992AF0088361C /* LaunchMgr.h in Headers */,
-				90623DB7064992AF0088361C /* LetterDefs.h in Headers */,
 				90623DB9064992AF0088361C /* LevelLoad.h in Headers */,
 				90623DBA064992AF0088361C /* LilOptions.h in Headers */,
 				90623DBC064992AF0088361C /* LinkedList.h in Headers */,
