@@ -49,7 +49,7 @@ Player *aifFindEnemyOf(Player *player)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void aifInit(struct AIPlayer *aiplayer)
+void aifInit(AIPlayer *aiplayer)
 {
     aiplayer->firstTurn         = TRUE;
     aiplayer->recalculateAllies = TRUE;
@@ -81,7 +81,7 @@ void aifInit(struct AIPlayer *aiplayer)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void aifClose(struct AIPlayer *aiplayer)
+void aifClose(AIPlayer *aiplayer)
 {
     ;
 }
@@ -93,7 +93,7 @@ void aifClose(struct AIPlayer *aiplayer)
     Outputs     :
     Return      : TRUE if the ship was found and removed
 ----------------------------------------------------------------------------*/
-bool aifShipDied(struct AIPlayer *aiplayer,ShipPtr ship)
+bool aifShipDied(AIPlayer *aiplayer,ShipPtr ship)
 {
     bool return_value = FALSE;
 
@@ -693,7 +693,7 @@ void aifResourceManRequestsShipsCB(ShipType shiptype,sdword number,sdword priori
             dbgAssert(strlen(dSetVar) <= AIVAR_LABEL_MAX_LENGTH);                           \
             strcpy((twaiting)->doneSetVarStr,(dSetVar))
 
-void aifTeamRequestsShipsCB(ShipType shiptype,sdword number,struct AITeam *team,char *doneSetVar, sdword priority)
+void aifTeamRequestsShipsCB(ShipType shiptype,sdword number,AITeam *team,char *doneSetVar, sdword priority)
 {
     TeamWaitingForTheseShips *teamWaiting;
 
@@ -773,7 +773,7 @@ void RemoveTeamFromTeamWaitingQ(LinkedList *TeamWaitingQ,AITeam *team)
     }
 }
 
-void aifTeamDied(struct AIPlayer *aiplayer,struct AITeam *team, bool removeAllReferencesToTeam)
+void aifTeamDied(AIPlayer *aiplayer,AITeam *team, bool removeAllReferencesToTeam)
 {
     sdword i, j;
     MsgQueue *msgQP;
@@ -1130,7 +1130,7 @@ void aifAssignNewShips(void)
     Outputs     : Whatever's needed to initialize hyperspacing
     Return      : void
 ----------------------------------------------------------------------------*/
-void aifHyperspaceInit(struct AIPlayer *aiplayer)
+void aifHyperspaceInit(AIPlayer *aiplayer)
 {
     //determine what percentage of RUs to skim for hyperspacing
     //for now, just take off 8%

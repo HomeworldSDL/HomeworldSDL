@@ -9,29 +9,21 @@
 #ifndef ___AIATTACKMAN_H
 #define ___AIATTACKMAN_H
 
+#include "AIPlayer.h"
+#include "AITeam.h"
 #include "Types.h"
-#include "SpaceObj.h"
 #include "Select.h"
 
-typedef struct
-{
-    ubyte          numTeams;        //how many teams are needed to go for an armada run
-    SelectCommand *targets;
-    sdword         visibility;
-    struct AITeam *recon_team;
-} ArmadaType;
-
-
-struct AITeam *aiaSendRecon(SelectCommand *ships);
+AITeam *aiaSendRecon(SelectCommand *ships);
 void aiaAttackManager(void);
 void aiaProcessSpecialTeams(void);
-bool aiaShipDied(struct AIPlayer *aiplayer, ShipPtr ship);
-void aiaTeamDied(struct AIPlayer *aiplayer,struct AITeam *team);
+bool aiaShipDied(AIPlayer *aiplayer, ShipPtr ship);
+void aiaTeamDied(AIPlayer *aiplayer, AITeam *team);
 
 void aiaP2AttackManager(void);
 
-void aiaInit(struct AIPlayer *aiplayer);
-void aiaClose(struct AIPlayer *aiplayer);
+void aiaInit(AIPlayer *aiplayer);
+void aiaClose(AIPlayer *aiplayer);
 
 //void aiaAddNewShip(Ship *ship);
 

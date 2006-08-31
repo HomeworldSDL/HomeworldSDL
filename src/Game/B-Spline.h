@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___B-SPLINE_H
-#define ___B-SPLINE_H
+#ifndef ___B_SPLINE_H
+#define ___B_SPLINE_H 
 
 /*=============================================================================
     Switches:

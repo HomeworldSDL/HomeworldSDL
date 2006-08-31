@@ -27,6 +27,7 @@
 #include "SaveGame.h"
 #include "HS.h"
 #include "CommandWrap.h"
+#include "Select.h"
 
 #ifdef _WIN32
 #define strcasecmp  _stricmp

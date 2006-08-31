@@ -13,9 +13,9 @@
 #include "ObjTypes.h"
 #include "Universe.h"
 #include "AIResourceMan.h"
-#include "AIAttackMan.h"
 #include "AIVar.h"
 #include "AIFeatures.h"
+#include "AITeam.h"
 
 typedef enum
 {
@@ -24,16 +24,6 @@ typedef enum
     AI_ADV,           //advanced
     AI_NUM_LEVELS
 } AIPlayerLevel;
-
-typedef enum
-{
-    TEAM_BEGINNER,
-    TEAM_BEGINNER_INTERMEDIATE,
-    TEAM_INTERMEDIATE,
-    TEAM_INTERMEDIATE_ADVANCED,
-    TEAM_ADVANCED,
-    NUM_TEAMLEVEL_TYPES
-} AITeamLevel;
 
 
 #define REQUESTSHIPS_HIPRI      1
@@ -46,7 +36,7 @@ typedef struct RequestShips
     ShipPtr creator;    //the ship where the request will be fulfilled
 } RequestShips;
 
-typedef struct
+typedef struct TeamWaitingForTheseShips
 {
     Node node;
     ShipType shiptype;
@@ -59,6 +49,14 @@ typedef struct ShipTypesBeingBuilt
 {
     ubyte NumShipsOfType[TOTAL_NUM_SHIPS];
 } ShipTypesBeingBuilt;
+
+typedef struct ArmadaType
+{
+    ubyte          numTeams;        //how many teams are needed to go for an armada run
+    SelectCommand *targets;
+    sdword         visibility;
+    struct AITeam *recon_team;
+} ArmadaType;
 
 typedef enum
 {

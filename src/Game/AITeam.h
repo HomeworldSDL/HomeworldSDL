@@ -116,6 +116,16 @@ typedef enum {
     NUMBER_OF_MOVETYPES    // must go last
 } AIMoveTypes;
 
+typedef enum
+{
+    TEAM_BEGINNER,
+    TEAM_BEGINNER_INTERMEDIATE,
+    TEAM_INTERMEDIATE,
+    TEAM_INTERMEDIATE_ADVANCED,
+    TEAM_ADVANCED,
+    NUM_TEAMLEVEL_TYPES
+} AITeamLevel;
+
 typedef struct {
     ShipType  shipType;
     sdword    numShips;

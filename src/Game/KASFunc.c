@@ -52,6 +52,7 @@
 #include "DDDFrigate.h"
 #include "ConsMgr.h"
 #include "Universe.h"
+#include "Select.h"
 
 #ifdef _WIN32
 #define strncasecmp _strnicmp
