@@ -7,7 +7,7 @@
 =============================================================================*/
 
 #ifndef ___COMMANDWRAP_H
-#define ___COMMNADWRAP_H
+#define ___COMMANDWRAP_H
 
 #include "Types.h"
 #include "CommandLayer.h"
