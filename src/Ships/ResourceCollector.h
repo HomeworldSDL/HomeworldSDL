@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___RESOURCE_COLLECTOR_H
-#define ___RESOURCE_COLLECTOR_H
+#ifndef ___RESOURCECOLLECTOR_H
+#define ___RESOURCECOLLECTOR_H
 
 #include "Types.h"
 #include "SpaceObj.h"
@@ -27,5 +27,4 @@ typedef struct
 
 extern CustShipHeader ResourceCollectorHeader;
 
-#endif //___RESOURCE_COLLECTOR_H
-
+#endif

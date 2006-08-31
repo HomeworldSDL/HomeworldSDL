@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___RESOURCE_CONTROLLER_H
-#define ___RESOURCE_CONTROLLER_H
+#ifndef ___RESOURCECONTROLLER_H
+#define ___RESOURCECONTROLLER_H
 
 #include "Types.h"
 #include "SpaceObj.h"
@@ -27,5 +27,4 @@ typedef struct
 
 extern CustShipHeader ResourceControllerHeader;
 
-#endif //___RESOURCE_CONTROLLER_H
-
+#endif

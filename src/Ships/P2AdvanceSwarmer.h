@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___P2_ADVANCESWARMER_H
-#define ___P2_ADVANCESWARMER_H
+#ifndef ___P2ADVANCESWARMER_H
+#define ___P2ADVANCESWARMER_H
 
 #include "Types.h"
 #include "SpaceObj.h"
@@ -28,5 +28,4 @@ typedef struct
 
 extern CustShipHeader P2AdvanceSwarmerHeader;
 
-#endif //___P2_ADVANCESWARMER_H
-
+#endif

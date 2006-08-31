@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___DDD_FRIGATE_H
-#define ___DDD_FRIGATE_H
+#ifndef ___DDDFRIGATE_H
+#define ___DDDFRIGATE_H
 
 #include "Types.h"
 #include "SpaceObj.h"
@@ -56,5 +56,4 @@ void DDDFrigateJustDisabled(Ship *ship);
 void DDDFrigateSwitchSides(Ship *dddf,sdword player);
 void DDDFrigateDockAllDronesInstantly(Ship *ship);
 
-#endif //___DDD_FRIGATE_H
-
+#endif

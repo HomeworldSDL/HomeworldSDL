@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___HEAVY_CORVETTE_H
-#define ___HEAVY_CORVETTE_H
+#ifndef ___HEAVYCORVETTE_H
+#define ___HEAVYCORVETTE_H
 
 #include "Types.h"
 #include "SpaceObj.h"
@@ -36,5 +36,4 @@ void heavyCorvetteOrderChanged(Ship *ship);
 
 extern CustShipHeader HeavyCorvetteHeader;
 
-#endif //___HEAVY_CORVETTE_H
-
+#endif

@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___REPAIR_CORVETTE_H
-#define ___REPAIR_CORVETTE_H
+#ifndef ___REPAIRCORVETTE_H
+#define ___REPAIRCORVETTE_H
 
 #include "Types.h"
 #include "SpaceObj.h"
@@ -71,5 +71,4 @@ void stopRepairEffect(Ship *ship);
 bool refuelRepairShips(Ship *ship, SelectAnyCommand *targets,real32 rangetoRefuel);
 
 
-#endif //___REPAIR_CORVETTE_H
-
+#endif

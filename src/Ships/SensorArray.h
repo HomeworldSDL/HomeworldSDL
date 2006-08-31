@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___SENSOR_ARRAY_H
-#define ___SENSOR_ARRAY_H
+#ifndef ___SENSORARRAY_H
+#define ___SENSORARRAY_H
 
 #include "Types.h"
 #include "SpaceObj.h"
@@ -29,6 +29,4 @@ extern CustShipHeader SensorArrayHeader;
 
 //void SensorArrayDied(Ship *ship);
 
-#endif //___SENSOR_ARRAY_H
-
-
+#endif

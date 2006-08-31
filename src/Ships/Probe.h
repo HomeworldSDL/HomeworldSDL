@@ -35,5 +35,4 @@ real32 ProbeGetMaxVelocity(Ship *ship);
 
 extern CustShipHeader ProbeHeader;
 
-#endif //___PROBE_H
-
+#endif

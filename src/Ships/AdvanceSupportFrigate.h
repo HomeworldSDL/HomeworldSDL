@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___ADVANCE_SUPPORT_FRIGATE_H
-#define ___ADVANCE_SUPPORT_FRIGATE_H
+#ifndef ___ADVANCESUPPORTFRIGATE_H
+#define ___ADVANCESUPPORTFRIGATE_H
 
 #include "Types.h"
 #include "SpaceObj.h"
@@ -31,5 +31,4 @@ typedef struct
 
 extern CustShipHeader AdvanceSupportFrigateHeader;
 
-#endif //___ADVANCE_SUPPORT_FRIGATE_H
-
+#endif

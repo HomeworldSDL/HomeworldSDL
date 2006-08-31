@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___P1_ION_ARRAY_FRIGATE_H
-#define ___P1_ION_ARRAY_FRIGATE_H
+#ifndef ___P1IONARRAYFRIGATE_H
+#define ___P1IONARRAYFRIGATE_H
 
 #include "Types.h"
 #include "SpaceObj.h"
@@ -31,5 +31,4 @@ typedef struct
 
 extern CustShipHeader P1IonArrayFrigateHeader;
 
-#endif //___P1_ION_ARRAY_FRIGATE_H
-
+#endif

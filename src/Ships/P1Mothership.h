@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___P1_MOTHERSHIP_H
-#define ___P1_MOTHERSHIP_H
+#ifndef ___P1MOTHERSHIP_H
+#define ___P1MOTHERSHIP_H
 
 #include "Types.h"
 #include "SpaceObj.h"
@@ -31,5 +31,4 @@ typedef struct
 
 extern CustShipHeader P1MothershipHeader;
 
-#endif //___P1_MOTHERSHIP_H
-
+#endif

@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___GRAV_WELL_GENERATOR_H
-#define ___GRAV_WELL_GENERATOR_H
+#ifndef ___GRAVWELLGENERATOR_H
+#define ___GRAVWELLGENERATOR_H
 
 #include "Types.h"
 #include "SpaceObj.h"
@@ -67,6 +67,4 @@ bool gravwellIsShipStuckForHyperspaceing(Ship *ship);
 void turnoffGravwell(Ship *ship);
 
 
-#endif //___GRAV_WELL_GENERATOR_H
-
-
+#endif

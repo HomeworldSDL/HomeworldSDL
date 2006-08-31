@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___MULTIGUN_CORVETTE_H
-#define ___MULTIGUN_CORVETTE_H
+#ifndef ___MULTIGUNCORVETTE_H
+#define ___MULTIGUNCORVETTE_H
 
 #include "Types.h"
 #include "SpaceObj.h"
@@ -28,5 +28,4 @@ typedef struct
 
 extern CustShipHeader MultiGunCorvetteHeader;
 
-#endif //___MULTIGUN_CORVETTE_H
-
+#endif

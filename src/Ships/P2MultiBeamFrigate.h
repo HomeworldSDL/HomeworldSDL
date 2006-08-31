@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___P2_MULTI_BEAM_FRIGATE_H
-#define ___P2_MULTI_BEAM_FRIGATE_H
+#ifndef ___P2MULTIBEAMFRIGATE_H
+#define ___P2MULTIBEAMFRIGATE_H
 
 #include "Types.h"
 #include "SpaceObj.h"
@@ -34,5 +34,4 @@ typedef struct
 
 extern CustShipHeader P2MultiBeamFrigateHeader;
 
-#endif //___P2_MULTI_BEAM_FRIGATE_H
-
+#endif

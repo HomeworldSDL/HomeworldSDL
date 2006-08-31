@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___SAL_CAP_CORVETTE_H
-#define ___SAL_CAP_CORVETTE_H
+#ifndef ___SALCAPCORVETTE_H
+#define ___SALCAPCORVETTE_H
 
 #include "Types.h"
 #include "SpaceObj.h"
@@ -79,6 +79,5 @@ bool salCapAreEnoughSalvagersTargettingThisTarget(Ship *ship,SpaceObjRotImpTargG
 void salCapClearTechBool();
 bool isThereAnotherTargetForMe(Ship *ship,SelectAnyCommand *targets);
 sdword salCapNeedBig(Ship *ship,SpaceObjRotImpTargGuidanceShipDerelict *target);
-#endif
-//___SAL_CAP_CORVETTE_H
 
+#endif

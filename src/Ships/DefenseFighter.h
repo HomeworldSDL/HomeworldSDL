@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___DEFENSE_FIGHTER_H
-#define ___DEFENSE_FIGHTER_H
+#ifndef ___DEFENSEFIGHTER_H
+#define ___DEFENSEFIGHTER_H
 
 #include "Types.h"
 #include "SpaceObj.h"
@@ -60,5 +60,4 @@ void defenseFighterAdjustLaser(Bullet *bullet);
 void DefenseFighterBulletRemoval(Bullet *bullettogoByeBye);
 //void DefenseFighterDied(Ship *ship);
 
-#endif //___DEFENSE_FIGHTER_H
-
+#endif

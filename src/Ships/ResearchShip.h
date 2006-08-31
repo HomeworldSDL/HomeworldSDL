@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___RESEARCH_SHIP_H
-#define ___RESERACH_SHIP_H
+#ifndef ___RESEARCHSHIP_H
+#define ___RESEARCHSHIP_H
 
 #include "Types.h"
 #include "SpaceObj.h"
@@ -67,6 +67,4 @@ void ResearchShipMakeReadyForHyperspace(Ship *ship);
 void addMonkeyResearchShip(Ship *ship);
 void addMonkeyResearchShipChangePosition(Ship *dockwith, Ship *ship,sdword dockindex);
 
-#endif //___RESEARCH_SHIP_H
-
-
+#endif

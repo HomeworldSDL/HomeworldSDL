@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___ION_CANNON_FRIGATE_H
-#define ___ION_CANNON_FRIGATE_H
+#ifndef ___IONCANNONFRIGATE_H
+#define ___IONCANNONFRIGATE_H
 
 #include "Types.h"
 #include "SpaceObj.h"
@@ -31,5 +31,4 @@ typedef struct
 
 extern CustShipHeader IonCannonFrigateHeader;
 
-#endif //___ION_CANNON_FRIGATE_H
-
+#endif

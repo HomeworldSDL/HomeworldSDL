@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___DFG_FRIGATE_H
-#define ___DFG_FRIGATE_H
+#ifndef ___DFGFRIGATE_H
+#define ___DFGFRIGATE_H
 
 #include "Types.h"
 #include "SpaceObj.h"
@@ -48,5 +48,4 @@ typedef struct
 
 extern CustShipHeader DFGFrigateHeader;
 
-#endif //___DDD_FRIGATE_H
-
+#endif

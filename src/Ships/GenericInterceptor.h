@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___GENERIC_INTERCEPTOR_H
-#define ___GENERIC_INTERCEPTOR_H
+#ifndef ___GENERICINTERCEPTOR_H
+#define ___GENERICINTERCEPTOR_H
 
 #include "Types.h"
 #include "SpaceObj.h"
@@ -109,5 +109,4 @@ bool GenericInterceptorCanFire(Ship *ship,SpaceObjRotImpTarg *target,vector *tra
 //#define isShipInterceptor(ship) (((ShipStaticInfo *)((ship)->staticinfo))->shipclass == CLASS_Fighter)
 //#define isShipStaticInterceptor(shipstatic) ((shipstatic)->shipclass == CLASS_Fighter)
 
-#endif //___GENERIC_INTERCEPTOR_H
-
+#endif

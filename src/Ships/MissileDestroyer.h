@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___MISSILE_DESTROYER_H
-#define ___MISSILE_DESTROYER_H
+#ifndef ___MISSILEDESTROYER_H
+#define ___MISSILEDESTROYER_H
 
 #include "Types.h"
 #include "SpaceObj.h"
@@ -37,5 +37,4 @@ typedef struct
 
 extern CustShipHeader MissileDestroyerHeader;
 
-#endif //___MISSILE_DESTROYER_H
-
+#endif

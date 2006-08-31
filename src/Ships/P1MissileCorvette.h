@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___P1_MISSILE_CORVETTE_H
-#define ___P1_MISSILE_CORVETTE_H
+#ifndef ___P1MISSILECORVETTE_H
+#define ___P1MISSILECORVETTE_H
 
 #include "Types.h"
 #include "SpaceObj.h"
@@ -36,5 +36,4 @@ typedef struct
 
 extern CustShipHeader P1MissileCorvetteHeader;
 
-#endif //___P1_MISSILE_CORVETTE_H
-
+#endif

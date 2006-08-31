@@ -38,5 +38,4 @@ typedef struct
 
 extern CustShipHeader DroneHeader;
 
-#endif //___DRONE_H
-
+#endif

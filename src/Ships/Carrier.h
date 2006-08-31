@@ -40,5 +40,4 @@ typedef struct
 
 extern CustShipHeader CarrierHeader;
 
-#endif //___CARRIER_H
-
+#endif

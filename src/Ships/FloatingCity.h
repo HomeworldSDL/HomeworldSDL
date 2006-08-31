@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___FLOATING_CITY_H
-#define ___FLOATING_CITY_H
+#ifndef ___FLOATINGCITY_H
+#define ___FLOATINGCITY_H
 
 #include "Types.h"
 #include "SpaceObj.h"
@@ -31,5 +31,4 @@ typedef struct
 
 extern CustShipHeader FloatingCityHeader;
 
-#endif //___FLOATING_CITY_H
-
+#endif

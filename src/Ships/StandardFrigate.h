@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___STANDARD_FRIGATE_H
-#define ___STANDARD_FRIGATE_H
+#ifndef ___STANDARDFRIGATE_H
+#define ___STANDARDFRIGATE_H
 
 #include "Types.h"
 #include "SpaceObj.h"
@@ -31,5 +31,4 @@ typedef struct
 
 extern CustShipHeader StandardFrigateHeader;
 
-#endif //___STANDARD_FRIGATE_H
-
+#endif

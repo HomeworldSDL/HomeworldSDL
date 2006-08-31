@@ -56,5 +56,5 @@ void MothershipDettachObjectFromDoor(Ship *ship);
 void MothershipDoorUpKeep(Ship *ship);
 void mothershipGetCargoPosition(Ship *ship,SpaceObjRotImpTargGuidanceShipDerelict *cargo, vector *position, matrix *coordsys, vector *heading, vector *up,vector *right);
 void mothershipCleanDoorForHSInstant(Ship *ship);
-#endif //___MOTHERSHIP_H
 
+#endif

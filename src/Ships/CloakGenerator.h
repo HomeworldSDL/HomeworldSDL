@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___CLOAK_GENERATOR_H
-#define ___CLOAK_GENERATOR_H
+#ifndef ___CLOAKGENERATOR_H
+#define ___CLOAKGENERATOR_H
 
 #include "Types.h"
 #include "SpaceObj.h"
@@ -60,6 +60,4 @@ void CloakGeneratorAddObj(Ship *ship,  SpaceObj *objtoadd);
 //void CloakGeneratorRemoveShipReferences(Ship *ship,SpaceObj *objtoremove);
 void CloakGeneratorJustDisabled(Ship *ship);
 
-#endif //___CLOAK_GENERATOR_H
-
-
+#endif

@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___MINELAYER_CORVETTE_H
-#define ___MINELAYER_CORVETTE_H
+#ifndef ___MINELAYERCORVETTE_H
+#define ___MINELAYERCORVETTE_H
 
 #include "Types.h"
 #include "SpaceObj.h"
@@ -79,5 +79,5 @@ extern CustShipHeader MinelayerCorvetteHeader;
 #define MINE_SEARCH_AND_STOP        2
 #define MINE_ATTACK_RUN             3
 #define DO_WALL_FORMATION           4
-#endif //___MINELAYER_CORVETTE_H
 
+#endif

@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___P3_STANDARD_SHIP_H
-#define ___P3_STANDARD_SHIP_H
+#ifndef ___P3STANDARDSHIP_H
+#define ___P3STANDARDSHIP_H
 
 #include "Types.h"
 #include "SpaceObj.h"
@@ -31,5 +31,4 @@ typedef struct
 
 extern CustShipHeader P3StandardShipHeader;
 
-#endif //___P3_STANDARD_SHIP_H
-
+#endif

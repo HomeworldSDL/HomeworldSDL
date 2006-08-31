@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___GENERIC_DEFENDER_H
-#define ___GENERIC_DEFENDER_H
+#ifndef ___GENERICDEFENDER_H
+#define ___GENERICDEFENDER_H
 
 #include "Types.h"
 #include "SpaceObj.h"
@@ -33,5 +33,4 @@ extern CustShipHeader GenericDefenderHeader;
 
 void doKamikazeAttack(Ship *ship,SpaceObjRotImpTarg *target);
 
-#endif //___GENERIC_DEFENDER_H
-
+#endif

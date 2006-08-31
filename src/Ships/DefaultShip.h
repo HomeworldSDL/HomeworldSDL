@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___DEFAULT_SHIP_H
-#define ___DEFAULT_SHIP_H
+#ifndef ___DEFAULTSHIP_H
+#define ___DEFAULTSHIP_H
 
 #include "Types.h"
 #include "SpaceObj.h"
@@ -33,5 +33,4 @@ extern CustShipHeader DoNothingShipHeader;
 extern CustShipHeader StationaryGunHeader;
 extern CustShipHeader MiningBaseHeader;
 
-#endif //___DEFAULT_SHIP_H
-
+#endif

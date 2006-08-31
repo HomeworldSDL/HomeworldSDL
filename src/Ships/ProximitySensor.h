@@ -67,5 +67,5 @@ sdword proxBlipThickness(Ship *ship);
 #ifndef STATVIEWER_PROGRAM
 bool proximityCanPlayerSeeShip(Player *player,Ship *shipInQuestion);
 #endif
-#endif //___PROXIMITYSENSOR_H
 
+#endif

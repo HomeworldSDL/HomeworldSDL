@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___P2_FUEL_POD_H
-#define ___P2_FUEL_POD_H
+#ifndef ___P2FUELPOD_H
+#define ___P2FUELPOD_H
 
 #include "Types.h"
 #include "SpaceObj.h"
@@ -31,5 +31,4 @@ typedef struct
 
 extern CustShipHeader P2FuelPodHeader;
 
-#endif //P2_FUEL_POD_H
-
+#endif

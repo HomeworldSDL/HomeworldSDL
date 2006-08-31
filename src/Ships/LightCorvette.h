@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___LIGHT_CORVETTE_H
-#define ___LIGHT_CORVETTE_H
+#ifndef ___LIGHTCORVETTE_H
+#define ___LIGHTCORVETTE_H
 
 #include "Types.h"
 #include "SpaceObj.h"
@@ -28,5 +28,4 @@ typedef struct
 
 extern CustShipHeader LightCorvetteHeader;
 
-#endif //___LIGHT_CORVETTE_H
-
+#endif

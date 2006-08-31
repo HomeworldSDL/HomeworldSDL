@@ -6,8 +6,8 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef ___HEAVY_CRUISER_H
-#define ___HEAVY_CRUISER_H
+#ifndef ___HEAVYCRUISER_H
+#define ___HEAVYCRUISER_H
 
 #include "Types.h"
 #include "SpaceObj.h"
@@ -31,5 +31,4 @@ typedef struct
 
 extern CustShipHeader HeavyCruiserHeader;
 
-#endif //___HEAVY_CRUISER_H
-
+#endif

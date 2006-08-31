@@ -1,5 +1,5 @@
 /*=============================================================================
-    Name    : ___P1_ION_ARRAY_FRIGATE_H.c
+    Name    : P1IonArrayFrigate.c
     Purpose : Specifics for the P1IonArrayFrigate
 
     Created 5/06/1998 by ddunlop
