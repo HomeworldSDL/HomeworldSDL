@@ -1,54 +1,53 @@
-/*=============================================================================
-    Name    : Ships.h
-    Purpose : Contains all of the header files for every single ship in the
-              game.  Later on, will put the different ships into DLL's.
-
-    Created 6/30/1997 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  Ships.h
+//  - all the ships in the game (defined in src/Ships)
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 6/30/1997 by gshaw
+// =============================================================================
 
 #ifndef ___SHIPS_H
 #define ___SHIPS_H
 
-#include "ResourceCollector.h"
-#include "Carrier.h"
-#include "StandardFrigate.h"
-#include "LightCorvette.h"
-#include "HeavyCorvette.h"
-#include "MissileDestroyer.h"
-#include "HeavyCruiser.h"
 #include "AdvanceSupportFrigate.h"
+#include "Carrier.h"
+#include "CloakGenerator.h"
 #include "DDDFrigate.h"
 #include "DFGFrigate.h"
-#include "ResourceController.h"
-#include "RepairCorvette.h"
-#include "MultiGunCorvette.h"
-#include "Mothership.h"
 #include "DefaultShip.h"
-#include "SalCapCorvette.h"
-#include "IonCannonFrigate.h"
-#include "MinelayerCorvette.h"
-#include "GenericInterceptor.h"
-#include "GenericDefender.h"
-#include "StandardDestroyer.h"
-#include "Probe.h"
-#include "ProximitySensor.h"
-#include "ResearchShip.h"
-#include "SensorArray.h"
-#include "GravWellGenerator.h"
-#include "CloakGenerator.h"
-#include "Drone.h"
 #include "DefenseFighter.h"
-#include "P1StandardCorvette.h"
+#include "Drone.h"
+#include "FloatingCity.h"
+#include "GenericDefender.h"
+#include "GenericInterceptor.h"
+#include "GravWellGenerator.h"
+#include "HeavyCorvette.h"
+#include "HeavyCruiser.h"
+#include "IonCannonFrigate.h"
+#include "LightCorvette.h"
+#include "MinelayerCorvette.h"
+#include "MissileDestroyer.h"
+#include "Mothership.h"
+#include "MultiGunCorvette.h"
 #include "P1IonArrayFrigate.h"
 #include "P1MissileCorvette.h"
 #include "P1Mothership.h"
+#include "P1StandardCorvette.h"
+#include "P2AdvanceSwarmer.h"
+#include "P2FuelPod.h"
 #include "P2Mothership.h"
 #include "P2MultiBeamFrigate.h"
-#include "P2FuelPod.h"
 #include "P2Swarmer.h"
-#include "P2AdvanceSwarmer.h"
-#include "FloatingCity.h"
 #include "P3StandardShip.h"
+#include "Probe.h"
+#include "ProximitySensor.h"
+#include "RepairCorvette.h"
+#include "ResearchShip.h"
+#include "ResourceCollector.h"
+#include "ResourceController.h"
+#include "SalCapCorvette.h"
+#include "SensorArray.h"
+#include "StandardDestroyer.h"
+#include "StandardFrigate.h"
 
 #endif
