@@ -1,10 +1,9 @@
-/*=============================================================================
-    Name    : gamestats.h
-    Purpose : Game Statistics Include information
-
-    Created 06/19/1999 by bpasechnik
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  GameStats.h
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 06/19/1999 by bpasechnik
+// =============================================================================
 
 #ifndef ___GAMESTATS_H
 #define ___GAMESTATS_H
