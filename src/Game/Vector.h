@@ -1,31 +1,26 @@
-/*=============================================================================
-    VECTOR.H: Definitions for VECTOR.C
-
-    Created June 1997 by Gary Shaw
-=============================================================================*/
+// =============================================================================
+//  Vector.h
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created June 1997 by Gary Shaw
+// =============================================================================
 
 #ifndef ___VECTOR_H
 #define ___VECTOR_H
 
 #include "Types.h"
 
-/*=============================================================================
-    Type definitions:
-=============================================================================*/
+// INTERFACE -------------------------------------------------------------------
 
-typedef struct
+typedef struct Vector
 {
     real32 x,y,z;
 } vector;
 
-typedef struct
+typedef struct HVector
 {
     real32 x,y,z,w;
 } hvector;
-
-/*=============================================================================
-    Macros
-=============================================================================*/
 
 #define vecSet(v,xp,yp,zp)  \
     (v).x = (xp);         \
@@ -127,24 +122,20 @@ typedef struct
 #define vecIsZero(a) \
     ( ((a).x == 0.0f) && ((a).y == 0.0f) && ((a).z == 0.0f) )
 
-/*=============================================================================
-    Functions:
-=============================================================================*/
-
 void vecPrintVector(vector *a);
 void vecNormalize(vector *a);
 void vecHomogenize(vector* dst, hvector* src);
-void vecCopyAndNormalize(vector *src,vector *dst);
-void vecNormalizeToLength(vector *a,real32 length);
-void vecCapVectorSloppy(vector *vectorToCap,real32 maxMagnitude);
-void vecCapVector(vector *vectorToCap,real32 maxMagnitude);
-void vecCapVectorWithMag(vector *vectorToCap,real32 maxMagnitude,real32 actualMag);
-void vecCapMinVector(vector *vectorToCap,real32 minMagnitude);
-void vecCapMinMaxVector(vector *vectorToCap,real32 minMagnitude,real32 maxMagnitude);
+void vecCopyAndNormalize(vector *src, vector *dst);
+void vecNormalizeToLength(vector *a, real32 length);
+void vecCapVectorSloppy(vector *vectorToCap, real32 maxMagnitude);
+void vecCapVector(vector *vectorToCap, real32 maxMagnitude);
+void vecCapVectorWithMag(vector *vectorToCap, real32 maxMagnitude, real32 actualMag);
+void vecCapMinVector(vector *vectorToCap, real32 minMagnitude);
+void vecCapMinMaxVector(vector *vectorToCap, real32 minMagnitude, real32 maxMagnitude);
 real32 getVectDistSloppy(vector diff);
-void vecLineIntersectWithXYPlane(vector *result,vector *linepoint1,vector *linepoint2,real32 zp);
-void vecLineIntersectWithYZPlane(vector *result,vector *linepoint1,vector *linepoint2,real32 xp);
-void vecLineIntersectWithXZPlane(vector *result,vector *linepoint1,vector *linepoint2,real32 yp);
+void vecLineIntersectWithXYPlane(vector *result, vector *linepoint1,vector *linepoint2, real32 zp);
+void vecLineIntersectWithYZPlane(vector *result, vector *linepoint1,vector *linepoint2, real32 xp);
+void vecLineIntersectWithXZPlane(vector *result, vector *linepoint1,vector *linepoint2, real32 yp);
 void vecLineIntersectWithPlane(vector *dest, vector *Vplane, vector *Vnormal, vector *Vline, vector *Vdirection);
 void vecVectorsBlend(vector *result, vector *start, vector *end, real32 factor);
 
