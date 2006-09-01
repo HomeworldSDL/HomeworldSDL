@@ -133,7 +133,7 @@ void RepairCorvetteStaticInit(char *directory,char *filename,struct ShipStaticIn
 void RepairCorvetteInit(Ship *ship)
 {
     RepairCorvetteSpec *spec = (RepairCorvetteSpec *)ship->ShipSpecifics;
-    spec->repairState = REPAIR_Begin;
+    spec->repairState = REPAIR_BEGIN;
     spec->target = NULL;
     spec->hyst = FALSE;
     attackSideStepInit(&spec->attacksidestep);
@@ -242,7 +242,7 @@ bool RepairCorvetteSpecialOps(Ship *ship, void *custom)
 
     switch(spec->repairState)
     {
-    case REPAIR_Begin:
+    case REPAIR_BEGIN:
         //remove non ships and enemy ships and non strike craft
         for(i=0;i<targets->numTargets;i++)
         {
@@ -261,13 +261,13 @@ bool RepairCorvetteSpecialOps(Ship *ship, void *custom)
             }
         }
         spec->target = (Ship *)targets->TargetPtr[0];
-        spec->repairState = REPAIR_Approach;
+        spec->repairState = REPAIR_APPROACH;
 #ifdef DEBUG_REPAIR
         dbgMessagef("\nAquired Target for Repair.");
 #endif
 
         break;
-    case REPAIR_Approach:
+    case REPAIR_APPROACH:
         //fly to target (flag it so we are the only ones going after it
         if(!MoveReachedDestinationVariable(ship,&spec->target->posinfo.position,repaircorvettestatics->approachAndWaitDistance))
         {
@@ -280,9 +280,9 @@ bool RepairCorvetteSpecialOps(Ship *ship, void *custom)
         if(!(spec->target->posinfo.isMoving & ISMOVING_MOVING))
         {
             //ship is stopped, so it is ready
-            spec->repairState = REPAIR_Nearing;
+            spec->repairState = REPAIR_NEARING;
 #ifdef DEBUG_REPAIR
-        dbgMessagef("\nREPAIR_Approach: %f distance reached",repaircorvettestatics->approachAndWaitDistance);
+        dbgMessagef("\nREPAIR_APPROACH: %f distance reached",repaircorvettestatics->approachAndWaitDistance);
 #endif
 
             break;
@@ -295,16 +295,16 @@ bool RepairCorvetteSpecialOps(Ship *ship, void *custom)
             {
                 //ship isn't really doing anything so we can
                 //move in
-                spec->repairState = REPAIR_Nearing;
+                spec->repairState = REPAIR_NEARING;
 #ifdef DEBUG_REPAIR
-dbgMessagef("\nREPAIR_Approach: %f distance reached",repaircorvettestatics->approachAndWaitDistance);
+dbgMessagef("\nREPAIR_APPROACH: %f distance reached",repaircorvettestatics->approachAndWaitDistance);
 #endif
 
             }
         }
         aitrackStabilizeShip(ship);
         break;
-    case REPAIR_Nearing:
+    case REPAIR_NEARING:
         //Orient Self with docking bay facing target
         if(!MoveReachedDestinationVariable(ship,&spec->target->posinfo.position,repaircorvettestatics->rotationStopDistance))
         {
@@ -318,11 +318,10 @@ dbgMessagef("\nREPAIR_Approach: %f distance reached",repaircorvettestatics->appr
         {
             //ship is stopped, so it is ready
 
-            spec->repairState = REPAIR_StopRot;
-            //spec->repairState = REPAIR_Hackwork;
+            spec->repairState = REPAIR_STOP_ROTATION;
 
 #ifdef DEBUG_REPAIR
-        dbgMessagef("\nREPAIR_Nearing: %f distance reached, proceeding to stop rotation.",repaircorvettestatics->rotationStopDistance);
+        dbgMessagef("\nREPAIR_NEARING: %f distance reached, proceeding to stop rotation.",repaircorvettestatics->rotationStopDistance);
 #endif
             break;
         }
@@ -334,12 +333,12 @@ dbgMessagef("\nREPAIR_Approach: %f distance reached",repaircorvettestatics->appr
             {
                 //ship isn't really doing anything so we can
                 //move in
-            spec->repairState = REPAIR_StopRot;
+            spec->repairState = REPAIR_STOP_ROTATION;
             }
         }
         aitrackStabilizeShip(ship);
         break;
-    case REPAIR_StopRot:
+    case REPAIR_STOP_ROTATION:
         //stop the ships rotation and translation...if any and
         //rotates itself into position
                //stop ship from takign off instantly
@@ -352,14 +351,14 @@ dbgMessagef("\nREPAIR_Approach: %f distance reached",repaircorvettestatics->appr
             //rotation below special threshold,
             //set it to our rotation threshold (should be pretty dang close
 #ifdef DEBUG_REPAIR
-        dbgMessagef("\nREPAIR_StopRot, rotation stoped, now getting into dock pos.");
+        dbgMessagef("\nREPAIR_STOP_ROTATION, rotation stopped, now getting into dock pos.");
 #endif
-            spec->repairState = REPAIR_Dock1;
+            spec->repairState = REPAIR_DOCK_1;
         }
 
         aitrackStabilizeShip(ship);
         break;
-    case REPAIR_Dock1:
+    case REPAIR_DOCK_1:
 
         //stop ship from takign off instantly
         bitSet(spec->target->dontrotateever,1);
@@ -371,15 +370,15 @@ dbgMessagef("\nREPAIR_Approach: %f distance reached",repaircorvettestatics->appr
         if(trackflag)
         {
 #ifdef DEBUG_REPAIR
-    dbgMessagef("\nREPAIR_Dock1: Docking Position 1 reached.");
+    dbgMessagef("\nREPAIR_DOCK_1: Docking Position 1 reached.");
 #endif
-            spec->repairState = REPAIR_Dock2;
+            spec->repairState = REPAIR_DOCK_2;
             //set docking ship var to avoid collisions...
             //ship->dockingship = spec->target;
             spec->target->dockingship = ship;
         }
         break;
-    case REPAIR_Dock2:
+    case REPAIR_DOCK_2:
         //stop ship from takign off instantly
         bitSet(spec->target->dontrotateever,1);
         bitSet(spec->target->dontapplyforceever,1);
@@ -392,14 +391,14 @@ dbgMessagef("\nREPAIR_Approach: %f distance reached",repaircorvettestatics->appr
         if(trackflag)
         {
 #ifdef DEBUG_REPAIR
-            dbgMessagef("\nREPAIR_Dock2: Docking Position 2 reached.");
+            dbgMessagef("\nREPAIR_DOCK_2: Docking Position 2 reached.");
 #endif
 			ship->soundevent.specialHandle = soundEvent(ship, Ship_RepairLoop);
-            spec->repairState = REPAIR_Repair;
+            spec->repairState = REPAIR_REPAIR;
         }
 
         break;
-    case REPAIR_Repair:
+    case REPAIR_REPAIR:
         //transfer fuel, and repair ships health
         //probably should latch ship hear by stopping all forces
         //and such...or by actually latching it on using
@@ -438,10 +437,10 @@ dbgMessagef("\nREPAIR_Approach: %f distance reached",repaircorvettestatics->appr
         if(fixflag)
         {
             //we're done...
-            spec->repairState = REPAIR_Disengage1;
+            spec->repairState = REPAIR_DISENGAGE_1;
         }
         break;
-    case REPAIR_Disengage1:
+    case REPAIR_DISENGAGE_1:
         //De Dock...
         //stop ship from takign off instantly
         bitSet(spec->target->dontrotateever,1);
@@ -454,10 +453,10 @@ dbgMessagef("\nREPAIR_Approach: %f distance reached",repaircorvettestatics->appr
         RemoveShipsFromDoingStuff(&universe.mainCommandLayer,&oneship);
         */
 
-        spec->repairState = REPAIR_Disengage2;
+        spec->repairState = REPAIR_DISENGAGE_2;
         spec->disengagetime = 0.0f;
         break;
-    case REPAIR_Disengage2:
+    case REPAIR_DISENGAGE_2:
         //De Dock...
         //stop ship from takign off instantly
         bitSet(spec->target->dontrotateever,1);
@@ -470,24 +469,18 @@ dbgMessagef("\nREPAIR_Approach: %f distance reached",repaircorvettestatics->appr
 
         spec->disengagetime += universe.phystimeelapsed;
         if(spec->disengagetime > 1.5f)
-            spec->repairState = REPAIR_Done;
+            spec->repairState = REPAIR_DONE;
         break;
-    case REPAIR_Done:
+    case REPAIR_DONE:
         //move on to next ship
                //stop ship from takign off instantly
         bitClear(spec->target->dontrotateever,1);
         bitClear(spec->target->dontapplyforceever,1);
         removeShipFromSelection(spec->target,(SelectCommand *)targets);
-        spec->repairState = REPAIR_Begin;
+        spec->repairState = REPAIR_BEGIN;
         spec->target = NULL;
         return FALSE;
         break;
-    case REPAIR_Hackwork:
-        oneship.numShips = 1;
-        oneship.ShipPtr[0] = spec->target;
-        spec->target->fuel += 100.0f;       //minimal ammount to allow docking
-        clDock(&universe.mainCommandLayer, &oneship,DOCK_FOR_BOTHREFUELANDREPAIR,ship);
-        return TRUE;
     }
 
     return FALSE;
@@ -498,7 +491,7 @@ void RepairCorvetteRemoveShipReferences(Ship *ship, Ship *shiptoremove)
     RepairCorvetteSpec *spec = (RepairCorvetteSpec *)ship->ShipSpecifics;
     if(shiptoremove == spec->target)
     {
-        spec->repairState = REPAIR_Begin;
+        spec->repairState = REPAIR_BEGIN;
         spec->target = NULL;
     }
 }
@@ -524,7 +517,7 @@ void RepairCorvetteOrderChanged(Ship *ship)
     //same thing as what we're doing currently!  Then we don't stop if it
     //is.
 
-    spec->repairState = REPAIR_Begin;
+    spec->repairState = REPAIR_BEGIN;
     if(spec->target != NULL)
     {
         bitClear(spec->target->dontrotateever,1);

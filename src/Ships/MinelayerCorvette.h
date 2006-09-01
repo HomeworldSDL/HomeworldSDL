@@ -16,7 +16,7 @@
 #define MINE_DROP_FORMATION         1
 #define MINE_SEARCH_AND_STOP        2
 #define MINE_ATTACK_RUN             3
-#define DO_WALL_FORMATION           4
+#define MINE_WALL_FORMATION         4
 
 typedef struct
 {

@@ -1778,7 +1778,7 @@ void tacticsUpdateOrderStatus(Ship *ship)
         case COMMAND_SPECIAL:
             if(ship->shiptype == RepairCorvette)
             {
-                if( ((RepairCorvetteSpec *)ship->ShipSpecifics)->repairState > REPAIR_Dock1)
+                if( ((RepairCorvetteSpec *)ship->ShipSpecifics)->repairState > REPAIR_DOCK_1)
                     ship->tactics_ordertype = ORDER_TYPE_MOVE_ORDERS;   //force not to dodge
                 else
                     ship->tactics_ordertype = ORDER_TYPE_MOVE_ORDERS + enemyalready;

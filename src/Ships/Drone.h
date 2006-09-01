@@ -10,10 +10,10 @@
 
 #include "SpaceObj.h"
 
-#define DRONESTATE_DORMANT      0
-#define DRONESTATE_LAUNCHING    1
-#define DRONESTATE_LAUNCHED     2
-#define DRONESTATE_DOCKING      3
+#define DRONE_STATE_DORMANT      0
+#define DRONE_STATE_LAUNCHING    1
+#define DRONE_STATE_LAUNCHED     2
+#define DRONE_STATE_DOCKING      3
 
 typedef struct
 {

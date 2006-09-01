@@ -31,6 +31,6 @@ typedef struct
 
 extern CustShipHeader CloakGeneratorHeader;
 
-void CloakGeneratorJustDisabled(Ship *ship);
+void cloakGeneratorJustDisabled(Ship *ship);
 
 #endif

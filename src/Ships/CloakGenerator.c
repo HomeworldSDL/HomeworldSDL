@@ -311,7 +311,7 @@ bool CloakGeneratorSpecialActivate(Ship *ship)
     return TRUE;
 }
 
-void CloakGeneratorJustDisabled(Ship *ship)
+void cloakGeneratorJustDisabled(Ship *ship)
 {
     CloakGeneratorSpec *spec = (CloakGeneratorSpec *)ship->ShipSpecifics;
 

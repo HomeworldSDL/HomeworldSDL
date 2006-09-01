@@ -2361,15 +2361,15 @@ bool aishipGuideMine(Missile *mine)
             distsqr = vecMagnitudeSquared(dist);
             if(distsqr > minelayercorvettestatics->MineClearDistanceSQR)
             {
-                mine->mineAIState = DO_WALL_FORMATION;
+                mine->mineAIState = MINE_WALL_FORMATION;
             }
         }
         else
         {
-            mine->mineAIState = DO_WALL_FORMATION;
+            mine->mineAIState = MINE_WALL_FORMATION;
         }
         break;
-    case DO_WALL_FORMATION:
+    case MINE_WALL_FORMATION:
         if(mine_do_search(mine))        //always search for enemy after launching is cleared
         {
             mine->mineAIState = MINE_ATTACK_RUN;
@@ -2407,7 +2407,7 @@ bool aishipGuideMine(Missile *mine)
             }
             else
             {
-                mine->mineAIState = DO_WALL_FORMATION;
+                mine->mineAIState = MINE_WALL_FORMATION;
             }
                 break;
         }
@@ -2416,7 +2416,7 @@ bool aishipGuideMine(Missile *mine)
             if(!aishipFlyMineToTarget(mine,mine->target))
             {
                 //lost target, so reform wall
-                mine->mineAIState = DO_WALL_FORMATION;
+                mine->mineAIState = MINE_WALL_FORMATION;
             }
         }
         break;

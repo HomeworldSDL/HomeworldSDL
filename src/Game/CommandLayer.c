@@ -3767,7 +3767,7 @@ void shipHasJustBeenDisabled(Ship *ship)
             break;
 
         case CloakGenerator:
-            CloakGeneratorJustDisabled(ship);
+            cloakGeneratorJustDisabled(ship);
             break;
 
         case GravWellGenerator:

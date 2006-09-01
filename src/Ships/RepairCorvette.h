@@ -12,17 +12,16 @@
 #include "ShipSelect.h"
 #include "SpaceObj.h"
 
-#define REPAIR_Begin        0
-#define REPAIR_Approach     1
-#define REPAIR_Nearing      2
-#define REPAIR_StopRot      3
-#define REPAIR_Dock1        4
-#define REPAIR_Dock2        5
-#define REPAIR_Repair       6
-#define REPAIR_Disengage1   7
-#define REPAIR_Disengage2   8
-#define REPAIR_Done         9
-#define REPAIR_Hackwork     10
+#define REPAIR_BEGIN          0
+#define REPAIR_APPROACH       1
+#define REPAIR_NEARING        2
+#define REPAIR_STOP_ROTATION  3
+#define REPAIR_DOCK_1         4
+#define REPAIR_DOCK_2         5
+#define REPAIR_REPAIR         6
+#define REPAIR_DISENGAGE_1    7
+#define REPAIR_DISENGAGE_2    8
+#define REPAIR_DONE           9
 
 typedef struct
 {
