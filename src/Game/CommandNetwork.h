@@ -9,12 +9,14 @@
 #ifndef ___COMMANDNETWORK_H
 #define ___COMMANDNETWORK_H
 
+#include "Captaincy.h"
 #include "Switches.h"
 #include "Types.h"
 #include "Globals.h"
 #include "CommandLayer.h"
 #include "Chatting.h"
 
+struct CaptaincyCustomInfo;
 
 
 /*=============================================================================
@@ -215,10 +217,6 @@ typedef struct
 } NetSyncChecksums;
 #endif
 
-typedef struct CaptaincyCustomInfo
-{
-    udword custom[MAX_MULTIPLAYER_PLAYERS];
-} CaptaincyCustomInfo;
 
 typedef struct
 {

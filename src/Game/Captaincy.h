@@ -1,14 +1,17 @@
+// =============================================================================
+//  Captaincy.h
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 98/10/06 by gshaw
+// =============================================================================
+
 #ifndef ___CAPTAINCY_H
 #define ___CAPTAINCY_H
-/*=============================================================================
-    Name    : Captaincy.h
-    Purpose : Definitions for Captaincy.c - transfering captaincy
 
-    Created 98/10/06 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
+#include "MaxMultiplayer.h"
 #include "Types.h"
+
+// INTERFACE -------------------------------------------------------------------
 
 typedef enum CaptaincyEvent {
     CAPEVENT_STARTGAME,
@@ -24,12 +27,16 @@ typedef enum CaptaincyEvent {
     CAPEVENT_RECEIVED_SYNC_PKT
 } CaptaincyEvent;
 
-struct CaptaincyCustomInfo;
+typedef struct CaptaincyCustomInfo
+{
+    udword custom[MAX_MULTIPLAYER_PLAYERS];
+} CaptaincyCustomInfo;
+
 
 void TransferCaptaincyGameEnded(void);
 void TransferCaptaincyGameStarted(void);
 
-void TransferCaptaincyStateMachine(CaptaincyEvent event,uword from,udword misc,struct CaptaincyCustomInfo *customInfo);
+void TransferCaptaincyStateMachine(CaptaincyEvent event, uword from, udword misc, CaptaincyCustomInfo *customInfo);
 void TransferCaptaincySyncPacketReceivedNotify(void);
 
 void TransferCaptaincyUpdate(void);
@@ -41,15 +48,11 @@ void TimeoutTimerUpdateAll(void);
 void GiveUpCaptaincy(void);
 
 void captaincyLogInit(void);
-void captaincyLog(bool echotoscreen,char *format, ...);
+void captaincyLog(bool echotoscreen, char *format, ...);
 
-/*=============================================================================
-    Variables:
-=============================================================================*/
 
 extern bool transferCaptaincyDisabled;
 extern bool captaincyLogEnable;
-
 extern bool printCaptainMessage;
 
 extern real32 T1_Timeout;

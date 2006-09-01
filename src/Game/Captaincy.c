@@ -1,10 +1,12 @@
-/*=============================================================================
-    Name    : Captaincy.c
-    Purpose : Provides functionality for transfering the captaincy in network games
+// =============================================================================
+//  Captaincy.c
+//  - Provides functionality for transfering the captaincy in network games
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 98/10/06 by gshaw
+// =============================================================================
 
-    Created 98/10/06 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+#include "Captaincy.h"
 
 #ifdef _WIN32
     #define WIN32_LEAN_AND_MEAN
@@ -13,18 +15,14 @@
     #include <sys/time.h>
 #endif
 
-#include "SDL.h"
-#include <string.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include "Memory.h"
-#include "Debug.h"
-#include "Globals.h"
-#include "Captaincy.h"
-#include "utility.h"
-#include "CommandWrap.h"
-#include "File.h"
 #include "CommandNetwork.h"
+#include "CommandWrap.h"
+#include "Debug.h"
+#include "File.h"
+#include "Globals.h"
+#include "Memory.h"
+#include "SDL.h"
+#include "utility.h"
 
 
 /*
