@@ -1,10 +1,18 @@
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-#include "Memory.h"
-#include "Debug.h"
-#include "SaveGame.h"
+// =============================================================================
+//  AIVar.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+// =============================================================================
+
 #include "AIVar.h"
+
+#include "Debug.h"
+#include "Memory.h"
+#include "SaveGame.h"
+
+#define AIVAR_ALLOC_INITIAL   64
+#define AIVAR_ALLOC_INCREMENT 32
+
 
 AIVar **vars = NULL;
 sdword varsAllocated = 0, varsUsed = 0;
