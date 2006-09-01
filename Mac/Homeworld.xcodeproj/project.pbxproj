@@ -108,7 +108,6 @@
 		3516C891077C41B0001AA863 /* Nebulae.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CA8064992AF0088361C /* Nebulae.h */; };
 		3516C892077C41B0001AA863 /* NetCheck.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CAA064992AF0088361C /* NetCheck.h */; };
 		3516C893077C41B0001AA863 /* NIS.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CAC064992AF0088361C /* NIS.h */; };
-		3516C894077C41B0001AA863 /* NumberDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CAD064992AF0088361C /* NumberDefs.h */; };
 		3516C895077C41B0001AA863 /* Objectives.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CAF064992AF0088361C /* Objectives.h */; };
 		3516C896077C41B0001AA863 /* ObjTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CB1064992AF0088361C /* ObjTypes.h */; };
 		3516C897077C41B0001AA863 /* Options.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CB3064992AF0088361C /* Options.h */; };
@@ -725,7 +724,6 @@
 		90623DDC064992AF0088361C /* NetCheck.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CAA064992AF0088361C /* NetCheck.h */; };
 		90623DDD064992AF0088361C /* NIS.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CAB064992AF0088361C /* NIS.c */; };
 		90623DDE064992AF0088361C /* NIS.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CAC064992AF0088361C /* NIS.h */; };
-		90623DDF064992AF0088361C /* NumberDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CAD064992AF0088361C /* NumberDefs.h */; };
 		90623DE0064992AF0088361C /* Objectives.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CAE064992AF0088361C /* Objectives.c */; };
 		90623DE1064992AF0088361C /* Objectives.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CAF064992AF0088361C /* Objectives.h */; };
 		90623DE2064992AF0088361C /* ObjTypes.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CB0064992AF0088361C /* ObjTypes.c */; };
@@ -1299,7 +1297,6 @@
 		90623CAA064992AF0088361C /* NetCheck.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = NetCheck.h; path = ../src/Game/NetCheck.h; sourceTree = SOURCE_ROOT; };
 		90623CAB064992AF0088361C /* NIS.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = NIS.c; path = ../src/Game/NIS.c; sourceTree = SOURCE_ROOT; };
 		90623CAC064992AF0088361C /* NIS.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = NIS.h; path = ../src/Game/NIS.h; sourceTree = SOURCE_ROOT; };
-		90623CAD064992AF0088361C /* NumberDefs.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = NumberDefs.h; path = ../src/Game/NumberDefs.h; sourceTree = SOURCE_ROOT; };
 		90623CAE064992AF0088361C /* Objectives.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Objectives.c; path = ../src/Game/Objectives.c; sourceTree = SOURCE_ROOT; };
 		90623CAF064992AF0088361C /* Objectives.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Objectives.h; path = ../src/Game/Objectives.h; sourceTree = SOURCE_ROOT; };
 		90623CB0064992AF0088361C /* ObjTypes.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = ObjTypes.c; path = ../src/Game/ObjTypes.c; sourceTree = SOURCE_ROOT; };
@@ -1964,7 +1961,6 @@
 				90623CAA064992AF0088361C /* NetCheck.h */,
 				90623CAB064992AF0088361C /* NIS.c */,
 				90623CAC064992AF0088361C /* NIS.h */,
-				90623CAD064992AF0088361C /* NumberDefs.h */,
 				90623CAE064992AF0088361C /* Objectives.c */,
 				90623CAF064992AF0088361C /* Objectives.h */,
 				90623CB0064992AF0088361C /* ObjTypes.c */,
@@ -2479,7 +2475,6 @@
 				3516C891077C41B0001AA863 /* Nebulae.h in Headers */,
 				3516C892077C41B0001AA863 /* NetCheck.h in Headers */,
 				3516C893077C41B0001AA863 /* NIS.h in Headers */,
-				3516C894077C41B0001AA863 /* NumberDefs.h in Headers */,
 				3516C895077C41B0001AA863 /* Objectives.h in Headers */,
 				3516C896077C41B0001AA863 /* ObjTypes.h in Headers */,
 				3516C897077C41B0001AA863 /* Options.h in Headers */,
@@ -2744,7 +2739,6 @@
 				90623DDA064992AF0088361C /* Nebulae.h in Headers */,
 				90623DDC064992AF0088361C /* NetCheck.h in Headers */,
 				90623DDE064992AF0088361C /* NIS.h in Headers */,
-				90623DDF064992AF0088361C /* NumberDefs.h in Headers */,
 				90623DE1064992AF0088361C /* Objectives.h in Headers */,
 				90623DE3064992AF0088361C /* ObjTypes.h in Headers */,
 				90623DE5064992AF0088361C /* Options.h in Headers */,
