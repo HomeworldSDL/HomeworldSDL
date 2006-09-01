@@ -6,7 +6,7 @@
 
 #include <stdio.h>
 #include <math.h>
-#include "Types.h"
+
 #include "Vector.h"
 #include "Debug.h"
 #include "FastMath.h"

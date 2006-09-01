@@ -9,7 +9,6 @@
 #include <stdlib.h>
 
 #include "Types.h"
-#include "SpaceObj.h"
 #include "UnivUpdate.h"
 #include "Universe.h"
 #include "Blobs.h"

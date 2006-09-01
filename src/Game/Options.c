@@ -9,7 +9,6 @@
 #include <stdio.h>
 #include <math.h>
 #include "glinc.h"
-#include "Types.h"
 #include "Key.h"
 #include "FEFlow.h"
 #include "Options.h"

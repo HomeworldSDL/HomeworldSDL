@@ -13,12 +13,7 @@
 #include <string.h>
 #include <strings.h>
 #include <ctype.h>
-#include "Types.h"
-#include "Debug.h"
-#include "Memory.h"
 #include "Task.h"
-#include "Key.h"
-#include "prim2d.h"
 #include "mouse.h"
 #include "Demo.h"
 #include "main.h"

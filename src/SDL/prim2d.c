@@ -15,9 +15,8 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
-#include "Types.h"
+
 #include "Debug.h"
-#include "main.h"
 #include "render.h"
 #include "prim2d.h"
 #include "glcaps.h"

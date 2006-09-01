@@ -7,15 +7,12 @@
 =============================================================================*/
 
 #include <string.h>
-#include "Types.h"
+#include "AIAttackMan.h"
 #include "SpaceObj.h"
-#include "AIPlayer.h"
 #include "AIFleetMan.h"
-#include "AITeam.h"
 #include "AIOrders.h"
 #include "AIMoves.h"
 #include "AIHandler.h"
-#include "Select.h"
 #include "Stats.h"
 #include "AIUtilities.h"
 #include "Randy.h"

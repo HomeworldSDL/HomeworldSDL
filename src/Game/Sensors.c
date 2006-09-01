@@ -16,7 +16,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "glinc.h"
-#include "Types.h"
 #include "Debug.h"
 #include "Memory.h"
 #include "prim2d.h"
@@ -26,7 +25,6 @@
 #include "utility.h"
 #include "font.h"
 #include "Region.h"
-#include "FEFlow.h"
 #include "Camera.h"
 #include "CameraCommand.h"
 #include "Vector.h"

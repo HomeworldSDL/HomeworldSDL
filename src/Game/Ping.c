@@ -8,18 +8,14 @@
 
 #include <math.h>
 #include <string.h>
-#include "Types.h"
 #include "Memory.h"
 #include "Debug.h"
 #include "Task.h"
 #include "prim2d.h"
-#include "SpaceObj.h"
-#include "LinkedList.h"
 #include "Universe.h"
 #include "Camera.h"
 #include "PiePlate.h"
 #include "Select.h"
-#include "Blobs.h"
 #include "Strings.h"
 #include "Tactical.h"
 #include "Teams.h"

@@ -9,10 +9,8 @@
 #include "Types.h"
 #include "KeyBindings.h"
 #include "UIControls.h"
-#include "Key.h"
 #include "FontReg.h"
 #include "FEColour.h"
-#include "Strings.h"
 
 /*=============================================================================
     Defines :

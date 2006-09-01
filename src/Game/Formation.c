@@ -10,14 +10,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include "Types.h"
 #include "Memory.h"
 #include "Debug.h"
 #include "FastMath.h"
-#include "SpaceObj.h"
 #include "AIShip.h"
 #include "AITrack.h"
-#include "ShipSelect.h"
 #include "Formation.h"
 #include "CommandLayer.h"
 #include "Universe.h"

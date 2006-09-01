@@ -21,10 +21,7 @@
 #include <time.h>
 #include <math.h>
 #include <limits.h>
-#include "Types.h"
-#include "Globals.h"
 #include "glinc.h"
-#include "Types.h"
 #include "Debug.h"
 #include "prim2d.h"
 #include "Universe.h"

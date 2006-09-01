@@ -8,7 +8,6 @@
 
 #include "SDL.h"
 
-#include "Types.h"
 #include "TimeoutTimer.h"
 #include "utility.h"
 

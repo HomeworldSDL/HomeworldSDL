@@ -9,15 +9,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "Types.h"
 #include "File.h"
 #include "Memory.h"
 #include "Debug.h"
-#include "Key.h"
 #include "Region.h"
 #include "mouse.h"
 #include "UnivUpdate.h"
-#include "Randy.h"
 #include "Camera.h"
 #include "mainrgn.h"
 #include "Select.h"

@@ -19,9 +19,6 @@
 #include "Memory.h"
 #include "prim3d.h"
 #include "render.h"
-#include "texreg.h"
-#include "Types.h"
-#include "Vector.h"
 #include "glcaps.h"
 #include "devstats.h"
 

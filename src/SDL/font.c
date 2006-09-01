@@ -11,9 +11,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <string.h>
-#include "Types.h"
-#include "color.h"
-#include "prim2d.h"
+
 #include "Memory.h"
 #include "File.h"
 #include "Debug.h"

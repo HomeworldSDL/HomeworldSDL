@@ -1,11 +1,9 @@
 
 #include <stdlib.h>
-#include "Types.h"
 #include "FastMath.h"
 #include "Memory.h"
 #include "Debug.h"
 #include "Vector.h"
-#include "SpaceObj.h"
 #include "AITrack.h"
 #include "AIShip.h"
 #include "ResCollect.h"

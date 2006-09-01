@@ -11,7 +11,6 @@
 #include <time.h>
 #include <limits.h>
 #include "resource.h"
-#include "Types.h"
 #include "utility.h"
 #include "debugwnd.h"
 #include "Task.h"

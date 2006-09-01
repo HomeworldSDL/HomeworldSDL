@@ -9,22 +9,17 @@
 
 #include <string.h>
 #include <stdlib.h>
-#include "Switches.h"
-#include "Types.h"
 #include "Debug.h"
 #include "Memory.h"
 #include "Task.h"
 #include "Queue.h"
 #include "Universe.h"
 #include "UnivUpdate.h"
-#include "CommandLayer.h"
 #include "NetCheck.h"
-#include "Globals.h"
 #include "utility.h"
 #include "CommandNetwork.h"
 #include "TitanInterfaceC.h"
 #include "HorseRace.h"
-#include "Chatting.h"
 #include "mainswitches.h"
 #include "Captaincy.h"
 #include "Titan.h"

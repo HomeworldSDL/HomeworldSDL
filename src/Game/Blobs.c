@@ -12,7 +12,6 @@
 #include <math.h>
 #include "Debug.h"
 #include "Memory.h"
-#include "SpaceObj.h"
 #include "Universe.h"
 #include "FastMath.h"
 #include "Sensors.h"

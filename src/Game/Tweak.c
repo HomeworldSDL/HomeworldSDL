@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <math.h>
-#include "Types.h"
+
 #include "Tweak.h"
 #include "StatScript.h"
 #include "Blobs.h"

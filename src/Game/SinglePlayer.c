@@ -6,11 +6,8 @@
 #include <ctype.h>
 #include <math.h>
 /*#include "bink.h"*/
-#include "Types.h"
-#include "Vector.h"
 #include "LinkedList.h"
 #include "ObjTypes.h"
-#include "SpaceObj.h"
 #include "StatScript.h"
 #include "font.h"
 #include "FEFlow.h"
@@ -34,7 +31,6 @@
 #include "ResearchShip.h"
 #include "InfoOverlay.h"
 #include "AIPlayer.h"
-#include "KAS.h"
 #include "HS.h"
 #include "AIVar.h"
 #include "Objectives.h"
@@ -42,7 +38,6 @@
 #include "LaunchMgr.h"
 #include "TradeMgr.h"
 #include "File.h"
-#include "ETG.h"
 #include "HorseRace.h"
 #include "Attributes.h"
 #include "SaveGame.h"

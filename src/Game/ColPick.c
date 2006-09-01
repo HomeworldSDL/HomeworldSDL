@@ -17,14 +17,10 @@
 #endif
 #include <stdio.h>
 #include "glinc.h"
-#include "Types.h"
-#include "color.h"
-#include "prim2d.h"
 #include "font.h"
 #include "FontReg.h"
 #include "mouse.h"
 #include "Memory.h"
-#include "texreg.h"
 #include "mainrgn.h"
 #include "utility.h"
 #include "StatScript.h"

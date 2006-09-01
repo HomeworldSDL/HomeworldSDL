@@ -8,7 +8,7 @@
 
 #include <math.h>
 #include <float.h>
-#include "Types.h"
+
 #include "FastMath.h"
 #include "Debug.h"
 

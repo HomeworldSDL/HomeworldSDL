@@ -6,11 +6,9 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#include "Types.h"
 #include "Globals.h"
 #include "mainswitches.h"
 #include "Universe.h"
-#include "TitanInterfaceC.h"
 #include "AIPlayer.h"
 #include "CommandNetwork.h"
 #include "NetCheck.h"

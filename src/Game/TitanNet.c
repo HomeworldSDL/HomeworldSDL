@@ -17,10 +17,8 @@
 #include <stdio.h>
 #include <string.h>
 #include "TitanNet.h"
-#include "Types.h"
 #include "Debug.h"
 #include "StatScript.h"
-#include "TitanInterfaceC.h"
 #include "CommandNetwork.h"
 #include "MultiplayerGame.h"
 #include "MultiplayerLANGame.h"

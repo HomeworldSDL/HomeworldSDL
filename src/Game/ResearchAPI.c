@@ -8,7 +8,6 @@
 
 #include <stdio.h>
 
-#include "Types.h"
 #include "ShipDefs.h"
 #include "ObjTypes.h"
 #include "ResearchAPI.h"
@@ -18,11 +17,8 @@
 #include "Strings.h"
 #include "LinkedList.h"
 #include "SoundEvent.h"
-
 #include "FEReg.h"
-#include "Region.h"
 #include "TradeMgr.h"
-
 #include "MultiplayerGame.h"
 #include "ConsMgr.h"
 

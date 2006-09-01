@@ -12,7 +12,6 @@
 #endif
 #endif
 #include "NavLights.h"
-#include "SpaceObj.h"
 #include "Matrix.h"
 #include "render.h"
 #include "prim3d.h"

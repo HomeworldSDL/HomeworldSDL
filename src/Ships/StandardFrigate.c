@@ -8,7 +8,6 @@
 
 #include "Types.h"
 #include "Debug.h"
-#include "SpaceObj.h"
 #include "StandardFrigate.h"
 #include "StatScript.h"
 #include "Gun.h"

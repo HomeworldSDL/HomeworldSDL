@@ -6,7 +6,6 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#include "File.h"
 #include "Debug.h"
 #include "BMP.h"
 

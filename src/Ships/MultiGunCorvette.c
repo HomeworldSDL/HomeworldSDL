@@ -9,7 +9,6 @@
 #include <string.h>
 #include "Types.h"
 #include "Debug.h"
-#include "SpaceObj.h"
 #include "MultiGunCorvette.h"
 #include "StatScript.h"
 #include "Gun.h"

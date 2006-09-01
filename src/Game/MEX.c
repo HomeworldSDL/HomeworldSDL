@@ -9,8 +9,6 @@
 #include <string.h>
 #include <strings.h>
 #include <math.h>
-#include "Types.h"
-#include "Vector.h"
 #include "Matrix.h"
 #include "Memory.h"
 #include "Debug.h"

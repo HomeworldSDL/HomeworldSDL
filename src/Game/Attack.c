@@ -7,9 +7,7 @@
 =============================================================================*/
 
 #include <stdlib.h>
-#include "Types.h"
 #include "FastMath.h"
-#include "SpaceObj.h"
 #include "Physics.h"
 #include "Gun.h"
 #include "AIShip.h"

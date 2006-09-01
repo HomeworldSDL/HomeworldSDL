@@ -8,11 +8,9 @@
 
 #include <string.h>
 #include <limits.h>
-#include "Types.h"
+
 #include "LinkedList.h"
-#include "SpaceObj.h"
 #include "Blobs.h"
-#include "ShipSelect.h"
 #include "Universe.h"
 #include "UnivUpdate.h"
 #include "SinglePlayer.h"

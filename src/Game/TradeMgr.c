@@ -14,11 +14,8 @@
 #include <stdio.h>
 #include <math.h>
 #include "FastMath.h"
-
-#include "Types.h"
 #include "LinkedList.h"
 #include "Universe.h"
-#include "Region.h"
 #include "UIControls.h"
 #include "FEFlow.h"
 #include "font.h"
@@ -35,7 +32,6 @@
 #include "SoundEvent.h"
 #include "Randy.h"
 #include "Strings.h"
-#include "ResearchAPI.h"
 #include "mainrgn.h"
 #include "TaskBar.h"
 #include "ShipView.h"
@@ -45,7 +41,6 @@
 #include "Sensors.h"
 #include "SinglePlayer.h"
 #include "Ping.h"
-#include "texreg.h"
 #include "FEReg.h"
 #include "ShipDefs.h"
 #include "NIS.h"

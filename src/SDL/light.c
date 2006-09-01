@@ -12,7 +12,7 @@
 #include <string.h>
 #include <math.h>
 #include <limits.h>
-#include "Types.h"
+
 #include "Debug.h"
 #include "StatScript.h"
 #include "Globals.h"

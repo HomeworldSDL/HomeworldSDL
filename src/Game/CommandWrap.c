@@ -8,8 +8,6 @@
 =============================================================================*/
 
 #include <string.h>
-#include "Types.h"
-#include "CommandLayer.h"
 #include "CommandNetwork.h"
 #include "CommandWrap.h"
 #include "Universe.h"

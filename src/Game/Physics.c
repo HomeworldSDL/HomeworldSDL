@@ -7,12 +7,9 @@
 =============================================================================*/
 
 #include <math.h>
-#include "Types.h"
 #include "Debug.h"
-#include "Vector.h"
 #include "Matrix.h"
 #include "FastMath.h"
-#include "SpaceObj.h"
 #include "Collision.h"
 #include "Physics.h"
 #include "SoundEvent.h"

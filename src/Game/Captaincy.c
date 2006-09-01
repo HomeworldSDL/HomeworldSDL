@@ -17,15 +17,14 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdarg.h>
-#include "Types.h"
 #include "Memory.h"
 #include "Debug.h"
 #include "Globals.h"
-#include "CommandNetwork.h"
 #include "Captaincy.h"
 #include "utility.h"
 #include "CommandWrap.h"
 #include "File.h"
+#include "CommandNetwork.h"
 
 
 /*

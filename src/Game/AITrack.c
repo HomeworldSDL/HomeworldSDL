@@ -8,13 +8,11 @@
 =============================================================================*/
 
 #include <math.h>
-#include "Types.h"
 #include "Debug.h"
 #include "Vector.h"
 #include "Matrix.h"
 #include "FastMath.h"
 #include "Physics.h"
-#include "SpaceObj.h"
 #include "AITrack.h"
 #include "StatScript.h"
 #include "Universe.h"

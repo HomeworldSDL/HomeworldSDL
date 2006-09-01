@@ -7,14 +7,11 @@
 =============================================================================*/
 
 #include <string.h>
-#include "Types.h"
 #include "Universe.h"
-#include "AIPlayer.h"
 #include "AIFleetMan.h"
 #include "AIResourceMan.h"
 #include "AIAttackMan.h"
 #include "AIDefenseMan.h"
-#include "AITeam.h"
 #include "AIUtilities.h"
 #include "AIVar.h"
 #include "CommandWrap.h"

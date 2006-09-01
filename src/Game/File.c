@@ -14,18 +14,15 @@
     #include <ctype.h>
 #endif
 
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <limits.h>
 #include <stdarg.h>
 #include <sys/stat.h>
 
-#include "Types.h"
 #include "Memory.h"
 #include "Debug.h"
 #include "File.h"
-#include "BigFile.h"
 #include "BitIO.h"
 #include "LZSS.h"
 

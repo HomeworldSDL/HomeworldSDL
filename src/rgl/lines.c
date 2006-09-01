@@ -1,5 +1,5 @@
-#include "kgl.h"
 #include "span.h"
+#include "lines.h"
 
 extern GLint g_DepthMask;
 

@@ -6,8 +6,6 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#include "Types.h"
-#include "Universe.h"
 #include "MultiplayerGame.h"
 #include "Bounties.h"
 #include "Alliance.h"

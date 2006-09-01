@@ -8,7 +8,6 @@
 
 #include "Types.h"
 #include "Debug.h"
-#include "SpaceObj.h"
 #include "P3StandardShip.h"
 #include "StatScript.h"
 #include "Gun.h"

@@ -5,7 +5,6 @@
 #include <string.h>
 #include <strings.h>
 #include <stdio.h>
-#include "Types.h"
 #include "Objectives.h"
 #include "ShipSelect.h"
 #include "KASFunc.h"
@@ -13,7 +12,6 @@
 #include "Strings.h"
 #include "font.h"
 #include "render.h"
-#include "FEFlow.h"
 #include "mainrgn.h"
 #include "Sensors.h"
 #include "Universe.h"

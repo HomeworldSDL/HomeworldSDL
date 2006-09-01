@@ -6,8 +6,6 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#include "UIControls.h"
-#include "prim2d.h"
 #include "mouse.h"
 #include "Scroller.h"
 

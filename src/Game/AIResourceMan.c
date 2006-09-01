@@ -6,7 +6,6 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#include "Types.h"
 #include "SpaceObj.h"
 #include "Universe.h"
 #include "UnivUpdate.h"

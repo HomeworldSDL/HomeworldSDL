@@ -10,13 +10,9 @@
 #include <stdlib.h>
 #include <math.h>
 #include "glinc.h"
-#include "Types.h"
 #include "Debug.h"
 #include "Matrix.h"
 #include "FastMath.h"
-#include "LinkedList.h"
-#include "ObjTypes.h"
-#include "SpaceObj.h"
 #include "Memory.h"
 #include "Collision.h"
 #include "Physics.h"

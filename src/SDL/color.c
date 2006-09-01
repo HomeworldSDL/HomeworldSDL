@@ -8,7 +8,7 @@
 
 #include <stdlib.h>
 #include <math.h>
-#include "Types.h"
+
 #include "color.h"
 
 /*=============================================================================

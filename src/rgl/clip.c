@@ -1,5 +1,4 @@
 #include <string.h>
-#include "kgl.h"
 #include "maths.h"
 #include "clip.h"
 

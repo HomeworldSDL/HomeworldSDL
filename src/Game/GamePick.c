@@ -15,11 +15,9 @@
 #include <dirent.h>
 #include <ctype.h>
 #include <limits.h>
-#include "Types.h"
 #include "Debug.h"
 #include "File.h"
 #include "Memory.h"
-#include "FEFlow.h"
 #include "utility.h"
 #include "font.h"
 #include "FontReg.h"

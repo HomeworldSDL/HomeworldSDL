@@ -11,7 +11,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <limits.h>
-#include "Types.h"
+
 #include "StatScript.h"
 #include "Memory.h"
 #include "SpaceObj.h"

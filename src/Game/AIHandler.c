@@ -6,13 +6,11 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#include "AITeam.h"
 #include "AIPlayer.h"
 #include "AIMoves.h"
 #include "AIHandler.h"
 #include "AIOrders.h"
 #include "CommandWrap.h"
-#include "Select.h"
 #include "ShipSelect.h"
 #include "GravWellGenerator.h"
 #include "Randy.h"

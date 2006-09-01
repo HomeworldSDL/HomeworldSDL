@@ -4,17 +4,14 @@
 #include "AIOrders.h"
 #include "AIPlayer.h"
 #include "AITeam.h"
-#include "AIUtilities.h"
 #include "CommandLayer.h"
 #include "CommandWrap.h"
 #include "Debug.h"
 #include "FastMath.h"
 #include "GravWellGenerator.h"
 #include "Randy.h"
-#include "ShipSelect.h"
 #include "SpaceObj.h"
 #include "Stats.h"
-#include "Types.h"
 
 
 /*=============================================================================

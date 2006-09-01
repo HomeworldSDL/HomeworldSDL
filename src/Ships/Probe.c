@@ -7,7 +7,6 @@
 =============================================================================*/
 #include <math.h>
 #include "Types.h"
-#include "SpaceObj.h"
 #include "AITrack.h"
 #include "Probe.h"
 #include "StatScript.h"

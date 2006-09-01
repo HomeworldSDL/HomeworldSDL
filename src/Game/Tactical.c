@@ -8,7 +8,7 @@
 
 #include <stdio.h>
 #include <strings.h>
-#include "Types.h"
+
 #include "Memory.h"
 #include "Debug.h"
 #include "StatScript.h"
@@ -19,7 +19,6 @@
 #include "Tactical.h"
 #include "Ships.h"
 #include "main.h"
-#include "utility.h"
 #include "render.h"
 #include "Alliance.h"
 #include "Sensors.h"

@@ -7,10 +7,8 @@
 =============================================================================*/
 
 #include "Types.h"
-#include "SpaceObj.h"
 #include "ProximitySensor.h"
 #include "SoundEvent.h"
-#include "Universe.h"
 #include "memory.h"
 #include "UnivUpdate.h"
 #include "LinkedList.h"

@@ -4,9 +4,7 @@
     Created June 1997 by Gary Shaw
 =============================================================================*/
 
-#include "Types.h"
 #include "Debug.h"
-#include "LinkedList.h"
 #include "SpaceObj.h"
 #include "Memory.h"
 

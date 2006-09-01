@@ -2,13 +2,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "Switches.h"
-#include "Types.h"
-#include "File.h"
 #include "Universe.h"
 #include "UnivUpdate.h"
 #include "NetCheck.h"
-#include "CommandNetwork.h"
 #include "Blobs.h"
 #include "Globals.h"
 #include "TitanNet.h"

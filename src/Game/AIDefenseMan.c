@@ -6,8 +6,7 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#include "Types.h"
-#include "SpaceObj.h"
+#include "AIDefenseMan.h"
 #include "AIPlayer.h"
 #include "AIFleetMan.h"
 #include "AIHandler.h"
@@ -838,7 +837,7 @@ void aidDefenseManager(void)
 /*=============================================================================
     Defense Startup, Shutdown and Other Stuff Functions:
 =============================================================================*/
-void aidTeamDied(struct AIPlayer *aiplayer,struct AITeam *team)
+void aidTeamDied(AIPlayer *aiplayer, AITeam *team)
 {
     sdword i;
 
@@ -861,7 +860,7 @@ void aidTeamDied(struct AIPlayer *aiplayer,struct AITeam *team)
     }
 }
 
-bool aidShipDied(struct AIPlayer *aiplayer, ShipPtr ship)
+bool aidShipDied(AIPlayer *aiplayer, ShipPtr ship)
 {
     bool return_value = FALSE;
 
@@ -901,7 +900,7 @@ bool aidShipDied(struct AIPlayer *aiplayer, ShipPtr ship)
     return return_value;
 }
 
-void aidInit(struct AIPlayer *aiplayer)
+void aidInit(AIPlayer *aiplayer)
 {
     aiplayer->numGuardTeams            = 0;
     aiplayer->shipsattackingmothership = NULL;
@@ -934,7 +933,7 @@ void aidInit(struct AIPlayer *aiplayer)
     }
 }
 
-void aidClose(struct AIPlayer *aiplayer)
+void aidClose(AIPlayer *aiplayer)
 {
     sdword i;
 

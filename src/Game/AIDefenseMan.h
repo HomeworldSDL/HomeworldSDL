@@ -9,20 +9,20 @@
 #ifndef ___AIDEFENSEMAN_H
 #define ___AIDEFENSEMAN_H
 
-#include "Types.h"
+#include "AIPlayer.h"
+#include "AITeam.h"
 #include "SpaceObj.h"
+#include "Types.h"
 
 void aidDefenseManager(void);
-bool aidShipDied(struct AIPlayer *aiplayer, ShipPtr ship);
-void aidTeamDied(struct AIPlayer *aiplayer,struct AITeam *team);
+bool aidShipDied(AIPlayer *aiplayer, ShipPtr ship);
+void aidTeamDied(AIPlayer *aiplayer, AITeam *team);
 
-void aidInit(struct AIPlayer *aiplayer);
-void aidClose(struct AIPlayer *aiplayer);
-
-//void aidAddNewShip(Ship *ship);
+void aidInit(AIPlayer *aiplayer);
+void aidClose(AIPlayer *aiplayer);
 
 void aidSendDistressSignal(SelectCommand *ships);
-void aidClearDistressSignal(struct AIPlayer *aiplayer);
+void aidClearDistressSignal(AIPlayer *aiplayer);
 
 #endif
 

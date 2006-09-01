@@ -8,7 +8,7 @@
 
 #include <string.h>
 #include <strings.h>
-#include "Types.h"
+
 #include "StatScript.h"
 #include "Strings.h"
 #include "ObjTypes.h"

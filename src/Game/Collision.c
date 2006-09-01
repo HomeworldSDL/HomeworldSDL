@@ -6,17 +6,14 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#include "Types.h"
 #include "FastMath.h"
 #include "Vector.h"
 #include "Matrix.h"
-#include "SpaceObj.h"
 #include "prim3d.h"
 #include "render.h"
 #include "Collision.h"
 #include "Universe.h"
 #include "UnivUpdate.h"
-#include "Blobs.h"
 #include "SalCapCorvette.h"
 #include "DefenseFighter.h"
 #include "DFGFrigate.h"

@@ -8,7 +8,6 @@
 
 #include <string.h>
 #include "Types.h"
-#include "SpaceObj.h"
 #include "GravWellGenerator.h"
 #include "SoundEvent.h"
 #include "Vector.h"

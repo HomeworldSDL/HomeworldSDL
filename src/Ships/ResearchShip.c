@@ -8,7 +8,6 @@
 
 #include <math.h>
 #include "Types.h"
-#include "SpaceObj.h"
 #include "ResearchShip.h"
 #include "UnivUpdate.h"
 #include "SoundEvent.h"

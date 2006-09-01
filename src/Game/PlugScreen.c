@@ -12,11 +12,9 @@
 #include <math.h>
 #include "glinc.h"
 #include "Task.h"
-#include "Region.h"
 #include "color.h"
 #include "prim2d.h"
 #include "interfce.h"
-#include "texreg.h"
 #include "FontReg.h"
 #include "StatScript.h"
 #include "FEFlow.h"

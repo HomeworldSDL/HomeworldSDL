@@ -7,8 +7,7 @@
 =============================================================================*/
 
 #include <string.h>
-#include "Types.h"
-#include "SpaceObj.h"
+
 #include "ShipSelect.h"
 #include "Universe.h"
 #include "Alliance.h"

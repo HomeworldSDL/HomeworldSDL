@@ -11,7 +11,6 @@
 #include <stdlib.h>
 
 #include "Debug.h"
-#include "CommandLayer.h"
 #include "Universe.h"
 #include "SpaceObj.h"
 #include "MadLinkIn.h"

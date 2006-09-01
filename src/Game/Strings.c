@@ -13,7 +13,7 @@
 #endif
 
 #include <string.h>
-#include "Types.h"
+
 #include "Memory.h"
 #include "StatScript.h"
 #include "Strings.h"

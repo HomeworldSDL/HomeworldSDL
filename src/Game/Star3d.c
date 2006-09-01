@@ -8,8 +8,7 @@
 
 #include <stdlib.h>
 #include <math.h>
-#include "Types.h"
-#include "Vector.h"
+
 #include "Matrix.h"
 #include "Memory.h"
 #include "Star3d.h"

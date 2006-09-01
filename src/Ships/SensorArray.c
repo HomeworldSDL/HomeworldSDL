@@ -7,7 +7,6 @@
 =============================================================================*/
 
 #include "Types.h"
-#include "SpaceObj.h"
 #include "SensorArray.h"
 #include "SoundEvent.h"
 #include "Universe.h"

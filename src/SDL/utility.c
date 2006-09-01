@@ -313,7 +313,6 @@ bool utyBrowserExec(char *URL)
 #endif
 }
 
-#include "Types.h"
 #include "resource.h"
 #include "Key.h"
 #include "debugwnd.h"
@@ -326,13 +325,10 @@ bool utyBrowserExec(char *URL)
 #include "Task.h"
 #include "render.h"
 #include "File.h"
-#include "Region.h"
 #include "mouse.h"
 #include "mainrgn.h"
 #include "Select.h"
-#include "prim2d.h"
 #include "UIControls.h"
-#include "FEFlow.h"
 #include "font.h"
 #include "FontReg.h"
 #include "StatScript.h"
@@ -365,7 +361,6 @@ bool utyBrowserExec(char *URL)
 #include "FEReg.h"
 #include "Nebulae.h"
 #include "AIPlayer.h"
-#include "TitanInterfaceC.h"
 #include "BTG.h"
 #include "Gun.h"
 #include "Strings.h"

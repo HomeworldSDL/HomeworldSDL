@@ -17,7 +17,6 @@
 
 #include <sys/stat.h>
 #include "BigFile.h"
-#include "CRC32.h"
 #include "BitIO.h"
 #include "LZSS.h"
 

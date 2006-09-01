@@ -19,13 +19,9 @@
 #include <math.h>
 #include <float.h>
 #include "Switches.h"
-#include "Types.h"
 #include "FastMath.h"
-#include "Region.h"
-#include "FEFlow.h"
 #include "Debug.h"
 #include "render.h"
-#include "Camera.h"
 #include "CameraCommand.h"
 #include "mouse.h"
 #include "utility.h"

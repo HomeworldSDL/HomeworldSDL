@@ -12,23 +12,15 @@
 #endif
 #endif
 #include <stdlib.h>
-#include "Types.h"
-#include "SpaceObj.h"
-#include "Matrix.h"
 #include "Vector.h"
-#include "prim2d.h"
-#include "font.h"
 #include "FontReg.h"
 #include "utility.h"
-#include "Camera.h"
 #include "Debug.h"
-#include "SpaceObj.h"
 #include "Universe.h"
 #include "CloakGenerator.h"
 #include "GravWellGenerator.h"
 #include "UnivUpdate.h"
 #include "FastMath.h"
-#include "PiePlate.h"
 #include "mouse.h"
 #include "glinc.h"
 #include "main.h"

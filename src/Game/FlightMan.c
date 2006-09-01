@@ -10,11 +10,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include "Types.h"
 #include "Debug.h"
 #include "Memory.h"
 #include "Physics.h"
-#include "SpaceObj.h"
 #include "Universe.h"
 #include "StatScript.h"
 #include "AITrack.h"

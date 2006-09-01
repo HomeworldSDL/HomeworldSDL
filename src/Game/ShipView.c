@@ -16,11 +16,9 @@
 #include <stdio.h>
 #include <float.h>
 #include "Types.h"
-#include "ObjTypes.h"
 #include "Strings.h"
 #include "ShipView.h"
 #include "Camera.h"
-#include "FEFlow.h"
 #include "FEReg.h"
 #include "glinc.h"
 #include "glcaps.h"

@@ -9,17 +9,12 @@
 
 #include <string.h>
 #include <math.h>
-#include "Types.h"
 #include "FastMath.h"
 #include "Debug.h"
 #include "Memory.h"
-#include "LinkedList.h"
-#include "Camera.h"
 #include "utility.h"
 #include "prim2d.h"
-#include "StatScript.h"
 #include "Universe.h"
-#include "ShipSelect.h"
 #include "CameraCommand.h"
 #include "ProximitySensor.h"
 #include "Sensors.h"

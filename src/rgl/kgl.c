@@ -17,7 +17,6 @@
 #include <string.h>
 #include <math.h>
 #include "kgl.h"
-#include "kgl_macros.h"
 #include "maths.h"
 #include "clip.h"
 #include "asm.h"

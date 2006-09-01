@@ -21,16 +21,12 @@
 
 #include <stdlib.h>
 #include "MultiplayerLANGame.h"
-//#include "MultiplayerGame.h"
 #include "FEFlow.h"
 #include "utility.h"
 #include "ScenPick.h"
-#include "UIControls.h"
-#include "Region.h"
 #include "mouse.h"
 #include "FontReg.h"
 #include "Scroller.h"
-#include "LinkedList.h"
 #include "prim2d.h"
 #include "Randy.h"
 #include "Chatting.h"

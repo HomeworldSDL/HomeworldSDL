@@ -1,7 +1,6 @@
-#include <math.h>
 #include <stdio.h>
 #include <string.h>
-#include "kgl.h"
+
 #include "maths.h"
 
 extern void invert_matrix(GLfloat const*, GLfloat*);

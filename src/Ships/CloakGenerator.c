@@ -8,7 +8,6 @@
 
 #include <string.h>
 #include "Types.h"
-#include "SpaceObj.h"
 #include "CloakGenerator.h"
 #include "SoundEvent.h"
 #include "LinkedList.h"

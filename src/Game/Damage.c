@@ -9,8 +9,6 @@
 #include <math.h>
 #include <string.h>
 #include "glinc.h"
-#include "SpaceObj.h"
-#include "ETG.h"
 #include "trails.h"
 #include "UnivUpdate.h"
 #include "Damage.h"
@@ -20,6 +18,7 @@
 #include "Memory.h"
 #include "Randy.h"
 #include "SinglePlayer.h"
+#include "ETG.h"
 
 
 #define DMG_WORLDSPACE 1

@@ -7,7 +7,6 @@
 =============================================================================*/
 
 #include "Types.h"
-#include "SpaceObj.h"
 #include "ResourceCollector.h"
 #include "SoundEvent.h"
 #include "StatScript.h"

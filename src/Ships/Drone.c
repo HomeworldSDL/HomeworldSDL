@@ -8,7 +8,6 @@
 
 #include "Types.h"
 #include "Debug.h"
-#include "SpaceObj.h"
 #include "DefaultShip.h"
 #include "Drone.h"
 #include "StatScript.h"

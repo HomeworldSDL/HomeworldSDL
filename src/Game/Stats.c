@@ -8,8 +8,7 @@
 
 #include <string.h>
 #include <stdarg.h>
-#include "Types.h"
-#include "SpaceObj.h"
+
 #include "Universe.h"
 #include "UnivUpdate.h"
 #include "File.h"

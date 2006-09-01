@@ -13,7 +13,6 @@
 #include "FastMath.h"
 #include "Debug.h"
 #include "ObjTypes.h"
-#include "SpaceObj.h"
 #include "Collision.h"
 #include "Physics.h"
 #include "Universe.h"

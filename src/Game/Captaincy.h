@@ -9,7 +9,6 @@
 =============================================================================*/
 
 #include "Types.h"
-//#include "CommandNetwork.h"
 
 typedef enum CaptaincyEvent {
     CAPEVENT_STARTGAME,

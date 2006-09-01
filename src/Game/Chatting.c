@@ -10,7 +10,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "Types.h"
 #include "CommandNetwork.h"
 #include "Memory.h"
 #include "Debug.h"

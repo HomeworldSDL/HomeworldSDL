@@ -7,7 +7,6 @@
 =============================================================================*/
 
 #include "Types.h"
-#include "SpaceObj.h"
 #include "Gun.h"
 #include "Attack.h"
 #include "Universe.h"

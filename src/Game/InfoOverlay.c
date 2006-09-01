@@ -11,7 +11,6 @@
 #include "FontReg.h"
 #include "utility.h"
 #include "Select.h"
-#include "Region.h"
 #include "Task.h"
 #include "StatScript.h"
 #include "Strings.h"

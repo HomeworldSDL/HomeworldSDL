@@ -13,7 +13,6 @@
 #include "Debug.h"
 #include "Memory.h"
 #include "File.h"
-#include "B-Spline.h"
 #include "SpaceObj.h"
 #include "Vector.h"
 #include "Matrix.h"
@@ -21,7 +20,6 @@
 #include "NIS.h"
 #include "mainrgn.h"
 #include "MeshAnim.h"
-#include "CRC32.h"
 
 #ifdef _MSC_VER
 #define strcasecmp _stricmp

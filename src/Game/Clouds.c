@@ -14,11 +14,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "Types.h"
 #include "Memory.h"
 #include "Clouds.h"
-#include "Vector.h"
-#include "Matrix.h"
 #include "Randy.h"
 #include "glinc.h"
 #include "render.h"

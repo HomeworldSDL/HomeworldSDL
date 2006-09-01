@@ -7,7 +7,6 @@
 =============================================================================*/
 
 #include "Types.h"
-#include "SpaceObj.h"
 #include "Memory.h"
 #include "Debug.h"
 #include "Universe.h"

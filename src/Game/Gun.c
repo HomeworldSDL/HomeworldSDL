@@ -11,12 +11,10 @@
 #include <math.h>
 #include <stdio.h>
 #include "glinc.h"
-#include "Types.h"
 #include "FastMath.h"
 #include "Debug.h"
 #include "LinkedList.h"
 #include "Memory.h"
-#include "SpaceObj.h"
 #include "Physics.h"
 #include "Vector.h"
 #include "Matrix.h"

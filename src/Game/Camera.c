@@ -8,10 +8,7 @@
 
 #include <string.h>
 #include <math.h>
-#include "Types.h"
 #include "Debug.h"
-#include "Vector.h"
-#include "Matrix.h"
 #include "Key.h"
 #include "Camera.h"
 #include "StatScript.h"

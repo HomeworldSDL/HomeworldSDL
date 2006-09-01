@@ -12,7 +12,6 @@
 #include <limits.h>
 #include "Debug.h"
 #include "Memory.h"
-#include "color.h"
 #include "Twiddle.h"
 #include "prim2d.h"
 #include "File.h"

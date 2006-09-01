@@ -12,12 +12,8 @@
 #endif
 #endif
 #include "glinc.h"
-#include "Types.h"
-#include "Region.h"
 #include "color.h"
-#include "prim2d.h"
 #include "mouse.h"
-#include "font.h"
 #include "FontReg.h"
 #include "SoundEvent.h"
 #include "UIControls.h"

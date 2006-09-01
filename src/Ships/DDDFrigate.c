@@ -8,7 +8,6 @@
 
 #include "Types.h"
 #include "Debug.h"
-#include "SpaceObj.h"
 #include "Drone.h"
 #include "DDDFrigate.h"
 #include "StatScript.h"

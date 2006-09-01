@@ -15,12 +15,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "Types.h"
 #include "Vector.h"
 #include "Matrix.h"
 #include "FastMath.h"
 #include "Debug.h"
-#include "SpaceObj.h"
 #include "Physics.h"
 #include "AITrack.h"
 #include "AIShip.h"

@@ -36,9 +36,7 @@
 #include "render.h"
 #include "BTG.h"
 #include "ETG.h"
-
 #include "SoundEvent.h"
-#include "SpaceObj.h"
 #include "MEX.h"
 #include "Universe.h"
 #include "UnivUpdate.h"

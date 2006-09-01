@@ -11,8 +11,6 @@
 #include "glinc.h"
 #include "Debug.h"
 #include "Memory.h"
-#include "font.h"
-#include "color.h"
 #include "StatScript.h"
 #include "FontReg.h"
 #include "main.h"

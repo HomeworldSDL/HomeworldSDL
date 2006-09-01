@@ -7,7 +7,6 @@
 =============================================================================*/
 
 #include "Types.h"
-#include "SpaceObj.h"
 #include "ResourceController.h"
 #include "StatScript.h"
 #include "ShipSelect.h"

@@ -17,7 +17,6 @@
 #include <string.h>
 #include <strings.h>
 #include <ctype.h>
-#include "Types.h"
 #include "Debug.h"
 #include "File.h"
 #include "Memory.h"

@@ -11,11 +11,9 @@
 #include <math.h>
 #include <string.h>
 #include <stdlib.h>
-#include "Types.h"
 #include "FastMath.h"
 #include "Debug.h"
 #include "Memory.h"
-#include "Formation.h"
 #include "CommandLayer.h"
 #include "AIShip.h"
 #include "AITrack.h"
@@ -46,7 +44,6 @@
 #include "MadLinkIn.h"
 #include "ProximitySensor.h"
 #include "ConsMgr.h"
-#include "ResCollect.h"
 #include "Tutor.h"
 #include "Randy.h"
 #include "Battle.h"

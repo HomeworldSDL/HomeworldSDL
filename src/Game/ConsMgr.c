@@ -12,10 +12,8 @@
 #endif
 
 #include <stdio.h>
-#include "Types.h"
 #include "LinkedList.h"
 #include "Universe.h"
-#include "Region.h"
 #include "UIControls.h"
 #include "FEFlow.h"
 #include "font.h"

@@ -9,11 +9,9 @@
 #include <string.h>
 #include "Types.h"
 #include "Debug.h"
-#include "SpaceObj.h"
 #include "HeavyCorvette.h"
 #include "StatScript.h"
 #include "Gun.h"
-#include "Attack.h"
 #include "DefaultShip.h"
 #include "ShipSelect.h"
 #include "AIShip.h"

@@ -11,8 +11,7 @@
 #include <string.h>
 #include <strings.h>
 #include <limits.h>
-#include "Types.h"
-#include "ObjTypes.h"
+
 #include "Debug.h"
 #include "Memory.h"
 #include "File.h"

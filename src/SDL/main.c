@@ -80,7 +80,6 @@ int RegisterCommandLine(char *commandLine)
 #include "ObjTypes.h"
 #include "Formation.h"
 #include "glcaps.h"
-#include "mainswitches.h"
 #include "Tactics.h"
 #include "render.h"
 #include "AutoLOD.h"

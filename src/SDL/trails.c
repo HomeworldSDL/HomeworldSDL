@@ -20,7 +20,6 @@
 #include <math.h>
 #include <float.h>
 #include "glinc.h"
-#include "Types.h"
 #include "Debug.h"
 #include "Memory.h"
 #include "prim3d.h"
