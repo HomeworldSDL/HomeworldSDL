@@ -611,11 +611,11 @@ void aiaTimeAttack(void)
 
     switch (aiCurrentAIPlayer->aiplayerDifficultyLevel)
     {
-        case AI_BEG:
+        case AI_BEGINNER:
             aivarValueSet(aivarFind(aiCurrentAIPlayer->attackVarLabel), -1);
             break;
-        case AI_INT:
-		case AI_ADV:
+        case AI_INTERMEDIATE:
+		case AI_ADVANCED:
 					// if there are no resources left
             if (!aiCurrentAIPlayer->airEasilyAccesibleRUsInWorld)
             {
@@ -1390,7 +1390,7 @@ void aiaInit(struct AIPlayer *aiplayer)
 
     switch (aiplayer->aiplayerDifficultyLevel)
     {
-        case AI_ADV:
+        case AI_ADVANCED:
             aiuEnableAttackFeature(AIA_ACTIVE_RECONAISSANCE);
 
             if (aiaPlayerCanBuildShipType(HeavyCruiser, aiplayer))
@@ -1419,12 +1419,12 @@ void aiaInit(struct AIPlayer *aiplayer)
             {
                 aiuEnableAttackFeature(AIA_GRAVWELL);
             }
-        case AI_INT:
+        case AI_INTERMEDIATE:
             aiuEnableAttackFeature(AIA_STATIC_RECONAISSANCE);
             aiuEnableAttackFeature(AIA_ATTACK_FLEET_FAST);
             aiuEnableAttackFeature(AIA_TAKEOUT_TARGET);
             aiuEnableAttackFeature(AIA_FRIGATE_STRIKE);
-        case AI_BEG:
+        case AI_BEGINNER:
             aiuEnableAttackFeature(AIA_ATTACK_FLEET_BIG);
             aiuEnableAttackFeature(AIA_ATTACK_FLEET_GUARD);
 

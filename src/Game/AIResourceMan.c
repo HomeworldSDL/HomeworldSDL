@@ -151,18 +151,18 @@ void airInit(struct AIPlayer *aiplayer)
 
     switch (aiplayer->aiplayerDifficultyLevel)
     {
-        case AI_ADV:
+        case AI_ADVANCED:
             aiuEnableResourceFeature(AIR_ACTIVE_MOTHERSHIP);
             aiuEnableResourceFeature(AIR_ACTIVE_RESOURCE_COLLECTION);
             aiuEnableResourceFeature(AIR_ACTIVE_SUPPORT_FRIGATE);
             aiuEnableResourceFeature(AIR_RESOURCE_DISTRESS_SIGNALS);
             aiuEnableResourceFeature(AIR_SMART_COLLECTOR_REQUESTS);
             aiuEnableResourceFeature(AIR_SMART_RESEARCH_SHIP_REQUESTS);
-        case AI_INT:
+        case AI_INTERMEDIATE:
             aiuEnableResourceFeature(AIR_AGGRESSIVE_RESOURCING);
             aiuEnableResourceFeature(AIR_RESOURCE_CONTROLLER_REQUESTS);
             aiuEnableResourceFeature(AIR_SUPPORT_FRIGATE_REQUESTS);
-        case AI_BEG:
+        case AI_BEGINNER:
             aiuEnableResourceFeature(AIR_ACTIVE_RESOURCE_CONTROLLER);
             break;
         default:

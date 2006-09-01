@@ -2664,7 +2664,7 @@ void singlePlayerLoadNewLevel(void)
 
     // restart computer AI player
     dbgAssert(universe.players[1].aiPlayer == NULL);
-    universe.players[1].aiPlayer = aiCurrentAIPlayer = aiplayerInit(&universe.players[1],AI_ADV);
+    universe.players[1].aiPlayer = aiCurrentAIPlayer = aiplayerInit(&universe.players[1],AI_ADVANCED);
     aiCurrentAIPlayer->primaryEnemyPlayer = &universe.players[0];
 
     // remove sensor weirdness if it's on

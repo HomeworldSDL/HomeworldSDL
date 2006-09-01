@@ -19,9 +19,9 @@
 
 typedef enum
 {
-    AI_BEG,           //beginner
-    AI_INT,           //intermediate
-    AI_ADV,           //advanced
+    AI_BEGINNER,
+    AI_INTERMEDIATE,
+    AI_ADVANCED,
     AI_NUM_LEVELS
 } AIPlayerLevel;
 

@@ -56,14 +56,14 @@ void aifInit(AIPlayer *aiplayer)
 
     switch (aiplayer->aiplayerDifficultyLevel)
     {
-        case AI_ADV:
+        case AI_ADVANCED:
             if (singlePlayerGame ||
                 ((!singlePlayerGame) && bitTest(tpGameCreated.flag, MG_Hyperspace)))
             {
                 aiuEnableResourceFeature(AIF_HYPERSPACING);
             }
-        case AI_INT:
-        case AI_BEG:
+        case AI_INTERMEDIATE:
+        case AI_BEGINNER:
             break;
         default:
             dbgAssert(FALSE);

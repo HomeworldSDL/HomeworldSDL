@@ -916,17 +916,17 @@ void aidInit(AIPlayer *aiplayer)
 
     switch (aiplayer->aiplayerDifficultyLevel)
     {
-        case AI_ADV:
+        case AI_ADVANCED:
             aiuEnableDefenseFeature(AID_ACTIVE_GUARD);
             aiuEnableDefenseFeature(AID_SPHERE_OF_INFLUENCE_INVADERS);
             aiuEnableDefenseFeature(AID_MOTHERSHIP_DEFENSE_HARDCORE);
             aiuEnableDefenseFeature(AID_CLOAK_DEFENSE_RED);
-        case AI_INT:
+        case AI_INTERMEDIATE:
             aiuEnableDefenseFeature(AID_GUARDING);
             aiuEnableDefenseFeature(AID_MOTHERSHIP_DEFENSE);
             aiuEnableDefenseFeature(AID_MOTHERSHIP_DEFENSE_MEDIUM);
             aiuEnableDefenseFeature(AID_CLOAK_DEFENSE);
-        case AI_BEG:
+        case AI_BEGINNER:
             break;
         default:
             dbgAssert(FALSE);

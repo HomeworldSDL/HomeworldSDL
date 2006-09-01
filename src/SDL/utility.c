@@ -2130,7 +2130,7 @@ void gameStart(char *loadfilename)
             if (ComputerPlayerEnabled[i])
             {
                 if (singlePlayerGame)
-                    player->aiPlayer = aiplayerInit(player,AI_ADV);
+                    player->aiPlayer = aiplayerInit(player,AI_ADVANCED);
                 else
                     player->aiPlayer = aiplayerInit(player,ConvertSliderToAIPlayerDifficulty(tpGameCreated.aiplayerDifficultyLevel));
 
