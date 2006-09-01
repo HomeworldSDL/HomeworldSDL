@@ -787,7 +787,7 @@ void MakeShipsNotIncludeLaunchingShips(SelectCommand *selection)
             shipcommand = getShipAndItsCommand(&universe.mainCommandLayer,selection->ShipPtr[i]);
             if(shipcommand != NULL)
             {
-                if(shipcommand->ordertype.order == COMMAND_LAUNCHSHIP)
+                if(shipcommand->ordertype.order == COMMAND_LAUNCH_SHIP)
                 {
                     //launching ship can hyperspace...lets not cancel its
                     //orders
@@ -1329,7 +1329,7 @@ bool OrientHyperspacingShips(void)
                             CommandToDo *shipcommand = getShipAndItsCommand(&universe.mainCommandLayer,ship);
                             if(shipcommand !=NULL)
                             {
-                                if(shipcommand->ordertype.order == COMMAND_LAUNCHSHIP)
+                                if(shipcommand->ordertype.order == COMMAND_LAUNCH_SHIP)
                                 {
                                     goto notreadyhscrud;
                                 }
@@ -1523,7 +1523,7 @@ bool UpdateArrivingShip(Ship *ship,hvector *topoint,bool midLevel)
                             CommandToDo *command = getShipAndItsCommand(&universe.mainCommandLayer,ship);
                             if(command != NULL)
                             {
-                                if(command->ordertype.order == COMMAND_MP_HYPERSPACEING)
+                                if(command->ordertype.order == COMMAND_MP_HYPERSPACING)
                                 {
                                     //if its a capital ship (docked ships won't have this command)
                                     if(universe.totaltimeelapsed - command->hyperSpaceingTime < TW_HYPERSPACE_TELEGRAPH_WAIT_TIME)

@@ -447,7 +447,7 @@ void allianceCancelAttackOrders(uword playerone, uword playertwo)
         todo = (CommandToDo *)listGetStructOfNode(search);
 
         if ( (todo->ordertype.order == COMMAND_ATTACK) ||
-             (todo->ordertype.attributes & COMMAND_IS_PASSIVEATTACKING) )
+             (todo->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING) )
         {
             dbgAssert(todo->selection->ShipPtr[0] != NULL);
             //if attack command contains player one ships

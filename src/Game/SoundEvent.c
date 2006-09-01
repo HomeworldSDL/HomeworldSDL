@@ -1271,14 +1271,14 @@ void soundEventUpdate(void)
 				if (command != NULL)
 				{
 					if ((command->ordertype.order == COMMAND_NULL) ||
-						(command->ordertype.order == COMMAND_MP_HYPERSPACEING))
+						(command->ordertype.order == COMMAND_MP_HYPERSPACING))
 					{
 						if (velocity <= 100.0f)
 						{
 							vol = 0;
 						}
 					}
-					else if ((command->ordertype.order == COMMAND_MILITARYPARADE)  &&
+					else if ((command->ordertype.order == COMMAND_MILITARY_PARADE)  &&
 							 (velocity <= 2.0f * SFX_FLOAT_VELOCITY))
 					{
 						vol = 0;
@@ -1451,7 +1451,7 @@ othersounds:
 					command = getShipAndItsCommand(&universe.mainCommandLayer, ship);
 					if (command != NULL)
 					{
-						if (command->ordertype.order == COMMAND_COLLECTRESOURCE)
+						if (command->ordertype.order == COMMAND_COLLECT_RESOURCES)
 						{
 							if (command->collect.resource->objtype == OBJ_AsteroidType)
 							{

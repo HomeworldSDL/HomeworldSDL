@@ -193,7 +193,7 @@ void ResearchShipHouseKeep(Ship *ship)
             if(command != NULL)
             {
                 //ship may be in parade...
-                if(command->ordertype.order == COMMAND_MILITARYPARADE)
+                if(command->ordertype.order == COMMAND_MILITARY_PARADE)
                 {
                     //ship is in parade
                     CommandToDo *ashipCom = getShipAndItsCommand(&universe.mainCommandLayer,command->militaryParade->aroundShip);
@@ -203,7 +203,7 @@ void ResearchShipHouseKeep(Ship *ship)
                         if(ashipCom->ordertype.order == COMMAND_MOVE ||
                            ashipCom->ordertype.order == COMMAND_ATTACK ||
                            ashipCom->ordertype.order == COMMAND_SPECIAL ||
-                           ashipCom->ordertype.order == COMMAND_MP_HYPERSPACEING)
+                           ashipCom->ordertype.order == COMMAND_MP_HYPERSPACING)
                         {
                             InParadeandMoving = TRUE;
                             spec->rotate_state = ROTATE_WAIT;

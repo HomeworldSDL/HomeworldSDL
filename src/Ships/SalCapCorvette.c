@@ -3331,11 +3331,11 @@ void salCapExtraSpecialOrderCleanUp(SelectCommand *selection,udword ordertype,Sh
                         }
                         goto ditchTarget;
                     case COMMAND_ATTACK:
-                    case COMMAND_LAUNCHSHIP:
-                    case COMMAND_COLLECTRESOURCE:
-                    case COMMAND_BUILDINGSHIP:
+                    case COMMAND_LAUNCH_SHIP:
+                    case COMMAND_COLLECT_RESOURCES:
+                    case COMMAND_BUILDING_SHIP:
                     case COMMAND_HALT:
-                    case COMMAND_MILITARYPARADE:
+                    case COMMAND_MILITARY_PARADE:
 ditchTarget:
                         bitClear(selection->ShipPtr[i]->specialFlags,SPECIAL_SalvagerHasSomethingAttachedAndIsDoingSomethingElse);
                         SalCapOrderChangedCleanUp(selection->ShipPtr[i]);

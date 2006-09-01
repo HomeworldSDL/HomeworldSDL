@@ -83,7 +83,7 @@ bool gunCanShoot(Ship *ship, Gun *gun)
     {
         if(command != NULL)
         {
-            if(command->ordertype.attributes & COMMAND_IS_PASSIVEATTACKING &&
+            if(command->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING &&
                !ship->staticinfo->passiveAttackPenaltyExempt)
             {
                 //ship is passive attacking, so lets limit its gun fire time
@@ -164,7 +164,7 @@ readystate:
 
         if(command != NULL)
         {
-            if(command->ordertype.attributes & COMMAND_IS_PASSIVEATTACKING
+            if(command->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING
                 && !ship->staticinfo->passiveAttackPenaltyExempt)
             {
                 //ship is passive attacking, so lets limit its gun fire time

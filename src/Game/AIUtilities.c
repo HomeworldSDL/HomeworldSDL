@@ -3611,7 +3611,7 @@ udword aiuUnitCapCanBuildShip(AIPlayer *aiplayer, ShipType shiptype, sdword numS
 //  {
 //      command = (CommandToDo *)listGetStructOfNode(node);
 //
-//      if ((command->ordertype.order == COMMAND_BUILDINGSHIP) &&
+//      if ((command->ordertype.order == COMMAND_BUILDING_SHIP) &&
 //          (command->buildingship.playerIndex == aiIndex))
 //      {
 //          shiptotal++;

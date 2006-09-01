@@ -1277,8 +1277,8 @@ void tbCalcTotalShipCommands(void)
             switch (command->ordertype.order)
             {
                 case COMMAND_HALT:
-                case COMMAND_MILITARYPARADE:
-                case COMMAND_LAUNCHSHIP:
+                case COMMAND_MILITARY_PARADE:
+                case COMMAND_LAUNCH_SHIP:
                 case COMMAND_NULL:
                     if (bitTest(command->ordertype.attributes, COMMAND_IS_PROTECTING))
                     {

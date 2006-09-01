@@ -221,7 +221,7 @@ void BuildShip(ShipStaticInfo *shipstatic,Player *player,sdword *incRUs,sdword *
 	
 		command = (CommandToDo *)listGetStructOfNode(shipnode);
 	
-		if(command->ordertype.order == COMMAND_BUILDINGSHIP)
+		if(command->ordertype.order == COMMAND_BUILDING_SHIP)
 		{
 			if(command->buildingship.playerIndex == player->playerIndex)
 			{

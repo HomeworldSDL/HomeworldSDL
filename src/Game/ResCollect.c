@@ -183,7 +183,7 @@ bool ResourceAlreadyBeingHarvested(struct CommandLayer *comlayer,struct CommandT
         {
             command = (CommandToDo *)listGetStructOfNode(curnode);
 
-            if ((command->ordertype.order == COMMAND_COLLECTRESOURCE) && (command != IAmThisCommand))
+            if ((command->ordertype.order == COMMAND_COLLECT_RESOURCES) && (command != IAmThisCommand))
             {
                 if (command->collect.resource == resource)
                 {
@@ -207,7 +207,7 @@ bool ResourceAlreadyBeingHarvested(struct CommandLayer *comlayer,struct CommandT
         {
             command = (CommandToDo *)listGetStructOfNode(curnode);
 
-            if ((command->ordertype.order == COMMAND_COLLECTRESOURCE) && (command != IAmThisCommand))
+            if ((command->ordertype.order == COMMAND_COLLECT_RESOURCES) && (command != IAmThisCommand))
             {
                 if (command->collect.resource == resource)
                 {
@@ -260,7 +260,7 @@ void ChangeSingleShipToCollectResource(struct CommandToDo *command)
     resource = rescollectFindNearestResource(ship,command);
     InitShipForResourceCollection(ship,resource);
 
-    command->ordertype.order = COMMAND_COLLECTRESOURCE;
+    command->ordertype.order = COMMAND_COLLECT_RESOURCES;
     command->ordertype.attributes = 0;
     command->collect.resource = resource;
 
@@ -296,7 +296,7 @@ void clCollectResource(CommandLayer *comlayer,SelectCommand *selectcom,ResourceP
 
     RemoveShipsFromDoingStuff(comlayer,selectcom);
 
-    // add COMMAND_COLLECTRESOURCE commands for each resource collector:
+    // add COMMAND_COLLECT_RESOURCES commands for each resource collector:
     for (i=0;i<numShips;i++)
     {
         ship = selectcom->ShipPtr[i];
@@ -310,7 +310,7 @@ void clCollectResource(CommandLayer *comlayer,SelectCommand *selectcom,ResourceP
         selection->ShipPtr[0] = ship;
 
         newcommand->selection = selection;
-        newcommand->ordertype.order = COMMAND_COLLECTRESOURCE;
+        newcommand->ordertype.order = COMMAND_COLLECT_RESOURCES;
         newcommand->ordertype.attributes = 0;
 
         newcommand->collect.resource = resource;
@@ -1074,8 +1074,8 @@ letsdock:
 #ifdef DEBUG_COLLECTRESOURCES
                 dbgMessage("\nFlying back to deposit resources...");
 #endif
-                // changing COMMAND_COLLECTRESOURCE to COMMAND_DOCK
-                FreeLastOrder(collecttodo); // free COMMAND_COLLECTRESOURCE
+                // changing COMMAND_COLLECT_RESOURCES to COMMAND_DOCK
+                FreeLastOrder(collecttodo); // free COMMAND_COLLECT_RESOURCES
                 dockChangeSingleShipToDock(collecttodo,ship,dockship,TRUE,DOCK_TO_DEPOSIT_RESOURCES);
 
                 return FALSE;

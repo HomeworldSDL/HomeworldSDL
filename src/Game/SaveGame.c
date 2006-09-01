@@ -3141,17 +3141,17 @@ void Save_CommandToDo(CommandToDo *command)
             // none needed;
             break;
 
-        case COMMAND_LAUNCHSHIP:
+        case COMMAND_LAUNCH_SHIP:
             // fixing
             savecommand->launchship.receiverShip = (sdword)SpaceObjRegistryGetID((SpaceObj *)command->launchship.receiverShip);
             break;
 
-        case COMMAND_COLLECTRESOURCE:
+        case COMMAND_COLLECT_RESOURCES:
             // fixing
             savecommand->collect.resource = (sdword)SpaceObjRegistryGetID((SpaceObj *)command->collect.resource);
             break;
 
-        case COMMAND_BUILDINGSHIP:
+        case COMMAND_BUILDING_SHIP:
             // fixing
             savecommand->buildingship.creator = (sdword)SpaceObjRegistryGetID((SpaceObj *)command->buildingship.creator);
             break;
@@ -3160,7 +3160,7 @@ void Save_CommandToDo(CommandToDo *command)
             // save
             break;
 
-        case COMMAND_MILITARYPARADE:
+        case COMMAND_MILITARY_PARADE:
             // save
             break;
     }
@@ -3181,7 +3181,7 @@ void Save_CommandToDo(CommandToDo *command)
         SaveSelection((SpaceObjSelection *)command->protect);
     }
 
-    if (command->ordertype.attributes & COMMAND_IS_PASSIVEATTACKING)
+    if (command->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
     {
         dbgAssert(command->ordertype.order != COMMAND_ATTACK);
         dbgAssert(command->attack);
@@ -3197,7 +3197,7 @@ void Save_CommandToDo(CommandToDo *command)
 
         case COMMAND_ATTACK:
             // save
-            dbgAssert((command->ordertype.attributes & COMMAND_IS_PASSIVEATTACKING) == NULL);
+            dbgAssert((command->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING) == NULL);
             dbgAssert(command->attack);
             SaveSelection((SpaceObjSelection *)command->attack);
             break;
@@ -3206,15 +3206,15 @@ void Save_CommandToDo(CommandToDo *command)
             // none needed;
             break;
 
-        case COMMAND_LAUNCHSHIP:
+        case COMMAND_LAUNCH_SHIP:
             // fixing
             break;
 
-        case COMMAND_COLLECTRESOURCE:
+        case COMMAND_COLLECT_RESOURCES:
             // fixing
             break;
 
-        case COMMAND_BUILDINGSHIP:
+        case COMMAND_BUILDING_SHIP:
             // fixing
             break;
 
@@ -3226,7 +3226,7 @@ void Save_CommandToDo(CommandToDo *command)
             }
             break;
 
-        case COMMAND_MILITARYPARADE:
+        case COMMAND_MILITARY_PARADE:
             // save
             dbgAssert(command->militaryParade);
             SaveMilitaryParade(command->militaryParade);
@@ -3267,17 +3267,17 @@ void Load_CommandToDo(LinkedList *list)
             // none needed;
             break;
 
-        case COMMAND_LAUNCHSHIP:
+        case COMMAND_LAUNCH_SHIP:
             // fixing
             command->launchship.receiverShip = SpaceObjRegistryGetShip((sdword)command->launchship.receiverShip);
             break;
 
-        case COMMAND_COLLECTRESOURCE:
+        case COMMAND_COLLECT_RESOURCES:
             // fixing
             command->collect.resource = SpaceObjRegistryGetResource((sdword)command->collect.resource);
             break;
 
-        case COMMAND_BUILDINGSHIP:
+        case COMMAND_BUILDING_SHIP:
             // fixing
             command->buildingship.creator = SpaceObjRegistryGetShip((sdword)command->buildingship.creator);
             break;
@@ -3286,7 +3286,7 @@ void Load_CommandToDo(LinkedList *list)
             // load
             break;
 
-        case COMMAND_MILITARYPARADE:
+        case COMMAND_MILITARY_PARADE:
             // load
             break;
     }
@@ -3303,7 +3303,7 @@ void Load_CommandToDo(LinkedList *list)
         command->protect = (ProtectCommand *)LoadSelectionAndFix();
     }
 
-    if (command->ordertype.attributes & COMMAND_IS_PASSIVEATTACKING)
+    if (command->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
     {
         dbgAssert(command->ordertype.order != COMMAND_ATTACK);
         command->attack = (AttackCommand *)LoadSelectionAndFix();
@@ -3318,7 +3318,7 @@ void Load_CommandToDo(LinkedList *list)
 
         case COMMAND_ATTACK:
             // load
-            dbgAssert((command->ordertype.attributes & COMMAND_IS_PASSIVEATTACKING) == NULL);
+            dbgAssert((command->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING) == NULL);
             command->attack = (AttackCommand *)LoadSelectionAndFix();
             break;
 
@@ -3326,15 +3326,15 @@ void Load_CommandToDo(LinkedList *list)
             // none needed;
             break;
 
-        case COMMAND_LAUNCHSHIP:
+        case COMMAND_LAUNCH_SHIP:
             // fixing
             break;
 
-        case COMMAND_COLLECTRESOURCE:
+        case COMMAND_COLLECT_RESOURCES:
             // fixing
             break;
 
-        case COMMAND_BUILDINGSHIP:
+        case COMMAND_BUILDING_SHIP:
             // fixing
             break;
 
@@ -3346,7 +3346,7 @@ void Load_CommandToDo(LinkedList *list)
             }
             break;
 
-        case COMMAND_MILITARYPARADE:
+        case COMMAND_MILITARY_PARADE:
             // load
             dbgAssert(command->militaryParade);
             command->militaryParade = LoadMilitaryParade();

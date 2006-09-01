@@ -124,7 +124,7 @@ void clWrapMpHyperspace(CommandLayer *comlayer,SelectCommand *selectcom,vector f
 
     if (playPackets|universePause) return;
 
-    //makeShipsControllable(selectcom,COMMAND_MP_HYPERSPACEING);
+    //makeShipsControllable(selectcom,COMMAND_MP_HYPERSPACING);
     if (selectcom->numShips == 0) return;
 
     if (!universe.aiplayerProcessing)
@@ -359,7 +359,7 @@ void clWrapCollectResource(CommandLayer *comlayer,SelectCommand *selectcom,Resou
 {
     if (playPackets|universePause) return;
 
-    makeShipsControllable(selectcom,COMMAND_COLLECTRESOURCE);
+    makeShipsControllable(selectcom,COMMAND_COLLECT_RESOURCES);
     if (selectcom->numShips == 0) return;
 
     if (!universe.aiplayerProcessing)

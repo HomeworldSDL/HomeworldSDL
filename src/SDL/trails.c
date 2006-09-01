@@ -1951,7 +1951,7 @@ void trailDraw(vector *current, shiptrail *trail, sdword LOD, sdword teamIndex)
             {
                 dontdrawtrail = TRUE;
             }
-            else if ((shipcommand->ordertype.attributes & (COMMAND_IS_ATTACKINGANDMOVING|COMMAND_IS_HOLDINGPATTERN|COMMAND_IS_PROTECTING)) == 0)
+            else if ((shipcommand->ordertype.attributes & (COMMAND_IS_ATTACKING_AND_MOVING|COMMAND_IS_HOLDING_PATTERN|COMMAND_IS_PROTECTING)) == 0)
             {
                 switch (shipcommand->ordertype.order)
                 {

@@ -2268,7 +2268,7 @@ cancelfocus:
             if ((!singlePlayerGame) && (bitTest(tpGameCreated.flag,MG_Hyperspace)))
             {
                 makeShipsNotIncludeSinglePlayerMotherships((SelectCommand *)&selSelected);
-                makeShipsControllable((SelectCommand *)&selSelected,COMMAND_MP_HYPERSPACEING);
+                makeShipsControllable((SelectCommand *)&selSelected,COMMAND_MP_HYPERSPACING);
                 makeSelectionHyperspaceCapable((SelectCommand *)&selSelected);
                 if(selSelected.numShips == 0)
                 {

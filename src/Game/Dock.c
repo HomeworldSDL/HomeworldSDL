@@ -1013,12 +1013,12 @@ sdword clDock(CommandLayer *comlayer,SelectCommand *selectcom,DockType dockType,
             ClearProtecting(alreadycommand);
         }
 
-        if (alreadycommand->ordertype.attributes & COMMAND_IS_PASSIVEATTACKING)
+        if (alreadycommand->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
         {
             ClearPassiveAttacking(alreadycommand);
         }
 
-        if (alreadycommand->ordertype.order == COMMAND_COLLECTRESOURCE)
+        if (alreadycommand->ordertype.order == COMMAND_COLLECT_RESOURCES)
         {
             dbgAssert(alreadycommand->selection->numShips == 1);
             wasHarvesting = TRUE;
@@ -1108,7 +1108,7 @@ void dockChangeSingleShipToDock(struct CommandToDo *command,Ship *ship,Ship *doc
         ClearProtecting(command);
     }
 
-    if (command->ordertype.attributes & COMMAND_IS_PASSIVEATTACKING)
+    if (command->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
     {
         ClearPassiveAttacking(command);
     }
@@ -3607,7 +3607,7 @@ bool ShipDocksAtASF(struct CommandToDo *docktodo,struct Ship *ship,struct Ship *
                 command = getShipAndItsCommand(&universe.mainCommandLayer,dockwith);
                 if(command != NULL)
                 {
-                    if(command->ordertype.order == COMMAND_MP_HYPERSPACEING)
+                    if(command->ordertype.order == COMMAND_MP_HYPERSPACING)
                     {
                         return(FALSE);
                     }
@@ -6751,7 +6751,7 @@ bool processDockToDo(CommandToDo *docktodo)
                         }
                     }
 
-                    if (docktodo->ordertype.attributes & COMMAND_IS_PASSIVEATTACKING)
+                    if (docktodo->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
                     {
                         RemoveShipFromAttacking(ship);
                         RemoveShipReferencesFromExtraAttackInfo(ship,docktodo);

@@ -606,7 +606,7 @@ sdword rowShipCanGetOutOfWayOfMe(Ship *ship,Ship *me)
         case COMMAND_HALT:
             return ROW_CAN_GET_OUT_OF_WAY;
 
-        case COMMAND_MILITARYPARADE:
+        case COMMAND_MILITARY_PARADE:
             if (shipcommand->militaryParade->aroundShip == me)
             {
                 return ROW_CANNOT_GET_OUT_OF_WAY;       // ships in my parade shouldn't try to avoid me!
@@ -1352,7 +1352,7 @@ passagain:
                         {
                             if ((shipcommand == NULL) ||
                                    ((shipcommand->ordertype.order != COMMAND_ATTACK) &&
-                                   ((shipcommand->ordertype.attributes & (COMMAND_IS_ATTACKINGANDMOVING|COMMAND_IS_PASSIVEATTACKING)) == 0))
+                                   ((shipcommand->ordertype.attributes & (COMMAND_IS_ATTACKING_AND_MOVING|COMMAND_IS_PASSIVE_ATTACKING)) == 0))
                                 )
                             {
                                 // ship isn't devoting its guns to anywhere else, so let's take a potshot at the asteroid in our way:
@@ -1446,7 +1446,7 @@ norowcheck:
                             goto getmaxdist;
                         }
 
-                        if ( (shipcommand->ordertype.order == COMMAND_MILITARYPARADE) && (shipcommand->militaryParade->aroundShip == avoidship))
+                        if ( (shipcommand->ordertype.order == COMMAND_MILITARY_PARADE) && (shipcommand->militaryParade->aroundShip == avoidship))
                         {
                             if (avoidship->shiptype == Mothership)
                             {
@@ -1547,7 +1547,7 @@ norowcheck:
                     }
                 }
 
-                if (shipcommand && shipcommand->ordertype.order == COMMAND_COLLECTRESOURCE && shipcommand->collect.resource == ((Resource *)avoidobj))
+                if (shipcommand && shipcommand->ordertype.order == COMMAND_COLLECT_RESOURCES && shipcommand->collect.resource == ((Resource *)avoidobj))
                 {
                     goto nextnode;      // don't avoid asteroids you're harvesting
                 }

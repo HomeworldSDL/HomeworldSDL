@@ -1760,12 +1760,12 @@ void tacticsUpdateOrderStatus(Ship *ship)
         switch(command->ordertype.order)
         {
         case COMMAND_NULL:
-        case COMMAND_MILITARYPARADE:
+        case COMMAND_MILITARY_PARADE:
             ship->tactics_ordertype = ORDER_TYPE_NO_ORDERS + enemyalready;
             break;
         case COMMAND_MOVE:
         case COMMAND_DOCK:
-        case COMMAND_LAUNCHSHIP:
+        case COMMAND_LAUNCH_SHIP:
         case COMMAND_HALT:
             ship->tactics_ordertype = ORDER_TYPE_MOVE_ORDERS + enemyalready;
             break;

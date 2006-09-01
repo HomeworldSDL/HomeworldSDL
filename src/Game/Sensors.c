@@ -3620,7 +3620,7 @@ void smDispatch(char *name, featom *atom)
                 {
                     if (piePointSpecMode == PSM_Idle)
                     {                                       //if bringing up the MM
-                        makeShipsControllable((SelectCommand *)&selSelected,COMMAND_MP_HYPERSPACEING);
+                        makeShipsControllable((SelectCommand *)&selSelected,COMMAND_MP_HYPERSPACING);
                         makeShipsNotIncludeSinglePlayerMotherships((SelectCommand *)&selSelected);
                         if(selSelected.numShips > 0)
                         {                                   //if there are ships we can control
@@ -3738,7 +3738,7 @@ void smHyperspace(char *name, featom *atom)
                 }
                 else
                 {
-                    makeShipsControllable((SelectCommand *)&selSelected,COMMAND_MP_HYPERSPACEING);
+                    makeShipsControllable((SelectCommand *)&selSelected,COMMAND_MP_HYPERSPACING);
                     makeSelectionHyperspaceCapable((SelectCommand *)&selSelected);
                     if(selSelected.numShips == 0)
                     {

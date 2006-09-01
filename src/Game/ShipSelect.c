@@ -751,7 +751,7 @@ void makeShipsControllable(SelectCommand *selection,sdword newCommand)
         if(command != NULL)
         {
             if(command->ordertype.order == COMMAND_DOCK ||
-                command->ordertype.order == COMMAND_LAUNCHSHIP)
+                command->ordertype.order == COMMAND_LAUNCH_SHIP)
             {
                 //if docking ship is NULL, we can assume some stuff...
                 if (selection->ShipPtr[i]->dockingship != NULL)
