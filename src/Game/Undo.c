@@ -1,18 +1,16 @@
-/*=============================================================================
-    Name    : Undo.c
-    Purpose : Logic and data for undoing actions
+// =============================================================================
+//  Undo.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 8/4/1997 by lmoloney
+// =============================================================================
 
-    Created 8/4/1997 by lmoloney
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+#include "Undo.h"
 
-#include <string.h>
-#include "Debug.h"
+#include "CommandWrap.h"
 #include "Memory.h"
 #include "Select.h"
-#include "CommandWrap.h"
 #include "Universe.h"
-#include "Undo.h"
 
 /*=============================================================================
     Data:
