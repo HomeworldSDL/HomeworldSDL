@@ -12,10 +12,8 @@
 #include "ResCollect.h"
 #include "CommandWrap.h"
 #include "AIResourceMan.h"
-#include "AIPlayer.h"
 #include "AIFleetMan.h"
 #include "AIOrders.h"
-#include "AITeam.h"
 #include "AIUtilities.h"
 #include "AIDefenseMan.h"
 #include "Select.h"
@@ -130,7 +128,7 @@ sdword NumRUDockPointsOnThisShip(Ship *ship)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void airInit(struct AIPlayer *aiplayer)
+void airInit(AIPlayer *aiplayer)
 {
     udword i;
 
@@ -177,7 +175,7 @@ void airInit(struct AIPlayer *aiplayer)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void airClose(struct AIPlayer *aiplayer)
+void airClose(AIPlayer *aiplayer)
 {
     udword i;
 
@@ -201,7 +199,7 @@ void airClose(struct AIPlayer *aiplayer)
     Outputs     :
     Return      : TRUE if the ship was found and removed
 ----------------------------------------------------------------------------*/
-bool airShipDied(struct AIPlayer *aiplayer,ShipPtr ship)
+bool airShipDied(AIPlayer *aiplayer,ShipPtr ship)
 {
 //    if ((ship->playerowner == aiplayer->player) || (ship->attributes & ATTRIBUTES_Defector)) // do all checks for defector
 //    {
@@ -243,7 +241,7 @@ bool airShipDied(struct AIPlayer *aiplayer,ShipPtr ship)
     Outputs     : does some things
     Return      : void
 ----------------------------------------------------------------------------*/
-void airTeamDied(struct AIPlayer *aiplayer, struct AITeam *team)
+void airTeamDied(AIPlayer *aiplayer, AITeam *team)
 {
     udword i;
 

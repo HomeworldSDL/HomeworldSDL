@@ -8,18 +8,18 @@
 #ifndef ___AIRESOURCEMAN_H
 #define ___AIRESOURCEMAN_H
 
+#include "AIPlayer.h"
+#include "AITeam.h"
+#include "SpaceObj.h"
 #include "Types.h"
-#include "ShipSelect.h"
-
-struct AITeam;
 
 void airResourceManager(void);
 
-void airInit(struct AIPlayer *aiplayer);
-void airClose(struct AIPlayer *aiplayer);
+void airInit(AIPlayer *aiplayer);
+void airClose(AIPlayer *aiplayer);
 
-bool airShipDied(struct AIPlayer *aiplayer,ShipPtr ship);
-void airTeamDied(struct AIPlayer *aiplayer, struct AITeam *team);
+bool airShipDied(AIPlayer *aiplayer, ShipPtr ship);
+void airTeamDied(AIPlayer *aiplayer, AITeam *team);
 
 sdword NumRUDockPointsOnThisShip(Ship *ship);
 

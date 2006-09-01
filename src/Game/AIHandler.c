@@ -451,7 +451,7 @@ void aihSlowDefenseNumbersLowHandler(AITeam *team)
     Outputs     :
     Return      : void
 ----------------------------------------------------------------------------*/
-void aihGenericGettingRockedHandler(struct AITeam *team, SelectCommand *ships)
+void aihGenericGettingRockedHandler(AITeam *team, SelectCommand *ships)
 {
     AITeamMove *thisMove = team->curMove;
     AITeamMove *newMove;
@@ -505,7 +505,7 @@ void aihGenericGettingRockedHandler(struct AITeam *team, SelectCommand *ships)
     Outputs     : Creates new moves
     Return      : void
 ----------------------------------------------------------------------------*/
-void aihPatrolEnemyNearbyHandler(struct AITeam *team, SelectCommand *ships)
+void aihPatrolEnemyNearbyHandler(AITeam *team, SelectCommand *ships)
 {
     AITeamMove *newMove, *thisMove = team->curMove;
 
@@ -625,7 +625,7 @@ void aihGravWellEnemyNotNearbyHandler(AITeam *team)
     Outputs     : Creates new moves to deal with the poopyhead attacking the defensless ship
     Return      : void
 ----------------------------------------------------------------------------*/
-void aihFastDefenseDistressHandler(struct AITeam *team, udword *intvar)
+void aihFastDefenseDistressHandler(AITeam *team, udword *intvar)
 {
     AITeamMove *newMove, *thisMove = team->curMove;
     SelectCommand *enemyShips;
@@ -710,7 +710,7 @@ void aihFastDefenseDistressHandler(struct AITeam *team, udword *intvar)
     Outputs     : Creates new moves to deal with the poopyhead attacking the defensless ship
     Return      : void
 ----------------------------------------------------------------------------*/
-void aihSlowDefenseDistressHandler(struct AITeam *team, udword *intvar)
+void aihSlowDefenseDistressHandler(AITeam *team, udword *intvar)
 {
     AITeamMove *newMove, *thisMove = team->curMove;
     SelectCommand *enemyShips;
@@ -794,7 +794,7 @@ void aihSlowDefenseDistressHandler(struct AITeam *team, udword *intvar)
     Outputs     : Deletes all the previous moves and creates new ones
     Return      : void
 ----------------------------------------------------------------------------*/
-void aihFastDefenseTeamDiedHandler(struct AITeam *team)
+void aihFastDefenseTeamDiedHandler(AITeam *team)
 {
     aitDeleteAllTeamMoves(team);
     aioCreateFastRovingDefense(team);
@@ -808,7 +808,7 @@ void aihFastDefenseTeamDiedHandler(struct AITeam *team)
     Outputs     : Deletes all the previous moves and creates new ones
     Return      : void
 ----------------------------------------------------------------------------*/
-void aihSlowDefenseTeamDiedHandler(struct AITeam *team)
+void aihSlowDefenseTeamDiedHandler(AITeam *team)
 {
     aitDeleteAllTeamMoves(team);
     aioCreateSlowRovingDefense(team);
@@ -822,7 +822,7 @@ void aihSlowDefenseTeamDiedHandler(struct AITeam *team)
     Outputs     : Deletes all the previous moves and create new ones
     Return      : void
 ----------------------------------------------------------------------------*/
-void aihGuardShipsTeamDiedHandler(struct AITeam *team)
+void aihGuardShipsTeamDiedHandler(AITeam *team)
 {
     MaxSelection tempsel;
 
@@ -840,7 +840,7 @@ void aihGuardShipsTeamDiedHandler(struct AITeam *team)
     Outputs     :
     Return      : void
 ----------------------------------------------------------------------------*/
-void aihReconaissanceTeamDiedHandler(struct AITeam *team)
+void aihReconaissanceTeamDiedHandler(AITeam *team)
 {
     aitDeleteAllTeamMoves(team);
 
@@ -856,7 +856,7 @@ void aihReconaissanceTeamDiedHandler(struct AITeam *team)
     Outputs     :
     Return      : void
 ----------------------------------------------------------------------------*/
-void  aihReconShipTeamDiedHandler(struct AITeam *team)
+void  aihReconShipTeamDiedHandler(AITeam *team)
 {
     aitDeleteAllTeamMoves(team);
 
@@ -873,7 +873,7 @@ void  aihReconShipTeamDiedHandler(struct AITeam *team)
     Outputs     : Deletes all the previous moves and creates new ones
     Return      : void
 ----------------------------------------------------------------------------*/
-void aihHarassTeamDiedHandler(struct AITeam *team)
+void aihHarassTeamDiedHandler(AITeam *team)
 {
 	if (!bitTest(team->teamFlags, AIT_Reissue01))
 	{
@@ -913,7 +913,7 @@ void aihHarassTeamDiedHandler(struct AITeam *team)
     Outputs     : Flags the team to be destroyed
     Return      : void
 ----------------------------------------------------------------------------*/
-void aihPatrolTeamDiedHandler(struct AITeam *team)
+void aihPatrolTeamDiedHandler(AITeam *team)
 {
     bitSet(team->teamFlags, AIT_DestroyTeam);
 //    aitDestroy(aiCurrentAIPlayer, team, TRUE);
@@ -927,7 +927,7 @@ void aihPatrolTeamDiedHandler(struct AITeam *team)
     Outputs     : Flags the team to be destroyed
     Return      : void
 ----------------------------------------------------------------------------*/
-void aihRemoveTeamDiedHandler(struct AITeam *team)
+void aihRemoveTeamDiedHandler(AITeam *team)
 {
     bitSet(team->teamFlags, AIT_DestroyTeam);
 //    aitDestroy(aiCurrentAIPlayer, team, TRUE);

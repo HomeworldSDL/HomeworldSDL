@@ -12,7 +12,6 @@
 #include "Types.h"
 #include "ObjTypes.h"
 #include "Universe.h"
-#include "AIResourceMan.h"
 #include "AIVar.h"
 #include "AIFeatures.h"
 #include "AITeam.h"
