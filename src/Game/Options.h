@@ -12,7 +12,6 @@
 #define ___OPTIONS_H
 
 #include "Types.h"
-#include "LilOptions.h"
 #include "Region.h"
 
 /*=============================================================================
@@ -67,6 +66,13 @@ extern sdword opSoundQuality;
 extern bool   opTimerActive;
 extern real32 opTimerStart;
 extern real32 opTimerLength;
+
+// previously in LilOptions.h
+extern udword opDeviceCRC;
+extern sdword opDeviceIndex;
+extern sdword opUsing3DfxGL;
+extern sdword opCPUDiff;
+extern sdword opCPUAttack;
 
 void opOptionsSaveCustomEffectsSettings(void);
 

@@ -91,7 +91,6 @@
 		3516C87E077C41B0001AA863 /* LagPrint.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C82064992AE0088361C /* LagPrint.h */; };
 		3516C87F077C41B0001AA863 /* LaunchMgr.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C84064992AE0088361C /* LaunchMgr.h */; };
 		3516C881077C41B0001AA863 /* LevelLoad.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C87064992AE0088361C /* LevelLoad.h */; };
-		3516C882077C41B0001AA863 /* LilOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C88064992AE0088361C /* LilOptions.h */; };
 		3516C883077C41B0001AA863 /* LinkedList.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C8A064992AE0088361C /* LinkedList.h */; };
 		3516C884077C41B0001AA863 /* LOD.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C8C064992AE0088361C /* LOD.h */; };
 		3516C885077C41B0001AA863 /* LZSS.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C8E064992AE0088361C /* LZSS.h */; };
@@ -694,7 +693,6 @@
 		90623DB6064992AF0088361C /* LaunchMgr.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C84064992AE0088361C /* LaunchMgr.h */; };
 		90623DB8064992AF0088361C /* LevelLoad.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C86064992AE0088361C /* LevelLoad.c */; };
 		90623DB9064992AF0088361C /* LevelLoad.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C87064992AE0088361C /* LevelLoad.h */; };
-		90623DBA064992AF0088361C /* LilOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C88064992AE0088361C /* LilOptions.h */; };
 		90623DBB064992AF0088361C /* LinkedList.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C89064992AE0088361C /* LinkedList.c */; };
 		90623DBC064992AF0088361C /* LinkedList.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C8A064992AE0088361C /* LinkedList.h */; };
 		90623DBD064992AF0088361C /* LOD.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C8B064992AE0088361C /* LOD.c */; };
@@ -1269,7 +1267,6 @@
 		90623C84064992AE0088361C /* LaunchMgr.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = LaunchMgr.h; path = ../src/Game/LaunchMgr.h; sourceTree = SOURCE_ROOT; };
 		90623C86064992AE0088361C /* LevelLoad.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = LevelLoad.c; path = ../src/Game/LevelLoad.c; sourceTree = SOURCE_ROOT; };
 		90623C87064992AE0088361C /* LevelLoad.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = LevelLoad.h; path = ../src/Game/LevelLoad.h; sourceTree = SOURCE_ROOT; };
-		90623C88064992AE0088361C /* LilOptions.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = LilOptions.h; path = ../src/Game/LilOptions.h; sourceTree = SOURCE_ROOT; };
 		90623C89064992AE0088361C /* LinkedList.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = LinkedList.c; path = ../src/Game/LinkedList.c; sourceTree = SOURCE_ROOT; };
 		90623C8A064992AE0088361C /* LinkedList.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = LinkedList.h; path = ../src/Game/LinkedList.h; sourceTree = SOURCE_ROOT; };
 		90623C8B064992AE0088361C /* LOD.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = LOD.c; path = ../src/Game/LOD.c; sourceTree = SOURCE_ROOT; };
@@ -1935,7 +1932,6 @@
 				90623C84064992AE0088361C /* LaunchMgr.h */,
 				90623C86064992AE0088361C /* LevelLoad.c */,
 				90623C87064992AE0088361C /* LevelLoad.h */,
-				90623C88064992AE0088361C /* LilOptions.h */,
 				90623C89064992AE0088361C /* LinkedList.c */,
 				90623C8A064992AE0088361C /* LinkedList.h */,
 				90623C8B064992AE0088361C /* LOD.c */,
@@ -2466,7 +2462,6 @@
 				3516C87E077C41B0001AA863 /* LagPrint.h in Headers */,
 				3516C87F077C41B0001AA863 /* LaunchMgr.h in Headers */,
 				3516C881077C41B0001AA863 /* LevelLoad.h in Headers */,
-				3516C882077C41B0001AA863 /* LilOptions.h in Headers */,
 				3516C883077C41B0001AA863 /* LinkedList.h in Headers */,
 				3516C884077C41B0001AA863 /* LOD.h in Headers */,
 				3516C885077C41B0001AA863 /* LZSS.h in Headers */,
@@ -2732,7 +2727,6 @@
 				90623DB4064992AF0088361C /* LagPrint.h in Headers */,
 				90623DB6064992AF0088361C /* LaunchMgr.h in Headers */,
 				90623DB9064992AF0088361C /* LevelLoad.h in Headers */,
-				90623DBA064992AF0088361C /* LilOptions.h in Headers */,
 				90623DBC064992AF0088361C /* LinkedList.h in Headers */,
 				90623DBE064992AF0088361C /* LOD.h in Headers */,
 				90623DC0064992AF0088361C /* LZSS.h in Headers */,
