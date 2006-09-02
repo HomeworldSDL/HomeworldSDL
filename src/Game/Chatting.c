@@ -1,23 +1,19 @@
+// =============================================================================
+//  Chatting.c
+//  - handles all chat data and makes call backs as neccessary
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+// =============================================================================
 
-/*=============================================================================
-    Name    : chatting.c
-    Purpose : handles all chat data and makes call backs as neccessary
+#include "Chatting.h"
 
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
-
+#include "Alliance.h"
 #include "CommandNetwork.h"
-#include "Memory.h"
-#include "Debug.h"
+#include "GameChat.h"
 #include "HorseRace.h"
 #include "MultiplayerGame.h"
 #include "MultiplayerLANGame.h"
-#include "GameChat.h"
-#include "Alliance.h"
+
 
 void recievedChatPacketCB(ubyte *packet,udword sizeofPacket)
 {
@@ -102,23 +98,3 @@ void sendAllianceRequest(udword user, uword player_index, uword type, ubyte data
 
     SendChatPacketPacket(&packetPtr, sizeofpacket,user);
 }
-
-/*  //Obsolete!
-
-void sendRUTransfer(udword user, sdword RUAmount)
-{
-    ChatPacket packetPtr;
-    udword sizeofpacket;
-
-    sizeofpacket = sizeof(HWPacketHeader) + 10;
-
-    //contruct packet by concatinating the message and the actual packet header
-    packetPtr.packetheader.type = PACKETTYPE_CHAT;
-    packetPtr.packetheader.frame = sigsPlayerIndex;
-    packetPtr.users = (uword)user;
-    packetPtr.data = (udword)RUAmount;
-    packetPtr.messageType = ALLIANCE_RUTRANSFER;
-
-    SendChatPacketPacket(&packetPtr, sizeofpacket,user);
-}
-*/
