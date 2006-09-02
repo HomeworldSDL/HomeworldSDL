@@ -6,15 +6,17 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
+#include "AIPlayer.h"
+
 #include <stdarg.h>
 #include <string.h>
-#include "AIPlayer.h"
 #include "File.h"
 #include "Select.h"
 #include "AIFleetMan.h"
 #include "AIAttackMan.h"
 #include "AIDefenseMan.h"
 #include "AIUtilities.h"
+#include "AIResourceMan.h"
 #include "Stats.h"
 #include "Randy.h"
 #include "NIS.h"

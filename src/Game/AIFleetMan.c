@@ -504,13 +504,10 @@ void aifBuildRequestedShips(RequestShips *scriptrequest,RequestShips *attrequest
         if (defnumships == 0) defmanbudgetoverflow = REALlyBig;
         if (resourcenumships == 0) resourcemanbudgetoverflow = REALlyBig;
 
-//#define buildscriptships   \
-
-//#define buildattships   \
-
-//#define builddefships   \
-
-//#define buildresships   \
+//#define buildscriptships  
+//#define buildattships     
+//#define builddefships     
+//#define buildresships     
 
         if (scriptnumships)
         {
