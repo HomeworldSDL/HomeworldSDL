@@ -1,14 +1,15 @@
-/*=============================================================================
-    Name    : hash.c
-    Purpose : reasonably generic hash table using uints as keys
-
-    Created 1/9/1998 by khent
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  Hash.c
+//  - reasonably generic hash table using uints as keys
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 1/9/1998 by khent
+// =============================================================================
 
 #include "Hash.h"
-#include "Memory.h"
+
 #include "Debug.h"
+#include "Memory.h"
 
 /*-----------------------------------------------------------------------------
     Name        : hashNewTable

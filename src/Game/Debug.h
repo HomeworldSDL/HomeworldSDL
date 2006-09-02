@@ -15,22 +15,18 @@
 
 // make sure the HW_Level environment variable is set correctly
 #if !(defined(HW_Debug) || defined(HW_Interim) || defined(HW_Release))
-#error HW_Level must be one of HW_Debug, HW_Interim or HW_Release
+    #error HW_Level must be one of HW_Debug, HW_Interim or HW_Release
 #endif
 
 
 #ifndef HW_Release
-
     #define DBG_ASSERT              1           // assertion checking
     #define DBG_FILE_LINE           1           // print file and line
     #define DBG_STACK_CONTEXT       1           // dump stack context at fatal error time
-
 #else
-
     #define DBG_ASSERT              0
     #define DBG_FILE_LINE           0           // don't print file and line
     #define DBG_STACK_CONTEXT       0           // dump stack context at fatal error time
-
 #endif
 
 
@@ -46,6 +42,7 @@
 #else
     #define DBG_Loc         NULL, 0
 #endif
+
 
 #if DBG_STACK_CONTEXT
     extern udword dbgStackBase;

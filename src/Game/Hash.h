@@ -1,14 +1,17 @@
-/*=============================================================================
-    Name    : hash.c
-    Purpose : reasonably generic hash table using uints as keys
+// =============================================================================
+//  Hash.h
+//  - reasonably generic hash table using uints as keys
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 1/9/1998 by khent
+// =============================================================================
 
-    Created 1/9/1998 by khent
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
 #ifndef ___HASH_H
 #define ___HASH_H
 
 #include "Types.h"
+
+// INTERFACE -------------------------------------------------------------------
 
 typedef struct hash_s
 {
