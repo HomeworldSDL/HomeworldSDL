@@ -1,23 +1,24 @@
-/*=============================================================================
-    Name    : Alliance.h
-    Purpose : This file contains all of the definitions for forming and breaking alliances.
-
-    Created 7/31/1998 by ddunlop
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
+// =============================================================================
+//  Alliance.h
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 7/31/1998 by ddunlop
+// =============================================================================
 
 #ifndef ___ALLIANCE_H
 #define ___ALLIANCE_H
 
 #include "Types.h"
 
-#define ALLIANCE_FORMNEWALLIANCE    1
-#define ALLIANCE_BREAKALLIANCE      2
-
+// forward declarations
 struct ChatPacket;
 struct Ship;
 struct Player;
+
+// INTERFACE -------------------------------------------------------------------
+
+#define ALLIANCE_FORM_NEW_ALLIANCE   1
+#define ALLIANCE_BREAK_ALLIANCE      2
 
 void allianceFormWith(udword playerindex);
 void allianceBreakWith(udword playerindex);

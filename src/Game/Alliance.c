@@ -1,28 +1,31 @@
-/*=============================================================================
-    Name    : Alliance.c
-    Purpose : This file handles all of the logic for forming and breaking alliances
+// =============================================================================
+//  Alliance.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 7/31/1998 by ddunlop
+// =============================================================================
 
-    Created 7/31/1998 by ddunlop
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-#include <stdio.h>
 #include "Alliance.h"
-#include "GameChat.h"
+
+#include "Attributes.h"
 #include "Chatting.h"
-#include "utility.h"
-#include "Universe.h"
-#include "CommandNetwork.h"
+#include "color.h"
+#include "CommandDefs.h"
 #include "CommandLayer.h"
+#include "CommandNetwork.h"
 #include "CommandWrap.h"
-#include "Strings.h"
+#include "GameChat.h"
+#include "SpeechEvent.h"
+#include "StringsOnly.h"
 #include "SoundEvent.h"
+#include "Universe.h"
+
 
 /*=============================================================================
     Data:
 =============================================================================*/
 
-color allianceMessageColor = colRGB(255,255,255);
+color allianceMessageColor = colWhite;
 
 /*=============================================================================
     Function prototypes for some private functions:
@@ -109,7 +112,7 @@ void allianceBreakWith(udword playerindex)
 {
     if (bitTest(universe.players[sigsPlayerIndex].Allies,PLAYER_MASK(playerindex)))
     {
-        clWrapSetAlliance(ALLIANCE_BREAKALLIANCE, (uword)sigsPlayerIndex, (uword)playerindex);
+        clWrapSetAlliance(ALLIANCE_BREAK_ALLIANCE, (uword)sigsPlayerIndex, (uword)playerindex);
     }
 }
 
@@ -133,7 +136,7 @@ void allianceFormRequestRecievedCB(ChatPacket *packet)
             {
                 bitClear(universe.players[sigsPlayerIndex].AllianceProposals, PLAYER_MASK(packet->packetheader.frame));
 
-                clWrapSetAlliance(ALLIANCE_FORMNEWALLIANCE, (uword)sigsPlayerIndex, (uword)packet->packetheader.frame);
+                clWrapSetAlliance(ALLIANCE_FORM_NEW_ALLIANCE, (uword)sigsPlayerIndex, (uword)packet->packetheader.frame);
             }
             else
             {
@@ -251,7 +254,7 @@ void allianceSetAlliance(udword AllianceType, uword playerone, uword playertwo)
     switch (AllianceType)
     {
         // New alliance is being formed.
-        case ALLIANCE_FORMNEWALLIANCE:
+        case ALLIANCE_FORM_NEW_ALLIANCE:
         {
             // update player information about an alliance
             if (universe.players[playerone].playerState != PLAYER_DEAD)
@@ -316,7 +319,7 @@ void allianceSetAlliance(udword AllianceType, uword playerone, uword playertwo)
         }
         break;
         // current alliance is beging broken.
-        case ALLIANCE_BREAKALLIANCE:
+        case ALLIANCE_BREAK_ALLIANCE:
         {
             // update player information about an alliance
             if (universe.players[playerone].playerState != PLAYER_DEAD)
@@ -482,7 +485,7 @@ void allianceBreakAll(void)
     {
         if ( bitTest(universe.players[sigsPlayerIndex].Allies, PLAYER_MASK(i)) )
         {
-            clWrapSetAlliance(ALLIANCE_BREAKALLIANCE, (uword)sigsPlayerIndex, (uword)i);
+            clWrapSetAlliance(ALLIANCE_BREAK_ALLIANCE, (uword)sigsPlayerIndex, (uword)i);
         }
     }
 }
