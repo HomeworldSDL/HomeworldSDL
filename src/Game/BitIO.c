@@ -1,22 +1,20 @@
-//
-//  Bitfile IO Module
-//
+// =============================================================================
+//  BitIO.c
+//  - file-oriented code based on The Data Compression Book, by Mark Nelson & Jean-Loup Gailly
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//	Created by Darren Stone 1998/10/05
+// =============================================================================
 
-//	Darren Stone 1998/10/05
-//
-//  (file-oriented code based on The Data Compression Book, by Mark Nelson & Jean-Loup Gailly)
-//
-//
-
-
-#include <stdlib.h>
 #include "BitIO.h"
 
+#include <stdlib.h>
+
 #ifdef BF_HOMEWORLD
-#include "Memory.h"
-#include "Debug.h"
+    #include "Memory.h"
+    #include "Debug.h"
 #else 
-#include "assert.h"
+    #include "assert.h"
 #endif
 
 // for stdout
@@ -28,11 +26,11 @@
 //	don't use regular char-mode output on this stream until after a
 //	call to bitioFileAppendStop()
 //
-BIT_FILE *bitioFileAppendStart(FILE *fp)
+BitFile *bitioFileAppendStart(FILE *fp)
 {
-    BIT_FILE *bit_file;
+    BitFile *bit_file;
 
-    bit_file = (BIT_FILE *) calloc( 1, sizeof( BIT_FILE ) );
+    bit_file = (BitFile *) calloc( 1, sizeof( BitFile ) );
     if ( bit_file == NULL )
         return( bit_file );
     bit_file->file = fp;
@@ -48,7 +46,7 @@ BIT_FILE *bitioFileAppendStart(FILE *fp)
 //
 //	returns bytes written in bit mode
 //
-int bitioFileAppendStop(BIT_FILE *bit_file)
+int bitioFileAppendStop(BitFile *bit_file)
 {
 	int ret;
     if ( bit_file->mask != 0x80 )
@@ -66,12 +64,12 @@ int bitioFileAppendStop(BIT_FILE *bit_file)
 	return ret;
 }
 
-BIT_FILE *bitioFileOpenOutput( name )
+BitFile *bitioFileOpenOutput( name )
 char *name;
 {
-    BIT_FILE *bit_file;
+    BitFile *bit_file;
 
-    bit_file = (BIT_FILE *) calloc( 1, sizeof( BIT_FILE ) );
+    bit_file = (BitFile *) calloc( 1, sizeof( BitFile ) );
     if ( bit_file == NULL )
         return( bit_file );
     bit_file->file = fopen( name, "wb" );
@@ -90,11 +88,11 @@ char *name;
 //	don't use regular char-mode input on this stream until after a
 //	call to bitioFileInputStop()
 //
-BIT_FILE     *bitioFileInputStart(FILE *fp)
+BitFile     *bitioFileInputStart(FILE *fp)
 {
-    BIT_FILE *bit_file;
+    BitFile *bit_file;
 
-    bit_file = (BIT_FILE *) calloc( 1, sizeof( BIT_FILE ) );
+    bit_file = (BitFile *) calloc( 1, sizeof( BitFile ) );
     if ( bit_file == NULL )
         return( bit_file );
     bit_file->file = fp;
@@ -110,7 +108,7 @@ BIT_FILE     *bitioFileInputStart(FILE *fp)
 //
 //	returns bytes read in bit mode
 //
-int bitioFileInputStop(BIT_FILE *bit_file)
+int bitioFileInputStop(BitFile *bit_file)
 {
 	int ret = bit_file->index;
     free( (char *) bit_file );
@@ -118,12 +116,12 @@ int bitioFileInputStop(BIT_FILE *bit_file)
 }
 
 
-BIT_FILE *bitioFileOpenInput( name )
+BitFile *bitioFileOpenInput( name )
 char *name;
 {
-    BIT_FILE *bit_file;
+    BitFile *bit_file;
 
-    bit_file = (BIT_FILE *) calloc( 1, sizeof( BIT_FILE ) );
+    bit_file = (BitFile *) calloc( 1, sizeof( BitFile ) );
     if ( bit_file == NULL )
     	return( bit_file );
     bit_file->file = fopen( name, "rb" );
@@ -138,7 +136,7 @@ char *name;
 //	returns bytes written
 //
 int bitioFileCloseOutput( bit_file )
-BIT_FILE *bit_file;
+BitFile *bit_file;
 {
 	int ret;
     if ( bit_file->mask != 0x80 )
@@ -161,7 +159,7 @@ BIT_FILE *bit_file;
 //	return bytes read
 //
 int bitioFileCloseInput( bit_file )
-BIT_FILE *bit_file;
+BitFile *bit_file;
 {
 	int ret = bit_file->index;
     fclose( bit_file->file );
@@ -170,7 +168,7 @@ BIT_FILE *bit_file;
 }
 
 void bitioFileOutputBit( bit_file, bit )
-BIT_FILE *bit_file;
+BitFile *bit_file;
 int bit;
 {
 	int ret;
@@ -195,7 +193,7 @@ int bit;
 }
 
 void bitioFileOutputBits( bit_file, code, count )
-BIT_FILE *bit_file;
+BitFile *bit_file;
 unsigned long code;
 int count;
 {
@@ -228,7 +226,7 @@ int count;
 }
 
 int bitioFileInputBit( bit_file )
-BIT_FILE *bit_file;
+BitFile *bit_file;
 {
     int value;
 
@@ -253,7 +251,7 @@ BIT_FILE *bit_file;
 }
 
 unsigned long bitioFileInputBits( bit_file, bit_count )
-BIT_FILE *bit_file;
+BitFile *bit_file;
 int bit_count;
 {
     unsigned long mask;
@@ -325,14 +323,14 @@ void bitioShutdown(void)
 //
 //  open for input or output
 //
-BIT_BUFFER *bitioBufferOpen(char *buffer)
+BitBuffer *bitioBufferOpen(char *buffer)
 {
 #if BF_HOMEWORLD    
-    BIT_BUFFER *bitBuffer = (BIT_BUFFER *)memAlloc(sizeof(BIT_BUFFER), "bitiobuffer", 0);
+    BitBuffer *bitBuffer = (BitBuffer *)memAlloc(sizeof(BitBuffer), "bitiobuffer", 0);
 	dbgAssert(buffer);
     dbgAssert(bitBuffer);
 #else
-    BIT_BUFFER *bitBuffer = (BIT_BUFFER *)malloc(sizeof(BIT_BUFFER));
+    BitBuffer *bitBuffer = (BitBuffer *)malloc(sizeof(BitBuffer));
 	assert(buffer);
     assert(bitBuffer);
 #endif
@@ -348,7 +346,7 @@ BIT_BUFFER *bitioBufferOpen(char *buffer)
 //  Write out any pending partial bytes and close.
 //  Return size of buffer written (in bytes, rounded up).
 //
-int bitioBufferCloseOutput(BIT_BUFFER *bitBuffer)
+int bitioBufferCloseOutput(BitBuffer *bitBuffer)
 {
     int size = bitBuffer->index;
 
@@ -366,14 +364,14 @@ int bitioBufferCloseOutput(BIT_BUFFER *bitBuffer)
 //
 //	return bytes read
 //
-int bitioBufferCloseInput(BIT_BUFFER *bitBuffer)
+int bitioBufferCloseInput(BitBuffer *bitBuffer)
 {
 	int ret = bitBuffer->index;
     free(bitBuffer);
 	return ret;
 }
 
-void bitioBufferOutputBit(BIT_BUFFER *bitBuffer, int bit)
+void bitioBufferOutputBit(BitBuffer *bitBuffer, int bit)
 {
     if (bit)
         bitBuffer->rack |= bitBuffer->mask;
@@ -390,7 +388,7 @@ void bitioBufferOutputBit(BIT_BUFFER *bitBuffer, int bit)
     }
 }
 
-void bitioBufferOutputBits(BIT_BUFFER *bitBuffer, unsigned long code, int count)
+void bitioBufferOutputBits(BitBuffer *bitBuffer, unsigned long code, int count)
 {
     unsigned long mask;
 
@@ -414,7 +412,7 @@ void bitioBufferOutputBits(BIT_BUFFER *bitBuffer, unsigned long code, int count)
     }
 }
 
-int bitioBufferInputBit(BIT_BUFFER *bitBuffer)
+int bitioBufferInputBit(BitBuffer *bitBuffer)
 {
     int value;
 
@@ -433,7 +431,7 @@ int bitioBufferInputBit(BIT_BUFFER *bitBuffer)
     return value ? 1 : 0;
 }
 
-unsigned long bitioBufferInputBits(BIT_BUFFER *bitBuffer, int count)
+unsigned long bitioBufferInputBits(BitBuffer *bitBuffer, int count)
 {
     unsigned long mask;
     unsigned long return_value;

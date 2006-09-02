@@ -1221,7 +1221,7 @@ filehandle fileOpen(char *_fileName, udword flags)
     sdword existsInBigfile;
     sdword usingBigfile = FALSE;
     int expandedSize, storedSize;
-    BIT_FILE *bitFile;
+    BitFile *bitFile;
     sdword firstBufUse = FALSE;
 
     //  find next available filehandle

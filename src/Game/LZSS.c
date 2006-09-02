@@ -241,7 +241,7 @@ int *match_position;
 //
 void lzssCompressFile(input, output)
 FILE *input;
-BIT_FILE *output;
+BitFile *output;
 {
     int i;
     int c;
@@ -300,7 +300,7 @@ BIT_FILE *output;
 // a index/length pair, and take the appropriate action.
 //
 void lzssExpandFile(input, output)
-BIT_FILE *input;
+BitFile *input;
 FILE *output;
 {
     int i;
@@ -357,7 +357,7 @@ int lzssCompressBuffer(char *input, int inputSize, char *output, int outputSize)
     int replace_count;
     int match_length;
     int match_position;
-    BIT_BUFFER *outBuffer;
+    BitBuffer *outBuffer;
     char *inBuffer = input;
 
     outBuffer = bitioBufferOpen(output);
@@ -434,7 +434,7 @@ int lzssExpandBuffer(char *input, int inputSize, char *output, int outputSize)
     int c;
     int match_length;
     int match_position;
-    BIT_BUFFER *inBuffer;
+    BitBuffer *inBuffer;
     char *outBuffer = output;
  
     inBuffer = bitioBufferOpen(input);
@@ -474,7 +474,7 @@ int lzssExpandBuffer(char *input, int inputSize, char *output, int outputSize)
 //      -1 if there was an error
 //      size of expanded data in output if successful
 //
-int lzssExpandFileToBuffer(BIT_FILE *input, char *output, int outputSize)
+int lzssExpandFileToBuffer(BitFile *input, char *output, int outputSize)
 {
     int i;
     int current_position;

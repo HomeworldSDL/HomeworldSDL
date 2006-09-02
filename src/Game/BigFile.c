@@ -1407,7 +1407,7 @@ int bigFastCreate(char *bigfilename, int numFiles, char *filenames[], int optCom
                         if (fileEntry.compressionType)
                         {
                             // compress and append
-                            BIT_FILE *bitFile;
+                            BitFile *bitFile;
                             bitFile = bitioFileAppendStart(bigFP);
                             lzssCompressFile(dataFP, bitFile);
                             compressedSize = bitioFileAppendStop(bitFile);
@@ -1645,7 +1645,7 @@ int bigAddFile(char *bigFilename, char *filename, char *storedFilename, int optC
     // compress file to temp file if required
     if (optCompression)
     {
-        BIT_FILE *bf = bitioFileOpenOutput(compressedTempFilename);
+        BitFile *bf = bitioFileOpenOutput(compressedTempFilename);
         if (!bf)
         {
             if (consoleOutput)
@@ -2073,7 +2073,7 @@ sdword bigFileLoadAlloc(bigTOC *toc, FILE *bigFP, char *filename, sdword fileNum
     bigTOCFileEntry *entry;
     char *memoryName;
     int expandedSize, storedSize;
-    BIT_FILE *bitFile;
+    BitFile *bitFile;
 
     if (IgnoreBigfiles)
         return -1;
@@ -2121,7 +2121,7 @@ sdword bigFileLoad(bigTOC *toc, FILE *bigFP, sdword fileNum, void *address)
     sdword length;
     bigTOCFileEntry *entry;
     int expandedSize, storedSize;
-    BIT_FILE *bitFile;
+    BitFile *bitFile;
 
     if (IgnoreBigfiles)
         return -1;
