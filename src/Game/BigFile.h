@@ -1,11 +1,16 @@
+// =============================================================================
+//  BigFile.h
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+// =============================================================================
+
 #ifndef ___BIGFILE_H
 #define ___BIGFILE_H
 
-//#include <io.h>
 #include <time.h>
 #include "CRC32.h"
 
-//
+
 //  Version Notes:
 //  0.90    1998/05/12  Darren Stone
 //          Created.  Basic add operations.
@@ -57,29 +62,35 @@
 //          Fixed fast-create sorting bug.
 // Gary changed interface of bigCRC function
 
-#define BIGGIE_VERSION "2.11"
+
+#define BF_FILE_HEADER "RBF"   // don't change this!
+
 //  increment this when significant features are added or bugs fixed
 // (keep this string the same length)
+#define BIGGIE_VERSION "2.11"
 
-#define BF_VERSION "1.23"
+
 // increment this when the file format changes
 // (keep this string the same length)
+#define BF_VERSION "1.23"
 
-// don't change this!
-#define BF_FILE_HEADER "RBF"
 
 // some things don't get compiled into the command line tool
-
-
-#if defined(HW_Interim) || defined(HW_Release) || defined(HW_Debug)
-#define BF_HOMEWORLD
+#if defined(HW_Debug) || defined(HW_Interim) || defined(HW_Release) 
+    #define BF_HOMEWORLD
 #endif
 
+
 #define BF_MAX_FILENAME_LENGTH 128
+#define BF_FLAG_TOC_SORTED       1
 
-//typedef FILE * bighandle;
+#define bigCRC64EQ(a, b)  (((a)->nameCRC1 == (b)->nameCRC1) && ((a)->nameCRC2 == (b)->nameCRC2))
+#define bigCRC64GT(a, b)  (((a)->nameCRC1 > (b)->nameCRC1) || ((a)->nameCRC1 == (b)->nameCRC1 && (a)->nameCRC2 > (b)->nameCRC2))
+#define bigCRC64LT(a, b)  (((a)->nameCRC1 < (b)->nameCRC1) || ((a)->nameCRC1 == (b)->nameCRC1 && (a)->nameCRC2 < (b)->nameCRC2))
 
-typedef struct {
+
+typedef struct
+{
     // together, the CRCs and nameLength make up a very unique identifier for
     // the filename (so we don't have to do string compares when searching or
     // or store long names in the TOC)
@@ -95,7 +106,6 @@ typedef struct {
     char compressionType;  // 0/1
 } bigTOCFileEntry;
 
-#define BF_FLAG_TOC_SORTED 1
 
 typedef struct {
     int numFiles;
@@ -103,15 +113,13 @@ typedef struct {
     bigTOCFileEntry *fileEntries;
 } bigTOC;
 
+
 enum {
     BF_ADD_RES_ADDED = 1,
     BF_ADD_RES_UPDATED = 2 ,
     BF_ADD_RES_OLD = 4,
 };
 
-#define bigCRC64EQ(a, b)  (((a)->nameCRC1 == (b)->nameCRC1) && ((a)->nameCRC2 == (b)->nameCRC2))
-#define bigCRC64GT(a, b)  (((a)->nameCRC1 > (b)->nameCRC1) || ((a)->nameCRC1 == (b)->nameCRC1 && (a)->nameCRC2 > (b)->nameCRC2))
-#define bigCRC64LT(a, b)  (((a)->nameCRC1 < (b)->nameCRC1) || ((a)->nameCRC1 == (b)->nameCRC1 && (a)->nameCRC2 < (b)->nameCRC2))
 
 int bigAdd(char *bigfilename, int numFiles, char *filenames[], int optCompression, int optNewer, int optMove, int optPathnames, int consoleOutput);
 int bigFastCreate(char *bigfilename, int numFiles, char *filenames[], int optCompression, int optNewer, int optMove, int optPathnames, int consoleOutput);
@@ -128,16 +136,14 @@ void bigFilenameEncrypt(char *filename);
 void bigFilenameDecrypt(char *filename, int length);
 crc32 bigTOCCRC(bigTOC *toc);
 
-//
 // not used in command line utility, only in the game
-//
 #ifdef BF_HOMEWORLD
-sdword bigOpen(char *bigFilename, char *updateFilename);
-sdword bigFileLoadAlloc(bigTOC *toc, FILE *bigFP, char *filename, sdword fileNum, void **address);
-sdword bigFileLoad(bigTOC *toc, FILE *bigFP, sdword fileNum, void *address);
-void bigCRC(udword *bigCrc1,udword *bigCrc2);
-void bigFilesystemCompare(char *baseDirectory, char *directory, bigTOC *mainTOC, bigTOC *updateTOC, unsigned char *mainNewerAvailable, unsigned char *updateNewerAvailable);
-void bigClose(void);
+    sdword bigOpen(char *bigFilename, char *updateFilename);
+    sdword bigFileLoadAlloc(bigTOC *toc, FILE *bigFP, char *filename, sdword fileNum, void **address);
+    sdword bigFileLoad(bigTOC *toc, FILE *bigFP, sdword fileNum, void *address);
+    void bigCRC(udword *bigCrc1,udword *bigCrc2);
+    void bigFilesystemCompare(char *baseDirectory, char *directory, bigTOC *mainTOC, bigTOC *updateTOC, unsigned char *mainNewerAvailable, unsigned char *updateNewerAvailable);
+    void bigClose(void);
 #endif
 
 #endif

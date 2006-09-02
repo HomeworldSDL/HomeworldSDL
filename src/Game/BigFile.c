@@ -1,3 +1,17 @@
+// =============================================================================
+//  BigFile.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created May 1998 by Darren Stone.
+// =============================================================================
+
+#include "BigFile.h"
+
+#include <sys/stat.h>
+#include "BitIO.h"
+#include "LZSS.h"
+
+
 #ifdef _WIN32
     #include <windows.h>
     #include <direct.h>
@@ -7,18 +21,11 @@
     #include <ctype.h>
 #endif
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 #ifndef _MACOSX
     #include <malloc.h>
 #endif
 
-#include <sys/stat.h>
-#include "BigFile.h"
-#include "BitIO.h"
-#include "LZSS.h"
 
 #ifdef BF_HOMEWORLD
     #include "Types.h"
@@ -38,15 +45,6 @@
 
 #define MINIMUM_COMPRESSION_RATIO 0.950f
 
-
-//
-//  bigfile.c - bigfile support
-//
-//  Copyright (C) 1998 Relic Entertainment Inc.
-//
-//  Created May 1998 by Darren Stone.
-//  See bigfile.h for version notes.
-//
 
 #ifdef BF_HOMEWORLD
 
