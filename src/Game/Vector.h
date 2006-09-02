@@ -12,12 +12,12 @@
 
 // INTERFACE -------------------------------------------------------------------
 
-typedef struct Vector
+typedef struct vector
 {
     real32 x,y,z;
 } vector;
 
-typedef struct HVector
+typedef struct hvector
 {
     real32 x,y,z,w;
 } hvector;

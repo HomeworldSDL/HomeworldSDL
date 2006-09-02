@@ -13,6 +13,7 @@
 #include "color.h"
 #include "Mesh.h"
 #include "Matrix.h"
+#include "Vector.h"
 
 /*=============================================================================
     Switches
