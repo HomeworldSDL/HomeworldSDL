@@ -1,10 +1,19 @@
-/*=============================================================================
-    Name    : Autodownloadmap.c
-    Purpose : Code for autodownloading maps
+// =============================================================================
+//  AutoDownloadMap.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 99/03/29 by gshaw
+// =============================================================================
 
-    Created 99/03/29 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+#include "AutoDownloadMap.h"
+
+#include "CommandNetwork.h"
+#include "Debug.h"
+#include "File.h"
+#include "HorseRace.h"
+#include "Memory.h"
+#include "StringsOnly.h"
+#include "Titan.h"
 
 #ifdef _WIN32
     #include <direct.h>
@@ -13,16 +22,6 @@
     #include <dirent.h>
 #endif
 
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include "Memory.h"
-#include "Debug.h"
-#include "File.h"
-#include "CommandNetwork.h"
-#include "Titan.h"
-#include "HorseRace.h"
-#include "StringsOnly.h"
 
 #define NUM_FILES_OF_MAP_GROW       20
 
