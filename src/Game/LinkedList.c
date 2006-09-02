@@ -1,20 +1,25 @@
-/*=============================================================================
-    LINKEDLIST.C: Support for linked lists
+// =============================================================================
+//  LinkedList.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created June 1997 by Gary Shaw
+// =============================================================================
 
-    Created June 1997 by Gary Shaw
-=============================================================================*/
+#include "LinkedList.h"
 
 #include "Debug.h"
-#include "SpaceObj.h"
 #include "Memory.h"
+#include "SpaceObj.h"
 
 /*=============================================================================
     Private Macros:
 =============================================================================*/
 
-#define CompareCback(obj1,obj2)    ( ((SpaceObj *)obj1)->collOptimizeDist > ((SpaceObj *)obj2)->collOptimizeDist )
+#define COMPARE_COLLISION_DISTANCE(obj1,obj2)  \
+    ( ((SpaceObj *)obj1)->collOptimizeDist > ((SpaceObj *)obj2)->collOptimizeDist )
 
-#define CompareCback2(obj1,obj2)    ( ((SpaceObj *)obj1)->cameraDistanceSquared < ((SpaceObj *)obj2)->cameraDistanceSquared )
+#define COMPARE_CAMERA_DISTANCE(obj1,obj2)     \
+    ( ((SpaceObj *)obj1)->cameraDistanceSquared < ((SpaceObj *)obj2)->cameraDistanceSquared )
 
 /*=============================================================================
     Private Functions:
@@ -402,7 +407,7 @@ void listMergeSort(LinkedList *list)
         node1 = list->head;
         node2 = list->tail;
 
-        if ( CompareCback(listGetStructOfNode(node1),listGetStructOfNode(node2)) )
+        if ( COMPARE_COLLISION_DISTANCE(listGetStructOfNode(node1),listGetStructOfNode(node2)) )
         {
             node1->prev = node2;
             node1->next = NULL;
@@ -456,7 +461,7 @@ void listMergeSort(LinkedList *list)
             {
                 goto addleftnode;
             }
-            if (CompareCback(listGetStructOfNode(leftnodeadd),listGetStructOfNode(rightnodeadd)))
+            if (COMPARE_COLLISION_DISTANCE(listGetStructOfNode(leftnodeadd),listGetStructOfNode(rightnodeadd)))
             {
 addrightnode:
                 newrightnodeadd = rightnodeadd->next;
@@ -500,7 +505,7 @@ void listMergeSort2(LinkedList *list)
         node1 = list->head;
         node2 = list->tail;
 
-        if ( CompareCback2(listGetStructOfNode(node1),listGetStructOfNode(node2)) )
+        if ( COMPARE_CAMERA_DISTANCE(listGetStructOfNode(node1),listGetStructOfNode(node2)) )
         {
             node1->prev = node2;
             node1->next = NULL;
@@ -554,7 +559,7 @@ void listMergeSort2(LinkedList *list)
             {
                 goto addleftnode;
             }
-            if (CompareCback2(listGetStructOfNode(leftnodeadd),listGetStructOfNode(rightnodeadd)))
+            if (COMPARE_CAMERA_DISTANCE(listGetStructOfNode(leftnodeadd),listGetStructOfNode(rightnodeadd)))
             {
 addrightnode:
                 newrightnodeadd = rightnodeadd->next;
@@ -708,7 +713,7 @@ void listInsertSort(LinkedList *list)
         node1 = list->head;
         node2 = list->tail;
 
-        if ( CompareCback(listGetStructOfNode(node1),listGetStructOfNode(node2)) )
+        if ( COMPARE_COLLISION_DISTANCE(listGetStructOfNode(node1),listGetStructOfNode(node2)) )
         {
             node1->prev = node2;
             node1->next = NULL;
@@ -736,9 +741,9 @@ void listInsertSort(LinkedList *list)
         {
             structcur = listGetStructOfNode(cur);
 
-            if (CompareCback(structprev,structprevprev))    // prev > prevprev
+            if (COMPARE_COLLISION_DISTANCE(structprev,structprevprev))    // prev > prevprev
             {
-                if (CompareCback(structcur,structprev))     // cur > prev
+                if (COMPARE_COLLISION_DISTANCE(structcur,structprev))     // cur > prev
                 {
                     // everything in order, so continue
                     prevprev = prev;
@@ -751,7 +756,7 @@ void listInsertSort(LinkedList *list)
                 }
                 else
                 {
-                    if (CompareCback(structcur,structprevprev)) // cur > prevprev
+                    if (COMPARE_COLLISION_DISTANCE(structcur,structprevprev)) // cur > prevprev
                     {
                         // prev must be out of order, so remove it and put in outOfOrderList
                         listRemoveNode(prev);
@@ -776,7 +781,7 @@ void listInsertSort(LinkedList *list)
             }
             else
             {
-                if (CompareCback(structcur,structprev))     // cur > prev
+                if (COMPARE_COLLISION_DISTANCE(structcur,structprev))     // cur > prev
                 {
                     // just prevprev is out of order
                     listRemoveNode(prevprev);
@@ -843,7 +848,7 @@ void listInsertSort(LinkedList *list)
                     break;
                 }
 
-                if (CompareCback(listGetStructOfNode(curNode),structoutOfOrderNode))
+                if (COMPARE_COLLISION_DISTANCE(listGetStructOfNode(curNode),structoutOfOrderNode))
                 {
                     listAddNodeBefore(curNode,outOfOrderNode,structoutOfOrderNode);
                     break;
@@ -878,7 +883,7 @@ void listCheckSort(LinkedList *list)
         node1 = list->head;
         node2 = list->tail;
 
-        if ( CompareCback(listGetStructOfNode(node1),listGetStructOfNode(node2)) )
+        if ( COMPARE_COLLISION_DISTANCE(listGetStructOfNode(node1),listGetStructOfNode(node2)) )
         {
             dbgAssert(FALSE);
         }
@@ -890,7 +895,7 @@ void listCheckSort(LinkedList *list)
 
         while (node2 != NULL)
         {
-            if ( CompareCback(listGetStructOfNode(node1),listGetStructOfNode(node2)) )
+            if ( COMPARE_COLLISION_DISTANCE(listGetStructOfNode(node1),listGetStructOfNode(node2)) )
             {
                 dbgAssert(FALSE);
             }
