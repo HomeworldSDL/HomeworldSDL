@@ -1,21 +1,13 @@
-/*=============================================================================
-    DEBUG.C: Functions for debugging.
+// =============================================================================
+//  Debug.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created June 1997 by Luke Moloney
+// =============================================================================
 
-    Created June 1997 by Luke Moloney
-=============================================================================*/
-
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <string.h>
-#include <time.h>
-#include <limits.h>
-#include "resource.h"
-#include "utility.h"
-#include "debugwnd.h"
-#include "Task.h"
 #include "Debug.h"
-#include "File.h"
+
+#include "utility.h"
 
 /*=============================================================================
     Data:
