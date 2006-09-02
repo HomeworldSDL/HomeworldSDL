@@ -1,23 +1,19 @@
+// =============================================================================
+//  Strings.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 5/7/1998 by ddunlop
+// =============================================================================
 
-/*=============================================================================
-    Name    : Strings.h
-    Purpose : Header for Strings.c
+#include "Strings.h"
 
-    Created 5/7/1998 by ddunlop
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+#include "Memory.h"
+#include "StatScript.h"
 
 #ifdef _WIN32
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #endif
-
-#include <string.h>
-
-#include "Memory.h"
-#include "StatScript.h"
-#include "Strings.h"
-#include "Debug.h"
 
 #define strEntry(var)  {#var,strSetStringCB,&MessageStrings[var]}
 

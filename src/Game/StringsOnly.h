@@ -1,7 +1,14 @@
+// =============================================================================
+//  StringsOnly.h
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+// =============================================================================
+
 #ifndef ___STRINGSONLY_H
 #define ___STRINGSONLY_H
 
-// important: do not include types.h, statscript.h, or any other game/windows include files
+// IMPORTANT:
+// do not include Types.h, StatScript.h or any other game/Windows include files
 
 typedef enum
 {
@@ -661,17 +668,9 @@ typedef enum
 #define strShipStatNameOffset strFirepower
 #define strKeyCommandOffset   strkbNEXT_FORMATION
 
-/*=============================================================================
-    Data:
-=============================================================================*/
-
-extern char *MessageStrings[NumStrings];
-
-/*=============================================================================
-    Macros:
-=============================================================================*/
-
 #define strGetString(string) (MessageStrings[string])
+
+extern char *MessageStrings[NumStrings];  // declared in Strings.c
 
 
 #endif
