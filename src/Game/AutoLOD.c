@@ -1,17 +1,17 @@
-/*=============================================================================
-    Name    : autolod.c
-    Purpose : routines for maintaining a more even framerate
+// =============================================================================
+//  AutoLOD.c
+//  - routines for maintaining a more even framerate by changing Level Of Detail
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 9/8/1998 by khent
+// =============================================================================
 
-    Created 9/8/1998 by khent
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-#include "glcaps.h"
 #include "AutoLOD.h"
-#include "LOD.h"
-#include "StatScript.h"
-#include "Options.h"
 
+#include "glinc.h"
+#include "LOD.h"
+#include "Options.h"
+#include "StatScript.h"
 
 /*=============================================================================
     Data

@@ -1,15 +1,16 @@
-/*=============================================================================
-    Name    : autolod.h
-    Purpose : routines for maintaining a more even framerate
-
-    Created 9/8/1998 by khent
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  AutoLOD.h
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 9/8/1998 by khent
+// =============================================================================
 
 #ifndef ___AUTOLOD_H
 #define ___AUTOLOD_H
 
 #include "Types.h"
+
+// INTERFACE -------------------------------------------------------------------
 
 void alodStartup(void);
 void alodReset(void);
