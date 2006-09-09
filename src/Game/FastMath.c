@@ -1,15 +1,15 @@
-/*=============================================================================
-    Name    : fastmath.c
-    Purpose : Provides generic fast math routines
-
-    Created 9/9/1997 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-#include <math.h>
-#include <float.h>
+// =============================================================================
+//  FastMath.h
+//  - provides generic fast math routines
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 9/9/1997 by gshaw
+// =============================================================================
 
 #include "FastMath.h"
+
+#include <float.h>
+#include <math.h>
 #include "Debug.h"
 
 #if 0
