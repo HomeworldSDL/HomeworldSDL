@@ -800,8 +800,8 @@ fontheader *fontLoad(char *fileName)
     length = fileLoadAlloc(fileName, (void **)(&fileHeader), NonVolatile);
 
 #ifdef ENDIAN_BIG
-	fileHeader->version = LittleLong( fileHeader->version );
-	fileHeader->flags   = LittleLong( fileHeader->flags );
+	fileHeader->version = LittleShort( fileHeader->version );
+	fileHeader->flags   = LittleShort( fileHeader->flags );
 #endif
 
 #if FONT_ERROR_CHECKING
