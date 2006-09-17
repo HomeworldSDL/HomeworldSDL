@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>Homeworld</string>
 	<key>CFBundleIconFile</key>
-	<string>guidestone.icns</string>
+	<string>Homeworld</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.homeworldsdl.homeworld</string>
 	<key>CFBundleInfoDictionaryVersion</key>

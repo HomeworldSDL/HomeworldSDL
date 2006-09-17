@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>Raider Retreat</string>
 	<key>CFBundleIconFile</key>
-	<string>rr.icns</string>
+	<string>RaiderRetreat</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.homeworldsdl.raiderretreat</string>
 	<key>CFBundleInfoDictionaryVersion</key>
