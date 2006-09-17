@@ -203,9 +203,10 @@ float  SwapFloat( float val );
 #define PI 3.14159265358979f
 #endif
 #define TWOPI   (2.0f * PI)
+#define FOURPI  (4.0f * PI)
 
-#define DEG_PER_RADIAN (360.0f/(2.0f*PI))
-#define RADIAN_PER_DEG (2.0f*PI/360.0f)
+#define DEG_PER_RADIAN (360.0f / TWOPI)
+#define RADIAN_PER_DEG (TWOPI / 360.0f)
 
 #define DEG_TO_RAD(x) ((x) * RADIAN_PER_DEG)
 #define RAD_TO_DEG(x) ((x) * DEG_PER_RADIAN)
@@ -255,9 +256,9 @@ float  SwapFloat( float val );
 #define udwordSwapBytes(d) ((((d) & 0x000000ff) << 24) | (((d) & 0x0000ff00) << 8) | (((d) & 0x00ff0000) >> 8) | (((d) & 0xff000000) >> 24))
 
 //volume, area computations
-#define circleCircumference(radius) (2.0f * PI * (radius))
-#define circleArea(radius)          (PI * radius * (radius))
-#define sphereArea(radius)          (4.0f * PI * (radius) * (radius))
-#define sphereVolume(radius)        (4.0f / 3.0f * PI * (radius) * (radius) * (radius))
+#define circleCircumference(radius) (TWOPI * (radius))
+#define circleArea(radius)          (PI * (radius) * (radius))
+#define sphereArea(radius)          (FOURPI * (radius) * (radius))
+#define sphereVolume(radius)        (FOURPI * (radius) * (radius) * (radius) / 3.0f)
 
 #endif
