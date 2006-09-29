@@ -565,11 +565,15 @@ GLboolean glDLLGetProcs(char* dllName)
 	    }
         #endif
 
+        #ifdef _MACOSX_FIX_ME
+        dllName = NULL;
+        #endif
+
         //try loading the .DLL
         if (SDL_GL_LoadLibrary(dllName) == -1)
         {
             fprintf(stderr, "SDL_GL_LoadLibrary(%s): %s\n",
-                dllName, SDL_GetError());
+                (dllName ? dllName : "NULL"), SDL_GetError());
             return GL_FALSE;
         }
     }
