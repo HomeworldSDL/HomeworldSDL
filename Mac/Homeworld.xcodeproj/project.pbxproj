@@ -1112,7 +1112,7 @@
 		35DAEDC6077BAF4D0080465A /* Mission05_OEM.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission05_OEM.func.c; sourceTree = "<group>"; };
 		35DAEDC7077BAF4D0080465A /* Mission05_OEM.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Mission05_OEM.h; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Homeworld.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Homeworld.plist; sourceTree = "<group>"; };
-		8D1107320486CEB800E47090 /* Homeworld.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Homeworld.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D1107320486CEB800E47090 /* Homeworld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Homeworld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9030AF92066D5D2C00B32218 /* avi.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = avi.c; path = ../src/SDL/avi.c; sourceTree = SOURCE_ROOT; };
 		9030AF93066D5D2C00B32218 /* rinit.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = rinit.c; path = ../src/SDL/rinit.c; sourceTree = SOURCE_ROOT; };
 		90623BEE064992AE0088361C /* AIAttackMan.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = AIAttackMan.c; path = ../src/Game/AIAttackMan.c; sourceTree = SOURCE_ROOT; };

@@ -1,6 +1,6 @@
 /* Localized versions of Info.plist keys */
 
 CFBundleName = "Homeworld";
-CFBundleShortVersionString = "Homeworld 0.5alpha";
-CFBundleGetInfoString = "Homeworld 0.5alpha";
+CFBundleShortVersionString = "Homeworld 0.7alpha (r177)";
+CFBundleGetInfoString = "Homeworld 0.7alpha (r177)";
 NSHumanReadableCopyright = "Homeworld SDL is based on source code copyright Relic Entertainment Inc.";
