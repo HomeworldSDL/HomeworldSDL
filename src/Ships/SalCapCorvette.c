@@ -2043,7 +2043,7 @@ reachedit:
         //close all animations if a ship
         if (battleCanChatterAtThisTime(BCE_SalvageTargetAcquired, ship))
         {
-            battleChatterAttempt(SOUND_EVENT_DEFAULT, BCE_SalvageTargetAcquired, ship, ranRandom(RAN_Sound) % 4);
+            battleChatterAttempt(SOUND_EVENT_DEFAULT, BCE_SalvageTargetAcquired, ship, ranRandom(RANDOM_SOUND) % 4);
         }
 
         if(spec->target->objtype == OBJ_DerelictType)

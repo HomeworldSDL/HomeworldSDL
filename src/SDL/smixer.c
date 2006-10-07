@@ -187,7 +187,7 @@ sdword isoundmixerinit(SDL_AudioSpec *aspec)
 	fqInitDequant();
 
 	// Set random number generator for effects
-	fqRand((int (*)(int))ranRandomFnSimple,RAN_Sound);
+	fqRand((int (*)(int))ranRandomFnSimple,RANDOM_SOUND);
 
 	// Set square root function for effects
 	fqSqrt((double (*)(double))fmathSqrtDouble);

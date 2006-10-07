@@ -2793,7 +2793,7 @@ bool utyDemoAutoPlay(udword num, void* data, struct BabyCallBack* baby)
 
             for (attempt = 0; attempt < DEM_NumberTries; attempt++)
             {
-                chosen = ranRandom(RAN_Sound) % index;      //choose a demo to play (sound random stream is non-deterministic)
+                chosen = ranRandom(RANDOM_SOUND) % index;      //choose a demo to play (sound random stream is non-deterministic)
                 sprintf(string, "%s%dx%d.dem", names[chosen],//get the resolution-dependent name
                         MAIN_WindowWidth, MAIN_WindowHeight);
 

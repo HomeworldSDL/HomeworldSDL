@@ -123,7 +123,7 @@ bool glcStartup(void)
 #if VISIBLE_TEXTURES
     for (i = 0; i < GLC_RANTABLE_SIZE; i++)
     {
-        glcRanTable[i] = ranRandom(RAN_ParticleStream) & 0xFF;
+        glcRanTable[i] = ranRandom(RANDOM_PARTICLE_STREAM) & 0xFF;
     }
     glcRanIndex = 0;
 #endif
