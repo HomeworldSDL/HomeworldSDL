@@ -1341,7 +1341,7 @@ udword partRenderMeshSystem(udword n, particle *p, udword flags, trhandle tex, m
         glPushMatrix();
 
         mesh = p->mesh;
-        if ((mesh != NULL) && ((sdword)mesh != -1))
+        if ((mesh != NULL) && (mesh != 0x7fffffff))
         {
             partMeshOrient(p, bRescaleNormal, meshPart);
 
@@ -1980,13 +1980,10 @@ meshAnim* partSetupTestMeshMorphBlock()
 ----------------------------------------------------------------------------*/
 meshdata* partMeshNextMesh(meshSystem* psys, particle* p)
 {
-    meshAnim* animblock;
-    meshAnim* frame;
-    sdword frameNo;
-
-    frameNo = partAdvanceMeshMorph(psys, p);
-    animblock = (meshAnim*)p->mstruct;
-    frame = animblock + frameNo;
+    sdword    frameNo   = partAdvanceMeshMorph(psys, p);
+    meshAnim* animblock = (meshAnim*)p->mstruct;
+    meshAnim* frame     = animblock + frameNo;
+    
     return frame->mesh;
 }
 
