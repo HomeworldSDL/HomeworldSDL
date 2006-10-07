@@ -154,7 +154,7 @@ real32 realRand(real32 n)
     }
     else
     {
-        return((real32)(ranRandom(RAN_Nebulae) % (sdword)(n * 10000.0f)) / 10000.0f);
+        return((real32)(ranRandom(RANDOM_NEBULAE) % (sdword)(n * 10000.0f)) / 10000.0f);
     }
 }
 
@@ -167,8 +167,8 @@ real32 nebRealDist(real32 n, real32 d)
 #else
 real32 nebRealDist(real32 n, real32 d)
 {
-    real32 r = (real32)((real64)(ranRandom(RAN_Nebulae) % 100000) / 100000.0);
-    real32 sign = (ranRandom(RAN_Nebulae) % 2 == 0) ? -1.0f : 1.0f;
+    real32 r = (real32)((real64)(ranRandom(RANDOM_NEBULAE) % 100000) / 100000.0);
+    real32 sign = (ranRandom(RANDOM_NEBULAE) % 2 == 0) ? -1.0f : 1.0f;
     if (d < 0.0f)
     {
         sign = -1.0f;
@@ -254,7 +254,7 @@ void nebStartup()
         nebNebulae[i].tendrilTable = NULL;
     }
 
-    ranParametersReset(RAN_Nebulae);
+    ranParametersReset(RANDOM_NEBULAE);
 
     nebColorInit();
 
@@ -270,7 +270,7 @@ void nebStartup()
 ----------------------------------------------------------------------------*/
 void nebReset()
 {
-    ranParametersReset(RAN_Nebulae);
+    ranParametersReset(RANDOM_NEBULAE);
     nebShutdown();
     _clearcolorUniverse();
     rndFogOn = FALSE;
@@ -430,7 +430,7 @@ void nebFreeTendrils(nebulae_t* neb)
 ----------------------------------------------------------------------------*/
 void chunkRandomVelocity(nebChunk* chunk)
 {
-    real32 chunkVelocity = NEB_VEL_RAN_MULTIPLIER*(real32)(ranRandom(RAN_Nebulae) % (udword)NEB_RAN_RANGE) + NEB_VEL_BASE;
+    real32 chunkVelocity = NEB_VEL_RAN_MULTIPLIER*(real32)(ranRandom(RANDOM_NEBULAE) % (udword)NEB_RAN_RANGE) + NEB_VEL_BASE;
 
     dbgAssert(chunk != NULL);
     cloudRandomSphericalPoint(&chunk->velocity);
@@ -1657,7 +1657,7 @@ void nebCreateCylinder(
 
     z = 0.0f;
 
-    if (ranRandom(RAN_Nebulae) % 2 == 0)
+    if (ranRandom(RANDOM_NEBULAE) % 2 == 0)
     {
         sign = 1.0f;
     }
@@ -1870,7 +1870,7 @@ void nebRenderTendril(nebTendril* tendril, sdword lod)
             hmat[15] = 1.0f;
 
             rand = realRand(NEB_TENDRIL_RADIUS_RANGE);
-            if (ranRandom(RAN_Nebulae) % 2 == 0)
+            if (ranRandom(RANDOM_NEBULAE) % 2 == 0)
             {
                 rand = -rand;
             }

@@ -128,7 +128,7 @@ void dmgRandomDamageLocation(Ship* ship, vector* location, matrix* coordsys)
     }
 
     //random index
-    index = ranRandom(RAN_Damage) % ship->nDamageLights;
+    index = ranRandom(RANDOM_DAMAGE) % ship->nDamageLights;
 
     //obtain light data
     lightNormal = &ship->damageLights[index].normal;

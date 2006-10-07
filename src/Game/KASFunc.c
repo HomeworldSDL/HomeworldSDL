@@ -542,7 +542,7 @@ sdword kasfRandom(sdword lowestNum, sdword highestNum)
         lowestNum = highestNum;
         highestNum = temp;
     }
-    return lowestNum + (ranRandom(RAN_AIPlayer) % (highestNum - lowestNum + 1));
+    return lowestNum + (ranRandom(RANDOM_AI_PLAYER) % (highestNum - lowestNum + 1));
 }
 
 void kasfGuardMothership(void)
@@ -4176,9 +4176,9 @@ void kasfRotateDerelictType(char *derelictType, sdword rot_x, sdword rot_y, sdwo
         derelict = (Derelict *)listGetStructOfNode(node);
         if (derelict->derelicttype == dt)
         {
-            derelict->rotinfo.rotspeed.x = realrot_x + frandyrandombetween(RAN_AIPlayer, -realvariation, realvariation);
-            derelict->rotinfo.rotspeed.y = realrot_y + frandyrandombetween(RAN_AIPlayer, -realvariation, realvariation);
-            derelict->rotinfo.rotspeed.z = realrot_z + frandyrandombetween(RAN_AIPlayer, -realvariation, realvariation);
+            derelict->rotinfo.rotspeed.x = realrot_x + frandyrandombetween(RANDOM_AI_PLAYER, -realvariation, realvariation);
+            derelict->rotinfo.rotspeed.y = realrot_y + frandyrandombetween(RANDOM_AI_PLAYER, -realvariation, realvariation);
+            derelict->rotinfo.rotspeed.z = realrot_z + frandyrandombetween(RANDOM_AI_PLAYER, -realvariation, realvariation);
         }
         node = node->next;
     }

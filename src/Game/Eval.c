@@ -640,11 +640,11 @@ static double factor()
                                    break;
 
                       case RAND:
-                                   f = 1 + (int) ( f * ranRandom(RAN_ETG)/(double)(UDWORD_Max));
+                                   f = 1 + (int) ( f * ranRandom(RANDOM_ETG)/(double)(UDWORD_Max));
                                    break;
 
                       case RND:
-                                   f *= (double) ranRandom(RAN_ETG) / (double)UDWORD_Max;
+                                   f *= (double) ranRandom(RANDOM_ETG) / (double)UDWORD_Max;
                                    break;
 
                       case SIN:    f = sin(f);

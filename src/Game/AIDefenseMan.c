@@ -461,7 +461,7 @@ void aidCloakDefense(void)
     {
         if (bitTest(aiCurrentAIPlayer->AlertStatus, ALERT_CLOAK_RED))
         {
-            num_sensors = randyrandombetween(RAN_AIPlayer, 3, 6);
+            num_sensors = randyrandombetween(RANDOM_AI_PLAYER, 3, 6);
 
             if (aiCurrentAIPlayer->NumProxSensorsRequested < num_sensors)
             {
@@ -482,7 +482,7 @@ void aidCloakDefense(void)
                 if (aiCurrentAIPlayer->aidProximitySensors &&
                     (aiCurrentAIPlayer->aidProximitySensors->numShips < 6))
                 {
-                    aiCurrentAIPlayer->NumProxSensorsRequested = randyrandombetween(RAN_AIPlayer, 1,3);
+                    aiCurrentAIPlayer->NumProxSensorsRequested = randyrandombetween(RANDOM_AI_PLAYER, 1,3);
                     aifResourceManRequestsShipsCB(ProximitySensor, aiCurrentAIPlayer->NumProxSensorsRequested, 0);
                 }
             }
@@ -672,7 +672,7 @@ void aidMothershipDefense(void)
     //despite the fact that it's a single fighter scout
     if ((enemyships) &&
         ((!((enemyships->numShips == 1) && (isShipOfClass(enemyships->ShipPtr[0], CLASS_Fighter)))) ||
-        (ranRandom(RAN_AIPlayer)&255 < 3)))
+        (ranRandom(RANDOM_AI_PLAYER)&255 < 3)))
 
     {
         aiumemFree(aiCurrentAIPlayer->shipsattackingmothership);

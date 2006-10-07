@@ -2355,7 +2355,7 @@ sdword aimProcessActiveRecon(AITeam *team)
 
     if (!thisMove->processing)
     {
-         tactics_chance = (udword)randyrandom(RAN_AIPlayer, 100);
+         tactics_chance = (udword)randyrandom(RANDOM_AI_PLAYER, 100);
 
         if (tactics_chance < 2)
         {
@@ -2428,12 +2428,12 @@ sdword aimProcessActiveRecon(AITeam *team)
         if (thisMove->params.activerecon.enemyrecon)
         {
             chance_of_change_enemyrecon = 100 - 20*num_enemy_blobs;
-            thisMove->params.activerecon.enemyrecon = !(randyrandombetween(RAN_AIPlayer, 0, 100) > chance_of_change_enemyrecon);
+            thisMove->params.activerecon.enemyrecon = !(randyrandombetween(RANDOM_AI_PLAYER, 0, 100) > chance_of_change_enemyrecon);
         }
         else
         {
             chance_of_change_enemyrecon = 15*num_enemy_blobs;
-            thisMove->params.activerecon.enemyrecon = randyrandombetween(RAN_AIPlayer, 0, 100) > chance_of_change_enemyrecon;
+            thisMove->params.activerecon.enemyrecon = randyrandombetween(RANDOM_AI_PLAYER, 0, 100) > chance_of_change_enemyrecon;
         }
 
 
@@ -2665,12 +2665,12 @@ sdword aimProcessSwarmAttack(AITeam *team)
         if (targets)
         {
             //lower chance of refuelling
-            fuellow = randyrandombetween(RAN_AIPlayer, 14, 18);
+            fuellow = randyrandombetween(RANDOM_AI_PLAYER, 14, 18);
         }
         else
         {
             //high chance of refuelling
-            fuellow = randyrandombetween(RAN_AIPlayer, 18, 25);
+            fuellow = randyrandombetween(RANDOM_AI_PLAYER, 18, 25);
         }
         if (!aiuFuelAbove(teamShips->ShipPtr[i], fuellow) || !aiuHealthAbove(teamShips->ShipPtr[i], 50))
         {
@@ -2724,7 +2724,7 @@ sdword aimProcessSwarmAttack(AITeam *team)
         else if (singlePlayerGameInfo.currentMission == 8)
         {
             //uses normal code to find swarm targets in mission 8
-            targets = aiuFindSwarmTargets(teamShips, randyrandombetween(RAN_AIPlayer, 1, 3), FALSE);
+            targets = aiuFindSwarmTargets(teamShips, randyrandombetween(RANDOM_AI_PLAYER, 1, 3), FALSE);
         }
         else
         {
@@ -2827,7 +2827,7 @@ sdword aimProcessSwarmDefense(AITeam *team)
     {
         ship = teamShips->ShipPtr[i];
 
-        fuellow = randyrandombetween(RAN_AIPlayer, 45, 65);
+        fuellow = randyrandombetween(RANDOM_AI_PLAYER, 45, 65);
 
         //if the swarmer isn't already docking and it's fuel is below fuellow
         //                                          or it's health is below 50
@@ -3254,7 +3254,7 @@ sdword aimProcessMothershipMove(AITeam *team)
             (aiuDestinationNotNearOtherMothership(destination, 800000000)))
 
         {
-            time = frandyrandombetween(RAN_AIPlayer, 20.0, 35.0);
+            time = frandyrandombetween(RANDOM_AI_PLAYER, 20.0, 35.0);
             newMove = aimCreateMoveToNoAdd(team, destination, time, TIME_LIMITED, NO_FORMATION, Neutral, TRUE, TRUE);
             newMove->events = thisMove->events;
             aitAddmoveBeforeAndMakeCurrent(team, newMove, thisMove);
@@ -5773,7 +5773,7 @@ sdword aimProcessFancyGetShips(AITeam *team)
                 // randomly pick the rest
 
                 sdword j;
-                udword randomnum = ranRandom(RAN_AIPlayer) % (numAlternatives+1);
+                udword randomnum = ranRandom(RANDOM_AI_PLAYER) % (numAlternatives+1);
                 if (randomnum == 0)
                 {
                     goto buildbaseshiporfirst;

@@ -1860,8 +1860,8 @@ real32 partRealDelta(real32 n, real32 d)
 //randomized delta
 real32 partRealDist(real32 n, real32 d)
 {
-    real32 r = (real32)((real64)(ranRandom(RAN_ParticleStream) % 1000000) / 1000000.0);
-    real32 sign = (ranRandom(RAN_ParticleStream) % 2 == 0) ? -1.0f : 1.0f;
+    real32 r = (real32)((real64)(ranRandom(RANDOM_PARTICLE_STREAM) % 1000000) / 1000000.0);
+    real32 sign = (ranRandom(RANDOM_PARTICLE_STREAM) % 2 == 0) ? -1.0f : 1.0f;
     if (d < 0.0f)
         sign = -1.0f;
     return n + sign*r*d;
@@ -2400,7 +2400,7 @@ bool g_Billboarded;
 
 real64 randomAngle(udword a)
 {
-    udword r = ranRandom(RAN_ParticleStream) % a;
+    udword r = ranRandom(RANDOM_PARTICLE_STREAM) % a;
     return DEG_TO_RAD((real64)r);
 }
 

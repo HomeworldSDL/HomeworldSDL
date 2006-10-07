@@ -1,125 +1,101 @@
-/*=============================================================================
-    Name    : Randy.h
-    Purpose : Definitions for generic random-number generator
-
-    Created 11/11/1997 by lmoloney
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  Randy.h
+//  - Generic random-number generators with multiple streams
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 11/11/1997 by lmoloney
+// =============================================================================
 
 #ifndef ___RANDY_H
 #define ___RANDY_H
 
 #include "Types.h"
 
-/*=============================================================================
-    Swithces:
-=============================================================================*/
+// INTERFACE -------------------------------------------------------------------
+
 #ifndef HW_Release
+    #define RANDOM_ERROR_CHECKING      1    // general error checking
+    #define RANDOM_VERBOSE_LEVEL       2    // control specific output code
+    #define RANDOM_DEBUG_CALL_SEQ      1    // debug random number calling sequence
+#else
+    #define RANDOM_ERROR_CHECKING      0
+    #define RANDOM_VERBOSE_LEVEL       0
+    #define RANDOM_DEBUG_CALL_SEQ      0
+#endif
 
-#define RAN_ERROR_CHECKING          1           //general error checking
-#define RAN_VERBOSE_LEVEL           2           //control specific output code
-#define RAN_DEBUG_CALLER            1           //for debugging the calling sequence of random numbers
 
-#else //HW_Debug
+#define RANDOM_PARTICLE_STREAM         0
+#define RANDOM_ETG                     1
+#define RANDOM_SOUND                   2
+#define RANDOM_TRAILS                  3
+#define RANDOM_CLOUDS                  4
+#define RANDOM_NEBULAE                 5
+#define RANDOM_AI_PLAYER               6
+#define RANDOM_DAMAGE                  7
+#define RANDOM_BATTLE                  8
+#define RANDOM_STATIC                  9
+#define RANDOM_GAME                   10    // if you change this, change RANDOM_SOUND_GAME_THREAD too
+#define RANDOM_SOUND_GAME_THREAD      11
+#define RANDOM_SOUND_BOTH_THREADS     12
+#define RANDOM_TRAILS_0               13
+#define RANDOM_TRAILS_1               14
+#define RANDOM_TRAILS_2               15
+#define RANDOM_TRAILS_3               16
+#define RANDOM_TRAILS_4               17
+#define RANDOM_SOUND_GAME_THREAD_0    18
+#define RANDOM_SOUND_GAME_THREAD_1    19
+#define RANDOM_SOUND_GAME_THREAD_2    20
+#define RANDOM_SOUND_GAME_THREAD_3    21
+#define RANDOM_SOUND_GAME_THREAD_4    22
+#define RANDOM_SOUND_GAME_THREAD_5    23
+#define RANDOM_SOUND_GAME_THREAD_6    24
+#define RANDOM_NUMBER_STREAMS         25
 
-#define RAN_ERROR_CHECKING          0           //general error checking
-#define RAN_VERBOSE_LEVEL           0           //control specific output code
-#define RAN_DEBUG_CALLER            0           //for debugging the calling sequence of random numbers
 
-#endif //HW_Debug
-
-/*=============================================================================
-    Definitions:
-=============================================================================*/
-#define RAN_ParticleStream          0
-#define RAN_ETG                     1
-#define RAN_Sound                   2
-#define RAN_Trails                  3
-#define RAN_Clouds                  4
-#define RAN_Nebulae                 5
-#define RAN_AIPlayer                6
-#define RAN_Damage                  7
-#define RAN_Battle                  8
-#define RAN_Static                  9
-#define RAN_Game                    10
-#define RAN_SoundGameThread         11
-#define RAN_SoundBothThreads        12
-#define RAN_Trails0                 13
-#define RAN_Trails1                 14
-#define RAN_Trails2                 15
-#define RAN_Trails3                 16
-#define RAN_Trails4                 17
-#define RAN_SoundGameThread0        18
-#define RAN_SoundGameThread1        19
-#define RAN_SoundGameThread2        20
-#define RAN_SoundGameThread3        21
-#define RAN_SoundGameThread4        22
-#define RAN_SoundGameThread5        23
-#define RAN_SoundGameThread6        24
-#define RAN_NumberStreams           25
-
-/*=============================================================================
-    Type definitions:
-=============================================================================*/
 typedef struct
 {
     udword x, y, z, c, n;
 }
 ranstream;
 
-/*=============================================================================
-    Functions:
-=============================================================================*/
-void ranRandomize(sdword ranIndex);
-#if RAN_DEBUG_CALLER
-udword ranRandomFnSimple(sdword ranIndex);
-udword ranRandomFn(sdword ranIndex, char *file, sdword line);
+
+#if RANDOM_DEBUG_CALL_SEQ
+    udword ranRandomFnSimple(sdword ranIndex);
+    udword ranRandomFn(sdword ranIndex, char *file, sdword line);
+
+    #define ranRandom(i)  ranRandomFn(i, NULL, 0)
+    #define gamerand()    ranRandomFn(RANDOM_GAME, __FILE__, __LINE__)
+    
+    extern bool ranCallerDebug;
 #else
-#define ranRandomFnSimple ranRandomFn
-udword ranRandomFn(sdword ranIndex);
+    #define ranRandomFnSimple  ranRandomFn
+    udword  ranRandomFn(sdword ranIndex);
+
+    #define ranRandom(i)  ranRandomFn(i)
+    #define gamerand()    ranRandomFn(RANDOM_GAME)
 #endif
-void ranNumberSet(sdword ranIndex, udword nn);
+
+
+#define randomG(n)          (gamerand() % (n))
+#define frandom(n)          (gamerand() * (((real32)(n)) * (1.0f / ((real32)UDWORD_Max))))
+#define randombetween(a,b)  (randomG((b)-(a)+1) + (a))
+#define frandombetween(a,b) (frandom((b)-(a)  ) + (a))
+
+
+void ranRandomize(sdword ranIndex);
+
 udword ranNumberGet(sdword ranIndex);
-void ranParametersSet(sdword ranIndex, udword xx,udword yy,udword zz,udword cc,udword nn);
-void ranParametersGet(sdword ranIndex, udword *xx,udword *yy,udword *zz,udword *cc,udword *nn);
+void   ranNumberSet(sdword ranIndex, udword nn);
+
+void ranParametersGet(sdword ranIndex, udword *xx, udword *yy, udword *zz, udword *cc, udword *nn);
+void ranParametersSet(sdword ranIndex, udword  xx, udword  yy, udword  zz, udword  cc, udword  nn);
 void ranParametersReset(sdword ranIndex);
-void ranShutdown(void);
+
 void ranStartup(void);
+void ranShutdown(void);
 
-void ranSave(void);
 void ranLoad(void);
+void ranSave(void);
 
-/*=============================================================================
-    Data:
-=============================================================================*/
-#if RAN_DEBUG_CALLER
-extern bool ranCallerDebug;
-#endif
-
-/*=============================================================================
-    Macros:
-=============================================================================*/
-#if RAN_DEBUG_CALLER
-
-#define ranRandom(i)    ranRandomFn(i, NULL, 0)
-#define gamerand() ranRandomFn(RAN_Game, __FILE__, __LINE__)
-// if you change RAN_Game in randy.h, change 11 as well.  Don't include randy.h because types.h included in other projects
-#define randomG(n) (ranRandomFn(RAN_Game, __FILE__, __LINE__) % (n))
-// if you change RAN_Game in randy.h, change 11 as well.  Don't include randy.h because types.h included in other projects
-#define frandom(n) (ranRandomFn(RAN_Game, __FILE__, __LINE__) * (((real32)(n)) * (1.0f/((real32)UDWORD_Max))))
-
-#else //RAN_DEBUG_CALLER
-
-#define ranRandom(i)    ranRandomFn(i)
-#define gamerand() ranRandomFn(RAN_Game)
-// if you change RAN_Game in randy.h, change 11 as well.  Don't include randy.h because types.h included in other projects
-#define randomG(n) (ranRandomFn(RAN_Game) % (n))
-// if you change RAN_Game in randy.h, change 11 as well.  Don't include randy.h because types.h included in other projects
-#define frandom(n) (ranRandomFn(RAN_Game) * (((real32)(n)) * (1.0f/((real32)UDWORD_Max))))
-
-#endif //RAN_DEBUG_CALLER
-
-#define randombetween(a,b) ( randomG((b)-(a)+1) + (a) )
-#define frandombetween(a,b) (frandom((b)-(a)) + (a))
 
 #endif

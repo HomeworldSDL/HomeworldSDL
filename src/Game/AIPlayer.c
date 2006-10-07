@@ -499,7 +499,7 @@ void aiplayerChooseEnemies(udword num_players, udword num_human, udword num_comp
     //i denotes the computer player's playerIndex
     for (i=num_human; i<num_players;i++)
     {
-        udword bigotchance = randyrandombetween(RAN_AIPlayer, 0, 100);
+        udword bigotchance = randyrandombetween(RANDOM_AI_PLAYER, 0, 100);
 
         if ((num_human) && (bigotchance < AIPLAYER_BIGOTRY[i-num_human]))
         {
@@ -515,7 +515,7 @@ void aiplayerChooseEnemies(udword num_players, udword num_human, udword num_comp
     for (i=0;i<normcnt;i++)
     {
         //choose a random player as enemy
-        udword enemy = randyrandombetween(RAN_AIPlayer, 0, (num_players-1));
+        udword enemy = randyrandombetween(RANDOM_AI_PLAYER, 0, (num_players-1));
         bool done    = FALSE;
         giveup = 0;
 
@@ -575,7 +575,7 @@ void aiplayerChooseEnemies(udword num_players, udword num_human, udword num_comp
     //numloops is the amount of bigot computer players per human
     for (i=0;i<numloops;i++)
     {
-        udword enemy = randyrandombetween(RAN_AIPlayer, 0, (num_human-1));
+        udword enemy = randyrandombetween(RANDOM_AI_PLAYER, 0, (num_human-1));
         bool done = FALSE;
         giveup = 0;
 
@@ -612,7 +612,7 @@ void aiplayerChooseEnemies(udword num_players, udword num_human, udword num_comp
     //distribute extra bigot computer players among human players
     for (i=0;i<numbigotsleftover;i++)
     {
-        udword enemy = randyrandombetween(RAN_AIPlayer, 0, (num_human-1));
+        udword enemy = randyrandombetween(RANDOM_AI_PLAYER, 0, (num_human-1));
         udword slot = 0;
         bool done = FALSE;
         giveup = 0;
@@ -680,9 +680,9 @@ void aiplayerStartup(udword num_players, udword num_human_players, udword num_co
     aivarStartup();
 
     if (!determCompPlayer)
-        ranRandomize(RAN_AIPlayer);     // randomize the AIPlayer random number stream
+        ranRandomize(RANDOM_AI_PLAYER);     // randomize the AIPlayer random number stream
     else
-        ranParametersReset(RAN_AIPlayer);
+        ranParametersReset(RANDOM_AI_PLAYER);
 
     aiplayerChooseEnemies(num_players, num_human_players, num_comp_players);
 }
@@ -1055,13 +1055,13 @@ void aiplayerPlayerDied(Player *player)
 
     while (players[DeadPlayerIndex][slot] != -1)
     {
-        udword bigotchance = randyrandombetween(RAN_AIPlayer, 0, 100);
+        udword bigotchance = randyrandombetween(RANDOM_AI_PLAYER, 0, 100);
 
         //there're still living humans, and the computer player is a bigot
         //so he'll have to kill the human, won't he?
         if ((num_living_humans) && (bigotchance < AIPLAYER_BIGOTRY[players[DeadPlayerIndex][slot]-num_humans]))
         {
-            udword enemy = randyrandombetween(RAN_AIPlayer, 0, num_humans);
+            udword enemy = randyrandombetween(RANDOM_AI_PLAYER, 0, num_humans);
             done = FALSE;
             giveup = 0;
             newslot = 0;
@@ -1102,7 +1102,7 @@ void aiplayerPlayerDied(Player *player)
         else
         {
             //find the enemy for a non-bigot
-            udword enemy = randyrandombetween(RAN_AIPlayer, 0, (universe.numPlayers-1));
+            udword enemy = randyrandombetween(RANDOM_AI_PLAYER, 0, (universe.numPlayers-1));
             bool done    = FALSE, loop = FALSE;
             giveup = 0;
 
@@ -1295,12 +1295,12 @@ void FindEnemies(AIPlayer *aiplayer)
 /*    if (aiplayer->enemyPlayerCount > 1)
     {
 
-        primaryEnemyIndex = ranRandom(RAN_AIPlayer) % (aiplayer->enemyPlayerCount);
+        primaryEnemyIndex = ranRandom(RANDOM_AI_PLAYER) % (aiplayer->enemyPlayerCount);
 
         //check to make sure the primaryEnemy isn't the aiplayer itself
         while (&universe.players[primaryEnemyIndex] == aiplayer->player)
         {
-            primaryEnemyIndex = ranRandom(RAN_AIPlayer) % (aiplayer->enemyPlayerCount);
+            primaryEnemyIndex = ranRandom(RANDOM_AI_PLAYER) % (aiplayer->enemyPlayerCount);
         }
 
     }

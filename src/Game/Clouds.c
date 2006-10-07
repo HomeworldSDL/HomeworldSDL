@@ -281,8 +281,8 @@ static vertex* octant = NULL;
 void SetV(vertex* v, real32 x, real32 y, real32 z,
           real32 nx, real32 ny, real32 nz)
 {
-    real32 rand = (real32)(ranRandom(RAN_Clouds) % 10) * DUSTCLOUD_RAN_MULTIPLIER;
-    if (ranRandom(RAN_Clouds) & 1)
+    real32 rand = (real32)(ranRandom(RANDOM_CLOUDS) % 10) * DUSTCLOUD_RAN_MULTIPLIER;
+    if (ranRandom(RANDOM_CLOUDS) & 1)
     {
         rand = -rand;
     }
@@ -876,7 +876,7 @@ void ellipsoid_seq(ellipseObject* ellipsoid, sdword n, real32 a, real32 b, real3
 
 static real64 randomAngle(udword a)
 {
-    udword r = ranRandom(RAN_Clouds) % a;
+    udword r = ranRandom(RANDOM_CLOUDS) % a;
     return DEG_TO_RAD((real64)r);
 }
 
@@ -896,8 +896,8 @@ static void _homogenize(vector* v, hvector* h)
 
 real32 cloudRealDist(real32 n, real32 d)
 {
-    real32 r = (real32)((real64)(ranRandom(RAN_Clouds) % 1000000) / 1000000.0);
-    real32 sign = (ranRandom(RAN_Clouds) % 2 == 0) ? -1.0f : 1.0f;
+    real32 r = (real32)((real64)(ranRandom(RANDOM_CLOUDS) % 1000000) / 1000000.0);
+    real32 sign = (ranRandom(RANDOM_CLOUDS) % 2 == 0) ? -1.0f : 1.0f;
     if (d < 0.0f)
         sign = -1.0f;
     return n + sign*r*d;
@@ -1086,7 +1086,7 @@ void cloudPointInSphere(vector* point, real32 radius)
 
 real32 cloudLightningDeviation()
 {
-    return(0.54f * ((real32)(ranRandom(RAN_Clouds) % 100) - 50.0f));
+    return(0.54f * ((real32)(ranRandom(RANDOM_CLOUDS) % 100) - 50.0f));
 }
 
 void cloudGetVcross(vector* from, vector* to, vector* vcross)
@@ -1537,7 +1537,7 @@ lightning* cloudNewLightning(void* system, real32 radius)
     l->parent = (cloudSystem*)system;       //not necessarily a cloudSystem, mind you
 
     //frame, not tick-based
-    l->countdown = (ubyte)((ranRandom(RAN_Clouds) % 18) + 14);
+    l->countdown = (ubyte)((ranRandom(RANDOM_CLOUDS) % 18) + 14);
 
     cloudRandomSphericalPoint(&l->pointA);
     cloudPointInSphere(&l->pointA, radius);
@@ -1657,7 +1657,7 @@ void cloudNewBurst(cloudSystem* system, udword i)
     cloudMainLightning(l);
     l->parent = system;
 
-    l->countdown = (ubyte)((ranRandom(RAN_Clouds) % 2) + 1);
+    l->countdown = (ubyte)((ranRandom(RANDOM_CLOUDS) % 2) + 1);
 
     cloudRandomSphericalPoint(&l->pointA);
     cloudPointInSphere(&l->pointA, radius);
@@ -1730,7 +1730,7 @@ void cloudUpdateSystem(cloudSystem* system)
                     l->distance -= dist;
 
                     //reset the countdown
-                    l->countdown = (ubyte)((ranRandom(RAN_Clouds) % 2) + 1);
+                    l->countdown = (ubyte)((ranRandom(RANDOM_CLOUDS) % 2) + 1);
 
                     //endpoint -> startpoint
                     memcpy(&l->pointA, &l->pointB, sizeof(vector));
@@ -1777,7 +1777,7 @@ void cloudUpdateSystem(cloudSystem* system)
                         light->parent = system;
 
                         radius = 0.9f * system->radius * system->healthFactor;
-                        light->countdown = (ubyte)((ranRandom(RAN_Clouds) % 2) + 1);
+                        light->countdown = (ubyte)((ranRandom(RANDOM_CLOUDS) % 2) + 1);
 
                         //startpoint is previous lightning's endpoint
                         memcpy(&light->pointA, &l->pointB, sizeof(vector));
@@ -1799,7 +1799,7 @@ void cloudUpdateSystem(cloudSystem* system)
 #endif
             }
         }
-        else if (ranRandom(RAN_Clouds) % 1000 < thresh)
+        else if (ranRandom(RANDOM_CLOUDS) % 1000 < thresh)
         {
             real32 radius;
             lhandle handle;
@@ -1816,7 +1816,7 @@ void cloudUpdateSystem(cloudSystem* system)
 
             //timespan
             radius = 0.9f * system->radius * system->healthFactor;
-            l->countdown = (ubyte)((ranRandom(RAN_Clouds) % 2) + 1);
+            l->countdown = (ubyte)((ranRandom(RANDOM_CLOUDS) % 2) + 1);
 
             //point a
             {

@@ -1242,9 +1242,9 @@ vector smwGenerateRandomPoint(void)
 {
     vector vec;
 
-    vec.x = (real32)frandyrandombetween(RAN_AIPlayer,-smUniverseSizeX*WEIRDUNIVERSESTRETCH,smUniverseSizeX*WEIRDUNIVERSESTRETCH);
-    vec.y = (real32)frandyrandombetween(RAN_AIPlayer,-smUniverseSizeY*WEIRDUNIVERSESTRETCH,smUniverseSizeY*WEIRDUNIVERSESTRETCH);
-    vec.z = (real32)frandyrandombetween(RAN_AIPlayer,-smUniverseSizeZ*WEIRDUNIVERSESTRETCH,smUniverseSizeZ*WEIRDUNIVERSESTRETCH);
+    vec.x = (real32)frandyrandombetween(RANDOM_AI_PLAYER,-smUniverseSizeX*WEIRDUNIVERSESTRETCH,smUniverseSizeX*WEIRDUNIVERSESTRETCH);
+    vec.y = (real32)frandyrandombetween(RANDOM_AI_PLAYER,-smUniverseSizeY*WEIRDUNIVERSESTRETCH,smUniverseSizeY*WEIRDUNIVERSESTRETCH);
+    vec.z = (real32)frandyrandombetween(RANDOM_AI_PLAYER,-smUniverseSizeZ*WEIRDUNIVERSESTRETCH,smUniverseSizeZ*WEIRDUNIVERSESTRETCH);
 
     return vec;
 }
@@ -1255,7 +1255,7 @@ color smwGenerateRandomColor(void)
     udword colornum;
     color  col;
 
-    colornum = (udword)randyrandom(RAN_AIPlayer, 7);
+    colornum = (udword)randyrandom(RANDOM_AI_PLAYER, 7);
 
     switch (colornum)
     {
@@ -1283,9 +1283,9 @@ void smwGeneratePing(vector location)
     char name[20] = "0";
 
     //very small chance of a new ping
-    if (((udword)randyrandom(RAN_AIPlayer, 200)) <= 1)
+    if (((udword)randyrandom(RANDOM_AI_PLAYER, 200)) <= 1)
     {
-        pingcnt = randyrandom(RAN_AIPlayer, 3);
+        pingcnt = randyrandom(RANDOM_AI_PLAYER, 3);
 
         sprintf(name, "Weirdness%i", pingcnt);
         pingAnomalyPingRemove(name);
@@ -1311,21 +1311,21 @@ void smSensorWeirdnessDraw(hmatrix *modelView, hmatrix *projection)
 
     if (!redraw)
     {
-        num_points   = (udword)randyrandom(RAN_AIPlayer, (smSensorWeirdness/3));
+        num_points   = (udword)randyrandom(RANDOM_AI_PLAYER, (smSensorWeirdness/3));
         num_points  += (2*smSensorWeirdness/3);
-        redraw       = randyrandombetween(RAN_AIPlayer, 20, 30);
+        redraw       = randyrandombetween(RANDOM_AI_PLAYER, 20, 30);
     }
     else
     {
         redraw--;
     }
 
-    num_replaces = (udword)randyrandom(RAN_AIPlayer, MAX_REPLACEMENTS);
+    num_replaces = (udword)randyrandom(RANDOM_AI_PLAYER, MAX_REPLACEMENTS);
 
     for (i=0;i<num_replaces;i++)
     {
         //chose a random point
-        j = (udword)randyrandom(RAN_AIPlayer, smSensorWeirdness);
+        j = (udword)randyrandom(RANDOM_AI_PLAYER, smSensorWeirdness);
 
         //generate a random location for it
         smWeird[j].location = smwGenerateRandomPoint();

@@ -1194,7 +1194,7 @@ void aifFindAllies(void)
     AIPlayer *OtherCPU;
     udword HowMuchDoILoveMyFriends;
 
-    HowMuchDoILoveMyFriends = randyrandom(RAN_AIPlayer, 100);
+    HowMuchDoILoveMyFriends = randyrandom(RANDOM_AI_PLAYER, 100);
 
     for (i=0;i<universe.numPlayers;i++)
     {

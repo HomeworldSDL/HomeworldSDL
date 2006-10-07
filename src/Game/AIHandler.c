@@ -130,7 +130,7 @@ void aihSwarmerEmptyFuelHandler(AITeam *team)
                   < team->curMove->events.fuelLow.watchPercentage))
         {
             bitSet(ship->flags, SOF_Crazy);
-            ship->deathtime = universe.totaltimeelapsed + frandyrandombetween(RAN_AIPlayer, 14.0, 20.0);
+            ship->deathtime = universe.totaltimeelapsed + frandyrandombetween(RANDOM_AI_PLAYER, 14.0, 20.0);
             ApplyCareenRotationDirectly(ship);
             ship->rotinfo.rotspeed.x *= 1.5;
             ship->rotinfo.rotspeed.y *= 1.5;
@@ -893,7 +893,7 @@ void aihHarassTeamDiedHandler(AITeam *team)
 			return;
 		}
 	}
-	if (randyrandom(RAN_AIPlayer, 4))
+	if (randyrandom(RANDOM_AI_PLAYER, 4))
 	{
 		// retry this puppy
 		aitDeleteAllTeamMoves(team);

@@ -42,31 +42,31 @@ sdword nDemoPlays = 0, nUnivUpdates = 0;
 #if DEM_RANDOM_VERIFY
 bool8 demCheckStream[DEM_NumberStreamsToSave] =
 {
-    0,                          // RAN_ParticleStream
-    0,                          // RAN_ETG
-    0,                          // RAN_Sound
-    1,                          // RAN_Trails
-    1,                          // RAN_Clouds
-    1,                          // RAN_Nebulae
-    1,                          // RAN_AIPlayer
-    0,                          // RAN_Damage
-    1,                          // RAN_Battle
-    0,                          // RAN_Static
-    1,                          // RAN_Game
-    1,                          // RAN_SoundGameThread
-    0,                          // RAN_SoundBothThreads
-    1,                          // RAN_Trails0
-    1,                          // RAN_Trails1
-    1,                          // RAN_Trails2
-    1,                          // RAN_Trails3
-    1,                          // RAN_Trails4
-    1,                          // RAN_SoundGameThread0
-    1,                          // RAN_SoundGameThread1
-    1,                          // RAN_SoundGameThread2
-    1,                          // RAN_SoundGameThread3
-    1,                          // RAN_SoundGameThread4
-    1,                          // RAN_SoundGameThread5
-    1,                          // RAN_SoundGameThread6
+    0,                          // RANDOM_PARTICLE_STREAM
+    0,                          // RANDOM_ETG
+    0,                          // RANDOM_SOUND
+    1,                          // RANDOM_TRAILS
+    1,                          // RANDOM_CLOUDS
+    1,                          // RANDOM_NEBULAE
+    1,                          // RANDOM_AI_PLAYER
+    0,                          // RANDOM_DAMAGE
+    1,                          // RANDOM_BATTLE
+    0,                          // RANDOM_STATIC
+    1,                          // RANDOM_GAME
+    1,                          // RANDOM_SOUND_GAME_THREAD
+    0,                          // RANDOM_SOUND_BOTH_THREADS
+    1,                          // RANDOM_TRAILS_0
+    1,                          // RANDOM_TRAILS_1
+    1,                          // RANDOM_TRAILS_2
+    1,                          // RANDOM_TRAILS_3
+    1,                          // RANDOM_TRAILS_4
+    1,                          // RANDOM_SOUND_GAME_THREAD_0
+    1,                          // RANDOM_SOUND_GAME_THREAD_1
+    1,                          // RANDOM_SOUND_GAME_THREAD_2
+    1,                          // RANDOM_SOUND_GAME_THREAD_3
+    1,                          // RANDOM_SOUND_GAME_THREAD_4
+    1,                          // RANDOM_SOUND_GAME_THREAD_5
+    1,                          // RANDOM_SOUND_GAME_THREAD_6
 };
 #endif
 

@@ -1725,7 +1725,7 @@ void cmBuildShips(char *string, featom *atom)
         speechEventFleet(COMM_F_Const_Start, 0, universe.curPlayerIndex);
         if (capShipBuilt)
         {
-            speechEvent(curshipsInProgress->ship, COMM_Const_BuildCapShip, ranRandom(RAN_SoundGameThread) % 26);
+            speechEvent(curshipsInProgress->ship, COMM_Const_BuildCapShip, ranRandom(RANDOM_SOUND_GAME_THREAD) % 26);
         }
     }
 

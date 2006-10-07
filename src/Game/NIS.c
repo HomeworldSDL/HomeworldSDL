@@ -2509,10 +2509,10 @@ void nisStaticOnExp(nisstatic *newStatic)
         maxAlpha = colRealToUbyte(min(newStatic->alpha + newStatic->alphaVariation, 1.0f));
         for (count = NIS_NoiseTextureWidth * NIS_NoiseTextureHeight; count > 0; count--, texturePointer++)
         {                                                   //fill in the texture bitmap
-            hue = frandyrandombetween(RAN_Static, minHue, maxHue);
-            sat = frandyrandombetween(RAN_Static, minSat, maxSat);
-            lum = frandyrandombetween(RAN_Static, minLum, maxLum);
-            alphaUbyte = randyrandombetween(RAN_Static, minAlpha, maxAlpha);
+            hue = frandyrandombetween(RANDOM_STATIC, minHue, maxHue);
+            sat = frandyrandombetween(RANDOM_STATIC, minSat, maxSat);
+            lum = frandyrandombetween(RANDOM_STATIC, minLum, maxLum);
+            alphaUbyte = randyrandombetween(RANDOM_STATIC, minAlpha, maxAlpha);
             colHLSToRGB(&red, &green, &blue, hue, lum, sat);
             dbgAssert(red >= 0.0f && red <= 1.0f);
             dbgAssert(green >= 0.0f && green <= 1.0f);
@@ -5191,7 +5191,7 @@ void nisStaticDraw(nisstatic *snow)
 
     shortest = (snow->width - snow->widthVariation) / 2.0f;
     longest = (snow->width + snow->widthVariation) / 2.0f;
-    nLines = randyrandombetween(RAN_Static, snow->nLines - snow->nLinesVariation, snow->nLines + snow->nLinesVariation);
+    nLines = randyrandombetween(RANDOM_STATIC, snow->nLines - snow->nLinesVariation, snow->nLines + snow->nLinesVariation);
     top = snow->y - snow->yVariation;
     bottom = snow->y + snow->yVariation;
     if (snow->texture != TR_InvalidInternalHandle)
@@ -5206,16 +5206,16 @@ void nisStaticDraw(nisstatic *snow)
         glBegin(GL_QUADS);
         while (nLines)
         {
-            y0 = frandyrandombetween(RAN_Static, top, bottom);
+            y0 = frandyrandombetween(RANDOM_STATIC, top, bottom);
             y1 = y0 + one;
-            width = frandyrandombetween(RAN_Static, shortest, longest);
-            x0 = x1 = frandyrandombetween(RAN_Static, -1.0f, 1.0f);
+            width = frandyrandombetween(RANDOM_STATIC, shortest, longest);
+            x0 = x1 = frandyrandombetween(RANDOM_STATIC, -1.0f, 1.0f);
             x0 -= width;
             x1 += width;
             nLines--;
-            s0 = frandyrandom(RAN_Static, 1.0f);
+            s0 = frandyrandom(RANDOM_STATIC, 1.0f);
             s1 = s0 + width * 2 * MAIN_WindowWidth / NIS_NoiseTextureWidth;
-            t0 = frandyrandom(RAN_Static, 1.0f);
+            t0 = frandyrandom(RANDOM_STATIC, 1.0f);
 
             glTexCoord2f(s0, t0);
             glVertex2f(x0, y1);
@@ -5244,14 +5244,14 @@ void nisStaticDraw(nisstatic *snow)
         glBegin(GL_LINES);
         while (nLines)
         {
-            hue = frandyrandombetween(RAN_Static, minHue, maxHue);
-            sat = frandyrandombetween(RAN_Static, minSat, maxSat);
-            lum = frandyrandombetween(RAN_Static, minLum, maxLum);
-            alpha = frandyrandombetween(RAN_Static, minAlpha, maxAlpha);
+            hue = frandyrandombetween(RANDOM_STATIC, minHue, maxHue);
+            sat = frandyrandombetween(RANDOM_STATIC, minSat, maxSat);
+            lum = frandyrandombetween(RANDOM_STATIC, minLum, maxLum);
+            alpha = frandyrandombetween(RANDOM_STATIC, minAlpha, maxAlpha);
             colHLSToRGB(&red, &green, &blue, hue, lum, sat);
-            y0 = frandyrandombetween(RAN_Static, top, bottom);
-            width = frandyrandombetween(RAN_Static, shortest, longest);
-            x0 = x1 = frandyrandombetween(RAN_Static, -1.0f, 1.0f);
+            y0 = frandyrandombetween(RANDOM_STATIC, top, bottom);
+            width = frandyrandombetween(RANDOM_STATIC, shortest, longest);
+            x0 = x1 = frandyrandombetween(RANDOM_STATIC, -1.0f, 1.0f);
             x0 -= width;
             x1 += width;
             nLines--;

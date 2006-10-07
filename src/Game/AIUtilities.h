@@ -55,7 +55,7 @@ bool ShipAlreadyHyperspaceOut(Ship *ship);      // don't include singleplayer.h,
                                         (sel)->numShips = 0;
 
 
-#define aiuRandomRange(prob, range)     randyrandombetween(RAN_AIPlayer, ((prob)-(range)), ((prob)+(range)))
+#define aiuRandomRange(prob, range)     randyrandombetween(RANDOM_AI_PLAYER, ((prob)-(range)), ((prob)+(range)))
 
 #define aiuGameTimePassed(time)         (universe.totaltimeelapsed > (time))
 

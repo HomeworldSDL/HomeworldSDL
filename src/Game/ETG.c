@@ -6274,7 +6274,7 @@ sdword etgAlternate(Effect *effect, struct etgeffectstatic *stat, ubyte *opcode)
     etgCallStackIndex++;                                    //push it onto stack
 //    alt = effect->alternate[((etgdecision *)opcode)->criteria];//get alternate number
     decision = &stat->decisions[((etgdecision*)opcode)->criteria];
-    alt = ranRandom(RAN_ETG) % (decision->high - decision->low) + decision->low;
+    alt = ranRandom(RANDOM_ETG) % (decision->high - decision->low) + decision->low;
     dbgAssert(alt < ((etgdecision *)opcode)->tableLength);
     return(((etgdecision *)opcode)->offset[alt]);
 }
@@ -7228,7 +7228,7 @@ void etgCreateEffects(Effect *effect, etgeffectstatic *stat, sdword number, sdwo
 #endif
     if (dist != 0)
     {
-        number = ranRandom(RAN_ETG) % (dist * 2) + number - dist;
+        number = ranRandom(RANDOM_ETG) % (dist * 2) + number - dist;
     }
     partSetPosition(&effect->posinfo.position);
     partSetCoordSys(&effect->rotinfo.coordsys);
@@ -7528,7 +7528,7 @@ bool etgFrequencyExceeded(etgeffectstatic *stat)
     {
         return(TRUE);                                       //all used, don't play
     }
-    if (randyrandombetween(RAN_ETG, countThisSecond, max) < countThisSecond)
+    if (randyrandombetween(RANDOM_ETG, countThisSecond, max) < countThisSecond)
     {                                                       //randomly see if we should play
         return(TRUE);                                       //don't play if the number comes up
     }
@@ -7843,7 +7843,7 @@ udword etgFRandom(real32 low, real32 high)
         return(TreatAsUdword(low));
     }
 //    dbgAssert(high > low);
-    valueInt = ranRandom(RAN_ETG);
+    valueInt = ranRandom(RANDOM_ETG);
     value = (real32)valueInt * (high - low) / (real32)UDWORD_Max + low;
 #if ETG_VERBOSE_LEVEL >= 2
     dbgMessagef("\nfrandom(%f, %f) = %f", low, high, value);
@@ -7858,7 +7858,7 @@ udword etgIRandom(udword low, udword high)
         return(low);
     }
 //    dbgAssert(high > low);
-    return(ranRandom(RAN_ETG) % (high - low) + low);
+    return(ranRandom(RANDOM_ETG) % (high - low) + low);
 }
 
 udword etgCRandom(udword loR, udword hiR, udword loG, udword hiG, udword loB, udword hiB)
@@ -7875,7 +7875,7 @@ udword etgCRandom(udword loR, udword hiR, udword loG, udword hiG, udword loB, ud
     {
         hiR = loR + 1;
     }
-    return(colRGB(randyrandombetween(RAN_ETG, loR, hiR), randyrandombetween(RAN_ETG, loG, hiB), randyrandombetween(RAN_ETG, loB, hiB)));
+    return(colRGB(randyrandombetween(RANDOM_ETG, loR, hiR), randyrandombetween(RANDOM_ETG, loG, hiB), randyrandombetween(RANDOM_ETG, loB, hiB)));
 }
 
 udword etgCARandom(udword loR, udword hiR, udword loG, udword hiG, udword loB, udword hiB, udword loA, udword hiA)
@@ -7896,7 +7896,7 @@ udword etgCARandom(udword loR, udword hiR, udword loG, udword hiG, udword loB, u
     {
         hiR = loR + 1;
     }
-    return(colRGBA(randyrandombetween(RAN_ETG, loR, hiR), randyrandombetween(RAN_ETG, loG, hiB), randyrandombetween(RAN_ETG, loB, hiB), randyrandombetween(RAN_ETG, loA, hiA)));
+    return(colRGBA(randyrandombetween(RANDOM_ETG, loR, hiR), randyrandombetween(RANDOM_ETG, loG, hiB), randyrandombetween(RANDOM_ETG, loB, hiB), randyrandombetween(RANDOM_ETG, loA, hiA)));
 }
 
 //convert data types

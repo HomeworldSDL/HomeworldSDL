@@ -1,43 +1,45 @@
-/*=============================================================================
-    Name    : Randy.c
-    Purpose : Generic random-number generators with multiple streams
+// =============================================================================
+//  Randy.c
+//  - Generic random-number generators with multiple streams
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 11/11/1997 by lmoloney
+// =============================================================================
 
-    Created 11/11/1997 by lmoloney
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-#include <string.h>
+#include "Randy.h"
 
 #include "Debug.h"
-#include "Randy.h"
 #include "SaveGame.h"
 
-#if RAN_DEBUG_CALLER
-#include "Universe.h"
-#include "File.h"
-#include <stdio.h>
+#if RANDOM_DEBUG_CALL_SEQ
+    #include "File.h"
+    #include "Globals.h"
+    #include "Memory.h"
+    #include "Universe.h"
 #endif
 
 /*=============================================================================
     Data:
 =============================================================================*/
-ranstream ranStream[RAN_NumberStreams];
+ranstream ranStream[RANDOM_NUMBER_STREAMS];
 
-#if RAN_DEBUG_CALLER
-#define RAN_LogFile             "Randylog.txt"
-#define RAN_LogBufferLength     512
-#define RAN_LogStringLength     24
-bool ranCallerDebug = FALSE;
-bool ranLogCleared = FALSE;
-typedef struct
-{
-    char file[RAN_LogStringLength];
-    sdword line;
-    udword univCounter;
-}
-ranlogentry;
-ranlogentry *ranLogBuffer = NULL;
-sdword ranLogIndex = 0;
+#if RANDOM_DEBUG_CALL_SEQ
+    #define RANDOM_LOG_FILE            "Randylog.txt"
+    #define RANDOM_LOG_BUFFER_LENGTH   512
+    #define RANDOM_LOG_STRING_LENGTH   24
+
+    typedef struct
+    {
+        char   file[RANDOM_LOG_STRING_LENGTH];
+        sdword line;
+        udword univCounter;
+    }
+    ranlogentry;
+
+    bool         ranCallerDebug = FALSE;
+    bool         ranLogCleared  = FALSE;
+    sdword       ranLogIndex    = 0;
+    ranlogentry *ranLogBuffer   = NULL;
 #endif
 
 /*=============================================================================
@@ -51,7 +53,7 @@ sdword ranLogIndex = 0;
     Outputs     :
     Return      : New random number.
 ----------------------------------------------------------------------------*/
-#if RAN_DEBUG_CALLER
+#if RANDOM_DEBUG_CALL_SEQ
 udword ranRandomFn(sdword ranIndex, char *file, sdword line)
 #else
 udword ranRandomFn(sdword ranIndex)
@@ -60,20 +62,20 @@ udword ranRandomFn(sdword ranIndex)
     long int s;
     ranstream *stream;
 
-#if RAN_DEBUG_CALLER
+#if RANDOM_DEBUG_CALL_SEQ
     char *fileNameFull;
     char *truncatedFile;
     FILE *fp;
 
-    if ((ranCallerDebug || logEnable == LOG_ON || logEnable == LOG_VERBOSE) && ranIndex == RAN_Game && file != NULL)
+    if ((ranCallerDebug || logEnable == LOG_ON || logEnable == LOG_VERBOSE) && ranIndex == RANDOM_GAME && file != NULL)
     {
         if (ranLogBuffer == NULL)
         {
-            ranLogBuffer = memAlloc(sizeof(ranlogentry) * RAN_LogBufferLength, "ranLogBuffer", NonVolatile);
+            ranLogBuffer = memAlloc(sizeof(ranlogentry) * RANDOM_LOG_BUFFER_LENGTH, "ranLogBuffer", NonVolatile);
         }
-        if (ranLogIndex >= RAN_LogBufferLength)
+        if (ranLogIndex >= RANDOM_LOG_BUFFER_LENGTH)
         {
-            fileNameFull = filePathPrepend(RAN_LogFile, FF_UserSettingsPath);
+            fileNameFull = filePathPrepend(RANDOM_LOG_FILE, FF_UserSettingsPath);
 
             if (fileMakeDestinationDirectory(fileNameFull))
             {
@@ -81,7 +83,7 @@ udword ranRandomFn(sdword ranIndex)
                 if (fp != NULL)
                 {
                     ranLogCleared = TRUE;
-                    for (ranLogIndex = 0; ranLogIndex < RAN_LogBufferLength; ranLogIndex++)
+                    for (ranLogIndex = 0; ranLogIndex < RANDOM_LOG_BUFFER_LENGTH; ranLogIndex++)
                     {
                         fprintf(fp, "%s(%d): %d\n", ranLogBuffer[ranLogIndex].file, ranLogBuffer[ranLogIndex].line, ranLogBuffer[ranLogIndex].univCounter);
                     }
@@ -90,14 +92,14 @@ udword ranRandomFn(sdword ranIndex)
             }
             ranLogIndex = 0;
         }
-        truncatedFile = file + strlen(file) - (RAN_LogStringLength - 1);
+        truncatedFile = file + strlen(file) - (RANDOM_LOG_STRING_LENGTH - 1);
         strcpy(ranLogBuffer[ranLogIndex].file, max(file, truncatedFile));
         ranLogBuffer[ranLogIndex].line = line;
         ranLogBuffer[ranLogIndex].univCounter = universe.univUpdateCounter;
         ranLogIndex++;
     }
 #endif
-    dbgAssert(ranIndex < RAN_NumberStreams);
+    dbgAssert(ranIndex < RANDOM_NUMBER_STREAMS);
     stream = &ranStream[ranIndex];
     if(stream->y>stream->x+stream->c){s=stream->y-(stream->x+stream->c);stream->c=0;}
     else {s=(stream->x+stream->c)-stream->y-18;stream->c=1;}
@@ -113,7 +115,7 @@ udword ranRandomFn(sdword ranIndex)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-#if RAN_DEBUG_CALLER
+#if RANDOM_DEBUG_CALL_SEQ
 udword ranRandomFnSimple(sdword ranIndex)
 {
     return(ranRandomFn(ranIndex, NULL, 0));
@@ -128,7 +130,7 @@ udword ranRandomFnSimple(sdword ranIndex)
 ----------------------------------------------------------------------------*/
 udword ranNumberGet(sdword ranIndex)
 {
-    dbgAssert(ranIndex < RAN_NumberStreams);
+    dbgAssert(ranIndex < RANDOM_NUMBER_STREAMS);
     return(ranStream[ranIndex].n);
 }
 
@@ -142,7 +144,7 @@ udword ranNumberGet(sdword ranIndex)
 ----------------------------------------------------------------------------*/
 void ranNumberSet(sdword ranIndex, udword nn)
 {
-    dbgAssert(ranIndex < RAN_NumberStreams);
+    dbgAssert(ranIndex < RANDOM_NUMBER_STREAMS);
     ranStream[ranIndex].n=nn;
 }
 
@@ -157,7 +159,7 @@ void ranNumberSet(sdword ranIndex, udword nn)
 ----------------------------------------------------------------------------*/
 void ranParametersSet(sdword ranIndex, udword xx,udword yy,udword zz,udword cc,udword nn)
 {
-    dbgAssert(ranIndex < RAN_NumberStreams);
+    dbgAssert(ranIndex < RANDOM_NUMBER_STREAMS);
     ranStream[ranIndex].x=xx; ranStream[ranIndex].y=yy; ranStream[ranIndex].z=zz; ranStream[ranIndex].c=cc; ranStream[ranIndex].n=nn;
 }
 
@@ -170,7 +172,7 @@ void ranParametersSet(sdword ranIndex, udword xx,udword yy,udword zz,udword cc,u
 ----------------------------------------------------------------------------*/
 void ranParametersGet(sdword ranIndex, udword *xx,udword *yy,udword *zz,udword *cc,udword *nn)
 {
-    dbgAssert(ranIndex < RAN_NumberStreams);
+    dbgAssert(ranIndex < RANDOM_NUMBER_STREAMS);
     *xx = ranStream[ranIndex].x; *yy = ranStream[ranIndex].y; *zz = ranStream[ranIndex].z; *cc = ranStream[ranIndex].c; *nn = ranStream[ranIndex].n;
 }
 
@@ -183,7 +185,7 @@ void ranParametersGet(sdword ranIndex, udword *xx,udword *yy,udword *zz,udword *
 ----------------------------------------------------------------------------*/
 void ranParametersReset(sdword ranIndex)
 {
-    dbgAssert(ranIndex < RAN_NumberStreams);
+    dbgAssert(ranIndex < RANDOM_NUMBER_STREAMS);
     ranStream[ranIndex].x=521288629;
     ranStream[ranIndex].y=362436069;
     ranStream[ranIndex].z=1613801;
@@ -225,7 +227,7 @@ void ranStartup(void)
 {
     sdword ranIndex;
 
-    for (ranIndex = 0; ranIndex < RAN_NumberStreams; ranIndex++)
+    for (ranIndex = 0; ranIndex < RANDOM_NUMBER_STREAMS; ranIndex++)
     {
         ranParametersReset(ranIndex);
     }
@@ -240,14 +242,14 @@ void ranStartup(void)
 ----------------------------------------------------------------------------*/
 void ranShutdown(void)
 {
-#if RAN_DEBUG_CALLER
+#if RANDOM_DEBUG_CALL_SEQ
     char *fileNameFull;
     FILE *fp;
     sdword index;
 
     if (ranLogBuffer != NULL)
     {
-        fileNameFull = filePathPrepend(RAN_LogFile, FF_UserSettingsPath);
+        fileNameFull = filePathPrepend(RANDOM_LOG_FILE, FF_UserSettingsPath);
 
         if (fileMakeDestinationDirectory(fileNameFull))
         {
@@ -278,7 +280,7 @@ void ranSave(void)
 {
     sdword ranIndex;
 
-    for (ranIndex = 0; ranIndex < RAN_NumberStreams; ranIndex++)
+    for (ranIndex = 0; ranIndex < RANDOM_NUMBER_STREAMS; ranIndex++)
     {
         SaveStructureOfSize(&ranStream[ranIndex],sizeof(ranstream));
     }
@@ -288,7 +290,7 @@ void ranLoad(void)
 {
     sdword ranIndex;
 
-    for (ranIndex = 0; ranIndex < RAN_NumberStreams; ranIndex++)
+    for (ranIndex = 0; ranIndex < RANDOM_NUMBER_STREAMS; ranIndex++)
     {
         LoadStructureOfSizeToAddress(&ranStream[ranIndex],sizeof(ranstream));
     }

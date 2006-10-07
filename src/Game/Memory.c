@@ -239,7 +239,7 @@ sdword memStartup(void *heapStart, sdword heapSize, memgrowcallback grow)
         }
         else
         {
-            memClearSetting = (udword)ranRandom(RAN_ETG);
+            memClearSetting = (udword)ranRandom(RANDOM_ETG);
         }
         if ((userName = getenv("USERPROFILE")) != NULL)
         {
@@ -247,7 +247,7 @@ sdword memStartup(void *heapStart, sdword heapSize, memgrowcallback grow)
         }
         else
         {
-            memFreeSetting = (udword)ranRandom(RAN_ETG);
+            memFreeSetting = (udword)ranRandom(RANDOM_ETG);
         }
     }
 #endif

@@ -706,7 +706,7 @@ bool airDumbResourcerRequests(void)
     }
     else
     {
-        aiCurrentAIPlayer->ResourcersToBuild = randyrandombetween(RAN_AIPlayer, (2 + (udword)aiCurrentAIPlayer->aiplayerDifficultyLevel), (4 + (udword)aiCurrentAIPlayer->aiplayerDifficultyLevel));
+        aiCurrentAIPlayer->ResourcersToBuild = randyrandombetween(RANDOM_AI_PLAYER, (2 + (udword)aiCurrentAIPlayer->aiplayerDifficultyLevel), (4 + (udword)aiCurrentAIPlayer->aiplayerDifficultyLevel));
         aiplayerLog((aiIndex, "Using Dumb Resourcing - %i Resource Ships", aiCurrentAIPlayer->ResourcersToBuild));
     }
     return FALSE;
@@ -748,7 +748,7 @@ bool airDumbResearchRequests(bool *requestedResearch)
     else
     {
         //later maybe add a bonehead move variable as well to build up to 6
-        aiCurrentAIPlayer->ResearchersToBuild = randyrandombetween(RAN_AIPlayer, 1, 3);
+        aiCurrentAIPlayer->ResearchersToBuild = randyrandombetween(RANDOM_AI_PLAYER, 1, 3);
         aiplayerLog((aiIndex, "Using Dumb Research - %i Research Ships", aiCurrentAIPlayer->ResearchersToBuild));
     }
     return FALSE;
@@ -930,7 +930,7 @@ void airResourceManager(void)
                 sdword totalASF = aiCurrentAIPlayer->airNumASF + aiCurrentAIPlayer->NumASFBeingBuilt;
 
                 if ((totalASF == 0) &&
-                    aitNeedStrikeSupport(randyrandombetween(RAN_AIPlayer, 10, 15)))
+                    aitNeedStrikeSupport(randyrandombetween(RANDOM_AI_PLAYER, 10, 15)))
                 {
                     if (aiuCanBuildShipType(AdvanceSupportFrigate,FALSE) &&
                         aiuUnitCapCanBuildShip(aiCurrentAIPlayer, AdvanceSupportFrigate, 1))

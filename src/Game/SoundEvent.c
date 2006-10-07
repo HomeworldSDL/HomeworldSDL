@@ -327,7 +327,7 @@ sdword GetPatch(SFXLUT *lut, sdword object, sdword event)
         return (index + 1);
     }
 
-    return (index + 1 + (ranRandom(RAN_SoundGameThread) % numvars));
+    return (index + 1 + (ranRandom(RANDOM_SOUND_GAME_THREAD) % numvars));
 }
 
 
@@ -1123,7 +1123,7 @@ void soundEventUpdate(void)
                     {
                         pDerelict->randomSoundHandle = SOUND_NOTINITED;
                         pDerelict->nextRandomTime = universe.totaltimeelapsed + RANDOM_AMBIENCE_MINFREQ
-                                                    + ((real32)(ranRandom(RAN_SoundGameThread) % RANDOM_AMBIENCE_ADDRANDOM) / 100.0f);
+                                                    + ((real32)(ranRandom(RANDOM_SOUND_GAME_THREAD) % RANDOM_AMBIENCE_ADDRANDOM) / 100.0f);
                     }
                     else
                     {
@@ -1645,7 +1645,7 @@ othersounds:
 					// this puppy is done, get ready for the next
 					ship->soundevent.randomHandle = SOUND_NOTINITED;
 					ship->soundevent.nextRandom = universe.totaltimeelapsed + RANDOM_AMBIENCE_MINFREQ
-												+ ((real32)(ranRandom(RAN_SoundGameThread) % RANDOM_AMBIENCE_ADDRANDOM) / 100.0f);
+												+ ((real32)(ranRandom(RANDOM_SOUND_GAME_THREAD) % RANDOM_AMBIENCE_ADDRANDOM) / 100.0f);
 				}
 				else
 				{

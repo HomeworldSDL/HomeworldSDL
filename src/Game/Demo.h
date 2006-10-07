@@ -51,7 +51,7 @@
 #define DEM_HeaderString        "BaNng"
 #define DEM_VersionNumber       0x007
 #define DEM_NoChecksum          1234567.0f
-#define DEM_NumberStreamsToSave RAN_NumberStreams
+#define DEM_NumberStreamsToSave RANDOM_NUMBER_STREAMS
 #define DEM_NumberTries         3               //try to play a demo this many times
 #define DEM_AUTO_DELAY          30              //for this many seconds
 

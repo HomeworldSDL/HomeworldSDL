@@ -242,7 +242,7 @@ extern udword batGlobalFrequencyModifier;       //exported for demo playback
 #define newEvent(name, num, text)             { name, num, BAD_RandomWeight, BAD_MaxDistance, BAD_ExpDistance, BAD_MinWavelength, BAD_ExpWavelength, BAD_MinProximity, BAD_ExpProximity, 0.0f, {0.0f, 0.0f, 0.0f}}
 #endif //BATTLE_TEXT
 
-#define batRandom()                     (ranRandom(RAN_Battle) & BAT_RandomMask)
+#define batRandom()                     (ranRandom(RANDOM_BATTLE) & BAT_RandomMask)
 
 /*=============================================================================
     Functions:

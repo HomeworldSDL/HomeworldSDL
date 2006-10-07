@@ -604,7 +604,7 @@ void aioCreateCapture(AITeam *team)
 {
     aiplayerLog((aiIndex, "%x Issuing Capture Order", team));
 
-    aimCreateGetShips(team, SalCapCorvette, (sbyte)(randyrandombetween(RAN_AIPlayer, 3, 7)), 0, TRUE, FALSE);
+    aimCreateGetShips(team, SalCapCorvette, (sbyte)(randyrandombetween(RANDOM_AI_PLAYER, 3, 7)), 0, TRUE, FALSE);
 
     aimCreateActiveCapture(team, TRUE, FALSE);
     aimCreateMoveDone(team, FALSE, FALSE);
@@ -622,7 +622,7 @@ void aioCreateMine(AITeam *team)
 {
     aiplayerLog((aiIndex, "%x Issuing Mine Order", team));
 
-    aimCreateGetShips(team, MinelayerCorvette, (sbyte)(randyrandombetween(RAN_AIPlayer, 2, 5)), 0, TRUE, FALSE);
+    aimCreateGetShips(team, MinelayerCorvette, (sbyte)(randyrandombetween(RANDOM_AI_PLAYER, 2, 5)), 0, TRUE, FALSE);
 
     aimCreateActiveMine(team, TRUE, FALSE);
     aimCreateMoveDone(team, FALSE, FALSE);

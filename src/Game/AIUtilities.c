@@ -93,9 +93,9 @@ vector aiuGenerateRandomVector(void)
 {
     vector randvec;
 
-    randvec.x = (real32)frandyrandombetween(RAN_AIPlayer,-10,10);
-    randvec.y = (real32)frandyrandombetween(RAN_AIPlayer,-10,10);
-    randvec.z = (real32)frandyrandombetween(RAN_AIPlayer,-10,10);
+    randvec.x = (real32)frandyrandombetween(RANDOM_AI_PLAYER,-10,10);
+    randvec.y = (real32)frandyrandombetween(RANDOM_AI_PLAYER,-10,10);
+    randvec.z = (real32)frandyrandombetween(RANDOM_AI_PLAYER,-10,10);
 
     return randvec;
 }
@@ -212,8 +212,8 @@ vector aiuFindRangeStandoffPoint(vector destination, vector location, real32 ran
     vector standoff_point;
     vector standoff_point_err;
     matrix mat;
-    real32 errorangle = frandyrandombetween(RAN_AIPlayer,DEG_TO_RAD(AIU_STANDOFF_NEG_ERROR_ANGLE),DEG_TO_RAD(AIU_STANDOFF_POS_ERROR_ANGLE));
-    real32 disterror = frandyrandombetween(RAN_AIPlayer,AIU_STANDOFF_DIST_ERROR_LOW,AIU_STANDOFF_DIST_ERROR_HIGH);
+    real32 errorangle = frandyrandombetween(RANDOM_AI_PLAYER,DEG_TO_RAD(AIU_STANDOFF_NEG_ERROR_ANGLE),DEG_TO_RAD(AIU_STANDOFF_POS_ERROR_ANGLE));
+    real32 disterror = frandyrandombetween(RANDOM_AI_PLAYER,AIU_STANDOFF_DIST_ERROR_LOW,AIU_STANDOFF_DIST_ERROR_HIGH);
 
     vecSub(standoff_point, destination, location);
     dist_from_location = fsqrt(vecMagnitudeSquared(standoff_point));
@@ -3296,11 +3296,11 @@ real32 aiuFindMinimumGunRangeSquared(SelectCommand *ships)
             //reduce the minrange even more
             if (ship->shiptype == MissileDestroyer)
             {
-                minrange *= frandyrandombetween(RAN_AIPlayer, 0.10f, 0.25f);
+                minrange *= frandyrandombetween(RANDOM_AI_PLAYER, 0.10f, 0.25f);
             }
             else
             {
-                minrange *= frandyrandombetween(RAN_AIPlayer, 0.20f, 0.64f);
+                minrange *= frandyrandombetween(RANDOM_AI_PLAYER, 0.20f, 0.64f);
             }
         }
     }
@@ -3696,13 +3696,13 @@ bool aiuFindArmadaTarget(vector *dest_target, SelectCommand **sel_target, Select
             //medium error with sensor array
             if (1)//aiCurrentAIPlayer->SensorArray)
             {
-                randvar = frandyrandombetween(RAN_AIPlayer, -primary_value_strength_ratio/3,
+                randvar = frandyrandombetween(RANDOM_AI_PLAYER, -primary_value_strength_ratio/3,
                                               primary_value_strength_ratio/3);
             }
             //high error with no sensor array
             else
             {
-                randvar = frandyrandombetween(RAN_AIPlayer, -primary_value_strength_ratio/1.2,
+                randvar = frandyrandombetween(RANDOM_AI_PLAYER, -primary_value_strength_ratio/1.2,
                                               primary_value_strength_ratio/1.2);
             }
             primary_value_strength_ratio += randvar;
@@ -3796,7 +3796,7 @@ void aiuFindPriorityTarget(SelectCommand *attackers, SelectCommand *targets)
 		case SalCapCorvette:
 			capship = TRUE;
 			// these ships try to take out AdvanceSupport frigates first 9 out of 10 times
-			if (randyrandom(RAN_AIPlayer, 10) &&
+			if (randyrandom(RANDOM_AI_PLAYER, 10) &&
 				(selSelectionCopyByType(&tempsel, (MaxSelection *)targets, AdvanceSupportFrigate) ||
 				 (selSelectionCopyByType(&tempsel, (MaxSelection *)targets, RepairCorvette) >= 2)))
 			{
@@ -3810,7 +3810,7 @@ void aiuFindPriorityTarget(SelectCommand *attackers, SelectCommand *targets)
 		case MissileDestroyer:
 		case StandardFrigate:
 			// try to take out SalCaps  9 out of 10 times
-			if (randyrandom(RAN_AIPlayer, 10) &&
+			if (randyrandom(RANDOM_AI_PLAYER, 10) &&
 				(selSelectionCopyByType(&tempsel, (MaxSelection *)targets, SalCapCorvette) >= 3))
 			{
 				selSelectionCopy((MaxAnySelection *)targets, (MaxAnySelection *)&tempsel);
@@ -3834,7 +3834,7 @@ void aiuFindPriorityTarget(SelectCommand *attackers, SelectCommand *targets)
 		case LightInterceptor:
 		case MultiGunCorvette:
 			// take out any defenders in the group first  9 out of 10 times
-			if (randyrandom(RAN_AIPlayer, 10) &&
+			if (randyrandom(RANDOM_AI_PLAYER, 10) &&
 				(selSelectionCopyByType(&tempsel, (MaxSelection *)targets, HeavyDefender) >= 6))
 			{
 				selSelectionCopy((MaxAnySelection *)targets, (MaxAnySelection *)&tempsel);
@@ -3848,7 +3848,7 @@ void aiuFindPriorityTarget(SelectCommand *attackers, SelectCommand *targets)
 		
 		default:
 			// guarantee attacking mothership 1 out of 4 times.
-			if (!randyrandom(RAN_AIPlayer, 4) &&
+			if (!randyrandom(RANDOM_AI_PLAYER, 4) &&
 				selSelectionCopyByType(&tempsel, (MaxSelection *)targets, Mothership))
 			{
 				selSelectionCopy((MaxAnySelection *)targets, (MaxAnySelection *)&tempsel);

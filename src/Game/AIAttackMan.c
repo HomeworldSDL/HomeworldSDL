@@ -451,8 +451,8 @@ void aiaGenerateNewAttackTeam(sdword AttackTeamNumber)
     //upper limit to avoid weird infinite loops
     while ((!attack_type_found) && (i<100))
     {
-        randomAttack = (AttackType)(ranRandom(RAN_AIPlayer)%NUM_ATTACK_TYPES);
-        probability_of_attack = ranRandom(RAN_AIPlayer)&255;
+        randomAttack = (AttackType)(ranRandom(RANDOM_AI_PLAYER)%NUM_ATTACK_TYPES);
+        probability_of_attack = ranRandom(RANDOM_AI_PLAYER)&255;
 
         if (probability_of_attack < aiCurrentAIPlayer->aiaAttackProbability[randomAttack])
         {
@@ -571,7 +571,7 @@ void aiaProcessSpecialTeams(void)
     if ((!aiCurrentAIPlayer->harassTeam) && (aiuAttackFeatureEnabled(AIA_HARASS)))
     {
         //large harass
-        harass_probability = ranRandom(RAN_AIPlayer)&255;
+        harass_probability = ranRandom(RANDOM_AI_PLAYER)&255;
 
         if (harass_probability < aiCurrentAIPlayer->aiaAttackProbability[HARASS_BIG])
         {
@@ -580,7 +580,7 @@ void aiaProcessSpecialTeams(void)
         }
 
         //large harass
-//        harass_probability = ranRandom(RAN_AIPlayer)&255;
+//        harass_probability = ranRandom(RANDOM_AI_PLAYER)&255;
 
 //        if (harass_probability < aiCurrentAIPlayer->aiaAttackProbability[HARASS_BIG])
 //        {
@@ -634,7 +634,7 @@ void aiaTimeAttack(void)
 			else if (aiCurrentAIPlayer->aiaTimeout < universe.totaltimeelapsed)
 			{
 				aivarValueSet(aivarFind(aiCurrentAIPlayer->attackVarLabel),-1);
-				aiCurrentAIPlayer->aiaTimeout += frandyrandombetween(RAN_AIPlayer, 3400.0f, 3800.0f);
+				aiCurrentAIPlayer->aiaTimeout += frandyrandombetween(RANDOM_AI_PLAYER, 3400.0f, 3800.0f);
 			}
             else
             {
@@ -642,7 +642,7 @@ void aiaTimeAttack(void)
 
                 if ((varValue < -300) && (aiCurrentAIPlayer->airEasilyAccesibleRUsInWorld))
                 {
-                    varValue = randyrandombetween(RAN_AIPlayer, 2,4);
+                    varValue = randyrandombetween(RANDOM_AI_PLAYER, 2,4);
 
                     aiplayerLog((aiIndex, "Resetting VarValue up %i", varValue));
                     aivarValueSet(aivarFind(aiCurrentAIPlayer->attackVarLabel),varValue);
@@ -717,7 +717,7 @@ void aiaProcessHarassTeams(void)
             (!bitTest(harassTeams[i]->teamFlags, TEAM_RETREATING)) &&
             (aiuShipsCloseToEnemyMothership(aiCurrentAIPlayer->player, shipList, 5500)))
         {
-            retreat_probability = ranRandom(RAN_AIPlayer)&255;
+            retreat_probability = ranRandom(RANDOM_AI_PLAYER)&255;
 
             if (retreat_probability < 200)
             {
@@ -1336,8 +1336,8 @@ void aiaInit(struct AIPlayer *aiplayer)
 
     aiplayer->haveAttackedMothership = 0;
     aivarLabelGenerate(aiplayer->attackVarLabel);
-    aivarValueSet(aivarCreate(aiplayer->attackVarLabel), randyrandombetween(RAN_AIPlayer, 2, 4));
-	aiplayer->aiaTimeout = frandyrandombetween(RAN_AIPlayer, 2900.0f, 3400.0f);
+    aivarValueSet(aivarCreate(aiplayer->attackVarLabel), randyrandombetween(RANDOM_AI_PLAYER, 2, 4));
+	aiplayer->aiaTimeout = frandyrandombetween(RANDOM_AI_PLAYER, 2900.0f, 3400.0f);
 
     //init attack type array
     aiplayer->aiaAttackProbability[ATTACK_FLEET_FAST]    = aiuRandomRange(AIA_ATTACK_FLEET_FAST_PROB[aiplayer->aiplayerDifficultyLevel], AIA_ATTACK_FLEET_FAST_RANGE[aiplayer->aiplayerDifficultyLevel]);
@@ -1437,7 +1437,7 @@ void aiaInit(struct AIPlayer *aiplayer)
             dbgAssert(FALSE);
     }
 
-    if (randyrandombetween(RAN_AIPlayer, 0, 100) < aiuRandomRange(AIA_KAMIKAZE_PROB[aiplayer->aiplayerDifficultyLevel], AIA_KAMIKAZE_RANGE[aiplayer->aiplayerDifficultyLevel]))
+    if (randyrandombetween(RANDOM_AI_PLAYER, 0, 100) < aiuRandomRange(AIA_KAMIKAZE_PROB[aiplayer->aiplayerDifficultyLevel], AIA_KAMIKAZE_RANGE[aiplayer->aiplayerDifficultyLevel]))
     {
         aiuEnableAttackFeature(AIA_KAMIKAZE);
     }

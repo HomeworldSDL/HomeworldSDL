@@ -1124,7 +1124,7 @@ udword SERandomSequenceCreate(sdword numVariations, sdword *lookupsy, sdword wid
     //partially bubble sort this list (this will favor the most common variations first)
     for (index = 0; index < numVariations - 1; index++)     //!!! might want to bubble sort a different number of times
     {
-        whichIndex = ranRandom(RAN_SoundBothThreads) % (numVariations - 1);
+        whichIndex = ranRandom(RANDOM_SOUND_BOTH_THREADS) % (numVariations - 1);
         if (probs[whichIndex] <= probs[whichIndex + 1])
         {
             swap(sequence[whichIndex], sequence[whichIndex + 1], finalSequence);
@@ -1225,7 +1225,7 @@ sdword SEselectsentence(sdword actor, sdword event, sdword variable, sdword setv
 
     if (variable < SOUND_OK)
     {                                                       //no variable specified
-        variable = ranRandom(RAN_SoundBothThreads) % maxvariable;//!!! no heuristic on this one
+        variable = ranRandom(RANDOM_SOUND_BOTH_THREADS) % maxvariable;//!!! no heuristic on this one
     }
     else if (variable >= maxvariable)
     {                                                       //variable out of range
@@ -2182,7 +2182,7 @@ sdword SEspeechevent(sdword stream, sdword actor, sdword event, sdword var, swor
     }
     else
     {
-        variation = ranRandom(RAN_SoundGameThread) % numvariations;
+        variation = ranRandom(RANDOM_SOUND_GAME_THREAD) % numvariations;
     }
 
     if (event == COMM_F_Hyper_Engage)
@@ -2332,9 +2332,9 @@ sdword SEselectactor(void)
     sdword actor;
 
 #if defined(HW_DEMO) || defined(HW_PUBLIC_BETA)
-    actor = (ranRandom(RAN_SoundGameThread) % 2) + 1;
+    actor = (ranRandom(RANDOM_SOUND_GAME_THREAD) % 2) + 1;
 #else
-    actor = (ranRandom(RAN_SoundGameThread) % 3) + 1;
+    actor = (ranRandom(RANDOM_SOUND_GAME_THREAD) % 3) + 1;
 #endif
 
     if (!bActorOn[actor])
@@ -2420,7 +2420,7 @@ bool speechEventAttack(void)
         if (numFriendlies > 0)
         {
             // do we attack?
-            if (((ranRandom(RAN_SoundGameThread) % 100) <= SPEECH_DISOBEY_FORCEDATTACK) && (lastreturn))
+            if (((ranRandom(RANDOM_SOUND_GAME_THREAD) % 100) <= SPEECH_DISOBEY_FORCEDATTACK) && (lastreturn))
             {
                 speechEvent(selSelected.ShipPtr[0], COMM_AttackPlayerUnits_Cond, 0);
                 lastreturn = FALSE;
