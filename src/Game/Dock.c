@@ -4191,60 +4191,38 @@ sdword **FindR2CarrierLaunchPoints(ShipStaticInfo *shipstatic)
     */
 }
 
+// Don't use the ship's class to determine which docking bay to use.
+// The Turanic Raider's (p1) Ion Array Frigate requires the large
+// docking bay but since it's classed as a frigate, after salvage it
+// would exit from the small docking bay. Knowing how the ship would
+// enter the Mothership via salvage, it makes sense that it should
+// always exit that way too, so we use that information instead.
 sdword **FindR1MothershipLaunchPoints(ShipStaticInfo *shipstatic)
 {
-    /*
-    switch (shipstatic->shipclass)
-    {
-        case CLASS_HeavyCruiser:
-        case CLASS_Carrier:
-        case CLASS_Destroyer:
-            return R1MothershipBigLaunchPoints;
-
-        case CLASS_Frigate:
-            if (shipstatic->shiptype == ResourceController)
-            {
-                return R1MothershipBigLaunchPoints;
-            }
-            else
-            {
-                return R1MothershipFrigateLaunchPoints;
-            }
-
-        default:
-            return R1MothershipSmallLaunchPoints;
-    }
-    */
-    if(isCapitalShipStatic(shipstatic))
-    {
-        if(shipstatic->shipclass == CLASS_Frigate ||
-            shipstatic->shiptype == ResearchShip)
-        {
-            return R1MothershipFrigateLaunchPoints;
-        }
-        else
-        {
+    // do we need to use the large docking bay to enter the Mothership?
+    // If so, we'd better leave the same way.
+    if (shipstatic->salvageStaticInfo != NULL) {
+        if (shipstatic->salvageStaticInfo->needBigR1) {
             return R1MothershipBigLaunchPoints;
         }
     }
-    else if(shipstatic->shiptype == SensorArray)
-    {
-        return R1MothershipFrigateLaunchPoints;
-    }
+    
+    // default to the small docking bay
     return R1MothershipSmallLaunchPoints;
-
 }
 
 sdword **FindR2MothershipLaunchPoints(ShipStaticInfo *shipstatic)
 {
-    if (isCapitalShipStaticOrBig(shipstatic))
-    {
-        return R2MothershipCapitalLaunchPoints;
+    // do we need to use the large docking bay to enter the Mothership?
+    // If so, we'd better leave the same way.
+    if (shipstatic->salvageStaticInfo != NULL) {
+        if (shipstatic->salvageStaticInfo->needBigR2) {
+            return R2MothershipCapitalLaunchPoints;
+        }
     }
-    else
-    {
-        return R2MothershipSmallLaunchPoints;
-    }
+
+    // default to the small docking bay
+    return R2MothershipSmallLaunchPoints;
 }
 
 sdword **FindP1MothershipLaunchPoints(ShipStaticInfo *shipstatic)
