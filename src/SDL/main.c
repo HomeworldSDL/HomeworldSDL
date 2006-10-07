@@ -13,7 +13,6 @@
 
 #include "SDL.h"
 
-#include "leakyfaucet.h"
 #include "regkey.h"
                 // guess what?  The game code defines HKEY to 'H' which messes up the registry code.  So the
                 // registry code gets to go here
@@ -460,144 +459,6 @@ udword mainPasswordChecksum1 =
     ((udword)0xc ^ (udword)'y');
 char *mainPasswordPtr = NULL;
 #endif //MAIN_Password
-
-/*-----------------------------------------------------------------------------
-    Leak-tracing strings.  Don't delete any old ones, and comment the
-    destination and date of each string.  Make the string fairly long, and not
-    obviously a leak string.
------------------------------------------------------------------------------*/
-//To: Scott Lynch.  Date: Feb 04 98 By: Luke Moloney
-//static char leakString[] = "MainObjectWindowMenuHelpOptionsForwardCancelButtonMeshPolygon";
-//To: Sierra by CD burned 16 Feb 98 By: Luke Moloney
-//static char leakString[] = "MainObjectWindowMenuOptionOptionsForwardButtonCancelMeshPolygon";
-//To: Sierra by CD burned 05 Mar 98 By: Luke Moloney
-//static char leakString[] = "MainObjectFastMenuOptionOptionsUpwardButtonCancelMeshPolygon";
-//To: Sierra by CD burned 10 Mar 98 By: Luke Moloney
-//static char leakString[] = "MainObjectFastMenuOptionOptionsOnClickCancelMeshPolygonXZY";
-//To: Sierra by CD burned 17 Mar 98 By: Luke Moloney
-//static char leakString[] = "MainNonObjectFastMenuSequenceOptionsOnInteractiveCancelMeshPolygonXZY";
-//To: Scott, Jim Veevaert,Mark Hood by CD burned 18 Mar 98 By: Luke Moloney
-//static char leakString[] = "MainNonObjectFastMenuSequenceOptionsOnInteractiveNomenuMeshPolygonXZY";
-//To: Elliot Ness by CD burned 25 Mar 98 By: Luke Moloney
-//static char leakString[] = "MainNonObjectFastBackMenuSequenceOptionsHoochyOnInteractiveMeshPolygonXZYWaynot";
-//To: Scott Lynch by CD burned 25 Mar 98 By: Luke Moloney
-//static char leakString[] = "MainNonGalaxyFastBackMenuSequenceOptionsGrahamOnInteractiveMeshPolygonXZYWaynot";
-//To: 'The Press', numbered sequence 1 burned 25 Mar 98 By: Luke Moloney
-//static char leakString[] = "ETGGoodBallsBadBoobsDeadBeefBadCafePureSqueezedAsteroidsForRUsInTheNebula";
-//To: 'The Press', numbered sequence 2 burned 25 Mar 98 By: Luke Moloney
-//static char leakString[] = "ETGGoodBallsBadBloodDeadBoobsBeefBadCafePureFrequencyDomainAsteroidsForRUsInTheNebula";
-//To: 'The Press', numbered sequence 3 burned 25 Mar 98 By: Luke Moloney
-//static char leakString[] = "Press OK Press Cancel Press Next Press Back Press Forward Error Occurred Internal Error";
-//To: 'The Press', numbered sequence 4 burned 25 Mar 98 By: Luke Moloney
-//static char leakString[] = "Frame rate: %d, %d, %d\x0Poly count: %d\x0Number dots: %d\x0Bryce 3d usage: %d%%\x0Gaz level: %d";
-//To: Scott Lynch, numbered sequence 4 burned 15 May 98 By: Luke Moloney
-//static char leakString[] = "Sound event 0x%x ('%s')\n\x0Policy event 0x%x ('%s')\n\x0ETG event 0x%x ('%s')\n\x0";
-//To: E3, numbered sequence 4 burned 15 May 98 By: Luke Moloney
-//static char leakString[] = "EEPROM version = 0x%x\n\x0Fatal error in file %s, line %d\n%s\nx0Warning in file %s, line %d\n%s\n\x0Notice: %s\n\x0";
-//To: Europe(with Alex) numbered EXE 1, burned 12 June 98 By: Luke Moloney
-//static char leakString[] = "maxvelocity maxrot  maxhealth\x0regVerify: invalid region 0x%x has va\x0ELASTIC_PULL_FACTOR  CAMERA_OUTBY_SCALE_ZOOM";
-//To: Europe(with Alex) numbered EXE 2, burned 12 June 98 By: Luke Moloney
-//static char leakString[] = "maxvelocity maxrot  maxhealth\x0regVerify: invalid region 0x%x has va\x0ELASTIC_PULL_FACTOR  CAMERA_OUTBY_SCALE_ZOOM";
-//To: Europe(with Alex) numbered EXE 3, burned 12 June 98 By: Luke Moloney
-//static char leakString[] = "..\\Game\\commandlayer.c  FALSE   Assertion of (%s) failed.FA_ToggleButton || atom->type == FA_CheckBox || atom->type == FA_RadioButton";
-//To: Europe(with Alex) numbered EXE 4, burned 12 June 98 By: Luke Moloney
-//static char leakString[] = "..\\Game\\feflow.c    atom != NULL    Assertion of (%s) failed.Closing front end module   Bananna Bananna feScreensLoad: Invalid header '%s'";
-//To: Europe(with Alex) numbered EXE 5, burned 12 June 98 By: Luke Moloney
-//static char leakString[] = "ObjectWindowMenuOption\x0burned 15 May 98 By: Luke Moloney\x0Warning in file %s, line %d\n%s\n\x0";
-//To: Scott Lynch, burned 16 June 98 By: Luke Moloney
-//static char leakString[] = "/debug\n/skipFE\n/noBG\n/noFilter\n/noBorder\n/noClamp\n/noTexture\n/noSmooth\n/nilTexture";
-//To: Magazines in SanFran, burned 08 July 98 By: Luke Moloney
-//static char leakString[] = "/stipple\n/aiplayerLog\n/demoRecord\n/demoPlay\n/hiRes\n/AllTech\n/nohint\n/tactics\n/noR1\n/noR2\n/noP0\n/noP1\n/noP2\n/noP3\n/noTraders\n";
-//To: Magazines in SanFran, burned 08 July 98 By: Luke Moloney
-//static char leakString[] = "/stipple\n/aiplayerLog\n/demoRecord\n/demoPlay\n/hiRes\n/AllTech\n/nohint\n/tactics\n/noR1\n/noR2\n/noP1\n/noP1\n/noP2\n/noP3\n/noTraders\n";
-//To: Magazines in SanFran, burned 08 July 98 By: Luke Moloney
-//static char leakString[] = "/stipple\n/aiplayerLog\n/demoRecord\n/demoPlay\n/hiRes\n/AllTech\n/nohint\n/tactics\n/noR1\n/noR2\n/noP2\n/noP1\n/noP2\n/noP3\n/noTraders\n";
-//To: Magazines in SanFran, burned 08 July 98 By: Luke Moloney
-//static char leakString[] = "/stipple\n/aiplayerLog\n/demoRecord\n/demoPlay\n/hiRes\n/AllTech\n/nohint\n/tactics\n/noR1\n/noR2\n/noP3\n/noP1\n/noP2\n/noP3\n/noTraders\n";
-//To: Magazines in SanFran, burned 08 July 98 By: Luke Moloney
-//static char leakString[] = "/stipple\n/aiplayerLog\n/demoRecord\n/demoPlay\n/hiRes\n/AllTech\n/nohint\n/tactics\n/noR1\n/noR2\n/noP4\n/noP1\n/noP2\n/noP3\n/noTraders\n";
-//To: Magazines in SanFran, burned 08 July 98 By: Luke Moloney
-//static char leakString[] = "/stipple\n/aiplayerLog\n/demoRecord\n/demoPlay\n/hiRes\n/AllTech\n/nohint\n/tactics\n/noR1\n/noR2\n/noP5\n/noP1\n/noP2\n/noP3\n/noTraders\n";
-//To: Magazines in SanFran, burned 08 July 98 By: Luke Moloney
-//static char leakString[] = "/stipple\n/aiplayerLog\n/demoRecord\n/demoPlay\n/hiRes\n/AllTech\n/nohint\n/tactics\n/noR1\n/noR2\n/noP6\n/noP1\n/noP2\n/noP3\n/noTraders\n";
-//To: Magazines in SanFran, burned 08 July 98 By: Luke Moloney
-//static char leakString[] = "/stipple\n/aiplayerLog\n/demoRecord\n/demoPlay\n/hiRes\n/AllTech\n/nohint\n/tactics\n/noR1\n/noR2\n/noP7\n/noP1\n/noP2\n/noP3\n/noTraders\n";
-//To: Magazines in SanFran, burned 08 July 98 By: Luke Moloney
-//static char leakString[] = "/stipple\n/aiplayerLog\n/demoRecord\n/demoPlay\n/hiRes\n/AllTech\n/nohint\n/tactics\n/noR1\n/noR2\n/noP8\n/noP1\n/noP2\n/noP3\n/noTraders\n";
-//To: Magazines in SanFran, burned 08 July 98 By: Luke Moloney
-//static char leakString[] = "/stipple\n/aiplayerLog\n/demoRecord\n/demoPlay\n/hiRes\n/AllTech\n/nohint\n/tactics\n/noR1\n/noR2\n/noP9\n/noP1\n/noP2\n/noP3\n/noTraders\n";
-//To: Scott/doug burned Jul 16 1998 by Luke Moloney.  No Leak String
-//To: Stuart Seeley for beta testing burned Jul 16 1998 by Luke Moloney.
-//static char leakString[] = "/stipple\n/aiplayerLog\n/demoRecord\n/demoPlay\n/hiRes\n/AllTech\n/nohint\x0ELASTIC_PULL_FACTOR\x0ETG event 0x%x ('%s')\n\x0";
-//To: Scott Lynch burned Aug 13 1998 by Luke Moloney.
-//static char leakString[] = "/minVal\x0/maxVal\x0/AIFast\x0/speed\x0/800\x0/1024\x0/ComputerAI\x0/LogFileIO\x0/logPackets\x0/encryptPackets";
-//To: Game Works Press Show burned Aug 13 1998 by Luke Moloney.
-//static char leakString[] = "/minVal\x0/maxVal\x0/AIFast\x0/speed\x0/800x600\x0/1024x768\x0/ComputerAI\x0/LogFileIO\x0/logPackets\x0/encryptPackets";
-//To: ECTS (hex edit) burned Sept 3 1998 by Luke Moloney.
-//static char leakString[] = "/minVal\x0/maxVal\x0/AIFast\x0/speed\x0/948\x0/1280\x0/ComputerAl\x0/LogFileIO\x0/logPackets\x0/encryptPackets";
-//To: "The Press" burned Oct 1 1998 by Luke Moloney. (Hex edit of origional M16 .exe)
-//static char leakString[] = "8B D9 81 C1 C4 00 00 00  83 C0 31 3D 93 00 00 00 7C BF 8B 44 24 20 00 00  00 00 98 7C 0E 00 00 80 E2 FE 88 50 35 0F B6 80  BD 0B 00 00 85 C0 75 0A";
-//To: Scott and the gang burned Sept 15 1998 by Luke Moloney.
-//static char leakString[] = "8B D9 81 C1 C4 00 00 00  83 C0 31 3D 93 00 00 00 7C BF 8B 44 24 20 8A 50  35 89 98 7C 0E 00 00 80 E2 FE 88 50 35 0F B6 80  BD 0B 00 00 85 C0 75 0A";
-//To: Scott and the gang burned Oct 15 1998 by Luke Moloney.
-//static char leakString[] = "Left click-select\x0Left hold-bandbox\x0Right hold-rotate camra\x0Left/right hold-zoom\x0Centre click-focus\x0Alt-click-focus\x0Control-bandbox-attack\x0";
-//To: Scott and the gang burned Nov 24 1998 by Luke Moloney.
-//static char leakString[] = "Revolutionary ne 3-d space combat with an advanced camera model and excellent graphics.";
-//To: Scott and the gang burned Dec 21 1998 by Luke Moloney.
-//static char leakString[] = "BEGLEITFREGATTE\n\x0ANGRIFFSBOMBER\n\x0TRÄGERSCHIFF\n\x0TARNKAPPENJÄGER\n\x0TARNFELDGENERATOR\n\x0DROHNEN-FREGATTE\n";
-//To: Scott and the gang burned Dec 21 1998 by Luke Moloney.
-//static char leakString[] = "noPlug\x0nisNoLockout\x0nisCounter\x0noPause\x0password\x0smCentreCamera\x0onlyPacking\x0disablePacking\x0disableAVI\x0allowPacking/noPalettes";
-//To: Sierra/Sierra QA
-//static char leakString[] = "Welcome to Homeworld!\x0Press 'Next' to continue.\x0At any time, you can press 'Back' to go to the previous screen.";
-//To: Sierra/Sierra QA burned Dec 26, 1998 by Luke Moloney
-//static char leakString[] = "Welcome to Homeworld!\x0Press 'Next' to continue!\x0At any time, you can press 'Back' to go to the previous screen.";
-//To: Sierra/Sierra QA burned Feb 1, 1999 by Gary Shaw
-//static char leakString[] = "Welcome to Homeworld!\x0Press 'Next' to continue!\x0At any time, you press 'Back' to go to the previous screen.";
-//To: Intel: Cathy Avenatti & Mike Minahan burned Feb 3, 1999 by Keith Hentschel
-//static char leakString[] = "nisNoLockout\x0nisCounter\x0password\x0noPause\x0smCentreCamera\x0disablePacking\x0onlyPacking\x0disableAVI\x0allowPacking\x0/noPalettes";
-//To: Sierra/Sierra QA burned Feb 8, 1999 by Gary Shaw
-//static unsigned char leakString[] = { 0xff, 0xd7, 0x23, 0xb6, 0xed, 0x8c, 0xb8, 0xe4, 0x3f, 0xcb, 0x84, 0xde, 0xa6, 0xec, 0x89, 0x80 };
-//for the Europe press tour version of the above burn, the last 2 digits, '8980'
-//will be incremented by 1 for the number of burns we need by hex-editing the .exe file
-//Beta 4 Milestone M21
-//static char leakString[] = "nisNoLockout\x0nisCounter\x0passwd\x0noPause\x0smCentreCamera\x0disablePacking\x0onlyPacking\x0disableAVI\x0allowPacking\x0/noPalettes";
-//CGDC burn: full of bugs and whatnot.  10 burns to go out.  The default at the end will be incremented for additional burns.
-//static char leakString[] = "/miniBeef[ = 0]\x0/lowBeef[ = 1]\x0/highBeef[ = 2]\x0/ultraBeef[ = 3]\x0/megaBeef[ = 4]\x0/insaneBeef[ = 5]\x0/default=00";
-//static char leakString[] = "/miniBeef[ = 0]\x0/lowBeef[ = 1]\x0/highBeef[ = 2]\x0/ultraBeef[ = 3]\x0/megaBeef[ = 4]\x0/insaneBeef[ = 5]\x0/default=05";
-//M22 burn: Sent to Sierra, Burned by Luke
-//for numbered burns, the first number, 0x45, is incremented
-//static ubyte leakString[] = {0x45, 0x65, 0x32, 0x89, 0x66, 0x48, 0x78, 0xf9, 0x1a, 0xaa, 0x45, 0x01};
-//Demo testing burn.  Burned Apr 05/99 by Luke for Torsten and the crowd.
-//static char leakString[] = "/miniBeef[ = 1]\x0/lowBeef[ = 2]\x0/highBeef[ = 3]\x0/ultraBeef[ = 4]\x0/megaBeef[ = 5]\x0/insaneBeef[ = 6]\x0/default=00";
-//Downloadable demo (public beta) testing burn.  Burned Apr 05/99 by Luke for Torsten and the crowd.
-//static char leakString[] = "MainObjectWindowMenuHelpOptionsForwardCancelButtonMeshPolygon";
-//Downloadable demo (public beta) testing burn.  Burned Apr 16/99 by Luke for Torsten and the crowd.
-//static char leakString[] = "MainObjectWindowMenuOptionOptionsForwardButtonCancelMeshPolygon";
-//Downloadable demo (public beta) testing burn.  Burned Apr 21/99 by Luke for Torsten and the crowd.
-//static char leakString[] = "MainObjectFastMenuOptionOptionsOnClickCancelMeshPolygonXZY";
-//Downloadable demo (public beta) testing burn.  Burned Apr 28/99 by Luke for Torsten and the crowd.
-//static char leakString[] = "MainNonObjectFastBackMenuSequenceOptionsHoochyOnInteractiveMeshPolygonXZYWaynot";
-//M23 Burn by Luke for Sierra evaluation
-//static char leakString[] = "ETGGoodBallsBadBoobsDeadBeefBadCafePureSqueezedAsteroidsForRUsInTheNebula";
-//CGW Burn RC1 by Luke for bug testing
-//static char leakString[] = "1001010001001110100011010011101010010100010111010010101010101000011111110001001010";
-//E3 Burn RC1 by Luke for bug testing
-//static char leakString[] = "1001010001001110100011010011101010010100010111010010101010101000011111110001001010";
-//Update Burn RC1 by Luke for bug testing
-//static char leakString[] = "01001001010101010101100111001010110101010001010101010100010010101010110101010100101010";
-//M24.  2 years now.  How very dragging.  For Mark Hood and Torsten.
-//static char leakString[] = "10111101001000100100101010101010001000100110110010111011101011101010010111110101001110";
-//Public Beta 2 for torsten and lackies...
-//static char leakString[] = "10100101001010100101101011101010001000100110110010111011101011101010010111110101001110";
-//M24d Beta 2 Release Candidate 2 to torsten via FTP
-//static char leakString[] = "10100101001010100101101011101010001000100010110010101010101010101010010111110101001110";
-//M24e Beta 2 Release Candidate 3 to torsten via FTP
-//static char leakString[] = "1010010100101010011111111101010001000100010110010101010101010101010010111110101001110";
-//M24e Beta 2 Release Candidate 4 to torsten via FTP
-//static char leakString[] = "1010110100101010011111111101010001000100010110010101010101010101010010111110101001110";
-//For Torsten + focus group: m24ffinalrc5
-//static char leakString[] = "101011010010101001111111110101000100010101011000101011101010101010010111110101001110";
-//leak strings now defined in LeakyFaucet.h
 
 
 /*=============================================================================
@@ -3195,20 +3056,6 @@ int main (int argc, char* argv[])
         }
     }
 #endif  /* Support for other platforms? */
-
-/*
-    if (strlen(leakString) != MAX_LEAK_STRING_LENGTH)
-    {   // leakstring has not been plugged by the Fat-Assed plumber program
-        sdword index;
-        time_t tt;
-
-        index = time(&tt) % 5 + 3;
-        while (index--)
-        {
-            MessageBox(NULL, "The Executable is possibly corrupt.  Please re-install Homeworld.  Execution may FAIL!", "Faucet Error", MB_ABORTRETRYIGNORE);
-        }
-    }
-*/
 
     mainDeviceToSelect[0] = '\0';
 

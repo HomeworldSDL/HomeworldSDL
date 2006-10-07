@@ -197,7 +197,6 @@
 		3516C8F9077C41B0001AA863 /* gldll.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD921E064AEE7A003E3D39 /* gldll.h */; };
 		3516C8FA077C41B0001AA863 /* glext.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD921F064AEE7A003E3D39 /* glext.h */; };
 		3516C8FB077C41B0001AA863 /* glinc.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9220064AEE7A003E3D39 /* glinc.h */; };
-		3516C8FC077C41B0001AA863 /* leakyfaucet.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9221064AEE7A003E3D39 /* leakyfaucet.h */; };
 		3516C8FD077C41B0001AA863 /* light.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9223064AEE7A003E3D39 /* light.h */; };
 		3516C8FE077C41B0001AA863 /* LinkLimits.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9225064AEE7A003E3D39 /* LinkLimits.h */; };
 		3516C8FF077C41B0001AA863 /* main.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9228064AEE7A003E3D39 /* main.h */; };
@@ -964,7 +963,6 @@
 		90BD9275064AEE7B003E3D39 /* gldll.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD921E064AEE7A003E3D39 /* gldll.h */; };
 		90BD9276064AEE7B003E3D39 /* glext.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD921F064AEE7A003E3D39 /* glext.h */; };
 		90BD9277064AEE7B003E3D39 /* glinc.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9220064AEE7A003E3D39 /* glinc.h */; };
-		90BD9278064AEE7B003E3D39 /* leakyfaucet.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9221064AEE7A003E3D39 /* leakyfaucet.h */; };
 		90BD9279064AEE7B003E3D39 /* light.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9222064AEE7A003E3D39 /* light.c */; };
 		90BD927A064AEE7B003E3D39 /* light.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9223064AEE7A003E3D39 /* light.h */; };
 		90BD927B064AEE7B003E3D39 /* LinkEnd.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9224064AEE7A003E3D39 /* LinkEnd.c */; };
@@ -1537,7 +1535,6 @@
 		90BD921E064AEE7A003E3D39 /* gldll.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = gldll.h; path = ../src/SDL/gldll.h; sourceTree = SOURCE_ROOT; };
 		90BD921F064AEE7A003E3D39 /* glext.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = glext.h; path = ../src/SDL/glext.h; sourceTree = SOURCE_ROOT; };
 		90BD9220064AEE7A003E3D39 /* glinc.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = glinc.h; path = ../src/SDL/glinc.h; sourceTree = SOURCE_ROOT; };
-		90BD9221064AEE7A003E3D39 /* leakyfaucet.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = leakyfaucet.h; path = ../src/SDL/leakyfaucet.h; sourceTree = SOURCE_ROOT; };
 		90BD9222064AEE7A003E3D39 /* light.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = light.c; path = ../src/SDL/light.c; sourceTree = SOURCE_ROOT; };
 		90BD9223064AEE7A003E3D39 /* light.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = light.h; path = ../src/SDL/light.h; sourceTree = SOURCE_ROOT; };
 		90BD9224064AEE7A003E3D39 /* LinkEnd.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = LinkEnd.c; path = ../src/SDL/LinkEnd.c; sourceTree = SOURCE_ROOT; };
@@ -2229,7 +2226,6 @@
 				90BD921E064AEE7A003E3D39 /* gldll.h */,
 				90BD921F064AEE7A003E3D39 /* glext.h */,
 				90BD9220064AEE7A003E3D39 /* glinc.h */,
-				90BD9221064AEE7A003E3D39 /* leakyfaucet.h */,
 				90BD9222064AEE7A003E3D39 /* light.c */,
 				90BD9223064AEE7A003E3D39 /* light.h */,
 				90BD9224064AEE7A003E3D39 /* LinkEnd.c */,
@@ -2565,7 +2561,6 @@
 				3516C8F9077C41B0001AA863 /* gldll.h in Headers */,
 				3516C8FA077C41B0001AA863 /* glext.h in Headers */,
 				3516C8FB077C41B0001AA863 /* glinc.h in Headers */,
-				3516C8FC077C41B0001AA863 /* leakyfaucet.h in Headers */,
 				3516C8FD077C41B0001AA863 /* light.h in Headers */,
 				3516C8FE077C41B0001AA863 /* LinkLimits.h in Headers */,
 				3516C8FF077C41B0001AA863 /* main.h in Headers */,
@@ -2842,7 +2837,6 @@
 				90BD9275064AEE7B003E3D39 /* gldll.h in Headers */,
 				90BD9276064AEE7B003E3D39 /* glext.h in Headers */,
 				90BD9277064AEE7B003E3D39 /* glinc.h in Headers */,
-				90BD9278064AEE7B003E3D39 /* leakyfaucet.h in Headers */,
 				90BD927A064AEE7B003E3D39 /* light.h in Headers */,
 				90BD927C064AEE7B003E3D39 /* LinkLimits.h in Headers */,
 				90BD927F064AEE7B003E3D39 /* main.h in Headers */,
