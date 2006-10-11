@@ -3,15 +3,15 @@
 Homeworld SDL - Source Installation Instructions 
  Version 0.3 alpha? (still?)
  Subversion repository: http://www.homeworldsdl.org
- Curremt Subversion revision as of this writing: 190
+ Current Subversion revision as of this writing: 190
 
- Homeworld SDL maintainer: 
-Laurence Patterson <lmop@homeworldsdl.org> 
+Homeworld SDL maintainer: 
+ Laurence Passmore <lmop@homeworldsdl.org> 
  
 ---------------------------------------------------------------------
 
- Homeworld © 1999-2000 Sierra On-Line, Inc.  All Rights Reserved. 
- Homeworld is a registered trademark, and Sierra and Sierra Studios
+Homeworld © 1999-2000 Sierra On-Line, Inc.  All Rights Reserved. 
+Homeworld is a registered trademark, and Sierra and Sierra Studios
 are registered trademarks of Sierra On-Line, Inc.  Relic is a
 trademark of Relic Entertainment, Inc. 
  
@@ -164,7 +164,7 @@ following steps:
     - Select "Video" from the available options sub-menus listed on
       the right side of the screen. 
     - Select "(GL) Default OpenGL" from the "Rendering System" box. 
-    - Choose a resultion from the "Resolution" box (any resolution
+    - Choose a resolution from the "Resolution" box (any resolution
       you choose will do fine). 
     - Click on the "Accept!" button in the bottom-right corner of the screen. 
  
