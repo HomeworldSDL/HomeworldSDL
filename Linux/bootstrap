@@ -1,4 +1,6 @@
 #!/bin/sh
+cp stuff/* ../
+cd ..
 set -x
 libtoolize --force --copy
 aclocal -I config
