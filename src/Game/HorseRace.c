@@ -1381,17 +1381,7 @@ void horseRaceRender()
 {
     SDL_Event e;
 
-#if defined (_MSC_VER)
-    _asm xor eax,eax
-    _asm mov regRenderEventIndex, eax
-#elif defined (__GNUC__) && defined (__i386__)
-    __asm__ __volatile__ (
-        "xorl %%eax, %%eax\n\t"
-        "movl %%eax, %0\n\t"
-        : "=m" (regRenderEventIndex) );
-#else
     regRenderEventIndex = 0;
-#endif
 
     //special-case code for double-clicks
 
