@@ -98,3 +98,4 @@ void sendAllianceRequest(udword user, uword player_index, uword type, ubyte data
 
     SendChatPacketPacket(&packetPtr, sizeofpacket,user);
 }
+

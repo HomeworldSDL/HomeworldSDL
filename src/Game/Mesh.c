@@ -147,7 +147,7 @@ meshMorphLineColors[] =
     {colRGB(255, 0, 255),   colRGB(128, 0, 128)},
     {colBlack, colBlack}
 };
-#endif;
+#endif
 
 /*=============================================================================
     Functions:

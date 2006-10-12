@@ -6,8 +6,6 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#define _GNU_SOURCE   /* Get to wcscasecmp() */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <strings.h>
