@@ -83,17 +83,17 @@ static GLcontext* CCsw = NULL;
 
 static void delete_window(GLint a);
 
-void write_pixel(
+static void write_pixel(
         GLcontext* ctx, GLint x, GLint y, GLdepth z,
         GLint red, GLint green, GLint blue, GLint alpha);
-void write_blended_pixel(
+static void write_blended_pixel(
         GLcontext* ctx, GLint x, GLint y,
         GLint red, GLint green, GLint blue, GLint alpha);
 
-void general_rgb_line(GLcontext* ctx, GLuint vert0, GLuint vert1, GLuint pvert);
-void doublestep_rgb_line(GLcontext* ctx, GLuint vert0, GLuint vert1, GLuint pvert);
+static void general_rgb_line(GLcontext* ctx, GLuint vert0, GLuint vert1, GLuint pvert);
+static void doublestep_rgb_line(GLcontext* ctx, GLuint vert0, GLuint vert1, GLuint pvert);
 
-void tex_palette(gl_texture_object* tex);
+static void tex_palette(gl_texture_object* tex);
 
 //in triangle.c and scan.c
 extern void init_color_spanners(GLcontext*);
