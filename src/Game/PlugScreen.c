@@ -439,7 +439,8 @@ void RemoveCommasButNotQuestionMarksFromString(char *field)
 
     if ((linkPtr = strstr(field, "https:")) != NULL)
     {                                                       //Major hack!  The link for "To Order" has every imaginable format character in the URL including double slash and question mark
-        linkPtr[6] = (char)'//';
+        linkPtr[6] = '/';
+        linkPtr[7] = '/';
     }
     while (*fieldptr != 0)
     {
