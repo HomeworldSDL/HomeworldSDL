@@ -1,6 +1,12 @@
 noinst_LIBRARIES = libhw_Sound.a
 libhw_Sound_a_SOURCES =
 
+# *** kludge alert ***
+# this prevents the generated makefile from unlinking the .o files.
+# we don't have the source for them. Makefile will attempt to
+# rm *.donotkillofiles.
+OBJEXT=donotkillofiles
+
 if PLATFORM_WIN32
    libhw_Sound_a_LIBADD = \
       dct.munged \
