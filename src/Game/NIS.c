@@ -4360,7 +4360,7 @@ void nisDamageLevelSet(char *directory, char *field, void *dataToFillIn)
 
     nScanned = sscanf(field, "%f", &percentage);
     dbgAssert(nScanned == 1);
-    if (strchr(field, '%%'))
+    if (strchr(field, '%'))
     {
         percentage /= 100.0f;
     }
