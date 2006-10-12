@@ -56,12 +56,21 @@ well, but it will take time.
  
  -Compiling the source code-
 
+ You need to have at least the following packages installed:
+
+ * SDL development files (version 1.2.11 or later)
+   - you may get a linkage error against X symbols on earlier ones.
+     This can probably be repaired by adding -lX11 -lXext on src/Makefile.am.
+ * flex (any recent version will do)
+ * bison (any recent version will do)
+ * autotools set: autoconf, automake (1.9), libtool
+
  The build process itself is relatively straightforward. Running the
 bootstrap script found in this directory with ". ./bootstrap"
 (that's "period space period slash bootstrap) will set up the
 files needed and then leave you in the main project directory. Then
 doing "./configure" followed by "make" from there will build the
-required files. 
+required files.
  
  If you have GCC 4 or later on your system you will need to tell it to
 use an earlier version of itself. One method of doing this under
@@ -71,18 +80,21 @@ giving your particular GCC 3.3 or 3.4 binary in the path.
  For example, if your system's GCC 3.3 is gcc-3.3.6 then you can
 enter:
 
- . ./bootstrap
- PATH=gcc-3.3.6:$PATH CC=gcc-3.3.6 ./configure 
- PATH=gcc-3.3.6:$PATH CC=gcc-3.3.6 make 
+ ./bootstrap
+ CC=gcc-3.3.6 ./configure 
+ make
+
+This assumes that gcc-3.3.6 is in your path. If it isn't, you should supply
+the full path to where your gcc-3.3.6 binary has been installed.
 
 ... and off you go. 
 
 If "make" is successful and if you're inclined to
 install the game then
 
- PATH=gcc-3.3.6:$PATH CC=gcc-3.3.6 make install
+ make install
 
-... should do the trick.
+should do the trick.
 
  -Usage and placement of the game data files-
 
@@ -123,8 +135,8 @@ a different mount point, you will need to specify it using the
 HW_Music.wxd from the Homeworld CD to the 'src' directory alongside
 the other data files. These are the voice and music data files,
 respectively. Rename 'HW_Comp.vce' to 'HW_comp.vce' and you can get
-along without the CD in the drive. Of course that's if you want to
-spare the extra 155 megs both files will take up on the hard drive. 
+along without the CD in the drive. However, the music files will take
+155 MB of space.
 
  -Starting the game-
 
@@ -156,7 +168,7 @@ last thing you need to know!
  
  When Homeworld first starts up, it uses the software renderer.
 Unfortunately, the porting of the software renderer is not yet
-complete (3D geometry will not render properly, if at all), so you
+complete (filled 3D textures do not seem to render currently), so you
 will need to switch to the OpenGL renderer.  To do so, perform the
 following steps: 
  
@@ -171,7 +183,7 @@ following steps:
  The game will now attempt to switch to the OpenGL renderer.  
  If everything goes okay, you should be presented with a confirmation
 that the settings you requested were changed.  Select "Yes", and you
-should be ready to go! 
+should be ready to go!
  
  The settings you choose will also be saved when you quit, so you
 don't have to reselect the OpenGL renderer every time. 
