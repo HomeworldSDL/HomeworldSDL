@@ -36,7 +36,7 @@ extern GLuint g_CulledPolys;
 #define FANCY_RESET 0
 
 #define EPSILON -0.8e-03f
-#define C_MATH  0
+#define C_MATH  1
 
 #define CALL_TRIANGLE(CTX,VL,PV) \
     { \
