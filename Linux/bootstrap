@@ -1,4 +1,10 @@
 #!/bin/sh
+
+if [ ! -d stuff ]; then
+    echo "please chown to Linux directory first"
+    exit 1
+fi
+
 cp stuff/* ../
 cd ..
 set -x
