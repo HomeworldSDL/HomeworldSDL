@@ -14,5 +14,5 @@ HW_LIBS = \
    ./obj/libhw_Sound.a
 
 homeworld$(EXEEXT): $(HW_LIBS)
-	$(CC) -o $@ -Wl,-\( $(HW_LIBS) @SDL_LIBS@ -Wl,-\)
+	$(CC) -o $@ -Wl,--as-needed,-\( $(HW_LIBS) -lX11 -lXext @SDL_LIBS@ -Wl,-\)
 
