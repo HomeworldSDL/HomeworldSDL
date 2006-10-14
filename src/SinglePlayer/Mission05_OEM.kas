@@ -19,21 +19,21 @@
             LSTRING_Savegame
                 "05 - Turanic Raider Planetoid"
                 "French version goes here"
-                "German version goes here"
+                "05 - Turanischer Piraten Planetoid"
 				"Spanish Version goes here"
 				"Italian Version goes here"
 
             LSTRING_LocationCard
                 "Deep Space - Turanic Raider Planetoid"
                 "French version goes here"
-                "German version goes here"
+                "Tiefer Weltraum - Turanischer Piraten Planetoid"
 				"Spanish Version goes here"
 				"Italian Version goes here"
 
             LSTRING_Objective1
                 "Destroy Enemy Carriers"
                 "French version goes here"
-                "German version goes here"
+                "Zerstöre feindliche Träger"
 				"Spanish Version goes here"
 				"Italian Version goes here"
 
