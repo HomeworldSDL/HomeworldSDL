@@ -10,7 +10,7 @@ Homeworld SDL maintainer:
  
 ---------------------------------------------------------------------
 
-Homeworld © 1999-2000 Sierra On-Line, Inc.  All Rights Reserved. 
+Homeworld  1999-2000 Sierra On-Line, Inc.  All Rights Reserved. 
 Homeworld is a registered trademark, and Sierra and Sierra Studios
 are registered trademarks of Sierra On-Line, Inc.  Relic is a
 trademark of Relic Entertainment, Inc. 
@@ -29,30 +29,18 @@ Contents:
 
  -Note-
 
- Homeworld SDL is still in development, and as such the code is
-somewhat of a mess right now.  Since Homeworld was not designed to be
-compiled and installed using the typical "configure/make/make install"
-process found with most open source Unix software, you'll need to keep
-a few things in mind while trying to get the game running. 
+ Homeworld SDL is still in development, and as such the code is somewhat of a mess right now.  Since Homeworld was not designed to be compiled and installed using the typical "configure/make/make install" process found with most open source Unix software, you'll need to keep a few things in mind while trying to get the game running. 
  
  -System requirements-
 
  SDL 1.2.11 
  GCC 3.3 or later.
 
-GCC 3.x versions prior to 3.3 have problems compiling various sections
-of the Homeworld code and will crash upon the attempt.  GCC 2.95.x
-does not provide support for SSE/SSE2 instructions and will not work. 
+GCC 3.x versions prior to 3.3 have problems compiling various sections of the Homeworld code and will crash upon the attempt.  GCC 2.95.x does not provide support for SSE/SSE2 instructions and will not work. 
  
- GCC 4 will not work either, as several sections of the source code
-rely on obsolete programming practices no longer permitted by GCC 4
-and later... most notably the mission source files use the
-"-fwritable-strings" option which GCC 4 no longer allows. You'll
-have to run GCC 4 as GCC 3.3 or 3.4.
+ GCC 4 will not work either, as several sections of the source code rely on obsolete programming practices no longer permitted by GCC 4 and later... most notably the mission source files use the "-fwritable-strings" option which GCC 4 no longer allows. You'll have to run GCC as GCC 3.3 or 3.4.
 
-There is a strong sentiment among many people to rewrite the codebase
-to modern standards, and even talk of aiming for a 64-bit branch as
-well, but it will take time. 
+There is a strong sentiment among many people to rewrite the codebase to modern standards, and even talk of aiming for a 64-bit branch as well, but it will take time. 
  
  -Compiling the source code-
 
@@ -64,33 +52,22 @@ well, but it will take time.
  * flex (any recent version will do)
  * bison (any recent version will do)
  * autotools set: autoconf, automake (1.9), libtool
+ * YACC (any recent version will do)
 
- The build process itself is relatively straightforward. Running the
-bootstrap script found in this directory with ". ./bootstrap"
-(that's "period space period slash bootstrap) will set up the
-files needed and then leave you in the main project directory. Then
-doing "./configure" followed by "make" from there will build the
-required files.
+ The build process itself is relatively straightforward. Running the bootstrap script found in this directory with ". ./bootstrap" (that's "period space period slash bootstrap) will set up the files needed and then leave you in the main project directory. Then doing "./configure" followed by "make" from there will build the required files.
  
- If you have GCC 4 or later on your system you will need to tell it to
-use an earlier version of itself. One method of doing this under
-Linux is to use the PATH option when giving the compile orders, and
-giving your particular GCC 3.3 or 3.4 binary in the path. 
+ If you have GCC 4 or later on your system you will need to tell it to use an earlier version of itself. One method of doing this under Linux is to use the PATH option when giving the compile orders, and giving your particular GCC 3.3 or 3.4 binary in the path. 
  
- For example, if your system's GCC 3.3 is gcc-3.3.6 then you can
-enter:
+ For example, if your system's GCC 3.3 is gcc-3.3.6 then you can enter:
 
  ./bootstrap
  CC=gcc-3.3.6 ./configure 
  make
 
-This assumes that gcc-3.3.6 is in your path. If it isn't, you should supply
-the full path to where your gcc-3.3.6 binary has been installed.
-
+This assumes that gcc-3.3.6 is in your path. If it isn't, you should supply the full path to where your gcc-3.3.6 binary has been installed.
 ... and off you go. 
 
-If "make" is successful and if you're inclined to
-install the game then
+If "make" is successful and if you're inclined to install the game then
 
  make install
 
@@ -98,79 +75,40 @@ should do the trick.
 
  -Usage and placement of the game data files-
 
- Once you have successfully compiled the source you will still need
-the Homeworld CD and the Homeworld 1.05 version patch for some data
-files before you can play. The game requires these files. They have
-not been provided with the source code or with the SDL port as they
-are not freely available, You can find the patch at
-http://www.relicnews.com, and you can also find the patch, and other
-downloads as well at http://homesource.nekomimicon.net 
+ Once you have successfully compiled the source you will still need the Homeworld CD and the Homeworld 1.05 version patch for some data files before you can play. The game requires these files. They have not been provided with the source code or with the SDL port as they are not freely available, You can find the patch at http://www.relicnews.com, and you can also find the patch, and other downloads as well at http://homesource.nekomimicon.net 
  
  You will need at least 
  - Homeworld.big 
  - devstats.dat 
  - Update.big 
 
-Homeworld big comes from the game CD, and the devstats.dat and 
-Update.big files have to be the updated versions from the 1.05 patch.
+Homeworld big comes from the game CD, and the devstats.dat and Update.big files have to be the updated versions from the 1.05 patch.
 
-A note regarding the patch: While you need the game CD you need not
-have a Windows install of Homeworld to run the patch itself: just
-run the patch under Wine and when the patch asks for the Homeworld
-executable point it at a blank text file named "Homeworld.exe"
-that you have created. When the patch is finished you can use the 
-devstats.dat and Update.big it leaves behind with Homeworld SDL.
+Unfortunately it seems that the only way to get the .big files out of the install executable is to run the installer under Wine or some similiar tactic.
+A linux version of the "e_wise" install file extractor program is needed should anyone care to work on it.
+The files from the patch are simpler to get at: Just open the patch .exe in any zip file program and extract the devstats.dat and Update.big files from it.
  
- You can place the game data files in the 'src' directory within the
-project directory, where the "homeworld' binary you just compiled is
-located. 
+ You can place the game data files in the 'src' directory within the project directory, where the "homeworld' binary you just compiled is located. 
  
- Even though the main data files are present now, you will still need to 
-have the Homeworld CD in your CD-ROM drive AND mounted. The 
-game will check that the CD is mounted on "/mnt/cdrom", but if you use 
-a different mount point, you will need to specify it using the
-"HW_CDROM" environment variable. 
+ Even though the main data files are present now, you will still need to have the Homeworld CD in your CD-ROM drive AND mounted. The game will check that the CD is mounted on "/mnt/cdrom", but if you use a different mount point, you will need to specify it using the "HW_CDROM" environment variable. 
  
- To avoid this you can copy the additional data files HW_Comp.vce and
-HW_Music.wxd from the Homeworld CD to the 'src' directory alongside
-the other data files. These are the voice and music data files,
-respectively. Rename 'HW_Comp.vce' to 'HW_comp.vce' and you can get
-along without the CD in the drive. However, the music files will take
-155 MB of space.
+ To avoid this you can copy the additional data files HW_Comp.vce and HW_Music.wxd from the Homeworld CD to the 'src' directory alongside the other data files. These hold the voice + subtitle files and the music data files, respectively. Rename 'HW_Comp.vce' to 'HW_comp.vce' and you can get along without the CD in the drive. However, the audio data files will take 155 MB of space.
 
  -Starting the game-
 
 Go to the projects 'src' directory. "./homeworld". 
 
- For those who installed the game, instead of running it from
-the project directory, efforts have been made to set
-everything up such that "make install" will work, but you will still
-need to do a few things before running. Specifically, if you installed
-the game using 'make install' the binary will be able to find the game
-data in one of two ways: 
+ For those who installed the game, instead of running it from the project directory, efforts have been made to set everything up such that "make install" will work, but you will still need to do a few things before running. Specifically, if you installed the game using 'make install' the binary will be able to find the game data in one of two ways: 
  
-    -The environment variable "HW_Data" (case-sensitive, without
-quotes) can be set to the path where the game data is located.  For
-example, if you put the data in /usr/local/share/homeworld, you could
-run the game by typing the following from the command line: 
+    -The environment variable "HW_Data" (case-sensitive, without quotes) can be set to the path where the game data is located. For example, if you put the data in /usr/local/share/homeworld, you could run the game by typing the following from the command line: 
  
     HW_Data=/usr/local/share/homeworld homeworld 
  
-    - If the "HW_Data" environment variable is not set, or the path
-specified by it cannot be found, the game will check the current
-directory.  For example, if you put the game data in a directory
-called "hw", you would only need to change to that directory and run
-"homeworld" without specifying anything for "HW_Data", and the
-executable should be able to find the data without any problem. 
+    - If the "HW_Data" environment variable is not set, or the pathspecified by it cannot be found, the game will check the current directory.  For example, if you put the game data in a directory called "hw", you would only need to change to that directory and run "homeworld" without specifying anything for "HW_Data", and the executable should be able to find the data without any problem. 
  
- NOW you should be able to start the game...but wait!  There's one
-last thing you need to know! 
+ NOW you should be able to start the game...but wait!  There's one last thing you need to know! 
  
- When Homeworld first starts up, it uses the software renderer.
-Unfortunately, the porting of the software renderer is not yet
-complete (filled 3D textures do not seem to render currently), so you
-will need to switch to the OpenGL renderer.  To do so, perform the
-following steps: 
+ When Homeworld first starts up, it uses the software renderer. Unfortunately, the porting of the software renderer is not yet complete (filled 3D textures do not seem to render currently), so you will need to switch to the OpenGL renderer.  To do so, perform the following steps: 
  
     - Select "Options" from the main game menu. 
     - Select "Video" from the available options sub-menus listed on
@@ -181,50 +119,20 @@ following steps:
     - Click on the "Accept!" button in the bottom-right corner of the screen. 
  
  The game will now attempt to switch to the OpenGL renderer.  
- If everything goes okay, you should be presented with a confirmation
-that the settings you requested were changed.  Select "Yes", and you
-should be ready to go!
+ If everything goes okay, you should be presented with a confirmation that the settings you requested were changed.  Select "Yes", and you should be ready to go!
  
- The settings you choose will also be saved when you quit, so you
-don't have to reselect the OpenGL renderer every time. 
+ The settings you choose will also be saved when you quit, so you don't have to reselect the OpenGL renderer every time. 
  
  ------------------------------------------------------------------------------ 
  
  *** UPGRADING FROM HOMEWORLD SDL 0.2? *** 
  
- As of Homeworld SDL 0.3, the location of saved games has moved. 
-Saved games are now stored within the ".homeworld" directory in your
-home directory.  To use your old saved games, just move the
-"SavedGames" directory from the game directory to "~/.homeworld". 
-Note that saved games from the Windows version of Homeworld and
-Homeworld SDL versions prior to 0.2 still do not work with recent
-versions of Homeworld SDL.  Also, the game directory no longer needs
-to be writable for users who want to run the game. 
+ As of Homeworld SDL 0.3, the location of saved games has moved. Saved games are now stored within the ".homeworld" directory in your home directory.  To use your old saved games, just move the "SavedGames" directory from the game directory to "~/.homeworld". Note that saved games from the Windows version of Homeworld and Homeworld SDL versions prior to 0.2 still do not work with recent versions of Homeworld SDL.  Also, the game directory no longer needs to be writable for users who want to run the game. 
  
  ------------------------------------------------------------------------------ 
  
  *** A NOTE ABOUT OPTIMIZATION *** 
  
- Various parts of the Homeworld source code do not play particularly
-well when compiler optimization is enabled (i.e. using the "-O" or
-"-O[123]" flags with GCC).  The source files containing such problem
-areas have been pinpointed in the game code, and steps have been made
-to disable optimization for these files until the code can be altered
-such that enabling optimization won't thrash the output.  On the other
-hand, there are issues with the software renderer that affect 2D
-drawing (such as the menus) which have not been pinpointed yet.  For
-the time being, the software renderer cannot be built with compiler
-optimizations, so optimization has been disabled for ALL of the rgl
-library code. 
+ Various parts of the Homeworld source code do not play particularly well when compiler optimization is enabled (i.e. using the "-O" or "-O[123]" flags with GCC).  The source files containing such problem areas have been pinpointed in the game code, and steps have been made to disable optimization for these files until the code can be altered such that enabling optimization won't thrash the output.  On the other hand, there are issues with the software renderer that affect 2D drawing (such as the menus) which have not been pinpointed yet.  For the time being, the software renderer cannot be built with compiler optimizations, so optimization has been disabled for ALL of the rgl library code. 
  
- Also of note is that the "-fomit-frame-pointer" flag should not be
-used, as Homeworld uses various assembly techniques that rely on the
-frame pointer for many functions.  While the original Windows version
-uses "#pragma" statements to force this on a per-function basis, GCC
-only provides the "-fno-omit-frame-pointer" flag to force the frame
-pointer on a per-file basis. Because of this, most of the game will be
-compiled with support for the frame pointer regardless of the
-optimization level.  In the future, the functions that rely on the
-frame pointer may be separated from the rest of the code such that the
-game can benefit from the potential speed increase provided by the
-"-fomit-frame-pointer" flag. 
+ Also of note is that the "-fomit-frame-pointer" flag should not be used, as Homeworld uses various assembly techniques that rely on the frame pointer for many functions.  While the original Windows version uses "#pragma" statements to force this on a per-function basis, GCC only provides the "-fno-omit-frame-pointer" flag to force the frame pointer on a per-file basis. Because of this, most of the game will be compiled with support for the frame pointer regardless of the optimization level.  In the future, the functions that rely on the frame pointer may be separated from the rest of the code such that the game can benefit from the potential speed increase provided by the "-fomit-frame-pointer" flag. 
