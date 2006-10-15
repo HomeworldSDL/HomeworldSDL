@@ -18,7 +18,7 @@ Instructions for installation should be included but basically you need to copy 
     <repository>/homeworld/tags/20060605-MacOSX-pre-XCode-2.3-Projects
 
 
-3) Open the project: Homeworld.xcodeproj. If you use the current Xcode project (highly recommended) then you you should be able to build a working Macintosh application out-of-the-box by click on "Build".
+3) Open the project: Homeworld.xcodeproj. If you use the current Xcode project (highly recommended) then you you should be able to build a working Macintosh application out-of-the-box by clicking on the "Build" button (Command-B).
 
 NB: You will find things a lot easier if you copy the Homeworld game files into the directory where Xcode will build your executable (e.g.: ".../Mac/build/Development"). This will allow you run the game using the "Build and Debug", "Run" commands.
 
