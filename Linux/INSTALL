@@ -54,24 +54,25 @@ There is a strong sentiment among many people to rewrite the codebase to modern 
  * autotools set: autoconf, automake (1.9), libtool
  * YACC (any recent version will do)
 
- The build process itself is relatively straightforward. Running the bootstrap script found in this directory with ". ./bootstrap" (that's "period space period slash bootstrap) will set up the files needed and then leave you in the main project directory. Then doing "./configure" followed by "make" from there will build the required files.
+ The build process itself is relatively straightforward. Running the bootstrap script found in this directory with "./bootstrap" will set up the files needed and then doing "../configure" (that's "period period slash configure") followed by "make" will build the required files and then the binary.
  
  If you have GCC 4 or later on your system you will need to tell it to use an earlier version of itself. One method of doing this under Linux is to use the PATH option when giving the compile orders, and giving your particular GCC 3.3 or 3.4 binary in the path. 
  
  For example, if your system's GCC 3.3 is gcc-3.3.6 then you can enter:
 
  ./bootstrap
- CC=gcc-3.3.6 ./configure 
+ CC=gcc-3.3.6 ../configure 
  make
 
-This assumes that gcc-3.3.6 is in your path. If it isn't, you should supply the full path to where your gcc-3.3.6 binary has been installed.
-... and off you go. 
+This assumes that gcc-3.3.6 is in your path. If it isn't, you should supply the full path to where your gcc-3.3.6 binary has been installed... and off you go. 
 
-If "make" is successful and if you're inclined to install the game then
+If "make" is successful then the "homeworld' binary will be located in the "src" directory created just now within the "Linux" directory. 
+
+If you're inclined to install the game then
 
  make install
 
-should do the trick.
+should do the trick. 
 
  -Usage and placement of the game data files-
 
@@ -84,11 +85,13 @@ should do the trick.
 
 Homeworld big comes from the game CD, and the devstats.dat and Update.big files have to be the updated versions from the 1.05 patch.
 
-Unfortunately it seems that the only way to get the .big files out of the install executable is to run the installer under Wine or some similiar tactic.
-A linux version of the "e_wise" install file extractor program is needed should anyone care to work on it.
+Unfortunately it seems that the only way to get the .big files out of the install executable is to run the Wise installer under Wine or some similiar tactic.
+
+(A linux version of the "e_wise" install file extractor program is needed should anyone care to work on it. The code for "e_wise" is open source but the language is Pascal.)
+
 The files from the patch are simpler to get at: Just open the patch .exe in any zip file program and extract the devstats.dat and Update.big files from it.
  
- You can place the game data files in the 'src' directory within the project directory, where the "homeworld' binary you just compiled is located. 
+ You can place the game data files in the 'src' directory created within the Linux directory where the "homeworld' binary you just compiled is located. 
  
  Even though the main data files are present now, you will still need to have the Homeworld CD in your CD-ROM drive AND mounted. The game will check that the CD is mounted on "/mnt/cdrom", but if you use a different mount point, you will need to specify it using the "HW_CDROM" environment variable. 
  
@@ -104,7 +107,7 @@ Go to the projects 'src' directory. "./homeworld".
  
     HW_Data=/usr/local/share/homeworld homeworld 
  
-    - If the "HW_Data" environment variable is not set, or the pathspecified by it cannot be found, the game will check the current directory.  For example, if you put the game data in a directory called "hw", you would only need to change to that directory and run "homeworld" without specifying anything for "HW_Data", and the executable should be able to find the data without any problem. 
+    - If the "HW_Data" environment variable is not set, or the path specified by it cannot be found, the game will check the current directory.  For example, if you put the game data in a directory called "hw", you would only need to change to that directory and run "homeworld" without specifying anything for "HW_Data", and the executable should be able to find the data without any problem. 
  
  NOW you should be able to start the game...but wait!  There's one last thing you need to know! 
  
