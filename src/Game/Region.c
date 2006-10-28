@@ -11,7 +11,11 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <string.h>
+
+#if !defined _MSC_VER
 #include <strings.h>
+#endif
+
 #include <ctype.h>
 #include "Task.h"
 #include "mouse.h"

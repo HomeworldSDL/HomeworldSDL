@@ -9,7 +9,11 @@
 #include <math.h>
 #include <stdio.h>
 #include <string.h>
+
+#if !defined _MSC_VER
 #include <strings.h>
+#endif
+
 #include <limits.h>
 
 #include "Debug.h"

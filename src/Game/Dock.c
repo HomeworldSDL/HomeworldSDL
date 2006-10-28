@@ -8,7 +8,11 @@
 
 #include <stdlib.h>
 #include <string.h>
+
+#if !defined _MSC_VER
 #include <strings.h>
+#endif
+
 #include <math.h>
 #include "maths.h"
 #include "Memory.h"

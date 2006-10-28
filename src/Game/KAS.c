@@ -6,7 +6,11 @@
 
 #include <stdio.h>
 #include <string.h>
+
+#if !defined _MSC_VER
 #include <strings.h>
+#endif
+
 #include "glinc.h"
 #include "mainrgn.h"
 #include "AITeam.h"

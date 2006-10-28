@@ -13,7 +13,11 @@
 
 #include "glinc.h"
 #include <string.h>
+
+#if !defined _MSC_VER
 #include <strings.h>
+#endif
+
 #include <stdarg.h>
 #include <math.h>
 #include "Types.h"

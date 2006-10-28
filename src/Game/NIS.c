@@ -13,7 +13,11 @@
 #endif
 #include <stdlib.h>
 #include <string.h>
+
+#if !defined _MSC_VER
 #include <strings.h>
+#endif
+
 #include <math.h>
 #include <float.h>
 #include <ctype.h>

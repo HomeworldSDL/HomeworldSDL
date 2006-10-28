@@ -6,7 +6,11 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
+
+#if !defined _MSC_VER
 #include <strings.h>
+#endif
+
 #include "SoundEventPrivate.h"
 #include "SoundEvent.h"
 #include "Select.h"

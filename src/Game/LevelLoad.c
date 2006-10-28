@@ -1,7 +1,11 @@
 
 #include <stdio.h>
 #include <string.h>
+
+#if !defined _MSC_VER
 #include <strings.h>
+#endif
+
 #include <stdlib.h>
 #include <math.h>
 #include <ctype.h>

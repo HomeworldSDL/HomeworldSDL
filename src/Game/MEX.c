@@ -7,7 +7,11 @@
 =============================================================================*/
 
 #include <string.h>
+
+#if !defined _MSC_VER
 #include <strings.h>
+#endif
+
 #include <math.h>
 #include "Matrix.h"
 #include "Memory.h"

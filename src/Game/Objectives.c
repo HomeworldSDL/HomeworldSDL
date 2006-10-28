@@ -3,7 +3,11 @@
 //
 
 #include <string.h>
+
+#if !defined _MSC_VER
 #include <strings.h>
+#endif
+
 #include <stdio.h>
 #include "Objectives.h"
 #include "ShipSelect.h"

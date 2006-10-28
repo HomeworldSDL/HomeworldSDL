@@ -15,7 +15,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+
+#if !defined _MSC_VER
 #include <strings.h>
+#endif
+
 #include <ctype.h>
 #include "Debug.h"
 #include "File.h"

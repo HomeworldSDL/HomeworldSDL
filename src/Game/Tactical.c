@@ -7,7 +7,11 @@
 =============================================================================*/
 
 #include <stdio.h>
+
+#if !defined _MSC_VER
 #include <strings.h>
+#endif
+
 
 #include "Memory.h"
 #include "Debug.h"

@@ -11,7 +11,11 @@
 #endif
 #include <stdio.h>
 #include <stdlib.h>
+
+#if !defined _MSC_VER
 #include <strings.h>
+#endif
+
 #include "GameChat.h"
 #include "utility.h"
 #include "UIControls.h"

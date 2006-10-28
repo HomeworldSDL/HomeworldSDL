@@ -591,6 +591,10 @@ GLboolean glDLLGetProcs(char* dllName)
 	gDllName = dllName;
 #endif
 
+#if defined HW_DEBUG
+#error entered
+#endif
+
     DYNALINK_GL_FUNCTION(AlphaFunc);
     DYNALINK_DGL_FUNCTION(Begin);
 #if BEGIN_WRAPPERS
