@@ -1407,6 +1407,14 @@ void CommandProcess(int code)
     }
 }
 
+filehandle mainGetDevStatsHandle(char *filepath) {
+    if (filepath == NULL) {
+        return 0;
+    }
+    
+    return fileOpen(filepath, FF_IgnorePrepend | FF_TextMode | FF_IgnoreBIG);
+}
+
 /*-----------------------------------------------------------------------------
     Name        : mainDevStatsInit
     Description : initialize the devstats table.  this table contains features
@@ -1417,23 +1425,39 @@ void CommandProcess(int code)
 ----------------------------------------------------------------------------*/
 void mainDevStatsInit(void)
 {
-    char *hwdata;
-    char devstats[512];
-    filehandle handle;
+    char *hwdata = NULL;
+    char devstatsfile[] = "devstats.dat";
+    char devstatspath[PATH_MAX];
+    filehandle handle = 0;
     char string[512];
     crc32 crc;
     udword flags0, flags1, flags2;
     sdword size, index;
 
-		if (!fopen("devstats.dat", "r"))
-		{
-			hwdata = getenv("HW_Data");
+    // find devstats file in:
+    
+    // current directory...
+    if (!handle) {
+        strcpy(devstatspath, devstatsfile);
+        handle = mainGetDevStatsHandle(devstatspath);
+    }
+    
+    // directory environment variable...
+    if (!handle)
+    {
+        hwdata = getenv("HW_Data");
 
-			strcpy(devstats, hwdata);
-			strcat(devstats, "/devstats.dat");
-			handle = fileOpen(devstats, FF_IgnorePrepend | FF_TextMode | FF_IgnoreBIG);
-		}
-		//else we need to print to stderr and exit
+        strcpy(devstatspath, hwdata);
+        strcat(devstatspath, "/");
+        strcat(devstatspath, devstatsfile);
+        
+        handle = mainGetDevStatsHandle(devstatspath);
+    }
+    
+    // or die
+    if (!handle) {
+        dbgFatal(DBG_Loc, "mainDevStatsInit: couldn't open devstats file");
+    }
 
     for (devTableLength = 0;;)
     {
@@ -1469,7 +1493,8 @@ void mainDevStatsInit(void)
         }
         memset(devTable, 0, size);
 
-        handle = fileOpen(devstats, FF_IgnorePrepend | FF_TextMode | FF_IgnoreBIG);
+        handle = mainGetDevStatsHandle(devstatspath);
+
         for (index = 0;;)
         {
             if (fileLineRead(handle, string, 511) == FR_EndOfFile)

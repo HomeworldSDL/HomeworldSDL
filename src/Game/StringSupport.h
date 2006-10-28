@@ -5,8 +5,8 @@
 //  Created 5/7/1998 by ddunlop
 // =============================================================================
 
-#ifndef ___STRING_SUPPORT_H
-#define ___STRING_SUPPORT_H
+#ifndef ___STRINGSUPPORT_H
+#define ___STRINGSUPPORT_H
 
 // try not to include too many files in here since StringSupport.h may be included
 // by jpeg files, etc.
