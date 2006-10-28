@@ -143,7 +143,6 @@
 		3516C8B6077C41B0001AA863 /* Star3d.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CEB064992AF0088361C /* Star3d.h */; };
 		3516C8B7077C41B0001AA863 /* Stats.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CED064992AF0088361C /* Stats.h */; };
 		3516C8B8077C41B0001AA863 /* StatScript.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CEF064992AF0088361C /* StatScript.h */; };
-		3516C8B9077C41B0001AA863 /* Strings.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CF1064992AF0088361C /* Strings.h */; };
 		3516C8BA077C41B0001AA863 /* StringsOnly.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CF2064992AF0088361C /* StringsOnly.h */; };
 		3516C8BB077C41B0001AA863 /* Switches.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CF3064992AF0088361C /* Switches.h */; };
 		3516C8BC077C41B0001AA863 /* Tactical.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CF5064992AF0088361C /* Tactical.h */; };
@@ -382,7 +381,6 @@
 		3516C9B9077C41B0001AA863 /* Star3d.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CEA064992AF0088361C /* Star3d.c */; };
 		3516C9BA077C41B0001AA863 /* Stats.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CEC064992AF0088361C /* Stats.c */; };
 		3516C9BB077C41B0001AA863 /* StatScript.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CEE064992AF0088361C /* StatScript.c */; };
-		3516C9BC077C41B0001AA863 /* Strings.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CF0064992AF0088361C /* Strings.c */; };
 		3516C9BD077C41B0001AA863 /* Tactical.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CF4064992AF0088361C /* Tactical.c */; };
 		3516C9BE077C41B0001AA863 /* Tactics.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CF6064992AF0088361C /* Tactics.c */; };
 		3516C9BF077C41B0001AA863 /* Task.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CF8064992AF0088361C /* Task.c */; };
@@ -534,6 +532,10 @@
 		3516CA6C077C41B0001AA863 /* SDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35517D100732744900691120 /* SDL.framework */; };
 		35517D010732720E00691120 /* Homeworld_Prefix.h in Headers */ = {isa = PBXBuildFile; fileRef = 35517D000732720E00691120 /* Homeworld_Prefix.h */; };
 		35517D110732744900691120 /* SDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35517D100732744900691120 /* SDL.framework */; };
+		3578AD080AF40518007BFA9F /* StringSupport.c in Sources */ = {isa = PBXBuildFile; fileRef = 3578AD060AF40518007BFA9F /* StringSupport.c */; };
+		3578AD090AF40518007BFA9F /* StringSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 3578AD070AF40518007BFA9F /* StringSupport.h */; };
+		3578AD0A0AF40518007BFA9F /* StringSupport.c in Sources */ = {isa = PBXBuildFile; fileRef = 3578AD060AF40518007BFA9F /* StringSupport.c */; };
+		3578AD0B0AF40518007BFA9F /* StringSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 3578AD070AF40518007BFA9F /* StringSupport.h */; };
 		35B1D7F00ABD43B0002214BE /* Homeworld.icns in Resources */ = {isa = PBXBuildFile; fileRef = 35B1D7EF0ABD43B0002214BE /* Homeworld.icns */; };
 		35B1D7F20ABD43BD002214BE /* RaiderRetreat.icns in Resources */ = {isa = PBXBuildFile; fileRef = 35B1D7F10ABD43BD002214BE /* RaiderRetreat.icns */; };
 		35CCC930096625FD009D918D /* HomeworldPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 35017183077C54EA00684108 /* HomeworldPlist.strings */; };
@@ -789,8 +791,6 @@
 		90623E1F064992AF0088361C /* Stats.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CED064992AF0088361C /* Stats.h */; };
 		90623E20064992AF0088361C /* StatScript.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CEE064992AF0088361C /* StatScript.c */; };
 		90623E21064992AF0088361C /* StatScript.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CEF064992AF0088361C /* StatScript.h */; };
-		90623E22064992AF0088361C /* Strings.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CF0064992AF0088361C /* Strings.c */; };
-		90623E23064992AF0088361C /* Strings.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CF1064992AF0088361C /* Strings.h */; };
 		90623E24064992AF0088361C /* StringsOnly.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CF2064992AF0088361C /* StringsOnly.h */; };
 		90623E25064992AF0088361C /* Switches.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CF3064992AF0088361C /* Switches.h */; };
 		90623E26064992AF0088361C /* Tactical.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CF4064992AF0088361C /* Tactical.c */; };
@@ -1103,6 +1103,8 @@
 		351B67AA077E4728002ABC6E /* English */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/RaiderRetreatPlist.strings; sourceTree = "<group>"; };
 		35517D000732720E00691120 /* Homeworld_Prefix.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Homeworld_Prefix.h; sourceTree = "<group>"; };
 		35517D100732744900691120 /* SDL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL.framework; path = /Library/Frameworks/SDL.framework; sourceTree = "<absolute>"; };
+		3578AD060AF40518007BFA9F /* StringSupport.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = StringSupport.c; sourceTree = "<group>"; };
+		3578AD070AF40518007BFA9F /* StringSupport.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = StringSupport.h; sourceTree = "<group>"; };
 		35A501A6078CB77000E7D8E2 /* RaiderRetreat.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = RaiderRetreat.plist; sourceTree = "<group>"; };
 		35B1D7EF0ABD43B0002214BE /* Homeworld.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Homeworld.icns; sourceTree = "<group>"; };
 		35B1D7F10ABD43BD002214BE /* RaiderRetreat.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = RaiderRetreat.icns; sourceTree = "<group>"; };
@@ -1361,8 +1363,6 @@
 		90623CED064992AF0088361C /* Stats.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Stats.h; path = ../src/Game/Stats.h; sourceTree = SOURCE_ROOT; };
 		90623CEE064992AF0088361C /* StatScript.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = StatScript.c; path = ../src/Game/StatScript.c; sourceTree = SOURCE_ROOT; };
 		90623CEF064992AF0088361C /* StatScript.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = StatScript.h; path = ../src/Game/StatScript.h; sourceTree = SOURCE_ROOT; };
-		90623CF0064992AF0088361C /* Strings.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Strings.c; path = ../src/Game/Strings.c; sourceTree = SOURCE_ROOT; };
-		90623CF1064992AF0088361C /* Strings.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Strings.h; path = ../src/Game/Strings.h; sourceTree = SOURCE_ROOT; };
 		90623CF2064992AF0088361C /* StringsOnly.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = StringsOnly.h; path = ../src/Game/StringsOnly.h; sourceTree = SOURCE_ROOT; };
 		90623CF3064992AF0088361C /* Switches.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Switches.h; path = ../src/Game/Switches.h; sourceTree = SOURCE_ROOT; };
 		90623CF4064992AF0088361C /* Tactical.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Tactical.c; path = ../src/Game/Tactical.c; sourceTree = SOURCE_ROOT; };
@@ -2024,9 +2024,9 @@
 				90623CED064992AF0088361C /* Stats.h */,
 				90623CEE064992AF0088361C /* StatScript.c */,
 				90623CEF064992AF0088361C /* StatScript.h */,
-				90623CF0064992AF0088361C /* Strings.c */,
-				90623CF1064992AF0088361C /* Strings.h */,
 				90623CF2064992AF0088361C /* StringsOnly.h */,
+				3578AD060AF40518007BFA9F /* StringSupport.c */,
+				3578AD070AF40518007BFA9F /* StringSupport.h */,
 				90623CF3064992AF0088361C /* Switches.h */,
 				90623CF4064992AF0088361C /* Tactical.c */,
 				90623CF5064992AF0088361C /* Tactical.h */,
@@ -2507,7 +2507,6 @@
 				3516C8B6077C41B0001AA863 /* Star3d.h in Headers */,
 				3516C8B7077C41B0001AA863 /* Stats.h in Headers */,
 				3516C8B8077C41B0001AA863 /* StatScript.h in Headers */,
-				3516C8B9077C41B0001AA863 /* Strings.h in Headers */,
 				3516C8BA077C41B0001AA863 /* StringsOnly.h in Headers */,
 				3516C8BB077C41B0001AA863 /* Switches.h in Headers */,
 				3516C8BC077C41B0001AA863 /* Tactical.h in Headers */,
@@ -2631,6 +2630,7 @@
 				3516C940077C41B0001AA863 /* Homeworld_Prefix.h in Headers */,
 				3516C941077C41B0001AA863 /* Mission05_OEM.h in Headers */,
 				3510D4BB0785066100F840B1 /* Tutorial1.h in Headers */,
+				3578AD0B0AF40518007BFA9F /* StringSupport.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2770,7 +2770,6 @@
 				90623E1D064992AF0088361C /* Star3d.h in Headers */,
 				90623E1F064992AF0088361C /* Stats.h in Headers */,
 				90623E21064992AF0088361C /* StatScript.h in Headers */,
-				90623E23064992AF0088361C /* Strings.h in Headers */,
 				90623E24064992AF0088361C /* StringsOnly.h in Headers */,
 				90623E25064992AF0088361C /* Switches.h in Headers */,
 				90623E27064992AF0088361C /* Tactical.h in Headers */,
@@ -2905,6 +2904,7 @@
 				90BD938A064AEF43003E3D39 /* StandardFrigate.h in Headers */,
 				90BD93C4064AF4F3003E3D39 /* SDLMain.h in Headers */,
 				35517D010732720E00691120 /* Homeworld_Prefix.h in Headers */,
+				3578AD090AF40518007BFA9F /* StringSupport.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3264,7 +3264,6 @@
 				3516C9B9077C41B0001AA863 /* Star3d.c in Sources */,
 				3516C9BA077C41B0001AA863 /* Stats.c in Sources */,
 				3516C9BB077C41B0001AA863 /* StatScript.c in Sources */,
-				3516C9BC077C41B0001AA863 /* Strings.c in Sources */,
 				3516C9BD077C41B0001AA863 /* Tactical.c in Sources */,
 				3516C9BE077C41B0001AA863 /* Tactics.c in Sources */,
 				3516C9BF077C41B0001AA863 /* Task.c in Sources */,
@@ -3414,6 +3413,7 @@
 				3516CA69077C41B0001AA863 /* Mission05_OEM.func.c in Sources */,
 				3510D4B90785065F00F840B1 /* Tutorial1.c in Sources */,
 				3510D4BA0785066000F840B1 /* Tutorial1.func.c in Sources */,
+				3578AD0A0AF40518007BFA9F /* StringSupport.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3537,7 +3537,6 @@
 				90623E1C064992AF0088361C /* Star3d.c in Sources */,
 				90623E1E064992AF0088361C /* Stats.c in Sources */,
 				90623E20064992AF0088361C /* StatScript.c in Sources */,
-				90623E22064992AF0088361C /* Strings.c in Sources */,
 				90623E26064992AF0088361C /* Tactical.c in Sources */,
 				90623E28064992AF0088361C /* Tactics.c in Sources */,
 				90623E2A064992AF0088361C /* Task.c in Sources */,
@@ -3709,6 +3708,7 @@
 				9030AF94066D5D2C00B32218 /* avi.c in Sources */,
 				9030AF95066D5D2C00B32218 /* rinit.c in Sources */,
 				3510B754077C8863007B8838 /* mainrgn.c in Sources */,
+				3578AD080AF40518007BFA9F /* StringSupport.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
