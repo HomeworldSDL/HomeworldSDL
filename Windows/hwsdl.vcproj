@@ -95,7 +95,7 @@
 				AdditionalIncludeDirectories="..\src\SDL;..\src\rgl;..\src\Game;..\src\Ships;..\src\JPG;..\src\Generated;..\include\glide2;..\include\Titan"
 				PreprocessorDefinitions="HW_Release;_WIN32;WIN32;NDEBUG;_WINDOWS"
 				StringPooling="TRUE"
-				MinimalRebuild="TRUE"
+				MinimalRebuild="FALSE"
 				RuntimeLibrary="4"
 				EnableFunctionLevelLinking="TRUE"
 				UsePrecompiledHeader="0"
