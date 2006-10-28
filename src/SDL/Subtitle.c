@@ -22,7 +22,7 @@
 #include "NIS.h"
 #include "render.h"
 #include "FEReg.h"
-#include "Strings.h"
+#include "StringSupport.h"
 #include "Subtitle.h"
 
 /*=============================================================================

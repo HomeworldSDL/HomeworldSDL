@@ -44,6 +44,10 @@
 #include "Shader.h"
 #include "devstats.h"
 
+#if defined _MSC_VER
+	#define isnan(x) _isnan(x)
+#endif
+
 extern udword gDevcaps2;
 
 sdword bTrailRender = 1;

@@ -34,7 +34,7 @@
 #include "ShipDefs.h"
 #include "prim2d.h"
 #include "ResearchGUI.h"
-#include "Strings.h"
+#include "StringSupport.h"
 #include "FEReg.h"
 #include "TaskBar.h"
 #include "render.h"

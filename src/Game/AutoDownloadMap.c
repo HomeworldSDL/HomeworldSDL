@@ -15,8 +15,11 @@
 #include "StringsOnly.h"
 #include "Titan.h"
 
-#ifdef _WIN32
+#ifdef __MINGW32__
     #include <direct.h>
+#elif defined(_MSC_VER)
+    #include <direct.h>
+	#include <io.h>
 #else
     #include <sys/stat.h>
     #include <dirent.h>

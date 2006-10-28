@@ -69,7 +69,7 @@
 #include "Objectives.h"
 #include "KASFunc.h"
 #include "Tutor.h"
-#include "Strings.h"
+#include "StringSupport.h"
 #include "Options.h"
 #include "TaskBar.h"
 #include "ShipView.h"
@@ -78,8 +78,12 @@
 #include "Battle.h"
 #include "Captaincy.h"
 #include "CommandNetwork.h"
-/*#include "bink.h"*/
+//#include "bink.h"
 #include "KeyBindings.h"
+
+#if defined _MSC_VER
+	#define isnan(x) _isnan(x)
+#endif
 
 /*=============================================================================
     Data:

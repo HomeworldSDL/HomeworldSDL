@@ -45,7 +45,7 @@
 #include "Clouds.h"
 #include "Nebulae.h"
 #include "Blobs.h"
-#include "Strings.h"
+#include "StringSupport.h"
 #include "ResearchAPI.h"
 #include "Tactics.h"
 #include "InfoOverlay.h"

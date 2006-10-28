@@ -13,7 +13,10 @@
 #include <math.h>
 #include <stdio.h>
 #include <string.h>
+
+#if !defined _MSC_VER
 #include <strings.h>
+#endif
 
 #include "AIPlayer.h"
 #include "utility.h"
@@ -21,7 +24,7 @@
 #include "Region.h"
 #include "KAS.h"
 #include "UIControls.h"
-#include "Strings.h"
+#include "StringSupport.h"
 #include "FontReg.h"
 #include "Select.h"
 #include "texreg.h"

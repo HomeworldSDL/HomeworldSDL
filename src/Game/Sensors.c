@@ -47,7 +47,7 @@
 #include "ProximitySensor.h"
 #include "SinglePlayer.h"
 #include "Probe.h"
-#include "Strings.h"
+#include "StringSupport.h"
 #include "mainrgn.h"
 #include "main.h"
 #include "InfoOverlay.h"
@@ -69,6 +69,10 @@
 #include "GravWellGenerator.h"
 #include "Shader.h"
 #include "devstats.h"
+
+#if defined _MSC_VER
+	#define isnan(x) _isnan(x)
+#endif
 
 //located in mainrg.c
 //falko's fault...not mine..long story

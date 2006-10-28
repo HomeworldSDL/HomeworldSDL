@@ -29,7 +29,7 @@
 #include "ObjTypes.h"
 #include "LaunchMgr.h"
 #include "SinglePlayer.h"
-#include "Strings.h"
+#include "StringSupport.h"
 #include "Subtitle.h"
 
 #ifdef _MSC_VER

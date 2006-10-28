@@ -37,7 +37,7 @@
 #include "StatScript.h"
 #include "Subtitle.h"
 #include "glcompat.h"
-#include "Strings.h"
+#include "StringSupport.h"
 
 #ifdef _MSC_VER
     #define strcasecmp _stricmp

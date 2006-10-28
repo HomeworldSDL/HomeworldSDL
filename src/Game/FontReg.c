@@ -10,7 +10,7 @@
 #include "Debug.h"
 #include "Memory.h"
 #include "FontReg.h"
-#include "Strings.h"
+#include "StringSupport.h"
 
 /*=============================================================================
     Data:

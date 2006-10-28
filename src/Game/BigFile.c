@@ -12,9 +12,13 @@
 #include "LZSS.h"
 
 
-#ifdef _WIN32
+#ifdef __MINGW32__
     #include <windows.h>
     #include <direct.h>
+#elif defined(_MSC_VER)
+    #include <windows.h>
+    #include <direct.h>
+	#include <io.h>
 #else
     #include <unistd.h>
     #include <dirent.h>
@@ -34,6 +38,9 @@
     #include "File.h"
 #endif
 
+#ifdef _MSC_VER
+#define strcasecmp _stricmp
+#endif
 
 //
 // The following value sets the threshold used by the bigfile system to decide which

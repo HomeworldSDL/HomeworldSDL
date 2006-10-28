@@ -34,7 +34,7 @@
 #include "Dock.h"
 #include "Universe.h"
 #include "AIPlayer.h"
-#include "Strings.h"
+#include "StringSupport.h"
 #include "SoundEvent.h"
 #include "HorseRace.h"
 #include "MeshAnim.h"

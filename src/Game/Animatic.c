@@ -25,7 +25,7 @@
 #include "sstglide.h"
 #include "glcaps.h"
 #include "glcompat.h"
-#include "Strings.h"
+#include "StringSupport.h"
 
 sdword animaticJustPlayed = 0;
 

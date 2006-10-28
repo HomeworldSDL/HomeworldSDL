@@ -32,7 +32,7 @@
 #include "Select.h"
 #include "SalCapCorvette.h"
 #include "ProximitySensor.h"
-#include "Strings.h"
+#include "StringSupport.h"
 #include "Tweak.h"
 #include "Tutor.h"
 #include "mainrgn.h"

@@ -27,7 +27,11 @@
 #endif
 
 #include <string.h>
+
+#if !defined _MSC_VER
 #include <strings.h>
+#endif
+
 #include <ctype.h>
 #include <sys/stat.h>
 #include <limits.h>
@@ -85,7 +89,7 @@
 #include "AIPlayer.h"
 #include "BTG.h"
 #include "Gun.h"
-#include "Strings.h"
+#include "StringSupport.h"
 #include "prim3d.h"
 #include "LaunchMgr.h"
 #include "Demo.h"
@@ -116,7 +120,7 @@
 #include "LinkLimits.h"
 #include "Particle.h"
 #include "TradeMgr.h"
-/*#include "bink.h"*/
+//#include "bink.h"
 #include "Bounties.h"
 #include "Subtitle.h"
 #include "Animatic.h"
@@ -130,7 +134,9 @@
 
 
 #ifdef _MSC_VER
-#define strcasecmp _stricmp
+	#define strcasecmp _stricmp
+	#define stat _stat
+	#define S_ISDIR(mode) ((mode) & _S_IFDIR)
 #endif
 
 extern char mainDeviceToSelect[];
@@ -183,7 +189,11 @@ int utyEnsureRegistry(void)
     FILE* fp;
 
     /* Get the user's home directory. */
+#ifdef _WIN32
+		home_dir = getenv("APPDATA");
+#else
     home_dir = getenv("HOME");
+#endif
     if (!home_dir)
     {
         fprintf(stderr, "Unable to find home directory in which to store options.\n");
@@ -198,7 +208,11 @@ int utyEnsureRegistry(void)
     if (stat(ch_buf, &file_stat))
     {
         /* Create configuration directory. */
+#ifdef _WIN32
+        if (mkdir(ch_buf))
+#else
         if (mkdir(ch_buf, S_IRUSR | S_IWUSR | S_IXUSR))
+#endif
         {
             fprintf(stderr, "Unable to create configuration directory \"%s\".\n", ch_buf);
             return 0;
@@ -243,7 +257,11 @@ void utyRegistryOptionsRead(void)
         return;
 
     /* Open settings. */
+#ifdef _WIN32
+		home_dir = getenv("APPDATA");
+#else
     home_dir = getenv("HOME");
+#endif
     sprintf(ch_buf, "%s/" CONFIGDIR "/reg", home_dir);
     fp = fopen(ch_buf, "r");
     if (!fp)
@@ -314,7 +332,11 @@ void utyRegistryOptionsWrite(void)
     loadedDevcaps  = gDevcaps;
     loadedDevcaps2 = gDevcaps2;
 
+#ifdef _WIN32
+		home_dir = getenv("APPDATA");
+#else
     home_dir = getenv("HOME");
+#endif
     sprintf(ch_buf, "%s/" CONFIGDIR "/reg", home_dir);
     fp = fopen(ch_buf, "w");
     curr_reg = regOptionsList;
@@ -4003,8 +4025,9 @@ char* utyGameSystemsPreInit(void)
         char drivePath[PATH_MAX];
 
         // Find the first CD-ROM drive containing the HW CD
+#if !defined _MSC_VER && !defined __MINGW32__
         utyGetFirstCDPath(drivePath);
-
+#endif
         // If found, set the CD-ROM path
         if(strlen(drivePath) > 0) fileCDROMPathSet(drivePath);
 
@@ -4034,8 +4057,7 @@ char* utyGameSystemsPreInit(void)
 			fileUserSettingsPathSet(dataEnvironment);
 		}
 		else
-		{
-#warning This is a temporary hack.  Somebody needs to fix this!
+		{	//HACKHACK: This is a temporary hack. Somebody needs to fix this!
 			fileUserSettingsPathSet("C:\\HomeworldData");
 		}
 #else

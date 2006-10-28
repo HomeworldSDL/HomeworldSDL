@@ -1,6 +1,9 @@
-#include "common/WON.h"
-#include "msg/TMessage.h"
-#include "msg/BadMsgException.h"
+
+#if 0
+
+//#include "common/WON.h"
+//#include "msg/TMessage.h"
+//#include "msg/BadMsgException.h"
 #include "titanpacketmsg.h"
 #include "titaninterfacec.h"
 
@@ -108,3 +111,5 @@ TitanPacketMsg::Unpack(void)
 	mBlobLen = BytesLeftToRead();
     mBlob = ReadBytes(BytesLeftToRead());
 }
+
+#endif

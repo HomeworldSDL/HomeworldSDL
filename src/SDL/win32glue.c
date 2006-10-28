@@ -51,6 +51,7 @@ LONGLONG __cdecl _ftol(void)
 }
 #endif /* defined(__GNUC__) && defined(__i386__) */
 
+#ifdef __GNUC__
 asm (".globl _chkstk\n"
      ".type   _chkstk, @function\n"
      "_chkstk:\n"
@@ -59,6 +60,8 @@ asm (".globl _chkstk\n"
      "pushl %ecx\n"          /* Restore original return address */
      "ret\n"
      ".size   _chkstk, .-_chkstk\n");
+#endif
+
 
 #if 0
 #define SIZE_OF_80387_REGISTERS      80

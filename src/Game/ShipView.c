@@ -16,7 +16,7 @@
 #include <stdio.h>
 #include <float.h>
 #include "Types.h"
-#include "Strings.h"
+#include "StringSupport.h"
 #include "ShipView.h"
 #include "Camera.h"
 #include "FEReg.h"

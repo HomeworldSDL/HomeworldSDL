@@ -1,3 +1,6 @@
+
+#if 0
+
 // ClientCDKey
 
 // Class that implements WON CD-Key functionality for use by clients.  Allows conversion
@@ -10,17 +13,17 @@
 //#define __LWCHECK_ORIG
 
 
-#include "common/won.h"
-#include "common/OutputOperators.h"
-#include "common/RegKey.h"
-#include "common/CRC16.h"
-#include "crypt/BFSymmetricKey.h"
-#include "crypt/CryptException.h"
+//#include "common/won.h"
+//#include "common/OutputOperators.h"
+//#include "common/RegKey.h"
+//#include "common/CRC16.h"
+//#include "crypt/BFSymmetricKey.h"
+//#include "crypt/CryptException.h"
 #include "ClientCDKey.h"
 
 #ifdef _DEBUG
-#include "common/WONException.h"
-#include "common/WONExceptCodes.h"
+//#include "common/WONException.h"
+//#include "common/WONExceptCodes.h"
 #endif
 
 // private namespace for using and constants
@@ -852,3 +855,5 @@ ClientCDKey::CleanReg()
 	// Delete key from registry
 	return aRegKey.DeleteValue(mProduct.c_str());
 }
+
+#endif

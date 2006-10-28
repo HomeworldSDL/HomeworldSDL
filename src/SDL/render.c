@@ -101,7 +101,7 @@
 #include "Subtitle.h"
 #include "Tutor.h"
 #include "Animatic.h"
-/*#include "bink.h"*/
+//#include "bink.h"
 #include "StringsOnly.h"
 #include "mainrgn.h"
 #include "AIShip.h"
@@ -112,6 +112,10 @@
 #include "Tracking.h"
 #include "LaunchMgr.h"
 #include "devstats.h"
+
+#if defined _MSC_VER
+	#define isnan(x) _isnan(x)
+#endif
 
 bool8 rndFogOn = FALSE;
 
@@ -845,6 +849,7 @@ bool setupPixelFormat()
 	static Uint32 lastHeight = 0;
 	static Uint32 lastDepth  = 0;
 	static bool   lastFull   = FALSE;
+	int FSAA = 0; //os_config_read_uint( NULL, "FSAA", 1 )
 
     // don't bother doing anything if nothing's actually changed
 	if(lastWidth  == MAIN_WindowWidth
@@ -881,7 +886,7 @@ bool setupPixelFormat()
 		MAIN_WindowDepth, flags))
 		return FALSE;
 
-	int FSAA = 0/*os_config_read_uint( NULL, "FSAA", 1 )*/;
+	
 	if ( FSAA ) {
 	    SDL_GL_SetAttribute( SDL_GL_MULTISAMPLEBUFFERS, 1 );
 	    SDL_GL_SetAttribute( SDL_GL_MULTISAMPLESAMPLES, FSAA );

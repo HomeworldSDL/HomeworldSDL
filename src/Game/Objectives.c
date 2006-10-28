@@ -9,7 +9,7 @@
 #include "ShipSelect.h"
 #include "KASFunc.h"
 #include "Memory.h"
-#include "Strings.h"
+#include "StringSupport.h"
 #include "font.h"
 #include "render.h"
 #include "mainrgn.h"

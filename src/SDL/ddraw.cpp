@@ -6,6 +6,7 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
+#if 0
 
 #ifdef _WIN32
 #define WIN32_LEAN_AND_MEAN
@@ -233,3 +234,5 @@ extern "C" unsigned int hwActivate(int activate)
         return hwSetRes(0, 0, 0);
     }
 }
+
+#endif

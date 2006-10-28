@@ -49,7 +49,7 @@
 #include "interfce.h"
 #include "Teams.h"
 #include "TimeoutTimer.h"
-#include "Strings.h"
+#include "StringSupport.h"
 #include "SinglePlayer.h"
 #include "AutoDownloadMap.h"
 #include "glcompat.h"

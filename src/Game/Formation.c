@@ -23,7 +23,7 @@
 #include "ProximitySensor.h"
 #include "DDDFrigate.h"
 #include "Tactics.h"
-#include "Strings.h"
+#include "StringSupport.h"
 #include "SalCapCorvette.h"
 #include "SinglePlayer.h"
 

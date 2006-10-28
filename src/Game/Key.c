@@ -1104,6 +1104,10 @@ void keyClose(void)
 ----------------------------------------------------------------------------*/
 void keyPressDown(udword key)
 {
+	bool bypass = FALSE;
+	bool shift = FALSE;
+	keyScanType originalKey;
+
     /* Game not specific about left or right Shift/Ctrl/Alt key, so neither
        are we. */
     if (key == SDLK_RSHIFT)
@@ -1115,8 +1119,8 @@ void keyPressDown(udword key)
     else if (key == SDLK_RMETA) // Apple/Command/"Windows" key
         key = SDLK_LMETA;
 
-    bool bypass = FALSE, shift = FALSE;
-    keyScanType originalKey = keySaveScan[key];
+
+	originalKey = keySaveScan[key];
 #if KEY_ERROR_CHECKING
     dbgAssert(key < KEY_TOTAL_KEYS);
 #endif

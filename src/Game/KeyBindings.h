@@ -13,7 +13,7 @@
 #include "FEFlow.h"
 #include "font.h"
 #include "Key.h"
-#include "Strings.h"
+#include "StringSupport.h"
 
 /*=============================================================================
     Defines :

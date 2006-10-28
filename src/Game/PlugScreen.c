@@ -21,7 +21,7 @@
 #include "mouse.h"
 #include "utility.h"
 #include "SoundEvent.h"
-#include "Strings.h"
+#include "StringSupport.h"
 #include "PlugScreen.h"
 #include "render.h"
 #include "glcompat.h"

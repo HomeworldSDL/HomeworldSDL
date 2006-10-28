@@ -16,7 +16,7 @@
 #include "Camera.h"
 #include "PiePlate.h"
 #include "Select.h"
-#include "Strings.h"
+#include "StringSupport.h"
 #include "Tactical.h"
 #include "Teams.h"
 #include "ProximitySensor.h"

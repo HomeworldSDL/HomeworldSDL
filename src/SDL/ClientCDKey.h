@@ -1,13 +1,15 @@
 #ifndef ___CLIENTCDKEY_H
 #define ___CLIENTCDKEY_H
 
+#if 0
+
 // ClientCDKey
 
 // Class that implements WON CD-Key functionality for use by clients.  Allows
 // conversion to/from human readable string.  Implements persistence to the registry
 // in a secure manner.  Implements a lightweight validation check of the key.
 
-#include "../common/won.h"
+//#include "../common/won.h"
 #include <ostream>
 
 // Forwards
@@ -162,4 +164,5 @@ inline std::ostream&
 operator<<(std::ostream& os, const WONCDKey::ClientCDKey& theKeyR)
 { os << theKeyR.AsString();  return os; }
 
+#endif
 #endif

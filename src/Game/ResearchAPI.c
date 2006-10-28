@@ -14,7 +14,7 @@
 #include "Universe.h"
 #include "StatScript.h"
 #include "ResearchGUI.h"
-#include "Strings.h"
+#include "StringSupport.h"
 #include "LinkedList.h"
 #include "SoundEvent.h"
 #include "FEReg.h"

@@ -12,7 +12,7 @@
 #include "glext.h"
 #include "Debug.h"
 #include "texreg.h"
-#include "Strings.h"
+#include "StringSupport.h"
 #include "devstats.h"
 #include "sstglide.h"
 #include "main.h"

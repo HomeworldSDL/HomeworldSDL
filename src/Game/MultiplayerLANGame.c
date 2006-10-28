@@ -37,7 +37,7 @@
 #include "ColPick.h"
 #include "mainswitches.h"
 #include "Chatting.h"
-#include "Strings.h"
+#include "StringSupport.h"
 #include "Queue.h"
 #include "File.h"
 #include "StatScript.h"

@@ -34,7 +34,7 @@
 #include "BTG.h"
 #include "light.h"
 #include "CommandWrap.h"
-#include "Strings.h"
+#include "StringSupport.h"
 #include "Sensors.h"
 #include "Randy.h"
 #include "SoundEvent.h"

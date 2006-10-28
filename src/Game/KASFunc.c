@@ -52,8 +52,10 @@
 #include "Universe.h"
 #include "Select.h"
 
-#ifdef _WIN32
-#define strncasecmp _strnicmp
+#if defined _MSC_VER
+	#define strncasecmp _strnicmp
+	#define snprintf _snprintf
+	#define vsnprintf _vsnprintf
 #endif
 
 extern char SinglePlayerSavedGamesPath[];

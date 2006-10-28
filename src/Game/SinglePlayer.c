@@ -2,7 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#if !defined _MSC_VER
 #include <strings.h>
+#endif
+
 #include <ctype.h>
 #include <math.h>
 /*#include "bink.h"*/
@@ -67,7 +71,7 @@
 #include "../Generated/Mission16.h"
 #endif
 #include "../Generated/Tutorial1.h"
-#include "Strings.h"
+#include "StringSupport.h"
 #include "Animatic.h"
 #include "GravWellGenerator.h"
 #include "CommandWrap.h"

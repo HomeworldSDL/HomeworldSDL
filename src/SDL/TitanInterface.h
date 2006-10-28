@@ -1,28 +1,30 @@
 #ifndef ___TITANINTERFACE_H
 #define ___TITANINTERFACE_H
 
+#if 0
+
 #include "DEQUE"
 #include "MAP"
 #include "LIST"
 #include "STRING"
 #include "VECTOR"
-#include "common/CriticalSection.h"
-#include "common/ThreadBase.h"
-#include "msg/comm/SMsgCommRegisterRequest.h"
-#include "msg/fact/SMsgFactStartProcessUnicode.h"
-#include "msg/routing/MMsgRoutingRegisterClient.h"
-#include "EasySocket/EasySocket.h"
-#include "EasySocket/PipeCmd.h"
-#include "crypt/EGPrivateKey.h"
-#include "crypt/EGPublicKey.h"
-#include "crypt/BFSymmetricKey.h"
-#include "auth/Auth1PublicKeyBlock.h"
-#include "auth/Auth1Certificate.h"
+//#include "common/CriticalSection.h"
+//#include "common/ThreadBase.h"
+//#include "msg/comm/SMsgCommRegisterRequest.h"
+//#include "msg/fact/SMsgFactStartProcessUnicode.h"
+//#include "msg/routing/MMsgRoutingRegisterClient.h"
+//#include "EasySocket/EasySocket.h"
+//#include "EasySocket/PipeCmd.h"
+//#include "crypt/EGPrivateKey.h"
+//#include "crypt/EGPublicKey.h"
+//#include "crypt/BFSymmetricKey.h"
+//#include "auth/Auth1PublicKeyBlock.h"
+//#include "auth/Auth1Certificate.h"
 typedef int BOOL;
 typedef char* LPSTR;
 typedef const char* LPCSTR;
 typedef unsigned char BYTE;
-#include "MD52.h"
+//#include "MD52.h"
 
 extern "C"
 {
@@ -426,4 +428,5 @@ private:
     static bool TitanInterface::ReadFromWonstuff(bool restart, unsigned char* theBufferP);
 };
 
+#endif
 #endif

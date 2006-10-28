@@ -1379,7 +1379,11 @@ Recover:
 			}
 		}
 		
+#ifdef _MSC_VER
+#pragma message("This should use semaphores!")
+#else
 #warning This should use semaphores!
+#endif
 		SDL_Delay(SOUND_STREAM_SLEEP);
 	}
 	

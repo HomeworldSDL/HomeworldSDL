@@ -12,7 +12,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <strings.h>
-#include <dirent.h>
+#ifndef _MSC_VER
+    #include <dirent.h>
+#endif
+#ifdef _MSC_VER
+#include <io.h>
+#endif
 #include <ctype.h>
 #include <limits.h>
 #include "Debug.h"

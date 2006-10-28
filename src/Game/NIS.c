@@ -41,14 +41,15 @@
 #include "mainrgn.h"
 #include "KAS.h"
 #include "CommandWrap.h"
-#include "Strings.h"
-/*#include "bink.h"*/
+#include "StringSupport.h"
+//#include "bink.h"
 #include "render.h"
 #include "Eval.h"
 #include "Tracking.h"
 
 #ifdef _MSC_VER
-#define strcasecmp _stricmp
+	#define strcasecmp _stricmp
+	#define isnan _isnan
 #endif
 
 /*=============================================================================

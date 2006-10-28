@@ -18,7 +18,7 @@
 #include "Key.h"
 #include "texreg.h"
 #include "StatScript.h"
-#include "Strings.h"
+#include "StringSupport.h"
 #include "ColPick.h"
 #include "render.h"
 

@@ -13,7 +13,7 @@
 #include "Select.h"
 #include "Task.h"
 #include "StatScript.h"
-#include "Strings.h"
+#include "StringSupport.h"
 #include "Tutor.h"
 
 #include <stdio.h>

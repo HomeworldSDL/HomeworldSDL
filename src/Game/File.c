@@ -26,6 +26,15 @@
 #include "BitIO.h"
 #include "LZSS.h"
 
+
+
+#if defined _MSC_VER
+	#define stat _stat
+	#define S_ISDIR(mode) ((mode) & _S_IFDIR)
+#endif
+
+struct stat fileStat;
+
 //
 //  How to interpret the LOGFILELOADS output log:
 //
@@ -667,35 +676,52 @@ bool8 fileMakeDirectory (const char* directoryName)
 		return TRUE;
 
 	/* Add a trailing slash to our directory name. */
+#ifdef _WINDOWS
+	if (directoryCopy[directoryLen - 1] != '\\')
+	{
+		directoryCopy[directoryLen] = '\\';
+		directoryLen++;
+		directoryCopy[directoryLen] = '\0';
+	}
+#else
 	if (directoryCopy[directoryLen - 1] != '/')
 	{
 		directoryCopy[directoryLen] = '/';
 		directoryLen++;
 		directoryCopy[directoryLen] = '\0';
 	}
+#endif
 
 	/* Find the first path element that isn't the root directory or a parent
 	   directory delimiter. */
+#ifdef _WINDOWS
+	pChar = strchr(directoryCopy, '\\');
+#else
 	pChar = strchr(directoryCopy, '/');
+#endif
 	if (pChar)
 	{
 		*pChar = '\0';
 
-#ifdef _WIN32
+#ifdef _WINDOWS
 		if (isalpha(directoryCopy[0]) && directoryCopy[1] == ':' &&
 		    directoryCopy[2] == '\0')
 #else
 		if (directoryCopy[0] == '\0')
 #endif
 		{
+#ifdef _WINDOWS
+			*pChar = '\\';
+			pChar = strchr(pChar + 1, '\\');
+#else
 			*pChar = '/';
 			pChar = strchr(pChar + 1, '/');
+#endif
 			*pChar = '\0';
 		}
 	}
 
 	/* Create each directory as needed. */
-	struct stat fileStat;
 	while (pChar)
 	{
 		*pChar = 0;
@@ -710,13 +736,21 @@ bool8 fileMakeDirectory (const char* directoryName)
 		else
 		{
 			/* Attempt to create the directory. */
+#if defined _MSC_VER || __MINGW32__
+			if (mkdir(directoryCopy) == -1)
+#else
 			if (mkdir(directoryCopy, 0777) == -1)
+#endif
 				return FALSE;
 		}
-
 		/* Continue with the next path element. */
+#ifdef _WINDOWS
+		*pChar = '\\';
+		pChar = strchr(pChar + 1, '\\');
+#else
 		*pChar = '/';
 		pChar = strchr(pChar + 1, '/');
+#endif
 	}
 
 	return TRUE;

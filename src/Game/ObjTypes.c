@@ -10,7 +10,7 @@
 #include <strings.h>
 
 #include "StatScript.h"
-#include "Strings.h"
+#include "StringSupport.h"
 #include "ObjTypes.h"
 
 #ifdef _MSC_VER

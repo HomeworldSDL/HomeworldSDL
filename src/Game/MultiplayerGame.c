@@ -33,7 +33,7 @@
 #include "ColPick.h"
 #include "mainswitches.h"
 #include "Chatting.h"
-#include "Strings.h"
+#include "StringSupport.h"
 #include "Queue.h"
 #include "Titan.h"
 #include "File.h"

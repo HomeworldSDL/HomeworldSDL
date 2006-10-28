@@ -6,7 +6,7 @@
 #include "msg/ServerStatus.h"
 #include "Debug.h"
 #include "MultiplayerGame.h"
-#include "Strings.h"
+#include "StringSupport.h"
 #include "TitanNet.h"
 
 // defines for the state of the connection to the chat server

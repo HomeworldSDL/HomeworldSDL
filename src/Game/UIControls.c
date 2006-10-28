@@ -25,7 +25,7 @@
 #include "Universe.h"
 #include "utility.h"
 #include "Task.h"
-#include "Strings.h"
+#include "StringSupport.h"
 
 #include "glcaps.h"
 

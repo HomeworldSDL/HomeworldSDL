@@ -103,7 +103,7 @@ int RegisterCommandLine(char *commandLine)
 #include "Particle.h"
 #include "CommandLayer.h"
 #include "Key.h"
-#include "Strings.h"
+#include "StringSupport.h"
 
 #ifdef _WIN32
 #define strcasecmp _stricmp
@@ -1417,13 +1417,24 @@ void CommandProcess(int code)
 ----------------------------------------------------------------------------*/
 void mainDevStatsInit(void)
 {
+    char *hwdata;
+    char devstats[512];
     filehandle handle;
     char string[512];
     crc32 crc;
     udword flags0, flags1, flags2;
     sdword size, index;
 
-    handle = fileOpen("devstats.dat", FF_IgnorePrepend | FF_TextMode | FF_IgnoreBIG);
+		if (!fopen("devstats.dat", "r"))
+		{
+			hwdata = getenv("HW_Data");
+
+			strcpy(devstats, hwdata);
+			strcat(devstats, "/devstats.dat");
+			handle = fileOpen(devstats, FF_IgnorePrepend | FF_TextMode | FF_IgnoreBIG);
+		}
+		//else we need to print to stderr and exit
+
     for (devTableLength = 0;;)
     {
         if (fileLineRead(handle, string, 511) == FR_EndOfFile)
@@ -1458,7 +1469,7 @@ void mainDevStatsInit(void)
         }
         memset(devTable, 0, size);
 
-        handle = fileOpen("devstats.dat", FF_IgnorePrepend | FF_TextMode | FF_IgnoreBIG);
+        handle = fileOpen(devstats, FF_IgnorePrepend | FF_TextMode | FF_IgnoreBIG);
         for (index = 0;;)
         {
             if (fileLineRead(handle, string, 511) == FR_EndOfFile)

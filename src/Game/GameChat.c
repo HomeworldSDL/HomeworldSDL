@@ -21,7 +21,7 @@
 #include "Chatting.h"
 #include "LinkedList.h"
 #include "CommandNetwork.h"
-#include "Strings.h"
+#include "StringSupport.h"
 #include "mainrgn.h"
 #include "CommandWrap.h"
 #include "SoundEvent.h"

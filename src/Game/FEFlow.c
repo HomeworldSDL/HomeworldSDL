@@ -29,7 +29,7 @@
 #include "Scroller.h"
 #include "mouse.h"
 #include "glcaps.h"
-#include "Strings.h"
+#include "StringSupport.h"
 #include "Tutor.h"
 #include "SoundEvent.h"
 #include "glcompat.h"

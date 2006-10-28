@@ -1,11 +1,11 @@
 // =============================================================================
-//  Strings.c
+//  StringSupport.c
 // =============================================================================
 //  Copyright Relic Entertainment, Inc. All rights reserved.
 //  Created 5/7/1998 by ddunlop
 // =============================================================================
 
-#include "Strings.h"
+#include "StringSupport.h"
 
 #include "Memory.h"
 #include "StatScript.h"

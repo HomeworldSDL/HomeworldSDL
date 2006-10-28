@@ -4,6 +4,8 @@
                    duplicating the line labels).
 =============================================================================*/
 
+#if !defined _MSC_VER
+
 #include <stdio.h>
 #include "Types.h"
 #include "Matrix.h"
@@ -172,3 +174,5 @@ void matMultiplyMatByMat(matrix *result,matrix *first,matrix *second)
 #undef P
 #endif
 }
+
+#endif

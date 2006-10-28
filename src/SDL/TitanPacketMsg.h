@@ -1,10 +1,12 @@
+
+#if 0
+
 #ifndef ___TITANPACKETMSG_H
 #define ___TITANPACKETMSG_H
 
-
 #include <string>
-#include "msg/TMessage.h"
-#include "msg/MServiceTypes.h"
+//#include "msg/TMessage.h"
+//#include "msg/MServiceTypes.h"
 
 // Forwards from WONSocket
 class TitanPacketMsg : public WONMsg::MiniMessage
@@ -59,4 +61,5 @@ private:
 inline WONMsg::TRawMsg* TitanPacketMsg::Duplicate(void) const
 { return new TitanPacketMsg(*this); }
 
+#endif
 #endif

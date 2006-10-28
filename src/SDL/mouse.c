@@ -34,7 +34,7 @@
 #include "Universe.h"
 #include "utility.h"
 #include "CommandWrap.h"
-#include "Strings.h"
+#include "StringSupport.h"
 #include "Demo.h"
 #include "FEFlow.h"
 #include "ResearchGUI.h"

@@ -33,6 +33,10 @@
 #include "glcaps.h"
 #include "devstats.h"
 
+#if defined _MSC_VER
+	#define isnan(x) _isnan(x)
+#endif
+
 extern unsigned int gDevcaps;
 
 #ifndef RUB

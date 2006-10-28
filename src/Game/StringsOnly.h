@@ -670,7 +670,7 @@ typedef enum
 
 #define strGetString(string) (MessageStrings[string])
 
-extern char *MessageStrings[NumStrings];  // declared in Strings.c
+extern char *MessageStrings[NumStrings];  // declared in StringSupport.c
 
 
 #endif

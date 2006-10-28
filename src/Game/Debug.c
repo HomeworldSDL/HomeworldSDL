@@ -8,6 +8,12 @@
 #include "Debug.h"
 
 #include "utility.h"
+#include "File.h"
+
+#if defined _MSC_VER
+	#define snprintf _snprintf
+	#define vsnprintf _vsnprintf
+#endif
 
 /*=============================================================================
     Data:

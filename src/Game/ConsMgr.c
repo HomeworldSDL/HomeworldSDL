@@ -30,7 +30,7 @@
 #include "Scroller.h"
 #include "SoundEvent.h"
 #include "Randy.h"
-#include "Strings.h"
+#include "StringSupport.h"
 #include "ResearchAPI.h"
 #include "mainrgn.h"
 #include "TaskBar.h"

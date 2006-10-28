@@ -31,7 +31,7 @@
 #include "CommandWrap.h"
 #include "SoundEvent.h"
 #include "Randy.h"
-#include "Strings.h"
+#include "StringSupport.h"
 #include "mainrgn.h"
 #include "TaskBar.h"
 #include "ShipView.h"

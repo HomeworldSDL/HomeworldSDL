@@ -14,6 +14,10 @@
 #include <windows.h>
 #endif
 
+#ifdef _MSC_VER
+#include "cpuid.h"
+#endif
+
 #include <stdlib.h>
 //#define _MM_FUNCTIONALITY
 #include <xmmintrin.h>
@@ -124,13 +128,15 @@ void kniTransFreeVertexLists(void)
 ----------------------------------------------------------------------------*/
 static void kniTransGrowVertexLists(int n)
 {
+int nBytes;
+
     if (n > lastNumVerts)
     {
         kniTransFreeVertexLists();
 
         lastNumVerts = n;
 
-        int nBytes = n * VectorSize * sizeof(float);
+        nBytes = n * VectorSize * sizeof(float);
         sInputVerts.x = (__m128*)transAlloc(nBytes);
         sInputVerts.y = (__m128*)transAlloc(nBytes);
         sInputVerts.z = (__m128*)transAlloc(nBytes);
@@ -157,26 +163,25 @@ static int chkxmmbits(void)
     static unsigned int cpu_eax, cpu_edx;
     int hasSFXSR, hasEM;
 
-#if defined (_MSC_VER)
-    _asm
-    {
-        pusha
-        mov eax, CR4
-        mov [cpu_eax], eax
-        popa
-    }
-#elif defined (__GNUC__) && defined (__i386__)
+#if defined (__GNUC__) && defined (__i386__)
     __asm__ __volatile__ (
         "pusha\n\t"
         "movl %%CR4, %%eax\n\t"
         "movl %%eax, %0\n\t"
         "popa\n\t"
         : "=m" (cpu_eax) );
+
+hasSFXSR = (cpu_eax & SFXSR_BIT) ? 1 : 0;
+
+#elif defined (_MSC_VER)
+if (has_feature(CPU_FEATURE_SSE))
+{ hasSFXSR = 1; }
+
 #endif
-    hasSFXSR = (cpu_eax & SFXSR_BIT) ? 1 : 0;
+
 
 #if defined (_MSC_VER)
-    _asm
+    __asm
     {
         pusha
         mov eax, CR0
@@ -302,7 +307,7 @@ void transTransformCompletely_xmm(
     kniTransGrowVertexLists(n);
 
 #if defined (_MSC_VER)
-    _asm
+    __asm
     {
         push    esi
         push    edi
