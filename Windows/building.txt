@@ -1,11 +1,16 @@
 
-building HWSDL on windows.
+----------
+building HWSDL (exe only) on windows XP SP2.
 
 requirements:
-libsdl
-ddraw.lib (only, but if don't have try: http://www.vampteam.com/1/hwsdl/dx9sdk6m2005small.rar)
+libsdl 1.2.11
+
+ddraw.lib (only. if don't have try: http://www.vampteam.com/1/hwsdl/dx9sdk6m2005small.rar
+or download the directx 9 sdk (around 158mb) )
 
 
 compilers tested:
 vc7.1 sp1
 vc8 (compiles, but need to fix some runtime errors)
+----------
+
