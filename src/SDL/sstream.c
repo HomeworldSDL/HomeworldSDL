@@ -7,7 +7,9 @@
 =============================================================================*/
 
 /* Not using this stuff for now */
+#ifndef _MSC_VER
 #undef _WIN32
+#endif
 
 #ifdef _WIN32
 #define WIN32_LEAN_AND_MEAN

@@ -12,7 +12,10 @@
  */
 
 /* Doesn't work */
+//nova: this allows MSVC to compile this file
+#ifndef _MSC_VER
 #undef _WIN32
+#endif
 
 #ifdef _WIN32
 #include <windows.h>
