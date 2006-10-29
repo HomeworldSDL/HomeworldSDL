@@ -4,11 +4,7 @@
 #include <string.h>
 
 #if !defined _MSC_VER
-
-#if !defined _MSC_VER
 #include <strings.h>
-#endif
-
 #endif
 
 #include <ctype.h>
