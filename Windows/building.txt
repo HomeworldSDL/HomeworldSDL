@@ -2,15 +2,23 @@
 ----------
 building HWSDL (exe only) on windows XP SP2.
 
-requirements:
-libsdl 1.2.11
 
-ddraw.lib (only. if don't have try: http://www.vampteam.com/1/hwsdl/dx9sdk6m2005small.rar
-or download the directx 9 sdk (around 158mb) )
+requirements:
+> libsdl 1.2.11
+> ddraw.lib, only. if don't have then see *1.
+or download some version of the DirectX sdk (dx9 sdk is around 158mb)
 
 
 compilers tested:
-vc7.1 sp1
-vc8 (compiles, but need to fix some runtime errors)
+vc7.1 sp1 & RTM
+vc8 sp1 beta & RTM (compiles, but need to fix some runtime errors)
 ----------
+
+Remember:
+> if HW_Data environment variable is defined, all you need in the same dir as the exe are the librgl*.dll's.
+Devstats/etc will be found via HW_Data. 
+
+
+*1 librgl*.dll's/known problems/etc @
+http://homesource.nekomimicon.net/sourceforum/viewtopic.php?t=100
 
