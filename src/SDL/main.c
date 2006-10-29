@@ -54,6 +54,7 @@ int RegisterCommandLine(char *commandLine)
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
+#include <limits.h> // for PATH_MAX
 #include "glinc.h"
 #include "resource.h"
 #include "utility.h"
