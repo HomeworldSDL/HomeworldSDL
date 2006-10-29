@@ -38,7 +38,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="msvcrt.lib winmm.lib ddraw.lib ..\src\obj\fqcodec.obj ..\src\obj\fqeffect.obj ..\src\obj\fquant.obj ..\src\obj\dct.obj SDLmain.lib SDL.lib"
+				AdditionalDependencies="msvcrt.lib winmm.lib Vfw32.lib ddraw.lib ..\src\obj\fqcodec.obj ..\src\obj\fqeffect.obj ..\src\obj\fquant.obj ..\src\obj\dct.obj SDLmain.lib SDL.lib"
 				OutputFile="$(OutDir)\hwsdl.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
@@ -109,7 +109,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="msvcrt.lib winmm.lib ddraw.lib ..\src\obj\fqcodec.obj ..\src\obj\fqeffect.obj ..\src\obj\fquant.obj ..\src\obj\dct.obj SDLmain.lib SDL.lib"
+				AdditionalDependencies="msvcrt.lib winmm.lib Vfw32.lib ddraw.lib ..\src\obj\fqcodec.obj ..\src\obj\fqeffect.obj ..\src\obj\fquant.obj ..\src\obj\dct.obj SDLmain.lib SDL.lib"
 				OutputFile="$(OutDir)\hwsdl.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
