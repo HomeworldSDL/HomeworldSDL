@@ -1408,10 +1408,9 @@ void CommandProcess(int code)
 }
 
 filehandle mainGetDevStatsHandle(char *filepath) {
-    if (filepath == NULL) {
+    if (!fopen (filepath, "r")) {
         return 0;
     }
-    
     return fileOpen(filepath, FF_IgnorePrepend | FF_TextMode | FF_IgnoreBIG);
 }
 
@@ -1453,8 +1452,6 @@ void mainDevStatsInit(void)
         
         handle = mainGetDevStatsHandle(devstatspath);
     }
-    
-    // or die
     if (!handle) {
         dbgFatal(DBG_Loc, "mainDevStatsInit: couldn't open devstats file");
     }
