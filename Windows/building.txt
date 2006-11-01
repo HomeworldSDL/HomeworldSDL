@@ -1,6 +1,6 @@
 
 ----------
-building HWSDL (exe only) on windows XP SP2.
+building HWSDL on windows XP SP2.
 
 NOTICE: HWSDL-win32 may not run at all for you. These problems aren't *yet* fixed.
 
@@ -9,6 +9,9 @@ requirements:
 > ddraw.lib, only. if don't have then see *1.
 or download some version of the DirectX sdk (dx9 sdk is around 158mb)
 
+notes:
+> librglsw.dll project is not available currently, so if you do not have this DLL,
+see *1.
 
 compilers tested:
 vc7.1 sp1 & vc7.1
