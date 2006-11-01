@@ -10,8 +10,8 @@ or download some version of the DirectX sdk (dx9 sdk is around 158mb)
 
 
 compilers tested:
-vc7.1 sp1 & RTM
-vc8 sp1 beta & RTM (compiles, but need to fix some runtime errors)
+vc7.1 sp1 & vc7.1
+vc8 sp1 beta & RTM (using temporary .big file search code workaround (so files can be found inside the .big file))
 ----------
 
 Remember:
@@ -19,6 +19,6 @@ Remember:
 Devstats/etc will be found via HW_Data. 
 
 
-*1 librgl*.dll's/known problems/etc @
+*1 librgl*.dll's/known problems/and more at:
 http://homesource.nekomimicon.net/sourceforum/viewtopic.php?t=100
 
