@@ -9,20 +9,22 @@ requirements:
 > ddraw.lib, only. if don't have then see *1.
 or download some version of the DirectX sdk (dx9 sdk is around 158mb)
 
+Remember:
+> if HW_Data environment variable is defined, all you need in the same dir as the exe are the librgl*.dll's.
+Devstats/etc will be found via HW_Data. 
+
 notes:
 > librglsw.dll project is not available currently, so if you do not have this DLL,
 see *1.
+> if you don't have librgl*.dll's then download librgl_DLLs+symbols file from *1
+> if you get link errors referencing Direct3D, DirectDraw, etc, then download the small dx9 sdk package from *1
 
 compilers tested:
 vc7.1 sp1 & vc7.1
 vc8 sp1 beta & RTM (using temporary .big file search code workaround (so files can be found inside the .big file))
 ----------
 
-Remember:
-> if HW_Data environment variable is defined, all you need in the same dir as the exe are the librgl*.dll's.
-Devstats/etc will be found via HW_Data. 
 
-
-*1 librgl*.dll's/known problems/and more at:
+*1 librgl*.dll's/and more at:
 http://homesource.nekomimicon.net/sourceforum/viewtopic.php?t=100
 
