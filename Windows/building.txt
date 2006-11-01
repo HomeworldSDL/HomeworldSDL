@@ -2,6 +2,7 @@
 ----------
 building HWSDL (exe only) on windows XP SP2.
 
+NOTICE: HWSDL-win32 may not run at all for you. These problems aren't *yet* fixed.
 
 requirements:
 > libsdl 1.2.11
