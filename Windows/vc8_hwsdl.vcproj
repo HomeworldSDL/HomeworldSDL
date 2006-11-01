@@ -461,15 +461,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\Game\ETG.c"
-				>
-			</File>
-			<File
 				RelativePath="..\src\Game\Eval.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\Game\FastMath.c"
 				>
 			</File>
 			<File
@@ -779,6 +771,22 @@
 			<File
 				RelativePath="..\src\Game\KNITransform.c"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalOptions="/arch:SSE"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalOptions="/arch:SSE"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\src\Game\LagPrint.c"
@@ -1151,6 +1159,22 @@
 			<File
 				RelativePath="..\src\Sdl\render.c"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						OmitFramePointers="true"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						OmitFramePointers="true"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\src\Ships\RepairCorvette.c"
@@ -1305,10 +1329,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\Game\Task.c"
-				>
-			</File>
-			<File
 				RelativePath="..\src\Game\TaskBar.c"
 				>
 			</File>
@@ -1448,6 +1468,70 @@
 						>
 						<Tool
 							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+			</Filter>
+			<Filter
+				Name="no-optimize"
+				>
+				<File
+					RelativePath="..\src\Game\ETG.c"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\src\Game\FastMath.c"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\src\Game\Task.c"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
 						/>
 					</FileConfiguration>
 				</File>
