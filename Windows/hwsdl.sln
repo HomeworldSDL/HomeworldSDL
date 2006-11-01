@@ -3,6 +3,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hwsdl", "prj\hwsdl.vcproj",
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "librgl", "prj\librgl.vcproj", "{81CB51C4-B434-4E12-B69B-BAEE102F2852}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
@@ -12,6 +16,12 @@ Global
 	GlobalSection(ProjectDependencies) = postSolution
 	EndGlobalSection
 	GlobalSection(ProjectConfiguration) = postSolution
+		{81CB51C4-B434-4E12-B69B-BAEE102F2852}.Debug.ActiveCfg = Debug|Win32
+		{81CB51C4-B434-4E12-B69B-BAEE102F2852}.Debug.Build.0 = Debug|Win32
+		{81CB51C4-B434-4E12-B69B-BAEE102F2852}.Release.ActiveCfg = Release|Win32
+		{81CB51C4-B434-4E12-B69B-BAEE102F2852}.Release.Build.0 = Release|Win32
+		{81CB51C4-B434-4E12-B69B-BAEE102F2852}.release2 debug test.ActiveCfg = release2 debug test|Win32
+		{81CB51C4-B434-4E12-B69B-BAEE102F2852}.release2 debug test.Build.0 = release2 debug test|Win32
 		{81CB51C4-B434-4E12-B69B-BAEE102F2852}.Debug.ActiveCfg = Debug|Win32
 		{81CB51C4-B434-4E12-B69B-BAEE102F2852}.Debug.Build.0 = Debug|Win32
 		{81CB51C4-B434-4E12-B69B-BAEE102F2852}.Release.ActiveCfg = Release|Win32

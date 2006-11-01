@@ -14,7 +14,14 @@
 #include <xmmintrin.h>
 #include <string.h>
 #include "asm.h"
+
+#if !defined _MSC_VER
 #include "_stdint.h"
+#elif defined _MSC_VER
+// from SDL_config_win32.h
+typedef signed __int64		int64_t;
+typedef unsigned __int64	uint64_t;
+#endif
 
 #define XMM_VB_SIZE (((VB_SIZE + 3) & (~3)) / 4)
 #if defined (_MSC_VER)
