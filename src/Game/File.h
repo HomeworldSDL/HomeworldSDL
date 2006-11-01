@@ -53,7 +53,6 @@
 =============================================================================*/
 //path length
 #define PATH_Max                260
-//nn put this here//#define PATH_MAX                260
 
 //file seek locations
 #define FS_Start                SEEK_SET

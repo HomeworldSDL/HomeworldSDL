@@ -23,7 +23,7 @@
 				AdditionalIncludeDirectories="..\src\SDL;..\src\rgl;..\src\Game;..\src\Ships;..\src\JPG;..\src\Generated;..\include\glide2;..\include\Titan"
 				PreprocessorDefinitions="HW_DEBUG;HW_Debug;_WIN32;WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="TRUE"
-				RuntimeLibrary="1"
+				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
 				PrecompiledHeaderFile="$(IntDir)\hwsdl.pch"
 				AssemblerListingLocation="$(IntDir)\"
@@ -38,10 +38,11 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="msvcrt.lib winmm.lib Vfw32.lib ddraw.lib ..\src\obj\fqcodec.obj ..\src\obj\fqeffect.obj ..\src\obj\fquant.obj ..\src\obj\dct.obj SDLmain.lib SDL.lib"
+				AdditionalDependencies="msvcrtd.lib winmm.lib Vfw32.lib ddraw.lib ..\src\obj\fqcodec.obj ..\src\obj\fqeffect.obj ..\src\obj\fquant.obj ..\src\obj\dct.obj SDLmain.lib SDL.lib"
 				OutputFile="$(OutDir)\hwsdl.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
+				IgnoreDefaultLibraryNames="msvcrt.lib"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="$(IntDir)\hwsdl.pdb"
 				GenerateMapFile="TRUE"
@@ -96,7 +97,7 @@
 				PreprocessorDefinitions="HW_Release;_WIN32;WIN32;NDEBUG;_WINDOWS"
 				StringPooling="TRUE"
 				MinimalRebuild="FALSE"
-				RuntimeLibrary="4"
+				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
 				UsePrecompiledHeader="0"
 				PrecompiledHeaderFile="$(IntDir)\hwsdl.pch"
@@ -109,7 +110,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="msvcrt.lib winmm.lib Vfw32.lib ddraw.lib ..\src\obj\fqcodec.obj ..\src\obj\fqeffect.obj ..\src\obj\fquant.obj ..\src\obj\dct.obj SDLmain.lib SDL.lib"
+				AdditionalDependencies="winmm.lib Vfw32.lib ddraw.lib ..\src\obj\fqcodec.obj ..\src\obj\fqeffect.obj ..\src\obj\fquant.obj ..\src\obj\dct.obj SDLmain.lib SDL.lib"
 				OutputFile="$(OutDir)\hwsdl.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"

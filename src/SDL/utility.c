@@ -30,6 +30,8 @@
 
 #if !defined _MSC_VER
 #include <strings.h>
+#elif defined _MSC_VER
+#include <direct.h>//for _mkdir
 #endif
 
 #include <ctype.h>
@@ -137,6 +139,7 @@
 	#define strcasecmp _stricmp
 	#define stat _stat
 	#define S_ISDIR(mode) ((mode) & _S_IFDIR)
+	#define mkdir(p) _mkdir(p)
 #endif
 
 extern char mainDeviceToSelect[];
