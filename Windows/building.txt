@@ -2,7 +2,10 @@
 ----------
 building HWSDL on windows XP SP2.
 
-NOTICE: HWSDL-win32 may not run at all for you. These problems aren't *yet* fixed.
+NOTICE:
+HWSDL-win32 may not run at all for you.
+However, aaron has successfully compiled and played HWSDL-win32 revision 44 (and up to rev80 something).
+nova has only compiled HWSDL, he hasn't gotten it so far as to load into the menu.
 
 requirements:
 > libsdl 1.2.11
