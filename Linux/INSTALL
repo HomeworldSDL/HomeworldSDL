@@ -93,7 +93,7 @@ The files from the patch are simpler to get at: just open the patch .exe in any 
  
  Even though the main data files are present now, you will still need to have the Homeworld CD in your CD-ROM drive AND mounted. The game will check that the CD is mounted on "/mnt/cdrom", but if you use a different mount point, you will need to specify it using the "HW_CDROM" environment variable. 
  
- To avoid this you can copy the audio data files 'HW_Comp.vce' and 'HW_Music.wxd' from the Homeworld CD to the directory holding the other data files. These two archives hold the voice + subtitle files and the music data files respectively... and then you can get along without the CD in the drive. However, these audio data files will take 155 MB of space.
+ To avoid this you can copy the audio data files 'HW_Comp.vce' and 'HW_Music.wxd' from the Homeworld CD to the 'src' directory alongside the other data files. These archives hold the voice + subtitle files and the music data files respectively... and then you can get along without the CD in the drive. However, the audio data files will take up 155 MB of space.
 
  -Starting the game-
 
