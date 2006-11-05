@@ -500,7 +500,7 @@ char utyVoiceFilename[] = "CGW_Demo.vce";
 #elif defined(HW_DEMO) || defined(HW_PUBLIC_BETA)
 char utyVoiceFilename[] = "DL_Demo.vce";
 #else
-char utyVoiceFilename[] = "HW_comp.vce";
+char utyVoiceFilename[] = "HW_Comp.vce";
 #endif
 
 // name of other files
@@ -3946,8 +3946,8 @@ void utyGrowthHeapFree(void *heap)
 char *utyMissingCDMessages[] =
 {
     "Invalid or missing Homeworld CD. Please insert valid CD.",
-    "CD Homeworld non valide. Veuillez insérer un CD valide.",
-    "Ungültige oder fehlende Homeworld-CD. Bitte gültige CD einlegen.",
+    "CD Homeworld non valide. Veuillez insï¿½er un CD valide.",
+    "Ungltige oder fehlende Homeworld-CD. Bitte gltige CD einlegen.",
     "El CD de Homeworld no es correcto o no se encuentra en la unidad. Introduce el CD correcto.",
     "CD di Homeworld mancante o non valido. Inserisci un CD valido.",
 };
@@ -3955,7 +3955,7 @@ char *utyInvalidCDMessages[] =
 {
     "Invalid Homeworld CD.",
     "CD Homeworld invalide.",
-    "Ungültige Homeworld-CD.",
+    "Ungltige Homeworld-CD.",
     "CD de Homeworld incorrecto.",
     "CD di Homeworld non valido.",
 };
@@ -3970,8 +3970,8 @@ char *utyIncompatibleBigMessages[] =
 char *utyCannotOpenFileMessages[] =
 {
     "Unable to open file: %s",
-    "Impossible d’ouvrir le fichier: %s",
-    "Datei kann nicht geöffnet werden: %s",
+    "Impossible douvrir le fichier: %s",
+    "Datei kann nicht geï¿½fnet werden: %s",
     "Imposible abrir archivo: %s",
     "Impossibile aprire il file: %s",
 };
