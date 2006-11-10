@@ -5,7 +5,7 @@ Don't believe this is an acronym, rather a reference to the fact that by bundlin
 together lots of files you end up with one big one...
 
 Homeworld combines a large number of the data files it needs into a single
-compressed file. Such archives are given the .big extension. The main ones in
+compressed file. Such archives are given the .big extension. The main ones
 are:
 
 Homeworld.big - original archive containing the vast majority of the game data
@@ -57,7 +57,7 @@ KAS (.kas)
 -------------------------------------------------------------------------------
 Kick Ass Script
 
-Relic's proprietary scripting language for Homeworld. Missions scripts using
+Relic's proprietary scripting language for Homeworld. Mission scripts using
 this language are saved with the .kas extension. These files are converted by
 tools/kas2c into compilable C code which is then placed in the src/Generated
 directory.
