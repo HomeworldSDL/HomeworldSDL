@@ -4054,6 +4054,7 @@
 		35CC22240955C2E100504293 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = dwarf;
 			};
 			name = Development;
 		};
