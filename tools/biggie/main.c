@@ -10,7 +10,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
-#include "version.h"
 #include "bigfile.h"
 #include "options.h"
 
@@ -20,6 +19,11 @@ extern int  OptPathnames;
 extern int  OptNewer;
 extern int  OptOverwrite;
 extern int  OptMove;
+
+void verDisplay(void)
+{
+	printf("BIGGIE Version %s  [%s%s]\n", BIGGIE_VERSION, BF_FILE_HEADER, BF_VERSION);
+}
 
 void HelpDisplay(void)
 {
