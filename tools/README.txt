@@ -12,7 +12,7 @@ We need to convert [?]s to one of [Y] or [N] and [Y]s to [A]s. Then get the [A]s
 [A] Biggie           .BIG file extractor utility
 [N] BigTree          Windows equivalent of: `find <path> -not -type d`
 [A] BTG              .BTG background editor
-[Y] builder          .BIG file creator from directory tree?
+[N] builder          wraps lots of scripts to generate release candidate
 [N] CDKeyer          CD registration key checker/registration?
 [Y] FEMan            Front End manager; interface editor for menus etc
 [N] FileTrunc        extracts chunks of files; similar to head/tail
@@ -43,4 +43,4 @@ We need to convert [?]s to one of [Y] or [N] and [Y]s to [A]s. Then get the [A]s
 [?] Vol              something to do with sound
 
 
-(There may also be some bits and pieces in "tools/batch" that are of use but they mostly appear to be utilities for pulling together the files required for Relic's eventual Gold Master release.)
+(There may also be some bits and pieces in "tools/batch" that are of use but they mostly appear to be utilities for pulling together the files required for Relic's release candidates.)
