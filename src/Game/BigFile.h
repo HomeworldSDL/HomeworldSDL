@@ -62,24 +62,17 @@
 //          Fixed fast-create sorting bug.
 // Gary changed interface of bigCRC function
 
+// keep these strings the same length
+#define BF_VERSION     "1.23"   // increment this when the file format changes
 
-#define BF_FILE_HEADER "RBF"   // don't change this!
-
-//  increment this when significant features are added or bugs fixed
-// (keep this string the same length)
-#define BIGGIE_VERSION "2.11"
-
-
-// increment this when the file format changes
-// (keep this string the same length)
-#define BF_VERSION "1.23"
-
+#define BIGGIE_VERSION "3.00"   // biggie: .BIG file extractor tool (see /tools)
 
 // some things don't get compiled into the command line tool
 #if defined(HW_Debug) || defined(HW_Interim) || defined(HW_Release) 
     #define BF_HOMEWORLD
 #endif
 
+#define BF_FILE_HEADER "RBF"   // don't change this!
 
 #define BF_MAX_FILENAME_LENGTH 128
 #define BF_FLAG_TOC_SORTED       1

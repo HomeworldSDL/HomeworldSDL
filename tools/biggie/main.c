@@ -8,9 +8,8 @@
 //
 
 #include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-#include "bigfile.h"
+
+#include "../../src/Game/BigFile.h"
 #include "options.h"
 
 extern char OptCommand;
