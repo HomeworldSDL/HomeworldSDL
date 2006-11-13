@@ -37,7 +37,7 @@ Tools (http://www.radgametools.com) who also provide stand-alone player software
 -------------------------------------------------------------------------------
 BTG (.btg)
 -------------------------------------------------------------------------------
-Background Tool [of the] Gods!
+Background Tool [of the] Geeks/Gods!
 
 The panaromic "sky" backgrounds in Homeworld are created with BTG (tools/win32/BTG
 in the original source code released by Relic). This tool is currently Windows
@@ -83,6 +83,48 @@ the fade-in black-bordered widescreen effect.
 
 
 -------------------------------------------------------------------------------
+P1
+-------------------------------------------------------------------------------
+The Turanic Raiders. The first enemy encountered in the single player game
+(Mission 2) after they've destroyed the Kar Selim. They are a carrier-based
+race and also feature in Mission 4 and the bonus level "Raider Retreat".
+
+
+-------------------------------------------------------------------------------
+P2
+-------------------------------------------------------------------------------
+The Kadeshi. The inhabitants of the nebula half way through the single player
+campaign whose Motherships resemble tadpoles. Originally part of the refugee
+convoy of Hiigaran exiles, they decided to settle in the relatively safety of
+the nebula rather than continue the journey on to Kharak as the Kushan (R1) did.
+
+
+-------------------------------------------------------------------------------
+P3
+-------------------------------------------------------------------------------
+Not directly encountered in the single player game although their Megaship
+makes an appearance at the end of the game as one of the council members.
+
+
+-------------------------------------------------------------------------------
+R1
+-------------------------------------------------------------------------------
+Race 1
+
+The Kushan. The default race in the single player campaign whose Mothership
+resembles a vertical banana.
+
+
+-------------------------------------------------------------------------------
+R2
+-------------------------------------------------------------------------------
+Race 2
+
+The Taiidan. The default protagonists in the single player campaign whose
+Mothership is a horizontal cuboid.
+ 
+
+-------------------------------------------------------------------------------
 Raider Retreat
 -------------------------------------------------------------------------------
 Raider Retreat was a special edition of Homeworld released as a promotion for
@@ -121,4 +163,12 @@ Simple Direct Media Layer (http://www.libsdl.org/)
 
 A cross-platform graphics/sound/input API wrapper.
 
+
+-------------------------------------------------------------------------------
+Traders
+-------------------------------------------------------------------------------
+The Bentusi. They offer to sell you ion cannon technology in Mission 4. Whilst
+technically they only have one ship in the game, the Traders race ends up
+hosting a lot of other miscellaneous ships used in the game (e.g. the Ghost
+Ship; Junk Yard Dawg; Research station). 
 
