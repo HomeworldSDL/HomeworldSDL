@@ -1,7 +1,7 @@
-#ifndef __options_h
-#define __options_h
+#ifndef ___OPTIONS_H
+#define ___OPTIONS_H
 
 void optDefaultsSet(void);
-int optProcessArgument(char *arg);
+int  optProcessArgument(char *arg);
 
 #endif
