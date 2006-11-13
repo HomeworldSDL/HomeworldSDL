@@ -2018,10 +2018,220 @@ abort:
                   Output to stdout (if enabled).
     Return      : 1 on success, 0 on failure
 ----------------------------------------------------------------------------*/
-int bigExtract(char *bigfilename, int numFiles, char *filenames[], int optFreshen, int optMove, int optPathnames, int optOverwrite, int consoleOutput)
+int bigExtract(char *bigFilename, int numFiles, char *filenames[], int optFreshen, int optMove, int optPathnames, int optOverwrite, int consoleOutput)
 {
-    if (consoleOutput)
+#ifdef _WIN32
+    if (consoleOutput) {
         printf("ERROR: Extract operation not supported yet.\n");
+    }
+#else
+
+    FILE   *fp;
+    bigTOC  toc;
+
+    // open bigfile
+    fp = fopen(bigFilename, "rb");
+    if (!fp)
+    {
+        if (consoleOutput)
+            printf("ERROR: Can't open %s\n", bigFilename);
+        return 0;
+    }
+    // ensure correct file type & version
+    if (!bigHeaderVerify(fp))
+    {
+        if (consoleOutput)
+            printf("ERROR: Incompatible file %s\n", bigFilename);
+        goto abort;
+    }
+
+    // read table of contents for .big file
+    bigTOCRead(fp, &toc);
+
+    if (!toc.numFiles)
+        printf("No files in %s\n", bigFilename);
+
+    // BUG - not checking for specific files; just dumping the whole lot!
+    else
+    {
+        int i;
+        char *ptr = NULL;
+        
+        FILE *extractFp = fp;                            // take a copy of the main BigFile file pointer
+        bigTOCFileEntry *fileEntry = NULL;               // an entry in the table of contents
+        char filename[BF_MAX_FILENAME_LENGTH] = {'\0'};  // filename stored in the .big file
+
+        char *compressedFile   = NULL,                   // memory buffers for the compressed...
+             *uncompressedFile = NULL;                   //     and uncompressed files
+
+        char outdir[MAXPATHLEN];                         // directory output files are written to
+        FILE *output;                                    // file writing file handle
+        char outfilename[BF_MAX_FILENAME_LENGTH];        // the path/filename of the output file
+        
+        // output directory name will be something like "Homeworld.big.contents"
+        strcpy(outdir, bigFilename);
+        strcat(outdir, ".contents");
+        
+        printf("\nExtracting %d files from:\n    %s\nto:\n    %s\n\n",
+               toc.numFiles, bigFilename, outdir);
+        
+        // go through the table of contents
+        for (i = 0; i < toc.numFiles; i++)
+        {
+            // get the entry in the TOC for the next file
+            fileEntry = toc.fileEntries + i;
+
+            // seek to the start of the data for the file
+            fseek(extractFp, fileEntry->offset, SEEK_SET);
+            
+            // first thing is the filename - this includes a NULL terminator
+            fread(filename, 1, fileEntry->nameLength + 1, extractFp);
+            bigFilenameDecrypt(filename, fileEntry->nameLength);
+
+            // the rest is the (possibly compressed) file
+            printf("Extracting: %s", filename);
+            
+            // uncompress file if necessary
+            if (fileEntry->compressionType == '\1')
+            {
+                compressedFile   = (char *) malloc(fileEntry->storedLength);
+                uncompressedFile = (char *) malloc(fileEntry->realLength);
+                
+                if (compressedFile != NULL && uncompressedFile != NULL)
+                {
+                    fread(compressedFile, 1, fileEntry->storedLength, extractFp);
+                    if (lzssExpandBuffer(compressedFile, fileEntry->storedLength,
+                                         uncompressedFile, fileEntry->realLength) == -1)
+                    {
+                        printf(" - DECOMPRESSION FAILED!\n");
+                        
+                        free(compressedFile);
+                        compressedFile = NULL;
+                        
+                        free(uncompressedFile);
+                        uncompressedFile = NULL;
+
+                        continue;
+                    }
+                }
+                else
+                {
+                    printf(" - MEMORY ALLOCATION FAILED!\n");
+                    
+                    // either or both allocations may have failed so check both
+                    if (compressedFile != NULL)
+                    {
+                        free(compressedFile);
+                        compressedFile = NULL;
+                    }
+                    if (uncompressedFile != NULL)
+                    {
+                        free(uncompressedFile);
+                        uncompressedFile = NULL;
+                    }
+
+                    continue;
+                }
+            }
+            else
+            {
+                uncompressedFile = (char *) malloc(fileEntry->realLength);
+
+                if (uncompressedFile != NULL)
+                {
+                    fread(uncompressedFile, 1, fileEntry->realLength, extractFp);
+                }
+                else
+                {
+                    printf(" - MEMORY ALLOCATION FAILED!\n");
+                    continue;
+                }
+
+            }
+            
+            // this isn't strictly necessary but Homeworld.big will create a
+            // hell of a mess otherwise; semi-bug
+            strcpy(outfilename, outdir);
+            strcat(outfilename, "/");
+            
+            // fiddle directory delimiters
+            strcat(outfilename, filename);
+            ptr = outfilename;
+            while (*ptr != '\0')
+            {
+                if (*ptr == '\\')
+                {
+                    *ptr = '/';
+                }
+                
+                ptr++;
+            }
+            
+            // what's the function call in C to create directories?
+            // system() isn't the way to be doing this...
+            ptr = strrchr(outfilename, '/');
+            if (ptr != NULL)
+            {
+                char mkdir[1024];
+                *ptr = '\0';
+                
+                // quoting path to ensure characters like spaces are parsed correctly
+                strcpy(mkdir, "/bin/mkdir -p '");
+                strcat(mkdir, outfilename);
+                strcat(mkdir, "'");
+                
+                // actually create the directory
+                system(mkdir);
+                
+                // put the string back the way it was before
+                *ptr = '/';
+            }
+            
+            // open the new file
+            if ((output = fopen(outfilename, "wb")) == NULL)
+            {
+                printf(" - UNABLE TO OPEN OUTPUT FILE %s!\n", outfilename);
+                
+                if (compressedFile != NULL)
+                {
+                    free(compressedFile);
+                    compressedFile = NULL;
+                }
+                if (uncompressedFile != NULL)
+                {
+                    free(uncompressedFile);
+                    uncompressedFile = NULL;
+                }
+
+                continue;
+            }
+            else
+            {
+                // write the file
+                fwrite(uncompressedFile, 1, fileEntry->realLength, output);
+                fclose(output);
+
+                if (compressedFile != NULL)
+                {
+                    free(compressedFile);
+                    compressedFile = NULL;
+                }
+                if (uncompressedFile != NULL)
+                {
+                    free(uncompressedFile);
+                    uncompressedFile = NULL;
+                }
+            }
+            
+            printf("\n");
+        }
+    }
+
+abort:
+    fclose(fp);
+
+#endif
+
     return 1;
 }
 
