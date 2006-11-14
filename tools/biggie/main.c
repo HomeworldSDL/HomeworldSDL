@@ -20,41 +20,48 @@ extern int  OptOverwrite;
 extern int  OptMove;
 
 void display_version(void) {
-    printf("BIGGIE Version %s  [%s%s]\n", BIGGIE_VERSION, BF_FILE_HEADER, BF_VERSION);
+    printf("Biggie - version %s  [%s%s]\n", BIGGIE_VERSION, BF_FILE_HEADER, BF_VERSION);
 }
 
 void usage(void) {
-    printf("Bigfile support utility.  Copyright (C)1998 Relic Entertainment Inc.\n\n");
+    printf("\n*.big file support utility.  Copyright (C)1998 Relic Entertainment Inc.\n\n");
 
-    printf("Usage:  BIGGIE options bigfile [files...]\n\n");
+    printf("Usage:  biggie <options> <bigfile> [<files...>]\n\n");
 
     printf("Primary options:\n");
     printf("-a  Add/update files to bigfile\n");
     printf("-f  Fast-create a bigfile\n");
     printf("-d  Delete files from bigfile\n");
-    printf("-v  View bigfile contents\n");
     printf("-u  Create a patch bigfile (see special usage, below)\n");
+    printf("-v  View bigfile contents\n");
     printf("-x  Extract files from bigfile\n");
 
     printf("\nAdditional options, as they apply to the primary options:\n");
-    printf("         AFDVUX\n");
-    printf("-c{0|1}  **      Compress files (1 default)\n");
-    printf("-m{0|1}  **   *  Move files to/from bigfile (0 default)\n");
-    printf("-n{0|1}  *    *  Only newer files (0 default)\n");
-    printf("-o{0|1}       *  Overwrite existing files (1 default)\n");
-    printf("-p{0|1}  **   *  Store/restore full pathnames (1 default)\n");
+    printf("         AFDUVX\n");
+    printf("-c[0|1]  **      Compress files               (default: 1)\n");
+    printf("-m[0|1]  **   *  Move files to/from bigfile   (default: 0)\n");
+    printf("-n[0|1]  *    *  Only newer files             (default: 0)\n");
+    printf("-o[0|1]       *  Overwrite existing files     (default: 1)\n");
+    printf("-p[0|1]  **   *  Store/restore full pathnames (default: 1)\n");
 
-    printf("\nExample usage:  BIGGIE -a -n1 -p0 fonts.big \\fonts\\*.hff \\data\\*.hff\n");
+    printf("\n----------------------------------------------------------\n\n");
 
-    printf("\nFilelists (files with one filename per line) may be used in place of filenames.\n");
-    printf("For example:  BIGGIE -a -n1 data.big dmp*.lif @otherfiles.txt\n");
+    printf("Example usage:\n\n");
+    printf("    biggie -a -n1 -p0 fonts.big \\fonts\\*.hff \\data\\*.hff\n\n");
 
-    printf("\n\tCreating a \"patch\" bigfile has the following usage:\n\n");
-    printf("\t  BIGGIE -u oldbigfile newbigfile patchbigfile\n\n");
-    printf("\tFiles that have changed or have been added in the newbigfile\n");
-    printf("\twill be placed in the patchbigfile.  A byte-for-byte compare\n");
-    printf("\tis performed on every file (ie, date/time-stamps are ignored).\n");
-    printf("\tAdditional options do not apply to patching.\n");
+    printf("File lists (files with one filename per line) may be used in\n");
+    printf("place of filenames by using an @ symbol to differentiate them:\n\n");
+    
+    printf("    biggie -a -n1 data.big dmp*.lif @otherfiles.txt\n\n");
+
+    printf("Creating a \"patch\" bigfile has the following usage:\n\n");
+    
+    printf("    biggie -u oldbigfile newbigfile patchbigfile\n\n");
+    
+    printf("Files that have changed or have been added in newbigfile\n");
+    printf("will be placed in the patchbigfile. A byte-for-byte compare\n");
+    printf("is performed on every file (i.e.e, date/time-stamps are ignored).\n");
+    printf("Additional options do not apply to patching.\n");
     
     exit(-1);
 }

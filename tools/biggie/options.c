@@ -12,11 +12,12 @@ int  OptOverwrite;		// true/false
 void optDefaultsSet(void)
 {
 	OptCommand     = 'a';
+
 	OptCompression = 1;
-	OptPathnames   = 1;
-	OptNewer       = 0;
 	OptMove        = 0;
+	OptNewer       = 0;
 	OptOverwrite   = 1;
+	OptPathnames   = 1;
 }
 
 //	override OptXXXX variables with user argument
