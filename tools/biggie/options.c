@@ -1,18 +1,16 @@
-#include <string.h>
 #include <stdio.h>
 #include "options.h"
 
-char OptCommand;	    // a|d|v|x (add|delete|view)
+char OptCommand;	    // a|d|v|x (add|delete|view|extract)
+
 int  OptCompression;	// true/false
 int  OptPathnames;      // true/false
 int  OptNewer;	        // true/false
 int  OptMove;           // true/false
 int  OptOverwrite;		// true/false
 
-void optDefaultsSet(void)
-{
+void optDefaultsSet(void) {
 	OptCommand     = 'a';
-
 	OptCompression = 1;
 	OptMove        = 0;
 	OptNewer       = 0;
@@ -30,8 +28,7 @@ int optProcessArgument(char *arg)
 		return 0;
     }
 
-	switch (arg[1])
-	{
+	switch (arg[1])	{
         case 'a':
         case 'd':
         case 'v':
@@ -42,59 +39,43 @@ int optProcessArgument(char *arg)
             break;
             
         case 'c':
-            if (arg[2] == '0' || arg[2] == '1') {
-                OptCompression = arg[2] - '0';
-            }
-            else {
-                printf("WARNING: Invalid compression setting %s -- using -c0\n", arg);
-                OptCompression = 0;			
-            }
+            optSetBoolean(arg, &OptCompression);
             break;
             
         case 'm':
-            if (arg[2] == '0' || arg[2] == '1') {
-                OptMove = arg[2] - '0';
-            }
-            else {
-                printf("WARNING: Invalid option setting %s -- using -m0\n", arg);
-                OptMove = 0;
-            }
+            optSetBoolean(arg, &OptMove);
             break;
             
         case 'n':
-            if (arg[2] == '0' || arg[2] == '1') {
-                OptNewer = arg[2] - '0';
-            }
-            else {
-                printf("WARNING: Invalid option setting %s -- using -n0\n", arg);
-                OptNewer = 0;
-            }
+            optSetBoolean(arg, &OptNewer);
             break;
             
         case 'o':
-            if (arg[2] == '0' || arg[2] == '1') {
-                OptOverwrite = arg[2] - '0';
-            }
-            else {
-                printf("WARNING: Invalid option setting %s -- using -o0\n", arg);
-                OptOverwrite = 0;
-            }
+            optSetBoolean(arg, &OptOverwrite);
             break;
             
         case 'p':
-            if (arg[2] == '0' || arg[2] == '1') {
-                OptPathnames = arg[2] - '0';
-            }
-            else {
-                printf("WARNING: Invalid option setting %s -- using -p0\n", arg);
-                OptPathnames = 0;
-            }
+            optSetBoolean(arg, &OptPathnames);
             break;
             
         default:
-            printf("WARNING: Undefined option %s\n", arg);
+            printf("WARNING: Undefined option \"%s\"\n", arg);
             break;
 	}
 
 	return 1;
+}
+
+void optSetBoolean(char *arg, int *option) {
+    // arg = "-"<char><0|1>
+    char flag  = arg[1];
+    char value = arg[2];
+
+    if (value == '0' || value == '1') {
+        *option = (int)(value - '0');
+    }
+    else {
+        printf("WARNING: Invalid option setting \"%s\"; using \"-%c0\"\n", arg, flag);
+        *option = 0;
+    }
 }

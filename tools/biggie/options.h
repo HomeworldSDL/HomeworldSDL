@@ -3,5 +3,6 @@
 
 void optDefaultsSet(void);
 int  optProcessArgument(char *arg);
+void optSetBoolean(char *arg, int *option);
 
 #endif

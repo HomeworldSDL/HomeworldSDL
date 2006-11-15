@@ -60,7 +60,7 @@ void usage(void) {
     
     printf("Files that have changed or have been added in newbigfile\n");
     printf("will be placed in the patchbigfile. A byte-for-byte compare\n");
-    printf("is performed on every file (i.e.e, date/time-stamps are ignored).\n");
+    printf("is performed on every file (i.e.: date/time-stamps are ignored).\n");
     printf("Additional options do not apply to patching.\n");
     
     exit(-1);
