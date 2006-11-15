@@ -7,7 +7,9 @@
 
 #include "BigFile.h"
 
+#ifndef _MSC_VER
 #include <sys/param.h>
+#endif
 #include <sys/stat.h>
 
 #include "BitIO.h"
