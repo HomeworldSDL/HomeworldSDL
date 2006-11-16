@@ -4315,8 +4315,8 @@ void etgConditionalComplete(sdword codeBlock, sdword offset, sdword newOffset, u
 //handle 'if' statements
 sdword etgConditional(struct etgeffectstatic *stat, ubyte *dest, char *opcodeString, char *params, char *ret)
 {
-    char *param0, *oper, *param1;
-    etgvarentry *var0, *var1;
+    char *param0, *oper, *param1, *tempparam;
+    etgvarentry *var0, *var1, *tempvar;
     sdword isVar0, isVar1, bTranspose;
     char *parser;
     udword constant;
@@ -4378,8 +4378,9 @@ sdword etgConditional(struct etgeffectstatic *stat, ubyte *dest, char *opcodeStr
     {
         bTranspose = TRUE;                                  //need to use the transpose operator
         swapInt(isVar0, isVar1);                            //swap the operators
-        swapInt((udword)param0, (udword)param1);
-        swapInt((udword)var0, (udword)var1);
+//        swapInt((udword)param0, (udword)param1);
+        swap(param0, param1, tempparam);
+        swap(var0, var1, tempvar);
     }
     else
     {

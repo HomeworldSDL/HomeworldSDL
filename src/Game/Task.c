@@ -218,6 +218,7 @@ sdword taskPointerAlloc(void)
 ----------------------------------------------------------------------------*/
 taskhandle taskStart(taskfunction function, real32 period, udword flags)
 {
+    static char  * Local_taskData; // GCC v4 needs locally defined value
     static taskhandle handle = ERROR;
     taskdata *newTask;
     static void *taskFunctionContinueSave;
@@ -240,6 +241,7 @@ taskhandle taskStart(taskfunction function, real32 period, udword flags)
     handle = taskPointerAlloc();                            //alloc and save the
     taskData[handle] = newTask;                             //newest task pointer
 
+    Local_taskData= (char *)taskData;
 #if TASK_VERBOSE_LEVEL >= 2
     dbgMessagef("\ntaskStart: starting task at 0x%x at %d Hz, flags 0x%x using handle %d at 0x%x",
                function, 1.0f/period, flags, handle, taskData[handle]);
@@ -402,7 +404,7 @@ taskContinued:
         :
         : "m" (taskESISave), "m" (taskEDISave), "m" (taskESPSave),
           "m" (taskEBPSave), "m" (taskEBXSave),
-          "m" (function), "m" (handle), "m" (taskData)
+          "m" (function), "m" (handle), "m" (Local_taskData)
 #if TASK_STACK_SAVE
           , "m" (taskESPSaveInitial)
 #endif
@@ -470,6 +472,8 @@ void taskStop(taskhandle handle)
 static sdword tTicks, tLocalTicks;
 sdword taskExecuteAllPending(sdword ticks)
 {
+    static char * Local_taskData; 
+    Local_taskData= (char *)taskData;
 #if TASK_STACK_SAVE
     static ubyte localStack[BIT8];
     static ubyte *currentESP;
@@ -780,7 +784,7 @@ taskContinued:
                     "    movl %%eax, "TOF_Context_STR"+20(%%edx)\n"  /*ebp*/
 /*#endif*/
                     :
-                    : "m" (taskCurrentTask), "m" (taskData)
+                    : "m" (taskCurrentTask), "m" (Local_taskData)
                     : "eax", "edx" );
 #endif
 

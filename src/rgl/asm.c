@@ -606,6 +606,7 @@ void transform_points4_perspective(GLuint n, GLfloat* d, GLfloat* m, GLfloat* s)
 void asm_cliptest(
     GLuint n, GLfloat* d, GLubyte* clipmask, GLubyte* ormask, GLubyte* andmask)
 {
+   static char * Local_clip_table = (char*) clip_table; // Needs to be defined locally for GCC v4
 #if defined (_MSC_VER)
     _asm
     {
@@ -783,7 +784,7 @@ void asm_cliptest(
         "    movb %%ah, (%%esi)\n"
         :
         : "m" (ormask), "m" (andmask), "m" (n), "m" (clipmask), "m" (d),
-          "m" (clip_table)
+          "m" (Local_clip_table)
         : "eax", "ecx", "edx", "edi", "esi" );
 #endif
 }
@@ -1296,6 +1297,7 @@ void gl_xmm_project(GLfloat* dest, GLfloat* source, GLfloat* matrix, GLuint coun
     static int n __attribute__ ((aligned (16)));
     static __m128 Zero __attribute__ ((aligned (16)));
     static float* m __attribute__ ((aligned (16)));
+    const static char * Local_Mask =  (char *) Mask; // Needs to be defined locally for GCC v4
 #endif
 
     n = (count + 3) & (~3);
@@ -1457,7 +1459,7 @@ void gl_xmm_project(GLfloat* dest, GLfloat* source, GLfloat* matrix, GLuint coun
         "    jnz     xmmproject_start\n"
         :
         : "S" (m), "c" (n), "a" (source), "d" (dest),
-          "m" (Mask) );
+          "m" (Local_Mask) );
 #endif
 }
 

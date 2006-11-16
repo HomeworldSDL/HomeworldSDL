@@ -284,6 +284,7 @@ void transTransformCompletely_xmm(
     static float* mat0;
     static float* mat1;
 
+    static char * Local_Mask;
     static MM_ALIGN16_PRE __m128 nextX MM_ALIGN16_POST;
 
     //matrices
@@ -296,6 +297,7 @@ void transTransformCompletely_xmm(
     mat0 = (float*)mat;
     mat1 = (float*)per;
 
+    Local_Mask = (char*) Mask;
     _mm_prefetch((char*)m0, 0);
 
     //vectorize nVerts
@@ -698,7 +700,7 @@ void transTransformCompletely_xmm(
         : "m" (m0), "m" (mat0), "m" (m1), "m" (mat1),
           "m" (n), "m" (source), "m" (dest),
           "m" (nextX),
-          "m" (Mask)
+          "m" (Local_Mask)
           : "eax", "edx", "ecx", "edi", "esi" );
 #endif
 }

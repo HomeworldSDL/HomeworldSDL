@@ -849,7 +849,7 @@ fontheader *fontLoad(char *fileName)
 
         if (header->character[index] != NULL)
         {
-            (ubyte *)header->character[index] += (udword)fileHeader;//fix up character pointer
+		header->character[index] = (udword)fileHeader + (ubyte *)header->character[index];
 #ifdef ENDIAN_BIG
 			header->character[index]->width   = LittleShort( header->character[index]->width );
 			header->character[index]->height  = LittleShort( header->character[index]->height );

@@ -781,24 +781,24 @@ meshdata *meshLoad(char *inFileName)
 #endif
 
         //object->pName += offset;                          //!!! is there a name
-        (ubyte *)object->pVertexList += offset;             //fixup vertex list pointer
-        (ubyte *)object->pNormalList += offset;             //fixup vertex list pointer
-        (ubyte *)object->pPolygonList += offset;            //fixup vertex list pointer
+        object->pVertexList = offset + (ubyte *)object->pVertexList;             //fixup vertex list pointer
+        object->pNormalList = offset + (ubyte *)object->pNormalList;             //fixup vertex list pointer
+        object->pPolygonList = offset + (ubyte *)object->pPolygonList;            //fixup vertex list pointer
         if (object->pMother != NULL)
         {
-            (ubyte *)object->pMother += offset;
+            object->pMother = offset + (ubyte *)object->pMother;
         }
         if (object->pDaughter != NULL)
         {
-            (ubyte *)object->pDaughter += offset;
+            object->pDaughter = offset + (ubyte *)object->pDaughter;
         }
         if (object->pSister != NULL)
         {
-            (ubyte *)object->pSister += offset;
+            object->pSister = offset + (ubyte *)object->pSister;
         }
         if (object->pName != NULL)
         {
-            (ubyte *)object->pName += offset;               //fix up name
+            object->pName = offset + (ubyte *)object->pName;               //fix up name
         }
         object->iObject = index;
         object->nameCRC = crc16Compute((ubyte*)object->pName, strlen(object->pName));
@@ -924,7 +924,7 @@ meshdata *meshLoad(char *inFileName)
         mesh->localMaterial[index].bTexturesRegistered = FALSE;
         if (mesh->localMaterial[index].texture != 0)
         {                                                   //if there is a texture
-            (ubyte *)mesh->localMaterial[index].texture += offset;//fix up texture name pointer
+            mesh->localMaterial[index].texture = offset + (ubyte *)mesh->localMaterial[index].texture;//fix up texture name pointer
             mesh->localMaterial[index].textureNameSave = (char *)mesh->localMaterial[index].texture;
             meshTextureNameToPath(fullName, fileName, (char *)mesh->localMaterial[index].texture);
             handle = meshTextureRegisterAllPlayers(fullName, mesh);//register the texture

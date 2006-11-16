@@ -1823,8 +1823,8 @@ fibfileheader *feScreensLoad(char *fileName)
         {
             dbgMessagef("\nWARNING atoms %s not byte aligned",fileName);
         }
-        (ubyte *)screen->links += (udword)loadAddress;      //update list pointers
-        (ubyte *)screen->atoms += (udword)loadAddress;
+        screen->links = (udword)loadAddress + (ubyte *)screen->links;      //update list pointers
+        screen->atoms = (udword)loadAddress + (ubyte *)screen->atoms;
         for (index = 0; index < screen->nLinks; index++)
         {                                                   //for each link in screen
 

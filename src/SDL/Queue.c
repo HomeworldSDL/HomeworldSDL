@@ -110,7 +110,13 @@ void HWEnqueue(Queue *queue,ubyte *packet,udword sizeofPacket)
     }
 
     writeto = &queue->buffer[queue->head];
-    *((udword *)writeto)++ = sizeofPacket;
+
+    // Replaced *((udword *)writeto)++ = sizeofPacket;
+    // to resolve compile issue with GCC v4.
+    // Believe that this is correct, but unable to test fully.
+    *((udword *)writeto) = sizeofPacket;
+    *((udword *)writeto) += 1;
+
     queue->head += sizeinQ;
     if ((queue->head+sizeof(udword)) > queue->buffersize)
     {
@@ -149,7 +155,8 @@ udword HWDequeue(Queue *queue,ubyte **packet)
         queue->tail = 0;
     }
 
-    sizeofPacket = *((udword *)readfrom)++;
+    sizeofPacket = *((udword *)readfrom);
+    *((udword *)readfrom) += 1;
     *packet = readfrom;
     sizeinQ = sizeof(udword) + sizeofPacket;
     queue->tail += sizeinQ;
@@ -188,7 +195,8 @@ udword Peekqueue(Queue *queue,ubyte **packet)
         readfrom = &queue->buffer[0];
     }
 
-    sizeofPacket = *((udword *)readfrom)++;
+    sizeofPacket = *((udword *)readfrom);
+    *((udword *)readfrom) +=1;
     *packet = readfrom;
 
     return sizeofPacket;

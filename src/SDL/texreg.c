@@ -1722,10 +1722,10 @@ lifheader *trLIFFileLoad(char *fileName, udword flags)
     */
 #endif
     //fixup pointers in the header
-    (ubyte *)newHeader->data += (udword)newHeader;
-    (ubyte *)newHeader->palette += (udword)newHeader;
-    (ubyte *)newHeader->teamEffect0 += (udword)newHeader;
-    (ubyte *)newHeader->teamEffect1 += (udword)newHeader;
+    newHeader->data = (udword)newHeader + (ubyte *)newHeader->data;
+    newHeader->palette = (udword)newHeader + (ubyte *)newHeader->palette;
+    newHeader->teamEffect0 = (udword)newHeader + (ubyte *)newHeader->teamEffect0;
+    newHeader->teamEffect1 = (udword)newHeader + (ubyte *)newHeader->teamEffect1;
 
     return(newHeader);
 }
@@ -2833,7 +2833,8 @@ llelement *trListFileLoad(char *name, sdword *number)
         {
             if (list[index].nShared != 0)
             {
-                (ubyte *)list[index].sharedTo += (udword)sharingBlock;
+//                (ubyte *)list[index].sharedTo += (udword)sharingBlock;
+                list[index].sharedTo = (udword)sharingBlock + (ubyte *)list[index].sharedTo;
 
 #ifdef ENDIAN_BIG
                 // anonymous block so I can declare i with limited scope and not have
