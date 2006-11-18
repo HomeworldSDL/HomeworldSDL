@@ -4289,14 +4289,16 @@ char* utyGameSystemsPreInit(void)
     else
     {
 #endif
-        HomeworldCRC[0] = utyCodeCRCCompute();
+        HomeworldCRC[0] = 0;  // originally stored CRC for code block (WON hacked client check)
         if (!IgnoreBigfiles)
         {
-            bigCRC((udword*)&HomeworldCRC[1],(udword*)&HomeworldCRC[2]);
+            bigCRC((udword*)&HomeworldCRC[1],
+                   (udword*)&HomeworldCRC[2]);
         }
         else
         {
-            HomeworldCRC[1] = 0;    HomeworldCRC[2] = 0;
+            HomeworldCRC[1] = 0;
+            HomeworldCRC[2] = 0;
         }
         HomeworldCRC[3] = 0;
 //  }
@@ -4350,7 +4352,15 @@ char *utyGameSystemsInit(void)
 
     utySet2(SS2_Strings);
 
-    dbgMessagef("\nHomeworld CRC = 0x%x 0x%x 0x%x 0x%x", HomeworldCRC[0],HomeworldCRC[1],HomeworldCRC[2],HomeworldCRC[3]);
+    dbgMessagef(
+        "Homeworld CRCs = "
+        "0x%x (not used) "             // was CRC for code block (WON hacked client check)
+        "0x%x (Homeworld.big's TOC) "
+        "0x%x (Update.big's TOC) "
+        "0x%x (not used)",             // never used
+        HomeworldCRC[0], HomeworldCRC[1], HomeworldCRC[2], HomeworldCRC[3]
+    );
+    
     //startup timer
     sdl_flags = SDL_WasInit(SDL_INIT_EVERYTHING);
     if (!sdl_flags)
@@ -5307,52 +5317,6 @@ void utyDoubleClick(void)
         keyPressDown(LMOUSE_BUTTON);
     }
     keyPressUp(LMOUSE_BUTTON);
-}
-
-/*-----------------------------------------------------------------------------
-    Name        : utyCodeCRCCompute
-    Description : Compute a CRC of the game's code segment
-    Inputs      : void
-    Outputs     :
-    Return      : CRC of code segment
-----------------------------------------------------------------------------*/
-udword utyCodeCRCCompute(void)
-{
-    /* linkStartCode() might not come before linkEndCode() (didn't link that
-       way on my system), so we'll check which is greater first.
-       I could just remove this entirely, since I'm pretty sure it's only
-       needed for WONnet, but I'll keep it for now...
-       I could also rearrange their order in the Makefile, but I'm just a lazy
-       bastard... */
-    size_t start, count;
-    if (linkStartCode < linkEndCode)
-    {
-        start = (size_t)linkStartCode;
-        count = (size_t)linkEndCode - start;
-    }
-    else
-    {
-        start = (size_t)linkEndCode;
-        count = (size_t)linkStartCode - start;
-    }
-
-#ifdef _MACOSX_FIX_ME
-	return((udword)crc32Compute( (ubyte*)start, 2));
-#else
-    return((udword)crc32Compute(start, count));
-#endif
-}
-
-/*-----------------------------------------------------------------------------
-    Name        : utyDataCRCCompute
-    Description : Compute a CRC of the game's code segment
-    Inputs      : void
-    Outputs     :
-    Return      : CRC of code segment
-----------------------------------------------------------------------------*/
-udword utyDataCRCCompute(void)
-{
-    return((udword)crc32Compute((ubyte *)linkStartData, (udword)linkEndData - (udword)linkStartData));
 }
 
 /*-----------------------------------------------------------------------------

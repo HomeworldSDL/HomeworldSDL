@@ -205,7 +205,6 @@
 		3516C8FA077C41B0001AA863 /* glext.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD921F064AEE7A003E3D39 /* glext.h */; };
 		3516C8FB077C41B0001AA863 /* glinc.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9220064AEE7A003E3D39 /* glinc.h */; };
 		3516C8FD077C41B0001AA863 /* light.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9223064AEE7A003E3D39 /* light.h */; };
-		3516C8FE077C41B0001AA863 /* LinkLimits.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9225064AEE7A003E3D39 /* LinkLimits.h */; };
 		3516C8FF077C41B0001AA863 /* main.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9228064AEE7A003E3D39 /* main.h */; };
 		3516C900077C41B0001AA863 /* mainrgn.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD922A064AEE7A003E3D39 /* mainrgn.h */; };
 		3516C901077C41B0001AA863 /* mainswitches.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD922B064AEE7A003E3D39 /* mainswitches.h */; };
@@ -468,8 +467,6 @@
 		3516CA25077C41B0001AA863 /* glcompat.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD921A064AEE7A003E3D39 /* glcompat.c */; };
 		3516CA26077C41B0001AA863 /* gldll.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD921D064AEE7A003E3D39 /* gldll.c */; };
 		3516CA27077C41B0001AA863 /* light.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9222064AEE7A003E3D39 /* light.c */; };
-		3516CA28077C41B0001AA863 /* LinkEnd.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9224064AEE7A003E3D39 /* LinkEnd.c */; };
-		3516CA29077C41B0001AA863 /* LinkStart.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9226064AEE7A003E3D39 /* LinkStart.c */; };
 		3516CA2A077C41B0001AA863 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9227064AEE7A003E3D39 /* main.c */; };
 		3516CA2B077C41B0001AA863 /* mainrgn.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9229064AEE7A003E3D39 /* mainrgn.c */; };
 		3516CA2C077C41B0001AA863 /* mouse.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD922E064AEE7A003E3D39 /* mouse.c */; };
@@ -969,9 +966,6 @@
 		90BD9277064AEE7B003E3D39 /* glinc.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9220064AEE7A003E3D39 /* glinc.h */; };
 		90BD9279064AEE7B003E3D39 /* light.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9222064AEE7A003E3D39 /* light.c */; };
 		90BD927A064AEE7B003E3D39 /* light.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9223064AEE7A003E3D39 /* light.h */; };
-		90BD927B064AEE7B003E3D39 /* LinkEnd.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9224064AEE7A003E3D39 /* LinkEnd.c */; };
-		90BD927C064AEE7B003E3D39 /* LinkLimits.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9225064AEE7A003E3D39 /* LinkLimits.h */; };
-		90BD927D064AEE7B003E3D39 /* LinkStart.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9226064AEE7A003E3D39 /* LinkStart.c */; };
 		90BD927E064AEE7B003E3D39 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9227064AEE7A003E3D39 /* main.c */; };
 		90BD927F064AEE7B003E3D39 /* main.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9228064AEE7A003E3D39 /* main.h */; };
 		90BD9281064AEE7B003E3D39 /* mainrgn.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD922A064AEE7A003E3D39 /* mainrgn.h */; };
@@ -1541,9 +1535,6 @@
 		90BD9220064AEE7A003E3D39 /* glinc.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = glinc.h; path = ../src/SDL/glinc.h; sourceTree = SOURCE_ROOT; };
 		90BD9222064AEE7A003E3D39 /* light.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = light.c; path = ../src/SDL/light.c; sourceTree = SOURCE_ROOT; };
 		90BD9223064AEE7A003E3D39 /* light.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = light.h; path = ../src/SDL/light.h; sourceTree = SOURCE_ROOT; };
-		90BD9224064AEE7A003E3D39 /* LinkEnd.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = LinkEnd.c; path = ../src/SDL/LinkEnd.c; sourceTree = SOURCE_ROOT; };
-		90BD9225064AEE7A003E3D39 /* LinkLimits.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = LinkLimits.h; path = ../src/SDL/LinkLimits.h; sourceTree = SOURCE_ROOT; };
-		90BD9226064AEE7A003E3D39 /* LinkStart.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = LinkStart.c; path = ../src/SDL/LinkStart.c; sourceTree = SOURCE_ROOT; };
 		90BD9227064AEE7A003E3D39 /* main.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = main.c; path = ../src/SDL/main.c; sourceTree = SOURCE_ROOT; };
 		90BD9228064AEE7A003E3D39 /* main.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = main.h; path = ../src/SDL/main.h; sourceTree = SOURCE_ROOT; };
 		90BD9229064AEE7A003E3D39 /* mainrgn.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = mainrgn.c; path = ../src/SDL/mainrgn.c; sourceTree = SOURCE_ROOT; };
@@ -2232,9 +2223,6 @@
 				90BD9220064AEE7A003E3D39 /* glinc.h */,
 				90BD9222064AEE7A003E3D39 /* light.c */,
 				90BD9223064AEE7A003E3D39 /* light.h */,
-				90BD9224064AEE7A003E3D39 /* LinkEnd.c */,
-				90BD9225064AEE7A003E3D39 /* LinkLimits.h */,
-				90BD9226064AEE7A003E3D39 /* LinkStart.c */,
 				90BD9227064AEE7A003E3D39 /* main.c */,
 				90BD9228064AEE7A003E3D39 /* main.h */,
 				90BD9229064AEE7A003E3D39 /* mainrgn.c */,
@@ -2561,7 +2549,6 @@
 				3516C8FA077C41B0001AA863 /* glext.h in Headers */,
 				3516C8FB077C41B0001AA863 /* glinc.h in Headers */,
 				3516C8FD077C41B0001AA863 /* light.h in Headers */,
-				3516C8FE077C41B0001AA863 /* LinkLimits.h in Headers */,
 				3516C8FF077C41B0001AA863 /* main.h in Headers */,
 				3516C900077C41B0001AA863 /* mainrgn.h in Headers */,
 				3516C901077C41B0001AA863 /* mainswitches.h in Headers */,
@@ -2837,7 +2824,6 @@
 				90BD9276064AEE7B003E3D39 /* glext.h in Headers */,
 				90BD9277064AEE7B003E3D39 /* glinc.h in Headers */,
 				90BD927A064AEE7B003E3D39 /* light.h in Headers */,
-				90BD927C064AEE7B003E3D39 /* LinkLimits.h in Headers */,
 				90BD927F064AEE7B003E3D39 /* main.h in Headers */,
 				90BD9281064AEE7B003E3D39 /* mainrgn.h in Headers */,
 				90BD9282064AEE7B003E3D39 /* mainswitches.h in Headers */,
@@ -3345,8 +3331,6 @@
 				3516CA25077C41B0001AA863 /* glcompat.c in Sources */,
 				3516CA26077C41B0001AA863 /* gldll.c in Sources */,
 				3516CA27077C41B0001AA863 /* light.c in Sources */,
-				3516CA28077C41B0001AA863 /* LinkEnd.c in Sources */,
-				3516CA29077C41B0001AA863 /* LinkStart.c in Sources */,
 				3516CA2A077C41B0001AA863 /* main.c in Sources */,
 				3516CA2B077C41B0001AA863 /* mainrgn.c in Sources */,
 				3516CA2C077C41B0001AA863 /* mouse.c in Sources */,
@@ -3644,8 +3628,6 @@
 				90BD9271064AEE7B003E3D39 /* glcompat.c in Sources */,
 				90BD9274064AEE7B003E3D39 /* gldll.c in Sources */,
 				90BD9279064AEE7B003E3D39 /* light.c in Sources */,
-				90BD927B064AEE7B003E3D39 /* LinkEnd.c in Sources */,
-				90BD927D064AEE7B003E3D39 /* LinkStart.c in Sources */,
 				90BD927E064AEE7B003E3D39 /* main.c in Sources */,
 				90BD9285064AEE7B003E3D39 /* mouse.c in Sources */,
 				90BD9287064AEE7B003E3D39 /* prim2d.c in Sources */,
