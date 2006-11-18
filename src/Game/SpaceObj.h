@@ -15,7 +15,7 @@
 #include "LOD.h"
 #include "ObjTypes.h"
 #include "ETG.h"
-#include "trails.h"
+#include "Trails.h"
 #include "color.h"
 #include "SoundStructs.h"
 #include "MeshAnim.h"

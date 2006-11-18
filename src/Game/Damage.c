@@ -9,7 +9,7 @@
 #include <math.h>
 #include <string.h>
 #include "glinc.h"
-#include "trails.h"
+#include "Trails.h"
 #include "UnivUpdate.h"
 #include "Damage.h"
 #include "StatScript.h"

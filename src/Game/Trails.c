@@ -6,14 +6,7 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#define MIN2(x,y) ((x) < (y) ? (x) : (y))
-#define MAX2(x,y) ((x) > (y) ? (x) : (y))
-
-#define VECCOPY(D,S)  memcpy(D, S, sizeof(vector))
-#define MATCOPY(D,S)  memcpy(D, S, sizeof(matrix))
-#define HMATCOPY(D,S) memcpy(D, S, sizeof(hmatrix))
-
-#define TRAIL_LINE_CUTOFF_LOD 2
+#include "Trails.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -28,7 +21,6 @@
 #include "SpaceObj.h"
 #include "Universe.h"
 #include "Teams.h"
-#include "trails.h"
 #include "main.h"
 
 #include "FastMath.h"
@@ -47,6 +39,15 @@
 #if defined _MSC_VER
 	#define isnan(x) _isnan(x)
 #endif
+
+#define MIN2(x,y) ((x) < (y) ? (x) : (y))
+#define MAX2(x,y) ((x) > (y) ? (x) : (y))
+
+#define VECCOPY(D,S)  memcpy(D, S, sizeof(vector))
+#define MATCOPY(D,S)  memcpy(D, S, sizeof(matrix))
+#define HMATCOPY(D,S) memcpy(D, S, sizeof(hmatrix))
+
+#define TRAIL_LINE_CUTOFF_LOD 2
 
 extern udword gDevcaps2;
 
