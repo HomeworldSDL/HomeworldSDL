@@ -1,0 +1,305 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fcharset0 Impact;}{\f1\fswiss\fprq2\fcharset0 Arial;}{\f2\froman\fcharset0 Arial;}{\f3\fswiss\fcharset0 Arial;}{\f4\fswiss\fcharset0 Arial Bold;}{\f5\fmodern\fcharset0 Courier New;}{\f6\fnil\fcharset2 Symbol;}}
+{\colortbl ;\red0\green0\blue255;\red255\green0\blue0;}
+{\stylesheet{ Normal;}{\s1 heading 1;}{\s2 heading 2;}{\s3 heading 3;}{\s4 heading 4;}{\s5 heading 5;}}
+{\*\generator Msftedit 5.41.15.1507;}\viewkind4\uc1\pard\keepn\s4\ul\i\f0\fs32 Background Tool of the Geeks (BTG) User Guide\par
+\ulnone\i0\f1\fs20\par
+"Installation:\par
+\par
+To install the BTG, extract the contents of the zipfile into a\par
+a directory on your hard drive, such as "c:\\btg".  Be sure you\par
+extract pathnames as well; the BTG needs to access its bitmaps and\par
+undo directories exactly as placed in the .zip.\par
+\par
+You can then simply run BTG.exe, and start editing backgrounds.\par
+Check out btg.doc for information on how to use the tool itself.\par
+\par
+Note: any backgrounds you work on must be present in the same\par
+directory as BTG.exe, ie. "c:\\btg".  Sorry - we made the mistake\par
+of writing the BTG using MFC (Microsoft Foundation Classes), and\par
+boy did we pay the price.  Try saving to a read-only file and\par
+you'll get a helpful "File Not Found" error message, MFC's default\par
+for all file-related errors.  Argh."\ul\i\f0\fs32\par
+-------------\ulnone\i0\f2\fs20\par
+\pard\par
+\par
+\pard\tx400\tqr\tldot\tx8630\b\f3\fs24 0\b0\f2\tab\b\f3 Introduction\tab 1\b0\f2\par
+\pard\li288\tx1000\tqr\tldot\tx8630\b\i\f3\fs20 0.0\b0\i0\f2\fs24\tab\b\i\f3\fs20 Hotkeys\tab 1\b0\i0\f2\fs24\par
+\pard\tx400\tqr\tldot\tx8630\b\f3 1\b0\f2\tab\b\f3 Making a Background\tab 2\b0\f2\par
+\pard\li288\tx1000\tqr\tldot\tx8630\b\i\f3\fs20 1.0\b0\i0\f2\fs24\tab\b\i\f3\fs20 Getting started\tab 2\b0\i0\f2\fs24\par
+\b\i\f3\fs20 1.1\b0\i0\f2\fs24\tab\b\i\f3\fs20 Basic Background Creation\tab 2\b0\i0\f2\fs24\par
+\b\i\f3\fs20 1.2\b0\i0\f2\fs24\tab\b\i\f3\fs20 Getting Your Background Into the Game\tab 4\b0\i0\f2\fs24\par
+\pard\tx400\tqr\tldot\tx8630\b\f3 2\b0\f2\tab\b\f3 Advanced Techniques\tab 5\b0\f2\par
+\pard\f3\par
+\pard\keepn\s1\fi-432\li432\sb240\sa60\tx432\kerning28\b 0\tab\ul Introduction\par
+\pard\kerning0\ulnone\b0\f2\fs20\par
+The purpose of this guide is to teach you how to make a background for Homeworld and get it into the game.\par
+\par
+The BTG is a tool that allows you to create a flat polygonal mesh, assign colours to each of the vertices, and place small bitmap stars.  In the game, this flat mesh is mapped onto a giant sphere that encircles the level.  Goraud shading between vertices is used to render the background.\par
+\par
+\pard\keepn\s2\fi-576\li576\tx576\b\i\f3\fs24 0.0\tab\ul Hotkeys\par
+\pard\ulnone\b0\i0\f2\fs20\par
+Here is a table of hotkeys used in the BTG:\par
+\par
+\trowd\trgaph108\trleft-108\trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8748\pard\intbl\b\f3\par
+Editing Modes\cell\row\trowd\trgaph108\trleft-108\trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx3060\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8748\pard\intbl\b0 D, G\cell Polygon Edit Mode\cell\row\trowd\trgaph108\trleft-108\trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx3060\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8748\pard\intbl S\cell Star Mode\cell\row\trowd\trgaph108\trleft-108\trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx3060\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8748\pard\intbl V, X\cell Vertex Mode\cell\row\trowd\trgaph108\trleft-108\trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx3060\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8748\pard\intbl L\cell Light mode\cell\row\trowd\trgaph108\trleft-108\trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8748\pard\intbl\keepn\s5\b\f4\par
+\f3 Selection Controls\b0\cell\row\trowd\trgaph108\trleft-108\trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx3060\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8748\pard\intbl Leftclick\cell Select vertex / polygon\cell\row\trowd\trgaph108\trleft-108\trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx3060\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8748\pard\intbl C\cell Clear selection\cell\row\trowd\trgaph108\trleft-108\trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx3060\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8748\pard\intbl SHIFT + Right mouse button + drag mouse\cell\i Vertex Edit Mode\i0 : Add vertices to selection\par
+\i Polygon Edit Mode\i0 : Clear selection \par
+Star Edit Mode: Clear selection\cell\row\trowd\trgaph108\trleft-108\trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx3060\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8748\pard\intbl Right mouse button + drag mouse\cell\i Vertex Edit Mode\i0 : Clear selected vertices\par
+Polygon Edit Mode: Add polygons to selection\par
+\i Star Edit Mode\i0 : Add stars to selection\cell\row\trowd\trgaph108\trleft-108\trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8748\pard\intbl\b\par
+Camera Controls\cell\row\trowd\trgaph108\trleft-108\trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx3060\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8748\pard\intbl\b0 NumPad +\cell Zoom in\cell\row\trowd\trgaph108\trleft-108\trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx3060\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8748\pard\intbl NumPad -\cell Zoom out\cell\row\trowd\trgaph108\trleft-108\trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx3060\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8748\pard\intbl 1\cell Reset zoom to 0.5 and focus on top left hand corner of background. (Resets the frame to full screen)\cell\row\trowd\trgaph108\trleft-108\trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx3060\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8748\pard\intbl CTRL+ Left mouse button + Drag Mouse\cell Scrolls the work surface\cell\row\trowd\trgaph108\trleft-108\trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx3060\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8748\pard\intbl Cursor keys\cell Scrolls jerkily\cell\row\trowd\trgaph108\trleft-108\trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8748\pard\intbl\b\par
+Placement / Editing Commands\b0\cell\row\trowd\trgaph108\trleft-108\trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx3060\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8748\pard\intbl Leftclick\cell Place a vertex / star or connect vertices to form polygons\cell\row\trowd\trgaph108\trleft-108\trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx3060\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8748\pard\intbl\\\cell Split polygon\cell\row\trowd\trgaph108\trleft-108\trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx3060\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8748\pard\intbl M\cell Merge vertices\cell\row\trowd\trgaph108\trleft-108\trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx3060\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8748\pard\intbl Backspace\cell Toggle goraud shading (polygon colouring) on/off\cell\row\trowd\trgaph108\trleft-108\trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx3060\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8748\pard\intbl =\cell Toggle reference image on/off\cell\row\trowd\trgaph108\trleft-108\trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx3060\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8748\pard\intbl CTRL + Z\cell Undo last action \cell\row\trowd\trgaph108\trleft-108\trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx3060\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8748\pard\intbl CTRL + R\cell Redo last action\cell\row\trowd\trgaph108\trleft-108\trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx3060\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8748\pard\intbl P\cell\i Polygon Edit Mode\i0 : Polygon counter at bottom left\cell\row\trowd\trgaph108\trleft-108\trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx3060\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8748\pard\intbl R + leftclick\cell\i Vertex Edit Mode\i0 : updates the colour sliders with the colour of the pixel under the cursor (from reference image or polygons)\i\cell\row\trowd\trgaph108\trleft-108\trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx3060\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8748\pard\intbl\i0 [Alt] + leftclick\cell\i Vertex Edit Mode\i0 : updates the target vertex with the colour values of the colour sliders\cell\row\trowd\trgaph108\trleft-108\trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx3060\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8748\pard\intbl Delete\cell\i Vertex Edit Mode\i0 : Deletes selected vertices\par
+\i Polygon Edit Mode\i0 : Deletes selected polygons\par
+\i Star Edit Mode\i0 : Deletes selected stars\i\cell\row\pard\i0\f2\par
+\par
+\b Note\b0 : there are no cut, copy, and paste commands. \par
+\pard\keepn\s1\fi-432\li432\sb240\sa60\tx432\kerning28\b\f3\fs24 1\tab\ul Making a Background\par
+\pard\kerning0\ulnone\b0\f2\fs20\par
+\pard\keepn\s2\fi-576\li576\tx576\b\i\f3\fs24 1.0\tab\ul Getting started\par
+\pard\ulnone\b0\i0\f2\fs20\par
+\pard{\pntext\f6\'B7\tab}{\*\pn\pnlvlblt\pnf6\pnindent360{\pntxtb\'B7}}\fi-360\li360\tx360 Load up the BTG\par
+{\pntext\f6\'B7\tab}Select File, New\par
+{\pntext\f6\'B7\tab}You\rquote ll be given an empty frame on a black background.  This is the rectangular region that will be mapped spherically in the game.\par
+{\pntext\f6\'B7\tab}All the control windows will be arranged in a row across the top of the screen. Reposition them to free up working screen space. A column down the right hand side of the screen works quite well, or you can arrange them floating over the work surface - wherever it is most convenient for you.\par
+\pard\par
+\par
+\pard\keepn\s2\fi-576\li576\tx576\b\i\f3\fs24 1.1\tab\ul Basic Background Creation\par
+\pard\ulnone\b0\i0\f2\fs20\par
+\pard\keepn\s5\b Editing Modes\par
+\pard\b0\par
+The BTG has 3 editing modes accessible by hotkeys:\par
+\par
+\trowd\trgaph108\trleft-108\trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx4320\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8748\pard\intbl\f3 Polygon Edit Mode (D, G)\par
+\cell Lets you edit polygons\cell\row\trowd\trgaph108\trleft-108\trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx4320\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8748\pard\intbl Vertex Edit Mode (V, X)\par
+\cell Lets you place vertices\cell\row\trowd\trgaph108\trleft-108\trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx4320\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8748\pard\intbl Star Edit Mode (S)\par
+\cell Lets you place, move, and delete stars\cell\row\trowd\trgaph108\trleft-108\trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx4320\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8748\pard\intbl Light Edit Mode (L)\par
+\cell Lets you place, move, and delete lights\cell\row\pard\f2\par
+\pard\keepn\s5\b\par
+Viewing Modes\par
+\pard\b0\par
+The BTG has 3 viewing modes.  These are cycled by pressing [SPACE].\par
+\par
+\trowd\trgaph108\trleft-108\trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx2430\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8748\pard\intbl\f3 Vertices\cell Displays vertices as white boxes.  The colour inside the box is the colour assigned to the vertex.  A selected vertex is drawn as a red box.\cell\row\trowd\trgaph108\trleft-108\trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx2430\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8748\pard\intbl Polygons and Vertices\cell Displays polygons as white lines, and vertices as above.\cell\row\trowd\trgaph108\trleft-108\trpaddl108\trpaddr108\trpaddfl3\trpaddfr3
+\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx2430\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx8748\pard\intbl Background only\cell Turns off all vertices and polygons.\cell\row\pard\f2\par
+Background-only is the default viewing mode.  To do any actual background creation, however, you\rquote ll need to use the other modes.  Lights are visible only when in Light Edit Mode.\par
+\par
+\par
+\pard\keepn\s5\b How to Set the Background Colour\par
+\pard\b0\par
+Sometimes a background may have a predominant uniform colour behind the detailed areas. For example, even the darkest blacks in Homeworld\rquote s space were coloured slightly blue-grey. There are 3 sliders that control the RGB value of this background colour.  These are BG Red, BG Green, and BG Blue.  Leftclick on one of these sliders and drag the mouse to change the background colour, or type a number in directly.  This colour will show up anywhere where you haven\rquote t created polygons, or through vertices that have alpha (transparency) set. In this way you can still make colourful backgrounds but by using considerably less polygons to cover the coloured area.\par
+\par
+The BG Alpha slider exists only for the convenience of Light Edit Mode, and has no effect on the background colour itself.\par
+\par
+\par
+\pard\keepn\s5\b How to Create Vertices\par
+\pard\b0\par
+\pard{\pntext\f6\'B7\tab}{\*\pn\pnlvlblt\pnf6\pnindent360{\pntxtb\'B7}}\fi-360\li360\tx360 Press [V] to go into Vertex Edit Mode.\par
+{\pntext\f6\'B7\tab}Leftclick anywhere on the screen to place a vertex there (make sure you\rquote re in the right viewing mode so you can see the vertices you\rquote re placing \endash  they\rquote ll look like little white boxes).\par
+{\pntext\f6\'B7\tab}To select a vertex, leftclick on it, the white box should turn red.\par
+{\pntext\f6\'B7\tab}To move a vertex, leftclick on it and hold the mouse button.  Then drag the mouse to move the vertex around on screen.\par
+\pard\li720\b Note: \b0 if more than one vertex is selected, they will all move. Vertices will never move outside of the frame boundaries. They will just \lquote bunch up\rquote  at the edges.\par
+\pard\par
+\par
+\pard\keepn\s5\b How to Create Polygons\par
+\pard\b0\par
+\pard{\pntext\f6\'B7\tab}{\*\pn\pnlvlblt\pnf6\pnindent360{\pntxtb\'B7}}\fi-360\li360\tx360 Once you\rquote ve placed some vertices, press [D] or [G] to go into Polygon Edit Mode.\par
+{\pntext\f6\'B7\tab}Hit [SPACE] to go into Polygon View Mode.\par
+{\pntext\f6\'B7\tab}To create a polygon, leftclick on 3 vertices in any order.  The BTG will automatically make a triangular polygon between them. \par
+\pard\li720\b Note:\b0  if you see nothing, you either might not be in Polygon Edit Mode, (Hit [SPACE] until you can see your new poly) or you failed to actually select three vertices. (Try again).\par
+\pard{\pntext\f6\'B7\tab}{\*\pn\pnlvlblt\pnf6\pnindent360{\pntxtb\'B7}}\fi-360\li360\tx360 This is how you create polygons in the BTG: by dropping vertices down in Vertex Edit Mode, then making them into polygons in Polygon Edit Mode.\par
+{\pntext\f6\'B7\tab}To select a polygon, leftclick in the middle of it.  The edges will turn red to indicate it\rquote s selected.\par
+{\pntext\f6\'B7\tab}To move a polygon, leftclick on it and hold the mouse button.  Then drag the mouse to move the polygon.\par
+\pard\par
+\par
+\pard\keepn\s5\b How to Assign Vertex Colour\par
+\pard\b0\par
+\pard{\pntext\f6\'B7\tab}{\*\pn\pnlvlblt\pnf6\pnindent360{\pntxtb\'B7}}\fi-360\li360\tx360 Once you\rquote ve got some polygons in place, go into Vertex Edit Mode [V] and select a vertex to assign some colour to it.\par
+{\pntext\f6\'B7\tab}Leftclick on one of the Red / Green / Blue sliders to change the RGB value of the vertex.  Or, type the RGB value directly into the box next to the slider. This will change the colour of the vertex and the BTG will show the goraud shading on the polygons.\par
+\pard\li720\b Nifty Tips:\b0  to \lquote pick up\rquote  the colour of a vertex and assign it to another one, leftclick on the source vertex (the colour sliders will update) then hold down [Alt] and leftclick on the target vertex. It should now be the same colour as the source vertex. Note also that you can \lquote pick up\rquote  colours from anywhere on the polygonal background. To do this, select the vertex you want to edit then hold down [R] and leftclick wherever you want to \lquote pick up\rquote  colour from.  The selected vertex will now change colour accordingly.\par
+\pard\par
+\par
+\pard\keepn\s5\b How to Create Stars\par
+\pard\b0\par
+\pard{\pntext\f6\'B7\tab}{\*\pn\pnlvlblt\pnf6\pnindent360{\pntxtb\'B7}}\fi-360\li360\tx360 Press [S] to enter Star Edit Mode.\par
+\pard\li720\b Note: \b0 it\rquote s a good idea to be in Background Only Viewing Mode (hit [SPACE] a few times) to work on stars. All the vertices and polys on-screen will make stars very hard to see otherwise.\par
+\pard{\pntext\f6\'B7\tab}{\*\pn\pnlvlblt\pnf6\pnindent360{\pntxtb\'B7}}\fi-360\li360\tx360 There is a control window with a scrolling list of .tga files.  They range from small to large. Select one to choose the star to place.\par
+{\pntext\f6\'B7\tab}Leftclick anywhere on the screen to place a star there.\par
+{\pntext\f6\'B7\tab}Note that Stars can be assigned a colour the same way as a vertex colour.\par
+{\pntext\f6\'B7\tab}To move a star, leftclick on it and hold down the mouse button.  Then drag the mouse to move the star around on screen.\par
+\pard\li720\b Note:\b0  stars are tough on the game\rquote s framerate, (especially the big ones) so try not to use too many even though it\rquote s very tempting!\par
+\pard\par
+\par
+\pard\keepn\s5\b How to Create Lights\par
+\pard{\pntext\f2 1\tab}{\*\pn\pnlvlbody\pnf2\pnindent360\pnstart1\pndec }
+\fi-360\li360\tx360\b0 Press [L] to enter Light Edit Mode.\par
+\pard{\pntext\f2 2\tab}{\*\pn\pnlvlbody\pnf2\pnindent360\pnstart2\pndec }
+\fi-360\li360\tx360 Leftclick anywhere on the screen to place a light there.  You may place a maximum of 2 lights.\par
+\pard{\pntext\f2 3\tab}{\*\pn\pnlvlbody\pnf2\pnindent360\pnstart3\pndec }
+\fi-360\li360\tx360 Lights can be assigned a colour the same way as a vertex colour.\par
+\pard\li720\b Note:\b0  a light\rquote s intensity corresponds to the value of the Alpha slider.  That is, you can adjust the colour (red, green, blue) and intensity (\ldblquote alpha\rdblquote ) of a light.\par
+\pard{\pntext\f2 1\tab}{\*\pn\pnlvlbody\pnf2\pnindent360\pnstart1\pndec }
+\fi-360\li360\tx360 To move a light, leftclick on it and hold down the mouse button.  Then drag the mouse to move the light around the screen.\par
+\pard\li720\b Note:\b0  lights are generally placed on major features of the background that seem like they should be emitting light, like a bright red nebula in front of the player or a hot white star above and behind the universe plane.\par
+\pard{\pntext\f2 1\tab}{\*\pn\pnlvlbody\pnf2\pnindent360\pnstart1\pndec }
+\fi-360\li360\tx360 Note the status bar at the bottom of the BTG window.  When in Light Edit Mode it displays the number of lights in the scene (0, 1, or 2) and which light(s) you have selected (key, fill, or both).\par
+\pard{\pntext\f2 2\tab}{\*\pn\pnlvlbody\pnf2\pnindent360\pnstart2\pndec }
+\fi-360\li360\tx360 When you have the key light selecte, adjusting the Background colour sliders adjusts the scene\rquote s global ambient colour, eg. the light colour on the back side of a ship receiving directional light only from the front.\par
+\pard\li720\b Note:\b0  you generally want to balance the key and fill lights such that very little global ambient is required to illuminate objects in the game.  No lighting file that shipped with Homeworld had more than 40% ambient, a value of 102 on the BTG colour scale.\par
+\pard{\pntext\f2 1\tab}{\*\pn\pnlvlbody\pnf2\pnindent360\pnstart1\pndec }
+\fi-360\li360\tx360 Homeworld itself is the only way to preview a lighting arrangement.\par
+\pard\par
+\par
+\b Note\b0 : for reference, try loading up an existing btg file from those provided.\par
+\par
+\par
+\pard\keepn\s2\fi-576\li576\tx576\b\i\f3\fs24 1.2\tab\ul Getting Your Background Into the Game\par
+\pard\ulnone\b0\i0\f2\fs20\par
+\b Note\b0 : this assumes you already have a map to place your .btg file into.  If you don\rquote t, you can create one using the MissionMan or download one of the user-created maps from \cf1\ul www.relicnews.com\cf0\ulnone  or www.guidestone.com.\par
+\par
+To view your background in the game, do the following:\par
+\par
+\pard{\pntext\f6\'B7\tab}{\*\pn\pnlvlblt\pnf6\pnindent360{\pntxtb\'B7}}\fi-360\li360\tx360 Go to the \ul F\ulnone ile menu, and select \ul S\ulnone ave\par
+{\pntext\f6\'B7\tab}Browse to the directory where the map is. Type in the filename you want to save it as.  Make sure to add the extension \ldblquote .btg\rdblquote  to the file.\par
+{\pntext\f6\'B7\tab}Click Save\par
+\pard\par
+\b Note\b0 : you need to put the btg file in each map directory.  So if a map has a 2-player version, a 3-player version, etc. you need to save the btg file into each directory.\par
+\par
+\par
+\pard{\pntext\f6\'B7\tab}{\*\pn\pnlvlblt\pnf6\pnindent360{\pntxtb\'B7}}\fi-360\li360\tx360 Next, load the .level file in a text editor like Notepad\par
+{\pntext\f6\'B7\tab}It will have a line that reads \ldblquote\f5 Background\tab\tab ez01, 180,0\f2\rdblquote\par
+{\pntext\f6\'B7\tab}Change \ldblquote\f5 ez01\f2\rdblquote  to the name of your file.  Don\rquote t include the .btg extenstion.\par
+{\pntext\f6\'B7\tab}So if you called named your file \ldblquote Nebula.btg\rdblquote   it would read:                                                    \ldblquote\f5 Background\tab\tab Nebula, 180,0\f2\rdblquote\par
+{\pntext\f6\'B7\tab}Save the .level file with your changes\par
+\pard\par
+\b Note\b0 : you can also change the background attribute in MissionMan, then re-generate the .level file.\par
+\par
+\par
+\pard{\pntext\f6\'B7\tab}{\*\pn\pnlvlblt\pnf6\pnindent360{\pntxtb\'B7}}\fi-360\li360\tx360 Lastly, load up the level in Homeworld, either in a Multiplayer Skirmish, Lan, or Internet game.\par
+{\pntext\f6\'B7\tab}If you\rquote re playing an Internet game, the btg file will be transferred automatically (\cf2 unless it\rquote s over 60K\cf0 )\par
+\pard\par
+\par
+\pard\keepn\s1\fi-432\li432\sb240\sa60\tx432\kerning28\b\f3\fs24 2\tab\ul Advanced Techniques\par
+\pard\kerning0\ulnone\b0\f2\fs20\par
+\par
+\pard\keepn\s5\b Setting Vertex Alpha\par
+\pard\b0\par
+To set the alpha (transparency) of a vertex, select it and leftclick on the Alpha slider bar, or type the alpha value in directly.  This will allow the background colour to show through.\par
+\pard\li720\b Note: \b0 the game engine will occasionally alter the background colour when entering a cloud bank, for instance.  In this case, a background that was created using black with no transparency to blend into the blackness of space will exhibit an unsightly black fringe.  Avoid this by using alpha to blend features, and test by adjusting the background colour from within the BTG to determine the effect.\par
+\pard\par
+\par
+\pard\keepn\s5\b Setting Vertex Brightness\par
+\pard\b0\par
+To set the brightness of a vertex, select it and leftclick on the Brightness slider bar, or type the brightness value in directly.  This is particularly useful if you want to change the overall brightness of an entire area of your background. If this is the case, you would select all the vertices in the area you want to effect and adjust the brightness values accordingly. \par
+\pard\li720\b Note: \b0 Take care when doing this and save your work often \endash  it gets weird really fast as brightness values are lost into the mix of repeated adjustments.\par
+\pard\par
+\par
+\pard\keepn\s5\b Splitting Polygons\par
+\pard\b0\par
+To split a polygon:\par
+\par
+\pard{\pntext\f6\'B7\tab}{\*\pn\pnlvlblt\pnf6\pnindent360{\pntxtb\'B7}}\fi-360\li360\tx360 Make sure you\rquote re in Polygon Edit Mode (D)\par
+{\pntext\f6\'B7\tab}Select a polygon by leftclicking in it.  The edges will turn red to indicate it\rquote s selected\par
+{\pntext\f6\'B7\tab}Press [ or ] to cycle through the edges.  The selected edge will turn green to indicate it\rquote s selected.\par
+{\pntext\f6\'B7\tab}Press [\\] to split the polygon into two.\par
+\pard\par
+\b Note\b0 : when you split a polygon that shares an edge with another polygon, a gap will be created between the two edges.  To get rid of this gap, or \lquote seam\rquote , do the following:\par
+\par
+\pard{\pntext\f6\'B7\tab}{\*\pn\pnlvlblt\pnf6\pnindent360{\pntxtb\'B7}}\fi-360\li360\tx360 Split the polygon on the other side of the gap\par
+{\pntext\f6\'B7\tab}You should now have two split polygons, with a gap in the middle of them.\par
+{\pntext\f6\'B7\tab}Go into Vertex Edit Mode by pressing [V]\par
+{\pntext\f6\'B7\tab}Select one of the newly-created vertices and move it on top of the other newly-created vertex\par
+{\pntext\f6\'B7\tab}Clear the selection by pressing [C]\par
+{\pntext\f6\'B7\tab}Hold down the right mouse button and drag a bandbox around both vertices (which should now be on top of each other)\par
+{\pntext\f6\'B7\tab}Press [M] to merge the vertices\par
+\pard\par
+\b Note\b0 : the two vertices have to be on top of each other.  If they\rquote re a bit off, the Merge command won\rquote t work.  You may need to zoom in to position the vertices carefully if they\rquote re not merging.\par
+\par
+\par
+\pard\keepn\s5\b Distortion at the poles\par
+\pard\b0\par
+Because the btg file is spherically mapped, there will be increasingly serious distortion towards the poles of the sphere.  This means any polygons you create near the top or bottom of the frame will be distorted.  To view what your background will look like in the game, use the 3D viewing mode.\par
+\par
+\par
+\pard\keepn\s5\b Flat / 3D Viewing Modes\par
+\pard\b0\par
+By default, the BTG views the background \lquote flat\rquote .  To see how the background will look in the game (when it\rquote s spherically mapped), leftclick on the \ldblquote 3D\rdblquote  radio button.  To rotate the camera, leftclick and hold down the mouse button while dragging the mouse.\par
+\par
+\par
+\pard\keepn\s5\b Using a Targa File as a Reference Image\par
+\pard\b0\par
+The BTG allows you to use a targa (.tga) file as a reference image \lquote backdrop\rquote  to guide your background building efforts.  To load up a reference image:\par
+\par
+\pard{\pntext\f6\'B7\tab}{\*\pn\pnlvlblt\pnf6\pnindent360{\pntxtb\'B7}}\fi-360\li360\tx360 Go to the \ul B\ulnone TG menu and select \ul L\ulnone oadBackground\par
+{\pntext\f6\'B7\tab}Browse to the directory with your .tga file and load it\par
+{\pntext\f6\'B7\tab}The image will now appear behind the polygons / vertices of  your background\par
+\pard\par
+\b Note\b0 : to toggle the reference image on/off, press [=]\par
+\cf2\par
+\cf0 A reference image will provide you with both the outlines of the desired background forms (like clouds) and the colours you wish to use.  The BTG runs a lot slower when a reference image is loaded.\par
+\par
+To maximize the use of your reference image:\par
+\par
+\pard{\pntext\f2 1\tab}{\*\pn\pnlvlbody\pnf2\pnindent360\pnstart1\pndec }
+\fi-360\li360\tx360 Load up the reference .tga as described above.\par
+\pard{\pntext\f2 2\tab}{\*\pn\pnlvlbody\pnf2\pnindent360\pnstart2\pndec }
+\fi-360\li360\tx360 In Vertex Edit Mode [V], place vertices along the edges of the forms you want to trace. They should be visible \lquote floating over\rquote  the reference image backdrop.\par
+\pard{\pntext\f2 3\tab}{\*\pn\pnlvlbody\pnf2\pnindent360\pnstart3\pndec }
+\fi-360\li360\tx360 Select a vertex, hold down [R] and leftclick on the reference image as close to the vertex as possible. This will change the colour of the vertex to the colour of the reference image where you clicked. In this way you can assign colours to your vertexes that replicate your reference image.\par
+\pard{\pntext\f2 4\tab}{\*\pn\pnlvlbody\pnf2\pnindent360\pnstart4\pndec }
+\fi-360\li360\tx360 In Polygon Edit Mode [G], construct polygons between the vertices. It should start looking more like your reference image now.\par
+\pard{\pntext\f2 5\tab}{\*\pn\pnlvlbody\pnf2\pnindent360\pnstart5\pndec }
+\fi-360\li360\tx360 Hit [Backspace] to toggle off and on your polygons. You will be able to see how accurate your background is compared to your reference image and adjust it\rquote s colours and vertex positions accordingly.\par
+\pard\par
+\par
+\pard\keepn\s5\b Creating Your Own Stars\par
+\pard\b0\par
+If you like, you can create your own star bitmaps in a 3\super rd\nosupersub -party program like Photoshop.  Bitmaps must be placed in the \b bitmaps\b0  directory which you will find where you installed the BTG program.\par
+\par
+Bitmaps must be sized in a power of 2, ie. 2, 4, 8, 16, 32, etc.  Though width and height do not have to be identical, they must both be powers of 2.  Bitmaps must have an alpha channel specified unless you want to be mapping a square block onto your background.\par
+\par
+Bitmaps must be saved as 32bit Targa files (.TGA).  32bit only, please.\par
+\par
+\pard\keepn\s5\b Crash Recovery\par
+\pard\cf2\par
+\cf0\b0 In the unlikely event of a crash, reload the BTG and hit \lquote Redo\rquote  over and over again. You will witness your work rebuild itself before your eyes until it is back where you were before the crash. Additional Redos will revert it to an older version, so just hit \lquote Undo\rquote  and it will go backwards until you are back where you want to be again. \par
+\par
+\pard\keepn\s5\b Poly Counts\par
+\pard\par
+\b0 The average poly count for a background in Homeworld was under 900 polys. The more polys, the slower the framerate. Keep an eye on your poly count by pressing [P] in Polygon Edit Mode. The figure will appear at the bottom left hand corner of your screen.\par
+\par
+}
+ 
