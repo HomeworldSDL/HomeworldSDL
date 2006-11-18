@@ -567,8 +567,10 @@ void CBTGBitmapBar::OnUpdate(void)
 	pCBox = (CComboBox *)GetDlgItem(IDC_COMBO1);
 
 	int index = pCBox->GetCurSel();
+	
+	if (index!=CB_ERR) {
 	pCBox->GetLBText(index, tempStr);
-
+	}
 	if(curFileName)
 	{
 		if(!strcmp(curFileName, tempStr))
