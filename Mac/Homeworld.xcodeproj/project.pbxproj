@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3507A51B0B0FA60200E374C5 /* Trails.c in Sources */ = {isa = PBXBuildFile; fileRef = 3507A5190B0FA60200E374C5 /* Trails.c */; };
+		3507A51C0B0FA60200E374C5 /* Trails.h in Headers */ = {isa = PBXBuildFile; fileRef = 3507A51A0B0FA60200E374C5 /* Trails.h */; };
+		3507A51D0B0FA60200E374C5 /* Trails.c in Sources */ = {isa = PBXBuildFile; fileRef = 3507A5190B0FA60200E374C5 /* Trails.c */; };
+		3507A51E0B0FA60200E374C5 /* Trails.h in Headers */ = {isa = PBXBuildFile; fileRef = 3507A51A0B0FA60200E374C5 /* Trails.h */; };
 		3510B754077C8863007B8838 /* mainrgn.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9229064AEE7A003E3D39 /* mainrgn.c */; };
 		3510D4B90785065F00F840B1 /* Tutorial1.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD91B3064AC6F6003E3D39 /* Tutorial1.c */; };
 		3510D4BA0785066000F840B1 /* Tutorial1.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD91B4064AC6F6003E3D39 /* Tutorial1.func.c */; };
@@ -220,7 +224,6 @@
 		3516C912077C41B0001AA863 /* TitanInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9253064AEE7A003E3D39 /* TitanInterface.h */; };
 		3516C913077C41B0001AA863 /* TitanInterfaceC.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9254064AEE7A003E3D39 /* TitanInterfaceC.h */; };
 		3516C914077C41B0001AA863 /* TitanPacketMsg.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9257064AEE7A003E3D39 /* TitanPacketMsg.h */; };
-		3516C915077C41B0001AA863 /* trails.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9259064AEE7A003E3D39 /* trails.h */; };
 		3516C916077C41B0001AA863 /* utility.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD925B064AEE7A003E3D39 /* utility.h */; };
 		3516C917077C41B0001AA863 /* AdvanceSupportFrigate.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD92E8064AEF42003E3D39 /* AdvanceSupportFrigate.h */; };
 		3516C918077C41B0001AA863 /* Carrier.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD92EA064AEF42003E3D39 /* Carrier.h */; };
@@ -481,7 +484,6 @@
 		3516CA38077C41B0001AA863 /* TimeoutTimer.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD924E064AEE7A003E3D39 /* TimeoutTimer.c */; };
 		3516CA39077C41B0001AA863 /* Titan.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9250064AEE7A003E3D39 /* Titan.c */; };
 		3516CA3A077C41B0001AA863 /* TitanInterfaceC.stub.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9255064AEE7A003E3D39 /* TitanInterfaceC.stub.c */; };
-		3516CA3B077C41B0001AA863 /* trails.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9258064AEE7A003E3D39 /* trails.c */; };
 		3516CA3C077C41B0001AA863 /* utility.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD925A064AEE7A003E3D39 /* utility.c */; };
 		3516CA3D077C41B0001AA863 /* AdvanceSupportFrigate.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD92E7064AEF42003E3D39 /* AdvanceSupportFrigate.c */; };
 		3516CA3E077C41B0001AA863 /* Carrier.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD92E9064AEF42003E3D39 /* Carrier.c */; };
@@ -1006,8 +1008,6 @@
 		90BD92AB064AEE7B003E3D39 /* TitanInterfaceC.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9254064AEE7A003E3D39 /* TitanInterfaceC.h */; };
 		90BD92AC064AEE7B003E3D39 /* TitanInterfaceC.stub.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9255064AEE7A003E3D39 /* TitanInterfaceC.stub.c */; };
 		90BD92AE064AEE7B003E3D39 /* TitanPacketMsg.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9257064AEE7A003E3D39 /* TitanPacketMsg.h */; };
-		90BD92AF064AEE7B003E3D39 /* trails.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9258064AEE7A003E3D39 /* trails.c */; };
-		90BD92B0064AEE7B003E3D39 /* trails.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9259064AEE7A003E3D39 /* trails.h */; };
 		90BD92B1064AEE7B003E3D39 /* utility.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD925A064AEE7A003E3D39 /* utility.c */; };
 		90BD92B2064AEE7B003E3D39 /* utility.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD925B064AEE7A003E3D39 /* utility.h */; };
 		90BD9339064AEF43003E3D39 /* AdvanceSupportFrigate.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD92E7064AEF42003E3D39 /* AdvanceSupportFrigate.c */; };
@@ -1099,6 +1099,8 @@
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		35017184077C54EA00684108 /* English */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/HomeworldPlist.strings; sourceTree = "<group>"; };
+		3507A5190B0FA60200E374C5 /* Trails.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Trails.c; sourceTree = "<group>"; };
+		3507A51A0B0FA60200E374C5 /* Trails.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Trails.h; sourceTree = "<group>"; };
 		351B671C077E3D80002ABC6E /* Raider Retreat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Raider Retreat.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		351B67AA077E4728002ABC6E /* English */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/RaiderRetreatPlist.strings; sourceTree = "<group>"; };
 		35517D000732720E00691120 /* Homeworld_Prefix.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Homeworld_Prefix.h; sourceTree = "<group>"; };
@@ -1579,8 +1581,6 @@
 		90BD9254064AEE7A003E3D39 /* TitanInterfaceC.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TitanInterfaceC.h; path = ../src/SDL/TitanInterfaceC.h; sourceTree = SOURCE_ROOT; };
 		90BD9255064AEE7A003E3D39 /* TitanInterfaceC.stub.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = TitanInterfaceC.stub.c; path = ../src/SDL/TitanInterfaceC.stub.c; sourceTree = SOURCE_ROOT; };
 		90BD9257064AEE7A003E3D39 /* TitanPacketMsg.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TitanPacketMsg.h; path = ../src/SDL/TitanPacketMsg.h; sourceTree = SOURCE_ROOT; };
-		90BD9258064AEE7A003E3D39 /* trails.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = trails.c; path = ../src/SDL/trails.c; sourceTree = SOURCE_ROOT; };
-		90BD9259064AEE7A003E3D39 /* trails.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = trails.h; path = ../src/SDL/trails.h; sourceTree = SOURCE_ROOT; };
 		90BD925A064AEE7A003E3D39 /* utility.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = utility.c; path = ../src/SDL/utility.c; sourceTree = SOURCE_ROOT; };
 		90BD925B064AEE7A003E3D39 /* utility.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = utility.h; path = ../src/SDL/utility.h; sourceTree = SOURCE_ROOT; };
 		90BD92E7064AEF42003E3D39 /* AdvanceSupportFrigate.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = AdvanceSupportFrigate.c; path = ../src/Ships/AdvanceSupportFrigate.c; sourceTree = SOURCE_ROOT; };
@@ -2046,6 +2046,8 @@
 				90623D03064992AF0088361C /* Tracking.h */,
 				90623D04064992AF0088361C /* TradeMgr.c */,
 				90623D05064992AF0088361C /* TradeMgr.h */,
+				3507A5190B0FA60200E374C5 /* Trails.c */,
+				3507A51A0B0FA60200E374C5 /* Trails.h */,
 				90623D07064992AF0088361C /* Transformer.c */,
 				90623D08064992AF0088361C /* Transformer.h */,
 				90623D09064992AF0088361C /* Tutor.c */,
@@ -2271,8 +2273,6 @@
 				90BD9254064AEE7A003E3D39 /* TitanInterfaceC.h */,
 				90BD9255064AEE7A003E3D39 /* TitanInterfaceC.stub.c */,
 				90BD9257064AEE7A003E3D39 /* TitanPacketMsg.h */,
-				90BD9258064AEE7A003E3D39 /* trails.c */,
-				90BD9259064AEE7A003E3D39 /* trails.h */,
 				90BD925A064AEE7A003E3D39 /* utility.c */,
 				90BD925B064AEE7A003E3D39 /* utility.h */,
 			);
@@ -2584,7 +2584,6 @@
 				3516C912077C41B0001AA863 /* TitanInterface.h in Headers */,
 				3516C913077C41B0001AA863 /* TitanInterfaceC.h in Headers */,
 				3516C914077C41B0001AA863 /* TitanPacketMsg.h in Headers */,
-				3516C915077C41B0001AA863 /* trails.h in Headers */,
 				3516C916077C41B0001AA863 /* utility.h in Headers */,
 				3516C917077C41B0001AA863 /* AdvanceSupportFrigate.h in Headers */,
 				3516C918077C41B0001AA863 /* Carrier.h in Headers */,
@@ -2631,6 +2630,7 @@
 				3516C941077C41B0001AA863 /* Mission05_OEM.h in Headers */,
 				3510D4BB0785066100F840B1 /* Tutorial1.h in Headers */,
 				3578AD0B0AF40518007BFA9F /* StringSupport.h in Headers */,
+				3507A51C0B0FA60200E374C5 /* Trails.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2860,7 +2860,6 @@
 				90BD92AA064AEE7B003E3D39 /* TitanInterface.h in Headers */,
 				90BD92AB064AEE7B003E3D39 /* TitanInterfaceC.h in Headers */,
 				90BD92AE064AEE7B003E3D39 /* TitanPacketMsg.h in Headers */,
-				90BD92B0064AEE7B003E3D39 /* trails.h in Headers */,
 				90BD92B2064AEE7B003E3D39 /* utility.h in Headers */,
 				90BD933A064AEF43003E3D39 /* AdvanceSupportFrigate.h in Headers */,
 				90BD933C064AEF43003E3D39 /* Carrier.h in Headers */,
@@ -2905,6 +2904,7 @@
 				90BD93C4064AF4F3003E3D39 /* SDLMain.h in Headers */,
 				35517D010732720E00691120 /* Homeworld_Prefix.h in Headers */,
 				3578AD090AF40518007BFA9F /* StringSupport.h in Headers */,
+				3507A51E0B0FA60200E374C5 /* Trails.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3364,7 +3364,6 @@
 				3516CA38077C41B0001AA863 /* TimeoutTimer.c in Sources */,
 				3516CA39077C41B0001AA863 /* Titan.c in Sources */,
 				3516CA3A077C41B0001AA863 /* TitanInterfaceC.stub.c in Sources */,
-				3516CA3B077C41B0001AA863 /* trails.c in Sources */,
 				3516CA3C077C41B0001AA863 /* utility.c in Sources */,
 				3516CA3D077C41B0001AA863 /* AdvanceSupportFrigate.c in Sources */,
 				3516CA3E077C41B0001AA863 /* Carrier.c in Sources */,
@@ -3414,6 +3413,7 @@
 				3510D4B90785065F00F840B1 /* Tutorial1.c in Sources */,
 				3510D4BA0785066000F840B1 /* Tutorial1.func.c in Sources */,
 				3578AD0A0AF40518007BFA9F /* StringSupport.c in Sources */,
+				3507A51B0B0FA60200E374C5 /* Trails.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3662,7 +3662,6 @@
 				90BD92A5064AEE7B003E3D39 /* TimeoutTimer.c in Sources */,
 				90BD92A7064AEE7B003E3D39 /* Titan.c in Sources */,
 				90BD92AC064AEE7B003E3D39 /* TitanInterfaceC.stub.c in Sources */,
-				90BD92AF064AEE7B003E3D39 /* trails.c in Sources */,
 				90BD92B1064AEE7B003E3D39 /* utility.c in Sources */,
 				90BD9339064AEF43003E3D39 /* AdvanceSupportFrigate.c in Sources */,
 				90BD933B064AEF43003E3D39 /* Carrier.c in Sources */,
@@ -3709,6 +3708,7 @@
 				9030AF95066D5D2C00B32218 /* rinit.c in Sources */,
 				3510B754077C8863007B8838 /* mainrgn.c in Sources */,
 				3578AD080AF40518007BFA9F /* StringSupport.c in Sources */,
+				3507A51D0B0FA60200E374C5 /* Trails.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
