@@ -11,6 +11,10 @@
 		3507A51C0B0FA60200E374C5 /* Trails.h in Headers */ = {isa = PBXBuildFile; fileRef = 3507A51A0B0FA60200E374C5 /* Trails.h */; };
 		3507A51D0B0FA60200E374C5 /* Trails.c in Sources */ = {isa = PBXBuildFile; fileRef = 3507A5190B0FA60200E374C5 /* Trails.c */; };
 		3507A51E0B0FA60200E374C5 /* Trails.h in Headers */ = {isa = PBXBuildFile; fileRef = 3507A51A0B0FA60200E374C5 /* Trails.h */; };
+		3507A57A0B0FBB0B00E374C5 /* Subtitle.c in Sources */ = {isa = PBXBuildFile; fileRef = 3507A5780B0FBB0B00E374C5 /* Subtitle.c */; };
+		3507A57B0B0FBB0B00E374C5 /* Subtitle.h in Headers */ = {isa = PBXBuildFile; fileRef = 3507A5790B0FBB0B00E374C5 /* Subtitle.h */; };
+		3507A57C0B0FBB0B00E374C5 /* Subtitle.c in Sources */ = {isa = PBXBuildFile; fileRef = 3507A5780B0FBB0B00E374C5 /* Subtitle.c */; };
+		3507A57D0B0FBB0B00E374C5 /* Subtitle.h in Headers */ = {isa = PBXBuildFile; fileRef = 3507A5790B0FBB0B00E374C5 /* Subtitle.h */; };
 		3510B754077C8863007B8838 /* mainrgn.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9229064AEE7A003E3D39 /* mainrgn.c */; };
 		3510D4B90785065F00F840B1 /* Tutorial1.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD91B3064AC6F6003E3D39 /* Tutorial1.c */; };
 		3510D4BA0785066000F840B1 /* Tutorial1.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD91B4064AC6F6003E3D39 /* Tutorial1.func.c */; };
@@ -217,7 +221,6 @@
 		3516C90B077C41B0001AA863 /* screenshot.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD923F064AEE7A003E3D39 /* screenshot.h */; };
 		3516C90C077C41B0001AA863 /* soundcmn.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9242064AEE7A003E3D39 /* soundcmn.h */; };
 		3516C90D077C41B0001AA863 /* soundlow.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9245064AEE7A003E3D39 /* soundlow.h */; };
-		3516C90E077C41B0001AA863 /* Subtitle.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD924B064AEE7A003E3D39 /* Subtitle.h */; };
 		3516C90F077C41B0001AA863 /* texreg.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD924D064AEE7A003E3D39 /* texreg.h */; };
 		3516C910077C41B0001AA863 /* TimeoutTimer.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD924F064AEE7A003E3D39 /* TimeoutTimer.h */; };
 		3516C911077C41B0001AA863 /* Titan.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9251064AEE7A003E3D39 /* Titan.h */; };
@@ -479,7 +482,6 @@
 		3516CA33077C41B0001AA863 /* smixer.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9240064AEE7A003E3D39 /* smixer.c */; };
 		3516CA34077C41B0001AA863 /* soundlow.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9243064AEE7A003E3D39 /* soundlow.c */; };
 		3516CA35077C41B0001AA863 /* sstream.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9248064AEE7A003E3D39 /* sstream.c */; };
-		3516CA36077C41B0001AA863 /* Subtitle.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD924A064AEE7A003E3D39 /* Subtitle.c */; };
 		3516CA37077C41B0001AA863 /* texreg.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD924C064AEE7A003E3D39 /* texreg.c */; };
 		3516CA38077C41B0001AA863 /* TimeoutTimer.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD924E064AEE7A003E3D39 /* TimeoutTimer.c */; };
 		3516CA39077C41B0001AA863 /* Titan.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9250064AEE7A003E3D39 /* Titan.c */; };
@@ -996,8 +998,6 @@
 		90BD929A064AEE7B003E3D39 /* soundlow.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9243064AEE7A003E3D39 /* soundlow.c */; };
 		90BD929C064AEE7B003E3D39 /* soundlow.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9245064AEE7A003E3D39 /* soundlow.h */; };
 		90BD929F064AEE7B003E3D39 /* sstream.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9248064AEE7A003E3D39 /* sstream.c */; };
-		90BD92A1064AEE7B003E3D39 /* Subtitle.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD924A064AEE7A003E3D39 /* Subtitle.c */; };
-		90BD92A2064AEE7B003E3D39 /* Subtitle.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD924B064AEE7A003E3D39 /* Subtitle.h */; };
 		90BD92A3064AEE7B003E3D39 /* texreg.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD924C064AEE7A003E3D39 /* texreg.c */; };
 		90BD92A4064AEE7B003E3D39 /* texreg.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD924D064AEE7A003E3D39 /* texreg.h */; };
 		90BD92A5064AEE7B003E3D39 /* TimeoutTimer.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD924E064AEE7A003E3D39 /* TimeoutTimer.c */; };
@@ -1101,6 +1101,8 @@
 		35017184077C54EA00684108 /* English */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/HomeworldPlist.strings; sourceTree = "<group>"; };
 		3507A5190B0FA60200E374C5 /* Trails.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Trails.c; sourceTree = "<group>"; };
 		3507A51A0B0FA60200E374C5 /* Trails.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Trails.h; sourceTree = "<group>"; };
+		3507A5780B0FBB0B00E374C5 /* Subtitle.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Subtitle.c; sourceTree = "<group>"; };
+		3507A5790B0FBB0B00E374C5 /* Subtitle.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Subtitle.h; sourceTree = "<group>"; };
 		351B671C077E3D80002ABC6E /* Raider Retreat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Raider Retreat.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		351B67AA077E4728002ABC6E /* English */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/RaiderRetreatPlist.strings; sourceTree = "<group>"; };
 		35517D000732720E00691120 /* Homeworld_Prefix.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Homeworld_Prefix.h; sourceTree = "<group>"; };
@@ -1569,8 +1571,6 @@
 		90BD9243064AEE7A003E3D39 /* soundlow.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = soundlow.c; path = ../src/SDL/soundlow.c; sourceTree = SOURCE_ROOT; };
 		90BD9245064AEE7A003E3D39 /* soundlow.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = soundlow.h; path = ../src/SDL/soundlow.h; sourceTree = SOURCE_ROOT; };
 		90BD9248064AEE7A003E3D39 /* sstream.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = sstream.c; path = ../src/SDL/sstream.c; sourceTree = SOURCE_ROOT; };
-		90BD924A064AEE7A003E3D39 /* Subtitle.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Subtitle.c; path = ../src/SDL/Subtitle.c; sourceTree = SOURCE_ROOT; };
-		90BD924B064AEE7A003E3D39 /* Subtitle.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Subtitle.h; path = ../src/SDL/Subtitle.h; sourceTree = SOURCE_ROOT; };
 		90BD924C064AEE7A003E3D39 /* texreg.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = texreg.c; path = ../src/SDL/texreg.c; sourceTree = SOURCE_ROOT; };
 		90BD924D064AEE7A003E3D39 /* texreg.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = texreg.h; path = ../src/SDL/texreg.h; sourceTree = SOURCE_ROOT; };
 		90BD924E064AEE7A003E3D39 /* TimeoutTimer.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = TimeoutTimer.c; path = ../src/SDL/TimeoutTimer.c; sourceTree = SOURCE_ROOT; };
@@ -2027,6 +2027,8 @@
 				90623CF2064992AF0088361C /* StringsOnly.h */,
 				3578AD060AF40518007BFA9F /* StringSupport.c */,
 				3578AD070AF40518007BFA9F /* StringSupport.h */,
+				3507A5780B0FBB0B00E374C5 /* Subtitle.c */,
+				3507A5790B0FBB0B00E374C5 /* Subtitle.h */,
 				90623CF3064992AF0088361C /* Switches.h */,
 				90623CF4064992AF0088361C /* Tactical.c */,
 				90623CF5064992AF0088361C /* Tactical.h */,
@@ -2261,8 +2263,6 @@
 				90BD9243064AEE7A003E3D39 /* soundlow.c */,
 				90BD9245064AEE7A003E3D39 /* soundlow.h */,
 				90BD9248064AEE7A003E3D39 /* sstream.c */,
-				90BD924A064AEE7A003E3D39 /* Subtitle.c */,
-				90BD924B064AEE7A003E3D39 /* Subtitle.h */,
 				90BD924C064AEE7A003E3D39 /* texreg.c */,
 				90BD924D064AEE7A003E3D39 /* texreg.h */,
 				90BD924E064AEE7A003E3D39 /* TimeoutTimer.c */,
@@ -2577,7 +2577,6 @@
 				3516C90B077C41B0001AA863 /* screenshot.h in Headers */,
 				3516C90C077C41B0001AA863 /* soundcmn.h in Headers */,
 				3516C90D077C41B0001AA863 /* soundlow.h in Headers */,
-				3516C90E077C41B0001AA863 /* Subtitle.h in Headers */,
 				3516C90F077C41B0001AA863 /* texreg.h in Headers */,
 				3516C910077C41B0001AA863 /* TimeoutTimer.h in Headers */,
 				3516C911077C41B0001AA863 /* Titan.h in Headers */,
@@ -2631,6 +2630,7 @@
 				3510D4BB0785066100F840B1 /* Tutorial1.h in Headers */,
 				3578AD0B0AF40518007BFA9F /* StringSupport.h in Headers */,
 				3507A51C0B0FA60200E374C5 /* Trails.h in Headers */,
+				3507A57B0B0FBB0B00E374C5 /* Subtitle.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2853,7 +2853,6 @@
 				90BD9296064AEE7B003E3D39 /* screenshot.h in Headers */,
 				90BD9299064AEE7B003E3D39 /* soundcmn.h in Headers */,
 				90BD929C064AEE7B003E3D39 /* soundlow.h in Headers */,
-				90BD92A2064AEE7B003E3D39 /* Subtitle.h in Headers */,
 				90BD92A4064AEE7B003E3D39 /* texreg.h in Headers */,
 				90BD92A6064AEE7B003E3D39 /* TimeoutTimer.h in Headers */,
 				90BD92A8064AEE7B003E3D39 /* Titan.h in Headers */,
@@ -2905,6 +2904,7 @@
 				35517D010732720E00691120 /* Homeworld_Prefix.h in Headers */,
 				3578AD090AF40518007BFA9F /* StringSupport.h in Headers */,
 				3507A51E0B0FA60200E374C5 /* Trails.h in Headers */,
+				3507A57D0B0FBB0B00E374C5 /* Subtitle.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3359,7 +3359,6 @@
 				3516CA33077C41B0001AA863 /* smixer.c in Sources */,
 				3516CA34077C41B0001AA863 /* soundlow.c in Sources */,
 				3516CA35077C41B0001AA863 /* sstream.c in Sources */,
-				3516CA36077C41B0001AA863 /* Subtitle.c in Sources */,
 				3516CA37077C41B0001AA863 /* texreg.c in Sources */,
 				3516CA38077C41B0001AA863 /* TimeoutTimer.c in Sources */,
 				3516CA39077C41B0001AA863 /* Titan.c in Sources */,
@@ -3414,6 +3413,7 @@
 				3510D4BA0785066000F840B1 /* Tutorial1.func.c in Sources */,
 				3578AD0A0AF40518007BFA9F /* StringSupport.c in Sources */,
 				3507A51B0B0FA60200E374C5 /* Trails.c in Sources */,
+				3507A57A0B0FBB0B00E374C5 /* Subtitle.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3657,7 +3657,6 @@
 				90BD9297064AEE7B003E3D39 /* smixer.c in Sources */,
 				90BD929A064AEE7B003E3D39 /* soundlow.c in Sources */,
 				90BD929F064AEE7B003E3D39 /* sstream.c in Sources */,
-				90BD92A1064AEE7B003E3D39 /* Subtitle.c in Sources */,
 				90BD92A3064AEE7B003E3D39 /* texreg.c in Sources */,
 				90BD92A5064AEE7B003E3D39 /* TimeoutTimer.c in Sources */,
 				90BD92A7064AEE7B003E3D39 /* Titan.c in Sources */,
@@ -3709,6 +3708,7 @@
 				3510B754077C8863007B8838 /* mainrgn.c in Sources */,
 				3578AD080AF40518007BFA9F /* StringSupport.c in Sources */,
 				3507A51D0B0FA60200E374C5 /* Trails.c in Sources */,
+				3507A57C0B0FBB0B00E374C5 /* Subtitle.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
