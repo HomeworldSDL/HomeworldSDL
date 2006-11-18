@@ -19,8 +19,6 @@
 
 #include "jconfig.h"		/* auto configuration options */
 #define JCONFIG_INCLUDED	/* so that jpeglib.h doesn't do it again */
-#include <stdlib.h>
-#include "File.h"
 
 /*
  * We need the NULL macro and size_t typedef.
@@ -59,11 +57,7 @@
 
 #ifdef NEED_BSD_STRINGS
 
-
-#if !defined _MSC_VER
 #include <strings.h>
-#endif
-
 #define MEMZERO(target,size)	bzero((void *)(target), (size_t)(size))
 #define MEMCOPY(dest,src,size)	bcopy((const void *)(src), (void *)(dest), (size_t)(size))
 
@@ -91,8 +85,7 @@
  * CAUTION: argument order is different from underlying functions!
  */
 
-#define JFREAD(file, buf, sizeofbuf)  \
-  (fileBlockReadNoError((file), (void *) (buf), (sizeofbuf)))
-
+#define JFREAD(file,buf,sizeofbuf)  \
+  ((size_t) fread((void *) (buf), (size_t) 1, (size_t) (sizeofbuf), (file)))
 #define JFWRITE(file,buf,sizeofbuf)  \
   ((size_t) fwrite((const void *) (buf), (size_t) 1, (size_t) (sizeofbuf), (file)))

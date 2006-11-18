@@ -1,7 +1,7 @@
 /*
  * jerror.c
  *
- * Copyright (C) 1991-1994, Thomas G. Lane.
+ * Copyright (C) 1991-1998, Thomas G. Lane.
  * This file is part of the Independent JPEG Group's software.
  * For conditions of distribution and use, see the accompanying README file.
  *
@@ -9,6 +9,11 @@
  * These are suitable for Unix-like systems and others where writing to
  * stderr is the right thing to do.  Many applications will want to replace
  * some or all of these routines.
+ *
+ * If you define USE_WINDOWS_MESSAGEBOX in jconfig.h or in the makefile,
+ * you get a Windows-specific hack to display error messages in a dialog box.
+ * It ain't much, but it beats dropping error messages into the bit bucket,
+ * which is what happens to output to stderr under most Windows C compilers.
  *
  * These routines are used by both the compression and decompression code.
  */
@@ -18,6 +23,10 @@
 #include "jpeglib.h"
 #include "jversion.h"
 #include "jerror.h"
+
+#ifdef USE_WINDOWS_MESSAGEBOX
+#include <windows.h>
+#endif
 
 #ifndef EXIT_FAILURE		/* define exit() codes if not provided */
 #define EXIT_FAILURE  1
@@ -57,7 +66,7 @@ const char * const jpeg_std_message_table[] = {
  * or jpeg_destroy) at some point.
  */
 
-METHODDEF void
+METHODDEF(void)
 error_exit (j_common_ptr cinfo)
 {
   /* Always display the message */
@@ -74,9 +83,18 @@ error_exit (j_common_ptr cinfo)
  * Actual output of an error or trace message.
  * Applications may override this method to send JPEG messages somewhere
  * other than stderr.
+ *
+ * On Windows, printing to stderr is generally completely useless,
+ * so we provide optional code to produce an error-dialog popup.
+ * Most Windows applications will still prefer to override this routine,
+ * but if they don't, it'll do something at least marginally useful.
+ *
+ * NOTE: to use the library in an environment that doesn't support the
+ * C stdio library, you may have to delete the call to fprintf() entirely,
+ * not just not use this routine.
  */
 
-METHODDEF void
+METHODDEF(void)
 output_message (j_common_ptr cinfo)
 {
   char buffer[JMSG_LENGTH_MAX];
@@ -84,8 +102,14 @@ output_message (j_common_ptr cinfo)
   /* Create the message */
   (*cinfo->err->format_message) (cinfo, buffer);
 
+#ifdef USE_WINDOWS_MESSAGEBOX
+  /* Display it in a message dialog box */
+  MessageBox(GetActiveWindow(), buffer, "JPEG Library Error",
+	     MB_OK | MB_ICONERROR);
+#else
   /* Send it to stderr, adding a newline */
   fprintf(stderr, "%s\n", buffer);
+#endif
 }
 
 
@@ -100,7 +124,7 @@ output_message (j_common_ptr cinfo)
  * or change the policy about which messages to display.
  */
 
-METHODDEF void
+METHODDEF(void)
 emit_message (j_common_ptr cinfo, int msg_level)
 {
   struct jpeg_error_mgr * err = cinfo->err;
@@ -129,7 +153,7 @@ emit_message (j_common_ptr cinfo, int msg_level)
  * Few applications should need to override this method.
  */
 
-METHODDEF void
+METHODDEF(void)
 format_message (j_common_ptr cinfo, char * buffer)
 {
   struct jpeg_error_mgr * err = cinfo->err;
@@ -184,7 +208,7 @@ format_message (j_common_ptr cinfo, char * buffer)
  * this method if it has additional error processing state.
  */
 
-METHODDEF void
+METHODDEF(void)
 reset_error_mgr (j_common_ptr cinfo)
 {
   cinfo->err->num_warnings = 0;
@@ -203,7 +227,7 @@ reset_error_mgr (j_common_ptr cinfo)
  * after which the application may override some of the methods.
  */
 
-GLOBAL struct jpeg_error_mgr *
+GLOBAL(struct jpeg_error_mgr *)
 jpeg_std_error (struct jpeg_error_mgr * err)
 {
   err->error_exit = error_exit;

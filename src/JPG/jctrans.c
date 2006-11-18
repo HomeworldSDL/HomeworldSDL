@@ -1,7 +1,7 @@
 /*
  * jctrans.c
  *
- * Copyright (C) 1995, Thomas G. Lane.
+ * Copyright (C) 1995-1998, Thomas G. Lane.
  * This file is part of the Independent JPEG Group's software.
  * For conditions of distribution and use, see the accompanying README file.
  *
@@ -16,9 +16,9 @@
 
 
 /* Forward declarations */
-LOCAL void transencode_master_selection
+LOCAL(void) transencode_master_selection
 	JPP((j_compress_ptr cinfo, jvirt_barray_ptr * coef_arrays));
-LOCAL void transencode_coef_controller
+LOCAL(void) transencode_coef_controller
 	JPP((j_compress_ptr cinfo, jvirt_barray_ptr * coef_arrays));
 
 
@@ -34,7 +34,7 @@ LOCAL void transencode_coef_controller
  * typically will be realized during this routine and filled afterwards.
  */
 
-GLOBAL void
+GLOBAL(void)
 jpeg_write_coefficients (j_compress_ptr cinfo, jvirt_barray_ptr * coef_arrays)
 {
   if (cinfo->global_state != CSTATE_START)
@@ -59,7 +59,7 @@ jpeg_write_coefficients (j_compress_ptr cinfo, jvirt_barray_ptr * coef_arrays)
  * scan script and Huffman optimization) are left in their default states.
  */
 
-GLOBAL void
+GLOBAL(void)
 jpeg_copy_critical_parameters (j_decompress_ptr srcinfo,
 			       j_compress_ptr dstinfo)
 {
@@ -129,6 +129,23 @@ jpeg_copy_critical_parameters (j_decompress_ptr srcinfo,
      * instead we rely on jpeg_set_colorspace to have made a suitable choice.
      */
   }
+  /* Also copy JFIF version and resolution information, if available.
+   * Strictly speaking this isn't "critical" info, but it's nearly
+   * always appropriate to copy it if available.  In particular,
+   * if the application chooses to copy JFIF 1.02 extension markers from
+   * the source file, we need to copy the version to make sure we don't
+   * emit a file that has 1.02 extensions but a claimed version of 1.01.
+   * We will *not*, however, copy version info from mislabeled "2.01" files.
+   */
+  if (srcinfo->saw_JFIF_marker) {
+    if (srcinfo->JFIF_major_version == 1) {
+      dstinfo->JFIF_major_version = srcinfo->JFIF_major_version;
+      dstinfo->JFIF_minor_version = srcinfo->JFIF_minor_version;
+    }
+    dstinfo->density_unit = srcinfo->density_unit;
+    dstinfo->X_density = srcinfo->X_density;
+    dstinfo->Y_density = srcinfo->Y_density;
+  }
 }
 
 
@@ -137,7 +154,7 @@ jpeg_copy_critical_parameters (j_decompress_ptr srcinfo,
  * This substitutes for jcinit.c's initialization of the full compressor.
  */
 
-LOCAL void
+LOCAL(void)
 transencode_master_selection (j_compress_ptr cinfo,
 			      jvirt_barray_ptr * coef_arrays)
 {
@@ -170,7 +187,7 @@ transencode_master_selection (j_compress_ptr cinfo,
   /* We can now tell the memory manager to allocate virtual arrays. */
   (*cinfo->mem->realize_virt_arrays) ((j_common_ptr) cinfo);
 
-  /* Write the datastream header (SOI) immediately.
+  /* Write the datastream header (SOI, JFIF) immediately.
    * Frame and scan headers are postponed till later.
    * This lets application insert special markers after the SOI.
    */
@@ -206,7 +223,7 @@ typedef struct {
 typedef my_coef_controller * my_coef_ptr;
 
 
-LOCAL void
+LOCAL(void)
 start_iMCU_row (j_compress_ptr cinfo)
 /* Reset within-iMCU-row counters for a new row */
 {
@@ -234,7 +251,7 @@ start_iMCU_row (j_compress_ptr cinfo)
  * Initialize for a processing pass.
  */
 
-METHODDEF void
+METHODDEF(void)
 start_pass_coef (j_compress_ptr cinfo, J_BUF_MODE pass_mode)
 {
   my_coef_ptr coef = (my_coef_ptr) cinfo->coef;
@@ -257,7 +274,7 @@ start_pass_coef (j_compress_ptr cinfo, J_BUF_MODE pass_mode)
  * NB: input_buf is ignored; it is likely to be a NULL pointer.
  */
 
-METHODDEF boolean
+METHODDEF(boolean)
 compress_output (j_compress_ptr cinfo, JSAMPIMAGE input_buf)
 {
   my_coef_ptr coef = (my_coef_ptr) cinfo->coef;
@@ -342,7 +359,7 @@ compress_output (j_compress_ptr cinfo, JSAMPIMAGE input_buf)
  * with unitheight at least v_samp_factor.
  */
 
-LOCAL void
+LOCAL(void)
 transencode_coef_controller (j_compress_ptr cinfo,
 			     jvirt_barray_ptr * coef_arrays)
 {

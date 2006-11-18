@@ -1,7 +1,7 @@
 /*
  * jcmaster.c
  *
- * Copyright (C) 1991-1995, Thomas G. Lane.
+ * Copyright (C) 1991-1997, Thomas G. Lane.
  * This file is part of the Independent JPEG Group's software.
  * For conditions of distribution and use, see the accompanying README file.
  *
@@ -42,7 +42,7 @@ typedef my_comp_master * my_master_ptr;
  * Support routines that do various essential calculations.
  */
 
-LOCAL void
+LOCAL(void)
 initial_setup (j_compress_ptr cinfo)
 /* Do computations that are needed before master selection phase */
 {
@@ -126,7 +126,7 @@ initial_setup (j_compress_ptr cinfo)
 
 #ifdef C_MULTISCAN_FILES_SUPPORTED
 
-LOCAL void
+LOCAL(void)
 validate_script (j_compress_ptr cinfo)
 /* Verify that the scan script in cinfo->scan_info[] is valid; also
  * determine whether it uses progressive JPEG, and set cinfo->progressive_mode.
@@ -185,8 +185,20 @@ validate_script (j_compress_ptr cinfo)
     Al = scanptr->Al;
     if (cinfo->progressive_mode) {
 #ifdef C_PROGRESSIVE_SUPPORTED
+      /* The JPEG spec simply gives the ranges 0..13 for Ah and Al, but that
+       * seems wrong: the upper bound ought to depend on data precision.
+       * Perhaps they really meant 0..N+1 for N-bit precision.
+       * Here we allow 0..10 for 8-bit data; Al larger than 10 results in
+       * out-of-range reconstructed DC values during the first DC scan,
+       * which might cause problems for some decoders.
+       */
+#if BITS_IN_JSAMPLE == 8
+#define MAX_AH_AL 10
+#else
+#define MAX_AH_AL 13
+#endif
       if (Ss < 0 || Ss >= DCTSIZE2 || Se < Ss || Se >= DCTSIZE2 ||
-	  Ah < 0 || Ah > 13 || Al < 0 || Al > 13)
+	  Ah < 0 || Ah > MAX_AH_AL || Al < 0 || Al > MAX_AH_AL)
 	ERREXIT1(cinfo, JERR_BAD_PROG_SCRIPT, scanno);
       if (Ss == 0) {
 	if (Se != 0)		/* DC and AC together not OK */
@@ -251,7 +263,7 @@ validate_script (j_compress_ptr cinfo)
 #endif /* C_MULTISCAN_FILES_SUPPORTED */
 
 
-LOCAL void
+LOCAL(void)
 select_scan_parameters (j_compress_ptr cinfo)
 /* Set up the scan parameters for the current scan */
 {
@@ -292,7 +304,7 @@ select_scan_parameters (j_compress_ptr cinfo)
 }
 
 
-LOCAL void
+LOCAL(void)
 per_scan_setup (j_compress_ptr cinfo)
 /* Do computations that are needed before processing a JPEG scan */
 /* cinfo->comps_in_scan and cinfo->cur_comp_info[] are already set */
@@ -385,7 +397,7 @@ per_scan_setup (j_compress_ptr cinfo)
  * required.
  */
 
-METHODDEF void
+METHODDEF(void)
 prepare_for_pass (j_compress_ptr cinfo)
 {
   my_master_ptr master = (my_master_ptr) cinfo->master;
@@ -473,7 +485,7 @@ prepare_for_pass (j_compress_ptr cinfo)
  * In multi-pass processing, this routine is not used.
  */
 
-METHODDEF void
+METHODDEF(void)
 pass_startup (j_compress_ptr cinfo)
 {
   cinfo->master->call_pass_startup = FALSE; /* reset flag so call only once */
@@ -487,7 +499,7 @@ pass_startup (j_compress_ptr cinfo)
  * Finish up at end of pass.
  */
 
-METHODDEF void
+METHODDEF(void)
 finish_pass_master (j_compress_ptr cinfo)
 {
   my_master_ptr master = (my_master_ptr) cinfo->master;
@@ -527,7 +539,7 @@ finish_pass_master (j_compress_ptr cinfo)
  * Initialize master compression control.
  */
 
-GLOBAL void
+GLOBAL(void)
 jinit_c_master_control (j_compress_ptr cinfo, boolean transcode_only)
 {
   my_master_ptr master;
