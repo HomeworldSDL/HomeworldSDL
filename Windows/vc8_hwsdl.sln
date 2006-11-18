@@ -2,16 +2,27 @@ Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vc8_hwsdl", "prj\vc8_hwsdl.vcproj", "{81CB51C4-B434-4E12-B69B-BAEE102F2852}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vc8_librgl", "prj\vc8_librgl.vcproj", "{C643FEF9-6C39-4818-903A-6284FE970285}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
 		Release|Win32 = Release|Win32
+		release2 debug test|Win32 = release2 debug test|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{81CB51C4-B434-4E12-B69B-BAEE102F2852}.Debug|Win32.ActiveCfg = Debug|Win32
 		{81CB51C4-B434-4E12-B69B-BAEE102F2852}.Debug|Win32.Build.0 = Debug|Win32
 		{81CB51C4-B434-4E12-B69B-BAEE102F2852}.Release|Win32.ActiveCfg = Release|Win32
 		{81CB51C4-B434-4E12-B69B-BAEE102F2852}.Release|Win32.Build.0 = Release|Win32
+		{81CB51C4-B434-4E12-B69B-BAEE102F2852}.release2 debug test|Win32.ActiveCfg = Release|Win32
+		{81CB51C4-B434-4E12-B69B-BAEE102F2852}.release2 debug test|Win32.Build.0 = Release|Win32
+		{C643FEF9-6C39-4818-903A-6284FE970285}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C643FEF9-6C39-4818-903A-6284FE970285}.Debug|Win32.Build.0 = Debug|Win32
+		{C643FEF9-6C39-4818-903A-6284FE970285}.Release|Win32.ActiveCfg = Release|Win32
+		{C643FEF9-6C39-4818-903A-6284FE970285}.Release|Win32.Build.0 = Release|Win32
+		{C643FEF9-6C39-4818-903A-6284FE970285}.release2 debug test|Win32.ActiveCfg = release2 debug test|Win32
+		{C643FEF9-6C39-4818-903A-6284FE970285}.release2 debug test|Win32.Build.0 = release2 debug test|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

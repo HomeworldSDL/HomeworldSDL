@@ -22,6 +22,7 @@ or download some version of the DirectX sdk (dx9 sdk is around 158mb)
 //notes
 > if HW_Data environment variable is defined, all you need in the same dir as the exe are the librgl*.dll's.
 Devstats/etc will be found via HW_Data. 
+> in debug configurations, librgl.dll,pdb will be automatically placed next to the hwsdl exe in the hwsdl_debug dir.
 > librglsw.dll project is not available currently, so if you do not have this DLL,
 see *1.
 > if you don't have librgl*.dll's then download librgl* files from *1
