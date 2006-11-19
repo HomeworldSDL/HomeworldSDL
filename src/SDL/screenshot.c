@@ -6,38 +6,57 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
+#include "screenshot.h"
+
 #include <stdlib.h>
 #include <string.h>
 #include <limits.h>
+#include <time.h>
+#include <unistd.h>
+
 #include "main.h"
 #include "Debug.h"
-#include "screenshot.h"
 #include "interfce.h"
 
-static void _numberify(char* dirname)
+static void _appendScreenshotFilename(char* savePath)
 {
-    int   i;
-    FILE* outfile;
-    char  filename[32], testname[PATH_MAX + 1];
+    FILE        *imageFile;
+    char         imagePath[PATH_MAX + 1],
+                 imageName[256];
+                 
+    time_t       now;
+    struct tm    timeStruct;
+    
+    unsigned int attempts          =  0,
+                 sleep_time_secs   =  1,
+                 max_attempts_secs = 10;
 
-    filename[0] = '\0';
+    while (1) {
+        time(&now);
+        timeStruct = *localtime(&now);
+        
+        strftime(imageName, sizeof(imageName), "shot_%Y%m%d_%H%M%S_%Z.jpg", &timeStruct);
 
-    for (i = 0; i < 200; i++)
-    {
-        sprintf(filename, "shota%03d.jpg", i);
-        strcpy(testname, dirname);
-        strcat(testname, filename);
-
-        if ((outfile = fopen(testname, "rt")) == NULL)
-        {
-            strcat(dirname, filename);
-            return;
+        strcpy(imagePath, savePath);
+        strcat(imagePath, imageName);
+        
+        // unable to open filename so presumably good name to use
+        if ((imageFile = fopen(imagePath, "r")) == NULL) {
+            break;
         }
+        
+        fclose(imageFile);
+        attempts++;
+        sleep(sleep_time_secs);    // rapid screenshots possibly: wait and try again
 
-        fclose(outfile);
+        // don't try for more than the allowed time
+        if (attempts > max_attempts_secs / sleep_time_secs) {
+            strcpy(imageName, "most_recent_screenshot.jpg");
+            break;
+        }
     }
 
-    strcat(dirname, "shot200.jpg");
+    strcat(savePath, imageName);
 }
 
 void ssSaveScreenshot(ubyte* buf)
@@ -53,7 +72,7 @@ void ssSaveScreenshot(ubyte* buf)
     if (!fileMakeDirectory(fname))
         return;
 
-    _numberify(fname);
+    _appendScreenshotFilename(fname);
 
 #if SS_VERBOSE_LEVEL >= 1
     dbgMessagef("\nSaving %dx%d screenshot to '%s'.", MAIN_WindowWidth, MAIN_WindowHeight, fname);
