@@ -1,0 +1,166 @@
+----------------------------------------------------------------------------- 
+Originally hosted at: 
+http://www.relic.com/tools/level1/homeworld/doc/html/rdn_doc_mex.php
+----------------------------------------------------------------------------- 
+
+
+Homeworld File Format Documentation
+.MEX File Format
+By B1FF (lmoloney@relic.com)
+
+© 2000 Relic Entertainment, Inc.
+
+Preamble.
+.MEX files are used in Homeworld to store information that accompanies meshes. The extension is short for Mesh Extension, not the line of stylish clothing stores. It is one of the simpler Homeworld formats out there, and has been mostly reverse-engineered already. However, here is the full breakdown. 
+
+General structure
+These files exist in the same directory as the mesh files. The one in the LOD0 directory is used if there are more than one for a given ship. In Homeworld, these files are loaded into a single chunk of memory and 'parsed' in RAM. This is faster and cleaner than file parsing, given the simple file format. 
+
+.MEX files are arranged into a series of named 'chunks'. These chunks have a 4-byte type name, a 8-byte name and a length member. They're sort of like IFF, but not quite. The file itself has the following header: 
+
+typedef struct tagMEXFileHeader
+{
+    char identifier[8];     // Compare to " mannngo" 
+    unsigned short version; // Compare to 0x102
+    unsigned short nChunks; // Number of chunks in the file.
+} MEXFileHeader; 
+
+Chunk formats
+Following the header, there will be a number of chunks. These chunks partly share a common format: 
+
+typedef struct tagMEXChunk
+{
+    // Generic stuff.
+    char type[4];
+    char name[8];
+    unsigned long chunkSize;
+} MEXChunk; 
+
+When this header is examined, its type can be determined from the type name. When its type is determined, the structure can be cast to one of the following formats: 
+
+//used to place a gun
+typedef struct tagMEXGunChunk
+{
+    // Generic stuff.
+    char type[4]; //Compare to " Gun" 
+    char name[8];
+    unsigned long chunkSize;
+
+    // Specific stuff...
+    vector position;
+    vector normal;
+
+    real32 coneAngle;
+    real32 edgeAngle;
+} MEXGunChunk; 
+
+//used to place an engine glow or engine trail, or a damage puffer
+typedef struct tagMEXEngineChunk
+{
+    // Generic stuff.
+    char type[4]; //Compare to " Eng" or " Dmg" 
+    char name[8];
+    unsigned long chunkSize;
+
+    // Specific stuff...
+    vector position;
+    vector normal;
+
+    real32 coneAngle;
+    real32 edgeAngle;
+} MEXEngineChunk; 
+
+//collision sphere for trivial rejection
+typedef struct tagMEXCollisionSphereChunk
+{
+    // Generic stuff.
+    char type[4]; //Compare to " Col" 
+    char name[8];
+    unsigned long chunkSize;
+
+    // Specific stuff...
+    udword level;
+
+    vector offset;
+    real32 r;
+} MEXCollisionSphereChunk; 
+
+//bounding rectangular polyhedron for finer collision info
+typedef struct tagMEXCollisionRectangleChunk
+{
+    // Generic stuff.
+    char type[4]; //Compare to " Rct" 
+    char name[8];
+    unsigned long chunkSize;
+
+    // Specific stuff...
+    udword level;
+
+    float ox;
+    float oy;
+    float oz;
+
+    float dx;
+    float dy;
+    float dz;
+} MEXCollisionRectangleChunk; 
+
+//for placing a docking point
+typedef struct tagMEXDockingChunk
+{
+    // Generic stuff.
+    char type[4]; //Compare to " Dok" 
+    char name[8]; // Always " DOCK" 
+    unsigned long chunkSize;
+
+    // Specific stuff...
+    vector position;
+    vector normal;
+
+    real32 coneAngle;
+    real32 edgeAngle;
+
+    char dockName[20]; // Actual name.
+} MEXDockingChunk; 
+
+//for placing a salvage corvette attachment point
+typedef struct tagMEXSalvageChunk
+{
+    // Generic stuff.
+    char type[4]; //Compare to " Sal" 
+    char name[8]; // Always " SALVAGE" 
+    unsigned long chunkSize;
+
+    // Specific stuff...
+    vector position;
+    vector normal;
+
+    real32 coneAngle;
+    real32 edgeAngle;
+
+    char Name[20]; // Actual name.
+} MEXSalvageChunk; 
+
+//for placing a blinky 'nav' light
+typedef struct tagMEXNAVLightChunk
+{
+    // Generic stuff.
+    char type[4]; //Compare to " Nav" 
+    char name[8]; // Always " NAV" 
+    udword chunkSize;
+
+    // Specific stuff...
+    vector position;
+
+    unsigned char red;
+    unsigned char blue;
+    unsigned char green;
+    unsigned char pad;
+
+    char NAVLightName[20]; // Actual name.
+} MEXNAVLightChunk; // 36 bytes... 
+
+Notes on conventions:
+1. Cone angles are in degrees.
+2. Edge angles are added to cone angles. Can be zero.
+3. Vectors are triples of type real32

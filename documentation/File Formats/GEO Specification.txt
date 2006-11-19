@@ -8,11 +8,8 @@ Originally provided in Relic's source: GEOSpecification.doc
 By B1FF (lmoloney@relic.com)
 
 Preamble
-The .GEO file format is used to store all geometry for Homeworld. It’s a pretty
-simple format but stores complex data. It is tightly integrated with the .LiF
-file format and even refers to the name of the .LiF textures. .GEO files use a
-right-handed coordinate space. Positive Z is the axis of travel for the
-spacecraft and positive X is the right wing.  
+The .GEO file format is used to store all geometry for Homeworld. It's a pretty simple format but stores complex data. It is tightly integrated with the .LiF file format and even refers to the name of the .LiF textures. .GEO files use a right-handed coordinate space. Positive Z is the axis of travel for the spacecraft and positive X is the right wing. 
+  
 
 File Header
 Like other Homeworld file formats, there is a header chunk.
@@ -26,22 +23,22 @@ typedef struct tagGeoFileHeader
     udword  localSize;                      // Object size (in bytes).
     udword  nPublicMaterials;               // Number of public materials.
     udword  nLocalMaterials;                // Number of local materials.
-    udword  oPublicMaterial;                //list of public materials
-    udword  oLocalMaterial;                 //list of local materials
+    udword  oPublicMaterial;                // list of public materials
+    udword  oLocalMaterial;                 // list of local materials
     udword  nPolygonObjects;                // Number of polygon objects.
     ubyte   reserved[24];                   // Reserved for future use.
 }
 GeoFileHeader;
 
-Identifier: length of 8, value “RMF99ba”.
+Identifier: length of 8, value "RMF99ba".
 Version: 0x00000402
-PName – offset to mesh name
-FileSize – not used
-LocalSize – only used at load time.
-N[Public | Local]Materials – add together to number of materials in mesh.
-OLocalMaterial – offset to material list.
-NPolygonObjects – number of elements in object.
-Reserved – reserved dag nabbit!
+PName - offset to mesh name
+FileSize - not used
+LocalSize - only used at load time.
+N[Public | Local]Materials - add together to number of materials in mesh.
+OLocalMaterial - offset to material list.
+NPolygonObjects - number of elements in object.
+Reserved - reserved dag nabbit!
 
 Structure of a material
 
@@ -60,17 +57,17 @@ typedef struct tagmaterialentry
 }
 materialentry;
 
-pName – offset to material name
-ambient, diffuse, specular – lighting properties.
-KAlpha – not used
-Texture – offset to texture name.  This is the name of a .LiF file without the path or extension.
-Flags – bit flags of the following:
-#define MDF_Smoothing                   2
-#define MDF_AllowFlatShading            4
-#define MDF_2Sided                      8
-#define MDF_BaseColor                   16
-#define MDF_StripeColor                 32
-#define MDF_SelfIllum                   64
+pName - offset to material name
+ambient, diffuse, specular - lighting properties.
+KAlpha - not used
+Texture - offset to texture name. This is the name of a .LiF file without the path or extension.
+Flags - bit flags of the following:
+#define MDF_Smoothing 2
+#define MDF_AllowFlatShading 4
+#define MDF_2Sided 8
+#define MDF_BaseColor 16
+#define MDF_StripeColor 32
+#define MDF_SelfIllum 64
 Everything else: used internally
 
 Structure of a polygonObject
@@ -95,13 +92,13 @@ typedef struct polygonobject
 }
 polygonobject;
 
-pName – offset to mesh name.  Used for binding to animations.
-Flags, iObject, nameCRC – used internally.
-NVertices – number of vertices
-NFaceNormals, nVertexNormals, nPolygons – can you guess?
-PVertexList, pNormalList, pPolygonList – offsets to respective primitive lists.
-PMother, pDaughter, pSister – 2-dimentsional linked list of hierarchy.  Feel the estrogen flow!
-LocalMatrix – 4x4 matrix (right-handed) that defines the objects’s default position from the identity matrix.
+pName - offset to mesh name. Used for binding to animations.
+Flags, iObject, nameCRC - used internally.
+NVertices - number of vertices
+NFaceNormals, nVertexNormals, nPolygons - can you guess?
+PVertexList, pNormalList, pPolygonList - offsets to respective primitive lists.
+PMother, pDaughter, pSister - 2-dimentsional linked list of hierarchy. Feel the estrogen flow!
+LocalMatrix - 4x4 matrix (right-handed) that defines the objects's default position from the identity matrix.
 
 Structure of vertices and normals.
 These formats are nearly the same:
@@ -124,8 +121,7 @@ typedef struct tagnormal
 }
 normalentry;
 
-iVertexNormal is the index of the normal for this vertex if there is one or 0xffffffff if there is none.
-Pad can be ignored.
+iVertexNormal is the index of the normal for this vertex if there is one or 0xffffffff if there is none. Pad can be ignored.
 
 Structure of polygons
 typedef struct tagpolygon
@@ -150,8 +146,6 @@ iFaceNormal is the index in the normal list of the face normal.
 IV[0..2] is the index in the vertex list of the plygon vertices
 Immaterial is the material this ply uses.
 [s | t][0..2] are the s/t coordinates (of the range 0..1) of the vertices in the texture map of the material.
-Flags – used internally.
-Reserved[0] – set to greater than 1.
-Reserved[1] – used internally for paco fixups.  Don’t ask.  It’s a world of hurt!
-
-
+Flags - used internally.
+Reserved[0] - set to greater than 1.
+Reserved[1] - used internally for paco fixups. Don't ask. It's a world of hurt!

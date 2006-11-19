@@ -1,0 +1,104 @@
+----------------------------------------------------------------------------- 
+Originally hosted at: 
+http://www.relic.com/tools/level1/homeworld/doc/html/rdn_doc_mad.php
+----------------------------------------------------------------------------- 
+
+
+Homeworld File Format Documentation
+.MAD File Format
+By B1FF (lmoloney@relic.com)
+
+© 2000 Relic Entertainment, Inc.
+
+Preamble
+.MAD files are mesh animations in Homeworld. They are used for scripted animations such as moving guns, folding fins, suckling fuel 'nipples' and whatnot. They exist in the same directories as .SHP files. These files can be added for any ship and they need not be there for every ship. Also, there are some directives that can be added to the .SHP file to tell the game how to play these animations. These animations are not the same as gun animations, which track the heading of targets. 
+
+General format
+The mesh animations are scripted as a single long animation. Each animation simply has a start and end point into that animation. A stationary period of at least one "frame" is required at the start and end of the animation. Every object that is in an animation must have a start and stop keyframe at the limits of each animation. 
+
+The format of .MAD files is one that is easy to read, not so easy to write. It has the following header structure: 
+
+#define MAD_FileVersion 0.91f
+#define MAD_FileIdentifier "Mellonn"
+#define MAD_Extension ".MAD"
+#define MAD_MaxAnimations 32
+
+//structure for the header of a mesh animation file
+typedef struct
+{
+    char identifier[8];       // compared to MAD_FileIdentifier
+    real32 version;           // compared to MAD_FileVersion
+    sdword stringBlockLength; // length of string block
+    char *stringBlock;        // string block: where all strings for this file are located and offsets are relative to
+    real32 length;            // length of all animations
+    real32 framesPerSecond;   // rate the animation was scripted at. Usually 30 but can be anything. Doesn't really matter.
+    sdword nObjects;          // number of objects in the animation (should be same as number of objects in the mesh to animate)
+    madobjpath *objPath;      // list of keyframe lists for each object
+    sdword nAnimations;       // number of separate animations in the file
+    madanimation anim[1];     // ragged array of animation headers
+}
+madheader; 
+
+The body of the file is a ragged array of type madanimation. Also, there is a string block at the end of the file. This block contains all of the strings in the animation. These strings include names of ship components to animate and actual animation names. All strings referenced here are actually offsets to the start of this string block. Other pointers are offsets relative to the start of the file. 
+
+Madanimation format
+The madanimation has the following format:
+
+//structure for a single animation within the file
+typedef struct
+{
+    char *name;       // name of the animation
+    real32 startTime; // limits of the animation
+    real32 endTime;
+    udword flags;     // flags for this animation
+}
+madanimation; 
+
+The name is referenced by the .shp file, so get it right. Start and end times are in seconds. As mentioned, they are index points into the single long animation that is the .MAD file. The only flag is a looping bit, 0x00000001 
+
+Madobjpath format
+This structure describes the animation data for each object in the animation. Remember that the file is one long animation, so there is only one motion path per object. Animation data is in Catmull-Rom spline format. There is an array of time indices, Tension/Continuity/Bias structures (3 floats ranging from -1 to +1) and x, y, z, heading, pitch, bank members. The first and last keyframes need two additional copies of themselves at the beginning and end, due to the way Catmull-Rom control points effect adjacent points. 
+
+//structure for a single object's keyframe list in the file.
+typedef struct
+{
+    char *name;             // name of the object for this keyframe list
+    crc16 nameCRC;          // 16-bit crc of the name. (should upgrade to 32 later).
+    ubyte pad[2];
+    udword animationBits;   // bit-flags: one for each animation
+    sdword nKeyframes;      // number of keyframes in all of file for this object
+    real32 *times;          // times array
+    tcb *parameters;        // tension, continuity, bias
+    real32 *path[6];        // arrays of x,y,z,h,p,b
+}
+madobjpath; 
+
+The rest of the file
+Following this section are all of the raw floats for time, TCB, xyz and hpb motion paths. After that, the string block. 
+
+Linking in new animations
+Most animations in Homeworld can, generally speaking, be bound to any ship. There are a few rules to follow and a few things to put in the .shp file. Here is a list of the types of animations supported:
+
+-----------------------------------------------------------------------------------------------------
+Type     Name in .SHP               Description                                       Example ship
+-----------------------------------------------------------------------------------------------------
+Gun      MadGunAnims                Opening/closing of guns for firing                R1 Defender
+Dock     MadDockAnims               Animations in preparation for, and after docking  R2 Interceptor
+Door     MadMothershipDockingAnims  Opening/closing of mothership door                R1 Mothership
+Special  MadSpecialCaseAnims        Special open/close                                R1 Probe
+-----------------------------------------------------------------------------------------------------
+
+Most animations have open, close, damaged open and damage closed versions. The directives placed in the .shp file name all four of these states. They could all be the same animation if you really wanted. The names of these animations are obviously the names from the .SHP file. Any one of these animations can be turned off or on in the .SHP file. 
+
+The .shp file must contain a line as follows so that Homeworld knows to look for animations:
+BindAnimations 1 
+
+Put a MadStartInfo in the .shp file as follows:
+MadStartInfo 0 , blah_blah_who_cares , 1 , Wings_Open
+The first number, if 1, will mean ships get created with an animation paused at the start. The second number, if 1, means the ship gets built with an animation paused at the start. In this case, the R2 Interceptor does not get an animation when it is created and the start of a game. If it is built however, it comes out of the mothership with it's wings folded. The animation name is only needed if the corresponding starting animation flag is 1. 
+
+Also, the value madGunOpenDamagedHealthThreshold can be put in your .SHP file to determine what level of health (0..1.0) where a 'damaged' animation will be used. 
+
+The mothership animation is rather hard-coded and probably cannot be added to other ships. The gun and dock animations, however, can be used with any ship. Some of the MadSpecialCaseAnims can be used on many ships and have different meanings. On the Support frigate and P1 fuel pod, they extend the fueling booms. On the Gravwell, it extends the blades when the generator starts and stops. The probe and proximity sensor have special moving animations (which probably cannot be duplicated). 
+
+Feel free to play around with the animations currently in Homeworld to get a feel for how animations work before adding your own animations. 
