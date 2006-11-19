@@ -53,7 +53,7 @@ void JpegInfo( JPEGDATA *data ) {
   }
 
   jpeg_create_decompress(&cinfo);
-  jpeg_stdio_src(&cinfo, fileStream(data->input_file));
+  jpeg_stdio_src(&cinfo, data->input_file);
 
   (void) jpeg_read_header(&cinfo, TRUE);
   (void) jpeg_start_decompress(&cinfo);
@@ -184,7 +184,7 @@ void JpegRead( JPEGDATA *data ) {
      }
 
      jpeg_create_decompress(&cinfo);
-     jpeg_stdio_src(&cinfo, fileStream(data->input_file));
+     jpeg_stdio_src(&cinfo, data->input_file);
 
      (void) jpeg_read_header(&cinfo, TRUE);
      (void) jpeg_start_decompress(&cinfo);

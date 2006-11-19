@@ -14,6 +14,7 @@
  * JPEG library.  Most applications need only include jpeglib.h.
  */
 
+#include "File.h"
 
 /* Include auto-config file to find out which system include files we need. */
 
@@ -85,7 +86,7 @@
  * CAUTION: argument order is different from underlying functions!
  */
 
-#define JFREAD(file,buf,sizeofbuf)  \
-  ((size_t) fread((void *) (buf), (size_t) 1, (size_t) (sizeofbuf), (file)))
+#define JFREAD(file, buf, sizeofbuf)  \
+  (fileBlockReadNoError((file), (void *) (buf), (sizeofbuf)))
 #define JFWRITE(file,buf,sizeofbuf)  \
   ((size_t) fwrite((const void *) (buf), (size_t) 1, (size_t) (sizeofbuf), (file)))

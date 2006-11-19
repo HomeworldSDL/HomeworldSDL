@@ -179,7 +179,7 @@ term_source (j_decompress_ptr cinfo)
  */
 
 GLOBAL(void)
-jpeg_stdio_src (j_decompress_ptr cinfo, FILE * infile)
+jpeg_stdio_src (j_decompress_ptr cinfo, filehandle infile)
 {
   my_src_ptr src;
 
