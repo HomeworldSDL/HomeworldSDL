@@ -33,8 +33,7 @@
 //    #include "File.h"
 
 // 2) jinclude.h: change the JFREAD #define to:
-//    #define JFREAD(file, buf, sizeofbuf)  \
-//        (fileBlockReadNoError((file), (void *) (buf), (sizeofbuf)))
+//    #define JFREAD(file, buf, sizeofbuf) (fileBlockReadNoError((file), (void *) (buf), (sizeofbuf)))
 
 // 3) jpeglib.h: change jpeg_stdio_src's function prototype to accept filehandles:
 //    EXTERN(void) jpeg_stdio_src JPP((j_decompress_ptr cinfo, filehandle infile));
