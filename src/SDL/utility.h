@@ -194,8 +194,6 @@ void utyLoadMultiPlayerGameGivenFilename(char *filename);
 
 bool utyChangeResolution(sdword width, sdword height, sdword depth);
 
-udword utyDataCRCCompute(void);
-udword utyCodeCRCCompute(void);
 bool utyBrowserExec(char *URL);
 void utyGetFirstCDPath(char *szPath);
 
