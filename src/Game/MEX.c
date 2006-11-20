@@ -18,7 +18,7 @@
 #include "Debug.h"
 #include "File.h"
 #include "MEX.h"
-#include "color.h"
+#include "Color.h"
 
 #ifdef _MSC_VER
 #define strcasecmp _stricmp

@@ -10,7 +10,7 @@
 #define ___LOD_H
 
 #include "Types.h"
-#include "color.h"
+#include "Color.h"
 #include "Mesh.h"
 #include "Matrix.h"
 #include "Vector.h"

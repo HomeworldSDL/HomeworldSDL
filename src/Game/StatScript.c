@@ -19,7 +19,7 @@
 #include "Debug.h"
 #include "Memory.h"
 #include "File.h"
-#include "color.h"
+#include "Color.h"
 #include "SpaceObj.h"
 #include "Formation.h"
 #include "StatScript.h"

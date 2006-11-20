@@ -11,7 +11,7 @@
 
 #include "Types.h"
 #include "Vector.h"
-#include "color.h"
+#include "Color.h"
 #include "texreg.h"
 
 #define X_AXIS  0

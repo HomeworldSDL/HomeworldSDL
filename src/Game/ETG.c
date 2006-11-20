@@ -24,7 +24,7 @@
 #include "File.h"
 #include "Memory.h"
 #include "Debug.h"
-#include "color.h"
+#include "Color.h"
 #include "Particle.h"
 #include "Randy.h"
 #include "Eval.h"

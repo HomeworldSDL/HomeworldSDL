@@ -3,7 +3,7 @@
 #define ___TWEAK_H
 
 #include "Types.h"
-#include "color.h"
+#include "Color.h"
 #include "ShipDefs.h"
 #include "ClassDefs.h"
 #include "ObjTypes.h"

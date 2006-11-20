@@ -9,7 +9,7 @@
 
 #include <string.h>
 #include "glinc.h"
-#include "color.h"
+#include "Color.h"
 #include "main.h"
 #include "prim2d.h"
 #include "render.h"

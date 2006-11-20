@@ -12,7 +12,7 @@
 #endif
 #endif
 #include "glinc.h"
-#include "color.h"
+#include "Color.h"
 #include "mouse.h"
 #include "FontReg.h"
 #include "SoundEvent.h"

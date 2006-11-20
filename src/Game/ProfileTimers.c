@@ -1,7 +1,7 @@
 
 #include "ProfileTimers.h"
 #include "TimeoutTimer.h"
-#include "color.h"
+#include "Color.h"
 #include "font.h"
 #include <string.h>
 #include "Memory.h"

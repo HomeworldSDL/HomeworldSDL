@@ -10,7 +10,7 @@
 #define ___COLPICK_H
 
 #include "Types.h"
-#include "color.h"
+#include "Color.h"
 #include "prim2d.h"
 #include "FEFlow.h"
 #include "texreg.h"

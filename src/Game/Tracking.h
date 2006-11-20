@@ -10,7 +10,7 @@
 #define ___TRACKING_H
 
 #include "Types.h"
-#include "color.h"
+#include "Color.h"
 
 /*=============================================================================
     Switches:

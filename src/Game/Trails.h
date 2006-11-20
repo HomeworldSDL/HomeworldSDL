@@ -10,7 +10,7 @@
 #define ___TRAILS_H
 
 #include "Types.h"
-#include "color.h"
+#include "Color.h"
 #include "Vector.h"
 #include "Globals.h"
 

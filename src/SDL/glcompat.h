@@ -10,7 +10,7 @@
 #define ___GLCOMPAT_H
 
 #include "prim2d.h"
-#include "color.h"
+#include "Color.h"
 
 extern bool glcLinear;
 

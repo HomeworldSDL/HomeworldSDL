@@ -9,7 +9,7 @@
 
 #include "Attributes.h"
 #include "Chatting.h"
-#include "color.h"
+#include "Color.h"
 #include "CommandDefs.h"
 #include "CommandLayer.h"
 #include "CommandNetwork.h"

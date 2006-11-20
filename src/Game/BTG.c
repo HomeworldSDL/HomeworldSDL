@@ -19,7 +19,7 @@
 #include "Vector.h"
 #include "Matrix.h"
 #include "glinc.h"
-#include "color.h"
+#include "Color.h"
 #include "Universe.h"
 #include "File.h"
 #include "render.h"

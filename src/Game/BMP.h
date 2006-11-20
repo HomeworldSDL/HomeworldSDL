@@ -9,7 +9,7 @@
 #ifndef ___BMP_H
 #define ___BMP_H
 
-#include "color.h"
+#include "Color.h"
 #include "File.h"
 
 /*=============================================================================

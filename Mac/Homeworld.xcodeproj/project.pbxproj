@@ -192,7 +192,6 @@
 		3516C8E0077C41B0001AA863 /* Mission03.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD918B064AC6F6003E3D39 /* Mission03.h */; };
 		3516C8E1077C41B0001AA863 /* Mission04.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD918E064AC6F6003E3D39 /* Mission04.h */; };
 		3516C8EF077C41B0001AA863 /* avi.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9208064AEE7A003E3D39 /* avi.h */; };
-		3516C8F0077C41B0001AA863 /* color.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD920C064AEE7A003E3D39 /* color.h */; };
 		3516C8F1077C41B0001AA863 /* devstats.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9210064AEE7A003E3D39 /* devstats.h */; };
 		3516C8F2077C41B0001AA863 /* font.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9214064AEE7A003E3D39 /* font.h */; };
 		3516C8F3077C41B0001AA863 /* fqcodec.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9215064AEE7A003E3D39 /* fqcodec.h */; };
@@ -461,7 +460,6 @@
 		3516CA05077C41B0001AA863 /* Mission03.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD918A064AC6F6003E3D39 /* Mission03.func.c */; };
 		3516CA06077C41B0001AA863 /* Mission04.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD918C064AC6F6003E3D39 /* Mission04.c */; };
 		3516CA07077C41B0001AA863 /* Mission04.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD918D064AC6F6003E3D39 /* Mission04.func.c */; };
-		3516CA22077C41B0001AA863 /* color.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD920B064AEE7A003E3D39 /* color.c */; };
 		3516CA23077C41B0001AA863 /* font.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9213064AEE7A003E3D39 /* font.c */; };
 		3516CA24077C41B0001AA863 /* glcaps.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9218064AEE7A003E3D39 /* glcaps.c */; };
 		3516CA25077C41B0001AA863 /* glcompat.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD921A064AEE7A003E3D39 /* glcompat.c */; };
@@ -541,6 +539,10 @@
 		35B1D7F20ABD43BD002214BE /* RaiderRetreat.icns in Resources */ = {isa = PBXBuildFile; fileRef = 35B1D7F10ABD43BD002214BE /* RaiderRetreat.icns */; };
 		35CCC930096625FD009D918D /* HomeworldPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 35017183077C54EA00684108 /* HomeworldPlist.strings */; };
 		35CCC93109662605009D918D /* RaiderRetreatPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 351B67AB077E4728002ABC6E /* RaiderRetreatPlist.strings */; };
+		35FB9A6D0B124F0500523C83 /* Color.c in Sources */ = {isa = PBXBuildFile; fileRef = 35FB9A6B0B124F0500523C83 /* Color.c */; };
+		35FB9A6E0B124F0500523C83 /* Color.h in Headers */ = {isa = PBXBuildFile; fileRef = 35FB9A6C0B124F0500523C83 /* Color.h */; };
+		35FB9A6F0B124F0500523C83 /* Color.c in Sources */ = {isa = PBXBuildFile; fileRef = 35FB9A6B0B124F0500523C83 /* Color.c */; };
+		35FB9A700B124F0500523C83 /* Color.h in Headers */ = {isa = PBXBuildFile; fileRef = 35FB9A6C0B124F0500523C83 /* Color.h */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		9030AF94066D5D2C00B32218 /* avi.c in Sources */ = {isa = PBXBuildFile; fileRef = 9030AF92066D5D2C00B32218 /* avi.c */; };
 		9030AF95066D5D2C00B32218 /* rinit.c in Sources */ = {isa = PBXBuildFile; fileRef = 9030AF93066D5D2C00B32218 /* rinit.c */; };
@@ -947,8 +949,6 @@
 		90BD91E9064AC6F7003E3D39 /* Tutorial1.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD91B4064AC6F6003E3D39 /* Tutorial1.func.c */; };
 		90BD91EA064AC6F7003E3D39 /* Tutorial1.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD91B5064AC6F6003E3D39 /* Tutorial1.h */; };
 		90BD925F064AEE7B003E3D39 /* avi.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9208064AEE7A003E3D39 /* avi.h */; };
-		90BD9262064AEE7B003E3D39 /* color.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD920B064AEE7A003E3D39 /* color.c */; };
-		90BD9263064AEE7B003E3D39 /* color.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD920C064AEE7A003E3D39 /* color.h */; };
 		90BD9267064AEE7B003E3D39 /* devstats.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9210064AEE7A003E3D39 /* devstats.h */; };
 		90BD926A064AEE7B003E3D39 /* font.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9213064AEE7A003E3D39 /* font.c */; };
 		90BD926B064AEE7B003E3D39 /* font.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9214064AEE7A003E3D39 /* font.h */; };
@@ -1109,6 +1109,8 @@
 		35DAEDC5077BAF4D0080465A /* Mission05_OEM.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission05_OEM.c; sourceTree = "<group>"; };
 		35DAEDC6077BAF4D0080465A /* Mission05_OEM.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission05_OEM.func.c; sourceTree = "<group>"; };
 		35DAEDC7077BAF4D0080465A /* Mission05_OEM.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Mission05_OEM.h; sourceTree = "<group>"; };
+		35FB9A6B0B124F0500523C83 /* Color.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Color.c; sourceTree = "<group>"; };
+		35FB9A6C0B124F0500523C83 /* Color.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Homeworld.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Homeworld.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Homeworld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Homeworld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9030AF92066D5D2C00B32218 /* avi.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = avi.c; path = ../src/SDL/avi.c; sourceTree = SOURCE_ROOT; };
@@ -1516,8 +1518,6 @@
 		90BD91B4064AC6F6003E3D39 /* Tutorial1.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Tutorial1.func.c; path = ../src/Generated/Tutorial1.func.c; sourceTree = SOURCE_ROOT; };
 		90BD91B5064AC6F6003E3D39 /* Tutorial1.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Tutorial1.h; path = ../src/Generated/Tutorial1.h; sourceTree = SOURCE_ROOT; };
 		90BD9208064AEE7A003E3D39 /* avi.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = avi.h; path = ../src/SDL/avi.h; sourceTree = SOURCE_ROOT; };
-		90BD920B064AEE7A003E3D39 /* color.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = color.c; path = ../src/SDL/color.c; sourceTree = SOURCE_ROOT; };
-		90BD920C064AEE7A003E3D39 /* color.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = color.h; path = ../src/SDL/color.h; sourceTree = SOURCE_ROOT; };
 		90BD9210064AEE7A003E3D39 /* devstats.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = devstats.h; path = ../src/SDL/devstats.h; sourceTree = SOURCE_ROOT; };
 		90BD9213064AEE7A003E3D39 /* font.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = font.c; path = ../src/SDL/font.c; sourceTree = SOURCE_ROOT; };
 		90BD9214064AEE7A003E3D39 /* font.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = font.h; path = ../src/SDL/font.h; sourceTree = SOURCE_ROOT; };
@@ -1842,6 +1842,8 @@
 				90623C39064992AE0088361C /* Clouds.h */,
 				90623C3A064992AE0088361C /* Collision.c */,
 				90623C3B064992AE0088361C /* Collision.h */,
+				35FB9A6B0B124F0500523C83 /* Color.c */,
+				35FB9A6C0B124F0500523C83 /* Color.h */,
 				90623C3C064992AE0088361C /* ColPick.c */,
 				90623C3D064992AE0088361C /* ColPick.h */,
 				90623C3E064992AE0088361C /* CommandDefs.h */,
@@ -2204,8 +2206,6 @@
 			children = (
 				9030AF92066D5D2C00B32218 /* avi.c */,
 				90BD9208064AEE7A003E3D39 /* avi.h */,
-				90BD920B064AEE7A003E3D39 /* color.c */,
-				90BD920C064AEE7A003E3D39 /* color.h */,
 				90BD9210064AEE7A003E3D39 /* devstats.h */,
 				90BD9213064AEE7A003E3D39 /* font.c */,
 				90BD9214064AEE7A003E3D39 /* font.h */,
@@ -2536,7 +2536,6 @@
 				3516C8E0077C41B0001AA863 /* Mission03.h in Headers */,
 				3516C8E1077C41B0001AA863 /* Mission04.h in Headers */,
 				3516C8EF077C41B0001AA863 /* avi.h in Headers */,
-				3516C8F0077C41B0001AA863 /* color.h in Headers */,
 				3516C8F1077C41B0001AA863 /* devstats.h in Headers */,
 				3516C8F2077C41B0001AA863 /* font.h in Headers */,
 				3516C8F3077C41B0001AA863 /* fqcodec.h in Headers */,
@@ -2618,6 +2617,7 @@
 				3578AD0B0AF40518007BFA9F /* StringSupport.h in Headers */,
 				3507A51C0B0FA60200E374C5 /* Trails.h in Headers */,
 				3507A57B0B0FBB0B00E374C5 /* Subtitle.h in Headers */,
+				35FB9A700B124F0500523C83 /* Color.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2811,7 +2811,6 @@
 				90BD91E7064AC6F7003E3D39 /* Mission16.h in Headers */,
 				90BD91EA064AC6F7003E3D39 /* Tutorial1.h in Headers */,
 				90BD925F064AEE7B003E3D39 /* avi.h in Headers */,
-				90BD9263064AEE7B003E3D39 /* color.h in Headers */,
 				90BD9267064AEE7B003E3D39 /* devstats.h in Headers */,
 				90BD926B064AEE7B003E3D39 /* font.h in Headers */,
 				90BD926C064AEE7B003E3D39 /* fqcodec.h in Headers */,
@@ -2891,6 +2890,7 @@
 				3578AD090AF40518007BFA9F /* StringSupport.h in Headers */,
 				3507A51E0B0FA60200E374C5 /* Trails.h in Headers */,
 				3507A57D0B0FBB0B00E374C5 /* Subtitle.h in Headers */,
+				35FB9A6E0B124F0500523C83 /* Color.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3325,7 +3325,6 @@
 				3516CA05077C41B0001AA863 /* Mission03.func.c in Sources */,
 				3516CA06077C41B0001AA863 /* Mission04.c in Sources */,
 				3516CA07077C41B0001AA863 /* Mission04.func.c in Sources */,
-				3516CA22077C41B0001AA863 /* color.c in Sources */,
 				3516CA23077C41B0001AA863 /* font.c in Sources */,
 				3516CA24077C41B0001AA863 /* glcaps.c in Sources */,
 				3516CA25077C41B0001AA863 /* glcompat.c in Sources */,
@@ -3398,6 +3397,7 @@
 				3578AD0A0AF40518007BFA9F /* StringSupport.c in Sources */,
 				3507A51B0B0FA60200E374C5 /* Trails.c in Sources */,
 				3507A57A0B0FBB0B00E374C5 /* Subtitle.c in Sources */,
+				35FB9A6F0B124F0500523C83 /* Color.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3622,7 +3622,6 @@
 				90BD91E6064AC6F7003E3D39 /* Mission16.func.c in Sources */,
 				90BD91E8064AC6F7003E3D39 /* Tutorial1.c in Sources */,
 				90BD91E9064AC6F7003E3D39 /* Tutorial1.func.c in Sources */,
-				90BD9262064AEE7B003E3D39 /* color.c in Sources */,
 				90BD926A064AEE7B003E3D39 /* font.c in Sources */,
 				90BD926F064AEE7B003E3D39 /* glcaps.c in Sources */,
 				90BD9271064AEE7B003E3D39 /* glcompat.c in Sources */,
@@ -3691,6 +3690,7 @@
 				3578AD080AF40518007BFA9F /* StringSupport.c in Sources */,
 				3507A51D0B0FA60200E374C5 /* Trails.c in Sources */,
 				3507A57C0B0FBB0B00E374C5 /* Subtitle.c in Sources */,
+				35FB9A6D0B124F0500523C83 /* Color.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,7 +9,7 @@
 #define ___PARTICLE_H
 
 #include "Matrix.h"
-#include "color.h"
+#include "Color.h"
 #include "SpaceObj.h"
 #include "texreg.h"
 

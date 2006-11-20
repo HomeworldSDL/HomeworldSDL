@@ -11,7 +11,7 @@
 #define ___TEAMS_H
 
 #include "Types.h"
-#include "color.h"
+#include "Color.h"
 #include "texreg.h"
 #include "Globals.h"
 

@@ -27,7 +27,7 @@
 #include "ScenPick.h"
 #include "ColPick.h"
 #include "Captaincy.h"
-#include "color.h"
+#include "Color.h"
 #include "File.h"
 #include "Titan.h"
 

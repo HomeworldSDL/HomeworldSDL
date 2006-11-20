@@ -16,7 +16,7 @@
 #include "ObjTypes.h"
 #include "ETG.h"
 #include "Trails.h"
-#include "color.h"
+#include "Color.h"
 #include "SoundStructs.h"
 #include "MeshAnim.h"
 #include "Clouds.h"

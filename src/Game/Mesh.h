@@ -10,7 +10,7 @@
 #define ___MESH_H
 
 #include "Types.h"
-#include "color.h"
+#include "Color.h"
 #include "Matrix.h"
 
 /*=============================================================================

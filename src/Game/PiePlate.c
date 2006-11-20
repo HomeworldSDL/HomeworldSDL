@@ -23,7 +23,7 @@
 #include "font.h"
 #include "FontReg.h"
 #include "main.h"
-#include "color.h"
+#include "Color.h"
 #include "mainrgn.h"
 #include "prim2d.h"
 #include "prim3d.h"

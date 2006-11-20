@@ -23,7 +23,7 @@
 #include "Select.h"
 #include "StatScript.h"
 #include "SoundEvent.h"
-#include "color.h"
+#include "Color.h"
 #include "Globals.h"
 #include "FlightMan.h"
 #include "UnivUpdate.h"

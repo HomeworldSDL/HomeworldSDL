@@ -1,5 +1,5 @@
 /*=============================================================================
-    Name    : color.h
+    Name    : Color.h
     Purpose : Definitions for color definition.
 
     Created 7/7/1997 by lmoloney

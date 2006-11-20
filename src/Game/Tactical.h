@@ -9,7 +9,7 @@
 #define ___TACTICAL_H
 
 #include "Types.h"
-#include "color.h"
+#include "Color.h"
 #include "prim2d.h"
 #include "utility.h"
 #include "ObjTypes.h"

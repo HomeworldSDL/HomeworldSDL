@@ -10,7 +10,7 @@
 #define ___SUBTITLE_H
 
 #include "prim2d.h"
-#include "color.h"
+#include "Color.h"
 #include "font.h"
 #include "texreg.h"
 

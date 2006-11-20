@@ -10,7 +10,7 @@
 #define ___PRIM2D_H
 
 #include "Types.h"
-#include "color.h"
+#include "Color.h"
 #include "main.h"
 
 /*=============================================================================

@@ -11,7 +11,7 @@
 
 #include "Types.h"
 #include "Tweak.h"
-#include "color.h"
+#include "Color.h"
 #include "ObjTypes.h"
 #include "TitanInterfaceC.h"
 #include "Queue.h"

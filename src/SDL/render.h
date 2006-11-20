@@ -12,7 +12,7 @@
 #include "Types.h"
 #include "Camera.h"
 #include "Matrix.h"
-#include "color.h"
+#include "Color.h"
 #include "SpaceObj.h"
 
 /*=============================================================================

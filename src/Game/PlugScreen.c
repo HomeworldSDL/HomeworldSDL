@@ -12,7 +12,7 @@
 #include <math.h>
 #include "glinc.h"
 #include "Task.h"
-#include "color.h"
+#include "Color.h"
 #include "prim2d.h"
 #include "interfce.h"
 #include "FontReg.h"
