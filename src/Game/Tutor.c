@@ -58,7 +58,7 @@ bool FalkosFuckedUpTutorialFlag = FALSE;
 
 // Function declarations
 void utySinglePlayerGameStart(char *name, featom *atom);
-char *tutGetNextTextLine(char *pDest, char *pString, long Width);
+char *tutGetNextTextLine(char *pDest, char *pString, long Width, int pDestSize);
 udword tutProcessNextButton(struct tagRegion *reg, sdword ID, udword event, udword data);
 udword tutProcessBackButton(struct tagRegion *reg, sdword ID, udword event, udword data);
 udword uicButtonProcess(regionhandle region, sdword ID, udword event, udword data);
@@ -973,7 +973,7 @@ char        Line[256], *pString;
     currFont = fontMakeCurrent(tutTextFont);
 
     do {
-        pString = tutGetNextTextLine(Line, pString, tutTextSizeX);
+        pString = tutGetNextTextLine(Line, pString, tutTextSizeX, 256); // 256 defined above as size of Line
         Height += fontHeight(" ");
     } while(pString && pString[0]);
 
@@ -1041,7 +1041,7 @@ bool tutIsspace(char c)
 
 // This function gets a line of text that is up to Width pixels wide, and returns a
 // pointer to the start of the next line.  Assumes the current font is set.
-char *tutGetNextTextLine(char *pDest, char *pString, long Width)
+char *tutGetNextTextLine(char *pDest, char *pString, long Width, int pDestSize)
 {
 long    WordLen, StringLen;
 char    *pstr;
@@ -1055,9 +1055,17 @@ char    temp;
     if(pString[0] == 0)
         return NULL;
 
+    if (strlen(pString) < pDestSize) {
+	memStrncpy(pDest, pString, strlen(pString) +1);
+    }
+    else {
+	memStrncpy(pDest, pString, pDestSize -1);
+	memStrncpy(pDest + pDestSize -1, '\0', 1);
+    }
+
     do {
         // Skip leading whitespace
-        pstr = &pString[StringLen];
+        pstr = &pDest[StringLen];
         while( *pstr && *pstr != '\n' && (*pstr == '-' || tutIsspace(*pstr)) )
         {
             WordLen++;
@@ -1074,7 +1082,7 @@ char    temp;
 
             temp = *pstr;
             *pstr = 0;
-            if(fontWidth(pString) > Width)
+            if(fontWidth(pDest) > Width)
                 Done = TRUE;
             else
             {
@@ -1092,8 +1100,8 @@ char    temp;
 
     if(StringLen)
     {
-        memStrncpy(pDest, pString, StringLen+1);
-        //pDest[StringLen] = 0;
+        // memStrncpy(pDest, pString, StringLen+1);
+        pDest[StringLen] = 0;
 
         while( pString[StringLen] && tutIsspace(pString[StringLen]) )
             StringLen++;
@@ -1443,7 +1451,7 @@ rectangle   rect;
     pString = (char *)pAtom->pData;
 
     do {
-        pString = tutGetNextTextLine(Line, pString, Width);
+        pString = tutGetNextTextLine(Line, pString, Width, 256); //256 defined above as size of Line
         if(Line[0])
             fontPrintf(x, y, colRGB(255, 255, 128), "%s", Line);
         y += fontHeight(" ");

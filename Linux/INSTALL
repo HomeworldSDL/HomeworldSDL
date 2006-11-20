@@ -38,9 +38,7 @@ Contents:
 
 GCC 3.x versions prior to 3.3 have problems compiling various sections of the Homeworld code and will crash upon the attempt.  GCC 2.95.x does not provide support for SSE/SSE2 instructions and will not work. 
  
- GCC 4 will not work either, as several sections of the source code rely on obsolete programming practices no longer permitted by GCC 4 and later... most notably the mission source files use the "-fwritable-strings" option which GCC 4 no longer allows. You'll have to run GCC as GCC 3.3 or 3.4.
-
- GCC 4 is now working but a change needs to be made to ../src/Generated/Makefile.am before configure or src/Generated/Makefile after configure to allow the compile to work. The change is to remove writable-strings as a compile option for the Missions. This has been tested but I am unable to find a justification for the writable-strings. If it breaks things I'll look at fixing specific parts.
+GCC 4.x is now working after resolving cast and compile issues, and removing the requirement to use -fwritable strings.
 
 There is a strong sentiment among many people to rewrite the codebase to modern standards, and even talk of aiming for a 64-bit branch as well, but it will take time. 
  
