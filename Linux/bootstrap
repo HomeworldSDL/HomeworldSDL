@@ -6,6 +6,7 @@ if [ ! -d stuff ]; then
 fi
 
 cp stuff/* ../
+mv stuff/config ../
 cd ..
 set -x
 libtoolize --force --copy
