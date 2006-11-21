@@ -1,4 +1,4 @@
-INCLUDES = -I$(top_srcdir)/src/JPG -I$(top_srcdir)/src/rgl -I$(top_srcdir)/src/SDL -I$(top_srcdir)/src/Ships -I$(top_srcdir)/include/Titan
+INCLUDES = -I$(top_srcdir)/src/JPG -I$(top_srcdir)/src/rgl -I$(top_srcdir)/src/SDL -I$(top_srcdir)/src/Ships -I$(top_srcdir)/src/ThirdParty/Titan
 
 # Task functions rely on the frame pointer, but it doesn't seem that we can
 # enable it on a per-function basis with GCC.

@@ -5,7 +5,7 @@ else
 libhw_SDL_a_WIN32SOURCES = win32glue.c
 endif
 
-INCLUDES = -I$(top_srcdir)/src/Game -I$(top_srcdir)/src/JPG -I$(top_srcdir)/src/Ships -I$(top_srcdir)/include/Titan
+INCLUDES = -I$(top_srcdir)/src/Game -I$(top_srcdir)/src/JPG -I$(top_srcdir)/src/Ships
 
 noinst_LIBRARIES = libhw_SDL.a
 libhw_SDL_a_SOURCES = avi.c avi.h debugwnd.h devstats.h font.c font.h fqcodec.h fqeffect.h fquant.h glcaps.c glcaps.h glcompat.c glcompat.h gldefines.h gldll.c gldll.h glext.h glinc.h light.c light.h main.c main.h mainrgn.c mainrgn.h mainswitches.h mixfft.c mouse.c mouse.h prim2d.c prim2d.h prim3d.c prim3d.h Queue.c Queue.h regkey.h render.c render.h resource.h rglu.c rglu.h rinit.c rinit.h screenshot.c screenshot.h smixer.c soundcmn.h soundlow.c soundlow.h sstream.c texreg.c texreg.h TimeoutTimer.c TimeoutTimer.h Titan.c Titan.h TitanInterfaceC.h TitanInterfaceC.stub.c utility.c utility.h $(libhw_SDL_a_WIN32SOURCES)
