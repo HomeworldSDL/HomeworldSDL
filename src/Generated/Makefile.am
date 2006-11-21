@@ -1,4 +1,4 @@
-INCLUDES = -I$(top_srcdir)/src/Game -I$(top_srcdir)/src/JPG -I$(top_srcdir)/src/SDL -I$(top_srcdir)/src/Ships -I$(top_srcdir)/src/SinglePlayer -I$(top_srcdir)/src/Tutorials
+INCLUDES = -I$(top_srcdir)/src/Game -I$(top_srcdir)/src/SDL -I$(top_srcdir)/src/Ships -I$(top_srcdir)/src/SinglePlayer -I$(top_srcdir)/src/Tutorials
 
 # We need to write to the strings defined in the mission code files (only
 # temporary writes, for things such as checking the pixel width of a section

@@ -1,14 +1,14 @@
-INCLUDES = -I$(top_srcdir)/src/Game -I$(top_srcdir)/src/JPG -I$(top_srcdir)/src/rgl -I$(top_srcdir)/src/SDL -I$(top_srcdir)/src/Ships
+INCLUDES = -I$(top_srcdir)/src/Game -I$(top_srcdir)/src/ThirdParty/JPG -I$(top_srcdir)/src/rgl -I$(top_srcdir)/src/SDL -I$(top_srcdir)/src/Ships
 
 # Note the ordering (we haven't defined the dependencies too strongly).
-SUBDIRS = Generated Game JPG rgl SDL Ships obj
+SUBDIRS = Generated Game ThirdParty/JPG rgl SDL Ships obj
 
 bin_PROGRAMS = homeworld
 
 HW_LIBS = \
    ./Game/libhw_Game.a \
    ./Generated/libhw_Generated.a \
-   ./JPG/libhw_JPG.a \
+   ./ThirdParty/JPG/libhw_JPG.a \
    ./SDL/libhw_SDL.a \
    ./Ships/libhw_Ships.a \
    ./obj/libhw_Sound.a
