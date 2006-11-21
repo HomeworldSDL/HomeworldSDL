@@ -70,7 +70,6 @@ extern real32 opTimerLength;
 // previously in LilOptions.h
 extern udword opDeviceCRC;
 extern sdword opDeviceIndex;
-extern sdword opUsing3DfxGL;
 extern sdword opCPUDiff;
 extern sdword opCPUAttack;
 

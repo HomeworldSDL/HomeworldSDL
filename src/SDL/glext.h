@@ -101,7 +101,6 @@ Copyright Relic Entertainment, Inc.  All rights reserved.
 #endif //RGL_VERTEX_LIST
 
 #define SWtype    0
-#define GLIDEtype 1
 #define D3Dtype   2
 #define GLtype    3
 

@@ -427,8 +427,6 @@ void glDLLReset(void)
 #endif
 }
 
-GLboolean glDLL3Dfx = GL_FALSE;
-
 void glDLLGetGLCompat(void)
 {
     int DynalinkFailed = 0;
@@ -468,7 +466,6 @@ void glDLLWatch(GLuint handle)
 extern bool mainAllow3DNow;
 
 #define glDLLEnvironment() \
-    putenv("FX_GLIDE_NO_SPLASH=1");\
     if (!mainAllow3DNow)\
     {\
         putenv("__GL_FORCE_K3D=0");\
@@ -505,21 +502,6 @@ GLboolean glDLLGetProcs(char* dllName)
     }
 #endif
 
-    if (strstr(dllName, "3dfx") != NULL ||
-        strstr(dllName, "3Dfx") != NULL ||
-#ifdef _WIN32
-        strstr(dllName, "dll\\") != NULL)
-#else
-        strstr(dllName, "dll/") != NULL)
-#endif
-    {
-        glDLL3Dfx = GL_TRUE;
-    }
-    else
-    {
-        glDLL3Dfx = GL_FALSE;
-    }
-
     /* Make sure SDL video is initialized. */
     sdl_flags = SDL_WasInit(SDL_INIT_EVERYTHING);
     if (!sdl_flags)
@@ -533,49 +515,32 @@ GLboolean glDLLGetProcs(char* dllName)
             return GL_FALSE;
     }
 
-    if (!glNT && glDLL3Dfx)
+    glDLLEnvironment();
+
+    #if 0 // #ifdef _MACOSX_FIX_ME
+    // On OS X SDL_GL_LoadLibrary does nothing, so we must check if the given dll exists.
     {
-        glDLLEnvironment();
-        //try installed 3dfx GL first
-        if (SDL_GL_LoadLibrary(GL_LIB_NAME(3dfxvgl)) == -1)
+        FILE *dll_test = fopen( "librgl.so.bundle", "rb" );
+        if( dll_test )
+            fclose( dll_test );
+        else
         {
-            //not there, try our own
-            glDLLEnvironment();
-            if (SDL_GL_LoadLibrary(dllName) == -1)
-            {
-                return GL_FALSE;
-            }
-        }
-    }
-    else
-    {
-        glDLLEnvironment();
-
-        #if 0 // #ifdef _MACOSX_FIX_ME
-        // On OS X SDL_GL_LoadLibrary does nothing, so we must check if the given dll exists.
-        {
-		    FILE *dll_test = fopen( "librgl.so.bundle", "rb" );
-		    if( dll_test )
-			    fclose( dll_test );
-		    else
-    		{
-	    		fprintf( stderr, "Cannot load %s library\n", dllName );
-		    	return GL_FALSE;
-	    	}
-	    }
-        #endif
-
-        #ifdef _MACOSX_FIX_ME
-        dllName = NULL;
-        #endif
-
-        //try loading the .DLL
-        if (SDL_GL_LoadLibrary(dllName) == -1)
-        {
-            fprintf(stderr, "SDL_GL_LoadLibrary(%s): %s\n",
-                (dllName ? dllName : "NULL"), SDL_GetError());
+            fprintf( stderr, "Cannot load %s library\n", dllName );
             return GL_FALSE;
         }
+    }
+    #endif
+
+    #ifdef _MACOSX_FIX_ME
+    dllName = NULL;
+    #endif
+
+    //try loading the .DLL
+    if (SDL_GL_LoadLibrary(dllName) == -1)
+    {
+        fprintf(stderr, "SDL_GL_LoadLibrary(%s): %s\n",
+            (dllName ? dllName : "NULL"), SDL_GetError());
+        return GL_FALSE;
     }
 
     bOpenGlLoaded = TRUE;

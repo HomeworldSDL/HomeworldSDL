@@ -1209,11 +1209,6 @@ sdword fontPrintN(sdword x, sdword y, color c, char *string, sdword maxCharacter
     {
         brightBlue = 255;
     }
-#if FONT_COLOR_HACK
-    glBegin(GL_POINTS);
-    glVertex2f(primScreenToGLX(-1), primScreenToGLY(-1));   //work around color bug in 3DFxGL
-    glEnd();
-#endif
 
     imageWidth = (real32)fontCurrentFont->imageWidth;       //get floating-point image dimesions
     imageHeight = (real32)fontCurrentFont->imageHeight;

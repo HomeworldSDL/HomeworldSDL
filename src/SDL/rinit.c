@@ -54,9 +54,6 @@ unsigned int rinDevstatModeTable[RIN_MODESINDEVSTATLIST][3] =
 extern unsigned int* devTable;
 extern int devTableLength;
 
-//3dfx fullscreen-only present boolean
-static bool bFullscreenDevice;
-
 static rdevice* rDeviceList;
 static int nDevices;
 
@@ -70,10 +67,6 @@ char* gDriverName = NULL;
 typedef HRESULT(WINAPI * DIRECTDRAWCREATE)(GUID*, LPDIRECTDRAW*, IUnknown*);
 typedef HRESULT(WINAPI * DIRECTINPUTCREATE)(HINSTANCE, DWORD, LPDIRECTINPUT*, IUnknown*);
 #endif
-
-#define SST_VOODOO  0
-#define SST_VOODOO2 1
-#define SST_OTHER   2
 
 extern unsigned int sstHardwareExists(int*);
 extern unsigned int glCapNT(void);
@@ -715,15 +708,6 @@ static BOOL WINAPI rinEnumDirectDraw_cb(
 
     d3dObject->Release();
 
-    if (!(hal.dwCaps2 & DDCAPS2_CANRENDERWINDOWED))
-    {
-        //no 3dfx fullscreen devices
-//        ddraw4->Release();
-//        ddraw1->Release();
-        bFullscreenDevice = true;
-//        return D3DENUMRET_OK;
-    }
-
     memset(&dat, 0, sizeof(hwDat));
     if (FAILED(ddraw4->GetDeviceIdentifier(&dddi, 0)))
     {
@@ -915,29 +899,6 @@ bool rinEnumeratePrimary(rdevice* dev)
 }
 
 /*-----------------------------------------------------------------------------
-    Name        : rinEnumerate3Dfx
-    Description : enumerate available display modes on possible 3Dfx display
-    Inputs      : dev - the device whose modes are to be filled
-    Outputs     :
-    Return      : true or false (could or couldn't enumerate)
-----------------------------------------------------------------------------*/
-bool rinEnumerate3Dfx(rdevice* dev)
-{
-	bool res;
-
-	if (!dev)
-		return FALSE;
-
-	/* Use primary display enumeration. */
-	res = rinEnumeratePrimary(dev);
-
-	/* Set 3dfx OpenGL device info. */
-	dev->type = RIN_TYPE_OPENGL;
-
-	return res;
-}
-
-/*-----------------------------------------------------------------------------
     Name        : rinEnumerateDevices
     Description : populate the device list by enumerating available renderers
     Inputs      :
@@ -952,7 +913,7 @@ int rinEnumerateDevices(void)
     bool primaryVal;
     
 #ifndef _MACOSX_FIX_ME
-    int voodoo, maxWidth;
+    int maxWidth;
 #endif
 
 #if 0	/* CRC log only used by Direct3D. */
@@ -966,8 +927,6 @@ int rinEnumerateDevices(void)
     nDevices = 0;
     gDevcaps  = 0xFFFFFFFF;
     gDevcaps2 = 0x00000000;
-
-    bFullscreenDevice = FALSE;
 
     //add Direct3D devices
     /*nDevices += rinEnumerateDirect3D();*/
@@ -1038,42 +997,6 @@ int rinEnumerateDevices(void)
     rinSortModes(dev);
     gldev = dev;
     nDevices++;
-
-#ifndef _MACOSX_FIX_ME
-    //add possible 3dfx OpenGL device
-    voodoo = SST_VOODOO2; //sane default if sstHardwareExists doesn't get called
-    if (!(gDevcaps & DEVSTAT_NO_3DFXGL) &&
-        (bFullscreenDevice || sstHardwareExists(&voodoo)))
-    {
-        rdevice* odev = dev;
-        dev = (rdevice*)rinMemAlloc(sizeof(rdevice));
-        dev->devcaps = 0;
-        dev->type = RIN_TYPE_OPENGL;
-        dev->data[0] = '\0';
-        dev->modes = NULL;
-
-        (void)rinEnumerate3Dfx(dev);
-        strncpy(dev->name, "3dfx OpenGL", 63);
-        if (dev->modes == NULL)
-        {
-            switch (voodoo)
-            {
-            case SST_VOODOO:
-                maxWidth = 800;
-                break;
-            case SST_VOODOO2:
-                maxWidth = 1024;
-                break;
-            default:
-                maxWidth = 0;
-            }
-            rinCopyModesSelectively(dev, odev, 16, maxWidth);
-        }
-        rinAddDevice(dev);
-        rinSortModes(dev);
-        nDevices++;
-    }
-#endif // _MACOSX_FIX_ME
 
     if (!(gDevcaps & DEVSTAT_NOGL_9X))
     {

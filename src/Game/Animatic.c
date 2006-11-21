@@ -22,7 +22,6 @@
 #include "mouse.h"
 #include "SoundEvent.h"
 #include "soundlow.h"
-#include "sstglide.h"
 #include "glcaps.h"
 #include "glcompat.h"
 #include "StringSupport.h"
@@ -42,16 +41,6 @@ sdword animaticJustPlayed = 0;
 // NB: Bink players available here: http://www.radgametools.com/bnkdown.htm
 // I'm not sure how easy it will be to incorporate them (rather than SDK), nor
 // whether they'd be happy if we did.
-
-#ifdef _MACOSX_FIX_ME
-    #define USE_3DFX 0
-#else
-    #define USE_3DFX 1
-#endif
-
-#if USE_3DFX
-extern bool gl3Dfx;
-#endif
 
 /* sound volume stuff */
 real32 animPreviousSFXVolume, animPreviousSpeechVolume, animPreviousMusicVolume;
@@ -244,45 +233,6 @@ void animBinkReverseRGBA(ubyte* surf)
         memcpy(surf + pitch*top, surf + pitch*bot, pitch);
         memcpy(surf + pitch*bot, line, pitch);
     }
-}
-#endif
-#if USE_3DFX
-/*-----------------------------------------------------------------------------
-    Name        : animBinkDisplay3Dfx
-    Description : 3Dfx-specific display callback for a frame of Bink video
-    Inputs      :
-    Outputs     :
-    Return      :
-----------------------------------------------------------------------------*/
-void animBinkDisplay3Dfx(binkDisplayCallback_proc callback)
-{
-    ubyte* fb;
-    sdword xOfs, yOfs;
-    sdword pitch;
-    ubyte* binkSurface = (ubyte*)binkGetSurface();
-
-    if (g_frame <= g_displayFrame)
-    {
-        return;
-    }
-    g_displayFrame = g_frame;
-
-    xOfs = (MAIN_WindowWidth  - 640) / 2;
-    yOfs = (MAIN_WindowHeight - 480) / 2;
-
-    fb = (ubyte*)sstGetFramebuffer(&pitch);
-    if (fb == NULL)
-    {
-        return;
-    }
-    callback(fb, pitch, xOfs, yOfs);
-    sstGetFramebuffer(NULL);
-
-    animSubtitlesDraw();
-
-    sstFlush();
-
-    animSubtitlesClear();
 }
 #endif
 
@@ -628,11 +578,7 @@ bool animBinkPlay(sdword a, sdword b)
     soundEventGetVolume(&animPreviousSFXVolume, &animPreviousSpeechVolume, &animPreviousMusicVolume);
 #ifndef _MACOSX_FIX_ME
     rval = binkPlay(filename,
-#if USE_3DFX
-                    (gl3Dfx && sstLoaded()) ? animBinkDisplay3Dfx : animBinkDisplay,
-#else
                     animBinkDisplay,
-#endif // USE_3DFX
                     animBinkDecode,
                     (trLitPaletteBits == 15) ? S_RGB555 : S_RGB565,
                     FALSE, -1);

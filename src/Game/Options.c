@@ -24,7 +24,6 @@
 #include "rinit.h"
 #include "AIPlayer.h"
 #include "FEColour.h"
-#include "sstglide.h"
 #include "Battle.h"
 #include "soundlow.h"
 #include "glcompat.h"
@@ -382,9 +381,6 @@ static sdword opOldDeviceIndex;
 
 udword opDeviceCRC = 0;
 sdword opDeviceIndex = -1;
-
-sdword op3DfxChanged = 0;
-sdword opUsing3DfxGL = 0;
 
 sdword opMusicVol=75;
 sdword opSaveMusicVol;
@@ -1191,9 +1187,6 @@ void opCountdownYes(char* name, featom* atom)
     }
 }
 
-extern GLboolean glDLL3Dfx;
-bool opWasUsing3DfxGL;
-
 void opCountdownNo(char* name, featom* atom)
 {
     opTimerActive = FALSE;
@@ -1204,7 +1197,6 @@ void opCountdownNo(char* name, featom* atom)
     soundEventShutdown();
     opGLCStop();
     mainShutdownRenderer();
-    opUsing3DfxGL = opWasUsing3DfxGL;
     gDevcaps  = opOldDevcaps;
     gDevcaps2 = opOldDevcaps2;
     mainRestoreRender();
@@ -1337,8 +1329,6 @@ void opOptionsAcceptHelper(char* name, featom* atom, char* linkName)
     opOldDevcaps  = gDevcaps;
     opOldDevcaps2 = gDevcaps2;
 
-    opWasUsing3DfxGL = glDLL3Dfx;
-
     if (rnd->type == RIN_TYPE_DIRECT3D)
     {
         if ((RGLtype != D3Dtype) ||
@@ -1379,7 +1369,7 @@ void opOptionsAcceptHelper(char* name, featom* atom, char* linkName)
     }
     else if (rnd->type == RIN_TYPE_OPENGL)
     {
-        if (RGLtype != GLtype || opResChanged() || op3DfxChanged ||
+        if (RGLtype != GLtype || opResChanged() || 
             (opDeviceIndex != opRenderCurrentSelected))
         {
             if (opResHackSupported())
@@ -1387,15 +1377,6 @@ void opOptionsAcceptHelper(char* name, featom* atom, char* linkName)
                 soundEventShutdown();
                 mainSaveRender();
                 opGLCStop();
-
-                if (strcasecmp(rnd->name, "3dfx OpenGL") == 0)
-                {
-                    opUsing3DfxGL = TRUE;
-                }
-                else
-                {
-                    opUsing3DfxGL = FALSE;
-                }
 
                 MAIN_WindowWidth  = opSaveMAIN_WindowWidth;
                 MAIN_WindowHeight = opSaveMAIN_WindowHeight;
@@ -1414,12 +1395,10 @@ void opOptionsAcceptHelper(char* name, featom* atom, char* linkName)
                 {
                     gDevcaps  = opDevcaps;
                     gDevcaps2 = opDevcaps2;
-                    opUsing3DfxGL = opWasUsing3DfxGL;
                     mainRestoreRender();
                     opModeswitchFailed();
                 }
 
-                opUsing3DfxGL = FALSE;
                 soundEventRestart();
                 SDL_Delay(20);
                 opGLCStart();

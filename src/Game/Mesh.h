@@ -42,7 +42,6 @@
 #define MESH_RETAIN_FILENAMES   1               //keep a copy of the fileName
 #define TC_ALLOW_PCX            1               //load .PCX file if layered format not about
 #define TC_SPECIAL_DEBUG        1               //special debugging modes active
-#define TC_3DFX_HACKS           1
 #define MESH_MORPH_DEBUG        0
 
 #endif //HW_Debug

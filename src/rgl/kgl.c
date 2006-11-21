@@ -364,7 +364,6 @@ GLboolean gl_load_devices()
         nDevices = 2;//3;
         gl_new_device(&devices[0], "sw", "software_kgl", GL_FALSE, GL_FALSE, GL_TRUE);
         gl_new_device(&devices[1], "d3d", "d3d_direct3d_directaxe_ms", GL_TRUE, GL_TRUE, GL_FALSE);
-//        gl_new_device(&devices[2], "fx", "glide_glide2_glide2x_3dfx_accel", GL_TRUE, GL_TRUE, GL_FALSE);
         strcpy(DEFAULT_RENDERER, "sw");
     }
 

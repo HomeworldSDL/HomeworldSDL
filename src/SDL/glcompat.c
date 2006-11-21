@@ -2379,19 +2379,7 @@ bool glcActivate(bool active)
     glcActiveStatus = active;
     if (active)
     {
-        if (gl3Dfx)
-        {
-            glcLaggy = TRUE;
-        }
-        else if (strstr(GLC_RENDERER, "Voodoo Graphics") != NULL ||
-                 strstr(GLC_RENDERER, "Voodoo2") != NULL)
-        {
-            glcLaggy = TRUE;
-        }
-        else
-        {
-            glcLaggy = FALSE;
-        }
+        glcLaggy = FALSE;
 
         glcBlend = (bool)glIsEnabled(GL_BLEND);
         glcAlphaTest = (bool)glIsEnabled(GL_ALPHA_TEST);
@@ -2433,14 +2421,7 @@ bool glcActivate(bool active)
     }
     else
     {
-        if (glNT && gl3Dfx)
-        {
-            ;
-        }
-        else
-        {
-            glcPurgeHandles();
-        }
+        glcPurgeHandles();
         glDLLGetGLCompat();
         (void)glcAllocateScratch(FALSE);
     }

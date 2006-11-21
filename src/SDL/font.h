@@ -25,7 +25,6 @@
 #define FONT_SAVE_TEXTURE       1               //save texture handle while printing fonts
 #define FONT_ALL_CAPS           0               //print everything using caps
 #define FONT_IGNORE_NON_ALPHA   1               //ignore non-alphabetical characters
-#define FONT_COLOR_HACK         0               //work around a shortcoming in 3dFXGL
 #define FONT_MANUAL_CLIP        1               //do a check to see if font is off-screen
 
 #else //HW_Debug
@@ -37,7 +36,6 @@
 #define FONT_SAVE_TEXTURE       1               //save texture handle while printing fonts
 #define FONT_ALL_CAPS           0               //print everything using caps
 #define FONT_IGNORE_NON_ALPHA   1               //ignore non-alphabetical characters
-#define FONT_COLOR_HACK         0               //work around a shortcoming in 3dFXGL
 #define FONT_MANUAL_CLIP        1               //do a check to see if font is off-screen
 
 #endif //HW_Debug

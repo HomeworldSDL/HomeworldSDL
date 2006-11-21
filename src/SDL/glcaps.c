@@ -14,7 +14,6 @@
 #include "texreg.h"
 #include "StringSupport.h"
 #include "devstats.h"
-#include "sstglide.h"
 #include "main.h"
 #include "render.h"
 
@@ -56,7 +55,6 @@ static bool glSharedTexturePalette;
 static bool glLitTexturePalette;
 static bool glCompiledVertexArrays;
 static bool glClippingHint;
-bool gl3Dfx;
 bool glNT;
 bool gl95;
 GLenum glCapDepthFunc;
@@ -431,10 +429,6 @@ bool glCapFeatureExists(GLenum feature)
             }
 #endif
         }
-        else
-        {
-            return !gl3Dfx;
-        }
 
     default:
         return FALSE;
@@ -637,9 +631,6 @@ bool glCapValidGL(void)
     Outputs     : glCapTexFormat[] is modified
     Return      :
 ----------------------------------------------------------------------------*/
-static char voodoo2Extensions[] = "GL_EXT_paletted_texture GL_EXT_shared_texture_palette GL_SGIS_multitexture ";
-static char voodooExtensions[]  = "GL_EXT_paletted_texture GL_EXT_shared_texture_palette ";
-static char voodooVendor[] = "3Dfx Interactive Inc.";
 char GENERIC_OPENGL_RENDERER[128];
 void glCapStartup(void)
 {
@@ -766,18 +757,6 @@ void glCapStartup(void)
         }
     }
 
-    if (RGLtype == GLtype)
-    {
-        //3dfx is the only vendor currently known to properly
-        //support paletted textures
-        if (strstr(GLC_VENDOR, "3dfx") == NULL &&
-            strstr(GLC_VENDOR, "3Dfx") == NULL)
-        {
-            //3dfx is not the vendor, no palette support
-            trNoPalettes = TRUE;
-        }
-    }
-
     //palettes are not "safe"
     if (mainSafeGL && (RGLtype == GLtype))
     {
@@ -790,29 +769,6 @@ void glCapStartup(void)
         //Savage 3/4 crash on interleaved vertex arrays
         glCapVertexArray = FALSE;
     }
-#if 0
-    else if (strstr(GLC_VENDOR, "3dfx") != NULL ||
-             strstr(GLC_VENDOR, "3Dfx") != NULL)
-    {
-        //3dfx OpenGL, see if K3D instructions are enabled
-        if (strstr(GLC_RENDERER, "3DNow") != NULL)
-        {
-            //K3D instructions detected, can't assume vertex array support
-            glCapVertexArray = FALSE;
-        }
-        else if (strstr(GLC_RENDERER, "KNI") != NULL ||
-                 strstr(GLC_RENDERER, "SSE") != NULL)
-        {
-            //KNI instructions detected, can't assume vertex array support
-            glCapVertexArray = FALSE;
-        }
-        else
-        {
-            //vertex array support ok w/o extended instructions
-            glCapVertexArray = TRUE;
-        }
-    }
-#endif
     else
     {
         //everything else seems ok
@@ -835,7 +791,6 @@ void glCapStartup(void)
         glCompiledVertexArrays = FALSE;
     }
 
-    gl3Dfx = FALSE;
     glCapSwapFriendly = FALSE;
     glCapPointSize = TRUE;
 
@@ -860,30 +815,9 @@ void glCapStartup(void)
 		glCapDoubleBuffer = TRUE;
 #endif
 
-        //is this a 3dfx GL?
-        if (strcasecmp(GLC_VENDOR, voodooVendor) == 0)
-        {
-            //3dfxgl.dll w/ voodoo graphics or voodoo 2 ?
-            if (strcasecmp(GLC_EXTENSIONS, voodooExtensions) == 0 ||
-                strcasecmp(GLC_EXTENSIONS, voodoo2Extensions) == 0)
-            {
-                //we're using 3dfxgl.dll and a voodoo 1 or 2
-                gl3Dfx = TRUE;
-                glCapPointSize = FALSE;
-            }
-        }
-
         //recommended depthbuffer function
         glCapDepthFunc = GL_LEQUAL;
     }
-
-#ifndef _MACOSX_FIX_ME
-    if (gl3Dfx)
-    {
-        //load the Glide stuff if we can use it
-        sstStartup();
-    }
-#endif
 
     //enable/disable linesmoothing as per devcaps et al
     glCapLineSmooth = TRUE;

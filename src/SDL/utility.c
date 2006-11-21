@@ -126,7 +126,6 @@
 #include "Subtitle.h"
 #include "Animatic.h"
 #include "dxdraw.h"
-#include "sstglide.h"
 #include "PlugScreen.h"
 #include "HS.h"
 #include "glcompat.h"

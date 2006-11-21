@@ -24,7 +24,6 @@ Copyright Relic Entertainment, Inc.  All rights reserved.
 extern char GENERIC_OPENGL_RENDERER[];
 
 extern GLenum glCapDepthFunc;
-extern bool gl3Dfx;
 extern bool glNT;
 extern bool gl95;
 

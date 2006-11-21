@@ -100,7 +100,6 @@ int RegisterCommandLine(char *commandLine)
 #include "ColPick.h"
 #include "HorseRace.h"
 #include "glcompat.h"
-#include "sstglide.h"
 #include "Particle.h"
 #include "CommandLayer.h"
 #include "Key.h"
@@ -1744,70 +1743,6 @@ static bool mainFileExists(char* filename)
     }
 }
 
-static bool mainFind3DfxGL(char* path)
-{
-    char* dir;
-    char  subdir[8];
-
-    if (glCapNT())
-    {
-        strcpy(subdir, "WinNT");
-    }
-    else
-    {
-        strcpy(subdir, "Win9x");
-    }
-
-    //try cwd\3dfx\opengl32.dll first
-#ifdef _WIN32
-    sprintf(path, "3dfx\\%s\\opengl32.dll", subdir);
-#else
-    sprintf(path, "3dfx/%s/libGL.so", subdir);
-#endif
-    if (mainFileExists(path))
-    {
-        return TRUE;
-    }
-
-    //try $HW_Root\dll\opengl32.dll next
-    dir = getenv("HW_Root");
-    if (dir == NULL)
-    {
-        //not found, use default opengl
-#ifdef _WIN32
-        strcpy(path, "opengl32.dll");
-#else
-        strcpy(path, "libGL.so");
-#endif
-        return FALSE;
-    }
-    else
-    {
-        char concatdir[128];
-        strcpy(path, dir);
-#ifdef _WIN32
-        if (path[strlen(path)-1] == '\\')
-        {
-            sprintf(concatdir, "dll\\%s\\opengl32.dll", subdir);
-        }
-        else
-        {
-            sprintf(concatdir, "\\dll\\%s\\opengl32.dll", subdir);
-        }
-#else
-        if (path[strlen(path)-1] == '/')
-        {
-            sprintf(concatdir, "dll/%s/libGL.so", subdir);
-        }
-        else
-        {
-            sprintf(concatdir, "/dll/%s/libGL.so", subdir);
-        }
-#endif
-        strcat(path, concatdir);
-        return TRUE;
-    }
-}
 
 /*-----------------------------------------------------------------------------
     Name        : mainFreeLibraries
@@ -1873,25 +1808,11 @@ bool mainStartupGL(char* data)
 
     mainRescaleMainWindow();
 
-    if (opUsing3DfxGL)
-    {
-        if (!mainFind3DfxGL(glToSelect))
-        {
 #ifdef _WIN32
-            memStrncpy(glToSelect, "opengl32.dll", 512 - 1);
+    memStrncpy(glToSelect, "opengl32.dll", 512 - 1);
 #else
-            memStrncpy(glToSelect, "libGL.so", 512 - 1);
+    memStrncpy(glToSelect, "libGL.so", 512 - 1);
 #endif
-        }
-    }
-    else
-    {
-#ifdef _WIN32
-        memStrncpy(glToSelect, "opengl32.dll", 512 - 1);
-#else
-        memStrncpy(glToSelect, "libGL.so", 512 - 1);
-#endif
-    }
 
     if (!glCapLoadOpenGL(glToSelect))
     {
@@ -2062,7 +1983,7 @@ bool mainStartupParticularRGL(char* device, char* data)
     Description : returns the type of currently active renderer
     Inputs      :
     Outputs     :
-    Return      : GLtype, D3Dtype, SWtype, [GLIDEtype]
+    Return      : GLtype, D3Dtype, SWtype
 ----------------------------------------------------------------------------*/
 sdword mainActiveRenderer(void)
 {
@@ -2109,13 +2030,6 @@ void mainDestroyWindow(void)
 void mainShutdownGL(void)
 {
     rndClose();
-
-#ifndef _MACOSX_FIX_ME
-    if (sstLoaded())
-    {
-        sstShutdown();
-    }
-#endif
 
     /*hwDeleteWindow();*/
     mainDestroyWindow();
@@ -2964,7 +2878,7 @@ static bool InitWindow ()
         if (accelFirst)
         {
             rglSelectDevice("fx", "");
-            lodScaleFactor = 1.0f;                              //default scale factor is just right for 3dfx
+            lodScaleFactor = 1.0f;
         }
         if (deviceToSelect[0] != '\0')
         {

@@ -9,9 +9,6 @@ CXXFLAGS += -O0
 
 lib_LTLIBRARIES = librgl.la librglsw.la
 
-# Not quite ready for prime time...
-#nodist_LTLIBRARIES = librglu.la librglfx.la
-
 librgl_la_SOURCES = asm.c asm.h clip.c clip.h fixed.h gldefines.h hash.c hash.h invert.c kgl.c kgl.h kgl_macros.h kvb.c kvb.h maths.c maths.h rglext.c rglext.h wgl.c
 librgl_la_LDFLAGS = -avoid-version -no-undefined
 
@@ -22,10 +19,6 @@ librgl_la_LDFLAGS = -avoid-version -no-undefined
 librglsw_la_SOURCES = asm.c asm.h sdldraw.c kgl.h lines.c lines.h linetemp.h newblendtextri.c newpersptri.c newrgbapersptri.c newrgbatextri.c newtextri.c newtriangle.c newtriangle.h newtritemp.h scan.c scan.h span.c span.h stipple.c.h stipple.h swdriver.c swdrv.h
 librglsw_la_LIBADD = librgl.la -lSDL
 librglsw_la_LDFLAGS = -avoid-version -no-undefined
-
-#librglfx_la_SOURCES = fxdriver.c fxdrv.h fxtmg.c kgl.h
-#librglfx_la_LIBADD = librgl.la
-#librglfx_la_LDFLAGS = -avoid-version -no-undefined -lglide2x
 
 # asm.c requires SSE instructions, but we don't want to force SSE instructions
 # throughout the project.

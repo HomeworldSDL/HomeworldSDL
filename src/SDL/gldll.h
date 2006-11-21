@@ -271,8 +271,6 @@ extern WDESCRIBEPIXELFORMATproc rwglDescribePixelFormat;
 extern WSWAPBUFFERSproc rwglSwapBuffers;
 #endif
 
-extern GLboolean glDLL3Dfx;
-
 GLboolean glDLLGetProcs(char* dllName);
 void glDLLReset(void);
 void glDLLGetGLCompat(void);
