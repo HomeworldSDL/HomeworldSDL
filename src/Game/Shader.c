@@ -22,8 +22,6 @@ Copyright Relic Entertainment, Inc.  All rights reserved.
     Data
 =============================================================================*/
 
-#define SLOW_TO_INT 1
-
 #ifndef CLAMP
 #define CLAMP(X, MIN, MAX) ((X) < (MIN) ? (MIN) : ((X) > (MAX) ? (MAX) : (X)))
 #endif
@@ -31,13 +29,6 @@ Copyright Relic Entertainment, Inc.  All rights reserved.
 #ifndef MIN2
 #define MIN2(X, Y) ((X) < (Y) ? (X) : (Y))
 #endif
-
-// ---
-static double chop_temp;
-
-#define FAST_TO_INT(X) ((chop_temp = (double)(X) + BIG_NUM), *(int*)(&chop_temp))
-#define BIG_NUM ((float)(1 << 26)*(1 << 26)*1.5)
-// ---
 
 static real32 shDockFactor = 0.0f;
 static color  shDockColor  = colWhite;
@@ -504,15 +495,9 @@ void shColour(
         }
     }
 
-#if SLOW_TO_INT
     color[0] = (ubyte)MIN2(sumR, 255.0f);
     color[1] = (ubyte)MIN2(sumG, 255.0f);
     color[2] = (ubyte)MIN2(sumB, 255.0f);
-#else
-    color[0] = FAST_TO_INT(MIN2(sumR, 255.0f));
-    color[1] = FAST_TO_INT(MIN2(sumG, 255.0f));
-    color[2] = FAST_TO_INT(MIN2(sumB, 255.0f));
-#endif
     color[3] = shBaseAlpha;
 }
 
@@ -566,17 +551,10 @@ void shColourSet(
         }
     }
 
-#if SLOW_TO_INT
     glColor4ub((ubyte)MIN2(sumR, 255.0f),
                (ubyte)MIN2(sumG, 255.0f),
                (ubyte)MIN2(sumB, 255.0f),
                (ubyte)shBaseAlpha);
-#else
-    glColor4ub((ubyte)FAST_TO_INT(MIN2(sumR, 255.0f)),
-               (ubyte)FAST_TO_INT(MIN2(sumG, 255.0f)),
-               (ubyte)FAST_TO_INT(MIN2(sumB, 255.0f)),
-               (ubyte)shBaseAlpha);
-#endif
 }
 
 /*-----------------------------------------------------------------------------
@@ -751,17 +729,10 @@ void shColourSet0(vector* norm)
         sumB += t * shDockScalarBlue;
     }
 
-#if SLOW_TO_INT
     glColor4ub((ubyte)MIN2(sumR, 255.0f),
                (ubyte)MIN2(sumG, 255.0f),
                (ubyte)MIN2(sumB, 255.0f),
                (ubyte)shBaseAlpha);
-#else
-    glColor4ub((ubyte)FAST_TO_INT(MIN2(sumR, 255.0f)),
-               (ubyte)FAST_TO_INT(MIN2(sumG, 255.0f)),
-               (ubyte)FAST_TO_INT(MIN2(sumB, 255.0f)),
-               (ubyte)shBaseAlpha);
-#endif
 }
 
 real32 gl_pow(real32 a, real32 b)
@@ -818,11 +789,7 @@ void shSpecularColour(
             alpha = 0.0f;
         }
 
-#if SLOW_TO_INT
         color[3] = (ubyte)(fade * (real32)color[3] * CLAMP(alpha, 0.0f, 1.0f));
-#else
-        color[3] = (ubyte)FAST_TO_INT(fade * (real32)color[3] * CLAMP(alpha, 0.0f, 1.0f));
-#endif
     }
     else if (specInd == 1)
     {
@@ -885,13 +852,8 @@ void shSpecularColour(
             alpha = 0.0f;
         }
 
-#if SLOW_TO_INT
         color[1] = (ubyte)((real32)color[1] * CLAMP(alpha, 0.0f, 0.92f));
         color[3] = (ubyte)(fade * (real32)color[3] * CLAMP(alpha, 0.0f, 1.0f));
-#else
-        color[1] = (ubyte)FAST_TO_INT((real32)color[1] * CLAMP(alpha, 0.0f, 0.92f));
-        color[3] = (ubyte)FAST_TO_INT(fade * (real32)color[3] * CLAMP(alpha, 0.0f, 1.0f));
-#endif
     }
 }
 

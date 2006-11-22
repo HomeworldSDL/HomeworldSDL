@@ -11,6 +11,11 @@
 #include <windows.h>
 #endif
 #endif
+
+#ifndef _MACOSX          // rgl stuff
+    #include "fixed.h"
+#endif
+
 #include <stdio.h>
 #include <math.h>
 #include "glinc.h"
@@ -38,7 +43,6 @@
 #include "FEReg.h"
 #include "TaskBar.h"
 #include "render.h"
-#include "fixed.h"
 #include "SinglePlayer.h"
 #include "Tutor.h"
 #include "TradeMgr.h"
@@ -740,7 +744,7 @@ void rmMarqueePulse(LabPrintList *labprint, regionhandle region)
 
     if ((labprint->selected) && (labprint->lab->labstatus==LS_RESEARCHITEM))
     {
-        for (count=FAST_TO_INT(marqueepos),index=0;index<RM_NUMMARQUEE;index++)
+        for (count=(int)(marqueepos),index=0;index<RM_NUMMARQUEE;index++)
         {
             if (count==0)
             {
@@ -904,7 +908,7 @@ void rmDrawLabButton(LabPrintList *labprint, regionhandle region)
         }
 
         width = ((real32)(progressRect.x1 - progressRect.x0)) * percent;
-        progressRect.x1 = progressRect.x0 + FAST_TO_INT(width);
+        progressRect.x1 = progressRect.x0 + (int)(width);
 
         progressColor[0] = rmProgressDoneColor0;
         progressColor[1] = rmProgressDoneColor0;

@@ -14,7 +14,12 @@
 #endif
 
 #include <math.h>
-#include "maths.h"
+
+#ifndef _MACOSX          // rgl stuff
+    #include "kgl.h"
+    #include "maths.h"
+#endif
+
 #include "Memory.h"
 #include "Debug.h"
 #include "Vector.h"
@@ -33,7 +38,6 @@
 #include "Drone.h"
 #include "ResearchShip.h"
 #include "Physics.h"
-#include "kgl.h"
 #include "Collision.h"
 #include "LaunchMgr.h"
 #include "Tactics.h"
