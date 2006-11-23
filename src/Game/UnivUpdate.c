@@ -4073,7 +4073,6 @@ void univDeleteDeadShip(Ship *ship, sdword deathBy)
 //                {
                     colSize *= ship->magnitudeSquared;
 //                }
-                colSizeDword = TreatAsUdword(colSize);
 
                 maxVelocity = ship->staticinfo->staticheader.maxvelocity;
                 if (maxVelocity != 0.0f)
@@ -4085,6 +4084,7 @@ void univDeleteDeadShip(Ship *ship, sdword deathBy)
                 {
                     velMagnitude = 0;
                 }
+                colSizeDword = TreatAsUdword(colSize);
                 velMagnitudeDword = TreatAsUdword(velMagnitude);
 
                 //!!!??? should there be some EAF_ here???
