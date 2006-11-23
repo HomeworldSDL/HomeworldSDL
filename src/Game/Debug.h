@@ -19,7 +19,7 @@
 #endif
 
 
-#ifndef HW_Release
+#if 1 // ndef HW_Release
     #define DBG_ASSERT              1           // assertion checking
     #define DBG_FILE_LINE           1           // print file and line
     #define DBG_STACK_CONTEXT       1           // dump stack context at fatal error time
@@ -38,9 +38,11 @@
 
 
 #if DBG_ASSERT
-    #define dbgAssertOrIgnore(expr) if (!(expr)) dbgFatalf(DBG_Loc, "Assertion of (%s) failed.", #expr)
+    #define dbgAssertOrIgnore(expr) if (!(expr)) { dbgFatalf(DBG_Loc, "Assertion of (%s) failed.", #expr); }
+    #define dbgAssertAlwaysDo(expr) dbgAssertOrIgnore(expr)
 #else
     #define dbgAssertOrIgnore(expr) ((void)0)
+    #define dbgAssertAlwaysDo(expr) (expr)
 #endif
 
 

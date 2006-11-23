@@ -144,8 +144,7 @@ fedrawcallback gcDrawCallback[] =
 ----------------------------------------------------------------------------*/
 void gcLockGameChat(void)
 {
-    int result = SDL_mutexP(chatmutex);
-    dbgAssertOrIgnore(result != -1);
+    dbgAssertAlwaysDo(SDL_mutexP(chatmutex) != -1);
 }
 
 /*-----------------------------------------------------------------------------
@@ -157,8 +156,7 @@ void gcLockGameChat(void)
 ----------------------------------------------------------------------------*/
 void gcUnLockGameChat(void)
 {
-    int result = SDL_mutexV(chatmutex);
-    dbgAssertOrIgnore(result != -1);
+    dbgAssertAlwaysDo(SDL_mutexV(chatmutex) != -1);
 }
 
 /*-----------------------------------------------------------------------------

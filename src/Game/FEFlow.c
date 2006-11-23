@@ -659,10 +659,9 @@ udword feScrollBarProcess(regionhandle region, sdword ID, udword event, udword d
 ----------------------------------------------------------------------------*/
 udword feListWindowProcess(regionhandle region, sdword ID, udword event, udword data)
 {
-    featom *atom = (featom *)ID;
     listwindowhandle listwindow = (listwindowhandle)region;
 
-    dbgAssertOrIgnore(atom->type == FA_ListWindow);
+    dbgAssertOrIgnore(((featom *)ID)->type == FA_ListWindow);
 
     if (event == RPE_PressLeft)
     {                                                       //left press (select/add job)

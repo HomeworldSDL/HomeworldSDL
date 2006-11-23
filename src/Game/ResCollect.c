@@ -1037,15 +1037,14 @@ void Fix_ShipXHarvestsResourceY(Ship *ship)
 ----------------------------------------------------------------------------*/
 bool processCollectResource(struct CommandToDo *collecttodo)
 {
-    sdword    numShips  = collecttodo->selection->numShips;
     Resource *resource  = collecttodo->collect.resource;
     Ship     *ship      = collecttodo->selection->ShipPtr[0];
     Ship     *dockship;
 
     ShipStaticInfo *shipstatic = (ShipStaticInfo *)ship->staticinfo;
 
-    dbgAssertOrIgnore(numShips > 0);
-    dbgAssertOrIgnore(numShips == 1);
+    dbgAssertOrIgnore(collecttodo->selection->numShips > 0);
+    dbgAssertOrIgnore(collecttodo->selection->numShips == 1);
 
     if (ship->resources >= shipstatic->maxresources)
     {

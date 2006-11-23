@@ -4746,8 +4746,7 @@ char* utyGameSystemsPreShutdown(void)
         bool result = VirtualFree(utyMemoryHeap, 0, MEM_RELEASE);
         dbgAssertOrIgnore(result);
 #else
-        int result = munmap(utyMemoryHeap, 0);
-        dbgAssertOrIgnore(result != -1);
+        dbgAssertAlwaysDo(munmap(utyMemoryHeap, 0) != -1);
 #endif
         utyClear(SSA_MemoryHeap);
     }

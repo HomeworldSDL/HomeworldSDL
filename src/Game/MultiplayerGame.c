@@ -1628,8 +1628,7 @@ void mgShowScreen(sdword screennum, bool disappear)
 ----------------------------------------------------------------------------*/
 void LockMutex(void *mutex)
 {
-    int result = SDL_mutexP(mutex);
-    dbgAssertOrIgnore(result != -1);
+    dbgAssertAlwaysDo(SDL_mutexP(mutex) != -1);
 }
 
 /*-----------------------------------------------------------------------------
@@ -1641,8 +1640,7 @@ void LockMutex(void *mutex)
 ----------------------------------------------------------------------------*/
 void UnLockMutex(void *mutex)
 {
-    int result = SDL_mutexV(mutex);
-    dbgAssertOrIgnore(result != -1);
+    dbgAssertAlwaysDo(SDL_mutexV(mutex) != -1);
 }
 
 /*-----------------------------------------------------------------------------

@@ -64,8 +64,7 @@ void CloseQueue(Queue *queue)
 ----------------------------------------------------------------------------*/
 void LockQueue(Queue *queue)
 {
-    int result = SDL_mutexP(queue->mutex);
-    dbgAssertOrIgnore(result != -1);
+    dbgAssertAlwaysDo(SDL_mutexP(queue->mutex) != -1);
 }
 
 /*-----------------------------------------------------------------------------
@@ -77,8 +76,7 @@ void LockQueue(Queue *queue)
 ----------------------------------------------------------------------------*/
 void UnLockQueue(Queue *queue)
 {
-    int result = SDL_mutexV(queue->mutex);
-    dbgAssertOrIgnore(result != -1);
+    dbgAssertAlwaysDo(SDL_mutexV(queue->mutex) != -1);
 }
 
 /*-----------------------------------------------------------------------------

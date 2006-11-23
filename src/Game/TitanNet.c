@@ -240,8 +240,7 @@ wchar_t *GetCurrentChannelDescription(void)
 ----------------------------------------------------------------------------*/
 void tpLockChannelList()
 {
-    int result = SDL_mutexP(tpChannelList.mutex);
-    dbgAssertOrIgnore(result != -1);
+    dbgAssertOrIgnore(SDL_mutexP(tpChannelList.mutex) != -1);
 }
 
 /*-----------------------------------------------------------------------------
@@ -253,8 +252,7 @@ void tpLockChannelList()
 ----------------------------------------------------------------------------*/
 void tpUnLockChannelList()
 {
-    int result = SDL_mutexV(tpChannelList.mutex);
-    dbgAssertOrIgnore(result != -1);
+    dbgAssertAlwaysDo(SDL_mutexV(tpChannelList.mutex) != -1);
 }
 
 /*-----------------------------------------------------------------------------
@@ -266,8 +264,7 @@ void tpUnLockChannelList()
 ----------------------------------------------------------------------------*/
 void tpLockServerList()
 {
-    int result = SDL_mutexP(tpServerList.mutex);
-    dbgAssertOrIgnore(result != -1);
+    dbgAssertAlwaysDo(SDL_mutexP(tpServerList.mutex) != -1);
 }
 
 /*-----------------------------------------------------------------------------
@@ -279,8 +276,7 @@ void tpLockServerList()
 ----------------------------------------------------------------------------*/
 void tpUnLockServerList()
 {
-    int result = SDL_mutexV(tpServerList.mutex);
-    dbgAssertOrIgnore(result != -1);
+    dbgAssertAlwaysDo(SDL_mutexV(tpServerList.mutex) != -1);
 }
 
 /*-----------------------------------------------------------------------------

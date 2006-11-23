@@ -6722,8 +6722,7 @@ bool processDockToDo(CommandToDo *docktodo)
                 if (!docktodo->dock.wasHarvesting)
                 {
                     // this ship is permanently docked, so we should remove it from docktodo->selection
-                    bool removed = clRemoveShipFromSelection(selection,ship);
-                    dbgAssertOrIgnore(removed);
+                    dbgAssertAlwaysDo(clRemoveShipFromSelection(selection,ship));
 
                     RemoveShipFromCommand(ship);
 

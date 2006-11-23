@@ -2806,9 +2806,9 @@ dontdraw2:;
                                         {
 #if VISIBLE_POLYS
                                             extern sdword visiblePoly;
-#endif
-                                            extern bool g_SpecificPoly;
                                             extern bool g_Points;
+                                            extern bool g_SpecificPoly;
+#endif
                                             if (((Ship *)spaceobj)->bindings != NULL)
                                             {
                                                 meshRenderShipHierarchy(((Ship *)spaceobj)->bindings,

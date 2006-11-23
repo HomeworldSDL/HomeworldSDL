@@ -1666,8 +1666,7 @@ void bobObjectDied(SpaceObj *object,LinkedList *list)
                         {
                             if (thisBlob->blobBigTargets != NULL)
                             {
-                                bool result = RemoveSpaceObjFromSelectionPreserveOrder((SpaceObjSelection *)thisBlob->blobBigTargets,object);
-                                dbgAssertOrIgnore(result);
+                                dbgAssertAlwaysDo(RemoveSpaceObjFromSelectionPreserveOrder((SpaceObjSelection *)thisBlob->blobBigTargets,object));
                             }
                         }
                         else
@@ -1675,8 +1674,7 @@ void bobObjectDied(SpaceObj *object,LinkedList *list)
                             //don't do for mines...they won't be in the list
                             if (thisBlob->blobSmallTargets != NULL)
                             {
-                                bool result = RemoveSpaceObjFromSelectionPreserveOrder((SpaceObjSelection *)thisBlob->blobSmallTargets,object);
-                                dbgAssertOrIgnore(result);
+                                dbgAssertAlwaysDo(RemoveSpaceObjFromSelectionPreserveOrder((SpaceObjSelection *)thisBlob->blobSmallTargets,object));
                             }
                         }
                     }
@@ -1689,23 +1687,20 @@ void bobObjectDied(SpaceObj *object,LinkedList *list)
                         {
                             if (thisBlob->blobBigShips != NULL)
                             {
-                                bool result = RemoveSpaceObjFromSelectionPreserveOrder((SpaceObjSelection *)thisBlob->blobBigShips,object);
-                                dbgAssertOrIgnore(result);
+                                dbgAssertAlwaysDo(RemoveSpaceObjFromSelectionPreserveOrder((SpaceObjSelection *)thisBlob->blobBigShips,object));
                             }
                         }
                         else
                         {
                             if (thisBlob->blobSmallShips != NULL)
                             {
-                                bool result = RemoveSpaceObjFromSelectionPreserveOrder((SpaceObjSelection *)thisBlob->blobSmallShips,object);
-                                dbgAssertOrIgnore(result);
+                                dbgAssertAlwaysDo(RemoveSpaceObjFromSelectionPreserveOrder((SpaceObjSelection *)thisBlob->blobSmallShips,object));
                             }
                         }
 
                         if (thisBlob->blobShips != NULL)
                         {
-                            bool result = RemoveSpaceObjFromSelectionPreserveOrder((SpaceObjSelection *)thisBlob->blobShips,object);
-                            dbgAssertOrIgnore(result);
+                            dbgAssertAlwaysDo(RemoveSpaceObjFromSelectionPreserveOrder((SpaceObjSelection *)thisBlob->blobShips,object));
                         }
                         bitSet(thisBlob->flags, BTF_RecentDeath);
                         break;
@@ -1713,8 +1708,7 @@ void bobObjectDied(SpaceObj *object,LinkedList *list)
                     case OBJ_BulletType:
                         if (thisBlob->blobBullets != NULL)
                         {
-                            bool result = RemoveSpaceObjFromSelectionPreserveOrder((SpaceObjSelection *)thisBlob->blobBullets,object);
-                            dbgAssertOrIgnore(result);
+                            dbgAssertAlwaysDo(RemoveSpaceObjFromSelectionPreserveOrder((SpaceObjSelection *)thisBlob->blobBullets,object));
                         }
                         break;
 
@@ -1724,8 +1718,7 @@ void bobObjectDied(SpaceObj *object,LinkedList *list)
                     case OBJ_DustType:
                         if (thisBlob->blobResources != NULL)
                         {
-                            bool result = RemoveSpaceObjFromSelectionPreserveOrder((SpaceObjSelection *)thisBlob->blobResources,object);
-                            dbgAssertOrIgnore(result);
+                            dbgAssertAlwaysDo(RemoveSpaceObjFromSelectionPreserveOrder((SpaceObjSelection *)thisBlob->blobResources,object));
                         }
                         bitSet(thisBlob->flags, BTF_RecentDeath);
                         break;
@@ -1733,8 +1726,7 @@ void bobObjectDied(SpaceObj *object,LinkedList *list)
                     case OBJ_DerelictType:
                         if (thisBlob->blobDerelicts != NULL)
                         {
-                            bool result = RemoveSpaceObjFromSelectionPreserveOrder((SpaceObjSelection *)thisBlob->blobDerelicts,object);
-                            dbgAssertOrIgnore(result);
+                            dbgAssertAlwaysDo(RemoveSpaceObjFromSelectionPreserveOrder((SpaceObjSelection *)thisBlob->blobDerelicts,object));
                         }
                         break;
 
@@ -1743,16 +1735,14 @@ void bobObjectDied(SpaceObj *object,LinkedList *list)
                         {
                             if (thisBlob->blobMissileMines != NULL)
                             {
-                                bool result = RemoveSpaceObjFromSelectionPreserveOrder((SpaceObjSelection *)thisBlob->blobMissileMines,object);
-                                dbgAssertOrIgnore(result);
+                                dbgAssertAlwaysDo(RemoveSpaceObjFromSelectionPreserveOrder((SpaceObjSelection *)thisBlob->blobMissileMines,object));
                             }
                         }
                         else
                         {
                             if (thisBlob->blobMissileMissiles != NULL)
                             {
-                                bool result = RemoveSpaceObjFromSelectionPreserveOrder((SpaceObjSelection *)thisBlob->blobMissileMissiles,object);
-                                dbgAssertOrIgnore(result);
+                                dbgAssertAlwaysDo(RemoveSpaceObjFromSelectionPreserveOrder((SpaceObjSelection *)thisBlob->blobMissileMissiles,object));
                             }
                         }
                         break;
