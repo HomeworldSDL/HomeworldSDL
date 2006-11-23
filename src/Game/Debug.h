@@ -14,8 +14,8 @@
 
 
 // make sure the HW_Level environment variable is set correctly
-#if !(defined(HW_Debug) || defined(HW_Interim) || defined(HW_Release))
-    #error HW_Level must be one of HW_Debug, HW_Interim or HW_Release
+#if !(defined(HW_Debug) || defined(HW_Release))
+    #error HW_Level must be one of HW_Debug or HW_Release
 #endif
 
 
