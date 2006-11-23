@@ -46,13 +46,14 @@ There is a strong sentiment among many people to rewrite the codebase to modern 
 
  You need to have at least the following packages installed:
 
- * SDL development files (version 1.2.11 or later)
+ * SDL development files (version 1.2.11 or later) see *1
    - you may get a linkage error against X symbols on earlier ones.
      This can probably be repaired by adding -lX11 -lXext on src/Makefile.am.
  * flex (any recent version will do)
  * bison (any recent version will do)
  * autotools set: autoconf, automake (1.9), libtool
  * YACC (any recent version will do)
+ * libx11-dev
 
  The build process itself is relatively straightforward. Running the bootstrap script found in this directory with "./bootstrap" will set up the files needed and then doing "../configure" (that's "period period slash configure") followed by "make" will build the required files and then the binary.
  
@@ -137,3 +138,8 @@ Go to the projects 'src' directory. "./homeworld".
  Various parts of the Homeworld source code do not play particularly well when compiler optimization is enabled (i.e. using the "-O" or "-O[123]" flags with GCC).  The source files containing such problem areas have been pinpointed in the game code, and steps have been made to disable optimization for these files until the code can be altered such that enabling optimization won't thrash the output.  On the other hand, there are issues with the software renderer that affect 2D drawing (such as the menus) which have not been pinpointed yet.  For the time being, the software renderer cannot be built with compiler optimizations, so optimization has been disabled for ALL of the rgl library code. 
  
  Also of note is that the "-fomit-frame-pointer" flag should not be used, as Homeworld uses various assembly techniques that rely on the frame pointer for many functions.  While the original Windows version uses "#pragma" statements to force this on a per-function basis, GCC only provides the "-fno-omit-frame-pointer" flag to force the frame pointer on a per-file basis. Because of this, most of the game will be compiled with support for the frame pointer regardless of the optimization level.  In the future, the functions that rely on the frame pointer may be separated from the rest of the code such that the game can benefit from the potential speed increase provided by the "-fomit-frame-pointer" flag. 
+
+
+*1: use of SDL 1.2.10 is not recommended.
+- HWSDL won't exit properly and will lock your mouse.
+- librgl*.so won't be found unless put in /usr/lib
