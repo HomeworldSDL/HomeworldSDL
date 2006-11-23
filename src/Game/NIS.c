@@ -407,9 +407,9 @@ void nisCameraFlyCompute(real32 timeElapsed)
         up.y = bsCurveUpdate(nisCameraCurve[7], timeElapsed);
         up.z = bsCurveUpdate(nisCameraCurve[8], timeElapsed);
         vecNormalize(&up);
-        dbgAssert(eye.x != REALlyBig && eye.y != REALlyBig && eye.z != REALlyBig);
-        dbgAssert(look.x != REALlyBig && look.y != REALlyBig && look.z != REALlyBig);
-        dbgAssert(up.x != REALlyBig && up.y != REALlyBig && up.z != REALlyBig);
+        dbgAssertOrIgnore(eye.x != REALlyBig && eye.y != REALlyBig && eye.z != REALlyBig);
+        dbgAssertOrIgnore(look.x != REALlyBig && look.y != REALlyBig && look.z != REALlyBig);
+        dbgAssertOrIgnore(up.x != REALlyBig && up.y != REALlyBig && up.z != REALlyBig);
         nisCamera->eyeposition = eye;
         nisCamera->lookatpoint = look;
         nisCamera->upvector = up;
@@ -897,8 +897,8 @@ void nisCameraPrepareForCopy(Camera *cam)
 
     vecSub(distVect, cam->lookatpoint, cam->eyeposition);   //make sure this camera has not already been prepared
     magnitudeSq = vecMagnitudeSquared(distVect);
-    dbgAssert(magnitudeSq > NIS_LookScalar * NIS_LookScalar * 0.9f);
-    dbgAssert(magnitudeSq < NIS_LookScalar * NIS_LookScalar * 1.1f);
+    dbgAssertOrIgnore(magnitudeSq > NIS_LookScalar * NIS_LookScalar * 0.9f);
+    dbgAssertOrIgnore(magnitudeSq < NIS_LookScalar * NIS_LookScalar * 1.1f);
 #endif
     vecSub(distVect, cam->lookatpoint, cam->eyeposition);   //eye->look vector
     vecMultiplyByScalar(distVect, 1.0f / NIS_LookScalar);   //scale the vector back to a length of 1.0
@@ -1059,7 +1059,7 @@ nisplaying *nisStart(nisheader *header, vector *position, matrix *coordSystem)
                 //such that it is looking past the trigger ships at the start point of the NIS
                 nisFocusPointCompute(&breakPoint, (MaxSelection *)triggerShips->selection);
                 breakRadius = nisFocusMaxRadius(&breakPoint, (MaxSelection *)triggerShips->selection);
-                dbgAssert(breakRadius >= 0.0f && breakRadius < 14000);//make sure it's a reasonable size
+                dbgAssertOrIgnore(breakRadius >= 0.0f && breakRadius < 14000);//make sure it's a reasonable size
                 if (header->iLookyObject >= 0)
                 {                                           //if some ship is the designated looky ship
                     path = &header->objectPath[header->iLookyObject];
@@ -1169,7 +1169,7 @@ nisplaying *nisStart(nisheader *header, vector *position, matrix *coordSystem)
     event = header->events;
     while (newHeader->iCurrentEvent < newHeader->header->nEvents && event->time == 0.0f)
     {
-        dbgAssert(nisEventDispatch[event->code] != NULL);
+        dbgAssertOrIgnore(nisEventDispatch[event->code] != NULL);
         nisEventDispatch[event->code](newHeader, event);
         newHeader->iCurrentEvent++;
         event++;
@@ -1193,7 +1193,7 @@ void nisStop(nisplaying *NIS)
     Derelict *derelict = NULL;
     real32 currentSFXVolume, currentSpeechVolume, currentMusicVolume;
 
-    dbgAssert(NIS != NULL);
+    dbgAssertOrIgnore(NIS != NULL);
     for (index = 0; index < NIS->nObjects; index++)
     {                                                       //for each ship
 
@@ -1467,8 +1467,8 @@ void nisSeek(nisplaying *NIS, real32 seekTime)
     vector xyz, xyzTemp, rot;
     matrix coordsys, tempCoordsys;
 */
-    dbgAssert(seekTime >= 0);
-    dbgAssert(seekTime < NIS->header->length);
+    dbgAssertOrIgnore(seekTime >= 0);
+    dbgAssertOrIgnore(seekTime < NIS->header->length);
 
     if (seekTime > NIS->timeElapsed)
     {
@@ -1565,36 +1565,36 @@ void nisSeek(nisplaying *NIS, real32 seekTime)
     nisSeeking = TRUE;
     while (NIS->iCurrentEvent < NIS->header->nEvents && event->time <= seekTime)
     {
-        dbgAssert(nisEventDispatch[event->code] != NULL);
+        dbgAssertOrIgnore(nisEventDispatch[event->code] != NULL);
         if (event->code == NEO_Focus)
         {                                                   //special case for camera focus:rewind camera to the focus point
             camPath = &NIS->camerasInMotion[0];             //get pointer to camera motion path
-            dbgAssert(camPath->curve[0] != NULL);
+            dbgAssertOrIgnore(camPath->curve[0] != NULL);
             for (j = 0; j < 6; j++)
             {                                               //for each motion channel
                 bsCurveRestart(camPath->curve[j]);          //restart the curve
             }
             xyz.x = bsCurveUpdate(camPath->curve[0], event->time); //update the first curve
             //this chunk of code checks if the NIS loops
-            dbgAssert(xyz.x != REALlyBig);                  //if curve ends
-            dbgAssert(!_isnan((double)xyz.x));
+            dbgAssertOrIgnore(xyz.x != REALlyBig);                  //if curve ends
+            dbgAssertOrIgnore(!_isnan((double)xyz.x));
             //get rest of motion path
             xyz.y = bsCurveUpdate(camPath->curve[1], event->time);
             xyz.z = bsCurveUpdate(camPath->curve[2], event->time);
-            dbgAssert(!_isnan((double)xyz.y));
-            dbgAssert(!_isnan((double)xyz.z));
+            dbgAssertOrIgnore(!_isnan((double)xyz.y));
+            dbgAssertOrIgnore(!_isnan((double)xyz.z));
             //camera rotation: X, Y, Z (mode 0)
             rot.x = bsCurveUpdate(camPath->curve[3], event->time);
             rot.y = bsCurveUpdate(camPath->curve[4], event->time);
             rot.z = bsCurveUpdate(camPath->curve[5], event->time);
-            dbgAssert(xyz.y != REALlyBig && xyz.z != REALlyBig && rot.x != REALlyBig && rot.y != REALlyBig && rot.z != REALlyBig);
+            dbgAssertOrIgnore(xyz.y != REALlyBig && xyz.z != REALlyBig && rot.x != REALlyBig && rot.y != REALlyBig && rot.z != REALlyBig);
             //camera position: -Z, X, Y (UZI mode 33)
             xyzTemp.x = -xyz.z;
             xyzTemp.y = xyz.x;
             xyzTemp.z = xyz.y;
-            dbgAssert(!_isnan((double)xyzTemp.x));
-            dbgAssert(!_isnan((double)xyzTemp.y));
-            dbgAssert(!_isnan((double)xyzTemp.z));
+            dbgAssertOrIgnore(!_isnan((double)xyzTemp.x));
+            dbgAssertOrIgnore(!_isnan((double)xyzTemp.y));
+            dbgAssertOrIgnore(!_isnan((double)xyzTemp.z));
             matMultiplyMatByVec(&xyz, &NIS->nisMatrix, &xyzTemp);//multiply NIS world matrix
             camPath->cam->eyeposition.x = NIS->nisPosition.x + xyz.x;
             camPath->cam->eyeposition.y = NIS->nisPosition.y + xyz.y;
@@ -1678,32 +1678,32 @@ void nisCamPathUpdate(nisplaying *NIS, cameramotion *camPath, real32 timeElapsed
     vector xyz, xyzTemp, rot;
     matrix coordsys, tempCoordsys;
 
-    dbgAssert(camPath->curve[0] != NULL);
+    dbgAssertOrIgnore(camPath->curve[0] != NULL);
     xyz.x = bsCurveUpdate(camPath->curve[0], timeElapsed); //update the first curve
     //this chunk of code checks if the NIS loops
-//    dbgAssert(xyz.x != REALlyBig);                  //if curve ends
+//    dbgAssertOrIgnore(xyz.x != REALlyBig);                  //if curve ends
     if (xyz.x == REALlyBig)                             //if curve ends
     {                                                   //(all curves should end at same time)
         return;
     }
-    dbgAssert(!isnan((double)xyz.x));
+    dbgAssertOrIgnore(!isnan((double)xyz.x));
     //get rest of motion path
     xyz.y = bsCurveUpdate(camPath->curve[1], timeElapsed);
     xyz.z = bsCurveUpdate(camPath->curve[2], timeElapsed);
-    dbgAssert(!isnan((double)xyz.y));
-    dbgAssert(!isnan((double)xyz.z));
+    dbgAssertOrIgnore(!isnan((double)xyz.y));
+    dbgAssertOrIgnore(!isnan((double)xyz.z));
     //camera rotation: X, Y, Z (mode 0)
     rot.x = bsCurveUpdate(camPath->curve[3], timeElapsed);
     rot.y = bsCurveUpdate(camPath->curve[4], timeElapsed);
     rot.z = bsCurveUpdate(camPath->curve[5], timeElapsed);
-    dbgAssert(xyz.y != REALlyBig && xyz.z != REALlyBig && rot.x != REALlyBig && rot.y != REALlyBig && rot.z != REALlyBig);
+    dbgAssertOrIgnore(xyz.y != REALlyBig && xyz.z != REALlyBig && rot.x != REALlyBig && rot.y != REALlyBig && rot.z != REALlyBig);
     //camera position: -Z, X, Y (UZI mode 33)
     xyzTemp.x = -xyz.z;
     xyzTemp.y = xyz.x;
     xyzTemp.z = xyz.y;
-    dbgAssert(!isnan((double)xyzTemp.x));
-    dbgAssert(!isnan((double)xyzTemp.y));
-    dbgAssert(!isnan((double)xyzTemp.z));
+    dbgAssertOrIgnore(!isnan((double)xyzTemp.x));
+    dbgAssertOrIgnore(!isnan((double)xyzTemp.y));
+    dbgAssertOrIgnore(!isnan((double)xyzTemp.z));
     matMultiplyMatByVec(&xyz, &NIS->nisMatrix, &xyzTemp);//multiply NIS world matrix
     camPath->cam->eyeposition.x = NIS->nisPosition.x + xyz.x;
     camPath->cam->eyeposition.y = NIS->nisPosition.y + xyz.y;
@@ -1825,7 +1825,7 @@ real32 nisUpdate(nisplaying *NIS, real32 timeElapsed)
         rot.y = bsCurveUpdate(path->curve[4], timeElapsed);
         rot.z = bsCurveUpdate(path->curve[5], timeElapsed);
         //verify none of these curves expired
-        dbgAssert(xyz.y != REALlyBig && xyz.z != REALlyBig && rot.x != REALlyBig && rot.y != REALlyBig && rot.z != REALlyBig);
+        dbgAssertOrIgnore(xyz.y != REALlyBig && xyz.z != REALlyBig && rot.x != REALlyBig && rot.y != REALlyBig && rot.z != REALlyBig);
 
         nisShipEulerToMatrix(&tempCoordsys, &rot);          //multiply NIS world matrix
         matMultiplyMatByMat(&coordsys, &NIS->nisMatrix, &tempCoordsys);
@@ -1892,24 +1892,24 @@ real32 nisUpdate(nisplaying *NIS, real32 timeElapsed)
         {                                                   //(all curves should end at same time)
             continue;
         }
-        dbgAssert(!_isnan((double)xyz.x));
+        dbgAssertOrIgnore(!_isnan((double)xyz.x));
         //get rest of motion path
         xyz.y = bsCurveUpdate(camPath->curve[1], timeElapsed);
         xyz.z = bsCurveUpdate(camPath->curve[2], timeElapsed);
-        dbgAssert(!_isnan((double)xyz.y));
-        dbgAssert(!_isnan((double)xyz.z));
+        dbgAssertOrIgnore(!_isnan((double)xyz.y));
+        dbgAssertOrIgnore(!_isnan((double)xyz.z));
         //camera rotation: X, Y, Z (mode 0)
         rot.x = bsCurveUpdate(camPath->curve[3], timeElapsed);
         rot.y = bsCurveUpdate(camPath->curve[4], timeElapsed);
         rot.z = bsCurveUpdate(camPath->curve[5], timeElapsed);
-        dbgAssert(xyz.y != REALlyBig && xyz.z != REALlyBig && rot.x != REALlyBig && rot.y != REALlyBig && rot.z != REALlyBig);
+        dbgAssertOrIgnore(xyz.y != REALlyBig && xyz.z != REALlyBig && rot.x != REALlyBig && rot.y != REALlyBig && rot.z != REALlyBig);
         //camera position: -Z, X, Y (UZI mode 33)
         xyzTemp.x = -xyz.z;
         xyzTemp.y = xyz.x;
         xyzTemp.z = xyz.y;
-        dbgAssert(!_isnan((double)xyzTemp.x));
-        dbgAssert(!_isnan((double)xyzTemp.y));
-        dbgAssert(!_isnan((double)xyzTemp.z));
+        dbgAssertOrIgnore(!_isnan((double)xyzTemp.x));
+        dbgAssertOrIgnore(!_isnan((double)xyzTemp.y));
+        dbgAssertOrIgnore(!_isnan((double)xyzTemp.z));
         matMultiplyMatByVec(&xyz, &NIS->nisMatrix, &xyzTemp);//multiply NIS world matrix
         camPath->cam->eyeposition.x = nisPos.x + xyz.x;
         camPath->cam->eyeposition.y = nisPos.y + xyz.y;
@@ -1933,7 +1933,7 @@ real32 nisUpdate(nisplaying *NIS, real32 timeElapsed)
         nisSeeking = TRUE;
         while (NIS->iCurrentEvent < NIS->header->nEvents && event->time <= NIS->timeElapsed)
         {                                                   //execute all seekable events pending
-            dbgAssert(nisEventDispatch[event->code] != NULL);
+            dbgAssertOrIgnore(nisEventDispatch[event->code] != NULL);
             nisEventDispatch[event->code](NIS, event);
             if (nisNewNISStarted)
             {
@@ -1948,7 +1948,7 @@ real32 nisUpdate(nisplaying *NIS, real32 timeElapsed)
     //now process the regular events pending
     while (NIS->iCurrentEvent < NIS->header->nEvents && event->time <= NIS->timeElapsed + timeElapsed)
     {
-        dbgAssert(nisEventDispatch[event->code] != NULL);
+        dbgAssertOrIgnore(nisEventDispatch[event->code] != NULL);
         nisEventDispatch[event->code](NIS, event);
         if (nisNewNISStarted)
         {
@@ -2085,7 +2085,7 @@ sdword nisFindObjectByName(nisheader *header, char *name)
                 race = R1;
             }
         }
-        dbgAssert(race != -1);
+        dbgAssertOrIgnore(race != -1);
         pSlash++;                                           //point to first character of object name
     }
     else
@@ -2187,7 +2187,7 @@ void nisRemoveObjectReference(nisplaying *NIS, SpaceObj *obj)
 {
     sdword index;
 
-    dbgAssert(NIS != NULL);
+    dbgAssertOrIgnore(NIS != NULL);
     for (index = 0; index < NIS->nObjects; index++)
     {
         if (NIS->objectsInMotion[index].spaceobj == (SpaceObjRotImp *)obj)
@@ -2245,7 +2245,7 @@ void nisRemoveMissileReferenceFromPlaying(nisplaying *NIS, Missile *missile)
     {                                                       //search all objects
         if ((Missile *)NIS->objectsInMotion[index].spaceobj == missile)
         {                                                   //if this is the one to delete
-            dbgAssert(NIS->header->objectPath[index].race == NSR_Missile);//make sure it's a missile
+            dbgAssertOrIgnore(NIS->header->objectPath[index].race == NSR_Missile);//make sure it's a missile
             if (!bitTest(NIS->objectsInMotion[index].flags, OMF_ObjectDied))
             {                                               //if it hasn't died yet
                 nisDeleteTheseCurves(&NIS->objectsInMotion[index]);
@@ -2306,7 +2306,7 @@ void nisDeathAnything(nisplaying *NIS, nisevent *event)
     }
     else
     {
-        dbgAssert(deadShip->objtype == OBJ_DerelictType);
+        dbgAssertOrIgnore(deadShip->objtype == OBJ_DerelictType);
         AddDerelictToDeleteDerelictList((Derelict *)deadShip, event->param[0]);
     }
     bitSet(NIS->objectsInMotion[event->shipID].flags, OMF_ObjectDied);
@@ -2519,9 +2519,9 @@ void nisStaticOnExp(nisstatic *newStatic)
             lum = frandyrandombetween(RANDOM_STATIC, minLum, maxLum);
             alphaUbyte = randyrandombetween(RANDOM_STATIC, minAlpha, maxAlpha);
             colHLSToRGB(&red, &green, &blue, hue, lum, sat);
-            dbgAssert(red >= 0.0f && red <= 1.0f);
-            dbgAssert(green >= 0.0f && green <= 1.0f);
-            dbgAssert(blue >= 0.0f && blue <= 1.0f);
+            dbgAssertOrIgnore(red >= 0.0f && red <= 1.0f);
+            dbgAssertOrIgnore(green >= 0.0f && green <= 1.0f);
+            dbgAssertOrIgnore(blue >= 0.0f && blue <= 1.0f);
             *texturePointer = colRGBA(colRealToUbyte(red), colRealToUbyte(green), colRealToUbyte(blue), alphaUbyte);
         }
         newStatic->texture = trRGBTextureCreate(textureData, NIS_NoiseTextureWidth, NIS_NoiseTextureHeight, newStatic->bAlpha);
@@ -2543,7 +2543,7 @@ void nisStaticOnExp(nisstatic *newStatic)
 ----------------------------------------------------------------------------*/
 void nisStaticOffExp(sdword index)
 {
-    dbgAssert(index >= 0 && index < NIS_NumberStatics + NIS_NumberExtraStatics);
+    dbgAssertOrIgnore(index >= 0 && index < NIS_NumberStatics + NIS_NumberExtraStatics);
 
     if (nisStatic[index] != NULL)
     {                                                       //if this static is on
@@ -2676,8 +2676,8 @@ void nisRemainAtEnd(nisplaying *NIS, nisevent *event)
     {
         char *str = (char *)event->param[0];
         Ship *ship = (Ship *)NIS->objectsInMotion[event->shipID].spaceobj;
-        dbgAssert(strlen(str) > 0);
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(strlen(str) > 0);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         if (singlePlayerGame)
         {
@@ -2704,8 +2704,8 @@ void nisCameraCut(nisplaying *NIS, nisevent *event)
     vector position;
     real32 timeElapsed = TreatAsReal32(event->param[0]);
 
-    dbgAssert(timeElapsed >= 0);
-    dbgAssert(timeElapsed < NIS->header->length);
+    dbgAssertOrIgnore(timeElapsed >= 0);
+    dbgAssertOrIgnore(timeElapsed < NIS->header->length);
 
     if (nisSeeking)
     {
@@ -2746,7 +2746,7 @@ void nisTextCard(nisplaying *NIS, nisevent *event)
     {
         return;
     }
-    dbgAssert(nisTextCardIndex < NIS_NumberTextCards);
+    dbgAssertOrIgnore(nisTextCardIndex < NIS_NumberTextCards);
 
     nisTextCardList[nisTextCardIndex] = *((nistextcard *)event->param[0]);
     nisTextCardList[nisTextCardIndex].creationTime = NIS->timeElapsed;
@@ -2817,7 +2817,7 @@ void nisFocusPointCompute(vector *centre, MaxSelection *selection)
     Ship *ship;
     real32 minx,maxx,miny,maxy,minz,maxz, radius;
 
-    dbgAssert(selection->numShips > 0);
+    dbgAssertOrIgnore(selection->numShips > 0);
 
     ship = selection->ShipPtr[0];
 
@@ -2960,7 +2960,7 @@ void nisColorScheme(nisplaying *NIS, nisevent *event)
             ((Derelict *)goodShip)->colorScheme = event->param[0];
             break;
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
     }
 }
 void nisMeshAnimationStart(nisplaying *NIS, nisevent *event)
@@ -2969,7 +2969,7 @@ void nisMeshAnimationStart(nisplaying *NIS, nisevent *event)
     sdword animIndex;
     madanim *anim;
 
-    dbgAssert(goodShip->madBindings != NULL);
+    dbgAssertOrIgnore(goodShip->madBindings != NULL);
     anim = goodShip->madBindings;
     animIndex = madAnimIndexFindByName(anim->header, (char *)event->param[0]);
     if (anim->nCurrentAnim != -1)
@@ -2983,7 +2983,7 @@ void nisMeshAnimationStop(nisplaying *NIS, nisevent *event)
 {
     Ship *goodShip = (Ship *)NIS->objectsInMotion[event->shipID].spaceobj;
 
-    dbgAssert(goodShip->madBindings != NULL);
+    dbgAssertOrIgnore(goodShip->madBindings != NULL);
     if (goodShip->madBindings->nCurrentAnim != -1)
     {                                                       //if there is an animation playing
         madAnimationStop(goodShip);
@@ -2993,7 +2993,7 @@ void nisMeshAnimationPause(nisplaying *NIS, nisevent *event)
 {
     Ship *goodShip = (Ship *)NIS->objectsInMotion[event->shipID].spaceobj;
 
-    dbgAssert(goodShip->madBindings != NULL);
+    dbgAssertOrIgnore(goodShip->madBindings != NULL);
     if (goodShip->madBindings->nCurrentAnim != -1)
     {                                                       //if there is an animation playing
         madAnimationPause(goodShip, goodShip->madBindings->bPaused ^ TRUE);
@@ -3004,7 +3004,7 @@ void nisMeshAnimationSeek(nisplaying *NIS, nisevent *event)
     Ship *goodShip = (Ship *)NIS->objectsInMotion[event->shipID].spaceobj;
     real32 seekTime;
 
-    dbgAssert(goodShip->madBindings != NULL);
+    dbgAssertOrIgnore(goodShip->madBindings != NULL);
     if (goodShip->madBindings->nCurrentAnim != -1)
     {                                                       //if there is an animation playing
 //        goodShip->madBindings->time = TreatAsReal32(event->param[0]);
@@ -3165,7 +3165,7 @@ void nisTrailMove(nisplaying *NIS, nisevent *event)
     }
 */
     ship = (Ship *)NIS->objectsInMotion[event->shipID].spaceobj;
-    dbgAssert(ship->objtype == OBJ_ShipType);
+    dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
     curve = NIS->objectsInMotion[event->shipID].curve;
     pointIndex = max(curve[0]->currentPoint + 1, 0);
     for (; pointIndex < curve[0]->nPoints - 1; pointIndex++)
@@ -3312,12 +3312,12 @@ void nisUniverseHideToggle(nisplaying *NIS, nisevent *event)
 ----------------------------------------------------------------------------*/
 nisevent *nisNewEvent(nisopcode opcode)
 {
-    dbgAssert(nisEventIndex >= 0);
+    dbgAssertOrIgnore(nisEventIndex >= 0);
     nisEventIndex++;
     nisEventList = memRealloc(nisEventList, sizeof(nisevent) * nisEventIndex, "nisEventBuffer", 0);
-    dbgAssert(nisCurrentTime != REALlyBig);
-    dbgAssert(nisCurrentObject != -1);
-    dbgAssert(opcode >= 0 && opcode < NEO_LastNEO);
+    dbgAssertOrIgnore(nisCurrentTime != REALlyBig);
+    dbgAssertOrIgnore(nisCurrentObject != -1);
+    dbgAssertOrIgnore(opcode >= 0 && opcode < NEO_LastNEO);
     nisEventList[nisEventIndex - 1].time = nisCurrentTime;
     nisEventList[nisEventIndex - 1].shipID = nisCurrentObject;
     nisEventList[nisEventIndex - 1].code = opcode;
@@ -3327,11 +3327,11 @@ nisevent *nisNewEvent(nisopcode opcode)
 
 nisevent* nisNewAnimaticEvent(nisopcode opcode)
 {
-    dbgAssert(nisEventIndex >= 0);
+    dbgAssertOrIgnore(nisEventIndex >= 0);
     nisEventIndex++;
     nisEventList = memRealloc(nisEventList, sizeof(nisevent) * nisEventIndex, "nisEventBuffer", 0);
-    dbgAssert(nisCurrentTime != REALlyBig);
-    dbgAssert(opcode >= 0 && opcode < NEO_LastNEO);
+    dbgAssertOrIgnore(nisCurrentTime != REALlyBig);
+    dbgAssertOrIgnore(opcode >= 0 && opcode < NEO_LastNEO);
     nisEventList[nisEventIndex - 1].time = nisCurrentTime;
     nisEventList[nisEventIndex - 1].shipID = nisCurrentObject;
     nisEventList[nisEventIndex - 1].code = opcode;
@@ -3348,11 +3348,11 @@ nisevent* nisNewAnimaticEvent(nisopcode opcode)
 ----------------------------------------------------------------------------*/
 nisevent *nisNewEventNoObject(nisopcode opcode)
 {
-    dbgAssert(nisEventIndex >= 0);
+    dbgAssertOrIgnore(nisEventIndex >= 0);
     nisEventIndex++;
     nisEventList = memRealloc(nisEventList, sizeof(nisevent) * nisEventIndex, "nisEventBuffer", 0);
-    dbgAssert(nisCurrentTime != REALlyBig);
-    dbgAssert(opcode >= 0 && opcode < NEO_LastNEO);
+    dbgAssertOrIgnore(nisCurrentTime != REALlyBig);
+    dbgAssertOrIgnore(opcode >= 0 && opcode < NEO_LastNEO);
     nisEventList[nisEventIndex - 1].time = nisCurrentTime;
     nisEventList[nisEventIndex - 1].shipID = 0;
     nisEventList[nisEventIndex - 1].code = opcode;
@@ -3416,7 +3416,7 @@ void nisCurrentTimeSet(char *directory,char *field,void *dataToFillIn)
     {
         nScanned = sscanf(field, "FRAME %f", &nisCurrentTime);
 #if NIS_ERROR_CHECKING
-        dbgAssert(nScanned == 1);
+        dbgAssertOrIgnore(nScanned == 1);
         if ((nisCurrentTime < 0.0f) || (nisCurrentTime / NIS_FrameRate >= nisCurrentHeader->length))
         {
             dbgFatalf(DBG_Loc, "tried to set time to frame %.0f which is outside nis of length %.0f frames.", nisCurrentTime, nisCurrentHeader->length * NIS_FrameRate);
@@ -3428,7 +3428,7 @@ void nisCurrentTimeSet(char *directory,char *field,void *dataToFillIn)
     {
         nScanned = sscanf(field, "%f", &nisCurrentTime);
 #if NIS_ERROR_CHECKING
-        dbgAssert(nScanned == 1);
+        dbgAssertOrIgnore(nScanned == 1);
         if ((nisCurrentTime < 0.0f) || (nisCurrentTime >= nisCurrentHeader->length))
         {
             dbgFatalf(DBG_Loc, "tried to set time to time %.0f which is outside nis of length %.0f seconds.", nisCurrentTime, nisCurrentHeader->length);
@@ -3486,7 +3486,7 @@ char *nisSeparateExpression(char *in, char *out)
             if (parenNumber == 0)
             {                                               //end of expression due to closing parenthesis
                 *out = *in;
-                dbgAssert(strchr(delimiters, *(in + 1)));
+                dbgAssertOrIgnore(strchr(delimiters, *(in + 1)));
                 return(in + 1);
             }
         }
@@ -3529,7 +3529,7 @@ void nisSpeechEventSet(char *directory,char *field,void *dataToFillIn)
     if ((actorString = strstr(field, "ACTOR")) != NULL)
     {
         sscanf(actorString + strlen("ACTOR "), "%d", &actor);
-        dbgAssert(actor > 0 && actor <= 3);
+        dbgAssertOrIgnore(actor > 0 && actor <= 3);
         event->param[1] |= actor << NIS_ActorShiftBits;
     }
     else
@@ -3641,7 +3641,7 @@ void nisCameraCutSet(char *directory,char *field,void *dataToFillIn)
     {
         nScanned = sscanf(field, "%f FRAME", &value);
 #if NIS_ERROR_CHECKING
-        dbgAssert(nScanned == 1);
+        dbgAssertOrIgnore(nScanned == 1);
 #endif
         value /= NIS_FrameRate;                   //convert from frames to seconds
     }
@@ -3649,7 +3649,7 @@ void nisCameraCutSet(char *directory,char *field,void *dataToFillIn)
     {
         nScanned = sscanf(field, "%f", &value);
 #if NIS_ERROR_CHECKING
-        dbgAssert(nScanned == 1);
+        dbgAssertOrIgnore(nScanned == 1);
 #endif
     }
     event->param[0] = TreatAsUdword(value);
@@ -3672,8 +3672,8 @@ void nisTextColorSet(char *directory, char *field, void *dataToFillIn)
 
     nScanned = sscanf(field, "%d,%d,%d", &red, &green, &blue);
 #if NIS_ERROR_CHECKING
-    dbgAssert(nScanned == 3);
-    dbgAssert(red >= 0 && red < 256 && green >= 0 && green < 256 && blue >= 0 && blue < 256);
+    dbgAssertOrIgnore(nScanned == 3);
+    dbgAssertOrIgnore(red >= 0 && red < 256 && green >= 0 && green < 256 && blue >= 0 && blue < 256);
 #endif
     nisCurrentTextCardColor = colRGB(red, green, blue);
 }
@@ -3683,9 +3683,9 @@ void nisTextPositionSet(char *directory, char *field, void *dataToFillIn)
 
     nScanned = sscanf(field, "%d,%d", &x, &y);
 #if NIS_ERROR_CHECKING
-    dbgAssert(nScanned == 2);
-    dbgAssert(x >= 0 && x < MAIN_WindowWidth);
-    dbgAssert(y >= 0 && y < MAIN_WindowHeight * 10);
+    dbgAssertOrIgnore(nScanned == 2);
+    dbgAssertOrIgnore(x >= 0 && x < MAIN_WindowWidth);
+    dbgAssertOrIgnore(y >= 0 && y < MAIN_WindowHeight * 10);
 #endif
     nisCurrentTextCardX = x;
     nisCurrentTextCardY = y;
@@ -3703,16 +3703,16 @@ void nisTextScrollSet(char *directory, char *field, void *dataToFillIn)
         nScanned = sscanf(field, "%f,%f FRAME", &distance, &duration);
         duration /= NIS_FrameRate;                   //convert from frames to seconds
 #if NIS_ERROR_CHECKING
-        dbgAssert(nScanned == 2);
-        dbgAssert(duration > 0.0f && duration < 300.0f);
+        dbgAssertOrIgnore(nScanned == 2);
+        dbgAssertOrIgnore(duration > 0.0f && duration < 300.0f);
 #endif
     }
     else
     {
         nScanned = sscanf(field, "%f,%f", &distance, &duration);
 #if NIS_ERROR_CHECKING
-        dbgAssert(nScanned == 2);
-        dbgAssert(duration > 0.0f && duration < 300.0f);
+        dbgAssertOrIgnore(nScanned == 2);
+        dbgAssertOrIgnore(duration > 0.0f && duration < 300.0f);
 #endif
     }
     event->param[0] = TreatAsUdword(distance);
@@ -3729,7 +3729,7 @@ void nisTextFadeSet(char *directory, char *field, void *dataToFillIn)
     {
         nScanned = sscanf(field, "%f FRAME", &fade);
 #if NIS_ERROR_CHECKING
-        dbgAssert(nScanned == 1);
+        dbgAssertOrIgnore(nScanned == 1);
 #endif
         fade /= NIS_FrameRate;                   //convert from frames to seconds
     }
@@ -3737,7 +3737,7 @@ void nisTextFadeSet(char *directory, char *field, void *dataToFillIn)
     {
         nScanned = sscanf(field, "%f", &fade);
 #if NIS_ERROR_CHECKING
-        dbgAssert(nScanned == 1);
+        dbgAssertOrIgnore(nScanned == 1);
 #endif
     }
     if (dataToFillIn != NULL)
@@ -3755,7 +3755,7 @@ void nisTextMarginSet(char *directory, char *field, void *dataToFillIn)
 
     nScanned = sscanf(field, "%d", &nisCurrentTextMargin);
 #if NIS_ERROR_CHECKING
-    dbgAssert(nScanned == 1);
+    dbgAssertOrIgnore(nScanned == 1);
 #endif
 }
 void nisTextDurationSet(char *directory, char *field, void *dataToFillIn)
@@ -3769,7 +3769,7 @@ void nisTextDurationSet(char *directory, char *field, void *dataToFillIn)
     {
         nScanned = sscanf(field, "%f FRAME", &value);
 #if NIS_ERROR_CHECKING
-        dbgAssert(nScanned == 1);
+        dbgAssertOrIgnore(nScanned == 1);
 #endif
         value /= NIS_FrameRate;                   //convert from frames to seconds
     }
@@ -3777,7 +3777,7 @@ void nisTextDurationSet(char *directory, char *field, void *dataToFillIn)
     {
         nScanned = sscanf(field, "%f", &value);
 #if NIS_ERROR_CHECKING
-        dbgAssert(nScanned == 1);
+        dbgAssertOrIgnore(nScanned == 1);
 #endif
     }
     nisCurrentDuration = value;
@@ -3794,7 +3794,7 @@ void nisTextCardSet(char *directory, char *field, void *dataToFillIn)
     //find the text we are to draw
     message = strNameToEnum(field);
 
-    dbgAssert(message != NumStrings);
+    dbgAssertOrIgnore(message != NumStrings);
     text = strGetString(message);
     //clear out quotes from the text.  I know this is modifying the string but we should get rid of bracketing quotes.
     while (*text == '"')
@@ -3845,12 +3845,12 @@ void nisCameraBlendInSet(char *directory, char *field, void *dataToFillIn)
     string0 = strtok(field, " \n\t,");
     string1 = strtok(NULL, " \n\t,");
     //read in the first time
-    dbgAssert(string0);
+    dbgAssertOrIgnore(string0);
     if (string1 != NULL && strstr(string1, "FRAME"))
     {
         nScanned = sscanf(string0, "%f", &time0);
 #if NIS_ERROR_CHECKING
-        dbgAssert(nScanned == 1);
+        dbgAssertOrIgnore(nScanned == 1);
 #endif
         time0 /= NIS_FrameRate;                   //convert from frames to seconds
         string0 = strtok(NULL, " \n\t,");
@@ -3860,7 +3860,7 @@ void nisCameraBlendInSet(char *directory, char *field, void *dataToFillIn)
     {
         nScanned = sscanf(field, "%f", &time0);
 #if NIS_ERROR_CHECKING
-        dbgAssert(nScanned == 1);
+        dbgAssertOrIgnore(nScanned == 1);
 #endif
         string0 = string1;
         string1 = strtok(NULL, " \n\t,");
@@ -3872,7 +3872,7 @@ void nisCameraBlendInSet(char *directory, char *field, void *dataToFillIn)
         {
             nScanned = sscanf(string0, "%f", &time1);
 #if NIS_ERROR_CHECKING
-            dbgAssert(nScanned == 1);
+            dbgAssertOrIgnore(nScanned == 1);
 #endif
             time1 /= NIS_FrameRate;                   //convert from frames to seconds
         }
@@ -3880,7 +3880,7 @@ void nisCameraBlendInSet(char *directory, char *field, void *dataToFillIn)
         {
             nScanned = sscanf(field, "%f", &time1);
 #if NIS_ERROR_CHECKING
-            dbgAssert(nScanned == 1);
+            dbgAssertOrIgnore(nScanned == 1);
 #endif
         }
     }
@@ -3911,7 +3911,7 @@ void nisScissorBlendSet(char *directory, char *field, void *dataToFillIn)
     {
         nScanned = sscanf(field, "%f FRAME", &value);
 #if NIS_ERROR_CHECKING
-        dbgAssert(nScanned == 1);
+        dbgAssertOrIgnore(nScanned == 1);
 #endif
         value /= NIS_FrameRate;                   //convert from frames to seconds
     }
@@ -3919,7 +3919,7 @@ void nisScissorBlendSet(char *directory, char *field, void *dataToFillIn)
     {
         nScanned = sscanf(field, "%f", &value);
 #if NIS_ERROR_CHECKING
-        dbgAssert(nScanned == 1);
+        dbgAssertOrIgnore(nScanned == 1);
 #endif
     }
 #if NIS_ERROR_CHECKING
@@ -3972,7 +3972,7 @@ void nisMusicStopSet(char *directory,char *field,void *dataToFillIn)
     {
         nScanned = sscanf(field, "%f FRAME", &fadeOut);
 #if NIS_ERROR_CHECKING
-        dbgAssert(nScanned == 1);
+        dbgAssertOrIgnore(nScanned == 1);
 #endif
         fadeOut /= NIS_FrameRate;                   //convert from frames to seconds
     }
@@ -3980,7 +3980,7 @@ void nisMusicStopSet(char *directory,char *field,void *dataToFillIn)
     {
         nScanned = sscanf(field, "%f", &fadeOut);
 #if NIS_ERROR_CHECKING
-        dbgAssert(nScanned == 1);
+        dbgAssertOrIgnore(nScanned == 1);
 #endif
     }
 #if NIS_ERROR_CHECKING
@@ -3993,8 +3993,8 @@ void nisMusicStopSet(char *directory,char *field,void *dataToFillIn)
 }
 void nisCentreShipSet(char *directory,char *field,void *dataToFillIn)
 {
-    dbgAssert(nisCurrentObject >= 0);
-    dbgAssert(nisCurrentObject < nisCurrentHeader->nObjectPaths);
+    dbgAssertOrIgnore(nisCurrentObject >= 0);
+    dbgAssertOrIgnore(nisCurrentObject < nisCurrentHeader->nObjectPaths);
     bitSet(nisCurrentHeader->objectPath[nisCurrentObject].race, NIS_CentreShip);
 }
 void nisFadeSetSet(char *directory,char *field,void *dataToFillIn)
@@ -4009,7 +4009,7 @@ void nisFadeSetSet(char *directory,char *field,void *dataToFillIn)
         level /= 100.0f;
     }
 #if NIS_ERROR_CHECKING
-    dbgAssert(nScanned == 1);
+    dbgAssertOrIgnore(nScanned == 1);
     if (level < 0.0f || level > 1.0f)
     {
         dbgFatalf(DBG_Loc, "'%s' is not in the range of 0..1", field);
@@ -4026,7 +4026,7 @@ void nisFadeToSet(char *directory,char *field,void *dataToFillIn)
     unsigned int i;
 
     time = strchr(field, ',');
-    dbgAssert(time);
+    dbgAssertOrIgnore(time);
     *time = 0;
     time++;
     nScanned = sscanf(field, "%f", &level);
@@ -4045,7 +4045,7 @@ void nisFadeToSet(char *directory,char *field,void *dataToFillIn)
     {
         nScanned = sscanf(time, "%f FRAME", &duration);
 #if NIS_ERROR_CHECKING
-        dbgAssert(nScanned == 1);
+        dbgAssertOrIgnore(nScanned == 1);
 #endif
         duration /= NIS_FrameRate;                   //convert from frames to seconds
     }
@@ -4053,7 +4053,7 @@ void nisFadeToSet(char *directory,char *field,void *dataToFillIn)
     {
         nScanned = sscanf(time, "%f", &duration);
 #if NIS_ERROR_CHECKING
-        dbgAssert(nScanned == 1);
+        dbgAssertOrIgnore(nScanned == 1);
 #endif
     }
 #if NIS_ERROR_CHECKING
@@ -4072,8 +4072,8 @@ void nisColorSchemeSet(char *directory, char *field, void *dataToFillIn)
 
     nScanned = sscanf(field, "%d", &value);
 #if NIS_ERROR_CHECKING
-    dbgAssert(nScanned == 1);
-    dbgAssert(value >= 0 && value < MAX_MULTIPLAYER_PLAYERS);
+    dbgAssertOrIgnore(nScanned == 1);
+    dbgAssertOrIgnore(value >= 0 && value < MAX_MULTIPLAYER_PLAYERS);
 #endif
     event->param[0] = value;
 }
@@ -4102,7 +4102,7 @@ void nisMeshAnimationSeekSet(char *directory, char *field, void *dataToFillIn)
     {
         nScanned = sscanf(field, "FRAME %f", &seekTime);
 #if NIS_ERROR_CHECKING
-        dbgAssert(nScanned == 1);
+        dbgAssertOrIgnore(nScanned == 1);
 #endif
         seekTime /= NIS_FrameRate;                   //convert from frames to seconds
     }
@@ -4110,7 +4110,7 @@ void nisMeshAnimationSeekSet(char *directory, char *field, void *dataToFillIn)
     {
         nScanned = sscanf(field, "%f", &seekTime);
 #if NIS_ERROR_CHECKING
-        dbgAssert(nScanned == 1);
+        dbgAssertOrIgnore(nScanned == 1);
 #endif
     }
 #if NIS_ERROR_CHECKING
@@ -4133,8 +4133,8 @@ void nisVolumesSet(char *directory, char *field, void *dataToFillIn)
 
     nScanned = sscanf(field, "%f", &level);
 
-    dbgAssert(nScanned == 1);
-    dbgAssert(level >= 0.0f && level <= 1.0f);
+    dbgAssertOrIgnore(nScanned == 1);
+    dbgAssertOrIgnore(level >= 0.0f && level <= 1.0f);
     event->param[0] = TreatAsUdword(level);
 }
 void nisTrailZeroSet(char *directory, char *field, void *dataToFillIn)
@@ -4160,20 +4160,20 @@ void nisNewEnvironmentSet(char *directory, char *field, void *dataToFillIn)
     nisenvironment *env = memAlloc(sizeof(nisenvironment), "NISEnv", NonVolatile);
 
     name = strtok(field, " \n\t,");
-    dbgAssert(name);
-    dbgAssert(strlen(name) < NIS_EnvNameLength);
+    dbgAssertOrIgnore(name);
+    dbgAssertOrIgnore(strlen(name) < NIS_EnvNameLength);
     strcpy(env->name, name);
     scan = strtok(NULL, " \n\t,");
-    dbgAssert(scan);
+    dbgAssertOrIgnore(scan);
     sscanf(scan, "%f", &env->theta);
     scan = strtok(NULL, " \n\t,");
-    dbgAssert(scan);
+    dbgAssertOrIgnore(scan);
     sscanf(scan, "%f", &env->phi);
     event->param[0] = (udword)env;
 }
 void nisLookyObjectSet(char *directory, char *field, void *dataToFillIn)
 {
-    dbgAssert(nisCurrentObject != -1);
+    dbgAssertOrIgnore(nisCurrentObject != -1);
 
     nisCurrentHeader->iLookyObject = nisCurrentObject;
 }
@@ -4197,16 +4197,16 @@ void nisSMPTEOnSet(char *directory, char *field, void *dataToFillIn)
     RemoveCommasFromString(field);
     /*nScanned = sscanf(field, "%s %d %d %s %d %d %d %s %s", timeString, &x, &y, &red, &green, &blue, fontString, formatString);*/
     nScanned = sscanf(field, "%s %d %d %s %hhu %hhu %hhu %s %s", timeString, &x, &y, justifyString, &red, &green, &blue, fontString, formatString);
-    dbgAssert(nScanned >= 3);
-    dbgAssert(strlen(formatString) > 1);
+    dbgAssertOrIgnore(nScanned >= 3);
+    dbgAssertOrIgnore(strlen(formatString) > 1);
 
     //interpret the SMPTE timecode
     nScanned = sscanf(timeString, "%f:%f:%f:%f", &hours, &minutes, &seconds, &frames);
-    dbgAssert(nScanned == 4);
-    dbgAssert(hours >= 0 && hours < 24);
-    dbgAssert(minutes >= 0 && minutes < 60);
-    dbgAssert(seconds >= 0 && seconds < 60);
-    dbgAssert(frames >= 0 && frames < NIS_FrameRate);
+    dbgAssertOrIgnore(nScanned == 4);
+    dbgAssertOrIgnore(hours >= 0 && hours < 24);
+    dbgAssertOrIgnore(minutes >= 0 && minutes < 60);
+    dbgAssertOrIgnore(seconds >= 0 && seconds < 60);
+    dbgAssertOrIgnore(frames >= 0 && frames < NIS_FrameRate);
 
     //allocate parameter block and format string
     newSMPTE = memAlloc(sizeof(nisSMPTE) + strlen(formatString) + 1, "nisSMPTE", NonVolatile);
@@ -4243,12 +4243,12 @@ void nisStaticOnSet(char *directory, char *field, void *dataToFillIn)
         &nLines, &nLinesVariation, &width, &widthVariation, &y, &yVariation,
         &hue, &hueVariation, &lum, &lumVariation, &sat, &satVariation, &alpha, &alphaVariation,
         bTextureString);
-    dbgAssert(nScanned >= 7);
-    dbgAssert(index >= 0 && index < NIS_NumberStatics);
-    dbgAssert(hue >= 0.0f && hue <= 1.0f);
-    dbgAssert(lum >= 0.0f && lum <= 1.0f);
-    dbgAssert(sat >= 0.0f && sat <= 1.0f);
-    dbgAssert(alpha >= 0.0f && alpha <= 1.0f);
+    dbgAssertOrIgnore(nScanned >= 7);
+    dbgAssertOrIgnore(index >= 0 && index < NIS_NumberStatics);
+    dbgAssertOrIgnore(hue >= 0.0f && hue <= 1.0f);
+    dbgAssertOrIgnore(lum >= 0.0f && lum <= 1.0f);
+    dbgAssertOrIgnore(sat >= 0.0f && sat <= 1.0f);
+    dbgAssertOrIgnore(alpha >= 0.0f && alpha <= 1.0f);
 
     //scale some parameters by screen resolution
     width = primScreenToGLScaleX(width * MAIN_WindowWidth / 640.0f);
@@ -4283,15 +4283,15 @@ void nisStaticOffSet(char *directory, char *field, void *dataToFillIn)
     sdword nScanned;
 
     nScanned = sscanf(field, "%d", &event->param[0]);
-    dbgAssert(nScanned == 1);
-    dbgAssert(event->param[0] >= 0 && event->param[0] < NIS_NumberStatics);
+    dbgAssertOrIgnore(nScanned == 1);
+    dbgAssertOrIgnore(event->param[0] >= 0 && event->param[0] < NIS_NumberStatics);
 }
 void nisHideDerelictSet(char *directory, char *field, void *dataToFillIn)
 {
     nisevent *event = nisNewEventNoObject(dataToFillIn == NULL ? NEO_HideDerelict : NEO_ShowDerelict);
     DerelictType type = StrToDerelictType(field);
 
-    dbgAssert(type != -1);
+    dbgAssertOrIgnore(type != -1);
     event->param[0] = type;
 }
 void nisNewNISSet(char *directory, char *field, void *dataToFillIn)
@@ -4303,16 +4303,16 @@ void nisNewNISSet(char *directory, char *field, void *dataToFillIn)
 
     event->time -= UNIVERSE_UPDATE_PERIOD;                  //this is to make sure that hitting ESCAPE will seek over this event
     nScanned = sscanf(field, "%s %s", nisName, scriptName);
-    dbgAssert(nScanned == 2);
-    dbgAssert(strlen(nisName) > 0);
-    dbgAssert(strlen(scriptName) > 0);
+    dbgAssertOrIgnore(nScanned == 2);
+    dbgAssertOrIgnore(strlen(nisName) > 0);
+    dbgAssertOrIgnore(strlen(scriptName) > 0);
 #ifdef _WIN32
     strcpy(fileName, "nis\\");
 #else
     strcpy(fileName, "nis/");
 #endif
     strcat(fileName, nisName);
-    dbgAssert(fileExists(fileName, 0));
+    dbgAssertOrIgnore(fileExists(fileName, 0));
     event->param[0] = (udword)memStringDupeNV(fileName);
 #ifdef _WIN32
     strcpy(fileName, "nis\\");
@@ -4320,7 +4320,7 @@ void nisNewNISSet(char *directory, char *field, void *dataToFillIn)
     strcpy(fileName, "nis/");
 #endif
     strcat(fileName, scriptName);
-    dbgAssert(fileExists(fileName, 0));
+    dbgAssertOrIgnore(fileExists(fileName, 0));
     event->param[1] = (udword)memStringDupeNV(fileName);
 }
 void nisAttributesSet(char *directory, char *field, void *dataToFillIn)
@@ -4329,7 +4329,7 @@ void nisAttributesSet(char *directory, char *field, void *dataToFillIn)
     nisevent *event = nisNewEvent(NEO_Attributes);
 
     nScanned = sscanf(field, "%d", &attributes);
-    dbgAssert(nScanned == 1);
+    dbgAssertOrIgnore(nScanned == 1);
     event->param[0] = attributes;
 }
 void nisAttackKasSelectionSet(char *directory, char *field, void *dataToFillIn)
@@ -4338,8 +4338,8 @@ void nisAttackKasSelectionSet(char *directory, char *field, void *dataToFillIn)
     GrowSelection *selection;
 
     selection = kasGetGrowSelectionPtrIfExists(field);      //get a named selection
-    dbgAssert(selection != NULL);
-    dbgAssert(selection->selection->numShips > 0);          //verify there are ships in it
+    dbgAssertOrIgnore(selection != NULL);
+    dbgAssertOrIgnore(selection->selection->numShips > 0);          //verify there are ships in it
     event->param[0] = (udword)(selection->selection);
 }
 void nisKeepMovingAtEndSet(char *directory, char *field, void *dataToFillIn)
@@ -4353,8 +4353,8 @@ void nisMinimumLODSet(char *directory, char *field, void *dataToFillIn)
     sdword nScanned;
 
     nScanned = sscanf(field, "%d", &event->param[0]);
-    dbgAssert(nScanned == 1);
-    dbgAssert(event->param[0] >= 0 && event->param[0] < 10);
+    dbgAssertOrIgnore(nScanned == 1);
+    dbgAssertOrIgnore(event->param[0] >= 0 && event->param[0] < 10);
 }
 
 void nisDamageLevelSet(char *directory, char *field, void *dataToFillIn)
@@ -4364,12 +4364,12 @@ void nisDamageLevelSet(char *directory, char *field, void *dataToFillIn)
     real32 percentage;
 
     nScanned = sscanf(field, "%f", &percentage);
-    dbgAssert(nScanned == 1);
+    dbgAssertOrIgnore(nScanned == 1);
     if (strchr(field, '%'))
     {
         percentage /= 100.0f;
     }
-    dbgAssert(percentage > 0.0f);
+    dbgAssertOrIgnore(percentage > 0.0f);
     event->param[0] = TreatAsUdword(percentage);
 }
 
@@ -4481,7 +4481,7 @@ int nisEventSortCB(const void *p1, const void *p2)
         }
         else
         {
-            dbgAssert(((nisevent *)p1)->initialID != ((nisevent *)p2)->initialID);
+            dbgAssertOrIgnore(((nisevent *)p1)->initialID != ((nisevent *)p2)->initialID);
             return(1);
         }
     }
@@ -4669,7 +4669,7 @@ nisheader *nisLoad(char *fileName, char *scriptName)
         if ((instancePtr = strchr(string, '(')) != NULL)
         {
             sscanf(instancePtr + 1, "%d", &instanceID);
-            dbgAssert(instanceID > 0 && instanceID < SWORD_Max);
+            dbgAssertOrIgnore(instanceID > 0 && instanceID < SWORD_Max);
             *instancePtr = 0;
         }
         else
@@ -4883,7 +4883,7 @@ void nisDelete(nisheader *header)
 {
     sdword index;
 
-    dbgAssert(header != NULL);
+    dbgAssertOrIgnore(header != NULL);
     if (header->stringBlock != NULL)
     {                                                       //free the string blockl
         memFree(header->stringBlock);
@@ -5100,23 +5100,23 @@ void nisSMPTECounterDraw(nisplaying *NIS, nisSMPTE *SMPTE)
     sdword x;
 
     time = NIS->timeElapsed - SMPTE->startTime;
-    dbgAssert(time >= 0.0f);
+    dbgAssertOrIgnore(time >= 0.0f);
 
     integer = (sdword)time;                                 //isolate the integer and fractional parts
     time -= (real32)integer;
     frames = (sdword)(time * NIS_FrameRate);
-    dbgAssert(frames >= 0 && frames < (sdword)NIS_FrameRate);
+    dbgAssertOrIgnore(frames >= 0 && frames < (sdword)NIS_FrameRate);
 
     seconds = integer % 60;
     integer /= 60;
-    dbgAssert(seconds >= 0 && seconds < 60);
+    dbgAssertOrIgnore(seconds >= 0 && seconds < 60);
 
     minutes = integer % 60;
     integer /= 60;
-    dbgAssert(minutes >= 0 && minutes < 60);
+    dbgAssertOrIgnore(minutes >= 0 && minutes < 60);
 
     hours = integer;
-    dbgAssert(hours >= 0 && hours < 60);
+    dbgAssertOrIgnore(hours >= 0 && hours < 60);
 
     //build the time string
     if (hours < 10)

@@ -452,7 +452,7 @@ void allianceCancelAttackOrders(uword playerone, uword playertwo)
         if ( (todo->ordertype.order == COMMAND_ATTACK) ||
              (todo->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING) )
         {
-            dbgAssert(todo->selection->ShipPtr[0] != NULL);
+            dbgAssertOrIgnore(todo->selection->ShipPtr[0] != NULL);
             //if attack command contains player one ships
             if (todo->selection->ShipPtr[0]->playerowner->playerIndex == playerone)
             {

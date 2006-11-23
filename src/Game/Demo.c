@@ -142,7 +142,7 @@ void demRecordStart(char *fileName, demstatesave saveFunction)
     sdword index;
 #endif
 
-    dbgAssert(demDemoPlaying != TRUE);
+    dbgAssertOrIgnore(demDemoPlaying != TRUE);
     //create a header structure
     strcpy(header.ident, DEM_HeaderString);
     header.version = DEM_VersionNumber;
@@ -157,7 +157,7 @@ void demRecordStart(char *fileName, demstatesave saveFunction)
     if (saveFunction != NULL)
     {                                                       //save initial configuration, if applicable
         saveFunction(&stateBuffer, &header.initialStateSize);
-        dbgAssert(header.initialStateSize > 0);
+        dbgAssertOrIgnore(header.initialStateSize > 0);
     }
     else
     {
@@ -210,7 +210,7 @@ void demStateSave(void)
     sdword numShips;
 #endif
 
-    dbgAssert(demDemoRecording);
+    dbgAssertOrIgnore(demDemoRecording);
     state.time = taskTimeElapsed;                           //basic state stuff
 #if DEM_CHECKSUM
     if (gameIsRunning)
@@ -259,7 +259,7 @@ void demStateSave(void)
     state.mouseX = (sword)mouseCursorX();                   //save mouse state
     state.mouseY = (sword)mouseCursorY();
     state.mouseButtons = (ubyte)mouseButtons;
-    dbgAssert(taskNumberCalls >= 0 && taskNumberCalls < 256);
+    dbgAssertOrIgnore(taskNumberCalls >= 0 && taskNumberCalls < 256);
     state.taskNumber = (ubyte)taskNumberCalls;              //save the value of the for loop in task.c where this is called from
     state.frameTicks = utyNFrameTicks;
 
@@ -291,7 +291,7 @@ void demStateSave(void)
 ----------------------------------------------------------------------------*/
 void demNumberTicksSave(sdword nTicks)
 {
-    dbgAssert(demDemoRecording);
+    dbgAssertOrIgnore(demDemoRecording);
     demBlockWrite(&nTicks, sizeof(sdword));
 }
 
@@ -304,7 +304,7 @@ void demNumberTicksSave(sdword nTicks)
 ----------------------------------------------------------------------------*/
 void demRecordEnd(void)
 {
-    dbgAssert(demDemoRecording);
+    dbgAssertOrIgnore(demDemoRecording);
     demFileSaveName[0] = 0;
     demDemoRecording = FALSE;
 }
@@ -345,8 +345,8 @@ void demPlayStart(char *fileName, demstateload loadFunction, demplayfinished fin
     sdword index;
 #endif
 
-    dbgAssert(demDemoPlaying);
-    dbgAssert(demLoadFile == NULL);
+    dbgAssertOrIgnore(demDemoPlaying);
+    dbgAssertOrIgnore(demLoadFile == NULL);
 
     demPlaybackInterrupted = FALSE;
 
@@ -406,7 +406,7 @@ void demPlayStart(char *fileName, demstateload loadFunction, demplayfinished fin
 void demPlayEnd(void)
 {
     rndMainViewRender = rndMainViewRenderFunction;
-    dbgAssert(demDemoPlaying);
+    dbgAssertOrIgnore(demDemoPlaying);
     memFree(demLoadFile);
     demLoadFile = NULL;
     demDemoPlaying = FALSE;
@@ -579,7 +579,7 @@ sdword demNumberTicksLoad(sdword initial)
     {
         return(initial);
     }
-    dbgAssert(demDemoPlaying);
+    dbgAssertOrIgnore(demDemoPlaying);
     if (!demBlockRead(&nTicks, sizeof(sdword)))
     {
         demPlayEnd();

@@ -78,13 +78,13 @@ typedef struct
 #define sizeofSaveChunk(n) (sizeof(SaveChunk) + n)
 
 #define VerifyChunk(c,t,s)              \
-    dbgAssert(c);                       \
-    dbgAssert((c)->type == (t));        \
-    dbgAssert((c)->contentsSize == (s))
+    dbgAssertOrIgnore(c);                       \
+    dbgAssertOrIgnore((c)->type == (t));        \
+    dbgAssertOrIgnore((c)->contentsSize == (s))
 
 #define VerifyChunkNoSize(c,t)          \
-    dbgAssert(c);                       \
-    dbgAssert((c)->type == (t));
+    dbgAssertOrIgnore(c);                       \
+    dbgAssertOrIgnore((c)->type == (t));
 
 bool SaveGame(char *filename);
 void LoadGame(char *filename);

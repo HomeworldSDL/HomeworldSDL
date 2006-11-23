@@ -453,7 +453,7 @@ void glDLLGetGLCompat(void)
         glDisable = _glDisable;
     }
 
-    dbgAssert(!DynalinkFailed);
+    dbgAssertOrIgnore(!DynalinkFailed);
 }
 
 void glDLLWatch(GLuint handle)

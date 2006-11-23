@@ -40,9 +40,9 @@ void listDetachNode(Node *node)
     Node *nextnode;
     Node *prevnode;
 
-    dbgAssert(owner != NULL);
-    dbgAssert(owner->head != NULL);
-    dbgAssert(owner->tail != NULL);
+    dbgAssertOrIgnore(owner != NULL);
+    dbgAssertOrIgnore(owner->head != NULL);
+    dbgAssertOrIgnore(owner->tail != NULL);
 
     nextnode = node->next;
     prevnode = node->prev;
@@ -151,7 +151,7 @@ void listAddNode(LinkedList *list,Node *toadd,void *structure)
 {
     if (list->head == NULL)
     {
-        dbgAssert(list->tail == NULL);
+        dbgAssertOrIgnore(list->tail == NULL);
 
         list->head = toadd;
         list->tail = toadd;
@@ -164,9 +164,9 @@ void listAddNode(LinkedList *list,Node *toadd,void *structure)
     {
         Node *oldtailnode = list->tail;
 
-        dbgAssert(oldtailnode != NULL);
+        dbgAssertOrIgnore(oldtailnode != NULL);
 
-        dbgAssert(oldtailnode->next == NULL);
+        dbgAssertOrIgnore(oldtailnode->next == NULL);
         oldtailnode->next = toadd;
 
         toadd->next = NULL;
@@ -190,7 +190,7 @@ void listAddNodeBeginning(LinkedList *list,Node *toadd,void *structure)
 {
     if (list->head == NULL)
     {
-        dbgAssert(list->tail == NULL);
+        dbgAssertOrIgnore(list->tail == NULL);
 
         list->head = toadd;
         list->tail = toadd;
@@ -203,9 +203,9 @@ void listAddNodeBeginning(LinkedList *list,Node *toadd,void *structure)
     {
         Node *oldheadnode = list->head;
 
-        dbgAssert(oldheadnode != NULL);
+        dbgAssertOrIgnore(oldheadnode != NULL);
 
-        dbgAssert(oldheadnode->prev == NULL);
+        dbgAssertOrIgnore(oldheadnode->prev == NULL);
         oldheadnode->prev = toadd;
 
         toadd->next = oldheadnode;
@@ -229,11 +229,11 @@ void listAddNodeAfter(Node *node,Node *toadd,void *structure)
 {
     Node *nextnode;
 
-    dbgAssert(node != NULL);
+    dbgAssertOrIgnore(node != NULL);
     nextnode = node->next;
-    dbgAssert(node != nextnode);
-    dbgAssert(node != toadd);
-    dbgAssert(nextnode != toadd);
+    dbgAssertOrIgnore(node != nextnode);
+    dbgAssertOrIgnore(node != toadd);
+    dbgAssertOrIgnore(nextnode != toadd);
 
     node->next = toadd;
 
@@ -264,7 +264,7 @@ void listAddNodeBefore(Node *node,Node *toadd,void *structure)
 {
     Node *prevnode;
 
-    dbgAssert(node != NULL);
+    dbgAssertOrIgnore(node != NULL);
     prevnode = node->prev;
 
     if (prevnode != NULL)
@@ -298,7 +298,7 @@ void listMoveNodeToHead(Node *nodeToMove)
     LinkedList *list;
     void *structure;
 
-    dbgAssert(nodeToMove != NULL);
+    dbgAssertOrIgnore(nodeToMove != NULL);
     list = nodeToMove->belongto;
     structure = listGetStructOfNode(nodeToMove);
 
@@ -885,7 +885,7 @@ void listCheckSort(LinkedList *list)
 
         if ( COMPARE_COLLISION_DISTANCE(listGetStructOfNode(node1),listGetStructOfNode(node2)) )
         {
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
         }
     }
     else
@@ -897,7 +897,7 @@ void listCheckSort(LinkedList *list)
         {
             if ( COMPARE_COLLISION_DISTANCE(listGetStructOfNode(node1),listGetStructOfNode(node2)) )
             {
-                dbgAssert(FALSE);
+                dbgAssertOrIgnore(FALSE);
             }
 
             node1 = node2;
@@ -922,7 +922,7 @@ void listCheckSortGeneral(LinkedList *list, MergeSortCompareCb compare)
 
         if ( compare(listGetStructOfNode(node1),listGetStructOfNode(node2)) )
         {
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
         }
     }
     else
@@ -934,7 +934,7 @@ void listCheckSortGeneral(LinkedList *list, MergeSortCompareCb compare)
         {
             if ( compare(listGetStructOfNode(node1),listGetStructOfNode(node2)) )
             {
-                dbgAssert(FALSE);
+                dbgAssertOrIgnore(FALSE);
             }
 
             node1 = node2;
@@ -960,44 +960,44 @@ void listVerifyAnal(LinkedList *list)
     for (count = 0, node = list->head; node != NULL; node = node->next, count++)
     {
         //verify prev/next pointers
-        dbgAssert(node->prev != node);
-        dbgAssert(node->next != node);
+        dbgAssertOrIgnore(node->prev != node);
+        dbgAssertOrIgnore(node->next != node);
         if (node->prev != NULL || node->next != NULL)
         {
-            dbgAssert(node->prev != node->next);
+            dbgAssertOrIgnore(node->prev != node->next);
         }
         if (count > 0)
         {
-            dbgAssert(node->prev->next == node);
+            dbgAssertOrIgnore(node->prev->next == node);
         }
         if (count < list->num - 1)
         {
-            dbgAssert(node->next->prev == node);
+            dbgAssertOrIgnore(node->next->prev == node);
         }
         //check the belongto pointer
-        dbgAssert(node->belongto == list);
+        dbgAssertOrIgnore(node->belongto == list);
         //check the structptrs
         if (count == 0)
         {
             firstDiff = (ubyte *)node - (ubyte *)node->structptr;
-            dbgAssert(firstDiff >= 0);
+            dbgAssertOrIgnore(firstDiff >= 0);
         }
         else
         {
             diff = (ubyte *)node - (ubyte *)node->structptr;
-            dbgAssert(diff >= 0);
-            dbgAssert(diff == firstDiff);
+            dbgAssertOrIgnore(diff >= 0);
+            dbgAssertOrIgnore(diff == firstDiff);
         }
         //check if the head/tail pointers are valid
         if (count == 0)
         {
-            dbgAssert(node == list->head);
+            dbgAssertOrIgnore(node == list->head);
         }
         if (count == list->num - 1)
         {
-            dbgAssert(node == list->tail);
+            dbgAssertOrIgnore(node == list->tail);
         }
     }
-    dbgAssert(count == list->num);
+    dbgAssertOrIgnore(count == list->num);
 }
 #endif

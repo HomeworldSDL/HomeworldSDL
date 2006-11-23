@@ -1015,8 +1015,8 @@ void scriptSetGunStatics(char *directory,char *filename,struct ShipStaticInfo *s
                     if (strcmp(name,"GUN") == 0)
                     {
                         scriptSetSdwordCB(directory,value,&processingGun);
-                        dbgAssert(processingGun >= 0);
-                        dbgAssert(processingGun < numGuns);
+                        dbgAssertOrIgnore(processingGun >= 0);
+                        dbgAssertOrIgnore(processingGun < numGuns);
                         gunstaticinfo->gunstatics[processingGun].slaveDriver = -1;
                         state = SETGUNSTATE_LEFTBRACKET;
                     }
@@ -1079,13 +1079,13 @@ void scriptSetGunStatics(char *directory,char *filename,struct ShipStaticInfo *s
                     break;
 
                 default:
-                    dbgAssert(FALSE);
+                    dbgAssertOrIgnore(FALSE);
                     break;
             }
         }
     }
 
-    dbgAssert(numGunsProcessed == (numGuns));
+    dbgAssertOrIgnore(numGunsProcessed == (numGuns));
 
     if (gunstaticinfo != NULL)
     {
@@ -1111,7 +1111,7 @@ void scriptSetGunStatics(char *directory,char *filename,struct ShipStaticInfo *s
                 }
             }
             shipstatinfo->minBulletRange[k] = shipstatinfo->bulletRange[k] = gunstaticinfo->gunstatics[0].bulletrange*bonus;
-            dbgAssert(numGuns > 0);
+            dbgAssertOrIgnore(numGuns > 0);
             for (i=0;i<numGuns;i++)
             {
                 if (k == 0)
@@ -1263,8 +1263,8 @@ void scriptSetNAVLightStatics(char *directory,char *filename,struct ShipStaticIn
                     foundentry = findStructEntry(StaticNavLightInfoScriptTable,name);
                     if (foundentry != NULL)
                     {
-                        dbgAssert(processingNAVLight < numNavLights);
-                        dbgAssert(numNavLights > 0);
+                        dbgAssertOrIgnore(processingNAVLight < numNavLights);
+                        dbgAssertOrIgnore(numNavLights > 0);
                         structureToFillIn = (ubyte *)&navlightstaticinfo->navlightstatics[processingNAVLight];
                         foundentry->setVarCB(directory,value,structureToFillIn);
                         processingNAVLight++;
@@ -1276,7 +1276,7 @@ void scriptSetNAVLightStatics(char *directory,char *filename,struct ShipStaticIn
                     break;
 
                 default:
-                    dbgAssert(FALSE);
+                    dbgAssertOrIgnore(FALSE);
                     break;
             }
         }
@@ -1380,8 +1380,8 @@ void scriptSetDockStatics(char *directory,char *filename,struct ShipStaticInfo *
                     foundentry = findStructEntry(StaticDockInfoScriptTable,name);
                     if (foundentry != NULL)
                     {
-                        dbgAssert(processingDockPoint < numDockPoints);
-                        dbgAssert(numDockPoints > 0);
+                        dbgAssertOrIgnore(processingDockPoint < numDockPoints);
+                        dbgAssertOrIgnore(numDockPoints > 0);
                         structureToFillIn = (ubyte *)&dockstaticinfo->dockstaticpoints[processingDockPoint];
                         foundentry->setVarCB(directory,value,structureToFillIn);
                         processingDockPoint++;
@@ -1393,7 +1393,7 @@ void scriptSetDockStatics(char *directory,char *filename,struct ShipStaticInfo *
                     break;
 
                 default:
-                    dbgAssert(FALSE);
+                    dbgAssertOrIgnore(FALSE);
                     break;
             }
         }
@@ -1521,8 +1521,8 @@ void scriptSetDockOverideStatics(char *directory,char *filename,struct ShipStati
                     foundentry = findStructEntry(StaticDockOverideInfoScriptTable,name);
                     if (foundentry != NULL)
                     {
-                        dbgAssert(processingDockOveridePoint < numDockOveridePoints);
-                        dbgAssert(numDockOveridePoints > 0);
+                        dbgAssertOrIgnore(processingDockOveridePoint < numDockOveridePoints);
+                        dbgAssertOrIgnore(numDockOveridePoints > 0);
                         structureToFillIn = (ubyte *)&dockoverideinfo->dockOverides[processingDockOveridePoint];
                         foundentry->setVarCB(directory,value,structureToFillIn);
                         processingDockOveridePoint++;
@@ -1534,7 +1534,7 @@ void scriptSetDockOverideStatics(char *directory,char *filename,struct ShipStati
                     break;
 
                 default:
-                    dbgAssert(FALSE);
+                    dbgAssertOrIgnore(FALSE);
                     break;
             }
         }
@@ -1682,8 +1682,8 @@ void scriptSetSalvageStatics(char *directory,char *filename,struct StaticInfoHea
                     foundentry = findStructEntry(StaticSalvageInfoScriptTable,name);
                     if (foundentry != NULL)
                     {
-                        dbgAssert(processingSalvagePoint < numSalvagePoints);
-                        dbgAssert(numSalvagePoints > 0);
+                        dbgAssertOrIgnore(processingSalvagePoint < numSalvagePoints);
+                        dbgAssertOrIgnore(numSalvagePoints > 0);
                         structureToFillIn = (ubyte *)&salvagestaticinfo->salvageStaticPoints[processingSalvagePoint];
                         foundentry->setVarCB(directory,value,structureToFillIn);
                         processingSalvagePoint++;
@@ -1695,7 +1695,7 @@ void scriptSetSalvageStatics(char *directory,char *filename,struct StaticInfoHea
                     break;
 
                 default:
-                    dbgAssert(FALSE);
+                    dbgAssertOrIgnore(FALSE);
                     break;
             }
         }
@@ -1794,7 +1794,7 @@ foundtable:
                         curDeclination = 0;
 
                         scriptSetSdwordCB(directory,value,&numDeclinations);
-                        dbgAssert(numDeclinations > 0);
+                        dbgAssertOrIgnore(numDeclinations > 0);
 
                         sizeofspheretableentry = sizeofSphereTableEntry(numDeclinations);
 
@@ -1808,10 +1808,10 @@ foundtable:
                     break;
 
                 case SPHERESTATE_GETTABLE:
-                    dbgAssert(curTable > -1);
-                    dbgAssert(curTable < numTables);
-                    dbgAssert(spheretableentry);
-                    dbgAssert(curDeclination >= 0);
+                    dbgAssertOrIgnore(curTable > -1);
+                    dbgAssertOrIgnore(curTable < numTables);
+                    dbgAssertOrIgnore(spheretableentry);
+                    dbgAssertOrIgnore(curDeclination >= 0);
                     if (strcmp(name,"SPHERE_TABLE") == 0)
                     {
                         goto foundtable;
@@ -1824,7 +1824,7 @@ foundtable:
                         }
                         else if (strcmp(name,"Declination") == 0)
                         {
-                            dbgAssert(curDeclination < numDeclinations);
+                            dbgAssertOrIgnore(curDeclination < numDeclinations);
                             scriptSetSphereDeclinationCB(directory,value,&spheretableentry->sphereDeclinations[curDeclination]);
                             curDeclination++;
                         }
@@ -1832,7 +1832,7 @@ foundtable:
                     break;
 
                 default:
-                    dbgAssert(FALSE);
+                    dbgAssertOrIgnore(FALSE);
                     break;
             }
         }

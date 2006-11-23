@@ -1182,7 +1182,7 @@ void cmBuildTaskFunction(void)
                     {
                         if (progress->nJobs > 0)
                         {                                               //for each construction job
-                            dbgAssert(progress->info != NULL);
+                            dbgAssertOrIgnore(progress->info != NULL);
 
                             // Simulating fixed point because we need to save fractional bits across frames
                             // RUs -= 0.5 cannot be simulated properly with integer
@@ -1402,7 +1402,7 @@ void cmLoadTextures(void)
         strcat(filename, ArrowIcons[index]);
 
         cmArrowIcon[index] = trLIFFileLoad(filename, NonVolatile);
-        dbgAssert(cmArrowIcon[index]);
+        dbgAssertOrIgnore(cmArrowIcon[index]);
 
         cmArrowTexture[index] = trRGBTextureCreate(
             (color*)cmArrowIcon[index]->data,
@@ -3387,7 +3387,7 @@ void cmTotalRUsDraw(featom *atom, regionhandle region)
         }
         if (progress->nJobs > 0)
         {
-            dbgAssert(progress->info != NULL);
+            dbgAssertOrIgnore(progress->info != NULL);
 #if CM_CHEAP_SHIPS
             if (cmCheapShips && !multiPlayerGame)
             {
@@ -3502,7 +3502,7 @@ bool cmCanBuildShipType(Ship *factoryship,ShipType shiptype,bool checkResearch)
     }
     else
     {
-        dbgAssert(FALSE);           // do we need to deal with P3?
+        dbgAssertOrIgnore(FALSE);           // do we need to deal with P3?
         return FALSE;
     }
 
@@ -3572,7 +3572,7 @@ sdword cmUpdateFactoryNoReset(Ship* shipfactory)
     //}
 
     curshipsInProgress = cmFindFactory(shipfactory);
-    dbgAssert(curshipsInProgress != NULL);
+    dbgAssertOrIgnore(curshipsInProgress != NULL);
     if (race == R1)
     {
         if (curshipsInProgress->canBuildBigShips)
@@ -3605,7 +3605,7 @@ sdword cmUpdateFactoryNoReset(Ship* shipfactory)
     }
     else
     {
-        dbgAssert(FALSE);
+        dbgAssertOrIgnore(FALSE);
     }
 
     cmDirtyShipInfo();
@@ -3675,7 +3675,7 @@ sdword cmUpdateFactory(Ship* shipfactory)
     //}
 
     curshipsInProgress = cmFindFactory(shipfactory);
-    dbgAssert(curshipsInProgress != NULL);
+    dbgAssertOrIgnore(curshipsInProgress != NULL);
     if (race == R1)
     {
         if (curshipsInProgress->canBuildBigShips)
@@ -3708,7 +3708,7 @@ sdword cmUpdateFactory(Ship* shipfactory)
     }
     else
     {
-        dbgAssert(FALSE);
+        dbgAssertOrIgnore(FALSE);
     }
 
     for (index = 0; cmShipsAvailable[index].nJobs != -1; index++)
@@ -3899,7 +3899,7 @@ void cmBuildJobsAdd(shipsinprogress *factory, ShipStaticInfo *info, sdword nJobs
 #if CM_VERBOSE_LEVEL >= 1
     dbgMessagef("\ncmBuildJobAdd: Building %s", ShipTypeToNiceStr(info->shiptype));
 #endif
-    dbgAssert(info->shiptype < TOTAL_STD_SHIPS);                 //make sure we can add a job
+    dbgAssertOrIgnore(info->shiptype < TOTAL_STD_SHIPS);                 //make sure we can add a job
     progress = &factory->progress[info->shiptype];         //update the progress
 #if CM_CAP_JOBS_PER_CLASS
     if (factory->progress[info->shiptype].nJobs >= CM_NumberJobsPerClass)
@@ -3948,7 +3948,7 @@ sdword cmSelectMotherShip(regionhandle region, sdword ID, udword event, udword d
         cmCurrentSelect = 0;
         cmUpdateFactory(universe.curPlayerPtr->PlayerMothership);
 
-        dbgAssert(region!=NULL);
+        dbgAssertOrIgnore(region!=NULL);
 #ifdef DEBUG_STOMP
         regVerify(region);
 #endif
@@ -3976,7 +3976,7 @@ sdword cmSelectCarrierX(regionhandle region, sdword ID, udword event, udword dat
         cmCurrentSelect = x;
         cmUpdateFactory(cmCarrierX[x-1]);
 
-        dbgAssert(region!=NULL);
+        dbgAssertOrIgnore(region!=NULL);
 #ifdef DEBUG_STOMP
         regVerify(region);
 #endif
@@ -4139,7 +4139,7 @@ void cmCarrierXDraw(featom *atom, regionhandle region,udword x)
                         case 2: regFunctionSet(region, (regionfunction)cmSelectCarrier2); break;
                         case 3: regFunctionSet(region, (regionfunction)cmSelectCarrier3); break;
                         case 4: regFunctionSet(region, (regionfunction)cmSelectCarrier4); break;
-                        default: dbgAssert(FALSE); break;
+                        default: dbgAssertOrIgnore(FALSE); break;
                     }
                 }
                 cmDrawShipImage(region, x);
@@ -4702,7 +4702,7 @@ void Save_shipsinprogress(shipsinprogress *sinprogress)
     savecontents = (shipsinprogress *)chunkContents(chunk);
 
     savecontents->ship = (Ship *)SpaceObjRegistryGetID((SpaceObj *)savecontents->ship);
-    dbgAssert((sdword)savecontents->ship != -1);
+    dbgAssertOrIgnore((sdword)savecontents->ship != -1);
     for (i=0;i<TOTAL_STD_SHIPS;i++)
     {
         savecontents->progress[i].info = (ShipStaticInfo *)ConvertShipStaticInfoToRaceType(savecontents->progress[i].info);
@@ -4728,7 +4728,7 @@ void SaveConsMgr()
         node = node->next;
     }
 
-    dbgAssert(cur == num);
+    dbgAssertOrIgnore(cur == num);
 
     SaveInfoNumber(cmNumCarriers);
     if (cmNumCarriers > 0)
@@ -4743,7 +4743,7 @@ void SaveConsMgr()
         for (i=0;i<cmNumCarriers;i++)
         {
             savecontents[i].ship = (Ship *)SpaceObjRegistryGetID((SpaceObj *)savecontents[i].ship);
-            dbgAssert((sdword)savecontents[i].ship != -1);
+            dbgAssertOrIgnore((sdword)savecontents[i].ship != -1);
             savecontents[i].owner = (Player *)SavePlayerToPlayerIndex(savecontents[i].owner);
         }
 
@@ -4766,7 +4766,7 @@ shipsinprogress *Load_shipsinprogress()
     memFree(chunk);
 
     sinprogress->ship = SpaceObjRegistryGetShip((sdword)sinprogress->ship);
-    dbgAssert(sinprogress->ship != NULL);
+    dbgAssertOrIgnore(sinprogress->ship != NULL);
 
     for (i=0;i<TOTAL_STD_SHIPS;i++)
     {
@@ -4784,7 +4784,7 @@ void LoadConsMgr()
 
     num = LoadInfoNumber();
 
-    dbgAssert(listofShipsInProgress.num == 0);
+    dbgAssertOrIgnore(listofShipsInProgress.num == 0);
     listInit(&listofShipsInProgress);
 
     for (i=0;i<num;i++)

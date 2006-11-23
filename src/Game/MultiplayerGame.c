@@ -1629,7 +1629,7 @@ void mgShowScreen(sdword screennum, bool disappear)
 void LockMutex(void *mutex)
 {
     int result = SDL_mutexP(mutex);
-    dbgAssert(result != -1);
+    dbgAssertOrIgnore(result != -1);
 }
 
 /*-----------------------------------------------------------------------------
@@ -1642,7 +1642,7 @@ void LockMutex(void *mutex)
 void UnLockMutex(void *mutex)
 {
     int result = SDL_mutexV(mutex);
-    dbgAssert(result != -1);
+    dbgAssertOrIgnore(result != -1);
 }
 
 /*-----------------------------------------------------------------------------
@@ -3123,7 +3123,7 @@ void mgPingAllGames(char*name,featom *atom)
             isthere = listtoping.head;
             found = FALSE;
 
-            dbgAssert(!LANGame);
+            dbgAssertOrIgnore(!LANGame);
 
             while (isthere != NULL)
             {
@@ -3660,7 +3660,7 @@ bool PingAllGames(udword num, void *data, struct BabyCallBack *baby)
         return (TRUE);
     }
 
-    dbgAssert(!LANGame);
+    dbgAssertOrIgnore(!LANGame);
     CreateInternetAddress(addr,((newping *)pingwalk)->IP,((newping *)pingwalk)->Port);
 
     titanSendPing(&addr,2);
@@ -4205,7 +4205,7 @@ void mgCreateGameNow(char *name, featom *atom)
         {
             if (GameCreator)
             {
-                dbgAssert(strlen(spScenarios[spCurrentSelected].fileSpec) <= MAX_MAPNAME_LEN);
+                dbgAssertOrIgnore(strlen(spScenarios[spCurrentSelected].fileSpec) <= MAX_MAPNAME_LEN);
                 memStrncpy(tpGameCreated.DisplayMapName,spScenarios[spCurrentSelected].title,MAX_MAPNAME_LEN);
                 memStrncpy(tpGameCreated.MapName,spScenarios[spCurrentSelected].fileSpec,MAX_MAPNAME_LEN);
 
@@ -4255,7 +4255,7 @@ void mgCreateGameNow(char *name, featom *atom)
             tpGameCreated.playerInfo[0].behindFirewall = titanBehindFirewall();
             strcpy(tpGameCreated.playerInfo[0].PersonalName, utyName);
 
-            dbgAssert(strlen(spScenarios[spCurrentSelected].fileSpec) <= MAX_MAPNAME_LEN);
+            dbgAssertOrIgnore(strlen(spScenarios[spCurrentSelected].fileSpec) <= MAX_MAPNAME_LEN);
             memStrncpy(tpGameCreated.DisplayMapName,spScenarios[spCurrentSelected].title,MAX_MAPNAME_LEN);
             memStrncpy(tpGameCreated.MapName,spScenarios[spCurrentSelected].fileSpec,MAX_MAPNAME_LEN);
 
@@ -5401,14 +5401,14 @@ void mgSetColorsNow(char *name, featom *atom)
         }
     }
 
-    dbgAssert(lastScreen != -1);
+    dbgAssertOrIgnore(lastScreen != -1);
 
     mgShowScreen(lastScreen, TRUE);
 }
 
 void mgBackFromPlayerOptions(char *name, featom *atom)
 {
-    dbgAssert(lastScreen != -1);
+    dbgAssertOrIgnore(lastScreen != -1);
 
     cpResetRegions();
 
@@ -5761,7 +5761,7 @@ void mgProcessPingInfo(mgqueuenewping *ping)
 
     walk = listofgames.head;
 
-    dbgAssert(!LANGame);
+    dbgAssertOrIgnore(!LANGame);
 
     while (walk != NULL)
     {
@@ -6370,7 +6370,7 @@ void mgProcessCallBacksTask(void)
             LockQueue(&mgThreadTransfer);
 
             sizeofpacket = HWDequeue(&mgThreadTransfer, &packet);
-            dbgAssert(sizeofpacket > 0);
+            dbgAssertOrIgnore(sizeofpacket > 0);
             copypacket = memAlloc(sizeofpacket,"mg(mgthreadtransfer)", Pyrophoric);
             memcpy(copypacket, packet, sizeofpacket);
 
@@ -7299,7 +7299,7 @@ void mgCreateGameConfirmed(void)
     WaitingForGame = TRUE;
     GameCreator    = TRUE;
     captainIndex = 0;
-    dbgAssert(IAmCaptain);
+    dbgAssertOrIgnore(IAmCaptain);
 
     UnLockMutex(changescreenmutex);
 
@@ -7318,7 +7318,7 @@ void mgJoinGameConfirmed(void)
     WaitingForGame = TRUE;
     GameCreator    = FALSE;
     captainIndex = 0;
-    dbgAssert(!IAmCaptain);
+    dbgAssertOrIgnore(!IAmCaptain);
 
     UnLockMutex(changescreenmutex);
 }
@@ -7340,7 +7340,7 @@ void mgGameStartReceivedCB(const void *blob,unsigned short bloblength)
     sdword i;
     bool   found=FALSE;
 
-    dbgAssert(bloblength == sizeof(CaptainGameInfo));
+    dbgAssertOrIgnore(bloblength == sizeof(CaptainGameInfo));
     mgBackuptpGameCreated();
     memcpy(&tpGameCreated,blob,bloblength);
 

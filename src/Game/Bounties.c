@@ -69,7 +69,7 @@ void calculatePlayerBounties()
         while (objnode != NULL)
         {
             ship = (Ship *)listGetStructOfNode(objnode);
-            dbgAssert(ship->objtype == OBJ_ShipType);
+            dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
             if ( ((ship->flags & (SOF_Dead|SOF_Disabled)) == 0) && (ship->shiptype != Drone) )
             {
@@ -90,7 +90,7 @@ void calculatePlayerBounties()
                         {
                             insideship2 = (InsideShip *)listGetStructOfNode(insidenode);
                             ship = insideship2->ship;
-                            dbgAssert(ship->objtype == OBJ_ShipType);
+                            dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
                             if ( ((ship->flags & (SOF_Dead|SOF_Disabled)) == 0) && (ship->shiptype != Drone) )
                             {
@@ -351,7 +351,7 @@ void bountyShipWasKilled(Ship *ship)
         case DEATH_Killed_By_Player_Explosion:
         case DEATH_Killed_By_Kamikaze:
 #ifndef HW_Release
-            dbgAssert(ship->whoKilledMe != 99);
+            dbgAssertOrIgnore(ship->whoKilledMe != 99);
 #endif
             //reimburse player for their troubles
             if(ship->playerowner->playerIndex != ship->whoKilledMe)

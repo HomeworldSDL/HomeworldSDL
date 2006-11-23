@@ -134,8 +134,8 @@ sdword soundEventPlay(void *object, sdword event, Gun *gun)
 				
 				ship = (Ship *)object;
 	
-				dbgAssert(gun != NULL);
-				dbgAssert(gun->gunstatic != NULL);
+				dbgAssertOrIgnore(gun != NULL);
+				dbgAssertOrIgnore(gun->gunstatic != NULL);
 				if (gun->gunstatic->gunsoundtype >= GunEventsLUT->numobjects)
 				{
 					break;

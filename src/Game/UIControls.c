@@ -2255,7 +2255,7 @@ void uicListWindowDraw(regionhandle reg)
         if (listhandle->windowflags&UICLW_HasTitleBar)
         {
             primRectSolid2(&erase, colBlack);
-            dbgAssert(listhandle->titledraw!=NULL);
+            dbgAssertOrIgnore(listhandle->titledraw!=NULL);
             listhandle->titledraw(&rect);
         }
     }
@@ -2294,7 +2294,7 @@ void uicListWindowDraw(regionhandle reg)
             (count<listhandle->MaxIndex)  )
     {
         item = (listitemhandle)listGetStructOfNode(walk);
-        dbgAssert(listhandle->itemdraw!=NULL);
+        dbgAssertOrIgnore(listhandle->itemdraw!=NULL);
         listhandle->itemdraw((rectangle *)&rect, item);
 
         if (bitTest(item->flags, UICLI_Selected))
@@ -2972,7 +2972,7 @@ udword uicListWindowProcess(regionhandle region, sdword ID, udword event, udword
             {
                 if (listhandle->windowflags & UICLW_CanClickOnTitle)
                 {
-                    dbgAssert(listhandle->titleprocess!=NULL);
+                    dbgAssertOrIgnore(listhandle->titleprocess!=NULL);
                     listhandle->titleprocess(region, mouseCursorX());
                 }
             }
@@ -3565,7 +3565,7 @@ bool uicRepositionText(textentryhandle entry, bool jumpReposition)
         {
             entry->iVisible++;
             length = fontWidthN(entry->textBuffer + entry->iVisible, entry->iCharacter - entry->iVisible);
-            dbgAssert(entry->iVisible <= entry->iCharacter);
+            dbgAssertOrIgnore(entry->iVisible <= entry->iCharacter);
         }
         while (length > entry->textRect.x1 - entry->textRect.x0);
         return(TRUE);
@@ -3605,7 +3605,7 @@ bool uicInsertCharacter(textentryhandle entry, udword character)
     }
     entry->textBuffer[entry->iCharacter] = (ubyte)character;//put in the new character
     entry->iCharacter++;                                    //move the cursor over a bit
-    dbgAssert(strlen(entry->textBuffer) < entry->bufferLength);//make sure we didn't run on too long
+    dbgAssertOrIgnore(strlen(entry->textBuffer) < entry->bufferLength);//make sure we didn't run on too long
     uicRepositionText(entry, FALSE);                        //reposition the text
     return(TRUE);
 }
@@ -4188,7 +4188,7 @@ void uicTextEntryDraw(regionhandle reg)
 
     // text entry draw end ***
 
-    dbgAssert(entry->textBuffer != NULL);                   //make sure there is a string
+    dbgAssertOrIgnore(entry->textBuffer != NULL);                   //make sure there is a string
     fhSave = fontCurrentGet();                              //save the current font
     fontMakeCurrent(entry->currentFont);                    //select the appropriate font
     if (bitTest(entry->textflags, UICTE_DropShadow))
@@ -4397,8 +4397,8 @@ buttonhandle uicChildButtonAlloc(controlhandle parent, sdword ID, sdword x, sdwo
 
     if (bitTest(atom->flags,FAF_Disabled)) bitSet(newHandle->reg.status,RSF_RegionDisabled);
 
-    dbgAssert(uicControlFunctions[flags & CFM_ControlType].function != NULL);
-    dbgAssert(uicControlFunctions[flags & CFM_ControlType].drawFunction != NULL);
+    dbgAssertOrIgnore(uicControlFunctions[flags & CFM_ControlType].function != NULL);
+    dbgAssertOrIgnore(uicControlFunctions[flags & CFM_ControlType].drawFunction != NULL);
     regFunctionSet((regionhandle)newHandle,                 //set process/draw functions
                    uicControlFunctions[flags & CFM_ControlType].function);
     if (bitTest(atom->flags, FAF_Hidden))
@@ -4612,7 +4612,7 @@ listitemhandle uicListAddItem(listwindowhandle listwindow, ubyte *data, udword f
     Node         *walk, *recalc=NULL;
     sdword        i = 1, pos;
 
-    dbgAssert(listwindow!=NULL);
+    dbgAssertOrIgnore(listwindow!=NULL);
 
     item = (listitemhandle)memAlloc(sizeof(uiclistitem),"GameListElement",NonVolatile);
     item->data  = data;

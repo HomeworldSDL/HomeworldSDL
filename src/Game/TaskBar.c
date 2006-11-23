@@ -425,7 +425,7 @@ void tbButtonDraw(regionhandle region)
     //tbButtons[region->userID];
     strcpy(string, tbButtons[region->userID].caption);      //copy the string to local copy
 
-    dbgAssert(tbButtons[region->userID].caption);           //verify there is a string
+    dbgAssertOrIgnore(tbButtons[region->userID].caption);           //verify there is a string
 
     fhSave = fontCurrentGet();                              //save the current font
     fontMakeCurrent(tbButtonCaptionFont);                   //select the appropriate font
@@ -435,7 +435,7 @@ void tbButtonDraw(regionhandle region)
     {
         *stringEnd = 0;
         stringEnd--;
-        dbgAssert(stringEnd > string);
+        dbgAssertOrIgnore(stringEnd > string);
     }
     if (stringEnd != stringEndStart)
     {                                                       //if truncation occurred
@@ -516,7 +516,7 @@ void tbStartup(void)
     tbHypObjState = TB_Both;
     screen = feScreenFind(TB_ScreenName);
     tbScreen = screen;
-    dbgAssert(screen->nAtoms >= 2);
+    dbgAssertOrIgnore(screen->nAtoms >= 2);
     tbBumpFullHeight = screen->atoms[0].height;
     tbBumperRegion = regChildAlloc(ghMainRegion, 0, 0,      //create the 'bumper' region
             0, MAIN_WindowWidth, tbBumpFullHeight + TB_BumperHeight,
@@ -608,7 +608,7 @@ void tbStartup(void)
     tbTextMarginY = (tbButtonBaseRegion->rect.y1 -
             tbButtonBaseRegion->rect.y0 - fontHeight("...")) / 2;
     fontMakeCurrent(fhSave);
-    dbgAssert(tbButtonBaseRegion != NULL);
+    dbgAssertOrIgnore(tbButtonBaseRegion != NULL);
 #endif
     feAllCallOnCreate(screen);
 //    tbNumberButtons = 0;
@@ -688,9 +688,9 @@ void tbButtonDelete(taskbutton *button)
 {
 //    sdword index;
 
-    dbgAssert(button - tbButtons >= 0 && button - tbButtons < TB_MaxButtons);
-    dbgAssert(bitTest(tbButtons[button - tbButtons].flags, TBF_InUse));
-//    dbgAssert(tbNumberButtons > 0);
+    dbgAssertOrIgnore(button - tbButtons >= 0 && button - tbButtons < TB_MaxButtons);
+    dbgAssertOrIgnore(bitTest(tbButtons[button - tbButtons].flags, TBF_InUse));
+//    dbgAssertOrIgnore(tbNumberButtons > 0);
     memFree(tbButtons[button - tbButtons].caption);
     regRegionDelete(tbButtons[button - tbButtons].reg);
     tbButtons[button - tbButtons].flags = 0;                //flag as no longer in use
@@ -928,7 +928,7 @@ void tbObjectiveItemDraw(rectangle *rect, listitemhandle data)
         default:
             // invalid taskitem
             dbgMessage("This definetly shouldn't happen, call Drew");
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             break;
     }
 
@@ -955,7 +955,7 @@ void tbObjectivesListAddItem(ubyte *data)
     bool          secondfound=FALSE;
     rectangle     rect;
 
-    dbgAssert(strlen(objective->description) <= TBL_MaxCharsPerLine*3);
+    dbgAssertOrIgnore(strlen(objective->description) <= TBL_MaxCharsPerLine*3);
 
     // check for a secondary objective
     search = tbListWindow->listofitems.head;
@@ -1724,7 +1724,7 @@ void feToggleButtonSetFromScreen(char *name, sdword bPressed, fescreen *screen)
     atom = feAtomFindInScreen(screen,
                               name);                        //find first named atom in screen
     if (atom == NULL) return;
-    dbgAssert(atom != NULL);
+    dbgAssertOrIgnore(atom != NULL);
 
     button = (buttonhandle)atom->region;
 

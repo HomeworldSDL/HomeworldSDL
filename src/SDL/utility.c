@@ -1130,7 +1130,7 @@ void versionNumDraw(featom *atom, regionhandle region)
     strcat(versionstr, ".");
     strcat(versionstr, minorBuildVersion);
 
-    dbgAssert(strlen(versionstr) < 70);
+    dbgAssertOrIgnore(strlen(versionstr) < 70);
 
     oldfont = fontMakeCurrent(selGroupFont2);
     fontheight = fontHeight(" ");
@@ -1873,8 +1873,8 @@ void gameStart(char *loadfilename)
         PreLoadGame(loadfilename);                          // sets numPlayers, races of players, static info needed
     }
 
-    dbgAssert(numPlayers > 0);
-    dbgAssert(numPlayers <= MAX_MULTIPLAYER_PLAYERS);
+    dbgAssertOrIgnore(numPlayers > 0);
+    dbgAssertOrIgnore(numPlayers <= MAX_MULTIPLAYER_PLAYERS);
     universe.numPlayers = numPlayers;
 
     unitCapInitStatics(numPlayers);
@@ -1927,8 +1927,8 @@ void gameStart(char *loadfilename)
 
     if (multiPlayerGame)
     {
-        dbgAssert(numPlayers == tpGameCreated.numPlayers+tpGameCreated.numComputers);
-        dbgAssert(loadfilename == NULL);                    // don't allow loading of games for network games
+        dbgAssertOrIgnore(numPlayers == tpGameCreated.numPlayers+tpGameCreated.numComputers);
+        dbgAssertOrIgnore(loadfilename == NULL);                    // don't allow loading of games for network games
 
 #if UTY_PLAYER_LOGGING
         logfileLogf("PlayerStart.log", "Starting '%s'\n", tpGameCreated.Name);
@@ -1948,7 +1948,7 @@ void gameStart(char *loadfilename)
                     teTeamColorsSet(i, teColorSchemes[i].textureColor.base,teColorSchemes[i].textureColor.detail);
                 }
                 universe.players[i].race = tpGameCreated.playerInfo[i].race;
-                dbgAssert(strlen(tpGameCreated.playerInfo[i].PersonalName) < MAX_PERSONAL_NAME_LEN);
+                dbgAssertOrIgnore(strlen(tpGameCreated.playerInfo[i].PersonalName) < MAX_PERSONAL_NAME_LEN);
                 strcpy(playerNames[i],tpGameCreated.playerInfo[i].PersonalName);
             }
             else
@@ -2089,7 +2089,7 @@ void gameStart(char *loadfilename)
 
     if (gatherStats|showStatsFight|showStatsFancyFight)
     {
-        dbgAssert(loadfilename == NULL);        // can't load games when doing stats stuff
+        dbgAssertOrIgnore(loadfilename == NULL);        // can't load games when doing stats stuff
         if (showStatsFancyFight)
             FancyFightPreLoad();
         else
@@ -2198,13 +2198,13 @@ void gameStart(char *loadfilename)
         if (showStatsFancyFight)
         {
             smGhostMode = TRUE;
-            dbgAssert(loadfilename == NULL);
+            dbgAssertOrIgnore(loadfilename == NULL);
             statsLoadFightStats();
             statsShowFancyFight(showStatsFightI,showStatsFightJ);
         }
         else if (showStatsFight)
         {
-            dbgAssert(loadfilename == NULL);
+            dbgAssertOrIgnore(loadfilename == NULL);
             statsLoadFightStats();
             statsShowFight(showStatsFightI,showStatsFightJ);
         }
@@ -2212,7 +2212,7 @@ void gameStart(char *loadfilename)
         {
             if (gatherStats)
             {
-                dbgAssert(loadfilename == NULL);
+                dbgAssertOrIgnore(loadfilename == NULL);
                 statsGatherFightStats();
             }
             else
@@ -2653,7 +2653,7 @@ void utyPreDemoStateSaveCB(ubyte **buffer, sdword *length)
                     newType = DST_StringOfSize + newSize;
                     break;
                 default:
-                    dbgAssert(FALSE);
+                    dbgAssertOrIgnore(FALSE);
             }
         }
         if (bufferPos + newSize + sizeof(udword) >= bufferLength)
@@ -3037,7 +3037,7 @@ void utySelectMultiPlayerGame(char *name, featom *atom)
 
 void utyLoadMultiPlayerGameGivenFilename(char *filename)
 {
-    dbgAssert(startingGame == FALSE);
+    dbgAssertOrIgnore(startingGame == FALSE);
 
     dbgMessagef("\nNew game started");
     startingGame = TRUE;
@@ -3049,7 +3049,7 @@ void utyLoadMultiPlayerGameGivenFilename(char *filename)
 
     feAllScreensDelete();
 
-    dbgAssert(!multiPlayerGame);        // don't allow loading of network games
+    dbgAssertOrIgnore(!multiPlayerGame);        // don't allow loading of network games
 
     singlePlayerInit();
 
@@ -3303,7 +3303,7 @@ void utyNewGameStart(char *name, featom *atom)
 
     forceSP = FALSE;
 
-    dbgAssert(startingGame == FALSE);
+    dbgAssertOrIgnore(startingGame == FALSE);
 
     dbgMessagef("\nNew game started");
     startingGame = TRUE;
@@ -3913,7 +3913,7 @@ void PrepareVersionStringStuff()
 ----------------------------------------------------------------------------*/
 void *utyGrowthHeapAlloc(sdword size)
 {
-    dbgAssert(size > 0);
+    dbgAssertOrIgnore(size > 0);
 #ifdef _WIN32
     return((void *)VirtualAlloc(NULL, size, MEM_COMMIT, PAGE_READWRITE));
 #else
@@ -3933,11 +3933,11 @@ void utyGrowthHeapFree(void *heap)
 #ifdef _WIN32
     BOOL result;
     result = VirtualFree(heap, 0, MEM_RELEASE);
-    dbgAssert(result);
+    dbgAssertOrIgnore(result);
 #else
     int result;
     result = munmap(heap, 0);
-    dbgAssert(result != -1);
+    dbgAssertOrIgnore(result != -1);
 #endif
 }
 
@@ -4744,10 +4744,10 @@ char* utyGameSystemsPreShutdown(void)
     {
 #ifdef _WIN32
         bool result = VirtualFree(utyMemoryHeap, 0, MEM_RELEASE);
-        dbgAssert(result);
+        dbgAssertOrIgnore(result);
 #else
         int result = munmap(utyMemoryHeap, 0);
-        dbgAssert(result != -1);
+        dbgAssertOrIgnore(result != -1);
 #endif
         utyClear(SSA_MemoryHeap);
     }
@@ -5096,11 +5096,11 @@ char *utyGameSystemsShutdown(void)
 #ifdef _WIN32
         bool result;
         result = VirtualFree(utyMemoryHeap, 0, MEM_RELEASE);
-        dbgAssert(result);
+        dbgAssertOrIgnore(result);
 #else
         int result;
         result = munmap(utyMemoryHeap, 0);
-        dbgAssert(result != -1);
+        dbgAssertOrIgnore(result != -1);
 #endif
         utyClear(SSA_MemoryHeap);
     }

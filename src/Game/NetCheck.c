@@ -155,7 +155,7 @@ void syncDebugDump(char *filename1,sdword counter,bool save)
         fileDelete(filename);
 
         syncFH = fileOpen(filename,FF_WriteMode);
-        dbgAssert(!fileUsingBigfile(syncFH));
+        dbgAssertOrIgnore(!fileUsingBigfile(syncFH));
         syncFP = fileStream(syncFH);
 
         //don't want Ptr array in file!
@@ -594,7 +594,7 @@ void recPackRecordInit(void)
     // clear file
     fileDelete(recordPacketFileName);
 
-    dbgAssert(!recordplayPacketsInGame);
+    dbgAssertOrIgnore(!recordplayPacketsInGame);
     recPackRecordSaveHeader();
 }
 
@@ -605,10 +605,10 @@ void recPackRecordSaveHeader()
     udword validcheck = HEADERCHECK;
     filehandle fh = fileOpen(recordPacketFileName,FF_AppendMode);
     FILE *fp;
-    dbgAssert(!fileUsingBigfile(fh));
+    dbgAssertOrIgnore(!fileUsingBigfile(fh));
     fp = fileStream(fh);
 
-    dbgAssert(!recordplayPacketsInGame);
+    dbgAssertOrIgnore(!recordplayPacketsInGame);
 
     fwrite(&validcheck, sizeof(udword), 1 ,fp);
     fwrite(&size, sizeof(udword), 1, fp);
@@ -624,7 +624,7 @@ void recPackRecordPacket(ubyte *packet,udword sizeofPacket)
 
     filehandle fh = fileOpen(recordPacketFileName,FF_AppendMode);
     FILE *fp;
-    dbgAssert(!fileUsingBigfile(fh));
+    dbgAssertOrIgnore(!fileUsingBigfile(fh));
     fp = fileStream(fh);
 
     fwrite(&validcheck, sizeof(udword), 1 ,fp);
@@ -640,7 +640,7 @@ void recPackRecordPacketFilename(ubyte *packet,udword sizeofPacket,char *filenam
 
     filehandle fh = fileOpen(filename,FF_AppendMode);
     FILE *fp;
-    dbgAssert(!fileUsingBigfile(fh));
+    dbgAssertOrIgnore(!fileUsingBigfile(fh));
     fp = fileStream(fh);
 
     fwrite(&validcheck, sizeof(udword), 1 ,fp);
@@ -707,7 +707,7 @@ void recPackPlayInGameInit(void)
     playPackets = TRUE;
     recordplayPacketsInGame = TRUE;
     playPacketFileFH = fileOpen(recordPacketFileName, 0);
-    dbgAssert(!fileUsingBigfile(playPacketFileFH));
+    dbgAssertOrIgnore(!fileUsingBigfile(playPacketFileFH));
     playPacketFile = fileStream(playPacketFileFH);
     netcheckInit();
 }
@@ -716,20 +716,20 @@ void recPackPlayInit(void)
 {
     char *str;
     playPacketFileFH = fileOpen(recordPacketFileName, 0);
-    dbgAssert(!fileUsingBigfile(playPacketFileFH));
+    dbgAssertOrIgnore(!fileUsingBigfile(playPacketFileFH));
     playPacketFile = fileStream(playPacketFileFH);
 
-    dbgAssert(!recordplayPacketsInGame);
+    dbgAssertOrIgnore(!recordplayPacketsInGame);
 
     str = strstr(recordPacketFileName,".pkts");
-    dbgAssert(str);
+    dbgAssertOrIgnore(str);
     str -= 3; // backup three bytes
-    dbgAssert(str[1] == '_');
+    dbgAssertOrIgnore(str[1] == '_');
     numPlayers = str[0] - '0';
     curPlayer = str[2] - '0';
-    dbgAssert(numPlayers > 0);
-    dbgAssert(numPlayers <= MAX_MULTIPLAYER_PLAYERS);
-    dbgAssert(curPlayer < MAX_MULTIPLAYER_PLAYERS);
+    dbgAssertOrIgnore(numPlayers > 0);
+    dbgAssertOrIgnore(numPlayers <= MAX_MULTIPLAYER_PLAYERS);
+    dbgAssertOrIgnore(curPlayer < MAX_MULTIPLAYER_PLAYERS);
 
     recPackPlayLoadHeader();
 }
@@ -795,7 +795,7 @@ void netcheckInit(void)
 
         if (netlogfileFH)
         {
-            dbgAssert(!fileUsingBigfile(netlogfileFH));
+            dbgAssertOrIgnore(!fileUsingBigfile(netlogfileFH));
             netlogfile = fileStream(netlogfileFH);
         }
     }
@@ -833,7 +833,7 @@ void netcheckFillInChecksum(HWPacketHeader *packet)
         return;
     }
 
-    dbgAssert(netsyncchecksumsValid[lastchecksumCalculated] & CHECKSUMVALID_VALID);
+    dbgAssertOrIgnore(netsyncchecksumsValid[lastchecksumCalculated] & CHECKSUMVALID_VALID);
     packet->checksums = netsyncchecksums[lastchecksumCalculated];
 }
 #endif

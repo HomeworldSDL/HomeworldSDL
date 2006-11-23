@@ -920,7 +920,7 @@ void salCapUnBusySalvagePoint(Ship *ship,SpaceObjRotImpTargGuidanceShipDerelict 
         if(ship->clampInfo != NULL)
         {
             //don't decrease this quantity unless we're clamped to the ship!
-            dbgAssert(ship->clampInfo->host == ((SpaceObjRotImpTarg *)target));
+            dbgAssertOrIgnore(ship->clampInfo->host == ((SpaceObjRotImpTarg *)target));
             target->salvageInfo->numNeededForSalvage++;
             if(spec->target->salvageInfo->numNeededForSalvage > spec->target->staticinfo->salvageStaticInfo->numNeededForSalvage)
             {
@@ -1242,7 +1242,7 @@ sdword getDockIndex(Ship *ship,SpaceObjRotImpTargGuidanceShipDerelict *target,Sh
 
     //for now die later, error handle by returning an informative flag that
     //indicates to deattach and go home with tail between legs
-    dbgAssert(FALSE);
+    dbgAssertOrIgnore(FALSE);
 
     return 0;
 
@@ -1914,7 +1914,7 @@ reachedit:
                     //clampObjToObj((SpaceObjRotImpTargGuidance *)ship,(SpaceObjRotImpTargGuidance *)spec->target);
                     clampObjToObj((SpaceObjRotImpTargGuidance *)spec->target,(SpaceObjRotImpTargGuidance *)ship);
                 }
-                dbgAssert(ship->rceffect == NULL);
+                dbgAssertOrIgnore(ship->rceffect == NULL);
                 startTractorBeam(ship,spec->target);
                 spec->salvageState = SAL_CLAMPED;
             }
@@ -2910,7 +2910,7 @@ void SalCapRemoveShipReferences(Ship *ship, Ship *shiptoremove)
         if(ship->clampInfo != NULL)
         {
             #ifdef DEBUG_SALCAP
-            dbgAssert(ship->clampInfo->host == (SpaceObjRotImpTarg *)shiptoremove);
+            dbgAssertOrIgnore(ship->clampInfo->host == (SpaceObjRotImpTarg *)shiptoremove);
             #endif
             unClampObj((SpaceObjRotImpTargGuidance *)ship);
         }
@@ -3040,7 +3040,7 @@ void SalCapOrderChangedCleanUp(Ship *ship)
         {
             //twas busy with index
     #ifdef DEBUG_SALCAP
-            dbgAssert(spec->target != NULL);
+            dbgAssertOrIgnore(spec->target != NULL);
     #endif
             salCapUnBusySalvagePoint(ship,spec->target);
             if(spec->target->salvageInfo->numNeededForSalvage > 0)

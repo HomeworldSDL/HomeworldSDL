@@ -93,8 +93,8 @@ void psImageDraw(psimage *image, color c)
     udword *quiltTexture = image->imageQuilt;
     rectangle rect;
 
-    dbgAssert(image->width != 0);
-    dbgAssert(image->imageQuilt != NULL);
+    dbgAssertOrIgnore(image->width != 0);
+    dbgAssertOrIgnore(image->imageQuilt != NULL);
     xStart = (MAIN_WindowWidth - image->width) / 2;
     yStart = (MAIN_WindowHeight - image->height) / 2;
 
@@ -422,7 +422,7 @@ void psCrossFadeLinkSet(char *directory,char *field,void *dataToFillIn)
     //format is <fadeTime> <image> <linkName>
     RemoveCommasFromString(field);
     nScanned = sscanf(field, "%f %s", &psFadeTime, fadeImageName);
-    dbgAssert(nScanned == 2);
+    dbgAssertOrIgnore(nScanned == 2);
     psImageLoad(&psFadeImage, directory, fadeImageName);               //load in an image
 }
 
@@ -472,17 +472,17 @@ void psPlugLinkSet(char *directory,char *field,void *dataToFillIn)
     //format is <x>,<y>,<onTexture>,<offTexture>,[<linkName>]
     RemoveCommasButNotQuestionMarksFromString(field);
     nScanned = sscanf(field, "%d %d %s %s %s", &x, &y, onName, offName, linkName);
-    dbgAssert(nScanned >= 4);
+    dbgAssertOrIgnore(nScanned >= 4);
     if (nScanned == 4)
     {
-        dbgAssert((sdword)dataToFillIn == PLT_GameOn);
+        dbgAssertOrIgnore((sdword)dataToFillIn == PLT_GameOn);
         linkName[0] = 0;                                    //empty string for game on links
     }
     //create the "on" texture
     strcpy(fileName, directory);                            //prepare file name for on button
     strcat(fileName, onName);
     header = trLIFFileLoad(fileName, NonVolatile);
-    dbgAssert(bitTest(header->flags, TRF_Paletted));
+    dbgAssertOrIgnore(bitTest(header->flags, TRF_Paletted));
 
     link = (pluglink *)regChildAlloc(psBaseRegion->child, (sdword)dataToFillIn, //create the region
             plugXMargin + x, plugYMargin + y, header->width, header->height, plugLinkExtra(linkName),
@@ -497,7 +497,7 @@ void psPlugLinkSet(char *directory,char *field,void *dataToFillIn)
     strcpy(fileName, directory);                            //prepare file name for on button
     strcat(fileName, offName);
     header = trLIFFileLoad(fileName, NonVolatile);
-    dbgAssert(bitTest(header->flags, TRF_Paletted));
+    dbgAssertOrIgnore(bitTest(header->flags, TRF_Paletted));
     link->offTexture = trPalettedTextureCreate(header->data, header->palette, header->width, header->height);
     //memFree(header);
     link->offImage = header;
@@ -517,7 +517,7 @@ void psTimeoutSet(char *directory,char *field,void *dataToFillIn)
 
     RemoveCommasFromString(field);
     nScanned = sscanf(field, "%f %s", &psScreenTimeout, psTimeoutName);
-    dbgAssert(nScanned == 2);
+    dbgAssertOrIgnore(nScanned == 2);
 }
 
 /*=============================================================================
@@ -775,8 +775,8 @@ void psScreenStart(char *name)
 
     scriptSet(psDirectory, name, psScreenTweaks);
 
-    dbgAssert(psScreenImage.imageQuilt != NULL);
-    dbgAssert(reg->child != NULL);
+    dbgAssertOrIgnore(psScreenImage.imageQuilt != NULL);
+    dbgAssertOrIgnore(reg->child != NULL);
     bitSet(reg->child->userID, PLF_FadeRegion);
     for (index = 0; psScreenSkipKey[index] != 0; index++)
     {

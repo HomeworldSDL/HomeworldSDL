@@ -243,7 +243,7 @@ void hrDrawPlayersProgress(featom *atom, regionhandle region)
 
     if (multiPlayerGame)
     {
-        dbgAssert(sigsNumPlayers == tpGameCreated.numPlayers);
+        dbgAssertOrIgnore(sigsNumPlayers == tpGameCreated.numPlayers);
         for (index=0;index<sigsNumPlayers;index++)
         {
             droppedOut = playerHasDroppedOutOrQuit(index);
@@ -823,7 +823,7 @@ char CurDir[PATH_MAX], NewDir[PATH_MAX];
     /*GetCurrentDirectory(511, NewDir);*/
     getcwd(NewDir, PATH_MAX);
 
-    dbgAssert(strcasecmp(CurDir,NewDir) == 0);
+    dbgAssertOrIgnore(strcasecmp(CurDir,NewDir) == 0);
 
     // Load the bitmap image
     handle = fileOpen(hrImageName, FF_ReturnNULLOnFail);
@@ -1140,7 +1140,7 @@ void hrChatTextEntry(char *name, featom *atom)
 void hrAbortNetworkGame(char *name, featom *atom)
 {
     hrAbortLoadingGame = TRUE;
-    dbgAssert(multiPlayerGame);
+    dbgAssertOrIgnore(multiPlayerGame);
     SendDroppingOutOfLoad(sigsPlayerIndex);
 }
 
@@ -1159,7 +1159,7 @@ void horseGetNumBars(HorseRaceBars *horsebars)
     bool enablebar[MAX_POSSIBLE_NUM_BARS];
     real32 totalperc;
 
-    dbgAssert(horseTotalNumBars.numBars > 0);
+    dbgAssertOrIgnore(horseTotalNumBars.numBars > 0);
     for (i=0;i<horseTotalNumBars.numBars;i++)
     {
         switch (i)
@@ -1203,7 +1203,7 @@ void horseGetNumBars(HorseRaceBars *horsebars)
         }
     }
 
-    dbgAssert(horsebars->numBars > 0);
+    dbgAssertOrIgnore(horsebars->numBars > 0);
 
     // now renormalize percentages to 1.0
     for (totalperc = 0.0f,i=0;i<horsebars->numBars;i++)
@@ -1211,7 +1211,7 @@ void horseGetNumBars(HorseRaceBars *horsebars)
         totalperc += horsebars->perc[i];
     }
 
-    dbgAssert(totalperc > 0.0f);
+    dbgAssertOrIgnore(totalperc > 0.0f);
     if (totalperc != 1.0f)
     {
         for (i=0;i<horsebars->numBars;i++)
@@ -1780,7 +1780,7 @@ void recievedHorsePacketCB(ubyte *packet,udword sizeofpacket)
     udword i;
 
     i = hp->playerindex;
-    dbgAssert(i < MAX_MULTIPLAYER_PLAYERS);
+    dbgAssertOrIgnore(i < MAX_MULTIPLAYER_PLAYERS);
 
     if (multiPlayerGame)
     {

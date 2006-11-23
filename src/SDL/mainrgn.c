@@ -329,7 +329,7 @@ void mrDisable(void)
 {
     if (!mrDisabled)
     {
-        dbgAssert(ghMainRegion);
+        dbgAssertOrIgnore(ghMainRegion);
         originalMrFilter = ghMainRegion->flags;
     //    regFilterSet(ghMainRegion, 0);
         regFilterSet(ghMainRegion, RPM_MouseEvents);
@@ -341,7 +341,7 @@ void mrEnable(void)
 {
     if (mrDisabled)
     {
-        dbgAssert(ghMainRegion);
+        dbgAssertOrIgnore(ghMainRegion);
         regFilterSet(ghMainRegion,originalMrFilter);
         mrDisabled = FALSE;
     }
@@ -1480,7 +1480,7 @@ bool mrMothershipInFocus(Ship *mothership)
 {
     FocusCommand *focus;
 
-    dbgAssert(memchr(mrMothershipShipTypes, mothership->shiptype, MR_NumberMothershipTypes));
+    dbgAssertOrIgnore(memchr(mrMothershipShipTypes, mothership->shiptype, MR_NumberMothershipTypes));
     focus = &universe.mainCameraCommand.currentCameraStack->focus;
 #if MR_ONLY_MOTHERSHIP
     if (focus->numShips == 1 && focus->ShipPtr[0] == mothership)
@@ -1672,7 +1672,7 @@ void mrKeyPress(sdword ID)
         case SEVENKEY:
         case EIGHTKEY:
         case NINEKEY:
-            dbgAssert((ID - ZEROKEY) < COMMAND_MAX_SHIPS);
+            dbgAssertOrIgnore((ID - ZEROKEY) < COMMAND_MAX_SHIPS);
 #if NIS_PRINT_INFO
             if (keyIsHit(NKEY))
             {                                               //n-#: play an NIS or NISlet
@@ -2936,7 +2936,7 @@ sdword mrDeleteAllAtomsWithin(fescreen *screen, sdword atomIndex)
             screen->nAtoms--;
         }
     }
-    dbgAssert(lowest != SDWORD_Max);
+    dbgAssertOrIgnore(lowest != SDWORD_Max);
     return(lowest);
 }
 
@@ -2973,7 +2973,7 @@ void mrMenuDisplay(udword actionMask, TypeOfFormation currentFormation, udword t
     if (currentFormation != NO_FORMATION)
     {
         atom = feAtomFindInScreen(staticScreen, mrMenuItemByFormation[currentFormation]);
-        dbgAssert(atom != NULL);
+        dbgAssertOrIgnore(atom != NULL);
         bitSet(atom->status, FAS_Checked);
     }
     //set the selected bit(s) for the current tactics
@@ -2987,7 +2987,7 @@ void mrMenuDisplay(udword actionMask, TypeOfFormation currentFormation, udword t
         if (tacticsBits & (1 << index))
         {
             atom = feAtomFindInScreen(staticScreen, mrMenuItemByTactic[index]);
-            dbgAssert(atom != NULL);
+            dbgAssertOrIgnore(atom != NULL);
             bitSet(atom->status, FAS_Checked);
         }
     }
@@ -3020,7 +3020,7 @@ void mrMenuDisplay(udword actionMask, TypeOfFormation currentFormation, udword t
                 {                                           //if this action is not to be
                     if (feNamesEqual(name, mrActionString[j].string))
                     {                                       //and this atom has the action name
-                        dbgAssert(nGaps < NUMBER_GAPS);
+                        dbgAssertOrIgnore(nGaps < NUMBER_GAPS);
                         gap[nGaps].position = newScreen->atoms[index].y;
                         gap[nGaps].height = newScreen->atoms[index].height;
                         nGaps++;
@@ -3035,7 +3035,7 @@ void mrMenuDisplay(udword actionMask, TypeOfFormation currentFormation, udword t
         {                                                   //if this is a divider
             if (!bitTest(actionMask, MAM_Divider))
             {                                               //if we are not allowed dividers
-                dbgAssert(nGaps < NUMBER_GAPS);
+                dbgAssertOrIgnore(nGaps < NUMBER_GAPS);
                 gap[nGaps].position = newScreen->atoms[index].y;
                 gap[nGaps].height = newScreen->atoms[index].height;
                 nGaps++;
@@ -3400,7 +3400,7 @@ void mrObjectClick(Ship *ship)
     bool bFriendlies, bEnemies;
     bool bForceAttackEnemies = FALSE;
 
-//    dbgAssert(ship->objtype == OBJ_ShipType);
+//    dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
     if (((keyIsHit(ALTKEY) && keyIsHit(CONTROLKEY)) || keyIsHit(GKEY)) && ship->objtype == OBJ_ShipType)
     {
         if ((playPackets)  || (universePause) || (mrDisabled)) return;            // playing back a recorded game do nothing!
@@ -3727,7 +3727,7 @@ udword mrRegionProcess(regionhandle reg, sdword ID, udword event, udword data)
 #if !MR_TEST_HPB
             else
             {                                               //else just right button pressed
-                dbgAssert(mrHoldLeft == mrNULL);            //should be in idle mode.  Make sure.
+                dbgAssertOrIgnore(mrHoldLeft == mrNULL);            //should be in idle mode.  Make sure.
             }
 #endif
             piePointModePause(TRUE);                         //pause point specification for the camera motion
@@ -4213,10 +4213,10 @@ done:
 
 void bigmessageDisplay(char *msg,sdword position)
 {
-    dbgAssert(position < MAX_BIGMESSAGES);
+    dbgAssertOrIgnore(position < MAX_BIGMESSAGES);
 
     bMessage[position].messageOn = TRUE;
-    dbgAssert(strlen(msg) < MAX_BIGMESSAGE_LENGTH);
+    dbgAssertOrIgnore(strlen(msg) < MAX_BIGMESSAGE_LENGTH);
 
     strcpy(bMessage[position].message,msg);
 }
@@ -4233,7 +4233,7 @@ void mrBigMessageDraw(void)
     sdword i;
     fonthandle fhSave;
 
-    dbgAssert(mrBigFont != 0);
+    dbgAssertOrIgnore(mrBigFont != 0);
 
     for (i=0;i<MAX_BIGMESSAGES;i++)
     {
@@ -5572,7 +5572,7 @@ void mrRegionDraw(regionhandle reg)
 
     //this should be reworked to use the actual formation CSM
 
-    dbgAssert(mrFormationFont != FONT_InvalidFontHandle);
+    dbgAssertOrIgnore(mrFormationFont != FONT_InvalidFontHandle);
     if (mrDrawFormation && (!((tutorial==TUTORIAL_ONLY) && !tutEnable.bFormation)))
     {
         fonthandle oldFont = fontMakeCurrent(mrFormationFont);

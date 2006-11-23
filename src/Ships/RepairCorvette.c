@@ -593,7 +593,7 @@ void stopRepairEffect(Ship *ship)
 
 #ifdef HW_DEBUG
     //make sure we only entered here if effect was playing!
-    dbgAssert(ship->rceffect != NULL);
+    dbgAssertOrIgnore(ship->rceffect != NULL);
 #endif
 
     if (bitTest(((etgeffectstatic *)ship->rceffect->staticinfo)->specialOps, ESO_SelfDeleting))
@@ -619,7 +619,7 @@ void ModifyRepairEffect(Effect *effect,Ship *ship,vector *trajectory,real32 dist
     RepairNozzleStatic *repnozzlestatic = shipstatic->repairNozzleStatic;
     vector repairBeamPosition;
 
-    dbgAssert(effect);
+    dbgAssertOrIgnore(effect);
 
     matMultiplyMatByVec(&repairBeamPosition,&ship->rotinfo.coordsys,&repnozzlestatic->position);
 

@@ -1141,7 +1141,7 @@ void tmTechImageDraw(featom *atom, regionhandle region)
 
             // Load the image into LRU cache
             pictures[lru].techImage = trLIFFileLoad(filename, NonVolatile);
-            dbgAssert(pictures[lru].techImage->flags & TRF_Paletted);
+            dbgAssertOrIgnore(pictures[lru].techImage->flags & TRF_Paletted);
 
             tmTechTexturePrepare(lru);
             tmCurTechTexture = tmtechinfo;
@@ -1438,7 +1438,7 @@ void wkTradeInit(void)
     while (objnode != NULL)
     {
         ship = (Ship *)listGetStructOfNode(objnode);
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         wkTradeShips[index].ship = ship;
         mass = ship->staticinfo->staticheader.mass / WK_MASS_SCALE;
@@ -1569,7 +1569,7 @@ void wkTradeUpdate(void)
         trader = wkTradeControlShip;
         ship = trader->ship;
 
-        //dbgAssert(ship->objtype == OBJ_ShipType);
+        //dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
         if (ship->objtype != OBJ_ShipType)
         {
             //ship has exploded
@@ -1668,7 +1668,7 @@ void wkTradeUpdate(void)
     while (objnode != NULL)
     {
         ship = (Ship *)listGetStructOfNode(objnode);
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         ship->posinfo.position.z = 0.0f;
 
@@ -1680,7 +1680,7 @@ void wkTradeUpdate(void)
     while (objnode != NULL)
     {
         resource = (Resource *)listGetStructOfNode(objnode);
-        dbgAssert(resource->flags & SOF_Resource);
+        dbgAssertOrIgnore(resource->flags & SOF_Resource);
 
         resource->posinfo.position.z = 0.0f;
 

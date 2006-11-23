@@ -640,7 +640,7 @@ void tutTutorial1(char *name, featom *atom)
     {
         beginning = TRUE;
         tutorial = 1;
-        dbgAssert(startingGame == FALSE);
+        dbgAssertOrIgnore(startingGame == FALSE);
         dbgMessagef("\nTutorial1 started");
 
         utySinglePlayerGameStart(name, atom);
@@ -1853,7 +1853,7 @@ void tutInitialize(void)
     {
         if (tutTexture[i] == TR_InvalidInternalHandle)
         {
-            dbgAssert(tutImage[i] == NULL);
+            dbgAssertOrIgnore(tutImage[i] == NULL);
 #ifdef _WIN32
             strcpy(Filename, "feman\\texdecorative\\");
 #else
@@ -1890,7 +1890,7 @@ void tutInitialize(void)
             strcat(Filename, ".LiF");
             tutImage[i] = trLIFFileLoad(Filename, NonVolatile);
 
-            dbgAssert(tutImage[i] != NULL);
+            dbgAssertOrIgnore(tutImage[i] != NULL);
             tutTexture[i] = trRGBTextureCreate((color *)tutImage[i]->data, tutImage[i]->width, tutImage[i]->height, TRUE);
             i++;
         }

@@ -196,7 +196,7 @@ void timTimerCreateSetStart(char *name, sdword duration)
 ----------------------------------------------------------------------------*/
 void timTimerPause(Timer *tim)
 {
-    dbgAssert(tim);
+    dbgAssertOrIgnore(tim);
     tim->pauseTime = universe.totaltimeelapsed;
     tim->bPaused = TRUE;
 }
@@ -267,7 +267,7 @@ void timTimerSave(void)
 
     if (timersAllocated > 0)
     {
-        dbgAssert(timers);
+        dbgAssertOrIgnore(timers);
         // just number data, no pointers in Timer so we can just save this way
         SaveStructureOfSize(timers,timersAllocated * sizeof(Timer));
     }

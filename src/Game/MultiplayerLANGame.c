@@ -764,7 +764,7 @@ void lgLaunchLAN(char *name, featom *atom)
     IPGame = LanProtocalButton; // DO NOT USE TRUE for CPP reasons
     tpGameCreated.numComputers  = 0;
 
-    dbgAssert((IPGame == 0) || (IPGame == 1));
+    dbgAssertOrIgnore((IPGame == 0) || (IPGame == 1));
 
     if (strlen(utyName) < 2)
     {
@@ -1095,14 +1095,14 @@ void lgUserNameWindowInit(char *name, featom *atom)
 void lgSeeDetails(char*name,featom*atom)
 {
 #ifndef _MACOSX_FIX_ME
-    dbgAssert(LANGame);
+    dbgAssertOrIgnore(LANGame);
 
     if (lgListOfGamesWindow->CurLineSelected!=NULL)
     {
         lggamelist *gameinfo = (lggamelist *)lgListOfGamesWindow->CurLineSelected->data;
         wcscpy(SeeingDetailsForGameName,gameinfo->game.Name);
         wcscpy(tpGameCreated.Name,gameinfo->game.Name);
-        dbgAssert(SeeingDetailsForGameName[0] != 0);
+        dbgAssertOrIgnore(SeeingDetailsForGameName[0] != 0);
         mgShowScreen(MGS_Basic_Options_View,TRUE);
     }
 #endif
@@ -1126,7 +1126,7 @@ void lgJoinGame(char*name,featom*atom)
 {
     lggamelist *gameinfo;
 
-    dbgAssert(LANGame);
+    dbgAssertOrIgnore(LANGame);
 
     if (lgListOfGamesWindow->CurLineSelected!=NULL)
     {
@@ -1893,7 +1893,7 @@ void lgCreateGameNow(char *name, featom *atom)
     {
         if (GameCreator)
         {
-            dbgAssert(strlen(spScenarios[spCurrentSelected].fileSpec) <= MAX_MAPNAME_LEN);
+            dbgAssertOrIgnore(strlen(spScenarios[spCurrentSelected].fileSpec) <= MAX_MAPNAME_LEN);
             strncpy(tpGameCreated.DisplayMapName,spScenarios[spCurrentSelected].title,MAX_MAPNAME_LEN);
             strncpy(tpGameCreated.MapName,spScenarios[spCurrentSelected].fileSpec,MAX_MAPNAME_LEN);
 
@@ -1930,7 +1930,7 @@ void lgCreateGameNow(char *name, featom *atom)
         tpGameCreated.playerInfo[0].race = whichRaceSelected;
         strcpy(tpGameCreated.playerInfo[0].PersonalName, utyName);
 
-        dbgAssert(strlen(spScenarios[spCurrentSelected].fileSpec) <= MAX_MAPNAME_LEN);
+        dbgAssertOrIgnore(strlen(spScenarios[spCurrentSelected].fileSpec) <= MAX_MAPNAME_LEN);
         strncpy(tpGameCreated.DisplayMapName,spScenarios[spCurrentSelected].title,MAX_MAPNAME_LEN);
         strncpy(tpGameCreated.MapName,spScenarios[spCurrentSelected].fileSpec,MAX_MAPNAME_LEN);
 
@@ -1945,7 +1945,7 @@ void lgCreateGameNow(char *name, featom *atom)
         WaitingForGame = TRUE;
         GameCreator    = TRUE;
         captainIndex = 0;
-        dbgAssert(IAmCaptain);
+        dbgAssertOrIgnore(IAmCaptain);
         TTimerStart(&lgAdvertiseMyGameTimer,LAN_ADVERTISE_GAME_TIME);
 
         mgShowScreen(LGS_Captain_Wait,TRUE);
@@ -2052,14 +2052,14 @@ void lgSetColorsNow(char *name, featom *atom)
         }
     }
 
-    dbgAssert(lastScreen != -1);
+    dbgAssertOrIgnore(lastScreen != -1);
 
     mgShowScreen(lastScreen, TRUE);
 }
 
 void lgBackFromPlayerOptions(char *name, featom *atom)
 {
-    dbgAssert(lastScreen != -1);
+    dbgAssertOrIgnore(lastScreen != -1);
 
     cpResetRegions();
 
@@ -2200,7 +2200,7 @@ void lgProcessUserHere(lgqueueuserhere *user)
 
     userinfo = memAlloc(sizeof(userlist), "ListofUsers",NonVolatile);
 
-    dbgAssert(strlen(userhere->PersonalName) < MAX_PERSONAL_NAME_LEN);
+    dbgAssertOrIgnore(strlen(userhere->PersonalName) < MAX_PERSONAL_NAME_LEN);
     strcpy(userinfo->userName, userhere->PersonalName);
     TTimerStart(&userinfo->userTimeout,LAN_ADVERTISE_USER_TIMEOUT);
     userinfo->userAddress = userhere->header.from;
@@ -2497,7 +2497,7 @@ void lgAdvertiseMyself(void)
 {
     LANAdvert_UserHere userhere;
 
-    dbgAssert(strlen(utyName) < MAX_PERSONAL_NAME_LEN);
+    dbgAssertOrIgnore(strlen(utyName) < MAX_PERSONAL_NAME_LEN);
     strcpy(userhere.PersonalName,utyName);
 
     lgFillInLANAdvertHeader(&userhere.header,LANAdvertType_UserHere);
@@ -2538,11 +2538,11 @@ void lgSendChatMessage(char *towho,char *message)
     if (towho)
     {
         chatmsg.whispered = TRUE;
-        dbgAssert(strlen(towho) < MAX_PERSONAL_NAME_LEN);
+        dbgAssertOrIgnore(strlen(towho) < MAX_PERSONAL_NAME_LEN);
         strcpy(chatmsg.whisperToWhoPersonalName,towho);
     }
 
-    dbgAssert(strlen(utyName) < MAX_PERSONAL_NAME_LEN);
+    dbgAssertOrIgnore(strlen(utyName) < MAX_PERSONAL_NAME_LEN);
     strcpy(chatmsg.chatFrom,utyName);
 
     goodstrncpy(chatmsg.chatstring,message,MAX_CHATSTRING_LENGTH-1);
@@ -2703,7 +2703,7 @@ void lgProcessCallBacksTask(void)
             LockQueue(&lgThreadTransfer);
 
             sizeofpacket = HWDequeue(&lgThreadTransfer, &packet);
-            dbgAssert(sizeofpacket > 0);
+            dbgAssertOrIgnore(sizeofpacket > 0);
             copypacket = memAlloc(sizeofpacket,"lg(lgthreadtransfer)", Pyrophoric);
             memcpy(copypacket, packet, sizeofpacket);
 
@@ -2781,7 +2781,7 @@ void lgStartMultiPlayerLANGameScreens(regionhandle region, sdword ID, udword eve
         lgScreensHandle = feScreensLoad(LG_FIBFile);
     }
 
-    dbgAssert(LANGame);
+    dbgAssertOrIgnore(LANGame);
 
     bitClear(tpGameCreated.flag,GAME_IN_PROGRESS);
 
@@ -2988,7 +2988,7 @@ void lgUpdateGameInfo(void)
     lgqueuegameplayerinfo player;
     sdword i;
 
-    dbgAssert(LANGame);
+    dbgAssertOrIgnore(LANGame);
 
     LockQueue(&lgThreadTransfer);
 
@@ -3030,7 +3030,7 @@ void lgJoinGameConfirmed(void)
     WaitingForGame = TRUE;
     GameCreator    = FALSE;
     captainIndex = 0;
-    dbgAssert(!IAmCaptain);
+    dbgAssertOrIgnore(!IAmCaptain);
 
     UnLockMutex(lgchangescreenmutex);
 }

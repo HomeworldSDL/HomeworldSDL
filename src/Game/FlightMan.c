@@ -559,7 +559,7 @@ bool flightmanStabilizeYaw(Ship *ship)
 
 bool flightmanDoNothingExecute(Ship *ship)
 {
-    dbgAssert(ship->flightman == FLIGHTMAN_DONOTHING);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_DONOTHING);
     return TRUE;
 }
 
@@ -580,7 +580,7 @@ void flightmanFlipTurnInit(Ship *ship,sdword flags)
 {
     FlipTurnInfo *flipturninfo;
 
-    dbgAssert(ship->flightman == FLIGHTMAN_FLIPTURN);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_FLIPTURN);
     flipturninfo = ship->flightmanInfo = memAlloc(sizeof(FlipTurnInfo),"FlipTurnInfo",0);
     flipturninfo->size = sizeof(FlipTurnInfo);
 
@@ -599,9 +599,9 @@ bool flightmanFlipTurnExecute(Ship *ship)
 {
     FlipTurnInfo *flipturninfo;
 
-    dbgAssert(ship->flightman == FLIGHTMAN_FLIPTURN);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_FLIPTURN);
     flipturninfo = (FlipTurnInfo *)ship->flightmanInfo;
-    dbgAssert(flipturninfo->size == sizeof(FlipTurnInfo));
+    dbgAssertOrIgnore(flipturninfo->size == sizeof(FlipTurnInfo));
 
     switch (ship->flightmanState1)
     {
@@ -637,7 +637,7 @@ bool flightmanFlipTurnExecute(Ship *ship)
             }
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             return FALSE;
     }
 }
@@ -661,7 +661,7 @@ void flightmanCorkscrewInit(Ship *ship,sdword flags)
 {
     CorkscrewInfo *corkscrewinfo;
 
-    dbgAssert(ship->flightman == FLIGHTMAN_CORKSCREW);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_CORKSCREW);
     corkscrewinfo = ship->flightmanInfo = memAlloc(sizeof(CorkscrewInfo),"CorkscrewInfo",0);
     corkscrewinfo->size = sizeof(CorkscrewInfo);
 
@@ -682,9 +682,9 @@ bool flightmanCorkscrewExecute(Ship *ship)
 {
     CorkscrewInfo *corkscrewinfo;
 
-    dbgAssert(ship->flightman == FLIGHTMAN_CORKSCREW);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_CORKSCREW);
     corkscrewinfo = (CorkscrewInfo *)ship->flightmanInfo;
-    dbgAssert(corkscrewinfo->size == sizeof(CorkscrewInfo));
+    dbgAssertOrIgnore(corkscrewinfo->size == sizeof(CorkscrewInfo));
 
     switch (ship->flightmanState1)
     {
@@ -694,7 +694,7 @@ bool flightmanCorkscrewExecute(Ship *ship)
             return(flightmanRollRight(ship,&corkscrewinfo->total_roll_angle,DEG_TO_RAD(360.0f), corkscrewinfo->angle_increment, 0.25f));
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             return FALSE;
     }
 }
@@ -716,7 +716,7 @@ void flightmanImmelmanInit(Ship *ship,sdword flags)
 {
     ImmelmanInfo *immelmaninfo;
 
-    dbgAssert(ship->flightman == FLIGHTMAN_IMMELMAN);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_IMMELMAN);
     immelmaninfo = ship->flightmanInfo = memAlloc(sizeof(ImmelmanInfo),"ImmelmanInfo",0);
     immelmaninfo->size = sizeof(ImmelmanInfo);
 
@@ -736,9 +736,9 @@ bool flightmanImmelmanExecute(Ship *ship)
     ImmelmanInfo *immelmaninfo;
     bool result;
 
-    dbgAssert(ship->flightman == FLIGHTMAN_IMMELMAN);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_IMMELMAN);
     immelmaninfo = (ImmelmanInfo *)ship->flightmanInfo;
-    dbgAssert(immelmaninfo->size == sizeof(ImmelmanInfo));
+    dbgAssertOrIgnore(immelmaninfo->size == sizeof(ImmelmanInfo));
 
     switch (ship->flightmanState1)
     {
@@ -777,7 +777,7 @@ bool flightmanImmelmanExecute(Ship *ship)
             }
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             return FALSE;
     }
 
@@ -800,7 +800,7 @@ void flightmanSplitSInit(Ship *ship,sdword flags)
 {
     SplitSInfo *splitsinfo;
 
-    dbgAssert(ship->flightman == FLIGHTMAN_SPLIT_S);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_SPLIT_S);
     splitsinfo = ship->flightmanInfo = memAlloc(sizeof(SplitSInfo),"SplitSInfo",0);
     splitsinfo->size = sizeof(SplitSInfo);
 
@@ -821,9 +821,9 @@ bool flightmanSplitSExecute(Ship *ship)
     SplitSInfo *splitsinfo;
     bool result;
 
-    dbgAssert(ship->flightman == FLIGHTMAN_SPLIT_S);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_SPLIT_S);
     splitsinfo = (SplitSInfo *)ship->flightmanInfo;
-    dbgAssert(splitsinfo->size == sizeof(SplitSInfo));
+    dbgAssertOrIgnore(splitsinfo->size == sizeof(SplitSInfo));
 
     switch (ship->flightmanState1)
     {
@@ -867,7 +867,7 @@ bool flightmanSplitSExecute(Ship *ship)
             return FALSE;
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             return FALSE;
 
     }
@@ -889,7 +889,7 @@ void flightmanHardBankInit(Ship *ship,sdword flags)
 {
     HardBankInfo *hardbankinfo;
 
-    dbgAssert(ship->flightman == FLIGHTMAN_HARDBANK);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_HARDBANK);
     hardbankinfo = ship->flightmanInfo = memAlloc(sizeof(HardBankInfo),"HardBankInfo",0);
     hardbankinfo->size = sizeof(HardBankInfo);
 
@@ -909,9 +909,9 @@ bool flightmanHardBankExecute(Ship *ship)
     HardBankInfo *hardbankinfo;
     bool result;
 
-    dbgAssert(ship->flightman == FLIGHTMAN_HARDBANK);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_HARDBANK);
     hardbankinfo = (HardBankInfo *)ship->flightmanInfo;
-    dbgAssert(hardbankinfo->size == sizeof(HardBankInfo));
+    dbgAssertOrIgnore(hardbankinfo->size == sizeof(HardBankInfo));
 
     switch (ship->flightmanState1)
     {
@@ -945,7 +945,7 @@ bool flightmanHardBankExecute(Ship *ship)
             return FALSE;
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             return FALSE;
     }
 }
@@ -966,7 +966,7 @@ void flightmanSoftBankInit(Ship *ship,sdword flags)
 {
     SoftBankInfo *softbankinfo;
 
-    dbgAssert(ship->flightman == FLIGHTMAN_SOFTBANK);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_SOFTBANK);
     softbankinfo = ship->flightmanInfo = memAlloc(sizeof(SoftBankInfo),"SoftBankInfo",0);
     softbankinfo->size = sizeof(SoftBankInfo);
 
@@ -986,9 +986,9 @@ bool flightmanSoftBankExecute(Ship *ship)
     SoftBankInfo *softbankinfo;
     bool result;
 
-    dbgAssert(ship->flightman == FLIGHTMAN_SOFTBANK);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_SOFTBANK);
     softbankinfo = (SoftBankInfo *)ship->flightmanInfo;
-    dbgAssert(softbankinfo->size == sizeof(SoftBankInfo));
+    dbgAssertOrIgnore(softbankinfo->size == sizeof(SoftBankInfo));
 
     switch (ship->flightmanState1)
     {
@@ -1022,7 +1022,7 @@ bool flightmanSoftBankExecute(Ship *ship)
             return FALSE;
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             return FALSE;
     }
 }
@@ -1050,7 +1050,7 @@ void flightmanSlalomInit(Ship *ship,sdword flags)
     vector forwardright;
     vector forwardleft;
 
-    dbgAssert(ship->flightman == FLIGHTMAN_SLALOM);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_SLALOM);
     slalominfo = ship->flightmanInfo = memAlloc(sizeof(SlalomInfo),"SlalomInfo",0);
     slalominfo->size = sizeof(SlalomInfo);
 
@@ -1063,11 +1063,11 @@ void flightmanSlalomInit(Ship *ship,sdword flags)
 
     rightdirection = flags & 256;
 
-    dbgAssert(slalominfo->numwaypoints >= 1);
-    dbgAssert(SLALOM_BASEITERATIONS >= 1);
+    dbgAssertOrIgnore(slalominfo->numwaypoints >= 1);
+    dbgAssertOrIgnore(SLALOM_BASEITERATIONS >= 1);
 
-    dbgAssert(slalominfo->numwaypoints < SLALOM_MAXITERATIONS);
-    dbgAssert((SLALOM_BASEITERATIONS + SLALOM_RANDOMITERATIONS - 1) < SLALOM_MAXITERATIONS);
+    dbgAssertOrIgnore(slalominfo->numwaypoints < SLALOM_MAXITERATIONS);
+    dbgAssertOrIgnore((SLALOM_BASEITERATIONS + SLALOM_RANDOMITERATIONS - 1) < SLALOM_MAXITERATIONS);
 
     matGetVectFromMatrixCol2(right,ship->rotinfo.coordsys);
     matGetVectFromMatrixCol3(heading,ship->rotinfo.coordsys);
@@ -1115,11 +1115,11 @@ bool flightmanSlalomExecute(Ship *ship)
     SlalomInfo *slalominfo;
     vector *curwaypoint;
 
-    dbgAssert(ship->flightman == FLIGHTMAN_SLALOM);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_SLALOM);
     slalominfo = (SlalomInfo *)ship->flightmanInfo;
-    dbgAssert(slalominfo->size == sizeof(SlalomInfo));
+    dbgAssertOrIgnore(slalominfo->size == sizeof(SlalomInfo));
 
-    dbgAssert(ship->flightmanState1 < slalominfo->numwaypoints);
+    dbgAssertOrIgnore(ship->flightmanState1 < slalominfo->numwaypoints);
 
     if ((universe.totaltimeelapsed - slalominfo->timestamp) > SLALOM_MAXWAYPOINTTIME)
     {
@@ -1168,9 +1168,9 @@ void flightmanSandwichInit(Ship *ship,sdword flags)
     real32 rotangle;
     matrix rotmatz;
 
-    dbgAssert(target->objtype == OBJ_ShipType);
+    dbgAssertOrIgnore(target->objtype == OBJ_ShipType);
 
-    dbgAssert(ship->flightman == FLIGHTMAN_SANDWICH);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_SANDWICH);
     sandwichinfo = ship->flightmanInfo = memAlloc(sizeof(SandwichInfo),"SandwichInfo",0);
     sandwichinfo->size = sizeof(SandwichInfo);
 
@@ -1197,9 +1197,9 @@ void flightmanSandwichInit(Ship *ship,sdword flags)
 bool flightmanSandwichExecute(Ship *ship)
 {
     SandwichInfo *sandwichinfo = (SandwichInfo *)ship->flightmanInfo;
-    dbgAssert(sandwichinfo->size == sizeof(SandwichInfo));
+    dbgAssertOrIgnore(sandwichinfo->size == sizeof(SandwichInfo));
 
-    dbgAssert(ship->flightman == FLIGHTMAN_SANDWICH);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_SANDWICH);
 
     if ((universe.totaltimeelapsed - sandwichinfo->timestamp) > SANDWICH_MAXTIME)
     {
@@ -1230,7 +1230,7 @@ void flightmanBarrelRollInit(Ship *ship,sdword flags)
 {
     RollInfo *barrelrollinfo;
 
-    dbgAssert(ship->flightman == FLIGHTMAN_BARREL_ROLL);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_BARREL_ROLL);
     barrelrollinfo = ship->flightmanInfo = memAlloc(sizeof(RollInfo),"BRollInfo",0);
     barrelrollinfo->size = sizeof(RollInfo);
 
@@ -1248,9 +1248,9 @@ bool flightmanBarrelRollExecute(Ship *ship)
 {
     RollInfo *barrelrollinfo;
 
-    dbgAssert(ship->flightman == FLIGHTMAN_BARREL_ROLL);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_BARREL_ROLL);
     barrelrollinfo = (RollInfo *)ship->flightmanInfo;
-    dbgAssert(barrelrollinfo->size == sizeof(RollInfo));
+    dbgAssertOrIgnore(barrelrollinfo->size == sizeof(RollInfo));
 
     switch (ship->flightmanState1)
     {
@@ -1261,7 +1261,7 @@ bool flightmanBarrelRollExecute(Ship *ship)
                 return(flightmanRollRight(ship,&barrelrollinfo->totalrotated,DEG_TO_RAD(360.0f),BARREL_ROLL_MAXROTSPEEDROLL,BARREL_ROLL_ACCELMODIFIERROLL));
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             return FALSE;
     }
 }
@@ -1274,7 +1274,7 @@ void flightmanSwarmerBRollInit(Ship *ship,sdword flags)
 {
     RollInfo *sbrollinfo;
 
-    dbgAssert(ship->flightman == FLIGHTMAN_SWARMER_BARRELROLL);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_SWARMER_BARRELROLL);
     sbrollinfo = ship->flightmanInfo = memAlloc(sizeof(RollInfo),"SBRollInfo",0);
     sbrollinfo->size = sizeof(RollInfo);
 
@@ -1292,9 +1292,9 @@ bool flightmanSwarmerBRollExecute(Ship *ship)
 {
     RollInfo *sbrollinfo;
 
-    dbgAssert(ship->flightman == FLIGHTMAN_SWARMER_BARRELROLL);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_SWARMER_BARRELROLL);
     sbrollinfo = (RollInfo *)ship->flightmanInfo;
-    dbgAssert(sbrollinfo->size == sizeof(RollInfo));
+    dbgAssertOrIgnore(sbrollinfo->size == sizeof(RollInfo));
 
     switch (ship->flightmanState1)
     {
@@ -1305,7 +1305,7 @@ bool flightmanSwarmerBRollExecute(Ship *ship)
                 return(flightmanRollRight(ship,&sbrollinfo->totalrotated,DEG_TO_RAD(720.0f),SWARMER_BARRELROLL_MAXROTSPEEDROLL,SWARMER_BARRELROLL_ACCELMODIFIERROLL));
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             return FALSE;
     }
 }
@@ -1318,7 +1318,7 @@ void flightmanRoll180Init(Ship *ship,sdword flags)
 {
     RollInfo *rollinfo;
 
-    dbgAssert(ship->flightman == FLIGHTMAN_ROLL180);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_ROLL180);
     rollinfo = ship->flightmanInfo = memAlloc(sizeof(RollInfo),"Roll180Info",0);
     rollinfo->size = sizeof(RollInfo);
 
@@ -1336,9 +1336,9 @@ bool flightmanRoll180Execute(Ship *ship)
 {
     RollInfo *rollinfo;
 
-    dbgAssert(ship->flightman == FLIGHTMAN_ROLL180);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_ROLL180);
     rollinfo = (RollInfo *)ship->flightmanInfo;
-    dbgAssert(rollinfo->size == sizeof(RollInfo));
+    dbgAssertOrIgnore(rollinfo->size == sizeof(RollInfo));
 
     switch (ship->flightmanState1)
     {
@@ -1349,7 +1349,7 @@ bool flightmanRoll180Execute(Ship *ship)
                 return(flightmanRollRight(ship,&rollinfo->totalrotated,DEG_TO_RAD(180.0f),ROLL180_MAXROTSPEEDROLL,ROLL180_ACCELMODIFIERROLL));
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             return FALSE;
     }
 }
@@ -1362,7 +1362,7 @@ void flightmanBRollOutInit(Ship *ship,sdword flags)
 {
     RollInfo *rollinfo;
 
-    dbgAssert(ship->flightman == FLIGHTMAN_BARRELROLL_OUT);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_BARRELROLL_OUT);
     rollinfo = ship->flightmanInfo = memAlloc(sizeof(RollInfo),"BRollOutInfo",0);
     rollinfo->size = sizeof(RollInfo);
 
@@ -1374,9 +1374,9 @@ bool flightmanBRollOutExecute(Ship *ship)
 {
     RollInfo *rollinfo;
 
-    dbgAssert(ship->flightman == FLIGHTMAN_BARRELROLL_OUT);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_BARRELROLL_OUT);
     rollinfo = (RollInfo *)ship->flightmanInfo;
-    dbgAssert(rollinfo->size == sizeof(RollInfo));
+    dbgAssertOrIgnore(rollinfo->size == sizeof(RollInfo));
 
     switch (ship->flightmanState1)
     {
@@ -1385,7 +1385,7 @@ bool flightmanBRollOutExecute(Ship *ship)
             return(flightmanRollLeft(ship,&rollinfo->totalrotated,DEG_TO_RAD(180.0f), 1.70f, 0.25f));
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             return FALSE;
     }
 }
@@ -1407,7 +1407,7 @@ void flightmanEndoverInit(Ship *ship,sdword flags)
 {
     EndoverInfo *rollinfo;
 
-    dbgAssert(ship->flightman == FLIGHTMAN_ENDOVER);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_ENDOVER);
     rollinfo = ship->flightmanInfo = memAlloc(sizeof(RollInfo),"EndoverInfo",0);
     rollinfo->size = sizeof(EndoverInfo);
 
@@ -1427,9 +1427,9 @@ bool flightmanEndoverExecute(Ship *ship)
 {
     EndoverInfo *rollinfo;
 
-    dbgAssert(ship->flightman == FLIGHTMAN_ENDOVER);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_ENDOVER);
     rollinfo = (EndoverInfo *)ship->flightmanInfo;
-    dbgAssert(rollinfo->size == sizeof(EndoverInfo));
+    dbgAssertOrIgnore(rollinfo->size == sizeof(EndoverInfo));
 
     switch (ship->flightmanState1)
     {
@@ -1442,7 +1442,7 @@ bool flightmanEndoverExecute(Ship *ship)
                 return(flightmanYawRight(ship,&rollinfo->totalrotated, rollinfo->amount_to_rotate, rollinfo->increment, ENDOVER_ACCELMODIFIER));
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             return FALSE;
     }
 }
@@ -1455,7 +1455,7 @@ void flightmanCelebFlipInit(Ship *ship,sdword flags)
 {
     RollInfo *cfinfo;
 
-    dbgAssert(ship->flightman == FLIGHTMAN_CELEB_FLIP);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_CELEB_FLIP);
     cfinfo = ship->flightmanInfo = memAlloc(sizeof(RollInfo),"CelebFlipInfo",0);
     cfinfo->size = sizeof(RollInfo);
 
@@ -1467,9 +1467,9 @@ bool flightmanCelebFlipExecute(Ship *ship)
 {
     RollInfo *cfinfo;
 
-    dbgAssert(ship->flightman == FLIGHTMAN_CELEB_FLIP);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_CELEB_FLIP);
     cfinfo = (RollInfo *)ship->flightmanInfo;
-    dbgAssert(cfinfo->size == sizeof(RollInfo));
+    dbgAssertOrIgnore(cfinfo->size == sizeof(RollInfo));
 
     switch (ship->flightmanState1)
     {
@@ -1477,7 +1477,7 @@ bool flightmanCelebFlipExecute(Ship *ship)
             return(flightmanPitchUp(ship,&cfinfo->totalrotated,DEG_TO_RAD(360.0f), CELEB_FLIP_MAXROTSPEEDROLL, CELEB_FLIP_ACCELMODIFIERROLL));
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             return FALSE;
     }
 }
@@ -1497,7 +1497,7 @@ void flightmanWhipStrafeInit(Ship *ship,sdword flags)
 {
     WhipStrafeInfo *whipstrafeinfo;
 
-    dbgAssert(ship->flightman == FLIGHTMAN_WHIP_STRAFE);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_WHIP_STRAFE);
     whipstrafeinfo = ship->flightmanInfo = memAlloc(sizeof(WhipStrafeInfo),"WhipStrafeInfo",0);
     whipstrafeinfo->size = sizeof(WhipStrafeInfo);
 
@@ -1512,9 +1512,9 @@ bool flightmanWhipStrafeExecute(Ship *ship)
     ShipStaticInfo *shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;
     vector updownvector = { 0.0f, 0.0f, 1.0f };
 
-    dbgAssert(ship->flightman == FLIGHTMAN_WHIP_STRAFE);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_WHIP_STRAFE);
     whipstrafeinfo = (WhipStrafeInfo *)ship->flightmanInfo;
-    dbgAssert(whipstrafeinfo->size == sizeof(WhipStrafeInfo));
+    dbgAssertOrIgnore(whipstrafeinfo->size == sizeof(WhipStrafeInfo));
 
     switch (ship->flightmanState1)
     {
@@ -1556,7 +1556,7 @@ bool flightmanWhipStrafeExecute(Ship *ship)
             }
 #endif
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             return FALSE;
     }
 }
@@ -1577,7 +1577,7 @@ void flightmanRollAwayInit(Ship *ship,sdword flags)
 {
     RollAwayInfo *rollawayinfo;
 
-    dbgAssert(ship->flightman == FLIGHTMAN_ROLLAWAY);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_ROLLAWAY);
     rollawayinfo = ship->flightmanInfo = memAlloc(sizeof(RollAwayInfo),"RollAwayInfo",0);
     rollawayinfo->size = sizeof(RollAwayInfo);
 
@@ -1597,9 +1597,9 @@ bool flightmanRollAwayExecute(Ship *ship)
     RollAwayInfo *rollawayinfo;
     bool result;
 
-    dbgAssert(ship->flightman == FLIGHTMAN_ROLLAWAY);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_ROLLAWAY);
     rollawayinfo = (RollAwayInfo *)ship->flightmanInfo;
-    dbgAssert(rollawayinfo->size == sizeof(RollAwayInfo));
+    dbgAssertOrIgnore(rollawayinfo->size == sizeof(RollAwayInfo));
 
     switch (ship->flightmanState1)
     {
@@ -1652,7 +1652,7 @@ bool flightmanRollAwayExecute(Ship *ship)
             return FALSE;
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             return FALSE;
     }
 }
@@ -1673,7 +1673,7 @@ void flightmanSplitSEvasiveInit(Ship *ship,sdword flags)
 {
     SplitSEvasiveInfo *splitsevasiveinfo;
 
-    dbgAssert(ship->flightman == FLIGHTMAN_SPLITS_EVASIVE);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_SPLITS_EVASIVE);
     splitsevasiveinfo = ship->flightmanInfo = memAlloc(sizeof(SplitSEvasiveInfo),"SplitSEvasiveInfo",0);
     splitsevasiveinfo->size = sizeof(SplitSEvasiveInfo);
 
@@ -1693,9 +1693,9 @@ bool flightmanSplitSEvasiveExecute(Ship *ship)
     SplitSEvasiveInfo *splitsevasiveinfo;
     bool result;
 
-    dbgAssert(ship->flightman == FLIGHTMAN_SPLITS_EVASIVE);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_SPLITS_EVASIVE);
     splitsevasiveinfo = (SplitSEvasiveInfo *)ship->flightmanInfo;
-    dbgAssert(splitsevasiveinfo->size == sizeof(SplitSEvasiveInfo));
+    dbgAssertOrIgnore(splitsevasiveinfo->size == sizeof(SplitSEvasiveInfo));
 
     switch (ship->flightmanState1)
     {
@@ -1761,7 +1761,7 @@ bool flightmanSplitSEvasiveExecute(Ship *ship)
             return FALSE;
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             return FALSE;
     }
 }
@@ -1781,7 +1781,7 @@ void flightmanHiYoYoInit(Ship *ship,sdword flags)
 {
     HiYoYoInfo *hiyoyoinfo;
 
-    dbgAssert(ship->flightman == FLIGHTMAN_HIYOYO);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_HIYOYO);
     hiyoyoinfo = ship->flightmanInfo = memAlloc(sizeof(HiYoYoInfo),"HiYoYoInfo",0);
     hiyoyoinfo->size = sizeof(HiYoYoInfo);
 
@@ -1793,9 +1793,9 @@ bool flightmanHiYoYoExecute(Ship *ship)
 {
     HiYoYoInfo *hiyoyoinfo;
 
-    dbgAssert(ship->flightman == FLIGHTMAN_HIYOYO);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_HIYOYO);
     hiyoyoinfo = (HiYoYoInfo *)ship->flightmanInfo;
-    dbgAssert(hiyoyoinfo->size == sizeof(HiYoYoInfo));
+    dbgAssertOrIgnore(hiyoyoinfo->size == sizeof(HiYoYoInfo));
 
     switch (ship->flightmanState1)
     {
@@ -1853,7 +1853,7 @@ bool flightmanHiYoYoExecute(Ship *ship)
             return FALSE;
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             break;
     }
 
@@ -1875,7 +1875,7 @@ void flightmanLoYoYoInit(Ship *ship,sdword flags)
 {
     LoYoYoInfo *loyoyoinfo;
 
-    dbgAssert(ship->flightman == FLIGHTMAN_LOYOYO);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_LOYOYO);
     loyoyoinfo = ship->flightmanInfo = memAlloc(sizeof(LoYoYoInfo),"LoYoYoInfo",0);
     loyoyoinfo->size = sizeof(LoYoYoInfo);
 
@@ -1887,9 +1887,9 @@ bool flightmanLoYoYoExecute(Ship *ship)
 {
     LoYoYoInfo *loyoyoinfo;
 
-    dbgAssert(ship->flightman == FLIGHTMAN_LOYOYO);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_LOYOYO);
     loyoyoinfo = (LoYoYoInfo *)ship->flightmanInfo;
-    dbgAssert(loyoyoinfo->size == sizeof(LoYoYoInfo));
+    dbgAssertOrIgnore(loyoyoinfo->size == sizeof(LoYoYoInfo));
 
     switch (ship->flightmanState1)
     {
@@ -1947,7 +1947,7 @@ bool flightmanLoYoYoExecute(Ship *ship)
             return FALSE;
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             break;
     }
 
@@ -1973,7 +1973,7 @@ void flightmanSideStepInit(Ship *ship,sdword flags)
 {
     SideStepInfo *sidestepinfo;
 
-    dbgAssert(ship->flightman == FLIGHTMAN_SIDESTEP);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_SIDESTEP);
     sidestepinfo = ship->flightmanInfo = memAlloc(sizeof(SideStepInfo),"SideStepInfo",0);
     sidestepinfo->size = sizeof(SideStepInfo);
 
@@ -1997,9 +1997,9 @@ bool flightmanSideStepExecute(Ship *ship)
     bool result;
     bool pitchresult;
 
-    dbgAssert(ship->flightman == FLIGHTMAN_SIDESTEP);
+    dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_SIDESTEP);
     sidestepinfo = (SideStepInfo *)ship->flightmanInfo;
-    dbgAssert(sidestepinfo->size == sizeof(SideStepInfo));
+    dbgAssertOrIgnore(sidestepinfo->size == sizeof(SideStepInfo));
 
     switch (ship->flightmanState1)
     {
@@ -2070,7 +2070,7 @@ bool flightmanSideStepExecute(Ship *ship)
             return FALSE;
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             break;
     }
 
@@ -2085,8 +2085,8 @@ void flightmanInitFunc(Ship *ship,udword flightman,sdword flags)
 {
     FlightmanSpecificInit flightmanSpecificInit;
 
-    dbgAssert(flightman < NUM_FLIGHTMANEUVERS);
-    dbgAssert(flightman != FLIGHTMAN_NULL);
+    dbgAssertOrIgnore(flightman < NUM_FLIGHTMANEUVERS);
+    dbgAssertOrIgnore(flightman != FLIGHTMAN_NULL);
 
     if (ship->flightman != FLIGHTMAN_NULL)
     {
@@ -2104,7 +2104,7 @@ void flightmanInitFunc(Ship *ship,udword flightman,sdword flags)
     ship->flightman = flightman;
     ship->flightmanState1 = 0;
     // deliberately do not intialize ship->flightmanState2 because it can be set as a parameter
-    dbgAssert(ship->flightmanInfo == NULL);
+    dbgAssertOrIgnore(ship->flightmanInfo == NULL);
 
     flightmanSpecificInit = flightmanSpecificInitTable[flightman];
     if (flightmanSpecificInit != NULL)
@@ -2128,8 +2128,8 @@ void flightmanClose(Ship *ship)
 {
     FlightmanSpecificClose flightmanSpecificClose;
 
-    dbgAssert(ship->flightman < NUM_FLIGHTMANEUVERS);
-    dbgAssert(ship->flightman != FLIGHTMAN_NULL);
+    dbgAssertOrIgnore(ship->flightman < NUM_FLIGHTMANEUVERS);
+    dbgAssertOrIgnore(ship->flightman != FLIGHTMAN_NULL);
 
 #ifdef FLIGHTMAN_DEBUG
     dbgMessagef("\nEnding flightman %d for Ship %x",ship->flightman,(udword)ship);
@@ -2152,15 +2152,15 @@ void flightmanClose(Ship *ship)
 
 bool flightmanExecute(Ship *ship)
 {
-    dbgAssert(ship->flightman < NUM_FLIGHTMANEUVERS);
+    dbgAssertOrIgnore(ship->flightman < NUM_FLIGHTMANEUVERS);
     if (ship->flightman == FLIGHTMAN_NULL)
     {
         // should this be happening?
         dbgMessage("\nWarning: tried to execute NULL flightman");
-//        dbgAssert(FALSE);
+//        dbgAssertOrIgnore(FALSE);
         return TRUE;
     }
-    dbgAssert(flightmanSpecificExecuteTable[ship->flightman] != NULL);
+    dbgAssertOrIgnore(flightmanSpecificExecuteTable[ship->flightman] != NULL);
     if ((flightmanSpecificExecuteTable[ship->flightman])(ship))
     {
         flightmanClose(ship);
@@ -2177,7 +2177,7 @@ udword flightmanGetRandom(FlightManProb *prob,udword flightmanSubtype)
     udword randnum;
     udword i;
 
-    dbgAssert(prob->valid == FLIGHTPROB_VALID);
+    dbgAssertOrIgnore(prob->valid == FLIGHTPROB_VALID);
 
     switch (flightmanSubtype)
     {
@@ -2193,7 +2193,7 @@ udword flightmanGetRandom(FlightManProb *prob,udword flightmanSubtype)
                         return (i+FLIGHTMAN_TYPE_EVASIVE_START);
                     }
                 }
-                dbgAssert(FALSE);
+                dbgAssertOrIgnore(FALSE);
             }
             break;
 
@@ -2209,7 +2209,7 @@ udword flightmanGetRandom(FlightManProb *prob,udword flightmanSubtype)
                         return (i+FLIGHTMAN_TYPE_EVASIVE_START);
                     }
                 }
-                dbgAssert(FALSE);
+                dbgAssertOrIgnore(FALSE);
             }
             break;
 
@@ -2225,7 +2225,7 @@ udword flightmanGetRandom(FlightManProb *prob,udword flightmanSubtype)
                         return (i+FLIGHTMAN_TYPE_EVASIVE_START);
                     }
                 }
-                dbgAssert(FALSE);
+                dbgAssertOrIgnore(FALSE);
             }
             break;
 
@@ -2241,7 +2241,7 @@ udword flightmanGetRandom(FlightManProb *prob,udword flightmanSubtype)
                         return (i+FLIGHTMAN_TYPE_TURNAROUND_START);
                     }
                 }
-                dbgAssert(FALSE);
+                dbgAssertOrIgnore(FALSE);
             }
             break;
 
@@ -2257,12 +2257,12 @@ udword flightmanGetRandom(FlightManProb *prob,udword flightmanSubtype)
                         return (i+FLIGHTMAN_TYPE_AIP_START);
                     }
                 }
-                dbgAssert(FALSE);
+                dbgAssertOrIgnore(FALSE);
             }
             break;
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             break;
     }
 
@@ -2274,13 +2274,13 @@ bool flightmanTestRandom(FlightManProb *prob,udword flightmanSubtype,udword flig
     udword sumtotal;
     udword randnum;
 
-    dbgAssert(prob->valid == FLIGHTPROB_VALID);
+    dbgAssertOrIgnore(prob->valid == FLIGHTPROB_VALID);
 
     switch (flightmanSubtype)
     {
         case FLIGHTMAN_TURNAROUND:
-            dbgAssert(flightman >= FLIGHTMAN_TYPE_TURNAROUND_START);
-            dbgAssert(flightman <= FLIGHTMAN_TYPE_TURNAROUND_END);
+            dbgAssertOrIgnore(flightman >= FLIGHTMAN_TYPE_TURNAROUND_START);
+            dbgAssertOrIgnore(flightman <= FLIGHTMAN_TYPE_TURNAROUND_END);
             sumtotal = prob->sumtotalTurnaround;
             if (sumtotal == 0) return FALSE;
 
@@ -2293,8 +2293,8 @@ bool flightmanTestRandom(FlightManProb *prob,udword flightmanSubtype,udword flig
             break;
 
         case FLIGHTMAN_AIP:
-            dbgAssert(flightman >= FLIGHTMAN_TYPE_AIP_START);
-            dbgAssert(flightman <= FLIGHTMAN_TYPE_AIP_END);
+            dbgAssertOrIgnore(flightman >= FLIGHTMAN_TYPE_AIP_START);
+            dbgAssertOrIgnore(flightman <= FLIGHTMAN_TYPE_AIP_END);
             sumtotal = prob->sumtotalAIP;
             if (sumtotal == 0) return FALSE;
 
@@ -2307,8 +2307,8 @@ bool flightmanTestRandom(FlightManProb *prob,udword flightmanSubtype,udword flig
             break;
 
         case FLIGHTMAN_EVASIVE_BEHIND:
-            dbgAssert(flightman >= FLIGHTMAN_TYPE_EVASIVE_START);
-            dbgAssert(flightman <= FLIGHTMAN_TYPE_EVASIVE_END);
+            dbgAssertOrIgnore(flightman >= FLIGHTMAN_TYPE_EVASIVE_START);
+            dbgAssertOrIgnore(flightman <= FLIGHTMAN_TYPE_EVASIVE_END);
             sumtotal = prob->sumtotalEvasiveBehind;
             if (sumtotal == 0) return FALSE;
 
@@ -2321,8 +2321,8 @@ bool flightmanTestRandom(FlightManProb *prob,udword flightmanSubtype,udword flig
             break;
 
         case FLIGHTMAN_EVASIVE_FRONT:
-            dbgAssert(flightman >= FLIGHTMAN_TYPE_EVASIVE_START);
-            dbgAssert(flightman <= FLIGHTMAN_TYPE_EVASIVE_END);
+            dbgAssertOrIgnore(flightman >= FLIGHTMAN_TYPE_EVASIVE_START);
+            dbgAssertOrIgnore(flightman <= FLIGHTMAN_TYPE_EVASIVE_END);
             sumtotal = prob->sumtotalEvasiveFront;
             if (sumtotal == 0) return FALSE;
 
@@ -2335,8 +2335,8 @@ bool flightmanTestRandom(FlightManProb *prob,udword flightmanSubtype,udword flig
             break;
 
         case FLIGHTMAN_EVASIVE_PURE:
-            dbgAssert(flightman >= FLIGHTMAN_TYPE_EVASIVE_START);
-            dbgAssert(flightman <= FLIGHTMAN_TYPE_EVASIVE_END);
+            dbgAssertOrIgnore(flightman >= FLIGHTMAN_TYPE_EVASIVE_START);
+            dbgAssertOrIgnore(flightman <= FLIGHTMAN_TYPE_EVASIVE_END);
             sumtotal = prob->sumtotalEvasivePure;
             if (sumtotal == 0) return FALSE;
 
@@ -2349,7 +2349,7 @@ bool flightmanTestRandom(FlightManProb *prob,udword flightmanSubtype,udword flig
             break;
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             break;
     }
 

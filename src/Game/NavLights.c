@@ -70,7 +70,7 @@ void navLightStaticInfoDelete(NAVLightStaticInfo *staticInfo)
     sdword i, num = staticInfo->numNAVLights;
     NAVLightStatic *navLightStatic = staticInfo->navlightstatics;
 
-    dbgAssert(staticInfo != NULL);
+    dbgAssertOrIgnore(staticInfo != NULL);
 
     for( i=0 ; i < num ; i++, navLightStatic++)
     {

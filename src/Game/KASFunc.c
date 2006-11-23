@@ -1768,7 +1768,7 @@ void DockSupportWith(struct AITeam * withTeam,sdword flags)
     if (withTeam->shipList.selection->numShips >= 1)
     {
         dockwith = withTeam->shipList.selection->ShipPtr[0];
-        dbgAssert(dockwith);
+        dbgAssertOrIgnore(dockwith);
         if (aiuShipIsntSelectable(dockwith))
         {
             dockwith = NULL;
@@ -3559,7 +3559,7 @@ void kasfCloseSensors(sdword flag)
         return;
     }
 #endif
-    dbgAssert(smFleetIntel==TRUE);
+    dbgAssertOrIgnore(smFleetIntel==TRUE);
     */
     if ((smSensorsActive) && (!smZoomingIn) && (!smZoomingOut))
     {
@@ -4030,7 +4030,7 @@ void kasfWideScreenIn(sdword frames)
 #if UNIVERSE_TURBOPAUSE_DEBUG
     universeTurbo = FALSE;
 #endif
-    dbgAssert(frames > 1 && frames < 10000);
+    dbgAssertOrIgnore(frames > 1 && frames < 10000);
     if (nisScissorFadeOut != 0)
     {
         nisScissorFade = nisScissorFadeOut = nisScissorFadeTime = 0.0f;
@@ -4043,7 +4043,7 @@ void kasfWideScreenIn(sdword frames)
 //ends the NIS widescreen thing under KAS control
 void kasfWideScreenOut(sdword frames)
 {
-    dbgAssert(frames > 1 && frames < 10000);
+    dbgAssertOrIgnore(frames > 1 && frames < 10000);
     if (nisScissorFadeIn != 0)
     {
         nisScissorFade = nisScissorFadeIn = nisScissorFadeTime = 0.0f;
@@ -4057,7 +4057,7 @@ void kasfWideScreenOut(sdword frames)
 static sdword kasfDummyEventNumber = 0;         //incremented to ensure unique event numbers
 void kasfSubtitleSimulate(sdword actor, sdword milliseconds, char *speech)
 {
-    dbgAssert(milliseconds > 10);
+    dbgAssertOrIgnore(milliseconds > 10);
     subTitleAdd(actor, kasfDummyEventNumber, speech, strlen(speech), (real32)milliseconds / 1000.0f);
     subMessageEnded = 0;
     kasfDummyEventNumber++;
@@ -4068,7 +4068,7 @@ void kasfLocationCard(sdword milliseconds, char *location)
 {
     char buffer[SUB_SubtitleLength];
 
-    dbgAssert(milliseconds > 10);
+    dbgAssertOrIgnore(milliseconds > 10);
     snprintf(buffer, SUB_SubtitleLength - 1, "#r%x#t%x%s", STR_LocationCard, STT_LocationCard, location);
     subTitleAdd(STA_LocationCard, kasfDummyEventNumber, buffer, strlen(buffer), (real32)milliseconds / 1000.0f);
     kasfDummyEventNumber++;
@@ -4079,7 +4079,7 @@ void kasfLocationCardSpecial(sdword milliseconds, char *string)
 {
 //    char buffer[SUB_SubtitleLength];
 
-    dbgAssert(milliseconds > 10);
+    dbgAssertOrIgnore(milliseconds > 10);
     subTitleAdd(STA_LocationCard, kasfDummyEventNumber, string, strlen(string), (real32)milliseconds / 1000.0f);
     kasfDummyEventNumber++;
 }
@@ -4250,7 +4250,7 @@ void kasfOtherKASPause(void)
     char scopedName[TIMER_NAME_MAX_LENGTH*2+2];
 
     kasUnpausedTeam = CurrentTeamP;
-    dbgAssert(CurrentMissionScope != KAS_SCOPE_MISSION);    //make sure we're operating at least at FSM level scope
+    dbgAssertOrIgnore(CurrentMissionScope != KAS_SCOPE_MISSION);    //make sure we're operating at least at FSM level scope
     sprintf(scopedName, "%s.", CurrentMissionScopeName);
     timTimerPauseAllNotScoped(scopedName);                  //pause all the other timers
 }

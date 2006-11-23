@@ -583,7 +583,7 @@ void pieAllShipsToPiePlateDraw(real32 distance)
                                 &planePoint, radius, &screenX, &screenY, &screenRadius);
             if (screenRadius > 0.0f)
             {
-//                dbgAssert(piePlaneScreenPointIndex < PIE_PlaneScreenPointIndex);
+//                dbgAssertOrIgnore(piePlaneScreenPointIndex < PIE_PlaneScreenPointIndex);
                 if (piePlaneScreenPointIndex < PIE_PlaneScreenPointIndex)
                 {
                     piePlaneScreenPoint[piePlaneScreenPointIndex].x = screenX;
@@ -796,8 +796,8 @@ bool pieDestinationInGunRangeOfTargets()
             continue;
         command = getShipAndItsCommand(&universe.mainCommandLayer,selSelected.ShipPtr[i]);
 
-        dbgAssert(command != NULL);
-        dbgAssert(command->ordertype.order == COMMAND_ATTACK);
+        dbgAssertOrIgnore(command != NULL);
+        dbgAssertOrIgnore(command->ordertype.order == COMMAND_ATTACK);
 
         breaker = FALSE;
         for(j = 0; j<command->attack->numTargets;j++)
@@ -882,7 +882,7 @@ void piePlaneDraw(real32 distance)
             vecNormalize(&pieMotherShipHeading);
         }
     }
-    dbgAssert(pieMotherShipHeading.x != REALlyBig);
+    dbgAssertOrIgnore(pieMotherShipHeading.x != REALlyBig);
     */
     pieMotherShipHeading.x = pieMotherShipHeading.z = 0.0f;
     pieMotherShipHeading.y = 1.0f;

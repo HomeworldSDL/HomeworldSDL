@@ -186,7 +186,7 @@ void CloakAddObjectsInProximity(Ship *cloakship)
     {
         spaceobj = (Ship *)listGetStructOfNode(objnode);
         //Rejections...
-        dbgAssert(spaceobj->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(spaceobj->objtype == OBJ_ShipType);
 
         if (spaceobj->playerowner != playerowner)
         {
@@ -535,7 +535,7 @@ void CloakGenerator_Save(Ship *ship)
         node = node->next;
     }
 
-    dbgAssert(cur == spec->CloakList.num);
+    dbgAssertOrIgnore(cur == spec->CloakList.num);
 }
 
 CloakStruct *LoadCloakStruct(void)

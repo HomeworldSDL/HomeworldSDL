@@ -48,7 +48,7 @@ void P3StandardShipStaticInit(char *directory,char *filename,struct ShipStaticIn
         break;
     }
 
-    dbgAssert(shipstat != NULL);
+    dbgAssertOrIgnore(shipstat != NULL);
 
     statinfo->custstatinfo = shipstat;
 

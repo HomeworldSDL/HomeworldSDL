@@ -255,7 +255,7 @@ void ChangeSingleShipToCollectResource(struct CommandToDo *command)
 {
     Ship *ship = command->selection->ShipPtr[0];
     Resource *resource;
-    dbgAssert(command->selection->numShips == 1);
+    dbgAssertOrIgnore(command->selection->numShips == 1);
 
     resource = rescollectFindNearestResource(ship,command);
     InitShipForResourceCollection(ship,resource);
@@ -492,7 +492,7 @@ void BreakAsteroidUp(Asteroid *asteroid)
     vector originalvelocity;
     vector randomvelocity;
 
-    dbgAssert(asteroid->objtype == OBJ_AsteroidType);
+    dbgAssertOrIgnore(asteroid->objtype == OBJ_AsteroidType);
 
     // asteroid has been destroyed.  Split it up into multiple asteroids
     if (asteroidstatic->asteroidCanBreak)
@@ -546,7 +546,7 @@ bool AsteroidTakesDamage(Asteroid *asteroid,sdword damagetaken,bool targetWasAli
         return FALSE;       // target already dead, so ignore
     }
 
-    dbgAssert(asteroid->asteroidtype < NUM_ASTEROIDTYPES);
+    dbgAssertOrIgnore(asteroid->asteroidtype < NUM_ASTEROIDTYPES);
 
     RUdamage = (sdword) (damagetaken * ASTEROID_RU_DAMAGE_RATIO[asteroid->asteroidtype]);
     asteroid->resourcevalue -= RUdamage;
@@ -580,7 +580,7 @@ bool CollectResources(Ship *ship,Resource *resource)
 
     bool resourceWasAlive;
 
-    dbgAssert(ship->objtype == OBJ_ShipType);
+    dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
     shipstatic = (ShipStaticInfo *)ship->staticinfo;
 
@@ -650,7 +650,7 @@ bool CollectResources(Ship *ship,Resource *resource)
 ----------------------------------------------------------------------------*/
 void TurnHarvestEffectOff(Ship *ship)
 {
-    dbgAssert(ship->rceffect != NULL);
+    dbgAssertOrIgnore(ship->rceffect != NULL);
 
     if (bitTest(((etgeffectstatic *)ship->rceffect->staticinfo)->specialOps, ESO_SelfDeleting))
     {                                                       //if the effect will delete itself
@@ -679,7 +679,7 @@ void TurnHarvestEffectOff(Ship *ship)
 void TurnOffAnyResourcingEffects(struct CommandToDo *todo)
 {
     Ship *ship = todo->selection->ShipPtr[0];
-    dbgAssert(todo->selection->numShips == 1);
+    dbgAssertOrIgnore(todo->selection->numShips == 1);
 
     if (ship->rceffect != NULL)
     {
@@ -710,7 +710,7 @@ void TurnHarvestEffectOn(Ship *ship,Resource *resource,vector *trajectory, real3
     udword intWidth;
     real32 temp;
 
-    dbgAssert(resNozzleStatic);
+    dbgAssertOrIgnore(resNozzleStatic);
 
     matMultiplyMatByVec(&nozzleposition,&ship->rotinfo.coordsys,&resNozzleStatic->position);
 
@@ -779,8 +779,8 @@ void ModifyHarvestEffect(Effect *effect,Ship *ship,vector *trajectory, real32 re
     real32 nozzletrajectorydist;
     real32 temp;
 
-    dbgAssert(resNozzleStatic);
-    dbgAssert(effect);
+    dbgAssertOrIgnore(resNozzleStatic);
+    dbgAssertOrIgnore(effect);
 
     matMultiplyMatByVec(&nozzleposition,&ship->rotinfo.coordsys,&resNozzleStatic->position);
 
@@ -830,7 +830,7 @@ void R1ResourcerHarvestsAsteroid(struct Ship *ship,struct Resource *resource)
     etglod *lod;
     real32 resourceRadius;
 
-//    dbgAssert(resource->objtype == OBJ_AsteroidType);
+//    dbgAssertOrIgnore(resource->objtype == OBJ_AsteroidType);
 
     switch (ship->rcstate1)
     {
@@ -896,7 +896,7 @@ void R1ResourcerHarvestsAsteroid(struct Ship *ship,struct Resource *resource)
                 {
                     TurnHarvestEffectOff(ship);
                 }
-                dbgAssert(ship->rceffect == NULL);
+                dbgAssertOrIgnore(ship->rceffect == NULL);
 
                 ship->rcstate1 = R1RCASTEROID_APPROACHASTEROID;
                 break;
@@ -1044,8 +1044,8 @@ bool processCollectResource(struct CommandToDo *collecttodo)
 
     ShipStaticInfo *shipstatic = (ShipStaticInfo *)ship->staticinfo;
 
-    dbgAssert(numShips > 0);
-    dbgAssert(numShips == 1);
+    dbgAssertOrIgnore(numShips > 0);
+    dbgAssertOrIgnore(numShips == 1);
 
     if (ship->resources >= shipstatic->maxresources)
     {
@@ -1155,7 +1155,7 @@ void R1ResourcerAttacksShip(struct Ship *ship,struct SpaceObjRotImpTarg *target,
     etglod *lod;
     real32 targetRadius;
 
-//    dbgAssert(resource->objtype == OBJ_AsteroidType);
+//    dbgAssertOrIgnore(resource->objtype == OBJ_AsteroidType);
 
     switch (ship->rcstate1)
     {
@@ -1200,7 +1200,7 @@ void R1ResourcerAttacksShip(struct Ship *ship,struct SpaceObjRotImpTarg *target,
                 {
                     TurnHarvestEffectOff(ship);
                 }
-                dbgAssert(ship->rceffect == NULL);
+                dbgAssertOrIgnore(ship->rceffect == NULL);
 
                 ship->rcstate1 = R1RCASTEROID_APPROACHASTEROID;
                 break;

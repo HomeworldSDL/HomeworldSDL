@@ -42,7 +42,7 @@ void physApplyForceToObj(SpaceObj *obj,real32 force,uword transdir)
 {
     vector vectorforce;
 
-    dbgAssert((obj->flags & SOF_Rotatable) != 0);
+    dbgAssertOrIgnore((obj->flags & SOF_Rotatable) != 0);
 
     if (obj->objtype == OBJ_ShipType)
     {
@@ -105,7 +105,7 @@ void physApplyForceToObj(SpaceObj *obj,real32 force,uword transdir)
 ----------------------------------------------------------------------------*/
 void physApplyRotToObj(SpaceObjRot *obj,real32 torque,uword rotdir)
 {
-    dbgAssert((obj->flags & SOF_Rotatable) != 0);
+    dbgAssertOrIgnore((obj->flags & SOF_Rotatable) != 0);
 
     if (obj->objtype == OBJ_ShipType)
     {
@@ -802,7 +802,7 @@ void physUpdateObjPosVelShip(Ship *obj,real32 phystimeelapsed)
             }
         }
 
-    dbgAssert(bitTest(obj->flags,SOF_Rotatable));
+    dbgAssertOrIgnore(bitTest(obj->flags,SOF_Rotatable));
     {
 
     /*-----------------------------------------------------------------------------
@@ -970,7 +970,7 @@ void physUpdateObjPosVelDerelicts(Derelict *obj,real32 phystimeelapsed)
         }
     }
 
-    dbgAssert(bitTest(obj->flags,SOF_Rotatable));
+    dbgAssertOrIgnore(bitTest(obj->flags,SOF_Rotatable));
     {
 
     /*-----------------------------------------------------------------------------
@@ -1118,7 +1118,7 @@ void physUpdateObjPosVelMissile(Missile *obj,real32 phystimeelapsed)
         vecZeroVector(d);
     }
 
-    dbgAssert(bitTest(obj->flags,SOF_Rotatable));
+    dbgAssertOrIgnore(bitTest(obj->flags,SOF_Rotatable));
     {
 
     /*-----------------------------------------------------------------------------

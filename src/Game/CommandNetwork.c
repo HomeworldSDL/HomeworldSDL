@@ -142,7 +142,7 @@ void CommandNetworkReset(void)
 ----------------------------------------------------------------------------*/
 void ReceivedSyncPacketCB(ubyte *packet,udword sizeofPacket)
 {
-    dbgAssert(((HWPacketHeader *)packet)->type == PACKETTYPE_SYNC);
+    dbgAssertOrIgnore(((HWPacketHeader *)packet)->type == PACKETTYPE_SYNC);
 
     LockQueue(&ProcessSyncPktQ);
     HWEnqueue(&ProcessSyncPktQ,packet,sizeofPacket);
@@ -159,7 +159,7 @@ void ReceivedSyncPacketCB(ubyte *packet,udword sizeofPacket)
 ----------------------------------------------------------------------------*/
 void ReceivedCmdPacketCB(ubyte *packet,udword sizeofPacket)
 {
-    dbgAssert(((HWPacketHeader *)packet)->type == PACKETTYPE_COMMAND);
+    dbgAssertOrIgnore(((HWPacketHeader *)packet)->type == PACKETTYPE_COMMAND);
 
     if (IAmCaptain)
     {
@@ -180,7 +180,7 @@ void ReceivedCmdPacketCB(ubyte *packet,udword sizeofPacket)
 ----------------------------------------------------------------------------*/
 void ReceivedRequestedSyncPacketCB(ubyte *packet,udword sizeofPacket)
 {
-    dbgAssert(((HWPacketHeader *)packet)->type == PACKETTYPE_REQUESTEDSYNC);
+    dbgAssertOrIgnore(((HWPacketHeader *)packet)->type == PACKETTYPE_REQUESTEDSYNC);
 
     LockQueue(&ProcessRequestedSyncPktQ);
     HWEnqueue(&ProcessRequestedSyncPktQ,packet,sizeofPacket);
@@ -197,13 +197,13 @@ void ReceivedRequestSyncPacketsPacketCB(ubyte *packet,udword sizeofPacket)
     bool gotit;
     uword sendto;
 
-    dbgAssert(((HWPacketHeader *)packet)->type == PACKETTYPE_REQUESTSYNCPKTS);
+    dbgAssertOrIgnore(((HWPacketHeader *)packet)->type == PACKETTYPE_REQUESTSYNCPKTS);
 
     frompacketnum = ((RequestSyncPacketsPacket *)packet)->packetheader.frame;
     topacketnum = ((RequestSyncPacketsPacket *)packet)->topacketnum;
     sendto = ((RequestSyncPacketsPacket *)packet)->packetheader.from;
 
-    dbgAssert(frompacketnum <= topacketnum);
+    dbgAssertOrIgnore(frompacketnum <= topacketnum);
 
     for (i=frompacketnum;i<=topacketnum;i++)
     {
@@ -241,7 +241,7 @@ void ReceivedRequestSyncPacketsPacketCB(ubyte *packet,udword sizeofPacket)
 ----------------------------------------------------------------------------*/
 void ReceivedTransferCaptaincyPacketCB(ubyte *packet,udword sizeofPacket)
 {
-    dbgAssert(((HWPacketHeader *)packet)->type == PACKETTYPE_TRANSFERCAPTAINCY);
+    dbgAssertOrIgnore(((HWPacketHeader *)packet)->type == PACKETTYPE_TRANSFERCAPTAINCY);
 
     LockQueue(&ProcessCaptaincyPktQ);
     HWEnqueue(&ProcessCaptaincyPktQ,packet,sizeofPacket);
@@ -253,7 +253,7 @@ bool checkPlayersReady(void)
     sdword i;
     bool ready = TRUE;
 
-    dbgAssert((IAmCaptain) && (!multiPlayerGameUnderWay));
+    dbgAssertOrIgnore((IAmCaptain) && (!multiPlayerGameUnderWay));
 
     for (i=0;i<sigsNumPlayers;i++)
     {
@@ -489,7 +489,7 @@ SelectCommand *convertNetSelectionToSelectCommand(NetSelection *netselection,boo
     udword i;
     uword shipPlayerIndex;
 
-    dbgAssert(numShips > 0);
+    dbgAssertOrIgnore(numShips > 0);
 
     selectCommand = memAlloc(selectCommandSize,"conv. SelCom",0);
 
@@ -550,7 +550,7 @@ AttackCommand *convertNetAttackSelectionToAttackCommand(NetAttackSelection *neta
     ResourceID resourceID;
     DerelictID derelictID;
 
-    dbgAssert(numTargets > 0);
+    dbgAssertOrIgnore(numTargets > 0);
 
     attackCommand = memAlloc(attackCommandSize,"conv. AttCom",0);
 
@@ -612,7 +612,7 @@ AttackCommand *convertNetAttackSelectionToAttackCommand(NetAttackSelection *neta
 ----------------------------------------------------------------------------*/
 bool packetSendToCaptain(ubyte *packet,udword sizeofPacket)
 {
-    dbgAssert(((HWPacketHeader *)packet)->type == PACKETTYPE_COMMAND);
+    dbgAssertOrIgnore(((HWPacketHeader *)packet)->type == PACKETTYPE_COMMAND);
 
     if (playPackets)
     {
@@ -651,8 +651,8 @@ bool packetSendToCaptain(ubyte *packet,udword sizeofPacket)
 ----------------------------------------------------------------------------*/
 bool packetBroadcastSync(ubyte *packet,udword sizeofPacket)
 {
-    dbgAssert(((HWPacketHeader *)packet)->type == PACKETTYPE_SYNC);
-    dbgAssert(IAmCaptain);
+    dbgAssertOrIgnore(((HWPacketHeader *)packet)->type == PACKETTYPE_SYNC);
+    dbgAssertOrIgnore(IAmCaptain);
 
     if (playPackets)
     {
@@ -680,7 +680,7 @@ void clSendMove(CommandLayer *comlayer,SelectCommand *selectcom,vector from,vect
     udword numShips = selectcom->numShips;
     udword i;
 
-    dbgAssert(numShips > 0);
+    dbgAssertOrIgnore(numShips > 0);
 
     sizeofPacket = sizeof(HWPacketHeader) + sizeof(HWCommandHeader) + sizeofNetMoveCommand(numShips);
 
@@ -724,7 +724,7 @@ void clSendMpHyperspace(CommandLayer *comlayer,SelectCommand *selectcom,vector f
     udword numShips = selectcom->numShips;
     udword i;
 
-    dbgAssert(numShips > 0);
+    dbgAssertOrIgnore(numShips > 0);
 
     sizeofPacket = sizeof(HWPacketHeader) + sizeof(HWCommandHeader) + sizeofNetMoveCommand(numShips);
 
@@ -771,8 +771,8 @@ void clSendAttack(CommandLayer *comlayer,SelectCommand *selectcom,AttackCommand 
     udword numShipsToAttack = attackcom->numTargets;
     udword i;
 
-    dbgAssert(numShips > 0);
-    dbgAssert(numShipsToAttack > 0);
+    dbgAssertOrIgnore(numShips > 0);
+    dbgAssertOrIgnore(numShipsToAttack > 0);
 
     sizeofPacket = sizeof(HWPacketHeader) + sizeof(HWCommandHeader) + sizeofNetAttackCommand(numShipsToAttack,numShips);
 
@@ -825,7 +825,7 @@ void clSendSpecial(CommandLayer *comlayer,SelectCommand *selectcom,SpecialComman
     sdword numShipsToTarget;
     sdword i;
 
-    dbgAssert(numShips > 0);
+    dbgAssertOrIgnore(numShips > 0);
     if (targetcom == NULL)
     {
         numShipsToTarget = 0;
@@ -933,7 +933,7 @@ void clSendDock(CommandLayer *comlayer,SelectCommand *selectcom,DockType dockTyp
     udword numShips = selectcom->numShips;
     udword i;
 
-    dbgAssert(numShips > 0);
+    dbgAssertOrIgnore(numShips > 0);
 
     sizeofPacket = sizeof(HWPacketHeader) + sizeof(HWCommandHeader) + sizeofNetDockCommand(numShips);
 
@@ -985,8 +985,8 @@ void clSendLaunchMultipleShips(CommandLayer *comlayer,SelectCommand *selectcom,S
     udword numShips = selectcom->numShips;
     udword i;
 
-    dbgAssert(numShips > 0);
-    dbgAssert(launchFrom);
+    dbgAssertOrIgnore(numShips > 0);
+    dbgAssertOrIgnore(launchFrom);
 
     sizeofPacket = sizeof(HWPacketHeader) + sizeof(HWCommandHeader) + sizeofNetLaunchMultipleCommand(numShips);
 
@@ -1030,7 +1030,7 @@ void clSendMisc(CommandLayer *comlayer,SelectCommand *selectcom,uword miscComman
     udword numShips = selectcom->numShips;
     udword i;
 
-    dbgAssert(numShips > 0);
+    dbgAssertOrIgnore(numShips > 0);
 
     sizeofPacket = sizeof(HWPacketHeader) + sizeof(HWCommandHeader) + sizeofNetMiscCommand(numShips);
 
@@ -1403,7 +1403,7 @@ void clSendCollectResource(CommandLayer *comlayer,SelectCommand *selectcom,Resou
     udword numShips = selectcom->numShips;
     udword i;
 
-    dbgAssert(numShips > 0);
+    dbgAssertOrIgnore(numShips > 0);
 
     sizeofPacket = sizeof(HWPacketHeader) + sizeof(HWCommandHeader) + sizeofNetCollectResourceCommand(numShips);
 
@@ -1456,8 +1456,8 @@ void clSendProtect(CommandLayer *comlayer,SelectCommand *selectcom,ProtectComman
     udword numShipsToProtect = protectcom->numShips;
     udword i;
 
-    dbgAssert(numShips > 0);
-    dbgAssert(numShipsToProtect > 0);
+    dbgAssertOrIgnore(numShips > 0);
+    dbgAssertOrIgnore(numShipsToProtect > 0);
 
     sizeofPacket = sizeof(HWPacketHeader) + sizeof(HWCommandHeader) + sizeofNetProtectCommand(numShipsToProtect,numShips);
 
@@ -1506,7 +1506,7 @@ void clProcessSyncPacket(CommandLayer *comlayer,ubyte *packet,udword sizeofPacke
     uword commandType;
     uword from;
 
-    dbgAssert(((HWPacketHeader *)packet)->type == PACKETTYPE_SYNC);
+    dbgAssertOrIgnore(((HWPacketHeader *)packet)->type == PACKETTYPE_SYNC);
 
     if (!playPackets)
     if (((HWPacketHeader *)packet)->frame != receivedPacketNumber)
@@ -1658,7 +1658,7 @@ void clProcessSyncPacket(CommandLayer *comlayer,ubyte *packet,udword sizeofPacke
                         clSetMilitaryParade(comlayer,miscselection);
                         break;
                     default:
-                        dbgAssert(FALSE);
+                        dbgAssertOrIgnore(FALSE);
                         break;
                 }
                 memFree(miscselection);
@@ -1785,7 +1785,7 @@ void clProcessSyncPacket(CommandLayer *comlayer,ubyte *packet,udword sizeofPacke
             break;
 
             default:
-                dbgAssert(FALSE);
+                dbgAssertOrIgnore(FALSE);
                 break;
         }
 
@@ -1845,7 +1845,7 @@ void EnterIntoLastSyncPktsQ(udword frame,HWPacketHeader *packet,udword length)
         memFree(entry->packet);
     }
 
-    dbgAssert(packet);
+    dbgAssertOrIgnore(packet);
     entry->frame = frame;
     entry->packet = packet;
     entry->length = length;
@@ -1857,7 +1857,7 @@ bool GetSyncPktFromLastSyncPktsQ(udword frame,HWPacketHeader **packet,udword *si
 {
     sdword i;
 
-    dbgAssert(frame != 0);
+    dbgAssertOrIgnore(frame != 0);
     for (i=0;i<LastSyncPktsQ_NUMBER;i++)
     {
         if (lastSyncPktsQ.circularQEntry[i].frame == frame)
@@ -1916,12 +1916,12 @@ WaitPacketStatus clWaitSyncPacket(CommandLayer *comlayer)
         else
         {
             sizeofPacket = HWDequeue(&ProcessRequestedSyncPktQ,&packet);       // actually HWDequeue it
-            dbgAssert(sizeofPacket > 0);
+            dbgAssertOrIgnore(sizeofPacket > 0);
             copypacket = memAlloc(sizeofPacket,"cp(copypacket)",Pyrophoric);
             memcpy(copypacket,packet,sizeofPacket);
             UnLockQueue(&ProcessRequestedSyncPktQ);
 
-            dbgAssert(((HWPacketHeader *)copypacket)->type == PACKETTYPE_REQUESTEDSYNC);
+            dbgAssertOrIgnore(((HWPacketHeader *)copypacket)->type == PACKETTYPE_REQUESTEDSYNC);
             ((HWPacketHeader *)copypacket)->type = PACKETTYPE_SYNC;
 
             if (((HWPacketHeader *)copypacket)->frame == explicitlyRequestingTo)
@@ -1948,7 +1948,7 @@ WaitPacketStatus clWaitSyncPacket(CommandLayer *comlayer)
     else
     {
         sizeofPacket = Peekqueue(&ProcessSyncPktQ,&packet);
-        dbgAssert(sizeofPacket > 0);
+        dbgAssertOrIgnore(sizeofPacket > 0);
         for (;;)
         {
             if (((HWPacketHeader *)packet)->from != receiveSyncPacketsFrom)
@@ -1965,7 +1965,7 @@ WaitPacketStatus clWaitSyncPacket(CommandLayer *comlayer)
             if (((HWPacketHeader *)packet)->frame == receivedPacketNumber)
             {
                 sizeofPacket = HWDequeue(&ProcessSyncPktQ,&packet);       // actually HWDequeue it
-                dbgAssert(sizeofPacket > 0);
+                dbgAssertOrIgnore(sizeofPacket > 0);
                 break;
             }
 
@@ -1988,7 +1988,7 @@ WaitPacketStatus clWaitSyncPacket(CommandLayer *comlayer)
 
 getnextpacket:
             sizeofPacket = HWDequeue(&ProcessSyncPktQ,&packet);       // actually HWDequeue it
-            dbgAssert(sizeofPacket > 0);
+            dbgAssertOrIgnore(sizeofPacket > 0);
             numPackets = queueNumberEntries(ProcessSyncPktQ);
             if (numPackets == 0)
             {
@@ -1996,7 +1996,7 @@ getnextpacket:
                 return NO_PACKET;
             }
             sizeofPacket = Peekqueue(&ProcessSyncPktQ,&packet);
-            dbgAssert(sizeofPacket > 0);
+            dbgAssertOrIgnore(sizeofPacket > 0);
         }
 
         copypacket = memAlloc(sizeofPacket,"cp(copypacket)",Pyrophoric);
@@ -2081,9 +2081,9 @@ void captainServerTask(void)
             {
                 curqinfo = &qinfos[numCommands];
                 curqinfo->qsizeof = HWDequeue(&ProcessCmdPktQ,(ubyte **)&curqinfo->qdata);
-                dbgAssert(curqinfo->qsizeof > 0);
-                dbgAssert(curqinfo->qdata != NULL);
-                dbgAssert(numCommands < qTotalNumberEntries);
+                dbgAssertOrIgnore(curqinfo->qsizeof > 0);
+                dbgAssertOrIgnore(curqinfo->qdata != NULL);
+                dbgAssertOrIgnore(numCommands < qTotalNumberEntries);
                 numCommands++;
             }
 
@@ -2100,7 +2100,7 @@ void captainServerTask(void)
                 packet = memAlloc(packetlength,"onesync",0);
                 memcpy(packet,qinfos[0].qdata,packetlength);
 
-                dbgAssert(packet->type == PACKETTYPE_COMMAND);
+                dbgAssertOrIgnore(packet->type == PACKETTYPE_COMMAND);
                 packet->numberOfCommands = 1;
             }
             else
@@ -2113,9 +2113,9 @@ void captainServerTask(void)
                     thispacket = (HWPacketHeader *)qinfos[j].qdata;
                     datalength = qinfos[j].qsizeof - sizeof(HWPacketHeader);
 
-                    dbgAssert(thispacket->type == PACKETTYPE_COMMAND);
-                    dbgAssert(datalength > 0);
-                    dbgAssert(thispacket->numberOfCommands > 0);
+                    dbgAssertOrIgnore(thispacket->type == PACKETTYPE_COMMAND);
+                    dbgAssertOrIgnore(datalength > 0);
+                    dbgAssertOrIgnore(thispacket->numberOfCommands > 0);
 
                     packetlength += datalength;
                     totalCommands += thispacket->numberOfCommands;
@@ -2195,7 +2195,7 @@ void SendTransferCaptaincyPacket(sdword playerIndex,uword subtype,udword misc,Ca
     packet.packetheader.frame = misc;
     packet.packetheader.numberOfCommands = 0;
 
-    dbgAssert(subtype < XFERCAP_NUM);
+    dbgAssertOrIgnore(subtype < XFERCAP_NUM);
     packet.subtype = subtype;
     if (custominfo)
     {
@@ -2210,7 +2210,7 @@ void SendTransferCaptaincyPacket(sdword playerIndex,uword subtype,udword misc,Ca
 
     if (playerIndex >= 0)
     {
-        dbgAssert(playerIndex < sigsNumPlayers);
+        dbgAssertOrIgnore(playerIndex < sigsNumPlayers);
         titanAnyoneSendPointMessage(playerIndex,(ubyte *)&packet,size);
     }
     else
@@ -2238,8 +2238,8 @@ void SendNonCaptainReadyPacket(udword playerIndex)
 {
     HWPacketHeader packet;
 
-    dbgAssert(!IAmCaptain);
-    dbgAssert(!CaptainNotDefined);
+    dbgAssertOrIgnore(!IAmCaptain);
+    dbgAssertOrIgnore(!CaptainNotDefined);
 
     packet.type = PACKETTYPE_NONCAPTAINREADY;
     packet.from = (uword)playerIndex;
@@ -2312,10 +2312,10 @@ void SendRequestSyncPkts(udword frompacketnum,udword topacketnum)
 {
     RequestSyncPacketsPacket packet;
 
-    dbgAssert(!IAmCaptain);
-    dbgAssert(!CaptainNotDefined);
+    dbgAssertOrIgnore(!IAmCaptain);
+    dbgAssertOrIgnore(!CaptainNotDefined);
 
-    dbgAssert(topacketnum >= frompacketnum);
+    dbgAssertOrIgnore(topacketnum >= frompacketnum);
 
     packet.packetheader.type = PACKETTYPE_REQUESTSYNCPKTS;
     packet.packetheader.from = (uword)sigsPlayerIndex;
@@ -2385,7 +2385,7 @@ void SendChatPacketPacket(ChatPacket *packet, udword sizeofpacket,udword users)
         return;
     }
 
-    dbgAssert(!(PLAYER_MASK(sigsPlayerIndex) & users));        //shouldn't be sending a message to local player...thats dumb
+    dbgAssertOrIgnore(!(PLAYER_MASK(sigsPlayerIndex) & users));        //shouldn't be sending a message to local player...thats dumb
 
     packet->bounced = FALSE;
 
@@ -2417,7 +2417,7 @@ void BroadCastChatPacketFromCapatain(ChatPacket *packet, udword sizeofpacket)
         return;
     }
 
-    dbgAssert(IAmCaptain);
+    dbgAssertOrIgnore(IAmCaptain);
 
     if (packet->bounced)
     {
@@ -2724,8 +2724,8 @@ void SendKeepAlivePacket()
 {
     HWPacketHeader packet;
 
-    dbgAssert(!CaptainNotDefined);
-    dbgAssert(!IAmCaptain);
+    dbgAssertOrIgnore(!CaptainNotDefined);
+    dbgAssertOrIgnore(!IAmCaptain);
 
     packet.type = PACKETTYPE_IAMALIVE;
     packet.from = (uword)sigsPlayerIndex;
@@ -2739,8 +2739,8 @@ void BroadcastAliveStatusPacket()
 {
     AliveStatusPacket packet;
 
-    dbgAssert(!CaptainNotDefined);
-    dbgAssert(IAmCaptain);
+    dbgAssertOrIgnore(!CaptainNotDefined);
+    dbgAssertOrIgnore(IAmCaptain);
 
     packet.packetheader.type = PACKETTYPE_ALIVESTATUS;
     packet.packetheader.from = (uword)sigsPlayerIndex;
@@ -2782,7 +2782,7 @@ void UpdateDroppedOutStatuses()
 
 void receivedAliveStatusPacket(AliveStatusPacket *packet,udword sizeofPacket)
 {
-    dbgAssert(packet->packetheader.type == PACKETTYPE_ALIVESTATUS);
+    dbgAssertOrIgnore(packet->packetheader.type == PACKETTYPE_ALIVESTATUS);
 
     LockMutex(AliveTimeoutStatusesMutex);
     memcpy(AliveStatuses,packet->alivestatus,sizeof(AliveStatuses));
@@ -2817,7 +2817,7 @@ void receivedIAmAlivePacket(HWPacketHeader *packet,udword sizeofPacket)
 {
     uword aliveplayer;
 
-    dbgAssert(packet->type == PACKETTYPE_IAMALIVE);
+    dbgAssertOrIgnore(packet->type == PACKETTYPE_IAMALIVE);
 
     aliveplayer = packet->from;
 

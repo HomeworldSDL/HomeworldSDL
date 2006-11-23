@@ -827,7 +827,7 @@ void isoundmixerqueueSDL(Uint8 *stream, int len)
 {
 	udword size_written = 0;
 
-	dbgAssert((len % MIX_BLOCK_SIZE) == 0);
+	dbgAssertOrIgnore((len % MIX_BLOCK_SIZE) == 0);
 
 	while (size_written < len) {
 		// process 256 samples, 16-bit (independent of # of channels)

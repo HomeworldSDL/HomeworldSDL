@@ -243,7 +243,7 @@ sdword AIVarToNumber(AIVar *aivar)
             }
         }
 
-        dbgAssert(FALSE);
+        dbgAssertOrIgnore(FALSE);
         return -1;
     }
 }
@@ -256,7 +256,7 @@ AIVar *NumberToAIVar(sdword number)
     }
     else
     {
-        dbgAssert(number < varsUsed);
+        dbgAssertOrIgnore(number < varsUsed);
         return vars[number];
     }
 }

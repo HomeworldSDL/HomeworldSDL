@@ -128,7 +128,7 @@ void MinelayerCorvetteFire(Ship *ship,SpaceObjRotImpTarg *target)
 
     if (guninfo == NULL)
     {
-        dbgAssert(FALSE);       //should have gun info...something is teribly wrong...
+        dbgAssertOrIgnore(FALSE);       //should have gun info...something is teribly wrong...
     }
     gun0 = ((Gun *) &(ship->gunInfo->guns[0]));
 
@@ -430,7 +430,7 @@ void MineLayerAttackRun(Ship *ship,SpaceObjRotImpTarg *target,AttackSideStep *at
             }
             break;
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             break;
     }
 

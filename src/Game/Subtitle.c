@@ -339,7 +339,7 @@ void subThemeFadeSet(char *directory, char *field, void *dataToFillIn)
     {
         dbgFatalf(DBG_Loc, "Invalid theme number %d.  Must be between 0 and %d.", iTheme, SUB_NumberThemes);
     }
-    dbgAssert(fadeTime >= 0.0f && fadeTime < 80.0f);
+    dbgAssertOrIgnore(fadeTime >= 0.0f && fadeTime < 80.0f);
 #endif
     if ((bool)dataToFillIn == FALSE)
     {
@@ -401,12 +401,12 @@ void subRegionBoundsSet(char *directory, char *field, void *dataToFillIn)
     {
         dbgFatalf(DBG_Loc, "Invalid region number %d.  Must be between 0 and %d.", iRegion, SUB_NumberRegions);
     }
-    dbgAssert(rect.x0 < 640);
-    dbgAssert(rect.x1 > 0);
-    dbgAssert(rect.y0 < 480);
-    dbgAssert(rect.y1 > 0);
-    dbgAssert(rect.x0 < rect.x1);
-    dbgAssert(rect.y0 < rect.y1);
+    dbgAssertOrIgnore(rect.x0 < 640);
+    dbgAssertOrIgnore(rect.x1 > 0);
+    dbgAssertOrIgnore(rect.y0 < 480);
+    dbgAssertOrIgnore(rect.y1 > 0);
+    dbgAssertOrIgnore(rect.x0 < rect.x1);
+    dbgAssertOrIgnore(rect.y0 < rect.y1);
 #endif
     subRegion[iRegion].defaultRect = rect;
 }
@@ -463,7 +463,7 @@ void subRegionMaxLinesSet(char *directory, char *field, void *dataToFillIn)
     {
         dbgFatalf(DBG_Loc, "Invalid region number %d.  Must be between 0 and %d.", iRegion, SUB_NumberRegions);
     }
-    dbgAssert(maxLines > 0 && maxLines < UDWORD_Max);
+    dbgAssertOrIgnore(maxLines > 0 && maxLines < UDWORD_Max);
 #endif
     subRegion[iRegion].numberCards = maxLines;
 }
@@ -572,7 +572,7 @@ void subStartup(void)
     subMissedSubtitles = 0;
 #endif
     subSemaphore = SDL_CreateSemaphore(1);
-    dbgAssert(subSemaphore != NULL);
+    dbgAssertOrIgnore(subSemaphore != NULL);
 
     memset(&subRegion, 0, sizeof(subRegion));               //clear out the themes and printing regions
     memset(&subTheme, 0, sizeof(subTheme));
@@ -584,7 +584,7 @@ void subStartup(void)
     {
         if (subRegion[index].defaultRect.x1 != 0)
         {                                                   //if a region was defined
-            dbgAssert(subRegion[index].numberCards > 0 && subRegion[index].numberCards < UWORD_Max);
+            dbgAssertOrIgnore(subRegion[index].numberCards > 0 && subRegion[index].numberCards < UWORD_Max);
             subRegion[index].card = memAlloc(sizeof(subcard) * subRegion[index].numberCards, "subTitleCards", NonVolatile);
             subRegion[index].bEnabled = TRUE;
             subRegion[index].bAborted = FALSE;
@@ -794,8 +794,8 @@ sdword subStringsChop(rectangle *rect, fonthandle font, sdword longLength, char 
             memcpy(chopBuffer + nBytesUsed, chopStart, chopEnd - chopStart);//copy the string into the buffer
             chopBuffer[nBytesUsed + chopEnd - chopStart] = 0;//NULL-terminate it
             choppedStrings[nChopped] = chopBuffer + nBytesUsed;//set pointer to the string
-            dbgAssert(nBytesUsed < SUB_SubtitleLength + SUB_MaxLinesPerSubtitle);
-            dbgAssert(nChopped < SUB_MaxLinesPerSubtitle);
+            dbgAssertOrIgnore(nBytesUsed < SUB_SubtitleLength + SUB_MaxLinesPerSubtitle);
+            dbgAssertOrIgnore(nChopped < SUB_MaxLinesPerSubtitle);
             nBytesUsed += chopEnd - chopStart + 1;          //update usage count
             nChopped++;                                     //and number of strings
 
@@ -927,7 +927,7 @@ void subCreateScrollyLines(subregion *region, subtheme *theme, sdword nStrings, 
         y += fontHeight(" ") + SUB_InterlineSpacing;        //move the next line down
     }
     region->cardIndex = index;
-    dbgAssert(region->cardIndex < region->numberCards);
+    dbgAssertOrIgnore(region->cardIndex < region->numberCards);
     if (theme->bPicture)
     {
         region->picture = theme->picture;
@@ -956,7 +956,7 @@ void subCreateNonScrollyLines(subregion *region, subtheme *theme, sdword nString
     real32 timePerPage;
     fonthandle fhSave = fontCurrentGet();
 
-    dbgAssert(nStrings != 0);
+    dbgAssertOrIgnore(nStrings != 0);
     fontMakeCurrent(theme->font);
 
     speechTime = max(speechTime, subTitleShortest);
@@ -1017,7 +1017,7 @@ void subCreateNonScrollyLines(subregion *region, subtheme *theme, sdword nString
         region->card[index].text = strings[index];
     }
     region->cardIndex = index;
-    dbgAssert(region->cardIndex < region->numberCards);
+    dbgAssertOrIgnore(region->cardIndex < region->numberCards);
     if (theme->bPicture)
     {
         region->picture = theme->picture;
@@ -1053,7 +1053,7 @@ char *subControlsScan(char *start, subregion **region, subtheme **theme, bool8 *
             case 'r':
                 start++;
                 scannedIndex = *start - '0';
-                dbgAssert(scannedIndex >= 0 && scannedIndex < SUB_NumberRegions);
+                dbgAssertOrIgnore(scannedIndex >= 0 && scannedIndex < SUB_NumberRegions);
                 *region = &subRegion[scannedIndex];
                 break;
             case 't':
@@ -1066,7 +1066,7 @@ char *subControlsScan(char *start, subregion **region, subtheme **theme, bool8 *
                 {
                     scannedIndex = 0xa + *start - 'a';
                 }
-                dbgAssert(scannedIndex >= 0 && scannedIndex < SUB_NumberThemes);
+                dbgAssertOrIgnore(scannedIndex >= 0 && scannedIndex < SUB_NumberThemes);
                 *theme = &subTheme[scannedIndex];
                 break;
             case 'c':
@@ -1145,7 +1145,7 @@ void subTitlesUpdate(void)
                    subNewSubtitles[index + 1].speechEvent == lastSpeechEvent)
             {
                 index++;
-                dbgAssert(totalLength + strlen(subNewSubtitles[index].text) < SUB_SubtitleLength);
+                dbgAssertOrIgnore(totalLength + strlen(subNewSubtitles[index].text) < SUB_SubtitleLength);
                 strcat(fullNewString, " ");                 //put a space between phrases.
                 totalLength++;
                 newString = subNewSubtitles[index].text;
@@ -1223,7 +1223,7 @@ sdword subTitleAdd(sdword actor, sdword speechEvent, char *text, sdword length, 
     SDL_SemWait(subSemaphore);            //make sure nobody else is working with the subtitle transfer buffers
     if (subNumberNewSubtitles < SUB_NumberNewSubtitles - 1)
     {
-        dbgAssert(length < SUB_SubtitleLength);
+        dbgAssertOrIgnore(length < SUB_SubtitleLength);
         subNewSubtitles[subNumberNewSubtitles].actor = actor;
         subNewSubtitles[subNumberNewSubtitles].speechEvent = speechEvent;
         subNewSubtitles[subNumberNewSubtitles].length = length;
@@ -1420,7 +1420,7 @@ void subTitlesFadeOut(subregion *region, real32 fadeTime)
     sdword index;
     subcard *card;
 
-    dbgAssert(region != NULL);
+    dbgAssertOrIgnore(region != NULL);
 
     for (index = 0, card = region->card; index < region->cardIndex; index++, card++)
     {

@@ -135,7 +135,7 @@ void uicTestTextEntry(char *name, featom *atom)
                 break;
             default:
                 break;
-                dbgAssert(FALSE);
+                dbgAssertOrIgnore(FALSE);
         }
     }
 }
@@ -458,7 +458,7 @@ void feStandardScrollBarFunction(char *string, featom *atom)
 #ifndef HW_Release
         if (listwindow->ListTotal > 0)
         {
-            dbgAssert(listwindow->topitem != NULL);
+            dbgAssertOrIgnore(listwindow->topitem != NULL);
         }
 #endif
 
@@ -479,7 +479,7 @@ void feStandardScrollBarFunction(char *string, featom *atom)
             bitClear(listwindow->windowflags,UICLW_AutoScrollOff);
         }
 
-        dbgAssert(listwindow!=NULL);
+        dbgAssertOrIgnore(listwindow!=NULL);
 #ifdef DEBUG_STOMP
         regVerify(&listwindow->reg);
 #endif
@@ -546,7 +546,7 @@ void feStandardScrollBarFunction(char *string, featom *atom)
             }
         }
 
-        dbgAssert(listwindow!=NULL);
+        dbgAssertOrIgnore(listwindow!=NULL);
 #ifdef DEBUG_STOMP
         regVerify(&listwindow->reg);
 #endif
@@ -554,7 +554,7 @@ void feStandardScrollBarFunction(char *string, featom *atom)
         break;
     case SC_Negative:
         feWheelNegative(listwindow);
-        dbgAssert(listwindow!=NULL);
+        dbgAssertOrIgnore(listwindow!=NULL);
 #ifdef DEBUG_STOMP
         regVerify(&listwindow->reg);
 #endif
@@ -562,7 +562,7 @@ void feStandardScrollBarFunction(char *string, featom *atom)
         break;
     case SC_Positive:
         feWheelPositive(listwindow);
-        dbgAssert(listwindow!=NULL);
+        dbgAssertOrIgnore(listwindow!=NULL);
 #ifdef DEBUG_STOMP
         regVerify(&listwindow->reg);
 #endif
@@ -603,7 +603,7 @@ udword feScrollBarProcess(regionhandle region, sdword ID, udword event, udword d
 
     atom = shandle->reg.atom;
 
-    dbgAssert(atom->type == FA_ScrollBar);
+    dbgAssertOrIgnore(atom->type == FA_ScrollBar);
 
     if (event == CM_ButtonClick && (atom->flags & FAF_Function))
     {
@@ -662,7 +662,7 @@ udword feListWindowProcess(regionhandle region, sdword ID, udword event, udword 
     featom *atom = (featom *)ID;
     listwindowhandle listwindow = (listwindowhandle)region;
 
-    dbgAssert(atom->type == FA_ListWindow);
+    dbgAssertOrIgnore(atom->type == FA_ListWindow);
 
     if (event == RPE_PressLeft)
     {                                                       //left press (select/add job)
@@ -704,7 +704,7 @@ udword feButtonProcess(regionhandle region, sdword ID, udword event, udword data
     featom *atom = (featom *)ID;
     felink *link;
 
-    dbgAssert(atom->type == FA_Button || atom->type == FA_ToggleButton ||
+    dbgAssertOrIgnore(atom->type == FA_Button || atom->type == FA_ToggleButton ||
               atom->type == FA_CheckBox || atom->type == FA_RadioButton ||
               atom->type == FA_BitmapButton || atom->type == FA_DragButton);
 
@@ -733,12 +733,12 @@ udword feButtonProcess(regionhandle region, sdword ID, udword event, udword data
         }
 #endif
 
-        dbgAssert(link->linkToName != NULL);                //make sure we can link
+        dbgAssertOrIgnore(link->linkToName != NULL);                //make sure we can link
         feScreenStart(feStack[feStackIndex].parentRegion, link->linkToName);          //start new screen
     }
     else if (atom->flags & FAF_Function)
     {
-        dbgAssert(atom->name != NULL);
+        dbgAssertOrIgnore(atom->name != NULL);
 #if FEF_VERBOSE_LEVEL >= 2
         dbgMessagef("\nfeButtonProcess: function button '%s' hit.", atom->name ? atom->name : "NULL");
 #endif
@@ -799,7 +799,7 @@ void feStaticTextDraw(regionhandle region)
 #endif
     }
 
-    dbgAssert(atom->pData);                                 //verify there is a string
+    dbgAssertOrIgnore(atom->pData);                                 //verify there is a string
     if (atom->flags & FAM_DropShadow)
     {
         fontShadowSet((atom->flags & FAM_DropShadow) >> FSB_DropShadow, atom->borderColor);
@@ -824,7 +824,7 @@ void feStaticRectangleDraw(regionhandle region)
 {
     featom *atom = (featom *)region->userID;
 
-    dbgAssert(atom != NULL);                                //verify there is an atom
+    dbgAssertOrIgnore(atom != NULL);                                //verify there is an atom
 
     if (bitTest(atom->flags, FAF_ContentsVisible))
     {
@@ -877,7 +877,7 @@ void feBaseRegionDraw(regionhandle region)
 {
     featom *atom = (featom *)region->userID;
 
-    dbgAssert(atom != NULL);                                //verify there is an atom
+    dbgAssertOrIgnore(atom != NULL);                                //verify there is an atom
 
 //    primRectSolid2(&region->rect, atom->contentColor);
 //    primRectOutline2(&region->rect, 3, atom->borderColor);
@@ -1052,7 +1052,7 @@ sdword feFindChildrenForARegion(regionhandle region, regionhandle *firstChild)
                     child->previous->next = child->next;
                     child->next->previous = child->previous;
                 }
-                //dbgAssert(child->child == NULL);
+                //dbgAssertOrIgnore(child->child == NULL);
                 previousPrevious = child->previous;         //remember how to continue the search
                 child->previous = NULL;
                 child->next = NULL;
@@ -1282,7 +1282,7 @@ regionhandle feRegionsAdd(regionhandle parent, fescreen *screen, bool moveToFron
 
     //first atom is always a dummy atom to form the base.
     //It will never be rendered or recieve any messages.
-    dbgAssert(screen->nAtoms >= 1);                         //make sure there is at least a blank screen
+    dbgAssertOrIgnore(screen->nAtoms >= 1);                         //make sure there is at least a blank screen
     atom = screen->atoms;
 
     baseRegion = regChildAlloc(parent, (sdword)atom, atom->x, atom->y, //create base dummy region
@@ -1595,7 +1595,7 @@ sdword feStartup(void)
 #if FEF_VERBOSE_LEVEL >= 2
     dbgMessagef("\nfeStartup: allocated %d screen pointers", feNumberScreens);
 #endif
-    dbgAssert(ghMainRegion != NULL);                        //first entry on stack (always there) is the main region
+    dbgAssertOrIgnore(ghMainRegion != NULL);                        //first entry on stack (always there) is the main region
     feStack[0].parentRegion = NULL;
     feStack[0].baseRegion = ghMainRegion;
     feStack[0].screen = NULL;
@@ -1812,7 +1812,7 @@ fibfileheader *feScreensLoad(char *fileName)
 		screen->atoms  = ( void *)LittleLong( ( udword )screen->atoms );
 #endif
 
-        dbgAssert(screen->name != NULL);                    //screens need a name
+        dbgAssertOrIgnore(screen->name != NULL);                    //screens need a name
         screen->name += (udword)loadAddress;                //fix up load address
 
         if (((udword)((ubyte *)screen->links) & 0x03) != 0)
@@ -1836,9 +1836,9 @@ fibfileheader *feScreensLoad(char *fileName)
 
             if (bitTest(screen->links[index].flags, FL_Enabled))
             {                                               //if link enabled
-                dbgAssert(screen->links[index].name);
+                dbgAssertOrIgnore(screen->links[index].name);
                 screen->links[index].name += (udword)loadAddress;//fix up the link name
-                dbgAssert(screen->links[index].linkToName);
+                dbgAssertOrIgnore(screen->links[index].linkToName);
                 screen->links[index].linkToName += (udword)loadAddress;//fix up the link name
             }
         }
@@ -1884,8 +1884,8 @@ fibfileheader *feScreensLoad(char *fileName)
         {                                                   //for each atom in screen
             screen->atoms[index].region = NULL;
             //convert 2-point rectangle to a 1 point/width/height
-            dbgAssert(screen->atoms[index].width  > screen->atoms[index].x);
-            dbgAssert(screen->atoms[index].height > screen->atoms[index].y);
+            dbgAssertOrIgnore(screen->atoms[index].width  > screen->atoms[index].x);
+            dbgAssertOrIgnore(screen->atoms[index].height > screen->atoms[index].y);
             if (screen->atoms[index].type == FA_ListWindow)
             {
                 screen->atoms[index].width -= screen->atoms[index].x + LW_BarWidth + LW_WindowXBarSpace;
@@ -1945,12 +1945,12 @@ fibfileheader *feScreensLoad(char *fileName)
                 {                                           //if static text
                     screen->atoms[index].attribs = (ubyte *)//load in the font
                         frFontRegister((char *)(screen->atoms[index].attribs + (udword)loadAddress));
-                    dbgAssert(screen->atoms[index].attribs != NULL);
+                    dbgAssertOrIgnore(screen->atoms[index].attribs != NULL);
                 }
                 if (screen->atoms[index].type == FA_BitmapButton)
                 {
                     screen->atoms[index].attribs += (udword)loadAddress;
-                    dbgAssert(screen->atoms[index].attribs != NULL);
+                    dbgAssertOrIgnore(screen->atoms[index].attribs != NULL);
                 }
             }
         }
@@ -1983,7 +1983,7 @@ sdword feCallbackAdd(char *controlName, fefunction function)
             return(feCallbackIndex);
         }
     }
-    dbgAssert(feCallbackIndex < feNumberCallbacks);
+    dbgAssertOrIgnore(feCallbackIndex < feNumberCallbacks);
     feCallback[feCallbackIndex].name = controlName;
     feCallback[feCallbackIndex].function = function;
     feCallbackIndex++;
@@ -2032,7 +2032,7 @@ sdword feDrawCallbackAdd(char *controlName, fedrawfunction function)
             return(feDrawCallbackIndex);
         }
     }
-    dbgAssert(feDrawCallbackIndex < feNumberDrawCallbacks);
+    dbgAssertOrIgnore(feDrawCallbackIndex < feNumberDrawCallbacks);
     feDrawCallback[feDrawCallbackIndex].name = controlName;
     feDrawCallback[feDrawCallbackIndex].function = function;
     feDrawCallbackIndex++;
@@ -2169,7 +2169,7 @@ sdword feScreenEntryAdd(fescreen *screen)
             return(feScreenIndex);
         }
     }
-    dbgAssert(feScreenIndex < feNumberScreens);
+    dbgAssertOrIgnore(feScreenIndex < feNumberScreens);
     feScreen[feScreenIndex] = screen;
     feScreenIndex++;
     return(feScreenIndex);
@@ -2361,7 +2361,7 @@ void feMenuItemDraw(regionhandle region)
     featom *atom = (featom *)region->userID;
 
 #if FEF_ERROR_CHECKING
-    dbgAssert(atom->type == FA_MenuItem);                   //verify correct type
+    dbgAssertOrIgnore(atom->type == FA_MenuItem);                   //verify correct type
 #endif
     if (bitTest(region->status, RSF_MouseInside))
     {                                                       //if mouse inside this menu item
@@ -2393,7 +2393,7 @@ void feDividerDraw(regionhandle region)
     sdword y;
 
 #if FEF_ERROR_CHECKING
-    dbgAssert(atom->type == FA_Divider);                    //verify correct type
+    dbgAssertOrIgnore(atom->type == FA_Divider);                    //verify correct type
 #endif
     y = (region->rect.y0 + region->rect.y1) / 2;
     primLine2(region->rect.x0, y, region->rect.x1, y, atom->borderColor);
@@ -2439,7 +2439,7 @@ regionhandle mrBottomMostAtomRegion(regionhandle baseRegion)
 {
     baseRegion = baseRegion->child;
 
-    dbgAssert(baseRegion != NULL);
+    dbgAssertOrIgnore(baseRegion != NULL);
     while (baseRegion->next != NULL)
     {
         baseRegion = baseRegion->next;
@@ -2466,7 +2466,7 @@ udword feMenuItemProcess(regionhandle region, sdword ID, udword event, udword da
     regionhandle baseRegion;
     char *name;
 
-    dbgAssert(atom->type == FA_MenuItem);
+    dbgAssertOrIgnore(atom->type == FA_MenuItem);
 
 #if FEF_VERBOSE_LEVEL >= 2
     dbgMessagef("\nfeMenuItemProcess: menu item '%s' selected.", atom->name ? atom->name : "NULL");
@@ -2508,7 +2508,7 @@ udword feMenuItemProcess(regionhandle region, sdword ID, udword event, udword da
                     return(0);
                 }
 #endif
-                dbgAssert(link->linkToName != NULL);        //make sure we can link
+                dbgAssertOrIgnore(link->linkToName != NULL);        //make sure we can link
                 screentodraw = feScreenFind(link->linkToName);
                 if (screentodraw->atoms->flags&FAF_Popup)
                 {
@@ -2543,7 +2543,7 @@ udword feMenuItemProcess(regionhandle region, sdword ID, udword event, udword da
         {                                                   //if it's the top screen
             if (event == RPE_ReleaseLeft)
             {
-                dbgAssert(atom->name != NULL);
+                dbgAssertOrIgnore(atom->name != NULL);
 #if FEF_VERBOSE_LEVEL >= 2
                 dbgMessagef("\nfeMenuItemProcess: menu item '%s' selected.", atom->name ? atom->name : "NULL");
 #endif
@@ -2668,7 +2668,7 @@ regionhandle feMenuRegionsAdd(regionhandle parent, fescreen *screen, sdword x, s
     //make the base region have alpha
     bitSet(screen->atoms[0].status, FAS_UseAlpha);
 
-    dbgAssert(screen->nAtoms >= 1);                         //make sure there is at least a blank menu
+    dbgAssertOrIgnore(screen->nAtoms >= 1);                         //make sure there is at least a blank menu
     baseRegion = regChildAlloc(parent, 0, 0, 0,             //create base dummy region
                                MAIN_WindowWidth, MAIN_WindowHeight, 0, RPE_PressLeft | RPE_PressRight);
     regSiblingMoveToFront(baseRegion);
@@ -2751,7 +2751,7 @@ regionhandle feMenuRegionsAdd(regionhandle parent, fescreen *screen, sdword x, s
             region->drawstyle[1] = atom->drawstyle[1];
         }
     }
-    dbgAssert(region != NULL);                              //base region
+    dbgAssertOrIgnore(region != NULL);                              //base region
     regFunctionSet(region, feBaseRegionProcess);
     regFilterSet(region, regFilterGet(region) | RPE_Exit);
 
@@ -2839,7 +2839,7 @@ regionhandle feMenuStart(regionhandle parent, fescreen *screen, sdword x, sdword
 //    fescreen *newScreen;
 
 #if FEF_ERROR_CHECKING
-    dbgAssert(screen != NULL);
+    dbgAssertOrIgnore(screen != NULL);
     if (feStack[feStackIndex].screen != NULL)
     {
         if (feNamesEqual(screen->name, feStack[feStackIndex].screen->name))
@@ -3088,7 +3088,7 @@ void feAllMenusDelete(void)
 fescreen *feScreenPush(void)
 {
 #if FEF_ERROR_CHECKING
-    dbgAssert(feStackIndex < FE_StackDepth);
+    dbgAssertOrIgnore(feStackIndex < FE_StackDepth);
 #endif
     feStackIndex++;                                         //allocate new entry
     feStack[feStackIndex].screen = NULL;                    //clear out the entry
@@ -3110,7 +3110,7 @@ fescreen *feScreenPop(void)
 {
     fescreen *returnValue;
 #if FEF_ERROR_CHECKING
-    dbgAssert(feStackIndex > 0);                            //can't pop the bottom of stack
+    dbgAssertOrIgnore(feStackIndex > 0);                            //can't pop the bottom of stack
 #endif
 #if FEF_VERBOSE_LEVEL >= 1
     dbgMessagef("\nfeScreenPop: popped screen %d", feStackIndex);
@@ -3157,7 +3157,7 @@ void feRadioButtonSet(char *name, sdword index)
             break;
         }
     }
-    dbgAssert(atom != NULL);
+    dbgAssertOrIgnore(atom != NULL);
 
     do
     {

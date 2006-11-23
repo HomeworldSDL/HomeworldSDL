@@ -196,9 +196,9 @@ void colPickScalarScan(char *directory,char *field,void *dataToFillIn)
     }
     sscanf(field, "%2s,%f,%f", raceString, &hue, &val);
     race = StrToShipRace(raceString);
-    dbgAssert(race >= 0 && race < NUM_RACES);
-    dbgAssert(hue >= 0.0f && hue <= 1.0f);
-    dbgAssert(val >= 0.0f && val <= 2.0f);
+    dbgAssertOrIgnore(race >= 0 && race < NUM_RACES);
+    dbgAssertOrIgnore(hue >= 0.0f && hue <= 1.0f);
+    dbgAssertOrIgnore(val >= 0.0f && val <= 2.0f);
     index = race * 2 + add;
     colPickScalarCurve[index].hue = memRealloc(colPickScalarCurve[index].hue,
             (colPickScalarCurve[index].num + 1) * sizeof(real32), "huescalar0", NonVolatile);
@@ -206,7 +206,7 @@ void colPickScalarScan(char *directory,char *field,void *dataToFillIn)
             (colPickScalarCurve[index].num + 1) * sizeof(real32), "valscalar0", NonVolatile);
     if (colPickScalarCurve[index].num > 1)
     {
-        dbgAssert(hue > colPickScalarCurve[index].hue[colPickScalarCurve[index].num - 1]);
+        dbgAssertOrIgnore(hue > colPickScalarCurve[index].hue[colPickScalarCurve[index].num - 1]);
     }
     colPickScalarCurve[index].hue[colPickScalarCurve[index].num] = hue;
     colPickScalarCurve[index].val[colPickScalarCurve[index].num] = val;
@@ -405,7 +405,7 @@ void cpPreviewTexturePrepare(void)
     scalar0 = cpScalarFromCurveGet(&colPickScalarCurve[whichRaceSelected * 2], colUbyteToReal(cpBaseHue), colUbyteToReal(cpBaseSaturation), colUbyteToReal(cpBaseValue));
     scalar1 = cpScalarFromCurveGet(&colPickScalarCurve[whichRaceSelected * 2 + 1], colUbyteToReal(cpStripeHue), colUbyteToReal(cpStripeSaturation), colUbyteToReal(cpStripeValue));
     //colorize the palette for the preview image
-    dbgAssert(cpPreviewTexturePalette != NULL);
+    dbgAssertOrIgnore(cpPreviewTexturePalette != NULL);
     trBufferColorRGB(cpPreviewTexturePalette, (color *)cpPreviewImage->palette,
                      cpPreviewImage->teamEffect0, cpPreviewImage->teamEffect1,
                      colRGB(cpBaseRed, cpBaseGreen, cpBaseBlue), colRGB(cpStripeRed, cpStripeGreen, cpStripeBlue),
@@ -450,7 +450,7 @@ void cpPreviewImagePrepare(void)
         fileName = CP_PreviewImageRace2;
     }
     cpPreviewImage = trLIFFileLoad(fileName, NonVolatile);
-    dbgAssert(cpPreviewImage->flags & TRF_Paletted);
+    dbgAssertOrIgnore(cpPreviewImage->flags & TRF_Paletted);
     if (cpPreviewTexturePalette == NULL)
     {
         cpPreviewTexturePalette = memAlloc(TR_PaletteSize, "PreviewPalette", 0);
@@ -751,7 +751,7 @@ void cpPreviousColor(char *name, featom *atom)
     color *buffer;
 
     sscanf(name, "CP_Previous%d", &index);
-    dbgAssert(index >= 0 && index < CP_NumberPreviousColors);
+    dbgAssertOrIgnore(index >= 0 && index < CP_NumberPreviousColors);
     if (colPreviousColors[index].base != colBlack)
     {                                                       //if this color was set properly
         cpColorsUpdate(colPreviousColors[index].base, colPreviousColors[index].detail);
@@ -1425,7 +1425,7 @@ real32 cpScalarFromCurveGet(colpickcurve *curve, real32 hue, real32 sat, real32 
             return(factor * curve->val[index] + oneMinusFactor * curve->val[index + 1]);
         }
     }
-    dbgAssert(FALSE);
+    dbgAssertOrIgnore(FALSE);
 
     return 0.0f;
 }
@@ -1444,7 +1444,7 @@ void cpTeamEffectScalars(real32 *scalar0, real32 *scalar1, color c0, color c1, S
 {
     real32 red, green, blue, hue, sat, val;
 
-    dbgAssert(race >= 0 && race < NUM_RACES);
+    dbgAssertOrIgnore(race >= 0 && race < NUM_RACES);
     red = colUbyteToReal(colRed(c0));                       //get floating-point colors
     green = colUbyteToReal(colGreen(c0));
     blue = colUbyteToReal(colBlue(c0));

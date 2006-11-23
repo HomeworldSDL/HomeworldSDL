@@ -66,7 +66,7 @@ void aifInit(AIPlayer *aiplayer)
         case AI_BEGINNER:
             break;
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
     }
 
 }
@@ -296,7 +296,7 @@ ShipStaticInfo *GetSubstituteShipStatic(ShipRace race)
             break;
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
     }
 
     if (shipstatic)
@@ -468,7 +468,7 @@ void aifBuildRequestedShips(RequestShips *scriptrequest,RequestShips *attrequest
             defrequest->num_ships--;
         }
 
-        dbgAssert(RUsLeft >= 0);
+        dbgAssertOrIgnore(RUsLeft >= 0);
     }
     else
     {
@@ -608,7 +608,7 @@ void aifAttackManRequestsShipsCB(ShipType shiptype,sdword number,sdword priority
     // add requests to Q
     RequestShips *requestShips = memAlloc(sizeof(RequestShips),"attackreqships",0);
 
-    dbgAssert(number > 0);
+    dbgAssertOrIgnore(number > 0);
 
     requestShips->shiptype  = shiptype;
     requestShips->num_ships = number;
@@ -630,7 +630,7 @@ void aifDefenseManRequestsShipsCB(ShipType shiptype,sdword number,sdword priorit
     // add requests to Q
     RequestShips *requestShips = memAlloc(sizeof(RequestShips),"defreqships",0);
 
-    dbgAssert(number > 0);
+    dbgAssertOrIgnore(number > 0);
 
     requestShips->shiptype  = shiptype;
     requestShips->num_ships = number;
@@ -652,7 +652,7 @@ void aifScriptManRequestsShipsCB(ShipType shiptype,sdword number,sdword priority
     // add requests to Q
     RequestShips *requestShips = memAlloc(sizeof(RequestShips),"defreqships",0);
 
-    dbgAssert(number > 0);
+    dbgAssertOrIgnore(number > 0);
 
     requestShips->shiptype  = shiptype;
     requestShips->num_ships = number;
@@ -671,7 +671,7 @@ void aifScriptManRequestsShipsCB(ShipType shiptype,sdword number,sdword priority
 
 void aifResourceManRequestsShipsCB(ShipType shiptype,sdword number,sdword priority)
 {
-    dbgAssert(number > 0);
+    dbgAssertOrIgnore(number > 0);
 
     aiCurrentAIPlayer->ResourceManRequestShips.shiptype = shiptype;
     aiCurrentAIPlayer->ResourceManRequestShips.num_ships = number;
@@ -684,7 +684,7 @@ void aifResourceManRequestsShipsCB(ShipType shiptype,sdword number,sdword priori
             (twaiting)->shiptype = (stype);                                                 \
             (twaiting)->num_ships = (nships);                                               \
             (twaiting)->team = (tm);                                                        \
-            dbgAssert(strlen(dSetVar) <= AIVAR_LABEL_MAX_LENGTH);                           \
+            dbgAssertOrIgnore(strlen(dSetVar) <= AIVAR_LABEL_MAX_LENGTH);                           \
             strcpy((twaiting)->doneSetVarStr,(dSetVar))
 
 void aifTeamRequestsShipsCB(ShipType shiptype,sdword number,AITeam *team,char *doneSetVar, sdword priority)
@@ -742,7 +742,7 @@ void aifTeamRequestsShipsCB(ShipType shiptype,sdword number,AITeam *team,char *d
 
         case ResourceTeam:
         default:
-            dbgAssert(FALSE);       // not supported yet
+            dbgAssertOrIgnore(FALSE);       // not supported yet
             break;
     }
 }
@@ -820,7 +820,7 @@ bool checkAddToTeam(LinkedList *TeamWaitingQ,Ship *ship)
     {
         teamWaiting = (TeamWaitingForTheseShips *)listGetStructOfNode(node);
 
-        dbgAssert(teamWaiting->num_ships > 0);
+        dbgAssertOrIgnore(teamWaiting->num_ships > 0);
         if (teamWaiting->shiptype == ship->shiptype)
         {
             teamWaiting->num_ships--;
@@ -922,7 +922,7 @@ void aifProcessShipBuildRequests(void)
         if (attrequest)
         {
             oldattnumships = attrequest->num_ships;
-            dbgAssert(oldattnumships > 0);
+            dbgAssertOrIgnore(oldattnumships > 0);
         }
     }
 
@@ -962,7 +962,7 @@ void aifProcessShipBuildRequests(void)
         if (defrequest)
         {
             olddefnumships = defrequest->num_ships;
-            dbgAssert(olddefnumships > 0);
+            dbgAssertOrIgnore(olddefnumships > 0);
         }
     }
 
@@ -972,7 +972,7 @@ void aifProcessShipBuildRequests(void)
     {
         scriptrequest     = (RequestShips *)listGetStructOfNode(aiCurrentAIPlayer->ScriptManRequestShipsQ.head);
         oldscriptnumships = scriptrequest->num_ships;
-        dbgAssert(oldscriptnumships > 0);
+        dbgAssertOrIgnore(oldscriptnumships > 0);
     }
 
     //go through the queues to find more stuff to research if needed
@@ -1001,10 +1001,10 @@ void aifProcessShipBuildRequests(void)
     if (scriptrequest != NULL)
     {
         // check and see if we built any ships, and if we should remove from Q
-//        dbgAssert(scriptrequest->num_ships >= 0);
+//        dbgAssertOrIgnore(scriptrequest->num_ships >= 0);
         if (oldscriptnumships != scriptrequest->num_ships)
         {
-            dbgAssert((oldscriptnumships - scriptrequest->num_ships) > 0);
+            dbgAssertOrIgnore((oldscriptnumships - scriptrequest->num_ships) > 0);
             aiCurrentAIPlayer->ScriptManShipsBeingBuilt.NumShipsOfType[scriptrequest->shiptype] += (ubyte)(oldscriptnumships - scriptrequest->num_ships);
         }
 
@@ -1018,10 +1018,10 @@ void aifProcessShipBuildRequests(void)
     if (attrequest != NULL)
     {
         // check and see if we built any ships, and if we should remove from Q
-//        dbgAssert(attrequest->num_ships >= 0);
+//        dbgAssertOrIgnore(attrequest->num_ships >= 0);
         if (oldattnumships != attrequest->num_ships)
         {
-            dbgAssert((oldattnumships - attrequest->num_ships) > 0);
+            dbgAssertOrIgnore((oldattnumships - attrequest->num_ships) > 0);
             aiCurrentAIPlayer->AttackManShipsBeingBuilt.NumShipsOfType[attrequest->shiptype] += (ubyte)(oldattnumships - attrequest->num_ships);
         }
 
@@ -1035,10 +1035,10 @@ void aifProcessShipBuildRequests(void)
     if (defrequest != NULL)
     {
         // check and see if we built any ships, and if we should remove from Q
-//        dbgAssert(defrequest->num_ships >= 0);
+//        dbgAssertOrIgnore(defrequest->num_ships >= 0);
         if (olddefnumships != defrequest->num_ships)
         {
-            dbgAssert((olddefnumships - defrequest->num_ships) > 0);
+            dbgAssertOrIgnore((olddefnumships - defrequest->num_ships) > 0);
             aiCurrentAIPlayer->DefenseManShipsBeingBuilt.NumShipsOfType[defrequest->shiptype] += (ubyte)(olddefnumships - defrequest->num_ships);
         }
 

@@ -590,7 +590,7 @@ void attackSideStep(Ship *ship,SpaceObjRotImpTarg *target,AttackSideStep *attack
             break;
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             break;
     }
 

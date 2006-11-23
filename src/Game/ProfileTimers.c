@@ -131,7 +131,7 @@ void profTimerRecord(sdword timer)
         rec->samples = memRealloc(rec->samples,sizeof(sdword)*rec->numSamplesAllocated,"recproftimers",0);
     }
 
-    dbgAssert(rec->numSamples < rec->numSamplesAllocated);
+    dbgAssertOrIgnore(rec->numSamples < rec->numSamplesAllocated);
     rec->samples[rec->numSamples++] = duration;
 }
 

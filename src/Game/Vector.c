@@ -349,7 +349,7 @@ void vecLineIntersectWithPlane(vector *dest, vector *Vplane, vector *Vnormal, ve
     vector temp;
 
     value = vecDotProduct(*Vdirection, *Vnormal);
-    dbgAssert(value != 0.0f);
+    dbgAssertOrIgnore(value != 0.0f);
 
     vecSub(temp, *Vline, *Vplane);
 

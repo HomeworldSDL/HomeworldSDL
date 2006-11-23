@@ -53,7 +53,7 @@ void hashDeleteTable(hashtable* table)
     hash_t* entry;
     hash_t* next;
 
-    dbgAssert(table != NULL);
+    dbgAssertOrIgnore(table != NULL);
 
     for (i = 0; i < table->size; i++)
     {
@@ -82,7 +82,7 @@ void* hashLookup(hashtable const* table, udword key)
     udword pos;
     hash_t* entry;
 
-    dbgAssert(table != NULL);
+    dbgAssertOrIgnore(table != NULL);
 
     if (key == 0)
         return NULL;
@@ -115,7 +115,7 @@ void hashInsert(hashtable* table, udword key, void* data)
     udword pos;
     hash_t* entry;
 
-    dbgAssert(table != NULL);
+    dbgAssertOrIgnore(table != NULL);
 
     if (key == 0)
         return;
@@ -161,8 +161,8 @@ void hashRemove(hashtable* table, udword key)
     udword pos;
     hash_t *entry, *prev;
 
-    dbgAssert(table != NULL);
-    dbgAssert(key != 0);
+    dbgAssertOrIgnore(table != NULL);
+    dbgAssertOrIgnore(key != 0);
 
     pos = key % table->size;
     prev = NULL;

@@ -617,8 +617,8 @@ void EnableComputerPlayers(char *string)
         if ((*scanning >= '0') && (*scanning <= '9'))
         {
             index = (char)(*scanning - '0');
-            dbgAssert(index < MAX_MULTIPLAYER_PLAYERS);
-            dbgAssert(index >= 0);
+            dbgAssertOrIgnore(index < MAX_MULTIPLAYER_PLAYERS);
+            dbgAssertOrIgnore(index >= 0);
 
             ComputerPlayerEnabled[index] = TRUE;
         }
@@ -646,8 +646,8 @@ bool SetAIPlayerLevels(char *string)
         if ((*scanning >= '0') && (*scanning <= '9'))
         {
             level = (char)(*scanning - '0');
-            dbgAssert(level < (char)AI_NUM_LEVELS);
-            dbgAssert(level >= 0);
+            dbgAssertOrIgnore(level < (char)AI_NUM_LEVELS);
+            dbgAssertOrIgnore(level >= 0);
 
             ComputerPlayerLevel[i] = level;
             i++;
@@ -1344,7 +1344,7 @@ sdword ProcessCommandLine (int argc, char* argv[])
             }
             if (!strcasecmp(string, commandOptions[index].parameter))
             {                                               //if this is the correct option
-                dbgAssert(commandOptions[index].variableToModify || commandOptions[index].function);
+                dbgAssertOrIgnore(commandOptions[index].variableToModify || commandOptions[index].function);
                 if (commandOptions[index].variableToModify != NULL)
                 {                                           //set a variable if applicable
                     *((udword *)(commandOptions[index].variableToModify)) = commandOptions[index].valueToSet;
@@ -2467,7 +2467,7 @@ sdword HandleEvent (const SDL_Event* pEvent)
     static Uint32 mbDownTime[3] = { 0, 0, 0 };
     static Uint8 mbDouble[3] = { 0, 0, 0 };
 
-    dbgAssert(pEvent);
+    dbgAssertOrIgnore(pEvent);
 
 #if MAIN_PRINT_MESSAGES
     dbgMessagef("\nEvent type = 0x%hhx", pEvent->type);

@@ -293,13 +293,13 @@ udword GetRandomResourceType(ResourceDistribution *resourceDistribution,bool reg
             return i;
         }
     }
-    dbgAssert(FALSE);
+    dbgAssertOrIgnore(FALSE);
     return 0;
 }
 
 void AddRandomRotationToAsteroid(Asteroid *asteroid)
 {
-    dbgAssert(asteroid->asteroidtype < NUM_ASTEROIDTYPES);
+    dbgAssertOrIgnore(asteroid->asteroidtype < NUM_ASTEROIDTYPES);
     if (asteroid->asteroidtype >= Asteroid3)
     if (((udword)(gamerand() & 255)) <= ASTEROID_ROTATE_PROB)
     {
@@ -358,7 +358,7 @@ bool AddResourceToVolumeAtPosition(struct ResourceVolume *volume,bool regrowing,
             Asteroid *asteroid;
             AsteroidType asteroidtype;
             asteroidtype = (AsteroidType)GetRandomResourceType(&volume->resourceDistribution,regrowing);
-            dbgAssert(asteroidtype < NUM_ASTEROIDTYPES);
+            dbgAssertOrIgnore(asteroidtype < NUM_ASTEROIDTYPES);
 
             if (regrowing)
             {
@@ -399,7 +399,7 @@ bool AddResourceToVolumeAtPosition(struct ResourceVolume *volume,bool regrowing,
             DustCloud *dustcloud;
             DustCloudType dusttype;
             dusttype = (DustCloudType)GetRandomResourceType(&volume->resourceDistribution,regrowing);
-            dbgAssert(dusttype < NUM_DUSTCLOUDTYPES);
+            dbgAssertOrIgnore(dusttype < NUM_DUSTCLOUDTYPES);
             dustcloud = univAddDustCloud(dusttype,position);
             dustcloud->attributes = volume->attributes;
             dustcloud->attributesParam = volume->attributesParam;
@@ -415,7 +415,7 @@ bool AddResourceToVolumeAtPosition(struct ResourceVolume *volume,bool regrowing,
             GasCloud *gascloud;
             GasCloudType gastype;
             gastype = (GasCloudType)GetRandomResourceType(&volume->resourceDistribution,regrowing);
-            dbgAssert(gastype < NUM_GASCLOUDTYPES);
+            dbgAssertOrIgnore(gastype < NUM_GASCLOUDTYPES);
             gascloud = univAddGasCloud(gastype,position);
             gascloud->attributes = volume->attributes;
             gascloud->attributesParam = volume->attributesParam;
@@ -444,7 +444,7 @@ bool AddResourceToRectangle(struct ResourceVolume *rectangle,bool regrowing)
     vector position2;
     vector finalpos;
 
-    dbgAssert(rectangle->resourceVolumeType == ResourceRectangleType);
+    dbgAssertOrIgnore(rectangle->resourceVolumeType == ResourceRectangleType);
 
     position1.x = frandombetween(-width,width);
     position1.y = frandombetween(-length,length);
@@ -463,7 +463,7 @@ static void AddRectangle(ResourceVolume *rectangle)
 {
     sdword i;
 
-    dbgAssert(rectangle->resourceVolumeType == ResourceRectangleType);
+    dbgAssertOrIgnore(rectangle->resourceVolumeType == ResourceRectangleType);
 
     for (i=0;i<rectangle->number;i++)
     {
@@ -496,7 +496,7 @@ bool AddResourceToCylinder(struct ResourceVolume *cylinder,bool regrowing)
 
     vector finalpos;
 
-    dbgAssert(cylinder->resourceVolumeType == ResourceCylinderType);
+    dbgAssertOrIgnore(cylinder->resourceVolumeType == ResourceCylinderType);
 
     matMakeRotAboutY(&rotymat,(real32)cos(rotabouty),(real32)sin(rotabouty));
     matMakeRotAboutZ(&rotzmat,(real32)cos(rotaboutz),(real32)sin(rotaboutz));
@@ -517,7 +517,7 @@ static void AddCylinder(ResourceVolume *cylinder)
 {
     sdword i;
 
-    dbgAssert(cylinder->resourceVolumeType == ResourceCylinderType);
+    dbgAssertOrIgnore(cylinder->resourceVolumeType == ResourceCylinderType);
 
     for (i=0;i<cylinder->number;i++)
     {
@@ -540,7 +540,7 @@ bool AddResourceToSphere(struct ResourceVolume *sphere,bool regrowing)
     real32 radius;
     vector randpos;
 
-    dbgAssert(sphere->resourceVolumeType == ResourceSphereType);
+    dbgAssertOrIgnore(sphere->resourceVolumeType == ResourceSphereType);
 
     diameter = sphere->radius * 2.0f;
     radius = sphere->radius;
@@ -576,7 +576,7 @@ static void AddSphere(ResourceVolume *sphere)
 {
     sdword i;
 
-    dbgAssert(sphere->resourceVolumeType == ResourceSphereType);
+    dbgAssertOrIgnore(sphere->resourceVolumeType == ResourceSphereType);
 
     for (i=0;i<sphere->number;i++)
     {
@@ -616,7 +616,7 @@ static void scriptSetResourcesCB(char *directory,char *field,void *dataToFillIn)
     sscanf(field,"%s %f %f %f %s %s %d %f %f %f %f %d %d",resourcetypestr,&position.x,&position.y,&position.z,layoutstr,distributionstr,
                                               &numAsteroids,&radius,&length,&roty,&rotz,&attributes,&attributesParam);
 
-    dbgAssert(attributesParam <= SWORD_Max && attributesParam >= SWORD_Min);
+    dbgAssertOrIgnore(attributesParam <= SWORD_Max && attributesParam >= SWORD_Min);
     if ((distributionstr[0] == '0') && (distributionstr[1] == 0))
     {
         dbgFatalf(DBG_Loc,"No distribution specified in %s %s",directory,field);
@@ -748,7 +748,7 @@ static void scriptSetDerelictCB(char *directory,char *field,void *dataToFillIn)
 
     miscStr[0] = 0;
     sscanf(field,"%s %f %f %f %f %f %d %d %s",derelicttypestr,&position.x,&position.y,&position.z,&roty,&rotz,&attributes,&attributesParam,miscStr);
-    dbgAssert(attributesParam <= SWORD_Max && attributesParam >= SWORD_Min);
+    dbgAssertOrIgnore(attributesParam <= SWORD_Max && attributesParam >= SWORD_Min);
     roty = -DEG_TO_RAD(roty);
     rotz = DEG_TO_RAD(rotz);
 
@@ -811,7 +811,7 @@ static void scriptSetDerelictCB(char *directory,char *field,void *dataToFillIn)
     if (strstr(miscStr, "colorScheme") == miscStr)
     {
         sscanf(miscStr, "colorScheme(%d)", &colorScheme);
-        dbgAssert(colorScheme >= 0 && colorScheme < MAX_MULTIPLAYER_PLAYERS);
+        dbgAssertOrIgnore(colorScheme >= 0 && colorScheme < MAX_MULTIPLAYER_PLAYERS);
         derelict->colorScheme = colorScheme;
     }
 }
@@ -822,7 +822,7 @@ ShipType GetAppropriateShipTypeForRace(ShipType request,ShipRace shiprace)
 {
     ShipType shiptype = request;
 
-    dbgAssert((shiprace == R1) || (shiprace == R2));
+    dbgAssertOrIgnore((shiprace == R1) || (shiprace == R2));
 
     if ((RacesAllowedForGivenShip[shiptype] & RaceToRaceBits(shiprace)) == 0)
     {
@@ -845,7 +845,7 @@ ShipType GetAppropriateShipTypeForRace(ShipType request,ShipRace shiprace)
                 shiptype = DDDFrigate;
                 break;
         }
-        dbgAssert(RacesAllowedForGivenShip[shiptype] & RaceToRaceBits(shiprace));
+        dbgAssertOrIgnore(RacesAllowedForGivenShip[shiptype] & RaceToRaceBits(shiprace));
     }
 
     return shiptype;
@@ -889,7 +889,7 @@ bool PlayerDoesntHaveCapturableCapitalShip(Player *player)
     for (node=universe.ShipList.head;node != NULL;node=node->next)
     {
         ship = (Ship *)listGetStructOfNode(node);
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         if (ship->playerowner == player)
         {
@@ -912,7 +912,7 @@ void GivePlayerCapitalShip(Player *player)
     if (player->PlayerMothership)
     {
         ShipStaticInfo *testStatic = GetShipStaticInfo(shiptype,shiprace);
-        dbgAssert(bitTest(testStatic->staticheader.infoFlags, IF_InfoLoaded));  // we want it to crash if ship not loaded
+        dbgAssertOrIgnore(bitTest(testStatic->staticheader.infoFlags, IF_InfoLoaded));  // we want it to crash if ship not loaded
         {
             vector zerovector = { 0.0f, 0.0f, 0.0f };
             ship = univAddShip(shiptype,shiprace,&zerovector,player,0);
@@ -1004,7 +1004,7 @@ static void scriptSetShipsCB(char *directory,char *field,void *dataToFillIn)
 
     miscstr[0] = 0;
     sscanf(field + fieldStart,"%f %f %f %f %s %s %d %s %d %d %d",&position.x,&position.y,&position.z,&rot,racestr,shiptypestr,&numShips,miscstr,&attributes,&attributesParam,&numShipsUpper);
-    dbgAssert(attributesParam <= SWORD_Max && attributesParam >= SWORD_Min);
+    dbgAssertOrIgnore(attributesParam <= SWORD_Max && attributesParam >= SWORD_Min);
     rot = DEG_TO_RAD(rot);
 
     if (!singlePlayerGame)
@@ -1034,14 +1034,14 @@ static void scriptSetShipsCB(char *directory,char *field,void *dataToFillIn)
     {
         dbgFatalf(DBG_Loc,"Bad shiprace in %s",field);
     }
-    dbgAssert(shiprace != -1);
+    dbgAssertOrIgnore(shiprace != -1);
 
     shiptype = StrToShipType(shiptypestr);
     if (!((shiptype >= 0) && (shiptype < TOTAL_NUM_SHIPS)))
     {
         dbgFatalf(DBG_Loc,"Bad shiptype in %s",field);
     }
-    dbgAssert(shiptype != -1);
+    dbgAssertOrIgnore(shiptype != -1);
 
     if (singlePlayerGame && (shiptype == CryoTray))
     {
@@ -1103,7 +1103,7 @@ static void scriptSetShipsCB(char *directory,char *field,void *dataToFillIn)
             else if (strstr(miscPointer, "colorScheme") == miscPointer)
             {
                 sscanf(miscPointer, "colorScheme(%d)", &colorScheme);
-                dbgAssert(colorScheme >= 0 && colorScheme < MAX_MULTIPLAYER_PLAYERS);
+                dbgAssertOrIgnore(colorScheme >= 0 && colorScheme < MAX_MULTIPLAYER_PLAYERS);
             }
             else if ((miscPointer[0] != '0') && (miscPointer[0] != '?'))
             {
@@ -1144,7 +1144,7 @@ static void scriptSetShipsCB(char *directory,char *field,void *dataToFillIn)
             sdword slab = 0;
             real32 roll = 0.0f;
             ShipStaticInfo *testStatic = GetShipStaticInfo(shiptype,shiprace);
-            dbgAssert(bitTest(testStatic->staticheader.infoFlags, IF_InfoLoaded)); // we want it to crash if ship not loaded
+            dbgAssertOrIgnore(bitTest(testStatic->staticheader.infoFlags, IF_InfoLoaded)); // we want it to crash if ship not loaded
             {
                 //if info for this ship isn't loaded, we'll skip trying to add it
                 for (slab=0;slab<8;slab++,roll+=(TWOPI/8))
@@ -1174,7 +1174,7 @@ static void scriptSetShipsCB(char *directory,char *field,void *dataToFillIn)
         {
             {
                 ShipStaticInfo *testStatic = GetShipStaticInfo(shiptype,shiprace);
-                dbgAssert(bitTest(testStatic->staticheader.infoFlags, IF_InfoLoaded)); // we want it to crash if ship not loaded
+                dbgAssertOrIgnore(bitTest(testStatic->staticheader.infoFlags, IF_InfoLoaded)); // we want it to crash if ship not loaded
                 {
                     ship = univAddShip(shiptype,shiprace,&rotatedposition,player,0);
                     gameStatsAddShip(ship,player->playerIndex);
@@ -1250,7 +1250,7 @@ static void scriptSetShipsCB(char *directory,char *field,void *dataToFillIn)
             for (i=0;i<numShips;i++)
             {
                 ShipStaticInfo *testStatic = GetShipStaticInfo(shiptype,shiprace);
-                dbgAssert(bitTest(testStatic->staticheader.infoFlags, IF_InfoLoaded)); // we want it to crash if ship not loaded
+                dbgAssertOrIgnore(bitTest(testStatic->staticheader.infoFlags, IF_InfoLoaded)); // we want it to crash if ship not loaded
                 {
                     ship = univAddShip(shiptype,shiprace,&rotatedposition,player,0);
                     gameStatsAddShip(ship,player->playerIndex);
@@ -1314,7 +1314,7 @@ static void scriptSetShipsCB(char *directory,char *field,void *dataToFillIn)
             for (i=0;i<numShips;i++)
             {
                 ShipStaticInfo *testStatic = GetShipStaticInfo(shiptype,shiprace);
-                dbgAssert(bitTest(testStatic->staticheader.infoFlags, IF_InfoLoaded));  // we want it to crash if ship not loaded
+                dbgAssertOrIgnore(bitTest(testStatic->staticheader.infoFlags, IF_InfoLoaded));  // we want it to crash if ship not loaded
                 {
                     ship = univAddShip(shiptype,shiprace,&rotatedposition,player,0);
                     gameStatsAddShip(ship,player->playerIndex);
@@ -1616,7 +1616,7 @@ static void scriptSetMissionSphereCB(char *directory,char *field,void *dataToFil
                                                   &sphererotz,contents,&startingResourceUnits);
     }
 
-    dbgAssert(playerNumber < numPlayers);
+    dbgAssertOrIgnore(playerNumber < numPlayers);
     shiprace = StrToShipRace(raceName);
 
     if ((playerNumber >= 0) && (!(tutorial==TUTORIAL_ONLY)))
@@ -1725,7 +1725,7 @@ static void scriptPreMissionSphereCB(char *directory,char *field,void *dataToFil
                                                   &sphererotz,contents,&startingResourceUnits);
     }
 
-    dbgAssert(playerNumber < numPlayers);
+    dbgAssertOrIgnore(playerNumber < numPlayers);
     shiprace = StrToShipRace(raceName);
 
     if ((singlePlayerGame) && (!(tutorial==TUTORIAL_ONLY)))
@@ -1868,7 +1868,7 @@ void SetTeamColorForShipAndRelatedStaticInfo(ShipType type,ShipRace race,bool8 s
     else if (type == DDDFrigate)
     {
         ShipStaticInfo *ss;
-        dbgAssert(race == R1);
+        dbgAssertOrIgnore(race == R1);
         ss = GetShipStaticInfo(Drone,R1);
         memcpy(ss->teamColor, schemes, sizeof(ss->teamColor));
     }
@@ -1894,9 +1894,9 @@ static void llExcludeShip(char *directory,char *field,void *dataToFillIn)
 
     //parse the race
     string = strtok(field, llDelimiters);
-    dbgAssert(string != NULL);
+    dbgAssertOrIgnore(string != NULL);
     race = StrToShipRace(string);
-    dbgAssert(race != 0xffffffff);
+    dbgAssertOrIgnore(race != 0xffffffff);
     if (singlePlayerGame || tutorial)
     {
         race = GetSinglePlayerRaceEquivalent(race);
@@ -1904,7 +1904,7 @@ static void llExcludeShip(char *directory,char *field,void *dataToFillIn)
 
     //parse the ship type
     string = strtok(NULL, llDelimiters);
-    dbgAssert(string != NULL);
+    dbgAssertOrIgnore(string != NULL);
     if (strcasecmp(string, "ALL") == 0)
     {                                                       //if we should do this to all ships for this race
         universeFlagRaceNeeded(race, (bool8)(size_t)dataToFillIn);
@@ -1912,7 +1912,7 @@ static void llExcludeShip(char *directory,char *field,void *dataToFillIn)
     else
     {                                                       //else just a single ship
         type = StrToShipType(string);
-        dbgAssert(type != 0xffffffff);
+        dbgAssertOrIgnore(type != 0xffffffff);
         SetInfoNeededForShipAndRelatedStaticInfo(type,race,(bool8)(size_t)dataToFillIn);
         rmEnableShip(race, type, (bool)dataToFillIn);
     }
@@ -1944,7 +1944,7 @@ static void llExcludeDustCloud(char *directory,char *field,void *dataToFillIn)
     DustCloudType type;
 
     type = StrToDustCloudType(field);
-    dbgAssert(type != 0xffffffff);
+    dbgAssertOrIgnore(type != 0xffffffff);
 
     bitSetTo(dustcloudStaticInfos[type].staticheader.infoFlags, IF_InfoNeeded, (bool8)(size_t)dataToFillIn);
 }
@@ -1953,7 +1953,7 @@ static void llExcludeGasCloud(char *directory,char *field,void *dataToFillIn)
     GasCloudType type;
 
     type = StrToGasCloudType(field);
-    dbgAssert(type != 0xffffffff);
+    dbgAssertOrIgnore(type != 0xffffffff);
 
     bitSetTo(gascloudStaticInfos[type].staticheader.infoFlags, IF_InfoNeeded, (bool8)(size_t)dataToFillIn);
 }
@@ -1962,7 +1962,7 @@ static void llExcludeNebula(char *directory,char *field,void *dataToFillIn)
     NebulaType type;
 
     type = StrToNebulaType(field);
-    dbgAssert(type != 0xffffffff);
+    dbgAssertOrIgnore(type != 0xffffffff);
 
     bitSetTo(nebulaStaticInfos[type].staticheader.infoFlags, IF_InfoNeeded, (bool8)(size_t)dataToFillIn);
 }
@@ -1980,7 +1980,7 @@ static void llExcludeDerelict(char *directory,char *field,void *dataToFillIn)
     else
     {
         type = StrToDerelictType(field);
-        dbgAssert(type != 0xffffffff);
+        dbgAssertOrIgnore(type != 0xffffffff);
         bitSetTo(derelictStaticInfos[type].staticheader.infoFlags, IF_InfoNeeded, (bool8)(size_t)dataToFillIn);
     }
 }
@@ -2006,24 +2006,24 @@ static void llAvailableColorScheme(char *directory,char *field,void *dataToFillI
     memset(schemes, 0, MAX_MULTIPLAYER_PLAYERS);
     //parse the race
     string = strtok(field, llDelimiters);
-    dbgAssert(string != NULL);
+    dbgAssertOrIgnore(string != NULL);
     if (strcasecmp(string, "Derelicts") == 0)
     {                                                       //if color scheme for a derelict
         string = strtok(NULL, llDelimiters);
-        dbgAssert(string != NULL);
+        dbgAssertOrIgnore(string != NULL);
         type = StrToDerelictType(string);                   //get derelict type
-        dbgAssert(type != 0xffffffff);
+        dbgAssertOrIgnore(type != 0xffffffff);
         while ((string = strtok(NULL, llDelimiters)) != NULL)
         {                                                   //get list of color schemes
             sscanf(string, "%d", &index);
-            dbgAssert(index >= 0 && index < MAX_MULTIPLAYER_PLAYERS);
+            dbgAssertOrIgnore(index >= 0 && index < MAX_MULTIPLAYER_PLAYERS);
             schemes[index] = TRUE;
         }                                                   //set the color scheme list
         memcpy(derelictStaticInfos[type].teamColor, schemes, sizeof(derelictStaticInfos[type].teamColor));
         return;                                             //done
     }
     race = StrToShipRace(string);
-    dbgAssert(race != 0xffffffff);
+    dbgAssertOrIgnore(race != 0xffffffff);
     if (singlePlayerGame)
     {
         race = GetSinglePlayerRaceEquivalent(race);
@@ -2031,7 +2031,7 @@ static void llAvailableColorScheme(char *directory,char *field,void *dataToFillI
 
     //parse the ship type
     string = strtok(NULL, llDelimiters);
-    dbgAssert(string != NULL);
+    dbgAssertOrIgnore(string != NULL);
     if (strcasecmp(string, "ALL") == 0)
     {                                                       //if we should do this to all ships for this race
         type = 0xffffffff;
@@ -2039,12 +2039,12 @@ static void llAvailableColorScheme(char *directory,char *field,void *dataToFillI
     else
     {                                                       //else just a single ship
         type = StrToShipType(string);
-        dbgAssert(type != 0xffffffff);
+        dbgAssertOrIgnore(type != 0xffffffff);
     }
     while ((string = strtok(NULL, llDelimiters)) != NULL)
     {
         sscanf(string, "%d", &index);
-        dbgAssert(index >= 0 && index < MAX_MULTIPLAYER_PLAYERS);
+        dbgAssertOrIgnore(index >= 0 && index < MAX_MULTIPLAYER_PLAYERS);
         schemes[index] = TRUE;
     }
 
@@ -2107,7 +2107,7 @@ static void scriptSetShipsToBeNeeded(char *directory,char *field,void *dataToFil
     //sscanf(field + fieldStart,"%f %f %f %f %s %s",&position.x,&position.y,&position.z,&rot,racestr,shiptypestr);
     miscstr[0] = 0;
     nScanned = sscanf(field + fieldStart,"%f %f %f %f %s %s %d %s ",&position.x,&position.y,&position.z,&rot,racestr,shiptypestr,&numShips,miscstr);
-    dbgAssert(nScanned >= 7);
+    dbgAssertOrIgnore(nScanned >= 7);
     rot = DEG_TO_RAD(rot);
 
     shiprace = StrToShipRace(racestr);
@@ -2115,14 +2115,14 @@ static void scriptSetShipsToBeNeeded(char *directory,char *field,void *dataToFil
     {
         dbgFatalf(DBG_Loc,"Bad shiprace in %s",field);
     }
-    dbgAssert(shiprace != -1);
+    dbgAssertOrIgnore(shiprace != -1);
 
     shiptype = StrToShipType(shiptypestr);
     if (!((shiptype >= 0) && (shiptype < TOTAL_NUM_SHIPS)))
     {
         dbgFatalf(DBG_Loc,"Bad shiptype in %s",field);
     }
-    dbgAssert(shiptype != -1);
+    dbgAssertOrIgnore(shiptype != -1);
 
     if (singlePlayerGame)
     {
@@ -2146,7 +2146,7 @@ static void scriptSetShipsToBeNeeded(char *directory,char *field,void *dataToFil
             if (strstr(miscPointer, "colorScheme") == miscPointer)
             {
                 nScanned = sscanf(miscPointer, "colorScheme(%d)", &colorScheme);
-                dbgAssert(colorScheme >= 0 && colorScheme < MAX_MULTIPLAYER_PLAYERS && nScanned == 1);
+                dbgAssertOrIgnore(colorScheme >= 0 && colorScheme < MAX_MULTIPLAYER_PLAYERS && nScanned == 1);
             }
         }
         while ((miscPointer = strtok(NULL, llMiscDelimiters)) != NULL);
@@ -2259,7 +2259,7 @@ void levelPreInit(char *directory,char *pickedMission)
     {
         insideship = (InsideShip*)listGetStructOfNode(node);
         ship = insideship->ship;
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
         SetInfoNeededForShipAndRelatedStaticInfo(ship->shiptype,ship->shiprace,TRUE);
         memcpy(teamCol,ship->staticinfo->teamColor,sizeof(teamCol));
         teamCol[ship->colorScheme] = TRUE;                          // preserve color schemes
@@ -2277,7 +2277,7 @@ void levelPreInit(char *directory,char *pickedMission)
             {
                 insideship2 = (InsideShip *)listGetStructOfNode(insidenode);
                 tiship = insideship2->ship;
-                dbgAssert(tiship->objtype == OBJ_ShipType);
+                dbgAssertOrIgnore(tiship->objtype == OBJ_ShipType);
 
                 SetInfoNeededForShipAndRelatedStaticInfo(tiship->shiptype,tiship->shiprace,TRUE);
                 memcpy(teamCol,tiship->staticinfo->teamColor,sizeof(teamCol));
@@ -2358,8 +2358,8 @@ void levelInit(char *directory,char *pickedMission)
 {
     udword i;
 
-    dbgAssert(numPlayers <= MAX_MULTIPLAYER_PLAYERS);
-    dbgAssert(curPlayer < numPlayers);
+    dbgAssertOrIgnore(numPlayers <= MAX_MULTIPLAYER_PLAYERS);
+    dbgAssertOrIgnore(curPlayer < numPlayers);
 
     missionman = isLevelMissionManGenerated(directory,pickedMission);
 
@@ -2412,7 +2412,7 @@ void levelInit(char *directory,char *pickedMission)
 
 void levelStartNext(char *directory,char *pickedMission)
 {
-    dbgAssert(singlePlayerGame);        // this function is only for the single player game
+    dbgAssertOrIgnore(singlePlayerGame);        // this function is only for the single player game
 
     missionman = isLevelMissionManGenerated(directory,pickedMission);
 

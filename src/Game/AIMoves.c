@@ -191,7 +191,7 @@ AITeamMove *aimCreateGetShipsNoAdd(AITeam *team, ShipType shiptype, sbyte num_sh
     SetNumAlternatives(alternatives, 0);
     newMove = aimCreateFancyGetShipsNoAdd(team, shiptype, num_ships, &alternatives, priority, wait, remove);
 
-/*    dbgAssert(num_ships > 0);
+/*    dbgAssertOrIgnore(num_ships > 0);
 
     InitNewMove(newMove,MOVE_GETSHIPS,wait,remove,formation,Neutral,aimProcessGetShips,NULL,aimCloseGetShips);
 
@@ -209,7 +209,7 @@ AITeamMove *aimCreateGetShips(AITeam *team, ShipType shiptype, sbyte num_ships, 
 {
     AITeamMove *newMove;
 
-    dbgAssert(num_ships > 0);
+    dbgAssertOrIgnore(num_ships > 0);
 
     newMove = aimCreateGetShipsNoAdd(team, shiptype, num_ships, priority, wait, remove);
 
@@ -528,7 +528,7 @@ void aimMoveSplitShipDied(AITeam *team, AITeamMove *move, ShipPtr ship)
     }
     else
     {
-        dbgAssert(FALSE);
+        dbgAssertOrIgnore(FALSE);
     }
 }
 
@@ -2198,7 +2198,7 @@ sdword aimProcessReinforce(AITeam *team)
             growSelectRemoveShipIndex(&team->shipList, i);
         }
 
-        dbgAssert(team->shipList.selection->numShips == 0);
+        dbgAssertOrIgnore(team->shipList.selection->numShips == 0);
 
         if (reinforceMove)
         {
@@ -3538,7 +3538,7 @@ sdword aimProcessSpecialDefense(AITeam *team)
             if (aitTeamShipTypeIs(CloakGenerator, team))
             {
                 bitSet(team->cooperatingTeam->teamFlags, TEAM_CloakCoop);
-//                dbgAssert(!team->cooperatingTeam->cooperatingTeam);
+//                dbgAssertOrIgnore(!team->cooperatingTeam->cooperatingTeam);
                 team->cooperatingTeam->cooperatingTeam = team;
                 team->cooperatingTeam->cooperatingTeamDiedCB = GenericCooperatingTeamDiedCB;
             }
@@ -3660,7 +3660,7 @@ AITeamMove *aimCreateMoveTeamSplitNoAdd(AITeam *team, SelectCommand *ships,
 {
     AITeamMove *newMove = (AITeamMove *)memAlloc(sizeof(AITeamMove), "moveteamsplit", 0);
 
-    dbgAssert(destinations->numPoints == ships->numShips);
+    dbgAssertOrIgnore(destinations->numPoints == ships->numShips);
 
     InitNewMove(newMove,MOVE_MOVETEAMSPLIT, wait, remove, NO_FORMATION, tactics, aimProcessMoveSplit, aimMoveSplitShipDied, aimMoveSplitClose);
     newMove->params.movesplit.destinations = destinations;
@@ -5151,7 +5151,7 @@ sdword aimProcessGuardCooperatingTeam(AITeam *team)
     SelectCommand *selection = team->shipList.selection;
     SelectCommand *guardselection = NULL;
 
-    dbgAssert(!thisMove->processing);
+    dbgAssertOrIgnore(!thisMove->processing);
 
     if (team->shipList.selection->numShips == 0)
     {
@@ -5222,7 +5222,7 @@ sdword aimProcessLaunch(AITeam *team)
         SelectCommand *selectcopy = memAlloc(sizeofSelectCommand(selection->numShips),"selectcopy",0);
         selectcopy->numShips = 0;
 
-        dbgAssert(!thisMove->processing);
+        dbgAssertOrIgnore(!thisMove->processing);
 
         for (i=0;i<selection->numShips;i++)
         {
@@ -5231,7 +5231,7 @@ sdword aimProcessLaunch(AITeam *team)
                 selectcopy->ShipPtr[selectcopy->numShips++] = selection->ShipPtr[i];
             }
         }
-        dbgAssert(selectcopy->numShips > 0);
+        dbgAssertOrIgnore(selectcopy->numShips > 0);
 
         // Falko, don't replace this with aiuWrap because many ships in selectcopy are hidden, but this is okay in this case
         clWrapLaunchMultipleShips(&universe.mainCommandLayer,selectcopy,shipIAmInside);
@@ -5287,7 +5287,7 @@ sdword aimProcessFormation(AITeam *team)
     AITeamMove *thisMove = team->curMove;
     SelectCommand *selection = team->shipList.selection;
 
-    dbgAssert(!thisMove->processing);
+    dbgAssertOrIgnore(!thisMove->processing);
 
     if (team->shipList.selection->numShips == 0)
     {
@@ -5780,7 +5780,7 @@ sdword aimProcessFancyGetShips(AITeam *team)
                 }
 
                 randomnum--;
-                dbgAssert(randomnum < numAlternatives);
+                dbgAssertOrIgnore(randomnum < numAlternatives);
                 for (i=randomnum,j=0;;)
                 {
                     if (aiuCanBuildShipType(alternativeShips->shipTypeNextPicks[i],(team->teamType == ScriptTeam)))
@@ -5807,7 +5807,7 @@ sdword aimProcessFancyGetShips(AITeam *team)
                         {
                             numPointsLeftToGet = (numShipsToGet - numShipsToBuild) * alternativeShips->shipNumEquivNextPicks[i];
 
-                            dbgAssert(numPointsLeftToGet > 0);
+                            dbgAssertOrIgnore(numPointsLeftToGet > 0);
 
                             aifTeamRequestsShipsCB(alternativeShips->shipTypeNextPicks[i],numShipsToBuild,team,aivarLabelGet(doneVar),
                                                    thisMove->params.fancyGetShips.priority);
@@ -5961,14 +5961,14 @@ AITeamMove *aimCreateFancyGetShipsNoAdd(AITeam *team, ShipType shiptype, sbyte n
     TypeOfFormation formation = SAME_FORMATION;
     AITeamMove *newMove = (AITeamMove *)memAlloc(sizeof(AITeamMove), "getshipsmove", 0);
 
-    dbgAssert(num_ships > 0);
+    dbgAssertOrIgnore(num_ships > 0);
 #ifndef HW_Release
     {
         sdword i;
 
         for (i=0;i<alternatives->numNextPicks;i++)
         {
-            dbgAssert(alternatives->shipNumEquivNextPicks[i] > 0);
+            dbgAssertOrIgnore(alternatives->shipNumEquivNextPicks[i] > 0);
         }
     }
 #endif
@@ -5990,7 +5990,7 @@ AITeamMove *aimCreateFancyGetShips(AITeam *team, ShipType shiptype, sbyte num_sh
 {
     AITeamMove *newMove;
 
-    dbgAssert(num_ships > 0);
+    dbgAssertOrIgnore(num_ships > 0);
 
     newMove = aimCreateFancyGetShipsNoAdd(team, shiptype, num_ships, alternatives, priority, wait, remove);
 

@@ -83,7 +83,7 @@ void hsOrientEffect(Ship* ship)
     StaticCollInfo* sinfo = &ship->staticinfo->staticheader.staticCollInfo;
     Effect* effect = ssinfo->hyperspaceEffect;
 
-    dbgAssert(effect != NULL);
+    dbgAssertOrIgnore(effect != NULL);
 
     for (index = 0; index < effect->iParticleBlock; index++)
     {

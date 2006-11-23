@@ -259,7 +259,7 @@ void formationBiggestThenClosestOptimum(SelectCommand *selection,TypeOfFormation
         }
     }
 
-    dbgAssert(biggestshipindex >= 0);
+    dbgAssertOrIgnore(biggestshipindex >= 0);
 
     if (smallestship == biggestship)        // all ships are the same size
     {
@@ -320,7 +320,7 @@ void formationArrangeOptimum(struct CommandToDo *formationtodo)
     SelectCommand *selection = formationtodo->selection;
     sdword numShips = selection->numShips;
 
-    dbgAssert(numShips >= ABSOLUTE_MIN_SHIPS_IN_FORMATION);
+    dbgAssertOrIgnore(numShips >= ABSOLUTE_MIN_SHIPS_IN_FORMATION);
 
     if (numShips == 1)
     {
@@ -335,7 +335,7 @@ void formationArrangeOptimum(struct CommandToDo *formationtodo)
             break;
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             break;
     }
 }
@@ -501,13 +501,13 @@ void formationSpecificsSphere(CommandToDo *command)
 
     SphereTableEntry *tableentry;
     sdword prox_sol;
-    dbgAssert(numShips > 0);
+    dbgAssertOrIgnore(numShips > 0);
 
     if (command->ordertype.attributes & COMMAND_IS_PROTECTING)
     {
         // We should form around protected ship
 //        command->formation.formAroundProtectedShip = TRUE;
-        dbgAssert(command->protect->numShips > 0);
+        dbgAssertOrIgnore(command->protect->numShips > 0);
         centreship = command->protect->ShipPtr[0];
         shipWorkingOn = 0;
         numShipsIncludingCentre = numShips + 1;
@@ -643,8 +643,8 @@ void formationSpecificsSphere(CommandToDo *command)
 
     // now position rest of ships.  Look up the table we need for the number of ships we have
 
-    dbgAssert(shipWorkingOn < numShips);
-    dbgAssert(numShips <= tableentry->numShipsCanHandle);
+    dbgAssertOrIgnore(shipWorkingOn < numShips);
+    dbgAssertOrIgnore(numShips <= tableentry->numShipsCanHandle);
 
     for (i=0,sphereDeclination=&tableentry->sphereDeclinations[0];i<numDeclinations;i++,sphereDeclination++)
     {
@@ -673,7 +673,7 @@ void formationSpecificsSphere(CommandToDo *command)
                                                                         // vectors describing the sphere?
         }
     }
-    dbgAssert(FALSE);       // should return before getting here
+    dbgAssertOrIgnore(FALSE);       // should return before getting here
 }
 
 // define for a ship moving into formation, without changing heading, and trying to steady formation
@@ -905,7 +905,7 @@ void setFormationToDo(struct CommandToDo *formationtodo)
 
     formationtodo->formation.percentmaxspeed = FORMATION_TRAVELVEL_MAXSCALE;
 
-    dbgAssert(numShips > 0);
+    dbgAssertOrIgnore(numShips > 0);
     if (numShips == 1)
     {
         return;
@@ -960,7 +960,7 @@ void setFormationToDo(struct CommandToDo *formationtodo)
             break;
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             break;
     }
 }
@@ -984,7 +984,7 @@ void processFormationToDo(struct CommandToDo *formationtodo,bool steadyFormation
     // write to leader->formationcommand instead of formationtodo - formationtodo might be a fakeCommand from delegateCommand
     CommandToDo *formationtomodify = leader->formationcommand;
 
-    dbgAssert(numShips > 0);
+    dbgAssertOrIgnore(numShips > 0);
     if (numShips == 1)
     {
         formationtomodify->formation.percentmaxspeed = FORMATION_TRAVELVEL_MAXSCALE;
@@ -1067,7 +1067,7 @@ void processFormationToDo(struct CommandToDo *formationtodo,bool steadyFormation
 
             if (formationtodo->ordertype.attributes & COMMAND_IS_PROTECTING)
             {
-                dbgAssert(formationtodo->protect->numShips > 0);
+                dbgAssertOrIgnore(formationtodo->protect->numShips > 0);
                 leader = formationtodo->protect->ShipPtr[0];
                 position = leader->posinfo.position;       // override position
                 matGetVectFromMatrixCol3(heading,leader->rotinfo.coordsys);
@@ -1180,7 +1180,7 @@ void processFormationToDo(struct CommandToDo *formationtodo,bool steadyFormation
         break;
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             break;
     }
 
@@ -1291,8 +1291,8 @@ real32 GetShipsTravelVel(SelectCommand *selection,real32 scalevel)
         }
     }
 
-    dbgAssert(minvel >= 0.0f);
-    dbgAssert(minvel != REALlyBig);
+    dbgAssertOrIgnore(minvel >= 0.0f);
+    dbgAssertOrIgnore(minvel != REALlyBig);
 
     minvel *= scalevel;
 
@@ -1303,7 +1303,7 @@ void  setFormationTravelVelocity(CommandToDo *formationcommand)
 {
     //won't hurt if we were to set the travel velocity and ships aren't
     //in formation, but lets not let it happen anyways.
-    dbgAssert(formationcommand->ordertype.attributes & COMMAND_IS_FORMATION);
+    dbgAssertOrIgnore(formationcommand->ordertype.attributes & COMMAND_IS_FORMATION);
 
     formationcommand->formation.travelvel = GetShipsTravelVel(formationcommand->selection,formationcommand->formation.percentmaxspeed);
 }
@@ -1322,7 +1322,7 @@ sdword formationRemoveShipFromSelection(struct CommandToDo *formationtodo,Ship *
     sdword i,j;
     sdword returnval;
 
-    dbgAssert(formationtodo->ordertype.attributes & COMMAND_IS_FORMATION);
+    dbgAssertOrIgnore(formationtodo->ordertype.attributes & COMMAND_IS_FORMATION);
 
     for (i=0;i<selection->numShips; )
     {
@@ -1410,7 +1410,7 @@ void FormationCalculateOffsets(struct CommandToDo *formationtodo)
     sdword prox_sol;
     real32 searchRadius;
 
-    dbgAssert(numShips > 0);
+    dbgAssertOrIgnore(numShips > 0);
 
     if (formationtodo->formation.formationtype == SPHERE_FORMATION)
     {
@@ -1929,7 +1929,7 @@ void FormationCalculateOffsets(struct CommandToDo *formationtodo)
             }
         break;
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             break;
     }
 }
@@ -1947,7 +1947,7 @@ void FormationCalculateSpecialOffsets(struct CommandToDo *formationtodo)
     sdword prox_sol;
     real32 searchRadius;
 
-    dbgAssert(numShips > 0);
+    dbgAssertOrIgnore(numShips > 0);
 
     if (formationtodo->formation.formationtype == SPHERE_FORMATION)
     {
@@ -2466,7 +2466,7 @@ void FormationCalculateSpecialOffsets(struct CommandToDo *formationtodo)
             }
         break;
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             break;
     }
 }
@@ -2755,7 +2755,7 @@ void formationArrageCrazyOptimum(CommandToDo *formationcommand)
         for(i=1;i<numShips;i++)
         {
         #ifdef HW_DEBUG
-            dbgAssert(shipGetsPosition[i] != 0);
+            dbgAssertOrIgnore(shipGetsPosition[i] != 0);
         #endif
             testSel->ShipPtr[shipGetsPosition[i]] = selection->ShipPtr[i];
         }
@@ -2787,7 +2787,7 @@ void formationArrageCrazyOptimum(CommandToDo *formationcommand)
     for(i=1;i<numShips;i++)
     {
 #ifdef HW_DEBUG
-        dbgAssert(shipGetsPosition[i] != 0);
+        dbgAssertOrIgnore(shipGetsPosition[i] != 0);
 #endif
         optimumSel->ShipPtr[shipGetsPosition[i]] = selection->ShipPtr[i];
     }
@@ -2874,7 +2874,7 @@ void FillInFormationSpecifics(CommandToDo *formationcommand,TypeOfFormation form
             break;
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             break;
     }
 }
@@ -3321,8 +3321,8 @@ void processMilitaryParadeToDo(struct CommandToDo *command,bool passiveAttacked)
     bool firstShipOfSlot;
     bool steadyFormation = TRUE;
 
-    dbgAssert(paradeType >= 0);
-    dbgAssert(paradeType < NUMBER_PARADE_TYPES);
+    dbgAssertOrIgnore(paradeType >= 0);
+    dbgAssertOrIgnore(paradeType < NUMBER_PARADE_TYPES);
 
     matGetVectFromMatrixCol1(up,leader->rotinfo.coordsys);
     matGetVectFromMatrixCol2(right,leader->rotinfo.coordsys);
@@ -3371,11 +3371,11 @@ void processMilitaryParadeToDo(struct CommandToDo *command,bool passiveAttacked)
                 vecCopyAndNegate(faceheading,right);
                 break;
             default:
-                dbgAssert(FALSE);
+                dbgAssertOrIgnore(FALSE);
                 break;
         }
 
-        dbgAssert(thisslot->highestSlotUsed < thisslot->numSubslots);
+        dbgAssertOrIgnore(thisslot->highestSlotUsed < thisslot->numSubslots);
 
         firstShipOfSlot = TRUE;
 
@@ -3553,8 +3553,8 @@ void setMilitaryParade(struct CommandToDo *command)
     vector positionchange;
     Ship *ship;
 
-    dbgAssert(paradeType >= 0);
-    dbgAssert(paradeType < NUMBER_PARADE_TYPES);
+    dbgAssertOrIgnore(paradeType >= 0);
+    dbgAssertOrIgnore(paradeType < NUMBER_PARADE_TYPES);
 
     matGetVectFromMatrixCol1(up,leader->rotinfo.coordsys);
     matGetVectFromMatrixCol2(right,leader->rotinfo.coordsys);
@@ -3583,7 +3583,7 @@ void setMilitaryParade(struct CommandToDo *command)
         vecAddToScalarMultiply(positionchange,up,thisslotinfo->upspacing);              // added by MG July 23
         vecAddToScalarMultiply(positionchange,heading,thisslotinfo->headingspacing);    //
 
-        dbgAssert(thisslot->highestSlotUsed < thisslot->numSubslots);
+        dbgAssertOrIgnore(thisslot->highestSlotUsed < thisslot->numSubslots);
 
         for (subslot=0;subslot<=thisslot->highestSlotUsed;subslot++)
         {
@@ -3616,7 +3616,7 @@ void setMilitaryParade(struct CommandToDo *command)
                         break;
 
                     default:
-                        dbgAssert(FALSE);
+                        dbgAssertOrIgnore(FALSE);
                         break;
                 }
                 univUpdateObjRotInfo((SpaceObjRot *)ship);
@@ -3633,7 +3633,7 @@ void FreeMilitaryParadeContents(MilitaryParadeCommand *militaryParade)
 
     for (i=0;i<MAX_MILITARY_SLOTS;i++)
     {
-        dbgAssert(militaryParade->militarySlots[i]);
+        dbgAssertOrIgnore(militaryParade->militarySlots[i]);
         memFree(militaryParade->militarySlots[i]);
     }
 }
@@ -3886,7 +3886,7 @@ void RemoveShipFromMilitaryParade(Ship *shiptoremove,MilitaryParadeCommand *mili
     {
         militarySlot = militaryParade->militarySlots[slot];
 
-        dbgAssert(militarySlot->highestSlotUsed < militarySlot->numSubslots);
+        dbgAssertOrIgnore(militarySlot->highestSlotUsed < militarySlot->numSubslots);
 
         for (subslot=0;subslot<=militarySlot->highestSlotUsed;subslot++)
         {
@@ -3900,7 +3900,7 @@ void RemoveShipFromMilitaryParade(Ship *shiptoremove,MilitaryParadeCommand *mili
         }
     }
 
-    dbgAssert(FALSE);       // should never reach here
+    dbgAssertOrIgnore(FALSE);       // should never reach here
 }
 
 /*-----------------------------------------------------------------------------
@@ -3924,8 +3924,8 @@ void PutShipInMilitaryParade(Ship *ship,MilitaryParadeCommand *militaryParade)
     MilitarySlot *newMilitarySlot;
 
     slot = GetShipSlot(ship);
-    dbgAssert(slot >= 0);
-    dbgAssert(slot < MAX_MILITARY_SLOTS);
+    dbgAssertOrIgnore(slot >= 0);
+    dbgAssertOrIgnore(slot < MAX_MILITARY_SLOTS);
     slotinfo = &paradeTypeInfo->slotinfos[slot];
     if ((slotinfo->upoffset == 0.0f) && (slotinfo->rightoffset == 0.0f) && (slotinfo->headingoffset == 0.0f))
     {
@@ -3957,7 +3957,7 @@ void PutShipInMilitaryParade(Ship *ship,MilitaryParadeCommand *militaryParade)
     {
         newMilitarySlot->subslots[i] = militarySlot->subslots[i];
     }
-    dbgAssert(i == militarySlot->numSubslots);
+    dbgAssertOrIgnore(i == militarySlot->numSubslots);
     for ( ;i<numSubslotsToAllocate;i++)
     {
         newMilitarySlot->subslots[i].ship = NULL;
@@ -3982,7 +3982,7 @@ void AddShipToMilitaryGroup(ShipPtr ship,struct CommandToDo *militaryGroup)
 {
     AddShipToGroup(ship,militaryGroup);
 
-    dbgAssert(militaryGroup->ordertype.order == COMMAND_MILITARY_PARADE);
+    dbgAssertOrIgnore(militaryGroup->ordertype.order == COMMAND_MILITARY_PARADE);
 
     PutShipInMilitaryParade(ship,militaryGroup->militaryParade);
 }
@@ -4059,7 +4059,7 @@ struct CommandToDo *CreateMilitaryGroupAroundShip(struct CommandLayer *comlayer,
         militaryParade->paradeType = PARADE_P2MOTHERSHIP;
     }
 
-    dbgAssert(militaryParade->paradeType != -1);
+    dbgAssertOrIgnore(militaryParade->paradeType != -1);
 
     PutShipInMilitaryParade(ship,militaryParade);
 
@@ -4075,7 +4075,7 @@ void lockFormation(CommandToDo *formationcommand,udword specialEffect)
     //copy leader coordinate system...
     //maybe...but probably don't want to relock formations over and over
     vector heading;
-    //dbgAssert(formationcommand->formation.formationLocked == FALSE);
+    //dbgAssertOrIgnore(formationcommand->formation.formationLocked == FALSE);
     formationcommand->formation.coordsys = formationcommand->selection->ShipPtr[0]->rotinfo.coordsys;
     if(specialEffect == 1)
     {
@@ -4092,7 +4092,7 @@ void unlockFormation(CommandToDo *formationcommand)
     //copy leader coordinate system...
     //maybe...but probably don't want to unlock formations over and over
     //it shows we don't know what we're doing :)
-    //dbgAssert(formationcommand->formation.formationLocked == TRUE);
+    //dbgAssertOrIgnore(formationcommand->formation.formationLocked == TRUE);
     formationcommand->formation.formationLocked = FALSE;
 }
 

@@ -437,14 +437,14 @@ void aioCreateActiveSupport(AITeam *team, SelectCommand *ships, SupportType type
     }
     else if (type == SUPPORT_MOTHERSHIP)
     {
-        dbgAssert(team->shipList.selection->numShips);
+        dbgAssertOrIgnore(team->shipList.selection->numShips);
 
         aimCreateMothershipMove(team, TRUE, FALSE);
     }
     else
     {
         aiplayerLog((aiIndex, "Error - unknown support type issued"));
-        dbgAssert(FALSE);
+        dbgAssertOrIgnore(FALSE);
     }
 
     aimCreateMoveDone(team, FALSE, FALSE);
@@ -660,7 +660,7 @@ void aioCreateSpecialDefense(AITeam *team, ShipType type)
         }
         else
         {
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
         }
     }
 
@@ -1040,7 +1040,7 @@ void aioCreateTakeoutTargetsWithCurrentTeam(struct AITeam *team,SelectCommand *t
 {
     AITeamMove *attackmove;
 
-    dbgAssert(team->shipList.selection->numShips > 0);
+    dbgAssertOrIgnore(team->shipList.selection->numShips > 0);
 
     aiplayerLog((aiIndex, "%x Issuing Takeout Targets With Current Team Order", team));
 
@@ -1055,7 +1055,7 @@ void aioCreateTakeoutTargetWithCurrentTeam(struct AITeam *team,Ship *ship)
     SelectCommand *selectone;
     AITeamMove *attackmove;
 
-    dbgAssert(team->shipList.selection->numShips > 0);
+    dbgAssertOrIgnore(team->shipList.selection->numShips > 0);
 
     aiplayerLog((aiIndex, "%x Issuing Takeout Target With Current Team Order", team));
 
@@ -1126,7 +1126,7 @@ treatasgoodenough:;
         {
             shipsToBuy = statsBestShipToBuyToKillShip(race,statShipConstraintsCarrierFightingShipsCB,target->staticinfo);
         }
-        dbgAssert(shipsToBuy);
+        dbgAssertOrIgnore(shipsToBuy);
         numShipsToBuy = statsNumShipsNeededToKillTarget(shipsToBuy,target->staticinfo);
 
         if (numShipsToBuy == 0)
@@ -1147,7 +1147,7 @@ treatasgoodenough:;
                     break;
 
                 default:
-                    dbgAssert(FALSE);
+                    dbgAssertOrIgnore(FALSE);
             }
             numShipsToBuy = 1;
             aiplayerLog((aiIndex,"Taking out unknown target %d.  Guessing on ship to use",target->shiptype));
@@ -1235,7 +1235,7 @@ treatasgoodenoughfancy:;
         {
             shipsToBuy = statsBestShipToBuyToKillShip(race,statShipConstraintsCarrierFightingShipsCB,target->staticinfo);
         }
-        dbgAssert(shipsToBuy);
+        dbgAssertOrIgnore(shipsToBuy);
         numShipsToBuy = statsNumShipsNeededToKillTarget(shipsToBuy,target->staticinfo);
 
         if (numShipsToBuy == 0)
@@ -1256,7 +1256,7 @@ treatasgoodenoughfancy:;
                     break;
 
                 default:
-                    dbgAssert(FALSE);
+                    dbgAssertOrIgnore(FALSE);
             }
             numShipsToBuy = 1;
             aiplayerLog((aiIndex,"Taking out unknown target %d.  Guessing on ship to use",target->shiptype));

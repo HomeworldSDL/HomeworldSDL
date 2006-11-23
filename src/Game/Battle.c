@@ -659,7 +659,7 @@ battleevent *battleChatterEventFromName(char *name, double *value)
 foundName:
     string = strtok(NULL, BAT_Delimiters);
     nScanned = sscanf(string, "%f", &floatValue);
-    dbgAssert(nScanned == 1);
+    dbgAssertOrIgnore(nScanned == 1);
     *value = (double)floatValue;
     return(&battleChatterEvent[index]);
 }
@@ -673,7 +673,7 @@ void batRandomWeightSetCB(char *directory,char *field,void *dataToFillIn)
     double value;
 
     chat = battleChatterEventFromName(field, &value);
-    dbgAssert(value >= 0.0f);
+    dbgAssertOrIgnore(value >= 0.0f);
     chat->randomWeight = (udword)(value * (real32)BAT_RandomTotal / (real32)PNG_TaskPeriod);
 }
 void batMaxDistanceSetCB(char *directory,char *field,void *dataToFillIn)
@@ -682,7 +682,7 @@ void batMaxDistanceSetCB(char *directory,char *field,void *dataToFillIn)
     double value;
 
     chat = battleChatterEventFromName(field, &value);
-    dbgAssert(value > 0.0f);
+    dbgAssertOrIgnore(value > 0.0f);
     chat->maxDistance = (double)value;
 }
 void batDistanceExponentSetCB(char *directory,char *field,void *dataToFillIn)
@@ -691,7 +691,7 @@ void batDistanceExponentSetCB(char *directory,char *field,void *dataToFillIn)
     double value;
 
     chat = battleChatterEventFromName(field, &value);
-    dbgAssert(value >= 0.0f);
+    dbgAssertOrIgnore(value >= 0.0f);
     chat->expDistance = (double)value;
 }
 void batMinWavelengthSetCB(char *directory,char *field,void *dataToFillIn)
@@ -700,7 +700,7 @@ void batMinWavelengthSetCB(char *directory,char *field,void *dataToFillIn)
     double value;
 
     chat = battleChatterEventFromName(field, &value);
-    dbgAssert(value > 0.0f);
+    dbgAssertOrIgnore(value > 0.0f);
     chat->minWavelength = (double)value;
 }
 void batWavelengthExponentSetCB(char *directory,char *field,void *dataToFillIn)
@@ -709,7 +709,7 @@ void batWavelengthExponentSetCB(char *directory,char *field,void *dataToFillIn)
     double value;
 
     chat = battleChatterEventFromName(field, &value);
-    dbgAssert(value > 0.0f);
+    dbgAssertOrIgnore(value > 0.0f);
     chat->expWavelength = (double)value;
 }
 void batMinRepeatProximitySetCB(char *directory,char *field,void *dataToFillIn)
@@ -718,7 +718,7 @@ void batMinRepeatProximitySetCB(char *directory,char *field,void *dataToFillIn)
     double value;
 
     chat = battleChatterEventFromName(field, &value);
-    dbgAssert(value > 0.0f);
+    dbgAssertOrIgnore(value > 0.0f);
     chat->minRepeatProximity = (double)value;
 }
 void batRepeatProximityExponentSetCB(char *directory,char *field,void *dataToFillIn)
@@ -727,7 +727,7 @@ void batRepeatProximityExponentSetCB(char *directory,char *field,void *dataToFil
     double value;
 
     chat = battleChatterEventFromName(field, &value);
-    dbgAssert(value > 0.0f);
+    dbgAssertOrIgnore(value > 0.0f);
     chat->expRepeatProximity = (double)value;
 }
 #if BATTLE_TUNING
@@ -743,7 +743,7 @@ void batGlobalFrequencyModifierSet(char *directory,char *field,void *dataToFillI
     sdword nScanned;
 
     nScanned = sscanf(field, "%f", &value);
-    dbgAssert(nScanned == 1);
+    dbgAssertOrIgnore(nScanned == 1);
     batGlobalFrequencyModifier = (udword)(value * BIT8);
 }
 
@@ -808,7 +808,7 @@ sdword battleChatterAttempt(sdword linkTo, sdword event, Ship *ship, sdword vari
     battleevent *chat;
     udword randomWeight;
 
-    dbgAssert(event >= 0 && event < BCE_LastBCE);
+    dbgAssertOrIgnore(event >= 0 && event < BCE_LastBCE);
     chat = &battleChatterEvent[event];
 //	if (variable == SOUND_EVENT_DEFAULT)
 //		variable = 0;
@@ -827,7 +827,7 @@ sdword battleChatterAttempt(sdword linkTo, sdword event, Ship *ship, sdword vari
         if (distance < chat->maxDistance)
         {                                                   //if it's not too far away from camera to hear
             result = 1.0 - distance / chat->maxDistance;
-            dbgAssert(result >= 0.0f && result <= 1.0f);
+            dbgAssertOrIgnore(result >= 0.0f && result <= 1.0f);
             if (chat->expDistance != 1.0)
             {
                 result = pow(result, chat->expDistance);    //compute point on probability curve
@@ -888,7 +888,7 @@ bool battleCanChatterAtThisTime(sdword event, Ship *ship)
     double timeSinceLastSpoken, result, distance;
     vector diff;
 
-    dbgAssert(event >= 0 && event < BCE_LastBCE);
+    dbgAssertOrIgnore(event >= 0 && event < BCE_LastBCE);
     chat = &battleChatterEvent[event];
 #if BATTLE_TUNING
     if (batChatterToTune != NULL && batChatterToTune != chat)
@@ -898,7 +898,7 @@ bool battleCanChatterAtThisTime(sdword event, Ship *ship)
 #endif
     timeSinceLastSpoken = (double)(universe.totaltimeelapsed - chat->lastTimeSpoken);
 
-    dbgAssert(chat->minWavelength > 0.0);
+    dbgAssertOrIgnore(chat->minWavelength > 0.0);
     if (timeSinceLastSpoken > chat->minWavelength)
     {                                                       //if it hasn't been spoken in a coon's age
         return(TRUE);
@@ -967,7 +967,7 @@ sdword battleChatterFleetAttempt(sdword linkTo, sdword event, sdword variable, v
     vector diff;
     real32 distance;
 
-    dbgAssert(event >= 0 && event < BCE_LastBCE);
+    dbgAssertOrIgnore(event >= 0 && event < BCE_LastBCE);
     chat = &battleChatterEvent[event];
 #if BATTLE_TUNING
     if (batChatterToTune != NULL && batChatterToTune != chat)
@@ -977,7 +977,7 @@ sdword battleChatterFleetAttempt(sdword linkTo, sdword event, sdword variable, v
 #endif
     timeSinceLastSpoken = (double)(universe.totaltimeelapsed - chat->lastTimeSpoken);
 
-    dbgAssert(chat->minWavelength > 0.0);
+    dbgAssertOrIgnore(chat->minWavelength > 0.0);
     if (timeSinceLastSpoken > chat->minWavelength)
     {                                                       //if it hasn't been spoken in a coon's age
         goto readyToPlay;
@@ -1071,7 +1071,7 @@ Ship *battleMouthPieceFind(Ship **ships, sdword numShips)
     }
     while ( mouthPiece->playerowner != universe.curPlayerPtr);
 
-    dbgAssert(mouthPiece->objtype == OBJ_ShipType);
+    dbgAssertOrIgnore(mouthPiece->objtype == OBJ_ShipType);
     return(mouthPiece);
 }
 
@@ -1103,7 +1103,7 @@ Ship *battleMouthPieceFindAnother(Ship *firstMouthPiece, Ship **ships, sdword nu
     }
     while ( mouthPiece->playerowner != universe.curPlayerPtr && mouthPiece != firstMouthPiece);
 
-    dbgAssert(mouthPiece->objtype == OBJ_ShipType);
+    dbgAssertOrIgnore(mouthPiece->objtype == OBJ_ShipType);
     return(mouthPiece);
 }
 
@@ -1229,8 +1229,8 @@ void battlePingEvaluateNoEnemies(void *voidPing, battleping *battlePing)
     for (index = 0; index < battlePing->nShips; index++)
     {
         ship = battlePing->ship[index];
-        dbgAssert(ship->objtype == OBJ_ShipType);
-        dbgAssert(ship->playerowner != NULL);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->playerowner != NULL);
         if (ship->shiptype == Mothership)
         {                                                   //don't even have the mothership talking
             continue;
@@ -1327,8 +1327,8 @@ void battlePingEvaluate(void *voidPing, battleping *battlePing)
     for (index = 0; index < battlePing->nShips; index++)
     {
         ship = battlePing->ship[index];
-        dbgAssert(ship->objtype == OBJ_ShipType);
-        dbgAssert(ship->playerowner != NULL);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->playerowner != NULL);
         if (ship->flags & SOF_Dead)
         {
             continue;   // dead ships shouldn't interfere
@@ -1369,7 +1369,7 @@ void battlePingEvaluate(void *voidPing, battleping *battlePing)
             //wingman (or another party in the battle) may tell this ship that they have a tail
             if (ship->recentlyFiredUpon)
             {                                               //if someone has been attacking
-                dbgAssert(ship->firingAtUs != NULL);
+                dbgAssertOrIgnore(ship->firingAtUs != NULL);
                 if (battleShipOnMyTail(ship, ship->firingAtUs))
                 {
                     handle = ERROR;
@@ -1688,7 +1688,7 @@ void battlePingEvaluate(void *voidPing, battleping *battlePing)
             if (mothership != NULL && selShipInSelection(battlePing->ship, battlePing->nShips, mothership))
             {
                 //ships = mothership->collMyBlob->blobShips;
-                //dbgAssert(ships != NULL);
+                //dbgAssertOrIgnore(ships != NULL);
                 //if (selShipInSelection(ships->ShipPtr, ships->numShips, mothership))
                 //{                                               //if the mothership is involved in this battle
                     if (battleCanChatterAtThisTime(BCE_MothershipLargeAttack, mothership))
@@ -1757,7 +1757,7 @@ void battlePingEvaluate(void *voidPing, battleping *battlePing)
             if (mothership != NULL && selShipInSelection(battlePing->ship, battlePing->nShips, mothership))
             {
                 //ships = mothership->collMyBlob->blobShips;
-                //dbgAssert(ships != NULL);
+                //dbgAssertOrIgnore(ships != NULL);
                 //if (selShipInSelection(ships->ShipPtr, ships->numShips, mothership))
                 //{                                               //if the mothership is involved in this battle
                     if (battleCanChatterAtThisTime(BCE_MothershipLargeAttack, mothership))
@@ -1857,7 +1857,7 @@ sameAsCapitalShips:
             {
                 //ships = ship->collMyBlob->blobShips;
                 ships = (SelectCommand *)&selSelected;
-                dbgAssert(ships != NULL);
+                dbgAssertOrIgnore(ships != NULL);
                 mouthpiece = battleMouthPieceFindAnother(ship, ships->ShipPtr, ships->numShips);
                 if (mouthpiece != NULL && battleCanChatterAtThisTime(BCE_CapitalShipDiesReport, mouthpiece))
                 {
@@ -1912,7 +1912,7 @@ void battleLaunchWelcomeExchange(Ship *ship)
     if (handle != ERROR && ship->collMyBlob != NULL)
     {
         ships = ship->collMyBlob->blobShips;
-        dbgAssert(ships != NULL);
+        dbgAssertOrIgnore(ships != NULL);
         mouthpiece = battleMouthPieceFindAnother(ship, ships->ShipPtr, ships->numShips);
         if (mouthpiece != NULL)
         {

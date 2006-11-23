@@ -278,7 +278,7 @@ real32 collCheckRectLine(SpaceObjRotImp *obj1,vector *univpoint,vector *univdir,
     // Set collSide baesd on where the plane intersected the box:
     // up == 0 (TRANS_UP), down == 1, right == 2, left == 3, forward == 4, back == 5
     *collSide = (whichPlane<<1) + ((quadrant[whichPlane] == LEFT) ? 1 : 0);
-    dbgAssert((*collSide >= 0) && (*collSide < NUM_TRANS_DEGOFFREEDOM));
+    dbgAssertOrIgnore((*collSide >= 0) && (*collSide < NUM_TRANS_DEGOFFREEDOM));
     return largestMaxT;
 }
 
@@ -1058,8 +1058,8 @@ void collCheckBigShipSmallShipColl(blob *thisBlob)
             }
         }
 
-        dbgAssert(obj2index >= 0);
-        dbgAssert(obj2index < numShips2);
+        dbgAssertOrIgnore(obj2index >= 0);
+        dbgAssertOrIgnore(obj2index < numShips2);
 
         while (obj2index < numShips2)
         {
@@ -1372,8 +1372,8 @@ void collCheckShipResourceColl(blob *thisBlob)
             }
         }
 
-        dbgAssert(obj2index >= 0);
-        dbgAssert(obj2index < numResources);
+        dbgAssertOrIgnore(obj2index >= 0);
+        dbgAssertOrIgnore(obj2index < numResources);
 
         while (obj2index < numResources)
         {
@@ -1536,8 +1536,8 @@ void collCheckShipDerelictColl(blob *thisBlob)
             }
         }
 
-        dbgAssert(obj2index >= 0);
-        dbgAssert(obj2index < numDerelicts);
+        dbgAssertOrIgnore(obj2index >= 0);
+        dbgAssertOrIgnore(obj2index < numDerelicts);
 
         while (obj2index < numDerelicts)
         {
@@ -1785,7 +1785,7 @@ passagain:
     }
     else
     {
-        dbgAssert(pass == 1);
+        dbgAssertOrIgnore(pass == 1);
         targetselection = thisBlob->blobBigTargets;
     }
 
@@ -1945,7 +1945,7 @@ void collCheckBeamColl(blob *thisBlob,Bullet *bullet)
 
     if (minbeamTarget != NULL)        // beam only collides with closest target
     {
-        dbgAssert(minbeamCollideLineDist >= 0.0f);
+        dbgAssertOrIgnore(minbeamCollideLineDist >= 0.0f);
         univBulletCollidedWithTarget(minbeamTarget,&minbeamTarget->staticinfo->staticheader,bullet,minbeamCollideLineDist,minbeamCollSide);
         bullet->beamtraveldist = minbeamCollideLineDist;
     }
@@ -2010,7 +2010,7 @@ void collCheckBulletTargetColl(blob *thisBlob)
     while (bulletindex < bulletselection->numBullets)
     {
         bullet = bulletselection->BulletPtr[bulletindex];
-        dbgAssert(bullet->objtype == OBJ_BulletType);
+        dbgAssertOrIgnore(bullet->objtype == OBJ_BulletType);
 
         deletebulletflag = FALSE;
 
@@ -2099,12 +2099,12 @@ passagain:
                         }
                     }
 
-                    dbgAssert(targetindex >= 0);
-                    dbgAssert(targetindex < numTargets);
+                    dbgAssertOrIgnore(targetindex >= 0);
+                    dbgAssertOrIgnore(targetindex < numTargets);
                 }
                 else
                 {
-                    dbgAssert(pass == 1);
+                    dbgAssertOrIgnore(pass == 1);
                     targetselection = thisBlob->blobBigTargets;
                     numTargets = targetselection->numTargets;
                     targetindex = 0;
@@ -2297,7 +2297,7 @@ void collCheckMissileShipColl(blob *thisBlob,MissileType missileType)
     while (missileindex < numMissiles)
     {
         missile = missileselection->MissilePtr[missileindex];
-        dbgAssert(missile->objtype == OBJ_MissileType);
+        dbgAssertOrIgnore(missile->objtype == OBJ_MissileType);
 
         if (missile->flags & SOF_Dead)
         {
@@ -2338,12 +2338,12 @@ passagain:
                 }
             }
 
-            dbgAssert(targetindex >= 0);
-            dbgAssert(targetindex < numTargets);
+            dbgAssertOrIgnore(targetindex >= 0);
+            dbgAssertOrIgnore(targetindex < numTargets);
         }
         else
         {
-            dbgAssert(pass == 1);
+            dbgAssertOrIgnore(pass == 1);
             targetselection = thisBlob->blobBigShips;
             numTargets = targetselection->numShips;
             maxCollSphereSizePlusMissileTravelDist = thisBlob->blobMaxBigShipCollSphereSize+missile->maxtraveldist;
@@ -2485,7 +2485,7 @@ void collCheckMissileResourceColl(blob *thisBlob,MissileType missileType)
     while (missileindex < numMissiles)
     {
         missile = missileselection->MissilePtr[missileindex];
-        dbgAssert(missile->objtype == OBJ_MissileType);
+        dbgAssertOrIgnore(missile->objtype == OBJ_MissileType);
 
         if (missile->flags & SOF_Dead)
         {
@@ -2512,8 +2512,8 @@ void collCheckMissileResourceColl(blob *thisBlob,MissileType missileType)
             }
         }
 
-        dbgAssert(targetindex >= 0);
-        dbgAssert(targetindex < numTargets);
+        dbgAssertOrIgnore(targetindex >= 0);
+        dbgAssertOrIgnore(targetindex < numTargets);
 
         while (targetindex < numTargets)
         {
@@ -2644,7 +2644,7 @@ void collCheckMissileDerelictColl(blob *thisBlob,MissileType missileType)
     while (missileindex < numMissiles)
     {
         missile = missileselection->MissilePtr[missileindex];
-        dbgAssert(missile->objtype == OBJ_MissileType);
+        dbgAssertOrIgnore(missile->objtype == OBJ_MissileType);
 
         if (missile->flags & SOF_Dead)
         {
@@ -2671,8 +2671,8 @@ void collCheckMissileDerelictColl(blob *thisBlob,MissileType missileType)
             }
         }
 
-        dbgAssert(targetindex >= 0);
-        dbgAssert(targetindex < numTargets);
+        dbgAssertOrIgnore(targetindex >= 0);
+        dbgAssertOrIgnore(targetindex < numTargets);
 
         while (targetindex < numTargets)
         {
@@ -2786,8 +2786,8 @@ void collCheckMissileMineColl(blob *thisBlob)
     while (missileindex < numMissiles)
     {
         missile = missileselection->MissilePtr[missileindex];
-        dbgAssert(missile->objtype == OBJ_MissileType);
-        dbgAssert(missile->missileType == MISSILE_Regular);
+        dbgAssertOrIgnore(missile->objtype == OBJ_MissileType);
+        dbgAssertOrIgnore(missile->missileType == MISSILE_Regular);
 
         if (missile->flags & SOF_Dead)
         {
@@ -2814,14 +2814,14 @@ void collCheckMissileMineColl(blob *thisBlob)
             }
         }
 
-        dbgAssert(targetindex >= 0);
-        dbgAssert(targetindex < numTargets);
+        dbgAssertOrIgnore(targetindex >= 0);
+        dbgAssertOrIgnore(targetindex < numTargets);
 
         while (targetindex < numTargets)
         {
             target = targetselection->MissilePtr[targetindex];
-            dbgAssert(target->objtype == OBJ_MissileType);
-            dbgAssert(target->missileType == MISSILE_Mine);
+            dbgAssertOrIgnore(target->objtype == OBJ_MissileType);
+            dbgAssertOrIgnore(target->missileType == MISSILE_Mine);
 
 #ifdef COLLISION_CHECK_STATS
     missilewalks++;

@@ -181,7 +181,7 @@ void cratesReportCratePlacement(Derelict *crate)
             etgEffectCreate(stat, NULL, &crate->posinfo.position, &zero, &ident, 1.0f, EAF_AllButNLips, 0);
         }
     }
-    dbgAssert(universe.numCratesInWorld <= CRATES_MaximumCratesInTheWorldPerPlayer*MAX_MULTIPLAYER_PLAYERS);
+    dbgAssertOrIgnore(universe.numCratesInWorld <= CRATES_MaximumCratesInTheWorldPerPlayer*MAX_MULTIPLAYER_PLAYERS);
 
 }
 
@@ -386,7 +386,7 @@ ShipType getShipType(ShipClass classtype)
             }
         }
     }
-    dbgAssert(shipcurrent != 9999); //should have selected SOME ship from list!
+    dbgAssertOrIgnore(shipcurrent != 9999); //should have selected SOME ship from list!
     return shipcurrent;
 }
 sdword cratesRewardPlayer(Derelict *crate, Player *player)
@@ -731,7 +731,7 @@ void expireCrate(Derelict *crate)
     universe.numCratesInWorld--;
 #ifdef HW_DEBUG
     //don't drop below 0!
-    dbgAssert(universe.numCratesInWorld >= 0);
+    dbgAssertOrIgnore(universe.numCratesInWorld >= 0);
 #endif
 
     //delete target

@@ -320,7 +320,7 @@ void lmLaunch(char *string, featom*atom)
     {
         insideShipStruct = (InsideShip *)listGetStructOfNode(walk);
         shipinside = insideShipStruct->ship;
-        dbgAssert(shipinside->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(shipinside->objtype == OBJ_ShipType);
         if (shipnum == shipinside->shiptype)
         {
             countShips++;
@@ -339,7 +339,7 @@ void lmLaunch(char *string, featom*atom)
         {
             insideShipStruct = (InsideShip *)listGetStructOfNode(walk);
             shipinside = insideShipStruct->ship;
-            dbgAssert(shipinside->objtype == OBJ_ShipType);
+            dbgAssertOrIgnore(shipinside->objtype == OBJ_ShipType);
             if (shipnum == shipinside->shiptype)
             {
                 selection->ShipPtr[i++] = shipinside;
@@ -347,7 +347,7 @@ void lmLaunch(char *string, featom*atom)
             walk = walk->next;
         }
 
-        dbgAssert(i == selection->numShips);
+        dbgAssertOrIgnore(i == selection->numShips);
         clWrapLaunchMultipleShips(&universe.mainCommandLayer, selection, launchship);
         memFree(selection);
 
@@ -431,7 +431,7 @@ void lmAutoLaunchCX(char *string, featom *atom, udword x)
     udword bit = bits[x-1];
     udword shift = shifts[x-1];
 
-    dbgAssert((x-1) < NUM_LMCARRIERS);
+    dbgAssertOrIgnore((x-1) < NUM_LMCARRIERS);
 
     if (lmCarrierX[x-1]==NULL)
     {
@@ -529,14 +529,14 @@ void lmLaunchAll(char *string, featom *atom)
         {
             insideShipStruct = (InsideShip *)listGetStructOfNode(walk);
             shipinside = insideShipStruct->ship;
-            dbgAssert(shipinside->objtype == OBJ_ShipType);
+            dbgAssertOrIgnore(shipinside->objtype == OBJ_ShipType);
 
             selection->ShipPtr[i++] = shipinside;
 
             walk = walk->next;
         }
 
-        dbgAssert(i == numShips);
+        dbgAssertOrIgnore(i == numShips);
         clWrapLaunchMultipleShips(&universe.mainCommandLayer,selection,launchship);
         memFree(selection);
 
@@ -1068,7 +1068,7 @@ sdword lmSelectMotherShip(regionhandle region, sdword ID, udword event, udword d
 
         //lmUpdateFactory(universe.curPlayerPtr->PlayerMothership);
 
-        dbgAssert(region!=NULL);
+        dbgAssertOrIgnore(region!=NULL);
 #ifdef DEBUG_STOMP
         regVerify(region);
 #endif
@@ -1097,7 +1097,7 @@ sdword lmSelectCarrierX(regionhandle region, sdword ID, udword event, udword dat
     {
         lmCurrentSelect = x;
 
-        dbgAssert(region!=NULL);
+        dbgAssertOrIgnore(region!=NULL);
 #ifdef DEBUG_STOMP
         regVerify(region);
 #endif
@@ -1268,7 +1268,7 @@ void lmCarrierXDraw(featom *atom, regionhandle region,udword x)
                         case 2: regFunctionSet(region, (regionfunction)lmSelectCarrier2); break;
                         case 3: regFunctionSet(region, (regionfunction)lmSelectCarrier3); break;
                         case 4: regFunctionSet(region, (regionfunction)lmSelectCarrier4); break;
-                        default: dbgAssert(FALSE); break;
+                        default: dbgAssertOrIgnore(FALSE); break;
                     }
                 }
                 lmDrawShipImage(region, x);
@@ -1536,7 +1536,7 @@ void lmUpdateShipsInside(void)
         {
             insideShipStruct = (InsideShip *)listGetStructOfNode(walk);
             shipinside = insideShipStruct->ship;
-            dbgAssert(shipinside->objtype == OBJ_ShipType);
+            dbgAssertOrIgnore(shipinside->objtype == OBJ_ShipType);
             shipsavailable[shipinside->shiptype].nShips++;
             shipsavailable[shipinside->shiptype].ship = shipinside;
             walk = walk->next;
@@ -1705,7 +1705,7 @@ sdword lmLaunchBegin(regionhandle region, sdword ID, udword event, udword data)
     {
         insideShipStruct = (InsideShip *)listGetStructOfNode(walk);
         shipinside = insideShipStruct->ship;
-        dbgAssert(shipinside->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(shipinside->objtype == OBJ_ShipType);
         shipsavailable[shipinside->shiptype].nShips++;
         shipsavailable[shipinside->shiptype].ship = shipinside;
         walk = walk->next;
@@ -1779,7 +1779,7 @@ void lmReLaunch(Ship *newship)
     {
         insideShipStruct = (InsideShip *)listGetStructOfNode(walk);
         shipinside = insideShipStruct->ship;
-        dbgAssert(shipinside->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(shipinside->objtype == OBJ_ShipType);
         shipsavailable[shipinside->shiptype].nShips++;
         shipsavailable[shipinside->shiptype].ship = shipinside;
         walk = walk->next;

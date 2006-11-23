@@ -856,8 +856,8 @@ bool pingBattlePingEvaluate(struct ping *hellaPing, udword userID, char *userDat
             break;                                          //done searching for ship
         }
     }
-    dbgAssert(battlePing->nFriendlyShips + battlePing->nEnemyShips == battlePing->nShips);
-    dbgAssert(battlePing->nShips >= 0);
+    dbgAssertOrIgnore(battlePing->nFriendlyShips + battlePing->nEnemyShips == battlePing->nShips);
+    dbgAssertOrIgnore(battlePing->nShips >= 0);
     if (battlePing->nShips == 0)
     {                                                       //all ships removed, kill the ping
         return(TRUE);
@@ -928,8 +928,8 @@ void pingAttackPingsCreate(blob *superBlob)
         startShips = battlePing->nShips;
         for (index = 0; index < battlePing->nShips; index++, ship++)
         {                                                   //for each ship in the ping
-            dbgAssert((*ship)->objtype == OBJ_ShipType);
-            dbgAssert((*ship)->playerowner != NULL);
+            dbgAssertOrIgnore((*ship)->objtype == OBJ_ShipType);
+            dbgAssertOrIgnore((*ship)->playerowner != NULL);
             command = (*ship)->command;                     //get the ship's command
 
             if ((command != NULL) &&
@@ -981,7 +981,7 @@ shipAlreadyInSelection:;
                 }
             }
         }
-        dbgAssert(battlePing->nEnemyShips + battlePing->nFriendlyShips == battlePing->nShips);
+        dbgAssertOrIgnore(battlePing->nEnemyShips + battlePing->nFriendlyShips == battlePing->nShips);
         thisNode = thisNode->next;
     }
     bobListDelete(&battleBlobs);
@@ -1092,7 +1092,7 @@ ping *LoadAndFixAnomalyPing(void)
 
     size = sizeofping(((ping *)chunkContents(chunk)));
 
-    dbgAssert(size == chunk->contentsSize);
+    dbgAssertOrIgnore(size == chunk->contentsSize);
 
     newping = memAlloc(size,"Ping!",0);
     memcpy(newping,chunkContents(chunk),size);
@@ -1148,7 +1148,7 @@ void pingLoad(void)
 
     num = LoadInfoNumber();
 
-    dbgAssert(pingList.num == 0);
+    dbgAssertOrIgnore(pingList.num == 0);
 
     for (i=0;i<num;i++)
     {

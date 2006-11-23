@@ -75,7 +75,7 @@ aieHandlerSimple aieNumToHandler(sdword num)
     }
     else
     {
-        dbgAssert(num < sizeof(handlerTable)/sizeof(handlerTable[0]));
+        dbgAssertOrIgnore(num < sizeof(handlerTable)/sizeof(handlerTable[0]));
         return handlerTable[num];
     }
 }
@@ -218,7 +218,7 @@ void aihHarassNumbersLowHandler(AITeam *team)
 
         thisMove = team->curMove;
 
-        dbgAssert(thisMove);
+        dbgAssertOrIgnore(thisMove);
     }
 
     gathering_point = aiuFindRangeStandoffPoint(gathering_point,origin, AIH_HARASS_NUMLOW_STANDOFF_DIST);
@@ -285,7 +285,7 @@ void aihKamikazeHealthLowHandler(AITeam *team)
     udword i;
     ShipPtr ship;
 
-    dbgAssert(team->shipList.selection->numShips);
+    dbgAssertOrIgnore(team->shipList.selection->numShips);
 
     shipsToDie.numShips = 0;
 
@@ -301,7 +301,7 @@ void aihKamikazeHealthLowHandler(AITeam *team)
         }
     }
 
-    dbgAssert(shipsToDie.numShips);
+    dbgAssertOrIgnore(shipsToDie.numShips);
 
     aiuWrapSetKamikaze((SelectCommand *)&shipsToDie);
 }
@@ -457,11 +457,11 @@ void aihGenericGettingRockedHandler(AITeam *team, SelectCommand *ships)
     AITeamMove *newMove;
     SelectCommand *attacktargets;
 
-    dbgAssert(ships->numShips > 0);
+    dbgAssertOrIgnore(ships->numShips > 0);
 
     if (thisMove->type == MOVE_ATTACK)
     {
-        dbgAssert(team->shipList.selection->numShips > 0);
+        dbgAssertOrIgnore(team->shipList.selection->numShips > 0);
         if (thisMove->params.attack.ships->numShips > 0)
         {
             if (team->shipList.selection->ShipPtr[0]->collMyBlob == thisMove->params.attack.ships->ShipPtr[0]->collMyBlob)
@@ -509,7 +509,7 @@ void aihPatrolEnemyNearbyHandler(AITeam *team, SelectCommand *ships)
 {
     AITeamMove *newMove, *thisMove = team->curMove;
 
-    dbgAssert(ships->numShips > 0);
+    dbgAssertOrIgnore(ships->numShips > 0);
 
     if (aiuSelectionNotGoodAtKillingTheseTargets(team->shipList.selection,ships,AIH_PATROL_ENEMYNEARBY_STRENGTH))
     {
@@ -538,7 +538,7 @@ void aihGravWellEnemyNearbyHandler(AITeam *team, SelectCommand *ships)
     udword i, numEnemyFighters = 0, numEnemyCorvettes = 0;
 //    ShipPtr ship;
 
-    dbgAssert(ships->numShips > 0);
+    dbgAssertOrIgnore(ships->numShips > 0);
 
     for (i=0;i<ships->numShips;i++)
     {

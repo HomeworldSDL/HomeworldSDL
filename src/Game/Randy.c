@@ -99,7 +99,7 @@ udword ranRandomFn(sdword ranIndex)
         ranLogIndex++;
     }
 #endif
-    dbgAssert(ranIndex < RANDOM_NUMBER_STREAMS);
+    dbgAssertOrIgnore(ranIndex < RANDOM_NUMBER_STREAMS);
     stream = &ranStream[ranIndex];
     if(stream->y>stream->x+stream->c){s=stream->y-(stream->x+stream->c);stream->c=0;}
     else {s=(stream->x+stream->c)-stream->y-18;stream->c=1;}
@@ -130,7 +130,7 @@ udword ranRandomFnSimple(sdword ranIndex)
 ----------------------------------------------------------------------------*/
 udword ranNumberGet(sdword ranIndex)
 {
-    dbgAssert(ranIndex < RANDOM_NUMBER_STREAMS);
+    dbgAssertOrIgnore(ranIndex < RANDOM_NUMBER_STREAMS);
     return(ranStream[ranIndex].n);
 }
 
@@ -144,7 +144,7 @@ udword ranNumberGet(sdword ranIndex)
 ----------------------------------------------------------------------------*/
 void ranNumberSet(sdword ranIndex, udword nn)
 {
-    dbgAssert(ranIndex < RANDOM_NUMBER_STREAMS);
+    dbgAssertOrIgnore(ranIndex < RANDOM_NUMBER_STREAMS);
     ranStream[ranIndex].n=nn;
 }
 
@@ -159,7 +159,7 @@ void ranNumberSet(sdword ranIndex, udword nn)
 ----------------------------------------------------------------------------*/
 void ranParametersSet(sdword ranIndex, udword xx,udword yy,udword zz,udword cc,udword nn)
 {
-    dbgAssert(ranIndex < RANDOM_NUMBER_STREAMS);
+    dbgAssertOrIgnore(ranIndex < RANDOM_NUMBER_STREAMS);
     ranStream[ranIndex].x=xx; ranStream[ranIndex].y=yy; ranStream[ranIndex].z=zz; ranStream[ranIndex].c=cc; ranStream[ranIndex].n=nn;
 }
 
@@ -172,7 +172,7 @@ void ranParametersSet(sdword ranIndex, udword xx,udword yy,udword zz,udword cc,u
 ----------------------------------------------------------------------------*/
 void ranParametersGet(sdword ranIndex, udword *xx,udword *yy,udword *zz,udword *cc,udword *nn)
 {
-    dbgAssert(ranIndex < RANDOM_NUMBER_STREAMS);
+    dbgAssertOrIgnore(ranIndex < RANDOM_NUMBER_STREAMS);
     *xx = ranStream[ranIndex].x; *yy = ranStream[ranIndex].y; *zz = ranStream[ranIndex].z; *cc = ranStream[ranIndex].c; *nn = ranStream[ranIndex].n;
 }
 
@@ -185,7 +185,7 @@ void ranParametersGet(sdword ranIndex, udword *xx,udword *yy,udword *zz,udword *
 ----------------------------------------------------------------------------*/
 void ranParametersReset(sdword ranIndex)
 {
-    dbgAssert(ranIndex < RANDOM_NUMBER_STREAMS);
+    dbgAssertOrIgnore(ranIndex < RANDOM_NUMBER_STREAMS);
     ranStream[ranIndex].x=521288629;
     ranStream[ranIndex].y=362436069;
     ranStream[ranIndex].z=1613801;

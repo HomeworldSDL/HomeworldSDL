@@ -210,7 +210,7 @@ void GenericInterceptorStaticInit(char *directory,char *filename,struct ShipStat
            interceptorstat = &TargetDroneStatic;
            break;
     }
-    dbgAssert(interceptorstat != NULL);
+    dbgAssertOrIgnore(interceptorstat != NULL);
 
     statinfo->custstatinfo = interceptorstat;
 
@@ -328,7 +328,7 @@ bool GenericInterceptorCanFire(Ship *ship,SpaceObjRotImpTarg *target,vector *tra
     if (canUseGun)
     {
         spec->activeGun = pickgun;
-        dbgAssert(spec->activeGun < gunInfo->numGuns);
+        dbgAssertOrIgnore(spec->activeGun < gunInfo->numGuns);
         gun = &gunInfo->guns[spec->activeGun];
 
         switch (gun->gunstatic->guntype)
@@ -362,7 +362,7 @@ bool GenericInterceptorCanFire(Ship *ship,SpaceObjRotImpTarg *target,vector *tra
                 {
                     if (i == spec->activeGun)
                     {
-                        dbgAssert(curgun == gun);
+                        dbgAssertOrIgnore(curgun == gun);
                         returnval = gunOrientGimbleGun(ship,curgun,target);
                     }
                     else
@@ -373,7 +373,7 @@ bool GenericInterceptorCanFire(Ship *ship,SpaceObjRotImpTarg *target,vector *tra
                 return returnval;
 
             default:
-                dbgAssert(FALSE);
+                dbgAssertOrIgnore(FALSE);
                 return FALSE;
         }
     }
@@ -390,7 +390,7 @@ void GenericInterceptorFire(Ship *ship,SpaceObjRotImpTarg *target)
 
     spec->lasttimefired = universe.totaltimeelapsed;
 
-    dbgAssert(spec->activeGun < gunInfo->numGuns);
+    dbgAssertOrIgnore(spec->activeGun < gunInfo->numGuns);
 
     gunShoot(ship,&gunInfo->guns[spec->activeGun],target);
 
@@ -437,7 +437,7 @@ void setupWhipStrafe(Ship *ship,GenericInterceptorSpec *spec,Ship *target)
 
         spec->aiAIPflightman = TRUE;
         flightmanInit(ship,FLIGHTMAN_WHIP_STRAFE);
-        dbgAssert(ship->flightman == FLIGHTMAN_WHIP_STRAFE);
+        dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_WHIP_STRAFE);
         ship->flightmanState2 = (ubyte) whipstrafeflags;
         ship->aistateattack = STATE_WHIPSTRAFE1;
         spec->aitimekill = universe.totaltimeelapsed;
@@ -467,7 +467,7 @@ void GenericInterceptorPassiveAttack(Ship *ship,Ship *target,bool rotate)
     real32 dist,temp;
 
     //Commented out for now...was causing crashwith CloakedFighter
-    //dbgAssert(shipstaticinfo->custshipheader.CustShipFire == GenericInterceptorFire);
+    //dbgAssertOrIgnore(shipstaticinfo->custshipheader.CustShipFire == GenericInterceptorFire);
 
     if (shipstaticinfo->gunStaticInfo)
         aishipGetTrajectoryWithVelPrediction(ship,(SpaceObjRotImpTarg *)target,shipstaticinfo->gunStaticInfo->gunstatics[0].bulletspeed,&trajectory);
@@ -720,7 +720,7 @@ void GenericInterceptorAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdi
 #ifdef DEBUG_AIATTACK
             dbgMessagef("\nShip %x STATE_WHIPSTRAFE1",(udword)ship);
 #endif
-//            dbgAssert(ship->flightman == FLIGHTMAN_WHIP_STRAFE);
+//            dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_WHIP_STRAFE);
             if (ship->flightman != FLIGHTMAN_WHIP_STRAFE)
             {
                 dbgMessagef("\nWarning: Whip strafe cancelled");
@@ -761,7 +761,7 @@ void GenericInterceptorAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdi
 #ifdef DEBUG_AIATTACK
             dbgMessagef("\nShip %x STATE_WHIPSTRAFE2",(udword)ship);
 #endif
-//            dbgAssert(ship->flightman == FLIGHTMAN_WHIP_STRAFE);
+//            dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_WHIP_STRAFE);
             if (ship->flightman != FLIGHTMAN_WHIP_STRAFE)
             {
                 dbgMessagef("\nWarning: Whip strafe cancelled");
@@ -1014,7 +1014,7 @@ abortbreakafterall:
             break;
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             break;
     }
 

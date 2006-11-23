@@ -300,7 +300,7 @@ missiletrail* mistrailNew(trailstatic* staticInfo, void* vmissile)
 
     missile = (Missile*)vmissile;
 
-    dbgAssert(staticInfo != NULL);
+    dbgAssertOrIgnore(staticInfo != NULL);
 #if TRAIL_VERBOSE_LEVEL >= 2
     dbgMessagef("\nmistrailNew: %d segments, 0x%x staticInfo", staticInfo->nSegments, staticInfo);
 #endif
@@ -571,7 +571,7 @@ void mistrailUpdate(missiletrail* trail, vector* position)
         return;
     }
 
-    dbgAssert(trail->iHead < trailStatic->nSegments);
+    dbgAssertOrIgnore(trail->iHead < trailStatic->nSegments);
 
     trail->segments[trail->iHead].position = *position;
 
@@ -652,7 +652,7 @@ void trailUpdate(shiptrail *trail, vector *position)
         return;
     }
 
-    dbgAssert(trail->iHead < trailStatic->nSegments);
+    dbgAssertOrIgnore(trail->iHead < trailStatic->nSegments);
 
 #if TRAIL_GATHER_STATS
     trailsUpdated++;
@@ -1863,7 +1863,7 @@ void mistrailDraw(vector* current, missiletrail* trail, sdword LOD, sdword teamI
         return;
     }
 
-    dbgAssert(teamIndex >= 0 && teamIndex < MAX_MULTIPLAYER_PLAYERS);
+    dbgAssertOrIgnore(teamIndex >= 0 && teamIndex < MAX_MULTIPLAYER_PLAYERS);
 
     _fastBlends = glCapFastFeature(GL_BLEND);
 
@@ -1883,7 +1883,7 @@ void mistrailDraw(vector* current, missiletrail* trail, sdword LOD, sdword teamI
 
     for (count = 1; count < trail->nLength; count++)
     {
-        dbgAssert(index >= 0 && index < trailStatic->nSegments);
+        dbgAssertOrIgnore(index >= 0 && index < trailStatic->nSegments);
 
         if (count == 1)
         {
@@ -2055,7 +2055,7 @@ void trailDraw(vector *current, shiptrail *trail, sdword LOD, sdword teamIndex)
 
     velratio = mag / maxvel;
 
-    dbgAssert(teamIndex >= 0 && teamIndex < MAX_MULTIPLAYER_PLAYERS);
+    dbgAssertOrIgnore(teamIndex >= 0 && teamIndex < MAX_MULTIPLAYER_PLAYERS);
 
 #if TRAIL_GATHER_STATS
     trailsRendered++;
@@ -2182,7 +2182,7 @@ void trailMakeWobbly(void* vship, bool state)
     sdword i;
     Ship* ship = (Ship*)vship;
 
-    dbgAssert(ship != NULL);
+    dbgAssertOrIgnore(ship != NULL);
 
     for (i = 0; i < MAX_NUM_TRAILS; i++)
     {
@@ -2206,8 +2206,8 @@ static void trailSegmentsRead(char *directory,char *field,void *dataToFillIn)
 {                                                           //read number of trail segments
     sdword nScanned, index, teamIndex;
     nScanned = sscanf(field, "%d", &tpNSegments);
-    dbgAssert(nScanned == 1);
-    dbgAssert(tpNSegments > 1 && tpNSegments < 1000);
+    dbgAssertOrIgnore(nScanned == 1);
+    dbgAssertOrIgnore(tpNSegments > 1 && tpNSegments < 1000);
     
     for (teamIndex = 0; teamIndex < MAX_MULTIPLAYER_PLAYERS; teamIndex++)
     {
@@ -2223,7 +2223,7 @@ static void trailGranularityRead(char *directory,char *field,void *dataToFillIn)
 {                                                           //read trail granularity
     sdword nScanned;
     nScanned = sscanf(field, "%d", &tpGranularity);
-    dbgAssert(nScanned == 1);
+    dbgAssertOrIgnore(nScanned == 1);
 }
 static void trailColorRead(char *directory,char *field,void *dataToFillIn)
 {
@@ -2231,9 +2231,9 @@ static void trailColorRead(char *directory,char *field,void *dataToFillIn)
     udword red, green, blue;
 
     nScanned = sscanf(field, "%d,%d,%d,%d,%d", &teamIndex, &index, &red, &green, &blue);
-    dbgAssert(nScanned == 5);
-    dbgAssert(index >= 0 && index < tpNSegments);
-    dbgAssert(tpColorArray[teamIndex] != NULL);
+    dbgAssertOrIgnore(nScanned == 5);
+    dbgAssertOrIgnore(index >= 0 && index < tpNSegments);
+    dbgAssertOrIgnore(tpColorArray[teamIndex] != NULL);
     tpColorArray[teamIndex][index] = colRGB(red, green, blue);
 }
 
@@ -2261,8 +2261,8 @@ trailstatic *trailStaticInfoParse(char *directory, char *fileName)
     {
         return(NULL);
     }
-    dbgAssert(tpGranularity > 0);
-    dbgAssert(tpNSegments > 1 && tpGranularity < 1000);
+    dbgAssertOrIgnore(tpGranularity > 0);
+    dbgAssertOrIgnore(tpNSegments > 1 && tpGranularity < 1000);
 
     newStatic = memAlloc(trailStaticSize(tpNSegments), "Trail Static Info", NonVolatile);
     newStatic->granularity = tpGranularity;                 //init basic info
@@ -2347,7 +2347,7 @@ void trailRecolorize(trailstatic *trailStatic)
                 trailStatic->segmentColor[teamIndex][index] = //set new control point color
                          teColorSchemes[teamIndex].trailColors[cpIndex] & TP_KeyColor;
                 cpIndex++;                                  //update control point index
-                dbgAssert(cpIndex <= TE_NumberTrailColors);
+                dbgAssertOrIgnore(cpIndex <= TE_NumberTrailColors);
                 
                 for (j = lastIndex + 1; j < index; j++)
                 {                                           //between last valid color to this one
@@ -2428,7 +2428,7 @@ void mistrailsRecolorize(void)
 ----------------------------------------------------------------------------*/
 void trailZeroLength(shiptrail* trail)
 {
-    dbgAssert(trail != NULL);
+    dbgAssertOrIgnore(trail != NULL);
     trail->iHead = trail->iTail = trail->nLength = 0;
     trail->grainCounter = 0;
 }
@@ -2446,7 +2446,7 @@ void trailMove(shiptrail* trail, vector *delta)
     sdword index;
     trailsegment *segment;
 
-    dbgAssert(trail != NULL);
+    dbgAssertOrIgnore(trail != NULL);
     segment = trail->segments;
     for (index = trail->staticInfo->nSegments; index >= 0; index--, segment++)
     {

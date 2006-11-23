@@ -303,21 +303,21 @@ void FillInCollisionBlobSpecificLists(blob *thisBlob)
                 break;
 
             default:
-                dbgAssert(FALSE);
+                dbgAssertOrIgnore(FALSE);
                 break;
         }
     }
 
-    dbgAssert(thisBlob->blobShips->numShips == numShips);
-    dbgAssert(thisBlob->blobBigShips->numShips == numBigShips);
-    dbgAssert(thisBlob->blobSmallShips->numShips == numSmallShips);
-    dbgAssert(thisBlob->blobBigTargets->numTargets == numBigTargets);
-    dbgAssert(thisBlob->blobSmallTargets->numTargets == numSmallTargets);
-    dbgAssert(thisBlob->blobResources->numResources == numResources);
-    dbgAssert(thisBlob->blobDerelicts->numDerelicts == numDerelicts);
-    dbgAssert(thisBlob->blobBullets->numBullets == numBullets);
-    dbgAssert(thisBlob->blobMissileMissiles->numMissiles == numMissileMissiles);
-    dbgAssert(thisBlob->blobMissileMines->numMissiles == numMissileMines);
+    dbgAssertOrIgnore(thisBlob->blobShips->numShips == numShips);
+    dbgAssertOrIgnore(thisBlob->blobBigShips->numShips == numBigShips);
+    dbgAssertOrIgnore(thisBlob->blobSmallShips->numShips == numSmallShips);
+    dbgAssertOrIgnore(thisBlob->blobBigTargets->numTargets == numBigTargets);
+    dbgAssertOrIgnore(thisBlob->blobSmallTargets->numTargets == numSmallTargets);
+    dbgAssertOrIgnore(thisBlob->blobResources->numResources == numResources);
+    dbgAssertOrIgnore(thisBlob->blobDerelicts->numDerelicts == numDerelicts);
+    dbgAssertOrIgnore(thisBlob->blobBullets->numBullets == numBullets);
+    dbgAssertOrIgnore(thisBlob->blobMissileMissiles->numMissiles == numMissileMissiles);
+    dbgAssertOrIgnore(thisBlob->blobMissileMines->numMissiles == numMissileMines);
 }
 
 /*-----------------------------------------------------------------------------
@@ -340,11 +340,11 @@ void bobUpdateObjsInBlobCollInfo(blob *thisBlob)
     {
         spaceobj = blobObjects->SpaceObjPtr[i];
 
-        dbgAssert((spaceobj->flags & SOF_Dead) == 0);
+        dbgAssertOrIgnore((spaceobj->flags & SOF_Dead) == 0);
 #if BOB_ERROR_CHECKING
         if (spaceobj->objtype == OBJ_AsteroidType)
         {
-            dbgAssert(((Asteroid *)spaceobj)->asteroidtype != Asteroid0);    // don't put Asteroid0 in for speed
+            dbgAssertOrIgnore(((Asteroid *)spaceobj)->asteroidtype != Asteroid0);    // don't put Asteroid0 in for speed
         }
         else
 #endif
@@ -482,7 +482,7 @@ void bobUpdateExtraCollBobInfo(LinkedList *list)
                     break;
 
                 default:
-                    dbgAssert(FALSE);
+                    dbgAssertOrIgnore(FALSE);
                     break;
             }
         }
@@ -562,7 +562,7 @@ void bobSubBlobListCreate(BlobProperties *blobProperties, LinkedList *list, blob
     real32 mass;
     vector distance;
 
-    dbgAssert(blobProperties);
+    dbgAssertOrIgnore(blobProperties);
     BlobPropertiesPtr = blobProperties;
     listInit(list);                                         //init the linked list
 
@@ -670,7 +670,7 @@ void bobSubBlobListCreate(BlobProperties *blobProperties, LinkedList *list, blob
         {
             if (tblob->blobObjects != NULL)
             {
-                dbgAssert(tblob->blobObjects->numSpaceObjs == 1);
+                dbgAssertOrIgnore(tblob->blobObjects->numSpaceObjs == 1);
                 newObjSelection = memAlloc(sizeofSelectCommand(1),"nbo(newblobobj)",Pyrophoric);
                 memcpy(newObjSelection,tblob->blobObjects,sizeofSelectCommand(1));
                 tblob->blobObjects = newObjSelection;
@@ -769,7 +769,7 @@ void bobAllObjectsFlagDontUpdate(blob *thisBlob)
             thisBlob->blobObjects->numSpaceObjs--;
             continue;
         }
-        dbgAssert(!bitTest((*spaceobjPointer)->flags, SOF_DontCreateBlob));
+        dbgAssertOrIgnore(!bitTest((*spaceobjPointer)->flags, SOF_DontCreateBlob));
         bitSet((*spaceobjPointer)->flags, SOF_DontCreateBlob);
     }
 
@@ -858,7 +858,7 @@ void bobListCreate(BlobProperties *blobProperties, LinkedList *list, udword play
     Node *nextnode;
     TargetPtr target;
 
-    dbgAssert(blobProperties);
+    dbgAssertOrIgnore(blobProperties);
     BlobPropertiesPtr = blobProperties;
     //listInit(list);                                         //init the linked list
     if (list->num > 0)
@@ -986,7 +986,7 @@ void bobListCreate(BlobProperties *blobProperties, LinkedList *list, udword play
         {
             if (tblob->blobObjects != NULL)
             {
-                dbgAssert(tblob->blobObjects->numSpaceObjs == 1);
+                dbgAssertOrIgnore(tblob->blobObjects->numSpaceObjs == 1);
                 newObjSelection = memAlloc(sizeofSelectCommand(1),"nbo(newblobobj)",Pyrophoric);
                 memcpy(newObjSelection,tblob->blobObjects,sizeofSelectCommand(1));
                 tblob->blobObjects = newObjSelection;
@@ -1492,7 +1492,7 @@ nextnode:
 void blobFreeContents(blob *thisBlob)
 {
 #ifndef HW_Release
-//    dbgAssert(thisBlob->debugFlag == 0);
+//    dbgAssertOrIgnore(thisBlob->debugFlag == 0);
 #endif
 
     if (thisBlob->blobShips != NULL) memFree(thisBlob->blobShips);
@@ -1555,7 +1555,7 @@ void bobListDelete(LinkedList *list)
         blobnode = nextnode;
     }
 
-    dbgAssert(list->num == 0);
+    dbgAssertOrIgnore(list->num == 0);
 }
 #if 0
 /*-----------------------------------------------------------------------------
@@ -1667,7 +1667,7 @@ void bobObjectDied(SpaceObj *object,LinkedList *list)
                             if (thisBlob->blobBigTargets != NULL)
                             {
                                 bool result = RemoveSpaceObjFromSelectionPreserveOrder((SpaceObjSelection *)thisBlob->blobBigTargets,object);
-                                dbgAssert(result);
+                                dbgAssertOrIgnore(result);
                             }
                         }
                         else
@@ -1676,7 +1676,7 @@ void bobObjectDied(SpaceObj *object,LinkedList *list)
                             if (thisBlob->blobSmallTargets != NULL)
                             {
                                 bool result = RemoveSpaceObjFromSelectionPreserveOrder((SpaceObjSelection *)thisBlob->blobSmallTargets,object);
-                                dbgAssert(result);
+                                dbgAssertOrIgnore(result);
                             }
                         }
                     }
@@ -1690,7 +1690,7 @@ void bobObjectDied(SpaceObj *object,LinkedList *list)
                             if (thisBlob->blobBigShips != NULL)
                             {
                                 bool result = RemoveSpaceObjFromSelectionPreserveOrder((SpaceObjSelection *)thisBlob->blobBigShips,object);
-                                dbgAssert(result);
+                                dbgAssertOrIgnore(result);
                             }
                         }
                         else
@@ -1698,14 +1698,14 @@ void bobObjectDied(SpaceObj *object,LinkedList *list)
                             if (thisBlob->blobSmallShips != NULL)
                             {
                                 bool result = RemoveSpaceObjFromSelectionPreserveOrder((SpaceObjSelection *)thisBlob->blobSmallShips,object);
-                                dbgAssert(result);
+                                dbgAssertOrIgnore(result);
                             }
                         }
 
                         if (thisBlob->blobShips != NULL)
                         {
                             bool result = RemoveSpaceObjFromSelectionPreserveOrder((SpaceObjSelection *)thisBlob->blobShips,object);
-                            dbgAssert(result);
+                            dbgAssertOrIgnore(result);
                         }
                         bitSet(thisBlob->flags, BTF_RecentDeath);
                         break;
@@ -1714,7 +1714,7 @@ void bobObjectDied(SpaceObj *object,LinkedList *list)
                         if (thisBlob->blobBullets != NULL)
                         {
                             bool result = RemoveSpaceObjFromSelectionPreserveOrder((SpaceObjSelection *)thisBlob->blobBullets,object);
-                            dbgAssert(result);
+                            dbgAssertOrIgnore(result);
                         }
                         break;
 
@@ -1725,7 +1725,7 @@ void bobObjectDied(SpaceObj *object,LinkedList *list)
                         if (thisBlob->blobResources != NULL)
                         {
                             bool result = RemoveSpaceObjFromSelectionPreserveOrder((SpaceObjSelection *)thisBlob->blobResources,object);
-                            dbgAssert(result);
+                            dbgAssertOrIgnore(result);
                         }
                         bitSet(thisBlob->flags, BTF_RecentDeath);
                         break;
@@ -1734,7 +1734,7 @@ void bobObjectDied(SpaceObj *object,LinkedList *list)
                         if (thisBlob->blobDerelicts != NULL)
                         {
                             bool result = RemoveSpaceObjFromSelectionPreserveOrder((SpaceObjSelection *)thisBlob->blobDerelicts,object);
-                            dbgAssert(result);
+                            dbgAssertOrIgnore(result);
                         }
                         break;
 
@@ -1744,7 +1744,7 @@ void bobObjectDied(SpaceObj *object,LinkedList *list)
                             if (thisBlob->blobMissileMines != NULL)
                             {
                                 bool result = RemoveSpaceObjFromSelectionPreserveOrder((SpaceObjSelection *)thisBlob->blobMissileMines,object);
-                                dbgAssert(result);
+                                dbgAssertOrIgnore(result);
                             }
                         }
                         else
@@ -1752,13 +1752,13 @@ void bobObjectDied(SpaceObj *object,LinkedList *list)
                             if (thisBlob->blobMissileMissiles != NULL)
                             {
                                 bool result = RemoveSpaceObjFromSelectionPreserveOrder((SpaceObjSelection *)thisBlob->blobMissileMissiles,object);
-                                dbgAssert(result);
+                                dbgAssertOrIgnore(result);
                             }
                         }
                         break;
 
                     default:
-                        dbgAssert(FALSE);
+                        dbgAssertOrIgnore(FALSE);
                         break;
                 }
 
@@ -1822,8 +1822,8 @@ void AddSpaceObjToSelectionPreserveOrder(SpaceObjSelection *selection,SpaceObj *
         }
     }
 
-    dbgAssert(foundindex >= 0);
-    dbgAssert(foundindex < numObjects);
+    dbgAssertOrIgnore(foundindex >= 0);
+    dbgAssertOrIgnore(foundindex < numObjects);
 
     if (obj->collOptimizeDist < selection->SpaceObjPtr[foundindex]->collOptimizeDist)
     {
@@ -1966,13 +1966,13 @@ void AddObjToObjectListsOfBlob(SpaceObj *obj,blob *putInBlob)
             break;
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             break;
     }
 
     if ((putInBlob->blobObjects->numSpaceObjs+1) > putInBlob->maxNumObjects)
     {
-        dbgAssert(bitTest(putInBlob->flags, BTF_FreeBlobObjects));
+        dbgAssertOrIgnore(bitTest(putInBlob->flags, BTF_FreeBlobObjects));
         putInBlob->maxNumObjects += BLOBOBJ_BATCH;
         putInBlob->blobObjects = memRealloc(putInBlob->blobObjects,sizeofSelectCommand(putInBlob->maxNumObjects),"nbo(nblobobjects)",Pyrophoric);
     }
@@ -1992,15 +1992,15 @@ void bobAddObjToSpecificBlob(blob *putInBlob,SpaceObj *obj)
 {
     vector distvec;
 
-    dbgAssert((obj->flags & SOF_Dead) == 0);
+    dbgAssertOrIgnore((obj->flags & SOF_Dead) == 0);
     if (obj->objtype == OBJ_AsteroidType)
     {
-        dbgAssert(((Asteroid *)obj)->asteroidtype != Asteroid0);    // don't put Asteroid0 in for speed
+        dbgAssertOrIgnore(((Asteroid *)obj)->asteroidtype != Asteroid0);    // don't put Asteroid0 in for speed
     }
-    dbgAssert(putInBlob);
+    dbgAssertOrIgnore(putInBlob);
 
 #ifndef HW_Release
-//    dbgAssert(putInBlob->debugFlag == 0);
+//    dbgAssertOrIgnore(putInBlob->debugFlag == 0);
 #endif
 
     vecSub(distvec,obj->posinfo.position,putInBlob->centre);
@@ -2023,10 +2023,10 @@ void bobAddObjToNearestBlob(LinkedList *list,SpaceObj *obj)
     real32 distsqr;
     blob *putInBlob;
 
-    dbgAssert((obj->flags & SOF_Dead) == 0);
+    dbgAssertOrIgnore((obj->flags & SOF_Dead) == 0);
     if (obj->objtype == OBJ_AsteroidType)
     {
-        dbgAssert(((Asteroid *)obj)->asteroidtype != Asteroid0);    // don't put Asteroid0 in for speed
+        dbgAssertOrIgnore(((Asteroid *)obj)->asteroidtype != Asteroid0);    // don't put Asteroid0 in for speed
     }
 
     putInBlob = bobFindNearestBlobToObject(list,obj,&distsqr);
@@ -2036,7 +2036,7 @@ void bobAddObjToNearestBlob(LinkedList *list,SpaceObj *obj)
     }
 
 #ifndef HW_Release
-//    dbgAssert(putInBlob->debugFlag == 0);
+//    dbgAssertOrIgnore(putInBlob->debugFlag == 0);
 #endif
 
     obj->collOptimizeDist = fsqrt(distsqr);
@@ -2088,9 +2088,9 @@ void blobAnalVerifyFn(blob *thisBlob)
     for (index = 0; index < blobObjects->numSpaceObjs; index++)
     {                                                   //search every object in blob
         object = blobObjects->SpaceObjPtr[index];
-        dbgAssert(object->collMyBlob == thisBlob);
+        dbgAssertOrIgnore(object->collMyBlob == thisBlob);
 
-        dbgAssert(1 == bobAnalShipInSelection((SelectCommand *)thisBlob->blobObjects,(Ship *)object));
+        dbgAssertOrIgnore(1 == bobAnalShipInSelection((SelectCommand *)thisBlob->blobObjects,(Ship *)object));
 
         if (object->flags & SOF_Targetable)
         {
@@ -2098,15 +2098,15 @@ void blobAnalVerifyFn(blob *thisBlob)
             {
                 if (((TargetPtr)object)->staticinfo->staticheader.staticCollInfo.originalcollspheresize >= BIG_TARGET_SIZE)
                 {
-                    dbgAssert(thisBlob->blobBigTargets != NULL);
+                    dbgAssertOrIgnore(thisBlob->blobBigTargets != NULL);
                     result = bobAnalShipInSelection((SelectCommand *)thisBlob->blobBigTargets, (Ship *)object);
-                    dbgAssert(result == 1);
+                    dbgAssertOrIgnore(result == 1);
                 }
                 else
                 {
-                    dbgAssert(thisBlob->blobSmallTargets != NULL);
+                    dbgAssertOrIgnore(thisBlob->blobSmallTargets != NULL);
                     result = bobAnalShipInSelection((SelectCommand *)thisBlob->blobSmallTargets, (Ship *)object);
-                    dbgAssert(result == 1);
+                    dbgAssertOrIgnore(result == 1);
                 }
             }
         }
@@ -2115,60 +2115,60 @@ void blobAnalVerifyFn(blob *thisBlob)
             case OBJ_ShipType:
                 if (((ShipPtr)object)->staticinfo->staticheader.staticCollInfo.originalcollspheresize >= BIG_SHIP_SIZE)
                 {
-                    dbgAssert(thisBlob->blobBigShips != NULL);
+                    dbgAssertOrIgnore(thisBlob->blobBigShips != NULL);
                     result = bobAnalShipInSelection((SelectCommand *)thisBlob->blobBigShips, (Ship *)object);
-                    dbgAssert(result == 1);
+                    dbgAssertOrIgnore(result == 1);
                 }
                 else
                 {
-                    dbgAssert(thisBlob->blobSmallShips != NULL);
+                    dbgAssertOrIgnore(thisBlob->blobSmallShips != NULL);
                     result = bobAnalShipInSelection((SelectCommand *)thisBlob->blobSmallShips, (Ship *)object);
-                    dbgAssert(result == 1);
+                    dbgAssertOrIgnore(result == 1);
                 }
 
-                dbgAssert(thisBlob->blobShips != NULL);
+                dbgAssertOrIgnore(thisBlob->blobShips != NULL);
                 result = bobAnalShipInSelection((SelectCommand *)thisBlob->blobShips, (Ship *)object);
-                dbgAssert(result == 1);
+                dbgAssertOrIgnore(result == 1);
                 break;
 
             case OBJ_BulletType:
-                dbgAssert(thisBlob->blobBullets != NULL);
+                dbgAssertOrIgnore(thisBlob->blobBullets != NULL);
                 result = bobAnalShipInSelection((SelectCommand *)thisBlob->blobBullets, (Ship *)object);
-                dbgAssert(result == 1);
+                dbgAssertOrIgnore(result == 1);
                 break;
 
             case OBJ_AsteroidType:
             case OBJ_NebulaType:
             case OBJ_GasType:
             case OBJ_DustType:
-                dbgAssert(thisBlob->blobResources != NULL);
+                dbgAssertOrIgnore(thisBlob->blobResources != NULL);
                 result = bobAnalShipInSelection((SelectCommand *)thisBlob->blobResources, (Ship *)object);
-                dbgAssert(result == 1);
+                dbgAssertOrIgnore(result == 1);
                 break;
 
             case OBJ_DerelictType:
-                dbgAssert(thisBlob->blobDerelicts != NULL);
+                dbgAssertOrIgnore(thisBlob->blobDerelicts != NULL);
                 result = bobAnalShipInSelection((SelectCommand *)thisBlob->blobDerelicts, (Ship *)object);
-                dbgAssert(result == 1);
+                dbgAssertOrIgnore(result == 1);
                 break;
 
             case OBJ_MissileType:
                 if (((MissilePtr)object)->missileType == MISSILE_Mine)
                 {
-                    dbgAssert(thisBlob->blobMissileMines != NULL);
+                    dbgAssertOrIgnore(thisBlob->blobMissileMines != NULL);
                     result = bobAnalShipInSelection((SelectCommand *)thisBlob->blobMissileMines, (Ship *)object);
-                    dbgAssert(result == 1);
+                    dbgAssertOrIgnore(result == 1);
                 }
                 else
                 {
-                    dbgAssert(thisBlob->blobMissileMissiles != NULL);
+                    dbgAssertOrIgnore(thisBlob->blobMissileMissiles != NULL);
                     result = bobAnalShipInSelection((SelectCommand *)thisBlob->blobMissileMissiles, (Ship *)object);
-                    dbgAssert(result == 1);
+                    dbgAssertOrIgnore(result == 1);
                 }
                 break;
 
             default:
-                dbgAssert(FALSE);
+                dbgAssertOrIgnore(FALSE);
                 break;
         }
 
@@ -2176,133 +2176,133 @@ void blobAnalVerifyFn(blob *thisBlob)
     //now verify the individually itemized lists
     //verify ship list
     blobObjects = (SpaceObjSelection *)thisBlob->blobShips;
-    dbgAssert(blobObjects->numSpaceObjs <= universe.ShipList.num);
-    //dbgAssert(thisBlob->blobBigShips->numShips + thisBlob->blobSmallShips->numShips == thisBlob->blobShips->numShips);
-    dbgAssert(blobObjects->numSpaceObjs <= thisBlob->maxNumShips);
+    dbgAssertOrIgnore(blobObjects->numSpaceObjs <= universe.ShipList.num);
+    //dbgAssertOrIgnore(thisBlob->blobBigShips->numShips + thisBlob->blobSmallShips->numShips == thisBlob->blobShips->numShips);
+    dbgAssertOrIgnore(blobObjects->numSpaceObjs <= thisBlob->maxNumShips);
     numShips = blobObjects->numSpaceObjs;
     for (index = 0; index < blobObjects->numSpaceObjs; index++)
     {
         object = blobObjects->SpaceObjPtr[index];
         result = bobAnalShipInSelection((SelectCommand *)thisBlob->blobObjects, (Ship *)object);
-        dbgAssert(result == 1);
-        dbgAssert(object->collMyBlob == thisBlob);
-        dbgAssert(object->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(result == 1);
+        dbgAssertOrIgnore(object->collMyBlob == thisBlob);
+        dbgAssertOrIgnore(object->objtype == OBJ_ShipType);
     }
     //verify small ship list
     blobObjects = (SpaceObjSelection *)thisBlob->blobSmallShips;
-    dbgAssert(blobObjects->numSpaceObjs <= universe.ShipList.num);
-    dbgAssert(blobObjects->numSpaceObjs <= thisBlob->maxNumSmallShips);
+    dbgAssertOrIgnore(blobObjects->numSpaceObjs <= universe.ShipList.num);
+    dbgAssertOrIgnore(blobObjects->numSpaceObjs <= thisBlob->maxNumSmallShips);
     numSmallShips = blobObjects->numSpaceObjs;
     for (index = 0; index < blobObjects->numSpaceObjs; index++)
     {
         object = blobObjects->SpaceObjPtr[index];
         result = bobAnalShipInSelection((SelectCommand *)thisBlob->blobObjects, (Ship *)object);
-        dbgAssert(result == 1);
-        dbgAssert(object->collMyBlob == thisBlob);
-        dbgAssert(object->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(result == 1);
+        dbgAssertOrIgnore(object->collMyBlob == thisBlob);
+        dbgAssertOrIgnore(object->objtype == OBJ_ShipType);
     }
     //verify big ship list
     blobObjects = (SpaceObjSelection *)thisBlob->blobBigShips;
-    dbgAssert(blobObjects->numSpaceObjs <= universe.ShipList.num);
-    dbgAssert(blobObjects->numSpaceObjs <= thisBlob->maxNumBigShips);
+    dbgAssertOrIgnore(blobObjects->numSpaceObjs <= universe.ShipList.num);
+    dbgAssertOrIgnore(blobObjects->numSpaceObjs <= thisBlob->maxNumBigShips);
     numBigShips = blobObjects->numSpaceObjs;
     for (index = 0; index < blobObjects->numSpaceObjs; index++)
     {
         object = blobObjects->SpaceObjPtr[index];
         result = bobAnalShipInSelection((SelectCommand *)thisBlob->blobObjects, (Ship *)object);
-        dbgAssert(result == 1);
-        dbgAssert(object->collMyBlob == thisBlob);
-        dbgAssert(object->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(result == 1);
+        dbgAssertOrIgnore(object->collMyBlob == thisBlob);
+        dbgAssertOrIgnore(object->objtype == OBJ_ShipType);
     }
     //verify target lists
     blobObjects = (SpaceObjSelection *)thisBlob->blobSmallTargets;
-    dbgAssert(blobObjects->numSpaceObjs <= universe.ImpactableList.num);
-    dbgAssert(blobObjects->numSpaceObjs <= thisBlob->maxNumSmallTargets);
+    dbgAssertOrIgnore(blobObjects->numSpaceObjs <= universe.ImpactableList.num);
+    dbgAssertOrIgnore(blobObjects->numSpaceObjs <= thisBlob->maxNumSmallTargets);
     numSmallTargets = blobObjects->numSpaceObjs;
     for (index = 0; index < blobObjects->numSpaceObjs; index++)
     {
         object = blobObjects->SpaceObjPtr[index];
         result = bobAnalShipInSelection((SelectCommand *)thisBlob->blobObjects, (Ship *)object);
-        dbgAssert(result == 1);
-        dbgAssert(bitTest(object->flags, SOF_Targetable));
+        dbgAssertOrIgnore(result == 1);
+        dbgAssertOrIgnore(bitTest(object->flags, SOF_Targetable));
     }
     blobObjects = (SpaceObjSelection *)thisBlob->blobBigTargets;
-    dbgAssert(blobObjects->numSpaceObjs <= universe.ImpactableList.num);
-    dbgAssert(blobObjects->numSpaceObjs <= thisBlob->maxNumBigTargets);
+    dbgAssertOrIgnore(blobObjects->numSpaceObjs <= universe.ImpactableList.num);
+    dbgAssertOrIgnore(blobObjects->numSpaceObjs <= thisBlob->maxNumBigTargets);
     numBigTargets = blobObjects->numSpaceObjs;
     for (index = 0; index < blobObjects->numSpaceObjs; index++)
     {
         object = blobObjects->SpaceObjPtr[index];
         result = bobAnalShipInSelection((SelectCommand *)thisBlob->blobObjects, (Ship *)object);
-        dbgAssert(result == 1);
-        dbgAssert(bitTest(object->flags, SOF_Targetable));
+        dbgAssertOrIgnore(result == 1);
+        dbgAssertOrIgnore(bitTest(object->flags, SOF_Targetable));
     }
     //verify resource list
     blobObjects = (SpaceObjSelection *)thisBlob->blobResources;
-    dbgAssert(blobObjects->numSpaceObjs <= universe.ResourceList.num);
-    dbgAssert(blobObjects->numSpaceObjs <= thisBlob->maxNumResources);
+    dbgAssertOrIgnore(blobObjects->numSpaceObjs <= universe.ResourceList.num);
+    dbgAssertOrIgnore(blobObjects->numSpaceObjs <= thisBlob->maxNumResources);
     numResources = blobObjects->numSpaceObjs;
     for (index = 0; index < blobObjects->numSpaceObjs; index++)
     {
         object = blobObjects->SpaceObjPtr[index];
         result = bobAnalShipInSelection((SelectCommand *)thisBlob->blobObjects, (Ship *)object);
-        dbgAssert(result == 1);
-        dbgAssert(object->objtype == OBJ_AsteroidType || object->objtype == OBJ_NebulaType || object->objtype == OBJ_DustType || object->objtype == OBJ_GasType);
+        dbgAssertOrIgnore(result == 1);
+        dbgAssertOrIgnore(object->objtype == OBJ_AsteroidType || object->objtype == OBJ_NebulaType || object->objtype == OBJ_DustType || object->objtype == OBJ_GasType);
     }
     //verify derelict list
     blobObjects = (SpaceObjSelection *)thisBlob->blobDerelicts;
-    dbgAssert(blobObjects->numSpaceObjs <= universe.DerelictList.num);
-    dbgAssert(blobObjects->numSpaceObjs <= thisBlob->maxNumDerelicts);
+    dbgAssertOrIgnore(blobObjects->numSpaceObjs <= universe.DerelictList.num);
+    dbgAssertOrIgnore(blobObjects->numSpaceObjs <= thisBlob->maxNumDerelicts);
     numDerelicts = blobObjects->numSpaceObjs;
     for (index = 0; index < blobObjects->numSpaceObjs; index++)
     {
         object = blobObjects->SpaceObjPtr[index];
         result = bobAnalShipInSelection((SelectCommand *)thisBlob->blobObjects, (Ship *)object);
-        dbgAssert(result == 1);
-        dbgAssert(object->objtype == OBJ_DerelictType);
+        dbgAssertOrIgnore(result == 1);
+        dbgAssertOrIgnore(object->objtype == OBJ_DerelictType);
     }
     //verify bullet list
     blobObjects = (SpaceObjSelection *)thisBlob->blobBullets;
-    dbgAssert(blobObjects->numSpaceObjs <= universe.BulletList.num);
-    dbgAssert(blobObjects->numSpaceObjs <= thisBlob->maxNumBullets);
+    dbgAssertOrIgnore(blobObjects->numSpaceObjs <= universe.BulletList.num);
+    dbgAssertOrIgnore(blobObjects->numSpaceObjs <= thisBlob->maxNumBullets);
     numBullets = blobObjects->numSpaceObjs;
     for (index = 0; index < blobObjects->numSpaceObjs; index++)
     {
         object = blobObjects->SpaceObjPtr[index];
         result = bobAnalShipInSelection((SelectCommand *)thisBlob->blobObjects, (Ship *)object);
-        dbgAssert(result == 1);
-        dbgAssert(object->objtype == OBJ_BulletType);
+        dbgAssertOrIgnore(result == 1);
+        dbgAssertOrIgnore(object->objtype == OBJ_BulletType);
     }
     //verify missile list
     blobObjects = (SpaceObjSelection *)thisBlob->blobMissileMissiles;
-    dbgAssert(blobObjects->numSpaceObjs <= universe.MissileList.num);
-    dbgAssert(blobObjects->numSpaceObjs <= thisBlob->maxNumMissileMissiles);
+    dbgAssertOrIgnore(blobObjects->numSpaceObjs <= universe.MissileList.num);
+    dbgAssertOrIgnore(blobObjects->numSpaceObjs <= thisBlob->maxNumMissileMissiles);
     numMissileMissiles = blobObjects->numSpaceObjs;
     for (index = 0; index < blobObjects->numSpaceObjs; index++)
     {
         object = blobObjects->SpaceObjPtr[index];
         result = bobAnalShipInSelection((SelectCommand *)thisBlob->blobObjects, (Ship *)object);
-        dbgAssert(result == 1);
-        dbgAssert(object->objtype == OBJ_MissileType);
-        dbgAssert(((MissilePtr)object)->missileType == MISSILE_Regular);
+        dbgAssertOrIgnore(result == 1);
+        dbgAssertOrIgnore(object->objtype == OBJ_MissileType);
+        dbgAssertOrIgnore(((MissilePtr)object)->missileType == MISSILE_Regular);
     }
     //verify mine list
     blobObjects = (SpaceObjSelection *)thisBlob->blobMissileMines;
-    dbgAssert(blobObjects->numSpaceObjs <= universe.MissileList.num);
-    dbgAssert(blobObjects->numSpaceObjs <= thisBlob->maxNumMissileMines);
+    dbgAssertOrIgnore(blobObjects->numSpaceObjs <= universe.MissileList.num);
+    dbgAssertOrIgnore(blobObjects->numSpaceObjs <= thisBlob->maxNumMissileMines);
     numMissileMines = blobObjects->numSpaceObjs;
     for (index = 0; index < blobObjects->numSpaceObjs; index++)
     {
         object = blobObjects->SpaceObjPtr[index];
         result = bobAnalShipInSelection((SelectCommand *)thisBlob->blobObjects, (Ship *)object);
-        dbgAssert(result == 1);
-        dbgAssert(object->objtype == OBJ_MissileType);
-        dbgAssert(((MissilePtr)object)->missileType == MISSILE_Mine);
+        dbgAssertOrIgnore(result == 1);
+        dbgAssertOrIgnore(object->objtype == OBJ_MissileType);
+        dbgAssertOrIgnore(((MissilePtr)object)->missileType == MISSILE_Mine);
     }
 
     //numeric verifications
-    dbgAssert(numSmallShips + numBigShips == numShips);
-    dbgAssert(numMissileMines + numMissileMissiles + numBullets + numDerelicts + numResources + numShips == numObjects);
+    dbgAssertOrIgnore(numSmallShips + numBigShips == numShips);
+    dbgAssertOrIgnore(numMissileMines + numMissileMissiles + numBullets + numDerelicts + numResources + numShips == numObjects);
 }
 #endif
 

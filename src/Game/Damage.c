@@ -438,7 +438,7 @@ void dmgStopSingleEffect(Effect* effect)
     sdword level, j;
     Ship* ship;
 
-    dbgAssert(effect->owner != NULL);
+    dbgAssertOrIgnore(effect->owner != NULL);
 
     ship = (Ship*)effect->owner;
 
@@ -602,14 +602,14 @@ void dmgGetLights(Ship* ship)
     //allocate space for chunks
     ship->nDamageLights = numChunks;
     ship->damageLights = (DamageLightStatic*)memAlloc(numChunks*sizeof(DamageLightStatic), "dmgLightStatic", NonVolatile);
-    dbgAssert(ship->damageLights != NULL);
+    dbgAssertOrIgnore(ship->damageLights != NULL);
 
     //assign light data
     for (i = 0; i < numChunks; i++)
     {
         name[3] = '0' + i;
         mexChunk = mexGetChunk(shipStatic->staticheader.pMexData, "Dmg", name);
-        dbgAssert(mexChunk != NULL);    //shouldn't be NULL
+        dbgAssertOrIgnore(mexChunk != NULL);    //shouldn't be NULL
 
         lightNormal = &((MEXEngineChunk*)mexChunk)->normal;
         lightPosition = &((MEXEngineChunk*)mexChunk)->position;
@@ -630,12 +630,12 @@ void dmgClearLights(Ship* ship)
 {
     if (ship->nDamageLights > 0)
     {
-        dbgAssert(ship->damageLights != NULL);
+        dbgAssertOrIgnore(ship->damageLights != NULL);
         memFree(ship->damageLights);
         ship->nDamageLights = 0;
     }
     else
     {
-        dbgAssert(ship->damageLights == NULL);
+        dbgAssertOrIgnore(ship->damageLights == NULL);
     }
 }

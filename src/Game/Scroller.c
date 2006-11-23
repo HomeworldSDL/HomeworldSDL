@@ -156,7 +156,7 @@ scrollbarhandle scSetupThumbwheel(uword up, uword max, uword maxDisp, featom* at
 {
     scrollbarhandle shandle;
 
-    dbgAssert(atom != NULL);
+    dbgAssertOrIgnore(atom != NULL);
 
     shandle = (scrollbarhandle)atom->pData;
     scAdjustThumbwheel(shandle, up, max, maxDisp);

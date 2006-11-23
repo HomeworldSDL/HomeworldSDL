@@ -199,7 +199,7 @@ real32 bsCurveUpdate(splinecurve *curve, real32 timeElapsed)
     static real32 dd0a, dd0b, ds1a, ds1b;
     real32 adj0, adj1, delta;
 
-    dbgAssert(timeElapsed >= 0.0f);
+    dbgAssertOrIgnore(timeElapsed >= 0.0f);
     curve->timeElapsed += timeElapsed;
     //find next point.  Could conceivably pass multiple control points in one frame.
     while (curve->timeElapsed > curve->times[curve->currentPoint + 1])

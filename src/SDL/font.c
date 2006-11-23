@@ -600,7 +600,7 @@ bool glfontDisplayCharacter(fontheader* font, char ch, sdword x, sdword y, color
     real32 xFrac, yFrac;
 
     glfont = (glfontheader*)font->glFont;
-    dbgAssert(glfont != NULL);
+    dbgAssertOrIgnore(glfont != NULL);
 
     charIndex = (sdword)((ubyte)ch);
     fcharacter = font->character[charIndex];
@@ -815,7 +815,7 @@ fontheader *fontLoad(char *fileName)
     }
 #endif
     header = &fileHeader->header;
-	dbgAssert(fileHeader->flags == 0);  //!!! don't yet support color or anti-aliased fonts
+	dbgAssertOrIgnore(fileHeader->flags == 0);  //!!! don't yet support color or anti-aliased fonts
 
 #ifdef ENDIAN_BIG
 	header->nCharacters = LittleLong( header->nCharacters );
@@ -904,8 +904,8 @@ fontheader *fontLoad(char *fileName)
                    (pFileCharacter->height - pFileCharacter->offsetY);
             sizeUsed += size;
 
-            dbgAssert(sizeUsed <= sizeTotal);                //make sure not too much RAM used
-            dbgAssert(iCharacter <= header->nCharacters);    //make sure not too many characters
+            dbgAssertOrIgnore(sizeUsed <= sizeTotal);                //make sure not too much RAM used
+            dbgAssertOrIgnore(iCharacter <= header->nCharacters);    //make sure not too many characters
         }
     }
 
@@ -1189,7 +1189,7 @@ sdword fontPrintN(sdword x, sdword y, color c, char *string, sdword maxCharacter
     }
 #endif
 
-    dbgAssert(fontCurrentFont != NULL);
+    dbgAssertOrIgnore(fontCurrentFont != NULL);
     red = brightRed = colRed(c);
     green = brightGreen = colGreen(c);
     blue = brightBlue = colBlue(c);
@@ -1323,7 +1323,7 @@ sdword fontWidthN(char *string, sdword maxCharacters)
                 break;
             }
         }
-//        dbgAssert((sdword)ch < fontCurrentFont->nCharacters);
+//        dbgAssertOrIgnore((sdword)ch < fontCurrentFont->nCharacters);
         character = fontCurrentFont->character[(ubyte)ch];  //get character header
         if (character == NULL)
         {                                                   //if character not supported

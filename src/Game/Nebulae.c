@@ -325,7 +325,7 @@ void nebAllocateChunks(nebulae_t* neb, udword num)
         nebFreeChunks(neb);
     }
 
-    dbgAssert(num > 1);
+    dbgAssertOrIgnore(num > 1);
 
     neb->chunkTable = memAlloc(num * sizeof(nebChunk), "nebula chunkTable", 0);
     neb->numChunks = num;
@@ -343,7 +343,7 @@ void nebAllocateTendrils(nebulae_t* neb, udword num)
     udword i;
     nebTendril* tendril;
 
-    dbgAssert(num > 0);
+    dbgAssertOrIgnore(num > 0);
 
     if (neb->tendrilTable != NULL)
     {
@@ -432,7 +432,7 @@ void chunkRandomVelocity(nebChunk* chunk)
 {
     real32 chunkVelocity = NEB_VEL_RAN_MULTIPLIER*(real32)(ranRandom(RANDOM_NEBULAE) % (udword)NEB_RAN_RANGE) + NEB_VEL_BASE;
 
-    dbgAssert(chunk != NULL);
+    dbgAssertOrIgnore(chunk != NULL);
     cloudRandomSphericalPoint(&chunk->velocity);
     vecMultiplyByScalar(chunk->velocity, chunkVelocity);
 }
@@ -448,7 +448,7 @@ void nebInitChunk(nebChunk* chunk)
 {
     udword i;
 
-    dbgAssert(chunk != NULL);
+    dbgAssertOrIgnore(chunk != NULL);
 
     chunk->flags = 0;
     chunk->counter = 0;
@@ -479,7 +479,7 @@ void nebInitTendril(nebTendril* tendril)
 {
     udword i;
 
-    dbgAssert(tendril != NULL);
+    dbgAssertOrIgnore(tendril != NULL);
 
     tendril->flags = 0;
     tendril->counter = 0;
@@ -807,7 +807,7 @@ real32 nebChunkDistance(nebChunk* a, nebChunk* b)
 ----------------------------------------------------------------------------*/
 void nebChunkPicked(nebChunk* chunk, bool8 v)
 {
-    dbgAssert(chunk != NULL);
+    dbgAssertOrIgnore(chunk != NULL);
 
     if (v)
     {
@@ -848,7 +848,7 @@ void nebUnpickAllChunks(nebulae_t* neb)
 ----------------------------------------------------------------------------*/
 void nebAddTendril(nebChunk* chunk, nebTendril* tendril, udword flags)
 {
-    dbgAssert(chunk != NULL);
+    dbgAssertOrIgnore(chunk != NULL);
 
     chunk->tFlags[chunk->numTendrils] = flags;
     chunk->tendrils[chunk->numTendrils++] = (void*)tendril;
@@ -863,9 +863,9 @@ void nebAddTendril(nebChunk* chunk, nebTendril* tendril, udword flags)
 ----------------------------------------------------------------------------*/
 void nebTendrilDirection(nebTendril* tendril)
 {
-    dbgAssert(tendril != NULL);
-    dbgAssert(tendril->a != NULL);
-    dbgAssert(tendril->b != NULL);
+    dbgAssertOrIgnore(tendril != NULL);
+    dbgAssertOrIgnore(tendril->a != NULL);
+    dbgAssertOrIgnore(tendril->b != NULL);
     vecSub(tendril->direction, tendril->b->position, tendril->a->position);
     vecNormalize(&tendril->direction);
 }
@@ -906,7 +906,7 @@ REPICK:
         chunkb = nebPickChunk(neb, NEB_MEDIAN_CHUNK, chunka, NULL);
         if (chunkb == NULL)
         {
-            dbgAssert(++count < 100);
+            dbgAssertOrIgnore(++count < 100);
 //            nebChunkPicked(chunka, FALSE);
             goto REPICK;
         }
@@ -1035,7 +1035,7 @@ void nebDeactivateEmptyChunksAndFixup(nebulae_t* neb)
         }
     }
 
-    dbgAssert(hits != 0);
+    dbgAssertOrIgnore(hits != 0);
 
     //PHASE 2: create a new chunk structure that lacks bare chunks
     newTable = (nebChunk*)memAlloc(hits * sizeof(nebChunk), "nebulae chunks", 0);
@@ -1262,7 +1262,7 @@ void nebDrawChunk2(nebChunk* chunk, sdword lod)
         shInvertMatrix(minv, m);
     }
 
-    dbgAssert(chunk != NULL);
+    dbgAssertOrIgnore(chunk != NULL);
 
     a = b = -1;
     for (i = 0; i < chunk->numTendrils; i++)
@@ -1283,13 +1283,13 @@ void nebDrawChunk2(nebChunk* chunk, sdword lod)
         }
     }
 
-    dbgAssert(a != -1);
-    dbgAssert(b != -1);
+    dbgAssertOrIgnore(a != -1);
+    dbgAssertOrIgnore(b != -1);
 
     ta = (nebTendril*)chunk->tendrils[a];
     tb = (nebTendril*)chunk->tendrils[b];
-    dbgAssert(ta != NULL);
-    dbgAssert(tb != NULL);
+    dbgAssertOrIgnore(ta != NULL);
+    dbgAssertOrIgnore(tb != NULL);
 
     cola = ta->colour;
     colb = tb->colour;
@@ -1362,7 +1362,7 @@ void nebRenderChunk(nebChunk* chunk, sdword lod)
     udword i, actualTendrils;
     nebTendril* tendril;
 
-    dbgAssert(chunk != NULL);
+    dbgAssertOrIgnore(chunk != NULL);
 
     if (RGL && !usingShader) rglFeature(NEB_RENDER);
 
@@ -1800,10 +1800,10 @@ void nebRenderTendril(nebTendril* tendril, sdword lod)
 {
     vector a, b, direction;
 
-    dbgAssert(tendril != NULL);
-    dbgAssert(tendril->a != NULL);
-    dbgAssert(tendril->b != NULL);
-    dbgAssert(tendril->a != tendril->b);
+    dbgAssertOrIgnore(tendril != NULL);
+    dbgAssertOrIgnore(tendril->a != NULL);
+    dbgAssertOrIgnore(tendril->b != NULL);
+    dbgAssertOrIgnore(tendril->a != tendril->b);
 
     if (tendril->counter >= neb_frame_counter)
     {
@@ -1959,7 +1959,7 @@ void nebColourTendril(nebTendril* tendril, sdword lod)
     real32 dA, dB, d;
     static real32 MAXD = 40000.0f;
 
-    dbgAssert(tendril != NULL);
+    dbgAssertOrIgnore(tendril != NULL);
 #if 0
     tendril->colour = tendril->realColour;
 #else
@@ -2138,7 +2138,7 @@ void nebRenderNebula(nebulae_t* neb)
 //MUST also remove itself from the resource list, &c
 void nebDeleteChunkSimply(nebChunk* chunk)
 {
-    dbgAssert(chunk != NULL);
+    dbgAssertOrIgnore(chunk != NULL);
     bitSet(chunk->flags, NEB_CHUNK_DEAD);
 }
 
@@ -2175,8 +2175,8 @@ void nebRemoveTendril(nebTendril* tendril, nebChunk* chunk)
     }
     else
     {
-        dbgAssert(tendril != NULL);
-        dbgAssert(chunk != NULL);
+        dbgAssertOrIgnore(tendril != NULL);
+        dbgAssertOrIgnore(chunk != NULL);
     }
 #else
     bitSet(tendril->flags, NEB_TENDRIL_INACTIVE);
@@ -2212,7 +2212,7 @@ void nebDeleteChunk(nebChunk* chunk)
 
     neb = (nebulae_t*)chunk->nebulae;
 
-    dbgAssert(neb != NULL);
+    dbgAssertOrIgnore(neb != NULL);
 
     if (neb->numChunks == 0)
     {
@@ -2220,7 +2220,7 @@ void nebDeleteChunk(nebChunk* chunk)
         return;
     }
 
-    dbgAssert(chunk != NULL);
+    dbgAssertOrIgnore(chunk != NULL);
     bitSet(chunk->flags, NEB_CHUNK_DEAD);
 
     for (i = 0; i < chunk->numTendrils; i++)
@@ -2249,7 +2249,7 @@ void nebFadeAttachedTendrils(nebChunk* chunk, real32 factor)
 
     neb = (nebulae_t*)chunk->nebulae;
 
-    dbgAssert(neb != NULL);
+    dbgAssertOrIgnore(neb != NULL);
 
     if (neb->numChunks == 0)
     {
@@ -2257,7 +2257,7 @@ void nebFadeAttachedTendrils(nebChunk* chunk, real32 factor)
         dbgFatal(DBG_Loc, "numChunks == 0 in nebFadeAttachedTendrils");
     }
 
-    dbgAssert(chunk != NULL);
+    dbgAssertOrIgnore(chunk != NULL);
 
     for (i = 0; i < chunk->numTendrils; i++)
     {
@@ -2282,7 +2282,7 @@ void nebFadeAttachedTendrils(nebChunk* chunk, real32 factor)
  */
 void nebUpdateChunk(nebChunk* chunk)
 {
-    dbgAssert(chunk != NULL);
+    dbgAssertOrIgnore(chunk != NULL);
 
     //add velocity to dPos
     vecAddTo(chunk->dPos, chunk->velocity);
@@ -2409,7 +2409,7 @@ nebChunk *nebNumToChunkPtr(nebulae_t* neb, sdword num)
     }
     else
     {
-        dbgAssert(num < neb->numChunks);
+        dbgAssertOrIgnore(num < neb->numChunks);
         return &neb->chunkTable[num];
     }
 }
@@ -2437,7 +2437,7 @@ nebTendril *nebNumToTendrilPtr(nebulae_t* neb, sdword num)
     }
     else
     {
-        dbgAssert(num < neb->numTendrils);
+        dbgAssertOrIgnore(num < neb->numTendrils);
         return &neb->tendrilTable[num];
     }
 }
@@ -2458,7 +2458,7 @@ void nebSave_nebTendrilLOD(nebTendrilLOD *nebtendrilLOD)
         memFree(chunk);
     }
 
-    dbgAssert(nebtendrilLOD->faces == NULL);
+    dbgAssertOrIgnore(nebtendrilLOD->faces == NULL);
 }
 
 void nebSave_nebTendril(nebulae_t* neb, nebTendril *nebtendril)
@@ -2583,7 +2583,7 @@ void nebLoad_nebTendrilLOD(nebulae_t* neb, nebTendrilLOD *nebtendrilLOD)
         memFree(chunk);
     }
 
-    dbgAssert(nebtendrilLOD->faces == NULL);
+    dbgAssertOrIgnore(nebtendrilLOD->faces == NULL);
 }
 
 void nebLoad_nebTendril(nebulae_t* neb, nebTendril *nebtendril)

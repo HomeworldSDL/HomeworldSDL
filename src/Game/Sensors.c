@@ -726,7 +726,7 @@ void smHorizonLineDraw(void *voidCam, hmatrix *modelView, hmatrix *projection, r
 
         //figure out where to draw the tick text
         selCircleComputeGeneral(modelView, projection, &horizPoint, 1.0f, &x, &y, &radius);
-        dbgAssert(smTickTextIndex < SM_MaxTicksOnScreen);
+        dbgAssertOrIgnore(smTickTextIndex < SM_MaxTicksOnScreen);
         smTickText[smTickTextIndex].x = primGLToScreenX(x);
         smTickText[smTickTextIndex].y = primGLToScreenY(y);
         degAngle = -RAD_TO_DEG(angle - smHorizTickAngle);
@@ -750,7 +750,7 @@ void smHorizonLineDraw(void *voidCam, hmatrix *modelView, hmatrix *projection, r
         {
             nPrintfed = sprintf(smTickText[smTickTextIndex].text, "%.0f", degAngle);
         }
-        dbgAssert(nPrintfed < SM_TickTextChars);
+        dbgAssertOrIgnore(nPrintfed < SM_TickTextChars);
         if (cam->eyeposition.z > cam->lookatpoint.z)
         {
             smTickText[smTickTextIndex].y -= fontHeight(" ") + smTickTextSpacing;
@@ -1021,7 +1021,7 @@ justRenderAsDot:
                     rndTextureEnable(FALSE);
                     if ((!smBigPoints) && pointSize != 1.0f && ((Ship *)obj)->collInfo.selCircleRadius > 0.0f)
                     {
-                        dbgAssert(nBigDots < SM_NumberBigDots);
+                        dbgAssertOrIgnore(nBigDots < SM_NumberBigDots);
                         bigDot[nBigDots].x = ((Ship *)obj)->collInfo.selCircleX;
                         bigDot[nBigDots].y = ((Ship *)obj)->collInfo.selCircleY;
                         bigDot[nBigDots].c = c;
@@ -1055,7 +1055,7 @@ justRenderAsDot:
 #endif
                 if ((!smBigPoints) && pointSize != 1.0f && ((Ship *)obj)->collInfo.selCircleRadius > 0.0f)
                 {
-                    dbgAssert(nBigDots < SM_NumberBigDots);
+                    dbgAssertOrIgnore(nBigDots < SM_NumberBigDots);
                     bigDot[nBigDots].x = ((Ship *)obj)->collInfo.selCircleX;
                     bigDot[nBigDots].y = ((Ship *)obj)->collInfo.selCircleY;
                     bigDot[nBigDots].c = c;
@@ -1501,7 +1501,7 @@ void smBlobDrawCloudy(Camera *camera, blob *thisBlob, hmatrix *modelView, hmatri
         primCircleOutlineZ(&subBlob->centre, subBlob->radius, 16, colWhite);
 #endif
         c = teHostileColor;
-        dbgAssert(nBigDots < SM_NumberBigDots);
+        dbgAssertOrIgnore(nBigDots < SM_NumberBigDots);
 //        bigDot[nBigDots].x = ((Ship *)obj)->collInfo->selCircleX;
 //        bigDot[nBigDots].y = ((Ship *)obj)->collInfo->selCircleY;
         selCircleComputeGeneral(modelView, projection, &subBlob->centre, 1.0f, &screenX, &screenY, &radius);
@@ -1589,7 +1589,7 @@ void smBlobDrawCloudy(Camera *camera, blob *thisBlob, hmatrix *modelView, hmatri
                 }
                 if ((!smBigPoints) && pointSize != 1.0f && ((Ship *)obj)->collInfo.selCircleRadius > 0.0f)
                 {
-                    dbgAssert(nBigDots < SM_NumberBigDots);
+                    dbgAssertOrIgnore(nBigDots < SM_NumberBigDots);
                     bigDot[nBigDots].x = ((Ship *)obj)->collInfo.selCircleX;
                     bigDot[nBigDots].y = ((Ship *)obj)->collInfo.selCircleY;
                     bigDot[nBigDots].c = c;
@@ -1612,7 +1612,7 @@ void smBlobDrawCloudy(Camera *camera, blob *thisBlob, hmatrix *modelView, hmatri
                 {   //!!!  Single Player game mission specific Code
                     //In Mission 8, the PrisonShipOld derelict shows up
                     //as a friendly ship
-                    dbgAssert(nBigDots < SM_NumberBigDots);
+                    dbgAssertOrIgnore(nBigDots < SM_NumberBigDots);
                     bigDot[nBigDots].x = ((Derelict *)obj)->collInfo.selCircleX;
                     bigDot[nBigDots].y = ((Derelict *)obj)->collInfo.selCircleY;
                     bigDot[nBigDots].c = teFriendlyColor;
@@ -1630,7 +1630,7 @@ void smBlobDrawCloudy(Camera *camera, blob *thisBlob, hmatrix *modelView, hmatri
                 break;
             default:
 //#ifndef DEBUG_COLLBLOBS
-//                dbgAssert(FALSE);       // don't assert if DEBUG_COLLBLOBS because debug collblobs can have bullets,etc.
+//                dbgAssertOrIgnore(FALSE);       // don't assert if DEBUG_COLLBLOBS because debug collblobs can have bullets,etc.
 //#endif
                 break;
         }
@@ -1712,7 +1712,7 @@ void smBlobsSortToCamera(LinkedList *list, Camera *camera)
         thisBlob->cameraSortDistance = vecMagnitudeSquared(distance);//figure out a distance for sorting
         smBlobSortList[smNumberBlobsSorted] = thisBlob;     //store reference to blob
     }
-    dbgAssert(smNumberBlobsSorted == list->num);
+    dbgAssertOrIgnore(smNumberBlobsSorted == list->num);
     qsort(smBlobSortList, smNumberBlobsSorted, sizeof(blob **), smBlobListSort);
 }
 
@@ -2012,7 +2012,7 @@ blob *smBlobsDraw(Camera *camera, LinkedList *list, hmatrix *modelView, hmatrix 
         for (node = universe.MinorSpaceObjList.head; node != NULL; node = node->next)
         {
             thisAsteroid = (Asteroid *)listGetStructOfNode(node);
-            dbgAssert(thisAsteroid->objtype == OBJ_AsteroidType && thisAsteroid->asteroidtype == Asteroid0);
+            dbgAssertOrIgnore(thisAsteroid->objtype == OBJ_AsteroidType && thisAsteroid->asteroidtype == Asteroid0);
 #if TO_STANDARD_COLORS
             c = teResourceColor;
 #else
@@ -2759,7 +2759,7 @@ void smTacticalOverlayDraw(blob *thisBlob, rectangle *viewportRect, sdword senso
 {
     sdword x, y, yStart, xSpacing;
 
-    dbgAssert(thisBlob != NULL);
+    dbgAssertOrIgnore(thisBlob != NULL);
     x = mouseCursorX() + smTOBottomCornerX;
     yStart = y = mouseCursorY() - fontHeight(" ") + smTOBottomCornerY;
     if (thisBlob->RUs != 0)
@@ -2973,13 +2973,13 @@ void smViewportRender(featom *atom, regionhandle region)
         {                                                   //else we're in the SM rendering part
             mrRenderMainScreen = FALSE;
 
-            dbgAssert(smZoomTime >= smCurrentMainViewZoomLength);
+            dbgAssertOrIgnore(smZoomTime >= smCurrentMainViewZoomLength);
             universe.mainCameraCommand.actualcamera.ignoreZoom = FALSE;
         }
     }
     else if (smZoomingIn)
     {
-        dbgAssert(smEyeStart.x < (real32)1e19 && smEyeStart.x > (real32)-1e19);
+        dbgAssertOrIgnore(smEyeStart.x < (real32)1e19 && smEyeStart.x > (real32)-1e19);
         smZoomTime -= frameStep;
         smZoomUpdate(smZoomTime, smCurrentZoomLength, TRUE);
         if (smZoomTime <= 0.0f)
@@ -3249,7 +3249,7 @@ void smCullAndFocusSelecting(void)
         smFocusCommand->ShipPtr[index] = (Ship *)selSelecting.TargetPtr[index];
     }
     smFocusCommand->numShips = selSelecting.numTargets;
-    dbgAssert(!smZoomingOut);
+    dbgAssertOrIgnore(!smZoomingOut);
     smZoomingIn = TRUE;
 
     /* call the sound event for closing the Sensors manager */
@@ -3261,7 +3261,7 @@ void smCullAndFocusSelecting(void)
     smLookStart = centre;
     vecSub(smEyeStart, smLookEnd, smEyeEnd);
     vecNormalize(&smEyeStart);
-    dbgAssert(smEyeStart.x < (real32)1e19 && smEyeStart.x > (real32)-1e19);
+    dbgAssertOrIgnore(smEyeStart.x < (real32)1e19 && smEyeStart.x > (real32)-1e19);
     vecMultiplyByScalar(smEyeStart, CAMERA_FOCUSFAR_DISTANCE);
     vecSub(smEyeStart, smLookStart, smEyeStart);
     smInitialDistance = smCamera.distance;//remember zoom-back distance for next time
@@ -3271,7 +3271,7 @@ void smCullAndFocusSelecting(void)
     smTempCamera.eyeposition = smEyeStart;
     mrCamera = &smTempCamera;
     univUpdateRenderList();
-    dbgAssert(smEyeStart.x < (real32)1e19 && smEyeStart.x > (real32)-1e19);
+    dbgAssertOrIgnore(smEyeStart.x < (real32)1e19 && smEyeStart.x > (real32)-1e19);
 
     //the player will get kicked into the sensors manager after several seconds waiting
     //with the camera nowhere near their ships.  This is a security "anti-spy" measure.
@@ -3324,7 +3324,7 @@ udword smViewportProcess(regionhandle region, sdword ID, udword event, udword da
             {                                               //if specified a point
                 vector destination;
 
-                dbgAssert(!smFleetIntel);
+                dbgAssertOrIgnore(!smFleetIntel);
                 MakeShipsMobile((SelectCommand *)&selSelected);
                 if (selSelected.numShips > 0)
                 {
@@ -3805,7 +3805,7 @@ void smSensorsClose(char *name, featom *atom)
         return;
     }
 
-//    dbgAssert(!smFleetIntel);
+//    dbgAssertOrIgnore(!smFleetIntel);
     if (smZoomingIn || smZoomingOut)
     {                                                       //if hit while already zooming
         return;
@@ -3835,7 +3835,7 @@ void smSensorsClose(char *name, featom *atom)
     vecNormalize(&direction);
     vecMultiplyByScalar(direction, dStart);
     vecSub(smEyeStart, smLookStart, direction);
-    dbgAssert(!smZoomingOut);
+    dbgAssertOrIgnore(!smZoomingOut);
     smZoomingIn = TRUE;
 
     /* call the sound event for closing the Sensors manager */
@@ -3850,7 +3850,7 @@ void smSensorsClose(char *name, featom *atom)
     smTempCamera.eyeposition = smEyeStart;
     mrCamera = &smTempCamera;
     univUpdateRenderList();
-    dbgAssert(smEyeStart.x < (real32)1e19 && smEyeStart.x > (real32)-1e19);
+    dbgAssertOrIgnore(smEyeStart.x < (real32)1e19 && smEyeStart.x > (real32)-1e19);
 
 //Probe Hack Start   ******************
     if(mrNeedProbeHack())
@@ -4048,7 +4048,7 @@ void smSensorsBegin(char *name, featom *atom)
         }
         reg = reg->next;
     }
-    dbgAssert(smViewportRegion != NULL);
+    dbgAssertOrIgnore(smViewportRegion != NULL);
     regFunctionSet(smViewportRegion, smViewportProcess);
     regFilterSet(smViewportRegion, SM_ViewportFilter);
     smViewRectangle = smViewportRegion->rect;
@@ -4115,7 +4115,7 @@ void smSensorsBegin(char *name, featom *atom)
     {
         if (smFleetIntel && index == smScrollCountTop - 1)
         {                                                   //consider the last region as a letterbox bar
-            dbgAssert(smScrollListTop[index]->drawFunction == feStaticRectangleDraw);
+            dbgAssertOrIgnore(smScrollListTop[index]->drawFunction == feStaticRectangleDraw);
             diff = smScrollListTop[index]->rect.y1 - smScrollListTop[index]->rect.y0;
             diff = (diff) * MAIN_WindowHeight / 480 - diff;
             smScrollListTop[index]->rect.y1 += diff;
@@ -4132,7 +4132,7 @@ void smSensorsBegin(char *name, featom *atom)
     {
         if (smFleetIntel && index == smScrollCountBottom - 1)
         {                                                   //consider the last region as a letterbox bar
-            dbgAssert(smScrollListBottom[index]->drawFunction == feStaticRectangleDraw);
+            dbgAssertOrIgnore(smScrollListBottom[index]->drawFunction == feStaticRectangleDraw);
             diff = smScrollListBottom[index]->rect.y1 - smScrollListBottom[index]->rect.y0;
             diff = (diff) * MAIN_WindowHeight / 480 - diff;
             smScrollListBottom[index]->rect.y0 -= diff;

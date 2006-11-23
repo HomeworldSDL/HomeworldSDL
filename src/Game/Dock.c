@@ -330,7 +330,7 @@ DockStaticPoint *dockFindDockStaticPoint(char *name,DockStaticInfo *dockstaticin
             return curdockpoint;
         }
     }
-    dbgAssert(FALSE);
+    dbgAssertOrIgnore(FALSE);
     return NULL;
 }
 
@@ -379,7 +379,7 @@ Ship *FindAnotherResearchShiptoDockWith(Ship *ship)
     while (objnode != NULL)
     {
         dockat = (Ship *)listGetStructOfNode(objnode);
-        dbgAssert(dockat->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(dockat->objtype == OBJ_ShipType);
 
         if ((dockat->flags & SOF_Dead) == 0)
         {
@@ -692,7 +692,7 @@ Ship *FindNearestShipToDockAt(Ship *ship,DockType dockType)
     while (objnode != NULL)
     {
         dockat = (Ship *)listGetStructOfNode(objnode);
-        dbgAssert(dockat->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(dockat->objtype == OBJ_ShipType);
 
         if (ThisShipCanDockWith(ship,dockat,dockType))
         {
@@ -778,7 +778,7 @@ bool allShipsDockingWithSameShip(SelectCommand *selectcom)
     Ship *ship;
     sdword i;
 
-    dbgAssert(numShips > 0);
+    dbgAssertOrIgnore(numShips > 0);
 
     firstship = (selectcom->ShipPtr[0])->dockvars.dockship;
 
@@ -1028,7 +1028,7 @@ sdword clDock(CommandLayer *comlayer,SelectCommand *selectcom,DockType dockType,
 
         if (alreadycommand->ordertype.order == COMMAND_COLLECT_RESOURCES)
         {
-            dbgAssert(alreadycommand->selection->numShips == 1);
+            dbgAssertOrIgnore(alreadycommand->selection->numShips == 1);
             wasHarvesting = TRUE;
             collect = alreadycommand->collect;
         }
@@ -1109,7 +1109,7 @@ sdword clDock(CommandLayer *comlayer,SelectCommand *selectcom,DockType dockType,
 ----------------------------------------------------------------------------*/
 void dockChangeSingleShipToDock(struct CommandToDo *command,Ship *ship,Ship *dockship,bool wasHarvesting,DockType dockType)
 {
-    dbgAssert(command->selection->numShips == 1);
+    dbgAssertOrIgnore(command->selection->numShips == 1);
 
     if (command->ordertype.attributes & COMMAND_IS_PROTECTING)
     {
@@ -1203,7 +1203,7 @@ void RemoveShipFromLaunching(Ship *ship)
     }
     ship->dockvars.dockship = NULL;
     ship->dockvars.dockstaticpoint = NULL;
-    dbgAssert(ship->dockvars.customdockinfo == NULL);
+    dbgAssertOrIgnore(ship->dockvars.customdockinfo == NULL);
     madLinkInPostDockingShip(ship);
 
     battleLaunchWelcomeExchange(ship);
@@ -1220,7 +1220,7 @@ void LaunchCleanup(struct CommandToDo *launchtodo)
 
     ship = launchtodo->selection->ShipPtr[0];
 
-    dbgAssert(launchtodo->selection->numShips == 1);
+    dbgAssertOrIgnore(launchtodo->selection->numShips == 1);
     RemoveShipFromLaunching(ship);
 }
 
@@ -1332,7 +1332,7 @@ bool dockShipRefuelsAtShip(Ship *ship,Ship *dockwith)
     ShipStaticInfo *dockwithstaticinfo = (ShipStaticInfo *)dockwith->staticinfo;
     bool alldone = TRUE;
 
-    dbgAssert(dockwithstaticinfo->canReceiveShips | dockwithstaticinfo->canReceiveResources);
+    dbgAssertOrIgnore(dockwithstaticinfo->canReceiveShips | dockwithstaticinfo->canReceiveResources);
 
     // Dump off any resource units we have
     if ((dockwithstaticinfo->canReceiveResources) && (ship->resources > 0))
@@ -1514,7 +1514,7 @@ bool dockFlyToConeOriginLatchIfWithin(Ship *ship,Ship *dockwith,real32 withindis
     real32 distsqr;
     sdword overide;
 
-    dbgAssert(dockstaticpoint->type == LatchPoint);
+    dbgAssertOrIgnore(dockstaticpoint->type == LatchPoint);
 
     if((overide = dockNeedOffsetOveride(dockwith,ship,dockstaticpoint)) != -1)
     {
@@ -1583,7 +1583,7 @@ bool dockFlyToConeOriginLatch(Ship *ship,Ship *dockwith)
     vector desiredUp;
     sdword overide;
 
-    dbgAssert(dockstaticpoint->type == LatchPoint);
+    dbgAssertOrIgnore(dockstaticpoint->type == LatchPoint);
 
     if((overide = dockNeedRotationOveride(dockwith,ship,dockstaticpoint)) != -1)
     {
@@ -1740,7 +1740,7 @@ bool dockFlyOutOfCone(Ship *ship,Ship *dockwith,sdword headingdirection,sdword u
 
         if ((headingdirection >= 0) && (updirection >= 0))
     {
-            dbgAssert(headingdirection != updirection);
+            dbgAssertOrIgnore(headingdirection != updirection);
             GetDirectionVectorOfShip(&heading,headingdirection,dockwith);
             GetDirectionVectorOfShip(&up,updirection,dockwith);
             aitrackHeadingAndUp(ship,&heading,&up,FLYSHIP_HEADINGACCURACY);
@@ -2011,14 +2011,14 @@ sdword dockFindNearestDockPoint(sdword *dockpointindices[],Ship *ship,Ship *dock
     real32 coneToShipMagSqr;
     DockStaticPoint *dockstaticpoint;
 
-    dbgAssert(dockInfo);
-    dbgAssert(dockStaticInfo);
-    dbgAssert(dockInfo->numDockPoints == dockStaticInfo->numDockPoints);
+    dbgAssertOrIgnore(dockInfo);
+    dbgAssertOrIgnore(dockStaticInfo);
+    dbgAssertOrIgnore(dockInfo->numDockPoints == dockStaticInfo->numDockPoints);
 
     while (curdockpoint != NULL)
     {
         curdockindex = *curdockpoint;
-        dbgAssert(curdockindex < dockStaticInfo->numDockPoints);
+        dbgAssertOrIgnore(curdockindex < dockStaticInfo->numDockPoints);
 
         if (!dockInfo->dockpoints[curdockindex].thisDockBusy)
         {
@@ -2065,7 +2065,7 @@ sdword dockFindLaunchPoint(sdword *dockpointindices[],Ship *dockwith)
     while (curlaunchpoint != NULL)
     {
         curlaunchindex = *curlaunchpoint;
-        dbgAssert(curlaunchindex < dockInfo->numDockPoints);
+        dbgAssertOrIgnore(curlaunchindex < dockInfo->numDockPoints);
 
         if (!dockInfo->dockpoints[curlaunchindex].thisDockBusy)
         {
@@ -2102,7 +2102,7 @@ sdword dockFindLaunchPointRandom(sdword *dockpointindices[],Ship *dockwith,Ship 
     while (curlaunchpoint != NULL)
     {
         curlaunchindex = *curlaunchpoint;
-        dbgAssert(curlaunchindex < numDockPoints);
+        dbgAssertOrIgnore(curlaunchindex < numDockPoints);
 
         if (!dockInfo->dockpoints[curlaunchindex].thisDockBusy)
         {
@@ -2158,7 +2158,7 @@ void dockUnbusyThisShip(Ship *ship)
     Ship *busyShip = ship->dockvars.busyingThisShip;
 
     busyShip->dockInfo->busyness--;
-    dbgAssert(busyShip->dockInfo->busyness >= 0);
+    dbgAssertOrIgnore(busyShip->dockInfo->busyness >= 0);
     ship->dockvars.busyingThisShip = NULL;
 }
 
@@ -2177,14 +2177,14 @@ void dockBusyThisShip(Ship *ship,Ship *dockwith)
 ----------------------------------------------------------------------------*/
 static void dockReserveDockPoint(Ship *ship,Ship *dockwith,sdword dockpointindex)
 {
-    dbgAssert(dockpointindex != -1);
-    dbgAssert(ship->dockvars.reserveddocking < 0);    // make sure we already haven't reserved something
+    dbgAssertOrIgnore(dockpointindex != -1);
+    dbgAssertOrIgnore(ship->dockvars.reserveddocking < 0);    // make sure we already haven't reserved something
 
-    dbgAssert(ship->dockvars.dockship == dockwith);
-    dbgAssert(ship->dockvars.dockstaticpoint->dockindex == dockpointindex);
+    dbgAssertOrIgnore(ship->dockvars.dockship == dockwith);
+    dbgAssertOrIgnore(ship->dockvars.dockstaticpoint->dockindex == dockpointindex);
 
     ship->dockvars.reserveddocking = (sbyte)dockpointindex;
-    dbgAssert(dockwith->dockInfo->dockpoints[dockpointindex].thisDockBusy == 0);
+    dbgAssertOrIgnore(dockwith->dockInfo->dockpoints[dockpointindex].thisDockBusy == 0);
     dockwith->dockInfo->dockpoints[dockpointindex].thisDockBusy++;
 
     //special case advance support frigate docking for corvettes
@@ -2246,7 +2246,7 @@ static void dockFreeDockPoint(Ship *ship,Ship *dockwith)
 {
     sdword dockpointindex;
 
-    dbgAssert(ship->dockvars.dockship == dockwith);
+    dbgAssertOrIgnore(ship->dockvars.dockship == dockwith);
 
     dockpointindex = ship->dockvars.dockstaticpoint->dockindex;
 
@@ -2261,10 +2261,10 @@ static void dockFreeDockPoint(Ship *ship,Ship *dockwith)
         }
     }
 
-    dbgAssert(ship->dockvars.reserveddocking == (sbyte)dockpointindex);
+    dbgAssertOrIgnore(ship->dockvars.reserveddocking == (sbyte)dockpointindex);
     ship->dockvars.reserveddocking = -1;
 
-    dbgAssert(dockwith->dockInfo->dockpoints[dockpointindex].thisDockBusy > 0);
+    dbgAssertOrIgnore(dockwith->dockInfo->dockpoints[dockpointindex].thisDockBusy > 0);
     dockwith->dockInfo->dockpoints[dockpointindex].thisDockBusy--;
 
     if(dockwith->shiptype == AdvanceSupportFrigate)
@@ -2344,7 +2344,7 @@ void dockPutShipInside(Ship *ship,Ship *dockwith)
     ShipsInsideMe *shipsInsideMe = dockwith->shipsInsideMe;
     InsideShip *insideShip;
 
-    dbgAssert(shipsInsideMe);
+    dbgAssertOrIgnore(shipsInsideMe);
 
     insideShip = memAlloc(sizeof(InsideShip),"InsideShip",0);
     insideShip->ship = ship;
@@ -2401,7 +2401,7 @@ void dockRemoveShipFromInside(Ship *ship,Ship *dockwith)
 
         node = node->next;
     }
-    //dbgAssert(FALSE);
+    //dbgAssertOrIgnore(FALSE);
     dbgMessagef("\nWarning: ship %d not inside ship %d but expected",ship->shipID.shipNumber,dockwith->shipID.shipNumber);
 }
 
@@ -2412,7 +2412,7 @@ void dockPutShipOutside(Ship *ship,Ship *creator,vector *createat,udword heading
     vector right;
     sdword i;
 
-    dbgAssert(creator);
+    dbgAssertOrIgnore(creator);
     if (creator->collMyBlob != NULL)
     {
         collAddSpaceObjToSpecificBlob(creator->collMyBlob,(SpaceObj *)ship);
@@ -2434,7 +2434,7 @@ void dockPutShipOutside(Ship *ship,Ship *creator,vector *createat,udword heading
     ship->posinfo.position = *createat;
     ship->posinfo.velocity = creator->posinfo.velocity;
 
-    dbgAssert(headingdirection != updirection);
+    dbgAssertOrIgnore(headingdirection != updirection);
     GetDirectionVectorOfShip(&heading,headingdirection,creator);
     GetDirectionVectorOfShip(&up,updirection,creator);
     vecCrossProduct(right,heading,up);   // should not have to normalize because heading, up are unit vectors and angle between them is 90 degrees.
@@ -2453,7 +2453,7 @@ void dockPutShipOutside(Ship *ship,Ship *creator,vector *createat,udword heading
 
 void dockMakeNewStaticInfoForMaster(Ship *master)
 {
-    dbgAssert(!(master->flags & SOF_StaticInfoIsDynamic));
+    dbgAssertOrIgnore(!(master->flags & SOF_StaticInfoIsDynamic));
 
 
     master->staticinfo = memAlloc(sizeof(ShipStaticInfo),"ShipStaticInfo",0);
@@ -2493,7 +2493,7 @@ void dockFreeMasterStaticMem(Ship *master)
 void dockMakeMaster(Ship *master)
 {
     //Only make masters who aren't anything
-    dbgAssert(master->slaveinfo == NULL);
+    dbgAssertOrIgnore(master->slaveinfo == NULL);
 
     master->slaveinfo = memAlloc(sizeof(SlaveInfo),"SlaveInfo",0);          //MEMALLOC
     master->slaveinfo->flags = 0;
@@ -2525,14 +2525,14 @@ void dockAddSlave(Ship *master, Ship *slave)
 //    udword i,num;
     //Only accept fresh non slaves ...later expand to inherit slaves and fellow slaves
 
-    dbgAssert(bitTest(master->slaveinfo->flags,SF_MASTER));
+    dbgAssertOrIgnore(bitTest(master->slaveinfo->flags,SF_MASTER));
 #ifdef DEBUG_SLAVE
     dbgMessagef("\nSLAVE_TRADE: Adding Slave to Master.");
 #endif
 
     if(slave->slaveinfo != NULL)
     {   //must be trying to add a master...if not???
-        dbgAssert(bitTest(slave->slaveinfo->flags,SF_MASTER));
+        dbgAssertOrIgnore(bitTest(slave->slaveinfo->flags,SF_MASTER));
         slavenode = slave->slaveinfo->slaves.head;
         while(slavenode != NULL)
         {
@@ -2624,8 +2624,8 @@ void dockAddSlave(Ship *master, Ship *slave)
 
 void dockRemoveSlave(Ship *master, Ship *slavetoremove)
 {
-    dbgAssert(bitTest(master->slaveinfo->flags,SF_MASTER));   //is master a master?
-    dbgAssert(slavetoremove->slaveinfo->Master == master);    //this better be a slave of this master
+    dbgAssertOrIgnore(bitTest(master->slaveinfo->flags,SF_MASTER));   //is master a master?
+    dbgAssertOrIgnore(slavetoremove->slaveinfo->Master == master);    //this better be a slave of this master
 
     listRemoveNode(&slavetoremove->slavelink);
     memFree(slavetoremove->slaveinfo);                        //MEMFREE
@@ -2640,7 +2640,7 @@ void dockRemoveSlave(Ship *master, Ship *slavetoremove)
 
 void dockLiberateSlave(Ship *freedomSlave)
 {
-    dbgAssert(bitTest(freedomSlave->slaveinfo->flags,SF_SLAVE));
+    dbgAssertOrIgnore(bitTest(freedomSlave->slaveinfo->flags,SF_SLAVE));
     dockRemoveSlave(freedomSlave->slaveinfo->Master,freedomSlave);
 }
 
@@ -2653,7 +2653,7 @@ void dockCrushMaster(Ship *master)
     dbgMessagef("\nSLAVE_TRADE: Deleteing Master");
 #endif
 
-    dbgAssert(bitTest(master->slaveinfo->flags, SF_MASTER));
+    dbgAssertOrIgnore(bitTest(master->slaveinfo->flags, SF_MASTER));
 
     slavenode = master->slaveinfo->slaves.head;
 
@@ -2663,7 +2663,7 @@ void dockCrushMaster(Ship *master)
         slavenode = slavenode->next;    //move to next since we are deleting slave next line
         dockRemoveSlave(master,slave);
     }
-    dbgAssert(master->slaveinfo->slaves.num == 0);      //makes sure nothing has been left
+    dbgAssertOrIgnore(master->slaveinfo->slaves.num == 0);      //makes sure nothing has been left
     bitClear(master->flags, SOF_Slaveable);
     memFree(master->slaveinfo);                         //MEMFREE
     master->slaveinfo = NULL;
@@ -2679,7 +2679,7 @@ void dockKillSlaves(Ship *master)
     dbgMessagef("\nSLAVE_TRADE: Deleteing Master");
 #endif
 
-    dbgAssert(bitTest(master->slaveinfo->flags, SF_MASTER));
+    dbgAssertOrIgnore(bitTest(master->slaveinfo->flags, SF_MASTER));
 
     slavenode = master->slaveinfo->slaves.head;
 
@@ -2697,8 +2697,8 @@ void dockDealWithDeadSlaveable(Ship *ship)
     dbgMessagef("\nSLAVE_TRADE: cleaning up dead slave/master");
 #endif
 
-    dbgAssert(bitTest(ship->flags,SOF_Slaveable));
-    dbgAssert(ship->slaveinfo != NULL);
+    dbgAssertOrIgnore(bitTest(ship->flags,SOF_Slaveable));
+    dbgAssertOrIgnore(ship->slaveinfo != NULL);
     if(bitTest(ship->slaveinfo->flags,SF_MASTER))
     {    //dead ship was a master....
         //for now, destroy hiearchy...but later reassign MAstery to first slave
@@ -2708,7 +2708,7 @@ void dockDealWithDeadSlaveable(Ship *ship)
     }
     else
     {
-        dbgAssert(bitTest(ship->slaveinfo->flags,SF_SLAVE));
+        dbgAssertOrIgnore(bitTest(ship->slaveinfo->flags,SF_SLAVE));
         dbgMessage("\nSlave Died.");
         dockRemoveSlave(ship->slaveinfo->Master, ship);
     }
@@ -2720,7 +2720,7 @@ void dockUpdateSlaves(Ship *master)
     Node *slavenode;
     vector tmpvec;
 
-    dbgAssert(bitTest(master->slaveinfo->flags, SF_MASTER));
+    dbgAssertOrIgnore(bitTest(master->slaveinfo->flags, SF_MASTER));
 
     slavenode = master->slaveinfo->slaves.head;
 
@@ -2797,7 +2797,7 @@ bool ShipDocksAtJunkYardHQ(struct CommandToDo *docktodo,struct Ship *ship,struct
     switch (ship->dockvars.dockstate2)
     {
         case 0:
-            dbgAssert(ship->dockvars.customdockinfo == NULL);
+            dbgAssertOrIgnore(ship->dockvars.customdockinfo == NULL);
             customdockinfo = ship->dockvars.customdockinfo = memAlloc(sizeof(AtJunkYardHQDockInfo),"AtJunkYardHQ",0);
             customdockinfo->size = sizeof(AtJunkYardHQDockInfo);
 
@@ -2908,7 +2908,7 @@ bool ShipDocksAtJunkYardHQ(struct CommandToDo *docktodo,struct Ship *ship,struct
             }
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             return FALSE;
     }
 }
@@ -2973,7 +2973,7 @@ bool ShipDocksAtRepairCorvette(struct CommandToDo *docktodo,struct Ship *ship,st
     switch (ship->dockvars.dockstate2)
     {
         case 0:
-            dbgAssert(ship->dockvars.customdockinfo == NULL);
+            dbgAssertOrIgnore(ship->dockvars.customdockinfo == NULL);
             customdockinfo = ship->dockvars.customdockinfo = memAlloc(sizeof(AtRepairCorvetteDockInfo),"AtRCorvDock",0);
             customdockinfo->size = sizeof(AtRepairCorvetteDockInfo);
 
@@ -2987,7 +2987,7 @@ bool ShipDocksAtRepairCorvette(struct CommandToDo *docktodo,struct Ship *ship,st
             }
             else
             {
-                dbgAssert(dockwithstatic->shiprace == R2);
+                dbgAssertOrIgnore(dockwithstatic->shiprace == R2);
                 customdockinfo->latchpointsindex = 1;
                 customdockinfo->latchmintime = R2REPCORV_LATCHMINTIME;
                 customdockinfo->turnlatchdistsqr = (shipstatic->shipclass == CLASS_Corvette) ? R2REPCORV_CORVETTELATCHDIST : R2REPCORV_FIGHTERLATCHDIST;
@@ -3100,7 +3100,7 @@ bool ShipDocksAtRepairCorvette(struct CommandToDo *docktodo,struct Ship *ship,st
             }
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             return FALSE;
     }
 }
@@ -3172,7 +3172,7 @@ bool ShipDocksAtResourceCollector(struct CommandToDo *docktodo,struct Ship *ship
     switch (ship->dockvars.dockstate2)
     {
         case 0:
-            dbgAssert(ship->dockvars.customdockinfo == NULL);
+            dbgAssertOrIgnore(ship->dockvars.customdockinfo == NULL);
             customdockinfo = ship->dockvars.customdockinfo = memAlloc(sizeof(AtResourceCollectorDockInfo),"AtRColDock",0);
             customdockinfo->size = sizeof(AtResourceCollectorDockInfo);
 
@@ -3195,7 +3195,7 @@ bool ShipDocksAtResourceCollector(struct CommandToDo *docktodo,struct Ship *ship
             }
             else
             {
-                dbgAssert(dockwithstatic->shiprace == R2);
+                dbgAssertOrIgnore(dockwithstatic->shiprace == R2);
                 if (shipstatic->shipclass == CLASS_Corvette)
                 {
                     customdockinfo->latchpointsindex = 2;
@@ -3327,7 +3327,7 @@ bool ShipDocksAtResourceCollector(struct CommandToDo *docktodo,struct Ship *ship
             }
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             return FALSE;
     }
 }
@@ -3451,7 +3451,7 @@ bool ShipDocksAtASF(struct CommandToDo *docktodo,struct Ship *ship,struct Ship *
     switch (ship->dockvars.dockstate2)
     {
         case 0:
-            dbgAssert(ship->dockvars.customdockinfo == NULL);
+            dbgAssertOrIgnore(ship->dockvars.customdockinfo == NULL);
             customdockinfo = ship->dockvars.customdockinfo = memAlloc(sizeof(AtASFDockInfo),"AtASFDock",0);
             customdockinfo->size = sizeof(AtASFDockInfo);
 
@@ -3467,7 +3467,7 @@ bool ShipDocksAtASF(struct CommandToDo *docktodo,struct Ship *ship,struct Ship *
                 }
                 else
                 {
-                    dbgAssert(shipstatic->shipclass == CLASS_Fighter || shipstatic->shiptype == ProximitySensor);
+                    dbgAssertOrIgnore(shipstatic->shipclass == CLASS_Fighter || shipstatic->shiptype == ProximitySensor);
                     customdockinfo->latchpointsindex = 1;
                     customdockinfo->turnlatchdistsqr = R1ASF_FIGHTERLATCHDIST;
                     customdockinfo->latchmintime = R1ASF_LATCHMINTIME;
@@ -3475,7 +3475,7 @@ bool ShipDocksAtASF(struct CommandToDo *docktodo,struct Ship *ship,struct Ship *
             }
             else
             {
-                dbgAssert(dockwithstatic->shiprace == R2);
+                dbgAssertOrIgnore(dockwithstatic->shiprace == R2);
                 if (shipstatic->shipclass == CLASS_Corvette)
                 {
                     customdockinfo->latchpointsindex = 2;
@@ -3484,7 +3484,7 @@ bool ShipDocksAtASF(struct CommandToDo *docktodo,struct Ship *ship,struct Ship *
                 }
                 else
                 {
-                    dbgAssert(shipstatic->shipclass == CLASS_Fighter|| shipstatic->shiptype == ProximitySensor);
+                    dbgAssertOrIgnore(shipstatic->shipclass == CLASS_Fighter|| shipstatic->shiptype == ProximitySensor);
                     customdockinfo->latchpointsindex = 3;
                     customdockinfo->turnlatchdistsqr = R2ASF_FIGHTERLATCHDIST;
                     customdockinfo->latchmintime = R2ASF_LATCHMINTIME;
@@ -3640,7 +3640,7 @@ bool ShipDocksAtASF(struct CommandToDo *docktodo,struct Ship *ship,struct Ship *
             }
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             return FALSE;
     }
 }
@@ -3751,7 +3751,7 @@ bool ShipDocksAtResController(struct CommandToDo *docktodo,struct Ship *ship,str
     switch (ship->dockvars.dockstate2)
     {
         case 0:
-            dbgAssert(ship->dockvars.customdockinfo == NULL);
+            dbgAssertOrIgnore(ship->dockvars.customdockinfo == NULL);
             customdockinfo = ship->dockvars.customdockinfo = memAlloc(sizeof(AtResControllerDockInfo),"AtResConDock",0);
             customdockinfo->size = sizeof(AtResControllerDockInfo);
 
@@ -3773,7 +3773,7 @@ bool ShipDocksAtResController(struct CommandToDo *docktodo,struct Ship *ship,str
                 }
                 else
                 {
-                    dbgAssert(FALSE);
+                    dbgAssertOrIgnore(FALSE);
                 }
             }
 
@@ -3785,7 +3785,7 @@ bool ShipDocksAtResController(struct CommandToDo *docktodo,struct Ship *ship,str
             }
             else
             {
-                dbgAssert(dockwithstatic->shiprace == R2);
+                dbgAssertOrIgnore(dockwithstatic->shiprace == R2);
                 customdockinfo->latchpointsindex = index + 3;
                 customdockinfo->turnlatchdistsqr = *(R2LatchDistances[index]);
                 customdockinfo->latchmintime = R2RESCONTROLLER_LATCHMINTIME;
@@ -3899,7 +3899,7 @@ bool ShipDocksAtResController(struct CommandToDo *docktodo,struct Ship *ship,str
             }
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             return FALSE;
     }
 }
@@ -4399,12 +4399,12 @@ bool LaunchShipFromCarrierMother(Ship *ship,Ship *dockwith)
             shipstatic = ((ShipStaticInfo *)ship->staticinfo);
 
             ship->dockvars.launchpoints = GetLaunchPoints(shipstatic,dockwithstatic);
-            dbgAssert(ship->dockvars.launchpoints);
+            dbgAssertOrIgnore(ship->dockvars.launchpoints);
             ship->dockvars.dockstate3 = FINDFREELAUNCHPOINT;
             // deliberately fall through to FINDFREELAUNCHPOINT
 
         case FINDFREELAUNCHPOINT:
-            dbgAssert(ship->dockvars.launchpoints);
+            dbgAssertOrIgnore(ship->dockvars.launchpoints);
             launchpointindex = dockFindLaunchPointRandom(ship->dockvars.launchpoints,dockwith,ship);
 
             if (launchpointindex == -1)
@@ -4432,7 +4432,7 @@ bool LaunchShipFromCarrierMother(Ship *ship,Ship *dockwith)
                 //at this point the big docking port is free...
                 //I'm assuming the door is closed!
                 #ifndef HW_Release
-                dbgAssert(dockwith->madDoorStatus == MAD_STATUS_DOOR_CLOSED);
+                dbgAssertOrIgnore(dockwith->madDoorStatus == MAD_STATUS_DOOR_CLOSED);
                 #endif
                 //request door open and attach object to door
                 madLinkInOpenDoor(dockwith);
@@ -4479,8 +4479,8 @@ bool LaunchShipFromCarrierMother(Ship *ship,Ship *dockwith)
             return FALSE;
         case LAUNCH_FROMMOTHERSHIPR1DOOR1:
             #ifndef HW_Release
-            dbgAssert(dockwith->shiprace == R1);
-            dbgAssert(dockwith->shiptype == Mothership);
+            dbgAssertOrIgnore(dockwith->shiprace == R1);
+            dbgAssertOrIgnore(dockwith->shiptype == Mothership);
             #endif
 
             if(dockwith->madDoorStatus == MAD_STATUS_DOOR_OPEN)
@@ -4493,7 +4493,7 @@ bool LaunchShipFromCarrierMother(Ship *ship,Ship *dockwith)
             {
                 //door still opening
                 #ifndef HW_Release
-                dbgAssert(dockwith->madDoorStatus == MAD_STATUS_DOOR_OPENING);
+                dbgAssertOrIgnore(dockwith->madDoorStatus == MAD_STATUS_DOOR_OPENING);
                 #endif
             }
             return FALSE;
@@ -4511,7 +4511,7 @@ bool LaunchShipFromCarrierMother(Ship *ship,Ship *dockwith)
             break;
         case LAUNCH_FROMLAUNCHPOINT:
             dockstaticpoint = ship->dockvars.dockstaticpoint;
-            dbgAssert(dockstaticpoint);
+            dbgAssertOrIgnore(dockstaticpoint);
             //heading,up
             {
                 //variables to define launch heading
@@ -4595,7 +4595,7 @@ bool ShipDocksAtCarrierMother(struct CommandToDo *docktodo,struct Ship *ship,str
     switch (ship->dockvars.dockstate2)
     {
         case 0:
-            dbgAssert(ship->dockvars.customdockinfo == NULL);
+            dbgAssertOrIgnore(ship->dockvars.customdockinfo == NULL);
             customdockinfo = ship->dockvars.customdockinfo = memAlloc(sizeof(AtCarrierDockInfo),"AtCarrierDock",0);
             customdockinfo->size = sizeof(AtCarrierDockInfo);
 
@@ -4639,7 +4639,7 @@ bool ShipDocksAtCarrierMother(struct CommandToDo *docktodo,struct Ship *ship,str
             {
                 if (dockwithstatic->shiprace == R1)
                 {
-                    dbgAssert(dockwithstatic->shiptype == Mothership);
+                    dbgAssertOrIgnore(dockwithstatic->shiptype == Mothership);
 
                     if((docktodo->dock.dockType & DOCK_FOR_RETIRE) &&
                        dockRetireShipNeedsBig(ship,dockwith))
@@ -4664,7 +4664,7 @@ bool ShipDocksAtCarrierMother(struct CommandToDo *docktodo,struct Ship *ship,str
                 else
                 if (dockwithstatic->shiprace == R2)
                 {
-                    dbgAssert(dockwithstatic->shiptype == Mothership);
+                    dbgAssertOrIgnore(dockwithstatic->shiptype == Mothership);
                     if (ship->shiptype == ResearchShip)
                     {
                         customdockinfo->inpointsindex = 11;
@@ -4687,7 +4687,7 @@ bool ShipDocksAtCarrierMother(struct CommandToDo *docktodo,struct Ship *ship,str
                 else
                 if (dockwithstatic->shiprace == P1)
                 {
-                    dbgAssert(dockwithstatic->shiptype == P1Mothership);
+                    dbgAssertOrIgnore(dockwithstatic->shiptype == P1Mothership);
                     customdockinfo->inpointsindex = 4;
                     customdockinfo->resourcelatchpointsindex = -1;
                     customdockinfo->latchmintime = 0.0f;
@@ -4696,8 +4696,8 @@ bool ShipDocksAtCarrierMother(struct CommandToDo *docktodo,struct Ship *ship,str
                 }
                 else
                 {
-                    dbgAssert(dockwithstatic->shiptype == P2Mothership);
-                    dbgAssert(dockwithstatic->shiprace == P2);
+                    dbgAssertOrIgnore(dockwithstatic->shiptype == P2Mothership);
+                    dbgAssertOrIgnore(dockwithstatic->shiprace == P2);
                     customdockinfo->inpointsindex = 5;
                     customdockinfo->resourcelatchpointsindex = -1;
                     customdockinfo->latchmintime = 0.0f;
@@ -5084,7 +5084,7 @@ waitforlatch:
             }
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             return FALSE;
     }
 }
@@ -5101,8 +5101,8 @@ bool LaunchShipFromDDDF(Ship *ship,Ship *dockwith)
     vector coneheadingInWorldCoordSys;
     DroneSpec *dronespec = (DroneSpec *)ship->ShipSpecifics;
 
-    dbgAssert(ship->shiptype == Drone);
-    dbgAssert(dockwith->shiptype == DDDFrigate);
+    dbgAssertOrIgnore(ship->shiptype == Drone);
+    dbgAssertOrIgnore(dockwith->shiptype == DDDFrigate);
 
     switch (ship->dockvars.dockstate3)
     {
@@ -5162,13 +5162,13 @@ bool DroneDocksAtDDDF(struct Ship *ship,struct Ship *dockwith)
     real32 coneToShipMag;
     real32 dotprod;
 
-    dbgAssert(ship->shiptype == Drone);
-    dbgAssert(dockwith->shiptype == DDDFrigate);
+    dbgAssertOrIgnore(ship->shiptype == Drone);
+    dbgAssertOrIgnore(dockwith->shiptype == DDDFrigate);
 
     switch (ship->dockvars.dockstate2)
     {
         case 0:
-            dbgAssert(ship->dockvars.customdockinfo == NULL);
+            dbgAssertOrIgnore(ship->dockvars.customdockinfo == NULL);
             customdockinfo = ship->dockvars.customdockinfo = memAlloc(sizeof(AtDDDFDockInfo),"AtDDDFDockInfo",0);
             customdockinfo->size = sizeof(AtDDDFDockInfo);
 
@@ -5514,16 +5514,16 @@ bool R1ResearchShipDocksAtResearchShip(struct CommandToDo *docktodo,struct Ship 
 
     resstatics = (ResearchShipStatics *) ((ShipStaticInfo *)(ship->staticinfo))->custstatinfo;
 
-    dbgAssert(ship->shiptype == ResearchShip);          //both should only be research
-    dbgAssert(dockwith->shiptype == ResearchShip);  //ships otherwise poo on you
+    dbgAssertOrIgnore(ship->shiptype == ResearchShip);          //both should only be research
+    dbgAssertOrIgnore(dockwith->shiptype == ResearchShip);  //ships otherwise poo on you
 
-    dbgAssert(ship->shiprace == R1);
-    dbgAssert(dockwith->shiprace == R1);      //both must be race 1 ships...
+    dbgAssertOrIgnore(ship->shiprace == R1);
+    dbgAssertOrIgnore(dockwith->shiprace == R1);      //both must be race 1 ships...
 
     switch (ship->dockvars.dockstate2)
     {
     case 0:
-        dbgAssert(ship->dockvars.customdockinfo == NULL);
+        dbgAssertOrIgnore(ship->dockvars.customdockinfo == NULL);
         customdockinfo = ship->dockvars.customdockinfo = memAlloc(sizeof(AtResearchShipDockInfo),"ResearchAtResearchCustomDockInfo",0);
         customdockinfo->size = sizeof(AtResearchShipDockInfo);
         ship->dockvars.dockstate2 = WAIT_FOR_SHIP_TO_BE_DONE;
@@ -5745,7 +5745,7 @@ morer1resdock:
     case RESEARCH_WAIT:
         break;
     default:
-        dbgAssert(FALSE);
+        dbgAssertOrIgnore(FALSE);
         break;
 
     }
@@ -5886,7 +5886,7 @@ bool R2spinintoplace(Ship *ship, Ship *dockwith, real32 POS_TOL, real32 ANGLE_TO
     }
     else
     {
-        dbgAssert(FALSE);       //shouldget here.
+        dbgAssertOrIgnore(FALSE);       //shouldget here.
     }
 
     vecNormalize(&desiredUp);
@@ -5942,7 +5942,7 @@ bool R2ResearchShipDocksAtResearchShip(struct CommandToDo *docktodo,struct Ship 
     switch (ship->dockvars.dockstate2)
     {
     case 0:
-        dbgAssert(ship->dockvars.customdockinfo == NULL);
+        dbgAssertOrIgnore(ship->dockvars.customdockinfo == NULL);
         customdockinfo = ship->dockvars.customdockinfo = memAlloc(sizeof(AtResearchShipDockInfo),"AtResearchShipDockInfo",0);
         customdockinfo->size = sizeof(AtResearchShipDockInfo);
 #ifdef  R2_DEBUG_RESEARCH_DOCKING
@@ -6140,7 +6140,7 @@ r2dockinstantfinish:
     case R2_DOCKED_AND_WAITING:
         break;
     default:
-        dbgAssert(FALSE);
+        dbgAssertOrIgnore(FALSE);
         break;
 
     }
@@ -6318,7 +6318,7 @@ reacheddest:
                 return FINISHED_DOCKING;
 
             default:
-                dbgAssert(FALSE);
+                dbgAssertOrIgnore(FALSE);
                 return NOT_FINISHED_DOCKING;
         }
     }
@@ -6390,16 +6390,16 @@ bool ShipDocksAtFuelPod(struct CommandToDo *docktodo,struct Ship *ship,struct Sh
     switch (ship->dockvars.dockstate2)
     {
         case 0:
-            dbgAssert(ship->dockvars.customdockinfo == NULL);
+            dbgAssertOrIgnore(ship->dockvars.customdockinfo == NULL);
             customdockinfo = ship->dockvars.customdockinfo = memAlloc(sizeof(AtFuelPodDockInfo),"AtFuelPodDock",0);
             customdockinfo->size = sizeof(AtFuelPodDockInfo);
 
             shipstatic = ((ShipStaticInfo *)ship->staticinfo);
 
             if (shipstatic->shiptype != P2Swarmer && shipstatic->shiptype != P2AdvanceSwarmer)
-                dbgAssert(FALSE);
+                dbgAssertOrIgnore(FALSE);
 
-            dbgAssert(dockwithstatic->shiprace == P2);
+            dbgAssertOrIgnore(dockwithstatic->shiprace == P2);
             customdockinfo->latchmintime = P2FUELPOD_LATCHMINTIME;
 
             ship->dockvars.dockstate2 = FUELPOD_WAITLATCHPOINT;
@@ -6499,7 +6499,7 @@ bool ShipDocksAtFuelPod(struct CommandToDo *docktodo,struct Ship *ship,struct Sh
             }
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             return FALSE;
     }
 }
@@ -6696,7 +6696,7 @@ bool processDockToDo(CommandToDo *docktodo)
                     docktodo->dock.wasHarvesting = FALSE;
                 }
                 removed = clRemoveShipFromSelection(selection,ship);
-                dbgAssert(removed);
+                dbgAssertOrIgnore(removed);
                 RemoveShipFromCommand(ship);
                 dockwith->playerowner->resourceUnits += (sdword) (TW_RETIRE_MONEYBACK_RATIO*ship->staticinfo->buildCost);
                 universe.gameStats.playerStats[dockwith->playerowner->playerIndex].totalRegeneratedResourceUnits += (sdword) (TW_RETIRE_MONEYBACK_RATIO*ship->staticinfo->buildCost);
@@ -6723,7 +6723,7 @@ bool processDockToDo(CommandToDo *docktodo)
                 {
                     // this ship is permanently docked, so we should remove it from docktodo->selection
                     bool removed = clRemoveShipFromSelection(selection,ship);
-                    dbgAssert(removed);
+                    dbgAssertOrIgnore(removed);
 
                     RemoveShipFromCommand(ship);
 

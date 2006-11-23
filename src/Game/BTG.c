@@ -327,7 +327,7 @@ void btgGetTexture(char* filename, udword* thandle, sdword* width, sdword* heigh
         head.imageDescriptor = *pdata++;
 
         //only 32bit TGAs
-        dbgAssert(head.pixelDepth == 32);
+        dbgAssertOrIgnore(head.pixelDepth == 32);
 
         pdata += head.idLength;
 
@@ -562,7 +562,7 @@ void btgLoad(char* filename)
 #endif
 
     //version check
-    dbgAssert(btgHead->btgFileVersion == BTG_FILE_VERSION);
+    dbgAssertOrIgnore(btgHead->btgFileVersion == BTG_FILE_VERSION);
 
     //vertices.  trivial copy
     vertSize = btgHead->numVerts * sizeof(btgVertex);
@@ -1053,7 +1053,7 @@ void btgColorVertices(bool fastBlends)
 ----------------------------------------------------------------------------*/
 void btgSetColourMultiplier(real32 t)
 {
-//    dbgAssert(t >= 0.0f && t <= 1.0f);
+//    dbgAssertOrIgnore(t >= 0.0f && t <= 1.0f);
     btgFade = (sdword)(t * 255.0f);
 }
 

@@ -316,8 +316,8 @@ void MothershipAttachObjectToDoor(Ship *ship,SpaceObjRotImpTargGuidanceShipDerel
     MothershipSpec *spec = (MothershipSpec *)ship->ShipSpecifics;
 
 #ifndef HW_Release
-    dbgAssert(ship->shiptype == Mothership);
-    dbgAssert(ship->shiprace == R1);
+    dbgAssertOrIgnore(ship->shiptype == Mothership);
+    dbgAssertOrIgnore(ship->shiprace == R1);
 #endif
     spec->doorCargo = object;
     //in future, need to calculate offset from offset from offset!
@@ -327,8 +327,8 @@ void MothershipDettachObjectFromDoor(Ship *ship)
     MothershipSpec *spec = (MothershipSpec *)ship->ShipSpecifics;
 
 #ifndef HW_Release
-    dbgAssert(ship->shiptype == Mothership);
-    dbgAssert(ship->shiprace == R1);
+    dbgAssertOrIgnore(ship->shiptype == Mothership);
+    dbgAssertOrIgnore(ship->shiprace == R1);
 #endif
     spec->doorCargo = NULL;
 }
@@ -468,12 +468,12 @@ void MothershipHouseKeep(Ship *ship)
 
         if (ship->shiprace == R1)
         {
-            dbgAssert((R1MOTHERSHIP_Big >= 0) && (R1MOTHERSHIP_Big < ship->dockInfo->numDockPoints));
+            dbgAssertOrIgnore((R1MOTHERSHIP_Big >= 0) && (R1MOTHERSHIP_Big < ship->dockInfo->numDockPoints));
             dockpoint = &ship->dockInfo->dockpoints[R1MOTHERSHIP_Big];
         }
         else if (ship->shiprace == R2)
         {
-            dbgAssert((R2MOTHERSHIP_Big >= 0) && (R2MOTHERSHIP_Big < ship->dockInfo->numDockPoints));
+            dbgAssertOrIgnore((R2MOTHERSHIP_Big >= 0) && (R2MOTHERSHIP_Big < ship->dockInfo->numDockPoints));
             dockpoint = &ship->dockInfo->dockpoints[R2MOTHERSHIP_Big];
         }
 

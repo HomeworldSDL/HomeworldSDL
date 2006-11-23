@@ -250,16 +250,16 @@ StaticInfo *meshNameToStaticInfo(char *fileName)
     ShipType type;
 
 #ifdef _WIN32
-    dbgAssert(strchr(fileName, '\\'));
+    dbgAssertOrIgnore(strchr(fileName, '\\'));
     length = strchr(fileName, '\\') - fileName;
 #else
-    dbgAssert(strpbrk(fileName, "\\/"));
+    dbgAssertOrIgnore(strpbrk(fileName, "\\/"));
     length = strpbrk(fileName, "\\/") - fileName;
 #endif
     memcpy(raceString, fileName, length);
     raceString[length] = 0;                                 //make a race name
     fileName += length + 1;
-//    dbgAssert(strchr(fileName, '\\'));                      //make a type name
+//    dbgAssertOrIgnore(strchr(fileName, '\\'));                      //make a type name
 #ifdef _WIN32
     if (strchr(fileName, '\\') == NULL)
 #else
@@ -278,7 +278,7 @@ StaticInfo *meshNameToStaticInfo(char *fileName)
     if (strcasecmp(raceString, "Derelicts") == 0)
     {                                                       //if it's a derelict
         type = StrToDerelictType(typeString);
-        dbgAssert(type != 0xffffffff);
+        dbgAssertOrIgnore(type != 0xffffffff);
         return((StaticInfo *)&derelictStaticInfos[type]);
     }
     //else it's a race-specific texture, process normally
@@ -339,7 +339,7 @@ trhandle meshTextureRegisterAllPlayers(char *fullName, void *meshReference)
     {
         for (index = 0; index < MAX_MULTIPLAYER_PLAYERS; index++)
         {
-            dbgAssert(index < TE_NumberPlayers);
+            dbgAssertOrIgnore(index < TE_NumberPlayers);
             handleList[index] = TR_Invalid;
 
             if (((ShipStaticInfo *)info)->teamColor[index])
@@ -387,8 +387,8 @@ void meshTextureNameToPath(char *out, char *mesh, char *tex)
         string = strpbrk(string, "\\/") + 1;
     }
 #endif
-    dbgAssert(string != out);
-    dbgAssert(*string);
+    dbgAssertOrIgnore(string != out);
+    dbgAssertOrIgnore(*string);
     *string = 0;                                    //NULL terminate and append texture name
 
     strcat(out, tex);
@@ -971,7 +971,7 @@ void meshObjectFixupUV(polygonobject* object, materialentry* materials)
         if (material->bTexturesRegistered && (material->texture != 0))
         {
             handle = ((trhandle*)material->texture)[0/*iColorScheme*/];
-//!!!            dbgAssert(handle != TR_InvalidHandle);
+//!!!            dbgAssertOrIgnore(handle != TR_InvalidHandle);
             if (handle == TR_InvalidHandle)
             {
                 continue;
@@ -1670,9 +1670,9 @@ void meshObjectRender(polygonobject *object, materialentry *materials, sdword iC
     for (iPoly = 0; iPoly < object->nPolygons; iPoly++)
     {
 #if MESH_ANAL_CHECKING                                      //validate vertex indices
-        dbgAssert(polygon->iV0 < object->nVertices);
-        dbgAssert(polygon->iV1 < object->nVertices);
-        dbgAssert(polygon->iV2 < object->nVertices);
+        dbgAssertOrIgnore(polygon->iV0 < object->nVertices);
+        dbgAssertOrIgnore(polygon->iV1 < object->nVertices);
+        dbgAssertOrIgnore(polygon->iV2 < object->nVertices);
 #endif
         if (polygon->iMaterial != currentMaterial)
         {                                                   //if a new material
@@ -1755,7 +1755,7 @@ void meshObjectRender(polygonobject *object, materialentry *materials, sdword iC
         switch (meshPolyMode)
         {
             case MPM_Flat:
-                dbgAssert(polygon->iFaceNormal != UWORD_Max);
+                dbgAssertOrIgnore(polygon->iFaceNormal != UWORD_Max);
                 normal = &normalList[polygon->iFaceNormal];
                 glNormal3f(normal->x, normal->y, normal->z);
 
@@ -1768,7 +1768,7 @@ void meshObjectRender(polygonobject *object, materialentry *materials, sdword iC
 #endif //RND_POLY_STATS
                 break;
             case MPM_Texture:
-                dbgAssert(polygon->iFaceNormal != UWORD_Max);
+                dbgAssertOrIgnore(polygon->iFaceNormal != UWORD_Max);
                 normal = &normalList[polygon->iFaceNormal];
                 glNormal3f(normal->x, normal->y, normal->z);
 
@@ -1787,17 +1787,17 @@ void meshObjectRender(polygonobject *object, materialentry *materials, sdword iC
 #endif //RND_POLY_STATS
                 break;
             case MPM_Smooth:
-                dbgAssert(vertexList[polygon->iV0].iVertexNormal != UWORD_Max);
+                dbgAssertOrIgnore(vertexList[polygon->iV0].iVertexNormal != UWORD_Max);
                 normal = &normalList[vertexList[polygon->iV0].iVertexNormal];
                 glNormal3f(normal->x, normal->y, normal->z);
                 glVertex3fv((GLfloat*)&vertexList[polygon->iV0].x);
 
-                dbgAssert(vertexList[polygon->iV1].iVertexNormal != UWORD_Max);
+                dbgAssertOrIgnore(vertexList[polygon->iV1].iVertexNormal != UWORD_Max);
                 normal = &normalList[vertexList[polygon->iV1].iVertexNormal];
                 glNormal3f(normal->x, normal->y, normal->z);
                 glVertex3fv((GLfloat*)&vertexList[polygon->iV1].x);
 
-                dbgAssert(vertexList[polygon->iV2].iVertexNormal != UWORD_Max);
+                dbgAssertOrIgnore(vertexList[polygon->iV2].iVertexNormal != UWORD_Max);
                 normal = &normalList[vertexList[polygon->iV2].iVertexNormal];
                 glNormal3f(normal->x, normal->y, normal->z);
                 glVertex3fv((GLfloat*)&vertexList[polygon->iV2].x);
@@ -1808,19 +1808,19 @@ void meshObjectRender(polygonobject *object, materialentry *materials, sdword iC
 #endif //RND_POLY_STATS
                 break;
             case MPM_SmoothTexture:
-                dbgAssert(vertexList[polygon->iV0].iVertexNormal != UWORD_Max);
+                dbgAssertOrIgnore(vertexList[polygon->iV0].iVertexNormal != UWORD_Max);
                 normal = &normalList[vertexList[polygon->iV0].iVertexNormal];
                 glNormal3f(normal->x, normal->y, normal->z);
                 glTexCoord2f(polygon->s0, polygon->t0);
                 glVertex3fv((GLfloat*)&vertexList[polygon->iV0].x);
 
-                dbgAssert(vertexList[polygon->iV1].iVertexNormal != UWORD_Max);
+                dbgAssertOrIgnore(vertexList[polygon->iV1].iVertexNormal != UWORD_Max);
                 normal = &normalList[vertexList[polygon->iV1].iVertexNormal];
                 glNormal3f(normal->x, normal->y, normal->z);
                 glTexCoord2f(polygon->s1, polygon->t1);
                 glVertex3fv((GLfloat*)&vertexList[polygon->iV1].x);
 
-                dbgAssert(vertexList[polygon->iV2].iVertexNormal != UWORD_Max);
+                dbgAssertOrIgnore(vertexList[polygon->iV2].iVertexNormal != UWORD_Max);
                 normal = &normalList[vertexList[polygon->iV2].iVertexNormal];
                 glNormal3f(normal->x, normal->y, normal->z);
                 glTexCoord2f(polygon->s2, polygon->t2);
@@ -1931,9 +1931,9 @@ void meshObjectRenderLit(polygonobject *object, materialentry *materials, sdword
     for (iPoly = 0; iPoly < object->nPolygons; iPoly++)
     {
 #if MESH_ANAL_CHECKING                                      //validate vertex indices
-        dbgAssert(polygon->iV0 < object->nVertices);
-        dbgAssert(polygon->iV1 < object->nVertices);
-        dbgAssert(polygon->iV2 < object->nVertices);
+        dbgAssertOrIgnore(polygon->iV0 < object->nVertices);
+        dbgAssertOrIgnore(polygon->iV1 < object->nVertices);
+        dbgAssertOrIgnore(polygon->iV2 < object->nVertices);
 #endif
         if (polygon->iMaterial != currentMaterial)
         {                                                   //if a new material
@@ -1954,7 +1954,7 @@ void meshObjectRenderLit(polygonobject *object, materialentry *materials, sdword
         switch (meshPolyMode)
         {
             case MPM_Flat:
-                dbgAssert(polygon->iFaceNormal != UWORD_Max);
+                dbgAssertOrIgnore(polygon->iFaceNormal != UWORD_Max);
                 normal = &normalList[polygon->iFaceNormal];
                 meshColour(normal); //shader
 
@@ -1966,7 +1966,7 @@ void meshObjectRenderLit(polygonobject *object, materialentry *materials, sdword
 #endif //RND_POLY_STATS
                 break;
             case MPM_Texture:
-                dbgAssert(polygon->iFaceNormal != UWORD_Max);
+                dbgAssertOrIgnore(polygon->iFaceNormal != UWORD_Max);
                 normal = &normalList[polygon->iFaceNormal];
                 meshColour(normal); //shader
 
@@ -1984,17 +1984,17 @@ void meshObjectRenderLit(polygonobject *object, materialentry *materials, sdword
 #endif //RND_POLY_STATS
                 break;
             case MPM_Smooth:
-                dbgAssert(vertexList[polygon->iV0].iVertexNormal != UWORD_Max);
+                dbgAssertOrIgnore(vertexList[polygon->iV0].iVertexNormal != UWORD_Max);
                 normal = &normalList[vertexList[polygon->iV0].iVertexNormal];
                 meshColour(normal); //shader
                 glArrayElement(polygon->iV0);
 
-                dbgAssert(vertexList[polygon->iV1].iVertexNormal != UWORD_Max);
+                dbgAssertOrIgnore(vertexList[polygon->iV1].iVertexNormal != UWORD_Max);
                 normal = &normalList[vertexList[polygon->iV1].iVertexNormal];
                 meshColour(normal); //shader
                 glArrayElement(polygon->iV1);
 
-                dbgAssert(vertexList[polygon->iV2].iVertexNormal != UWORD_Max);
+                dbgAssertOrIgnore(vertexList[polygon->iV2].iVertexNormal != UWORD_Max);
                 normal = &normalList[vertexList[polygon->iV2].iVertexNormal];
                 meshColour(normal); //shader
                 glArrayElement(polygon->iV2);
@@ -2004,19 +2004,19 @@ void meshObjectRenderLit(polygonobject *object, materialentry *materials, sdword
 #endif //RND_POLY_STATS
                 break;
             case MPM_SmoothTexture:
-                dbgAssert(vertexList[polygon->iV0].iVertexNormal != UWORD_Max);
+                dbgAssertOrIgnore(vertexList[polygon->iV0].iVertexNormal != UWORD_Max);
                 normal = &normalList[vertexList[polygon->iV0].iVertexNormal];
                 meshColour(normal); //shader
                 glTexCoord2f(polygon->s0, polygon->t0);
                 glArrayElement(polygon->iV0);
 
-                dbgAssert(vertexList[polygon->iV1].iVertexNormal != UWORD_Max);
+                dbgAssertOrIgnore(vertexList[polygon->iV1].iVertexNormal != UWORD_Max);
                 normal = &normalList[vertexList[polygon->iV1].iVertexNormal];
                 meshColour(normal); //shader
                 glTexCoord2f(polygon->s1, polygon->t1);
                 glArrayElement(polygon->iV1);
 
-                dbgAssert(vertexList[polygon->iV2].iVertexNormal != UWORD_Max);
+                dbgAssertOrIgnore(vertexList[polygon->iV2].iVertexNormal != UWORD_Max);
                 normal = &normalList[vertexList[polygon->iV2].iVertexNormal];
                 meshColour(normal); //shader
                 glTexCoord2f(polygon->s2, polygon->t2);
@@ -2092,9 +2092,9 @@ void meshObjectRenderLitRGL(polygonobject *object, materialentry *materials, sdw
     for (iPoly = 0; iPoly < object->nPolygons; iPoly++)
     {
 #if MESH_ANAL_CHECKING                                      //validate vertex indices
-        dbgAssert(polygon->iV0 < object->nVertices);
-        dbgAssert(polygon->iV1 < object->nVertices);
-        dbgAssert(polygon->iV2 < object->nVertices);
+        dbgAssertOrIgnore(polygon->iV0 < object->nVertices);
+        dbgAssertOrIgnore(polygon->iV1 < object->nVertices);
+        dbgAssertOrIgnore(polygon->iV2 < object->nVertices);
 #endif
         if (polygon->iMaterial != currentMaterial)
         {                                                   //if a new material
@@ -2115,7 +2115,7 @@ void meshObjectRenderLitRGL(polygonobject *object, materialentry *materials, sdw
         switch (meshPolyMode)
         {
             case MPM_Flat:
-                dbgAssert(polygon->iFaceNormal != UWORD_Max);
+                dbgAssertOrIgnore(polygon->iFaceNormal != UWORD_Max);
                 normal = &normalList[polygon->iFaceNormal];
                 meshColour(normal); //shader
 
@@ -2127,7 +2127,7 @@ void meshObjectRenderLitRGL(polygonobject *object, materialentry *materials, sdw
 #endif //RND_POLY_STATS
                 break;
             case MPM_Texture:
-                dbgAssert(polygon->iFaceNormal != UWORD_Max);
+                dbgAssertOrIgnore(polygon->iFaceNormal != UWORD_Max);
                 normal = &normalList[polygon->iFaceNormal];
                 meshColour(normal); //shader
 
@@ -2145,17 +2145,17 @@ void meshObjectRenderLitRGL(polygonobject *object, materialentry *materials, sdw
 #endif //RND_POLY_STATS
                 break;
             case MPM_Smooth:
-                dbgAssert(vertexList[polygon->iV0].iVertexNormal != UWORD_Max);
+                dbgAssertOrIgnore(vertexList[polygon->iV0].iVertexNormal != UWORD_Max);
                 normal = &normalList[vertexList[polygon->iV0].iVertexNormal];
                 meshColour(normal); //shader
                 glVertex3fv((GLfloat*)&vertexList[polygon->iV0]);
 
-                dbgAssert(vertexList[polygon->iV1].iVertexNormal != UWORD_Max);
+                dbgAssertOrIgnore(vertexList[polygon->iV1].iVertexNormal != UWORD_Max);
                 normal = &normalList[vertexList[polygon->iV1].iVertexNormal];
                 meshColour(normal); //shader
                 glVertex3fv((GLfloat*)&vertexList[polygon->iV1]);
 
-                dbgAssert(vertexList[polygon->iV2].iVertexNormal != UWORD_Max);
+                dbgAssertOrIgnore(vertexList[polygon->iV2].iVertexNormal != UWORD_Max);
                 normal = &normalList[vertexList[polygon->iV2].iVertexNormal];
                 meshColour(normal); //shader
                 glVertex3fv((GLfloat*)&vertexList[polygon->iV2]);
@@ -2165,19 +2165,19 @@ void meshObjectRenderLitRGL(polygonobject *object, materialentry *materials, sdw
 #endif //RND_POLY_STATS
                 break;
             case MPM_SmoothTexture:
-                dbgAssert(vertexList[polygon->iV0].iVertexNormal != UWORD_Max);
+                dbgAssertOrIgnore(vertexList[polygon->iV0].iVertexNormal != UWORD_Max);
                 normal = &normalList[vertexList[polygon->iV0].iVertexNormal];
                 meshColour(normal); //shader
                 glTexCoord2f(polygon->s0, polygon->t0);
                 glVertex3fv((GLfloat*)&vertexList[polygon->iV0]);
 
-                dbgAssert(vertexList[polygon->iV1].iVertexNormal != UWORD_Max);
+                dbgAssertOrIgnore(vertexList[polygon->iV1].iVertexNormal != UWORD_Max);
                 normal = &normalList[vertexList[polygon->iV1].iVertexNormal];
                 meshColour(normal); //shader
                 glTexCoord2f(polygon->s1, polygon->t1);
                 glVertex3fv((GLfloat*)&vertexList[polygon->iV1]);
 
-                dbgAssert(vertexList[polygon->iV2].iVertexNormal != UWORD_Max);
+                dbgAssertOrIgnore(vertexList[polygon->iV2].iVertexNormal != UWORD_Max);
                 normal = &normalList[vertexList[polygon->iV2].iVertexNormal];
                 meshColour(normal); //shader
                 glTexCoord2f(polygon->s2, polygon->t2);
@@ -2281,9 +2281,9 @@ void meshObjectRenderLitRGLvx(polygonobject *object, materialentry *materials, s
     for (iPoly = 0; iPoly < object->nPolygons; iPoly++)
     {
 #if MESH_ANAL_CHECKING                                      //validate vertex indices
-        dbgAssert(polygon->iV0 < object->nVertices);
-        dbgAssert(polygon->iV1 < object->nVertices);
-        dbgAssert(polygon->iV2 < object->nVertices);
+        dbgAssertOrIgnore(polygon->iV0 < object->nVertices);
+        dbgAssertOrIgnore(polygon->iV1 < object->nVertices);
+        dbgAssertOrIgnore(polygon->iV2 < object->nVertices);
 #endif
         if (polygon->iMaterial != currentMaterial)
         {                                                   //if a new material
@@ -2304,7 +2304,7 @@ void meshObjectRenderLitRGLvx(polygonobject *object, materialentry *materials, s
         switch (meshPolyMode)
         {
             case MPM_Flat:
-                dbgAssert(polygon->iFaceNormal != UWORD_Max);
+                dbgAssertOrIgnore(polygon->iFaceNormal != UWORD_Max);
                 normal = &normalList[polygon->iFaceNormal];
                 meshColour(normal);
 
@@ -2316,7 +2316,7 @@ void meshObjectRenderLitRGLvx(polygonobject *object, materialentry *materials, s
 #endif //RND_POLY_STATS
                 break;
             case MPM_Texture:
-                dbgAssert(polygon->iFaceNormal != UWORD_Max);
+                dbgAssertOrIgnore(polygon->iFaceNormal != UWORD_Max);
                 normal = &normalList[polygon->iFaceNormal];
                 meshColour(normal);
 
@@ -2334,17 +2334,17 @@ void meshObjectRenderLitRGLvx(polygonobject *object, materialentry *materials, s
 #endif //RND_POLY_STATS
                 break;
             case MPM_Smooth:
-                dbgAssert(vertexList[polygon->iV0].iVertexNormal != UWORD_Max);
+                dbgAssertOrIgnore(vertexList[polygon->iV0].iVertexNormal != UWORD_Max);
                 normal = &normalList[vertexList[polygon->iV0].iVertexNormal];
                 meshColour(normal);
                 glArrayElement(polygon->iV0);
 
-                dbgAssert(vertexList[polygon->iV1].iVertexNormal != UWORD_Max);
+                dbgAssertOrIgnore(vertexList[polygon->iV1].iVertexNormal != UWORD_Max);
                 normal = &normalList[vertexList[polygon->iV1].iVertexNormal];
                 meshColour(normal);
                 glArrayElement(polygon->iV1);
 
-                dbgAssert(vertexList[polygon->iV2].iVertexNormal != UWORD_Max);
+                dbgAssertOrIgnore(vertexList[polygon->iV2].iVertexNormal != UWORD_Max);
                 normal = &normalList[vertexList[polygon->iV2].iVertexNormal];
                 meshColour(normal);
                 glArrayElement(polygon->iV2);
@@ -2354,19 +2354,19 @@ void meshObjectRenderLitRGLvx(polygonobject *object, materialentry *materials, s
 #endif //RND_POLY_STATS
                 break;
             case MPM_SmoothTexture:
-                dbgAssert(vertexList[polygon->iV0].iVertexNormal != UWORD_Max);
+                dbgAssertOrIgnore(vertexList[polygon->iV0].iVertexNormal != UWORD_Max);
                 normal = &normalList[vertexList[polygon->iV0].iVertexNormal];
                 meshColour(normal);
                 glTexCoord2f(polygon->s0, polygon->t0);
                 glArrayElement(polygon->iV0);
 
-                dbgAssert(vertexList[polygon->iV1].iVertexNormal != UWORD_Max);
+                dbgAssertOrIgnore(vertexList[polygon->iV1].iVertexNormal != UWORD_Max);
                 normal = &normalList[vertexList[polygon->iV1].iVertexNormal];
                 meshColour(normal);
                 glTexCoord2f(polygon->s1, polygon->t1);
                 glArrayElement(polygon->iV1);
 
-                dbgAssert(vertexList[polygon->iV2].iVertexNormal != UWORD_Max);
+                dbgAssertOrIgnore(vertexList[polygon->iV2].iVertexNormal != UWORD_Max);
                 normal = &normalList[vertexList[polygon->iV2].iVertexNormal];
                 meshColour(normal);
                 glTexCoord2f(polygon->s2, polygon->t2);
@@ -2454,9 +2454,9 @@ void meshSpecObjectRender(polygonobject *object, materialentry *materials, sdwor
     for (iPoly = 0; iPoly < object->nPolygons; iPoly++)
     {
 #if MESH_ANAL_CHECKING                                      //validate vertex indices
-        dbgAssert(polygon->iV0 < object->nVertices);
-        dbgAssert(polygon->iV1 < object->nVertices);
-        dbgAssert(polygon->iV2 < object->nVertices);
+        dbgAssertOrIgnore(polygon->iV0 < object->nVertices);
+        dbgAssertOrIgnore(polygon->iV1 < object->nVertices);
+        dbgAssertOrIgnore(polygon->iV2 < object->nVertices);
 #endif
         if (polygon->iMaterial != currentMaterial)
         {                                                   //if a new material
@@ -2473,7 +2473,7 @@ void meshSpecObjectRender(polygonobject *object, materialentry *materials, sdwor
         switch (meshPolyMode)
         {
             case MPM_Flat:
-                dbgAssert(polygon->iFaceNormal != UWORD_Max);
+                dbgAssertOrIgnore(polygon->iFaceNormal != UWORD_Max);
                 normal = &normalList[polygon->iFaceNormal];
 
                 meshSpecColour(normal, &vertexList[polygon->iV0], modelview, modelviewInv);
@@ -2490,7 +2490,7 @@ void meshSpecObjectRender(polygonobject *object, materialentry *materials, sdwor
 #endif //RND_POLY_STATS
                 break;
             case MPM_Texture:
-                dbgAssert(polygon->iFaceNormal != UWORD_Max);
+                dbgAssertOrIgnore(polygon->iFaceNormal != UWORD_Max);
                 normal = &normalList[polygon->iFaceNormal];
 
                 glTexCoord2f(polygon->s0, polygon->t0);
@@ -2511,17 +2511,17 @@ void meshSpecObjectRender(polygonobject *object, materialentry *materials, sdwor
 #endif //RND_POLY_STATS
                 break;
             case MPM_Smooth:
-                dbgAssert(vertexList[polygon->iV0].iVertexNormal != UWORD_Max);
+                dbgAssertOrIgnore(vertexList[polygon->iV0].iVertexNormal != UWORD_Max);
                 normal = &normalList[vertexList[polygon->iV0].iVertexNormal];
                 meshSpecColour(normal, &vertexList[polygon->iV0], modelview, modelviewInv);
                 glVertex3fv((GLfloat*)&vertexList[polygon->iV0]);
 
-                dbgAssert(vertexList[polygon->iV1].iVertexNormal != UWORD_Max);
+                dbgAssertOrIgnore(vertexList[polygon->iV1].iVertexNormal != UWORD_Max);
                 normal = &normalList[vertexList[polygon->iV1].iVertexNormal];
                 meshSpecColour(normal, &vertexList[polygon->iV1], modelview, modelviewInv);
                 glVertex3fv((GLfloat*)&vertexList[polygon->iV1]);
 
-                dbgAssert(vertexList[polygon->iV2].iVertexNormal != UWORD_Max);
+                dbgAssertOrIgnore(vertexList[polygon->iV2].iVertexNormal != UWORD_Max);
                 normal = &normalList[vertexList[polygon->iV2].iVertexNormal];
                 meshSpecColour(normal, &vertexList[polygon->iV2], modelview, modelviewInv);
                 glVertex3fv((GLfloat*)&vertexList[polygon->iV2]);
@@ -2532,19 +2532,19 @@ void meshSpecObjectRender(polygonobject *object, materialentry *materials, sdwor
 #endif //RND_POLY_STATS
                 break;
             case MPM_SmoothTexture:
-                dbgAssert(vertexList[polygon->iV0].iVertexNormal != UWORD_Max);
+                dbgAssertOrIgnore(vertexList[polygon->iV0].iVertexNormal != UWORD_Max);
                 normal = &normalList[vertexList[polygon->iV0].iVertexNormal];
                 glTexCoord2f(polygon->s0, polygon->t0);
                 meshSpecColour(normal, &vertexList[polygon->iV0], modelview, modelviewInv);
                 glVertex3fv((GLfloat*)&vertexList[polygon->iV0]);
 
-                dbgAssert(vertexList[polygon->iV1].iVertexNormal != UWORD_Max);
+                dbgAssertOrIgnore(vertexList[polygon->iV1].iVertexNormal != UWORD_Max);
                 normal = &normalList[vertexList[polygon->iV1].iVertexNormal];
                 glTexCoord2f(polygon->s1, polygon->t1);
                 meshSpecColour(normal, &vertexList[polygon->iV1], modelview, modelviewInv);
                 glVertex3fv((GLfloat*)&vertexList[polygon->iV1]);
 
-                dbgAssert(vertexList[polygon->iV2].iVertexNormal != UWORD_Max);
+                dbgAssertOrIgnore(vertexList[polygon->iV2].iVertexNormal != UWORD_Max);
                 normal = &normalList[vertexList[polygon->iV2].iVertexNormal];
                 glTexCoord2f(polygon->s2, polygon->t2);
                 meshSpecColour(normal, &vertexList[polygon->iV2], modelview, modelviewInv);
@@ -2642,8 +2642,8 @@ void meshMorphedObjectRender(
     bool lightOn = FALSE;
     real32 modelview[16], modelviewInv[16];
 
-    dbgAssert(object1->nVertices == object2->nVertices);
-    dbgAssert(object1->nPolygons == object2->nPolygons);
+    dbgAssertOrIgnore(object1->nVertices == object2->nVertices);
+    dbgAssertOrIgnore(object1->nPolygons == object2->nPolygons);
     glShadeModel(mode);
 
     if (g_SpecHack)
@@ -2666,9 +2666,9 @@ void meshMorphedObjectRender(
     for (iPoly = 0; iPoly < object1->nPolygons; iPoly++)
     {
 #if MESH_ANAL_CHECKING
-        dbgAssert(polygon->iV0 < object1->nVertices);
-        dbgAssert(polygon->iV1 < object1->nVertices);
-        dbgAssert(polygon->iV2 < object1->nVertices);
+        dbgAssertOrIgnore(polygon->iV0 < object1->nVertices);
+        dbgAssertOrIgnore(polygon->iV1 < object1->nVertices);
+        dbgAssertOrIgnore(polygon->iV2 < object1->nVertices);
 #endif
         if (polygon->iMaterial != currentMaterial)
         {
@@ -2777,7 +2777,7 @@ void meshMorphedObjectRender(
         switch (meshPolyMode)
         {
             case MPM_Flat:
-                dbgAssert(polygon->iFaceNormal != UWORD_Max);
+                dbgAssertOrIgnore(polygon->iFaceNormal != UWORD_Max);
                 if (mode != GL_FLAT)
                 {
                     mode = GL_FLAT;
@@ -2796,7 +2796,7 @@ void meshMorphedObjectRender(
 #endif //RND_POLY_STATS
                 break;
             case MPM_Texture:
-                dbgAssert(polygon->iFaceNormal != UWORD_Max);
+                dbgAssertOrIgnore(polygon->iFaceNormal != UWORD_Max);
                 if (mode != GL_FLAT)
                 {
                     mode = GL_FLAT;
@@ -2819,7 +2819,7 @@ void meshMorphedObjectRender(
 #endif //RND_POLY_STATS
                 break;
             case MPM_Smooth:
-                dbgAssert(vertexList1[polygon->iV0].iVertexNormal != UWORD_Max);
+                dbgAssertOrIgnore(vertexList1[polygon->iV0].iVertexNormal != UWORD_Max);
                 if (mode != GL_SMOOTH)
                 {
                     mode = GL_SMOOTH;
@@ -2832,14 +2832,14 @@ void meshMorphedObjectRender(
                 glNormal3f(normal.x, normal.y, normal.z);
                 glVertex3fv((GLfloat*)&vert0);
 
-                dbgAssert(vertexList1[polygon->iV1].iVertexNormal != UWORD_Max);
+                dbgAssertOrIgnore(vertexList1[polygon->iV1].iVertexNormal != UWORD_Max);
                 meshLerpNormal(&normal, &normalList1[vertexList1[polygon->iV1].iVertexNormal],
                                &normalList2[vertexList2[polygon->iV1].iVertexNormal], frac);
                 if (g_SpecHack) meshMorphedSpecColour(&normal, modelview, modelviewInv);
                 glNormal3f(normal.x, normal.y, normal.z);
                 glVertex3fv((GLfloat*)&vert1);
 
-                dbgAssert(vertexList1[polygon->iV2].iVertexNormal != UWORD_Max);
+                dbgAssertOrIgnore(vertexList1[polygon->iV2].iVertexNormal != UWORD_Max);
                 meshLerpNormal(&normal, &normalList1[vertexList1[polygon->iV2].iVertexNormal],
                                &normalList2[vertexList2[polygon->iV2].iVertexNormal], frac);
                 if (g_SpecHack) meshMorphedSpecColour(&normal, modelview, modelviewInv);
@@ -2857,7 +2857,7 @@ void meshMorphedObjectRender(
                     glShadeModel(mode);
                 }
 
-                dbgAssert(vertexList1[polygon->iV0].iVertexNormal != UWORD_Max);
+                dbgAssertOrIgnore(vertexList1[polygon->iV0].iVertexNormal != UWORD_Max);
                 meshLerpNormal(&normal, &normalList1[vertexList1[polygon->iV0].iVertexNormal],
                                &normalList2[vertexList2[polygon->iV0].iVertexNormal], frac);
                 if (g_SpecHack) meshMorphedSpecColour(&normal, modelview, modelviewInv);
@@ -2865,7 +2865,7 @@ void meshMorphedObjectRender(
                 glTexCoord2f(uvPolygon->s0, uvPolygon->t0);
                 glVertex3fv((GLfloat*)&vert0);
 
-                dbgAssert(vertexList1[polygon->iV1].iVertexNormal != UWORD_Max);
+                dbgAssertOrIgnore(vertexList1[polygon->iV1].iVertexNormal != UWORD_Max);
                 meshLerpNormal(&normal, &normalList1[vertexList1[polygon->iV1].iVertexNormal],
                                &normalList2[vertexList2[polygon->iV1].iVertexNormal], frac);
                 if (g_SpecHack) meshMorphedSpecColour(&normal, modelview, modelviewInv);
@@ -2873,7 +2873,7 @@ void meshMorphedObjectRender(
                 glTexCoord2f(uvPolygon->s1, uvPolygon->t1);
                 glVertex3fv((GLfloat*)&vert1);
 
-                dbgAssert(vertexList1[polygon->iV2].iVertexNormal != UWORD_Max);
+                dbgAssertOrIgnore(vertexList1[polygon->iV2].iVertexNormal != UWORD_Max);
                 meshLerpNormal(&normal, &normalList1[vertexList1[polygon->iV2].iVertexNormal],
                                &normalList2[vertexList2[polygon->iV2].iVertexNormal], frac);
                 if (g_SpecHack) meshMorphedSpecColour(&normal, modelview, modelviewInv);
@@ -3151,7 +3151,7 @@ bool meshFindHierarchyMatrixByUserData(hmatrix *dest, hmatrix *destNC, mhbinding
     *dest = IdentityHMatrix;
     for (object = &binding->object[0]; object != NULL; object = object->pSister)
     {
-        dbgAssert(binding->object == object);
+        dbgAssertOrIgnore(binding->object == object);
         binding = meshConcatByUserData(dest, destNC, binding, object, userData);
         if (binding == NULL)
         {

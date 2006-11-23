@@ -473,7 +473,7 @@ char *rndIntToString(GLenum enumb, enumentry *table)
             return(table[index].name);
         }
     }
-    dbgAssert(FALSE);
+    dbgAssertOrIgnore(FALSE);
     return NULL;
 }
 
@@ -613,7 +613,7 @@ void rndGLStateLogFunction(char *location)
 //                        glGetTexEnviv(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, ints);
                         break;
                     default:
-                        dbgAssert(FALSE);
+                        dbgAssertOrIgnore(FALSE);
                 }
                 for (j = 0; j < rndStateSaveTable[index].nValues; j++)
                 {
@@ -633,7 +633,7 @@ void rndGLStateLogFunction(char *location)
                 }
                 break;
             default:
-                dbgAssert(FALSE);
+                dbgAssertOrIgnore(FALSE);
         }
 #if RND_GL_STATE_WINDOW
         dbgMessagef("\n%s", totalString);
@@ -979,7 +979,7 @@ sdword rndSmallInit(rndinitdata* initData, bool GL)
         AUXINITPOSITIONPROC initPositionProc;
 
         initPositionProc = (AUXINITPOSITIONPROC)rwglGetProcAddress("rauxInitPosition");
-        dbgAssert(initPositionProc != NULL);
+        dbgAssertOrIgnore(initPositionProc != NULL);
 
         hGLWindow = (udword)(initData->hWnd);
         rglCreateWindow((GLint)hGLWindow, (GLint)MAIN_WindowWidth, (GLint)MAIN_WindowDepth);
@@ -1043,7 +1043,7 @@ sdword rndInit(rndinitdata *initData)
         AUXINITPOSITIONPROC initPositionProc;
 
         initPositionProc = (AUXINITPOSITIONPROC)rwglGetProcAddress("rauxInitPosition");
-        dbgAssert(initPositionProc != NULL);
+        dbgAssertOrIgnore(initPositionProc != NULL);
 
         hGLWindow = (udword)(initData->hWnd);
         rglCreateWindow((GLint)hGLWindow, (GLint)MAIN_WindowWidth, (GLint)MAIN_WindowDepth);
@@ -2334,7 +2334,7 @@ void rndMainViewRenderFunction(Camera *camera)
 
     mouseCursorObjPtr  = NULL;               //Falko: got an obscure crash where mouseCursorObjPtr was mangled, will this work?
 
-    dbgAssert(camera != NULL); //verify parameters
+    dbgAssertOrIgnore(camera != NULL); //verify parameters
 
 #if 0   /* Bink stuff... */
     if (!binkDonePlaying)
@@ -2485,7 +2485,7 @@ void rndMainViewRenderFunction(Camera *camera)
             }
             else
             {                                               //else it must be a world effect
-                dbgAssert(universe.world[i]->objtype == OBJ_EffectType);
+                dbgAssertOrIgnore(universe.world[i]->objtype == OBJ_EffectType);
                 rndRenderAWorldEffect(camera, (Effect *)universe.world[i]);
             }
         }
@@ -2607,7 +2607,7 @@ dontdraw2:;
 //                        mmAddShipToMapArray((ShipPtr)spaceobj);
                         shipStaticInfo = (ShipStaticInfo *)spaceobj->staticinfo;
                         playerIndex = (sdword)((Ship *)spaceobj)->playerowner->playerIndex;
-                        dbgAssert((spaceobj->flags & SOF_Rotatable) != 0);
+                        dbgAssertOrIgnore((spaceobj->flags & SOF_Rotatable) != 0);
                         selCircleCompute(&rndCameraMatrix, &rndProjectionMatrix, (SpaceObjRotImpTarg *)spaceobj);//compute selection circle
 
 #if RND_VISUALIZATION
@@ -2723,7 +2723,7 @@ dontdraw2:;
                                     case R1:
                                     case R2:
                                         i = ((Ship *)spaceobj)->playerowner->playerIndex;
-                                        dbgAssert(i >= 0 && i < 8);//!!!
+                                        dbgAssertOrIgnore(i >= 0 && i < 8);//!!!
                                         break;
                                     default:
                                         i = 0;
@@ -2731,7 +2731,7 @@ dontdraw2:;
                                 }
 */
                                 i = ((Ship *)spaceobj)->colorScheme;
-                                dbgAssert(i >= 0 && i < TE_NumberPlayers);
+                                dbgAssertOrIgnore(i >= 0 && i < TE_NumberPlayers);
                                 if (bitTest(spaceobj->flags,SOF_Cloaked))
                                 {
                                     g_WireframeHack = (bool8)((((Ship *)spaceobj)->playerowner == universe.curPlayerPtr) || proximityCanPlayerSeeShip(universe.curPlayerPtr,((Ship *)spaceobj)));
@@ -3023,7 +3023,7 @@ dontdraw2:;
 
                 if (spaceobj->staticinfo->staticheader.LOD != NULL)
                 {
-                    dbgAssert((spaceobj->flags & (SOF_Rotatable+SOF_Impactable+SOF_Targetable)) != 0);
+                    dbgAssertOrIgnore((spaceobj->flags & (SOF_Rotatable+SOF_Impactable+SOF_Targetable)) != 0);
 
                     //add this space object to the mission map array
 //                    mmAddObjToMapArray(spaceobj);
@@ -3395,7 +3395,7 @@ udword rndLoadTarga(char* filename, sdword* width, sdword* height)
     head.pixelDepth = *pdata++;
     head.imageDescriptor = *pdata++;
 
-    dbgAssert(head.pixelDepth == 32);
+    dbgAssertOrIgnore(head.pixelDepth == 32);
 
     pdata += head.idLength;
 
@@ -3926,8 +3926,8 @@ void rndDrawScissorBars(bool scissorEnabled)
         y = (sdword)((real32)NIS_LetterHeight * nisScissorFade);
         GLy = primScreenToGLY(y);
         oneGLy = primScreenToGLY(MAIN_WindowHeight - y);
-        dbgAssert(!nisFullyScissored || !scissorEnabled);
-        dbgAssert((nisScissorFade > 0.0f && nisScissorFade <= 1.0f) || !scissorEnabled);
+        dbgAssertOrIgnore(!nisFullyScissored || !scissorEnabled);
+        dbgAssertOrIgnore((nisScissorFade > 0.0f && nisScissorFade <= 1.0f) || !scissorEnabled);
         glColor3f(MR_LetterboxGrey);
         glBegin(GL_QUADS);
         //top grey part
@@ -4197,10 +4197,10 @@ void rndRenderTask(void)
                 //free(buf);
 #ifdef _WIN32
                 result = VirtualFree(buf, 0, MEM_RELEASE);
-                dbgAssert(result);
+                dbgAssertOrIgnore(result);
 #else
                 result = munmap(buf, 3*MAIN_WindowWidth*MAIN_WindowHeight);
-                dbgAssert(result != -1);
+                dbgAssertOrIgnore(result != -1);
 #endif
             }
         }

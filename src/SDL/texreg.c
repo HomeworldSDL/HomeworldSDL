@@ -143,7 +143,7 @@ sdword trLitPaletteBitDepth(void)
     sdword bits = 0;
 
 #ifndef _MACOSX_FIX_ME
-    dbgAssert(glLitColorTableEXT != NULL);
+    dbgAssertOrIgnore(glLitColorTableEXT != NULL);
     glLitColorTableEXT(0, 0, 0, 0, 0, &bits);
 #endif
 
@@ -218,7 +218,7 @@ void trReload(void)
     if (!trNoPalettes)
     {
         glColorTableEXT = (PFNGLCOLORTABLEEXTPROC)rwglGetProcAddress("glColorTableEXT");
-        dbgAssert(glColorTableEXT != NULL);
+        dbgAssertOrIgnore(glColorTableEXT != NULL);
     }
 
     glLitColorTableEXT = NULL;
@@ -274,7 +274,7 @@ void trStartup(void)
 #if TR_VERBOSE_LEVEL >= 1
     dbgMessagef("\ntrStartup: creating a registry of %d entries", trRegistrySize);
 #endif  //TR_VERBOSE_LEVEL
-    dbgAssert(trTextureRegistry == NULL);
+    dbgAssertOrIgnore(trTextureRegistry == NULL);
     trTextureRegistry = memAlloc(trRegistrySize * sizeof(texreg),
                                  "Texture registry", NonVolatile);//allocate texture registry
     trNameCRCs = memAlloc(trRegistrySize * sizeof(crc32), "texRegCRC's", NonVolatile);
@@ -289,7 +289,7 @@ void trStartup(void)
     if (!trNoPalettes)
     {
         glColorTableEXT = (PFNGLCOLORTABLEEXTPROC)rwglGetProcAddress("glColorTableEXT");
-        dbgAssert(glColorTableEXT != NULL);
+        dbgAssertOrIgnore(glColorTableEXT != NULL);
     }
 
     glLitColorTableEXT = NULL;
@@ -422,7 +422,7 @@ void trInternalTexturesDelete(trhandle handle)
 
     udword *handles;
 
-    dbgAssert(!trPending(trIndex(handle)));                 //make sure it has internal textures
+    dbgAssertOrIgnore(!trPending(trIndex(handle)));                 //make sure it has internal textures
     //sharing handled
     if (reg->sharedFrom != TR_NotShared)
     {
@@ -480,7 +480,7 @@ void trInternalTexturesDelete(trhandle handle)
         //usage count.
         if ((((color *)reg->palettes)[0] & 0xff000000) != 0)
         {                                                   //if the palette has a usage count
-            dbgAssert((((color *)reg->palettes)[0] & 0xff000000) != 0xff000000);
+            dbgAssertOrIgnore((((color *)reg->palettes)[0] & 0xff000000) != 0xff000000);
             ((color *)reg->palettes)[0] -= 0x01000000;      //decrement the usage count
             if (((((color *)reg->palettes)[0]) & 0xff000000) == 0)
             {                                               //if usage count reaches 0
@@ -490,7 +490,7 @@ void trInternalTexturesDelete(trhandle handle)
     }
     else
     {                                                       //else RGB: free list of texture handles
-        dbgAssert(reg->palettes != NULL);
+        dbgAssertOrIgnore(reg->palettes != NULL);
         memFree(reg->palettes);
     }
     reg->palettes = (ubyte *)newColorInfos;                 //save list of color infos
@@ -531,7 +531,7 @@ void trAllSharedFromDelete(sdword iSharedFrom, bool bRemoveInternalTextures)
             }
         }
     }
-    dbgAssert(trTextureRegistry[iSharedFrom].nSharedTo == 0);
+    dbgAssertOrIgnore(trTextureRegistry[iSharedFrom].nSharedTo == 0);
 }
 
 /*-----------------------------------------------------------------------------
@@ -556,7 +556,7 @@ sdword trTextureDelete(trhandle handle)
 #if TR_VERBOSE_LEVEL >= 2
     dbgMessagef("\ntrTextureDelete: deleting texture handle 0x%x, internalHandle 0x%x", handle, reg->handle);
 #endif  //TR_VERBOSE_LEVEL
-    dbgAssert(trAllocated(trIndex(handle)));
+    dbgAssertOrIgnore(trAllocated(trIndex(handle)));
     oldUsageCount = reg->nUsageCount;                       //remember usage count
     //kill the GL textures
     if (!trPending(trIndex(handle)))
@@ -566,9 +566,9 @@ sdword trTextureDelete(trhandle handle)
     //sharing handled
     if (reg->sharedFrom != TR_NotShared)
     {                                                       //if this one is shared from another texture
-        dbgAssert(reg->nSharedTo == 0);
-        dbgAssert(trAllocated(reg->sharedFrom));
-        dbgAssert(trTextureRegistry[reg->sharedFrom].nSharedTo > 0);
+        dbgAssertOrIgnore(reg->nSharedTo == 0);
+        dbgAssertOrIgnore(trAllocated(reg->sharedFrom));
+        dbgAssertOrIgnore(trTextureRegistry[reg->sharedFrom].nSharedTo > 0);
         trTextureRegistry[reg->sharedFrom].nSharedTo--;
     }
     if (reg->nSharedTo > 0)
@@ -652,8 +652,8 @@ sdword trColorsEqual(trcolorinfo *info, sdword textureIndex)
         return(-1);
     }
 #endif
-    dbgAssert(info != NULL);
-    dbgAssert(trTextureRegistry[textureIndex].palettes != NULL);
+    dbgAssertOrIgnore(info != NULL);
+    dbgAssertOrIgnore(trTextureRegistry[textureIndex].palettes != NULL);
 
     if (info == &trDefaultColorInfo)
     {
@@ -696,11 +696,11 @@ bool trAllColorsEqual(sdword index0, sdword index1)
         return(FALSE);
     }
 #endif
-    //dbgAssert(trPending(index0));
-    //dbgAssert(trPending(index1));
-    dbgAssert(index0 != index1);
-    dbgAssert(index0 <= trHighestAllocated);
-    dbgAssert(index1 <= trHighestAllocated);
+    //dbgAssertOrIgnore(trPending(index0));
+    //dbgAssertOrIgnore(trPending(index1));
+    dbgAssertOrIgnore(index0 != index1);
+    dbgAssertOrIgnore(index0 <= trHighestAllocated);
+    dbgAssertOrIgnore(index1 <= trHighestAllocated);
     if (trTextureRegistry[index0].nPalettes != trTextureRegistry[index1].nPalettes)
     {
         return(FALSE);
@@ -745,7 +745,7 @@ sdword trColorsIndexAlloc(trcolorinfo *info, sdword textureIndex)
         }
     }
     //no slot found, allocate a new one
-    dbgAssert(reg->nPalettes < TR_NumPalettesPerTexture);   //make sure there is room
+    dbgAssertOrIgnore(reg->nPalettes < TR_NumPalettesPerTexture);   //make sure there is room
     *textureColor = *info;                                  //put the color into the last slot
     reg->nPalettes++;                                       //one more palette now
     return(reg->nPalettes - 1);
@@ -768,7 +768,7 @@ sdword trFindTextureIndexByName(char *fileName)
     //strupr(fileName);                                       //!!! is this going to screw anything up?
     /* Yes, yes it is... */
     length = strlen(fileName);
-    dbgAssert(length > 0);
+    dbgAssertOrIgnore(length > 0);
 
     nameCRC = crc32Compute((ubyte*)fileName, length);               //compute a name for the CRC
 
@@ -811,7 +811,7 @@ trhandle trTextureRegister(char *fileName, trcolorinfo *info, void *meshReferenc
     //strupr(fileName);                                       //!!! is this going to screw anything up?
     /* Yup... */
     length = strlen(fileName);
-    dbgAssert(length > 0);
+    dbgAssertOrIgnore(length > 0);
 
 #if TR_NIL_TEXTURE
     if (GLOBAL_NO_TEXTURES)
@@ -844,7 +844,7 @@ trhandle trTextureRegister(char *fileName, trcolorinfo *info, void *meshReferenc
                 if ((paletteIndex = trColorsEqual(info, index)) >= 0)
                 {                                           //and they're the same color
                     //... use this texture
-                    dbgAssert(reg->nUsageCount < SDWORD_Max);
+                    dbgAssertOrIgnore(reg->nUsageCount < SDWORD_Max);
                     reg->nUsageCount++; //update usage count
 #if TR_VERBOSE_LEVEL >= 2
                     dbgMessagef("\ntrTextureRegister: texture handle 0x%x nUsageCount incremented to %d", index, reg->nUsageCount);
@@ -855,7 +855,7 @@ trhandle trTextureRegister(char *fileName, trcolorinfo *info, void *meshReferenc
                 {                                           //colors do not match
                     //!!! create a new paletted copy
                     //... if it is a pending texture
-                    dbgAssert(reg->nUsageCount < SDWORD_Max);
+                    dbgAssertOrIgnore(reg->nUsageCount < SDWORD_Max);
                     reg->nUsageCount++; //update usage count
 #if TR_VERBOSE_LEVEL >= 2
                     dbgMessagef("\ntrTextureRegister: texture handle 0x%x nUsageCount incremented to %d", index, reg->nUsageCount);
@@ -864,7 +864,7 @@ trhandle trTextureRegister(char *fileName, trcolorinfo *info, void *meshReferenc
                     ((trcolorinfo *)reg->palettes)
                         [reg->nPalettes] = *info;//retain reference to the color info
                     reg->nPalettes++;//update palette index
-                    dbgAssert(reg->nPalettes <= TR_NumPalettesPerTexture);
+                    dbgAssertOrIgnore(reg->nPalettes <= TR_NumPalettesPerTexture);
                     */
                     paletteIndex = trColorsIndexAlloc(info, index);
                     return(trHandleMake(index, paletteIndex));
@@ -911,7 +911,7 @@ trhandle trTextureRegister(char *fileName, trcolorinfo *info, void *meshReferenc
 			trTextureRegistry[index].baseScalar = (uword)colRealToUdword(trBaseColorScalar);
             trTextureRegistry[index].stripeScalar = (uword)colRealToUdword(trStripeColorScalar);
             trTextureRegistry[index].handle = TR_InvalidInternalHandle;
-            dbgAssert(info != NULL);
+            dbgAssertOrIgnore(info != NULL);
             *((trcolorinfo *)trTextureRegistry[index].palettes) = *info;
             trSetPending(index);                            //texture is pending
             trSetAllocated(index);                          //and in use
@@ -960,7 +960,7 @@ trhandle trRegisterAddition(trhandle handle, trcolorinfo *info)
     }
 #endif
 
-    dbgAssert(trAllocated(index));
+    dbgAssertOrIgnore(trAllocated(index));
 
     reg = trStructure(handle);
 
@@ -1018,7 +1018,7 @@ trhandle trRegisterAddition(trhandle handle, trcolorinfo *info)
             newHandle = trHandleMake(index, colorIndex);
         }
     }
-    dbgAssert(reg->nUsageCount < SDWORD_Max);
+    dbgAssertOrIgnore(reg->nUsageCount < SDWORD_Max);
     reg->nUsageCount++;                                     //update usage count
 #if TR_VERBOSE_LEVEL >= 2
     dbgMessagef("\ntrTextureRegister: texture handle 0x%x nUsageCount incremented to %d", index, reg->nUsageCount);
@@ -1046,7 +1046,7 @@ void trRegisterRemoval(trhandle handle)
         return;
     }
 #endif
-    dbgAssert(trAllocated(index));
+    dbgAssertOrIgnore(trAllocated(index));
 
     if (reg->nUsageCount == 0)
     {                                                       //if they've all been deleted already
@@ -1173,7 +1173,7 @@ sdword trTextureUnregister(trhandle handle)
     }
 #endif
     //sharing handled - nothing special here...
-    dbgAssert(trAllocated(index));
+    dbgAssertOrIgnore(trAllocated(index));
     trTextureRegistry[index].nUsageCount--;
     if (trPending(index))
     {                                                       //if texture not yet loaded
@@ -1229,7 +1229,7 @@ void trMeshSortAdd(sdword regIndex, udword teamFlags)
 
     palettes = trColorInfosPointer(regIndex);
     paletteSize = sizeof(trcolorinfo) * trStructure(regIndex)->nPalettes;
-    dbgAssert(paletteSize > 0);
+    dbgAssertOrIgnore(paletteSize > 0);
     paletteCRC = crc32Compute((ubyte *)palettes, paletteSize);
 
     for (index = 0; index < trMeshSortIndex; index++)
@@ -1237,7 +1237,7 @@ void trMeshSortAdd(sdword regIndex, udword teamFlags)
         if (trMeshSortList[index].meshReference == meshReference && trMeshSortList[index].paletteCRC == paletteCRC)
         {                                                   //if matching mesh reference and palette CRC
             otherPaletteSize = sizeof(trcolorinfo) * trStructure(trMeshSortList[index].textureList[0])->nPalettes;
-            dbgAssert(otherPaletteSize > 0);
+            dbgAssertOrIgnore(otherPaletteSize > 0);
             if (paletteSize == otherPaletteSize)
             {                                               //if they have the same numper of palettes
                 otherPalettes = trColorInfosPointer(trMeshSortList[index].textureList[0]);
@@ -1246,7 +1246,7 @@ void trMeshSortAdd(sdword regIndex, udword teamFlags)
 #if TR_ERROR_CHECKING
                     for (j = 0; j < trMeshSortList[index].nTextures; j++)
                     {                                       //verify this texture not already referenced
-                        dbgAssert(trMeshSortList[index].textureList[j] != regIndex);
+                        dbgAssertOrIgnore(trMeshSortList[index].textureList[j] != regIndex);
                     }
 #endif
                     if (trMeshSortList[index].nTextures >= trMeshSortList[index].nAllocated)
@@ -1268,7 +1268,7 @@ void trMeshSortAdd(sdword regIndex, udword teamFlags)
     //grow the texture sort list if needed
     if (index >= trMeshSortLength)
     {                                                       //if the sort list too short
-        dbgAssert(index == trMeshSortLength);               //should never be over
+        dbgAssertOrIgnore(index == trMeshSortLength);               //should never be over
         trMeshSortList = memRealloc(trMeshSortList, (trMeshSortLength + TR_MeshSortGrowBy) * sizeof(trmeshsort), "Texture Mesh Sort List", 0);
         for (j = index; j < index + TR_MeshSortGrowBy; j++)
         {
@@ -1627,8 +1627,8 @@ color *trImageScale(color *data, sdword width, sdword height, sdword newWidth, s
     sdword index, scaleX, scaleY;
     udword accumulator, srcY;
 
-    dbgAssert(newWidth <= width && newHeight <= height);    //verify the preconditions
-    dbgAssert(newWidth >= TR_MinimumSizeX && newHeight >= TR_MinimumSizeY);
+    dbgAssertOrIgnore(newWidth <= width && newHeight <= height);    //verify the preconditions
+    dbgAssertOrIgnore(newWidth >= TR_MinimumSizeX && newHeight >= TR_MinimumSizeY);
     if (newWidth == width && newHeight == height)
     {                                                       //if new size same as old size
         if (bFree)
@@ -1768,9 +1768,9 @@ ubyte *trImageScaleIndexed(ubyte *data, sdword width, sdword height, sdword newW
     ubyte *newBuffer;
     sdword index, scaleX, scaleY;
 
-    dbgAssert(newWidth <= width && newHeight <= height);    //verify the preconditions
-    dbgAssert(newWidth >= TR_MinimumSizeX && newHeight >= TR_MinimumSizeY);
-    dbgAssert(bitNumberSet(width, 16) == 1 && bitNumberSet(height, 16) == 1);
+    dbgAssertOrIgnore(newWidth <= width && newHeight <= height);    //verify the preconditions
+    dbgAssertOrIgnore(newWidth >= TR_MinimumSizeX && newHeight >= TR_MinimumSizeY);
+    dbgAssertOrIgnore(bitNumberSet(width, 16) == 1 && bitNumberSet(height, 16) == 1);
     if (newWidth == width && newHeight == height)
     {                                                       //if new size same as old size
         if (bFree)
@@ -1859,8 +1859,8 @@ void trPreLoadedTextureScale(sdword handle, sdword newWidth, sdword newHeight)
         return;
     }
     //actually do we really?  Maybe we don't...
-    dbgAssert(newWidth != reg->scaledWidth || newHeight != reg->scaledHeight);
-    dbgAssert(!trPending(handle));
+    dbgAssertOrIgnore(newWidth != reg->scaledWidth || newHeight != reg->scaledHeight);
+    dbgAssertOrIgnore(!trPending(handle));
 
     if (RGLtype != SWtype || newWidth > reg->scaledWidth || newHeight > reg->scaledHeight || trNoPalettes)
     {                                                       //if texture is to be scaled up
@@ -1898,7 +1898,7 @@ void trPreLoadedTextureScale(sdword handle, sdword newWidth, sdword newHeight)
         else
         {                                                   //else's it's an RGB texture
             bUseAlpha = bitTest(reg->flags, TRF_Alpha);     //is this an alpha texture? most likely
-            dbgAssert(bUseAlpha);
+            dbgAssertOrIgnore(bUseAlpha);
             if (reg->nPalettes == 1)
             {                                               //if only 1 palette
                 reg->handle = trTextureHandleScale(reg->handle, reg->scaledWidth, reg->scaledHeight, newWidth, newHeight, bUseAlpha);
@@ -2040,13 +2040,13 @@ void trMeshSortListLoad(trmeshsort *sortList)
             }
             else
             {                                               //else not first pending texture
-                dbgAssert(trTextureRegistry[sortList->textureList[index]].nPalettes ==
+                dbgAssertOrIgnore(trTextureRegistry[sortList->textureList[index]].nPalettes ==
                           trTextureRegistry[firstIndex].nPalettes);   //make sure same # palettes
                 for (j = 0; j < trTextureRegistry[firstIndex].nPalettes; j++)
                 {                                           //make sure identical palette info
-                    dbgAssert(((trcolorinfo *)trTextureRegistry[sortList->textureList[index]].palettes)[j].base ==
+                    dbgAssertOrIgnore(((trcolorinfo *)trTextureRegistry[sortList->textureList[index]].palettes)[j].base ==
                               ((trcolorinfo *)trTextureRegistry[firstIndex].palettes)[j].base);
-                    dbgAssert(((trcolorinfo *)trTextureRegistry[sortList->textureList[index]].palettes)[j].detail ==
+                    dbgAssertOrIgnore(((trcolorinfo *)trTextureRegistry[sortList->textureList[index]].palettes)[j].detail ==
                               ((trcolorinfo *)trTextureRegistry[firstIndex].palettes)[j].detail);
                 }
             }
@@ -2130,7 +2130,7 @@ void trMeshSortListLoad(trmeshsort *sortList)
             {
                 count = strpbrk(reg->fileName, "\\/") - (reg->fileName);
 #endif
-                dbgAssert(count > 0);
+                dbgAssertOrIgnore(count > 0);
                 memStrncpy(fullName, reg->fileName, count + 1);
                 //fullName[count] = 0;
                 race = StrToShipRace(fullName);
@@ -2206,7 +2206,7 @@ void trMeshSortListLoad(trmeshsort *sortList)
                     otherReg = &trTextureRegistry[sortList->textureList[paletteIndex]];
                     if (bitTest(otherReg->flags, TRF_Paletted) && otherReg->sharedFrom == TR_NotShared)
                     {                                       //if other texture is paletted and not a shared texture
-                        dbgAssert(otherReg->paletteCRC != TR_BadCRC);
+                        dbgAssertOrIgnore(otherReg->paletteCRC != TR_BadCRC);
                         if (otherReg->paletteCRC == lifFile->paletteCRC)
                         {                                   //if this palette matches other palette
                             //update palette register count
@@ -2417,7 +2417,7 @@ void trCramScaleTableCompute(sdword dest[TR_TexSizesX][TR_TexSizesY], sdword sca
     sdword closestWidth, closestHeight, widthToMatch, heightToMatch, width, height;
     sdword xDiff, yDiff;
 
-    dbgAssert(scaleFactor <= 65536);                        //make sure we're not scaling up
+    dbgAssertOrIgnore(scaleFactor <= 65536);                        //make sure we're not scaling up
     for (x = 0; x < TR_TexSizesX; x++)
     {                                                       //for all widths/heights
         for (y = 0; y < TR_TexSizesY; y++)
@@ -2471,9 +2471,9 @@ void trCramScaleTableCompute(sdword dest[TR_TexSizesX][TR_TexSizesY], sdword sca
                 //high word - width, low word - height
                 dest[x + TR_SSBMinX][y + TR_SSBMinY] = ((TR_MinimumSizeX << (max(x - closestIndex, 0))) << 16) |
                     (TR_MinimumSizeY << (max(y - closestIndex, 0)));
-                dbgAssert((TR_MinimumSizeX << (max(x - closestIndex, 0))) <=
+                dbgAssertOrIgnore((TR_MinimumSizeX << (max(x - closestIndex, 0))) <=
                           (TR_MinimumSizeX << x));          //make sure smaller than dimensions to match
-                dbgAssert((TR_MinimumSizeY << (max(y - closestIndex, 0))) <=
+                dbgAssertOrIgnore((TR_MinimumSizeY << (max(y - closestIndex, 0))) <=
                           (TR_MinimumSizeY << y));
             }
             else
@@ -2491,9 +2491,9 @@ void trCramScaleTableCompute(sdword dest[TR_TexSizesX][TR_TexSizesY], sdword sca
                 closestIndex &= 0x0fffffff;                 //remove the flag bit
                 dest[x + TR_SSBMinX][y + TR_SSBMinY] = ((TR_MinimumSizeX << (max(x - closestIndex - xDiff, 0))) << 16) |
                     (TR_MinimumSizeY << (max(y - closestIndex - yDiff, 0)));
-                dbgAssert((TR_MinimumSizeX << (max(x - closestIndex - xDiff, 0))) <=
+                dbgAssertOrIgnore((TR_MinimumSizeX << (max(x - closestIndex - xDiff, 0))) <=
                           (TR_MinimumSizeX << x));          //make sure smaller than dimensions to match
-                dbgAssert((TR_MinimumSizeY << (max(y - closestIndex - yDiff, 0))) <=
+                dbgAssertOrIgnore((TR_MinimumSizeY << (max(y - closestIndex - yDiff, 0))) <=
                           (TR_MinimumSizeY << y));
             }
         }
@@ -2541,15 +2541,15 @@ sdword trCramAttempt(sdword scaleFactor)
         {                                                   //don't consider shared textures in VRAM size computations
             continue;
         }
-        dbgAssert(bitNumberSet((udword)reg->diskWidth, 16) == 1);//make sure integer exponent of 2 in size
-        dbgAssert(bitNumberSet((udword)reg->diskHeight, 16) == 1);
+        dbgAssertOrIgnore(bitNumberSet((udword)reg->diskWidth, 16) == 1);//make sure integer exponent of 2 in size
+        dbgAssertOrIgnore(bitNumberSet((udword)reg->diskHeight, 16) == 1);
         size = newSize[bitLowBitPosition((udword)reg->diskWidth) - TR_SSBMinX]
             [bitLowBitPosition((udword)reg->diskHeight) - TR_SSBMinY];//get image size from table
 #if TR_ERROR_CHECKING
         width = (size & 0xffff0000) >> 16;
         height = size & 0x0000ffff;
-        dbgAssert(reg->diskWidth >= width);
-        dbgAssert(reg->diskHeight >= height);
+        dbgAssertOrIgnore(reg->diskWidth >= width);
+        dbgAssertOrIgnore(reg->diskHeight >= height);
 #endif
         size = ((size & 0xffff0000) >> 16) * (size & 0x0000ffff);//convert to just size
         size = (size + (trRamPoolGranularity - 1)) &
@@ -2695,8 +2695,8 @@ void trCramIntoRAM(sdword scaleFactor)
     for (index = 0; index < trSizeSortLength; index++)
     {
         reg = &trTextureRegistry[trSizeSortList[index].index];//get pointer to registry structure
-        dbgAssert(bitNumberSet((udword)reg->diskWidth, 16) == 1);//make sure integer exponent of 2 in size
-        dbgAssert(bitNumberSet((udword)reg->diskHeight, 16) == 1);
+        dbgAssertOrIgnore(bitNumberSet((udword)reg->diskWidth, 16) == 1);//make sure integer exponent of 2 in size
+        dbgAssertOrIgnore(bitNumberSet((udword)reg->diskHeight, 16) == 1);
         size = newSize[bitLowBitPosition((udword)reg->diskWidth) - TR_SSBMinX]
             [bitLowBitPosition((udword)reg->diskHeight) - TR_SSBMinY];//get image size from table
         width = (size & 0xffff0000) >> 16;
@@ -2708,8 +2708,8 @@ void trCramIntoRAM(sdword scaleFactor)
         {                                                   //if image hasn't been loaded yet
             reg->scaledWidth = (sword)width;                //just set the size of the texture
             reg->scaledHeight = (sword)height;
-            dbgAssert(reg->diskWidth >= reg->scaledWidth);
-            dbgAssert(reg->diskHeight >= reg->scaledHeight);
+            dbgAssertOrIgnore(reg->diskWidth >= reg->scaledWidth);
+            dbgAssertOrIgnore(reg->diskHeight >= reg->scaledHeight);
         }
         else
         {                                                   //else image already loaded and in use
@@ -2801,7 +2801,7 @@ llelement *trListFileLoad(char *name, sdword *number)
     {
         dbgFatalf(DBG_Loc, "Unexpected number of elements: %d", header.nElements);
     }
-    dbgAssert((udword)header.totalLength > header.nElements * sizeof(llelement));
+    dbgAssertOrIgnore((udword)header.totalLength > header.nElements * sizeof(llelement));
 #endif
     //allocate the list and string block
     list = memAlloc(header.totalLength, "LiFList", 0);
@@ -2881,7 +2881,7 @@ bool trImageMeasureFromListing(char *name, llelement *list, sdword listLength, s
     while (length >= 1)
     {
         index = length / 2 + base;                          //get centre of section
-        dbgAssert(index >= 0 && index < listLength);
+        dbgAssertOrIgnore(index >= 0 && index < listLength);
         result = strcasecmp(name_cpy, list[index].textureName);
         if (result == 0)
         {                                                   //if exact match
@@ -2934,8 +2934,8 @@ void trSharedFilenameCreate(sdword trIndex, llelement *lifListing, sdword listin
     texreg *reg = trStructure(trIndex);
 
     bResult = trImageMeasureFromListing(reg->fileName, lifListing, listingLength, &width, &height, &listFlags, &pSharedFrom);
-    dbgAssert(bResult);                                     //get the share parent name from the .ll file
-    dbgAssert(pSharedFrom != NULL);
+    dbgAssertOrIgnore(bResult);                                     //get the share parent name from the .ll file
+    dbgAssertOrIgnore(pSharedFrom != NULL);
     newFilename = memAlloc(strlen(reg->fileName) + strlen(pSharedFrom) + 2, "SharedFileName", NonVolatile);
     strcpy(newFilename, reg->fileName);                     //create the concatenated names
     strcpy((char *)memchr(newFilename, 0, SWORD_Max) + 1, pSharedFrom);
@@ -3022,7 +3022,7 @@ void trRegistryRefresh(void)
     trTextureDeleteAllUnregistered();                       //start by getting rid of dead weight
 
     //allocate the texture size sort list
-    dbgAssert(trSizeSortList == NULL);
+    dbgAssertOrIgnore(trSizeSortList == NULL);
     trSizeSortList = memAlloc((trHighestAllocated + 1) * sizeof(trmemmap), "Texture Size Sort List", 0);
     trSizeSortLength = 0;
 
@@ -3047,8 +3047,8 @@ void trRegistryRefresh(void)
                 if (!trAllColorsEqual(index, reg->sharedFrom))
                 {                                           //if the shared texture is different colors from the texture it shares
                     //set this texture as pending
-                    dbgAssert(trAllocated(reg->sharedFrom));
-                    dbgAssert(trTextureRegistry[reg->sharedFrom].nSharedTo > 0);
+                    dbgAssertOrIgnore(trAllocated(reg->sharedFrom));
+                    dbgAssertOrIgnore(trTextureRegistry[reg->sharedFrom].nSharedTo > 0);
                     trTextureRegistry[reg->sharedFrom].nSharedTo--;
                     reg->sharedFrom = TR_NotShared;         //no longer shared
                     trSetPending(index);                    //make it get loaded normally
@@ -3140,8 +3140,8 @@ void trRegistryRefresh(void)
                         }
                         if (reg->sharedFrom != TR_NotShared)
                         {                                   //was it shared properly?
-                            dbgAssert(trTextureRegistry[reg->sharedFrom].sharedFrom == TR_NotShared);//share parent must not be shared
-                            dbgAssert(trTextureRegistry[reg->sharedFrom].nSharedTo < UBYTE_Max - 1);
+                            dbgAssertOrIgnore(trTextureRegistry[reg->sharedFrom].sharedFrom == TR_NotShared);//share parent must not be shared
+                            dbgAssertOrIgnore(trTextureRegistry[reg->sharedFrom].nSharedTo < UBYTE_Max - 1);
                             trTextureRegistry[reg->sharedFrom].nSharedTo++;
                             //sharing handled - load a shared texture normally
                         }
@@ -3163,8 +3163,8 @@ void trRegistryRefresh(void)
                 }
             }
             //only pending and pre-loaded textures get here
-            dbgAssert(trAllocated(index));
-            dbgAssert(trSizeSortLength <= trHighestAllocated);
+            dbgAssertOrIgnore(trAllocated(index));
+            dbgAssertOrIgnore(trSizeSortLength <= trHighestAllocated);
             trSizeSortList[trSizeSortLength].index = index; //build unsorted list
             trSizeSortList[trSizeSortLength].width = reg->diskWidth;
             trSizeSortList[trSizeSortLength].height = reg->diskHeight;
@@ -3348,8 +3348,8 @@ void trMakeCurrent(trhandle handle)
         }
         if (trSpecialTextures && trSpecialTextureMode != TSM_None)
         {
-            dbgAssert(trSpecialTextureMode < TSM_NumberModes);
-            dbgAssert(trSpecialTextureMode > TSM_None);
+            dbgAssertOrIgnore(trSpecialTextureMode < TSM_NumberModes);
+            dbgAssertOrIgnore(trSpecialTextureMode > TSM_None);
             switch (trSpecialTextureMode)
             {
                 case TSM_Uncolored:
@@ -3387,12 +3387,12 @@ void trMakeCurrent(trhandle handle)
             if ((udword)reg->currentPalette != trPaletteIndex(handle))
             {
                 reg->currentPalette = (sword)trPaletteIndex(handle);
-                dbgAssert((sdword)trPaletteIndex(handle) < reg->nPalettes);
+                dbgAssertOrIgnore((sdword)trPaletteIndex(handle) < reg->nPalettes);
                 newPalette = &reg->palettes[trPaletteIndex(handle) * TR_PaletteSize];
             }
             else
             {
-                dbgAssert(trPaletteIndex(handle) < (udword)reg->nPalettes);
+                dbgAssertOrIgnore(trPaletteIndex(handle) < (udword)reg->nPalettes);
                 newPalette = &reg->palettes[trPaletteIndex(handle) * TR_PaletteSize];
             }
             if (bitTest(reg->flags, TRF_NoPalPending))
@@ -3409,7 +3409,7 @@ void trMakeCurrent(trhandle handle)
             if ((udword)reg->currentPalette != trPaletteIndex(handle))
             {                                                   //if we need to download a new palette
                 reg->currentPalette = (sword)trPaletteIndex(handle);
-                dbgAssert((sdword)trPaletteIndex(handle) < reg->nPalettes);
+                dbgAssertOrIgnore((sdword)trPaletteIndex(handle) < reg->nPalettes);
 
                 newPalette = &reg->palettes[trPaletteIndex(handle) * TR_PaletteSize];//select appropriate palette
                 trColorTable((color*)newPalette);               //download new palette
@@ -3418,7 +3418,7 @@ void trMakeCurrent(trhandle handle)
             }
             else// if (!RGL && !trSharedPalettes)
             {
-                dbgAssert(trPaletteIndex(handle) < (udword)reg->nPalettes);
+                dbgAssertOrIgnore(trPaletteIndex(handle) < (udword)reg->nPalettes);
 
                 newPalette = &reg->palettes[trPaletteIndex(handle) * TR_PaletteSize];
                 trColorTable((color*)newPalette);               //download new palette
@@ -3587,9 +3587,9 @@ void trSetAllPending(bool freeNoPal)
                 }
                 if (trTextureRegistry[index].sharedFrom != TR_NotShared)
                 {                                               //if shared from another
-                    dbgAssert(trTextureRegistry[index].nSharedTo == 0);
-                    dbgAssert(trAllocated(trTextureRegistry[index].sharedFrom));
-                    dbgAssert(trTextureRegistry[trTextureRegistry[index].sharedFrom].nSharedTo > 0);
+                    dbgAssertOrIgnore(trTextureRegistry[index].nSharedTo == 0);
+                    dbgAssertOrIgnore(trAllocated(trTextureRegistry[index].sharedFrom));
+                    dbgAssertOrIgnore(trTextureRegistry[trTextureRegistry[index].sharedFrom].nSharedTo > 0);
                     trTextureRegistry[trTextureRegistry[index].sharedFrom].nSharedTo--;
                     trTextureRegistry[index].sharedFrom = TR_NotShared;//remove this sharing link
                 }
@@ -3619,7 +3619,7 @@ void trNoPalSingleRepDelete(udword handle, sdword index)
 {
     nopalreg* reg;
 
-    dbgAssert(trNoPalAllocated(handle));
+    dbgAssertOrIgnore(trNoPalAllocated(handle));
 
     reg = trNoPalStructure(handle);
     glDeleteTextures(1, (GLuint*)&reg->glhandle[index]);
@@ -3685,11 +3685,11 @@ void trNoPalTextureDeleteFromTexreg(udword handle)
     nopalreg* reg;
     sdword index;
 
-    dbgAssert(trNoPalAllocated(handle));
+    dbgAssertOrIgnore(trNoPalAllocated(handle));
 
     reg = trNoPalStructure(handle);
 
-    dbgAssert(reg->texreghandle != TR_InvalidInternalHandle);
+    dbgAssertOrIgnore(reg->texreghandle != TR_InvalidInternalHandle);
 
     for (index = 0; index < trNpNumHandles; index++)
     {
@@ -3707,11 +3707,11 @@ void trNoPalTextureDeleteFromTexregWithoutPending(udword handle)
     nopalreg* reg;
     sdword index;
 
-    dbgAssert(trNoPalAllocated(handle));
+    dbgAssertOrIgnore(trNoPalAllocated(handle));
 
     reg = trNoPalStructure(handle);
 
-    dbgAssert(reg->texreghandle != TR_InvalidInternalHandle);
+    dbgAssertOrIgnore(reg->texreghandle != TR_InvalidInternalHandle);
 
     for (index = 0; index < trNpNumHandles; index++)
     {
@@ -3848,7 +3848,7 @@ void trNoPalReadjust(void)
     {
         return;
     }
-    dbgAssert(trNoPalInitialized);
+    dbgAssertOrIgnore(trNoPalInitialized);
 
     dbgMessagef("\n** nopal freed %dMB of textures **", trNoPalBytesAllocated >> 20);
 
@@ -3871,7 +3871,7 @@ void trNoPalReadjustWithoutPending(void)
     {
         return;
     }
-    dbgAssert(trNoPalInitialized);
+    dbgAssertOrIgnore(trNoPalInitialized);
 
     dbgMessagef("\n** nopalw/o freed %dMB of textures **", trNoPalBytesAllocated >> 20);
 
@@ -3911,7 +3911,7 @@ udword trNoPalGetHandle(void)
     handle = trNoPalHighestAllocated;
 
     trNoPalHighestAllocated++;
-    dbgAssert(trNoPalHighestAllocated < trRegistrySize);
+    dbgAssertOrIgnore(trNoPalHighestAllocated < trRegistrySize);
 
     return handle;
 }
@@ -4008,10 +4008,10 @@ udword trNoPalTextureCreate(ubyte* data, ubyte* palette, sdword width, sdword he
 
     reg = trNoPalStructure(handle);
 
-    dbgAssert(reg->data == NULL);
+    dbgAssertOrIgnore(reg->data == NULL);
 
     //not pending
-//    dbgAssert(!bitTest(trStructure(texreghandle)->flags, TRF_NoPalPending));
+//    dbgAssertOrIgnore(!bitTest(trStructure(texreghandle)->flags, TRF_NoPalPending));
 
     reg->texreghandle = texreghandle;
     reg->timeStamp[0] = taskTimeElapsed;//universe.totaltimeelapsed;
@@ -4026,7 +4026,7 @@ udword trNoPalTextureCreate(ubyte* data, ubyte* palette, sdword width, sdword he
     reg->height = height;
 
     //create a rep w/ given palette
-//    dbgAssert(reg->glhandle[0] == 0);
+//    dbgAssertOrIgnore(reg->glhandle[0] == 0);
     glGenTextures(1, (GLuint*)&reg->glhandle[0]);
     glBindTexture(GL_TEXTURE_2D, reg->glhandle[0]);
     trNoPalTexImage(data, palette, width, height);
@@ -4052,15 +4052,15 @@ void trNoPalTextureRecreate(ubyte* palette, udword handle)
 
     reg = trNoPalStructure(handle);
 
-    dbgAssert(reg->data != NULL);
-    dbgAssert(reg->texreghandle != TR_InvalidInternalHandle);
+    dbgAssertOrIgnore(reg->data != NULL);
+    dbgAssertOrIgnore(reg->texreghandle != TR_InvalidInternalHandle);
 
     //no longer pending
     bitClear(trStructure(reg->texreghandle)->flags, TRF_NoPalPending);
 
     //create a rep
     reg->crc[0] = (udword)palette;
-//    dbgAssert(reg->glhandle[0] == 0);
+//    dbgAssertOrIgnore(reg->glhandle[0] == 0);
     glGenTextures(1, (GLuint*)&reg->glhandle[0]);
     glBindTexture(GL_TEXTURE_2D, reg->glhandle[0]);
     trNoPalTexImage(reg->data, palette, reg->width, reg->height);
@@ -4088,7 +4088,7 @@ void trNoPalMakeCurrent(ubyte* palette, udword handle)
     sdword index, minIndex;
     real32 minTime;
 
-    dbgAssert(trNoPalAllocated(handle));
+    dbgAssertOrIgnore(trNoPalAllocated(handle));
 
     reg = trNoPalStructure(handle);
 
@@ -4218,7 +4218,7 @@ void trNoPalShutdown(void)
     memFree(trNoPalRegistry);
     trNoPalRegistry = NULL;
     trNoPalHighestAllocated = 0;
-//    dbgAssert(trNoPalBytesAllocated == 0);
+//    dbgAssertOrIgnore(trNoPalBytesAllocated == 0);
 
     trNoPalQueueShutdown();
 
@@ -4252,7 +4252,7 @@ void trNoPalFilter(sdword bEnable, sdword handle)
     nopalreg* reg;
     sdword index;
 
-    dbgAssert(handle != TR_InvalidInternalHandle);
+    dbgAssertOrIgnore(handle != TR_InvalidInternalHandle);
 
     if (!trNoPalAllocated(handle))
     {
@@ -4304,7 +4304,7 @@ void trTextureUsageList(char *fileName)
     {
         ;
     }
-    dbgAssert(trAllocated(index));
+    dbgAssertOrIgnore(trAllocated(index));
     strcpy(directoryName, trTextureRegistry[index].fileName);
     pSlash = directoryName;
 #ifdef _WIN32

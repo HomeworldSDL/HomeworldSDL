@@ -69,7 +69,7 @@ trkRangeString[] =
 ----------------------------------------------------------------------------*/
 void trkTrackValueAddFn(char *name, real32 *number, real32 *timer, color c)
 {
-    dbgAssert(trkTrackIndex < TRK_NumberTracks - 1);
+    dbgAssertOrIgnore(trkTrackIndex < TRK_NumberTracks - 1);
     trkValue[trkTrackIndex].value = number;
     trkValue[trkTrackIndex].lastValue = *number;
     trkValue[trkTrackIndex].name = memStringDupeNV(name);
@@ -200,7 +200,7 @@ void trkTrackValuesDisplayFn(void)
                     rect.x0 = xMed;
                     rect.x1 = xMed + (sdword)(delta * (real32)TRK_TrackWidth / 20.0f);
                 }
-                dbgAssert(rect.x0 != rect.x1);
+                dbgAssertOrIgnore(rect.x0 != rect.x1);
                 primRectSolid2(&rect, trkValue[index].c);
                 fontPrint(xMin - fontWidth(trkRangeString[range].minusString) - 1, y, colWhite, trkRangeString[range].minusString);
                 fontPrint(xMax + 1, y, colWhite, trkRangeString[range].plusString);

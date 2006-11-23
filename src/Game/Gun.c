@@ -236,7 +236,7 @@ void gunUpdateSlave(Gun *gun, GunInfo *guns, sdword iSlaveDriver)
 {
     Gun *slaveDriver;
 
-    dbgAssert(iSlaveDriver >= 0 && iSlaveDriver < guns->numGuns);
+    dbgAssertOrIgnore(iSlaveDriver >= 0 && iSlaveDriver < guns->numGuns);
     slaveDriver = &guns->guns[iSlaveDriver];
     gun->gunheading = slaveDriver->gunheading;              //copy the essentials from the slave driver
     gun->curgunorientation = slaveDriver->curgunorientation;
@@ -451,7 +451,7 @@ onTargetExitEarly:
     }
     else
     {
-        dbgAssert(FALSE);
+        dbgAssertOrIgnore(FALSE);
         return FALSE;
     }
     return(FALSE);
@@ -493,8 +493,8 @@ void missileShoot(Ship *ship,Gun *gun,SpaceObjRotImpTarg *target)
     real32 massovertime;
 #endif
 
-    dbgAssert(gunstatic->guntype == GUN_MissileLauncher || gunstatic->guntype == GUN_MineLauncher);
-    dbgAssert(gunHasMissiles(gun));
+    dbgAssertOrIgnore(gunstatic->guntype == GUN_MissileLauncher || gunstatic->guntype == GUN_MineLauncher);
+    dbgAssertOrIgnore(gunHasMissiles(gun));
 
     //line-of-sight check
     if (target != NULL && gunstatic->guntype == GUN_MissileLauncher)
@@ -539,7 +539,7 @@ void missileShoot(Ship *ship,Gun *gun,SpaceObjRotImpTarg *target)
     else
     {   //must be a mine launcher
         missile->staticinfo = &mineStaticInfos[shiprace];
-        dbgAssert(ship->shiptype == MinelayerCorvette);
+        dbgAssertOrIgnore(ship->shiptype == MinelayerCorvette);
         spec = (MinelayerCorvetteSpec *)ship->ShipSpecifics;
         missile->missileType = MISSILE_Mine;
         missile->mineAIState = spec->mineaistate;       //initialize the Mines AI state
@@ -852,7 +852,7 @@ void gunShoot(Ship *ship, Gun *gun, SpaceObjRotImpTarg *target)
     real32 massovertime;
 #endif
 
-    dbgAssert(gunstatic->guntype != GUN_MissileLauncher);
+    dbgAssertOrIgnore(gunstatic->guntype != GUN_MissileLauncher);
 
     //line-of-sight check
     if (target != NULL)
@@ -1358,7 +1358,7 @@ bool gunShootGunsAtTarget(Ship *ship,SpaceObjRotImpTarg *target,real32 range,vec
                         break;
 
                     default:
-                        dbgAssert(FALSE);
+                        dbgAssertOrIgnore(FALSE);
                         break;
                 }
             }
@@ -1398,7 +1398,7 @@ bool gunShootGunsAtMultipleTargets(Ship *ship)
     real32 temp;
     real32 triggerHappy;
 
-    dbgAssert(attackTargets->numAttackTargets == numGuns);      // one attack target for each gun
+    dbgAssertOrIgnore(attackTargets->numAttackTargets == numGuns);      // one attack target for each gun
 
     for (i=0;i<numGuns;i++)
     {
@@ -1480,7 +1480,7 @@ bool gunShootGunsAtMultipleTargets(Ship *ship)
                         break;
 
                     default:
-                        dbgAssert(FALSE);
+                        dbgAssertOrIgnore(FALSE);
                         break;
                 }
             }
@@ -1520,7 +1520,7 @@ bool gunMatrixUpdate(udword flags, hmatrix *startMatrix, hmatrix *matrix, void *
     vector recoilVector;
 
     ship = (Ship *)ID;
-    dbgAssert(ship->objtype == OBJ_ShipType);
+    dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
     gun = (Gun *)data;
     gunstatic = gun->gunstatic;
 
@@ -1563,7 +1563,7 @@ bool gunMatrixUpdate(udword flags, hmatrix *startMatrix, hmatrix *matrix, void *
             }
             else
             {
-//                dbgAssert(FALSE);
+//                dbgAssertOrIgnore(FALSE);
 //                return FALSE;
                 *matrix = IdentityHMatrix;
                 matrix->m14 = startMatrix->m14;
@@ -1573,7 +1573,7 @@ bool gunMatrixUpdate(udword flags, hmatrix *startMatrix, hmatrix *matrix, void *
             }
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             return FALSE;
     }
     //add recoil, if any
@@ -1657,7 +1657,7 @@ void gunDrawGunInfo(Ship *ship)
 ----------------------------------------------------------------------------*/
 real32 gunFirePower(GunStatic *gunStatic, TacticsType tactics, real32 *fireTime)
 {
-    dbgAssert(tactics == Evasive || tactics == Neutral || tactics == Aggressive);
+    dbgAssertOrIgnore(tactics == Evasive || tactics == Neutral || tactics == Aggressive);
 
     if (gunStatic->firetime == 0.0f)
     {

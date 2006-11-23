@@ -474,10 +474,10 @@ void cameraRayCast(vector *dest, Camera *cam, sdword screenX, sdword screenY, sd
 
     /*
     //These assertions are tripped when this function is called from pieplate.c after mousePositionSet().  The mouse can indeed be outside the viewport bounds.
-    dbgAssert(screenX >= 0);
-    dbgAssert(screenY >= 0);
-    dbgAssert(screenX < screenWidth);
-    dbgAssert(screenY < screenHeight);
+    dbgAssertOrIgnore(screenX >= 0);
+    dbgAssertOrIgnore(screenY >= 0);
+    dbgAssertOrIgnore(screenX < screenWidth);
+    dbgAssertOrIgnore(screenY < screenHeight);
     */
     //map the screen coordinates onto a "unit plane" centered on the Z axis.  Plane width is 1 and height is (height/width)
     plane.z = 1.0f;

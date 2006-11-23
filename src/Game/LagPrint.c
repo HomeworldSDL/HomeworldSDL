@@ -114,7 +114,7 @@ void lagRecievedPacketCB(ubyte *packet,udword sizeofPacket)
     }
     else
     {
-        dbgAssert(lagpacket->packetheader.from==sigsPlayerIndex);
+        dbgAssertOrIgnore(lagpacket->packetheader.from==sigsPlayerIndex);
         // should never reciev lag packets form another player except yourself
 
         lagCalculatedTotal = taskTimeElapsed - lagpacket->timestamp;

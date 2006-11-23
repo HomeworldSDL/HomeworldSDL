@@ -34,7 +34,7 @@ real32 ProbeGetMaxVelocity(Ship *ship)
 {
     ProbeSpec *spec = (ProbeSpec *) ship->ShipSpecifics;
 
-    dbgAssert(ship->shiptype == Probe);
+    dbgAssertOrIgnore(ship->shiptype == Probe);
 
     if (spec->HaveMoved)
     {

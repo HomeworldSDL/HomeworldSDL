@@ -434,7 +434,7 @@ void receivedFilePacketCB(ubyte *packet,udword sizeofPacket)
             }
         }
 
-        dbgAssert(*findlastslashptr == 0);
+        dbgAssertOrIgnore(*findlastslashptr == 0);
 
 #ifdef _WIN32
         _mkdir(dirtomake);      // try to make directory.  If it already exists, this will fail, that's ok
@@ -443,7 +443,7 @@ void receivedFilePacketCB(ubyte *packet,udword sizeofPacket)
 #endif
     }
 
-    dbgAssert(sizeofPacket == sizeofFilePacketGivenPacket(fpacket));
+    dbgAssertOrIgnore(sizeofPacket == sizeofFilePacketGivenPacket(fpacket));
     SaveFilePacketToFile(fpacket);
 
     autodownloadmapInfo.totalFilesToAutodownload = fpacket->totalNumFiles;

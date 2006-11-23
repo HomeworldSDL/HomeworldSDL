@@ -397,7 +397,7 @@ void spTitleListLoad(void)
     // HW Raider Retreat has all missions!
     scriptFile = fileOpen("multiPlayerMissions.script", FF_TextMode);
 #endif
-    dbgAssert(scriptFile != 0);
+    dbgAssertOrIgnore(scriptFile != 0);
 
     while (fileLineRead(scriptFile, nameBuffer, PATH_MAX) != FR_EndOfFile)
     {
@@ -462,7 +462,7 @@ void spTitleListLoad(void)
             spScenarios = memRealloc(spScenarios, spScenarioListLength * sizeof(spscenario), "spScenarios", NonVolatile);
         }
 		
-        dbgAssert(spNumberScenarios < spScenarioListLength);
+        dbgAssertOrIgnore(spNumberScenarios < spScenarioListLength);
         spScenarios[spNumberScenarios].fileSpec = memStringDupe(fileName);
         spScenarios[spNumberScenarios].bitmapfileSpec = memStringDupe(bitmapfileName);
         spScenarios[spNumberScenarios].title = title;
@@ -541,7 +541,7 @@ alreadyLoaded:;
             spScenarioListLength += SP_ScenarioListGrowth;
             spScenarios = memRealloc(spScenarios, spScenarioListLength * sizeof(spscenario), "spScenarios", NonVolatile);
         }
-        dbgAssert(spNumberScenarios < spScenarioListLength);
+        dbgAssertOrIgnore(spNumberScenarios < spScenarioListLength);
         spScenarios[spNumberScenarios].fileSpec = memStringDupe(fileName);
         spScenarios[spNumberScenarios].bitmapfileSpec = memStringDupe(bitmapfileName);
         spScenarios[spNumberScenarios].title = title;
@@ -619,7 +619,7 @@ alreadyLoadedFromFileSystem:;
                 spScenarios = memRealloc(spScenarios, spScenarioListLength * sizeof(spscenario), "spScenarios", NonVolatile);
             }
 			
-            dbgAssert(spNumberScenarios < spScenarioListLength);
+            dbgAssertOrIgnore(spNumberScenarios < spScenarioListLength);
             spScenarios[spNumberScenarios].fileSpec = memStringDupe(fileName);
             spScenarios[spNumberScenarios].bitmapfileSpec = memStringDupe(bitmapfileName);
             spScenarios[spNumberScenarios].title = title;
@@ -633,7 +633,7 @@ alreadyLoadedFromFileSystem:;
 #endif   /* _WIN32 */
 #endif //defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined (HW_DEMO) || defined(HW_PUBLIC_BETA) || defined(HW_RAIDER_RETREAT)
 
-    dbgAssert(spNumberScenarios > 0);
+    dbgAssertOrIgnore(spNumberScenarios > 0);
     if (spNumberScenarios > 1)
     {
         //alphabetically sort the scenario list
@@ -785,8 +785,8 @@ bool spSelectionValid(sdword candidate)
             // let's bump computers out for humans to join
             tpGameCreated.numComputers = spScenarios[candidate].maxplayers - tpGameCreated.numPlayers;
             // this line caused a warning in release build, numComputers is always >= 0 it is unsigned!
-            //dbgAssert(tpGameCreated.numComputers >= 0);
-            dbgAssert(tpGameCreated.numPlayers + tpGameCreated.numComputers <= spScenarios[candidate].maxplayers);
+            //dbgAssertOrIgnore(tpGameCreated.numComputers >= 0);
+            dbgAssertOrIgnore(tpGameCreated.numPlayers + tpGameCreated.numComputers <= spScenarios[candidate].maxplayers);
         }
     }
 
@@ -1019,7 +1019,7 @@ void spNewItem(void)
 
     scen = spScenarioListWindow->CurLineSelected->position;
     atom = feAtomFindInScreen(feStack[feStackIndex].screen, "CS_ScenarioBitmap");
-    dbgAssert(atom != NULL);
+    dbgAssertOrIgnore(atom != NULL);
 
     if (scenarioTexture != TR_InvalidInternalHandle)
     {                                                       //delete the old texture before creating a new one
@@ -1210,7 +1210,7 @@ void spScenarioBitmap(featom *atom, regionhandle region)
     //draw the description text...
     if (spDescription != NULL)
     {                                                       //if there is description text
-        dbgAssert(spDescriptionFont != FONT_InvalidFontHandle);
+        dbgAssertOrIgnore(spDescriptionFont != FONT_InvalidFontHandle);
         oldFont = fontMakeCurrent(spDescriptionFont);       //set the font
         if (spDescriptionShadow)
         {                                                   //optionally enable dropshadow
@@ -1218,7 +1218,7 @@ void spScenarioBitmap(featom *atom, regionhandle region)
         }
         for (index = 0, y = textureRect.y0; index < spNDescriptionLines; index++)
         {                                                   //draw each line
-            dbgAssert(spDescriptionLines[index] != NULL);
+            dbgAssertOrIgnore(spDescriptionLines[index] != NULL);
             if (y + fontHeight(" ") >= textureRect.y1)
             {                                               //if this line will extend off bottom of region
                 break;

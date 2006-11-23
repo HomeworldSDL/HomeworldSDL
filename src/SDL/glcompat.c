@@ -777,7 +777,7 @@ void glcDisplayRGBABackgroundScaled(ubyte* surface)
         {
             glBindTexture(GL_TEXTURE_2D, handle[handles]);
             handles++;
-            dbgAssert(handles < glcMaxHandles);
+            dbgAssertOrIgnore(handles < glcMaxHandles);
             glcCreateTexture(surface, x, y, -64, yend);
             glcScaledQuadAt(x, 479 - y + (64 - yend) - 64, 64, yend);
         }
@@ -832,7 +832,7 @@ void glcDisplayRGBABackgroundWithoutScaling(ubyte* surface)
         {
             glBindTexture(GL_TEXTURE_2D, handle[handles]);
             handles++;
-            dbgAssert(handles < glcMaxHandles);
+            dbgAssertOrIgnore(handles < glcMaxHandles);
             glcCreateTexture(surface, x, y, -64, yend);
             glcQuadAt(xOfs + x, yOfs + 479 - y + (64 - yend) - 64, 64, yend);
         }
@@ -939,7 +939,7 @@ void glcDisplayRGBABackground(ubyte* surface)
         {
             glBindTexture(GL_TEXTURE_2D, handle[handles]);
             handles++;
-            dbgAssert(handles < glcMaxHandles);
+            dbgAssertOrIgnore(handles < glcMaxHandles);
             glcCreateTexture(surface, x, y, 64, yend);
             glcQuadAt(xOfs + x, yOfs + _heightMinusOne - y + (64 - yend) - 64, 64, yend);
         }
@@ -1102,7 +1102,7 @@ bool glcDisplayRGBABackgroundPortion(ubyte* surface, rectangle* rect, bool mouse
         {
             glBindTexture(GL_TEXTURE_2D, handle[handles]);
             handles++;
-            dbgAssert(handles < glcMaxHandles);
+            dbgAssertOrIgnore(handles < glcMaxHandles);
             glcCreateTexture(surface, x, iy-32, 32, 32);
             glcQuadAt(xOfs + x, yOfs + _heightMinusOne - iy, 32, 32);
         }
@@ -1593,25 +1593,25 @@ static void glcRectangleShaded(rectangle* rect, color* c)
 
 void glcRectSolid2(rectangle* rect, color c)
 {
-    dbgAssert(glScratch != NULL);
+    dbgAssertOrIgnore(glScratch != NULL);
     glcRectangle(rect, c, FALSE);
 }
 
 void glcBeveledRectSolid2(rectangle* rect, color c, sdword xb, sdword yb)
 {
-    dbgAssert(glScratch != NULL);
+    dbgAssertOrIgnore(glScratch != NULL);
     glcRectangle(rect, c, FALSE);
 }
 
 void glcRectTranslucent2(rectangle* rect, color c)
 {
-    dbgAssert(glScratch != NULL);
+    dbgAssertOrIgnore(glScratch != NULL);
     glcRectangle(rect, c, TRUE);
 }
 
 void glcRectShaded2(rectangle* rect, color* c)
 {
-    dbgAssert(glScratch != NULL);
+    dbgAssertOrIgnore(glScratch != NULL);
     glcRectangleShaded(rect, c);
 }
 
@@ -1864,7 +1864,7 @@ static void barrett_triangle(sdword x0, sdword y0, sdword x1, sdword y1, sdword 
 
 void glcTriSolid2(triangle* tri, color c)
 {
-    dbgAssert(glScratch != NULL);
+    dbgAssertOrIgnore(glScratch != NULL);
 
     barrett_triangle(tri->x0, tri->y0,
                      tri->x1, tri->y1,
@@ -1874,7 +1874,7 @@ void glcTriSolid2(triangle* tri, color c)
 
 void glcTriOutline2(triangle* tri, sdword thickness, color c)
 {
-    dbgAssert(glScratch != NULL);
+    dbgAssertOrIgnore(glScratch != NULL);
 
     glcLine2(tri->x0, tri->y0, tri->x1, tri->y1, thickness, c);
     glcLine2(tri->x1, tri->y1, tri->x2, tri->y2, thickness, c);
@@ -2021,7 +2021,7 @@ void _glcRectOutline2(rectangle* rect, sdword thickness, color c)
     sdword y0, y1;
     sdword x0, x1;
 
-    dbgAssert(glScratch != NULL);
+    dbgAssertOrIgnore(glScratch != NULL);
 
     y0 = _heightMinusOne - (rect->y0 - yDiff);
     y1 = _heightMinusOne - (rect->y1 - yDiff);
@@ -2170,8 +2170,8 @@ static void glcDrawPixelsHelper(GLenum format, sdword width, sdword height, ubyt
 
 void APIENTRY glcDrawPixels(GLsizei width, GLsizei height, GLenum format, GLenum type, GLvoid const* pixels)
 {
-    dbgAssert(glScratch != NULL);
-    dbgAssert(pixels != NULL);
+    dbgAssertOrIgnore(glScratch != NULL);
+    dbgAssertOrIgnore(pixels != NULL);
 
     switch (format)
     {
@@ -2387,27 +2387,27 @@ bool glcActivate(bool active)
 
         _glcDrawPixels = (DRAWPIXELSproc)glDrawPixels;
         glDrawPixels = (DRAWPIXELSproc)glcDrawPixels;
-        dbgAssert(glDrawPixels != _glcDrawPixels);
+        dbgAssertOrIgnore(glDrawPixels != _glcDrawPixels);
 
         _glcRasterPos2f = (RASTERPOS2Fproc)glRasterPos2f;
         glRasterPos2f = (RASTERPOS2Fproc)glcRasterPos2f;
-        dbgAssert(glRasterPos2f != _glcRasterPos2f);
+        dbgAssertOrIgnore(glRasterPos2f != _glcRasterPos2f);
 
         _glcColor3ub = (COLOR3UBproc)glColor3ub;
         glColor3ub = (COLOR3UBproc)glcColor3ub;
-        dbgAssert(glColor3ub != _glcColor3ub);
+        dbgAssertOrIgnore(glColor3ub != _glcColor3ub);
 
         _glcClear = (CLEARproc)glClear;
         glClear = (CLEARproc)glcClear;
-        dbgAssert(glClear != _glcClear);
+        dbgAssertOrIgnore(glClear != _glcClear);
 
         _glcEnable = glEnable;
         glEnable = (ENABLEproc)glcEnable;
-        dbgAssert(glEnable != _glcEnable);
+        dbgAssertOrIgnore(glEnable != _glcEnable);
 
         _glcDisable = glDisable;
         glDisable = (DISABLEproc)glcDisable;
-        dbgAssert(glDisable != _glcDisable);
+        dbgAssertOrIgnore(glDisable != _glcDisable);
 
         (void)glcAllocateScratch(TRUE);
 

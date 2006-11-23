@@ -117,7 +117,7 @@ void make_all_slaves_moving(Ship *ship)
     Node *slavenode;
     Ship *slave;
 
-    dbgAssert(ship->flags & SOF_Slaveable);     //ship should be slaveable
+    dbgAssertOrIgnore(ship->flags & SOF_Slaveable);     //ship should be slaveable
 
     slavenode = ship->slaveinfo->slaves.head;
     while (slavenode != NULL)
@@ -135,8 +135,8 @@ void getRotatePoint(Ship *ship, vector *point, real32 *distance)
     udword count;
     vector dist;
 
-    dbgAssert(ship->flags & SOF_Slaveable);     //ship should be slaveable
-    dbgAssert(ship->slaveinfo->slaves.num >= 5);    //need enough for a pie plate!
+    dbgAssertOrIgnore(ship->flags & SOF_Slaveable);     //ship should be slaveable
+    dbgAssertOrIgnore(ship->slaveinfo->slaves.num >= 5);    //need enough for a pie plate!
 
     slavenode = ship->slaveinfo->slaves.head;
     point->x = ship->posinfo.position.x;
@@ -320,7 +320,7 @@ void ResearchShipHouseKeep(Ship *ship)
                                 spec->theta *= researchshipstatics->rotate_slow;
                             break;
                         default:
-                            dbgAssert(FALSE);
+                            dbgAssertOrIgnore(FALSE);
                             break;
                         }
                         matMakeRotAboutX(&rot_matrix,(real32) cos(spec->theta),(real32) sin(spec->theta));
@@ -340,7 +340,7 @@ void ResearchShipHouseKeep(Ship *ship)
                         break;
                     default:
                         dbgMessagef("\nShouldn't Get Here...unknown Research Ship Rotate State");
-                        dbgAssert(FALSE);
+                        dbgAssertOrIgnore(FALSE);
                         break;
                     }
 
@@ -424,7 +424,7 @@ void ResearchShipHouseKeep(Ship *ship)
                                 spec->theta *= researchshipstatics->rotate_slow;
                             break;
                         default:
-                            dbgAssert(FALSE);
+                            dbgAssertOrIgnore(FALSE);
                             break;
                         }
                         matMakeRotAboutZ(&rot_matrix,(real32) cos(spec->theta),(real32) sin(spec->theta));
@@ -434,7 +434,7 @@ void ResearchShipHouseKeep(Ship *ship)
                         break;
                     default:
                         dbgMessagef("\nShouldn't Get Here...unknown Research Ship Rotate State");
-                        dbgAssert(FALSE);
+                        dbgAssertOrIgnore(FALSE);
                         break;
                     }
                 }
@@ -488,12 +488,12 @@ void ResearchShipMakeReadyForHyperspace(Ship *ship)
 
         dockpointindex = ship->dockvars.dockstaticpoint->dockindex;
 
-        dbgAssert(ship->dockvars.reserveddocking == (sbyte)dockpointindex);
+        dbgAssertOrIgnore(ship->dockvars.reserveddocking == (sbyte)dockpointindex);
         ship->dockvars.reserveddocking = -1;
 
         if(spec->dockwith != NULL)
         {
-            dbgAssert(spec->dockwith->dockInfo->dockpoints[dockpointindex].thisDockBusy > 0);
+            dbgAssertOrIgnore(spec->dockwith->dockInfo->dockpoints[dockpointindex].thisDockBusy > 0);
             spec->dockwith->dockInfo->dockpoints[dockpointindex].thisDockBusy--;
         }
     }
@@ -521,12 +521,12 @@ void ResearchShipDied(Ship *ship)
                 {
                     dockpointindex = ship->dockvars.dockstaticpoint->dockindex;
 
-                    dbgAssert(ship->dockvars.reserveddocking == (sbyte)dockpointindex);
+                    dbgAssertOrIgnore(ship->dockvars.reserveddocking == (sbyte)dockpointindex);
                     ship->dockvars.reserveddocking = -1;
 
                     if(spec->dockwith != NULL)
                     {
-                        dbgAssert(spec->dockwith->dockInfo->dockpoints[dockpointindex].thisDockBusy > 0);
+                        dbgAssertOrIgnore(spec->dockwith->dockInfo->dockpoints[dockpointindex].thisDockBusy > 0);
                         spec->dockwith->dockInfo->dockpoints[dockpointindex].thisDockBusy--;
                     }
                 }
@@ -623,10 +623,10 @@ void ResearchShipDied(Ship *ship)
 
                                     dockpointindex = obj->dockvars.dockstaticpoint->dockindex;
 
-                                    dbgAssert(obj->dockvars.reserveddocking == (sbyte)dockpointindex);
+                                    dbgAssertOrIgnore(obj->dockvars.reserveddocking == (sbyte)dockpointindex);
                                     obj->dockvars.reserveddocking = -1;
 
-                                    //dbgAssert(((ResearchShipSpec *) obj->ShipSpecifics)->dockwith->dockInfo->dockpoints[dockpointindex].thisDockBusy > 0);
+                                    //dbgAssertOrIgnore(((ResearchShipSpec *) obj->ShipSpecifics)->dockwith->dockInfo->dockpoints[dockpointindex].thisDockBusy > 0);
 
                                     if (((ResearchShipSpec *) obj->ShipSpecifics)->dockwith) // Bryce did I fix this right by putting in this check dockwith != NULL
                                         ((ResearchShipSpec *) obj->ShipSpecifics)->dockwith->dockInfo->dockpoints[dockpointindex].thisDockBusy = 0;
@@ -634,7 +634,7 @@ void ResearchShipDied(Ship *ship)
                                 }
                                 CleanResearchShip(obj);
 
-                                dbgAssert(selection.numShips < COMMAND_MAX_SHIPS);
+                                dbgAssertOrIgnore(selection.numShips < COMMAND_MAX_SHIPS);
                                 selection.ShipPtr[selection.numShips] = obj;
                                 selection.numShips++;
                                 //ship->dockInfo->dockpoints[shippointindex].thisDockBusy = 0;    //artificially busy point
@@ -673,7 +673,7 @@ void toFakeOneShip(Ship *ship, vector *oldpos, real32 *oldradius)
     if(!(ship->flags & SOF_Slaveable))
         return;
 
-    dbgAssert(ship->slaveinfo->flags & SF_MASTER);      //must be a master
+    dbgAssertOrIgnore(ship->slaveinfo->flags & SF_MASTER);      //must be a master
     slavenode = ship->slaveinfo->slaves.head;
 
     newcenter = ship->collInfo.collPosition;
@@ -748,7 +748,7 @@ void addMonkeyResearchShipChangePosition(Ship *dockwith, Ship *ship,sdword docki
     resstatics = (ResearchShipStatics *) ((ShipStaticInfo *)(ship->staticinfo))->custstatinfo;
 
 
-    dbgAssert(dockwith != NULL);    //if we're calling this there should be another reserach station available somewhere
+    dbgAssertOrIgnore(dockwith != NULL);    //if we're calling this there should be another reserach station available somewhere
 
     if(ship->shiprace == R1)
     {
@@ -825,7 +825,7 @@ void addMonkeyResearchShipChangePosition(Ship *dockwith, Ship *ship,sdword docki
         }
         else
         {
-            dbgAssert(FALSE);       //shouldget here.
+            dbgAssertOrIgnore(FALSE);       //shouldget here.
         }
 
         vecNormalize(&desiredUp);

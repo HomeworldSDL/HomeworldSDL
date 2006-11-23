@@ -121,7 +121,7 @@ void runShipEffect(Ship *ship)
     #endif
          {
              udword colSizeDword;
-             dbgAssert(ship->objtype == OBJ_ShipType);
+             dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
              colSizeDword = TreatAsUdword(((ShipStaticInfo *)(ship->staticinfo))->staticheader.staticCollInfo.collspheresize);
              etgEffectCreate(stat, ship, &ship->posinfo.position, &ship->posinfo.velocity, &ship->rotinfo.coordsys, ship->magnitudeSquared, EAF_Full, 1, colSizeDword);
 			 {
@@ -245,7 +245,7 @@ void turnoffGravwell(Ship *ship)
         if (stat != NULL)
 #endif
         {                                       //if there is a gravwell off effect for this LOD
-            dbgAssert(ship->objtype == OBJ_ShipType);
+            dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
             etgEffectCreate(stat, ship, &ship->posinfo.position, NULL, &ship->rotinfo.coordsys, ship->magnitudeSquared, EAF_Full, 1, ship->shiprace);
         }
     }
@@ -304,7 +304,7 @@ bool GravWellGeneratorSpecialActivate(Ship *ship)
                     if (stat != NULL)
 #endif
                     {                                       //if there is a gravwell on effect
-                        dbgAssert(ship->objtype == OBJ_ShipType);
+                        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
                         spec->gravityEffect = etgEffectCreate(stat, ship, &ship->posinfo.position, NULL, &ship->rotinfo.coordsys, ship->magnitudeSquared, EAF_Full, 1, ship->shiprace);
                         if (((real32 *)spec->gravityEffect->variable)[ETG_SpecialDurationParam] != 999999.0f)
                         {                                   //if it's not one of those free-running effects
@@ -540,7 +540,7 @@ etgLOD = etgSpecialPurposeEffectTable[EGT_GRAVWELL_ON];
                     if (stat != NULL)
 #endif
                     {                                       //if there is a gravwell on effect
-                        dbgAssert(ship->objtype == OBJ_ShipType);
+                        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
                         spec->gravityEffect = etgEffectCreate(stat, ship, &ship->posinfo.position, NULL, &ship->rotinfo.coordsys, ship->magnitudeSquared, EAF_Full, 1, ship->shiprace);
                         if (((real32 *)spec->gravityEffect->variable)[ETG_SpecialDurationParam] != 999999.0f)
                         {                                   //if it's not one of those free-running effects
@@ -665,7 +665,7 @@ void GravWellGenerator_Save(Ship *ship)
         node = node->next;
     }
 
-    dbgAssert(cur == spec->GravList.num);
+    dbgAssertOrIgnore(cur == spec->GravList.num);
 }
 
 GravStruct *LoadGravStruct(void)

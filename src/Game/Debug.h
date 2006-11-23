@@ -30,17 +30,17 @@
 #endif
 
 
-#if DBG_ASSERT
-    #define dbgAssert(expr) if (!(expr)) dbgFatalf(DBG_Loc, "Assertion of (%s) failed.", #expr)
-#else
-    #define dbgAssert(expr) ((void)0)
-#endif
-
-
 #if DBG_FILE_LINE
     #define DBG_Loc         __FILE__, __LINE__
 #else
     #define DBG_Loc         NULL, 0
+#endif
+
+
+#if DBG_ASSERT
+    #define dbgAssertOrIgnore(expr) if (!(expr)) dbgFatalf(DBG_Loc, "Assertion of (%s) failed.", #expr)
+#else
+    #define dbgAssertOrIgnore(expr) ((void)0)
 #endif
 
 

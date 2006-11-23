@@ -1282,7 +1282,7 @@ void kasLoad(void)
 
     CurrentMissionWatchFunction = IndexToWatchFunction(LoadInfoNumber());
 
-    dbgAssert(universe.players[1].aiPlayer);
+    dbgAssertOrIgnore(universe.players[1].aiPlayer);
     CurrentTeamP = AITeamIndexToTeam(universe.players[1].aiPlayer,LoadInfoNumber());
 
     CurrentMissionSkillLevel = LoadInfoNumber();

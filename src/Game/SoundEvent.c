@@ -2619,7 +2619,7 @@ void SEloadbank(void)
 	if (ShipEventsLUT->checksum != ShipCmnEventsLUT->checksum)
 	{
 		dbgMessage("Lookup tables do not match.  Not from same generate.\n");
-		dbgAssert(FALSE);
+		dbgAssertOrIgnore(FALSE);
 	}
 
     strcpy(loadfile, SOUNDFXDIR);
@@ -2640,7 +2640,7 @@ void SEloadbank(void)
 	if (DerelictEventsLUT->checksum != ShipCmnEventsLUT->checksum)
 	{
 		dbgMessage("Lookup tables do not match.  Not from same generate.\n");
-		dbgAssert(FALSE);
+		dbgAssertOrIgnore(FALSE);
 	}
 
 //    strcpy(loadfile, SOUNDFXDIR);
@@ -2665,7 +2665,7 @@ void SEloadbank(void)
 //	if (SpecExpEventsLUT->checksum != SpecEffectEventsLUT->checksum)
 //	{
 //		dbgMessage("Lookup tables do not match.  Not from same generate.\n");
-//		dbgAssert(FALSE);
+//		dbgAssertOrIgnore(FALSE);
 //	}
 
     strcpy(loadfile, SOUNDFXDIR);
@@ -2687,7 +2687,7 @@ void SEloadbank(void)
 	if (SpecHitEventsLUT->checksum != SpecExpEventsLUT->checksum)
 	{
 		dbgMessage("Lookup tables do not match.  Not from same generate.\n");
-		dbgAssert(FALSE);
+		dbgAssertOrIgnore(FALSE);
 	}
 
     strcpy(loadfile, SOUNDFXDIR);
@@ -2711,7 +2711,7 @@ void SEloadbank(void)
 	if (soundbankadd(GunBank) != GunEventsLUT->checksum)
 	{
 		dbgMessage("Lookup tables do not match.  Not from same generate.\n");
-		dbgAssert(FALSE);
+		dbgAssertOrIgnore(FALSE);
 	}
 
     strcpy(loadfile, SOUNDFXDIR);
@@ -2720,7 +2720,7 @@ void SEloadbank(void)
 	if (soundbankadd(ShipBank) != ShipCmnEventsLUT->checksum)
 	{
 		dbgMessage("Ship bank file does not match Lookup tables.  Not from same generate.\n");
-		dbgAssert(FALSE);
+		dbgAssertOrIgnore(FALSE);
 	}
 
     strcpy(loadfile, SOUNDFXDIR);
@@ -2730,7 +2730,7 @@ void SEloadbank(void)
 	if (soundbankadd(SpecialEffectBank) != SpecExpEventsLUT->checksum)
 	{
 		dbgMessage("Lookup tables do not match.  Not from same generate.\n");
-		dbgAssert(FALSE);
+		dbgAssertOrIgnore(FALSE);
 	}
 
     strcpy(loadfile, SOUNDFXDIR);
@@ -2739,7 +2739,7 @@ void SEloadbank(void)
 	if (soundbankadd(UIBank) != UIEventsLUT->checksum)
 	{
 		dbgMessage("Lookup tables do not match.  Not from same generate.\n");
-		dbgAssert(FALSE);
+		dbgAssertOrIgnore(FALSE);
 	}
 }
 

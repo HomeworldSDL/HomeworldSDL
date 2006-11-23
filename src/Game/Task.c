@@ -111,7 +111,7 @@ sdword taskStartup(udword frequency)
     dbgMessagef("\ntaskInit: Task module started using a frequency of %dHz", frequency);
 #endif
 
-    dbgAssert(taskModuleInit == FALSE);
+    dbgAssertOrIgnore(taskModuleInit == FALSE);
 
     for (index = 0; index < TSK_NumberTasks; index++)
     {
@@ -233,8 +233,8 @@ taskhandle taskStart(taskfunction function, real32 period, udword flags)
 #endif
 
     taskInitCheck();
-    dbgAssert(function != NULL);
-    dbgAssert(period > 0.0f);
+    dbgAssertOrIgnore(function != NULL);
+    dbgAssertOrIgnore(period > 0.0f);
 
     //allocate a new task and it's stack in one fell swoop
     newTask = memAlloc(sizeof(taskdata), "taskData", NonVolatile);
@@ -250,7 +250,7 @@ taskhandle taskStart(taskfunction function, real32 period, udword flags)
     newTask->flags = flags | TF_Allocated;                  //make task in use and running
     newTask->function = function;
     newTask->ticks = 0;                                     //no residual ticks
-    dbgAssert(period * taskFrequency < (real32)SDWORD_Max);
+    dbgAssertOrIgnore(period * taskFrequency < (real32)SDWORD_Max);
     newTask->ticksPerCall = (udword)(period * taskFrequency);//save ticks per call
 
 #if DBG_STACK_CONTEXT
@@ -419,8 +419,8 @@ taskContinued:
 
 #if TASK_STACK_SAVE
     taskESPDiff = (sdword)(taskESPSaveInitial - taskData[handle]->esp);
-    dbgAssert(taskESPDiff >= 0);
-    dbgAssert(taskESPDiff < BIT8);
+    dbgAssertOrIgnore(taskESPDiff >= 0);
+    dbgAssertOrIgnore(taskESPDiff < BIT8);
     if (taskESPDiff > 0)
     {
         taskLargestLocals = max(taskLargestLocals, taskESPDiff);
@@ -444,9 +444,9 @@ taskContinued:
 void taskStop(taskhandle handle)
 {
     taskInitCheck();
-    dbgAssert(handle >= 0);
-    dbgAssert(handle < taskMaxTask);
-    dbgAssert(taskData[handle] != NULL);
+    dbgAssertOrIgnore(handle >= 0);
+    dbgAssertOrIgnore(handle < taskMaxTask);
+    dbgAssertOrIgnore(taskData[handle] != NULL);
 
 #if TASK_VERBOSE_LEVEL >= 2
 //    dbgMessagef("\ntaskDestroy: destroying task %d", handle);
@@ -536,7 +536,7 @@ sdword taskExecuteAllPending(sdword ticks)
     taskTimeElapsed += taskTimeDelta;
     tTicks = ticks;                                         //save the ticks parameter
 
-    dbgAssert(taskCurrentTask == -1);                       //verify we're not in any task currently
+    dbgAssertOrIgnore(taskCurrentTask == -1);                       //verify we're not in any task currently
 
     //save the global task execution pointers
 #ifndef C_ONLY
@@ -928,9 +928,9 @@ taskReturned:
 void taskPause(taskhandle handle)
 {
     taskInitCheck();
-    dbgAssert(handle >= 0);
-    dbgAssert(handle < taskMaxTask);
-    dbgAssert(taskData[handle] != NULL);
+    dbgAssertOrIgnore(handle >= 0);
+    dbgAssertOrIgnore(handle < taskMaxTask);
+    dbgAssertOrIgnore(taskData[handle] != NULL);
 
     bitSet(taskData[handle]->flags, TF_Paused);
 }
@@ -945,9 +945,9 @@ void taskPause(taskhandle handle)
 void taskResume(taskhandle handle)
 {
     taskInitCheck();
-    dbgAssert(handle >= 0);
-    dbgAssert(handle < taskMaxTask);
-    dbgAssert(taskData[handle] != NULL);
+    dbgAssertOrIgnore(handle >= 0);
+    dbgAssertOrIgnore(handle < taskMaxTask);
+    dbgAssertOrIgnore(taskData[handle] != NULL);
 
     bitClear(taskData[handle]->flags, TF_Paused);
 }
@@ -1055,9 +1055,9 @@ real32 taskPeriodSet(taskhandle handle, real32 period)
     real32 old;
 
     taskInitCheck();
-    dbgAssert(handle >= 0);
-    dbgAssert(handle < taskMaxTask);
-    dbgAssert(taskData[handle] != NULL);
+    dbgAssertOrIgnore(handle >= 0);
+    dbgAssertOrIgnore(handle < taskMaxTask);
+    dbgAssertOrIgnore(taskData[handle] != NULL);
     old = (real32)taskData[handle]->ticksPerCall / taskFrequency;
     taskData[handle]->ticksPerCall = (udword)(period * taskFrequency);
     return(old);

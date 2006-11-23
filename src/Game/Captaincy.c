@@ -331,12 +331,12 @@ void TransferCaptaincyUpdate(void)
     while (numPackets > 0)
     {
         sizeofPacket = HWDequeue(&ProcessCaptaincyPktQ,&packet);
-        dbgAssert(sizeofPacket > 0);
+        dbgAssertOrIgnore(sizeofPacket > 0);
         copypacket = memAlloc(sizeofPacket,"cp(miscpacket)",Pyrophoric);
         memcpy(copypacket,packet,sizeofPacket);
         UnLockQueue(&ProcessCaptaincyPktQ);
 
-        dbgAssert(((HWPacketHeader *)copypacket)->type == PACKETTYPE_TRANSFERCAPTAINCY);
+        dbgAssertOrIgnore(((HWPacketHeader *)copypacket)->type == PACKETTYPE_TRANSFERCAPTAINCY);
         ProcessTransferCaptaincyPacket((TransferCaptaincyPacket *)copypacket);
         memFree(copypacket);
 
@@ -354,12 +354,12 @@ void TransferCaptaincyUpdate(void)
     else
     {
         sizeofPacket = HWDequeue(&ProcessCaptaincyPktQ,&packet);
-        dbgAssert(sizeofPacket > 0);
+        dbgAssertOrIgnore(sizeofPacket > 0);
         copypacket = memAlloc(sizeofPacket,"cp(miscpacket)",Pyrophoric);
         memcpy(copypacket,packet,sizeofPacket);
         UnLockQueue(&ProcessCaptaincyPktQ);
 
-        dbgAssert(((HWPacketHeader *)copypacket)->type == PACKETTYPE_TRANSFERCAPTAINCY);
+        dbgAssertOrIgnore(((HWPacketHeader *)copypacket)->type == PACKETTYPE_TRANSFERCAPTAINCY);
         ProcessTransferCaptaincyPacket((TransferCaptaincyPacket *)copypacket);
         memFree(copypacket);
     }
@@ -368,27 +368,27 @@ void TransferCaptaincyUpdate(void)
 
 void ProposeNewCaptain(void)
 {
-    dbgAssert(captainProposal < sigsNumPlayers);
+    dbgAssertOrIgnore(captainProposal < sigsNumPlayers);
     captaincyLog(FALSE,"Cap:Proposing new captain %d",captainProposal);
     SendTransferCaptaincyPacket(-2,XFERCAP_CAPTAIN_PROPOSAL,captainProposal,NULL);
     captainProposal = (captainProposal + 1) % sigsNumPlayers;
-    dbgAssert(captainProposal < sigsNumPlayers);
+    dbgAssertOrIgnore(captainProposal < sigsNumPlayers);
 }
 
 void GiveUpCaptaincy(void)
 {
-    dbgAssert(IAmCaptain);
+    dbgAssertOrIgnore(IAmCaptain);
     captainIndex = -1;      // I am no longer captain
 }
 
 void AcknowledgeNewCaptain(sdword newcaptainIndex)
 {
     captaincyLog(FALSE,"Cap:New captain acknowledged %d",newcaptainIndex);
-    dbgAssert(newcaptainIndex < sigsNumPlayers);
+    dbgAssertOrIgnore(newcaptainIndex < sigsNumPlayers);
     captainIndex = newcaptainIndex;
     receiveSyncPacketsFrom = captainIndex;
     explicitlyRequestingPackets = FALSE;        // captaincy transferred, cancel explicitly requested packets
-    dbgAssert(!IAmCaptain);
+    dbgAssertOrIgnore(!IAmCaptain);
     CaptaincyChangedNotify();
 }
 
@@ -449,7 +449,7 @@ void TransitionToSTATE_PAUSED()
 void PauseAndSendPauseAck(udword to)
 {
     receiveSyncPacketsFrom = -1;        // pause
-    dbgAssert(to < sigsNumPlayers);   // misc is person to become captain
+    dbgAssertOrIgnore(to < sigsNumPlayers);   // misc is person to become captain
     SendTransferCaptaincyPacket(to,XFERCAP_PAUSE_ACK,receivedPacketNumber,NULL);
 }
 
@@ -469,7 +469,7 @@ void SendSyncPacketsToAllOtherPlayersTillCaughtUp(void)
             continue;       // this player not involved
         }
 
-        dbgAssert(pausedNextPacketToReceive[i] <= pausedNextPacketToReceive[sigsPlayerIndex]);  // I should have latest sync packets
+        dbgAssertOrIgnore(pausedNextPacketToReceive[i] <= pausedNextPacketToReceive[sigsPlayerIndex]);  // I should have latest sync packets
         if (pausedNextPacketToReceive[i] < pausedNextPacketToReceive[sigsPlayerIndex])
         {
             // send sync packets until caught up for player i:
@@ -694,7 +694,7 @@ void TransferCaptaincyStateMachine(CaptaincyEvent event,uword from,udword misc,C
             switch (event)
             {
                 case CAPEVENT_PAUSE_ACK:
-                    dbgAssert(from != sigsPlayerIndex);
+                    dbgAssertOrIgnore(from != sigsPlayerIndex);
                     pausedNextPacketToReceive[from] = misc;
                     break;      // wait for timeout to know if received all pause_ack's
 
@@ -719,8 +719,8 @@ void TransferCaptaincyStateMachine(CaptaincyEvent event,uword from,udword misc,C
                         {
                             sdword playerindex = PlayerWithTheLatestSyncPacket();
                             CaptaincyCustomInfo newcustominfo;
-                            dbgAssert(playerindex != -1);
-                            dbgAssert(playerindex != sigsPlayerIndex);
+                            dbgAssertOrIgnore(playerindex != -1);
+                            dbgAssertOrIgnore(playerindex != sigsPlayerIndex);
                             for (i=0;i<MAX_MULTIPLAYER_PLAYERS;i++)
                             {
                                 newcustominfo.custom[i] = pausedNextPacketToReceive[i];
@@ -749,7 +749,7 @@ void TransferCaptaincyStateMachine(CaptaincyEvent event,uword from,udword misc,C
 
                 case CAPEVENT_PAUSE_YOU_BE_CAPTAIN:
                     captaincyLog(FALSE,"Cap:I'm told to be captain from %d",from);
-                    dbgAssert(customInfo);
+                    dbgAssertOrIgnore(customInfo);
                     for (i=0;i<MAX_MULTIPLAYER_PLAYERS;i++)
                     {
                         pausedNextPacketToReceive[i] = customInfo->custom[i];

@@ -660,9 +660,9 @@ void aiePreFixAIEvents(struct AITeamMove *move)
     if (move->events.interrupt.handler)
     {
         // convert pointer to offset into AIPlayer structure
-        dbgAssert(move->events.interrupt.intvar);
+        dbgAssertOrIgnore(move->events.interrupt.intvar);
         move->events.interrupt.intvar = ((ubyte *)move->events.interrupt.intvar) - ((ubyte *)fixingThisAIPlayer);
-        dbgAssert(move->events.interrupt.intvar < sizeof(AIPlayer));
+        dbgAssertOrIgnore(move->events.interrupt.intvar < sizeof(AIPlayer));
     }
 
     move->events.gettingRocked.handler  = (aieHandlerShips)aieHandlerToNum((aieHandlerSimple)move->events.gettingRocked.handler);
@@ -700,7 +700,7 @@ void aieFixAIEvents(struct AITeamMove *move)
 
     if (move->events.interrupt.handler)
     {
-        dbgAssert(move->events.interrupt.intvar < sizeof(AIPlayer));
+        dbgAssertOrIgnore(move->events.interrupt.intvar < sizeof(AIPlayer));
         move->events.interrupt.intvar = (udword *)( ((ubyte *)fixingThisAIPlayer) + ((sdword)move->events.interrupt.intvar) );
     }
 }

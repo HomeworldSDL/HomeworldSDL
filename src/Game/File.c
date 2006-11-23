@@ -145,7 +145,7 @@ static void fileNameReducePath (char* pathName)
 
 	udword i;
 
-	dbgAssert(pathName != NULL);
+	dbgAssertOrIgnore(pathName != NULL);
 
 	pathLen = strlen(pathName);
 
@@ -270,7 +270,7 @@ static void fileNameReducePath (char* pathName)
 		}
 
 		/* Remove the current and previous path elements. */
-		dbgAssert(pathElemCount >= 2);
+		dbgAssertOrIgnore(pathElemCount >= 2);
 		pathElemCount--;
 		if (i < pathElemCount)
 		{
@@ -341,10 +341,10 @@ static bool8 fileNameCorrectCase (char* fileName)
 	bool8 isPathAbsolute;
 	udword i;
 
-	dbgAssert(fileName);
+	dbgAssertOrIgnore(fileName);
 
 	/* Make a copy of the file name string to abuse as we wish. */
-	dbgAssert(strlen(fileName) <= PATH_MAX);
+	dbgAssertOrIgnore(strlen(fileName) <= PATH_MAX);
 	strncpy(fileNameCopy, fileName, PATH_MAX);
 	fileNameCopy[PATH_MAX] = '\0';
 
@@ -364,7 +364,7 @@ static bool8 fileNameCorrectCase (char* fileName)
 		if (stat(fileNameCopy, &fileInfo) != 0)
 			return FALSE;
 
-		dbgAssert(strlen(fileNameCopy) <= strlen(fileName));
+		dbgAssertOrIgnore(strlen(fileNameCopy) <= strlen(fileName));
 		strcpy(fileName, fileNameCopy);
 
 		return TRUE;
@@ -407,21 +407,21 @@ static bool8 fileNameCorrectCase (char* fileName)
 		}
 	}
 
-	dbgAssert(i < pathComponentCount);
+	dbgAssertOrIgnore(i < pathComponentCount);
 	if (i == pathComponentCount)
 	{
 		/* Apparently every element of the path is a parent directory
 		   reference.  Whatever...let's at least check if it exists. */
 		struct stat fileInfo;
 
-		dbgAssert(pathComponentCount == 1);
+		dbgAssertOrIgnore(pathComponentCount == 1);
 
 		if (stat(fileNameCopy, &fileInfo) != 0)
 			return FALSE;
 
 		/* The entry exists, so copy the reduced file name string into the
 		   original string. */
-		dbgAssert(strlen(fileNameCopy) <= strlen(fileName));
+		dbgAssertOrIgnore(strlen(fileNameCopy) <= strlen(fileName));
 		strcpy(fileName, fileNameCopy);
 
 		return TRUE;
@@ -441,7 +441,7 @@ static bool8 fileNameCorrectCase (char* fileName)
 		fileNameCopy[0] = '/';
 #endif
 
-		dbgAssert(pathComponentCount > 1);
+		dbgAssertOrIgnore(pathComponentCount > 1);
 		pathComponentCount--;
 
 		isPathAbsolute = TRUE;
@@ -600,7 +600,7 @@ static bool8 fileNameCorrectCase (char* fileName)
 
 	/* Everything checks out with the file name, so copy the case-sensitive
 	   result back over into the original file name string. */
-	dbgAssert(strlen(fileNameCopy) <= strlen(fileName));
+	dbgAssertOrIgnore(strlen(fileNameCopy) <= strlen(fileName));
 	strcpy(fileName, fileNameCopy);
 
 	return TRUE;
@@ -618,10 +618,10 @@ static bool8 fileNameCorrectCase (char* fileName)
 	char fileNameCopy[PATH_MAX + 1];
 	struct stat fileInfo;
 
-	dbgAssert(fileName);
+	dbgAssertOrIgnore(fileName);
 
 	/* Make a copy of the file name string. */
-	dbgAssert(strlen(fileName) <= PATH_MAX);
+	dbgAssertOrIgnore(strlen(fileName) <= PATH_MAX);
 	strncpy(fileNameCopy, fileName, PATH_MAX);
 	fileNameCopy[PATH_MAX] = '\0';
 
@@ -637,7 +637,7 @@ static bool8 fileNameCorrectCase (char* fileName)
 
 	/* File exists, so copy the reduced path string into the original file
 	   name string. */
-	dbgAssert(strlen(fileNameCopy) <= strlen(fileName));
+	dbgAssertOrIgnore(strlen(fileNameCopy) <= strlen(fileName));
 	strcpy(fileName, fileNameCopy);
 
 	return TRUE;
@@ -660,8 +660,8 @@ bool8 fileMakeDirectory (const char* directoryName)
 
 	char* pChar;
 
-	dbgAssert(directoryName != NULL);
-	dbgAssert(strlen(directoryName) <= PATH_MAX);
+	dbgAssertOrIgnore(directoryName != NULL);
+	dbgAssertOrIgnore(strlen(directoryName) <= PATH_MAX);
 
 	/* Make a copy of the directory name with which we can modify as
 	   needed. */
@@ -770,7 +770,7 @@ bool8 fileMakeDestinationDirectory (const char* fileName)
 	char* pChar0;
 	char* pChar1;
 
-	dbgAssert(fileName);
+	dbgAssertOrIgnore(fileName);
 
 	/* Make a copy of the directory name string, excluding the file itself. */
 	strncpy(directoryName, fileName, PATH_MAX);
@@ -817,7 +817,7 @@ sdword fileLoadAlloc(char *_fileName, void **address, udword flags)
     sdword existsInUpdateBigfile;
     sdword existsInMainBigfile;
 
-    dbgAssert(address != NULL);
+    dbgAssertOrIgnore(address != NULL);
 
     //  try to load from bigfile
     if (!IgnoreBigfiles && !bitTest(flags, FF_CDROM|FF_IgnoreBIG|FF_UserSettingsPath))
@@ -867,7 +867,7 @@ sdword fileLoadAlloc(char *_fileName, void **address, udword flags)
     fileNameCorrectCase(fileName);
 
     nameLength = strlen(fileName);                          //set memory name to the
-    dbgAssert(nameLength > 1);                              //end of the filename if filename too long
+    dbgAssertOrIgnore(nameLength > 1);                              //end of the filename if filename too long
     if (nameLength > MEM_NameLength)
     {
         memoryName = &fileName[nameLength - MEM_NameLength];
@@ -876,7 +876,7 @@ sdword fileLoadAlloc(char *_fileName, void **address, udword flags)
         memoryName = fileName;
 
     length = fileSizeGet(_fileName, flags);                 //get size of file
-    dbgAssert(length > 0);                                  //and verify it
+    dbgAssertOrIgnore(length > 0);                                  //and verify it
     *address = memAllocAttempt(length, memoryName, (flags & (NonVolatile | Pyrophoric)) | MBF_String);//allocate the memory for this file
     if (*address == NULL)                                   //if couldn't allocate enough
     {                                                       //generate a fatal error
@@ -1218,7 +1218,7 @@ sdword fileSizeGet(char *_fileName, udword flags)
 #endif
     }
     length = fseek(file, 0, SEEK_END);                      //get length of file
-    dbgAssert(length == 0);
+    dbgAssertOrIgnore(length == 0);
     length = ftell(file);
     fclose(file);
 #if FILE_VERBOSE_LEVEL >= 3
@@ -1286,8 +1286,8 @@ filehandle fileOpen(char *_fileName, udword flags)
         if (existsInBigfile && !(CompareBigfiles && updateNewerAvailable[fileNum] > 1))
         {
             // no write support for bigfiles currently
-            dbgAssert(!bitTest(flags, FF_AppendMode));
-            dbgAssert(!bitTest(flags, FF_WriteMode));
+            dbgAssertOrIgnore(!bitTest(flags, FF_AppendMode));
+            dbgAssertOrIgnore(!bitTest(flags, FF_WriteMode));
 
             filesOpen[fh].usingBigfile = TRUE;
             filesOpen[fh].bigFP = updateFP;
@@ -1304,8 +1304,8 @@ filehandle fileOpen(char *_fileName, udword flags)
             if (existsInBigfile && !(CompareBigfiles && mainNewerAvailable[fileNum] > 1))
             {
                 // no write support for bigfiles currently
-                dbgAssert(!bitTest(flags, FF_AppendMode));
-                dbgAssert(!bitTest(flags, FF_WriteMode));
+                dbgAssertOrIgnore(!bitTest(flags, FF_AppendMode));
+                dbgAssertOrIgnore(!bitTest(flags, FF_WriteMode));
 
                 filesOpen[fh].usingBigfile = TRUE;
                 filesOpen[fh].bigFP = mainFP;
@@ -1420,8 +1420,8 @@ filehandle fileOpen(char *_fileName, udword flags)
                 bitFile = bitioFileInputStart(filesOpen[fh].bigFP);
                 expandedSize = lzssExpandFileToBuffer(bitFile, filesOpen[fh].decompBuf, filesOpen[fh].length);
                 storedSize = bitioFileInputStop(bitFile);
-                dbgAssert(expandedSize == filesOpen[fh].length);
-                dbgAssert(storedSize == (filesOpen[fh].bigTOC->fileEntries + fileNum)->storedLength);
+                dbgAssertOrIgnore(expandedSize == filesOpen[fh].length);
+                dbgAssertOrIgnore(storedSize == (filesOpen[fh].bigTOC->fileEntries + fileNum)->storedLength);
             }
             else
             {
@@ -1546,8 +1546,8 @@ filehandle fileOpen(char *_fileName, udword flags)
 ----------------------------------------------------------------------------*/
 void fileClose(filehandle handle)
 {
-    dbgAssert(handle);
-    dbgAssert(filesOpen[handle].inUse);
+    dbgAssertOrIgnore(handle);
+    dbgAssertOrIgnore(filesOpen[handle].inUse);
 
     if (!filesOpen[handle].usingBigfile)
         fclose(filesOpen[handle].fileP);
@@ -1582,12 +1582,12 @@ sdword fileSeek(filehandle handle, sdword offset, sdword whence)
 {
     sdword newLocation;
 
-    // dbgAssert(offset >= 0);
-    dbgAssert(handle);
-    dbgAssert(filesOpen[handle].inUse);
+    // dbgAssertOrIgnore(offset >= 0);
+    dbgAssertOrIgnore(handle);
+    dbgAssertOrIgnore(filesOpen[handle].inUse);
 
     /* We can seek to the start of a text file, but that's it. */
-    dbgAssert(!filesOpen[handle].textMode || (whence == FS_Start && !offset));
+    dbgAssertOrIgnore(!filesOpen[handle].textMode || (whence == FS_Start && !offset));
 
     if (filesOpen[handle].usingBigfile)
     {
@@ -1606,12 +1606,12 @@ sdword fileSeek(filehandle handle, sdword offset, sdword whence)
                     (filesOpen[handle].offsetVirtual = filesOpen[handle].length - 1 + offset);
                 break;
         }
-        dbgAssert(newLocation < filesOpen[handle].length);
+        dbgAssertOrIgnore(newLocation < filesOpen[handle].length);
     }
     else  // filesystem
     {
         newLocation = fseek(filesOpen[handle].fileP, offset, whence);
-        dbgAssert(newLocation == 0);
+        dbgAssertOrIgnore(newLocation == 0);
         newLocation = ftell(filesOpen[handle].fileP);
     }
 
@@ -1635,13 +1635,13 @@ sdword fileBlockRead(filehandle handle, void *dest, sdword nBytes)
 {
     sdword lengthRead;
 
-    dbgAssert(handle);
-    dbgAssert(filesOpen[handle].inUse);
-    dbgAssert(!filesOpen[handle].textMode);
+    dbgAssertOrIgnore(handle);
+    dbgAssertOrIgnore(filesOpen[handle].inUse);
+    dbgAssertOrIgnore(!filesOpen[handle].textMode);
 
     if (filesOpen[handle].usingBigfile)
     {
-        dbgAssert(filesOpen[handle].offsetVirtual + nBytes <= filesOpen[handle].length);
+        dbgAssertOrIgnore(filesOpen[handle].offsetVirtual + nBytes <= filesOpen[handle].length);
         if (filesOpen[handle].decompBuf)
         {
             // from memory buffer
@@ -1687,9 +1687,9 @@ sdword fileBlockReadNoError(filehandle handle, void *dest, sdword nBytes)
 {
     sdword lengthRead, ReadAmt = nBytes;
 
-    dbgAssert(handle);
-    dbgAssert(filesOpen[handle].inUse);
-    dbgAssert(!filesOpen[handle].textMode);
+    dbgAssertOrIgnore(handle);
+    dbgAssertOrIgnore(filesOpen[handle].inUse);
+    dbgAssertOrIgnore(!filesOpen[handle].textMode);
 
     if (filesOpen[handle].usingBigfile)
     {
@@ -1738,11 +1738,11 @@ sdword fileLineRead(filehandle handle, char *dest, sdword nChars)
     char *retVal;
 #endif
 
-    dbgAssert(nChars > 0);                                  //validate the params
-    dbgAssert(handle);
-    dbgAssert(dest != NULL);
-    dbgAssert(filesOpen[handle].inUse);
-    dbgAssert(filesOpen[handle].textMode);
+    dbgAssertOrIgnore(nChars > 0);                                  //validate the params
+    dbgAssertOrIgnore(handle);
+    dbgAssertOrIgnore(dest != NULL);
+    dbgAssertOrIgnore(filesOpen[handle].inUse);
+    dbgAssertOrIgnore(filesOpen[handle].textMode);
 
     if (filesOpen[handle].usingBigfile)
     {
@@ -1915,8 +1915,8 @@ sdword fileCharRead(filehandle handle)
 {
     sdword ch;
 
-    dbgAssert(handle);
-    dbgAssert(filesOpen[handle].inUse);
+    dbgAssertOrIgnore(handle);
+    dbgAssertOrIgnore(filesOpen[handle].inUse);
 
     if (filesOpen[handle].usingBigfile)
     {
@@ -1994,8 +1994,8 @@ sdword fileCharRead(filehandle handle)
 //
 sdword fileUsingBigfile(filehandle handle)
 {
-    dbgAssert(handle);
-    dbgAssert(filesOpen[handle].inUse);
+    dbgAssertOrIgnore(handle);
+    dbgAssertOrIgnore(filesOpen[handle].inUse);
     return filesOpen[handle].usingBigfile;
 }
 
@@ -2005,8 +2005,8 @@ sdword fileUsingBigfile(filehandle handle)
 //
 FILE *fileStream(filehandle handle)
 {
-    dbgAssert(handle);
-    dbgAssert(filesOpen[handle].inUse);
+    dbgAssertOrIgnore(handle);
+    dbgAssertOrIgnore(filesOpen[handle].inUse);
     return filesOpen[handle].fileP;
 }
 
@@ -2022,11 +2022,11 @@ FILE *fileStream(filehandle handle)
 void filePrependPathSet(char *path)
 {
     unsigned int path_len;
-    dbgAssert(path != NULL);
+    dbgAssertOrIgnore(path != NULL);
     strcpy(filePrependPath, path);                          //make copy of specified path
 
     path_len = strlen(filePrependPath);
-    dbgAssert(path_len);
+    dbgAssertOrIgnore(path_len);
 #ifdef _WIN32
     if (filePrependPath[path_len - 1] != '\\')
     {                                                       //make sure a backslash is on the end
@@ -2052,11 +2052,11 @@ void filePrependPathSet(char *path)
 void fileCDROMPathSet(char *path)
 {
     unsigned int path_len;
-    dbgAssert(path != NULL);
+    dbgAssertOrIgnore(path != NULL);
     strcpy(fileCDROMPath, path);                            //make copy of specified path
 
     path_len = strlen(fileCDROMPath);
-    dbgAssert(path_len);
+    dbgAssertOrIgnore(path_len);
 #ifdef _WIN32
     if (fileCDROMPath[path_len - 1] != '\\')
     {                                                       //make sure a backslash is on the end
@@ -2083,11 +2083,11 @@ void fileCDROMPathSet(char *path)
 void fileUserSettingsPathSet(char *path)
 {
     unsigned int path_len;
-    dbgAssert(path != NULL);
+    dbgAssertOrIgnore(path != NULL);
     strcpy(fileUserSettingsPath, path);                     //make copy of specified path
 
     path_len = strlen(fileUserSettingsPath);
-    dbgAssert(path_len);
+    dbgAssertOrIgnore(path_len);
 #ifdef _WIN32
     if (fileUserSettingsPath[path_len - 1] != '\\')
     {                                                       //make sure a backslash is on the end
@@ -2117,7 +2117,7 @@ char *filePathPrepend(char *fileName, udword flags)
 //can't print debug messages yet because it gets called so early on
 //    dbgMessagef("\nfilePathPrepend:  File search path set to '%s'", fileName);
 #endif
-    dbgAssert(fileName != NULL);
+    dbgAssertOrIgnore(fileName != NULL);
 
     if (bitTest(flags, FF_IgnorePrepend))
     {

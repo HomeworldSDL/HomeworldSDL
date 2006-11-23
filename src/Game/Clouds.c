@@ -181,7 +181,7 @@ void cloudInitLightning(lightning* l)
     udword i;
     vector origin = {0.0f, 0.0f, 0.0f};
 
-    dbgAssert(l != NULL);
+    dbgAssertOrIgnore(l != NULL);
 
     for (i = 0; i < MAX_LIGHTNING_PALS; i++)
     {
@@ -198,7 +198,7 @@ void cloudInitLightning(lightning* l)
 //clean up a lightning structure given its handle
 void cloudInitLightningHandle(lhandle handle)
 {
-    dbgAssert(handle != 0);
+    dbgAssertOrIgnore(handle != 0);
     cloudInitLightning(&_lightnings[handle]);
 }
 
@@ -213,7 +213,7 @@ void cloudKillLightning(lightning* l)
 {
     udword i;
 
-    dbgAssert(l != NULL);
+    dbgAssertOrIgnore(l != NULL);
     l->flags = 0;
 
     for (i = 0; i < MAX_LIGHTNING_PALS; i++)
@@ -229,14 +229,14 @@ void cloudKillLightning(lightning* l)
 //"live" a lightning structure
 void cloudLiveLightning(lightning* l)
 {
-    dbgAssert(l != NULL);
+    dbgAssertOrIgnore(l != NULL);
     bitSet(l->flags, LIGHTNING_ACTIVE);
 }
 
 //main-ify a lightning structure
 void cloudMainLightning(lightning* l)
 {
-    dbgAssert(l != NULL);
+    dbgAssertOrIgnore(l != NULL);
     bitSet(l->flags, LIGHTNING_MAINSEGMENT);
 }
 

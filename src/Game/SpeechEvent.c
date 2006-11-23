@@ -490,7 +490,7 @@ sdword speechEventInit(void)
     if (SentenceLUT->checksum != PhraseLUT->checksum)
     {
         dbgMessage("Sentence and Phrase lookup tables do not match.  Not from same generate.\n");
-        dbgAssert(FALSE);
+        dbgAssertOrIgnore(FALSE);
     }
 
 #if 0
@@ -540,7 +540,7 @@ sdword speechEventInit(void)
     if (soundstreamopenfile(loadfile, &speechfilehandle) != SentenceLUT->checksum)
     {
         dbgMessage("Voice file does not match lookup tables.  Not from same generate.\n");
-        dbgAssert(FALSE);
+        dbgAssertOrIgnore(FALSE);
     }
 
     pspeechbuffer0 = memAlloc(buffersize, "SpeechBuffer0", NonVolatile);
@@ -576,7 +576,7 @@ sdword speechEventInit(void)
     if (soundstreamopenfile(loadfile, &musicfilehandle) != musicheader->checksum)
     {
         dbgMessage("Music data file does not match lookup table.  Not from same generate.\n");
-        dbgAssert(FALSE);
+        dbgAssertOrIgnore(FALSE);
     }
 
     pmusicbuffer0 = memAlloc(buffersize, "MusicBuffer", NonVolatile);
@@ -1117,7 +1117,7 @@ udword SERandomSequenceCreate(sdword numVariations, sdword *lookupsy, sdword wid
     ubyte probs[16], accumProb = 0;
     udword finalSequence;
 
-    dbgAssert(numVariations <= 16);                         //can only fit 16 BCD's in a DWORD
+    dbgAssertOrIgnore(numVariations <= 16);                         //can only fit 16 BCD's in a DWORD
     //make an order 0, 1, 2, 3, ... and a list of matching probabilities
     for (index = 0; index < numVariations; index++)
     {
@@ -1166,7 +1166,7 @@ sdword SENextVariationInSeries(sdword numVariations, sdword *lookupsy, sdword wi
         return(0);
     }
 #endif
-    dbgAssert(numVariations < 0xf);
+    dbgAssertOrIgnore(numVariations < 0xf);
     //get the random sequence into a dword
     sequence = (interp->high[1] << 24) + (interp->high[0] << 16) + (interp->low[1] << 8) + (interp->low[0]);
 
@@ -1176,7 +1176,7 @@ sdword SENextVariationInSeries(sdword numVariations, sdword *lookupsy, sdword wi
     }
     iVariation = (sequence & 0xf) - 1;                      //get a new variation
     sequence >>= 4;                                         //shift off those 4 bits
-    dbgAssert(iVariation < numVariations);
+    dbgAssertOrIgnore(iVariation < numVariations);
     interp->high[1] = sequence >> 24;                       //put the sequence back in the high words
     interp->high[0] = (sequence >> 16) & 0xff;
     interp->low[1] = (sequence >> 8) & 0xff;
@@ -1718,7 +1718,7 @@ sdword speechEventActorStop(udword actorMask, real32 fadetime)
 {
     sdword i;
 
-    dbgAssert((actorMask & (~ACTOR_ALL_ACTORS)) == 0);
+    dbgAssertOrIgnore((actorMask & (~ACTOR_ALL_ACTORS)) == 0);
 
     for (i = 0; i < SE_MAX_QUEUE; i++)
     {

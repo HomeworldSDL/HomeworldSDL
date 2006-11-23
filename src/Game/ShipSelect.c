@@ -29,8 +29,8 @@ void AddSpaceObjToSelectionBeforeIndex(SpaceObj *obj,SpaceObjSelection *selectio
 {
     sdword i;
 
-    dbgAssert(index >= 0);
-    dbgAssert(index < selection->numSpaceObjs);
+    dbgAssertOrIgnore(index >= 0);
+    dbgAssertOrIgnore(index < selection->numSpaceObjs);
 
     for (i=selection->numSpaceObjs;i>index;i--)
     {
@@ -51,8 +51,8 @@ void AddSpaceObjToSelectionAfterIndex(SpaceObj *obj,SpaceObjSelection *selection
 {
     sdword i;
 
-    dbgAssert(index >= 0);
-    dbgAssert(index < selection->numSpaceObjs);
+    dbgAssertOrIgnore(index >= 0);
+    dbgAssertOrIgnore(index < selection->numSpaceObjs);
 
     index++;
 
@@ -1522,7 +1522,7 @@ SelectCommand *selectAllCurrentPlayersNonHyperspacingShips(void)
     while (objnode != NULL)
     {
         ship = (Ship *)listGetStructOfNode(objnode);
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         if (allianceIsShipAlly(ship,universe.curPlayerPtr))
         {
@@ -1564,7 +1564,7 @@ SelectCommand *selectAllCurrentPlayersHyperspacingShips(void)
     while (objnode != NULL)
     {
         ship = (Ship *)listGetStructOfNode(objnode);
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         if (allianceIsShipAlly(ship,universe.curPlayerPtr))
         {
@@ -1606,7 +1606,7 @@ SelectCommand *selectAllPlayersShips(struct Player *player)
     while (objnode != NULL)
     {
         ship = (Ship *)listGetStructOfNode(objnode);
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         if (ship->playerowner == player)
         {
@@ -1948,7 +1948,7 @@ bool growSelectRemoveShipBySettingNULL(GrowSelection *growSelect,Ship *ship)
 void growSelectRemoveShipIndex(GrowSelection *growSelect,sdword index)
 {
     SelectCommand *selection = growSelect->selection;
-    dbgAssert(index < selection->numShips);
+    dbgAssertOrIgnore(index < selection->numShips);
     selection->numShips--;
     selection->ShipPtr[index] = selection->ShipPtr[selection->numShips];
 }

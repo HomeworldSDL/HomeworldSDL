@@ -151,12 +151,12 @@ typedef struct AlternativeShips
 #define SetNumAlternatives(alt,num) \
     (alt).numNextPicks = (num);   \
     (alt).alternativeFlags = 0; \
-    dbgAssert((num) <= MAX_NUM_ALTERNATIVES);
+    dbgAssertOrIgnore((num) <= MAX_NUM_ALTERNATIVES);
 
 #define SetNumAlternativesFlags(alt,num,flags) \
     (alt).numNextPicks = (num);   \
     (alt).alternativeFlags = (flags); \
-    dbgAssert((num) <= MAX_NUM_ALTERNATIVES);
+    dbgAssertOrIgnore((num) <= MAX_NUM_ALTERNATIVES);
 
 #define SetAlternative(alt,index,stype,equivnum) \
     (alt).shipTypeNextPicks[index] = (sbyte)(stype);  \
@@ -499,8 +499,8 @@ typedef struct AITeamMove {
     (newMove)->wait                     = (waitflag);             \
     (newMove)->remove                   = (removeflag);           \
     (newMove)->formation                = (form);                 \
-    dbgAssert(tactic >= 0);                                       \
-    dbgAssert(tactic < NUM_TACTICS_TYPES);                        \
+    dbgAssertOrIgnore(tactic >= 0);                                       \
+    dbgAssertOrIgnore(tactic < NUM_TACTICS_TYPES);                        \
     (newMove)->tactics                  = (tactic);               \
     (newMove)->processFunction          = (moveprocessfunc);      \
     (newMove)->moveShipDiedFunction     = (moveshipdiedfunc);     \

@@ -315,7 +315,7 @@ SpaceObjPtr IDToPtrTableIDToObj(IDToPtrTable *table,uword ID)
 
 void IDToPtrTableAdd(IDToPtrTable *table,uword ID,SpaceObj *obj)
 {
-    dbgAssert(obj);
+    dbgAssertOrIgnore(obj);
 
     if (ID >= table->numEntries)
     {
@@ -338,7 +338,7 @@ void IDToPtrTableAdd(IDToPtrTable *table,uword ID,SpaceObj *obj)
         table->numEntries += IDTOPTR_GROWBATCH;
     }
 
-    dbgAssert(ID < table->numEntries);
+    dbgAssertOrIgnore(ID < table->numEntries);
 
     if (table->objptrs[ID])
     {
@@ -397,7 +397,7 @@ void LoadIDToPtrTable(IDToPtrTable *table)
     loadcontents = (SaveIDToPtrTableStruct *)chunkContents(chunk);
     num = loadcontents->num;
 
-    dbgAssert(sizeofSaveIDToPtrTableStruct(num) == chunk->contentsSize);
+    dbgAssertOrIgnore(sizeofSaveIDToPtrTableStruct(num) == chunk->contentsSize);
 
     table->numEntries = num;
     if (num == 0)
@@ -460,7 +460,7 @@ Ship *ShipIDtoShip(ShipID shipID,bool considerInsideShips)
 
     if (ship != NULL)
     {
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
         if (!considerInsideShips)
         {
             if (ship->flags & SOF_Hide)
@@ -488,7 +488,7 @@ Ship *univFindShipIAmInside(Ship *me)
     while (objnode != NULL)
     {
         ship = (Ship *)listGetStructOfNode(objnode);
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         if (ship->shipsInsideMe)
         {
@@ -498,7 +498,7 @@ Ship *univFindShipIAmInside(Ship *me)
             while (insidenode != NULL)
             {
                 insideship = (InsideShip *)listGetStructOfNode(insidenode);
-                dbgAssert(insideship->ship->objtype == OBJ_ShipType);
+                dbgAssertOrIgnore(insideship->ship->objtype == OBJ_ShipType);
 
                 if (insideship->ship == me)
                 {
@@ -532,7 +532,7 @@ bool univAmIInsideThisShip(Ship *me,Ship *ship)
         while (insidenode != NULL)
         {
             insideship = (InsideShip *)listGetStructOfNode(insidenode);
-            dbgAssert(insideship->ship->objtype == OBJ_ShipType);
+            dbgAssertOrIgnore(insideship->ship->objtype == OBJ_ShipType);
 
             if (insideship->ship == me)
             {
@@ -595,7 +595,7 @@ Asteroid *univAddAsteroid(AsteroidType asteroidtype,vector *astpos)
 {
     Asteroid *newAsteroid;
 
-    dbgAssert(asteroidtype < NUM_ASTEROIDTYPES);
+    dbgAssertOrIgnore(asteroidtype < NUM_ASTEROIDTYPES);
 
     newAsteroid = memAlloc(sizeof(Asteroid),"Asteroid",NonVolatile);
 
@@ -653,7 +653,7 @@ Asteroid *univAddAsteroid(AsteroidType asteroidtype,vector *astpos)
 ----------------------------------------------------------------------------*/
 Derelict *univAddDerelict(DerelictType derelicttype,vector *pos)
 {
-    dbgAssert(derelicttype < NUM_DERELICTTYPES);
+    dbgAssertOrIgnore(derelicttype < NUM_DERELICTTYPES);
     return(univAddDerelictByStatInfo(derelicttype, (DerelictStaticInfo *)&derelictStaticInfos[derelicttype], pos));
 }
 
@@ -775,7 +775,7 @@ void univAddToWorldList(Derelict *world)
             return;
         }
     }
-    dbgAssert(FALSE);
+    dbgAssertOrIgnore(FALSE);
 }
 
 /*-----------------------------------------------------------------------------
@@ -949,7 +949,7 @@ DustCloud *univAddDustCloud(DustCloudType dustcloudtype,vector *cloudpos)
 {
     DustCloud* newCloud;
 
-    dbgAssert(dustcloudtype < NUM_DUSTCLOUDTYPES);
+    dbgAssertOrIgnore(dustcloudtype < NUM_DUSTCLOUDTYPES);
 
     newCloud = memAlloc(sizeof(DustCloud),"DustCloud",NonVolatile);
 
@@ -1007,7 +1007,7 @@ GasCloud *univAddGasCloud(GasCloudType gascloudtype,vector *cloudpos)
 {
     GasCloud *newCloud;
 
-    dbgAssert(gascloudtype < NUM_GASCLOUDTYPES);
+    dbgAssertOrIgnore(gascloudtype < NUM_GASCLOUDTYPES);
 
     newCloud = memAlloc(sizeof(GasCloud),"GasCloud",NonVolatile);
 
@@ -1058,7 +1058,7 @@ Nebula* univAddNebula(NebulaType nebulatype,vector* nebpos, void* stub)
 {
     Nebula* newNeb;
 
-    dbgAssert(nebulatype < NUM_NEBULATYPES);
+    dbgAssertOrIgnore(nebulatype < NUM_NEBULATYPES);
 
     newNeb = memAlloc(sizeof(Nebula), "Nebula", NonVolatile);
 
@@ -1171,7 +1171,7 @@ shipbindings *univMeshBindingsDupe(ShipStaticInfo *shipstaticinfo, Ship *newShip
             {
                 //!!! should do a switch statement based upon type, however,
                 //there is only one type for now:guns
-                dbgAssert(newShip->gunInfo != NULL);
+                dbgAssertOrIgnore(newShip->gunInfo != NULL);
                 //using an index set up in setGunBindInfo(), set new gun pointer
                 bindingListDest->function = bindingListSource->function;
                 bindingListDest->userData = &newShip->gunInfo->guns[bindingListSource->userID];
@@ -1189,7 +1189,7 @@ shipbindings *univMeshBindingsDupe(ShipStaticInfo *shipstaticinfo, Ship *newShip
 //        bindingListDest += nObjects;                        //update location of list
     }
     newBindings->frequencyCounter = 0;                      //counter expires right now
-    dbgAssert((udword)((ubyte *)bindingListDest - (ubyte *)newBindings) == shipBindingsLength(nLevels) + shipstaticinfo->hierarchySize * sizeof(mhlocalbinding));
+    dbgAssertOrIgnore((udword)((ubyte *)bindingListDest - (ubyte *)newBindings) == shipBindingsLength(nLevels) + shipstaticinfo->hierarchySize * sizeof(mhlocalbinding));
 #if MESH_VERBOSE_LEVEL >= 2
     dbgMessagef("\nunivMeshBindingsDupe: localizing bindings 0x%x for ship 0x%x lengh %d",
                 newBindings, newShip, shipBindingsLength(nLevels) + shipstaticinfo->hierarchySize * sizeof(mhlocalbinding));
@@ -1217,7 +1217,7 @@ void univMeshBindingsDelete(Ship *ship)
 #if MESH_VERBOSE_LEVEL >= 2
     dbgMessagef("\nunivMeshBindingsDelete: freeing bindings for ship 0x%x", ship);
 #endif
-    dbgAssert(ship->bindings != NULL);
+    dbgAssertOrIgnore(ship->bindings != NULL);
     memFree(ship->bindings);
 }
 
@@ -1272,7 +1272,7 @@ void InitializeEngineTrails(Ship *newship)
 void univResetNewGimbleGun(Gun *gun)
 {
     GunStatic *gunstatic = gun->gunstatic;
-    dbgAssert(gunstatic->guntype == GUN_NewGimble);
+    dbgAssertOrIgnore(gunstatic->guntype == GUN_NewGimble);
 
     gun->angle = 0.0f;
     gun->declination = 0.0f;
@@ -1298,7 +1298,7 @@ void InitializeNavLights(Ship *newship)
         NAVLight *curnavlight;
         sdword i;
 
-        dbgAssert(numNAVLights > 0);
+        dbgAssertOrIgnore(numNAVLights > 0);
 
         newship->navLightInfo = memAlloc(sizeofNavLightInfo(numNAVLights),"navlightInfo",NonVolatile);
         newship->navLightInfo->numLights = numNAVLights;
@@ -1351,7 +1351,7 @@ Ship *univCreateShip(ShipType shiptype,ShipRace shiprace,vector *shippos,struct 
     sdword i;
     ubyte *extraPointer;
 
-    dbgAssert(playerowner != NULL);
+    dbgAssertOrIgnore(playerowner != NULL);
 /*
 #ifndef HW_Release
     if (playerowner->race != shiprace)
@@ -1554,7 +1554,7 @@ Ship *univCreateShip(ShipType shiptype,ShipRace shiprace,vector *shippos,struct 
         DockStaticPoint *curdockstaticpoint;
         DockPoint *curdockpoint;
 
-        dbgAssert(numDockPoints > 0);
+        dbgAssertOrIgnore(numDockPoints > 0);
 
         newship->dockInfo = memAlloc(sizeofDockInfo(numDockPoints),"dockInfo",NonVolatile);
         newship->dockInfo->busyness = 0;
@@ -1870,7 +1870,7 @@ void univUpdateAllPosVelMissiles()
             else
             {
                 deleteflag = FALSE;
-                dbgAssert(FALSE);
+                dbgAssertOrIgnore(FALSE);
             }
 
             physUpdateObjPosVelMissile(missile,universe.phystimeelapsed);
@@ -2139,7 +2139,7 @@ void MakeNewAsteroidStaticInfo(Asteroid *asteroid)
     StaticCollInfo *originalStaticCollInfo;
     real32 scaling = asteroid->scaling;
 
-    dbgAssert(scaling > 0.0f);
+    dbgAssertOrIgnore(scaling > 0.0f);
 
     if ((asteroid->flags & SOF_StaticInfoIsDynamic) == 0)
     {
@@ -2208,7 +2208,7 @@ void MakeNewDustCloudStaticInfo(DustCloud *dustcloud)
     StaticCollInfo *originalStaticCollInfo;
     real32 scaling = dustcloud->scaling;
 
-    dbgAssert(scaling > 0.0f);
+    dbgAssertOrIgnore(scaling > 0.0f);
 
     if ((dustcloud->flags & SOF_StaticInfoIsDynamic) == 0)
     {
@@ -2277,7 +2277,7 @@ void MakeNewGasCloudStaticInfo(GasCloud *gascloud)
     StaticCollInfo *originalStaticCollInfo;
     real32 scaling = gascloud->scaling;
 
-    dbgAssert(scaling > 0.0f);
+    dbgAssertOrIgnore(scaling > 0.0f);
 
     if ((gascloud->flags & SOF_StaticInfoIsDynamic) == 0)
     {
@@ -2822,7 +2822,7 @@ void AddTargetToDeleteList(SpaceObjRotImpTarg *target,GunSoundType soundType)
             break;
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             break;
     }
 }
@@ -2832,7 +2832,7 @@ void addSlavesToDeleteList(Ship *master, GunSoundType deathtype)
     Node *slavenode;
     Ship *slave;
 
-    dbgAssert(master->slaveinfo->flags & SF_MASTER);  //only master should have been added at first!
+    dbgAssertOrIgnore(master->slaveinfo->flags & SF_MASTER);  //only master should have been added at first!
     slavenode = master->slaveinfo->slaves.head;
     master->slaveinfo->flags |= SF_DEAD;
     while(slavenode != NULL)
@@ -3219,7 +3219,7 @@ nobulletmasstransfer:
         // apply different damage modifier based on collision side:
         if (collSide >= 0)
         {
-            dbgAssert(collSide < NUM_TRANS_DEGOFFREEDOM);
+            dbgAssertOrIgnore(collSide < NUM_TRANS_DEGOFFREEDOM);
             damagetaken *= ((Ship *)target)->staticinfo->collSideModifiers[collSide];
         }
 
@@ -3314,7 +3314,7 @@ nobulletmasstransfer:
             }
             else
             {
-                dbgAssert(collideLineDist > 0.0f);
+                dbgAssertOrIgnore(collideLineDist > 0.0f);
                 vecScalarMultiply(hitLocation,bullet->bulletheading,collideLineDist);
                 vecAdd(hitLocation,bullet->posinfo.position,hitLocation);
             }
@@ -3414,7 +3414,7 @@ void univMissileCollidedWithTarget(SpaceObjRotImpTarg *target,StaticHeader *targ
         // apply different damage modifier based on collision side:
         if (collSide >= 0)
         {
-            dbgAssert(collSide < NUM_TRANS_DEGOFFREEDOM);
+            dbgAssertOrIgnore(collSide < NUM_TRANS_DEGOFFREEDOM);
             damagetaken *= ((Ship *)target)->staticinfo->collSideModifiers[collSide];
         }
 
@@ -3482,7 +3482,7 @@ void univMissileCollidedWithTarget(SpaceObjRotImpTarg *target,StaticHeader *targ
             }
             else
             {
-                dbgAssert(collideLineDist > 0.0f);
+                dbgAssertOrIgnore(collideLineDist > 0.0f);
                 matGetVectFromMatrixCol3(missileheading,missile->rotinfo.coordsys);
                 vecScalarMultiply(hitLocation,missileheading,collideLineDist);
                 vecAdd(hitLocation,missile->posinfo.position,hitLocation);
@@ -3528,7 +3528,7 @@ void univRemoveAllTargetReferencesFromBullets(SpaceObjRotImpTarg *target)
     while (objnodebullet != NULL)
     {
         bullet = (Bullet *)listGetStructOfNode(objnodebullet);
-        dbgAssert(bullet->objtype == OBJ_BulletType);
+        dbgAssertOrIgnore(bullet->objtype == OBJ_BulletType);
 
         if (bullet->owner == (Ship *)target)
         {
@@ -3565,7 +3565,7 @@ void univRemoveAllTargetReferencesFromMissiles(SpaceObjRotImpTarg *target)
     while (objnodemissile != NULL)
     {
         missile = (Missile *)listGetStructOfNode(objnodemissile);
-        dbgAssert(missile->objtype == OBJ_MissileType);
+        dbgAssertOrIgnore(missile->objtype == OBJ_MissileType);
 
         if (missile->owner == (Ship *)target)
         {
@@ -3597,7 +3597,7 @@ void univRemoveAllDerelictReferencesFromSpecialShips(Derelict *d)
     while (node != NULL)
     {
         ship = (Ship *)listGetStructOfNode(node);
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         if(ship->specialFlags & SPECIAL_IsASalvager)
             salCapRemoveDerelictReferences(ship,d);
@@ -3613,7 +3613,7 @@ void univRemoveAllDerelictReferencesFromSpecialShips(Derelict *d)
     {
         insideShip = (InsideShip *)listGetStructOfNode(node);
         ship = insideShip->ship;
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         if(ship->specialFlags & SPECIAL_IsASalvager)
             salCapRemoveDerelictReferences(ship,d);
@@ -3667,7 +3667,7 @@ void univRemoveAllShipReferencesFromSpecialShips(Ship *shiptoremove)
     while (node != NULL)
     {
         ship = (Ship *)listGetStructOfNode(node);
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         univRemoveAllShipReferencesFromSpecialShip(shiptoremove,ship);
 
@@ -3682,7 +3682,7 @@ void univRemoveAllShipReferencesFromSpecialShips(Ship *shiptoremove)
     {
         insideShip = (InsideShip *)listGetStructOfNode(node);
         ship = insideShip->ship;
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         univRemoveAllShipReferencesFromSpecialShip(shiptoremove,ship);
 
@@ -3706,7 +3706,7 @@ void DeleteShipsInsideMe(Ship *ship)
     {
         insideShip = listGetStructOfNode(node);
 
-        dbgAssert(insideShip->ship);
+        dbgAssertOrIgnore(insideShip->ship);
         insideShip->ship->howDidIDie = ship->howDidIDie;
         insideShip->ship->whoKilledMe = ship->whoKilledMe;
         univDeleteWipeInsideShipOutOfExistence(insideShip->ship);
@@ -3735,7 +3735,7 @@ void FreeShipsInsideMe(Ship *ship)
     {
         insideShip = listGetStructOfNode(node);
 
-        dbgAssert(insideShip->ship);
+        dbgAssertOrIgnore(insideShip->ship);
         insideShip->ship->howDidIDie = ship->howDidIDie;
         insideShip->ship->whoKilledMe = ship->whoKilledMe;
         univFreeShipContents(insideShip->ship);
@@ -3759,7 +3759,7 @@ void FreeShipsInsideMe(Ship *ship)
 ----------------------------------------------------------------------------*/
 void univWipeShipOutOfExistence(Ship *ship)
 {
-    dbgAssert(ship != NULL);
+    dbgAssertOrIgnore(ship != NULL);
     if (ship->shiplink.belongto != NULL)
     {
         listRemoveNode(&ship->shiplink);
@@ -4487,7 +4487,7 @@ void univDeleteDeadShips()
 
         deleteShip = (DeleteShip *)listGetStructOfNode(objnode);
         ship = deleteShip->ship;
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         univDeleteDeadShip(ship,deleteShip->deathBy);
         if (ship->impactablelink.belongto != NULL)
@@ -4803,7 +4803,7 @@ void univDeleteDeadDerelicts()
     {
         deleteDerelict = (DeleteDerelict *)listGetStructOfNode(objnode);
         derelict = deleteDerelict->derelict;
-        dbgAssert(derelict->objtype == OBJ_DerelictType);
+        dbgAssertOrIgnore(derelict->objtype == OBJ_DerelictType);
 
         // don't totally delete ship, until after explosion
 #if ETG_DISABLEABLE
@@ -4951,7 +4951,7 @@ void univGetResourceStatistics(sdword *resourceValue,sdword *numHarvestableResou
     while (objnode != NULL)
     {
         resource = (Resource *)listGetStructOfNode(objnode);
-        dbgAssert(resource->flags & SOF_Resource);
+        dbgAssertOrIgnore(resource->flags & SOF_Resource);
         if (nisIsRunning && (resource->health >= REALlyBig))
         {
             goto nextnode;       // don't pick NIS resources
@@ -5019,7 +5019,7 @@ Resource *univFindNearestResource(Ship *ship,real32 volumeRadius,vector *volumeP
     while (objnode != NULL)
     {
         resource = (Resource *)listGetStructOfNode(objnode);
-        dbgAssert(resource->flags & SOF_Resource);
+        dbgAssertOrIgnore(resource->flags & SOF_Resource);
         if (nisIsRunning && (resource->health >= REALlyBig))
         {
             goto nextnode;       // don't pick NIS resources
@@ -5812,7 +5812,7 @@ void univSetupShipsForControl()
     while (objnode != NULL)
     {
         ship = (Ship *)listGetStructOfNode(objnode);
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         univSetupShipForControl(ship);
 
@@ -6022,7 +6022,7 @@ void univCheckShipState(Ship *ship)
                     break;
 
                 default:
-                    dbgAssert(FALSE);
+                    dbgAssertOrIgnore(FALSE);
                     break;
             }
         }
@@ -6052,7 +6052,7 @@ void univCheckShipState(Ship *ship)
                     vector newdest;
                     SelectCommand *selectmove = getShipAndItsFormation(&universe.mainCommandLayer,ship);
                     CommandToDo *commandofship = getShipAndItsCommand(&universe.mainCommandLayer,ship);
-                    dbgAssert(selectmove);
+                    dbgAssertOrIgnore(selectmove);
 
                     if(commandofship != NULL)
                     {
@@ -6126,7 +6126,7 @@ DONT_MOVE_ME_YET:
                 {
                     // attack ship->gettingrocked and its formation
                     attack = (AttackCommand *)getShipAndItsFormation(&universe.mainCommandLayer,ship->gettingrocked);
-                    dbgAssert(attack->numTargets > 0);
+                    dbgAssertOrIgnore(attack->numTargets > 0);
 
                     command = getShipAndItsCommand(&universe.mainCommandLayer,ship);
                     if (command != NULL)
@@ -6302,7 +6302,7 @@ void univCheckShipStates()
     while (objnode != NULL)
     {
         ship = (Ship *)listGetStructOfNode(objnode);
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         univCheckShipState(ship);
 
@@ -6815,7 +6815,7 @@ void univupdateCloseAllObjectsAndMissionSpheres()
                 break;
 
             default:
-                dbgAssert(FALSE);
+                dbgAssertOrIgnore(FALSE);
                 break;
         }
         univRemoveObjFromRenderList(obj);
@@ -6835,7 +6835,7 @@ void univupdateCloseAllObjectsAndMissionSpheres()
                 break;
 
             default:
-                dbgAssert(FALSE);
+                dbgAssertOrIgnore(FALSE);
                 break;
         }
         univRemoveObjFromMinorRenderList(obj);
@@ -7121,7 +7121,7 @@ void univUpdateMinorRenderList()
         obj = (SpaceObj *)listGetStructOfNode(objnode);
 
 #ifdef gshaw
-        dbgAssert((obj->objtype == OBJ_AsteroidType) && (((Asteroid *)obj)->asteroidtype == Asteroid0));
+        dbgAssertOrIgnore((obj->objtype == OBJ_AsteroidType) && (((Asteroid *)obj)->asteroidtype == Asteroid0));
 #endif
 
         vecSub(distvec,lookatposition,obj->posinfo.position);
@@ -7198,7 +7198,7 @@ void univUpdateRenderList()
 #ifndef HW_Release
         if ((obj->objtype == OBJ_AsteroidType) && (((Asteroid *)obj)->asteroidtype == Asteroid0))
         {
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
         }
 #endif
 #endif
@@ -7221,7 +7221,7 @@ void univUpdateRenderList()
                 real32 limit;
 
                 shipclass = ((ShipStaticInfo*)obj->staticinfo)->shipclass;
-                dbgAssert((udword)shipclass < NUM_CLASSES);
+                dbgAssertOrIgnore((udword)shipclass < NUM_CLASSES);
 
                 if (((ShipStaticInfo*)obj->staticinfo)->renderlistLimitSqr != 0.0f)
                 {
@@ -7311,7 +7311,7 @@ void univUpdateRenderList()
         {
             obj = (SpaceObj *)listGetStructOfNode(objnode);
             nextnode = objnode->next;
-            dbgAssert(&obj->renderlink == objnode);
+            dbgAssertOrIgnore(&obj->renderlink == objnode);
             listAddNode(&universe.RenderList, &obj->renderlink, obj);
             objnode = nextnode;
         }
@@ -7399,7 +7399,7 @@ void univCheckRegrowResources(void)
                         break;
 
                     default:
-                        dbgAssert(FALSE);
+                        dbgAssertOrIgnore(FALSE);
                         break;
                 }
             }

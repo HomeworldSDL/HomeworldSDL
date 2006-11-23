@@ -823,7 +823,7 @@ lifheader *ferTextureRegister(tex_holder holder, textype newtype, textype origty
     // if the requested texture hasn't been registered before
     // add it to the registry
 
-    dbgAssert(holder < FER_NumTextures);
+    dbgAssertOrIgnore(holder < FER_NumTextures);
 
     if (ferTextureRegistry[holder].num == 0)
     {
@@ -849,7 +849,7 @@ lifheader *ferTextureRegister(tex_holder holder, textype newtype, textype origty
         node    = ferTextureRegistry[holder].head;
         element = listGetStructOfNode(node);
 
-        dbgAssert(element->name == holder);
+        dbgAssertOrIgnore(element->name == holder);
     }
 
     // check for type match
@@ -897,7 +897,7 @@ lifheader *ferTextureRegisterSpecial(char *fileName, textype newtype, textype or
     // user a pseudo hash table from the name of the texture.
     holder = (tex_holder)((new_th_accum % FER_NumDecorative) + end);
 
-    dbgAssert(holder < FER_NumTextures);
+    dbgAssertOrIgnore(holder < FER_NumTextures);
 
     if (ferTextureRegistry[holder].num>0)
     {
@@ -936,7 +936,7 @@ lifheader *ferTextureRegisterSpecial(char *fileName, textype newtype, textype or
 /*    if (i == (FER_NumTextures - 1))
     {
         //end of array... can't read in anymore
-        dbgAssert(FALSE);
+        dbgAssertOrIgnore(FALSE);
         // front end texture registry is full
     }*/
 
@@ -976,7 +976,7 @@ lifheader *ferTextureRegisterSpecial(char *fileName, textype newtype, textype or
         ++element->nUsageCount;
 //    }
 
-    dbgAssert(strncmp(element->stringname,fileName,FER_MaxFileName)==0);
+    dbgAssertOrIgnore(strncmp(element->stringname,fileName,FER_MaxFileName)==0);
 
     g_Entry = element;
 
@@ -2952,7 +2952,7 @@ void ferDrawOpaqueDecorative(regionhandle region)
     texture = ferTextureRegisterSpecial((char*)region->userID, decorative, none);
 
     atom = region->atom;
-    dbgAssert(atom != NULL);
+    dbgAssertOrIgnore(atom != NULL);
     r = region->rect;
     r.x1 = r.x0 + texture->width;
     r.y1 = r.y0 + texture->height;
@@ -2976,7 +2976,7 @@ void ferDrawBitmapButton(regionhandle region, ferbitmapbuttonstate state)
     char       name[128];
 
     atom = region->atom;
-    dbgAssert(atom->type == FA_BitmapButton);
+    dbgAssertOrIgnore(atom->type == FA_BitmapButton);
 
     strcpy(name, (char *)atom->attribs);
     switch (state)

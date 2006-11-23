@@ -390,7 +390,7 @@ void poPopupTextDraw(rectangle *rect)
         x = rect->x0;
         y = rect->y0;
 
-        dbgAssert(poCurFleetIntelligence->description != NULL);
+        dbgAssertOrIgnore(poCurFleetIntelligence->description != NULL);
 
         pos = poCurFleetIntelligence->description;
 
@@ -490,7 +490,7 @@ void poPopupFleetIntelligence(Objective* objective)
     AIVar *var;
 
     strcat(labelName, objective->label);
-    dbgAssert(strlen(labelName) < AIVAR_LABEL_MAX_LENGTH);
+    dbgAssertOrIgnore(strlen(labelName) < AIVAR_LABEL_MAX_LENGTH);
     if ((var = aivarCreate(labelName)) != NULL)
     {
         var->value = TRUE;
@@ -651,7 +651,7 @@ void objectiveLoad(void)
         objectives[i] = LoadObjective();
         if (!strcasecmp(objectives[i]->label, "hyperspace"))
         {
-            dbgAssert(hyperspaceObjective == NULL);
+            dbgAssertOrIgnore(hyperspaceObjective == NULL);
             hyperspaceObjective = objectives[i];
         }
         else

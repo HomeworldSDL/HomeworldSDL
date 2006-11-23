@@ -60,7 +60,7 @@ Ship *CreateDroneInside(Ship *ship,udword droneNumber)
     Ship *droneship;
     DroneSpec *dronespec;
 
-    dbgAssert(ship->shiptype == DDDFrigate);
+    dbgAssertOrIgnore(ship->shiptype == DDDFrigate);
 
     droneship = univCreateShip(Drone,ship->shiprace,&ship->posinfo.position,ship->playerowner,1);
 
@@ -97,7 +97,7 @@ void DDDFrigateRemoveShipReferences(Ship *ship,Ship *shiptoremove)
     sdword i;
     DDDFrigateSpec *spec;
 
-    dbgAssert(ship->shiptype == DDDFrigate);
+    dbgAssertOrIgnore(ship->shiptype == DDDFrigate);
 
     if (shiptoremove->shiptype != Drone)
     {
@@ -122,7 +122,7 @@ void DDDFrigateDied(Ship *ship)
     DDDFrigateSpec *spec;
     Ship *deleteme;
 
-    dbgAssert(ship->shiptype == DDDFrigate);
+    dbgAssertOrIgnore(ship->shiptype == DDDFrigate);
 
     spec = (DDDFrigateSpec *)ship->ShipSpecifics;
 
@@ -158,7 +158,7 @@ void DDDFrigateSwitchSides(Ship *dddf,sdword player)
     DDDFrigateSpec *spec;
     Ship *ship;
 
-    dbgAssert(dddf->shiptype == DDDFrigate);
+    dbgAssertOrIgnore(dddf->shiptype == DDDFrigate);
 
     spec = (DDDFrigateSpec *)dddf->ShipSpecifics;
 
@@ -201,8 +201,8 @@ void LaunchDrone(Ship *ship,Ship *drone)
 {
     DroneSpec *dronespec = (DroneSpec *)drone->ShipSpecifics;
 
-    dbgAssert(ship->shiptype == DDDFrigate);
-    dbgAssert(drone->shiptype == Drone);
+    dbgAssertOrIgnore(ship->shiptype == DDDFrigate);
+    dbgAssertOrIgnore(drone->shiptype == Drone);
 
     dockPrepareSingleShipForLaunch(drone,ship);
     dockInitShipForLaunch(drone);
@@ -304,7 +304,7 @@ void DDDFrigateHousekeep(Ship *ship)
                 {
                     dronespec = (DroneSpec *)drone->ShipSpecifics;
 
-                    dbgAssert(dronespec->droneNumber == i);
+                    dbgAssertOrIgnore(dronespec->droneNumber == i);
                     switch (dronespec->droneState)
                     {
                         case DRONE_STATE_LAUNCHING:
@@ -335,7 +335,7 @@ void DDDFrigateHousekeep(Ship *ship)
                     drone = spec->DronePtrs[i];
                     if (drone != NULL)
                     {
-                        dbgAssert(((DroneSpec *)drone->ShipSpecifics)->droneState == DRONE_STATE_LAUNCHED);
+                        dbgAssertOrIgnore(((DroneSpec *)drone->ShipSpecifics)->droneState == DRONE_STATE_LAUNCHED);
                         droneselect->ShipPtr[numShipsToLaunch++] = drone;
                     }
                 }
@@ -348,7 +348,7 @@ void DDDFrigateHousekeep(Ship *ship)
                 }
 
                 droneselect->numShips = numShipsToLaunch;
-                dbgAssert(numShipsToLaunch <= MAX_NUM_DRONES);
+                dbgAssertOrIgnore(numShipsToLaunch <= MAX_NUM_DRONES);
 
                 selectone.ShipPtr[0] = ship;
                 selectone.numShips = 1;
@@ -383,7 +383,7 @@ void DDDFrigateHousekeep(Ship *ship)
                 drone = spec->DronePtrs[i];
                 if (drone != NULL)
                 {
-                    dbgAssert(((DroneSpec *)drone->ShipSpecifics)->droneState == DRONE_STATE_LAUNCHED);
+                    dbgAssertOrIgnore(((DroneSpec *)drone->ShipSpecifics)->droneState == DRONE_STATE_LAUNCHED);
                     droneselect->ShipPtr[numShipsToDock++] = drone;
                 }
             }
@@ -396,7 +396,7 @@ void DDDFrigateHousekeep(Ship *ship)
             }
 
             droneselect->numShips = numShipsToDock;
-            dbgAssert(numShipsToDock <= MAX_NUM_DRONES);
+            dbgAssertOrIgnore(numShipsToDock <= MAX_NUM_DRONES);
 
             // remove ships from sphere formation and protecting
             RemoveShipsFromDoingStuff(&universe.mainCommandLayer,droneselect);
@@ -458,7 +458,7 @@ void DDDFrigateDockAllDronesInstantly(Ship *ship)
     Ship *drone;
     sdword i;
 
-    dbgAssert(ship->shiptype == DDDFrigate);
+    dbgAssertOrIgnore(ship->shiptype == DDDFrigate);
 
     for (i=0;i<MAX_NUM_DRONES;i++)
     {
@@ -552,7 +552,7 @@ void DDDFrigateMakeSureItCanGuard(Ship *ship)
 {
     DDDFrigateSpec *spec = (DDDFrigateSpec *)ship->ShipSpecifics;
 
-    dbgAssert(ship->shiptype == DDDFrigate);
+    dbgAssertOrIgnore(ship->shiptype == DDDFrigate);
     if (spec->DDDstate == DDDSTATE_ALLINSIDE)
     {
         DDDFrigateSpecialActivate(ship);
@@ -563,7 +563,7 @@ void DDDFrigateMakeReadyForHyperspace(Ship *ship)
 {
     DDDFrigateSpec *spec = (DDDFrigateSpec *)ship->ShipSpecifics;
 
-    dbgAssert(ship->shiptype == DDDFrigate);
+    dbgAssertOrIgnore(ship->shiptype == DDDFrigate);
     if (spec->DDDstate == DDDSTATE_ALLOUTSIDE)
     {
         DDDFrigateSpecialActivate(ship);

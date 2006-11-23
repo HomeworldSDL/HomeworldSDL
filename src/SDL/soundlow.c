@@ -241,7 +241,7 @@ sdword soundinit(bool mode)
 	    result = SOUND_OK;
 	}
 
-	dbgAssert(aspec.samples == SDL_BUFFERSIZE);
+	dbgAssertOrIgnore(aspec.samples == SDL_BUFFERSIZE);
 
 	return result;
 }
@@ -555,7 +555,7 @@ sdword soundplayFPRVL(sword patnum, real32 freq, sword pan, sdword priority, swo
 	}
 
 #ifdef salfreds
-	dbgAssert(patnum >= 0);
+	dbgAssertOrIgnore(patnum >= 0);
 #else
 	if ((pan < SOUND_PAN_LEFT) || (pan > SOUND_PAN_RIGHT))
 	{
@@ -575,7 +575,7 @@ sdword soundplayFPRVL(sword patnum, real32 freq, sword pan, sdword priority, swo
 	channel = SNDgetchannel(patnum, priority);
 
 #ifdef salfreds
-    dbgAssert(channel >= 0);
+    dbgAssertOrIgnore(channel >= 0);
 #else
 	if (channel < SOUND_OK)
 	{
@@ -821,7 +821,7 @@ sdword soundvolumeF(sdword handle, sword vol, real32 fadetime)
 
 				pchan->voltarget = vol;
 				pchan->volticksleft = fadeblocks;
-dbgAssert(pchan->volticksleft != 0);
+dbgAssertOrIgnore(pchan->volticksleft != 0);
 				pchan->volfade = (real32)(pchan->voltarget - pchan->volume) / (real32)pchan->volticksleft;
 
 				if (pchan->volfade == 0.0f)

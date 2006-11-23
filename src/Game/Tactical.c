@@ -147,15 +147,15 @@ void toNewClassSet(char *directory,char *field,void *dataToFillIn)
     {
         toCurrentClass = StrToShipClass(field);
     }
-    dbgAssert(toCurrentClass < (NUM_CLASSES+1));
+    dbgAssertOrIgnore(toCurrentClass < (NUM_CLASSES+1));
 }
 void toNumberPointsSet(char *directory,char *field,void *dataToFillIn)
 {                                                           //set number of points and allocate structure
     sdword nPoints, nScanned;
 
     nScanned = sscanf(field, "%d", &nPoints);               //parse number of points
-    dbgAssert(nScanned == 1);
-    dbgAssert(nPoints > 0 && nPoints < 32);                 //!!! 32 is some arbitrary number
+    dbgAssertOrIgnore(nScanned == 1);
+    dbgAssertOrIgnore(nPoints > 0 && nPoints < 32);                 //!!! 32 is some arbitrary number
     toClassIcon[toCurrentClass] = memAlloc(toIconSize(nPoints),//allocate the icon structure
                                            "Tactical Overlay Icon", NonVolatile);
     toClassIcon[toCurrentClass]->nPoints = nPoints;
@@ -166,9 +166,9 @@ void toVertexAdd(char *directory,char *field,void *dataToFillIn)
     real32 x, y;
     sdword nScanned;
 
-    dbgAssert(toCurrentPoint < toClassIcon[toCurrentClass]->nPoints);//make sure not too many points
+    dbgAssertOrIgnore(toCurrentPoint < toClassIcon[toCurrentClass]->nPoints);//make sure not too many points
     nScanned = sscanf(field, "%f,%f", &x, &y);              //scan in the x/y
-    dbgAssert(nScanned == 2);                               //make sure we got 2 numbers
+    dbgAssertOrIgnore(nScanned == 2);                               //make sure we got 2 numbers
     toClassIcon[toCurrentClass]->loc[toCurrentPoint].x =    //copy the points over
         x * TO_VertexScanFactorX;                           //multiplied by a scaling factor
     toClassIcon[toCurrentClass]->loc[toCurrentPoint].y =

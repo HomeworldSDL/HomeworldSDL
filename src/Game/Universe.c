@@ -985,8 +985,8 @@ static void setGunBindInfo(char *directory,char *field,void *dataToFillIn)
     //second string is the gun mex name
     gString = strtok(NULL, " ,");
     nScanned = sscanf(gString, "Gun%d", &gunIndex);         //get gun #
-    dbgAssert(nScanned == 1);                               //verify it
-    dbgAssert(gunIndex >= 0 && gunIndex < info->gunStaticInfo->numGuns);
+    dbgAssertOrIgnore(nScanned == 1);                               //verify it
+    dbgAssertOrIgnore(gunIndex >= 0 && gunIndex < info->gunStaticInfo->numGuns);
 
     //parse the modifiers
     while ((string = strtok(NULL, " ,")) != NULL)
@@ -1006,10 +1006,10 @@ static void setGunBindInfo(char *directory,char *field,void *dataToFillIn)
         else if (strcasecmp(string, "Frequency") == 0)
         {
             string = strtok(NULL, " ,");
-            dbgAssert(string);
+            dbgAssertOrIgnore(string);
             nScanned = sscanf(string, "%d", &frequency);
-            dbgAssert(nScanned == 1);
-            dbgAssert(frequency >= 1 && frequency < HB_UpdateFrequencyMax);
+            dbgAssertOrIgnore(nScanned == 1);
+            dbgAssertOrIgnore(frequency >= 1 && frequency < HB_UpdateFrequencyMax);
             flags |= frequency;
         }
     }
@@ -1608,7 +1608,7 @@ void InitStatDustCloudInfo(DustCloudStaticInfo *dustcloudStatInfo, DustCloudType
     char fullshipname[160];
     char *dustcloudtypestr;
 
-    dbgAssert(dustcloudtype < NUM_DUSTCLOUDTYPES);
+    dbgAssertOrIgnore(dustcloudtype < NUM_DUSTCLOUDTYPES);
 
     dustcloudStatInfo->dustcloudtype = dustcloudtype;
 
@@ -1705,7 +1705,7 @@ void InitStatNebulaInfo(NebulaStaticInfo* nebulaStatInfo, NebulaType nebulatype)
     char fullshipname[160];
     char* nebulatypestr;
 
-    dbgAssert(nebulatype < NUM_NEBULATYPES);
+    dbgAssertOrIgnore(nebulatype < NUM_NEBULATYPES);
 
     nebulaStatInfo->nebulatype = nebulatype;
 
@@ -2010,7 +2010,7 @@ void InitStatShipInfo(ShipStaticInfo *statinfo,ShipType type,ShipRace race)
     statinfo->shiprace = race;
 
     statinfo->custshipheader = *(shipHeaders[type]);
-    dbgAssert((statinfo->custshipheader.shiptype == (ShipType)-1) || (type == statinfo->custshipheader.shiptype));
+    dbgAssertOrIgnore((statinfo->custshipheader.shiptype == (ShipType)-1) || (type == statinfo->custshipheader.shiptype));
 
     shiptypestr = ShipTypeToStr(type);
 
@@ -2954,7 +2954,7 @@ void universeLoadEverythingNeeded(void)
     datab = (ubyte *)&data;
 
     data = LoadInfoNumber();                        // sanity check
-    dbgAssert(data == INFO_NEEDED_FLAGS_DELIMITER);
+    dbgAssertOrIgnore(data == INFO_NEEDED_FLAGS_DELIMITER);
 
     for (shiprace=0;shiprace<NUM_RACES;shiprace++)
     {
@@ -3009,7 +3009,7 @@ void universeLoadEverythingNeeded(void)
     }
 
     data = LoadInfoNumber();                        // sanity check
-    dbgAssert(data == INFO_NEEDED_FLAGS_DELIMITER);
+    dbgAssertOrIgnore(data == INFO_NEEDED_FLAGS_DELIMITER);
 }
 
 /*-----------------------------------------------------------------------------
@@ -3983,7 +3983,7 @@ processtextures:
                 if ((playPackets|recordFakeSendPackets) && universeTurbo)
                 {
                     repeattimes = UNIVERSE_TURBO_REPEAT>>1;
-                    dbgAssert(repeattimes >= 1);
+                    dbgAssertOrIgnore(repeattimes >= 1);
                 }
                 else
 #endif
@@ -4134,7 +4134,7 @@ void universeSwitchToNextPlayer(void)
 ----------------------------------------------------------------------------*/
 void universeSwitchToPlayer(uword playerIndex)
 {
-    dbgAssert(playerIndex < universe.numPlayers);
+    dbgAssertOrIgnore(playerIndex < universe.numPlayers);
     universe.curPlayerIndex = playerIndex;
     universe.curPlayerPtr = &universe.players[universe.curPlayerIndex];
 }
@@ -4151,12 +4151,12 @@ ShipStaticInfo *GetShipStaticInfo(ShipType shiptype,ShipRace shiprace)
     ShipStaticInfo *raceInfo = RaceShipStaticInfos[shiprace];
     sdword offset;
 
-    dbgAssert(shiprace < NUM_RACES);
-    dbgAssert(shiptype < TOTAL_NUM_SHIPS);
+    dbgAssertOrIgnore(shiprace < NUM_RACES);
+    dbgAssertOrIgnore(shiptype < TOTAL_NUM_SHIPS);
 
     offset = shiptype - FirstShipTypeOfRace[shiprace];
-    dbgAssert(offset >= 0);
-    dbgAssert(offset < NumShipTypesInRace[shiprace]);
+    dbgAssertOrIgnore(offset >= 0);
+    dbgAssertOrIgnore(offset < NumShipTypesInRace[shiprace]);
 
     return &raceInfo[offset];
 }
@@ -4209,7 +4209,7 @@ ShipStaticInfo *GetShipStaticInfoSafe(ShipType shiptype,ShipRace shiprace)
 ----------------------------------------------------------------------------*/
 ShipRace GetValidRaceForShipType(ShipType shiptype)
 {
-    dbgAssert(shiptype < TOTAL_NUM_SHIPS);
+    dbgAssertOrIgnore(shiptype < TOTAL_NUM_SHIPS);
 
     if (RacesAllowedForGivenShip[shiptype] & R1_VALID)
     {
@@ -4236,7 +4236,7 @@ ShipRace GetValidRaceForShipType(ShipType shiptype)
         return Traders;
     }
 
-    dbgAssert(FALSE);
+    dbgAssertOrIgnore(FALSE);
     return R1;
 }
 
@@ -4311,7 +4311,7 @@ void unitCapDeleteShip(Ship *ship, Player *player)
     {
         player->totalships--;
 
-//        dbgAssert(player->totalships >= 0);
+//        dbgAssertOrIgnore(player->totalships >= 0);
         if (player->totalships < 0)
         {
             player->totalships = 0;
@@ -4320,7 +4320,7 @@ void unitCapDeleteShip(Ship *ship, Player *player)
 
         player->shiptotals[ship->shiptype]--;
 
-//        dbgAssert(player->shiptotals[ship->shiptype] >= 0);
+//        dbgAssertOrIgnore(player->shiptotals[ship->shiptype] >= 0);
         if (player->shiptotals[ship->shiptype] < 0)
         {
             player->shiptotals[ship->shiptype] = 0;
@@ -4329,7 +4329,7 @@ void unitCapDeleteShip(Ship *ship, Player *player)
 
         player->classtotals[ship->staticinfo->shipclass]--;
 
-//        dbgAssert(player->classtotals[ship->staticinfo->shipclass] >= 0);
+//        dbgAssertOrIgnore(player->classtotals[ship->staticinfo->shipclass] >= 0);
         if (player->classtotals[ship->staticinfo->shipclass] < 0)
         {
             player->classtotals[ship->staticinfo->shipclass] = 0;
@@ -4680,7 +4680,7 @@ void gameStatsInitForReal()
     fileDelete(gamestatsfilename);
 
     fh = fileOpen(gamestatsfilename, FF_AppendMode | FF_UserSettingsPath);
-    dbgAssert(!fileUsingBigfile(fh));
+    dbgAssertOrIgnore(!fileUsingBigfile(fh));
     fp = fileStream(fh);
 
     header.numPlayers = universe.numPlayers;
@@ -4705,7 +4705,7 @@ void gameStatsUpdateLogFile(sdword framenum)
         needToInit=FALSE;
     }
     fh = fileOpen(gamestatsfilename, FF_AppendMode | FF_UserSettingsPath);
-    dbgAssert(!fileUsingBigfile(fh));
+    dbgAssertOrIgnore(!fileUsingBigfile(fh));
     fp = fileStream(fh);
 
     //write frame number
@@ -5261,7 +5261,7 @@ void writeGameStatsToFile(char *filename)
     {
         return;
     }
-    dbgAssert(!fileUsingBigfile(statsFH));
+    dbgAssertOrIgnore(!fileUsingBigfile(statsFH));
     statsFile = fileStream(statsFH);
 
     if (statsFile)

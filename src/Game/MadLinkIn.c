@@ -201,7 +201,7 @@ void madLinkInUpdateMeshAnimations(Ship *ship)
 void madLinkInSetUpInitialBuiltMadState(Ship *ship)
 {
 #ifdef DEBUG_MESH_ANIMATIONS
-    dbgAssert(ship->madBindings != NULL);
+    dbgAssertOrIgnore(ship->madBindings != NULL);
 #endif
 
     if(ship->staticinfo->madStatic->needStartBuiltAnimation)
@@ -253,7 +253,7 @@ void madLinkInSetUpInitialBuiltMadState(Ship *ship)
 void madLinkInSetUpInitialPlacedMadState(Ship *ship)
 {
 #ifdef DEBUG_MESH_ANIMATIONS
-    dbgAssert(ship->madBindings != NULL);
+    dbgAssertOrIgnore(ship->madBindings != NULL);
 #endif
 
     if(ship->staticinfo->madStatic->needStartPlacedAnimation)
@@ -688,8 +688,8 @@ bool madLinkInGetDoorInfo(Ship *ship, matrix *coordsys, vector *position)
 
     madIndex = madBindingIndexFindByName(ship->staticinfo->madStatic->header, "Hangardoor");
     gunIndex = madGunBindingIndexFindByName(ship->staticinfo, "Hangardoor");
-    dbgAssert(madIndex != -1);
-    dbgAssert(gunIndex != -1);
+    dbgAssertOrIgnore(madIndex != -1);
+    dbgAssertOrIgnore(gunIndex != -1);
     madAnimBindingMatrix(&coordsyst,&positiont,ship,gunIndex, madIndex);
 
     matMultiplyMatByMat(coordsys,&ship->rotinfo.coordsys,&coordsyst);

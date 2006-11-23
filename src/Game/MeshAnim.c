@@ -67,7 +67,7 @@ madheader *madFileLoad(char *fileName)
     filehandle file;
     sdword fileSize;
 
-    dbgAssert(fileName != NULL);
+    dbgAssertOrIgnore(fileName != NULL);
 
     fileSize = fileSizeGet(fileName, 0);
     file = fileOpen(fileName, 0);
@@ -236,7 +236,7 @@ bool madAnimBindingUpdate(udword flags, hmatrix *startMatrix, hmatrix *matrixDes
         return(TRUE);
     }
 #endif
-    dbgAssert(anim != NULL);
+    dbgAssertOrIgnore(anim != NULL);
     curve = &anim->curves[ID * 6];                          //pointer to spline curves for this object
     if (curve->currentPoint == BS_NoPoint)
     {                                                       //if this object not animating
@@ -285,8 +285,8 @@ foundTime:
     hpb.y =  bsCurveUpdate(&curve[4], timeElapsed);
     hpb.z =  bsCurveUpdate(&curve[5], timeElapsed);
 
-    dbgAssert(xyz.x != REALlyBig && xyz.y != REALlyBig && xyz.z != REALlyBig);
-    dbgAssert(hpb.x != REALlyBig && hpb.y != REALlyBig && hpb.z != REALlyBig);
+    dbgAssertOrIgnore(xyz.x != REALlyBig && xyz.y != REALlyBig && xyz.z != REALlyBig);
+    dbgAssertOrIgnore(hpb.x != REALlyBig && hpb.y != REALlyBig && hpb.z != REALlyBig);
 
     nisObjectEulerToMatrix(&_3x3Matrix, &hpb);                //make a rotation matrix
     hmatMakeHMatFromMatAndVec(&rotMatrix, &_3x3Matrix, &xyz); //make a hmatrix
@@ -311,7 +311,7 @@ void madBindingsPost(meshdata *mesh, struct shipbindings *bindings, sdword curre
 
     binding = bindings->localBinding[0];
     ship = (Ship *)binding->userData;
-    dbgAssert(ship->madBindings);
+    dbgAssertOrIgnore(ship->madBindings);
     ship->madBindings->timeElapsed = 0.0f;
 }
 
@@ -449,7 +449,7 @@ void madAnimationStart(Ship *ship, sdword animNumber)
     anim->saveBindings = ship->bindings;
     ship->bindings = bindings;
 
-    dbgAssert(animNumber < header->nAnimations);
+    dbgAssertOrIgnore(animNumber < header->nAnimations);
     anim->nCurrentAnim = animNumber;
 
     animation = &header->anim[animNumber];
@@ -504,8 +504,8 @@ bool madAnimationUpdate(Ship *ship, real32 timeElapsed)
     madheader *header = anim->header;
     madanimation *animation = &header->anim[anim->nCurrentAnim];
 
-    dbgAssert(anim != NULL);
-    dbgAssert(anim->nCurrentAnim != MAD_NoAnimation);
+    dbgAssertOrIgnore(anim != NULL);
+    dbgAssertOrIgnore(anim->nCurrentAnim != MAD_NoAnimation);
 
     if (anim->bPaused)
     {                                                       //if paused
@@ -521,7 +521,7 @@ bool madAnimationUpdate(Ship *ship, real32 timeElapsed)
                 anim->time = anim->time + timeElapsed - animation->endTime + animation->startTime;
             }
             while (anim->time + timeElapsed > animation->endTime);
-            dbgAssert(anim->time + timeElapsed <= animation->endTime);   //wrap around to start
+            dbgAssertOrIgnore(anim->time + timeElapsed <= animation->endTime);   //wrap around to start
         }
         else
         {                                                   //else it's a non-looping animation; clamp at the end
@@ -546,7 +546,7 @@ bool madAnimationUpdate(Ship *ship, real32 timeElapsed)
 ----------------------------------------------------------------------------*/
 void madAnimationStop(Ship *ship)
 {
-    dbgAssert(ship->madBindings != NULL);
+    dbgAssertOrIgnore(ship->madBindings != NULL);
     ship->bindings = ship->madBindings->saveBindings;       //restore the saved gun bindings, if any
 #if MAD_VERBOSE_LEVEL >= 2
     dbgMessagef("\nmadAnimationStop: stopped animation #%d('%s') on ship 0x%x", ship->madBindings->nCurrentAnim, ship->madBindings->header->anim[ship->madBindings->nCurrentAnim].name, ship);
@@ -566,7 +566,7 @@ sdword madAnimIndexFindByName(madheader *header, char *name)
 {
     sdword index;
 
-    dbgAssert(header->stringBlock != NULL);
+    dbgAssertOrIgnore(header->stringBlock != NULL);
 
     for (index = 0; index < header->nAnimations; index++)
     {
@@ -593,8 +593,8 @@ sdword madGunBindingIndexFindByName(ShipStaticInfo *info, char *name)
     mhbinding *list = info->staticheader.LOD->level[0].hBindings;
     meshdata *mesh = (meshdata *)info->staticheader.LOD->level[0].pData;
 
-    dbgAssert(list != NULL);
-    dbgAssert(mesh != NULL);
+    dbgAssertOrIgnore(list != NULL);
+    dbgAssertOrIgnore(mesh != NULL);
 
     for (index = 0; index < mesh->nPolygonObjects; index++)
     {                                                       //search rest of list
@@ -646,8 +646,8 @@ sdword madBindingIndexFindByName(madheader *header, char *name)
 {
     /*
     sdword level;
-    dbgAssert(header != NULL);
-    dbgAssert(name != NULL);
+    dbgAssertOrIgnore(header != NULL);
+    dbgAssertOrIgnore(name != NULL);
 
     madBindingIndex = 0xffffffff;
     madBindingName = name;
@@ -660,7 +660,7 @@ sdword madBindingIndexFindByName(madheader *header, char *name)
         meshHierarchyWalk((meshdata *)LOD->level[level].pData, madBindingFindCallback, NULL);
     }
 
-    dbgAssert(madBindingIndex != 0xffffffff);
+    dbgAssertOrIgnore(madBindingIndex != 0xffffffff);
     return(madBindingIndex);
     */
     sdword index;
@@ -689,7 +689,7 @@ void madAnimationPause(Ship *ship, bool bFreeze)
     sdword index;
     mhlocalbinding *binding;
 
-    dbgAssert(anim != NULL);
+    dbgAssertOrIgnore(anim != NULL);
 
     binding = anim->bindings.localBinding[0];
 
@@ -741,7 +741,7 @@ void madAnimBindingMatrix(matrix *destMatrix, vector *destPos, Ship *ship, sdwor
     real32 saveTimeElapsed, saveTime;
     sdword index;
 
-    dbgAssert(anim != NULL);
+    dbgAssertOrIgnore(anim != NULL);
     if (anim->nCurrentAnim != MAD_NoAnimation)
     {                                                       //if there's an animation playing
         curve = &anim->curves[madIndex * 6];                //pointer to spline curves for this object
@@ -764,10 +764,10 @@ void madAnimBindingMatrix(matrix *destMatrix, vector *destPos, Ship *ship, sdwor
     else
     {                                                       //no animation playing
         lodInfo = ship->staticinfo->staticheader.LOD;
-        dbgAssert((lodInfo->level[0].flags & LM_LODType) == LT_Mesh);//make sure right type
+        dbgAssertOrIgnore((lodInfo->level[0].flags & LM_LODType) == LT_Mesh);//make sure right type
         mesh = (meshdata *)lodInfo->level[0].pData;
         bindingListSource = lodInfo->level[0].hBindings;    //pointer to LOD0 bindings
-        dbgAssert(gunIndex < mesh->nPolygonObjects);
+        dbgAssertOrIgnore(gunIndex < mesh->nPolygonObjects);
         hMatrix = &mesh->object[gunIndex].localMatrix;      //get the matrix
         matGetMatFromHMat(destMatrix, hMatrix);             //convert to 3x3/position
         hmatGetVectFromHMatrixCol4(*destPos, *hMatrix);

@@ -281,7 +281,7 @@ Path *aiuPathDupe(Path *existing)
 ----------------------------------------------------------------------------*/
 void aiuAddPointToPath(vector point, udword pointnum, Path *path)
 {
-    dbgAssert(pointnum < path->numPoints);
+    dbgAssertOrIgnore(pointnum < path->numPoints);
 
     path->point[pointnum] = point;
 }
@@ -1107,7 +1107,7 @@ ShipPtr aiuFindNearestMothershipAttacker(SelectCommand *teamShips)
         return NULL;
     }
 
-    dbgAssert(teamShips->numShips);
+    dbgAssertOrIgnore(teamShips->numShips);
 
     approxTeamPosition = teamShips->ShipPtr[0]->posinfo.position;
 
@@ -1236,7 +1236,7 @@ bool aiuShipsCloseToEnemyMothership(Player *player, SelectCommand *ships, real32
     real32 moshipDistSq;
     ShipPtr testship;
 
-    dbgAssert(ships->numShips);
+    dbgAssertOrIgnore(ships->numShips);
 
     shipblob       = aiuWrapGetCollBlob(ships);
     if (!shipblob) return FALSE;
@@ -2263,7 +2263,7 @@ SelectCommand *aiuFindCaptureTarget(SelectCommand *capturingShips)
 
     dablob = (aiblob *)aiuFindShipsAIBlob(capturingShips, FALSE);
 
-    dbgAssert(dablob != NULL);
+    dbgAssertOrIgnore(dablob != NULL);
 
     aiuNewSelection(returnSel, 3, "capturetarget");
 
@@ -2557,7 +2557,7 @@ SelectCommand *aiuFindLeadShipInSphereOfInfluence(vector centre, real32 radiussq
             {       //"enemy" ships only consist of allies
                 continue;
             }
-//            dbgAssert(temp_sel.numShips > 0);
+//            dbgAssertOrIgnore(temp_sel.numShips > 0);
 
             for (k = 0; k < temp_sel.numShips; k++)
             {
@@ -2619,7 +2619,7 @@ bool aiuFindDecloakedShipInSphereOfInfluence(void)
         {
             temp_sel = aiuEnemyBlobs->blob[i]->blobShips;
 
-            dbgAssert(temp_sel->numShips > 0);
+            dbgAssertOrIgnore(temp_sel->numShips > 0);
 
 
             for (j = 0; j < temp_sel->numShips; j++)
@@ -3304,8 +3304,8 @@ real32 aiuFindMinimumGunRangeSquared(SelectCommand *ships)
             }
         }
     }
-    dbgAssert(ships->numShips > 0);
-    dbgAssert(minrange < REALlyBig);
+    dbgAssertOrIgnore(ships->numShips > 0);
+    dbgAssertOrIgnore(minrange < REALlyBig);
 
     return minrange;
 }
@@ -3362,8 +3362,8 @@ bool aiuShipsInGunRangeOfTargets(SelectCommand *selection)
         //only calculate this stuff for attacking ships
         if (!command || command->ordertype.order != COMMAND_ATTACK)
             continue;
-//        dbgAssert(command != NULL);
-//        dbgAssert(command->ordertype.order == COMMAND_ATTACK);
+//        dbgAssertOrIgnore(command != NULL);
+//        dbgAssertOrIgnore(command->ordertype.order == COMMAND_ATTACK);
 
         breaker = FALSE;
         for(j = 0; j<command->attack->numTargets;j++)
@@ -3706,7 +3706,7 @@ bool aiuFindArmadaTarget(vector *dest_target, SelectCommand **sel_target, Select
                                               primary_value_strength_ratio/1.2);
             }
             primary_value_strength_ratio += randvar;
-            dbgAssert(primary_value_strength_ratio >= 0);
+            dbgAssertOrIgnore(primary_value_strength_ratio >= 0);
         }
 
         //the best blob stays.  Yay!
@@ -4040,7 +4040,7 @@ void aiuSwarmDock(SelectCommand *ships, SelectCommand *pods)
     udword i, j, closestDockat = 0;
     ShipPtr ship, dockat;
 
-    dbgAssert(pods->numShips);
+    dbgAssertOrIgnore(pods->numShips);
 
     if (pods->numShips == 1)
     {
@@ -4109,7 +4109,7 @@ bool aiuWrapAttack(SelectCommand *attackers, SelectCommand *targets)
         !aiuShipsArentTargetable(targets))
     {
 #ifndef HW_Release
-        //dbgAssert(AreAllShipsAttackCapable((SelectCommand *)&filtered));
+        //dbgAssertOrIgnore(AreAllShipsAttackCapable((SelectCommand *)&filtered));
 
         if (attackers->ShipPtr[0]->playerowner == targets->ShipPtr[0]->playerowner)
         {
@@ -4674,7 +4674,7 @@ void aiuRateBlobs(Player *player)
         tempblob->visibility           = TRUE;
         tempblob->mothership           = mothership;
 
-//        dbgAssert(tempblob->goodGuyvalue);
+//        dbgAssertOrIgnore(tempblob->goodGuyvalue);
     }
 
     for (i=0,goodGuystrength      = 0,
@@ -4750,7 +4750,7 @@ void aiuRateBlobs(Player *player)
         tempblob->goodGuyResourcers    = goodGuyResourcers;
         tempblob->mothership           = mothership;
 
-        dbgAssert((tempblob->primaryenemyvalue) || (tempblob->otherenemyvalue));
+        dbgAssertOrIgnore((tempblob->primaryenemyvalue) || (tempblob->otherenemyvalue));
     }
 }
 

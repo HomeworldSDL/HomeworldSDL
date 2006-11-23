@@ -1148,7 +1148,7 @@ void primCircleBorder(sdword x, sdword y, sdword radInner, sdword radOuter, sdwo
     ubyte green = colGreen(colInner);
     ubyte blue = colBlue(colInner);
 
-    dbgAssert(nSlices >= 3);
+    dbgAssertOrIgnore(nSlices >= 3);
 
     centreX = primScreenToGLX(x);                           //make floating-point versions of parameters
     centreY = primScreenToGLY(y);

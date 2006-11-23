@@ -157,7 +157,7 @@ static void lodColorScalarRead(char *directory,char *field,void *dataToFillIn)
     real32 data;
 
     sscanf(field, "%f", &data);
-    dbgAssert(data >= 0.0f && data <= 10.0f);
+    dbgAssertOrIgnore(data >= 0.0f && data <= 10.0f);
     if (data == 0.0f)
     {                                                       //0 is regarded as 'no change', hence 1.0
         data = 1.0f;
@@ -270,7 +270,7 @@ lod *lodLevelGet(void *spaceObj, vector *camera, vector *ship)
     SpaceObj *obj = (SpaceObj *)spaceObj;
     lodinfo *info = obj->staticinfo->staticheader.LOD;
 
-    dbgAssert(info != NULL);                                //verify the LOD table exists
+    dbgAssertOrIgnore(info != NULL);                                //verify the LOD table exists
 
     vecSub(obj->cameraDistanceVector,*camera,*ship);
     obj->cameraDistanceSquared = distance = vecMagnitudeSquared(obj->cameraDistanceVector);
@@ -301,8 +301,8 @@ lod *lodLevelGet(void *spaceObj, vector *camera, vector *ship)
             obj->currentLOD--;                              //go to higher level
         }
     }
-    dbgAssert(obj->currentLOD >= 0);
-    dbgAssert(obj->currentLOD < info->nLevels);             //verify we are within the available levels of detail
+    dbgAssertOrIgnore(obj->currentLOD >= 0);
+    dbgAssertOrIgnore(obj->currentLOD < info->nLevels);             //verify we are within the available levels of detail
 #if LOD_PRINT_DISTANCE
     if (keyIsStuck(WKEY))
     {
@@ -376,7 +376,7 @@ void lodFree(lodinfo *LOD)
                 {
                     meshFree((meshdata *)pData);
                 }
-                dbgAssert(LOD->level[i].hBindings != NULL);
+                dbgAssertOrIgnore(LOD->level[i].hBindings != NULL);
                 meshBindingListDelete(LOD->level[i].hBindings);
                 break;
 

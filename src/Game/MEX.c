@@ -111,7 +111,7 @@ void *mexLoad(char *filename)
 	}
 #endif // ENDIAN_BIG
 
-    dbgAssert(address != NULL);
+    dbgAssertOrIgnore(address != NULL);
     if (!mexVerify(address))
     {
         dbgFatal(DBG_Loc,"Invalid MEX file");

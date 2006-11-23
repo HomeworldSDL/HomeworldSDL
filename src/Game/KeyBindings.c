@@ -275,7 +275,7 @@ void kbListItemDraw(rectangle *rect, listitemhandle data)
         else
         {
             // key assigned so print the name of that key
-            dbgAssert(bkey->primarykey < KEY_TOTAL_KEYS);
+            dbgAssertOrIgnore(bkey->primarykey < KEY_TOTAL_KEYS);
             fontPrintf(rect->x0 + (((rect->x1-rect->x0)*3)/5), rect->y0, c, "%s", strGetString(kbKeyToString[bkey->primarykey]));
         }
     }
@@ -504,7 +504,7 @@ void kbSetNewKey(udword keypressed)
 
     keypressed&=0x000000FF;
 
-    dbgAssert(keypressed < KEY_TOTAL_KEYS);
+    dbgAssertOrIgnore(keypressed < KEY_TOTAL_KEYS);
 
     bkey = (kbBoundKeys *)kbListWindow->CurLineSelected->data;
     if (kbCanMapKey[keypressed])

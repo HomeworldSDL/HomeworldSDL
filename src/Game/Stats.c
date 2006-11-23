@@ -200,9 +200,9 @@ static void StatsForRaceCB(char *directory,char *field,void *dataToFillIn)
     sdword i;
 
     param = strtok(field, ", \t");
-    dbgAssert(param);
+    dbgAssertOrIgnore(param);
     race = StrToShipRace(param);
-    dbgAssert(race >= 0 && race < NUM_RACES_TO_GATHER_STATS_FOR);
+    dbgAssertOrIgnore(race >= 0 && race < NUM_RACES_TO_GATHER_STATS_FOR);
 
     for (i=0;i<NUM_RACES_TO_GATHER_STATS_FOR;i++)
     {
@@ -238,10 +238,10 @@ static void StatsForCB(char *directory,char *field,void *dataToFillIn)
     sscanf(field,"%s %s %s",racestr,shipstr,truestr);
 
     race = StrToShipRace(racestr);
-    dbgAssert(race >= 0 && race < NUM_RACES_TO_GATHER_STATS_FOR);
+    dbgAssertOrIgnore(race >= 0 && race < NUM_RACES_TO_GATHER_STATS_FOR);
 
     shiptype = StrToShipType(shipstr);
-    dbgAssert(shiptype >= 0 && shiptype < TOTAL_NUM_SHIPS);
+    dbgAssertOrIgnore(shiptype >= 0 && shiptype < TOTAL_NUM_SHIPS);
 
     val = FALSE;
     if (strncmp(truestr,"TRUE",4) == 0)
@@ -304,8 +304,8 @@ void ConvertStatIndexToShipRaceType(sdword index,ShipType *shiptype,ShipRace *sh
         if (index >= StatIndexRaceOffsets[j])
         {
             offset = index - StatIndexRaceOffsets[j];
-            dbgAssert(offset >= 0);
-            dbgAssert(offset < NumShipTypesInRace[j]);
+            dbgAssertOrIgnore(offset >= 0);
+            dbgAssertOrIgnore(offset < NumShipTypesInRace[j]);
 
             *shiprace = j;
             *shiptype = (ShipType) (offset + FirstShipTypeOfRace[j]);
@@ -342,8 +342,8 @@ void GetPrecombatStats(FightStats *fightStats)
     sdword RU0;
     sdword RU1;
 
-    dbgAssert(shipstatic0->shiptype == fightStats->shiptype[0]);
-    dbgAssert(shipstatic1->shiptype == fightStats->shiptype[1]);
+    dbgAssertOrIgnore(shipstatic0->shiptype == fightStats->shiptype[0]);
+    dbgAssertOrIgnore(shipstatic1->shiptype == fightStats->shiptype[1]);
 
     // Get # of ships for players 0 and 1 to fight
 
@@ -407,8 +407,8 @@ void GetPrecombatStats(FightStats *fightStats)
         fightStats->numShips[1] = cdLimitCaps[fightStats->shiptype[1]];
     }
 
-    dbgAssert(fightStats->numShips[0] > 0);
-    dbgAssert(fightStats->numShips[1] > 0);
+    dbgAssertOrIgnore(fightStats->numShips[0] > 0);
+    dbgAssertOrIgnore(fightStats->numShips[1] > 0);
 
     dbgMessagef("\n%s %s Vs %s %s\n",ShipRaceToStr(fightStats->shiprace[0]),ShipTypeToStr(fightStats->shiptype[0]),ShipRaceToStr(fightStats->shiprace[1]),ShipTypeToStr(fightStats->shiptype[1]));
     dbgMessagef("\n%d %d",fightStats->numShips[0],fightStats->numShips[1]);
@@ -440,7 +440,7 @@ void SetupShipsForFight(FightStats *fightStats)
     for (i=0;i<2;i++)
     {
         numShips = (sdword)fightStats->numShips[i];
-        dbgAssert(numShips > 0);
+        dbgAssertOrIgnore(numShips > 0);
         selection[i] = memAlloc(sizeofSelectCommand(numShips),"fightselection",0);
 
         selection[i]->numShips = numShips;
@@ -469,7 +469,7 @@ void SetupShipsForFight(FightStats *fightStats)
     if (AreAllShipsAttackCapable(selection[0]))
     {
         attackcommands[0] = clAttackThese(&universe.mainCommandLayer,selection[0],(AttackCommand *)selection[1]);
-        dbgAssert(attackcommands[0] != NULL);
+        dbgAssertOrIgnore(attackcommands[0] != NULL);
     }
     else
     {
@@ -479,7 +479,7 @@ void SetupShipsForFight(FightStats *fightStats)
     if (AreAllShipsAttackCapable(selection[1]))
     {
         attackcommands[1] = clAttackThese(&universe.mainCommandLayer,selection[1],(AttackCommand *)selection[0]);
-        dbgAssert(attackcommands[1] != NULL);
+        dbgAssertOrIgnore(attackcommands[1] != NULL);
     }
     else
     {
@@ -597,7 +597,7 @@ void PrintFightStats(FightStats *fightStats)
     filehandle statlogfileFH = fileOpen(STATLOG_FILENAME, FF_AppendMode | FF_TextMode);
     FILE *statlogfile;
 
-    dbgAssert(!fileUsingBigfile(statlogfileFH));
+    dbgAssertOrIgnore(!fileUsingBigfile(statlogfileFH));
     statlogfile = fileStream(statlogfileFH);
 
     if (statlogfile)
@@ -637,9 +637,9 @@ void GetPostCombatStats(FightStats *fightStats)
         {
             selection = command->selection;
             numShips = selection->numShips;
-            dbgAssert(numShips > 0);
+            dbgAssertOrIgnore(numShips > 0);
             playerindex = selection->ShipPtr[0]->playerowner->playerIndex;
-            dbgAssert(playerindex < 2);
+            dbgAssertOrIgnore(playerindex < 2);
             fightStats->numShipsAfter[playerindex] = (uword)numShips;
             for (i=0;i<numShips;i++)
             {
@@ -771,7 +771,7 @@ void GatherFightStatsFor(sdword i,sdword j,bool actuallyDoFight)
     {
         top = MAX_SHIPS_TO_EVER_CONSIDER;
     }
-    dbgAssert(top >= 1);
+    dbgAssertOrIgnore(top >= 1);
     verytop = top;
 
     binsearchtable = memAlloc(sizeof(udword)*(top+1),"binsearchtable",0);
@@ -925,7 +925,7 @@ void SetFlightEntrysCB(char *directory,char *field,void *dataToFillIn)
     sscanf(field,"%d %d %s %s %s %s %d %s %s %s %s",&repeat,&num[0],racestr[0],shipstr[0],formationstr[0],tacticsstr[0],
                                                             &num[1],racestr[1],shipstr[1],formationstr[1],tacticsstr[1]);
 
-    dbgAssert(numFancyFightEntrys < MAX_NUM_FANCYFIGHTENTRYS);
+    dbgAssertOrIgnore(numFancyFightEntrys < MAX_NUM_FANCYFIGHTENTRYS);
 
     fancyFightEntry[numFancyFightEntrys].repeat = repeat;
     fancyFightEntry[numFancyFightEntrys].statindex[0] = ConvertShipRaceTypeToStatIndex(StrToShipType(shipstr[0]),StrToShipRace(racestr[0]));
@@ -970,10 +970,10 @@ void FancyFightPrepareFightStats(FightStats *fightStats)
     ShipRace shiprace;
     sdword i = ffe->statindex[0];
     sdword j = ffe->statindex[1];
-    dbgAssert(i >= 0);
-    dbgAssert(i < NUM_SHIPS_TO_GATHER_STATS_FOR);
-    dbgAssert(j >= 0);
-    dbgAssert(j < NUM_SHIPS_TO_GATHER_STATS_FOR);
+    dbgAssertOrIgnore(i >= 0);
+    dbgAssertOrIgnore(i < NUM_SHIPS_TO_GATHER_STATS_FOR);
+    dbgAssertOrIgnore(j >= 0);
+    dbgAssertOrIgnore(j < NUM_SHIPS_TO_GATHER_STATS_FOR);
 
     ConvertStatIndexToShipRaceType(i,&shiptype,&shiprace);
     fightStats->shiptype[0] = shiptype;
@@ -1012,7 +1012,7 @@ void statsShowFancyFight(sdword i,sdword j)
     logfileClear(STATLOG_FILENAME);
     statLog("GATHERING FANCYFIGHT STATS\n");
 
-    dbgAssert(universe.numPlayers >= 2);    // need at least 2 players to gather stats
+    dbgAssertOrIgnore(universe.numPlayers >= 2);    // need at least 2 players to gather stats
 
     if (!ShowFancyFights)
     {
@@ -1033,8 +1033,8 @@ void statsShowFancyFight(sdword i,sdword j)
     {
         currentFancyFightEntry = 0;
         currentFancyFightRepeatFight = 0;
-        dbgAssert(currentFancyFightEntry < numFancyFightEntrys);
-        dbgAssert(currentFancyFightRepeatFight < fancyFightEntry[currentFancyFightEntry].repeat);
+        dbgAssertOrIgnore(currentFancyFightEntry < numFancyFightEntrys);
+        dbgAssertOrIgnore(currentFancyFightRepeatFight < fancyFightEntry[currentFancyFightEntry].repeat);
         ShowFancyFightsShipsFighting = FALSE;
     }
 }
@@ -1043,7 +1043,7 @@ void statsShowFancyFightUpdate(void)
 {
     static FightStats tempFightStats;
 
-    dbgAssert(ShowFancyFights);
+    dbgAssertOrIgnore(ShowFancyFights);
 
     if (!ShowFancyFightsShipsFighting)
     {
@@ -1082,12 +1082,12 @@ void statsShowFancyFightUpdate(void)
 void statsShowFight(sdword i,sdword j)
 {
     FightStats *fightStats;
-    dbgAssert(i >= 0);
-    dbgAssert(i < NUM_SHIPS_TO_GATHER_STATS_FOR);
-    dbgAssert(j >= 0);
-    dbgAssert(j < NUM_SHIPS_TO_GATHER_STATS_FOR);
+    dbgAssertOrIgnore(i >= 0);
+    dbgAssertOrIgnore(i < NUM_SHIPS_TO_GATHER_STATS_FOR);
+    dbgAssertOrIgnore(j >= 0);
+    dbgAssertOrIgnore(j < NUM_SHIPS_TO_GATHER_STATS_FOR);
 
-    dbgAssert(universe.numPlayers >= 2);    // need at least 2 players to gather stats
+    dbgAssertOrIgnore(universe.numPlayers >= 2);    // need at least 2 players to gather stats
 
     fightStats = &FightStatsTable[i][j];
     if ((fightStats->numShips[0] > 0) && (fightStats->numShips[1] > 0))
@@ -1165,13 +1165,13 @@ void GatherFightStatsForRaces(ShipRace racei,ShipRace racej)
                     if (!FightStatsTable[indexi][indexj].numShips[0])       // check to make sure havent already calculated
                     {
                         GatherFightStatsFor(indexi,indexj,TRUE);
-                        dbgAssert(FightStatsTable[indexi][indexj].numShips[0]);
+                        dbgAssertOrIgnore(FightStatsTable[indexi][indexj].numShips[0]);
 #if MEM_ERROR_CHECKING
                         if (memoryFree != memFreeMemGet(&memMainPool))
                         {
                             memoryLeak = memFreeMemGet(&memMainPool) - memoryFree;
                             memAnalysisCreate();
-                            dbgAssert(FALSE);
+                            dbgAssertOrIgnore(FALSE);
                         }
 #endif
                         if (indexi != indexj)
@@ -1263,7 +1263,7 @@ void statsGatherFightStats(void)
     ShipRace racei,racej;
     sdword statfilesize = NUM_SHIPS_TO_GATHER_STATS_FOR * NUM_SHIPS_TO_GATHER_STATS_FOR * sizeof(FightStats);
 
-    dbgAssert(universe.numPlayers >= 2);    // need at least 2 players to gather stats
+    dbgAssertOrIgnore(universe.numPlayers >= 2);    // need at least 2 players to gather stats
 
     logfileClear(STATLOG_FILENAME);
 
@@ -1361,10 +1361,10 @@ void statsPrintTable(void)
     filehandle tablefileFH = fileOpen("stattable.txt", FF_IgnoreBIG | FF_WriteMode | FF_TextMode | FF_UserSettingsPath);
     FILE *tablefile;
 
-    dbgAssert(!fileUsingBigfile(tablefileFH));
+    dbgAssertOrIgnore(!fileUsingBigfile(tablefileFH));
     tablefile = fileStream(tablefileFH);
 
-    dbgAssert(tablefile);
+    dbgAssertOrIgnore(tablefile);
 
     for (racei=0;racei<NUM_RACES_TO_GATHER_STATS_FOR;racei++)
     {
@@ -1608,7 +1608,7 @@ real32 statsGetKillRatingAgainstFleet(ShipStaticInfo *shipstatic,SelectCommand *
     sdword i;
     real32 totalkills = 0.0f;
 
-    dbgAssert(numShips > 0);
+    dbgAssertOrIgnore(numShips > 0);
 
     // kill rating against fleet is reciprical of (sum of recipricals of kill ratings)
 
@@ -1626,7 +1626,7 @@ real32 statsGetKillRatingAgainstFleetStatic(ShipStaticInfo *shipstatic,SelectCom
     sdword i;
     real32 totalkills = 0;
 
-    dbgAssert(numShips > 0);
+    dbgAssertOrIgnore(numShips > 0);
 
     for (i=0;i<numShips;i++)
     {
@@ -1642,7 +1642,7 @@ real32 statsGetRURatingAgainstFleet(ShipStaticInfo *shipstatic,SelectCommand *fl
     sdword i;
     real32 totalrurating = 0;
 
-    dbgAssert(numShips > 0);
+    dbgAssertOrIgnore(numShips > 0);
 
     for (i=0;i<numShips;i++)
     {
@@ -1658,7 +1658,7 @@ real32 statsGetRURatingAgainstFleetStatic(ShipStaticInfo *shipstatic,SelectComma
     sdword i;
     real32 totalrurating = 0;
 
-    dbgAssert(numShips > 0);
+    dbgAssertOrIgnore(numShips > 0);
 
     for (i=0;i<numShips;i++)
     {
@@ -1680,7 +1680,7 @@ Ship *statsGetMostDangerousShipNonStatConstraints(SelectCommand *selection,ShipC
     for (i=0;i<numShips;i++)
     {
         ship = selection->ShipPtr[i];
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         if (constraintsCB(ship))
         {
@@ -1746,7 +1746,7 @@ ShipStaticInfo *statsBestShipToBuyToKillShip(ShipRace shipRace,statShipConstrain
             shipstatic = ConvertStatIndexToShipStatic(indexi);
             if ((shipstatic) && constraintsCB(shipstatic))
             {
-                dbgAssert(shipstatic->shiprace == shipRace);
+                dbgAssertOrIgnore(shipstatic->shiprace == shipRace);
                 RUratio = statsGetShipRURatingAgainstShip(shipstatic,targetstatic);
                 if (RUratio > maxRUratio)
                 {
@@ -1781,7 +1781,7 @@ ShipStaticInfo *statsBestShipToBuyToKillFleet(ShipRace shipRace,statShipConstrai
             shipstatic = ConvertStatIndexToShipStatic(indexi);
             if ((shipstatic) && constraintsCB(shipstatic))
             {
-                dbgAssert(shipstatic->shiprace == shipRace);
+                dbgAssertOrIgnore(shipstatic->shiprace == shipRace);
                 RUratio = statsGetRURatingAgainstFleet(shipstatic,targetFleet);
                 if (RUratio > maxRUratio)
                 {
@@ -1841,7 +1841,7 @@ Ship *statsBestShipToUseToKillShip(SelectCommand *freeShips,ShipStaticInfo *targ
     for (i=0;i<numShips;i++)
     {
         ship = freeShips->ShipPtr[i];
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         Killratio = statsGetShipKillRatingAgainstShip(ship->staticinfo,targetstatic);
 
@@ -1867,7 +1867,7 @@ Ship *statsBestShipToUseToKillFleet(SelectCommand *freeShips,SelectCommand *targ
     for (i=0;i<numShips;i++)
     {
         ship = freeShips->ShipPtr[i];
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         Killratio = statsGetKillRatingAgainstFleet(ship->staticinfo,targetFleet);
 
@@ -1949,8 +1949,8 @@ real32 statsGetRelativeFleetStrengths(SelectCommand *fleet1,SelectCommand *fleet
     //real32 totalstr1 = 0.0f;
     real32 totalstr2 = 0.0f;
 
-    //dbgAssert(numShips1 > 0);
-    dbgAssert(numShips2 > 0);
+    //dbgAssertOrIgnore(numShips1 > 0);
+    dbgAssertOrIgnore(numShips2 > 0);
 #if 0
     for (i=0;i<numShips1;i++)
     {
@@ -1972,7 +1972,7 @@ real32 statsGetRelativeFleetStrengthAgainstShip(SelectCommand *fleet1,ShipStatic
     //real32 totalstr1 = 0.0f;
     real32 totalstr2;
 
-    //dbgAssert(numShips1 > 0);
+    //dbgAssertOrIgnore(numShips1 > 0);
 #if 0
     for (i=0;i<numShips1;i++)
     {
@@ -2048,7 +2048,7 @@ foundit:
         if (freeshipsleft->numShips == 0)
         {
             // use all ships
-            dbgAssert(useships->numShips == freeships->numShips);
+            dbgAssertOrIgnore(useships->numShips == freeships->numShips);
             memFree(freeshipsleft);
             *goodEnough = FALSE;
             return useships;
@@ -2125,7 +2125,7 @@ foundit:
         if (freeshipsleft->numShips == 0)
         {
             // use all ships
-            dbgAssert(useships->numShips == freeships->numShips);
+            dbgAssertOrIgnore(useships->numShips == freeships->numShips);
             memFree(freeshipsleft);
             *goodEnough = FALSE;
             return useships;

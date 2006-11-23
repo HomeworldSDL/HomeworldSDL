@@ -484,7 +484,7 @@ void aiplayerChooseEnemies(udword num_players, udword num_human, udword num_comp
         return;
     }
 
-    dbgAssert(num_players == num_human+num_comp);
+    dbgAssertOrIgnore(num_players == num_human+num_comp);
 
     for (i=0;i<MAX_MULTIPLAYER_PLAYERS;i++)
     {
@@ -719,7 +719,7 @@ AIPlayer *aiplayerInit(Player *player,AIPlayerLevel aiplayerLevel)
     memset(aiplayer,0,sizeof(AIPlayer));
 
     aiplayer->player = player;
-    dbgAssert(aiplayerLevel < AI_NUM_LEVELS);
+    dbgAssertOrIgnore(aiplayerLevel < AI_NUM_LEVELS);
     aiplayer->aiplayerDifficultyLevel = aiplayerLevel;
 
     aiplayer->aiplayerUpdateRate = AIPLAYER_UPDATE_RATE[aiplayerLevel];
@@ -844,7 +844,7 @@ void aiplayerUpdateAll(void)
             if (tutorial!=TUTORIAL_ONLY)
             {
                 aiCurrentAIPlayer = universe.players[1].aiPlayer;
-                dbgAssert(aiCurrentAIPlayer);
+                dbgAssertOrIgnore(aiCurrentAIPlayer);
                 if ((universe.univUpdateCounter & aiCurrentAIPlayer->aiplayerUpdateRate) == (SP_KAS_UPDATE_FRAME & aiCurrentAIPlayer->aiplayerUpdateRate))
                 {
                     universe.aiplayerProcessing = TRUE;
@@ -1463,7 +1463,7 @@ void aiplayerChangeBigotry(udword newvalue)
 {
     udword i;
 
-    dbgAssert(newvalue <= 100);
+    dbgAssertOrIgnore(newvalue <= 100);
 
     for (i=0; i < MAX_MULTIPLAYER_PLAYERS;i++)
     {
@@ -1476,7 +1476,7 @@ void aiplayerChangeBigotry(udword newvalue)
     }
     else
     {
-        dbgAssert(FALSE);
+        dbgAssertOrIgnore(FALSE);
     }*/
 }
 
@@ -1529,7 +1529,7 @@ struct Path *LoadPath(void)
     path = (Path *)chunkContents(chunk);
 
     size = sizeof_Path(path->numPoints);
-    dbgAssert(size == chunk->contentsSize);
+    dbgAssertOrIgnore(size == chunk->contentsSize);
 
     loadpath = (Path *)memAlloc(size, "newPath", NonVolatile);
     memcpy(loadpath,path,size);
@@ -1559,7 +1559,7 @@ sdword AITeamToTeamIndex(struct AITeam *team)
         }
     }
 
-    dbgAssert(FALSE);
+    dbgAssertOrIgnore(FALSE);
     return -1;
 }
 
@@ -1570,7 +1570,7 @@ struct AITeam *AITeamIndexToTeam(AIPlayer *aiplayer,sdword index)
         return NULL;
     }
 
-    dbgAssert(index < aiplayer->teamsUsed);
+    dbgAssertOrIgnore(index < aiplayer->teamsUsed);
     return aiplayer->teams[index];
 }
 
@@ -1810,7 +1810,7 @@ AIPlayer *NumberToAIPlayer(sdword number)
     else
     {
         Player *tmpplayer = SavePlayerIndexToPlayer(number);
-        dbgAssert(tmpplayer->aiPlayer);
+        dbgAssertOrIgnore(tmpplayer->aiPlayer);
         return tmpplayer->aiPlayer;
     }
 }

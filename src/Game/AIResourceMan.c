@@ -92,7 +92,7 @@ sdword NumberOfEasilyAccesibleRUs(Player *player)
     while (objnode != NULL)
     {
         resource = (Resource *)listGetStructOfNode(objnode);
-        dbgAssert(resource->flags & SOF_Resource);
+        dbgAssertOrIgnore(resource->flags & SOF_Resource);
 
         numRUs += resource->resourcevalue;
 
@@ -164,7 +164,7 @@ void airInit(AIPlayer *aiplayer)
             aiuEnableResourceFeature(AIR_ACTIVE_RESOURCE_CONTROLLER);
             break;
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
     }
 }
 
@@ -209,22 +209,22 @@ bool airShipDied(AIPlayer *aiplayer,ShipPtr ship)
             {
                 growSelectRemoveShip(&aiplayer->airResourceCollectors, ship);
                 aiplayer->airNumRCollectors--;
-                dbgAssert(aiplayer->airNumRCollectors >= 0);
+                dbgAssertOrIgnore(aiplayer->airNumRCollectors >= 0);
             }
             else if (ship->shiptype == ResourceController)
             {
                 aiplayer->airNumRControllers--;
-                dbgAssert(aiplayer->airNumRControllers >= 0);
+                dbgAssertOrIgnore(aiplayer->airNumRControllers >= 0);
             }
             else if (ship->shiptype == AdvanceSupportFrigate)
             {
                 aiplayer->airNumASF--;
-                dbgAssert(aiplayer->airNumASF >= 0);
+                dbgAssertOrIgnore(aiplayer->airNumASF >= 0);
             }
             else if (ship->shiptype == ResearchShip)
             {
                 aiplayer->airNumResearchShips--;
-                dbgAssert(aiplayer->airNumResearchShips >= 0);
+                dbgAssertOrIgnore(aiplayer->airNumResearchShips >= 0);
                 aiCurrentAIPlayer->TechnologyDeficit = 0;       //recalculate technology deficit
             }
             return TRUE;

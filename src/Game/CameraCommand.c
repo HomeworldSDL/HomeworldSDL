@@ -776,7 +776,7 @@ void GetDistanceAngleDeclination(Camera *camera,vector *distvec)
     camera->angle = (real32)atan2(distvec->y,distvec->x);
     value = -distvec->z/camera->distance;
 
-    dbgAssert( ABS(value) <= 1.01f );       // USE 1.01 SO ROUND OFF ERRORS DON'T CRASH US
+    dbgAssertOrIgnore( ABS(value) <= 1.01f );       // USE 1.01 SO ROUND OFF ERRORS DON'T CRASH US
 
     if(value < -1.0f)
         value = -1.0f;
@@ -793,7 +793,7 @@ void FocusOnNewEntry(CameraCommand *cameracommand,CameraStackEntry *entry)
 
     CameraStackEntry *curentry = currentCameraStackEntry(cameracommand);
 
-    dbgAssert(curentry);
+    dbgAssertOrIgnore(curentry);
 
     listAddNodeAfter(&curentry->stacklink,&entry->stacklink,entry);
 
@@ -990,7 +990,7 @@ void ccFocusOnPlayersMothership(CameraCommand *cameracommand,uword playerindex)
 
 // Old Version -------------------------------
 // entry = currentCameraStackEntry(cameracommand);
-// dbgAssert(entry);
+// dbgAssertOrIgnore(entry);
 // cameraChangeLookatpoint(&cameracommand->actualcamera,&mothership->posinfo.position);
 // entry->remembercam = cameracommand->actualcamera;
 // cameracommand->UserControlled = 0;
@@ -1050,7 +1050,7 @@ void ccFocusGeneral(CameraCommand *cameracommand,FocusCommand *focuscom, bool bC
         return;
     }
 
-    //dbgAssert(focuscom->numShips >= 1);
+    //dbgAssertOrIgnore(focuscom->numShips >= 1);
 
     ccFocusCullRadiusMean(focuscom, RENDER_VIEWABLE_DISTANCE_SQR, NULL);
 
@@ -1217,7 +1217,7 @@ void ccFocusFar(CameraCommand *cameracommand,FocusCommand *focuscom, Camera *cur
         return;
     }
 
-    //dbgAssert(focuscom->numShips >= 1);
+    //dbgAssertOrIgnore(focuscom->numShips >= 1);
 
     oldentry = currentCameraStackEntry(cameracommand);
 
@@ -1830,7 +1830,7 @@ sdword ccFocusCullRadiusMean(FocusCommand *selection, real32 radiusSqr, vector *
                 iMaxFocussed = iOuter;
             }
         }
-        dbgAssert(maxFocussed > 0);                         //one selection combo should have worked
+        dbgAssertOrIgnore(maxFocussed > 0);                         //one selection combo should have worked
         centre = selection->ShipPtr[iMaxFocussed]->posinfo.position;//use the best selection we found
         ccFocusCullRadiusGeneral((FocusCommand *)&localSelection, selection, radiusSqr, &centre);
     }

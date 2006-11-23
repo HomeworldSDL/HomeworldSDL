@@ -350,7 +350,7 @@ void SetBaseFleetStrCB(char *directory,char *field,void *dataToFillIn)
 
     sscanf(field,"%d %f %f",&level,&basestrength,&advancedstrength);
 
-    dbgAssert(level <= NUMBER_SINGLEPLAYER_MISSIONS);
+    dbgAssertOrIgnore(level <= NUMBER_SINGLEPLAYER_MISSIONS);
 
     BaseFleetStrengthForLevel[level] = basestrength;
     AdvancedFleetStrengthForLevel[level] = advancedstrength;
@@ -402,7 +402,7 @@ void GetFleetStrengthHyperspace(Player *player)
     {
         insideShip = (InsideShip *)listGetStructOfNode(node);
         ship = insideShip->ship;
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         if (ship->playerowner == player)
         {
@@ -418,7 +418,7 @@ void GetFleetStrengthHyperspace(Player *player)
                 while (insidenode != NULL)
                 {
                     insideship2 = (InsideShip *)listGetStructOfNode(insidenode);
-                    dbgAssert(insideship2->ship->objtype == OBJ_ShipType);
+                    dbgAssertOrIgnore(insideship2->ship->objtype == OBJ_ShipType);
 
                     spFleetStr += GetStrengthOfShip(insideship2->ship);
 
@@ -450,7 +450,7 @@ void GetFleetStrengthInUniverseOfPlayer(Player *player)
     while (objnode != NULL)
     {
         ship = (Ship *)listGetStructOfNode(objnode);
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         if (ship->playerowner == player)
         {
@@ -467,7 +467,7 @@ void GetFleetStrengthInUniverseOfPlayer(Player *player)
                 while (insidenode != NULL)
                 {
                     insideship2 = (InsideShip *)listGetStructOfNode(insidenode);
-                    dbgAssert(insideship2->ship->objtype == OBJ_ShipType);
+                    dbgAssertOrIgnore(insideship2->ship->objtype == OBJ_ShipType);
 
                     spFleetStr += GetStrengthOfShip(insideship2->ship);
 
@@ -553,7 +553,7 @@ void SetFleetModifier(sdword level,GetStrengthOfFleet getStrengthOfFleetFunc)
 
 //    singlePlayerGameInfo.hyperspaceState = HYPERSPACE_SHIPSLEAVING;
 //    singlePlayerGameInfo.hyperspaceSubState = FOCUSING_ON_MOTHERSHIP;
-//    dbgAssert(universe.curPlayerPtr->PlayerMothership != NULL);
+//    dbgAssertOrIgnore(universe.curPlayerPtr->PlayerMothership != NULL);
 //    focusone.numShips = 1;
 //    focusone.ShipPtr[0] = universe.curPlayerPtr->PlayerMothership;
 //    ccFocus(&universe.mainCameraCommand,&focusone);
@@ -600,7 +600,7 @@ void spGoNowHyperspaceCB(char *string, featom *atom)
         Ship *ship;
         Ship *mothership = universe.curPlayerPtr->PlayerMothership;
 
-        dbgAssert(mothership);
+        dbgAssertOrIgnore(mothership);
 
         selectAll = selectAllCurrentPlayersNonHyperspacingShips();
         clDock(&universe.mainCommandLayer,selectAll,DOCK_PERMANENTLY|DOCK_INSTANTANEOUSLY,NULL);
@@ -694,7 +694,7 @@ void CalculateRollCall()
     while (objnode != NULL)
     {
         ship = (Ship *)listGetStructOfNode(objnode);
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         if (allianceIsShipAlly(ship,universe.curPlayerPtr) && (ship->shiptype != CryoTray) && (ship->shiptype != Probe) && !(ship->flags & SOF_Disabled))
         {
@@ -750,7 +750,7 @@ void TellShipsToDockForHyperspace()
     while (objnode != NULL)
     {
         ship = (Ship *)listGetStructOfNode(objnode);
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         if (allianceIsShipAlly(ship,universe.curPlayerPtr) && !(ship->flags & SOF_Disabled))
         {
@@ -925,13 +925,13 @@ void CalculateHyperspaceTimesForShips(void)
     Ship *ship;
     Ship *mothership = universe.curPlayerPtr->PlayerMothership;
 
-    dbgAssert(mothership != NULL);
+    dbgAssertOrIgnore(mothership != NULL);
 
     objnode = universe.ShipList.head;
     while (objnode != NULL)
     {
         ship = (Ship *)listGetStructOfNode(objnode);
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         if (allianceIsShipAlly(ship,universe.curPlayerPtr) && !(ship->flags & SOF_Disabled))
         {
@@ -974,7 +974,7 @@ void AddShipToHyperspace(Ship *ship)
         {
             insideship2 = (InsideShip *)listGetStructOfNode(insidenode);
             iship = insideship2->ship;
-            dbgAssert(iship->objtype == OBJ_ShipType);
+            dbgAssertOrIgnore(iship->objtype == OBJ_ShipType);
 
             iship->health = iship->staticinfo->maxhealth;
             iship->fuel = iship->staticinfo->maxfuel;
@@ -993,7 +993,7 @@ bool NoneDoing(udword state)
     while (objnode != NULL)
     {
         ship = (Ship*)listGetStructOfNode(objnode);
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         if (allianceIsShipAlly(ship,universe.curPlayerPtr) &&
             ShipCanMakeHyperspace(ship) && !(ship->flags & SOF_Disabled))
@@ -1019,7 +1019,7 @@ bool AllDoingExceptMe(udword state, Ship* me)
     while (objnode != NULL)
     {
         ship = (Ship*)listGetStructOfNode(objnode);
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         if (allianceIsShipAlly(ship,universe.curPlayerPtr) &&
             ShipCanMakeHyperspace(ship) && !(ship->flags & SOF_Disabled))
@@ -1050,7 +1050,7 @@ bool NoneDoingHS(udword state)
     {
         insideship = (InsideShip*)listGetStructOfNode(objnode);
         ship = insideship->ship;
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         if (allianceIsShipAlly(ship,universe.curPlayerPtr) &&
             ShipCanMakeHyperspace(ship))
@@ -1078,7 +1078,7 @@ bool AllDoingExceptMeHS(udword state, Ship* me)
     {
         insideship = (InsideShip*)listGetStructOfNode(objnode);
         ship = insideship->ship;
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         if (allianceIsShipAlly(ship,universe.curPlayerPtr) &&
             ShipCanMakeHyperspace(ship))
@@ -1123,7 +1123,7 @@ bool UpdateHyperspacingShip(Ship *ship,bool midLevel)
 
     shipSinglePlayerGameInfo->midlevelHyperspaceOut = midLevel;
 
-    dbgAssert(shipSinglePlayerGameInfo);
+    dbgAssertOrIgnore(shipSinglePlayerGameInfo);
 
     if ((singlePlayerGameInfo.hyperspaceFails) && (!midLevel))
     {
@@ -1253,7 +1253,7 @@ bool UpdateHyperspacingShips(void)
     {
         ship = (Ship *)listGetStructOfNode(objnode);
         objnode = objnode->next;
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         if (allianceIsShipAlly(ship,universe.curPlayerPtr) && !(ship->flags & SOF_Disabled))
         {
@@ -1287,7 +1287,7 @@ bool OrientHyperspacingShips(void)
     Ship *mothership = universe.curPlayerPtr->PlayerMothership;
     udword shipsNotInHyperspaceRange = 0;
 
-    dbgAssert(mothership != NULL);
+    dbgAssertOrIgnore(mothership != NULL);
 
     matGetVectFromMatrixCol3(mothershipheading,mothership->rotinfo.coordsys);
 
@@ -1295,7 +1295,7 @@ bool OrientHyperspacingShips(void)
     while (objnode != NULL)
     {
         ship = (Ship *)listGetStructOfNode(objnode);
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         if (allianceIsShipAlly(ship,universe.curPlayerPtr) && !(ship->flags & SOF_Disabled))
         {
@@ -1390,13 +1390,13 @@ void CalculateArrivingTimesForShips()
     Node *node = singlePlayerGameInfo.ShipsInHyperspace.head;
     struct ShipSinglePlayerGameInfo *shipSinglePlayerGameInfo;
 
-    dbgAssert(node != NULL);
+    dbgAssertOrIgnore(node != NULL);
     while (node != NULL)
     {
         insideShip = (InsideShip *)listGetStructOfNode(node);
         ship = insideShip->ship;
         shipSinglePlayerGameInfo = ship->shipSinglePlayerGameInfo;
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         if ((ship->shiptype == Mothership) && (HYPERSPACE_MOTHERSHIP_ALWAYS_ARRIVES_FIRST))
         {
@@ -1416,7 +1416,7 @@ bool UpdateArrivingShip(Ship *ship,hvector *topoint,bool midLevel)
     ShipSinglePlayerGameInfo *shipSinglePlayerGameInfo = ship->shipSinglePlayerGameInfo;
     bool thisShipArrived = FALSE;
 
-    dbgAssert(shipSinglePlayerGameInfo);
+    dbgAssertOrIgnore(shipSinglePlayerGameInfo);
 
     ship->autostabilizeship = FALSE;        // ship is doing something, don't want to autostabilize
     ship->shipidle = FALSE;
@@ -1483,7 +1483,7 @@ bool UpdateArrivingShip(Ship *ship,hvector *topoint,bool midLevel)
                     //trans = universe.mainCameraCommand.transition;
                     //universe.mainCameraCommand.transition = CAMERA_SET;
 
-                    //dbgAssert(spSavedCameraYet);
+                    //dbgAssertOrIgnore(spSavedCameraYet);
                     //ccFocus(&universe.mainCameraCommand, &focusone);
                     //universe.mainCameraCommand.currentCameraStack->remembercam = spSavedCamera;
 
@@ -1606,12 +1606,12 @@ bool UpdateArrivingShips()
 
     GetStartPointPlayer(&startpoint);
 
-    dbgAssert(node != NULL);
+    dbgAssertOrIgnore(node != NULL);
     while (node != NULL)
     {
         insideShip = (InsideShip *)listGetStructOfNode(node);
         ship = insideShip->ship;
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         if (allianceIsShipAlly(ship,universe.curPlayerPtr))
         {
@@ -1630,12 +1630,12 @@ void GetShipsClampedToInHS(Ship *clampedto,GrowSelection *clampedships)
     Ship *ship;
     Node *node = singlePlayerGameInfo.ShipsInHyperspace.head;
 
-//    dbgAssert(node != NULL);
+//    dbgAssertOrIgnore(node != NULL);
     while (node != NULL)
     {
         insideShip = (InsideShip *)listGetStructOfNode(node);
         ship = insideShip->ship;
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         if (ship->clampInfo)
         {
@@ -1708,7 +1708,7 @@ void GetShipsClampedTo(Ship *clampedto,GrowSelection *clampedships)
     while (objnode != NULL)
     {
         ship = (Ship *)listGetStructOfNode(objnode);
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         if (ship->clampInfo)
         {
@@ -1887,9 +1887,9 @@ void singlePlayerInit(void)
 
     HYPERSPACE_DECELERATE_DIST = 0.5f * HYPERSPACE_DECELERATION * HYPERSPACE_DECELERATE_TIME*HYPERSPACE_DECELERATE_TIME;
     HYPERSPACE_DECELERATE_INITIAL_VEL = HYPERSPACE_DECELERATION * HYPERSPACE_DECELERATE_TIME;
-    dbgAssert(HYPERSPACE_DECELERATE_DIST < HYPERSPACE_FARCLIPPLANE);
+    dbgAssertOrIgnore(HYPERSPACE_DECELERATE_DIST < HYPERSPACE_FARCLIPPLANE);
     HYPERSPACE_WHIPTOWARDSDIST = HYPERSPACE_FARCLIPPLANE - HYPERSPACE_DECELERATE_DIST;
-    dbgAssert(HYPERSPACE_DECELERATE_INITIAL_VEL < HYPERSPACE_WHIP_VELOCITY);
+    dbgAssertOrIgnore(HYPERSPACE_DECELERATE_INITIAL_VEL < HYPERSPACE_WHIP_VELOCITY);
 }
 
 static udword spLockoutFlags = 0;
@@ -1963,7 +1963,7 @@ void spUnlockout()
 
 void spHyperspaceButtonPushed(void)
 {
-    dbgAssert(singlePlayerGame);
+    dbgAssertOrIgnore(singlePlayerGame);
 
     if (!singlePlayerGameInfo.playerCanHyperspace && !hyperspaceOverride)
     {
@@ -2022,7 +2022,7 @@ void singlePlayerPostInit(bool loadingSaveGame)
 
 void singlePlayerClose(void)
 {
-    //dbgAssert(hyperspacetbbutton);
+    //dbgAssertOrIgnore(hyperspacetbbutton);
     //tbButtonDelete(hyperspacetbbutton);
     tbButtonListRefresh();
 
@@ -2077,7 +2077,7 @@ void singlePlayerLevelLoaded(void)
         {
             ship = (Ship *)listGetStructOfNode(objnode);
             objnode = objnode->next;
-            dbgAssert(ship->objtype == OBJ_ShipType);
+            dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
             if ((ship->playerowner->playerIndex == 1) && (ship->shiptype == Carrier))
             {
@@ -2097,7 +2097,7 @@ void CleanupDamageEffects(void)
     {
         insideShip = (InsideShip*)listGetStructOfNode(node);
         ship = insideShip->ship;
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
         node = node->next;
 
         dmgForgetEffects(ship);
@@ -2106,7 +2106,7 @@ void CleanupDamageEffects(void)
 
 void CleanupHyperspacingShip(Ship *ship)
 {
-    dbgAssert(ship->shipSinglePlayerGameInfo);
+    dbgAssertOrIgnore(ship->shipSinglePlayerGameInfo);
     ship->shipSinglePlayerGameInfo->shipHyperspaceState = SHIPHYPERSPACE_NONE;
 }
 
@@ -2120,7 +2120,7 @@ void CleanupHyperspacingShipsThatDidntHyperspace()
     {
         ship = (Ship *)listGetStructOfNode(objnode);
         objnode = objnode->next;
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         if (allianceIsShipAlly(ship,universe.curPlayerPtr) && !(ship->flags & SOF_Disabled))
         {
@@ -2143,7 +2143,7 @@ void CleanupHyperspacingShips(bool FreeShips,bool cleanupAllPlayersShips)
     {
         insideShip = (InsideShip *)listGetStructOfNode(node);
         ship = insideShip->ship;
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
         deletenode = node;
         node = node->next;
 
@@ -2182,7 +2182,7 @@ void singlePlayerShipDied(Ship *ship)
         {
             insideShip = (InsideShip *)listGetStructOfNode(node);
             checkship = insideShip->ship;
-            dbgAssert(checkship->objtype == OBJ_ShipType);
+            dbgAssertOrIgnore(checkship->objtype == OBJ_ShipType);
 
             if (checkship == ship)
             {
@@ -2268,7 +2268,7 @@ void UpdateMidLevelHyperspacingShips()
         {
             insideShip = (InsideShip *)listGetStructOfNode(node);
             ship = insideShip->ship;
-            dbgAssert(ship->objtype == OBJ_ShipType);
+            dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
             nextnode = node->next;
 
             if ((ship->attributes & ATTRIBUTES_DeleteAfterHSOut) && (ship->flags & SOF_Hyperspace))
@@ -2636,7 +2636,7 @@ void DeleteAnyMidLevelHyperspacingShips()
     {
         insideShip = (InsideShip *)listGetStructOfNode(node);
         ship = insideShip->ship;
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
         nextnode = node->next;
 
         if (ship->shipSinglePlayerGameInfo->midlevelHyperspaceOut)
@@ -2667,7 +2667,7 @@ void singlePlayerLoadNewLevel(void)
     universe.players[0].PlayerMothership = mothership;
 
     // restart computer AI player
-    dbgAssert(universe.players[1].aiPlayer == NULL);
+    dbgAssertOrIgnore(universe.players[1].aiPlayer == NULL);
     universe.players[1].aiPlayer = aiCurrentAIPlayer = aiplayerInit(&universe.players[1],AI_ADVANCED);
     aiCurrentAIPlayer->primaryEnemyPlayer = &universe.players[0];
 
@@ -2748,7 +2748,7 @@ Ship *FindPlayersMothership(Player *player)
     while (objnode != NULL)
     {
         ship = (Ship *)listGetStructOfNode(objnode);
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         if (ship->playerowner == player)
         {
@@ -2777,7 +2777,7 @@ SelectCommand *GetAllPlayersShipsExceptMothership(Player *player)
     while (objnode != NULL)
     {
         ship = (Ship *)listGetStructOfNode(objnode);
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         if (ship->playerowner == player)
         {
@@ -2948,8 +2948,8 @@ KASWatchFunction IndexToWatchFunction(sdword index)
         return NULL;
     }
 
-    dbgAssert(index >= 0);
-    dbgAssert(index < NUMBER_SINGLEPLAYER_MISSIONS);
+    dbgAssertOrIgnore(index >= 0);
+    dbgAssertOrIgnore(index < NUMBER_SINGLEPLAYER_MISSIONS);
     return WatchFunctionAddress(index);
 }
 
@@ -3023,8 +3023,8 @@ const void** IndexToFunctionList(sdword index)
         return NULL;
     }
 
-    dbgAssert(index >= 0);
-    dbgAssert(index < NUMBER_SINGLEPLAYER_MISSIONS);
+    dbgAssertOrIgnore(index >= 0);
+    dbgAssertOrIgnore(index < NUMBER_SINGLEPLAYER_MISSIONS);
     return FunctionListAddress(index);
 }
 
@@ -3079,7 +3079,7 @@ void RotatePlayersFleetAbout(Player *player,vector about,real32 deg)
     while (objnode != NULL)
     {
         ship = (Ship *)listGetStructOfNode(objnode);
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         if (ship->playerowner == player)
         {
@@ -3112,7 +3112,7 @@ void FindShipsOfShipTypeOfPlayer(GrowSelection *growselect,ShipType shiptype,Pla
     for (node = universe.ShipList.head; node != NULL; node = node->next)
     {
         ship = (Ship *)listGetStructOfNode(node);
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         if ((ship->playerowner == player) && (ship->shiptype == shiptype))
         {
@@ -3134,7 +3134,7 @@ void singlePlayerNisStoppedCB(void)
             GrowSelection growselect;
 
             universe.curPlayerPtr->PlayerMothership = FindPlayersMothership(universe.curPlayerPtr);
-            dbgAssert(universe.curPlayerPtr->PlayerMothership != NULL);
+            dbgAssertOrIgnore(universe.curPlayerPtr->PlayerMothership != NULL);
 
             growSelectInit(&growselect);
             FindShipsOfShipTypeOfPlayer(&growselect,LightInterceptor,universe.curPlayerPtr);
@@ -3160,7 +3160,7 @@ void singlePlayerNisStoppedCB(void)
     }
     else
     {
-        dbgAssert(toupper(singlePlayerNISName[0]) == 'N');
+        dbgAssertOrIgnore(toupper(singlePlayerNISName[0]) == 'N');
         sprintf(bufferstr,"Nis%dComplete",singlePlayerNisNumber);
         var = aivarCreate(bufferstr);
         aivarValueSet(var, TRUE);
@@ -3197,8 +3197,8 @@ void singlePlayerNISNamesGet(char **nisname, char **scriptname, bool *centreMoth
 {
     singlePlayerNisNumber = nisNumber;
     nisNumber--;
-    dbgAssert(nisNumber >= 0);
-    dbgAssert(nisNumber < NUMBER_SINGLEPLAYER_NIS);
+    dbgAssertOrIgnore(nisNumber >= 0);
+    dbgAssertOrIgnore(nisNumber < NUMBER_SINGLEPLAYER_NIS);
 
     if (universe.players[0].race == R1)
     {
@@ -3234,10 +3234,10 @@ bool singlePlayerNISletNamesGet(char **nisname, char **scriptname, sdword nislet
     missionNumber = nisletNumber / 10;
     insertNumber = nisletNumber % 10;
     missionNumber--;
-    dbgAssert(missionNumber >= 0);
-    dbgAssert(missionNumber < NUMBER_SINGLEPLAYER_MISSIONS);
-    dbgAssert(insertNumber >= 0);
-    dbgAssert(insertNumber < NISLETS_PER_LEVEL);
+    dbgAssertOrIgnore(missionNumber >= 0);
+    dbgAssertOrIgnore(missionNumber < NUMBER_SINGLEPLAYER_MISSIONS);
+    dbgAssertOrIgnore(insertNumber >= 0);
+    dbgAssertOrIgnore(insertNumber < NISLETS_PER_LEVEL);
 #if NIS_PRINT_INFO
     if (nisletNames[missionNumber].name[insertNumber] == NULL)
     {
@@ -3376,7 +3376,7 @@ void singlePlayerStartNis(char *nisname, char *scriptname, bool centreMothership
         if (centreMothership)
         {
             centreShipFound = nisShipStartPosition(&motherVector, &motherMatrix, thisNisHeader, (ShipRace)-1, Mothership, -1);
-            dbgAssert(universe.curPlayerPtr->PlayerMothership != NULL);
+            dbgAssertOrIgnore(universe.curPlayerPtr->PlayerMothership != NULL);
             nisCentreShip = universe.curPlayerPtr->PlayerMothership;
         }
     }
@@ -3476,12 +3476,12 @@ void WarpFleetStrengthCB(char *directory,char *field,void *dataToFillIn)
     else
     {
         shiptype = GetAppropriateShipTypeForRace(shiptype,universe.players[0].race);
-        dbgAssert(shiptype != -1);
+        dbgAssertOrIgnore(shiptype != -1);
         shiprace = universe.players[0].race;
     }
 
     shipstatic = GetShipStaticInfo(shiptype,shiprace);
-    dbgAssert(bitTest(shipstatic->staticheader.infoFlags, IF_InfoLoaded));
+    dbgAssertOrIgnore(bitTest(shipstatic->staticheader.infoFlags, IF_InfoLoaded));
 
     spFleetStr += (GetStrengthOfShipStatic(shipstatic)*num);
 }
@@ -3515,7 +3515,7 @@ void WarpPreLoadCB(char *directory,char *field,void *dataToFillIn)
     else
     {
         shiptype = GetAppropriateShipTypeForRace(shiptype,universe.players[0].race);
-        dbgAssert(shiptype != -1);
+        dbgAssertOrIgnore(shiptype != -1);
         shiprace = universe.players[0].race;
     }
 
@@ -3563,11 +3563,11 @@ void SetWarpFleetCB(char *directory,char *field,void *dataToFillIn)
     else
     {
         shiptype = GetAppropriateShipTypeForRace(shiptype,universe.players[0].race);
-        dbgAssert(shiptype != -1);
+        dbgAssertOrIgnore(shiptype != -1);
         shiprace = universe.players[0].race;
     }
 
-    dbgAssert(universe.players[0].PlayerMothership);
+    dbgAssertOrIgnore(universe.players[0].PlayerMothership);
 
     for (i=0;i<num;i++)
     {
@@ -3685,7 +3685,7 @@ void singlePlayerStartGame(void)
 
     if (warpLevel)
     {
-        dbgAssert(singlePlayerGameInfo.currentMission == warpLevel);
+        dbgAssertOrIgnore(singlePlayerGameInfo.currentMission == warpLevel);
 
         universeSwitchToPlayer(0);
 
@@ -3923,7 +3923,7 @@ bool spFindCameraAttitude(vector *position)
 
 void SaveSinglePlayerGame(void)
 {
-    dbgAssert(singlePlayerGameLoadNewLevelFlag == FALSE);
+    dbgAssertOrIgnore(singlePlayerGameLoadNewLevelFlag == FALSE);
 
     SaveStructureOfSize(&singlePlayerGameInfo,sizeof(SinglePlayerGameInfo));
 

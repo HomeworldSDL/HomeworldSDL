@@ -89,7 +89,7 @@ static void lightPositionRead(char *directory,char *field,void *dataToFillIn)
     sdword nScanned;
     nScanned = sscanf(field, "%f,%f,%f,%f", &lightPosition.x, &lightPosition.y, &lightPosition.z, &lightPosition.w);
     memcpy(&lightDefaultLight.position, &lightPosition, 4*sizeof(real32));
-    dbgAssert(nScanned == 4);
+    dbgAssertOrIgnore(nScanned == 4);
 }
 
 static void lightTypeSet(char *directory,char *field,void *dataToFillIn)
@@ -114,12 +114,12 @@ static void lightPropertiesRead(char *directory,char *field,void *dataToFillIn)
     real32 red, green, blue;
     real32 *properties;
 
-    dbgAssert(currentLight != NULL);
+    dbgAssertOrIgnore(currentLight != NULL);
     nScanned = sscanf(field, "%f,%f,%f", &red, &green, &blue);
-    dbgAssert(nScanned == 3);
-    dbgAssert(red >= 0.0f && red <= 1.0f);
-    dbgAssert(green >= 0.0f && green <= 1.0f);
-    dbgAssert(blue >= 0.0f && blue <= 1.0f);
+    dbgAssertOrIgnore(nScanned == 3);
+    dbgAssertOrIgnore(red >= 0.0f && red <= 1.0f);
+    dbgAssertOrIgnore(green >= 0.0f && green <= 1.0f);
+    dbgAssertOrIgnore(blue >= 0.0f && blue <= 1.0f);
     properties = (real32 *)((ubyte *)currentLight + ((ubyte *)dataToFillIn - (ubyte *)(&lightDefaultLight)));
     properties[0] = red;
     properties[1] = green;
@@ -230,7 +230,7 @@ void lightDefaultLightSet(void)
 #if LIGHT_PLAYER_COLORS
 void lightPlayerColorLightSet(sdword playerIndex)
 {
-    dbgAssert(playerIndex >= 0 && playerIndex < MAX_MULTIPLAYER_PLAYERS);
+    dbgAssertOrIgnore(playerIndex >= 0 && playerIndex < MAX_MULTIPLAYER_PLAYERS);
     if (currentLight == &lightPlayerLight[playerIndex])
     {
         return;

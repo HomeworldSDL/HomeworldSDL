@@ -125,7 +125,7 @@ void memStatsTaskFunction(void)
                 if (memStatsCookieNames[index].name[0] != 0)
                 {                                           //if there is a name in this one
                     nPrinted = sprintf(memStatsCookieNames[index].outputString, "%s - %d (%d)", memStatsCookieNames[index].name, memStatsCookieNames[index].nAllocs, memStatsCookieNames[index].nTotalSize / memStatsCookieNames[index].nAllocs);
-                    dbgAssert(nPrinted < MS_OutputStringLength);
+                    dbgAssertOrIgnore(nPrinted < MS_OutputStringLength);
                 }
                 else
                 {                                           //no name, blank the string
@@ -199,7 +199,7 @@ sdword memStartup(void *heapStart, sdword heapSize, memgrowcallback grow)
         dbgFatal(DBG_Loc, "Memory module started more than once.");
 #endif //MEM_ERROR_CHECKING
 
-    dbgAssert(heapStart != NULL && heapSize > MEM_BlockSize * 20);
+    dbgAssertOrIgnore(heapStart != NULL && heapSize > MEM_BlockSize * 20);
 
 #if MEM_VERBOSE_LEVEL >= 2
     dbgMessagef("\nMemory module init.  Heap = 0x%x, Length = %d", heapStart, heapSize);
@@ -285,7 +285,7 @@ void memPoolReset(mempool *pool, void *heapStart, sdword heapSize, bool bSmallHe
     if (bSmallHeaps)
     {
 #if MEM_SMALL_BLOCK_HEAP
-        dbgAssert(sizeof(memcookie) == sizeof(mbhcookie));
+        dbgAssertOrIgnore(sizeof(memcookie) == sizeof(mbhcookie));
 
         //set up the small block allocation pools
         //first pass: allocate the heap header structures
@@ -298,14 +298,14 @@ void memPoolReset(mempool *pool, void *heapStart, sdword heapSize, bool bSmallHe
 #endif
             heap->blockSize = memSmallHeapInfo[index].blockSize;
             heap->nBlocks = (sdword)((real32)memSmallHeapInfo[index].nBlocks * (real32)heapSize / (real32)MEM_HeapSizeDefault);
-            dbgAssert(heap->nBlocks != 0);
+            dbgAssertOrIgnore(heap->nBlocks != 0);
             listInit(&heap->allocated);
             listInit(&heap->free);
             memSmallBlockHeapMaxSize = max(memSmallBlockHeapMaxSize, heap->blockSize);
 #if MEM_ERROR_CHECKING
             if (index > 0)
             {
-                dbgAssert(heap->blockSize >= memSmallHeapInfo[index - 1].blockSize);
+                dbgAssertOrIgnore(heap->blockSize >= memSmallHeapInfo[index - 1].blockSize);
             }
 #endif
 #if MEM_SMALLBLOCK_STATS
@@ -335,7 +335,7 @@ void memPoolReset(mempool *pool, void *heapStart, sdword heapSize, bool bSmallHe
     pool->first = pool->firstFree = (memcookie *)memRoundUp((udword)poolData);
     //get length of newly sized pool
     pool->heapLength = memRoundDown(pool->pool + pool->poolLength - (ubyte *)pool->first);
-    dbgAssert(pool->heapLength > 1);
+    dbgAssertOrIgnore(pool->heapLength > 1);
 
     //set pointer to end of pool
     pool->lastFree = pool->last = (memcookie *)((ubyte *)pool->first + pool->heapLength - sizeof(memcookie) * 2);
@@ -574,7 +574,7 @@ void memRename(void *pointer, char *newName)
     memInitCheck();
     cookie = (memcookie *)pointer;
     cookie--;                                               //get pointer to cookie
-    dbgAssert(!bitTest(cookie->flags, MBF_SmallBlockHeap)); //can't rename blocks from small block heap
+    dbgAssertOrIgnore(!bitTest(cookie->flags, MBF_SmallBlockHeap)); //can't rename blocks from small block heap
     memNameSet(cookie, newName);
     bitSet(cookie->flags, MBF_String);                      //prevent this block from going through volatility statistics
 }
@@ -665,9 +665,9 @@ void *memAllocFunctionSBH(sdword length, udword flags)
         {
             dbgFatalf(DBG_Loc, "Heap at 0x%x has invalid validation key of 0x%x", heap, heap->validation);
         }
-        dbgAssert(heap->allocated.num + heap->free.num == heap->nBlocks);
-        dbgAssert(heap->blockSize == info->blockSize);
-        //dbgAssert(heap->nBlocks == info->nBlocks);
+        dbgAssertOrIgnore(heap->allocated.num + heap->free.num == heap->nBlocks);
+        dbgAssertOrIgnore(heap->blockSize == info->blockSize);
+        //dbgAssertOrIgnore(heap->nBlocks == info->nBlocks);
 #endif
         if (info->blockSize >= length)
         {                                                   //if this heap has large enough blocks
@@ -686,7 +686,7 @@ void *memAllocFunctionSBH(sdword length, udword flags)
 #endif
                 memSBHGrowBy(heap, nNewCookies);
             }
-            dbgAssert(heap->free.num > 0);
+            dbgAssertOrIgnore(heap->free.num > 0);
             cookie = listGetStructOfNode(heap->free.tail);
             mbhCookieVerify(cookie);                        //validate this cookie
 
@@ -774,7 +774,7 @@ void *memAllocFunctionANV(sdword length, udword flags, mempool *pool)
                     nextCookie = (memcookie *)((ubyte *)cookie +//next cookie
                             sizeof(memcookie) + memBlocksToBytes(cookie->blocksNext));
                     memCookieVerify(nextCookie);            //make sure next cookie valid
-                    dbgAssert(nextCookie->blocksPrevious == nextCookie - cookie - 1);
+                    dbgAssertOrIgnore(nextCookie->blocksPrevious == nextCookie - cookie - 1);
                     nextCookie->blocksPrevious =            //next cookie has fewer
                         length / MEM_BlockSize;             //bytes previous to it
                     newCookie = (memcookie *)((ubyte *)nextCookie - sizeof(memcookie) - length);
@@ -846,7 +846,7 @@ void *memAllocFunctionANV(sdword length, udword flags, mempool *pool)
         {                                                   //if reached bottom of heap
             break;
         }
-        dbgAssert(memBlocksToBytes(cookie->blocksPrevious) >= 0 && memBlocksToBytes(cookie->blocksPrevious) < pool->heapLength);
+        dbgAssertOrIgnore(memBlocksToBytes(cookie->blocksPrevious) >= 0 && memBlocksToBytes(cookie->blocksPrevious) < pool->heapLength);
         cookie = (memcookie *)((ubyte *)cookie -            //next cookie
                             sizeof(memcookie) - memBlocksToBytes(cookie->blocksPrevious));
     }
@@ -924,7 +924,7 @@ void *memAllocFunctionA(sdword length, udword flags, mempool *pool)
 
     memInitCheck();
 
-    dbgAssert(length > 0/* && length < pool->heapLength*/);        //verify size is reasonable
+    dbgAssertOrIgnore(length > 0/* && length < pool->heapLength*/);        //verify size is reasonable
 
 #if MEM_VERBOSE_LEVEL >= 2
     dbgMessagef("\nmemAllocFunctionA: allocating %d bytes for '%s'", length, name);
@@ -986,7 +986,7 @@ void *memAllocFunctionA(sdword length, udword flags, mempool *pool)
                     nextCookie = (memcookie *)((ubyte *)cookie +//next cookie
                             sizeof(memcookie) + memBlocksToBytes(cookie->blocksNext));
                     memCookieVerify(nextCookie);            //make sure next cookie valid
-                    dbgAssert(nextCookie->blocksPrevious == nextCookie - cookie - 1);
+                    dbgAssertOrIgnore(nextCookie->blocksPrevious == nextCookie - cookie - 1);
                     nextCookie->blocksPrevious -=           //next cookie has fewer
                         length / MEM_BlockSize + 1;         //bytes previous to it
                     newCookie = (memcookie *)((ubyte *)cookie + sizeof(memcookie) + length);
@@ -1058,7 +1058,7 @@ noMoreFree:;
 #endif
         }
 
-        dbgAssert(memBlocksToBytes(cookie->blocksNext) >= 0 && memBlocksToBytes(cookie->blocksNext) < pool->heapLength);
+        dbgAssertOrIgnore(memBlocksToBytes(cookie->blocksNext) >= 0 && memBlocksToBytes(cookie->blocksNext) < pool->heapLength);
         cookie = (memcookie *)((ubyte *)cookie +            //next cookie
                             sizeof(memcookie) + memBlocksToBytes(cookie->blocksNext));
     }
@@ -1370,16 +1370,16 @@ void memFreeSBH(mbhcookie *cookie)
 {
     mbheap *heap;
 
-    dbgAssert(bitTest(cookie->flags, MBF_AllocatedNext));
+    dbgAssertOrIgnore(bitTest(cookie->flags, MBF_AllocatedNext));
     heap = (mbheap*)(((ubyte *)cookie->link.belongto) - MBH_AllocatedLinkOffset);
 #if MEM_ERROR_CHECKING
-    dbgAssert(heap->validation == MEM_HeapValidation);
+    dbgAssertOrIgnore(heap->validation == MEM_HeapValidation);
 #endif
     listRemoveNode(&cookie->link);
     listAddNode(&heap->free, &cookie->link, cookie);
     bitClear(cookie->flags, MBF_AllocatedNext);             //flag the cookie as free
     mbhNameSet(cookie, MEM_HeapFree);                       //name the cookie is free
-    dbgAssert(heap->free.num + heap->allocated.num == heap->nBlocks);
+    dbgAssertOrIgnore(heap->free.num + heap->allocated.num == heap->nBlocks);
 }
 #endif
 
@@ -1434,7 +1434,7 @@ void memFreeNV(memcookie *cookie, memcookie *nextCookie, mempool *pool)
     {                                                       //if there is a previous block
         previousCookie = (memcookie *)((ubyte *)cookie -    //get previous block
                                 sizeof(memcookie) - memBlocksToBytes(cookie->blocksPrevious));
-        dbgAssert(previousCookie >= pool->first);
+        dbgAssertOrIgnore(previousCookie >= pool->first);
         memCookieVerify(previousCookie);
         if (!bitTest(previousCookie->flags, MBF_AllocatedNext)) //if previous block also free
         {
@@ -1481,7 +1481,7 @@ void memFreeNV(memcookie *cookie, memcookie *nextCookie, mempool *pool)
     if (pool->lastFree <= cookie)
     {
         pool->lastFree = (memcookie *)((ubyte *)cookie + sizeof(memcookie) + memBlocksToBytes(cookie->blocksNext));
-        dbgAssert(pool->lastFree > pool->firstFree && pool->lastFree <= pool->last);
+        dbgAssertOrIgnore(pool->lastFree > pool->firstFree && pool->lastFree <= pool->last);
         memCookieVerify(pool->lastFree);
     }
 #if MEM_ANAL_CHECKING
@@ -1504,7 +1504,7 @@ void memFree(void *pointer)
     mempool *pool = &memMainPool;                            //what pool does this cookie belong to?
 
     memInitCheck();
-    dbgAssert(pointer != NULL);
+    dbgAssertOrIgnore(pointer != NULL);
     cookie = (memcookie *)pointer;
     cookie--;                                               //get pointer to cookie structure
 
@@ -1533,7 +1533,7 @@ foundPool:;
     if (bitTest(cookie->flags, MBF_SmallBlockHeap))
     {
         memVolatilityLog(cookie);
-        //dbgAssert(pointer >= memMainPool.pool && pointer <= memMainPool.last);//SBH allocations can only be in the main pool
+        //dbgAssertOrIgnore(pointer >= memMainPool.pool && pointer <= memMainPool.last);//SBH allocations can only be in the main pool
         memFreeSBH((mbhcookie *)cookie);
 #if MEM_ANAL_CHECKING
         memPoolAnalCheck(pool);
@@ -1577,8 +1577,8 @@ foundPool:;
 #endif //MEM_DETECT_VOLATILE
 
 #if MEM_ERROR_CHECKING
-    dbgAssert(cookie->blocksNext > 0);                      //ensure non-zero size
-    dbgAssert((ubyte *)cookie + sizeof(memcookie) + memBlocksToBytes(cookie->blocksNext) <= (ubyte *)pool->last);
+    dbgAssertOrIgnore(cookie->blocksNext > 0);                      //ensure non-zero size
+    dbgAssertOrIgnore((ubyte *)cookie + sizeof(memcookie) + memBlocksToBytes(cookie->blocksNext) <= (ubyte *)pool->last);
 #endif
 
 #if MEM_VERBOSE_LEVEL >= 2
@@ -1639,7 +1639,7 @@ foundPool:;
     {                                                       //if there is a previous block
         previousCookie = (memcookie *)((ubyte *)cookie -    //get previous block
                                 sizeof(memcookie) - memBlocksToBytes(cookie->blocksPrevious));
-        dbgAssert(previousCookie >= pool->first);
+        dbgAssertOrIgnore(previousCookie >= pool->first);
         memCookieVerify(previousCookie);
         if (!bitTest(previousCookie->flags, MBF_AllocatedNext)) //if previous block also free
         {
@@ -1686,7 +1686,7 @@ foundPool:;
     {
         pool->firstFree = cookie;
     }
-    dbgAssert(pool->lastFree > pool->firstFree && pool->lastFree <= pool->last);
+    dbgAssertOrIgnore(pool->lastFree > pool->firstFree && pool->lastFree <= pool->last);
 #if MEM_ANAL_CHECKING
     memPoolAnalCheck(pool);
 #endif
@@ -1971,7 +1971,7 @@ void memAnalysisCreateForPool(mempool *pool, FILE *fpAnalysis, FILE *fpMap)
     {
         for (index = 0, heap = (mbheap *)pool->pool; memSmallHeapInfo[index].blockSize > 0; index++, heap++)
         {                                                   //for all heaps
-            //dbgAssert(heap->nBlocks == memSmallHeapInfo[index].nBlocks);
+            //dbgAssertOrIgnore(heap->nBlocks == memSmallHeapInfo[index].nBlocks);
             fprintf(fpAnalysis, "Heap 0x%x, length = %d\n", (size_t)heap, heap->nBlocks * heap->blockSize);
 #if MEM_SMALLBLOCK_STATS
             if (heap->nAllocationAttempts == 0)

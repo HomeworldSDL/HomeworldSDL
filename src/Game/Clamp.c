@@ -59,7 +59,7 @@ void clampObjToObj(SpaceObjRotImpTargGuidance *obj,SpaceObjRotImpTargGuidance *d
 void unClampObj(SpaceObjRotImpTargGuidance *obj)
 {
 //#ifdef DEBUG_CLAMPING
-//    dbgAssert(obj->clampInfo != NULL);
+//    dbgAssertOrIgnore(obj->clampInfo != NULL);
 //#endif
     if (obj->clampInfo != NULL)
     {
@@ -81,7 +81,7 @@ void updateClampedObject(SpaceObjRotImpTargGuidance *obj)
     vector tmpvec;
 
 #ifdef DEBUG_CLAMPING
-    dbgAssert(obj->clampInfo != NULL);
+    dbgAssertOrIgnore(obj->clampInfo != NULL);
 #endif
 
     //Update slave finally

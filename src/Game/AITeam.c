@@ -204,7 +204,7 @@ void aitDeleteAllTeamMoves(AITeam *team)
         listDeleteNode(node);
         node = nextnode;
     }
-    dbgAssert(team->moves.num == 0);
+    dbgAssertOrIgnore(team->moves.num == 0);
 
     team->curMove = NULL;
 }
@@ -331,7 +331,7 @@ void aitDestroy(struct AIPlayer *aiplayer, AITeam *team, bool removeAllReference
     }
 
     //make sure we found the array slot
-    dbgAssert(foundteam != -1);
+    dbgAssertOrIgnore(foundteam != -1);
 
      //if there are still ship in the team, put them back in the newships list
     if (removeAllReferencesToTeam && team->shipList.selection && team->shipList.selection->numShips)
@@ -608,7 +608,7 @@ void aitCheckShips(AITeam *team, ShipPtr ship)
     {
         if ((aiCurrentAIPlayer->teams[i] != team) && ShipInSelection(aiCurrentAIPlayer->teams[i]->shipList.selection, ship))
         {
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
         }
     }
 }
@@ -623,8 +623,8 @@ void aitCheckShips(AITeam *team, ShipPtr ship)
 ----------------------------------------------------------------------------*/
 void aitMoveSwarmShipDefenseToAttack(AITeam *attackSwarm, AITeam *defenseSwarm, ShipPtr ship)
 {
-    dbgAssert(ship->playerowner->playerIndex);
-    dbgAssert(ship->objtype == OBJ_ShipType);
+    dbgAssertOrIgnore(ship->playerowner->playerIndex);
+    dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
     growSelectAddShip(&attackSwarm->shipList, ship);
 
@@ -653,8 +653,8 @@ void aitMoveAllSwarmShipsAttackToDefense(AITeam *attackSwarm, AITeam *defenseSwa
     {
         ship = attackSwarm->shipList.selection->ShipPtr[0];
 
-        dbgAssert(ship->playerowner->playerIndex);
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->playerowner->playerIndex);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         //add the ship to the defense swarm's shiplist
         growSelectAddShip(&defenseSwarm->shipList, ship);
@@ -689,8 +689,8 @@ void aitMoveAllSwarmShipsDefenseToAttack(AITeam *defenseSwarm, AITeam *attackSwa
     {
         ship = defenseSwarm->shipList.selection->ShipPtr[0];
 
-        dbgAssert(ship->playerowner->playerIndex);
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->playerowner->playerIndex);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         //add the ship to the defense swarm's shiplist
         growSelectAddShip(&attackSwarm->shipList, ship);
@@ -731,8 +731,8 @@ void aitMoveAllSwarmShipsDefense(AITeam *destTeam, AITeam *sourceTeam)
     {
         ship = sourceTeam->shipList.selection->ShipPtr[0];
 
-        dbgAssert(ship->playerowner->playerIndex);
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->playerowner->playerIndex);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         growSelectAddShip(&destTeam->shipList, ship);
         growSelectAddShip(&destTeam->curMove->params.swarmdef.newSwarmers, ship);
@@ -760,8 +760,8 @@ void aitMoveAllSwarmShipsAttack(AITeam *destTeam, AITeam *sourceTeam)
     {
         ship = sourceTeam->shipList.selection->ShipPtr[0];
 
-        dbgAssert(ship->playerowner->playerIndex);
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->playerowner->playerIndex);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         growSelectAddShip(&destTeam->shipList, ship);
         growSelectAddShip(&destTeam->curMove->params.swarmatt.newSwarmers, ship);
@@ -1051,7 +1051,7 @@ void aitOptimizeGravWellGenerator(AITeam *team)
         if (!(aitTeamShipClassIs(CLASS_Frigate, coopTeam) || aitTeamShipClassIs(CLASS_Carrier, coopTeam) ||
               aitTeamShipClassIs(CLASS_Destroyer, coopTeam) || aitTeamShipClassIs(CLASS_HeavyCruiser, coopTeam)))
         {
-//            dbgAssert(TRUE);
+//            dbgAssertOrIgnore(TRUE);
             //find a new team to guard
         }
     }
@@ -1063,7 +1063,7 @@ void aitOptimizeGravWellGenerator(AITeam *team)
 
     guardMove = aitFindMoveOfType(team, MOVE_GUARDCOOPTEAM);
 
-    dbgAssert(guardMove!=NULL);
+    dbgAssertOrIgnore(guardMove!=NULL);
 
     aieHandlerSetEnemyNearby(guardMove,
                              (((GravWellGeneratorStatics *) ((ShipStaticInfo *)(team->shipList.selection->ShipPtr[0]->staticinfo))->custstatinfo)->GravWellRadius)*0.8,
@@ -1091,7 +1091,7 @@ void aitOptimizeCloakGenerator(AITeam *team)
 
     if (!(aitTeamShipClassIs(CLASS_Frigate, coopTeam) || aitTeamShipTypeIs(ResourceCollector, coopTeam)))
     {
-        dbgAssert(TRUE);
+        dbgAssertOrIgnore(TRUE);
         //find a new team to guard
     }
 
@@ -1160,7 +1160,7 @@ void aitProcessSpecialTeam(AITeam *team, AITeamMove *curMove)
             }
             else
             {
-                dbgAssert(TRUE);
+                dbgAssertOrIgnore(TRUE);
             }
         }
     }
@@ -1488,7 +1488,7 @@ bool aitTeamIsFinishedMoving(AITeam *team, vector destination, real32 range)
 ----------------------------------------------------------------------------*/
 bool aitTeamIsDoingSpecialOp(AITeam *team)
 {
-//    dbgAssert(aitTeamShipTypeIs(MinelayerCorvette, team));
+//    dbgAssertOrIgnore(aitTeamShipTypeIs(MinelayerCorvette, team));
 
     if (team->shipList.selection->numShips &&
         team->shipList.selection->ShipPtr[0]->command &&
@@ -1692,7 +1692,7 @@ void aitMakeTeamSupportShips(AITeam *team, SelectCommand *ships)
     {
         return;
     }
-    dbgAssert(move->type == MOVE_SUPPORT);
+    dbgAssertOrIgnore(move->type == MOVE_SUPPORT);
 
     aiumemFree(move->params.support.ships);
 
@@ -1871,7 +1871,7 @@ AITeam *aitFindMostValuable(udword valueness)
     AITeam *valueArray[10];
     udword i, j, k;
 
-    dbgAssert(valueness <= 10);
+    dbgAssertOrIgnore(valueness <= 10);
 
     for (i=0;i<10;i++)
     {
@@ -2091,7 +2091,7 @@ AITeam *aitFindGoodCoopTeam(ShipType type)
             return aitFindGravWellGeneratorCoopTeam();
             break;
         default:
-//            dbgAssert(FALSE);
+//            dbgAssertOrIgnore(FALSE);
             break;
     }
     return NULL;
@@ -2131,7 +2131,7 @@ void aitExecute(void)
             if (team->moves.num > 0)
             {
                 team->curMove = (AITeamMove *)listGetStructOfNode(team->moves.head);
-                dbgAssert(team->curMove);
+                dbgAssertOrIgnore(team->curMove);
             }
             else
                 continue;
@@ -2392,9 +2392,9 @@ void SaveMoveCB(void *stuff)
     chunk = CreateChunk(BASIC_STRUCTURE|AITEAMMOVE,sizeof(AITeamMove),move);
     sc = chunkContents(chunk);
 
-    dbgAssert(move->type < NUMBER_OF_MOVETYPES);
+    dbgAssertOrIgnore(move->type < NUMBER_OF_MOVETYPES);
     movetypefunctable = &theSaveMoveTypeFuncTable[move->type];
-    dbgAssert(move->type == movetypefunctable->movetype);
+    dbgAssertOrIgnore(move->type == movetypefunctable->movetype);
 
     if (movetypefunctable->preFixMove)
     {
@@ -2409,7 +2409,7 @@ void SaveMoveCB(void *stuff)
 
     if (movetypefunctable->saveMove)
     {
-        dbgAssert(movetypefunctable->loadMove);     // should have corresponding load function
+        dbgAssertOrIgnore(movetypefunctable->loadMove);     // should have corresponding load function
         movetypefunctable->saveMove(move);
     }
 #undef move
@@ -2420,9 +2420,9 @@ void FixMoveCB(void *stuff)
 #define move ((AITeamMove *)stuff)
     SaveMoveTypeFuncTable *movetypefunctable;
 
-    dbgAssert(move->type < NUMBER_OF_MOVETYPES);
+    dbgAssertOrIgnore(move->type < NUMBER_OF_MOVETYPES);
     movetypefunctable = &theSaveMoveTypeFuncTable[move->type];
-    dbgAssert(move->type == movetypefunctable->movetype);
+    dbgAssertOrIgnore(move->type == movetypefunctable->movetype);
 
     if (movetypefunctable->fixMove)
     {
@@ -2446,9 +2446,9 @@ void LoadMoveCB(LinkedList *list)
 
     memFree(chunk);
 
-    dbgAssert(move->type < NUMBER_OF_MOVETYPES);
+    dbgAssertOrIgnore(move->type < NUMBER_OF_MOVETYPES);
     movetypefunctable = &theSaveMoveTypeFuncTable[move->type];
-    dbgAssert(move->type == movetypefunctable->movetype);
+    dbgAssertOrIgnore(move->type == movetypefunctable->movetype);
 
     if (movetypefunctable->loadMove)
     {
@@ -2509,8 +2509,8 @@ void SaveThisAITeam(AITeam *team)
     sc->aiplayerowner = AIPlayerToNumber(team->aiplayerowner);
 
     sc->curMove = ConvertPointerInListToNum(&team->moves,team->curMove);
-    dbgAssert(team->custTeamInfo == NULL);      // not supported yet, will not support if no one uses it, fix later
-    dbgAssert(team->TeamDiedCB == NULL);        // not supported yet, will not support if no one uses it, fix later
+    dbgAssertOrIgnore(team->custTeamInfo == NULL);      // not supported yet, will not support if no one uses it, fix later
+    dbgAssertOrIgnore(team->TeamDiedCB == NULL);        // not supported yet, will not support if no one uses it, fix later
     PreFixCooperatingTeamDiedCB(sc);
 
     sc->cooperatingTeam = AITeamToTeamIndex(team->cooperatingTeam);

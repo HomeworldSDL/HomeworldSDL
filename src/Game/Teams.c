@@ -82,12 +82,12 @@ void teTrailColorSet(char *directory,char *field,void *dataToFillIn)
     sdword iPlayer, iPoint, red, green, blue, nScanned;
 
     nScanned = sscanf(field, "%d,%d,%d,%d,%d", &iPlayer, &iPoint, &red, &green, &blue);
-    dbgAssert(nScanned == 5);
-    dbgAssert(iPlayer >= 0 && iPlayer < TE_NumberPlayers);
-    dbgAssert(iPoint >= 0 && iPoint < TE_NumberTrailColors);
-    dbgAssert(red >= 0 && red < 256);
-    dbgAssert(green >= 0 && green < 256);
-    dbgAssert(blue >= 0 && blue < 256);
+    dbgAssertOrIgnore(nScanned == 5);
+    dbgAssertOrIgnore(iPlayer >= 0 && iPlayer < TE_NumberPlayers);
+    dbgAssertOrIgnore(iPoint >= 0 && iPoint < TE_NumberTrailColors);
+    dbgAssertOrIgnore(red >= 0 && red < 256);
+    dbgAssertOrIgnore(green >= 0 && green < 256);
+    dbgAssertOrIgnore(blue >= 0 && blue < 256);
     teColorSchemes[iPlayer].trailColors[iPoint] = colRGB(red, green, blue);
 }
 
@@ -104,11 +104,11 @@ void teColorSet(char *directory,char *field,void *dataToFillIn)
     color *dest;
 
     nScanned = sscanf(field, "%d,%d,%d,%d", &iPlayer, &red, &green, &blue);
-    dbgAssert(nScanned == 4);
-    dbgAssert(iPlayer >= 0 && iPlayer < TE_NumberPlayers);
-    dbgAssert(red >= 0 && red < 256);
-    dbgAssert(green >= 0 && green < 256);
-    dbgAssert(blue >= 0 && blue < 256);
+    dbgAssertOrIgnore(nScanned == 4);
+    dbgAssertOrIgnore(iPlayer >= 0 && iPlayer < TE_NumberPlayers);
+    dbgAssertOrIgnore(red >= 0 && red < 256);
+    dbgAssertOrIgnore(green >= 0 && green < 256);
+    dbgAssertOrIgnore(blue >= 0 && blue < 256);
     dest = (color *)(((ubyte*)(&teColorSchemes[iPlayer])) +
                       (udword)dataToFillIn - (udword)(&teColorSchemes));
 //    teColorSchemes[iPlayer].tacticalColor = colRGB(red, green, blue);
@@ -131,12 +131,12 @@ void teColorFactorsSet(char *directory,char *field,void *dataToFillIn)
     trhlscolorize *colorize;
 
     colorize = (trhlscolorize *)dataToFillIn;
-    dbgAssert(colorize != NULL);
+    dbgAssertOrIgnore(colorize != NULL);
     nScanned = sscanf(field, "%f,%f,%f", &hue, &lum, &sat);
-    dbgAssert(nScanned == 3);
-    dbgAssert(hue >= 0.0f && hue <= 1.0f);
-    dbgAssert(lum >= 0.0f && lum <= 4.0f);
-    dbgAssert(sat >= 0.0f && sat <= 4.0f);
+    dbgAssertOrIgnore(nScanned == 3);
+    dbgAssertOrIgnore(hue >= 0.0f && hue <= 1.0f);
+    dbgAssertOrIgnore(lum >= 0.0f && lum <= 4.0f);
+    dbgAssertOrIgnore(sat >= 0.0f && sat <= 4.0f);
     colorize->hue = hue;
     colorize->lum = lum;
     colorize->sat = sat;
@@ -230,7 +230,7 @@ void teTeamColorsSet(sdword iTeam, color baseColor, color stripeColor)
     sdword index;
     real32 red, green, blue, hue, sat, val;
 
-    dbgAssert(iTeam >= 0 && iTeam < TE_NumberPlayers);
+    dbgAssertOrIgnore(iTeam >= 0 && iTeam < TE_NumberPlayers);
 
     if (multiPlayerGame)
     {                                                       //if somebody in a multiplayer game

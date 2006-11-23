@@ -209,8 +209,8 @@ static void scriptAIShipPrecalculate(char *directory,char *field,void *dataToFil
     oneOverDESCEND_PITCH4_DIST = 1.0f / DESCEND_PITCH4_DIST;
     oneOverDESCEND_3_MINUS_4_DIST = 1.0f / (DESCEND_PITCH3_DIST - DESCEND_PITCH4_DIST);
     oneOverDESCEND_2_MINUS_3_DIST = 1.0f / (DESCEND_PITCH2_DIST - DESCEND_PITCH3_DIST);
-    dbgAssert(oneOverDESCEND_3_MINUS_4_DIST > 0.0f);
-    dbgAssert(oneOverDESCEND_2_MINUS_3_DIST > 0.0f);
+    dbgAssertOrIgnore(oneOverDESCEND_3_MINUS_4_DIST > 0.0f);
+    dbgAssertOrIgnore(oneOverDESCEND_2_MINUS_3_DIST > 0.0f);
     NEG_AVOID_MIN_VEL = -AVOID_MIN_VEL;
 }
 
@@ -644,7 +644,7 @@ bool rowOriginalPointIsClear(Ship *ship)
     vector meToShip;
     vector meDirOfTravel;
 
-    dbgAssert(ship->specialFlags & SPECIAL_rowGettingOutOfWay);
+    dbgAssertOrIgnore(ship->specialFlags & SPECIAL_rowGettingOutOfWay);
 
     avoidme = ship->rowGetOutOfWay;
     if (avoidme == NULL)
@@ -690,7 +690,7 @@ bool rowOriginalPointIsClear(Ship *ship)
 ----------------------------------------------------------------------------*/
 void rowFlyShipOutOfWay(Ship *ship)
 {
-    dbgAssert(ship->specialFlags & SPECIAL_rowGettingOutOfWay);
+    dbgAssertOrIgnore(ship->specialFlags & SPECIAL_rowGettingOutOfWay);
 
     //bitClear(ship->dontrotateever,2);
     bitClear(ship->dontapplyforceever,2);
@@ -745,7 +745,7 @@ void rowFlyShipOutOfWay(Ship *ship)
             break;
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             break;
     }
 
@@ -876,8 +876,8 @@ void rowSignalLeaderInFormationToGetOutOfWayOfMe(Ship *ship,Ship *me,vector *meT
     //sdword i;
     Ship *shipi;
 
-    dbgAssert(selection);
-    dbgAssert(selection->numShips > 0);
+    dbgAssertOrIgnore(selection);
+    dbgAssertOrIgnore(selection->numShips > 0);
     //numShips = selection->numShips;
 
     shipi = selection->ShipPtr[0];
@@ -1037,7 +1037,7 @@ udword aishipFlyToPointAvoidingObjsFunc(Ship *ship,vector *destination,udword ai
         #if DEBUG_AISHIP
                  dbgMessagef("\nOrienting ship for flight");
         #endif
-                dbgAssert(destination);     // must have destination for AISHIP_FirstPointInDirectionFlying or AISHIP_CarTurn to have any meaning
+                dbgAssertOrIgnore(destination);     // must have destination for AISHIP_FirstPointInDirectionFlying or AISHIP_CarTurn to have any meaning
                 vecSub(targetVec,*destination,ship->posinfo.position);
 
                 vecNormalize(&targetVec);
@@ -1193,7 +1193,7 @@ passagain:
             if (pass == 0)
             {
                 targetsAvoid = thisBlob->blobSmallTargets;
-                dbgAssert(targetsAvoid);
+                dbgAssertOrIgnore(targetsAvoid);
                 numTargets = targetsAvoid->numTargets;
                 if (numTargets == 0)
                 {
@@ -1221,14 +1221,14 @@ passagain:
                     }
                 }
 
-                dbgAssert(objindex >= 0);
-                dbgAssert(objindex < numTargets);
+                dbgAssertOrIgnore(objindex >= 0);
+                dbgAssertOrIgnore(objindex < numTargets);
             }
             else
             {
-                dbgAssert(pass == 1);
+                dbgAssertOrIgnore(pass == 1);
                 targetsAvoid = thisBlob->blobBigTargets;
-                dbgAssert(targetsAvoid);
+                dbgAssertOrIgnore(targetsAvoid);
                 numTargets = targetsAvoid->numTargets;
                 if (numTargets == 0)
                 {
@@ -1803,7 +1803,7 @@ noavoid:
 =============================================================================*/
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             aishipStatsClose();
             PTEND(2);
             return 0;
@@ -2329,7 +2329,7 @@ bool aishipGuideMine(Missile *mine)
         return FALSE;
     }
 
-    dbgAssert(mine->missileType == MISSILE_Mine);
+    dbgAssertOrIgnore(mine->missileType == MISSILE_Mine);
 
     if (mine->target)
     {
@@ -2419,7 +2419,7 @@ bool aishipGuideMine(Missile *mine)
         }
         break;
     default:
-        dbgAssert(FALSE);
+        dbgAssertOrIgnore(FALSE);
         break;
     }
 

@@ -188,7 +188,7 @@ void selRectDragFunction(Node *startNode, Camera *camera, rectangle *screenRect,
     sdword index, base;
     real32 dragMargin = primScreenToGLScaleX(selDragMargin);
 
-    dbgAssert(camera != NULL);                              //verify parameters
+    dbgAssertOrIgnore(camera != NULL);                              //verify parameters
 
     *destCount = 0;                                         //start off with nothing selected
 
@@ -334,7 +334,7 @@ void selRectDragFunction(Node *startNode, Camera *camera, rectangle *screenRect,
         }
         if (areaUnion / areaTotal >= selBandBoxInsideIn)
         {                                           //if enough of target inside selection box
-//            dbgAssert(*destCount < COMMAND_MAX_SHIPS);
+//            dbgAssertOrIgnore(*destCount < COMMAND_MAX_SHIPS);
             if (*destCount < COMMAND_MAX_SHIPS)
             {
                 destList[*destCount] = target;            //add it to selected list
@@ -424,7 +424,7 @@ sdword selShipInSelection(ShipPtr *shipList, sdword nShips, ShipPtr ship)
 ----------------------------------------------------------------------------*/
 void selSelectionSetSingleShip(Ship *ship)
 {
-    dbgAssert(ship->playerowner == universe.curPlayerPtr);
+    dbgAssertOrIgnore(ship->playerowner == universe.curPlayerPtr);
     selSelected.numShips = 1;
     selSelected.ShipPtr[0] = ship;
     selCentrePoint = ship->posinfo.position;
@@ -441,10 +441,10 @@ void selSelectionAddSingleShip(MaxSelection *dest, Ship *ship)
 {
     sdword index;
 
-//    dbgAssert(dest->numShips < COMMAND_MAX_SHIPS - 1);
+//    dbgAssertOrIgnore(dest->numShips < COMMAND_MAX_SHIPS - 1);
     if (dest->numShips >= COMMAND_MAX_SHIPS)
     {
-        dbgAssert(dest->numShips <= COMMAND_MAX_SHIPS);
+        dbgAssertOrIgnore(dest->numShips <= COMMAND_MAX_SHIPS);
         dbgMessage("\nWarning: Tried to add to many ships to selection");
         return;
     }
@@ -510,7 +510,7 @@ Ship *selSelectionClick(Node *listHead, Camera *camera, sdword x, sdword y, bool
     real32 xReal, yReal;
     real32 p0, p1, p2, p3;
 
-    dbgAssert(camera != NULL);                              //verify parameters
+    dbgAssertOrIgnore(camera != NULL);                              //verify parameters
 
     //this system can later be optimised by only walking through sorted porions
     //of the object list.  However, for now we will walk the entire list.
@@ -2118,14 +2118,14 @@ void selSelectedDraw(void)
     for (index = 0; index < selSelected.numShips; index++)
     {
         ship = selSelected.ShipPtr[index];
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         if (univSpaceObjInRenderList((SpaceObj *)ship))
         {
             if (ship->collInfo.selCircleRadius > 0.0f)
             {
                 currentLOD = ship->currentLOD;
-                dbgAssert(currentLOD < SEL_NumberLOD);
+                dbgAssertOrIgnore(currentLOD < SEL_NumberLOD);
                 if ((ship->shiptype == Mothership) && (currentLOD > 0))
                 {
                     currentLOD--;
@@ -2224,7 +2224,7 @@ vector selCentrePointComputeGeneral(MaxSelection *selection, real32 *average_siz
     for (index = 0; index < selection->numShips; index++)
     {
         ship = selection->ShipPtr[index];
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         minVector.x = min(minVector.x, ship->posinfo.position.x);
         minVector.y = min(minVector.y, ship->posinfo.position.y);
@@ -2280,7 +2280,7 @@ sdword selSelectionCopy(MaxAnySelection *dest, MaxAnySelection *source)
     sourceP = source->TargetPtr;                            //pointers to the base of lists
     destP =   dest->TargetPtr;
 
-    dbgAssert(source->numTargets < COMMAND_MAX_SHIPS);
+    dbgAssertOrIgnore(source->numTargets < COMMAND_MAX_SHIPS);
 
     for (index = source->numTargets; index > 0; index--)
     {                                                       //for each ship in source
@@ -2356,13 +2356,13 @@ sdword selSelectionCopyByClass(MaxSelection *dest, MaxSelection *source, ShipCla
     sourceP = source->ShipPtr;                              //pointers to the base of lists
     destP =   dest->ShipPtr;
 
-    dbgAssert(source->numShips < COMMAND_MAX_SHIPS);
+    dbgAssertOrIgnore(source->numShips < COMMAND_MAX_SHIPS);
 
     dest->numShips = 0;
 
     for (index = source->numShips; index > 0; index--)
     {                                                       //for each ship in source
-        dbgAssert((*sourceP)->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore((*sourceP)->objtype == OBJ_ShipType);
         if ((*sourceP)->staticinfo->shipclass == classMask)
         {                                                   //if classes match
             *destP = *sourceP;                              //copy a single ShipPtr
@@ -2392,13 +2392,13 @@ sdword selSelectionCopyByType(MaxSelection *dest, MaxSelection *source, ShipType
     sourceP = source->ShipPtr;                              //pointers to the base of lists
     destP =   dest->ShipPtr;
 
-    dbgAssert(source->numShips < COMMAND_MAX_SHIPS);
+    dbgAssertOrIgnore(source->numShips < COMMAND_MAX_SHIPS);
 
     dest->numShips = 0;
 
     for (index = source->numShips; index > 0; index--)
     {                                                       //for each ship in source
-        dbgAssert((*sourceP)->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore((*sourceP)->objtype == OBJ_ShipType);
         if ((*sourceP)->shiptype == typeMask)
         {                                                   //if classes match
             *destP = *sourceP;                              //copy a single ShipPtr
@@ -2445,8 +2445,8 @@ sdword selSelectionCompare(MaxAnySelection *s0, MaxAnySelection *s1)
     sourceP = s0->TargetPtr;                               //pointers to the base of lists
     destP =   s1->TargetPtr;
 
-    dbgAssert(s0->numTargets < COMMAND_MAX_SHIPS);
-    dbgAssert(s1->numTargets < COMMAND_MAX_SHIPS);
+    dbgAssertOrIgnore(s0->numTargets < COMMAND_MAX_SHIPS);
+    dbgAssertOrIgnore(s1->numTargets < COMMAND_MAX_SHIPS);
 
     qsort(s0->TargetPtr, s0->numTargets, sizeof(TargetPtr), selSortCompare);
     qsort(s1->TargetPtr, s1->numTargets, sizeof(TargetPtr), selSortCompare);
@@ -2650,16 +2650,16 @@ void selHotKeyGroupsVerify(void)
     {                                                       //for all hot-key groups
         for (j = 0; j < selHotKeyGroup[index].numShips; j++)
         {
-            dbgAssert(selHotKeyGroup[index].ShipPtr[j]->objtype == OBJ_ShipType);
+            dbgAssertOrIgnore(selHotKeyGroup[index].ShipPtr[j]->objtype == OBJ_ShipType);
             if (selAnyHotKeyTest(selHotKeyGroup[index].ShipPtr[j]))
             {
-                dbgAssert(selHotKeyGroupNumberTest(selHotKeyGroup[index].ShipPtr[j]) != SEL_InvalidHotKey);
-                dbgAssert(selHotKeyTest(selHotKeyGroup[index].ShipPtr[j], index));
-                dbgAssert(selHotKeyTest(selHotKeyGroup[index].ShipPtr[j], selHotKeyGroupNumberTest(selHotKeyGroup[index].ShipPtr[j])));
+                dbgAssertOrIgnore(selHotKeyGroupNumberTest(selHotKeyGroup[index].ShipPtr[j]) != SEL_InvalidHotKey);
+                dbgAssertOrIgnore(selHotKeyTest(selHotKeyGroup[index].ShipPtr[j], index));
+                dbgAssertOrIgnore(selHotKeyTest(selHotKeyGroup[index].ShipPtr[j], selHotKeyGroupNumberTest(selHotKeyGroup[index].ShipPtr[j])));
             }
             else
             {
-                dbgAssert(selHotKeyGroupNumberTest(selHotKeyGroup[index].ShipPtr[j]) == SEL_InvalidHotKey);
+                dbgAssertOrIgnore(selHotKeyGroupNumberTest(selHotKeyGroup[index].ShipPtr[j]) == SEL_InvalidHotKey);
             }
         }
     }

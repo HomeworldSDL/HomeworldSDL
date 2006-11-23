@@ -912,29 +912,29 @@ void etgSetBigDeathFactor(char *directory,char *field,void *dataToFillIn)
     sdword nScanned;
 
     param = strtok(field, ETG_TokenDelimiters);
-    dbgAssert(param);
+    dbgAssertOrIgnore(param);
     racerX = StrToShipRace(field);
 
     if (racerX == -1)
     {                                                       //if we could not parse a race, it may be a derelict type
         typist = StrToDerelictType(param);
-        dbgAssert(typist >= 0 && typist < NUM_DERELICTTYPES);
+        dbgAssertOrIgnore(typist >= 0 && typist < NUM_DERELICTTYPES);
         whereToScan = &etgBigDeathFactorDerelict[typist];
         goto scanTheFactor;
     }
 
-    dbgAssert(racerX >= 0 && racerX < NUM_RACES);
+    dbgAssertOrIgnore(racerX >= 0 && racerX < NUM_RACES);
     param = strtok(NULL, ETG_TokenDelimiters);                           //get the second parameter (class)
-    dbgAssert(param);
+    dbgAssertOrIgnore(param);
     classy = StrToShipClass(param);
-    dbgAssert(classy >= CLASS_Mothership && classy < NUM_CLASSES);
+    dbgAssertOrIgnore(classy >= CLASS_Mothership && classy < NUM_CLASSES);
     whereToScan = &etgBigDeathFactor[racerX][classy];
 
 scanTheFactor:
     param = strtok(NULL, ETG_TokenDelimiters);
-    dbgAssert(param);
+    dbgAssertOrIgnore(param);
     nScanned = sscanf(param, "%d", whereToScan);
-    dbgAssert(nScanned == 1);
+    dbgAssertOrIgnore(nScanned == 1);
 }
 
 /*-----------------------------------------------------------------------------
@@ -947,7 +947,7 @@ scanTheFactor:
 void etgNumberEffectsParse(char *directory,char *field,void *dataToFillIn)
 {
     scriptSetSdwordCB(directory, field, &etgNumberEffectsExpected);
-    dbgAssert(etgNumberEffectsExpected > 0 && etgNumberEffectsExpected < 2000);
+    dbgAssertOrIgnore(etgNumberEffectsExpected > 0 && etgNumberEffectsExpected < 2000);
     HorseRaceBeginBar(ETG_BAR);
 }
 
@@ -965,7 +965,7 @@ sdword etgTokTheType(void)
     sdword exType;
 
     param = strtok(NULL, ETG_TokenDelimiters);
-    dbgAssert(param);
+    dbgAssertOrIgnore(param);
     if (strcmp(param, "damage") == 0)
     {
         exType = EDT_AccumDamage;
@@ -1012,30 +1012,30 @@ void etgDeathEventSet(char *directory,char *field,void *dataToFillIn)
     etglod **whereToLoad;
 
     param = strtok(field, ETG_TokenDelimiters);
-    dbgAssert(param);
+    dbgAssertOrIgnore(param);
     racerX = StrToShipRace(field);
 
     if (racerX == -1)
     {                                                       //if we could not parse a race, it may be a derelict type
         typist = StrToDerelictType(param);
-        dbgAssert(typist >= 0 && typist < NUM_DERELICTTYPES);
+        dbgAssertOrIgnore(typist >= 0 && typist < NUM_DERELICTTYPES);
         exType = etgTokTheType();
         whereToLoad = &etgDeathEventTableDerelict[typist][exType];
         goto loadTheEffect;
     }
 
-    dbgAssert(racerX >= 0 && racerX < NUM_RACES);
+    dbgAssertOrIgnore(racerX >= 0 && racerX < NUM_RACES);
     param = strtok(NULL, ETG_TokenDelimiters);
-    dbgAssert(param);
+    dbgAssertOrIgnore(param);
     classy = StrToShipClass(param);
-    dbgAssert(classy >= CLASS_Mothership && classy < NUM_CLASSES);
+    dbgAssertOrIgnore(classy >= CLASS_Mothership && classy < NUM_CLASSES);
 
     exType = etgTokTheType();
     whereToLoad = &etgDeathEventTable[racerX][classy][exType];
 
 loadTheEffect:
     param = strtok(NULL, ETG_TokenDelimiters);
-    dbgAssert(param);
+    dbgAssertOrIgnore(param);
     if (strcmp(param, "NULL") == 0)
     {
         //!!! notice the potential memory leak here?  There could be valid effects assigned to this pointer and then this pointer is set to NULL.
@@ -1059,17 +1059,17 @@ loadTheEffect:
 void etgParseRaceSoundParam(char *params, ShipRace *race, GunSoundType *gunSound, char **param)
 {
     *param = strtok(params, ETG_TokenDelimiters);
-    dbgAssert(*param);
+    dbgAssertOrIgnore(*param);
     *race = StrToShipRace(params);
-    dbgAssert(*race >= 0 && *race < NUM_RACES);
+    dbgAssertOrIgnore(*race >= 0 && *race < NUM_RACES);
 
     *param = strtok(NULL, ETG_TokenDelimiters);
-    dbgAssert(*param);
+    dbgAssertOrIgnore(*param);
     *gunSound = StrToGunSoundType(*param);
-    dbgAssert(*gunSound >= GS_LargeEnergyCannon && *gunSound < NUM_GUN_SOUND_TYPES);
+    dbgAssertOrIgnore(*gunSound >= GS_LargeEnergyCannon && *gunSound < NUM_GUN_SOUND_TYPES);
 
     *param = strtok(NULL, ETG_TokenDelimiters);
-    dbgAssert(*param);
+    dbgAssertOrIgnore(*param);
 }
 
 /*-----------------------------------------------------------------------------
@@ -1175,12 +1175,12 @@ void etgResourceEffectSet(char *directory,char *field,void *dataToFillIn)
     ShipRace racerX;
 
     param = strtok(field, ETG_TokenDelimiters);
-    dbgAssert(param);
+    dbgAssertOrIgnore(param);
     racerX = StrToShipRace(field);
-    dbgAssert(racerX >= 0 && racerX < NUM_RACES);
+    dbgAssertOrIgnore(racerX >= 0 && racerX < NUM_RACES);
 
     param = strtok(NULL, ETG_TokenDelimiters);
-    dbgAssert(param);
+    dbgAssertOrIgnore(param);
     if (dataToFillIn == NULL)
     {                                                       //NULL = asteroid, !NULL = gaseous
         etgResourceEffectTable[racerX][ETG_AsteroidEffect] =
@@ -1199,12 +1199,12 @@ void etgTractorBeamEffectSet(char *directory,char *field,void *dataToFillIn)
     ShipRace racerX;
 
     param = strtok(field, ETG_TokenDelimiters);
-    dbgAssert(param);
+    dbgAssertOrIgnore(param);
     racerX = StrToShipRace(field);
-    dbgAssert(racerX >= 0 && racerX < NUM_RACES);
+    dbgAssertOrIgnore(racerX >= 0 && racerX < NUM_RACES);
 
     param = strtok(NULL, ETG_TokenDelimiters);
-    dbgAssert(param);
+    dbgAssertOrIgnore(param);
     etgTractorBeamEffectTable[racerX] = etgLODLoad(directory, param, etgTractorBeamEffectTable[racerX]);
 }
 
@@ -1215,12 +1215,12 @@ void etgDamageEventSet(char *directory,char *field,void *dataToFillIn)
     sdword exType;
 
     param = strtok(field, ETG_TokenDelimiters);
-    dbgAssert(param);
+    dbgAssertOrIgnore(param);
     classy = StrToShipClass(field);
-    dbgAssert(classy >= CLASS_Mothership && classy < NUM_CLASSES);
+    dbgAssertOrIgnore(classy >= CLASS_Mothership && classy < NUM_CLASSES);
 
     param = strtok(NULL, ETG_TokenDelimiters);
-    dbgAssert(param);
+    dbgAssertOrIgnore(param);
     if (strcmp(param, "light") == 0)
     {
         exType = DMG_Light;
@@ -1239,7 +1239,7 @@ void etgDamageEventSet(char *directory,char *field,void *dataToFillIn)
     }
 
     param = strtok(NULL, ETG_TokenDelimiters);
-    dbgAssert(param);
+    dbgAssertOrIgnore(param);
     if (strcmp(param, "NULL") == 0)
     {
         etgDamageEffectTable[classy][exType] = NULL;
@@ -1255,7 +1255,7 @@ void etgHyperspaceEventSet(char *directory,char *field,void *dataToFillIn)
     char *param;
 
     param = strtok(field, ETG_TokenDelimiters);
-    dbgAssert(param);
+    dbgAssertOrIgnore(param);
     if (strcmp(param, "NULL") == 0)
     {
         etgHyperspaceEffect = NULL;
@@ -1272,12 +1272,12 @@ void etgSpecialPurposeEffectSet(char *directory,char *field,void *dataToFillIn)
     SpecialEffectType effectnum;
 
     param = strtok(field, ETG_TokenDelimiters);
-    dbgAssert(param);
+    dbgAssertOrIgnore(param);
     effectnum = StrToEffectNum(field);
-    dbgAssert(effectnum >= 0 && effectnum < EGT_NumberOfSpecialEffects);
+    dbgAssertOrIgnore(effectnum >= 0 && effectnum < EGT_NumberOfSpecialEffects);
 
     param = strtok(NULL, ETG_TokenDelimiters);
-    dbgAssert(param);
+    dbgAssertOrIgnore(param);
     etgSpecialPurposeEffectTable[effectnum] = etgLODLoad(directory, param, etgSpecialPurposeEffectTable[effectnum]);
 }
 
@@ -1292,16 +1292,16 @@ void etgBulletColorSet(char *directory,char *field,void *dataToFillIn)
     etgParseRaceSoundParam(field, &racerX, &gunSound, &param);
 
     nScanned = sscanf(param, "%d", &red);
-    dbgAssert(nScanned == 1);
-    dbgAssert(red >= 0 && red < 256);
+    dbgAssertOrIgnore(nScanned == 1);
+    dbgAssertOrIgnore(red >= 0 && red < 256);
     param = strtok(NULL, ETG_TokenDelimiters);
     nScanned = sscanf(param, "%d", &green);
-    dbgAssert(nScanned == 1);
-    dbgAssert(green >= 0 && green < 256);
+    dbgAssertOrIgnore(nScanned == 1);
+    dbgAssertOrIgnore(green >= 0 && green < 256);
     param = strtok(NULL, ETG_TokenDelimiters);
     nScanned = sscanf(param, "%d", &blue);
-    dbgAssert(nScanned == 1);
-    dbgAssert(blue >= 0 && blue < 256);
+    dbgAssertOrIgnore(nScanned == 1);
+    dbgAssertOrIgnore(blue >= 0 && blue < 256);
     etgBulletColor[racerX][gunSound] = colRGB(red, green, blue);
 }
 
@@ -1855,7 +1855,7 @@ void etgReset(void)
             /*
             etgEffectCodeDelete(etgEventTable[index].effectStatic, FALSE);
             newStat = etgEffectCodeLoad(path);
-            dbgAssert(newStat == etgEventTable[index].effectStatic);
+            dbgAssertOrIgnore(newStat == etgEventTable[index].effectStatic);
             */
             nameSave = etgEventTable[index].effectStatic->name;//make sure the effect will be re-loaded
             etgEventTable[index].effectStatic->name = "DON'T LOAD ME";
@@ -2330,7 +2330,7 @@ void etgEffectDraw(Effect *effect)
                 hmatrix ownerCoordMatrix;
                 matrix tempMatrix;
 
-                dbgAssert(effect->owner != NULL);
+                dbgAssertOrIgnore(effect->owner != NULL);
 
                 matCopyAndScale(&tempMatrix, &effect->owner->rotinfo.coordsys, effect->owner->magnitudeSquared);
                 //hmatMakeHMatFromMat(&ownerCoordMatrix, &effect->owner->rotinfo.coordsys);
@@ -2753,7 +2753,7 @@ bool etgOpcodeScan(struct etgeffectstatic *stat, char *string, ubyte *dest, sdwo
             }
             //call the parsing function
             *destLength = etgParseTable[index].function(stat, dest, start, params, returnValue);
-            dbgAssert(*destLength < OPCODE_MAX && *destLength >= 0);
+            dbgAssertOrIgnore(*destLength < OPCODE_MAX && *destLength >= 0);
             return(TRUE);
         }
     }
@@ -3162,7 +3162,7 @@ bool etgFunctionCallScan(struct etgeffectstatic *stat, char *string, ubyte *dest
 ----------------------------------------------------------------------------*/
 void etgNestFunctionSet(nestopenfunction openFunction, nestfunction function, sdword codeBlock, sdword offset, ubyte *userData)
 {
-    //dbgAssert(etgNestStack[etgNestLevel].function == NULL);
+    //dbgAssertOrIgnore(etgNestStack[etgNestLevel].function == NULL);
 #if ETG_ERROR_CHECKING
     if (etgNestLevel >= ETG_NestStackDepth)
     {
@@ -3296,8 +3296,8 @@ sdword etgVariableTableProcess(ubyte **destOffsets, udword **destInitData)
     {
         if (etgVariableTable[index].bInitial)
         {                                                   //if initialize this variable
-            dbgAssert(tableIndex < etgVariableIndex);
-            dbgAssert(index <= UDWORD_Max);
+            dbgAssertOrIgnore(tableIndex < etgVariableIndex);
+            dbgAssertOrIgnore(index <= UDWORD_Max);
             tempOffsets[tableIndex] = (ubyte)varIndex;         //store variable index
             tempBlock[tableIndex] = etgVariableTable[index].initial;//store actual init data
             tableIndex++;
@@ -3442,7 +3442,7 @@ etgeffectstatic *etgEffectCodeLoad(char *fileName)
     newStatic->softwareVersion = NULL;                      //by default, there is no software version
 
     //open the file
-    dbgAssert(!etgFileHandle);
+    dbgAssertOrIgnore(!etgFileHandle);
     etgFileHandle = fileOpen(fileName, FF_TextMode);        //open file
     etgFileLine = 0;                                        //start on first line
     etgTimeIndexVar = NULL;                                 //handle nesting errors OK
@@ -3578,7 +3578,7 @@ foundThisNewEffect:;
     memFree(etgAlternateTable);                             //free the alternates table
     //free up the variable names and set variable init data members
     newStatic->initLength = etgVariableTableProcess(&newStatic->variableOffsets, &newStatic->variableInitData);
-    dbgAssert(newStatic->variableSize + newStatic->rateSize >= 0);
+    dbgAssertOrIgnore(newStatic->variableSize + newStatic->rateSize >= 0);
     newStatic->effectSize = etgEffectSize(newStatic->nParticleBlocks) +
                 newStatic->variableSize + newStatic->rateSize + newStatic->variableSize / 4;
 
@@ -3683,7 +3683,7 @@ void etgCodeBlockEnd(sdword codeBlock, sdword off, sdword newOffset, ubyte *user
     sdword *offset;
     etgprocesscontrol *opcode;
 
-    dbgAssert(etgParseMode >= 0 && etgParseMode < ETG_NumberCodeBlocks);
+    dbgAssertOrIgnore(etgParseMode >= 0 && etgParseMode < ETG_NumberCodeBlocks);
     offset = &etgExecStack.etgCodeBlock[etgParseMode].offset;
     opcode = (etgprocesscontrol *)(etgExecStack.etgCodeBlock[etgParseMode].code + *offset);
     opcode->opcode = EOP_End;                               //create the opcode
@@ -3719,8 +3719,8 @@ sdword etgStartupBlockOpen(struct etgeffectstatic *stat, ubyte *dest, char *opco
     if (etgExecStack.etgCodeBlock[EPM_Startup].offset != 0)
     {                                                       //if not the first such code block
         endcode = (etgprocesscontrol *)(etgExecStack.etgCodeBlock[EPM_Startup].code + etgExecStack.etgCodeBlock[EPM_Startup].offset - sizeof(etgprocesscontrol));
-        dbgAssert((ubyte *)endcode >= etgExecStack.etgCodeBlock[EPM_Startup].code);
-        dbgAssert(endcode->opcode == EOP_End);
+        dbgAssertOrIgnore((ubyte *)endcode >= etgExecStack.etgCodeBlock[EPM_Startup].code);
+        dbgAssertOrIgnore(endcode->opcode == EOP_End);
         etgExecStack.etgCodeBlock[EPM_Startup].offset -= sizeof(etgprocesscontrol);//remove the previous end opcode
     }
     etgNestFunctionSet(NULL, etgCodeBlockEnd, etgParseMode, 0, NULL);//set a callback
@@ -3739,8 +3739,8 @@ sdword etgEachFrameBlockOpen(struct etgeffectstatic *stat, ubyte *dest, char *op
     if (etgExecStack.etgCodeBlock[EPM_EachFrame].offset != 0)
     {                                                       //if not the first such code block
         endcode = (etgprocesscontrol *)(etgExecStack.etgCodeBlock[EPM_EachFrame].code + etgExecStack.etgCodeBlock[EPM_EachFrame].offset - sizeof(etgprocesscontrol));
-        dbgAssert((ubyte *)endcode >= etgExecStack.etgCodeBlock[EPM_EachFrame].code);
-        dbgAssert(endcode->opcode == EOP_End);
+        dbgAssertOrIgnore((ubyte *)endcode >= etgExecStack.etgCodeBlock[EPM_EachFrame].code);
+        dbgAssertOrIgnore(endcode->opcode == EOP_End);
         etgExecStack.etgCodeBlock[EPM_EachFrame].offset -= sizeof(etgprocesscontrol);//remove the previous end opcode
     }
     etgNestFunctionSet(NULL, etgCodeBlockEnd, etgParseMode, 0, NULL);//set a callback
@@ -3759,8 +3759,8 @@ sdword etgTimeIndexBlockOpen(struct etgeffectstatic *stat, ubyte *dest, char *op
     if (etgExecStack.etgCodeBlock[EPM_TimeIndex].offset != 0)
     {                                                       //if not the first such code block
         endcode = (etgprocesscontrol *)(etgExecStack.etgCodeBlock[EPM_TimeIndex].code + etgExecStack.etgCodeBlock[EPM_TimeIndex].offset - sizeof(etgprocesscontrol));
-        dbgAssert((ubyte *)endcode >= etgExecStack.etgCodeBlock[EPM_TimeIndex].code);
-        dbgAssert(endcode->opcode == EOP_End);
+        dbgAssertOrIgnore((ubyte *)endcode >= etgExecStack.etgCodeBlock[EPM_TimeIndex].code);
+        dbgAssertOrIgnore(endcode->opcode == EOP_End);
         etgExecStack.etgCodeBlock[EPM_TimeIndex].offset -= sizeof(etgprocesscontrol);//remove the previous end opcode
     }
     etgNestFunctionSet(NULL, etgCodeBlockEnd, etgParseMode, 0, NULL);//set a callback
@@ -4305,7 +4305,7 @@ void etgConditionalComplete(sdword codeBlock, sdword offset, sdword newOffset, u
         etgLoadErrorf(ETG, "Cannot find conditional opcode.  Found opcode %d instead", opcode->opcode);
         return;
     }
-    dbgAssert(opcode->codeBytes == -1);
+    dbgAssertOrIgnore(opcode->codeBytes == -1);
 #endif
     //set code length in opcode
     opcode->codeBytes = newOffset - offset;
@@ -4479,7 +4479,7 @@ sdword etgConditional(struct etgeffectstatic *stat, ubyte *dest, char *opcodeStr
     }
     //the only thing left is the codebytes member which must be set at the
     //  matching '}' line.  Let's prepare for this eventuality.
-    dbgAssert(etgParseMode >= 0 && etgParseMode < ETG_NumberCodeBlocks);
+    dbgAssertOrIgnore(etgParseMode >= 0 && etgParseMode < ETG_NumberCodeBlocks);
     index = etgExecStack.etgCodeBlock[etgParseMode].offset;
     opcode->codeBytes = -1;                                 //flag code bytes not set
     etgNestFunctionSet(NULL, etgConditionalComplete, etgParseMode, index, (ubyte *)opcode);//set function to be called later
@@ -4536,7 +4536,7 @@ void etgElseComplete(sdword codeBlock, sdword offset, sdword newOffset, ubyte *u
         etgLoadErrorf(ETG, "Cannot find else 'goto' opcode.  Found opcode %d instead.", opcode->opcode);
         return;
     }
-    dbgAssert(opcode->branchTo == 0xffffffff);
+    dbgAssertOrIgnore(opcode->branchTo == 0xffffffff);
 #endif
     //set code length in opcode
     opcode->branchTo = newOffset;
@@ -4551,7 +4551,7 @@ sdword etgElse(struct etgeffectstatic *stat, ubyte *dest, char *opcodeString, ch
     opcode->opcode = EOP_Goto;
     opcode->codeBlock = etgParseMode;
     opcode->branchTo = 0xffffffff;
-    dbgAssert(etgParseMode >= 0 && etgParseMode < ETG_NumberCodeBlocks);
+    dbgAssertOrIgnore(etgParseMode >= 0 && etgParseMode < ETG_NumberCodeBlocks);
     index = etgExecStack.etgCodeBlock[etgParseMode].offset;
     etgNestFunctionSet(NULL, etgElseComplete, etgParseMode, index, (ubyte *)etgIfOpcode);//set function to be called later
     return(sizeof(etgbranch));
@@ -4762,8 +4762,8 @@ void etgAlternateComplete(sdword codeBlock, sdword offset, sdword newOffset, uby
         etgLoadErrorf(ETG, "Unexpected '}' associated with 'alternate'.");
         return;
     }
-    dbgAssert(etgDecisionOpcode->opcode == EOP_Alternate);
-    dbgAssert(etgDecisionOpcode->codeBytes == 0xffffffff);
+    dbgAssertOrIgnore(etgDecisionOpcode->opcode == EOP_Alternate);
+    dbgAssertOrIgnore(etgDecisionOpcode->codeBytes == 0xffffffff);
     for (index = 0; index < etgDecisionOpcode->tableLength; index++)
     {
         if (etgDecisionOpcode->offset[index] == 0xffffffff)
@@ -4844,7 +4844,7 @@ sdword etgAternateSet(struct etgeffectstatic *stat, ubyte *dest, char *opcodeStr
         etgLoadErrorf(ETG, "Invalid alternate length: %d", nEntries);
         return(0);
     }
-    dbgAssert(etgDecisionOpcode->opcode == EOP_Alternate);
+    dbgAssertOrIgnore(etgDecisionOpcode->opcode == EOP_Alternate);
     if (etgDecisionOpcode->tableLength + nEntries >= ETG_DecisionMax)
     {
         etgLoadErrorf(ETG, "%d alternates exceeds max of %d",
@@ -4875,7 +4875,7 @@ sdword etgAternateSet(struct etgeffectstatic *stat, ubyte *dest, char *opcodeStr
 void etgTimeBlockComplete(sdword codeBlock, sdword offset, sdword newOffset, ubyte *userData)
 {
 #if ETG_ERROR_CHECKING
-    dbgAssert(etgTimeIndexVar != NULL);
+    dbgAssertOrIgnore(etgTimeIndexVar != NULL);
 #endif
     etgTimeIndexVar = NULL;
 }
@@ -4926,7 +4926,7 @@ sdword etgTimeBlockOpen(struct etgeffectstatic *stat, ubyte *dest, char *opcodeS
                 stat->rateSize += sizeof(etgratergba);
                 break;
             default:
-                dbgAssert(FALSE);
+                dbgAssertOrIgnore(FALSE);
         }
     }
     etgNestFunctionSet(NULL, etgTimeBlockComplete, etgParseMode,  //set function to be called later
@@ -5016,7 +5016,7 @@ sdword etgTimeIndexDefine(struct etgeffectstatic *stat, ubyte *dest, char *opcod
                 opcode = EOP_EffectorVCa;
                 break;
             default:
-                dbgAssert(FALSE);
+                dbgAssertOrIgnore(FALSE);
         }
     }
     else
@@ -5043,7 +5043,7 @@ sdword etgTimeIndexDefine(struct etgeffectstatic *stat, ubyte *dest, char *opcod
                 opcode = EOP_EffectorCCa;
                 break;
             default:
-                dbgAssert(FALSE);
+                dbgAssertOrIgnore(FALSE);
         }
 #if ETG_ERROR_CHECKING
         if (nScanned != 1)
@@ -5080,8 +5080,8 @@ void etgAtComplete(sdword codeBlock, sdword offset, sdword newOffset, ubyte *use
     etgbeforeafterat *opcode;
     //get opcode pointer
     opcode = (etgbeforeafterat *)(etgExecStack.etgCodeBlock[codeBlock].code + offset);
-    dbgAssert(opcode->codeBytes == 0xffffffff);
-    dbgAssert(codeBlock == etgParseMode);
+    dbgAssertOrIgnore(opcode->codeBytes == 0xffffffff);
+    dbgAssertOrIgnore(codeBlock == etgParseMode);
     opcode->codeBytes = newOffset - offset;
 }
 
@@ -5091,8 +5091,8 @@ void etgBetweenComplete(sdword codeBlock, sdword offset, sdword newOffset, ubyte
     etgbetween *opcode;
     //get opcode pointer
     opcode = (etgbetween *)(etgExecStack.etgCodeBlock[codeBlock].code + offset);
-    dbgAssert(opcode->codeBytes == 0xffffffff);
-    dbgAssert(codeBlock == etgParseMode);
+    dbgAssertOrIgnore(opcode->codeBytes == 0xffffffff);
+    dbgAssertOrIgnore(codeBlock == etgParseMode);
     opcode->codeBytes = newOffset - offset;
 }
 
@@ -5461,7 +5461,7 @@ void etgCallbackOpen(sdword codeBlock, sdword offset, ubyte *userData)
     //first, let's take move the existing function opcode for the create()
     //function forward enough to fit the call to partCreateCallbackSet
     createCall = (etgfunctioncall *)userData;
-    dbgAssert(createCall->opcode == EOP_Function && createCall->nParameters == 2);
+    dbgAssertOrIgnore(createCall->opcode == EOP_Function && createCall->nParameters == 2);
 #endif
     memmove(userData + etgFunctionSize(1), userData, etgFunctionSize(2));//move the function forward
     //set up the call to partCreateCallbackSet()
@@ -5477,7 +5477,7 @@ void etgCallbackOpen(sdword codeBlock, sdword offset, ubyte *userData)
     etgExecStack.etgCodeBlock[etgParseMode].offset += etgFunctionSize(1);//update for size of function call
     //now create the branch opcode
     branch = (etgbranch *)(userData + etgFunctionSize(2) + etgFunctionSize(1));
-    dbgAssert(etgNestLevel >= 1);                           //ensure sanity
+    dbgAssertOrIgnore(etgNestLevel >= 1);                           //ensure sanity
     etgNestStack[etgNestLevel - 1].userData = (ubyte *)branch;//set new callback user data for when we're closing the code block
     branch->opcode = EOP_Goto;
     branch->codeBlock = codeBlock;
@@ -5500,14 +5500,14 @@ void etgCallbackClose(sdword codeBlock, sdword offset, sdword newOffset, ubyte *
     etgprocesscontrol *opcode;
 
     //create an end opcode at end of block
-    dbgAssert(etgParseMode >= 0 && etgParseMode < ETG_NumberCodeBlocks);
+    dbgAssertOrIgnore(etgParseMode >= 0 && etgParseMode < ETG_NumberCodeBlocks);
     offsetVar = &etgExecStack.etgCodeBlock[etgParseMode].offset;
     opcode = (etgprocesscontrol *)(etgExecStack.etgCodeBlock[etgParseMode].code + *offsetVar);
     opcode->opcode = EOP_End;                               //create the opcode
     *offsetVar += sizeof(etgprocesscontrol);                //and update pointer
 
     //update the branch opcode as start of block
-    dbgAssert(branch->opcode == EOP_Goto || branch->branchTo == 0xffffffff);
+    dbgAssertOrIgnore(branch->opcode == EOP_Goto || branch->branchTo == 0xffffffff);
     branch->branchTo = newOffset + sizeof(etgprocesscontrol); //fill in the branch opcode
 }
 
@@ -5749,7 +5749,7 @@ sdword etgFunctionCall(Effect *effect, struct etgeffectstatic *stat, ubyte *opco
             case EVT_Constant:
                 break;
             case EVT_Label:
-                dbgAssert(FALSE);
+                dbgAssertOrIgnore(FALSE);
                 break;
             case EVT_ConstLabel:
                 param = (udword)stat->constData + param;
@@ -5844,7 +5844,7 @@ sdword etgFunctionCall(Effect *effect, struct etgeffectstatic *stat, ubyte *opco
             case EVT_Constant:
                 break;
             case EVT_Label:
-                dbgAssert(FALSE);
+                dbgAssertOrIgnore(FALSE);
                 break;
             case EVT_ConstLabel:
                 param = (udword)stat->constData + param;
@@ -6280,7 +6280,7 @@ sdword etgAlternate(Effect *effect, struct etgeffectstatic *stat, ubyte *opcode)
 //    alt = effect->alternate[((etgdecision *)opcode)->criteria];//get alternate number
     decision = &stat->decisions[((etgdecision*)opcode)->criteria];
     alt = ranRandom(RANDOM_ETG) % (decision->high - decision->low) + decision->low;
-    dbgAssert(alt < ((etgdecision *)opcode)->tableLength);
+    dbgAssertOrIgnore(alt < ((etgdecision *)opcode)->tableLength);
     return(((etgdecision *)opcode)->offset[alt]);
 }
 
@@ -6306,7 +6306,7 @@ sdword etgBetween(Effect *effect, struct etgeffectstatic *stat, ubyte *opcode)
     {
         end = ((etgbetween *)opcode)->end;
     }
-    dbgAssert(start < end);
+    dbgAssertOrIgnore(start < end);
     if (etgTotalTimeElapsed >= start && etgTotalTimeElapsed < end)
     {                                                       //if within the time constraints
         etgEffectorDuration = end - start;
@@ -6858,7 +6858,7 @@ sdword etgDetatchThisOwner(Effect *effect, Ship *owner, sdword nToFind)
     nDetachRequests += nToFind;
 #endif
 
-    dbgAssert(nToFind > 0);
+    dbgAssertOrIgnore(nToFind > 0);
     bNode = effect->effectLink.prev;
     fNode = effect->effectLink.next;
 
@@ -7076,7 +7076,7 @@ void etgChatterEventPlay(Effect *effect, battlechatterevent event)
 {
     if (effect->owner != NULL)
     {                                                       //if this effect has an owner
-        dbgAssert(event >= 0 && event < BCE_LastBCE);
+        dbgAssertOrIgnore(event >= 0 && event < BCE_LastBCE);
         if (battleChatterAttempt(SOUND_EVENT_DEFAULT, event, effect->owner, SOUND_EVENT_DEFAULT))
         {
             bitSet(effect->effectFlags, EAF_PlayingSpeech);     //note that we are playing some speech
@@ -7297,7 +7297,7 @@ void etgCreateEffects(Effect *effect, etgeffectstatic *stat, sdword number, sdwo
             univUpdateObjRotInfo((SpaceObjRot *)newEffect);
         }
 
-        dbgAssert(nParams >= 0 && nParams <= ETG_NumberParameters);
+        dbgAssertOrIgnore(nParams >= 0 && nParams <= ETG_NumberParameters);
         va_start(argList, nParams);
         for (j = 0; j < nParams; j++)
         {
@@ -7375,7 +7375,7 @@ void *etgEffectCreate(etgeffectstatic *stat, void *owner, vector *pos, vector *v
     //position
     if (pos == NULL)
     {
-        dbgAssert(((Ship *)owner) != NULL);
+        dbgAssertOrIgnore(((Ship *)owner) != NULL);
 //        if (!bitTest(flags, SOF_AttachPosition))
         {
             newEffect->posinfo.position = ((Ship *)owner)->posinfo.position;
@@ -7389,7 +7389,7 @@ void *etgEffectCreate(etgeffectstatic *stat, void *owner, vector *pos, vector *v
     //velocity
     if (vel == NULL)
     {
-        dbgAssert(((Ship *)owner) != NULL);
+        dbgAssertOrIgnore(((Ship *)owner) != NULL);
 //        if (!bitTest(flags, SOF_AttachVelocity))
         {
             newEffect->posinfo.velocity = ((Ship *)owner)->posinfo.velocity;
@@ -7403,7 +7403,7 @@ void *etgEffectCreate(etgeffectstatic *stat, void *owner, vector *pos, vector *v
     //coordinate system
     if (coordsys == NULL)
     {
-        dbgAssert(((Ship *)owner) != NULL);
+        dbgAssertOrIgnore(((Ship *)owner) != NULL);
 //        if (!bitTest(flags, SOF_AttachCoordsys))
         {
             newEffect->rotinfo.coordsys = ((Ship *)owner)->rotinfo.coordsys;
@@ -7422,7 +7422,7 @@ void *etgEffectCreate(etgeffectstatic *stat, void *owner, vector *pos, vector *v
     newEffect->magnitudeSquared = nLips;                    //set initial nLips value
 
     //prepare to pass the parameters through
-    dbgAssert(nParams >= 0 && nParams <= ETG_NumberParameters);
+    dbgAssertOrIgnore(nParams >= 0 && nParams <= ETG_NumberParameters);
     va_start(argList, nParams);
     for (index = 0; index < nParams; index++)
     {
@@ -7486,7 +7486,7 @@ void etgHistoryRegisterFunction(etgeffectstatic *stat)
         return;
     }
 */
-    dbgAssert(stat->historyList != NULL);                   //make sure effect has a history list
+    dbgAssertOrIgnore(stat->historyList != NULL);                   //make sure effect has a history list
     if (stat->iHistoryList == stat->nHistoryList)
     {                                                       //if at end of history list
         stat->iHistoryList = 0;                             //wrap around to start
@@ -7644,7 +7644,7 @@ udword etgSpawnNewEffect(Effect *effect, etgeffectstatic *stat, sdword nParams, 
     univUpdateObjRotInfo((SpaceObjRot *)newEffect);
 
     //get the parameters
-    dbgAssert(nParams >= 0 && nParams <= ETG_NumberParameters);
+    dbgAssertOrIgnore(nParams >= 0 && nParams <= ETG_NumberParameters);
     va_start(argList, nParams);
     for (index = 0; index < nParams; index++)
     {
@@ -7847,7 +7847,7 @@ udword etgFRandom(real32 low, real32 high)
     {
         return(TreatAsUdword(low));
     }
-//    dbgAssert(high > low);
+//    dbgAssertOrIgnore(high > low);
     valueInt = ranRandom(RANDOM_ETG);
     value = (real32)valueInt * (high - low) / (real32)UDWORD_Max + low;
 #if ETG_VERBOSE_LEVEL >= 2
@@ -7862,7 +7862,7 @@ udword etgIRandom(udword low, udword high)
     {
         return(low);
     }
-//    dbgAssert(high > low);
+//    dbgAssertOrIgnore(high > low);
     return(ranRandom(RANDOM_ETG) % (high - low) + low);
 }
 

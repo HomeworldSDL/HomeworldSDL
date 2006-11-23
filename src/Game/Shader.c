@@ -1084,7 +1084,7 @@ void shSetLightPosition(sdword index, real32* position, real32* m)
 {
 real32 xposition[4];
 
-    dbgAssert(index >= 0 && index < 2);
+    dbgAssertOrIgnore(index >= 0 && index < 2);
 
     TRANSFORM_POINT(xposition, m, position);
     vecNormalize((vector*)&xposition);
@@ -1146,7 +1146,7 @@ hmatrix	*pCurMat, *pNewMat;
 	pCurMat = &shLightMatStack[shLightMatStackPos];
 	shLightMatStackPos++;
 
-	dbgAssert(shLightMatStackPos < 10);
+	dbgAssertOrIgnore(shLightMatStackPos < 10);
 
 	pNewMat = pCurMat+1;
 
@@ -1159,7 +1159,7 @@ void shPopLightMatrix(void)
 {
 	shLightMatStackPos--;
 
-	dbgAssert(shLightMatStackPos >= 0);
+	dbgAssertOrIgnore(shLightMatStackPos >= 0);
 
 	shUpdateLightsFromMatrix(&shLightMatStack[shLightMatStackPos]);
 }

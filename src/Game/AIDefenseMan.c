@@ -719,7 +719,7 @@ void aidMothershipDefense(void)
 
         if (mdteam)
         {
-            dbgAssert(mdteam->shipList.selection->numShips);
+            dbgAssertOrIgnore(mdteam->shipList.selection->numShips);
         }
 
         newships = aidAddSlackerShips();
@@ -929,7 +929,7 @@ void aidInit(AIPlayer *aiplayer)
         case AI_BEGINNER:
             break;
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
     }
 }
 
@@ -941,7 +941,7 @@ void aidClose(AIPlayer *aiplayer)
 
     for (i=0;i<aiplayer->numGuardTeams;i++)
     {
-        dbgAssert(aiplayer->guardTeams[i]);
+        dbgAssertOrIgnore(aiplayer->guardTeams[i]);
         aitDestroy(aiplayer,aiplayer->guardTeams[i],FALSE);
     }
 

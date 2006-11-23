@@ -72,7 +72,7 @@ void GenericDefenderStaticInit(char *directory,char *filename,struct ShipStaticI
            defenderstat = (statinfo->shiprace == R1) ? &HeavyDefenderStaticRace1 : &HeavyDefenderStaticRace2;
            break;
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
     }
 
     statinfo->custstatinfo = defenderstat;
@@ -182,7 +182,7 @@ circleAlreadyCalculatedTrajectory:
             break;
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             break;
     }
 

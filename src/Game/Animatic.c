@@ -403,7 +403,7 @@ void animBinkDecode(sdword frame)
     while (animCurrentEvent < header->nEvents &&
            event->time <= timeElapsed)
     {
-        dbgAssert(nisEventDispatch[event->code] != NULL);
+        dbgAssertOrIgnore(nisEventDispatch[event->code] != NULL);
         nisEventDispatch[event->code](NULL, event);
         animCurrentEvent++;
         event++;
@@ -489,7 +489,7 @@ void animStartup(void)
             continue;
         }
         sscanf(line, "%d %s", &level, temp);
-        dbgAssert(level >= 0 && level < NUM_SP_MISSIONS);
+        dbgAssertOrIgnore(level >= 0 && level < NUM_SP_MISSIONS);
         memStrncpy(animlisting[level].filename, temp, 31);
     }
     fileClose(lst);
@@ -543,7 +543,7 @@ bool animBinkPlay(sdword a, sdword b)
     }
     else
     {
-        dbgAssert(a >= 0 && b < NUM_SP_MISSIONS);
+        dbgAssertOrIgnore(a >= 0 && b < NUM_SP_MISSIONS);
         if (animlisting[a].filename[0] == '\0')
         {
             return FALSE;

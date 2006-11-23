@@ -408,7 +408,7 @@ void regDirtySiblingsInside(regionhandle region)
 {
     regionhandle reg;
 
-    dbgAssert(region != NULL);
+    dbgAssertOrIgnore(region != NULL);
 
     reg = region->previous;
 
@@ -1083,7 +1083,7 @@ void regDrawFunctionAdd(regiondrawfunction function, regionhandle reg)
 {
     regrenderevent *event;
 
-    dbgAssert(function != NULL);
+    dbgAssertOrIgnore(function != NULL);
     if (regRenderEventIndex >= regNumberRenderEvents)       //if no render event available
     {
         dbgFatalf(DBG_Loc, "Tried to add render function 0x%x for region 0x%x.  All %d in use", function, reg, regNumberRenderEvents);
@@ -1216,7 +1216,7 @@ regionhandle regSiblingAlloc(regionhandle sibling, sdword ID, sdword x, sdword y
     dbgMessagef("\nregSiblingAlloc: added sibling 0x%x to 0x%x at (%d, %d) size %d x %d, flags 0x%x",
                 newRegion, sibling, x, y, width, height, flags);
 #endif
-    dbgAssert(sibling != NULL);
+    dbgAssertOrIgnore(sibling != NULL);
     regSiblingInsert(newRegion, sibling);                   //insert region into linked list
     return(newRegion);                                      //return newly allocated region
 }
@@ -1239,8 +1239,8 @@ regionhandle regSiblingMoveToFront(regionhandle region)
     {                                                       //if already at front
         return(region);                                     //do nothing
     }
-    dbgAssert(sibling->previous == NULL);
-    dbgAssert(region->parent == sibling->parent);           //verify thay have the same parent
+    dbgAssertOrIgnore(sibling->previous == NULL);
+    dbgAssertOrIgnore(region->parent == sibling->parent);           //verify thay have the same parent
     //find what sibling to put it in front of
     if (!bitTest(region->status, RSF_PriorityRegion))
     {                                                       //if this is not a priority region
@@ -1269,7 +1269,7 @@ regionhandle regSiblingMoveToFront(regionhandle region)
     else
     {                                                       //else inserting at some arbitrary point in the list
         region->previous = sibling->previous;
-        dbgAssert(region->previous != NULL);                //make sure not head of list
+        dbgAssertOrIgnore(region->previous != NULL);                //make sure not head of list
         (region->previous)->next = region;
         region->next = sibling;
         sibling->previous = region;
@@ -1304,7 +1304,7 @@ regionhandle regKeyChildAlloc(regionhandle parent, sdword ID, udword filter, reg
     newRegion = regChildAlloc(parent, ID, 0, 0, 0, 0, 0, filter);
     regFunctionSet(newRegion, function);
 
-    dbgAssert(nKeys <= REG_NumberKeys);                     //verify validity of key info
+    dbgAssertOrIgnore(nKeys <= REG_NumberKeys);                     //verify validity of key info
 
     newRegion->nKeys = (sword)nKeys;                        //store number of keys
     va_start(argPointer, nKeys);
@@ -1328,7 +1328,7 @@ regionhandle regKeySiblingAlloc(regionhandle sibling, sdword ID, udword filter, 
     newRegion = regSiblingAlloc(sibling, ID, 0, 0, 0, 0, 0, filter);
     regFunctionSet(newRegion, function);
 
-    dbgAssert(nKeys <= REG_NumberKeys);                     //verify validity of key info
+    dbgAssertOrIgnore(nKeys <= REG_NumberKeys);                     //verify validity of key info
 
     newRegion->nKeys = (sword)nKeys;                        //store number of keys
     va_start(argPointer, nKeys);
@@ -1534,7 +1534,7 @@ void regChildInsert(regionhandle regionToInsert, regionhandle parent)
     regionhandle sibling;
 
     regInitCheck();
-    dbgAssert(parent != NULL);                              //ensure valid nodes
+    dbgAssertOrIgnore(parent != NULL);                              //ensure valid nodes
     regVerify(regionToInsert);
     regVerify(parent);
 
@@ -1569,7 +1569,7 @@ void regChildInsert(regionhandle regionToInsert, regionhandle parent)
 void regSiblingInsert(regionhandle regionToInsert, regionhandle sibling)
 {
     regInitCheck();
-    dbgAssert(sibling != NULL);                             //ensure valid nodes
+    dbgAssertOrIgnore(sibling != NULL);                             //ensure valid nodes
     regVerify(regionToInsert);
     regVerify(sibling);
 
@@ -1625,7 +1625,7 @@ regionfunction regFunctionSet(regionhandle region, regionfunction function)
     regionfunction old;
 
     regVerify(region);
-    dbgAssert(function != NULL);
+    dbgAssertOrIgnore(function != NULL);
     old = region->processFunction;
     region->processFunction = function;
     return(old);
@@ -1646,8 +1646,8 @@ void regKeysSet(regionhandle region, sdword nKeys, ...)
     sdword index;
     va_list argPointer;
 
-    dbgAssert(nKeys <= REG_NumberKeys);                     //verify validity
-    dbgAssert(region != NULL);
+    dbgAssertOrIgnore(nKeys <= REG_NumberKeys);                     //verify validity
+    dbgAssertOrIgnore(region != NULL);
     regVerify(region);
 
     region->nKeys = (sword)nKeys;                           //store number of keys

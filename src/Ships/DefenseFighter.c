@@ -713,7 +713,7 @@ void DefenseFighterHouseKeep(Ship *ship)
             //properly!!!  So it is temperary only!
             if(defensestruct->laser != NULL)
             {   //update bullent info...for visual effect
-                dbgAssert(defensestruct->bullet != NULL);
+                dbgAssertOrIgnore(defensestruct->bullet != NULL);
                 matMultiplyMatByVec(&positionInWorldCoordSys,&ship->rotinfo.coordsys,&gunstatic->position);
                 vecAdd(defensestruct->laser->posinfo.position,positionInWorldCoordSys,ship->posinfo.position);
                 vecSub(defensestruct->laser->lengthvec, defensestruct->bullet->posinfo.position, defensestruct->laser->posinfo.position);
@@ -829,7 +829,7 @@ void defenseFighterAdjustLaser(Bullet *laser)
         }
         if(laser == defensestruct->laser)
         {
-            dbgAssert(defensestruct->bullet != NULL);
+            dbgAssertOrIgnore(defensestruct->bullet != NULL);
             matMultiplyMatByVec(&positionInWorldCoordSys,&ship->rotinfo.coordsys,&gunstatic->position);
             vecAdd(laser->posinfo.position,positionInWorldCoordSys,ship->posinfo.position);
             vecSub(laser->lengthvec, defensestruct->bullet->posinfo.position, laser->posinfo.position);
@@ -1028,7 +1028,7 @@ void DefenseFighter_Save(Ship *ship)
         node = node->next;
     }
 
-    dbgAssert(cur == spec->DefenseList.num);
+    dbgAssertOrIgnore(cur == spec->DefenseList.num);
 }
 
 DefenseStruct *LoadDefenseStruct(void)

@@ -54,7 +54,7 @@ int bitioFileAppendStop(BitFile *bit_file)
 		ret = putc( bit_file->rack, bit_file->file ) ;
 		++bit_file->index;
 #ifdef BF_HOMEWORLD
-        dbgAssert( ret == bit_file->rack ); // fatal_error( "Fatal error in CloseBitFile!\n" );
+        dbgAssertOrIgnore( ret == bit_file->rack ); // fatal_error( "Fatal error in CloseBitFile!\n" );
 #else
         assert( ret == bit_file->rack ); // fatal_error( "Fatal error in CloseBitFile!\n" );
 #endif
@@ -144,7 +144,7 @@ BitFile *bit_file;
 		ret = putc( bit_file->rack, bit_file->file ) ;
 		++bit_file->index;
 #ifdef BF_HOMEWORLD
-        dbgAssert( ret == bit_file->rack ); // fatal_error( "Fatal error in CloseBitFile!\n" );
+        dbgAssertOrIgnore( ret == bit_file->rack ); // fatal_error( "Fatal error in CloseBitFile!\n" );
 #else
         assert( ret == bit_file->rack ); // fatal_error( "Fatal error in CloseBitFile!\n" );
 #endif
@@ -179,7 +179,7 @@ int bit;
 		ret = putc( bit_file->rack, bit_file->file ) ;
 		++bit_file->index;
 #if BF_HOMEWORLD
-	    dbgAssert( ret == bit_file->rack ); //fatal_error( "Fatal error in OutputBit!\n" );
+	    dbgAssertOrIgnore( ret == bit_file->rack ); //fatal_error( "Fatal error in OutputBit!\n" );
 #else
 	    assert( ret == bit_file->rack ); //fatal_error( "Fatal error in OutputBit!\n" );
 #endif
@@ -210,7 +210,7 @@ int count;
 			ret = putc( bit_file->rack, bit_file->file ) ;
 			++bit_file->index;
 #if BF_HOMEWORLD
-			dbgAssert( ret == bit_file->rack ); //fatal_error( "Fatal error in OutputBit!\n" );
+			dbgAssertOrIgnore( ret == bit_file->rack ); //fatal_error( "Fatal error in OutputBit!\n" );
 #else
 			assert( ret == bit_file->rack ); //fatal_error( "Fatal error in OutputBit!\n" );
 #endif
@@ -234,7 +234,7 @@ BitFile *bit_file;
         bit_file->rack = getc( bit_file->file );
 		++bit_file->index;
 #if BF_HOMEWORLD
-        dbgAssert( bit_file->rack != EOF );  // fatal_error( "Fatal error in InputBit!\n" );
+        dbgAssertOrIgnore( bit_file->rack != EOF );  // fatal_error( "Fatal error in InputBit!\n" );
 #else
         assert( bit_file->rack != EOF );  // fatal_error( "Fatal error in InputBit!\n" );
 #endif
@@ -264,7 +264,7 @@ int bit_count;
 	    bit_file->rack = getc( bit_file->file );
 		++bit_file->index;
 #if BF_HOMEWORLD
-		dbgAssert( bit_file->rack != EOF );  //fatal_error( "Fatal error in InputBit!\n" );
+		dbgAssertOrIgnore( bit_file->rack != EOF );  //fatal_error( "Fatal error in InputBit!\n" );
 #else
 		assert( bit_file->rack != EOF );  //fatal_error( "Fatal error in InputBit!\n" );
 #endif
@@ -327,8 +327,8 @@ BitBuffer *bitioBufferOpen(char *buffer)
 {
 #if BF_HOMEWORLD    
     BitBuffer *bitBuffer = (BitBuffer *)memAlloc(sizeof(BitBuffer), "bitiobuffer", 0);
-	dbgAssert(buffer);
-    dbgAssert(bitBuffer);
+	dbgAssertOrIgnore(buffer);
+    dbgAssertOrIgnore(bitBuffer);
 #else
     BitBuffer *bitBuffer = (BitBuffer *)malloc(sizeof(BitBuffer));
 	assert(buffer);

@@ -761,7 +761,7 @@ static bool overwriteRecGame = FALSE;
 
 void gpOverwriteYes(char *name, featom *atom)
 {
-    dbgAssert(overwritefilename[0] != 0);
+    dbgAssertOrIgnore(overwritefilename[0] != 0);
 
     if (overwriteRecGame)
     {
@@ -834,7 +834,7 @@ void gpSaveGame(char *name, featom *atom)
     if (gpNumberGames > 0)
     {
         gpDonePicking(name, atom);
-        dbgAssert(gpCurrentSelected < gpNumberGames);
+        dbgAssertOrIgnore(gpCurrentSelected < gpNumberGames);
         strcpy(filename,SavedGamesPath);
         strcat(filename,gpGames[gpCurrentSelected].title);
 
@@ -927,7 +927,7 @@ void gpSaveTheRecordedGame(char *name, featom *atom)
     if (gpNumberGames > 0)
     {
         gpDonePicking(name, atom);
-        dbgAssert(gpCurrentSelected < gpNumberGames);
+        dbgAssertOrIgnore(gpCurrentSelected < gpNumberGames);
         strcpy(filename,SavedGamesPath);
         strcat(filename,gpGames[gpCurrentSelected].title);
 
@@ -1040,7 +1040,7 @@ void gpLoadGame(char *name, featom *atom)
     {
         gpDonePicking(name, atom);
 
-        dbgAssert(gpCurrentSelected < gpNumberGames);
+        dbgAssertOrIgnore(gpCurrentSelected < gpNumberGames);
         if (gpLoadTutorial)
         {
             strcpy(filename,TutorialSavedGamesPath);
@@ -1128,11 +1128,11 @@ void gpDeleteGame(char *name, featom *atom)
     else if (gpCurrentSelected >= gpNumberGames)
     {
         gpCurrentSelected--;
-        dbgAssert(gpCurrentSelected >= 0);
-        dbgAssert(gpCurrentSelected < gpNumberGames);
+        dbgAssertOrIgnore(gpCurrentSelected >= 0);
+        dbgAssertOrIgnore(gpCurrentSelected < gpNumberGames);
     }
 
-    dbgAssert(gpNumberGames >= 0);
+    dbgAssertOrIgnore(gpNumberGames >= 0);
 
     oldfont = fontMakeCurrent(gpListFont);      // fontHeight called later on in this function
 
@@ -1162,7 +1162,7 @@ bool gpGetGameName(char *name, featom *atom, char *filename)
     if (gpNumberGames > 0)
     {
         gpDonePicking(name, atom);
-        dbgAssert(gpCurrentSelected < gpNumberGames);
+        dbgAssertOrIgnore(gpCurrentSelected < gpNumberGames);
         strcpy(filename,SavedGamesPath);
         strcat(filename,gpGames[gpCurrentSelected].title);
         return TRUE;

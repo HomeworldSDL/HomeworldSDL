@@ -67,7 +67,7 @@ void DefaultShipFire(Ship *ship,SpaceObjRotImpTarg *target)
                     break;
 
                 default:
-                    dbgAssert(FALSE);
+                    dbgAssertOrIgnore(FALSE);
 
             }
         }
@@ -117,7 +117,7 @@ void MiningBaseDied(Ship *ship)
     Node *node;
     MiningBaseSpec *spec = (MiningBaseSpec *)ship->ShipSpecifics;
 
-    dbgAssert(ship->shiptype == MiningBase);
+    dbgAssertOrIgnore(ship->shiptype == MiningBase);
     if (ship->flags & SOF_NISShip)
     {
         return;
@@ -133,7 +133,7 @@ void MiningBaseDied(Ship *ship)
     for (node = universe.ShipList.head; node != NULL; node = node->next)
     {
         deleteme = (Ship *)listGetStructOfNode(node);
-        dbgAssert(deleteme->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(deleteme->objtype == OBJ_ShipType);
 
         if ((deleteme->shiptype == MiningBase) && (deleteme != ship) && ((deleteme->flags & (SOF_Dead|SOF_NISShip)) == 0))
         {
@@ -147,7 +147,7 @@ void MiningBaseDied(Ship *ship)
     for (node = universe.ShipList.head; node != NULL; node = node->next)
     {
         deleteme = (Ship *)listGetStructOfNode(node);
-        dbgAssert(deleteme->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(deleteme->objtype == OBJ_ShipType);
 
         if ((deleteme->shiptype == MiningBase) && (deleteme != ship) && ((deleteme->flags & (SOF_Dead|SOF_NISShip)) == 0))
         {

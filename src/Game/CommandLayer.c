@@ -286,8 +286,8 @@ real32 getRangeToClosestTarget(CommandToDo *command)
     vector distvec;
     sdword i;
 
-    dbgAssert(command->selection->numShips > 0);
-    dbgAssert(command->ordertype.order == COMMAND_ATTACK);
+    dbgAssertOrIgnore(command->selection->numShips > 0);
+    dbgAssertOrIgnore(command->ordertype.order == COMMAND_ATTACK);
 
     commandPosition = command->selection->ShipPtr[0]->posinfo.position;
 
@@ -461,7 +461,7 @@ void protectShipsAvg(Ship *ship,ProtectCommand *protectShips,bool passiveAttacke
     real32 minx,maxx,miny,maxy,minz,maxz;
     bool anyshipdockingwithme;
 
-    dbgAssert(numShips > 1);
+    dbgAssertOrIgnore(numShips > 1);
 
     temp = protectShips->ShipPtr[0]->posinfo.position;
     minx = maxx = temp.x;
@@ -604,8 +604,8 @@ bool processLaunchShipToDo(CommandToDo *launchtodo)
     Ship *receiverShip = launchtodo->launchship.receiverShip;
     ShipStaticInfo *receiverShipStatic = (ShipStaticInfo *)receiverShip->staticinfo;
 
-    dbgAssert(launchtodo->selection->numShips == 1);
-    dbgAssert(receiverShip);
+    dbgAssertOrIgnore(launchtodo->selection->numShips == 1);
+    dbgAssertOrIgnore(receiverShip);
 
     /*
     if(launchtodo->launchship.receiverShip->shipSinglePlayerGameInfo->shipHyperspaceState != SHIPHYPERSPACE_NONE)
@@ -678,7 +678,7 @@ bool isThisShipThreateningMe(SpaceObjRotImpTarg *target,Ship *me)
     // check if target's leader or wingman is attacking me
     if ((targetsLeader = targetattackvars->myLeaderIs) != NULL)
     {
-        dbgAssert(targetattackvars->myWingmanIs == NULL);
+        dbgAssertOrIgnore(targetattackvars->myWingmanIs == NULL);
         if (targetsLeader->attackvars.attacktarget == (SpaceObjRotImpTarg *)me)
         {
             if (targetattackvars->attacksituation == 0) return TRUE; else return FALSE;
@@ -686,7 +686,7 @@ bool isThisShipThreateningMe(SpaceObjRotImpTarg *target,Ship *me)
     }
     else if ((targetsWingman = targetattackvars->myWingmanIs) != NULL)
     {
-        dbgAssert(targetattackvars->myLeaderIs == NULL);
+        dbgAssertOrIgnore(targetattackvars->myLeaderIs == NULL);
         if (targetsWingman->attackvars.attacktarget == (SpaceObjRotImpTarg *)me)
         {
             if (targetattackvars->attacksituation == 0) return TRUE; else return FALSE;
@@ -707,7 +707,7 @@ SpaceObjRotImpTarg *FindNewThreateningTarget(Ship *ship,AttackCommand *attack,Sp
     sdword j;
     real32 fighterMaxThreatDist = FIGHTER_MAX_THREAT_DIST[ship->tacticstype];
 
-    dbgAssert(ship->tacticstype < NUM_TACTICS_TYPES);
+    dbgAssertOrIgnore(ship->tacticstype < NUM_TACTICS_TYPES);
 
     // for all ships/targets we are attacking
     for (j=0;j<numShipsToAttack;j++)
@@ -786,7 +786,7 @@ bool processSpecialToDo(CommandToDo *todo)
     bool shipdone;
     sdword i;
 
-    dbgAssert(numShips > 0);
+    dbgAssertOrIgnore(numShips > 0);
 
     if (todo->specialtargets)
     {
@@ -817,7 +817,7 @@ bool processSpecialToDo(CommandToDo *todo)
             shipstaticinfo = (ShipStaticInfo *)(ship->staticinfo);
             shipdone = TRUE;
 
-            dbgAssert(shipstaticinfo->specialActivateIsContinuous);
+            dbgAssertOrIgnore(shipstaticinfo->specialActivateIsContinuous);
 
             if (shipstaticinfo->custshipheader.CustShipSpecialActivate)
             {
@@ -881,8 +881,8 @@ bool ShipsInPassiveAttackRange(SelectCommand *selection,AttackCommand *attack)
     bool aShipInRange = FALSE;
     real32 temp;
 
-    dbgAssert(numShips > 0);
-    dbgAssert(numShipsToAttack > 0);
+    dbgAssertOrIgnore(numShips > 0);
+    dbgAssertOrIgnore(numShipsToAttack > 0);
 
     for (i=0;i<numShipsToAttack;i++)
     {
@@ -930,7 +930,7 @@ bool processPassiveAttackToDo(CommandToDo *attacktodo)
     sdword i;
     bool rotate;
 
-    dbgAssert(numShips > 0);
+    dbgAssertOrIgnore(numShips > 0);
 
     if ((numShipsToAttack == 0) || (!ShipsInPassiveAttackRange(selection,attack))
         || ((singlePlayerGame) && (singlePlayerGameInfo.hyperspaceState != NO_HYPERSPACE ) ))
@@ -976,7 +976,7 @@ bool processPassiveAttackToDo(CommandToDo *attacktodo)
 
         if (attackvars->multipleAttackTargets)
         {
-            dbgAssert(shipstaticinfo->canTargetMultipleTargets);
+            dbgAssertOrIgnore(shipstaticinfo->canTargetMultipleTargets);
 
             if ((universe.univUpdateCounter & MULTIPLETARGETS_RETARGET_RATE) == (ship->shipID.shipNumber & MULTIPLETARGETS_RETARGET_RATE))
             {
@@ -998,7 +998,7 @@ bool processPassiveAttackToDo(CommandToDo *attacktodo)
 
         if (shipstaticinfo->custshipheader.CustShipAttackPassive)
         {
-            //dbgAssert(target->objtype == OBJ_ShipType);     // only target SHIPs should be passive attacked
+            //dbgAssertOrIgnore(target->objtype == OBJ_ShipType);     // only target SHIPs should be passive attacked
             shipstaticinfo->custshipheader.CustShipAttackPassive(ship,(Ship *)target,rotate);
         }
         attackvars->attackevents = 0;       // clear any events we received
@@ -1033,7 +1033,7 @@ bool processAttackToDo(CommandToDo *attacktodo)
     sdword attackAndMoving;
 
 
-    dbgAssert(numShips > 0);
+    dbgAssertOrIgnore(numShips > 0);
 
     if (numShipsToAttack == 0)
     {                                                               // don't do holding pattern for swarmers (don't want them to go into delta formation)
@@ -1137,7 +1137,7 @@ bool processAttackToDo(CommandToDo *attacktodo)
 
             if (attackvars->multipleAttackTargets)
             {
-                dbgAssert(shipstaticinfo->canTargetMultipleTargets);
+                dbgAssertOrIgnore(shipstaticinfo->canTargetMultipleTargets);
 
                 if ((universe.univUpdateCounter & MULTIPLETARGETS_RETARGET_RATE) == (ship->shipID.shipNumber & MULTIPLETARGETS_RETARGET_RATE))
                 {
@@ -1171,7 +1171,7 @@ bool processAttackToDo(CommandToDo *attacktodo)
             }
             else
             {
-                dbgAssert(attackvars->attacksituation == 0);
+                dbgAssertOrIgnore(attackvars->attacksituation == 0);
             }
 
             // if we have a leader
@@ -1181,7 +1181,7 @@ bool processAttackToDo(CommandToDo *attacktodo)
                 SpaceObjRotImpTarg *myLeaderTarget;
                 bool shouldrotate = TRUE;
 
-                dbgAssert(attackvars->myWingmanIs == NULL);
+                dbgAssertOrIgnore(attackvars->myWingmanIs == NULL);
 
                 if (attackvars->attacktarget != NULL)
                 {
@@ -1244,7 +1244,7 @@ bool processAttackToDo(CommandToDo *attacktodo)
                             {
                                 Ship *wingman = attackvars->myWingmanIs;
 
-                                dbgAssert(wingman);
+                                dbgAssertOrIgnore(wingman);
 
                                 wingman->attackvars.flightmansLeft = 1;
                                 wingman->attackvars.attacksituation = ATTACKSITUATION_SPLITTING;
@@ -1371,7 +1371,7 @@ bool processAttackToDo(CommandToDo *attacktodo)
                     {
                         Ship *wingman = attackvars->myWingmanIs;
 
-                        dbgAssert(wingman);
+                        dbgAssertOrIgnore(wingman);
                         wingman->attackvars.attacktarget = target;
                         InitShipAI(wingman,FALSE);
 
@@ -1828,7 +1828,7 @@ bool delegateCommand(CommandToDo *attacktodo,sdword group,sdword doform, SelectC
 
         if (attackvars->multipleAttackTargets)
         {
-            dbgAssert(shipstaticinfo->canTargetMultipleTargets);
+            dbgAssertOrIgnore(shipstaticinfo->canTargetMultipleTargets);
 
             if ((universe.univUpdateCounter & MULTIPLETARGETS_RETARGET_RATE) == (ship->shipID.shipNumber & MULTIPLETARGETS_RETARGET_RATE))
             {
@@ -1989,7 +1989,7 @@ bool delegateCommand(CommandToDo *attacktodo,sdword group,sdword doform, SelectC
 
         if (attackvars->multipleAttackTargets)
         {
-            dbgAssert(shipstaticinfo->canTargetMultipleTargets);
+            dbgAssertOrIgnore(shipstaticinfo->canTargetMultipleTargets);
 
             if ((universe.univUpdateCounter & MULTIPLETARGETS_RETARGET_RATE) == (ship->shipID.shipNumber & MULTIPLETARGETS_RETARGET_RATE))
             {
@@ -2103,7 +2103,7 @@ bool processAttackToDoInFormation(CommandToDo *attacktodo)
 
     SpecificAttackVars *attackvars;
 
-    dbgAssert(selection->numShips > 0);
+    dbgAssertOrIgnore(selection->numShips > 0);
 
     if (selection->ShipPtr[0]->tacticstype == Aggressive)
     {
@@ -2252,7 +2252,7 @@ bool processAttackToDoInFormation(CommandToDo *attacktodo)
         }
         if (attackvars->multipleAttackTargets)
         {
-            dbgAssert(shipstaticinfo->canTargetMultipleTargets);
+            dbgAssertOrIgnore(shipstaticinfo->canTargetMultipleTargets);
 
             if ((universe.univUpdateCounter & MULTIPLETARGETS_RETARGET_RATE) == (ship->shipID.shipNumber & MULTIPLETARGETS_RETARGET_RATE))
             {
@@ -2746,7 +2746,7 @@ bool processMoveToDo(CommandToDo *movetodo,bool passiveAttacked)
     bool dontrotate;
     real32 MOVE_ARRIVE_TOLERANCE;
 
-    dbgAssert(numShips > 0);
+    dbgAssertOrIgnore(numShips > 0);
 
     for (i=0;i<numShips;i++)
     {
@@ -2870,7 +2870,7 @@ bool processMoveLeaderToDo(CommandToDo *movetodo,bool passiveAttacked)
     udword moveresult;
     real32 MOVE_ARRIVE_TOLERANCE;
 
-    dbgAssert(selection->numShips >= 1);
+    dbgAssertOrIgnore(selection->numShips >= 1);
 
     ship = selection->ShipPtr[0];
     shipstatic = (ShipStaticInfo *)ship->staticinfo;
@@ -3056,9 +3056,9 @@ void FreeCommandToDoContents(CommandToDo *command)
 
     if (command->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
     {
-        dbgAssert(command->ordertype.order != COMMAND_ATTACK);
+        dbgAssertOrIgnore(command->ordertype.order != COMMAND_ATTACK);
         AttackCleanup(command);
-        dbgAssert(command->attack);
+        dbgAssertOrIgnore(command->attack);
         memFree(command->attack);
         bitClear(command->ordertype.attributes,COMMAND_IS_PASSIVE_ATTACKING);
     }
@@ -3072,7 +3072,7 @@ void FreeCommandToDoContents(CommandToDo *command)
     {
         case COMMAND_ATTACK:
             AttackCleanup(command);
-            dbgAssert(command->attack);
+            dbgAssertOrIgnore(command->attack);
             memFree(command->attack);
             break;
 
@@ -3093,7 +3093,7 @@ void FreeCommandToDoContents(CommandToDo *command)
             break;
 
         case COMMAND_MILITARY_PARADE:
-            dbgAssert(command->militaryParade);
+            dbgAssertOrIgnore(command->militaryParade);
             FreeMilitaryParadeContents(command->militaryParade);
             memFree(command->militaryParade);
             break;
@@ -3111,7 +3111,7 @@ void FreeCommandToDoContents(CommandToDo *command)
             break;
 
         default:
-            dbgAssert(FALSE);   // should never get here
+            dbgAssertOrIgnore(FALSE);   // should never get here
             break;
     }
 
@@ -3132,7 +3132,7 @@ void FreeLastOrder(CommandToDo *command)
     {
         case COMMAND_ATTACK:
             AttackCleanup(command);
-            dbgAssert(command->attack);
+            dbgAssertOrIgnore(command->attack);
             memFree(command->attack);
             command->attack = NULL;
             dontClearHoldingPattern = TRUE;
@@ -3155,7 +3155,7 @@ void FreeLastOrder(CommandToDo *command)
             break;
 
         case COMMAND_MILITARY_PARADE:
-            dbgAssert(command->militaryParade);
+            dbgAssertOrIgnore(command->militaryParade);
             FreeMilitaryParadeContents(command->militaryParade);
             memFree(command->militaryParade);
             command->militaryParade = NULL;
@@ -3174,7 +3174,7 @@ void FreeLastOrder(CommandToDo *command)
             break;
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             break;
     }
     if(!dontClearHoldingPattern)
@@ -3187,7 +3187,7 @@ void ClearPassiveAttacking(CommandToDo *command)
 {
     bitClear(command->ordertype.attributes,COMMAND_IS_PASSIVE_ATTACKING);
     AttackCleanup(command);
-    dbgAssert(command->attack);
+    dbgAssertOrIgnore(command->attack);
     memFree(command->attack);
     command->attack = NULL;
 
@@ -3204,7 +3204,7 @@ void ClearPassiveAttacking(CommandToDo *command)
         {
             //command is a NULL command and in FORMATION
             //There for the formation had to be locked
-            dbgAssert(command->formation.formationLocked);
+            dbgAssertOrIgnore(command->formation.formationLocked);
 
             //unlock the formation
             unlockFormation(command);
@@ -3216,7 +3216,7 @@ void ClearPassiveAttacking(CommandToDo *command)
 void ClearProtecting(CommandToDo *command)
 {
     bitClear(command->ordertype.attributes,COMMAND_IS_PROTECTING);
-    dbgAssert(command->protect);
+    dbgAssertOrIgnore(command->protect);
     memFree(command->protect);
     command->protect = NULL;
 
@@ -3422,7 +3422,7 @@ void RemoveShipsFromDoingStuff(CommandLayer *comlayer,SelectCommand *selectcom)
                     case COMMAND_SPECIAL:
                         if (clRemoveShipFromSelection(todoselection,shiptoremove))
                         {
-                            dbgAssert((todo->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING) == 0);
+                            dbgAssertOrIgnore((todo->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING) == 0);
 
                             RemoveShipFromCommand(shiptoremove);
                             RemoveShipFromSpecial(shiptoremove);
@@ -3531,7 +3531,7 @@ void RemoveShipsFromDoingStuff(CommandLayer *comlayer,SelectCommand *selectcom)
 
                         break;
                     default:
-                        dbgAssert(FALSE);
+                        dbgAssertOrIgnore(FALSE);
                         break;
                 }
 
@@ -3565,7 +3565,7 @@ void clDerelictDied(CommandLayer *comlayer,DerelictPtr derelict)
 
         if (todo->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
         {
-            dbgAssert(todo->ordertype.order != COMMAND_ATTACK);
+            dbgAssertOrIgnore(todo->ordertype.order != COMMAND_ATTACK);
             if (clRemoveTargetFromSelection(todo->attack,(SpaceObjRotImpTarg *)derelict))
             {
                 RemoveAttackTargetFromExtraAttackInfo((SpaceObjRotImpTarg *)derelict,todo);
@@ -3600,7 +3600,7 @@ void clDerelictDied(CommandLayer *comlayer,DerelictPtr derelict)
                 break;
 
             default:
-                dbgAssert(FALSE);
+                dbgAssertOrIgnore(FALSE);
                 break;
         }
 
@@ -3629,7 +3629,7 @@ void clResourceDied(CommandLayer *comlayer,ResourcePtr resource)
 
         if (todo->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
         {
-            dbgAssert(todo->ordertype.order != COMMAND_ATTACK);
+            dbgAssertOrIgnore(todo->ordertype.order != COMMAND_ATTACK);
             if (clRemoveTargetFromSelection(todo->attack,(SpaceObjRotImpTarg *)resource))
             {
                 RemoveAttackTargetFromExtraAttackInfo((SpaceObjRotImpTarg *)resource,todo);
@@ -3665,7 +3665,7 @@ void clResourceDied(CommandLayer *comlayer,ResourcePtr resource)
                 break;
 
             default:
-                dbgAssert(FALSE);
+                dbgAssertOrIgnore(FALSE);
                 break;
         }
 
@@ -3714,7 +3714,7 @@ void clMissileDied(CommandLayer *comlayer,MissilePtr missile)
                 break;
 
             default:
-                dbgAssert(FALSE);
+                dbgAssertOrIgnore(FALSE);
                 break;
         }
 
@@ -3965,7 +3965,7 @@ void RemoveShipFromBeingTargeted(CommandLayer *comlayer,ShipPtr shiptoremove,udw
         }
         if (todo->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
         {
-            dbgAssert(todo->ordertype.order != COMMAND_ATTACK);
+            dbgAssertOrIgnore(todo->ordertype.order != COMMAND_ATTACK);
             if ( SHIP_DISAPPEARED_FLAG ||
                 (!(CLOAKED_REMOVAL_FLAG &&
                     proximityCanPlayerSeeShip(todo->selection->ShipPtr[0]->playerowner,shiptoremove))) )
@@ -4039,7 +4039,7 @@ void RemoveShipFromBeingTargeted(CommandLayer *comlayer,ShipPtr shiptoremove,udw
                 {
                     Ship *ship = todo->selection->ShipPtr[0];
 
-                    dbgAssert(todo->selection->numShips == 1);
+                    dbgAssertOrIgnore(todo->selection->numShips == 1);
                     RemoveShipFromLaunching(ship);
 
                     nextnode = todonode->next;
@@ -4078,7 +4078,7 @@ void RemoveShipFromBeingTargeted(CommandLayer *comlayer,ShipPtr shiptoremove,udw
                 break;
 
             default:
-                dbgAssert(FALSE);
+                dbgAssertOrIgnore(FALSE);
                 break;
         }
         todonode = todonode->next;
@@ -4159,7 +4159,7 @@ void clCancelAllLaunchOrdersFromPlayer(struct Player *player)
     CommandToDo *command;
     sdword i;
 
-    dbgAssert(singlePlayerGame);
+    dbgAssertOrIgnore(singlePlayerGame);
 
     while (curnode != NULL)
     {
@@ -4348,7 +4348,7 @@ void CalculateMoveToPoints(SelectCommand *selection,vector from,vector to)
     real32 maxrsqr,maxrmag;
     real32 scale,doverr;
 
-    dbgAssert(numShips > 0);
+    dbgAssertOrIgnore(numShips > 0);
 
     if (numShips == 1)
     {
@@ -4385,7 +4385,7 @@ void CalculateMoveToPoints(SelectCommand *selection,vector from,vector to)
         }
     }
 
-    dbgAssert(maxrsqr >= 0.0f);
+    dbgAssertOrIgnore(maxrsqr >= 0.0f);
     maxrmag = fsqrt(maxrsqr);
 
     // scales from a d/r ratio of DISTMINRATIO      to      SHRINKMIN
@@ -4472,7 +4472,7 @@ void ChangeOrderToMove(CommandToDo *alreadycommand,vector from,vector to)
                 tempSelection.numShips = 0;
                 j = 0;
 
-                dbgAssert(alreadycommand->selection->numShips < COMMAND_MAX_SHIPS);
+                dbgAssertOrIgnore(alreadycommand->selection->numShips < COMMAND_MAX_SHIPS);
 
                 for(i=0;i<alreadycommand->selection->numShips;i++)
                 {
@@ -4656,7 +4656,7 @@ void clMoveThese(CommandLayer *comlayer,SelectCommand *selectcom,vector from,vec
                             clRemoveShipFromSelection(copycom,currentShipCommand->selection->ShipPtr[j]);
                         }
                     }
-                    dbgAssert(tempSelection.numShips > 0);
+                    dbgAssertOrIgnore(tempSelection.numShips > 0);
                     for(j=0;j<currentShipCommand->attack->numTargets;j++)
                     {
                         targetSelection.TargetPtr[j] = currentShipCommand->attack->TargetPtr[j];
@@ -5120,7 +5120,7 @@ SpaceObjRotImpTarg *AttackClosestOpponent(Ship *ship,AttackCommand *attack)
         }
     }
 
-    dbgAssert(attacki != -1);
+    dbgAssertOrIgnore(attacki != -1);
 
     return attack->TargetPtr[attacki];
 }
@@ -5334,7 +5334,7 @@ void RemoveAttackTargetFromExtraAttackInfo(SpaceObjRotImpTarg *targettoremove,Co
     Ship *ship;
     AttackTargets *multipleAttackTargets;
 
-    dbgAssert(numShips > 0);
+    dbgAssertOrIgnore(numShips > 0);
 
     for (i=0;i<numShips;i++)
     {
@@ -5378,7 +5378,7 @@ void RemoveShipReferencesFromExtraAttackInfo(Ship *shiptoremove,CommandToDo *tod
     sdword i;
     Ship *ship;
 
-    dbgAssert(shiptoremove);
+    dbgAssertOrIgnore(shiptoremove);
 
     for (i=0;i<numShips;i++)
     {
@@ -5394,7 +5394,7 @@ void RemoveShipReferencesFromExtraAttackInfo(Ship *shiptoremove,CommandToDo *tod
         {
             // this ship's leader has fallen, so we should not be his wingman anymore.
             attackvars->myLeaderIs = NULL;
-            dbgAssert(attackvars->myWingmanIs == NULL);
+            dbgAssertOrIgnore(attackvars->myWingmanIs == NULL);
 
             attackvars->attackevents |= ATTACKEVENT_LEADER_DIED;
         }
@@ -5402,7 +5402,7 @@ void RemoveShipReferencesFromExtraAttackInfo(Ship *shiptoremove,CommandToDo *tod
         if (attackvars->myWingmanIs == shiptoremove)
         {
             // lost wingman
-            dbgAssert(attackvars->myLeaderIs == NULL);
+            dbgAssertOrIgnore(attackvars->myLeaderIs == NULL);
             attackvars->myWingmanIs = NULL;
 
             // we lost our wingman
@@ -5424,7 +5424,7 @@ AttackTargets *allocateMultipleAttackTargets(Ship *ship)
     AttackTargets *attacktargets;
     sdword sizeofAttackTargets;
 
-    dbgAssert(numGuns > 0);
+    dbgAssertOrIgnore(numGuns > 0);
     sizeofAttackTargets = sizeofAttackTargets(numGuns);
     attacktargets = memAlloc(sizeofAttackTargets,"AttackTargets",0);
     memset(attacktargets,0,sizeofAttackTargets);
@@ -5471,9 +5471,9 @@ void pickMultipleAttackTargets(Ship *ship,AttackCommand *attack)
     real32 temp;
     real32 dotprod,bonus,gunRange;
 
-    dbgAssert(numShipsToAttack > 0);
-    dbgAssert(numAttackTargets > 0);
-    dbgAssert(numAttackTargets == gunInfo->numGuns);
+    dbgAssertOrIgnore(numShipsToAttack > 0);
+    dbgAssertOrIgnore(numAttackTargets > 0);
+    dbgAssertOrIgnore(numAttackTargets == gunInfo->numGuns);
 
     multipleTargetsInfo = memAlloc(sizeof(PickMultipleTargetsInfo)*numShipsToAttack,"mTI(multTargInfo)",Pyrophoric);
 
@@ -5751,8 +5751,8 @@ void InitExtraAttackInfo(SelectCommand *selection,AttackCommand *attack,bool fin
     Ship *leader = selection->ShipPtr[0];
     bool focusfire = FALSE;
 
-    dbgAssert(numShips > 0);
-    dbgAssert(numTargetsToAttack > 0);
+    dbgAssertOrIgnore(numShips > 0);
+    dbgAssertOrIgnore(numTargetsToAttack > 0);
 
     if (leader->tacticstype == Aggressive)
     {
@@ -5762,7 +5762,7 @@ void InitExtraAttackInfo(SelectCommand *selection,AttackCommand *attack,bool fin
     for (i=0;i<numShips;i++)
     {
         ship = selection->ShipPtr[i];
-        //dbgAssert(ship->attackvars.multipleAttackTargets == NULL);
+        //dbgAssertOrIgnore(ship->attackvars.multipleAttackTargets == NULL);
         ship->attackvars.multipleAttackTargets = NULL;
         ship->attackvars.attacktarget = NULL;
         ship->attackvars.myLeaderIs = NULL;
@@ -5852,12 +5852,12 @@ void InitExtraAttackInfo(SelectCommand *selection,AttackCommand *attack,bool fin
                 }
             }
 
-            dbgAssert(closestshipj != -1);
+            dbgAssertOrIgnore(closestshipj != -1);
 
-            dbgAssert(assigntargets->flags[closestshipj] == 0);
+            dbgAssertOrIgnore(assigntargets->flags[closestshipj] == 0);
             assigntargets->flags[closestshipj] = 1;
             assigntargets->numFlaggedShips++;
-            dbgAssert(assigntargets->numFlaggedShips <= numTargetsToAttack);
+            dbgAssertOrIgnore(assigntargets->numFlaggedShips <= numTargetsToAttack);
             if (assigntargets->numFlaggedShips == numTargetsToAttack)
             {
                 for (k=0,flags=&assigntargets->flags[0];k<numTargetsToAttack;k++,flags++)
@@ -5876,7 +5876,7 @@ void InitExtraAttackInfo(SelectCommand *selection,AttackCommand *attack,bool fin
 
             if (((ShipStaticInfo *)(ship->staticinfo))->canTargetMultipleTargets)
             {
-                dbgAssert(attackvars->multipleAttackTargets == NULL);
+                dbgAssertOrIgnore(attackvars->multipleAttackTargets == NULL);
                 attackvars->multipleAttackTargets = allocateMultipleAttackTargets(ship);
                 pickMultipleAttackTargets(ship,attack);
             }
@@ -5933,7 +5933,7 @@ void ChangeOrderToAttack(CommandToDo *alreadycommand,AttackCommand *attackcom)
 #endif
     }
 
-    dbgAssert(AreAllShipsAttackCapable(alreadycommand->selection));
+    dbgAssertOrIgnore(AreAllShipsAttackCapable(alreadycommand->selection));
 
     FreeLastOrder(alreadycommand);
 
@@ -6212,7 +6212,7 @@ void ChangeOrderToPassiveAttack(CommandToDo *alreadycommand,AttackCommand *attac
     sdword count,i;
 
     // should check canChangeOrderToPassiveAttack before calling this routine
-    dbgAssert(canChangeOrderToPassiveAttack(alreadycommand,attackcom));
+    dbgAssertOrIgnore(canChangeOrderToPassiveAttack(alreadycommand,attackcom));
 
     count=0;
     for(i=0;i<alreadycommand->selection->numShips;i++)
@@ -6582,8 +6582,8 @@ void clSetTactics(CommandLayer *comlayer,SelectCommand *selectcom,TacticsType ta
     if(!tacticsOn) return;  //don't change tactics settings if not enabled
 #endif
 
-    dbgAssert(tacticstype >= 0);
-    dbgAssert(tacticstype < NUM_TACTICS_TYPES);
+    dbgAssertOrIgnore(tacticstype >= 0);
+    dbgAssertOrIgnore(tacticstype < NUM_TACTICS_TYPES);
 
     for (i=0;i<numShips;i++)
     {
@@ -6816,7 +6816,7 @@ void clHaltThese(CommandLayer *comlayer,SelectCommand *selectcom)
         }
 
         #ifdef HW_DEBUG
-              dbgAssert(alreadycommand->ordertype.order != COMMAND_MP_HYPERSPACING);
+              dbgAssertOrIgnore(alreadycommand->ordertype.order != COMMAND_MP_HYPERSPACING);
         #endif
 
 
@@ -6987,9 +6987,9 @@ void clLaunchShip(CommandLayer *comlayer,SelectCommand *selectcom,ShipPtr receiv
     Ship *ship = selectcom->ShipPtr[0];
     ShipStaticInfo *receiverShipStaticInfo = (ShipStaticInfo *)receiverShip->staticinfo;
 
-    dbgAssert(selectcom->numShips == 1);
-    dbgAssert(receiverShip != NULL);
-    dbgAssert(receiverShipStaticInfo->canReceiveShips|receiverShipStaticInfo->canReceiveShipsPermanently);
+    dbgAssertOrIgnore(selectcom->numShips == 1);
+    dbgAssertOrIgnore(receiverShip != NULL);
+    dbgAssertOrIgnore(receiverShipStaticInfo->canReceiveShips|receiverShipStaticInfo->canReceiveShipsPermanently);
 
     if (ship->specialFlags & SPECIAL_Launching)
     {
@@ -7083,7 +7083,7 @@ void LaunchAllInternalShipsOfPlayerThatMustBeLaunched(struct Player *player)
     while (objnode != NULL)
     {
         ship = (Ship *)listGetStructOfNode(objnode);
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         if (ship->playerowner == player)
         {
@@ -7096,7 +7096,7 @@ void LaunchAllInternalShipsOfPlayerThatMustBeLaunched(struct Player *player)
                 while (insidenode != NULL)
                 {
                     insideship = (InsideShip *)listGetStructOfNode(insidenode);
-                    dbgAssert(insideship->ship->objtype == OBJ_ShipType);
+                    dbgAssertOrIgnore(insideship->ship->objtype == OBJ_ShipType);
 
                         // make defector launch
                     if ((insideship->ship->attributes & ATTRIBUTES_Defector) || (ShipHasToLaunch(ship,insideship->ship)))
@@ -7169,7 +7169,7 @@ sdword LaunchAllInternalShipsOfPlayer(struct Player *player, udword carriermask)
     while (objnode != NULL)
     {
         ship = (Ship *)listGetStructOfNode(objnode);
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         if (ship->playerowner == player)
         {
@@ -7188,7 +7188,7 @@ sdword LaunchAllInternalShipsOfPlayer(struct Player *player, udword carriermask)
                     while (insidenode != NULL)
                     {
                         insideship = (InsideShip *)listGetStructOfNode(insidenode);
-                        dbgAssert(insideship->ship->objtype == OBJ_ShipType);
+                        dbgAssertOrIgnore(insideship->ship->objtype == OBJ_ShipType);
 
                         if (!(insideship->ship->attributes & ATTRIBUTES_Defector))      // don't let the defector launch
                         {
@@ -7376,7 +7376,7 @@ Ship *clCreateShip(CommandLayer *comlayer,ShipType shipType,ShipRace shipRace,uw
         return NULL;         // if player is not alive, don't allow ship creation
     }
 
-    dbgAssert(playerIndex < universe.numPlayers);
+    dbgAssertOrIgnore(playerIndex < universe.numPlayers);
 
     // create ship
     ship = univCreateShip(shipType,shipRace,&creator->posinfo.position,&universe.players[playerIndex],1);
@@ -7434,7 +7434,7 @@ bool processBuildingShipToDo(CommandToDo *command)
     if (universe.univUpdateCounter > command->buildingship.frameAtWhichToCreate)
     {
         creator = command->buildingship.creator;
-        dbgAssert(creator != NULL);
+        dbgAssertOrIgnore(creator != NULL);
         player = creator->playerowner;
 
         clCreateShip(&universe.mainCommandLayer,command->buildingship.shipType,command->buildingship.shipRace,
@@ -7481,7 +7481,7 @@ void clDeterministicBuild(udword command, CommandLayer* comLayer,
 {
     Player* player = &universe.players[playerIndex];
 
-    dbgAssert(playerIndex < universe.numPlayers);
+    dbgAssertOrIgnore(playerIndex < universe.numPlayers);
 
     if (creator == NULL)
     {
@@ -7511,7 +7511,7 @@ void clBuildShip(CommandLayer *comlayer,ShipType shipType,ShipRace shipRace,uwor
     ShipStaticInfo *shipstaticinfo = GetShipStaticInfo(shipType,shipRace);
     CommandToDo *newcommand;
 
-    dbgAssert(playerIndex < universe.numPlayers);
+    dbgAssertOrIgnore(playerIndex < universe.numPlayers);
 
     if (creator == NULL)
     {
@@ -7773,7 +7773,7 @@ void AddShipToGroup(ShipPtr ship,CommandToDo *group)
     sdword numShips;
 
     numShips = group->selection->numShips;
-    dbgAssert(numShips >= 1);
+    dbgAssertOrIgnore(numShips >= 1);
 
     sizeofnewselection = sizeofSelectCommand(numShips+1);
     sizeofselection = sizeofSelectCommand(numShips);
@@ -7806,7 +7806,7 @@ void AddShipToFormationGroup(ShipPtr ship,CommandToDo *group)
     AddShipToGroup(ship,group);
     FillInShipFormationStuff(ship,group);
 
-    dbgAssert(group->ordertype.attributes & COMMAND_IS_FORMATION);
+    dbgAssertOrIgnore(group->ordertype.attributes & COMMAND_IS_FORMATION);
     formationContentHasChanged(group);
 
     InitShipAI(ship,TRUE);
@@ -7824,7 +7824,7 @@ bool thereareothercompatibleresearchships(Ship *ship)
     Node *resnode;
     Ship *resship;
 
-    dbgAssert(ship->shiptype == ResearchShip);
+    dbgAssertOrIgnore(ship->shiptype == ResearchShip);
 
     resnode = universe.ShipList.head;
 
@@ -7889,7 +7889,7 @@ void clSetMilitaryParade(CommandLayer *comlayer,SelectCommand *selectcom)
         return;
     }
 
-    dbgAssert(index < selectcom->numShips);
+    dbgAssertOrIgnore(index < selectcom->numShips);
     aroundShip = selectcom->ShipPtr[index];
 
     for (i=0;i<selectcom->numShips;i++)
@@ -7933,7 +7933,7 @@ void GroupShip(CommandLayer *comlayer,ShipPtr ship,ShipPtr aroundShip)
 
 
 //    groupSize = shipstaticinfo->groupSize;
-//    dbgAssert(groupSize > 0);
+//    dbgAssertOrIgnore(groupSize > 0);
     if((ship->shiptype == ResearchShip) && (thereareothercompatibleresearchships(ship)))
     {
         selection.numShips = 1;
@@ -8159,7 +8159,7 @@ void clHoldingPattern(CommandLayer *comlayer,CommandToDo *command)
     putCapitalsInSelection(&capitals,(MaxSelection *)command->selection);
 
     // want to make sure all ships go into either fighters, corvettes, or frigates
-    dbgAssert(fighters.numShips + corvettes.numShips + capitals.numShips == command->selection->numShips);
+    dbgAssertOrIgnore(fighters.numShips + corvettes.numShips + capitals.numShips == command->selection->numShips);
 
     //loop through all types of ships {capitals,fighters and corvetters}
     for(j = 0; j < 3; j++)
@@ -8694,7 +8694,7 @@ processdock:
                     break;
 
                 default:
-                    dbgAssert(FALSE);
+                    dbgAssertOrIgnore(FALSE);
                     break;
             }
         }
@@ -8828,7 +8828,7 @@ processdock:
                     {
                         if (command->dock.wasHarvesting)
                         {
-                            dbgAssert(command->selection->numShips == 1);
+                            dbgAssertOrIgnore(command->selection->numShips == 1);
 
                             // changing COMMAND_DOCK to COMMAND_COLLECT_RESOURCES
                             FreeLastOrder(command);
@@ -8860,7 +8860,7 @@ processdock:
                     if (processCollectResource(command))
                     {
                         Ship *ship = command->selection->ShipPtr[0];
-                        dbgAssert(command->selection->numShips >= 1);
+                        dbgAssertOrIgnore(command->selection->numShips >= 1);
 
                         nextnode = curnode->next;         // collect resource command has finished
                         FreeCommandToDoContents(command);
@@ -8882,7 +8882,7 @@ processdock:
                         Ship *ship;
                         Ship *receiverShip;
 
-                        dbgAssert(command->selection->numShips == 1);
+                        dbgAssertOrIgnore(command->selection->numShips == 1);
 
                         ship = command->selection->ShipPtr[0];
                         receiverShip = command->launchship.receiverShip;
@@ -8945,7 +8945,7 @@ processdock:
                     break;
 
                 case COMMAND_BUILDING_SHIP:
-                    dbgAssert(command->ordertype.attributes == 0);
+                    dbgAssertOrIgnore(command->ordertype.attributes == 0);
                     // don't allow COMMAND_IS_PASSIVE_ATTACKING, COMMAND_IS_PROTECTING, COMMAND_IS_FORMATION
                     if (processBuildingShipToDo(command))
                     {
@@ -9000,7 +9000,7 @@ processdock:
                             bitClear(command->ordertype.attributes,COMMAND_IS_HOLDING_PATTERN);
                         }
 
-                        dbgAssert(numShipsToProtect > 0);
+                        dbgAssertOrIgnore(numShipsToProtect > 0);
                         if (numShipsToProtect == 1)
                         {
                             protectShipPtr = commandprotect->ShipPtr[0];
@@ -9058,7 +9058,7 @@ processdock:
                     break;
 
                 default:
-                    dbgAssert(FALSE);
+                    dbgAssertOrIgnore(FALSE);
                     break;
             }
 
@@ -9094,7 +9094,7 @@ void clPostProcess(CommandLayer *comlayer)
 
         if (command->ordertype.attributes & COMMAND_IS_PROTECTING)
         {
-            dbgAssert(command->protect->numShips > 0);
+            dbgAssertOrIgnore(command->protect->numShips > 0);
 
             if (bitTest(command->protectFlags,PROTECTFLAGS_JUST_FOLLOW))
             {
@@ -9140,7 +9140,7 @@ void clPostProcess(CommandLayer *comlayer)
 //                                SelectCommand *attackingships = selectDupSelection(command->selection);
                                 attack = (AttackCommand *)getShipAndItsFormation(&universe.mainCommandLayer,protectMe->gettingrocked);
 //                                MakeShipsAttackCapable(attackingships);
-                                dbgAssert(attackingships.numShips > 0);
+                                dbgAssertOrIgnore(attackingships.numShips > 0);
                                 makeShipsNotHaveNonCombatShipsForGuardAttack((SelectCommand *)&attackingships);
                                 if(attackingships.numShips > 0)
                                 {
@@ -9187,14 +9187,14 @@ CommandToDo *getShipAndItsCommand(CommandLayer *comlayer,ShipPtr ship)
 
         if (selShipInSelection(command->selection->ShipPtr,command->selection->numShips,ship))
         {
-            dbgAssert(ship->command == command);
+            dbgAssertOrIgnore(ship->command == command);
             return command;
         }
 
         curnode = curnode->next;
     }
 
-    dbgAssert(ship->command == NULL);
+    dbgAssertOrIgnore(ship->command == NULL);
     return NULL;
 #else
     return ship->command;

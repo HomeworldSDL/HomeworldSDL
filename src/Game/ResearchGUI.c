@@ -1021,7 +1021,7 @@ void rmSelectAvailableLab(regionhandle region, udword event, sdword labID)
 
     if (event == RPE_PressLeft)
     {                                                       //left press (select/add job)
-        dbgAssert(region!=NULL);
+        dbgAssertOrIgnore(region!=NULL);
 #ifdef DEBUG_STOMP
         regVerify(region);
 #endif
@@ -1650,12 +1650,12 @@ void rmTechBriefDraw(featom *atom, regionhandle region)
 
         if (universe.curPlayerPtr->race==R1)
         {
-            dbgAssert(strGetString(techinfo+strTechInfoOffsetR1)!=NULL);
+            dbgAssertOrIgnore(strGetString(techinfo+strTechInfoOffsetR1)!=NULL);
             strcpy(stringtoprint,strGetString(techinfo+strTechInfoOffsetR1));
         }
         else
         {
-            dbgAssert(strGetString(techinfo+strTechInfoOffsetR2)!=NULL);
+            dbgAssertOrIgnore(strGetString(techinfo+strTechInfoOffsetR2)!=NULL);
             strcpy(stringtoprint,strGetString(techinfo+strTechInfoOffsetR2));
         }
 
@@ -1796,7 +1796,7 @@ void rmTechImageDraw(featom *atom, regionhandle region)
 
             // Load the image into LRU cache
             pictures[lru].techImage = trLIFFileLoad(filename, NonVolatile);
-            dbgAssert(pictures[lru].techImage->flags & TRF_Paletted);
+            dbgAssertOrIgnore(pictures[lru].techImage->flags & TRF_Paletted);
 
             rmTechTexturePrepare(lru);
             rmCurTechTexture = techinfo;

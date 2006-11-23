@@ -148,7 +148,7 @@ SpaceObj *SpaceObjRegistryGetObj(sdword id)
         return NULL;
     }
 
-    dbgAssert(id < SpaceObjRegistry.selection->numShips);
+    dbgAssertOrIgnore(id < SpaceObjRegistry.selection->numShips);
 
     return (SpaceObj *)SpaceObjRegistry.selection->ShipPtr[id];
 }
@@ -159,9 +159,9 @@ Ship *SpaceObjRegistryGetShip(sdword id)
     {
         Ship *ship;
 
-        dbgAssert(id < SpaceObjRegistry.selection->numShips);
+        dbgAssertOrIgnore(id < SpaceObjRegistry.selection->numShips);
         ship = SpaceObjRegistry.selection->ShipPtr[id];
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
         return ship;
     }
     
@@ -174,9 +174,9 @@ Resource *SpaceObjRegistryGetResource(sdword id)
     {
         Resource *resource;
 
-        dbgAssert(id < SpaceObjRegistry.selection->numShips);
+        dbgAssertOrIgnore(id < SpaceObjRegistry.selection->numShips);
         resource = (Resource *)SpaceObjRegistry.selection->ShipPtr[id];
-        dbgAssert(resource->flags & SOF_Resource);
+        dbgAssertOrIgnore(resource->flags & SOF_Resource);
         return resource;
     }
     
@@ -189,9 +189,9 @@ Bullet *SpaceObjRegistryGetBullet(sdword id)
     {
         Bullet *bullet;
 
-        dbgAssert(id < SpaceObjRegistry.selection->numShips);
+        dbgAssertOrIgnore(id < SpaceObjRegistry.selection->numShips);
         bullet = (Bullet *)SpaceObjRegistry.selection->ShipPtr[id];
-        dbgAssert(bullet->objtype == OBJ_BulletType);
+        dbgAssertOrIgnore(bullet->objtype == OBJ_BulletType);
         return bullet;
     }
     
@@ -204,9 +204,9 @@ TargetPtr SpaceObjRegistryGetTarget(sdword id)
     {
         TargetPtr target;
 
-        dbgAssert(id < SpaceObjRegistry.selection->numShips);
+        dbgAssertOrIgnore(id < SpaceObjRegistry.selection->numShips);
         target = (TargetPtr)SpaceObjRegistry.selection->ShipPtr[id];
-        dbgAssert(target->flags & SOF_Targetable);
+        dbgAssertOrIgnore(target->flags & SOF_Targetable);
         return target;
     }
     
@@ -241,7 +241,7 @@ sdword BlobRegistryBlobPresent(blob *tblob)
 
 void BlobRegistryRegister(blob *tblob)
 {
-    dbgAssert(BlobRegistryBlobPresent(tblob) == -1);
+    dbgAssertOrIgnore(BlobRegistryBlobPresent(tblob) == -1);
     growSelectAddShip(&BlobRegistry,(Ship *)tblob);
 }
 
@@ -253,7 +253,7 @@ sdword BlobRegistryGetIDWrapper(blob *tblob, bool check_valid_id)
         
         if (check_valid_id)
         {
-            dbgAssert(id != -1);
+            dbgAssertOrIgnore(id != -1);
         }
         
         return id;
@@ -276,8 +276,8 @@ blob *BlobRegistryGetBlob(sdword id)
 {
     if (id != -1)
     {
-        dbgAssert(id >= 0);
-        dbgAssert(id < BlobRegistry.selection->numShips);
+        dbgAssertOrIgnore(id >= 0);
+        dbgAssertOrIgnore(id < BlobRegistry.selection->numShips);
         return (blob *)BlobRegistry.selection->ShipPtr[id];
     }
 
@@ -294,7 +294,7 @@ blob *BlobRegistryGetBlob(sdword id)
 void SaveThisChunk(SaveChunk *thischunk)
 {
     FILE *fp;
-    dbgAssert(!fileUsingBigfile(savefile));
+    dbgAssertOrIgnore(!fileUsingBigfile(savefile));
     fp = fileStream(savefile);
 
     if (fwrite(thischunk, sizeofSaveChunk(thischunk->contentsSize), 1, fp) != 1)
@@ -310,7 +310,7 @@ SaveChunk *CreateChunk(TypeOfSaveChunk type,sdword contentsSize,void *contents)
     chunk->type = type;
     chunk->contentsSize = contentsSize;
 
-    dbgAssert(contentsSize >= 0);
+    dbgAssertOrIgnore(contentsSize >= 0);
     if ((contentsSize > 0) && (contents != NULL))
     {
         memcpy(chunkContents(chunk),contents,contentsSize);
@@ -326,13 +326,13 @@ SaveChunk *LoadNextChunk()
     SaveChunk *returnchunk;
     FILE *fp;
 
-    dbgAssert(!fileUsingBigfile(savefile));
+    dbgAssertOrIgnore(!fileUsingBigfile(savefile));
     fp = fileStream(savefile);
 
     num = fread(&readchunk,sizeof(SaveChunk),1,fp);
-    dbgAssert(num != 0);
+    dbgAssertOrIgnore(num != 0);
 
-    dbgAssert(readchunk.contentsSize >= 0);
+    dbgAssertOrIgnore(readchunk.contentsSize >= 0);
 
     returnchunk = memAlloc(sizeofSaveChunk(readchunk.contentsSize),"readchunk",Pyrophoric);
 
@@ -341,7 +341,7 @@ SaveChunk *LoadNextChunk()
     if (readchunk.contentsSize > 0)
     {
         num = fread(((ubyte *)returnchunk) + sizeof(SaveChunk),readchunk.contentsSize,1,fp);
-        dbgAssert(num != 0);
+        dbgAssertOrIgnore(num != 0);
     }
 
     return returnchunk;
@@ -354,7 +354,7 @@ SaveChunk *LoadNextChunkSafe()
     SaveChunk *returnchunk;
     FILE *fp;
 
-    dbgAssert(!fileUsingBigfile(savefile));
+    dbgAssertOrIgnore(!fileUsingBigfile(savefile));
     fp = fileStream(savefile);
 
     num = fread(&readchunk,sizeof(SaveChunk),1,fp);
@@ -476,7 +476,7 @@ void SaveVersionInfo(void)
     sdword version = SAVE_VERSION_NUMBER;
     FILE *fp;
 
-    dbgAssert(!fileUsingBigfile(savefile));
+    dbgAssertOrIgnore(!fileUsingBigfile(savefile));
     fp = fileStream(savefile);
 
     if (fwrite(&version, sizeof(sdword), 1, fp) != 1)
@@ -490,7 +490,7 @@ sdword LoadVersionInfo(void)
     sdword version;
     FILE *fp;
 
-    dbgAssert(!fileUsingBigfile(savefile));
+    dbgAssertOrIgnore(!fileUsingBigfile(savefile));
     fp = fileStream(savefile);
 
     if (fread(&version,sizeof(sdword),1,fp) == 0)
@@ -544,11 +544,11 @@ void LoadPreGameInfo(void)
     sp = LoadInfoNumber();
     if (sp)
     {
-        dbgAssert(singlePlayerGame);
+        dbgAssertOrIgnore(singlePlayerGame);
     }
     else
     {
-        dbgAssert(!singlePlayerGame);
+        dbgAssertOrIgnore(!singlePlayerGame);
     }
 
     SongNumber = LoadInfoNumber();
@@ -723,7 +723,7 @@ void LoadGame(char *filename)
 {
     sdword i;
 
-    dbgAssert(savefile);
+    dbgAssertOrIgnore(savefile);
 
     SpaceObjRegistryInit();
     BlobRegistryInit();
@@ -809,7 +809,7 @@ void RegisterAllSpaceObjsInsideMe(ShipsInsideMe *shipsInsideMe)
     while (insidenode != NULL)
     {
         insideship = (InsideShip *)listGetStructOfNode(insidenode);
-        dbgAssert(insideship->ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(insideship->ship->objtype == OBJ_ShipType);
         if ((insideship->ship->flags & SOF_Dead) == 0)
         {
             SpaceObjRegistryRegister((SpaceObj *)insideship->ship);
@@ -878,8 +878,8 @@ nextnode:
         {
             insideship = (InsideShip *)listGetStructOfNode(node);
             ship = insideship->ship;
-            dbgAssert(ship->objtype == OBJ_ShipType);
-            dbgAssert((ship->flags & SOF_Dead) == 0);
+            dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
+            dbgAssertOrIgnore((ship->flags & SOF_Dead) == 0);
 
             SpaceObjRegistryRegister((SpaceObj *)ship);
             if (ship->shipsInsideMe != NULL)
@@ -956,8 +956,8 @@ void SaveBlob(blob *tblob)
 
     SaveThisChunk(chunk);
 
-    dbgAssert(bitTest(sblob->flags, BTF_FreeThisBlob));
-    dbgAssert(bitTest(sblob->flags, BTF_FreeBlobObjects));
+    dbgAssertOrIgnore(bitTest(sblob->flags, BTF_FreeThisBlob));
+    dbgAssertOrIgnore(bitTest(sblob->flags, BTF_FreeBlobObjects));
 
     if (sblob->blobShips != NULL) SaveSelection((SpaceObjSelection *)sblob->blobShips);
     if (sblob->blobSmallShips != NULL) SaveSelection((SpaceObjSelection *)sblob->blobSmallShips);
@@ -1102,7 +1102,7 @@ AttackTargets *LoadAttackTargets()
 
     originalAttackTargets = (AttackTargets *)chunkContents(chunk);
     size = sizeofAttackTargets(originalAttackTargets->numAttackTargets);
-    dbgAssert(size == chunk->contentsSize);
+    dbgAssertOrIgnore(size == chunk->contentsSize);
     loadedAttackTargets = memAlloc(size,"AttackTargets",0);
     memcpy(loadedAttackTargets,originalAttackTargets,size);
 
@@ -1153,7 +1153,7 @@ void LoadGunInfo(Ship *ship)
 
     originalGunInfo = (GunInfo *)chunkContents(chunk);
     size = sizeofGunInfo(originalGunInfo->numGuns);
-    dbgAssert(size == chunk->contentsSize);
+    dbgAssertOrIgnore(size == chunk->contentsSize);
     loadedGunInfo = memAlloc(size,"gunInfo",NonVolatile);
     memcpy(loadedGunInfo,originalGunInfo,size);
 
@@ -1211,7 +1211,7 @@ void LoadDockInfo(Ship *ship)
 
     originalDockInfo = (DockInfo *)chunkContents(chunk);
     size = sizeofDockInfo(originalDockInfo->numDockPoints);
-    dbgAssert(size == chunk->contentsSize);
+    dbgAssertOrIgnore(size == chunk->contentsSize);
     loadedDockInfo = memAlloc(size,"dockInfo",NonVolatile);
     memcpy(loadedDockInfo,originalDockInfo,size);
 
@@ -1278,7 +1278,7 @@ void LoadSalvageInfo(SpaceObjRotImpTargGuidanceShipDerelict *ship)
 
     originalSalvageInfo = (SalvageInfo *)chunkContents(chunk);
     size = sizeofSalvageInfo(originalSalvageInfo->numSalvagePoints);
-    dbgAssert(size == chunk->contentsSize);
+    dbgAssertOrIgnore(size == chunk->contentsSize);
     loadedSalvageInfo = memAlloc(size,"salvageInfo",NonVolatile);
     memcpy(loadedSalvageInfo,originalSalvageInfo,size);
 
@@ -1374,7 +1374,7 @@ char *Load_String(void)
     }
 
     size = strlen((char *)chunkContents(chunk)) + 1;
-    dbgAssert(size == chunk->contentsSize);
+    dbgAssertOrIgnore(size == chunk->contentsSize);
 
     str = memAlloc(size,"loadedstring",0);
     memcpy(str,chunkContents(chunk),size);
@@ -1392,7 +1392,7 @@ void Load_StringToAddress(char *addr)
     VerifyChunkNoSize(chunk,VARIABLE_STRUCTURE|SAVESTRING);
 
     size = strlen((char *)chunkContents(chunk)) + 1;
-    dbgAssert(size == chunk->contentsSize);
+    dbgAssertOrIgnore(size == chunk->contentsSize);
 
     memcpy(addr,chunkContents(chunk),size);
 
@@ -1454,7 +1454,7 @@ void *LoadStructureWithSize()
     VerifyChunkNoSize(chunk,VARIABLE_STRUCTURE);
 
     chunkcontents = chunkContents(chunk);
-    dbgAssert( (*((sdword *)chunkcontents)) == chunk->contentsSize);
+    dbgAssertOrIgnore( (*((sdword *)chunkcontents)) == chunk->contentsSize);
 
     loadedstructure = memAlloc(chunk->contentsSize,"loadedvarstr",0);
     memcpy(loadedstructure,chunkcontents,chunk->contentsSize);
@@ -1497,7 +1497,7 @@ void SaveSlaveInfo(Ship *ship)
     SaveChunk *chunk;
     SlaveInfo *savecontents;
 
-    dbgAssert(ship->slaveinfo);
+    dbgAssertOrIgnore(ship->slaveinfo);
 
     chunk = CreateChunk(BASIC_STRUCTURE|SAVE_SLAVEINFO,sizeof(SlaveInfo),ship->slaveinfo);
     savecontents = (SlaveInfo *)chunkContents(chunk);
@@ -1681,7 +1681,7 @@ void SaveShip(Ship *ship)
     }
     else
     {
-        dbgAssert(ship->dockvars.dockship);
+        dbgAssertOrIgnore(ship->dockvars.dockship);
         savecontents->dockvars.dockstaticpoint = savecontents->dockvars.dockstaticpoint->dockindex;
     }
 
@@ -1772,13 +1772,13 @@ void SaveShip(Ship *ship)
 
     if (ship->damageLights)
     {
-        dbgAssert(ship->nDamageLights > 0);
+        dbgAssertOrIgnore(ship->nDamageLights > 0);
         SaveStructureOfSize(ship->damageLights,ship->nDamageLights*sizeof(DamageLightStatic));
     }
 
     if (ship->flags & SOF_Slaveable)
     {
-        dbgAssert(ship->slaveinfo);
+        dbgAssertOrIgnore(ship->slaveinfo);
         SaveSlaveInfo(ship);
     }
 
@@ -1868,7 +1868,7 @@ Ship *LoadShip(SaveChunk *chunk)
         totalsize += ship->madBindings->totalSize;
     }
 
-    dbgAssert(totalsize == chunk->contentsSize);
+    dbgAssertOrIgnore(totalsize == chunk->contentsSize);
 
     memFree(chunk);
 
@@ -1902,7 +1902,7 @@ Ship *LoadShip(SaveChunk *chunk)
 
     if (ship->damageLights != NULL)
     {
-        dbgAssert(ship->nDamageLights > 0);
+        dbgAssertOrIgnore(ship->nDamageLights > 0);
         ship->damageLights = LoadStructureOfSize(ship->nDamageLights*sizeof(DamageLightStatic));
     }
 
@@ -1996,7 +1996,7 @@ void FixShip(Ship *ship)
     else
     {
         Ship *dockingwith = ship->dockvars.dockship;
-        dbgAssert(dockingwith);
+        dbgAssertOrIgnore(dockingwith);
         ship->dockvars.dockstaticpoint = &dockingwith->staticinfo->dockStaticInfo->dockstaticpoints[(sdword)ship->dockvars.dockstaticpoint];
     }
 
@@ -2051,7 +2051,7 @@ void SaveAsteroid(Asteroid *asteroid)
     SaveThisChunk(chunk);
     memFree(chunk);
 
-    dbgAssert(asteroid->staticinfo != NULL);
+    dbgAssertOrIgnore(asteroid->staticinfo != NULL);
     if (asteroid->flags & SOF_StaticInfoIsDynamic)
     {
         SaveChunk *statchunk = CreateChunk(BASIC_STRUCTURE|SAVE_STATICINFO,sizeof(AsteroidStaticInfo),asteroid->staticinfo);
@@ -2157,7 +2157,7 @@ void SaveDustCloud(DustCloud *dustcloud)
     SaveThisChunk(chunk);
     memFree(chunk);
 
-    dbgAssert(dustcloud->staticinfo != NULL);
+    dbgAssertOrIgnore(dustcloud->staticinfo != NULL);
     if (dustcloud->flags & SOF_StaticInfoIsDynamic)
     {
         SaveChunk *statchunk = CreateChunk(BASIC_STRUCTURE|SAVE_STATICINFO,sizeof(DustCloudStaticInfo),dustcloud->staticinfo);
@@ -2224,7 +2224,7 @@ void SaveNebula(Nebula *nebula)
 
     chunk = CreateChunk(BASIC_STRUCTURE|SAVE_SPACEOBJ|OBJ_NebulaType,sizeof(Nebula),nebula);
 
-    dbgAssert((nebula->flags & SOF_StaticInfoIsDynamic) == 0);
+    dbgAssertOrIgnore((nebula->flags & SOF_StaticInfoIsDynamic) == 0);
 
     savecontents = chunkContents(chunk);
 
@@ -2275,7 +2275,7 @@ void SaveBullet(Bullet *bullet)
 
     savecontents = chunkContents(chunk);
 
-    dbgAssert(savecontents->staticinfo == NULL);
+    dbgAssertOrIgnore(savecontents->staticinfo == NULL);
     savecontents->collMyBlob = BlobRegistryGetID(bullet->collMyBlob);
 
     savecontents->owner = SpaceObjRegistryGetID((SpaceObj *)bullet->owner);
@@ -2322,7 +2322,7 @@ void FixBullet(Bullet *bullet)
     bullet->owner = SpaceObjRegistryGetShip((sdword)bullet->owner);
     if (bullet->gunowner != -1)
     {
-        dbgAssert((sdword)bullet->gunowner < bullet->owner->gunInfo->numGuns);
+        dbgAssertOrIgnore((sdword)bullet->gunowner < bullet->owner->gunInfo->numGuns);
         bullet->gunowner = &bullet->owner->gunInfo->guns[(sdword)bullet->gunowner];
     }
     else
@@ -2377,7 +2377,7 @@ Derelict *LoadDerelict(SaveChunk *chunk)
 
     memFree(chunk);
 
-    dbgAssert(derelict->derelicttype < NUM_DERELICTTYPES);
+    dbgAssertOrIgnore(derelict->derelicttype < NUM_DERELICTTYPES);
     derelict->staticinfo = (DerelictStaticInfo *)&derelictStaticInfos[derelict->derelicttype];
 
     InitializeNavLights((Ship *)derelict);
@@ -2465,7 +2465,7 @@ Missile *LoadMissile(SaveChunk *chunk)
     }
     else
     {
-        dbgAssert(missile->missileType == MISSILE_Mine);
+        dbgAssertOrIgnore(missile->missileType == MISSILE_Mine);
         missile->staticinfo = &mineStaticInfos[missile->race];
     }
 
@@ -2529,7 +2529,7 @@ void SaveSpaceObj(SpaceObj *obj)
             break;
 
         case OBJ_EffectType:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             break;
 
         case OBJ_MissileType:
@@ -2537,7 +2537,7 @@ void SaveSpaceObj(SpaceObj *obj)
             break;
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             break;
     }
 }
@@ -2575,7 +2575,7 @@ void FixSpaceObj(SpaceObj *obj)
             break;
 
         case OBJ_EffectType:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             break;
 
         case OBJ_MissileType:
@@ -2583,7 +2583,7 @@ void FixSpaceObj(SpaceObj *obj)
             break;
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             break;
     }
 
@@ -2598,7 +2598,7 @@ SpaceObj *LoadSpaceObj()
     SaveChunk *chunk;
 
     chunk = LoadNextChunk();
-    dbgAssert(chunk->type & SAVE_SPACEOBJ);
+    dbgAssertOrIgnore(chunk->type & SAVE_SPACEOBJ);
 
     switch (chunk->type & SAVE_OBJTYPEMASK)
     {
@@ -2625,14 +2625,14 @@ SpaceObj *LoadSpaceObj()
             return (SpaceObj *)LoadDerelict(chunk);
 
         case OBJ_EffectType:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             return NULL;
 
         case OBJ_MissileType:
             return (SpaceObj *)LoadMissile(chunk);
 
         default:
-            dbgAssert(FALSE);
+            dbgAssertOrIgnore(FALSE);
             return NULL;
     }
 
@@ -2663,14 +2663,14 @@ void SaveLinkedListOfSpaceObjs(LinkedList *list)
     while (node != NULL)
     {
         obj = (SpaceObj *)listGetStructOfNode(node);
-        dbgAssert(obj);
+        dbgAssertOrIgnore(obj);
 
         savecontents->id[cur++] = SpaceObjRegistryGetID(obj);
 
         node = node->next;
     }
 
-    dbgAssert(cur == num);
+    dbgAssertOrIgnore(cur == num);
 
     SaveThisChunk(chunk);
 
@@ -2688,7 +2688,7 @@ void JustLoadLinkedListOfSpaceObjs(LinkedList *list)
 
     loadcontents = (struct SaveLLSpaceObj *)chunkContents(chunk);
 
-    dbgAssert(sizeofSaveLLSpaceObj(loadcontents->num) == chunk->contentsSize);
+    dbgAssertOrIgnore(sizeofSaveLLSpaceObj(loadcontents->num) == chunk->contentsSize);
 
     returncontents = memAlloc(chunk->contentsSize,"unfixedlistobj",0);
     memcpy(returncontents,loadcontents,chunk->contentsSize);
@@ -2705,7 +2705,7 @@ void FixLinkedListOfSpaceObjs(LinkedList *list,ListAddCB listAddCB)
     sdword cur = 0;
 
     objs = (SaveLLSpaceObj *)list->head;
-    dbgAssert(objs);
+    dbgAssertOrIgnore(objs);
 
     listInit(list);
 
@@ -2737,7 +2737,7 @@ void LoadLinkedListOfSpaceObjs(LinkedList *list,ListAddCB listAddCB)
     loadcontents = (struct SaveLLSpaceObj *)chunkContents(chunk);
     num = loadcontents->num;
 
-    dbgAssert(sizeofSaveLLSpaceObj(num) == chunk->contentsSize);
+    dbgAssertOrIgnore(sizeofSaveLLSpaceObj(num) == chunk->contentsSize);
 
     listInit(list);
 
@@ -2769,7 +2769,7 @@ void SpaceObjListAddCB(LinkedList *list,SpaceObj *obj)
 void ShipListAddCB(LinkedList *list,SpaceObj *obj)
 {
 #define ship ((Ship *)obj)
-    dbgAssert(ship->objtype == OBJ_ShipType);
+    dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
     listAddNode(list,&ship->shiplink,obj);
 #undef ship
 }
@@ -2777,7 +2777,7 @@ void ShipListAddCB(LinkedList *list,SpaceObj *obj)
 void BulletListAddCB(LinkedList *list,SpaceObj *obj)
 {
 #define bullet ((Bullet *)obj)
-    dbgAssert(bullet->objtype == OBJ_BulletType);
+    dbgAssertOrIgnore(bullet->objtype == OBJ_BulletType);
     listAddNode(list,&bullet->bulletlink,obj);
 #undef bullet
 }
@@ -2785,7 +2785,7 @@ void BulletListAddCB(LinkedList *list,SpaceObj *obj)
 void ResourceListAddCB(LinkedList *list,SpaceObj *obj)
 {
 #define resource ((Resource *)obj)
-    dbgAssert(resource->flags & SOF_Resource);
+    dbgAssertOrIgnore(resource->flags & SOF_Resource);
     listAddNode(list,&resource->resourcelink,obj);
 #undef resource
 }
@@ -2793,7 +2793,7 @@ void ResourceListAddCB(LinkedList *list,SpaceObj *obj)
 void DerelictListAddCB(LinkedList *list,SpaceObj *obj)
 {
 #define derelict ((Derelict *)obj)
-    dbgAssert(derelict->objtype == OBJ_DerelictType);
+    dbgAssertOrIgnore(derelict->objtype == OBJ_DerelictType);
     listAddNode(list,&derelict->derelictlink,obj);
 #undef derelict
 }
@@ -2801,7 +2801,7 @@ void DerelictListAddCB(LinkedList *list,SpaceObj *obj)
 void ImpactableListAddCB(LinkedList *list,SpaceObj *obj)
 {
 #define impactable ((SpaceObjRotImp *)obj)
-    dbgAssert(impactable->flags & SOF_Impactable);
+    dbgAssertOrIgnore(impactable->flags & SOF_Impactable);
     listAddNode(list,&impactable->impactablelink,obj);
 #undef impactable
 }
@@ -2809,7 +2809,7 @@ void ImpactableListAddCB(LinkedList *list,SpaceObj *obj)
 void MissileListAddCB(LinkedList *list,SpaceObj *obj)
 {
 #define missile ((Missile *)obj)
-    dbgAssert(missile->objtype == OBJ_MissileType);
+    dbgAssertOrIgnore(missile->objtype == OBJ_MissileType);
     listAddNode(list,&missile->missilelink,obj);
 #undef missile
 }
@@ -2817,7 +2817,7 @@ void MissileListAddCB(LinkedList *list,SpaceObj *obj)
 void MineAddToMineListCB(LinkedList *list,SpaceObj *obj)
 {
 #define mine ((Missile *)obj)
-    dbgAssert(mine->objtype == OBJ_MissileType);
+    dbgAssertOrIgnore(mine->objtype == OBJ_MissileType);
     listAddNode(list,&mine->formationLink,obj);
 #undef mine
 }
@@ -2825,7 +2825,7 @@ void MineAddToMineListCB(LinkedList *list,SpaceObj *obj)
 void SlaveAddToSlaveListCB(LinkedList *list,SpaceObj *obj)
 {
 #define ship ((Ship *)obj)
-    dbgAssert(ship->objtype == OBJ_ShipType);
+    dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
     listAddNode(list,&ship->slavelink,obj);
 #undef ship
 }
@@ -2852,9 +2852,9 @@ void SaveSelection(SpaceObjSelection *selection)
 
     for (i=0;i<num;i++)
     {
-        dbgAssert(selection->SpaceObjPtr[i] != NULL);
+        dbgAssertOrIgnore(selection->SpaceObjPtr[i] != NULL);
         savecontents->id[i] = SpaceObjRegistryGetID(selection->SpaceObjPtr[i]);
-        dbgAssert(savecontents->id[i] != -1);
+        dbgAssertOrIgnore(savecontents->id[i] != -1);
     }
 
     SaveThisChunk(chunk);
@@ -2885,14 +2885,14 @@ SpaceObjSelection *LoadSelection(void)
     loadcontents = (struct SaveSelSpaceObj *)chunkContents(chunk);
     num = loadcontents->num;
 
-    dbgAssert(sizeofSaveSelSpaceObj(num) == chunk->contentsSize);
+    dbgAssertOrIgnore(sizeofSaveSelSpaceObj(num) == chunk->contentsSize);
 
     selection = memAlloc(sizeofSelectCommand(num),"loadselect",0);
     selection->numSpaceObjs = num;
 
     for (i=0;i<num;i++)
     {
-        dbgAssert(loadcontents->id[i] != -1);
+        dbgAssertOrIgnore(loadcontents->id[i] != -1);
         selection->SpaceObjPtr[i] = loadcontents->id[i];
     }
 
@@ -2915,7 +2915,7 @@ void FixSelection(SpaceObjSelection *selection)
     for (i=0;i<num;i++)
     {
         selection->SpaceObjPtr[i] = SpaceObjRegistryGetObj((sdword)selection->SpaceObjPtr[i]);
-        dbgAssert(selection->SpaceObjPtr[i]);
+        dbgAssertOrIgnore(selection->SpaceObjPtr[i]);
     }
 }
 
@@ -2938,7 +2938,7 @@ SpaceObjSelection *LoadSelectionAndFix(void)
     loadcontents = (struct SaveSelSpaceObj *)chunkContents(chunk);
     num = loadcontents->num;
 
-    dbgAssert(sizeofSaveSelSpaceObj(num) == chunk->contentsSize);
+    dbgAssertOrIgnore(sizeofSaveSelSpaceObj(num) == chunk->contentsSize);
 
     selection = memAlloc(sizeofSelectCommand(num),"loadselect",0);
     selection->numSpaceObjs = num;
@@ -2946,7 +2946,7 @@ SpaceObjSelection *LoadSelectionAndFix(void)
     for (i=0;i<num;i++)
     {
         selection->SpaceObjPtr[i] = SpaceObjRegistryGetObj(loadcontents->id[i]);
-        dbgAssert(selection->SpaceObjPtr[i]);
+        dbgAssertOrIgnore(selection->SpaceObjPtr[i]);
     }
 
     memFree(chunk);
@@ -2993,7 +2993,7 @@ void LoadLinkedListOfStuff(LinkedList *list,LoadStuffInLinkedListCB loadstuffCB)
         loadstuffCB(list);
     }
 
-    dbgAssert(num == list->num);
+    dbgAssertOrIgnore(num == list->num);
 }
 
 void FixLinkedListOfStuff(LinkedList *list,FixStuffInLinkedListCB fixstuffCB)
@@ -3076,7 +3076,7 @@ MilitarySlot *LoadMilitarySlot(void)
     VerifyChunkNoSize(chunk,VARIABLE_STRUCTURE|SAVE_MILITARYSLOT);
     size = sizeofMilitarySlot(((MilitarySlot *)chunkContents(chunk))->numSubslots);
 
-    dbgAssert(size == chunk->contentsSize);
+    dbgAssertOrIgnore(size == chunk->contentsSize);
 
     newmilslot = memAlloc(size,"milslot",0);
     memcpy(newmilslot,chunkContents(chunk),size);
@@ -3167,7 +3167,7 @@ void Save_CommandToDo(CommandToDo *command)
 
     SaveThisChunk(chunk);
 
-    dbgAssert(command->selection);
+    dbgAssertOrIgnore(command->selection);
     SaveSelection((SpaceObjSelection *)command->selection);
 
     if (command->ordertype.attributes & COMMAND_IS_FORMATION)
@@ -3177,14 +3177,14 @@ void Save_CommandToDo(CommandToDo *command)
 
     if (command->ordertype.attributes & COMMAND_IS_PROTECTING)
     {
-        dbgAssert(command->protect);
+        dbgAssertOrIgnore(command->protect);
         SaveSelection((SpaceObjSelection *)command->protect);
     }
 
     if (command->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
     {
-        dbgAssert(command->ordertype.order != COMMAND_ATTACK);
-        dbgAssert(command->attack);
+        dbgAssertOrIgnore(command->ordertype.order != COMMAND_ATTACK);
+        dbgAssertOrIgnore(command->attack);
         SaveSelection((SpaceObjSelection *)command->attack);
     }
 
@@ -3197,8 +3197,8 @@ void Save_CommandToDo(CommandToDo *command)
 
         case COMMAND_ATTACK:
             // save
-            dbgAssert((command->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING) == NULL);
-            dbgAssert(command->attack);
+            dbgAssertOrIgnore((command->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING) == NULL);
+            dbgAssertOrIgnore(command->attack);
             SaveSelection((SpaceObjSelection *)command->attack);
             break;
 
@@ -3228,7 +3228,7 @@ void Save_CommandToDo(CommandToDo *command)
 
         case COMMAND_MILITARY_PARADE:
             // save
-            dbgAssert(command->militaryParade);
+            dbgAssertOrIgnore(command->militaryParade);
             SaveMilitaryParade(command->militaryParade);
             break;
     }
@@ -3305,7 +3305,7 @@ void Load_CommandToDo(LinkedList *list)
 
     if (command->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
     {
-        dbgAssert(command->ordertype.order != COMMAND_ATTACK);
+        dbgAssertOrIgnore(command->ordertype.order != COMMAND_ATTACK);
         command->attack = (AttackCommand *)LoadSelectionAndFix();
     }
 
@@ -3318,7 +3318,7 @@ void Load_CommandToDo(LinkedList *list)
 
         case COMMAND_ATTACK:
             // load
-            dbgAssert((command->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING) == NULL);
+            dbgAssertOrIgnore((command->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING) == NULL);
             command->attack = (AttackCommand *)LoadSelectionAndFix();
             break;
 
@@ -3348,7 +3348,7 @@ void Load_CommandToDo(LinkedList *list)
 
         case COMMAND_MILITARY_PARADE:
             // load
-            dbgAssert(command->militaryParade);
+            dbgAssertOrIgnore(command->militaryParade);
             command->militaryParade = LoadMilitaryParade();
             break;
     }
@@ -3380,7 +3380,7 @@ void Save_CommandLayer(CommandLayer *comlayer)
         node = node->next;
     }
 
-    dbgAssert(cur == num);
+    dbgAssertOrIgnore(cur == num);
 
     memFree(chunk);
 }
@@ -3442,7 +3442,7 @@ void Load_CameraStackEntry(LinkedList *list)
     loadedcse = (CameraStackEntry *)chunkContents(chunk);
     numShips = loadedcse->focus.numShips;
 
-    dbgAssert(sizeofCameraStackEntry(numShips) == chunk->contentsSize);
+    dbgAssertOrIgnore(sizeofCameraStackEntry(numShips) == chunk->contentsSize);
 
     cse = memAlloc(chunk->contentsSize,"CamStackEntry",NonVolatile);
     memcpy(cse,loadedcse,chunk->contentsSize);
@@ -3495,7 +3495,7 @@ void *ConvertNumToPointerInList(LinkedList *list,sdword num)
         return NULL;
     }
 
-    dbgAssert(num < list->num);
+    dbgAssertOrIgnore(num < list->num);
     node = list->head;
 
     while (cur < num)
@@ -3503,7 +3503,7 @@ void *ConvertNumToPointerInList(LinkedList *list,sdword num)
         node = node->next;
         cur++;
     }
-    dbgAssert(cur == num);
+    dbgAssertOrIgnore(cur == num);
 
     return listGetStructOfNode(node);
 }
@@ -3542,7 +3542,7 @@ void Save_CameraCommand(CameraCommand *cameracommand)
         node = node->next;
     }
 
-    dbgAssert(cur == num);
+    dbgAssertOrIgnore(cur == num);
 
     memFree(chunk);
 }
@@ -3601,16 +3601,16 @@ void SaveLinkedListOfInsideShips(LinkedList *list)
     while (node != NULL)
     {
         ship = ((InsideShip *)listGetStructOfNode(node))->ship;
-        dbgAssert(ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
         savecontents->id[cur] = SpaceObjRegistryGetID((SpaceObj *)ship);
-        dbgAssert(savecontents->id[cur] != -1);
+        dbgAssertOrIgnore(savecontents->id[cur] != -1);
         cur++;
 
         node = node->next;
     }
 
-    dbgAssert(cur == num);
+    dbgAssertOrIgnore(cur == num);
 
     SaveThisChunk(chunk);
 
@@ -3631,7 +3631,7 @@ void LoadLinkedListOfInsideShips(LinkedList *list)
     loadcontents = (struct SaveLLSpaceObj *)chunkContents(chunk);
     num = loadcontents->num;
 
-    dbgAssert(sizeofSaveLLSpaceObj(num) == chunk->contentsSize);
+    dbgAssertOrIgnore(sizeofSaveLLSpaceObj(num) == chunk->contentsSize);
 
     listInit(list);
 
@@ -3657,8 +3657,8 @@ void FixLinkedListOfInsideShips(LinkedList *list)
     {
         insideShip = (InsideShip *)listGetStructOfNode(node);
         insideShip->ship = SpaceObjRegistryGetShip((sdword)insideShip->ship);
-        dbgAssert(insideShip->ship != NULL);
-        dbgAssert(insideShip->ship->objtype == OBJ_ShipType);
+        dbgAssertOrIgnore(insideShip->ship != NULL);
+        dbgAssertOrIgnore(insideShip->ship->objtype == OBJ_ShipType);
         node = node->next;
     }
 }
@@ -3685,7 +3685,7 @@ void SaveLinkedListOfResearchTopics(LinkedList *list)
         node = node->next;
     }
 
-    dbgAssert(cur == list->num);
+    dbgAssertOrIgnore(cur == list->num);
 }
 
 void LoadLinkedListOfResearchTopics(LinkedList *list)
@@ -3724,7 +3724,7 @@ void Prefix_PlayerResearchInfo(PlayerResearchInfo *researchinfo)
         if (researchinfo->researchlabs[i].labstatus == LS_RESEARCHITEM)
         {
             researchinfo->researchlabs[i].topic = ConvertPointerInListToNum(&researchinfo->listoftopics,researchinfo->researchlabs[i].topic);
-            dbgAssert(researchinfo->researchlabs[i].topic != -1);
+            dbgAssertOrIgnore(researchinfo->researchlabs[i].topic != -1);
         }
         else
         {
@@ -3751,7 +3751,7 @@ void Load_PlayerResearchInfo(Player *player,PlayerResearchInfo *researchinfo)
         if (researchinfo->researchlabs[i].labstatus == LS_RESEARCHITEM)
         {
             researchinfo->researchlabs[i].topic = ConvertNumToPointerInList(&researchinfo->listoftopics,(sdword)researchinfo->researchlabs[i].topic);
-            dbgAssert(researchinfo->researchlabs[i].topic != NULL);
+            dbgAssertOrIgnore(researchinfo->researchlabs[i].topic != NULL);
         }
         else
         {
@@ -3817,7 +3817,7 @@ void SaveMineFormationList(LinkedList *list)
         node = node->next;
     }
 
-    dbgAssert(cur == list->num);
+    dbgAssertOrIgnore(cur == list->num);
 }
 
 void LoadMineFormationList(LinkedList *list)
@@ -3874,7 +3874,7 @@ void SaveRetreatList(LinkedList *list)
         node = node->next;
     }
 
-    dbgAssert(cur == num);
+    dbgAssertOrIgnore(cur == num);
 }
 
 RetreatAtom *LoadRetreatAtom()
@@ -3952,7 +3952,7 @@ void SaveAttackMemory(LinkedList *list)
         node = node->next;
     }
 
-    dbgAssert(cur == num);
+    dbgAssertOrIgnore(cur == num);
 }
 
 AttackAtom *LoadAttackAtom()
@@ -3971,7 +3971,7 @@ AttackAtom *LoadAttackAtom()
     numShips = loadedAttackAtom->attackerList.numShips;
     size = sizeof(AttackAtom) + sizeof(ShipPtr)*(numShips-1);
 
-    dbgAssert(size == chunk->contentsSize);
+    dbgAssertOrIgnore(size == chunk->contentsSize);
 
     attackAtom = (AttackAtom *)memAlloc(size,"tacticsattackmemory",NonVolatile);
     memcpy(attackAtom,loadedAttackAtom,size);
@@ -4057,10 +4057,10 @@ void SaveUniverse()
     SaveMineFormationList(&universe.MineFormationList);
 
     // Delete Lists assumed to be empty, because SaveUniverse is never called in the middle of a univupdate
-    dbgAssert(universe.DeleteMissileList.num == 0);
-    dbgAssert(universe.DeleteResourceList.num == 0);
-    dbgAssert(universe.DeleteDerelictList.num == 0);
-    dbgAssert(universe.DeleteShipList.num == 0);
+    dbgAssertOrIgnore(universe.DeleteMissileList.num == 0);
+    dbgAssertOrIgnore(universe.DeleteResourceList.num == 0);
+    dbgAssertOrIgnore(universe.DeleteDerelictList.num == 0);
+    dbgAssertOrIgnore(universe.DeleteShipList.num == 0);
 
     SaveRetreatList(&universe.RetreatList);
     SaveAttackMemory(&universe.AttackMemory);

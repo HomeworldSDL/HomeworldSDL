@@ -1122,7 +1122,7 @@ void keyPressDown(udword key)
 
 	originalKey = keySaveScan[key];
 #if KEY_ERROR_CHECKING
-    dbgAssert(key < KEY_TOTAL_KEYS);
+    dbgAssertOrIgnore(key < KEY_TOTAL_KEYS);
 #endif
 #ifdef gshaw
     dbgMessagef("\nKey pressed = %d",key);
@@ -1205,7 +1205,7 @@ void keyRepeat(udword key)
         key = SDLK_LMETA;
 
 #if KEY_ERROR_CHECKING
-    dbgAssert(key < KEY_TOTAL_KEYS);
+    dbgAssertOrIgnore(key < KEY_TOTAL_KEYS);
 #endif
     keyBufferAdd(key, keyIsHit(SHIFTKEY));
     if (keySaveScan[key].keynumpressed < KEY_NUMPRESSED_MAX)

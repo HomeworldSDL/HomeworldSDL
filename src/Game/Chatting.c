@@ -60,8 +60,8 @@ void sendChatMessage(udword users, char *message, uword player_index)
     wchar_t aWideStringP[MAX_CHAT_MESSAGE_LENGTH];
     size_t  aNumChars;
 
-    dbgAssert(stringlength < MAX_CHAT_MESSAGE_LENGTH);
-    dbgAssert(message[stringlength]==0);
+    dbgAssertOrIgnore(stringlength < MAX_CHAT_MESSAGE_LENGTH);
+    dbgAssertOrIgnore(message[stringlength]==0);
 
     // now convert message, stringlength to widestring:
 

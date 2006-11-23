@@ -1185,7 +1185,7 @@ void rmSetShipDependCB(char *directory, char *field, void *dataToFillIn)
 
         shiptype = StrToShipType(temp);
 
-        dbgAssert(shiptype!=-1);
+        dbgAssertOrIgnore(shiptype!=-1);
 
         while (*field != 0)
         {
@@ -1197,7 +1197,7 @@ void rmSetShipDependCB(char *directory, char *field, void *dataToFillIn)
 
             techtype = StrToTechType(temp);
 
-            dbgAssert(techtype != -1);
+            dbgAssertOrIgnore(techtype != -1);
 
             mask |= TechToBit(techtype);
 
@@ -1242,7 +1242,7 @@ void rmSetTechDependCB(char *directory, char *field, void *dataToFillIn)
 
         techset = StrToTechType(temp);
 
-        dbgAssert(techset!=-1);
+        dbgAssertOrIgnore(techset!=-1);
 
         while (*field != 0)
         {
@@ -1254,7 +1254,7 @@ void rmSetTechDependCB(char *directory, char *field, void *dataToFillIn)
 
             techtype = StrToTechType(temp);
 
-            dbgAssert(techtype != -1);
+            dbgAssertOrIgnore(techtype != -1);
 
             mask |= TechToBit(techtype);
 

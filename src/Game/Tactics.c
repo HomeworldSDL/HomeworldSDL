@@ -538,7 +538,7 @@ extern regionhandle ghMainRegion;
 bool tacticsDeleteMenu(udword num, void *data, struct BabyCallBack *baby)
 {
 #ifdef DEBUG_TACTICS
-    dbgAssert(tacticsOn);
+    dbgAssertOrIgnore(tacticsOn);
 #endif
 
     if(tacticsMenuRegion != NULL)
@@ -570,7 +570,7 @@ void tacticsPopUpSetUp(TacticsType tacticstype)
         bitClear(TacticsScreen->atoms[index].status, FAS_Checked);
     }
     atom = feAtomFindInScreen(TacticsScreen, mrMenuItemByTactic[tacticstype]);
-    dbgAssert(atom != NULL);
+    dbgAssertOrIgnore(atom != NULL);
     bitSet(atom->status, FAS_Checked);
 
     if(tacticsFlashMenuBaby != NULL)
@@ -606,7 +606,7 @@ void tacticsPopUpSetUp(TacticsType tacticstype)
     case Aggressive:
         break;
     default:
-        dbgAssert(FALSE);
+        dbgAssertOrIgnore(FALSE);
     }
 */
 }
@@ -636,7 +636,7 @@ void tacticsSetSelectionToTactics(SelectCommand *selection,udword orderFlag)
 void tacticsSetShipToDoDodge(Ship *ship)
 {
 #ifdef DEBUG_TACTICS
-    dbgAssert(tacticsOn);
+    dbgAssertOrIgnore(tacticsOn);
 #endif
 
     if(tacticsShipCanDodge(ship))
@@ -717,7 +717,7 @@ void tacticsSetShipToDoDodge(Ship *ship)
 void tacticsDoDodge(Ship *ship)
 {
 #ifdef DEBUG_TACTICS
-    dbgAssert(tacticsOn);
+    dbgAssertOrIgnore(tacticsOn);
 #endif
 
     physApplyForceToObj((SpaceObj *)ship,ship->staticinfo->thruststrengthstat[ship->DodgeDir]*tacticsInfo.DodgeInfo[DODGE_THRUST_MULT][ship->staticinfo->shiptype],ship->DodgeDir);
@@ -759,7 +759,7 @@ void tacticsDoDodge(Ship *ship)
 bool tacticsShipCanDodge(Ship *ship)
 {
 #ifdef DEBUG_TACTICS
-    dbgAssert(tacticsOn);
+    dbgAssertOrIgnore(tacticsOn);
 #endif
     if(tacticsInfo.DodgeInfo[DODGE_ONE_TIME][ship->staticinfo->shiptype] == 0.0f)
     {
@@ -782,7 +782,7 @@ bool tacticsShipCanDodge(Ship *ship)
 bool tacticsShipIsAffectedByTactcis(Ship *ship)
 {
 #ifdef DEBUG_TACTICS
-    dbgAssert(tacticsOn);
+    dbgAssertOrIgnore(tacticsOn);
 #endif
 
     if(ship->staticinfo->shipclass == CLASS_Fighter ||
@@ -806,7 +806,7 @@ sdword tacticsGetFormationOptimalState(SelectCommand *selection)
     TacticsType grouptactics = selection->ShipPtr[0]->tacticstype;
 
 #ifdef DEBUG_TACTICS
-    dbgAssert(tacticsOn);
+    dbgAssertOrIgnore(tacticsOn);
 #endif
 
     //base formation on leaders tactical settings
@@ -1044,7 +1044,7 @@ void tacticsDelegateAttackCommand(Ship *ship,CommandToDo *command, AttackCommand
         else if(attackSelection.numShips > 0)
         {
             RemoveShipsFromDoingStuff(&universe.mainCommandLayer,(SelectCommand *)&nonAttackSelection);
-            dbgAssert(command->selection->numShips > 0);
+            dbgAssertOrIgnore(command->selection->numShips > 0);
             ChangeOrderToAttack(command,attack);
         }
         return;
@@ -1086,7 +1086,7 @@ void tacticsDelegateAttackCommand(Ship *ship,CommandToDo *command, AttackCommand
         else if(attackSelection.numShips > 0)
         {
             RemoveShipsFromDoingStuff(&universe.mainCommandLayer,(SelectCommand *)&nonAttackSelection);
-            dbgAssert(command->selection->numShips > 0);
+            dbgAssertOrIgnore(command->selection->numShips > 0);
             ChangeOrderToAttack(command,attack);
         }
         break;
@@ -2174,7 +2174,7 @@ bool tacticsCheckGuardConditionsDuringAttack(CommandToDo *command)
     real32 distSqr,tempreal;
     vector distVec,protectAv,defendAv;
 
-    dbgAssert(command->ordertype.attributes * COMMAND_IS_PROTECTING);
+    dbgAssertOrIgnore(command->ordertype.attributes * COMMAND_IS_PROTECTING);
 
     //get average position of defenders
     vecSet(defendAv,0.0f,0.0f,0.0f);
