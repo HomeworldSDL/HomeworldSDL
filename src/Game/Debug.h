@@ -19,7 +19,7 @@
 #endif
 
 
-#if 1 // ndef HW_Release
+#ifndef HW_Release
     #define DBG_ASSERT              1           // assertion checking
     #define DBG_FILE_LINE           1           // print file and line
     #define DBG_STACK_CONTEXT       1           // dump stack context at fatal error time
