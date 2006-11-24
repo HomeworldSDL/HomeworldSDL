@@ -714,7 +714,7 @@ udword partRenderBillSystem(udword n, particle* p, udword flags,
     real32 sx;
     real32 sy;
     trhandle currentTex;
-    udword texWidth, texHeight;
+    udword texWidth = 0, texHeight = 0;
     static vector origin = {0.0f, 0.0f, 0.0f};
     texreg *reg;
     udword  slices;

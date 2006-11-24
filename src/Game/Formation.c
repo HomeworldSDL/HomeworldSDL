@@ -242,7 +242,7 @@ void formationBiggestThenClosestOptimum(SelectCommand *selection,TypeOfFormation
 
     ShipDistInfo *shipdist;
     Ship *tempship;
-    sdword i,cloakinsel,cloakindex;
+    sdword i = 0, cloakinsel = 0, cloakindex = 0;
     vector diff;
 
     for (i=0;i<numShips;i++)
@@ -1401,14 +1401,14 @@ void FormationCalculateOffsets(struct CommandToDo *formationtodo)
 {
     SelectCommand *selection = formationtodo->selection;
     sdword numShips = selection->numShips;
-    Ship *leader;
-    ShipStaticInfo *leaderstatic;
-    real32 tacticsFormationPadding;
-    sdword i;
-    Ship *ship;
-    ShipStaticInfo *shipstatic;
-    sdword prox_sol;
-    real32 searchRadius;
+    Ship *leader = NULL;
+    ShipStaticInfo *leaderstatic = NULL;
+    real32 tacticsFormationPadding = 0.0;
+    sdword i = 0;
+    Ship *ship = NULL;
+    ShipStaticInfo *shipstatic = NULL;
+    sdword prox_sol = 0;
+    real32 searchRadius = 0.0;
 
     dbgAssertOrIgnore(numShips > 0);
 
@@ -1938,14 +1938,14 @@ void FormationCalculateSpecialOffsets(struct CommandToDo *formationtodo)
 {
     SelectCommand *selection = formationtodo->selection;
     sdword numShips = selection->numShips;
-    Ship *leader;
-    ShipStaticInfo *leaderstatic;
-    real32 tacticsFormationPadding;
-    sdword i;
-    Ship *ship;
-    ShipStaticInfo *shipstatic;
-    sdword prox_sol;
-    real32 searchRadius;
+    Ship *leader = NULL;
+    ShipStaticInfo *leaderstatic = NULL;
+    real32 tacticsFormationPadding = 0.0;
+    sdword i = 0;
+    Ship *ship = NULL;
+    ShipStaticInfo *shipstatic = NULL;
+    sdword prox_sol = 0;
+    real32 searchRadius = 0.0;
 
     dbgAssertOrIgnore(numShips > 0);
 
@@ -2545,7 +2545,7 @@ void formationArrageCrazyOptimum(CommandToDo *formationcommand)
 
     matrix *coordsys;
     //vector center = {0.0f,0.0f,0.0f};
-    sdword shipwhogetsit;
+    sdword shipwhogetsit = 0;
     vector tempvec;
     Ship *ship;
     //could possible select 'middle' ship as leader...would be faster...

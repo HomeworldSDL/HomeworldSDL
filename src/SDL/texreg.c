@@ -2413,7 +2413,7 @@ int trSizeSortCompare(const void *e1, const void *e2)
 ----------------------------------------------------------------------------*/
 void trCramScaleTableCompute(sdword dest[TR_TexSizesX][TR_TexSizesY], sdword scaleFactor)
 {
-    sdword x, y, index, closestSizeDiff, closestIndex;
+    sdword x, y, index, closestSizeDiff, closestIndex = 0;
     sdword closestWidth, closestHeight, widthToMatch, heightToMatch, width, height;
     sdword xDiff, yDiff;
 

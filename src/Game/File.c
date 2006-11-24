@@ -1580,7 +1580,7 @@ void fileClose(filehandle handle)
 ----------------------------------------------------------------------------*/
 sdword fileSeek(filehandle handle, sdword offset, sdword whence)
 {
-    sdword newLocation;
+    sdword newLocation = 0;
 
     // dbgAssertOrIgnore(offset >= 0);
     dbgAssertOrIgnore(handle);

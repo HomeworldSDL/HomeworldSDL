@@ -1075,7 +1075,7 @@ sdword tmTradeBegin(regionhandle region, sdword ID, udword event, udword data)
 void tmTechImageDraw(featom *atom, regionhandle region)
 {
     char      filename[128];
-    sdword    index, lru;
+    sdword    index, lru = 0;
     real32    time=(real32)1.0e22;
     rectangle textureRect;
 
@@ -1529,8 +1529,8 @@ void wkTradeControl(void)
 
 void wkTradeFocusedShip(void)
 {
-    sword index;
-    Ship *ship;
+    sword index = 0;
+    Ship *ship  = NULL;
 
     if (selSelected.numShips>0)
     {

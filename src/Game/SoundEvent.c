@@ -1020,10 +1020,10 @@ void soundEventUpdate(void)
     Node *objnode = universe.RenderList.tail;
     Ship *ship = NULL;
     ShipClass shipclass;
-    sword vol;
-    sword pan;
-    real32 dist;
-    real32 velocity;
+    sword vol = 0;
+    sword pan = 0;
+    real32 dist     = 0.0;
+    real32 velocity = 0.0;
     real32 velratio = 1.0f;
     sdword  numships = 0,
             numcapships = 0;

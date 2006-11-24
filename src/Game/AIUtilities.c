@@ -2208,7 +2208,7 @@ ShipPtr aiuFindHarassTarget(SelectCommand *teamShips)
 ShipPtr aiuFindClosestEnemyShipWorthCapturing(aiblob *blob)
 {
     real32 distsq, closestblobdistsq = REALlyBig, closestshipdistsq = REALlyBig;
-    ShipPtr closestshipworth, ship;
+    ShipPtr closestshipworth = NULL, ship = NULL;
     SelectCommand *blobSelection;
     udword i, j;
 
@@ -3651,8 +3651,8 @@ bool aiuFindArmadaTarget(vector *dest_target, SelectCommand **sel_target, Select
 {
     aiblob *blob, *best_blob = NULL, *mothership_blob = NULL;
     udword i/*, best_num_ships*/;
-    real32 primary_value_strength_ratio, best_primary_value_strength_ratio = 0, mothership_value_strength_ratio;
-    real32 randvar;
+    real32 primary_value_strength_ratio = 0.0, best_primary_value_strength_ratio = 0.0, mothership_value_strength_ratio = 0.0;
+    real32 randvar = 0.0;
 
     //NOTE: later may need to consider strength of attack team.  In addition, may need to
     //      change criteria for choosing blobs - not only high value/strength, but also

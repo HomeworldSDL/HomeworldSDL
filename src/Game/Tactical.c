@@ -188,13 +188,13 @@ void toFieldSphereDrawGeneral(vector position, real32 radius,color passedColour)
 void toAllShipsDraw(void)
 {
     Node *objnode = universe.RenderList.head;
-    Ship *ship;
-    real32 radius, scale;
-    sdword index, player;
-    toicon *icon;
+    Ship *ship = NULL;
+    real32 radius = 0.0, scale = 0.0;
+    sdword index = 0, player = 0;
+    toicon *icon = NULL;
     vector zero = {0,0,0};
-    color c;
-    udword intScale;
+    color c = colBlack;
+    udword intScale = 0;
 
      // reset usage of classes (for legend)
     for (index = 0; index < (NUM_CLASSES+1); index++)

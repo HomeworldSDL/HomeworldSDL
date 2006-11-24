@@ -381,7 +381,7 @@ void pieDistanceReadoutDraw(vector *movepoint, vector *origin, color c)
     udword resources;
     real32 cost;
     fonthandle fhSave;
-    color ruReadoutColour;
+    color ruReadoutColour = colBlack;
     hmatrix modelview, projection;
     bool depthOn;
     char dist_str[20],ru_str[20];
@@ -521,7 +521,8 @@ void pieAllShipsToPiePlateDraw(real32 distance)
     vector planePoint, shipPoint;//, innerPoint;
     real32 length;
     real32 closestDistance = REALlyBig;
-    bool bHeightPointDrawn, bClosestHeightDrawn;
+    bool bHeightPointDrawn   = FALSE,
+         bClosestHeightDrawn = FALSE;
     ShipPtr closestShip = NULL;
     color c;
     real32 screenX, screenY, screenRadius, radius;

@@ -265,7 +265,7 @@ bool GenericInterceptorCanFire(Ship *ship,SpaceObjRotImpTarg *target,vector *tra
     real32 dotprod;
     GunInfo *gunInfo = ship->gunInfo;
     sdword i;
-    bool returnval;
+    bool returnval = FALSE;
     bool canUseGun;
     sdword pickgun;
 

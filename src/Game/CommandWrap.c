@@ -418,7 +418,7 @@ void clWrapSpecial(CommandLayer *comlayer,SelectCommand *selectcom,SpecialComman
     sdword i,sals;
     SelectCommand *copycom=NULL;
     sdword sizeofcopycom;
-	Ship *salptr;
+	Ship *salptr = NULL;
     if (playPackets|universePause) return;
 
     makeShipsControllable(selectcom,COMMAND_SPECIAL);

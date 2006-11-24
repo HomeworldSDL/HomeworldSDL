@@ -48,7 +48,7 @@ LinkedList CircleList;
 ----------------------------------------------------------------------------*/
 void primLine3(vector *p1, vector *p2, color c)
 {
-    bool blendon;
+    bool blendon = FALSE;
 
     if (glCapFeatureExists(GL_LINE_SMOOTH))
     {

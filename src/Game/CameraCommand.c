@@ -1798,7 +1798,7 @@ sdword ccFocusCullRadiusMean(FocusCommand *selection, real32 radiusSqr, vector *
     sdword index, iOuter;
     vector centre = {0.0f, 0.0f, 0.0f};
     MaxSelection localSelection;
-    sdword maxFocussed, iMaxFocussed;
+    sdword maxFocussed = 0, iMaxFocussed = 0;
 
     if (selection->numShips == 0)
     {                                                       //nothing to focus on

@@ -1718,7 +1718,7 @@ void rmTechBriefDraw(featom *atom, regionhandle region)
 void rmTechImageDraw(featom *atom, regionhandle region)
 {
     char      filename[128];
-    sdword    index, lru;
+    sdword    index, lru = 0;
     real32    time=(real32)1.0e22;
     rectangle textureRect;
 
@@ -1872,7 +1872,7 @@ void rmDrawTechListItem(rectangle *rect, listitemhandle data)
 {
     TechPrintList *techprint=(TechPrintList *)data->data;
     sdword              x, y;
-    color               c;
+    color               c = colBlack;
     Player             *player=universe.curPlayerPtr;
     PlayerResearchInfo *research=&universe.curPlayerPtr->researchinfo;
     ResearchTopic      *topic;

@@ -1855,7 +1855,7 @@ void mistrailDraw(vector* current, missiletrail* trail, sdword LOD, sdword teamI
     sdword index, count;
     vector* lastVector;
     trailstatic* trailStatic = trail->staticInfo;
-    color prevColor;
+    color prevColor = colBlack;
     color* segmentArray;
 
     if (!enableTrails)

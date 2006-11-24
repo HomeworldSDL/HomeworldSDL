@@ -850,9 +850,9 @@ bool checkAddToTeam(LinkedList *TeamWaitingQ,Ship *ship)
 void aifProcessShipBuildRequests(void)
 {
     RequestShips *attrequest = NULL,*defrequest = NULL,*resourcerequest = NULL,*scriptrequest = NULL, *temprequest = NULL;
-    sdword olddefnumships;
-    sdword oldattnumships;
-    sdword oldscriptnumships;
+    sdword olddefnumships    = 0;
+    sdword oldattnumships    = 0;
+    sdword oldscriptnumships = 0;
     Player *player = aiCurrentAIPlayer->player;
     ubyte research_delay;
     Node *tempnode;

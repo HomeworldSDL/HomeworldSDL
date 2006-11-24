@@ -856,7 +856,7 @@ void tbObjectiveItemDraw(rectangle *rect, listitemhandle data)
     tasklistitem  *taskitem = (tasklistitem *)(data->data);
     Objective *objective = (Objective *)((tasklistitem *)(data->data))->objective, *obj;
     char text[TBL_MaxCharsPerLine];
-    color c;
+    color c = colBlack;
     Node *search;
 
     oldfont = fontMakeCurrent(tbObjectiveFont);

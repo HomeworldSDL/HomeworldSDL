@@ -249,7 +249,7 @@ void colHLSToRGB(real32 *R, real32 *G, real32 *B, real32 H, real32 L, real32 S)
 ----------------------------------------------------------------------------*/
 color colBestFitFindRGB(color *palette, color colorToMatch, sdword length)
 {
-    sdword index, error, bestError = SDWORD_Max, bestIndex;//, bestColor;
+    sdword index = 0, error = 0, bestError = SDWORD_Max, bestIndex = 0;//, bestColor;
 
     for (index = 0; index < length; index++, palette++)
     {

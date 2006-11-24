@@ -91,11 +91,11 @@ static bool aiaPriorityShipsConstraints(Ship *ship)
 ----------------------------------------------------------------------------*/
 AITeam *aiaSendRecon(SelectCommand *ships)
 {
-    udword i;
-    real32 distsq, min_distsq = REALlyBig, avg_size;
+    udword i = 0;
+    real32 distsq = 0, min_distsq = REALlyBig, avg_size = 0;
     vector ships_location = selCentrePointComputeGeneral((MaxSelection *)ships, &avg_size), team_location;
-    AITeam *team, *best_team;
-    AITeamMove *newMove;
+    AITeam *team = NULL, *best_team = NULL;
+    AITeamMove *newMove = NULL;
 
     // find the closest recon team
     for (i=0;i < aiCurrentAIPlayer->numReconTeams;i++)

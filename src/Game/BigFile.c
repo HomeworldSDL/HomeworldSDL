@@ -1245,8 +1245,8 @@ int bigFastCreate(char *bigfilename, int numFiles, char *filenames[], int optCom
     bigTOC toc;
     struct stat findData;
     bigTOCFileEntry fileEntry;
-    unsigned long curOffset;
-    int compressedSize;
+    unsigned long curOffset = 0;
+    int compressedSize = 0;
     crc32 *crcAdded1 = NULL, *crcAdded2 = NULL;
     int dupe = 0;
 

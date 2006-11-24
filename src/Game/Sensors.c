@@ -817,7 +817,7 @@ void smBlobDrawClear(Camera *camera, blob *thisBlob, hmatrix *modelView, hmatrix
 {
     sdword index, i;
     SpaceObj **objPtr, *obj;
-    color c;
+    color c = colBlack;
     lod *level;
     hmatrix coordMatrixForGL;
     ShipStaticInfo *shipStaticInfo;
@@ -842,7 +842,7 @@ void smBlobDrawClear(Camera *camera, blob *thisBlob, hmatrix *modelView, hmatrix
         color c;
     }
     bigDot[SM_NumberBigDots];
-    real32 pointSize;
+    real32 pointSize = 0.0;
     rectangle rect;
 
     //flash the selected ships
@@ -1429,7 +1429,7 @@ void smBlobDrawCloudy(Camera *camera, blob *thisBlob, hmatrix *modelView, hmatri
 {
     sdword index;
     SpaceObj **objPtr, *obj;
-    color c;
+    color c = colBlack;
     hvector objectPos, cameraSpace, screenSpace;
     SpaceObjSelection *blobObjects = thisBlob->blobObjects;
     Node *subBlobNode;
@@ -1761,8 +1761,8 @@ blob *smBlobsDraw(Camera *camera, LinkedList *list, hmatrix *modelView, hmatrix 
 #endif
     bool bClosestMove = FALSE;      // used for playing the tick sound when a blob is highligted
     static bool bPlayedSound;       // ditto
-    sdword carrierHalfWidth, mothershipHalfWidth;
-    char *carrier, *mothership;
+    sdword carrierHalfWidth = 0, mothershipHalfWidth = 0;
+    char *carrier = NULL, *mothership = NULL;
     fonthandle oldFont;
 
     mouseCursorObjPtr  = NULL;               //Falko: got an obscure crash where mouseCursorObjPtr was mangled, will this work?

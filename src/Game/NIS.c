@@ -4546,7 +4546,7 @@ nisheader *nisLoad(char *fileName, char *scriptName)
     sdword index, j;
     spaceobjpath *objPath;
     camerapath *camPath;
-    ShipType type;
+    ShipType type = NULL;
     char *instancePtr;
     char string[256];
     char effectPath[256];

@@ -2115,7 +2115,7 @@ void cmShipCostsDraw(featom *atom, regionhandle region)
 ----------------------------------------------------------------------------*/
 sdword cmSelectShipType(regionhandle region, sdword yClicked)
 {
-    sdword index, y, numlines, startind;
+    sdword index = 0, y = 0, numlines = 0, startind = 0;
     fonthandle currentFont;
     bool newline = FALSE;
 
@@ -3115,11 +3115,11 @@ void cmShipInfoDraw(featom *atom, regionhandle region)
     sdword x, y, index, percent;
     rectangle rect = region->rect;
     color c;
-    shipsinprogress *factory;
-    shipinprogress *progress;
+    shipsinprogress *factory  = NULL;
+    shipinprogress  *progress = NULL;
     fonthandle currentFont;
-    bool       newline;
-    sdword     numlines, startind;
+    bool       newline = FALSE;
+    sdword     numlines = 0, startind = 0;
 
     if (cmRenderEverythingCounter > 0)
     {

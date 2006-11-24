@@ -712,7 +712,7 @@ sdword subStringsChop(rectangle *rect, fonthandle font, sdword longLength, char 
     sdword nChopped = 0;
     sdword nBytesUsed = 0;
     sdword width = rect->x1 - rect->x0;
-    char *chopStart, *chopEnd, *nextChopStart, *wrapPtr;
+    char *chopStart = NULL, *chopEnd = NULL, *nextChopStart = NULL, *wrapPtr = NULL;
     fonthandle current = fontCurrentGet();
     sdword state;
 
@@ -1093,8 +1093,8 @@ char *subControlsScan(char *start, subregion **region, subtheme **theme, bool8 *
 ----------------------------------------------------------------------------*/
 void subTitlesUpdate(void)
 {
-    sdword lastActor, lastSpeechEvent, totalLength, index;
-    real32 totalTime;
+    sdword lastActor = 0, lastSpeechEvent = 0, totalLength = 0, index = 0;
+    real32 totalTime = 0.0;
     char fullNewStringBuffer[SUB_SubtitleLength], *fullNewString;
     char *choppedStrings[SUB_MaxLinesPerSubtitle];
     sdword nChoppedStrings;

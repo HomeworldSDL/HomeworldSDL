@@ -1396,9 +1396,9 @@ real32 MoveLeftToGo(Ship *ship,vector *destination)
 ----------------------------------------------------------------------------*/
 bool aitrackRotationSpeed(Ship *ship, real32 desiredrotspeed, uword track)
 {
-    real32 rotstr;
-    real32 oneovertime;
-    real32 rotspeed;
+    real32 rotstr      = 0.0;
+    real32 oneovertime = 0.0;
+    real32 rotspeed    = 0.0;
 
     oneovertime = 1.0f / universe.phystimeelapsed;
 

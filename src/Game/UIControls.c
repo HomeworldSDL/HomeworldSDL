@@ -4610,7 +4610,7 @@ listitemhandle uicListAddItem(listwindowhandle listwindow, ubyte *data, udword f
 {
     listitemhandle item;
     Node         *walk, *recalc=NULL;
-    sdword        i = 1, pos;
+    sdword        i = 1, pos = 0;
 
     dbgAssertOrIgnore(listwindow!=NULL);
 

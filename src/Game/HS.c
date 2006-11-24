@@ -531,7 +531,7 @@ void hsLine(vector* origin, real32 rightlength, real32 uplength, ubyte alpha, co
 ----------------------------------------------------------------------------*/
 void hsUpdate(Ship* ship)
 {
-    real32 minimum, delta;
+    real32 minimum = 0.0, delta;
     ShipSinglePlayerGameInfo* ssinfo = ship->shipSinglePlayerGameInfo;
     extern real32 HS_CLIPT_NEG_THRESH;
     extern real32 HS_CLIPT_NEG_SCALAR;

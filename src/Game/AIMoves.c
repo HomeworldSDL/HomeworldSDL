@@ -1944,7 +1944,7 @@ sdword aimProcessDefendMothership(AITeam *team)
 ----------------------------------------------------------------------------*/
 sdword aimProcessPatrolMove(AITeam *team)
 {
-    AITeamMove *thisMove = team->curMove, *newMove, *tempMove;
+    AITeamMove *thisMove = team->curMove, *newMove = NULL, *tempMove = NULL;
     udword i, num_points = thisMove->params.patrolmove.path->numPoints,
               startIndex = thisMove->params.patrolmove.startIndex;
 

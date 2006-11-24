@@ -732,7 +732,7 @@ sdword soundstreamvolume(sdword handle, sword vol, real32 fadetime)
 ----------------------------------------------------------------------------*/
 sdword ssSubtitleRead(STREAMHEADER *header, filehandle handle, sdword actornum, sdword speechEvent, real32 dataPeriod)
 {
-    sdword length, length2;
+    sdword length, length2 = 0;
     char subTitle[SUB_SubtitleLength];
     real32 time;
 #if VCE_BACKWARDS_COMPATIBLE

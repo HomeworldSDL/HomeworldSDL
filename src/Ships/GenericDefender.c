@@ -61,7 +61,7 @@ scriptStructEntry DefenderStaticScriptTable[] =
 void GenericDefenderStaticInit(char *directory,char *filename,struct ShipStaticInfo *statinfo)
 {
     udword i;
-    GenericDefenderStatics *defenderstat;
+    GenericDefenderStatics *defenderstat = NULL;
 
     switch (statinfo->shiptype)
     {

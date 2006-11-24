@@ -263,7 +263,7 @@ void MineLayerAttackRun(Ship *ship,SpaceObjRotImpTarg *target,AttackSideStep *at
     vector trajectory;
     real32 range;
     Gun *gun;
-    udword numGuns,target_class;
+    udword numGuns = 0,target_class = 0;
     GunInfo *guninfo = ship->gunInfo;
     MinelayerCorvetteSpec *spec = (MinelayerCorvetteSpec *)ship->ShipSpecifics;
     MinelayerCorvetteStatics *minelayercorvettestatics;

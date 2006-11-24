@@ -673,7 +673,7 @@ void GatherFightStatsFor(sdword i,sdword j,bool actuallyDoFight)
     FightStats *fightStats = &FightStatsTable[i][j];
     sdword *binsearchtable = NULL;
     sdword bottom,top;
-    sdword trynum;
+    sdword trynum = 0;
     sdword search,found,verytop;
     sdword powerfulship,nonpowerfulship;
     ShipType shiptype;

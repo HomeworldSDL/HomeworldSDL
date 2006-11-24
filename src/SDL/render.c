@@ -270,8 +270,10 @@ real32 btgFieldOfView = 50.0f;
 static char fovString[256] = "";
 #endif
 
+#if VERBOSE_SHIP_STATS
 static sdword shipsAtLOD[5];
 static sdword polysAtLOD[5];
+#endif
 
 //data for debugging the GL state by dumping it's contents
 #if RND_GL_STATE_DEBUG

@@ -428,7 +428,7 @@ void kbPoolListWindowCB(char *string, featom *atom)
     listwindowhandle    keypool;
     sdword              done;
     udword              data;
-    sword               key1, key2;
+    sword               key1 = 0, key2 = 0;
 
     if (FEFIRSTCALL(atom))
     {

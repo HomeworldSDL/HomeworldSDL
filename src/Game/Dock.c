@@ -3746,7 +3746,7 @@ bool ShipDocksAtResController(struct CommandToDo *docktodo,struct Ship *ship,str
     AtResControllerDockInfo *customdockinfo;
     sdword dockpointindex;
     ShipStaticInfo *shipstatic;
-    sdword index;
+    sdword index = 0;
 
     switch (ship->dockvars.dockstate2)
     {
@@ -5504,13 +5504,13 @@ bool R1ResearchShipDocksAtResearchShip(struct CommandToDo *docktodo,struct Ship 
 {
     ShipStaticInfo *shipstatic = (ShipStaticInfo *)ship->staticinfo;
     ShipStaticInfo *dockwithstatic = (ShipStaticInfo *)dockwith->staticinfo;
-    DockStaticPoint *dockwithstaticpoint;
-    Ship *tmpmaster;
-    AtResearchShipDockInfo *customdockinfo;
-    sdword dockwithpointindex;
-    DockStaticPoint *shipstaticpoint;
-    sword shippointindex;
-    ResearchShipStatics *resstatics;
+    DockStaticPoint *dockwithstaticpoint = NULL;
+    Ship *tmpmaster = NULL;
+    AtResearchShipDockInfo *customdockinfo = NULL;
+    sdword dockwithpointindex = 0;
+    DockStaticPoint *shipstaticpoint = NULL;
+    sword shippointindex = 0;
+    ResearchShipStatics *resstatics = NULL;
 
     resstatics = (ResearchShipStatics *) ((ShipStaticInfo *)(ship->staticinfo))->custstatinfo;
 
@@ -5928,7 +5928,7 @@ bool R2ResearchShipDocksAtResearchShip(struct CommandToDo *docktodo,struct Ship 
     ShipStaticInfo *dockwithstatic = (ShipStaticInfo *)dockwith->staticinfo;
     DockStaticPoint *dockwithstaticpoint;
 
-    AtResearchShipDockInfo *customdockinfo;
+    AtResearchShipDockInfo *customdockinfo = NULL;
     sdword dockwithpointindex;
 
     DockStaticPoint *shipstaticpoint;

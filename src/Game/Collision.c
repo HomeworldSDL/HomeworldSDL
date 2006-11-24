@@ -1479,21 +1479,21 @@ nextobj1:
 void collCheckShipDerelictColl(blob *thisBlob)
 {
     sdword obj1index = 0;
-    Ship *obj1;
+    Ship *obj1       = NULL;
 
-    sdword obj2index;
-    Derelict *obj2;
+    sdword obj2index = 0;
+    Derelict *obj2   = NULL;
 
-    real32 dist;
-    real32 distsquared;
-    real32 colldist;
+    real32 dist                = 0.0;
+    real32 distsquared         = 0.0;
+    real32 colldist            = 0.0;
+    real32 obj1collspheresize  = 0.0;
+    real32 maxdistCollPossible = 0.0;
+    real32 distcheck           = 0.0;
+    real32 absdistcheck        = 0.0;
+    
     vector distvector;
 
-    real32 obj1collspheresize;
-    real32 maxdistCollPossible;
-
-    real32 distcheck;
-    real32 absdistcheck;
 
     SelectCommand *selection = thisBlob->blobShips;
     sdword numShips = selection->numShips;
@@ -1975,7 +1975,7 @@ void collCheckBulletTargetColl(blob *thisBlob)
     sdword bulletindex = 0;
     Bullet *bullet;
 
-    sdword targetindex;
+    sdword targetindex = 0;
     SpaceObjRotImpTarg *target;
     StaticHeader *targetstaticheader;
 
@@ -2253,7 +2253,7 @@ void collCheckMissileShipColl(blob *thisBlob,MissileType missileType)
     sdword missileindex = 0;
     Missile *missile;
 
-    sdword targetindex;
+    sdword targetindex = 0;
     Ship *target;
     StaticHeader *targetstaticheader;
 
@@ -2437,7 +2437,7 @@ void collCheckMissileResourceColl(blob *thisBlob,MissileType missileType)
     sdword missileindex = 0;
     Missile *missile;
 
-    sdword targetindex;
+    sdword targetindex = 0;
     Resource *target;
     StaticHeader *targetstaticheader;
 
@@ -2596,7 +2596,7 @@ void collCheckMissileDerelictColl(blob *thisBlob,MissileType missileType)
     sdword missileindex = 0;
     Missile *missile;
 
-    sdword targetindex;
+    sdword targetindex = 0;
     Derelict *target;
     StaticHeader *targetstaticheader;
 
@@ -2749,7 +2749,7 @@ void collCheckMissileMineColl(blob *thisBlob)
     sdword missileindex = 0;
     Missile *missile;
 
-    sdword targetindex;
+    sdword targetindex = 0;
     Missile *target;
     StaticHeader *targetstaticheader;
 

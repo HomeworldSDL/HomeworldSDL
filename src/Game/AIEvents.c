@@ -389,7 +389,7 @@ sdword aieCheckEnemyNearby(AITeam *team, SelectCommand **ships)
 sdword aieCheckEnemyNotNearby(AITeam *team)
 {
 //    blob *myblob;
-    SelectCommand *ships;
+    SelectCommand *ships = NULL;
 
     if (team->shipList.selection->numShips)
     {

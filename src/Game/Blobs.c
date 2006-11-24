@@ -559,7 +559,7 @@ void bobSubBlobListCreate(BlobProperties *blobProperties, LinkedList *list, blob
     blob *tblob;
     Node *node, *nextnode;
     sdword index;
-    real32 mass;
+    real32 mass = 0.0;
     vector distance;
 
     dbgAssertOrIgnore(blobProperties);
@@ -849,7 +849,7 @@ void bobListCreate(BlobProperties *blobProperties, LinkedList *list, udword play
     SpaceObj *spaceobj;
     Node *node;
     blob *newBlob;
-    real32 mass;
+    real32 mass = 0.0;
     blob *preallocBlobs;
     SpaceObjSelection *preallocObjSelection;
     SpaceObjSelection *newObjSelection;
@@ -1779,7 +1779,7 @@ void AddSpaceObjToSelectionPreserveOrder(SpaceObjSelection *selection,SpaceObj *
 {
     sdword bottom,top;
     sdword numObjects = selection->numSpaceObjs;
-    sdword foundindex;
+    sdword foundindex = 0;
 
     if (numObjects == 0)
     {

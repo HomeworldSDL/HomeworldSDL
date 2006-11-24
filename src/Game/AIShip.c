@@ -906,7 +906,7 @@ udword aishipFlyToPointAvoidingObjsFunc(Ship *ship,vector *destination,udword ai
     vector desiredVel;
     vector desiredHead;
     vector targetVec;
-    sdword objindex;
+    sdword objindex = 0;
     SpaceObjRotImp *avoidobj = NULL;
     ShipStaticInfo *shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;
 

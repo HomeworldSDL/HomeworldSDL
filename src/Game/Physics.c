@@ -264,7 +264,7 @@ void physUpdateObjPosVel(SpaceObj *obj,real32 phystimeelapsed)
     vector a;
     vector d;
     StaticHeader *staticheader = &obj->staticinfo->staticheader;
-    ShipStaticInfo *shipstaticinfo;
+    ShipStaticInfo *shipstaticinfo = FALSE;
     bool coordsysChanged = FALSE;
     bool wasAboveLowFuel;
     //real32 burnmult;
