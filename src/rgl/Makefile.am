@@ -9,10 +9,10 @@ CXXFLAGS += -O0
 
 lib_LTLIBRARIES = librgl.la librglsw.la
 
-librgl_la_SOURCES = asm.c asm.h clip.c clip.h fixed.h gldefines.h hash.c hash.h invert.c kgl.c kgl.h kgl_macros.h kvb.c kvb.h maths.c maths.h rglext.c rglext.h wgl.c
+librgl_la_SOURCES = asm.c asm.h clip.c clip.h fixed.h gldefines.h invert.c kgl.c kgl.h kgl_macros.h kvb.c kvb.h maths.c maths.h rglext.c rglext.h wgl.c
 librgl_la_LDFLAGS = -avoid-version -no-undefined
 
-#librglu_la_SOURCES = fixed.h gldefines.h hash.h invert.c kgl.h kgl_macros.h kglu.c kvb.h maths.c maths.h rglext.h
+#librglu_la_SOURCES = fixed.h gldefines.h invert.c kgl.h kgl_macros.h kglu.c kvb.h maths.c maths.h rglext.h
 #librglu_la_LIBADD = librgl.la
 #librglu_la_LDFLAGS = -avoid-version -no-undefined
 
