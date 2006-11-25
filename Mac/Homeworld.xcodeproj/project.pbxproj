@@ -133,8 +133,6 @@
 		3516C8A7077C41B0001AA863 /* Select.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CD2064992AF0088361C /* Select.h */; };
 		3516C8A8077C41B0001AA863 /* Sensors.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CD4064992AF0088361C /* Sensors.h */; };
 		3516C8A9077C41B0001AA863 /* Shader.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CD6064992AF0088361C /* Shader.h */; };
-		3516C8AA077C41B0001AA863 /* ShipDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CD7064992AF0088361C /* ShipDefs.h */; };
-		3516C8AB077C41B0001AA863 /* Ships.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CD8064992AF0088361C /* Ships.h */; };
 		3516C8AC077C41B0001AA863 /* ShipSelect.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CDA064992AF0088361C /* ShipSelect.h */; };
 		3516C8AD077C41B0001AA863 /* ShipView.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CDC064992AF0088361C /* ShipView.h */; };
 		3516C8AE077C41B0001AA863 /* SinglePlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CDE064992AF0088361C /* SinglePlayer.h */; };
@@ -471,6 +469,10 @@
 		358038100B18679B00D47728 /* CRC32.h in Headers */ = {isa = PBXBuildFile; fileRef = 3580380D0B18679B00D47728 /* CRC32.h */; };
 		358038120B18679B00D47728 /* CRC32.c in Sources */ = {isa = PBXBuildFile; fileRef = 3580380C0B18679B00D47728 /* CRC32.c */; };
 		358038130B18679B00D47728 /* CRC32.h in Headers */ = {isa = PBXBuildFile; fileRef = 3580380D0B18679B00D47728 /* CRC32.h */; };
+		358038560B18A90100D47728 /* ShipDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038540B18A90100D47728 /* ShipDefs.h */; };
+		358038570B18A90100D47728 /* Ships.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038550B18A90100D47728 /* Ships.h */; };
+		358038580B18A90100D47728 /* ShipDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038540B18A90100D47728 /* ShipDefs.h */; };
+		358038590B18A90100D47728 /* Ships.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038550B18A90100D47728 /* Ships.h */; };
 		35B1D7F00ABD43B0002214BE /* Homeworld.icns in Resources */ = {isa = PBXBuildFile; fileRef = 35B1D7EF0ABD43B0002214BE /* Homeworld.icns */; };
 		35B1D7F20ABD43BD002214BE /* RaiderRetreat.icns in Resources */ = {isa = PBXBuildFile; fileRef = 35B1D7F10ABD43BD002214BE /* RaiderRetreat.icns */; };
 		35CA99C10B17BC6F00B5118E /* Light.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CA99BF0B17BC6F00B5118E /* Light.c */; };
@@ -833,8 +835,6 @@
 		90623E06064992AF0088361C /* Sensors.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CD4064992AF0088361C /* Sensors.h */; };
 		90623E07064992AF0088361C /* Shader.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CD5064992AF0088361C /* Shader.c */; };
 		90623E08064992AF0088361C /* Shader.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CD6064992AF0088361C /* Shader.h */; };
-		90623E09064992AF0088361C /* ShipDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CD7064992AF0088361C /* ShipDefs.h */; };
-		90623E0A064992AF0088361C /* Ships.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CD8064992AF0088361C /* Ships.h */; };
 		90623E0B064992AF0088361C /* ShipSelect.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CD9064992AF0088361C /* ShipSelect.c */; };
 		90623E0C064992AF0088361C /* ShipSelect.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CDA064992AF0088361C /* ShipSelect.h */; };
 		90623E0D064992AF0088361C /* ShipView.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CDB064992AF0088361C /* ShipView.c */; };
@@ -1107,6 +1107,8 @@
 		3578AD070AF40518007BFA9F /* StringSupport.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = StringSupport.h; sourceTree = "<group>"; };
 		3580380C0B18679B00D47728 /* CRC32.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = CRC32.c; sourceTree = "<group>"; };
 		3580380D0B18679B00D47728 /* CRC32.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CRC32.h; sourceTree = "<group>"; };
+		358038540B18A90100D47728 /* ShipDefs.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ShipDefs.h; sourceTree = "<group>"; };
+		358038550B18A90100D47728 /* Ships.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Ships.h; sourceTree = "<group>"; };
 		35A501A6078CB77000E7D8E2 /* RaiderRetreat.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = RaiderRetreat.plist; sourceTree = "<group>"; };
 		35B1D7EF0ABD43B0002214BE /* Homeworld.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Homeworld.icns; sourceTree = "<group>"; };
 		35B1D7F10ABD43BD002214BE /* RaiderRetreat.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = RaiderRetreat.icns; sourceTree = "<group>"; };
@@ -1403,8 +1405,6 @@
 		90623CD4064992AF0088361C /* Sensors.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Sensors.h; path = ../src/Game/Sensors.h; sourceTree = SOURCE_ROOT; };
 		90623CD5064992AF0088361C /* Shader.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Shader.c; path = ../src/Game/Shader.c; sourceTree = SOURCE_ROOT; };
 		90623CD6064992AF0088361C /* Shader.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Shader.h; path = ../src/Game/Shader.h; sourceTree = SOURCE_ROOT; };
-		90623CD7064992AF0088361C /* ShipDefs.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ShipDefs.h; path = ../src/Game/ShipDefs.h; sourceTree = SOURCE_ROOT; };
-		90623CD8064992AF0088361C /* Ships.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Ships.h; path = ../src/Game/Ships.h; sourceTree = SOURCE_ROOT; };
 		90623CD9064992AF0088361C /* ShipSelect.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = ShipSelect.c; path = ../src/Game/ShipSelect.c; sourceTree = SOURCE_ROOT; };
 		90623CDA064992AF0088361C /* ShipSelect.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ShipSelect.h; path = ../src/Game/ShipSelect.h; sourceTree = SOURCE_ROOT; };
 		90623CDB064992AF0088361C /* ShipView.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = ShipView.c; path = ../src/Game/ShipView.c; sourceTree = SOURCE_ROOT; };
@@ -2105,8 +2105,6 @@
 				90623CD4064992AF0088361C /* Sensors.h */,
 				90623CD5064992AF0088361C /* Shader.c */,
 				90623CD6064992AF0088361C /* Shader.h */,
-				90623CD7064992AF0088361C /* ShipDefs.h */,
-				90623CD8064992AF0088361C /* Ships.h */,
 				90623CD9064992AF0088361C /* ShipSelect.c */,
 				90623CDA064992AF0088361C /* ShipSelect.h */,
 				90623CDB064992AF0088361C /* ShipView.c */,
@@ -2390,6 +2388,8 @@
 				90BD9332064AEF43003E3D39 /* SalCapCorvette.h */,
 				90BD9333064AEF43003E3D39 /* SensorArray.c */,
 				90BD9334064AEF43003E3D39 /* SensorArray.h */,
+				358038540B18A90100D47728 /* ShipDefs.h */,
+				358038550B18A90100D47728 /* Ships.h */,
 				90BD9335064AEF43003E3D39 /* StandardDestroyer.c */,
 				90BD9336064AEF43003E3D39 /* StandardDestroyer.h */,
 				90BD9337064AEF43003E3D39 /* StandardFrigate.c */,
@@ -2520,8 +2520,6 @@
 				3516C8A7077C41B0001AA863 /* Select.h in Headers */,
 				3516C8A8077C41B0001AA863 /* Sensors.h in Headers */,
 				3516C8A9077C41B0001AA863 /* Shader.h in Headers */,
-				3516C8AA077C41B0001AA863 /* ShipDefs.h in Headers */,
-				3516C8AB077C41B0001AA863 /* Ships.h in Headers */,
 				3516C8AC077C41B0001AA863 /* ShipSelect.h in Headers */,
 				3516C8AD077C41B0001AA863 /* ShipView.h in Headers */,
 				3516C8AE077C41B0001AA863 /* SinglePlayer.h in Headers */,
@@ -2662,6 +2660,8 @@
 				35FE5B2D0B17CB2300D6E944 /* BitIO.h in Headers */,
 				35FE5B2F0B17CB2300D6E944 /* LZSS.h in Headers */,
 				358038130B18679B00D47728 /* CRC32.h in Headers */,
+				358038580B18A90100D47728 /* ShipDefs.h in Headers */,
+				358038590B18A90100D47728 /* Ships.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2783,8 +2783,6 @@
 				90623E04064992AF0088361C /* Select.h in Headers */,
 				90623E06064992AF0088361C /* Sensors.h in Headers */,
 				90623E08064992AF0088361C /* Shader.h in Headers */,
-				90623E09064992AF0088361C /* ShipDefs.h in Headers */,
-				90623E0A064992AF0088361C /* Ships.h in Headers */,
 				90623E0C064992AF0088361C /* ShipSelect.h in Headers */,
 				90623E0E064992AF0088361C /* ShipView.h in Headers */,
 				90623E10064992AF0088361C /* SinglePlayer.h in Headers */,
@@ -2936,6 +2934,8 @@
 				35FE5B280B17CB2300D6E944 /* BitIO.h in Headers */,
 				35FE5B2A0B17CB2300D6E944 /* LZSS.h in Headers */,
 				358038100B18679B00D47728 /* CRC32.h in Headers */,
+				358038560B18A90100D47728 /* ShipDefs.h in Headers */,
+				358038570B18A90100D47728 /* Ships.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

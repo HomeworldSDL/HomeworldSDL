@@ -36,19 +36,23 @@
 #define TargetDrone                     32
 #define HeadShotAsteroid                33      // Headshot asteroid is now a ship!
 #define CryoTray                        34      // CryoTray is now a ship!
+
 #define P1Fighter                       35
 #define P1IonArrayFrigate               36
 #define P1MissileCorvette               37
 #define P1Mothership                    38
 #define P1StandardCorvette              39
+
 #define P2AdvanceSwarmer                40
 #define P2FuelPod                       41
 #define P2Mothership                    42
 #define P2MultiBeamFrigate              43
 #define P2Swarmer                       44
+
 #define P3Destroyer                     45
 #define P3Frigate                       46
 #define P3Megaship                      47
+
 #define FloatingCity                    48
 #define CargoBarge                      49
 #define MiningBase                      50

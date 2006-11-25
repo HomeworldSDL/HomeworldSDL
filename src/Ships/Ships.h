@@ -1,6 +1,6 @@
 // =============================================================================
 //  Ships.h
-//  - all the ships in the game (defined in src/Ships)
+//  - all the ships in the game
 // =============================================================================
 //  Copyright Relic Entertainment, Inc. All rights reserved.
 //  Created 6/30/1997 by gshaw
