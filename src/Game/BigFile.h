@@ -9,7 +9,7 @@
 
 #include <time.h>
 #include "CRC32.h"
-
+#include "Types.h"
 
 //  Version Notes:
 //  0.90    1998/05/12  Darren Stone

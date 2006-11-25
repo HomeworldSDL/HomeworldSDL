@@ -8,12 +8,12 @@
 #ifndef ___CRC32_H
 #define ___CRC32_H
 
-#include "Types.h"
+#include <stdint.h>
 
-typedef udword crc32;
-typedef uword  crc16;
+typedef uint32_t crc32;
+typedef uint16_t crc16;
 
-crc32 crc32Compute(ubyte *packet, udword length);
-crc16 crc16Compute(ubyte *packet, udword length);
+crc32 crc32Compute(uint8_t *packet, uint32_t length);
+crc16 crc16Compute(uint8_t *packet, uint32_t length);
 
 #endif
