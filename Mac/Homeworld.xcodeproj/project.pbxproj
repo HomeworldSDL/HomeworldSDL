@@ -190,7 +190,6 @@
 		3516C8F9077C41B0001AA863 /* gldll.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD921E064AEE7A003E3D39 /* gldll.h */; };
 		3516C8FA077C41B0001AA863 /* glext.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD921F064AEE7A003E3D39 /* glext.h */; };
 		3516C8FB077C41B0001AA863 /* glinc.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9220064AEE7A003E3D39 /* glinc.h */; };
-		3516C8FD077C41B0001AA863 /* light.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9223064AEE7A003E3D39 /* light.h */; };
 		3516C8FF077C41B0001AA863 /* main.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9228064AEE7A003E3D39 /* main.h */; };
 		3516C900077C41B0001AA863 /* mainrgn.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD922A064AEE7A003E3D39 /* mainrgn.h */; };
 		3516C901077C41B0001AA863 /* mainswitches.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD922B064AEE7A003E3D39 /* mainswitches.h */; };
@@ -404,7 +403,6 @@
 		3516CA24077C41B0001AA863 /* glcaps.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9218064AEE7A003E3D39 /* glcaps.c */; };
 		3516CA25077C41B0001AA863 /* glcompat.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD921A064AEE7A003E3D39 /* glcompat.c */; };
 		3516CA26077C41B0001AA863 /* gldll.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD921D064AEE7A003E3D39 /* gldll.c */; };
-		3516CA27077C41B0001AA863 /* light.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9222064AEE7A003E3D39 /* light.c */; };
 		3516CA2A077C41B0001AA863 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9227064AEE7A003E3D39 /* main.c */; };
 		3516CA2B077C41B0001AA863 /* mainrgn.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9229064AEE7A003E3D39 /* mainrgn.c */; };
 		3516CA2C077C41B0001AA863 /* mouse.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD922E064AEE7A003E3D39 /* mouse.c */; };
@@ -477,6 +475,10 @@
 		3578AD0B0AF40518007BFA9F /* StringSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 3578AD070AF40518007BFA9F /* StringSupport.h */; };
 		35B1D7F00ABD43B0002214BE /* Homeworld.icns in Resources */ = {isa = PBXBuildFile; fileRef = 35B1D7EF0ABD43B0002214BE /* Homeworld.icns */; };
 		35B1D7F20ABD43BD002214BE /* RaiderRetreat.icns in Resources */ = {isa = PBXBuildFile; fileRef = 35B1D7F10ABD43BD002214BE /* RaiderRetreat.icns */; };
+		35CA99C10B17BC6F00B5118E /* Light.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CA99BF0B17BC6F00B5118E /* Light.c */; };
+		35CA99C20B17BC6F00B5118E /* Light.h in Headers */ = {isa = PBXBuildFile; fileRef = 35CA99C00B17BC6F00B5118E /* Light.h */; };
+		35CA99C30B17BC6F00B5118E /* Light.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CA99BF0B17BC6F00B5118E /* Light.c */; };
+		35CA99C40B17BC6F00B5118E /* Light.h in Headers */ = {isa = PBXBuildFile; fileRef = 35CA99C00B17BC6F00B5118E /* Light.h */; };
 		35CCC930096625FD009D918D /* HomeworldPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 35017183077C54EA00684108 /* HomeworldPlist.strings */; };
 		35CCC93109662605009D918D /* RaiderRetreatPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 351B67AB077E4728002ABC6E /* RaiderRetreatPlist.strings */; };
 		35CD34F30B13ADEE0064A20B /* interfce.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34B20B13ADEE0064A20B /* interfce.c */; };
@@ -966,8 +968,6 @@
 		90BD9275064AEE7B003E3D39 /* gldll.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD921E064AEE7A003E3D39 /* gldll.h */; };
 		90BD9276064AEE7B003E3D39 /* glext.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD921F064AEE7A003E3D39 /* glext.h */; };
 		90BD9277064AEE7B003E3D39 /* glinc.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9220064AEE7A003E3D39 /* glinc.h */; };
-		90BD9279064AEE7B003E3D39 /* light.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9222064AEE7A003E3D39 /* light.c */; };
-		90BD927A064AEE7B003E3D39 /* light.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9223064AEE7A003E3D39 /* light.h */; };
 		90BD927E064AEE7B003E3D39 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9227064AEE7A003E3D39 /* main.c */; };
 		90BD927F064AEE7B003E3D39 /* main.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9228064AEE7A003E3D39 /* main.h */; };
 		90BD9281064AEE7B003E3D39 /* mainrgn.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD922A064AEE7A003E3D39 /* mainrgn.h */; };
@@ -1108,6 +1108,8 @@
 		35A501A6078CB77000E7D8E2 /* RaiderRetreat.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = RaiderRetreat.plist; sourceTree = "<group>"; };
 		35B1D7EF0ABD43B0002214BE /* Homeworld.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Homeworld.icns; sourceTree = "<group>"; };
 		35B1D7F10ABD43BD002214BE /* RaiderRetreat.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = RaiderRetreat.icns; sourceTree = "<group>"; };
+		35CA99BF0B17BC6F00B5118E /* Light.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Light.c; sourceTree = "<group>"; };
+		35CA99C00B17BC6F00B5118E /* Light.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Light.h; sourceTree = "<group>"; };
 		35CD34B20B13ADEE0064A20B /* interfce.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = interfce.c; sourceTree = "<group>"; };
 		35CD34B30B13ADEE0064A20B /* interfce.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = interfce.h; sourceTree = "<group>"; };
 		35CD34B40B13ADEE0064A20B /* jcapimin.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = jcapimin.c; sourceTree = "<group>"; };
@@ -1536,8 +1538,6 @@
 		90BD921E064AEE7A003E3D39 /* gldll.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = gldll.h; path = ../src/SDL/gldll.h; sourceTree = SOURCE_ROOT; };
 		90BD921F064AEE7A003E3D39 /* glext.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = glext.h; path = ../src/SDL/glext.h; sourceTree = SOURCE_ROOT; };
 		90BD9220064AEE7A003E3D39 /* glinc.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = glinc.h; path = ../src/SDL/glinc.h; sourceTree = SOURCE_ROOT; };
-		90BD9222064AEE7A003E3D39 /* light.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = light.c; path = ../src/SDL/light.c; sourceTree = SOURCE_ROOT; };
-		90BD9223064AEE7A003E3D39 /* light.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = light.h; path = ../src/SDL/light.h; sourceTree = SOURCE_ROOT; };
 		90BD9227064AEE7A003E3D39 /* main.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = main.c; path = ../src/SDL/main.c; sourceTree = SOURCE_ROOT; };
 		90BD9228064AEE7A003E3D39 /* main.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = main.h; path = ../src/SDL/main.h; sourceTree = SOURCE_ROOT; };
 		90BD9229064AEE7A003E3D39 /* mainrgn.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = mainrgn.c; path = ../src/SDL/mainrgn.c; sourceTree = SOURCE_ROOT; };
@@ -2014,6 +2014,8 @@
 				90623C84064992AE0088361C /* LaunchMgr.h */,
 				90623C86064992AE0088361C /* LevelLoad.c */,
 				90623C87064992AE0088361C /* LevelLoad.h */,
+				35CA99BF0B17BC6F00B5118E /* Light.c */,
+				35CA99C00B17BC6F00B5118E /* Light.h */,
 				90623C89064992AE0088361C /* LinkedList.c */,
 				90623C8A064992AE0088361C /* LinkedList.h */,
 				90623C8B064992AE0088361C /* LOD.c */,
@@ -2248,8 +2250,6 @@
 				90BD921E064AEE7A003E3D39 /* gldll.h */,
 				90BD921F064AEE7A003E3D39 /* glext.h */,
 				90BD9220064AEE7A003E3D39 /* glinc.h */,
-				90BD9222064AEE7A003E3D39 /* light.c */,
-				90BD9223064AEE7A003E3D39 /* light.h */,
 				90BD9227064AEE7A003E3D39 /* main.c */,
 				90BD9228064AEE7A003E3D39 /* main.h */,
 				90BD9229064AEE7A003E3D39 /* mainrgn.c */,
@@ -2561,7 +2561,6 @@
 				3516C8F9077C41B0001AA863 /* gldll.h in Headers */,
 				3516C8FA077C41B0001AA863 /* glext.h in Headers */,
 				3516C8FB077C41B0001AA863 /* glinc.h in Headers */,
-				3516C8FD077C41B0001AA863 /* light.h in Headers */,
 				3516C8FF077C41B0001AA863 /* main.h in Headers */,
 				3516C900077C41B0001AA863 /* mainrgn.h in Headers */,
 				3516C901077C41B0001AA863 /* mainswitches.h in Headers */,
@@ -2646,6 +2645,7 @@
 				35CD35690B13ADEE0064A20B /* jpegrc.h in Headers */,
 				35CD356D0B13ADEE0064A20B /* jversion.h in Headers */,
 				35CD35910B13B0E00064A20B /* ServerStatus.h in Headers */,
+				35CA99C40B17BC6F00B5118E /* Light.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2837,7 +2837,6 @@
 				90BD9275064AEE7B003E3D39 /* gldll.h in Headers */,
 				90BD9276064AEE7B003E3D39 /* glext.h in Headers */,
 				90BD9277064AEE7B003E3D39 /* glinc.h in Headers */,
-				90BD927A064AEE7B003E3D39 /* light.h in Headers */,
 				90BD927F064AEE7B003E3D39 /* main.h in Headers */,
 				90BD9281064AEE7B003E3D39 /* mainrgn.h in Headers */,
 				90BD9282064AEE7B003E3D39 /* mainswitches.h in Headers */,
@@ -2920,6 +2919,7 @@
 				35CD352A0B13ADEE0064A20B /* jpegrc.h in Headers */,
 				35CD352E0B13ADEE0064A20B /* jversion.h in Headers */,
 				35CD35900B13B0E00064A20B /* ServerStatus.h in Headers */,
+				35CA99C20B17BC6F00B5118E /* Light.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3311,7 +3311,6 @@
 				3516CA24077C41B0001AA863 /* glcaps.c in Sources */,
 				3516CA25077C41B0001AA863 /* glcompat.c in Sources */,
 				3516CA26077C41B0001AA863 /* gldll.c in Sources */,
-				3516CA27077C41B0001AA863 /* light.c in Sources */,
 				3516CA2A077C41B0001AA863 /* main.c in Sources */,
 				3516CA2B077C41B0001AA863 /* mainrgn.c in Sources */,
 				3516CA2C077C41B0001AA863 /* mouse.c in Sources */,
@@ -3427,6 +3426,7 @@
 				35CD356A0B13ADEE0064A20B /* jquant1.c in Sources */,
 				35CD356B0B13ADEE0064A20B /* jquant2.c in Sources */,
 				35CD356C0B13ADEE0064A20B /* jutils.c in Sources */,
+				35CA99C30B17BC6F00B5118E /* Light.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3608,7 +3608,6 @@
 				90BD926F064AEE7B003E3D39 /* glcaps.c in Sources */,
 				90BD9271064AEE7B003E3D39 /* glcompat.c in Sources */,
 				90BD9274064AEE7B003E3D39 /* gldll.c in Sources */,
-				90BD9279064AEE7B003E3D39 /* light.c in Sources */,
 				90BD927E064AEE7B003E3D39 /* main.c in Sources */,
 				90BD9285064AEE7B003E3D39 /* mouse.c in Sources */,
 				90BD9287064AEE7B003E3D39 /* prim2d.c in Sources */,
@@ -3720,6 +3719,7 @@
 				35CD352B0B13ADEE0064A20B /* jquant1.c in Sources */,
 				35CD352C0B13ADEE0064A20B /* jquant2.c in Sources */,
 				35CD352D0B13ADEE0064A20B /* jutils.c in Sources */,
+				35CA99C10B17BC6F00B5118E /* Light.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
