@@ -31,6 +31,8 @@ static char DEFAULT_RENDERER[8];
 
 #define LOG_PROBLEMS    0
 
+#define TABLE_SIZE      3001
+
 /*-----------------------------------------------------------------------------
     data
 -----------------------------------------------------------------------------*/
@@ -2458,8 +2460,7 @@ void gl_init_context(GLcontext* MYctx,
     gl_load_devices();
     (void)gl_select_named_device(DEFAULT_RENDERER);
 
-    _texobjs = hashNewTable(gl_Allocate, gl_Free);
-//    _texobjs = hashNewTable(hash_Allocate, hash_Free);
+    _texobjs = hashNewTable(TABLE_SIZE);
 
     CC->Speedy = GL_FALSE;
 
