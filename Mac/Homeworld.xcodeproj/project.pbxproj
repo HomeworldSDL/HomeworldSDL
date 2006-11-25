@@ -43,7 +43,6 @@
 		3516C847077C41B0001AA863 /* B-Spline.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C1A064992AE0088361C /* B-Spline.h */; };
 		3516C848077C41B0001AA863 /* Battle.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C1C064992AE0088361C /* Battle.h */; };
 		3516C849077C41B0001AA863 /* BigFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C1E064992AE0088361C /* BigFile.h */; };
-		3516C84A077C41B0001AA863 /* BitIO.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C20064992AE0088361C /* BitIO.h */; };
 		3516C84B077C41B0001AA863 /* Blobs.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C22064992AE0088361C /* Blobs.h */; };
 		3516C84C077C41B0001AA863 /* BMP.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C24064992AE0088361C /* BMP.h */; };
 		3516C84D077C41B0001AA863 /* Bounties.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C26064992AE0088361C /* Bounties.h */; };
@@ -100,7 +99,6 @@
 		3516C881077C41B0001AA863 /* LevelLoad.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C87064992AE0088361C /* LevelLoad.h */; };
 		3516C883077C41B0001AA863 /* LinkedList.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C8A064992AE0088361C /* LinkedList.h */; };
 		3516C884077C41B0001AA863 /* LOD.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C8C064992AE0088361C /* LOD.h */; };
-		3516C885077C41B0001AA863 /* LZSS.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C8E064992AE0088361C /* LZSS.h */; };
 		3516C886077C41B0001AA863 /* MadLinkIn.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C90064992AE0088361C /* MadLinkIn.h */; };
 		3516C887077C41B0001AA863 /* MadLinkInDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C91064992AE0088361C /* MadLinkInDefs.h */; };
 		3516C888077C41B0001AA863 /* Matrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C96064992AF0088361C /* Matrix.h */; };
@@ -277,7 +275,6 @@
 		3516C95B077C41B0001AA863 /* B-Spline.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C19064992AE0088361C /* B-Spline.c */; };
 		3516C95C077C41B0001AA863 /* Battle.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C1B064992AE0088361C /* Battle.c */; };
 		3516C95D077C41B0001AA863 /* BigFile.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C1D064992AE0088361C /* BigFile.c */; };
-		3516C95E077C41B0001AA863 /* BitIO.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C1F064992AE0088361C /* BitIO.c */; };
 		3516C95F077C41B0001AA863 /* Blobs.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C21064992AE0088361C /* Blobs.c */; };
 		3516C960077C41B0001AA863 /* BMP.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C23064992AE0088361C /* BMP.c */; };
 		3516C961077C41B0001AA863 /* Bounties.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C25064992AE0088361C /* Bounties.c */; };
@@ -328,7 +325,6 @@
 		3516C98E077C41B0001AA863 /* LevelLoad.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C86064992AE0088361C /* LevelLoad.c */; };
 		3516C98F077C41B0001AA863 /* LinkedList.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C89064992AE0088361C /* LinkedList.c */; };
 		3516C990077C41B0001AA863 /* LOD.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C8B064992AE0088361C /* LOD.c */; };
-		3516C991077C41B0001AA863 /* LZSS.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C8D064992AE0088361C /* LZSS.c */; };
 		3516C992077C41B0001AA863 /* MadLinkIn.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C8F064992AE0088361C /* MadLinkIn.c */; };
 		3516C993077C41B0001AA863 /* Matrix.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C95064992AF0088361C /* Matrix.c */; };
 		3516C994077C41B0001AA863 /* Memory.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C99064992AF0088361C /* Memory.c */; };
@@ -607,6 +603,14 @@
 		35FB9A6E0B124F0500523C83 /* Color.h in Headers */ = {isa = PBXBuildFile; fileRef = 35FB9A6C0B124F0500523C83 /* Color.h */; };
 		35FB9A6F0B124F0500523C83 /* Color.c in Sources */ = {isa = PBXBuildFile; fileRef = 35FB9A6B0B124F0500523C83 /* Color.c */; };
 		35FB9A700B124F0500523C83 /* Color.h in Headers */ = {isa = PBXBuildFile; fileRef = 35FB9A6C0B124F0500523C83 /* Color.h */; };
+		35FE5B270B17CB2300D6E944 /* BitIO.c in Sources */ = {isa = PBXBuildFile; fileRef = 35FE5B220B17CB2200D6E944 /* BitIO.c */; };
+		35FE5B280B17CB2300D6E944 /* BitIO.h in Headers */ = {isa = PBXBuildFile; fileRef = 35FE5B230B17CB2200D6E944 /* BitIO.h */; };
+		35FE5B290B17CB2300D6E944 /* LZSS.c in Sources */ = {isa = PBXBuildFile; fileRef = 35FE5B240B17CB2200D6E944 /* LZSS.c */; };
+		35FE5B2A0B17CB2300D6E944 /* LZSS.h in Headers */ = {isa = PBXBuildFile; fileRef = 35FE5B250B17CB2200D6E944 /* LZSS.h */; };
+		35FE5B2C0B17CB2300D6E944 /* BitIO.c in Sources */ = {isa = PBXBuildFile; fileRef = 35FE5B220B17CB2200D6E944 /* BitIO.c */; };
+		35FE5B2D0B17CB2300D6E944 /* BitIO.h in Headers */ = {isa = PBXBuildFile; fileRef = 35FE5B230B17CB2200D6E944 /* BitIO.h */; };
+		35FE5B2E0B17CB2300D6E944 /* LZSS.c in Sources */ = {isa = PBXBuildFile; fileRef = 35FE5B240B17CB2200D6E944 /* LZSS.c */; };
+		35FE5B2F0B17CB2300D6E944 /* LZSS.h in Headers */ = {isa = PBXBuildFile; fileRef = 35FE5B250B17CB2200D6E944 /* LZSS.h */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		9030AF94066D5D2C00B32218 /* avi.c in Sources */ = {isa = PBXBuildFile; fileRef = 9030AF92066D5D2C00B32218 /* avi.c */; };
 		9030AF95066D5D2C00B32218 /* rinit.c in Sources */ = {isa = PBXBuildFile; fileRef = 9030AF93066D5D2C00B32218 /* rinit.c */; };
@@ -656,8 +660,6 @@
 		90623D4E064992AF0088361C /* Battle.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C1C064992AE0088361C /* Battle.h */; };
 		90623D4F064992AF0088361C /* BigFile.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C1D064992AE0088361C /* BigFile.c */; };
 		90623D50064992AF0088361C /* BigFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C1E064992AE0088361C /* BigFile.h */; };
-		90623D51064992AF0088361C /* BitIO.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C1F064992AE0088361C /* BitIO.c */; };
-		90623D52064992AF0088361C /* BitIO.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C20064992AE0088361C /* BitIO.h */; };
 		90623D53064992AF0088361C /* Blobs.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C21064992AE0088361C /* Blobs.c */; };
 		90623D54064992AF0088361C /* Blobs.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C22064992AE0088361C /* Blobs.h */; };
 		90623D55064992AF0088361C /* BMP.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C23064992AE0088361C /* BMP.c */; };
@@ -764,8 +766,6 @@
 		90623DBC064992AF0088361C /* LinkedList.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C8A064992AE0088361C /* LinkedList.h */; };
 		90623DBD064992AF0088361C /* LOD.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C8B064992AE0088361C /* LOD.c */; };
 		90623DBE064992AF0088361C /* LOD.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C8C064992AE0088361C /* LOD.h */; };
-		90623DBF064992AF0088361C /* LZSS.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C8D064992AE0088361C /* LZSS.c */; };
-		90623DC0064992AF0088361C /* LZSS.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C8E064992AE0088361C /* LZSS.h */; };
 		90623DC1064992AF0088361C /* MadLinkIn.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C8F064992AE0088361C /* MadLinkIn.c */; };
 		90623DC2064992AF0088361C /* MadLinkIn.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C90064992AE0088361C /* MadLinkIn.h */; };
 		90623DC3064992AF0088361C /* MadLinkInDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C91064992AE0088361C /* MadLinkInDefs.h */; };
@@ -1176,6 +1176,10 @@
 		35DAEDC7077BAF4D0080465A /* Mission05_OEM.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Mission05_OEM.h; sourceTree = "<group>"; };
 		35FB9A6B0B124F0500523C83 /* Color.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Color.c; sourceTree = "<group>"; };
 		35FB9A6C0B124F0500523C83 /* Color.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
+		35FE5B220B17CB2200D6E944 /* BitIO.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = BitIO.c; sourceTree = "<group>"; };
+		35FE5B230B17CB2200D6E944 /* BitIO.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = BitIO.h; sourceTree = "<group>"; };
+		35FE5B240B17CB2200D6E944 /* LZSS.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = LZSS.c; sourceTree = "<group>"; };
+		35FE5B250B17CB2200D6E944 /* LZSS.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = LZSS.h; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Homeworld.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Homeworld.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Homeworld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Homeworld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9030AF92066D5D2C00B32218 /* avi.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = avi.c; path = ../src/SDL/avi.c; sourceTree = SOURCE_ROOT; };
@@ -1226,8 +1230,6 @@
 		90623C1C064992AE0088361C /* Battle.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Battle.h; path = ../src/Game/Battle.h; sourceTree = SOURCE_ROOT; };
 		90623C1D064992AE0088361C /* BigFile.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = BigFile.c; path = ../src/Game/BigFile.c; sourceTree = SOURCE_ROOT; };
 		90623C1E064992AE0088361C /* BigFile.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = BigFile.h; path = ../src/Game/BigFile.h; sourceTree = SOURCE_ROOT; };
-		90623C1F064992AE0088361C /* BitIO.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = BitIO.c; path = ../src/Game/BitIO.c; sourceTree = SOURCE_ROOT; };
-		90623C20064992AE0088361C /* BitIO.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = BitIO.h; path = ../src/Game/BitIO.h; sourceTree = SOURCE_ROOT; };
 		90623C21064992AE0088361C /* Blobs.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Blobs.c; path = ../src/Game/Blobs.c; sourceTree = SOURCE_ROOT; };
 		90623C22064992AE0088361C /* Blobs.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Blobs.h; path = ../src/Game/Blobs.h; sourceTree = SOURCE_ROOT; };
 		90623C23064992AE0088361C /* BMP.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = BMP.c; path = ../src/Game/BMP.c; sourceTree = SOURCE_ROOT; };
@@ -1334,8 +1336,6 @@
 		90623C8A064992AE0088361C /* LinkedList.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = LinkedList.h; path = ../src/Game/LinkedList.h; sourceTree = SOURCE_ROOT; };
 		90623C8B064992AE0088361C /* LOD.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = LOD.c; path = ../src/Game/LOD.c; sourceTree = SOURCE_ROOT; };
 		90623C8C064992AE0088361C /* LOD.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = LOD.h; path = ../src/Game/LOD.h; sourceTree = SOURCE_ROOT; };
-		90623C8D064992AE0088361C /* LZSS.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = LZSS.c; path = ../src/Game/LZSS.c; sourceTree = SOURCE_ROOT; };
-		90623C8E064992AE0088361C /* LZSS.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = LZSS.h; path = ../src/Game/LZSS.h; sourceTree = SOURCE_ROOT; };
 		90623C8F064992AE0088361C /* MadLinkIn.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = MadLinkIn.c; path = ../src/Game/MadLinkIn.c; sourceTree = SOURCE_ROOT; };
 		90623C90064992AE0088361C /* MadLinkIn.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = MadLinkIn.h; path = ../src/Game/MadLinkIn.h; sourceTree = SOURCE_ROOT; };
 		90623C91064992AE0088361C /* MadLinkInDefs.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = MadLinkInDefs.h; path = ../src/Game/MadLinkInDefs.h; sourceTree = SOURCE_ROOT; };
@@ -1758,6 +1758,7 @@
 			isa = PBXGroup;
 			children = (
 				35CD34B00B13ADEE0064A20B /* JPG */,
+				35FE5B210B17CB2200D6E944 /* LZSS */,
 				35CD358D0B13B0E00064A20B /* Titan */,
 			);
 			path = ThirdParty;
@@ -1846,6 +1847,17 @@
 			path = msg;
 			sourceTree = "<group>";
 		};
+		35FE5B210B17CB2200D6E944 /* LZSS */ = {
+			isa = PBXGroup;
+			children = (
+				35FE5B220B17CB2200D6E944 /* BitIO.c */,
+				35FE5B230B17CB2200D6E944 /* BitIO.h */,
+				35FE5B240B17CB2200D6E944 /* LZSS.c */,
+				35FE5B250B17CB2200D6E944 /* LZSS.h */,
+			);
+			path = LZSS;
+			sourceTree = "<group>";
+		};
 		90623BEA064992490088361C /* src */ = {
 			isa = PBXGroup;
 			children = (
@@ -1908,8 +1920,6 @@
 				90623C1C064992AE0088361C /* Battle.h */,
 				90623C1D064992AE0088361C /* BigFile.c */,
 				90623C1E064992AE0088361C /* BigFile.h */,
-				90623C1F064992AE0088361C /* BitIO.c */,
-				90623C20064992AE0088361C /* BitIO.h */,
 				90623C21064992AE0088361C /* Blobs.c */,
 				90623C22064992AE0088361C /* Blobs.h */,
 				90623C23064992AE0088361C /* BMP.c */,
@@ -2020,8 +2030,6 @@
 				90623C8A064992AE0088361C /* LinkedList.h */,
 				90623C8B064992AE0088361C /* LOD.c */,
 				90623C8C064992AE0088361C /* LOD.h */,
-				90623C8D064992AE0088361C /* LZSS.c */,
-				90623C8E064992AE0088361C /* LZSS.h */,
 				90623C8F064992AE0088361C /* MadLinkIn.c */,
 				90623C90064992AE0088361C /* MadLinkIn.h */,
 				90623C91064992AE0088361C /* MadLinkInDefs.h */,
@@ -2414,7 +2422,6 @@
 				3516C847077C41B0001AA863 /* B-Spline.h in Headers */,
 				3516C848077C41B0001AA863 /* Battle.h in Headers */,
 				3516C849077C41B0001AA863 /* BigFile.h in Headers */,
-				3516C84A077C41B0001AA863 /* BitIO.h in Headers */,
 				3516C84B077C41B0001AA863 /* Blobs.h in Headers */,
 				3516C84C077C41B0001AA863 /* BMP.h in Headers */,
 				3516C84D077C41B0001AA863 /* Bounties.h in Headers */,
@@ -2471,7 +2478,6 @@
 				3516C881077C41B0001AA863 /* LevelLoad.h in Headers */,
 				3516C883077C41B0001AA863 /* LinkedList.h in Headers */,
 				3516C884077C41B0001AA863 /* LOD.h in Headers */,
-				3516C885077C41B0001AA863 /* LZSS.h in Headers */,
 				3516C886077C41B0001AA863 /* MadLinkIn.h in Headers */,
 				3516C887077C41B0001AA863 /* MadLinkInDefs.h in Headers */,
 				3516C888077C41B0001AA863 /* Matrix.h in Headers */,
@@ -2646,6 +2652,8 @@
 				35CD356D0B13ADEE0064A20B /* jversion.h in Headers */,
 				35CD35910B13B0E00064A20B /* ServerStatus.h in Headers */,
 				35CA99C40B17BC6F00B5118E /* Light.h in Headers */,
+				35FE5B2D0B17CB2300D6E944 /* BitIO.h in Headers */,
+				35FE5B2F0B17CB2300D6E944 /* LZSS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2677,7 +2685,6 @@
 				90623D4C064992AF0088361C /* B-Spline.h in Headers */,
 				90623D4E064992AF0088361C /* Battle.h in Headers */,
 				90623D50064992AF0088361C /* BigFile.h in Headers */,
-				90623D52064992AF0088361C /* BitIO.h in Headers */,
 				90623D54064992AF0088361C /* Blobs.h in Headers */,
 				90623D56064992AF0088361C /* BMP.h in Headers */,
 				90623D58064992AF0088361C /* Bounties.h in Headers */,
@@ -2734,7 +2741,6 @@
 				90623DB9064992AF0088361C /* LevelLoad.h in Headers */,
 				90623DBC064992AF0088361C /* LinkedList.h in Headers */,
 				90623DBE064992AF0088361C /* LOD.h in Headers */,
-				90623DC0064992AF0088361C /* LZSS.h in Headers */,
 				90623DC2064992AF0088361C /* MadLinkIn.h in Headers */,
 				90623DC3064992AF0088361C /* MadLinkInDefs.h in Headers */,
 				90623DC8064992AF0088361C /* Matrix.h in Headers */,
@@ -2920,6 +2926,8 @@
 				35CD352E0B13ADEE0064A20B /* jversion.h in Headers */,
 				35CD35900B13B0E00064A20B /* ServerStatus.h in Headers */,
 				35CA99C20B17BC6F00B5118E /* Light.h in Headers */,
+				35FE5B280B17CB2300D6E944 /* BitIO.h in Headers */,
+				35FE5B2A0B17CB2300D6E944 /* LZSS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3185,7 +3193,6 @@
 				3516C95B077C41B0001AA863 /* B-Spline.c in Sources */,
 				3516C95C077C41B0001AA863 /* Battle.c in Sources */,
 				3516C95D077C41B0001AA863 /* BigFile.c in Sources */,
-				3516C95E077C41B0001AA863 /* BitIO.c in Sources */,
 				3516C95F077C41B0001AA863 /* Blobs.c in Sources */,
 				3516C960077C41B0001AA863 /* BMP.c in Sources */,
 				3516C961077C41B0001AA863 /* Bounties.c in Sources */,
@@ -3236,7 +3243,6 @@
 				3516C98E077C41B0001AA863 /* LevelLoad.c in Sources */,
 				3516C98F077C41B0001AA863 /* LinkedList.c in Sources */,
 				3516C990077C41B0001AA863 /* LOD.c in Sources */,
-				3516C991077C41B0001AA863 /* LZSS.c in Sources */,
 				3516C992077C41B0001AA863 /* MadLinkIn.c in Sources */,
 				3516C993077C41B0001AA863 /* Matrix.c in Sources */,
 				3516C994077C41B0001AA863 /* Memory.c in Sources */,
@@ -3427,6 +3433,8 @@
 				35CD356B0B13ADEE0064A20B /* jquant2.c in Sources */,
 				35CD356C0B13ADEE0064A20B /* jutils.c in Sources */,
 				35CA99C30B17BC6F00B5118E /* Light.c in Sources */,
+				35FE5B2C0B17CB2300D6E944 /* BitIO.c in Sources */,
+				35FE5B2E0B17CB2300D6E944 /* LZSS.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3456,7 +3464,6 @@
 				90623D4B064992AF0088361C /* B-Spline.c in Sources */,
 				90623D4D064992AF0088361C /* Battle.c in Sources */,
 				90623D4F064992AF0088361C /* BigFile.c in Sources */,
-				90623D51064992AF0088361C /* BitIO.c in Sources */,
 				90623D53064992AF0088361C /* Blobs.c in Sources */,
 				90623D55064992AF0088361C /* BMP.c in Sources */,
 				90623D57064992AF0088361C /* Bounties.c in Sources */,
@@ -3507,7 +3514,6 @@
 				90623DB8064992AF0088361C /* LevelLoad.c in Sources */,
 				90623DBB064992AF0088361C /* LinkedList.c in Sources */,
 				90623DBD064992AF0088361C /* LOD.c in Sources */,
-				90623DBF064992AF0088361C /* LZSS.c in Sources */,
 				90623DC1064992AF0088361C /* MadLinkIn.c in Sources */,
 				90623DC7064992AF0088361C /* Matrix.c in Sources */,
 				90623DCB064992AF0088361C /* Memory.c in Sources */,
@@ -3720,6 +3726,8 @@
 				35CD352C0B13ADEE0064A20B /* jquant2.c in Sources */,
 				35CD352D0B13ADEE0064A20B /* jutils.c in Sources */,
 				35CA99C10B17BC6F00B5118E /* Light.c in Sources */,
+				35FE5B270B17CB2300D6E944 /* BitIO.c in Sources */,
+				35FE5B290B17CB2300D6E944 /* LZSS.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
