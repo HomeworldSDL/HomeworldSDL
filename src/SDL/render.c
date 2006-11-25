@@ -68,7 +68,7 @@
 #include "texreg.h"
 #include "utility.h"
 #include "Globals.h"
-#include "light.h"
+#include "Light.h"
 #include "Shader.h"
 #include "Tactical.h"
 #include "Mesh.h"

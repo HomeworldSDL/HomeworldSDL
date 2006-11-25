@@ -17,7 +17,7 @@
 #include "StatScript.h"
 #include "Globals.h"
 #include "Vector.h"
-#include "light.h"
+#include "Light.h"
 #include "File.h"
 #include "Memory.h"
 #include "MEX.h"

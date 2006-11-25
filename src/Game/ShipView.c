@@ -24,7 +24,7 @@
 #include "glcaps.h"
 #include "render.h"
 #include "Universe.h"
-#include "light.h"
+#include "Light.h"
 #include "mouse.h"
 #include "font.h"
 #include "FontReg.h"

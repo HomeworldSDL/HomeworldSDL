@@ -33,7 +33,7 @@
 #include "FastMath.h"
 #include "Attack.h"
 #include "SoundEvent.h"
-#include "light.h"
+#include "Light.h"
 #include "BTG.h"
 #include "NIS.h"
 #include "glcaps.h"

@@ -40,7 +40,7 @@
 #include "TaskBar.h"
 #include "SoundEvent.h"
 #include "Blobs.h"
-#include "light.h"
+#include "Light.h"
 #include "FastMath.h"
 #include "NIS.h"
 #include "Sensors.h"

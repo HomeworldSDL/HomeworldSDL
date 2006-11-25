@@ -69,7 +69,7 @@
 #include "Undo.h"
 #include "Tactical.h"
 #include "Trails.h"
-#include "light.h"
+#include "Light.h"
 #include "texreg.h"
 #include "TaskBar.h"
 #include "Sensors.h"

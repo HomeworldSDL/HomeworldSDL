@@ -12,7 +12,7 @@ Copyright Relic Entertainment, Inc.  All rights reserved.
 #include "Shader.h"
 #include "Clipper.h"
 #include "FastMath.h"
-#include "light.h"
+#include "Light.h"
 #include "Debug.h"
 #include "render.h"
 #include "Memory.h"

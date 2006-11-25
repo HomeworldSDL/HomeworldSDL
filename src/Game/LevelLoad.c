@@ -20,7 +20,7 @@
 #include "StatScript.h"
 #include "ScenPick.h"
 #include "LevelLoad.h"
-#include "light.h"
+#include "Light.h"
 #include "Sensors.h"
 #include "SinglePlayer.h"
 #include "SoundEvent.h"

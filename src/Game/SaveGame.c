@@ -32,7 +32,7 @@
 #include "Ping.h"
 #include "Teams.h"
 #include "BTG.h"
-#include "light.h"
+#include "Light.h"
 #include "CommandWrap.h"
 #include "StringSupport.h"
 #include "Sensors.h"
