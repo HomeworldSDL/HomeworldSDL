@@ -8,14 +8,8 @@
 
 #include "BitIO.h"
 
+#include <assert.h>
 #include <stdlib.h>
-
-#ifdef BF_HOMEWORLD
-    #include "Memory.h"
-    #include "Debug.h"
-#else 
-    #include "assert.h"
-#endif
 
 // for stdout
 #define PACIFIER_COUNT 2047
@@ -53,11 +47,7 @@ int bitioFileAppendStop(BitFile *bit_file)
 	{
 		ret = putc( bit_file->rack, bit_file->file ) ;
 		++bit_file->index;
-#ifdef BF_HOMEWORLD
-        dbgAssertOrIgnore( ret == bit_file->rack ); // fatal_error( "Fatal error in CloseBitFile!\n" );
-#else
         assert( ret == bit_file->rack ); // fatal_error( "Fatal error in CloseBitFile!\n" );
-#endif
 	}
 	ret = bit_file->index;
     free( (char *) bit_file );
@@ -143,11 +133,7 @@ BitFile *bit_file;
 	{
 		ret = putc( bit_file->rack, bit_file->file ) ;
 		++bit_file->index;
-#ifdef BF_HOMEWORLD
-        dbgAssertOrIgnore( ret == bit_file->rack ); // fatal_error( "Fatal error in CloseBitFile!\n" );
-#else
         assert( ret == bit_file->rack ); // fatal_error( "Fatal error in CloseBitFile!\n" );
-#endif
 	}
     fclose( bit_file->file );
 	ret = bit_file->index;
@@ -178,11 +164,7 @@ int bit;
     if ( bit_file->mask == 0 ) {
 		ret = putc( bit_file->rack, bit_file->file ) ;
 		++bit_file->index;
-#if BF_HOMEWORLD
-	    dbgAssertOrIgnore( ret == bit_file->rack ); //fatal_error( "Fatal error in OutputBit!\n" );
-#else
 	    assert( ret == bit_file->rack ); //fatal_error( "Fatal error in OutputBit!\n" );
-#endif
 #if 0
         if ( ( bit_file->pacifier_counter++ & PACIFIER_COUNT ) == 0 )
 		    putc( '.', stdout );
@@ -209,11 +191,7 @@ int count;
         {
 			ret = putc( bit_file->rack, bit_file->file ) ;
 			++bit_file->index;
-#if BF_HOMEWORLD
-			dbgAssertOrIgnore( ret == bit_file->rack ); //fatal_error( "Fatal error in OutputBit!\n" );
-#else
 			assert( ret == bit_file->rack ); //fatal_error( "Fatal error in OutputBit!\n" );
-#endif
 #if 0
             if ( ( bit_file->pacifier_counter++ & PACIFIER_COUNT ) == 0 )
 		        putc( '.', stdout );
@@ -233,11 +211,7 @@ BitFile *bit_file;
     if ( bit_file->mask == 0x80 ) {
         bit_file->rack = getc( bit_file->file );
 		++bit_file->index;
-#if BF_HOMEWORLD
-        dbgAssertOrIgnore( bit_file->rack != EOF );  // fatal_error( "Fatal error in InputBit!\n" );
-#else
         assert( bit_file->rack != EOF );  // fatal_error( "Fatal error in InputBit!\n" );
-#endif
 #if 0
         if ( ( bit_file->pacifier_counter++ & PACIFIER_COUNT ) == 0 )
 	        putc( '.', stdout );
@@ -263,11 +237,7 @@ int bit_count;
 	if ( bit_file->mask == 0x80 ) {
 	    bit_file->rack = getc( bit_file->file );
 		++bit_file->index;
-#if BF_HOMEWORLD
-		dbgAssertOrIgnore( bit_file->rack != EOF );  //fatal_error( "Fatal error in InputBit!\n" );
-#else
 		assert( bit_file->rack != EOF );  //fatal_error( "Fatal error in InputBit!\n" );
-#endif
 #if 0
         if ( ( bit_file->pacifier_counter++ & PACIFIER_COUNT ) == 0 )
     		putc( '.', stdout );
@@ -325,15 +295,10 @@ void bitioShutdown(void)
 //
 BitBuffer *bitioBufferOpen(char *buffer)
 {
-#if BF_HOMEWORLD    
-    BitBuffer *bitBuffer = (BitBuffer *)memAlloc(sizeof(BitBuffer), "bitiobuffer", 0);
-	dbgAssertOrIgnore(buffer);
-    dbgAssertOrIgnore(bitBuffer);
-#else
     BitBuffer *bitBuffer = (BitBuffer *)malloc(sizeof(BitBuffer));
 	assert(buffer);
     assert(bitBuffer);
-#endif
+
     bitBuffer->buffer = buffer;
     bitBuffer->rack = 0;
     bitBuffer->mask = 0x80;
