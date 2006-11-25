@@ -24,6 +24,13 @@
 #include "SDL.h"
 #include "utility.h"
 
+#ifdef __GNUC__
+ #ifndef _STDARG_H
+  #include <stdarg.h> 
+ #endif
+#endif
+
+
 
 /*
     Format for captaincy messages:

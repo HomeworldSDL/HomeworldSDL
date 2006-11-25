@@ -4717,10 +4717,10 @@ bool DeleteDeadDerelict(Derelict *derelict, sdword deathBy)
         {
             colSize = ((ShipStaticInfo *)(derelict->staticinfo))->staticheader.staticCollInfo.collspheresize;
             //colSize *= derelict->magnitudeSquared;
-            colSizeDword = TreatAsUdword(colSize);
 
             velMagnitude = fsqrt(vecMagnitudeSquared(derelict->posinfo.velocity));
             velMagnitude /= derelict->staticinfo->staticheader.maxvelocity;
+            colSizeDword = TreatAsUdword(colSize);
             velMagnitudeDword = TreatAsUdword(velMagnitude);
             //??? EAF_ flags ???
             effect = etgEffectCreate(explosion, derelict, NULL, NULL, NULL, 1.0f, 0, 2, colSizeDword, velMagnitudeDword);

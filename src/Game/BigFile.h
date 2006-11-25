@@ -11,6 +11,16 @@
 #include "CRC32.h"
 #include "Types.h"
 
+#ifdef __GNUC__
+ #ifndef _STDIO_H
+  #include <stdio.h>
+ #endif
+ #ifndef _STRING_H
+  #include <string.h>
+ #endif
+#endif
+
+
 //  Version Notes:
 //  0.90    1998/05/12  Darren Stone
 //          Created.  Basic add operations.

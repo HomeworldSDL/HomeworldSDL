@@ -9,6 +9,11 @@
 
 #include "utility.h"
 #include "File.h"
+#ifdef __GNUC__
+ #ifndef _STDARG_H
+  #include <stdarg.h> 
+ #endif
+#endif
 
 #if defined _MSC_VER
 	#define snprintf _snprintf
