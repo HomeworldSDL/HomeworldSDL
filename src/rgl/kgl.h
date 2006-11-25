@@ -53,6 +53,8 @@ extern GLint g_DepthMask;
 #include "fixed.h"
 #include "Hash.h"
 
+#define TABLE_SIZE          3001
+
 #define MATRIX_IDENTITY     1
 #define MATRIX_2D_NO_ROT    2
 #define MATRIX_2D           3
