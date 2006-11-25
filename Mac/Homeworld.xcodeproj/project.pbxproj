@@ -64,7 +64,6 @@
 		3516C85D077C41B0001AA863 /* CommandWrap.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C44064992AE0088361C /* CommandWrap.h */; };
 		3516C85E077C41B0001AA863 /* ConsMgr.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C46064992AE0088361C /* ConsMgr.h */; };
 		3516C85F077C41B0001AA863 /* Crates.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C48064992AE0088361C /* Crates.h */; };
-		3516C860077C41B0001AA863 /* CRC32.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C4A064992AE0088361C /* CRC32.h */; };
 		3516C861077C41B0001AA863 /* Damage.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C4C064992AE0088361C /* Damage.h */; };
 		3516C862077C41B0001AA863 /* Debug.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C4E064992AE0088361C /* Debug.h */; };
 		3516C863077C41B0001AA863 /* Demo.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C50064992AE0088361C /* Demo.h */; };
@@ -294,7 +293,6 @@
 		3516C96F077C41B0001AA863 /* CommandWrap.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C43064992AE0088361C /* CommandWrap.c */; };
 		3516C970077C41B0001AA863 /* ConsMgr.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C45064992AE0088361C /* ConsMgr.c */; };
 		3516C971077C41B0001AA863 /* Crates.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C47064992AE0088361C /* Crates.c */; };
-		3516C972077C41B0001AA863 /* CRC32.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C49064992AE0088361C /* CRC32.c */; };
 		3516C973077C41B0001AA863 /* Damage.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C4B064992AE0088361C /* Damage.c */; };
 		3516C974077C41B0001AA863 /* Debug.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C4D064992AE0088361C /* Debug.c */; };
 		3516C975077C41B0001AA863 /* Demo.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C4F064992AE0088361C /* Demo.c */; };
@@ -469,6 +467,10 @@
 		3578AD090AF40518007BFA9F /* StringSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 3578AD070AF40518007BFA9F /* StringSupport.h */; };
 		3578AD0A0AF40518007BFA9F /* StringSupport.c in Sources */ = {isa = PBXBuildFile; fileRef = 3578AD060AF40518007BFA9F /* StringSupport.c */; };
 		3578AD0B0AF40518007BFA9F /* StringSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 3578AD070AF40518007BFA9F /* StringSupport.h */; };
+		3580380F0B18679B00D47728 /* CRC32.c in Sources */ = {isa = PBXBuildFile; fileRef = 3580380C0B18679B00D47728 /* CRC32.c */; };
+		358038100B18679B00D47728 /* CRC32.h in Headers */ = {isa = PBXBuildFile; fileRef = 3580380D0B18679B00D47728 /* CRC32.h */; };
+		358038120B18679B00D47728 /* CRC32.c in Sources */ = {isa = PBXBuildFile; fileRef = 3580380C0B18679B00D47728 /* CRC32.c */; };
+		358038130B18679B00D47728 /* CRC32.h in Headers */ = {isa = PBXBuildFile; fileRef = 3580380D0B18679B00D47728 /* CRC32.h */; };
 		35B1D7F00ABD43B0002214BE /* Homeworld.icns in Resources */ = {isa = PBXBuildFile; fileRef = 35B1D7EF0ABD43B0002214BE /* Homeworld.icns */; };
 		35B1D7F20ABD43BD002214BE /* RaiderRetreat.icns in Resources */ = {isa = PBXBuildFile; fileRef = 35B1D7F10ABD43BD002214BE /* RaiderRetreat.icns */; };
 		35CA99C10B17BC6F00B5118E /* Light.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CA99BF0B17BC6F00B5118E /* Light.c */; };
@@ -700,8 +702,6 @@
 		90623D78064992AF0088361C /* ConsMgr.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C46064992AE0088361C /* ConsMgr.h */; };
 		90623D79064992AF0088361C /* Crates.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C47064992AE0088361C /* Crates.c */; };
 		90623D7A064992AF0088361C /* Crates.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C48064992AE0088361C /* Crates.h */; };
-		90623D7B064992AF0088361C /* CRC32.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C49064992AE0088361C /* CRC32.c */; };
-		90623D7C064992AF0088361C /* CRC32.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C4A064992AE0088361C /* CRC32.h */; };
 		90623D7D064992AF0088361C /* Damage.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C4B064992AE0088361C /* Damage.c */; };
 		90623D7E064992AF0088361C /* Damage.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C4C064992AE0088361C /* Damage.h */; };
 		90623D7F064992AF0088361C /* Debug.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C4D064992AE0088361C /* Debug.c */; };
@@ -1105,6 +1105,8 @@
 		35517D100732744900691120 /* SDL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL.framework; path = /Library/Frameworks/SDL.framework; sourceTree = "<absolute>"; };
 		3578AD060AF40518007BFA9F /* StringSupport.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = StringSupport.c; sourceTree = "<group>"; };
 		3578AD070AF40518007BFA9F /* StringSupport.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = StringSupport.h; sourceTree = "<group>"; };
+		3580380C0B18679B00D47728 /* CRC32.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = CRC32.c; sourceTree = "<group>"; };
+		3580380D0B18679B00D47728 /* CRC32.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CRC32.h; sourceTree = "<group>"; };
 		35A501A6078CB77000E7D8E2 /* RaiderRetreat.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = RaiderRetreat.plist; sourceTree = "<group>"; };
 		35B1D7EF0ABD43B0002214BE /* Homeworld.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Homeworld.icns; sourceTree = "<group>"; };
 		35B1D7F10ABD43BD002214BE /* RaiderRetreat.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = RaiderRetreat.icns; sourceTree = "<group>"; };
@@ -1270,8 +1272,6 @@
 		90623C46064992AE0088361C /* ConsMgr.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ConsMgr.h; path = ../src/Game/ConsMgr.h; sourceTree = SOURCE_ROOT; };
 		90623C47064992AE0088361C /* Crates.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Crates.c; path = ../src/Game/Crates.c; sourceTree = SOURCE_ROOT; };
 		90623C48064992AE0088361C /* Crates.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Crates.h; path = ../src/Game/Crates.h; sourceTree = SOURCE_ROOT; };
-		90623C49064992AE0088361C /* CRC32.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = CRC32.c; path = ../src/Game/CRC32.c; sourceTree = SOURCE_ROOT; };
-		90623C4A064992AE0088361C /* CRC32.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = CRC32.h; path = ../src/Game/CRC32.h; sourceTree = SOURCE_ROOT; };
 		90623C4B064992AE0088361C /* Damage.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Damage.c; path = ../src/Game/Damage.c; sourceTree = SOURCE_ROOT; };
 		90623C4C064992AE0088361C /* Damage.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Damage.h; path = ../src/Game/Damage.h; sourceTree = SOURCE_ROOT; };
 		90623C4D064992AE0088361C /* Debug.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Debug.c; path = ../src/Game/Debug.c; sourceTree = SOURCE_ROOT; };
@@ -1754,9 +1754,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		3580380B0B18679B00D47728 /* CRC */ = {
+			isa = PBXGroup;
+			children = (
+				3580380C0B18679B00D47728 /* CRC32.c */,
+				3580380D0B18679B00D47728 /* CRC32.h */,
+			);
+			path = CRC;
+			sourceTree = "<group>";
+		};
 		35CD34AF0B13ADEE0064A20B /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				3580380B0B18679B00D47728 /* CRC */,
 				35CD34B00B13ADEE0064A20B /* JPG */,
 				35FE5B210B17CB2200D6E944 /* LZSS */,
 				35CD358D0B13B0E00064A20B /* Titan */,
@@ -1962,8 +1972,6 @@
 				90623C46064992AE0088361C /* ConsMgr.h */,
 				90623C47064992AE0088361C /* Crates.c */,
 				90623C48064992AE0088361C /* Crates.h */,
-				90623C49064992AE0088361C /* CRC32.c */,
-				90623C4A064992AE0088361C /* CRC32.h */,
 				90623C4B064992AE0088361C /* Damage.c */,
 				90623C4C064992AE0088361C /* Damage.h */,
 				90623C4D064992AE0088361C /* Debug.c */,
@@ -2443,7 +2451,6 @@
 				3516C85D077C41B0001AA863 /* CommandWrap.h in Headers */,
 				3516C85E077C41B0001AA863 /* ConsMgr.h in Headers */,
 				3516C85F077C41B0001AA863 /* Crates.h in Headers */,
-				3516C860077C41B0001AA863 /* CRC32.h in Headers */,
 				3516C861077C41B0001AA863 /* Damage.h in Headers */,
 				3516C862077C41B0001AA863 /* Debug.h in Headers */,
 				3516C863077C41B0001AA863 /* Demo.h in Headers */,
@@ -2654,6 +2661,7 @@
 				35CA99C40B17BC6F00B5118E /* Light.h in Headers */,
 				35FE5B2D0B17CB2300D6E944 /* BitIO.h in Headers */,
 				35FE5B2F0B17CB2300D6E944 /* LZSS.h in Headers */,
+				358038130B18679B00D47728 /* CRC32.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2706,7 +2714,6 @@
 				90623D76064992AF0088361C /* CommandWrap.h in Headers */,
 				90623D78064992AF0088361C /* ConsMgr.h in Headers */,
 				90623D7A064992AF0088361C /* Crates.h in Headers */,
-				90623D7C064992AF0088361C /* CRC32.h in Headers */,
 				90623D7E064992AF0088361C /* Damage.h in Headers */,
 				90623D80064992AF0088361C /* Debug.h in Headers */,
 				90623D82064992AF0088361C /* Demo.h in Headers */,
@@ -2928,6 +2935,7 @@
 				35CA99C20B17BC6F00B5118E /* Light.h in Headers */,
 				35FE5B280B17CB2300D6E944 /* BitIO.h in Headers */,
 				35FE5B2A0B17CB2300D6E944 /* LZSS.h in Headers */,
+				358038100B18679B00D47728 /* CRC32.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3212,7 +3220,6 @@
 				3516C96F077C41B0001AA863 /* CommandWrap.c in Sources */,
 				3516C970077C41B0001AA863 /* ConsMgr.c in Sources */,
 				3516C971077C41B0001AA863 /* Crates.c in Sources */,
-				3516C972077C41B0001AA863 /* CRC32.c in Sources */,
 				3516C973077C41B0001AA863 /* Damage.c in Sources */,
 				3516C974077C41B0001AA863 /* Debug.c in Sources */,
 				3516C975077C41B0001AA863 /* Demo.c in Sources */,
@@ -3435,6 +3442,7 @@
 				35CA99C30B17BC6F00B5118E /* Light.c in Sources */,
 				35FE5B2C0B17CB2300D6E944 /* BitIO.c in Sources */,
 				35FE5B2E0B17CB2300D6E944 /* LZSS.c in Sources */,
+				358038120B18679B00D47728 /* CRC32.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3483,7 +3491,6 @@
 				90623D75064992AF0088361C /* CommandWrap.c in Sources */,
 				90623D77064992AF0088361C /* ConsMgr.c in Sources */,
 				90623D79064992AF0088361C /* Crates.c in Sources */,
-				90623D7B064992AF0088361C /* CRC32.c in Sources */,
 				90623D7D064992AF0088361C /* Damage.c in Sources */,
 				90623D7F064992AF0088361C /* Debug.c in Sources */,
 				90623D81064992AF0088361C /* Demo.c in Sources */,
@@ -3728,6 +3735,7 @@
 				35CA99C10B17BC6F00B5118E /* Light.c in Sources */,
 				35FE5B270B17CB2300D6E944 /* BitIO.c in Sources */,
 				35FE5B290B17CB2300D6E944 /* LZSS.c in Sources */,
+				3580380F0B18679B00D47728 /* CRC32.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

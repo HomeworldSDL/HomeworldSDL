@@ -58,4 +58,4 @@ dnl - $SDL_CFLAGS and $SDL_LIBS should be pretty much self-explanatory. =]
 dnl - We don't want to include $SDL_LIBS when building librgl.
 CFLAGS="$CFLAGS $HWBIN_CFLAGS $SDL_CFLAGS"
 
-AC_OUTPUT(Makefile config/Makefile src/Makefile src/Game/Makefile src/Generated/Makefile src/ThirdParty/JPG/Makefile src/ThirdParty/LZSS/Makefile src/rgl/Makefile src/SDL/Makefile src/Ships/Makefile src/obj/Makefile tools/Makefile tools/kas2c/Makefile)
+AC_OUTPUT(Makefile config/Makefile src/Makefile src/Game/Makefile src/Generated/Makefile src/ThirdParty/CRC/Makefile src/ThirdParty/JPG/Makefile src/ThirdParty/LZSS/Makefile src/rgl/Makefile src/SDL/Makefile src/Ships/Makefile src/obj/Makefile tools/Makefile tools/kas2c/Makefile)
