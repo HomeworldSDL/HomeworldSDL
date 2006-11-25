@@ -3,19 +3,19 @@
 //
 
 #ifdef _WIN32
-    #include "..\\Game\\Attributes.h"
-    #include "..\\Game\\FormationDefs.h"
-    #include "..\\Game\\SpeechEvent.h"
+    #include "..\\..\\Game\\Attributes.h"
+    #include "..\\..\\Game\\FormationDefs.h"
+    #include "..\\..\\Game\\SpeechEvent.h"
 #else
-    #include "../Game/Attributes.h"
-    #include "../Game/FormationDefs.h"
-    #include "../Game/SpeechEvent.h"
+    #include "../../Game/Attributes.h"
+    #include "../../Game/FormationDefs.h"
+    #include "../../Game/SpeechEvent.h"
 #endif
 
     LOCALIZATION
 
         LSTRING_Intro
-            "Welcome to the Homeworld Training Mission.  Here we will teach you all the basic controls needed to play Homeworld.  \nLets begin!  \nLeft click on the &N&e&x&t button to proceed."
+            "Welcome to the Homeworld Training Mission.  Here we will teach you all the basic controls needed to play Homeworld.  \nLets begin!  \nleft click on the &N&e&x&t button to proceed."
             "Bienvenue dans la mission d'entraînement de Homeworld. Ici, vous allez vous familiariser avec toutes les commandes de base dont vous aurez besoin pour jouer. \nAllons-y ! \nPour continuer, cliquez sur &S&u&i&v&a&n&t avec le bouton gauche de la souris."
             "Willkommen bei der Trainingsmission von Homeworld. Hier werden wir Ihnen alle Grundlagen erklären, die Sie zum Spielen von Homeworld benötigen. \nFangen wir an! \nMit einem Linksklick auf die Schaltfläche &W&e&i&t&e&r gehen Sie weiter."
             "Bienvenido a la misión de entrenamiento de Homeworld. Aquí te enseñaremos todos los controles básicos necesarios para jugar a Homeworld. \nComencemos. \nPulsa el botón &S&i&g&u&i&e&n&t&e para continuar."

@@ -4,15 +4,15 @@
 //
 
 #ifdef _WIN32
-    #include "..\\Game\\AIFeatures.h"
-    #include "..\\Game\\Attributes.h"
-    #include "..\\Game\\CommandDefs.h"
-    #include "..\\Game\\SpeechEvent.h"
+    #include "..\\..\\Game\\AIFeatures.h"
+    #include "..\\..\\Game\\Attributes.h"
+    #include "..\\..\\Game\\CommandDefs.h"
+    #include "..\\..\\Game\\SpeechEvent.h"
 #else
-    #include "../Game/AIFeatures.h"
-    #include "../Game/Attributes.h"
-    #include "../Game/CommandDefs.h"
-    #include "../Game/SpeechEvent.h"
+    #include "../../Game/AIFeatures.h"
+    #include "../../Game/Attributes.h"
+    #include "../../Game/CommandDefs.h"
+    #include "../../Game/SpeechEvent.h"
 #endif
 
 #include "Utilities.kash"

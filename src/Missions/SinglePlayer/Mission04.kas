@@ -7,13 +7,13 @@
 //
 
 #ifdef _WIN32
-    #include "..\\Game\\Attributes.h"
-    #include "..\\Game\\SoundMusic.h"
-    #include "..\\Game\\SpeechEvent.h"
+    #include "..\\..\\Game\\Attributes.h"
+    #include "..\\..\\Game\\SoundMusic.h"
+    #include "..\\..\\Game\\SpeechEvent.h"
 #else
-    #include "../Game/Attributes.h"
-    #include "../Game/SoundMusic.h"
-    #include "../Game/SpeechEvent.h"
+    #include "../../Game/Attributes.h"
+    #include "../../Game/SoundMusic.h"
+    #include "../../Game/SpeechEvent.h"
 #endif
 
     LOCALIZATION

@@ -3,9 +3,9 @@
 //
 
 #ifdef _WIN32
-    #include "..\\Game\\SpeechEvent.h"
+    #include "..\\..\\Game\\SpeechEvent.h"
 #else
-    #include "../Game/SpeechEvent.h"
+    #include "../../Game/SpeechEvent.h"
 #endif
 
     LOCALIZATION //컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴

@@ -5,13 +5,13 @@
 //----------------------------------------------------------------------//
 
 #ifdef _WIN32
-    #include "..\\Game\\CommandDefs.h"
-    #include "..\\Game\\SoundMusic.h"
-    #include "..\\Game\\SpeechEvent.h"
+    #include "..\\..\\Game\\CommandDefs.h"
+    #include "..\\..\\Game\\SoundMusic.h"
+    #include "..\\..\\Game\\SpeechEvent.h"
 #else
-    #include "../Game/CommandDefs.h"
-    #include "../Game/SoundMusic.h"
-    #include "../Game/SpeechEvent.h"
+    #include "../../Game/CommandDefs.h"
+    #include "../../Game/SoundMusic.h"
+    #include "../../Game/SpeechEvent.h"
 #endif
 
 #include "Utilities.kash"
