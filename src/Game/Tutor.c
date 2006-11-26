@@ -47,7 +47,7 @@
 #include "File.h"
 #include "mainrgn.h"
 #include "TaskBar.h"
-#include "../Generated/Tutorial1.h"
+#include "../Missions/Generated/Tutorial1.h"
 
 #ifdef _MSC_VER
 #define strcasecmp _stricmp
