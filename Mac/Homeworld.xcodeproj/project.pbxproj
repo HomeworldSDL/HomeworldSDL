@@ -16,9 +16,6 @@
 		3507A57C0B0FBB0B00E374C5 /* Subtitle.c in Sources */ = {isa = PBXBuildFile; fileRef = 3507A5780B0FBB0B00E374C5 /* Subtitle.c */; };
 		3507A57D0B0FBB0B00E374C5 /* Subtitle.h in Headers */ = {isa = PBXBuildFile; fileRef = 3507A5790B0FBB0B00E374C5 /* Subtitle.h */; };
 		3510B754077C8863007B8838 /* mainrgn.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9229064AEE7A003E3D39 /* mainrgn.c */; };
-		3510D4B90785065F00F840B1 /* Tutorial1.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD91B3064AC6F6003E3D39 /* Tutorial1.c */; };
-		3510D4BA0785066000F840B1 /* Tutorial1.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD91B4064AC6F6003E3D39 /* Tutorial1.func.c */; };
-		3510D4BB0785066100F840B1 /* Tutorial1.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD91B5064AC6F6003E3D39 /* Tutorial1.h */; };
 		3516C82F077C41B0001AA863 /* AIAttackMan.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623BEF064992AE0088361C /* AIAttackMan.h */; };
 		3516C830077C41B0001AA863 /* AIDefenseMan.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623BF1064992AE0088361C /* AIDefenseMan.h */; };
 		3516C831077C41B0001AA863 /* AIEvents.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623BF3064992AE0088361C /* AIEvents.h */; };
@@ -169,10 +166,6 @@
 		3516C8CE077C41B0001AA863 /* Vector.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623D1C064992AF0088361C /* Vector.h */; };
 		3516C8CF077C41B0001AA863 /* VolTweakDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623D1D064992AF0088361C /* VolTweakDefs.h */; };
 		3516C8D0077C41B0001AA863 /* Volume.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623D1F064992AF0088361C /* Volume.h */; };
-		3516C8DE077C41B0001AA863 /* Mission01.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9185064AC6F6003E3D39 /* Mission01.h */; };
-		3516C8DF077C41B0001AA863 /* Mission02.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9188064AC6F6003E3D39 /* Mission02.h */; };
-		3516C8E0077C41B0001AA863 /* Mission03.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD918B064AC6F6003E3D39 /* Mission03.h */; };
-		3516C8E1077C41B0001AA863 /* Mission04.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD918E064AC6F6003E3D39 /* Mission04.h */; };
 		3516C8EF077C41B0001AA863 /* avi.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9208064AEE7A003E3D39 /* avi.h */; };
 		3516C8F1077C41B0001AA863 /* devstats.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9210064AEE7A003E3D39 /* devstats.h */; };
 		3516C8F2077C41B0001AA863 /* font.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9214064AEE7A003E3D39 /* font.h */; };
@@ -249,7 +242,6 @@
 		3516C93E077C41B0001AA863 /* StandardFrigate.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9338064AEF43003E3D39 /* StandardFrigate.h */; };
 		3516C93F077C41B0001AA863 /* SDLMain.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD93C2064AF4F3003E3D39 /* SDLMain.h */; };
 		3516C940077C41B0001AA863 /* Homeworld_Prefix.h in Headers */ = {isa = PBXBuildFile; fileRef = 35517D000732720E00691120 /* Homeworld_Prefix.h */; };
-		3516C941077C41B0001AA863 /* Mission05_OEM.h in Headers */ = {isa = PBXBuildFile; fileRef = 35DAEDC7077BAF4D0080465A /* Mission05_OEM.h */; };
 		3516C948077C41B0001AA863 /* AIAttackMan.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623BEE064992AE0088361C /* AIAttackMan.c */; };
 		3516C949077C41B0001AA863 /* AIDefenseMan.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623BF0064992AE0088361C /* AIDefenseMan.c */; };
 		3516C94A077C41B0001AA863 /* AIEvents.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623BF2064992AE0088361C /* AIEvents.c */; };
@@ -383,14 +375,6 @@
 		3516C9CE077C41B0001AA863 /* UnivUpdate.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D19064992AF0088361C /* UnivUpdate.c */; };
 		3516C9CF077C41B0001AA863 /* Vector.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D1B064992AF0088361C /* Vector.c */; };
 		3516C9D0077C41B0001AA863 /* Volume.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D1E064992AF0088361C /* Volume.c */; };
-		3516CA00077C41B0001AA863 /* Mission01.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9183064AC6F6003E3D39 /* Mission01.c */; };
-		3516CA01077C41B0001AA863 /* Mission01.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9184064AC6F6003E3D39 /* Mission01.func.c */; };
-		3516CA02077C41B0001AA863 /* Mission02.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9186064AC6F6003E3D39 /* Mission02.c */; };
-		3516CA03077C41B0001AA863 /* Mission02.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9187064AC6F6003E3D39 /* Mission02.func.c */; };
-		3516CA04077C41B0001AA863 /* Mission03.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9189064AC6F6003E3D39 /* Mission03.c */; };
-		3516CA05077C41B0001AA863 /* Mission03.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD918A064AC6F6003E3D39 /* Mission03.func.c */; };
-		3516CA06077C41B0001AA863 /* Mission04.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD918C064AC6F6003E3D39 /* Mission04.c */; };
-		3516CA07077C41B0001AA863 /* Mission04.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD918D064AC6F6003E3D39 /* Mission04.func.c */; };
 		3516CA23077C41B0001AA863 /* font.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9213064AEE7A003E3D39 /* font.c */; };
 		3516CA24077C41B0001AA863 /* glcaps.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9218064AEE7A003E3D39 /* glcaps.c */; };
 		3516CA25077C41B0001AA863 /* glcompat.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD921A064AEE7A003E3D39 /* glcompat.c */; };
@@ -455,8 +439,6 @@
 		3516CA65077C41B0001AA863 /* SDLMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BD93C1064AF4F3003E3D39 /* SDLMain.m */; };
 		3516CA66077C41B0001AA863 /* avi.c in Sources */ = {isa = PBXBuildFile; fileRef = 9030AF92066D5D2C00B32218 /* avi.c */; };
 		3516CA67077C41B0001AA863 /* rinit.c in Sources */ = {isa = PBXBuildFile; fileRef = 9030AF93066D5D2C00B32218 /* rinit.c */; };
-		3516CA68077C41B0001AA863 /* Mission05_OEM.c in Sources */ = {isa = PBXBuildFile; fileRef = 35DAEDC5077BAF4D0080465A /* Mission05_OEM.c */; };
-		3516CA69077C41B0001AA863 /* Mission05_OEM.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 35DAEDC6077BAF4D0080465A /* Mission05_OEM.func.c */; };
 		3516CA6B077C41B0001AA863 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		3516CA6C077C41B0001AA863 /* SDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35517D100732744900691120 /* SDL.framework */; };
 		35517D010732720E00691120 /* Homeworld_Prefix.h in Headers */ = {isa = PBXBuildFile; fileRef = 35517D000732720E00691120 /* Homeworld_Prefix.h */; };
@@ -473,6 +455,76 @@
 		358038570B18A90100D47728 /* Ships.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038550B18A90100D47728 /* Ships.h */; };
 		358038580B18A90100D47728 /* ShipDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038540B18A90100D47728 /* ShipDefs.h */; };
 		358038590B18A90100D47728 /* Ships.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038550B18A90100D47728 /* Ships.h */; };
+		358038890B18AD7800D47728 /* Tutorial1.kas in Resources */ = {isa = PBXBuildFile; fileRef = 358038740B18AD7800D47728 /* Tutorial1.kas */; };
+		358038F50B18B1DA00D47728 /* Mission01.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038BF0B18B1DA00D47728 /* Mission01.c */; };
+		358038F60B18B1DA00D47728 /* Mission01.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038C00B18B1DA00D47728 /* Mission01.func.c */; };
+		358038F70B18B1DA00D47728 /* Mission01.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038C10B18B1DA00D47728 /* Mission01.h */; };
+		358038F80B18B1DA00D47728 /* Mission02.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038C20B18B1DA00D47728 /* Mission02.c */; };
+		358038F90B18B1DA00D47728 /* Mission02.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038C30B18B1DA00D47728 /* Mission02.func.c */; };
+		358038FA0B18B1DA00D47728 /* Mission02.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038C40B18B1DA00D47728 /* Mission02.h */; };
+		358038FB0B18B1DA00D47728 /* Mission03.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038C50B18B1DA00D47728 /* Mission03.c */; };
+		358038FC0B18B1DA00D47728 /* Mission03.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038C60B18B1DA00D47728 /* Mission03.func.c */; };
+		358038FD0B18B1DA00D47728 /* Mission03.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038C70B18B1DA00D47728 /* Mission03.h */; };
+		358038FE0B18B1DA00D47728 /* Mission04.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038C80B18B1DA00D47728 /* Mission04.c */; };
+		358038FF0B18B1DA00D47728 /* Mission04.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038C90B18B1DA00D47728 /* Mission04.func.c */; };
+		358039000B18B1DA00D47728 /* Mission04.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038CA0B18B1DA00D47728 /* Mission04.h */; };
+		358039040B18B1DA00D47728 /* Mission05.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038CE0B18B1DA00D47728 /* Mission05.c */; };
+		358039050B18B1DA00D47728 /* Mission05.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038CF0B18B1DA00D47728 /* Mission05.func.c */; };
+		358039060B18B1DA00D47728 /* Mission05.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038D00B18B1DA00D47728 /* Mission05.h */; };
+		358039070B18B1DA00D47728 /* Mission06.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038D10B18B1DA00D47728 /* Mission06.c */; };
+		358039080B18B1DA00D47728 /* Mission06.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038D20B18B1DA00D47728 /* Mission06.func.c */; };
+		358039090B18B1DA00D47728 /* Mission06.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038D30B18B1DA00D47728 /* Mission06.h */; };
+		3580390A0B18B1DA00D47728 /* Mission07.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038D40B18B1DA00D47728 /* Mission07.c */; };
+		3580390B0B18B1DA00D47728 /* Mission07.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038D50B18B1DA00D47728 /* Mission07.func.c */; };
+		3580390C0B18B1DA00D47728 /* Mission07.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038D60B18B1DA00D47728 /* Mission07.h */; };
+		3580390D0B18B1DA00D47728 /* Mission08.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038D70B18B1DA00D47728 /* Mission08.c */; };
+		3580390E0B18B1DA00D47728 /* Mission08.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038D80B18B1DA00D47728 /* Mission08.func.c */; };
+		3580390F0B18B1DA00D47728 /* Mission08.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038D90B18B1DA00D47728 /* Mission08.h */; };
+		358039100B18B1DA00D47728 /* Mission09.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038DA0B18B1DA00D47728 /* Mission09.c */; };
+		358039110B18B1DA00D47728 /* Mission09.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038DB0B18B1DA00D47728 /* Mission09.func.c */; };
+		358039120B18B1DA00D47728 /* Mission09.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038DC0B18B1DA00D47728 /* Mission09.h */; };
+		358039130B18B1DA00D47728 /* Mission10.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038DD0B18B1DA00D47728 /* Mission10.c */; };
+		358039140B18B1DA00D47728 /* Mission10.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038DE0B18B1DA00D47728 /* Mission10.func.c */; };
+		358039150B18B1DA00D47728 /* Mission10.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038DF0B18B1DA00D47728 /* Mission10.h */; };
+		358039160B18B1DA00D47728 /* Mission11.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038E00B18B1DA00D47728 /* Mission11.c */; };
+		358039170B18B1DA00D47728 /* Mission11.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038E10B18B1DA00D47728 /* Mission11.func.c */; };
+		358039180B18B1DA00D47728 /* Mission11.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038E20B18B1DA00D47728 /* Mission11.h */; };
+		358039190B18B1DB00D47728 /* Mission12.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038E30B18B1DA00D47728 /* Mission12.c */; };
+		3580391A0B18B1DB00D47728 /* Mission12.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038E40B18B1DA00D47728 /* Mission12.func.c */; };
+		3580391B0B18B1DB00D47728 /* Mission12.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038E50B18B1DA00D47728 /* Mission12.h */; };
+		3580391C0B18B1DB00D47728 /* Mission13.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038E60B18B1DA00D47728 /* Mission13.c */; };
+		3580391D0B18B1DB00D47728 /* Mission13.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038E70B18B1DA00D47728 /* Mission13.func.c */; };
+		3580391E0B18B1DB00D47728 /* Mission13.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038E80B18B1DA00D47728 /* Mission13.h */; };
+		3580391F0B18B1DB00D47728 /* Mission14.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038E90B18B1DA00D47728 /* Mission14.c */; };
+		358039200B18B1DB00D47728 /* Mission14.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038EA0B18B1DA00D47728 /* Mission14.func.c */; };
+		358039210B18B1DB00D47728 /* Mission14.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038EB0B18B1DA00D47728 /* Mission14.h */; };
+		358039220B18B1DB00D47728 /* Mission15.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038EC0B18B1DA00D47728 /* Mission15.c */; };
+		358039230B18B1DB00D47728 /* Mission15.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038ED0B18B1DA00D47728 /* Mission15.func.c */; };
+		358039240B18B1DB00D47728 /* Mission15.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038EE0B18B1DA00D47728 /* Mission15.h */; };
+		358039250B18B1DB00D47728 /* Mission16.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038EF0B18B1DA00D47728 /* Mission16.c */; };
+		358039260B18B1DB00D47728 /* Mission16.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038F00B18B1DA00D47728 /* Mission16.func.c */; };
+		358039270B18B1DB00D47728 /* Mission16.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038F10B18B1DA00D47728 /* Mission16.h */; };
+		358039280B18B1DB00D47728 /* Tutorial1.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038F20B18B1DA00D47728 /* Tutorial1.c */; };
+		358039290B18B1DB00D47728 /* Tutorial1.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038F30B18B1DA00D47728 /* Tutorial1.func.c */; };
+		3580392A0B18B1DB00D47728 /* Tutorial1.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038F40B18B1DA00D47728 /* Tutorial1.h */; };
+		3580392B0B18B1DB00D47728 /* Mission01.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038BF0B18B1DA00D47728 /* Mission01.c */; };
+		3580392C0B18B1DB00D47728 /* Mission01.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038C00B18B1DA00D47728 /* Mission01.func.c */; };
+		3580392D0B18B1DB00D47728 /* Mission01.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038C10B18B1DA00D47728 /* Mission01.h */; };
+		3580392E0B18B1DB00D47728 /* Mission02.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038C20B18B1DA00D47728 /* Mission02.c */; };
+		3580392F0B18B1DB00D47728 /* Mission02.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038C30B18B1DA00D47728 /* Mission02.func.c */; };
+		358039300B18B1DB00D47728 /* Mission02.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038C40B18B1DA00D47728 /* Mission02.h */; };
+		358039310B18B1DB00D47728 /* Mission03.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038C50B18B1DA00D47728 /* Mission03.c */; };
+		358039320B18B1DB00D47728 /* Mission03.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038C60B18B1DA00D47728 /* Mission03.func.c */; };
+		358039330B18B1DB00D47728 /* Mission03.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038C70B18B1DA00D47728 /* Mission03.h */; };
+		358039340B18B1DB00D47728 /* Mission04.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038C80B18B1DA00D47728 /* Mission04.c */; };
+		358039350B18B1DB00D47728 /* Mission04.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038C90B18B1DA00D47728 /* Mission04.func.c */; };
+		358039360B18B1DB00D47728 /* Mission04.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038CA0B18B1DA00D47728 /* Mission04.h */; };
+		358039380B18B1DB00D47728 /* Mission05_OEM.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038CC0B18B1DA00D47728 /* Mission05_OEM.func.c */; };
+		358039390B18B1DB00D47728 /* Mission05_OEM.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038CD0B18B1DA00D47728 /* Mission05_OEM.h */; };
+		358039730B18B5F700D47728 /* Mission05_OEM.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038CB0B18B1DA00D47728 /* Mission05_OEM.c */; };
+		358039740B18B62500D47728 /* Tutorial1.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038F40B18B1DA00D47728 /* Tutorial1.h */; };
+		358039750B18B62600D47728 /* Tutorial1.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038F30B18B1DA00D47728 /* Tutorial1.func.c */; };
+		358039760B18B62600D47728 /* Tutorial1.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038F20B18B1DA00D47728 /* Tutorial1.c */; };
 		35B1D7F00ABD43B0002214BE /* Homeworld.icns in Resources */ = {isa = PBXBuildFile; fileRef = 35B1D7EF0ABD43B0002214BE /* Homeworld.icns */; };
 		35B1D7F20ABD43BD002214BE /* RaiderRetreat.icns in Resources */ = {isa = PBXBuildFile; fileRef = 35B1D7F10ABD43BD002214BE /* RaiderRetreat.icns */; };
 		35CA99C10B17BC6F00B5118E /* Light.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CA99BF0B17BC6F00B5118E /* Light.c */; };
@@ -901,57 +953,6 @@
 		90623E4F064992AF0088361C /* VolTweakDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623D1D064992AF0088361C /* VolTweakDefs.h */; };
 		90623E50064992AF0088361C /* Volume.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D1E064992AF0088361C /* Volume.c */; };
 		90623E51064992AF0088361C /* Volume.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623D1F064992AF0088361C /* Volume.h */; };
-		90BD91B8064AC6F6003E3D39 /* Mission01.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9183064AC6F6003E3D39 /* Mission01.c */; };
-		90BD91B9064AC6F6003E3D39 /* Mission01.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9184064AC6F6003E3D39 /* Mission01.func.c */; };
-		90BD91BA064AC6F6003E3D39 /* Mission01.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9185064AC6F6003E3D39 /* Mission01.h */; };
-		90BD91BB064AC6F6003E3D39 /* Mission02.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9186064AC6F6003E3D39 /* Mission02.c */; };
-		90BD91BC064AC6F6003E3D39 /* Mission02.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9187064AC6F6003E3D39 /* Mission02.func.c */; };
-		90BD91BD064AC6F6003E3D39 /* Mission02.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9188064AC6F6003E3D39 /* Mission02.h */; };
-		90BD91BE064AC6F6003E3D39 /* Mission03.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9189064AC6F6003E3D39 /* Mission03.c */; };
-		90BD91BF064AC6F6003E3D39 /* Mission03.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD918A064AC6F6003E3D39 /* Mission03.func.c */; };
-		90BD91C0064AC6F6003E3D39 /* Mission03.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD918B064AC6F6003E3D39 /* Mission03.h */; };
-		90BD91C1064AC6F6003E3D39 /* Mission04.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD918C064AC6F6003E3D39 /* Mission04.c */; };
-		90BD91C2064AC6F6003E3D39 /* Mission04.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD918D064AC6F6003E3D39 /* Mission04.func.c */; };
-		90BD91C3064AC6F6003E3D39 /* Mission04.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD918E064AC6F6003E3D39 /* Mission04.h */; };
-		90BD91C4064AC6F6003E3D39 /* Mission05.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD918F064AC6F6003E3D39 /* Mission05.c */; };
-		90BD91C5064AC6F6003E3D39 /* Mission05.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9190064AC6F6003E3D39 /* Mission05.func.c */; };
-		90BD91C6064AC6F6003E3D39 /* Mission05.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9191064AC6F6003E3D39 /* Mission05.h */; };
-		90BD91C7064AC6F6003E3D39 /* Mission06.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9192064AC6F6003E3D39 /* Mission06.c */; };
-		90BD91C8064AC6F6003E3D39 /* Mission06.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9193064AC6F6003E3D39 /* Mission06.func.c */; };
-		90BD91C9064AC6F6003E3D39 /* Mission06.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9194064AC6F6003E3D39 /* Mission06.h */; };
-		90BD91CA064AC6F6003E3D39 /* Mission07.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9195064AC6F6003E3D39 /* Mission07.c */; };
-		90BD91CB064AC6F6003E3D39 /* Mission07.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9196064AC6F6003E3D39 /* Mission07.func.c */; };
-		90BD91CC064AC6F6003E3D39 /* Mission07.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9197064AC6F6003E3D39 /* Mission07.h */; };
-		90BD91CD064AC6F6003E3D39 /* Mission08.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9198064AC6F6003E3D39 /* Mission08.c */; };
-		90BD91CE064AC6F6003E3D39 /* Mission08.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9199064AC6F6003E3D39 /* Mission08.func.c */; };
-		90BD91CF064AC6F6003E3D39 /* Mission08.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD919A064AC6F6003E3D39 /* Mission08.h */; };
-		90BD91D0064AC6F6003E3D39 /* Mission09.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD919B064AC6F6003E3D39 /* Mission09.c */; };
-		90BD91D1064AC6F6003E3D39 /* Mission09.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD919C064AC6F6003E3D39 /* Mission09.func.c */; };
-		90BD91D2064AC6F6003E3D39 /* Mission09.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD919D064AC6F6003E3D39 /* Mission09.h */; };
-		90BD91D3064AC6F6003E3D39 /* Mission10.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD919E064AC6F6003E3D39 /* Mission10.c */; };
-		90BD91D4064AC6F6003E3D39 /* Mission10.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD919F064AC6F6003E3D39 /* Mission10.func.c */; };
-		90BD91D5064AC6F6003E3D39 /* Mission10.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD91A0064AC6F6003E3D39 /* Mission10.h */; };
-		90BD91D6064AC6F6003E3D39 /* Mission11.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD91A1064AC6F6003E3D39 /* Mission11.c */; };
-		90BD91D7064AC6F6003E3D39 /* Mission11.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD91A2064AC6F6003E3D39 /* Mission11.func.c */; };
-		90BD91D8064AC6F6003E3D39 /* Mission11.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD91A3064AC6F6003E3D39 /* Mission11.h */; };
-		90BD91D9064AC6F7003E3D39 /* Mission12.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD91A4064AC6F6003E3D39 /* Mission12.c */; };
-		90BD91DA064AC6F7003E3D39 /* Mission12.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD91A5064AC6F6003E3D39 /* Mission12.func.c */; };
-		90BD91DB064AC6F7003E3D39 /* Mission12.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD91A6064AC6F6003E3D39 /* Mission12.h */; };
-		90BD91DC064AC6F7003E3D39 /* Mission13.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD91A7064AC6F6003E3D39 /* Mission13.c */; };
-		90BD91DD064AC6F7003E3D39 /* Mission13.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD91A8064AC6F6003E3D39 /* Mission13.func.c */; };
-		90BD91DE064AC6F7003E3D39 /* Mission13.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD91A9064AC6F6003E3D39 /* Mission13.h */; };
-		90BD91DF064AC6F7003E3D39 /* Mission14.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD91AA064AC6F6003E3D39 /* Mission14.c */; };
-		90BD91E0064AC6F7003E3D39 /* Mission14.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD91AB064AC6F6003E3D39 /* Mission14.func.c */; };
-		90BD91E1064AC6F7003E3D39 /* Mission14.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD91AC064AC6F6003E3D39 /* Mission14.h */; };
-		90BD91E2064AC6F7003E3D39 /* Mission15.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD91AD064AC6F6003E3D39 /* Mission15.c */; };
-		90BD91E3064AC6F7003E3D39 /* Mission15.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD91AE064AC6F6003E3D39 /* Mission15.func.c */; };
-		90BD91E4064AC6F7003E3D39 /* Mission15.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD91AF064AC6F6003E3D39 /* Mission15.h */; };
-		90BD91E5064AC6F7003E3D39 /* Mission16.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD91B0064AC6F6003E3D39 /* Mission16.c */; };
-		90BD91E6064AC6F7003E3D39 /* Mission16.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD91B1064AC6F6003E3D39 /* Mission16.func.c */; };
-		90BD91E7064AC6F7003E3D39 /* Mission16.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD91B2064AC6F6003E3D39 /* Mission16.h */; };
-		90BD91E8064AC6F7003E3D39 /* Tutorial1.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD91B3064AC6F6003E3D39 /* Tutorial1.c */; };
-		90BD91E9064AC6F7003E3D39 /* Tutorial1.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD91B4064AC6F6003E3D39 /* Tutorial1.func.c */; };
-		90BD91EA064AC6F7003E3D39 /* Tutorial1.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD91B5064AC6F6003E3D39 /* Tutorial1.h */; };
 		90BD925F064AEE7B003E3D39 /* avi.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9208064AEE7A003E3D39 /* avi.h */; };
 		90BD9267064AEE7B003E3D39 /* devstats.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9210064AEE7A003E3D39 /* devstats.h */; };
 		90BD926A064AEE7B003E3D39 /* font.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9213064AEE7A003E3D39 /* font.c */; };
@@ -1109,6 +1110,80 @@
 		3580380D0B18679B00D47728 /* CRC32.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CRC32.h; sourceTree = "<group>"; };
 		358038540B18A90100D47728 /* ShipDefs.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ShipDefs.h; sourceTree = "<group>"; };
 		358038550B18A90100D47728 /* Ships.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Ships.h; sourceTree = "<group>"; };
+		358038600B18AD7800D47728 /* Mission01.kas */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = Mission01.kas; sourceTree = "<group>"; };
+		358038610B18AD7800D47728 /* Mission02.kas */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = Mission02.kas; sourceTree = "<group>"; };
+		358038620B18AD7800D47728 /* Mission03.kas */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = Mission03.kas; sourceTree = "<group>"; };
+		358038630B18AD7800D47728 /* Mission04.kas */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = Mission04.kas; sourceTree = "<group>"; };
+		358038640B18AD7800D47728 /* Mission05.kas */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = Mission05.kas; sourceTree = "<group>"; };
+		358038650B18AD7800D47728 /* Mission05_OEM.kas */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = Mission05_OEM.kas; sourceTree = "<group>"; };
+		358038660B18AD7800D47728 /* Mission06.kas */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = Mission06.kas; sourceTree = "<group>"; };
+		358038670B18AD7800D47728 /* Mission07.kas */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = Mission07.kas; sourceTree = "<group>"; };
+		358038680B18AD7800D47728 /* Mission08.kas */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = Mission08.kas; sourceTree = "<group>"; };
+		358038690B18AD7800D47728 /* Mission09.kas */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = Mission09.kas; sourceTree = "<group>"; };
+		3580386A0B18AD7800D47728 /* Mission10.kas */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = Mission10.kas; sourceTree = "<group>"; };
+		3580386B0B18AD7800D47728 /* Mission11.kas */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = Mission11.kas; sourceTree = "<group>"; };
+		3580386C0B18AD7800D47728 /* Mission12.kas */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = Mission12.kas; sourceTree = "<group>"; };
+		3580386D0B18AD7800D47728 /* Mission13.kas */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = Mission13.kas; sourceTree = "<group>"; };
+		3580386E0B18AD7800D47728 /* Mission14.kas */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = Mission14.kas; sourceTree = "<group>"; };
+		3580386F0B18AD7800D47728 /* Mission15.kas */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = Mission15.kas; sourceTree = "<group>"; };
+		358038700B18AD7800D47728 /* Mission16.kas */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = Mission16.kas; sourceTree = "<group>"; };
+		358038710B18AD7800D47728 /* Swarmer.kash */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = Swarmer.kash; sourceTree = "<group>"; };
+		358038720B18AD7800D47728 /* Utilities.kash */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = Utilities.kash; sourceTree = "<group>"; };
+		358038740B18AD7800D47728 /* Tutorial1.kas */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = Tutorial1.kas; sourceTree = "<group>"; };
+		358038BF0B18B1DA00D47728 /* Mission01.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission01.c; sourceTree = "<group>"; };
+		358038C00B18B1DA00D47728 /* Mission01.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission01.func.c; sourceTree = "<group>"; };
+		358038C10B18B1DA00D47728 /* Mission01.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Mission01.h; sourceTree = "<group>"; };
+		358038C20B18B1DA00D47728 /* Mission02.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission02.c; sourceTree = "<group>"; };
+		358038C30B18B1DA00D47728 /* Mission02.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission02.func.c; sourceTree = "<group>"; };
+		358038C40B18B1DA00D47728 /* Mission02.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Mission02.h; sourceTree = "<group>"; };
+		358038C50B18B1DA00D47728 /* Mission03.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission03.c; sourceTree = "<group>"; };
+		358038C60B18B1DA00D47728 /* Mission03.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission03.func.c; sourceTree = "<group>"; };
+		358038C70B18B1DA00D47728 /* Mission03.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Mission03.h; sourceTree = "<group>"; };
+		358038C80B18B1DA00D47728 /* Mission04.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission04.c; sourceTree = "<group>"; };
+		358038C90B18B1DA00D47728 /* Mission04.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission04.func.c; sourceTree = "<group>"; };
+		358038CA0B18B1DA00D47728 /* Mission04.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Mission04.h; sourceTree = "<group>"; };
+		358038CB0B18B1DA00D47728 /* Mission05_OEM.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission05_OEM.c; sourceTree = "<group>"; };
+		358038CC0B18B1DA00D47728 /* Mission05_OEM.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission05_OEM.func.c; sourceTree = "<group>"; };
+		358038CD0B18B1DA00D47728 /* Mission05_OEM.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Mission05_OEM.h; sourceTree = "<group>"; };
+		358038CE0B18B1DA00D47728 /* Mission05.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission05.c; sourceTree = "<group>"; };
+		358038CF0B18B1DA00D47728 /* Mission05.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission05.func.c; sourceTree = "<group>"; };
+		358038D00B18B1DA00D47728 /* Mission05.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Mission05.h; sourceTree = "<group>"; };
+		358038D10B18B1DA00D47728 /* Mission06.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission06.c; sourceTree = "<group>"; };
+		358038D20B18B1DA00D47728 /* Mission06.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission06.func.c; sourceTree = "<group>"; };
+		358038D30B18B1DA00D47728 /* Mission06.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Mission06.h; sourceTree = "<group>"; };
+		358038D40B18B1DA00D47728 /* Mission07.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission07.c; sourceTree = "<group>"; };
+		358038D50B18B1DA00D47728 /* Mission07.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission07.func.c; sourceTree = "<group>"; };
+		358038D60B18B1DA00D47728 /* Mission07.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Mission07.h; sourceTree = "<group>"; };
+		358038D70B18B1DA00D47728 /* Mission08.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission08.c; sourceTree = "<group>"; };
+		358038D80B18B1DA00D47728 /* Mission08.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission08.func.c; sourceTree = "<group>"; };
+		358038D90B18B1DA00D47728 /* Mission08.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Mission08.h; sourceTree = "<group>"; };
+		358038DA0B18B1DA00D47728 /* Mission09.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission09.c; sourceTree = "<group>"; };
+		358038DB0B18B1DA00D47728 /* Mission09.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission09.func.c; sourceTree = "<group>"; };
+		358038DC0B18B1DA00D47728 /* Mission09.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Mission09.h; sourceTree = "<group>"; };
+		358038DD0B18B1DA00D47728 /* Mission10.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission10.c; sourceTree = "<group>"; };
+		358038DE0B18B1DA00D47728 /* Mission10.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission10.func.c; sourceTree = "<group>"; };
+		358038DF0B18B1DA00D47728 /* Mission10.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Mission10.h; sourceTree = "<group>"; };
+		358038E00B18B1DA00D47728 /* Mission11.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission11.c; sourceTree = "<group>"; };
+		358038E10B18B1DA00D47728 /* Mission11.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission11.func.c; sourceTree = "<group>"; };
+		358038E20B18B1DA00D47728 /* Mission11.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Mission11.h; sourceTree = "<group>"; };
+		358038E30B18B1DA00D47728 /* Mission12.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission12.c; sourceTree = "<group>"; };
+		358038E40B18B1DA00D47728 /* Mission12.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission12.func.c; sourceTree = "<group>"; };
+		358038E50B18B1DA00D47728 /* Mission12.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Mission12.h; sourceTree = "<group>"; };
+		358038E60B18B1DA00D47728 /* Mission13.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission13.c; sourceTree = "<group>"; };
+		358038E70B18B1DA00D47728 /* Mission13.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission13.func.c; sourceTree = "<group>"; };
+		358038E80B18B1DA00D47728 /* Mission13.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Mission13.h; sourceTree = "<group>"; };
+		358038E90B18B1DA00D47728 /* Mission14.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission14.c; sourceTree = "<group>"; };
+		358038EA0B18B1DA00D47728 /* Mission14.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission14.func.c; sourceTree = "<group>"; };
+		358038EB0B18B1DA00D47728 /* Mission14.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Mission14.h; sourceTree = "<group>"; };
+		358038EC0B18B1DA00D47728 /* Mission15.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission15.c; sourceTree = "<group>"; };
+		358038ED0B18B1DA00D47728 /* Mission15.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission15.func.c; sourceTree = "<group>"; };
+		358038EE0B18B1DA00D47728 /* Mission15.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Mission15.h; sourceTree = "<group>"; };
+		358038EF0B18B1DA00D47728 /* Mission16.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission16.c; sourceTree = "<group>"; };
+		358038F00B18B1DA00D47728 /* Mission16.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission16.func.c; sourceTree = "<group>"; };
+		358038F10B18B1DA00D47728 /* Mission16.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Mission16.h; sourceTree = "<group>"; };
+		358038F20B18B1DA00D47728 /* Tutorial1.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Tutorial1.c; sourceTree = "<group>"; };
+		358038F30B18B1DA00D47728 /* Tutorial1.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Tutorial1.func.c; sourceTree = "<group>"; };
+		358038F40B18B1DA00D47728 /* Tutorial1.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Tutorial1.h; sourceTree = "<group>"; };
 		35A501A6078CB77000E7D8E2 /* RaiderRetreat.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = RaiderRetreat.plist; sourceTree = "<group>"; };
 		35B1D7EF0ABD43B0002214BE /* Homeworld.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Homeworld.icns; sourceTree = "<group>"; };
 		35B1D7F10ABD43BD002214BE /* RaiderRetreat.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = RaiderRetreat.icns; sourceTree = "<group>"; };
@@ -1175,9 +1250,6 @@
 		35CD34EC0B13ADEE0064A20B /* jutils.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = jutils.c; sourceTree = "<group>"; };
 		35CD34ED0B13ADEE0064A20B /* jversion.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = jversion.h; sourceTree = "<group>"; };
 		35CD358F0B13B0E00064A20B /* ServerStatus.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ServerStatus.h; sourceTree = "<group>"; };
-		35DAEDC5077BAF4D0080465A /* Mission05_OEM.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission05_OEM.c; sourceTree = "<group>"; };
-		35DAEDC6077BAF4D0080465A /* Mission05_OEM.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Mission05_OEM.func.c; sourceTree = "<group>"; };
-		35DAEDC7077BAF4D0080465A /* Mission05_OEM.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Mission05_OEM.h; sourceTree = "<group>"; };
 		35FB9A6B0B124F0500523C83 /* Color.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Color.c; sourceTree = "<group>"; };
 		35FB9A6C0B124F0500523C83 /* Color.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
 		35FE5B220B17CB2200D6E944 /* BitIO.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = BitIO.c; sourceTree = "<group>"; };
@@ -1471,57 +1543,6 @@
 		90623D1D064992AF0088361C /* VolTweakDefs.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = VolTweakDefs.h; path = ../src/Game/VolTweakDefs.h; sourceTree = SOURCE_ROOT; };
 		90623D1E064992AF0088361C /* Volume.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Volume.c; path = ../src/Game/Volume.c; sourceTree = SOURCE_ROOT; };
 		90623D1F064992AF0088361C /* Volume.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Volume.h; path = ../src/Game/Volume.h; sourceTree = SOURCE_ROOT; };
-		90BD9183064AC6F6003E3D39 /* Mission01.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Mission01.c; path = ../src/Generated/Mission01.c; sourceTree = SOURCE_ROOT; };
-		90BD9184064AC6F6003E3D39 /* Mission01.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Mission01.func.c; path = ../src/Generated/Mission01.func.c; sourceTree = SOURCE_ROOT; };
-		90BD9185064AC6F6003E3D39 /* Mission01.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Mission01.h; path = ../src/Generated/Mission01.h; sourceTree = SOURCE_ROOT; };
-		90BD9186064AC6F6003E3D39 /* Mission02.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Mission02.c; path = ../src/Generated/Mission02.c; sourceTree = SOURCE_ROOT; };
-		90BD9187064AC6F6003E3D39 /* Mission02.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Mission02.func.c; path = ../src/Generated/Mission02.func.c; sourceTree = SOURCE_ROOT; };
-		90BD9188064AC6F6003E3D39 /* Mission02.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Mission02.h; path = ../src/Generated/Mission02.h; sourceTree = SOURCE_ROOT; };
-		90BD9189064AC6F6003E3D39 /* Mission03.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Mission03.c; path = ../src/Generated/Mission03.c; sourceTree = SOURCE_ROOT; };
-		90BD918A064AC6F6003E3D39 /* Mission03.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Mission03.func.c; path = ../src/Generated/Mission03.func.c; sourceTree = SOURCE_ROOT; };
-		90BD918B064AC6F6003E3D39 /* Mission03.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Mission03.h; path = ../src/Generated/Mission03.h; sourceTree = SOURCE_ROOT; };
-		90BD918C064AC6F6003E3D39 /* Mission04.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Mission04.c; path = ../src/Generated/Mission04.c; sourceTree = SOURCE_ROOT; };
-		90BD918D064AC6F6003E3D39 /* Mission04.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Mission04.func.c; path = ../src/Generated/Mission04.func.c; sourceTree = SOURCE_ROOT; };
-		90BD918E064AC6F6003E3D39 /* Mission04.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Mission04.h; path = ../src/Generated/Mission04.h; sourceTree = SOURCE_ROOT; };
-		90BD918F064AC6F6003E3D39 /* Mission05.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Mission05.c; path = ../src/Generated/Mission05.c; sourceTree = SOURCE_ROOT; };
-		90BD9190064AC6F6003E3D39 /* Mission05.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Mission05.func.c; path = ../src/Generated/Mission05.func.c; sourceTree = SOURCE_ROOT; };
-		90BD9191064AC6F6003E3D39 /* Mission05.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Mission05.h; path = ../src/Generated/Mission05.h; sourceTree = SOURCE_ROOT; };
-		90BD9192064AC6F6003E3D39 /* Mission06.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Mission06.c; path = ../src/Generated/Mission06.c; sourceTree = SOURCE_ROOT; };
-		90BD9193064AC6F6003E3D39 /* Mission06.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Mission06.func.c; path = ../src/Generated/Mission06.func.c; sourceTree = SOURCE_ROOT; };
-		90BD9194064AC6F6003E3D39 /* Mission06.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Mission06.h; path = ../src/Generated/Mission06.h; sourceTree = SOURCE_ROOT; };
-		90BD9195064AC6F6003E3D39 /* Mission07.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Mission07.c; path = ../src/Generated/Mission07.c; sourceTree = SOURCE_ROOT; };
-		90BD9196064AC6F6003E3D39 /* Mission07.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Mission07.func.c; path = ../src/Generated/Mission07.func.c; sourceTree = SOURCE_ROOT; };
-		90BD9197064AC6F6003E3D39 /* Mission07.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Mission07.h; path = ../src/Generated/Mission07.h; sourceTree = SOURCE_ROOT; };
-		90BD9198064AC6F6003E3D39 /* Mission08.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Mission08.c; path = ../src/Generated/Mission08.c; sourceTree = SOURCE_ROOT; };
-		90BD9199064AC6F6003E3D39 /* Mission08.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Mission08.func.c; path = ../src/Generated/Mission08.func.c; sourceTree = SOURCE_ROOT; };
-		90BD919A064AC6F6003E3D39 /* Mission08.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Mission08.h; path = ../src/Generated/Mission08.h; sourceTree = SOURCE_ROOT; };
-		90BD919B064AC6F6003E3D39 /* Mission09.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Mission09.c; path = ../src/Generated/Mission09.c; sourceTree = SOURCE_ROOT; };
-		90BD919C064AC6F6003E3D39 /* Mission09.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Mission09.func.c; path = ../src/Generated/Mission09.func.c; sourceTree = SOURCE_ROOT; };
-		90BD919D064AC6F6003E3D39 /* Mission09.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Mission09.h; path = ../src/Generated/Mission09.h; sourceTree = SOURCE_ROOT; };
-		90BD919E064AC6F6003E3D39 /* Mission10.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Mission10.c; path = ../src/Generated/Mission10.c; sourceTree = SOURCE_ROOT; };
-		90BD919F064AC6F6003E3D39 /* Mission10.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Mission10.func.c; path = ../src/Generated/Mission10.func.c; sourceTree = SOURCE_ROOT; };
-		90BD91A0064AC6F6003E3D39 /* Mission10.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Mission10.h; path = ../src/Generated/Mission10.h; sourceTree = SOURCE_ROOT; };
-		90BD91A1064AC6F6003E3D39 /* Mission11.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Mission11.c; path = ../src/Generated/Mission11.c; sourceTree = SOURCE_ROOT; };
-		90BD91A2064AC6F6003E3D39 /* Mission11.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Mission11.func.c; path = ../src/Generated/Mission11.func.c; sourceTree = SOURCE_ROOT; };
-		90BD91A3064AC6F6003E3D39 /* Mission11.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Mission11.h; path = ../src/Generated/Mission11.h; sourceTree = SOURCE_ROOT; };
-		90BD91A4064AC6F6003E3D39 /* Mission12.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Mission12.c; path = ../src/Generated/Mission12.c; sourceTree = SOURCE_ROOT; };
-		90BD91A5064AC6F6003E3D39 /* Mission12.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Mission12.func.c; path = ../src/Generated/Mission12.func.c; sourceTree = SOURCE_ROOT; };
-		90BD91A6064AC6F6003E3D39 /* Mission12.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Mission12.h; path = ../src/Generated/Mission12.h; sourceTree = SOURCE_ROOT; };
-		90BD91A7064AC6F6003E3D39 /* Mission13.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Mission13.c; path = ../src/Generated/Mission13.c; sourceTree = SOURCE_ROOT; };
-		90BD91A8064AC6F6003E3D39 /* Mission13.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Mission13.func.c; path = ../src/Generated/Mission13.func.c; sourceTree = SOURCE_ROOT; };
-		90BD91A9064AC6F6003E3D39 /* Mission13.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Mission13.h; path = ../src/Generated/Mission13.h; sourceTree = SOURCE_ROOT; };
-		90BD91AA064AC6F6003E3D39 /* Mission14.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Mission14.c; path = ../src/Generated/Mission14.c; sourceTree = SOURCE_ROOT; };
-		90BD91AB064AC6F6003E3D39 /* Mission14.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Mission14.func.c; path = ../src/Generated/Mission14.func.c; sourceTree = SOURCE_ROOT; };
-		90BD91AC064AC6F6003E3D39 /* Mission14.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Mission14.h; path = ../src/Generated/Mission14.h; sourceTree = SOURCE_ROOT; };
-		90BD91AD064AC6F6003E3D39 /* Mission15.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Mission15.c; path = ../src/Generated/Mission15.c; sourceTree = SOURCE_ROOT; };
-		90BD91AE064AC6F6003E3D39 /* Mission15.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Mission15.func.c; path = ../src/Generated/Mission15.func.c; sourceTree = SOURCE_ROOT; };
-		90BD91AF064AC6F6003E3D39 /* Mission15.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Mission15.h; path = ../src/Generated/Mission15.h; sourceTree = SOURCE_ROOT; };
-		90BD91B0064AC6F6003E3D39 /* Mission16.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Mission16.c; path = ../src/Generated/Mission16.c; sourceTree = SOURCE_ROOT; };
-		90BD91B1064AC6F6003E3D39 /* Mission16.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Mission16.func.c; path = ../src/Generated/Mission16.func.c; sourceTree = SOURCE_ROOT; };
-		90BD91B2064AC6F6003E3D39 /* Mission16.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Mission16.h; path = ../src/Generated/Mission16.h; sourceTree = SOURCE_ROOT; };
-		90BD91B3064AC6F6003E3D39 /* Tutorial1.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Tutorial1.c; path = ../src/Generated/Tutorial1.c; sourceTree = SOURCE_ROOT; };
-		90BD91B4064AC6F6003E3D39 /* Tutorial1.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Tutorial1.func.c; path = ../src/Generated/Tutorial1.func.c; sourceTree = SOURCE_ROOT; };
-		90BD91B5064AC6F6003E3D39 /* Tutorial1.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Tutorial1.h; path = ../src/Generated/Tutorial1.h; sourceTree = SOURCE_ROOT; };
 		90BD9208064AEE7A003E3D39 /* avi.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = avi.h; path = ../src/SDL/avi.h; sourceTree = SOURCE_ROOT; };
 		90BD9210064AEE7A003E3D39 /* devstats.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = devstats.h; path = ../src/SDL/devstats.h; sourceTree = SOURCE_ROOT; };
 		90BD9213064AEE7A003E3D39 /* font.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = font.c; path = ../src/SDL/font.c; sourceTree = SOURCE_ROOT; };
@@ -1763,6 +1784,111 @@
 			path = CRC;
 			sourceTree = "<group>";
 		};
+		3580385C0B18AD7800D47728 /* Missions */ = {
+			isa = PBXGroup;
+			children = (
+				3580385D0B18AD7800D47728 /* Generated */,
+				3580385F0B18AD7800D47728 /* SinglePlayer */,
+				358038730B18AD7800D47728 /* Tutorials */,
+			);
+			path = Missions;
+			sourceTree = "<group>";
+		};
+		3580385D0B18AD7800D47728 /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				358038BF0B18B1DA00D47728 /* Mission01.c */,
+				358038C00B18B1DA00D47728 /* Mission01.func.c */,
+				358038C10B18B1DA00D47728 /* Mission01.h */,
+				358038C20B18B1DA00D47728 /* Mission02.c */,
+				358038C30B18B1DA00D47728 /* Mission02.func.c */,
+				358038C40B18B1DA00D47728 /* Mission02.h */,
+				358038C50B18B1DA00D47728 /* Mission03.c */,
+				358038C60B18B1DA00D47728 /* Mission03.func.c */,
+				358038C70B18B1DA00D47728 /* Mission03.h */,
+				358038C80B18B1DA00D47728 /* Mission04.c */,
+				358038C90B18B1DA00D47728 /* Mission04.func.c */,
+				358038CA0B18B1DA00D47728 /* Mission04.h */,
+				358038CB0B18B1DA00D47728 /* Mission05_OEM.c */,
+				358038CC0B18B1DA00D47728 /* Mission05_OEM.func.c */,
+				358038CD0B18B1DA00D47728 /* Mission05_OEM.h */,
+				358038CE0B18B1DA00D47728 /* Mission05.c */,
+				358038CF0B18B1DA00D47728 /* Mission05.func.c */,
+				358038D00B18B1DA00D47728 /* Mission05.h */,
+				358038D10B18B1DA00D47728 /* Mission06.c */,
+				358038D20B18B1DA00D47728 /* Mission06.func.c */,
+				358038D30B18B1DA00D47728 /* Mission06.h */,
+				358038D40B18B1DA00D47728 /* Mission07.c */,
+				358038D50B18B1DA00D47728 /* Mission07.func.c */,
+				358038D60B18B1DA00D47728 /* Mission07.h */,
+				358038D70B18B1DA00D47728 /* Mission08.c */,
+				358038D80B18B1DA00D47728 /* Mission08.func.c */,
+				358038D90B18B1DA00D47728 /* Mission08.h */,
+				358038DA0B18B1DA00D47728 /* Mission09.c */,
+				358038DB0B18B1DA00D47728 /* Mission09.func.c */,
+				358038DC0B18B1DA00D47728 /* Mission09.h */,
+				358038DD0B18B1DA00D47728 /* Mission10.c */,
+				358038DE0B18B1DA00D47728 /* Mission10.func.c */,
+				358038DF0B18B1DA00D47728 /* Mission10.h */,
+				358038E00B18B1DA00D47728 /* Mission11.c */,
+				358038E10B18B1DA00D47728 /* Mission11.func.c */,
+				358038E20B18B1DA00D47728 /* Mission11.h */,
+				358038E30B18B1DA00D47728 /* Mission12.c */,
+				358038E40B18B1DA00D47728 /* Mission12.func.c */,
+				358038E50B18B1DA00D47728 /* Mission12.h */,
+				358038E60B18B1DA00D47728 /* Mission13.c */,
+				358038E70B18B1DA00D47728 /* Mission13.func.c */,
+				358038E80B18B1DA00D47728 /* Mission13.h */,
+				358038E90B18B1DA00D47728 /* Mission14.c */,
+				358038EA0B18B1DA00D47728 /* Mission14.func.c */,
+				358038EB0B18B1DA00D47728 /* Mission14.h */,
+				358038EC0B18B1DA00D47728 /* Mission15.c */,
+				358038ED0B18B1DA00D47728 /* Mission15.func.c */,
+				358038EE0B18B1DA00D47728 /* Mission15.h */,
+				358038EF0B18B1DA00D47728 /* Mission16.c */,
+				358038F00B18B1DA00D47728 /* Mission16.func.c */,
+				358038F10B18B1DA00D47728 /* Mission16.h */,
+				358038F20B18B1DA00D47728 /* Tutorial1.c */,
+				358038F30B18B1DA00D47728 /* Tutorial1.func.c */,
+				358038F40B18B1DA00D47728 /* Tutorial1.h */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
+		3580385F0B18AD7800D47728 /* SinglePlayer */ = {
+			isa = PBXGroup;
+			children = (
+				358038600B18AD7800D47728 /* Mission01.kas */,
+				358038610B18AD7800D47728 /* Mission02.kas */,
+				358038620B18AD7800D47728 /* Mission03.kas */,
+				358038630B18AD7800D47728 /* Mission04.kas */,
+				358038640B18AD7800D47728 /* Mission05.kas */,
+				358038650B18AD7800D47728 /* Mission05_OEM.kas */,
+				358038660B18AD7800D47728 /* Mission06.kas */,
+				358038670B18AD7800D47728 /* Mission07.kas */,
+				358038680B18AD7800D47728 /* Mission08.kas */,
+				358038690B18AD7800D47728 /* Mission09.kas */,
+				3580386A0B18AD7800D47728 /* Mission10.kas */,
+				3580386B0B18AD7800D47728 /* Mission11.kas */,
+				3580386C0B18AD7800D47728 /* Mission12.kas */,
+				3580386D0B18AD7800D47728 /* Mission13.kas */,
+				3580386E0B18AD7800D47728 /* Mission14.kas */,
+				3580386F0B18AD7800D47728 /* Mission15.kas */,
+				358038700B18AD7800D47728 /* Mission16.kas */,
+				358038710B18AD7800D47728 /* Swarmer.kash */,
+				358038720B18AD7800D47728 /* Utilities.kash */,
+			);
+			path = SinglePlayer;
+			sourceTree = "<group>";
+		};
+		358038730B18AD7800D47728 /* Tutorials */ = {
+			isa = PBXGroup;
+			children = (
+				358038740B18AD7800D47728 /* Tutorial1.kas */,
+			);
+			path = Tutorials;
+			sourceTree = "<group>";
+		};
 		35CD34AF0B13ADEE0064A20B /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
@@ -1872,7 +1998,7 @@
 			isa = PBXGroup;
 			children = (
 				90623BED064992AE0088361C /* Game */,
-				90BD9180064AC6F6003E3D39 /* Generated */,
+				3580385C0B18AD7800D47728 /* Missions */,
 				90BD92E6064AEF42003E3D39 /* Ships */,
 				90BD9206064AEE7A003E3D39 /* SDL */,
 				35CD34AF0B13ADEE0064A20B /* ThirdParty */,
@@ -2180,68 +2306,6 @@
 			);
 			name = Game;
 			path = ../src/Game;
-			sourceTree = SOURCE_ROOT;
-		};
-		90BD9180064AC6F6003E3D39 /* Generated */ = {
-			isa = PBXGroup;
-			children = (
-				90BD9183064AC6F6003E3D39 /* Mission01.c */,
-				90BD9184064AC6F6003E3D39 /* Mission01.func.c */,
-				90BD9185064AC6F6003E3D39 /* Mission01.h */,
-				90BD9186064AC6F6003E3D39 /* Mission02.c */,
-				90BD9187064AC6F6003E3D39 /* Mission02.func.c */,
-				90BD9188064AC6F6003E3D39 /* Mission02.h */,
-				90BD9189064AC6F6003E3D39 /* Mission03.c */,
-				90BD918A064AC6F6003E3D39 /* Mission03.func.c */,
-				90BD918B064AC6F6003E3D39 /* Mission03.h */,
-				90BD918C064AC6F6003E3D39 /* Mission04.c */,
-				90BD918D064AC6F6003E3D39 /* Mission04.func.c */,
-				90BD918E064AC6F6003E3D39 /* Mission04.h */,
-				35DAEDC5077BAF4D0080465A /* Mission05_OEM.c */,
-				35DAEDC6077BAF4D0080465A /* Mission05_OEM.func.c */,
-				35DAEDC7077BAF4D0080465A /* Mission05_OEM.h */,
-				90BD918F064AC6F6003E3D39 /* Mission05.c */,
-				90BD9190064AC6F6003E3D39 /* Mission05.func.c */,
-				90BD9191064AC6F6003E3D39 /* Mission05.h */,
-				90BD9192064AC6F6003E3D39 /* Mission06.c */,
-				90BD9193064AC6F6003E3D39 /* Mission06.func.c */,
-				90BD9194064AC6F6003E3D39 /* Mission06.h */,
-				90BD9195064AC6F6003E3D39 /* Mission07.c */,
-				90BD9196064AC6F6003E3D39 /* Mission07.func.c */,
-				90BD9197064AC6F6003E3D39 /* Mission07.h */,
-				90BD9198064AC6F6003E3D39 /* Mission08.c */,
-				90BD9199064AC6F6003E3D39 /* Mission08.func.c */,
-				90BD919A064AC6F6003E3D39 /* Mission08.h */,
-				90BD919B064AC6F6003E3D39 /* Mission09.c */,
-				90BD919C064AC6F6003E3D39 /* Mission09.func.c */,
-				90BD919D064AC6F6003E3D39 /* Mission09.h */,
-				90BD919E064AC6F6003E3D39 /* Mission10.c */,
-				90BD919F064AC6F6003E3D39 /* Mission10.func.c */,
-				90BD91A0064AC6F6003E3D39 /* Mission10.h */,
-				90BD91A1064AC6F6003E3D39 /* Mission11.c */,
-				90BD91A2064AC6F6003E3D39 /* Mission11.func.c */,
-				90BD91A3064AC6F6003E3D39 /* Mission11.h */,
-				90BD91A4064AC6F6003E3D39 /* Mission12.c */,
-				90BD91A5064AC6F6003E3D39 /* Mission12.func.c */,
-				90BD91A6064AC6F6003E3D39 /* Mission12.h */,
-				90BD91A7064AC6F6003E3D39 /* Mission13.c */,
-				90BD91A8064AC6F6003E3D39 /* Mission13.func.c */,
-				90BD91A9064AC6F6003E3D39 /* Mission13.h */,
-				90BD91AA064AC6F6003E3D39 /* Mission14.c */,
-				90BD91AB064AC6F6003E3D39 /* Mission14.func.c */,
-				90BD91AC064AC6F6003E3D39 /* Mission14.h */,
-				90BD91AD064AC6F6003E3D39 /* Mission15.c */,
-				90BD91AE064AC6F6003E3D39 /* Mission15.func.c */,
-				90BD91AF064AC6F6003E3D39 /* Mission15.h */,
-				90BD91B0064AC6F6003E3D39 /* Mission16.c */,
-				90BD91B1064AC6F6003E3D39 /* Mission16.func.c */,
-				90BD91B2064AC6F6003E3D39 /* Mission16.h */,
-				90BD91B3064AC6F6003E3D39 /* Tutorial1.c */,
-				90BD91B4064AC6F6003E3D39 /* Tutorial1.func.c */,
-				90BD91B5064AC6F6003E3D39 /* Tutorial1.h */,
-			);
-			name = Generated;
-			path = ../src/Generated;
 			sourceTree = SOURCE_ROOT;
 		};
 		90BD9206064AEE7A003E3D39 /* SDL */ = {
@@ -2556,10 +2620,6 @@
 				3516C8CE077C41B0001AA863 /* Vector.h in Headers */,
 				3516C8CF077C41B0001AA863 /* VolTweakDefs.h in Headers */,
 				3516C8D0077C41B0001AA863 /* Volume.h in Headers */,
-				3516C8DE077C41B0001AA863 /* Mission01.h in Headers */,
-				3516C8DF077C41B0001AA863 /* Mission02.h in Headers */,
-				3516C8E0077C41B0001AA863 /* Mission03.h in Headers */,
-				3516C8E1077C41B0001AA863 /* Mission04.h in Headers */,
 				3516C8EF077C41B0001AA863 /* avi.h in Headers */,
 				3516C8F1077C41B0001AA863 /* devstats.h in Headers */,
 				3516C8F2077C41B0001AA863 /* font.h in Headers */,
@@ -2636,8 +2696,6 @@
 				3516C93E077C41B0001AA863 /* StandardFrigate.h in Headers */,
 				3516C93F077C41B0001AA863 /* SDLMain.h in Headers */,
 				3516C940077C41B0001AA863 /* Homeworld_Prefix.h in Headers */,
-				3516C941077C41B0001AA863 /* Mission05_OEM.h in Headers */,
-				3510D4BB0785066100F840B1 /* Tutorial1.h in Headers */,
 				3578AD0B0AF40518007BFA9F /* StringSupport.h in Headers */,
 				3507A51C0B0FA60200E374C5 /* Trails.h in Headers */,
 				3507A57B0B0FBB0B00E374C5 /* Subtitle.h in Headers */,
@@ -2662,6 +2720,12 @@
 				358038130B18679B00D47728 /* CRC32.h in Headers */,
 				358038580B18A90100D47728 /* ShipDefs.h in Headers */,
 				358038590B18A90100D47728 /* Ships.h in Headers */,
+				3580392D0B18B1DB00D47728 /* Mission01.h in Headers */,
+				358039300B18B1DB00D47728 /* Mission02.h in Headers */,
+				358039330B18B1DB00D47728 /* Mission03.h in Headers */,
+				358039360B18B1DB00D47728 /* Mission04.h in Headers */,
+				358039390B18B1DB00D47728 /* Mission05_OEM.h in Headers */,
+				358039740B18B62500D47728 /* Tutorial1.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2819,23 +2883,6 @@
 				90623E4E064992AF0088361C /* Vector.h in Headers */,
 				90623E4F064992AF0088361C /* VolTweakDefs.h in Headers */,
 				90623E51064992AF0088361C /* Volume.h in Headers */,
-				90BD91BA064AC6F6003E3D39 /* Mission01.h in Headers */,
-				90BD91BD064AC6F6003E3D39 /* Mission02.h in Headers */,
-				90BD91C0064AC6F6003E3D39 /* Mission03.h in Headers */,
-				90BD91C3064AC6F6003E3D39 /* Mission04.h in Headers */,
-				90BD91C6064AC6F6003E3D39 /* Mission05.h in Headers */,
-				90BD91C9064AC6F6003E3D39 /* Mission06.h in Headers */,
-				90BD91CC064AC6F6003E3D39 /* Mission07.h in Headers */,
-				90BD91CF064AC6F6003E3D39 /* Mission08.h in Headers */,
-				90BD91D2064AC6F6003E3D39 /* Mission09.h in Headers */,
-				90BD91D5064AC6F6003E3D39 /* Mission10.h in Headers */,
-				90BD91D8064AC6F6003E3D39 /* Mission11.h in Headers */,
-				90BD91DB064AC6F7003E3D39 /* Mission12.h in Headers */,
-				90BD91DE064AC6F7003E3D39 /* Mission13.h in Headers */,
-				90BD91E1064AC6F7003E3D39 /* Mission14.h in Headers */,
-				90BD91E4064AC6F7003E3D39 /* Mission15.h in Headers */,
-				90BD91E7064AC6F7003E3D39 /* Mission16.h in Headers */,
-				90BD91EA064AC6F7003E3D39 /* Tutorial1.h in Headers */,
 				90BD925F064AEE7B003E3D39 /* avi.h in Headers */,
 				90BD9267064AEE7B003E3D39 /* devstats.h in Headers */,
 				90BD926B064AEE7B003E3D39 /* font.h in Headers */,
@@ -2936,6 +2983,23 @@
 				358038100B18679B00D47728 /* CRC32.h in Headers */,
 				358038560B18A90100D47728 /* ShipDefs.h in Headers */,
 				358038570B18A90100D47728 /* Ships.h in Headers */,
+				358038F70B18B1DA00D47728 /* Mission01.h in Headers */,
+				358038FA0B18B1DA00D47728 /* Mission02.h in Headers */,
+				358038FD0B18B1DA00D47728 /* Mission03.h in Headers */,
+				358039000B18B1DA00D47728 /* Mission04.h in Headers */,
+				358039060B18B1DA00D47728 /* Mission05.h in Headers */,
+				358039090B18B1DA00D47728 /* Mission06.h in Headers */,
+				3580390C0B18B1DA00D47728 /* Mission07.h in Headers */,
+				3580390F0B18B1DA00D47728 /* Mission08.h in Headers */,
+				358039120B18B1DA00D47728 /* Mission09.h in Headers */,
+				358039150B18B1DA00D47728 /* Mission10.h in Headers */,
+				358039180B18B1DA00D47728 /* Mission11.h in Headers */,
+				3580391B0B18B1DB00D47728 /* Mission12.h in Headers */,
+				3580391E0B18B1DB00D47728 /* Mission13.h in Headers */,
+				358039210B18B1DB00D47728 /* Mission14.h in Headers */,
+				358039240B18B1DB00D47728 /* Mission15.h in Headers */,
+				358039270B18B1DB00D47728 /* Mission16.h in Headers */,
+				3580392A0B18B1DB00D47728 /* Tutorial1.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3016,6 +3080,7 @@
 			files = (
 				35CCC930096625FD009D918D /* HomeworldPlist.strings in Resources */,
 				35B1D7F00ABD43B0002214BE /* Homeworld.icns in Resources */,
+				358038890B18AD7800D47728 /* Tutorial1.kas in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3057,82 +3122,82 @@
 			files = (
 			);
 			inputPaths = (
-				../src/SinglePlayer/Mission01.kas,
-				../src/SinglePlayer/Mission02.kas,
-				../src/SinglePlayer/Mission03.kas,
-				../src/SinglePlayer/Mission04.kas,
-				../src/SinglePlayer/Mission05.kas,
-				../src/SinglePlayer/Mission06.kas,
-				../src/SinglePlayer/Mission07.kas,
-				../src/SinglePlayer/Mission08.kas,
-				../src/SinglePlayer/Mission09.kas,
-				../src/SinglePlayer/Mission10.kas,
-				../src/SinglePlayer/Mission11.kas,
-				../src/SinglePlayer/Mission12.kas,
-				../src/SinglePlayer/Mission13.kas,
-				../src/SinglePlayer/Mission14.kas,
-				../src/SinglePlayer/Mission15.kas,
-				../src/SinglePlayer/Mission16.kas,
-				../src/SinglePlayer/Swarmer.kash,
-				../src/SinglePlayer/Utilities.kash,
-				../src/Tutorials/Tutorial1.kas,
+				../src/Missions/SinglePlayer/Mission01.kas,
+				../src/Missions/SinglePlayer/Mission02.kas,
+				../src/Missions/SinglePlayer/Mission03.kas,
+				../src/Missions/SinglePlayer/Mission04.kas,
+				../src/Missions/SinglePlayer/Mission05.kas,
+				../src/Missions/SinglePlayer/Mission06.kas,
+				../src/Missions/SinglePlayer/Mission07.kas,
+				../src/Missions/SinglePlayer/Mission08.kas,
+				../src/Missions/SinglePlayer/Mission09.kas,
+				../src/Missions/SinglePlayer/Mission10.kas,
+				../src/Missions/SinglePlayer/Mission11.kas,
+				../src/Missions/SinglePlayer/Mission12.kas,
+				../src/Missions/SinglePlayer/Mission13.kas,
+				../src/Missions/SinglePlayer/Mission14.kas,
+				../src/Missions/SinglePlayer/Mission15.kas,
+				../src/Missions/SinglePlayer/Mission16.kas,
+				../src/Missions/SinglePlayer/Swarmer.kash,
+				../src/Missions/SinglePlayer/Utilities.kash,
+				../src/Missions/Tutorials/Tutorial1.kas,
 			);
 			outputPaths = (
-				../src/Generated/Mission01.c,
-				../src/Generated/Mission01.func.c,
-				../src/Generated/Mission01.h,
-				../src/Generated/Mission02.c,
-				../src/Generated/Mission02.func.c,
-				../src/Generated/Mission02.h,
-				../src/Generated/Mission03.c,
-				../src/Generated/Mission03.func.c,
-				../src/Generated/Mission03.h,
-				../src/Generated/Mission04.c,
-				../src/Generated/Mission04.func.c,
-				../src/Generated/Mission04.h,
-				../src/Generated/Mission05.c,
-				../src/Generated/Mission05.func.c,
-				../src/Generated/Mission05.h,
-				../src/Generated/Mission06.c,
-				../src/Generated/Mission06.func.c,
-				../src/Generated/Mission06.h,
-				../src/Generated/Mission07.c,
-				../src/Generated/Mission07.func.c,
-				../src/Generated/Mission07.h,
-				../src/Generated/Mission08.c,
-				../src/Generated/Mission08.func.c,
-				../src/Generated/Mission08.h,
-				../src/Generated/Mission09.c,
-				../src/Generated/Mission09.func.c,
-				../src/Generated/Mission09.h,
-				../src/Generated/Mission10.c,
-				../src/Generated/Mission10.func.c,
-				../src/Generated/Mission10.h,
-				../src/Generated/Mission11.c,
-				../src/Generated/Mission11.func.c,
-				../src/Generated/Mission11.h,
-				../src/Generated/Mission12.c,
-				../src/Generated/Mission12.func.c,
-				../src/Generated/Mission12.h,
-				../src/Generated/Mission13.c,
-				../src/Generated/Mission13.func.c,
-				../src/Generated/Mission13.h,
-				../src/Generated/Mission14.c,
-				../src/Generated/Mission14.func.c,
-				../src/Generated/Mission14.h,
-				../src/Generated/Mission15.c,
-				../src/Generated/Mission15.func.c,
-				../src/Generated/Mission15.h,
-				../src/Generated/Mission16.c,
-				../src/Generated/Mission16.func.c,
-				../src/Generated/Mission16.h,
-				../src/Generated/Tutorial1.c,
-				../src/Generated/Tutorial1.func.c,
-				../src/Generated/Tutorial1.h,
+				../src/Missions/Generated/Mission01.c,
+				../src/Missions/Generated/Mission01.func.c,
+				../src/Missions/Generated/Mission01.h,
+				../src/Missions/Generated/Mission02.c,
+				../src/Missions/Generated/Mission02.func.c,
+				../src/Missions/Generated/Mission02.h,
+				../src/Missions/Generated/Mission03.c,
+				../src/Missions/Generated/Mission03.func.c,
+				../src/Missions/Generated/Mission03.h,
+				../src/Missions/Generated/Mission04.c,
+				../src/Missions/Generated/Mission04.func.c,
+				../src/Missions/Generated/Mission04.h,
+				../src/Missions/Generated/Mission05.c,
+				../src/Missions/Generated/Mission05.func.c,
+				../src/Missions/Generated/Mission05.h,
+				../src/Missions/Generated/Mission06.c,
+				../src/Missions/Generated/Mission06.func.c,
+				../src/Missions/Generated/Mission06.h,
+				../src/Missions/Generated/Mission07.c,
+				../src/Missions/Generated/Mission07.func.c,
+				../src/Missions/Generated/Mission07.h,
+				../src/Missions/Generated/Mission08.c,
+				../src/Missions/Generated/Mission08.func.c,
+				../src/Missions/Generated/Mission08.h,
+				../src/Missions/Generated/Mission09.c,
+				../src/Missions/Generated/Mission09.func.c,
+				../src/Missions/Generated/Mission09.h,
+				../src/Missions/Generated/Mission10.c,
+				../src/Missions/Generated/Mission10.func.c,
+				../src/Missions/Generated/Mission10.h,
+				../src/Missions/Generated/Mission11.c,
+				../src/Missions/Generated/Mission11.func.c,
+				../src/Missions/Generated/Mission11.h,
+				../src/Missions/Generated/Mission12.c,
+				../src/Missions/Generated/Mission12.func.c,
+				../src/Missions/Generated/Mission12.h,
+				../src/Missions/Generated/Mission13.c,
+				../src/Missions/Generated/Mission13.func.c,
+				../src/Missions/Generated/Mission13.h,
+				../src/Missions/Generated/Mission14.c,
+				../src/Missions/Generated/Mission14.func.c,
+				../src/Missions/Generated/Mission14.h,
+				../src/Missions/Generated/Mission15.c,
+				../src/Missions/Generated/Mission15.func.c,
+				../src/Missions/Generated/Mission15.h,
+				../src/Missions/Generated/Mission16.c,
+				../src/Missions/Generated/Mission16.func.c,
+				../src/Missions/Generated/Mission16.h,
+				../src/Missions/Generated/Tutorial1.c,
+				../src/Missions/Generated/Tutorial1.func.c,
+				../src/Missions/Generated/Tutorial1.h,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "# force the shell; XCode really likes sh regardless of configuration\n/bin/zsh\n\n# make sure that kas2c is compiled\ncd ../tools/kas2c\n./kas2c-MacOSX-compile.sh\n\n# now compile the *.kas mission files\ncd ../../src/\n\nfor Y in SinglePlayer Tutorials\ndo\n    # change to the .kas folders in turn\n    cd $Y\n\n    for X in *.kas\n    do\n        # get the mission name\n        `/bin/echo $X | /usr/bin/awk -F '\\.' '{print \"export MISSION=\" $1}'`\n\n        # use gcc's preprocessor to produce the input for kas2c; the grep -v is\n        # to strip a gcc #pragma that kas2c cannot cope with\n        /usr/bin/gcc -E -x c $MISSION.kas | /usr/bin/grep -v \\#pragma > $MISSION.kp\n\n        # produce the actual mission .h and .c files\n        ../../tools/kas2c/kas2c $MISSION.kp $MISSION.c $MISSION.h $MISSION.func.c\n    done\n\n    # move the .h and .c files to the Generated folder\n    mv *.h *.c ../Generated\n\n    # clean up the intermediate .kp files\n    rm *.kp\n\n    # return to src root\n    cd ..\n\ndone";
+			shellScript = "# force the shell; XCode really likes sh regardless of configuration\n/bin/zsh\n\n# make sure that kas2c is compiled\ncd ../tools/kas2c\n./kas2c-MacOSX-compile.sh\n\n# now compile the *.kas mission files\ncd ../../src/Missions\n\nfor Y in SinglePlayer Tutorials\ndo\n    # change to the .kas folders in turn\n    cd $Y\n\n    for X in *.kas\n    do\n        # get the mission name\n        `/bin/echo $X | /usr/bin/awk -F '\\.' '{print \"export MISSION=\" $1}'`\n\n        # use gcc's preprocessor to produce the input for kas2c; the grep -v is\n        # to strip a gcc #pragma that kas2c cannot cope with\n        /usr/bin/gcc -E -x c $MISSION.kas | /usr/bin/grep -v \\#pragma > $MISSION.kp\n\n        # produce the actual mission .h and .c files\n        ../../../tools/kas2c/kas2c $MISSION.kp $MISSION.c $MISSION.h $MISSION.func.c\n    done\n\n    # move the .h and .c files to the Generated folder\n    mv *.h *.c ../Generated\n\n    # clean up the intermediate .kp files\n    rm *.kp\n\n    # return to src/Missions root\n    cd ..\n\ndone";
 		};
 		35BE70E007937E0B00AEFC3C /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3141,36 +3206,36 @@
 			files = (
 			);
 			inputPaths = (
-				../src/SinglePlayer/Mission01.kas,
-				../src/SinglePlayer/Mission02.kas,
-				../src/SinglePlayer/Mission03.kas,
-				../src/SinglePlayer/Mission04.kas,
-				../src/SinglePlayer/Mission05_OEM.kas,
-				../src/Tutorials/Tutorial1.kas,
+				../src/Missions/SinglePlayer/Mission01.kas,
+				../src/Missions/SinglePlayer/Mission02.kas,
+				../src/Missions/SinglePlayer/Mission03.kas,
+				../src/Missions/SinglePlayer/Mission04.kas,
+				../src/Missions/SinglePlayer/Mission05_OEM.kas,
+				../src/Missions/Tutorials/Tutorial1.kas,
 			);
 			outputPaths = (
-				../src/Generated/Mission01.c,
-				../src/Generated/Mission01.func.c,
-				../src/Generated/Mission01.h,
-				../src/Generated/Mission02.c,
-				../src/Generated/Mission02.func.c,
-				../src/Generated/Mission02.h,
-				../src/Generated/Mission03.c,
-				../src/Generated/Mission03.func.c,
-				../src/Generated/Mission03.h,
-				../src/Generated/Mission04.c,
-				../src/Generated/Mission04.func.c,
-				../src/Generated/Mission04.h,
-				../src/Generated/Mission05_OEM.c,
-				../src/Generated/Mission05_OEM.func.c,
-				../src/Generated/Mission05_OEM.h,
-				../src/Generated/Tutorial1.c,
-				../src/Generated/Tutorial1.func.c,
-				../src/Generated/Tutorial1.h,
+				../src/Missions/Generated/Mission01.c,
+				../src/Missions/Generated/Mission01.func.c,
+				../src/Missions/Generated/Mission01.h,
+				../src/Missions/Generated/Mission02.c,
+				../src/Missions/Generated/Mission02.func.c,
+				../src/Missions/Generated/Mission02.h,
+				../src/Missions/Generated/Mission03.c,
+				../src/Missions/Generated/Mission03.func.c,
+				../src/Missions/Generated/Mission03.h,
+				../src/Missions/Generated/Mission04.c,
+				../src/Missions/Generated/Mission04.func.c,
+				../src/Missions/Generated/Mission04.h,
+				../src/Missions/Generated/Mission05_OEM.c,
+				../src/Missions/Generated/Mission05_OEM.func.c,
+				../src/Missions/Generated/Mission05_OEM.h,
+				../src/Missions/Generated/Tutorial1.c,
+				../src/Missions/Generated/Tutorial1.func.c,
+				../src/Missions/Generated/Tutorial1.h,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "# force the shell; XCode really likes sh regardless of configuration\n/bin/zsh\n\n# make sure that kas2c is compiled\ncd ../tools/kas2c\n./kas2c-MacOSX-compile.sh\n\n# now compile the *.kas mission files\ncd ../../src/\n\nfor Y in SinglePlayer Tutorials\ndo\n    # change to the .kas folders in turn\n    cd $Y\n\n    for X in *.kas\n    do\n        # get the mission name\n        `/bin/echo $X | /usr/bin/awk -F '\\.' '{print \"export MISSION=\" $1}'`\n\n        # use gcc's preprocessor to produce the input for kas2c; the grep -v is\n        # to strip a gcc #pragma that kas2c cannot cope with\n        /usr/bin/gcc -E -x c $MISSION.kas | /usr/bin/grep -v \\#pragma > $MISSION.kp\n\n        # produce the actual mission .h and .c files\n        ../../tools/kas2c/kas2c $MISSION.kp $MISSION.c $MISSION.h $MISSION.func.c\n    done\n\n    # move the .h and .c files to the Generated folder\n    mv *.h *.c ../Generated\n\n    # clean up the intermediate .kp files\n    rm *.kp\n\n    # return to src root\n    cd ..\n\ndone";
+			shellScript = "# force the shell; XCode really likes sh regardless of configuration\n/bin/zsh\n\n# make sure that kas2c is compiled\ncd ../tools/kas2c\n./kas2c-MacOSX-compile.sh\n\n# now compile the *.kas mission files\ncd ../../src/Missions\n\nfor Y in SinglePlayer Tutorials\ndo\n    # change to the .kas folders in turn\n    cd $Y\n\n    for X in *.kas\n    do\n        # get the mission name\n        `/bin/echo $X | /usr/bin/awk -F '\\.' '{print \"export MISSION=\" $1}'`\n\n        # use gcc's preprocessor to produce the input for kas2c; the grep -v is\n        # to strip a gcc #pragma that kas2c cannot cope with\n        /usr/bin/gcc -E -x c $MISSION.kas | /usr/bin/grep -v \\#pragma > $MISSION.kp\n\n        # produce the actual mission .h and .c files\n        ../../../tools/kas2c/kas2c $MISSION.kp $MISSION.c $MISSION.h $MISSION.func.c\n    done\n\n    # move the .h and .c files to the Generated folder\n    mv *.h *.c ../Generated\n\n    # clean up the intermediate .kp files\n    rm *.kp\n\n    # return to src/Missions root\n    cd ..\n\ndone";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -3312,14 +3377,6 @@
 				3516C9CE077C41B0001AA863 /* UnivUpdate.c in Sources */,
 				3516C9CF077C41B0001AA863 /* Vector.c in Sources */,
 				3516C9D0077C41B0001AA863 /* Volume.c in Sources */,
-				3516CA00077C41B0001AA863 /* Mission01.c in Sources */,
-				3516CA01077C41B0001AA863 /* Mission01.func.c in Sources */,
-				3516CA02077C41B0001AA863 /* Mission02.c in Sources */,
-				3516CA03077C41B0001AA863 /* Mission02.func.c in Sources */,
-				3516CA04077C41B0001AA863 /* Mission03.c in Sources */,
-				3516CA05077C41B0001AA863 /* Mission03.func.c in Sources */,
-				3516CA06077C41B0001AA863 /* Mission04.c in Sources */,
-				3516CA07077C41B0001AA863 /* Mission04.func.c in Sources */,
 				3516CA23077C41B0001AA863 /* font.c in Sources */,
 				3516CA24077C41B0001AA863 /* glcaps.c in Sources */,
 				3516CA25077C41B0001AA863 /* glcompat.c in Sources */,
@@ -3384,10 +3441,6 @@
 				3516CA65077C41B0001AA863 /* SDLMain.m in Sources */,
 				3516CA66077C41B0001AA863 /* avi.c in Sources */,
 				3516CA67077C41B0001AA863 /* rinit.c in Sources */,
-				3516CA68077C41B0001AA863 /* Mission05_OEM.c in Sources */,
-				3516CA69077C41B0001AA863 /* Mission05_OEM.func.c in Sources */,
-				3510D4B90785065F00F840B1 /* Tutorial1.c in Sources */,
-				3510D4BA0785066000F840B1 /* Tutorial1.func.c in Sources */,
 				3578AD0A0AF40518007BFA9F /* StringSupport.c in Sources */,
 				3507A51B0B0FA60200E374C5 /* Trails.c in Sources */,
 				3507A57A0B0FBB0B00E374C5 /* Subtitle.c in Sources */,
@@ -3443,6 +3496,18 @@
 				35FE5B2C0B17CB2300D6E944 /* BitIO.c in Sources */,
 				35FE5B2E0B17CB2300D6E944 /* LZSS.c in Sources */,
 				358038120B18679B00D47728 /* CRC32.c in Sources */,
+				3580392B0B18B1DB00D47728 /* Mission01.c in Sources */,
+				3580392C0B18B1DB00D47728 /* Mission01.func.c in Sources */,
+				3580392E0B18B1DB00D47728 /* Mission02.c in Sources */,
+				3580392F0B18B1DB00D47728 /* Mission02.func.c in Sources */,
+				358039310B18B1DB00D47728 /* Mission03.c in Sources */,
+				358039320B18B1DB00D47728 /* Mission03.func.c in Sources */,
+				358039340B18B1DB00D47728 /* Mission04.c in Sources */,
+				358039350B18B1DB00D47728 /* Mission04.func.c in Sources */,
+				358039380B18B1DB00D47728 /* Mission05_OEM.func.c in Sources */,
+				358039730B18B5F700D47728 /* Mission05_OEM.c in Sources */,
+				358039750B18B62600D47728 /* Tutorial1.func.c in Sources */,
+				358039760B18B62600D47728 /* Tutorial1.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3583,40 +3648,6 @@
 				90623E4B064992AF0088361C /* UnivUpdate.c in Sources */,
 				90623E4D064992AF0088361C /* Vector.c in Sources */,
 				90623E50064992AF0088361C /* Volume.c in Sources */,
-				90BD91B8064AC6F6003E3D39 /* Mission01.c in Sources */,
-				90BD91B9064AC6F6003E3D39 /* Mission01.func.c in Sources */,
-				90BD91BB064AC6F6003E3D39 /* Mission02.c in Sources */,
-				90BD91BC064AC6F6003E3D39 /* Mission02.func.c in Sources */,
-				90BD91BE064AC6F6003E3D39 /* Mission03.c in Sources */,
-				90BD91BF064AC6F6003E3D39 /* Mission03.func.c in Sources */,
-				90BD91C1064AC6F6003E3D39 /* Mission04.c in Sources */,
-				90BD91C2064AC6F6003E3D39 /* Mission04.func.c in Sources */,
-				90BD91C4064AC6F6003E3D39 /* Mission05.c in Sources */,
-				90BD91C5064AC6F6003E3D39 /* Mission05.func.c in Sources */,
-				90BD91C7064AC6F6003E3D39 /* Mission06.c in Sources */,
-				90BD91C8064AC6F6003E3D39 /* Mission06.func.c in Sources */,
-				90BD91CA064AC6F6003E3D39 /* Mission07.c in Sources */,
-				90BD91CB064AC6F6003E3D39 /* Mission07.func.c in Sources */,
-				90BD91CD064AC6F6003E3D39 /* Mission08.c in Sources */,
-				90BD91CE064AC6F6003E3D39 /* Mission08.func.c in Sources */,
-				90BD91D0064AC6F6003E3D39 /* Mission09.c in Sources */,
-				90BD91D1064AC6F6003E3D39 /* Mission09.func.c in Sources */,
-				90BD91D3064AC6F6003E3D39 /* Mission10.c in Sources */,
-				90BD91D4064AC6F6003E3D39 /* Mission10.func.c in Sources */,
-				90BD91D6064AC6F6003E3D39 /* Mission11.c in Sources */,
-				90BD91D7064AC6F6003E3D39 /* Mission11.func.c in Sources */,
-				90BD91D9064AC6F7003E3D39 /* Mission12.c in Sources */,
-				90BD91DA064AC6F7003E3D39 /* Mission12.func.c in Sources */,
-				90BD91DC064AC6F7003E3D39 /* Mission13.c in Sources */,
-				90BD91DD064AC6F7003E3D39 /* Mission13.func.c in Sources */,
-				90BD91DF064AC6F7003E3D39 /* Mission14.c in Sources */,
-				90BD91E0064AC6F7003E3D39 /* Mission14.func.c in Sources */,
-				90BD91E2064AC6F7003E3D39 /* Mission15.c in Sources */,
-				90BD91E3064AC6F7003E3D39 /* Mission15.func.c in Sources */,
-				90BD91E5064AC6F7003E3D39 /* Mission16.c in Sources */,
-				90BD91E6064AC6F7003E3D39 /* Mission16.func.c in Sources */,
-				90BD91E8064AC6F7003E3D39 /* Tutorial1.c in Sources */,
-				90BD91E9064AC6F7003E3D39 /* Tutorial1.func.c in Sources */,
 				90BD926A064AEE7B003E3D39 /* font.c in Sources */,
 				90BD926F064AEE7B003E3D39 /* glcaps.c in Sources */,
 				90BD9271064AEE7B003E3D39 /* glcompat.c in Sources */,
@@ -3736,6 +3767,40 @@
 				35FE5B270B17CB2300D6E944 /* BitIO.c in Sources */,
 				35FE5B290B17CB2300D6E944 /* LZSS.c in Sources */,
 				3580380F0B18679B00D47728 /* CRC32.c in Sources */,
+				358038F50B18B1DA00D47728 /* Mission01.c in Sources */,
+				358038F60B18B1DA00D47728 /* Mission01.func.c in Sources */,
+				358038F80B18B1DA00D47728 /* Mission02.c in Sources */,
+				358038F90B18B1DA00D47728 /* Mission02.func.c in Sources */,
+				358038FB0B18B1DA00D47728 /* Mission03.c in Sources */,
+				358038FC0B18B1DA00D47728 /* Mission03.func.c in Sources */,
+				358038FE0B18B1DA00D47728 /* Mission04.c in Sources */,
+				358038FF0B18B1DA00D47728 /* Mission04.func.c in Sources */,
+				358039040B18B1DA00D47728 /* Mission05.c in Sources */,
+				358039050B18B1DA00D47728 /* Mission05.func.c in Sources */,
+				358039070B18B1DA00D47728 /* Mission06.c in Sources */,
+				358039080B18B1DA00D47728 /* Mission06.func.c in Sources */,
+				3580390A0B18B1DA00D47728 /* Mission07.c in Sources */,
+				3580390B0B18B1DA00D47728 /* Mission07.func.c in Sources */,
+				3580390D0B18B1DA00D47728 /* Mission08.c in Sources */,
+				3580390E0B18B1DA00D47728 /* Mission08.func.c in Sources */,
+				358039100B18B1DA00D47728 /* Mission09.c in Sources */,
+				358039110B18B1DA00D47728 /* Mission09.func.c in Sources */,
+				358039130B18B1DA00D47728 /* Mission10.c in Sources */,
+				358039140B18B1DA00D47728 /* Mission10.func.c in Sources */,
+				358039160B18B1DA00D47728 /* Mission11.c in Sources */,
+				358039170B18B1DA00D47728 /* Mission11.func.c in Sources */,
+				358039190B18B1DB00D47728 /* Mission12.c in Sources */,
+				3580391A0B18B1DB00D47728 /* Mission12.func.c in Sources */,
+				3580391C0B18B1DB00D47728 /* Mission13.c in Sources */,
+				3580391D0B18B1DB00D47728 /* Mission13.func.c in Sources */,
+				3580391F0B18B1DB00D47728 /* Mission14.c in Sources */,
+				358039200B18B1DB00D47728 /* Mission14.func.c in Sources */,
+				358039220B18B1DB00D47728 /* Mission15.c in Sources */,
+				358039230B18B1DB00D47728 /* Mission15.func.c in Sources */,
+				358039250B18B1DB00D47728 /* Mission16.c in Sources */,
+				358039260B18B1DB00D47728 /* Mission16.func.c in Sources */,
+				358039280B18B1DB00D47728 /* Tutorial1.c in Sources */,
+				358039290B18B1DB00D47728 /* Tutorial1.func.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
