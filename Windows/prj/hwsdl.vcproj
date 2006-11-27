@@ -20,7 +20,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				OptimizeForProcessor="1"
-				AdditionalIncludeDirectories="..\..\src\SDL;..\..\src\rgl;..\..\src\Game;..\..\src\Ships;..\..\src\JPG;..\..\src\Generated;..\..\include\glide2;..\..\include\Titan"
+				AdditionalIncludeDirectories="..\..\src\SDL;..\..\src\rgl;..\..\src\Game;..\..\src\Ships;..\..\src\ThirdParty\JPG;..\..\src\ThirdParty\CRC;..\..\src\ThirdParty\LZSS;..\..\src\Generated;..\..\src\ThirdParty\Titan"
 				PreprocessorDefinitions="HW_DEBUG;HW_Debug;_WIN32;WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="TRUE"
 				RuntimeLibrary="3"
@@ -93,7 +93,7 @@
 				Optimization="2"
 				InlineFunctionExpansion="2"
 				OptimizeForProcessor="2"
-				AdditionalIncludeDirectories="..\..\src\SDL;..\..\src\rgl;..\..\src\Game;..\..\src\Ships;..\..\src\JPG;..\..\src\Generated;..\..\include\glide2;..\..\include\Titan"
+				AdditionalIncludeDirectories="..\..\src\SDL;..\..\src\rgl;..\..\src\Game;..\..\src\Ships;..\..\src\ThirdParty\JPG;..\..\src\ThirdParty\CRC;..\..\src\ThirdParty\LZSS;..\..\src\Generated;..\..\src\ThirdParty\Titan"
 				PreprocessorDefinitions="HW_Release;_WIN32;WIN32;NDEBUG;_WINDOWS"
 				StringPooling="TRUE"
 				MinimalRebuild="FALSE"
@@ -162,7 +162,7 @@
 				Optimization="0"
 				InlineFunctionExpansion="0"
 				OptimizeForProcessor="1"
-				AdditionalIncludeDirectories="..\..\src\SDL;..\..\src\rgl;..\..\src\Game;..\..\src\Ships;..\..\src\JPG;..\..\src\Generated;..\..\include\glide2;..\..\include\Titan"
+				AdditionalIncludeDirectories="..\..\src\SDL;..\..\src\rgl;..\..\src\Game;..\..\src\Ships;..\..\src\ThirdParty\JPG;..\..\src\ThirdParty\CRC;..\..\src\ThirdParty\LZSS;..\..\src\Generated;..\..\src\ThirdParty\Titan"
 				PreprocessorDefinitions="HW_Release;_WIN32;WIN32;NDEBUG;_WINDOWS"
 				StringPooling="TRUE"
 				MinimalRebuild="TRUE"
@@ -300,7 +300,7 @@
 				RelativePath="..\..\src\Game\BigFile.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Game\BitIO.c">
+				RelativePath="..\..\src\ThirdParty\LZSS\BitIO.c">
 			</File>
 			<File
 				RelativePath="..\..\src\Game\Blobs.c">
@@ -351,7 +351,7 @@
 				RelativePath="..\..\src\Game\Collision.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Sdl\color.c">
+				RelativePath="..\..\src\Game\Color.c">
 			</File>
 			<File
 				RelativePath="..\..\src\Game\ColPick.c">
@@ -372,7 +372,7 @@
 				RelativePath="..\..\src\Game\Crates.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Game\CRC32.c">
+				RelativePath="..\..\src\ThirdParty\CRC\CRC32.c">
 			</File>
 			<File
 				RelativePath="..\..\src\Game\Damage.c">
@@ -489,148 +489,148 @@
 				RelativePath="..\..\src\Game\InfoOverlay.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\interfce.c">
+				RelativePath="..\..\src\ThirdParty\JPG\interfce.c">
 			</File>
 			<File
 				RelativePath="..\..\src\Ships\IonCannonFrigate.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jcapimin.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jcapimin.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jcapistd.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jcapistd.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jccoefct.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jccoefct.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jccolor.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jccolor.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jcdctmgr.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jcdctmgr.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jchuff.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jchuff.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jcinit.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jcinit.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jcmainct.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jcmainct.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jcmarker.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jcmarker.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jcmaster.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jcmaster.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jcomapi.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jcomapi.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jcparam.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jcparam.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jcphuff.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jcphuff.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jcprepct.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jcprepct.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jcsample.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jcsample.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jctrans.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jctrans.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jdapimin.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jdapimin.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jdapistd.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jdapistd.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jdatadst.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jdatadst.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jdatasrc.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jdatasrc.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jdcoefct.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jdcoefct.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jdcolor.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jdcolor.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jddctmgr.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jddctmgr.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jdhuff.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jdhuff.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jdinput.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jdinput.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jdmainct.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jdmainct.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jdmarker.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jdmarker.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jdmaster.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jdmaster.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jdmerge.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jdmerge.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jdphuff.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jdphuff.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jdpostct.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jdpostct.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jdsample.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jdsample.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jdtrans.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jdtrans.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jerror.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jerror.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jfdctflt.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jfdctflt.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jfdctfst.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jfdctfst.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jfdctint.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jfdctint.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jidctflt.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jidctflt.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jidctfst.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jidctfst.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jidctint.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jidctint.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jidctred.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jidctred.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jmemmgr.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jmemmgr.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jmemnobs.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jmemnobs.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jquant1.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jquant1.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jquant2.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jquant2.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jutils.c">
+				RelativePath="..\..\src\ThirdParty\JPG\jutils.c">
 			</File>
 			<File
 				RelativePath="..\..\src\Game\KAS.c">
@@ -675,7 +675,7 @@
 				RelativePath="..\..\src\Game\LevelLoad.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Sdl\light.c">
+				RelativePath="..\..\src\Game\Light.c">
 			</File>
 			<File
 				RelativePath="..\..\src\Ships\LightCorvette.c">
@@ -684,16 +684,10 @@
 				RelativePath="..\..\src\Game\LinkedList.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Sdl\LinkEnd.c">
-			</File>
-			<File
-				RelativePath="..\..\src\Sdl\LinkStart.c">
-			</File>
-			<File
 				RelativePath="..\..\src\Game\LOD.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Game\LZSS.c">
+				RelativePath="..\..\src\ThirdParty\LZSS\LZSS.c">
 			</File>
 			<File
 				RelativePath="..\..\src\Game\MadLinkIn.c">
@@ -1038,9 +1032,6 @@
 				RelativePath="..\..\src\Game\SpeechEvent.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Sdl\sstglide.c">
-			</File>
-			<File
 				RelativePath="..\..\src\Sdl\sstream.c">
 			</File>
 			<File
@@ -1062,7 +1053,7 @@
 				RelativePath="..\..\src\Game\StringSupport.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Sdl\Subtitle.c">
+				RelativePath="..\..\src\Game\Subtitle.c">
 			</File>
 			<File
 				RelativePath="..\..\src\Game\Tactical.c">
@@ -1107,7 +1098,7 @@
 				RelativePath="..\..\src\Game\TradeMgr.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Sdl\trails.c">
+				RelativePath="..\..\src\Game\Trails.c">
 			</File>
 			<File
 				RelativePath="..\..\src\Game\Transformer.c">
@@ -1307,7 +1298,7 @@
 				RelativePath="..\..\src\Game\BigFile.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Game\BitIO.h">
+				RelativePath="..\..\src\ThirdParty\LZSS\BitIO.h">
 			</File>
 			<File
 				RelativePath="..\..\src\Game\Blobs.h">
@@ -1361,7 +1352,7 @@
 				RelativePath="..\..\src\Game\Collision.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Sdl\color.h">
+				RelativePath="..\..\src\Game\Color.h">
 			</File>
 			<File
 				RelativePath="..\..\src\Game\ColPick.h">
@@ -1388,7 +1379,7 @@
 				RelativePath="..\..\src\Game\Crates.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Game\CRC32.h">
+				RelativePath="..\..\src\ThirdParty\CRC\CRC32.h">
 			</File>
 			<File
 				RelativePath="..\..\src\Game\Damage.h">
@@ -1538,46 +1529,46 @@
 				RelativePath="..\..\src\Game\InfoOverlay.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\interfce.h">
+				RelativePath="..\..\src\ThirdParty\JPG\interfce.h">
 			</File>
 			<File
 				RelativePath="..\..\src\Ships\IonCannonFrigate.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jchuff.h">
+				RelativePath="..\..\src\ThirdParty\JPG\jchuff.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jconfig.h">
+				RelativePath="..\..\src\ThirdParty\JPG\jconfig.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jdct.h">
+				RelativePath="..\..\src\ThirdParty\JPG\jdct.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jdhuff.h">
+				RelativePath="..\..\src\ThirdParty\JPG\jdhuff.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jerror.h">
+				RelativePath="..\..\src\ThirdParty\JPG\jerror.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jinclude.h">
+				RelativePath="..\..\src\ThirdParty\JPG\jinclude.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jmemsys.h">
+				RelativePath="..\..\src\ThirdParty\JPG\jmemsys.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jmorecfg.h">
+				RelativePath="..\..\src\ThirdParty\JPG\jmorecfg.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jpegint.h">
+				RelativePath="..\..\src\ThirdParty\JPG\jpegint.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jpeglib.h">
+				RelativePath="..\..\src\ThirdParty\JPG\jpeglib.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jpegrc.h">
+				RelativePath="..\..\src\ThirdParty\JPG\jpegrc.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jversion.h">
+				RelativePath="..\..\src\ThirdParty\JPG\jversion.h">
 			</File>
 			<File
 				RelativePath="..\..\src\Game\KAS.h">
@@ -1601,7 +1592,7 @@
 				RelativePath="..\..\src\Game\LevelLoad.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Sdl\light.h">
+				RelativePath="..\..\src\Game\Light.h">
 			</File>
 			<File
 				RelativePath="..\..\src\Ships\LightCorvette.h">
@@ -1616,7 +1607,7 @@
 				RelativePath="..\..\src\Game\LOD.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Game\LZSS.h">
+				RelativePath="..\..\src\ThirdParty\LZSS\LZSS.h">
 			</File>
 			<File
 				RelativePath="..\..\src\Game\MadLinkIn.h">
@@ -1877,10 +1868,10 @@
 				RelativePath="..\..\src\Game\Shader.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Game\ShipDefs.h">
+				RelativePath="..\..\src\Ships\ShipDefs.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Game\Ships.h">
+				RelativePath="..\..\src\Ships\Ships.h">
 			</File>
 			<File
 				RelativePath="..\..\src\Game\ShipSelect.h">
@@ -1919,9 +1910,6 @@
 				RelativePath="..\..\src\Game\SpeechEvent.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Sdl\sstglide.h">
-			</File>
-			<File
 				RelativePath="..\..\src\Ships\StandardDestroyer.h">
 			</File>
 			<File
@@ -1943,7 +1931,7 @@
 				RelativePath="..\..\src\Game\StringSupport.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Sdl\Subtitle.h">
+				RelativePath="..\..\src\Game\Subtitle.h">
 			</File>
 			<File
 				RelativePath="..\..\src\Game\Switches.h">
@@ -1994,7 +1982,7 @@
 				RelativePath="..\..\src\Game\TradeMgr.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Sdl\trails.h">
+				RelativePath="..\..\src\Game\Trails.h">
 			</File>
 			<File
 				RelativePath="..\..\src\Game\Transformer.h">

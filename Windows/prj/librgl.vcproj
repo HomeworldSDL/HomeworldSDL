@@ -20,7 +20,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				OptimizeForProcessor="1"
-				AdditionalIncludeDirectories="..\..\src\SDL;..\..\src\rgl;..\..\src\Game;..\..\src\Ships;..\..\src\JPG;..\..\src\Generated;..\..\include\glide2;..\..\include\Titan;..\..\include"
+				AdditionalIncludeDirectories="..\..\src\SDL;..\..\src\rgl;..\..\src\Game;..\..\src\Ships;..\..\src\ThirdParty\JPG;..\..\src\ThirdParty\CRC;..\..\src\Generated"
 				PreprocessorDefinitions="HW_DEBUG;HW_Debug;_WIN32;WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="TRUE"
 				RuntimeLibrary="3"
@@ -93,7 +93,7 @@
 				Optimization="2"
 				InlineFunctionExpansion="2"
 				OptimizeForProcessor="2"
-				AdditionalIncludeDirectories="..\..\src\SDL;..\..\src\rgl;..\..\src\Game;..\..\src\Ships;..\..\src\JPG;..\..\src\Generated;..\..\include\glide2;..\..\include\Titan;..\..\include"
+				AdditionalIncludeDirectories="..\..\src\SDL;..\..\src\rgl;..\..\src\Game;..\..\src\Ships;..\..\src\ThirdParty\JPG;..\..\src\ThirdParty\CRC;..\..\src\Generated"
 				PreprocessorDefinitions="HW_Release;_WIN32;WIN32;NDEBUG;_WINDOWS"
 				StringPooling="TRUE"
 				MinimalRebuild="FALSE"
@@ -162,7 +162,7 @@
 				Optimization="0"
 				InlineFunctionExpansion="0"
 				OptimizeForProcessor="1"
-				AdditionalIncludeDirectories="..\..\src\SDL;..\..\src\rgl;..\..\src\Game;..\..\src\Ships;..\..\src\JPG;..\..\src\Generated;..\..\include\glide2;..\..\include\Titan;..\..\include"
+				AdditionalIncludeDirectories="..\..\src\SDL;..\..\src\rgl;..\..\src\Game;..\..\src\Ships;..\..\src\ThirdParty\JPG;..\..\src\ThirdParty\CRC;..\..\src\Generated"
 				PreprocessorDefinitions="HW_Release;_WIN32;WIN32;NDEBUG;_WINDOWS"
 				StringPooling="TRUE"
 				MinimalRebuild="TRUE"
@@ -252,7 +252,7 @@
 				RelativePath="..\..\src\rgl\clip.c">
 			</File>
 			<File
-				RelativePath="..\..\src\rgl\hash.c">
+				RelativePath="..\..\src\Game\Hash.c">
 			</File>
 			<File
 				RelativePath="..\..\src\rgl\invert.c">
@@ -289,7 +289,7 @@
 				RelativePath="..\..\src\rgl\gldefines.h">
 			</File>
 			<File
-				RelativePath="..\..\src\rgl\hash.h">
+				RelativePath="..\..\src\Game\Hash.h">
 			</File>
 			<File
 				RelativePath="..\..\src\rgl\kgl.h">

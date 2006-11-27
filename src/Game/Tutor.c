@@ -47,7 +47,12 @@
 #include "File.h"
 #include "mainrgn.h"
 #include "TaskBar.h"
+// missions/generated/ is empty thus this errors in MSVC
+#ifndef _MSC_VER
 #include "../Missions/Generated/Tutorial1.h"
+#else
+#include "../Generated/Tutorial1.h"
+#endif
 
 #ifdef _MSC_VER
 #define strcasecmp _stricmp

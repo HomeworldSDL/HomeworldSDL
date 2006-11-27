@@ -8,7 +8,11 @@
 #ifndef ___CRC32_H
 #define ___CRC32_H
 
+#if !defined _MSC_VER
 #include <stdint.h>
+#else
+#include "Types.h"
+#endif
 
 typedef uint32_t crc32;
 typedef uint16_t crc16;

@@ -12,11 +12,17 @@
 #include <string.h>
 #include <limits.h>
 #include <time.h>
+#if !defined _MSC_VER
 #include <unistd.h>
+#endif
 
 #include "main.h"
 #include "Debug.h"
 #include "interfce.h"
+
+#ifdef _MSC_VER
+	#define sleep(x) _sleep((x) * 1000)
+#endif
 
 static void _appendScreenshotFilename(char* savePath)
 {

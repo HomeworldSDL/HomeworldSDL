@@ -9,7 +9,7 @@
 
 #include <ctype.h>
 #include <math.h>
-/*#include "bink.h"*/
+//#include "bink.h"
 #include "LinkedList.h"
 #include "ObjTypes.h"
 #include "StatScript.h"
@@ -50,6 +50,8 @@
 #include "Ping.h"
 #include "Tutor.h"
 #include "Randy.h"
+// missions/generated/ is empty thus this errors in MSVC
+#ifndef _MSC_VER
 #include "../Missions/Generated/Mission01.h"
 #include "../Missions/Generated/Mission02.h"
 #include "../Missions/Generated/Mission03.h"
@@ -71,6 +73,29 @@
 #include "../Missions/Generated/Mission16.h"
 #endif
 #include "../Missions/Generated/Tutorial1.h"
+#else//we're MSVC
+#include "../Generated/Mission01.h"
+#include "../Generated/Mission02.h"
+#include "../Generated/Mission03.h"
+#include "../Generated/Mission04.h"
+#ifdef HW_RAIDER_RETREAT
+#include "../Generated/Mission05_OEM.h"
+#else
+#include "../Generated/Mission05.h"
+#include "../Generated/Mission06.h"
+#include "../Generated/Mission07.h"
+#include "../Generated/Mission08.h"
+#include "../Generated/Mission09.h"
+#include "../Generated/Mission10.h"
+#include "../Generated/Mission11.h"
+#include "../Generated/Mission12.h"
+#include "../Generated/Mission13.h"
+#include "../Generated/Mission14.h"
+#include "../Generated/Mission15.h"
+#include "../Generated/Mission16.h"
+#endif
+#include "../Generated/Tutorial1.h"
+#endif//_MSC_VER
 #include "StringSupport.h"
 #include "Animatic.h"
 #include "GravWellGenerator.h"
