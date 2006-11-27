@@ -1345,7 +1345,7 @@ udword partRenderMeshSystem(udword n, particle *p, udword flags, trhandle tex, m
         glPushMatrix();
 
         mesh = p->mesh;
-        if ((mesh != NULL) && (mesh != 0x7fffffff))
+        if ((mesh != NULL) && (mesh != 0xffffffff))
         {
             partMeshOrient(p, bRescaleNormal, meshPart);
 
@@ -2042,7 +2042,7 @@ sdword partAdvanceMeshMorph(meshSystem* psys, particle* p)
     //find the trivial next
     frame = (sdword)p->meshFrame + 1;
     next = animblock + frame;
-    if (next->mesh == NULL || next->mesh == 0x7fffffff)
+    if (next->mesh == NULL || next->mesh == 0xffffffff)
     {
         if (p->loopCount == 0)
         {
