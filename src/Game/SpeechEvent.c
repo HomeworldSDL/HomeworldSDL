@@ -287,7 +287,8 @@ scriptStructEntry streamEQScriptTable[] =
     { "eq5", scriptSetReal32CB, (udword)&streamEQ[0].eq[5], (udword)&streamEQ[0] },
     { "eq6", scriptSetReal32CB, (udword)&streamEQ[0].eq[6], (udword)&streamEQ[0] },
     { "eq7", scriptSetReal32CB, (udword)&streamEQ[0].eq[7], (udword)&streamEQ[0] },
-    endEntry
+    
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 scriptStructEntry streamDelaySciptTable[] =
@@ -303,7 +304,8 @@ scriptStructEntry streamDelaySciptTable[] =
     { "eq5", scriptSetReal32CB, (udword)&streamdelay[0].eq[5], (udword)&streamdelay[0] },
     { "eq6", scriptSetReal32CB, (udword)&streamdelay[0].eq[6], (udword)&streamdelay[0] },
     { "eq7", scriptSetReal32CB, (udword)&streamdelay[0].eq[7], (udword)&streamdelay[0] },
-    endEntry
+    
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 scriptStructEntry streamEffectScriptTable[] =
@@ -325,7 +327,8 @@ scriptStructEntry streamEffectScriptTable[] =
     { "ToneLevel", scriptSetReal32CB, (udword)&cleaneffect[0].fToneLev, (udword)&cleaneffect[0] },
     { "LimitLevel", scriptSetReal32CB, (udword)&cleaneffect[0].fLimitLev, (udword)&cleaneffect[0] },
     { "PitchShift", scriptSetReal32CB, (udword)&cleaneffect[0].fPitchShift, (udword)&cleaneffect[0] },
-    endEntry
+    
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 

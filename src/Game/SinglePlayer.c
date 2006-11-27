@@ -218,8 +218,10 @@ scriptEntry SinglePlayerTweaks[] =
     makeEntry(SINGLEPLAYER_MISSION14_SPHERE_OVERRIDE,scriptSetReal32CB),
     makeEntry(SUBMESSAGE_SAFETY_TIMEOUT,scriptSetReal32CB),
     makeEntry(SINGLEPLAYER_BOBBIGGESTRADIUS_LEVEL6,scriptSetReal32CB),
+
     { "BaseFleetStrengthForLevel",SetBaseFleetStrCB,NULL },
-    endEntry
+    
+    END_SCRIPT_ENTRY
 };
 
 static void SetWarpFleetCB(char *directory,char *field,void *dataToFillIn);
@@ -231,20 +233,23 @@ scriptEntry WarpScriptTable[] =
 {
     { "WarpStartRU", scriptSetSdwordCB, &universe.players[0].resourceUnits},
     { "WarpFleet", SetWarpFleetCB, NULL },
-    endEntry
+    
+    END_SCRIPT_ENTRY
 };
 
 scriptEntry WarpCalcFleetStrengthTable[] =
 {
     { "WarpStartRU", WarpFleetRUStrengthCB, NULL},
     { "WarpFleet", WarpFleetStrengthCB, NULL },
-    endEntry
+    
+    END_SCRIPT_ENTRY
 };
 
 scriptEntry WarpPreLoadTable[] =
 {
     { "WarpFleet", WarpPreLoadCB, NULL },
-    endEntry
+    
+    END_SCRIPT_ENTRY
 };
 
 static sdword WarpToLevelEnabled();
@@ -263,7 +268,8 @@ scriptEntry SinglePlayerScriptTable[] =
     { "MissionStartEnemyRUs", scriptSetSdwordCB, &universe.players[1].resourceUnits },
     { "MissionStartEnemyRace", scriptSetShipRaceCB, &universe.players[1].race },
     { "Asteroid0sCanMove", scriptSetBool, &singlePlayerGameInfo.asteroid0sCanMove },
-    endEntry
+    
+    END_SCRIPT_ENTRY
 };
 
 fibfileheader *spHyperspaceRollCallHandle = NULL;

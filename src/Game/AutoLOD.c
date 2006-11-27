@@ -61,7 +61,8 @@ scriptEntry AutoLODTweaks[] =
     makeEntry(alodSlowMaxScale, scriptSetReal32CB),
     makeEntry(alodSlowTargetPolys, scriptSetUdwordCB),
     makeEntry(alodSlowTargetDelta, scriptSetUdwordCB),
-    endEntry
+    
+    END_SCRIPT_ENTRY
 };
 
 

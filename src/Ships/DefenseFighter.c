@@ -71,7 +71,7 @@ scriptStructEntry DefenseFighterStaticScriptTable[] =
     { "flightmanEvasiveFront",  scriptSetFlightManEvasiveFrontCB,   (udword) &(DefenseFighterStatic.flightmanProb),     (udword) &(DefenseFighterStatic) },
     { "flightmanEvasivePure",   scriptSetFlightManEvasivePureCB,    (udword) &(DefenseFighterStatic.flightmanProb),     (udword) &(DefenseFighterStatic) },
 
-    { NULL,NULL,0,0 }
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 void DefenseFighterStaticInit(char *directory,char *filename,struct ShipStaticInfo *statinfo)

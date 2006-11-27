@@ -238,7 +238,7 @@ scriptEntry DockTweaks[] =
     makeEntry(SHIP_NEED_REFUEL_PERCENT,scriptSetReal32CB),
     makeEntry(SHIP_NEED_REPAIR_PERCENT,scriptSetReal32CB),
 
-    endEntry
+    END_SCRIPT_ENTRY
 };
 
 /*=============================================================================

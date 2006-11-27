@@ -120,7 +120,8 @@ scriptEntry ResCollectTweaks[] =
     makeEntry(regenerateRUs,scriptSetSdwordCB),
     makeEntry(CHECK_HARV_OUTOFWORLD_RESOURCE_RATE,scriptSetUdwordCB),
     makeEntry(CHECK_SHIP_OUTOFWORLD_RATE,scriptSetUdwordCB),
-    endEntry
+    
+    END_SCRIPT_ENTRY
 };
 
 sdword RESOURCE_NOT_ACCESSIBLE_SECONDS = 60;

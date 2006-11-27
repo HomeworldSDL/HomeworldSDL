@@ -110,7 +110,8 @@ scriptEntry pingTweaks[] =
 //    { "pingBobDoingCollisionBobs", scriptSetBool, &pingBattleBlobProperties.bobDoingCollisionBobs },
 
     { "pingTOLingerTime",       scriptSetReal32CB, &pingTOLingerTime },
-    endEntry
+    
+    END_SCRIPT_ENTRY
 };
 
 //TO stuff

@@ -73,7 +73,8 @@ scriptEntry psScreenTweaks[] =
     { "GameLink",        psPlugLinkSet, (void *)PLT_GameOn },
     { "TimeOut",         psTimeoutSet,  NULL },
     { "Mouse",           scriptSetBool, &psMouseFlag },
-    endEntry
+    
+    END_SCRIPT_ENTRY
 };
 
 /*=============================================================================

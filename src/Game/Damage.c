@@ -45,7 +45,8 @@ scriptEntry DamageTweaks[] =
     makeEntry(DMG_LightLimit, scriptSetReal32CB),
     makeEntry(DMG_HeavyLimit, scriptSetReal32CB),
     makeEntry(DMG_DyingLimit, scriptSetReal32CB),
-    endEntry
+    
+    END_SCRIPT_ENTRY
 };
 
 

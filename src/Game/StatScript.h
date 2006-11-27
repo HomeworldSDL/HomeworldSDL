@@ -42,8 +42,9 @@ extern char globalScriptFileName[50];  //file name of file loaded in a script ca
 =============================================================================*/
 
 // for filling in scriptEntry
-#define makeEntry(var,callback) { str$(var), callback, &(var) }
-#define endEntry                { NULL,      NULL,     NULL   }
+#define makeEntry(var,callback)  { str$(var), callback, &(var) }
+#define END_SCRIPT_STRUCT_ENTRY  { NULL, NULL, 0, 0 }
+#define END_SCRIPT_ENTRY         { NULL, NULL, NULL }
 
 /*=============================================================================
     Functions:

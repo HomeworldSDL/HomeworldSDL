@@ -62,9 +62,7 @@ scriptStructEntry GravWellGeneratorStaticScriptTable[] =
     { "yrot",    scriptSetReal32CB, (udword) &(GravWellGeneratorStatic.yrot), (udword) &(GravWellGeneratorStatic) },
     { "zrot",    scriptSetReal32CB, (udword) &(GravWellGeneratorStatic.zrot), (udword) &(GravWellGeneratorStatic) },
 
-
-
-    { NULL,NULL,0,0 }
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 void GravWellGeneratorStaticInit(char *directory,char *filename,struct ShipStaticInfo *statinfo)

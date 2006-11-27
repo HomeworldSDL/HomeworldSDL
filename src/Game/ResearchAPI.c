@@ -253,8 +253,7 @@ scriptEntry TechnologyDependancies[] =
     makeMPCR2TechEntry(RepairTech),
     makeMPCR2TechEntry(SalvageTech),
 
-
-    endEntry
+    END_SCRIPT_ENTRY
 };
 
 static NumStrXlate techtypeinfo[] =

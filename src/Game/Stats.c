@@ -187,9 +187,11 @@ static void StatsForCB(char *directory,char *field,void *dataToFillIn);
 scriptEntry GatherStatsScriptTable[] =
 {
     makeEntry(ForceTotalRefresh,scriptSetBool),
+
     {"StatsForRace", StatsForRaceCB, NULL},
     {"StatsFor",     StatsForCB, NULL},
-    endEntry
+    
+    END_SCRIPT_ENTRY
 };
 
 static void StatsForRaceCB(char *directory,char *field,void *dataToFillIn)
@@ -901,14 +903,17 @@ void universeFlagNothingNeeded(void);
 scriptEntry FancyFightScriptTable[] =
 {
     makeEntry(ShowFancyFights,scriptSetBool),
+
     { "DoStatsFor", SetFlightEntrysCB, NULL },
-    endEntry
+
+    END_SCRIPT_ENTRY
 };
 
 scriptEntry FancyFightPreLoadScriptTable[] =
 {
     { "DoStatsFor", SetFlightEntrysPreLoadCB, NULL },
-    endEntry
+
+    END_SCRIPT_ENTRY
 };
 
 void SetFlightEntrysCB(char *directory,char *field,void *dataToFillIn)

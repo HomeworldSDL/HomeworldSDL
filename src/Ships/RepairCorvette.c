@@ -112,8 +112,7 @@ scriptStructEntry RepairCorvetteStaticScriptTable[] =
     { "capitalShipHealthPerSecond",    scriptSetReal32CB, (udword) &(RepairCorvetteStatic.capitalShipHealthPerSecond), (udword) &(RepairCorvetteStatic) },
     { "AngleDotProdThreshold",    scriptSetReal32CB, (udword) &(RepairCorvetteStatic.AngleDotProdThreshold), (udword) &(RepairCorvetteStatic) },
 
-
-    { NULL,NULL,0,0 }
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 void RepairCorvetteStaticInit(char *directory,char *filename,struct ShipStaticInfo *statinfo)

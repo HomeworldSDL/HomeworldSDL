@@ -92,7 +92,8 @@ scriptEntry CameraTweaks[] =
     makeEntry(CAMERA_FLOAT_OFFSET_SCALAR2,scriptSetReal32CB),
     makeEntry(CAMERA_MOUSE_SENS_MIN,scriptSetReal32CB),
     makeEntry(CAMERA_MOUSE_SENS_MAX,scriptSetReal32CB),
-    endEntry
+    
+    END_SCRIPT_ENTRY
 };
 
 /*=============================================================================

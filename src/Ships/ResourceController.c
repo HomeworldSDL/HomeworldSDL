@@ -37,7 +37,7 @@ scriptStructEntry RCStaticScriptTable[] =
 {
     { "repairApproachDistance",    scriptSetReal32CB, (udword) &(ResourceControllerStatic.repairApproachDistance), (udword) &(ResourceControllerStatic) },
 
-    { NULL,NULL,0,0 }
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 

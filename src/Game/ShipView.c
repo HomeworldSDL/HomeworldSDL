@@ -193,9 +193,10 @@ scriptEntry ShipViewTweaks[] =
 {
     makeEntry(svAngle, scriptSetReal32CB),
     makeEntry(svDeclination, scriptSetReal32CB),
-        makeEntry(svZoomInScalar, scriptSetReal32CB),
-        makeEntry(svZoomOutScalar,scriptSetReal32CB),
-    endEntry
+    makeEntry(svZoomInScalar, scriptSetReal32CB),
+    makeEntry(svZoomOutScalar,scriptSetReal32CB),
+    
+    END_SCRIPT_ENTRY
 };
 /*
 

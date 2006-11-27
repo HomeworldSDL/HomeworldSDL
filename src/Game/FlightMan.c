@@ -299,7 +299,7 @@ scriptEntry FlightmanTweaks[] =
     makeEntry(FLIGHTMAN_NUM_EVASIVEPURE_MANEUVERS[Neutral],scriptSetUwordCB),
     makeEntry(FLIGHTMAN_NUM_EVASIVEPURE_MANEUVERS[Aggressive],scriptSetUwordCB),
 
-    endEntry
+    END_SCRIPT_ENTRY
 };
 
 /*=============================================================================

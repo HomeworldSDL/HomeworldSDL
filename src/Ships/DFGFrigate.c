@@ -41,7 +41,7 @@ scriptStructEntry DFGStaticScriptTable[] =
     { "percentageThatGetThrough",    scriptSetUdwordCB, (udword) &(DFGFrigateStatic.percentageThatGetThrough), (udword) &(DFGFrigateStatic) },
     { "angleVariance",    scriptSetUdwordCB, (udword) &(DFGFrigateStatic.angleVariance), (udword) &(DFGFrigateStatic) },
 
-    { NULL,NULL,0,0 }
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 

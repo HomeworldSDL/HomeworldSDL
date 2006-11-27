@@ -37,7 +37,7 @@ scriptStructEntry CStaticScriptTable[] =
 {
     { "repairApproachDistance",    scriptSetReal32CB, (udword) &(CarrierStatic.repairApproachDistance), (udword) &(CarrierStatic) },
 
-    { NULL,NULL,0,0 }
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 void CarrierStaticInit(char *directory,char *filename,struct ShipStaticInfo *statinfo)

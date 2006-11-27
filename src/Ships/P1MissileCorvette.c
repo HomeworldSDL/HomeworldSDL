@@ -42,7 +42,8 @@ scriptStructEntry P1MissileCorvetteScriptTable[] =
     { "MissileRegenerateTime",scriptSetReal32CB,(udword) &(P1MissileCorvetteStatic.missileRegenerateTime),(udword) &(P1MissileCorvetteStatic) },
     { "MissileVolleyTime",scriptSetReal32CB,(udword) &(P1MissileCorvetteStatic.missileVolleyTime),(udword) &(P1MissileCorvetteStatic) },
     { "MissileLagVolleyTime",scriptSetReal32CB,(udword) &(P1MissileCorvetteStatic.missileLagVolleyTime),(udword) &(P1MissileCorvetteStatic) },
-    { NULL,NULL,0,0 }
+
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 void P1MissileCorvetteStaticInit(char *directory,char *filename,struct ShipStaticInfo *statinfo)

@@ -63,7 +63,8 @@ scriptEntry FrontEndColourTweaks[] =
     makeEntry(TB_HyperspaceColor, scriptSetRGBCB),
     makeEntry(TB_CompleteColor, scriptSetRGBCB),
     makeEntry(TB_IncompleteColor, scriptSetRGBCB),
-    endEntry
+    
+    END_SCRIPT_ENTRY
 };
 
 void uicButtonDraw(regionhandle reg);

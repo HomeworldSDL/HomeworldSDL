@@ -133,7 +133,8 @@ scriptEntry NebulaeTweaks[] =
     makeEntry(NEB_VEL_BASE, scriptSetReal32CB),
     makeEntry(NEB_TENDRIL_RADIUS_BASE, scriptSetReal32CB),
     makeEntry(NEB_TENDRIL_RADIUS_RANGE, scriptSetReal32CB),
-    endEntry
+    
+    END_SCRIPT_ENTRY
 };
 
 nebulae_t nebNebulae[NEB_MAX_NEBULAE];

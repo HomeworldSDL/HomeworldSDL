@@ -491,7 +491,8 @@ scriptEntry ShipStaticCapLimits[] =
     { "MaxJobsPerClass[Fighter]",       scriptSetSdwordCB, &cmMaxJobsPerClass[CLASS_Fighter]},
     { "MaxJobsPerClass[Resource]",      scriptSetSdwordCB, &cmMaxJobsPerClass[CLASS_Resource]},
     { "MaxJobsPerClass[NonCombat]",     scriptSetSdwordCB, &cmMaxJobsPerClass[CLASS_NonCombat]},
-    endEntry
+    
+    END_SCRIPT_ENTRY
 };
 
 scriptStructEntry ShipStaticScriptTable[] =
@@ -509,8 +510,6 @@ scriptStructEntry ShipStaticScriptTable[] =
     { "collBoxOffsetX",scriptSetReal32CB, (udword) &(ShipStaticInfoR1[0].staticheader.staticCollInfo.collBoxOffsetX), (udword) &(ShipStaticInfoR1[0]) },
     { "collBoxOffsetY",scriptSetReal32CB, (udword) &(ShipStaticInfoR1[0].staticheader.staticCollInfo.collBoxOffsetY), (udword) &(ShipStaticInfoR1[0]) },
     { "collBoxOffsetZ",scriptSetReal32CB, (udword) &(ShipStaticInfoR1[0].staticheader.staticCollInfo.collBoxOffsetZ), (udword) &(ShipStaticInfoR1[0]) },
-
-
 
     { "immobile",        scriptSetBool8,    (udword) &(ShipStaticInfoR1[0].staticheader.immobile), (udword) &(ShipStaticInfoR1[0]) },
     { "rightOfWay",      scriptSetSbyteCB,  (udword) &(ShipStaticInfoR1[0].staticheader.rightOfWay), (udword) &(ShipStaticInfoR1[0]) },
@@ -664,14 +663,15 @@ scriptStructEntry ShipStaticScriptTable[] =
     { "NUMBER_OF_SALVAGE_POINTS", scriptSetSalvageStatCB,(udword) &(ShipStaticInfoR1[0]),(udword) &(ShipStaticInfoR1[0]) },
     { "Overlay_Selection_Scalar",       scriptSetReal32CB,  (udword) &(ShipStaticInfoR1[0].tacticalSelectionScale), (udword) &(ShipStaticInfoR1[0]) },
 
-    { NULL,NULL,0,0 }
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 scriptStructEntry HierarchyBindingTable[] =
 {
     { "BindGun",                        setGunBindInfo,     0, 0 },
     { "BindAnimations",                 setAnimationBindInfo,0, 0 },
-    { NULL,NULL,0,0 }
+
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 scriptStructEntry MadMaxMadInfoLoad[] =
@@ -682,7 +682,7 @@ scriptStructEntry MadMaxMadInfoLoad[] =
     { "MadMothershipDockingAnims",      setMothershipDoorAnimInfo,0,0 },
     { "MadSpecialCaseAnims",      setSpecialCaseAnimInfo,0,0 },
 
-    { NULL,NULL,0,0 }
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 scriptStructEntry AsteroidStaticScriptTable[] =
@@ -699,7 +699,6 @@ scriptStructEntry AsteroidStaticScriptTable[] =
     { "collBoxOffsetX",scriptSetReal32CB, (udword) &(asteroidStaticInfos[0].staticheader.staticCollInfo.collBoxOffsetX), (udword) &(asteroidStaticInfos[0]) },
     { "collBoxOffsetY",scriptSetReal32CB, (udword) &(asteroidStaticInfos[0].staticheader.staticCollInfo.collBoxOffsetY), (udword) &(asteroidStaticInfos[0]) },
     { "collBoxOffsetZ",scriptSetReal32CB, (udword) &(asteroidStaticInfos[0].staticheader.staticCollInfo.collBoxOffsetZ), (udword) &(asteroidStaticInfos[0]) },
-
 
     { "immobile",        scriptSetBool8,    (udword) &(asteroidStaticInfos[0].staticheader.immobile), (udword) &(asteroidStaticInfos[0]) },
     { "rightOfWay",      scriptSetSbyteCB,  (udword) &(asteroidStaticInfos[0].staticheader.rightOfWay), (udword) &(asteroidStaticInfos[0]) },
@@ -722,7 +721,8 @@ scriptStructEntry AsteroidStaticScriptTable[] =
     { "breakinto[Asteroid3]",scriptSetUdwordCB, (udword) &(asteroidStaticInfos[0].breakinto[Asteroid3]), (udword) &(asteroidStaticInfos[0]) },
     { "breakinto[Asteroid4]",scriptSetUdwordCB, (udword) &(asteroidStaticInfos[0].breakinto[Asteroid4]), (udword) &(asteroidStaticInfos[0]) },
     { "preciseSelection",scriptSetUdwordCB,(udword) &(ShipStaticInfoR1[0].staticheader.staticCollInfo.preciseSelection), (udword) &(ShipStaticInfoR1[0]) },
-    { NULL,NULL,0,0 }
+
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 scriptStructEntry DustCloudStaticScriptTable[] =
@@ -755,7 +755,8 @@ scriptStructEntry DustCloudStaticScriptTable[] =
     { "dustcloudCanShrink",scriptSetBool8, (udword) &(dustcloudStaticInfos[0].dustcloudCanShrink), (udword) &(dustcloudStaticInfos[0]) },
     { "dustcloudMinShrink",scriptSetReal32CB, (udword) &(dustcloudStaticInfos[0].dustcloudMinShrink), (udword) &(dustcloudStaticInfos[0]) },
     { "preciseSelection",scriptSetUdwordCB,(udword) &(ShipStaticInfoR1[0].staticheader.staticCollInfo.preciseSelection), (udword) &(ShipStaticInfoR1[0]) },
-    { NULL,NULL,0,0 }
+
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 scriptStructEntry NebulaStaticScriptTable[] =
@@ -786,7 +787,8 @@ scriptStructEntry NebulaStaticScriptTable[] =
     { "nebulaCanShrink",scriptSetBool8, (udword) &(nebulaStaticInfos[0].nebulaCanShrink), (udword) &(nebulaStaticInfos[0]) },
     { "nebulaMinShrink",scriptSetReal32CB, (udword) &(nebulaStaticInfos[0].nebulaMinShrink), (udword) &(nebulaStaticInfos[0]) },
     { "preciseSelection",scriptSetUdwordCB,(udword) &(ShipStaticInfoR1[0].staticheader.staticCollInfo.preciseSelection), (udword) &(ShipStaticInfoR1[0]) },
-    { NULL,NULL,0,0 }
+
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 scriptStructEntry GasCloudStaticScriptTable[] =
@@ -818,7 +820,8 @@ scriptStructEntry GasCloudStaticScriptTable[] =
     { "gascloudCanShrink",scriptSetBool8, (udword) &(gascloudStaticInfos[0].gascloudCanShrink), (udword) &(gascloudStaticInfos[0]) },
     { "gascloudMinShrink",scriptSetReal32CB, (udword) &(gascloudStaticInfos[0].gascloudMinShrink), (udword) &(gascloudStaticInfos[0]) },
     { "preciseSelection",scriptSetUdwordCB,(udword) &(ShipStaticInfoR1[0].staticheader.staticCollInfo.preciseSelection), (udword) &(ShipStaticInfoR1[0]) },
-    { NULL,NULL,0,0 }
+
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 scriptStructEntry DerelictStaticScriptTable[] =
@@ -877,7 +880,7 @@ scriptStructEntry DerelictStaticScriptTable[] =
     { "renderlistFade",       scriptSetReal32CB,    (udword) &(derelictStaticInfos[0].renderlistFade),      (udword) &(derelictStaticInfos[0]) },
     { "renderlistLimit",      scriptSetReal32SqrCB, (udword) &(derelictStaticInfos[0].renderlistLimitSqr),  (udword) &(derelictStaticInfos[0]) },
 
-    { NULL,NULL,0,0 }
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 scriptStructEntry MissileStaticScriptTable[] =
@@ -915,7 +918,8 @@ scriptStructEntry MissileStaticScriptTable[] =
     { "turnspeed[TURN_PITCH]",          scriptSetReal32CB,  (udword) &(missileStaticInfos[0].turnspeedstat[TURN_PITCH]), (udword) &(missileStaticInfos[0]) },
     { "turnspeed[TURN_ROLL]",           scriptSetReal32CB,  (udword) &(missileStaticInfos[0].turnspeedstat[TURN_ROLL]), (udword) &(missileStaticInfos[0]) },
     { "preciseSelection",scriptSetUdwordCB,(udword) &(ShipStaticInfoR1[0].staticheader.staticCollInfo.preciseSelection), (udword) &(ShipStaticInfoR1[0]) },
-    { NULL,NULL,0,0 }
+
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 scriptStructEntry MineStaticScriptTable[] =
@@ -958,7 +962,7 @@ scriptStructEntry MineStaticScriptTable[] =
     { "MINE_RANGESQR_FORCED",           scriptSetReal32SqrCB,  (udword) &(mineStaticInfos[0].MINE_RANGESQR_FORCED), (udword) &(mineStaticInfos[0]) },
     { "preciseSelection",scriptSetUdwordCB,(udword) &(ShipStaticInfoR1[0].staticheader.staticCollInfo.preciseSelection), (udword) &(ShipStaticInfoR1[0]) },
 
-    { NULL,NULL,0,0 }
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 /*=============================================================================

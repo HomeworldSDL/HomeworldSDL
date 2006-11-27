@@ -49,7 +49,8 @@ scriptStructEntry MissileDestroyerScriptTable[] =
     { "MissileRegenerateTime",scriptSetReal32CB,(udword) &(MissileDestroyerStaticRace1.missileRegenerateTime),(udword) &(MissileDestroyerStaticRace1) },
     { "MissileVolleyTime",scriptSetReal32CB,(udword) &(MissileDestroyerStaticRace1.missileVolleyTime),(udword) &(MissileDestroyerStaticRace1) },
     { "MissileLagVolleyTime",scriptSetReal32CB,(udword) &(MissileDestroyerStaticRace1.missileLagVolleyTime),(udword) &(MissileDestroyerStaticRace1) },
-    { NULL,NULL,0,0 }
+
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 void MissileDestroyerStaticInit(char *directory,char *filename,struct ShipStaticInfo *statinfo)

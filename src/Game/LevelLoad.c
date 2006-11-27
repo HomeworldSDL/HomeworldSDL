@@ -85,7 +85,8 @@ scriptStructEntry AsteroidDistScriptTable[] =
     { "Asteroid2", scriptSetUword2CB, (udword)&resourceDistTemplate.probResources[Asteroid2][0], (udword)&resourceDistTemplate },
     { "Asteroid3", scriptSetUword2CB, (udword)&resourceDistTemplate.probResources[Asteroid3][0], (udword)&resourceDistTemplate },
     { "Asteroid4", scriptSetUword2CB, (udword)&resourceDistTemplate.probResources[Asteroid4][0], (udword)&resourceDistTemplate },
-    { NULL,NULL,0,0 }
+
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 scriptStructEntry DustCloudDistScriptTable[] =
@@ -94,14 +95,16 @@ scriptStructEntry DustCloudDistScriptTable[] =
     { "DustCloud1", scriptSetUword2CB, (udword)&resourceDistTemplate.probResources[DustCloud1][0], (udword)&resourceDistTemplate },
     { "DustCloud2", scriptSetUword2CB, (udword)&resourceDistTemplate.probResources[DustCloud2][0], (udword)&resourceDistTemplate },
     { "DustCloud3", scriptSetUword2CB, (udword)&resourceDistTemplate.probResources[DustCloud3][0], (udword)&resourceDistTemplate },
-    { NULL,NULL,0,0 }
+
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 scriptStructEntry GasCloudDistScriptTable[] =
 {
     { "GasCloud0", scriptSetUword2CB, (udword)&resourceDistTemplate.probResources[GasCloud0][0], (udword)&resourceDistTemplate },
     { "GasCloud1", scriptSetUword2CB, (udword)&resourceDistTemplate.probResources[GasCloud1][0], (udword)&resourceDistTemplate },
-    { NULL,NULL,0,0 }
+
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 scriptStructEntry MissionSphereScriptTable[] =
@@ -113,7 +116,8 @@ scriptStructEntry MissionSphereScriptTable[] =
     { "AISphere", scriptSetAISphereCB, 0,0 },
     { "Resources", scriptSetResourcesCB, 0,0 },
     { "Derelict", scriptSetDerelictCB, 0,0 },
-    { NULL,NULL,0,0 }
+
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 scriptEntry SMMissionTweaks[] =
@@ -128,7 +132,8 @@ scriptEntry SMMissionTweaks[] =
     makeEntry(smUniverseSizeY,scriptSetReal32CB),
     makeEntry(smUniverseSizeZ,scriptSetReal32CB),
     makeEntry(SongNumber,     scriptSetSdwordCB),
-    endEntry
+    
+    END_SCRIPT_ENTRY
 };
 
 scriptStructEntry MissionScriptTable[] =
@@ -136,7 +141,8 @@ scriptStructEntry MissionScriptTable[] =
     { "MissionSphere", scriptSetMissionSphereCB, 0,0 },
     { "Lighting", scriptSetLightingCB, 0,0 },
     { "Background", scriptSetBackgroundCB, 0,0 },
-    { NULL,NULL,0,0 }
+
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 static void llExcludeShip(char *directory,char *field,void *dataToFillIn);
@@ -173,13 +179,14 @@ scriptEntry MissionPreloadScriptTable[] =
     { "IncludeDerelict",llExcludeDerelict,  (void *)1},     //Type
     { "AvailableColorSchemes",llAvailableColorScheme, NULL},//race <shiptype|all> scheme#[,scheme#[,...]]
 
-    { NULL,NULL,0 }
+    END_SCRIPT_ENTRY
 };
 
 scriptEntry MissionPreloadScriptTablePass2[] =
 {
     { "MissionSphere", scriptPreMissionSphereCB, NULL },
-    { NULL,NULL,0 }
+
+    END_SCRIPT_ENTRY
 };
 
 bool needR1CapitalShip = FALSE;
@@ -189,7 +196,8 @@ scriptStructEntry MissionPreloadMissphereTable[] =
 {
     { "Ships", scriptSetShipsToBeNeeded, 0,0 },
     { "Derelict", scriptSetDerelictToBeNeeded, 0,0 },
-    { NULL,NULL,0,0 }
+
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 bool missionman = FALSE;

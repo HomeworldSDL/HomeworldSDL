@@ -201,7 +201,8 @@ scriptEntry AIShipTweaks[] =
     makeEntry(DONTUSEVELOCITYPRED_IFBELOW,scriptSetReal32CB),
     { "rowDetails", rowSetDetails, NULL },
     { "AISHIP_OTHER_CALCULATIONS", scriptAIShipPrecalculate, NULL },        // should go last
-    endEntry
+    
+    END_SCRIPT_ENTRY
 };
 
 static void scriptAIShipPrecalculate(char *directory,char *field,void *dataToFillIn)

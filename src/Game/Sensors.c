@@ -515,7 +515,8 @@ scriptEntry smTweaks[] =
     { "FOW_DustGasK3",              scriptSetReal32CB, &smFOW_DustGasK3 },
     { "FOW_DustGasK4",              scriptSetReal32CB, &smFOW_DustGasK4 },
     { "smFOWBlobUpdateTime",        scriptSetReal32CB, &smFOWBlobUpdateTime },
-    endEntry
+    
+    END_SCRIPT_ENTRY
 };
 
 /*=============================================================================

@@ -162,7 +162,7 @@ scriptStructEntry LIStaticScriptTable[] =
     { "faceTargetAccuracy",     scriptSetCosAngCB_ARRAY,            (udword) &(GenericInterceptorStatic.faceTargetAccuracy),(udword) &(GenericInterceptorStatic) },
     { "maxAttackTime",          scriptSetReal32CB_ARRAY,            (udword) &(GenericInterceptorStatic.maxAttackTime),     (udword) &(GenericInterceptorStatic) },
 
-    { NULL,NULL,0,0 }
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 scriptStructEntry CloakedFighterStaticScriptTable[] =
@@ -174,7 +174,7 @@ scriptStructEntry CloakedFighterStaticScriptTable[] =
     { "VisibleState",               scriptSetReal32CB, (udword) &(CloakedFighterStatic.VisibleState),               (udword) &(CloakedFighterStatic) },
     { "battleReCloakTime",          scriptSetReal32CB, (udword) &(CloakedFighterStatic.battleReCloakTime),          (udword) &(CloakedFighterStatic) },
 
-    { NULL,NULL,0,0 }
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 void GenericInterceptorStaticInit(char *directory,char *filename,struct ShipStaticInfo *statinfo)

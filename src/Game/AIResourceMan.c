@@ -72,7 +72,8 @@ scriptEntry AIResourceManTweaks[] =
     makeEntry(RCONTROLLER_POS_FACTOR_ENEMIESPRESENT,scriptSetReal32CB),
     makeEntry(RCONTROLLER_POS_FACTOR_INBETWEEN,scriptSetReal32CB),
     makeEntry(RCONTROLLER_POS_FACTOR_NOTINBETWEEN,scriptSetReal32CB),
-    endEntry
+
+    END_SCRIPT_ENTRY
 };
 
 /*-----------------------------------------------------------------------------

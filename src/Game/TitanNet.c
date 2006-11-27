@@ -156,7 +156,8 @@ scriptEntry NetTweaks[] =
     makeEntry(ROOM_MIN_THRESHOLD,scriptSetUdwordCB),
     makeEntry(ROOM_MAX_THRESHOLD,scriptSetUdwordCB),
     makeEntry(WAIT_SHUTDOWN_MS,scriptSetUdwordCB),
-    endEntry
+    
+    END_SCRIPT_ENTRY
 };
 
 /*=============================================================================

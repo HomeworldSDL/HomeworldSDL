@@ -125,7 +125,8 @@ scriptEntry CameraCommandTweaks[] =
     makeEntry(CAM_CUBIC_EVAL_TWEAK,scriptSetReal32CB),
     makeEntry(CAM_CUBIC_EVAL_ANGLE_TWEAK,scriptSetReal32CB),
     makeEntry(CollapseTimeDelay,scriptSetReal32CB),
-    endEntry
+    
+    END_SCRIPT_ENTRY
 };
 
 /*=============================================================================

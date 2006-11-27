@@ -1000,6 +1000,6 @@ scriptEntry Tweaks[] =
 
     makeEntry(armourPiercingModifier,scriptSetReal32CB),
 
-    endEntry
+    END_SCRIPT_ENTRY
 };
 

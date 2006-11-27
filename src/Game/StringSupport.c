@@ -666,7 +666,7 @@ scriptEntry LanguageStrings[] =
 
     strEntry(strCheatDetect),
 
-    endEntry
+    END_SCRIPT_ENTRY
 };
 
 

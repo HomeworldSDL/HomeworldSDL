@@ -132,7 +132,8 @@ scriptEntry TrailTweaks[] =
     makeEntry(TRAIL_GLOW_2_GREEN, scriptSetSdwordCB),
     makeEntry(TRAIL_GLOW_2_BLUE, scriptSetSdwordCB),
     makeEntry(TRAIL_EXPANSION_TICKS, scriptSetSdwordCB),
-    endEntry
+    
+    END_SCRIPT_ENTRY
 };
 
 

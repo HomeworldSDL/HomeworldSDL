@@ -101,7 +101,8 @@ scriptEntry FormationTweaks[] =
     makeEntry(FORMATION_ERROR_NEGLIGIBLE,scriptSetReal32CB),
     makeEntry(TARGETDRONE_FORMATION_SIZE,scriptSetReal32CB),
     makeEntry(SPHERESIZE_IGNORE_NUMDECLINATIONS,scriptSetReal32CB),
-    endEntry
+    
+    END_SCRIPT_ENTRY
 };
 
 udword formationSortType[NO_FORMATION] =
@@ -3265,7 +3266,8 @@ scriptStructEntry ParadeInfoScriptTable[] =
     { "SlotPositionInfo[SLOT_P2MultiBeamFrigate2]", scriptSetSlotInfoCB, (udword)&paradeTypeInfos[0].slotinfos[SLOT_P2MultiBeamFrigate2], (udword)&paradeTypeInfos[0] },
     { "SlotPositionInfo[SLOT_P2MultiBeamFrigate3]", scriptSetSlotInfoCB, (udword)&paradeTypeInfos[0].slotinfos[SLOT_P2MultiBeamFrigate3], (udword)&paradeTypeInfos[0] },
     { "SlotPositionInfo[SLOT_Misc]", scriptSetSlotInfoCB, (udword)&paradeTypeInfos[0].slotinfos[SLOT_Misc], (udword)&paradeTypeInfos[0] },
-    { NULL,NULL,0,0 }
+
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 void scriptSetSlotInfoCB(char *directory,char *field,void *dataToFillIn)

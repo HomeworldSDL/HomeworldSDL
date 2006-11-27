@@ -144,7 +144,8 @@ scriptEntry CloudTweaks[] =
     makeEntry(CLOUD_LIGHTNING_MAIN_GREEN, scriptSetReal32CB),
     makeEntry(CLOUD_LIGHTNING_MAIN_BLUE, scriptSetReal32CB),
     makeEntry(CLOUD_LIGHTNING_MAIN_ALPHA, scriptSetReal32CB),
-    endEntry
+    
+    END_SCRIPT_ENTRY
 };
 
 /*

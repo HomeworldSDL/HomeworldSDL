@@ -106,7 +106,7 @@ scriptStructEntry SalCapCorvetteStaticTable[] =
     { "maxPushingVelocitySingle",    scriptSetReal32CB, (udword) &(SalCapCorvetteStatic.maxPushingVelocitySingle), (udword) &(SalCapCorvetteStatic) },
     { "noLightClampingDistance",    scriptSetReal32CB, (udword) &(SalCapCorvetteStatic.noLightClampingDistance), (udword) &(SalCapCorvetteStatic) },
 
-    { NULL,NULL,0,0 }
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 

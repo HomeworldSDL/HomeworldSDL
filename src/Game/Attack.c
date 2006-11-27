@@ -28,7 +28,8 @@ scriptStructEntry AttackSideStepParametersScriptTable[] =
     { "repositionTime", scriptSetReal32CB, (udword) &(sampleSideStepParameters.repositionTime), (udword) &(sampleSideStepParameters) },
     { "circleRange",    scriptSetReal32CB, (udword) &(sampleSideStepParameters.circleRange), (udword) &(sampleSideStepParameters) },
     { "fullMovementFreedom", scriptSetBool,(udword) &(sampleSideStepParameters.fullMovementFreedom), (udword) &(sampleSideStepParameters) },
-    { NULL,NULL,0,0 }
+
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 /*-----------------------------------------------------------------------------

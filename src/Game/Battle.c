@@ -625,7 +625,8 @@ scriptEntry battleTweaks[] =
     makeEntry(batRetreatModifier, scriptSetReal32CB),
     makeEntry(batGlobalFrequencyMin, scriptSetReal32CB),
     makeEntry(batGlobalFrequencyMax, scriptSetReal32CB),
-    endEntry
+    
+    END_SCRIPT_ENTRY
 };
 
 /*=============================================================================

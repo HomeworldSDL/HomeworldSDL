@@ -43,7 +43,7 @@ scriptStructEntry CloakGeneratorStaticScriptTable[] =
     { "ReChargeRate",     scriptSetReal32CB, (udword) &(CloakGeneratorStatic.ReChargeRate), (udword) &(CloakGeneratorStatic) },
     { "MinCharge",     scriptSetReal32CB, (udword) &(CloakGeneratorStatic.MinCharge), (udword) &(CloakGeneratorStatic) },
 
-    { NULL,NULL,0,0 }
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 void CloakGeneratorStaticInit(char *directory,char *filename,struct ShipStaticInfo *statinfo)

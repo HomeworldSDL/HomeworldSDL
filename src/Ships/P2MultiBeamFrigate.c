@@ -73,7 +73,8 @@ scriptStructEntry P2MultiBeamFrigateScriptTable[] =
 
 //    {"MultiBeamRange", scriptsetReal32CB, &(P2MultiBeamFrigateStatic.MultiBeamRange)},
 //    {"MultiBeamRange", scriptsetReal32CB, &(P2MultiBeamFrigateStatic.MultiBeamRange)},
-    { NULL,NULL,0,0 }
+
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 void P2MultiBeamFrigateStaticInit(char *directory,char *filename,struct ShipStaticInfo *statinfo)

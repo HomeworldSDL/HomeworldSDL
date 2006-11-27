@@ -35,7 +35,7 @@ scriptStructEntry ResourceCollectorStaticScriptTable[] =
 {
     { "repairApproachDistance",    scriptSetReal32CB, (udword) &(ResourceCollectorStatic.repairApproachDistance), (udword) &(ResourceCollectorStatic) },
 
-    { NULL,NULL,0,0 }
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 void ResourceCollectorStaticInit(char *directory,char *filename,struct ShipStaticInfo *statinfo)

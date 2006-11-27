@@ -126,32 +126,35 @@ static scriptStructEntry StaticGunInfoScriptTable[] =
     { "OffsetZ",    scriptSetReal32CB, (udword) &(gunStaticTemplate.offset.z), (udword) &gunStaticTemplate },
     { "SlaveDriver",scriptSetSdwordCB, (udword) &(gunStaticTemplate.slaveDriver), (udword) &gunStaticTemplate },
 
-    { NULL,NULL,0,0 }
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 static scriptStructEntry StaticDockInfoScriptTable[] =
 {
     { "DockPoint",  scriptSetDockPointCB, 0, 0 },
-    { NULL,NULL,0,0 }
+
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 static scriptStructEntry StaticDockOverideInfoScriptTable[] =
 {
     { "DockOveride",  scriptSetDockOverideCB, 0, 0 },
-    { NULL,NULL,0,0 }
+
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 static scriptStructEntry StaticSalvageInfoScriptTable[] =
 {
     { "SalvagePoint",  scriptSetSalvagePointCB, 0, 0 },
 
-    { NULL,NULL,0,0 }
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 static scriptStructEntry StaticNavLightInfoScriptTable[] =
 {
     { "NavLight",  scriptSetNAVLightCB, 0, 0 },
-    { NULL,NULL,0,0 }
+
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 /*=============================================================================
@@ -1908,7 +1911,7 @@ scriptStructEntry StaticMGInfoScriptTable[] =
     { "type.resourceLumpSumTime",    scriptSetUdwordCB,  (udword) &(gameTemplate.resourceLumpSumTime), (udword) &gameTemplate },
     { "type.resourceLumpSumAmount",    scriptSetUdwordCB,  (udword) &(gameTemplate.resourceLumpSumAmount), (udword) &gameTemplate },
 
-    { NULL,NULL,0,0 }
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 #define GT_NUMGAMES  0

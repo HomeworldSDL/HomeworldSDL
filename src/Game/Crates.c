@@ -81,12 +81,10 @@ scriptEntry cratesScriptTable[] =
     makeEntry(CrateClassProbCLASS_NonCombat,scriptSetReal32CB),
     makeEntry(CRATE_EXPIRY_TIME,scriptSetReal32CB),
 
-
     {"shipProbability", scriptSetShipProbCB, SHIP_PROBS },
     {"shipGroupSize", scriptSetShipGroupSizeCB, NUM_IN_GROUPS },
 
-
-    endEntry
+    END_SCRIPT_ENTRY
 };
 
 //crate reward types

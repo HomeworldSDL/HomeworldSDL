@@ -43,7 +43,7 @@ scriptStructEntry DDDStaticScriptTable[] =
     { "externalRegenerateRate",  scriptSetReal32CB, (udword) &(DDDFrigateStaticRace1.externalRegenerateRate), (udword) &(DDDFrigateStaticRace1) },
     { "droneDeploymentRange",  scriptSetReal32CB, (udword) &(DDDFrigateStaticRace1.droneDeploymentRange), (udword) &(DDDFrigateStaticRace1) },
 
-    { NULL,NULL,0,0 }
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 void DDDFrigateStaticInit(char *directory,char *filename,struct ShipStaticInfo *statinfo)

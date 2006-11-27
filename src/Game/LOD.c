@@ -79,7 +79,8 @@ scriptStructEntry lodScriptTable[] =
     { "pSpriteFile5", lodSpriteFileRead, (udword)(&lodStaticInfo.level[5].pData), (udword)(&lodStaticInfo)},
     { "baseScalar",   lodColorScalarRead,0,            0},
     { "stripeScalar", lodColorScalarRead,2,          1},
-    { NULL,NULL,0,0 }
+
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 //scaling factor for the LOD's

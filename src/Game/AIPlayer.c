@@ -452,7 +452,7 @@ scriptEntry AIPlayerTweaks[] =
     makeEntry(AIU_UNARMED_MODIFIER,               scriptSetReal32CB),
     makeEntry(AIU_FIGHTER_VULNERABLE_MODIFIER,    scriptSetReal32CB),
 
-    endEntry
+    END_SCRIPT_ENTRY
 };
 
 

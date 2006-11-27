@@ -461,7 +461,7 @@ scriptEntry TacticsInfotable[] =
 
     makeEntry(DELAY_FORMTIGHTNESS_CHANGE,scriptSetReal32CB),
 
-    endEntry
+    END_SCRIPT_ENTRY
 };
 
 void tacticsStartUp()

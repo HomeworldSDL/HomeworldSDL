@@ -542,7 +542,8 @@ bool onlygetfirstcrc = FALSE;
 scriptEntry WonStuffSet[] =
 {
     makeEntry(HomeworldCRC,scriptSetHomeworldCRC),
-    endEntry
+    
+    END_SCRIPT_ENTRY
 };
 
 //render task
@@ -1064,7 +1065,8 @@ scriptEntry utyOptionsList[] =
     {"ResInjAmmount",           scriptSetUdwordCB, &tpGameCreated.resourceInjectionsAmount},
     {"ResLumpSumTime",          scriptSetUdwordCB, &tpGameCreated.resourceLumpSumTime},
     {"ResLumpSumAmmount" ,      scriptSetUdwordCB, &tpGameCreated.resourceLumpSumAmount},
-    endEntry
+
+    END_SCRIPT_ENTRY
 };
 /*=============================================================================
     Functions:

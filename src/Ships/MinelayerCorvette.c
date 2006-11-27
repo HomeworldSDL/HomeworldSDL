@@ -85,7 +85,8 @@ scriptStructEntry MinelayerCorvetteStaticScriptTable[] =
     { "forced_drop_lifetime",    scriptSetReal32CB, (udword) &(MinelayerCorvetteStatic.forced_drop_lifetime), (udword) &(MinelayerCorvetteStatic) },
     { "gunReFireTime",    scriptSetReal32CB, (udword) &(MinelayerCorvetteStatic.gunReFireTime), (udword) &(MinelayerCorvetteStatic) },
     { "mineRegenerateTime",    scriptSetReal32CB, (udword) &(MinelayerCorvetteStatic.mineRegenerateTime), (udword) &(MinelayerCorvetteStatic) },
-    { NULL,NULL,0,0 }
+
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 bool MinelayerCorvetteStaticMineDrop(Ship *ship,SpaceObjRotImpTarg *target);

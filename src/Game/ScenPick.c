@@ -122,7 +122,8 @@ scriptEntry spDescriptionTweaks[] =
     {"Font", spDescriptionFontSet, NULL},
     {"Color", scriptSetRGBCB, &spDescriptionColor},
     {"DropShadow", scriptSetBool8, &spDescriptionShadow},
-    endEntry
+    
+    END_SCRIPT_ENTRY
 };
 
 scriptEntry spDescriptionTweaksFrench[] =
@@ -131,7 +132,8 @@ scriptEntry spDescriptionTweaksFrench[] =
     {"Font", spDescriptionFontSet, NULL},
     {"Color", scriptSetRGBCB, &spDescriptionColor},
     {"DropShadow", scriptSetBool8, &spDescriptionShadow},
-    endEntry
+    
+    END_SCRIPT_ENTRY
 };
 
 scriptEntry spDescriptionTweaksGerman[] =
@@ -140,7 +142,8 @@ scriptEntry spDescriptionTweaksGerman[] =
     {"Font", spDescriptionFontSet, NULL},
     {"Color", scriptSetRGBCB, &spDescriptionColor},
     {"DropShadow", scriptSetBool8, &spDescriptionShadow},
-    endEntry
+    
+    END_SCRIPT_ENTRY
 };
 
 scriptEntry spDescriptionTweaksSpanish[] =
@@ -149,7 +152,8 @@ scriptEntry spDescriptionTweaksSpanish[] =
     {"Font", spDescriptionFontSet, NULL},
     {"Color", scriptSetRGBCB, &spDescriptionColor},
     {"DropShadow", scriptSetBool8, &spDescriptionShadow},
-    endEntry
+    
+    END_SCRIPT_ENTRY
 };
 
 scriptEntry spDescriptionTweaksItalian[] =
@@ -158,7 +162,8 @@ scriptEntry spDescriptionTweaksItalian[] =
     {"Font", spDescriptionFontSet, NULL},
     {"Color", scriptSetRGBCB, &spDescriptionColor},
     {"DropShadow", scriptSetBool8, &spDescriptionShadow},
-    endEntry
+    
+    END_SCRIPT_ENTRY
 };
 
 /*=============================================================================

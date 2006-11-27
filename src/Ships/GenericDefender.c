@@ -55,7 +55,8 @@ scriptStructEntry DefenderStaticScriptTable[] =
 {
     { "CIRCLE_RIGHT_VELOCITY",    scriptSetReal32CB, (udword) &(HeavyDefenderStaticRace1.CIRCLE_RIGHT_VELOCITY), (udword) &(HeavyDefenderStaticRace1) },
     { "CIRCLE_RIGHT_THRUST",      scriptSetReal32CB, (udword) &(HeavyDefenderStaticRace1.CIRCLE_RIGHT_THRUST), (udword) &(HeavyDefenderStaticRace1) },
-    { NULL,NULL,0,0 }
+
+    END_SCRIPT_STRUCT_ENTRY
 };
 
 void GenericDefenderStaticInit(char *directory,char *filename,struct ShipStaticInfo *statinfo)
