@@ -726,100 +726,100 @@
 				RelativePath="..\..\src\Ships\MissileDestroyer.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission01.c">
+				RelativePath="..\..\src\Missions\Generated\Mission01.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission01.func.c">
+				RelativePath="..\..\src\Missions\Generated\Mission01.func.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission02.c">
+				RelativePath="..\..\src\Missions\Generated\Mission02.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission02.func.c">
+				RelativePath="..\..\src\Missions\Generated\Mission02.func.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission03.c">
+				RelativePath="..\..\src\Missions\Generated\Mission03.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission03.func.c">
+				RelativePath="..\..\src\Missions\Generated\Mission03.func.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission04.c">
+				RelativePath="..\..\src\Missions\Generated\Mission04.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission04.func.c">
+				RelativePath="..\..\src\Missions\Generated\Mission04.func.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission05.c">
+				RelativePath="..\..\src\Missions\Generated\Mission05.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission05.func.c">
+				RelativePath="..\..\src\Missions\Generated\Mission05.func.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission06.c">
+				RelativePath="..\..\src\Missions\Generated\Mission06.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission06.func.c">
+				RelativePath="..\..\src\Missions\Generated\Mission06.func.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission07.c">
+				RelativePath="..\..\src\Missions\Generated\Mission07.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission07.func.c">
+				RelativePath="..\..\src\Missions\Generated\Mission07.func.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission08.c">
+				RelativePath="..\..\src\Missions\Generated\Mission08.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission08.func.c">
+				RelativePath="..\..\src\Missions\Generated\Mission08.func.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission09.c">
+				RelativePath="..\..\src\Missions\Generated\Mission09.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission09.func.c">
+				RelativePath="..\..\src\Missions\Generated\Mission09.func.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission10.c">
+				RelativePath="..\..\src\Missions\Generated\Mission10.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission10.func.c">
+				RelativePath="..\..\src\Missions\Generated\Mission10.func.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission11.c">
+				RelativePath="..\..\src\Missions\Generated\Mission11.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission11.func.c">
+				RelativePath="..\..\src\Missions\Generated\Mission11.func.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission12.c">
+				RelativePath="..\..\src\Missions\Generated\Mission12.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission12.func.c">
+				RelativePath="..\..\src\Missions\Generated\Mission12.func.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission13.c">
+				RelativePath="..\..\src\Missions\Generated\Mission13.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission13.func.c">
+				RelativePath="..\..\src\Missions\Generated\Mission13.func.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission14.c">
+				RelativePath="..\..\src\Missions\Generated\Mission14.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission14.func.c">
+				RelativePath="..\..\src\Missions\Generated\Mission14.func.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission15.c">
+				RelativePath="..\..\src\Missions\Generated\Mission15.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission15.func.c">
+				RelativePath="..\..\src\Missions\Generated\Mission15.func.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission16.c">
+				RelativePath="..\..\src\Missions\Generated\Mission16.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission16.func.c">
+				RelativePath="..\..\src\Missions\Generated\Mission16.func.c">
 			</File>
 			<File
 				RelativePath="..\..\src\Sdl\mixfft.c">
@@ -1107,10 +1107,10 @@
 				RelativePath="..\..\src\Game\Tutor.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Tutorial1.c">
+				RelativePath="..\..\src\Missions\Tutorials\Tutorial1.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Tutorial1.func.c">
+				RelativePath="..\..\src\Missions\Tutorials\Tutorial1.func.c">
 			</File>
 			<File
 				RelativePath="..\..\src\Game\Tweak.c">
@@ -1649,52 +1649,52 @@
 				RelativePath="..\..\src\Ships\MissileDestroyer.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission01.h">
+				RelativePath="..\..\src\Missions\Generated\Mission01.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission02.h">
+				RelativePath="..\..\src\Missions\Generated\Mission02.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission03.h">
+				RelativePath="..\..\src\Missions\Generated\Mission03.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission04.h">
+				RelativePath="..\..\src\Missions\Generated\Mission04.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission05.h">
+				RelativePath="..\..\src\Missions\Generated\Mission05.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission06.h">
+				RelativePath="..\..\src\Missions\Generated\Mission06.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission07.h">
+				RelativePath="..\..\src\Missions\Generated\Mission07.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission08.h">
+				RelativePath="..\..\src\Missions\Generated\Mission08.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission09.h">
+				RelativePath="..\..\src\Missions\Generated\Mission09.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission10.h">
+				RelativePath="..\..\src\Missions\Generated\Mission10.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission11.h">
+				RelativePath="..\..\src\Missions\Generated\Mission11.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission12.h">
+				RelativePath="..\..\src\Missions\Generated\Mission12.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission13.h">
+				RelativePath="..\..\src\Missions\Generated\Mission13.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission14.h">
+				RelativePath="..\..\src\Missions\Generated\Mission14.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission15.h">
+				RelativePath="..\..\src\Missions\Generated\Mission15.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission16.h">
+				RelativePath="..\..\src\Missions\Generated\Mission16.h">
 			</File>
 			<File
 				RelativePath="..\..\src\Ships\Mothership.h">
@@ -1991,7 +1991,7 @@
 				RelativePath="..\..\src\Game\Tutor.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Tutorial1.h">
+				RelativePath="..\..\src\Missions\Tutorials\Tutorial1.h">
 			</File>
 			<File
 				RelativePath="..\..\src\Game\Tweak.h">
