@@ -22,6 +22,11 @@
 #define strcasecmp _stricmp
 #endif
 
+// KAS defines its own values for TRUE/FALSE so we undef previous
+// declarations here in order to prevent compiler warnings
+#undef TRUE
+#undef FALSE
+
 int parseLevel = LEVEL_LEVEL;
 
 int ifOnceIndex;  // up to 2^32 IFONCE statements per WATCH or INIT routine
