@@ -2068,7 +2068,7 @@ int bigExtract(char *bigFilename, int numFiles, char *filenames[], int optFreshe
         char *compressedFile   = NULL,                   // memory buffers for the compressed...
              *uncompressedFile = NULL;                   //     and uncompressed files
 
-        char outdir[MAXPATHLEN];                         // directory output files are written to
+        char outdir[PATH_MAX];                           // directory output files are written to
         FILE *output;                                    // file writing file handle
         char outfilename[BF_MAX_FILENAME_LENGTH];        // the path/filename of the output file
         

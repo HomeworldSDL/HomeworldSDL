@@ -31,7 +31,7 @@
 #endif
 
 #ifdef _WIN32
-		#define PATH_MAX MAX_PATH
+    #define PATH_MAX MAX_PATH
 #endif
 
 #ifdef _MACOSX

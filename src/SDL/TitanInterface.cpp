@@ -1,4 +1,3 @@
-
 #if 0
 
 // TitanInterface
@@ -6426,8 +6425,8 @@ unsigned long TitanInterface::GetHashSection(bool restart, unsigned char** theUn
 
     if (restart)
     {
-        char aFileName[MAX_PATH];
-        if (GetModuleFileName(GetModuleHandle(NULL), aFileName, MAX_PATH) == 0)
+        char aFileName[PATH_MAX];
+        if (GetModuleFileName(GetModuleHandle(NULL), aFileName, PATH_MAX) == 0)
             return 0;
 
         aFileH = CreateFile(aFileName,
