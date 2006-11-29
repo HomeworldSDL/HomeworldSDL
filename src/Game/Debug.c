@@ -14,6 +14,7 @@
   #include <stdarg.h> 
  #endif
 #endif
+#include <limits.h>
 
 #if defined _MSC_VER
 	#define snprintf _snprintf
