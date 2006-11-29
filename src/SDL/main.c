@@ -174,7 +174,11 @@ bool mainSoftwareDirectDraw = TRUE;
 bool mainDirectDraw = TRUE;
 bool mainRasterSkip = FALSE;
 bool mainDoubleIsTriple = FALSE;
+#ifdef __GNUC__
+bool mainFastFrontend = FALSE;
+#else
 bool mainFastFrontend = TRUE;
+#endif
 bool mainForceSoftware = FALSE;
 bool mainAutoRenderer = TRUE;
 bool mainForceKatmai = FALSE;
@@ -563,7 +567,7 @@ bool EnableDoubleIsTriple(char* string)
 
 bool DisableFastFrontend(char* string)
 {
-    mainFastFrontend = !mainFastFrontend;
+    mainFastFrontend = FALSE;
     return TRUE;
 }
 
