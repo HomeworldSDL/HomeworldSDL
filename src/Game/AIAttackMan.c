@@ -40,24 +40,24 @@ static bool aiaPriorityShipsConstraints(Ship *ship)
     {
         switch (shipstatic->shipclass)
         {
-            case CLASS_HeavyCruiser:
+            case CLASS_HEAVY_CRUISER:
                 //oh yeah... this one's dangerous
-            case CLASS_Carrier:
+            case CLASS_CARRIER:
                 //take out this one
-            case CLASS_Destroyer:
+            case CLASS_DESTROYER:
                 //dangerous as hell
                 dangerous = TRUE;
                 break;
-            case CLASS_Frigate:
+            case CLASS_FRIGATE:
                 if ((shipstatic->shiptype != AdvanceSupportFrigate) && (shipstatic->shiptype != ResourceController) && (shipstatic->shiptype != DFGFrigate))
                 {
                     dangerous = TRUE;
                 }
                 break;
-            case CLASS_Corvette:
-            case CLASS_Fighter:
-            case CLASS_Resource:
-            case CLASS_NonCombat:
+            case CLASS_CORVETTE:
+            case CLASS_FIGHTER:
+            case CLASS_RESOURCE:
+            case CLASS_NON_COMBAT:
             default:
                 break;
         }

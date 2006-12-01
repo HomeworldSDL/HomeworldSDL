@@ -3719,21 +3719,21 @@ sdword GetShipSlot(Ship *ship)
             case R2:
                 switch(ship->staticinfo->shipclass)
                 {
-                case CLASS_Fighter:
+                case CLASS_FIGHTER:
                     return SLOT_Fighter5;
-                case CLASS_Corvette:
+                case CLASS_CORVETTE:
                     return SLOT_Corvette3;
-                case CLASS_Frigate:
+                case CLASS_FRIGATE:
                     return SLOT_Frigate;
-                case CLASS_Resource:
+                case CLASS_RESOURCE:
                     return SLOT_ResCollector;
-                case CLASS_Destroyer:
+                case CLASS_DESTROYER:
                     return SLOT_Destroyer;
-                case CLASS_HeavyCruiser:
+                case CLASS_HEAVY_CRUISER:
                     return SLOT_HeavyCruiser;
-                case CLASS_NonCombat:
+                case CLASS_NON_COMBAT:
                     return SLOT_NonCombat;
-                case CLASS_Carrier:
+                case CLASS_CARRIER:
                     return SLOT_Carrier;
                 }
             }
@@ -3748,7 +3748,7 @@ sdword GetShipSlot(Ship *ship)
         case R2:
             switch (ship->staticinfo->shipclass)
             {
-                case CLASS_Fighter:
+                case CLASS_FIGHTER:
                     switch (ship->shiptype)
                     {
                         case LightDefender:
@@ -3769,7 +3769,7 @@ sdword GetShipSlot(Ship *ship)
                             return SLOT_Fighter5;
                     }
 
-                case CLASS_Corvette:
+                case CLASS_CORVETTE:
                     switch (ship->shiptype)
                     {
                         case LightCorvette:
@@ -3789,7 +3789,7 @@ sdword GetShipSlot(Ship *ship)
                             return SLOT_Corvette3;
                     }
 
-                case CLASS_Frigate:
+                case CLASS_FRIGATE:
                     switch (ship->shiptype)
                     {
                         case ResourceController:
@@ -3803,16 +3803,16 @@ sdword GetShipSlot(Ship *ship)
                             return SLOT_Frigate;
                     }
 
-                case CLASS_Resource:
+                case CLASS_RESOURCE:
                     return SLOT_ResCollector;
 
-                case CLASS_Destroyer:
+                case CLASS_DESTROYER:
                     return SLOT_Destroyer;
 
-                case CLASS_HeavyCruiser:
+                case CLASS_HEAVY_CRUISER:
                     return SLOT_HeavyCruiser;
 
-                case CLASS_NonCombat:
+                case CLASS_NON_COMBAT:
                     if (ship->shiptype == SensorArray)
                     {
                         return SLOT_SensorArray;
@@ -3826,7 +3826,7 @@ sdword GetShipSlot(Ship *ship)
                         return SLOT_NonCombat;
                     }
 
-                case CLASS_Carrier:
+                case CLASS_CARRIER:
                     return SLOT_Carrier;
             }
             return SLOT_Misc;

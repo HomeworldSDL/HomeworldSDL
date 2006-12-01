@@ -30,7 +30,7 @@ bool ShipAlreadyHyperspaceOut(Ship *ship);      // don't include singleplayer.h,
 #define aiuShipIsntTargetable(x,player) (bitTest((x)->flags, SOF_Hide|SOF_Hyperspace) || \
                                          ((bitTest((x)->flags, SOF_Cloaked) && (!proximityCanPlayerSeeShip((player), (x))))))
 
-#define aiuShipIsWorthCapturing(x)      ((!isShipOfClass(x, CLASS_Fighter)) && (!isShipOfClass(x, CLASS_Corvette)))
+#define aiuShipIsWorthCapturing(x)      ((!isShipOfClass(x, CLASS_FIGHTER)) && (!isShipOfClass(x, CLASS_CORVETTE)))
 
 #define num_is_odd(x)                   ((x) & 0x1)
 

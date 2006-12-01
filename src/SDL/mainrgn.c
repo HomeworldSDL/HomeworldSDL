@@ -4601,8 +4601,8 @@ void toMoveLineDraw(ShipPtr ship, real32 scale)
     color  pulsecolor;
 
 #ifndef fpoiker
-    if ((ship->staticinfo->shipclass != CLASS_Corvette) &&
-        (ship->staticinfo->shipclass != CLASS_Fighter))
+    if ((ship->staticinfo->shipclass != CLASS_CORVETTE) &&
+        (ship->staticinfo->shipclass != CLASS_FIGHTER))
     {
 #endif
         //do da graphics setting up stuff

@@ -465,9 +465,9 @@ ENDFSM FleetIntel
                 VarCreateSet ("CurrentTraderHealth", TeamHealthAverage ());
 
                 FindEnemiesInside (VOLUME_MothershipSphere, SHIPS_PlayerFleet, 1000);
-                IF (ShipsSelectClass (SHIPS_TraderTargets, SHIPS_PlayerFleet, "CLASS_Destroyer"))
-                ELSEIF (ShipsSelectClass (SHIPS_TraderTargets, SHIPS_PlayerFleet, "CLASS_Frigate"))
-                ELSEIF (ShipsSelectClass (SHIPS_TraderTargets, SHIPS_PlayerFleet, "CLASS_Mothership"))
+                IF (ShipsSelectClass (SHIPS_TraderTargets, SHIPS_PlayerFleet, "CLASS_DESTROYER"))
+                ELSEIF (ShipsSelectClass (SHIPS_TraderTargets, SHIPS_PlayerFleet, "CLASS_FRIGATE"))
+                ELSEIF (ShipsSelectClass (SHIPS_TraderTargets, SHIPS_PlayerFleet, "CLASS_MOTHERSHIP"))
                 ELSE
                         ShipsAdd (SHIPS_TraderTargets, SHIPS_PlayerFleet);
                 ENDIF
@@ -558,7 +558,7 @@ ENDFSM Traders
                 // if you're under attack, defend yourself
                 IF (ThisTeamIs (TEAM_Cruiser))
                         IF (UnderAttack (SHIPS_CruiserUnderAttack))
-                                ShipsSelectClass (SHIPS_Mothership, SHIPS_CruiserUnderAttack, "CLASS_Mothership");       // Select the Mothership
+                                ShipsSelectClass (SHIPS_Mothership, SHIPS_CruiserUnderAttack, "CLASS_MOTHERSHIP");       // Select the Mothership
                                 ShipsRemove (SHIPS_CruiserUnderAttack, SHIPS_Mothership);                                // And filter it out
                                 IF (ShipsCount (SHIPS_CruiserUnderAttack) > 0)
                                         Jump DefendYourself;
@@ -566,7 +566,7 @@ ENDFSM Traders
                         ENDIF
                 ELSEIF (ThisTeamIs (TEAM_Destroyers))
                         IF (UnderAttack (SHIPS_DestroyersUnderAttack))
-                                ShipsSelectClass (SHIPS_Mothership, SHIPS_DestroyersUnderAttack, "CLASS_Mothership");       // Select the Mothership
+                                ShipsSelectClass (SHIPS_Mothership, SHIPS_DestroyersUnderAttack, "CLASS_MOTHERSHIP");       // Select the Mothership
                                 ShipsRemove (SHIPS_DestroyersUnderAttack, SHIPS_Mothership);                                // And filter it out
                                 IF (ShipsCount (SHIPS_DestroyersUnderAttack) > 0)
                                         Jump DefendYourself;
@@ -574,7 +574,7 @@ ENDFSM Traders
                         ENDIF
                 ELSEIF (ThisTeamIs (TEAM_IonCannonFrigates))
                         IF (UnderAttack (SHIPS_IonFrigUnderAttack))
-                                ShipsSelectClass (SHIPS_Mothership, SHIPS_IonFrigUnderAttack, "CLASS_Mothership");       // Select the Mothership
+                                ShipsSelectClass (SHIPS_Mothership, SHIPS_IonFrigUnderAttack, "CLASS_MOTHERSHIP");       // Select the Mothership
                                 ShipsRemove (SHIPS_IonFrigUnderAttack, SHIPS_Mothership);                                // And filter it out
                                 IF (ShipsCount (SHIPS_IonFrigUnderAttack) > 0)
                                         Jump DefendYourself;
@@ -614,9 +614,9 @@ ENDFSM Traders
                     IF (ThisTeamIs (TEAM_Cruiser))
                             IF (ShipsSelectType (SHIPS_CruiserNearbyTargets, SHIPS_CruiserUnderAttack, "SalCapCorvette"))
                             ELSEIF (ShipsSelectType (SHIPS_CruiserNearbyTargets, SHIPS_CruiserFoundSomeSCs, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_CruiserNearbyTargets, SHIPS_CruiserUnderAttack, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_CruiserNearbyTargets, SHIPS_CruiserUnderAttack, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_CruiserNearbyTargets, SHIPS_CruiserUnderAttack, "CLASS_Fighter"))
+                            ELSEIF (ShipsSelectClass (SHIPS_CruiserNearbyTargets, SHIPS_CruiserUnderAttack, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_CruiserNearbyTargets, SHIPS_CruiserUnderAttack, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_CruiserNearbyTargets, SHIPS_CruiserUnderAttack, "CLASS_FIGHTER"))
                             ELSE
                                     ShipsAdd (SHIPS_CruiserNearbyTargets, SHIPS_CruiserUnderAttack);
                             ENDIF
@@ -629,9 +629,9 @@ ENDFSM Traders
                     ELSEIF (ThisTeamIs (TEAM_Destroyers))
                             IF (ShipsSelectType (SHIPS_DestroyersNearbyTargets, SHIPS_DestroyersUnderAttack, "SalCapCorvette"))
                             ELSEIF (ShipsSelectType (SHIPS_DestroyersNearbyTargets, SHIPS_DestroyersFoundSomeSCs, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_DestroyersNearbyTargets, SHIPS_DestroyersUnderAttack, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_DestroyersNearbyTargets, SHIPS_DestroyersUnderAttack, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_DestroyersNearbyTargets, SHIPS_DestroyersUnderAttack, "CLASS_Fighter"))
+                            ELSEIF (ShipsSelectClass (SHIPS_DestroyersNearbyTargets, SHIPS_DestroyersUnderAttack, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_DestroyersNearbyTargets, SHIPS_DestroyersUnderAttack, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_DestroyersNearbyTargets, SHIPS_DestroyersUnderAttack, "CLASS_FIGHTER"))
                             ELSE
                                     ShipsAdd (SHIPS_DestroyersNearbyTargets, SHIPS_DestroyersUnderAttack);
                             ENDIF
@@ -644,9 +644,9 @@ ENDFSM Traders
                     ELSEIF (ThisTeamIs (TEAM_IonCannonFrigates))
                             IF (ShipsSelectType (SHIPS_IonFrigNearbyTargets, SHIPS_IonFrigUnderAttack, "SalCapCorvette"))
                             ELSEIF (ShipsSelectType (SHIPS_IonFrigNearbyTargets, SHIPS_IonFrigFoundSomeSCs, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_IonFrigNearbyTargets, SHIPS_IonFrigUnderAttack, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_IonFrigNearbyTargets, SHIPS_IonFrigUnderAttack, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_IonFrigNearbyTargets, SHIPS_IonFrigUnderAttack, "CLASS_Fighter"))
+                            ELSEIF (ShipsSelectClass (SHIPS_IonFrigNearbyTargets, SHIPS_IonFrigUnderAttack, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_IonFrigNearbyTargets, SHIPS_IonFrigUnderAttack, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_IonFrigNearbyTargets, SHIPS_IonFrigUnderAttack, "CLASS_FIGHTER"))
                             ELSE
                                     ShipsAdd (SHIPS_IonFrigNearbyTargets, SHIPS_IonFrigUnderAttack);
                             ENDIF
@@ -709,7 +709,7 @@ ENDFSM Traders
                 // if you're under attack, defend yourself
                 IF (ThisTeamIs (TEAM_Cruiser))
                         IF (UnderAttack (SHIPS_CruiserUnderAttack))
-                                ShipsSelectClass (SHIPS_Mothership, SHIPS_CruiserUnderAttack, "CLASS_Mothership");       // Select the Mothership
+                                ShipsSelectClass (SHIPS_Mothership, SHIPS_CruiserUnderAttack, "CLASS_MOTHERSHIP");       // Select the Mothership
                                 ShipsRemove (SHIPS_CruiserUnderAttack, SHIPS_Mothership);                                // And filter it out
                                 IF (ShipsCount (SHIPS_CruiserUnderAttack) > 0)
                                         Jump DefendYourself;
@@ -717,7 +717,7 @@ ENDFSM Traders
                         ENDIF
                 ELSEIF (ThisTeamIs (TEAM_Destroyers))
                         IF (UnderAttack (SHIPS_DestroyersUnderAttack))
-                                ShipsSelectClass (SHIPS_Mothership, SHIPS_DestroyersUnderAttack, "CLASS_Mothership");       // Select the Mothership
+                                ShipsSelectClass (SHIPS_Mothership, SHIPS_DestroyersUnderAttack, "CLASS_MOTHERSHIP");       // Select the Mothership
                                 ShipsRemove (SHIPS_DestroyersUnderAttack, SHIPS_Mothership);                                // And filter it out
                                 IF (ShipsCount (SHIPS_DestroyersUnderAttack) > 0)
                                         Jump DefendYourself;
@@ -725,7 +725,7 @@ ENDFSM Traders
                         ENDIF
                 ELSEIF (ThisTeamIs (TEAM_IonCannonFrigates))
                         IF (UnderAttack (SHIPS_IonFrigUnderAttack))
-                                ShipsSelectClass (SHIPS_Mothership, SHIPS_IonFrigUnderAttack, "CLASS_Mothership");       // Select the Mothership
+                                ShipsSelectClass (SHIPS_Mothership, SHIPS_IonFrigUnderAttack, "CLASS_MOTHERSHIP");       // Select the Mothership
                                 ShipsRemove (SHIPS_IonFrigUnderAttack, SHIPS_Mothership);                                // And filter it out
                                 IF (ShipsCount (SHIPS_IonFrigUnderAttack) > 0)
                                         Jump DefendYourself;
@@ -992,7 +992,7 @@ WATCH
 
         // find everyone inside the world (for use in many places throughout the script)
         FindEnemiesInside (VOLUME_WorldSphere, SHIPS_Everyone, 3000);
-        ShipsSelectClass (SHIPS_PlayerMothership, SHIPS_Everyone, "CLASS_Mothership");        // Then filter their asses
+        ShipsSelectClass (SHIPS_PlayerMothership, SHIPS_Everyone, "CLASS_MOTHERSHIP");        // Then filter their asses
         VarCreateSet ("EveryoneSHIPS", ShipsCount (SHIPS_Everyone));
         VarCreateSet ("MothershipSHIPS", ShipsCount (SHIPS_PlayerMothership));
 

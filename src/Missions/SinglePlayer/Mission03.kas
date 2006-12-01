@@ -974,7 +974,7 @@ FSM EnemyFrig01
 
                 //if there are any corvette baddies around
                 //take them out
-                IF (ShipsSelectClass(SHIPS_E1CorvetteBaddies, SHIPS_Nearby, "CLASS_Corvette") > 2)
+                IF (ShipsSelectClass(SHIPS_E1CorvetteBaddies, SHIPS_Nearby, "CLASS_CORVETTE") > 2)
                     IF (ShipsCount(SHIPS_E1CorvetteBaddies) < 7)
                         VarSet("G_EF1BusyCorvettes", TRUE);
                     ENDIF
@@ -983,7 +983,7 @@ FSM EnemyFrig01
 
                 //if there are fighters hanging around and enemyfrig01 is busy
                 //take them out
-                IF (ShipsSelectClass(SHIPS_E1FighterBaddies, SHIPS_Nearby, "CLASS_Fighter") > 6)
+                IF (ShipsSelectClass(SHIPS_E1FighterBaddies, SHIPS_Nearby, "CLASS_FIGHTER") > 6)
                     IF (ShipsCount(SHIPS_E1FighterBaddies) < 10)
                         VarSet("G_EF1BusyFighters", TRUE);
                     ENDIF
@@ -1275,14 +1275,14 @@ FSM EnemyFrig02
 
                     //if there are corvettes hanging around and enemyfrig01 is busy
                     //take them out
-                    IF ((ShipsSelectClass(SHIPS_E2CorvetteBaddies, SHIPS_Nearby, "CLASS_Corvette") > 2) AND
+                    IF ((ShipsSelectClass(SHIPS_E2CorvetteBaddies, SHIPS_Nearby, "CLASS_CORVETTE") > 2) AND
                         (!VarGet("G_EF1BusyCorvettes")))
                         JUMP AttackCorvettes;
                     ENDIF
 
                     //if there are fighters hanging around and enemyfrig01 is busy
                     //take them out
-                    IF ((ShipsSelectClass(SHIPS_E2FighterBaddies, SHIPS_Nearby, "CLASS_Fighter") > 6) AND
+                    IF ((ShipsSelectClass(SHIPS_E2FighterBaddies, SHIPS_Nearby, "CLASS_FIGHTER") > 6) AND
                         (!VarGet("G_EF1BusyFighters")))
                         JUMP AttackFighters;
                     ENDIF

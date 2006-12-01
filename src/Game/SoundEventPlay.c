@@ -214,11 +214,11 @@ sdword soundEventPlay(void *object, sdword event, Gun *gun)
 						}
 	
 						ship->soundevent.engineState = SOUND_STARTING;
-						if (shipclass == CLASS_Corvette)
+						if (shipclass == CLASS_CORVETTE)
 						{
 							priority = SOUND_PRIORITY_MAX - 1;
 						}
-						else if (shipclass == CLASS_Fighter)
+						else if (shipclass == CLASS_FIGHTER)
 						{
 							priority = SOUND_PRIORITY_MAX - 2;
 						}
@@ -229,8 +229,8 @@ sdword soundEventPlay(void *object, sdword event, Gun *gun)
 						
 						vol = SEequalize(shipclass, dist, tempEQ);
 					
-						if ((shipclass == CLASS_Fighter) ||
-							(shipclass == CLASS_Corvette))
+						if ((shipclass == CLASS_FIGHTER) ||
+							(shipclass == CLASS_CORVETTE))
 						{
 							vol = (sword)(vol * (1.0f - ship->soundevent.coverage));
 						}

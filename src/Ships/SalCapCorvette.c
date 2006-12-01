@@ -945,10 +945,10 @@ sdword salCapFitCarrier(Ship *ship,SpaceObjRotImpTargGuidanceShipDerelict *targe
         {
             needBig = FALSE;
         }
-        else if(((Ship *)target)->staticinfo->shipclass == CLASS_HeavyCruiser ||
-                ((Ship *)target)->staticinfo->shipclass == CLASS_Carrier ||
-                ((Ship *)target)->staticinfo->shipclass == CLASS_Destroyer ||
-                ((Ship *)target)->staticinfo->shipclass == CLASS_Frigate ||
+        else if(((Ship *)target)->staticinfo->shipclass == CLASS_HEAVY_CRUISER ||
+                ((Ship *)target)->staticinfo->shipclass == CLASS_CARRIER ||
+                ((Ship *)target)->staticinfo->shipclass == CLASS_DESTROYER ||
+                ((Ship *)target)->staticinfo->shipclass == CLASS_FRIGATE ||
                 ((Ship *)target)->staticinfo->shiptype == ResourceController ||
                 ((Ship *)target)->staticinfo->shiptype == CryoTray)
         {
@@ -990,10 +990,10 @@ sdword salCapNeedBig(Ship *ship,SpaceObjRotImpTargGuidanceShipDerelict *target)
         {
             needBig = TRUE;
         }
-        else if(((Ship *)target)->staticinfo->shipclass == CLASS_HeavyCruiser ||
-                ((Ship *)target)->staticinfo->shipclass == CLASS_Carrier ||
-                ((Ship *)target)->staticinfo->shipclass == CLASS_Destroyer ||
-                ((Ship *)target)->staticinfo->shipclass == CLASS_Frigate ||
+        else if(((Ship *)target)->staticinfo->shipclass == CLASS_HEAVY_CRUISER ||
+                ((Ship *)target)->staticinfo->shipclass == CLASS_CARRIER ||
+                ((Ship *)target)->staticinfo->shipclass == CLASS_DESTROYER ||
+                ((Ship *)target)->staticinfo->shipclass == CLASS_FRIGATE ||
                 ((Ship *)target)->staticinfo->shiptype == CryoTray)
         {
             needBig = TRUE;

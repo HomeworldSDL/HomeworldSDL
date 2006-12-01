@@ -789,7 +789,7 @@ void speechPlayQueue(SPEECHQUEUE *pSQueue, sdword streamchannel)
         /* figure out the ship class */
         if (nisIsRunning)
         {
-            shipclass = CLASS_Fighter;
+            shipclass = CLASS_FIGHTER;
         }
         else if (pSQueue->current.pShip != NULL)
         {
@@ -809,7 +809,7 @@ void speechPlayQueue(SPEECHQUEUE *pSQueue, sdword streamchannel)
             fqeffect = &cleaneffect[SPEECH_CAPSHIPS];
         }
 
-        if ((shipclass == CLASS_Corvette) || (shipclass == CLASS_Fighter))
+        if ((shipclass == CLASS_CORVETTE) || (shipclass == CLASS_FIGHTER))
         {
             /* get the strike craft effects */
             pdelay = &streamdelay[SPEECH_STRIKECRAFT];
@@ -837,18 +837,18 @@ void speechPlayQueue(SPEECHQUEUE *pSQueue, sdword streamchannel)
 
             fqeffect = &mixedeffect[SPEECH_STRIKECRAFT];
         }
-        else    // if (shipclass != CLASS_Mothership)
+        else    // if (shipclass != CLASS_MOTHERSHIP)
         {
 #if 0
             if (SPEECH_AMBIENT_ENABLE)
             {
                 /* if we are adding background ambients to speech */
-                if ((shipclass >= CLASS_HeavyCruiser) && (shipclass <= CLASS_Frigate))
+                if ((shipclass >= CLASS_HEAVY_CRUISER) && (shipclass <= CLASS_FRIGATE))
                 {
                     /* need to check if we should play calm or excited */
                     ppatch = SNDgetpatch(SpecialEffectBank, SpecEffectEventsLUT->lookup[GetPatch(SpecEffectEventsLUT, 0, Spec_IntCapShipCalm)]);
                 }
-                else if (shipclass == CLASS_Resource)
+                else if (shipclass == CLASS_RESOURCE)
                 {
                     /* resources play their bg ambient */
                     ppatch = SNDgetpatch(ShipBank, ShipCmnEventsLUT->lookup[GetPatch(ShipCmnEventsLUT, ResourceCollector, ShipCmn_Ambient)]);
@@ -2012,14 +2012,14 @@ sdword speechEventPlay(void *object, sdword event, sdword var, sdword playernum,
 //      if (event >= SPEECH_FIRST_SP_EVENT)
         if (event & SPEECH_SINGLEPLAYER_FLAG)
         {
-            shipclass = CLASS_Fighter;
+            shipclass = CLASS_FIGHTER;
         }
         else
         {
             shipclass = ship->staticinfo->shipclass;
         }
 
-        if (shipclass == CLASS_Mothership)
+        if (shipclass == CLASS_MOTHERSHIP)
         {
             if (event == COMM_Selection)
             {
@@ -2235,7 +2235,7 @@ sdword SEspeechevent(sdword stream, sdword actor, sdword event, sdword var, swor
             pdelay = &streamdelay[SPEECH_CONSTRUCTION];
         }
 
-        if ((shipclass == CLASS_Corvette) || (shipclass == CLASS_Fighter))
+        if ((shipclass == CLASS_CORVETTE) || (shipclass == CLASS_FIGHTER))
         {
             /* filter the fighters */
             pdelay = &streamdelay[SPEECH_STRIKECRAFT];
@@ -2246,12 +2246,12 @@ sdword SEspeechevent(sdword stream, sdword actor, sdword event, sdword var, swor
 //              vol = SOUND_VOL_MAX;
 //          }
         }
-        if ((shipclass >= CLASS_HeavyCruiser) && (shipclass <= CLASS_Frigate))
+        if ((shipclass >= CLASS_HEAVY_CRUISER) && (shipclass <= CLASS_FRIGATE))
         {
             ppatch = SNDgetpatch(SpecialEffectBank, SpecEffectEventsLUT->lookup[GetPatch(SpecEffectEventsLUT, 0, Spec_IntCapShipCalm)]);
             level = 128;
         }
-        if (shipclass == CLASS_Resource)
+        if (shipclass == CLASS_RESOURCE)
         {
             ppatch = SNDgetpatch(ShipBank, ShipCmnEventsLUT->lookup[GetPatch(ShipCmnEventsLUT, ResourceCollector, ShipCmn_Ambient)]);
             level = 128;

@@ -83,7 +83,7 @@ scriptEntry toIconTweaks[] =
 };
 
 //retained integrals used during loading
-ShipClass toCurrentClass = CLASS_Mothership;
+ShipClass toCurrentClass = CLASS_MOTHERSHIP;
 sdword toCurrentPoint = 0;
 
 // x,y location for the player list in the main tactical overlay
@@ -452,7 +452,7 @@ void toLegendDraw(void)
     col = colRGB(colRed(col)/TO_IconColorFade, colGreen(col)/TO_IconColorFade, colBlue(col)/TO_IconColorFade);
 
     // draw legend entries for any classes currently displayed
-    for (shipClass = CLASS_Mothership+1; shipClass <= CLASS_NonCombat; ++shipClass)
+    for (shipClass = CLASS_MOTHERSHIP+1; shipClass <= CLASS_NON_COMBAT; ++shipClass)
     {
         for (pl = 0; pl < TO_NumPlayers; ++pl)
         {

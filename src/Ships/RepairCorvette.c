@@ -248,8 +248,8 @@ bool RepairCorvetteSpecialOps(Ship *ship, void *custom)
                 targets->TargetPtr[i] = targets->TargetPtr[targets->numTargets];
             }
             //object is a ship
-            else if( ((Ship *)targets->TargetPtr[i])->staticinfo->shipclass != CLASS_Fighter &&
-                ((Ship *)targets->TargetPtr[i])->staticinfo->shipclass != CLASS_Corvette ||
+            else if( ((Ship *)targets->TargetPtr[i])->staticinfo->shipclass != CLASS_FIGHTER &&
+                ((Ship *)targets->TargetPtr[i])->staticinfo->shipclass != CLASS_CORVETTE ||
                 ((Ship *)targets->TargetPtr[i])->playerowner != ship->playerowner)
             {
                 targets->numTargets--;
@@ -692,8 +692,8 @@ bool refuelRepairShips(Ship *ship, SelectAnyCommand *targets,real32 rangetoRefue
         }
 
         //object is a ship
-        if( ((Ship *)targets->TargetPtr[i])->staticinfo->shipclass != CLASS_Fighter &&
-            ((Ship *)targets->TargetPtr[i])->staticinfo->shipclass != CLASS_Corvette ||
+        if( ((Ship *)targets->TargetPtr[i])->staticinfo->shipclass != CLASS_FIGHTER &&
+            ((Ship *)targets->TargetPtr[i])->staticinfo->shipclass != CLASS_CORVETTE ||
             ((Ship *)targets->TargetPtr[i])->playerowner != ship->playerowner)
         {
             if(ship->staticinfo->repairBeamCapable)
@@ -735,7 +735,7 @@ bool refuelRepairShips(Ship *ship, SelectAnyCommand *targets,real32 rangetoRefue
         //assume target is a ship!!!!
 
         //targets might be a capital ship
-        if(((Ship *)target)->staticinfo->shipclass != CLASS_Fighter)
+        if(((Ship *)target)->staticinfo->shipclass != CLASS_FIGHTER)
         {
             //target is such that it should be BEAM repaired!
             //so lets fly upto it and ZAP repair it!

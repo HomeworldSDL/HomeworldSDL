@@ -581,9 +581,9 @@ FSM IonSphere
                     BulgeAttack(SHIPS_Penetrators, SHIPS_VolumeShips, SHIPS_Attackers, 55000);
 
                     IF (ShipsSelectType (SHIPS_IHateYou, SHIPS_Penetrators, "SalCapCorvette") ||
-                        ShipsSelectClass (SHIPS_IHateYou, SHIPS_Penetrators, "CLASS_Destroyer") ||
-                        ShipsSelectClass (SHIPS_IHateYou, SHIPS_Penetrators, "CLASS_Frigate") ||
-                        ShipsSelectClass (SHIPS_IHateYou, SHIPS_Penetrators, "CLASS_Corvette"))
+                        ShipsSelectClass (SHIPS_IHateYou, SHIPS_Penetrators, "CLASS_DESTROYER") ||
+                        ShipsSelectClass (SHIPS_IHateYou, SHIPS_Penetrators, "CLASS_FRIGATE") ||
+                        ShipsSelectClass (SHIPS_IHateYou, SHIPS_Penetrators, "CLASS_CORVETTE"))
                             ShipsAttack(SHIPS_IHateYou, SHIPS_ShipTest);
                     ENDIF
 
@@ -841,9 +841,9 @@ FSM RoamingMG
                             TacticsEvasive ();
                     ELSEIF (ShipsSelectType (SHIPS_MGTargets, SHIPS_Closest, "Interceptor"))
                             TacticsEvasive ();
-                    ELSEIF (ShipsSelectClass (SHIPS_MGTargets, SHIPS_Closest, "CLASS_Fighter"))
+                    ELSEIF (ShipsSelectClass (SHIPS_MGTargets, SHIPS_Closest, "CLASS_FIGHTER"))
                             TacticsEvasive ();
-                    ELSEIF (ShipsSelectClass (SHIPS_MGTargets, SHIPS_Closest, "CLASS_Corvette"))
+                    ELSEIF (ShipsSelectClass (SHIPS_MGTargets, SHIPS_Closest, "CLASS_CORVETTE"))
                             TacticsEvasive ();
                     ELSE
                             ShipsAdd (SHIPS_MGTargets, SHIPS_Closest);
@@ -881,8 +881,8 @@ FSM RoamingMG
                     IF (ShipsSelectType (SHIPS_MGTargets, SHIPS_MGLayer2VolFound, "SalCapCorvette"))
                     ELSEIF (ShipsSelectType (SHIPS_MGTargets, SHIPS_MGLayer2VolFound, "AttackBomber"))
                     ELSEIF (ShipsSelectType (SHIPS_MGTargets, SHIPS_MGLayer2VolFound, "Interceptor"))
-                    ELSEIF (ShipsSelectClass (SHIPS_MGTargets, SHIPS_MGLayer2VolFound, "CLASS_Fighter"))
-                    ELSEIF (ShipsSelectClass (SHIPS_MGTargets, SHIPS_MGLayer2VolFound, "CLASS_Corvette"))
+                    ELSEIF (ShipsSelectClass (SHIPS_MGTargets, SHIPS_MGLayer2VolFound, "CLASS_FIGHTER"))
+                    ELSEIF (ShipsSelectClass (SHIPS_MGTargets, SHIPS_MGLayer2VolFound, "CLASS_CORVETTE"))
                     ELSE
                             ShipsAdd (SHIPS_MGTargets, SHIPS_MGLayer2VolFound);
                     ENDIF
@@ -1339,9 +1339,9 @@ FSM InnerDefenseTeam
                             ShipsClear (SHIPS_InnerDefenseTargets);
                             IF (ShipsSelectType (SHIPS_InnerDefenseTargets, SHIPS_InnerDefenseFound, "SalCapCorvette"))
                             ELSEIF (ShipsSelectType (SHIPS_InnerDefenseTargets, SHIPS_InnerDefenseFound, "HeavyCruiser"))
-                            ELSEIF (ShipsSelectClass (SHIPS_InnerDefenseTargets, SHIPS_InnerDefenseFound, "CLASS_Destroyer"))
-                            ELSEIF (ShipsSelectClass (SHIPS_InnerDefenseTargets, SHIPS_InnerDefenseFound, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_InnerDefenseTargets, SHIPS_InnerDefenseFound, "CLASS_Carrier"))
+                            ELSEIF (ShipsSelectClass (SHIPS_InnerDefenseTargets, SHIPS_InnerDefenseFound, "CLASS_DESTROYER"))
+                            ELSEIF (ShipsSelectClass (SHIPS_InnerDefenseTargets, SHIPS_InnerDefenseFound, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_InnerDefenseTargets, SHIPS_InnerDefenseFound, "CLASS_CARRIER"))
                             ELSE
                                     ShipsAdd (SHIPS_InnerDefenseTargets, SHIPS_InnerDefenseFound);
                             ENDIF
@@ -1357,9 +1357,9 @@ FSM InnerDefenseTeam
                             ShipsClear (SHIPS_InnerDefenseTargets);
                             IF (ShipsSelectType (SHIPS_InnerDefenseTargets, SHIPS_InnerDefenseFound, "SalCapCorvette"))
                             ELSEIF (ShipsSelectType (SHIPS_InnerDefenseTargets, SHIPS_InnerDefenseFound, "HeavyCruiser"))
-                            ELSEIF (ShipsSelectClass (SHIPS_InnerDefenseTargets, SHIPS_InnerDefenseFound, "CLASS_Destroyer"))
-                            ELSEIF (ShipsSelectClass (SHIPS_InnerDefenseTargets, SHIPS_InnerDefenseFound, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_InnerDefenseTargets, SHIPS_InnerDefenseFound, "CLASS_Carrier"))
+                            ELSEIF (ShipsSelectClass (SHIPS_InnerDefenseTargets, SHIPS_InnerDefenseFound, "CLASS_DESTROYER"))
+                            ELSEIF (ShipsSelectClass (SHIPS_InnerDefenseTargets, SHIPS_InnerDefenseFound, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_InnerDefenseTargets, SHIPS_InnerDefenseFound, "CLASS_CARRIER"))
                             ELSE
                                     ShipsAdd (SHIPS_InnerDefenseTargets, SHIPS_InnerDefenseFound);
                             ENDIF
@@ -1375,9 +1375,9 @@ FSM InnerDefenseTeam
                             ShipsClear (SHIPS_InnerDefenseTargets);
                             IF (ShipsSelectType (SHIPS_InnerDefenseTargets, SHIPS_InnerDefenseFound, "SalCapCorvette"))
                             ELSEIF (ShipsSelectType (SHIPS_InnerDefenseTargets, SHIPS_InnerDefenseFound, "HeavyCruiser"))
-                            ELSEIF (ShipsSelectClass (SHIPS_InnerDefenseTargets, SHIPS_InnerDefenseFound, "CLASS_Destroyer"))
-                            ELSEIF (ShipsSelectClass (SHIPS_InnerDefenseTargets, SHIPS_InnerDefenseFound, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_InnerDefenseTargets, SHIPS_InnerDefenseFound, "CLASS_Carrier"))
+                            ELSEIF (ShipsSelectClass (SHIPS_InnerDefenseTargets, SHIPS_InnerDefenseFound, "CLASS_DESTROYER"))
+                            ELSEIF (ShipsSelectClass (SHIPS_InnerDefenseTargets, SHIPS_InnerDefenseFound, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_InnerDefenseTargets, SHIPS_InnerDefenseFound, "CLASS_CARRIER"))
                             ELSE
                                     ShipsAdd (SHIPS_InnerDefenseTargets, SHIPS_InnerDefenseFound);
                             ENDIF
@@ -1425,9 +1425,9 @@ FSM InnerDefenseTeam
                     ShipsClear (SHIPS_MiningBaseTargets);
                     IF (ShipsSelectType (SHIPS_MiningBaseTargets, SHIPS_AttackingMiningBase, "SalCapCorvette"))
                     ELSEIF (ShipsSelectType (SHIPS_MiningBaseTargets, SHIPS_AttackingMiningBase, "HeavyCruiser"))
-                    ELSEIF (ShipsSelectClass (SHIPS_MiningBaseTargets, SHIPS_AttackingMiningBase, "CLASS_Destroyer"))
-                    ELSEIF (ShipsSelectClass (SHIPS_MiningBaseTargets, SHIPS_AttackingMiningBase, "CLASS_Frigate"))
-                    ELSEIF (ShipsSelectClass (SHIPS_MiningBaseTargets, SHIPS_AttackingMiningBase, "CLASS_Carrier"))
+                    ELSEIF (ShipsSelectClass (SHIPS_MiningBaseTargets, SHIPS_AttackingMiningBase, "CLASS_DESTROYER"))
+                    ELSEIF (ShipsSelectClass (SHIPS_MiningBaseTargets, SHIPS_AttackingMiningBase, "CLASS_FRIGATE"))
+                    ELSEIF (ShipsSelectClass (SHIPS_MiningBaseTargets, SHIPS_AttackingMiningBase, "CLASS_CARRIER"))
                     ELSE
                             ShipsAdd (SHIPS_MiningBaseTargets, SHIPS_AttackingMiningBase);
                     ENDIF
@@ -1701,11 +1701,11 @@ FSM HyperspaceGateTeam
                                     VarCreateSet ("G_TOTALWave1Gate2BoxFound", 0);
                             ENDIFONCE
                             FindEnemiesInside (VOLUME_Gate2Box, SHIPS_G2Wave1Found, 100);
-                            ShipsSelectClass (SHIPS_G2Wave1FighterFound, SHIPS_G2Wave1Found, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_G2Wave1CorvetteFound, SHIPS_G2Wave1Found, "CLASS_Corvette");
-                            ShipsSelectClass (SHIPS_G2Wave1FrigateFound, SHIPS_G2Wave1Found, "CLASS_Frigate");
-                            ShipsSelectClass (SHIPS_G2Wave1DestroyerFound, SHIPS_G2Wave1Found, "CLASS_Destroyer");
-                            ShipsSelectClass (SHIPS_G2Wave1CarrierFound, SHIPS_G2Wave1Found, "CLASS_Carrier");
+                            ShipsSelectClass (SHIPS_G2Wave1FighterFound, SHIPS_G2Wave1Found, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_G2Wave1CorvetteFound, SHIPS_G2Wave1Found, "CLASS_CORVETTE");
+                            ShipsSelectClass (SHIPS_G2Wave1FrigateFound, SHIPS_G2Wave1Found, "CLASS_FRIGATE");
+                            ShipsSelectClass (SHIPS_G2Wave1DestroyerFound, SHIPS_G2Wave1Found, "CLASS_DESTROYER");
+                            ShipsSelectClass (SHIPS_G2Wave1CarrierFound, SHIPS_G2Wave1Found, "CLASS_CARRIER");
                             ShipsSelectClass (SHIPS_G2Wave1CruiserFound, SHIPS_G2Wave1Found, "CLASS_HeavyCruier");
 
                             VarSet ("G_TOTALWave1Gate2BoxFound", 62*(ShipsCount (SHIPS_G2Wave1FighterFound))              // Add up the value in RUs of all the ships in the volume
@@ -1727,11 +1727,11 @@ FSM HyperspaceGateTeam
                                     VarCreateSet ("G_TOTALWave2Gate2BoxFound", 0);
                             ENDIFONCE
                             FindEnemiesInside (VOLUME_Gate2Box, SHIPS_G2Wave2Found, 100);
-                            ShipsSelectClass (SHIPS_G2Wave2FighterFound, SHIPS_G2Wave2Found, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_G2Wave2CorvetteFound, SHIPS_G2Wave2Found, "CLASS_Corvette");
-                            ShipsSelectClass (SHIPS_G2Wave2FrigateFound, SHIPS_G2Wave2Found, "CLASS_Frigate");
-                            ShipsSelectClass (SHIPS_G2Wave2DestroyerFound, SHIPS_G2Wave2Found, "CLASS_Destroyer");
-                            ShipsSelectClass (SHIPS_G2Wave2CarrierFound, SHIPS_G2Wave2Found, "CLASS_Carrier");
+                            ShipsSelectClass (SHIPS_G2Wave2FighterFound, SHIPS_G2Wave2Found, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_G2Wave2CorvetteFound, SHIPS_G2Wave2Found, "CLASS_CORVETTE");
+                            ShipsSelectClass (SHIPS_G2Wave2FrigateFound, SHIPS_G2Wave2Found, "CLASS_FRIGATE");
+                            ShipsSelectClass (SHIPS_G2Wave2DestroyerFound, SHIPS_G2Wave2Found, "CLASS_DESTROYER");
+                            ShipsSelectClass (SHIPS_G2Wave2CarrierFound, SHIPS_G2Wave2Found, "CLASS_CARRIER");
                             ShipsSelectClass (SHIPS_G2Wave2CruiserFound, SHIPS_G2Wave2Found, "CLASS_HeavyCruier");
 
                             VarSet ("G_TOTALWave2Gate2BoxFound", 62*(ShipsCount (SHIPS_G2Wave2FighterFound))              // Add up the value in RUs of all the ships in the volume
@@ -1775,11 +1775,11 @@ FSM HyperspaceGateTeam
                                     VarCreateSet ("G_TOTALWave1Gate1BoxFound", 0);
                             ENDIFONCE
                             FindEnemiesInside (VOLUME_Gate1Box, SHIPS_G1Wave1Found, 100);
-                            ShipsSelectClass (SHIPS_G1Wave1FighterFound, SHIPS_G1Wave1Found, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_G1Wave1CorvetteFound, SHIPS_G1Wave1Found, "CLASS_Corvette");
-                            ShipsSelectClass (SHIPS_G1Wave1FrigateFound, SHIPS_G1Wave1Found, "CLASS_Frigate");
-                            ShipsSelectClass (SHIPS_G1Wave1DestroyerFound, SHIPS_G1Wave1Found, "CLASS_Destroyer");
-                            ShipsSelectClass (SHIPS_G1Wave1CarrierFound, SHIPS_G1Wave1Found, "CLASS_Carrier");
+                            ShipsSelectClass (SHIPS_G1Wave1FighterFound, SHIPS_G1Wave1Found, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_G1Wave1CorvetteFound, SHIPS_G1Wave1Found, "CLASS_CORVETTE");
+                            ShipsSelectClass (SHIPS_G1Wave1FrigateFound, SHIPS_G1Wave1Found, "CLASS_FRIGATE");
+                            ShipsSelectClass (SHIPS_G1Wave1DestroyerFound, SHIPS_G1Wave1Found, "CLASS_DESTROYER");
+                            ShipsSelectClass (SHIPS_G1Wave1CarrierFound, SHIPS_G1Wave1Found, "CLASS_CARRIER");
                             ShipsSelectClass (SHIPS_G1Wave1CruiserFound, SHIPS_G1Wave1Found, "CLASS_HeavyCruier");
 
                             VarSet ("G_TOTALWave1Gate1BoxFound", 62*(ShipsCount (SHIPS_G1Wave1FighterFound))              // Add up the value in RUs of all the ships in the volume
@@ -1801,11 +1801,11 @@ FSM HyperspaceGateTeam
                                     VarCreateSet ("G_TOTALWave2Gate1BoxFound", 0);
                             ENDIFONCE
                             FindEnemiesInside (VOLUME_Gate1Box, SHIPS_G1Wave2Found, 100);
-                            ShipsSelectClass (SHIPS_G1Wave2FighterFound, SHIPS_G1Wave2Found, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_G1Wave2CorvetteFound, SHIPS_G1Wave2Found, "CLASS_Corvette");
-                            ShipsSelectClass (SHIPS_G1Wave2FrigateFound, SHIPS_G1Wave2Found, "CLASS_Frigate");
-                            ShipsSelectClass (SHIPS_G1Wave2DestroyerFound, SHIPS_G1Wave2Found, "CLASS_Destroyer");
-                            ShipsSelectClass (SHIPS_G1Wave2CarrierFound, SHIPS_G1Wave2Found, "CLASS_Carrier");
+                            ShipsSelectClass (SHIPS_G1Wave2FighterFound, SHIPS_G1Wave2Found, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_G1Wave2CorvetteFound, SHIPS_G1Wave2Found, "CLASS_CORVETTE");
+                            ShipsSelectClass (SHIPS_G1Wave2FrigateFound, SHIPS_G1Wave2Found, "CLASS_FRIGATE");
+                            ShipsSelectClass (SHIPS_G1Wave2DestroyerFound, SHIPS_G1Wave2Found, "CLASS_DESTROYER");
+                            ShipsSelectClass (SHIPS_G1Wave2CarrierFound, SHIPS_G1Wave2Found, "CLASS_CARRIER");
                             ShipsSelectClass (SHIPS_G1Wave2CruiserFound, SHIPS_G1Wave2Found, "CLASS_HeavyCruier");
 
                             VarSet ("G_TOTALWave2Gate1BoxFound", 62*(ShipsCount (SHIPS_G1Wave2FighterFound))              // Add up the value in RUs of all the ships in the volume
@@ -1849,11 +1849,11 @@ FSM HyperspaceGateTeam
                                     VarCreateSet ("G_TOTALWave1Gate3BoxFound", 0);
                             ENDIFONCE
                             FindEnemiesInside (VOLUME_Gate3Box, SHIPS_G3Wave1Found, 100);
-                            ShipsSelectClass (SHIPS_G3Wave1FighterFound, SHIPS_G3Wave1Found, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_G3Wave1CorvetteFound, SHIPS_G3Wave1Found, "CLASS_Corvette");
-                            ShipsSelectClass (SHIPS_G3Wave1FrigateFound, SHIPS_G3Wave1Found, "CLASS_Frigate");
-                            ShipsSelectClass (SHIPS_G3Wave1DestroyerFound, SHIPS_G3Wave1Found, "CLASS_Destroyer");
-                            ShipsSelectClass (SHIPS_G3Wave1CarrierFound, SHIPS_G3Wave1Found, "CLASS_Carrier");
+                            ShipsSelectClass (SHIPS_G3Wave1FighterFound, SHIPS_G3Wave1Found, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_G3Wave1CorvetteFound, SHIPS_G3Wave1Found, "CLASS_CORVETTE");
+                            ShipsSelectClass (SHIPS_G3Wave1FrigateFound, SHIPS_G3Wave1Found, "CLASS_FRIGATE");
+                            ShipsSelectClass (SHIPS_G3Wave1DestroyerFound, SHIPS_G3Wave1Found, "CLASS_DESTROYER");
+                            ShipsSelectClass (SHIPS_G3Wave1CarrierFound, SHIPS_G3Wave1Found, "CLASS_CARRIER");
                             ShipsSelectClass (SHIPS_G3Wave1CruiserFound, SHIPS_G3Wave1Found, "CLASS_HeavyCruier");
 
                             VarSet ("G_TOTALWave1Gate3BoxFound", 62*(ShipsCount (SHIPS_G3Wave1FighterFound))              // Add up the value in RUs of all the ships in the volume
@@ -1875,11 +1875,11 @@ FSM HyperspaceGateTeam
                                     VarCreateSet ("G_TOTALWave2Gate3BoxFound", 0);
                             ENDIFONCE
                             FindEnemiesInside (VOLUME_Gate3Box, SHIPS_G3Wave2Found, 100);
-                            ShipsSelectClass (SHIPS_G3Wave2FighterFound, SHIPS_G3Wave2Found, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_G3Wave2CorvetteFound, SHIPS_G3Wave2Found, "CLASS_Corvette");
-                            ShipsSelectClass (SHIPS_G3Wave2FrigateFound, SHIPS_G3Wave2Found, "CLASS_Frigate");
-                            ShipsSelectClass (SHIPS_G3Wave2DestroyerFound, SHIPS_G3Wave2Found, "CLASS_Destroyer");
-                            ShipsSelectClass (SHIPS_G3Wave2CarrierFound, SHIPS_G3Wave2Found, "CLASS_Carrier");
+                            ShipsSelectClass (SHIPS_G3Wave2FighterFound, SHIPS_G3Wave2Found, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_G3Wave2CorvetteFound, SHIPS_G3Wave2Found, "CLASS_CORVETTE");
+                            ShipsSelectClass (SHIPS_G3Wave2FrigateFound, SHIPS_G3Wave2Found, "CLASS_FRIGATE");
+                            ShipsSelectClass (SHIPS_G3Wave2DestroyerFound, SHIPS_G3Wave2Found, "CLASS_DESTROYER");
+                            ShipsSelectClass (SHIPS_G3Wave2CarrierFound, SHIPS_G3Wave2Found, "CLASS_CARRIER");
                             ShipsSelectClass (SHIPS_G3Wave2CruiserFound, SHIPS_G3Wave2Found, "CLASS_HeavyCruier");
 
                             VarSet ("G_TOTALWave2Gate3BoxFound", 62*(ShipsCount (SHIPS_G3Wave2FighterFound))              // Add up the value in RUs of all the ships in the volume
@@ -2095,11 +2095,11 @@ FSM HyperspaceGateTeam
                             ShipsClear (SHIPS_G2Wave1CarrierFound);
                             ShipsClear (SHIPS_G2Wave1CruiserFound);
                             FindEnemiesInside (VOLUME_Gate2Box, SHIPS_G2Wave1Found, 100);
-                            ShipsSelectClass (SHIPS_G2Wave1FighterFound, SHIPS_G2Wave1Found, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_G2Wave1CorvetteFound, SHIPS_G2Wave1Found, "CLASS_Corvette");
-                            ShipsSelectClass (SHIPS_G2Wave1FrigateFound, SHIPS_G2Wave1Found, "CLASS_Frigate");
-                            ShipsSelectClass (SHIPS_G2Wave1DestroyerFound, SHIPS_G2Wave1Found, "CLASS_Destroyer");
-                            ShipsSelectClass (SHIPS_G2Wave1CarrierFound, SHIPS_G2Wave1Found, "CLASS_Carrier");
+                            ShipsSelectClass (SHIPS_G2Wave1FighterFound, SHIPS_G2Wave1Found, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_G2Wave1CorvetteFound, SHIPS_G2Wave1Found, "CLASS_CORVETTE");
+                            ShipsSelectClass (SHIPS_G2Wave1FrigateFound, SHIPS_G2Wave1Found, "CLASS_FRIGATE");
+                            ShipsSelectClass (SHIPS_G2Wave1DestroyerFound, SHIPS_G2Wave1Found, "CLASS_DESTROYER");
+                            ShipsSelectClass (SHIPS_G2Wave1CarrierFound, SHIPS_G2Wave1Found, "CLASS_CARRIER");
                             ShipsSelectClass (SHIPS_G2Wave1CruiserFound, SHIPS_G2Wave1Found, "CLASS_HeavyCruier");
 
                             VarSet ("G_TOTALWave1Gate2BoxFound", 62*(ShipsCount (SHIPS_G2Wave1FighterFound))              // Add up the value in RUs of all the ships in the volume
@@ -2141,11 +2141,11 @@ FSM HyperspaceGateTeam
                             ShipsClear (SHIPS_G2Wave1CarrierFound);
                             ShipsClear (SHIPS_G2Wave1CruiserFound);
                             FindEnemiesInside (VOLUME_Gate2Box, SHIPS_G2Wave1Found, 100);
-                            ShipsSelectClass (SHIPS_G2Wave1FighterFound, SHIPS_G2Wave1Found, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_G2Wave1CorvetteFound, SHIPS_G2Wave1Found, "CLASS_Corvette");
-                            ShipsSelectClass (SHIPS_G2Wave1FrigateFound, SHIPS_G2Wave1Found, "CLASS_Frigate");
-                            ShipsSelectClass (SHIPS_G2Wave1DestroyerFound, SHIPS_G2Wave1Found, "CLASS_Destroyer");
-                            ShipsSelectClass (SHIPS_G2Wave1CarrierFound, SHIPS_G2Wave1Found, "CLASS_Carrier");
+                            ShipsSelectClass (SHIPS_G2Wave1FighterFound, SHIPS_G2Wave1Found, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_G2Wave1CorvetteFound, SHIPS_G2Wave1Found, "CLASS_CORVETTE");
+                            ShipsSelectClass (SHIPS_G2Wave1FrigateFound, SHIPS_G2Wave1Found, "CLASS_FRIGATE");
+                            ShipsSelectClass (SHIPS_G2Wave1DestroyerFound, SHIPS_G2Wave1Found, "CLASS_DESTROYER");
+                            ShipsSelectClass (SHIPS_G2Wave1CarrierFound, SHIPS_G2Wave1Found, "CLASS_CARRIER");
                             ShipsSelectClass (SHIPS_G2Wave1CruiserFound, SHIPS_G2Wave1Found, "CLASS_HeavyCruier");
 
                             VarSet ("G_TOTALWave1Gate2BoxFound", 62*(ShipsCount (SHIPS_G2Wave1FighterFound))              // Add up the value in RUs of all the ships in the volume
@@ -2187,11 +2187,11 @@ FSM HyperspaceGateTeam
                             ShipsClear (SHIPS_G2Wave1CarrierFound);
                             ShipsClear (SHIPS_G2Wave1CruiserFound);
                             FindEnemiesInside (VOLUME_Gate2Box, SHIPS_G2Wave1Found, 100);
-                            ShipsSelectClass (SHIPS_G2Wave1FighterFound, SHIPS_G2Wave1Found, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_G2Wave1CorvetteFound, SHIPS_G2Wave1Found, "CLASS_Corvette");
-                            ShipsSelectClass (SHIPS_G2Wave1FrigateFound, SHIPS_G2Wave1Found, "CLASS_Frigate");
-                            ShipsSelectClass (SHIPS_G2Wave1DestroyerFound, SHIPS_G2Wave1Found, "CLASS_Destroyer");
-                            ShipsSelectClass (SHIPS_G2Wave1CarrierFound, SHIPS_G2Wave1Found, "CLASS_Carrier");
+                            ShipsSelectClass (SHIPS_G2Wave1FighterFound, SHIPS_G2Wave1Found, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_G2Wave1CorvetteFound, SHIPS_G2Wave1Found, "CLASS_CORVETTE");
+                            ShipsSelectClass (SHIPS_G2Wave1FrigateFound, SHIPS_G2Wave1Found, "CLASS_FRIGATE");
+                            ShipsSelectClass (SHIPS_G2Wave1DestroyerFound, SHIPS_G2Wave1Found, "CLASS_DESTROYER");
+                            ShipsSelectClass (SHIPS_G2Wave1CarrierFound, SHIPS_G2Wave1Found, "CLASS_CARRIER");
                             ShipsSelectClass (SHIPS_G2Wave1CruiserFound, SHIPS_G2Wave1Found, "CLASS_HeavyCruier");
 
                             VarSet ("G_TOTALWave1Gate2BoxFound", 62*(ShipsCount (SHIPS_G2Wave1FighterFound))              // Add up the value in RUs of all the ships in the volume
@@ -2237,11 +2237,11 @@ FSM HyperspaceGateTeam
                             ShipsClear (SHIPS_G2Wave2CarrierFound);
                             ShipsClear (SHIPS_G2Wave2CruiserFound);
                             FindEnemiesInside (VOLUME_Gate2Box, SHIPS_G2Wave2Found, 100);
-                            ShipsSelectClass (SHIPS_G2Wave2FighterFound, SHIPS_G2Wave2Found, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_G2Wave2CorvetteFound, SHIPS_G2Wave2Found, "CLASS_Corvette");
-                            ShipsSelectClass (SHIPS_G2Wave2FrigateFound, SHIPS_G2Wave2Found, "CLASS_Frigate");
-                            ShipsSelectClass (SHIPS_G2Wave2DestroyerFound, SHIPS_G2Wave2Found, "CLASS_Destroyer");
-                            ShipsSelectClass (SHIPS_G2Wave2CarrierFound, SHIPS_G2Wave2Found, "CLASS_Carrier");
+                            ShipsSelectClass (SHIPS_G2Wave2FighterFound, SHIPS_G2Wave2Found, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_G2Wave2CorvetteFound, SHIPS_G2Wave2Found, "CLASS_CORVETTE");
+                            ShipsSelectClass (SHIPS_G2Wave2FrigateFound, SHIPS_G2Wave2Found, "CLASS_FRIGATE");
+                            ShipsSelectClass (SHIPS_G2Wave2DestroyerFound, SHIPS_G2Wave2Found, "CLASS_DESTROYER");
+                            ShipsSelectClass (SHIPS_G2Wave2CarrierFound, SHIPS_G2Wave2Found, "CLASS_CARRIER");
                             ShipsSelectClass (SHIPS_G2Wave2CruiserFound, SHIPS_G2Wave2Found, "CLASS_HeavyCruier");
 
                             VarSet ("G_TOTALWave2Gate2BoxFound", 62*(ShipsCount (SHIPS_G2Wave2FighterFound))              // Add up the value in RUs of all the ships in the volume
@@ -2283,11 +2283,11 @@ FSM HyperspaceGateTeam
                             ShipsClear (SHIPS_G2Wave2CarrierFound);
                             ShipsClear (SHIPS_G2Wave2CruiserFound);
                             FindEnemiesInside (VOLUME_Gate2Box, SHIPS_G2Wave2Found, 100);
-                            ShipsSelectClass (SHIPS_G2Wave2FighterFound, SHIPS_G2Wave2Found, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_G2Wave2CorvetteFound, SHIPS_G2Wave2Found, "CLASS_Corvette");
-                            ShipsSelectClass (SHIPS_G2Wave2FrigateFound, SHIPS_G2Wave2Found, "CLASS_Frigate");
-                            ShipsSelectClass (SHIPS_G2Wave2DestroyerFound, SHIPS_G2Wave2Found, "CLASS_Destroyer");
-                            ShipsSelectClass (SHIPS_G2Wave2CarrierFound, SHIPS_G2Wave2Found, "CLASS_Carrier");
+                            ShipsSelectClass (SHIPS_G2Wave2FighterFound, SHIPS_G2Wave2Found, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_G2Wave2CorvetteFound, SHIPS_G2Wave2Found, "CLASS_CORVETTE");
+                            ShipsSelectClass (SHIPS_G2Wave2FrigateFound, SHIPS_G2Wave2Found, "CLASS_FRIGATE");
+                            ShipsSelectClass (SHIPS_G2Wave2DestroyerFound, SHIPS_G2Wave2Found, "CLASS_DESTROYER");
+                            ShipsSelectClass (SHIPS_G2Wave2CarrierFound, SHIPS_G2Wave2Found, "CLASS_CARRIER");
                             ShipsSelectClass (SHIPS_G2Wave2CruiserFound, SHIPS_G2Wave2Found, "CLASS_HeavyCruier");
 
                             VarSet ("G_TOTALWave2Gate2BoxFound", 62*(ShipsCount (SHIPS_G2Wave2FighterFound))              // Add up the value in RUs of all the ships in the volume
@@ -2358,11 +2358,11 @@ FSM HyperspaceGateTeam
                             ShipsClear (SHIPS_G1Wave1CarrierFound);
                             ShipsClear (SHIPS_G1Wave1CruiserFound);
                             FindEnemiesInside (VOLUME_Gate1Box, SHIPS_G1Wave1Found, 100);
-                            ShipsSelectClass (SHIPS_G1Wave1FighterFound, SHIPS_G1Wave1Found, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_G1Wave1CorvetteFound, SHIPS_G1Wave1Found, "CLASS_Corvette");
-                            ShipsSelectClass (SHIPS_G1Wave1FrigateFound, SHIPS_G1Wave1Found, "CLASS_Frigate");
-                            ShipsSelectClass (SHIPS_G1Wave1DestroyerFound, SHIPS_G1Wave1Found, "CLASS_Destroyer");
-                            ShipsSelectClass (SHIPS_G1Wave1CarrierFound, SHIPS_G1Wave1Found, "CLASS_Carrier");
+                            ShipsSelectClass (SHIPS_G1Wave1FighterFound, SHIPS_G1Wave1Found, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_G1Wave1CorvetteFound, SHIPS_G1Wave1Found, "CLASS_CORVETTE");
+                            ShipsSelectClass (SHIPS_G1Wave1FrigateFound, SHIPS_G1Wave1Found, "CLASS_FRIGATE");
+                            ShipsSelectClass (SHIPS_G1Wave1DestroyerFound, SHIPS_G1Wave1Found, "CLASS_DESTROYER");
+                            ShipsSelectClass (SHIPS_G1Wave1CarrierFound, SHIPS_G1Wave1Found, "CLASS_CARRIER");
                             ShipsSelectClass (SHIPS_G1Wave1CruiserFound, SHIPS_G1Wave1Found, "CLASS_HeavyCruier");
 
                             VarSet ("G_TOTALWave1Gate1BoxFound", 62*(ShipsCount (SHIPS_G1Wave1FighterFound))              // Add up the value in RUs of all the ships in the volume
@@ -2404,11 +2404,11 @@ FSM HyperspaceGateTeam
                             ShipsClear (SHIPS_G1Wave1CarrierFound);
                             ShipsClear (SHIPS_G1Wave1CruiserFound);
                             FindEnemiesInside (VOLUME_Gate1Box, SHIPS_G1Wave1Found, 100);
-                            ShipsSelectClass (SHIPS_G1Wave1FighterFound, SHIPS_G1Wave1Found, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_G1Wave1CorvetteFound, SHIPS_G1Wave1Found, "CLASS_Corvette");
-                            ShipsSelectClass (SHIPS_G1Wave1FrigateFound, SHIPS_G1Wave1Found, "CLASS_Frigate");
-                            ShipsSelectClass (SHIPS_G1Wave1DestroyerFound, SHIPS_G1Wave1Found, "CLASS_Destroyer");
-                            ShipsSelectClass (SHIPS_G1Wave1CarrierFound, SHIPS_G1Wave1Found, "CLASS_Carrier");
+                            ShipsSelectClass (SHIPS_G1Wave1FighterFound, SHIPS_G1Wave1Found, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_G1Wave1CorvetteFound, SHIPS_G1Wave1Found, "CLASS_CORVETTE");
+                            ShipsSelectClass (SHIPS_G1Wave1FrigateFound, SHIPS_G1Wave1Found, "CLASS_FRIGATE");
+                            ShipsSelectClass (SHIPS_G1Wave1DestroyerFound, SHIPS_G1Wave1Found, "CLASS_DESTROYER");
+                            ShipsSelectClass (SHIPS_G1Wave1CarrierFound, SHIPS_G1Wave1Found, "CLASS_CARRIER");
                             ShipsSelectClass (SHIPS_G1Wave1CruiserFound, SHIPS_G1Wave1Found, "CLASS_HeavyCruier");
 
                             VarSet ("G_TOTALWave1Gate1BoxFound", 62*(ShipsCount (SHIPS_G1Wave1FighterFound))              // Add up the value in RUs of all the ships in the volume
@@ -2450,11 +2450,11 @@ FSM HyperspaceGateTeam
                             ShipsClear (SHIPS_G1Wave1CarrierFound);
                             ShipsClear (SHIPS_G1Wave1CruiserFound);
                             FindEnemiesInside (VOLUME_Gate1Box, SHIPS_G1Wave1Found, 100);
-                            ShipsSelectClass (SHIPS_G1Wave1FighterFound, SHIPS_G1Wave1Found, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_G1Wave1CorvetteFound, SHIPS_G1Wave1Found, "CLASS_Corvette");
-                            ShipsSelectClass (SHIPS_G1Wave1FrigateFound, SHIPS_G1Wave1Found, "CLASS_Frigate");
-                            ShipsSelectClass (SHIPS_G1Wave1DestroyerFound, SHIPS_G1Wave1Found, "CLASS_Destroyer");
-                            ShipsSelectClass (SHIPS_G1Wave1CarrierFound, SHIPS_G1Wave1Found, "CLASS_Carrier");
+                            ShipsSelectClass (SHIPS_G1Wave1FighterFound, SHIPS_G1Wave1Found, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_G1Wave1CorvetteFound, SHIPS_G1Wave1Found, "CLASS_CORVETTE");
+                            ShipsSelectClass (SHIPS_G1Wave1FrigateFound, SHIPS_G1Wave1Found, "CLASS_FRIGATE");
+                            ShipsSelectClass (SHIPS_G1Wave1DestroyerFound, SHIPS_G1Wave1Found, "CLASS_DESTROYER");
+                            ShipsSelectClass (SHIPS_G1Wave1CarrierFound, SHIPS_G1Wave1Found, "CLASS_CARRIER");
                             ShipsSelectClass (SHIPS_G1Wave1CruiserFound, SHIPS_G1Wave1Found, "CLASS_HeavyCruier");
 
                             VarSet ("G_TOTALWave1Gate1BoxFound", 62*(ShipsCount (SHIPS_G1Wave1FighterFound))              // Add up the value in RUs of all the ships in the volume
@@ -2500,11 +2500,11 @@ FSM HyperspaceGateTeam
                             ShipsClear (SHIPS_G1Wave2CarrierFound);
                             ShipsClear (SHIPS_G1Wave2CruiserFound);
                             FindEnemiesInside (VOLUME_Gate1Box, SHIPS_G1Wave2Found, 100);
-                            ShipsSelectClass (SHIPS_G1Wave2FighterFound, SHIPS_G1Wave2Found, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_G1Wave2CorvetteFound, SHIPS_G1Wave2Found, "CLASS_Corvette");
-                            ShipsSelectClass (SHIPS_G1Wave2FrigateFound, SHIPS_G1Wave2Found, "CLASS_Frigate");
-                            ShipsSelectClass (SHIPS_G1Wave2DestroyerFound, SHIPS_G1Wave2Found, "CLASS_Destroyer");
-                            ShipsSelectClass (SHIPS_G1Wave2CarrierFound, SHIPS_G1Wave2Found, "CLASS_Carrier");
+                            ShipsSelectClass (SHIPS_G1Wave2FighterFound, SHIPS_G1Wave2Found, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_G1Wave2CorvetteFound, SHIPS_G1Wave2Found, "CLASS_CORVETTE");
+                            ShipsSelectClass (SHIPS_G1Wave2FrigateFound, SHIPS_G1Wave2Found, "CLASS_FRIGATE");
+                            ShipsSelectClass (SHIPS_G1Wave2DestroyerFound, SHIPS_G1Wave2Found, "CLASS_DESTROYER");
+                            ShipsSelectClass (SHIPS_G1Wave2CarrierFound, SHIPS_G1Wave2Found, "CLASS_CARRIER");
                             ShipsSelectClass (SHIPS_G1Wave2CruiserFound, SHIPS_G1Wave2Found, "CLASS_HeavyCruier");
 
                             VarSet ("G_TOTALWave2Gate1BoxFound", 62*(ShipsCount (SHIPS_G1Wave2FighterFound))              // Add up the value in RUs of all the ships in the volume
@@ -2546,11 +2546,11 @@ FSM HyperspaceGateTeam
                             ShipsClear (SHIPS_G1Wave2CarrierFound);
                             ShipsClear (SHIPS_G1Wave2CruiserFound);
                             FindEnemiesInside (VOLUME_Gate1Box, SHIPS_G1Wave2Found, 100);
-                            ShipsSelectClass (SHIPS_G1Wave2FighterFound, SHIPS_G1Wave2Found, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_G1Wave2CorvetteFound, SHIPS_G1Wave2Found, "CLASS_Corvette");
-                            ShipsSelectClass (SHIPS_G1Wave2FrigateFound, SHIPS_G1Wave2Found, "CLASS_Frigate");
-                            ShipsSelectClass (SHIPS_G1Wave2DestroyerFound, SHIPS_G1Wave2Found, "CLASS_Destroyer");
-                            ShipsSelectClass (SHIPS_G1Wave2CarrierFound, SHIPS_G1Wave2Found, "CLASS_Carrier");
+                            ShipsSelectClass (SHIPS_G1Wave2FighterFound, SHIPS_G1Wave2Found, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_G1Wave2CorvetteFound, SHIPS_G1Wave2Found, "CLASS_CORVETTE");
+                            ShipsSelectClass (SHIPS_G1Wave2FrigateFound, SHIPS_G1Wave2Found, "CLASS_FRIGATE");
+                            ShipsSelectClass (SHIPS_G1Wave2DestroyerFound, SHIPS_G1Wave2Found, "CLASS_DESTROYER");
+                            ShipsSelectClass (SHIPS_G1Wave2CarrierFound, SHIPS_G1Wave2Found, "CLASS_CARRIER");
                             ShipsSelectClass (SHIPS_G1Wave2CruiserFound, SHIPS_G1Wave2Found, "CLASS_HeavyCruier");
 
                             VarSet ("G_TOTALWave2Gate1BoxFound", 62*(ShipsCount (SHIPS_G1Wave2FighterFound))              // Add up the value in RUs of all the ships in the volume
@@ -2621,11 +2621,11 @@ FSM HyperspaceGateTeam
                             ShipsClear (SHIPS_G3Wave1CarrierFound);
                             ShipsClear (SHIPS_G3Wave1CruiserFound);
                             FindEnemiesInside (VOLUME_Gate3Box, SHIPS_G3Wave1Found, 100);
-                            ShipsSelectClass (SHIPS_G3Wave1FighterFound, SHIPS_G3Wave1Found, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_G3Wave1CorvetteFound, SHIPS_G3Wave1Found, "CLASS_Corvette");
-                            ShipsSelectClass (SHIPS_G3Wave1FrigateFound, SHIPS_G3Wave1Found, "CLASS_Frigate");
-                            ShipsSelectClass (SHIPS_G3Wave1DestroyerFound, SHIPS_G3Wave1Found, "CLASS_Destroyer");
-                            ShipsSelectClass (SHIPS_G3Wave1CarrierFound, SHIPS_G3Wave1Found, "CLASS_Carrier");
+                            ShipsSelectClass (SHIPS_G3Wave1FighterFound, SHIPS_G3Wave1Found, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_G3Wave1CorvetteFound, SHIPS_G3Wave1Found, "CLASS_CORVETTE");
+                            ShipsSelectClass (SHIPS_G3Wave1FrigateFound, SHIPS_G3Wave1Found, "CLASS_FRIGATE");
+                            ShipsSelectClass (SHIPS_G3Wave1DestroyerFound, SHIPS_G3Wave1Found, "CLASS_DESTROYER");
+                            ShipsSelectClass (SHIPS_G3Wave1CarrierFound, SHIPS_G3Wave1Found, "CLASS_CARRIER");
                             ShipsSelectClass (SHIPS_G3Wave1CruiserFound, SHIPS_G3Wave1Found, "CLASS_HeavyCruier");
 
                             VarSet ("G_TOTALWave1Gate3BoxFound", 62*(ShipsCount (SHIPS_G3Wave1FighterFound))              // Add up the value in RUs of all the ships in the volume
@@ -2667,11 +2667,11 @@ FSM HyperspaceGateTeam
                             ShipsClear (SHIPS_G3Wave1CarrierFound);
                             ShipsClear (SHIPS_G3Wave1CruiserFound);
                             FindEnemiesInside (VOLUME_Gate3Box, SHIPS_G3Wave1Found, 100);
-                            ShipsSelectClass (SHIPS_G3Wave1FighterFound, SHIPS_G3Wave1Found, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_G3Wave1CorvetteFound, SHIPS_G3Wave1Found, "CLASS_Corvette");
-                            ShipsSelectClass (SHIPS_G3Wave1FrigateFound, SHIPS_G3Wave1Found, "CLASS_Frigate");
-                            ShipsSelectClass (SHIPS_G3Wave1DestroyerFound, SHIPS_G3Wave1Found, "CLASS_Destroyer");
-                            ShipsSelectClass (SHIPS_G3Wave1CarrierFound, SHIPS_G3Wave1Found, "CLASS_Carrier");
+                            ShipsSelectClass (SHIPS_G3Wave1FighterFound, SHIPS_G3Wave1Found, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_G3Wave1CorvetteFound, SHIPS_G3Wave1Found, "CLASS_CORVETTE");
+                            ShipsSelectClass (SHIPS_G3Wave1FrigateFound, SHIPS_G3Wave1Found, "CLASS_FRIGATE");
+                            ShipsSelectClass (SHIPS_G3Wave1DestroyerFound, SHIPS_G3Wave1Found, "CLASS_DESTROYER");
+                            ShipsSelectClass (SHIPS_G3Wave1CarrierFound, SHIPS_G3Wave1Found, "CLASS_CARRIER");
                             ShipsSelectClass (SHIPS_G3Wave1CruiserFound, SHIPS_G3Wave1Found, "CLASS_HeavyCruier");
 
                             VarSet ("G_TOTALWave1Gate3BoxFound", 62*(ShipsCount (SHIPS_G3Wave1FighterFound))              // Add up the value in RUs of all the ships in the volume
@@ -2713,11 +2713,11 @@ FSM HyperspaceGateTeam
                             ShipsClear (SHIPS_G3Wave1CarrierFound);
                             ShipsClear (SHIPS_G3Wave1CruiserFound);
                             FindEnemiesInside (VOLUME_Gate3Box, SHIPS_G3Wave1Found, 100);
-                            ShipsSelectClass (SHIPS_G3Wave1FighterFound, SHIPS_G3Wave1Found, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_G3Wave1CorvetteFound, SHIPS_G3Wave1Found, "CLASS_Corvette");
-                            ShipsSelectClass (SHIPS_G3Wave1FrigateFound, SHIPS_G3Wave1Found, "CLASS_Frigate");
-                            ShipsSelectClass (SHIPS_G3Wave1DestroyerFound, SHIPS_G3Wave1Found, "CLASS_Destroyer");
-                            ShipsSelectClass (SHIPS_G3Wave1CarrierFound, SHIPS_G3Wave1Found, "CLASS_Carrier");
+                            ShipsSelectClass (SHIPS_G3Wave1FighterFound, SHIPS_G3Wave1Found, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_G3Wave1CorvetteFound, SHIPS_G3Wave1Found, "CLASS_CORVETTE");
+                            ShipsSelectClass (SHIPS_G3Wave1FrigateFound, SHIPS_G3Wave1Found, "CLASS_FRIGATE");
+                            ShipsSelectClass (SHIPS_G3Wave1DestroyerFound, SHIPS_G3Wave1Found, "CLASS_DESTROYER");
+                            ShipsSelectClass (SHIPS_G3Wave1CarrierFound, SHIPS_G3Wave1Found, "CLASS_CARRIER");
                             ShipsSelectClass (SHIPS_G3Wave1CruiserFound, SHIPS_G3Wave1Found, "CLASS_HeavyCruier");
 
                             VarSet ("G_TOTALWave1Gate3BoxFound", 62*(ShipsCount (SHIPS_G3Wave1FighterFound))              // Add up the value in RUs of all the ships in the volume
@@ -2763,11 +2763,11 @@ FSM HyperspaceGateTeam
                             ShipsClear (SHIPS_G3Wave2CarrierFound);
                             ShipsClear (SHIPS_G3Wave2CruiserFound);
                             FindEnemiesInside (VOLUME_Gate3Box, SHIPS_G3Wave2Found, 100);
-                            ShipsSelectClass (SHIPS_G3Wave2FighterFound, SHIPS_G3Wave2Found, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_G3Wave2CorvetteFound, SHIPS_G3Wave2Found, "CLASS_Corvette");
-                            ShipsSelectClass (SHIPS_G3Wave2FrigateFound, SHIPS_G3Wave2Found, "CLASS_Frigate");
-                            ShipsSelectClass (SHIPS_G3Wave2DestroyerFound, SHIPS_G3Wave2Found, "CLASS_Destroyer");
-                            ShipsSelectClass (SHIPS_G3Wave2CarrierFound, SHIPS_G3Wave2Found, "CLASS_Carrier");
+                            ShipsSelectClass (SHIPS_G3Wave2FighterFound, SHIPS_G3Wave2Found, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_G3Wave2CorvetteFound, SHIPS_G3Wave2Found, "CLASS_CORVETTE");
+                            ShipsSelectClass (SHIPS_G3Wave2FrigateFound, SHIPS_G3Wave2Found, "CLASS_FRIGATE");
+                            ShipsSelectClass (SHIPS_G3Wave2DestroyerFound, SHIPS_G3Wave2Found, "CLASS_DESTROYER");
+                            ShipsSelectClass (SHIPS_G3Wave2CarrierFound, SHIPS_G3Wave2Found, "CLASS_CARRIER");
                             ShipsSelectClass (SHIPS_G3Wave2CruiserFound, SHIPS_G3Wave2Found, "CLASS_HeavyCruier");
 
                             VarSet ("G_TOTALWave2Gate3BoxFound", 62*(ShipsCount (SHIPS_G3Wave2FighterFound))              // Add up the value in RUs of all the ships in the volume
@@ -2809,11 +2809,11 @@ FSM HyperspaceGateTeam
                             ShipsClear (SHIPS_G3Wave2CarrierFound);
                             ShipsClear (SHIPS_G3Wave2CruiserFound);
                             FindEnemiesInside (VOLUME_Gate3Box, SHIPS_G3Wave2Found, 100);
-                            ShipsSelectClass (SHIPS_G3Wave2FighterFound, SHIPS_G3Wave2Found, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_G3Wave2CorvetteFound, SHIPS_G3Wave2Found, "CLASS_Corvette");
-                            ShipsSelectClass (SHIPS_G3Wave2FrigateFound, SHIPS_G3Wave2Found, "CLASS_Frigate");
-                            ShipsSelectClass (SHIPS_G3Wave2DestroyerFound, SHIPS_G3Wave2Found, "CLASS_Destroyer");
-                            ShipsSelectClass (SHIPS_G3Wave2CarrierFound, SHIPS_G3Wave2Found, "CLASS_Carrier");
+                            ShipsSelectClass (SHIPS_G3Wave2FighterFound, SHIPS_G3Wave2Found, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_G3Wave2CorvetteFound, SHIPS_G3Wave2Found, "CLASS_CORVETTE");
+                            ShipsSelectClass (SHIPS_G3Wave2FrigateFound, SHIPS_G3Wave2Found, "CLASS_FRIGATE");
+                            ShipsSelectClass (SHIPS_G3Wave2DestroyerFound, SHIPS_G3Wave2Found, "CLASS_DESTROYER");
+                            ShipsSelectClass (SHIPS_G3Wave2CarrierFound, SHIPS_G3Wave2Found, "CLASS_CARRIER");
                             ShipsSelectClass (SHIPS_G3Wave2CruiserFound, SHIPS_G3Wave2Found, "CLASS_HeavyCruier");
 
                             VarSet ("G_TOTALWave2Gate3BoxFound", 62*(ShipsCount (SHIPS_G3Wave2FighterFound))              // Add up the value in RUs of all the ships in the volume
@@ -3079,9 +3079,9 @@ FSM HyperspaceGateTeam
                             ShipsClear (SHIPS_Gate2Wave1HCTargets);
                             VarCreateSet ("G_SHIPSG2Wave1Found", ShipsCount (SHIPS_G2Wave1Found));
                             IF (ShipsSelectType (SHIPS_Gate2Wave1HCTargets, SHIPS_G2Wave1Found, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave1HCTargets, SHIPS_G2Wave1Found, "CLASS_Fighter"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave1HCTargets, SHIPS_G2Wave1Found, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave1HCTargets, SHIPS_G2Wave1Found, "CLASS_Frigate"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave1HCTargets, SHIPS_G2Wave1Found, "CLASS_FIGHTER"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave1HCTargets, SHIPS_G2Wave1Found, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave1HCTargets, SHIPS_G2Wave1Found, "CLASS_FRIGATE"))
                             ELSE
                                     ShipsAdd (SHIPS_Gate2Wave1HCTargets, SHIPS_G2Wave1Found);
                             ENDIF
@@ -3095,9 +3095,9 @@ FSM HyperspaceGateTeam
                             VarCreateSet ("G_SHIPSG2Wave1Found", ShipsCount (SHIPS_G2Wave1Found));
                             ShipsClear (SHIPS_Gate2Wave1IntTargets);
                             IF (ShipsSelectType (SHIPS_Gate2Wave1IntTargets, SHIPS_G2Wave1Found, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave1IntTargets, SHIPS_G2Wave1Found, "CLASS_Fighter"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave1IntTargets, SHIPS_G2Wave1Found, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave1IntTargets, SHIPS_G2Wave1Found, "CLASS_Destroyer"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave1IntTargets, SHIPS_G2Wave1Found, "CLASS_FIGHTER"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave1IntTargets, SHIPS_G2Wave1Found, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave1IntTargets, SHIPS_G2Wave1Found, "CLASS_DESTROYER"))
                             ELSE
                                     ShipsAdd (SHIPS_Gate2Wave1IntTargets, SHIPS_G2Wave1Found);
                             ENDIF
@@ -3111,9 +3111,9 @@ FSM HyperspaceGateTeam
                             VarCreateSet ("G_SHIPSG2Wave1Found", ShipsCount (SHIPS_G2Wave1Found));
                             ShipsClear (SHIPS_Gate2Wave1BomTargets);
                             IF (ShipsSelectType (SHIPS_Gate2Wave1BomTargets, SHIPS_G2Wave1Found, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave1BomTargets, SHIPS_G2Wave1Found, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave1BomTargets, SHIPS_G2Wave1Found, "CLASS_Destroyer"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave1BomTargets, SHIPS_G2Wave1Found, "CLASS_HeavyCruiser"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave1BomTargets, SHIPS_G2Wave1Found, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave1BomTargets, SHIPS_G2Wave1Found, "CLASS_DESTROYER"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave1BomTargets, SHIPS_G2Wave1Found, "CLASS_HEAVY_CRUISER"))
                             ELSE
                                     ShipsAdd (SHIPS_Gate2Wave1BomTargets, SHIPS_G2Wave1Found);
                             ENDIF
@@ -3131,9 +3131,9 @@ FSM HyperspaceGateTeam
                             ShipsClear (SHIPS_Gate2Wave2DesTargets);
                             VarCreateSet ("G_SHIPSG2Wave2Found", ShipsCount (SHIPS_G2Wave2Found));
                             IF (ShipsSelectType (SHIPS_Gate2Wave2DesTargets, SHIPS_G2Wave2Found, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave2DesTargets, SHIPS_G2Wave2Found, "CLASS_HeavyCruiser"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave2DesTargets, SHIPS_G2Wave2Found, "CLASS_Destroyer"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave2DesTargets, SHIPS_G2Wave2Found, "CLASS_Frigate"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave2DesTargets, SHIPS_G2Wave2Found, "CLASS_HEAVY_CRUISER"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave2DesTargets, SHIPS_G2Wave2Found, "CLASS_DESTROYER"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave2DesTargets, SHIPS_G2Wave2Found, "CLASS_FRIGATE"))
                             ELSE
                                     ShipsAdd (SHIPS_Gate2Wave2DesTargets, SHIPS_G2Wave2Found);
                             ENDIF
@@ -3147,9 +3147,9 @@ FSM HyperspaceGateTeam
                             VarCreateSet ("G_SHIPSG2Wave2Found", ShipsCount (SHIPS_G2Wave2Found));
                             ShipsClear (SHIPS_Gate2Wave2MDesTargets);
                             IF (ShipsSelectType (SHIPS_Gate2Wave2MDesTargets, SHIPS_G2Wave2Found, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave2MDesTargets, SHIPS_G2Wave2Found, "CLASS_Fighter"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave2MDesTargets, SHIPS_G2Wave2Found, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave2MDesTargets, SHIPS_G2Wave2Found, "CLASS_Frigate"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave2MDesTargets, SHIPS_G2Wave2Found, "CLASS_FIGHTER"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave2MDesTargets, SHIPS_G2Wave2Found, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave2MDesTargets, SHIPS_G2Wave2Found, "CLASS_FRIGATE"))
                             ELSE
                                     ShipsAdd (SHIPS_Gate2Wave2MDesTargets, SHIPS_G2Wave2Found);
                             ENDIF
@@ -3168,9 +3168,9 @@ FSM HyperspaceGateTeam
                             ShipsClear (SHIPS_Gate1Wave1HCTargets);
                             VarCreateSet ("G_SHIPSG1Wave1Found", ShipsCount (SHIPS_G1Wave1Found));
                             IF (ShipsSelectType (SHIPS_Gate1Wave1HCTargets, SHIPS_G1Wave1Found, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave1HCTargets, SHIPS_G1Wave1Found, "CLASS_Fighter"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave1HCTargets, SHIPS_G1Wave1Found, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave1HCTargets, SHIPS_G1Wave1Found, "CLASS_Frigate"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave1HCTargets, SHIPS_G1Wave1Found, "CLASS_FIGHTER"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave1HCTargets, SHIPS_G1Wave1Found, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave1HCTargets, SHIPS_G1Wave1Found, "CLASS_FRIGATE"))
                             ELSE
                                     ShipsAdd (SHIPS_Gate1Wave1HCTargets, SHIPS_G1Wave1Found);
                             ENDIF
@@ -3184,9 +3184,9 @@ FSM HyperspaceGateTeam
                             VarCreateSet ("G_SHIPSG1Wave1Found", ShipsCount (SHIPS_G1Wave1Found));
                             ShipsClear (SHIPS_Gate1Wave1IntTargets);
                             IF (ShipsSelectType (SHIPS_Gate1Wave1IntTargets, SHIPS_G1Wave1Found, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave1IntTargets, SHIPS_G1Wave1Found, "CLASS_Fighter"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave1IntTargets, SHIPS_G1Wave1Found, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave1IntTargets, SHIPS_G1Wave1Found, "CLASS_Destroyer"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave1IntTargets, SHIPS_G1Wave1Found, "CLASS_FIGHTER"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave1IntTargets, SHIPS_G1Wave1Found, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave1IntTargets, SHIPS_G1Wave1Found, "CLASS_DESTROYER"))
                             ELSE
                                     ShipsAdd (SHIPS_Gate1Wave1IntTargets, SHIPS_G1Wave1Found);
                             ENDIF
@@ -3200,9 +3200,9 @@ FSM HyperspaceGateTeam
                             VarCreateSet ("G_SHIPSG1Wave1Found", ShipsCount (SHIPS_G1Wave1Found));
                             ShipsClear (SHIPS_Gate1Wave1BomTargets);
                             IF (ShipsSelectType (SHIPS_Gate1Wave1BomTargets, SHIPS_G1Wave1Found, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave1BomTargets, SHIPS_G1Wave1Found, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave1BomTargets, SHIPS_G1Wave1Found, "CLASS_Destroyer"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave1BomTargets, SHIPS_G1Wave1Found, "CLASS_HeavyCruiser"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave1BomTargets, SHIPS_G1Wave1Found, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave1BomTargets, SHIPS_G1Wave1Found, "CLASS_DESTROYER"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave1BomTargets, SHIPS_G1Wave1Found, "CLASS_HEAVY_CRUISER"))
                             ELSE
                                     ShipsAdd (SHIPS_Gate1Wave1BomTargets, SHIPS_G1Wave1Found);
                             ENDIF
@@ -3220,9 +3220,9 @@ FSM HyperspaceGateTeam
                             ShipsClear (SHIPS_Gate1Wave2DesTargets);
                             VarCreateSet ("G_SHIPSG1Wave2Found", ShipsCount (SHIPS_G1Wave2Found));
                             IF (ShipsSelectType (SHIPS_Gate1Wave2DesTargets, SHIPS_G1Wave2Found, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave2DesTargets, SHIPS_G1Wave2Found, "CLASS_HeavyCruiser"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave2DesTargets, SHIPS_G1Wave2Found, "CLASS_Destroyer"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave2DesTargets, SHIPS_G1Wave2Found, "CLASS_Frigate"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave2DesTargets, SHIPS_G1Wave2Found, "CLASS_HEAVY_CRUISER"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave2DesTargets, SHIPS_G1Wave2Found, "CLASS_DESTROYER"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave2DesTargets, SHIPS_G1Wave2Found, "CLASS_FRIGATE"))
                             ELSE
                                     ShipsAdd (SHIPS_Gate1Wave2DesTargets, SHIPS_G1Wave2Found);
                             ENDIF
@@ -3236,9 +3236,9 @@ FSM HyperspaceGateTeam
                             VarCreateSet ("G_SHIPSG1Wave2Found", ShipsCount (SHIPS_G1Wave2Found));
                             ShipsClear (SHIPS_Gate1Wave2MDesTargets);
                             IF (ShipsSelectType (SHIPS_Gate1Wave2MDesTargets, SHIPS_G1Wave2Found, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave2MDesTargets, SHIPS_G1Wave2Found, "CLASS_Fighter"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave2MDesTargets, SHIPS_G1Wave2Found, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave2MDesTargets, SHIPS_G1Wave2Found, "CLASS_Frigate"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave2MDesTargets, SHIPS_G1Wave2Found, "CLASS_FIGHTER"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave2MDesTargets, SHIPS_G1Wave2Found, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave2MDesTargets, SHIPS_G1Wave2Found, "CLASS_FRIGATE"))
                             ELSE
                                     ShipsAdd (SHIPS_Gate1Wave2MDesTargets, SHIPS_G1Wave2Found);
                             ENDIF
@@ -3257,9 +3257,9 @@ FSM HyperspaceGateTeam
                             ShipsClear (SHIPS_Gate3Wave1HCTargets);
                             VarCreateSet ("G_SHIPSG3Wave1Found", ShipsCount (SHIPS_G3Wave1Found));
                             IF (ShipsSelectType (SHIPS_Gate3Wave1HCTargets, SHIPS_G3Wave1Found, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave1HCTargets, SHIPS_G3Wave1Found, "CLASS_Fighter"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave1HCTargets, SHIPS_G3Wave1Found, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave1HCTargets, SHIPS_G3Wave1Found, "CLASS_Frigate"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave1HCTargets, SHIPS_G3Wave1Found, "CLASS_FIGHTER"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave1HCTargets, SHIPS_G3Wave1Found, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave1HCTargets, SHIPS_G3Wave1Found, "CLASS_FRIGATE"))
                             ELSE
                                     ShipsAdd (SHIPS_Gate3Wave1HCTargets, SHIPS_G3Wave1Found);
                             ENDIF
@@ -3273,9 +3273,9 @@ FSM HyperspaceGateTeam
                             VarCreateSet ("G_SHIPSG3Wave1Found", ShipsCount (SHIPS_G3Wave1Found));
                             ShipsClear (SHIPS_Gate3Wave1IntTargets);
                             IF (ShipsSelectType (SHIPS_Gate3Wave1IntTargets, SHIPS_G3Wave1Found, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave1IntTargets, SHIPS_G3Wave1Found, "CLASS_Fighter"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave1IntTargets, SHIPS_G3Wave1Found, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave1IntTargets, SHIPS_G3Wave1Found, "CLASS_Destroyer"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave1IntTargets, SHIPS_G3Wave1Found, "CLASS_FIGHTER"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave1IntTargets, SHIPS_G3Wave1Found, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave1IntTargets, SHIPS_G3Wave1Found, "CLASS_DESTROYER"))
                             ELSE
                                     ShipsAdd (SHIPS_Gate3Wave1IntTargets, SHIPS_G3Wave1Found);
                             ENDIF
@@ -3289,9 +3289,9 @@ FSM HyperspaceGateTeam
                             VarCreateSet ("G_SHIPSG3Wave1Found", ShipsCount (SHIPS_G3Wave1Found));
                             ShipsClear (SHIPS_Gate3Wave1BomTargets);
                             IF (ShipsSelectType (SHIPS_Gate3Wave1BomTargets, SHIPS_G3Wave1Found, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave1BomTargets, SHIPS_G3Wave1Found, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave1BomTargets, SHIPS_G3Wave1Found, "CLASS_Destroyer"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave1BomTargets, SHIPS_G3Wave1Found, "CLASS_HeavyCruiser"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave1BomTargets, SHIPS_G3Wave1Found, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave1BomTargets, SHIPS_G3Wave1Found, "CLASS_DESTROYER"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave1BomTargets, SHIPS_G3Wave1Found, "CLASS_HEAVY_CRUISER"))
                             ELSE
                                     ShipsAdd (SHIPS_Gate3Wave1BomTargets, SHIPS_G3Wave1Found);
                             ENDIF
@@ -3309,9 +3309,9 @@ FSM HyperspaceGateTeam
                             ShipsClear (SHIPS_Gate3Wave2DesTargets);
                             VarCreateSet ("G_SHIPSG3Wave2Found", ShipsCount (SHIPS_G3Wave2Found));
                             IF (ShipsSelectType (SHIPS_Gate3Wave2DesTargets, SHIPS_G3Wave2Found, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave2DesTargets, SHIPS_G3Wave2Found, "CLASS_HeavyCruiser"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave2DesTargets, SHIPS_G3Wave2Found, "CLASS_Destroyer"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave2DesTargets, SHIPS_G3Wave2Found, "CLASS_Frigate"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave2DesTargets, SHIPS_G3Wave2Found, "CLASS_HEAVY_CRUISER"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave2DesTargets, SHIPS_G3Wave2Found, "CLASS_DESTROYER"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave2DesTargets, SHIPS_G3Wave2Found, "CLASS_FRIGATE"))
                             ELSE
                                     ShipsAdd (SHIPS_Gate3Wave2DesTargets, SHIPS_G3Wave2Found);
                             ENDIF
@@ -3325,9 +3325,9 @@ FSM HyperspaceGateTeam
                             VarCreateSet ("G_SHIPSG3Wave2Found", ShipsCount (SHIPS_G3Wave2Found));
                             ShipsClear (SHIPS_Gate3Wave2MDesTargets);
                             IF (ShipsSelectType (SHIPS_Gate3Wave2MDesTargets, SHIPS_G3Wave2Found, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave2MDesTargets, SHIPS_G3Wave2Found, "CLASS_Fighter"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave2MDesTargets, SHIPS_G3Wave2Found, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave2MDesTargets, SHIPS_G3Wave2Found, "CLASS_Frigate"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave2MDesTargets, SHIPS_G3Wave2Found, "CLASS_FIGHTER"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave2MDesTargets, SHIPS_G3Wave2Found, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave2MDesTargets, SHIPS_G3Wave2Found, "CLASS_FRIGATE"))
                             ELSE
                                     ShipsAdd (SHIPS_Gate3Wave2MDesTargets, SHIPS_G3Wave2Found);
                             ENDIF
@@ -3473,9 +3473,9 @@ FSM HyperspaceGateTeam
                     IF (ThisTeamIs (TEAM_G2HC))
                             ShipsClear (SHIPS_Gate2Wave1HCTargets);
                             IF (ShipsSelectType (SHIPS_Gate2Wave1HCTargets, SHIPS_G2Wave1GateFound, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave1HCTargets, SHIPS_G2Wave1GateFound, "CLASS_Fighter"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave1HCTargets, SHIPS_G2Wave1GateFound, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave1HCTargets, SHIPS_G2Wave1GateFound, "CLASS_Frigate"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave1HCTargets, SHIPS_G2Wave1GateFound, "CLASS_FIGHTER"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave1HCTargets, SHIPS_G2Wave1GateFound, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave1HCTargets, SHIPS_G2Wave1GateFound, "CLASS_FRIGATE"))
                             ELSE
                                     ShipsAdd (SHIPS_Gate2Wave1HCTargets, SHIPS_G2Wave1GateFound);
                             ENDIF
@@ -3488,9 +3488,9 @@ FSM HyperspaceGateTeam
                     ELSEIF (ThisTeamIs (TEAM_G2Int))
                             ShipsClear (SHIPS_Gate2Wave1IntTargets);
                             IF (ShipsSelectType (SHIPS_Gate2Wave1IntTargets, SHIPS_G2Wave1GateFound, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave1IntTargets, SHIPS_G2Wave1GateFound, "CLASS_Fighter"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave1IntTargets, SHIPS_G2Wave1GateFound, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave1IntTargets, SHIPS_G2Wave1GateFound, "CLASS_Destroyer"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave1IntTargets, SHIPS_G2Wave1GateFound, "CLASS_FIGHTER"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave1IntTargets, SHIPS_G2Wave1GateFound, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave1IntTargets, SHIPS_G2Wave1GateFound, "CLASS_DESTROYER"))
                             ELSE
                                     ShipsAdd (SHIPS_Gate2Wave1IntTargets, SHIPS_G2Wave1GateFound);
                             ENDIF
@@ -3503,9 +3503,9 @@ FSM HyperspaceGateTeam
                     ELSEIF (ThisTeamIs (TEAM_G2Bomber))
                             ShipsClear (SHIPS_Gate2Wave1BomTargets);
                             IF (ShipsSelectType (SHIPS_Gate2Wave1BomTargets, SHIPS_G2Wave1GateFound, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave1BomTargets, SHIPS_G2Wave1GateFound, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave1BomTargets, SHIPS_G2Wave1GateFound, "CLASS_Destroyer"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave1BomTargets, SHIPS_G2Wave1GateFound, "CLASS_HeavyCruiser"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave1BomTargets, SHIPS_G2Wave1GateFound, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave1BomTargets, SHIPS_G2Wave1GateFound, "CLASS_DESTROYER"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave1BomTargets, SHIPS_G2Wave1GateFound, "CLASS_HEAVY_CRUISER"))
                             ELSE
                                     ShipsAdd (SHIPS_Gate2Wave1BomTargets, SHIPS_G2Wave1GateFound);
                             ENDIF
@@ -3522,9 +3522,9 @@ FSM HyperspaceGateTeam
                     IF (ThisTeamIs (TEAM_G2Des))
                             ShipsClear (SHIPS_Gate2Wave2DesTargets);
                             IF (ShipsSelectType (SHIPS_Gate2Wave2DesTargets, SHIPS_G2Wave2GateFound, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave2DesTargets, SHIPS_G2Wave2GateFound, "CLASS_HeavyCruiser"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave2DesTargets, SHIPS_G2Wave2GateFound, "CLASS_Destroyer"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave2DesTargets, SHIPS_G2Wave2GateFound, "CLASS_Frigate"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave2DesTargets, SHIPS_G2Wave2GateFound, "CLASS_HEAVY_CRUISER"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave2DesTargets, SHIPS_G2Wave2GateFound, "CLASS_DESTROYER"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave2DesTargets, SHIPS_G2Wave2GateFound, "CLASS_FRIGATE"))
                             ELSE
                                     ShipsAdd (SHIPS_Gate2Wave2DesTargets, SHIPS_G2Wave2GateFound);
                             ENDIF
@@ -3537,9 +3537,9 @@ FSM HyperspaceGateTeam
                     ELSEIF (ThisTeamIs (TEAM_G2MDes))
                             ShipsClear (SHIPS_Gate2Wave2MDesTargets);
                             IF (ShipsSelectType (SHIPS_Gate2Wave2MDesTargets, SHIPS_G2Wave2GateFound, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave2MDesTargets, SHIPS_G2Wave2GateFound, "CLASS_Fighter"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave2MDesTargets, SHIPS_G2Wave2GateFound, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave2MDesTargets, SHIPS_G2Wave2GateFound, "CLASS_Frigate"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave2MDesTargets, SHIPS_G2Wave2GateFound, "CLASS_FIGHTER"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave2MDesTargets, SHIPS_G2Wave2GateFound, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate2Wave2MDesTargets, SHIPS_G2Wave2GateFound, "CLASS_FRIGATE"))
                             ELSE
                                     ShipsAdd (SHIPS_Gate2Wave2MDesTargets, SHIPS_G2Wave2GateFound);
                             ENDIF
@@ -3557,9 +3557,9 @@ FSM HyperspaceGateTeam
                     IF (ThisTeamIs (TEAM_G1HC))
                             ShipsClear (SHIPS_Gate1Wave1HCTargets);
                             IF (ShipsSelectType (SHIPS_Gate1Wave1HCTargets, SHIPS_G1Wave1GateFound, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave1HCTargets, SHIPS_G1Wave1GateFound, "CLASS_Fighter"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave1HCTargets, SHIPS_G1Wave1GateFound, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave1HCTargets, SHIPS_G1Wave1GateFound, "CLASS_Frigate"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave1HCTargets, SHIPS_G1Wave1GateFound, "CLASS_FIGHTER"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave1HCTargets, SHIPS_G1Wave1GateFound, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave1HCTargets, SHIPS_G1Wave1GateFound, "CLASS_FRIGATE"))
                             ELSE
                                     ShipsAdd (SHIPS_Gate1Wave1HCTargets, SHIPS_G1Wave1GateFound);
                             ENDIF
@@ -3572,9 +3572,9 @@ FSM HyperspaceGateTeam
                     ELSEIF (ThisTeamIs (TEAM_G1Int))
                             ShipsClear (SHIPS_Gate1Wave1IntTargets);
                             IF (ShipsSelectType (SHIPS_Gate1Wave1IntTargets, SHIPS_G1Wave1GateFound, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave1IntTargets, SHIPS_G1Wave1GateFound, "CLASS_Fighter"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave1IntTargets, SHIPS_G1Wave1GateFound, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave1IntTargets, SHIPS_G1Wave1GateFound, "CLASS_Destroyer"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave1IntTargets, SHIPS_G1Wave1GateFound, "CLASS_FIGHTER"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave1IntTargets, SHIPS_G1Wave1GateFound, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave1IntTargets, SHIPS_G1Wave1GateFound, "CLASS_DESTROYER"))
                             ELSE
                                     ShipsAdd (SHIPS_Gate1Wave1IntTargets, SHIPS_G1Wave1GateFound);
                             ENDIF
@@ -3587,9 +3587,9 @@ FSM HyperspaceGateTeam
                     ELSEIF (ThisTeamIs (TEAM_G1Bomber))
                             ShipsClear (SHIPS_Gate1Wave1BomTargets);
                             IF (ShipsSelectType (SHIPS_Gate1Wave1BomTargets, SHIPS_G1Wave1GateFound, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave1BomTargets, SHIPS_G1Wave1GateFound, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave1BomTargets, SHIPS_G1Wave1GateFound, "CLASS_Destroyer"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave1BomTargets, SHIPS_G1Wave1GateFound, "CLASS_HeavyCruiser"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave1BomTargets, SHIPS_G1Wave1GateFound, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave1BomTargets, SHIPS_G1Wave1GateFound, "CLASS_DESTROYER"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave1BomTargets, SHIPS_G1Wave1GateFound, "CLASS_HEAVY_CRUISER"))
                             ELSE
                                     ShipsAdd (SHIPS_Gate1Wave1BomTargets, SHIPS_G1Wave1GateFound);
                             ENDIF
@@ -3606,9 +3606,9 @@ FSM HyperspaceGateTeam
                     IF (ThisTeamIs (TEAM_G1Des))
                             ShipsClear (SHIPS_Gate1Wave2DesTargets);
                             IF (ShipsSelectType (SHIPS_Gate1Wave2DesTargets, SHIPS_G1Wave2GateFound, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave2DesTargets, SHIPS_G1Wave2GateFound, "CLASS_HeavyCruiser"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave2DesTargets, SHIPS_G1Wave2GateFound, "CLASS_Destroyer"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave2DesTargets, SHIPS_G1Wave2GateFound, "CLASS_Frigate"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave2DesTargets, SHIPS_G1Wave2GateFound, "CLASS_HEAVY_CRUISER"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave2DesTargets, SHIPS_G1Wave2GateFound, "CLASS_DESTROYER"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave2DesTargets, SHIPS_G1Wave2GateFound, "CLASS_FRIGATE"))
                             ELSE
                                     ShipsAdd (SHIPS_Gate1Wave2DesTargets, SHIPS_G1Wave2GateFound);
                             ENDIF
@@ -3621,9 +3621,9 @@ FSM HyperspaceGateTeam
                     ELSEIF (ThisTeamIs (TEAM_G1MDes))
                             ShipsClear (SHIPS_Gate1Wave2MDesTargets);
                             IF (ShipsSelectType (SHIPS_Gate1Wave2MDesTargets, SHIPS_G1Wave2GateFound, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave2MDesTargets, SHIPS_G1Wave2GateFound, "CLASS_Fighter"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave2MDesTargets, SHIPS_G1Wave2GateFound, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave2MDesTargets, SHIPS_G1Wave2GateFound, "CLASS_Frigate"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave2MDesTargets, SHIPS_G1Wave2GateFound, "CLASS_FIGHTER"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave2MDesTargets, SHIPS_G1Wave2GateFound, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate1Wave2MDesTargets, SHIPS_G1Wave2GateFound, "CLASS_FRIGATE"))
                             ELSE
                                     ShipsAdd (SHIPS_Gate1Wave2MDesTargets, SHIPS_G1Wave2GateFound);
                             ENDIF
@@ -3641,9 +3641,9 @@ FSM HyperspaceGateTeam
                     IF (ThisTeamIs (TEAM_G3HC))
                             ShipsClear (SHIPS_Gate3Wave1HCTargets);
                             IF (ShipsSelectType (SHIPS_Gate3Wave1HCTargets, SHIPS_G3Wave1GateFound, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave1HCTargets, SHIPS_G3Wave1GateFound, "CLASS_Fighter"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave1HCTargets, SHIPS_G3Wave1GateFound, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave1HCTargets, SHIPS_G3Wave1GateFound, "CLASS_Frigate"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave1HCTargets, SHIPS_G3Wave1GateFound, "CLASS_FIGHTER"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave1HCTargets, SHIPS_G3Wave1GateFound, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave1HCTargets, SHIPS_G3Wave1GateFound, "CLASS_FRIGATE"))
                             ELSE
                                     ShipsAdd (SHIPS_Gate3Wave1HCTargets, SHIPS_G3Wave1GateFound);
                             ENDIF
@@ -3656,9 +3656,9 @@ FSM HyperspaceGateTeam
                     ELSEIF (ThisTeamIs (TEAM_G3Int))
                             ShipsClear (SHIPS_Gate3Wave1IntTargets);
                             IF (ShipsSelectType (SHIPS_Gate3Wave1IntTargets, SHIPS_G3Wave1GateFound, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave1IntTargets, SHIPS_G3Wave1GateFound, "CLASS_Fighter"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave1IntTargets, SHIPS_G3Wave1GateFound, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave1IntTargets, SHIPS_G3Wave1GateFound, "CLASS_Destroyer"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave1IntTargets, SHIPS_G3Wave1GateFound, "CLASS_FIGHTER"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave1IntTargets, SHIPS_G3Wave1GateFound, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave1IntTargets, SHIPS_G3Wave1GateFound, "CLASS_DESTROYER"))
                             ELSE
                                     ShipsAdd (SHIPS_Gate3Wave1IntTargets, SHIPS_G3Wave1GateFound);
                             ENDIF
@@ -3671,9 +3671,9 @@ FSM HyperspaceGateTeam
                     ELSEIF (ThisTeamIs (TEAM_G3Bomber))
                             ShipsClear (SHIPS_Gate3Wave1BomTargets);
                             IF (ShipsSelectType (SHIPS_Gate3Wave1BomTargets, SHIPS_G3Wave1GateFound, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave1BomTargets, SHIPS_G3Wave1GateFound, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave1BomTargets, SHIPS_G3Wave1GateFound, "CLASS_Destroyer"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave1BomTargets, SHIPS_G3Wave1GateFound, "CLASS_HeavyCruiser"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave1BomTargets, SHIPS_G3Wave1GateFound, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave1BomTargets, SHIPS_G3Wave1GateFound, "CLASS_DESTROYER"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave1BomTargets, SHIPS_G3Wave1GateFound, "CLASS_HEAVY_CRUISER"))
                             ELSE
                                     ShipsAdd (SHIPS_Gate3Wave1BomTargets, SHIPS_G3Wave1GateFound);
                             ENDIF
@@ -3690,9 +3690,9 @@ FSM HyperspaceGateTeam
                     IF (ThisTeamIs (TEAM_G3Des))
                             ShipsClear (SHIPS_Gate3Wave2DesTargets);
                             IF (ShipsSelectType (SHIPS_Gate3Wave2DesTargets, SHIPS_G3Wave2GateFound, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave2DesTargets, SHIPS_G3Wave2GateFound, "CLASS_HeavyCruiser"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave2DesTargets, SHIPS_G3Wave2GateFound, "CLASS_Destroyer"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave2DesTargets, SHIPS_G3Wave2GateFound, "CLASS_Frigate"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave2DesTargets, SHIPS_G3Wave2GateFound, "CLASS_HEAVY_CRUISER"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave2DesTargets, SHIPS_G3Wave2GateFound, "CLASS_DESTROYER"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave2DesTargets, SHIPS_G3Wave2GateFound, "CLASS_FRIGATE"))
                             ELSE
                                     ShipsAdd (SHIPS_Gate3Wave2DesTargets, SHIPS_G3Wave2GateFound);
                             ENDIF
@@ -3705,9 +3705,9 @@ FSM HyperspaceGateTeam
                     ELSEIF (ThisTeamIs (TEAM_G3MDes))
                             ShipsClear (SHIPS_Gate3Wave2MDesTargets);
                             IF (ShipsSelectType (SHIPS_Gate3Wave2MDesTargets, SHIPS_G3Wave2GateFound, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave2MDesTargets, SHIPS_G3Wave2GateFound, "CLASS_Fighter"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave2MDesTargets, SHIPS_G3Wave2GateFound, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave2MDesTargets, SHIPS_G3Wave2GateFound, "CLASS_Frigate"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave2MDesTargets, SHIPS_G3Wave2GateFound, "CLASS_FIGHTER"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave2MDesTargets, SHIPS_G3Wave2GateFound, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Gate3Wave2MDesTargets, SHIPS_G3Wave2GateFound, "CLASS_FRIGATE"))
                             ELSE
                                     ShipsAdd (SHIPS_Gate3Wave2MDesTargets, SHIPS_G3Wave2GateFound);
                             ENDIF

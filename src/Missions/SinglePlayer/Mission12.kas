@@ -143,8 +143,8 @@ FSM FleetIntel
         STATE FIUnderAttack //컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
             INIT
                     FindEnemiesInside (VOLUME_MothershipSphere, SHIPS_FIPlayerShips, 3000);                 // Determine if the player has Strike Craft
-                    ShipsSelectClass (SHIPS_FIPlayerFighters, SHIPS_FIPlayerShips, "CLASS_Fighter");
-                    ShipsSelectClass (SHIPS_FIPlayerCorvettes, SHIPS_FIPlayerShips, "CLASS_Corvette");
+                    ShipsSelectClass (SHIPS_FIPlayerFighters, SHIPS_FIPlayerShips, "CLASS_FIGHTER");
+                    ShipsSelectClass (SHIPS_FIPlayerCorvettes, SHIPS_FIPlayerShips, "CLASS_CORVETTE");
                     ShipsAdd (SHIPS_FIPlayerStrikeCraft, SHIPS_FIPlayerFighters);
                     ShipsAdd (SHIPS_FIPlayerStrikeCraft, SHIPS_FIPlayerCorvettes);
                     IF (ShipsCount (SHIPS_FIPlayerStrikeCraft) > 0)             // if the player has Strike Craft, play the strikecraft event
@@ -557,8 +557,8 @@ FSM GravWells
                     IF (ThisTeamIs (TEAM_GravwellTeam1))
                             FindEnemiesNearTeam (SHIPS_GravWell1EVERYONE, 16000);
                             //ShipsSelectNonCapital (SHIPS_GravWell1StrikeCraft, SHIPS_GravWell1EVERYONE);
-                            ShipsSelectClass (SHIPS_GravWell1Fighters, SHIPS_GravWell1EVERYONE, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_GravWell1Corvettes, SHIPS_GravWell1EVERYONE, "CLASS_Corvette");
+                            ShipsSelectClass (SHIPS_GravWell1Fighters, SHIPS_GravWell1EVERYONE, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_GravWell1Corvettes, SHIPS_GravWell1EVERYONE, "CLASS_CORVETTE");
                             ShipsAdd (SHIPS_GravWell1StrikeCraft, SHIPS_GravWell1Fighters);
                             ShipsAdd (SHIPS_GravWell1StrikeCraft, SHIPS_GravWell1Corvettes);
                             IF (ShipsCount (SHIPS_GravWell1StrikeCraft) > 0)
@@ -569,8 +569,8 @@ FSM GravWells
                     ELSEIF (ThisTeamIs (TEAM_GravwellTeam2))
                             FindEnemiesNearTeam (SHIPS_GravWell2EVERYONE, 16000);
                             //ShipsSelectNonCapital (SHIPS_GravWell2StrikeCraft, SHIPS_GravWell2EVERYONE);
-                            ShipsSelectClass (SHIPS_GravWell2Fighters, SHIPS_GravWell2EVERYONE, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_GravWell2Corvettes, SHIPS_GravWell2EVERYONE, "CLASS_Corvette");
+                            ShipsSelectClass (SHIPS_GravWell2Fighters, SHIPS_GravWell2EVERYONE, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_GravWell2Corvettes, SHIPS_GravWell2EVERYONE, "CLASS_CORVETTE");
                             ShipsAdd (SHIPS_GravWell2StrikeCraft, SHIPS_GravWell2Fighters);
                             ShipsAdd (SHIPS_GravWell2StrikeCraft, SHIPS_GravWell2Corvettes);
                             IF (ShipsCount (SHIPS_GravWell2StrikeCraft) > 0)
@@ -581,8 +581,8 @@ FSM GravWells
                     ELSEIF (ThisTeamIs (TEAM_GravwellTeam3))
                             FindEnemiesNearTeam (SHIPS_GravWell3EVERYONE, 16000);
                             //ShipsSelectNonCapital (SHIPS_GravWell3StrikeCraft, SHIPS_GravWell3EVERYONE);
-                            ShipsSelectClass (SHIPS_GravWell3Fighters, SHIPS_GravWell3EVERYONE, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_GravWell3Corvettes, SHIPS_GravWell3EVERYONE, "CLASS_Corvette");
+                            ShipsSelectClass (SHIPS_GravWell3Fighters, SHIPS_GravWell3EVERYONE, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_GravWell3Corvettes, SHIPS_GravWell3EVERYONE, "CLASS_CORVETTE");
                             ShipsAdd (SHIPS_GravWell3StrikeCraft, SHIPS_GravWell3Fighters);
                             ShipsAdd (SHIPS_GravWell3StrikeCraft, SHIPS_GravWell3Corvettes);
                             IF (ShipsCount (SHIPS_GravWell3StrikeCraft) > 0)
@@ -603,8 +603,8 @@ FSM GravWells
                   //IF (ThisTeamIs (TEAM_GravwellTeam1))
                   //        FindEnemiesNearTeam (SHIPS_GravWell1EVERYONE, 16000);
                   //        //ShipsSelectNonCapital (SHIPS_GravWell1StrikeCraft, SHIPS_GravWell1EVERYONE);
-                  //        ShipsSelectClass (SHIPS_GravWell1Fighters, SHIPS_GravWell1EVERYONE, "CLASS_Fighter");
-                  //        ShipsSelectClass (SHIPS_GravWell1Corvettes, SHIPS_GravWell1EVERYONE, "CLASS_Corvette");
+                  //        ShipsSelectClass (SHIPS_GravWell1Fighters, SHIPS_GravWell1EVERYONE, "CLASS_FIGHTER");
+                  //        ShipsSelectClass (SHIPS_GravWell1Corvettes, SHIPS_GravWell1EVERYONE, "CLASS_CORVETTE");
                   //        ShipsAdd (SHIPS_GravWell1StrikeCraft, SHIPS_GravWell1Fighters);
                   //        ShipsAdd (SHIPS_GravWell1StrikeCraft, SHIPS_GravWell1Corvettes);
                   //        IF (ShipsCount (SHIPS_GravWell1StrikeCraft) > 0)
@@ -614,8 +614,8 @@ FSM GravWells
                   //ELSEIF (ThisTeamIs (TEAM_GravwellTeam2))
                   //        FindEnemiesNearTeam (SHIPS_GravWell2EVERYONE, 16000);
                   //        //ShipsSelectNonCapital (SHIPS_GravWell2StrikeCraft, SHIPS_GravWell2EVERYONE);
-                  //        ShipsSelectClass (SHIPS_GravWell2Fighters, SHIPS_GravWell2EVERYONE, "CLASS_Fighter");
-                  //        ShipsSelectClass (SHIPS_GravWell2Corvettes, SHIPS_GravWell2EVERYONE, "CLASS_Corvette");
+                  //        ShipsSelectClass (SHIPS_GravWell2Fighters, SHIPS_GravWell2EVERYONE, "CLASS_FIGHTER");
+                  //        ShipsSelectClass (SHIPS_GravWell2Corvettes, SHIPS_GravWell2EVERYONE, "CLASS_CORVETTE");
                   //        ShipsAdd (SHIPS_GravWell2StrikeCraft, SHIPS_GravWell2Fighters);
                   //        ShipsAdd (SHIPS_GravWell2StrikeCraft, SHIPS_GravWell2Corvettes);
                   //        IF (ShipsCount (SHIPS_GravWell2StrikeCraft) > 0)
@@ -625,8 +625,8 @@ FSM GravWells
                   //ELSEIF (ThisTeamIs (TEAM_GravwellTeam3))
                   //        FindEnemiesNearTeam (SHIPS_GravWell3EVERYONE, 16000);
                   //        //ShipsSelectNonCapital (SHIPS_GravWell3StrikeCraft, SHIPS_GravWell3EVERYONE);
-                  //        ShipsSelectClass (SHIPS_GravWell3Fighters, SHIPS_GravWell3EVERYONE, "CLASS_Fighter");
-                  //        ShipsSelectClass (SHIPS_GravWell3Corvettes, SHIPS_GravWell3EVERYONE, "CLASS_Corvette");
+                  //        ShipsSelectClass (SHIPS_GravWell3Fighters, SHIPS_GravWell3EVERYONE, "CLASS_FIGHTER");
+                  //        ShipsSelectClass (SHIPS_GravWell3Corvettes, SHIPS_GravWell3EVERYONE, "CLASS_CORVETTE");
                   //        ShipsAdd (SHIPS_GravWell3StrikeCraft, SHIPS_GravWell3Fighters);
                   //        ShipsAdd (SHIPS_GravWell3StrikeCraft, SHIPS_GravWell3Corvettes);
                   //        IF (ShipsCount (SHIPS_GravWell3StrikeCraft) > 0)
@@ -656,8 +656,8 @@ FSM GravWells
                     IF (ThisTeamIs (TEAM_GravwellTeam1))
                             FindEnemiesNearTeam (SHIPS_GravWell1EVERYONE, 16000);
                             //ShipsSelectNonCapital (SHIPS_GravWell1StrikeCraft, SHIPS_GravWell1EVERYONE);
-                            ShipsSelectClass (SHIPS_GravWell1Fighters, SHIPS_GravWell1EVERYONE, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_GravWell1Corvettes, SHIPS_GravWell1EVERYONE, "CLASS_Corvette");
+                            ShipsSelectClass (SHIPS_GravWell1Fighters, SHIPS_GravWell1EVERYONE, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_GravWell1Corvettes, SHIPS_GravWell1EVERYONE, "CLASS_CORVETTE");
                             ShipsAdd (SHIPS_GravWell1StrikeCraft, SHIPS_GravWell1Fighters);
                             ShipsAdd (SHIPS_GravWell1StrikeCraft, SHIPS_GravWell1Corvettes);
                             IF (ShipsCount (SHIPS_GravWell1StrikeCraft) = 0)
@@ -666,8 +666,8 @@ FSM GravWells
                     ELSEIF (ThisTeamIs (TEAM_GravwellTeam2))
                             FindEnemiesNearTeam (SHIPS_GravWell2EVERYONE, 16000);
                             //ShipsSelectNonCapital (SHIPS_GravWell2StrikeCraft, SHIPS_GravWell2EVERYONE);
-                            ShipsSelectClass (SHIPS_GravWell2Fighters, SHIPS_GravWell2EVERYONE, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_GravWell2Corvettes, SHIPS_GravWell2EVERYONE, "CLASS_Corvette");
+                            ShipsSelectClass (SHIPS_GravWell2Fighters, SHIPS_GravWell2EVERYONE, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_GravWell2Corvettes, SHIPS_GravWell2EVERYONE, "CLASS_CORVETTE");
                             ShipsAdd (SHIPS_GravWell2StrikeCraft, SHIPS_GravWell2Fighters);
                             ShipsAdd (SHIPS_GravWell2StrikeCraft, SHIPS_GravWell2Corvettes);
                             IF (ShipsCount (SHIPS_GravWell2StrikeCraft) = 0)
@@ -676,8 +676,8 @@ FSM GravWells
                     ELSEIF (ThisTeamIs (TEAM_GravwellTeam3))
                             FindEnemiesNearTeam (SHIPS_GravWell3EVERYONE, 16000);
                             //ShipsSelectNonCapital (SHIPS_GravWell3StrikeCraft, SHIPS_GravWell3EVERYONE);
-                            ShipsSelectClass (SHIPS_GravWell3Fighters, SHIPS_GravWell3EVERYONE, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_GravWell3Corvettes, SHIPS_GravWell3EVERYONE, "CLASS_Corvette");
+                            ShipsSelectClass (SHIPS_GravWell3Fighters, SHIPS_GravWell3EVERYONE, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_GravWell3Corvettes, SHIPS_GravWell3EVERYONE, "CLASS_CORVETTE");
                             ShipsAdd (SHIPS_GravWell3StrikeCraft, SHIPS_GravWell3Fighters);
                             ShipsAdd (SHIPS_GravWell3StrikeCraft, SHIPS_GravWell3Corvettes);
                             IF (ShipsCount (SHIPS_GravWell3StrikeCraft) = 0)
@@ -697,8 +697,8 @@ FSM GravWells
                     IF (ThisTeamIs (TEAM_GravwellTeam1))
                             FindEnemiesNearTeam (SHIPS_GravWell1EVERYONE, 16000);
                             //ShipsSelectNonCapital (SHIPS_GravWell1StrikeCraft, SHIPS_GravWell1EVERYONE);
-                            ShipsSelectClass (SHIPS_GravWell1Fighters, SHIPS_GravWell1EVERYONE, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_GravWell1Corvettes, SHIPS_GravWell1EVERYONE, "CLASS_Corvette");
+                            ShipsSelectClass (SHIPS_GravWell1Fighters, SHIPS_GravWell1EVERYONE, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_GravWell1Corvettes, SHIPS_GravWell1EVERYONE, "CLASS_CORVETTE");
                             ShipsAdd (SHIPS_GravWell1StrikeCraft, SHIPS_GravWell1Fighters);
                             ShipsAdd (SHIPS_GravWell1StrikeCraft, SHIPS_GravWell1Corvettes);
                             IF (ShipsCount (SHIPS_GravWell1StrikeCraft) > 0)
@@ -708,8 +708,8 @@ FSM GravWells
                     ELSEIF (ThisTeamIs (TEAM_GravwellTeam2))
                             FindEnemiesNearTeam (SHIPS_GravWell2EVERYONE, 16000);
                             //ShipsSelectNonCapital (SHIPS_GravWell2StrikeCraft, SHIPS_GravWell2EVERYONE);
-                            ShipsSelectClass (SHIPS_GravWell2Fighters, SHIPS_GravWell2EVERYONE, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_GravWell2Corvettes, SHIPS_GravWell2EVERYONE, "CLASS_Corvette");
+                            ShipsSelectClass (SHIPS_GravWell2Fighters, SHIPS_GravWell2EVERYONE, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_GravWell2Corvettes, SHIPS_GravWell2EVERYONE, "CLASS_CORVETTE");
                             ShipsAdd (SHIPS_GravWell2StrikeCraft, SHIPS_GravWell2Fighters);
                             ShipsAdd (SHIPS_GravWell2StrikeCraft, SHIPS_GravWell2Corvettes);
                             IF (ShipsCount (SHIPS_GravWell2StrikeCraft) > 0)
@@ -719,8 +719,8 @@ FSM GravWells
                     ELSEIF (ThisTeamIs (TEAM_GravwellTeam3))
                             FindEnemiesNearTeam (SHIPS_GravWell3EVERYONE, 16000);
                             //ShipsSelectNonCapital (SHIPS_GravWell3StrikeCraft, SHIPS_GravWell3EVERYONE);
-                            ShipsSelectClass (SHIPS_GravWell3Fighters, SHIPS_GravWell3EVERYONE, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_GravWell3Corvettes, SHIPS_GravWell3EVERYONE, "CLASS_Corvette");
+                            ShipsSelectClass (SHIPS_GravWell3Fighters, SHIPS_GravWell3EVERYONE, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_GravWell3Corvettes, SHIPS_GravWell3EVERYONE, "CLASS_CORVETTE");
                             ShipsAdd (SHIPS_GravWell3StrikeCraft, SHIPS_GravWell3Fighters);
                             ShipsAdd (SHIPS_GravWell3StrikeCraft, SHIPS_GravWell3Corvettes);
                             IF (ShipsCount (SHIPS_GravWell3StrikeCraft) > 0)
@@ -933,18 +933,18 @@ FSM GuardGravWells
                     IF (ThisTeamIs (TEAM_GuardGWTeam1))                                                         // Missile Destroyer
                             // Select everyone
                             FindEnemiesInside (VOLUME_MothershipSphere, SHIPS_GW1EntireFleet, 3000);
-                            ShipsSelectClass (SHIPS_Mothership, SHIPS_GW1EntireFleet, "CLASS_Mothership");       // Select the Mothership
+                            ShipsSelectClass (SHIPS_Mothership, SHIPS_GW1EntireFleet, "CLASS_MOTHERSHIP");       // Select the Mothership
                             ShipsRemove (SHIPS_GW1EntireFleet, SHIPS_Mothership);                                // And filter it out
 
                             // Select the Strike Craft
-                            ShipsSelectClass (SHIPS_GW1Fighters, SHIPS_GW1EntireFleet, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_GW1Corvettes, SHIPS_GW1EntireFleet, "CLASS_Corvette");
+                            ShipsSelectClass (SHIPS_GW1Fighters, SHIPS_GW1EntireFleet, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_GW1Corvettes, SHIPS_GW1EntireFleet, "CLASS_CORVETTE");
                             ShipsAdd (SHIPS_GW1StrikeCraft, SHIPS_GW1Fighters);
                             ShipsAdd (SHIPS_GW1StrikeCraft, SHIPS_GW1Corvettes);
 
                             // Select the Capital ships
-                            ShipsSelectClass (SHIPS_GW1Frigates, SHIPS_GW1EntireFleet, "CLASS_Frigate");
-                            ShipsSelectClass (SHIPS_GW1Destroyers, SHIPS_GW1EntireFleet, "CLASS_Destroyer");
+                            ShipsSelectClass (SHIPS_GW1Frigates, SHIPS_GW1EntireFleet, "CLASS_FRIGATE");
+                            ShipsSelectClass (SHIPS_GW1Destroyers, SHIPS_GW1EntireFleet, "CLASS_DESTROYER");
                             ShipsAdd (SHIPS_GW1Capital, SHIPS_GW1Frigates);
                             ShipsAdd (SHIPS_GW1Capital, SHIPS_GW1Destroyers);
 
@@ -960,18 +960,18 @@ FSM GuardGravWells
                     ELSEIF ( (ThisTeamIs (TEAM_GuardGWTeam2)) OR (ThisTeamIs (TEAM_GuardGWTeam3)) )             // Assault Frigates
                             // Select everyone
                             FindEnemiesInside (VOLUME_MothershipSphere, SHIPS_GW2EntireFleet, 3000);
-                            ShipsSelectClass (SHIPS_Mothership, SHIPS_GW2EntireFleet, "CLASS_Mothership");       // Select the Mothership
+                            ShipsSelectClass (SHIPS_Mothership, SHIPS_GW2EntireFleet, "CLASS_MOTHERSHIP");       // Select the Mothership
                             ShipsRemove (SHIPS_GW2EntireFleet, SHIPS_Mothership);                                // And filter it out
 
                             // Select the Strike Craft
-                            ShipsSelectClass (SHIPS_GW2Fighters, SHIPS_GW2EntireFleet, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_GW2Corvettes, SHIPS_GW2EntireFleet, "CLASS_Corvette");
+                            ShipsSelectClass (SHIPS_GW2Fighters, SHIPS_GW2EntireFleet, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_GW2Corvettes, SHIPS_GW2EntireFleet, "CLASS_CORVETTE");
                             ShipsAdd (SHIPS_GW2StrikeCraft, SHIPS_GW2Fighters);
                             ShipsAdd (SHIPS_GW2StrikeCraft, SHIPS_GW2Corvettes);
 
                             // Select the Capital ships
-                            ShipsSelectClass (SHIPS_GW2Frigates, SHIPS_GW2EntireFleet, "CLASS_Frigate");
-                            ShipsSelectClass (SHIPS_GW2Destroyers, SHIPS_GW2EntireFleet, "CLASS_Destroyer");
+                            ShipsSelectClass (SHIPS_GW2Frigates, SHIPS_GW2EntireFleet, "CLASS_FRIGATE");
+                            ShipsSelectClass (SHIPS_GW2Destroyers, SHIPS_GW2EntireFleet, "CLASS_DESTROYER");
                             ShipsAdd (SHIPS_GW2Capital, SHIPS_GW2Frigates);
                             ShipsAdd (SHIPS_GW2Capital, SHIPS_GW2Destroyers);
 
@@ -1024,7 +1024,7 @@ FSM GuardGravWells
         STATE AttackMothership //컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
             INIT
                     FindEnemiesInside (VOLUME_MothershipSphere, SHIPS_EntireFleet, 3000);
-                    ShipsSelectClass (SHIPS_PlayerMothership, SHIPS_EntireFleet, "CLASS_Mothership");
+                    ShipsSelectClass (SHIPS_PlayerMothership, SHIPS_EntireFleet, "CLASS_MOTHERSHIP");
                     VarCreateSet ("G_THISISTHEMOTHERSHIP", ShipsCount (SHIPS_PlayerMothership));
                     MoveAttack (SHIPS_PlayerMothership);
                     //AttackMothership ();
@@ -1036,16 +1036,16 @@ FSM GuardGravWells
                     ENDIF
 
                     FindEnemiesInside (VOLUME_MothershipSphere, SHIPS_EntireFleet, 3000);
-                    ShipsSelectClass (SHIPS_Mothership, SHIPS_EntireFleet, "CLASS_Mothership");       // Select the Mothership
+                    ShipsSelectClass (SHIPS_Mothership, SHIPS_EntireFleet, "CLASS_MOTHERSHIP");       // Select the Mothership
                     ShipsRemove (SHIPS_EntireFleet, SHIPS_Mothership);                                // And filter it out
                     ShipsSelectCapital (SHIPS_Capital, SHIPS_EntireFleet);
-                    ShipsSelectClass (SHIPS_GWFighters, SHIPS_EntireFleet, "CLASS_Fighter");
-                    ShipsSelectClass (SHIPS_GWCorvettes, SHIPS_EntireFleet, "CLASS_Corvette");
+                    ShipsSelectClass (SHIPS_GWFighters, SHIPS_EntireFleet, "CLASS_FIGHTER");
+                    ShipsSelectClass (SHIPS_GWCorvettes, SHIPS_EntireFleet, "CLASS_CORVETTE");
                     ShipsAdd (SHIPS_StrikeCraft, SHIPS_GWFighters);
                     ShipsAdd (SHIPS_StrikeCraft, SHIPS_GWCorvettes);
 
-                    ShipsSelectClass (SHIPS_PlayerMothership, SHIPS_Capital, "CLASS_Mothership");
-                    ShipsSelectClass (SHIPS_Resource, SHIPS_Capital, "CLASS_Resource");
+                    ShipsSelectClass (SHIPS_PlayerMothership, SHIPS_Capital, "CLASS_MOTHERSHIP");
+                    ShipsSelectClass (SHIPS_Resource, SHIPS_Capital, "CLASS_RESOURCE");
                     ShipsRemove (SHIPS_Capital, SHIPS_PlayerMothership);
                     ShipsRemove (SHIPS_Capital, SHIPS_Resource);
 
@@ -1279,7 +1279,7 @@ FSM GuardCarrier
         STATE Kamikaze //컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
             INIT
                     FindEnemiesInside (VOLUME_MothershipSphere, SHIPS_FleetNearMothership, 3000);
-                    ShipsSelectClass (SHIPS_PlayerMothership, SHIPS_FleetNearMothership, "CLASS_Mothership");
+                    ShipsSelectClass (SHIPS_PlayerMothership, SHIPS_FleetNearMothership, "CLASS_MOTHERSHIP");
                     Kamikaze (SHIPS_PlayerMothership);
                     Jump NullState;
             ENDINIT
@@ -1376,7 +1376,7 @@ FSM Cruiser
             ENDINIT
             WATCH
                     IF (FindEnemiesNearTeam (SHIPS_CruiserFound, 16000))
-                            ShipsSelectClass (SHIPS_Mothership, SHIPS_CruiserFound, "CLASS_Mothership");       // Select the Mothership
+                            ShipsSelectClass (SHIPS_Mothership, SHIPS_CruiserFound, "CLASS_MOTHERSHIP");       // Select the Mothership
                             ShipsRemove (SHIPS_CruiserFound, SHIPS_Mothership);                                // And filter it out
                             IF (ShipsCount (SHIPS_CruiserFound) > 0)
                                     Stop ();
@@ -1394,9 +1394,9 @@ FSM Cruiser
 
         STATE AttackNearby //컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
             INIT
-                    ShipsSelectClass (SHIPS_NearbyDestroyers, SHIPS_CruiserFound, "CLASS_Destroyer");
-                    ShipsSelectClass (SHIPS_NearbyFrigates, SHIPS_CruiserFound, "CLASS_Frigate");
-                    ShipsSelectClass (SHIPS_NearbyCorvettes, SHIPS_CruiserFound, "CLASS_Corvette");
+                    ShipsSelectClass (SHIPS_NearbyDestroyers, SHIPS_CruiserFound, "CLASS_DESTROYER");
+                    ShipsSelectClass (SHIPS_NearbyFrigates, SHIPS_CruiserFound, "CLASS_FRIGATE");
+                    ShipsSelectClass (SHIPS_NearbyCorvettes, SHIPS_CruiserFound, "CLASS_CORVETTE");
                     IF (ShipsCount (SHIPS_NearbyDestroyers) > 0)        // Attack Destroyers first
                             Attack (SHIPS_NearbyDestroyers);
                     ELSEIF (ShipsCount (SHIPS_NearbyFrigates) > 0)      // Attack Frigates second
@@ -1424,10 +1424,10 @@ FSM Cruiser
         STATE AttackFleet //컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
             INIT
                     FindEnemiesInside (VOLUME_MothershipSphere, SHIPS_FleetNearMothership, 3000);
-                    ShipsSelectClass (SHIPS_Mothership, SHIPS_FleetNearMothership, "CLASS_Mothership");       // Select the Mothership
+                    ShipsSelectClass (SHIPS_Mothership, SHIPS_FleetNearMothership, "CLASS_MOTHERSHIP");       // Select the Mothership
                     ShipsRemove (SHIPS_FleetNearMothership, SHIPS_Mothership);                                // And filter it out
-                    ShipsSelectClass (SHIPS_FleetDestroyers, SHIPS_FleetNearMothership, "CLASS_Destroyer");
-                    ShipsSelectClass (SHIPS_FleetFrigates, SHIPS_FleetNearMothership, "CLASS_Frigate");
+                    ShipsSelectClass (SHIPS_FleetDestroyers, SHIPS_FleetNearMothership, "CLASS_DESTROYER");
+                    ShipsSelectClass (SHIPS_FleetFrigates, SHIPS_FleetNearMothership, "CLASS_FRIGATE");
                     IF (ShipsCount (SHIPS_FleetDestroyers) > 0)         // Attack Destroyers first
                             Attack (SHIPS_FleetDestroyers);
                     ELSEIF (ShipsCount (SHIPS_FleetFrigates) > 0)       // Attack Frigates second
@@ -1453,15 +1453,15 @@ FSM Cruiser
         STATE AttackMothership //컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
             INIT
                     FindEnemiesInside (VOLUME_MothershipSphere, SHIPS_FleetNearMothership, 3000);
-                    ShipsSelectClass (SHIPS_PlayerMothership, SHIPS_FleetNearMothership, "CLASS_Mothership");
+                    ShipsSelectClass (SHIPS_PlayerMothership, SHIPS_FleetNearMothership, "CLASS_MOTHERSHIP");
                     MoveAttack (SHIPS_PlayerMothership);
             ENDINIT
             WATCH
                     FindEnemiesInside (VOLUME_MothershipSphere, SHIPS_FleetNearMothership, 3000);
-                    ShipsSelectClass (SHIPS_Mothership, SHIPS_FleetNearMothership, "CLASS_Mothership");       // Select the Mothership
+                    ShipsSelectClass (SHIPS_Mothership, SHIPS_FleetNearMothership, "CLASS_MOTHERSHIP");       // Select the Mothership
                     ShipsRemove (SHIPS_FleetNearMothership, SHIPS_Mothership);                                // And filter it out
-                    ShipsSelectClass (SHIPS_FleetDestroyers, SHIPS_FleetNearMothership, "CLASS_Destroyer");
-                    ShipsSelectClass (SHIPS_FleetFrigates, SHIPS_FleetNearMothership, "CLASS_Frigate");
+                    ShipsSelectClass (SHIPS_FleetDestroyers, SHIPS_FleetNearMothership, "CLASS_DESTROYER");
+                    ShipsSelectClass (SHIPS_FleetFrigates, SHIPS_FleetNearMothership, "CLASS_FRIGATE");
                     IF ( (ShipsCount (SHIPS_FleetDestroyers) > 0) OR (ShipsCount (SHIPS_FleetFrigates) > 0) )
                             Jump AttackFleet;
                     ENDIF
@@ -1584,7 +1584,7 @@ FSM GuardCruiser
         STATE Kamikaze //컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
             INIT
                     FindEnemiesInside (VOLUME_MothershipSphere, SHIPS_FleetNearMothership, 3000);
-                    ShipsSelectClass (SHIPS_PlayerMothership, SHIPS_FleetNearMothership, "CLASS_Mothership");
+                    ShipsSelectClass (SHIPS_PlayerMothership, SHIPS_FleetNearMothership, "CLASS_MOTHERSHIP");
                     Kamikaze (SHIPS_PlayerMothership);
                     Jump NullState;
             ENDINIT
@@ -1771,16 +1771,16 @@ FSM STRInterceptors
                     // Do this for option 1)
                     IF (ShipsCount (TEAMSHIPS_STRIntScout) > 0)
                             FindEnemiesInside (VOLUME_MothershipSphere, SHIPS_FleetAtMothership, 3000);
-                            ShipsSelectClass (SHIPS_Mothership, SHIPS_FleetAtMothership, "CLASS_Mothership");       // Select the Mothership
+                            ShipsSelectClass (SHIPS_Mothership, SHIPS_FleetAtMothership, "CLASS_MOTHERSHIP");       // Select the Mothership
                             ShipsRemove (SHIPS_FleetAtMothership, SHIPS_Mothership);                                // And filter it out
-                            ShipsSelectClass (SHIPS_STRIntFighters, SHIPS_FleetAtMothership, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_STRIntFrigates, SHIPS_FleetAtMothership, "CLASS_Frigate");
+                            ShipsSelectClass (SHIPS_STRIntFighters, SHIPS_FleetAtMothership, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_STRIntFrigates, SHIPS_FleetAtMothership, "CLASS_FRIGATE");
                     ELSEIF (ShipsCount (TEAMSHIPS_STRIntInt) > 0)
                             FindEnemiesInside (VOLUME_MothershipSphere, SHIPS_FleetAtMothership, 3000);
-                            ShipsSelectClass (SHIPS_Mothership, SHIPS_FleetAtMothership, "CLASS_Mothership");       // Select the Mothership
+                            ShipsSelectClass (SHIPS_Mothership, SHIPS_FleetAtMothership, "CLASS_MOTHERSHIP");       // Select the Mothership
                             ShipsRemove (SHIPS_FleetAtMothership, SHIPS_Mothership);                                // And filter it out
-                            ShipsSelectClass (SHIPS_STRIntFighters, SHIPS_FleetAtMothership, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_STRIntFrigates, SHIPS_FleetAtMothership, "CLASS_Frigate");
+                            ShipsSelectClass (SHIPS_STRIntFighters, SHIPS_FleetAtMothership, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_STRIntFrigates, SHIPS_FleetAtMothership, "CLASS_FRIGATE");
                     ENDIF
 
 
@@ -1789,21 +1789,21 @@ FSM STRInterceptors
                     IF (ShipsCount (TEAMSHIPS_STRIntScout) > 0)
                             //Print ("Scout: I'm SELECTING the Single Fighter and Frigate now!!!!");
                             FindEnemiesInside (VOLUME_WorldVolume, SHIPS_AllShipsInWorld, 1000);
-                            ShipsSelectClass (SHIPS_Mothership, SHIPS_AllShipsInWorld, "CLASS_Mothership");       // Select the Mothership
+                            ShipsSelectClass (SHIPS_Mothership, SHIPS_AllShipsInWorld, "CLASS_MOTHERSHIP");       // Select the Mothership
                             ShipsRemove (SHIPS_AllShipsInWorld, SHIPS_Mothership);                                // And filter it out
                             //VarCreateSet ("G_SHIPSAllShipsInWorld", ShipsCount (SHIPS_AllShipsInWorld));
-                            ShipsSelectClass (SHIPS_STRIntWorldFighters, SHIPS_AllShipsInWorld, "CLASS_Fighter");
+                            ShipsSelectClass (SHIPS_STRIntWorldFighters, SHIPS_AllShipsInWorld, "CLASS_FIGHTER");
                             //VarCreateSet ("G_SHIPSSTRIntWorldFighters", ShipsCount (SHIPS_STRIntWorldFighters));
-                            ShipsSelectClass (SHIPS_STRIntWorldFrigates, SHIPS_AllShipsInWorld, "CLASS_Frigate");
+                            ShipsSelectClass (SHIPS_STRIntWorldFrigates, SHIPS_AllShipsInWorld, "CLASS_FRIGATE");
                             //VarCreateSet ("G_SHIPSSTRIntWorldFrigates", ShipsCount (SHIPS_STRIntWorldFrigates));
 
                             IF (ShipsSelectIndex (SHIPS_STRIntSingleFighter, SHIPS_STRIntWorldFighters, VarGet ("G_STRIntFighterIndex")))
                                     //VarCreateSet ("G_SHIPSSTRIntSingleFighter", ShipsCount (SHIPS_STRIntSingleFighter));
                                     FindEnemiesNearTeam (SHIPS_STRIntSingleFighter, 10000);
-                                    ShipsSelectClass (SHIPS_Mothership, SHIPS_STRIntSingleFighter, "CLASS_Mothership");       // Select the Mothership
+                                    ShipsSelectClass (SHIPS_Mothership, SHIPS_STRIntSingleFighter, "CLASS_MOTHERSHIP");       // Select the Mothership
                                     ShipsRemove (SHIPS_STRIntSingleFighter, SHIPS_Mothership);                                // And filter it out
                                     //VarCreateSet ("G_SHIPSSTRIntSingleFighterNearby", ShipsCount (SHIPS_STRIntSingleFighter));
-                                    ShipsSelectClass (SHIPS_STRIntWorldNearbyFighters, SHIPS_STRIntSingleFighter, "CLASS_Fighter");
+                                    ShipsSelectClass (SHIPS_STRIntWorldNearbyFighters, SHIPS_STRIntSingleFighter, "CLASS_FIGHTER");
                                     VarInc ("G_STRIntFighterIndex");
                             ELSE
                                     VarSet ("G_STRIntFightSelectionExhausted", TRUE);
@@ -1812,10 +1812,10 @@ FSM STRInterceptors
                             IF (ShipsSelectIndex (SHIPS_STRIntSingleFrigate, SHIPS_STRIntWorldFrigates, VarGet ("G_STRIntFrigateIndex")))
                                     //VarCreateSet ("G_SHIPSSTRIntSingleFrigate", ShipsCount (SHIPS_STRIntSingleFrigate));
                                     FindEnemiesNearTeam (SHIPS_STRIntSingleFrigate, 10000);
-                                    ShipsSelectClass (SHIPS_Mothership, SHIPS_STRIntSingleFrigate, "CLASS_Mothership");       // Select the Mothership
+                                    ShipsSelectClass (SHIPS_Mothership, SHIPS_STRIntSingleFrigate, "CLASS_MOTHERSHIP");       // Select the Mothership
                                     ShipsRemove (SHIPS_STRIntSingleFrigate, SHIPS_Mothership);                                // And filter it out
                                     //VarCreateSet ("G_SHIPSSTRIntSingleFrigateNearby", ShipsCount (SHIPS_STRIntSingleFrigate));
-                                    ShipsSelectClass (SHIPS_STRIntWorldNearbyFrigates, SHIPS_STRIntSingleFrigate, "CLASS_Frigate");
+                                    ShipsSelectClass (SHIPS_STRIntWorldNearbyFrigates, SHIPS_STRIntSingleFrigate, "CLASS_FRIGATE");
                                     VarInc ("G_STRIntFrigateIndex");
                             ELSE
                                     VarSet ("G_STRIntFrigSelectionExhausted", TRUE);
@@ -1823,21 +1823,21 @@ FSM STRInterceptors
                     ELSEIF (ShipsCount (TEAMSHIPS_STRIntInt) > 0)
                             //Print ("Interceptor: I'm SELECTING the Single Fighter and Frigate now!!!!");
                             FindEnemiesInside (VOLUME_WorldVolume, SHIPS_AllShipsInWorld, 1000);
-                            ShipsSelectClass (SHIPS_Mothership, SHIPS_AllShipsInWorld, "CLASS_Mothership");       // Select the Mothership
+                            ShipsSelectClass (SHIPS_Mothership, SHIPS_AllShipsInWorld, "CLASS_MOTHERSHIP");       // Select the Mothership
                             ShipsRemove (SHIPS_AllShipsInWorld, SHIPS_Mothership);                                // And filter it out
                             //VarCreateSet ("G_SHIPSAllShipsInWorld", ShipsCount (SHIPS_AllShipsInWorld));
-                            ShipsSelectClass (SHIPS_STRIntWorldFighters, SHIPS_AllShipsInWorld, "CLASS_Fighter");
+                            ShipsSelectClass (SHIPS_STRIntWorldFighters, SHIPS_AllShipsInWorld, "CLASS_FIGHTER");
                             //VarCreateSet ("G_SHIPSSTRIntWorldFighters", ShipsCount (SHIPS_STRIntWorldFighters));
-                            ShipsSelectClass (SHIPS_STRIntWorldFrigates, SHIPS_AllShipsInWorld, "CLASS_Frigate");
+                            ShipsSelectClass (SHIPS_STRIntWorldFrigates, SHIPS_AllShipsInWorld, "CLASS_FRIGATE");
                             //VarCreateSet ("G_SHIPSSTRIntWorldFrigates", ShipsCount (SHIPS_STRIntWorldFrigates));
 
                             IF (ShipsSelectIndex (SHIPS_STRIntSingleFighter, SHIPS_STRIntWorldFighters, VarGet ("G_STRIntFighterIndex")))
                                     //VarCreateSet ("G_SHIPSSTRIntSingleFighter", ShipsCount (SHIPS_STRIntSingleFighter));
                                     FindEnemiesNearTeam (SHIPS_STRIntSingleFighter, 10000);
-                                    ShipsSelectClass (SHIPS_Mothership, SHIPS_STRIntSingleFighter, "CLASS_Mothership");       // Select the Mothership
+                                    ShipsSelectClass (SHIPS_Mothership, SHIPS_STRIntSingleFighter, "CLASS_MOTHERSHIP");       // Select the Mothership
                                     ShipsRemove (SHIPS_STRIntSingleFighter, SHIPS_Mothership);                                // And filter it out
                                     //VarCreateSet ("G_SHIPSSTRIntSingleFighterNearby", ShipsCount (SHIPS_STRIntSingleFighter));
-                                    ShipsSelectClass (SHIPS_STRIntWorldNearbyFighters, SHIPS_STRIntSingleFighter, "CLASS_Fighter");
+                                    ShipsSelectClass (SHIPS_STRIntWorldNearbyFighters, SHIPS_STRIntSingleFighter, "CLASS_FIGHTER");
                                     VarInc ("G_STRIntFighterIndex");
                             ELSE
                                     VarSet ("G_STRIntFightSelectionExhausted", TRUE);
@@ -1845,10 +1845,10 @@ FSM STRInterceptors
                             IF (ShipsSelectIndex (SHIPS_STRIntSingleFrigate, SHIPS_STRIntWorldFrigates, VarGet ("G_STRIntFrigateIndex")))
                                     //VarCreateSet ("G_SHIPSSTRIntSingleFrigate", ShipsCount (SHIPS_STRIntSingleFrigate));
                                     FindEnemiesNearTeam (SHIPS_STRIntSingleFrigate, 10000);
-                                    ShipsSelectClass (SHIPS_Mothership, SHIPS_STRIntSingleFrigate, "CLASS_Mothership");       // Select the Mothership
+                                    ShipsSelectClass (SHIPS_Mothership, SHIPS_STRIntSingleFrigate, "CLASS_MOTHERSHIP");       // Select the Mothership
                                     ShipsRemove (SHIPS_STRIntSingleFrigate, SHIPS_Mothership);                                // And filter it out
                                     //VarCreateSet ("G_SHIPSSTRIntSingleFrigateNearby", ShipsCount (SHIPS_STRIntSingleFrigate));
-                                    ShipsSelectClass (SHIPS_STRIntWorldNearbyFrigates, SHIPS_STRIntSingleFrigate, "CLASS_Frigate");
+                                    ShipsSelectClass (SHIPS_STRIntWorldNearbyFrigates, SHIPS_STRIntSingleFrigate, "CLASS_FRIGATE");
                                     VarInc ("G_STRIntFrigateIndex");
                             ELSE
                                     VarSet ("G_STRIntFrigSelectionExhausted", TRUE);
@@ -1892,7 +1892,7 @@ FSM STRInterceptors
                             VarSet ("G_STRIntFightSelectionExhausted", FALSE);
                             VarSet ("G_STRIntFrigSelectionExhausted", FALSE);
                             FindEnemiesInside (VOLUME_MothershipSphere, SHIPS_FleetAtMothership, 3000);
-                            ShipsSelectClass (SHIPS_PlayerMothership, SHIPS_FleetAtMothership, "CLASS_Mothership");
+                            ShipsSelectClass (SHIPS_PlayerMothership, SHIPS_FleetAtMothership, "CLASS_MOTHERSHIP");
                             Kamikaze (SHIPS_PlayerMothership);          // If there are no places left to go, kamikaze the Mothership
                             Jump NullState;
                     ENDIF
@@ -1922,16 +1922,16 @@ FSM STRInterceptors
             INIT
                     IF (ShipsCount (TEAMSHIPS_STRIntScout) > 0)
                             FindEnemiesInside (VOLUME_MothershipSphere, SHIPS_PlayerFleet, 3000);
-                            ShipsSelectClass (SHIPS_Mothership, SHIPS_PlayerFleet, "CLASS_Mothership");       // Select the Mothership
+                            ShipsSelectClass (SHIPS_Mothership, SHIPS_PlayerFleet, "CLASS_MOTHERSHIP");       // Select the Mothership
                             ShipsRemove (SHIPS_PlayerFleet, SHIPS_Mothership);                                // And filter it out
-                            ShipsSelectClass (SHIPS_STRIntFleetFighters, SHIPS_PlayerFleet, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_STRIntFleetFrigates, SHIPS_PlayerFleet, "CLASS_Frigate");
+                            ShipsSelectClass (SHIPS_STRIntFleetFighters, SHIPS_PlayerFleet, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_STRIntFleetFrigates, SHIPS_PlayerFleet, "CLASS_FRIGATE");
                     ELSEIF (ShipsCount (TEAMSHIPS_STRIntInt) > 0)
                             FindEnemiesInside (VOLUME_MothershipSphere, SHIPS_PlayerFleet, 3000);
-                            ShipsSelectClass (SHIPS_Mothership, SHIPS_PlayerFleet, "CLASS_Mothership");       // Select the Mothership
+                            ShipsSelectClass (SHIPS_Mothership, SHIPS_PlayerFleet, "CLASS_MOTHERSHIP");       // Select the Mothership
                             ShipsRemove (SHIPS_PlayerFleet, SHIPS_Mothership);                                // And filter it out
-                            ShipsSelectClass (SHIPS_STRIntFleetFighters, SHIPS_PlayerFleet, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_STRIntFleetFrigates, SHIPS_PlayerFleet, "CLASS_Frigate");
+                            ShipsSelectClass (SHIPS_STRIntFleetFighters, SHIPS_PlayerFleet, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_STRIntFleetFrigates, SHIPS_PlayerFleet, "CLASS_FRIGATE");
                     ENDIF
                     IF (ShipsCount (SHIPS_STRIntFleetFighters) > 0)             // Attack Fighters first
                             IF (ThisTeamIs (TEAM_STRIntScout))
@@ -2039,7 +2039,7 @@ FSM STRInterceptors
                     // if you get attacked, stop and fight back!
                     IF (ThisTeamIs (TEAM_STRIntScout))
                             IF (UnderAttack (SHIPS_AttackingSTRIntScout))
-                                    ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingSTRIntScout, "CLASS_Mothership");       // Select the Mothership
+                                    ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingSTRIntScout, "CLASS_MOTHERSHIP");       // Select the Mothership
                                     ShipsRemove (SHIPS_AttackingSTRIntScout, SHIPS_Mothership);                                // And filter it out
                                     IF (ShipsCount (SHIPS_AttackingSTRIntScout) > 0)
                                             MsgSendAll ("STRIntIsUnderAttack");
@@ -2047,7 +2047,7 @@ FSM STRInterceptors
                             ENDIF
                     ELSEIF (ThisTeamIs (TEAM_STRIntInt))
                             IF (UnderAttack (SHIPS_AttackingSTRIntInt))
-                                    ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingSTRIntScout, "CLASS_Mothership");       // Select the Mothership
+                                    ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingSTRIntScout, "CLASS_MOTHERSHIP");       // Select the Mothership
                                     ShipsRemove (SHIPS_AttackingSTRIntScout, SHIPS_Mothership);                                // And filter it out
                                     IF (ShipsCount (SHIPS_AttackingSTRIntScout) > 0)
                                             MsgSendAll ("STRIntIsUnderAttack");
@@ -2078,8 +2078,8 @@ FSM STRInterceptors
         STATE AttackNearby //컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
             INIT
                     IF (ShipsCount (SHIPS_AttackingSTRIntScout) > 0)
-                            ShipsSelectClass (SHIPS_STRIntNearbyFighters, SHIPS_AttackingSTRIntScout, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_STRIntNearbyFrigates, SHIPS_AttackingSTRIntScout, "CLASS_Frigate");
+                            ShipsSelectClass (SHIPS_STRIntNearbyFighters, SHIPS_AttackingSTRIntScout, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_STRIntNearbyFrigates, SHIPS_AttackingSTRIntScout, "CLASS_FRIGATE");
                             IF (ShipsCount (SHIPS_STRIntNearbyFighters) > 0)        // Attack Fighters first
                                     IF (ThisTeamIs (TEAM_STRIntScout))
                                             TeamVelocityMaxClear ();
@@ -2108,8 +2108,8 @@ FSM STRInterceptors
                                     Jump Decide;
                             ENDIF
                     ELSEIF (ShipsCount (SHIPS_AttackingSTRIntInt) > 0)
-                            ShipsSelectClass (SHIPS_STRIntNearbyFighters, SHIPS_AttackingSTRIntInt, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_STRIntNearbyFrigates, SHIPS_AttackingSTRIntInt, "CLASS_Frigate");
+                            ShipsSelectClass (SHIPS_STRIntNearbyFighters, SHIPS_AttackingSTRIntInt, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_STRIntNearbyFrigates, SHIPS_AttackingSTRIntInt, "CLASS_FRIGATE");
                             IF (ShipsCount (SHIPS_STRIntNearbyFighters) > 0)        // Attack Fighters first
                                     IF (ThisTeamIs (TEAM_STRIntScout))
                                             TeamVelocityMaxClear ();
@@ -2309,7 +2309,7 @@ FSM STRInterceptors
                     // if you get attacked, stop and fight back!
                     IF (ThisTeamIs (TEAM_STRIntScout))
                             IF (UnderAttack (SHIPS_AttackingSTRIntScout))
-                                    ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingSTRIntScout, "CLASS_Mothership");       // Select the Mothership
+                                    ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingSTRIntScout, "CLASS_MOTHERSHIP");       // Select the Mothership
                                     ShipsRemove (SHIPS_AttackingSTRIntScout, SHIPS_Mothership);                                // And filter it out
                                     IF (ShipsCount (SHIPS_AttackingSTRIntScout) > 0)
                                             MsgSendAll ("STRIntIsUnderAttack");
@@ -2317,7 +2317,7 @@ FSM STRInterceptors
                             ENDIF
                     ELSEIF (ThisTeamIs (TEAM_STRIntInt))
                             IF (UnderAttack (SHIPS_AttackingSTRIntInt))
-                                    ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingSTRIntScout, "CLASS_Mothership");       // Select the Mothership
+                                    ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingSTRIntScout, "CLASS_MOTHERSHIP");       // Select the Mothership
                                     ShipsRemove (SHIPS_AttackingSTRIntScout, SHIPS_Mothership);                                // And filter it out
                                     IF (ShipsCount (SHIPS_AttackingSTRIntScout) > 0)
                                             MsgSendAll ("STRIntIsUnderAttack");
@@ -2550,30 +2550,30 @@ FSM STRBombers
 
                     // Do this for option 1)
                     FindEnemiesInside (VOLUME_MothershipSphere, SHIPS_FleetAtMothership, 3000);
-                    ShipsSelectClass (SHIPS_Mothership, SHIPS_FleetAtMothership, "CLASS_Mothership");       // Select the Mothership
+                    ShipsSelectClass (SHIPS_Mothership, SHIPS_FleetAtMothership, "CLASS_MOTHERSHIP");       // Select the Mothership
                     ShipsRemove (SHIPS_FleetAtMothership, SHIPS_Mothership);                                // And filter it out
-                    ShipsSelectClass (SHIPS_STRBomberFrigates, SHIPS_FleetAtMothership, "CLASS_Frigate");
-                    ShipsSelectClass (SHIPS_STRBomberDestroyer, SHIPS_FleetAtMothership, "CLASS_Destroyer");
+                    ShipsSelectClass (SHIPS_STRBomberFrigates, SHIPS_FleetAtMothership, "CLASS_FRIGATE");
+                    ShipsSelectClass (SHIPS_STRBomberDestroyer, SHIPS_FleetAtMothership, "CLASS_DESTROYER");
 
 
                     // Do this for option 2)
                     //Print ("Bomber: I'm SELECTING the Single Frigate and Destroyer now!!!!");
                     FindEnemiesInside (VOLUME_WorldVolume, SHIPS_AllShipsInWorld, 1000);
-                    ShipsSelectClass (SHIPS_Mothership, SHIPS_AllShipsInWorld, "CLASS_Mothership");       // Select the Mothership
+                    ShipsSelectClass (SHIPS_Mothership, SHIPS_AllShipsInWorld, "CLASS_MOTHERSHIP");       // Select the Mothership
                     ShipsRemove (SHIPS_AllShipsInWorld, SHIPS_Mothership);                                // And filter it out
                     //VarCreateSet ("G_SHIPSAllShipsInWorld", ShipsCount (SHIPS_AllShipsInWorld));
-                    ShipsSelectClass (SHIPS_STRBomWorldFrigates, SHIPS_AllShipsInWorld, "CLASS_Frigate");
+                    ShipsSelectClass (SHIPS_STRBomWorldFrigates, SHIPS_AllShipsInWorld, "CLASS_FRIGATE");
                     //VarCreateSet ("G_SHIPSSTRBomWorldFrigates", ShipsCount (SHIPS_STRBomWorldFrigates));
-                    ShipsSelectClass (SHIPS_STRBomWorldDestroyers, SHIPS_AllShipsInWorld, "CLASS_Destroyer");
+                    ShipsSelectClass (SHIPS_STRBomWorldDestroyers, SHIPS_AllShipsInWorld, "CLASS_DESTROYER");
                     //VarCreateSet ("G_SHIPSSTRBomWorldDestroyers", ShipsCount (SHIPS_STRBomWorldDestroyers));
 
                     IF (ShipsSelectIndex (SHIPS_STRBomSingleFrigate, SHIPS_STRBomWorldFrigates, VarGet ("G_STRBomFrigateIndex")))
                             //VarCreateSet ("G_SHIPSSTRBomSingleFrigate", ShipsCount (SHIPS_STRBomSingleFrigate));
                             FindEnemiesNearTeam (SHIPS_STRBomSingleFrigate, 10000);
-                            ShipsSelectClass (SHIPS_Mothership, SHIPS_STRBomSingleFrigate, "CLASS_Mothership");       // Select the Mothership
+                            ShipsSelectClass (SHIPS_Mothership, SHIPS_STRBomSingleFrigate, "CLASS_MOTHERSHIP");       // Select the Mothership
                             ShipsRemove (SHIPS_STRBomSingleFrigate, SHIPS_Mothership);                                // And filter it out
                             //VarCreateSet ("G_SHIPSSTRBomSingleFrigateNearby", ShipsCount (SHIPS_STRBomSingleFrigate));
-                            ShipsSelectClass (SHIPS_STRBomWorldNearbyFrigates, SHIPS_STRBomSingleFrigate, "CLASS_Frigate");
+                            ShipsSelectClass (SHIPS_STRBomWorldNearbyFrigates, SHIPS_STRBomSingleFrigate, "CLASS_FRIGATE");
                             VarInc ("G_STRBomFrigateIndex");
                     ELSE
                             VarSet ("G_STRBomFrigSelectionExhausted", TRUE);
@@ -2582,10 +2582,10 @@ FSM STRBombers
                     IF (ShipsSelectIndex (SHIPS_STRBomSingleDestroyer, SHIPS_STRBomWorldDestroyers, VarGet ("G_STRBomDestroyerIndex")))
                             //VarCreateSet ("G_SHIPSSTRBomSingleDestroyer", ShipsCount (SHIPS_STRBomSingleDestroyer));
                             FindEnemiesNearTeam (SHIPS_STRBomSingleDestroyer, 10000);
-                            ShipsSelectClass (SHIPS_Mothership, SHIPS_STRBomSingleDestroyer, "CLASS_Mothership");       // Select the Mothership
+                            ShipsSelectClass (SHIPS_Mothership, SHIPS_STRBomSingleDestroyer, "CLASS_MOTHERSHIP");       // Select the Mothership
                             ShipsRemove (SHIPS_STRBomSingleDestroyer, SHIPS_Mothership);                                // And filter it out
                             //VarCreateSet ("G_SHIPSSTRBomSingleDesNearby", ShipsCount (SHIPS_STRBomSingleDestroyer));
-                            ShipsSelectClass (SHIPS_STRBomWorldNearbyDes, SHIPS_STRBomSingleDestroyer, "CLASS_Destroyer");
+                            ShipsSelectClass (SHIPS_STRBomWorldNearbyDes, SHIPS_STRBomSingleDestroyer, "CLASS_DESTROYER");
                             VarInc ("G_STRBomDestroyerIndex");
                     ELSE
                             VarSet ("G_STRBomDesSelectionExhausted", TRUE);
@@ -2629,7 +2629,7 @@ FSM STRBombers
                             VarSet ("G_STRBomFrigSelectionExhausted", FALSE);
                             VarSet ("G_STRBomDesSelectionExhausted", FALSE);
                             FindEnemiesInside (VOLUME_MothershipSphere, SHIPS_FleetAtMothership, 3000);
-                            ShipsSelectClass (SHIPS_PlayerMothership, SHIPS_FleetAtMothership, "CLASS_Mothership");
+                            ShipsSelectClass (SHIPS_PlayerMothership, SHIPS_FleetAtMothership, "CLASS_MOTHERSHIP");
                             VarCreateSet ("STRBomberHCKamikazeNow", TRUE);
                             Kamikaze (SHIPS_PlayerMothership);          // If there are no places left to go, kamikaze the Mothership
                             Jump NullState;
@@ -2690,10 +2690,10 @@ FSM STRBombers
         STATE AttackFleetAtMothership //컴컴컴컴컴컴컴컴컴컴컴컴�
             INIT
                     FindEnemiesInside (VOLUME_MothershipSphere, SHIPS_PlayerFleet, 3000);
-                    ShipsSelectClass (SHIPS_Mothership, SHIPS_PlayerFleet, "CLASS_Mothership");       // Select the Mothership
+                    ShipsSelectClass (SHIPS_Mothership, SHIPS_PlayerFleet, "CLASS_MOTHERSHIP");       // Select the Mothership
                     ShipsRemove (SHIPS_PlayerFleet, SHIPS_Mothership);                                // And filter it out
-                    ShipsSelectClass (SHIPS_STRBomFleetFrigates, SHIPS_PlayerFleet, "CLASS_Frigate");
-                    ShipsSelectClass (SHIPS_STRBomFleetDestroyers, SHIPS_PlayerFleet, "CLASS_Destroyer");
+                    ShipsSelectClass (SHIPS_STRBomFleetFrigates, SHIPS_PlayerFleet, "CLASS_FRIGATE");
+                    ShipsSelectClass (SHIPS_STRBomFleetDestroyers, SHIPS_PlayerFleet, "CLASS_DESTROYER");
                     IF (ShipsCount (SHIPS_STRBomFleetFrigates) > 0)             // Attack Frigates first
                             ShipsAdd (SHIPS_STRBomFleetATTACK, SHIPS_STRBomFleetFrigates);
                     ELSEIF (ShipsCount (SHIPS_STRBomFleetDestroyers) > 0)       // Attack Destroyers second
@@ -2777,7 +2777,7 @@ FSM STRBombers
 
                     // if you get attacked, stop and fight back!
                     IF (UnderAttack (SHIPS_AttackingSTRBombers))
-                            ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingSTRBombers, "CLASS_Mothership");       // Select the Mothership
+                            ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingSTRBombers, "CLASS_MOTHERSHIP");       // Select the Mothership
                             ShipsRemove (SHIPS_AttackingSTRBombers, SHIPS_Mothership);                                // And filter it out
                             IF (ShipsCount (SHIPS_AttackingSTRBombers) > 0)
                                     ShipsClear (SHIPS_STRBomFleetATTACK);
@@ -2801,8 +2801,8 @@ FSM STRBombers
 
         STATE AttackNearby //컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
             INIT
-                    ShipsSelectClass (SHIPS_STRBomNearbyFrigates, SHIPS_AttackingSTRBombers, "CLASS_Frigate");
-                    ShipsSelectClass (SHIPS_STRBomNearbyDestroyers, SHIPS_AttackingSTRBombers, "CLASS_Destroyer");
+                    ShipsSelectClass (SHIPS_STRBomNearbyFrigates, SHIPS_AttackingSTRBombers, "CLASS_FRIGATE");
+                    ShipsSelectClass (SHIPS_STRBomNearbyDestroyers, SHIPS_AttackingSTRBombers, "CLASS_DESTROYER");
                     IF (ShipsCount (SHIPS_STRBomNearbyFrigates) > 0)                // Attack Frigates first
                             ShipsAdd (SHIPS_STRBomNearbyATTACK, SHIPS_STRBomNearbyFrigates);
                     ELSEIF (ShipsCount (SHIPS_STRBomNearbyDestroyers) > 0)          // Attack Destroyers second
@@ -2944,7 +2944,7 @@ FSM STRBombers
 
                     // if you get attacked, stop and fight back!
                     IF (UnderAttack (SHIPS_AttackingSTRBombers))
-                            ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingSTRBombers, "CLASS_Mothership");       // Select the Mothership
+                            ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingSTRBombers, "CLASS_MOTHERSHIP");       // Select the Mothership
                             ShipsRemove (SHIPS_AttackingSTRBombers, SHIPS_Mothership);                                // And filter it out
                             IF (ShipsCount (SHIPS_AttackingSTRBombers) > 0)
                                     ShipsClear (SHIPS_STRBomWorldATTACK);
@@ -3186,30 +3186,30 @@ FSM STRMG
 
                     // Do this for option 1)
                     FindEnemiesInside (VOLUME_MothershipSphere, SHIPS_FleetAtMothership, 3000);
-                    ShipsSelectClass (SHIPS_Mothership, SHIPS_FleetAtMothership, "CLASS_Mothership");       // Select the Mothership
+                    ShipsSelectClass (SHIPS_Mothership, SHIPS_FleetAtMothership, "CLASS_MOTHERSHIP");       // Select the Mothership
                     ShipsRemove (SHIPS_FleetAtMothership, SHIPS_Mothership);                                // And filter it out
-                    ShipsSelectClass (SHIPS_STRMGFighters, SHIPS_FleetAtMothership, "CLASS_Fighter");
-                    ShipsSelectClass (SHIPS_STRMGCorvettes, SHIPS_FleetAtMothership, "CLASS_Corvette");
+                    ShipsSelectClass (SHIPS_STRMGFighters, SHIPS_FleetAtMothership, "CLASS_FIGHTER");
+                    ShipsSelectClass (SHIPS_STRMGCorvettes, SHIPS_FleetAtMothership, "CLASS_CORVETTE");
 
 
                     // Do this for option 2)
                     //Print ("MultiGun: I'm SELECTING the Single Frigate and Destroyer now!!!!");
                     FindEnemiesInside (VOLUME_WorldVolume, SHIPS_AllShipsInWorld, 1000);
-                    ShipsSelectClass (SHIPS_Mothership, SHIPS_AllShipsInWorld, "CLASS_Mothership");       // Select the Mothership
+                    ShipsSelectClass (SHIPS_Mothership, SHIPS_AllShipsInWorld, "CLASS_MOTHERSHIP");       // Select the Mothership
                     ShipsRemove (SHIPS_AllShipsInWorld, SHIPS_Mothership);                                // And filter it out
                     //VarCreateSet ("G_SHIPSAllShipsInWorld", ShipsCount (SHIPS_AllShipsInWorld));
-                    ShipsSelectClass (SHIPS_STRMGWorldFighters, SHIPS_AllShipsInWorld, "CLASS_Fighter");
+                    ShipsSelectClass (SHIPS_STRMGWorldFighters, SHIPS_AllShipsInWorld, "CLASS_FIGHTER");
                     //VarCreateSet ("G_SHIPSSTRMGWorldFighters", ShipsCount (SHIPS_STRMGWorldFighters));
-                    ShipsSelectClass (SHIPS_STRMGWorldCorvettes, SHIPS_AllShipsInWorld, "CLASS_Corvette");
+                    ShipsSelectClass (SHIPS_STRMGWorldCorvettes, SHIPS_AllShipsInWorld, "CLASS_CORVETTE");
                     //VarCreateSet ("G_SHIPSSTRMGWorldCorvettes", ShipsCount (SHIPS_STRMGWorldCorvettes));
 
                     IF (ShipsSelectIndex (SHIPS_STRMGSingleFighter, SHIPS_STRMGWorldFighters, VarGet ("G_STRMGFighterIndex")))
                             //VarCreateSet ("G_SHIPSSTRMGSingleFighter", ShipsCount (SHIPS_STRMGSingleFighter));
                             FindEnemiesNearTeam (SHIPS_STRMGSingleFighter, 10000);
-                            ShipsSelectClass (SHIPS_Mothership, SHIPS_STRMGSingleFighter, "CLASS_Mothership");       // Select the Mothership
+                            ShipsSelectClass (SHIPS_Mothership, SHIPS_STRMGSingleFighter, "CLASS_MOTHERSHIP");       // Select the Mothership
                             ShipsRemove (SHIPS_STRMGSingleFighter, SHIPS_Mothership);                                // And filter it out
                             //VarCreateSet ("G_SHIPSSTRMGSingleFighterNearby", ShipsCount (SHIPS_STRMGSingleFighter));
-                            ShipsSelectClass (SHIPS_STRMGWorldNearbyFighters, SHIPS_STRMGSingleFighter, "CLASS_Fighter");
+                            ShipsSelectClass (SHIPS_STRMGWorldNearbyFighters, SHIPS_STRMGSingleFighter, "CLASS_FIGHTER");
                             VarInc ("G_STRMGFighterIndex");
                     ELSE
                             VarSet ("G_STRMGFightSelectionExhausted", TRUE);
@@ -3218,10 +3218,10 @@ FSM STRMG
                     IF (ShipsSelectIndex (SHIPS_STRMGSingleCorvette, SHIPS_STRMGWorldCorvettes, VarGet ("G_STRMGCorvetteIndex")))
                             //VarCreateSet ("G_SHIPSSTRMGSingleCorvette", ShipsCount (SHIPS_STRMGSingleCorvette));
                             FindEnemiesNearTeam (SHIPS_STRMGSingleCorvette, 10000);
-                            ShipsSelectClass (SHIPS_Mothership, SHIPS_STRMGSingleCorvette, "CLASS_Mothership");       // Select the Mothership
+                            ShipsSelectClass (SHIPS_Mothership, SHIPS_STRMGSingleCorvette, "CLASS_MOTHERSHIP");       // Select the Mothership
                             ShipsRemove (SHIPS_STRMGSingleCorvette, SHIPS_Mothership);                                // And filter it out
                             //VarCreateSet ("G_SHIPSSTRMGSingleCorvNearby", ShipsCount (SHIPS_STRMGSingleCorvette));
-                            ShipsSelectClass (SHIPS_STRMGWorldNearbyCorv, SHIPS_STRMGSingleCorvette, "CLASS_Corvette");
+                            ShipsSelectClass (SHIPS_STRMGWorldNearbyCorv, SHIPS_STRMGSingleCorvette, "CLASS_CORVETTE");
                             VarInc ("G_STRMGCorvetteIndex");
                     ELSE
                             VarSet ("G_STRMGCorvSelectionExhausted", TRUE);
@@ -3265,7 +3265,7 @@ FSM STRMG
                             VarSet ("G_STRMGFightSelectionExhausted", FALSE);
                             VarSet ("G_STRMGCorvSelectionExhausted", FALSE);
                             FindEnemiesInside (VOLUME_MothershipSphere, SHIPS_FleetAtMothership, 3000);
-                            ShipsSelectClass (SHIPS_PlayerMothership, SHIPS_FleetAtMothership, "CLASS_Mothership");
+                            ShipsSelectClass (SHIPS_PlayerMothership, SHIPS_FleetAtMothership, "CLASS_MOTHERSHIP");
                             VarCreateSet ("STRMGSFKamikazeNow", TRUE);
                             Kamikaze (SHIPS_PlayerMothership);          // If there are no places left to go, kamikaze the Mothership
                             Jump NullState;
@@ -3323,10 +3323,10 @@ FSM STRMG
         STATE AttackFleetAtMothership //컴컴컴컴컴컴컴컴컴컴컴컴�
             INIT
                     FindEnemiesInside (VOLUME_MothershipSphere, SHIPS_PlayerFleet, 3000);
-                    ShipsSelectClass (SHIPS_Mothership, SHIPS_PlayerFleet, "CLASS_Mothership");       // Select the Mothership
+                    ShipsSelectClass (SHIPS_Mothership, SHIPS_PlayerFleet, "CLASS_MOTHERSHIP");       // Select the Mothership
                     ShipsRemove (SHIPS_PlayerFleet, SHIPS_Mothership);                                // And filter it out
-                    ShipsSelectClass (SHIPS_STRMGFleetFighters, SHIPS_PlayerFleet, "CLASS_Fighter");
-                    ShipsSelectClass (SHIPS_STRMGFleetCorvettes, SHIPS_PlayerFleet, "CLASS_Corvette");
+                    ShipsSelectClass (SHIPS_STRMGFleetFighters, SHIPS_PlayerFleet, "CLASS_FIGHTER");
+                    ShipsSelectClass (SHIPS_STRMGFleetCorvettes, SHIPS_PlayerFleet, "CLASS_CORVETTE");
                     IF (ShipsCount (SHIPS_STRMGFleetFighters) > 0)             // Attack Fighters first
                             ShipsAdd (SHIPS_STRMGFleetATTACK, SHIPS_STRMGFleetFighters);
                     ELSEIF (ShipsCount (SHIPS_STRMGFleetCorvettes) > 0)       // Attack Corvettes second
@@ -3411,7 +3411,7 @@ FSM STRMG
 
                     // if you get attacked, stop and fight back!
                     IF (UnderAttack (SHIPS_AttackingSTRMGs))
-                            ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingSTRMGs, "CLASS_Mothership");       // Select the Mothership
+                            ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingSTRMGs, "CLASS_MOTHERSHIP");       // Select the Mothership
                             ShipsRemove (SHIPS_AttackingSTRMGs, SHIPS_Mothership);                                // And filter it out
                             IF (ShipsCount (SHIPS_AttackingSTRMGs) > 0)
                                     ShipsClear (SHIPS_STRMGFleetATTACK);
@@ -3435,8 +3435,8 @@ FSM STRMG
 
         STATE AttackNearby //컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
             INIT
-                    ShipsSelectClass (SHIPS_STRMGNearbyFighters, SHIPS_AttackingSTRMGs, "CLASS_Fighter");
-                    ShipsSelectClass (SHIPS_STRMGNearbyCorvettes, SHIPS_AttackingSTRMGs, "CLASS_Corvette");
+                    ShipsSelectClass (SHIPS_STRMGNearbyFighters, SHIPS_AttackingSTRMGs, "CLASS_FIGHTER");
+                    ShipsSelectClass (SHIPS_STRMGNearbyCorvettes, SHIPS_AttackingSTRMGs, "CLASS_CORVETTE");
                     IF (ShipsCount (SHIPS_STRMGNearbyFighters) > 0)                // Attack Fighters first
                             ShipsAdd (SHIPS_STRMGNearbyATTACK, SHIPS_STRMGNearbyFighters);
                     ELSEIF (ShipsCount (SHIPS_STRMGNearbyCorvettes) > 0)          // Attack Corvettes second
@@ -3582,7 +3582,7 @@ FSM STRMG
 
                     // if you get attacked, stop and fight back!
                     IF (UnderAttack (SHIPS_AttackingSTRMGs))
-                            ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingSTRMGs, "CLASS_Mothership");       // Select the Mothership
+                            ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingSTRMGs, "CLASS_MOTHERSHIP");       // Select the Mothership
                             ShipsRemove (SHIPS_AttackingSTRMGs, SHIPS_Mothership);                                // And filter it out
                             IF (ShipsCount (SHIPS_AttackingSTRMGs) > 0)
                                     ShipsClear (SHIPS_STRMGWorldATTACK);
@@ -3843,30 +3843,30 @@ FSM STRGW
 
                     // Do this for option 1)
                     FindEnemiesInside (VOLUME_MothershipSphere, SHIPS_FleetAtMothership, 3000);
-                    ShipsSelectClass (SHIPS_Mothership, SHIPS_FleetAtMothership, "CLASS_Mothership");       // Select the Mothership
+                    ShipsSelectClass (SHIPS_Mothership, SHIPS_FleetAtMothership, "CLASS_MOTHERSHIP");       // Select the Mothership
                     ShipsRemove (SHIPS_FleetAtMothership, SHIPS_Mothership);                                // And filter it out
-                    ShipsSelectClass (SHIPS_STRGWFighters, SHIPS_FleetAtMothership, "CLASS_Fighter");
-                    ShipsSelectClass (SHIPS_STRGWCorvettes, SHIPS_FleetAtMothership, "CLASS_Corvette");
+                    ShipsSelectClass (SHIPS_STRGWFighters, SHIPS_FleetAtMothership, "CLASS_FIGHTER");
+                    ShipsSelectClass (SHIPS_STRGWCorvettes, SHIPS_FleetAtMothership, "CLASS_CORVETTE");
 
 
                     // Do this for option 2)
                     //Print ("GWIon: I'm SELECTING the Single Frigate and Destroyer now!!!!");
                     FindEnemiesInside (VOLUME_WorldVolume, SHIPS_AllShipsInWorld, 1000);
-                    ShipsSelectClass (SHIPS_Mothership, SHIPS_AllShipsInWorld, "CLASS_Mothership");       // Select the Mothership
+                    ShipsSelectClass (SHIPS_Mothership, SHIPS_AllShipsInWorld, "CLASS_MOTHERSHIP");       // Select the Mothership
                     ShipsRemove (SHIPS_AllShipsInWorld, SHIPS_Mothership);                                // And filter it out
                     //VarCreateSet ("G_SHIPSAllShipsInWorld", ShipsCount (SHIPS_AllShipsInWorld));
-                    ShipsSelectClass (SHIPS_STRGWWorldFighters, SHIPS_AllShipsInWorld, "CLASS_Fighter");
+                    ShipsSelectClass (SHIPS_STRGWWorldFighters, SHIPS_AllShipsInWorld, "CLASS_FIGHTER");
                     //VarCreateSet ("G_SHIPSSTRGWWorldFighters", ShipsCount (SHIPS_STRGWWorldFighters));
-                    ShipsSelectClass (SHIPS_STRGWWorldCorvettes, SHIPS_AllShipsInWorld, "CLASS_Corvette");
+                    ShipsSelectClass (SHIPS_STRGWWorldCorvettes, SHIPS_AllShipsInWorld, "CLASS_CORVETTE");
                     //VarCreateSet ("G_SHIPSSTRGWWorldCorvettes", ShipsCount (SHIPS_STRGWWorldCorvettes));
 
                     IF (ShipsSelectIndex (SHIPS_STRGWSingleFighter, SHIPS_STRGWWorldFighters, VarGet ("G_STRGWFighterIndex")))
                             //VarCreateSet ("G_SHIPSSTRGWSingleFighter", ShipsCount (SHIPS_STRGWSingleFighter));
                             FindEnemiesNearTeam (SHIPS_STRGWSingleFighter, 10000);
-                            ShipsSelectClass (SHIPS_Mothership, SHIPS_STRGWSingleFighter, "CLASS_Mothership");       // Select the Mothership
+                            ShipsSelectClass (SHIPS_Mothership, SHIPS_STRGWSingleFighter, "CLASS_MOTHERSHIP");       // Select the Mothership
                             ShipsRemove (SHIPS_STRGWSingleFighter, SHIPS_Mothership);                                // And filter it out
                             //VarCreateSet ("G_SHIPSSTRGWSingleFighterNearby", ShipsCount (SHIPS_STRGWSingleFighter));
-                            ShipsSelectClass (SHIPS_STRGWWorldNearbyFighters, SHIPS_STRGWSingleFighter, "CLASS_Fighter");
+                            ShipsSelectClass (SHIPS_STRGWWorldNearbyFighters, SHIPS_STRGWSingleFighter, "CLASS_FIGHTER");
                             VarInc ("G_STRGWFighterIndex");
                     ELSE
                             VarSet ("G_STRGWFightSelectionExhausted", TRUE);
@@ -3875,10 +3875,10 @@ FSM STRGW
                     IF (ShipsSelectIndex (SHIPS_STRGWSingleCorvette, SHIPS_STRGWWorldCorvettes, VarGet ("G_STRGWCorvetteIndex")))
                             //VarCreateSet ("G_SHIPSSTRGWSingleCorvette", ShipsCount (SHIPS_STRGWSingleCorvette));
                             FindEnemiesNearTeam (SHIPS_STRGWSingleCorvette, 10000);
-                            ShipsSelectClass (SHIPS_Mothership, SHIPS_STRGWSingleCorvette, "CLASS_Mothership");       // Select the Mothership
+                            ShipsSelectClass (SHIPS_Mothership, SHIPS_STRGWSingleCorvette, "CLASS_MOTHERSHIP");       // Select the Mothership
                             ShipsRemove (SHIPS_STRGWSingleCorvette, SHIPS_Mothership);                                // And filter it out
                             //VarCreateSet ("G_SHIPSSTRGWSingleCorvNearby", ShipsCount (SHIPS_STRGWSingleCorvette));
-                            ShipsSelectClass (SHIPS_STRGWWorldNearbyCorv, SHIPS_STRGWSingleCorvette, "CLASS_Corvette");
+                            ShipsSelectClass (SHIPS_STRGWWorldNearbyCorv, SHIPS_STRGWSingleCorvette, "CLASS_CORVETTE");
                             VarInc ("G_STRGWCorvetteIndex");
                     ELSE
                             VarSet ("G_STRGWCorvSelectionExhausted", TRUE);
@@ -3964,11 +3964,11 @@ FSM STRGW
 
                     // if there are Strike Craft nearby, turn on the field
                     FindEnemiesNearTeam (SHIPS_STRGWEVERYONE, 10000);
-                    ShipsSelectClass (SHIPS_Mothership, SHIPS_STRGWEVERYONE, "CLASS_Mothership");       // Select the Mothership
+                    ShipsSelectClass (SHIPS_Mothership, SHIPS_STRGWEVERYONE, "CLASS_MOTHERSHIP");       // Select the Mothership
                     ShipsRemove (SHIPS_STRGWEVERYONE, SHIPS_Mothership);                                // And filter it out
                     //ShipsSelectNonCapital (SHIPS_STRGWStrikeCraft, SHIPS_STRGWEVERYONE);
-                    ShipsSelectClass (SHIPS_STRGWYahooFighters, SHIPS_STRGWEVERYONE, "CLASS_Fighter");
-                    ShipsSelectClass (SHIPS_STRGWYahooCorvettes, SHIPS_STRGWEVERYONE, "CLASS_Corvette");
+                    ShipsSelectClass (SHIPS_STRGWYahooFighters, SHIPS_STRGWEVERYONE, "CLASS_FIGHTER");
+                    ShipsSelectClass (SHIPS_STRGWYahooCorvettes, SHIPS_STRGWEVERYONE, "CLASS_CORVETTE");
                     ShipsAdd (SHIPS_STRGWStrikeCraft, SHIPS_STRGWYahooFighters);
                     ShipsAdd (SHIPS_STRGWStrikeCraft, SHIPS_STRGWYahooCorvettes);
                     IF (ShipsCount (SHIPS_STRGWStrikeCraft) > 0)
@@ -4004,11 +4004,11 @@ FSM STRGW
 
                     // if there are NO Strike Craft nearby, turn OFF the field
                     FindEnemiesNearTeam (SHIPS_STRGWEVERYONE, 10000);
-                    ShipsSelectClass (SHIPS_Mothership, SHIPS_STRGWEVERYONE, "CLASS_Mothership");       // Select the Mothership
+                    ShipsSelectClass (SHIPS_Mothership, SHIPS_STRGWEVERYONE, "CLASS_MOTHERSHIP");       // Select the Mothership
                     ShipsRemove (SHIPS_STRGWEVERYONE, SHIPS_Mothership);                                // And filter it out
                     //ShipsSelectNonCapital (SHIPS_STRGWStrikeCraft, SHIPS_STRGWEVERYONE);
-                    ShipsSelectClass (SHIPS_STRGWYahooFighters, SHIPS_STRGWEVERYONE, "CLASS_Fighter");
-                    ShipsSelectClass (SHIPS_STRGWYahooCorvettes, SHIPS_STRGWEVERYONE, "CLASS_Corvette");
+                    ShipsSelectClass (SHIPS_STRGWYahooFighters, SHIPS_STRGWEVERYONE, "CLASS_FIGHTER");
+                    ShipsSelectClass (SHIPS_STRGWYahooCorvettes, SHIPS_STRGWEVERYONE, "CLASS_CORVETTE");
                     ShipsAdd (SHIPS_STRGWStrikeCraft, SHIPS_STRGWYahooFighters);
                     ShipsAdd (SHIPS_STRGWStrikeCraft, SHIPS_STRGWYahooCorvettes);
                     IF (ShipsCount (SHIPS_STRGWStrikeCraft) = 0)
@@ -4044,11 +4044,11 @@ FSM STRGW
 
                     // if there are Strike Craft nearby, turn ON the field
                     FindEnemiesNearTeam (SHIPS_STRGWEVERYONE, 10000);
-                    ShipsSelectClass (SHIPS_Mothership, SHIPS_STRGWEVERYONE, "CLASS_Mothership");       // Select the Mothership
+                    ShipsSelectClass (SHIPS_Mothership, SHIPS_STRGWEVERYONE, "CLASS_MOTHERSHIP");       // Select the Mothership
                     ShipsRemove (SHIPS_STRGWEVERYONE, SHIPS_Mothership);                                // And filter it out
                     //ShipsSelectNonCapital (SHIPS_STRGWStrikeCraft, SHIPS_STRGWEVERYONE);
-                    ShipsSelectClass (SHIPS_STRGWYahooFighters, SHIPS_STRGWEVERYONE, "CLASS_Fighter");
-                    ShipsSelectClass (SHIPS_STRGWYahooCorvettes, SHIPS_STRGWEVERYONE, "CLASS_Corvette");
+                    ShipsSelectClass (SHIPS_STRGWYahooFighters, SHIPS_STRGWEVERYONE, "CLASS_FIGHTER");
+                    ShipsSelectClass (SHIPS_STRGWYahooCorvettes, SHIPS_STRGWEVERYONE, "CLASS_CORVETTE");
                     ShipsAdd (SHIPS_STRGWStrikeCraft, SHIPS_STRGWYahooFighters);
                     ShipsAdd (SHIPS_STRGWStrikeCraft, SHIPS_STRGWYahooCorvettes);
                     IF (ShipsCount (SHIPS_STRGWStrikeCraft) > 0)
@@ -4061,10 +4061,10 @@ FSM STRGW
         STATE AttackFleetAtMothership //컴컴컴컴컴컴컴컴컴컴컴컴�
             INIT
                     FindEnemiesInside (VOLUME_MothershipSphere, SHIPS_PlayerFleet, 3000);
-                    ShipsSelectClass (SHIPS_Mothership, SHIPS_PlayerFleet, "CLASS_Mothership");       // Select the Mothership
+                    ShipsSelectClass (SHIPS_Mothership, SHIPS_PlayerFleet, "CLASS_MOTHERSHIP");       // Select the Mothership
                     ShipsRemove (SHIPS_PlayerFleet, SHIPS_Mothership);                                // And filter it out
-                    ShipsSelectClass (SHIPS_STRGWFleetFighters, SHIPS_PlayerFleet, "CLASS_Fighter");
-                    ShipsSelectClass (SHIPS_STRGWFleetCorvettes, SHIPS_PlayerFleet, "CLASS_Corvette");
+                    ShipsSelectClass (SHIPS_STRGWFleetFighters, SHIPS_PlayerFleet, "CLASS_FIGHTER");
+                    ShipsSelectClass (SHIPS_STRGWFleetCorvettes, SHIPS_PlayerFleet, "CLASS_CORVETTE");
                     IF (ShipsCount (SHIPS_STRGWFleetFighters) > 0)             // Attack Fighters first
                             ShipsAdd (SHIPS_STRGWFleetATTACK, SHIPS_STRGWFleetFighters);
                     ELSEIF (ShipsCount (SHIPS_STRGWFleetCorvettes) > 0)       // Attack Corvettes second
@@ -4137,7 +4137,7 @@ FSM STRGW
 
                     // if you get attacked, stop and fight back!
                     IF (UnderAttack (SHIPS_AttackingSTRGWs))
-                            ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingSTRGWs, "CLASS_Mothership");       // Select the Mothership
+                            ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingSTRGWs, "CLASS_MOTHERSHIP");       // Select the Mothership
                             ShipsRemove (SHIPS_AttackingSTRGWs, SHIPS_Mothership);                                // And filter it out
                             IF (ShipsCount (SHIPS_AttackingSTRGWs) > 0)
                                     ShipsClear (SHIPS_STRGWFleetATTACK);
@@ -4161,8 +4161,8 @@ FSM STRGW
 
         STATE AttackNearby //컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
             INIT
-                    ShipsSelectClass (SHIPS_STRGWNearbyFighters, SHIPS_AttackingSTRGWs, "CLASS_Fighter");
-                    ShipsSelectClass (SHIPS_STRGWNearbyCorvettes, SHIPS_AttackingSTRGWs, "CLASS_Corvette");
+                    ShipsSelectClass (SHIPS_STRGWNearbyFighters, SHIPS_AttackingSTRGWs, "CLASS_FIGHTER");
+                    ShipsSelectClass (SHIPS_STRGWNearbyCorvettes, SHIPS_AttackingSTRGWs, "CLASS_CORVETTE");
                     IF (ShipsCount (SHIPS_STRGWNearbyFighters) > 0)                // Attack Fighters first
                             ShipsAdd (SHIPS_STRGWNearbyATTACK, SHIPS_STRGWNearbyFighters);
                     ELSEIF (ShipsCount (SHIPS_STRGWNearbyCorvettes) > 0)          // Attack Corvettes second
@@ -4290,7 +4290,7 @@ FSM STRGW
 
                     // if you get attacked, stop and fight back!
                     IF (UnderAttack (SHIPS_AttackingSTRGWs))
-                            ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingSTRGWs, "CLASS_Mothership");       // Select the Mothership
+                            ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingSTRGWs, "CLASS_MOTHERSHIP");       // Select the Mothership
                             ShipsRemove (SHIPS_AttackingSTRGWs, SHIPS_Mothership);                                // And filter it out
                             IF (ShipsCount (SHIPS_AttackingSTRGWs) > 0)
                                     ShipsClear (SHIPS_STRGWWorldATTACK);
@@ -4476,30 +4476,30 @@ FSM STRCG
 
                     // Do this for option 1)
                     FindEnemiesInside (VOLUME_MothershipSphere, SHIPS_FleetAtMothership, 3000);
-                    ShipsSelectClass (SHIPS_Mothership, SHIPS_FleetAtMothership, "CLASS_Mothership");       // Select the Mothership
+                    ShipsSelectClass (SHIPS_Mothership, SHIPS_FleetAtMothership, "CLASS_MOTHERSHIP");       // Select the Mothership
                     ShipsRemove (SHIPS_FleetAtMothership, SHIPS_Mothership);                                // And filter it out
-                    ShipsSelectClass (SHIPS_STRCGFrigates, SHIPS_FleetAtMothership, "CLASS_Frigate");
-                    ShipsSelectClass (SHIPS_STRCGDestroyers, SHIPS_FleetAtMothership, "CLASS_Destroyer");
+                    ShipsSelectClass (SHIPS_STRCGFrigates, SHIPS_FleetAtMothership, "CLASS_FRIGATE");
+                    ShipsSelectClass (SHIPS_STRCGDestroyers, SHIPS_FleetAtMothership, "CLASS_DESTROYER");
 
 
                     // Do this for option 2)
                     //Print ("CGIon: I'm SELECTING the Single Frigate and Destroyer now!!!!");
                     FindEnemiesInside (VOLUME_WorldVolume, SHIPS_AllShipsInWorld, 1000);
-                    ShipsSelectClass (SHIPS_Mothership, SHIPS_AllShipsInWorld, "CLASS_Mothership");       // Select the Mothership
+                    ShipsSelectClass (SHIPS_Mothership, SHIPS_AllShipsInWorld, "CLASS_MOTHERSHIP");       // Select the Mothership
                     ShipsRemove (SHIPS_AllShipsInWorld, SHIPS_Mothership);                                // And filter it out
                     //VarCreateSet ("G_SHIPSAllShipsInWorld", ShipsCount (SHIPS_AllShipsInWorld));
-                    ShipsSelectClass (SHIPS_STRCGWorldFrigates, SHIPS_AllShipsInWorld, "CLASS_Frigate");
+                    ShipsSelectClass (SHIPS_STRCGWorldFrigates, SHIPS_AllShipsInWorld, "CLASS_FRIGATE");
                     //VarCreateSet ("G_SHIPSSTRCCGorldFighters", ShipsCount (SHIPS_STRCGWorldFrigates));
-                    ShipsSelectClass (SHIPS_STRCGWorldDestroyers, SHIPS_AllShipsInWorld, "CLASS_Destroyer");
+                    ShipsSelectClass (SHIPS_STRCGWorldDestroyers, SHIPS_AllShipsInWorld, "CLASS_DESTROYER");
                     //VarCreateSet ("G_SHIPSSTRCGWorldDestroyers", ShipsCount (SHIPS_STRCGWorldDestroyers));
 
                     IF (ShipsSelectIndex (SHIPS_STRCGSingleFrigate, SHIPS_STRCGWorldFrigates, VarGet ("G_STRCGFrigateIndex")))
                             //VarCreateSet ("G_SHIPSSTRCGSingleFrigate", ShipsCount (SHIPS_STRCGSingleFrigate));
                             FindEnemiesNearTeam (SHIPS_STRCGSingleFrigate, 10000);
-                            ShipsSelectClass (SHIPS_Mothership, SHIPS_STRCGSingleFrigate, "CLASS_Mothership");       // Select the Mothership
+                            ShipsSelectClass (SHIPS_Mothership, SHIPS_STRCGSingleFrigate, "CLASS_MOTHERSHIP");       // Select the Mothership
                             ShipsRemove (SHIPS_STRCGSingleFrigate, SHIPS_Mothership);                                // And filter it out
                             //VarCreateSet ("G_SHIPSSTRCGSingleFrigateNearby", ShipsCount (SHIPS_STRCGSingleFrigate));
-                            ShipsSelectClass (SHIPS_STRCGWorldNearbyFrigates, SHIPS_STRCGSingleFrigate, "CLASS_Frigate");
+                            ShipsSelectClass (SHIPS_STRCGWorldNearbyFrigates, SHIPS_STRCGSingleFrigate, "CLASS_FRIGATE");
                             VarInc ("G_STRCGFrigateIndex");
                     ELSE
                             VarSet ("G_STRCGFrigSelectionExhausted", TRUE);
@@ -4508,10 +4508,10 @@ FSM STRCG
                     IF (ShipsSelectIndex (SHIPS_STRCGSingleDestroyer, SHIPS_STRCGWorldDestroyers, VarGet ("G_STRCGDestroyerIndex")))
                             //VarCreateSet ("G_SHIPSSTRCGSingleDestroyer", ShipsCount (SHIPS_STRCGSingleDestroyer));
                             FindEnemiesNearTeam (SHIPS_STRCGSingleDestroyer, 10000);
-                            ShipsSelectClass (SHIPS_Mothership, SHIPS_STRCGSingleDestroyer, "CLASS_Mothership");       // Select the Mothership
+                            ShipsSelectClass (SHIPS_Mothership, SHIPS_STRCGSingleDestroyer, "CLASS_MOTHERSHIP");       // Select the Mothership
                             ShipsRemove (SHIPS_STRCGSingleDestroyer, SHIPS_Mothership);                                // And filter it out
                             //VarCreateSet ("G_SHIPSSTRCGSingleDesNearby", ShipsCount (SHIPS_STRCGSingleDestroyer));
-                            ShipsSelectClass (SHIPS_STRCGWorldNearbyDes, SHIPS_STRCGSingleDestroyer, "CLASS_Destroyer");
+                            ShipsSelectClass (SHIPS_STRCGWorldNearbyDes, SHIPS_STRCGSingleDestroyer, "CLASS_DESTROYER");
                             VarInc ("G_STRCGDestroyerIndex");
                     ELSE
                             VarSet ("G_STRCGDesSelectionExhausted", TRUE);
@@ -4673,10 +4673,10 @@ FSM STRCG
         STATE AttackFleetAtMothership //컴컴컴컴컴컴컴컴컴컴컴컴�
             INIT
                     FindEnemiesInside (VOLUME_MothershipSphere, SHIPS_PlayerFleet, 3000);
-                    ShipsSelectClass (SHIPS_Mothership, SHIPS_PlayerFleet, "CLASS_Mothership");       // Select the Mothership
+                    ShipsSelectClass (SHIPS_Mothership, SHIPS_PlayerFleet, "CLASS_MOTHERSHIP");       // Select the Mothership
                     ShipsRemove (SHIPS_PlayerFleet, SHIPS_Mothership);                                // And filter it out
-                    ShipsSelectClass (SHIPS_STRCGFleetFrigates, SHIPS_PlayerFleet, "CLASS_Frigate");
-                    ShipsSelectClass (SHIPS_STRCGFleetDestroyers, SHIPS_PlayerFleet, "CLASS_Destroyer");
+                    ShipsSelectClass (SHIPS_STRCGFleetFrigates, SHIPS_PlayerFleet, "CLASS_FRIGATE");
+                    ShipsSelectClass (SHIPS_STRCGFleetDestroyers, SHIPS_PlayerFleet, "CLASS_DESTROYER");
                     IF (ShipsCount (SHIPS_STRCGFleetFrigates) > 0)             // Attack Frigates first
                             ShipsAdd (SHIPS_STRCGFleetATTACK, SHIPS_STRCGFleetFrigates);
                     ELSEIF (ShipsCount (SHIPS_STRCGFleetDestroyers) > 0)       // Attack Destroyers second
@@ -4758,7 +4758,7 @@ FSM STRCG
 
                     // if you get attacked, stop and fight back!
                     IF (UnderAttack (SHIPS_AttackingSTRCGs))
-                            ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingSTRCGs, "CLASS_Mothership");       // Select the Mothership
+                            ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingSTRCGs, "CLASS_MOTHERSHIP");       // Select the Mothership
                             ShipsRemove (SHIPS_AttackingSTRCGs, SHIPS_Mothership);                                // And filter it out
                             IF (ShipsCount (SHIPS_AttackingSTRCGs) > 0)
                                     ShipsClear (SHIPS_STRCGFleetATTACK);
@@ -4790,12 +4790,12 @@ FSM STRCG
             INIT
                     // special selection stuff to weed out proximity sensors first
                     FindEnemiesNearTeam (SHIPS_STRCGLookinForProx, 16000);
-                    ShipsSelectClass (SHIPS_Mothership, SHIPS_STRCGLookinForProx, "CLASS_Mothership");       // Select the Mothership
+                    ShipsSelectClass (SHIPS_Mothership, SHIPS_STRCGLookinForProx, "CLASS_MOTHERSHIP");       // Select the Mothership
                     ShipsRemove (SHIPS_STRCGLookinForProx, SHIPS_Mothership);                                // And filter it out
                     ShipsSelectType (SHIPS_STRCGFleetProxSensors, SHIPS_STRCGLookinForProx, "ProximitySensor");
 
-                    ShipsSelectClass (SHIPS_STRCGNearbyFrigates, SHIPS_AttackingSTRCGs, "CLASS_Frigate");
-                    ShipsSelectClass (SHIPS_STRCGNearbyDestroyers, SHIPS_AttackingSTRCGs, "CLASS_Destroyer");
+                    ShipsSelectClass (SHIPS_STRCGNearbyFrigates, SHIPS_AttackingSTRCGs, "CLASS_FRIGATE");
+                    ShipsSelectClass (SHIPS_STRCGNearbyDestroyers, SHIPS_AttackingSTRCGs, "CLASS_DESTROYER");
                     IF ( (ShipsCount (SHIPS_STRCGFleetProxSensors) > 0) AND (ShipsCount (TEAMSHIPS_STRCGCloak) > 0) )  // Attack Proximity Sensors first
                             VarCreateSet ("G_AttackingProximitySensors", TRUE);
                             ShipsAdd (SHIPS_STRCGNearbyATTACK, SHIPS_STRCGFleetProxSensors);
@@ -4946,7 +4946,7 @@ FSM STRCG
 
                     // if you get attacked, stop and fight back!
                     IF (UnderAttack (SHIPS_AttackingSTRCGs))
-                            ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingSTRCGs, "CLASS_Mothership");       // Select the Mothership
+                            ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingSTRCGs, "CLASS_MOTHERSHIP");       // Select the Mothership
                             ShipsRemove (SHIPS_AttackingSTRCGs, SHIPS_Mothership);                                // And filter it out
                             IF (ShipsCount (SHIPS_AttackingSTRCGs) > 0)
                                     ShipsClear (SHIPS_STRCGWorldATTACK);
@@ -5313,7 +5313,7 @@ FSM ChaseDefector
 
                     // if you get attacked, get distracted and attack your attackers
                     IF (UnderAttack (SHIPS_AttackingChaseTeam))
-                            ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingChaseTeam, "CLASS_Mothership");       // Select the Mothership
+                            ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingChaseTeam, "CLASS_MOTHERSHIP");       // Select the Mothership
                             ShipsRemove (SHIPS_AttackingChaseTeam, SHIPS_Mothership);                                // And filter it out
                             IF (ShipsCount (SHIPS_AttackingChaseTeam) > 0)
                                     Jump AttackNearby;
@@ -5358,7 +5358,7 @@ FSM ChaseDefector
 
                     // if you get attacked, get distracted and attack your attackers
                     IF (UnderAttack (SHIPS_AttackingChaseTeam))
-                            ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingChaseTeam, "CLASS_Mothership");       // Select the Mothership
+                            ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingChaseTeam, "CLASS_MOTHERSHIP");       // Select the Mothership
                             ShipsRemove (SHIPS_AttackingChaseTeam, SHIPS_Mothership);                                // And filter it out
                             IF (ShipsCount (SHIPS_AttackingChaseTeam) > 0)
                                     Jump AttackNearby;
@@ -5370,10 +5370,10 @@ FSM ChaseDefector
 
         STATE AttackNearby //컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
             INIT
-                    ShipsSelectClass (SHIPS_ChaseNearbyFighters, SHIPS_AttackingChaseTeam, "CLASS_Fighter");
-                    ShipsSelectClass (SHIPS_ChaseNearbyFrigates, SHIPS_AttackingChaseTeam, "CLASS_Frigate");
-                    ShipsSelectClass (SHIPS_ChaseNearbyCorvettes, SHIPS_AttackingChaseTeam, "CLASS_Corvette");
-                    ShipsSelectClass (SHIPS_ChaseNearbyDestroyers, SHIPS_AttackingChaseTeam, "CLASS_Destroyer");
+                    ShipsSelectClass (SHIPS_ChaseNearbyFighters, SHIPS_AttackingChaseTeam, "CLASS_FIGHTER");
+                    ShipsSelectClass (SHIPS_ChaseNearbyFrigates, SHIPS_AttackingChaseTeam, "CLASS_FRIGATE");
+                    ShipsSelectClass (SHIPS_ChaseNearbyCorvettes, SHIPS_AttackingChaseTeam, "CLASS_CORVETTE");
+                    ShipsSelectClass (SHIPS_ChaseNearbyDestroyers, SHIPS_AttackingChaseTeam, "CLASS_DESTROYER");
                     IF (ThisTeamIs (TEAM_ChaseDestroyer))
                             IF (ShipsCount (SHIPS_ChaseNearbyDestroyers) > 0)           // Destroyer team should attack Destroyers first
                                     MoveAttack (SHIPS_ChaseNearbyDestroyers);
@@ -5809,11 +5809,11 @@ WATCH
                 VarCreateSet ("G_TOTALCarrierAttackersACT1", 0);
         ENDIFONCE
 
-        ShipsSelectClass (SHIPS_CarrierFightersACT1, SHIPS_CarrierAttackedACT1, "CLASS_Fighter");
-        ShipsSelectClass (SHIPS_CarrierCorvettesACT1, SHIPS_CarrierAttackedACT1, "CLASS_Corvette");
-        ShipsSelectClass (SHIPS_CarrierFrigatesACT1, SHIPS_CarrierAttackedACT1, "CLASS_Frigate");
-        ShipsSelectClass (SHIPS_CarrierDestroyersACT1, SHIPS_CarrierAttackedACT1, "CLASS_Destroyer");
-        ShipsSelectClass (SHIPS_CarrierCarriersACT1, SHIPS_CarrierAttackedACT1, "CLASS_Carrier");
+        ShipsSelectClass (SHIPS_CarrierFightersACT1, SHIPS_CarrierAttackedACT1, "CLASS_FIGHTER");
+        ShipsSelectClass (SHIPS_CarrierCorvettesACT1, SHIPS_CarrierAttackedACT1, "CLASS_CORVETTE");
+        ShipsSelectClass (SHIPS_CarrierFrigatesACT1, SHIPS_CarrierAttackedACT1, "CLASS_FRIGATE");
+        ShipsSelectClass (SHIPS_CarrierDestroyersACT1, SHIPS_CarrierAttackedACT1, "CLASS_DESTROYER");
+        ShipsSelectClass (SHIPS_CarrierCarriersACT1, SHIPS_CarrierAttackedACT1, "CLASS_CARRIER");
 
         VarSet ("G_TOTALCarrierAttackersACT1", 62*(ShipsCount (SHIPS_CarrierFightersACT1))              // Add up the value in RUs of all the ships attacking
                                               +222*(ShipsCount (SHIPS_CarrierCorvettesACT1))

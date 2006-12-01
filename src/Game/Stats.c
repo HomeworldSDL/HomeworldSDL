@@ -1468,7 +1468,7 @@ bool statShipConstraintsNoneCB(ShipStaticInfo *shipstatic)
 
 bool statShipConstraintsFrigatesOrWorseCB(ShipStaticInfo *shipstatic)
 {
-    if (shipstatic->shipclass >= CLASS_Frigate)
+    if (shipstatic->shipclass >= CLASS_FRIGATE)
     {
         return TRUE;
     }
@@ -1480,7 +1480,7 @@ bool statShipConstraintsFrigatesOrWorseCB(ShipStaticInfo *shipstatic)
 
 bool statShipConstraintsFrigatesOrBetterCB(ShipStaticInfo *shipstatic)
 {
-    if (shipstatic->shipclass <= CLASS_Frigate)
+    if (shipstatic->shipclass <= CLASS_FRIGATE)
     {
         return TRUE;
     }
@@ -1503,14 +1503,14 @@ bool statShipConstraintsFightingShipsCB(ShipStaticInfo *shipstatic)
 {
     switch (shipstatic->shipclass)
     {
-        case CLASS_Mothership:
-        case CLASS_Carrier:
+        case CLASS_MOTHERSHIP:
+        case CLASS_CARRIER:
             return FALSE;
-        case CLASS_HeavyCruiser:
-        case CLASS_Destroyer:
+        case CLASS_HEAVY_CRUISER:
+        case CLASS_DESTROYER:
             return TRUE;
             break;
-        case CLASS_Frigate:
+        case CLASS_FRIGATE:
             if ((shipstatic->shiptype == ResourceController) ||
                 (shipstatic->shiptype == DFGFrigate) ||
                 (shipstatic->shiptype == AdvanceSupportFrigate))
@@ -1522,7 +1522,7 @@ bool statShipConstraintsFightingShipsCB(ShipStaticInfo *shipstatic)
                 return TRUE;    // all other Frigates are considered fighting ships
             }
             break;
-        case CLASS_Corvette:
+        case CLASS_CORVETTE:
             if ((shipstatic->shiptype == RepairCorvette) ||
                 (shipstatic->shiptype == SalCapCorvette))
             {
@@ -1532,7 +1532,7 @@ bool statShipConstraintsFightingShipsCB(ShipStaticInfo *shipstatic)
             {
                 return TRUE;
             }
-        case CLASS_Fighter:
+        case CLASS_FIGHTER:
             if (shipstatic->shiptype == DefenseFighter)
             {
                 return FALSE;
@@ -1541,8 +1541,8 @@ bool statShipConstraintsFightingShipsCB(ShipStaticInfo *shipstatic)
             {
                 return TRUE;
             }
-        case CLASS_Resource:
-        case CLASS_NonCombat:
+        case CLASS_RESOURCE:
+        case CLASS_NON_COMBAT:
         default:
             return FALSE;
     }
@@ -1562,13 +1562,13 @@ bool statShipConstraintsCarrierFightingShipsCB(ShipStaticInfo *shipstatic)
 {
     switch (shipstatic->shipclass)
     {
-        case CLASS_Mothership:
-        case CLASS_Carrier:
-        case CLASS_HeavyCruiser:
-        case CLASS_Destroyer:
+        case CLASS_MOTHERSHIP:
+        case CLASS_CARRIER:
+        case CLASS_HEAVY_CRUISER:
+        case CLASS_DESTROYER:
             return FALSE;
             break;
-        case CLASS_Frigate:
+        case CLASS_FRIGATE:
             if ((shipstatic->shiptype == ResourceController) ||
                 (shipstatic->shiptype == DFGFrigate) ||
                 (shipstatic->shiptype == AdvanceSupportFrigate))
@@ -1580,7 +1580,7 @@ bool statShipConstraintsCarrierFightingShipsCB(ShipStaticInfo *shipstatic)
                 return TRUE;    // all other Frigates are considered fighting ships
             }
             break;
-        case CLASS_Corvette:
+        case CLASS_CORVETTE:
             if ((shipstatic->shiptype == RepairCorvette) ||
                 (shipstatic->shiptype == SalCapCorvette))
             {
@@ -1590,7 +1590,7 @@ bool statShipConstraintsCarrierFightingShipsCB(ShipStaticInfo *shipstatic)
             {
                 return TRUE;
             }
-        case CLASS_Fighter:
+        case CLASS_FIGHTER:
             if (shipstatic->shiptype == DefenseFighter)
             {
                 return FALSE;
@@ -1599,8 +1599,8 @@ bool statShipConstraintsCarrierFightingShipsCB(ShipStaticInfo *shipstatic)
             {
                 return TRUE;
             }
-        case CLASS_Resource:
-        case CLASS_NonCombat:
+        case CLASS_RESOURCE:
+        case CLASS_NON_COMBAT:
         default:
             return FALSE;
     }

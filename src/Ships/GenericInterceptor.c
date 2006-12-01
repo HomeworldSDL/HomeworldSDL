@@ -449,7 +449,7 @@ void setupWhipStrafe(Ship *ship,GenericInterceptorSpec *spec,Ship *target)
     spec->aiAIPflightman = FALSE;                                                                                          \
     ship->aistate = 0;                                                                                                     \
                                                                                                                            \
-    if ((ship->flightman == FLIGHTMAN_NULL) && (target->objtype == OBJ_ShipType) && (isCapitalShip((Ship *)target)) && (((ShipStaticInfo *)(target->staticinfo))->shipclass != CLASS_Mothership)) \
+    if ((ship->flightman == FLIGHTMAN_NULL) && (target->objtype == OBJ_ShipType) && (isCapitalShip((Ship *)target)) && (((ShipStaticInfo *)(target->staticinfo))->shipclass != CLASS_MOTHERSHIP)) \
     {                                                                                                                      \
         if (flightmanTestRandom(&interceptorstat->flightmanProb[ship->tacticstype][targetIndex],FLIGHTMAN_AIP,FLIGHTMAN_WHIP_STRAFE))         \
         {                                                                                                                  \
@@ -601,7 +601,7 @@ void GenericInterceptorAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdi
     {
         case STATE_INIT:
             spec->aiAIPflightman = FALSE;
-            if((ship->shiptype != AttackBomber) || (!BombersUseBombingRun) || (targetIndex > CLASS_Frigate) ||
+            if((ship->shiptype != AttackBomber) || (!BombersUseBombingRun) || (targetIndex > CLASS_FRIGATE) ||
                ((target->objtype == OBJ_ShipType) && (((Ship *)target)->shiptype == Mothership) && (((Ship *)target)->shiprace == R1)))
             {
                 ship->aistateattack = STATE_APPROACH;
@@ -873,7 +873,7 @@ void GenericInterceptorAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdi
                         ship->aistateattack = STATE_BREAK;
                         ship->tacticsTalk = 0;  //reset variable
 
-                        if (targetIndex == CLASS_Fighter)
+                        if (targetIndex == CLASS_FIGHTER)
                             randegf = (real32) randeg;  // always break left for fighters so they avoid each other better
                         else
                             randegf = (real32) ((randeg & 1) ? randeg : -randeg);
@@ -970,7 +970,7 @@ void GenericInterceptorAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdi
             curdistonly = TRUE;
             if(target->objtype == OBJ_ShipType)
             {
-                if( ((ShipStaticInfo *)target->staticinfo)->shipclass <= CLASS_Frigate)
+                if( ((ShipStaticInfo *)target->staticinfo)->shipclass <= CLASS_FRIGATE)
                 {
                     //ship is a frigate..so lets base our fly away distance on current distance ONLY!
                     curdistonly = FALSE;

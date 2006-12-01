@@ -1006,7 +1006,7 @@ FSM Interceptors
                             Jump AttackFrigateVol;
                     ENDIF
                     IF (FindEnemiesNearTeam (SHIPS_InterceptorNearby, 10000))           // If you find anyone within 10,000m, go attack them
-                            ShipsSelectClass (SHIPS_InterceptorMothership, SHIPS_InterceptorNearby, "CLASS_Mothership");
+                            ShipsSelectClass (SHIPS_InterceptorMothership, SHIPS_InterceptorNearby, "CLASS_MOTHERSHIP");
                             ShipsRemove (SHIPS_InterceptorNearby, SHIPS_InterceptorMothership);
                             IF (ShipsCount (SHIPS_InterceptorNearby) > 0)
                                     Jump AttackNearby;
@@ -1020,10 +1020,10 @@ FSM Interceptors
             INIT
                     TacticsNeutral ();
                     VarCreateSet ("GoingInWithThisMany", ShipsCount (THISTEAMSHIPS));
-                    ShipsSelectClass (SHIPS_NearbyFighters, SHIPS_InterceptorNearby, "CLASS_Fighter");      // Filter out the Fighters
+                    ShipsSelectClass (SHIPS_NearbyFighters, SHIPS_InterceptorNearby, "CLASS_FIGHTER");      // Filter out the Fighters
                     ShipsSelectClass (SHIPS_NearbyCorvettes, SHIPS_InterceptorNearby, "CLASS_Corvettes");   // Filter out the Corvettes
                     ShipsSelectClass (SHIPS_NearbyFrigates, SHIPS_InterceptorNearby, "CLASS_Frigates");          // Filter out the Frigates
-                    ShipsSelectClass (SHIPS_InterceptorMothership, SHIPS_InterceptorNearby, "CLASS_Mothership");
+                    ShipsSelectClass (SHIPS_InterceptorMothership, SHIPS_InterceptorNearby, "CLASS_MOTHERSHIP");
                     ShipsRemove (SHIPS_InterceptorNearby, SHIPS_InterceptorMothership);
                     VarCreateSet ("NearbySHIPS", ShipsCount (SHIPS_InterceptorNearby));            // for debuggin'
                     VarCreateSet ("NearbyFightersSHIPS", ShipsCount (SHIPS_NearbyFighters));
@@ -1410,14 +1410,14 @@ FSM Interceptors
         STATE ACT3AttackWorld //컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
             INIT
                     FindEnemiesInside (VOLUME_MothershipVolume, SHIPS_ACT3IntFound, 1000);
-                    IF (ShipsSelectClass (SHIPS_ACT3IntTargets, SHIPS_ACT3IntFound, "CLASS_Fighter"))
-                    ELSEIF (ShipsSelectClass (SHIPS_ACT3IntTargets, SHIPS_ACT3IntFound, "CLASS_Frigate"))
-                    ELSEIF (ShipsSelectClass (SHIPS_ACT3IntTargets, SHIPS_ACT3IntFound, "CLASS_Corvette"))
+                    IF (ShipsSelectClass (SHIPS_ACT3IntTargets, SHIPS_ACT3IntFound, "CLASS_FIGHTER"))
+                    ELSEIF (ShipsSelectClass (SHIPS_ACT3IntTargets, SHIPS_ACT3IntFound, "CLASS_FRIGATE"))
+                    ELSEIF (ShipsSelectClass (SHIPS_ACT3IntTargets, SHIPS_ACT3IntFound, "CLASS_CORVETTE"))
                     ELSE
                             ShipsAdd (SHIPS_ACT3IntTargets, SHIPS_ACT3IntFound);
-                            ShipsSelectClass (SHIPS_Mothership, SHIPS_ACT3IntFound, "CLASS_Mothership");
-                            ShipsSelectClass (SHIPS_Resource, SHIPS_ACT3IntFound, "CLASS_Resource");
-                            ShipsSelectClass (SHIPS_NonCombat, SHIPS_ACT3IntFound, "CLASS_NonCombat");
+                            ShipsSelectClass (SHIPS_Mothership, SHIPS_ACT3IntFound, "CLASS_MOTHERSHIP");
+                            ShipsSelectClass (SHIPS_Resource, SHIPS_ACT3IntFound, "CLASS_RESOURCE");
+                            ShipsSelectClass (SHIPS_NonCombat, SHIPS_ACT3IntFound, "CLASS_NON_COMBAT");
                             ShipsSelectType (SHIPS_ResourceControllers, SHIPS_ACT3IntFound, "ResourceController");
                             ShipsRemove (SHIPS_ACT3IntTargets, SHIPS_Mothership);
                             ShipsRemove (SHIPS_ACT3IntTargets, SHIPS_Resource);
@@ -1510,7 +1510,7 @@ FSM Frigates
 
             // if you're under attack, set a variable (used for playing the 'teach move while attacking' speech event)
             IF (UnderAttack (SHIPS_FrigatesUnderAttack) AND (VarGet ("G_FrigatesUnderAttack") = 0))
-                    ShipsSelectClass (SHIPS_FrigatesVsFrigates, SHIPS_FrigatesUnderAttack, "CLASS_Frigate");
+                    ShipsSelectClass (SHIPS_FrigatesVsFrigates, SHIPS_FrigatesUnderAttack, "CLASS_FRIGATE");
                     IF (ShipsCount (SHIPS_FrigatesVsFrigates) > 0)
                             VarSet ("G_FrigatesUnderAttack", VarGet("ThisFrigateNum"));
                     ENDIF
@@ -1686,7 +1686,7 @@ FSM Frigates
                     // if you're under attack, defend yourself
                     IF (ThisTeamIs (TEAM_Frigates1))
                             IF (UnderAttack (SHIPS_Frig1UnderAttack))
-                                    ShipsSelectClass (SHIPS_Mothership, SHIPS_Frig1UnderAttack, "CLASS_Mothership");       // Select the Mothership
+                                    ShipsSelectClass (SHIPS_Mothership, SHIPS_Frig1UnderAttack, "CLASS_MOTHERSHIP");       // Select the Mothership
                                     ShipsRemove (SHIPS_Frig1UnderAttack, SHIPS_Mothership);                                // And filter it out
                                     IF (ShipsCount (SHIPS_Frig1UnderAttack) > 0)
                                             TimerDestroy ("RightBoxDelayTIMER");
@@ -1699,7 +1699,7 @@ FSM Frigates
                             ENDIF
                     ELSEIF (ThisTeamIs (TEAM_Frigates2))
                             IF (UnderAttack (SHIPS_Frig2UnderAttack))
-                                    ShipsSelectClass (SHIPS_Mothership, SHIPS_Frig2UnderAttack, "CLASS_Mothership");       // Select the Mothership
+                                    ShipsSelectClass (SHIPS_Mothership, SHIPS_Frig2UnderAttack, "CLASS_MOTHERSHIP");       // Select the Mothership
                                     ShipsRemove (SHIPS_Frig2UnderAttack, SHIPS_Mothership);                                // And filter it out
                                     IF (ShipsCount (SHIPS_Frig2UnderAttack) > 0)
                                             TimerDestroy ("RightBoxDelayTIMER");
@@ -1712,7 +1712,7 @@ FSM Frigates
                             ENDIF
                     ELSEIF (ThisTeamIs (TEAM_Frigates3))
                             IF (UnderAttack (SHIPS_Frig3UnderAttack))
-                                    ShipsSelectClass (SHIPS_Mothership, SHIPS_Frig3UnderAttack, "CLASS_Mothership");       // Select the Mothership
+                                    ShipsSelectClass (SHIPS_Mothership, SHIPS_Frig3UnderAttack, "CLASS_MOTHERSHIP");       // Select the Mothership
                                     ShipsRemove (SHIPS_Frig3UnderAttack, SHIPS_Mothership);                                // And filter it out
                                     IF (ShipsCount (SHIPS_Frig3UnderAttack) > 0)
                                             TimerDestroy ("RightBoxDelayTIMER");
@@ -1757,9 +1757,9 @@ FSM Frigates
                     IF (ThisTeamIs (TEAM_Frigates1))
                             IF (ShipsSelectType (SHIPS_Frig1NearbyTargets, SHIPS_Frig1UnderAttack, "SalCapCorvette"))
                             ELSEIF (ShipsSelectType (SHIPS_Frig1NearbyTargets, SHIPS_Frig1FoundSomeSCs, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig1NearbyTargets, SHIPS_Frig1UnderAttack, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig1NearbyTargets, SHIPS_Frig1UnderAttack, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig1NearbyTargets, SHIPS_Frig1UnderAttack, "CLASS_Fighter"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig1NearbyTargets, SHIPS_Frig1UnderAttack, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig1NearbyTargets, SHIPS_Frig1UnderAttack, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig1NearbyTargets, SHIPS_Frig1UnderAttack, "CLASS_FIGHTER"))
                             ELSE
                                     ShipsAdd (SHIPS_Frig1NearbyTargets, SHIPS_Frig1UnderAttack);
                             ENDIF
@@ -1772,9 +1772,9 @@ FSM Frigates
                     ELSEIF (ThisTeamIs (TEAM_Frigates2))
                             IF (ShipsSelectType (SHIPS_Frig2NearbyTargets, SHIPS_Frig2UnderAttack, "SalCapCorvette"))
                             ELSEIF (ShipsSelectType (SHIPS_Frig2NearbyTargets, SHIPS_Frig2FoundSomeSCs, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig2NearbyTargets, SHIPS_Frig2UnderAttack, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig2NearbyTargets, SHIPS_Frig2UnderAttack, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig2NearbyTargets, SHIPS_Frig2UnderAttack, "CLASS_Fighter"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig2NearbyTargets, SHIPS_Frig2UnderAttack, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig2NearbyTargets, SHIPS_Frig2UnderAttack, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig2NearbyTargets, SHIPS_Frig2UnderAttack, "CLASS_FIGHTER"))
                             ELSE
                                     ShipsAdd (SHIPS_Frig2NearbyTargets, SHIPS_Frig2UnderAttack);
                             ENDIF
@@ -1787,9 +1787,9 @@ FSM Frigates
                     ELSEIF (ThisTeamIs (TEAM_Frigates3))
                             IF (ShipsSelectType (SHIPS_Frig3NearbyTargets, SHIPS_Frig3UnderAttack, "SalCapCorvette"))
                             ELSEIF (ShipsSelectType (SHIPS_Frig3NearbyTargets, SHIPS_Frig3FoundSomeSCs, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig3NearbyTargets, SHIPS_Frig3UnderAttack, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig3NearbyTargets, SHIPS_Frig3UnderAttack, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig3NearbyTargets, SHIPS_Frig3UnderAttack, "CLASS_Fighter"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig3NearbyTargets, SHIPS_Frig3UnderAttack, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig3NearbyTargets, SHIPS_Frig3UnderAttack, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig3NearbyTargets, SHIPS_Frig3UnderAttack, "CLASS_FIGHTER"))
                             ELSE
                                     ShipsAdd (SHIPS_Frig3NearbyTargets, SHIPS_Frig3UnderAttack);
                             ENDIF
@@ -1849,9 +1849,9 @@ FSM Frigates
                     IF (ThisTeamIs (TEAM_Frigates1))
                             FindEnemiesInside (VOLUME_LeftBox, SHIPS_Frig1LeftBoxFOUND, 1000);
                             IF (ShipsSelectType (SHIPS_FrigNearbyTargets, SHIPS_FrigUnderAttack, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig1LeftBoxTargets, SHIPS_Frig1LeftBoxFOUND, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig1LeftBoxTargets, SHIPS_Frig1LeftBoxFOUND, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig1LeftBoxTargets, SHIPS_Frig1LeftBoxFOUND, "CLASS_Fighter"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig1LeftBoxTargets, SHIPS_Frig1LeftBoxFOUND, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig1LeftBoxTargets, SHIPS_Frig1LeftBoxFOUND, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig1LeftBoxTargets, SHIPS_Frig1LeftBoxFOUND, "CLASS_FIGHTER"))
                             ELSE
                                     ShipsAdd (SHIPS_Frig1LeftBoxTargets, SHIPS_Frig1LeftBoxFOUND);
                             ENDIF
@@ -1864,9 +1864,9 @@ FSM Frigates
                     ELSEIF (ThisTeamIs (TEAM_Frigates2))
                             FindEnemiesInside (VOLUME_LeftBox, SHIPS_Frig2LeftBoxFOUND, 1000);
                             IF (ShipsSelectType (SHIPS_FrigNearbyTargets, SHIPS_FrigUnderAttack, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig2LeftBoxTargets, SHIPS_Frig2LeftBoxFOUND, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig2LeftBoxTargets, SHIPS_Frig2LeftBoxFOUND, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig2LeftBoxTargets, SHIPS_Frig2LeftBoxFOUND, "CLASS_Fighter"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig2LeftBoxTargets, SHIPS_Frig2LeftBoxFOUND, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig2LeftBoxTargets, SHIPS_Frig2LeftBoxFOUND, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig2LeftBoxTargets, SHIPS_Frig2LeftBoxFOUND, "CLASS_FIGHTER"))
                             ELSE
                                     ShipsAdd (SHIPS_Frig2LeftBoxTargets, SHIPS_Frig2LeftBoxFOUND);
                             ENDIF
@@ -1879,9 +1879,9 @@ FSM Frigates
                     ELSEIF (ThisTeamIs (TEAM_Frigates3))
                             FindEnemiesInside (VOLUME_LeftBox, SHIPS_Frig3LeftBoxFOUND, 1000);
                             IF (ShipsSelectType (SHIPS_FrigNearbyTargets, SHIPS_FrigUnderAttack, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig3LeftBoxTargets, SHIPS_Frig3LeftBoxFOUND, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig3LeftBoxTargets, SHIPS_Frig3LeftBoxFOUND, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig3LeftBoxTargets, SHIPS_Frig3LeftBoxFOUND, "CLASS_Fighter"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig3LeftBoxTargets, SHIPS_Frig3LeftBoxFOUND, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig3LeftBoxTargets, SHIPS_Frig3LeftBoxFOUND, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig3LeftBoxTargets, SHIPS_Frig3LeftBoxFOUND, "CLASS_FIGHTER"))
                             ELSE
                                     ShipsAdd (SHIPS_Frig3LeftBoxTargets, SHIPS_Frig3LeftBoxFOUND);
                             ENDIF
@@ -1944,9 +1944,9 @@ FSM Frigates
                     IF (ThisTeamIs (TEAM_Frigates1))
                             FindEnemiesInside (VOLUME_RightBox, SHIPS_Frig1RightBoxFOUND, 1000);
                             IF (ShipsSelectType (SHIPS_FrigNearbyTargets, SHIPS_FrigUnderAttack, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig1RightBoxTargets, SHIPS_Frig1RightBoxFOUND, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig1RightBoxTargets, SHIPS_Frig1RightBoxFOUND, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig1RightBoxTargets, SHIPS_Frig1RightBoxFOUND, "CLASS_Fighter"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig1RightBoxTargets, SHIPS_Frig1RightBoxFOUND, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig1RightBoxTargets, SHIPS_Frig1RightBoxFOUND, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig1RightBoxTargets, SHIPS_Frig1RightBoxFOUND, "CLASS_FIGHTER"))
                             ELSE
                                     ShipsAdd (SHIPS_Frig1RightBoxTargets, SHIPS_Frig1RightBoxFOUND);
                             ENDIF
@@ -1959,9 +1959,9 @@ FSM Frigates
                     ELSEIF (ThisTeamIs (TEAM_Frigates2))
                             FindEnemiesInside (VOLUME_RightBox, SHIPS_Frig2RightBoxFOUND, 1000);
                             IF (ShipsSelectType (SHIPS_FrigNearbyTargets, SHIPS_FrigUnderAttack, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig2RightBoxTargets, SHIPS_Frig2RightBoxFOUND, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig2RightBoxTargets, SHIPS_Frig2RightBoxFOUND, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig2RightBoxTargets, SHIPS_Frig2RightBoxFOUND, "CLASS_Fighter"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig2RightBoxTargets, SHIPS_Frig2RightBoxFOUND, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig2RightBoxTargets, SHIPS_Frig2RightBoxFOUND, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig2RightBoxTargets, SHIPS_Frig2RightBoxFOUND, "CLASS_FIGHTER"))
                             ELSE
                                     ShipsAdd (SHIPS_Frig2RightBoxTargets, SHIPS_Frig2RightBoxFOUND);
                             ENDIF
@@ -1974,9 +1974,9 @@ FSM Frigates
                     ELSEIF (ThisTeamIs (TEAM_Frigates3))
                             FindEnemiesInside (VOLUME_RightBox, SHIPS_Frig3RightBoxFOUND, 1000);
                             IF (ShipsSelectType (SHIPS_FrigNearbyTargets, SHIPS_FrigUnderAttack, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig3RightBoxTargets, SHIPS_Frig3RightBoxFOUND, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig3RightBoxTargets, SHIPS_Frig3RightBoxFOUND, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig3RightBoxTargets, SHIPS_Frig3RightBoxFOUND, "CLASS_Fighter"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig3RightBoxTargets, SHIPS_Frig3RightBoxFOUND, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig3RightBoxTargets, SHIPS_Frig3RightBoxFOUND, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig3RightBoxTargets, SHIPS_Frig3RightBoxFOUND, "CLASS_FIGHTER"))
                             ELSE
                                     ShipsAdd (SHIPS_Frig3RightBoxTargets, SHIPS_Frig3RightBoxFOUND);
                             ENDIF
@@ -2037,9 +2037,9 @@ FSM Frigates
                     IF (ThisTeamIs (TEAM_Frigates1))
                             FindEnemiesInside (VOLUME_CentreBox, SHIPS_Frig1CentreBoxFOUND, 1000);
                             IF (ShipsSelectType (SHIPS_FrigNearbyTargets, SHIPS_FrigUnderAttack, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig1CentreBoxTargets, SHIPS_Frig1CentreBoxFOUND, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig1CentreBoxTargets, SHIPS_Frig1CentreBoxFOUND, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig1CentreBoxTargets, SHIPS_Frig1CentreBoxFOUND, "CLASS_Fighter"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig1CentreBoxTargets, SHIPS_Frig1CentreBoxFOUND, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig1CentreBoxTargets, SHIPS_Frig1CentreBoxFOUND, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig1CentreBoxTargets, SHIPS_Frig1CentreBoxFOUND, "CLASS_FIGHTER"))
                             ELSE
                                     ShipsAdd (SHIPS_Frig1CentreBoxTargets, SHIPS_Frig1CentreBoxFOUND);
                             ENDIF
@@ -2052,9 +2052,9 @@ FSM Frigates
                     ELSEIF (ThisTeamIs (TEAM_Frigates2))
                             FindEnemiesInside (VOLUME_CentreBox, SHIPS_Frig2CentreBoxFOUND, 1000);
                             IF (ShipsSelectType (SHIPS_FrigNearbyTargets, SHIPS_FrigUnderAttack, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig2CentreBoxTargets, SHIPS_Frig2CentreBoxFOUND, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig2CentreBoxTargets, SHIPS_Frig2CentreBoxFOUND, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig2CentreBoxTargets, SHIPS_Frig2CentreBoxFOUND, "CLASS_Fighter"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig2CentreBoxTargets, SHIPS_Frig2CentreBoxFOUND, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig2CentreBoxTargets, SHIPS_Frig2CentreBoxFOUND, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig2CentreBoxTargets, SHIPS_Frig2CentreBoxFOUND, "CLASS_FIGHTER"))
                             ELSE
                                     ShipsAdd (SHIPS_Frig2CentreBoxTargets, SHIPS_Frig2CentreBoxFOUND);
                             ENDIF
@@ -2067,9 +2067,9 @@ FSM Frigates
                     ELSEIF (ThisTeamIs (TEAM_Frigates3))
                             FindEnemiesInside (VOLUME_CentreBox, SHIPS_Frig3CentreBoxFOUND, 1000);
                             IF (ShipsSelectType (SHIPS_FrigNearbyTargets, SHIPS_FrigUnderAttack, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig3CentreBoxTargets, SHIPS_Frig3CentreBoxFOUND, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig3CentreBoxTargets, SHIPS_Frig3CentreBoxFOUND, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig3CentreBoxTargets, SHIPS_Frig3CentreBoxFOUND, "CLASS_Fighter"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig3CentreBoxTargets, SHIPS_Frig3CentreBoxFOUND, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig3CentreBoxTargets, SHIPS_Frig3CentreBoxFOUND, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig3CentreBoxTargets, SHIPS_Frig3CentreBoxFOUND, "CLASS_FIGHTER"))
                             ELSE
                                     ShipsAdd (SHIPS_Frig3CentreBoxTargets, SHIPS_Frig3CentreBoxFOUND);
                             ENDIF
@@ -2130,9 +2130,9 @@ FSM Frigates
                     IF (ThisTeamIs (TEAM_Frigates1))
                             FindEnemiesInside (VOLUME_BottomBox, SHIPS_Frig1BottomBoxFOUND, 1000);
                             IF (ShipsSelectType (SHIPS_FrigNearbyTargets, SHIPS_FrigUnderAttack, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig1BottomBoxTargets, SHIPS_Frig1BottomBoxFOUND, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig1BottomBoxTargets, SHIPS_Frig1BottomBoxFOUND, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig1BottomBoxTargets, SHIPS_Frig1BottomBoxFOUND, "CLASS_Fighter"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig1BottomBoxTargets, SHIPS_Frig1BottomBoxFOUND, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig1BottomBoxTargets, SHIPS_Frig1BottomBoxFOUND, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig1BottomBoxTargets, SHIPS_Frig1BottomBoxFOUND, "CLASS_FIGHTER"))
                             ELSE
                                     ShipsAdd (SHIPS_Frig1BottomBoxTargets, SHIPS_Frig1BottomBoxFOUND);
                             ENDIF
@@ -2145,9 +2145,9 @@ FSM Frigates
                     ELSEIF (ThisTeamIs (TEAM_Frigates2))
                             FindEnemiesInside (VOLUME_BottomBox, SHIPS_Frig2BottomBoxFOUND, 1000);
                             IF (ShipsSelectType (SHIPS_FrigNearbyTargets, SHIPS_FrigUnderAttack, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig2BottomBoxTargets, SHIPS_Frig2BottomBoxFOUND, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig2BottomBoxTargets, SHIPS_Frig2BottomBoxFOUND, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig2BottomBoxTargets, SHIPS_Frig2BottomBoxFOUND, "CLASS_Fighter"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig2BottomBoxTargets, SHIPS_Frig2BottomBoxFOUND, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig2BottomBoxTargets, SHIPS_Frig2BottomBoxFOUND, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig2BottomBoxTargets, SHIPS_Frig2BottomBoxFOUND, "CLASS_FIGHTER"))
                             ELSE
                                     ShipsAdd (SHIPS_Frig2BottomBoxTargets, SHIPS_Frig2BottomBoxFOUND);
                             ENDIF
@@ -2160,9 +2160,9 @@ FSM Frigates
                     ELSEIF (ThisTeamIs (TEAM_Frigates3))
                             FindEnemiesInside (VOLUME_BottomBox, SHIPS_Frig3BottomBoxFOUND, 1000);
                             IF (ShipsSelectType (SHIPS_FrigNearbyTargets, SHIPS_FrigUnderAttack, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig3BottomBoxTargets, SHIPS_Frig3BottomBoxFOUND, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig3BottomBoxTargets, SHIPS_Frig3BottomBoxFOUND, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig3BottomBoxTargets, SHIPS_Frig3BottomBoxFOUND, "CLASS_Fighter"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig3BottomBoxTargets, SHIPS_Frig3BottomBoxFOUND, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig3BottomBoxTargets, SHIPS_Frig3BottomBoxFOUND, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig3BottomBoxTargets, SHIPS_Frig3BottomBoxFOUND, "CLASS_FIGHTER"))
                             ELSE
                                     ShipsAdd (SHIPS_Frig3BottomBoxTargets, SHIPS_Frig3BottomBoxFOUND);
                             ENDIF
@@ -2223,9 +2223,9 @@ FSM Frigates
                     IF (ThisTeamIs (TEAM_Frigates1))
                             FindEnemiesInside (VOLUME_TopBox, SHIPS_Frig1TopBoxFOUND, 1000);
                             IF (ShipsSelectType (SHIPS_FrigNearbyTargets, SHIPS_FrigUnderAttack, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig1TopBoxTargets, SHIPS_Frig1TopBoxFOUND, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig1TopBoxTargets, SHIPS_Frig1TopBoxFOUND, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig1TopBoxTargets, SHIPS_Frig1TopBoxFOUND, "CLASS_Fighter"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig1TopBoxTargets, SHIPS_Frig1TopBoxFOUND, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig1TopBoxTargets, SHIPS_Frig1TopBoxFOUND, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig1TopBoxTargets, SHIPS_Frig1TopBoxFOUND, "CLASS_FIGHTER"))
                             ELSE
                                     ShipsAdd (SHIPS_Frig1TopBoxTargets, SHIPS_Frig1TopBoxFOUND);
                             ENDIF
@@ -2238,9 +2238,9 @@ FSM Frigates
                     ELSEIF (ThisTeamIs (TEAM_Frigates2))
                             FindEnemiesInside (VOLUME_TopBox, SHIPS_Frig2TopBoxFOUND, 1000);
                             IF (ShipsSelectType (SHIPS_FrigNearbyTargets, SHIPS_FrigUnderAttack, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig2TopBoxTargets, SHIPS_Frig2TopBoxFOUND, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig2TopBoxTargets, SHIPS_Frig2TopBoxFOUND, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig2TopBoxTargets, SHIPS_Frig2TopBoxFOUND, "CLASS_Fighter"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig2TopBoxTargets, SHIPS_Frig2TopBoxFOUND, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig2TopBoxTargets, SHIPS_Frig2TopBoxFOUND, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig2TopBoxTargets, SHIPS_Frig2TopBoxFOUND, "CLASS_FIGHTER"))
                             ELSE
                                     ShipsAdd (SHIPS_Frig2TopBoxTargets, SHIPS_Frig2TopBoxFOUND);
                             ENDIF
@@ -2253,9 +2253,9 @@ FSM Frigates
                     ELSEIF (ThisTeamIs (TEAM_Frigates3))
                             FindEnemiesInside (VOLUME_TopBox, SHIPS_Frig3TopBoxFOUND, 1000);
                             IF (ShipsSelectType (SHIPS_FrigNearbyTargets, SHIPS_FrigUnderAttack, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig3TopBoxTargets, SHIPS_Frig3TopBoxFOUND, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig3TopBoxTargets, SHIPS_Frig3TopBoxFOUND, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig3TopBoxTargets, SHIPS_Frig3TopBoxFOUND, "CLASS_Fighter"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig3TopBoxTargets, SHIPS_Frig3TopBoxFOUND, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig3TopBoxTargets, SHIPS_Frig3TopBoxFOUND, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig3TopBoxTargets, SHIPS_Frig3TopBoxFOUND, "CLASS_FIGHTER"))
                             ELSE
                                     ShipsAdd (SHIPS_Frig3TopBoxTargets, SHIPS_Frig3TopBoxFOUND);
                             ENDIF
@@ -2316,13 +2316,13 @@ FSM Frigates
         STATE ACT3AttackMothership //컴컴컴컴컴컴컴컴컴컴컴컴컴컴
             INIT
                     FindEnemiesInside (VOLUME_MothershipVolume, SHIPS_ACT3FrigFound, 1000);
-                    ShipsSelectClass (SHIPS_Mothership, SHIPS_ACT3FrigFound, "CLASS_Mothership");
+                    ShipsSelectClass (SHIPS_Mothership, SHIPS_ACT3FrigFound, "CLASS_MOTHERSHIP");
                     MoveAttack (SHIPS_Mothership);
             ENDINIT
             WATCH
                     IF (ThisTeamIs (TEAM_Frigates1))
                             IF (UnderAttack (SHIPS_AttackingFrig1))
-                                    ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingFrig1, "CLASS_Mothership");       // Select the Mothership
+                                    ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingFrig1, "CLASS_MOTHERSHIP");       // Select the Mothership
                                     ShipsRemove (SHIPS_AttackingFrig1, SHIPS_Mothership);                                // And filter it out
                                     IF (ShipsCount (SHIPS_AttackingFrig1) > 0)
                                             Jump ACT3DefendYourself;
@@ -2330,7 +2330,7 @@ FSM Frigates
                             ENDIF
                     ELSEIF (ThisTeamIs (TEAM_Frigates2))
                             IF (UnderAttack (SHIPS_AttackingFrig2))
-                                    ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingFrig2, "CLASS_Mothership");       // Select the Mothership
+                                    ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingFrig2, "CLASS_MOTHERSHIP");       // Select the Mothership
                                     ShipsRemove (SHIPS_AttackingFrig2, SHIPS_Mothership);                                // And filter it out
                                     IF (ShipsCount (SHIPS_AttackingFrig2) > 0)
                                             Jump ACT3DefendYourself;
@@ -2338,7 +2338,7 @@ FSM Frigates
                             ENDIF
                     ELSEIF (ThisTeamIs (TEAM_Frigates3))
                             IF (UnderAttack (SHIPS_AttackingFrig3))
-                                    ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingFrig3, "CLASS_Mothership");       // Select the Mothership
+                                    ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingFrig3, "CLASS_MOTHERSHIP");       // Select the Mothership
                                     ShipsRemove (SHIPS_AttackingFrig3, SHIPS_Mothership);                                // And filter it out
                                     IF (ShipsCount (SHIPS_AttackingFrig3) > 0)
                                             Jump ACT3DefendYourself;
@@ -2377,9 +2377,9 @@ FSM Frigates
             INIT
                     IF (ThisTeamIs (TEAM_Frigates1))
                             IF (ShipsSelectType (SHIPS_Frig1Targets, SHIPS_Frig1FoundSomeSCs, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig1Targets, SHIPS_AttackingFrig1, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig1Targets, SHIPS_AttackingFrig1, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig1Targets, SHIPS_AttackingFrig1, "CLASS_Fighter"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig1Targets, SHIPS_AttackingFrig1, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig1Targets, SHIPS_AttackingFrig1, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig1Targets, SHIPS_AttackingFrig1, "CLASS_FIGHTER"))
                             ELSE
                                     ShipsAdd (SHIPS_Frig1Targets, SHIPS_AttackingFrig1);
                             ENDIF
@@ -2391,9 +2391,9 @@ FSM Frigates
                             ENDIF
                     ELSEIF (ThisTeamIs (TEAM_Frigates2))
                             IF (ShipsSelectType (SHIPS_Frig2Targets, SHIPS_Frig2FoundSomeSCs, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig2Targets, SHIPS_AttackingFrig2, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig2Targets, SHIPS_AttackingFrig2, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig2Targets, SHIPS_AttackingFrig2, "CLASS_Fighter"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig2Targets, SHIPS_AttackingFrig2, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig2Targets, SHIPS_AttackingFrig2, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig2Targets, SHIPS_AttackingFrig2, "CLASS_FIGHTER"))
                             ELSE
                                     ShipsAdd (SHIPS_Frig2Targets, SHIPS_AttackingFrig2);
                             ENDIF
@@ -2405,9 +2405,9 @@ FSM Frigates
                             ENDIF
                     ELSEIF (ThisTeamIs (TEAM_Frigates3))
                             IF (ShipsSelectType (SHIPS_Frig3Targets, SHIPS_Frig3FoundSomeSCs, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig3Targets, SHIPS_AttackingFrig3, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig3Targets, SHIPS_AttackingFrig3, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Frig3Targets, SHIPS_AttackingFrig3, "CLASS_Fighter"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig3Targets, SHIPS_AttackingFrig3, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig3Targets, SHIPS_AttackingFrig3, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Frig3Targets, SHIPS_AttackingFrig3, "CLASS_FIGHTER"))
                             ELSE
                                     ShipsAdd (SHIPS_Frig3Targets, SHIPS_AttackingFrig3);
                             ENDIF
@@ -2533,7 +2533,7 @@ FSM Destroyers
 
             // if you're under attack, set a variable (used for playing the 'teach move while attacking' speech event)
             IF (UnderAttack (SHIPS_DestroyersUnderAttack) AND (VarGet("G_DestroyersUnderAttack") = 0))
-                    ShipsSelectClass (SHIPS_DestroyersVsFrigates, SHIPS_DestroyersUnderAttack, "CLASS_Frigate");
+                    ShipsSelectClass (SHIPS_DestroyersVsFrigates, SHIPS_DestroyersUnderAttack, "CLASS_FRIGATE");
                     IF (ShipsCount (SHIPS_DestroyersVsFrigates) > 0)
                             VarSet ("G_DestroyersUnderAttack", VarGet("ThisDestroyerNum"));
                     ENDIF
@@ -2599,9 +2599,9 @@ FSM Destroyers
                     IF (ThisTeamIs (TEAM_Destroyers1))
                             IF (ShipsSelectType (SHIPS_Destroyer1Targets, SHIPS_CarrierVolTOTAL, "SalCapCorvette"))
                             ELSEIF (ShipsSelectType (SHIPS_Destroyer1Targets, SHIPS_Des1FoundSomeSCs, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Destroyer1Targets, SHIPS_CarrierVolTOTAL, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Destroyer1Targets, SHIPS_CarrierVolTOTAL, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Destroyer1Targets, SHIPS_CarrierVolTOTAL, "CLASS_Fighter"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Destroyer1Targets, SHIPS_CarrierVolTOTAL, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Destroyer1Targets, SHIPS_CarrierVolTOTAL, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Destroyer1Targets, SHIPS_CarrierVolTOTAL, "CLASS_FIGHTER"))
                             ELSE
                                     ShipsAdd (SHIPS_Destroyer1Targets, SHIPS_CarrierVolTOTAL);
                             ENDIF
@@ -2614,9 +2614,9 @@ FSM Destroyers
                     ELSEIF (ThisTeamIs (TEAM_Destroyers2))
                             IF (ShipsSelectType (SHIPS_Destroyer2Targets, SHIPS_CarrierVolTOTAL, "SalCapCorvette"))
                             ELSEIF (ShipsSelectType (SHIPS_Destroyer2Targets, SHIPS_Des2FoundSomeSCs, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Destroyer2Targets, SHIPS_CarrierVolTOTAL, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Destroyer2Targets, SHIPS_CarrierVolTOTAL, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Destroyer2Targets, SHIPS_CarrierVolTOTAL, "CLASS_Fighter"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Destroyer2Targets, SHIPS_CarrierVolTOTAL, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Destroyer2Targets, SHIPS_CarrierVolTOTAL, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Destroyer2Targets, SHIPS_CarrierVolTOTAL, "CLASS_FIGHTER"))
                             ELSE
                                     ShipsAdd (SHIPS_Destroyer2Targets, SHIPS_CarrierVolTOTAL);
                             ENDIF
@@ -2663,13 +2663,13 @@ FSM Destroyers
         STATE ACT3AttackMothership //컴컴컴컴컴컴컴컴컴컴컴컴컴컴
             INIT
                     FindEnemiesInside (VOLUME_MothershipVolume, SHIPS_ACT3DesFound, 1000);
-                    ShipsSelectClass (SHIPS_Mothership, SHIPS_ACT3DesFound, "CLASS_Mothership");
+                    ShipsSelectClass (SHIPS_Mothership, SHIPS_ACT3DesFound, "CLASS_MOTHERSHIP");
                     MoveAttack (SHIPS_Mothership);
             ENDINIT
             WATCH
                     IF (ThisTeamIs (TEAM_Destroyers1))
                             IF (UnderAttack (SHIPS_AttackingDes1))
-                                    ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingDes1, "CLASS_Mothership");       // Select the Mothership
+                                    ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingDes1, "CLASS_MOTHERSHIP");       // Select the Mothership
                                     ShipsRemove (SHIPS_AttackingDes1, SHIPS_Mothership);                                // And filter it out
                                     IF (ShipsCount (SHIPS_AttackingDes1) > 0)
                                             Jump ACT3DefendYourself;
@@ -2677,7 +2677,7 @@ FSM Destroyers
                             ENDIF
                     ELSEIF (ThisTeamIs (TEAM_Destroyers2))
                             IF (UnderAttack (SHIPS_AttackingDes2))
-                                    ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingDes2, "CLASS_Mothership");       // Select the Mothership
+                                    ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingDes2, "CLASS_MOTHERSHIP");       // Select the Mothership
                                     ShipsRemove (SHIPS_AttackingDes2, SHIPS_Mothership);                                // And filter it out
                                     IF (ShipsCount (SHIPS_AttackingDes2) > 0)
                                             Jump ACT3DefendYourself;
@@ -2710,9 +2710,9 @@ FSM Destroyers
                     IF (ThisTeamIs (TEAM_Destroyers1))
                             IF (ShipsSelectType (SHIPS_Des1Targets, SHIPS_AttackingDes1, "SalCapCorvette"))
                             ELSEIF (ShipsSelectType (SHIPS_Des1Targets, SHIPS_Des1FoundSomeSCs, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Des1Targets, SHIPS_AttackingDes1, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Des1Targets, SHIPS_AttackingDes1, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Des1Targets, SHIPS_AttackingDes1, "CLASS_Fighter"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Des1Targets, SHIPS_AttackingDes1, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Des1Targets, SHIPS_AttackingDes1, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Des1Targets, SHIPS_AttackingDes1, "CLASS_FIGHTER"))
                             ELSE
                                     ShipsAdd (SHIPS_Des1Targets, SHIPS_AttackingDes1);
                             ENDIF
@@ -2725,9 +2725,9 @@ FSM Destroyers
                     ELSEIF (ThisTeamIs (TEAM_Destroyers2))
                             IF (ShipsSelectType (SHIPS_Des2Targets, SHIPS_AttackingDes2, "SalCapCorvette"))
                             ELSEIF (ShipsSelectType (SHIPS_Des2Targets, SHIPS_Des2FoundSomeSCs, "SalCapCorvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Des2Targets, SHIPS_AttackingDes2, "CLASS_Frigate"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Des2Targets, SHIPS_AttackingDes2, "CLASS_Corvette"))
-                            ELSEIF (ShipsSelectClass (SHIPS_Des2Targets, SHIPS_AttackingDes2, "CLASS_Fighter"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Des2Targets, SHIPS_AttackingDes2, "CLASS_FRIGATE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Des2Targets, SHIPS_AttackingDes2, "CLASS_CORVETTE"))
+                            ELSEIF (ShipsSelectClass (SHIPS_Des2Targets, SHIPS_AttackingDes2, "CLASS_FIGHTER"))
                             ELSE
                                     ShipsAdd (SHIPS_Des2Targets, SHIPS_AttackingDes2);
                             ENDIF
@@ -2810,7 +2810,7 @@ FSM SupportFrigate
 
             // if you're under attack, set a variable (used for playing the 'teach move while attacking' speech event)
             IF (UnderAttack (SHIPS_SupportFrigateUnderAttack))
-                    ShipsSelectClass (SHIPS_SupportFrigateVsFrigates, SHIPS_SupportFrigateUnderAttack, "CLASS_Frigate");
+                    ShipsSelectClass (SHIPS_SupportFrigateVsFrigates, SHIPS_SupportFrigateUnderAttack, "CLASS_FRIGATE");
                     IF (ShipsCount (SHIPS_SupportFrigateVsFrigates) > 0)
                             VarCreateSet ("G_SupportFrigateUnderAttack", TRUE);
                     ENDIF
@@ -2851,12 +2851,12 @@ FSM SupportFrigate
         STATE ACT3AttackMothership //컴컴컴컴컴컴컴컴컴컴컴컴컴컴
             INIT
                     FindEnemiesInside (VOLUME_MothershipVolume, SHIPS_ACT3SupFound, 1000);
-                    ShipsSelectClass (SHIPS_Mothership, SHIPS_ACT3SupFound, "CLASS_Mothership");
+                    ShipsSelectClass (SHIPS_Mothership, SHIPS_ACT3SupFound, "CLASS_MOTHERSHIP");
                     MoveAttack (SHIPS_Mothership);
             ENDINIT
             WATCH
                     IF (UnderAttack (SHIPS_AttackingSup1))
-                            ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingSup1, "CLASS_Mothership");       // Select the Mothership
+                            ShipsSelectClass (SHIPS_Mothership, SHIPS_AttackingSup1, "CLASS_MOTHERSHIP");       // Select the Mothership
                             ShipsRemove (SHIPS_AttackingSup1, SHIPS_Mothership);                                // And filter it out
                             IF (ShipsCount (SHIPS_AttackingSup1) > 0)
                                     Jump ACT3DefendYourself;
@@ -2878,9 +2878,9 @@ FSM SupportFrigate
             INIT
                     IF (ShipsSelectType (SHIPS_Sup1Targets, SHIPS_SupportFoundSomeSCs, "SalCapCorvette"))
                     ELSEIF (ShipsSelectType (SHIPS_Sup1Targets, SHIPS_AttackingSup1, "SalCapCorvette"))
-                    ELSEIF (ShipsSelectClass (SHIPS_Sup1Targets, SHIPS_AttackingSup1, "CLASS_Corvette"))
-                    ELSEIF (ShipsSelectClass (SHIPS_Sup1Targets, SHIPS_AttackingSup1, "CLASS_Fighter"))
-                    ELSEIF (ShipsSelectClass (SHIPS_Sup1Targets, SHIPS_AttackingSup1, "CLASS_Frigate"))
+                    ELSEIF (ShipsSelectClass (SHIPS_Sup1Targets, SHIPS_AttackingSup1, "CLASS_CORVETTE"))
+                    ELSEIF (ShipsSelectClass (SHIPS_Sup1Targets, SHIPS_AttackingSup1, "CLASS_FIGHTER"))
+                    ELSEIF (ShipsSelectClass (SHIPS_Sup1Targets, SHIPS_AttackingSup1, "CLASS_FRIGATE"))
                     ELSE
                             ShipsAdd (SHIPS_Sup1Targets, SHIPS_AttackingSup1);
                     ENDIF
@@ -2945,7 +2945,7 @@ FSM Carrier
     WATCH
             // if you're under attack, set a variable (used for playing the 'teach move while attacking' speech event)
             IF ( (UnderAttack (SHIPS_CarrierUnderAttack)) AND (VarGet ("G_ACT3HasBegun") = FALSE) )
-                    //ShipsSelectClass (SHIPS_CarrierVsFrigates, SHIPS_CarrierUnderAttack, "CLASS_Frigate");
+                    //ShipsSelectClass (SHIPS_CarrierVsFrigates, SHIPS_CarrierUnderAttack, "CLASS_FRIGATE");
                     //IF (ShipsCount (SHIPS_CarrierVsFrigates) > 0)
                     IF ( (ShipsCount (SHIPS_CarrierUnderAttack) > 0) AND (VarGet ("CarrierIsInUnderAttackState") = FALSE) )
                             VarSet ("G_CarrierUnderAttack", TRUE);
@@ -3007,9 +3007,9 @@ FSM Carrier
                             VarCreateSet ("CarrierAttackingSC", TRUE);
                     ELSEIF (ShipsSelectType (SHIPS_CarrierTargets, SHIPS_CarrierUnderAttack, "SalCapCorvette"))
                             VarCreateSet ("CarrierAttackingSC", TRUE);
-                    ELSEIF (ShipsSelectClass (SHIPS_CarrierTargets, SHIPS_CarrierUnderAttack, "CLASS_Corvette"))
-                    ELSEIF (ShipsSelectClass (SHIPS_CarrierTargets, SHIPS_CarrierUnderAttack, "CLASS_Fighter"))
-                    ELSEIF (ShipsSelectClass (SHIPS_CarrierTargets, SHIPS_CarrierUnderAttack, "CLASS_Frigate"))
+                    ELSEIF (ShipsSelectClass (SHIPS_CarrierTargets, SHIPS_CarrierUnderAttack, "CLASS_CORVETTE"))
+                    ELSEIF (ShipsSelectClass (SHIPS_CarrierTargets, SHIPS_CarrierUnderAttack, "CLASS_FIGHTER"))
+                    ELSEIF (ShipsSelectClass (SHIPS_CarrierTargets, SHIPS_CarrierUnderAttack, "CLASS_FRIGATE"))
                     ELSE
                             ShipsAdd (SHIPS_CarrierTargets, SHIPS_CarrierUnderAttack);
                     ENDIF
@@ -3024,7 +3024,7 @@ FSM Carrier
             ENDINIT
             WATCH
                     //IF (FindShipsInside (VOLUME_CarrierVolume, SHIPS_LookingForCarrier))       // If the Carrier gets outside the CarrierVol, go back inside
-                    //        ShipsSelectClass (SHIPS_HaveIFoundACarrier, SHIPS_LookingForCarrier, "CLASS_Carrier");
+                    //        ShipsSelectClass (SHIPS_HaveIFoundACarrier, SHIPS_LookingForCarrier, "CLASS_CARRIER");
                     //        IF (ShipsCount (SHIPS_HaveIFoundACarrier) = 0)
                     //                Jump Patrol;
                     //        ENDIF
@@ -3048,7 +3048,7 @@ FSM Carrier
         STATE ACT3AttackMothership //컴컴컴컴컴컴컴컴컴컴컴컴컴컴
             INIT
                     FindEnemiesInside (VOLUME_MothershipVolume, SHIPS_ACT3CarFound, 1000);
-                    ShipsSelectClass (SHIPS_Mothership, SHIPS_ACT3CarFound, "CLASS_Mothership");
+                    ShipsSelectClass (SHIPS_Mothership, SHIPS_ACT3CarFound, "CLASS_MOTHERSHIP");
                     MoveAttack (SHIPS_Mothership);
             ENDINIT
             WATCH
@@ -3075,9 +3075,9 @@ FSM Carrier
             INIT
                     IF (ShipsSelectType (SHIPS_Car1Targets, SHIPS_AttackingCar1, "SalCapCorvette"))
                     ELSEIF (ShipsSelectType (SHIPS_Car1Targets, SHIPS_CarrierFoundSomeSCs, "SalCapCorvette"))
-                    ELSEIF (ShipsSelectClass (SHIPS_Car1Targets, SHIPS_AttackingCar1, "CLASS_Corvette"))
-                    ELSEIF (ShipsSelectClass (SHIPS_Car1Targets, SHIPS_AttackingCar1, "CLASS_Fighter"))
-                    ELSEIF (ShipsSelectClass (SHIPS_Car1Targets, SHIPS_AttackingCar1, "CLASS_Frigate"))
+                    ELSEIF (ShipsSelectClass (SHIPS_Car1Targets, SHIPS_AttackingCar1, "CLASS_CORVETTE"))
+                    ELSEIF (ShipsSelectClass (SHIPS_Car1Targets, SHIPS_AttackingCar1, "CLASS_FIGHTER"))
+                    ELSEIF (ShipsSelectClass (SHIPS_Car1Targets, SHIPS_AttackingCar1, "CLASS_FRIGATE"))
                     ELSE
                             ShipsAdd (SHIPS_Car1Targets, SHIPS_AttackingCar1);
                     ENDIF
@@ -3701,9 +3701,9 @@ WATCH
 
         // find everyone inside the Frigate Volume (for use in many places throughout the script)
         FindEnemiesInside (VOLUME_FrigateVolume, SHIPS_FrigateVolTOTAL, 3000);                      // Find all the enemies inside the Frigate volume
-        ShipsSelectClass (SHIPS_FrigateVolFighters, SHIPS_FrigateVolTOTAL, "CLASS_Fighter");        // Then filter their asses
-        ShipsSelectClass (SHIPS_FrigateVolCorvettes, SHIPS_FrigateVolTOTAL, "CLASS_Corvette");
-        ShipsSelectClass (SHIPS_FrigateVolFrigates, SHIPS_FrigateVolTOTAL, "CLASS_Frigate");
+        ShipsSelectClass (SHIPS_FrigateVolFighters, SHIPS_FrigateVolTOTAL, "CLASS_FIGHTER");        // Then filter their asses
+        ShipsSelectClass (SHIPS_FrigateVolCorvettes, SHIPS_FrigateVolTOTAL, "CLASS_CORVETTE");
+        ShipsSelectClass (SHIPS_FrigateVolFrigates, SHIPS_FrigateVolTOTAL, "CLASS_FRIGATE");
         //VarCreateSet ("FrigateVolTOTALSHIPS", ShipsCount (SHIPS_FrigateVolTOTAL));       // for debuggin'
         //VarCreateSet ("FrigateVolFighterSHIPS", ShipsCount (SHIPS_FrigateVolFighters));
         //VarCreateSet ("FrigateVolCorvetteSHIPS", ShipsCount (SHIPS_FrigateVolCorvettes));
@@ -3713,9 +3713,9 @@ WATCH
 
         // find everyone inside the Carrier Volume (for use in many places throughout the script)
         FindEnemiesInside (VOLUME_CarrierVolume, SHIPS_CarrierVolTOTAL, 3000);                      // Find all the enemies inside the Frigate volume
-        ShipsSelectClass (SHIPS_CarrierVolFighters, SHIPS_CarrierVolTOTAL, "CLASS_Fighter");        // Then filter their asses
-        ShipsSelectClass (SHIPS_CarrierVolCorvettes, SHIPS_CarrierVolTOTAL, "CLASS_Corvette");
-        ShipsSelectClass (SHIPS_CarrierVolFrigates, SHIPS_CarrierVolTOTAL, "CLASS_Frigate");
+        ShipsSelectClass (SHIPS_CarrierVolFighters, SHIPS_CarrierVolTOTAL, "CLASS_FIGHTER");        // Then filter their asses
+        ShipsSelectClass (SHIPS_CarrierVolCorvettes, SHIPS_CarrierVolTOTAL, "CLASS_CORVETTE");
+        ShipsSelectClass (SHIPS_CarrierVolFrigates, SHIPS_CarrierVolTOTAL, "CLASS_FRIGATE");
         //VarCreateSet ("CarrierVolTOTALSHIPS", ShipsCount (SHIPS_CarrierVolTOTAL));         // for debuggin'
         //VarCreateSet ("CarrierVolFighterSHIPS", ShipsCount (SHIPS_CarrierVolFighters));
         //VarCreateSet ("CarrierVolCorvetteSHIPS", ShipsCount (SHIPS_CarrierVolCorvettes));
@@ -3772,7 +3772,7 @@ WATCH
 
         // find everyone inside the Motheship Volume (for use in ACT3)
         FindEnemiesInside (VOLUME_MothershipVolume, SHIPS_MothershipVolTOTAL, 3000);
-        ShipsSelectClass (SHIPS_PlayerMothership, SHIPS_MothershipVolTOTAL, "CLASS_Mothership");
+        ShipsSelectClass (SHIPS_PlayerMothership, SHIPS_MothershipVolTOTAL, "CLASS_MOTHERSHIP");
 
 
         //컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴

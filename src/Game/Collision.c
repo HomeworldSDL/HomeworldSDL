@@ -644,7 +644,7 @@ bool kamikazeCheck(SpaceObjRotImpTarg *obj1, SpaceObjRotImpTarg *obj2)
                     damage1 = ((Ship *)obj1)->staticinfo->maxhealth+1;   //set very big so kamikaze ship dies
                 }
                 damage2 = kamikazeDamage[((Ship *)obj1)->shiptype];//*damFactor;
-                if (ship2->staticinfo->shipclass == CLASS_Fighter || ship2->staticinfo->shipclass == CLASS_Corvette)
+                if (ship2->staticinfo->shipclass == CLASS_FIGHTER || ship2->staticinfo->shipclass == CLASS_CORVETTE)
                 {                                           //if target was a strike craft
                     damage2 = min(damage2, ship1->staticinfo->maxhealth);//make sure strike craft cannot destroy targets more powerful than themselves
                 }
@@ -679,7 +679,7 @@ bool kamikazeCheck(SpaceObjRotImpTarg *obj1, SpaceObjRotImpTarg *obj2)
                     damage2 += ((Ship *)obj2)->staticinfo->maxhealth+1;   //set very big so kamikaze ship dies
                 }
                 damage1 += kamikazeDamage[((Ship *)obj2)->shiptype];//*damFactor;
-                if (ship1->staticinfo->shipclass == CLASS_Fighter || ship1->staticinfo->shipclass == CLASS_Corvette)
+                if (ship1->staticinfo->shipclass == CLASS_FIGHTER || ship1->staticinfo->shipclass == CLASS_CORVETTE)
                 {                                           //if target was a strike craft
                     damage1 = min(damage1, ship2->staticinfo->maxhealth);//make sure strike craft cannot destroy targets more powerful than themselves
                 }

@@ -154,29 +154,29 @@ static NumStrXlate nisraceinfo[] =
 };
 static NumStrXlate shipclassinfo[] =
 {
-    { (uword)CLASS_Mothership,     str$(CLASS_Mothership) },
-    { (uword)CLASS_HeavyCruiser,   str$(CLASS_HeavyCruiser) },
-    { (uword)CLASS_Carrier,        str$(CLASS_Carrier) },
-    { (uword)CLASS_Destroyer,      str$(CLASS_Destroyer) },
-    { (uword)CLASS_Frigate,        str$(CLASS_Frigate) },
-    { (uword)CLASS_Corvette,       str$(CLASS_Corvette) },
-    { (uword)CLASS_Fighter,        str$(CLASS_Fighter) },
-    { (uword)CLASS_Resource,       str$(CLASS_Resource) },
-    { (uword)CLASS_NonCombat,      str$(CLASS_NonCombat) },
+    { (uword)CLASS_MOTHERSHIP,     str$(CLASS_MOTHERSHIP) },
+    { (uword)CLASS_HEAVY_CRUISER,   str$(CLASS_HEAVY_CRUISER) },
+    { (uword)CLASS_CARRIER,        str$(CLASS_CARRIER) },
+    { (uword)CLASS_DESTROYER,      str$(CLASS_DESTROYER) },
+    { (uword)CLASS_FRIGATE,        str$(CLASS_FRIGATE) },
+    { (uword)CLASS_CORVETTE,       str$(CLASS_CORVETTE) },
+    { (uword)CLASS_FIGHTER,        str$(CLASS_FIGHTER) },
+    { (uword)CLASS_RESOURCE,       str$(CLASS_RESOURCE) },
+    { (uword)CLASS_NON_COMBAT,      str$(CLASS_NON_COMBAT) },
     { 0,NULL }
 };
 
 /*static NumStrXlate shipclassniceinfo[] =
 {
-    { (uword)CLASS_Mothership,     "MOTHERSHIP"},
-    { (uword)CLASS_HeavyCruiser,   "CRUISER"},
-    { (uword)CLASS_Carrier,        "CARRIER"},
-    { (uword)CLASS_Destroyer,      "DESTROYER"},
-    { (uword)CLASS_Frigate,        "FRIGATE"},
-    { (uword)CLASS_Corvette,       "CORVETTE"},
-    { (uword)CLASS_Fighter,        "FIGHTER"},
-    { (uword)CLASS_Resource,       "RESOURCE"},
-    { (uword)CLASS_NonCombat,      "NON-COMBAT"},
+    { (uword)CLASS_MOTHERSHIP,     "MOTHERSHIP"},
+    { (uword)CLASS_HEAVY_CRUISER,   "CRUISER"},
+    { (uword)CLASS_CARRIER,        "CARRIER"},
+    { (uword)CLASS_DESTROYER,      "DESTROYER"},
+    { (uword)CLASS_FRIGATE,        "FRIGATE"},
+    { (uword)CLASS_CORVETTE,       "CORVETTE"},
+    { (uword)CLASS_FIGHTER,        "FIGHTER"},
+    { (uword)CLASS_RESOURCE,       "RESOURCE"},
+    { (uword)CLASS_NON_COMBAT,      "NON-COMBAT"},
     { 0,NULL }
 };*/
 

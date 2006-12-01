@@ -293,7 +293,7 @@ void aihKamikazeHealthLowHandler(AITeam *team)
     {
         ship = team->shipList.selection->ShipPtr[i];
 
-        if ((isShipOfClass(ship, CLASS_Fighter) || isShipOfClass(ship, CLASS_Corvette)) &&
+        if ((isShipOfClass(ship, CLASS_FIGHTER) || isShipOfClass(ship, CLASS_CORVETTE)) &&
             ((100 * ship->health) <
              (team->curMove->events.healthLow.watchPercentage * ship->staticinfo->maxhealth)))
         {
@@ -542,11 +542,11 @@ void aihGravWellEnemyNearbyHandler(AITeam *team, SelectCommand *ships)
 
     for (i=0;i<ships->numShips;i++)
     {
-        if (isShipOfClass(ships->ShipPtr[i],CLASS_Fighter))
+        if (isShipOfClass(ships->ShipPtr[i],CLASS_FIGHTER))
         {
             ++numEnemyFighters;
         }
-        else if (isShipOfClass(ships->ShipPtr[i], CLASS_Corvette))
+        else if (isShipOfClass(ships->ShipPtr[i], CLASS_CORVETTE))
         {
             ++numEnemyCorvettes;
         }
@@ -769,7 +769,7 @@ void aihSlowDefenseDistressHandler(AITeam *team, udword *intvar)
                 newMove->events = thisMove->events;
                 if (aiuAttackFeatureEnabled(AIA_KAMIKAZE))
                 {
-                    if (aitTeamShipClassIs(CLASS_Corvette, team))
+                    if (aitTeamShipClassIs(CLASS_CORVETTE, team))
                     {
                         aieHandlerSetHealthLow(newMove, AIO_CORVETTE_KAMIKAZE_HEALTH, TRUE, FALSE, aihKamikazeHealthLowHandler);
                     }

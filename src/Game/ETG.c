@@ -927,7 +927,7 @@ void etgSetBigDeathFactor(char *directory,char *field,void *dataToFillIn)
     param = strtok(NULL, ETG_TokenDelimiters);                           //get the second parameter (class)
     dbgAssertOrIgnore(param);
     classy = StrToShipClass(param);
-    dbgAssertOrIgnore(classy >= CLASS_Mothership && classy < NUM_CLASSES);
+    dbgAssertOrIgnore(classy >= CLASS_MOTHERSHIP && classy < NUM_CLASSES);
     whereToScan = &etgBigDeathFactor[racerX][classy];
 
 scanTheFactor:
@@ -1028,7 +1028,7 @@ void etgDeathEventSet(char *directory,char *field,void *dataToFillIn)
     param = strtok(NULL, ETG_TokenDelimiters);
     dbgAssertOrIgnore(param);
     classy = StrToShipClass(param);
-    dbgAssertOrIgnore(classy >= CLASS_Mothership && classy < NUM_CLASSES);
+    dbgAssertOrIgnore(classy >= CLASS_MOTHERSHIP && classy < NUM_CLASSES);
 
     exType = etgTokTheType();
     whereToLoad = &etgDeathEventTable[racerX][classy][exType];
@@ -1217,7 +1217,7 @@ void etgDamageEventSet(char *directory,char *field,void *dataToFillIn)
     param = strtok(field, ETG_TokenDelimiters);
     dbgAssertOrIgnore(param);
     classy = StrToShipClass(field);
-    dbgAssertOrIgnore(classy >= CLASS_Mothership && classy < NUM_CLASSES);
+    dbgAssertOrIgnore(classy >= CLASS_MOTHERSHIP && classy < NUM_CLASSES);
 
     param = strtok(NULL, ETG_TokenDelimiters);
     dbgAssertOrIgnore(param);

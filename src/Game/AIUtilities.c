@@ -428,11 +428,11 @@ bool aiuRescueShip(ShipPtr ship, struct AITeam *team)
         newMove->events = thisMove->events;
         if (aiuAttackFeatureEnabled(AIA_KAMIKAZE))
         {
-            if (aitTeamShipClassIs(CLASS_Corvette, team))
+            if (aitTeamShipClassIs(CLASS_CORVETTE, team))
             {
                 aieHandlerSetHealthLow(newMove, AIO_CORVETTE_KAMIKAZE_HEALTH, TRUE, FALSE, aihKamikazeHealthLowHandler);
             }
-            else if (aitTeamShipClassIs(CLASS_Fighter, team))
+            else if (aitTeamShipClassIs(CLASS_FIGHTER, team))
             {
                 aieHandlerSetHealthLow(newMove, AIO_CORVETTE_KAMIKAZE_HEALTH, TRUE, FALSE, aihKamikazeHealthLowHandler);
             }
@@ -669,7 +669,7 @@ bool aiuAnyShipsAreCapitalShips(SelectCommand *ships)
 ----------------------------------------------------------------------------*/
 bool aiuShipIsFighter(Ship *ship)
 {
-    return (ship->staticinfo->shipclass == CLASS_Fighter);
+    return (ship->staticinfo->shipclass == CLASS_FIGHTER);
 }
 
 
@@ -835,14 +835,14 @@ bool aiuIsShipDangerous(Ship *ship)
 
     switch (shipstatic->shipclass)
     {
-        case CLASS_Mothership:
+        case CLASS_MOTHERSHIP:
             return FALSE;
-        case CLASS_HeavyCruiser:
-        case CLASS_Carrier:
-        case CLASS_Destroyer:
+        case CLASS_HEAVY_CRUISER:
+        case CLASS_CARRIER:
+        case CLASS_DESTROYER:
             return TRUE;
             break;
-        case CLASS_Frigate:
+        case CLASS_FRIGATE:
             if ((shipstatic->shiptype == ResourceController) || (shipstatic->shiptype == DFGFrigate))
             {
                 return FALSE;
@@ -852,7 +852,7 @@ bool aiuIsShipDangerous(Ship *ship)
                 return TRUE;    // all other Frigates including AdvanceSupportFrigate are considered dangerous
             }
             break;
-        case CLASS_Corvette:
+        case CLASS_CORVETTE:
             if ((shipstatic->shiptype == RepairCorvette))
             {
                 return FALSE;
@@ -861,7 +861,7 @@ bool aiuIsShipDangerous(Ship *ship)
             {
                 return TRUE;
             }
-        case CLASS_Fighter:
+        case CLASS_FIGHTER:
             if (shipstatic->shiptype == DefenseFighter)
             {
                 return FALSE;
@@ -870,8 +870,8 @@ bool aiuIsShipDangerous(Ship *ship)
             {
                 return TRUE;
             }
-        case CLASS_Resource:
-        case CLASS_NonCombat:
+        case CLASS_RESOURCE:
+        case CLASS_NON_COMBAT:
         default:
             return FALSE;
     }
@@ -1038,19 +1038,19 @@ void aiuMakeShipsOnlyDangerousToMothership(SelectCommand *ships)
     {
         switch (ships->ShipPtr[i]->staticinfo->shipclass)
         {
-            case CLASS_HeavyCruiser:
-            case CLASS_Carrier:
-            case CLASS_Destroyer:
+            case CLASS_HEAVY_CRUISER:
+            case CLASS_CARRIER:
+            case CLASS_DESTROYER:
                 dangerous = TRUE;
                 break;
-            case CLASS_Frigate:
+            case CLASS_FRIGATE:
                 if ((ships->ShipPtr[i]->shiptype != ResourceController) &&
                     (ships->ShipPtr[i]->shiptype != AdvanceSupportFrigate))
                 {
                     dangerous = TRUE;
                 }
                 break;
-            case CLASS_Corvette:
+            case CLASS_CORVETTE:
                 if (ships->ShipPtr[i]->shiptype == MinelayerCorvette)
                 {
                     dangerous = TRUE;
@@ -1060,15 +1060,15 @@ void aiuMakeShipsOnlyDangerousToMothership(SelectCommand *ships)
                     dangerous = TRUE;
                 }
                 break;
-            case CLASS_Fighter:
+            case CLASS_FIGHTER:
                 if ((ships->ShipPtr[i]->shiptype == AttackBomber) &&
                     (ships->numShips > 5))
                 {
                     dangerous = TRUE;
                 }
                 break;
-            case CLASS_NonCombat:
-            case CLASS_Resource:
+            case CLASS_NON_COMBAT:
+            case CLASS_RESOURCE:
             default:
                 break;
 
@@ -1421,8 +1421,8 @@ SelectCommand *aiuFindUnarmedUndefendedEnemyShips(void)
                 blob_shipclass = blobship->staticinfo->shipclass;
 
                 if ((!allianceArePlayersAllied(blobship->playerowner, aiCurrentAIPlayer->player)) &&
-                    (blob_shipclass != CLASS_Resource) &&
-                    (blob_shipclass != CLASS_NonCombat) &&
+                    (blob_shipclass != CLASS_RESOURCE) &&
+                    (blob_shipclass != CLASS_NON_COMBAT) &&
                     (blobship->shiptype != SalCapCorvette))
                 {
                     //reject this blob
@@ -1480,7 +1480,7 @@ SelectCommand *aiuFindUnarmedEnemyShips(void)
                 blob_shipclass = blobship->staticinfo->shipclass;
 
                 if ((!allianceArePlayersAllied(blobship->playerowner, aiCurrentAIPlayer->player)) &&
-                    ((blob_shipclass == CLASS_Resource) || (blob_shipclass == CLASS_NonCombat) ||
+                    ((blob_shipclass == CLASS_RESOURCE) || (blob_shipclass == CLASS_NON_COMBAT) ||
                      (blobship->shiptype == ResourceController) ||
                      (blobship->shiptype == AdvanceSupportFrigate) ||
                      (blobship->shiptype == RepairCorvette) ||
@@ -1757,7 +1757,7 @@ bool aiuShipIsVulnerableGoodGuy(ShipPtr ship)
     //since it is used as an attack craft in the game,
     //it's left out
     if ((ship->playerowner == aiCurrentAIPlayer->player) &&
-        ((shipclass == CLASS_Resource) ||
+        ((shipclass == CLASS_RESOURCE) ||
          (shiptype  == AdvanceSupportFrigate) ||
          (shiptype  == ResourceController) ||
          (shiptype  == RepairCorvette) ||
@@ -2390,9 +2390,9 @@ SelectCommand *aiuFindSwarmerTarget(AITeam *team)
             //get as many targets as needed (more than one for strikecraft)
             selSelectionAddSingleShip((MaxSelection *)swarm_targets, target);
             clRemoveShipFromSelection(aiCurrentAIPlayer->Targets, target);
-            if (isShipOfClass(target, CLASS_Corvette))
+            if (isShipOfClass(target, CLASS_CORVETTE))
             {
-                selSelectionCopyByClass(&temp, (MaxSelection *)aiCurrentAIPlayer->Targets, CLASS_Corvette);
+                selSelectionCopyByClass(&temp, (MaxSelection *)aiCurrentAIPlayer->Targets, CLASS_CORVETTE);
                 for (i=4;(i<teamShips->numShips)&&(temp.numShips);i+=6)
                 {
                     target = aiuGetClosestShip((SelectCommand *)&temp, teamShips->ShipPtr[0]);
@@ -2401,9 +2401,9 @@ SelectCommand *aiuFindSwarmerTarget(AITeam *team)
                     clRemoveShipFromSelection(aiCurrentAIPlayer->Targets, target);
                 }
             }
-            else if (isShipOfClass(target, CLASS_Fighter))
+            else if (isShipOfClass(target, CLASS_FIGHTER))
             {
-                selSelectionCopyByClass(&temp, (MaxSelection *)aiCurrentAIPlayer->Targets, CLASS_Fighter);
+                selSelectionCopyByClass(&temp, (MaxSelection *)aiCurrentAIPlayer->Targets, CLASS_FIGHTER);
                 for (i=2;(i<teamShips->numShips)&&(temp.numShips);i+=3)
                 {
                     target = aiuGetClosestShip((SelectCommand *)&temp, teamShips->ShipPtr[0]);
@@ -2565,7 +2565,7 @@ SelectCommand *aiuFindLeadShipInSphereOfInfluence(vector centre, real32 radiussq
                 //reject it if it is a fighter among a small group of ships (the other ships will
                 //be checked to make sure that we're not being fooled
                 if ((aiuFindDistanceSquared(temp_sel.ShipPtr[k]->posinfo.position, centre) < radiussq) &&
-                    (!((isShipOfClass(temp_sel.ShipPtr[k], CLASS_Fighter) && temp_sel.numShips < 4))))
+                    (!((isShipOfClass(temp_sel.ShipPtr[k], CLASS_FIGHTER) && temp_sel.numShips < 4))))
                 {
                     temp_return_sel.ShipPtr[j] = temp_sel.ShipPtr[k];
                     j++;
@@ -3549,14 +3549,14 @@ udword aiuUnitCapCanBuildShip(AIPlayer *aiplayer, ShipType shiptype, sdword numS
         default:
             switch (shipclass)
             {
-                case CLASS_Resource:
+                case CLASS_RESOURCE:
                     classtotal += aiplayer->NumRCollectorsBeingBuilt;
                     classtotal += aiplayer->NumRControllersBeingBuilt;
                     break;
-                case CLASS_Frigate:
+                case CLASS_FRIGATE:
                     classtotal += aiplayer->NumASFBeingBuilt;
                     break;
-                case CLASS_NonCombat:
+                case CLASS_NON_COMBAT:
                     classtotal += aiplayer->NumResearchShipsBeingBuilt;
                     break;
             }

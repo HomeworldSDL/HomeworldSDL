@@ -498,8 +498,8 @@ void dmgShipThink(Ship* ship)
     switch (shipClass)
     {
     //strike craft
-    case CLASS_Corvette:
-    case CLASS_Fighter:
+    case CLASS_CORVETTE:
+    case CLASS_FIGHTER:
         if (healthRatio <= DMG_StrikeTrailLimit)
         {
             trailMakeWobbly(ship, TRUE);

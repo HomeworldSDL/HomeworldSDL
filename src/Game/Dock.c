@@ -530,11 +530,11 @@ Ship *FindAnotherResearchShiptoDockWith(Ship *ship)
 
 sdword ThisShipIs(ShipStaticInfo *shipstatic)
 {
-    if (shipstatic->shipclass == CLASS_Fighter || shipstatic->shiptype == ProximitySensor)
+    if (shipstatic->shipclass == CLASS_FIGHTER || shipstatic->shiptype == ProximitySensor)
     {
         return THISSHIPIS_FIGHTER;
     }
-    else if (shipstatic->shipclass == CLASS_Corvette)
+    else if (shipstatic->shipclass == CLASS_CORVETTE)
     {
         return THISSHIPIS_CORVETTE;
     }
@@ -569,10 +569,10 @@ bool shipRetireNeedsMothership(Ship *ship)
         //no salvage lights
         if(isCapitalShipStatic(ship->staticinfo))
         {
-            if(ship->staticinfo->shipclass == CLASS_Mothership   ||
-               ship->staticinfo->shipclass == CLASS_HeavyCruiser ||
-               ship->staticinfo->shipclass == CLASS_Carrier ||
-               ship->staticinfo->shipclass == CLASS_Destroyer ||
+            if(ship->staticinfo->shipclass == CLASS_MOTHERSHIP   ||
+               ship->staticinfo->shipclass == CLASS_HEAVY_CRUISER ||
+               ship->staticinfo->shipclass == CLASS_CARRIER ||
+               ship->staticinfo->shipclass == CLASS_DESTROYER ||
                ship->shiptype == ResourceController)
             {
                 //too big
@@ -2350,9 +2350,9 @@ void dockPutShipInside(Ship *ship,Ship *dockwith)
     insideShip->ship = ship;
     listAddNode(&shipsInsideMe->insideList,&insideShip->node,insideShip);
     lmUpdateShipsInside();
-    if (ship->staticinfo->shipclass==CLASS_Fighter)
+    if (ship->staticinfo->shipclass==CLASS_FIGHTER)
         dockwith->shipsInsideMe->FightersInsideme++;
-    else if (ship->staticinfo->shipclass==CLASS_Corvette)
+    else if (ship->staticinfo->shipclass==CLASS_CORVETTE)
         dockwith->shipsInsideMe->CorvettesInsideme++;
 
     //check if ship is salcap
@@ -2391,9 +2391,9 @@ void dockRemoveShipFromInside(Ship *ship,Ship *dockwith)
         {
             listDeleteNode(node);
             lmUpdateShipsInside();
-            if (ship->staticinfo->shipclass==CLASS_Fighter)
+            if (ship->staticinfo->shipclass==CLASS_FIGHTER)
                 dockwith->shipsInsideMe->FightersInsideme--;
-            else if (ship->staticinfo->shipclass==CLASS_Corvette)
+            else if (ship->staticinfo->shipclass==CLASS_CORVETTE)
                 dockwith->shipsInsideMe->CorvettesInsideme--;
 
             return;
@@ -2983,14 +2983,14 @@ bool ShipDocksAtRepairCorvette(struct CommandToDo *docktodo,struct Ship *ship,st
             {
                 customdockinfo->latchpointsindex = 0;
                 customdockinfo->latchmintime = R1REPCORV_LATCHMINTIME;
-                customdockinfo->turnlatchdistsqr = (shipstatic->shipclass == CLASS_Corvette) ? R1REPCORV_CORVETTELATCHDIST : R1REPCORV_FIGHTERLATCHDIST;
+                customdockinfo->turnlatchdistsqr = (shipstatic->shipclass == CLASS_CORVETTE) ? R1REPCORV_CORVETTELATCHDIST : R1REPCORV_FIGHTERLATCHDIST;
             }
             else
             {
                 dbgAssertOrIgnore(dockwithstatic->shiprace == R2);
                 customdockinfo->latchpointsindex = 1;
                 customdockinfo->latchmintime = R2REPCORV_LATCHMINTIME;
-                customdockinfo->turnlatchdistsqr = (shipstatic->shipclass == CLASS_Corvette) ? R2REPCORV_CORVETTELATCHDIST : R2REPCORV_FIGHTERLATCHDIST;
+                customdockinfo->turnlatchdistsqr = (shipstatic->shipclass == CLASS_CORVETTE) ? R2REPCORV_CORVETTELATCHDIST : R2REPCORV_FIGHTERLATCHDIST;
             }
 
             ship->dockvars.dockstate2 = REPCORV_WAITLATCHPOINT;
@@ -3180,7 +3180,7 @@ bool ShipDocksAtResourceCollector(struct CommandToDo *docktodo,struct Ship *ship
 
             if (dockwithstatic->shiprace == R1)
             {
-                if (shipstatic->shipclass == CLASS_Corvette)
+                if (shipstatic->shipclass == CLASS_CORVETTE)
                 {
                     customdockinfo->latchpointsindex = 0;
                     customdockinfo->latchmintime = R1RESCOL_LATCHMINTIME;
@@ -3196,7 +3196,7 @@ bool ShipDocksAtResourceCollector(struct CommandToDo *docktodo,struct Ship *ship
             else
             {
                 dbgAssertOrIgnore(dockwithstatic->shiprace == R2);
-                if (shipstatic->shipclass == CLASS_Corvette)
+                if (shipstatic->shipclass == CLASS_CORVETTE)
                 {
                     customdockinfo->latchpointsindex = 2;
                     customdockinfo->latchmintime = R2RESCOL_LATCHMINTIME;
@@ -3459,7 +3459,7 @@ bool ShipDocksAtASF(struct CommandToDo *docktodo,struct Ship *ship,struct Ship *
 
             if (dockwithstatic->shiprace == R1)
             {
-                if (shipstatic->shipclass == CLASS_Corvette)
+                if (shipstatic->shipclass == CLASS_CORVETTE)
                 {
                     customdockinfo->latchpointsindex = 0;
                     customdockinfo->turnlatchdistsqr = R1ASF_CORVETTELATCHDIST;
@@ -3467,7 +3467,7 @@ bool ShipDocksAtASF(struct CommandToDo *docktodo,struct Ship *ship,struct Ship *
                 }
                 else
                 {
-                    dbgAssertOrIgnore(shipstatic->shipclass == CLASS_Fighter || shipstatic->shiptype == ProximitySensor);
+                    dbgAssertOrIgnore(shipstatic->shipclass == CLASS_FIGHTER || shipstatic->shiptype == ProximitySensor);
                     customdockinfo->latchpointsindex = 1;
                     customdockinfo->turnlatchdistsqr = R1ASF_FIGHTERLATCHDIST;
                     customdockinfo->latchmintime = R1ASF_LATCHMINTIME;
@@ -3476,7 +3476,7 @@ bool ShipDocksAtASF(struct CommandToDo *docktodo,struct Ship *ship,struct Ship *
             else
             {
                 dbgAssertOrIgnore(dockwithstatic->shiprace == R2);
-                if (shipstatic->shipclass == CLASS_Corvette)
+                if (shipstatic->shipclass == CLASS_CORVETTE)
                 {
                     customdockinfo->latchpointsindex = 2;
                     customdockinfo->turnlatchdistsqr = R2ASF_CORVETTELATCHDIST;
@@ -3484,7 +3484,7 @@ bool ShipDocksAtASF(struct CommandToDo *docktodo,struct Ship *ship,struct Ship *
                 }
                 else
                 {
-                    dbgAssertOrIgnore(shipstatic->shipclass == CLASS_Fighter|| shipstatic->shiptype == ProximitySensor);
+                    dbgAssertOrIgnore(shipstatic->shipclass == CLASS_FIGHTER|| shipstatic->shiptype == ProximitySensor);
                     customdockinfo->latchpointsindex = 3;
                     customdockinfo->turnlatchdistsqr = R2ASF_FIGHTERLATCHDIST;
                     customdockinfo->latchmintime = R2ASF_LATCHMINTIME;
@@ -3763,11 +3763,11 @@ bool ShipDocksAtResController(struct CommandToDo *docktodo,struct Ship *ship,str
             }
             else
             {
-                if (shipstatic->shipclass == CLASS_Corvette)
+                if (shipstatic->shipclass == CLASS_CORVETTE)
                 {
                     index = 1;
                 }
-                else if (shipstatic->shipclass == CLASS_Fighter || shipstatic->shiptype == ProximitySensor)
+                else if (shipstatic->shipclass == CLASS_FIGHTER || shipstatic->shiptype == ProximitySensor)
                 {
                     index = 2;
                 }
@@ -4158,7 +4158,7 @@ sdword **FindR1CarrierLaunchPoints(ShipStaticInfo *shipstatic)
         return R1CarrierSmallLaunchPoints;
     }
     /*
-    if ((shipstatic->shipclass == CLASS_Frigate)
+    if ((shipstatic->shipclass == CLASS_FRIGATE)
         || (shipstatic->shiptype == SensorArray)
         || (shipstac->shiptype == ResearchShip)
         || (shipstatic->shiptype == ResourceCollector))
@@ -4183,7 +4183,7 @@ sdword **FindR2CarrierLaunchPoints(ShipStaticInfo *shipstatic)
     {
         return R2CarrierSmallLaunchPoints;
     }
-    /*if (shipstatic->shipclass == CLASS_Frigate || shipstatic->shiptype == SensorArray
+    /*if (shipstatic->shipclass == CLASS_FRIGATE || shipstatic->shiptype == SensorArray
         || shipstatic->shiptype == ResourceCollector
         || (shipstac->shiptype == ResearchShip)
         || (shipstatic->shiptype == ResourceCollector)
@@ -4271,9 +4271,9 @@ bool dockRetireShipNeedsBig(Ship *ship,Ship *dockwith)
             //command is probably non-null guaranteed...but lets just be safe.
             if(command != NULL && command->dock.dockType & DOCK_FOR_RETIRE)
             {
-                if(ship->staticinfo->shipclass == CLASS_Fighter ||
-                   ship->staticinfo->shipclass == CLASS_Corvette ||
-                   ship->staticinfo->shipclass == CLASS_Frigate ||
+                if(ship->staticinfo->shipclass == CLASS_FIGHTER ||
+                   ship->staticinfo->shipclass == CLASS_CORVETTE ||
+                   ship->staticinfo->shipclass == CLASS_FRIGATE ||
                    ship->shiptype == ResourceCollector)
                 {
                     return FALSE;
@@ -4286,9 +4286,9 @@ bool dockRetireShipNeedsBig(Ship *ship,Ship *dockwith)
                 }
                 return TRUE;
             }
-            else if(ship->staticinfo->shipclass == CLASS_Carrier ||
-               ship->staticinfo->shipclass == CLASS_HeavyCruiser ||
-               ship->staticinfo->shipclass == CLASS_Destroyer ||
+            else if(ship->staticinfo->shipclass == CLASS_CARRIER ||
+               ship->staticinfo->shipclass == CLASS_HEAVY_CRUISER ||
+               ship->staticinfo->shipclass == CLASS_DESTROYER ||
                ship->shiptype == ResourceController)
             {
                 //need big
@@ -4298,8 +4298,8 @@ bool dockRetireShipNeedsBig(Ship *ship,Ship *dockwith)
         }
         else if(dockwith->shiprace == R2)
         {
-            if(ship->staticinfo->shipclass == CLASS_Fighter ||
-               ship->staticinfo->shipclass == CLASS_Corvette)
+            if(ship->staticinfo->shipclass == CLASS_FIGHTER ||
+               ship->staticinfo->shipclass == CLASS_CORVETTE)
             {
                 return FALSE;
             }
@@ -4309,10 +4309,10 @@ bool dockRetireShipNeedsBig(Ship *ship,Ship *dockwith)
                 return FALSE;
             }
             /*
-            if(ship->staticinfo->shipclass == CLASS_Carrier ||
-               ship->staticinfo->shipclass == CLASS_HeavyCruiser ||
-               ship->staticinfo->shipclass == CLASS_Destroyer ||
-               ship->staticinfo->shipclass == CLASS_Frigate ||
+            if(ship->staticinfo->shipclass == CLASS_CARRIER ||
+               ship->staticinfo->shipclass == CLASS_HEAVY_CRUISER ||
+               ship->staticinfo->shipclass == CLASS_DESTROYER ||
+               ship->staticinfo->shipclass == CLASS_FRIGATE ||
                ship->shiptype == ResourceController ||
                ship->shiptype == SensorArray ||
                ship->shiptype == GravWellGenerator ||
@@ -4328,8 +4328,8 @@ bool dockRetireShipNeedsBig(Ship *ship,Ship *dockwith)
     else
     {
         //carrier
-        if(ship->staticinfo->shipclass == CLASS_Fighter ||
-           ship->staticinfo->shipclass == CLASS_Corvette)
+        if(ship->staticinfo->shipclass == CLASS_FIGHTER ||
+           ship->staticinfo->shipclass == CLASS_CORVETTE)
         {
             return FALSE;
         }
@@ -4646,7 +4646,7 @@ bool ShipDocksAtCarrierMother(struct CommandToDo *docktodo,struct Ship *ship,str
                     {
                         customdockinfo->inpointsindex = 8;
                     }
-                    else if (ship->staticinfo->shipclass == CLASS_Frigate ||
+                    else if (ship->staticinfo->shipclass == CLASS_FRIGATE ||
                         ship->shiptype == ResearchShip)
                     {
                         customdockinfo->inpointsindex = 10;
@@ -4764,9 +4764,9 @@ bool ShipDocksAtCarrierMother(struct CommandToDo *docktodo,struct Ship *ship,str
             ship->dockvars.dockstaticpoint = dockstaticpoint;
 
             dockReserveDockPoint(ship,dockwith,dockpointindex);
-            if (ship->staticinfo->shipclass == CLASS_Fighter)
+            if (ship->staticinfo->shipclass == CLASS_FIGHTER)
                 customdockinfo->giveupdockpointat = universe.totaltimeelapsed + CARRIERMOTHERDOCK_DELAY_FLYINSIDE;
-            else if (ship->staticinfo->shipclass == CLASS_Corvette || ship->shiptype == ProximitySensor)
+            else if (ship->staticinfo->shipclass == CLASS_CORVETTE || ship->shiptype == ProximitySensor)
                 customdockinfo->giveupdockpointat = universe.totaltimeelapsed + CARRIERMOTHERDOCK_DELAY_FLYINSIDE_CORVETTE;
 
             matMultiplyMatByVec(&coneheadingInWorldCoordSys,&dockwith->rotinfo.coordsys,&dockstaticpoint->conenormal);

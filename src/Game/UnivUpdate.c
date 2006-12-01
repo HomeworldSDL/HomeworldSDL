@@ -2709,7 +2709,7 @@ void AddShipToDeleteShipList(Ship *ship,GunSoundType damageType)
         ApplyCareen(ship);
     }
 
-    //if (shipstaticinfo->shipclass != CLASS_Fighter)
+    //if (shipstaticinfo->shipclass != CLASS_FIGHTER)
         MakeExplosionRockBumpables(ship,(damageType == -1));
 
     // add to delete ship list
@@ -3225,7 +3225,7 @@ nobulletmasstransfer:
 
         if (bulletowner != NULL)
         {
-            if ((bulletowner->shiptype == HeavyDefender) && (((ShipStaticInfo *)target->staticinfo)->shipclass == CLASS_Fighter))
+            if ((bulletowner->shiptype == HeavyDefender) && (((ShipStaticInfo *)target->staticinfo)->shipclass == CLASS_FIGHTER))
             {
                 // armour piercing bullets vs fighters
                 damagetaken *= armourPiercingModifier;
@@ -4390,7 +4390,7 @@ bool univFindBackupMothership(struct Player *player)
 
         if (((ship->flags & SOF_Dead) == 0) && (ship->playerowner == player) && (ship != player->PlayerMothership))
         {
-            if ((ship->shiptype == Carrier) || (ship->staticinfo->shipclass == CLASS_Mothership))
+            if ((ship->shiptype == Carrier) || (ship->staticinfo->shipclass == CLASS_MOTHERSHIP))
             {
                 if (player->PlayerMothership != NULL)
                 {
@@ -7173,15 +7173,15 @@ void univUpdateRenderList()
 
     if (!limited)
     {
-        limits[CLASS_Mothership] = RENDER_LIMIT_MOTHERSHIP;
-        limits[CLASS_HeavyCruiser] = RENDER_LIMIT_HEAVYCRUISER;
-        limits[CLASS_Carrier] = RENDER_LIMIT_CARRIER;
-        limits[CLASS_Destroyer] = RENDER_LIMIT_DESTROYER;
-        limits[CLASS_Frigate] = RENDER_LIMIT_FRIGATE;
-        limits[CLASS_Corvette] = RENDER_LIMIT_CORVETTE;
-        limits[CLASS_Fighter] = RENDER_LIMIT_FIGHTER;
-        limits[CLASS_Resource] = RENDER_LIMIT_RESOURCE;
-        limits[CLASS_NonCombat] = RENDER_LIMIT_NONCOMBAT;
+        limits[CLASS_MOTHERSHIP] = RENDER_LIMIT_MOTHERSHIP;
+        limits[CLASS_HEAVY_CRUISER] = RENDER_LIMIT_HEAVYCRUISER;
+        limits[CLASS_CARRIER] = RENDER_LIMIT_CARRIER;
+        limits[CLASS_DESTROYER] = RENDER_LIMIT_DESTROYER;
+        limits[CLASS_FRIGATE] = RENDER_LIMIT_FRIGATE;
+        limits[CLASS_CORVETTE] = RENDER_LIMIT_CORVETTE;
+        limits[CLASS_FIGHTER] = RENDER_LIMIT_FIGHTER;
+        limits[CLASS_RESOURCE] = RENDER_LIMIT_RESOURCE;
+        limits[CLASS_NON_COMBAT] = RENDER_LIMIT_NONCOMBAT;
         limited = TRUE;
     }
 

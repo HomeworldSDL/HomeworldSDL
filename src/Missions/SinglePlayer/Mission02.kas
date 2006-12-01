@@ -814,7 +814,7 @@ FSM FleetIntel
         STATE AllShipsRecording //컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
             INIT
                     FindEnemiesInside (VOLUME_MothershipSphere, SHIPS_AllShipsRecordingSHIPS, 100);
-                    ShipsSelectClass (SHIPS_Mothership99SHIPS, SHIPS_AllShipsRecordingSHIPS, "CLASS_Mothership");
+                    ShipsSelectClass (SHIPS_Mothership99SHIPS, SHIPS_AllShipsRecordingSHIPS, "CLASS_MOTHERSHIP");
                     VarCreateSet ("G_MOTHERSHIP99SHIPS", ShipsCount (SHIPS_Mothership99SHIPS));     // for debuggin'
                     SpeechEvent (M02_All_ScienceVesselAttacked, 0);   // -t do you mean you detect a Hyperspace entry?!  The mothership isn't due for-...
                     TimerCreateSetStart ("G_ACT3Timer", 35);
@@ -1347,13 +1347,13 @@ FSM NISTeamFighter
         ENDINIT
         WATCH
                 IF (FindEnemiesInside (VOLUME_MothershipSphere, SHIPS_EntireFleet, 100))
-                        ShipsSelectClass (SHIPS_Fighter, SHIPS_EntireFleet, "CLASS_Fighter");
-                        ShipsSelectClass (SHIPS_Corvette, SHIPS_EntireFleet, "CLASS_Corvette");
+                        ShipsSelectClass (SHIPS_Fighter, SHIPS_EntireFleet, "CLASS_FIGHTER");
+                        ShipsSelectClass (SHIPS_Corvette, SHIPS_EntireFleet, "CLASS_CORVETTE");
                         ShipsSelectType (SHIPS_PlayerSalCaps, SHIPS_EntireFleet, "SalCapCorvette");
                         ShipsRemove (SHIPS_Corvette, SHIPS_PlayerSalCaps);
-                        ShipsSelectClass (SHIPS_Resource, SHIPS_EntireFleet, "CLASS_Resource");
+                        ShipsSelectClass (SHIPS_Resource, SHIPS_EntireFleet, "CLASS_RESOURCE");
                         ShipsSelectType (SHIPS_Research, SHIPS_EntireFleet, "ResearchShip");
-                        ShipsSelectClass (SHIPS_Mothership, SHIPS_EntireFleet, "CLASS_Mothership");
+                        ShipsSelectClass (SHIPS_Mothership, SHIPS_EntireFleet, "CLASS_MOTHERSHIP");
                         //VarCreateSet ("G_NISTeamMothershipSHIPS", ShipsCount (SHIPS_Mothership));         // All these for debuggin'
                         //VarCreateSet ("G_NISTeamEntireFleetSHIPS", ShipsCount (SHIPS_EntireFleet));
                         //VarCreateSet ("G_NISTeamFighterSHIPS", ShipsCount (SHIPS_Fighter));
@@ -1548,10 +1548,10 @@ FSM NISTeamCorvette
         INIT
                 IF (FindEnemiesInside (VOLUME_MothershipSphere, SHIPS_EntireFleet2, 100))
                         ShipsSelectType (SHIPS_Research2, SHIPS_EntireFleet2, "ResearchShip");
-                        ShipsSelectClass (SHIPS_Resource2, SHIPS_EntireFleet2, "CLASS_Resource");
-                        ShipsSelectClass (SHIPS_Fighter2, SHIPS_EntireFleet2, "CLASS_Fighter");
-                        ShipsSelectClass (SHIPS_Corvette2, SHIPS_EntireFleet2, "CLASS_Corvette");
-                        ShipsSelectClass (SHIPS_Mothership2, SHIPS_EntireFleet2, "CLASS_Mothership");
+                        ShipsSelectClass (SHIPS_Resource2, SHIPS_EntireFleet2, "CLASS_RESOURCE");
+                        ShipsSelectClass (SHIPS_Fighter2, SHIPS_EntireFleet2, "CLASS_FIGHTER");
+                        ShipsSelectClass (SHIPS_Corvette2, SHIPS_EntireFleet2, "CLASS_CORVETTE");
+                        ShipsSelectClass (SHIPS_Mothership2, SHIPS_EntireFleet2, "CLASS_MOTHERSHIP");
                         //VarCreateSet ("G_NISTeamMothershipSHIPS2", ShipsCount (SHIPS_Mothership2));         // All these for debuggin'
                         //VarCreateSet ("G_NISTeamEntireFleetSHIPS2", ShipsCount (SHIPS_EntireFleet2));
                         //VarCreateSet ("G_NISTeamFighterSHIPS2", ShipsCount (SHIPS_Fighter2));
@@ -1570,12 +1570,12 @@ FSM NISTeamCorvette
         WATCH
                 IF (FindEnemiesInside (VOLUME_MothershipSphere, SHIPS_EntireFleet2, 100))
                         ShipsSelectType (SHIPS_Research2, SHIPS_EntireFleet2, "ResearchShip");
-                        ShipsSelectClass (SHIPS_Resource2, SHIPS_EntireFleet2, "CLASS_Resource");
-                        ShipsSelectClass (SHIPS_Fighter2, SHIPS_EntireFleet2, "CLASS_Fighter");
-                        ShipsSelectClass (SHIPS_Corvette2, SHIPS_EntireFleet2, "CLASS_Corvette");
+                        ShipsSelectClass (SHIPS_Resource2, SHIPS_EntireFleet2, "CLASS_RESOURCE");
+                        ShipsSelectClass (SHIPS_Fighter2, SHIPS_EntireFleet2, "CLASS_FIGHTER");
+                        ShipsSelectClass (SHIPS_Corvette2, SHIPS_EntireFleet2, "CLASS_CORVETTE");
                         ShipsSelectType (SHIPS_PlayerSalCaps2, SHIPS_EntireFleet2, "SalCapCorvette");
                         ShipsRemove (SHIPS_Corvette2, SHIPS_PlayerSalCaps2);
-                        ShipsSelectClass (SHIPS_Mothership2, SHIPS_EntireFleet2, "CLASS_Mothership");
+                        ShipsSelectClass (SHIPS_Mothership2, SHIPS_EntireFleet2, "CLASS_MOTHERSHIP");
                         //VarCreateSet ("G_NISTeamMothershipSHIPS2", ShipsCount (SHIPS_Mothership2));         // All these for debuggin'
                         //VarCreateSet ("G_NISTeamEntireFleetSHIPS2", ShipsCount (SHIPS_EntireFleet2));
                         //VarCreateSet ("G_NISTeamFighterSHIPS2", ShipsCount (SHIPS_Fighter2));
@@ -1900,7 +1900,7 @@ FSM DoggedFighter
             WATCH
                     //PRINT ("Dogged Fighter has no Target!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                     IF (UnderAttack (SHIPS_DoggedFighterUnderAttack))           // If you're under attack, get "distracted" and defend yourself
-                            ShipsSelectClass (SHIPS_Mothership, SHIPS_DoggedFighterUnderAttack, "CLASS_Mothership");       // Select the Mothership
+                            ShipsSelectClass (SHIPS_Mothership, SHIPS_DoggedFighterUnderAttack, "CLASS_MOTHERSHIP");       // Select the Mothership
                             ShipsRemove (SHIPS_DoggedFighterUnderAttack, SHIPS_Mothership);                                // And filter it out
                             IF (ShipsCount (SHIPS_DoggedFighterUnderAttack) > 0)
                                     Jump Defend;
@@ -1918,7 +1918,7 @@ FSM DoggedFighter
 
         STATE Defend //컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
             INIT
-                    ShipsSelectClass (SHIPS_DoggedFighterFighters, SHIPS_DoggedFighterUnderAttack, "CLASS_Fighter");      // Filter out Fighters
+                    ShipsSelectClass (SHIPS_DoggedFighterFighters, SHIPS_DoggedFighterUnderAttack, "CLASS_FIGHTER");      // Filter out Fighters
                     IF (ShipsCount (SHIPS_DoggedFighterFighters) > 0)       // If there are any Fighters, attack them first
                             Attack (SHIPS_DoggedFighterFighters);
                     ELSE
@@ -1954,7 +1954,7 @@ FSM DoggedFighter
 
         STATE AttacknisVolume //컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
             INIT
-                    ShipsSelectClass (SHIPS_nisVolumeFighters, SHIPS_DoggedFighterLooking, "CLASS_Fighter");      // Filter out Fighters
+                    ShipsSelectClass (SHIPS_nisVolumeFighters, SHIPS_DoggedFighterLooking, "CLASS_FIGHTER");      // Filter out Fighters
                     IF (ShipsCount (SHIPS_nisVolumeFighters) > 0)          // If there are any Fighters, attack them first
                             Attack (SHIPS_nisVolumeFighters);
                     ELSE
@@ -2241,7 +2241,7 @@ FSM SCFighters
             ENDINIT
             WATCH
                     IF (UnderAttack (SHIPS_SCFightersUnderAttack))         // If you're under attack, get "distracted" and defend yourself
-                            ShipsSelectClass (SHIPS_Mothership, SHIPS_SCFightersUnderAttack, "CLASS_Mothership");       // Select the Mothership
+                            ShipsSelectClass (SHIPS_Mothership, SHIPS_SCFightersUnderAttack, "CLASS_MOTHERSHIP");       // Select the Mothership
                             ShipsRemove (SHIPS_SCFightersUnderAttack, SHIPS_Mothership);                                // And filter it out
                             IF (ShipsCount (SHIPS_SCFightersUnderAttack) > 0)
                                     Jump Defend;
@@ -2269,7 +2269,7 @@ FSM SCFighters
             ENDINIT
             WATCH
                     IF (UnderAttack (SHIPS_SCFightersUnderAttack))         // If you're under attack, get "distracted" and defend yourself
-                            ShipsSelectClass (SHIPS_Mothership, SHIPS_SCFightersUnderAttack, "CLASS_Mothership");       // Select the Mothership
+                            ShipsSelectClass (SHIPS_Mothership, SHIPS_SCFightersUnderAttack, "CLASS_MOTHERSHIP");       // Select the Mothership
                             ShipsRemove (SHIPS_SCFightersUnderAttack, SHIPS_Mothership);                                // And filter it out
                             IF (ShipsCount (SHIPS_SCFightersUnderAttack) > 0)
                                     Jump Defend;
@@ -2291,7 +2291,7 @@ FSM SCFighters
             INIT
                     VarCreateSet ("SCFightersAreDefending", TRUE);
                     TacticsAggressive ();
-                    ShipsSelectClass (SHIPS_SCFightersFighters, SHIPS_SCFightersUnderAttack, "CLASS_Fighter");      // Filter out Fighters
+                    ShipsSelectClass (SHIPS_SCFightersFighters, SHIPS_SCFightersUnderAttack, "CLASS_FIGHTER");      // Filter out Fighters
                     IF (ShipsCount (SHIPS_SCFightersFighters) > 0)          // If there are any Fighters, attack them first
                             Attack (SHIPS_SCFightersFighters);
                     ELSE
@@ -2322,7 +2322,7 @@ FSM SCFighters
             WATCH
                     //PRINT ("SCFighters have no Target!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                     IF (UnderAttack (SHIPS_SCFightersUnderAttack))           // If you're under attack, get "distracted" and defend yourself
-                            ShipsSelectClass (SHIPS_Mothership, SHIPS_SCFightersUnderAttack, "CLASS_Mothership");       // Select the Mothership
+                            ShipsSelectClass (SHIPS_Mothership, SHIPS_SCFightersUnderAttack, "CLASS_MOTHERSHIP");       // Select the Mothership
                             ShipsRemove (SHIPS_SCFightersUnderAttack, SHIPS_Mothership);                                // And filter it out
                             IF (ShipsCount (SHIPS_SCFightersUnderAttack) > 0)
                                     Jump Defend2;
@@ -2340,7 +2340,7 @@ FSM SCFighters
 
         STATE Defend2 //컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
             INIT
-                    ShipsSelectClass (SHIPS_SCFightersFighters, SHIPS_SCFightersUnderAttack, "CLASS_Fighter");      // Filter out Fighters
+                    ShipsSelectClass (SHIPS_SCFightersFighters, SHIPS_SCFightersUnderAttack, "CLASS_FIGHTER");      // Filter out Fighters
                     IF (ShipsCount (SHIPS_SCFightersFighters) > 0)       // If there are any Fighters, attack them first
                             Attack (SHIPS_SCFightersFighters);
                     ELSE
@@ -2376,7 +2376,7 @@ FSM SCFighters
 
         STATE AttacknisVolume //컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
             INIT
-                    ShipsSelectClass (SHIPS_nisVolumeFighters, SHIPS_SCFightersLooking, "CLASS_Fighter");      // Filter out Fighters
+                    ShipsSelectClass (SHIPS_nisVolumeFighters, SHIPS_SCFightersLooking, "CLASS_FIGHTER");      // Filter out Fighters
                     IF (ShipsCount (SHIPS_nisVolumeFighters) > 0)          // If there are any Fighters, attack them first
                             Attack (SHIPS_nisVolumeFighters);
                     ELSE
@@ -2636,10 +2636,10 @@ FSM ACT3Fighters
                             Jump DockForGood;
                     ENDIF
                     IF (UnderAttack (SHIPS_ACT3FightersUnderAttack))                // If you get attacked, jump to defending yourself
-                            ShipsSelectClass (SHIPS_ACT3FightersMothership, SHIPS_ACT3FightersUnderAttack, "CLASS_Mothership");
+                            ShipsSelectClass (SHIPS_ACT3FightersMothership, SHIPS_ACT3FightersUnderAttack, "CLASS_MOTHERSHIP");
                             ShipsRemove (SHIPS_ACT3FightersUnderAttack, SHIPS_ACT3FightersMothership);
-                            ShipsSelectClass (SHIPS_ACT3FightersFighterLOOK, SHIPS_ACT3FightersUnderAttack, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_ACT3FightersCorvetteLOOK, SHIPS_ACT3FightersUnderAttack, "CLASS_Corvette");
+                            ShipsSelectClass (SHIPS_ACT3FightersFighterLOOK, SHIPS_ACT3FightersUnderAttack, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_ACT3FightersCorvetteLOOK, SHIPS_ACT3FightersUnderAttack, "CLASS_CORVETTE");
                             IF (ShipsCount (SHIPS_ACT3FightersFighterLOOK) > 3)
                                     Jump Defend;
                             ELSEIF (ShipsCount (SHIPS_ACT3FightersCorvetteLOOK) > 2)
@@ -2667,10 +2667,10 @@ FSM ACT3Fighters
                             Jump DockForGood;
                     ENDIF
                     IF (UnderAttack (SHIPS_ACT3FightersUnderAttack))                // If you get attacked, jump to defending yourself
-                            ShipsSelectClass (SHIPS_ACT3FightersMothership, SHIPS_ACT3FightersUnderAttack, "CLASS_Mothership");
+                            ShipsSelectClass (SHIPS_ACT3FightersMothership, SHIPS_ACT3FightersUnderAttack, "CLASS_MOTHERSHIP");
                             ShipsRemove (SHIPS_ACT3FightersUnderAttack, SHIPS_ACT3FightersMothership);
-                            ShipsSelectClass (SHIPS_ACT3FightersFighterLOOK, SHIPS_ACT3FightersUnderAttack, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_ACT3FightersCorvetteLOOK, SHIPS_ACT3FightersUnderAttack, "CLASS_Corvette");
+                            ShipsSelectClass (SHIPS_ACT3FightersFighterLOOK, SHIPS_ACT3FightersUnderAttack, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_ACT3FightersCorvetteLOOK, SHIPS_ACT3FightersUnderAttack, "CLASS_CORVETTE");
                             IF (ShipsCount (SHIPS_ACT3FightersFighterLOOK) > 3)
                                     Jump Defend;
                             ELSEIF (ShipsCount (SHIPS_ACT3FightersCorvetteLOOK) > 2)
@@ -2680,12 +2680,12 @@ FSM ACT3Fighters
 
 
                     FindEnemiesInside (VOLUME_MothershipSphere, SHIPS_ACT3EntireFleet1, 100);                       // Find everyone in the MothershipSphere
-                    ShipsSelectClass (SHIPS_ACT3Fighter1, SHIPS_ACT3EntireFleet1, "CLASS_Fighter");                 // Then filter their asses
-                    ShipsSelectClass (SHIPS_ACT3Corvette1, SHIPS_ACT3EntireFleet1, "CLASS_Corvette");
-                    ShipsSelectClass (SHIPS_ACT3Resource1, SHIPS_ACT3EntireFleet1, "CLASS_Resource");
+                    ShipsSelectClass (SHIPS_ACT3Fighter1, SHIPS_ACT3EntireFleet1, "CLASS_FIGHTER");                 // Then filter their asses
+                    ShipsSelectClass (SHIPS_ACT3Corvette1, SHIPS_ACT3EntireFleet1, "CLASS_CORVETTE");
+                    ShipsSelectClass (SHIPS_ACT3Resource1, SHIPS_ACT3EntireFleet1, "CLASS_RESOURCE");
                     ShipsSelectType (SHIPS_ACT3Research1, SHIPS_ACT3EntireFleet1, "ResearchShip");
-                    ShipsSelectClass (SHIPS_ACT3NonCombat1, SHIPS_ACT3EntireFleet1, "CLASS_NonCombat");
-                    ShipsSelectClass (SHIPS_ACT3Mothership1, SHIPS_ACT3EntireFleet1, "CLASS_Mothership");
+                    ShipsSelectClass (SHIPS_ACT3NonCombat1, SHIPS_ACT3EntireFleet1, "CLASS_NON_COMBAT");
+                    ShipsSelectClass (SHIPS_ACT3Mothership1, SHIPS_ACT3EntireFleet1, "CLASS_MOTHERSHIP");
                     VarCreateSet ("G_ACT3TeamMothershipSHIPS", ShipsCount (SHIPS_ACT3Mothership1));                      // All these for debuggin'
                     VarCreateSet ("G_ACT3TeamEntireFleetSHIPS", ShipsCount (SHIPS_ACT3EntireFleet1));
                     VarCreateSet ("G_ACT3TeamFighterSHIPS", ShipsCount (SHIPS_ACT3Fighter1));
@@ -2695,11 +2695,11 @@ FSM ACT3Fighters
                     VarCreateSet ("G_ACT3TeamNonCombatSHIPS", ShipsCount (SHIPS_ACT3NonCombat1));
 
                     FindEnemiesInside (VOLUME_EntireWorldVolume, SHIPS_ACT3WORLDEntireWorld1, 1000);                // Find everyone inside the whole world
-                    ShipsSelectClass (SHIPS_ACT3WORLDFighter1, SHIPS_ACT3WORLDEntireWorld1, "CLASS_Fighter");       // Then filter their asses
-                    ShipsSelectClass (SHIPS_ACT3WORLDCorvette1, SHIPS_ACT3WORLDEntireWorld1, "CLASS_Corvette");
-                    ShipsSelectClass (SHIPS_ACT3WORLDResource1, SHIPS_ACT3WORLDEntireWorld1, "CLASS_Resource");
+                    ShipsSelectClass (SHIPS_ACT3WORLDFighter1, SHIPS_ACT3WORLDEntireWorld1, "CLASS_FIGHTER");       // Then filter their asses
+                    ShipsSelectClass (SHIPS_ACT3WORLDCorvette1, SHIPS_ACT3WORLDEntireWorld1, "CLASS_CORVETTE");
+                    ShipsSelectClass (SHIPS_ACT3WORLDResource1, SHIPS_ACT3WORLDEntireWorld1, "CLASS_RESOURCE");
                     ShipsSelectType (SHIPS_ACT3WORLDResearch1, SHIPS_ACT3WORLDEntireWorld1, "ResearchShip");
-                    ShipsSelectClass (SHIPS_ACT3WORLDNonCombat1, SHIPS_ACT3WORLDEntireWorld1, "CLASS_NonCombat");
+                    ShipsSelectClass (SHIPS_ACT3WORLDNonCombat1, SHIPS_ACT3WORLDEntireWorld1, "CLASS_NON_COMBAT");
                     VarCreateSet ("G_ACT3TeamEntireFleetWORLDSHIPS", ShipsCount (SHIPS_EntireFleet));               // All these for debuggin'
                     VarCreateSet ("G_ACT3TeamFighterWORLDSHIPS", ShipsCount (SHIPS_ACT3WORLDFighter1));
                     VarCreateSet ("G_ACT3TeamCorvetteWORLDSHIPS", ShipsCount (SHIPS_ACT3WORLDCorvette1));
@@ -2760,10 +2760,10 @@ FSM ACT3Fighters
                             Jump DockForGood;
                     ENDIF
                     IF (UnderAttack (SHIPS_ACT3FightersUnderAttack))                // If you get attacked, jump to defending yourself
-                            ShipsSelectClass (SHIPS_ACT3FightersMothership, SHIPS_ACT3FightersUnderAttack, "CLASS_Mothership");
+                            ShipsSelectClass (SHIPS_ACT3FightersMothership, SHIPS_ACT3FightersUnderAttack, "CLASS_MOTHERSHIP");
                             ShipsRemove (SHIPS_ACT3FightersUnderAttack, SHIPS_ACT3FightersMothership);
-                            ShipsSelectClass (SHIPS_ACT3FightersFighterLOOK, SHIPS_ACT3FightersUnderAttack, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_ACT3FightersCorvetteLOOK, SHIPS_ACT3FightersUnderAttack, "CLASS_Corvette");
+                            ShipsSelectClass (SHIPS_ACT3FightersFighterLOOK, SHIPS_ACT3FightersUnderAttack, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_ACT3FightersCorvetteLOOK, SHIPS_ACT3FightersUnderAttack, "CLASS_CORVETTE");
                             IF (ShipsCount (SHIPS_ACT3FightersFighterLOOK) > 3)
                                     Jump Defend;
                             ELSEIF (ShipsCount (SHIPS_ACT3FightersCorvetteLOOK) > 2)
@@ -2847,10 +2847,10 @@ FSM ACT3Fighters
                             Jump DockForGood;
                     ENDIF
                     IF (UnderAttack (SHIPS_ACT3FightersUnderAttack))                // If you get attacked, jump to defending yourself
-                            ShipsSelectClass (SHIPS_ACT3FightersMothership, SHIPS_ACT3FightersUnderAttack, "CLASS_Mothership");
+                            ShipsSelectClass (SHIPS_ACT3FightersMothership, SHIPS_ACT3FightersUnderAttack, "CLASS_MOTHERSHIP");
                             ShipsRemove (SHIPS_ACT3FightersUnderAttack, SHIPS_ACT3FightersMothership);
-                            ShipsSelectClass (SHIPS_ACT3FightersFighterLOOK, SHIPS_ACT3FightersUnderAttack, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_ACT3FightersCorvetteLOOK, SHIPS_ACT3FightersUnderAttack, "CLASS_Corvette");
+                            ShipsSelectClass (SHIPS_ACT3FightersFighterLOOK, SHIPS_ACT3FightersUnderAttack, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_ACT3FightersCorvetteLOOK, SHIPS_ACT3FightersUnderAttack, "CLASS_CORVETTE");
                             IF (ShipsCount (SHIPS_ACT3FightersFighterLOOK) > 3)
                                     Jump Defend;
                             ELSEIF (ShipsCount (SHIPS_ACT3FightersCorvetteLOOK) > 2)
@@ -2916,10 +2916,10 @@ FSM ACT3Fighters
                             Jump DockForGood;
                     ENDIF
                     IF (UnderAttack (SHIPS_ACT3FightersUnderAttack))                // If you get attacked, jump to defending yourself
-                            ShipsSelectClass (SHIPS_ACT3FightersMothership, SHIPS_ACT3FightersUnderAttack, "CLASS_Mothership");
+                            ShipsSelectClass (SHIPS_ACT3FightersMothership, SHIPS_ACT3FightersUnderAttack, "CLASS_MOTHERSHIP");
                             ShipsRemove (SHIPS_ACT3FightersUnderAttack, SHIPS_ACT3FightersMothership);
-                            ShipsSelectClass (SHIPS_ACT3FightersFighterLOOK, SHIPS_ACT3FightersUnderAttack, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_ACT3FightersCorvetteLOOK, SHIPS_ACT3FightersUnderAttack, "CLASS_Corvette");
+                            ShipsSelectClass (SHIPS_ACT3FightersFighterLOOK, SHIPS_ACT3FightersUnderAttack, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_ACT3FightersCorvetteLOOK, SHIPS_ACT3FightersUnderAttack, "CLASS_CORVETTE");
                             IF (ShipsCount (SHIPS_ACT3FightersFighterLOOK) > 3)
                                     Jump Defend;
                             ELSEIF (ShipsCount (SHIPS_ACT3FightersCorvetteLOOK) > 2)
@@ -2943,7 +2943,7 @@ FSM ACT3Fighters
         STATE Defend //컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
             INIT
                     //TacticsAggressive ();
-                    ShipsSelectClass (SHIPS_ACT3FightersFighters, SHIPS_ACT3FightersUnderAttack, "CLASS_Fighter");      // Filter out Fighters
+                    ShipsSelectClass (SHIPS_ACT3FightersFighters, SHIPS_ACT3FightersUnderAttack, "CLASS_FIGHTER");      // Filter out Fighters
                     IF (ShipsCount (SHIPS_ACT3FightersFighters) > 0)          // If there are any Fighters, attack them first
                             Attack (SHIPS_ACT3FightersFighters);
                     ELSE
@@ -2985,10 +2985,10 @@ FSM ACT3Fighters
                             Jump DockForGood;
                     ENDIF
                     IF (UnderAttack (SHIPS_ACT3FightersUnderAttack))                // If you get attacked, jump to defending yourself
-                            ShipsSelectClass (SHIPS_ACT3FightersMothership, SHIPS_ACT3FightersUnderAttack, "CLASS_Mothership");
+                            ShipsSelectClass (SHIPS_ACT3FightersMothership, SHIPS_ACT3FightersUnderAttack, "CLASS_MOTHERSHIP");
                             ShipsRemove (SHIPS_ACT3FightersUnderAttack, SHIPS_ACT3FightersMothership);
-                            ShipsSelectClass (SHIPS_ACT3FightersFighterLOOK, SHIPS_ACT3FightersUnderAttack, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_ACT3FightersCorvetteLOOK, SHIPS_ACT3FightersUnderAttack, "CLASS_Corvette");
+                            ShipsSelectClass (SHIPS_ACT3FightersFighterLOOK, SHIPS_ACT3FightersUnderAttack, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_ACT3FightersCorvetteLOOK, SHIPS_ACT3FightersUnderAttack, "CLASS_CORVETTE");
                             IF (ShipsCount (SHIPS_ACT3FightersFighterLOOK) > 3)
                                     Jump Defend;
                             ELSEIF (ShipsCount (SHIPS_ACT3FightersCorvetteLOOK) > 2)
@@ -3141,10 +3141,10 @@ FSM ACT3Corvettes1
                             Jump DockForGood;
                     ENDIF
                     IF (UnderAttack (SHIPS_ACT3Corvettes1UnderAttack))                // If you get attacked, jump to defending yourself
-                            ShipsSelectClass (SHIPS_ACT3Corvettes1Mothership, SHIPS_ACT3Corvettes1UnderAttack, "CLASS_Mothership");
+                            ShipsSelectClass (SHIPS_ACT3Corvettes1Mothership, SHIPS_ACT3Corvettes1UnderAttack, "CLASS_MOTHERSHIP");
                             ShipsRemove (SHIPS_ACT3Corvettes1UnderAttack, SHIPS_ACT3Corvettes1Mothership);
-                            ShipsSelectClass (SHIPS_ACT3Corvettes1FighterLOOK, SHIPS_ACT3Corvettes1UnderAttack, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_ACT3Corvettes1CorvetteLOOK, SHIPS_ACT3Corvettes1UnderAttack, "CLASS_Corvette");
+                            ShipsSelectClass (SHIPS_ACT3Corvettes1FighterLOOK, SHIPS_ACT3Corvettes1UnderAttack, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_ACT3Corvettes1CorvetteLOOK, SHIPS_ACT3Corvettes1UnderAttack, "CLASS_CORVETTE");
                             IF (ShipsCount (SHIPS_ACT3Corvettes1FighterLOOK) > 3)
                                     Jump Defend;
                             ELSEIF (ShipsCount (SHIPS_ACT3Corvettes1CorvetteLOOK) > 2)
@@ -3172,10 +3172,10 @@ FSM ACT3Corvettes1
                             Jump DockForGood;
                     ENDIF
                     IF (UnderAttack (SHIPS_ACT3Corvettes1UnderAttack))                // If you get attacked, jump to defending yourself
-                            ShipsSelectClass (SHIPS_ACT3Corvettes1Mothership, SHIPS_ACT3Corvettes1UnderAttack, "CLASS_Mothership");
+                            ShipsSelectClass (SHIPS_ACT3Corvettes1Mothership, SHIPS_ACT3Corvettes1UnderAttack, "CLASS_MOTHERSHIP");
                             ShipsRemove (SHIPS_ACT3Corvettes1UnderAttack, SHIPS_ACT3Corvettes1Mothership);
-                            ShipsSelectClass (SHIPS_ACT3Corvettes1FighterLOOK, SHIPS_ACT3Corvettes1UnderAttack, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_ACT3Corvettes1CorvetteLOOK, SHIPS_ACT3Corvettes1UnderAttack, "CLASS_Corvette");
+                            ShipsSelectClass (SHIPS_ACT3Corvettes1FighterLOOK, SHIPS_ACT3Corvettes1UnderAttack, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_ACT3Corvettes1CorvetteLOOK, SHIPS_ACT3Corvettes1UnderAttack, "CLASS_CORVETTE");
                             IF (ShipsCount (SHIPS_ACT3Corvettes1FighterLOOK) > 3)
                                     Jump Defend;
                             ELSEIF (ShipsCount (SHIPS_ACT3Corvettes1CorvetteLOOK) > 2)
@@ -3185,12 +3185,12 @@ FSM ACT3Corvettes1
 
 
                     FindEnemiesInside (VOLUME_MothershipSphere, SHIPS_ACT3EntireFleet2, 200);                       // Find everyone in the MothershipSphere
-                    ShipsSelectClass (SHIPS_ACT3Fighter2, SHIPS_ACT3EntireFleet2, "CLASS_Fighter");                 // Then filter their asses
-                    ShipsSelectClass (SHIPS_ACT3Corvette2, SHIPS_ACT3EntireFleet2, "CLASS_Corvette");
-                    ShipsSelectClass (SHIPS_ACT3Resource2, SHIPS_ACT3EntireFleet2, "CLASS_Resource");
+                    ShipsSelectClass (SHIPS_ACT3Fighter2, SHIPS_ACT3EntireFleet2, "CLASS_FIGHTER");                 // Then filter their asses
+                    ShipsSelectClass (SHIPS_ACT3Corvette2, SHIPS_ACT3EntireFleet2, "CLASS_CORVETTE");
+                    ShipsSelectClass (SHIPS_ACT3Resource2, SHIPS_ACT3EntireFleet2, "CLASS_RESOURCE");
                     ShipsSelectType (SHIPS_ACT3Research2, SHIPS_ACT3EntireFleet2, "ResearchShip");
-                    ShipsSelectClass (SHIPS_ACT3NonCombat2, SHIPS_ACT3EntireFleet2, "CLASS_NonCombat");
-                    ShipsSelectClass (SHIPS_ACT3Mothership2, SHIPS_ACT3EntireFleet2, "CLASS_Mothership");
+                    ShipsSelectClass (SHIPS_ACT3NonCombat2, SHIPS_ACT3EntireFleet2, "CLASS_NON_COMBAT");
+                    ShipsSelectClass (SHIPS_ACT3Mothership2, SHIPS_ACT3EntireFleet2, "CLASS_MOTHERSHIP");
                     VarCreateSet ("G_ACT3TeamMothershipSHIPS", ShipsCount (SHIPS_ACT3Mothership2));                      // All these for debuggin'
                     VarCreateSet ("G_ACT3TeamEntireFleetSHIPS", ShipsCount (SHIPS_ACT3EntireFleet2));
                     VarCreateSet ("G_ACT3TeamFighterSHIPS", ShipsCount (SHIPS_ACT3Fighter2));
@@ -3200,11 +3200,11 @@ FSM ACT3Corvettes1
                     VarCreateSet ("G_ACT3TeamNonCombatSHIPS", ShipsCount (SHIPS_ACT3NonCombat2));
 
                     FindEnemiesInside (VOLUME_EntireWorldVolume, SHIPS_ACT3WORLDEntireWorld2, 2000);                // Find everyone inside the whole world
-                    ShipsSelectClass (SHIPS_ACT3WORLDFighter2, SHIPS_ACT3WORLDEntireWorld2, "CLASS_Fighter");       // Then filter their asses
-                    ShipsSelectClass (SHIPS_ACT3WORLDCorvette2, SHIPS_ACT3WORLDEntireWorld2, "CLASS_Corvette");
-                    ShipsSelectClass (SHIPS_ACT3WORLDResource2, SHIPS_ACT3WORLDEntireWorld2, "CLASS_Resource");
+                    ShipsSelectClass (SHIPS_ACT3WORLDFighter2, SHIPS_ACT3WORLDEntireWorld2, "CLASS_FIGHTER");       // Then filter their asses
+                    ShipsSelectClass (SHIPS_ACT3WORLDCorvette2, SHIPS_ACT3WORLDEntireWorld2, "CLASS_CORVETTE");
+                    ShipsSelectClass (SHIPS_ACT3WORLDResource2, SHIPS_ACT3WORLDEntireWorld2, "CLASS_RESOURCE");
                     ShipsSelectType (SHIPS_ACT3WORLDResearch2, SHIPS_ACT3WORLDEntireWorld2, "ResearchShip");
-                    ShipsSelectClass (SHIPS_ACT3WORLDNonCombat2, SHIPS_ACT3WORLDEntireWorld2, "CLASS_NonCombat");
+                    ShipsSelectClass (SHIPS_ACT3WORLDNonCombat2, SHIPS_ACT3WORLDEntireWorld2, "CLASS_NON_COMBAT");
                     VarCreateSet ("G_ACT3TeamEntireFleetWORLDSHIPS", ShipsCount (SHIPS_EntireFleet));               // All these for debuggin'
                     VarCreateSet ("G_ACT3TeamFighterWORLDSHIPS", ShipsCount (SHIPS_ACT3WORLDFighter2));
                     VarCreateSet ("G_ACT3TeamCorvetteWORLDSHIPS", ShipsCount (SHIPS_ACT3WORLDCorvette2));
@@ -3265,10 +3265,10 @@ FSM ACT3Corvettes1
                             Jump DockForGood;
                     ENDIF
                     IF (UnderAttack (SHIPS_ACT3Corvettes1UnderAttack))                // If you get attacked, jump to defending yourself
-                            ShipsSelectClass (SHIPS_ACT3Corvettes1Mothership, SHIPS_ACT3Corvettes1UnderAttack, "CLASS_Mothership");
+                            ShipsSelectClass (SHIPS_ACT3Corvettes1Mothership, SHIPS_ACT3Corvettes1UnderAttack, "CLASS_MOTHERSHIP");
                             ShipsRemove (SHIPS_ACT3Corvettes1UnderAttack, SHIPS_ACT3Corvettes1Mothership);
-                            ShipsSelectClass (SHIPS_ACT3Corvettes1FighterLOOK, SHIPS_ACT3Corvettes1UnderAttack, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_ACT3Corvettes1CorvetteLOOK, SHIPS_ACT3Corvettes1UnderAttack, "CLASS_Corvette");
+                            ShipsSelectClass (SHIPS_ACT3Corvettes1FighterLOOK, SHIPS_ACT3Corvettes1UnderAttack, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_ACT3Corvettes1CorvetteLOOK, SHIPS_ACT3Corvettes1UnderAttack, "CLASS_CORVETTE");
                             IF (ShipsCount (SHIPS_ACT3Corvettes1FighterLOOK) > 3)
                                     Jump Defend;
                             ELSEIF (ShipsCount (SHIPS_ACT3Corvettes1CorvetteLOOK) > 2)
@@ -3352,10 +3352,10 @@ FSM ACT3Corvettes1
                             Jump DockForGood;
                     ENDIF
                     IF (UnderAttack (SHIPS_ACT3Corvettes1UnderAttack))                // If you get attacked, jump to defending yourself
-                            ShipsSelectClass (SHIPS_ACT3Corvettes1Mothership, SHIPS_ACT3Corvettes1UnderAttack, "CLASS_Mothership");
+                            ShipsSelectClass (SHIPS_ACT3Corvettes1Mothership, SHIPS_ACT3Corvettes1UnderAttack, "CLASS_MOTHERSHIP");
                             ShipsRemove (SHIPS_ACT3Corvettes1UnderAttack, SHIPS_ACT3Corvettes1Mothership);
-                            ShipsSelectClass (SHIPS_ACT3Corvettes1FighterLOOK, SHIPS_ACT3Corvettes1UnderAttack, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_ACT3Corvettes1CorvetteLOOK, SHIPS_ACT3Corvettes1UnderAttack, "CLASS_Corvette");
+                            ShipsSelectClass (SHIPS_ACT3Corvettes1FighterLOOK, SHIPS_ACT3Corvettes1UnderAttack, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_ACT3Corvettes1CorvetteLOOK, SHIPS_ACT3Corvettes1UnderAttack, "CLASS_CORVETTE");
                             IF (ShipsCount (SHIPS_ACT3Corvettes1FighterLOOK) > 3)
                                     Jump Defend;
                             ELSEIF (ShipsCount (SHIPS_ACT3Corvettes1CorvetteLOOK) > 2)
@@ -3421,10 +3421,10 @@ FSM ACT3Corvettes1
                             Jump DockForGood;
                     ENDIF
                     IF (UnderAttack (SHIPS_ACT3Corvettes1UnderAttack))                // If you get attacked, jump to defending yourself
-                            ShipsSelectClass (SHIPS_ACT3Corvettes1Mothership, SHIPS_ACT3Corvettes1UnderAttack, "CLASS_Mothership");
+                            ShipsSelectClass (SHIPS_ACT3Corvettes1Mothership, SHIPS_ACT3Corvettes1UnderAttack, "CLASS_MOTHERSHIP");
                             ShipsRemove (SHIPS_ACT3Corvettes1UnderAttack, SHIPS_ACT3Corvettes1Mothership);
-                            ShipsSelectClass (SHIPS_ACT3Corvettes1FighterLOOK, SHIPS_ACT3Corvettes1UnderAttack, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_ACT3Corvettes1CorvetteLOOK, SHIPS_ACT3Corvettes1UnderAttack, "CLASS_Corvette");
+                            ShipsSelectClass (SHIPS_ACT3Corvettes1FighterLOOK, SHIPS_ACT3Corvettes1UnderAttack, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_ACT3Corvettes1CorvetteLOOK, SHIPS_ACT3Corvettes1UnderAttack, "CLASS_CORVETTE");
                             IF (ShipsCount (SHIPS_ACT3Corvettes1FighterLOOK) > 3)
                                     Jump Defend;
                             ELSEIF (ShipsCount (SHIPS_ACT3Corvettes1CorvetteLOOK) > 2)
@@ -3448,7 +3448,7 @@ FSM ACT3Corvettes1
         STATE Defend //컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
             INIT
                     //TacticsAggressive ();
-                    ShipsSelectClass (SHIPS_ACT3Corvettes1Fighters, SHIPS_ACT3Corvettes1UnderAttack, "CLASS_Fighter");      // Filter out Fighters
+                    ShipsSelectClass (SHIPS_ACT3Corvettes1Fighters, SHIPS_ACT3Corvettes1UnderAttack, "CLASS_FIGHTER");      // Filter out Fighters
                     IF (ShipsCount (SHIPS_ACT3Corvettes1Fighters) > 3)          // If there are any Fighters, attack them first
                             Attack (SHIPS_ACT3Corvettes1Fighters);
                     ELSE
@@ -3490,10 +3490,10 @@ FSM ACT3Corvettes1
                             Jump DockForGood;
                     ENDIF
                     IF (UnderAttack (SHIPS_ACT3Corvettes1UnderAttack))                // If you get attacked, jump to defending yourself
-                            ShipsSelectClass (SHIPS_ACT3Corvettes1Mothership, SHIPS_ACT3Corvettes1UnderAttack, "CLASS_Mothership");
+                            ShipsSelectClass (SHIPS_ACT3Corvettes1Mothership, SHIPS_ACT3Corvettes1UnderAttack, "CLASS_MOTHERSHIP");
                             ShipsRemove (SHIPS_ACT3Corvettes1UnderAttack, SHIPS_ACT3Corvettes1Mothership);
-                            ShipsSelectClass (SHIPS_ACT3Corvettes1FighterLOOK, SHIPS_ACT3Corvettes1UnderAttack, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_ACT3Corvettes1CorvetteLOOK, SHIPS_ACT3Corvettes1UnderAttack, "CLASS_Corvette");
+                            ShipsSelectClass (SHIPS_ACT3Corvettes1FighterLOOK, SHIPS_ACT3Corvettes1UnderAttack, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_ACT3Corvettes1CorvetteLOOK, SHIPS_ACT3Corvettes1UnderAttack, "CLASS_CORVETTE");
                             IF (ShipsCount (SHIPS_ACT3Corvettes1FighterLOOK) > 3)
                                     Jump Defend;
                             ELSEIF (ShipsCount (SHIPS_ACT3Corvettes1CorvetteLOOK) > 2)
@@ -3645,10 +3645,10 @@ FSM ACT3Corvettes2
                             Jump DockForGood;
                     ENDIF
                     IF (UnderAttack (SHIPS_ACT3Corvettes2UnderAttack))                // If you get attacked, jump to defending yourself
-                            ShipsSelectClass (SHIPS_ACT3Corvettes2Mothership, SHIPS_ACT3Corvettes2UnderAttack, "CLASS_Mothership");
+                            ShipsSelectClass (SHIPS_ACT3Corvettes2Mothership, SHIPS_ACT3Corvettes2UnderAttack, "CLASS_MOTHERSHIP");
                             ShipsRemove (SHIPS_ACT3Corvettes2UnderAttack, SHIPS_ACT3Corvettes2Mothership);
-                            ShipsSelectClass (SHIPS_ACT3Corvettes2FighterLOOK, SHIPS_ACT3Corvettes2UnderAttack, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_ACT3Corvettes2CorvetteLOOK, SHIPS_ACT3Corvettes2UnderAttack, "CLASS_Corvette");
+                            ShipsSelectClass (SHIPS_ACT3Corvettes2FighterLOOK, SHIPS_ACT3Corvettes2UnderAttack, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_ACT3Corvettes2CorvetteLOOK, SHIPS_ACT3Corvettes2UnderAttack, "CLASS_CORVETTE");
                             IF (ShipsCount (SHIPS_ACT3Corvettes2FighterLOOK) > 3)
                                     Jump Defend;
                             ELSEIF (ShipsCount (SHIPS_ACT3Corvettes2CorvetteLOOK) > 2)
@@ -3673,10 +3673,10 @@ FSM ACT3Corvettes2
                             Jump DockForGood;
                     ENDIF
                     IF (UnderAttack (SHIPS_ACT3Corvettes2UnderAttack))                // If you get attacked, jump to defending yourself
-                            ShipsSelectClass (SHIPS_ACT3Corvettes2Mothership, SHIPS_ACT3Corvettes2UnderAttack, "CLASS_Mothership");
+                            ShipsSelectClass (SHIPS_ACT3Corvettes2Mothership, SHIPS_ACT3Corvettes2UnderAttack, "CLASS_MOTHERSHIP");
                             ShipsRemove (SHIPS_ACT3Corvettes2UnderAttack, SHIPS_ACT3Corvettes2Mothership);
-                            ShipsSelectClass (SHIPS_ACT3Corvettes2FighterLOOK, SHIPS_ACT3Corvettes2UnderAttack, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_ACT3Corvettes2CorvetteLOOK, SHIPS_ACT3Corvettes2UnderAttack, "CLASS_Corvette");
+                            ShipsSelectClass (SHIPS_ACT3Corvettes2FighterLOOK, SHIPS_ACT3Corvettes2UnderAttack, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_ACT3Corvettes2CorvetteLOOK, SHIPS_ACT3Corvettes2UnderAttack, "CLASS_CORVETTE");
                             IF (ShipsCount (SHIPS_ACT3Corvettes2FighterLOOK) > 3)
                                     Jump Defend;
                             ELSEIF (ShipsCount (SHIPS_ACT3Corvettes2CorvetteLOOK) > 2)
@@ -3686,12 +3686,12 @@ FSM ACT3Corvettes2
 
 
                     FindEnemiesInside (VOLUME_MothershipSphere, SHIPS_ACT3EntireFleet3, 300);                       // Find everyone in the MothershipSphere
-                    ShipsSelectClass (SHIPS_ACT3Fighter3, SHIPS_ACT3EntireFleet3, "CLASS_Fighter");                 // Then filter their asses
-                    ShipsSelectClass (SHIPS_ACT3Corvette3, SHIPS_ACT3EntireFleet3, "CLASS_Corvette");
-                    ShipsSelectClass (SHIPS_ACT3Resource3, SHIPS_ACT3EntireFleet3, "CLASS_Resource");
+                    ShipsSelectClass (SHIPS_ACT3Fighter3, SHIPS_ACT3EntireFleet3, "CLASS_FIGHTER");                 // Then filter their asses
+                    ShipsSelectClass (SHIPS_ACT3Corvette3, SHIPS_ACT3EntireFleet3, "CLASS_CORVETTE");
+                    ShipsSelectClass (SHIPS_ACT3Resource3, SHIPS_ACT3EntireFleet3, "CLASS_RESOURCE");
                     ShipsSelectType (SHIPS_ACT3Research3, SHIPS_ACT3EntireFleet3, "ResearchShip");
-                    ShipsSelectClass (SHIPS_ACT3NonCombat3, SHIPS_ACT3EntireFleet3, "CLASS_NonCombat");
-                    ShipsSelectClass (SHIPS_ACT3Mothership3, SHIPS_ACT3EntireFleet3, "CLASS_Mothership");
+                    ShipsSelectClass (SHIPS_ACT3NonCombat3, SHIPS_ACT3EntireFleet3, "CLASS_NON_COMBAT");
+                    ShipsSelectClass (SHIPS_ACT3Mothership3, SHIPS_ACT3EntireFleet3, "CLASS_MOTHERSHIP");
                     VarCreateSet ("G_ACT3TeamMothershipSHIPS", ShipsCount (SHIPS_ACT3Mothership3));                      // All these for debuggin'
                     VarCreateSet ("G_ACT3TeamEntireFleetSHIPS", ShipsCount (SHIPS_ACT3EntireFleet3));
                     VarCreateSet ("G_ACT3TeamFighterSHIPS", ShipsCount (SHIPS_ACT3Fighter3));
@@ -3701,11 +3701,11 @@ FSM ACT3Corvettes2
                     VarCreateSet ("G_ACT3TeamNonCombatSHIPS", ShipsCount (SHIPS_ACT3NonCombat3));
 
                     FindEnemiesInside (VOLUME_EntireWorldVolume, SHIPS_ACT3WORLDEntireWorld3, 3000);                // Find everyone inside the whole world
-                    ShipsSelectClass (SHIPS_ACT3WORLDFighter3, SHIPS_ACT3WORLDEntireWorld3, "CLASS_Fighter");       // Then filter their asses
-                    ShipsSelectClass (SHIPS_ACT3WORLDCorvette3, SHIPS_ACT3WORLDEntireWorld3, "CLASS_Corvette");
-                    ShipsSelectClass (SHIPS_ACT3WORLDResource3, SHIPS_ACT3WORLDEntireWorld3, "CLASS_Resource");
+                    ShipsSelectClass (SHIPS_ACT3WORLDFighter3, SHIPS_ACT3WORLDEntireWorld3, "CLASS_FIGHTER");       // Then filter their asses
+                    ShipsSelectClass (SHIPS_ACT3WORLDCorvette3, SHIPS_ACT3WORLDEntireWorld3, "CLASS_CORVETTE");
+                    ShipsSelectClass (SHIPS_ACT3WORLDResource3, SHIPS_ACT3WORLDEntireWorld3, "CLASS_RESOURCE");
                     ShipsSelectType (SHIPS_ACT3WORLDResearch3, SHIPS_ACT3WORLDEntireWorld3, "ResearchShip");
-                    ShipsSelectClass (SHIPS_ACT3WORLDNonCombat3, SHIPS_ACT3WORLDEntireWorld3, "CLASS_NonCombat");
+                    ShipsSelectClass (SHIPS_ACT3WORLDNonCombat3, SHIPS_ACT3WORLDEntireWorld3, "CLASS_NON_COMBAT");
                     VarCreateSet ("G_ACT3TeamEntireFleetWORLDSHIPS", ShipsCount (SHIPS_EntireFleet));               // All these for debuggin'
                     VarCreateSet ("G_ACT3TeamFighterWORLDSHIPS", ShipsCount (SHIPS_ACT3WORLDFighter3));
                     VarCreateSet ("G_ACT3TeamCorvetteWORLDSHIPS", ShipsCount (SHIPS_ACT3WORLDCorvette3));
@@ -3763,10 +3763,10 @@ FSM ACT3Corvettes2
                             Jump DockForGood;
                     ENDIF
                     IF (UnderAttack (SHIPS_ACT3Corvettes2UnderAttack))                // If you get attacked, jump to defending yourself
-                            ShipsSelectClass (SHIPS_ACT3Corvettes2Mothership, SHIPS_ACT3Corvettes2UnderAttack, "CLASS_Mothership");
+                            ShipsSelectClass (SHIPS_ACT3Corvettes2Mothership, SHIPS_ACT3Corvettes2UnderAttack, "CLASS_MOTHERSHIP");
                             ShipsRemove (SHIPS_ACT3Corvettes2UnderAttack, SHIPS_ACT3Corvettes2Mothership);
-                            ShipsSelectClass (SHIPS_ACT3Corvettes2FighterLOOK, SHIPS_ACT3Corvettes2UnderAttack, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_ACT3Corvettes2CorvetteLOOK, SHIPS_ACT3Corvettes2UnderAttack, "CLASS_Corvette");
+                            ShipsSelectClass (SHIPS_ACT3Corvettes2FighterLOOK, SHIPS_ACT3Corvettes2UnderAttack, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_ACT3Corvettes2CorvetteLOOK, SHIPS_ACT3Corvettes2UnderAttack, "CLASS_CORVETTE");
                             IF (ShipsCount (SHIPS_ACT3Corvettes2FighterLOOK) > 3)
                                     Jump Defend;
                             ELSEIF (ShipsCount (SHIPS_ACT3Corvettes2CorvetteLOOK) > 2)
@@ -3847,10 +3847,10 @@ FSM ACT3Corvettes2
                             Jump DockForGood;
                     ENDIF
                     IF (UnderAttack (SHIPS_ACT3Corvettes2UnderAttack))                // If you get attacked, jump to defending yourself
-                            ShipsSelectClass (SHIPS_ACT3Corvettes2Mothership, SHIPS_ACT3Corvettes2UnderAttack, "CLASS_Mothership");
+                            ShipsSelectClass (SHIPS_ACT3Corvettes2Mothership, SHIPS_ACT3Corvettes2UnderAttack, "CLASS_MOTHERSHIP");
                             ShipsRemove (SHIPS_ACT3Corvettes2UnderAttack, SHIPS_ACT3Corvettes2Mothership);
-                            ShipsSelectClass (SHIPS_ACT3Corvettes2FighterLOOK, SHIPS_ACT3Corvettes2UnderAttack, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_ACT3Corvettes2CorvetteLOOK, SHIPS_ACT3Corvettes2UnderAttack, "CLASS_Corvette");
+                            ShipsSelectClass (SHIPS_ACT3Corvettes2FighterLOOK, SHIPS_ACT3Corvettes2UnderAttack, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_ACT3Corvettes2CorvetteLOOK, SHIPS_ACT3Corvettes2UnderAttack, "CLASS_CORVETTE");
                             IF (ShipsCount (SHIPS_ACT3Corvettes2FighterLOOK) > 3)
                                     Jump Defend;
                             ELSEIF (ShipsCount (SHIPS_ACT3Corvettes2CorvetteLOOK) > 2)
@@ -3913,10 +3913,10 @@ FSM ACT3Corvettes2
                             Jump DockForGood;
                     ENDIF
                     IF (UnderAttack (SHIPS_ACT3Corvettes2UnderAttack))                // If you get attacked, jump to defending yourself
-                            ShipsSelectClass (SHIPS_ACT3Corvettes2Mothership, SHIPS_ACT3Corvettes2UnderAttack, "CLASS_Mothership");
+                            ShipsSelectClass (SHIPS_ACT3Corvettes2Mothership, SHIPS_ACT3Corvettes2UnderAttack, "CLASS_MOTHERSHIP");
                             ShipsRemove (SHIPS_ACT3Corvettes2UnderAttack, SHIPS_ACT3Corvettes2Mothership);
-                            ShipsSelectClass (SHIPS_ACT3Corvettes2FighterLOOK, SHIPS_ACT3Corvettes2UnderAttack, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_ACT3Corvettes2CorvetteLOOK, SHIPS_ACT3Corvettes2UnderAttack, "CLASS_Corvette");
+                            ShipsSelectClass (SHIPS_ACT3Corvettes2FighterLOOK, SHIPS_ACT3Corvettes2UnderAttack, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_ACT3Corvettes2CorvetteLOOK, SHIPS_ACT3Corvettes2UnderAttack, "CLASS_CORVETTE");
                             IF (ShipsCount (SHIPS_ACT3Corvettes2FighterLOOK) > 3)
                                     Jump Defend;
                             ELSEIF (ShipsCount (SHIPS_ACT3Corvettes2CorvetteLOOK) > 2)
@@ -3940,7 +3940,7 @@ FSM ACT3Corvettes2
         STATE Defend //컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
             INIT
                     //TacticsAggressive ();
-                    ShipsSelectClass (SHIPS_ACT3Corvettes2Fighters, SHIPS_ACT3Corvettes2UnderAttack, "CLASS_Fighter");      // Filter out Fighters
+                    ShipsSelectClass (SHIPS_ACT3Corvettes2Fighters, SHIPS_ACT3Corvettes2UnderAttack, "CLASS_FIGHTER");      // Filter out Fighters
                     IF (ShipsCount (SHIPS_ACT3Corvettes2Fighters) > 3)          // If there are any Fighters, attack them first
                             Attack (SHIPS_ACT3Corvettes2Fighters);
                     ELSE
@@ -3979,10 +3979,10 @@ FSM ACT3Corvettes2
                             Jump DockForGood;
                     ENDIF
                     IF (UnderAttack (SHIPS_ACT3Corvettes2UnderAttack))                // If you get attacked, jump to defending yourself
-                            ShipsSelectClass (SHIPS_ACT3Corvettes2Mothership, SHIPS_ACT3Corvettes2UnderAttack, "CLASS_Mothership");
+                            ShipsSelectClass (SHIPS_ACT3Corvettes2Mothership, SHIPS_ACT3Corvettes2UnderAttack, "CLASS_MOTHERSHIP");
                             ShipsRemove (SHIPS_ACT3Corvettes2UnderAttack, SHIPS_ACT3Corvettes2Mothership);
-                            ShipsSelectClass (SHIPS_ACT3Corvettes2FighterLOOK, SHIPS_ACT3Corvettes2UnderAttack, "CLASS_Fighter");
-                            ShipsSelectClass (SHIPS_ACT3Corvettes2CorvetteLOOK, SHIPS_ACT3Corvettes2UnderAttack, "CLASS_Corvette");
+                            ShipsSelectClass (SHIPS_ACT3Corvettes2FighterLOOK, SHIPS_ACT3Corvettes2UnderAttack, "CLASS_FIGHTER");
+                            ShipsSelectClass (SHIPS_ACT3Corvettes2CorvetteLOOK, SHIPS_ACT3Corvettes2UnderAttack, "CLASS_CORVETTE");
                             IF (ShipsCount (SHIPS_ACT3Corvettes2FighterLOOK) > 3)
                                     Jump Defend;
                             ELSEIF (ShipsCount (SHIPS_ACT3Corvettes2CorvetteLOOK) > 2)
@@ -4198,8 +4198,8 @@ States Hide, Amble, Retreat, GetIntoPosition, InPosition, DefendYourself, BackIn
 
         STATE DefendYourself //컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
             INIT
-                    IF (ShipsSelectClass (SHIPS_P1MothershipTargets, SHIPS_AttackingP1Mothership, "CLASS_Corvette"))
-                    ELSEIF (ShipsSelectType (SHIPS_P1MothershipTargets, SHIPS_AttackingP1Mothership, "CLASS_Fighter"))
+                    IF (ShipsSelectClass (SHIPS_P1MothershipTargets, SHIPS_AttackingP1Mothership, "CLASS_CORVETTE"))
+                    ELSEIF (ShipsSelectType (SHIPS_P1MothershipTargets, SHIPS_AttackingP1Mothership, "CLASS_FIGHTER"))
                     ELSE
                             ShipsAdd (SHIPS_P1MothershipTargets, SHIPS_AttackingP1Mothership);
                     ENDIF
@@ -4453,7 +4453,7 @@ WATCH
         IF (TimerExpiredDestroy("WideScreenInBeforeNIS"))
                 ShipsSelectEnemy(SHIPS_NisTriggerShips, SHIPS_nisVolumeFOUND);    //copy the list to the "official" selection
                 FindEnemiesInside (VOLUME_MothershipSphere, SHIPS_EntireFleet, 3000);
-                ShipsSelectClass (SHIPS_PlayerMothership, SHIPS_EntireFleet, "CLASS_Mothership");
+                ShipsSelectClass (SHIPS_PlayerMothership, SHIPS_EntireFleet, "CLASS_MOTHERSHIP");
                 VarCreateSet ("G_PlayNis",2);
                 PingRemove ("ServiceVesselPING");
                 //VarCreateSet ("G_NisCentreDerelict", 20);                   // Note: this number **MUST** be kept up to date with the list in objtypes.h
@@ -4765,7 +4765,7 @@ WATCH
         // Event #131249 - STATUS_AnyShip-CombatWithMissileCorvettes  ("Watch the missiles!  They're too fast to outrun.")
         //IF (VarGet ("BLAHAONCE") = FALSE)
         //    IF (ShipsCount (SHIPS_Temp) > 0)
-        //            ShipsSelectClass (SHIPS_Fighters, SHIPS_Temp, "CLASS_Fighter");
+        //            ShipsSelectClass (SHIPS_Fighters, SHIPS_Temp, "CLASS_FIGHTER");
         //            IF (VarGet ("InitialFighters") = 0)
         //                    VarCreateSet ("InitialFighters", ShipsCount (SHIPS_Fighters));
         //                    VarCreateSet ("RandomKilled", (Random (2,5)));

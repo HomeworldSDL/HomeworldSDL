@@ -1930,8 +1930,8 @@ extern GodWritePacketHeader *godUniverseSnapShotHeader;
 #define sizeofDockInfo(n) (sizeof(DockInfo) + (n-1)*sizeof(DockPoint))
 #define sizeofNavLightInfo(n) (sizeof(NAVLightInfo) + (n-1)*sizeof(NAVLight))
 
-//#define isCapitalShip(ship) (((ShipStaticInfo *)((ship)##->staticinfo))->shipclass <= CLASS_Frigate)
-//#define isCapitalShipStatic(shipstatic) (shipstatic##->shipclass <= CLASS_Frigate)
+//#define isCapitalShip(ship) (((ShipStaticInfo *)((ship)##->staticinfo))->shipclass <= CLASS_FRIGATE)
+//#define isCapitalShipStatic(shipstatic) (shipstatic##->shipclass <= CLASS_FRIGATE)
 #define isCapitalShip(ship) (((ShipStaticInfo *)((ship)->staticinfo))->shipIsCapital)
 #define isCapitalShipStatic(shipstatic) ((shipstatic)->shipIsCapital)
 
