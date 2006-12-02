@@ -31,7 +31,7 @@ sdword animaticJustPlayed = 0;
  * The animStartup(), animShutdown(), and animBinkPlay() have been replaced
  * with dummy versions (after the block ignored by #if 0) so the game code can
  * stay the same. */
-// LMOP: 20040508
+
 // Whilst the Linux folks want to zap most of this file for the moment and replace
 // the original code with dummy functions (see above), the MacOSX folks don't.
 // Please replace with a suitable #if you want to turn it back on. Thanks.
