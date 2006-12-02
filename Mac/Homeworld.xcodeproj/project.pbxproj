@@ -173,7 +173,6 @@
 		3516C8F4077C41B0001AA863 /* fqeffect.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9216064AEE7A003E3D39 /* fqeffect.h */; };
 		3516C8F5077C41B0001AA863 /* fquant.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9217064AEE7A003E3D39 /* fquant.h */; };
 		3516C8F6077C41B0001AA863 /* glcaps.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9219064AEE7A003E3D39 /* glcaps.h */; };
-		3516C8F7077C41B0001AA863 /* glcompat.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD921B064AEE7A003E3D39 /* glcompat.h */; };
 		3516C8F8077C41B0001AA863 /* gldefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD921C064AEE7A003E3D39 /* gldefines.h */; };
 		3516C8F9077C41B0001AA863 /* gldll.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD921E064AEE7A003E3D39 /* gldll.h */; };
 		3516C8FA077C41B0001AA863 /* glext.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD921F064AEE7A003E3D39 /* glext.h */; };
@@ -377,7 +376,6 @@
 		3516C9D0077C41B0001AA863 /* Volume.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D1E064992AF0088361C /* Volume.c */; };
 		3516CA23077C41B0001AA863 /* font.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9213064AEE7A003E3D39 /* font.c */; };
 		3516CA24077C41B0001AA863 /* glcaps.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9218064AEE7A003E3D39 /* glcaps.c */; };
-		3516CA25077C41B0001AA863 /* glcompat.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD921A064AEE7A003E3D39 /* glcompat.c */; };
 		3516CA26077C41B0001AA863 /* gldll.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD921D064AEE7A003E3D39 /* gldll.c */; };
 		3516CA2A077C41B0001AA863 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9227064AEE7A003E3D39 /* main.c */; };
 		3516CA2B077C41B0001AA863 /* mainrgn.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9229064AEE7A003E3D39 /* mainrgn.c */; };
@@ -962,8 +960,6 @@
 		90BD926E064AEE7B003E3D39 /* fquant.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9217064AEE7A003E3D39 /* fquant.h */; };
 		90BD926F064AEE7B003E3D39 /* glcaps.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9218064AEE7A003E3D39 /* glcaps.c */; };
 		90BD9270064AEE7B003E3D39 /* glcaps.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9219064AEE7A003E3D39 /* glcaps.h */; };
-		90BD9271064AEE7B003E3D39 /* glcompat.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD921A064AEE7A003E3D39 /* glcompat.c */; };
-		90BD9272064AEE7B003E3D39 /* glcompat.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD921B064AEE7A003E3D39 /* glcompat.h */; };
 		90BD9273064AEE7B003E3D39 /* gldefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD921C064AEE7A003E3D39 /* gldefines.h */; };
 		90BD9274064AEE7B003E3D39 /* gldll.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD921D064AEE7A003E3D39 /* gldll.c */; };
 		90BD9275064AEE7B003E3D39 /* gldll.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD921E064AEE7A003E3D39 /* gldll.h */; };
@@ -1552,8 +1548,6 @@
 		90BD9217064AEE7A003E3D39 /* fquant.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = fquant.h; path = ../src/SDL/fquant.h; sourceTree = SOURCE_ROOT; };
 		90BD9218064AEE7A003E3D39 /* glcaps.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = glcaps.c; path = ../src/SDL/glcaps.c; sourceTree = SOURCE_ROOT; };
 		90BD9219064AEE7A003E3D39 /* glcaps.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = glcaps.h; path = ../src/SDL/glcaps.h; sourceTree = SOURCE_ROOT; };
-		90BD921A064AEE7A003E3D39 /* glcompat.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = glcompat.c; path = ../src/SDL/glcompat.c; sourceTree = SOURCE_ROOT; };
-		90BD921B064AEE7A003E3D39 /* glcompat.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = glcompat.h; path = ../src/SDL/glcompat.h; sourceTree = SOURCE_ROOT; };
 		90BD921C064AEE7A003E3D39 /* gldefines.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = gldefines.h; path = ../src/SDL/gldefines.h; sourceTree = SOURCE_ROOT; };
 		90BD921D064AEE7A003E3D39 /* gldll.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = gldll.c; path = ../src/SDL/gldll.c; sourceTree = SOURCE_ROOT; };
 		90BD921E064AEE7A003E3D39 /* gldll.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = gldll.h; path = ../src/SDL/gldll.h; sourceTree = SOURCE_ROOT; };
@@ -2321,8 +2315,6 @@
 				90BD9217064AEE7A003E3D39 /* fquant.h */,
 				90BD9218064AEE7A003E3D39 /* glcaps.c */,
 				90BD9219064AEE7A003E3D39 /* glcaps.h */,
-				90BD921A064AEE7A003E3D39 /* glcompat.c */,
-				90BD921B064AEE7A003E3D39 /* glcompat.h */,
 				90BD921C064AEE7A003E3D39 /* gldefines.h */,
 				90BD921D064AEE7A003E3D39 /* gldll.c */,
 				90BD921E064AEE7A003E3D39 /* gldll.h */,
@@ -2627,7 +2619,6 @@
 				3516C8F4077C41B0001AA863 /* fqeffect.h in Headers */,
 				3516C8F5077C41B0001AA863 /* fquant.h in Headers */,
 				3516C8F6077C41B0001AA863 /* glcaps.h in Headers */,
-				3516C8F7077C41B0001AA863 /* glcompat.h in Headers */,
 				3516C8F8077C41B0001AA863 /* gldefines.h in Headers */,
 				3516C8F9077C41B0001AA863 /* gldll.h in Headers */,
 				3516C8FA077C41B0001AA863 /* glext.h in Headers */,
@@ -2890,7 +2881,6 @@
 				90BD926D064AEE7B003E3D39 /* fqeffect.h in Headers */,
 				90BD926E064AEE7B003E3D39 /* fquant.h in Headers */,
 				90BD9270064AEE7B003E3D39 /* glcaps.h in Headers */,
-				90BD9272064AEE7B003E3D39 /* glcompat.h in Headers */,
 				90BD9273064AEE7B003E3D39 /* gldefines.h in Headers */,
 				90BD9275064AEE7B003E3D39 /* gldll.h in Headers */,
 				90BD9276064AEE7B003E3D39 /* glext.h in Headers */,
@@ -3379,7 +3369,6 @@
 				3516C9D0077C41B0001AA863 /* Volume.c in Sources */,
 				3516CA23077C41B0001AA863 /* font.c in Sources */,
 				3516CA24077C41B0001AA863 /* glcaps.c in Sources */,
-				3516CA25077C41B0001AA863 /* glcompat.c in Sources */,
 				3516CA26077C41B0001AA863 /* gldll.c in Sources */,
 				3516CA2A077C41B0001AA863 /* main.c in Sources */,
 				3516CA2B077C41B0001AA863 /* mainrgn.c in Sources */,
@@ -3650,7 +3639,6 @@
 				90623E50064992AF0088361C /* Volume.c in Sources */,
 				90BD926A064AEE7B003E3D39 /* font.c in Sources */,
 				90BD926F064AEE7B003E3D39 /* glcaps.c in Sources */,
-				90BD9271064AEE7B003E3D39 /* glcompat.c in Sources */,
 				90BD9274064AEE7B003E3D39 /* gldll.c in Sources */,
 				90BD927E064AEE7B003E3D39 /* main.c in Sources */,
 				90BD9285064AEE7B003E3D39 /* mouse.c in Sources */,
