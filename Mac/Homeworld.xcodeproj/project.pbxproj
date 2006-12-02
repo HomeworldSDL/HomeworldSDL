@@ -453,7 +453,6 @@
 		358038570B18A90100D47728 /* Ships.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038550B18A90100D47728 /* Ships.h */; };
 		358038580B18A90100D47728 /* ShipDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038540B18A90100D47728 /* ShipDefs.h */; };
 		358038590B18A90100D47728 /* Ships.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038550B18A90100D47728 /* Ships.h */; };
-		358038890B18AD7800D47728 /* Tutorial1.kas in Resources */ = {isa = PBXBuildFile; fileRef = 358038740B18AD7800D47728 /* Tutorial1.kas */; };
 		358038F50B18B1DA00D47728 /* Mission01.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038BF0B18B1DA00D47728 /* Mission01.c */; };
 		358038F60B18B1DA00D47728 /* Mission01.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038C00B18B1DA00D47728 /* Mission01.func.c */; };
 		358038F70B18B1DA00D47728 /* Mission01.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038C10B18B1DA00D47728 /* Mission01.h */; };
@@ -1253,7 +1252,7 @@
 		35FE5B240B17CB2200D6E944 /* LZSS.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = LZSS.c; sourceTree = "<group>"; };
 		35FE5B250B17CB2200D6E944 /* LZSS.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = LZSS.h; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Homeworld.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Homeworld.plist; sourceTree = "<group>"; };
-		8D1107320486CEB800E47090 /* Homeworld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Homeworld.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D1107320486CEB800E47090 /* Homeworld.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Homeworld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9030AF92066D5D2C00B32218 /* avi.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = avi.c; path = ../src/SDL/avi.c; sourceTree = SOURCE_ROOT; };
 		9030AF93066D5D2C00B32218 /* rinit.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = rinit.c; path = ../src/SDL/rinit.c; sourceTree = SOURCE_ROOT; };
 		90623BEE064992AE0088361C /* AIAttackMan.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = AIAttackMan.c; path = ../src/Game/AIAttackMan.c; sourceTree = SOURCE_ROOT; };
@@ -3070,7 +3069,6 @@
 			files = (
 				35CCC930096625FD009D918D /* HomeworldPlist.strings in Resources */,
 				35B1D7F00ABD43B0002214BE /* Homeworld.icns in Resources */,
-				358038890B18AD7800D47728 /* Tutorial1.kas in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
