@@ -713,8 +713,8 @@ bool pieNeedSpecialAttackAndMoveColor()
         if(command->ordertype.order != COMMAND_ATTACK)
             return FALSE;
 
-        if(selSelected.ShipPtr[i]->staticinfo->shipclass == CLASS_FIGHTER ||
-           selSelected.ShipPtr[i]->staticinfo->shipclass == CLASS_CORVETTE ||
+        if(selSelected.ShipPtr[i]->staticinfo->shipclass == CLASS_Fighter ||
+           selSelected.ShipPtr[i]->staticinfo->shipclass == CLASS_Corvette ||
            selSelected.ShipPtr[i]->staticinfo->cantMoveAndAttack)
             j++;
     }

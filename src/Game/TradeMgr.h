@@ -1,6 +1,6 @@
 /*=============================================================================
     Name    : TradeMgr.h
-    Purpose : Definitions for the contruction manager.
+    Purpose : Definitions for the trade manager.
 
     Created 10/07/1997 by yo
     Copyright Relic Entertainment, Inc.  All rights reserved.

@@ -12,13 +12,13 @@
 
 #define IntrudersWorthWhile(ships)          \
         (ShipsSelectCapital(SHIPS_Capital, ships) ||                    \
-         (ShipsSelectClass(SHIPS_Corvettes, ships, "CLASS_CORVETTE") > Random(1,3)) ||    \
-         (ShipsSelectClass(SHIPS_Fighters, ships, "CLASS_FIGHTER") > Random(2,4)))
+         (ShipsSelectClass(SHIPS_Corvettes, ships, "CLASS_Corvette") > Random(1,3)) ||    \
+         (ShipsSelectClass(SHIPS_Fighters, ships, "CLASS_Fighter") > Random(2,4)))
 
 // true if the Ships are strikecraft
 #define ShipsAreStrikeCraft(ships)                  \
-            (ShipsSelectClass(SHIPS_Fighters, ships, "CLASS_FIGHTER") ||    \
-             ShipsSelectClass(SHIPS_Corvette, ships, "CLASS_CORVETTE"))
+            (ShipsSelectClass(SHIPS_Fighters, ships, "CLASS_Fighter") ||    \
+             ShipsSelectClass(SHIPS_Corvette, ships, "CLASS_Corvette"))
 
 // move attacks an individual ship
 #define MoveAttackIndividual(individual, targets)                   \

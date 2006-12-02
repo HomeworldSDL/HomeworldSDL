@@ -537,15 +537,15 @@ battleevent battleChatterEvent[] =
 #define BCD_Damaged             0x02
 ubyte battleClassDependencies[NUM_CLASSES] =
 {
-    /* CLASS_MOTHERSHIP   */ 0,
-    /* CLASS_HEAVY_CRUISER */ BCD_Damaged | BCD_LaunchWelcome,
-    /* CLASS_CARRIER      */ BCD_Damaged | BCD_LaunchWelcome,
-    /* CLASS_DESTROYER    */ BCD_Damaged | BCD_LaunchWelcome,
-    /* CLASS_FRIGATE      */ BCD_Damaged | BCD_LaunchWelcome,
-    /* CLASS_CORVETTE     */ 0,
-    /* CLASS_FIGHTER      */ 0,
-    /* CLASS_RESOURCE     */ BCD_Damaged,
-    /* CLASS_NON_COMBAT    */ 0
+    /* CLASS_Mothership   */ 0,
+    /* CLASS_HeavyCruiser */ BCD_Damaged | BCD_LaunchWelcome,
+    /* CLASS_Carrier      */ BCD_Damaged | BCD_LaunchWelcome,
+    /* CLASS_Destroyer    */ BCD_Damaged | BCD_LaunchWelcome,
+    /* CLASS_Frigate      */ BCD_Damaged | BCD_LaunchWelcome,
+    /* CLASS_Corvette     */ 0,
+    /* CLASS_Fighter      */ 0,
+    /* CLASS_Resource     */ BCD_Damaged,
+    /* CLASS_NonCombat    */ 0
 };
 
 /*-----------------------------------------------------------------------------
@@ -1843,12 +1843,12 @@ void battleShipDyingWithTimeToScream(Ship *ship)
 
     switch (shipclass)
     {
-        case CLASS_MOTHERSHIP:
+        case CLASS_Mothership:
             break;                                          //there's plenty enough death songs for the mothership
-        case CLASS_HEAVY_CRUISER:
-        case CLASS_CARRIER:
-        case CLASS_DESTROYER:
-        case CLASS_FRIGATE:                                 //capital ships have special death songs
+        case CLASS_HeavyCruiser:
+        case CLASS_Carrier:
+        case CLASS_Destroyer:
+        case CLASS_Frigate:                                 //capital ships have special death songs
 sameAsCapitalShips:
             if (battleCanChatterAtThisTime(BCE_CapitalShipDies, ship))
             {
@@ -1866,8 +1866,8 @@ sameAsCapitalShips:
                 }
             }
             break;
-        case CLASS_CORVETTE:
-        case CLASS_FIGHTER:                                 //strike craft have a number of yells.
+        case CLASS_Corvette:
+        case CLASS_Fighter:                                 //strike craft have a number of yells.
             if (battleCanChatterAtThisTime(BCE_WingmanLethal, ship))
             {
                 handle = battleChatterAttempt(SOUND_EVENT_DEFAULT, BCE_WingmanLethal, ship, SOUND_EVENT_DEFAULT);
@@ -1880,10 +1880,10 @@ sameAsCapitalShips:
                 }
             }
             break;
-        case CLASS_RESOURCE:                                //resourcers: same as capital ships
+        case CLASS_Resource:                                //resourcers: same as capital ships
             goto sameAsCapitalShips;
             break;
-        case CLASS_NON_COMBAT:                               //nothing for non-combat
+        case CLASS_NonCombat:                               //nothing for non-combat
             break;
     }
 }

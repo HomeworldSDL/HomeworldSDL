@@ -1094,8 +1094,8 @@ void aifAssignNewShips(void)
             growSelectRemoveShip(newships,ship);
             continue;       // check same index again because we removed a ship from selection we are scanning
         }
-        else if ((ship->staticinfo->shipclass == CLASS_RESOURCE) ||
-            (ship->staticinfo->shipclass == CLASS_NON_COMBAT) ||
+        else if ((ship->staticinfo->shipclass == CLASS_Resource) ||
+            (ship->staticinfo->shipclass == CLASS_NonCombat) ||
             (ship->shiptype == ResourceController) ||
             (ship->shiptype == AdvanceSupportFrigate) ||
             (ship->shiptype == Mothership) ||

@@ -841,10 +841,10 @@ FSM MBTeam
         // Prioritizes targets for MB attack
         STATE PriorityAttack
             INIT
-                IF (FindEnemyShipsOfClass(SHIPS_MBTargets, "CLASS_DESTROYER") ||
-                    FindEnemyShipsOfClass(SHIPS_MBTargets, "CLASS_FRIGATE")    ||
+                IF (FindEnemyShipsOfClass(SHIPS_MBTargets, "CLASS_Destroyer") ||
+                    FindEnemyShipsOfClass(SHIPS_MBTargets, "CLASS_Frigate")    ||
                     FindEnemyShipsOfType(SHIPS_MBTargets,  "Carrier") ||
-                    FindEnemyShipsOfClass(SHIPS_MBTargets, "CLASS_MOTHERSHIP"))
+                    FindEnemyShipsOfClass(SHIPS_MBTargets, "CLASS_Mothership"))
                     MoveAttack(SHIPS_MBTargets);
                 ENDIF
             ENDINIT
@@ -1355,7 +1355,7 @@ FSM Mothership
                     ShipsSelectType(SHIPS_MTargets, SHIPS_Nearby, "Carrier")       ||
                     ShipsSelectType(SHIPS_MTargets, SHIPS_Nearby, "StandardDestroyer") ||
                     ShipsSelectType(SHIPS_MTargets, SHIPS_Nearby, "MissileDestroyer")  ||
-                    ShipsSelectClass(SHIPS_MTargets, SHIPS_Nearby, "CLASS_FRIGATE"))
+                    ShipsSelectClass(SHIPS_MTargets, SHIPS_Nearby, "CLASS_Frigate"))
                     Attack(SHIPS_MTargets);
                 ELSE
                     JUMP Standoff;
@@ -1499,15 +1499,15 @@ WATCH
 #if 0 //this stuff isn't needed anymore
 //Offensive Ship Selection
       FindEnemiesInside (VOLUME_WorldVolume, SHIPS_PlayerShips,1000000);
-      ShipsSelectClass (SHIPS_PlayerFighters, SHIPS_PlayerShips, "CLASS_FIGHTER");
-      ShipsSelectClass (SHIPS_PlayerCorvettes, SHIPS_PlayerShips, "CLASS_CORVETTE");
+      ShipsSelectClass (SHIPS_PlayerFighters, SHIPS_PlayerShips, "CLASS_Fighter");
+      ShipsSelectClass (SHIPS_PlayerCorvettes, SHIPS_PlayerShips, "CLASS_Corvette");
       ShipsSelectClass (SHIPS_PlayerCapitalShips, SHIPS_PlayerShips, "CLASS_CapitalShips");
-      ShipsSelectClass (SHIPS_PlayerMothership, SHIPS_PlayerShips, "CLASS_MOTHERSHIP");
+      ShipsSelectClass (SHIPS_PlayerMothership, SHIPS_PlayerShips, "CLASS_Mothership");
 
-      ShipsSelectClass (SHIPS_PlayerFrigates, SHIPS_PlayerShips, "CLASS_FRIGATE");
-      ShipsSelectClass (SHIPS_PlayerDestroyer, SHIPS_PlayerShips, "CLASS_DESTROYER");
-      ShipsSelectClass (SHIPS_PlayerHeavyCruiser, SHIPS_PlayerShips, "CLASS_HEAVY_CRUISER");
-      ShipsSelectClass (SHIPS_PlayerCarrier, SHIPS_PlayerShips, "CLASS_CARRIER");
+      ShipsSelectClass (SHIPS_PlayerFrigates, SHIPS_PlayerShips, "CLASS_Frigate");
+      ShipsSelectClass (SHIPS_PlayerDestroyer, SHIPS_PlayerShips, "CLASS_Destroyer");
+      ShipsSelectClass (SHIPS_PlayerHeavyCruiser, SHIPS_PlayerShips, "CLASS_HeavyCruiser");
+      ShipsSelectClass (SHIPS_PlayerCarrier, SHIPS_PlayerShips, "CLASS_Carrier");
 
       ShipsAdd (SHIPS_PlayerCapitalShips, SHIPS_PlayerFrigates);
       ShipsAdd (SHIPS_PlayerCapitalShips, SHIPS_PlayerDestroyer);

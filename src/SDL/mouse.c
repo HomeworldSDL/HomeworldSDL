@@ -591,12 +591,12 @@ bool mouseLDoubleClick(void)
 //            ((ShiptypeInSelection((SelectCommand *)&mouseCursorSelect, AdvanceSupportFrigate) ||
 //              ShiptypeInSelection((SelectCommand *)&mouseCursorSelect, Carrier)) &&
 //             (mouseCursorObjPtr &&
-//              (isShipOfClass((Ship *)mouseCursorObjPtr, CLASS_FIGHTER) ||
-//               isShipOfClass((Ship *)mouseCursorObjPtr, CLASS_CORVETTE)))))
+//              (isShipOfClass((Ship *)mouseCursorObjPtr, CLASS_Fighter) ||
+//               isShipOfClass((Ship *)mouseCursorObjPtr, CLASS_Corvette)))))
 
         if (mouseCursorObjPtr &&                // if there's an object being clicked on
-            ((isShipOfClass((Ship *)mouseCursorObjPtr, CLASS_FIGHTER) ||        // Carriers only support strikecraft
-              isShipOfClass((Ship *)mouseCursorObjPtr, CLASS_CORVETTE)) &&
+            ((isShipOfClass((Ship *)mouseCursorObjPtr, CLASS_Fighter) ||        // Carriers only support strikecraft
+              isShipOfClass((Ship *)mouseCursorObjPtr, CLASS_Corvette)) &&
              ShiptypeInSelection((SelectCommand *)&mouseCursorSelect, Carrier)) ||
             (ShiptypeInSelection((SelectCommand *)&mouseCursorSelect, RepairCorvette) ||
              ShiptypeInSelection((SelectCommand *)&mouseCursorSelect, AdvanceSupportFrigate)))
@@ -1347,8 +1347,8 @@ void mouseSelectCursorSetting(void)
 
             // -- Set flags for ships that are selected but not under the cursor -- //
             //set flags for dockable ships
-            if ((ship->staticinfo->shipclass == CLASS_CORVETTE) ||
-                (ship->staticinfo->shipclass == CLASS_FIGHTER))
+            if ((ship->staticinfo->shipclass == CLASS_Corvette) ||
+                (ship->staticinfo->shipclass == CLASS_Fighter))
             {
                 if (ship->shiptype != RepairCorvette)
                 {
@@ -1359,8 +1359,8 @@ void mouseSelectCursorSetting(void)
                     bitSet(mouseInfo.flags, MCF_Dockable);
                 }
             }
-            else if ((ship->staticinfo->shipclass == CLASS_RESOURCE) ||
-                     (ship->staticinfo->shipclass == CLASS_NON_COMBAT))
+            else if ((ship->staticinfo->shipclass == CLASS_Resource) ||
+                     (ship->staticinfo->shipclass == CLASS_NonCombat))
             {
                 bitSet(mouseInfo.flags, MCF_NonCombat);
             }
@@ -1503,8 +1503,8 @@ void mouseSelectCursorSetting(void)
         //the mouse cursor
         if (mouseCursorObjPtr &&
             (bitTest(mouseInfo.flags, MCF_SpecialSCSupport) &&
-             (isShipOfClass(mouseCursorObjPtr, CLASS_FIGHTER) ||
-              isShipOfClass(mouseCursorObjPtr, CLASS_CORVETTE))))
+             (isShipOfClass(mouseCursorObjPtr, CLASS_Fighter) ||
+              isShipOfClass(mouseCursorObjPtr, CLASS_Corvette))))
         {
             mouseInfo.cursorover = support;
         }

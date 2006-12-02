@@ -1517,7 +1517,7 @@ void formGroups(SelectCommand *selection,SelectCommand *selectionDefenders,Selec
 
     for(a=0;a<selection->numShips;a++)
     {
-        if((selection->ShipPtr[a]->staticinfo->shipclass == CLASS_FIGHTER) ||
+        if((selection->ShipPtr[a]->staticinfo->shipclass == CLASS_Fighter) ||
            (selection->ShipPtr[a]->staticinfo->shiptype == TargetDrone))
         {
             //check if defender, else fighter
@@ -1537,7 +1537,7 @@ void formGroups(SelectCommand *selection,SelectCommand *selectionDefenders,Selec
                 selectionInterceptors->numShips++;
             }
         }
-        else if(selection->ShipPtr[a]->staticinfo->shipclass == CLASS_CORVETTE)
+        else if(selection->ShipPtr[a]->staticinfo->shipclass == CLASS_Corvette)
         {
             selectionCorvettes->ShipPtr[j] = selection->ShipPtr[a];
             j++;
@@ -4242,8 +4242,8 @@ bool selectionHasStrikeCraft(SelectCommand *selection)
 
     for(i=0;i<selection->numShips;i++)
     {
-        if(selection->ShipPtr[i]->staticinfo->shipclass == CLASS_FIGHTER ||
-           selection->ShipPtr[i]->staticinfo->shipclass == CLASS_CORVETTE)
+        if(selection->ShipPtr[i]->staticinfo->shipclass == CLASS_Fighter ||
+           selection->ShipPtr[i]->staticinfo->shipclass == CLASS_Corvette)
         {
             return TRUE;
         }
@@ -4257,8 +4257,8 @@ bool isSelectionExclusivlyStrikeCraft(SelectCommand *selection)
 
     for(i=0;i<selection->numShips;i++)
     {
-        if(!(selection->ShipPtr[i]->staticinfo->shipclass == CLASS_FIGHTER ||
-           selection->ShipPtr[i]->staticinfo->shipclass == CLASS_CORVETTE))
+        if(!(selection->ShipPtr[i]->staticinfo->shipclass == CLASS_Fighter ||
+           selection->ShipPtr[i]->staticinfo->shipclass == CLASS_Corvette))
         {
             return FALSE;
         }
@@ -4272,8 +4272,8 @@ bool isSelectionExclusivlyStrikeCraftorNoMoveAndAttackShips(SelectCommand *selec
 
     for(i=0;i<selection->numShips;i++)
     {
-        if(!(selection->ShipPtr[i]->staticinfo->shipclass == CLASS_FIGHTER ||
-           selection->ShipPtr[i]->staticinfo->shipclass == CLASS_CORVETTE ||
+        if(!(selection->ShipPtr[i]->staticinfo->shipclass == CLASS_Fighter ||
+           selection->ShipPtr[i]->staticinfo->shipclass == CLASS_Corvette ||
              selection->ShipPtr[i]->staticinfo->cantMoveAndAttack))
         {
             return FALSE;
@@ -4477,8 +4477,8 @@ void ChangeOrderToMove(CommandToDo *alreadycommand,vector from,vector to)
 
                 for(i=0;i<alreadycommand->selection->numShips;i++)
                 {
-                    if(alreadycommand->selection->ShipPtr[i]->staticinfo->shipclass == CLASS_FIGHTER ||
-                       alreadycommand->selection->ShipPtr[i]->staticinfo->shipclass == CLASS_CORVETTE ||
+                    if(alreadycommand->selection->ShipPtr[i]->staticinfo->shipclass == CLASS_Fighter ||
+                       alreadycommand->selection->ShipPtr[i]->staticinfo->shipclass == CLASS_Corvette ||
                        alreadycommand->selection->ShipPtr[i]->staticinfo->cantMoveAndAttack)
                     {
                         tempSelection.numShips++;
@@ -5486,11 +5486,11 @@ void pickMultipleAttackTargets(Ship *ship,AttackCommand *attack)
         matMultiplyVecByMat(&thisTargetInfo->targetInShipCoordSys,&targetInWorldCoordSys,&ship->rotinfo.coordsys);
         thisTargetInfo->pickedMe = 1.0f;
     }
-    if(ship->staticinfo->shipclass == CLASS_FIGHTER)
+    if(ship->staticinfo->shipclass == CLASS_Fighter)
     {
         bonus = tacticsInfo.BulletRangeBonus[Tactics_Fighter][ship->tacticstype];
     }
-    else if(ship->staticinfo->shipclass == CLASS_CORVETTE)
+    else if(ship->staticinfo->shipclass == CLASS_Corvette)
     {
         bonus = tacticsInfo.BulletRangeBonus[Tactics_Corvette][ship->tacticstype];
     }
@@ -5499,12 +5499,12 @@ void pickMultipleAttackTargets(Ship *ship,AttackCommand *attack)
         bonus = 1.0f;
     }
 
-    if (ship->staticinfo->shipclass == CLASS_FRIGATE)
+    if (ship->staticinfo->shipclass == CLASS_Frigate)
     {
         target = ship->attackvars.attacktarget;
         if (target->objtype == OBJ_ShipType)
         {
-           if (((Ship *)target)->staticinfo->shipclass == CLASS_CORVETTE)
+           if (((Ship *)target)->staticinfo->shipclass == CLASS_Corvette)
            {
                target1 = target;
                for (i=0;i<numShipsToAttack;i++)
@@ -6592,11 +6592,11 @@ void clSetTactics(CommandLayer *comlayer,SelectCommand *selectcom,TacticsType ta
         //adjust ships maximum bullet range (don't forget to adjust
         //individual guns ranges on the fly
         /*
-        if(ship->staticinfo->shipclass == CLASS_FIGHTER)
+        if(ship->staticinfo->shipclass == CLASS_Fighter)
         {
-            ship->bulletrage*=tacticsInfo.BulletRangeBonus[CLASS_FIGHTER][ship->tacticstype];
+            ship->bulletrage*=tacticsInfo.BulletRangeBonus[CLASS_Fighter][ship->tacticstype];
         }
-        else if (ship->staticinfo->shipclass == CLASS_CORVETTE)
+        else if (ship->staticinfo->shipclass == CLASS_Corvette)
         {
             ship->bulletrage*=tacticsInfo.BulletRangeBonus[Tactics_Corvette][ship->tacticstype];
         }
@@ -7295,12 +7295,12 @@ bool ShipHasToLaunch(Ship *InsideShip, Ship *ship)
         return FALSE;
     }
 
-    if ( (ship->staticinfo->shipclass==CLASS_FIGHTER) &&
+    if ( (ship->staticinfo->shipclass==CLASS_Fighter) &&
          (InsideShip->shipsInsideMe->FightersInsideme <=
           InsideShip->staticinfo->maxDockableFighters) )
         return (FALSE);
 
-    if ( (ship->staticinfo->shipclass==CLASS_CORVETTE) &&
+    if ( (ship->staticinfo->shipclass==CLASS_Corvette) &&
          (InsideShip->shipsInsideMe->CorvettesInsideme <=
           InsideShip->staticinfo->maxDockableCorvettes) )
         return (FALSE);
@@ -8067,7 +8067,7 @@ void putFightersInSelection(MaxSelection *dst,MaxSelection *src)
     k=0;
     for(i=0;i<src->numShips;i++)
     {
-        if(src->ShipPtr[i]->staticinfo->shipclass == CLASS_FIGHTER)
+        if(src->ShipPtr[i]->staticinfo->shipclass == CLASS_Fighter)
         {
             dst->ShipPtr[k] = src->ShipPtr[i];
             k++;
@@ -8081,7 +8081,7 @@ void putCorvettesInSelection(MaxSelection *dst,MaxSelection *src)
     k=0;
     for(i=0;i<src->numShips;i++)
     {
-        if(src->ShipPtr[i]->staticinfo->shipclass == CLASS_CORVETTE)
+        if(src->ShipPtr[i]->staticinfo->shipclass == CLASS_Corvette)
         {
             dst->ShipPtr[k] = src->ShipPtr[i];
             k++;
@@ -8095,8 +8095,8 @@ void putCapitalsInSelection(MaxSelection *dst,MaxSelection *src)
     k=0;
     for(i=0;i<src->numShips;i++)
     {
-        if(src->ShipPtr[i]->staticinfo->shipclass != CLASS_FIGHTER
-           && src->ShipPtr[i]->staticinfo->shipclass != CLASS_CORVETTE)
+        if(src->ShipPtr[i]->staticinfo->shipclass != CLASS_Fighter
+           && src->ShipPtr[i]->staticinfo->shipclass != CLASS_Corvette)
         {
             dst->ShipPtr[k] = src->ShipPtr[i];
             k++;

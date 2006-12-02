@@ -840,11 +840,11 @@ void lmShipsToLaunchDraw(char *string, featom *atom)
                  (shipsavailable[PrintOrder[index]].nShips > 0) )
             {
                 uicListAddItem(lmListWindow, (ubyte *)PrintOrder[index], UICLI_CanSelect, UICLW_AddToHead);
-                if (shipsavailable[PrintOrder[index]].ship->staticinfo->shipclass==CLASS_CORVETTE)
+                if (shipsavailable[PrintOrder[index]].ship->staticinfo->shipclass==CLASS_Corvette)
                 {
                     is_corv = TRUE;
                 }
-                else if (shipsavailable[PrintOrder[index]].ship->staticinfo->shipclass==CLASS_FIGHTER)
+                else if (shipsavailable[PrintOrder[index]].ship->staticinfo->shipclass==CLASS_Fighter)
                 {
                     is_fight = TRUE;
                 }
@@ -1540,11 +1540,11 @@ void lmUpdateShipsInside(void)
                      (shipsavailable[PrintOrder[index]].nShips > 0) )
                 {
                     uicListAddItem(lmListWindow, (ubyte *)PrintOrder[index], UICLI_CanSelect, UICLW_AddToHead);
-                    if (shipsavailable[PrintOrder[index]].ship->staticinfo->shipclass==CLASS_CORVETTE)
+                    if (shipsavailable[PrintOrder[index]].ship->staticinfo->shipclass==CLASS_Corvette)
                     {
                         is_corv = TRUE;
                     }
-                    else if (shipsavailable[PrintOrder[index]].ship->staticinfo->shipclass==CLASS_FIGHTER)
+                    else if (shipsavailable[PrintOrder[index]].ship->staticinfo->shipclass==CLASS_Fighter)
                     {
                         is_fight = TRUE;
                     }
@@ -1782,11 +1782,11 @@ void lmReLaunch(Ship *newship)
             {
                 uicListAddItem(lmListWindow, (ubyte *)PrintOrder[index], UICLI_CanSelect, UICLW_AddToHead);
 
-                if (shipsavailable[PrintOrder[index]].ship->staticinfo->shipclass==CLASS_CORVETTE)
+                if (shipsavailable[PrintOrder[index]].ship->staticinfo->shipclass==CLASS_Corvette)
                 {
                     is_corv = TRUE;
                 }
-                else if (shipsavailable[PrintOrder[index]].ship->staticinfo->shipclass==CLASS_FIGHTER)
+                else if (shipsavailable[PrintOrder[index]].ship->staticinfo->shipclass==CLASS_Fighter)
                 {
                     is_fight = TRUE;
                 }

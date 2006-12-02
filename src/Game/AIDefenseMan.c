@@ -671,7 +671,7 @@ void aidMothershipDefense(void)
     //a random (small chance) that it'll consider the enemy anyway,
     //despite the fact that it's a single fighter scout
     if ((enemyships) &&
-        ((!((enemyships->numShips == 1) && (isShipOfClass(enemyships->ShipPtr[0], CLASS_FIGHTER)))) ||
+        ((!((enemyships->numShips == 1) && (isShipOfClass(enemyships->ShipPtr[0], CLASS_Fighter)))) ||
         (ranRandom(RANDOM_AI_PLAYER)&255 < 3)))
 
     {

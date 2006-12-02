@@ -955,8 +955,8 @@ void aimSwarmAttackShipDied(AITeam *team, struct AITeamMove *move, ShipPtr ship)
         {
             //give attack command to all swarmers
             if ((teamShips->numShips > 2*targets->numShips) &&
-                ((isShipOfClass(targets->ShipPtr[0], CLASS_CORVETTE)) ||
-                 (isShipOfClass(targets->ShipPtr[0], CLASS_FIGHTER))))
+                ((isShipOfClass(targets->ShipPtr[0], CLASS_Corvette)) ||
+                 (isShipOfClass(targets->ShipPtr[0], CLASS_Fighter))))
             {
                 //split them if possible
                 aiuSplitAttack(teamShips, targets);
@@ -2739,8 +2739,8 @@ sdword aimProcessSwarmAttack(AITeam *team)
 //            thisMove->params.swarmatt.targettype = targets->ShipPtr[0]->shiptype;
 
             //give attack command to all swarmers
-            if ((isShipOfClass(targets->ShipPtr[0], CLASS_CORVETTE)) ||
-                (isShipOfClass(targets->ShipPtr[0], CLASS_FIGHTER)))
+            if ((isShipOfClass(targets->ShipPtr[0], CLASS_Corvette)) ||
+                (isShipOfClass(targets->ShipPtr[0], CLASS_Fighter)))
             {
                 aiuSplitAttack(teamShips, targets);
             }

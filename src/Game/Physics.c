@@ -380,11 +380,11 @@ void physUpdateObjPosVel(SpaceObj *obj,real32 phystimeelapsed)
                     if ((singlePlayerGame) || (bitTest(tpGameCreated.flag,MG_FuelBurnEnabled)))
                     {
 #if 0   // not being used, take out as optimization
-                        if(((Ship *)obj)->staticinfo->shipclass == CLASS_FIGHTER)
+                        if(((Ship *)obj)->staticinfo->shipclass == CLASS_Fighter)
                         {
                             burnmult = tacticsInfo.FuelBurnBonus[((Ship *)obj)->tactics_ordertype][Tactics_Fighter][((Ship *)obj)->tacticstype];
                         }
-                        else if(((Ship *)obj)->staticinfo->shipclass == CLASS_CORVETTE)
+                        else if(((Ship *)obj)->staticinfo->shipclass == CLASS_Corvette)
                         {
                             burnmult = tacticsInfo.FuelBurnBonus[((Ship *)obj)->tactics_ordertype][Tactics_Corvette][((Ship *)obj)->tacticstype];
                         }
@@ -707,11 +707,11 @@ void physUpdateObjPosVelShip(Ship *obj,real32 phystimeelapsed)
                     if ((singlePlayerGame) || (bitTest(tpGameCreated.flag,MG_FuelBurnEnabled)))
                     {
 #if 0   // not being used, take out as optimization
-                        if(((Ship *)obj)->staticinfo->shipclass == CLASS_FIGHTER)
+                        if(((Ship *)obj)->staticinfo->shipclass == CLASS_Fighter)
                         {
                             burnmult = tacticsInfo.FuelBurnBonus[((Ship *)obj)->tactics_ordertype][Tactics_Fighter][((Ship *)obj)->tacticstype];
                         }
-                        else if(((Ship *)obj)->staticinfo->shipclass == CLASS_CORVETTE)
+                        else if(((Ship *)obj)->staticinfo->shipclass == CLASS_Corvette)
                         {
                             burnmult = tacticsInfo.FuelBurnBonus[((Ship *)obj)->tactics_ordertype][Tactics_Corvette][((Ship *)obj)->tacticstype];
                         }

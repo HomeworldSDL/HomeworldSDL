@@ -1036,7 +1036,7 @@ void scriptSetGunStatics(char *directory,char *filename,struct ShipStaticInfo *s
                     if (name[0] == '}')
                     {
                         state = SETGUNSTATE_LOOKINGFORGUN;
-                        if(shipstatinfo->shipclass == CLASS_FIGHTER)
+                        if(shipstatinfo->shipclass == CLASS_Fighter)
                         {
                             gunstaticinfo->gunstatics[processingGun].gunDamageLo[Evasive]=   gunstaticinfo->gunstatics[processingGun].baseGunDamageLo * tacticsInfo.DamageBonus[Tactics_Fighter][Evasive];
                             gunstaticinfo->gunstatics[processingGun].gunDamageLo[Neutral]=   gunstaticinfo->gunstatics[processingGun].baseGunDamageLo * tacticsInfo.DamageBonus[Tactics_Fighter][Neutral];
@@ -1046,7 +1046,7 @@ void scriptSetGunStatics(char *directory,char *filename,struct ShipStaticInfo *s
                             gunstaticinfo->gunstatics[processingGun].gunDamageHi[Neutral]=   gunstaticinfo->gunstatics[processingGun].baseGunDamageHi * tacticsInfo.DamageBonus[Tactics_Fighter][Neutral];
                             gunstaticinfo->gunstatics[processingGun].gunDamageHi[Aggressive]=gunstaticinfo->gunstatics[processingGun].baseGunDamageHi * tacticsInfo.DamageBonus[Tactics_Fighter][Aggressive];
                         }
-                        else if(shipstatinfo->shipclass == CLASS_CORVETTE)
+                        else if(shipstatinfo->shipclass == CLASS_Corvette)
                         {
                             gunstaticinfo->gunstatics[processingGun].gunDamageLo[Evasive]=   gunstaticinfo->gunstatics[processingGun].baseGunDamageLo * tacticsInfo.DamageBonus[Tactics_Corvette][Evasive];
                             gunstaticinfo->gunstatics[processingGun].gunDamageLo[Neutral]=   gunstaticinfo->gunstatics[processingGun].baseGunDamageLo * tacticsInfo.DamageBonus[Tactics_Corvette][Neutral];
@@ -1094,15 +1094,15 @@ void scriptSetGunStatics(char *directory,char *filename,struct ShipStaticInfo *s
     {
         for(k=0;k<NUM_TACTICS_TYPES;k++)
         {
-            if(shipstatinfo->shipclass != CLASS_FIGHTER &&
-               shipstatinfo->shipclass != CLASS_CORVETTE)
+            if(shipstatinfo->shipclass != CLASS_Fighter &&
+               shipstatinfo->shipclass != CLASS_Corvette)
             {
                 bonus = 1.0f;
                 spdbonus = 1.0f;
             }
             else
             {
-                if(shipstatinfo->shipclass == CLASS_FIGHTER)
+                if(shipstatinfo->shipclass == CLASS_Fighter)
                 {
                     bonus = tacticsInfo.BulletRangeBonus[Tactics_Fighter][k];
                     spdbonus = tacticsInfo.BulletSpeedBonus[Tactics_Fighter][k];

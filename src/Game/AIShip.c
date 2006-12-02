@@ -293,28 +293,28 @@ void aishipPrecalcInfo(ShipStaticInfo *shipstatinfo)
 
     switch (shipstatinfo->shipclass)
     {
-        case CLASS_FIGHTER:
+        case CLASS_Fighter:
             shipstatinfo->sinbank = FIGHTER_BANK;
             break;
 
-        case CLASS_CORVETTE:
+        case CLASS_Corvette:
             shipstatinfo->sinbank = CORVETTE_BANK;
             break;
 
-        case CLASS_FRIGATE:
+        case CLASS_Frigate:
             shipstatinfo->sinbank = FRIGATE_BANK;
             shipstatinfo->pitchturn = FRIGATE_TURNPITCH;
             shipstatinfo->pitchdescend = FRIGATE_DESCENDPITCH;
             break;
 
-        case CLASS_DESTROYER:
+        case CLASS_Destroyer:
             shipstatinfo->sinbank = DESTROYER_BANK;
             shipstatinfo->pitchturn = DESTROYER_TURNPITCH;
             shipstatinfo->pitchdescend = DESTROYER_DESCENDPITCH;
             break;
 
-        case CLASS_CARRIER:
-        case CLASS_HEAVY_CRUISER:
+        case CLASS_Carrier:
+        case CLASS_HeavyCruiser:
             shipstatinfo->sinbank = MASSIVESHIP_BANK;
             shipstatinfo->pitchturn = MASSIVESHIP_TURNPITCH;
             shipstatinfo->pitchdescend = MASSIVESHIP_DESCENDPITCH;

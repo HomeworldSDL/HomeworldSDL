@@ -1535,39 +1535,39 @@ bool rndFade(SpaceObj* spaceobj, Camera* camera)
     {
         switch (((ShipStaticInfo*)spaceobj->staticinfo)->shipclass)
         {
-        case CLASS_MOTHERSHIP:
+        case CLASS_Mothership:
             fadedist = RENDER_FADE_MOTHERSHIP;
             maxdist  = RENDER_LIMIT_MOTHERSHIP;
             break;
-        case CLASS_HEAVY_CRUISER:
+        case CLASS_HeavyCruiser:
             fadedist = RENDER_FADE_HEAVYCRUISER;
             maxdist  = RENDER_LIMIT_HEAVYCRUISER;
             break;
-        case CLASS_CARRIER:
+        case CLASS_Carrier:
             fadedist = RENDER_FADE_CARRIER;
             maxdist  = RENDER_LIMIT_CARRIER;
             break;
-        case CLASS_DESTROYER:
+        case CLASS_Destroyer:
             fadedist = RENDER_FADE_DESTROYER;
             maxdist  = RENDER_LIMIT_DESTROYER;
             break;
-        case CLASS_FRIGATE:
+        case CLASS_Frigate:
             fadedist = RENDER_FADE_FRIGATE;
             maxdist  = RENDER_LIMIT_FRIGATE;
             break;
-        case CLASS_CORVETTE:
+        case CLASS_Corvette:
             fadedist = RENDER_FADE_CORVETTE;
             maxdist  = RENDER_LIMIT_CORVETTE;
             break;
-        case CLASS_FIGHTER:
+        case CLASS_Fighter:
             fadedist = RENDER_FADE_FIGHTER;
             maxdist  = RENDER_LIMIT_FIGHTER;
             break;
-        case CLASS_RESOURCE:
+        case CLASS_Resource:
             fadedist = RENDER_FADE_RESOURCE;
             maxdist  = RENDER_LIMIT_RESOURCE;
             break;
-        case CLASS_NON_COMBAT:
+        case CLASS_NonCombat:
             fadedist = RENDER_FADE_NONCOMBAT;
             maxdist  = RENDER_LIMIT_NONCOMBAT;
             break;
@@ -4908,9 +4908,9 @@ real32 rndComputeOverlap(Ship* ship, real32 scalar)
             testship = (Ship*)spaceobj;
             shipStaticInfo = (ShipStaticInfo*)spaceobj->staticinfo;
 
-            if (ship->staticinfo->shipclass <= CLASS_FRIGATE)
+            if (ship->staticinfo->shipclass <= CLASS_Frigate)
             {
-                if (testship->staticinfo->shipclass > CLASS_FRIGATE)
+                if (testship->staticinfo->shipclass > CLASS_Frigate)
                 {
                     // don't calculate strikecraft overlapping capital ships
                     goto nextobj;

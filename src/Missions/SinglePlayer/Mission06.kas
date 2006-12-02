@@ -691,9 +691,9 @@ FSM Traders
         STATE TradersObliteratePlayer //컴컴컴컴컴컴컴컴컴컴컴컴�
             INIT
                     FindEnemiesInside (VOLUME_MothershipSphere, SHIPS_PlayerFleet, 1000);
-                    IF (ShipsSelectClass (SHIPS_TraderTargets, SHIPS_PlayerFleet, "CLASS_DESTROYER"))
-                    ELSEIF (ShipsSelectClass (SHIPS_TraderTargets, SHIPS_PlayerFleet, "CLASS_FRIGATE"))
-                    ELSEIF (ShipsSelectClass (SHIPS_TraderTargets, SHIPS_PlayerFleet, "CLASS_MOTHERSHIP"))
+                    IF (ShipsSelectClass (SHIPS_TraderTargets, SHIPS_PlayerFleet, "CLASS_Destroyer"))
+                    ELSEIF (ShipsSelectClass (SHIPS_TraderTargets, SHIPS_PlayerFleet, "CLASS_Frigate"))
+                    ELSEIF (ShipsSelectClass (SHIPS_TraderTargets, SHIPS_PlayerFleet, "CLASS_Mothership"))
                     ELSE
                             ShipsAdd (SHIPS_TraderTargets, SHIPS_PlayerFleet);
                     ENDIF
@@ -924,7 +924,7 @@ WATCH
         // when the timer is up, play the generic Trader arrival NISLet
         IFONCE (TimerExpiredDestroy ("WideScreenInBeforeNISLet"))
                 FindEnemiesInside (VOLUME_MothershipSphere, SHIPS_EntireFleet, 100);//find the mothership
-                ShipsSelectClass (SHIPS_PlayerMothership, SHIPS_EntireFleet, "CLASS_MOTHERSHIP");
+                ShipsSelectClass (SHIPS_PlayerMothership, SHIPS_EntireFleet, "CLASS_Mothership");
                 ShipsAdd(SHIPS_NisCentreShip, SHIPS_PlayerMothership);//centre about mothership
                 VarCreateSet ("G_PlayNislet", 60);                  // Play NISlet: Generic Trader arrival
                 VarCreateSet ("G_NowPlayingNISLet", TRUE);

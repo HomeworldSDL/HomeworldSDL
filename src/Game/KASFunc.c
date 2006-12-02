@@ -2734,13 +2734,13 @@ bool kasfShipMeetsCriteria(ShipPtr ship, sdword CriteriaFlag)
         case kasSpecial_ShipsAreArmed:
             switch (ship->staticinfo->shipclass)
             {
-                case CLASS_FIGHTER:
-                case CLASS_HEAVY_CRUISER:
-                case CLASS_CARRIER:
-                case CLASS_DESTROYER:
+                case CLASS_Fighter:
+                case CLASS_HeavyCruiser:
+                case CLASS_Carrier:
+                case CLASS_Destroyer:
                     return TRUE;
                     break;
-                case CLASS_FRIGATE:
+                case CLASS_Frigate:
                     switch (ship->shiptype)
                     {
                         case CloakGenerator:
@@ -2750,7 +2750,7 @@ bool kasfShipMeetsCriteria(ShipPtr ship, sdword CriteriaFlag)
                             return TRUE;
                     }
                     break;
-                case CLASS_CORVETTE:
+                case CLASS_Corvette:
                     switch (ship->shiptype)
                     {
                         case RepairCorvette:

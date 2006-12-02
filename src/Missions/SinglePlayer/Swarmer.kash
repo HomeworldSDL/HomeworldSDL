@@ -187,11 +187,11 @@ FSM GenericMothershipSwarm
         ShipsSelectType(SHIPS_Moship, SHIPS_Temp, "Mothership");
         ShipsRemove(SHIPS_Temp, SHIPS_Moship);
 
-        IF ((ShipsSelectClass(SHIPS_Targets, SHIPS_Temp, "CLASS_FIGHTER")) ||
-            (ShipsSelectClass(SHIPS_Targets, SHIPS_Temp, "CLASS_CORVETTE")) ||
+        IF ((ShipsSelectClass(SHIPS_Targets, SHIPS_Temp, "CLASS_Fighter")) ||
+            (ShipsSelectClass(SHIPS_Targets, SHIPS_Temp, "CLASS_Corvette")) ||
             (ShipsSelectCapital(SHIPS_Targets, SHIPS_Temp)) ||
-            (ShipsSelectClass(SHIPS_Targets, SHIPS_Temp, "CLASS_RESOURCE")) ||
-            (ShipsSelectClass(SHIPS_Targets, SHIPS_Temp, "CLASS_NON_COMBAT")))
+            (ShipsSelectClass(SHIPS_Targets, SHIPS_Temp, "CLASS_Resource")) ||
+            (ShipsSelectClass(SHIPS_Targets, SHIPS_Temp, "CLASS_NonCombat")))
 
             //remove Field Frigates
             IF (ShipsSelectType(SHIPS_Field, SHIPS_Targets, "DFGFrigate"))
@@ -200,8 +200,8 @@ FSM GenericMothershipSwarm
 
                 //if there aren't any more, fill the targets shiplist
                 IF (!ShipsCount(SHIPS_Targets))
-                    IF (ShipsSelectClass(SHIPS_Targets, SHIPS_Temp, "CLASS_RESOURCE") ||
-                        ShipsSelectClass(SHIPS_Targets, SHIPS_Temp, "CLASS_NON_COMBAT"))
+                    IF (ShipsSelectClass(SHIPS_Targets, SHIPS_Temp, "CLASS_Resource") ||
+                        ShipsSelectClass(SHIPS_Targets, SHIPS_Temp, "CLASS_NonCombat"))
                     ENDIF
                 ENDIF
             ENDIF

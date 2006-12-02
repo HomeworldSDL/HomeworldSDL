@@ -2166,28 +2166,28 @@ ENDINIT
 WATCH
     //Offensive ship selection//
     FindEnemiesInside (VOLUME_WorldSphere, SHIPS_PlayerShips,1000000);
-    ShipsSelectClass (SHIPS_PlayerFighters, SHIPS_PlayerShips, "CLASS_FIGHTER");
-    ShipsSelectClass (SHIPS_PlayerCorvettes, SHIPS_PlayerShips, "CLASS_CORVETTE");
+    ShipsSelectClass (SHIPS_PlayerFighters, SHIPS_PlayerShips, "CLASS_Fighter");
+    ShipsSelectClass (SHIPS_PlayerCorvettes, SHIPS_PlayerShips, "CLASS_Corvette");
     ShipsSelectClass (SHIPS_PlayerCapitalShips, SHIPS_PlayerShips, "CLASS_CapitalShips");
-    ShipsSelectClass (SHIPS_PlayerMothership, SHIPS_PlayerShips, "CLASS_MOTHERSHIP");
+    ShipsSelectClass (SHIPS_PlayerMothership, SHIPS_PlayerShips, "CLASS_Mothership");
     ShipsSelectType (SHIPS_PlayerResourcers, SHIPS_PlayerShips, "ResourceCollector");
-    ShipsSelectClass (SHIPS_PlayerFrigates, SHIPS_PlayerShips, "CLASS_FRIGATE");
-    ShipsSelectClass (SHIPS_PlayerDestroyer, SHIPS_PlayerShips, "CLASS_DESTROYER");
-    ShipsSelectClass (SHIPS_PlayerHeavyCruiser, SHIPS_PlayerShips, "CLASS_HEAVY_CRUISER");
-    ShipsSelectClass (SHIPS_PlayerCarrier, SHIPS_PlayerShips, "CLASS_CARRIER");
+    ShipsSelectClass (SHIPS_PlayerFrigates, SHIPS_PlayerShips, "CLASS_Frigate");
+    ShipsSelectClass (SHIPS_PlayerDestroyer, SHIPS_PlayerShips, "CLASS_Destroyer");
+    ShipsSelectClass (SHIPS_PlayerHeavyCruiser, SHIPS_PlayerShips, "CLASS_HeavyCruiser");
+    ShipsSelectClass (SHIPS_PlayerCarrier, SHIPS_PlayerShips, "CLASS_Carrier");
 
     ShipsSelectCapital(SHIPS_PlayerCapitalShips, SHIPS_PlayerShips);
 
     //Defensive ship selection//
     UnderAttackElsewhere (TEAM_P1Mothership, SHIPS_EnemyAttackers);
-    ShipsSelectClass (SHIPS_AttackingFighters, SHIPS_EnemyAttackers, "CLASS_FIGHTER");
-    ShipsSelectClass (SHIPS_AttackingCorvettes, SHIPS_EnemyAttackers, "CLASS_CORVETTE");
+    ShipsSelectClass (SHIPS_AttackingFighters, SHIPS_EnemyAttackers, "CLASS_Fighter");
+    ShipsSelectClass (SHIPS_AttackingCorvettes, SHIPS_EnemyAttackers, "CLASS_Corvette");
     ShipsSelectClass (SHIPS_AttackingCapitalShips, SHIPS_EnemyAttackers, "CLASS_CapitalShips");
 
-    ShipsSelectClass (SHIPS_AttackingFrigates, SHIPS_EnemyAttackers, "CLASS_FRIGATE");
-    ShipsSelectClass (SHIPS_AttackingDestroyer, SHIPS_EnemyAttackers, "CLASS_DESTROYER");
-    ShipsSelectClass (SHIPS_AttackingHeavyCruiser, SHIPS_EnemyAttackers, "CLASS_HEAVY_CRUISER");
-    ShipsSelectClass (SHIPS_AttackingCarrier, SHIPS_EnemyAttackers, "CLASS_CARRIER");
+    ShipsSelectClass (SHIPS_AttackingFrigates, SHIPS_EnemyAttackers, "CLASS_Frigate");
+    ShipsSelectClass (SHIPS_AttackingDestroyer, SHIPS_EnemyAttackers, "CLASS_Destroyer");
+    ShipsSelectClass (SHIPS_AttackingHeavyCruiser, SHIPS_EnemyAttackers, "CLASS_HeavyCruiser");
+    ShipsSelectClass (SHIPS_AttackingCarrier, SHIPS_EnemyAttackers, "CLASS_Carrier");
 
     ShipsAdd (SHIPS_AttackingCapitalShips, SHIPS_AttackingFrigates);
     ShipsAdd (SHIPS_AttackingCapitalShips, SHIPS_AttackingDestroyer);

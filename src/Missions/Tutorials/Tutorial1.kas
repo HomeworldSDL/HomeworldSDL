@@ -6560,8 +6560,8 @@ FSM HideUnhide
         // Ships attack anything else
         STATE WaitForMore
             INIT
-                IF (FindEnemyShipsOfClass(SHIPS_Targets, "CLASS_FRIGATE") ||
-                    FindEnemyShipsOfClass(SHIPS_Targets, "CLASS_FIGHTER"))
+                IF (FindEnemyShipsOfClass(SHIPS_Targets, "CLASS_Frigate") ||
+                    FindEnemyShipsOfClass(SHIPS_Targets, "CLASS_Fighter"))
                     Attack(SHIPS_Targets);
                 ENDIF
             ENDINIT

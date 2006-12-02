@@ -68,15 +68,15 @@ scriptStructEntry MinelayerCorvetteStaticScriptTable[] =
     { "breakInAwayDist",    scriptSetReal32CB, (udword) &(MinelayerCorvetteStatic.breakInAwayDist), (udword) &(MinelayerCorvetteStatic) },
     { "DropRange",    scriptSetReal32CB, (udword) &(MinelayerCorvetteStatic.DropRange), (udword) &(MinelayerCorvetteStatic) },
     { "DropStopRange",    scriptSetReal32CB, (udword) &(MinelayerCorvetteStatic.DropStopRange), (udword) &(MinelayerCorvetteStatic) },
-    { "FlyAwayDist[CLASS_MOTHERSHIP]",    scriptSetReal32CB, (udword) &(MinelayerCorvetteStatic.FlyAwayDist[CLASS_MOTHERSHIP]), (udword) &(MinelayerCorvetteStatic) },
-    { "FlyAwayDist[CLASS_HEAVY_CRUISER]",    scriptSetReal32CB, (udword) &(MinelayerCorvetteStatic.FlyAwayDist[CLASS_HEAVY_CRUISER]), (udword) &(MinelayerCorvetteStatic) },
-    { "FlyAwayDist[CLASS_CARRIER]",    scriptSetReal32CB, (udword) &(MinelayerCorvetteStatic.FlyAwayDist[CLASS_CARRIER]), (udword) &(MinelayerCorvetteStatic) },
-    { "FlyAwayDist[CLASS_DESTROYER]",    scriptSetReal32CB, (udword) &(MinelayerCorvetteStatic.FlyAwayDist[CLASS_DESTROYER]), (udword) &(MinelayerCorvetteStatic) },
-    { "FlyAwayDist[CLASS_FRIGATE]",    scriptSetReal32CB, (udword) &(MinelayerCorvetteStatic.FlyAwayDist[CLASS_FRIGATE]), (udword) &(MinelayerCorvetteStatic) },
-    { "FlyAwayDist[CLASS_CORVETTE]",    scriptSetReal32CB, (udword) &(MinelayerCorvetteStatic.FlyAwayDist[CLASS_CORVETTE]), (udword) &(MinelayerCorvetteStatic) },
-    { "FlyAwayDist[CLASS_FIGHTER]",    scriptSetReal32CB, (udword) &(MinelayerCorvetteStatic.FlyAwayDist[CLASS_FIGHTER]), (udword) &(MinelayerCorvetteStatic) },
-    { "FlyAwayDist[CLASS_RESOURCE]",    scriptSetReal32CB, (udword) &(MinelayerCorvetteStatic.FlyAwayDist[CLASS_RESOURCE]), (udword) &(MinelayerCorvetteStatic) },
-    { "FlyAwayDist[CLASS_NON_COMBAT]",    scriptSetReal32CB, (udword) &(MinelayerCorvetteStatic.FlyAwayDist[CLASS_NON_COMBAT]), (udword) &(MinelayerCorvetteStatic) },
+    { "FlyAwayDist[CLASS_Mothership]",    scriptSetReal32CB, (udword) &(MinelayerCorvetteStatic.FlyAwayDist[CLASS_Mothership]), (udword) &(MinelayerCorvetteStatic) },
+    { "FlyAwayDist[CLASS_HeavyCruiser]",    scriptSetReal32CB, (udword) &(MinelayerCorvetteStatic.FlyAwayDist[CLASS_HeavyCruiser]), (udword) &(MinelayerCorvetteStatic) },
+    { "FlyAwayDist[CLASS_Carrier]",    scriptSetReal32CB, (udword) &(MinelayerCorvetteStatic.FlyAwayDist[CLASS_Carrier]), (udword) &(MinelayerCorvetteStatic) },
+    { "FlyAwayDist[CLASS_Destroyer]",    scriptSetReal32CB, (udword) &(MinelayerCorvetteStatic.FlyAwayDist[CLASS_Destroyer]), (udword) &(MinelayerCorvetteStatic) },
+    { "FlyAwayDist[CLASS_Frigate]",    scriptSetReal32CB, (udword) &(MinelayerCorvetteStatic.FlyAwayDist[CLASS_Frigate]), (udword) &(MinelayerCorvetteStatic) },
+    { "FlyAwayDist[CLASS_Corvette]",    scriptSetReal32CB, (udword) &(MinelayerCorvetteStatic.FlyAwayDist[CLASS_Corvette]), (udword) &(MinelayerCorvetteStatic) },
+    { "FlyAwayDist[CLASS_Fighter]",    scriptSetReal32CB, (udword) &(MinelayerCorvetteStatic.FlyAwayDist[CLASS_Fighter]), (udword) &(MinelayerCorvetteStatic) },
+    { "FlyAwayDist[CLASS_Resource]",    scriptSetReal32CB, (udword) &(MinelayerCorvetteStatic.FlyAwayDist[CLASS_Resource]), (udword) &(MinelayerCorvetteStatic) },
+    { "FlyAwayDist[CLASS_NonCombat]",    scriptSetReal32CB, (udword) &(MinelayerCorvetteStatic.FlyAwayDist[CLASS_NonCombat]), (udword) &(MinelayerCorvetteStatic) },
     { "FlyAwayTolerance",    scriptSetReal32CB, (udword) &(MinelayerCorvetteStatic.FlyAwayTolerance), (udword) &(MinelayerCorvetteStatic) },
     { "Break2SphereizeFreq",    scriptSetReal32CB, (udword) &(MinelayerCorvetteStatic.Break2SphereizeFreq), (udword) &(MinelayerCorvetteStatic) },
     { "MineClearDistance",    scriptSetReal32CB, (udword) &(MinelayerCorvetteStatic.MineClearDistance), (udword) &(MinelayerCorvetteStatic) },
@@ -208,7 +208,7 @@ void SetAIVecHeading(Ship *ship, SpaceObjRotImpTarg *target, vector *trajectory)
         if(target->objtype == OBJ_ShipType)
             target_class = ((Ship *)target)->staticinfo->shipclass;
         else
-            target_class = CLASS_NON_COMBAT;
+            target_class = CLASS_NonCombat;
     }
 
     if (vecDotProduct(targetheading,*trajectory) > 0)
@@ -278,7 +278,7 @@ void MineLayerAttackRun(Ship *ship,SpaceObjRotImpTarg *target,AttackSideStep *at
         if(target->objtype == OBJ_ShipType)
             target_class = ((Ship *)target)->staticinfo->shipclass;
         else
-            target_class = CLASS_NON_COMBAT;
+            target_class = CLASS_NonCombat;
     }
 
     switch (ship->aistateattack)

@@ -93,25 +93,25 @@ scriptEntry TacticsInfotable[] =
     makeEntry(ATTACKING_FROM_ABOVE_MIN_DIST,scriptSetReal32CB),
     makeEntry(ATTACKING_FROM_ABOVE_MIN_RATIO,scriptSetReal32CB),
 
-    { "RetreatDistance[CLASS_MOTHERSHIP]" ,scriptSetReal32SqrCB, &tacticsInfo.RetreatDistanceSqr[CLASS_MOTHERSHIP]},
-    { "RetreatDistance[CLASS_HEAVY_CRUISER]" ,scriptSetReal32SqrCB, &tacticsInfo.RetreatDistanceSqr[CLASS_HEAVY_CRUISER]},
-    { "RetreatDistance[CLASS_CARRIER]" ,scriptSetReal32SqrCB, &tacticsInfo.RetreatDistanceSqr[CLASS_CARRIER]},
-    { "RetreatDistance[CLASS_DESTROYER]" ,scriptSetReal32SqrCB, &tacticsInfo.RetreatDistanceSqr[CLASS_DESTROYER]},
-    { "RetreatDistance[CLASS_FRIGATE]" ,scriptSetReal32SqrCB, &tacticsInfo.RetreatDistanceSqr[CLASS_FRIGATE]},
-    { "RetreatDistance[CLASS_CORVETTE]" ,scriptSetReal32SqrCB, &tacticsInfo.RetreatDistanceSqr[CLASS_CORVETTE]},
-    { "RetreatDistance[CLASS_FIGHTER]" ,scriptSetReal32SqrCB, &tacticsInfo.RetreatDistanceSqr[CLASS_FIGHTER]},
-    { "RetreatDistance[CLASS_RESOURCE]" ,scriptSetReal32SqrCB, &tacticsInfo.RetreatDistanceSqr[CLASS_RESOURCE]},
-    { "RetreatDistance[CLASS_NON_COMBAT]" ,scriptSetReal32SqrCB, &tacticsInfo.RetreatDistanceSqr[CLASS_NON_COMBAT]},
+    { "RetreatDistance[CLASS_Mothership]" ,scriptSetReal32SqrCB, &tacticsInfo.RetreatDistanceSqr[CLASS_Mothership]},
+    { "RetreatDistance[CLASS_HeavyCruiser]" ,scriptSetReal32SqrCB, &tacticsInfo.RetreatDistanceSqr[CLASS_HeavyCruiser]},
+    { "RetreatDistance[CLASS_Carrier]" ,scriptSetReal32SqrCB, &tacticsInfo.RetreatDistanceSqr[CLASS_Carrier]},
+    { "RetreatDistance[CLASS_Destroyer]" ,scriptSetReal32SqrCB, &tacticsInfo.RetreatDistanceSqr[CLASS_Destroyer]},
+    { "RetreatDistance[CLASS_Frigate]" ,scriptSetReal32SqrCB, &tacticsInfo.RetreatDistanceSqr[CLASS_Frigate]},
+    { "RetreatDistance[CLASS_Corvette]" ,scriptSetReal32SqrCB, &tacticsInfo.RetreatDistanceSqr[CLASS_Corvette]},
+    { "RetreatDistance[CLASS_Fighter]" ,scriptSetReal32SqrCB, &tacticsInfo.RetreatDistanceSqr[CLASS_Fighter]},
+    { "RetreatDistance[CLASS_Resource]" ,scriptSetReal32SqrCB, &tacticsInfo.RetreatDistanceSqr[CLASS_Resource]},
+    { "RetreatDistance[CLASS_NonCombat]" ,scriptSetReal32SqrCB, &tacticsInfo.RetreatDistanceSqr[CLASS_NonCombat]},
 
-    { "RetreatGetAwayDistance[CLASS_MOTHERSHIP]" ,scriptSetReal32SqrCB, &tacticsInfo.RetreatGetAwayDistSqr[CLASS_MOTHERSHIP]},
-    { "RetreatGetAwayDistance[CLASS_HEAVY_CRUISER]" ,scriptSetReal32SqrCB, &tacticsInfo.RetreatGetAwayDistSqr[CLASS_HEAVY_CRUISER]},
-    { "RetreatGetAwayDistance[CLASS_CARRIER]" ,scriptSetReal32SqrCB, &tacticsInfo.RetreatGetAwayDistSqr[CLASS_CARRIER]},
-    { "RetreatGetAwayDistance[CLASS_DESTROYER]" ,scriptSetReal32SqrCB, &tacticsInfo.RetreatGetAwayDistSqr[CLASS_DESTROYER]},
-    { "RetreatGetAwayDistance[CLASS_FRIGATE]" ,scriptSetReal32SqrCB, &tacticsInfo.RetreatGetAwayDistSqr[CLASS_FRIGATE]},
-    { "RetreatGetAwayDistance[CLASS_CORVETTE]" ,scriptSetReal32SqrCB, &tacticsInfo.RetreatGetAwayDistSqr[CLASS_CORVETTE]},
-    { "RetreatGetAwayDistance[CLASS_FIGHTER]" ,scriptSetReal32SqrCB, &tacticsInfo.RetreatGetAwayDistSqr[CLASS_FIGHTER]},
-    { "RetreatGetAwayDistance[CLASS_RESOURCE]" ,scriptSetReal32SqrCB, &tacticsInfo.RetreatGetAwayDistSqr[CLASS_RESOURCE]},
-    { "RetreatGetAwayDistance[CLASS_NON_COMBAT]" ,scriptSetReal32SqrCB, &tacticsInfo.RetreatGetAwayDistSqr[CLASS_NON_COMBAT]},
+    { "RetreatGetAwayDistance[CLASS_Mothership]" ,scriptSetReal32SqrCB, &tacticsInfo.RetreatGetAwayDistSqr[CLASS_Mothership]},
+    { "RetreatGetAwayDistance[CLASS_HeavyCruiser]" ,scriptSetReal32SqrCB, &tacticsInfo.RetreatGetAwayDistSqr[CLASS_HeavyCruiser]},
+    { "RetreatGetAwayDistance[CLASS_Carrier]" ,scriptSetReal32SqrCB, &tacticsInfo.RetreatGetAwayDistSqr[CLASS_Carrier]},
+    { "RetreatGetAwayDistance[CLASS_Destroyer]" ,scriptSetReal32SqrCB, &tacticsInfo.RetreatGetAwayDistSqr[CLASS_Destroyer]},
+    { "RetreatGetAwayDistance[CLASS_Frigate]" ,scriptSetReal32SqrCB, &tacticsInfo.RetreatGetAwayDistSqr[CLASS_Frigate]},
+    { "RetreatGetAwayDistance[CLASS_Corvette]" ,scriptSetReal32SqrCB, &tacticsInfo.RetreatGetAwayDistSqr[CLASS_Corvette]},
+    { "RetreatGetAwayDistance[CLASS_Fighter]" ,scriptSetReal32SqrCB, &tacticsInfo.RetreatGetAwayDistSqr[CLASS_Fighter]},
+    { "RetreatGetAwayDistance[CLASS_Resource]" ,scriptSetReal32SqrCB, &tacticsInfo.RetreatGetAwayDistSqr[CLASS_Resource]},
+    { "RetreatGetAwayDistance[CLASS_NonCombat]" ,scriptSetReal32SqrCB, &tacticsInfo.RetreatGetAwayDistSqr[CLASS_NonCombat]},
 
     { "freeRetreatTime" ,scriptSetReal32CB, &tacticsInfo.freeRetreatTime},
 
@@ -785,8 +785,8 @@ bool tacticsShipIsAffectedByTactcis(Ship *ship)
     dbgAssertOrIgnore(tacticsOn);
 #endif
 
-    if(ship->staticinfo->shipclass == CLASS_FIGHTER ||
-        ship->staticinfo->shipclass == CLASS_CORVETTE)
+    if(ship->staticinfo->shipclass == CLASS_Fighter ||
+        ship->staticinfo->shipclass == CLASS_Corvette)
     {
         return(TRUE);
     }
@@ -911,12 +911,12 @@ void BreakUpShipsIntoAttackCapable(SelectCommand *selection,
     {
         switch(selection->ShipPtr[i]->staticinfo->shipclass)
         {
-        case CLASS_HEAVY_CRUISER:
-        case CLASS_CARRIER:
-        case CLASS_DESTROYER:
-        case CLASS_FRIGATE:
-        case CLASS_CORVETTE:
-        case CLASS_FIGHTER:
+        case CLASS_HeavyCruiser:
+        case CLASS_Carrier:
+        case CLASS_Destroyer:
+        case CLASS_Frigate:
+        case CLASS_Corvette:
+        case CLASS_Fighter:
             attackSelection->ShipPtr[j] = selection->ShipPtr[i];
             attackSelection->numShips++;
             j++;
@@ -1607,8 +1607,8 @@ bool tacticsAreStrikeCraftInSelection(SelectCommand *selection)
     {
         if(selection->ShipPtr[i]->objtype == OBJ_ShipType)
         {
-            if(selection->ShipPtr[i]->staticinfo->shipclass == CLASS_FIGHTER ||
-              selection->ShipPtr[i]->staticinfo->shipclass == CLASS_CORVETTE)
+            if(selection->ShipPtr[i]->staticinfo->shipclass == CLASS_Fighter ||
+              selection->ShipPtr[i]->staticinfo->shipclass == CLASS_Corvette)
             {
                 return TRUE;
             }
@@ -1819,7 +1819,7 @@ void tacticsManeuvUpdate(Ship *ship)
     real32 manMult;
 
     manMult = 1.0f;
-    if(shipstaticinfo->shipclass == CLASS_FIGHTER)
+    if(shipstaticinfo->shipclass == CLASS_Fighter)
     {
         if(bitTest(ship->specialFlags,SPECIAL_SpeedBurst))
             manMult = speedBurstThrustMult;
@@ -1864,8 +1864,8 @@ void tacticsUpdate(Ship *ship)
     //maybe only do this check every so often...
 
 
-    if(ship->staticinfo->shipclass != CLASS_FIGHTER &&
-              ship->staticinfo->shipclass != CLASS_CORVETTE)
+    if(ship->staticinfo->shipclass != CLASS_Fighter &&
+              ship->staticinfo->shipclass != CLASS_Corvette)
     {
         //ship is a NON strike craft...
         //don't bother updating crap for it then...
@@ -2272,9 +2272,9 @@ real32 tacticsGetShipsMaxVelocity(Ship *ship)
 
     switch(ship->staticinfo->shipclass)
     {
-    case CLASS_FIGHTER:
+    case CLASS_Fighter:
         return(ship->staticinfo->staticheader.maxvelocity*tacticsInfo.MaxVelocityBonus[ship->tactics_ordertype][Tactics_Fighter][ship->tacticstype]*speedmult);
-    case CLASS_CORVETTE:
+    case CLASS_Corvette:
         return(ship->staticinfo->staticheader.maxvelocity*tacticsInfo.MaxVelocityBonus[ship->tactics_ordertype][Tactics_Corvette][ship->tacticstype]*speedmult);
     default:
         return(ship->staticinfo->staticheader.maxvelocity*speedmult);

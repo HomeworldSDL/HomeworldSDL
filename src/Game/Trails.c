@@ -815,7 +815,7 @@ void trailDrawCapitalGlow(shiptrail* trail, sdword LOD)
     }
 
     if (shipstaticinfo->shiprace == P1 &&
-        shipstaticinfo->shipclass == CLASS_MOTHERSHIP)
+        shipstaticinfo->shipclass == CLASS_Mothership)
     {
         moshipGlow = 2;
         trail->width = 1.0f;
@@ -988,7 +988,7 @@ void trailDrawCapitalGlow(shiptrail* trail, sdword LOD)
     }
 
     if (shipstaticinfo->shiprace == P1 &&
-        shipstaticinfo->shipclass == CLASS_MOTHERSHIP)
+        shipstaticinfo->shipclass == CLASS_Mothership)
     {
         switch (LOD)
         {

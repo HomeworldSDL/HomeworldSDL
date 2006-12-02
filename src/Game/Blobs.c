@@ -1190,8 +1190,8 @@ Node *bobBlobCombine(blob *thisBlob, blob *otherBlob, real32 newRadius, real32 n
     Outputs     :
     Return      : void
 ----------------------------------------------------------------------------*/
-char bobCapitalClass[] = {CLASS_FRIGATE, CLASS_DESTROYER, CLASS_CARRIER, CLASS_HEAVY_CRUISER, CLASS_MOTHERSHIP, 0};
-char bobAttackClass[] = {CLASS_FIGHTER, CLASS_CORVETTE, 0};
+char bobCapitalClass[] = {CLASS_Frigate, CLASS_Destroyer, CLASS_Carrier, CLASS_HeavyCruiser, CLASS_Mothership, 0};
+char bobAttackClass[] = {CLASS_Fighter, CLASS_Corvette, 0};
 void bobBlobItemize(blob *thisBlob, sdword sensorsLevel)
 {
     sdword index;

@@ -324,39 +324,39 @@ sdword getShipClass()
     prob = frandombetween(0.0,1.0f);
 
     if(prob <= CrateClassProbCLASS_HeavyCruiser)
-        return CLASS_HEAVY_CRUISER;
+        return CLASS_HeavyCruiser;
     else if(prob <= CrateClassProbCLASS_Carrier)
-        return CLASS_CARRIER;
+        return CLASS_Carrier;
     else if(prob <= CrateClassProbCLASS_Destroyer)
-        return CLASS_DESTROYER;
+        return CLASS_Destroyer;
     else if(prob <= CrateClassProbCLASS_Frigate)
-        return CLASS_FRIGATE;
+        return CLASS_Frigate;
     else if(prob <= CrateClassProbCLASS_Corvette)
-        return CLASS_CORVETTE;
+        return CLASS_Corvette;
     else if(prob <= CrateClassProbCLASS_Fighter)
-        return CLASS_FIGHTER;
+        return CLASS_Fighter;
     else if(prob <= CrateClassProbCLASS_Resource)
-        return CLASS_RESOURCE;
+        return CLASS_Resource;
 
     //default
-    return CLASS_NON_COMBAT;
+    return CLASS_NonCombat;
 }
 
 ShipType gettype(sdword classtype,sdword index)
 {
-    if(classtype == CLASS_HEAVY_CRUISER)
+    if(classtype == CLASS_HeavyCruiser)
         return(cratesCLASS_HeavyCruiser[index]);
-    else if(classtype == CLASS_CARRIER)
+    else if(classtype == CLASS_Carrier)
         return(cratesCLASS_Carrier[index]);
-    else if(classtype == CLASS_DESTROYER)
+    else if(classtype == CLASS_Destroyer)
         return(cratesCLASS_Destroyer[index]);
-    else if(classtype == CLASS_FRIGATE)
+    else if(classtype == CLASS_Frigate)
         return(cratesCLASS_Frigate[index]);
-    else if(classtype == CLASS_CORVETTE)
+    else if(classtype == CLASS_Corvette)
         return(cratesCLASS_Corvette[index]);
-    else if(classtype == CLASS_FIGHTER)
+    else if(classtype == CLASS_Fighter)
         return(cratesCLASS_Fighter[index]);
-    else if(classtype == CLASS_RESOURCE)
+    else if(classtype == CLASS_Resource)
         return(cratesCLASS_Resource[index]);
 
     return(cratesCLASS_NonCombat[index]);
@@ -776,14 +776,14 @@ void crateInit()
     scriptSet(NULL,"Crates.script",cratesScriptTable);
 
     NUM_IN_CLASSES[0] = 0;    //mothership not applicable
-    NUM_IN_CLASSES[CLASS_HEAVY_CRUISER] = sizeof(cratesCLASS_HeavyCruiser)/4;
-    NUM_IN_CLASSES[CLASS_CARRIER] = sizeof(cratesCLASS_Carrier)/4;
-    NUM_IN_CLASSES[CLASS_DESTROYER] = sizeof(cratesCLASS_Destroyer)/4;
-    NUM_IN_CLASSES[CLASS_FRIGATE] = sizeof(cratesCLASS_Frigate)/4;
-    NUM_IN_CLASSES[CLASS_CORVETTE] = sizeof(cratesCLASS_Corvette)/4;
-    NUM_IN_CLASSES[CLASS_FIGHTER] = sizeof(cratesCLASS_Fighter)/4;
-    NUM_IN_CLASSES[CLASS_RESOURCE] = sizeof(cratesCLASS_Resource)/4;
-    NUM_IN_CLASSES[CLASS_NON_COMBAT] = sizeof(cratesCLASS_NonCombat)/4;
+    NUM_IN_CLASSES[CLASS_HeavyCruiser] = sizeof(cratesCLASS_HeavyCruiser)/4;
+    NUM_IN_CLASSES[CLASS_Carrier] = sizeof(cratesCLASS_Carrier)/4;
+    NUM_IN_CLASSES[CLASS_Destroyer] = sizeof(cratesCLASS_Destroyer)/4;
+    NUM_IN_CLASSES[CLASS_Frigate] = sizeof(cratesCLASS_Frigate)/4;
+    NUM_IN_CLASSES[CLASS_Corvette] = sizeof(cratesCLASS_Corvette)/4;
+    NUM_IN_CLASSES[CLASS_Fighter] = sizeof(cratesCLASS_Fighter)/4;
+    NUM_IN_CLASSES[CLASS_Resource] = sizeof(cratesCLASS_Resource)/4;
+    NUM_IN_CLASSES[CLASS_NonCombat] = sizeof(cratesCLASS_NonCombat)/4;
 
 
 

@@ -1990,8 +1990,8 @@ bool MakeSelectionKamikazeCapable(SelectCommand *selection)
 
     for (i = 0; i < selection->numShips; )
     {
-        if(selection->ShipPtr[i]->staticinfo->shipclass != CLASS_FIGHTER &&
-           selection->ShipPtr[i]->staticinfo->shipclass != CLASS_CORVETTE &&
+        if(selection->ShipPtr[i]->staticinfo->shipclass != CLASS_Fighter &&
+           selection->ShipPtr[i]->staticinfo->shipclass != CLASS_Corvette &&
            selection->ShipPtr[i]->staticinfo->shiptype != ResourceCollector)
         {
             selection->numShips--;

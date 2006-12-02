@@ -691,10 +691,10 @@ STATES Waiting, Wants2Snatch, ChooseWho, UseGate1, UseGate2, UseGate3, UseGate4,
           ShipsSelectType (SHIPS_ResourcingVictems, SHIPS_DawgSeesYou, "ResourceCollector");
           ShipsSelectCapital(SHIPS_CapsInYard, SHIPS_DawgSeesYou);
 
-          IF (ShipsSelectClass(SHIPS_PotSnatchVictem, SHIPS_CapsInYard, "CLASS_HEAVY_CRUISER")>0)
-          ELSEIF (ShipsSelectClass(SHIPS_PotSnatchVictem, SHIPS_CapsInYard, "CLASS_CARRIER")>0)
-          ELSEIF (ShipsSelectClass(SHIPS_PotSnatchVictem, SHIPS_CapsInYard, "CLASS_DESTROYER")>0)
-          ELSEIF (ShipsSelectClass(SHIPS_PotSnatchVictem, SHIPS_CapsInYard, "CLASS_FRIGATE")>0)
+          IF (ShipsSelectClass(SHIPS_PotSnatchVictem, SHIPS_CapsInYard, "CLASS_HeavyCruiser")>0)
+          ELSEIF (ShipsSelectClass(SHIPS_PotSnatchVictem, SHIPS_CapsInYard, "CLASS_Carrier")>0)
+          ELSEIF (ShipsSelectClass(SHIPS_PotSnatchVictem, SHIPS_CapsInYard, "CLASS_Destroyer")>0)
+          ELSEIF (ShipsSelectClass(SHIPS_PotSnatchVictem, SHIPS_CapsInYard, "CLASS_Frigate")>0)
           ELSEIF (ShipsAdd(SHIPS_PotSnatchVictem, SHIPS_ResourcingVictems)>0)
           ENDIF
 

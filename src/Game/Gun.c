@@ -282,13 +282,13 @@ bool gunOrientGimbleGun(Ship *ship,Gun *gun,SpaceObjRotImpTarg *target)
         if ((gunstatic->bulletType == BULLET_Beam) && (target->objtype == OBJ_ShipType))
         {
             ShipClass sclass = ((Ship *)target)->staticinfo->shipclass;
-            if (sclass == CLASS_FIGHTER)
+            if (sclass == CLASS_Fighter)
             {
                 maxAngle = IONCANNON_TARGETS_FIGHTER_ANGLE;
                 maxAngleSpeed = IONCANNON_TARGETS_FIGHTER_MAXANGLESPEED;
                 triggerHappy = IONCANNON_TARGETS_FIGHTER_TRIGGERHAPPY;
             }
-            else if (sclass == CLASS_CORVETTE)
+            else if (sclass == CLASS_Corvette)
             {
                 maxAngle = IONCANNON_TARGETS_CORVETTE_ANGLE;
                 maxAngleSpeed = IONCANNON_TARGETS_CORVETTE_MAXANGLESPEED;
@@ -296,11 +296,11 @@ bool gunOrientGimbleGun(Ship *ship,Gun *gun,SpaceObjRotImpTarg *target)
             }
         }
     }
-    if(ship->staticinfo->shipclass == CLASS_FIGHTER)
+    if(ship->staticinfo->shipclass == CLASS_Fighter)
     {
         bulletspeed = gunstatic->bulletspeed*tacticsInfo.BulletSpeedBonus[Tactics_Fighter][ship->tacticstype];
     }
-    else if(ship->staticinfo->shipclass == CLASS_CORVETTE)
+    else if(ship->staticinfo->shipclass == CLASS_Corvette)
     {
         bulletspeed = gunstatic->bulletspeed*tacticsInfo.BulletSpeedBonus[Tactics_Corvette][ship->tacticstype];
     }
@@ -859,11 +859,11 @@ void gunShoot(Ship *ship, Gun *gun, SpaceObjRotImpTarg *target)
     {
         switch (((ShipStaticInfo*)ship->staticinfo)->shipclass)
         {
-        case CLASS_MOTHERSHIP:
-        case CLASS_HEAVY_CRUISER:
-        case CLASS_DESTROYER:
-        case CLASS_CARRIER:
-        case CLASS_FRIGATE:
+        case CLASS_Mothership:
+        case CLASS_HeavyCruiser:
+        case CLASS_Destroyer:
+        case CLASS_Carrier:
+        case CLASS_Frigate:
             matMultiplyMatByVec(&gunDirection, &ship->rotinfo.coordsys, &gun->gunheading);
             matMultiplyMatByVec(&gunPosition, &ship->rotinfo.coordsys, &gunstatic->position);
             vecAddTo(gunPosition, ship->posinfo.position);
@@ -915,8 +915,8 @@ void gunShoot(Ship *ship, Gun *gun, SpaceObjRotImpTarg *target)
     //including strike craft being in formation, and their damage
     switch(ship->staticinfo->shipclass)
     {
-    case CLASS_FIGHTER:
-    case CLASS_CORVETTE:
+    case CLASS_Fighter:
+    case CLASS_Corvette:
         //optimize 'healthfactor' for all game operations
         //by calculating it once a frame?
         healthFactor = ship->health*ship->staticinfo->oneOverMaxHealth;
@@ -996,11 +996,11 @@ void gunShoot(Ship *ship, Gun *gun, SpaceObjRotImpTarg *target)
     else
     {
         //set bullet life time based on range (and hence add tactics bonuses)
-        if(ship->staticinfo->shipclass == CLASS_FIGHTER)
+        if(ship->staticinfo->shipclass == CLASS_Fighter)
         {
             bullet->totallifetime = gunstatic->bulletlifetime*tacticsInfo.BulletRangeBonus[Tactics_Fighter][ship->tacticstype];
         }
-        else if(ship->staticinfo->shipclass == CLASS_CORVETTE)
+        else if(ship->staticinfo->shipclass == CLASS_Corvette)
         {
             bullet->totallifetime = gunstatic->bulletlifetime*tacticsInfo.BulletRangeBonus[Tactics_Corvette][ship->tacticstype];
         }
@@ -1042,11 +1042,11 @@ void gunShoot(Ship *ship, Gun *gun, SpaceObjRotImpTarg *target)
             }
             else
             {
-                if(ship->staticinfo->shipclass == CLASS_FIGHTER)
+                if(ship->staticinfo->shipclass == CLASS_Fighter)
                 {
                     bulletspeed = gunstatic->bulletspeed*tacticsInfo.BulletSpeedBonus[Tactics_Fighter][ship->tacticstype];
                 }
-                else if(ship->staticinfo->shipclass == CLASS_CORVETTE)
+                else if(ship->staticinfo->shipclass == CLASS_Corvette)
                 {
                     bulletspeed = gunstatic->bulletspeed*tacticsInfo.BulletSpeedBonus[Tactics_Corvette][ship->tacticstype];
                 }
@@ -1259,11 +1259,11 @@ bool gunShootGunsAtTarget(Ship *ship,SpaceObjRotImpTarg *target,real32 range,vec
 
     numGuns = gunInfo->numGuns;
 
-    if(ship->staticinfo->shipclass == CLASS_FIGHTER)
+    if(ship->staticinfo->shipclass == CLASS_Fighter)
     {
         bonus = tacticsInfo.BulletRangeBonus[Tactics_Fighter][ship->tacticstype];
     }
-    else if (ship->staticinfo->shipclass == CLASS_CORVETTE)
+    else if (ship->staticinfo->shipclass == CLASS_Corvette)
     {
         bonus = tacticsInfo.BulletRangeBonus[Tactics_Fighter][ship->tacticstype];
     }

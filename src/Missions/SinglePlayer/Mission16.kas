@@ -1472,9 +1472,9 @@ FSM TakeoutTarget
             INIT
                 IF (UnderAttackElsewhere(TEAM_ImperialFlagship, SHIPS_SuicideTargets))
                     IF (ShipsSelectType(SHIPS_Yummies, SHIPS_SuicideTargets, "HeavyCruiser") ||
-                        ShipsSelectClass(SHIPS_Yummies, SHIPS_SuicideTargets, "CLASS_DESTROYER") ||
-                        ShipsSelectClass(SHIPS_Yummies, SHIPS_SuicideTargets, "CLASS_FRIGATE") ||
-                        ShipsSelectClass(SHIPS_Yummies, SHIPS_SuicideTargets, "CLASS_CORVETTE"))
+                        ShipsSelectClass(SHIPS_Yummies, SHIPS_SuicideTargets, "CLASS_Destroyer") ||
+                        ShipsSelectClass(SHIPS_Yummies, SHIPS_SuicideTargets, "CLASS_Frigate") ||
+                        ShipsSelectClass(SHIPS_Yummies, SHIPS_SuicideTargets, "CLASS_Corvette"))
                         Kamikaze(SHIPS_Yummies);
                     ELSE
                         Kamikaze(SHIPS_SuicideTargets);
@@ -1649,7 +1649,7 @@ FSM StrikeCraftAssault
                 IF (ShipsSelectType(SHIPS_Targets, SHIPS_NotMoving, "AttackBomber") ||
                     ShipsSelectType(SHIPS_Targets, SHIPS_NotMoving, "HeavyDefender") ||
                     ShipsSelectType(SHIPS_Targets, SHIPS_NotMoving, "HeavyInterceptor")   ||
-                    ShipsSelectClass(SHIPS_Targets, SHIPS_NotMoving, "CLASS_FIGHTER")   ||
+                    ShipsSelectClass(SHIPS_Targets, SHIPS_NotMoving, "CLASS_Fighter")   ||
                     ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "HeavyDefender"))
                     IF (Random(0,1))
                         FormationBroad();
@@ -1660,9 +1660,9 @@ FSM StrikeCraftAssault
                     AttackSpecial(SHIPS_SingleTarget);
                 ELSEIF (ShipsSelectType(SHIPS_Targets, SHIPS_Moving, "AttackBomber") ||
                         ShipsSelectType(SHIPS_Targets, SHIPS_Moving, "HeavyInterceptor") ||
-                        ShipsSelectClass(SHIPS_Targets, SHIPS_Moving, "CLASS_FIGHTER") ||
-                        ShipsSelectClass(SHIPS_Targets, SHIPS_AssaultEnemy, "CLASS_CORVETTE") ||
-                        ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "CLASS_RESOURCE"))
+                        ShipsSelectClass(SHIPS_Targets, SHIPS_Moving, "CLASS_Fighter") ||
+                        ShipsSelectClass(SHIPS_Targets, SHIPS_AssaultEnemy, "CLASS_Corvette") ||
+                        ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "CLASS_Resource"))
                     VarCreateSet("AttackedStrike", TRUE);
                     IF (Random(0,1))
                         FormationDelta3D();
@@ -1697,10 +1697,10 @@ FSM StrikeCraftAssault
                 IF (ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "AttackBomber")  ||
                     ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "HeavyInterceptor") ||
                     ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "HeavyDefender")   ||
-                    ShipsSelectClass(SHIPS_Targets, SHIPS_AssaultEnemy, "CLASS_FIGHTER")   ||
-                    ShipsSelectClass(SHIPS_Targets, SHIPS_AssaultEnemy, "CLASS_CORVETTE")||
-                    ShipsSelectClass(SHIPS_Targets, SHIPS_AssaultEnemy, "CLASS_RESOURCE")||
-                    ShipsSelectClass(SHIPS_Targets, SHIPS_AssaultEnemy, "CLASS_DESTROYER")||
+                    ShipsSelectClass(SHIPS_Targets, SHIPS_AssaultEnemy, "CLASS_Fighter")   ||
+                    ShipsSelectClass(SHIPS_Targets, SHIPS_AssaultEnemy, "CLASS_Corvette")||
+                    ShipsSelectClass(SHIPS_Targets, SHIPS_AssaultEnemy, "CLASS_Resource")||
+                    ShipsSelectClass(SHIPS_Targets, SHIPS_AssaultEnemy, "CLASS_Destroyer")||
                     ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "Carrier"))
                     Attack(Ships_Targets);
                 ELSE
@@ -2034,10 +2034,10 @@ FSM AssaultGeneral
         // Assault State for Frigates
         STATE FrigateAssault
             INIT
-                IF (ShipsSelectClass(SHIPS_Targets, SHIPS_AssaultEnemy, "CLASS_CORVETTE")  ||
+                IF (ShipsSelectClass(SHIPS_Targets, SHIPS_AssaultEnemy, "CLASS_Corvette")  ||
                     ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "IonCannonFrigate") ||
-                    ShipsSelectClass(SHIPS_Targets, SHIPS_AssaultEnemy, "CLASS_FRIGATE")   ||
-                    ShipsSelectClass(SHIPS_Targets, SHIPS_AssaultEnemy, "CLASS_FIGHTER")   ||
+                    ShipsSelectClass(SHIPS_Targets, SHIPS_AssaultEnemy, "CLASS_Frigate")   ||
+                    ShipsSelectClass(SHIPS_Targets, SHIPS_AssaultEnemy, "CLASS_Fighter")   ||
                     ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "StandardDestroyer")||
                     ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "HeavyCruiser")     ||
                     ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "MissileDestroyer") ||
@@ -2115,8 +2115,8 @@ FSM AssaultGeneral
                     ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "DFGFrigate")   ||
                     ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "SalCapCorvette")||
                     ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "SensorArray")     ||
-                    ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "CLASS_FRIGATE") ||
-                    ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "CLASS_DESTROYER") ||
+                    ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "CLASS_Frigate") ||
+                    ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "CLASS_Destroyer") ||
                     ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "Mothership"))
                     MoveAttackIndividual(SHIPS_SSTargets, SHIPS_Targets);
                 ENDIF
@@ -2143,11 +2143,11 @@ FSM AssaultGeneral
                 IF (ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "HeavyCruiser")      ||
                     ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "IonCannonFrigate")  ||
                     ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "StandardDestroyer") ||
-                    ShipsSelectClass(SHIPS_Targets, SHIPS_AssaultEnemy, "CLASS_FRIGATE")    ||
+                    ShipsSelectClass(SHIPS_Targets, SHIPS_AssaultEnemy, "CLASS_Frigate")    ||
                     ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "Carrier")           ||
                     ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "MissileDestroyer")  ||
                     ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "Mothership")        ||
-                    ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "CLASS_CORVETTE"))
+                    ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "CLASS_Corvette"))
                     IFONCE (ThisTeamIs(TEAM_BG2IonFrigates))
                         MsgSendAll("BG2Attacking");
                     ENDIFONCE
@@ -2177,10 +2177,10 @@ FSM AssaultGeneral
                     (!Random(0,4) && ShipsSelectType(SHIPS_MissileTargets, SHIPS_AssaultEnemy, "HeavyDefender")) ||
                     (!Random(0,3) && ShipsSelectType(SHIPS_MissileTargets, SHIPS_AssaultEnemy, "AttackBomber")) ||
                     (!Random(0,4) && ShipsSelectType(SHIPS_MissileTargets, SHIPS_AssaultEnemy, "HeavyInterceptor")) ||
-                    ShipsSelectClass(SHIPS_MissileTargets, SHIPS_AssaultEnemy, "CLASS_CORVETTE")   ||
-                    ShipsSelectClass(SHIPS_MissileTargets, SHIPS_AssaultEnemy, "CLASS_FIGHTER")    ||
+                    ShipsSelectClass(SHIPS_MissileTargets, SHIPS_AssaultEnemy, "CLASS_Corvette")   ||
+                    ShipsSelectClass(SHIPS_MissileTargets, SHIPS_AssaultEnemy, "CLASS_Fighter")    ||
                     ShipsSelectType(SHIPS_MissileTargets, SHIPS_AssaultEnemy, "IonCannonFrigate")  ||
-                    ShipsSelectClass(SHIPS_MissileTargets, SHIPS_AssaultEnemy, "CLASS_FRIGATE")    ||
+                    ShipsSelectClass(SHIPS_MissileTargets, SHIPS_AssaultEnemy, "CLASS_Frigate")    ||
                     ShipsSelectType(SHIPS_MissileTargets, SHIPS_AssaultEnemy, "StandardDestroyer") ||
                     ShipsSelectType(SHIPS_MissileTargets, SHIPS_AssaultEnemy, "HeavyCruiser")      ||
                     ShipsSelectType(SHIPS_MissileTargets, SHIPS_AssaultEnemy, "MissileDestroyer")  ||
@@ -2213,7 +2213,7 @@ FSM AssaultGeneral
                     ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "Carrier")           ||
                     ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "StandardDestroyer") ||
                     ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "MissileDestroyer")  ||
-                    ShipsSelectClass(SHIPS_Targets, SHIPS_AssaultEnemy, "CLASS_FRIGATE"))
+                    ShipsSelectClass(SHIPS_Targets, SHIPS_AssaultEnemy, "CLASS_Frigate"))
                     MoveAttackIndividual(SHIPS_Destroyer1Targets, SHIPS_Targets);
                 ELSE
 //                    Print("PrimaryDestroyerOutOfTargets");
@@ -2238,7 +2238,7 @@ FSM AssaultGeneral
                 IF (ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "HeavyCruiser")      ||
                     ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "StandardDestroyer") ||
                     ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "MissileDestroyer")  ||
-                    ShipsSelectClass(SHIPS_Targets, SHIPS_AssaultEnemy, "CLASS_FRIGATE")    ||
+                    ShipsSelectClass(SHIPS_Targets, SHIPS_AssaultEnemy, "CLASS_Frigate")    ||
                     ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "Carrier")           ||
                     ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "Mothership"))
                     MoveAttackIndividual(SHIPS_Destroyer2Targets, SHIPS_Targets);
@@ -2263,18 +2263,18 @@ FSM AssaultGeneral
         // Assault State for Cruisers
         STATE CruiserAssault
             INIT
-                IF (((!Random(0,3)) && ShipsSelectClass(SHIPS_Targets, SHIPS_AssaultEnemy, "CLASS_FRIGATE")) ||
+                IF (((!Random(0,3)) && ShipsSelectClass(SHIPS_Targets, SHIPS_AssaultEnemy, "CLASS_Frigate")) ||
                     ((!Random(0,2)) && ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "IonCannonFrigate")) ||
                     ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "Mothership")    ||
                     ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "HeavyCruiser")  ||
                     ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "Carrier")       ||
                     ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "StandardDestroyer") ||
                     ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "MissileDestroyer")  ||
-                    ShipsSelectClass(SHIPS_Targets, SHIPS_AssaultEnemy, "CLASS_FRIGATE") ||
+                    ShipsSelectClass(SHIPS_Targets, SHIPS_AssaultEnemy, "CLASS_Frigate") ||
                     (VarGet("HonourGuardCruiser") && ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "HeavyCorvette"))  ||
                     (VarGet("HonourGuardCruiser") && ShipsSelectType(SHIPS_Targets, SHIPS_AssaultEnemy, "HeavyDefender"))  ||
-                    (VarGet("HonourGuardCruiser") && ShipsSelectClass(SHIPS_Targets, SHIPS_AssaultEnemy, "CLASS_CORVETTE"))  ||
-                    (VarGet("HonourGuardCruiser") && ShipsSelectClass(SHIPS_Targets, SHIPS_AssaultEnemy, "CLASS_FIGHTER")))
+                    (VarGet("HonourGuardCruiser") && ShipsSelectClass(SHIPS_Targets, SHIPS_AssaultEnemy, "CLASS_Corvette"))  ||
+                    (VarGet("HonourGuardCruiser") && ShipsSelectClass(SHIPS_Targets, SHIPS_AssaultEnemy, "CLASS_Fighter")))
 
                     TimerDestroy("CruiserReissue");
                     IF (Random(0,4))
@@ -2814,8 +2814,8 @@ FSM AssaultStart
            HyperspaceIn, ChooseTask, NullState;
 
     INIT
-        IF (ShipsSelectClass(SHIPS_Temp, THISTEAMSHIPS, "CLASS_FIGHTER") ||
-            ShipsSelectClass(SHIPS_Temp, THISTEAMSHIPS, "CLASS_CORVETTE"))
+        IF (ShipsSelectClass(SHIPS_Temp, THISTEAMSHIPS, "CLASS_Fighter") ||
+            ShipsSelectClass(SHIPS_Temp, THISTEAMSHIPS, "CLASS_Corvette"))
             JUMP Dock;
         ELSEIF (ShipsSelectType(SHIPS_Temp, THISTEAMSHIPS, "Carrier"))
             JUMP Delay;
@@ -3210,8 +3210,8 @@ FSM EliteGuardCarrier
                     UnderAttackElsewhere(TEAM_ImperialResourcers2, SHIPS_EliteGuardBaddies) ||
                     FindEnemiesNearTeam(SHIPS_EliteGuardBaddies, 13000) ||
                     UnderAttack(SHIPS_EliteGuardBaddies))
-                    IF ((ShipsSelectClass(SHIPS_Test, SHIPS_EliteGuardBaddies, "CLASS_FIGHTER") > 5) ||
-                        (ShipsSelectClass(SHIPS_Test, SHIPS_EliteGuardBaddies, "CLASS_CORVETTE") > 3) ||
+                    IF ((ShipsSelectClass(SHIPS_Test, SHIPS_EliteGuardBaddies, "CLASS_Fighter") > 5) ||
+                        (ShipsSelectClass(SHIPS_Test, SHIPS_EliteGuardBaddies, "CLASS_Corvette") > 3) ||
                          ShipsSelectCapital(SHIPS_Test, SHIPS_EliteGuardBaddies))
                         JUMP SendMinions;
                     ENDIF
@@ -3619,15 +3619,15 @@ FSM Master
                 //if visible, and has a takeout opposite, send it in
                 IF (ShipsSelectType(SHIPS_PlayerForce, SHIPS_AssaultBaddies, "Carrier") ||
                     ShipsSelectType(SHIPS_PlayerForce, SHIPS_AssaultBaddies, "HeavyCruiser") ||
-                    ShipsSelectClass(SHIPS_PlayerForce, SHIPS_AssaultBaddies, "CLASS_DESTROYER"))
+                    ShipsSelectClass(SHIPS_PlayerForce, SHIPS_AssaultBaddies, "CLASS_Destroyer"))
                     FindEnemiesNearby(SHIPS_PlayerForce, 15000);
                     IF (VarGet("AssaultReplenished") > 2)
                         VarSet("AssaultReplenished", 0);
                         MsgToAssault("PlayerFleetOnTheWay");
                     ENDIF
                 ENDIF
-                IF ((ShipsSelectClass(SHIPS_AntiFighterTarget, SHIPS_AssaultBaddies, "CLASS_FIGHTER") > 10) ||
-                    (ShipsSelectClass(SHIPS_AntiFighterTarget, SHIPS_AssaultBaddies, "CLASS_CORVETTE") > 5) ||
+                IF ((ShipsSelectClass(SHIPS_AntiFighterTarget, SHIPS_AssaultBaddies, "CLASS_Fighter") > 10) ||
+                    (ShipsSelectClass(SHIPS_AntiFighterTarget, SHIPS_AssaultBaddies, "CLASS_Corvette") > 5) ||
                     ((!Random(0,2)) && (ShipsSelectType(SHIPS_AntiFighterTarget, SHIPS_AssaultBaddies, "SalCapCorvette") > 2)))
                     MsgToAntiFighters("Takeout");
                 ENDIF
@@ -3654,8 +3654,8 @@ FSM Master
 //                    ShipsSelectType(SHIPS_SuicideTarget, SHIPS_RearBaddies, "StandardDestroyer"))
 //                    MsgToSuicideFighters("Takeout");
 //                ENDIF
-                IF ((ShipsSelectClass(SHIPS_AntiFighterTarget, SHIPS_RearBaddies, "CLASS_FIGHTER") > 10) ||
-                    (ShipsSelectClass(SHIPS_AntiFighterTarget, SHIPS_RearBaddies, "CLASS_CORVETTE") > 5))
+                IF ((ShipsSelectClass(SHIPS_AntiFighterTarget, SHIPS_RearBaddies, "CLASS_Fighter") > 10) ||
+                    (ShipsSelectClass(SHIPS_AntiFighterTarget, SHIPS_RearBaddies, "CLASS_Corvette") > 5))
                     MsgToAntiFighters("Takeout");
                 ENDIF
 
@@ -3670,8 +3670,8 @@ FSM Master
                     ShipsCount(SHIPS_HonourBaddies) ||
                     (!Random(0,2) && ShipsSelectType(SHIPS_HonourBaddies, SHIPS_RearBaddies, "Carrier")) ||
                     (!Random(0,2) && ShipsSelectType(SHIPS_HonourBaddies, SHIPS_RearBaddies, "HeavyCruiser")) ||
-                    (!Random(0,2) && (ShipsSelectClass(SHIPS_HonourBaddies, SHIPS_RearBaddies, "CLASS_DESTROYER") > 2)) ||
-                    (!Random(0,1) && (ShipsSelectClass(SHIPS_HonourBaddies, SHIPS_RearBaddies, "CLASS_FRIGATE") > 4)))
+                    (!Random(0,2) && (ShipsSelectClass(SHIPS_HonourBaddies, SHIPS_RearBaddies, "CLASS_Destroyer") > 2)) ||
+                    (!Random(0,1) && (ShipsSelectClass(SHIPS_HonourBaddies, SHIPS_RearBaddies, "CLASS_Frigate") > 4)))
                     MsgToHonourGuard("Engage");
                 ENDIF
 

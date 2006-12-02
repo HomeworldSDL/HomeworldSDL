@@ -48,7 +48,7 @@ void P2MothershipAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdist)
     real32 toocloserange = motherstat->p2mothershipTooCloseRange[ship->tacticstype];
 
     // currently only correct if we are attacking a mothership class ship - otherwise we don't mind it ramming it
-    if ((target->objtype == OBJ_ShipType) && (((Ship *)target)->staticinfo->shipclass == CLASS_MOTHERSHIP))
+    if ((target->objtype == OBJ_ShipType) && (((Ship *)target)->staticinfo->shipclass == CLASS_Mothership))
     {
         // correct for P2 Mothership size - the laser is at the end of the ship, which is really long so we should
         // add the radius of the P2 Mothership to correct

@@ -413,8 +413,8 @@ void GravAddObjectsInProximity(Ship *gravship)
     {
         ship = (Ship *)listGetStructOfNode(objnode);
 
-        if(ship->staticinfo->shipclass == CLASS_CORVETTE ||
-           ship->staticinfo->shipclass == CLASS_FIGHTER)
+        if(ship->staticinfo->shipclass == CLASS_Corvette ||
+           ship->staticinfo->shipclass == CLASS_Fighter)
         {
             if(ship->shiptype == SalCapCorvette)
                 goto nextnode;

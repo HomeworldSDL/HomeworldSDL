@@ -1048,8 +1048,8 @@ void aitOptimizeGravWellGenerator(AITeam *team)
 
     if (coopTeam->shipList.selection->numShips)
     {
-        if (!(aitTeamShipClassIs(CLASS_FRIGATE, coopTeam) || aitTeamShipClassIs(CLASS_CARRIER, coopTeam) ||
-              aitTeamShipClassIs(CLASS_DESTROYER, coopTeam) || aitTeamShipClassIs(CLASS_HEAVY_CRUISER, coopTeam)))
+        if (!(aitTeamShipClassIs(CLASS_Frigate, coopTeam) || aitTeamShipClassIs(CLASS_Carrier, coopTeam) ||
+              aitTeamShipClassIs(CLASS_Destroyer, coopTeam) || aitTeamShipClassIs(CLASS_HeavyCruiser, coopTeam)))
         {
 //            dbgAssertOrIgnore(TRUE);
             //find a new team to guard
@@ -1089,7 +1089,7 @@ void aitOptimizeCloakGenerator(AITeam *team)
     //set the guard move event to turn on wheneven an enemy fighter is nearby
     //and off when there isn't or when goodguy fighter is nearby (within range)
 
-    if (!(aitTeamShipClassIs(CLASS_FRIGATE, coopTeam) || aitTeamShipTypeIs(ResourceCollector, coopTeam)))
+    if (!(aitTeamShipClassIs(CLASS_Frigate, coopTeam) || aitTeamShipTypeIs(ResourceCollector, coopTeam)))
     {
         dbgAssertOrIgnore(TRUE);
         //find a new team to guard
@@ -1642,8 +1642,8 @@ bool aitNeedStrikeSupport(udword minstr)
         team = aiCurrentAIPlayer->teams[i];
 
         if (aitNumTeamShips(team) &&
-            ((aitTeamShipClassIs(CLASS_FIGHTER, team) ||
-             (aitTeamShipClassIs(CLASS_CORVETTE, team)))))
+            ((aitTeamShipClassIs(CLASS_Fighter, team) ||
+             (aitTeamShipClassIs(CLASS_Corvette, team)))))
         {
             if (!aitTeamIsInMothershipRange(team))
             {
@@ -1960,8 +1960,8 @@ bool aitTeamIsntCoopWithAnotherTeam_GravWell(AITeam *testteam)
 
         if ((team) && (team->cooperatingTeam == testteam))
         {
-            if (aitTeamShipClassIs(CLASS_FIGHTER, team) ||
-                aitTeamShipClassIs(CLASS_CORVETTE, team) ||
+            if (aitTeamShipClassIs(CLASS_Fighter, team) ||
+                aitTeamShipClassIs(CLASS_Corvette, team) ||
                 aitTeamShipTypeIs(GravWellGenerator, team))
             {
                 return FALSE;
@@ -2009,7 +2009,7 @@ AITeam *aitFindCloakGeneratorCoopTeam(void)
 
         if (team &&
             team->shipList.selection->numShips &&
-            aitTeamShipClassIs(CLASS_FRIGATE, team) &&
+            aitTeamShipClassIs(CLASS_Frigate, team) &&
             (!aitTeamShipTypeIs(GravWellGenerator, team) &&
              !aitTeamShipTypeIs(CloakGenerator, team)) &&
             (aitTeamIsntCoopWithAnotherTeam_Cloak(team)))
@@ -2052,9 +2052,9 @@ AITeam *aitFindGravWellGeneratorCoopTeam(void)
 
         if (team &&
             team->shipList.selection->numShips &&
-            (aitTeamShipClassIs(CLASS_FRIGATE, team) ||
-             aitTeamShipClassIs(CLASS_DESTROYER, team) ||
-             aitTeamShipClassIs(CLASS_HEAVY_CRUISER, team)) &&
+            (aitTeamShipClassIs(CLASS_Frigate, team) ||
+             aitTeamShipClassIs(CLASS_Destroyer, team) ||
+             aitTeamShipClassIs(CLASS_HeavyCruiser, team)) &&
             (!aitTeamShipTypeIs(GravWellGenerator, team) &&
              !aitTeamShipTypeIs(CloakGenerator, team)) &&
             (aitTeamIsntCoopWithAnotherTeam_GravWell(team)))

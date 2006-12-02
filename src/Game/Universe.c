@@ -482,15 +482,15 @@ scriptEntry ShipStaticCapLimits[] =
     { "CapCLASS_Resource",          scriptSetSdwordCB, &cdClassCaps[7]  },
     { "CapCLASS_NonCombat",         scriptSetSdwordCB, &cdClassCaps[8]  },
 
-    { "MaxJobsPerClass[Mothership]",    scriptSetSdwordCB, &cmMaxJobsPerClass[CLASS_MOTHERSHIP]  },
-    { "MaxJobsPerClass[HeavyCruiser]",  scriptSetSdwordCB, &cmMaxJobsPerClass[CLASS_HEAVY_CRUISER]},
-    { "MaxJobsPerClass[Carrier]",       scriptSetSdwordCB, &cmMaxJobsPerClass[CLASS_CARRIER]},
-    { "MaxJobsPerClass[Destroyer]",     scriptSetSdwordCB, &cmMaxJobsPerClass[CLASS_DESTROYER]},
-    { "MaxJobsPerClass[Frigate]",       scriptSetSdwordCB, &cmMaxJobsPerClass[CLASS_FRIGATE]},
-    { "MaxJobsPerClass[Corvette]",      scriptSetSdwordCB, &cmMaxJobsPerClass[CLASS_CORVETTE]},
-    { "MaxJobsPerClass[Fighter]",       scriptSetSdwordCB, &cmMaxJobsPerClass[CLASS_FIGHTER]},
-    { "MaxJobsPerClass[Resource]",      scriptSetSdwordCB, &cmMaxJobsPerClass[CLASS_RESOURCE]},
-    { "MaxJobsPerClass[NonCombat]",     scriptSetSdwordCB, &cmMaxJobsPerClass[CLASS_NON_COMBAT]},
+    { "MaxJobsPerClass[Mothership]",    scriptSetSdwordCB, &cmMaxJobsPerClass[CLASS_Mothership]  },
+    { "MaxJobsPerClass[HeavyCruiser]",  scriptSetSdwordCB, &cmMaxJobsPerClass[CLASS_HeavyCruiser]},
+    { "MaxJobsPerClass[Carrier]",       scriptSetSdwordCB, &cmMaxJobsPerClass[CLASS_Carrier]},
+    { "MaxJobsPerClass[Destroyer]",     scriptSetSdwordCB, &cmMaxJobsPerClass[CLASS_Destroyer]},
+    { "MaxJobsPerClass[Frigate]",       scriptSetSdwordCB, &cmMaxJobsPerClass[CLASS_Frigate]},
+    { "MaxJobsPerClass[Corvette]",      scriptSetSdwordCB, &cmMaxJobsPerClass[CLASS_Corvette]},
+    { "MaxJobsPerClass[Fighter]",       scriptSetSdwordCB, &cmMaxJobsPerClass[CLASS_Fighter]},
+    { "MaxJobsPerClass[Resource]",      scriptSetSdwordCB, &cmMaxJobsPerClass[CLASS_Resource]},
+    { "MaxJobsPerClass[NonCombat]",     scriptSetSdwordCB, &cmMaxJobsPerClass[CLASS_NonCombat]},
     
     END_SCRIPT_ENTRY
 };
@@ -4766,7 +4766,7 @@ sdword gameStatsGetShipClass(sdword nShipType)
     {
         case Carrier:
         case JunkYardHQ:
-            return(CLASS_CARRIER);
+            return(CLASS_Carrier);
 
         case HeavyCorvette:
         case LightCorvette:
@@ -4777,13 +4777,13 @@ sdword gameStatsGetShipClass(sdword nShipType)
         case P1MissileCorvette:
         case P1StandardCorvette:
         case JunkYardDawg:
-            return(CLASS_CORVETTE);
+            return(CLASS_Corvette);
 
         case MissileDestroyer:
         case StandardDestroyer:
         case P3Destroyer:
         case MiningBase:
-            return(CLASS_DESTROYER);
+            return(CLASS_Destroyer);
 
         case AttackBomber:
         case CloakedFighter:
@@ -4796,7 +4796,7 @@ sdword gameStatsGetShipClass(sdword nShipType)
         case P1Fighter:
         case P2AdvanceSwarmer:
         case P2Swarmer:
-            return(CLASS_FIGHTER);
+            return(CLASS_Fighter);
 
         case AdvanceSupportFrigate:
         case DDDFrigate:
@@ -4809,10 +4809,10 @@ sdword gameStatsGetShipClass(sdword nShipType)
         case P3Frigate:
         case Junk_LGun:
         case Junk_SGun:
-            return(CLASS_FRIGATE);
+            return(CLASS_Frigate);
 
         case HeavyCruiser:
-            return(CLASS_HEAVY_CRUISER);
+            return(CLASS_HeavyCruiser);
 
         case Mothership:
         case HeadShotAsteroid:
@@ -4820,7 +4820,7 @@ sdword gameStatsGetShipClass(sdword nShipType)
         case P2Mothership:
         case P3Megaship:
         case FloatingCity:
-            return(CLASS_MOTHERSHIP);
+            return(CLASS_Mothership);
 
         case CloakGenerator:
         case GravWellGenerator:
@@ -4836,10 +4836,10 @@ sdword gameStatsGetShipClass(sdword nShipType)
         case ResearchStationBridge:
         case ResearchStationTower:
         case Ghostship:
-            return(CLASS_NON_COMBAT);
+            return(CLASS_NonCombat);
 
         case ResourceCollector:
-            return(CLASS_RESOURCE);
+            return(CLASS_Resource);
 
         default:
             return(-1);

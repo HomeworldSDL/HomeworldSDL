@@ -306,8 +306,8 @@ void attackStraightForward(Ship *ship,SpaceObjRotImpTarg *target,real32 gunRange
 
         if(target->objtype == OBJ_ShipType)
         {
-            if( ((Ship *)target)->staticinfo->shipclass == CLASS_FIGHTER ||
-                ((Ship *)target)->staticinfo->shipclass == CLASS_CORVETTE)
+            if( ((Ship *)target)->staticinfo->shipclass == CLASS_Fighter ||
+                ((Ship *)target)->staticinfo->shipclass == CLASS_Corvette)
             {
                 targetCommand = getShipAndItsCommand(&universe.mainCommandLayer,(Ship *)target);
                 if(targetCommand != NULL)

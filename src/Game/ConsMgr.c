@@ -369,14 +369,14 @@ shipdisabled cmShipsDisabled[] =
 //ships available for construction
 shipavailable cmShipsAvailableR1Reg[NSHIPS_AVAILABLE_R1REG + 1] =
 {
-    {0,ITEM_CLASS,0,  CLASS_FIGHTER       ,  NULL},
+    {0,ITEM_CLASS,0,  CLASS_Fighter       ,  NULL},
     {0,ITEM_SHIP ,0,  HeavyDefender       ,  NULL},
     {0,ITEM_SHIP ,0,  LightInterceptor    ,  NULL},
     {0,ITEM_SHIP ,0,  HeavyInterceptor    ,  NULL},
     {0,ITEM_SHIP ,0,  CloakedFighter      ,  NULL},
     {0,ITEM_SHIP ,0,  AttackBomber        ,  NULL},
 
-    {0,ITEM_CLASS,0,  CLASS_CORVETTE      ,  NULL},
+    {0,ITEM_CLASS,0,  CLASS_Corvette      ,  NULL},
     {0,ITEM_SHIP ,0,  LightCorvette       ,  NULL},
     {0,ITEM_SHIP ,0,  HeavyCorvette       ,  NULL},
     {0,ITEM_SHIP ,0,  RepairCorvette      ,  NULL},
@@ -384,16 +384,16 @@ shipavailable cmShipsAvailableR1Reg[NSHIPS_AVAILABLE_R1REG + 1] =
     {0,ITEM_SHIP ,0,  MinelayerCorvette   ,  NULL},
     {0,ITEM_SHIP ,0,  MultiGunCorvette    ,  NULL},
 
-    {0,ITEM_CLASS,0,  CLASS_RESOURCE      ,  NULL},
+    {0,ITEM_CLASS,0,  CLASS_Resource      ,  NULL},
     {0,ITEM_SHIP ,0,  ResourceCollector   ,  NULL},
 
-    {0,ITEM_CLASS,0,  CLASS_FRIGATE       ,  NULL},
+    {0,ITEM_CLASS,0,  CLASS_Frigate       ,  NULL},
     {0,ITEM_SHIP ,0,  StandardFrigate     ,  NULL},
     {0,ITEM_SHIP ,0,  AdvanceSupportFrigate, NULL},
     {0,ITEM_SHIP ,0,  DDDFrigate          ,  NULL},
     {0,ITEM_SHIP ,0,  IonCannonFrigate    ,  NULL},
 
-    {0,ITEM_CLASS,0,  CLASS_NON_COMBAT     ,  NULL},
+    {0,ITEM_CLASS,0,  CLASS_NonCombat     ,  NULL},
     {0,ITEM_SHIP ,0,  GravWellGenerator   ,  NULL},            // Added by Daly on 04.21.99
     {0,ITEM_SHIP ,0,  CloakGenerator      ,  NULL},            // Added by Daly on 04.21.99
     {0,ITEM_SHIP ,0,  Probe               ,  NULL},
@@ -406,14 +406,14 @@ shipavailable cmShipsAvailableR1Reg[NSHIPS_AVAILABLE_R1REG + 1] =
 
 shipavailable cmShipsAvailableR1Big[NSHIPS_AVAILABLE_R1BIG + 1] =
 {
-    {0,ITEM_CLASS,0,  CLASS_FIGHTER       ,  NULL},
+    {0,ITEM_CLASS,0,  CLASS_Fighter       ,  NULL},
     {0,ITEM_SHIP ,0,  HeavyDefender       ,  NULL},
     {0,ITEM_SHIP ,0,  LightInterceptor    ,  NULL},
     {0,ITEM_SHIP ,0,  HeavyInterceptor    ,  NULL},
     {0,ITEM_SHIP ,0,  CloakedFighter      ,  NULL},
     {0,ITEM_SHIP ,0,  AttackBomber        ,  NULL},
 
-    {0,ITEM_CLASS,0,  CLASS_CORVETTE      ,  NULL},
+    {0,ITEM_CLASS,0,  CLASS_Corvette      ,  NULL},
     {0,ITEM_SHIP ,0,  LightCorvette       ,  NULL},
     {0,ITEM_SHIP ,0,  HeavyCorvette       ,  NULL},
     {0,ITEM_SHIP ,0,  RepairCorvette      ,  NULL},
@@ -421,23 +421,23 @@ shipavailable cmShipsAvailableR1Big[NSHIPS_AVAILABLE_R1BIG + 1] =
     {0,ITEM_SHIP ,0,  MinelayerCorvette   ,  NULL},
     {0,ITEM_SHIP ,0,  MultiGunCorvette    ,  NULL},
 
-    {0,ITEM_CLASS,0,  CLASS_RESOURCE      ,  NULL},
+    {0,ITEM_CLASS,0,  CLASS_Resource      ,  NULL},
     {0,ITEM_SHIP ,0,  ResourceCollector   ,  NULL},
     {0,ITEM_SHIP ,0,  ResourceController  ,  NULL},
 
-    {0,ITEM_CLASS,0,  CLASS_FRIGATE       ,  NULL},
+    {0,ITEM_CLASS,0,  CLASS_Frigate       ,  NULL},
     {0,ITEM_SHIP ,0,  StandardFrigate     ,  NULL},
     {0,ITEM_SHIP ,0,  AdvanceSupportFrigate, NULL},
     {0,ITEM_SHIP ,0,  DDDFrigate          ,  NULL},
     {0,ITEM_SHIP ,0,  IonCannonFrigate    ,  NULL},
 
-    {0,ITEM_CLASS,0,  CLASS_DESTROYER     ,  NULL},
+    {0,ITEM_CLASS,0,  CLASS_Destroyer     ,  NULL},
     {0,ITEM_SHIP ,0,  StandardDestroyer   ,  NULL},
     {0,ITEM_SHIP ,0,  MissileDestroyer    ,  NULL},
     {0,ITEM_SHIP ,0,  HeavyCruiser        ,  NULL},
     {0,ITEM_SHIP ,0,  Carrier             ,  NULL},
 
-    {0,ITEM_CLASS,0,  CLASS_NON_COMBAT     ,  NULL},
+    {0,ITEM_CLASS,0,  CLASS_NonCombat     ,  NULL},
     {0,ITEM_SHIP ,0,  Probe               ,  NULL},
     {0,ITEM_SHIP ,0,  ProximitySensor     ,  NULL},
     {0,ITEM_SHIP ,0,  SensorArray         ,  NULL},
@@ -452,14 +452,14 @@ shipavailable cmShipsAvailableR1Big[NSHIPS_AVAILABLE_R1BIG + 1] =
 
 shipavailable cmShipsAvailableR2Reg[NSHIPS_AVAILABLE_R2REG + 1] =
 {
-    {0,ITEM_CLASS,0,  CLASS_FIGHTER       ,  NULL},
+    {0,ITEM_CLASS,0,  CLASS_Fighter       ,  NULL},
     {0,ITEM_SHIP ,0,  HeavyDefender       ,  NULL},
     {0,ITEM_SHIP ,0,  LightInterceptor    ,  NULL},
     {0,ITEM_SHIP ,0,  HeavyInterceptor    ,  NULL},
     {0,ITEM_SHIP ,0,  DefenseFighter      ,  NULL},
     {0,ITEM_SHIP ,0,  AttackBomber        ,  NULL},
 
-    {0,ITEM_CLASS,0,  CLASS_CORVETTE      ,  NULL},
+    {0,ITEM_CLASS,0,  CLASS_Corvette      ,  NULL},
     {0,ITEM_SHIP ,0,  LightCorvette       ,  NULL},
     {0,ITEM_SHIP ,0,  HeavyCorvette       ,  NULL},
     {0,ITEM_SHIP ,0,  RepairCorvette      ,  NULL},
@@ -467,16 +467,16 @@ shipavailable cmShipsAvailableR2Reg[NSHIPS_AVAILABLE_R2REG + 1] =
     {0,ITEM_SHIP ,0,  MinelayerCorvette   ,  NULL},
     {0,ITEM_SHIP ,0,  MultiGunCorvette    ,  NULL},
 
-    {0,ITEM_CLASS,0,  CLASS_RESOURCE      ,  NULL},
+    {0,ITEM_CLASS,0,  CLASS_Resource      ,  NULL},
     {0,ITEM_SHIP ,0,  ResourceCollector   ,  NULL},
 
-    {0,ITEM_CLASS,0,  CLASS_FRIGATE       ,  NULL},
+    {0,ITEM_CLASS,0,  CLASS_Frigate       ,  NULL},
     {0,ITEM_SHIP ,0,  StandardFrigate     ,  NULL},
     {0,ITEM_SHIP ,0,  AdvanceSupportFrigate, NULL},
     {0,ITEM_SHIP ,0,  DFGFrigate          ,  NULL},
     {0,ITEM_SHIP ,0,  IonCannonFrigate    ,  NULL},
 
-    {0,ITEM_CLASS,0,  CLASS_NON_COMBAT     ,  NULL},
+    {0,ITEM_CLASS,0,  CLASS_NonCombat     ,  NULL},
     {0,ITEM_SHIP ,0,  GravWellGenerator   ,  NULL},            // Added by Daly on 04.21.99
     {0,ITEM_SHIP ,0,  CloakGenerator      ,  NULL},            // Added by Daly on 04.21.99
     {0,ITEM_SHIP ,0,  Probe               ,  NULL},
@@ -489,14 +489,14 @@ shipavailable cmShipsAvailableR2Reg[NSHIPS_AVAILABLE_R2REG + 1] =
 
 shipavailable cmShipsAvailableR2Big[NSHIPS_AVAILABLE_R2BIG + 1] =
 {
-    {0,ITEM_CLASS,0,  CLASS_FIGHTER       ,  NULL},
+    {0,ITEM_CLASS,0,  CLASS_Fighter       ,  NULL},
     {0,ITEM_SHIP ,0,  HeavyDefender       ,  NULL},
     {0,ITEM_SHIP ,0,  LightInterceptor    ,  NULL},
     {0,ITEM_SHIP ,0,  HeavyInterceptor    ,  NULL},
     {0,ITEM_SHIP ,0,  DefenseFighter      ,  NULL},
     {0,ITEM_SHIP ,0,  AttackBomber        ,  NULL},
 
-    {0,ITEM_CLASS,0,  CLASS_CORVETTE      ,  NULL},
+    {0,ITEM_CLASS,0,  CLASS_Corvette      ,  NULL},
     {0,ITEM_SHIP ,0,  LightCorvette       ,  NULL},
     {0,ITEM_SHIP ,0,  HeavyCorvette       ,  NULL},
     {0,ITEM_SHIP ,0,  RepairCorvette      ,  NULL},
@@ -504,23 +504,23 @@ shipavailable cmShipsAvailableR2Big[NSHIPS_AVAILABLE_R2BIG + 1] =
     {0,ITEM_SHIP ,0,  MinelayerCorvette   ,  NULL},
     {0,ITEM_SHIP ,0,  MultiGunCorvette    ,  NULL},
 
-    {0,ITEM_CLASS,0,  CLASS_RESOURCE      ,  NULL},
+    {0,ITEM_CLASS,0,  CLASS_Resource      ,  NULL},
     {0,ITEM_SHIP ,0,  ResourceCollector   ,  NULL},
     {0,ITEM_SHIP ,0,  ResourceController  ,  NULL},
 
-    {0,ITEM_CLASS,0,  CLASS_FRIGATE       ,  NULL},
+    {0,ITEM_CLASS,0,  CLASS_Frigate       ,  NULL},
     {0,ITEM_SHIP ,0,  StandardFrigate     ,  NULL},
     {0,ITEM_SHIP ,0,  AdvanceSupportFrigate, NULL},
     {0,ITEM_SHIP ,0,  DFGFrigate          ,  NULL},
     {0,ITEM_SHIP ,0,  IonCannonFrigate    ,  NULL},
 
-    {0,ITEM_CLASS,0,  CLASS_DESTROYER     ,  NULL},
+    {0,ITEM_CLASS,0,  CLASS_Destroyer     ,  NULL},
     {0,ITEM_SHIP ,0,  StandardDestroyer   ,  NULL},
     {0,ITEM_SHIP ,0,  MissileDestroyer    ,  NULL},
     {0,ITEM_SHIP ,0,  HeavyCruiser        ,  NULL},
     {0,ITEM_SHIP ,0,  Carrier             ,  NULL},
 
-    {0,ITEM_CLASS,0,  CLASS_NON_COMBAT     ,  NULL},
+    {0,ITEM_CLASS,0,  CLASS_NonCombat     ,  NULL},
     {0,ITEM_SHIP ,0,  Probe               ,  NULL},
     {0,ITEM_SHIP ,0,  ProximitySensor     ,  NULL},
     {0,ITEM_SHIP ,0,  SensorArray         ,  NULL},
@@ -535,14 +535,14 @@ shipavailable cmShipsAvailableR2Big[NSHIPS_AVAILABLE_R2BIG + 1] =
 
 shipavailable cmShipsAvailableP1[NSHIPS_AVAILABLE_P1 + 1] =
 {
-    {0,ITEM_CLASS,0,  CLASS_FIGHTER       ,  NULL},
+    {0,ITEM_CLASS,0,  CLASS_Fighter       ,  NULL},
     {0,ITEM_SHIP ,0,  P1Fighter           ,  NULL},
 
-    {0,ITEM_CLASS,0,  CLASS_CORVETTE      ,  NULL},
+    {0,ITEM_CLASS,0,  CLASS_Corvette      ,  NULL},
     {0,ITEM_SHIP ,0,  P1StandardCorvette  ,  NULL},
     {0,ITEM_SHIP ,0,  P1MissileCorvette   ,  NULL},
 
-    {0,ITEM_CLASS,0,  CLASS_FRIGATE       ,  NULL},
+    {0,ITEM_CLASS,0,  CLASS_Frigate       ,  NULL},
     {0,ITEM_SHIP ,0,  P1IonArrayFrigate   ,  NULL},
 
     {-1,0,0,0,NULL}
@@ -551,11 +551,11 @@ shipavailable cmShipsAvailableP1[NSHIPS_AVAILABLE_P1 + 1] =
 
 shipavailable cmShipsAvailableP2[NSHIPS_AVAILABLE_P2 + 1] =
 {
-    {0,ITEM_CLASS,0,  CLASS_FIGHTER       ,  NULL},
+    {0,ITEM_CLASS,0,  CLASS_Fighter       ,  NULL},
     {0,ITEM_SHIP ,0,  P2Swarmer           ,  NULL},
     {0,ITEM_SHIP ,0,  P2AdvanceSwarmer    ,  NULL},
 
-    {0,ITEM_CLASS,0,  CLASS_FRIGATE       ,  NULL},
+    {0,ITEM_CLASS,0,  CLASS_Frigate       ,  NULL},
     {0,ITEM_SHIP ,0,  P2FuelPod           ,  NULL},
     {0,ITEM_SHIP ,0,  P2MultiBeamFrigate  ,  NULL},
 
@@ -703,15 +703,15 @@ LinkedList cmDetermProgress;
 //max number of ship types per class that can be built
 sdword cmClassCapRemap[NUM_CLASSES]=
 {
-    CLASS_MOTHERSHIP,
-    CLASS_DESTROYER,
-    CLASS_DESTROYER,
-    CLASS_DESTROYER,
-    CLASS_FRIGATE,
-    CLASS_CORVETTE,
-    CLASS_FIGHTER,
-    CLASS_RESOURCE,
-    CLASS_NON_COMBAT
+    CLASS_Mothership,
+    CLASS_Destroyer,
+    CLASS_Destroyer,
+    CLASS_Destroyer,
+    CLASS_Frigate,
+    CLASS_Corvette,
+    CLASS_Fighter,
+    CLASS_Resource,
+    CLASS_NonCombat
 };
 sdword cmMaxJobsPerClass[NUM_CLASSES] =
 {
@@ -1303,8 +1303,8 @@ void cmBuildTaskFunction(void)
                                 progress->costSoFar -= progress->info->buildCost;
                                 if (progress->nJobs > 0)
                                 {                                       //if still ships to build
-                                    if ((progress->info->shipclass < CLASS_CORVETTE) ||
-                                        (progress->info->shipclass > CLASS_FIGHTER))
+                                    if ((progress->info->shipclass < CLASS_Corvette) ||
+                                        (progress->info->shipclass > CLASS_Fighter))
                                     {
                                         speechEventFleet(STAT_F_Const_CapShipComplete,
                                                          progress->info->shiptype,
@@ -1705,7 +1705,7 @@ void cmBuildShips(char *string, featom *atom)
             cmBuildJobsAdd(curshipsInProgress,
                            cmShipsAvailable[index].info,
                            cmShipsAvailable[index].nJobs);
-            if (cmShipsAvailable[index].info->shipclass <= CLASS_FRIGATE)
+            if (cmShipsAvailable[index].info->shipclass <= CLASS_Frigate)
             {
                 capShipBuilt = TRUE;
             }
@@ -2201,7 +2201,7 @@ ShipClass cmClassCapClassRemap(ShipType shipType, ShipClass shipClass)
 {
     if (shipType == ResourceController)
     {                                                       //resource controller is a special case
-        return(CLASS_RESOURCE);
+        return(CLASS_Resource);
     }
     return(cmClassCapRemap[shipClass]);
 }
@@ -3273,7 +3273,7 @@ void cmShipInfoDraw(featom *atom, regionhandle region)
             char* classString;
 
             c = cmClassHeadingTextColor;
-            if (cmShipsAvailable[index].type == CLASS_DESTROYER)
+            if (cmShipsAvailable[index].type == CLASS_Destroyer)
             {
                 classString = strGetString(strCLASS_SuperCapital);
             }

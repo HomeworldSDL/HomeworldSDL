@@ -1155,19 +1155,19 @@ void soundEventUpdate(void)
 		// a little hack here so that these ships have reasonable volume curves
 		if (ship->shiptype == MiningBase)
 		{
-			shipclass = CLASS_MOTHERSHIP;
+			shipclass = CLASS_Mothership;
 		}
 		else if (ship->shiptype == ResearchStation)
 		{
-			shipclass = CLASS_CARRIER;
+			shipclass = CLASS_Carrier;
 		}
 
 		// need to do this for the ships that aren't playing sounds
-		if (shipclass == CLASS_FIGHTER)
+		if (shipclass == CLASS_Fighter)
 		{
 			ship->soundevent.coverage = rndComputeOverlap(ship, 5.0f);
 		}
-		else if (shipclass == CLASS_CORVETTE)
+		else if (shipclass == CLASS_Corvette)
 		{
 			ship->soundevent.coverage = rndComputeOverlap(ship, 2.2f);
 		}
@@ -1178,10 +1178,10 @@ void soundEventUpdate(void)
 		}
 
         // have we reached the maximum number of sounds for these types of ships?
-		if (((numships >= SFX_MAX_STRIKEENGINES) && ((shipclass == CLASS_FIGHTER) || (shipclass == CLASS_CORVETTE))) ||
-            ((numcapships >= SFX_MAX_CAPENGINES) && ((shipclass != CLASS_FIGHTER) || (shipclass != CLASS_CORVETTE))))
+		if (((numships >= SFX_MAX_STRIKEENGINES) && ((shipclass == CLASS_Fighter) || (shipclass == CLASS_Corvette))) ||
+            ((numcapships >= SFX_MAX_CAPENGINES) && ((shipclass != CLASS_Fighter) || (shipclass != CLASS_Corvette))))
         {
-            if ((shipclass != CLASS_MOTHERSHIP) || (universe.curPlayerIndex != ship->playerowner->playerIndex))
+            if ((shipclass != CLASS_Mothership) || (universe.curPlayerIndex != ship->playerowner->playerIndex))
             {
 				SEstopengine(ship, TRUE);
 				SEstopsoundhandle(&(ship->soundevent.specialHandle), SOUND_FADE_STOPNOW);
@@ -1211,7 +1211,7 @@ void soundEventUpdate(void)
 		}
 
 		// need to keep track of the number of ships
-		if ((shipclass != CLASS_MOTHERSHIP) || (universe.curPlayerIndex != ship->playerowner->playerIndex))
+		if ((shipclass != CLASS_Mothership) || (universe.curPlayerIndex != ship->playerowner->playerIndex))
 		{
 			numships++;
 			if (isCapitalShip(ship))
@@ -1238,7 +1238,7 @@ void soundEventUpdate(void)
 
 		// figure out the coverage for this ship (how much it is visibly overlapped on screen)
 		// also figure out the volume scalar for the coverage and the velocity to max velocity ratio
-		if (shipclass == CLASS_FIGHTER)
+		if (shipclass == CLASS_Fighter)
 		{
 			vol = (sword)(vol * (1.0f - ship->soundevent.coverage));
 			velratio = FIGHTER_VELOCITY_LOWPITCH; //+ (velocity / ship->staticinfo->staticheader.maxvelocity * FIGHTER_VELOCITY_SCALE);
@@ -1247,7 +1247,7 @@ void soundEventUpdate(void)
 				velratio = FIGHTER_VELOCITY_HIGHPITCH;
 			}
 		}
-		else if (shipclass == CLASS_CORVETTE)
+		else if (shipclass == CLASS_Corvette)
 		{
 			vol = (sword)(vol * (1.0f - ship->soundevent.coverage));
 			velratio = CORVETTE_VELOCITY_LOWPITCH; //+ (velocity / ship->staticinfo->staticheader.maxvelocity * CORVETTE_VELOCITY_SCALE);
@@ -1265,7 +1265,7 @@ void soundEventUpdate(void)
 		// need to figure out if this ship is actually doing something and not just drifting
 		if (ship->soundevent.engineState != SOUND_STARTING)
 		{
-			if ((shipclass == CLASS_FIGHTER) || (shipclass == CLASS_CORVETTE))
+			if ((shipclass == CLASS_Fighter) || (shipclass == CLASS_Corvette))
 			{
 				// if this ship isn't actually doing anything, then don't turn on the engines
 				command = getShipAndItsCommand(&universe.mainCommandLayer, ship);
@@ -1329,12 +1329,12 @@ void soundEventUpdate(void)
 				// start the engine sound
 				if (velratio > 1.0f)
 				{
-					if (shipclass == CLASS_CORVETTE)
+					if (shipclass == CLASS_Corvette)
 					{
 						ship->soundevent.engineHandle = splayFPRVL(ShipBank, ShipCmnEventsLUT->lookup[GetPatch(ShipCmnEventsLUT, ship->shiptype, ShipCmn_Engine)],
 											   tempEQ, velratio, pan, SOUND_PRIORITY_MAX - 1, vol, TRUE, TRUE, FALSE);
 					}
-					else if (shipclass == CLASS_FIGHTER)
+					else if (shipclass == CLASS_Fighter)
 					{
 						ship->soundevent.engineHandle = splayFPRVL(ShipBank, ShipCmnEventsLUT->lookup[GetPatch(ShipCmnEventsLUT, ship->shiptype, ShipCmn_Engine)],
 											   tempEQ, velratio, pan, SOUND_PRIORITY_MAX - 2, vol, TRUE, TRUE, FALSE);
@@ -1362,7 +1362,7 @@ void soundEventUpdate(void)
 				soundequalize(ship->soundevent.engineHandle, tempEQ);
 			}
 	
-			if (shipclass == CLASS_FIGHTER)
+			if (shipclass == CLASS_Fighter)
 			{
 				if (FIGHTER_DOPPLER_USEVELOCITY)
 				{
@@ -1373,7 +1373,7 @@ void soundEventUpdate(void)
 					soundshipheading(ship->soundevent.engineHandle, shipangle, FIGHTER_DOPPLER_HIGH, FIGHTER_DOPPLER_LOW, 1.0f, FIGHTER_DOPPLER_SCALE);
 				}
 			}
-			if (shipclass == CLASS_CORVETTE)
+			if (shipclass == CLASS_Corvette)
 			{
 				if (CORVETTE_DOPPLER_USEVELOCITY)
 				{
@@ -1933,7 +1933,7 @@ void soundEventUpdate(void)
 	if (ship->staticinfo->maxfuel > 0.0)
 	{
 		/* this is a fighter */
-		if (shipclass == CLASS_FIGHTER)
+		if (shipclass == CLASS_Fighter)
 		{
 			velratio = FIGHTER_VELOCITY_LOWPITCH; + (velocity / ship->staticinfo->staticheader.maxvelocity * FIGHTER_VELOCITY_SCALE);
 			if (velratio > FIGHTER_VELOCITY_HIGHPITCH)
@@ -1943,7 +1943,7 @@ void soundEventUpdate(void)
 		}
 #if 0
 		/* this is a corvette */
-		else if (shipclass == CLASS_CORVETTE)
+		else if (shipclass == CLASS_Corvette)
 		{
 			velratio = CORVETTE_VELOCITY_LOWPITCH; + (velocity / ship->staticinfo->staticheader.maxvelocity * CORVETTE_VELOCITY_SCALE);
 			if (velratio > CORVETTE_VELOCITY_HIGHPITCH)
@@ -2016,7 +2016,7 @@ void soundEventUpdate(void)
 		soundequalize(ship->soundevent.engineHandle, tempEQ);
 	}
 
-	if (shipclass == CLASS_FIGHTER)
+	if (shipclass == CLASS_Fighter)
 	{
 		if (FIGHTER_DOPPLER_USEVELOCITY)
 		{
@@ -2028,7 +2028,7 @@ void soundEventUpdate(void)
 		}
 	}
 #if 1
-	if (shipclass == CLASS_CORVETTE)
+	if (shipclass == CLASS_Corvette)
 	{
 		if (CORVETTE_DOPPLER_USEVELOCITY)
 		{
@@ -2096,7 +2096,7 @@ void SEupdateShipRange(void)
 		{
 			tempship = ship;
 
-			if ((shipclass == CLASS_FIGHTER) || (shipclass == CLASS_CORVETTE))
+			if ((shipclass == CLASS_Fighter) || (shipclass == CLASS_Corvette))
 			{
 				for (i = 0; i < SFX_MAX_STRIKEENGINES; i++)
 				{
@@ -2117,7 +2117,7 @@ void SEupdateShipRange(void)
 					}
 				}
 			}
-			else if (shipclass == CLASS_MOTHERSHIP)
+			else if (shipclass == CLASS_Mothership)
 			{
 				if (numMoships < SE_MAX_MOSHIPS)
 				{
