@@ -32,7 +32,6 @@
 #include "StringSupport.h"
 #include "Tutor.h"
 #include "SoundEvent.h"
-#include "glcompat.h"
 
 #include "Tactics.h"            //long story
 
@@ -154,20 +153,16 @@ bool glcfeShouldSaveMouseCursor(void)
 {
     extern bool hrRunning;
 
-    if (!glcActive())
-    {
-        //not active, no saving
-        return FALSE;
-    }
-
-    //possible exceptions to general active rule
+    return FALSE;
+    
+/*    //possible exceptions to general active rule
     if (hrRunning)          return FALSE;
     if (feRenderEverything) return FALSE;
     if (nisIsRunning)       return FALSE;
     if (smSensorsActive)    return FALSE;
 
     //should always be TRUE, as glcompat wouldn't be active otherwise
-    return glCapFeatureExists(GL_SWAPFRIENDLY);
+    return glCapFeatureExists(GL_SWAPFRIENDLY);*/
 }
 bool feShouldSaveMouseCursor(void)
 {
@@ -3125,7 +3120,6 @@ fescreen *feScreenPop(void)
     }
 
     feRenderEverything = TRUE;
-    glcRenderEverything();
 
     return(returnValue);
 }

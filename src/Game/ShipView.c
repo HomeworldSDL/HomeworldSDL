@@ -33,7 +33,6 @@
 #include "Options.h"
 #include "FEColour.h"
 #include "Gun.h"
-#include "glcompat.h"
 #include "Probe.h"
 
 /*=============================================================================
@@ -619,23 +618,6 @@ void svShipViewRender(featom* atom, regionhandle region)
     bool resetRender = FALSE;
     char    temp[100];
     
-    //test if we'll need a mesh callback from glcPageFlip later
-    if (glcActive())
-    {
-        if (_svRender)
-        {
-            atom = _glcAtom;
-            region = _glcRegion;
-            resetRender = TRUE;
-        }
-        else
-        {
-            _glcAtom = atom;
-            _glcRegion = region;
-            _svRender = TRUE;
-        }
-    }
-
     rect = &region->rect;
     viewRect.x0 = 0;
     viewRect.y0 = 0;
@@ -746,7 +728,7 @@ void svShipViewRender(featom* atom, regionhandle region)
     primModeSet2();
     if (!resetRender)
     {
-        primRectSolid2(glcActive() ? &drawRect : &viewRect, FEC_Background);
+        primRectSolid2(&viewRect, FEC_Background);
     }
     primModeClear2();
 
@@ -955,7 +937,7 @@ void svFirepowerRender(featom *atom, regionhandle region)
 
     currentFont = fontMakeCurrent(svShipStatFont);
 
-    if (RGLtype == SWtype || glcActive()) primRectSolid2(&region->rect, FEC_Background);
+    if (RGLtype == SWtype) primRectSolid2(&region->rect, FEC_Background);
 
     if(info->svFirePower !=0)
     {
@@ -1039,7 +1021,7 @@ void svCoverageRender(featom *atom, regionhandle region)
 
     width = fontWidthf("%s",buf);
 
-    if (RGLtype == SWtype || glcActive()) primRectSolid2(&region->rect, FEC_Background);
+    if (RGLtype == SWtype) primRectSolid2(&region->rect, FEC_Background);
 
     fontPrintf(
         rect->x0,//rect->x1 - width,
@@ -1087,7 +1069,7 @@ void svManeuverRender(featom *atom, regionhandle region)
 
     currentFont = fontMakeCurrent(svShipStatFont);
 
-    if (RGLtype == SWtype || glcActive()) primRectSolid2(&region->rect, FEC_Background);
+    if (RGLtype == SWtype) primRectSolid2(&region->rect, FEC_Background);
 
     svShipManeuverability(info,maneuverability);
     sprintf(buf,ShipStatToNiceStr(Maneuver),maneuverability);
@@ -1147,7 +1129,7 @@ void svArmorRender(featom *atom, regionhandle region)
 
     width = fontWidthf("%s",buf);
 
-    if (RGLtype == SWtype || glcActive()) primRectSolid2(&region->rect, FEC_Background);
+    if (RGLtype == SWtype) primRectSolid2(&region->rect, FEC_Background);
 
     fontPrintf(
         rect->x0,//rect->x1 - width,
@@ -1196,7 +1178,7 @@ void svTopSpeedRender(featom *atom, regionhandle region)
 
     currentFont = fontMakeCurrent(svShipStatFont);
 
-    if (RGLtype == SWtype || glcActive()) primRectSolid2(&region->rect, FEC_Background);
+    if (RGLtype == SWtype) primRectSolid2(&region->rect, FEC_Background);
 
     //sprintf(buf,"%d", (uword)info->staticheader.maxvelocity);
     //topspeed contains a %d for the numerical location of the maxvelocity
@@ -1271,7 +1253,7 @@ void svMassRender(featom *atom, regionhandle region)
         //ShipTypeStatToNiceStr(svShipType, Mass));//width of number
 
 
-    if (RGLtype == SWtype || glcActive()) primRectSolid2(&region->rect, FEC_Background);
+    if (RGLtype == SWtype) primRectSolid2(&region->rect, FEC_Background);
 
     fontPrintf(
         rect->x0,//rect->x1 - width,

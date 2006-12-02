@@ -128,7 +128,6 @@
 #include "dxdraw.h"
 #include "PlugScreen.h"
 #include "HS.h"
-#include "glcompat.h"
 #include "KeyBindings.h"
 #include "ResearchGUI.h"
 
@@ -1076,16 +1075,7 @@ void utyVideoPlay(char* name, featom* atom)
 {
     bool active;
 
-    active = glcActive();
-    if (active)
-    {
-        glcActivate(FALSE);
-    }
     animBinkPlay(0,1);
-    if (active)
-    {
-        glcActivate(TRUE);
-    }
 
 #ifdef DEBUG_STOMP
     regVerify((regionhandle)&regRootRegion);
@@ -1893,8 +1883,6 @@ void gameStart(char *loadfilename)
 
     utySet(SSA_TaskBar);
 
-    (void)glcActivate(FALSE);
-
     //reset deterministic build process
     cmDeterministicReset();
 
@@ -2366,11 +2354,6 @@ abortloading:
 void gameEnd(void)
 {
     sdword index;
-
-    if (RGLtype != SWtype)
-    {
-        (void)glcActivate(TRUE);
-    }
 
     //reset the colors schemes to prevent re-entrant bugs
     teReset();
@@ -4525,8 +4508,6 @@ DONE_INTROS:
 
     meshStartup();
 
-    glcStartup();
-
     //startup transformer module
     transStartup();
 
@@ -4704,11 +4685,6 @@ DONE_INTROS:
         utyTeaserStart();
     }
 */
-
-    if (RGLtype != SWtype)
-    {
-        (void)glcActivate(TRUE);
-    }
 
     utySet(SS2_SystemStarted);                              //!!! leave this at the end of this function
     return(NULL);                                           //success, return no error
@@ -5012,8 +4988,6 @@ char *utyGameSystemsShutdown(void)
         trShutdown();
         utyClear(SSA_TextureRegistry);
     }
-
-    glcShutdown();
 
     if (utyTest(SSA_Render))
     {

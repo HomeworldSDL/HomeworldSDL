@@ -20,7 +20,6 @@
 #include "render.h"
 #include "prim2d.h"
 #include "glcaps.h"
-#include "glcompat.h"
 
 /*=============================================================================
     Data:
@@ -88,19 +87,12 @@ void primModeClearFunction2(void)
 ----------------------------------------------------------------------------*/
 void primTriSolid2(triangle *tri, color c)
 {
-    if (glcActive())
-    {
-        glcTriSolid2(tri, c);
-    }
-    else
-    {
-        glColor3ub(colRed(c), colGreen(c), colBlue(c));
-        glBegin(GL_TRIANGLES);
-        glVertex2f(primScreenToGLX(tri->x0), primScreenToGLY(tri->y0));
-        glVertex2f(primScreenToGLX(tri->x1), primScreenToGLY(tri->y1));
-        glVertex2f(primScreenToGLX(tri->x2), primScreenToGLY(tri->y2));
-        glEnd();
-    }
+    glColor3ub(colRed(c), colGreen(c), colBlue(c));
+    glBegin(GL_TRIANGLES);
+    glVertex2f(primScreenToGLX(tri->x0), primScreenToGLY(tri->y0));
+    glVertex2f(primScreenToGLX(tri->x1), primScreenToGLY(tri->y1));
+    glVertex2f(primScreenToGLX(tri->x2), primScreenToGLY(tri->y2));
+    glEnd();
 }
 
 /*-----------------------------------------------------------------------------
@@ -114,22 +106,15 @@ void primTriSolid2(triangle *tri, color c)
 ----------------------------------------------------------------------------*/
 void primTriOutline2(triangle *tri, sdword thickness, color c)
 {
-    if (glcActive())
-    {
-        glcTriOutline2(tri, thickness, c);
-    }
-    else
-    {
-        glColor3ub(colRed(c), colGreen(c), colBlue(c));
-        glPushAttrib(GL_LINE_BIT);
-        glLineWidth((GLfloat)thickness);
-        glBegin(GL_LINE_LOOP);
-        glVertex2f(primScreenToGLX(tri->x0), primScreenToGLY(tri->y0));
-        glVertex2f(primScreenToGLX(tri->x1), primScreenToGLY(tri->y1));
-        glVertex2f(primScreenToGLX(tri->x2), primScreenToGLY(tri->y2));
-        glEnd();
-        glPopAttrib();
-    }
+    glColor3ub(colRed(c), colGreen(c), colBlue(c));
+    glPushAttrib(GL_LINE_BIT);
+    glLineWidth((GLfloat)thickness);
+    glBegin(GL_LINE_LOOP);
+    glVertex2f(primScreenToGLX(tri->x0), primScreenToGLY(tri->y0));
+    glVertex2f(primScreenToGLX(tri->x1), primScreenToGLY(tri->y1));
+    glVertex2f(primScreenToGLX(tri->x2), primScreenToGLY(tri->y2));
+    glEnd();
+    glPopAttrib();
 }
 
 /*-----------------------------------------------------------------------------
@@ -203,20 +188,13 @@ void primRectSolidTexturedFullRectC2(rectangle *rect, color c)
 ----------------------------------------------------------------------------*/
 void primRectSolid2(rectangle *rect, color c)
 {
-    if (glcActive())
-    {
-        glcRectSolid2(rect, c);
-    }
-    else
-    {
-        glColor4ub(colRed(c), colGreen(c), colBlue(c), colAlpha(c));
-        glBegin(GL_QUADS);
-        glVertex2f(primScreenToGLX(rect->x0), primScreenToGLY(rect->y0));
-        glVertex2f(primScreenToGLX(rect->x0), primScreenToGLY(rect->y1));
-        glVertex2f(primScreenToGLX(rect->x1), primScreenToGLY(rect->y1));
-        glVertex2f(primScreenToGLX(rect->x1), primScreenToGLY(rect->y0));
-        glEnd();
-    }
+    glColor4ub(colRed(c), colGreen(c), colBlue(c), colAlpha(c));
+    glBegin(GL_QUADS);
+    glVertex2f(primScreenToGLX(rect->x0), primScreenToGLY(rect->y0));
+    glVertex2f(primScreenToGLX(rect->x0), primScreenToGLY(rect->y1));
+    glVertex2f(primScreenToGLX(rect->x1), primScreenToGLY(rect->y1));
+    glVertex2f(primScreenToGLX(rect->x1), primScreenToGLY(rect->y0));
+    glEnd(); 
 }
 
 /*-----------------------------------------------------------------------------
@@ -268,20 +246,14 @@ void primRectTranslucent2(rectangle* rect, color c)
 
     blendOn = glIsEnabled(GL_BLEND);
     if (!blendOn) glEnable(GL_BLEND);
-    if (glcActive())
-    {
-        glcRectTranslucent2(rect, c);
-    }
-    else
-    {
-        glColor4ub(colRed(c), colGreen(c), colBlue(c), colAlpha(c));
-        glBegin(GL_QUADS);
-        glVertex2f(primScreenToGLX(rect->x0), primScreenToGLY(rect->y0));
-        glVertex2f(primScreenToGLX(rect->x0), primScreenToGLY(rect->y1));
-        glVertex2f(primScreenToGLX(rect->x1), primScreenToGLY(rect->y1));
-        glVertex2f(primScreenToGLX(rect->x1), primScreenToGLY(rect->y0));
-        glEnd();
-    }
+    glColor4ub(colRed(c), colGreen(c), colBlue(c), colAlpha(c));
+    glBegin(GL_QUADS);
+    glVertex2f(primScreenToGLX(rect->x0), primScreenToGLY(rect->y0));
+    glVertex2f(primScreenToGLX(rect->x0), primScreenToGLY(rect->y1));
+    glVertex2f(primScreenToGLX(rect->x1), primScreenToGLY(rect->y1));
+    glVertex2f(primScreenToGLX(rect->x1), primScreenToGLY(rect->y0));
+    glEnd();
+    
     if (!blendOn) glDisable(GL_BLEND);
 }
 
@@ -297,12 +269,6 @@ void primRectTranslucent2(rectangle* rect, color c)
 void primRectOutline2(rectangle *rect, sdword thickness, color c)
 {
     sdword bottom;
-
-    if (glcActive())
-    {
-        glcRectOutline2(rect, thickness, c);
-        return;
-    }
 
     bottom = rect->y1 - 1;
 
@@ -330,12 +296,6 @@ void primRectOutline2(rectangle *rect, sdword thickness, color c)
 ----------------------------------------------------------------------------*/
 void primRectShaded2(rectangle *rect, color *c)
 {
-    if (glcActive())
-    {
-        glcRectShaded2(rect, c);
-        return;
-    }
-
     glShadeModel(GL_SMOOTH);
 
     glBegin(GL_QUADS);
@@ -463,20 +423,10 @@ void primOvalArcOutline2(oval *o, real32 radStart, real32 radEnd, sdword thickne
     real32 centreX, centreY, width, height;
     real32 x, y, lastX = 0, lastY = 0;
 
-    if (glcActive())
-    {
-        centreX = (real32)o->centreX;
-        centreY = (real32)o->centreY;
-        width  = (real32)o->radiusX;
-        height = (real32)o->radiusY;
-    }
-    else
-    {
-        centreX = primScreenToGLX(o->centreX);                  //get floating-point version of oval attributes
-        centreY = primScreenToGLY(o->centreY);
-        width  = primScreenToGLScaleX(o->radiusX);
-        height = primScreenToGLScaleY(o->radiusY);
-    }
+    centreX = primScreenToGLX(o->centreX);                  //get floating-point version of oval attributes
+    centreY = primScreenToGLY(o->centreY);
+    width  = primScreenToGLScaleX(o->radiusX);
+    height = primScreenToGLScaleY(o->radiusY);
 
     segment = (sdword)(radStart * (real32)segments / (2.0f * PI));//get starting segment
     endSegment = (sdword)(radEnd * (real32)segments / (2.0f * PI) - 0.01f);//get ending segment
@@ -488,15 +438,9 @@ void primOvalArcOutline2(oval *o, real32 radStart, real32 radEnd, sdword thickne
 
     x = centreX + (real32)sin((double)radStart) * width;    //first vertex
     y = centreY + (real32)cos((double)radStart) * height;
-    if (glcActive())
-    {
-        lastX = x;
-        lastY = y;
-    }
-    else
-    {
-        glVertex2f(x, y);
-    }
+ 
+    glVertex2f(x, y);
+    
     segment++;
     angle = (real32)segment * (2.0f * PI / (real32)segments);
     angleInc = (2.0f * PI / (real32)segments);
@@ -505,33 +449,16 @@ void primOvalArcOutline2(oval *o, real32 radStart, real32 radEnd, sdword thickne
     {                                                       //for start and all complete segments
         x = centreX + (real32)sin((double)angle) * width;
         y = centreY + (real32)cos((double)angle) * height;
-        if (glcActive())
-        {
-            glcLine2((sdword)lastX, (sdword)lastY,
-                     (sdword)x, (sdword)y,
-                     thickness, c);
-            lastX = x;
-            lastY = y;
-        }
-        else
-        {
-            glVertex2f(x, y);
-        }
+
+        glVertex2f(x, y);
+        
         angle += angleInc;                                  //update angle
     }
     x = centreX + (real32)sin((double)radEnd) * width;
     y = centreY + (real32)cos((double)radEnd) * height;
-    if (glcActive())
-    {
-        glcLine2((sdword)lastX, (sdword)lastY,
-                 (sdword)x, (sdword)y,
-                 thickness, c);
-    }
-    else
-    {
-        glVertex2f(x, y);                                       //draw last vertex
-    }
 
+    glVertex2f(x, y);                                       //draw last vertex
+    
     glEnd();
     glPopAttrib();
 }
@@ -601,12 +528,6 @@ void primErrorMessagePrintFunction(char *file, sdword line)
 void primLine2(sdword x0, sdword y0, sdword x1, sdword y1, color c)
 {
     bool blendon;
-
-    if (glcActive())
-    {
-        glcLine2(x0, y0, x1, y1, 1, c);
-        return;
-    }
 
     if (!glCapFeatureExists(GL_LINE_SMOOTH))
     {
@@ -800,12 +721,6 @@ void primSeriesOfRects(rectangle *rect, uword width,
 void primBeveledRectSolid(rectangle *rect, color c, uword xb, uword yb)
 {
     bool cull;
-
-    if (glcActive())
-    {
-        glcBeveledRectSolid2(rect, c, (sdword)xb, (sdword)yb);
-        return;
-    }
 
     cull = glIsEnabled(GL_CULL_FACE) ? TRUE : FALSE;
     glDisable(GL_CULL_FACE);
@@ -1079,17 +994,6 @@ void primCircleSolid2(sdword x, sdword y, sdword rad, sdword nSlices, color c)
     vector centre;
     real32 radiusX, radiusY;
     bool cull;
-
-    if (glcActive())
-    {
-        rectangle r;
-        r.x0 = x - rad;
-        r.y0 = y - rad;
-        r.x1 = x + rad;
-        r.y1 = y + rad;
-        glcRectSolid2(&r, c);
-        return;
-    }
 
     cull = glIsEnabled(GL_CULL_FACE) ? TRUE : FALSE;
 

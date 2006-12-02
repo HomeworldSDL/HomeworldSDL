@@ -108,7 +108,6 @@
 #include "CommandNetwork.h"
 #include "ProfileTimers.h"
 #include "LagPrint.h"
-#include "glcompat.h"
 #include "Tracking.h"
 #include "LaunchMgr.h"
 #include "devstats.h"
@@ -4118,11 +4117,9 @@ void rndRenderTask(void)
         {
             mouseStoreCursorUnder();
         }
-        if (!glcActive())
-        {
-            mouseDraw();                                        //draw mouse atop everything
-        }
-
+        
+	mouseDraw();                                        //draw mouse atop everything
+      
         if (universePause)
         {
 #if 0
@@ -4258,20 +4255,6 @@ void rndRenderTask(void)
             }
             else if (!feDontFlush)
             {
-                if (glCapFeatureExists(GL_SWAPFRIENDLY))
-                {
-                    if (glcActive())
-                    {
-                        if (RGLtype == SWtype)
-                        {
-                            (void)glcActivate(FALSE);
-                        }
-                        else
-                        {
-                            glcPageFlip(FALSE);
-                        }
-                    }
-                }
                 rndFlush();
             }
             feDontFlush = FALSE;

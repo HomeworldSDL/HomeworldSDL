@@ -29,7 +29,6 @@
 #include "Teams.h"
 #include "ShipView.h"
 #include "ColPick.h"
-#include "glcompat.h"
 
 /*=============================================================================
     Data:
@@ -251,15 +250,7 @@ color* cpHueSatImageCreate(void)
 
     if (cpHueSatTexture != TR_InvalidInternalHandle)
     {
-        if (glcActive())
-        {
-            trRGBTextureDelete(cpHueSatTexture);
-            cpHueSatTexture = TR_InvalidInternalHandle;
-        }
-        else
-        {
-            return NULL;
-        }
+        return NULL;
     }
     cpHueSatImageDelete();
     cpHueSatData = pBuffer = memAlloc(CP_HueSatTextureWidth * CP_HueSatTextureHeight * sizeof(color), "ColorPickerHueSat", 0);
@@ -1006,19 +997,7 @@ void cpPreviewImageDraw(featom *atom, regionhandle region)
     }
     trPalettedTextureMakeCurrent(cpPreviewTexture, cpPreviewTexturePalette);
     rndPerspectiveCorrection(FALSE);
-    if (glcActive())
-    {
-        glcRectSolidTextured2(&region->rect,
-                              region->rect.x1 - region->rect.x0,
-                              region->rect.y1 - region->rect.y0,
-                              cpPreviewImage->data,
-                              cpPreviewTexturePalette,
-                              TRUE);
-    }
-    else
-    {
-        primRectSolidTextured2(&region->rect);
-    }
+    primRectSolidTextured2(&region->rect);
     primRectOutline2(&region->rect, atom->borderWidth, atom->borderColor);
 #endif
 }
@@ -1056,28 +1035,11 @@ void cpHueSaturationDraw(featom *atom, regionhandle region)
     {
         (void)cpHueSatImageCreate();
     }
-    if (glcActive())
-    {
-#if CP_SCALE_HUESAT
-        glcRectSolidTextured2(&region->rect,
-                              CP_HueSatTextureWidth,
-                              CP_HueSatTextureHeight,
-                              (ubyte*)cpglcHueSatData,
-                              NULL, TRUE);
-#else
-        glcRectSolidTexturedScaled2(&region->rect,
-                                    CP_HueSatTextureWidth,
-                                    CP_HueSatTextureHeight,
-                                    (ubyte*)cpHueSatData,
-                                    NULL, TRUE);
-#endif
-    }
-    else
-    {
-        trRGBTextureMakeCurrent(cpHueSatTexture);
-        rndPerspectiveCorrection(FALSE);
-        primRectSolidTextured2(&region->rect);
-    }
+
+    trRGBTextureMakeCurrent(cpHueSatTexture);
+    rndPerspectiveCorrection(FALSE);
+    primRectSolidTextured2(&region->rect);
+    
     primLine2(region->rect.x0, region->rect.y1-1, region->rect.x1, region->rect.y1-1, atom->borderColor);
     primLine2(region->rect.x0, region->rect.y1, region->rect.x1, region->rect.y1, atom->borderColor);
     //draw the pointer indicating what color we have
@@ -1158,24 +1120,8 @@ void cpValueDraw(featom *atom, regionhandle region)
     rect.x1 = tri.x0 - 1;
 
 //    cpValueTextureCreate();
-    if (glcActive())
-    {
-        color* buffer = cpValueTextureGradientCreateScaled(rect.x1 - rect.x0, rect.y1 - rect.y0);
-        if (buffer != NULL)
-        {
-            glcRectSolidTexturedScaled2(&rect,
-                                        rect.x1 - rect.x0,
-                                        rect.y1 - rect.y0,
-                                        (ubyte*)buffer,
-                                        NULL, TRUE);
-            memFree(buffer);
-        }
-    }
-    else
-    {
-        trRGBTextureMakeCurrent(cpValueTexture);
-        primRectSolidTextured2(&rect);
-    }
+    trRGBTextureMakeCurrent(cpValueTexture);
+    primRectSolidTextured2(&rect);
     primRectOutline2(&rect, atom->borderWidth, atom->borderColor);
 }
 void cpPreviousDraw(featom *atom, regionhandle region)

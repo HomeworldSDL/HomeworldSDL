@@ -52,7 +52,6 @@
 #include "StringSupport.h"
 #include "SinglePlayer.h"
 #include "AutoDownloadMap.h"
-#include "glcompat.h"
 #include "texreg.h"
 #include "Titan.h"
 #include "devstats.h"
@@ -1032,19 +1031,6 @@ void hrDrawBackground(void)
         {
             glDrawPixels(hrBackXSize, hrBackYSize, GL_RGBA, GL_UNSIGNED_BYTE, hrBackgroundImage);
         }
-        else
-        {
-            glcMatrixSetup(TRUE);
-            if (singlePlayerGame)
-            {
-                glcDisplayRGBABackgroundWithoutScaling((ubyte*)hrBackgroundImage);
-            }
-            else
-            {
-                glcDisplayRGBABackgroundScaled((ubyte*)hrBackgroundImage);
-            }
-            glcMatrixSetup(FALSE);
-        }
 
         if (singlePlayerGame && (hrBackgroundInitFrame & 1))
         {
@@ -1225,11 +1211,6 @@ void horseRaceInit()
 {
     udword i;
     horseGetNumBars(&horseBarInfo);
-
-    if (glcActive())
-    {
-        (void)glcActivate(FALSE);
-    }
 
     //initialize current bar to the 0th bar
     localbar=0;

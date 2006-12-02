@@ -37,7 +37,6 @@
 #include "prim2d.h"
 #include "Tutor.h"
 #include "FEColour.h"
-#include "glcompat.h"
 #include "InfoOverlay.h"
 #include "StringsOnly.h"
 
@@ -552,8 +551,6 @@ void lmLaunchAll(char *string, featom *atom)
     mrRenderMainScreen = TRUE;
     lmActive = FALSE;
 
-    glcFullscreen(FALSE);
-
     // enable taskbar popup window
     tbDisable = FALSE;
 }
@@ -584,8 +581,6 @@ void lmClose(char *string, featom *atom)
     // enable rendering of main game screen
     mrRenderMainScreen = TRUE;
     lmActive = FALSE;
-
-    glcFullscreen(FALSE);
 
     lmRenderEverythingCounter = 0;
 
@@ -1162,29 +1157,17 @@ void lmDrawShipImage(regionhandle region, sdword shipID)
     else
         ferDrawFocusWindow(region, lw_normal);*/
 
-    if (glcActive())
+    if (lmPaletted)
     {
-        lifheader* lif = lmShipImage[universe.curPlayerPtr->race][usetexture];
-        glcRectSolidTexturedScaled2(&rect,
-                                    lif->width, lif->height,
-                                    lif->data,
-                                    lmPaletted ? lif->palette : NULL,
-                                    TRUE);
+        trPalettedTextureMakeCurrent(lmShipTexture[universe.curPlayerPtr->race][usetexture], lmShipImage[universe.curPlayerPtr->race][usetexture]->palette);
     }
     else
     {
-        if (lmPaletted)
-        {
-            trPalettedTextureMakeCurrent(lmShipTexture[universe.curPlayerPtr->race][usetexture], lmShipImage[universe.curPlayerPtr->race][usetexture]->palette);
-        }
-        else
-        {
-            trRGBTextureMakeCurrent(lmShipTexture[universe.curPlayerPtr->race][usetexture]);
-        }
-
-        rndPerspectiveCorrection(FALSE);
-        primRectSolidTextured2(&rect);
+        trRGBTextureMakeCurrent(lmShipTexture[universe.curPlayerPtr->race][usetexture]);
     }
+
+    rndPerspectiveCorrection(FALSE);
+    primRectSolidTextured2(&rect);
 }
 
 /*-----------------------------------------------------------------------------
@@ -1679,8 +1662,6 @@ sdword lmLaunchBegin(regionhandle region, sdword ID, udword event, udword data)
     // disable rendering of main game screen
     mrRenderMainScreen = FALSE;
     lmActive = TRUE;
-
-    glcFullscreen(TRUE);
 
     lmRenderEverythingCounter = (tutorial == TUTORIAL_ONLY) ? 4 : 0;
 

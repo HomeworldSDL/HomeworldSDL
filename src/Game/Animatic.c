@@ -23,7 +23,6 @@
 #include "SoundEvent.h"
 #include "soundlow.h"
 #include "glcaps.h"
-#include "glcompat.h"
 #include "StringSupport.h"
 
 sdword animaticJustPlayed = 0;

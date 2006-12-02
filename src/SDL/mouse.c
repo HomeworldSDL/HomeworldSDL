@@ -42,7 +42,6 @@
 #include "render.h"
 #include "Tutor.h"
 #include "SinglePlayer.h"
-#include "glcompat.h"
 #include "KeyBindings.h"
 #include "InfoOverlay.h"
 #include "devstats.h"
@@ -896,15 +895,6 @@ void mouseRestoreCursorUnder(void)
                               lastUnderWidth, lastUnderHeight,
                               lastUnderX, lastUnderY);
     }
-#if GLC_STORE
-    else
-    {
-        glcCursorUnder((ubyte*)cursorUnderContents,
-                       lastUnderWidth, lastUnderHeight,
-                       lastUnderX, lastUnderY,
-                       FALSE);
-    }
-#endif
 }
 
 void mouseStoreCursorUnder(void)
@@ -931,17 +921,6 @@ void mouseStoreCursorUnder(void)
             lastUnderY = mouseCursorYPosition - 1;
             rglSaveCursorUnder(cursorUnderContents, lastUnderWidth, lastUnderHeight, lastUnderX, lastUnderY);
         }
-#if GLC_STORE
-        else
-        {
-            lastUnderX = mouseCursorXPosition;
-            lastUnderY = mouseCursorYPosition;
-            glcCursorUnder((ubyte*)cursorUnderContents,
-                           lastUnderWidth, lastUnderHeight,
-                           lastUnderX, lastUnderY,
-                           TRUE);
-        }
-#endif
     }
 }
 

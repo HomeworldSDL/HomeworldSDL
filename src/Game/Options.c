@@ -26,7 +26,6 @@
 #include "FEColour.h"
 #include "Battle.h"
 #include "soundlow.h"
-#include "glcompat.h"
 #include "InfoOverlay.h"
 #include "KeyBindings.h"
 #include "glcaps.h"
@@ -1153,18 +1152,11 @@ bool opResChanged(void)
 
 static void opGLCStop(void)
 {
-    if (glcActive())
-    {
-        (void)glcActivate(FALSE);
-    }
+    // only glcompat function here, should be remove
 }
 
 static void opGLCStart(void)
 {
-    if (RGLtype != SWtype)
-    {
-        (void)glcActivate(TRUE);
-    }
     utyForceTopmost(fullScreen);
 }
 

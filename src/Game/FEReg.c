@@ -16,7 +16,6 @@
 #include "FEReg.h"
 #include "glcaps.h"
 #include "HorseRace.h"
-#include "glcompat.h"
 
 
 #define DRAW_CUTOUTS 1
@@ -1083,7 +1082,7 @@ void ferDraw(sdword x, sdword y, lifheader *texture)
     GLint newwidth, newheight;
     sdword oldTex, oldMode;
 
-    if (dec || (RGLtype == SWtype) || glcActive())
+    if (dec || (RGLtype == SWtype))
     {
         glRasterPos2f(primScreenToGLX(x), primScreenToGLY(y));
         glDrawPixels(texture->width, texture->height, GL_RGBA, GL_UNSIGNED_BYTE, texture->data);
