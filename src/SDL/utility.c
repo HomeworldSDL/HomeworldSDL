@@ -516,8 +516,8 @@ char utyLockFilename[] = "AutoLock.txt"; // name of autorun lock file
 filehandle utyLockFilehandle; // handle of autorun lock file
 
 // global string for the player name
-char utyName[MAX_PERSONAL_NAME_LEN]={0,0};
-char utyPassword[MAX_PERSONAL_NAME_LEN]="";
+char utyName[MAX_PERSONAL_NAME_LEN]     = "";
+char utyPassword[MAX_PERSONAL_NAME_LEN] = "";
 
 char levelfile[80];
 char dirfile[100];
@@ -920,96 +920,62 @@ fedrawcallback utyDrawCallbacks[] =
 };
 
 
-//options file options:
-/*
-struct
-{
-    sdword *flag;
-    char *flagName;
-}
-utyOptionsList[] =
-{
-    &enableSmoothing,               "enableSmoothing",
-    &showBackgrounds,               "showBackgrounds",
-    &texLinearFiltering,            "texLinearFiltering",
-    &enableStipple,                 "enableStipple",
-    &enableTrails,                  "enableTrails",
-    &strCurLanguage,                "language",
-    &smFuzzyBlobs,                  "fuzzyBlobs",
-    &utyBaseColor,                  "PlayerBaseColor",
-    &utyStripeColor,                "PlayerStripeColor",
-    &cpColorsPicked,                "ColorsPicked",
-    &whichRaceSelected,             "PlayerRace",
-    &smInstantTransition,           "InstantTransition",
-    &colPreviousColors[0].base,     "PrevColor0.base",
-    &colPreviousColors[0].detail,   "PrevColor0.detail",
-    &colPreviousColors[1].base,     "PrevColor1.base",
-    &colPreviousColors[1].detail,   "PrevColor1.detail",
-    &colPreviousColors[2].base,     "PrevColor2.base",
-    &colPreviousColors[2].detail,   "PrevColor2.detail",
-    &colPreviousColors[3].base,     "PrevColor3.base",
-    &colPreviousColors[3].detail,   "PrevColor3.detail",
-    &colPreviousColors[4].base,     "PrevColor4.base",
-    &colPreviousColors[4].detail,   "PrevColor4.detail",
-    NULL,                           NULL
-};
-
-struct
-{
-    sdword *flag;
-    char   *flagName;
-}
-utyStringOptionsList[] =
-{
-     (sdword *)utyName              ,   "PlayerName",
-     (sdword *)utyPassword          ,   "PlayerPwd",
-     (sdword *)opKeymap             ,   "Keymap",
-//     utyPassword        ,   "PlayerPassword",
-     NULL               ,   NULL
-};
-*/
-//teaser NIS stuff:
-//nisheader *utyTeaserHeader;
-//nisplaying *utyTeaserPlaying = NULL;
-
 extern sdword opEqualizerSettings[];
 extern unsigned long firewallButton;
 
 color versionColor = colWhite;
 
+// 1) if you change any of the scriptSet*CB function references here
+//    then check that utyOptionsFileWrite() supports the type!
+// 2) remember to remove the setting of the default value, by removing
+//    the equivalent entry from Tweaks[] (defined in Tweak.c)
 scriptEntry utyOptionsList[] =
 {
-    {"noPalMB",                 scriptSetUdwordCB, &opNoPalMB},
+    // graphics options
     {"effectsLevel",            scriptSetUdwordCB, &opEffectsVal},
-    {"speakerSetting",          scriptSetUdwordCB, &opSpeakerSetting},
-    {"brightnessVal",           scriptSetUdwordCB, &opBrightnessVal},
-    {"detailThreshold",         scriptSetUdwordCB, &opDetailThresholdVal},
     {"noLOD",                   scriptSetUdwordCB, &opNoLODVal},
+    {"detailThreshold",         scriptSetUdwordCB, &opDetailThresholdVal},
     {"enableSmoothing",         scriptSetUdwordCB, &enableSmoothing},
     {"showBackgrounds",         scriptSetUdwordCB, &showBackgrounds},
     {"texLinearFiltering",      scriptSetUdwordCB, &texLinearFiltering},
     {"enableStipple",           scriptSetUdwordCB, &enableStipple},
     {"enableTrails",            scriptSetUdwordCB, &enableTrails},
-    {"language",                scriptSetUdwordCB, &strCurLanguage},
+    {"noPalMB",                 scriptSetUdwordCB, &opNoPalMB},
+    {"etgDamageEffectsEnabled", scriptSetUdwordCB, &etgDamageEffectsEnabled},
+    {"etgHitEffectsEnabled",    scriptSetUdwordCB, &etgHitEffectsEnabled},
+    {"etgFireEffectsEnabled",   scriptSetUdwordCB, &etgFireEffectsEnabled},
+    {"etgBulletEffectsEnabled", scriptSetUdwordCB, &etgBulletEffectsEnabled},
+    {"etgHistoryScalar",        scriptSetUdwordCB, &etgHistoryScalar},
+    {"InfoOverlay",             scriptSetUdwordCB, &opInfoOverlayVar},
     {"fuzzyBlobs",              scriptSetUdwordCB, &smFuzzyBlobs},
-    {"PlayerBaseColor",         scriptSetUdwordCB, &utyBaseColor},
-    {"PlayerStripeColor",       scriptSetUdwordCB, &utyStripeColor},
-    {"ColorsPicked",            scriptSetUdwordCB, &cpColorsPicked},
-    {"PlayerRace",              scriptSetUdwordCB, &whichRaceSelected},
     {"InstantTransition",       scriptSetUdwordCB, &smInstantTransition},
-    {"PrevColor0.base",         scriptSetUdwordCB, &colPreviousColors[0].base},
-    {"PrevColor0.detail",       scriptSetUdwordCB, &colPreviousColors[0].detail},
-    {"PrevColor1.base",         scriptSetUdwordCB, &colPreviousColors[1].base},
-    {"PrevColor1.detail",       scriptSetUdwordCB, &colPreviousColors[1].detail},
-    {"PrevColor2.base",         scriptSetUdwordCB, &colPreviousColors[2].base},
-    {"PrevColor2.detail",       scriptSetUdwordCB, &colPreviousColors[2].detail},
-    {"PrevColor3.base",         scriptSetUdwordCB, &colPreviousColors[3].base},
-    {"PrevColor3.detail",       scriptSetUdwordCB, &colPreviousColors[3].detail},
-    {"PrevColor4.base",         scriptSetUdwordCB, &colPreviousColors[4].base},
-    {"PrevColor4.detail",       scriptSetUdwordCB, &colPreviousColors[4].detail},
-    {"PlayerName",              scriptSetStringCB, &utyName},
-    {"PlayerPwd",               scriptSetStringCB, &utyPassword},
-//    {"Keymappings",             scriptSetStringCB, &opKeymap},
+    {"brightnessVal",           scriptSetUdwordCB, &opBrightnessVal},
+
+    // sound options
+    {"MusicVolume",             scriptSetUdwordCB, &opMusicVol},
+    {"SpeechVolume",            scriptSetUdwordCB, &opSpeechVol},
+    {"SFXVolume",               scriptSetUdwordCB, &opSFXVol},
+    {"Equalizer0",              scriptSetUdwordCB, &opEqualizerSettings[0]},
+    {"Equalizer1",              scriptSetUdwordCB, &opEqualizerSettings[1]},
+    {"Equalizer2",              scriptSetUdwordCB, &opEqualizerSettings[2]},
+    {"Equalizer3",              scriptSetUdwordCB, &opEqualizerSettings[3]},
+    {"Equalizer4",              scriptSetUdwordCB, &opEqualizerSettings[4]},
+    {"Equalizer5",              scriptSetUdwordCB, &opEqualizerSettings[5]},
+    {"Equalizer6",              scriptSetUdwordCB, &opEqualizerSettings[6]},
+    {"Equalizer7",              scriptSetUdwordCB, &opEqualizerSettings[7]},
+    {"Voice0",                  scriptSetUdwordCB, &opVoice0On},
+    {"Voice1",                  scriptSetUdwordCB, &opVoice1On},
+    {"Voice2",                  scriptSetUdwordCB, &opVoice2On},
+    {"VoiceCommands",           scriptSetUdwordCB, &opVoiceComm},
+    {"VoiceStatus",             scriptSetUdwordCB, &opVoiceStat},
+    {"VoiceChatter",            scriptSetUdwordCB, &opVoiceChat},
+    {"speakerSetting",          scriptSetUdwordCB, &opSpeakerSetting},
+    {"NumChannels",             scriptSetUdwordCB, &opNumChannels},
+    {"AutoChannel",             scriptSetUdwordCB, &opAutoChannel},
+    {"SoundQuality",            scriptSetUdwordCB, &opSoundQuality},
+    {"opBattleChatter",         scriptSetUdwordCB, &opBattleChatter},
+
+    // input options
     {"NEXT_FORMATION",          scriptSetUdwordCB, &kbKeySavedKeys[kbNEXT_FORMATION]},
     {"BUILD_MANAGER",           scriptSetUdwordCB, &kbKeySavedKeys[kbBUILD_MANAGER]},
     {"PREVIOUS_FOCUS",          scriptSetUdwordCB, &kbKeySavedKeys[kbPREVIOUS_FOCUS]},
@@ -1025,48 +991,44 @@ scriptEntry utyOptionsList[] =
     {"SCUTTLE",                 scriptSetUdwordCB, &kbKeySavedKeys[kbSCUTTLE]},
     {"SHIP_SPECIAL",            scriptSetUdwordCB, &kbKeySavedKeys[kbSHIP_SPECIAL]},
     {"TACTICAL_OVERLAY",        scriptSetUdwordCB, &kbKeySavedKeys[kbTACTICAL_OVERLAY]},
-//    {"SENSORS_MANAGER",         scriptSetUdwordCB, &kbKeySavedKeys[kbSENSORS_MANAGER]},
     {"MOTHERSHIP",              scriptSetUdwordCB, &kbKeySavedKeys[kbMOTHERSHIP]},
     {"KAMIKAZE",                scriptSetUdwordCB, &kbKeySavedKeys[kbKAMIKAZE]},
     {"CANCEL_ORDERS",           scriptSetUdwordCB, &kbKeySavedKeys[kbCANCEL_ORDERS]},
     {"LAUNCH_MANAGER",          scriptSetUdwordCB, &kbKeySavedKeys[kbLAUNCH_MANAGER]},
-    {"Equalizer0",              scriptSetUdwordCB, &opEqualizerSettings[0]},
-    {"Equalizer1",              scriptSetUdwordCB, &opEqualizerSettings[1]},
-    {"Equalizer2",              scriptSetUdwordCB, &opEqualizerSettings[2]},
-    {"Equalizer3",              scriptSetUdwordCB, &opEqualizerSettings[3]},
-    {"Equalizer4",              scriptSetUdwordCB, &opEqualizerSettings[4]},
-    {"Equalizer5",              scriptSetUdwordCB, &opEqualizerSettings[5]},
-    {"Equalizer6",              scriptSetUdwordCB, &opEqualizerSettings[6]},
-    {"Equalizer7",              scriptSetUdwordCB, &opEqualizerSettings[7]},
-    {"MusicVolume",             scriptSetUdwordCB, &opMusicVol},
-    {"SFXVolume",               scriptSetUdwordCB, &opSFXVol},
-    {"SpeechVolume",            scriptSetUdwordCB, &opSpeechVol},
-    {"Voice0",                  scriptSetUdwordCB, &opVoice0On},
-    {"Voice1",                  scriptSetUdwordCB, &opVoice1On},
-    {"Voice2",                  scriptSetUdwordCB, &opVoice2On},
-    {"VoiceCommands",           scriptSetUdwordCB, &opVoiceComm},
-    {"VoiceStatus",             scriptSetUdwordCB, &opVoiceStat},
-    {"VoiceChatter",            scriptSetUdwordCB, &opVoiceChat},
     {"opMouseSens",             scriptSetUdwordCB, &opMouseSens},
-    {"InfoOverlay",             scriptSetUdwordCB, &opInfoOverlayVar},
-    {"opBattleChatter",         scriptSetUdwordCB, &opBattleChatter},
-    {"spCurrentSelected",       scriptSetUdwordCB, &spCurrentSelected},
-    {"etgDamageEffectsEnabled", scriptSetUdwordCB, &etgDamageEffectsEnabled},
-    {"etgHitEffectsEnabled",    scriptSetUdwordCB, &etgHitEffectsEnabled},
-    {"etgFireEffectsEnabled",   scriptSetUdwordCB, &etgFireEffectsEnabled},
-    {"etgBulletEffectsEnabled", scriptSetUdwordCB, &etgBulletEffectsEnabled},
-    {"etgHistoryScalar",        scriptSetUdwordCB, &etgHistoryScalar},
-    {"NumChannels",             scriptSetUdwordCB, &opNumChannels},
-    {"AutoChannel",             scriptSetUdwordCB, &opAutoChannel},
-    {"SoundQuality",            scriptSetUdwordCB, &opSoundQuality},
-    {"FirewallDetect",          scriptSetUdwordCB, &firewallButton},
+    
+    // player customisation preferences
+    {"language",                scriptSetUdwordCB, &strCurLanguage},
+    {"PlayerBaseColor",         scriptSetUdwordCB, &utyBaseColor},
+    {"PlayerStripeColor",       scriptSetUdwordCB, &utyStripeColor},
+    {"ColorsPicked",            scriptSetUdwordCB, &cpColorsPicked},
+    {"PlayerRace",              scriptSetUdwordCB, &whichRaceSelected},
+    {"PrevColor0.base",         scriptSetUdwordCB, &colPreviousColors[0].base},
+    {"PrevColor0.stripe",       scriptSetUdwordCB, &colPreviousColors[0].detail},
+    {"PrevColor1.base",         scriptSetUdwordCB, &colPreviousColors[1].base},
+    {"PrevColor1.stripe",       scriptSetUdwordCB, &colPreviousColors[1].detail},
+    {"PrevColor2.base",         scriptSetUdwordCB, &colPreviousColors[2].base},
+    {"PrevColor2.stripe",       scriptSetUdwordCB, &colPreviousColors[2].detail},
+    {"PrevColor3.base",         scriptSetUdwordCB, &colPreviousColors[3].base},
+    {"PrevColor3.stripe",       scriptSetUdwordCB, &colPreviousColors[3].detail},
+    {"PrevColor4.base",         scriptSetUdwordCB, &colPreviousColors[4].base},
+    {"PrevColor4.stripe",       scriptSetUdwordCB, &colPreviousColors[4].detail},
+    
+    // single player
     {"TutorialNeeded",          scriptSetUdwordCB, &needtutorial},
-    {"MPGameFlags",             scriptSetUdwordCB, &tpGameCreated.pad2},
-    {"MultiPlayerGameSetting",  scriptSetUdwordCB, &tpGameCreated.numComputers},
-    {"ResInjInterval",          scriptSetUdwordCB, &tpGameCreated.resourceInjectionInterval},
-    {"ResInjAmmount",           scriptSetUdwordCB, &tpGameCreated.resourceInjectionsAmount},
-    {"ResLumpSumTime",          scriptSetUdwordCB, &tpGameCreated.resourceLumpSumTime},
-    {"ResLumpSumAmmount" ,      scriptSetUdwordCB, &tpGameCreated.resourceLumpSumAmount},
+    
+    // multiplayer
+    {"PlayerName",                     scriptSetStringCB, &utyName},
+    {"PlayerPassword",                 scriptSetStringCB, &utyPassword},
+    {"MultiPlayerLastMapID",           scriptSetUdwordCB, &spCurrentSelected},
+    {"MultiPlayerNumComputerPlayers",  scriptSetUbyteCB,  &tpGameCreated.numComputers},
+    {"MultiPlayerComputerDifficulty",  scriptSetUbyteCB,  &tpGameCreated.aiplayerDifficultyLevel},
+    {"MultiPlayerComputerHatesHumans", scriptSetUbyteCB,  &tpGameCreated.aiplayerBigotry},
+    {"ResourceInjectionInterval",      scriptSetUdwordCB, &tpGameCreated.resourceInjectionInterval},
+    {"ResourceInjectionAmount",        scriptSetUdwordCB, &tpGameCreated.resourceInjectionsAmount},
+    {"ResourceLumpSumTime",            scriptSetUdwordCB, &tpGameCreated.resourceLumpSumTime},
+    {"ResourceLumpSumAmount",          scriptSetUdwordCB, &tpGameCreated.resourceLumpSumAmount},
+    {"FirewallDetect",                 scriptSetUdwordCB, &firewallButton},
 
     END_SCRIPT_ENTRY
 };
@@ -1076,8 +1038,6 @@ scriptEntry utyOptionsList[] =
 
 void utyVideoPlay(char* name, featom* atom)
 {
-    bool active;
-
     animBinkPlay(0,1);
 
 #ifdef DEBUG_STOMP
@@ -1217,13 +1177,21 @@ void utyOptionsFileWrite(void)
     
     for (index = 0; utyOptionsList[index].name != NULL; index++)
     {
-        if (utyOptionsList[index].setVarCB == scriptSetUdwordCB)
-        {
-            fprintf(f, "%s    %u\n", utyOptionsList[index].name, *((udword *)utyOptionsList[index].dataPtr));
+        if (utyOptionsList[index].setVarCB == scriptSetUbyteCB) {
+            fprintf(f, "%s    %u\n", utyOptionsList[index].name,
+                *((ubyte *)utyOptionsList[index].dataPtr));
         }
-        else
-        {
-            fprintf(f, "%s    %s\n", utyOptionsList[index].name, (char*)utyOptionsList[index].dataPtr);
+        else if (utyOptionsList[index].setVarCB == scriptSetUwordCB) {
+            fprintf(f, "%s    %u\n", utyOptionsList[index].name,
+                *((uword *)utyOptionsList[index].dataPtr));
+        }
+        else if (utyOptionsList[index].setVarCB == scriptSetUdwordCB) {
+            fprintf(f, "%s    %u\n", utyOptionsList[index].name,
+                *((udword *)utyOptionsList[index].dataPtr));
+        }
+        else if (utyOptionsList[index].setVarCB == scriptSetStringCB) {
+            fprintf(f, "%s    %s\n", utyOptionsList[index].name,
+                (char*)utyOptionsList[index].dataPtr);
         }
     }
     

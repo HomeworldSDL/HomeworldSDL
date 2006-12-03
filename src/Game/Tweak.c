@@ -779,8 +779,8 @@ scriptEntry Tweaks[] =
 //    makeEntry(tpGameCreated.resourceInjectionsAmount,   scriptSetUdwordCB),
 //    makeEntry(tpGameCreated.resourceLumpSumTime,        scriptSetUdwordCB),
 //    makeEntry(tpGameCreated.resourceLumpSumAmount,      scriptSetUdwordCB),
-    makeEntry(tpGameCreated.aiplayerDifficultyLevel,    scriptSetUbyteCB),
-    makeEntry(tpGameCreated.aiplayerBigotry,            scriptSetUbyteCB),
+//    makeEntry(tpGameCreated.aiplayerDifficultyLevel,    scriptSetUbyteCB),
+//    makeEntry(tpGameCreated.aiplayerBigotry,            scriptSetUbyteCB),
 
     makeEntry(GC_SCROLL_TIME,                           scriptSetReal32CB),
 

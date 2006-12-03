@@ -665,7 +665,7 @@ void StripTrailingSpaces(char *value)
     {
         endstr--;
 
-        if (endstr <= value)
+        if (endstr < value)
         {
             break;
         }

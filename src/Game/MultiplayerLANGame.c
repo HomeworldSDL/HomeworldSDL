@@ -109,10 +109,6 @@ fibfileheader  *lgScreensHandle = NULL;
 bool            lgdonerefreshing  = TRUE;
 bool            lgCreatingNetworkGame = FALSE;
 
-// structures and variables for creating a game.
-extern CaptainGameInfo tpGameCreated;
-// = {"","","","",0,0,0,0,0,0,0,0,0,0};
-
 // tweakable fonthandles.
 fonthandle lgListOfGamesFont=0;
 fonthandle lgChatWindowFont=0;

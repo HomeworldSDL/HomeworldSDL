@@ -230,6 +230,7 @@ extern taskhandle lgProccessCallback;
 
 extern bool lgRunning;
 
+// = {"","","","",0,0,0,0,0,0,0,0,0,0};
 extern CaptainGameInfo tpGameCreated;
 
 extern taskhandle ProccessCallback;

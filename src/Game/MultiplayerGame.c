@@ -207,10 +207,6 @@ bool            donepinging     = TRUE;
 bool            mgCreatingNetworkGame = FALSE;
 
 // structures and variables for creating a game.
-extern CaptainGameInfo tpGameCreated;
-// N    P   M   D   u   p        nc  sf  bs  sr   ii    ia     lt    la   ad  ab  p     f
-//= {L"", L"", "", "", 0,  {0,0,0},  0,  1,  3,   1, 1440, 2000, 19200, 2000, 50, 50, 0, 22058};
-
 CaptainGameInfo BackupGameCreated;
 sdword          spCurrentSelectedBack;
 /*char            scenPickBack[]*/
@@ -1830,8 +1826,13 @@ void mgSkirmish(char *name, featom *atom)
     }
     LANGame = FALSE;
     IPGame = 1; // DO NOT USE TRUE for CPP reasons
-    tpGameCreated.numComputers  = 1;
     tpGameCreated.numPlayers    = 1;
+    
+    // use the previous number of computer players unless it takes us over the limit
+    if (tpGameCreated.numComputers + tpGameCreated.numPlayers > MAX_MULTIPLAYER_PLAYERS) {
+        tpGameCreated.numComputers = 1;
+    }
+    
     mgShowScreen(MGS_Skirmish_Basic, TRUE);
 
 #ifdef _MACOSX_FIX_ME
