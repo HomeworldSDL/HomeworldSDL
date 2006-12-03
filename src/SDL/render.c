@@ -33,10 +33,11 @@
 #endif
 #endif
 
-#define SHOW_TRAIL_STATS    0
-#define RND_WILL_PANIC      0
-#define USE_RND_HINT        0
-#define WILL_TWO_PASS       0
+#define SHOW_TRAIL_STATS      0
+#define RND_WILL_PANIC        0
+#define USE_RND_HINT          0
+#define WILL_TWO_PASS         0
+#define DISABLE_RANDOM_STARS  0     // turn off drawing of random stars over background
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -1242,6 +1243,10 @@ void rndBackgroundRender(real32 radius, Camera* camera, bool bDrawStars)
 {
     real32 projection[16];
     sdword index;
+
+#if DISABLE_RANDOM_STARS
+    bDrawStars = FALSE;
+#endif
 
     glGetFloatv(GL_PROJECTION_MATRIX, projection);
 

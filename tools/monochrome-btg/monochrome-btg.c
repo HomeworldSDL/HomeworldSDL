@@ -81,34 +81,34 @@ void usage (int argc, char *argv[]) {
 
 void fix_header_endian (btgHeader *btg_header) {
 #ifdef ENDIAN_BIG
-	btg_header->btgFileVersion = LittleLong( btg_header->btgFileVersion );
-    
-	btg_header->numVerts       = LittleLong( btg_header->numVerts       );
-	btg_header->numStars       = LittleLong( btg_header->numStars       );
-	btg_header->numPolys       = LittleLong( btg_header->numPolys       );
+    btg_header->btgFileVersion = LittleLong( btg_header->btgFileVersion );
 
-	btg_header->xScroll        = LittleLong( btg_header->xScroll        );
-	btg_header->yScroll        = LittleLong( btg_header->yScroll        );
+    btg_header->numVerts       = LittleLong( btg_header->numVerts       );
+    btg_header->numStars       = LittleLong( btg_header->numStars       );
+    btg_header->numPolys       = LittleLong( btg_header->numPolys       );
 
-	btg_header->zoomVal        = LittleLong( btg_header->zoomVal        );
+    btg_header->xScroll        = LittleLong( btg_header->xScroll        );
+    btg_header->yScroll        = LittleLong( btg_header->yScroll        );
 
-	btg_header->pageWidth      = LittleLong( btg_header->pageWidth      );
-	btg_header->pageHeight     = LittleLong( btg_header->pageHeight     );
+    btg_header->zoomVal        = LittleLong( btg_header->zoomVal        );
 
-	btg_header->mRed           = LittleLong( btg_header->mRed           );
-	btg_header->mGreen         = LittleLong( btg_header->mGreen         );
-	btg_header->mBlue          = LittleLong( btg_header->mBlue          );
+    btg_header->pageWidth      = LittleLong( btg_header->pageWidth      );
+    btg_header->pageHeight     = LittleLong( btg_header->pageHeight     );
 
-	btg_header->mBGRed         = LittleLong( btg_header->mBGRed         );
-	btg_header->mBGGreen       = LittleLong( btg_header->mBGGreen       );
-	btg_header->mBGBlue        = LittleLong( btg_header->mBGBlue        );
+    btg_header->mRed           = LittleLong( btg_header->mRed           );
+    btg_header->mGreen         = LittleLong( btg_header->mGreen         );
+    btg_header->mBlue          = LittleLong( btg_header->mBlue          );
 
-	btg_header->bVerts         = LittleLong( btg_header->bVerts         );
-	btg_header->bPolys         = LittleLong( btg_header->bPolys         );
-	btg_header->bStars         = LittleLong( btg_header->bStars         );
-	btg_header->bOutlines      = LittleLong( btg_header->bOutlines      );
-	btg_header->bBlends        = LittleLong( btg_header->bBlends        );
+    btg_header->mBGRed         = LittleLong( btg_header->mBGRed         );
+    btg_header->mBGGreen       = LittleLong( btg_header->mBGGreen       );
+    btg_header->mBGBlue        = LittleLong( btg_header->mBGBlue        );
 
-	btg_header->renderMode     = LittleLong( btg_header->renderMode     );
+    btg_header->bVerts         = LittleLong( btg_header->bVerts         );
+    btg_header->bPolys         = LittleLong( btg_header->bPolys         );
+    btg_header->bStars         = LittleLong( btg_header->bStars         );
+    btg_header->bOutlines      = LittleLong( btg_header->bOutlines      );
+    btg_header->bBlends        = LittleLong( btg_header->bBlends        );
+
+    btg_header->renderMode     = LittleLong( btg_header->renderMode     );
 #endif
 }

@@ -16,6 +16,6 @@ The resulting file is needless to say, very small: 84 bytes. The easiest way to 
 
 GOTCHA:
 
-The .btg file does not appear to be the only thing that Homeworld renders in the background - grr. It also appears to draw a random number of scattered grey pixels over the background to represent dim stars, thus preventing apparently empty regions of space in barren backdrops. This is exceedingly annoying if you want a black background (lighter backdrops tend to wash these stars out though).
+The .btg file is not the only thing that Homeworld renders in the background. It also draws a random number of scattered points over the background to represent dim stars, thus preventing apparently empty regions of space in barren backdrops. This is exceedingly annoying if you want a black background. However, you can turn these stars off by changing the following #define in src/SDL/render.c:
 
-If anyone finds out where this happens then please update this file so we can disable it when necessary!
+    #define DISABLE_RANDOM_STARS  1
