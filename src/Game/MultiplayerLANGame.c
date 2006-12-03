@@ -1881,7 +1881,6 @@ void lgDirtyNumPlayerRegions()
 
 void lgCreateGameNow(char *name, featom *atom)
 {
-#ifndef _MACOSX_FIX_ME
     if (SeeingDetailsForGameName[0])
     {
         SeeingDetailsForGameName[0] = 0;
@@ -1952,7 +1951,6 @@ void lgCreateGameNow(char *name, featom *atom)
 
         lgUpdateGameInfo();
     }
-#endif // _MACOSX_FIX_ME
 }
 
 void lgGameNameTextEntry(char *name, featom *atom)
@@ -2999,7 +2997,7 @@ void lgUpdateGameInfo(void)
             sigsPlayerIndex = i;
             utyBaseColor    = tpGameCreated.playerInfo[i].baseColor;
             utyStripeColor  = tpGameCreated.playerInfo[i].stripeColor;
-            cpColorsPicked = tpGameCreated.playerInfo[i].colorsPicked;
+            cpColorsPicked  = tpGameCreated.playerInfo[i].colorsPicked;
         }
 
         player.header.packettype = LG_QUEUEGAMEPLAYER;

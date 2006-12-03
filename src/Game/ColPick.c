@@ -152,12 +152,13 @@ color  cpValueArrowColor = CP_ValueArrowColor;
 void colPickScalarScan(char *directory,char *field,void *dataToFillIn);
 static scriptEntry colPickScriptTable[] =
 {
-    {"baseScalar", colPickScalarScan, NULL},
-    {"stripeScalar", colPickScalarScan, (void *)0xffffffff},
-    {"cpValueArrowWidth", scriptSetSdwordCB, &cpValueArrowWidth},
+    {"baseScalar",         colPickScalarScan, NULL},
+    {"stripeScalar",       colPickScalarScan, (void *)0xffffffff},
+    {"cpValueArrowWidth",  scriptSetSdwordCB, &cpValueArrowWidth},
     {"cpValueArrowHeight", scriptSetSdwordCB, &cpValueArrowHeight},
-    {"cpValueArrowColor", scriptSetRGBCB, &cpValueArrowColor},
-    {NULL, NULL, NULL},
+    {"cpValueArrowColor",  scriptSetRGBCB,    &cpValueArrowColor},
+
+    END_SCRIPT_ENTRY
 };
 //hue-specific scalar tables
 colpickcurve colPickScalarCurve[NUM_RACES * 2] =//two for each race
@@ -1431,7 +1432,8 @@ void cpColorsAddToPreviousList(color base, color stripe)
     {
         colPreviousColors[index] = colPreviousColors[index - 1];
     }
-    colPreviousColors[index].base = base;
-    colPreviousColors[index].detail = stripe;
+    
+    colPreviousColors[0].base   = base;
+    colPreviousColors[0].detail = stripe;
 }
 

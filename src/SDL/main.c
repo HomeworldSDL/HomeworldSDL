@@ -3112,9 +3112,11 @@ int main (int argc, char* argv[])
 
             if (SDL_PollEvent(&e))
             {
-                if (e.type == SDL_QUIT)
-                    break;
                 event_res = HandleEvent(&e);
+
+                if (e.type == SDL_QUIT) {
+                    break;
+                }
             }
             else
             {

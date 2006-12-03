@@ -149,6 +149,9 @@ extern char mainD3DToSelect[];
 
 #define CD_VALIDATION_ENABLED  0            // toggle checking CD is in drive and anti-piracy checks
 
+#define UTY_CONFIG_FILENAME  "Homeworld.cfg"
+
+
 udword regMagicNum = 0;
 char   regLanguageVersion[50];
 
@@ -1148,40 +1151,14 @@ void versionNumDraw(featom *atom, regionhandle region)
     Outputs     : reads in the switches listed in utyOptionsList array
     Return      :
 ----------------------------------------------------------------------------*/
-#define UTY_StringLength        80
-#define UTY_FileName            "Homeworld.ini"
-#define UTY_SectionName         "Options"
 void utyOptionsFileRead(void)
 {
-#ifndef _WIN32
-    char* home_dir;
-    char ch_buf[PATH_MAX];
-#endif
-    /*
-    sdword index;
-    char returnString[UTY_StringLength];
-    char defaultString[UTY_StringLength];
-
-    for (index = 0; utyOptionsList[index].flag != NULL; index++)
-    {
-        sprintf(defaultString, "%d", *utyOptionsList[index].flag);
-        GetPrivateProfileString(UTY_SectionName, utyOptionsList[index].flagName,
-                                defaultString, returnString, UTY_StringLength, UTY_FileName);
-        sscanf(returnString, "%d", utyOptionsList[index].flag);
-    }
-
-    for (index = 0; utyStringOptionsList[index].flag != NULL; index++)
-    {
-        sprintf(defaultString, "%s", (char *)utyStringOptionsList[index].flag);
-        GetPrivateProfileString(UTY_SectionName, utyStringOptionsList[index].flagName,
-                                defaultString, returnString, UTY_StringLength, UTY_FileName);
-        strcpy((char *)utyStringOptionsList[index].flag,returnString);
-    }
-    */
 #ifdef _WIN32
-    scriptSetFileSystem("", DIS_FileName, utyOptionsList);
+    scriptSetFileSystem("", UTY_CONFIG_FILENAME, utyOptionsList);
 #else
-    home_dir = getenv("HOME");
+    char *home_dir = getenv("HOME");
+    char  ch_buf[PATH_MAX];
+
     if (home_dir)
     {
         strcpy(ch_buf, home_dir);
@@ -1191,7 +1168,7 @@ void utyOptionsFileRead(void)
     {
         ch_buf[0] = '\0';
     }
-    scriptSetFileSystem(ch_buf, DIS_FileName, utyOptionsList);
+    scriptSetFileSystem(ch_buf, UTY_CONFIG_FILENAME, utyOptionsList);
 #endif
 
     //call any functions that need to acknowledge a change due to loading
@@ -1216,53 +1193,40 @@ void utyOptionsFileWrite(void)
 #endif
     sdword index;
     FILE *f;
-/*
-    char returnString[UTY_StringLength];
 
-    for (index = 0; utyOptionsList[index].flag != NULL; index++)
-    {
-        sprintf(returnString, "%d", *utyOptionsList[index].flag);
-        WritePrivateProfileString(UTY_SectionName, utyOptionsList[index].flagName,
-                                returnString, UTY_FileName);
-    }
-
-    for (index = 0; utyStringOptionsList[index].flag != NULL; index++)
-    {
-        sprintf(returnString, "%s", (char *)utyStringOptionsList[index].flag);
-        WritePrivateProfileString(UTY_SectionName, utyStringOptionsList[index].flagName,
-                                returnString, UTY_FileName);
-    }
-*/
 #ifdef _WIN32
-    f = fopen(DIS_FileName, "wt");
+    f = fopen(UTY_CONFIG_FILENAME, "wt");
 #else
     home_dir = getenv("HOME");
     if (home_dir)
     {
         strcpy(ch_buf, home_dir);
-        strcat(ch_buf, "/" CONFIGDIR "/" DIS_FileName);
+        strcat(ch_buf, "/" CONFIGDIR "/" UTY_CONFIG_FILENAME);
     }
     else
     {
-        strcpy(ch_buf, DIS_FileName);
+        strcpy(ch_buf, UTY_CONFIG_FILENAME);
     }
     f = fopen(ch_buf, "wt");
 #endif
+
     if (f == NULL)
     {
         goto REGISTRY;
     }
+    
     for (index = 0; utyOptionsList[index].name != NULL; index++)
     {
         if (utyOptionsList[index].setVarCB == scriptSetUdwordCB)
         {
-            fprintf(f, "%s    %d\n", utyOptionsList[index].name, *((udword *)utyOptionsList[index].dataPtr));
+            fprintf(f, "%s    %u\n", utyOptionsList[index].name, *((udword *)utyOptionsList[index].dataPtr));
         }
         else
         {
             fprintf(f, "%s    %s\n", utyOptionsList[index].name, (char*)utyOptionsList[index].dataPtr);
         }
     }
+    
     fclose(f);
 
 REGISTRY:
@@ -1962,7 +1926,7 @@ void gameStart(char *loadfilename)
                 sprintf(playerNames[i], "%s %i", strGetString(strComputerName), i-sigsNumPlayers+1);
             }
 #if UTY_PLAYER_LOGGING
-            logfileLogf("PlayerStart.log", "%d %d 0x%x 0x%x %s\n", i, tpGameCreated.playerInfo[i].race, teColorSchemes[i].textureColor.base, teColorSchemes[i].textureColor.detail, tpGameCreated.playerInfo[i].PersonalName);
+            logfileLogf("PlayerStart.log", "%u %u 0x%x 0x%x %s\n", i, tpGameCreated.playerInfo[i].race, teColorSchemes[i].textureColor.base, teColorSchemes[i].textureColor.detail, tpGameCreated.playerInfo[i].PersonalName);
 #endif
         }
 
@@ -1998,7 +1962,7 @@ void gameStart(char *loadfilename)
                 //set race for player
                 universe.players[0].race = whichRaceSelected;
 
-                dbgMessagef("\nplayer is race %d", whichRaceSelected);
+                dbgMessagef("\nplayer is race %u", whichRaceSelected);
                 otherRace = (whichRaceSelected == R1) ? R2 : R1;
                 for (i = 1; i < numPlayers; i++)
                 {
@@ -2256,7 +2220,7 @@ void gameStart(char *loadfilename)
     {
         udword techLevel = 0;
 
-        dbgMessagef("SYNC NUMBER: %d",gamerand());
+        dbgMessagef("SYNC NUMBER: %u",gamerand());
 
         if ((!singlePlayerGame) && (!bitTest(tpGameCreated.flag,MG_ResearchEnabled)))
         {
@@ -2802,7 +2766,7 @@ bool utyDemoAutoPlay(udword num, void* data, struct BabyCallBack* baby)
             for (attempt = 0; attempt < DEM_NumberTries; attempt++)
             {
                 chosen = ranRandom(RANDOM_SOUND) % index;      //choose a demo to play (sound random stream is non-deterministic)
-                sprintf(string, "%s%dx%d.dem", names[chosen],//get the resolution-dependent name
+                sprintf(string, "%s%ux%u.dem", names[chosen],//get the resolution-dependent name
                         MAIN_WindowWidth, MAIN_WindowHeight);
 
 #if DEM_VERBOSE_LEVEL >= 1
@@ -3306,7 +3270,7 @@ void utyNewGameStart(char *name, featom *atom)
             shiplagtotals[i] = 0;
         }
 
-        dbgMessagef("\nsigsPlayerIndex %d",sigsPlayerIndex);
+        dbgMessagef("\nsigsPlayerIndex %u",sigsPlayerIndex);
         for (i=0;i<MAX_MULTIPLAYER_PLAYERS;i++)
         {
             playersReadyToGo[i] = FALSE;
@@ -4210,13 +4174,13 @@ char* utyGameSystemsPreInit(void)
 #endif
     if (utyMemoryHeap == NULL)
     {
-        sprintf(errorString, "Error allocating heap of size %d", MemoryHeapSize);
+        sprintf(errorString, "Error allocating heap of size %u", MemoryHeapSize);
         return(errorString);
     }
     utySet(SSA_MemoryHeap);
     if (memStartup(utyMemoryHeap, MemoryHeapSize, utyGrowthHeapAlloc) != OKAY)
     {
-        sprintf(errorString, "Error starting memory manager with heap size %d at 0x%x", MemoryHeapSize, (unsigned int)utyMemoryHeap);
+        sprintf(errorString, "Error starting memory manager with heap size %u at 0x%x", MemoryHeapSize, (unsigned int)utyMemoryHeap);
         return(errorString);
     }
     utySet(SSA_MemoryModule);
@@ -4554,7 +4518,7 @@ DONE_INTROS:
     teStartup();                                            //start the team-specific stuff
     if (!cpColorsPicked)
     {
-        utyBaseColor = teColorSchemes[0].textureColor.base;
+        utyBaseColor   = teColorSchemes[0].textureColor.base;
         utyStripeColor = teColorSchemes[0].textureColor.detail;
     }
     utySet(SSA_Teams);
@@ -4655,7 +4619,7 @@ DONE_INTROS:
 #endif
     if (demDemoRecording)
     {                                                       //if recording a demo
-        sprintf(demDemoFilename + strlen(demDemoFilename), "%dx%d.dem", MAIN_WindowWidth, MAIN_WindowHeight);
+        sprintf(demDemoFilename + strlen(demDemoFilename), "%ux%u.dem", MAIN_WindowWidth, MAIN_WindowHeight);
 #if DEM_VERBOSE_LEVEL >= 1
         dbgMessagef("\nRecording demo '%s'.", demDemoFilename);
 #endif
@@ -4664,7 +4628,7 @@ DONE_INTROS:
     }
     else if (demDemoPlaying)
     {                                                       //if playing a demo
-        sprintf(demDemoFilename + strlen(demDemoFilename), "%dx%d.dem", MAIN_WindowWidth, MAIN_WindowHeight);
+        sprintf(demDemoFilename + strlen(demDemoFilename), "%ux%u.dem", MAIN_WindowWidth, MAIN_WindowHeight);
         if (fileExists(demDemoFilename, 0))
         {
             demPlayStart(demDemoFilename, utyPreDemoStateLoadCB, utyDemoFinishedCB);
@@ -4672,7 +4636,7 @@ DONE_INTROS:
         else
         {
 #if DEM_VERBOSE_LEVEL >= 1
-            dbgMessagef("\nDemo '%d' not found.", demDemoFilename);
+            dbgMessagef("\nDemo '%s' not found.", demDemoFilename);
 #endif
             demDemoPlaying = FALSE;
         }

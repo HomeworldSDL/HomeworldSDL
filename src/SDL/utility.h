@@ -197,8 +197,6 @@ bool utyChangeResolution(sdword width, sdword height, sdword depth);
 bool utyBrowserExec(char *URL);
 void utyGetFirstCDPath(char *szPath);
 
-void utyOptionsFileWrite(void);
-
 //toggle key things
 void utyToggleKeyStatesSave(void);
 void utyToggleKeyStatesRestore(void);
