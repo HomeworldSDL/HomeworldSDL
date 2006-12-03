@@ -44,7 +44,7 @@ There is a strong sentiment among many people to rewrite the codebase to modern 
  
  -Compiling the source code-
 
- You need to have at least the following packages installed:
+You need to have at least the following packages installed:
 
  * SDL development files (version 1.2.11 or later) see *1
    - you may get a linkage error against X symbols on earlier ones.
@@ -53,13 +53,15 @@ There is a strong sentiment among many people to rewrite the codebase to modern 
  * bison (any recent version will do)
  * autotools set: autoconf, automake (1.9), libtool
  * YACC (any recent version will do)
- * libx11-dev
 
- The build process itself is relatively straightforward. Running the bootstrap script found in this directory with "./bootstrap" will set up the files needed and then doing "../configure" (that's "period period slash configure") followed by "make" will build the required files and then the binary.
- 
- If you have GCC 4 or later on your system you will need to tell it to use an earlier version of itself. One method of doing this under Linux is to use the PATH option when giving the compile orders, and giving your particular GCC 3.3 or 3.4 binary in the path. 
- 
- For example, if your system's GCC 3.3 is gcc-3.3.6 then you can enter:
+You may need these package(s) if HWSDL won't compile again after compiling and installing your own libsdl:
+ *libx11-dev
+
+The build process itself is relatively straightforward. Running the bootstrap script found in this directory with "./bootstrap" will set up the files needed and then doing "../configure" (that's "period period slash configure") followed by "make" will build the required files and then the binary.
+
+If you have GCC 4 or later on your system you will need to tell it to use an earlier version of itself. One method of doing this under Linux is to use the PATH option when giving the compile orders, and giving your particular GCC 3.3 or 3.4 binary in the path. 
+
+For example, if your system's GCC 3.3 is gcc-3.3.6 then you can enter:
 
  ./bootstrap
  CC=gcc-3.3.6 ../configure 
