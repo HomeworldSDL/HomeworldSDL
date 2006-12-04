@@ -1727,21 +1727,6 @@ void ActivateMe()
 #endif
 }
 
-static bool mainFileExists(char* filename)
-{
-    FILE* file = fopen(filename, "rb");
-    if (file == NULL)
-    {
-        return FALSE;
-    }
-    else
-    {
-        fclose(file);
-        return TRUE;
-    }
-}
-
-
 /*-----------------------------------------------------------------------------
     Name        : mainFreeLibraries
     Description : Release references to possible GL libraries.

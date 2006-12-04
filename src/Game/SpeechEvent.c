@@ -239,8 +239,6 @@ char *relicPlayerNames[MAX_RELIC_NAMES] = {
 char musicHeaderName[] = "CGW_Music.wxh";
 #elif defined(HW_DEMO)
 char musicHeaderName[] = "DL_Music.wxh";
-#elif defined(HW_PUBLIC_BETA)
-char musicHeaderName[] = "PB_Music.wxh";
 #elif defined(HW_RAIDER_RETREAT)
 char musicHeaderName[] = "OEM_Music.wxh";
 #else
@@ -442,7 +440,7 @@ sdword speechEventInit(void)
     strcpy(loadfile, SOUNDFXDIR);
 #ifdef HW_COMPUTER_GAMING_WORLD_DEMO
     strcat(loadfile, "CGWsentence.lut");
-#elif defined(HW_DEMO) || defined(HW_PUBLIC_BETA)
+#elif defined(HW_DEMO)
     strcat(loadfile, "DLsentence.lut");
 #else
     strcat(loadfile, "speechsentence_comp.lut");
@@ -455,7 +453,7 @@ sdword speechEventInit(void)
 	SentenceLUT->numcolumns = LittleShort( SentenceLUT->numcolumns );
 	SentenceLUT->numevents  = LittleShort( SentenceLUT->numevents );
 	SentenceLUT->numactors  = LittleShort( SentenceLUT->numactors );
-#if defined(HW_DEMO) || defined(HW_PUBLIC_BETA)
+#if defined(HW_DEMO)
 	SentenceLUT->compbitrate[3] = LittleShort( SentenceLUT->compbitrate[3] );
 #else
 	SentenceLUT->compbitrate[0] = LittleShort( SentenceLUT->compbitrate[0] );
@@ -471,7 +469,7 @@ sdword speechEventInit(void)
     strcpy(loadfile, SOUNDFXDIR);
 #ifdef HW_COMPUTER_GAMING_WORLD_DEMO
     strcat(loadfile, "CGWphrase.lut");
-#elif defined(HW_DEMO) || defined(HW_PUBLIC_BETA)
+#elif defined(HW_DEMO)
     strcat(loadfile, "DLphrase.lut");
 #else
     strcat(loadfile, "speechphrase_comp.lut");
@@ -552,7 +550,7 @@ sdword speechEventInit(void)
         streamhandle[1] = soundstreamcreatebuffer(pspeechbuffer1, buffersize, SentenceLUT->compbitrate[1]);
     pspeechbuffer2 = memAlloc(buffersize, "SpeechBuffer2", NonVolatile);
         streamhandle[2] = soundstreamcreatebuffer(pspeechbuffer2, buffersize, SentenceLUT->compbitrate[2]);
-#if defined(HW_DEMO) || defined(HW_PUBLIC_BETA)
+#if defined(HW_DEMO)
     pspeechbuffer4 = memAlloc(buffersize, "SpeechBuffer4", NonVolatile);
         streamhandle[4] = soundstreamcreatebuffer(pspeechbuffer4, buffersize, SentenceLUT->compbitrate[0]);
 #else
@@ -628,7 +626,7 @@ void speechEventClose(void)
     memFree(pspeechbuffer0);
     memFree(pspeechbuffer1);
     memFree(pspeechbuffer2);
-#if defined(HW_DEMO) || defined(HW_PUBLIC_BETA)
+#if defined(HW_DEMO)
     memFree(pspeechbuffer4);
 #else
     memFree(pspeechbuffer3);
@@ -1163,7 +1161,7 @@ sdword SENextVariationInSeries(sdword numVariations, sdword *lookupsy, sdword wi
     udword sequence;
     udword iVariation;
 
-#if defined(HW_DEMO) || defined(HW_PUBLIC_BETA)
+#if defined(HW_DEMO)
     if (numVariations > 0xf)
     {                                                       //could be the case if this actor is disabled
         return(0);
@@ -2338,7 +2336,7 @@ sdword SEselectactor(void)
 {
     sdword actor;
 
-#if defined(HW_DEMO) || defined(HW_PUBLIC_BETA)
+#if defined(HW_DEMO)
     actor = (ranRandom(RANDOM_SOUND_GAME_THREAD) % 2) + 1;
 #else
     actor = (ranRandom(RANDOM_SOUND_GAME_THREAD) % 3) + 1;
@@ -2348,7 +2346,7 @@ sdword SEselectactor(void)
     {
         actor++;
 
-#if defined(HW_DEMO) || defined(HW_PUBLIC_BETA)
+#if defined(HW_DEMO)
             if (actor > 2)
 #else
             if (actor > 3)
@@ -2361,7 +2359,7 @@ sdword SEselectactor(void)
         {
             actor++;
 
-#if defined(HW_DEMO) || defined(HW_PUBLIC_BETA)
+#if defined(HW_DEMO)
             if (actor > 2)
 #else
             if (actor > 3)
@@ -2691,15 +2689,6 @@ sdword musictranslatetracknum(sdword tracknum)
     else if (tracknum == ANIM01_02)
     {
         track = 3;
-    }
-    else
-    {
-        track = -1;
-    }
-#elif defined(HW_PUBLIC_BETA)
-    if ((tracknum >= MUS_FIRST_AMBIENT) && (tracknum <= MUS_LAST_BATTLE))
-    {
-        track = 0;
     }
     else
     {
@@ -3126,7 +3115,7 @@ sdword musicEventUpdateVolume(void)
 }
 
 
-#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_DEMO) || defined(HW_PUBLIC_BETA) || defined(HW_RAIDER_RETREAT)
+#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_DEMO) || defined(HW_RAIDER_RETREAT)
 
 void musicEventNextTrack(void)
 {

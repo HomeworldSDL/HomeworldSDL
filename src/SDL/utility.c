@@ -475,7 +475,7 @@ fonthandle ghDefaultFont = 0;
 // NB: HW_RAIDER_RETREAT uses the Update.big mechanism
 #if defined(HW_COMPUTER_GAMING_WORLD_DEMO)
 char utyBigFilename[] = "HomeworldCGW.big";
-#elif defined(HW_DEMO) || defined(HW_PUBLIC_BETA)
+#elif defined(HW_DEMO)
 char utyBigFilename[] = "HomeworldDL.big";
 #else
 char utyBigFilename[] = "Homeworld.big";
@@ -486,8 +486,6 @@ char utyBigFilename[] = "Homeworld.big";
 char utyMusicFilename[] = "CGW_Music.wxd";
 #elif defined(HW_DEMO)
 char utyMusicFilename[] = "DL_Music.wxd";
-#elif defined(HW_PUBLIC_BETA)
-char utyMusicFilename[] = "PB_Music.wxd";
 #elif defined(HW_RAIDER_RETREAT)
 char utyMusicFilename[] = "OEM_Music.wxd";
 #else
@@ -497,7 +495,7 @@ char utyMusicFilename[] = "HW_Music.wxd";
 // name of voice file
 #if  defined(HW_COMPUTER_GAMING_WORLD_DEMO)
 char utyVoiceFilename[] = "CGW_Demo.vce";
-#elif defined(HW_DEMO) || defined(HW_PUBLIC_BETA)
+#elif defined(HW_DEMO)
 char utyVoiceFilename[] = "DL_Demo.vce";
 #else
 char utyVoiceFilename[] = "HW_comp.vce";
@@ -555,7 +553,7 @@ taskhandle utyRenderTask;
 static bool forceSP = FALSE;
 
 //global flag for demo functionality
-#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined (HW_DEMO) || defined(HW_PUBLIC_BETA) || defined(HW_RAIDER_RETREAT)
+#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined (HW_DEMO) || defined(HW_RAIDER_RETREAT)
 bool utyPlugScreens = FALSE;
 #endif
 bool utyCreditsSequence = FALSE;
@@ -1644,11 +1642,7 @@ void utySensorsBlobsBitmapToggle(char* name, featom* atom)
 void utyLanguageToggle(char* name, featom* atom)
 {
     sdword index;
-//#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_DEMO) || defined(HW_PUBLIC_BETA) || defined(HW_RAIDER_RETREAT)
-//    //disable this function in demos
-//    bitSet(atom->flags, FAF_Disabled);
-//    bitSet(((region *)atom->region)->status, RSF_RegionDisabled);
-//#else
+
     if (FEFIRSTCALL(atom))
     {
         feRadioButtonSet(name, strCurLanguage);
@@ -1657,10 +1651,11 @@ void utyLanguageToggle(char* name, featom* atom)
     {
         strLoadLanguage((strLanguageType)atom->pData);
         frReloadFonts();
-//        bitSet(feStack[feStackIndex].baseRegion->flags, RSF_DrawThisFrame);
+
 #ifdef DEBUG_STOMP
         regVerify((regionhandle)&regRootRegion);
 #endif
+
         bitSet(regRootRegion.status, RSF_DrawThisFrame);           //flag everything to be redrawn
         regDirtyEverythingUpwards(atom->region);
         for (index = 0; index <= feStackIndex; index++)
@@ -1668,7 +1663,6 @@ void utyLanguageToggle(char* name, featom* atom)
             feScreenAllHotKeysUpdate(feStack[feStackIndex].screen);
         }
     }
-//#endif
 }
 
 //void utyScenarioPick(char *name, featom *atom)
@@ -2776,33 +2770,15 @@ bool utyDemoAutoPlay(udword num, void* data, struct BabyCallBack* baby)
 ----------------------------------------------------------------------------*/
 void utySinglePlayerOptions(char *name, featom *atom)
 {
-
 #if defined(HW_DEMO)
-
     featom *bitchatom;
 
     bitchatom = feAtomFindInScreen(feScreenFind("Main_game_screen"),"FE_SHOWCREDITS");
 
     bitSet(bitchatom->flags, FAF_Disabled);
     bitSet(((region *)bitchatom->region)->status, RSF_RegionDisabled);
-
-
 #endif
 
-#if defined(HW_PUBLIC_BETA)
-    //disable this function in demos
-    bitSet(atom->flags, FAF_Disabled);
-    bitSet(((region *)atom->region)->status, RSF_RegionDisabled);
-#if DEM_AUTO_DEMO
-    if (FEFIRSTCALL(atom))
-    {
-        //prepare to auto-play a demo after a period of time
-        utyDemoWaitMouseX = mouseCursorX();
-        utyDemoWaitMouseY = mouseCursorY();
-        taskCallBackRegister(utyDemoAutoPlay, 0, NULL, demAutoDemoWaitTime);
-    }
-#endif //DEM_AUTO_DEMO
-#else //defined(HW_PUBLIC_BETA)
     if (FEFIRSTCALL(atom))
     {
 #if DEM_AUTO_DEMO
@@ -2810,24 +2786,21 @@ void utySinglePlayerOptions(char *name, featom *atom)
         utyDemoWaitMouseX = mouseCursorX();
         utyDemoWaitMouseY = mouseCursorY();
         taskCallBackRegister(utyDemoAutoPlay, 0, NULL, demAutoDemoWaitTime);
-#endif //DEM_AUTO_DEMO
+#endif
         return;
     }
+    
 #if MAIN_Password
-    if (mainSinglePlayerEnabled)
-#endif
-    {
-        feScreenDisappear(NULL,NULL);
-
-        feScreenStart(ghMainRegion, "Create_new_game");
-    }
-#if MAIN_Password
-    else
+    if (!mainSinglePlayerEnabled)
     {
         bitSet(atom->flags, FAF_Disabled);
     }
-#endif //MAIN_Password
-#endif // defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_DEMO) || defined(HW_PUBLIC_BETA)
+    else
+#endif
+    {
+        feScreenDisappear(NULL,NULL);
+        feScreenStart(ghMainRegion, "Create_new_game");
+    }
 }
 
 /*-----------------------------------------------------------------------------
@@ -3160,18 +3133,6 @@ void utyNewGameStart(char *name, featom *atom)
 {
     udword i,j;
 
-#if defined(HW_PUBLIC_BETA)
-    //disable this function in demos
-    if (atom != NULL)
-    {
-        bitSet(atom->flags, FAF_Disabled);
-        bitSet(((region *)atom->region)->status, RSF_RegionDisabled);
-    }
-    if (!multiPlayerGame)
-    {
-        dbgFatal(DBG_Loc, "CRC (Cyclic Redundancy Check)");
-    }
-#endif
     if (FEFIRSTCALL(atom))
     {
         return;
@@ -3346,7 +3307,7 @@ void utyNewGameStart(char *name, featom *atom)
 void utyGameQuit(char *name, featom *atom)
 {
     dbgMessagef("\nQuit game, baby!");
-#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_DEMO) || defined(HW_PUBLIC_BETA) || defined(HW_RAIDER_RETREAT)
+#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_DEMO) || defined(HW_RAIDER_RETREAT)
     if (enableAVI)
     {
         psModeBegin("Plugscreens\\", PMF_CanSkip);
@@ -3380,7 +3341,7 @@ void utyGameQuitToMain(char *name, featom *atom)
 
     gameEnd();
 
-#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined (HW_DEMO) || defined(HW_PUBLIC_BETA) || defined(HW_RAIDER_RETREAT)
+#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined (HW_DEMO) || defined(HW_RAIDER_RETREAT)
     if (utyPlugScreens && enableAVI)
     {
         psModeBegin("Plugscreens\\", PMF_CanSkip);
@@ -3424,25 +3385,6 @@ void utyGameQuitToMain(char *name, featom *atom)
     soundEventPause(FALSE);
     soundEventUpdate();
 }
-
-/*-----------------------------------------------------------------------------
-    Name        : utyGameQuitToPlugScreens
-    Description : Quits the current game and exits to the plug screens (demo versions only)
-    Inputs      :
-    Outputs     :
-    Return      : void
-----------------------------------------------------------------------------*/
-/*
-#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined (HW_DEMO) || defined(HW_PUBLIC_BETA) || defined(HW_RAIDER_RETREAT)
-void utyGameQuitToPlugScreens(void)
-{
-    feAllScreensDelete();
-    gameEnd();
-    psModeBegin("Plugscreens\\", PMF_CanSkip);
-    psScreenStart("BuyHomeworld0.plug");
-}
-#endif
-*/
 
 /*-----------------------------------------------------------------------------
     Name        : utyInGameCancel
@@ -4315,7 +4257,7 @@ char *utyGameSystemsInit(void)
     soundEventInit();
     utySet2(SS2_SoundEngine);
 
-#if (!defined(HW_DEMO) || defined(HW_PUBLIC_BETA))
+#ifndef HW_DEMO
     /* Intro playing requires a window, which we have not made yet thanks to
        how the code's been butchered. */
 #if 0
@@ -4466,7 +4408,7 @@ DONE_INTROS:
     rmAPIStartup();
     utySet2(SS2_ResearchMgr);
 
-#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_DEMO) || defined(HW_PUBLIC_BETA) || defined(HW_RAIDER_RETREAT)
+#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_DEMO) || defined(HW_RAIDER_RETREAT)
     psStartup();
     utySet2(SS2_PlugScreen);
 #endif
@@ -4577,7 +4519,7 @@ DONE_INTROS:
         mouseCursorShow();
 //    }
 
-#if (defined(HW_DEMO) || defined(HW_PUBLIC_BETA))
+#ifdef HW_DEMO
     if (enableAVI)
     {
         primModeSetFunction2();
@@ -4867,7 +4809,7 @@ char *utyGameSystemsShutdown(void)
 
     tmShutdown();
 
-#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_DEMO) || defined(HW_PUBLIC_BETA) || defined(HW_RAIDER_RETREAT)
+#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_DEMO) || defined(HW_RAIDER_RETREAT)
     if (utyTest2(SS2_PlugScreen))
     {
         psShutdown();

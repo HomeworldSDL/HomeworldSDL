@@ -504,13 +504,6 @@ int patchErrorMsg = 0;
 int patchAbortRequest = 0;
 int patchComplete = 0;
 
-#if PUBLIC_BETA
-// public beta variables
-int betaVerifying = 0;
-int betaVerified = 0;
-int betaDoneVerifying = 0;
-#endif
-
 // temporary variable for storing name, in case of cancel
 char tempname[64];
 
@@ -1815,11 +1808,6 @@ void mgConnectionBack(char *name, featom *atom)
 
 void mgSkirmish(char *name, featom *atom)
 {
-#if defined(HW_PUBLIC_BETA)
-    //disable this function in demos
-    bitSet(atom->flags, FAF_Disabled);
-    bitSet(((region *)atom->region)->status, RSF_RegionDisabled);
-#else
     if (FEFIRSTCALL(atom))
     {
         return;
@@ -1837,8 +1825,6 @@ void mgSkirmish(char *name, featom *atom)
 
 #ifdef _MACOSX_FIX_ME
 	multiPlayerGame = FALSE;
-#endif
-
 #endif
 }
 
@@ -1872,7 +1858,7 @@ void mgLANIPX(char *name, featom *atom)
 {
     //mgShowScreen(MGS_LAN_Login,TRUE);
 
-#if defined(HW_PUBLIC_BETA) || defined(HW_DEMO)
+#if defined(HW_DEMO)
     //disable this function in demos
     bitSet(atom->flags, FAF_Disabled);
     bitSet(((region *)atom->region)->status, RSF_RegionDisabled);
@@ -2159,12 +2145,7 @@ void mgBackToConnection(char *name, featom *atom)
     // closedown the titan engine
     titanShutdown();
 
-#if PUBLIC_BETA
-    if (betaVerifying)
-        mgConnectionBack(NULL,NULL);
-    else
-#endif
-        mgShowScreen(MGS_Connection_Method,TRUE);
+    mgShowScreen(MGS_Connection_Method,TRUE);
 
 }
 
@@ -6344,14 +6325,6 @@ void mgProcessCallBacksTask(void)
         }
         UnLockMutex(changescreenmutex);
 
-#if PUBLIC_BETA
-        if (betaDoneVerifying)
-        {
-            betaDoneVerifying = FALSE;
-            mgBackToConnection(NULL,NULL);
-        }
-#endif
-
         LockMutex(gamestartedmutex);
         if (gamestarted)
         {
@@ -6517,16 +6490,7 @@ void mgStartMultiPlayerGameScreens(regionhandle region, sdword ID, udword event,
     {
         LoggedIn=FALSE;
 
-#if PUBLIC_BETA
-        if (!betaVerified)
-        {
-            betaVerifying = TRUE;
-            mgInternetWON(NULL,NULL);
-        }
-        else
-#endif
-            mgShowScreen(MGS_Connection_Method,TRUE);
-
+        mgShowScreen(MGS_Connection_Method,TRUE);
     }
 
     taskResume(ProccessCallback);
@@ -6986,32 +6950,10 @@ int authReceiveReply(sword status)
         {
             mgDisplayMessage(strGetString(strConnectedWon));
 
-#if PUBLIC_BETA
-            if (betaVerifying)
-            {
-                betaVerified = TRUE;
-                betaVerifying = FALSE;
-                betaDoneVerifying = TRUE;
-                mgConnectingScreenGoto = MGS_Connection_Method;
-                //mgBackToConnection(NULL,NULL);
-#if 0
-                LockMutex(changescreenmutex);
+            cJoinADefaultRoom();
+            LoggedIn = TRUE;
 
-                newscreen = TRUE;
-                screenaskedfor = MGS_Connection_Method;
-                hideallscreens = TRUE;
-
-                UnLockMutex(changescreenmutex);
-#endif
-            }
-            else
-#endif
-            {
-                cJoinADefaultRoom();
-                LoggedIn = TRUE;
-
-                mgConnectingScreenGoto = MGS_Channel_Chat;
-            }
+            mgConnectingScreenGoto = MGS_Channel_Chat;
 
             mgQueryType = -1;
         }

@@ -1209,13 +1209,7 @@ sdword fileSizeGet(char *_fileName, udword flags)
 
     if ((file = fopen(fileName, "rb")) == NULL)              //open the file
     {
-#if defined(HW_PUBLIC_BETA)
-        udword *spp;
-        _asm mov spp,esp
-        dbgFatalf(DBG_Loc, "fileSizeGet: file error '%s'.  0x%x-(0x%x,0x%x,0x%x,0x%x,0x%x,0x%x)", fileName, (udword)fileSizeGet, *(spp - 7), *(spp - 6), *(spp - 5), *(spp - 4), *(spp - 3), *(spp - 2), *(spp - 1));
-#else
         dbgFatalf(DBG_Loc, "fileSizeGet: can't find file '%s'.", fileName);
-#endif
     }
     length = fseek(file, 0, SEEK_END);                      //get length of file
     dbgAssertOrIgnore(length == 0);

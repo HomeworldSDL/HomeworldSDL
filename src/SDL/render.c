@@ -4221,7 +4221,7 @@ void rndRenderTask(void)
             rndFillCounter--;
         }
 #if 0
-#if defined (HW_DEMO) || defined(HW_PUBLIC_BETA)
+#if defined (HW_DEMO)
         ;
 #else
         {

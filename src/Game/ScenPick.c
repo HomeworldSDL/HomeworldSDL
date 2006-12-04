@@ -373,7 +373,7 @@ sdword spScenarioFind(char *scenarioName)
 ----------------------------------------------------------------------------*/
 void spTitleListLoad(void)
 {
-#if !(defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined (HW_DEMO) || defined(HW_PUBLIC_BETA) || defined(HW_RAIDER_RETREAT))
+#if !(defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined (HW_DEMO) || defined(HW_RAIDER_RETREAT))
 #ifdef _WIN32
     struct _finddata_t find;
     sdword handle, startHandle;
@@ -395,7 +395,7 @@ void spTitleListLoad(void)
     unsigned int i;
 #endif
 
-#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_DEMO) || defined(HW_PUBLIC_BETA)
+#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_DEMO)
     scriptFile = fileOpen("DemoMissions.script", FF_TextMode);
 #else
     // HW Raider Retreat has all missions!
@@ -478,7 +478,7 @@ alreadyLoaded:;
     }
     fileClose(scriptFile);
 
-#if !(defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined (HW_DEMO) || defined(HW_PUBLIC_BETA) || defined(HW_RAIDER_RETREAT))
+#if !(defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined (HW_DEMO) || defined(HW_RAIDER_RETREAT))
 #ifdef _WIN32
     startHandle = handle = _findfirst(filePathPrepend("MultiPlayer\\*.", 0), &find);
 
@@ -526,7 +526,7 @@ alreadyLoaded:;
                 goto alreadyLoadedFromFileSystem;           //break-continue
             }
         }
-#endif //MAIN_Password
+#endif
 
         for (index = 0; index < spNumberScenarios; index++)
         {
@@ -601,7 +601,7 @@ alreadyLoadedFromFileSystem:;
                     continue;           /*break-continue*/
                 }
             }
-#endif //MAIN_Password
+#endif
 
             for (index = 0; index < spNumberScenarios; index++)
             {
@@ -634,8 +634,8 @@ alreadyLoadedFromFileSystem:;
 
         closedir(dp);
     }
-#endif   /* _WIN32 */
-#endif //defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined (HW_DEMO) || defined(HW_PUBLIC_BETA) || defined(HW_RAIDER_RETREAT)
+#endif // _WIN32
+#endif // defined(HW_COMPUTER_GAMING_WORLD_DEMO)...
 
     dbgAssertOrIgnore(spNumberScenarios > 0);
     if (spNumberScenarios > 1)

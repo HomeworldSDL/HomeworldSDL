@@ -15,7 +15,5 @@
 
 #define SYNC_CHECK  1
 
-#define PUBLIC_BETA 0
-
 #endif
 
