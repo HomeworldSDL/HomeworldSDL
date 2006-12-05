@@ -6,34 +6,38 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifdef _WIN32
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-#endif
-
-#include <math.h>
-#include <string.h>
-#include <stdio.h>
-#include <float.h>
-#include "Types.h"
-#include "StringSupport.h"
 #include "ShipView.h"
+
+#include <float.h>
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
+
 #include "Camera.h"
+#include "ConsMgr.h"
+#include "FastMath.h"
+#include "FEColour.h"
 #include "FEReg.h"
-#include "glinc.h"
-#include "glcaps.h"
-#include "render.h"
-#include "Universe.h"
-#include "Light.h"
-#include "mouse.h"
 #include "font.h"
 #include "FontReg.h"
-#include "SoundEvent.h"
-#include "ConsMgr.h"
-#include "Options.h"
-#include "FEColour.h"
+#include "glcaps.h"
+#include "glinc.h"
 #include "Gun.h"
+#include "Light.h"
+#include "mouse.h"
+#include "Options.h"
 #include "Probe.h"
+#include "render.h"
+#include "SoundEvent.h"
+#include "StringSupport.h"
+#include "Types.h"
+#include "Universe.h"
+
+#ifdef _WIN32
+    #define WIN32_LEAN_AND_MEAN
+    #include <windows.h>
+#endif
+
 
 /*=============================================================================
     Private Types:

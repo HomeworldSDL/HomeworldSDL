@@ -6,20 +6,23 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "FlightMan.h"
+
 #include <math.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
+#include "AIShip.h"
+#include "AITrack.h"
 #include "Debug.h"
+#include "FastMath.h"
 #include "Memory.h"
 #include "Physics.h"
-#include "Universe.h"
-#include "StatScript.h"
-#include "AITrack.h"
-#include "AIShip.h"
-#include "SoundEvent.h"
-#include "FlightMan.h"
 #include "Randy.h"
+#include "SoundEvent.h"
+#include "StatScript.h"
+#include "Universe.h"
 
 #ifndef HW_Release
 //#define FLIGHTMAN_DEBUG

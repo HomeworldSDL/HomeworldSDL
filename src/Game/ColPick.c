@@ -6,29 +6,34 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#define PREVIEW_IMAGE 1
-#define CP_SCALE_HUESAT 0
+#include "ColPick.h"
 
-#ifndef SW_Render
-#ifdef _WIN32
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-#endif
-#endif
 #include <stdio.h>
-#include "glinc.h"
+
+#include "FastMath.h"
 #include "font.h"
 #include "FontReg.h"
-#include "mouse.h"
-#include "Memory.h"
+#include "glinc.h"
 #include "mainrgn.h"
-#include "utility.h"
-#include "StatScript.h"
+#include "Memory.h"
+#include "mouse.h"
 #include "ObjTypes.h"
 #include "render.h"
-#include "Teams.h"
 #include "ShipView.h"
-#include "ColPick.h"
+#include "StatScript.h"
+#include "Teams.h"
+#include "utility.h"
+
+#ifndef SW_Render
+    #ifdef _WIN32
+        #define WIN32_LEAN_AND_MEAN
+        #include <windows.h>
+    #endif
+#endif
+
+#define PREVIEW_IMAGE    1
+#define CP_SCALE_HUESAT  0
+
 
 /*=============================================================================
     Data:

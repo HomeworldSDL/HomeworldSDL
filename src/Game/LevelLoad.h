@@ -4,6 +4,7 @@
 
 #include "Types.h"
 #include "ObjTypes.h"
+#include "Universe.h"
 
 /*=============================================================================
     Functions:
@@ -21,7 +22,7 @@ ShipRace GetSinglePlayerRaceEquivalent(ShipRace race);
 
 bool AddResourceToSphere(struct ResourceVolume *sphere,bool regrowing);
 bool AddResourceToCylinder(struct ResourceVolume *cylinder,bool regrowing);
-bool AddResourceToRectangle(struct ResourceVolume *cylinder,bool regrowing);
+bool AddResourceToRectangle(struct ResourceVolume *rectangle,bool regrowing);
 
 void SetInfoNeededForShipAndRelatedStaticInfo(ShipType type,ShipRace race,bool8 dataToFillIn);
 

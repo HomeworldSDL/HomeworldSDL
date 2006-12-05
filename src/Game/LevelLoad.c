@@ -1,47 +1,46 @@
-#include <stdio.h>
-#include <string.h>
+#include "LevelLoad.h"
 
-#if !defined _MSC_VER
-#include <strings.h>
-#endif
-
-#include <stdlib.h>
-#include <math.h>
 #include <ctype.h>
 #include <limits.h>
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-#include "Memory.h"
-#include "Debug.h"
-#include "Vector.h"
-#include "SpaceObj.h"
-#include "UnivUpdate.h"
-#include "Universe.h"
+#include "AIPlayer.h"
+#include "AITeam.h"
+#include "Attributes.h"
+#include "BTG.h"
 #include "CommandLayer.h"
-#include "StatScript.h"
-#include "ScenPick.h"
-#include "LevelLoad.h"
+#include "Debug.h"
+#include "FastMath.h"
+#include "File.h"
+#include "KAS.h"
 #include "Light.h"
+#include "mainrgn.h"
+#include "Memory.h"
+#include "MultiplayerGame.h"
+#include "Nebulae.h"
+#include "Ping.h"
+#include "Randy.h"
+#include "ResearchAPI.h"
+#include "ResearchShip.h"
+#include "ScenPick.h"
 #include "Sensors.h"
 #include "SinglePlayer.h"
 #include "SoundEvent.h"
-#include "Nebulae.h"
-#include "mainrgn.h"
-#include "BTG.h"
-#include "ResearchAPI.h"
-#include "AITeam.h"
-#include "AIPlayer.h"
-#include "KAS.h"
-#include "File.h"
+#include "SpaceObj.h"
+#include "StatScript.h"
 #include "Teams.h"
-#include "MultiplayerGame.h"
-#include "Attributes.h"
 #include "Tweak.h"
-#include "Ping.h"
-#include "Randy.h"
-#include "ResearchShip.h"
+#include "Universe.h"
+#include "UnivUpdate.h"
+#include "Vector.h"
 
 #ifdef _MSC_VER
-#define strcasecmp _stricmp
+    #define strcasecmp _stricmp
+#else
+    #include <strings.h>
 #endif
 
 #define CapturableCapitalShipToGive StandardFrigate

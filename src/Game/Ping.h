@@ -9,10 +9,12 @@
 #ifndef ___PING_H
 #define ___PING_H
 
-#include "Types.h"
-#include "LinkedList.h"
-#include "SpaceObj.h"
 #include "Blobs.h"
+#include "Camera.h"
+#include "LinkedList.h"
+#include "prim2d.h"
+#include "SpaceObj.h"
+#include "Types.h"
 
 /*=============================================================================
     Switches:

@@ -6,27 +6,30 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
+#include "Ping.h"
+
 #include <math.h>
 #include <string.h>
-#include "Memory.h"
-#include "Debug.h"
-#include "Task.h"
-#include "prim2d.h"
-#include "Universe.h"
-#include "Camera.h"
-#include "PiePlate.h"
-#include "Select.h"
-#include "StringSupport.h"
-#include "Tactical.h"
-#include "Teams.h"
-#include "ProximitySensor.h"
-#include "Sensors.h"
+
 #include "Alliance.h"
 #include "Battle.h"
-#include "SaveGame.h"
-#include "SoundEvent.h"
+#include "Camera.h"
 #include "CameraCommand.h"
-#include "Ping.h"
+#include "Debug.h"
+#include "FastMath.h"
+#include "Memory.h"
+#include "PiePlate.h"
+#include "prim2d.h"
+#include "ProximitySensor.h"
+#include "SaveGame.h"
+#include "Select.h"
+#include "Sensors.h"
+#include "SoundEvent.h"
+#include "StringSupport.h"
+#include "Tactical.h"
+#include "Task.h"
+#include "Teams.h"
+#include "Universe.h"
 
 /*=============================================================================
     Data:

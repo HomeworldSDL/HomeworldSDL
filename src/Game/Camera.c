@@ -6,15 +6,17 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#include <string.h>
-#include <math.h>
-#include "Debug.h"
-#include "Key.h"
 #include "Camera.h"
-#include "StatScript.h"
-#include "CRC32.h"
 
+#include <math.h>
+#include <string.h>
+
+#include "CRC32.h"
 #include "CameraCommand.h"
+#include "Debug.h"
+#include "FastMath.h"
+#include "Key.h"
+#include "StatScript.h"
 #include "Universe.h"
 
 /*=============================================================================

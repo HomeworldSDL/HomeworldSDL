@@ -1,26 +1,30 @@
 /*=============================================================================
-    Name    : prim3d.h
+    Name    : prim3d.c
     Purpose : Draw 3d primitives.
 
     Created 7/1/1997 by lmoloney
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifdef _WIN32
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-#endif
+#include "prim3d.h"
 
 #include <math.h>
 #include <stdlib.h>
+
 #include "Debug.h"
+#include "devstats.h"
+#include "FastMath.h"
+#include "FastMath.h"
+#include "glcaps.h"
 #include "glinc.h"
 #include "LinkedList.h"
 #include "Memory.h"
-#include "prim3d.h"
 #include "render.h"
-#include "glcaps.h"
-#include "devstats.h"
+
+#ifdef _WIN32
+    #define WIN32_LEAN_AND_MEAN
+    #include <windows.h>
+#endif
 
 #define sizeofverticearray(x)   sizeof(vertice_array) + (sizeof(vector) * (x-1))
 

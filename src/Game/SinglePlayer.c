@@ -1,86 +1,87 @@
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-#if !defined _MSC_VER
-#include <strings.h>
-#endif
+#include "SinglePlayer.h"
 
 #include <ctype.h>
 #include <math.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
+#include "AIPlayer.h"
+#include "AIShip.h"
+#include "AITrack.h"
+#include "AIVar.h"
+#include "Alliance.h"
+#include "Animatic.h"
+#include "Attributes.h"
 //#include "bink.h"
-#include "LinkedList.h"
-#include "ObjTypes.h"
-#include "StatScript.h"
-#include "font.h"
+#include "Collision.h"
+#include "CommandWrap.h"
+#include "Damage.h"
+#include "DDDFrigate.h"
 #include "FEFlow.h"
+#include "FastMath.h"
+#include "File.h"
+#include "font.h"
+#include "GravWellGenerator.h"
+#include "HorseRace.h"
+#include "HS.h"
+#include "InfoOverlay.h"
+#include "LaunchMgr.h"
+#include "LevelLoad.h"
+#include "LinkedList.h"
+#include "mainrgn.h"
+#include "Mothership.h"
+#include "mouse.h"
+#include "NIS.h"
+#include "Objectives.h"
+#include "ObjTypes.h"
+#include "Physics.h"
+#include "Ping.h"
+#include "Randy.h"
+#include "ResearchGUI.h"
+#include "ResearchShip.h"
+#include "SaveGame.h"
+#include "Select.h"
+#include "Sensors.h"
+#include "SoundEvent.h"
+#include "StatScript.h"
+#include "StringSupport.h"
+#include "TaskBar.h"
+#include "TradeMgr.h"
+#include "Tutor.h"
 #include "Universe.h"
 #include "UnivUpdate.h"
-#include "Physics.h"
-#include "SinglePlayer.h"
-#include "DDDFrigate.h"
-#include "TaskBar.h"
 #include "utility.h"
-#include "mainrgn.h"
-#include "AITrack.h"
-#include "AIShip.h"
-#include "LevelLoad.h"
-#include "Sensors.h"
-#include "NIS.h"
-#include "mouse.h"
-#include "Select.h"
-#include "SoundEvent.h"
-#include "Collision.h"
-#include "ResearchShip.h"
-#include "InfoOverlay.h"
-#include "AIPlayer.h"
-#include "HS.h"
-#include "AIVar.h"
-#include "Objectives.h"
-#include "ResearchGUI.h"
-#include "LaunchMgr.h"
-#include "TradeMgr.h"
-#include "File.h"
-#include "HorseRace.h"
-#include "Attributes.h"
-#include "SaveGame.h"
-#include "Damage.h"
-#include "TradeMgr.h"
-#include "Ping.h"
-#include "Tutor.h"
-#include "Randy.h"
+
+#include "../Missions/Generated/Tutorial1.h"
 #include "../Missions/Generated/Mission01.h"
 #include "../Missions/Generated/Mission02.h"
 #include "../Missions/Generated/Mission03.h"
 #include "../Missions/Generated/Mission04.h"
 #ifdef HW_RAIDER_RETREAT
-#include "../Missions/Generated/Mission05_OEM.h"
+    #include "../Missions/Generated/Mission05_OEM.h"
 #else
-#include "../Missions/Generated/Mission05.h"
-#include "../Missions/Generated/Mission06.h"
-#include "../Missions/Generated/Mission07.h"
-#include "../Missions/Generated/Mission08.h"
-#include "../Missions/Generated/Mission09.h"
-#include "../Missions/Generated/Mission10.h"
-#include "../Missions/Generated/Mission11.h"
-#include "../Missions/Generated/Mission12.h"
-#include "../Missions/Generated/Mission13.h"
-#include "../Missions/Generated/Mission14.h"
-#include "../Missions/Generated/Mission15.h"
-#include "../Missions/Generated/Mission16.h"
+    #include "../Missions/Generated/Mission05.h"
+    #include "../Missions/Generated/Mission06.h"
+    #include "../Missions/Generated/Mission07.h"
+    #include "../Missions/Generated/Mission08.h"
+    #include "../Missions/Generated/Mission09.h"
+    #include "../Missions/Generated/Mission10.h"
+    #include "../Missions/Generated/Mission11.h"
+    #include "../Missions/Generated/Mission12.h"
+    #include "../Missions/Generated/Mission13.h"
+    #include "../Missions/Generated/Mission14.h"
+    #include "../Missions/Generated/Mission15.h"
+    #include "../Missions/Generated/Mission16.h"
 #endif
-#include "../Missions/Generated/Tutorial1.h"
-#include "StringSupport.h"
-#include "Animatic.h"
-#include "GravWellGenerator.h"
-#include "CommandWrap.h"
-#include "Mothership.h"
-#include "Alliance.h"
 
 #ifdef _MSC_VER
-#define strcasecmp _stricmp
+    #define strcasecmp _stricmp
+#else
+    #include <strings.h>
 #endif
+
+
 
 #define NUMBER_SINGLEPLAYER_MISSIONS 19
 

@@ -6,12 +6,14 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#include <stdlib.h>
-#include <math.h>
+#include "Star3d.h"
 
+#include <math.h>
+#include <stdlib.h>
+
+#include "FastMath.h"
 #include "Matrix.h"
 #include "Memory.h"
-#include "Star3d.h"
 #include "Randy.h"
 
 /*=============================================================================
