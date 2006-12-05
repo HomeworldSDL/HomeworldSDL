@@ -4599,7 +4599,7 @@ nisheader *nisLoad(char *fileName, char *scriptName)
     newHeader->flags = 0;
 //    newHeader->name += (udword)newHeader->stringBlock;      //fixup file name
 
-    newHeader->objectPath = (udword)newHeader + (ubyte *)newHeader->objectPath;//fixup the object motion path array
+    newHeader->objectPath = (spaceobjpath *)((udword)newHeader + (ubyte *)newHeader->objectPath);//fixup the object motion path array
 
 #ifdef ENDIAN_BIG
 	for (index = 0; index < newHeader->nObjectPaths; index++)
@@ -4628,11 +4628,11 @@ nisheader *nisLoad(char *fileName, char *scriptName)
     for (index = 0; index < newHeader->nObjectPaths; index++)
     {                                                       //for each object motion path
         objPath = &newHeader->objectPath[index];            //get pointer to this motion path
-        objPath->parameters = (udword)newHeader + (ubyte *)objPath->parameters;  //fixup the various arrays
-        objPath->times = (udword)newHeader + (ubyte *)objPath->times;
+        objPath->parameters = (tcb *)((udword)newHeader + (ubyte *)objPath->parameters);  //fixup the various arrays
+        objPath->times = (real32 *)((udword)newHeader + (ubyte *)objPath->times);
         for (j = 0; j < 6; j++)
         {
-            objPath->curve[j] = (udword)newHeader + (ubyte *)objPath->curve[j];
+            objPath->curve[j] = (real32 *)((udword)newHeader + (ubyte *)objPath->curve[j]);
         }
 
 #ifdef ENDIAN_BIG
@@ -4773,7 +4773,7 @@ foundOne:;
         }
     }
 
-    newHeader->cameraPath = (udword)newHeader + (ubyte *)newHeader->cameraPath;    //fixup the object motion path array
+    newHeader->cameraPath = (camerapath * )((udword)newHeader + (ubyte *)newHeader->cameraPath);    //fixup the object motion path array
     for (index = 0; index < newHeader->nCameraPaths; index++)
     {                                                       //for each object motion path
         camPath = &newHeader->cameraPath[index];            //get pointer to this motion path
@@ -4786,14 +4786,14 @@ foundOne:;
 		camPath->parameters = ( tcb *)LittleLong( ( udword )camPath->parameters );
 #endif
 
-        camPath->parameters = (udword)newHeader + (ubyte *)camPath->parameters;  //fixup the various arrays
-        camPath->times = (udword)newHeader + (ubyte *)camPath->times;
+        camPath->parameters = (tcb *)((udword)newHeader + (ubyte *)camPath->parameters);  //fixup the various arrays
+        camPath->times = (real32 *)((udword)newHeader + (ubyte *)camPath->times);
         for (j = 0; j < 6; j++)
         {
 #ifdef ENDIAN_BIG
 			camPath->curve[j] = ( real32 *)LittleLong( ( udword )camPath->curve[j] );
 #endif
-            camPath->curve[j] = (udword)newHeader + (ubyte *)camPath->curve[j];
+            camPath->curve[j] = (real32 *)((udword)newHeader + (ubyte *)camPath->curve[j]);
         }
 
 #ifdef ENDIAN_BIG

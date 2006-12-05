@@ -595,7 +595,7 @@ bool SaveGame(char *filename)
     sdword i;
 
     savefile = fileOpen(filename, FF_WriteMode | FF_ReturnNULLOnFail | FF_UserSettingsPath);
-    if (savefile == NULL)
+    if (savefile == (filehandle)NULL)
     {
         return FALSE;
     }
@@ -1187,7 +1187,7 @@ void SaveDockInfo(Ship *ship)
     {
         if (savecontents->dockpoints[i].dockstaticpoint == NULL)
         {
-            savecontents->dockpoints[i].dockstaticpoint = -1;
+            savecontents->dockpoints[i].dockstaticpoint = (DockStaticPoint*)-1;
         }
         else
         {
@@ -1229,7 +1229,7 @@ void FixDockInfo(Ship *ship)
     for (i=0;i<dockInfo->numDockPoints;i++)
     {
         dockPoint = &dockInfo->dockpoints[i];
-        if (dockPoint->dockstaticpoint == -1)
+        if (dockPoint->dockstaticpoint == (DockStaticPoint*)-1)
         {
             dockPoint->dockstaticpoint = NULL;
         }
@@ -1254,11 +1254,11 @@ void SaveSalvageInfo(SpaceObjRotImpTargGuidanceShipDerelict *ship)
     {
         if (savecontents->salvagePoints[i].salvageStaticPoint == NULL)
         {
-            savecontents->salvagePoints[i].salvageStaticPoint = -1;
+            savecontents->salvagePoints[i].salvageStaticPoint = (SalvageStaticPoint*)-1;
         }
         else
         {
-            savecontents->salvagePoints[i].salvageStaticPoint = savecontents->salvagePoints[i].salvageStaticPoint->number;
+            savecontents->salvagePoints[i].salvageStaticPoint = (SalvageStaticPoint*)savecontents->salvagePoints[i].salvageStaticPoint->number;
         }
     }
 
@@ -1296,7 +1296,7 @@ void FixSalvageInfo(SpaceObjRotImpTargGuidanceShipDerelict *ship)
     for (i=0;i<salvageInfo->numSalvagePoints;i++)
     {
         salvagePoint = &salvageInfo->salvagePoints[i];
-        if (salvagePoint->salvageStaticPoint == -1)
+        if (salvagePoint->salvageStaticPoint == (SalvageStaticPoint*)-1)
         {
             salvagePoint->salvageStaticPoint = NULL;
         }
@@ -1502,7 +1502,7 @@ void SaveSlaveInfo(Ship *ship)
     chunk = CreateChunk(BASIC_STRUCTURE|SAVE_SLAVEINFO,sizeof(SlaveInfo),ship->slaveinfo);
     savecontents = (SlaveInfo *)chunkContents(chunk);
 
-    savecontents->Master = SpaceObjRegistryGetID((SpaceObj *)savecontents->Master);
+    savecontents->Master = (Ship*)SpaceObjRegistryGetID((SpaceObj *)savecontents->Master);
 
     SaveThisChunk(chunk);
     memFree(chunk);
@@ -1603,7 +1603,7 @@ void SaveClampInfo(ClampInfo *clampInfo)
     chunk = CreateChunk(BASIC_STRUCTURE,sizeof(ClampInfo),clampInfo);
     sc = chunkContents(chunk);
 
-    sc->host = SpaceObjRegistryGetID((SpaceObj *)sc->host);
+    sc->host = (SpaceObjRotImpTarg*)SpaceObjRegistryGetID((SpaceObj *)sc->host);
 
     SaveThisChunk(chunk);
 
@@ -1652,37 +1652,37 @@ void SaveShip(Ship *ship)
     savecontents = chunkContents(chunk);
 
     savecontents->staticinfo = NULL;
-    savecontents->collMyBlob = BlobRegistryGetID(ship->collMyBlob);
+    savecontents->collMyBlob = (blob*)BlobRegistryGetID(ship->collMyBlob);
     savecontents->collInfo.precise = NULL;
-    savecontents->playerowner = SavePlayerToPlayerIndex(savecontents->playerowner);
+    savecontents->playerowner = (Player*)SavePlayerToPlayerIndex(savecontents->playerowner);
 
-    savecontents->dockingship = (sdword)SpaceObjRegistryGetID((SpaceObj *)ship->dockingship);
-    savecontents->rowGetOutOfWay = (sdword)SpaceObjRegistryGetID((SpaceObj *)ship->rowGetOutOfWay);
+    savecontents->dockingship = (Ship *)SpaceObjRegistryGetID((SpaceObj *)ship->dockingship);
+    savecontents->rowGetOutOfWay = (Ship*)SpaceObjRegistryGetID((SpaceObj *)ship->rowGetOutOfWay);
     savecontents->gettingrocked = NULL;
-    savecontents->recentAttacker = (sdword)SpaceObjRegistryGetID((SpaceObj *)ship->recentAttacker);
-    savecontents->firingAtUs = (sdword)SpaceObjRegistryGetID((SpaceObj *)ship->firingAtUs);
+    savecontents->recentAttacker = (Ship*)SpaceObjRegistryGetID((SpaceObj *)ship->recentAttacker);
+    savecontents->firingAtUs = (Ship*)SpaceObjRegistryGetID((SpaceObj *)ship->firingAtUs);
 
     // ship->flightmanInfo saved in chunk if non-NULL
-    savecontents->formationcommand = ConvertPointerInListToNum(&universe.mainCommandLayer.todolist,savecontents->formationcommand);
-    savecontents->command = ConvertPointerInListToNum(&universe.mainCommandLayer.todolist,savecontents->command);
+    savecontents->formationcommand = (CommandToDo *)ConvertPointerInListToNum(&universe.mainCommandLayer.todolist,savecontents->formationcommand);
+    savecontents->command = (CommandToDo *)ConvertPointerInListToNum(&universe.mainCommandLayer.todolist,savecontents->command);
 
     //ship->attackvars.multipleAttackTarget saved in chunk if non-NULL
 
-    savecontents->attackvars.attacktarget = (sdword)SpaceObjRegistryGetID((SpaceObj *)ship->attackvars.attacktarget);
-    savecontents->attackvars.myLeaderIs = (sdword)SpaceObjRegistryGetID((SpaceObj *)ship->attackvars.myLeaderIs);
-    savecontents->attackvars.myWingmanIs = (sdword)SpaceObjRegistryGetID((SpaceObj *)ship->attackvars.myWingmanIs);
+    savecontents->attackvars.attacktarget = (SpaceObjRotImpTarg*)SpaceObjRegistryGetID((SpaceObj *)ship->attackvars.attacktarget);
+    savecontents->attackvars.myLeaderIs = (Ship*)SpaceObjRegistryGetID((SpaceObj *)ship->attackvars.myLeaderIs);
+    savecontents->attackvars.myWingmanIs = (Ship*)SpaceObjRegistryGetID((SpaceObj *)ship->attackvars.myWingmanIs);
 
-    savecontents->dockvars.dockship = (sdword)SpaceObjRegistryGetID((SpaceObj *)savecontents->dockvars.dockship);
-    savecontents->dockvars.busyingThisShip = (sdword)SpaceObjRegistryGetID((SpaceObj *)savecontents->dockvars.busyingThisShip);
+    savecontents->dockvars.dockship = (Ship*)SpaceObjRegistryGetID((SpaceObj *)savecontents->dockvars.dockship);
+    savecontents->dockvars.busyingThisShip = (Ship*)SpaceObjRegistryGetID((SpaceObj *)savecontents->dockvars.busyingThisShip);
 
     if (ship->dockvars.dockstaticpoint == NULL)
     {
-        savecontents->dockvars.dockstaticpoint = -1;
+        savecontents->dockvars.dockstaticpoint = (DockStaticPoint *)-1;
     }
     else
     {
         dbgAssertOrIgnore(ship->dockvars.dockship);
-        savecontents->dockvars.dockstaticpoint = savecontents->dockvars.dockstaticpoint->dockindex;
+        savecontents->dockvars.dockstaticpoint = (DockStaticPoint *)savecontents->dockvars.dockstaticpoint->dockindex;
     }
 
     // ship->dockvars.customdockinfo saved in chunk if non-NULL;
@@ -1699,9 +1699,9 @@ void SaveShip(Ship *ship)
         }
     }
 
-    savecontents->tractorbeam_playerowner = SavePlayerToPlayerIndex(savecontents->tractorbeam_playerowner);
+    savecontents->tractorbeam_playerowner = (Player*)SavePlayerToPlayerIndex(savecontents->tractorbeam_playerowner);
 
-    savecontents->newDockWithTransfer = (sdword)SpaceObjRegistryGetID((SpaceObj *)savecontents->newDockWithTransfer);
+    savecontents->newDockWithTransfer = (Ship*)SpaceObjRegistryGetID((SpaceObj *)savecontents->newDockWithTransfer);
 
     for (i=0;i<MAX_NUM_TRAILS;i++)
     {
@@ -1989,7 +1989,7 @@ void FixShip(Ship *ship)
     ship->dockvars.dockship = SpaceObjRegistryGetShip((sdword)ship->dockvars.dockship);
     ship->dockvars.busyingThisShip = SpaceObjRegistryGetShip((sdword)ship->dockvars.busyingThisShip);
 
-    if (ship->dockvars.dockstaticpoint == -1)
+    if (ship->dockvars.dockstaticpoint == (DockStaticPoint *)-1)
     {
         ship->dockvars.dockstaticpoint = NULL;
     }
@@ -2044,9 +2044,9 @@ void SaveAsteroid(Asteroid *asteroid)
     savecontents = chunkContents(chunk);
 
     savecontents->staticinfo = NULL;
-    savecontents->collMyBlob = BlobRegistryGetIDNoBlobOkay(asteroid->collMyBlob);
+    savecontents->collMyBlob = (blob*)BlobRegistryGetIDNoBlobOkay(asteroid->collMyBlob);
 
-    savecontents->resourceVolume = ConvertPointerInListToNum(&universe.ResourceVolumeList,asteroid->resourceVolume);
+    savecontents->resourceVolume = (ResourceVolume *)ConvertPointerInListToNum(&universe.ResourceVolumeList,asteroid->resourceVolume);
 
     SaveThisChunk(chunk);
     memFree(chunk);
@@ -2150,9 +2150,9 @@ void SaveDustCloud(DustCloud *dustcloud)
     savecontents = chunkContents(chunk);
 
     savecontents->staticinfo = NULL;
-    savecontents->collMyBlob = BlobRegistryGetID(dustcloud->collMyBlob);
+    savecontents->collMyBlob = (blob*)BlobRegistryGetID(dustcloud->collMyBlob);
 
-    savecontents->resourceVolume = ConvertPointerInListToNum(&universe.ResourceVolumeList,dustcloud->resourceVolume);
+    savecontents->resourceVolume = (ResourceVolume *)ConvertPointerInListToNum(&universe.ResourceVolumeList,dustcloud->resourceVolume);
 
     SaveThisChunk(chunk);
     memFree(chunk);
@@ -2229,11 +2229,11 @@ void SaveNebula(Nebula *nebula)
     savecontents = chunkContents(chunk);
 
     savecontents->staticinfo = NULL;
-    savecontents->collMyBlob = BlobRegistryGetID(nebula->collMyBlob);
-    savecontents->resourceVolume = ConvertPointerInListToNum(&universe.ResourceVolumeList,nebula->resourceVolume);
+    savecontents->collMyBlob = (blob*)BlobRegistryGetID(nebula->collMyBlob);
+    savecontents->resourceVolume = (ResourceVolume*)ConvertPointerInListToNum(&universe.ResourceVolumeList,nebula->resourceVolume);
     nebchunk = (nebChunk*)nebula->stub;
     neb = (nebulae_t*)nebchunk->nebulae;
-    savecontents->stub = nebChunkPtrToNum(neb, nebula->stub);
+    savecontents->stub = (nebChunk*)nebChunkPtrToNum(neb, nebula->stub);
 
     SaveThisChunk(chunk);
     memFree(chunk);
@@ -2276,23 +2276,23 @@ void SaveBullet(Bullet *bullet)
     savecontents = chunkContents(chunk);
 
     dbgAssertOrIgnore(savecontents->staticinfo == NULL);
-    savecontents->collMyBlob = BlobRegistryGetID(bullet->collMyBlob);
+    savecontents->collMyBlob = (blob*)BlobRegistryGetID(bullet->collMyBlob);
 
-    savecontents->owner = SpaceObjRegistryGetID((SpaceObj *)bullet->owner);
+    savecontents->owner = (Ship*)SpaceObjRegistryGetID((SpaceObj *)bullet->owner);
     if (bullet->gunowner != NULL)
     {
-        savecontents->gunowner = bullet->gunowner->gunstatic->gunindex;
+        savecontents->gunowner = (Gun*)bullet->gunowner->gunstatic->gunindex;
     }
     else
     {
-        savecontents->gunowner = -1;
+        savecontents->gunowner = (Gun*)-1;
     }
-    savecontents->target = SpaceObjRegistryGetID((SpaceObj *)bullet->target);
+    savecontents->target = (SpaceObjRotImpTarg*)SpaceObjRegistryGetID((SpaceObj *)bullet->target);
 
     savecontents->hitEffect = NULL;
     savecontents->effect = NULL;
 
-    savecontents->playerowner = SavePlayerToPlayerIndex(bullet->playerowner);
+    savecontents->playerowner = (Player*)SavePlayerToPlayerIndex(bullet->playerowner);
 
     SaveThisChunk(chunk);
 
@@ -2320,7 +2320,7 @@ void FixBullet(Bullet *bullet)
     bullet->collMyBlob = BlobRegistryGetBlob((sdword)bullet->collMyBlob);
 
     bullet->owner = SpaceObjRegistryGetShip((sdword)bullet->owner);
-    if (bullet->gunowner != -1)
+    if (bullet->gunowner != (Gun*)-1)
     {
         dbgAssertOrIgnore((sdword)bullet->gunowner < bullet->owner->gunInfo->numGuns);
         bullet->gunowner = &bullet->owner->gunInfo->guns[(sdword)bullet->gunowner];
@@ -2343,12 +2343,12 @@ void SaveDerelict(Derelict *derelict)
     savecontents = chunkContents(chunk);
 
     savecontents->staticinfo = NULL;
-    savecontents->collMyBlob = BlobRegistryGetIDNoBlobOkay(derelict->collMyBlob);       // planets aren't in blobs
+    savecontents->collMyBlob = (blob*)BlobRegistryGetIDNoBlobOkay(derelict->collMyBlob);       // planets aren't in blobs
 
-    savecontents->dockingship = SpaceObjRegistryGetID((SpaceObj *)derelict->dockingship);
-    savecontents->tractorbeam_playerowner = SavePlayerToPlayerIndex(derelict->tractorbeam_playerowner);
+    savecontents->dockingship = (Ship*)SpaceObjRegistryGetID((SpaceObj *)derelict->dockingship);
+    savecontents->tractorbeam_playerowner = (Player*)SavePlayerToPlayerIndex(derelict->tractorbeam_playerowner);
 
-    savecontents->newDockWithTransfer = SpaceObjRegistryGetID((SpaceObj *)derelict->newDockWithTransfer);
+    savecontents->newDockWithTransfer = (Ship*)SpaceObjRegistryGetID((SpaceObj *)derelict->newDockWithTransfer);
 
     SaveThisChunk(chunk);
 
@@ -2424,18 +2424,18 @@ void SaveMissile(Missile *missile)
     savecontents = chunkContents(chunk);
 
     savecontents->staticinfo = NULL;
-    savecontents->collMyBlob = BlobRegistryGetID(missile->collMyBlob);
+    savecontents->collMyBlob = (blob*)BlobRegistryGetID(missile->collMyBlob);
 
     savecontents->trail = NULL;
 
-    savecontents->playerowner = SavePlayerToPlayerIndex(missile->playerowner);
-    savecontents->owner = SpaceObjRegistryGetID((SpaceObj *)missile->owner);
+    savecontents->playerowner = (Player*)SavePlayerToPlayerIndex(missile->playerowner);
+    savecontents->owner = (Ship*)SpaceObjRegistryGetID((SpaceObj *)missile->owner);
 
-    savecontents->target = SpaceObjRegistryGetID((SpaceObj *)missile->target);
+    savecontents->target = (SpaceObjRotImpTarg*)SpaceObjRegistryGetID((SpaceObj *)missile->target);
 
-    savecontents->hitEffect = saveEtglodGunEventToIndex(missile->hitEffect);
+    savecontents->hitEffect = (etglod*)saveEtglodGunEventToIndex(missile->hitEffect);
 
-    savecontents->formationinfo = ConvertPointerInListToNum(&universe.MineFormationList,savecontents->formationinfo);
+    savecontents->formationinfo = (MineFormationInfo*)ConvertPointerInListToNum(&universe.MineFormationList,savecontents->formationinfo);
 
     SaveThisChunk(chunk);
 
@@ -2893,7 +2893,7 @@ SpaceObjSelection *LoadSelection(void)
     for (i=0;i<num;i++)
     {
         dbgAssertOrIgnore(loadcontents->id[i] != -1);
-        selection->SpaceObjPtr[i] = loadcontents->id[i];
+        selection->SpaceObjPtr[i] = (SpaceObjPtr)loadcontents->id[i];
     }
 
     memFree(chunk);
@@ -3035,7 +3035,7 @@ void SaveMilitarySlot(MilitarySlot *milslot)
 
     for (i=0;i<savecontents->numSubslots;i++)
     {
-        savecontents->subslots[i].ship = SpaceObjRegistryGetID((SpaceObj *)savecontents->subslots[i].ship);
+        savecontents->subslots[i].ship = (ShipPtr)SpaceObjRegistryGetID((SpaceObj *)savecontents->subslots[i].ship);
     }
 
     SaveThisChunk(chunk);
@@ -3051,7 +3051,7 @@ void SaveMilitaryParade(MilitaryParadeCommand *militaryParade)
     chunk = CreateChunk(BASIC_STRUCTURE|SAVE_MILITARYPARADE,sizeof(MilitaryParadeCommand),militaryParade);
     savecontents = (MilitaryParadeCommand *)chunkContents(chunk);
 
-    savecontents->aroundShip = SpaceObjRegistryGetID((SpaceObj *)militaryParade->aroundShip);
+    savecontents->aroundShip = (Ship*)SpaceObjRegistryGetID((SpaceObj *)militaryParade->aroundShip);
 
     SaveThisChunk(chunk);
     memFree(chunk);
@@ -3143,17 +3143,17 @@ void Save_CommandToDo(CommandToDo *command)
 
         case COMMAND_LAUNCH_SHIP:
             // fixing
-            savecommand->launchship.receiverShip = (sdword)SpaceObjRegistryGetID((SpaceObj *)command->launchship.receiverShip);
+            savecommand->launchship.receiverShip = (ShipPtr)SpaceObjRegistryGetID((SpaceObj *)command->launchship.receiverShip);
             break;
 
         case COMMAND_COLLECT_RESOURCES:
             // fixing
-            savecommand->collect.resource = (sdword)SpaceObjRegistryGetID((SpaceObj *)command->collect.resource);
+            savecommand->collect.resource = (ResourcePtr)SpaceObjRegistryGetID((SpaceObj *)command->collect.resource);
             break;
 
         case COMMAND_BUILDING_SHIP:
             // fixing
-            savecommand->buildingship.creator = (sdword)SpaceObjRegistryGetID((SpaceObj *)command->buildingship.creator);
+            savecommand->buildingship.creator = (ShipPtr)SpaceObjRegistryGetID((SpaceObj *)command->buildingship.creator);
             break;
 
         case COMMAND_SPECIAL:
@@ -3417,11 +3417,11 @@ void Save_CameraStackEntry(CameraStackEntry *currententry)
 
     // fix savecse
 
-    savecse->remembercam.playerowner = SavePlayerToPlayerIndex(savecse->remembercam.playerowner);
+    savecse->remembercam.playerowner = (Player *)SavePlayerToPlayerIndex(savecse->remembercam.playerowner);
 
     for (i=0;i<numShips;i++)
     {
-        savecse->focus.ShipPtr[i] = (sdword)SpaceObjRegistryGetID((SpaceObj *)savecse->focus.ShipPtr[i]);
+        savecse->focus.ShipPtr[i] = (ShipPtr)SpaceObjRegistryGetID((SpaceObj *)savecse->focus.ShipPtr[i]);
     }
 
     SaveThisChunk(chunk);
@@ -3522,10 +3522,10 @@ void Save_CameraCommand(CameraCommand *cameracommand)
     savecc = (CameraCommand *)chunkContents(chunk);
 
     // fix savecc
-    savecc->currentCameraStack = ConvertPointerInListToNum(&savecc->camerastack,savecc->currentCameraStack);
-    savecc->actualcamera.playerowner = SavePlayerToPlayerIndex(savecc->actualcamera.playerowner);
+    savecc->currentCameraStack = (CameraStackEntry*)ConvertPointerInListToNum(&savecc->camerastack,savecc->currentCameraStack);
+    savecc->actualcamera.playerowner = (Player*)SavePlayerToPlayerIndex(savecc->actualcamera.playerowner);
 
-    savecc->dontFocusOnMe = ConvertPointerInListToNum(&savecc->camerastack,savecc->dontFocusOnMe);
+    savecc->dontFocusOnMe = (CameraStackEntry *)ConvertPointerInListToNum(&savecc->camerastack,savecc->dontFocusOnMe);
 
     SaveThisChunk(chunk);
 
@@ -3639,7 +3639,7 @@ void LoadLinkedListOfInsideShips(LinkedList *list)
     {
         insideShip = memAlloc(sizeof(InsideShip),"InsideShip",0);
         insideShip->ship = (Ship*)loadcontents->id[cur++];
-        if (insideShip->ship != -1)
+        if (insideShip->ship != (Ship*)-1)
         {
             listAddNode(list,&insideShip->node,insideShip);
         }
@@ -3723,12 +3723,12 @@ void Prefix_PlayerResearchInfo(PlayerResearchInfo *researchinfo)
     {
         if (researchinfo->researchlabs[i].labstatus == LS_RESEARCHITEM)
         {
-            researchinfo->researchlabs[i].topic = ConvertPointerInListToNum(&researchinfo->listoftopics,researchinfo->researchlabs[i].topic);
+            researchinfo->researchlabs[i].topic = (ResearchTopic *)ConvertPointerInListToNum(&researchinfo->listoftopics,researchinfo->researchlabs[i].topic);
             dbgAssertOrIgnore(researchinfo->researchlabs[i].topic != -1);
         }
         else
         {
-            researchinfo->researchlabs[i].topic = -1;
+            researchinfo->researchlabs[i].topic = (ResearchTopic *)-1;
         }
     }
 }
@@ -3768,7 +3768,7 @@ void SaveMineFormationInfo(MineFormationInfo *mineFormationInfo)
     chunk = CreateChunk(BASIC_STRUCTURE|SAVE_MINEFORMATIONINFO,sizeof(MineFormationInfo),mineFormationInfo);
     savecontents = (MineFormationInfo *)chunkContents(chunk);
 
-    savecontents->playerowner = SavePlayerToPlayerIndex(savecontents->playerowner);
+    savecontents->playerowner = (Player*)SavePlayerToPlayerIndex(savecontents->playerowner);
     savecontents->effect = NULL;
 
     SaveThisChunk(chunk);
@@ -3851,8 +3851,8 @@ void SaveRetreatAtom(RetreatAtom *retreat)
     chunk = CreateChunk(BASIC_STRUCTURE|SAVE_RETREATATOM,sizeof(RetreatAtom),retreat);
     savecontents = (RetreatAtom *)chunkContents(chunk);
 
-    savecontents->retreater = SpaceObjRegistryGetID((SpaceObj *)savecontents->retreater);
-    savecontents->fleeingfrom = ConvertPointerInListToNum(&universe.mainCommandLayer.todolist,savecontents->fleeingfrom);
+    savecontents->retreater = (Ship*)SpaceObjRegistryGetID((SpaceObj *)savecontents->retreater);
+    savecontents->fleeingfrom = (CommandToDo*)ConvertPointerInListToNum(&universe.mainCommandLayer.todolist,savecontents->fleeingfrom);
 
     SaveThisChunk(chunk);
     memFree(chunk);
@@ -3924,12 +3924,12 @@ void SaveAttackAtom(AttackAtom *attackAtom)
     chunk = CreateChunk(BASIC_STRUCTURE|SAVE_ATTACKATOM,size,attackAtom);
     savecontents = (AttackAtom *)chunkContents(chunk);
 
-    savecontents->retreater = SpaceObjRegistryGetID((SpaceObj *)savecontents->retreater);
+    savecontents->retreater = (Ship*)SpaceObjRegistryGetID((SpaceObj *)savecontents->retreater);
 
     numShips = savecontents->attackerList.numShips;
     for (i=0;i<numShips;i++)
     {
-        savecontents->attackerList.ShipPtr[i] = SpaceObjRegistryGetID((SpaceObj *)savecontents->attackerList.ShipPtr[i]);
+        savecontents->attackerList.ShipPtr[i] = (ShipPtr)SpaceObjRegistryGetID((SpaceObj *)savecontents->attackerList.ShipPtr[i]);
     }
 
     SaveThisChunk(chunk);
@@ -4025,17 +4025,17 @@ void SaveUniverse()
     chunk = CreateChunk(BASIC_STRUCTURE|SAVE_UNIVERSE,sizeof(Universe),&universe);
     savecontents = (Universe *)chunkContents(chunk);
 
-    savecontents->curPlayerPtr = SavePlayerToPlayerIndex(universe.curPlayerPtr);
+    savecontents->curPlayerPtr = (Player*)SavePlayerToPlayerIndex(universe.curPlayerPtr);
 
     for (i=0;i<universe.numPlayers;i++)
     {
-        savecontents->players[i].PlayerMothership = (sdword)SpaceObjRegistryGetID((SpaceObj *)universe.players[i].PlayerMothership);
+        savecontents->players[i].PlayerMothership = (Ship*)SpaceObjRegistryGetID((SpaceObj *)universe.players[i].PlayerMothership);
         Prefix_PlayerResearchInfo(&savecontents->players[i].researchinfo);
     }
 
     for (i=0;i<UNIV_NUMBER_WORLDS;i++)
     {
-        savecontents->world[i] = (sdword)SpaceObjRegistryGetID((SpaceObj *)savecontents->world[i]);
+        savecontents->world[i] = (Derelict*)SpaceObjRegistryGetID((SpaceObj *)savecontents->world[i]);
     }
 
     SaveThisChunk(chunk);

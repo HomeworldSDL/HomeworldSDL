@@ -123,7 +123,7 @@ madheader *madFileLoad(char *fileName)
 
         newHeader->anim[index].name += (udword)newHeader->stringBlock;
     }
-    newHeader->objPath = (udword)newHeader + (ubyte *)newHeader->objPath;
+    newHeader->objPath = (madobjpath *)((udword)newHeader + (ubyte *)newHeader->objPath);
     for (index = 0; index < newHeader->nObjects; index++)
     {
 #ifdef ENDIAN_BIG
@@ -135,15 +135,15 @@ madheader *madFileLoad(char *fileName)
 		newHeader->objPath[index].parameters = ( tcb *)LittleLong( ( udword )newHeader->objPath[index].parameters );
 #endif
         newHeader->objPath[index].name += (udword)newHeader->stringBlock;//fixup name
-        newHeader->objPath[index].nameCRC = crc16Compute(newHeader->objPath[index].name, strlen(newHeader->objPath[index].name));
-        newHeader->objPath[index].times = (udword)newHeader + (ubyte *)newHeader->objPath[index].times;//fixup times pointers
-        newHeader->objPath[index].parameters = (udword)newHeader + (ubyte *)newHeader->objPath[index].parameters;//fixup times pointers
+        newHeader->objPath[index].nameCRC = crc16Compute((ubyte *)newHeader->objPath[index].name, strlen(newHeader->objPath[index].name));
+        newHeader->objPath[index].times = (real32 *)((udword)newHeader + (ubyte *)newHeader->objPath[index].times);//fixup times pointers
+        newHeader->objPath[index].parameters = (tcb *)((udword)newHeader + (ubyte *)newHeader->objPath[index].parameters);//fixup times pointers
         for (j = 0; j < 6; j++)
         {                                                   //fixup the motion path array pointers
 #ifdef ENDIAN_BIG
 			newHeader->objPath[index].path[j] = ( real32 *)LittleLong( ( udword )newHeader->objPath[index].path[j] );
 #endif
-            newHeader->objPath[index].path[j] = (udword)newHeader + (ubyte *)newHeader->objPath[index].path[j];
+            newHeader->objPath[index].path[j] = (real32 *)((udword)newHeader + (ubyte *)newHeader->objPath[index].path[j]);
         }
 
 #ifdef ENDIAN_BIG

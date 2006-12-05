@@ -781,24 +781,24 @@ meshdata *meshLoad(char *inFileName)
 #endif
 
         //object->pName += offset;                          //!!! is there a name
-        object->pVertexList = offset + (ubyte *)object->pVertexList;             //fixup vertex list pointer
-        object->pNormalList = offset + (ubyte *)object->pNormalList;             //fixup vertex list pointer
-        object->pPolygonList = offset + (ubyte *)object->pPolygonList;            //fixup vertex list pointer
+        object->pVertexList = (vertexentry *)(offset + (ubyte *)object->pVertexList);             //fixup vertex list pointer
+        object->pNormalList = (normalentry *)(offset + (ubyte *)object->pNormalList);             //fixup vertex list pointer
+        object->pPolygonList = (polyentry *)(offset + (ubyte *)object->pPolygonList);            //fixup vertex list pointer
         if (object->pMother != NULL)
         {
-            object->pMother = offset + (ubyte *)object->pMother;
+            object->pMother = (polygonobject *)(offset + (ubyte *)object->pMother);
         }
         if (object->pDaughter != NULL)
         {
-            object->pDaughter = offset + (ubyte *)object->pDaughter;
+            object->pDaughter = (polygonobject *)(offset + (ubyte *)object->pDaughter);
         }
         if (object->pSister != NULL)
         {
-            object->pSister = offset + (ubyte *)object->pSister;
+            object->pSister = (polygonobject *)(offset + (ubyte *)object->pSister);
         }
         if (object->pName != NULL)
         {
-            object->pName = offset + (ubyte *)object->pName;               //fix up name
+            object->pName = offset + object->pName;               //fix up name
         }
         object->iObject = index;
         object->nameCRC = crc16Compute((ubyte*)object->pName, strlen(object->pName));
