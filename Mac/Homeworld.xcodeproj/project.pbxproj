@@ -1252,7 +1252,7 @@
 		35FE5B240B17CB2200D6E944 /* LZSS.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = LZSS.c; sourceTree = "<group>"; };
 		35FE5B250B17CB2200D6E944 /* LZSS.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = LZSS.h; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Homeworld.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Homeworld.plist; sourceTree = "<group>"; };
-		8D1107320486CEB800E47090 /* Homeworld.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Homeworld.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D1107320486CEB800E47090 /* Homeworld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Homeworld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9030AF92066D5D2C00B32218 /* avi.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = avi.c; path = ../src/SDL/avi.c; sourceTree = SOURCE_ROOT; };
 		9030AF93066D5D2C00B32218 /* rinit.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = rinit.c; path = ../src/SDL/rinit.c; sourceTree = SOURCE_ROOT; };
 		90623BEE064992AE0088361C /* AIAttackMan.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = AIAttackMan.c; path = ../src/Game/AIAttackMan.c; sourceTree = SOURCE_ROOT; };
@@ -3881,10 +3881,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_FOUR_CHARACTER_CONSTANTS = NO;
 				GCC_WARN_UNKNOWN_PRAGMAS = NO;
-				HEADER_SEARCH_PATHS = (
-					"../src/**",
-					/Library/Frameworks/SDL.framework/Headers,
-				);
+				HEADER_SEARCH_PATHS = /Library/Frameworks/SDL.framework/Headers;
 				INFOPLIST_FILE = Homeworld.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = "";
@@ -4024,10 +4021,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_FOUR_CHARACTER_CONSTANTS = NO;
 				GCC_WARN_UNKNOWN_PRAGMAS = NO;
-				HEADER_SEARCH_PATHS = (
-					"../src/**",
-					/Library/Frameworks/SDL.framework/Headers,
-				);
+				HEADER_SEARCH_PATHS = /Library/Frameworks/SDL.framework/Headers;
 				INFOPLIST_FILE = RaiderRetreat.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = "";

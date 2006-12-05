@@ -36,7 +36,7 @@
 #include "Chatting.h"
 #include "CommandNetwork.h"
 #include "Globals.h"
-#include "msg/ServerStatus.h"
+#include "ServerStatus.h"
 #include "ChannelFSM.h"
 #include "ColPick.h"
 #include "mainswitches.h"

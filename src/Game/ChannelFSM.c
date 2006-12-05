@@ -3,7 +3,7 @@
 #include "Types.h"
 #include "TitanInterfaceC.h"
 #include "ChannelFSM.h"
-#include "msg/ServerStatus.h"
+#include "ServerStatus.h"
 #include "Debug.h"
 #include "MultiplayerGame.h"
 #include "StringSupport.h"
