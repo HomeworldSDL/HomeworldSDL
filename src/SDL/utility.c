@@ -4672,7 +4672,7 @@ char *utyGameSystemsShutdown(void)
     if (utyTest2(SS2_SoundEngine))
     {
         // shutdown sound engine
-#ifdef _MACOSX_FIX_ME
+#ifndef _LINUX_FIX_ME
         soundEventClose();
 #endif
         utyClear2(SS2_SoundEngine);
@@ -4899,7 +4899,7 @@ char *utyGameSystemsShutdown(void)
     }
     if (utyTest(SSA_Mouse))
     {
-#ifdef _MACOSX_FIX_ME
+#ifndef _LINUX_FIX_ME
         mouseShutdown();
 #endif
         utyClear(SSA_Mouse);
@@ -4918,7 +4918,7 @@ char *utyGameSystemsShutdown(void)
     if (fetEnableTextures)
 #endif
     {
-#ifdef _MACOSX_FIX_ME
+#ifndef _LINUX_FIX_ME
         ferShutdown();
 #endif
     }
@@ -4976,7 +4976,7 @@ char *utyGameSystemsShutdown(void)
 
     if (utyTest2(SS2_ToggleKeys))
     {
-#ifdef _MACOSX_FIX_ME
+#ifndef _LINUX_FIX_ME
         utyToggleKeyStatesRestore();
 #endif
     }
