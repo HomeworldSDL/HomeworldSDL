@@ -26,6 +26,7 @@ Contents:
 	-Compiling the source code-	
 	-Usage and placement of the game data files-
 	-Starting the game-
+	-Troubleshooting-
 
  -Note-
 
@@ -54,8 +55,7 @@ You need to have at least the following packages installed:
  * autotools set: autoconf, automake (1.9), libtool
  * YACC (any recent version will do)
 
-You may need these package(s) if HWSDL won't compile again after compiling and installing your own libsdl:
- *libx11-dev
+	* See also: -If you're compiling libsdl-
 
 The build process itself is relatively straightforward. Running the bootstrap script found in this directory with "./bootstrap" will set up the files needed and then doing "../configure" (that's "period period slash configure") followed by "make" will build the required files and then the binary.
 
@@ -126,7 +126,12 @@ Go to the projects 'src' directory. "./homeworld".
  If everything goes okay, you should be presented with a confirmation that the settings you requested were changed.  Select "Yes", and you should be ready to go!
  
  The settings you choose will also be saved when you quit, so you don't have to reselect the OpenGL renderer every time. 
- 
+
+ -Troubleshooting-
+
+ * if you get this error while compiling HWSDL: "wgl.c:9:27: X11/Xutil.h: No such file or directory"
+try installing "libx11-dev".
+
  ------------------------------------------------------------------------------ 
  
  *** UPGRADING FROM HOMEWORLD SDL 0.2? *** 
@@ -145,3 +150,12 @@ Go to the projects 'src' directory. "./homeworld".
 *1: use of SDL 1.2.10 is not recommended.
 - HWSDL won't exit properly and will lock your mouse.
 - librgl*.so won't be found unless put in /usr/lib
+
+ ----------------------------------------------------------------------------------
+  -If you're compiling libsdl-
+
+Before compiling your libsdl, make sure you have these packages installed:
+ * libxt-dev
+ * mesa-common-dev, libglu1-mesa-dev, libgl1-mesa-dev
+
+ -------------------------------------------------------------------------------------
