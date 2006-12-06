@@ -650,8 +650,8 @@
 		35CD356B0B13ADEE0064A20B /* jquant2.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34EB0B13ADEE0064A20B /* jquant2.c */; };
 		35CD356C0B13ADEE0064A20B /* jutils.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34EC0B13ADEE0064A20B /* jutils.c */; };
 		35CD356D0B13ADEE0064A20B /* jversion.h in Headers */ = {isa = PBXBuildFile; fileRef = 35CD34ED0B13ADEE0064A20B /* jversion.h */; };
-		35CD35900B13B0E00064A20B /* ServerStatus.h in Headers */ = {isa = PBXBuildFile; fileRef = 35CD358F0B13B0E00064A20B /* ServerStatus.h */; };
-		35CD35910B13B0E00064A20B /* ServerStatus.h in Headers */ = {isa = PBXBuildFile; fileRef = 35CD358F0B13B0E00064A20B /* ServerStatus.h */; };
+		35D293150B26295A007CD95A /* ServerStatus.h in Headers */ = {isa = PBXBuildFile; fileRef = 35D293140B26295A007CD95A /* ServerStatus.h */; };
+		35D293160B26295A007CD95A /* ServerStatus.h in Headers */ = {isa = PBXBuildFile; fileRef = 35D293140B26295A007CD95A /* ServerStatus.h */; };
 		35FB9A6D0B124F0500523C83 /* Color.c in Sources */ = {isa = PBXBuildFile; fileRef = 35FB9A6B0B124F0500523C83 /* Color.c */; };
 		35FB9A6E0B124F0500523C83 /* Color.h in Headers */ = {isa = PBXBuildFile; fileRef = 35FB9A6C0B124F0500523C83 /* Color.h */; };
 		35FB9A6F0B124F0500523C83 /* Color.c in Sources */ = {isa = PBXBuildFile; fileRef = 35FB9A6B0B124F0500523C83 /* Color.c */; };
@@ -1244,7 +1244,7 @@
 		35CD34EB0B13ADEE0064A20B /* jquant2.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = jquant2.c; sourceTree = "<group>"; };
 		35CD34EC0B13ADEE0064A20B /* jutils.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = jutils.c; sourceTree = "<group>"; };
 		35CD34ED0B13ADEE0064A20B /* jversion.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = jversion.h; sourceTree = "<group>"; };
-		35CD358F0B13B0E00064A20B /* ServerStatus.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ServerStatus.h; sourceTree = "<group>"; };
+		35D293140B26295A007CD95A /* ServerStatus.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ServerStatus.h; sourceTree = "<group>"; };
 		35FB9A6B0B124F0500523C83 /* Color.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Color.c; sourceTree = "<group>"; };
 		35FB9A6C0B124F0500523C83 /* Color.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
 		35FE5B220B17CB2200D6E944 /* BitIO.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = BitIO.c; sourceTree = "<group>"; };
@@ -1963,17 +1963,9 @@
 		35CD358D0B13B0E00064A20B /* Titan */ = {
 			isa = PBXGroup;
 			children = (
-				35CD358E0B13B0E00064A20B /* msg */,
+				35D293140B26295A007CD95A /* ServerStatus.h */,
 			);
 			path = Titan;
-			sourceTree = "<group>";
-		};
-		35CD358E0B13B0E00064A20B /* msg */ = {
-			isa = PBXGroup;
-			children = (
-				35CD358F0B13B0E00064A20B /* ServerStatus.h */,
-			);
-			path = msg;
 			sourceTree = "<group>";
 		};
 		35FE5B210B17CB2200D6E944 /* LZSS */ = {
@@ -2703,7 +2695,6 @@
 				35CD35680B13ADEE0064A20B /* jpeglib.h in Headers */,
 				35CD35690B13ADEE0064A20B /* jpegrc.h in Headers */,
 				35CD356D0B13ADEE0064A20B /* jversion.h in Headers */,
-				35CD35910B13B0E00064A20B /* ServerStatus.h in Headers */,
 				35CA99C40B17BC6F00B5118E /* Light.h in Headers */,
 				35FE5B2D0B17CB2300D6E944 /* BitIO.h in Headers */,
 				35FE5B2F0B17CB2300D6E944 /* LZSS.h in Headers */,
@@ -2716,6 +2707,7 @@
 				358039360B18B1DB00D47728 /* Mission04.h in Headers */,
 				358039390B18B1DB00D47728 /* Mission05_OEM.h in Headers */,
 				358039740B18B62500D47728 /* Tutorial1.h in Headers */,
+				35D293160B26295A007CD95A /* ServerStatus.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2965,7 +2957,6 @@
 				35CD35290B13ADEE0064A20B /* jpeglib.h in Headers */,
 				35CD352A0B13ADEE0064A20B /* jpegrc.h in Headers */,
 				35CD352E0B13ADEE0064A20B /* jversion.h in Headers */,
-				35CD35900B13B0E00064A20B /* ServerStatus.h in Headers */,
 				35CA99C20B17BC6F00B5118E /* Light.h in Headers */,
 				35FE5B280B17CB2300D6E944 /* BitIO.h in Headers */,
 				35FE5B2A0B17CB2300D6E944 /* LZSS.h in Headers */,
@@ -2989,6 +2980,7 @@
 				358039240B18B1DB00D47728 /* Mission15.h in Headers */,
 				358039270B18B1DB00D47728 /* Mission16.h in Headers */,
 				3580392A0B18B1DB00D47728 /* Tutorial1.h in Headers */,
+				35D293150B26295A007CD95A /* ServerStatus.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
