@@ -29,6 +29,7 @@
 #include "MultiplayerGame.h"
 #include "Crates.h"
 #include "Mothership.h"
+#include "FastMath.h"
 
 #ifdef _MSC_VER
 #define strcasecmp _stricmp

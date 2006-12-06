@@ -19,6 +19,7 @@
 #include "File.h"
 #include "MEX.h"
 #include "Color.h"
+#include "FastMath.h"
 
 #ifdef _MSC_VER
 #define strcasecmp _stricmp

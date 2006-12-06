@@ -28,6 +28,7 @@
 #include "glcaps.h"
 #include "mainrgn.h"
 #include "texreg.h"
+#include "FastMath.h"
 
 
 

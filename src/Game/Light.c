@@ -21,7 +21,7 @@
 #include "File.h"
 #include "Memory.h"
 #include "MEX.h"
-
+#include "FastMath.h"
 #include "Shader.h"
 
 /*=============================================================================
