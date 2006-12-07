@@ -1,72 +1,35 @@
 #ifndef ___SPEECHEVENT_H
 #define ___SPEECHEVENT_H
 
-//#if defined(__LITTLE_ENDIAN__)
-#ifndef FIX_ENDIAN
+/* Actor Flags */
+#define ACTOR_PILOT_FLAG             0x00000400
+#define ACTOR_FLEETCOMMAND_FLAG      0x00000800
+#define ACTOR_FLEETINTEL_FLAG        0x00001000
+#define ACTOR_TRADERS_FLAG           0x00002000
+#define ACTOR_PIRATES2_FLAG          0x00004000
+#define ACTOR_ALLSHIPSENEMY_FLAG     0x00008000
+#define ACTOR_AMBASSADOR_FLAG        0x00010000
+#define ACTOR_NARRATOR_FLAG          0x00020000
+#define ACTOR_DEFECTOR_FLAG          0x00040000
+#define ACTOR_GENERAL_FLAG           0x00080000
+#define ACTOR_EMPEROR_FLAG           0x00100000
+#define ACTOR_KHARSELIM_FLAG         0x00200000
 
-    /* Actor Flags */
-    #define ACTOR_PILOT_FLAG				0x00000400
-    #define ACTOR_FLEETCOMMAND_FLAG			0x00000800
-    #define ACTOR_FLEETINTEL_FLAG			0x00001000
-    #define ACTOR_TRADERS_FLAG				0x00002000
-    #define ACTOR_PIRATES2_FLAG				0x00004000
-    #define ACTOR_ALLSHIPSENEMY_FLAG			0x00008000
-    #define ACTOR_AMBASSADOR_FLAG			0x00010000
-    #define ACTOR_NARRATOR_FLAG                         0x00020000
-    #define ACTOR_DEFECTOR_FLAG				0x00040000
-    #define ACTOR_GENERAL_FLAG				0x00080000
-    #define ACTOR_EMPEROR_FLAG				0x00100000
-    #define ACTOR_KHARSELIM_FLAG			0x00200000
-    
-    /* Speech Type Flags */
-    #define SPEECH_GROUP_FLAG				0x00800000
-    #define SPEECH_CHATTER_FLAG				0x01000000
-    #define SPEECH_STATUS_FLAG				0x02000000
-    #define SPEECH_COMMAND_FLAG				0x04000000
-    #define SPEECH_TUTORIAL_FLAG			0x08000000
-    #define SPEECH_SINGLEPLAYER_FLAG			0x10000000
-    #define SPEECH_NIS_FLAG				0x20000000
-    #define SPEECH_ANIMATIC_FLAG			0x40000000
-    #define SPEECH_ALWAYSPLAY_FLAG			0x80000000
-    
-    /* Speech Masks */
-    #define SPEECH_EVENT_MASK				0x000003FF
-    #define SPEECH_FLAG_MASK				0x003FFC00
-    #define SPEECH_TYPE_MASK				0xFFC00000
-    
-#else // we are PPC/FIX_ENDIAN!!!
+/* Speech Type Flags */
+#define SPEECH_GROUP_FLAG            0x00800000
+#define SPEECH_CHATTER_FLAG          0x01000000
+#define SPEECH_STATUS_FLAG           0x02000000
+#define SPEECH_COMMAND_FLAG          0x04000000
+#define SPEECH_TUTORIAL_FLAG         0x08000000
+#define SPEECH_SINGLEPLAYER_FLAG     0x10000000
+#define SPEECH_NIS_FLAG              0x20000000
+#define SPEECH_ANIMATIC_FLAG         0x40000000
+#define SPEECH_ALWAYSPLAY_FLAG       0x80000000
 
-    /* Actor Flags */
-    #define ACTOR_PILOT_FLAG				0x04000000
-    #define ACTOR_FLEETCOMMAND_FLAG			0x08000000
-    #define ACTOR_FLEETINTEL_FLAG			0x10000000
-    #define ACTOR_TRADERS_FLAG				0x20000000
-    #define ACTOR_PIRATES2_FLAG				0x40000000
-    #define ACTOR_ALLSHIPSENEMY_FLAG			0x80000000
-    #define ACTOR_AMBASSADOR_FLAG			0x00000001
-    #define ACTOR_NARRATOR_FLAG                         0x00000002
-    #define ACTOR_DEFECTOR_FLAG				0x00000004
-    #define ACTOR_GENERAL_FLAG				0x00000008
-    #define ACTOR_EMPEROR_FLAG				0x00000010
-    #define ACTOR_KHARSELIM_FLAG			0x00000020
-    
-    /* Speech Type Flags */
-    #define SPEECH_GROUP_FLAG				0x00000080
-    #define SPEECH_CHATTER_FLAG				0x00000100
-    #define SPEECH_STATUS_FLAG				0x00000200
-    #define SPEECH_COMMAND_FLAG				0x00000400
-    #define SPEECH_TUTORIAL_FLAG			0x00000800
-    #define SPEECH_SINGLEPLAYER_FLAG			0x00001000
-    #define SPEECH_NIS_FLAG				0x00002000
-    #define SPEECH_ANIMATIC_FLAG			0x00004000
-    #define SPEECH_ALWAYSPLAY_FLAG			0x00008000
-    
-    /* Speech Masks */
-    #define SPEECH_EVENT_MASK				0x03FF0000
-    #define SPEECH_FLAG_MASK				0xFC00003F
-    #define SPEECH_TYPE_MASK				0x0000FFC0
-    
-#endif
+/* Speech Masks */
+#define SPEECH_EVENT_MASK            0x000003FF
+#define SPEECH_FLAG_MASK             0x003FFC00
+#define SPEECH_TYPE_MASK             0xFFC00000
 
 
 /******************************************
