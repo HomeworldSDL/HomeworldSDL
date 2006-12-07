@@ -34,7 +34,7 @@ void *mexLoad(char *filename)
 {
     void *address;
 
-#ifdef ENDIAN_BIG
+#if FIX_ENDIAN
 	MEXFileHeader *mex;
 	MEXChunk *chunk;
 	unsigned char i;
@@ -42,15 +42,15 @@ void *mexLoad(char *filename)
 
     fileLoadAlloc(filename,&address,NonVolatile);
 
-#ifdef ENDIAN_BIG
+#if FIX_ENDIAN
 	mex          = ( MEXFileHeader *)address;
-	mex->version = LittleShort( mex->version );
-	mex->nChunks = LittleShort( mex->nChunks );
+	mex->version = FIX_ENDIAN_INT_16( mex->version );
+	mex->nChunks = FIX_ENDIAN_INT_16( mex->nChunks );
 
 	chunk = ( MEXChunk *)( ( ( ubyte *)mex ) + sizeof( MEXFileHeader ) );
 	for( i=0; i<mex->nChunks; i++ )
 	{
-		chunk->chunkSize = LittleLong( chunk->chunkSize );
+		chunk->chunkSize = FIX_ENDIAN_INT_32( chunk->chunkSize );
 
 		if(( strcasecmp( chunk->type, "Gun" ) == 0 )
 	    || ( strcasecmp( chunk->type, "Eng" ) == 0 )
@@ -59,58 +59,58 @@ void *mexLoad(char *filename)
 		{
 			MEXGunChunk *chunk1 = ( MEXGunChunk *)chunk;
 
-			chunk1->position.x = LittleFloat( chunk1->position.x );
-			chunk1->position.y = LittleFloat( chunk1->position.y );
-			chunk1->position.z = LittleFloat( chunk1->position.z );
+			chunk1->position.x = FIX_ENDIAN_FLOAT_32( chunk1->position.x );
+			chunk1->position.y = FIX_ENDIAN_FLOAT_32( chunk1->position.y );
+			chunk1->position.z = FIX_ENDIAN_FLOAT_32( chunk1->position.z );
 
-			chunk1->normal.x = LittleFloat( chunk1->normal.x );
-			chunk1->normal.y = LittleFloat( chunk1->normal.y );
-			chunk1->normal.z = LittleFloat( chunk1->normal.z );
+			chunk1->normal.x = FIX_ENDIAN_FLOAT_32( chunk1->normal.x );
+			chunk1->normal.y = FIX_ENDIAN_FLOAT_32( chunk1->normal.y );
+			chunk1->normal.z = FIX_ENDIAN_FLOAT_32( chunk1->normal.z );
 
-			chunk1->coneAngle = LittleFloat( chunk1->coneAngle );
-			chunk1->edgeAngle = LittleFloat( chunk1->edgeAngle );
+			chunk1->coneAngle = FIX_ENDIAN_FLOAT_32( chunk1->coneAngle );
+			chunk1->edgeAngle = FIX_ENDIAN_FLOAT_32( chunk1->edgeAngle );
 		}
 
 		if( strcasecmp( chunk->type, "Col" ) == 0 )
 		{
 			MEXCollisionSphereChunk *chunk1 = ( MEXCollisionSphereChunk *)chunk;
 
-			chunk1->level = LittleLong( chunk1->level );
+			chunk1->level = FIX_ENDIAN_INT_32( chunk1->level );
 
-			chunk1->offset.x = LittleFloat( chunk1->offset.x );
-			chunk1->offset.y = LittleFloat( chunk1->offset.y );
-			chunk1->offset.z = LittleFloat( chunk1->offset.z );
+			chunk1->offset.x = FIX_ENDIAN_FLOAT_32( chunk1->offset.x );
+			chunk1->offset.y = FIX_ENDIAN_FLOAT_32( chunk1->offset.y );
+			chunk1->offset.z = FIX_ENDIAN_FLOAT_32( chunk1->offset.z );
 
-			chunk1->r = LittleFloat( chunk1->r );
+			chunk1->r = FIX_ENDIAN_FLOAT_32( chunk1->r );
 		}
 		
 		if( strcasecmp( chunk->type, "Rct" ) == 0 )
 		{
 			MEXCollisionRectangleChunk *chunk1 = ( MEXCollisionRectangleChunk *)chunk;
 
-			chunk1->level = LittleLong( chunk1->level );
+			chunk1->level = FIX_ENDIAN_INT_32( chunk1->level );
 
-			chunk1->ox = LittleFloat( chunk1->ox );
-			chunk1->oy = LittleFloat( chunk1->oy );
-			chunk1->oz = LittleFloat( chunk1->oz );
+			chunk1->ox = FIX_ENDIAN_FLOAT_32( chunk1->ox );
+			chunk1->oy = FIX_ENDIAN_FLOAT_32( chunk1->oy );
+			chunk1->oz = FIX_ENDIAN_FLOAT_32( chunk1->oz );
 
-			chunk1->dx = LittleFloat( chunk1->dx );
-			chunk1->dy = LittleFloat( chunk1->dy );
-			chunk1->dz = LittleFloat( chunk1->dz );
+			chunk1->dx = FIX_ENDIAN_FLOAT_32( chunk1->dx );
+			chunk1->dy = FIX_ENDIAN_FLOAT_32( chunk1->dy );
+			chunk1->dz = FIX_ENDIAN_FLOAT_32( chunk1->dz );
 		}
 
 		if( strcasecmp( chunk->type, "Nav" ) == 0 )
 		{
 			MEXNAVLightChunk *chunk1 = ( MEXNAVLightChunk *)chunk;
 
-			chunk1->position.x = LittleFloat( chunk1->position.x );
-			chunk1->position.y = LittleFloat( chunk1->position.y );
-			chunk1->position.z = LittleFloat( chunk1->position.z );
+			chunk1->position.x = FIX_ENDIAN_FLOAT_32( chunk1->position.x );
+			chunk1->position.y = FIX_ENDIAN_FLOAT_32( chunk1->position.y );
+			chunk1->position.z = FIX_ENDIAN_FLOAT_32( chunk1->position.z );
 		}
 
 		chunk = ( MEXChunk *)( ( ( ubyte *)chunk ) + sizeof( MEXChunk ) + chunk->chunkSize );
 	}
-#endif // ENDIAN_BIG
+#endif // FIX_ENDIAN
 
     dbgAssertOrIgnore(address != NULL);
     if (!mexVerify(address))

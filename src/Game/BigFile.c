@@ -310,9 +310,9 @@ static void bigFilenameExtract(char *filenameonly, char *fullpathname)
 ----------------------------------------------------------------------------*/
 static int bigTOCWrite(FILE *fp, bigTOC *toc)
 {
-#ifdef ENDIAN_BIG
-	int numFiles = LittleLong( toc->numFiles );
-	int flags    = LittleLong( toc->flags );
+#if FIX_ENDIAN
+	int numFiles = FIX_ENDIAN_INT_32( toc->numFiles );
+	int flags    = FIX_ENDIAN_INT_32( toc->flags );
 #else
 	int numFiles = toc->numFiles;
 	int flags    = toc->flags;
@@ -346,9 +346,9 @@ static int bigTOCRead(FILE *fp, bigTOC *toc)
     fread((void *)&(toc->numFiles), sizeof(toc->numFiles), 1, fp);
     fread((void *)&(toc->flags),    sizeof(toc->flags),    1, fp);
 
-#ifdef ENDIAN_BIG
-  	toc->numFiles = LittleLong( toc->numFiles );
-	toc->flags    = LittleLong( toc->flags );
+#if FIX_ENDIAN
+  	toc->numFiles = FIX_ENDIAN_INT_32( toc->numFiles );
+	toc->flags    = FIX_ENDIAN_INT_32( toc->flags );
 #endif
 
     if (toc->numFiles)
@@ -356,18 +356,18 @@ static int bigTOCRead(FILE *fp, bigTOC *toc)
         toc->fileEntries = malloc(sizeof(bigTOCFileEntry) * toc->numFiles);
         fread((void *)(toc->fileEntries), sizeof(bigTOCFileEntry), toc->numFiles, fp);
 
-#ifdef ENDIAN_BIG
+#if FIX_ENDIAN
         int i;
 		for( i=0; i < toc->numFiles; ++i )
 		{
 			bigTOCFileEntry *e = &toc->fileEntries[i];
-			e->nameCRC1     = LittleLong( e->nameCRC1 );
-			e->nameCRC2     = LittleLong( e->nameCRC2 );
-			e->nameLength   = LittleShort( e->nameLength );
-			e->storedLength = LittleLong( e->storedLength );
-			e->realLength   = LittleLong( e->realLength );
-			e->offset       = LittleLong( e->offset );
-			e->timeStamp    = LittleLong( e->timeStamp );
+			e->nameCRC1     = FIX_ENDIAN_INT_32( e->nameCRC1 );
+			e->nameCRC2     = FIX_ENDIAN_INT_32( e->nameCRC2 );
+			e->nameLength   = FIX_ENDIAN_INT_16( e->nameLength );
+			e->storedLength = FIX_ENDIAN_INT_32( e->storedLength );
+			e->realLength   = FIX_ENDIAN_INT_32( e->realLength );
+			e->offset       = FIX_ENDIAN_INT_32( e->offset );
+			e->timeStamp    = FIX_ENDIAN_INT_32( e->timeStamp );
 		}
 #endif
     }

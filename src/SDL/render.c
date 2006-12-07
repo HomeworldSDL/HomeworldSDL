@@ -3359,24 +3359,24 @@ udword rndLoadTarga(char* filename, sdword* width, sdword* height)
     head.imageType = *pdata++;
     psdata = (uword*)pdata;
 
-#ifdef ENDIAN_BIG
-    head.colorMapStartIndex = LittleShort(*psdata);
+#if FIX_ENDIAN
+    head.colorMapStartIndex = FIX_ENDIAN_INT_16(*psdata);
     pdata += 2;
     psdata = (uword*)pdata;
-    head.colorMapNumEntries = LittleShort(*psdata);
+    head.colorMapNumEntries = FIX_ENDIAN_INT_16(*psdata);
     pdata += 2;
     head.colorMapBitsPerEntry = *pdata++;
     psdata = (uword*)pdata;
-    head.imageOffsetX = LittleShort((sword)*psdata);
+    head.imageOffsetX = FIX_ENDIAN_INT_16((sword)*psdata);
     pdata += 2;
     psdata = (uword*)pdata;
-    head.imageOffsetY = LittleShort((sword)*psdata);
+    head.imageOffsetY = FIX_ENDIAN_INT_16((sword)*psdata);
     pdata += 2;
     psdata = (uword*)pdata;
-    head.imageWidth = LittleShort(*psdata);
+    head.imageWidth = FIX_ENDIAN_INT_16(*psdata);
     pdata += 2;
     psdata = (uword*)pdata;
-    head.imageHeight = LittleShort(*psdata);
+    head.imageHeight = FIX_ENDIAN_INT_16(*psdata);
 #else
     head.colorMapStartIndex = *psdata;
     pdata += 2;

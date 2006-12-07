@@ -1692,17 +1692,17 @@ lifheader *trLIFFileLoad(char *fileName, udword flags)
 
     fileLoadAlloc(fileName, (void**)&newHeader, flags);             //load in the .LiF file
 
-#ifdef ENDIAN_BIG
-	newHeader->version     = LittleLong( newHeader->version );
-	newHeader->flags       = LittleLong( newHeader->flags );
-	newHeader->width       = LittleLong( newHeader->width );
-	newHeader->height      = LittleLong( newHeader->height );
-	newHeader->paletteCRC  = LittleLong( newHeader->paletteCRC );
-	newHeader->imageCRC    = LittleLong( newHeader->imageCRC );
-	newHeader->data        = ( ubyte *)LittleLong( ( udword )newHeader->data );
-	newHeader->palette     = ( color *)LittleLong( ( udword )newHeader->palette );
-	newHeader->teamEffect0 = ( ubyte *)LittleLong( ( udword )newHeader->teamEffect0 );
-	newHeader->teamEffect1 = ( ubyte *)LittleLong( ( udword )newHeader->teamEffect1 );
+#if FIX_ENDIAN
+	newHeader->version     = FIX_ENDIAN_INT_32( newHeader->version );
+	newHeader->flags       = FIX_ENDIAN_INT_32( newHeader->flags );
+	newHeader->width       = FIX_ENDIAN_INT_32( newHeader->width );
+	newHeader->height      = FIX_ENDIAN_INT_32( newHeader->height );
+	newHeader->paletteCRC  = FIX_ENDIAN_INT_32( newHeader->paletteCRC );
+	newHeader->imageCRC    = FIX_ENDIAN_INT_32( newHeader->imageCRC );
+	newHeader->data        = ( ubyte *)FIX_ENDIAN_INT_32( ( udword )newHeader->data );
+	newHeader->palette     = ( color *)FIX_ENDIAN_INT_32( ( udword )newHeader->palette );
+	newHeader->teamEffect0 = ( ubyte *)FIX_ENDIAN_INT_32( ( udword )newHeader->teamEffect0 );
+	newHeader->teamEffect1 = ( ubyte *)FIX_ENDIAN_INT_32( ( udword )newHeader->teamEffect1 );
 #endif
 
 #if TR_ERROR_CHECKING
@@ -2780,12 +2780,12 @@ llelement *trListFileLoad(char *name, sdword *number)
     f = fileOpen(name, 0);
     fileBlockRead(f, &header, sizeof(llfileheader));        //read the file header
 
-#ifdef ENDIAN_BIG
-	header.version       = LittleLong( header.version );
-	header.nElements     = LittleLong( header.nElements );
-	header.stringLength  = LittleLong( header.stringLength );
-	header.sharingLength = LittleLong( header.sharingLength );
-	header.totalLength   = LittleLong( header.totalLength );
+#if FIX_ENDIAN
+	header.version       = FIX_ENDIAN_INT_32( header.version );
+	header.nElements     = FIX_ENDIAN_INT_32( header.nElements );
+	header.stringLength  = FIX_ENDIAN_INT_32( header.stringLength );
+	header.sharingLength = FIX_ENDIAN_INT_32( header.sharingLength );
+	header.totalLength   = FIX_ENDIAN_INT_32( header.totalLength );
 #endif
 
 #if TR_ERROR_CHECKING
@@ -2812,15 +2812,15 @@ llelement *trListFileLoad(char *name, sdword *number)
     //fix up the names of the texture files
     for (index = 0; index < header.nElements; index++)
     {
-#ifdef ENDIAN_BIG
-		list[index].textureName = ( char *)LittleLong( ( udword )list[index].textureName );
-		list[index].width       = LittleLong( list[index].width );
-		list[index].height      = LittleLong( list[index].height );
-		list[index].flags       = LittleLong( list[index].flags );
-		list[index].imageCRC    = LittleLong( list[index].imageCRC );
-		list[index].nShared     = LittleLong( list[index].nShared );
-		list[index].sharedTo    = ( sdword *)LittleLong( ( udword )list[index].sharedTo );
-		list[index].sharedFrom  = LittleLong( list[index].sharedFrom );
+#if FIX_ENDIAN
+		list[index].textureName = ( char *)FIX_ENDIAN_INT_32( ( udword )list[index].textureName );
+		list[index].width       = FIX_ENDIAN_INT_32( list[index].width );
+		list[index].height      = FIX_ENDIAN_INT_32( list[index].height );
+		list[index].flags       = FIX_ENDIAN_INT_32( list[index].flags );
+		list[index].imageCRC    = FIX_ENDIAN_INT_32( list[index].imageCRC );
+		list[index].nShared     = FIX_ENDIAN_INT_32( list[index].nShared );
+		list[index].sharedTo    = ( sdword *)FIX_ENDIAN_INT_32( ( udword )list[index].sharedTo );
+		list[index].sharedFrom  = FIX_ENDIAN_INT_32( list[index].sharedFrom );
 #endif
 
         list[index].textureName += (udword)stringBlock;
@@ -2836,14 +2836,14 @@ llelement *trListFileLoad(char *name, sdword *number)
 //                (ubyte *)list[index].sharedTo += (udword)sharingBlock;
                 list[index].sharedTo = (sdword *)((udword)sharingBlock + (ubyte *)list[index].sharedTo);
 
-#ifdef ENDIAN_BIG
+#if FIX_ENDIAN
                 // anonymous block so I can declare i with limited scope and not have
                 // a plain C compiler complain
                 {
                     int  i = 0;
                     for( i = 0; i < list[index].nShared; i++ )
                     {
-                        list[index].sharedTo[i] = LittleLong( list[index].sharedTo[i] );
+                        list[index].sharedTo[i] = FIX_ENDIAN_INT_32( list[index].sharedTo[i] );
                     }
                 }
 #endif
@@ -2964,17 +2964,17 @@ bool trLiFMeasure(char *fileName, sdword *width, sdword *height, udword *flags)
     fileBlockRead(handle, &header, sizeof(lifheader));
     fileClose(handle);
 
-#ifdef ENDIAN_BIG
-	header.version     = LittleLong( header.version );
-	header.flags       = LittleLong( header.flags );
-	header.width       = LittleLong( header.width );
-	header.height      = LittleLong( header.height );
-	header.paletteCRC  = LittleLong( header.paletteCRC );
-	header.imageCRC    = LittleLong( header.imageCRC );
-	header.data        = ( ubyte *)LittleLong( ( udword )header.data );
-	header.palette     = ( color *)LittleLong( ( udword )header.palette );
-	header.teamEffect0 = ( ubyte *)LittleLong( ( udword )header.teamEffect0 );
-	header.teamEffect1 = ( ubyte *)LittleLong( ( udword )header.teamEffect1 );
+#if FIX_ENDIAN
+	header.version     = FIX_ENDIAN_INT_32( header.version );
+	header.flags       = FIX_ENDIAN_INT_32( header.flags );
+	header.width       = FIX_ENDIAN_INT_32( header.width );
+	header.height      = FIX_ENDIAN_INT_32( header.height );
+	header.paletteCRC  = FIX_ENDIAN_INT_32( header.paletteCRC );
+	header.imageCRC    = FIX_ENDIAN_INT_32( header.imageCRC );
+	header.data        = ( ubyte *)FIX_ENDIAN_INT_32( ( udword )header.data );
+	header.palette     = ( color *)FIX_ENDIAN_INT_32( ( udword )header.palette );
+	header.teamEffect0 = ( ubyte *)FIX_ENDIAN_INT_32( ( udword )header.teamEffect0 );
+	header.teamEffect1 = ( ubyte *)FIX_ENDIAN_INT_32( ( udword )header.teamEffect1 );
 #endif
 
     if (strcmp(header.ident, LIF_FileIdentifier))

@@ -34,7 +34,7 @@
 /*=============================================================================
     Definitions:
 =============================================================================*/
-#ifdef ENDIAN_BIG
+#if FIX_ENDIAN
     #define TP_KeyColor  0xffffff00
 #else
     #define TP_KeyColor  0x00ffffff  //high bit (alpha) clear means this is a key color

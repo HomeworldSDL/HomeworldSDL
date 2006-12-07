@@ -4557,24 +4557,24 @@ nisheader *nisLoad(char *fileName, char *scriptName)
     f = fileOpen(fileName, 0);                              //open the file
     fileBlockRead(f, &header, sizeof(nisheader));           //read the header
 
-#ifdef ENDIAN_BIG
-	header.version           = LittleLong( header.version );
-	header.flags             = LittleLong( header.flags );
-	header.stringBlock       = ( char *)LittleLong( ( udword )header.stringBlock );
-	header.stringBlockLength = LittleLong( header.stringBlockLength );
-	header.length            = LittleFloat( header.length );
-	header.loop              = LittleFloat( header.loop );
-	header.nObjectPaths      = LittleLong( header.nObjectPaths );
-	header.objectPath        = ( spaceobjpath *)LittleLong( ( udword )header.objectPath );
-	header.nCameraPaths      = LittleLong( header.nCameraPaths );
-	header.cameraPath        = ( camerapath *)LittleLong( ( udword )header.cameraPath );
-	header.nLightPaths       = LittleLong( header.nLightPaths );
-	header.lightPath         = ( lightpath *)LittleLong( ( udword )header.lightPath );
-	header.nEvents           = LittleLong( header.nEvents );
-	header.events            = ( nisevent *)LittleLong( ( udword )header.events );
-	header.nGenericObjects   = LittleLong( header.nGenericObjects );
-	header.genericObject     = ( nisgenericobject **)LittleLong( ( udword )header.genericObject );
-	header.iLookyObject      = LittleLong( header.iLookyObject );
+#if FIX_ENDIAN
+	header.version           = FIX_ENDIAN_INT_32( header.version );
+	header.flags             = FIX_ENDIAN_INT_32( header.flags );
+	header.stringBlock       = ( char *)FIX_ENDIAN_INT_32( ( udword )header.stringBlock );
+	header.stringBlockLength = FIX_ENDIAN_INT_32( header.stringBlockLength );
+	header.length            = FIX_ENDIAN_FLOAT_32( header.length );
+	header.loop              = FIX_ENDIAN_FLOAT_32( header.loop );
+	header.nObjectPaths      = FIX_ENDIAN_INT_32( header.nObjectPaths );
+	header.objectPath        = ( spaceobjpath *)FIX_ENDIAN_INT_32( ( udword )header.objectPath );
+	header.nCameraPaths      = FIX_ENDIAN_INT_32( header.nCameraPaths );
+	header.cameraPath        = ( camerapath *)FIX_ENDIAN_INT_32( ( udword )header.cameraPath );
+	header.nLightPaths       = FIX_ENDIAN_INT_32( header.nLightPaths );
+	header.lightPath         = ( lightpath *)FIX_ENDIAN_INT_32( ( udword )header.lightPath );
+	header.nEvents           = FIX_ENDIAN_INT_32( header.nEvents );
+	header.events            = ( nisevent *)FIX_ENDIAN_INT_32( ( udword )header.events );
+	header.nGenericObjects   = FIX_ENDIAN_INT_32( header.nGenericObjects );
+	header.genericObject     = ( nisgenericobject **)FIX_ENDIAN_INT_32( ( udword )header.genericObject );
+	header.iLookyObject      = FIX_ENDIAN_INT_32( header.iLookyObject );
 #endif
 
 #if NIS_ERROR_CHECKING
@@ -4601,24 +4601,24 @@ nisheader *nisLoad(char *fileName, char *scriptName)
 
     newHeader->objectPath = (spaceobjpath *)((udword)newHeader + (ubyte *)newHeader->objectPath);//fixup the object motion path array
 
-#ifdef ENDIAN_BIG
+#if FIX_ENDIAN
 	for (index = 0; index < newHeader->nObjectPaths; index++)
     {                                                       //for each object motion path
         objPath = &newHeader->objectPath[index];            //get pointer to this motion path
-		objPath->instance = LittleLong( objPath->instance );
-		objPath->type = LittleLong( objPath->type );
-		objPath->parentIndex = LittleLong( objPath->parentIndex );
-		objPath->race = LittleLong( objPath->race );
-		objPath->nSamples = LittleLong( objPath->nSamples );
-		objPath->timeOffset = LittleFloat( objPath->timeOffset );
-		objPath->times = ( real32 *)LittleLong( ( udword )objPath->times );
-		objPath->parameters = ( tcb *)LittleLong( ( udword )objPath->parameters );
-		objPath->curve[0] = ( real32 *)LittleLong( ( udword )objPath->curve[0] );
-		objPath->curve[1] = ( real32 *)LittleLong( ( udword )objPath->curve[1] );
-		objPath->curve[2] = ( real32 *)LittleLong( ( udword )objPath->curve[2] );
-		objPath->curve[3] = ( real32 *)LittleLong( ( udword )objPath->curve[3] );
-		objPath->curve[4] = ( real32 *)LittleLong( ( udword )objPath->curve[4] );
-		objPath->curve[5] = ( real32 *)LittleLong( ( udword )objPath->curve[5] );
+		objPath->instance = FIX_ENDIAN_INT_32( objPath->instance );
+		objPath->type = FIX_ENDIAN_INT_32( objPath->type );
+		objPath->parentIndex = FIX_ENDIAN_INT_32( objPath->parentIndex );
+		objPath->race = FIX_ENDIAN_INT_32( objPath->race );
+		objPath->nSamples = FIX_ENDIAN_INT_32( objPath->nSamples );
+		objPath->timeOffset = FIX_ENDIAN_FLOAT_32( objPath->timeOffset );
+		objPath->times = ( real32 *)FIX_ENDIAN_INT_32( ( udword )objPath->times );
+		objPath->parameters = ( tcb *)FIX_ENDIAN_INT_32( ( udword )objPath->parameters );
+		objPath->curve[0] = ( real32 *)FIX_ENDIAN_INT_32( ( udword )objPath->curve[0] );
+		objPath->curve[1] = ( real32 *)FIX_ENDIAN_INT_32( ( udword )objPath->curve[1] );
+		objPath->curve[2] = ( real32 *)FIX_ENDIAN_INT_32( ( udword )objPath->curve[2] );
+		objPath->curve[3] = ( real32 *)FIX_ENDIAN_INT_32( ( udword )objPath->curve[3] );
+		objPath->curve[4] = ( real32 *)FIX_ENDIAN_INT_32( ( udword )objPath->curve[4] );
+		objPath->curve[5] = ( real32 *)FIX_ENDIAN_INT_32( ( udword )objPath->curve[5] );
 	}
 #endif
 
@@ -4635,19 +4635,19 @@ nisheader *nisLoad(char *fileName, char *scriptName)
             objPath->curve[j] = (real32 *)((udword)newHeader + (ubyte *)objPath->curve[j]);
         }
 
-#ifdef ENDIAN_BIG
+#if FIX_ENDIAN
 		for( j = 0; j < objPath->nSamples; j++ )
 		{
 			int k;
 
-			objPath->times[j]                 = LittleFloat( objPath->times[j] );
-			objPath->parameters[j].tension    = LittleFloat( objPath->parameters[j].tension );
-			objPath->parameters[j].continuity = LittleFloat( objPath->parameters[j].continuity );
-			objPath->parameters[j].bias       = LittleFloat( objPath->parameters[j].bias );
+			objPath->times[j]                 = FIX_ENDIAN_FLOAT_32( objPath->times[j] );
+			objPath->parameters[j].tension    = FIX_ENDIAN_FLOAT_32( objPath->parameters[j].tension );
+			objPath->parameters[j].continuity = FIX_ENDIAN_FLOAT_32( objPath->parameters[j].continuity );
+			objPath->parameters[j].bias       = FIX_ENDIAN_FLOAT_32( objPath->parameters[j].bias );
 			
 			for( k = 0; k < 6; k++ )
 			{
-				objPath->curve[k][j] = LittleFloat( objPath->curve[k][j] );
+				objPath->curve[k][j] = FIX_ENDIAN_FLOAT_32( objPath->curve[k][j] );
 			}
 		}
 #endif
@@ -4778,37 +4778,37 @@ foundOne:;
     {                                                       //for each object motion path
         camPath = &newHeader->cameraPath[index];            //get pointer to this motion path
 
-#ifdef ENDIAN_BIG
-		camPath->oLength = LittleFloat( camPath->oLength );
-		camPath->nSamples = LittleLong( camPath->nSamples );
-		camPath->timeOffset = LittleFloat( camPath->timeOffset );
-		camPath->times = ( real32 *)LittleLong( ( udword )camPath->times );
-		camPath->parameters = ( tcb *)LittleLong( ( udword )camPath->parameters );
+#if FIX_ENDIAN
+		camPath->oLength = FIX_ENDIAN_FLOAT_32( camPath->oLength );
+		camPath->nSamples = FIX_ENDIAN_INT_32( camPath->nSamples );
+		camPath->timeOffset = FIX_ENDIAN_FLOAT_32( camPath->timeOffset );
+		camPath->times = ( real32 *)FIX_ENDIAN_INT_32( ( udword )camPath->times );
+		camPath->parameters = ( tcb *)FIX_ENDIAN_INT_32( ( udword )camPath->parameters );
 #endif
 
         camPath->parameters = (tcb *)((udword)newHeader + (ubyte *)camPath->parameters);  //fixup the various arrays
         camPath->times = (real32 *)((udword)newHeader + (ubyte *)camPath->times);
         for (j = 0; j < 6; j++)
         {
-#ifdef ENDIAN_BIG
-			camPath->curve[j] = ( real32 *)LittleLong( ( udword )camPath->curve[j] );
+#if FIX_ENDIAN
+			camPath->curve[j] = ( real32 *)FIX_ENDIAN_INT_32( ( udword )camPath->curve[j] );
 #endif
             camPath->curve[j] = (real32 *)((udword)newHeader + (ubyte *)camPath->curve[j]);
         }
 
-#ifdef ENDIAN_BIG
+#if FIX_ENDIAN
 		for( j = 0; j < camPath->nSamples; j++ )
 		{
 			int k;
 
-			camPath->times[j]                 = LittleFloat( camPath->times[j] );
-			camPath->parameters[j].tension    = LittleFloat( camPath->parameters[j].tension );
-			camPath->parameters[j].continuity = LittleFloat( camPath->parameters[j].continuity );
-			camPath->parameters[j].bias       = LittleFloat( camPath->parameters[j].bias );
+			camPath->times[j]                 = FIX_ENDIAN_FLOAT_32( camPath->times[j] );
+			camPath->parameters[j].tension    = FIX_ENDIAN_FLOAT_32( camPath->parameters[j].tension );
+			camPath->parameters[j].continuity = FIX_ENDIAN_FLOAT_32( camPath->parameters[j].continuity );
+			camPath->parameters[j].bias       = FIX_ENDIAN_FLOAT_32( camPath->parameters[j].bias );
 			
 			for( k = 0; k < 6; k++ )
 			{
-				camPath->curve[k][j] = LittleFloat( camPath->curve[k][j] );
+				camPath->curve[k][j] = FIX_ENDIAN_FLOAT_32( camPath->curve[k][j] );
 			}
 		}
 #endif

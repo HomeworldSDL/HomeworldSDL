@@ -652,13 +652,13 @@ void SEprecalcVolTables(void)
 {
     sdword i, j, index;
 
-#ifdef ENDIAN_BIG	
+#if FIX_ENDIAN	
         for (j = 0; j< (RangeLUT->rows * RangeLUT->columns); j++ )
-            RangeLUT->lookup[j] = LittleLong( RangeLUT->lookup[j] );
+            RangeLUT->lookup[j] = FIX_ENDIAN_INT_32( RangeLUT->lookup[j] );
         for (j = 0; j< (VolumeLUT->rows * VolumeLUT->columns); j++ )
-            VolumeLUT->lookup[j] = LittleLong( VolumeLUT->lookup[j] );
+            VolumeLUT->lookup[j] = FIX_ENDIAN_INT_32( VolumeLUT->lookup[j] );
         for (j=0; j < (FrequencyLUT->columns * FrequencyLUT->rows); j++ )
-            FrequencyLUT->lookup[j] = LittleFloat( FrequencyLUT->lookup[j] );
+            FrequencyLUT->lookup[j] = FIX_ENDIAN_FLOAT_32( FrequencyLUT->lookup[j] );
 #endif
 
 	/* do some precalculations on the volume and range tables, saves a divide, compare, 2 [] and 2 subtractions for every volume update */
@@ -730,10 +730,10 @@ void soundEventInit(void)
     size = fileLoadAlloc(loadfile, (void**)&VolumeLUT, NonVolatile);
     VolumeFloatLUT = memAlloc(size, "Volume Table", NonVolatile);
 
-#ifdef ENDIAN_BIG
-    VolumeLUT->ID      = LittleLong( VolumeLUT->ID );
-    VolumeLUT->columns = LittleShort( VolumeLUT->columns );
-    VolumeLUT->rows    = LittleShort( VolumeLUT->rows );
+#if FIX_ENDIAN
+    VolumeLUT->ID      = FIX_ENDIAN_INT_32( VolumeLUT->ID );
+    VolumeLUT->columns = FIX_ENDIAN_INT_16( VolumeLUT->columns );
+    VolumeLUT->rows    = FIX_ENDIAN_INT_16( VolumeLUT->rows );
 #endif
 
     strcpy(loadfile, SOUNDFXDIR);
@@ -741,10 +741,10 @@ void soundEventInit(void)
     size = fileLoadAlloc(loadfile, (void**)&RangeLUT, NonVolatile);
 	RangeFloatLUT = memAlloc(size, "Range Table", NonVolatile);
 
-#ifdef ENDIAN_BIG
-    RangeLUT->ID      = LittleLong( RangeLUT->ID );
-    RangeLUT->columns = LittleShort( RangeLUT->columns );
-    RangeLUT->rows    = LittleShort( RangeLUT->rows );
+#if FIX_ENDIAN
+    RangeLUT->ID      = FIX_ENDIAN_INT_32( RangeLUT->ID );
+    RangeLUT->columns = FIX_ENDIAN_INT_16( RangeLUT->columns );
+    RangeLUT->rows    = FIX_ENDIAN_INT_16( RangeLUT->rows );
 #endif
     
     strcpy(loadfile, SOUNDFXDIR);
@@ -752,10 +752,10 @@ void soundEventInit(void)
     size = fileLoadAlloc(loadfile, (void**)&FrequencyLUT, NonVolatile);
 	FreqLUT = memAlloc(size, "Frequency Table", NonVolatile);
 
-#ifdef ENDIAN_BIG
-    FrequencyLUT->ID      = LittleLong( FrequencyLUT->ID );
-    FrequencyLUT->columns = LittleShort( FrequencyLUT->columns );
-    FrequencyLUT->rows    = LittleShort( FrequencyLUT->rows );
+#if FIX_ENDIAN
+    FrequencyLUT->ID      = FIX_ENDIAN_INT_32( FrequencyLUT->ID );
+    FrequencyLUT->columns = FIX_ENDIAN_INT_16( FrequencyLUT->columns );
+    FrequencyLUT->rows    = FIX_ENDIAN_INT_16( FrequencyLUT->rows );
 #endif
     
     /* do some pre-calculations on the volume, range and frequency tables */
@@ -2567,7 +2567,7 @@ void SEloadbank(void)
 {
     char loadfile[100];
     
-#ifdef ENDIAN_BIG
+#if FIX_ENDIAN
 	int  i;
 #endif
 
@@ -2576,45 +2576,45 @@ void SEloadbank(void)
     strcat(loadfile, "GunEvents.lut");
     fileLoadAlloc(loadfile, (void**)&GunEventsLUT, NonVolatile);
 
-#ifdef ENDIAN_BIG	
-	GunEventsLUT->ID            = LittleLong( GunEventsLUT->ID );
-	GunEventsLUT->checksum      = LittleLong( GunEventsLUT->checksum );
-	GunEventsLUT->numvariations = LittleShort( GunEventsLUT->numvariations );
-	GunEventsLUT->numevents     = LittleShort( GunEventsLUT->numevents );
-	GunEventsLUT->numobjects    = LittleShort( GunEventsLUT->numobjects );
+#if FIX_ENDIAN	
+	GunEventsLUT->ID            = FIX_ENDIAN_INT_32( GunEventsLUT->ID );
+	GunEventsLUT->checksum      = FIX_ENDIAN_INT_32( GunEventsLUT->checksum );
+	GunEventsLUT->numvariations = FIX_ENDIAN_INT_16( GunEventsLUT->numvariations );
+	GunEventsLUT->numevents     = FIX_ENDIAN_INT_16( GunEventsLUT->numevents );
+	GunEventsLUT->numobjects    = FIX_ENDIAN_INT_16( GunEventsLUT->numobjects );
 	int lt = GunEventsLUT->numvariations * GunEventsLUT->numevents * GunEventsLUT->numobjects;
 	for ( i=0; i<lt; i++ )
-		GunEventsLUT->lookup[i] = LittleShort( GunEventsLUT->lookup[i] );
+		GunEventsLUT->lookup[i] = FIX_ENDIAN_INT_16( GunEventsLUT->lookup[i] );
 #endif
 
     strcpy(loadfile, SOUNDFXDIR);
     strcat(loadfile, "ShipCmnEvents.lut");
     fileLoadAlloc(loadfile, (void**)&ShipCmnEventsLUT, NonVolatile);
 
-#ifdef ENDIAN_BIG
-	ShipCmnEventsLUT->ID            = LittleLong( ShipCmnEventsLUT->ID );
-	ShipCmnEventsLUT->checksum      = LittleLong( ShipCmnEventsLUT->checksum );
-	ShipCmnEventsLUT->numvariations = LittleShort( ShipCmnEventsLUT->numvariations );
-	ShipCmnEventsLUT->numevents     = LittleShort( ShipCmnEventsLUT->numevents );
-	ShipCmnEventsLUT->numobjects    = LittleShort( ShipCmnEventsLUT->numobjects );
+#if FIX_ENDIAN
+	ShipCmnEventsLUT->ID            = FIX_ENDIAN_INT_32( ShipCmnEventsLUT->ID );
+	ShipCmnEventsLUT->checksum      = FIX_ENDIAN_INT_32( ShipCmnEventsLUT->checksum );
+	ShipCmnEventsLUT->numvariations = FIX_ENDIAN_INT_16( ShipCmnEventsLUT->numvariations );
+	ShipCmnEventsLUT->numevents     = FIX_ENDIAN_INT_16( ShipCmnEventsLUT->numevents );
+	ShipCmnEventsLUT->numobjects    = FIX_ENDIAN_INT_16( ShipCmnEventsLUT->numobjects );
 	lt = ShipCmnEventsLUT->numvariations * ShipCmnEventsLUT->numevents * ShipCmnEventsLUT->numobjects;
 	for ( i=0; i<lt; i++ )
-		ShipCmnEventsLUT->lookup[i] = LittleShort( ShipCmnEventsLUT->lookup[i] );
+		ShipCmnEventsLUT->lookup[i] = FIX_ENDIAN_INT_16( ShipCmnEventsLUT->lookup[i] );
 #endif
 		
     strcpy(loadfile, SOUNDFXDIR);
     strcat(loadfile, "ShipEvents.lut");
     fileLoadAlloc(loadfile, (void**)&ShipEventsLUT, NonVolatile);
 
-#ifdef ENDIAN_BIG
-	ShipEventsLUT->ID            = LittleLong( ShipEventsLUT->ID );
-	ShipEventsLUT->checksum      = LittleLong( ShipEventsLUT->checksum );
-	ShipEventsLUT->numvariations = LittleShort( ShipEventsLUT->numvariations );
-	ShipEventsLUT->numevents     = LittleShort( ShipEventsLUT->numevents );
-	ShipEventsLUT->numobjects    = LittleShort( ShipEventsLUT->numobjects );
+#if FIX_ENDIAN
+	ShipEventsLUT->ID            = FIX_ENDIAN_INT_32( ShipEventsLUT->ID );
+	ShipEventsLUT->checksum      = FIX_ENDIAN_INT_32( ShipEventsLUT->checksum );
+	ShipEventsLUT->numvariations = FIX_ENDIAN_INT_16( ShipEventsLUT->numvariations );
+	ShipEventsLUT->numevents     = FIX_ENDIAN_INT_16( ShipEventsLUT->numevents );
+	ShipEventsLUT->numobjects    = FIX_ENDIAN_INT_16( ShipEventsLUT->numobjects );
 	lt = ShipEventsLUT->numvariations * ShipEventsLUT->numevents * ShipEventsLUT->numobjects;
 	for ( i=0; i<lt; i++ )
-		ShipEventsLUT->lookup[i] = LittleShort( ShipEventsLUT->lookup[i] );
+		ShipEventsLUT->lookup[i] = FIX_ENDIAN_INT_16( ShipEventsLUT->lookup[i] );
 #endif
 		
 	if (ShipEventsLUT->checksum != ShipCmnEventsLUT->checksum)
@@ -2627,15 +2627,15 @@ void SEloadbank(void)
     strcat(loadfile, "DerelictEvents.lut");
     fileLoadAlloc(loadfile, (void**)&DerelictEventsLUT, NonVolatile);
 
-#ifdef ENDIAN_BIG
-	DerelictEventsLUT->ID            = LittleLong( DerelictEventsLUT->ID );
-	DerelictEventsLUT->checksum      = LittleLong( DerelictEventsLUT->checksum );
-	DerelictEventsLUT->numvariations = LittleShort( DerelictEventsLUT->numvariations );
-	DerelictEventsLUT->numevents     = LittleShort( DerelictEventsLUT->numevents );
-	DerelictEventsLUT->numobjects    = LittleShort( DerelictEventsLUT->numobjects );
+#if FIX_ENDIAN
+	DerelictEventsLUT->ID            = FIX_ENDIAN_INT_32( DerelictEventsLUT->ID );
+	DerelictEventsLUT->checksum      = FIX_ENDIAN_INT_32( DerelictEventsLUT->checksum );
+	DerelictEventsLUT->numvariations = FIX_ENDIAN_INT_16( DerelictEventsLUT->numvariations );
+	DerelictEventsLUT->numevents     = FIX_ENDIAN_INT_16( DerelictEventsLUT->numevents );
+	DerelictEventsLUT->numobjects    = FIX_ENDIAN_INT_16( DerelictEventsLUT->numobjects );
 	lt = DerelictEventsLUT->numvariations * DerelictEventsLUT->numevents * DerelictEventsLUT->numobjects;
 	for ( i=0; i<lt; i++ )
-		DerelictEventsLUT->lookup[i] = LittleShort( DerelictEventsLUT->lookup[i] );
+		DerelictEventsLUT->lookup[i] = FIX_ENDIAN_INT_16( DerelictEventsLUT->lookup[i] );
 #endif
 		
 	if (DerelictEventsLUT->checksum != ShipCmnEventsLUT->checksum)
@@ -2652,15 +2652,15 @@ void SEloadbank(void)
     strcat(loadfile, "SpecExpEvents.lut");
     fileLoadAlloc(loadfile, (void**)&SpecExpEventsLUT, NonVolatile);
 
-#ifdef ENDIAN_BIG
-	SpecExpEventsLUT->ID            = LittleLong( SpecExpEventsLUT->ID );
-	SpecExpEventsLUT->checksum      = LittleLong( SpecExpEventsLUT->checksum );
-	SpecExpEventsLUT->numvariations = LittleShort( SpecExpEventsLUT->numvariations );
-	SpecExpEventsLUT->numevents     = LittleShort( SpecExpEventsLUT->numevents );
-	SpecExpEventsLUT->numobjects    = LittleShort( SpecExpEventsLUT->numobjects );
+#if FIX_ENDIAN
+	SpecExpEventsLUT->ID            = FIX_ENDIAN_INT_32( SpecExpEventsLUT->ID );
+	SpecExpEventsLUT->checksum      = FIX_ENDIAN_INT_32( SpecExpEventsLUT->checksum );
+	SpecExpEventsLUT->numvariations = FIX_ENDIAN_INT_16( SpecExpEventsLUT->numvariations );
+	SpecExpEventsLUT->numevents     = FIX_ENDIAN_INT_16( SpecExpEventsLUT->numevents );
+	SpecExpEventsLUT->numobjects    = FIX_ENDIAN_INT_16( SpecExpEventsLUT->numobjects );
 	lt = SpecExpEventsLUT->numvariations * SpecExpEventsLUT->numevents * SpecExpEventsLUT->numobjects;
 	for ( i=0; i<lt; i++ )
-		SpecExpEventsLUT->lookup[i] = LittleShort( SpecExpEventsLUT->lookup[i] );
+		SpecExpEventsLUT->lookup[i] = FIX_ENDIAN_INT_16( SpecExpEventsLUT->lookup[i] );
 #endif
 
 //	if (SpecExpEventsLUT->checksum != SpecEffectEventsLUT->checksum)
@@ -2673,15 +2673,15 @@ void SEloadbank(void)
     strcat(loadfile, "SpecHitEvents.lut");
     fileLoadAlloc(loadfile, (void**)&SpecHitEventsLUT, NonVolatile);
 
-#ifdef ENDIAN_BIG
-	SpecHitEventsLUT->ID            = LittleLong( SpecHitEventsLUT->ID );
-	SpecHitEventsLUT->checksum      = LittleLong( SpecHitEventsLUT->checksum );
-	SpecHitEventsLUT->numvariations = LittleShort( SpecHitEventsLUT->numvariations );
-	SpecHitEventsLUT->numevents     = LittleShort( SpecHitEventsLUT->numevents );
-	SpecHitEventsLUT->numobjects    = LittleShort( SpecHitEventsLUT->numobjects );
+#if FIX_ENDIAN
+	SpecHitEventsLUT->ID            = FIX_ENDIAN_INT_32( SpecHitEventsLUT->ID );
+	SpecHitEventsLUT->checksum      = FIX_ENDIAN_INT_32( SpecHitEventsLUT->checksum );
+	SpecHitEventsLUT->numvariations = FIX_ENDIAN_INT_16( SpecHitEventsLUT->numvariations );
+	SpecHitEventsLUT->numevents     = FIX_ENDIAN_INT_16( SpecHitEventsLUT->numevents );
+	SpecHitEventsLUT->numobjects    = FIX_ENDIAN_INT_16( SpecHitEventsLUT->numobjects );
 	lt = SpecHitEventsLUT->numvariations * SpecHitEventsLUT->numevents * SpecHitEventsLUT->numobjects;
 	for ( i=0; i<lt; i++ )
-		SpecHitEventsLUT->lookup[i] = LittleShort( SpecHitEventsLUT->lookup[i] );
+		SpecHitEventsLUT->lookup[i] = FIX_ENDIAN_INT_16( SpecHitEventsLUT->lookup[i] );
 #endif
 		
 //	if (SpecHitEventsLUT->checksum != SpecEffectEventsLUT->checksum)
@@ -2695,15 +2695,15 @@ void SEloadbank(void)
     strcat(loadfile, "UIEvents.lut");
     fileLoadAlloc(loadfile, (void**)&UIEventsLUT, NonVolatile);
 
-#ifdef ENDIAN_BIG
-	UIEventsLUT->ID = LittleLong( UIEventsLUT->ID );
-	UIEventsLUT->checksum = LittleLong( UIEventsLUT->checksum );
-	UIEventsLUT->numvariations = LittleShort( UIEventsLUT->numvariations );
-	UIEventsLUT->numevents = LittleShort( UIEventsLUT->numevents );
-	UIEventsLUT->numobjects = LittleShort( UIEventsLUT->numobjects );
+#if FIX_ENDIAN
+	UIEventsLUT->ID = FIX_ENDIAN_INT_32( UIEventsLUT->ID );
+	UIEventsLUT->checksum = FIX_ENDIAN_INT_32( UIEventsLUT->checksum );
+	UIEventsLUT->numvariations = FIX_ENDIAN_INT_16( UIEventsLUT->numvariations );
+	UIEventsLUT->numevents = FIX_ENDIAN_INT_16( UIEventsLUT->numevents );
+	UIEventsLUT->numobjects = FIX_ENDIAN_INT_16( UIEventsLUT->numobjects );
 	lt = UIEventsLUT->numvariations * UIEventsLUT->numevents * UIEventsLUT->numobjects;
 	for ( i=0; i<lt; i++ )
-		UIEventsLUT->lookup[i] = LittleShort( UIEventsLUT->lookup[i] );
+		UIEventsLUT->lookup[i] = FIX_ENDIAN_INT_16( UIEventsLUT->lookup[i] );
 #endif
 
     strcpy(loadfile, SOUNDFXDIR);

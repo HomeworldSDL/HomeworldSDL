@@ -22,7 +22,7 @@ typedef rgbaquad color;
     Macros:
 =============================================================================*/
 //create RGB/RGBA quads
-#ifdef ENDIAN_BIG
+#if FIX_ENDIAN
 
     #define colRGB(r,g,b)       colRGBA((r),(g),(b),0x000000ff)
     #define colRGBA(r,g,b,a)    ((((udword)(r)) << 24) | (((udword)(g)) << 16) | (((udword)(b)) << 8) | ((udword)(a)))
@@ -44,7 +44,7 @@ typedef rgbaquad color;
     #define colBlue(rgb)        ((ubyte)(((rgb) & 0x00ff0000) >> 16))
     #define colAlpha(rgba)      ((ubyte)(((rgba) & 0xff000000) >> 24))
 
-#endif // ENDIAN_BIG
+#endif // FIX_ENDIAN
 
 #define colClampRed(rgb)    colClamp256(colRed(rgb))
 #define colClampGreen(rgb)  colClamp256(colGreen(rgb))

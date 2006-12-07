@@ -73,15 +73,15 @@ madheader *madFileLoad(char *fileName)
     file = fileOpen(fileName, 0);
     fileBlockRead(file, &header, madHeaderSize(0));
 
-#ifdef ENDIAN_BIG
-	header.version           = LittleFloat( header.version );
-	header.stringBlockLength = LittleLong( header.stringBlockLength );
-	header.stringBlock       = ( char *)LittleLong( ( udword )header.stringBlock );
-	header.length            = LittleFloat( header.length );
-	header.framesPerSecond   = LittleFloat( header.framesPerSecond );
-	header.nObjects          = LittleLong( header.nObjects );
-	header.objPath           = ( madobjpath *)LittleLong( ( udword )header.objPath );
-	header.nAnimations       = LittleLong( header.nAnimations );
+#if FIX_ENDIAN
+	header.version           = FIX_ENDIAN_FLOAT_32( header.version );
+	header.stringBlockLength = FIX_ENDIAN_INT_32( header.stringBlockLength );
+	header.stringBlock       = ( char *)FIX_ENDIAN_INT_32( ( udword )header.stringBlock );
+	header.length            = FIX_ENDIAN_FLOAT_32( header.length );
+	header.framesPerSecond   = FIX_ENDIAN_FLOAT_32( header.framesPerSecond );
+	header.nObjects          = FIX_ENDIAN_INT_32( header.nObjects );
+	header.objPath           = ( madobjpath *)FIX_ENDIAN_INT_32( ( udword )header.objPath );
+	header.nAnimations       = FIX_ENDIAN_INT_32( header.nAnimations );
 #endif
 
 #if MAD_ERROR_CHECKING
@@ -114,11 +114,11 @@ madheader *madFileLoad(char *fileName)
     //loop through all the structures and fix up pointers
     for (index = 0; index < newHeader->nAnimations; index++)
     {                                                       //fixup the name of all animations
-#ifdef ENDIAN_BIG
-		newHeader->anim[index].name      = ( char *)LittleLong( ( udword )newHeader->anim[index].name );
-		newHeader->anim[index].startTime = LittleFloat( newHeader->anim[index].startTime );
-		newHeader->anim[index].endTime   = LittleFloat( newHeader->anim[index].endTime );
-		newHeader->anim[index].flags     = LittleLong( newHeader->anim[index].flags );
+#if FIX_ENDIAN
+		newHeader->anim[index].name      = ( char *)FIX_ENDIAN_INT_32( ( udword )newHeader->anim[index].name );
+		newHeader->anim[index].startTime = FIX_ENDIAN_FLOAT_32( newHeader->anim[index].startTime );
+		newHeader->anim[index].endTime   = FIX_ENDIAN_FLOAT_32( newHeader->anim[index].endTime );
+		newHeader->anim[index].flags     = FIX_ENDIAN_INT_32( newHeader->anim[index].flags );
 #endif
 
         newHeader->anim[index].name += (udword)newHeader->stringBlock;
@@ -126,13 +126,13 @@ madheader *madFileLoad(char *fileName)
     newHeader->objPath = (madobjpath *)((udword)newHeader + (ubyte *)newHeader->objPath);
     for (index = 0; index < newHeader->nObjects; index++)
     {
-#ifdef ENDIAN_BIG
-		newHeader->objPath[index].name = ( char *)LittleLong( ( udword )newHeader->objPath[index].name );
-		newHeader->objPath[index].nameCRC = LittleShort( newHeader->objPath[index].nameCRC );
-		newHeader->objPath[index].animationBits = LittleLong( newHeader->objPath[index].animationBits );
-		newHeader->objPath[index].nKeyframes = LittleLong( newHeader->objPath[index].nKeyframes );
-		newHeader->objPath[index].times = ( real32 *)LittleLong( ( udword )newHeader->objPath[index].times );
-		newHeader->objPath[index].parameters = ( tcb *)LittleLong( ( udword )newHeader->objPath[index].parameters );
+#if FIX_ENDIAN
+		newHeader->objPath[index].name = ( char *)FIX_ENDIAN_INT_32( ( udword )newHeader->objPath[index].name );
+		newHeader->objPath[index].nameCRC = FIX_ENDIAN_INT_16( newHeader->objPath[index].nameCRC );
+		newHeader->objPath[index].animationBits = FIX_ENDIAN_INT_32( newHeader->objPath[index].animationBits );
+		newHeader->objPath[index].nKeyframes = FIX_ENDIAN_INT_32( newHeader->objPath[index].nKeyframes );
+		newHeader->objPath[index].times = ( real32 *)FIX_ENDIAN_INT_32( ( udword )newHeader->objPath[index].times );
+		newHeader->objPath[index].parameters = ( tcb *)FIX_ENDIAN_INT_32( ( udword )newHeader->objPath[index].parameters );
 #endif
         newHeader->objPath[index].name += (udword)newHeader->stringBlock;//fixup name
         newHeader->objPath[index].nameCRC = crc16Compute((ubyte *)newHeader->objPath[index].name, strlen(newHeader->objPath[index].name));
@@ -140,25 +140,25 @@ madheader *madFileLoad(char *fileName)
         newHeader->objPath[index].parameters = (tcb *)((udword)newHeader + (ubyte *)newHeader->objPath[index].parameters);//fixup times pointers
         for (j = 0; j < 6; j++)
         {                                                   //fixup the motion path array pointers
-#ifdef ENDIAN_BIG
-			newHeader->objPath[index].path[j] = ( real32 *)LittleLong( ( udword )newHeader->objPath[index].path[j] );
+#if FIX_ENDIAN
+			newHeader->objPath[index].path[j] = ( real32 *)FIX_ENDIAN_INT_32( ( udword )newHeader->objPath[index].path[j] );
 #endif
             newHeader->objPath[index].path[j] = (real32 *)((udword)newHeader + (ubyte *)newHeader->objPath[index].path[j]);
         }
 
-#ifdef ENDIAN_BIG
+#if FIX_ENDIAN
 		for( j = 0; j < newHeader->objPath[index].nKeyframes; j++ )
 		{
 			int k = 0;
 
-			newHeader->objPath[index].times[j] = LittleFloat( newHeader->objPath[index].times[j] );
-			newHeader->objPath[index].parameters[j].tension = LittleFloat( newHeader->objPath[index].parameters[j].tension );
-			newHeader->objPath[index].parameters[j].continuity = LittleFloat( newHeader->objPath[index].parameters[j].continuity );
-			newHeader->objPath[index].parameters[j].bias = LittleFloat( newHeader->objPath[index].parameters[j].bias );
+			newHeader->objPath[index].times[j] = FIX_ENDIAN_FLOAT_32( newHeader->objPath[index].times[j] );
+			newHeader->objPath[index].parameters[j].tension = FIX_ENDIAN_FLOAT_32( newHeader->objPath[index].parameters[j].tension );
+			newHeader->objPath[index].parameters[j].continuity = FIX_ENDIAN_FLOAT_32( newHeader->objPath[index].parameters[j].continuity );
+			newHeader->objPath[index].parameters[j].bias = FIX_ENDIAN_FLOAT_32( newHeader->objPath[index].parameters[j].bias );
 
 			for( k = 0; k < 6; k++ )
 			{
-				newHeader->objPath[index].path[k][j] = LittleFloat( newHeader->objPath[index].path[k][j] );
+				newHeader->objPath[index].path[k][j] = FIX_ENDIAN_FLOAT_32( newHeader->objPath[index].path[k][j] );
 			}
 		}
 #endif

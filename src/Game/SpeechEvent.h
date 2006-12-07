@@ -2,7 +2,7 @@
 #define ___SPEECHEVENT_H
 
 //#if defined(__LITTLE_ENDIAN__)
-#ifndef ENDIAN_BIG
+#ifndef FIX_ENDIAN
 
     /* Actor Flags */
     #define ACTOR_PILOT_FLAG				0x00000400
@@ -34,7 +34,7 @@
     #define SPEECH_FLAG_MASK				0x003FFC00
     #define SPEECH_TYPE_MASK				0xFFC00000
     
-#else // we are PPC/BIG_ENDIAN!!!
+#else // we are PPC/FIX_ENDIAN!!!
 
     /* Actor Flags */
     #define ACTOR_PILOT_FLAG				0x04000000

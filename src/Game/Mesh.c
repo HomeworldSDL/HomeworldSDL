@@ -643,7 +643,7 @@ meshdata *meshLoad(char *inFileName)
     sdword fileLength;
     trhandle handle;
 
-#ifdef ENDIAN_BIG
+#if FIX_ENDIAN
     sdword i;
 	udword *vertsDone  = NULL;
 	udword *normsDone  = NULL;
@@ -677,16 +677,16 @@ meshdata *meshLoad(char *inFileName)
     file = fileOpen(fileName, 0);                           //open file
     fileBlockRead(file, &header, sizeof(GeoFileHeader));    //read in header
 
-#ifdef ENDIAN_BIG
-	header.version          = LittleLong( header.version );
-	header.pName            = ( char *)LittleLong( ( udword )header.pName );
-	header.fileSize         = LittleLong( header.fileSize );
-	header.localSize        = LittleLong( header.localSize );
-	header.nPublicMaterials = LittleLong( header.nPublicMaterials );
-	header.nLocalMaterials  = LittleLong( header.nLocalMaterials );
-	header.oPublicMaterial  = LittleLong( header.oPublicMaterial );
-	header.oLocalMaterial   = LittleLong( header.oLocalMaterial );
-	header.nPolygonObjects  = LittleLong( header.nPolygonObjects );
+#if FIX_ENDIAN
+	header.version          = FIX_ENDIAN_INT_32( header.version );
+	header.pName            = ( char *)FIX_ENDIAN_INT_32( ( udword )header.pName );
+	header.fileSize         = FIX_ENDIAN_INT_32( header.fileSize );
+	header.localSize        = FIX_ENDIAN_INT_32( header.localSize );
+	header.nPublicMaterials = FIX_ENDIAN_INT_32( header.nPublicMaterials );
+	header.nLocalMaterials  = FIX_ENDIAN_INT_32( header.nLocalMaterials );
+	header.oPublicMaterial  = FIX_ENDIAN_INT_32( header.oPublicMaterial );
+	header.oLocalMaterial   = FIX_ENDIAN_INT_32( header.oLocalMaterial );
+	header.nPolygonObjects  = FIX_ENDIAN_INT_32( header.nPolygonObjects );
 
 	vertsDone = ( udword *)malloc( header.nPolygonObjects * sizeof( udword ) );
 	normsDone = ( udword *)malloc( header.nPolygonObjects * sizeof( udword ) );
@@ -753,21 +753,21 @@ meshdata *meshLoad(char *inFileName)
     {
         object = &mesh->object[index];                      //get pointer to poly object
 
-#ifdef ENDIAN_BIG
+#if FIX_ENDIAN
 		if( !object ) continue;
 
-		object->pName          = ( char *)LittleLong( ( udword )object->pName );
-		object->nameCRC        = LittleShort( object->nameCRC );
-		object->nVertices      = LittleLong( object->nVertices );
-		object->nFaceNormals   = LittleLong( object->nFaceNormals );
-		object->nVertexNormals = LittleLong( object->nVertexNormals );
-		object->nPolygons      = LittleLong( object->nPolygons );
-		object->pVertexList    = ( vertexentry *)LittleLong( ( udword )object->pVertexList );
-		object->pNormalList    = ( normalentry *)LittleLong( ( udword )object->pNormalList );
-		object->pPolygonList   = ( polyentry *)LittleLong( ( udword )object->pPolygonList );
-		object->pMother        = ( polygonobject *)LittleLong( ( udword )object->pMother );
-		object->pDaughter      = ( polygonobject *)LittleLong( ( udword )object->pDaughter );
-		object->pSister        = ( polygonobject *)LittleLong( ( udword )object->pSister );
+		object->pName          = ( char *)FIX_ENDIAN_INT_32( ( udword )object->pName );
+		object->nameCRC        = FIX_ENDIAN_INT_16( object->nameCRC );
+		object->nVertices      = FIX_ENDIAN_INT_32( object->nVertices );
+		object->nFaceNormals   = FIX_ENDIAN_INT_32( object->nFaceNormals );
+		object->nVertexNormals = FIX_ENDIAN_INT_32( object->nVertexNormals );
+		object->nPolygons      = FIX_ENDIAN_INT_32( object->nPolygons );
+		object->pVertexList    = ( vertexentry *)FIX_ENDIAN_INT_32( ( udword )object->pVertexList );
+		object->pNormalList    = ( normalentry *)FIX_ENDIAN_INT_32( ( udword )object->pNormalList );
+		object->pPolygonList   = ( polyentry *)FIX_ENDIAN_INT_32( ( udword )object->pPolygonList );
+		object->pMother        = ( polygonobject *)FIX_ENDIAN_INT_32( ( udword )object->pMother );
+		object->pDaughter      = ( polygonobject *)FIX_ENDIAN_INT_32( ( udword )object->pDaughter );
+		object->pSister        = ( polygonobject *)FIX_ENDIAN_INT_32( ( udword )object->pSister );
 
         // anonymous block so I can declare mptr with limited scope and not have
         // a plain C compiler complain
@@ -775,7 +775,7 @@ meshdata *meshLoad(char *inFileName)
             real32 *mptr = ( real32 *)&object->localMatrix;
 		    for( i=0; i<16; i++ )
             {
-			    mptr[i] = LittleFloat( mptr[i] );
+			    mptr[i] = FIX_ENDIAN_FLOAT_32( mptr[i] );
             }
         }
 #endif
@@ -803,7 +803,7 @@ meshdata *meshLoad(char *inFileName)
         object->iObject = index;
         object->nameCRC = crc16Compute((ubyte*)object->pName, strlen(object->pName));
 
-#ifdef ENDIAN_BIG
+#if FIX_ENDIAN
 		found = -1;
 		for( i=0; i<mesh->nPolygonObjects; i++ )
 		{
@@ -818,10 +818,10 @@ meshdata *meshLoad(char *inFileName)
 		{
 			for( i=0; i<object->nVertices; i++ )
 			{
-				object->pVertexList[i].x = LittleFloat( object->pVertexList[i].x );
-				object->pVertexList[i].y = LittleFloat( object->pVertexList[i].y );
-				object->pVertexList[i].z = LittleFloat( object->pVertexList[i].z );
-				object->pVertexList[i].iVertexNormal = LittleLong( object->pVertexList[i].iVertexNormal );
+				object->pVertexList[i].x = FIX_ENDIAN_FLOAT_32( object->pVertexList[i].x );
+				object->pVertexList[i].y = FIX_ENDIAN_FLOAT_32( object->pVertexList[i].y );
+				object->pVertexList[i].z = FIX_ENDIAN_FLOAT_32( object->pVertexList[i].z );
+				object->pVertexList[i].iVertexNormal = FIX_ENDIAN_INT_32( object->pVertexList[i].iVertexNormal );
 			}
 
 			vertsDone[vertsDoneCount++] = object->pVertexList;
@@ -841,9 +841,9 @@ meshdata *meshLoad(char *inFileName)
 		{
 			for( i=0; i<object->nFaceNormals + object->nVertexNormals; i++ )
 			{
-				object->pNormalList[i].x = LittleFloat( object->pNormalList[i].x );
-				object->pNormalList[i].y = LittleFloat( object->pNormalList[i].y );
-				object->pNormalList[i].z = LittleFloat( object->pNormalList[i].z );
+				object->pNormalList[i].x = FIX_ENDIAN_FLOAT_32( object->pNormalList[i].x );
+				object->pNormalList[i].y = FIX_ENDIAN_FLOAT_32( object->pNormalList[i].y );
+				object->pNormalList[i].z = FIX_ENDIAN_FLOAT_32( object->pNormalList[i].z );
 			}
 
 			normsDone[normsDoneCount++] = object->pNormalList;
@@ -863,18 +863,18 @@ meshdata *meshLoad(char *inFileName)
 		{
 			for( i=0; i<object->nPolygons; i++ )
 			{
-				object->pPolygonList[i].iFaceNormal = LittleLong( object->pPolygonList[i].iFaceNormal );
-				object->pPolygonList[i].iV0 = LittleShort( object->pPolygonList[i].iV0 );
-				object->pPolygonList[i].iV1 = LittleShort( object->pPolygonList[i].iV1 );
-				object->pPolygonList[i].iV2 = LittleShort( object->pPolygonList[i].iV2 );
-				object->pPolygonList[i].iMaterial = LittleShort( object->pPolygonList[i].iMaterial );
-				object->pPolygonList[i].s0 = LittleFloat( object->pPolygonList[i].s0 );
-				object->pPolygonList[i].t0 = LittleFloat( object->pPolygonList[i].t0 );
-				object->pPolygonList[i].s1 = LittleFloat( object->pPolygonList[i].s1 );
-				object->pPolygonList[i].t1 = LittleFloat( object->pPolygonList[i].t1 );
-				object->pPolygonList[i].s2 = LittleFloat( object->pPolygonList[i].s2 );
-				object->pPolygonList[i].t2 = LittleFloat( object->pPolygonList[i].t2 );
-				object->pPolygonList[i].flags = LittleShort( object->pPolygonList[i].flags );
+				object->pPolygonList[i].iFaceNormal = FIX_ENDIAN_INT_32( object->pPolygonList[i].iFaceNormal );
+				object->pPolygonList[i].iV0 = FIX_ENDIAN_INT_16( object->pPolygonList[i].iV0 );
+				object->pPolygonList[i].iV1 = FIX_ENDIAN_INT_16( object->pPolygonList[i].iV1 );
+				object->pPolygonList[i].iV2 = FIX_ENDIAN_INT_16( object->pPolygonList[i].iV2 );
+				object->pPolygonList[i].iMaterial = FIX_ENDIAN_INT_16( object->pPolygonList[i].iMaterial );
+				object->pPolygonList[i].s0 = FIX_ENDIAN_FLOAT_32( object->pPolygonList[i].s0 );
+				object->pPolygonList[i].t0 = FIX_ENDIAN_FLOAT_32( object->pPolygonList[i].t0 );
+				object->pPolygonList[i].s1 = FIX_ENDIAN_FLOAT_32( object->pPolygonList[i].s1 );
+				object->pPolygonList[i].t1 = FIX_ENDIAN_FLOAT_32( object->pPolygonList[i].t1 );
+				object->pPolygonList[i].s2 = FIX_ENDIAN_FLOAT_32( object->pPolygonList[i].s2 );
+				object->pPolygonList[i].t2 = FIX_ENDIAN_FLOAT_32( object->pPolygonList[i].t2 );
+				object->pPolygonList[i].flags = FIX_ENDIAN_INT_16( object->pPolygonList[i].flags );
 			}
 
 			polysDone[polysDoneCount++] = object->pPolygonList;
@@ -887,17 +887,17 @@ meshdata *meshLoad(char *inFileName)
 
 	for (index = 0; index < mesh->nLocalMaterials + mesh->nPublicMaterials; index++)
 	{
-		mesh->localMaterial[index].pName = ( char *)LittleLong( ( udword )mesh->localMaterial[index].pName );
-//		mesh->localMaterial[index].ambient = LittleLong( mesh->localMaterial[index].ambient );
-//		mesh->localMaterial[index].diffuse = LittleLong( mesh->localMaterial[index].diffuse );
-//		mesh->localMaterial[index].specular = LittleLong( mesh->localMaterial[index].specular );
-		mesh->localMaterial[index].kAlpha = LittleFloat( mesh->localMaterial[index].kAlpha );
-		mesh->localMaterial[index].texture = LittleLong( mesh->localMaterial[index].texture );
-		mesh->localMaterial[index].flags = LittleShort( mesh->localMaterial[index].flags );
-		mesh->localMaterial[index].textureNameSave = ( char *)LittleLong( ( udword )mesh->localMaterial[index].textureNameSave );
-#endif // ENDIAN_BIG
+		mesh->localMaterial[index].pName = ( char *)FIX_ENDIAN_INT_32( ( udword )mesh->localMaterial[index].pName );
+//		mesh->localMaterial[index].ambient = FIX_ENDIAN_INT_32( mesh->localMaterial[index].ambient );
+//		mesh->localMaterial[index].diffuse = FIX_ENDIAN_INT_32( mesh->localMaterial[index].diffuse );
+//		mesh->localMaterial[index].specular = FIX_ENDIAN_INT_32( mesh->localMaterial[index].specular );
+		mesh->localMaterial[index].kAlpha = FIX_ENDIAN_FLOAT_32( mesh->localMaterial[index].kAlpha );
+		mesh->localMaterial[index].texture = FIX_ENDIAN_INT_32( mesh->localMaterial[index].texture );
+		mesh->localMaterial[index].flags = FIX_ENDIAN_INT_16( mesh->localMaterial[index].flags );
+		mesh->localMaterial[index].textureNameSave = ( char *)FIX_ENDIAN_INT_32( ( udword )mesh->localMaterial[index].textureNameSave );
+#endif // FIX_ENDIAN
 
-	} // ENDIAN_BIG:    end of for(index < mesh->nLocalMaterials...) loop
+	} // FIX_ENDIAN:    end of for(index < mesh->nLocalMaterials...) loop
       // everyone else: end of for(index < mesh->nPolygonObjects)    loop
 
     if (allowPacking && mainOnlyPacking && (fileName != pagedName))

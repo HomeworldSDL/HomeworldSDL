@@ -427,7 +427,7 @@ sdword speechEventInit(void)
     char loadfile[100];
     sdword i, j;
     
-#ifdef ENDIAN_BIG
+#if FIX_ENDIAN
     sdword p, z;
 #endif
 
@@ -447,24 +447,24 @@ sdword speechEventInit(void)
 #endif
     fileLoadAlloc(loadfile, (void**)&SentenceLUT, NonVolatile);
 
-#ifdef ENDIAN_BIG
-	SentenceLUT->ID         = LittleLong( SentenceLUT->ID );
-	SentenceLUT->checksum   = LittleLong( SentenceLUT->checksum );
-	SentenceLUT->numcolumns = LittleShort( SentenceLUT->numcolumns );
-	SentenceLUT->numevents  = LittleShort( SentenceLUT->numevents );
-	SentenceLUT->numactors  = LittleShort( SentenceLUT->numactors );
+#if FIX_ENDIAN
+	SentenceLUT->ID         = FIX_ENDIAN_INT_32( SentenceLUT->ID );
+	SentenceLUT->checksum   = FIX_ENDIAN_INT_32( SentenceLUT->checksum );
+	SentenceLUT->numcolumns = FIX_ENDIAN_INT_16( SentenceLUT->numcolumns );
+	SentenceLUT->numevents  = FIX_ENDIAN_INT_16( SentenceLUT->numevents );
+	SentenceLUT->numactors  = FIX_ENDIAN_INT_16( SentenceLUT->numactors );
 #if defined(HW_DEMO)
-	SentenceLUT->compbitrate[3] = LittleShort( SentenceLUT->compbitrate[3] );
+	SentenceLUT->compbitrate[3] = FIX_ENDIAN_INT_16( SentenceLUT->compbitrate[3] );
 #else
-	SentenceLUT->compbitrate[0] = LittleShort( SentenceLUT->compbitrate[0] );
-	SentenceLUT->compbitrate[1] = LittleShort( SentenceLUT->compbitrate[1] );
-	SentenceLUT->compbitrate[2] = LittleShort( SentenceLUT->compbitrate[2] );
-	SentenceLUT->compbitrate[3] = LittleShort( SentenceLUT->compbitrate[3] );
+	SentenceLUT->compbitrate[0] = FIX_ENDIAN_INT_16( SentenceLUT->compbitrate[0] );
+	SentenceLUT->compbitrate[1] = FIX_ENDIAN_INT_16( SentenceLUT->compbitrate[1] );
+	SentenceLUT->compbitrate[2] = FIX_ENDIAN_INT_16( SentenceLUT->compbitrate[2] );
+	SentenceLUT->compbitrate[3] = FIX_ENDIAN_INT_16( SentenceLUT->compbitrate[3] );
 #endif // HW_DEMO
 	for ( z=0; z< (SentenceLUT->numcolumns*(SentenceLUT->numactors*SentenceLUT->numevents)); z++){
-		SentenceLUT->lookup[z] = LittleShort( SentenceLUT->lookup[z] );
+		SentenceLUT->lookup[z] = FIX_ENDIAN_INT_16( SentenceLUT->lookup[z] );
 	}
-#endif // ENDIAN_BIG
+#endif // FIX_ENDIAN
 	
     strcpy(loadfile, SOUNDFXDIR);
 #ifdef HW_COMPUTER_GAMING_WORLD_DEMO
@@ -476,14 +476,14 @@ sdword speechEventInit(void)
 #endif
     fileLoadAlloc(loadfile, (void**)&PhraseLUT, NonVolatile);
 
-#ifdef ENDIAN_BIG
-	PhraseLUT->ID = LittleLong( PhraseLUT->ID );
-	PhraseLUT->checksum = LittleLong( PhraseLUT->checksum );
-	PhraseLUT->numcolumns = LittleShort( PhraseLUT->numcolumns );
-	PhraseLUT->numsentences = LittleShort( PhraseLUT->numsentences );
+#if FIX_ENDIAN
+	PhraseLUT->ID = FIX_ENDIAN_INT_32( PhraseLUT->ID );
+	PhraseLUT->checksum = FIX_ENDIAN_INT_32( PhraseLUT->checksum );
+	PhraseLUT->numcolumns = FIX_ENDIAN_INT_16( PhraseLUT->numcolumns );
+	PhraseLUT->numsentences = FIX_ENDIAN_INT_16( PhraseLUT->numsentences );
 
 	for ( p=0; p< (PhraseLUT->numcolumns*PhraseLUT->numsentences); p++){
-		PhraseLUT->lookupsy[p] = LittleShort( PhraseLUT->lookupsy[p] );
+		PhraseLUT->lookupsy[p] = FIX_ENDIAN_INT_16( PhraseLUT->lookupsy[p] );
 	}
 #endif
 
@@ -566,10 +566,10 @@ sdword speechEventInit(void)
     strcat(loadfile,musicHeaderName);
     fileLoadAlloc(loadfile, (void**)&musicheader, NonVolatile);
 
-#ifdef ENDIAN_BIG
-	musicheader->ID = LittleLong( musicheader->ID );
-	musicheader->checksum = LittleLong( musicheader->checksum );
-	musicheader->numstreams = LittleLong( musicheader->numstreams );
+#if FIX_ENDIAN
+	musicheader->ID = FIX_ENDIAN_INT_32( musicheader->ID );
+	musicheader->checksum = FIX_ENDIAN_INT_32( musicheader->checksum );
+	musicheader->numstreams = FIX_ENDIAN_INT_32( musicheader->numstreams );
 #endif
 
     /* open music file and compare checksums */

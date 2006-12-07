@@ -285,24 +285,24 @@ void btgGetTexture(char* filename, udword* thandle, sdword* width, sdword* heigh
         head.imageType = *pdata++;
         psdata = (unsigned short*)pdata;
 
-#ifdef ENDIAN_BIG
-        head.colorMapStartIndex = LittleShort( *psdata );
+#if FIX_ENDIAN
+        head.colorMapStartIndex = FIX_ENDIAN_INT_16( *psdata );
         pdata += 2;
         psdata = (unsigned short*)pdata;
-        head.colorMapNumEntries = LittleShort( *psdata );
+        head.colorMapNumEntries = FIX_ENDIAN_INT_16( *psdata );
         pdata += 2;
         head.colorMapBitsPerEntry = *pdata++;
         psdata = (unsigned short*)pdata;
-        head.imageOffsetX = (signed short)LittleShort( *psdata );
+        head.imageOffsetX = (signed short)FIX_ENDIAN_INT_16( *psdata );
         pdata += 2;
         psdata = (unsigned short*)pdata;
-        head.imageOffsetY = (signed short)LittleShort( *psdata );
+        head.imageOffsetY = (signed short)FIX_ENDIAN_INT_16( *psdata );
         pdata += 2;
         psdata = (unsigned short*)pdata;
-        head.imageWidth = LittleShort( *psdata );
+        head.imageWidth = FIX_ENDIAN_INT_16( *psdata );
         pdata += 2;
         psdata = (unsigned short*)pdata;
-        head.imageHeight = LittleShort( *psdata );
+        head.imageHeight = FIX_ENDIAN_INT_16( *psdata );
 #else
         head.colorMapStartIndex = *psdata;
         pdata += 2;
@@ -321,7 +321,7 @@ void btgGetTexture(char* filename, udword* thandle, sdword* width, sdword* heigh
         pdata += 2;
         psdata = (unsigned short*)pdata;
         head.imageHeight = *psdata;
-#endif // ENDIAN_BIG
+#endif // FIX_ENDIAN
 
         pdata += 2;
         head.pixelDepth = *pdata++;
@@ -509,7 +509,7 @@ void btgLoad(char* filename)
     udword polySize;
     real32 thetaSave, phiSave;
     sdword i;
-#ifdef ENDIAN_BIG
+#if FIX_ENDIAN
     Uint64 *swap;
 #endif
 
@@ -529,28 +529,28 @@ void btgLoad(char* filename)
     btgHead = (btgHeader*)memAlloc(headSize, "btg header", 0);
     memcpy(btgHead, btgData, headSize);
 
-#ifdef ENDIAN_BIG
-	btgHead->btgFileVersion = LittleLong( btgHead->btgFileVersion );
-	btgHead->numVerts       = LittleLong( btgHead->numVerts );
-	btgHead->numStars       = LittleLong( btgHead->numStars );
-	btgHead->numPolys       = LittleLong( btgHead->numPolys );
-	btgHead->xScroll        = LittleLong( btgHead->xScroll );
-	btgHead->yScroll        = LittleLong( btgHead->yScroll );
-	btgHead->zoomVal        = LittleLong( btgHead->zoomVal );
-	btgHead->pageWidth      = LittleLong( btgHead->pageWidth );
-	btgHead->pageHeight     = LittleLong( btgHead->pageHeight );
-	btgHead->mRed           = LittleLong( btgHead->mRed );
-	btgHead->mGreen         = LittleLong( btgHead->mGreen );
-	btgHead->mBlue          = LittleLong( btgHead->mBlue );
-	btgHead->mBGRed         = LittleLong( btgHead->mBGRed );
-	btgHead->mBGGreen       = LittleLong( btgHead->mBGGreen );
-	btgHead->mBGBlue        = LittleLong( btgHead->mBGBlue );
-	btgHead->bVerts         = LittleLong( btgHead->bVerts );
-	btgHead->bPolys         = LittleLong( btgHead->bPolys );
-	btgHead->bStars         = LittleLong( btgHead->bStars );
-	btgHead->bOutlines      = LittleLong( btgHead->bOutlines );
-	btgHead->bBlends        = LittleLong( btgHead->bBlends );
-	btgHead->renderMode     = LittleLong( btgHead->renderMode );
+#if FIX_ENDIAN
+	btgHead->btgFileVersion = FIX_ENDIAN_INT_32( btgHead->btgFileVersion );
+	btgHead->numVerts       = FIX_ENDIAN_INT_32( btgHead->numVerts );
+	btgHead->numStars       = FIX_ENDIAN_INT_32( btgHead->numStars );
+	btgHead->numPolys       = FIX_ENDIAN_INT_32( btgHead->numPolys );
+	btgHead->xScroll        = FIX_ENDIAN_INT_32( btgHead->xScroll );
+	btgHead->yScroll        = FIX_ENDIAN_INT_32( btgHead->yScroll );
+	btgHead->zoomVal        = FIX_ENDIAN_INT_32( btgHead->zoomVal );
+	btgHead->pageWidth      = FIX_ENDIAN_INT_32( btgHead->pageWidth );
+	btgHead->pageHeight     = FIX_ENDIAN_INT_32( btgHead->pageHeight );
+	btgHead->mRed           = FIX_ENDIAN_INT_32( btgHead->mRed );
+	btgHead->mGreen         = FIX_ENDIAN_INT_32( btgHead->mGreen );
+	btgHead->mBlue          = FIX_ENDIAN_INT_32( btgHead->mBlue );
+	btgHead->mBGRed         = FIX_ENDIAN_INT_32( btgHead->mBGRed );
+	btgHead->mBGGreen       = FIX_ENDIAN_INT_32( btgHead->mBGGreen );
+	btgHead->mBGBlue        = FIX_ENDIAN_INT_32( btgHead->mBGBlue );
+	btgHead->bVerts         = FIX_ENDIAN_INT_32( btgHead->bVerts );
+	btgHead->bPolys         = FIX_ENDIAN_INT_32( btgHead->bPolys );
+	btgHead->bStars         = FIX_ENDIAN_INT_32( btgHead->bStars );
+	btgHead->bOutlines      = FIX_ENDIAN_INT_32( btgHead->bOutlines );
+	btgHead->bBlends        = FIX_ENDIAN_INT_32( btgHead->bBlends );
+	btgHead->renderMode     = FIX_ENDIAN_INT_32( btgHead->renderMode );
 #endif
 
     //set background colour
@@ -572,21 +572,21 @@ void btgLoad(char* filename)
         btgVerts = (btgVertex*)memAlloc(vertSize, "btg verts", 0);
         memcpy(btgVerts, btgData + headSize, vertSize);
 
-#ifdef ENDIAN_BIG
+#if FIX_ENDIAN
 		for( i=0; i<btgHead->numVerts; i++ )
 		{
-			btgVerts[i].flags = LittleLong( btgVerts[i].flags );
+			btgVerts[i].flags = FIX_ENDIAN_INT_32( btgVerts[i].flags );
 			swap  = ( Uint64 *)&btgVerts[i].x;
 			*swap = SDL_SwapLE64( *swap );
 			swap  = ( Uint64 *)&btgVerts[i].y;
 			*swap = SDL_SwapLE64( *swap );
-//			btgVerts[i].x          = LittleFloat( btgVerts[i].x );
-//			btgVerts[i].y          = LittleFloat( btgVerts[i].y );
-			btgVerts[i].red        = LittleLong( btgVerts[i].red );
-			btgVerts[i].green      = LittleLong( btgVerts[i].green );
-			btgVerts[i].blue       = LittleLong( btgVerts[i].blue );
-			btgVerts[i].alpha      = LittleLong( btgVerts[i].alpha );
-			btgVerts[i].brightness = LittleLong( btgVerts[i].brightness );
+//			btgVerts[i].x          = FIX_ENDIAN_FLOAT_16( btgVerts[i].x );
+//			btgVerts[i].y          = FIX_ENDIAN_FLOAT_16( btgVerts[i].y );
+			btgVerts[i].red        = FIX_ENDIAN_INT_32( btgVerts[i].red );
+			btgVerts[i].green      = FIX_ENDIAN_INT_32( btgVerts[i].green );
+			btgVerts[i].blue       = FIX_ENDIAN_INT_32( btgVerts[i].blue );
+			btgVerts[i].alpha      = FIX_ENDIAN_INT_32( btgVerts[i].alpha );
+			btgVerts[i].brightness = FIX_ENDIAN_INT_32( btgVerts[i].brightness );
 		}
 #endif
     }
@@ -616,16 +616,16 @@ void btgLoad(char* filename)
             instarp += tempSize;
             fileStarSize += tempSize;
 
-#ifdef ENDIAN_BIG
+#if FIX_ENDIAN
 			 swap = ( Uint64 *)&outstarp->x;
 			*swap = SDL_SwapLE64( *swap );
 			 swap = ( Uint64 *)&outstarp->y;
 			*swap = SDL_SwapLE64( *swap );
-			outstarp->flags = LittleLong( outstarp->flags );
-			outstarp->red   = LittleLong( outstarp->red );
-			outstarp->green = LittleLong( outstarp->green );
-			outstarp->blue  = LittleLong( outstarp->blue );
-			outstarp->alpha = LittleLong( outstarp->alpha );
+			outstarp->flags = FIX_ENDIAN_INT_32( outstarp->flags );
+			outstarp->red   = FIX_ENDIAN_INT_32( outstarp->red );
+			outstarp->green = FIX_ENDIAN_INT_32( outstarp->green );
+			outstarp->blue  = FIX_ENDIAN_INT_32( outstarp->blue );
+			outstarp->alpha = FIX_ENDIAN_INT_32( outstarp->alpha );
 #endif
 
             //extract variable-sized filename
@@ -633,8 +633,8 @@ void btgLoad(char* filename)
             memset(filename, 0, 48);
             udp = (udword*)instarp;
 
-#ifdef ENDIAN_BIG
-            length = LittleLong( (sdword)*udp );
+#if FIX_ENDIAN
+            length = FIX_ENDIAN_INT_32( (sdword)*udp );
 #else
             length = (sdword)*udp;
 #endif
@@ -671,13 +671,13 @@ void btgLoad(char* filename)
         btgPolys = (btgPolygon*)memAlloc(polySize, "btg polys", 0);
         memcpy(btgPolys, btgData + headSize + vertSize + fileStarSize, polySize);
 		
-#ifdef ENDIAN_BIG
+#if FIX_ENDIAN
 		for( i=0; i<btgHead->numPolys; i++ )
 		{
-			btgPolys[i].flags = LittleLong( btgPolys[i].flags );
-			btgPolys[i].v0    = LittleLong( btgPolys[i].v0 );
-			btgPolys[i].v1    = LittleLong( btgPolys[i].v1 );
-			btgPolys[i].v2    = LittleLong( btgPolys[i].v2 );
+			btgPolys[i].flags = FIX_ENDIAN_INT_32( btgPolys[i].flags );
+			btgPolys[i].v0    = FIX_ENDIAN_INT_32( btgPolys[i].v0 );
+			btgPolys[i].v1    = FIX_ENDIAN_INT_32( btgPolys[i].v1 );
+			btgPolys[i].v2    = FIX_ENDIAN_INT_32( btgPolys[i].v2 );
 		}
 #endif
     }

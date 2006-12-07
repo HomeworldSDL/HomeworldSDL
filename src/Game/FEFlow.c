@@ -1779,9 +1779,9 @@ fibfileheader *feScreensLoad(char *fileName)
     fileLoadAlloc(fileName, (void **)&loadAddress, NonVolatile);     //load in the file
     header = (fibfileheader *)loadAddress;                  //get a pointer to the header
 
-#ifdef ENDIAN_BIG
-	header->version = LittleShort( header->version );
-	header->nScreens = LittleShort( header->nScreens );
+#if FIX_ENDIAN
+	header->version = FIX_ENDIAN_INT_16( header->version );
+	header->nScreens = FIX_ENDIAN_INT_16( header->nScreens );
 #endif
 
 #if FEF_ERROR_CHECKING
@@ -1797,13 +1797,13 @@ fibfileheader *feScreensLoad(char *fileName)
     screen = (fescreen *)(loadAddress + sizeof(fibfileheader));//pointer to first screen
     for (screenIndex = 0; screenIndex < header->nScreens; screenIndex++, screen++)
     {
-#ifdef ENDIAN_BIG
-		screen->name   = ( char *)LittleLong( ( udword )screen->name );
-		screen->flags  = LittleLong( screen->flags );
-		screen->nLinks = LittleShort( screen->nLinks );
-		screen->nAtoms = LittleShort( screen->nAtoms );
-		screen->links  = ( void *)LittleLong( ( udword )screen->links );
-		screen->atoms  = ( void *)LittleLong( ( udword )screen->atoms );
+#if FIX_ENDIAN
+		screen->name   = ( char *)FIX_ENDIAN_INT_32( ( udword )screen->name );
+		screen->flags  = FIX_ENDIAN_INT_32( screen->flags );
+		screen->nLinks = FIX_ENDIAN_INT_16( screen->nLinks );
+		screen->nAtoms = FIX_ENDIAN_INT_16( screen->nAtoms );
+		screen->links  = ( void *)FIX_ENDIAN_INT_32( ( udword )screen->links );
+		screen->atoms  = ( void *)FIX_ENDIAN_INT_32( ( udword )screen->atoms );
 #endif
 
         dbgAssertOrIgnore(screen->name != NULL);                    //screens need a name
@@ -1822,10 +1822,10 @@ fibfileheader *feScreensLoad(char *fileName)
         for (index = 0; index < screen->nLinks; index++)
         {                                                   //for each link in screen
 
-#ifdef ENDIAN_BIG
-			screen->links[index].name       = ( char *)LittleLong( ( udword )screen->links[index].name );
-			screen->links[index].flags      = LittleLong( screen->links[index].flags );
-			screen->links[index].linkToName = ( char *)LittleLong( ( udword )screen->links[index].linkToName );
+#if FIX_ENDIAN
+			screen->links[index].name       = ( char *)FIX_ENDIAN_INT_32( ( udword )screen->links[index].name );
+			screen->links[index].flags      = FIX_ENDIAN_INT_32( screen->links[index].flags );
+			screen->links[index].linkToName = ( char *)FIX_ENDIAN_INT_32( ( udword )screen->links[index].linkToName );
 #endif
 
             if (bitTest(screen->links[index].flags, FL_Enabled))
@@ -1841,28 +1841,28 @@ fibfileheader *feScreensLoad(char *fileName)
         menuItemsPresent = FALSE;
         for (index = 0; index < screen->nAtoms; index++)
         {                                                   //for each atom in screen
-#ifdef ENDIAN_BIG
-			screen->atoms[index].name = ( char *)LittleLong( ( udword )screen->atoms[index].name );
-			screen->atoms[index].flags = LittleLong( screen->atoms[index].flags );
-			screen->atoms[index].status = LittleLong( screen->atoms[index].status );
-			screen->atoms[index].tabstop = LittleShort( screen->atoms[index].tabstop );
-//			screen->atoms[index].borderColor = LittleLong( screen->atoms[index].borderColor );
-//			screen->atoms[index].contentColor = LittleLong( screen->atoms[index].contentColor );
-			screen->atoms[index].x = LittleShort( screen->atoms[index].x );
-			screen->atoms[index].loadedX = LittleShort( screen->atoms[index].loadedX );
-			screen->atoms[index].y = LittleShort( screen->atoms[index].y );
-			screen->atoms[index].loadedY = LittleShort( screen->atoms[index].loadedY );
-			screen->atoms[index].width = LittleShort( screen->atoms[index].width );
-			screen->atoms[index].loadedWidth = LittleShort( screen->atoms[index].loadedWidth );
-			screen->atoms[index].height = LittleShort( screen->atoms[index].height );
-			screen->atoms[index].loadedHeight = LittleShort( screen->atoms[index].loadedHeight );
-			screen->atoms[index].pData = ( ubyte *)LittleLong( ( udword )screen->atoms[index].pData );
-			screen->atoms[index].attribs = ( ubyte *)LittleLong( ( udword )screen->atoms[index].attribs );
-			screen->atoms[index].drawstyle[0] = LittleLong( screen->atoms[index].drawstyle[0] );
-			screen->atoms[index].drawstyle[1] = LittleLong( screen->atoms[index].drawstyle[1] );
-			screen->atoms[index].region = ( void *)LittleLong( ( udword )screen->atoms[index].region );
-			screen->atoms[index].pad[0] = LittleLong( screen->atoms[index].pad[0] );
-			screen->atoms[index].pad[1] = LittleLong( screen->atoms[index].pad[1] );
+#if FIX_ENDIAN
+			screen->atoms[index].name = ( char *)FIX_ENDIAN_INT_32( ( udword )screen->atoms[index].name );
+			screen->atoms[index].flags = FIX_ENDIAN_INT_32( screen->atoms[index].flags );
+			screen->atoms[index].status = FIX_ENDIAN_INT_32( screen->atoms[index].status );
+			screen->atoms[index].tabstop = FIX_ENDIAN_INT_16( screen->atoms[index].tabstop );
+//			screen->atoms[index].borderColor = FIX_ENDIAN_INT_32( screen->atoms[index].borderColor );
+//			screen->atoms[index].contentColor = FIX_ENDIAN_INT_32( screen->atoms[index].contentColor );
+			screen->atoms[index].x = FIX_ENDIAN_INT_16( screen->atoms[index].x );
+			screen->atoms[index].loadedX = FIX_ENDIAN_INT_16( screen->atoms[index].loadedX );
+			screen->atoms[index].y = FIX_ENDIAN_INT_16( screen->atoms[index].y );
+			screen->atoms[index].loadedY = FIX_ENDIAN_INT_16( screen->atoms[index].loadedY );
+			screen->atoms[index].width = FIX_ENDIAN_INT_16( screen->atoms[index].width );
+			screen->atoms[index].loadedWidth = FIX_ENDIAN_INT_16( screen->atoms[index].loadedWidth );
+			screen->atoms[index].height = FIX_ENDIAN_INT_16( screen->atoms[index].height );
+			screen->atoms[index].loadedHeight = FIX_ENDIAN_INT_16( screen->atoms[index].loadedHeight );
+			screen->atoms[index].pData = ( ubyte *)FIX_ENDIAN_INT_32( ( udword )screen->atoms[index].pData );
+			screen->atoms[index].attribs = ( ubyte *)FIX_ENDIAN_INT_32( ( udword )screen->atoms[index].attribs );
+			screen->atoms[index].drawstyle[0] = FIX_ENDIAN_INT_32( screen->atoms[index].drawstyle[0] );
+			screen->atoms[index].drawstyle[1] = FIX_ENDIAN_INT_32( screen->atoms[index].drawstyle[1] );
+			screen->atoms[index].region = ( void *)FIX_ENDIAN_INT_32( ( udword )screen->atoms[index].region );
+			screen->atoms[index].pad[0] = FIX_ENDIAN_INT_32( screen->atoms[index].pad[0] );
+			screen->atoms[index].pad[1] = FIX_ENDIAN_INT_32( screen->atoms[index].pad[1] );
 #endif
 
             if (screen->atoms[index].type == FA_MenuItem)

@@ -911,8 +911,8 @@ char CurDir[PATH_MAX], NewDir[PATH_MAX];
                 SrcX = 0.0f;
                 for(DestX = 0; DestX < DestXSize; DestX++)
                 {
-#ifdef ENDIAN_BIG
-                    pDest[DestX] = LittleLong( hrGetInterpPixel(pTempImage, XSize, SrcX, SrcY) );
+#if FIX_ENDIAN
+                    pDest[DestX] = FIX_ENDIAN_INT_32( hrGetInterpPixel(pTempImage, XSize, SrcX, SrcY) );
 #else
                     pDest[DestX] = hrGetInterpPixel(pTempImage, XSize, SrcX, SrcY);
 #endif
@@ -932,8 +932,8 @@ char CurDir[PATH_MAX], NewDir[PATH_MAX];
                 {
                     pRGB = &pTempImage[ (((unsigned long)SrcY * XSize) + (unsigned long)SrcX) * 3 ];
 
-#ifdef ENDIAN_BIG
-                    pDest[DestX] = LittleLong( 0xff000000 + ((unsigned long)pRGB[0]) + ((unsigned long)pRGB[1] << 8) + ((unsigned long)pRGB[2] << 16) );
+#if FIX_ENDIAN
+                    pDest[DestX] = FIX_ENDIAN_INT_32( 0xff000000 + ((unsigned long)pRGB[0]) + ((unsigned long)pRGB[1] << 8) + ((unsigned long)pRGB[2] << 16) );
 #else
                     pDest[DestX] = 0xff000000 + ((unsigned long)pRGB[0]) + ((unsigned long)pRGB[1] << 8) + ((unsigned long)pRGB[2] << 16);
 #endif

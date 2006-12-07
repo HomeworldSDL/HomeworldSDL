@@ -798,9 +798,9 @@ fontheader *fontLoad(char *fileName)
 
     length = fileLoadAlloc(fileName, (void **)(&fileHeader), NonVolatile);
 
-#ifdef ENDIAN_BIG
-	fileHeader->version = LittleShort( fileHeader->version );
-	fileHeader->flags   = LittleShort( fileHeader->flags );
+#if FIX_ENDIAN
+	fileHeader->version = FIX_ENDIAN_INT_16( fileHeader->version );
+	fileHeader->flags   = FIX_ENDIAN_INT_16( fileHeader->flags );
 #endif
 
 #if FONT_ERROR_CHECKING
@@ -816,18 +816,18 @@ fontheader *fontLoad(char *fileName)
     header = &fileHeader->header;
 	dbgAssertOrIgnore(fileHeader->flags == 0);  //!!! don't yet support color or anti-aliased fonts
 
-#ifdef ENDIAN_BIG
-	header->nCharacters = LittleLong( header->nCharacters );
-	header->spacing     = LittleLong( header->spacing );
-	header->fullHeight  = LittleLong( header->fullHeight );
-	header->baseLine    = LittleLong( header->baseLine );
-	header->name        = ( char *)LittleLong( ( udword )header->name );
-	header->imageWidth  = LittleLong( header->imageWidth );
-	header->imageHeight = LittleLong( header->imageHeight );
-	header->nColors     = LittleLong( header->nColors );
-	header->palette     = ( color *)LittleLong( ( udword )header->palette );
-	header->image       = ( ubyte *)LittleLong( ( udword )header->image );
-	header->glFont      = ( void *)LittleLong( ( udword )header->glFont );
+#if FIX_ENDIAN
+	header->nCharacters = FIX_ENDIAN_INT_32( header->nCharacters );
+	header->spacing     = FIX_ENDIAN_INT_32( header->spacing );
+	header->fullHeight  = FIX_ENDIAN_INT_32( header->fullHeight );
+	header->baseLine    = FIX_ENDIAN_INT_32( header->baseLine );
+	header->name        = ( char *)FIX_ENDIAN_INT_32( ( udword )header->name );
+	header->imageWidth  = FIX_ENDIAN_INT_32( header->imageWidth );
+	header->imageHeight = FIX_ENDIAN_INT_32( header->imageHeight );
+	header->nColors     = FIX_ENDIAN_INT_32( header->nColors );
+	header->palette     = ( color *)FIX_ENDIAN_INT_32( ( udword )header->palette );
+	header->image       = ( ubyte *)FIX_ENDIAN_INT_32( ( udword )header->image );
+	header->glFont      = ( void *)FIX_ENDIAN_INT_32( ( udword )header->glFont );
 #endif
 
 #if FONT_VERBOSE_LEVEL >= 2
@@ -842,18 +842,18 @@ fontheader *fontLoad(char *fileName)
     sizeTotal = 0;
     for (index = iCharacter = 0; index < 256; index++)
     {                                                       //for all possible characters
-#ifdef ENDIAN_BIG
-		header->character[index] = ( charheader *)LittleLong( ( udword )header->character[index] );
+#if FIX_ENDIAN
+		header->character[index] = ( charheader *)FIX_ENDIAN_INT_32( ( udword )header->character[index] );
 #endif
 
         if (header->character[index] != NULL)
         {
 		header->character[index] = (charheader *)((udword)fileHeader + (ubyte *)header->character[index]);
-#ifdef ENDIAN_BIG
-			header->character[index]->width   = LittleShort( header->character[index]->width );
-			header->character[index]->height  = LittleShort( header->character[index]->height );
-			header->character[index]->offsetX = LittleShort( header->character[index]->offsetX );
-			header->character[index]->offsetY = LittleShort( header->character[index]->offsetY );
+#if FIX_ENDIAN
+			header->character[index]->width   = FIX_ENDIAN_INT_16( header->character[index]->width );
+			header->character[index]->height  = FIX_ENDIAN_INT_16( header->character[index]->height );
+			header->character[index]->offsetX = FIX_ENDIAN_INT_16( header->character[index]->offsetX );
+			header->character[index]->offsetY = FIX_ENDIAN_INT_16( header->character[index]->offsetY );
 #endif
 
             pFileCharacter = (charfileheader *)header->character[index];//get reference to data loaded from disk
@@ -880,9 +880,9 @@ fontheader *fontLoad(char *fileName)
             newHeader->character[index] = pCharacter;       //set character * for this character
             pFileCharacter = (charfileheader *)header->character[index];//get reference to data loaded from disk
 
-#ifdef ENDIAN_BIG
-			pFileCharacter->u   = LittleShort( pFileCharacter->u );
-			pFileCharacter->v   = LittleShort( pFileCharacter->v );
+#if FIX_ENDIAN
+			pFileCharacter->u   = FIX_ENDIAN_INT_16( pFileCharacter->u );
+			pFileCharacter->v   = FIX_ENDIAN_INT_16( pFileCharacter->v );
 #endif
 
             pCharacter->width   = pFileCharacter->width;      //duplicate attributes
