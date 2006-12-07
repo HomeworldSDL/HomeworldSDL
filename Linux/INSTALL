@@ -24,6 +24,7 @@ Contents:
 	-Note-
 	-System requirements-
 	-Compiling the source code-	
+	-Important Build Options-
 	-Usage and placement of the game data files-
 	-Starting the game-
 	-Troubleshooting-
@@ -126,6 +127,13 @@ Go to the projects 'src' directory. "./homeworld".
  If everything goes okay, you should be presented with a confirmation that the settings you requested were changed.  Select "Yes", and you should be ready to go!
  
  The settings you choose will also be saved when you quit, so you don't have to reselect the OpenGL renderer every time. 
+
+ -Important Build Options-
+
+ * If you find some problematic bug in HWSDL Linux, you could try reconfiguring with 
+ ./configure --enable-linuxfixme && make
+ This will activate all bug work arounds in place for Linux (if any) which may fix your problems.
+
 
  -Troubleshooting-
 
