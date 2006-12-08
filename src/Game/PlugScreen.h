@@ -16,7 +16,7 @@
     Switches:
 =============================================================================*/
 
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 
 #define PS_ERROR_CHECKING      1               //basic error checking
 #define PS_VERBOSE_LEVEL       1               //control verbose printing

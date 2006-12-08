@@ -18,7 +18,7 @@
 /*=============================================================================
     Switches:
 =============================================================================*/
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 
 #define TM_CHEAP                 0              //traders give stuff away
 #define TM_INVENTORY             0              //traders have everything

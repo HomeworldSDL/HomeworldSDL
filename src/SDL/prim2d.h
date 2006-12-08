@@ -16,7 +16,7 @@
 /*=============================================================================
     Functions:
 =============================================================================*/
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 
 #define PRIM_ERROR_CHECKING     1               //general error checking
 

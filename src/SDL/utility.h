@@ -18,7 +18,7 @@
 /*=============================================================================
     Switches:
 =============================================================================*/
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 
 #define UTY_ERROR_CHECKING      1               //basic error checking
 #define UTY_VERBOSE_LEVEL       1               //control verbose printing

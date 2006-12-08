@@ -52,7 +52,7 @@
 #include "CommandNetwork.h"
 
 #ifdef gshaw
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 //#define DEBUG_FORMATIONS
 
 //#define DEBUG_LAUNCHSHIP
@@ -936,7 +936,7 @@ bool processPassiveAttackToDo(CommandToDo *attacktodo)
     if ((numShipsToAttack == 0) || (!ShipsInPassiveAttackRange(selection,attack))
         || ((singlePlayerGame) && (singlePlayerGameInfo.hyperspaceState != NO_HYPERSPACE ) ))
     {
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 #ifdef gshaw
         if (numShipsToAttack != 0)
         {
@@ -8306,7 +8306,7 @@ void clProcess(CommandLayer *comlayer)
     sdword i;
     SelectCommand *commandselection;
 
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
     flightmanTest();
 #endif
 

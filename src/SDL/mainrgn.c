@@ -2468,7 +2468,7 @@ cancelfocus:
             }
             break;
 #endif
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 #if GUN_TUNE_MODE
         case YKEY:
             if (selSelected.numShips == 1 && !multiPlayerGame)
@@ -2524,7 +2524,7 @@ docapslock:
             break;
 
     case XKEY:
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
             if(keyIsHit(CONTROLKEY))
             {
                 if (!multiPlayerGame)

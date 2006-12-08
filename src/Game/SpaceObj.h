@@ -25,7 +25,7 @@
 /*=============================================================================
     Switches:
 =============================================================================*/
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 
 #define SO_ERROR_CHECKING       1               //general error checking
 #define SO_VERBOSE_LEVEL        2               //print extra info

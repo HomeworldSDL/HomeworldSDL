@@ -20,7 +20,7 @@
 =============================================================================*/
 
 #define TB_TEST                     0           //test this module
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 
 #define TB_ERROR_CHECKING           1           //general error checking
 #define TB_VERBOSE_LEVEL            1           //control specific output code

@@ -18,11 +18,11 @@
 #include "MaxMultiplayer.h"
 
 //define to include a number of checks to see if regions are valid
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
     #define DEBUG_STOMP
 #endif
 
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 #define GOD_LIKE_SYNC_CHECKING
 //remove if we don't want this logging capability anymore
 #define DEBUG_GAME_STATS

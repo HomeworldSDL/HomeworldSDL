@@ -4108,7 +4108,7 @@ bool aiuWrapAttack(SelectCommand *attackers, SelectCommand *targets)
     if (aiuFilterSelectableShips(attackers, &filtered) &&
         !aiuShipsArentTargetable(targets))
     {
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
         //dbgAssertOrIgnore(AreAllShipsAttackCapable((SelectCommand *)&filtered));
 
         if (attackers->ShipPtr[0]->playerowner == targets->ShipPtr[0]->playerowner)

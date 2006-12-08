@@ -1680,7 +1680,7 @@ bool uicButtonReleased = FALSE;
 udword uicButtonProcess(regionhandle region, sdword ID, udword event, udword data)
 {
     udword mask = 0;
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
     udword i;
     featom *atom = (featom *)region->atom;
 #endif
@@ -1691,7 +1691,7 @@ udword uicButtonProcess(regionhandle region, sdword ID, udword event, udword dat
             uicSetCurrent(region, FALSE);
             soundEvent(NULL, UI_Click);
             mask |= RPR_Redraw;
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
             dbgMessagef("\nEn: %c Fr: %c De: %c Es: %c It: %c", atom->hotKey[0], atom->hotKey[1], atom->hotKey[2], atom->hotKey[3], atom->hotKey[4]);
 #endif
         break;

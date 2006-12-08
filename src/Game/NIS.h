@@ -25,7 +25,7 @@
 #define NIS_NORMALIZE_ANGLES        1           //convert incoming angular domensions to radians an get them in the range of 0..TWOPI
 #define NIS_RENDERLIST_DISABLE      0           //stop updating render list when playing an NIS
 
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 
 #define NIS_ERROR_CHECKING          1           //general error checking
 #define NIS_VERBOSE_LEVEL           3           //control specific output code

@@ -2211,7 +2211,7 @@ void FreeTestSelectionOfShips(SelectCommand *selection)
 
 static void statsTest(void)
 {
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 #ifdef gshaw
 #if 0
     ShipType shiptype1,shiptype2;

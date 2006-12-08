@@ -1532,7 +1532,7 @@ void tbSetupHyperspace(void)
     {
         return;
     }
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
     regVerify(hs);
     regVerify(lw);
 #endif
@@ -1611,7 +1611,7 @@ void tbResetHyperspace(void)
     {
         return;
     }
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
     regVerify(hs);
     regVerify(lw);
 #endif
@@ -1649,7 +1649,7 @@ void tbResetHyperspace(void)
     {
         return;
     }
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
     regVerify(hs);
     regVerify(lw);
 #endif

@@ -312,7 +312,7 @@ void MothershipAttachObjectToDoor(Ship *ship,SpaceObjRotImpTargGuidanceShipDerel
 {
     MothershipSpec *spec = (MothershipSpec *)ship->ShipSpecifics;
 
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
     dbgAssertOrIgnore(ship->shiptype == Mothership);
     dbgAssertOrIgnore(ship->shiprace == R1);
 #endif
@@ -323,7 +323,7 @@ void MothershipDettachObjectFromDoor(Ship *ship)
 {
     MothershipSpec *spec = (MothershipSpec *)ship->ShipSpecifics;
 
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
     dbgAssertOrIgnore(ship->shiptype == Mothership);
     dbgAssertOrIgnore(ship->shiprace == R1);
 #endif

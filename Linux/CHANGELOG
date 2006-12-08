@@ -68,7 +68,7 @@ All:
   ~/.homeworld/Homeworld.cfg
 - Fixed a possible segmentation fault in fileSetPrependPath()
   (src/Game/File.c) from reading the length of a string within a dbgAssert(),
-  which would not be compiled when HW_Release is defined.
+  which would not be compiled when HW_BUILD_FOR_DISTRIBUTION is defined.
   (Steve Freeland <caucasatron@yahoo.ca>)
 - Resolution changes now work properly without needing to restart the game
   (menus, etc. now adjust properly).  Unfortunately, switching from OpenGL to

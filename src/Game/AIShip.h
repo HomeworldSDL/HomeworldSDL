@@ -84,7 +84,7 @@ extern real32 INTERCEPTORKILL_MINVELOCITY;
 extern real32 AVOID_OBJ_PADDING_SCALE_BIG;
 extern real32 AVOID_OBJ_PADDING_SCALE;
 
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 #ifdef gshaw
 #define AISHIP_STATS
 #endif

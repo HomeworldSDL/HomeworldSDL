@@ -1086,7 +1086,7 @@ void versionNumDraw(featom *atom, regionhandle region)
 
     fontPrint(pos.x0, pos.y0, versionColor, versionstr);
 
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
     pos.y0 += fontheight;
     fontPrint(pos.x0, pos.y0, versionColor, (char*)GLC_VENDOR);
     pos.y0 += fontheight;
@@ -3838,7 +3838,7 @@ char *utyCannotOpenFileMessages[] =
 char* utyGameSystemsPreInit(void)
 {
 #if CD_VALIDATION_ENABLED
-#ifdef HW_Release
+#ifdef HW_BUILD_FOR_DISTRIBUTION
 #ifdef _WIN32
     HANDLE syshandle;
 
@@ -3946,7 +3946,7 @@ char* utyGameSystemsPreInit(void)
 #endif
 
 #if CD_VALIDATION_ENABLED
-#ifdef HW_Release
+#ifdef HW_BUILD_FOR_DISTRIBUTION
 #ifdef _WIN32
 
     // check pad file

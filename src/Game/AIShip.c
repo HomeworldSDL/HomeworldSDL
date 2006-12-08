@@ -938,7 +938,7 @@ udword aishipFlyToPointAvoidingObjsFunc(Ship *ship,vector *destination,udword ai
 
     udword returnflag = 0;
 
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
     udword considered = 0;
 #endif
 
@@ -1146,7 +1146,7 @@ startflying:
                 goto noavoid;
             }
 
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
             if (!DO_AVOID_OBJS)
             {
                 goto noavoid;
@@ -1561,7 +1561,7 @@ norowcheck:
                     goto nextnode;
                 }
 
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
                 considered++;
 #endif
                 aishipStatsAvoidedConsidered();
@@ -1727,7 +1727,7 @@ skipobscurecheck:;
             }
 
 
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
             //dbgMessagef("\nAVOID considered: %d",considered);
 #endif
 

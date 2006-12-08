@@ -20,7 +20,7 @@
 =============================================================================*/
 #define MR_GUI_SINGLECLICK          1
 
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 
 #define MR_ERROR_CHECKING           1           //general error checking
 #define MR_VERBOSE_LEVEL            2           //control specific output code
@@ -46,7 +46,7 @@
 #define MR_KEYBOARD_CHEATS          0           //enable typing in cheats on the keyboard
 
 // special case stuff so that cheats are enabled for release for bryce and drew
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
     #ifdef bpasechnik
         #undef  MR_KEYBOARD_CHEATS
         #define MR_KEYBOARD_CHEATS      1           //enable typing in cheats on the keyboard

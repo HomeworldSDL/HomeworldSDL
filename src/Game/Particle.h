@@ -15,7 +15,7 @@
 
 void partFilter(bool on);
 
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 #define PART_Debug
 #define PART_Verbose    1
 #else

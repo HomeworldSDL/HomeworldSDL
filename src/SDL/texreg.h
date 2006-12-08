@@ -20,7 +20,7 @@
 #define TR_SPECIAL_DEBUG            0           //special debugging modes active
 #define TR_ASPECT_CHECKING          1           //fixup extreme texture aspect ratios for GL
 
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 
 #define TR_ERROR_CHECKING           1           //general error checking
 #define TR_VERBOSE_LEVEL            1           //control specific output code

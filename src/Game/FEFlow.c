@@ -450,7 +450,7 @@ void feStandardScrollBarFunction(char *string, featom *atom)
             }
         }
 
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
         if (listwindow->ListTotal > 0)
         {
             dbgAssertOrIgnore(listwindow->topitem != NULL);

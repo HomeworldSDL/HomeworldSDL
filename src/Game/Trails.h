@@ -17,7 +17,7 @@
 /*=============================================================================
     Switches:
 =============================================================================*/
-#ifdef HW_Release
+#ifdef HW_BUILD_FOR_DISTRIBUTION
 
 #define TRAIL_ERROR_CHECKING       0               //general error checking
 #define TRAIL_VERBOSE_LEVEL        0               //print extra info

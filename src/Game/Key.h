@@ -13,7 +13,7 @@
 /*=============================================================================
     Switches:
 =============================================================================*/
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 #define KEY_ERROR_CHECKING      1
 #define KEY_VERBOSE_LEVEL       1
 #else //HW_Debug

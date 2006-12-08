@@ -10,7 +10,7 @@
 #define ___SCREENSHOT_H
 
 #define SS_SCREENSHOTS         1
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 
 #define SS_ERROR_CHECKING      1               //basic error checking
 #define SS_VERBOSE_LEVEL       1               //control verbose printing

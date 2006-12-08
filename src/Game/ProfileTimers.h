@@ -3,7 +3,7 @@
 
 #include "Types.h"
 
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 #define PROFILE_TIMERS
 #endif
 

@@ -5962,7 +5962,7 @@ AITeamMove *aimCreateFancyGetShipsNoAdd(AITeam *team, ShipType shiptype, sbyte n
     AITeamMove *newMove = (AITeamMove *)memAlloc(sizeof(AITeamMove), "getshipsmove", 0);
 
     dbgAssertOrIgnore(num_ships > 0);
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
     {
         sdword i;
 

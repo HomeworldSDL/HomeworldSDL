@@ -350,7 +350,7 @@ void bountyShipWasKilled(Ship *ship)
         case DEATH_Killed_By_Player:
         case DEATH_Killed_By_Player_Explosion:
         case DEATH_Killed_By_Kamikaze:
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
             dbgAssertOrIgnore(ship->whoKilledMe != 99);
 #endif
             //reimburse player for their troubles

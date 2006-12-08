@@ -676,7 +676,7 @@ tutpointer *tutPointerAllocate(char *name, sdword type)
             freeIndex = index;
         }
     }
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
     if (freeIndex < 0)
     {
         dbgFatalf(DBG_Loc, "Cannot allocate tutorial pointer '%s'.", name);

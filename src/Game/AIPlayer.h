@@ -401,7 +401,7 @@ void aiplayerGameStart(AIPlayer *aiplayer);
 void aiplayerStartup(udword num_players, udword num_human_players, udword num_comp_players);
 void aiplayerShutdown(void);
 
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 #define aiplayerLog(x)    aiplayerDebugLog x
 #else
 #define aiplayerLog(x)    {;}

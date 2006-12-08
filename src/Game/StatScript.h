@@ -114,7 +114,7 @@ void scriptSetTweakableGlobals(void);
 
 void mgGameTypeScriptInit();
 
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 void CheckValidTacticsClass(TacticsType tactic,ShipClass shipclass,char *field);
 #endif
 

@@ -115,7 +115,7 @@ extern uword FLIGHTMAN_NUM_EVASIVEPURE_MANEUVERS[NUM_TACTICS_TYPES];
     Debug features:
 =============================================================================*/
 
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 extern Ship *testflightmanship;
 void flightmanTest();
 #endif

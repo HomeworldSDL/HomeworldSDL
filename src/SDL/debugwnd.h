@@ -13,7 +13,7 @@
 #define DBW_TO_FILE             1
 #define DBW_FILE_NAME           "debugMessages.txt"
 
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 
 #define DBW_ERROR_CHECKING      1
 

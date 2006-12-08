@@ -868,7 +868,7 @@ void listInsertSort(LinkedList *list)
     }
 }
 
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 void listCheckSort(LinkedList *list)
 {
     Node *node1;

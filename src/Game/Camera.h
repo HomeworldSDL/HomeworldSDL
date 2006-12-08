@@ -16,7 +16,7 @@
 /*=============================================================================
     Switches:
 =============================================================================*/
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 
 #define CAM_ERROR_CHECKING      1               //general error checking
 #define CAM_VERBOSE_LEVEL       2               //print extra info

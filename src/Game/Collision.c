@@ -2003,7 +2003,7 @@ void collCheckBulletTargetColl(blob *thisBlob)
 
     sdword pass;
 
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 //    thisBlob->debugFlag = 1;
 #endif
 
@@ -2236,7 +2236,7 @@ nextbullet:
             bulletindex++;
         }
     }
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 //    thisBlob->debugFlag = 0;
 #endif
 }
@@ -2290,7 +2290,7 @@ void collCheckMissileShipColl(blob *thisBlob,MissileType missileType)
     }
     numMissiles = missileselection->numMissiles;
 
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 //    thisBlob->debugFlag = 1;
 #endif
 
@@ -2419,7 +2419,7 @@ nextmissile:
         missileindex++;
     }
 
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 //    thisBlob->debugFlag = 0;
 #endif
 
@@ -2478,7 +2478,7 @@ void collCheckMissileResourceColl(blob *thisBlob,MissileType missileType)
     }
     numMissiles = missileselection->numMissiles;
 
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 //    thisBlob->debugFlag = 1;
 #endif
 
@@ -2577,7 +2577,7 @@ nextmissile:
         missileindex++;
     }
 
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 //    thisBlob->debugFlag = 0;
 #endif
 
@@ -2637,7 +2637,7 @@ void collCheckMissileDerelictColl(blob *thisBlob,MissileType missileType)
     }
     numMissiles = missileselection->numMissiles;
 
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 //    thisBlob->debugFlag = 1;
 #endif
 
@@ -2731,7 +2731,7 @@ nextmissile:
         missileindex++;
     }
 
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 //    thisBlob->debugFlag = 0;
 #endif
 
@@ -2779,7 +2779,7 @@ void collCheckMissileMineColl(blob *thisBlob)
         return;
     }
 
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 //    thisBlob->debugFlag = 1;
 #endif
 
@@ -2876,7 +2876,7 @@ nextmissile:
         missileindex++;
     }
 
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 //    thisBlob->debugFlag = 0;
 #endif
 

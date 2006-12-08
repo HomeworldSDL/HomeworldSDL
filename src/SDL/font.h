@@ -16,7 +16,7 @@
 /*=============================================================================
     Switches
 =============================================================================*/
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 
 #define FONT_ERROR_CHECKING     1               //general error checking
 #define FONT_VERBOSE_LEVEL      1               //print extra info

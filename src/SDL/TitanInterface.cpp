@@ -1954,7 +1954,7 @@ void TitanInterface::AuthHandleLogin(void) {
         return;
     }
 
-#ifdef HW_Release
+#ifdef HW_BUILD_FOR_DISTRIBUTION
     // If this is a beta version, only beta keys are allowed.  If it's a release
     // version (not beta, not demo), only non-beta keys are allowed.
 #ifdef DLPublicBeta
@@ -1970,7 +1970,7 @@ void TitanInterface::AuthHandleLogin(void) {
         return;
     }
 #endif // DLPublicBeta
-#endif // HW_Release
+#endif // HW_BUILD_FOR_DISTRIBUTION
 
     __int64 aRawCDKey = aCDKey.AsRaw(); // message is encrypted, so key doesn't need to be
     aMsg.SetCDKey((const unsigned char*)&aRawCDKey,sizeof(aRawCDKey));

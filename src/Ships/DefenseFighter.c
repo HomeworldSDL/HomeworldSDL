@@ -121,7 +121,7 @@ void defensefightertargetbullet(Ship *ship, Bullet *bullettotarget)
     sdword LOD;
     Effect *newEffect;
 
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 /*    dbgMessagef("B: %d %x %x %f %f %f %x %f %x",universe.univUpdateCounter,
                                     bullettotarget->flags,
                                     bullettotarget->owner,
@@ -502,7 +502,7 @@ void DefenseFighterReportBullet(Ship *ship, Bullet *bullet)
             }
             else
             {
-                #ifndef HW_Release
+                #ifndef HW_BUILD_FOR_DISTRIBUTION
   //                  dbgMessagef("\nDfighter: owner null @ %d - f %x",universe.univUpdateCounter,bullet->flags);
                 #endif
             }

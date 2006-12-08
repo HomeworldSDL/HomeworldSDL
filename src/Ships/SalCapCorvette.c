@@ -897,7 +897,7 @@ sdword salCapGetAndBusySalvageIndex(Ship *ship,SpaceObjRotImpTargGuidanceShipDer
         }
     return NO_INDEX;
     }
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
     dbgFatalf(DBG_Loc,"\nShips salvage static info doesn't exist!.");
 #endif
     return NO_INDEX;

@@ -20,7 +20,7 @@
 #include "Nebulae.h"
 #include "SinglePlayer.h"
 
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 
 #ifdef gshaw
 #define DEBUG_COLLECTRESOURCES

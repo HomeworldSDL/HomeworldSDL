@@ -4431,7 +4431,7 @@ bool LaunchShipFromCarrierMother(Ship *ship,Ship *dockwith)
 
                 //at this point the big docking port is free...
                 //I'm assuming the door is closed!
-                #ifndef HW_Release
+                #ifndef HW_BUILD_FOR_DISTRIBUTION
                 dbgAssertOrIgnore(dockwith->madDoorStatus == MAD_STATUS_DOOR_CLOSED);
                 #endif
                 //request door open and attach object to door
@@ -4478,7 +4478,7 @@ bool LaunchShipFromCarrierMother(Ship *ship,Ship *dockwith)
 
             return FALSE;
         case LAUNCH_FROMMOTHERSHIPR1DOOR1:
-            #ifndef HW_Release
+            #ifndef HW_BUILD_FOR_DISTRIBUTION
             dbgAssertOrIgnore(dockwith->shiprace == R1);
             dbgAssertOrIgnore(dockwith->shiptype == Mothership);
             #endif
@@ -4492,7 +4492,7 @@ bool LaunchShipFromCarrierMother(Ship *ship,Ship *dockwith)
             else
             {
                 //door still opening
-                #ifndef HW_Release
+                #ifndef HW_BUILD_FOR_DISTRIBUTION
                 dbgAssertOrIgnore(dockwith->madDoorStatus == MAD_STATUS_DOOR_OPENING);
                 #endif
             }

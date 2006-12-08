@@ -19,7 +19,7 @@
 #include "ResCollect.h"
 #include "CommandDefs.h"
 
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 
 #define CL_TEXTFEEDBACK     1
 

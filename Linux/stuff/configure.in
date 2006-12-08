@@ -46,8 +46,8 @@ if test "x$enable_hwdebug" = "xyes" ; then
 	echo "* Building debug binary for Homeworld (HW_Debug) *"
 	HWBIN_CFLAGS="-DHW_Debug"
 else
-	echo "* Building release binary for Homeworld (HW_Release) *"
-	HWBIN_CFLAGS="-DHW_Release"
+	echo "* Building distribution binary for Homeworld (HW_BUILD_FOR_DISTRIBUTION) *"
+	HWBIN_CFLAGS="-DHW_BUILD_FOR_DISTRIBUTION"
 fi
 
 dnl LINUX FIX ME
@@ -60,9 +60,9 @@ if test "$linuxfixme" = "yes" ; then
 fi
 
 dnl Add necessary flags for compiler and linker.
-dnl - One (and only one) of "HW_Debug" or "HW_Release" must be set.
+dnl - One (and only one) of "HW_Debug" or "HW_BUILD_FOR_DISTRIBUTION" must be set.
 dnl   This is defined above in the HWBIN_CFLAGS variable. HW_Debug
-dnl   is set via "--enable-hwdebug"; HW_Release is the default.
+dnl   is set via "--enable-hwdebug"; HW_BUILD_FOR_DISTRIBUTION is the default.
 dnl - $SDL_CFLAGS and $SDL_LIBS should be pretty much self-explanatory. =]
 dnl - We don't want to include $SDL_LIBS when building librgl.
 CFLAGS="$CFLAGS $HWBIN_CFLAGS $SDL_CFLAGS"

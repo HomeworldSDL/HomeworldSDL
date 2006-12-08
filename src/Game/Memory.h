@@ -17,7 +17,7 @@
 #define MEM_SMALL_BLOCK_HEAP    1               //enable small block heap allocations
 #define MEM_VOLATILE_CLEARING   1               //the clear dwords are volatile and unreliable
 
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 
 #define MEM_MODULE_TEST         0               //test the module
 #define MEM_ERROR_CHECKING      1               //basic error checking

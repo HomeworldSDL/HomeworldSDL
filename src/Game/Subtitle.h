@@ -19,7 +19,7 @@
 =============================================================================*/
 #define SUB_MODULE_TEST             0           //test this module
 
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 
 #define SUB_ERROR_CHECKING          1           //general error checking
 #define SUB_VERBOSE_LEVEL           3           //control specific output code

@@ -49,7 +49,7 @@ void *gMessageMutex = NULL;
 gMessageType gMessage[MAX_MESSAGES+1];
 bMessageType bMessage[MAX_BIGMESSAGES];
 
-#ifdef HW_Release
+#ifdef HW_BUILD_FOR_DISTRIBUTION
 udword logEnable = LOG_OFF;
 #else
 udword logEnable = LOG_ON;

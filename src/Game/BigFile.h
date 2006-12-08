@@ -78,7 +78,7 @@
 #define BIGGIE_VERSION "3.00"   // biggie: .BIG file extractor tool (see /tools)
 
 // some things don't get compiled into the command line tool
-#if defined(HW_Debug) || defined(HW_Release) 
+#if defined(HW_Debug) || defined(HW_BUILD_FOR_DISTRIBUTION) 
     #define BF_HOMEWORLD
 #endif
 

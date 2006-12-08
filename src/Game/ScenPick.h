@@ -15,7 +15,7 @@
 /*=============================================================================
     Switches:
 =============================================================================*/
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 
 #define SCP_ERROR_CHECKING      1               //basic error checking
 #define SCP_VERBOSE_LEVEL       1               //control verbose printing

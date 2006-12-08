@@ -2041,7 +2041,7 @@ void InitStatShipInfo(ShipStaticInfo *statinfo,ShipType type,ShipRace race)
         return;
 /*
 
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
         dbgMessagef("\nStubbing out %s\\%s", ShipRaceToStr(race), ShipTypeToStr(type));
 #endif
         strcpy(directory,"DefaultShip\\");
@@ -2141,7 +2141,7 @@ void InitStatShipInfo(ShipStaticInfo *statinfo,ShipType type,ShipRace race)
         }
     }
 /*
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
     if ((cheapShips) && (!multiPlayerGame))
     {
         statinfo->buildTime = 1;
@@ -4071,7 +4071,7 @@ processtextures:
                         {
                             goto alldone2;
                         }
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
                         if (ShowFancyFights) statsShowFancyFightUpdate();
 #endif
                     }
@@ -4080,7 +4080,7 @@ processtextures:
 #endif
                 univUpdate(UNIVERSE_UPDATE_PERIOD);
 alldone2:;
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
                 if (ShowFancyFights) statsShowFancyFightUpdate();
 #endif
 

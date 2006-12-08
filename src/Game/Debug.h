@@ -14,12 +14,12 @@
 
 
 // make sure the HW_Level environment variable is set correctly
-#if !(defined(HW_Debug) || defined(HW_Release))
-    #error HW_Level must be one of HW_Debug or HW_Release
+#if !(defined(HW_Debug) || defined(HW_BUILD_FOR_DISTRIBUTION))
+    #error HW_Level must be one of HW_Debug or HW_BUILD_FOR_DISTRIBUTION
 #endif
 
 
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
     #define DBG_ASSERT              1           // assertion checking
     #define DBG_FILE_LINE           1           // print file and line
     #define DBG_STACK_CONTEXT       1           // dump stack context at fatal error time

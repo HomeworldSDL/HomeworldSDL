@@ -16,7 +16,7 @@
     Defines:
 =============================================================================*/
 
-#ifdef HW_Release
+#ifdef HW_BUILD_FOR_DISTRIBUTION
 
 #define GUN_TUNE_MODE       0
 #define GUN_VERBOSE_LEVEL   0

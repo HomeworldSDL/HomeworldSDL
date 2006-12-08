@@ -35,7 +35,7 @@
 /*=============================================================================
     Switches:
 =============================================================================*/
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 
 #define UNIVERSE_TURBOPAUSE_DEBUG       1       //enable turbo and pause modes
 #define UNIVERSE_TURBORECORD_ONLY       0

@@ -22,7 +22,7 @@
 =============================================================================*/
 #define REG_INDEX_ALLOCS            0           //a bug-hunting feature
 
-#ifndef HW_Release
+#ifndef HW_BUILD_FOR_DISTRIBUTION
 
 #define REG_ERROR_CHECKING          1           //general error checking
 #define REG_VERBOSE_LEVEL           0           //control specific output code
