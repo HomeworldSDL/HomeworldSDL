@@ -2746,7 +2746,7 @@ void lgProcessCallBacksTask(void)
         }
 
         JustDeletedGameFromGameList[0] = 0;
-#endif //defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
+#endif
         taskStackRestoreCond();
         taskYield(0);
     }

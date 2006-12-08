@@ -473,18 +473,14 @@ fonthandle ghDefaultFont = 0;
 
 // name of bigfile
 // NB: HW_RAIDER_RETREAT uses the Update.big mechanism
-#if defined(HW_COMPUTER_GAMING_WORLD_DEMO)
-char utyBigFilename[] = "HomeworldCGW.big";
-#elif defined(HW_GAME_DEMO)
+#ifdef HW_GAME_DEMO
 char utyBigFilename[] = "HomeworldDL.big";
 #else
 char utyBigFilename[] = "Homeworld.big";
 #endif
 
 // name of music data file
-#if defined(HW_COMPUTER_GAMING_WORLD_DEMO)
-char utyMusicFilename[] = "CGW_Music.wxd";
-#elif defined(HW_GAME_DEMO)
+#ifdef HW_GAME_DEMO
 char utyMusicFilename[] = "DL_Music.wxd";
 #elif defined(HW_RAIDER_RETREAT)
 char utyMusicFilename[] = "OEM_Music.wxd";
@@ -493,9 +489,7 @@ char utyMusicFilename[] = "HW_Music.wxd";
 #endif
 
 // name of voice file
-#if  defined(HW_COMPUTER_GAMING_WORLD_DEMO)
-char utyVoiceFilename[] = "CGW_Demo.vce";
-#elif defined(HW_GAME_DEMO)
+#ifdef HW_GAME_DEMO
 char utyVoiceFilename[] = "DL_Demo.vce";
 #else
 char utyVoiceFilename[] = "HW_comp.vce";
@@ -553,7 +547,7 @@ taskhandle utyRenderTask;
 static bool forceSP = FALSE;
 
 //global flag for demo functionality
-#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined (HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
+#if defined (HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
 bool utyPlugScreens = FALSE;
 #endif
 bool utyCreditsSequence = FALSE;
@@ -3307,7 +3301,7 @@ void utyNewGameStart(char *name, featom *atom)
 void utyGameQuit(char *name, featom *atom)
 {
     dbgMessagef("\nQuit game, baby!");
-#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
+#if defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
     if (enableAVI)
     {
         psModeBegin("Plugscreens\\", PMF_CanSkip);
@@ -3341,7 +3335,7 @@ void utyGameQuitToMain(char *name, featom *atom)
 
     gameEnd();
 
-#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined (HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
+#if defined (HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
     if (utyPlugScreens && enableAVI)
     {
         psModeBegin("Plugscreens\\", PMF_CanSkip);
@@ -4408,7 +4402,7 @@ DONE_INTROS:
     rmAPIStartup();
     utySet2(SS2_ResearchMgr);
 
-#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
+#if defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
     psStartup();
     utySet2(SS2_PlugScreen);
 #endif
@@ -4811,7 +4805,7 @@ char *utyGameSystemsShutdown(void)
 
     tmShutdown();
 
-#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
+#if defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
     if (utyTest2(SS2_PlugScreen))
     {
         psShutdown();

@@ -279,19 +279,8 @@ bool mainEnableSpecialMissions = FALSE;
 bool mainScreenShotsEnabled = FALSE;
 bool mainCDCheckEnabled = TRUE;
 
-//char versionString[MAX_VERSION_STRING_LEN] = "M23bCGWRC1";
-//char versionString[MAX_VERSION_STRING_LEN] = "M23dFinalRC1";
-//char versionString[MAX_VERSION_STRING_LEN] = "M24aFinalRC3";
-//char versionString[MAX_VERSION_STRING_LEN] = "M24bPublicBeta2";
-//char versionString[MAX_VERSION_STRING_LEN] = "M24cFinalRC4";
-//char versionString[MAX_VERSION_STRING_LEN] = "M24ePublicBeta2";
-//char versionString[MAX_VERSION_STRING_LEN] = "M24fFinalRC5";
-
 #if defined(HW_GAME_DEMO)
-//char networkVersion[] =   "DownloadableRC1";
 char networkVersion[MAX_NETWORKVERSION_STRING_LEN] =   "DLD_05";
-#elif defined(HW_COMPUTER_GAMING_WORLD_DEMO)
-char networkVersion[MAX_NETWORKVERSION_STRING_LEN] =   "CGWtronRC1";
 #elif defined(HW_RAIDER_RETREAT)
 char networkVersion[MAX_NETWORKVERSION_STRING_LEN] =   "OEMV1";
 #else

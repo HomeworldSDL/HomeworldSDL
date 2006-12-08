@@ -1830,7 +1830,7 @@ void mgSkirmish(char *name, featom *atom)
 
 void mgInternetWON(char *name, featom *atom)
 {
-#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
+#if defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
     bitSet(atom->flags, FAF_Disabled);
     bitSet(((region *)atom->region)->status, RSF_RegionDisabled);
 #else
@@ -2066,7 +2066,7 @@ void mgNewAccount(char *name, featom *atom)
 
 void mgLaunchWON(char *name, featom *atom)
 {
-#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
+#if defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
     bitSet(atom->flags, FAF_Disabled);
     bitSet(((region *)atom->region)->status, RSF_RegionDisabled);
 #else
@@ -4657,11 +4657,6 @@ void mgStartingFleet(char *name, featom *atom)
 
 void mgStartShip(char *name, featom *atom)
 {
-//#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
-    //disable this function in demos
-//    bitSet(atom->flags, FAF_Disabled);
-//    bitSet(((region *)atom->region)->status, RSF_RegionDisabled);
-//#else
     if (FEFIRSTCALL(atom))
     {
         feRadioButtonSet(name, bitTest(tpGameCreated.flag,MG_CarrierIsMothership) ? 1 : 0);
@@ -4674,14 +4669,13 @@ void mgStartShip(char *name, featom *atom)
             bitClear(tpGameCreated.flag,MG_CarrierIsMothership);
     }
     mgGameTypesOtherButtonPressed();
-//#endif
 }
 
 
 
 void mgGameType(char *name, featom *atom)
 {
-#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
+#if defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
     //disable this function in demos
     bitSet(atom->flags, FAF_Disabled);
     bitSet(((region *)atom->region)->status, RSF_RegionDisabled);
@@ -4746,7 +4740,7 @@ void mgLastMotherShip(char *name, featom *atom)
 
 void mgCaptureCapitalShip(char *name, featom *atom)
 {
-#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
+#if defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
     //disable this function in demos
     bitSet(atom->flags, FAF_Disabled);
     bitSet(((region *)atom->region)->status, RSF_RegionDisabled);
@@ -4810,7 +4804,7 @@ void mgAlliedVictory(char *name, featom *atom)
 
 void mgResearchEnabled(char *name, featom *atom)
 {
-#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
+#if defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
     //disable this function in demos
     bitSet(atom->flags, FAF_Disabled);
     bitSet(((region *)atom->region)->status, RSF_RegionDisabled);
@@ -4832,7 +4826,7 @@ void mgResearchEnabled(char *name, featom *atom)
 #if 0
 void mgBountiesEnabled(char *name, featom *atom)
 {
-#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
+#if defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
     //disable this function in demos
     bitSet(atom->flags, FAF_Disabled);
     bitSet(((region *)atom->region)->status, RSF_RegionDisabled);
@@ -4855,7 +4849,7 @@ void mgBountiesEnabled(char *name, featom *atom)
 
 void mgBountySize(char *name, featom *atom)
 {
-#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
+#if defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
     //disable this function in demos
     bitSet(atom->flags, FAF_Disabled);
     bitSet(((region *)atom->region)->status, RSF_RegionDisabled);
@@ -4943,7 +4937,7 @@ void mgGamePasswordConfirm(char *name, featom *atom)
 
 void mgUnitCapsEnabled(char *name, featom *atom)
 {
-#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
+#if defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
     //disable this function in demos
     bitSet(atom->flags, FAF_Disabled);
     bitSet(((region *)atom->region)->status, RSF_RegionDisabled);
@@ -4965,7 +4959,7 @@ void mgUnitCapsEnabled(char *name, featom *atom)
 
 void mgFuelBurnEnabled(char *name, featom *atom)
 {
-#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
+#if defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
     //disable this function in demos
     bitSet(atom->flags, FAF_Disabled);
     bitSet(((region *)atom->region)->status, RSF_RegionDisabled);
@@ -4987,7 +4981,7 @@ void mgFuelBurnEnabled(char *name, featom *atom)
 
 void mgCratesEnabled(char *name, featom *atom)
 {
-#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
+#if defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
     //disable this function in demos
     bitSet(atom->flags, FAF_Disabled);
     bitSet(((region *)atom->region)->status, RSF_RegionDisabled);
@@ -5008,17 +5002,11 @@ void mgCratesEnabled(char *name, featom *atom)
 }
 
 /*=============================================================================
-    Callbacks for the Resourceing Optinos Game Screen:
+    Callbacks for the Resourcing Options Game Screen:
 =============================================================================*/
 
 void mgHarvestingEnabled(char *name, featom *atom)
 {
-//#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
-//    //disable this function in demos
-//    bitSet(atom->flags, FAF_Disabled);
-//    bitSet(((region *)atom->region)->status, RSF_RegionDisabled);
-//#else
-
     if (FEFIRSTCALL(atom))
     {
         feToggleButtonSet(name, !bitTest(tpGameCreated.flag,MG_HarvestinEnabled));
@@ -5031,7 +5019,6 @@ void mgHarvestingEnabled(char *name, featom *atom)
             bitSet(tpGameCreated.flag,MG_HarvestinEnabled);
     }
     mgGameTypesOtherButtonPressed();
-//#endif
 }
 
 void mgStartingResources(char *name, featom *atom)
@@ -5049,11 +5036,6 @@ void mgStartingResources(char *name, featom *atom)
 
 void mgResourceInjections(char *name, featom *atom)
 {
-//#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
-//    //disable this function in demos
-//    bitSet(atom->flags, FAF_Disabled);
-//    bitSet(((region *)atom->region)->status, RSF_RegionDisabled);
-//#else
     if (FEFIRSTCALL(atom))
     {
         feToggleButtonSet(name, bitTest(tpGameCreated.flag,MG_ResourceInjections));
@@ -5066,16 +5048,10 @@ void mgResourceInjections(char *name, featom *atom)
             bitClear(tpGameCreated.flag,MG_ResourceInjections);
     }
     mgGameTypesOtherButtonPressed();
-//#endif
 }
 
 void mgResourceInjectionInterval(char *name, featom *atom)
 {
-//#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
-    //disable this function in demos
-//    bitSet(atom->flags, FAF_Disabled);
-//    bitSet(((region *)atom->region)->status, RSF_RegionDisabled);
-//#else
     char    temp[20];
     udword  timemins;
 
@@ -5105,16 +5081,10 @@ void mgResourceInjectionInterval(char *name, featom *atom)
         break;
     }
     mgGameTypesOtherButtonPressed();
-//#endif
 }
 
 void mgResourceInjectionAmount(char *name, featom *atom)
 {
-//#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
-//    //disable this function in demos
- ///   bitSet(atom->flags, FAF_Disabled);
-//    bitSet(((region *)atom->region)->status, RSF_RegionDisabled);
-//#else
     char    temp[20];
 
     if (FEFIRSTCALL(atom))
@@ -5140,16 +5110,10 @@ void mgResourceInjectionAmount(char *name, featom *atom)
         break;
     }
     mgGameTypesOtherButtonPressed();
-//#endif
 }
 
 void mgResourceLumpSum(char *name, featom *atom)
 {
-//#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
-    //disable this function in demos
-//    bitSet(atom->flags, FAF_Disabled);
-//    bitSet(((region *)atom->region)->status, RSF_RegionDisabled);
-//#else
     if (FEFIRSTCALL(atom))
     {
         feToggleButtonSet(name, bitTest(tpGameCreated.flag,MG_ResourceLumpSum));
@@ -5162,16 +5126,10 @@ void mgResourceLumpSum(char *name, featom *atom)
             bitClear(tpGameCreated.flag,MG_ResourceLumpSum);
     }
     mgGameTypesOtherButtonPressed();
-//#endif
 }
 
 void mgResourceLumpSumInterval(char *name, featom *atom)
 {
-//#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
-    //disable this function in demos
-//    bitSet(atom->flags, FAF_Disabled);
-//    bitSet(((region *)atom->region)->status, RSF_RegionDisabled);
-//#else
     char    temp[20];
     udword  timemins;
 
@@ -5200,16 +5158,10 @@ void mgResourceLumpSumInterval(char *name, featom *atom)
         break;
     }
     mgGameTypesOtherButtonPressed();
-//#endif
 }
 
 void mgResourceLumpSumAmount(char *name, featom *atom)
 {
-//#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
-    //disable this function in demos
-//    bitSet(atom->flags, FAF_Disabled);
-//    bitSet(((region *)atom->region)->status, RSF_RegionDisabled);
-//#else
     char    temp[20];
 
     if (FEFIRSTCALL(atom))
@@ -5235,7 +5187,6 @@ void mgResourceLumpSumAmount(char *name, featom *atom)
         break;
     }
     mgGameTypesOtherButtonPressed();
-//#endif
 }
 
 void mgBackFromOptions(char *name, featom *atom)
@@ -6134,7 +6085,7 @@ void mgProcessCallBacksTask(void)
 #endif
     {
         taskStackSaveCond(0);
-#if defined(HW_RAIDER_RETREAT) || defined(HW_GAME_DEMO) || defined(HW_COMPUTER_GAMING_WORLD_DEMO)
+#if defined(HW_RAIDER_RETREAT) || defined(HW_GAME_DEMO)
 ;
 #else
         if (mgListOfChannelsWindow!=NULL)
@@ -6431,7 +6382,7 @@ void mgProcessCallBacksTask(void)
 
             memFree(copypacket);
         }
-#endif //defined(HW_RAIDER_RETREAT) || defined(HW_GAME_DEMO) || defined(HW_COMPUTER_GAMING_WORLD_DEMO)
+#endif //defined(HW_RAIDER_RETREAT) || defined(HW_GAME_DEMO)
 
         taskStackRestoreCond();
         taskYield(0);

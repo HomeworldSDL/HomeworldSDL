@@ -235,9 +235,7 @@ char *relicPlayerNames[MAX_RELIC_NAMES] = {
 };
 
 /* name of music header file */
-#if defined(HW_COMPUTER_GAMING_WORLD_DEMO)
-char musicHeaderName[] = "CGW_Music.wxh";
-#elif defined(HW_GAME_DEMO)
+#ifdef HW_GAME_DEMO
 char musicHeaderName[] = "DL_Music.wxh";
 #elif defined(HW_RAIDER_RETREAT)
 char musicHeaderName[] = "OEM_Music.wxh";
@@ -438,9 +436,7 @@ sdword speechEventInit(void)
 
     /* load the speech lookup tables */
     strcpy(loadfile, SOUNDFXDIR);
-#ifdef HW_COMPUTER_GAMING_WORLD_DEMO
-    strcat(loadfile, "CGWsentence.lut");
-#elif defined(HW_GAME_DEMO)
+#ifdef HW_GAME_DEMO
     strcat(loadfile, "DLsentence.lut");
 #else
     strcat(loadfile, "speechsentence_comp.lut");
@@ -467,9 +463,7 @@ sdword speechEventInit(void)
 #endif // FIX_ENDIAN
 	
     strcpy(loadfile, SOUNDFXDIR);
-#ifdef HW_COMPUTER_GAMING_WORLD_DEMO
-    strcat(loadfile, "CGWphrase.lut");
-#elif defined(HW_GAME_DEMO)
+#ifdef HW_GAME_DEMO
     strcat(loadfile, "DLphrase.lut");
 #else
     strcat(loadfile, "speechphrase_comp.lut");
@@ -2623,56 +2617,6 @@ sdword musictranslatetracknum(sdword tracknum)
             }
             break;
     }
-#elif defined(HW_COMPUTER_GAMING_WORLD_DEMO)
-    switch (tracknum)
-    {
-        case AMB_Mission1:
-            track = 0;
-            break;
-        case AMB_Mission2:
-            track = 1;
-            break;
-        case AMB12_FrontEnd:
-            track = 2;
-            break;
-        case AMB13_Tutorial:
-            track = 3;
-            break;
-        case NIS01_R1:
-            track = 4;
-            break;
-        case NIS01_R2:
-            track = 5;
-            break;
-        case NIS02:
-            track = 6;
-            break;
-        case ANIM00_Sierra:
-            track = 7;
-            break;
-        case ANIM00_Relic:
-            track = 8;
-            break;
-        case ANIM00_Opening:
-            track = 9;
-            break;
-        case ANIM01_02:
-            track = 10;
-            break;
-        case ANIM02_03:
-            track = 11;
-            break;
-        default:
-            if ((tracknum >= MUS_FIRST_AMBIENT) && (tracknum <= MUS_LAST_BATTLE))
-            {
-                track = 0;
-            }
-            else
-            {
-                track = -1;
-            }
-            break;
-    }
 #elif defined(HW_GAME_DEMO)
     if ((tracknum >= MUS_FIRST_AMBIENT) && (tracknum <= MUS_LAST_BATTLE))
     {
@@ -3115,7 +3059,7 @@ sdword musicEventUpdateVolume(void)
 }
 
 
-#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
+#if defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
 
 void musicEventNextTrack(void)
 {

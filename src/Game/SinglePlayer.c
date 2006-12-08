@@ -2478,7 +2478,9 @@ void singlePlayerGameUpdate()
                     //playback level transition animatic
                     animBinkPlay(singlePlayerGameInfo.currentMission, singlePlayerGameInfo.currentMission + 1);
 
-#if defined(HW_COMPUTER_GAMING_WORLD_DEMO)
+// was: HW_COMPUTER_GAMING_WORLD_DEMO but the standard demo
+// had a short single player campaign surely? If not get rid of this
+#ifdef HW_GAME_DEMO
                     if (singlePlayerGameInfo.currentMission == 2)
                     {
                         universe.quittime = universe.totaltimeelapsed;
