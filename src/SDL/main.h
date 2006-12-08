@@ -10,6 +10,19 @@
 #include "Types.h"
 #include "mainswitches.h"
 
+// -----------------------------------------------------------------------------
+// Make sure the game is being compiled with the correct build configuration
+// -----------------------------------------------------------------------------
+ 
+#define HW_GAME_TYPE_COUNT    defined( HW_GAME_HOMEWORLD      ) \
+                            + defined( HW_GAME_RAIDER_RETREAT ) \
+                            + defined( HW_GAME_DEMO           )
+
+#if HW_GAME_TYPE_COUNT != 1
+    #error Please specify ONE of the HW_GAME_* types
+#endif
+
+
 /*=============================================================================
     Switches:
 =============================================================================*/
