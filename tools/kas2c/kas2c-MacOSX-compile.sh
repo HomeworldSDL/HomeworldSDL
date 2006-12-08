@@ -6,7 +6,13 @@
 # toggle some header paths.
 
 /usr/bin/lex -i -olexer.c lexer.l
+
 /usr/bin/yacc -d -o parser.c parser.y
-/usr/bin/gcc lexer.c parser.c parser.h kas2c.c kas2c.h -o kas2c -D_MACOSX
+
+/usr/bin/gcc                                       \
+    -D_MACOSX                                      \
+    -I /Library/Frameworks/SDL.framework/Headers   \
+    *.c *.h                                        \
+    -o kas2c
 
 exit 0
