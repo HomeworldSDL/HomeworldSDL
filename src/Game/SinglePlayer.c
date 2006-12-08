@@ -2822,7 +2822,7 @@ SelectCommand *GetAllPlayersShipsExceptMothership(Player *player)
 char *nisR1Names[NUMBER_SINGLEPLAYER_NIS][2] =
 {
     { NIS_PATH"n01r1.nis",    NIS_PATH"n01r1.script" },
-#if defined (HW_DEMO)
+#if defined (HW_GAME_DEMO)
     { NIS_PATH"n02.nis",      NIS_PATH"n02-demo.script" },
 #else
     { NIS_PATH"n02.nis",      NIS_PATH"n02.script" },

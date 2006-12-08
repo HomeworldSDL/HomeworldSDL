@@ -205,7 +205,7 @@ sdword enableTrails = TRUE;
 #if TR_NIL_TEXTURE
 bool GLOBAL_NO_TEXTURES = FALSE;
 #endif
-bool fullScreen = TRUE;
+bool fullScreen = FALSE;
 bool slowBlits = FALSE;
 #if RND_VISUALIZATION
 bool dockLines = FALSE;
@@ -287,7 +287,7 @@ bool mainCDCheckEnabled = TRUE;
 //char versionString[MAX_VERSION_STRING_LEN] = "M24ePublicBeta2";
 //char versionString[MAX_VERSION_STRING_LEN] = "M24fFinalRC5";
 
-#if defined(HW_DEMO)
+#if defined(HW_GAME_DEMO)
 //char networkVersion[] =   "DownloadableRC1";
 char networkVersion[MAX_NETWORKVERSION_STRING_LEN] =   "DLD_05";
 #elif defined(HW_COMPUTER_GAMING_WORLD_DEMO)
@@ -3055,7 +3055,7 @@ int main (int argc, char* argv[])
     mainPlayAVIs = FALSE;
     if (errorString == NULL)
     {
-#ifndef HW_DEMO
+#ifndef HW_GAME_DEMO
         if (enableAVI && fullScreen)
         {
             windowNeedsDeleting = TRUE;

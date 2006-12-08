@@ -1190,7 +1190,7 @@ void gpBackToInGameEscapeMenu(char *name, featom *atom)
 {
     feScreenDisappear(NULL, NULL);
 
-#if defined(HW_DEMO)
+#if defined(HW_GAME_DEMO)
     if ((singlePlayerGame) && (!(utyCreditsSequence|utyPlugScreens)) && (universe.quittime > 0.0f) && (universe.totaltimeelapsed >= universe.quittime))
 #else
     if ((singlePlayerGame) && (!(utyCreditsSequence)) && (universe.quittime > 0.0f) && (universe.totaltimeelapsed >= universe.quittime))

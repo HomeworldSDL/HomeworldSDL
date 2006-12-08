@@ -990,7 +990,7 @@ void rmAPIStartup(void)
         MultiPlayerCR2TechStatic.TechNeededToBuildShip[index] = 0;
     }
 
-#if (defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_DEMO))
+#if (defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_GAME_DEMO))
     scriptSet(NULL,"DemoResearchDepend.script",TechnologyDependancies);
 #else
     scriptSet(NULL,"ResearchDepend.script",TechnologyDependancies);
@@ -1137,7 +1137,7 @@ void rmResetStaticInfo(void)
         MultiPlayerCR2TechStatic.TechNeededToBuildShip[index] = 0;
     }
 
-#if (defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_DEMO))
+#if (defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_GAME_DEMO))
     scriptSet(NULL,"DemoResearchDepend.script",TechnologyDependancies);
 #else
     scriptSet(NULL,"ResearchDepend.script",TechnologyDependancies);

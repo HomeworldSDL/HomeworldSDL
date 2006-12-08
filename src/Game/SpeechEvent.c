@@ -237,7 +237,7 @@ char *relicPlayerNames[MAX_RELIC_NAMES] = {
 /* name of music header file */
 #if defined(HW_COMPUTER_GAMING_WORLD_DEMO)
 char musicHeaderName[] = "CGW_Music.wxh";
-#elif defined(HW_DEMO)
+#elif defined(HW_GAME_DEMO)
 char musicHeaderName[] = "DL_Music.wxh";
 #elif defined(HW_RAIDER_RETREAT)
 char musicHeaderName[] = "OEM_Music.wxh";
@@ -440,7 +440,7 @@ sdword speechEventInit(void)
     strcpy(loadfile, SOUNDFXDIR);
 #ifdef HW_COMPUTER_GAMING_WORLD_DEMO
     strcat(loadfile, "CGWsentence.lut");
-#elif defined(HW_DEMO)
+#elif defined(HW_GAME_DEMO)
     strcat(loadfile, "DLsentence.lut");
 #else
     strcat(loadfile, "speechsentence_comp.lut");
@@ -453,14 +453,14 @@ sdword speechEventInit(void)
 	SentenceLUT->numcolumns = FIX_ENDIAN_INT_16( SentenceLUT->numcolumns );
 	SentenceLUT->numevents  = FIX_ENDIAN_INT_16( SentenceLUT->numevents );
 	SentenceLUT->numactors  = FIX_ENDIAN_INT_16( SentenceLUT->numactors );
-#if defined(HW_DEMO)
+#if defined(HW_GAME_DEMO)
 	SentenceLUT->compbitrate[3] = FIX_ENDIAN_INT_16( SentenceLUT->compbitrate[3] );
 #else
 	SentenceLUT->compbitrate[0] = FIX_ENDIAN_INT_16( SentenceLUT->compbitrate[0] );
 	SentenceLUT->compbitrate[1] = FIX_ENDIAN_INT_16( SentenceLUT->compbitrate[1] );
 	SentenceLUT->compbitrate[2] = FIX_ENDIAN_INT_16( SentenceLUT->compbitrate[2] );
 	SentenceLUT->compbitrate[3] = FIX_ENDIAN_INT_16( SentenceLUT->compbitrate[3] );
-#endif // HW_DEMO
+#endif // HW_GAME_DEMO
 	for ( z=0; z< (SentenceLUT->numcolumns*(SentenceLUT->numactors*SentenceLUT->numevents)); z++){
 		SentenceLUT->lookup[z] = FIX_ENDIAN_INT_16( SentenceLUT->lookup[z] );
 	}
@@ -469,7 +469,7 @@ sdword speechEventInit(void)
     strcpy(loadfile, SOUNDFXDIR);
 #ifdef HW_COMPUTER_GAMING_WORLD_DEMO
     strcat(loadfile, "CGWphrase.lut");
-#elif defined(HW_DEMO)
+#elif defined(HW_GAME_DEMO)
     strcat(loadfile, "DLphrase.lut");
 #else
     strcat(loadfile, "speechphrase_comp.lut");
@@ -550,7 +550,7 @@ sdword speechEventInit(void)
         streamhandle[1] = soundstreamcreatebuffer(pspeechbuffer1, buffersize, SentenceLUT->compbitrate[1]);
     pspeechbuffer2 = memAlloc(buffersize, "SpeechBuffer2", NonVolatile);
         streamhandle[2] = soundstreamcreatebuffer(pspeechbuffer2, buffersize, SentenceLUT->compbitrate[2]);
-#if defined(HW_DEMO)
+#if defined(HW_GAME_DEMO)
     pspeechbuffer4 = memAlloc(buffersize, "SpeechBuffer4", NonVolatile);
         streamhandle[4] = soundstreamcreatebuffer(pspeechbuffer4, buffersize, SentenceLUT->compbitrate[0]);
 #else
@@ -626,7 +626,7 @@ void speechEventClose(void)
     memFree(pspeechbuffer0);
     memFree(pspeechbuffer1);
     memFree(pspeechbuffer2);
-#if defined(HW_DEMO)
+#if defined(HW_GAME_DEMO)
     memFree(pspeechbuffer4);
 #else
     memFree(pspeechbuffer3);
@@ -1161,7 +1161,7 @@ sdword SENextVariationInSeries(sdword numVariations, sdword *lookupsy, sdword wi
     udword sequence;
     udword iVariation;
 
-#if defined(HW_DEMO)
+#if defined(HW_GAME_DEMO)
     if (numVariations > 0xf)
     {                                                       //could be the case if this actor is disabled
         return(0);
@@ -2336,7 +2336,7 @@ sdword SEselectactor(void)
 {
     sdword actor;
 
-#if defined(HW_DEMO)
+#if defined(HW_GAME_DEMO)
     actor = (ranRandom(RANDOM_SOUND_GAME_THREAD) % 2) + 1;
 #else
     actor = (ranRandom(RANDOM_SOUND_GAME_THREAD) % 3) + 1;
@@ -2346,7 +2346,7 @@ sdword SEselectactor(void)
     {
         actor++;
 
-#if defined(HW_DEMO)
+#if defined(HW_GAME_DEMO)
             if (actor > 2)
 #else
             if (actor > 3)
@@ -2359,7 +2359,7 @@ sdword SEselectactor(void)
         {
             actor++;
 
-#if defined(HW_DEMO)
+#if defined(HW_GAME_DEMO)
             if (actor > 2)
 #else
             if (actor > 3)
@@ -2673,7 +2673,7 @@ sdword musictranslatetracknum(sdword tracknum)
             }
             break;
     }
-#elif defined(HW_DEMO)
+#elif defined(HW_GAME_DEMO)
     if ((tracknum >= MUS_FIRST_AMBIENT) && (tracknum <= MUS_LAST_BATTLE))
     {
         track = 0;
@@ -3115,7 +3115,7 @@ sdword musicEventUpdateVolume(void)
 }
 
 
-#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_DEMO) || defined(HW_RAIDER_RETREAT)
+#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
 
 void musicEventNextTrack(void)
 {

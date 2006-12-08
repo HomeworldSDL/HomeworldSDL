@@ -2599,7 +2599,7 @@ void lgProcessCallBacksTask(void)
     {
         taskStackSaveCond(0);
 
-#ifdef HW_DEMO
+#ifdef HW_GAME_DEMO
         ;
 #else
         if (TTimerUpdate(&lgAdvertiseMyselfTimer))
@@ -2746,7 +2746,7 @@ void lgProcessCallBacksTask(void)
         }
 
         JustDeletedGameFromGameList[0] = 0;
-#endif //defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_DEMO) || defined(HW_RAIDER_RETREAT)
+#endif //defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
         taskStackRestoreCond();
         taskYield(0);
     }

@@ -52,7 +52,7 @@
 #endif
 
 #define CGW1 0
-#if defined(HW_DEMO)
+#if defined(HW_GAME_DEMO)
 #define SE_NUM_ACTORS		4
 #else
 #define SE_NUM_ACTORS		5

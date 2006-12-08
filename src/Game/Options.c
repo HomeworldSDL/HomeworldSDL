@@ -3138,7 +3138,7 @@ void opEqualizer8(char* name, featom* atom)
 
 void opVoice0(char* name, featom* atom)
 {
-#ifdef HW_DEMO
+#ifdef HW_GAME_DEMO
     featom *hear3;
 #endif
 
@@ -3146,7 +3146,7 @@ void opVoice0(char* name, featom* atom)
     {
         feToggleButtonSet(name, opVoice0On);
 
-#ifdef HW_DEMO
+#ifdef HW_GAME_DEMO
         hear3 = feAtomFindInScreen(feScreenFind("Advanced"),"OP_Hear_Voice_3");
 
         if (hear3 != NULL && hear3->region != NULL)
@@ -3183,7 +3183,7 @@ void opVoice2(char* name, featom* atom)
 {
     if (FEFIRSTCALL(atom))
     {
-#ifdef HW_DEMO
+#ifdef HW_GAME_DEMO
         if (atom != NULL && atom->region != NULL)
         {
             bitSet(((region *)atom->region)->status, RSF_RegionDisabled);

@@ -373,7 +373,7 @@ sdword spScenarioFind(char *scenarioName)
 ----------------------------------------------------------------------------*/
 void spTitleListLoad(void)
 {
-#if !(defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined (HW_DEMO) || defined(HW_RAIDER_RETREAT))
+#if !(defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined (HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT))
 #ifdef _WIN32
     struct _finddata_t find;
     sdword handle, startHandle;
@@ -395,7 +395,7 @@ void spTitleListLoad(void)
     unsigned int i;
 #endif
 
-#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_DEMO)
+#if defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined(HW_GAME_DEMO)
     scriptFile = fileOpen("DemoMissions.script", FF_TextMode);
 #else
     // HW Raider Retreat has all missions!
@@ -478,7 +478,7 @@ alreadyLoaded:;
     }
     fileClose(scriptFile);
 
-#if !(defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined (HW_DEMO) || defined(HW_RAIDER_RETREAT))
+#if !(defined(HW_COMPUTER_GAMING_WORLD_DEMO) || defined (HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT))
 #ifdef _WIN32
     startHandle = handle = _findfirst(filePathPrepend("MultiPlayer\\*.", 0), &find);
 
