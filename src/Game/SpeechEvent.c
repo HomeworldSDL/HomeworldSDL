@@ -237,7 +237,7 @@ char *relicPlayerNames[MAX_RELIC_NAMES] = {
 /* name of music header file */
 #ifdef HW_GAME_DEMO
 char musicHeaderName[] = "DL_Music.wxh";
-#elif defined(HW_RAIDER_RETREAT)
+#elif defined(HW_GAME_RAIDER_RETREAT)
 char musicHeaderName[] = "OEM_Music.wxh";
 #else
 char musicHeaderName[] = "HW_Music.wxh";
@@ -2543,7 +2543,7 @@ void speechEventUnderAttack(Ship *target)
 sdword musictranslatetracknum(sdword tracknum)
 {
     sdword track;
-#ifdef HW_RAIDER_RETREAT
+#ifdef HW_GAME_RAIDER_RETREAT
     switch (tracknum)
     {
         case AMB_Mission1:
@@ -3059,7 +3059,7 @@ sdword musicEventUpdateVolume(void)
 }
 
 
-#if defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT)
+#if defined(HW_GAME_DEMO) || defined(HW_GAME_RAIDER_RETREAT)
 
 void musicEventNextTrack(void)
 {

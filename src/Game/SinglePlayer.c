@@ -58,7 +58,7 @@
 #include "../Missions/Generated/Mission02.h"
 #include "../Missions/Generated/Mission03.h"
 #include "../Missions/Generated/Mission04.h"
-#ifdef HW_RAIDER_RETREAT
+#ifdef HW_GAME_RAIDER_RETREAT
     #include "../Missions/Generated/Mission05_OEM.h"
 #else
     #include "../Missions/Generated/Mission05.h"
@@ -305,7 +305,7 @@ char spMissionsFile[32];
 
 void GetMissionsDirAndFile(sdword mission)
 {
-#ifdef HW_RAIDER_RETREAT
+#ifdef HW_GAME_RAIDER_RETREAT
     if (mission == 5)
     {
 #ifdef _WIN32
@@ -2471,7 +2471,7 @@ void singlePlayerGameUpdate()
             {
                 if (spBinkPlay)
                 {
-#if defined(HW_RAIDER_RETREAT)
+#if defined(HW_GAME_RAIDER_RETREAT)
                     //no animatic between Missions 4 and 5 and thereafter
                     if (singlePlayerGameInfo.currentMission < 4)
 #endif
@@ -2486,7 +2486,7 @@ void singlePlayerGameUpdate()
                         universe.quittime = universe.totaltimeelapsed;
                         utyPlugScreens = TRUE;
                     }
-#elif defined(HW_RAIDER_RETREAT)
+#elif defined(HW_GAME_RAIDER_RETREAT)
                     if (singlePlayerGameInfo.currentMission == 5)
                     {
                         universe.quittime = universe.totaltimeelapsed;
@@ -2914,7 +2914,7 @@ void *WatchFunctionAddress(sdword i)
         case 1:     return &Watch_Mission02;
         case 2:     return &Watch_Mission03;
         case 3:     return &Watch_Mission04;
-#ifdef HW_RAIDER_RETREAT
+#ifdef HW_GAME_RAIDER_RETREAT
         case 4:     return &Watch_Mission05_OEM;
 #else
         case 4:     return &Watch_Mission05;
@@ -2971,7 +2971,7 @@ const void **FunctionListAddress(sdword i)
         case 1:     return Mission02_FunctionPointers;
         case 2:     return Mission03_FunctionPointers;
         case 3:     return Mission04_FunctionPointers;
-#ifdef HW_RAIDER_RETREAT
+#ifdef HW_GAME_RAIDER_RETREAT
         case 4:     return Mission05_OEM_FunctionPointers;
 #else
         case 4:     return Mission05_FunctionPointers;
@@ -3002,7 +3002,7 @@ udword FunctionListSize(sdword i)
         case 1:     return Mission02_FunctionPointerCount;
         case 2:     return Mission03_FunctionPointerCount;
         case 3:     return Mission04_FunctionPointerCount;
-#ifdef HW_RAIDER_RETREAT
+#ifdef HW_GAME_RAIDER_RETREAT
         case 4:     return Mission05_OEM_FunctionPointerCount;
 #else
         case 4:     return Mission05_FunctionPointerCount;
@@ -3051,7 +3051,7 @@ void singlePlayerKasMissionStart(sdword missionnum)
         case 2: kasMissionStart("mission02", Init_Mission02, Watch_Mission02);  break;
         case 3: kasMissionStart("mission03", Init_Mission03, Watch_Mission03);  break;
         case 4: kasMissionStart("mission04", Init_Mission04, Watch_Mission04);  break;
-#ifdef HW_RAIDER_RETREAT
+#ifdef HW_GAME_RAIDER_RETREAT
         case 5: kasMissionStart("mission05_OEM", Init_Mission05_OEM, Watch_Mission05_OEM);  break;
 #else
         case 5: kasMissionStart("mission05", Init_Mission05, Watch_Mission05);  break;

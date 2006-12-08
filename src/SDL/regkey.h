@@ -13,7 +13,7 @@
     #define BASEKEYNAME "SOFTWARE\\Sierra On-Line\\Homeworld Downloadable"
     #define CONFIGDIR ".homeworldDownloadable"
 
-#elif defined(HW_RAIDER_RETREAT)
+#elif defined(HW_GAME_RAIDER_RETREAT)
 
     #define BASEKEYNAME "SOFTWARE\\Sierra On-Line\\Homeworld OEM"
 	

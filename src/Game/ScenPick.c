@@ -373,7 +373,7 @@ sdword spScenarioFind(char *scenarioName)
 ----------------------------------------------------------------------------*/
 void spTitleListLoad(void)
 {
-#if !(defined (HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT))
+#if !(defined (HW_GAME_DEMO) || defined(HW_GAME_RAIDER_RETREAT))
 #ifdef _WIN32
     struct _finddata_t find;
     sdword handle, startHandle;
@@ -478,7 +478,7 @@ alreadyLoaded:;
     }
     fileClose(scriptFile);
 
-#if !(defined (HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT))
+#if !(defined (HW_GAME_DEMO) || defined(HW_GAME_RAIDER_RETREAT))
 #ifdef _WIN32
     startHandle = handle = _findfirst(filePathPrepend("MultiPlayer\\*.", 0), &find);
 

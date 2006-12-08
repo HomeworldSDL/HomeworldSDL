@@ -281,13 +281,13 @@ bool mainCDCheckEnabled = TRUE;
 
 #if defined(HW_GAME_DEMO)
 char networkVersion[MAX_NETWORKVERSION_STRING_LEN] =   "DLD_05";
-#elif defined(HW_RAIDER_RETREAT)
+#elif defined(HW_GAME_RAIDER_RETREAT)
 char networkVersion[MAX_NETWORKVERSION_STRING_LEN] =   "OEMV1";
 #else
 char networkVersion[MAX_NETWORKVERSION_STRING_LEN] =   "HomeworldV1C";
 #endif
 
-#if defined(HW_RAIDER_RETREAT)
+#if defined(HW_GAME_RAIDER_RETREAT)
 char minorBuildVersion[] = "051";
 #else
 char minorBuildVersion[] = "06.1";

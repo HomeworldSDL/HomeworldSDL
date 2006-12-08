@@ -3955,7 +3955,7 @@
 				GCC_PREFIX_HEADER = Homeworld_Prefix.h;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					HW_Release,
-					HW_RAIDER_RETREAT,
+					HW_GAME_RAIDER_RETREAT,
 					C_ONLY,
 					_MACOSX,
 					_MACOSX_FIX_ME,
@@ -3998,7 +3998,7 @@
 				GCC_PREFIX_HEADER = Homeworld_Prefix.h;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					HW_Release,
-					HW_RAIDER_RETREAT,
+					HW_GAME_RAIDER_RETREAT,
 					C_ONLY,
 					_MACOSX,
 					_MACOSX_FIX_ME,

@@ -7503,7 +7503,7 @@ bool univUpdate(real32 phystimeelapsed)
             // quit the game here
             spMainScreen();
 
-#if (defined(HW_GAME_DEMO) || defined(HW_RAIDER_RETREAT))
+#if (defined(HW_GAME_DEMO) || defined(HW_GAME_RAIDER_RETREAT))
             if ((singlePlayerGame) && (!(utyCreditsSequence|utyPlugScreens)))
 #else
             if ((singlePlayerGame) && (!(utyCreditsSequence)))
