@@ -3,7 +3,7 @@
 Homeworld SDL - Source Installation Instructions 
  Version 0.3 alpha? (still?)
  Subversion repository: http://www.homeworldsdl.org
- Current Subversion revision as of this writing: 190
+ Current Subversion revision as of this update: 391
 
 Homeworld SDL maintainer: 
  Laurence Passmore <lmop@homeworldsdl.org> 
@@ -58,17 +58,11 @@ You need to have at least the following packages installed:
 
 	* See also: -If you're compiling libsdl-
 
-The build process itself is relatively straightforward. Running the bootstrap script found in this directory with "./bootstrap" will set up the files needed and then doing "../configure" (that's "period period slash configure") followed by "make" will build the required files and then the binary.
-
-If you have GCC 4 or later on your system you will need to tell it to use an earlier version of itself. One method of doing this under Linux is to use the PATH option when giving the compile orders, and giving your particular GCC 3.3 or 3.4 binary in the path. 
-
-For example, if your system's GCC 3.3 is gcc-3.3.6 then you can enter:
+The build process itself is relatively straightforward. Running the bootstrap script found in this directory with "./bootstrap" will set up the files needed and then doing "../configure" (that's "period period slash configure") followed by "make" will build the required files and then the binary. Type "../configure --help" for more information on build options.
 
  ./bootstrap
- CC=gcc-3.3.6 ../configure 
+ ../configure 
  make
-
-This assumes that gcc-3.3.6 is in your path. If it isn't, you should supply the full path to where your gcc-3.3.6 binary has been installed... and off you go. 
 
 If "make" is successful then the "homeworld' binary will be located in the "src" directory created just now within the "Linux" directory. 
 
