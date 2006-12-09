@@ -502,13 +502,13 @@ void GenericInterceptorPassiveAttack(Ship *ship,Ship *target,bool rotate)
             if(command->ordertype.order == COMMAND_NULL)
             {
                 //command group is doint nothing but passive attacking
-                if(command->ordertype.attributes & COMMAND_IS_FORMATION)
+                if(command->ordertype.attributes & COMMAND_MASK_FORMATION)
                 {
                     if(command->selection->ShipPtr[0] != ship)
                         return; //not leader..so return! so we only move leader
                 }
-                if(command->ordertype.attributes & COMMAND_IS_HOLDING_PATTERN ||
-                   command->ordertype.attributes & COMMAND_IS_PROTECTING)
+                if(command->ordertype.attributes & COMMAND_MASK_HOLDING_PATTERN ||
+                   command->ordertype.attributes & COMMAND_MASK_PROTECTING)
                 {
                     return;  //if doing either of these things...we don't want to back up
                 }

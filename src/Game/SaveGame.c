@@ -3170,18 +3170,18 @@ void Save_CommandToDo(CommandToDo *command)
     dbgAssertOrIgnore(command->selection);
     SaveSelection((SpaceObjSelection *)command->selection);
 
-    if (command->ordertype.attributes & COMMAND_IS_FORMATION)
+    if (command->ordertype.attributes & COMMAND_MASK_FORMATION)
     {
         SaveFormation(&command->formation);
     }
 
-    if (command->ordertype.attributes & COMMAND_IS_PROTECTING)
+    if (command->ordertype.attributes & COMMAND_MASK_PROTECTING)
     {
         dbgAssertOrIgnore(command->protect);
         SaveSelection((SpaceObjSelection *)command->protect);
     }
 
-    if (command->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
+    if (command->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING)
     {
         dbgAssertOrIgnore(command->ordertype.order != COMMAND_ATTACK);
         dbgAssertOrIgnore(command->attack);
@@ -3197,7 +3197,7 @@ void Save_CommandToDo(CommandToDo *command)
 
         case COMMAND_ATTACK:
             // save
-            dbgAssertOrIgnore((command->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING) == NULL);
+            dbgAssertOrIgnore((command->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING) == NULL);
             dbgAssertOrIgnore(command->attack);
             SaveSelection((SpaceObjSelection *)command->attack);
             break;
@@ -3293,17 +3293,17 @@ void Load_CommandToDo(LinkedList *list)
 
     command->selection = (SelectCommand *)LoadSelectionAndFix();
 
-    if (command->ordertype.attributes & COMMAND_IS_FORMATION)
+    if (command->ordertype.attributes & COMMAND_MASK_FORMATION)
     {
         LoadFormation(&command->formation);
     }
 
-    if (command->ordertype.attributes & COMMAND_IS_PROTECTING)
+    if (command->ordertype.attributes & COMMAND_MASK_PROTECTING)
     {
         command->protect = (ProtectCommand *)LoadSelectionAndFix();
     }
 
-    if (command->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
+    if (command->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING)
     {
         dbgAssertOrIgnore(command->ordertype.order != COMMAND_ATTACK);
         command->attack = (AttackCommand *)LoadSelectionAndFix();
@@ -3318,7 +3318,7 @@ void Load_CommandToDo(LinkedList *list)
 
         case COMMAND_ATTACK:
             // load
-            dbgAssertOrIgnore((command->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING) == NULL);
+            dbgAssertOrIgnore((command->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING) == NULL);
             command->attack = (AttackCommand *)LoadSelectionAndFix();
             break;
 

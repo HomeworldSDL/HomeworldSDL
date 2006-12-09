@@ -83,12 +83,12 @@ bool gunCanShoot(Ship *ship, Gun *gun)
     {
         if(command != NULL)
         {
-            if(command->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING &&
+            if(command->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING &&
                !ship->staticinfo->passiveAttackPenaltyExempt)
             {
                 //ship is passive attacking, so lets limit its gun fire time
-                if(command->ordertype.attributes & COMMAND_IS_PROTECTING &&
-                   command->ordertype.attributes & COMMAND_IS_FORMATION &&
+                if(command->ordertype.attributes & COMMAND_MASK_PROTECTING &&
+                   command->ordertype.attributes & COMMAND_MASK_FORMATION &&
                    command->formation.formationtype == SPHERE_FORMATION)
                 {
                     goto dontdospecialpassivefix;
@@ -164,12 +164,12 @@ readystate:
 
         if(command != NULL)
         {
-            if(command->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING
+            if(command->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING
                 && !ship->staticinfo->passiveAttackPenaltyExempt)
             {
                 //ship is passive attacking, so lets limit its gun fire time
-                if(command->ordertype.attributes & COMMAND_IS_PROTECTING &&
-                   command->ordertype.attributes & COMMAND_IS_FORMATION &&
+                if(command->ordertype.attributes & COMMAND_MASK_PROTECTING &&
+                   command->ordertype.attributes & COMMAND_MASK_FORMATION &&
                    command->formation.formationtype == SPHERE_FORMATION)
                 {
                     goto dontdospecialpassivefix2;

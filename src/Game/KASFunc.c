@@ -1710,7 +1710,7 @@ sdword kasfUnderAttackElsewhere(struct AITeam *otherTeam, GrowSelection *attacke
         command = (CommandToDo *)listGetStructOfNode(curnode);
 
         if ((command->ordertype.order == COMMAND_ATTACK) ||
-            (command->ordertype.attributes & (COMMAND_IS_PASSIVE_ATTACKING|COMMAND_IS_ATTACKING_AND_MOVING)))
+            (command->ordertype.attributes & (COMMAND_MASK_PASSIVE_ATTACKING|COMMAND_MASK_ATTACKING_AND_MOVING)))
         {
             if (command->attack)
             {

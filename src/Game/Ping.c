@@ -938,7 +938,7 @@ void pingAttackPingsCreate(blob *superBlob)
 
             if ((command != NULL) &&
                 ((command->ordertype.order == COMMAND_ATTACK)))// ||
-                 //(command->ordertype.attributes & COMMAND_IS_ATTACKING_AND_MOVING|COMMAND_IS_PASSIVE_ATTACKING)))
+                 //(command->ordertype.attributes & COMMAND_MASK_ATTACKING_AND_MOVING|COMMAND_MASK_PASSIVE_ATTACKING)))
             {                                               //if it's a valid attack command
                 if (universe.totaltimeelapsed != command->pingUpdateTime || battlePing != command->updatedPing)
                 {                                           //if this command has not already been added to this ping

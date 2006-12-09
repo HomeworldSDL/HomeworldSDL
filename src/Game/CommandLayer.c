@@ -1064,7 +1064,7 @@ bool processAttackToDo(CommandToDo *attacktodo)
                 }
             }
             ///////////////
-            attacktodo->ordertype.attributes |= COMMAND_IS_HOLDING_PATTERN;
+            attacktodo->ordertype.attributes |= COMMAND_MASK_HOLDING_PATTERN;
             return TRUE;    //return to do the holding pattern
         }
         alldone = TRUE;
@@ -1100,7 +1100,7 @@ bool processAttackToDo(CommandToDo *attacktodo)
 
     if((tacticsInfo.tacticsGuardConditionCheckRate & universe.univUpdateCounter) == tacticsInfo.tacticsGuardConditionCheckFrame)
     {
-        if(attacktodo->ordertype.attributes & COMMAND_IS_PROTECTING)
+        if(attacktodo->ordertype.attributes & COMMAND_MASK_PROTECTING)
         if(tacticsCheckGuardConditionsDuringAttack(attacktodo))
         {
             for (i=0;i<numShips;i++)
@@ -1112,7 +1112,7 @@ bool processAttackToDo(CommandToDo *attacktodo)
     }
 
     attackAndMoving = FALSE;
-    if(attacktodo->ordertype.attributes & COMMAND_IS_ATTACKING_AND_MOVING)
+    if(attacktodo->ordertype.attributes & COMMAND_MASK_ATTACKING_AND_MOVING)
     {
         //specialized movement + combat
         attackAndMoving = TRUE;             //set flag for future movement reference
@@ -1584,7 +1584,7 @@ bool delegateCommand(CommandToDo *attacktodo,sdword group,sdword doform, SelectC
     formationLeader = selection->ShipPtr[0];   //set leader ship
 
     attackAndMoving = FALSE;
-    if(attacktodo->ordertype.attributes & COMMAND_IS_ATTACKING_AND_MOVING)
+    if(attacktodo->ordertype.attributes & COMMAND_MASK_ATTACKING_AND_MOVING)
     {
         //specialized movement + combat
         attackAndMoving = TRUE;             //set flag for future movement reference
@@ -2141,7 +2141,7 @@ bool processAttackToDoInFormation(CommandToDo *attacktodo)
 
             ///////////////
 
-            attacktodo->ordertype.attributes |= COMMAND_IS_HOLDING_PATTERN;
+            attacktodo->ordertype.attributes |= COMMAND_MASK_HOLDING_PATTERN;
             return TRUE;    //return to do the holding pattern
         }
         alldone = TRUE;
@@ -2178,7 +2178,7 @@ bool processAttackToDoInFormation(CommandToDo *attacktodo)
 
     if((tacticsInfo.tacticsGuardConditionCheckRate & universe.univUpdateCounter) == tacticsInfo.tacticsGuardConditionCheckFrame)
     {
-        if(attacktodo->ordertype.attributes & COMMAND_IS_PROTECTING)
+        if(attacktodo->ordertype.attributes & COMMAND_MASK_PROTECTING)
         if(tacticsCheckGuardConditionsDuringAttack(attacktodo))
         {
             for (i=0;i<selection->numShips;i++)
@@ -2767,7 +2767,7 @@ bool processMoveToDo(CommandToDo *movetodo,bool passiveAttacked)
         }
         else
         {
-            if(movetodo->ordertype.attributes & COMMAND_IS_ATTACKING_AND_MOVING)
+            if(movetodo->ordertype.attributes & COMMAND_MASK_ATTACKING_AND_MOVING)
             {
                 dontrotate = TRUE;
             }
@@ -2796,7 +2796,7 @@ bool processMoveToDo(CommandToDo *movetodo,bool passiveAttacked)
                     ship->aistatecommand = 1;
                     vecZeroVector(ship->moveTo);
                     vecZeroVector(ship->moveFrom);
-                    if(movetodo->ordertype.attributes & COMMAND_IS_ATTACKING_AND_MOVING)
+                    if(movetodo->ordertype.attributes & COMMAND_MASK_ATTACKING_AND_MOVING)
                     {
                         for(j=1;j<movetodo->selection->numShips;j++)
                         {
@@ -2815,7 +2815,7 @@ bool processMoveToDo(CommandToDo *movetodo,bool passiveAttacked)
                         ship->aistatecommand = 1;
                         vecZeroVector(ship->moveTo);
                         vecZeroVector(ship->moveFrom);
-                        if(movetodo->ordertype.attributes & COMMAND_IS_ATTACKING_AND_MOVING)
+                        if(movetodo->ordertype.attributes & COMMAND_MASK_ATTACKING_AND_MOVING)
                         {
                             for(j=1;j<movetodo->selection->numShips;j++)
                             {
@@ -2910,7 +2910,7 @@ bool processMoveLeaderToDo(CommandToDo *movetodo,bool passiveAttacked)
                 vecZeroVector(ship->moveTo);
                 vecZeroVector(ship->moveFrom);
 
-                if(movetodo->ordertype.attributes & COMMAND_IS_ATTACKING_AND_MOVING)
+                if(movetodo->ordertype.attributes & COMMAND_MASK_ATTACKING_AND_MOVING)
                 {
                     for(j=1;j<movetodo->selection->numShips;j++)
                     {
@@ -2930,7 +2930,7 @@ bool processMoveLeaderToDo(CommandToDo *movetodo,bool passiveAttacked)
                     vecZeroVector(ship->moveTo);
                     vecZeroVector(ship->moveFrom);
                     ship->aistatecommand = 1;
-                    if(movetodo->ordertype.attributes & COMMAND_IS_ATTACKING_AND_MOVING)
+                    if(movetodo->ordertype.attributes & COMMAND_MASK_ATTACKING_AND_MOVING)
                     {
                         for(j=1;j<movetodo->selection->numShips;j++)
                         {
@@ -3043,25 +3043,25 @@ void CollectResourceCleanup(CommandToDo *command)
 
 void FreeCommandToDoContents(CommandToDo *command)
 {
-    if (command->ordertype.attributes & COMMAND_IS_PROTECTING)
+    if (command->ordertype.attributes & COMMAND_MASK_PROTECTING)
     {
         memFree(command->protect);
-        bitClear(command->ordertype.attributes,COMMAND_IS_PROTECTING);
+        bitClear(command->ordertype.attributes,COMMAND_MASK_PROTECTING);
     }
 
-    if (command->ordertype.attributes & COMMAND_IS_FORMATION)
+    if (command->ordertype.attributes & COMMAND_MASK_FORMATION)
     {
         FormationCleanup(command);
-        bitClear(command->ordertype.attributes,COMMAND_IS_FORMATION);
+        bitClear(command->ordertype.attributes,COMMAND_MASK_FORMATION);
     }
 
-    if (command->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
+    if (command->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING)
     {
         dbgAssertOrIgnore(command->ordertype.order != COMMAND_ATTACK);
         AttackCleanup(command);
         dbgAssertOrIgnore(command->attack);
         memFree(command->attack);
-        bitClear(command->ordertype.attributes,COMMAND_IS_PASSIVE_ATTACKING);
+        bitClear(command->ordertype.attributes,COMMAND_MASK_PASSIVE_ATTACKING);
     }
 
     //report dead command to tactics layer
@@ -3180,13 +3180,13 @@ void FreeLastOrder(CommandToDo *command)
     }
     if(!dontClearHoldingPattern)
     {
-        bitClear(command->ordertype.attributes,COMMAND_IS_HOLDING_PATTERN);
+        bitClear(command->ordertype.attributes,COMMAND_MASK_HOLDING_PATTERN);
     }
 }
 
 void ClearPassiveAttacking(CommandToDo *command)
 {
-    bitClear(command->ordertype.attributes,COMMAND_IS_PASSIVE_ATTACKING);
+    bitClear(command->ordertype.attributes,COMMAND_MASK_PASSIVE_ATTACKING);
     AttackCleanup(command);
     dbgAssertOrIgnore(command->attack);
     memFree(command->attack);
@@ -3201,7 +3201,7 @@ void ClearPassiveAttacking(CommandToDo *command)
     if(command->ordertype.order == COMMAND_NULL)
     {
         //command is a NULL command
-        if(command->ordertype.attributes & COMMAND_IS_FORMATION)
+        if(command->ordertype.attributes & COMMAND_MASK_FORMATION)
         {
             //command is a NULL command and in FORMATION
             //There for the formation had to be locked
@@ -3216,12 +3216,12 @@ void ClearPassiveAttacking(CommandToDo *command)
 
 void ClearProtecting(CommandToDo *command)
 {
-    bitClear(command->ordertype.attributes,COMMAND_IS_PROTECTING);
+    bitClear(command->ordertype.attributes,COMMAND_MASK_PROTECTING);
     dbgAssertOrIgnore(command->protect);
     memFree(command->protect);
     command->protect = NULL;
 
-    if (command->ordertype.attributes & COMMAND_IS_FORMATION)
+    if (command->ordertype.attributes & COMMAND_MASK_FORMATION)
     {
 //        command->formation.formAroundProtectedShip = FALSE;
         if ((command->formation.formationtype == SPHERE_FORMATION) && (command->selection->numShips > 0))
@@ -3260,7 +3260,7 @@ void RemoveShipsFromDoingStuff(CommandLayer *comlayer,SelectCommand *selectcom)
         {
             shiptoremove = selectcom->ShipPtr[i];
 
-            if (todo->ordertype.attributes & COMMAND_IS_FORMATION)
+            if (todo->ordertype.attributes & COMMAND_MASK_FORMATION)
             {
                 sdword removedShipFromFormation;
                 if ((removedShipFromFormation = formationRemoveShipFromSelection(todo,shiptoremove)) >= 0)
@@ -3268,7 +3268,7 @@ void RemoveShipsFromDoingStuff(CommandLayer *comlayer,SelectCommand *selectcom)
                     RemoveShipFromCommand(shiptoremove);
                     RemoveShipFromFormation(shiptoremove);
 
-                    if ((todo->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING) || (todo->ordertype.order == COMMAND_ATTACK))
+                    if ((todo->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING) || (todo->ordertype.order == COMMAND_ATTACK))
                     {
                         RemoveShipFromAttacking(shiptoremove);
                         RemoveShipReferencesFromExtraAttackInfo(shiptoremove,todo);
@@ -3378,7 +3378,7 @@ void RemoveShipsFromDoingStuff(CommandLayer *comlayer,SelectCommand *selectcom)
                         if (clRemoveShipFromSelection(todoselection,shiptoremove))
                         {
                             RemoveShipFromCommand(shiptoremove);
-                            if (todo->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
+                            if (todo->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING)
                             {
                                 RemoveShipFromAttacking(shiptoremove);
                                 RemoveShipReferencesFromExtraAttackInfo(shiptoremove,todo);
@@ -3403,7 +3403,7 @@ void RemoveShipsFromDoingStuff(CommandLayer *comlayer,SelectCommand *selectcom)
                         {
                             RemoveShipFromCommand(shiptoremove);
 
-                            if (todo->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
+                            if (todo->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING)
                             {
                                 RemoveShipFromAttacking(shiptoremove);
                                 RemoveShipReferencesFromExtraAttackInfo(shiptoremove,todo);
@@ -3423,7 +3423,7 @@ void RemoveShipsFromDoingStuff(CommandLayer *comlayer,SelectCommand *selectcom)
                     case COMMAND_SPECIAL:
                         if (clRemoveShipFromSelection(todoselection,shiptoremove))
                         {
-                            dbgAssertOrIgnore((todo->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING) == 0);
+                            dbgAssertOrIgnore((todo->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING) == 0);
 
                             RemoveShipFromCommand(shiptoremove);
                             RemoveShipFromSpecial(shiptoremove);
@@ -3444,7 +3444,7 @@ void RemoveShipsFromDoingStuff(CommandLayer *comlayer,SelectCommand *selectcom)
                         {
                             RemoveShipFromCommand(shiptoremove);
 
-                            if (todo->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
+                            if (todo->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING)
                             {
                                 RemoveShipFromAttacking(shiptoremove);
                                 RemoveShipReferencesFromExtraAttackInfo(shiptoremove,todo);
@@ -3468,7 +3468,7 @@ void RemoveShipsFromDoingStuff(CommandLayer *comlayer,SelectCommand *selectcom)
                         {
                             RemoveShipFromCommand(shiptoremove);
 
-                            if (todo->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
+                            if (todo->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING)
                             {
                                 RemoveShipFromAttacking(shiptoremove);
                                 RemoveShipReferencesFromExtraAttackInfo(shiptoremove,todo);
@@ -3491,7 +3491,7 @@ void RemoveShipsFromDoingStuff(CommandLayer *comlayer,SelectCommand *selectcom)
                         {
                             RemoveShipFromCommand(shiptoremove);
 
-                            if (todo->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
+                            if (todo->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING)
                             {
                                 RemoveShipFromAttacking(shiptoremove);
                                 RemoveShipReferencesFromExtraAttackInfo(shiptoremove,todo);
@@ -3564,7 +3564,7 @@ void clDerelictDied(CommandLayer *comlayer,DerelictPtr derelict)
     {
         todo = (CommandToDo *)listGetStructOfNode(todonode);
 
-        if (todo->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
+        if (todo->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING)
         {
             dbgAssertOrIgnore(todo->ordertype.order != COMMAND_ATTACK);
             if (clRemoveTargetFromSelection(todo->attack,(SpaceObjRotImpTarg *)derelict))
@@ -3628,7 +3628,7 @@ void clResourceDied(CommandLayer *comlayer,ResourcePtr resource)
     {
         todo = (CommandToDo *)listGetStructOfNode(todonode);
 
-        if (todo->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
+        if (todo->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING)
         {
             dbgAssertOrIgnore(todo->ordertype.order != COMMAND_ATTACK);
             if (clRemoveTargetFromSelection(todo->attack,(SpaceObjRotImpTarg *)resource))
@@ -3937,7 +3937,7 @@ void RemoveShipFromBeingTargeted(CommandLayer *comlayer,ShipPtr shiptoremove,udw
 
         if(REMOVE_PROTECT_FLAG)
         {
-            if (todo->ordertype.attributes & COMMAND_IS_PROTECTING)
+            if (todo->ordertype.attributes & COMMAND_MASK_PROTECTING)
             {
                 if ( SHIP_DISAPPEARED_FLAG ||
                    (!(CLOAKED_REMOVAL_FLAG &&
@@ -3964,7 +3964,7 @@ void RemoveShipFromBeingTargeted(CommandLayer *comlayer,ShipPtr shiptoremove,udw
                 }
             }
         }
-        if (todo->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
+        if (todo->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING)
         {
             dbgAssertOrIgnore(todo->ordertype.order != COMMAND_ATTACK);
             if ( SHIP_DISAPPEARED_FLAG ||
@@ -4448,12 +4448,12 @@ void ChangeOrderToMove(CommandToDo *alreadycommand,vector from,vector to)
     SelectCommand *selectcom = alreadycommand->selection;
     sdword i,j;
 
-    if (alreadycommand->ordertype.attributes & COMMAND_IS_PROTECTING)
+    if (alreadycommand->ordertype.attributes & COMMAND_MASK_PROTECTING)
     {
         ClearProtecting(alreadycommand);
     }
 
-    if (alreadycommand->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
+    if (alreadycommand->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING)
     {
         ClearPassiveAttacking(alreadycommand);
     }
@@ -4488,7 +4488,7 @@ void ChangeOrderToMove(CommandToDo *alreadycommand,vector from,vector to)
                 }
                 RemoveShipsFromDoingStuff(&universe.mainCommandLayer,(SelectCommand *)&tempSelection);
                 clMoveThese(&universe.mainCommandLayer,(SelectCommand *)&tempSelection,from,to);
-                if(alreadycommand->ordertype.attributes & COMMAND_IS_FORMATION)
+                if(alreadycommand->ordertype.attributes & COMMAND_MASK_FORMATION)
                 {
                     clFormation(&universe.mainCommandLayer,(SelectCommand *)&tempSelection,alreadycommand->formation.formationtype);
                 }
@@ -4501,7 +4501,7 @@ StillDoAttackMoveWithCapitals:
             //just capital ships in selection
             if(!bitTest(alreadycommand->selection->ShipPtr[0]->specialFlags,SPECIAL_ATTACKMOVECANCEL))
             {
-                alreadycommand->ordertype.attributes |= COMMAND_IS_ATTACKING_AND_MOVING;
+                alreadycommand->ordertype.attributes |= COMMAND_MASK_ATTACKING_AND_MOVING;
                 alreadycommand->move.destination = to;
                 vecSub(alreadycommand->move.heading,to,from);
                 vecNormalize(&alreadycommand->move.heading);
@@ -4544,7 +4544,7 @@ StillDoAttackMoveWithCapitals:
     vecSub(alreadycommand->move.heading,to,from);
     vecNormalize(&alreadycommand->move.heading);
 
-    if (alreadycommand->ordertype.attributes & COMMAND_IS_FORMATION)
+    if (alreadycommand->ordertype.attributes & COMMAND_MASK_FORMATION)
     {
         InitShipAI(selectcom->ShipPtr[0],TRUE);
     }
@@ -4664,7 +4664,7 @@ void clMoveThese(CommandLayer *comlayer,SelectCommand *selectcom,vector from,vec
                     }
                     targetSelection.numTargets = currentShipCommand->attack->numTargets;
 
-                    if(currentShipCommand->ordertype.attributes & COMMAND_IS_FORMATION)
+                    if(currentShipCommand->ordertype.attributes & COMMAND_MASK_FORMATION)
                     {
                         formation = currentShipCommand->formation.formationtype;
                         needFormation = TRUE;
@@ -4822,11 +4822,11 @@ void ChangeOrderToHyperSpace(CommandToDo *alreadycommand,vector from,vector to)
 {
     SelectCommand *selectcom = alreadycommand->selection;
 
-    if (alreadycommand->ordertype.attributes & COMMAND_IS_PROTECTING)
+    if (alreadycommand->ordertype.attributes & COMMAND_MASK_PROTECTING)
     {
         ClearProtecting(alreadycommand);
     }
-    if (alreadycommand->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
+    if (alreadycommand->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING)
     {
         ClearPassiveAttacking(alreadycommand);
     }
@@ -4851,7 +4851,7 @@ void ChangeOrderToHyperSpace(CommandToDo *alreadycommand,vector from,vector to)
     vecSub(alreadycommand->move.heading,to,from);
     vecNormalize(&alreadycommand->move.heading);
 
-    if (alreadycommand->ordertype.attributes & COMMAND_IS_FORMATION)
+    if (alreadycommand->ordertype.attributes & COMMAND_MASK_FORMATION)
     {
         InitShipAI(selectcom->ShipPtr[0],TRUE);
     }
@@ -5179,9 +5179,9 @@ void AttackCleanup(struct CommandToDo *attacktodo)
     sdword numShips = selection->numShips;
     bool clearmove = TRUE;
 
-    if (bitTest(attacktodo->ordertype.attributes,COMMAND_IS_ATTACKING_AND_MOVING))
+    if (bitTest(attacktodo->ordertype.attributes,COMMAND_MASK_ATTACKING_AND_MOVING))
     {
-        bitClear(attacktodo->ordertype.attributes,COMMAND_IS_ATTACKING_AND_MOVING);
+        bitClear(attacktodo->ordertype.attributes,COMMAND_MASK_ATTACKING_AND_MOVING);
     }
 
     if(attacktodo->ordertype.order == COMMAND_MOVE)
@@ -5190,7 +5190,7 @@ void AttackCleanup(struct CommandToDo *attacktodo)
     }
 
 
-    if(attacktodo->ordertype.attributes & COMMAND_IS_FORMATION)
+    if(attacktodo->ordertype.attributes & COMMAND_MASK_FORMATION)
     {
 #ifdef DEBUG_TACTICS
         if(tacticsOn)
@@ -5902,7 +5902,7 @@ void ChangeOrderToAttack(CommandToDo *alreadycommand,AttackCommand *attackcom)
     SelectCommand *selection = alreadycommand->selection;
     bool dontresetattack = FALSE;
 
-    if (alreadycommand->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
+    if (alreadycommand->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING)
     {
         ClearPassiveAttacking(alreadycommand);
     }
@@ -5916,9 +5916,9 @@ void ChangeOrderToAttack(CommandToDo *alreadycommand,AttackCommand *attackcom)
     {
         if (SelectionsAreTotallyEquivalent((SelectCommand *)alreadycommand->attack,(SelectCommand *)attackcom))
         {
-            if(alreadycommand->ordertype.attributes & COMMAND_IS_ATTACKING_AND_MOVING)
+            if(alreadycommand->ordertype.attributes & COMMAND_MASK_ATTACKING_AND_MOVING)
             {
-                bitClear(alreadycommand->ordertype.attributes,COMMAND_IS_ATTACKING_AND_MOVING);
+                bitClear(alreadycommand->ordertype.attributes,COMMAND_MASK_ATTACKING_AND_MOVING);
             }
             return;
         }
@@ -5947,7 +5947,7 @@ void ChangeOrderToAttack(CommandToDo *alreadycommand,AttackCommand *attackcom)
     alreadycommand->ordertype.order = COMMAND_ATTACK;
     alreadycommand->attack = attack;
 
-    if (alreadycommand->ordertype.attributes & COMMAND_IS_FORMATION)
+    if (alreadycommand->ordertype.attributes & COMMAND_MASK_FORMATION)
     {
         alreadycommand->formation.doneInitialAttack = FALSE;
     }
@@ -6003,7 +6003,7 @@ CommandToDo *clAttackThese(CommandLayer *comlayer,SelectCommand *selectcom,Attac
 
     if ((alreadycommand = IsSelectionAlreadyDoingSomething(comlayer,selectcom)) != NULL)
     {
-        if (alreadycommand->ordertype.attributes & COMMAND_IS_PROTECTING)
+        if (alreadycommand->ordertype.attributes & COMMAND_MASK_PROTECTING)
         {
             ClearProtecting(alreadycommand);
         }
@@ -6112,7 +6112,7 @@ void clAttack(CommandLayer *comlayer,SelectCommand *selectcom,AttackCommand *att
         {
             MakeShipsNotIncludeTheseShips(copycom,command->selection);
 
-            if (command->ordertype.attributes & COMMAND_IS_PROTECTING)
+            if (command->ordertype.attributes & COMMAND_MASK_PROTECTING)
             {
                 ClearProtecting(command);
             }
@@ -6149,12 +6149,12 @@ void clAttack(CommandLayer *comlayer,SelectCommand *selectcom,AttackCommand *att
 ----------------------------------------------------------------------------*/
 bool canChangeOrderToPassiveAttack(CommandToDo *alreadycommand,AttackCommand *attack)
 {
-    if (alreadycommand->ordertype.attributes & COMMAND_IS_HOLDING_PATTERN)
+    if (alreadycommand->ordertype.attributes & COMMAND_MASK_HOLDING_PATTERN)
     {
         return FALSE;
     }
 
-    if (alreadycommand->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
+    if (alreadycommand->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING)
     {
         if ((alreadycommand->attack == NULL) || (attack == NULL))
         {
@@ -6240,8 +6240,8 @@ void ChangeOrderToPassiveAttack(CommandToDo *alreadycommand,AttackCommand *attac
 
     InitExtraAttackInfo(selection,attack,FALSE);
 
-    alreadycommand->ordertype.attributes |= COMMAND_IS_PASSIVE_ATTACKING;
-    bitClear(alreadycommand->ordertype.attributes,COMMAND_IS_HOLDING_PATTERN);      // don't do holding pattern if passive attacking
+    alreadycommand->ordertype.attributes |= COMMAND_MASK_PASSIVE_ATTACKING;
+    bitClear(alreadycommand->ordertype.attributes,COMMAND_MASK_HOLDING_PATTERN);      // don't do holding pattern if passive attacking
     alreadycommand->attack = attack;
 
     InitShipsForAI(alreadycommand->selection,FALSE);
@@ -6251,7 +6251,7 @@ void ChangeOrderToPassiveAttack(CommandToDo *alreadycommand,AttackCommand *attac
     //setup formation properly here
     if(alreadycommand->ordertype.order == COMMAND_NULL)
     {
-        if(alreadycommand->ordertype.attributes & COMMAND_IS_FORMATION)
+        if(alreadycommand->ordertype.attributes & COMMAND_MASK_FORMATION)
         {
             //NULL command and in formation
             lockFormation(alreadycommand,0);
@@ -6339,7 +6339,7 @@ void clPassiveAttack(CommandLayer *comlayer,SelectCommand *selectcom,AttackComma
 
     newcommand->selection = selection;
     newcommand->ordertype.order = COMMAND_NULL;
-    newcommand->ordertype.attributes = COMMAND_IS_PASSIVE_ATTACKING;
+    newcommand->ordertype.attributes = COMMAND_MASK_PASSIVE_ATTACKING;
     newcommand->attack = attack;
 
     InitShipsForAI(selection,FALSE);
@@ -6361,12 +6361,12 @@ void ChangeOrderToSpecial(CommandToDo *alreadycommand,SpecialCommand *targets)
     SpecialCommand *specialtargets;
     udword sizeofspecialtargets;
 
-    if (alreadycommand->ordertype.attributes & COMMAND_IS_PROTECTING)
+    if (alreadycommand->ordertype.attributes & COMMAND_MASK_PROTECTING)
     {
         ClearProtecting(alreadycommand);
     }
 
-    if (alreadycommand->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
+    if (alreadycommand->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING)
     {
         ClearPassiveAttacking(alreadycommand);
     }
@@ -6733,18 +6733,18 @@ void clSetKamikaze(CommandLayer *comlayer,SelectCommand *selectcom)
 ----------------------------------------------------------------------------*/
 void ChangeOrderToHalt(CommandToDo *alreadycommand)
 {
-    if (alreadycommand->ordertype.attributes & COMMAND_IS_PROTECTING)
+    if (alreadycommand->ordertype.attributes & COMMAND_MASK_PROTECTING)
     {
         ClearProtecting(alreadycommand);
     }
-    if (alreadycommand->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
+    if (alreadycommand->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING)
     {
         ClearPassiveAttacking(alreadycommand);
     }
 
-    if (alreadycommand->ordertype.attributes & COMMAND_IS_ATTACKING_AND_MOVING)
+    if (alreadycommand->ordertype.attributes & COMMAND_MASK_ATTACKING_AND_MOVING)
     {
-        bitClear(alreadycommand->ordertype.attributes,COMMAND_IS_ATTACKING_AND_MOVING);
+        bitClear(alreadycommand->ordertype.attributes,COMMAND_MASK_ATTACKING_AND_MOVING);
     }
 
     FreeLastOrder(alreadycommand);
@@ -7575,7 +7575,7 @@ bool FindShipsWereGuarding(CommandToDo *originalus,SelectCommand *us,GrowSelecti
     {
         ship = us->ShipPtr[i];
         shipcommand = ship->command;
-        if (shipcommand && (shipcommand->ordertype.attributes & COMMAND_IS_PROTECTING))
+        if (shipcommand && (shipcommand->ordertype.attributes & COMMAND_MASK_PROTECTING))
         {
             for (j=0;j<shipcommand->protect->numShips;j++)
             {
@@ -7648,7 +7648,7 @@ void ChangeOrderToProtect(CommandToDo *alreadycommand,ProtectCommand *protectcom
 
     alreadycommand->protectFlags = 0;
 
-    if (alreadycommand->ordertype.attributes & COMMAND_IS_PROTECTING)
+    if (alreadycommand->ordertype.attributes & COMMAND_MASK_PROTECTING)
     {
         if (SelectionsAreTotallyEquivalent(alreadycommand->protect,protectcom))
         {
@@ -7664,7 +7664,7 @@ void ChangeOrderToProtect(CommandToDo *alreadycommand,ProtectCommand *protectcom
     FreeLastOrder(alreadycommand);
 
     alreadycommand->ordertype.order = COMMAND_NULL;
-    alreadycommand->ordertype.attributes |= COMMAND_IS_PROTECTING;
+    alreadycommand->ordertype.attributes |= COMMAND_MASK_PROTECTING;
 
     sizeofprotect = sizeofProtectCommand(protectcom->numShips);
     protect = memAlloc(sizeofprotect,"ToDoProtect",0);
@@ -7675,7 +7675,7 @@ void ChangeOrderToProtect(CommandToDo *alreadycommand,ProtectCommand *protectcom
     PrepareShipsForCommand(alreadycommand,TRUE);
     CheckCircularGuard(alreadycommand);
 
-    if (alreadycommand->ordertype.attributes & COMMAND_IS_FORMATION)
+    if (alreadycommand->ordertype.attributes & COMMAND_MASK_FORMATION)
     {
         if (alreadycommand->formation.formationtype == SPHERE_FORMATION)
         {
@@ -7748,7 +7748,7 @@ CommandToDo *clProtect(CommandLayer *comlayer,SelectCommand *selectcom,ProtectCo
 
     newcommand->selection = selection;
     newcommand->ordertype.order = COMMAND_NULL;
-    newcommand->ordertype.attributes = COMMAND_IS_PROTECTING;
+    newcommand->ordertype.attributes = COMMAND_MASK_PROTECTING;
     newcommand->protect = protect;
     newcommand->protectFlags = 0;
 
@@ -7807,7 +7807,7 @@ void AddShipToFormationGroup(ShipPtr ship,CommandToDo *group)
     AddShipToGroup(ship,group);
     FillInShipFormationStuff(ship,group);
 
-    dbgAssertOrIgnore(group->ordertype.attributes & COMMAND_IS_FORMATION);
+    dbgAssertOrIgnore(group->ordertype.attributes & COMMAND_MASK_FORMATION);
     formationContentHasChanged(group);
 
     InitShipAI(ship,TRUE);
@@ -8129,12 +8129,12 @@ void clHoldingPattern(CommandLayer *comlayer,CommandToDo *command)
     MaxSelection *curselection;
     sdword i,j,k;
 
-    if (command->ordertype.attributes & COMMAND_IS_FORMATION)
+    if (command->ordertype.attributes & COMMAND_MASK_FORMATION)
     {
         return;         // already in formation, don't need to split them up into deltas
     }
 
-    if(command->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
+    if(command->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING)
     {
         if(command->attack->numTargets > 0)
         {
@@ -8144,7 +8144,7 @@ void clHoldingPattern(CommandLayer *comlayer,CommandToDo *command)
             selSelectionCopy((MaxAnySelection *)&passiveAttackSelection,(MaxAnySelection *)command->attack);
         }
     }
-    if(command->ordertype.attributes & COMMAND_IS_PROTECTING)
+    if(command->ordertype.attributes & COMMAND_MASK_PROTECTING)
     {
         if(command->protect->numShips > 0)
         {
@@ -8274,7 +8274,7 @@ bool processHoldingPattern(CommandToDo *command,SelectCommand *selection)
             return TRUE;
     }
     count = selection->numShips;
-    if(command->ordertype.attributes & COMMAND_IS_FORMATION)
+    if(command->ordertype.attributes & COMMAND_MASK_FORMATION)
         count = 1;  //only process leader if command is in formation!
     for(i=0;i<count;i++)
     {
@@ -8345,7 +8345,7 @@ void clProcess(CommandLayer *comlayer)
                 ship->autostabilizeship = FALSE; // don't autostabilize ship if ship has a command to do
             }
         }
-        if (command->ordertype.attributes & COMMAND_IS_FORMATION)
+        if (command->ordertype.attributes & COMMAND_MASK_FORMATION)
         {
             switch (command->ordertype.order)
             {
@@ -8364,7 +8364,7 @@ void clProcess(CommandLayer *comlayer)
                                 command->formation.doneInitialAttack = TRUE;
                                 if (processAttackToDo(command))
                                 {
-                                    if(command->ordertype.attributes & COMMAND_IS_ATTACKING_AND_MOVING &&
+                                    if(command->ordertype.attributes & COMMAND_MASK_ATTACKING_AND_MOVING &&
                                         command->selection->ShipPtr[0]->aistatecommand == 0)
                                     {
                                         bitSet(command->selection->ShipPtr[0]->specialFlags,SPECIAL_ATTACKMOVECANCEL);
@@ -8380,7 +8380,7 @@ void clProcess(CommandLayer *comlayer)
                                 }
                                 else
                                 {
-                                    if(command->ordertype.attributes & COMMAND_IS_ATTACKING_AND_MOVING)
+                                    if(command->ordertype.attributes & COMMAND_MASK_ATTACKING_AND_MOVING)
                                     {
                                         if((universe.univUpdateCounter & CHECK_ATTACKMOVE_TO_MOVE_RATE)==CHECK_ATTACKMOVE_TO_MOVE_FRAME)
                                         if(getRangeToClosestTarget(command) >= tacticsInfo.movingAttackTurnsIntoMoveCommandDistanceSqr)
@@ -8419,7 +8419,7 @@ void clProcess(CommandLayer *comlayer)
                                 if (processAttackToDoInFormation(command))
                                 {
                                     // free COMMAND_ATTACK stuff
-                                    if(command->ordertype.attributes & COMMAND_IS_ATTACKING_AND_MOVING &&
+                                    if(command->ordertype.attributes & COMMAND_MASK_ATTACKING_AND_MOVING &&
                                         command->selection->ShipPtr[0]->aistatecommand == 0)
                                     {
                                         //attacking and moving and HAVEN'T reached destination!
@@ -8432,11 +8432,11 @@ void clProcess(CommandLayer *comlayer)
                                         FreeLastOrder(command);
                                         // attack has finished so convert it back to a formation
                                         command->ordertype.order = COMMAND_NULL;
-                                    }                                     //command->ordertype.attributes |= COMMAND_IS_HOLDING_PATTERN;
+                                    }                                     //command->ordertype.attributes |= COMMAND_MASK_HOLDING_PATTERN;
                                 }
                                 else
                                 {
-                                    if(command->ordertype.attributes & COMMAND_IS_ATTACKING_AND_MOVING)
+                                    if(command->ordertype.attributes & COMMAND_MASK_ATTACKING_AND_MOVING)
                                     {
                                         if((universe.univUpdateCounter & CHECK_ATTACKMOVE_TO_MOVE_RATE)==CHECK_ATTACKMOVE_TO_MOVE_FRAME)
                                         if(getRangeToClosestTarget(command) >= tacticsInfo.movingAttackTurnsIntoMoveCommandDistanceSqr)
@@ -8541,14 +8541,14 @@ processdock:
 
                 case COMMAND_HALT:
                     passiveAttacked = FALSE;
-                    if (command->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
+                    if (command->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING)
                     {
                         if (processPassiveAttackToDo(command))
                         {
                             ClearPassiveAttacking(command);
                         }
                         passiveAttacked = TRUE;
-                        bitClear(command->ordertype.attributes,COMMAND_IS_HOLDING_PATTERN);
+                        bitClear(command->ordertype.attributes,COMMAND_MASK_HOLDING_PATTERN);
                     }
 
                     ship = command->selection->ShipPtr[0];
@@ -8571,16 +8571,16 @@ processdock:
 
                 case COMMAND_NULL:
                     passiveAttacked = FALSE;
-                    if (command->ordertype.attributes & COMMAND_IS_PROTECTING)
+                    if (command->ordertype.attributes & COMMAND_MASK_PROTECTING)
                     {
-                        if (command->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
+                        if (command->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING)
                         {
                             if (processPassiveAttackToDo(command))
                             {
                                 ClearPassiveAttacking(command);
                             }
                             passiveAttacked = TRUE;
-                            bitClear(command->ordertype.attributes,COMMAND_IS_HOLDING_PATTERN);
+                            bitClear(command->ordertype.attributes,COMMAND_MASK_HOLDING_PATTERN);
                         }
 
 //                        if (command->formation.formAroundProtectedShip)
@@ -8604,21 +8604,21 @@ processdock:
                     }
                     else
                     {
-                        if (command->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
+                        if (command->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING)
                         {
                             if (processPassiveAttackToDo(command))
                             {
                                 ClearPassiveAttacking(command);
                             }
                             passiveAttacked = TRUE;
-                            bitClear(command->ordertype.attributes,COMMAND_IS_HOLDING_PATTERN);
+                            bitClear(command->ordertype.attributes,COMMAND_MASK_HOLDING_PATTERN);
                         }
 
-                        if(command->ordertype.attributes & COMMAND_IS_HOLDING_PATTERN)
+                        if(command->ordertype.attributes & COMMAND_MASK_HOLDING_PATTERN)
                         {
                             if(processHoldingPattern(command,command->selection))
                             {
-                                bitClear(command->ordertype.attributes,COMMAND_IS_HOLDING_PATTERN);
+                                bitClear(command->ordertype.attributes,COMMAND_MASK_HOLDING_PATTERN);
                             }
                         }
                         else
@@ -8637,7 +8637,7 @@ processdock:
                         if(passiveAttacked)// && command->selection->ShipPtr[0]->tacticstype == Evasive)
                             processFormationToDo(command,FALSE,passiveAttacked);
                         else
-                            processFormationToDo(command,bitTest(command->ordertype.attributes,COMMAND_IS_HOLDING_PATTERN) ? FALSE : TRUE,passiveAttacked);
+                            processFormationToDo(command,bitTest(command->ordertype.attributes,COMMAND_MASK_HOLDING_PATTERN) ? FALSE : TRUE,passiveAttacked);
                     }
                     break;
                 case COMMAND_MP_HYPERSPACING:
@@ -8649,13 +8649,13 @@ processdock:
                     break;
                 case COMMAND_MOVE:
                     passiveAttacked = FALSE;
-                    if (command->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
+                    if (command->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING)
                     {
                         if (processPassiveAttackToDo(command))
                         {
                             ClearPassiveAttacking(command);
                         }
-                        bitClear(command->ordertype.attributes,COMMAND_IS_HOLDING_PATTERN);
+                        bitClear(command->ordertype.attributes,COMMAND_MASK_HOLDING_PATTERN);
                         //don't set to true as it controls whether or not a ship
                         //faces in movement direction
                         //passiveAttacked = TRUE;
@@ -8663,7 +8663,7 @@ processdock:
 
                     if (processMoveLeaderToDo(command,passiveAttacked))
                     {
-                        // reached destination, so change COMMAND_MOVE | COMMAND_IS_FORMATION to COMMAND_NULL | COMMAND_IS_FORMATION
+                        // reached destination, so change COMMAND_MOVE | COMMAND_MASK_FORMATION to COMMAND_NULL | COMMAND_MASK_FORMATION
 #ifdef DEBUG_FORMATIONS
                         dbgMessage("\nReached Destination in Formation.");
 #endif
@@ -8707,9 +8707,9 @@ processdock:
                     //open guns if in range or if we need to
                     if (processAttackToDo(command))
                     {
-                        if (command->ordertype.attributes & COMMAND_IS_PROTECTING)
+                        if (command->ordertype.attributes & COMMAND_MASK_PROTECTING)
                         {
-                            if(command->ordertype.attributes & COMMAND_IS_ATTACKING_AND_MOVING)
+                            if(command->ordertype.attributes & COMMAND_MASK_ATTACKING_AND_MOVING)
                             {
                                 bitSet(command->selection->ShipPtr[0]->specialFlags,SPECIAL_ATTACKMOVECANCEL);
                                 ChangeOrderToMove(command,command->selection->ShipPtr[0]->moveFrom,command->selection->ShipPtr[0]->moveTo);
@@ -8731,7 +8731,7 @@ processdock:
                             curnode = nextnode;
                             goto readyfornextnode;
                             */
-                            if(command->ordertype.attributes & COMMAND_IS_ATTACKING_AND_MOVING)
+                            if(command->ordertype.attributes & COMMAND_MASK_ATTACKING_AND_MOVING)
                             {
                                 bitSet(command->selection->ShipPtr[0]->specialFlags,SPECIAL_ATTACKMOVECANCEL);
                                 ChangeOrderToMove(command,command->selection->ShipPtr[0]->moveFrom,command->selection->ShipPtr[0]->moveTo);
@@ -8743,12 +8743,12 @@ processdock:
                                 // attack has finished so convert it back to a formation
                                 command->ordertype.order = COMMAND_NULL;
                             }
-                            //command->ordertype.attributes |= COMMAND_IS_HOLDING_PATTERN;
+                            //command->ordertype.attributes |= COMMAND_MASK_HOLDING_PATTERN;
                         }
                     }
                     else
                     {
-                        if(command->ordertype.attributes & COMMAND_IS_ATTACKING_AND_MOVING)
+                        if(command->ordertype.attributes & COMMAND_MASK_ATTACKING_AND_MOVING)
                         {
                             if((universe.univUpdateCounter & CHECK_ATTACKMOVE_TO_MOVE_RATE)==CHECK_ATTACKMOVE_TO_MOVE_FRAME)
                             if(getRangeToClosestTarget(command) >= tacticsInfo.movingAttackTurnsIntoMoveCommandDistanceSqr)
@@ -8772,13 +8772,13 @@ processdock:
 
                 case COMMAND_MOVE:
                     passiveAttacked = FALSE;
-                    if (command->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
+                    if (command->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING)
                     {
                         if (processPassiveAttackToDo(command))
                         {
                             ClearPassiveAttacking(command);
                         }
-                        bitClear(command->ordertype.attributes,COMMAND_IS_HOLDING_PATTERN);
+                        bitClear(command->ordertype.attributes,COMMAND_MASK_HOLDING_PATTERN);
                         //don't set to true so we face direction we're
                         //moving
                         //passiveAttacked = TRUE;
@@ -8808,7 +8808,7 @@ processdock:
                             }
                         }
 
-                        if (command->ordertype.attributes & (COMMAND_IS_PROTECTING|COMMAND_IS_PASSIVE_ATTACKING))
+                        if (command->ordertype.attributes & (COMMAND_MASK_PROTECTING|COMMAND_MASK_PASSIVE_ATTACKING))
                         {
                             FreeLastOrder(command);   // free COMMAND_MOVE stuff
                             command->ordertype.order = COMMAND_NULL;
@@ -8903,14 +8903,14 @@ processdock:
 
                 case COMMAND_HALT:
                     passiveAttacked = FALSE;
-                    if (command->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
+                    if (command->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING)
                     {
                         if (processPassiveAttackToDo(command))
                         {
                             ClearPassiveAttacking(command);
                         }
                         passiveAttacked = TRUE;
-                        bitClear(command->ordertype.attributes,COMMAND_IS_HOLDING_PATTERN);
+                        bitClear(command->ordertype.attributes,COMMAND_MASK_HOLDING_PATTERN);
                     }
 
                     if (processHaltToDo(command,passiveAttacked))
@@ -8933,21 +8933,21 @@ processdock:
 
                 case COMMAND_MILITARY_PARADE:
                     passiveAttacked = FALSE;
-                    if (command->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
+                    if (command->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING)
                     {
                         if (processPassiveAttackToDo(command))
                         {
                             ClearPassiveAttacking(command);
                         }
                         passiveAttacked = TRUE;
-                        bitClear(command->ordertype.attributes,COMMAND_IS_HOLDING_PATTERN);
+                        bitClear(command->ordertype.attributes,COMMAND_MASK_HOLDING_PATTERN);
                     }
                     processMilitaryParadeToDo(command,passiveAttacked);
                     break;
 
                 case COMMAND_BUILDING_SHIP:
                     dbgAssertOrIgnore(command->ordertype.attributes == 0);
-                    // don't allow COMMAND_IS_PASSIVE_ATTACKING, COMMAND_IS_PROTECTING, COMMAND_IS_FORMATION
+                    // don't allow COMMAND_MASK_PASSIVE_ATTACKING, COMMAND_MASK_PROTECTING, COMMAND_MASK_FORMATION
                     if (processBuildingShipToDo(command))
                     {
                         nextnode = curnode->next;
@@ -8968,7 +8968,7 @@ processdock:
                         curnode = nextnode;
                         goto readyfornextnode;
                     }
-                    if(command->ordertype.attributes & COMMAND_IS_HOLDING_PATTERN)
+                    if(command->ordertype.attributes & COMMAND_MASK_HOLDING_PATTERN)
                     {
                         //put ships in holding pattern...maintain all relevant info though (protecting and passiveattacking!)
                         nextnode = curnode->next;
@@ -8980,7 +8980,7 @@ processdock:
                     }
 
 
-                    if (command->ordertype.attributes & COMMAND_IS_PROTECTING)
+                    if (command->ordertype.attributes & COMMAND_MASK_PROTECTING)
                     {
                         ProtectCommand *commandprotect = command->protect;
                         SelectCommand *commandselect = command->selection;
@@ -8991,14 +8991,14 @@ processdock:
                         sdword i;
 
                         passiveAttacked = FALSE;
-                        if (command->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
+                        if (command->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING)
                         {
                             if (processPassiveAttackToDo(command))
                             {
                                 ClearPassiveAttacking(command);
                             }
                             passiveAttacked = TRUE;
-                            bitClear(command->ordertype.attributes,COMMAND_IS_HOLDING_PATTERN);
+                            bitClear(command->ordertype.attributes,COMMAND_MASK_HOLDING_PATTERN);
                         }
 
                         dbgAssertOrIgnore(numShipsToProtect > 0);
@@ -9036,13 +9036,13 @@ processdock:
                     }
                     else
                     {
-                        if (command->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
+                        if (command->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING)
                         {
                             if (processPassiveAttackToDo(command))
                             {
                                 ClearPassiveAttacking(command);
                             }
-                            bitClear(command->ordertype.attributes,COMMAND_IS_HOLDING_PATTERN);
+                            bitClear(command->ordertype.attributes,COMMAND_MASK_HOLDING_PATTERN);
 
                             ship = command->selection->ShipPtr[0];
                             if ((bool)((ShipStaticInfo *)ship->staticinfo)->rotateToRetaliate)
@@ -9093,7 +9093,7 @@ void clPostProcess(CommandLayer *comlayer)
         command = (CommandToDo *)listGetStructOfNode(curnode);
         nextnode = curnode->next;
 
-        if (command->ordertype.attributes & COMMAND_IS_PROTECTING)
+        if (command->ordertype.attributes & COMMAND_MASK_PROTECTING)
         {
             dbgAssertOrIgnore(command->protect->numShips > 0);
 
@@ -9110,7 +9110,7 @@ void clPostProcess(CommandLayer *comlayer)
                 {
                     if ((command->ordertype.order == COMMAND_NULL) || (command->ordertype.order == COMMAND_MOVE) || (command->ordertype.order == COMMAND_ATTACK))
                     {
-                        if ((command->ordertype.attributes & COMMAND_IS_FORMATION) && (command->formation.formationtype == SPHERE_FORMATION))
+                        if ((command->ordertype.attributes & COMMAND_MASK_FORMATION) && (command->formation.formationtype == SPHERE_FORMATION))
                         {
                             if (i == 0)     // 0th ship is always protected by a surrounded sphere of ships, and these ships
                             {               // should stay nearby (not attack, just passive attack).
@@ -9292,7 +9292,7 @@ void clPresetShipsToPosition(CommandLayer *comlayer)
         {
             setMilitaryParade(command);
         }
-        else if (command->ordertype.attributes & COMMAND_IS_FORMATION)
+        else if (command->ordertype.attributes & COMMAND_MASK_FORMATION)
         {
             setFormationToDo(command);
         }
@@ -9481,7 +9481,7 @@ void clChecksum(void)
 
         fwrite(&cmd,sizeofbinnetCmdLayerInfo(cmd.numShips),1,netlogfile);
 
-        if (cmd.attributes & COMMAND_IS_FORMATION)
+        if (cmd.attributes & COMMAND_MASK_FORMATION)
         {
             header = makenetcheckHeader('F','O','R','M');
             fwrite(&header,sizeof(header),1,netlogfile);
@@ -9489,17 +9489,17 @@ void clChecksum(void)
             fwrite(&command->formation.tacticalState,44,1,netlogfile);
         }
 
-        if (cmd.attributes & COMMAND_IS_PROTECTING)
+        if (cmd.attributes & COMMAND_MASK_PROTECTING)
         {
             binwriteselection(makenetcheckHeader('S','E','P','T'),command->protect);
         }
 
-        if (cmd.attributes & COMMAND_IS_PASSIVE_ATTACKING)
+        if (cmd.attributes & COMMAND_MASK_PASSIVE_ATTACKING)
         {
             binwriteanyselection(makenetcheckHeader('S','E','P','A'),command->attack);
         }
 #if 0
-        if (cmd.attributes & COMMAND_IS_ATTACKING_AND_MOVING)
+        if (cmd.attributes & COMMAND_MASK_ATTACKING_AND_MOVING)
         {
             header = makenetcheckHeader('A','T','M','V');
             fwrite(&header,sizeof(header),1,netlogfile);

@@ -504,7 +504,7 @@ void formationSpecificsSphere(CommandToDo *command)
     sdword prox_sol;
     dbgAssertOrIgnore(numShips > 0);
 
-    if (command->ordertype.attributes & COMMAND_IS_PROTECTING)
+    if (command->ordertype.attributes & COMMAND_MASK_PROTECTING)
     {
         // We should form around protected ship
 //        command->formation.formAroundProtectedShip = TRUE;
@@ -1066,7 +1066,7 @@ void processFormationToDo(struct CommandToDo *formationtodo,bool steadyFormation
                 aishipTempDisableAvoiding = TRUE;
             }
 
-            if (formationtodo->ordertype.attributes & COMMAND_IS_PROTECTING)
+            if (formationtodo->ordertype.attributes & COMMAND_MASK_PROTECTING)
             {
                 dbgAssertOrIgnore(formationtodo->protect->numShips > 0);
                 leader = formationtodo->protect->ShipPtr[0];
@@ -1245,7 +1245,7 @@ TypeOfFormation clSelectionAlreadyInFormation(CommandLayer *comlayer,SelectComma
 
     if ((alreadyformation = IsSelectionAlreadyDoingSomething(comlayer,selectcom)) != NULL)
     {
-        if (alreadyformation->ordertype.attributes & COMMAND_IS_FORMATION)
+        if (alreadyformation->ordertype.attributes & COMMAND_MASK_FORMATION)
         {
             return alreadyformation->formation.formationtype;
         }
@@ -1304,7 +1304,7 @@ void  setFormationTravelVelocity(CommandToDo *formationcommand)
 {
     //won't hurt if we were to set the travel velocity and ships aren't
     //in formation, but lets not let it happen anyways.
-    dbgAssertOrIgnore(formationcommand->ordertype.attributes & COMMAND_IS_FORMATION);
+    dbgAssertOrIgnore(formationcommand->ordertype.attributes & COMMAND_MASK_FORMATION);
 
     formationcommand->formation.travelvel = GetShipsTravelVel(formationcommand->selection,formationcommand->formation.percentmaxspeed);
 }
@@ -1323,7 +1323,7 @@ sdword formationRemoveShipFromSelection(struct CommandToDo *formationtodo,Ship *
     sdword i,j;
     sdword returnval;
 
-    dbgAssertOrIgnore(formationtodo->ordertype.attributes & COMMAND_IS_FORMATION);
+    dbgAssertOrIgnore(formationtodo->ordertype.attributes & COMMAND_MASK_FORMATION);
 
     for (i=0;i<selection->numShips; )
     {
@@ -3101,7 +3101,7 @@ void clFormation(CommandLayer *comlayer,SelectCommand *selectcom,TypeOfFormation
 
     if ((alreadyformation = IsSelectionAlreadyDoingSomething(comlayer,selectcom)) != NULL)
     {
-        if (alreadyformation->ordertype.attributes & COMMAND_IS_FORMATION)
+        if (alreadyformation->ordertype.attributes & COMMAND_MASK_FORMATION)
         {
             if (alreadyformation->formation.formationtype == formation)
             {
@@ -3131,21 +3131,21 @@ void clFormation(CommandLayer *comlayer,SelectCommand *selectcom,TypeOfFormation
         else if (alreadyformation->ordertype.order == COMMAND_MOVE)
         {
             // Change from normal move command to move in formation
-            alreadyformation->ordertype.attributes |= COMMAND_IS_FORMATION;
+            alreadyformation->ordertype.attributes |= COMMAND_MASK_FORMATION;
             FillInFormationSpecifics(alreadyformation,formation,TRUE);
             PrepareShipsForCommand(alreadyformation,TRUE);
             return;
         }
-        else if (alreadyformation->ordertype.attributes & COMMAND_IS_PROTECTING)
+        else if (alreadyformation->ordertype.attributes & COMMAND_MASK_PROTECTING)
         {
-            alreadyformation->ordertype.attributes |= COMMAND_IS_FORMATION;
+            alreadyformation->ordertype.attributes |= COMMAND_MASK_FORMATION;
             FillInFormationSpecifics(alreadyformation,formation,TRUE);
             PrepareShipsForCommand(alreadyformation,TRUE);
             return;
         }
         else if (alreadyformation->ordertype.order == COMMAND_ATTACK)
         {
-            alreadyformation->ordertype.attributes |= COMMAND_IS_FORMATION;
+            alreadyformation->ordertype.attributes |= COMMAND_MASK_FORMATION;
             FillInFormationSpecifics(alreadyformation,formation,TRUE);
             PrepareShipsForCommand(alreadyformation,TRUE);
             return;
@@ -3169,7 +3169,7 @@ void clFormation(CommandLayer *comlayer,SelectCommand *selectcom,TypeOfFormation
 
     newcommand->selection = selection;
     newcommand->ordertype.order = COMMAND_NULL;
-    newcommand->ordertype.attributes = COMMAND_IS_FORMATION;
+    newcommand->ordertype.attributes = COMMAND_MASK_FORMATION;
 
     FillInFormationSpecifics(newcommand,formation,TRUE);
 

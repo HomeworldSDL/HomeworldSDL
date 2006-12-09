@@ -678,7 +678,7 @@ void tacticsSetShipToDoDodge(Ship *ship)
             {
                 if(command != NULL)
                 {
-                    if(command->ordertype.attributes & COMMAND_IS_FORMATION)
+                    if(command->ordertype.attributes & COMMAND_MASK_FORMATION)
                     {
                         //ship is in sphere..but is the sphere formed?
                         if(command->formation.formationtype == SPHERE_FORMATION)
@@ -1280,7 +1280,7 @@ void tacticsReportMove(CommandLayer *comlayer,SelectCommand *selection)
                 //tactics setting> so ships can't retreat.
                 goto nextnode;
             }
-            if (command->ordertype.attributes & COMMAND_IS_FORMATION)
+            if (command->ordertype.attributes & COMMAND_MASK_FORMATION)
             {
                 if(!command->formation.doneInitialAttack)
                 {
@@ -1795,7 +1795,7 @@ void tacticsUpdateOrderStatus(Ship *ship)
         if(ship->tactics_ordertype != oldOrder)
         {
             //order has changed
-            if(command->ordertype.attributes & COMMAND_IS_FORMATION)
+            if(command->ordertype.attributes & COMMAND_MASK_FORMATION)
             {
                 //command is in formation
                 setFormationTravelVelocity(command);
@@ -2174,7 +2174,7 @@ bool tacticsCheckGuardConditionsDuringAttack(CommandToDo *command)
     real32 distSqr,tempreal;
     vector distVec,protectAv,defendAv;
 
-    dbgAssertOrIgnore(command->ordertype.attributes * COMMAND_IS_PROTECTING);
+    dbgAssertOrIgnore(command->ordertype.attributes * COMMAND_MASK_PROTECTING);
 
     //get average position of defenders
     vecSet(defendAv,0.0f,0.0f,0.0f);

@@ -1016,12 +1016,12 @@ sdword clDock(CommandLayer *comlayer,SelectCommand *selectcom,DockType dockType,
 
     if ((alreadycommand = IsSelectionAlreadyDoingSomething(comlayer,selectcom)) != NULL)
     {
-        if (alreadycommand->ordertype.attributes & COMMAND_IS_PROTECTING)
+        if (alreadycommand->ordertype.attributes & COMMAND_MASK_PROTECTING)
         {
             ClearProtecting(alreadycommand);
         }
 
-        if (alreadycommand->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
+        if (alreadycommand->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING)
         {
             ClearPassiveAttacking(alreadycommand);
         }
@@ -1111,12 +1111,12 @@ void dockChangeSingleShipToDock(struct CommandToDo *command,Ship *ship,Ship *doc
 {
     dbgAssertOrIgnore(command->selection->numShips == 1);
 
-    if (command->ordertype.attributes & COMMAND_IS_PROTECTING)
+    if (command->ordertype.attributes & COMMAND_MASK_PROTECTING)
     {
         ClearProtecting(command);
     }
 
-    if (command->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
+    if (command->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING)
     {
         ClearPassiveAttacking(command);
     }
@@ -6726,7 +6726,7 @@ bool processDockToDo(CommandToDo *docktodo)
 
                     RemoveShipFromCommand(ship);
 
-                    if (docktodo->ordertype.attributes & COMMAND_IS_FORMATION)
+                    if (docktodo->ordertype.attributes & COMMAND_MASK_FORMATION)
                     {
                         // this ship was in formation so we have to do extra work
                         RemoveShipFromFormation(ship);
@@ -6736,7 +6736,7 @@ bool processDockToDo(CommandToDo *docktodo)
                         }
                     }
 
-                    if (docktodo->ordertype.attributes & COMMAND_IS_PASSIVE_ATTACKING)
+                    if (docktodo->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING)
                     {
                         RemoveShipFromAttacking(ship);
                         RemoveShipReferencesFromExtraAttackInfo(ship,docktodo);
@@ -6767,7 +6767,7 @@ bool processDockToDo(CommandToDo *docktodo)
                             }
                             else
                             {
-                                if (docktodo->ordertype.attributes & COMMAND_IS_FORMATION)
+                                if (docktodo->ordertype.attributes & COMMAND_MASK_FORMATION)
                                 {
                                     formationtype = docktodo->formation.formationtype;
                                 }
@@ -6896,7 +6896,7 @@ CommandToDo *findFormationGuardingShip(Ship *ship)
     {
         command = (CommandToDo *)listGetStructOfNode(curnode);
 
-        if ((command->ordertype.attributes & (COMMAND_IS_PROTECTING|COMMAND_IS_FORMATION)) == (COMMAND_IS_PROTECTING|COMMAND_IS_FORMATION))
+        if ((command->ordertype.attributes & (COMMAND_MASK_PROTECTING|COMMAND_MASK_FORMATION)) == (COMMAND_MASK_PROTECTING|COMMAND_MASK_FORMATION))
         {
             if (ShipInSelection(command->protect,ship))
             {
