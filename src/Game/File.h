@@ -51,8 +51,6 @@
 /*=============================================================================
     Definitions:
 =============================================================================*/
-//path length
-#define PATH_Max                260
 
 //file seek locations
 #define FS_Start                SEEK_SET
@@ -96,7 +94,7 @@ typedef sdword  filehandle;
 
 typedef struct {
     sdword inUse;
-    char path[PATH_Max+1];  // full path name of open file
+    char path[PATH_MAX];    // full path name of open file
     sdword usingBigfile;    // true if this has been "opened" within the bigfile instead of on disk
     FILE *fileP;            // valid if we've opened directly from disk
     // valid when usingBigfile:

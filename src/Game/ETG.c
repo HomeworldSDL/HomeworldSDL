@@ -830,7 +830,7 @@ bool   etgBulletEffectsEnabled = TRUE;          //bullet effects on
 ----------------------------------------------------------------------------*/
 etglod *etgLODLoad(char *directory, char *name, etglod *oldLOD)
 {
-    char path[PATH_Max];
+    char path[PATH_MAX];
     etglod *newLOD;
 
     //create path to effect
@@ -867,7 +867,7 @@ etglod *etgLODLoad(char *directory, char *name, etglod *oldLOD)
 ----------------------------------------------------------------------------*/
 etgeffectstatic *etgEffectLoad(char *directory,char *field,void *dataToFillIn)
 {
-    char path[PATH_Max];
+    char path[PATH_MAX];
 
     strcpy(path, directory);
     strcat(path, field);
@@ -1820,7 +1820,7 @@ void etgFixupUV(void)
 void etgReset(void)
 {
     sdword index, j;
-    char path[PATH_Max];
+    char path[PATH_MAX];
     etgeffectstatic *newStat;
     char *nameSave;
 
@@ -4025,7 +4025,7 @@ sdword etgMorphAnimDWORD(struct etgeffectstatic *stat, ubyte *dest, char *opcode
 sdword etgSetTextureParse(struct etgeffectstatic *stat, ubyte *dest, char *opcode, char *params, char *ret)
 {
     etgfunctioncall *function = (etgfunctioncall *)dest;
-    char path[PATH_Max];
+    char path[PATH_MAX];
     char *param;
     etgvarentry *lVar;
     sdword index, nScanned;
