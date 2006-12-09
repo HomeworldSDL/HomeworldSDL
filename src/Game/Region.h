@@ -29,7 +29,7 @@
 #define REG_TEST                    0           //test of region code
 #define REG_DRAW_REGION_BORDERS     0           //draw a recrangle for debugging
 
-#else //HW_Debug
+#else
 
 #define REG_ERROR_CHECKING          1           //general error checking 
 						// This REG_ERROR_CHECKING define fixes the problem
@@ -38,7 +38,7 @@
 #define REG_TEST                    0           //test of region code
 #define REG_DRAW_REGION_BORDERS     0           //draw a recrangle for debugging
 
-#endif //HW_Debug
+#endif
 
 /*=============================================================================
     Definitions:

@@ -26,7 +26,7 @@
 #define LOD_AUTO_SAVE               1           //enable auto-save of LOD files
 #define LOD_SCALE_DEBUG             1           //debug of LOD tuning
 
-#else //HW_Debug
+#else
 
 #define LOD_ERROR_CHECKING          0           //general error checking
 #define LOD_VERBOSE_LEVEL           0           //control specific output code
@@ -34,7 +34,7 @@
 #define LOD_AUTO_SAVE               0           //enable auto-save of LOD files
 #define LOD_SCALE_DEBUG             0           //debug of LOD tuning
 
-#endif //HW_Debug
+#endif
 
 /*=============================================================================
     Definitions:

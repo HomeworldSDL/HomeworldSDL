@@ -590,7 +590,7 @@ void startRepairEffect(Ship *ship,SpaceObjRotImpTarg *target,vector *trajectory,
 void stopRepairEffect(Ship *ship)
 {
 
-#ifdef HW_DEBUG
+#ifdef HW_BUILD_FOR_DEBUGGING
     //make sure we only entered here if effect was playing!
     dbgAssertOrIgnore(ship->rceffect != NULL);
 #endif

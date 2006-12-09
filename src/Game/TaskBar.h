@@ -26,13 +26,13 @@
 #define TB_VERBOSE_LEVEL            1           //control specific output code
 #define TB_SECRET_BUTTON            1           //secret button on lower right extreme of task bar exits game immediately
 
-#else //HW_Debug
+#else
 
 #define TB_ERROR_CHECKING           0           //general error checking
 #define TB_VERBOSE_LEVEL            0           //control specific output code
 #define TB_SECRET_BUTTON            0           //secret button on lower right extreme of task bar exits game immediately
 
-#endif //HW_Debug
+#endif
 
 /*=============================================================================
     Definitions:

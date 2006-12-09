@@ -37,7 +37,7 @@
 #define NIS_SEEKABLE                1           //can seek in NIS's
 #define NIS_TEST                    1
 
-#else //HW_Debug
+#else
 
 #define NIS_ERROR_CHECKING          0           //general error checking
 #define NIS_VERBOSE_LEVEL           0           //control specific output code
@@ -49,7 +49,7 @@
 #define NIS_SEEKABLE                1           //can seek in NIS's
 #define NIS_TEST                    0
 
-#endif //HW_Debug
+#endif
 
 /*=============================================================================
     Definitions:

@@ -2755,7 +2755,7 @@ void formationArrageCrazyOptimum(CommandToDo *formationcommand)
         testSel->ShipPtr[0] = selection->ShipPtr[0];
         for(i=1;i<numShips;i++)
         {
-        #ifdef HW_DEBUG
+        #ifdef HW_BUILD_FOR_DEBUGGING
             dbgAssertOrIgnore(shipGetsPosition[i] != 0);
         #endif
             testSel->ShipPtr[shipGetsPosition[i]] = selection->ShipPtr[i];
@@ -2787,7 +2787,7 @@ void formationArrageCrazyOptimum(CommandToDo *formationcommand)
 /*    optimumSel->ShipPtr[0] = selection->ShipPtr[0];
     for(i=1;i<numShips;i++)
     {
-#ifdef HW_DEBUG
+#ifdef HW_BUILD_FOR_DEBUGGING
         dbgAssertOrIgnore(shipGetsPosition[i] != 0);
 #endif
         optimumSel->ShipPtr[shipGetsPosition[i]] = selection->ShipPtr[i];

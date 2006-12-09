@@ -27,7 +27,7 @@
 #define TASK_STACK_USAGE_MAX    1               //logs the maximum amount of stack used by task
 #define TASK_MAX_TICKS          1               //certain maximum number of task ticks per frame
 
-#else //HW_Debug
+#else
 
 #define TASK_ERROR_CHECKING     0               //general error checking
 #define TASK_STACK_CHECKING     0               //stack corruption checks on entry/exit of tasks
@@ -36,7 +36,7 @@
 #define TASK_STACK_USAGE_MAX    0               //logs the maximum amount of stack used by task
 #define TASK_MAX_TICKS          1               //certain maximum number of task ticks per frame
 
-#endif //HW_Debug
+#endif
 
 /*=============================================================================
     Definitions:

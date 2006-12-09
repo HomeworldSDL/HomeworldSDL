@@ -1744,7 +1744,7 @@ sdword utyNonFatalErrorWaitLoop(void)
     //OutputDebugString(dbgFatalErrorString);                 //print error string to the debugger
     fprintf(stderr, "%s\n", dbgFatalErrorString);
 
-#ifdef HW_Debug
+#ifdef HW_BUILD_FOR_DEBUGGING
     return TRUE;
 #else
     return FALSE;

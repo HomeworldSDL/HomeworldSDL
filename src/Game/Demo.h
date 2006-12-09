@@ -32,7 +32,7 @@
 #define DEM_SELECT_CHECKSUM     1               //verify the selections (selSelected/Selecting)
 #define DEM_FAKE_RENDER_SWITCH  1               //allow the turning off of fake renders
 
-#else //HW_Debug
+#else
 
 #define DEM_MODULE_TEST         0               //don't test the module
 #define DEM_ERROR_CHECKING      0               //no error ckecking in retail
@@ -43,7 +43,7 @@
 #define DEM_SELECT_CHECKSUM     0               //verify the selections (selSelected/Selecting)
 #define DEM_FAKE_RENDER_SWITCH  0               //allow the turning off of fake renders
 
-#endif //HW_Debug
+#endif
 
 /*=============================================================================
     Definitions:

@@ -22,7 +22,7 @@
 #define CM_CAP_JOBS_PER_CLASS   0
 #define CM_CHEAP_SHIPS          1               //enable the 'cheapShips' flag
 
-#else //HW_Debug
+#else
 
 #define CM_ERROR_CHECKING       0               //general error checking
 #define CM_VERBOSE_LEVEL        0               //print extra info
@@ -43,7 +43,7 @@
     #endif
 #endif
 
-#endif //HW_Debug
+#endif
 
 /*=============================================================================
     Type definitions:

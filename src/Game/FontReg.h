@@ -19,12 +19,12 @@
 #define FR_ERROR_CHECKING     1               //general error checking
 #define FR_VERBOSE_LEVEL      0               //print extra info
 
-#else //HW_Debug
+#else
 
 #define FR_ERROR_CHECKING     0               //general error checking
 #define FR_VERBOSE_LEVEL      0               //print extra info
 
-#endif //HW_Debug
+#endif
 
 /*=============================================================================
     Definitions:

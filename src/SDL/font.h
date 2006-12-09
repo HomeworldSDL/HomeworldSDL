@@ -27,7 +27,7 @@
 #define FONT_IGNORE_NON_ALPHA   1               //ignore non-alphabetical characters
 #define FONT_MANUAL_CLIP        1               //do a check to see if font is off-screen
 
-#else //HW_Debug
+#else
 
 #define FONT_ERROR_CHECKING     0               //general error checking
 #define FONT_VERBOSE_LEVEL      0               //print extra info
@@ -38,7 +38,7 @@
 #define FONT_IGNORE_NON_ALPHA   1               //ignore non-alphabetical characters
 #define FONT_MANUAL_CLIP        1               //do a check to see if font is off-screen
 
-#endif //HW_Debug
+#endif
 
 /*=============================================================================
     Definitions:

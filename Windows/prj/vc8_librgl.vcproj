@@ -48,7 +48,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..\src\SDL;..\..\src\rgl;..\..\src\Game;..\..\src\Ships;..\..\src\JPG;..\..\src\Generated;..\..\include\glide2;..\..\include\Titan;..\..\include"
-				PreprocessorDefinitions="_CRT_SECURE_NO_WARNINGS;HW_DEBUG;HW_Debug;_WIN32;WIN32;_DEBUG;_WINDOWS"
+				PreprocessorDefinitions="_CRT_SECURE_NO_WARNINGS;HW_BUILD_FOR_DEBUGGING;_WIN32;WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="true"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"

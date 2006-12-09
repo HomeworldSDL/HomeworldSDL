@@ -23,12 +23,12 @@
 #define TM_CHEAP                 0              //traders give stuff away
 #define TM_INVENTORY             0              //traders have everything
 
-#else //HW_Debug
+#else
 
 #define TM_CHEAP                 1              //traders give stuff away
 #define TM_INVENTORY             1              //traders have everything
 
-#endif //HW_Debug
+#endif
 
 
 #define TM_NUM_TECHS 50

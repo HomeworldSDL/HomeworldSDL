@@ -17,11 +17,11 @@
 
 #define DBW_ERROR_CHECKING      1
 
-#else //HW_Debug
+#else
 
 #define DBW_ERROR_CHECKING      0
 
-#endif //HW_Debug
+#endif
 
 /*=============================================================================
     Definitions:

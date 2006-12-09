@@ -27,11 +27,11 @@
 
 #define SEL_ERROR_CHECKING     1                //general error checking
 
-#else //HW_Debug
+#else
 
 #define SEL_ERROR_CHECKING     0                //general error checking
 
-#endif //HW_Debug
+#endif
 
 /*=============================================================================
     Definitions:

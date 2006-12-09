@@ -22,13 +22,13 @@
 #define CAM_VERBOSE_LEVEL       2               //print extra info
 #define CAM_CHECKSUM            1               //camera checksum function
 
-#else //HW_Debug
+#else
 
 #define CAM_ERROR_CHECKING      0               //general error checking
 #define CAM_VERBOSE_LEVEL       0               //print extra info
 #define CAM_CHECKSUM            0               //camera checksum function
 
-#endif //HW_Debug
+#endif
 
 
 /*=============================================================================

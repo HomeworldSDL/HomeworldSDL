@@ -16,10 +16,10 @@
 #ifndef HW_BUILD_FOR_DISTRIBUTION
 #define KEY_ERROR_CHECKING      1
 #define KEY_VERBOSE_LEVEL       1
-#else //HW_Debug
+#else
 #define KEY_ERROR_CHECKING      0
 #define KEY_VERBOSE_LEVEL       0
-#endif //HW_Debug
+#endif
 
 /*=============================================================================
     Definitions:

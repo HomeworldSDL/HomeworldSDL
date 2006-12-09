@@ -2312,7 +2312,7 @@ FSM AssaultGeneral
         STATE AttackGeneral
             INIT
                 IF (VarGet("MovingToMothership"))
-                    #if HW_Debug
+                    #if HW_BUILD_FOR_DEBUGGING
                         Print("I'm Moving To Mothership in Attack General");
                     #endif
                     JUMP MoveToMothership;

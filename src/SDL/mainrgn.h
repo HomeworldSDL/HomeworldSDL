@@ -32,7 +32,7 @@
 #define MR_CAN_FOCUS_ROIDS          1           //can focus on asteroids,dust clouds and derelicts with an alt-click
 #define MR_KEYBOARD_CHEATS          1           //enable typing in cheats on the keyboard
 
-#else //HW_Debug
+#else
 
 #define MR_ERROR_CHECKING           0           //general error checking
 #define MR_VERBOSE_LEVEL            0           //control specific output code
@@ -58,7 +58,7 @@
     #endif
 #endif
 
-#endif //HW_Debug
+#endif
 
 /*=============================================================================
     Definitions:

@@ -3234,7 +3234,7 @@ nobulletmasstransfer:
             if (bulletowner->playerowner == ((Ship *)target)->playerowner)
             {                                               //if it's friendly fire
         //!!! why only in non-debug???
-#ifndef HW_Debug
+#ifndef HW_BUILD_FOR_DEBUGGING
                 damagetaken *= friendlyFireModifier;
 #endif
                 bitSet(((Ship *)target)->chatterBits, BCB_FriendlyFire);
@@ -3423,7 +3423,7 @@ void univMissileCollidedWithTarget(SpaceObjRotImpTarg *target,StaticHeader *targ
             if (missileowner->playerowner == ((Ship *)target)->playerowner)
             {                                               //if it's friendly fire
         //!!! why only in non-debug???
-#ifndef HW_Debug
+#ifndef HW_BUILD_FOR_DEBUGGING
                 damagetaken *= friendlyFireModifier;
 #endif
                 bitSet(((Ship *)target)->chatterBits, BCB_FriendlyFire);
@@ -7361,7 +7361,7 @@ void univCheckRegrowResources(void)
                         {
                             if (AddResourceToSphere(resvol,TRUE))
                             {
-#ifdef HW_Debug
+#ifdef HW_BUILD_FOR_DEBUGGING
                                 dbgMessage("\nRegrowing resource!");
 #endif
                                 resvol->actualnumber++;
@@ -7375,7 +7375,7 @@ void univCheckRegrowResources(void)
                         {
                             if (AddResourceToCylinder(resvol,TRUE))
                             {
-#ifdef HW_Debug
+#ifdef HW_BUILD_FOR_DEBUGGING
                                 dbgMessage("\nRegrowing resource!");
 #endif
                                 resvol->actualnumber++;
@@ -7389,7 +7389,7 @@ void univCheckRegrowResources(void)
                         {
                             if (AddResourceToRectangle(resvol,TRUE))
                             {
-#ifdef HW_Debug
+#ifdef HW_BUILD_FOR_DEBUGGING
                                 dbgMessage("\nRegrowing resource!");
 #endif
                                 resvol->actualnumber++;

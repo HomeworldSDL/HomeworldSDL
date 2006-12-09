@@ -34,7 +34,7 @@
 #define MESH_RETAIN_FILENAMES   1               //keep a copy of the fileName
 #define MESH_MORPH_DEBUG        1               //debug morph render code
 
-#else //HW_Debug
+#else
 
 #define MESH_VERBOSE_LEVEL      0
 #define MESH_ERROR_CHECKING     0               //general error checking
@@ -44,7 +44,7 @@
 #define TC_SPECIAL_DEBUG        1               //special debugging modes active
 #define MESH_MORPH_DEBUG        0
 
-#endif //HW_Debug
+#endif
 
 /*=============================================================================
     Definitions

@@ -18,8 +18,16 @@
                             + defined( HW_GAME_RAIDER_RETREAT ) \
                             + defined( HW_GAME_DEMO           )
 
+#define HW_BUILD_TYPE_COUNT   defined( HW_BUILD_FOR_DEBUGGING    ) \
+                            + defined( HW_BUILD_FOR_DISTRIBUTION ) 
+
+
 #if HW_GAME_TYPE_COUNT != 1
     #error Please specify ONE of the HW_GAME_* types
+#endif
+
+#if HW_BUILD_TYPE_COUNT != 1
+    #error Please specify ONE of the HW_BUILD_* types
 #endif
 
 
@@ -34,13 +42,13 @@
 #define MAIN_SENSOR_LEVEL           1           //enable command-line adjustment of sensors level
 #define MAIN_PRINT_MESSAGES         0           //print the window messages as they come pouring in
 
-#else //HW_Debug
+#else
 
 #define MAIN_MOUSE_FREE             1           //allow the mouse to be freed from the window
 #define MAIN_SENSOR_LEVEL           0           //enable command-line adjustment of sensors level
 #define MAIN_PRINT_MESSAGES         0           //print the window messages as they come pouring in
 
-#endif //HW_Debug
+#endif
 
 /*=============================================================================
     Definitions:

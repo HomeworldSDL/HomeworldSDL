@@ -23,14 +23,14 @@
 #define PIE_VISUALIZE_VERTICAL      0           //draw the vertical through the specified point
 #define PIE_VISUALIZE_EXTENTS       1           //visualize universe extents
 
-#else //HW_Debug
+#else
 
 #define PIE_ERROR_CHECKING          0           //general error checking
 #define PIE_VERBOSE_LEVEL           0           //control specific output code
 #define PIE_VISUALIZE_VERTICAL      0           //draw the vertical through the specified point
 #define PIE_VISUALIZE_EXTENTS       0           //visualize universe extents
 
-#endif //HW_Debug
+#endif
 
 /*=============================================================================
     Definitions:

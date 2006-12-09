@@ -20,13 +20,13 @@
 #define LIGHT_VERBOSE_LEVEL     2               //print extra info
 #define LIGHT_PLAYER_COLORS     0               //set colored lights for players
 
-#else //HW_Debug
+#else
 
 #define LIGHT_ERROR_CHECKING    0               //general error checking
 #define LIGHT_VERBOSE_LEVEL     0               //print extra info
 #define LIGHT_PLAYER_COLORS     0               //set colored lights for players
 
-#endif //HW_Debug
+#endif
 /*=============================================================================
     Type definitions:
 =============================================================================*/

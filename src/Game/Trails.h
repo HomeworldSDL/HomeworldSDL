@@ -23,13 +23,13 @@
 #define TRAIL_VERBOSE_LEVEL        0               //print extra info
 #define TRAIL_GATHER_STATS         0               //gather performance stats
 
-#else //HW_Debug
+#else
 
 #define TRAIL_ERROR_CHECKING       1               //general error checking
 #define TRAIL_VERBOSE_LEVEL        1               //print extra info
 #define TRAIL_GATHER_STATS         0               //gather performance stats
 
-#endif //HW_Debug
+#endif
 
 /*=============================================================================
     Definitions:

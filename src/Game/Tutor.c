@@ -822,7 +822,7 @@ void tutRemovePointerByName(char *name)
             return;
         }
     }
-#ifndef HW_Debug
+#ifndef HW_BUILD_FOR_DEBUGGING
     dbgMessagef("\ntutRemovePointerByName: '%s' not found.", name);
 #endif
 }

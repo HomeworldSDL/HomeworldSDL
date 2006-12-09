@@ -42,13 +42,13 @@
 #define UNIV_SHIP_LOADFREE_LOG          1       //spit out a list of what ships were loaded and freed
 #define UNIV_LOAD_FREE_FILENAME         "loadfree.log"
 
-#else //HW_Debug
+#else
 
 #define UNIVERSE_TURBORECORD_ONLY       1
 #define UNIVERSE_TURBOPAUSE_DEBUG       1       //enable turbo and pause modes
 #define UNIV_SHIP_LOADFREE_LOG          0       //spit out a list of what ships were loaded and freed
 
-#endif //HW_Debug
+#endif
 
 /*=============================================================================
     Defines:

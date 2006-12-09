@@ -727,7 +727,7 @@ void expireCrate(Derelict *crate)
     matrix ident = IdentityMatrix;
 
     universe.numCratesInWorld--;
-#ifdef HW_DEBUG
+#ifdef HW_BUILD_FOR_DEBUGGING
     //don't drop below 0!
     dbgAssertOrIgnore(universe.numCratesInWorld >= 0);
 #endif

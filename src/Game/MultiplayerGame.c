@@ -52,7 +52,7 @@
 #define wcscasecmp wcsicmp
 #endif
 
-#ifdef HW_Debug
+#ifdef HW_BUILD_FOR_DEBUGGING
 #ifdef gshaw
 #define NEED_MIN_TWO_HUMAN_PLAYERS  0
 #endif

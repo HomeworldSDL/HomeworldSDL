@@ -22,12 +22,12 @@
 #define TO_ERROR_CHECKING       1               //general error checking
 #define TO_VERBOSE_LEVEL        2               //print extra info
 
-#else //HW_Debug
+#else
 
 #define TO_ERROR_CHECKING       0               //general error checking
 #define TO_VERBOSE_LEVEL        0               //print extra info
 
-#endif //HW_Debug
+#endif
 
 /*=============================================================================
     Definitions:

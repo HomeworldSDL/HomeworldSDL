@@ -21,7 +21,7 @@
 				Optimization="0"
 				OptimizeForProcessor="1"
 				AdditionalIncludeDirectories="..\..\src\SDL;..\..\src\rgl;..\..\src\Game;..\..\src\Ships;..\..\src\ThirdParty\JPG;..\..\src\ThirdParty\CRC;..\..\src\Generated"
-				PreprocessorDefinitions="HW_DEBUG;HW_Debug;_WIN32;WIN32;_DEBUG;_WINDOWS"
+				PreprocessorDefinitions="HW_BUILD_FOR_DEBUGGING;_WIN32;WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="TRUE"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"

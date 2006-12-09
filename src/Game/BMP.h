@@ -20,12 +20,12 @@
 #define BMP_ERROR_CHECKING      1               //basic error checking
 #define BMP_VERBOSE_LEVEL       1               //control verbose printing
 
-#else //HW_Debug
+#else
 
 #define BMP_ERROR_CHECKING      0               //basic error checking
 #define BMP_VERBOSE_LEVEL       0               //control verbose printing
 
-#endif //HW_Debug
+#endif
 
 /*=============================================================================
     Definitions:

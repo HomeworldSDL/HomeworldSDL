@@ -43,8 +43,8 @@ AC_ARG_ENABLE(hwdebug,
 	AC_HELP_STRING([--enable-hwdebug], [build a debug binary for Homeworld]),
 	enable_hwdebug=yes)
 if test "x$enable_hwdebug" = "xyes" ; then
-	echo "* Building debug binary for Homeworld (HW_Debug) *"
-	HWBIN_CFLAGS="-DHW_Debug"
+	echo "* Building debug binary for Homeworld (HW_BUILD_FOR_DEBUGGING) *"
+	HWBIN_CFLAGS="-DHW_BUILD_FOR_DEBUGGING"
 else
 	echo "* Building distribution binary for Homeworld (HW_BUILD_FOR_DISTRIBUTION) *"
 	HWBIN_CFLAGS="-DHW_BUILD_FOR_DISTRIBUTION"
@@ -60,9 +60,10 @@ if test "$linuxfixme" = "yes" ; then
 fi
 
 dnl Add necessary flags for compiler and linker.
-dnl - One (and only one) of "HW_Debug" or "HW_BUILD_FOR_DISTRIBUTION" must be set.
-dnl   This is defined above in the HWBIN_CFLAGS variable. HW_Debug
-dnl   is set via "--enable-hwdebug"; HW_BUILD_FOR_DISTRIBUTION is the default.
+dnl - One (and only one) of "HW_BUILD_FOR_DEBUGGING" or "HW_BUILD_FOR_DISTRIBUTION"
+dnl   must be set. This is defined above in the HWBIN_CFLAGS variable.
+dnl   HW_BUILD_FOR_DEBUGGING is set via "--enable-hwdebug";
+dnl   HW_BUILD_FOR_DISTRIBUTION is the default.
 dnl - $SDL_CFLAGS and $SDL_LIBS should be pretty much self-explanatory. =]
 dnl - We don't want to include $SDL_LIBS when building librgl.
 CFLAGS="$CFLAGS $HWBIN_CFLAGS $SDL_CFLAGS"

@@ -24,7 +24,7 @@
 #define FILE_TEST               0               //test the file module
 #define FILE_PREPEND_PATH       1               //prepend a fixed path to the start of all file open requests
 
-#else //HW_Debug
+#else
 
 #define FILE_VERBOSE_LEVEL      0               //control level of verbose info
 #define FILE_ERROR_CHECKING     0               //control error checking
@@ -33,7 +33,7 @@
 #define FILE_TEST               0               //test the file module
 #define FILE_PREPEND_PATH       1               //prepend a fixed path to the start of all file open requests
 
-#endif //HW_Debug
+#endif
 
 // If not already defined (such as through a configure setting), define
 // whether or not case-insensitive searches for files should be performed

@@ -636,7 +636,7 @@ real32 PilotOffsetsR2[TOTAL_NUM_SHIPS] =
     0.500000f    //JunkYardHQ
 };
 
-#ifdef HW_Debug
+#ifdef HW_BUILD_FOR_DEBUGGING
 real32 pilotupoffset = 0.5f;
 #endif
 
@@ -662,7 +662,7 @@ void cameraSetEyePositionBasedOnShip(Camera *camera,struct Ship *ship)
             upoffset = PilotOffsets[ship->shiptype];
         }
     }
-#ifdef HW_Debug
+#ifdef HW_BUILD_FOR_DEBUGGING
     if (pilotupoffset != 0.5f)
     {
         upoffset = pilotupoffset;

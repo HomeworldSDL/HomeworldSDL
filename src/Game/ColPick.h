@@ -27,12 +27,12 @@
 #define CP_ERROR_CHECKING           1           //general error checking
 #define CP_VERBOSE_LEVEL            1           //control specific output code
 
-#else //HW_Debug
+#else
 
 #define CP_ERROR_CHECKING           0           //general error checking
 #define CP_VERBOSE_LEVEL            0           //control specific output code
 
-#endif //HW_Debug
+#endif
 
 /*=============================================================================
     Definitions:

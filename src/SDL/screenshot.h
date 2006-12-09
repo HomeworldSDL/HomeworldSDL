@@ -15,12 +15,12 @@
 #define SS_ERROR_CHECKING      1               //basic error checking
 #define SS_VERBOSE_LEVEL       1               //control verbose printing
 
-#else //HW_Debug
+#else
 
 #define SS_ERROR_CHECKING      0               //no error ckecking in retail
 #define SS_VERBOSE_LEVEL       1               //SDL prints screenshot path; was 0 for retail
 
-#endif //HW_Debug
+#endif
 #include "Types.h"
 
 void ssSaveScreenshot(ubyte* buf);

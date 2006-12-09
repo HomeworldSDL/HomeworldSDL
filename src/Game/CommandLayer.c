@@ -3513,7 +3513,7 @@ void RemoveShipsFromDoingStuff(CommandLayer *comlayer,SelectCommand *selectcom)
                         break;
 
                     case COMMAND_MP_HYPERSPACING:
-#ifdef HW_DEBUG
+#ifdef HW_BUILD_FOR_DEBUGGING
                         dbgMessage("\nHyperspaceing ship removed from doing stuff!");
 #endif
                         if (clRemoveShipFromSelection(todoselection,shiptoremove))
@@ -6816,7 +6816,7 @@ void clHaltThese(CommandLayer *comlayer,SelectCommand *selectcom)
             speechEvent(selectcom->ShipPtr[0], COMM_AttackCancelled, 0);
         }
 
-        #ifdef HW_DEBUG
+        #ifdef HW_BUILD_FOR_DEBUGGING
               dbgAssertOrIgnore(alreadycommand->ordertype.order != COMMAND_MP_HYPERSPACING);
         #endif
 

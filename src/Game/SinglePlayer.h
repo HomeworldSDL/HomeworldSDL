@@ -28,7 +28,7 @@
 #define SP_DEBUGKEYS                1           //single player debugging keys
 #define SP_DEBUGLEVEL2              1           //more debug keys
 
-#else //HW_Debug
+#else
 
 #define SP_ERROR_CHECKING           0           //general error checking
 #define SP_VERBOSE_LEVEL            0           //control specific output code
@@ -36,7 +36,7 @@
 #define SP_DEBUGKEYS                0           //single player debugging keys
 #define SP_DEBUGLEVEL2              0           //more debug keys
 
-#endif //HW_Debug
+#endif
 
 /*=============================================================================
     Definitions:

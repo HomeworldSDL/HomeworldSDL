@@ -24,13 +24,13 @@
 #define UTY_VERBOSE_LEVEL       1               //control verbose printing
 #define UTY_PLAYER_LOGGING      1               //PlayerStart.log
 
-#else //HW_Debug
+#else
 
 #define UTY_ERROR_CHECKING      0               //no error ckecking in retail
 #define UTY_VERBOSE_LEVEL       0               //don't print any verbose strings in retail
 #define UTY_PLAYER_LOGGING      0               //PlayerStart.log
 
-#endif //HW_Debug
+#endif
 
 /*=============================================================================
     Definitions:

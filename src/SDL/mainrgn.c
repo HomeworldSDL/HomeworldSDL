@@ -229,7 +229,7 @@ mrKeyFunction[] =
     {{GREATERTHAN , 0,      0,      0}, 1, RPE_KeyDown},
 
 // Extra keys that are mappable that the mainregion must capture
-#ifndef HW_Debug  //only add these for release builds so that random debug keys will work
+#ifndef HW_BUILD_FOR_DEBUGGING  //only add these for release builds so that random debug keys will work
     {{PLUSMINUS   , 0,      0,      0}, 1, RPE_KeyDown},
     {{PAUSEKEY    , 0,      0,      0}, 1, RPE_KeyDown},
     {{PRINTKEY    , 0,      0,      0}, 1, RPE_KeyDown},
@@ -307,7 +307,7 @@ bool mrMenuDontDisappear = FALSE;       //forces the context menus to stay on th
 
 #define TIMEOUT_TIME 15.0 // timer for the printing of player dropped messages
 
-#ifdef HW_Debug
+#ifdef HW_BUILD_FOR_DEBUGGING
 extern real32 pilotupoffset;
 #endif
 
@@ -1920,7 +1920,7 @@ processEscapeKey:
             }
             else
 #endif
-#ifdef HW_Debug
+#ifdef HW_BUILD_FOR_DEBUGGING
             if (pilotView)
             {
                 pilotupoffset *= 0.95f;
@@ -1943,7 +1943,7 @@ processEscapeKey:
             }
             else
 #endif
-#ifdef HW_Debug
+#ifdef HW_BUILD_FOR_DEBUGGING
             if (pilotView)
             {
                 pilotupoffset *= 1.05f;
