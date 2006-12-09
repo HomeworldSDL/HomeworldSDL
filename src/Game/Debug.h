@@ -12,21 +12,21 @@
 
 // INTERFACE -------------------------------------------------------------------
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
-    #define DBG_ASSERT              1           // assertion checking
-    #define DBG_FILE_LINE           1           // print file and line
-    #define DBG_STACK_CONTEXT       1           // dump stack context at fatal error time
+#ifdef HW_BUILD_FOR_DEBUGGING
+    #define DBG_ASSERT                 1   // assertion checking
+    #define DBG_FILE_LINE              1   // print file and line
+    #define DBG_STACK_CONTEXT          1   // dump stack context at fatal error time
 #else
-    #define DBG_ASSERT              0
-    #define DBG_FILE_LINE           0           // don't print file and line
-    #define DBG_STACK_CONTEXT       0           // dump stack context at fatal error time
+    #define DBG_ASSERT                 0
+    #define DBG_FILE_LINE              0
+    #define DBG_STACK_CONTEXT          0
 #endif
 
 
 #if DBG_FILE_LINE
-    #define DBG_Loc         __FILE__, __LINE__
+    #define DBG_Loc  __FILE__, __LINE__
 #else
-    #define DBG_Loc         NULL, 0
+    #define DBG_Loc  NULL, 0
 #endif
 
 
@@ -39,34 +39,30 @@
 #endif
 
 
-#if DBG_STACK_CONTEXT
-    extern udword dbgStackBase;
-    char *dbgStackDump(void);
-#endif
-
-
 // maximum length of a single string for format printing
 #define DBG_BufferLength        2048
 #define DBG_BufferMax           (DBG_BufferLength - 1)
 
-// message box style
-#define DBG_MBCaption           "Fatal Error"
-#define DBG_MBFlags             MB_ICONSTOP | MB_OK
 
-// default exit code
-#define DBG_ExitCode            0xfed5
+#if DBG_STACK_CONTEXT
+    extern udword dbgStackBase;
+#endif
 
-extern char dbgFatalErrorString[DBG_BufferLength];
+extern char   dbgFatalErrorString[DBG_BufferLength];
 extern sdword dbgInt3Enabled;
 
-sdword dbgMessage(char *string);
-sdword dbgMessagef(char *format, ...);
-sdword dbgWarning(char *file, sdword line, char *format);
-sdword dbgWarningf(char *file, sdword line, char *format, ...);
-sdword dbgFatal(char *file, sdword line, char *format);
-sdword dbgFatalf(char *file, sdword line, char *format, ...);
-sdword dbgNonFatal(char *file, sdword line, char *error);
-sdword dbgNonFatalf(char *file, sdword line, char *format, ...);
+
+sdword dbgMessage  (char *string);
+sdword dbgMessagef (char *format, ...);
+
+sdword dbgWarning  (char *file, sdword line, char *format      );
+sdword dbgWarningf (char *file, sdword line, char *format, ... );
+
+sdword dbgFatal    (char *file, sdword line, char *format      );
+sdword dbgFatalf   (char *file, sdword line, char *format, ... );
+
+sdword dbgNonFatal (char *file, sdword line, char *error       );
+sdword dbgNonFatalf(char *file, sdword line, char *format, ... );
 
 
 #endif
