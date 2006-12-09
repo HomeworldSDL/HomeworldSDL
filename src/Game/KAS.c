@@ -124,12 +124,11 @@ void kasTeamDied(struct AITeam *team)
 //
 void kasJump(char *stateName, KASInitFunction initFunction, KASWatchFunction watchFunction)
 {
-#ifndef HW_BUILD_FOR_DISTRIBUTION
-{
+#ifdef HW_BUILD_FOR_DEBUGGING
     char teamName[KAS_TEAM_NAME_MAX_LENGTH+1];
     aiplayerLog((aiCurrentAIPlayer->player->playerIndex,"KAS: TEAM(\"%s\") JUMP %s", kasAITeamName(CurrentTeamP, teamName), stateName));
-}
 #endif
+
     memStrncpy(CurrentTeamP->kasStateName, stateName, KAS_STATE_NAME_MAX_LENGTH);
 
     CurrentTeamP->kasStateWatchFunction = watchFunction;
@@ -155,11 +154,9 @@ void kasFSMCreate(char *fsmName, KASInitFunction initFunction, KASWatchFunction 
 
     CurrentTeamP = teamP;
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
-{
+#ifdef HW_BUILD_FOR_DEBUGGING
     char teamName[KAS_TEAM_NAME_MAX_LENGTH+1];
     aiplayerLog((aiCurrentAIPlayer->player->playerIndex,"\nKAS: FSMCreate(\"%s\", TEAM(\"%s\")", fsmName, kasAITeamName(teamP, teamName)));
-}
 #endif
 
     teamP->teamType = ScriptTeam;
@@ -263,9 +260,11 @@ AITeam *kasAITeamPtr(char *label)
     // special reference to sender of last message received
     if (!strcasecmp(label, "MsgSender"))
         return CurrentTeamP->msgSender;
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+        
+#ifdef HW_BUILD_FOR_DEBUGGING
     dbgFatalf(DBG_Loc,"\nKAS: unresolved reference to team %s", label);
 #endif
+
     return NULL;
 }
 
@@ -288,9 +287,11 @@ GrowSelection *kasAITeamShipsPtr(char *label)
     if (!strcasecmp(label, "MsgSender"))
         if (CurrentTeamP->msgSender)
             return &CurrentTeamP->msgSender->shipList;
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+            
+#ifdef HW_BUILD_FOR_DEBUGGING
     dbgFatalf(DBG_Loc,"\nKAS: unresolved reference to team %s", label);
 #endif
+
     return NULL;
 }
 
@@ -318,9 +319,10 @@ hvector *kasShipsVectorPtr(char *label)
         return &errorPos;
     }
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
     dbgFatalf(DBG_Loc,"\nKAS: unresolved reference to shiplist %s", label);
 #endif
+
     return NULL;
 }
 
@@ -348,9 +350,10 @@ hvector *kasTeamsVectorPtr(char *label)
         return &errorPos;
     }
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
     dbgFatalf(DBG_Loc,"\nKAS: unresolved reference to shiplist %s", label);
 #endif
+
     return NULL;
 }
 
@@ -399,9 +402,10 @@ hvector *kasThisTeamsVectorPtr(void)
         return &errorPos;
     }
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
     dbgFatalf(DBG_Loc,"\nKAS: unresolved reference in kasThisTeamsVectorPtr");
 #endif
+
     return NULL;
 
 }
@@ -450,9 +454,11 @@ Volume *kasVolumePtr(char *label)
             return LabelledVolumes[i]->volume;
         ++i;
     }
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+    
+#ifdef HW_BUILD_FOR_DEBUGGING
     dbgFatalf(DBG_Loc,"\nKAS: unresolved reference to volume %s", label);
 #endif
+
     return NULL;
 }
 
@@ -474,12 +480,14 @@ hvector *kasVectorPtrIfExists(char *label)
 hvector *kasVectorPtr(char *label)
 {
     hvector *vec = kasVectorPtrIfExists(label);
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+    
+#ifdef HW_BUILD_FOR_DEBUGGING
     if (label == NULL)
     {
         dbgFatalf(DBG_Loc,"\nKAS: unresolved reference to point %s", label);
     }
 #endif
+
     return vec;
 }
 

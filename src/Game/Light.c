@@ -43,40 +43,42 @@ void lightSetNumLights(udword numLights)
 
 struct
 {
-    char *name;
+    char      *name;
     lightinfo *light;
 }
 lightNameToInfoTable[] =
 {
-    {"default",         &lightDefaultLight},
-//#if LIGHT_PLAYER_COLORS
-    {"player0",         &lightPlayerLight[0]},
-    {"player1",         &lightPlayerLight[1]},
-    {"player2",         &lightPlayerLight[2]},
-    {"player3",         &lightPlayerLight[3]},
-    {"player4",         &lightPlayerLight[4]},
-    {"player5",         &lightPlayerLight[5]},
-    {"player6",         &lightPlayerLight[6]},
-    {"player7",         &lightPlayerLight[7]},
-//#endif //LIGHT_PLAYER_COLORS
-    {NULL, NULL}
+    { "default", &lightDefaultLight   },
+    
+    { "player0", &lightPlayerLight[0] },
+    { "player1", &lightPlayerLight[1] },
+    { "player2", &lightPlayerLight[2] },
+    { "player3", &lightPlayerLight[3] },
+    { "player4", &lightPlayerLight[4] },
+    { "player5", &lightPlayerLight[5] },
+    { "player6", &lightPlayerLight[6] },
+    { "player7", &lightPlayerLight[7] },
+    
+    { NULL,      NULL                 }
 };
 
 static lightinfo *currentLight;
 static lightinfo currentLight1;
 static GLfloat lightAmbient[4] = {0.2f, 0.2f, 0.2f, 1.0f};
 
-static void lightPositionRead(char *directory,char *field,void *dataToFillIn);
-static void lightTypeSet(char *directory,char *field,void *dataToFillIn);
-static void lightPropertiesRead(char *directory,char *field,void *dataToFillIn);
+static void lightPositionRead  (char *directory, char *field, void *dataToFillIn);
+static void lightTypeSet       (char *directory, char *field, void *dataToFillIn);
+static void lightPropertiesRead(char *directory, char *field, void *dataToFillIn);
+
 static scriptEntry lightScriptTable[] =
 {
-    { "lightType",          lightTypeSet,  NULL },
-    { "ambient",            lightPropertiesRead,  &lightDefaultLight.ambient },
-    { "diffuse",            lightPropertiesRead,  &lightDefaultLight.diffuse },
-    { "specular",           lightPropertiesRead,  &lightDefaultLight.specular },
-    { "position",           lightPositionRead,  NULL },
-    { NULL,NULL, NULL}
+    { "lightType", lightTypeSet,        NULL                        },
+    { "ambient",   lightPropertiesRead, &lightDefaultLight.ambient  },
+    { "diffuse",   lightPropertiesRead, &lightDefaultLight.diffuse  },
+    { "specular",  lightPropertiesRead, &lightDefaultLight.specular },
+    { "position",  lightPositionRead,   NULL                        },
+    
+    { NULL,        NULL,                NULL                        }
 };
 
 char lightCurrentLighting[PATH_MAX];

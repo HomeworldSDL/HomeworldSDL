@@ -34,3 +34,6 @@ Helpful things to know:
 3) Toggle full screen/windowed mode:
    .../homeworld/src/SDL/main.c: bool fullScreen = TRUE;
 
+    NB: Development builds use "fullScreen = FALSE" by default
+    NB: Deployment  builds use "fullScreen = TRUE"  by default
+

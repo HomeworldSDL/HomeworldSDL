@@ -39,68 +39,68 @@
 fonthandle   ioShipListFont=0;
 char         ioShipListFontName[64] = IO_DefaultFont;
 
-ShipListInfo    listinfo[numOverlays + 1]=
+ShipListInfo  listinfo[numOverlays + 1]=
 {
-    {0      , 0     , LightDefender         , NULL },
-    {0      , 0     , HeavyDefender         , NULL },
-    {0      , 0     , LightInterceptor      , NULL },
-    {0      , 0     , HeavyInterceptor      , NULL },
-    {0      , 0     , CloakedFighter        , NULL },
-    {0      , 0     , DefenseFighter        , NULL },
-    {0      , 0     , AttackBomber          , NULL },
-    {0      , 0     , LightCorvette         , NULL },
-    {0      , 0     , HeavyCorvette         , NULL },
-    {0      , 0     , RepairCorvette        , NULL },
-    {0      , 0     , SalCapCorvette        , NULL },
-    {0      , 0     , MinelayerCorvette     , NULL },
-    {0      , 0     , MultiGunCorvette      , NULL },
-    {0      , 0     , ResourceCollector     , NULL },
-    {0      , 0     , ResourceController    , NULL },
-    {0      , 0     , StandardFrigate       , NULL },
-    {0      , 0     , AdvanceSupportFrigate , NULL },
-    {0      , 0     , DDDFrigate            , NULL },
-    {0      , 0     , DFGFrigate            , NULL },
-    {0      , 0     , IonCannonFrigate      , NULL },
-    {0      , 0     , StandardDestroyer     , NULL },
-    {0      , 0     , MissileDestroyer      , NULL },
-    {0      , 0     , HeavyCruiser          , NULL },
-    {0      , 0     , Carrier               , NULL },
-    {0      , 0     , Probe                 , NULL },
-    {0      , 0     , ProximitySensor       , NULL },
-    {0      , 0     , SensorArray           , NULL },
-    {0      , 0     , ResearchShip          , NULL },
-    {0      , 0     , GravWellGenerator     , NULL },
-    {0      , 0     , CloakGenerator        , NULL },
-    {0      , 0     , Mothership            , NULL },   //mothership
-    {0      , 0     , DefaultShip           , NULL },   //target drone
-    {0      , 0     , DefaultShip           , NULL },   //drone
-    {0      , 0     , DefaultShip           , NULL },    //headshot asteroid
+    { 0, 0, LightDefender,         NULL },
+    { 0, 0, HeavyDefender,         NULL },
+    { 0, 0, LightInterceptor,      NULL },
+    { 0, 0, HeavyInterceptor,      NULL },
+    { 0, 0, CloakedFighter,        NULL },
+    { 0, 0, DefenseFighter,        NULL },
+    { 0, 0, AttackBomber,          NULL },
+    { 0, 0, LightCorvette,         NULL },
+    { 0, 0, HeavyCorvette,         NULL },
+    { 0, 0, RepairCorvette,        NULL },
+    { 0, 0, SalCapCorvette,        NULL },
+    { 0, 0, MinelayerCorvette,     NULL },
+    { 0, 0, MultiGunCorvette,      NULL },
+    { 0, 0, ResourceCollector,     NULL },
+    { 0, 0, ResourceController,    NULL },
+    { 0, 0, StandardFrigate,       NULL },
+    { 0, 0, AdvanceSupportFrigate, NULL },
+    { 0, 0, DDDFrigate,            NULL },
+    { 0, 0, DFGFrigate,            NULL },
+    { 0, 0, IonCannonFrigate,      NULL },
+    { 0, 0, StandardDestroyer,     NULL },
+    { 0, 0, MissileDestroyer,      NULL },
+    { 0, 0, HeavyCruiser,          NULL },
+    { 0, 0, Carrier,               NULL },
+    { 0, 0, Probe,                 NULL },
+    { 0, 0, ProximitySensor,       NULL },
+    { 0, 0, SensorArray,           NULL },
+    { 0, 0, ResearchShip,          NULL },
+    { 0, 0, GravWellGenerator,     NULL },
+    { 0, 0, CloakGenerator,        NULL },
+    { 0, 0, Mothership,            NULL },
+    { 0, 0, DefaultShip,           NULL },   // target drone
+    { 0, 0, DefaultShip,           NULL },   // drone
+    { 0, 0, DefaultShip,           NULL },   // headshot asteroid
 
-    {0      , 0     , CryoTray           , NULL },    //headshot asteroid
-    {0      , 0     , P1Fighter           , NULL },    //headshot asteroid
-    {0      , 0     , P1IonArrayFrigate           , NULL },    //headshot asteroid
-    {0      , 0     , P1MissileCorvette           , NULL },    //headshot asteroid
-    {0      , 0     , P1Mothership           , NULL },    //headshot asteroid
-    {0      , 0     , P1StandardCorvette           , NULL },    //headshot asteroid
-    {0      , 0     , P2AdvanceSwarmer           , NULL },    //headshot asteroid
-    {0      , 0     , P2FuelPod           , NULL },    //headshot asteroid
-    {0      , 0     , P2Mothership           , NULL },    //headshot asteroid
-    {0      , 0     , P2MultiBeamFrigate           , NULL },    //headshot asteroid
-    {0      , 0     , P2Swarmer           , NULL },    //headshot asteroid
-    {0      , 0     , P3Destroyer           , NULL },    //headshot asteroid
-    {0      , 0     , P3Frigate           , NULL },    //headshot asteroid
-    {0      , 0     , P3Megaship           , NULL },    //headshot asteroid
-    {0      , 0     , FloatingCity           , NULL },    //headshot asteroid
-    {0      , 0     , CargoBarge           , NULL },    //headshot asteroid
-    {0      , 0     , MiningBase           , NULL },    //headshot asteroid
-    {0      , 0     , ResearchStation           , NULL },    //headshot asteroid
-    {0      , 0     , JunkYardDawg           , NULL },    //headshot asteroid
-    {0      , 0     , JunkYardHQ           , NULL },    //headshot asteroid
-    {0      , 0     , Ghostship           , NULL },    //headshot asteroid
-    {0      , 0     , Junk_LGun           , NULL },    //headshot asteroid
-    {0      , 0     , Junk_SGun           , NULL },    //headshot asteroid
-    {0      , 0     , ResearchStationBridge           , NULL },    //headshot asteroid
-    {-1      , 0     , ResearchStationTower           , NULL }    //headshot asteroid
+    { 0, 0, CryoTray,              NULL },
+    { 0, 0, P1Fighter,             NULL },
+    { 0, 0, P1IonArrayFrigate,     NULL },
+    { 0, 0, P1MissileCorvette,     NULL },
+    { 0, 0, P1Mothership,          NULL },
+    { 0, 0, P1StandardCorvette,    NULL },
+    { 0, 0, P2AdvanceSwarmer,      NULL },
+    { 0, 0, P2FuelPod,             NULL },
+    { 0, 0, P2Mothership,          NULL },
+    { 0, 0, P2MultiBeamFrigate,    NULL },
+    { 0, 0, P2Swarmer,             NULL },
+    { 0, 0, P3Destroyer,           NULL },
+    { 0, 0, P3Frigate,             NULL },
+    { 0, 0, P3Megaship,            NULL },
+    { 0, 0, FloatingCity,          NULL },
+    { 0, 0, CargoBarge,            NULL },
+    { 0, 0, MiningBase,            NULL },
+    { 0, 0, ResearchStation,       NULL },
+    { 0, 0, JunkYardDawg,          NULL },
+    { 0, 0, JunkYardHQ,            NULL },
+    { 0, 0, Ghostship,             NULL },
+    { 0, 0, Junk_LGun,             NULL },
+    { 0, 0, Junk_SGun,             NULL },
+    { 0, 0, ResearchStationBridge, NULL },
+    {-1, 0, ResearchStationTower , NULL }
 };
 
 ShipOverlayInfo overlayinfo[numButtons];

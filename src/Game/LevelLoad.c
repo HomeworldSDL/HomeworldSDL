@@ -61,17 +61,17 @@ ResourceDistribution resourceDistTemplate;
     Private Function prototypes:
 =============================================================================*/
 
-static void scriptSetDerelictCB(char *directory,char *field,void *dataToFillIn);
-static void scriptSetResourcesCB(char *directory,char *field,void *dataToFillIn);
-static void scriptSetShipsCB(char *directory,char *field,void *dataToFillIn);
-static void scriptSetAIPointCB(char *directory,char *field,void *dataToFillIn);
-static void scriptSetAIPathCB(char *directory,char *field,void *dataToFillIn);
-static void scriptSetAIBoxCB(char *directory,char *field,void *dataToFillIn);
-static void scriptSetAISphereCB(char *directory,char *field,void *dataToFillIn);
-static void scriptSetMissionSphereCB(char *directory,char *field,void *dataToFillIn);
-static void scriptSetLightingCB(char *directory,char *field,void *dataToFillIn);
-static void scriptSetBackgroundCB(char* directory, char* field, void* dataToFillIn);
-static void scriptSetUword2CB(char *directory,char *field,void *dataToFillIn);
+static void scriptSetDerelictCB     (char *directory, char *field, void *dataToFillIn);
+static void scriptSetResourcesCB    (char *directory, char *field, void *dataToFillIn);
+static void scriptSetShipsCB        (char *directory, char *field, void *dataToFillIn);
+static void scriptSetAIPointCB      (char *directory, char *field, void *dataToFillIn);
+static void scriptSetAIPathCB       (char *directory, char *field, void *dataToFillIn);
+static void scriptSetAIBoxCB        (char *directory, char *field, void *dataToFillIn);
+static void scriptSetAISphereCB     (char *directory, char *field, void *dataToFillIn);
+static void scriptSetMissionSphereCB(char *directory, char *field, void *dataToFillIn);
+static void scriptSetLightingCB     (char *directory, char *field, void *dataToFillIn);
+static void scriptSetBackgroundCB   (char *directory, char *field, void *dataToFillIn);
+static void scriptSetUword2CB       (char *directory, char *field, void *dataToFillIn);
 
 /*=============================================================================
     Private Data:
@@ -108,75 +108,77 @@ scriptStructEntry GasCloudDistScriptTable[] =
 
 scriptStructEntry MissionSphereScriptTable[] =
 {
-    { "Ships", scriptSetShipsCB, 0,0 },
-    { "AIPoint", scriptSetAIPointCB, 0,0 },
-    { "AIPath", scriptSetAIPathCB, 0,0 },
-    { "AIBox", scriptSetAIBoxCB, 0,0 },
-    { "AISphere", scriptSetAISphereCB, 0,0 },
-    { "Resources", scriptSetResourcesCB, 0,0 },
-    { "Derelict", scriptSetDerelictCB, 0,0 },
+    { "Ships",     scriptSetShipsCB,     0, 0 },
+    { "AIPoint",   scriptSetAIPointCB,   0, 0 },
+    { "AIPath",    scriptSetAIPathCB,    0, 0 },
+    { "AIBox",     scriptSetAIBoxCB,     0, 0 },
+    { "AISphere",  scriptSetAISphereCB,  0, 0 },
+    { "Resources", scriptSetResourcesCB, 0, 0 },
+    { "Derelict",  scriptSetDerelictCB,  0, 0 },
 
     END_SCRIPT_STRUCT_ENTRY
 };
 
 scriptEntry SMMissionTweaks[] =
 {
-    makeEntry(smDepthCueRadius,scriptSetReal32CB),
-    makeEntry(smDepthCueStartRadius,scriptSetReal32CB),
-    makeEntry(smCircleBorder,scriptSetSdwordCB),
-    makeEntry(smZoomMax,scriptSetReal32CB),
-    makeEntry(smZoomMin,scriptSetReal32CB),
-    makeEntry(smInitialDistance,scriptSetReal32CB),
-    makeEntry(smUniverseSizeX,scriptSetReal32CB),
-    makeEntry(smUniverseSizeY,scriptSetReal32CB),
-    makeEntry(smUniverseSizeZ,scriptSetReal32CB),
-    makeEntry(SongNumber,     scriptSetSdwordCB),
+    makeEntry(smDepthCueRadius,      scriptSetReal32CB),
+    makeEntry(smDepthCueStartRadius, scriptSetReal32CB),
+    makeEntry(smCircleBorder,        scriptSetSdwordCB),
+    makeEntry(smZoomMax,             scriptSetReal32CB),
+    makeEntry(smZoomMin,             scriptSetReal32CB),
+    makeEntry(smInitialDistance,     scriptSetReal32CB),
+    makeEntry(smUniverseSizeX,       scriptSetReal32CB),
+    makeEntry(smUniverseSizeY,       scriptSetReal32CB),
+    makeEntry(smUniverseSizeZ,       scriptSetReal32CB),
+    makeEntry(SongNumber,            scriptSetSdwordCB),
     
     END_SCRIPT_ENTRY
 };
 
 scriptStructEntry MissionScriptTable[] =
 {
-    { "MissionSphere", scriptSetMissionSphereCB, 0,0 },
-    { "Lighting", scriptSetLightingCB, 0,0 },
-    { "Background", scriptSetBackgroundCB, 0,0 },
+    { "MissionSphere", scriptSetMissionSphereCB, 0, 0 },
+    { "Lighting",      scriptSetLightingCB,      0, 0 },
+    { "Background",    scriptSetBackgroundCB,    0, 0 },
 
     END_SCRIPT_STRUCT_ENTRY
 };
 
-static void llExcludeShip(char *directory,char *field,void *dataToFillIn);
-static void llExcludeAsteroid(char *directory,char *field,void *dataToFillIn);
-static void llExcludeDustCloud(char *directory,char *field,void *dataToFillIn);
-static void llExcludeGasCloud(char *directory,char *field,void *dataToFillIn);
-static void llExcludeNebula(char *directory,char *field,void *dataToFillIn);
-static void llExcludeDerelict(char *directory,char *field,void *dataToFillIn);
-static void llAvailableColorScheme(char *directory,char *field,void *dataToFillIn);
-static void scriptSetShipsToBeNeeded(char *directory,char *field,void *dataToFillIn);
-static void scriptSetDerelictToBeNeeded(char *directory,char *field,void *dataToFillIn);
-static void scriptPreMissionSphereCB(char *directory,char *field,void *dataToFillIn);
+static void llExcludeShip              (char *directory, char *field, void *dataToFillIn);
+static void llExcludeAsteroid          (char *directory, char *field, void *dataToFillIn);
+static void llExcludeDustCloud         (char *directory, char *field, void *dataToFillIn);
+static void llExcludeGasCloud          (char *directory, char *field, void *dataToFillIn);
+static void llExcludeNebula            (char *directory, char *field, void *dataToFillIn);
+static void llExcludeDerelict          (char *directory, char *field, void *dataToFillIn);
+static void llAvailableColorScheme     (char *directory, char *field, void *dataToFillIn);
+static void scriptSetShipsToBeNeeded   (char *directory, char *field, void *dataToFillIn);
+static void scriptSetDerelictToBeNeeded(char *directory, char *field, void *dataToFillIn);
+static void scriptPreMissionSphereCB   (char *directory, char *field, void *dataToFillIn);
+
 bool AnyShipOverlapsAsteroid(vector *position,AsteroidType asteroidtype);
 
 scriptEntry MissionPreloadScriptTable[] =
 {
-    { "TrailColor",     teTrailColorSet,NULL},      //player #, control point #, R, G, B
+    { "TrailColor",            teTrailColorSet,        NULL      },  //player #, control point #, R, G, B
 #if !TO_STANDARD_COLORS
-    { "TOColor",        teColorSet, &teColorSchemes[0].tacticalColor},  //player #, R, G, B
+    { "TOColor",               teColorSet, &teColorSchemes[0].tacticalColor},         //player #, R, G, B
 #endif
-    { "BaseColor",      teColorSet, &teColorSchemes[0].textureColor.base},  //player #, R, G, B
-    { "StripeColor",    teColorSet, &teColorSchemes[0].textureColor.detail}, //player #, R, G, B
-    { "ExcludeShips",   llExcludeShip,      NULL},          //race, <shiptype|all]>
-    { "IncludeShips",   llExcludeShip,      (void *)1},     //race, <shiptype|all]>
-    { "ExcludeAsteroid",llExcludeAsteroid,  NULL},          //asteroidType
-    { "IncludeAsteroid",llExcludeAsteroid,  (void *)1},     //asteroidType
-    { "ExcludeDustCloud",llExcludeDustCloud,NULL},          //Type
-    { "IncludeDustCloud",llExcludeDustCloud,(void *)1},     //Type
-    { "ExcludeGasCloud",llExcludeGasCloud,  NULL},          //Type
-    { "IncludeGasCloud",llExcludeGasCloud,  (void *)1},     //Type
-    { "ExcludeNebula",  llExcludeNebula,    NULL},          //Type
-    { "IncludeNebula",  llExcludeNebula,    (void *)1},     //Type
-    { "ExcludeDerelict",llExcludeDerelict,  NULL},          //Type
-    { "IncludeDerelict",llExcludeDerelict,  (void *)1},     //Type
-    { "AvailableColorSchemes",llAvailableColorScheme, NULL},//race <shiptype|all> scheme#[,scheme#[,...]]
+    { "BaseColor",             teColorSet, &teColorSchemes[0].textureColor.base   },  //player #, R, G, B
+    { "StripeColor",           teColorSet, &teColorSchemes[0].textureColor.detail },  //player #, R, G, B
+
+    { "ExcludeShips",          llExcludeShip,          NULL      },  //race, <shiptype|all]>
+    { "IncludeShips",          llExcludeShip,         (void *) 1 },  //race, <shiptype|all]>
+    { "ExcludeAsteroid",       llExcludeAsteroid,      NULL      },  //asteroidType
+    { "IncludeAsteroid",       llExcludeAsteroid,     (void *) 1 },  //asteroidType
+    { "ExcludeDustCloud",      llExcludeDustCloud,     NULL      },  //Type
+    { "IncludeDustCloud",      llExcludeDustCloud,    (void *) 1 },  //Type
+    { "ExcludeGasCloud",       llExcludeGasCloud,      NULL      },  //Type
+    { "IncludeGasCloud",       llExcludeGasCloud,     (void *) 1 },  //Type
+    { "ExcludeNebula",         llExcludeNebula,        NULL      },  //Type
+    { "IncludeNebula",         llExcludeNebula,       (void *) 1 },  //Type
+    { "ExcludeDerelict",       llExcludeDerelict,      NULL      },  //Type
+    { "IncludeDerelict",       llExcludeDerelict,     (void *) 1 },  //Type
+    { "AvailableColorSchemes", llAvailableColorScheme, NULL      },  //race <shiptype|all> scheme#[,scheme#[,...]]
 
     END_SCRIPT_ENTRY
 };
@@ -193,8 +195,8 @@ bool needR2CapitalShip = FALSE;
 
 scriptStructEntry MissionPreloadMissphereTable[] =
 {
-    { "Ships", scriptSetShipsToBeNeeded, 0,0 },
-    { "Derelict", scriptSetDerelictToBeNeeded, 0,0 },
+    { "Ships",    scriptSetShipsToBeNeeded,    0, 0 },
+    { "Derelict", scriptSetDerelictToBeNeeded, 0, 0 },
 
     END_SCRIPT_STRUCT_ENTRY
 };
