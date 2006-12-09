@@ -2112,16 +2112,19 @@ void memAnalysisCreateForPool(mempool *pool, FILE *fpAnalysis, FILE *fpMap)
 ----------------------------------------------------------------------------*/
 void memAnalysisCreate(void)
 {
-    char *memAnalysisFileNameFull, *memMapFileNameFull;
+    char  memAnalysisFileNameFull[PATH_MAX],
+          memMapFileNameFull[PATH_MAX],
+         *filepathPtr;
     FILE *fpAnalysis, *fpMap;
     sdword index;
 
     dbgMessagef("\nSaving detailed analysis to '%s' and map to '%s'", MEM_ANALYSIS_FILE_NAME, MEM_MAP_FILE_NAME);
 
-    memAnalysisFileNameFull = filePathPrepend(
-        MEM_ANALYSIS_FILE_NAME, FF_UserSettingsPath);
-    memMapFileNameFull = filePathPrepend(
-        MEM_MAP_FILE_NAME, FF_UserSettingsPath);
+    filepathPtr = filePathPrepend(MEM_ANALYSIS_FILE_NAME, FF_UserSettingsPath);
+    strcpy(memAnalysisFileNameFull, filepathPtr);
+    
+    filepathPtr = filePathPrepend(MEM_MAP_FILE_NAME, FF_UserSettingsPath);
+    strcpy(memMapFileNameFull, filepathPtr);
 
     if (!fileMakeDestinationDirectory(memAnalysisFileNameFull))
     {
