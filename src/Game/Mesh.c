@@ -733,7 +733,7 @@ meshdata *meshLoad(char *inFileName)
     }
     else
     {
-        mesh->localSize = 0xFFFFFFFF;
+        mesh->localSize = UDWORD_Max;
     }
     mesh->nPublicMaterials = header.nPublicMaterials;       //set other header members
     mesh->nLocalMaterials = header.nLocalMaterials;
