@@ -34,9 +34,8 @@
 /*=============================================================================
     Switches:
 =============================================================================*/
-#define MAIN_Password               0           //enable password-enabling/disabling
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 
 #define MAIN_MOUSE_FREE             1           //allow the mouse to be freed from the window
 #define MAIN_SENSOR_LEVEL           1           //enable command-line adjustment of sensors level

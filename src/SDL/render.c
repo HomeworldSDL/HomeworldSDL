@@ -4163,12 +4163,7 @@ void rndRenderTask(void)
         if (keyIsStuck(SCROLLKEY))
         {
             keyClearSticky(SCROLLKEY);
-#if MAIN_Password
-            if (mainScreenShotsEnabled)
-#endif //MAIN_Password
-            {
-                rndTakeScreenshot = TRUE;
-            }
+            rndTakeScreenshot = TRUE;
         }
         else if (keyIsStuck(PAUSEKEY))
         {

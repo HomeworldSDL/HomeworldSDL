@@ -384,16 +384,10 @@ void spTitleListLoad(void)
 #endif
     sdword index, numplayers;
     char fileName[PATH_MAX], nameBuffer[PATH_MAX];
-#if MAIN_Password
-    char upperNameBuffer[PATH_MAX];
-#endif
     char bitmapfileName[PATH_MAX];
     char *pString;
     char *title;
     filehandle scriptFile;
-#if MAIN_Password
-    unsigned int i;
-#endif
 
 #ifdef HW_GAME_DEMO
     scriptFile = fileOpen("DemoMissions.script", FF_TextMode);
@@ -436,17 +430,6 @@ void spTitleListLoad(void)
         {
             goto alreadyLoaded;                             //break-continue
         }
-#if MAIN_Password
-        if (!mainEnableSpecialMissions)
-        {                                                   //if this is an "off-limits" mission
-            for (i = 0; (upperNameBuffer[i] = toupper(title[i])); i++) { }
-            if (strstr(upperNameBuffer, "ALL"))
-            {
-                memFree(title);
-                goto alreadyLoaded;                         //break-continue
-            }
-        }
-#endif //MAIN_Password
 
         for (index = 0; index < spNumberScenarios; index++)
         {
@@ -516,17 +499,6 @@ alreadyLoaded:;
         {
             goto alreadyLoadedFromFileSystem;
         }
-#if MAIN_Password
-        if (!mainEnableSpecialMissions)
-        {                                                   //if this is an "off-limits" mission
-            for (i = 0; (upperNameBuffer[i] = toupper(title[i])); i++) { }
-            if (strstr(upperNameBuffer, "ALL"))
-            {
-                memFree(title);
-                goto alreadyLoadedFromFileSystem;           //break-continue
-            }
-        }
-#endif
 
         for (index = 0; index < spNumberScenarios; index++)
         {
@@ -591,18 +563,6 @@ alreadyLoadedFromFileSystem:;
             if (title == NULL)
                 continue;
                 
-#if MAIN_Password
-            if (!mainEnableSpecialMissions)
-            {                                               /*if this is an "off-limits" mission*/
-                for (i = 0; (upperNameBuffer[i] = toupper(title[i])); i++) { }
-                if (strstr(upperNameBuffer, "ALL"))
-                {
-                    memFree(title);
-                    continue;           /*break-continue*/
-                }
-            }
-#endif
-
             for (index = 0; index < spNumberScenarios; index++)
             {
                 if (strcasecmp(spScenarios[index].fileSpec, fileName))

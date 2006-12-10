@@ -27,7 +27,6 @@
 #define MR_TEST_HPB                 0           //test heading/pitch/bank interactively
 #define MR_RELEASE_MOUSE            1           //allow the mouse to be freed from the window
 #define MR_TEST_GUNS                1           //allow the game testing mode
-#define MR_SCREENSHOTS              1           //enable screen shots
 #define MR_SOUND_RELOAD_VOLUMES     1           //permits reloading of volume tables
 #define MR_CAN_FOCUS_ROIDS          1           //can focus on asteroids,dust clouds and derelicts with an alt-click
 #define MR_KEYBOARD_CHEATS          1           //enable typing in cheats on the keyboard
@@ -40,7 +39,6 @@
 #define MR_TEST_HPB                 0           //test heading/pitch/bank interactively
 #define MR_RELEASE_MOUSE            0           //allow the mouse to be freed from the window
 #define MR_TEST_GUNS                0           //allow the game testing mode
-#define MR_SCREENSHOTS              1           //enable screen shots
 #define MR_SOUND_RELOAD_VOLUMES     0           //permits reloading of volume tables
 #define MR_CAN_FOCUS_ROIDS          0           //can focus on asteroids,dust clouds and derelicts with an alt-click
 #define MR_KEYBOARD_CHEATS          0           //enable typing in cheats on the keyboard

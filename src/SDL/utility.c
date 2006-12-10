@@ -1769,7 +1769,7 @@ void gameStart(char *loadfilename)
     uword i;
     //udword numCompPlayers = 0;
 
-#if MAIN_Password && MAIN_CDCheck
+#if MAIN_CDCheck
     if (mainCDCheckEnabled)
     {
         if (!fileExists(utyMusicFilename, FF_CDROM))
@@ -2784,17 +2784,8 @@ void utySinglePlayerOptions(char *name, featom *atom)
         return;
     }
     
-#if MAIN_Password
-    if (!mainSinglePlayerEnabled)
-    {
-        bitSet(atom->flags, FAF_Disabled);
-    }
-    else
-#endif
-    {
-        feScreenDisappear(NULL,NULL);
-        feScreenStart(ghMainRegion, "Create_new_game");
-    }
+    feScreenDisappear(NULL,NULL);
+    feScreenStart(ghMainRegion, "Create_new_game");
 }
 
 /*-----------------------------------------------------------------------------
@@ -3935,7 +3926,7 @@ char* utyGameSystemsPreInit(void)
 	}
 
 
-#if MAIN_Password && MAIN_CDCheck
+#if MAIN_CDCheck
     if (mainCDCheckEnabled)
     {
         if (!fileExists(utyMusicFilename, FF_CDROM))

@@ -282,9 +282,6 @@ bool noPauseAltTab = FALSE;
 bool noMinimizeAltTab = FALSE;
 
 //options altered by a password function:
-bool mainSinglePlayerEnabled = FALSE;
-bool mainEnableSpecialMissions = FALSE;
-bool mainScreenShotsEnabled = FALSE;
 bool mainCDCheckEnabled = TRUE;
 
 #if defined(HW_GAME_DEMO)
@@ -332,133 +329,6 @@ udword initialSensorLevel = 0;
 #endif
 
 bool pilotView = FALSE;
-
-//data for password-protecting certain options
-#if MAIN_Password
-char *mainMonthStrings[12] =
-{
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec"
-};
-char mainCompileDate[] = __DATE__;
-
-//password: each character is xor'd with the corresponding character in this string:
-ubyte mainOperatorString[] = "132AS sdFmfm na5r\x0\\6234asSDFG,m.";
-char mainPassword0[] =
-{
-    //"BravoCharlie": unlocks single player game only
-    '1' ^ 'B',
-    '3' ^ 'r',
-    '2' ^ 'a',
-    'A' ^ 'v',
-    'S' ^ 'o',
-    ' ' ^ 'C',
-    's' ^ 'h',
-    'd' ^ 'a',
-    'F' ^ 'r',
-    'm' ^ 'l',
-    'f' ^ 'i',
-    'm' ^ 'e',
-    ' ' ^ 0,
-/*
-    'n' ^ '',
-    'a' ^ '',
-    '5' ^ '',
-    'r' ^ '',
-    0]  '',
-    '\\] ^ '',
-    '6' ^ '',
-    '2' ^ '',
-    '3' ^ '',
-    '4' ^ '',
-    'a' ^ '',
-    's' ^ '',
-    'S' ^ '',
-    'D' ^ '',
-    'F' ^ '',
-    'G' ^ '',
-    ',' ^ '',
-    'm' ^ '',
-    '.' ^ '',
-*/
-};
-char mainPassword1[] =
-{
-    //"Cheeky-Monkey": unlocks all features
-    '1' ^ 'C',
-    '3' ^ 'h',
-    '2' ^ 'e',
-    'A' ^ 'e',
-    'S' ^ 'k',
-    ' ' ^ 'y',
-    's' ^ '-',
-    'd' ^ 'M',
-    'F' ^ 'o',
-    'm' ^ 'n',
-    'f' ^ 'k',
-    'm' ^ 'e',
-    ' ' ^ 'y',
-    'n' ^ 0,
-/*
-    'a' ^ '',
-    '5' ^ '',
-    'r' ^ '',
-    0]  '',
-    '\\] ^ '',
-    '6' ^ '',
-    '2' ^ '',
-    '3' ^ '',
-    '4' ^ '',
-    'a' ^ '',
-    's' ^ '',
-    'S' ^ '',
-    'D' ^ '',
-    'F' ^ '',
-    'G' ^ '',
-    ',' ^ '',
-    'm' ^ '',
-    '.' ^ '',
-*/
-};
-udword mainPasswordChecksum0 =
-    ((udword)0x0 ^ (udword)'B') +
-    ((udword)0x1 ^ (udword)'r') +
-    ((udword)0x2 ^ (udword)'a') +
-    ((udword)0x3 ^ (udword)'v') +
-    ((udword)0x4 ^ (udword)'o') +
-    ((udword)0x5 ^ (udword)'C') +
-    ((udword)0x6 ^ (udword)'h') +
-    ((udword)0x7 ^ (udword)'a') +
-    ((udword)0x8 ^ (udword)'r') +
-    ((udword)0x9 ^ (udword)'l') +
-    ((udword)0xa ^ (udword)'i') +
-    ((udword)0xb ^ (udword)'e');
-udword mainPasswordChecksum1 =
-    ((udword)0x0 ^ (udword)'C') +
-    ((udword)0x1 ^ (udword)'h') +
-    ((udword)0x2 ^ (udword)'e') +
-    ((udword)0x3 ^ (udword)'e') +
-    ((udword)0x4 ^ (udword)'k') +
-    ((udword)0x5 ^ (udword)'y') +
-    ((udword)0x6 ^ (udword)'-') +
-    ((udword)0x7 ^ (udword)'M') +
-    ((udword)0x8 ^ (udword)'o') +
-    ((udword)0x9 ^ (udword)'n') +
-    ((udword)0xa ^ (udword)'k') +
-    ((udword)0xb ^ (udword)'e') +
-    ((udword)0xc ^ (udword)'y');
-char *mainPasswordPtr = NULL;
-#endif //MAIN_Password
 
 
 /*=============================================================================
@@ -843,146 +713,6 @@ bool syncDumpInit(char *string1)
 }
 #endif
 
-#if MAIN_Password
-bool SetPassword(char *string)
-{
-    mainPasswordPtr = string;
-    return TRUE;
-}
-
-
-
-/*-----------------------------------------------------------------------------
-    Name        : mainPasswordVerify
-    Description : Verifies the system password and unlocks some features, or if
-                    there is no password, times the game out 30 days after compile.
-    Inputs      : string - password string or NULL of none specified.
-    Outputs     :
-    Return      : NULL if no errors, or error string pointer.
-----------------------------------------------------------------------------*/
-char *mainPasswordVerify(char *string)
-{
-    udword index;
-    udword checksum;
-    time_t time0;
-    struct tm *time1;
-    char dayString0[16];
-    char monthString0[16];
-    char monthString1[16];
-    sdword day0, hour0, min0, sec0, year0, month0;
-    sdword day1, year1, month1;
-    sdword nScanned;
-    sdword daysOld;
-
-    if (string != NULL)
-    {
-        //tamper-detect the password
-        for (index = checksum = 0; (mainPassword1[index] ^ mainOperatorString[index]) != 0; index++)
-        {
-            checksum += (udword)index ^ (udword)((ubyte)(mainPassword1[index] ^ mainOperatorString[index]));
-        }
-        if (checksum != mainPasswordChecksum1)
-        {
-            //... error: wrong password checksum (tampering?)
-            return("Invalid binaries.");
-        }
-        for (index = checksum = 0; mainPassword1[index] != 0; index++)
-        {
-            if (mainPassword1[index] != (string[index] ^ mainOperatorString[index]))
-            {
-                //... error: invalid password
-                goto checkNextPassword;
-            }
-        }
-        //... enable screen shots, single player and disable CD check
-        mainScreenShotsEnabled = TRUE;
-        mainSinglePlayerEnabled = TRUE;
-        mainEnableSpecialMissions = TRUE;
-        mainCDCheckEnabled = FALSE;
-        return(NULL);                                       //they've got a password
-checkNextPassword:
-        //tamper-detect the password
-        for (index = checksum = 0; (mainPassword0[index] ^ mainOperatorString[index]) != 0; index++)
-        {
-            checksum += (udword)index ^ (udword)((ubyte)(mainPassword0[index] ^ mainOperatorString[index]));
-        }
-        if (checksum != mainPasswordChecksum0)
-        {
-            //... error: wrong password checksum (tampering?)
-            return("Invalid binaries.");
-        }
-        for (index = checksum = 0; mainPassword0[index] != 0; index++)
-        {
-            if (mainPassword0[index] != (string[index] ^ mainOperatorString[index]))
-            {
-                //... error: invalid password
-                return("Invalid password.");
-            }
-        }
-        //... enable single player only
-        mainSinglePlayerEnabled = TRUE;
-        mainEnableSpecialMissions = TRUE;
-        return(NULL);                                       //they've got a password
-    }
-    else
-    {                                                       //no password specified: see if it times out
-        //tamper-detect the date
-/*
-        for (index = checksum = 0; index < 10; index++)
-        {
-            checksum += mainCompileDate[index] ^ index;
-        }
-        if (checksum != mainCompileDateChecksum)
-        {
-            //... error: wrong date (tampering?)
-            return("Invalid binaries/data.");
-        }
-*/
-        //compare current date to compile date and determine time expired
-        time(&time0);
-        time1 = gmtime(&time0);
-        nScanned = sscanf(asctime(time1), "%s %s %d %d:%d:%d %d", dayString0, monthString0, &day0, &hour0, &min0, &sec0, &year0);
-        if (nScanned != 7)
-        {
-            //... error: bad scan
-            return("Bad scan xx(1)");
-        }
-        nScanned = sscanf(mainCompileDate, "%s %d %d", monthString1, &day1, &year1);
-        if (nScanned != 3)
-        {
-            //... error: bad scan
-            return("Bad scan xx(2)");
-        }
-        month0 = month1 = -1;
-        for (index = 0; index < 12; index++)
-        {
-            if (!_stricmp(monthString0, mainMonthStrings[index]))
-            {
-                month0 = index;
-            }
-            if (!_stricmp(monthString1, mainMonthStrings[index]))
-            {
-                month1 = index;
-            }
-        }
-        if (month0 == -1 || month1 == -1)
-        {
-            //... error: bad month string
-            return("I hate this month");
-        }
-        daysOld = 365 * (year1 - year0) + 30 * (month1 - month0) + (day1 - day0);
-        //        ^^^                     ^^
-        // I know 30 isn't the length of all months, but let's just assume for now
-        //
-        if (daysOld > MAIN_ExpiryTime)
-        {
-            //... error: Evaluation copy expired
-            return("Skynyrd!");
-        }
-    }
-    return(NULL);
-}
-#endif //MAIN_Password
 
 /*-----------------------------------------------------------------------------
     Structures used for command paramters and help
@@ -1234,9 +964,7 @@ commandoption commandOptions[] =
 
     entryComment("MISC OPTIONS"),   //-----------------------------------------------------
     entryVrHidden("/smCentreCamera",      smCentreWorldPlane, FALSE,          " - centres the SM world plane about 0,0,0 rather than the camera."),
-#if MAIN_Password
-    entryFnParam("/password",       SetPassword,                        " <password> - specify password to enable certain features."),
-#endif
+
 #if RND_PLUG_DISABLEABLE
     entryVr("/noPlug",              rndShamelessPlugEnabled, FALSE,     " - don't display relic logo on pause."),
 #endif
@@ -3007,14 +2735,6 @@ int main (int argc, char* argv[])
         MAIN_WindowHeight = mainWindowHeight;
         MAIN_WindowDepth  = mainWindowDepth;
     }
-
-#if MAIN_Password
-    if ((errorString = mainPasswordVerify(mainPasswordPtr)) != NULL)
-    {
-        fprintf(stderr, "Homeworld Run-Time Error\n");
-        return 0;
-    }
-#endif
 
     //initial game systems startup
     preInit = FALSE;

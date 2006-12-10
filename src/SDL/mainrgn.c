@@ -203,12 +203,7 @@ mrKeyFunction[] =
 #if GUN_TUNE_MODE
     {{YKEY,      0,      0,      0}, 1, RPE_KeyDown},
 #endif
-/*
-#if MR_SCREENSHOTS
-    {{PAUSEKEY,  0,      0,      0}, 1, RPE_KeyDown},
-    {{SCROLLKEY, 0,      0,      0}, 1, RPE_KeyDown},
-#endif
-*/
+
     {{SHIFTKEY,  0,      0,      0}, 1, RPE_KeyDown | RPE_KeyUp},
 #if ETG_RELOAD_KEY
     {{ETG_RELOAD_KEY,0,  0,      0}, 1, RPE_KeyDown | RPE_KeyUp},
@@ -229,8 +224,7 @@ mrKeyFunction[] =
     {{GREATERTHAN , 0,      0,      0}, 1, RPE_KeyDown},
 
 // Extra keys that are mappable that the mainregion must capture
-#ifndef HW_BUILD_FOR_DEBUGGING  //only add these for release builds so that random debug keys will work
-    {{PLUSMINUS   , 0,      0,      0}, 1, RPE_KeyDown},
+#ifdef HW_BUILD_FOR_DISTRIBUTION  //only add these for release builds so that random debug keys will work
     {{PAUSEKEY    , 0,      0,      0}, 1, RPE_KeyDown},
     {{PRINTKEY    , 0,      0,      0}, 1, RPE_KeyDown},
     {{ARRUP       , 0,      0,      0}, 1, RPE_KeyDown},
@@ -259,6 +253,7 @@ mrKeyFunction[] =
     {{NUMSLASHKEY , 0,      0,      0}, 1, RPE_KeyDown},
     {{NUMDOTKEY   , 0,      0,      0}, 1, RPE_KeyDown},
 #else
+    {{PLUSMINUS   , 0,      0,      0}, 1, RPE_KeyDown},
     {{UKEY        , 0,      0,      0}, 1, RPE_KeyDown},
     {{YKEY        , 0,      0,      0}, 1, RPE_KeyDown},
     {{QKEY        , 0,      0,      0}, 1, RPE_KeyDown},
@@ -2644,10 +2639,6 @@ docapslock:
             }
             break;
 
-#if MR_SCREENSHOTS
-
-        case SCROLLKEY:
-
 #ifdef _MACOSX
         // MAC OS X captures high F-keys for system functions like monitor
         // brightness and Expose etc so we remap the screenshot functionality to: 
@@ -2655,23 +2646,10 @@ docapslock:
         case PLUSMINUS:    // key next to the 1 on the top numeric keys under esc for laptops
                            // which remaps all the function keys to system use
 #endif
-
-#if MAIN_Password
-            if (mainScreenShotsEnabled)
-#endif //MAIN_Password
-            {
-                soundEvent(NULL, UI_Click);
-                rndTakeScreenshot = TRUE;
-            }
+        case SCROLLKEY:
+            soundEvent(NULL, UI_Click);
+            rndTakeScreenshot = TRUE;
             break;
-/*        case PAUSEKEY:
-            if (RGL)
-            {
-                rglFeature(RGL_MULTISHOT_END);
-            }*/
-            break;
-
-#endif //MR_SCREENSHOTS
 
 #if MR_TEST_HPB
         case OKEY:

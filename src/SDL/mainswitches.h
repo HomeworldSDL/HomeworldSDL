@@ -54,11 +54,7 @@ extern char recordPacketSaveFileName[MAX_RECORDPACKETFILENAME_STRLEN];
 
 extern bool noAuthorization;
 
-extern bool mainSinglePlayerEnabled;
-extern bool mainScreenShotsEnabled;
 extern bool mainCDCheckEnabled;
-extern bool mainCDCheckEnabled;
-extern bool mainEnableSpecialMissions;
 
 extern bool SecretWON;
 extern bool forceLAN;
