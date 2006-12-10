@@ -8,7 +8,6 @@
 #include "Debug.h"
 
 #include <assert.h>
-#include <limits.h>
 
 #include "utility.h"
 #include "File.h"

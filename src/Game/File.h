@@ -10,7 +10,6 @@
 
 #include <stdio.h>
 #include "BigFile.h"
-#include "Types.h"
 
 /*=============================================================================
     Switches
