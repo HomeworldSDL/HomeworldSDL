@@ -28,6 +28,7 @@ Contents:
 	-Usage and placement of the game data files-
 	-Starting the game-
 	-Troubleshooting-
+	-Kdevelop IDE-
 
  -Note-
 
@@ -161,3 +162,17 @@ Before compiling your libsdl, make sure you have these packages installed:
  * mesa-common-dev, libglu1-mesa-dev, libgl1-mesa-dev
 
  -------------------------------------------------------------------------------------
+ 	-Kdevelop IDE-
+
+A kdevelop project file is in Linux/
+it uses the custom makefile that ./configure generates.
+
+you should run the project file inside Linux/ , else, change the project directory from ../ to something else.
+
+by default the filelist isn't populated, so kdevelop will prompt you, do allow it to populate the list.
+
+if you don't want kdevelop compiling HWSDL just after you compiled it manually or whatever, then do this:
+project options > run options > turn off 'automatically compile before execution'
+so kdevelop won't want to compile each time you want to debug.
+
+	-------------------------------------------------------------------------------------
