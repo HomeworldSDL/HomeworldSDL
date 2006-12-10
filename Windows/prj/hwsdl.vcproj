@@ -21,7 +21,7 @@
 				Optimization="0"
 				OptimizeForProcessor="1"
 				AdditionalIncludeDirectories="..\..\src\SDL;..\..\src\rgl;..\..\src\Game;..\..\src\Ships;..\..\src\ThirdParty\JPG;..\..\src\ThirdParty\CRC;..\..\src\ThirdParty\LZSS;..\..\src\Generated;..\..\src\ThirdParty\Titan"
-				PreprocessorDefinitions="HW_BUILD_FOR_DEBUGGING;_WIN32;WIN32;_DEBUG;_WINDOWS"
+				PreprocessorDefinitions="HW_GAME_HOMEWORLD;HW_BUILD_FOR_DEBUGGING;_WIN32;WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="TRUE"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
@@ -94,7 +94,7 @@
 				InlineFunctionExpansion="2"
 				OptimizeForProcessor="2"
 				AdditionalIncludeDirectories="..\..\src\SDL;..\..\src\rgl;..\..\src\Game;..\..\src\Ships;..\..\src\ThirdParty\JPG;..\..\src\ThirdParty\CRC;..\..\src\ThirdParty\LZSS;..\..\src\Generated;..\..\src\ThirdParty\Titan"
-				PreprocessorDefinitions="HW_BUILD_FOR_DISTRIBUTION;_WIN32;WIN32;NDEBUG;_WINDOWS"
+				PreprocessorDefinitions="HW_GAME_HOMEWORLD;HW_BUILD_FOR_DISTRIBUTION;_WIN32;WIN32;NDEBUG;_WINDOWS"
 				StringPooling="TRUE"
 				MinimalRebuild="FALSE"
 				RuntimeLibrary="2"
@@ -451,9 +451,6 @@
 			</File>
 			<File
 				RelativePath="..\..\src\Sdl\glcaps.c">
-			</File>
-			<File
-				RelativePath="..\..\src\Sdl\glcompat.c">
 			</File>
 			<File
 				RelativePath="..\..\src\Sdl\gldll.c">
@@ -1107,10 +1104,10 @@
 				RelativePath="..\..\src\Game\Tutor.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Missions\Tutorials\Tutorial1.c">
+				RelativePath="..\..\src\Missions\Generated\Tutorial1.c">
 			</File>
 			<File
-				RelativePath="..\..\src\Missions\Tutorials\Tutorial1.func.c">
+				RelativePath="..\..\src\Missions\Generated\Tutorial1.func.c">
 			</File>
 			<File
 				RelativePath="..\..\src\Game\Tweak.c">
@@ -1991,7 +1988,7 @@
 				RelativePath="..\..\src\Game\Tutor.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Missions\Tutorials\Tutorial1.h">
+				RelativePath="..\..\src\Missions\Generated\Tutorial1.h">
 			</File>
 			<File
 				RelativePath="..\..\src\Game\Tweak.h">
