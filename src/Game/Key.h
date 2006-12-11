@@ -76,7 +76,7 @@
 #define EKEY                    'e'
 #define FKEY                    'f'
 #define GKEY                    'g'
-#define HKEY2                   'h'
+#define HKEY2                   'h'//fix for mingw msys
 #define IKEY                    'i'
 #define JKEY                    'j'
 #define KKEY                    'k'
