@@ -13,6 +13,9 @@ contents:
 update: hwsdl-win32 can now load into the training level ok, but you may  need to use some combo of
 /window /noBG /nilTexture in command line options for hwsdl.exe. Nova: Personally, I don't need them, but /window is useful.
 
+You may need to turn your ingame graphical settings to low. (to avoid some crashes)
+Any resolution seems fine. (1024 and 1280 tested)
+
 for all other modes (skirmish, SP) hwsdl currently crashes during level load.
 
 //requirements
