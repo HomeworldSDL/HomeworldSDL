@@ -22,10 +22,9 @@
     #endif
 #endif
 
-
 // PATH_MAX is Homeworld's standard #define for stating
 // "maximum length of a filesystem path string".
-#if   defined _WIN32
+#ifdef WIN32
     #define PATH_MAX MAX_PATH
 #elif defined _MACOSX
     #include <sys/syslimits.h>
