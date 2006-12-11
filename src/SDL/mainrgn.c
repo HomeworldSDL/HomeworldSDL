@@ -150,7 +150,7 @@ mrKeyFunction[] =
     {{RKEY,      0,      0,      0}, 1, RPE_KeyDown},
     {{MMOUSE_BUTTON,0,   0,      0}, 1, RPE_KeyDown},
     {{MMOUSE_DOUBLE,0,   0,      0}, 1, RPE_KeyDown},
-    {{HKEY,      0,      0,      0}, 1, RPE_KeyDown},
+    {{HKEY2,      0,      0,      0}, 1, RPE_KeyDown},
     {{IKEY,      0,      0,      0}, 1, RPE_KeyDown},
     {{JKEY,      0,      0,      0}, 1, RPE_KeyDown},
     {{KKEY,      0,      0,      0}, 1, RPE_KeyDown},
@@ -2146,7 +2146,7 @@ cancelfocus:
 			}
             break;
 
-        case HKEY:
+        case HKEY2:
 
             if (NoModifierKeyPressed())
             {

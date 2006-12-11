@@ -56,7 +56,7 @@ kbBoundKeys kbKeyTableEnglish[kbTOTAL_COMMANDS] =
     { kbSELECT_ALL_VISIBLE  , EKEY          , EKEY          , EKEY          },
     { kbFOCUS               , FKEY          , FKEY          , FKEY          },
     { kbRESEARCH_MANAGER    , RKEY          , RKEY          , RKEY          },
-    { kbHARVEST             , HKEY          , HKEY          , HKEY          },
+    { kbHARVEST             , HKEY2          , HKEY2          , HKEY2          },
     { kbMOVE                , MKEY          , MKEY          , MKEY          },
     { kbNEXT_TACTIC         , RBRACK        , RBRACK        , RBRACK        },
     { kbPREVIOUS_TACTIC     , LBRACK        , LBRACK        , LBRACK        },
@@ -80,7 +80,7 @@ kbBoundKeys kbKeyTableFrench[kbTOTAL_COMMANDS] =
     { kbSELECT_ALL_VISIBLE  , EKEY          , EKEY          , EKEY          },
     { kbFOCUS               , FKEY          , FKEY          , FKEY          },
     { kbRESEARCH_MANAGER    , RKEY          , RKEY          , RKEY          },
-    { kbHARVEST             , HKEY          , CKEY          , CKEY          },
+    { kbHARVEST             , HKEY2          , CKEY          , CKEY          },
     { kbMOVE                , MKEY          , DKEY          , DKEY          },
     { kbNEXT_TACTIC         , RBRACK        , RBRACK        , RBRACK        },
     { kbPREVIOUS_TACTIC     , LBRACK        , LBRACK        , LBRACK        },
@@ -104,7 +104,7 @@ kbBoundKeys kbKeyTableGerman[kbTOTAL_COMMANDS] =
     { kbSELECT_ALL_VISIBLE  , EKEY          , EKEY          , EKEY          },
     { kbFOCUS               , FKEY          , FKEY          , FKEY          },
     { kbRESEARCH_MANAGER    , RKEY          , RKEY          , RKEY          },
-    { kbHARVEST             , HKEY          , HKEY          , HKEY          },
+    { kbHARVEST             , HKEY2          , HKEY2          , HKEY2          },
     { kbMOVE                , MKEY          , WKEY          , WKEY          },
     { kbNEXT_TACTIC         , RBRACK        , RBRACK        , RBRACK        },
     { kbPREVIOUS_TACTIC     , LBRACK        , LBRACK        , LBRACK        },
@@ -128,7 +128,7 @@ kbBoundKeys kbKeyTableSpanish[kbTOTAL_COMMANDS] =
     { kbSELECT_ALL_VISIBLE  , EKEY          , EKEY          , EKEY          },
     { kbFOCUS               , FKEY          , FKEY          , FKEY          },
     { kbRESEARCH_MANAGER    , RKEY          , RKEY          , RKEY          },
-    { kbHARVEST             , HKEY          , HKEY          , HKEY          },
+    { kbHARVEST             , HKEY2          , HKEY2          , HKEY2          },
     { kbMOVE                , MKEY          , DKEY          , DKEY          },
     { kbNEXT_TACTIC         , RBRACK        , RBRACK        , RBRACK        },
     { kbPREVIOUS_TACTIC     , LBRACK        , LBRACK        , LBRACK        },
@@ -152,7 +152,7 @@ kbBoundKeys kbKeyTableItalian[kbTOTAL_COMMANDS] =
     { kbSELECT_ALL_VISIBLE  , EKEY          , EKEY          , EKEY          },
     { kbFOCUS               , FKEY          , FKEY          , FKEY          },
     { kbRESEARCH_MANAGER    , RKEY          , RKEY          , RKEY          },
-    { kbHARVEST             , HKEY          , HKEY          , HKEY          },
+    { kbHARVEST             , HKEY2          , HKEY2          , HKEY2          },
     { kbMOVE                , MKEY          , MKEY          , MKEY          },
     { kbNEXT_TACTIC         , RBRACK        , RBRACK        , RBRACK        },
     { kbPREVIOUS_TACTIC     , LBRACK        , LBRACK        , LBRACK        },
@@ -726,7 +726,7 @@ void kbInitKeyBindings(void)
         kbCanMapKey[EKEY]           = TRUE;
         kbCanMapKey[FKEY]           = TRUE;
         kbCanMapKey[RKEY]           = TRUE;
-        kbCanMapKey[HKEY]           = TRUE;
+        kbCanMapKey[HKEY2]           = TRUE;
         kbCanMapKey[MKEY]           = TRUE;
         kbCanMapKey[RBRACK]         = TRUE;
         kbCanMapKey[LBRACK]         = TRUE;
@@ -787,7 +787,7 @@ void kbInitKeyBindings(void)
     kbKeyToString[EKEY] =         strEKEY;
     kbKeyToString[FKEY] =         strFKEY;
     kbKeyToString[GKEY] =         strGKEY;
-    kbKeyToString[HKEY] =         strHKEY;
+    kbKeyToString[HKEY2] =         strHKEY;
     kbKeyToString[IKEY] =         strIKEY;
     kbKeyToString[JKEY] =         strJKEY;
     kbKeyToString[KKEY] =         strKKEY;

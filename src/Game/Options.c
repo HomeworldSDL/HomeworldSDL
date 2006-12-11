@@ -185,7 +185,7 @@ tempkeytrans TempKeyTranslations[OP_NumKeys] =
    {EKEY,        0, 0 ,"SELECT ALL VISIBLE" },
    {FKEY,        0, 0 ,"FOCUS" },
    {RKEY,        0, 0 ,"RESEARCH MANAGER" },
-   {HKEY,        0, 0 ,"HARVEST" },
+   {HKEY2,        0, 0 ,"HARVEST" },
    {MKEY,        0, 0 ,"MOVE" },
    {RBRACK,      0, 0 ,"NEXT TACTIC" },
    {LBRACK,      0, 0 ,"PREVIOUS TACTIC" },
@@ -218,7 +218,7 @@ keytrans KeyTranslations[OP_NumKeys] =
    {EKEY,           EKEY,        0 },   //SELECT ALL VISIBLE
    {FKEY,           FKEY,        0 },   //FOCUS
    {RKEY,           RKEY,        0 },   //RESEARCH MANAGER
-   {HKEY,           HKEY,        0 },   //HARVEST
+   {HKEY2,           HKEY2,        0 },   //HARVEST
    {MKEY,           MKEY,        0 },   //MOVE
    {RBRACK,         RBRACK,      0 },   //NEXT TACTIC
    {LBRACK,         LBRACK,      0 },   //PREVIOUS TACTIC
@@ -244,7 +244,7 @@ keyindex DefaultKeyTranslations[OP_NumKeys] =
    EKEY,                //SELECT ALL VISIBLE
    FKEY,                //FOCUS
    RKEY,                //RESEARCH MANAGER
-   HKEY,                //HARVEST
+   HKEY2,                //HARVEST
    MKEY,                //MOVE
    RBRACK,              //NEXT TACTIC
    LBRACK,              //PREVIOUS TACTIC
@@ -275,7 +275,7 @@ KeyNameStruct KeyNames[] =
    {EKEY,           "E    "},
    {FKEY,           "F    "},
    {GKEY,           "G    "},
-   {HKEY,           "H    "},
+   {HKEY2,           "H    "},
    {IKEY,           "I    "},
    {JKEY,           "J    "},
    {KKEY,           "K    "},

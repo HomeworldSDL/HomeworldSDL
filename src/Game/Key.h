@@ -76,7 +76,7 @@
 #define EKEY                    'e'
 #define FKEY                    'f'
 #define GKEY                    'g'
-#define HKEY                    'h'
+#define HKEY2                   'h'
 #define IKEY                    'i'
 #define JKEY                    'j'
 #define KKEY                    'k'
