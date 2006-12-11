@@ -9,6 +9,9 @@ contents:
 //OS tested for compiling & running
 ----------
 
+update: nova has gotten it running to the menu, and hopefully soon it won't crash when
+starting a game.
+
 NOTICE:
 HWSDL-win32 may not run at all for you.
 However, aaron has successfully compiled and played HWSDL-win32 revision 44 (and up to rev80 something).
