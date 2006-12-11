@@ -35,6 +35,24 @@ HWAVEOUT hWaveOut;
 DWORD dwBufSize;		// size of buffer as a multiple of the nBlockAlign header field
 
 /*
+ Initialize WAVEFORMATEX structure
+*/
+int InitWaveFormat()
+{
+	// initialize the format to 2-channel, 16-bit, 22.05 KHz PCM...
+	memset(&wfWaveFormat,0,sizeof(WAVEFORMATEX));
+
+	wfWaveFormat.wFormatTag=WAVE_FORMAT_PCM;
+	wfWaveFormat.nChannels=WAVE_NUMCHAN;
+	wfWaveFormat.nSamplesPerSec=WAVE_SAMPLERATE;
+	wfWaveFormat.wBitsPerSample=WAVE_BITSAMPLE;
+	wfWaveFormat.nBlockAlign=wfWaveFormat.nChannels*wfWaveFormat.wBitsPerSample/8;
+	wfWaveFormat.nAvgBytesPerSec=wfWaveFormat.nSamplesPerSec*wfWaveFormat.nBlockAlign;
+	
+	return 0;
+}
+
+/*
  Allocate format and wave headers and data buffers
 */
 int InitWave(DWORD *dwNumDevs)
@@ -78,24 +96,6 @@ int EndWave()
 	
 	bDevAvail=FALSE;
 
-	return 0;
-}
-
-/*
- Initialize WAVEFORMATEX structure
-*/
-int InitWaveFormat()
-{
-	// initialize the format to 2-channel, 16-bit, 22.05 KHz PCM...
-	memset(&wfWaveFormat,0,sizeof(WAVEFORMATEX));
-
-	wfWaveFormat.wFormatTag=WAVE_FORMAT_PCM;
-	wfWaveFormat.nChannels=WAVE_NUMCHAN;
-	wfWaveFormat.nSamplesPerSec=WAVE_SAMPLERATE;
-	wfWaveFormat.wBitsPerSample=WAVE_BITSAMPLE;
-	wfWaveFormat.nBlockAlign=wfWaveFormat.nChannels*wfWaveFormat.wBitsPerSample/8;
-	wfWaveFormat.nAvgBytesPerSec=wfWaveFormat.nSamplesPerSec*wfWaveFormat.nBlockAlign;
-	
 	return 0;
 }
  

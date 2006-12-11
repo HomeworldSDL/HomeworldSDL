@@ -495,7 +495,8 @@ bool glCapLoadOpenGL(char* dllName)
 
     rval = glDLLGetProcs(dllName);
 #ifdef _WIN32
-    if (rval && (strcasecmp(dllName, "librgl.dll") == 0))
+			if (rval && (strcasecmp(dllName, "opengl32.dll") == 0))
+//    if (rval && (strcasecmp(dllName, "librgl.dll") == 0))
 #else
     if (rval && (strcasecmp(dllName, "librgl.so") == 0))
 #endif
