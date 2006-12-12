@@ -3638,7 +3638,7 @@ regularEnemyCase:
 ----------------------------------------------------------------------------*/
 udword mrRegionProcess(regionhandle reg, sdword ID, udword event, udword data)
 {
-    Ship *ship;
+    Ship *ship = NULL;
     bool bFriendlies, bEnemies;
     MaxSelection tempSelection;
 
@@ -3653,6 +3653,19 @@ udword mrRegionProcess(regionhandle reg, sdword ID, udword event, udword data)
     {
         return(0);
     }
+
+#ifdef _MACOSX
+// Mac OS X remaps [ALT] + [left mouse button] to [middle mouse button] for the
+// benefit of single mouse button users. This confuses the key-press and mouse
+// code no end. Fortunately, some of the low level stuff is keeping track that
+// the [ALT] key has been pressed. We just have to override the cascade chain
+// when the [ALT] key is pressed to get the right behaviour...
+    if (ID == MMOUSE_BUTTON && keyIsHit(ALTKEY)) {
+        // pretend it's just normal left click
+        goto plainOldClickAction;
+    }
+#endif
+
     switch (event)
     {
         case RPE_HoldLeft:
@@ -4008,7 +4021,11 @@ plainOldClickAction:
 
                         if (ship != NULL)
                         {                                       //if mouse over a ship
+#ifndef _MACOSX_FIX_ME
+// Mac OS X: the [ALT] + [left mouse button] hack does not work 
+// in the tutorial unless we ignore this check
                             if((!(tutorial==TUTORIAL_ONLY)) || tutEnable.bClickSelect)
+#endif
                             {
                                 mrObjectClick(ship);
                             }

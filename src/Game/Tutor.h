@@ -184,7 +184,8 @@ sdword tutIsBuildShipRestricted(sdword shipType);
 sdword tutSelectedContainsShipTypes(char *pShipTypes);
 
 void tutGameMessage(char *commandName);
-sdword tutGameSentMessage(char *commandName);
+bool tutGameSentMessage(char *commandName);
+bool tutGameMessageInQueue(char *commandNames);
 void tutResetGameMessageQueue(void);
 sdword tutContextMenuDisplayedForShipType(char *pShipType);
 void  tutResetContextMenuShipTypeTest(void);
