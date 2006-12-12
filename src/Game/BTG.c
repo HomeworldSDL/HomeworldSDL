@@ -268,15 +268,15 @@ void btgGetTexture(char* filename, udword* thandle, sdword* width, sdword* heigh
     sdword i;
 
 #ifdef _WIN32
-		#ifdef _WIN32_FIXME
-			strcpy(fullname, "btg\\bitmaps\\b01.tga");
-		#else
-			strcpy(fullname, "btg\\bitmaps\\");
-		#endif
+    #ifdef _WIN32_FIXME
+      strcpy(fullname, "btg\\bitmaps\\b01.tga");
+    #else
+      strcpy(fullname, "btg\\bitmaps\\");
+    #endif
 #else
     strcpy(fullname, "btg/bitmaps/");
 #endif
-		strcat(fullname, filename);
+    strcat(fullname, filename);
 
     if (fileExists(fullname, 0))
     {
@@ -1154,7 +1154,7 @@ void btgRender()
 #ifndef _WIN32_FIXME
         btgColorVertices(fastBlends);
 #endif
-				*dlast = *dnext;
+        *dlast = *dnext;
         lastFade = btgFade;
     }
 
@@ -1186,8 +1186,8 @@ void btgRender()
         {
             btgTransVertex* pVert = &btgTransVerts[btgIndices[index]];
 #ifndef _WIN32_FIXME
-						glColor4ub(pVert->red, pVert->green, pVert->blue, pVert->alpha);
-						glVertex3fv((GLfloat*)&pVert->position);
+			glColor4ub(pVert->red, pVert->green, pVert->blue, pVert->alpha);
+			glVertex3fv((GLfloat*)&pVert->position);
 #endif
 				}
         glEnd();
@@ -1289,7 +1289,7 @@ void btgRender()
                 glEnd();
             }
 #endif// _WIN32_FIXME
-				 }
+		 }
     }
 
     if (textureStars)
