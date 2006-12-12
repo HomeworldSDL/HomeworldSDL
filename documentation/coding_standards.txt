@@ -1,0 +1,6 @@
+
+Coding standards that should be applied to the HWSDL codebase.
+
+
+Indentation: Each indentation increment should indent 4 spaces. No tab characters.
+
