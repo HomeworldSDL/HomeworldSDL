@@ -268,11 +268,15 @@ void btgGetTexture(char* filename, udword* thandle, sdword* width, sdword* heigh
     sdword i;
 
 #ifdef _WIN32
-    strcpy(fullname, "btg\\bitmaps\\");
+		#ifdef _WIN32_FIXME
+			strcpy(fullname, "btg\\bitmaps\\b01.tga");
+		#else
+			strcpy(fullname, "btg\\bitmaps\\");
+		#endif
 #else
     strcpy(fullname, "btg/bitmaps/");
 #endif
-    strcat(fullname, filename);
+		strcat(fullname, filename);
 
     if (fileExists(fullname, 0))
     {
@@ -686,8 +690,10 @@ void btgLoad(char* filename)
 
     btgIndices = (udword*)memAlloc(3 * btgHead->numPolys * sizeof(udword), "btg indices", NonVolatile);
 
+#ifndef _WIN32_FIXME
     //spherically project things, blend colours, &c
     btgConvertVerts();
+#endif
 }
 
 /*-----------------------------------------------------------------------------
@@ -1145,8 +1151,10 @@ void btgRender()
         {
             btgFade = 255;
         }
+#ifndef _WIN32_FIXME
         btgColorVertices(fastBlends);
-        *dlast = *dnext;
+#endif
+				*dlast = *dnext;
         lastFade = btgFade;
     }
 
@@ -1177,9 +1185,11 @@ void btgRender()
         for (index = 0; index < (3*btgHead->numPolys); index++)
         {
             btgTransVertex* pVert = &btgTransVerts[btgIndices[index]];
-            glColor4ub(pVert->red, pVert->green, pVert->blue, pVert->alpha);
-            glVertex3fv((GLfloat*)&pVert->position);
-        }
+#ifndef _WIN32_FIXME
+						glColor4ub(pVert->red, pVert->green, pVert->blue, pVert->alpha);
+						glVertex3fv((GLfloat*)&pVert->position);
+#endif
+				}
         glEnd();
     }
 
@@ -1221,6 +1231,7 @@ void btgRender()
             glBindTexture(GL_TEXTURE_2D, btgStars[nStar].glhandle);
             rndTextureEnvironment(RTE_Modulate);
 
+#ifndef _WIN32_FIXME
             if (billboard)
             {
                 if (clipPointToScreenWithMatrices(&pStar->ul, &pscreen, modelview, projection, 0) ||
@@ -1235,7 +1246,7 @@ void btgRender()
 
                     clipPointToScreenWithMatrices(&pStar->mid, &pscreen, modelview, projection, 1);
 
-                    if (textureStars)
+                    if (textureStars)//this one part doesn't crash on WIN32, but enabling it, i notice no difference
                     {
                         glColor3ub((ubyte)((btgStars[nStar].red * btgFade) >> 8),
                                    (ubyte)((btgStars[nStar].green * btgFade) >> 8),
@@ -1277,7 +1288,8 @@ void btgRender()
                 glVertex3fv((GLfloat*)&pStar->ur);
                 glEnd();
             }
-        }
+#endif// _WIN32_FIXME
+				 }
     }
 
     if (textureStars)

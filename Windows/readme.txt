@@ -1,6 +1,27 @@
 
  ** Windows HWSDL README **
 
+//troubleshooting
+//using ignoreBigfiles command line option
+//bugs
+
+
+//troubleshooting
+> if you're freezing or crashing too much you may wish to use /window to avoid fullscreen.
+for example: hwsdl.exe /window
+
+
+//using ignoreBigfiles command line option
+hwsdl.exe /ignoreBigfiles /prepath c:\hwsdl\data
+(you may also wish to use /window)
+
+if you extract all the data from Homeworld.big and Update.big and put it in (for example) c:\hwsdl\data
+and also move HW_Comp.vce and HW_Music.wxd there, then you'll be able to avoid the .big file problems when using compiled builds from MSVC++ 2005.
+
+On Windows one can use this to extract .big files:
+http://www.google.com/search?&q=WinBig+Begust
+
+
 //bugs
 > if you're close enough in view: hwsdl crashes when a ship kills another ship
 - sometimes it still happens when you're looking farther away at the combat
