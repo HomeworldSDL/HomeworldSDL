@@ -1289,7 +1289,7 @@ void btgRender()
                 glEnd();
             }
 #endif// _WIN32_FIXME
-		 }
+         }
     }
 
     if (textureStars)
