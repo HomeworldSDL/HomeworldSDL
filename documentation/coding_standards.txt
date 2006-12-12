@@ -1,6 +1,46 @@
-
+----------------------------------------------------------------------
 Coding standards that should be applied to the HWSDL codebase.
+----------------------------------------------------------------------
+Homeworld SDL is and should remain C-compliant. No C++ classes etc please. The only exception is the use of the C++ single-line notation:
 
+     // comment
 
-Indentation: Each indentation increment should indent 4 spaces. No tab characters.
+which is allowed by all modern C compilers.
 
+----------------------------------------------------------------------
+Indentation
+----------------------------------------------------------------------
+Each indentation increment should indent 4 spaces. No tab characters.
+
+----------------------------------------------------------------------
+Bracing
+----------------------------------------------------------------------
+It isn't always the case but the vast majority of the Homeworld source code uses vertically aligned bracing, so use the same for consistency:
+
+    if (condition)
+    {
+        action;
+    }
+
+Although allowed by the C language definition and used in the code, do NOT use single statement if() notation. The above could be written:
+
+    if (condition)
+        action;
+
+Don't. Brace it up to prevent confusion/bugs.
+
+----------------------------------------------------------------------
+#defines
+----------------------------------------------------------------------
+#define constant names should be UPPERCASE.
+
+Some common #defines to note:
+
+PATH_MAX => buffer size for file path strings
+
+<platform>_FIX_ME => #if'd to indicate that something is broken on <platform> which needs to be addressed at a later date
+
+----------------------------------------------------------------------
+variable/function naming
+----------------------------------------------------------------------
+All variable/function names should start with a lowercase letter. (Uppercase is indicative of Classes or #defines.) camelCaseNotation is used by a lot of code although underscore_word_separated is not uncommon either. Please use the predominant style used in the file you are editing.
