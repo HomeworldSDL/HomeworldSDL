@@ -10,7 +10,7 @@ contents:
 ----------
 
 //requirements
-> MS visual c++ 2003 or 2005 or Mingw (not recommended) using Msys or Cygwin
+> MS visual c++ 2003 or 2005 (2005 express is free) or Mingw*2 using Msys or Cygwin
 > libsdl 1.2.11
 > ddraw.lib, only. if don't have then see *1.
 or download some version of the DirectX sdk (dx9 sdk is around 158mb)
@@ -18,7 +18,7 @@ or download some version of the DirectX sdk (dx9 sdk is around 158mb)
 //notes
 > if HW_Data environment variable is defined all homeworld data will be found via this variable. 
 > if you get link errors referencing Direct3D, DirectDraw, etc, then download the small dx9 sdk package from *1
-> kas2c isn't automatically run to generate the Mission & Tutorial code files, this should be implemented later.
+> kas2c isn't automatically run to generate the required Mission & Tutorial *.c code files, this should be implemented later.
 
 //compilers tested
 vc7.1 sp1 & vc7.1
@@ -42,3 +42,4 @@ http://www.codeproject.com/cpp/vcredists_x86.asp
 *1 see:
 http://homesource.nekomimicon.net/sourceforum/viewtopic.php?t=100
 
+*2: Mingw build option isn't actively maintained by anyone yet, so it might not build or run for you.

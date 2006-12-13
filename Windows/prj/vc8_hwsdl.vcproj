@@ -4,7 +4,7 @@
 	Version="8.00"
 	Name="vc8_hwsdl"
 	ProjectGUID="{81CB51C4-B434-4E12-B69B-BAEE102F2852}"
-	RootNamespace="hwsdl"
+	RootNamespace="vc8_hwsdl"
 	>
 	<Platforms>
 		<Platform
@@ -16,8 +16,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory=".\vc8_hwsdl_deb"
-			IntermediateDirectory=".\vc8_hwsdl_deb"
+			OutputDirectory=".\v8_hwsdl_dbug"
+			IntermediateDirectory=".\v8_hwsdl_dbug"
 			ConfigurationType="1"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			UseOfMFC="0"
@@ -47,8 +47,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\src\SDL;..\..\src\rgl;..\..\src\Game;..\..\src\Ships;..\..\src\JPG;..\..\src\Generated;..\..\include\glide2;..\..\include\Titan;J:\i4\dx9sdk6m2005\Include"
-				PreprocessorDefinitions="_CRT_SECURE_NO_WARNINGS;HW_BUILD_FOR_DEBUGGING;_WIN32;WIN32;_DEBUG;_WINDOWS"
+				AdditionalIncludeDirectories="..\..\src\SDL;..\..\src\rgl;..\..\src\Game;..\..\src\Ships;..\..\src\ThirdParty\JPG;..\..\src\ThirdParty\CRC;..\..\src\ThirdParty\LZSS;..\..\src\Generated;..\..\src\ThirdParty\Titan"
+				PreprocessorDefinitions="_WIN32_FIXME;_CRT_SECURE_NO_WARNINGS;HW_GAME_HOMEWORLD;HW_BUILD_FOR_DEBUGGING;_WIN32;WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="true"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
@@ -56,7 +56,7 @@
 				AssemblerListingLocation="$(IntDir)\"
 				ObjectFile="$(IntDir)\"
 				ProgramDataBaseFileName="$(IntDir)\"
-				BrowseInformation="0"
+				BrowseInformation="1"
 				BrowseInformationFile="$(IntDir)\"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
@@ -76,11 +76,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="msvcrtd.lib winmm.lib Vfw32.lib ddraw.lib ..\vc7obj\deb\File.obj ..\vc7obj\deb\BigFile.obj ..\..\src\obj\fqcodec.obj ..\..\src\obj\fqeffect.obj ..\..\src\obj\fquant.obj ..\..\src\obj\dct.obj SDLmain.lib SDL.lib"
+				AdditionalDependencies="msvcrtd.lib winmm.lib Vfw32.lib ddraw.lib ..\..\Windows\vc7obj\deb\BigFile.obj ..\..\Windows\vc7obj\deb\File.obj ..\..\src\obj\fqcodec.obj ..\..\src\obj\fqeffect.obj ..\..\src\obj\fquant.obj ..\..\src\obj\dct.obj SDLmain.lib SDL.lib"
 				OutputFile="$(OutDir)\hwsdl.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="J:\i4\dx9sdk6m2005\Lib\x86"
 				IgnoreDefaultLibraryNames="msvcrt.lib"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(IntDir)\hwsdl.pdb"
@@ -118,8 +117,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory=".\vc8_hwsdl_rel"
-			IntermediateDirectory=".\vc8_hwsdl_rel"
+			OutputDirectory=".\v8_hwsdl_releas"
+			IntermediateDirectory=".\v8_hwsdl_releas"
 			ConfigurationType="1"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			UseOfMFC="0"
@@ -150,8 +149,10 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="2"
-				PreprocessorDefinitions="_CRT_SECURE_NO_WARNINGS; HW_BUILD_FOR_DISTRIBUTION;_WIN32;WIN32;NDEBUG;_WINDOWS"
+				AdditionalIncludeDirectories="..\..\src\SDL;..\..\src\rgl;..\..\src\Game;..\..\src\Ships;..\..\src\ThirdParty\JPG;..\..\src\ThirdParty\CRC;..\..\src\ThirdParty\LZSS;..\..\src\Generated;..\..\src\ThirdParty\Titan"
+				PreprocessorDefinitions="_WIN32_FIXME;_CRT_SECURE_NO_WARNINGS;HW_GAME_HOMEWORLD;HW_BUILD_FOR_DISTRIBUTION;_WIN32;WIN32;NDEBUG;_WINDOWS"
 				StringPooling="true"
+				MinimalRebuild="false"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
@@ -159,7 +160,7 @@
 				AssemblerListingLocation="$(IntDir)\"
 				ObjectFile="$(IntDir)\"
 				ProgramDataBaseFileName="$(IntDir)\"
-				WarningLevel="4"
+				WarningLevel="3"
 				SuppressStartupBanner="true"
 			/>
 			<Tool
@@ -175,9 +176,108 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="winmm.lib Vfw32.lib ddraw.lib ..\vc7obj\rel\File.obj ..\vc7obj\rel\BigFile.obj ..\..\src\obj\fqcodec.obj ..\..\src\obj\fqeffect.obj ..\..\src\obj\fquant.obj ..\..\src\obj\dct.obj SDLmain.lib SDL.lib"
+				AdditionalDependencies="winmm.lib Vfw32.lib ddraw.lib ..\..\Windows\vc7obj\rel\BigFile.obj ..\..\Windows\vc7obj\rel\File.obj ..\..\src\obj\fqcodec.obj ..\..\src\obj\fqeffect.obj ..\..\src\obj\fquant.obj ..\..\src\obj\dct.obj SDLmain.lib SDL.lib"
 				OutputFile="$(OutDir)\hwsdl.exe"
-				LinkIncremental="1"
+				LinkIncremental="2"
+				SuppressStartupBanner="true"
+				GenerateDebugInformation="true"
+				ProgramDatabaseFile="$(IntDir)\hwsdl.pdb"
+				GenerateMapFile="true"
+				MapFileName="$(IntDir)\hwsdl.map"
+				SubSystem="2"
+				StackReserveSize="8388608"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="release2 debug test|Win32"
+			OutputDirectory=".\rel2_dt"
+			IntermediateDirectory=".\rel2_dt"
+			ConfigurationType="1"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="NDEBUG"
+				MkTypLibCompatible="true"
+				SuppressStartupBanner="true"
+				TargetEnvironment="1"
+				TypeLibraryName="$(IntDir)\hwsdl.tlb"
+				HeaderFileName=""
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				InlineFunctionExpansion="0"
+				AdditionalIncludeDirectories="..\..\src\SDL;..\..\src\rgl;..\..\src\Game;..\..\src\Ships;..\..\src\ThirdParty\JPG;..\..\src\ThirdParty\CRC;..\..\src\ThirdParty\LZSS;..\..\src\Generated;..\..\src\ThirdParty\Titan"
+				PreprocessorDefinitions="HW_BUILD_FOR_DISTRIBUTION;_WIN32;WIN32;NDEBUG;_WINDOWS"
+				StringPooling="true"
+				MinimalRebuild="true"
+				RuntimeLibrary="1"
+				EnableFunctionLevelLinking="true"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderFile="$(IntDir)\hwsdl.pch"
+				AssemblerListingLocation="$(IntDir)\"
+				ObjectFile="$(IntDir)\"
+				ProgramDataBaseFileName="$(IntDir)\"
+				WarningLevel="3"
+				SuppressStartupBanner="true"
+				DebugInformationFormat="4"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG"
+				Culture="1033"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="msvcrt.lib winmm.lib ddraw.lib ..\..\src\obj\fqcodec.obj ..\..\src\obj\fqeffect.obj ..\..\src\obj\fquant.obj ..\..\src\obj\dct.obj SDLmain.lib SDL.lib"
+				OutputFile="$(OutDir)\hwsdl.exe"
+				LinkIncremental="2"
 				SuppressStartupBanner="true"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(IntDir)\hwsdl.pdb"
@@ -313,7 +413,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Game\BitIO.c"
+				RelativePath="..\..\src\ThirdParty\LZSS\BitIO.c"
 				>
 			</File>
 			<File
@@ -381,7 +481,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Sdl\color.c"
+				RelativePath="..\..\src\Game\Color.c"
 				>
 			</File>
 			<File
@@ -409,7 +509,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Game\CRC32.c"
+				RelativePath="..\..\src\ThirdParty\CRC\CRC32.c"
 				>
 			</File>
 			<File
@@ -513,10 +613,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Sdl\glcompat.c"
-				>
-			</File>
-			<File
 				RelativePath="..\..\src\Sdl\gldll.c"
 				>
 			</File>
@@ -561,7 +657,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\interfce.c"
+				RelativePath="..\..\src\ThirdParty\JPG\interfce.c"
 				>
 			</File>
 			<File
@@ -569,187 +665,187 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jcapimin.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jcapimin.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jcapistd.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jcapistd.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jccoefct.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jccoefct.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jccolor.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jccolor.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jcdctmgr.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jcdctmgr.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jchuff.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jchuff.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jcinit.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jcinit.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jcmainct.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jcmainct.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jcmarker.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jcmarker.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jcmaster.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jcmaster.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jcomapi.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jcomapi.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jcparam.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jcparam.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jcphuff.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jcphuff.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jcprepct.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jcprepct.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jcsample.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jcsample.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jctrans.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jctrans.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jdapimin.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jdapimin.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jdapistd.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jdapistd.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jdatadst.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jdatadst.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jdatasrc.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jdatasrc.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jdcoefct.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jdcoefct.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jdcolor.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jdcolor.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jddctmgr.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jddctmgr.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jdhuff.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jdhuff.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jdinput.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jdinput.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jdmainct.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jdmainct.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jdmarker.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jdmarker.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jdmaster.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jdmaster.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jdmerge.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jdmerge.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jdphuff.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jdphuff.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jdpostct.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jdpostct.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jdsample.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jdsample.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jdtrans.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jdtrans.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jerror.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jerror.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jfdctflt.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jfdctflt.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jfdctfst.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jfdctfst.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jfdctint.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jfdctint.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jidctflt.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jidctflt.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jidctfst.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jidctfst.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jidctint.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jidctint.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jidctred.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jidctred.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jmemmgr.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jmemmgr.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jmemnobs.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jmemnobs.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jquant1.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jquant1.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jquant2.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jquant2.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jutils.c"
+				RelativePath="..\..\src\ThirdParty\JPG\jutils.c"
 				>
 			</File>
 			<File
@@ -787,6 +883,14 @@
 						AdditionalOptions="/arch:SSE"
 					/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="release2 debug test|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalOptions="/arch:SSE"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\src\Game\LagPrint.c"
@@ -801,7 +905,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Sdl\light.c"
+				RelativePath="..\..\src\Game\Light.c"
 				>
 			</File>
 			<File
@@ -813,19 +917,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Sdl\LinkEnd.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\Sdl\LinkStart.c"
-				>
-			</File>
-			<File
 				RelativePath="..\..\src\Game\LOD.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Game\LZSS.c"
+				RelativePath="..\..\src\ThirdParty\LZSS\LZSS.c"
 				>
 			</File>
 			<File
@@ -877,139 +973,131 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission01.c"
+				RelativePath="..\..\src\Missions\Generated\Mission01.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission01.func.c"
+				RelativePath="..\..\src\Missions\Generated\Mission01.func.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission02.c"
+				RelativePath="..\..\src\Missions\Generated\Mission02.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission02.func.c"
+				RelativePath="..\..\src\Missions\Generated\Mission02.func.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission03.c"
+				RelativePath="..\..\src\Missions\Generated\Mission03.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission03.func.c"
+				RelativePath="..\..\src\Missions\Generated\Mission03.func.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission04.c"
+				RelativePath="..\..\src\Missions\Generated\Mission04.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission04.func.c"
+				RelativePath="..\..\src\Missions\Generated\Mission04.func.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission05.c"
+				RelativePath="..\..\src\Missions\Generated\Mission05.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission05.func.c"
+				RelativePath="..\..\src\Missions\Generated\Mission05.func.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission06.c"
+				RelativePath="..\..\src\Missions\Generated\Mission06.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission06.func.c"
+				RelativePath="..\..\src\Missions\Generated\Mission06.func.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission07.c"
+				RelativePath="..\..\src\Missions\Generated\Mission07.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission07.func.c"
+				RelativePath="..\..\src\Missions\Generated\Mission07.func.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission08.c"
+				RelativePath="..\..\src\Missions\Generated\Mission08.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission08.func.c"
+				RelativePath="..\..\src\Missions\Generated\Mission08.func.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission09.c"
+				RelativePath="..\..\src\Missions\Generated\Mission09.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission09.func.c"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						WarningLevel="4"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\src\Generated\Mission10.c"
+				RelativePath="..\..\src\Missions\Generated\Mission09.func.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission10.func.c"
+				RelativePath="..\..\src\Missions\Generated\Mission10.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission11.c"
+				RelativePath="..\..\src\Missions\Generated\Mission10.func.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission11.func.c"
+				RelativePath="..\..\src\Missions\Generated\Mission11.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission12.c"
+				RelativePath="..\..\src\Missions\Generated\Mission11.func.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission12.func.c"
+				RelativePath="..\..\src\Missions\Generated\Mission12.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission13.c"
+				RelativePath="..\..\src\Missions\Generated\Mission12.func.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission13.func.c"
+				RelativePath="..\..\src\Missions\Generated\Mission13.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission14.c"
+				RelativePath="..\..\src\Missions\Generated\Mission13.func.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission14.func.c"
+				RelativePath="..\..\src\Missions\Generated\Mission14.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission15.c"
+				RelativePath="..\..\src\Missions\Generated\Mission14.func.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission15.func.c"
+				RelativePath="..\..\src\Missions\Generated\Mission15.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission16.c"
+				RelativePath="..\..\src\Missions\Generated\Mission15.func.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission16.func.c"
+				RelativePath="..\..\src\Missions\Generated\Mission16.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\Missions\Generated\Mission16.func.c"
 				>
 			</File>
 			<File
@@ -1175,6 +1263,14 @@
 						OmitFramePointers="true"
 					/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="release2 debug test|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						OmitFramePointers="true"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\src\Ships\RepairCorvette.c"
@@ -1285,10 +1381,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Sdl\sstglide.c"
-				>
-			</File>
-			<File
 				RelativePath="..\..\src\Sdl\sstream.c"
 				>
 			</File>
@@ -1317,7 +1409,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Sdl\Subtitle.c"
+				RelativePath="..\..\src\Game\Subtitle.c"
 				>
 			</File>
 			<File
@@ -1377,7 +1469,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Sdl\trails.c"
+				RelativePath="..\..\src\Game\Trails.c"
 				>
 			</File>
 			<File
@@ -1389,11 +1481,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Tutorial1.c"
+				RelativePath="..\..\src\Missions\Generated\Tutorial1.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Tutorial1.func.c"
+				RelativePath="..\..\src\Missions\Generated\Tutorial1.func.c"
 				>
 			</File>
 			<File
@@ -1445,35 +1537,7 @@
 				>
 			</File>
 			<Filter
-				Name="build-exclude"
-				>
-				<File
-					RelativePath="..\..\src\Game\BigFile.c"
-					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\..\src\Game\File.c"
-					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-				</File>
-			</Filter>
-			<Filter
-				Name="no-optimize"
+				Name="dont_optimize"
 				>
 				<File
 					RelativePath="..\..\src\Game\ETG.c"
@@ -1488,6 +1552,14 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="release2 debug test|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -1514,6 +1586,14 @@
 							Optimization="0"
 						/>
 					</FileConfiguration>
+					<FileConfiguration
+						Name="release2 debug test|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\..\src\Game\Task.c"
@@ -1532,6 +1612,42 @@
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="release2 debug test|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+						/>
+					</FileConfiguration>
+				</File>
+			</Filter>
+			<Filter
+				Name="dont_compile"
+				>
+				<File
+					RelativePath="..\..\src\Game\BigFile.c"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\..\src\Game\File.c"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
 						/>
 					</FileConfiguration>
 				</File>
@@ -1646,7 +1762,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Game\BitIO.h"
+				RelativePath="..\..\src\ThirdParty\LZSS\BitIO.h"
 				>
 			</File>
 			<File
@@ -1718,7 +1834,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Sdl\color.h"
+				RelativePath="..\..\src\Game\Color.h"
 				>
 			</File>
 			<File
@@ -1746,11 +1862,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\Game\cpuid.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\Game\Crates.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Game\CRC32.h"
+				RelativePath="..\..\src\ThirdParty\CRC\CRC32.h"
 				>
 			</File>
 			<File
@@ -1950,7 +2070,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\interfce.h"
+				RelativePath="..\..\src\ThirdParty\JPG\interfce.h"
 				>
 			</File>
 			<File
@@ -1958,51 +2078,51 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jchuff.h"
+				RelativePath="..\..\src\ThirdParty\JPG\jchuff.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jconfig.h"
+				RelativePath="..\..\src\ThirdParty\JPG\jconfig.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jdct.h"
+				RelativePath="..\..\src\ThirdParty\JPG\jdct.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jdhuff.h"
+				RelativePath="..\..\src\ThirdParty\JPG\jdhuff.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jerror.h"
+				RelativePath="..\..\src\ThirdParty\JPG\jerror.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jinclude.h"
+				RelativePath="..\..\src\ThirdParty\JPG\jinclude.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jmemsys.h"
+				RelativePath="..\..\src\ThirdParty\JPG\jmemsys.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jmorecfg.h"
+				RelativePath="..\..\src\ThirdParty\JPG\jmorecfg.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jpegint.h"
+				RelativePath="..\..\src\ThirdParty\JPG\jpegint.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jpeglib.h"
+				RelativePath="..\..\src\ThirdParty\JPG\jpeglib.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jpegrc.h"
+				RelativePath="..\..\src\ThirdParty\JPG\jpegrc.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Jpg\jversion.h"
+				RelativePath="..\..\src\ThirdParty\JPG\jversion.h"
 				>
 			</File>
 			<File
@@ -2034,7 +2154,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Sdl\light.h"
+				RelativePath="..\..\src\Game\Light.h"
 				>
 			</File>
 			<File
@@ -2054,7 +2174,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Game\LZSS.h"
+				RelativePath="..\..\src\ThirdParty\LZSS\LZSS.h"
 				>
 			</File>
 			<File
@@ -2110,67 +2230,67 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission01.h"
+				RelativePath="..\..\src\Missions\Generated\Mission01.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission02.h"
+				RelativePath="..\..\src\Missions\Generated\Mission02.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission03.h"
+				RelativePath="..\..\src\Missions\Generated\Mission03.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission04.h"
+				RelativePath="..\..\src\Missions\Generated\Mission04.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission05.h"
+				RelativePath="..\..\src\Missions\Generated\Mission05.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission06.h"
+				RelativePath="..\..\src\Missions\Generated\Mission06.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission07.h"
+				RelativePath="..\..\src\Missions\Generated\Mission07.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission08.h"
+				RelativePath="..\..\src\Missions\Generated\Mission08.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission09.h"
+				RelativePath="..\..\src\Missions\Generated\Mission09.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission10.h"
+				RelativePath="..\..\src\Missions\Generated\Mission10.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission11.h"
+				RelativePath="..\..\src\Missions\Generated\Mission11.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission12.h"
+				RelativePath="..\..\src\Missions\Generated\Mission12.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission13.h"
+				RelativePath="..\..\src\Missions\Generated\Mission13.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission14.h"
+				RelativePath="..\..\src\Missions\Generated\Mission14.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission15.h"
+				RelativePath="..\..\src\Missions\Generated\Mission15.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Mission16.h"
+				RelativePath="..\..\src\Missions\Generated\Mission16.h"
 				>
 			</File>
 			<File
@@ -2402,11 +2522,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Game\ShipDefs.h"
+				RelativePath="..\..\src\Ships\ShipDefs.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Game\Ships.h"
+				RelativePath="..\..\src\Ships\Ships.h"
 				>
 			</File>
 			<File
@@ -2458,10 +2578,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Sdl\sstglide.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\src\Ships\StandardDestroyer.h"
 				>
 			</File>
@@ -2490,7 +2606,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Sdl\Subtitle.h"
+				RelativePath="..\..\src\Game\Subtitle.h"
 				>
 			</File>
 			<File
@@ -2558,7 +2674,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Sdl\trails.h"
+				RelativePath="..\..\src\Game\Trails.h"
 				>
 			</File>
 			<File
@@ -2570,7 +2686,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Generated\Tutorial1.h"
+				RelativePath="..\..\src\Missions\Generated\Tutorial1.h"
 				>
 			</File>
 			<File
