@@ -23,7 +23,8 @@ http://www.google.com/search?&q=WinBig+Begust
 
 
 //bugs
-> if you're close enough in view: hwsdl crashes when a ship kills another ship
+> if you're close enough in view: hwsdl crashes when a ship displays 'hit effects'
+Workaround: turn off 'hit effects' in video options
 - sometimes it still happens when you're looking farther away at the combat
 - i haven't had it happen while looking in sensors manager.
 (confirmed in rev64 also)
