@@ -236,7 +236,7 @@ char deviceToSelect[128] = "";
 char glToSelect[512] = "opengl32.dll";
 //char glToSelect[512] = "librgl.dll";
 #else
-char glToSelect[512] = "librgl.so";
+char glToSelect[512] = "libGL.so";
 #endif
 bool8 RENDER_BOXES = FALSE;
 bool8 RENDER_LIGHTLINES = FALSE;
@@ -411,7 +411,7 @@ bool SelectD3D(char* string)
 #ifdef _WIN32
     memStrncpy(glToSelect, "librgl.dll", 512 - 1);
 #else
-    memStrncpy(glToSelect, "librgl.so", 512 - 1);
+    memStrncpy(glToSelect, "libGL.so", 512 - 1);
 #endif
     memStrncpy(deviceToSelect, "d3d", 16 - 1);
     selectedGL = TRUE;
@@ -1651,7 +1651,7 @@ bool mainStartupParticularRGL(char* device, char* data)
 			memStrncpy(glToSelect, "opengl32.dll", 512 - 1);
 //    memStrncpy(glToSelect, "librgl.dll", 512 - 1);
 #else
-    memStrncpy(glToSelect, "librgl.so", 512 - 1);
+    memStrncpy(glToSelect, "libGL.so", 512 - 1);
 #endif
     if (!glCapLoadOpenGL(glToSelect))
     {
@@ -1869,8 +1869,8 @@ void mainSetupSoftware(void)
     strcpy(mainDeviceToSelect, "sw");
     strcpy(mainD3DToSelect, "");
 #else
-    strcpy(glToSelect, "librgl.so");
-    strcpy(mainGLToSelect, "librgl.so");
+    strcpy(glToSelect, "libGL.so");
+    strcpy(mainGLToSelect, "libGL.so");
     strcpy(deviceToSelect, "sw");
     strcpy(mainDeviceToSelect, "sw");
     strcpy(mainD3DToSelect, "");
@@ -2499,8 +2499,8 @@ static bool InitWindow ()
 //        strcpy(glToSelect, "librgl.dll");
 //        strcpy(mainGLToSelect, "librgl.dll");
 #else
-        strcpy(glToSelect, "librgl.so");
-        strcpy(mainGLToSelect, "librgl.so");
+        strcpy(glToSelect, "libGL.so");
+        strcpy(mainGLToSelect, "libGL.so");
 #endif
         d3dToSelect[0] = '\0';
         mainD3DToSelect[0] = '\0';
