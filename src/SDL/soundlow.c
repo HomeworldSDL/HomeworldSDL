@@ -277,10 +277,12 @@ void soundrestore(void)
 
 	soundinited = FALSE;
 
+#ifndef _WIN32_FIXME
 	while (!((streamer.status == SOUND_FREE) && (mixer.status == SOUND_FREE)))
 	{
 		SDL_Delay(0);
 	}
+#endif
 
 	isoundmixerrestore();
 

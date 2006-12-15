@@ -4884,7 +4884,7 @@ char *utyGameSystemsShutdown(void)
     }
     if (utyTest(SSA_Mouse))
     {
-#ifndef _LINUX_FIX_ME
+#if !defined _LINUX_FIX_ME && !defined _WIN32_FIXME
         mouseShutdown();
 #endif
         utyClear(SSA_Mouse);
@@ -4903,7 +4903,7 @@ char *utyGameSystemsShutdown(void)
     if (fetEnableTextures)
 #endif
     {
-#ifndef _LINUX_FIX_ME
+#if !defined _LINUX_FIX_ME && !defined _WIN32_FIXME
         ferShutdown();
 #endif
     }
