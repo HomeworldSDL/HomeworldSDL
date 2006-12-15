@@ -181,7 +181,11 @@ bool mainFastFrontend = TRUE;
 bool mainForceSoftware = FALSE;
 bool mainAutoRenderer = TRUE;
 bool mainForceKatmai = FALSE;
+#ifdef _WINDOWS
+bool mainAllowKatmai = TRUE;
+#else
 bool mainAllowKatmai = FALSE;
+#endif
 bool mainAllow3DNow = FALSE;
 bool enableAVI = TRUE;
 bool mainAllowPacking = TRUE;

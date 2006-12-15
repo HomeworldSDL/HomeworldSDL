@@ -3,8 +3,7 @@
 #define CPUID_H
 
 #ifdef _MSC_VER
-
-//#include <windows.h>
+//this code could be expanded to support *nix
 
 #ifdef __cplusplus
 extern "C"
@@ -34,7 +33,8 @@ http://www.gamasutra.com/features/wyatts_world/19990528/pentium3_03.htm
 */
 int has_feature(int feature)
 {
-  __try {
+  __try
+  {
       switch (feature) {
       case CPU_FEATURE_SSE:
           __asm {
@@ -60,14 +60,15 @@ int has_feature(int feature)
           break;
       }
   }
-  __except (EXCEPTION_EXECUTE_HANDLER) {
-      if (_exception_code() == STATUS_ILLEGAL_INSTRUCTION) {
-          return 0;
-      }
-      return 0;
-  }
-  return 1;
+    __except (EXCEPTION_EXECUTE_HANDLER) 
+    {
+        if (_exception_code() == STATUS_ILLEGAL_INSTRUCTION) {
+            return 0;
+    }
+        return 0;
+    }
+    return 1;
 }
 
-#endif
+#endif//_MSC_VER
 #endif

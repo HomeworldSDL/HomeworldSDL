@@ -1,9 +1,12 @@
 /*=============================================================================
-    Name    : knitransform.c
-    Purpose : Katmai New Instructions transformation routines
+Name    : knitransform.c
+Purpose : Katmai New Instructions (KNI) transformation routines
 
-    Created 2/1/1999 by khent
-    Copyright Relic Entertainment, Inc.  All rights reserved.
+SSE was known originally as KNI (Katmai is the codename 
+for the first Pentium 3 core revision).
+
+Created 2/1/1999 by khent
+Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
 #if !defined (_MSC_VER) && !(defined (__GNUC__) && defined (__i386__))
@@ -14,10 +17,7 @@
 #include <windows.h>
 #endif
 
-#ifdef _MSC_VER
 #include "cpuid.h"
-#endif
-
 #include <stdlib.h>
 //#define _MM_FUNCTIONALITY
 #include <xmmintrin.h>
@@ -175,7 +175,9 @@ hasSFXSR = (cpu_eax & SFXSR_BIT) ? 1 : 0;
 
 #elif defined (_MSC_VER)
 if (has_feature(CPU_FEATURE_SSE))
-{ hasSFXSR = 1; }
+{    
+    hasSFXSR = 1;
+}
 
 #endif
 
