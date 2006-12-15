@@ -10,7 +10,7 @@ contents:
 ----------
 
 //requirements
-> MS visual c++ 2003 or 2005 (2005 express is free) or Mingw*2 using Msys or Cygwin
+> MS visual c++ 2003/7 or 2005/8 (vc8) (2005 express is free) or Mingw*2 using Msys or Cygwin
 > libsdl 1.2.11
 > ddraw.lib, only. if don't have then see *1.
 or download some version of the DirectX sdk (dx9 sdk is around 158mb)
@@ -22,7 +22,7 @@ or download some version of the DirectX sdk (dx9 sdk is around 158mb)
 
 //compilers tested
 vc7.1 sp1 & vc7.1
-vc8 pro sp1 beta & RTM (using temporary .big file search code workaround (so files can be found inside the .big file))
+vc8 pro sp1 beta & RTM *3
 
 //OS tested for compiling & running
 windows XP Pro SP2
@@ -43,3 +43,7 @@ http://www.codeproject.com/cpp/vcredists_x86.asp
 http://homesource.nekomimicon.net/sourceforum/viewtopic.php?t=100
 
 *2: Mingw build option isn't actively maintained by anyone yet, so it might not build or run for you.
+
+*3: vc8 is using a temporary .big file search code workaround (so files can be found inside the .big files)).
+File.obj and BigFile.obj compiled from vc7 will be linked against automatically. Don't compile File.c & BigFile.c using vc8 unless you aren't using .big files (eg: you extracted all data from the .big files as mentioned in readme.txt).
+
