@@ -10,6 +10,7 @@
 #include "Transformer.h"
 #include "Memory.h"
 #include "main.h"
+#include "cpuid.h"
 
 #define FPTR dword ptr
 #define FSIZE 4
@@ -157,7 +158,8 @@ static int chkcpubit()
 
 /*-----------------------------------------------------------------------------
     Name        : transStartup
-    Description : starts up the transformer module.  see transShutdown()
+    Description : starts up the transformer module and determines if SSE (KNI) code should be utilized.
+    See also    : transShutdown()
     Inputs      :
     Outputs     :
     Return      :
@@ -165,6 +167,7 @@ static int chkcpubit()
 void transStartup(void)
 {
     static unsigned int cpu_edx;
+    haveKatmai = 0;
 
     transShutdown();
 
@@ -194,16 +197,13 @@ void transStartup(void)
         else
         {
 #if defined (_MSC_VER)
-            _asm
+
+            if(has_feature(CPU_FEATURE_SSE))
             {
-                pusha
-                mov eax, 1
-//                cpuid
-                _emit 0x0f
-                _emit 0xa2
-                mov [cpu_edx], edx
-                popa
+                haveKatmai = 1;
+                haveFXSR = 1;
             }
+
 #elif defined (__GNUC__) && defined (__i386__)
             __asm__ __volatile__ (
                 "    movl $1, %%eax\n"
@@ -211,17 +211,13 @@ void transStartup(void)
                 : "=d" (cpu_edx)
                 :
                 : "eax", "ebx", "ecx" );
-#endif
-
+            
             haveFXSR = (cpu_edx & FXSR_BIT) ? 1 : 0;
             if (haveFXSR)
             {
                 haveKatmai = (cpu_edx & XMM_BIT) ? 1 : 0;
             }
-            else
-            {
-                haveKatmai = 0;
-            }
+#endif
         }
         
 #ifndef _MACOSX_FIX_ME
@@ -229,9 +225,7 @@ void transStartup(void)
 #endif
     }
 
-#ifdef _MACOSX_FIX_ME
-    useKatmai = 0;
-#else
+#ifndef _MACOSX_FIX_ME
     useKatmai = transCanSupportKatmai();
     transVertexList = (useKatmai) ? transTransformVertexList_intrin : transTransformVertexList_asm;
     transPerspective = (useKatmai) ? transPerspectiveTransform_intrin : transPerspectiveTransform_asm;

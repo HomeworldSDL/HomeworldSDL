@@ -17,7 +17,6 @@ Copyright Relic Entertainment, Inc.  All rights reserved.
 #include <windows.h>
 #endif
 
-#include "cpuid.h"
 #include <stdlib.h>
 //#define _MM_FUNCTIONALITY
 #include <xmmintrin.h>
@@ -158,6 +157,8 @@ int nBytes;
     Outputs     :
     Return      : 1 (supported) or 0 (not supported)
 ----------------------------------------------------------------------------*/
+#if 0
+//this isn't used anywhere (not in transStartup too)
 static int chkxmmbits(void)
 {
     static unsigned int cpu_eax, cpu_edx;
@@ -209,7 +210,7 @@ if (has_feature(CPU_FEATURE_SSE))
         return 0;
     }
 }
-
+#endif
 /*-----------------------------------------------------------------------------
     Name        : transDetermineKatmaiSupport
     Description : determines whether Katmai New Instructions are supported by the
