@@ -17,7 +17,7 @@ contents:
 or download some version of the DirectX sdk (dx9 sdk is around 158mb)
 
 //notes
-> compile HWSDL using either the "debug" or "release+symbols" project. You can try "Release" but it probably won't run for you (it does compile).
+> compile HWSDL using either the "debug" or "release+symbols" configuration. You can try "Release" but it probably won't run for you (it does compile).
 > kas2c isn't automatically run to generate the required Mission & Tutorial *.c code files, this should be implemented later.
 > if HW_Data environment variable is defined, all homeworld data will be found from the directory it specifies. 
 

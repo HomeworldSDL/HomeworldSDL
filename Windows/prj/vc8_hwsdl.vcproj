@@ -216,7 +216,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="release2 debug test|Win32"
+			Name="old_dont use_1|Win32"
 			OutputDirectory=".\rel2_dt"
 			IntermediateDirectory=".\rel2_dt"
 			ConfigurationType="1"
@@ -886,7 +886,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="release2 debug test|Win32"
+					Name="old_dont use_1|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1266,7 +1266,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="release2 debug test|Win32"
+					Name="old_dont use_1|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1561,7 +1561,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="release2 debug test|Win32"
+						Name="old_dont use_1|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -1589,7 +1589,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="release2 debug test|Win32"
+						Name="old_dont use_1|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -1617,7 +1617,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="release2 debug test|Win32"
+						Name="old_dont use_1|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -1649,7 +1649,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="release2 debug test|Win32"
+						Name="old_dont use_1|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -1677,7 +1677,7 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="release2 debug test|Win32"
+						Name="old_dont use_1|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
