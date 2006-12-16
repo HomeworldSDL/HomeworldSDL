@@ -193,7 +193,7 @@ int utyEnsureRegistry(void)
 
     /* Get the user's home directory. */
 #ifdef _WIN32
-		home_dir = getenv("APPDATA");
+	home_dir = getenv("APPDATA");
 #else
     home_dir = getenv("HOME");
 #endif
@@ -1105,11 +1105,12 @@ void versionNumDraw(featom *atom, regionhandle region)
 ----------------------------------------------------------------------------*/
 void utyOptionsFileRead(void)
 {
-#ifdef _WIN32
-    scriptSetFileSystem("", UTY_CONFIG_FILENAME, utyOptionsList);
+#ifdef _WINDOWS
+    char *home_dir = getenv("APPDATA");
 #else
     char *home_dir = getenv("HOME");
-    char  ch_buf[PATH_MAX];
+#endif
+    char ch_buf[PATH_MAX];
 
     if (home_dir)
     {
@@ -1121,7 +1122,6 @@ void utyOptionsFileRead(void)
         ch_buf[0] = '\0';
     }
     scriptSetFileSystem(ch_buf, UTY_CONFIG_FILENAME, utyOptionsList);
-#endif
 
     //call any functions that need to acknowledge a change due to loading
     cameraSensitivitySet(opMouseSens);
@@ -1139,17 +1139,17 @@ void utyOptionsFileRead(void)
 ----------------------------------------------------------------------------*/
 void utyOptionsFileWrite(void)
 {
-#ifndef _WIN32
     char* home_dir;
-    char ch_buf[128];
-#endif
+    char ch_buf[PATH_MAX];
     sdword index;
     FILE *f;
 
-#ifdef _WIN32
-    f = fopen(UTY_CONFIG_FILENAME, "wt");
+#ifdef _WINDOWS
+    home_dir = getenv("APPDATA");
 #else
     home_dir = getenv("HOME");
+#endif
+
     if (home_dir)
     {
         strcpy(ch_buf, home_dir);
@@ -1160,7 +1160,6 @@ void utyOptionsFileWrite(void)
         strcpy(ch_buf, UTY_CONFIG_FILENAME);
     }
     f = fopen(ch_buf, "wt");
-#endif
 
     if (f == NULL)
     {
