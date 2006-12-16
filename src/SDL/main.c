@@ -768,8 +768,8 @@ commandoption commandOptions[] =
     entryVrHidden("/freemouse",     startupClipMouse, FALSE,            " - Mouse free to move about entire screen at startup.  Use <CTRL>F11 to toggle during play."),
 #endif
 #endif
-#ifndef HW_BUILD_FOR_DISTRIBUTION
     entryVr("/ignoreBigfiles",      IgnoreBigfiles, TRUE,               " - don't use anything from bigfile(s)"),
+#ifndef HW_BUILD_FOR_DISTRIBUTION
     entryFV("/logFileLoads",        EnableFileLoadLog,LogFileLoads,TRUE," - create log of data files loaded"),
 #endif
 

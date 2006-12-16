@@ -150,10 +150,6 @@ try installing "libx11-dev".
  Also of note is that the "-fomit-frame-pointer" flag should not be used, as Homeworld uses various assembly techniques that rely on the frame pointer for many functions.  While the original Windows version uses "#pragma" statements to force this on a per-function basis, GCC only provides the "-fno-omit-frame-pointer" flag to force the frame pointer on a per-file basis. Because of this, most of the game will be compiled with support for the frame pointer regardless of the optimization level.  In the future, the functions that rely on the frame pointer may be separated from the rest of the code such that the game can benefit from the potential speed increase provided by the "-fomit-frame-pointer" flag. 
 
 
-*1: use of SDL 1.2.10 is not recommended.
-- HWSDL won't exit properly and will lock your mouse.
-- librgl*.so won't be found unless put in /usr/lib
-
  ----------------------------------------------------------------------------------
   -If you're compiling libsdl-
 
@@ -176,3 +172,9 @@ project options > run options > turn off 'automatically compile before execution
 so kdevelop won't want to compile each time you want to debug.
 
 	-------------------------------------------------------------------------------------
+
+
+
+*1: use of SDL 1.2.10 is not recommended.
+- HWSDL won't exit properly and will lock your mouse.
+- librgl*.so won't be found unless put in /usr/lib
