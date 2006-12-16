@@ -7,6 +7,7 @@ contents:
 //vc8 notes
 //compilers tested
 //OS tested for compiling & running
+//troubleshooting
 ----------
 
 //requirements
@@ -16,9 +17,9 @@ contents:
 or download some version of the DirectX sdk (dx9 sdk is around 158mb)
 
 //notes
-> if HW_Data environment variable is defined all homeworld data will be found via this variable. 
-> if you get link errors referencing Direct3D, DirectDraw, etc, then download the small dx9 sdk package from *1
+> compile HWSDL using either the "debug" or "release+symbols" project. You can try "Release" but it probably won't run for you (it does compile).
 > kas2c isn't automatically run to generate the required Mission & Tutorial *.c code files, this should be implemented later.
+> if HW_Data environment variable is defined, all homeworld data will be found from the directory it specifies. 
 
 //compilers tested
 vc7.1 sp1 & vc7.1
@@ -38,6 +39,8 @@ Bootstrapper for the VC++ 2005 Redists (with MSI 3.1)
 http://www.codeproject.com/cpp/vcredists_x86.asp
 
 
+//troubleshooting
+> if you get link errors referencing Direct3D, DirectDraw, etc, then download the small dx9 sdk package from *1
 
 *1 see:
 http://homesource.nekomimicon.net/sourceforum/viewtopic.php?t=100

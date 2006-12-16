@@ -6,16 +6,16 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
-		release2 debug test|Win32 = release2 debug test|Win32
+		old_release2 debug test|Win32 = old_release2 debug test|Win32
+		Release+symbols|Win32 = Release+symbols|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{81CB51C4-B434-4E12-B69B-BAEE102F2852}.Debug|Win32.ActiveCfg = Debug|Win32
 		{81CB51C4-B434-4E12-B69B-BAEE102F2852}.Debug|Win32.Build.0 = Debug|Win32
-		{81CB51C4-B434-4E12-B69B-BAEE102F2852}.Release|Win32.ActiveCfg = Release|Win32
-		{81CB51C4-B434-4E12-B69B-BAEE102F2852}.Release|Win32.Build.0 = Release|Win32
-		{81CB51C4-B434-4E12-B69B-BAEE102F2852}.release2 debug test|Win32.ActiveCfg = release2 debug test|Win32
-		{81CB51C4-B434-4E12-B69B-BAEE102F2852}.release2 debug test|Win32.Build.0 = release2 debug test|Win32
+		{81CB51C4-B434-4E12-B69B-BAEE102F2852}.old_release2 debug test|Win32.ActiveCfg = release2 debug test|Win32
+		{81CB51C4-B434-4E12-B69B-BAEE102F2852}.old_release2 debug test|Win32.Build.0 = release2 debug test|Win32
+		{81CB51C4-B434-4E12-B69B-BAEE102F2852}.Release+symbols|Win32.ActiveCfg = Release|Win32
+		{81CB51C4-B434-4E12-B69B-BAEE102F2852}.Release+symbols|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

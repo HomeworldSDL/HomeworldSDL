@@ -117,8 +117,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory=".\v8_hwsdl_releas"
-			IntermediateDirectory=".\v8_hwsdl_releas"
+			OutputDirectory=".\v8_hwsdl_rel+sym"
+			IntermediateDirectory=".\v8_hwsdl_rel+sym"
 			ConfigurationType="1"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			UseOfMFC="0"
@@ -147,12 +147,13 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="2"
-				InlineFunctionExpansion="2"
+				Optimization="0"
+				InlineFunctionExpansion="0"
 				AdditionalIncludeDirectories="..\..\src\SDL;..\..\src\rgl;..\..\src\Game;..\..\src\Ships;..\..\src\ThirdParty\JPG;..\..\src\ThirdParty\CRC;..\..\src\ThirdParty\LZSS;..\..\src\Generated;..\..\src\ThirdParty\Titan"
 				PreprocessorDefinitions="_WIN32_FIXME;_CRT_SECURE_NO_WARNINGS;HW_GAME_HOMEWORLD;HW_BUILD_FOR_DISTRIBUTION;_WIN32;WIN32;NDEBUG;_WINDOWS"
 				StringPooling="true"
-				MinimalRebuild="false"
+				MinimalRebuild="true"
+				ExceptionHandling="2"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
@@ -162,6 +163,7 @@
 				ProgramDataBaseFileName="$(IntDir)\"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
+				DebugInformationFormat="4"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -176,7 +178,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="winmm.lib Vfw32.lib ddraw.lib ..\..\Windows\vc7obj\rel\BigFile.obj ..\..\Windows\vc7obj\rel\File.obj ..\..\src\obj\fqcodec.obj ..\..\src\obj\fqeffect.obj ..\..\src\obj\fquant.obj ..\..\src\obj\dct.obj SDLmain.lib SDL.lib"
+				AdditionalDependencies="winmm.lib Vfw32.lib ddraw.lib ..\..\Windows\vc7obj\rel\File.obj ..\..\Windows\vc7obj\rel\BigFile.obj ..\..\src\obj\fqcodec.obj ..\..\src\obj\fqeffect.obj ..\..\src\obj\fquant.obj ..\..\src\obj\dct.obj SDLmain.lib SDL.lib"
 				OutputFile="$(OutDir)\hwsdl.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
@@ -1252,7 +1254,7 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						OmitFramePointers="true"
+						OmitFramePointers="false"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -1260,7 +1262,7 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						OmitFramePointers="true"
+						OmitFramePointers="false"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -1268,7 +1270,7 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						OmitFramePointers="true"
+						OmitFramePointers="false"
 					/>
 				</FileConfiguration>
 			</File>
@@ -1638,12 +1640,44 @@
 							Name="VCCLCompilerTool"
 						/>
 					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="release2 debug test|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\..\src\Game\File.c"
 					>
 					<FileConfiguration
 						Name="Debug|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="release2 debug test|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool

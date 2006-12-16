@@ -90,15 +90,16 @@
 			ATLMinimizesCRunTimeLibraryUsage="FALSE">
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="2"
-				InlineFunctionExpansion="2"
-				OptimizeForProcessor="2"
+				Optimization="0"
+				InlineFunctionExpansion="0"
+				OptimizeForProcessor="1"
 				AdditionalIncludeDirectories="..\..\src\SDL;..\..\src\rgl;..\..\src\Game;..\..\src\Ships;..\..\src\ThirdParty\JPG;..\..\src\ThirdParty\CRC;..\..\src\ThirdParty\LZSS;..\..\src\Generated;..\..\src\ThirdParty\Titan"
 				PreprocessorDefinitions="_WIN32_FIXME;HW_GAME_HOMEWORLD;HW_BUILD_FOR_DISTRIBUTION;_WIN32;WIN32;NDEBUG;_WINDOWS"
-				StringPooling="TRUE"
+				StringPooling="FALSE"
 				MinimalRebuild="FALSE"
 				RuntimeLibrary="2"
-				EnableFunctionLevelLinking="TRUE"
+				BufferSecurityCheck="FALSE"
+				EnableFunctionLevelLinking="FALSE"
 				UsePrecompiledHeader="0"
 				PrecompiledHeaderFile="$(IntDir)\hwsdl.pch"
 				AssemblerListingLocation="$(IntDir)\"
@@ -151,9 +152,9 @@
 				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 		<Configuration
-			Name="release2 debug test|Win32"
-			OutputDirectory=".\rel2_dt"
-			IntermediateDirectory=".\rel2_dt"
+			Name="old_release2 debug test|Win32"
+			OutputDirectory="do not use this config"
+			IntermediateDirectory="do not use this config"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE">
@@ -162,7 +163,7 @@
 				Optimization="0"
 				InlineFunctionExpansion="0"
 				OptimizeForProcessor="1"
-				AdditionalIncludeDirectories="..\..\src\SDL;..\..\src\rgl;..\..\src\Game;..\..\src\Ships;..\..\src\ThirdParty\JPG;..\..\src\ThirdParty\CRC;..\..\src\ThirdParty\LZSS;..\..\src\Generated;..\..\src\ThirdParty\Titan"
+				AdditionalIncludeDirectories=""
 				PreprocessorDefinitions="HW_BUILD_FOR_DISTRIBUTION;_WIN32;WIN32;NDEBUG;_WINDOWS"
 				StringPooling="TRUE"
 				MinimalRebuild="TRUE"
@@ -184,6 +185,78 @@
 				OutputFile="$(OutDir)\hwsdl.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile="$(IntDir)\hwsdl.pdb"
+				GenerateMapFile="TRUE"
+				MapFileName="$(IntDir)\hwsdl.map"
+				SubSystem="2"
+				StackReserveSize="8388608"
+				TargetMachine="1"/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="NDEBUG"
+				MkTypLibCompatible="TRUE"
+				SuppressStartupBanner="TRUE"
+				TargetEnvironment="1"
+				TypeLibraryName="$(IntDir)\hwsdl.tlb"
+				HeaderFileName=""/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG"
+				Culture="1033"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+		</Configuration>
+		<Configuration
+			Name="release + symbols|Win32"
+			OutputDirectory=".\hwsdl_rel+sym"
+			IntermediateDirectory=".\hwsdl_rel+sym"
+			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				InlineFunctionExpansion="0"
+				OptimizeForProcessor="1"
+				AdditionalIncludeDirectories="..\..\src\SDL;..\..\src\rgl;..\..\src\Game;..\..\src\Ships;..\..\src\ThirdParty\JPG;..\..\src\ThirdParty\CRC;..\..\src\ThirdParty\LZSS;..\..\src\Generated;..\..\src\ThirdParty\Titan"
+				PreprocessorDefinitions="_WIN32_FIXME;HW_GAME_HOMEWORLD;HW_BUILD_FOR_DISTRIBUTION;_WIN32;WIN32;NDEBUG;_WINDOWS"
+				StringPooling="FALSE"
+				MinimalRebuild="TRUE"
+				RuntimeLibrary="3"
+				EnableFunctionLevelLinking="FALSE"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderFile="$(IntDir)\hwsdl.pch"
+				AssemblerListingLocation="$(IntDir)\"
+				ObjectFile="$(IntDir)\"
+				ProgramDataBaseFileName="$(IntDir)\"
+				BrowseInformation="1"
+				WarningLevel="3"
+				SuppressStartupBanner="TRUE"
+				DebugInformationFormat="4"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="msvcrtd.lib winmm.lib Vfw32.lib ddraw.lib ..\..\src\obj\fqcodec.obj ..\..\src\obj\fqeffect.obj ..\..\src\obj\fquant.obj ..\..\src\obj\dct.obj SDLmain.lib SDL.lib"
+				OutputFile="$(OutDir)\hwsdl.exe"
+				LinkIncremental="2"
+				SuppressStartupBanner="TRUE"
+				IgnoreDefaultLibraryNames="msvcrt.lib"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="$(IntDir)\hwsdl.pdb"
 				GenerateMapFile="TRUE"
@@ -656,7 +729,13 @@
 						AdditionalOptions="/arch:SSE"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="release2 debug test|Win32">
+					Name="old_release2 debug test|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalOptions="/arch:SSE"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="release + symbols|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						AdditionalOptions="/arch:SSE"/>
@@ -932,19 +1011,25 @@
 					Name="Debug|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
-						OmitFramePointers="TRUE"/>
+						OmitFramePointers="FALSE"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
-						OmitFramePointers="TRUE"/>
+						OmitFramePointers="FALSE"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="release2 debug test|Win32">
+					Name="old_release2 debug test|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
-						OmitFramePointers="TRUE"/>
+						OmitFramePointers="FALSE"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="release + symbols|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						OmitFramePointers="FALSE"/>
 				</FileConfiguration>
 			</File>
 			<File
@@ -1163,7 +1248,13 @@
 							Optimization="0"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="release2 debug test|Win32">
+						Name="old_release2 debug test|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="release + symbols|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"/>
@@ -1184,7 +1275,13 @@
 							Optimization="0"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="release2 debug test|Win32">
+						Name="old_release2 debug test|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="release + symbols|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"/>
@@ -1205,7 +1302,13 @@
 							Optimization="0"/>
 					</FileConfiguration>
 					<FileConfiguration
-						Name="release2 debug test|Win32">
+						Name="old_release2 debug test|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="release + symbols|Win32">
 						<Tool
 							Name="VCCLCompilerTool"
 							Optimization="0"/>

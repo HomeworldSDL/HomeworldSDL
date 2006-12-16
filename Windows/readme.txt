@@ -31,7 +31,7 @@ select a ship of yours > sensors manager > press m to move ship and now try rota
 - press m to abort move, and now rotate around (works)
 - while the bug is rotating you around fast, left click once to temporarily fix the fast rotation.
 (confirmed in rev64 also)
-- i've had this happen mostly in the sensors manager, but it has happened (a little bit) outside of the sensors manager too.
+- this happens mostly in the sensors manager, but it has happened outside of the sensors manager too.
 
 > no BTG background and reduced stars due to code workaround to avoid crashing during level loads.
 (confirmed this workaround was needed in rev64 also)
