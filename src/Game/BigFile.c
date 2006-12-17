@@ -2407,9 +2407,10 @@ void bigFilesystemCompare(char *baseDirectory, char *directory, bigTOC *mainTOC,
     struct stat file_stat;
     DIR *dp;
     struct dirent* dir_entry;
+    char fullStatPath[PATH_MAX] = ""; 
 #endif  // _WIN32
-    char filespec[256];
-    char subpath[256];
+    char filespec[PATH_MAX];
+    char subpath[PATH_MAX];
     int fileNum;
     static long compared = 0;
     static long newerMain = 0, newerUpdate;
@@ -2483,15 +2484,25 @@ void bigFilesystemCompare(char *baseDirectory, char *directory, bigTOC *mainTOC,
     /* Open the directory. */
     dp = opendir(filespec);
     if (!dp)
+    {
         return;
+    }
 
     /* Read each directory entry. */
     while ((dir_entry = readdir(dp)))
     {
-        if (!strcmp(dir_entry->d_name, ".") || !strcmp(dir_entry->d_name, ".."))
+        if (dir_entry->d_name[0] == '.')
+        {
             continue;
-        sprintf(subpath, "%s%s%s", directory, directory[0] ? "/" : "", dir_entry->d_name);
-        stat(subpath, &file_stat);
+        }
+        
+        // the relative path that would be within the .big
+        snprintf(subpath, PATH_MAX, "%s%s%s", directory, directory[0] ? "/" : "", dir_entry->d_name);
+        
+        // the relative path from the current directory to the actual file
+        snprintf(fullStatPath, PATH_MAX, "%s/%s", baseDirectory, subpath);
+        stat(fullStatPath, &file_stat);
+        
         if (S_ISDIR(file_stat.st_mode))
         {
             // recurse subdirectories

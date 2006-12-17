@@ -4111,13 +4111,27 @@ char* utyGameSystemsPreInit(void)
         }
         if (CompareBigfiles)
         {
-			dataEnvironment = getenv("HW_Data");
-            if (!dataEnvironment || !dataEnvironment[0])
+            char  defaultSearchPath[PATH_MAX] =
+#ifdef _MACOSX
+                // let's not have files sprawling everywhere; besides it makes it easier to
+                // create an unofficial patch .big should we ever decide to. (NB: this is a
+                // directory, not a real .big file)
+                "./Override.big"
+#else
                 // in absence of environment vars (like in a retail install), assume
                 // data file structure will start alongside the EXE
-                bigFilesystemCompare(".", "", &mainTOC, &updateTOC, mainNewerAvailable, updateNewerAvailable);
-            else
-                bigFilesystemCompare(dataEnvironment, "", &mainTOC, &updateTOC, mainNewerAvailable, updateNewerAvailable);
+                "."
+#endif
+            ;
+            char *searchPath = defaultSearchPath;
+
+            dataEnvironment = getenv("HW_Data");
+            if (dataEnvironment != NULL)
+            {
+                searchPath = dataEnvironment;
+            }
+
+            bigFilesystemCompare(searchPath, "", &mainTOC, &updateTOC, mainNewerAvailable, updateNewerAvailable);
         }
     }
 
