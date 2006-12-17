@@ -1008,7 +1008,7 @@ void spNewItem(void)
             if (header.biWidth < SCP_PreviewWidthMin || header.biHeight > SCP_PreviewWidthMax)
             {
 #if SCP_VERBOSE_LEVEL >= 1
-                dbgMessagef("\n'%s': width of %d bad.", bitmapFile, header.biWidth);
+                dbgMessagef("'%s': width of %d bad.", bitmapFile, header.biWidth);
 #endif
                 bmpClose(handle);
                 return;
@@ -1016,7 +1016,7 @@ void spNewItem(void)
             else if (header.biHeight < SCP_PreviewHeightMin || header.biHeight > SCP_PreviewHeightMax)
             {
 #if SCP_VERBOSE_LEVEL >= 1
-                dbgMessagef("\n'%s': height of %d bad.", bitmapFile, header.biHeight);
+                dbgMessagef("'%s': height of %d bad.", bitmapFile, header.biHeight);
 #endif
                 bmpClose(handle);
                 return;
@@ -1050,7 +1050,7 @@ void spNewItem(void)
     else
     {
 #if SCP_VERBOSE_LEVEL >= 1
-        dbgMessage("\nNo preview image found!");
+        dbgMessage("No preview image found!");
 #endif
         textureRect.x0 = atom->x + SCP_TEXTURE_INSET;
         textureRect.y0 = atom->y + SCP_TEXTURE_INSET;

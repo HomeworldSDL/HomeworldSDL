@@ -1327,7 +1327,7 @@ udword etgEffectTest(regionhandle reg, sdword ID, udword event, udword data)
     if (multiPlayerGame)
     {
 #if ETG_VERBOSE_LEVEL >= 1
-        dbgMessagef("\nEffect testing disabled in multiplayer game");
+        dbgMessagef("Effect testing disabled in multiplayer game");
 #endif
         return(0);
     }
@@ -1336,7 +1336,7 @@ udword etgEffectTest(regionhandle reg, sdword ID, udword event, udword data)
     if (selSelected.numShips == 0)
     {
 #if ETG_VERBOSE_LEVEL >= 1
-        dbgMessagef("\nSelect a ship before trying to test an effect");
+        dbgMessagef("Select a ship before trying to test an effect");
 #endif
         return(0);
     }
@@ -1348,7 +1348,7 @@ udword etgEffectTest(regionhandle reg, sdword ID, udword event, udword data)
     if (mexChunk == NULL)
     {
 #if ETG_VERBOSE_LEVEL >= 1
-        dbgMessagef("\nLight '%s' type '%s' not found in ship 0x%x", etgTestKey[ID].lightName, etgTestKey[ID].type, ship);
+        dbgMessagef("Light '%s' type '%s' not found in ship 0x%x", etgTestKey[ID].lightName, etgTestKey[ID].type, ship);
 #endif
         return(0);
     }
@@ -1360,7 +1360,7 @@ udword etgEffectTest(regionhandle reg, sdword ID, udword event, udword data)
     else
     {
 #if ETG_VERBOSE_LEVEL >= 1
-        dbgMessagef("\nLight '%s' type '%s' not a gun or engine chunk.", etgTestKey[ID].lightName, etgTestKey[ID].type);
+        dbgMessagef("Light '%s' type '%s' not a gun or engine chunk.", etgTestKey[ID].lightName, etgTestKey[ID].type);
 #endif
         return(0);
     }
@@ -1370,7 +1370,7 @@ udword etgEffectTest(regionhandle reg, sdword ID, udword event, udword data)
     if (stat == NULL)
     {
 #if ETG_VERBOSE_LEVEL >= 1
-        dbgMessagef("\nEffect '%s' not found.", etgTestKey[ID].effectName);
+        dbgMessagef("Effect '%s' not found.", etgTestKey[ID].effectName);
 #endif
         return(0);
     }
@@ -1382,7 +1382,7 @@ udword etgEffectTest(regionhandle reg, sdword ID, udword event, udword data)
         }
     }
 #if ETG_VERBOSE_LEVEL >= 1
-    dbgMessagef("\nTesting effect '%s' with light '%s'", etgTestKey[ID].effectName, etgTestKey[ID].lightName);
+    dbgMessagef("Testing effect '%s' with light '%s'", etgTestKey[ID].effectName, etgTestKey[ID].lightName);
 #endif
 
     //now we've found everything we need, let's make a matrix
@@ -1534,7 +1534,7 @@ void etgEffectTestKey(char *directory,char *field,void *dataToFillIn)
     }
 #endif
 #if ETG_VERBOSE_LEVEL >= 1
-    dbgMessagef("\nAdding effect test key '%c' to test effect '%s' with vector from '%s'", key, effectName, lightName);
+    dbgMessagef("Adding effect test key '%c' to test effect '%s' with vector from '%s'", key, effectName, lightName);
 #endif
     etgTestKey[etgTestKeyIndex].type = memStringDupeNV(type);
     etgTestKey[etgTestKeyIndex].lightName = memStringDupeNV(lightName);
@@ -1606,7 +1606,7 @@ void etgStartup(void)
 {
     sdword index;
 #if ETG_VERBOSE_LEVEL >= 1
-    dbgMessagef("\nStarting effects");
+    dbgMessagef("Starting effects");
 #endif
     //load in and set the default explosion and hit/fire
     memClearDword(etgDeathEventTable, 0, NUM_RACES * NUM_CLASSES * EDT_NumberExplosionTypes);
@@ -1649,7 +1649,7 @@ void etgShutdown(void)
 
     //free all effect statics
 #if ETG_VERBOSE_LEVEL >= 1
-    dbgMessagef("\nDeleting up to %d effects", ETG_EventListLength);
+    dbgMessagef("Deleting up to %d effects", ETG_EventListLength);
 #endif
     for (index = 0; index < ETG_EventListLength; index++)
     {
@@ -1825,7 +1825,7 @@ void etgReset(void)
     char *nameSave;
 
 #if ETG_VERBOSE_LEVEL >= 1
-    dbgMessagef("\nResetting up to %d effects", ETG_EventListLength);
+    dbgMessagef("Resetting up to %d effects", ETG_EventListLength);
 #endif
     //free all meshes allocated for effects, they will be re-loaded later
     /*
@@ -3453,7 +3453,7 @@ etgeffectstatic *etgEffectCodeLoad(char *fileName)
     memset(etgNestStack, 0, sizeof(etgnestentry) * ETG_NestStackDepth);
 
 #if ETG_VERBOSE_LEVEL >= 2
-    dbgMessagef("\netgEffectCodeLoad: '%s'", fileName);
+    dbgMessagef("etgEffectCodeLoad: '%s'", fileName);
 #elif ETG_VERBOSE_LEVEL == 1
     dbgMessagef(".");
 #endif
@@ -3480,7 +3480,7 @@ etgeffectstatic *etgEffectCodeLoad(char *fileName)
     while ((pString = etgLineRead(string, STRING_LENGTH)) != NULL)
     {
 #if ETG_VERBOSE_LEVEL >= 3
-        dbgMessagef("\n%s", pString);
+        dbgMessagef("%s", pString);
 #endif
         opcodeLength = 0;                                   //default to no opcode
         if (!etgOpcodeScan(newStatic, string, tempOpcode, &opcodeLength))//scan to see if there was an opcode
@@ -4174,7 +4174,7 @@ void etgMeshRegistryReset(void)
         if (etgMeshRegistry[index].filename != NULL)
         {                                                   //if this guy has something allocated
 #if ETG_VERBOSE_LEVEL >= 1
-            dbgMessagef("\netgMeshRegistryClear: freeing '%s' at 0x%x", etgMeshRegistry[index].filename, etgMeshRegistry[index].mesh);
+            dbgMessagef("etgMeshRegistryClear: freeing '%s' at 0x%x", etgMeshRegistry[index].filename, etgMeshRegistry[index].mesh);
 #endif
             memFree(etgMeshRegistry[index].filename);
             etgMeshRegistry[index].filename = NULL;
@@ -4632,7 +4632,7 @@ sdword etgNewLocalLabel(struct etgeffectstatic *stat, ubyte *dest, char *opcodeS
 
     string = strtok(params, " \t.,][()");
 #if ETG_VERBOSE_LEVEL >= 2
-    dbgMessagef("\nCreating label '%s'", string);
+    dbgMessagef("Creating label '%s'", string);
 #endif
     if (etgParseMode == EPM_Constant)
     {
@@ -4796,7 +4796,7 @@ sdword etgAternateStart(struct etgeffectstatic *stat, ubyte *dest, char *opcodeS
     if (etgDecisionOpcode != NULL)
     {                                                       //if already creating a decision opcode
 //        etgLoadErrorf(ETG, "Cannot nest 'alternate' or 'case' instructions.");
-        dbgMessagef("\nNesting alternate.");
+        dbgMessagef("Nesting alternate.");
     }
     if (etgParseMode < EPM_Startup || etgParseMode >= ETG_NumberCodeBlocks)
     {
@@ -6908,7 +6908,7 @@ sdword etgDetatchThisOwner(Effect *effect, Ship *owner, sdword nToFind)
 #if ETG_DETATCH_STATS
     if (nTotalDetached >= 10)
     {
-        dbgMessagef("\netgDetatchThisOwner: detached %d effects for %d requests (%.2f%%) in %d walks (%.2f/per).",
+        dbgMessagef("etgDetatchThisOwner: detached %d effects for %d requests (%.2f%%) in %d walks (%.2f/per).",
                     nTotalDetached, nDetachRequests, (real32)nTotalDetached / (real32)nDetachRequests * 100.0f, nWalks, (real32)nWalks / (real32)nTotalDetached);
         nDetachRequests = nTotalDetached = nWalks = 0;
     }
@@ -6944,7 +6944,7 @@ void etgParentShipDelete(Effect *effect)
     else
     {
 #if ETG_VERBOSE_LEVEL >= 1
-        dbgMessagef("\nEffect '%s' tried to delete ship more than once.", ((etgeffectstatic *)effect->staticinfo)->name);
+        dbgMessagef("Effect '%s' tried to delete ship more than once.", ((etgeffectstatic *)effect->staticinfo)->name);
 #endif
     }
 }
@@ -7011,7 +7011,7 @@ void etgDamageDone(Effect *effect)
     else
     {
 #if ETG_VERBOSE_LEVEL >= 1
-        dbgMessagef("\nEffect '%s' tried to call a damage callback with no owner.", ((etgeffectstatic*)effect->staticinfo)->name);
+        dbgMessagef("Effect '%s' tried to call a damage callback with no owner.", ((etgeffectstatic*)effect->staticinfo)->name);
 #endif
     }
     etgExecStack.etgDeleteFlag = TRUE;
@@ -7058,7 +7058,7 @@ void etgParentShipHide(Effect *effect)
     else
     {
 #if ETG_VERBOSE_LEVEL >= 1
-        dbgMessagef("\nEffect '%s' at 0x%x tried to hide ship which was deleted.", ((etgeffectstatic *)effect->staticinfo)->name, effect);
+        dbgMessagef("Effect '%s' at 0x%x tried to hide ship which was deleted.", ((etgeffectstatic *)effect->staticinfo)->name, effect);
 #endif
     }
 }
@@ -7106,7 +7106,7 @@ void etgDeathCriesPlay(Effect *effect)
 ubyte *etgCreateSprites(Effect *effect, sdword number, sdword dist)
 {
 #if ETG_VERBOSE_LEVEL >= 2
-    dbgMessagef("\nCreating %d +- %d sprite sprite-particles for 0x%x", number, dist, effect);
+    dbgMessagef("Creating %d +- %d sprite sprite-particles for 0x%x", number, dist, effect);
 #endif
 #if ETG_ERROR_CHECKING
     if (effect->iParticleBlock >= effect->nParticleBlocks)
@@ -7127,7 +7127,7 @@ ubyte *etgCreateSprites(Effect *effect, sdword number, sdword dist)
 ubyte *etgCreateCircles(Effect *effect, sdword number, sdword dist)
 {
 #if ETG_VERBOSE_LEVEL >= 2
-    dbgMessagef("\nCreating %d +- %d circle-particles for 0x%x", number, dist, effect);
+    dbgMessagef("Creating %d +- %d circle-particles for 0x%x", number, dist, effect);
 #endif
 #if ETG_ERROR_CHECKING
     if (effect->iParticleBlock >= effect->nParticleBlocks)
@@ -7149,7 +7149,7 @@ ubyte *etgCreateCircles(Effect *effect, sdword number, sdword dist)
 ubyte *etgCreatePoints(Effect *effect, sdword number, sdword dist)
 {
 #if ETG_VERBOSE_LEVEL >= 2
-    dbgMessagef("\nCreating %d +- %d point-particles for 0x%x", number, dist, effect);
+    dbgMessagef("Creating %d +- %d point-particles for 0x%x", number, dist, effect);
 #endif
 #if ETG_ERROR_CHECKING
     if (effect->iParticleBlock >= effect->nParticleBlocks)
@@ -7170,7 +7170,7 @@ ubyte *etgCreatePoints(Effect *effect, sdword number, sdword dist)
 ubyte *etgCreateMeshes(Effect *effect, sdword number, sdword dist)
 {
 #if ETG_VERBOSE_LEVEL >= 2
-    dbgMessagef("\nCreating %d +- %d mesh-particles for 0x%x", number, dist, effect);
+    dbgMessagef("Creating %d +- %d mesh-particles for 0x%x", number, dist, effect);
 #endif
 #if ETG_ERROR_CHECKING
     if (effect->iParticleBlock >= effect->nParticleBlocks)
@@ -7191,7 +7191,7 @@ ubyte *etgCreateMeshes(Effect *effect, sdword number, sdword dist)
 ubyte *etgCreateLines(Effect *effect, sdword number, sdword dist)
 {
 #if ETG_VERBOSE_LEVEL >= 2
-    dbgMessagef("\nCreating %d +- %d line-particles for 0x%x", number, dist, effect);
+    dbgMessagef("Creating %d +- %d line-particles for 0x%x", number, dist, effect);
 #endif
 #if ETG_ERROR_CHECKING
     if (effect->iParticleBlock >= effect->nParticleBlocks)
@@ -7229,7 +7229,7 @@ void etgCreateEffects(Effect *effect, etgeffectstatic *stat, sdword number, sdwo
     matGetVectFromMatrixCol1(up, effect->rotinfo.coordsys);
 
 #if ETG_VERBOSE_LEVEL >= 2
-    dbgMessagef("\nCreating %d +- %d effect-particles for 0x%x", number, dist, effect);
+    dbgMessagef("Creating %d +- %d effect-particles for 0x%x", number, dist, effect);
 #endif
     if (dist != 0)
     {
@@ -7511,7 +7511,7 @@ bool etgFrequencyExceeded(etgeffectstatic *stat)
     if (historyList == NULL)
     {                                                       //if no history list
 #if ETG_VERBOSE_LEVEL > 1
-        dbgMessagef("\netgFrequencyExceeded: effect '%s' has no history.", stat->name);
+        dbgMessagef("etgFrequencyExceeded: effect '%s' has no history.", stat->name);
 #endif
         return(FALSE);                                      //go ahead and make an effect
     }
@@ -7732,35 +7732,35 @@ void etgEffDefaults(void)
 /*
 void etgThisChangeLOF(Effect *effect, real32 theta, real32 mu)
 {
-    dbgMessagef("\netgThisChangeLOF not implemented yet!");
+    dbgMessagef("etgThisChangeLOF not implemented yet!");
 }
 void etgThisOffsetLOF(Effect *effect, real32 offset)
 {
-    dbgMessagef("\netgThisOffsetLOF not implemented yet!");
+    dbgMessagef("etgThisOffsetLOF not implemented yet!");
 }
 void etgThisOffsetR(Effect *effect, real32 R, real32 theta)
 {
-    dbgMessagef("\netgThisOffsetR not implemented yet!");
+    dbgMessagef("etgThisOffsetR not implemented yet!");
 }
 */
 void etgThisOffsetXYZ(Effect *effect, real32 x, real32 y, real32 z)
 {
-    dbgMessagef("\netgThisOffsetXYZ not implemented yet!");
+    dbgMessagef("etgThisOffsetXYZ not implemented yet!");
 }
 /*
 void etgThisOffsetVelLOF(Effect *effect, real32 vel)
 {
-    dbgMessagef("\netgThisOffsetVelLOF not implemented yet!");
+    dbgMessagef("etgThisOffsetVelLOF not implemented yet!");
 }
 void etgThisOffsetVelR(Effect *effect, real32 R, real32 theta)
 {
-    dbgMessagef("\netgThisOffsetVelR not implemented yet!");
+    dbgMessagef("etgThisOffsetVelR not implemented yet!");
 }
 */
 void etgThisScaleVelocity(Effect *effect, real32 factor)
 {
     vecMultiplyByScalar(effect->posinfo.velocity, factor);
-    dbgMessagef("\netgThisScaleVelocity not implemented yet!");
+    dbgMessagef("etgThisScaleVelocity not implemented yet!");
 }
 //spin an effect about it's axis
 void etgThisOffsetSpin(Effect *effect, real32 spin)
@@ -7851,7 +7851,7 @@ udword etgFRandom(real32 low, real32 high)
     valueInt = ranRandom(RANDOM_ETG);
     value = (real32)valueInt * (high - low) / (real32)UDWORD_Max + low;
 #if ETG_VERBOSE_LEVEL >= 2
-    dbgMessagef("\nfrandom(%f, %f) = %f", low, high, value);
+    dbgMessagef("frandom(%f, %f) = %f", low, high, value);
 #endif
     return(TreatAsUdword(value));
 }

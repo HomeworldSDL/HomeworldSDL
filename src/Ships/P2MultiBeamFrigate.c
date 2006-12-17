@@ -169,7 +169,7 @@ void P2MultiBeamFrigateAttackDoAttack(Ship *ship,SpaceObjRotImpTarg *target,real
             ship->aistateattack=STATE_APPROACH;
         case STATE_APPROACH:
 #ifdef DEBUG_FRIGATEATTACK
-            dbgMessagef("\nShip %x STATE_APPROACH", (udword)ship);
+            dbgMessagef("Ship %x STATE_APPROACH", (udword)ship);
 #endif
             if (spec->spining)
             {
@@ -214,7 +214,7 @@ void P2MultiBeamFrigateAttackDoAttack(Ship *ship,SpaceObjRotImpTarg *target,real
             break;
         case STATE_SPINUP:
 #ifdef DEBUG_FRIGATEATTACK
-            dbgMessagef("\nShip %x STATE_SPINUP", (udword)ship);
+            dbgMessagef("Ship %x STATE_SPINUP", (udword)ship);
 #endif
             desiredrotspeed = frigstat->AttackRotationSpeed;
 
@@ -234,7 +234,7 @@ void P2MultiBeamFrigateAttackDoAttack(Ship *ship,SpaceObjRotImpTarg *target,real
             break;
         case STATE_FIRE:
 #ifdef DEBUG_FRIGATEATTACK
-            dbgMessagef("\nShip %x STATE_FIRE", (udword)ship);
+            dbgMessagef("Ship %x STATE_FIRE", (udword)ship);
 #endif
             shipstaticinfo->custshipheader.CustShipFire(ship, target);
 
@@ -275,7 +275,7 @@ void P2MultiBeamFrigateAttackDoAttack(Ship *ship,SpaceObjRotImpTarg *target,real
             break;
         case STATE_SPINDOWN:
 #ifdef DEBUG_FRIGATEATTACK
-            dbgMessagef("\nShip %x STATE_SPINDOWN", (udword)ship);
+            dbgMessagef("Ship %x STATE_SPINDOWN", (udword)ship);
 #endif
             desiredrotspeed = 0;
 

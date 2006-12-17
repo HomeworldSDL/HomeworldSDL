@@ -81,7 +81,7 @@ void ssSaveScreenshot(ubyte* buf)
     _appendScreenshotFilename(fname);
 
 #if SS_VERBOSE_LEVEL >= 1
-    dbgMessagef("\nSaving %dx%d screenshot to '%s'.", MAIN_WindowWidth, MAIN_WindowHeight, fname);
+    dbgMessagef("Saving %dx%d screenshot to '%s'.", MAIN_WindowWidth, MAIN_WindowHeight, fname);
 #endif
 
     out = fopen(fname, "wb");

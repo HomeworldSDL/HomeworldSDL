@@ -338,7 +338,7 @@ void ResearchShipHouseKeep(Ship *ship)
                         univUpdateObjRotInfo((SpaceObjRot *)ship);
                         break;
                     default:
-                        dbgMessagef("\nShouldn't Get Here...unknown Research Ship Rotate State");
+                        dbgMessagef("Shouldn't Get Here...unknown Research Ship Rotate State");
                         dbgAssertOrIgnore(FALSE);
                         break;
                     }
@@ -432,7 +432,7 @@ void ResearchShipHouseKeep(Ship *ship)
                         univUpdateObjRotInfo((SpaceObjRot *)ship);
                         break;
                     default:
-                        dbgMessagef("\nShouldn't Get Here...unknown Research Ship Rotate State");
+                        dbgMessagef("Shouldn't Get Here...unknown Research Ship Rotate State");
                         dbgAssertOrIgnore(FALSE);
                         break;
                     }

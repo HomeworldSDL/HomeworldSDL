@@ -580,7 +580,7 @@ udword regRegionProcess(regionhandle reg, udword mask)
     }
     //after processing children, process self
 #if REG_VERBOSE_LEVEL >= 2
-    dbgMessagef("\nProcessing region 0x%x", reg);
+    dbgMessagef("Processing region 0x%x", reg);
 #endif
     if (regFlag(RPE_ModalBreak))
     {                                                       //if it's a modal break region
@@ -617,7 +617,7 @@ udword regRegionProcess(regionhandle reg, udword mask)
                     }
                     else
                     {
-                        dbgMessage("\nSecond of double click in new region");
+                        dbgMessage("Second of double click in new region");
                         keyClearSticky(LMOUSE_DOUBLE);
                         bitClear(returnMask, RPE_DoubleLeft);
                     }
@@ -922,7 +922,7 @@ void regProcessTask(void)
     {
         taskStackSaveCond(0);
 #if REG_VERBOSE_LEVEL >= 2
-        dbgMessage("\nProcessing regions...");
+        dbgMessage("Processing regions...");
 #endif
         mousePoll();                                        //poll mouse
         regRenderEventIndex = 0;
@@ -963,7 +963,7 @@ void regProcessTask(void)
 #if REG_TEST
 static udword regProcessCallback(regionhandle region, sdword ID, udword event, udword data)
 {
-    dbgMessagef("\nregProcessCallback: region = 0x%x, ID = 0x%x, event = 0x%x, data = %d", region, ID, event, data);
+    dbgMessagef("regProcessCallback: region = 0x%x, ID = 0x%x, event = 0x%x, data = %d", region, ID, event, data);
     return 0;
 }
 #endif
@@ -1053,7 +1053,7 @@ void regShutdown(void)
 
     regInitCheck();
 #if REG_INDEX_ALLOCS
-    dbgMessagef("\nregShutdown: %d allocs", regAllocCounter);
+    dbgMessagef("regShutdown: %d allocs", regAllocCounter);
 #endif
     for (child = regRootRegion.child; child != NULL;)        //delete all children of the root region
     {
@@ -1158,7 +1158,7 @@ regionhandle regChildAlloc(regionhandle parent, sdword ID, sdword x, sdword y, s
     newRegion->validationKey = REG_ValidationKey;           //set validation key
 #endif
 #if REG_VERBOSE_LEVEL >= 1
-    dbgMessagef("\nregChildAlloc: added child 0x%x of parent 0x%x at (%d, %d), size %d x %d, flags 0x%x",
+    dbgMessagef("regChildAlloc: added child 0x%x of parent 0x%x at (%d, %d), size %d x %d, flags 0x%x",
                 newRegion, parent, x, y, width, height, flags);
 #endif
     if (parent == NULL)
@@ -1213,7 +1213,7 @@ regionhandle regSiblingAlloc(regionhandle sibling, sdword ID, sdword x, sdword y
     newRegion->validationKey = REG_ValidationKey;           //set validation key
 #endif
 #if REG_VERBOSE_LEVEL >= 1
-    dbgMessagef("\nregSiblingAlloc: added sibling 0x%x to 0x%x at (%d, %d) size %d x %d, flags 0x%x",
+    dbgMessagef("regSiblingAlloc: added sibling 0x%x to 0x%x at (%d, %d) size %d x %d, flags 0x%x",
                 newRegion, sibling, x, y, width, height, flags);
 #endif
     dbgAssertOrIgnore(sibling != NULL);
@@ -1298,7 +1298,7 @@ regionhandle regKeyChildAlloc(regionhandle parent, sdword ID, udword filter, reg
     va_list argPointer;
 
 #if REG_VERBOSE_LEVEL >= 1
-    dbgMessagef("\nregKeyChildAlloc: adding child to 0x%x, flags 0x%x, function 0x%x",
+    dbgMessagef("regKeyChildAlloc: adding child to 0x%x, flags 0x%x, function 0x%x",
                 parent, filter, function);
 #endif
     newRegion = regChildAlloc(parent, ID, 0, 0, 0, 0, 0, filter);
@@ -1322,7 +1322,7 @@ regionhandle regKeySiblingAlloc(regionhandle sibling, sdword ID, udword filter, 
     va_list argPointer;
 
 #if REG_VERBOSE_LEVEL >= 1
-    dbgMessagef("\nregKeySiblingAlloc: adding sibling 0x%x to 0x%x, flags 0x%x, function 0x%x",
+    dbgMessagef("regKeySiblingAlloc: adding sibling 0x%x to 0x%x, flags 0x%x, function 0x%x",
                 sibling, filter, function);
 #endif
     newRegion = regSiblingAlloc(sibling, ID, 0, 0, 0, 0, 0, filter);
@@ -1497,7 +1497,7 @@ void regRegionDelete(regionhandle region)
         }
     }
 #if REG_VERBOSE_LEVEL >= 1
-    dbgMessagef("\nregRegionDelete: deleting region 0x%x", region);
+    dbgMessagef("regRegionDelete: deleting region 0x%x", region);
 #endif
     regLinkRemove(region);
 

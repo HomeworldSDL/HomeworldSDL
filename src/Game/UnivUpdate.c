@@ -1191,7 +1191,7 @@ shipbindings *univMeshBindingsDupe(ShipStaticInfo *shipstaticinfo, Ship *newShip
     newBindings->frequencyCounter = 0;                      //counter expires right now
     dbgAssertOrIgnore((udword)((ubyte *)bindingListDest - (ubyte *)newBindings) == shipBindingsLength(nLevels) + shipstaticinfo->hierarchySize * sizeof(mhlocalbinding));
 #if MESH_VERBOSE_LEVEL >= 2
-    dbgMessagef("\nunivMeshBindingsDupe: localizing bindings 0x%x for ship 0x%x lengh %d",
+    dbgMessagef("univMeshBindingsDupe: localizing bindings 0x%x for ship 0x%x lengh %d",
                 newBindings, newShip, shipBindingsLength(nLevels) + shipstaticinfo->hierarchySize * sizeof(mhlocalbinding));
 #endif
     return(newBindings);
@@ -1215,7 +1215,7 @@ void univMeshBindingsDelete(Ship *ship)
         return;
     }
 #if MESH_VERBOSE_LEVEL >= 2
-    dbgMessagef("\nunivMeshBindingsDelete: freeing bindings for ship 0x%x", ship);
+    dbgMessagef("univMeshBindingsDelete: freeing bindings for ship 0x%x", ship);
 #endif
     dbgAssertOrIgnore(ship->bindings != NULL);
     memFree(ship->bindings);
@@ -1366,7 +1366,7 @@ Ship *univCreateShip(ShipType shiptype,ShipRace shiprace,vector *shippos,struct 
 //#ifdef gshaw
         dbgFatalf(DBG_Loc,"\n%s\\%s was not loaded properly - stubbing out.", ShipRaceToStr(shiprace), ShipTypeToStr(shiptype));
 //#endif
-        dbgMessagef("\n%s\\%s was not loaded properly - stubbing out.", ShipRaceToStr(shiprace), ShipTypeToStr(shiptype));
+        dbgMessagef("%s\\%s was not loaded properly - stubbing out.", ShipRaceToStr(shiprace), ShipTypeToStr(shiptype));
         universeForceDefaultShip = TRUE;
         InitStatShipInfo(shipstaticinfo, shiptype, shiprace);
         bitSet(shipstaticinfo->staticheader.infoFlags, IF_InfoLoaded);
@@ -2553,7 +2553,7 @@ void ObjectsCollided(SpaceObjRotImpTarg *obj1,SpaceObjRotImpTarg *obj2,real32 co
     vector leftrightdecidevec;
 
 #ifdef DEBUG_COLLISIONS
-    dbgMessagef("\n%x and %x collided, Repulsion %f",(udword)obj1,(udword)obj2,repulse);
+    dbgMessagef("%x and %x collided, Repulsion %f",(udword)obj1,(udword)obj2,repulse);
 #endif
 
     if (!ObjectsHaveCollidedLately(obj1,obj2))
@@ -2583,7 +2583,7 @@ void ObjectsCollided(SpaceObjRotImpTarg *obj1,SpaceObjRotImpTarg *obj2,real32 co
         if (ShouldDoGlancingCollision(fastobj,fastobjvelmag2,slowobj,slowobjvelmag2))
         {
 #ifdef DEBUG_COLLISIONS
-        dbgMessage("\nGlancing Collision");
+        dbgMessage("Glancing Collision");
 #endif
             if ((collforce.x == 0.0f) && (collforce.y == 0.0f))
             {
@@ -2616,7 +2616,7 @@ void ObjectsCollided(SpaceObjRotImpTarg *obj1,SpaceObjRotImpTarg *obj2,real32 co
         else
         {
 #ifdef DEBUG_COLLISIONS
-        dbgMessage("\nXchanging Velocities");
+        dbgMessage("Xchanging Velocities");
 #endif
         }
 
@@ -7362,7 +7362,7 @@ void univCheckRegrowResources(void)
                             if (AddResourceToSphere(resvol,TRUE))
                             {
 #ifdef HW_BUILD_FOR_DEBUGGING
-                                dbgMessage("\nRegrowing resource!");
+                                dbgMessage("Regrowing resource!");
 #endif
                                 resvol->actualnumber++;
                                 break;
@@ -7376,7 +7376,7 @@ void univCheckRegrowResources(void)
                             if (AddResourceToCylinder(resvol,TRUE))
                             {
 #ifdef HW_BUILD_FOR_DEBUGGING
-                                dbgMessage("\nRegrowing resource!");
+                                dbgMessage("Regrowing resource!");
 #endif
                                 resvol->actualnumber++;
                                 break;
@@ -7390,7 +7390,7 @@ void univCheckRegrowResources(void)
                             if (AddResourceToRectangle(resvol,TRUE))
                             {
 #ifdef HW_BUILD_FOR_DEBUGGING
-                                dbgMessage("\nRegrowing resource!");
+                                dbgMessage("Regrowing resource!");
 #endif
                                 resvol->actualnumber++;
                                 break;

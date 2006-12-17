@@ -822,7 +822,7 @@ keyindex opKeyTranslate(keyindex key)
             return KeyTranslations[i].sendkey;
         }
     }
-    //dbgMessagef("\nUntranslatable key: 0x%x", key);
+    //dbgMessagef("Untranslatable key: 0x%x", key);
     return key;
 
 }
@@ -1460,7 +1460,7 @@ void opKeyboardLoad(void)
 
     if (opKeymap[0] != 'Z' )
     {
-        dbgMessage("\nKeymap not found");
+        dbgMessage("Keymap not found");
         for (i=0; KeyTranslations[i].sendkey > 0; ++i)
         {
             KeyTranslations[i].key1 = Char2Hex(opKeymap[i*4])*16 + Char2Hex(opKeymap[i*4+1]);
@@ -1959,7 +1959,7 @@ void opMusicVolume(char* name, featom* atom)
     if (FEFIRSTCALL(atom))
     {
        //feToggleButtonSet(name, texLinearFiltering);
-       dbgMessage("\nopMusicVolume() first call");
+       dbgMessage("opMusicVolume() first call");
 //       volumeregion = atom->region;
 #ifdef DEBUG_STOMP
        regVerify(((regionhandle)atom->region));
@@ -1993,7 +1993,7 @@ void opSFXVolume(char* name, featom* atom)
     if (FEFIRSTCALL(atom))
     {
         //feToggleButtonSet(name, texLinearFiltering);
-        dbgMessage("\nopSFXVolume() first call");
+        dbgMessage("opSFXVolume() first call");
 //        sfxregion = atom->region;
 #ifdef DEBUG_STOMP
         regVerify(((regionhandle)atom->region));
@@ -2025,7 +2025,7 @@ void opSpeechVolume(char* name, featom* atom)
     if (FEFIRSTCALL(atom))
     {
         //feToggleButtonSet(name, texLinearFiltering);
-        dbgMessage("\nopSpeechVolume() first call");
+        dbgMessage("opSpeechVolume() first call");
 //        speechregion = atom->region;
 #ifdef DEBUG_STOMP
         regVerify(((regionhandle)atom->region));
@@ -2057,7 +2057,7 @@ void opSpeechVolume(char* name, featom* atom)
     if (FEFIRSTCALL(atom))
     {
        //feToggleButtonSet(name, texLinearFiltering);
-       //dbgMessage("\nopMusicVolume() first call");
+       //dbgMessage("opMusicVolume() first call");
        shandle = (sliderhandle)atom->region;
        shandle->maxvalue = 100;
        shandle->value = opBattleChatter;
@@ -2226,7 +2226,7 @@ udword opNumEffectsProcess(regionhandle reg, sdword ID, udword event, udword dat
 
     opNumEffects = shandle->value;
 #ifdef ddunlop
-    dbgMessagef("Number of Effects: %u\n", opNumEffects + etgHistoryScalarMin);
+    dbgMessagef("Number of Effects: %u", opNumEffects + etgHistoryScalarMin);
 #endif
     etgHistoryScalar = opNumEffects + etgHistoryScalarMin;
     return (0);
@@ -2503,7 +2503,7 @@ void opDetailThreshold(char* name, featom* atom)
     sliderhandle shandle;
     if (FEFIRSTCALL(atom))
     {
-        dbgMessage("\nopDetailThreshold() first call");
+        dbgMessage("opDetailThreshold() first call");
         detailSliderRegion = (sliderhandle)atom->region;
         shandle = (sliderhandle)atom->region;
         shandle->maxvalue = 51;
@@ -2539,7 +2539,7 @@ void opBrightness(char* name, featom* atom)
     if (FEFIRSTCALL(atom))
     {
         //feToggleButtonSet(name, texLinearFiltering);
-        dbgMessage("\nopBrightness() first call");
+        dbgMessage("opBrightness() first call");
         shandle = (sliderhandle)atom->region;
         shandle->maxvalue = 70;
         shandle->value = opBrightnessVal;
@@ -2551,7 +2551,7 @@ void opBrightness(char* name, featom* atom)
     }
     else
     {
-        //dbgMessage("\nopSpeechVolume()");
+        //dbgMessage("opSpeechVolume()");
     }
 }
 
@@ -3226,7 +3226,7 @@ void opVoice(char* name, featom* atom)
             soundEventSetActor(2, FALSE);
             break;
         default:
-            dbgMessage("\nSomething's not right...");
+            dbgMessage("Something's not right...");
     }
 }
 
@@ -3235,21 +3235,21 @@ void opHearVoice1(char* name, featom* atom)
 {
     soundEventHearActor(1);
 
-    dbgMessage("\nNow playing voice 1");
+    dbgMessage("Now playing voice 1");
 }
 
 void opHearVoice2(char* name, featom* atom)
 {
     soundEventHearActor(2);
 
-    dbgMessage("\nNow playing voice 2");
+    dbgMessage("Now playing voice 2");
 }
 
 void opHearVoice3(char* name, featom* atom)
 {
     soundEventHearActor(3);
 
-    dbgMessage("\nNow playing voice 3");
+    dbgMessage("Now playing voice 3");
 }
 
 void opVoiceCommands(char* name, featom* atom)
@@ -3301,7 +3301,7 @@ void opMouseSensitivity(char* name, featom* atom)
     if (FEFIRSTCALL(atom))
     {
        //feToggleButtonSet(name, texLinearFiltering);
-       //dbgMessage("\nopMusicVolume() first call");
+       //dbgMessage("opMusicVolume() first call");
        shandle = (sliderhandle)atom->region;
        shandle->maxvalue = 100;
        shandle->value = opMouseSens;
@@ -3326,7 +3326,7 @@ void opBattleChatterCB(char* name, featom* atom)
     if (FEFIRSTCALL(atom))
     {
        //feToggleButtonSet(name, texLinearFiltering);
-       //dbgMessage("\nopMusicVolume() first call");
+       //dbgMessage("opMusicVolume() first call");
        shandle = (sliderhandle)atom->region;
        shandle->maxvalue = 100;
        shandle->value = opBattleChatter;
@@ -3350,7 +3350,7 @@ void opNumberEffects(char* name, featom* atom)
     if (FEFIRSTCALL(atom))
     {
        //feToggleButtonSet(name, texLinearFiltering);
-       //dbgMessage("\nopMusicVolume() first call");
+       //dbgMessage("opMusicVolume() first call");
        EffectsSlider = shandle = (sliderhandle)atom->region;
        shandle->maxvalue = 256 - etgHistoryScalarMin;
        shandle->value = opNumEffects;

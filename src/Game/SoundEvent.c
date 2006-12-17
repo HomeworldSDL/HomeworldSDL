@@ -2619,7 +2619,7 @@ void SEloadbank(void)
 		
 	if (ShipEventsLUT->checksum != ShipCmnEventsLUT->checksum)
 	{
-		dbgMessage("Lookup tables do not match.  Not from same generate.\n");
+		dbgMessage("Lookup tables do not match.  Not from same generate.");
 		dbgAssertOrIgnore(FALSE);
 	}
 
@@ -2640,7 +2640,7 @@ void SEloadbank(void)
 		
 	if (DerelictEventsLUT->checksum != ShipCmnEventsLUT->checksum)
 	{
-		dbgMessage("Lookup tables do not match.  Not from same generate.\n");
+		dbgMessage("Lookup tables do not match.  Not from same generate.");
 		dbgAssertOrIgnore(FALSE);
 	}
 
@@ -2665,7 +2665,7 @@ void SEloadbank(void)
 
 //	if (SpecExpEventsLUT->checksum != SpecEffectEventsLUT->checksum)
 //	{
-//		dbgMessage("Lookup tables do not match.  Not from same generate.\n");
+//		dbgMessage("Lookup tables do not match.  Not from same generate.");
 //		dbgAssertOrIgnore(FALSE);
 //	}
 
@@ -2687,7 +2687,7 @@ void SEloadbank(void)
 //	if (SpecHitEventsLUT->checksum != SpecEffectEventsLUT->checksum)
 	if (SpecHitEventsLUT->checksum != SpecExpEventsLUT->checksum)
 	{
-		dbgMessage("Lookup tables do not match.  Not from same generate.\n");
+		dbgMessage("Lookup tables do not match.  Not from same generate.");
 		dbgAssertOrIgnore(FALSE);
 	}
 
@@ -2711,7 +2711,7 @@ void SEloadbank(void)
     fileLoadAlloc(loadfile, (void**)&GunBank, NonVolatile);
 	if (soundbankadd(GunBank) != GunEventsLUT->checksum)
 	{
-		dbgMessage("Lookup tables do not match.  Not from same generate.\n");
+		dbgMessage("Lookup tables do not match.  Not from same generate.");
 		dbgAssertOrIgnore(FALSE);
 	}
 
@@ -2720,7 +2720,7 @@ void SEloadbank(void)
     fileLoadAlloc(loadfile, (void**)&ShipBank, NonVolatile);
 	if (soundbankadd(ShipBank) != ShipCmnEventsLUT->checksum)
 	{
-		dbgMessage("Ship bank file does not match Lookup tables.  Not from same generate.\n");
+		dbgMessage("Ship bank file does not match Lookup tables.  Not from same generate.");
 		dbgAssertOrIgnore(FALSE);
 	}
 
@@ -2730,7 +2730,7 @@ void SEloadbank(void)
 //	if (soundbankadd(SpecialEffectBank) != SpecEffectEventsLUT->checksum)
 	if (soundbankadd(SpecialEffectBank) != SpecExpEventsLUT->checksum)
 	{
-		dbgMessage("Lookup tables do not match.  Not from same generate.\n");
+		dbgMessage("Lookup tables do not match.  Not from same generate.");
 		dbgAssertOrIgnore(FALSE);
 	}
 
@@ -2739,7 +2739,7 @@ void SEloadbank(void)
     fileLoadAlloc(loadfile, (void**)&UIBank, NonVolatile);
 	if (soundbankadd(UIBank) != UIEventsLUT->checksum)
 	{
-		dbgMessage("Lookup tables do not match.  Not from same generate.\n");
+		dbgMessage("Lookup tables do not match.  Not from same generate.");
 		dbgAssertOrIgnore(FALSE);
 	}
 }

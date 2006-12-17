@@ -558,7 +558,7 @@ udword cpValueProcess(regionhandle region, sdword ID, udword event, udword data)
 //    cpColorsPicked = TRUE;
     cpPreviewTexturePrepare();
 #if CP_VERBOSE_LEVEL >= 1
-    dbgMessagef("\ncpValueProcess: ID: 0x%x, event 0x%x, data 0x%x", ID, event, data);
+    dbgMessagef("cpValueProcess: ID: 0x%x, event 0x%x, data 0x%x", ID, event, data);
 #endif
 
     if (mask != 0)
@@ -624,7 +624,7 @@ udword cpHueSaturationProcess(regionhandle region, sdword ID, udword event, udwo
 //    cpColorsPicked = TRUE;
     cpPreviewTexturePrepare();
 #if CP_VERBOSE_LEVEL >= 1
-    dbgMessagef("\ncpHueSaturationProcess: ID: 0x%x, event 0x%x, data 0x%x", ID, event, data);
+    dbgMessagef("cpHueSaturationProcess: ID: 0x%x, event 0x%x, data 0x%x", ID, event, data);
 #endif
 
     if (mask != 0)
@@ -649,7 +649,7 @@ void cpBaseColor(char *name, featom *atom)
     if (FEFIRSTCALL(atom))
     {                                                       //CallOnCreate()
 #if CP_VERBOSE_LEVEL >= 1
-        dbgMessage("\ncpBaseColor: CallOnCreate");
+        dbgMessage("cpBaseColor: CallOnCreate");
 #endif                                                      //set up the two process user regions
         cpHueSaturationRegion = feRegionFindByFunction("CP_HueSaturation");
         regFunctionSet(cpHueSaturationRegion, cpHueSaturationProcess);
@@ -687,7 +687,7 @@ void cpBaseColor(char *name, featom *atom)
         feToggleButtonSet("CP_StripeColor", FALSE);
         cpColorMode = 0;
 #if CP_VERBOSE_LEVEL >= 1
-        dbgMessagef("\ncpBaseColor: color mode = 0x%x", cpColorMode);
+        dbgMessagef("cpBaseColor: color mode = 0x%x", cpColorMode);
 #endif
         // Update the gradient slider.
         buffer = cpValueTextureGradientCreate();
@@ -704,7 +704,7 @@ void cpStripeColor(char *name, featom *atom)
     feToggleButtonSet("CP_StripeColor", TRUE);
     cpColorMode = 1;
 #if CP_VERBOSE_LEVEL >= 1
-    dbgMessagef("\ncpStripeColor: color mode = 0x%x", cpColorMode);
+    dbgMessagef("cpStripeColor: color mode = 0x%x", cpColorMode);
 #endif
     // Update the gradient slider.
     buffer = cpValueTextureGradientCreate();

@@ -124,7 +124,7 @@ void captaincyLog(bool echotoscreen,char *format, ...)
     vsprintf(buffer, format, argList);                      //prepare output string
     va_end(argList);
 
-    dbgMessage("\n");
+    dbgMessage("");
     dbgMessage(buffer);
     if (echotoscreen) clCommandMessage(buffer);
 

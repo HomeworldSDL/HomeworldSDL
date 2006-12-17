@@ -1189,7 +1189,7 @@ void processFormationToDo(struct CommandToDo *formationtodo,bool steadyFormation
     {
         error /= numShips;
 #if 0
-        dbgMessagef("\nFormation Error %f  ",error);
+        dbgMessagef("Formation Error %f  ",error);
 #endif
         if (error > FORMATION_ERROR_BIG)
         {
@@ -3089,7 +3089,7 @@ void clFormation(CommandLayer *comlayer,SelectCommand *selectcom,TypeOfFormation
     if (selectcom->numShips < ABSOLUTE_MIN_SHIPS_IN_FORMATION)
     {
 #ifdef DEBUG_FORMATIONS
-        dbgMessage("\nNot enough ships to do a formation");
+        dbgMessage("Not enough ships to do a formation");
 #endif
         return;
     }
@@ -3106,7 +3106,7 @@ void clFormation(CommandLayer *comlayer,SelectCommand *selectcom,TypeOfFormation
             if (alreadyformation->formation.formationtype == formation)
             {
 #ifdef DEBUG_FORMATIONS
-        dbgMessage("\nAlready gave that formation order");
+        dbgMessage("Already gave that formation order");
 #endif
                 return;
             }
@@ -3123,7 +3123,7 @@ void clFormation(CommandLayer *comlayer,SelectCommand *selectcom,TypeOfFormation
 
                 PrepareShipsForCommand(alreadyformation,TRUE);
 #ifdef DEBUG_FORMATIONS
-        dbgMessage("\nChanging formation");
+        dbgMessage("Changing formation");
 #endif
                 return;
             }
@@ -3155,7 +3155,7 @@ void clFormation(CommandLayer *comlayer,SelectCommand *selectcom,TypeOfFormation
     majorityshipsare = MajorityShipsAreDoing(selectcom,&majorityshipsmoveto,&majorityshipsattacking);
 
 #ifdef DEBUG_FORMATIONS
-    dbgMessage("\nReceived Order to do formation");
+    dbgMessage("Received Order to do formation");
 #endif
 
     RemoveShipsFromDoingStuff(comlayer,selectcom);

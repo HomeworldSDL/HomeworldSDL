@@ -1103,11 +1103,11 @@ void nebDeactivateEmptyChunksAndFixup(nebulae_t* neb)
             }
             if (tendril->a == otherTendril->a && tendril->b == otherTendril->b)
             {
-                dbgMessagef("\ntendril == otherTendril (%d)", hits++);
+                dbgMessagef("tendril == otherTendril (%d)", hits++);
             }
             if (tendril->a == otherTendril->b && tendril->b == otherTendril->a)
             {
-                dbgMessagef("\ntendril ~= otherTendril (%d)", hits++);
+                dbgMessagef("tendril ~= otherTendril (%d)", hits++);
             }
         }
     }

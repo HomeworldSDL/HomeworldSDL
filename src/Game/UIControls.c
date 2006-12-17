@@ -1550,7 +1550,7 @@ void uicFocusToMouse(regionhandle region)
 extern regionhandle ghMainRegion;
 sdword uicTestProcess(regionhandle region, sdword ID, udword event, udword data)
 {
-    dbgMessagef("\nUI test function region = 0x%x, ID = %d, event = 0x%x, data = %d", region, ID, event, data);
+    dbgMessagef("UI test function region = 0x%x, ID = %d, event = 0x%x, data = %d", region, ID, event, data);
     return(0);
 }
 #endif //UIC_TEST
@@ -1692,7 +1692,7 @@ udword uicButtonProcess(regionhandle region, sdword ID, udword event, udword dat
             soundEvent(NULL, UI_Click);
             mask |= RPR_Redraw;
 #ifndef HW_BUILD_FOR_DISTRIBUTION
-            dbgMessagef("\nEn: %c Fr: %c De: %c Es: %c It: %c", atom->hotKey[0], atom->hotKey[1], atom->hotKey[2], atom->hotKey[3], atom->hotKey[4]);
+            dbgMessagef("En: %c Fr: %c De: %c Es: %c It: %c", atom->hotKey[0], atom->hotKey[1], atom->hotKey[2], atom->hotKey[3], atom->hotKey[4]);
 #endif
         break;
 
@@ -2885,7 +2885,7 @@ udword uicListWindowProcess(regionhandle region, sdword ID, udword event, udword
         case RPE_KeyDown:
             mask |= RPR_Redraw;
 /*#if ddunlop
-            dbgMessagef("\nuicListWindowProcess:  key pressed: 0x%x, '%c'", data, data);
+            dbgMessagef("uicListWindowProcess:  key pressed: 0x%x, '%c'", data, data);
 #endif*/
             switch (data)
             {
@@ -2950,7 +2950,7 @@ udword uicListWindowProcess(regionhandle region, sdword ID, udword event, udword
 
 
         case RPE_DoubleLeft:
-            dbgMessage("\nDouble click");
+            dbgMessage("Double click");
             if (listhandle->ListTotal==0) break;
             item = uicListGetItemClicked(listhandle, mouseCursorY());
 
@@ -3780,7 +3780,7 @@ udword uicTextEntryProcess(regionhandle reg, sdword ID, udword event, udword dat
         case RPE_KeyDown:
             mask |= RPR_Redraw;
 #if UIC_VERBOSE_LEVEL >= 2
-            dbgMessagef("\nuicTextEntryProcess:  key pressed: 0x%x, '%c'", data, data);
+            dbgMessagef("uicTextEntryProcess:  key pressed: 0x%x, '%c'", data, data);
 #endif
             //data = keyLanguageTranslate(data);
 
@@ -4111,7 +4111,7 @@ udword uicTextEntryProcess(regionhandle reg, sdword ID, udword event, udword dat
 
         default:;
 #if UIC_VERBOSE_LEVEL >= 1
-            dbgMessagef("\nuicTextEntryProcess: unimplemented or unsupported message: 0x%x, userID 0x%x, data 0x%x (%d)", event, ID, data, data);
+            dbgMessagef("uicTextEntryProcess: unimplemented or unsupported message: 0x%x, userID 0x%x, data 0x%x (%d)", event, ID, data, data);
 #endif
     }
     if (mask != 0)
@@ -5821,7 +5821,7 @@ udword uicReturnProcess(struct tagRegion *reg, sdword num_buttons, udword event,
                 feFunctionExecute(((featom *)temp->userID)->name, (featom *)temp->userID, FALSE);
                 break;
             default:
-                dbgMessagef("\nuicReturnProcess: don't know how to handle return for atom of type 0x%x", atom->type);
+                dbgMessagef("uicReturnProcess: don't know how to handle return for atom of type 0x%x", atom->type);
         }
     }
 

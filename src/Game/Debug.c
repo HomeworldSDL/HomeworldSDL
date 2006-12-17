@@ -50,8 +50,6 @@ sdword dbgMessage(char *string)
        Options.c) will need to be uncommented if the debug window is
        reenabled. */
     /*return(dbwPrint(0, string));*/
-    if (string[0] == '\n')
-        string++;
     printf("%s\n", string);
     return OKAY;
 }

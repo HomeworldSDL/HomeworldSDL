@@ -976,7 +976,7 @@ sdword clDock(CommandLayer *comlayer,SelectCommand *selectcom,DockType dockType,
     if (numShips == 0)
     {
 #ifdef DEBUG_DOCKING
-        dbgMessage("\nNo Ships To Dock");
+        dbgMessage("No Ships To Dock");
 #endif
         return (numShips);
     }
@@ -992,7 +992,7 @@ sdword clDock(CommandLayer *comlayer,SelectCommand *selectcom,DockType dockType,
         if (dockwith == NULL)
         {
     #ifdef DEBUG_DOCKING
-            dbgMessage("\nNo Ship to dock with");
+            dbgMessage("No Ship to dock with");
     #endif
             return (numShips);
         }
@@ -1005,7 +1005,7 @@ sdword clDock(CommandLayer *comlayer,SelectCommand *selectcom,DockType dockType,
         if (numShips == 0)
         {
     #ifdef DEBUG_DOCKING
-            dbgMessage("\nNo Ships To Dock");
+            dbgMessage("No Ships To Dock");
     #endif
             return (numShips);
         }
@@ -1338,7 +1338,7 @@ bool dockShipRefuelsAtShip(Ship *ship,Ship *dockwith)
     if ((dockwithstaticinfo->canReceiveResources) && (ship->resources > 0))
     {
 #ifdef DEBUG_DOCKING
-        dbgMessagef("\nDepositing %d RU",ship->resources);
+        dbgMessagef("Depositing %d RU",ship->resources);
 #endif
         ship->playerowner->resourceUnits += ship->resources;
         universe.gameStats.playerStats[ship->playerowner->playerIndex].totalResourceUnitsCollected += ship->resources;
@@ -2402,7 +2402,7 @@ void dockRemoveShipFromInside(Ship *ship,Ship *dockwith)
         node = node->next;
     }
     //dbgAssertOrIgnore(FALSE);
-    dbgMessagef("\nWarning: ship %d not inside ship %d but expected",ship->shipID.shipNumber,dockwith->shipID.shipNumber);
+    dbgMessagef("Warning: ship %d not inside ship %d but expected",ship->shipID.shipNumber,dockwith->shipID.shipNumber);
 }
 
 void dockPutShipOutside(Ship *ship,Ship *creator,vector *createat,udword headingdirection,udword updirection)
@@ -2502,7 +2502,7 @@ void dockMakeMaster(Ship *master)
     listInit(&master->slaveinfo->slaves);
     bitSet(master->flags,SOF_Slaveable);            //set to indicate involved in the slave trade
 #ifdef DEBUG_SLAVE
-dbgMessagef("\nSLAVE_TRADE: Just made master: %x",master);
+dbgMessagef("SLAVE_TRADE: Just made master: %x",master);
 #endif
     dockMakeNewStaticInfoForMaster(master);
 }
@@ -2527,7 +2527,7 @@ void dockAddSlave(Ship *master, Ship *slave)
 
     dbgAssertOrIgnore(bitTest(master->slaveinfo->flags,SF_MASTER));
 #ifdef DEBUG_SLAVE
-    dbgMessagef("\nSLAVE_TRADE: Adding Slave to Master.");
+    dbgMessagef("SLAVE_TRADE: Adding Slave to Master.");
 #endif
 
     if(slave->slaveinfo != NULL)
@@ -2632,7 +2632,7 @@ void dockRemoveSlave(Ship *master, Ship *slavetoremove)
     slavetoremove->slaveinfo = NULL;
     bitClear(slavetoremove->flags,SOF_Slaveable);
 #ifdef DEBUG_SLAVE
-    dbgMessagef("\nSLAVE_TRADE: Removing Slave");
+    dbgMessagef("SLAVE_TRADE: Removing Slave");
 #endif
     //bitSet(slavetoremove->flags,SOF_Selectable);
     master->health-=slavetoremove->health;
@@ -2650,7 +2650,7 @@ void dockCrushMaster(Ship *master)
     Node *slavenode;
 
 #ifdef DEBUG_SLAVE
-    dbgMessagef("\nSLAVE_TRADE: Deleteing Master");
+    dbgMessagef("SLAVE_TRADE: Deleteing Master");
 #endif
 
     dbgAssertOrIgnore(bitTest(master->slaveinfo->flags, SF_MASTER));
@@ -2676,7 +2676,7 @@ void dockKillSlaves(Ship *master)
     Node *slavenode;
 
 #ifdef DEBUG_SLAVE
-    dbgMessagef("\nSLAVE_TRADE: Deleteing Master");
+    dbgMessagef("SLAVE_TRADE: Deleteing Master");
 #endif
 
     dbgAssertOrIgnore(bitTest(master->slaveinfo->flags, SF_MASTER));
@@ -2694,7 +2694,7 @@ void dockKillSlaves(Ship *master)
 void dockDealWithDeadSlaveable(Ship *ship)
 {
 #ifdef DEBUG_SLAVE
-    dbgMessagef("\nSLAVE_TRADE: cleaning up dead slave/master");
+    dbgMessagef("SLAVE_TRADE: cleaning up dead slave/master");
 #endif
 
     dbgAssertOrIgnore(bitTest(ship->flags,SOF_Slaveable));
@@ -2709,7 +2709,7 @@ void dockDealWithDeadSlaveable(Ship *ship)
     else
     {
         dbgAssertOrIgnore(bitTest(ship->slaveinfo->flags,SF_SLAVE));
-        dbgMessage("\nSlave Died.");
+        dbgMessage("Slave Died.");
         dockRemoveSlave(ship->slaveinfo->Master, ship);
     }
 }
@@ -5571,9 +5571,9 @@ dockin_findlatch:
         }
 
 #ifdef R1_DEBUG_RESEARCH_DOCKING
-        dbgMessagef("\nRace 1: DOCKWITH    : point %s chosen.",dockwithstatic->dockStaticInfo->dockstaticpoints[dockwithpointindex].name);
-        dbgMessagef("\nRace 1: DOCKING SHIP: point %s chosen.",shipstatic->dockStaticInfo->dockstaticpoints[shippointindex].name);
-        dbgMessagef("\nNow flying to PiePoint.");
+        dbgMessagef("Race 1: DOCKWITH    : point %s chosen.",dockwithstatic->dockStaticInfo->dockstaticpoints[dockwithpointindex].name);
+        dbgMessagef("Race 1: DOCKING SHIP: point %s chosen.",shipstatic->dockStaticInfo->dockstaticpoints[shippointindex].name);
+        dbgMessagef("Now flying to PiePoint.");
 #endif
         dockwithstaticpoint = &dockwithstatic->dockStaticInfo->dockstaticpoints[dockwithpointindex];
         shipstaticpoint = &shipstatic->dockStaticInfo->dockstaticpoints[shippointindex];
@@ -5631,7 +5631,7 @@ nextdockr1res:
             }
 
 #ifdef R1_DEBUG_RESEARCH_DOCKING
-        dbgMessagef("\nRace 1: Reached Point, now parallel parking.");
+        dbgMessagef("Race 1: Reached Point, now parallel parking.");
 #endif
         }
         return FALSE;
@@ -5647,8 +5647,8 @@ nextdockr1res:
 
             ship->dockvars.dockstate2 = RESEARCH_FINAL_SQUEEZE;
 #ifdef R1_DEBUG_RESEARCH_DOCKING
-        dbgMessagef("\nRace 1: Parallel Parking");
-        dbgMessagef("\nAllowing Next Research Ship to start docking!");
+        dbgMessagef("Race 1: Parallel Parking");
+        dbgMessagef("Allowing Next Research Ship to start docking!");
 #endif
        }
         return FALSE;
@@ -5666,7 +5666,7 @@ nextdockr1res:
             ship->posinfo.velocity.z=0.0f;
             ship->dockvars.dockstate2 = RESEARCH_FINAL_SQUEEZE;
 #ifdef R1_DEBUG_RESEARCH_DOCKING
-        dbgMessagef("\nRace 1: Final Docking Phaze....");
+        dbgMessagef("Race 1: Final Docking Phaze....");
 #endif
         }
         return FALSE;
@@ -5733,7 +5733,7 @@ morer1resdock:
             }
             ship->dockvars.dockstate2 = RESEARCH_WAIT;
 #ifdef R1_DEBUG_RESEARCH_DOCKING
-        dbgMessagef("\nRace 1: Docked...Slaveing ship, extending docking port.");
+        dbgMessagef("Race 1: Docked...Slaveing ship, extending docking port.");
 #endif
         }
         return FALSE;
@@ -5882,7 +5882,7 @@ bool R2spinintoplace(Ship *ship, Ship *dockwith, real32 POS_TOL, real32 ANGLE_TO
 
         matGetVectFromMatrixCol1(desiredUp,dockwith->rotinfo.coordsys);
         vecScalarMultiply(desiredHeading,desiredHeading,-1.0f);
-        dbgMessagef("\n\nTRIED TO DOCK WITH SHIPS ASS!! REPORT TO BRYCE.");
+        dbgMessagef("TRIED TO DOCK WITH SHIPS ASS!! REPORT TO BRYCE.");
     }
     else
     {
@@ -5946,7 +5946,7 @@ bool R2ResearchShipDocksAtResearchShip(struct CommandToDo *docktodo,struct Ship 
         customdockinfo = ship->dockvars.customdockinfo = memAlloc(sizeof(AtResearchShipDockInfo),"AtResearchShipDockInfo",0);
         customdockinfo->size = sizeof(AtResearchShipDockInfo);
 #ifdef  R2_DEBUG_RESEARCH_DOCKING
-        dbgMessagef("\nResearch Docking code Started.  RACE 2");
+        dbgMessagef("Research Docking code Started.  RACE 2");
 #endif
         ship->dockvars.dockstate2 = R2_WAIT_FOR_DOCK_POINT;
     case R2_WAIT_FOR_DOCK_POINT:
@@ -5997,20 +5997,20 @@ r2resinstant1:
          {
              customdockinfo->docktoindex = dockwithpointindex = 3;   //choose Out side to dock on
              customdockinfo->dockingindex = shippointindex = 4;
-            dbgMessagef("\nERROR..shouldn't get to this point!!!");
+            dbgMessagef("ERROR..shouldn't get to this point!!!");
          }
          else
          {
 
 #ifdef R2_DEBUG_RESEARCH_DOCKING
-         dbgMessagef("\nRACE 2:  ARRIVED AT SELECTED SHIP, But nothing available.  Return true;");
+         dbgMessagef("RACE 2:  ARRIVED AT SELECTED SHIP, But nothing available.  Return true;");
 #endif       //maybe reselect!
              return(TRUE);  //nothing available so poo!
          }
 
 #ifdef R2_DEBUG_RESEARCH_DOCKING
-        dbgMessagef("\nRace 2: Research dockwith point %s chosen.",dockwithstatic->dockStaticInfo->dockstaticpoints[dockwithpointindex].name);
-        dbgMessagef("\nRace 2: Research ship dock point %s chosen.",shipstatic->dockStaticInfo->dockstaticpoints[shippointindex].name);
+        dbgMessagef("Race 2: Research dockwith point %s chosen.",dockwithstatic->dockStaticInfo->dockstaticpoints[dockwithpointindex].name);
+        dbgMessagef("Race 2: Research ship dock point %s chosen.",shipstatic->dockStaticInfo->dockstaticpoints[shippointindex].name);
 #endif
 
         dockwithstaticpoint = &dockwithstatic->dockStaticInfo->dockstaticpoints[dockwithpointindex];
@@ -6068,7 +6068,7 @@ dockinstantr2yeah1:
             speechEventVar(ship, STAT_Research_Docking, 0, 2);
 
 #ifdef R2_DEBUG_RESEARCH_DOCKING
-        dbgMessagef("\nRace 2: Reached Docking outer point.  Begin backing in. ");
+        dbgMessagef("Race 2: Reached Docking outer point.  Begin backing in. ");
 #endif
         }
         break;
@@ -6131,7 +6131,7 @@ r2dockinstantfinish:
 
             ship->dockvars.dockstate2 = R2_DOCKED_AND_WAITING;
  #ifdef R2_DEBUG_RESEARCH_DOCKING
-        dbgMessagef("\nRace 2: Successfully Parked Docking Ship...Now slaveing");
+        dbgMessagef("Race 2: Successfully Parked Docking Ship...Now slaveing");
 #endif
         }
         break;
@@ -6304,7 +6304,7 @@ reacheddest:
                 else
                 {
 #ifdef DEBUG_DOCKING
-                    dbgMessagef("\nReturning from docking %x",(udword)ship);
+                    dbgMessagef("Returning from docking %x",(udword)ship);
 #endif
                     if (aishipFlyToPointAvoidingObjsWithVel(ship,&desireddest,AISHIP_DontFlyToObscuredPoints|AISHIP_ReturnImmedIfPointObscured|AISHIP_PointInDirectionFlying,BACKTODESTINATION_MINFLYSPEED,&dockwith->posinfo.velocity)
                         & AISHIP_FLY_OBJECT_IN_WAY)

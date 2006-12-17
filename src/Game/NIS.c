@@ -346,10 +346,10 @@ void nisTest(vector *position, matrix *mat)
     nisNamesFind(nisTestIndex, &nisFile, &nisScript);
     if (nisFile == NULL)
     {
-        dbgMessagef("\nCan't find %d's NIS is file '%s'", nisTestIndex, nisFile);
+        dbgMessagef("Can't find %d's NIS is file '%s'", nisTestIndex, nisFile);
         return;
     }
-    dbgMessagef("\nnisTest: playing NIS '%s' with script '%s'.", nisFile, nisScript);
+    dbgMessagef("nisTest: playing NIS '%s' with script '%s'.", nisFile, nisScript);
     testHeader = nisLoad(nisFile, nisScript);
     testHeader->loop = 0.0f;            //force the NIS to loop
     testPlaying = nisStart(testHeader, &nisStartingPosition, &nisStartingMatrix);
@@ -366,10 +366,10 @@ void nisTestAnother(sdword skip)
     nisNamesFind(nisTestIndex, &nisFile, &nisScript);
     if (nisFile == NULL)
     {
-        dbgMessagef("\nCan't find %d's NIS is file '%s'", nisTestIndex, nisFile);
+        dbgMessagef("Can't find %d's NIS is file '%s'", nisTestIndex, nisFile);
         return;
     }
-    dbgMessagef("\nnisTest: playing NIS '%s' with script '%s'.", nisFile, nisScript);
+    dbgMessagef("nisTest: playing NIS '%s' with script '%s'.", nisFile, nisScript);
     testHeader = nisLoad(nisFile, nisScript);
     testHeader->loop = 0.0f;            //force the NIS to loop
     testPlaying = nisStart(testHeader, &nisStartingPosition, &nisStartingMatrix);
@@ -471,7 +471,7 @@ void nisUpdateTask(void)
             }
 
 #if NIS_VERBOSE_LEVEL >= 1
-            dbgMessagef("\nfade level = %.2f", nisBlackFade);
+            dbgMessagef("fade level = %.2f", nisBlackFade);
 #endif
         }
 
@@ -1289,7 +1289,7 @@ void nisStop(nisplaying *NIS)
                     if (etgDeleteEffectsOwnedBy((Ship *)NIS->objectsInMotion[index].spaceobj) > 0)
                     {
 #if NIS_VERBOSE_LEVEL > 2
-                        dbgMessagef("\nNIS Effect not explicitly deleted.");
+                        dbgMessagef("NIS Effect not explicitly deleted.");
 #endif
                     }
                     memFree(NIS->objectsInMotion[index].spaceobj);
@@ -1390,21 +1390,21 @@ void nisStop(nisplaying *NIS)
         if (currentMusicVolume != nisPreviousMusicVolume)
         {
 #if NIS_VERBOSE_LEVEL > 2
-            dbgMessagef("\nResetting Music volume from %.2f to %.2f", currentMusicVolume, nisPreviousMusicVolume);
+            dbgMessagef("Resetting Music volume from %.2f to %.2f", currentMusicVolume, nisPreviousMusicVolume);
 #endif
             soundEventMusicVol(nisPreviousMusicVolume);
         }
         if (currentSpeechVolume != nisPreviousSpeechVolume)
         {
 #if NIS_VERBOSE_LEVEL > 2
-            dbgMessagef("\nResetting Speech volume from %.2f to %.2f", currentSpeechVolume, nisPreviousSpeechVolume);
+            dbgMessagef("Resetting Speech volume from %.2f to %.2f", currentSpeechVolume, nisPreviousSpeechVolume);
 #endif
             soundEventSpeechVol(nisPreviousSpeechVolume);
         }
         if (currentSFXVolume != nisPreviousSFXVolume)
         {
 #if NIS_VERBOSE_LEVEL > 2
-            dbgMessagef("\nResetting SFX volume from %.2f to %.2f", currentSFXVolume, nisPreviousSFXVolume);
+            dbgMessagef("Resetting SFX volume from %.2f to %.2f", currentSFXVolume, nisPreviousSFXVolume);
 #endif
             soundEventSFXVol(nisPreviousSFXVolume);
         }
@@ -1715,7 +1715,7 @@ void nisCamPathUpdate(nisplaying *NIS, cameramotion *camPath, real32 timeElapsed
     matGetVectFromMatrixCol1(camPath->cam->upvector, coordsys);
     vecAdd(camPath->cam->lookatpoint, xyz, camPath->cam->eyeposition);
 #if NIS_VERBOSE_LEVEL >= 4
-        dbgMessagef("\nCamera: (%.2f, %.2f, %.2f) angles (%.2f, %.2f, %.2f), (%.2f, %.2f, %.2f).", camPath->cam->eyeposition.x, camPath->cam->eyeposition.y, camPath->cam->eyeposition.z, rot.x, rot.y, rot.z, xyz.x, xyz.y, xyz.z);
+        dbgMessagef("Camera: (%.2f, %.2f, %.2f) angles (%.2f, %.2f, %.2f), (%.2f, %.2f, %.2f).", camPath->cam->eyeposition.x, camPath->cam->eyeposition.y, camPath->cam->eyeposition.z, rot.x, rot.y, rot.z, xyz.x, xyz.y, xyz.z);
 #endif//NIS_VERBOSE_LEVEL
 }
 
@@ -1756,7 +1756,7 @@ real32 nisUpdate(nisplaying *NIS, real32 timeElapsed)
     {                                                       //pause/unpause the game
         keyClearSticky(NIS_Pause);
         nisPaused ^= TRUE;
-        dbgMessagef("\nNIS playback %s", nisPaused ? "PAUSED" : "UNPAUSED");
+        dbgMessagef("NIS playback %s", nisPaused ? "PAUSED" : "UNPAUSED");
     }
 #if NIS_SEEKABLE
     if (nisPaused)
@@ -1767,13 +1767,13 @@ real32 nisUpdate(nisplaying *NIS, real32 timeElapsed)
     {
         keyClearSticky(NIS_Back1Second);
         nisSeek(NIS, max(0, NIS->timeElapsed - 1.0f));
-        dbgMessagef("\nNIS seek backward 1 second.");
+        dbgMessagef("NIS seek backward 1 second.");
     }
     if (keyIsStuck(NIS_Back10Second))
     {
         keyClearSticky(NIS_Back10Second);
         nisSeek(NIS, max(0, NIS->timeElapsed - 10.0f));
-        dbgMessagef("\nNIS seek backward 10 seconds.");
+        dbgMessagef("NIS seek backward 10 seconds.");
     }
 #endif
     if (keyIsStuck(NIS_FastForward))
@@ -1787,13 +1787,13 @@ real32 nisUpdate(nisplaying *NIS, real32 timeElapsed)
         {
             nisPlayFactor *= 2.0f;
         }
-        dbgMessagef("\nNIS playback speed x%.2f.", nisPlayFactor);
+        dbgMessagef("NIS playback speed x%.2f.", nisPlayFactor);
     }
     if (keyIsStuck(NIS_NormalSpeed))
     {
         keyClearSticky(NIS_NormalSpeed);
         nisPlayFactor = 1.0f;
-        dbgMessagef("\nNIS playback NORMAL speed.", nisPlayFactor);
+        dbgMessagef("NIS playback NORMAL speed.", nisPlayFactor);
     }
 
     timeElapsed *= nisPlayFactor;
@@ -1874,7 +1874,7 @@ real32 nisUpdate(nisplaying *NIS, real32 timeElapsed)
             univUpdateObjRotInfo((SpaceObjRot *)path->spaceobj);
         }
 #if NIS_VERBOSE_LEVEL >= 4
-        dbgMessagef("\nNIS object at 0x%x at (%.2f, %.2f, %.2f) angles (%.2f, %.2f, %.2f).", path->spaceobj, path->spaceobj->posinfo.position.x, path->spaceobj->posinfo.position.y, path->spaceobj->posinfo.position.z, rot.x, rot.y, rot.z);
+        dbgMessagef("NIS object at 0x%x at (%.2f, %.2f, %.2f) angles (%.2f, %.2f, %.2f).", path->spaceobj, path->spaceobj->posinfo.position.x, path->spaceobj->posinfo.position.y, path->spaceobj->posinfo.position.z, rot.x, rot.y, rot.z);
 #endif
     }
     for (index = 0; index < NIS->nCameras; index++)
@@ -1920,7 +1920,7 @@ real32 nisUpdate(nisplaying *NIS, real32 timeElapsed)
         matGetVectFromMatrixCol1(camPath->cam->upvector, coordsys);
         vecAdd(camPath->cam->lookatpoint, xyz, camPath->cam->eyeposition);
 #if NIS_VERBOSE_LEVEL >= 4
-        dbgMessagef("\nCamera: (%.2f, %.2f, %.2f) angles (%.2f, %.2f, %.2f), (%.2f, %.2f, %.2f).", camPath->cam->eyeposition.x, camPath->cam->eyeposition.y, camPath->cam->eyeposition.z, rot.x, rot.y, rot.z, xyz.x, xyz.y, xyz.z);
+        dbgMessagef("Camera: (%.2f, %.2f, %.2f) angles (%.2f, %.2f, %.2f), (%.2f, %.2f, %.2f).", camPath->cam->eyeposition.x, camPath->cam->eyeposition.y, camPath->cam->eyeposition.z, rot.x, rot.y, rot.z, xyz.x, xyz.y, xyz.z);
 #endif//NIS_VERBOSE_LEVEL
 */
     }
@@ -1963,7 +1963,7 @@ real32 nisUpdate(nisplaying *NIS, real32 timeElapsed)
     {                                                       //toggle time display
         keyClearSticky(NIS_PRINT_INFO);
         nisPrintInfo ^= TRUE;
-        dbgMessagef("\nNIS info printing %s", nisPrintInfo ? "ON" : "OFF");
+        dbgMessagef("NIS info printing %s", nisPrintInfo ? "ON" : "OFF");
     }
     if (nisPrintInfo)
     {
@@ -2383,7 +2383,7 @@ void nisObjectShow(nisplaying *NIS, nisevent *event)
 #if NIS_VERBOSE_MODE >= 1
         else
         {
-            dbgMessagef("\nnisObjectShow: at time %.2f, object#%d is already visible.", event->time, event->shipID);
+            dbgMessagef("nisObjectShow: at time %.2f, object#%d is already visible.", event->time, event->shipID);
         }
 #endif
         bitClear(obj->flags, SOF_Hide);                     //make sure it stays in render list
@@ -2415,7 +2415,7 @@ void nisObjectHide(nisplaying *NIS, nisevent *event)
 #if NIS_VERBOSE_MODE >= 1
         else
         {
-            dbgMessagef("\nnisObjectHide: at time %.2f, object#%d is already hidden.", event->time, event->shipID);
+            dbgMessagef("nisObjectHide: at time %.2f, object#%d is already hidden.", event->time, event->shipID);
         }
 #endif
         bitSet(obj->flags, SOF_Hide);                       //make sure it stays out of render list
@@ -2916,7 +2916,7 @@ void nisMusicStart(nisplaying *NIS, nisevent *event)
         nisMusicPlaying = FALSE;
     }
 #if NIS_VERBOSE_LEVEL >= 1
-    dbgMessagef("\nPlaying music track %d.", event->param[0]);
+    dbgMessagef("Playing music track %d.", event->param[0]);
 #endif
     soundEventPlayMusic(event->param[0]);
     nisMusicPlaying = TRUE;
@@ -2924,7 +2924,7 @@ void nisMusicStart(nisplaying *NIS, nisevent *event)
 void nisMusicStop(nisplaying *NIS, nisevent *event)
 {
 #if NIS_VERBOSE_LEVEL >= 1
-    dbgMessagef("\nStopping music over the next %.2f seconds.", TreatAsReal32(event->param[0]));
+    dbgMessagef("Stopping music over the next %.2f seconds.", TreatAsReal32(event->param[0]));
 #endif
     soundEventStopMusic(TreatAsReal32(event->param[0]));
     nisMusicPlaying = FALSE;
@@ -2932,14 +2932,14 @@ void nisMusicStop(nisplaying *NIS, nisevent *event)
 void nisBlackFadeSet(nisplaying *NIS, nisevent *event)
 {
 #if NIS_VERBOSE_LEVEL >= 1
-    dbgMessagef("\nSetting fade level to %.2f", TreatAsReal32(event->param[0]));
+    dbgMessagef("Setting fade level to %.2f", TreatAsReal32(event->param[0]));
 #endif
     nisBlackFade = nisBlackFadeDest = TreatAsReal32(event->param[0]);
 }
 void nisBlackFadeTo(nisplaying *NIS, nisevent *event)
 {
 #if NIS_VERBOSE_LEVEL >= 1
-    dbgMessagef("\nFading to level %.2f over %.2f seconds", TreatAsReal32(event->param[0]), TreatAsReal32(event->param[1]));
+    dbgMessagef("Fading to level %.2f over %.2f seconds", TreatAsReal32(event->param[0]), TreatAsReal32(event->param[1]));
 #endif
     nisBlackFadeDest = TreatAsReal32(event->param[0]);
     nisBlackFadeRate = (TreatAsReal32(event->param[0]) - nisBlackFade) / TreatAsReal32(event->param[1]);
@@ -3119,19 +3119,19 @@ void nisVolumeSet(nisplaying *NIS, nisevent *event)
     {
         case NEO_MusicVolume:
 #if NIS_VERBOSE_LEVEL > 2
-            dbgMessagef("\nSetting Music volume to %.2f", TreatAsReal32(event->param[0]));
+            dbgMessagef("Setting Music volume to %.2f", TreatAsReal32(event->param[0]));
 #endif
             soundEventMusicVol(TreatAsReal32(event->param[0]));
             break;
         case NEO_SpeechVolume:
 #if NIS_VERBOSE_LEVEL > 2
-            dbgMessagef("\nSetting Speech volume to %.2f", TreatAsReal32(event->param[0]));
+            dbgMessagef("Setting Speech volume to %.2f", TreatAsReal32(event->param[0]));
 #endif
             soundEventSpeechVol(TreatAsReal32(event->param[0]));
             break;
         case NEO_SFXVolume:
 #if NIS_VERBOSE_LEVEL > 2
-            dbgMessagef("\nSetting SFX volume to %.2f", TreatAsReal32(event->param[0]));
+            dbgMessagef("Setting SFX volume to %.2f", TreatAsReal32(event->param[0]));
 #endif
             soundEventSFXVol(TreatAsReal32(event->param[0]));
             break;
@@ -3232,7 +3232,7 @@ void nisUniversePauseToggle(nisplaying *NIS, nisevent *event)
 {
     nisUniversePause ^= TRUE;
 #if NIS_VERBOSE_LEVEL >= 1
-    dbgMessagef("\nNIS has %sPAUSED the universe.", nisUniversePause ? "" : "UN");
+    dbgMessagef("NIS has %sPAUSED the universe.", nisUniversePause ? "" : "UN");
 #endif
 }
 
@@ -3290,7 +3290,7 @@ void nisUniverseHideToggle(nisplaying *NIS, nisevent *event)
 {
     nisUniverseHidden ^= TRUE;
 #if NIS_VERBOSE_LEVEL >= 1
-    dbgMessagef("\nNIS has %sHIDDEN the universe.", nisUniverseHidden ? "" : "UN");
+    dbgMessagef("NIS has %sHIDDEN the universe.", nisUniverseHidden ? "" : "UN");
 #endif
     if (nisUniverseHidden)
     {                                                       //if hiding everything

@@ -266,7 +266,7 @@ void statLog(char *format, ...)
     vsprintf(buffer, format, argList);                      //prepare output string
     va_end(argList);
 
-    dbgMessage("\nSTATLOG:");
+    dbgMessage("STATLOG:");
     logfileLog(STATLOG_FILENAME,buffer);
     dbgMessage(buffer);
 }
@@ -412,8 +412,8 @@ void GetPrecombatStats(FightStats *fightStats)
     dbgAssertOrIgnore(fightStats->numShips[0] > 0);
     dbgAssertOrIgnore(fightStats->numShips[1] > 0);
 
-    dbgMessagef("\n%s %s Vs %s %s\n",ShipRaceToStr(fightStats->shiprace[0]),ShipTypeToStr(fightStats->shiptype[0]),ShipRaceToStr(fightStats->shiprace[1]),ShipTypeToStr(fightStats->shiptype[1]));
-    dbgMessagef("\n%d %d",fightStats->numShips[0],fightStats->numShips[1]);
+    dbgMessagef("%s %s Vs %s %s",ShipRaceToStr(fightStats->shiprace[0]),ShipTypeToStr(fightStats->shiptype[0]),ShipRaceToStr(fightStats->shiprace[1]),ShipTypeToStr(fightStats->shiptype[1]));
+    dbgMessagef("%d %d",fightStats->numShips[0],fightStats->numShips[1]);
 
 #if 0
     fightStats->numRUs[0] = fightStats->numShips[0] * RU0;
@@ -1307,7 +1307,7 @@ void statsLoadFightStats(void)
 
     if (correctsize != statfilesize)
     {
-        dbgMessage("\nWARNING: Stat file incorrect version");
+        dbgMessage("WARNING: Stat file incorrect version");
         memset(&FightStatsTable[0][0],0,correctsize);
     }
     else

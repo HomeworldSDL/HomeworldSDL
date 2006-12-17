@@ -1097,7 +1097,7 @@ void salCapSetNewCoordSys(SpaceObjRotImpTargGuidanceShipDerelict *target,vector 
     if(!good)
     {
         #ifdef DEBUG_SAL
-              dbgMessagef("\nNO HEADING VECTOR FOUND! in SALVAGEINFO");
+              dbgMessagef("NO HEADING VECTOR FOUND! in SALVAGEINFO");
         #endif
         *heading = *velocityN;
         return;
@@ -2279,14 +2279,14 @@ reachedit:
                     if(vecDotProduct(between,dockwithRight) > 0)
                     {
 #ifdef DEBUG_SALCAP
-                dbgMessagef("\nSAL:dock 0.5");
+                dbgMessagef("SAL:dock 0.5");
 #endif
                         spec->salvageState = WAYPOINTHACK2;
                     }
                     else
                     {
 #ifdef DEBUG_SALCAP
-                        dbgMessagef("\nSAL:dock 1");
+                        dbgMessagef("SAL:dock 1");
 #endif
 
                         spec->salvageState = SAL_DO_DOCK;
@@ -2295,7 +2295,7 @@ reachedit:
                 else
                 {
 #ifdef DEBUG_SALCAP
-                    dbgMessagef("\nSAL:dock 1");
+                    dbgMessagef("SAL:dock 1");
 #endif
 
                     spec->salvageState = SAL_DO_DOCK;
@@ -2304,7 +2304,7 @@ reachedit:
             else
             {
 #ifdef DEBUG_SALCAP
-                dbgMessagef("\nSAL:dock 1");
+                dbgMessagef("SAL:dock 1");
 #endif
                 spec->salvageState = SAL_DO_DOCK;
             }
@@ -2314,7 +2314,7 @@ reachedit:
         if(salCapFlyToDockingPoint1over2(ship,spec->target))
         {
 #ifdef DEBUG_SALCAP
-                dbgMessagef("\nSAL:dock 1");
+                dbgMessagef("SAL:dock 1");
             spec->salvageState = SAL_DO_DOCK;
         }
         break;
@@ -2337,7 +2337,7 @@ reachedit:
                 }
             }
 #ifdef DEBUG_SALCAP
-                dbgMessagef("\nSAL:dock 2");
+                dbgMessagef("SAL:dock 2");
 #endif
 
             spec->salvageState = SAL_DO_DOCK2;
@@ -2633,7 +2633,7 @@ bool DropTargetInShip(Ship *dockwith,sdword *targetDepotState, SpaceObjRotImpTar
         if(salCapFlyToDockingPoint2(dockwith,target,*dockindex))
         {
 #ifdef DEBUG_SALCAP
-                dbgMessagef("\nSAL:dock 2");
+                dbgMessagef("SAL:dock 2");
 #endif
 
             *targetDepotState = DROP_DOCK2;
@@ -2644,7 +2644,7 @@ bool DropTargetInShip(Ship *dockwith,sdword *targetDepotState, SpaceObjRotImpTar
         if(salCapFlyToDockingPoint3(dockwith,target,*dockindex))
         {
 #ifdef DEBUG_SALCAP
-                dbgMessagef("\nSAL:dock DONE");
+                dbgMessagef("SAL:dock DONE");
 #endif
 
             *targetDepotState = DROP_DONEDOCKING;

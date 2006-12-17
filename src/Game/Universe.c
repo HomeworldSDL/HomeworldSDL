@@ -1043,7 +1043,7 @@ static void setGunBindInfo(char *directory,char *field,void *dataToFillIn)
     }
 #endif
 #if MESH_VERBOSE_LEVEL >= 2
-    dbgMessagef("\nsetGunBindInfo: bound '%s' to '%s' %d times", hString, gString, nBound++);
+    dbgMessagef("setGunBindInfo: bound '%s' to '%s' %d times", hString, gString, nBound++);
 #endif
 }
 static void setAnimationBindInfo(char *directory,char *field,void *dataToFillIn)
@@ -2042,7 +2042,7 @@ void InitStatShipInfo(ShipStaticInfo *statinfo,ShipType type,ShipRace race)
 /*
 
 #ifndef HW_BUILD_FOR_DISTRIBUTION
-        dbgMessagef("\nStubbing out %s\\%s", ShipRaceToStr(race), ShipTypeToStr(type));
+        dbgMessagef("Stubbing out %s\\%s", ShipRaceToStr(race), ShipTypeToStr(type));
 #endif
         strcpy(directory,"DefaultShip\\");
         strcpy(shipname,"DefaultShip.shp");
@@ -4126,7 +4126,7 @@ void universeSwitchToNextPlayer(void)
 
     universe.collUpdateAllBlobs = TRUE;                              //next update will update all blobs
 
-    dbgMessagef("\nCurrent player: %d %x",universe.curPlayerIndex,universe.curPlayerPtr);
+    dbgMessagef("Current player: %d %x",universe.curPlayerIndex,universe.curPlayerPtr);
 }
 
 /*-----------------------------------------------------------------------------

@@ -222,7 +222,7 @@ static void lodMeshFileLoad(char *directory,char *field,void *dataToFillIn)
 {
     char fullfilename[80];
 #if LOD_VERBOSE_LEVEL >= 1
-//    dbgMessagef("\nlodMeshFileLoad: %s", field);
+//    dbgMessagef("lodMeshFileLoad: %s", field);
 #endif
     if (directory != NULL)
     {
@@ -247,7 +247,7 @@ static void lodMeshFileLoad(char *directory,char *field,void *dataToFillIn)
 static void lodSpriteFileRead(char *directory,char *field,void *dataToFillIn)
 {
 #if LOD_VERBOSE_LEVEL >= 1
-    dbgMessagef("\nlodSpriteFileRead: %s", field);
+    dbgMessagef("lodSpriteFileRead: %s", field);
 #endif
     dbgFatal(DBG_Loc, "Can't load sprite images yet!");
 }
@@ -309,13 +309,13 @@ lod *lodLevelGet(void *spaceObj, vector *camera, vector *ship)
     {
         keyClearSticky(WKEY);
         lodScaleFactor *= 0.99f;
-        dbgMessagef("\nlodScaleFactor = %.3f", lodScaleFactor);
+        dbgMessagef("lodScaleFactor = %.3f", lodScaleFactor);
     }
     if (keyIsStuck(OKEY))
     {
         keyClearSticky(OKEY);
         lodScaleFactor *= 1.01f;
-        dbgMessagef("\nlodScaleFactor = %.3f", lodScaleFactor);
+        dbgMessagef("lodScaleFactor = %.3f", lodScaleFactor);
     }
     if (lodTuningMode)
     {

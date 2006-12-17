@@ -262,7 +262,7 @@ sdword pieMousePosSet3D(hmatrix *modelView, hmatrix *projection, vector *mouse3D
     mouseViewX = primGLToScreenX(mouseScreen.x / mouseScreen.w);//get location in viewport coords
     mouseViewY = primGLToScreenY(mouseScreen.y / mouseScreen.w);
 
-    //dbgMessagef("\n3d->2d mouse pos: (%.2f, %.2f, %.2f) -> (%d,%d).", mouse3D->x, mouse3D->y, mouse3D->z, mouseViewX, mouseViewY);
+    //dbgMessagef("3d->2d mouse pos: (%.2f, %.2f, %.2f) -> (%d,%d).", mouse3D->x, mouse3D->y, mouse3D->z, mouseViewX, mouseViewY);
     if (mouseViewX < 0 || mouseViewX >= MAIN_WindowWidth || //if offscreen
         mouseViewY < 0 || mouseViewY >= MAIN_WindowHeight)
     {
@@ -1043,7 +1043,7 @@ void piePointSpecDraw(void)
     if (oldMouseX != mouseCursorX() || oldMouseY != mouseCursorY())
     {
         cameraRayCast(&world0, mrCamera, mouseCursorX(), mouseCursorY(), MAIN_WindowWidth, MAIN_WindowHeight);
-        dbgMessagef("\nVec = %.3f %.3f %.3f", world0.x, world0.y, world0.z);
+        dbgMessagef("Vec = %.3f %.3f %.3f", world0.x, world0.y, world0.z);
         oldMouseX = mouseCursorX();
         oldMouseY = mouseCursorY();
     }
@@ -1154,9 +1154,9 @@ void piePointSpecDraw(void)
                 /*
                 if (oldMouseX != mouseCursorX() || oldMouseY != mouseCursorY())
                 {
-                    dbgMessagef("\nslope = %.2f b = %.2f", slope, b);
-                    dbgMessagef("\nscreen0=(%.2f,%.2f) screen1=(%.2f,%.2f).", pieScreen0.x, pieScreen0.y, pieScreen1.x, pieScreen1.y);
-                    dbgMessagef("\nworld0=(%.2f,%.2f,%.2f) world1=(%.2f,%.2f,%.2f).", world0.x, world0.y, world0.z, world1.x, world1.y, world1.z);
+                    dbgMessagef("slope = %.2f b = %.2f", slope, b);
+                    dbgMessagef("screen0=(%.2f,%.2f) screen1=(%.2f,%.2f).", pieScreen0.x, pieScreen0.y, pieScreen1.x, pieScreen1.y);
+                    dbgMessagef("world0=(%.2f,%.2f,%.2f) world1=(%.2f,%.2f,%.2f).", world0.x, world0.y, world0.z, world1.x, world1.y, world1.z);
                     oldMouseX = mouseCursorX();
                     oldMouseY = mouseCursorY();
                 }
@@ -1210,9 +1210,9 @@ void piePointSpecDraw(void)
             /*
             if (oldMouseX != mouseCursorX() || oldMouseY != mouseCursorY())
             {
-                dbgMessagef("\ndeltaX = %.2f deltaY = %.2f", deltaX, deltaY);
-                dbgMessagef("\nheightPoint=(%.2f,%.2f,%.2f).", pieHeightPoint.x, pieHeightPoint.y, pieHeightPoint.z);
-                dbgMessagef("\nworld0=(%.2f,%.2f,%.2f) world1=(%.2f,%.2f,%.2f).", world0.x, world0.y, world0.z, world1.x, world1.y, world1.z);
+                dbgMessagef("deltaX = %.2f deltaY = %.2f", deltaX, deltaY);
+                dbgMessagef("heightPoint=(%.2f,%.2f,%.2f).", pieHeightPoint.x, pieHeightPoint.y, pieHeightPoint.z);
+                dbgMessagef("world0=(%.2f,%.2f,%.2f) world1=(%.2f,%.2f,%.2f).", world0.x, world0.y, world0.z, world1.x, world1.y, world1.z);
                 oldMouseX = mouseCursorX();
                 oldMouseY = mouseCursorY();
             }

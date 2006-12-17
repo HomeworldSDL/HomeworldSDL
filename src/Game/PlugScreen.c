@@ -218,7 +218,7 @@ void psLinkDraw(regionhandle region)
 udword psLinkProcess(regionhandle region, sdword ID, udword event, udword data)
 {
 #if PS_VERBOSE_LEVEL >= 2
-    dbgMessagef("\nPlug region 0x%x, ID %d, event 0x%x", region, ID, event);
+    dbgMessagef("Plug region 0x%x, ID %d, event 0x%x", region, ID, event);
 #endif
     regRecursiveSetDirty(region);
     if (event == RPE_PressLeft && (psFadeState == PFS_None))
@@ -227,25 +227,25 @@ udword psLinkProcess(regionhandle region, sdword ID, udword event, udword data)
         {
             case PLT_Screen:
 #if PS_VERBOSE_LEVEL >= 1
-                dbgMessagef("\nLink to '%s'", ((pluglink *)region)->linkName);
+                dbgMessagef("Link to '%s'", ((pluglink *)region)->linkName);
 #endif
                 psScreenTimeout = 0.0f;                     //hold on this screen
                 break;
             case PLT_URL:
 #if PS_VERBOSE_LEVEL >= 1
-                dbgMessagef("\nBrowse to '%s'", ((pluglink *)region)->linkName);
+                dbgMessagef("Browse to '%s'", ((pluglink *)region)->linkName);
 #endif
                 utyBrowserExec(((pluglink *)region)->linkName);
                 psScreenTimeout = 0.0f;                     //hold on this screen
                 return(0);
             case PLT_Exit:
 #if PS_VERBOSE_LEVEL >= 1
-                dbgMessagef("\nExit Homeworld.");
+                dbgMessagef("Exit Homeworld.");
 #endif
                 break;
             case PLT_GameOn:
 #if PS_VERBOSE_LEVEL >= 1
-                dbgMessagef("\nStart playing Homeworld.");
+                dbgMessagef("Start playing Homeworld.");
 #endif
                 break;
         }
@@ -283,7 +283,7 @@ void psBaseRegionDraw(regionhandle region)
 udword psBaseRegionProcess(regionhandle region, sdword ID, udword event, udword data)
 {
 #if PS_VERBOSE_LEVEL >= 1
-    dbgMessagef("\nBase region 0x%x, ID %d, event 0x%x", region, ID, event);
+    dbgMessagef("Base region 0x%x, ID %d, event 0x%x", region, ID, event);
 #endif
     switch (event)
     {
@@ -589,7 +589,7 @@ void psRenderTaskFunction(void)
             if (!strcmp(psTimeoutName, "exit"))
             {
 #if PS_VERBOSE_LEVEL >= 1
-                dbgMessagef("\nTimed out: Exit Homeworld");
+                dbgMessagef("Timed out: Exit Homeworld");
 #endif
                 for (reg = psBaseRegion->child->child; reg != NULL; reg = reg->next)
                 {                                           //find the link that does the same thing
@@ -607,7 +607,7 @@ void psRenderTaskFunction(void)
             else if (!strcmp(psTimeoutName, "gameon"))
             {
 #if PS_VERBOSE_LEVEL >= 1
-                dbgMessagef("\nTimed out: Starting Homeworld");
+                dbgMessagef("Timed out: Starting Homeworld");
 #endif
                 for (reg = psBaseRegion->child->child; reg != NULL; reg = reg->next)
                 {                                           //find the link that does the same thing
@@ -633,7 +633,7 @@ void psRenderTaskFunction(void)
                     if (!strcmp(psTimeoutName, ((pluglink *)reg)->linkName))
                     {
 #if PS_VERBOSE_LEVEL >= 1
-                        dbgMessagef("\nTimed out: Link to '%s'", ((pluglink *)reg)->linkName);
+                        dbgMessagef("Timed out: Link to '%s'", ((pluglink *)reg)->linkName);
 #endif
                         if (psFadeImage.imageQuilt == NULL)
                         {                                  //if there is to be a cross-fade

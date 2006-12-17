@@ -507,7 +507,7 @@ void missileShoot(Ship *ship,Gun *gun,SpaceObjRotImpTarg *target)
         if (!collCheckLineOfSight(ship, (Ship*)target, &gunPosition, &gunDirection))
         {
 #if GUN_VERBOSE_LEVEL > 1
-            dbgMessage("\nline-of-sight obscured, not shooting");
+            dbgMessage("line-of-sight obscured, not shooting");
 #endif
             return;
         }
@@ -870,7 +870,7 @@ void gunShoot(Ship *ship, Gun *gun, SpaceObjRotImpTarg *target)
             if (!collCheckLineOfSight(ship, (Ship*)target, &gunPosition, &gunDirection))
             {
 #if GUN_VERBOSE_LEVEL > 1
-                dbgMessage("\nline-of-sight obscured, not shooting");
+                dbgMessage("line-of-sight obscured, not shooting");
 #endif
                 return;
             }
@@ -882,12 +882,12 @@ void gunShoot(Ship *ship, Gun *gun, SpaceObjRotImpTarg *target)
     if (!ship->shipisattacking)
     {
         ship->shipisattacking = TRUE;
-        //dbgMessagef("\nShip %i is attacking (gun)", ship->shipID.shipNumber);
+        //dbgMessagef("Ship %i is attacking (gun)", ship->shipID.shipNumber);
     }
     if ((ship->attackvars.myWingmanIs)&&(!ship->attackvars.myWingmanIs->shipisattacking))
     {
         ship->attackvars.myWingmanIs->shipisattacking = TRUE;
-        //dbgMessagef("\nShip %i is attacking (gun - wingman)", ship->attackvars.myWingmanIs->shipID.shipNumber);
+        //dbgMessagef("Ship %i is attacking (gun - wingman)", ship->attackvars.myWingmanIs->shipID.shipNumber);
     }
     if(ship->specialFlags2 & SPECIAL_2_ShipInGravwell)
     {
@@ -1253,7 +1253,7 @@ bool gunShootGunsAtTarget(Ship *ship,SpaceObjRotImpTarg *target,real32 range,vec
 
     if (gunInfo == NULL)
     {
-//        dbgMessagef("\nWARNING: no guns on ship %s %s, tried to shoot",ShipRaceToStr(ship->shiprace),ShipTypeToStr(ship->shiptype));
+//        dbgMessagef("WARNING: no guns on ship %s %s, tried to shoot",ShipRaceToStr(ship->shiprace),ShipTypeToStr(ship->shiptype));
         return shotguns;
     }
 

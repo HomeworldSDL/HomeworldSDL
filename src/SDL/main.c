@@ -1976,7 +1976,7 @@ void mainRestoreRender(void)
 ----------------------------------------------------------------------------*/
 bool mainShutdownRenderer(void)
 {
-    dbgMessage("\nmainShutdownRenderer");
+    dbgMessage("mainShutdownRenderer");
 
     mainCloseRender();
     if (RGLtype == GLtype)
@@ -2001,7 +2001,7 @@ bool mainShutdownRenderer(void)
 ----------------------------------------------------------------------------*/
 bool mainLoadGL(char* data)
 {
-    dbgMessage("\n-- load OpenGL --");
+    dbgMessage("-- load OpenGL --");
 
     if (bMustFree)
     {
@@ -2040,7 +2040,7 @@ bool mainLoadGL(char* data)
 ----------------------------------------------------------------------------*/
 bool mainLoadParticularRGL(char* device, char* data)
 {
-    dbgMessagef("\n-- load rGL device %s --", device);
+    dbgMessagef("-- load rGL device %s --", device);
 
     if (bMustFree)
     {
@@ -2096,7 +2096,7 @@ bool mainReinitRGL(void)
 //    glCapStartup();
 //    lodScaleFactor = (RGLtype == SWtype) ? LOD_ScaleFactor : 1.0f;
 //    alodStartup();
-    dbgMessage("\n-- reinit rGL --");
+    dbgMessage("-- reinit rGL --");
 
     reinitInProgress = FALSE;
 
@@ -2186,7 +2186,7 @@ sdword HandleEvent (const SDL_Event* pEvent)
     dbgAssertOrIgnore(pEvent);
 
 #if MAIN_PRINT_MESSAGES
-    dbgMessagef("\nEvent type = 0x%hhx", pEvent->type);
+    dbgMessagef("Event type = 0x%hhx", pEvent->type);
 #endif //MAIN_PRINT_MESSAGES
 
     switch (pEvent->type)
@@ -2267,7 +2267,7 @@ sdword HandleEvent (const SDL_Event* pEvent)
                     }
                     else
                     {
-                        dbgMessagef("\nprevious GL RENDERER: %s", glGetString(GL_RENDERER));
+                        dbgMessagef("previous GL RENDERER: %s", glGetString(GL_RENDERER));
                         if (keyIsHit(SHIFTKEY) && keyIsHit(CONTROLKEY))
                         {
                             mainCloseRender();
@@ -2290,7 +2290,7 @@ sdword HandleEvent (const SDL_Event* pEvent)
                             lodScaleFactor = 1.0f;
                         }
                         alodStartup();
-                        dbgMessagef("\nnew GL RENDERER: %s", glGetString(GL_RENDERER));
+                        dbgMessagef("new GL RENDERER: %s", glGetString(GL_RENDERER));
                     }
                     break;
                 default:

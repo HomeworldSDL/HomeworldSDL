@@ -522,7 +522,7 @@ SelectCommand *convertNetSelectionToSelectCommand(NetSelection *netselection,boo
     if (someShipsDied)
     {
         if (someShipsOrderedByWrongPlayer)
-            dbgMessage("\nWARNING: Some ships ordered by wrong player!");
+            dbgMessage("WARNING: Some ships ordered by wrong player!");
         clRemoveShipFromSelection(selectCommand,NULL);  // remove NULL ship pointers from selectCommand
     }
 
@@ -594,7 +594,7 @@ AttackCommand *convertNetAttackSelectionToAttackCommand(NetAttackSelection *neta
 
     if (someTargetsDied)
     {
-        dbgMessage("\nWARNING: Some targets died before order executed");
+        dbgMessage("WARNING: Some targets died before order executed");
         clRemoveTargetFromSelection(attackCommand,NULL);  // remove NULL ship pointers from attackCommand
     }
 
@@ -886,7 +886,7 @@ void clSendFormation(CommandLayer *comlayer,SelectCommand *selectcom,TypeOfForma
     if (selectcom->numShips < ABSOLUTE_MIN_SHIPS_IN_FORMATION)
     {
 #ifdef DEBUG_FORMATIONS
-        dbgMessage("\nNot enough ships to do a formation");
+        dbgMessage("Not enough ships to do a formation");
 #endif
         return;
     }
@@ -1511,7 +1511,7 @@ void clProcessSyncPacket(CommandLayer *comlayer,ubyte *packet,udword sizeofPacke
     if (!playPackets)
     if (((HWPacketHeader *)packet)->frame != receivedPacketNumber)
     {
-        dbgMessagef("\nExpected pkt %d got %d",receivedPacketNumber,((HWPacketHeader *)packet)->frame);
+        dbgMessagef("Expected pkt %d got %d",receivedPacketNumber,((HWPacketHeader *)packet)->frame);
         pktSyncErr++;
     }
     receivedPacketNumber++;
@@ -1958,7 +1958,7 @@ WaitPacketStatus clWaitSyncPacket(CommandLayer *comlayer)
 
             if (((HWPacketHeader *)packet)->frame < receivedPacketNumber)
             {
-                dbgMessagef("\nDiscarding packet %d already got it",((HWPacketHeader *)packet)->frame);
+                dbgMessagef("Discarding packet %d already got it",((HWPacketHeader *)packet)->frame);
                 goto getnextpacket;
             }
 
@@ -2461,7 +2461,7 @@ void netCheck(void)
     if (unknownPackets != printedUnknownPackets)
     {
         printedUnknownPackets = unknownPackets;
-        dbgMessagef("\nUnknown packets %d",printedUnknownPackets);
+        dbgMessagef("Unknown packets %d",printedUnknownPackets);
     }
 
     rsyncpkts = queueNumberEntries(ProcessSyncPktQ);
@@ -2482,13 +2482,13 @@ void netCheck(void)
     if (syncoverruns != rsyncoverruns)
     {
         syncoverruns = rsyncoverruns;
-        dbgMessagef("\nSync Q Overruns: %d",syncoverruns);
+        dbgMessagef("Sync Q Overruns: %d",syncoverruns);
     }
 
     if (cmdoverruns != rcmdoverruns)
     {
         cmdoverruns = rcmdoverruns;
-        dbgMessagef("\nCmd Q Overruns: %d",cmdoverruns);
+        dbgMessagef("Cmd Q Overruns: %d",cmdoverruns);
     }
 }
 

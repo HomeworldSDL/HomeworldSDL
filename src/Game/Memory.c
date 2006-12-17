@@ -202,7 +202,7 @@ sdword memStartup(void *heapStart, sdword heapSize, memgrowcallback grow)
     dbgAssertOrIgnore(heapStart != NULL && heapSize > MEM_BlockSize * 20);
 
 #if MEM_VERBOSE_LEVEL >= 2
-    dbgMessagef("\nMemory module init.  Heap = 0x%x, Length = %d", heapStart, heapSize);
+    dbgMessagef("Memory module init.  Heap = 0x%x, Length = %d", heapStart, heapSize);
 #endif //MEM_VERBOSE_LEVEL >= 2
 
     memMainPool.wholePool = heapStart;
@@ -216,7 +216,7 @@ sdword memStartup(void *heapStart, sdword heapSize, memgrowcallback grow)
 
     if (!fileMakeDestinationDirectory(memNonVolatileFileName))
     {
-        dbgMessage("\nError creating the path for mem.nv.");
+        dbgMessage("Error creating the path for mem.nv.");
         memNonVolatileFile = NULL;
     }
     else
@@ -224,7 +224,7 @@ sdword memStartup(void *heapStart, sdword heapSize, memgrowcallback grow)
         memNonVolatileFile = fopen(memNonVolatileFileName, "wt");
         if (memNonVolatileFile == NULL)
         {
-            dbgMessage("\nError creating log file mem.nv.");
+            dbgMessage("Error creating log file mem.nv.");
         }
     }
 #endif
@@ -505,7 +505,7 @@ sdword memNameSetFunction(memcookie *cookie, char *name)
     cookie->name[MEM_NameLength - 1] = 0;
 
 #if MEM_VERBOSE_LEVEL >= 3
-    dbgMessagef("\nmemNameSet: Cookie at 0x%x named to '%s'", cookie, cookie->name);
+    dbgMessagef("memNameSet: Cookie at 0x%x named to '%s'", cookie, cookie->name);
 #endif
     return(OKAY);
 }
@@ -519,7 +519,7 @@ sdword mbhNameSetFunction(mbhcookie *cookie, char *name)
     cookie->name[MBH_NameLength - 1] = 0;
 
 #if MEM_VERBOSE_LEVEL >= 3
-    dbgMessagef("\nmemNameSet: SBH cookie at 0x%x named to '%s'", cookie, cookie->name);
+    dbgMessagef("memNameSet: SBH cookie at 0x%x named to '%s'", cookie, cookie->name);
 #endif
     return(OKAY);
 }
@@ -550,7 +550,7 @@ sdword memNameSetLongFunction(memcookie *cookie, char *name)
     cookie->name[MEM_NameLength - 1] = 0;
 
 #if MEM_VERBOSE_LEVEL >= 3
-    dbgMessagef("\nmemNameSetLong: Cookie at 0x%x named to '%s'", cookie, cookie->name);
+    dbgMessagef("memNameSetLong: Cookie at 0x%x named to '%s'", cookie, cookie->name);
 #endif
     return(OKAY);
 }
@@ -653,7 +653,7 @@ void *memAllocFunctionSBH(sdword length, udword flags)
     if (length > memSmallBlockHeapMaxSize)
     {                                                       //if block to be allocated is too big
 #if MEM_VERBOSE_LEVEL >= 2
-        dbgMessagef("\nmemAllocFunctionSBH: cannot allocate block of size %d (> %d)", length, memSmallBlockHeapMaxSize);
+        dbgMessagef("memAllocFunctionSBH: cannot allocate block of size %d (> %d)", length, memSmallBlockHeapMaxSize);
 #endif
         return(NULL);
     }
@@ -679,7 +679,7 @@ void *memAllocFunctionSBH(sdword length, udword flags)
             {                                               //if the heap is empty
                 nNewCookies = heap->nBlocks * MEM_GrowFactor;
 #if MEM_VERBOSE_LEVEL >= 1
-                dbgMessagef("\nmemAllocFunctionSBH: heap of blocks size %d all used up.  All %d blocks.\nAllocating another %d", heap->blockSize, heap->nBlocks, nNewCookies);
+                dbgMessagef("memAllocFunctionSBH: heap of blocks size %d all used up.  All %d blocks.\nAllocating another %d", heap->blockSize, heap->nBlocks, nNewCookies);
 #endif
 #if MEM_SMALLBLOCK_STATS
                 heap->nOverflowedAllocations++;
@@ -789,7 +789,7 @@ void *memAllocFunctionANV(sdword length, udword flags, mempool *pool)
                     }
 */
 #if MEM_VERBOSE_LEVEL >= 3
-                    dbgMessagef("\nmemAllocFunctionANV: found free block of size %d at 0x%x, made new cookie at 0x%x of size %d",
+                    dbgMessagef("memAllocFunctionANV: found free block of size %d at 0x%x, made new cookie at 0x%x of size %d",
                                memBlocksToBytes(cookie->blocksNext),
                                cookie, newCookie,
                                memBlocksToBytes(newCookie->blocksNext));
@@ -798,7 +798,7 @@ void *memAllocFunctionANV(sdword length, udword flags, mempool *pool)
                 else
                 {                                           //else block is just the right length
 #if MEM_VERBOSE_LEVEL >= 3
-                    dbgMessagef("\nmemAllocFunctionANV: found free same-size block at 0x%x", cookie);
+                    dbgMessagef("memAllocFunctionANV: found free same-size block at 0x%x", cookie);
 #endif
                     newCookie = cookie;
                 }
@@ -833,13 +833,13 @@ void *memAllocFunctionANV(sdword length, udword flags, mempool *pool)
                 break;                                          //found free cookie, stop searching
             }
 #if MEM_VERBOSE_LEVEL >= 4
-            dbgMessagef("\nmemAllocFunctionANV: skipping free block of size %d at 0x%x - too small", memBlocksToBytes(cookie->blocksNext), cookie);
+            dbgMessagef("memAllocFunctionANV: skipping free block of size %d at 0x%x - too small", memBlocksToBytes(cookie->blocksNext), cookie);
 #endif
         }
         else
         {
 #if MEM_VERBOSE_LEVEL >= 4
-            dbgMessagef("\nmemAllocFunctionANV: skipping block of size %d at 0x%x - already allocated", memBlocksToBytes(cookie->blocksNext), cookie);
+            dbgMessagef("memAllocFunctionANV: skipping block of size %d at 0x%x - already allocated", memBlocksToBytes(cookie->blocksNext), cookie);
 #endif
         }
         if (cookie->blocksPrevious == -1)
@@ -856,13 +856,13 @@ void *memAllocFunctionANV(sdword length, udword flags, mempool *pool)
         if (length > MSB_SizeMax)
         {                                                   //if we were searching from the beginning
 #if MEM_VERBOSE_LEVEL >= 1
-            dbgMessagef("\nmemAllocFunctionANV: failed to find block of length %d", length);
+            dbgMessagef("memAllocFunctionANV: failed to find block of length %d", length);
 #endif
         }
         else if (mslSizeBytes(length) != pool->lastFree && (mslSizeBytes(length) != pool->lastFree))
         {                                                   //set this block to last free block and try again
 #if MEM_VERBOSE_LEVEL >= 1
-            dbgMessagef("\nmemAllocFunctionANV: failed to find MSL block of length %d", length);
+            dbgMessagef("memAllocFunctionANV: failed to find MSL block of length %d", length);
 #endif
             //mslSizeBytes(length) = (memcookie *)((ubyte *)pool->lastFree - sizeof(memcookie));
             mslSizeBytes(length) = pool->lastFree;
@@ -927,7 +927,7 @@ void *memAllocFunctionA(sdword length, udword flags, mempool *pool)
     dbgAssertOrIgnore(length > 0/* && length < pool->heapLength*/);        //verify size is reasonable
 
 #if MEM_VERBOSE_LEVEL >= 2
-    dbgMessagef("\nmemAllocFunctionA: allocating %d bytes for '%s'", length, name);
+    dbgMessagef("memAllocFunctionA: allocating %d bytes for '%s'", length, name);
 #endif
 
     //small block heap allocation scheme, if applicable
@@ -1003,7 +1003,7 @@ void *memAllocFunctionA(sdword length, udword flags, mempool *pool)
                     }
 */
 #if MEM_VERBOSE_LEVEL >= 3
-                    dbgMessagef("\nmemAllocFunctionA: found free block of size %d at 0x%x, made new cookie at 0x%x of size %d",
+                    dbgMessagef("memAllocFunctionA: found free block of size %d at 0x%x, made new cookie at 0x%x of size %d",
                                memBlocksToBytes(cookie->blocksNext),
                                cookie, newCookie,
                                memBlocksToBytes(newCookie->blocksNext));
@@ -1013,7 +1013,7 @@ void *memAllocFunctionA(sdword length, udword flags, mempool *pool)
                 else
                 {
 #if MEM_VERBOSE_LEVEL >= 3
-                    dbgMessagef("\nmemAllocFunctionA: found free same-size block at 0x%x", cookie);
+                    dbgMessagef("memAllocFunctionA: found free same-size block at 0x%x", cookie);
 #endif
                 }
                 memNameSet(cookie, name);                   //set new name
@@ -1048,13 +1048,13 @@ noMoreFree:;
                 break;
             }
 #if MEM_VERBOSE_LEVEL >= 4
-            dbgMessagef("\nmemAllocFunctionA: skipping free block of size %d at 0x%x - too small", memBlocksToBytes(cookie->blocksNext), cookie);
+            dbgMessagef("memAllocFunctionA: skipping free block of size %d at 0x%x - too small", memBlocksToBytes(cookie->blocksNext), cookie);
 #endif
         }
         else
         {
 #if MEM_VERBOSE_LEVEL >= 4
-            dbgMessagef("\nmemAllocFunctionA: skipping block of size %d at 0x%x - already allocated", memBlocksToBytes(cookie->blocksNext), cookie);
+            dbgMessagef("memAllocFunctionA: skipping block of size %d at 0x%x - already allocated", memBlocksToBytes(cookie->blocksNext), cookie);
 #endif
         }
 
@@ -1068,13 +1068,13 @@ noMoreFree:;
         if (length > MSB_SizeMax)
         {                                                   //if we were searching from the beginning
 #if MEM_VERBOSE_LEVEL >= 1
-            dbgMessagef("\nmemAllocFunctionA: failed to find block of length %d", length);
+            dbgMessagef("memAllocFunctionA: failed to find block of length %d", length);
 #endif
         }
         else if (msbSizeBytes(length) != pool->firstFree && (msbSizeBytes(length) != pool->firstFree))
         {                                                   //failure may be due to small-block fragmentation
 #if MEM_VERBOSE_LEVEL >= 1
-            dbgMessagef("\nmemAllocFunctionA: failed to find MSB block of length %d", length);
+            dbgMessagef("memAllocFunctionA: failed to find MSB block of length %d", length);
 #endif
             msbSizeBytes(length) = pool->firstFree;            //set this block to first free block
 #if MEM_USE_NAMES
@@ -1134,7 +1134,7 @@ mempool *memNewGrowthPoolAlloc(sdword length)
     length = max(length, MGH_MinGrowthSize);                //larger of growth size and cookie
     length += sizeof(memcookie) * 4;                        //a cookie high and low: that should be a heap large enough for everyone
 #if MEM_VERBOSE_LEVEL
-    dbgMessagef("\nAllocating growth heap %d of size %d", memNumberGrowthPools, length);
+    dbgMessagef("Allocating growth heap %d of size %d", memNumberGrowthPools, length);
 #endif
     newPool = memGrowthAllocate(length);
     if (newPool == NULL)
@@ -1336,7 +1336,7 @@ void memVolatilityLogFuntion(memcookie *cookie)
             }
         }
     }
-    dbgMessagef("\nCannot log volatility of '%s': stats array length %d full", cookie->name, MEM_NumberVolatileStats);
+    dbgMessagef("Cannot log volatility of '%s': stats array length %d full", cookie->name, MEM_NumberVolatileStats);
 }
 int CB_DECL memVolatilitySort(const void *p0, const void *p1)
 {
@@ -1403,7 +1403,7 @@ void memFreeNV(memcookie *cookie, memcookie *nextCookie, mempool *pool)
         if (!bitTest(nextCookie->flags, MBF_AllocatedNext)) //if next block also free
         {
 #if MEM_VERBOSE_LEVEL >= 3
-            dbgMessagef("\nmemFree: combined blocks 0x%x(%d) and 0x%x(%d) into one.", cookie, memBlocksToBytes(cookie->blocksNext), nextCookie, memBlocksToBytes(nextCookie->blocksNext));
+            dbgMessagef("memFree: combined blocks 0x%x(%d) and 0x%x(%d) into one.", cookie, memBlocksToBytes(cookie->blocksNext), nextCookie, memBlocksToBytes(nextCookie->blocksNext));
 #endif
                                                             //combine sizes
             stillNextCookie = nextCookie + nextCookie->blocksNext + 1;
@@ -1439,7 +1439,7 @@ void memFreeNV(memcookie *cookie, memcookie *nextCookie, mempool *pool)
         if (!bitTest(previousCookie->flags, MBF_AllocatedNext)) //if previous block also free
         {
 #if MEM_VERBOSE_LEVEL >= 3
-            dbgMessagef("\nmemFree: combined blocks 0x%x(%d) and 0x%x(%d) into one.", previousCookie, memBlocksToBytes(previousCookie->blocksNext), cookie, memBlocksToBytes(cookie->blocksNext));
+            dbgMessagef("memFree: combined blocks 0x%x(%d) and 0x%x(%d) into one.", previousCookie, memBlocksToBytes(previousCookie->blocksNext), cookie, memBlocksToBytes(cookie->blocksNext));
 #endif
                                                             //combine sizes
             nextCookie = cookie + cookie->blocksNext + 1;
@@ -1549,7 +1549,7 @@ foundPool:;
         if (!bitTest(cookie->flags, MBF_NonVolatile))
         {
 #if MEM_DEBUG_NV
-            dbgMessagef("\nmemFree: cookie 0x%x ('%s') is NON-volatile.", cookie, cookie->name);
+            dbgMessagef("memFree: cookie 0x%x ('%s') is NON-volatile.", cookie, cookie->name);
 #endif
 #if MEM_FILE_NV
             if (memNonVolatileFile)
@@ -1564,7 +1564,7 @@ foundPool:;
         if (bitTest(cookie->flags, MBF_NonVolatile))
         {                                                   //and supposedto be non-volatile
 #if MEM_DEBUG_NV
-            dbgMessagef("\nmemFree: cookie 0x%x ('%s') is volatile.", cookie, cookie->name);
+            dbgMessagef("memFree: cookie 0x%x ('%s') is volatile.", cookie, cookie->name);
 #endif
 #if MEM_FILE_NV
             if (memNonVolatileFile)
@@ -1582,7 +1582,7 @@ foundPool:;
 #endif
 
 #if MEM_VERBOSE_LEVEL >= 2
-    dbgMessagef("\nmemFree: freed %d bytes of '%s' from 0x%x", memBlocksToBytes(cookie->blocksNext), cookie->name, cookie);
+    dbgMessagef("memFree: freed %d bytes of '%s' from 0x%x", memBlocksToBytes(cookie->blocksNext), cookie->name, cookie);
 #endif
 
     bitClear(cookie->flags, MBF_AllocatedNext);             //say it's not active
@@ -1609,7 +1609,7 @@ foundPool:;
         if (!bitTest(nextCookie->flags, MBF_AllocatedNext)) //if next block also free
         {
 #if MEM_VERBOSE_LEVEL >= 3
-            dbgMessagef("\nmemFree: combined blocks 0x%x(%d) and 0x%x(%d) into one.", cookie, memBlocksToBytes(cookie->blocksNext), nextCookie, memBlocksToBytes(nextCookie->blocksNext));
+            dbgMessagef("memFree: combined blocks 0x%x(%d) and 0x%x(%d) into one.", cookie, memBlocksToBytes(cookie->blocksNext), nextCookie, memBlocksToBytes(nextCookie->blocksNext));
 #endif
                                                             //combine sizes
             stillNextCookie = nextCookie + nextCookie->blocksNext + 1;
@@ -1644,7 +1644,7 @@ foundPool:;
         if (!bitTest(previousCookie->flags, MBF_AllocatedNext)) //if previous block also free
         {
 #if MEM_VERBOSE_LEVEL >= 3
-            dbgMessagef("\nmemFree: combined blocks 0x%x(%d) and 0x%x(%d) into one.", previousCookie, memBlocksToBytes(previousCookie->blocksNext), cookie, memBlocksToBytes(cookie->blocksNext));
+            dbgMessagef("memFree: combined blocks 0x%x(%d) and 0x%x(%d) into one.", previousCookie, memBlocksToBytes(previousCookie->blocksNext), cookie, memBlocksToBytes(cookie->blocksNext));
 #endif
                                                             //combine sizes
             nextCookie = cookie + cookie->blocksNext + 1;
@@ -1942,24 +1942,24 @@ void memAnalysisCreateForPool(mempool *pool, FILE *fpAnalysis, FILE *fpMap)
     mbhcookie *bCookie;
 #endif
 
-    dbgMessagef("\nHeap length     = %d", pool->heapLength);
+    dbgMessagef("Heap length     = %d", pool->heapLength);
     fprintf(fpAnalysis, "Heap length     = %d\n", pool->heapLength);
     largeBlock = memLargestBlockGet(pool);
-    dbgMessagef("\nLargest block   = %d (%.2f%%)", largeBlock, (real32)largeBlock / (real32)pool->heapLength * 100.0f);
+    dbgMessagef("Largest block   = %d (%.2f%%)", largeBlock, (real32)largeBlock / (real32)pool->heapLength * 100.0f);
     fprintf(fpAnalysis, "Largest block   = %d (%.2f%%)\n", largeBlock, (real32)largeBlock / (real32)pool->heapLength * 100.0f);
     usedMem = memUsedMemGet(pool);
-    dbgMessagef("\nUsed memory     = %d (%.2f%%)", usedMem, (real32)usedMem / (real32)pool->heapLength * 100.0f);
+    dbgMessagef("Used memory     = %d (%.2f%%)", usedMem, (real32)usedMem / (real32)pool->heapLength * 100.0f);
     fprintf(fpAnalysis, "Used memory     = %d (%.2f%%)\n", usedMem, (real32)usedMem / (real32)pool->heapLength * 100.0f);
     freeMem = memFreeMemGet(pool);
-    dbgMessagef("\nFree memory     = %d (%.2f%%)", freeMem, (real32)freeMem / (real32)pool->heapLength * 100.0f);
+    dbgMessagef("Free memory     = %d (%.2f%%)", freeMem, (real32)freeMem / (real32)pool->heapLength * 100.0f);
     fprintf(fpAnalysis, "Free memory     = %d (%.2f%%)\n", freeMem, (real32)freeMem / (real32)pool->heapLength * 100.0f);
     cookieMem = memCookiesLengthGet(pool, &nCookies);
-    dbgMessagef("\nCookie memory   = %d (%.2f%%), %d cookies", cookieMem, (real32)cookieMem / (real32)pool->heapLength * 100.0f, nCookies);
+    dbgMessagef("Cookie memory   = %d (%.2f%%), %d cookies", cookieMem, (real32)cookieMem / (real32)pool->heapLength * 100.0f, nCookies);
     fprintf(fpAnalysis, "Cookie memory   = %d (%.2f%%), %d cookies\n", cookieMem, (real32)cookieMem / (real32)pool->heapLength * 100.0f, nCookies);
     wastedMem = pool->heapLength - (usedMem + freeMem + cookieMem);
     if (wastedMem > 0)
     {
-        dbgMessagef("\nLost memory     = %d (%.2f%%)", wastedMem, (real32)wastedMem / (real32)pool->heapLength * 100.0f);
+        dbgMessagef("Lost memory     = %d (%.2f%%)", wastedMem, (real32)wastedMem / (real32)pool->heapLength * 100.0f);
         fprintf(fpAnalysis, "Lost memory     = %d (%.2f%%)\n", wastedMem, (real32)wastedMem / (real32)pool->heapLength * 100.0f);
     }
 
@@ -2118,7 +2118,7 @@ void memAnalysisCreate(void)
     FILE *fpAnalysis, *fpMap;
     sdword index;
 
-    dbgMessagef("\nSaving detailed analysis to '%s' and map to '%s'", MEM_ANALYSIS_FILE_NAME, MEM_MAP_FILE_NAME);
+    dbgMessagef("Saving detailed analysis to '%s' and map to '%s'", MEM_ANALYSIS_FILE_NAME, MEM_MAP_FILE_NAME);
 
     filepathPtr = filePathPrepend(MEM_ANALYSIS_FILE_NAME, FF_UserSettingsPath);
     strcpy(memAnalysisFileNameFull, filepathPtr);

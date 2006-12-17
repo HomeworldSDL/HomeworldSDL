@@ -288,7 +288,7 @@ void partFreeAlternates(void)
     if (alternateIndex != 0)
     {
 #if PART_Verbose > 0
-        dbgMessagef("\nfreeing %d particle alternates", alternateIndex);
+        dbgMessagef("freeing %d particle alternates", alternateIndex);
 #endif
         for (i = 0; i < alternateIndex; i++)
         {
@@ -1422,7 +1422,7 @@ udword partRenderMeshSystem(udword n, particle *p, udword flags, trhandle tex, m
 #if MESH_VERBOSE_LEVEL
             if (mesh->nPolygonObjects > 1)
             {                                               //display warning if there are more than 1 object in the mesh
-                dbgMessagef("\nThere are %d polygon objects in mesh ('%s').", mesh->nPolygonObjects,
+                dbgMessagef("There are %d polygon objects in mesh ('%s').", mesh->nPolygonObjects,
 #if MESH_RETAIN_FILENAMES
                     mesh->fileName);
 #else
@@ -1844,7 +1844,7 @@ void partRenderSystem(psysPtr psys)
 
     default:
 #if PART_Verbose > 0
-        dbgMessagef("\nunknown particle system type: %d", pp->t);
+        dbgMessagef("unknown particle system type: %d", pp->t);
 #endif
         return;
     }
@@ -2279,7 +2279,7 @@ bool8 partUpdateSystem(psysPtr psys, real32 dt, vector* velvec)
 
     if (p == NULL)
     {
-        dbgMessage("\n!! invalid particle system !!");
+        dbgMessage("!! invalid particle system !!");
         return TRUE;
     }
 
@@ -2866,13 +2866,13 @@ psysPtr partCreationHelper(particleType t, udword n, udword dist)
         break;
     default:
 #if PART_Verbose > 0
-        dbgMessagef("\nunknown particle system type %d", (udword)t);
+        dbgMessagef("unknown particle system type %d", (udword)t);
 #endif
         p = NULL;
     }
 #if khent
 #if PART_Verbose > 1
-    dbgMessagef("\nsystem required %dK", len >> 10);
+    dbgMessagef("system required %dK", len >> 10);
 #endif
 #endif
     return p;
@@ -2963,7 +2963,7 @@ void partModifyTumble(psysPtr psys, vector* t)
     }
     else
     {
-        dbgMessage("\nparticle system is not of type PART_MESH");
+        dbgMessage("particle system is not of type PART_MESH");
     }
 }
 
@@ -2981,7 +2981,7 @@ void partModifyDeltaTumble(psysPtr psys, vector* dt)
     }
     else
     {
-        dbgMessage("\nparticle system is not of type PART_MESH");
+        dbgMessage("particle system is not of type PART_MESH");
     }
 }
 
@@ -3004,7 +3004,7 @@ void partModifyDrag(psysPtr psys, real32 d)
     if (fabs((real64)d) < 0.0001)
         d = 0.0f;
     if (d < 0.0f || d > 1.0f)
-        dbgMessagef("\ndrag coefficient out of range (%f)", d);
+        dbgMessagef("drag coefficient out of range (%f)", d);
     else
         p->drag = d;
 }
@@ -3068,7 +3068,7 @@ void partModifyTexture(psysPtr psys, trhandle tex,
     }
     else
     {
-        dbgMessage("\nparticle system is not of type PART_BILLBOARD");
+        dbgMessage("particle system is not of type PART_BILLBOARD");
     }
 }
 
@@ -3231,7 +3231,7 @@ void partModifyAnimation(psysPtr psys, void* tstruct)
     }
     else
     {
-        dbgMessage("\npartModifyAnimation needs a PART_BILLBOARD or PART_MESH");
+        dbgMessage("partModifyAnimation needs a PART_BILLBOARD or PART_MESH");
     }
 }
 
@@ -3248,7 +3248,7 @@ void partModifyMorph(psysPtr psys, void* mstruct)
     }
     else
     {
-        dbgMessage("\npartModifyMorph needs a PART_MESH");
+        dbgMessage("partModifyMorph needs a PART_MESH");
     }
 }
 
@@ -3265,7 +3265,7 @@ void partModifyFramerate(psysPtr psys, real32 rate)
     }
     else
     {
-        dbgMessage("\npartModifyFramerate needs a PART_BILLBOARD");
+        dbgMessage("partModifyFramerate needs a PART_BILLBOARD");
     }
 }
 
@@ -3282,7 +3282,7 @@ void partModifyMorphFramerate(psysPtr psys, real32 meshRate)
     }
     else
     {
-        dbgMessage("\npartModifyMorphFramerate needs a PART_MESH");
+        dbgMessage("partModifyMorphFramerate needs a PART_MESH");
     }
 }
 
@@ -3295,7 +3295,7 @@ void partModifyBillPosition(psysPtr psys, vector* pos)
     }
     else
     {
-        dbgMessage("\npartModifyBillPosition needs a PART_BILLBOARD");
+        dbgMessage("partModifyBillPosition needs a PART_BILLBOARD");
     }
 }
 
@@ -3340,7 +3340,7 @@ void partModifyLoopFlag(psysPtr psys, bool8 willLoop)
     }
     else
     {
-        dbgMessage("\npartModifyLoopFlag needs a PART_BILLBOARD");
+        dbgMessage("partModifyLoopFlag needs a PART_BILLBOARD");
     }
 }
 
@@ -3634,7 +3634,7 @@ void partSetSlices(udword s)
 {
     if (s < 2 || s > 64)
     {
-        dbgMessage("\ninsane number of slices, using default of 8");
+        dbgMessage("insane number of slices, using default of 8");
         pat.slices = 8;
     }
     else

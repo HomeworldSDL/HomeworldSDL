@@ -975,7 +975,7 @@ void pingAttackPingsCreate(blob *superBlob)
 #if PNG_VERBOSE_LEVEL >= 2
                         else
                         {
-                            dbgMessagef("\nShip 0x%x tossed out of ping with %d ships.", commandShip, nTotalShips);
+                            dbgMessagef("Ship 0x%x tossed out of ping with %d ships.", commandShip, nTotalShips);
                         }
 #endif
 shipAlreadyInSelection:;

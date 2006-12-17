@@ -33,7 +33,7 @@ filehandle bmpFileOpen(bmpheader *header, char *fileName)
         if (header->ident != BMP_Ident)
         {
 #if BMP_VERBOSE_LEVEL >= 1
-            dbgMessagef("\nBMP file '%s' has invalid ident of 0x%d", fileName, header->ident);
+            dbgMessagef("BMP file '%s' has invalid ident of 0x%d", fileName, header->ident);
 #endif
 
             fileClose(handle);
@@ -42,7 +42,7 @@ filehandle bmpFileOpen(bmpheader *header, char *fileName)
         if (header->biBitCount != 24 || header->biCompression != 0)
         {
 #if BMP_VERBOSE_LEVEL >= 1
-            dbgMessagef("\nBMP file '%s' has invalid format", fileName);
+            dbgMessagef("BMP file '%s' has invalid format", fileName);
 #endif
 
             fileClose(handle);

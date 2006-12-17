@@ -789,7 +789,7 @@ void battleSpeechText(sdword eventNum, char **texts)
         ;
     }
     index = batRandom() % nTexts;
-    dbgMessagef("\nBattle chatter event %d - '%s'.", eventNum, texts[index]);
+    dbgMessagef("Battle chatter event %d - '%s'.", eventNum, texts[index]);
 }
 #endif
 
@@ -853,21 +853,21 @@ sdword battleChatterAttempt(sdword linkTo, sdword event, Ship *ship, sdword vari
 #if BATTLE_VERBOSE_LEVEL >= 2
             else
             {
-                dbgMessagef("\n...Event %d above distance curve.", chat->eventNumber);
+                dbgMessagef("...Event %d above distance curve.", chat->eventNumber);
             }
 #endif
         }
 #if BATTLE_VERBOSE_LEVEL >= 2
         else
         {
-            dbgMessagef("\n...Event %d too far away.", chat->eventNumber);
+            dbgMessagef("...Event %d too far away.", chat->eventNumber);
         }
 #endif
     }
 #if BATTLE_VERBOSE_LEVEL >= 2
     else
     {
-        dbgMessagef("\n...Event %d failed randomWeight check.", chat->eventNumber);
+        dbgMessagef("...Event %d failed randomWeight check.", chat->eventNumber);
     }
 #endif
     return(ERROR);
@@ -912,7 +912,7 @@ bool battleCanChatterAtThisTime(sdword event, Ship *ship)
     if ((double)batRandom() >= result * (double)BAT_RandomTotal)
     {
 #if BATTLE_VERBOSE_LEVEL >= 2
-        dbgMessagef("\n...Event %d above wavelength curve.", chat->eventNumber);
+        dbgMessagef("...Event %d above wavelength curve.", chat->eventNumber);
 #endif
         return(FALSE);
     }
@@ -937,7 +937,7 @@ bool battleCanChatterAtThisTime(sdword event, Ship *ship)
             if ((double)batRandom() >= result * (double)BAT_RandomTotal)
             {
 #if BATTLE_VERBOSE_LEVEL >= 2
-                dbgMessagef("\n...Event %d above proximity curve.", chat->eventNumber);
+                dbgMessagef("...Event %d above proximity curve.", chat->eventNumber);
 #endif
                 return(FALSE);
             }
@@ -991,7 +991,7 @@ sdword battleChatterFleetAttempt(sdword linkTo, sdword event, sdword variable, v
     if ((double)batRandom() >= result * (double)BAT_RandomTotal)
     {
 #if BATTLE_VERBOSE_LEVEL >= 2
-        dbgMessagef("\n...Event %d above wavelength curve.", chat->eventNumber);
+        dbgMessagef("...Event %d above wavelength curve.", chat->eventNumber);
 #endif
         return(ERROR);
     }
@@ -1010,7 +1010,7 @@ readyToPlay:
             if ((double)batRandom() >= result * (double)BAT_RandomTotal)
             {
 #if BATTLE_VERBOSE_LEVEL >= 2
-                dbgMessagef("\n...Event %d above proximity curve.", chat->eventNumber);
+                dbgMessagef("...Event %d above proximity curve.", chat->eventNumber);
 #endif
                 return(ERROR);
             }
@@ -1040,7 +1040,7 @@ readyToPlay:
 #if BATTLE_VERBOSE_LEVEL >= 2
     else
     {
-        dbgMessagef("\n...Event %d failed randomWeight check.", chat->eventNumber);
+        dbgMessagef("...Event %d failed randomWeight check.", chat->eventNumber);
     }
 #endif
     return(ERROR);
@@ -1322,7 +1322,7 @@ void battlePingEvaluate(void *voidPing, battleping *battlePing)
     udword chances, saveChance[4];
 
 #if BATTLE_VERBOSE_LEVEL >= 3
-    dbgMessagef("\nEvaluating ping 0x%x", battlePing);
+    dbgMessagef("Evaluating ping 0x%x", battlePing);
 #endif
     //do a per-ship scan for some events
     for (index = 0; index < battlePing->nShips; index++)
@@ -1353,7 +1353,7 @@ void battlePingEvaluate(void *voidPing, battleping *battlePing)
 #if BATTLE_VERBOSE_LEVEL >= 2
 //            else
 //            {
-//                dbgMessagef("\n...No flightman");
+//                dbgMessagef("...No flightman");
 //            }
 #endif
             //leaders may make snaps at their wingmen

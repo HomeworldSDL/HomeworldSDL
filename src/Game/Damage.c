@@ -228,7 +228,7 @@ void dmgAddEffectToShip(Ship* ship, Effect* effect, sdword level)
         {
 #ifdef khent
 #if DMG_VERBOSE >= 1
-            dbgMessagef("\n-- damage effect level %d --", level);
+            dbgMessagef("-- damage effect level %d --", level);
 #endif //DMG_VERBOSE
 #endif //khent
             ship->showingDamage[level][i] = effect;

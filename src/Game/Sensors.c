@@ -2270,7 +2270,7 @@ void smZoomUpdate(real32 current, real32 range, bool bUpdateCamera)
 void smSensorsCloseForGood(void)
 {
 #if SM_VERBOSE_LEVEL >= 1
-    dbgMessage("\nsmSensorsCloseForGood");
+    dbgMessage("smSensorsCloseForGood");
 #endif
     if (tutorial)
     {
@@ -3527,7 +3527,7 @@ altCase:
                                 }
                                 smCullAndFocusSelecting();
 #if SM_VERBOSE_LEVEL >= 2
-                                dbgMessagef("\nHot key group %d selected and focused upon.", ID - ZEROKEY);
+                                dbgMessagef("Hot key group %d selected and focused upon.", ID - ZEROKEY);
 #endif
                             }
                         }
@@ -3583,7 +3583,7 @@ altCase:
             break;
 #if SM_VERBOSE_LEVEL >= 1
         default:
-            dbgMessagef("\nsmViewportProcess: unimplemented or unsupported event 0x%x. ID 0x%x, data 0x%x", event, ID, data);
+            dbgMessagef("smViewportProcess: unimplemented or unsupported event 0x%x. ID 0x%x, data 0x%x", event, ID, data);
 #endif
     }
     return(0);
@@ -3599,7 +3599,7 @@ altCase:
 void smDispatch(char *name, featom *atom)
 {
 #if SM_VERBOSE_LEVEL >= 1
-    dbgMessage("\nsmDispatch");
+    dbgMessage("smDispatch");
 #endif
     if (smHoldRight == smNULL)
     {                                                       //cannot bring up MM with RMB held down
@@ -3662,7 +3662,7 @@ void smHyperspace(char *name, featom *atom)
     regionhandle region = (regionhandle)atom->region;
 
 #if SM_VERBOSE_LEVEL >= 1
-    dbgMessage("\nsmHyperspace");
+    dbgMessage("smHyperspace");
 #endif
 
     if (FEFIRSTCALL(atom))
@@ -3771,7 +3771,7 @@ void smTacticalOverlayToggle(char *name, featom *atom)
 {
     smTacticalOverlay ^= TRUE;
 #if SM_VERBOSE_LEVEL >= 1
-    dbgMessagef("\nsmTacticalOverlayToggle: %s", smTacticalOverlay ? "ON" : "OFF");
+    dbgMessagef("smTacticalOverlayToggle: %s", smTacticalOverlay ? "ON" : "OFF");
 #endif
 }
 
@@ -3779,7 +3779,7 @@ void smNonResourceToggle(char *name, featom *atom)
 {
     smNonResources ^= TRUE;
 #if SM_VERBOSE_LEVEL >= 1
-    dbgMessagef("\nsmNonResourceToggle: %s", smNonResources ? "ON" : "OFF");
+    dbgMessagef("smNonResourceToggle: %s", smNonResources ? "ON" : "OFF");
 #endif
 }
 
@@ -3787,7 +3787,7 @@ void smResourceToggle(char *name, featom *atom)
 {
     smResources ^= TRUE;
 #if SM_VERBOSE_LEVEL >= 1
-    dbgMessagef("\nsmResourceToggle: %s", smResources ? "ON" : "OFF");
+    dbgMessagef("smResourceToggle: %s", smResources ? "ON" : "OFF");
 #endif
 }
 
@@ -3807,7 +3807,7 @@ void smSensorsClose(char *name, featom *atom)
         return;
     }
 #if SM_VERBOSE_LEVEL >= 1
-    dbgMessage("\nsmSensorsClose");
+    dbgMessage("smSensorsClose");
 #endif
 
 
@@ -3885,7 +3885,7 @@ void smSensorsSkip(char *name, featom *atom)
 void smCancelDispatch(char *name, featom *atom)
 {
 #if SM_VERBOSE_LEVEL >= 1
-    dbgMessage("\nsmCancelDispatch");
+    dbgMessage("smCancelDispatch");
 #endif
     feToggleButtonSet(SM_TacticalOverlay, FALSE);
     piePointSpecMode = SPM_Idle;
@@ -3900,7 +3900,7 @@ void smToggleSensorsLevel(char *name, featom *atom)
         universe.curPlayerPtr->sensorLevel = 0;
     }
 #if SM_VERBOSE_LEVEL >= 1
-    dbgMessagef("\nsmToggleSensorsLevel: level set to %d", universe.curPlayerPtr->sensorLevel);
+    dbgMessagef("smToggleSensorsLevel: level set to %d", universe.curPlayerPtr->sensorLevel);
 #endif
 }
 #endif //SM_TOGGLE_SENSORLEVEL

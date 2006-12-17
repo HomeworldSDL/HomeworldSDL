@@ -404,7 +404,7 @@ void physUpdateObjPosVel(SpaceObj *obj,real32 phystimeelapsed)
                         }
                     }
     #ifdef TEST_FUEL
-                    dbgMessagef("\nFuel %f for Ship %x",((Ship *)obj)->fuel,(udword)obj);
+                    dbgMessagef("Fuel %f for Ship %x",((Ship *)obj)->fuel,(udword)obj);
     #endif
 
                     if (((Ship *)obj)->playerowner == universe.curPlayerPtr)
@@ -468,7 +468,7 @@ void physUpdateObjPosVel(SpaceObj *obj,real32 phystimeelapsed)
                         }
                     }
     #ifdef TEST_FUEL
-                        dbgMessage("\nRan out of fuel. Slowing ship down");
+                        dbgMessage("Ran out of fuel. Slowing ship down");
     #endif
                 }
 #endif
@@ -731,7 +731,7 @@ void physUpdateObjPosVelShip(Ship *obj,real32 phystimeelapsed)
                         }
                     }
     #ifdef TEST_FUEL
-                    dbgMessagef("\nFuel %f for Ship %x",((Ship *)obj)->fuel,(udword)obj);
+                    dbgMessagef("Fuel %f for Ship %x",((Ship *)obj)->fuel,(udword)obj);
     #endif
 
                     if (((Ship *)obj)->playerowner == universe.curPlayerPtr)
@@ -795,7 +795,7 @@ void physUpdateObjPosVelShip(Ship *obj,real32 phystimeelapsed)
                         }
                     }
     #ifdef TEST_FUEL
-                        dbgMessage("\nRan out of fuel. Slowing ship down");
+                        dbgMessage("Ran out of fuel. Slowing ship down");
     #endif
                 }
 #endif

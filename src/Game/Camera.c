@@ -459,7 +459,7 @@ void cameraRayCast(vector *dest, Camera *cam, sdword screenX, sdword screenY, sd
         {
             FOVMult -= 0.01f;
         }
-        dbgMessagef("\n *X = %.3f", FOVMult);
+        dbgMessagef(" *X = %.3f", FOVMult);
     }
     if (keyIsHit(FIVEKEY))
     {
@@ -471,7 +471,7 @@ void cameraRayCast(vector *dest, Camera *cam, sdword screenX, sdword screenY, sd
         {
             FOVMult += 0.01f;
         }
-        dbgMessagef("\n *X = %.3f", FOVMult);
+        dbgMessagef(" *X = %.3f", FOVMult);
     }
     */
 
@@ -506,8 +506,8 @@ void cameraRayCast(vector *dest, Camera *cam, sdword screenX, sdword screenY, sd
     {
         if (oldMouseX != screenX || oldMouseY != screenY)
         {
-            //dbgMessagef("\nAng = %.3f/%.3f Dec = %.3f/%.3f Vec = %.3f %.3f %.3f", RAD_TO_DEG(cam->angle), RAD_TO_DEG(angle), RAD_TO_DEG(cam->declination), RAD_TO_DEG(declination), dest->x, dest->y, dest->z);
-            dbgMessagef("\nAng = %.3f Dec = %.3f Vec = %.3f %.3f %.3f", RAD_TO_DEG(cam->angle), RAD_TO_DEG(cam->declination), dest->x, dest->y, dest->z);
+            //dbgMessagef("Ang = %.3f/%.3f Dec = %.3f/%.3f Vec = %.3f %.3f %.3f", RAD_TO_DEG(cam->angle), RAD_TO_DEG(angle), RAD_TO_DEG(cam->declination), RAD_TO_DEG(declination), dest->x, dest->y, dest->z);
+            dbgMessagef("Ang = %.3f Dec = %.3f Vec = %.3f %.3f %.3f", RAD_TO_DEG(cam->angle), RAD_TO_DEG(cam->declination), dest->x, dest->y, dest->z);
             oldMouseX = screenX;
             oldMouseY = screenY;
         }

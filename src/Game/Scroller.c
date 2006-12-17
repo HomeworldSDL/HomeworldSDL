@@ -86,7 +86,7 @@ void scArrow(rectangle *r, uword width, uword thickness, color c, sc_direction d
         primLineThick2(x, y, x - width, y + w2, thickness, c);
         break;
     default:
-        dbgMessagef("\nscArrow ? %d", dir);
+        dbgMessagef("scArrow ? %d", dir);
     }
 }
 
@@ -98,7 +98,7 @@ void scAdjustThumbwheel(scrollbarhandle shandle, uword up, uword maxDisp, uword 
         udword height, top, thumbHeight;
         real32 divSize;
 #if SCROLL_DEBUG
-        dbgMessagef("\nadjustThumbwheel %d %d %d", up, maxDisp, max);
+        dbgMessagef("adjustThumbwheel %d %d %d", up, maxDisp, max);
 #endif
         if (max <= maxDisp)
         {
@@ -119,7 +119,7 @@ void scAdjustThumbwheel(scrollbarhandle shandle, uword up, uword maxDisp, uword 
             shandle->thumb.y1 = shandle->thumbreg.y0 + top + thumbHeight;
         }
 #if SCROLL_DEBUG
-        dbgMessagef("\ntop = %d", top);
+        dbgMessagef("top = %d", top);
 #endif
         shandle->divSize = divSize;
     }
@@ -128,7 +128,7 @@ void scAdjustThumbwheel(scrollbarhandle shandle, uword up, uword maxDisp, uword 
         udword width, left, thumbWidth;
         real32 divSize;
 #if SCROLL_DEBUG
-        dbgMessagef("\nadjustThumbwheel %d %d %d", up, maxDisp, max);
+        dbgMessagef("adjustThumbwheel %d %d %d", up, maxDisp, max);
 #endif
         thumbWidth = (uword)(widthOf(shandle->thumbreg));
         thumbWidth = (uword)((real32)thumbWidth * (real32)maxDisp / (real32)max);
@@ -139,7 +139,7 @@ void scAdjustThumbwheel(scrollbarhandle shandle, uword up, uword maxDisp, uword 
         shandle->thumb.x0 = shandle->thumbreg.x0 + left;
         shandle->thumb.x1 = shandle->thumbreg.x0 + left + thumbWidth;
 #if SCROLL_DEBUG
-        dbgMessagef("\nleft = %d", left);
+        dbgMessagef("left = %d", left);
 #endif
         shandle->divSize = divSize;
     }

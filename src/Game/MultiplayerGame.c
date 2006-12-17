@@ -3700,7 +3700,7 @@ bool PingAllServers(udword num, void *data, struct BabyCallBack *baby)
     }
 
     ConvertUChar6ToAddress(servertoping->addressstore,&addr);
-    dbgMessage("\nSending ping");
+    dbgMessage("Sending ping");
     titanSendPing(&addr,4);
 
     pingservernum++;

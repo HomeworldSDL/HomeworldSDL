@@ -401,7 +401,7 @@ sdword cratesRewardPlayer(Derelict *crate, Player *player)
         prob = frandombetween(0.0f, 1.0f);
         if(prob < CRATES_GetMotherShipCarrierIfDontHaveOne)
         {
-            dbgMessagef("\nGot a mothership/carrier from crate!");
+            dbgMessagef("Got a mothership/carrier from crate!");
             //give player mothership
             ship = univAddShip(Carrier,player->race,&crate->posinfo.position,player,0);
             gameStatsAddShip(ship,player->playerIndex);
@@ -434,7 +434,7 @@ sdword cratesRewardPlayer(Derelict *crate, Player *player)
             SelectCommand *selectcom = memAlloc(sizeofselect,"selectform",0);
             selectcom->numShips = shipnumber;
 
-            dbgMessagef("\nGot a %d ship type  from crate!",shiptype);
+            dbgMessagef("Got a %d ship type  from crate!",shiptype);
 
             //could go over unit cap limit here...
             for (i=0;i<shipnumber;i++)
@@ -464,7 +464,7 @@ sdword cratesRewardPlayer(Derelict *crate, Player *player)
     {
         //give research
         uqword mask;
-        dbgMessagef("\nGot research from crate");
+        dbgMessagef("Got research from crate");
 
         for(i=0;i<NumTechnologies;i++)
         {
@@ -480,7 +480,7 @@ sdword cratesRewardPlayer(Derelict *crate, Player *player)
 
 
     rus = randombetween(CRATES_MIN_RUS_GIVEN,CRATES_MAX_RUS_GIVEN);
-    dbgMessagef("\nGot %d RU's from crate.",rus);
+    dbgMessagef("Got %d RU's from crate.",rus);
 
     player->resourceUnits += rus;
     universe.gameStats.playerStats[player->playerIndex].totalResourceUnitsCollected += rus;

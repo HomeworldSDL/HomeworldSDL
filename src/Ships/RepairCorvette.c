@@ -259,7 +259,7 @@ bool RepairCorvetteSpecialOps(Ship *ship, void *custom)
         spec->target = (Ship *)targets->TargetPtr[0];
         spec->repairState = REPAIR_APPROACH;
 #ifdef DEBUG_REPAIR
-        dbgMessagef("\nAquired Target for Repair.");
+        dbgMessagef("Aquired Target for Repair.");
 #endif
 
         break;
@@ -278,7 +278,7 @@ bool RepairCorvetteSpecialOps(Ship *ship, void *custom)
             //ship is stopped, so it is ready
             spec->repairState = REPAIR_NEARING;
 #ifdef DEBUG_REPAIR
-        dbgMessagef("\nREPAIR_APPROACH: %f distance reached",repaircorvettestatics->approachAndWaitDistance);
+        dbgMessagef("REPAIR_APPROACH: %f distance reached",repaircorvettestatics->approachAndWaitDistance);
 #endif
 
             break;
@@ -293,7 +293,7 @@ bool RepairCorvetteSpecialOps(Ship *ship, void *custom)
                 //move in
                 spec->repairState = REPAIR_NEARING;
 #ifdef DEBUG_REPAIR
-dbgMessagef("\nREPAIR_APPROACH: %f distance reached",repaircorvettestatics->approachAndWaitDistance);
+dbgMessagef("REPAIR_APPROACH: %f distance reached",repaircorvettestatics->approachAndWaitDistance);
 #endif
 
             }
@@ -317,7 +317,7 @@ dbgMessagef("\nREPAIR_APPROACH: %f distance reached",repaircorvettestatics->appr
             spec->repairState = REPAIR_STOP_ROTATION;
 
 #ifdef DEBUG_REPAIR
-        dbgMessagef("\nREPAIR_NEARING: %f distance reached, proceeding to stop rotation.",repaircorvettestatics->rotationStopDistance);
+        dbgMessagef("REPAIR_NEARING: %f distance reached, proceeding to stop rotation.",repaircorvettestatics->rotationStopDistance);
 #endif
             break;
         }
@@ -347,7 +347,7 @@ dbgMessagef("\nREPAIR_APPROACH: %f distance reached",repaircorvettestatics->appr
             //rotation below special threshold,
             //set it to our rotation threshold (should be pretty dang close
 #ifdef DEBUG_REPAIR
-        dbgMessagef("\nREPAIR_STOP_ROTATION, rotation stopped, now getting into dock pos.");
+        dbgMessagef("REPAIR_STOP_ROTATION, rotation stopped, now getting into dock pos.");
 #endif
             spec->repairState = REPAIR_DOCK_1;
         }
@@ -366,7 +366,7 @@ dbgMessagef("\nREPAIR_APPROACH: %f distance reached",repaircorvettestatics->appr
         if(trackflag)
         {
 #ifdef DEBUG_REPAIR
-    dbgMessagef("\nREPAIR_DOCK_1: Docking Position 1 reached.");
+    dbgMessagef("REPAIR_DOCK_1: Docking Position 1 reached.");
 #endif
             spec->repairState = REPAIR_DOCK_2;
             //set docking ship var to avoid collisions...
@@ -387,7 +387,7 @@ dbgMessagef("\nREPAIR_APPROACH: %f distance reached",repaircorvettestatics->appr
         if(trackflag)
         {
 #ifdef DEBUG_REPAIR
-            dbgMessagef("\nREPAIR_DOCK_2: Docking Position 2 reached.");
+            dbgMessagef("REPAIR_DOCK_2: Docking Position 2 reached.");
 #endif
 			ship->soundevent.specialHandle = soundEvent(ship, Ship_RepairLoop);
             spec->repairState = REPAIR_REPAIR;

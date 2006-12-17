@@ -816,7 +816,7 @@ void FocusOnNewEntry(CameraCommand *cameracommand,CameraStackEntry *entry)
     }
 
 #ifdef gshaw
-    dbgMessagef("\nStack Depth: %d",cameracommand->camerastack.num);
+    dbgMessagef("Stack Depth: %d",cameracommand->camerastack.num);
 #endif
 }
 
@@ -1068,7 +1068,7 @@ void ccFocusGeneral(CameraCommand *cameracommand,FocusCommand *focuscom, bool bC
     if (SelectionsAreEquivalent((SelectCommand *)&oldentry->focus,(SelectCommand *)focuscom))
     {
 #if DEBUG_CAMERACOMMAND
-        dbgMessage("\nAutozooming in...");
+        dbgMessage("Autozooming in...");
 #endif
         cameracommand->zoomInCloseAsPossible = TRUE;
         cameracommand->action = CAMACTION_FOCUS;

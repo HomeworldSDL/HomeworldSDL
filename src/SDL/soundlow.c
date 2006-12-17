@@ -228,11 +228,11 @@ sdword soundinit(bool mode)
 	aspec.userdata = NULL;
 
 	if (SDL_OpenAudio(&aspec, NULL) < 0) {
-	    dbgMessagef("Couldn't open audio: %s\n", SDL_GetError());
+	    dbgMessagef("Couldn't open audio: %s", SDL_GetError());
 	    result = SOUND_ERR;
 	}
 	else if (isoundmixerinit(&aspec) != SOUND_OK) {
-	    dbgMessagef("Unable to init mixer subsystem\n");
+	    dbgMessagef("Unable to init mixer subsystem");
 	    result = SOUND_ERR;
 	} else {
 	    soundinited = TRUE;
@@ -371,7 +371,7 @@ sword soundloadpatch(char *pszFileName, sword looped)
 
 	if ((ret = WaveLoadFile(pszFileName, &newpatch->cbSize, &samples, &newpatch->pwfx, &newpatch->pbdata)) != 0)
 	{
-		dbgMessagef("\nWaveLoadFile failed %d", ret);
+		dbgMessagef("WaveLoadFile failed %d", ret);
 		dbgMessagef("  File: %s", pszFileName);
 	}
 	else
@@ -382,26 +382,26 @@ sword soundloadpatch(char *pszFileName, sword looped)
 	
 	if ((ret = WaveOpenFile(pszFileName, &hmmioIn, &newpatch->pwfx, &ckInRiff)) != 0)
 	{
-		dbgMessagef("\nWaveOpenFile failed %d", ret);
+		dbgMessagef("WaveOpenFile failed %d", ret);
 		goto ERROR_LOADING;
 	}
 
 	if (WaveStartDataRead(&hmmioIn, &ckIn, &ckInRiff) != 0)
 	{
-		dbgMessagef("\nWaveStartDataRead failed");
+		dbgMessagef("WaveStartDataRead failed");
 		goto ERROR_LOADING;
 	}
 
 	// Ok, size of wave data is in ckIn, allocate that buffer.
 	if ((newpatch->pbdata = (BYTE *)GlobalAlloc(GMEM_FIXED, ckIn.cksize)) == NULL)
 	{
-		dbgMessagef("\nglobalalloc failed");
+		dbgMessagef("globalalloc failed");
 		goto ERROR_LOADING;
 	}
 
 	if (WaveReadFile(hmmioIn, ckIn.cksize, newpatch->pbdata, &ckIn, &cbActualRead) != 0)
 	{
-		dbgMessagef("\nWaveReadFile failed");
+		dbgMessagef("WaveReadFile failed");
 		goto ERROR_LOADING;
 	}
 	
@@ -636,7 +636,7 @@ sdword soundplayFPRVL(sword patnum, real32 freq, sword pan, sdword priority, swo
 	if (DS_OK != hr)
 	{
         SNDreleasebuffer(pchan);
-		dbgMessagef("\nDirectSound error, could not play patch %d",(udword)patnum);
+		dbgMessagef("DirectSound error, could not play patch %d",(udword)patnum);
 	}
 	else
 #endif
@@ -1456,7 +1456,7 @@ sdword splayFPRVL(void *bankaddress, sdword patnum, real32 *eq, real32 freq, swo
 	if (DS_OK != hr)
 	{
         SNDreleasebuffer(pchan);
-		dbgMessagef("\nDirectSound error, could not play patch %d",(udword)patnum);
+		dbgMessagef("DirectSound error, could not play patch %d",(udword)patnum);
 	}
 	else
 #endif

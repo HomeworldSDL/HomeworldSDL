@@ -286,7 +286,7 @@ void MineLayerAttackRun(Ship *ship,SpaceObjRotImpTarg *target,AttackSideStep *at
         case ATTACK_INIT:
         case APPROACH:
 #ifdef DEBUG_ATTACK
-            dbgMessagef("\nShip %x MINELAYER_ATTACK_APPROACH",(udword)ship);
+            dbgMessagef("Ship %x MINELAYER_ATTACK_APPROACH",(udword)ship);
 #endif
             aishipGetTrajectory(ship,target,&trajectory);
             aishipFlyToShipAvoidingObjs(ship,target,AISHIP_PointInDirectionFlying,0.0f);
@@ -344,7 +344,7 @@ void MineLayerAttackRun(Ship *ship,SpaceObjRotImpTarg *target,AttackSideStep *at
 			}
         case BREAKPOSITION:
 #ifdef DEBUG_ATTACK
-        dbgMessagef("\nShip %x BREAKPOSITION",(udword)ship);
+        dbgMessagef("Ship %x BREAKPOSITION",(udword)ship);
 #endif
 
             aishipGetTrajectory(ship,target,&trajectory);
@@ -357,7 +357,7 @@ void MineLayerAttackRun(Ship *ship,SpaceObjRotImpTarg *target,AttackSideStep *at
 
         case BREAK1:
 #ifdef DEBUG_ATTACK
-    dbgMessagef("\nShip %x BREAK1",(udword)ship);
+    dbgMessagef("Ship %x BREAK1",(udword)ship);
 #endif
 
             aishipGetTrajectory(ship,target,&trajectory);
@@ -380,7 +380,7 @@ void MineLayerAttackRun(Ship *ship,SpaceObjRotImpTarg *target,AttackSideStep *at
             break;
         case KILL:
 #ifdef DEBUG_ATTACK
-    dbgMessagef("\nShip %x KILL",(udword)ship);
+    dbgMessagef("Ship %x KILL",(udword)ship);
 #endif
             aishipGetTrajectory(ship,target,&trajectory);
             range = RangeToTarget(ship,target,&trajectory);
@@ -409,7 +409,7 @@ void MineLayerAttackRun(Ship *ship,SpaceObjRotImpTarg *target,AttackSideStep *at
                 SetAIVecHeading(ship,target,&trajectory);
 
 #ifdef DEBUG_ATTACK
-    dbgMessagef("\nShip %x KILL: Adjust for Break2 Sphereizing Godliness Maneuver :)",(udword)ship);
+    dbgMessagef("Ship %x KILL: Adjust for Break2 Sphereizing Godliness Maneuver :)",(udword)ship);
 #endif
 
             }
@@ -418,7 +418,7 @@ void MineLayerAttackRun(Ship *ship,SpaceObjRotImpTarg *target,AttackSideStep *at
             break;
         case BREAK2:
 #ifdef DEBUG_ATTACK
-    dbgMessagef("\nShip %x BREAK2",(udword)ship);
+    dbgMessagef("Ship %x BREAK2",(udword)ship);
 #endif
 
             aishipGetTrajectory(ship,target,&trajectory);

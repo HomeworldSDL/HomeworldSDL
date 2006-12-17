@@ -677,7 +677,7 @@ void GenericInterceptorAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdi
 
         case STATE_APPROACH:
 #ifdef DEBUG_AIATTACK
-            dbgMessagef("\nShip %x STATE_APPROACH",(udword)ship);
+            dbgMessagef("Ship %x STATE_APPROACH",(udword)ship);
 #endif
             aishipGetTrajectory(ship,target,&trajectory);
             aishipFlyToShipAvoidingObjs(ship,target,AISHIP_PointInDirectionFlying + AISHIP_CarTurn,0.0f);
@@ -692,7 +692,7 @@ void GenericInterceptorAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdi
 
         case STATE_TURNAROUND:
 #ifdef DEBUG_AIATTACK
-            dbgMessagef("\nShip %x STATE_TURNAROUND",(udword)ship);
+            dbgMessagef("Ship %x STATE_TURNAROUND",(udword)ship);
 #endif
             if (flightmanExecute(ship))
             {
@@ -703,7 +703,7 @@ void GenericInterceptorAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdi
 
         case STATE_REAPPROACH:
 #ifdef DEBUG_AIATTACK
-            dbgMessagef("\nShip %x STATE_REAPPROACH",(udword)ship);
+            dbgMessagef("Ship %x STATE_REAPPROACH",(udword)ship);
 #endif
             aishipGetTrajectory(ship,target,&trajectory);
             aishipFlyToShipAvoidingObjs(ship,target,AISHIP_PointInDirectionFlying,0.0f);
@@ -718,12 +718,12 @@ void GenericInterceptorAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdi
 
         case STATE_WHIPSTRAFE1:
 #ifdef DEBUG_AIATTACK
-            dbgMessagef("\nShip %x STATE_WHIPSTRAFE1",(udword)ship);
+            dbgMessagef("Ship %x STATE_WHIPSTRAFE1",(udword)ship);
 #endif
 //            dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_WHIP_STRAFE);
             if (ship->flightman != FLIGHTMAN_WHIP_STRAFE)
             {
-                dbgMessagef("\nWarning: Whip strafe cancelled");
+                dbgMessagef("Warning: Whip strafe cancelled");
                 ship->aistateattack = STATE_INIT;
                 break;
             }
@@ -759,12 +759,12 @@ void GenericInterceptorAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdi
 
         case STATE_WHIPSTRAFE2:
 #ifdef DEBUG_AIATTACK
-            dbgMessagef("\nShip %x STATE_WHIPSTRAFE2",(udword)ship);
+            dbgMessagef("Ship %x STATE_WHIPSTRAFE2",(udword)ship);
 #endif
 //            dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_WHIP_STRAFE);
             if (ship->flightman != FLIGHTMAN_WHIP_STRAFE)
             {
-                dbgMessagef("\nWarning: Whip strafe cancelled");
+                dbgMessagef("Warning: Whip strafe cancelled");
                 ship->aistateattack = STATE_INIT;
                 break;
             }
@@ -790,7 +790,7 @@ void GenericInterceptorAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdi
 
         case STATE_KILL:
 #ifdef DEBUG_AIATTACK
-            dbgMessagef("\nShip %x STATE_KILL",(udword)ship);
+            dbgMessagef("Ship %x STATE_KILL",(udword)ship);
 #endif
             if (shipstaticinfo->gunStaticInfo)
                 aishipGetTrajectoryWithVelPrediction(ship,target,shipstaticinfo->gunStaticInfo->gunstatics[0].bulletspeed,&trajectory);
@@ -962,7 +962,7 @@ void GenericInterceptorAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdi
 
         case STATE_BREAK:
 #ifdef DEBUG_AIATTACK
-            dbgMessagef("\nShip %x STATE_BREAK",(udword)ship);
+            dbgMessagef("Ship %x STATE_BREAK",(udword)ship);
 #endif
             aishipGetTrajectory(ship,target,&trajectory);
             dist = vecMagnitudeSquared(trajectory);

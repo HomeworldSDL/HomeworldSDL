@@ -529,7 +529,7 @@ void demStateLoad(void)
 #endif //DEM_RANDOM_VERIFY
     if (demChecksumError)
     {
-        dbgMessagef("\n%s", demChecksumString);
+        dbgMessagef("%s", demChecksumString);
     }
 #endif // DEM_CHECKSUM
     size = sizeof(demokey) * state.nKeys;

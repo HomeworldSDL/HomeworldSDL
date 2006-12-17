@@ -316,7 +316,7 @@ sdword soundEventPlay(void *object, sdword event, Gun *gun)
 				break;
 			
 			case Derelict_Flag:
-				dbgMessagef("SoundEventPlay: Derelict event %d\n", event);
+				dbgMessagef("SoundEventPlay: Derelict event %d", event);
 				break;
 	
 			case Exp_Flag:
@@ -325,7 +325,7 @@ sdword soundEventPlay(void *object, sdword event, Gun *gun)
 					// don't want to play this sound from the manager screens
 					break;
 				}
-				dbgMessagef("SoundEventPlay: Explosion event %d\n", event);
+				dbgMessagef("SoundEventPlay: Explosion event %d", event);
 				effect = (Effect *)object;
 				dist = (real32)fsqrt(effect->cameraDistanceSquared);
 				if (SEinrange((event - Exp_Flag) + EXPLOSION_OFFSET, dist))
@@ -364,7 +364,7 @@ sdword soundEventPlay(void *object, sdword event, Gun *gun)
 				break;
 			
 			default:
-				dbgMessagef("\nsoundEventPlaySound: %d event", event);
+				dbgMessagef("soundEventPlaySound: %d event", event);
 				break;
 		}
 	}
@@ -435,7 +435,7 @@ sdword soundEffectType(Effect *effect, sdword event, sdword objecttype)
                 break;
 
             default:
-                dbgMessagef("\nShould use soundEffect for %d event instead.", event);
+                dbgMessagef("Should use soundEffect for %d event instead.", event);
                 break;
         }
     }

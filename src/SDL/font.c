@@ -283,7 +283,7 @@ void glfontRecreate(fontheader* newHeader)
                 page->width  = 256;
                 page->height = 256;
                 data = glfontPackOntoPage(newHeader, glfont, page, &usedHeight, &lastChar);
-                dbgMessagef("\nglfontCreate: page %d [%d.%d]",
+                dbgMessagef("glfontCreate: page %d [%d.%d]",
                             glfont->numPages, page->width, page->height);
 
                 //update starting character index
@@ -337,7 +337,7 @@ void glfontRecreate(fontheader* newHeader)
                 {
                     page->height = bitHighExponent2(usedHeight);
                 }
-                dbgMessagef("\nglfontCreate: page %d [%d.%d]",
+                dbgMessagef("glfontCreate: page %d [%d.%d]",
                             glfont->numPages, page->width, page->height);
 
                 //create the GL font page
@@ -446,7 +446,7 @@ glfontheader* glfontCreate(fontheader* header, fontheader* newHeader)
                 page->width  = 256;
                 page->height = 256;
                 data = glfontPackOntoPage(newHeader, glfont, page, &usedHeight, &lastChar);
-                dbgMessagef("\nglfontCreate: page %d [%d.%d]",
+                dbgMessagef("glfontCreate: page %d [%d.%d]",
                             glfont->numPages, page->width, page->height);
 
                 //update starting character index
@@ -503,7 +503,7 @@ glfontheader* glfontCreate(fontheader* header, fontheader* newHeader)
                 {
                     page->height = bitHighExponent2(usedHeight);
                 }
-                dbgMessagef("\nglfontCreate: page %d [%d.%d]",
+                dbgMessagef("glfontCreate: page %d [%d.%d]",
                             glfont->numPages, page->width, page->height);
 
                 //create the GL font page
@@ -831,7 +831,7 @@ fontheader *fontLoad(char *fileName)
 #endif
 
 #if FONT_VERBOSE_LEVEL >= 2
-    dbgMessagef("\nfontLoad: loaded %d bytes and %d characters from file '%s'", length, header->nCharacters, fileName);
+    dbgMessagef("fontLoad: loaded %d bytes and %d characters from file '%s'", length, header->nCharacters, fileName);
 #endif
 
     header->image += (udword)fileHeader;                    //fix-up image pointer
@@ -944,7 +944,7 @@ void fontDiscardGL(fontheader* font)
 void fontDiscard(fonthandle font)
 {
 #if FONT_VERBOSE_LEVEL >= 2
-    dbgMessagef("\nfontDiscard: Freeing font 0x%x", font);
+    dbgMessagef("fontDiscard: Freeing font 0x%x", font);
 #endif
     fontDiscardGL(frFontRegistry[font].fontdat);
     if (frFontRegistry[font].fontdat->glFont != NULL)

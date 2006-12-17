@@ -417,7 +417,7 @@ void attackSideStep(Ship *ship,SpaceObjRotImpTarg *target,AttackSideStep *attack
     {
         case SIDESTEP_APPROACH:
 #ifdef DEBUG_ATTACK
-            dbgMessagef("\nShip %x SIDESTEP_APPROACH",(udword)ship);
+            dbgMessagef("Ship %x SIDESTEP_APPROACH",(udword)ship);
 #endif
             aishipGetTrajectory(ship,target,&trajectory);
             aishipFlyToShipAvoidingObjs(ship,target,AISHIP_PointInDirectionFlying + AISHIP_CarTurn,0.0f);
@@ -462,7 +462,7 @@ void attackSideStep(Ship *ship,SpaceObjRotImpTarg *target,AttackSideStep *attack
 
         case SIDESTEP_APPROACHREPOSITION:
 #ifdef DEBUG_ATTACK
-            dbgMessagef("\nShip %x SIDESTEP_APPROACHREPOSITION",(udword)ship);
+            dbgMessagef("Ship %x SIDESTEP_APPROACHREPOSITION",(udword)ship);
 #endif
             aishipGetTrajectory(ship,target,&trajectory);
 
@@ -497,7 +497,7 @@ void attackSideStep(Ship *ship,SpaceObjRotImpTarg *target,AttackSideStep *attack
 
         case SIDESTEP_KILL:
 #ifdef DEBUG_ATTACK
-            dbgMessagef("\nShip %x SIDESTEP_KILL",(udword)ship);
+            dbgMessagef("Ship %x SIDESTEP_KILL",(udword)ship);
 #endif
 
             aishipGetTrajectory(ship,target,&trajectory);
@@ -551,7 +551,7 @@ void attackSideStep(Ship *ship,SpaceObjRotImpTarg *target,AttackSideStep *attack
 
         case SIDESTEP_REPOSITION:
 #ifdef DEBUG_ATTACK
-            dbgMessagef("\nShip %x SIDESTEP_REPOSITION",(udword)ship);
+            dbgMessagef("Ship %x SIDESTEP_REPOSITION",(udword)ship);
 #endif
             aishipGetTrajectory(ship,target,&trajectory);
 

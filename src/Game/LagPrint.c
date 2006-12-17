@@ -59,7 +59,7 @@ void lagSlowInternetIcon(void)
 
     #ifndef HW_BUILD_FOR_DISTRIBUTION
     #ifdef ddunlop
-    dbgMessagef("Total Internet Lag :%f\n",lagCalculatedTotal);
+    dbgMessagef("Total Internet Lag :%f",lagCalculatedTotal);
     #endif
     #endif
 

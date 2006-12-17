@@ -80,7 +80,7 @@ void DefaultShipAttack(Ship *ship,SpaceObjRotImpTarg *target, real32 maxdist)
 
     if (ship->gunInfo == NULL)
     {
-        dbgMessagef("\nWARNING: %s tried to attack but has no guns",ShipTypeToStr(ship->shiptype));
+        dbgMessagef("WARNING: %s tried to attack but has no guns",ShipTypeToStr(ship->shiptype));
         return;
     }
 

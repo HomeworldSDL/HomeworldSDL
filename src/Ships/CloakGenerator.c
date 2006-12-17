@@ -478,7 +478,7 @@ void CloakGeneratorHouseKeep(Ship *ship)
                 else if(spaceobj->objtype == OBJ_AsteroidType)
                 {
                     //need to remove the asteroid from resource collectors
-                    dbgMessagef("\nMake Bryce remove asteroids from game info since you just cloaked one.");
+                    dbgMessagef("Make Bryce remove asteroids from game info since you just cloaked one.");
                 }
             }
         }

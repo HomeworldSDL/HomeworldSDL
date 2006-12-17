@@ -565,7 +565,7 @@ void subStartup(void)
     sdword index;
 
 #if SUB_VERBOSE_LEVEL >= 1
-    dbgMessage("\nStartup subtitle module");
+    dbgMessage("Startup subtitle module");
 #endif
     subNumberNewSubtitles = 0;
 #if SUB_VERBOSE_LEVEL >= 1
@@ -680,7 +680,7 @@ void subShutdown(void)
     sdword index;
 
 #if SUB_VERBOSE_LEVEL >= 1
-    dbgMessage("\nShutdown subtitle module");
+    dbgMessage("Shutdown subtitle module");
 #endif
     SDL_DestroySemaphore(subSemaphore);
 
@@ -1156,7 +1156,7 @@ void subTitlesUpdate(void)
             }
         }
 #if SUB_VERBOSE_LEVEL >= 1
-        dbgMessagef("\nSubtitle: actor %d says 0x%x '%s' (%.2f seconds).", lastActor, lastSpeechEvent, fullNewString, totalTime);
+        dbgMessagef("Subtitle: actor %d says 0x%x '%s' (%.2f seconds).", lastActor, lastSpeechEvent, fullNewString, totalTime);
 #endif
 
         //now that we have a concatenated string; let's chop it up to wrap it around
@@ -1166,11 +1166,11 @@ void subTitlesUpdate(void)
         if (nChoppedStrings > 1)
         {
             sdword index;
-            dbgMessage("\nChopped up like this:");
+            dbgMessage("Chopped up like this:");
 
             for (index = 0; index < nChoppedStrings; index++)
             {
-                dbgMessagef("\n'%s'", choppedStrings[index]);
+                dbgMessagef("'%s'", choppedStrings[index]);
             }
         }
 #endif
@@ -1191,7 +1191,7 @@ void subTitlesUpdate(void)
 #if SUB_VERBOSE_LEVEL >= 1
     if (subMissedSubtitles > 0)
     {
-        dbgMessagef("\nsubtitle: %d subtitles were missed.", subMissedSubtitles);
+        dbgMessagef("subtitle: %d subtitles were missed.", subMissedSubtitles);
         subMissedSubtitles = 0;
     }
 #endif
@@ -1217,7 +1217,7 @@ sdword subTitleAdd(sdword actor, sdword speechEvent, char *text, sdword length, 
 {
 /*
 #if SUB_VERBOSE_LEVEL >= 1
-    dbgMessagef("\nSubtitle: actor %d says '%s'.", actor, text);
+    dbgMessagef("Subtitle: actor %d says '%s'.", actor, text);
 #endif
 */
     SDL_SemWait(subSemaphore);            //make sure nobody else is working with the subtitle transfer buffers

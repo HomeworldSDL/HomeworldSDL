@@ -108,7 +108,7 @@ madheader *madFileLoad(char *fileName)
 
     fileClose(file);
 #if MAD_VERBOSE_LEVEL >= 2
-    dbgMessagef("\nmadFileLoad: loaded %d animations for %d objects from '%s'", newHeader->nAnimations, newHeader->nObjects, fileName);
+    dbgMessagef("madFileLoad: loaded %d animations for %d objects from '%s'", newHeader->nAnimations, newHeader->nObjects, fileName);
 #endif
 
     //loop through all the structures and fix up pointers
@@ -343,7 +343,7 @@ bool madBindingListCallback(meshdata *mesh, polygonobject *object, sdword iObjec
 #if MAD_ERROR_CHECKING
 #ifndef gshaw
     //couldn't find named object in the animation
-    dbgMessagef("\nobject '%s' from '%s' not found in animation.", object->pName, mesh->fileName);
+    dbgMessagef("object '%s' from '%s' not found in animation.", object->pName, mesh->fileName);
 #endif
 #endif
 */
@@ -486,7 +486,7 @@ foundTime:
         }
     }
 #if MAD_VERBOSE_LEVEL >= 2
-    dbgMessagef("\nmadAnimationStart: started animation #%d('%s') on ship 0x%x", animNumber, animation->name, ship);
+    dbgMessagef("madAnimationStart: started animation #%d('%s') on ship 0x%x", animNumber, animation->name, ship);
 #endif
 }
 
@@ -549,7 +549,7 @@ void madAnimationStop(Ship *ship)
     dbgAssertOrIgnore(ship->madBindings != NULL);
     ship->bindings = ship->madBindings->saveBindings;       //restore the saved gun bindings, if any
 #if MAD_VERBOSE_LEVEL >= 2
-    dbgMessagef("\nmadAnimationStop: stopped animation #%d('%s') on ship 0x%x", ship->madBindings->nCurrentAnim, ship->madBindings->header->anim[ship->madBindings->nCurrentAnim].name, ship);
+    dbgMessagef("madAnimationStop: stopped animation #%d('%s') on ship 0x%x", ship->madBindings->nCurrentAnim, ship->madBindings->header->anim[ship->madBindings->nCurrentAnim].name, ship);
 #endif
     ship->madBindings->nCurrentAnim = MAD_NoAnimation;
 }

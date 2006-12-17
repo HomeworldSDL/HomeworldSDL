@@ -437,7 +437,7 @@ Path *kasPathPtr(char *label)
             return LabelledPaths[i]->path;
         ++i;
     }
-    dbgMessagef("\nKAS: unresolved reference to path %s", label);
+    dbgMessagef("KAS: unresolved reference to path %s", label);
     dbgFatalf(DBG_Loc,"\nKAS: unresolved reference to path %s", label);     // deliberately crash so designers can find bug easier
     return NULL;
 }

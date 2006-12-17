@@ -242,7 +242,7 @@ static void fileNameReducePath (char* pathName)
 		{
 			if (isPathAbsolute)
 			{
-				dbgMessagef("\nfileNameReducePath(): Attempted to reach a "
+				dbgMessagef("fileNameReducePath(): Attempted to reach a "
 				            "parent directory of the root directory.");
 
 				/* Attempting to reach a directory below the root directory, so
@@ -899,7 +899,7 @@ sdword fileLoadAlloc(char *_fileName, void **address, udword flags)
     fclose(inFile);
 
 #if FILE_VERBOSE_LEVEL >= 2
-    dbgMessagef("\nfileLoadAlloc: loaded %d bytes of '%s' to 0x%x from handle 0x%x", length, fileName, *address, inFile);
+    dbgMessagef("fileLoadAlloc: loaded %d bytes of '%s' to 0x%x from handle 0x%x", length, fileName, *address, inFile);
 #endif
 
     if (LogFileLoads)
@@ -1006,7 +1006,7 @@ sdword fileLoad(char *_fileName, void *address, udword flags)
     fclose(inFile);
 
 #if FILE_VERBOSE_LEVEL >= 2
-    dbgMessagef("\nfileLoad: loaded %d bytes of '%s' to 0x%x", length, fileName, address);
+    dbgMessagef("fileLoad: loaded %d bytes of '%s' to 0x%x", length, fileName, address);
 #endif
 
     if (LogFileLoads)
@@ -1069,7 +1069,7 @@ sdword fileSave(char *_fileName, void *address, sdword length)
     fclose(outFile);
 
 #if FILE_VERBOSE_LEVEL >= 2
-    dbgMessagef("\nfileSave: saved %d bytes of '%s' to 0x%x", length, fileName, address);
+    dbgMessagef("fileSave: saved %d bytes of '%s' to 0x%x", length, fileName, address);
 #endif
 
     return lengthWrote;
@@ -1126,7 +1126,7 @@ sdword fileExists(char *_fileName, udword flags)
         if (existsInBigfile && !(CompareBigfiles && updateNewerAvailable[fileNum] > 1))
         {
 #if FILE_VERBOSE_LEVEL >= 3
-            dbgMessagef("\nfileExists: '%s' exists (in update_bigfile)", _fileName);
+            dbgMessagef("fileExists: '%s' exists (in update_bigfile)", _fileName);
 #endif
             return TRUE;
         }
@@ -1136,7 +1136,7 @@ sdword fileExists(char *_fileName, udword flags)
             if (existsInBigfile && !(CompareBigfiles && mainNewerAvailable[fileNum] > 1))
             {
     #if FILE_VERBOSE_LEVEL >= 3
-                dbgMessagef("\nfileExists: '%s' exists (in main_bigfile)", _fileName);
+                dbgMessagef("fileExists: '%s' exists (in main_bigfile)", _fileName);
     #endif
                 return TRUE;
             }
@@ -1148,12 +1148,12 @@ sdword fileExists(char *_fileName, udword flags)
     if (fileNameCorrectCase(fileName))
     {
 #if FILE_VERBOSE_LEVEL >= 3
-        dbgMessagef("\nfileExists: '%s' exists", fileName);
+        dbgMessagef("fileExists: '%s' exists", fileName);
 #endif
         return(TRUE);
     }
 #if FILE_VERBOSE_LEVEL >= 3
-    dbgMessagef("\nfileExists: '%s' does not exist", fileName);
+    dbgMessagef("fileExists: '%s' does not exist", fileName);
 #endif
     return(FALSE);
 }
@@ -1185,7 +1185,7 @@ sdword fileSizeGet(char *_fileName, udword flags)
         {
             length = (updateTOC.fileEntries + fileNum)->realLength;
 #if FILE_VERBOSE_LEVEL >= 3
-            dbgMessagef("\nfileSizeGet: '%s' is %d bytes in length (in update_bigfile)", _fileName, length);
+            dbgMessagef("fileSizeGet: '%s' is %d bytes in length (in update_bigfile)", _fileName, length);
 #endif
             return length;
         }
@@ -1196,7 +1196,7 @@ sdword fileSizeGet(char *_fileName, udword flags)
             {
                 length = (mainTOC.fileEntries + fileNum)->realLength;
     #if FILE_VERBOSE_LEVEL >= 3
-                dbgMessagef("\nfileSizeGet: '%s' is %d bytes in length (in main_bigfile)", _fileName, length);
+                dbgMessagef("fileSizeGet: '%s' is %d bytes in length (in main_bigfile)", _fileName, length);
     #endif
                 return length;
             }
@@ -1216,7 +1216,7 @@ sdword fileSizeGet(char *_fileName, udword flags)
     length = ftell(file);
     fclose(file);
 #if FILE_VERBOSE_LEVEL >= 3
-    dbgMessagef("\nfileSizeGet: '%s' is %d bytes in length", fileName, length);
+    dbgMessagef("fileSizeGet: '%s' is %d bytes in length", fileName, length);
 #endif
     return(length);
 }
@@ -1443,7 +1443,7 @@ filehandle fileOpen(char *_fileName, udword flags)
                 }
             }
 #if FILE_VERBOSE_LEVEL >= 2
-            dbgMessagef("\nfileOpen: '%s' (from bigfile) handle 0x%x", _fileName, fh);
+            dbgMessagef("fileOpen: '%s' (from bigfile) handle 0x%x", _fileName, fh);
 #endif
 
             filesOpen[fh].inUse = TRUE;
@@ -1519,7 +1519,7 @@ filehandle fileOpen(char *_fileName, udword flags)
         dbgFatalf(DBG_Loc, "fileOpen: cannot open file %s", fileName);
     }
 #if FILE_VERBOSE_LEVEL >= 2
-    dbgMessagef("\nfileOpen: '%s' (from filesystem) handle 0x%x, FILE *0x%x", fileName, fh, file);
+    dbgMessagef("fileOpen: '%s' (from filesystem) handle 0x%x, FILE *0x%x", fileName, fh, file);
 #endif
 
     filesOpen[fh].inUse = TRUE;
@@ -1558,7 +1558,7 @@ void fileClose(filehandle handle)
     filesOpen[handle].inUse = FALSE;
 
 #if FILE_VERBOSE_LEVEL >= 2
-    dbgMessagef("\nfileClose: handle 0x%x", handle);
+    dbgMessagef("fileClose: handle 0x%x", handle);
 #endif
 }
 
@@ -1610,7 +1610,7 @@ sdword fileSeek(filehandle handle, sdword offset, sdword whence)
     }
 
 #if FILE_VERBOSE_LEVEL >= 3
-    dbgMessagef("\nfileSeek: handle 0x%x seeked %d bytes (mode %d) to %d", handle, offset, whence, newLocation);
+    dbgMessagef("fileSeek: handle 0x%x seeked %d bytes (mode %d) to %d", handle, offset, whence, newLocation);
 #endif
     return newLocation;
 }
@@ -1662,7 +1662,7 @@ sdword fileBlockRead(filehandle handle, void *dest, sdword nBytes)
     }
 #endif
 #if FILE_VERBOSE_LEVEL >= 3
-    dbgMessagef("\nfileBlockRead: handle 0x%x read %d bytes to 0x%x", handle, lengthRead, dest);
+    dbgMessagef("fileBlockRead: handle 0x%x read %d bytes to 0x%x", handle, lengthRead, dest);
 #endif
     return lengthRead;
 }
@@ -1893,7 +1893,7 @@ sdword fileLineRead(filehandle handle, char *dest, sdword nChars)
     }
 
 #if FILE_VERBOSE_LEVEL >= 3
-    dbgMessagef("\nfileLineRead: handle 0x%x read %d chars to 0x%x ('%s')", handle, length, dest, dest);
+    dbgMessagef("fileLineRead: handle 0x%x read %d chars to 0x%x ('%s')", handle, length, dest, dest);
 #endif
     return length;
 }
@@ -2109,7 +2109,7 @@ char *filePathPrepend(char *fileName, udword flags)
 {
 #if FILE_VERBOSE_LEVEL >= 1
 //can't print debug messages yet because it gets called so early on
-//    dbgMessagef("\nfilePathPrepend:  File search path set to '%s'", fileName);
+//    dbgMessagef("filePathPrepend:  File search path set to '%s'", fileName);
 #endif
     dbgAssertOrIgnore(fileName != NULL);
 

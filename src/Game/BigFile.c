@@ -2419,7 +2419,7 @@ void bigFilesystemCompare(char *baseDirectory, char *directory, bigTOC *mainTOC,
         return;
 
     if (!directory[0])
-        dbgMessagef("\nScanning for newer files in %s", baseDirectory);
+        dbgMessagef("Scanning for newer files in %s", baseDirectory);
 
 #if _WIN32
 
@@ -2462,7 +2462,7 @@ void bigFilesystemCompare(char *baseDirectory, char *directory, bigTOC *mainTOC,
                     // newer one available in filesystem
                     mainNewerAvailable[fileNum] = 2;
                     // this can result in a poopload of messages...
-                    //dbgMessagef("\n  %s", subpath);
+                    //dbgMessagef("  %s", subpath);
                     ++newerMain;
                 }
                 else
@@ -2532,7 +2532,7 @@ void bigFilesystemCompare(char *baseDirectory, char *directory, bigTOC *mainTOC,
                     // newer one available in filesystem
                     mainNewerAvailable[fileNum] = 2;
                     // this can result in a poopload of messages...
-                    //dbgMessagef("\n  %s", subpath);
+                    //dbgMessagef("  %s", subpath);
                     ++newerMain;
                 }
                 else
@@ -2552,14 +2552,14 @@ void bigFilesystemCompare(char *baseDirectory, char *directory, bigTOC *mainTOC,
 
         if (updateFP)
         {
-            dbgMessagef("\nCompared %d filesystem files to main & update bigfiles.", compared);
-            dbgMessagef("\n%d files found newer than main bigfile in filesystem.", newerMain);
-            dbgMessagef("\n%d files found newer than update bigfile in filesystem.", newerUpdate);
+            dbgMessagef("Compared %d filesystem files to main & update bigfiles.", compared);
+            dbgMessagef("%d files found newer than main bigfile in filesystem.", newerMain);
+            dbgMessagef("%d files found newer than update bigfile in filesystem.", newerUpdate);
         }
         else
         {
-            dbgMessagef("\nCompared %d filesystem files to bigfile.", compared);
-            dbgMessagef("\n%d files found newer in filesystem.", newerMain);
+            dbgMessagef("Compared %d filesystem files to bigfile.", compared);
+            dbgMessagef("%d files found newer in filesystem.", newerMain);
         }
     }
 }

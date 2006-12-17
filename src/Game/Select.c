@@ -342,7 +342,7 @@ void selRectDragFunction(Node *startNode, Camera *camera, rectangle *screenRect,
             }
             else
             {
-                dbgMessage("\nWarning: Tried to select too many ships");
+                dbgMessage("Warning: Tried to select too many ships");
             }
         }
 
@@ -445,7 +445,7 @@ void selSelectionAddSingleShip(MaxSelection *dest, Ship *ship)
     if (dest->numShips >= COMMAND_MAX_SHIPS)
     {
         dbgAssertOrIgnore(dest->numShips <= COMMAND_MAX_SHIPS);
-        dbgMessage("\nWarning: Tried to add to many ships to selection");
+        dbgMessage("Warning: Tried to add to many ships to selection");
         return;
     }
 
@@ -1121,7 +1121,7 @@ void selDrawBoxes(SpaceObjRotImpTarg *target)
                           primGLToScreenX(point[pIndex[0]].x), primGLToScreenY(point[pIndex[0]].y), colWhite);
             }
 /*
-            dbgMessagef("\n%3.2f, %3.2f, %3.2f, %3.2f",
+            dbgMessagef("%3.2f, %3.2f, %3.2f, %3.2f",
                        primPointLineIntersection(primScreenToGLX(mouseCursorX()), primScreenToGLY(mouseCursorY()),
                             point[pIndex[0]].x, point[pIndex[0]].y, point[pIndex[1]].x, point[pIndex[1]].y),
                        primPointLineIntersection(primScreenToGLX(mouseCursorX()), primScreenToGLY(mouseCursorY()),

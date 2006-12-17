@@ -234,7 +234,7 @@ void trailStartup(void)
     char   filename[128];
 
 #if TRAIL_VERBOSE_LEVEL >= 1
-    dbgMessage("\nStartup engine trail module");
+    dbgMessage("Startup engine trail module");
 #endif
 
     strcpy(filename, "etg\\textures\\glow32");
@@ -261,7 +261,7 @@ void trailShutdown(void)
     sdword i;
 
 #if TRAIL_VERBOSE_LEVEL >= 1
-    dbgMessage("\nShutdown engine trail module");
+    dbgMessage("Shutdown engine trail module");
 #endif
 
     for (i = 0; i < TM_NUMDEFS; i++)
@@ -303,7 +303,7 @@ missiletrail* mistrailNew(trailstatic* staticInfo, void* vmissile)
 
     dbgAssertOrIgnore(staticInfo != NULL);
 #if TRAIL_VERBOSE_LEVEL >= 2
-    dbgMessagef("\nmistrailNew: %d segments, 0x%x staticInfo", staticInfo->nSegments, staticInfo);
+    dbgMessagef("mistrailNew: %d segments, 0x%x staticInfo", staticInfo->nSegments, staticInfo);
 #endif
     trail = memAlloc(mistrailSize(staticInfo->nSegments), "Missile Trail", NonVolatile);
     trail->vmissile = vmissile;
@@ -335,7 +335,7 @@ shiptrail *trailNew(trailstatic *staticInfo, void* vship, bool8 second, ubyte tr
 #if TRAIL_VERBOSE_LEVEL >= 2
     if (staticInfo != NULL)
     {
-        dbgMessagef("\ntrailNew: %d segments, 0x%x staticInfo", staticInfo->nSegments, staticInfo);
+        dbgMessagef("trailNew: %d segments, 0x%x staticInfo", staticInfo->nSegments, staticInfo);
     }
 #endif
     if (staticInfo != NULL)
@@ -428,7 +428,7 @@ void mistrailDelete(missiletrail* trail)
 #if TRAIL_VERBOSE_LEVEL >= 2
     if (trail->staticInfo != NULL)
     {
-        dbgMessagef("\nmistrailDelete: freeing trail0x%x with %d segments",
+        dbgMessagef("mistrailDelete: freeing trail0x%x with %d segments",
                     trail, trail->staticInfo->nSegments);
     }
 #endif
@@ -447,7 +447,7 @@ void trailDelete(shiptrail *trail)
 #if TRAIL_VERBOSE_LEVEL >= 2
     if (trail->staticInfo != NULL)
     {
-        dbgMessagef("\ntrailDelete: freeing trail 0x%x with %d segments", trail, trail->staticInfo->nSegments);
+        dbgMessagef("trailDelete: freeing trail 0x%x with %d segments", trail, trail->staticInfo->nSegments);
     }
 #endif
     memFree(trail);

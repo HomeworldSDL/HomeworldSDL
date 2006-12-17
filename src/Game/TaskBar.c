@@ -221,7 +221,7 @@ udword tbBumperProcess(regionhandle region, sdword ID, udword event, udword data
                 tbCalcTotalShipCommands();
                 tbRefreshBaby = taskCallBackRegister(tbRefreshBabyFunction, 0, NULL, (real32)TB_RefreshInterval);
                 tbTaskBarActive = TRUE;
-                //dbgMessage("\nTaskbar on ");
+                //dbgMessage("Taskbar on ");
 
                 tutGameMessage("Game_TaskbarOn");
             }
@@ -362,7 +362,7 @@ void tbExitImmediately(char *name, featom *atom)
 {
     if (!multiPlayerGame)
     {
-        dbgMessagef("\nQuit game, baby!");
+        dbgMessagef("Quit game, baby!");
         utyCloseOK(NULL, 0, 0, 0);
     }
 }
@@ -489,7 +489,7 @@ udword tbButtonProcess(regionhandle region, sdword ID, udword event, udword data
 #if TB_TEST
 void tbTestFunc(struct taskbutton *button, ubyte *userData)
 {
-    dbgMessagef("\nTest button %x", userData);
+    dbgMessagef("Test button %x", userData);
 }
 #endif
 /*-----------------------------------------------------------------------------
@@ -1421,7 +1421,7 @@ void tbSetTactics(TacticsType tactic)
         feToggleButtonSetFromScreen("TB_Tactics_N", FALSE, tbScreen);
         //SetAtom(tbAtomA, FALSE);
         //SetAtom(tbAtomN, FALSE);
-        dbgMessage("\nE");
+        dbgMessage("E");
         break;
 
     case Neutral:
@@ -1430,7 +1430,7 @@ void tbSetTactics(TacticsType tactic)
         feToggleButtonSetFromScreen("TB_Tactics_E", FALSE, tbScreen);
         //SetAtom(tbAtomA, FALSE);
         //SetAtom(tbAtomE, FALSE);
-        dbgMessage("\nN");
+        dbgMessage("N");
     break;
 
     case Aggressive:
@@ -1439,7 +1439,7 @@ void tbSetTactics(TacticsType tactic)
         feToggleButtonSetFromScreen("TB_Tactics_N", FALSE, tbScreen);
         //SetAtom(tbAtomE, FALSE);
         //SetAtom(tbAtomN, FALSE);
-        dbgMessage("\nA");
+        dbgMessage("A");
         break;
     default:
         break;
@@ -1453,7 +1453,7 @@ void tbTacticsEvasive(char *name, featom *atom)
         feToggleButtonSetFromScreen(name, (tbShipsEvas > 0), tbScreen);
         tbAtomE = atom;
 
-        dbgMessage("\nFirst Evasive call!");
+        dbgMessage("First Evasive call!");
     }
     else
     {
@@ -1467,7 +1467,7 @@ void tbTacticsNeutral(char *name, featom *atom)
     {
         feToggleButtonSetFromScreen(name, (tbShipsNeut > 0), tbScreen);
         tbAtomN = atom;
-        dbgMessage("\nFirst Neutral call!");
+        dbgMessage("First Neutral call!");
     }
     else
     {
@@ -1481,7 +1481,7 @@ void tbTacticsAggressive(char *name, featom *atom)
     {
         feToggleButtonSetFromScreen(name, (tbShipsAggr > 0), tbScreen);
         tbAtomA = atom;
-        dbgMessage("\nFirst Aggressive call!");
+        dbgMessage("First Aggressive call!");
     }
     else
     {
@@ -1689,7 +1689,7 @@ void tbTaskBarInit(void)
     tbRefreshTacticsCheckboxes();
     tbRefreshBaby = taskCallBackRegister(tbRefreshBabyFunction, 0, NULL, (real32)TB_RefreshInterval);
     tbTaskBarActive = TRUE;
-    //dbgMessage("\nTaskbar on ");
+    //dbgMessage("Taskbar on ");
 
     tbSetupHyperspace();
 }
@@ -1697,7 +1697,7 @@ void tbTaskBarInit(void)
 void tbTaskBarEnd(void)
 {
     tbTaskBarActive = FALSE;
-    //dbgMessage("\nTaskbar off ");
+    //dbgMessage("Taskbar off ");
 }
 
 void PossiblyResetTaskbar(void)

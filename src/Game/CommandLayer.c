@@ -940,7 +940,7 @@ bool processPassiveAttackToDo(CommandToDo *attacktodo)
 #ifdef gshaw
         if (numShipsToAttack != 0)
         {
-            dbgMessagef("\nDropping out of passive attack");
+            dbgMessagef("Dropping out of passive attack");
         }
 #endif
 #endif
@@ -3514,7 +3514,7 @@ void RemoveShipsFromDoingStuff(CommandLayer *comlayer,SelectCommand *selectcom)
 
                     case COMMAND_MP_HYPERSPACING:
 #ifdef HW_BUILD_FOR_DEBUGGING
-                        dbgMessage("\nHyperspaceing ship removed from doing stuff!");
+                        dbgMessage("Hyperspaceing ship removed from doing stuff!");
 #endif
                         if (clRemoveShipFromSelection(todoselection,shiptoremove))
                         {
@@ -4526,14 +4526,14 @@ StillDoAttackMoveWithCapitals:
     if (alreadycommand->ordertype.order == COMMAND_MOVE)
     {
 #ifdef DEBUG_COMMANDLAYER
-        dbgMessage("\nChanging movement direction");
+        dbgMessage("Changing movement direction");
 #endif
 
     }
     else
     {
 #ifdef DEBUG_COMMANDLAYER
-        dbgMessage("\nChanging command to move");
+        dbgMessage("Changing command to move");
 #endif
         FreeLastOrder(alreadycommand);
 
@@ -4594,7 +4594,7 @@ void clMoveThese(CommandLayer *comlayer,SelectCommand *selectcom,vector from,vec
     if (numShips == 0)
     {
 #ifdef DEBUG_COMMANDLAYER
-        dbgMessage("\nNo Ships To Move");
+        dbgMessage("No Ships To Move");
 #endif
         return;
     }
@@ -4616,7 +4616,7 @@ void clMoveThese(CommandLayer *comlayer,SelectCommand *selectcom,vector from,vec
     }
 
 #ifdef DEBUG_COMMANDLAYER
-    dbgMessage("\nReceived Order to move");
+    dbgMessage("Received Order to move");
 #endif
 
 
@@ -4746,7 +4746,7 @@ void clMove(CommandLayer *comlayer,SelectCommand *selectcom,vector from,vector t
     if (selectcom->numShips < 1)
     {
 #ifdef DEBUG_COMMANDLAYER
-        dbgMessage("\nNo ships to move");
+        dbgMessage("No ships to move");
 #endif
         return;
     }
@@ -4833,14 +4833,14 @@ void ChangeOrderToHyperSpace(CommandToDo *alreadycommand,vector from,vector to)
 
     if (alreadycommand->ordertype.order == COMMAND_MP_HYPERSPACING)
     {
-        dbgMessagef("\nA little wierd:  Ships that were hyperspaceing have been given an order to hyperspace again.  Ignoreing...");
+        dbgMessagef("A little wierd:  Ships that were hyperspaceing have been given an order to hyperspace again.  Ignoreing...");
         return;
         dbgFatalf(DBG_Loc,"Shouldn't Be able to Order these guys...they're hyperspaceing!");
     }
     else
     {
 #ifdef DEBUG_COMMANDLAYER
-        dbgMessage("\nChanging command to Hyperspace");
+        dbgMessage("Changing command to Hyperspace");
 #endif
         FreeLastOrder(alreadycommand);
 
@@ -4893,7 +4893,7 @@ void clMpHyperspaceThese(CommandLayer *comlayer,SelectCommand *selectcom,vector 
     if (numShips == 0)
     {
 #ifdef DEBUG_COMMANDLAYER
-        dbgMessage("\nNo Ships To hyperspace");
+        dbgMessage("No Ships To hyperspace");
 #endif
         return;
     }
@@ -4904,7 +4904,7 @@ void clMpHyperspaceThese(CommandLayer *comlayer,SelectCommand *selectcom,vector 
     }
 
 #ifdef DEBUG_COMMANDLAYER
-    dbgMessage("\nReceived Order to hyperspace");
+    dbgMessage("Received Order to hyperspace");
 #endif
 
     TurnAllGravwellsOff(selectcom);
@@ -4999,7 +4999,7 @@ void clMpHyperspace(CommandLayer *comlayer,SelectCommand *selectcom,vector from,
     if (selectcom->numShips < 1)
     {
 #ifdef DEBUG_COMMANDLAYER
-        dbgMessage("\nNo ships to hyperspace");
+        dbgMessage("No ships to hyperspace");
 #endif
 
         return;
@@ -5020,7 +5020,7 @@ void clMpHyperspace(CommandLayer *comlayer,SelectCommand *selectcom,vector from,
     else
     {
 #ifdef DEBUG_COMMANDLAYER
-        dbgMessage("\nCan't afford HS - cancelling");
+        dbgMessage("Can't afford HS - cancelling");
 #endif
         return;
     }
@@ -5162,7 +5162,7 @@ void RemoveShipFromAttacking(Ship *ship)
         ship->formationcommand->formation.flipselectionfixed = FALSE;
         ship->formationcommand->formation.needFix = FALSE;
     }
-    //dbgMessagef("\nShip %i is no longer attacking", ship->shipID.shipNumber);
+    //dbgMessagef("Ship %i is no longer attacking", ship->shipID.shipNumber);
 }
 
 /*-----------------------------------------------------------------------------
@@ -5924,13 +5924,13 @@ void ChangeOrderToAttack(CommandToDo *alreadycommand,AttackCommand *attackcom)
         }
         dontresetattack = TRUE;
 #ifdef DEBUG_COMMANDLAYER
-        dbgMessage("\nReceived Order to change target of attack");
+        dbgMessage("Received Order to change target of attack");
 #endif
     }
     else
     {
 #ifdef DEBUG_COMMANDLAYER
-        dbgMessage("\nChanging command to attack");
+        dbgMessage("Changing command to attack");
 #endif
     }
 
@@ -5984,20 +5984,20 @@ CommandToDo *clAttackThese(CommandLayer *comlayer,SelectCommand *selectcom,Attac
     if (!AreAllShipsAttackCapable(selectcom))
     {
         MakeShipsAttackCapable(selectcom,selectcom);
-        dbgMessage("\nWARNING: ships not capable of attacking told to attack");
+        dbgMessage("WARNING: ships not capable of attacking told to attack");
     }
 
     if (selectcom->numShips == 0)
     {
 #ifdef DEBUG_COMMANDLAYER
-        dbgMessage("\nNo Ships As Attackers");
+        dbgMessage("No Ships As Attackers");
 #endif
         return NULL;
     }
 
     if (attackcom->numTargets <= 0)
     {
-        dbgMessage("\nWARNING: NO SHIPS TO ATTACK.");
+        dbgMessage("WARNING: NO SHIPS TO ATTACK.");
         return NULL;
     }
 
@@ -6018,7 +6018,7 @@ CommandToDo *clAttackThese(CommandLayer *comlayer,SelectCommand *selectcom,Attac
     }
 
 #ifdef DEBUG_COMMANDLAYER
-    dbgMessage("\nReceived Order to attack");
+    dbgMessage("Received Order to attack");
 #endif
 
     RemoveShipsFromDoingStuff(comlayer,selectcom);
@@ -6074,20 +6074,20 @@ void clAttack(CommandLayer *comlayer,SelectCommand *selectcom,AttackCommand *att
     if (!AreAllShipsAttackCapable(selectcom))
     {
         MakeShipsAttackCapable(selectcom,selectcom);
-        dbgMessage("\nWARNING: ships not capable of attacking told to attack");
+        dbgMessage("WARNING: ships not capable of attacking told to attack");
     }
 
     if (selectcom->numShips == 0)
     {
 #ifdef DEBUG_COMMANDLAYER
-        dbgMessage("\nNo Ships As Attackers");
+        dbgMessage("No Ships As Attackers");
 #endif
         return;
     }
 
     if (attackcom->numTargets <= 0)
     {
-        dbgMessage("\nWARNING: NO SHIPS TO ATTACK.");
+        dbgMessage("WARNING: NO SHIPS TO ATTACK.");
         return;
     }
     salCapExtraSpecialOrderCleanUp(selectcom,COMMAND_ATTACK,NULL,NULL);
@@ -6231,7 +6231,7 @@ void ChangeOrderToPassiveAttack(CommandToDo *alreadycommand,AttackCommand *attac
     }
 
 #ifdef gshaw
-    dbgMessage("\nChanging Order to passive attack");
+    dbgMessage("Changing Order to passive attack");
 #endif
 
     sizeofattack = sizeofAttackCommand(attackcom->numTargets);
@@ -6279,14 +6279,14 @@ void clPassiveAttack(CommandLayer *comlayer,SelectCommand *selectcom,AttackComma
     if (selectcom->numShips == 0)
     {
 #ifdef gshaw
-        dbgMessage("\nNo Ships For Passive attack");
+        dbgMessage("No Ships For Passive attack");
 #endif
         return;
     }
 
     if (attackcom->numTargets <= 0)
     {
-        dbgMessage("\nWARNING: NO SHIPS TO PASSIVE ATTACK.");
+        dbgMessage("WARNING: NO SHIPS TO PASSIVE ATTACK.");
         return;
     }
 
@@ -6298,13 +6298,13 @@ void clPassiveAttack(CommandLayer *comlayer,SelectCommand *selectcom,AttackComma
         }
         else
         {
-            dbgMessage("\nWARNING: Couldn't change order to passive attack");
+            dbgMessage("WARNING: Couldn't change order to passive attack");
         }
         return;
     }
 
 #ifdef gshaw
-    dbgMessage("\nReceived Order to passive attack");
+    dbgMessage("Received Order to passive attack");
 #endif
 
     count=0;
@@ -6443,7 +6443,7 @@ void clSpecial(CommandLayer *comlayer,SelectCommand *selectcom,SpecialCommand *t
     if (selectcom->numShips == 0)
     {
 #ifdef DEBUG_COMMANDLAYER
-        dbgMessage("\nNo Ships for special");
+        dbgMessage("No Ships for special");
 #endif
         return;
     }
@@ -6526,7 +6526,7 @@ void clSpecial(CommandLayer *comlayer,SelectCommand *selectcom,SpecialCommand *t
     }
 
 #ifdef DEBUG_COMMANDLAYER
-    dbgMessage("\nReceived Order to do special");
+    dbgMessage("Received Order to do special");
 #endif
 
     RemoveShipsFromDoingStuff(comlayer,selection);
@@ -6773,7 +6773,7 @@ void clHaltThese(CommandLayer *comlayer,SelectCommand *selectcom)
     if (numShips == 0)
     {
 #ifdef DEBUG_COMMANDLAYER
-        dbgMessage("\nNo Ships to halt!");
+        dbgMessage("No Ships to halt!");
 #endif
         return;
     }
@@ -6826,7 +6826,7 @@ void clHaltThese(CommandLayer *comlayer,SelectCommand *selectcom)
     }
 
 #ifdef DEBUG_COMMANDLAYER
-    dbgMessage("\nReceived Order to halt");
+    dbgMessage("Received Order to halt");
 #endif
 
     RemoveShipsFromDoingStuff(comlayer,selectcom);
@@ -6870,7 +6870,7 @@ void clHalt(CommandLayer *comlayer,SelectCommand *selectcom)
     if (numShips == 0)
     {
 #ifdef DEBUG_COMMANDLAYER
-        dbgMessage("\nNo Ships to halt!");
+        dbgMessage("No Ships to halt!");
 #endif
         return;
     }
@@ -6961,7 +6961,7 @@ void clScuttle(CommandLayer *comlayer,SelectCommand *selectcom)
     if (numShips == 0)
     {
 #ifdef DEBUG_COMMANDLAYER
-        dbgMessage("\nNo Ships to scuttle!");
+        dbgMessage("No Ships to scuttle!");
 #endif
         return;
     }
@@ -7045,7 +7045,7 @@ void clLaunchMultipleShips(CommandLayer *comlayer,SelectCommand *selectcom,ShipP
     if (numShips == 0)
     {
 #ifdef DEBUG_COMMANDLAYER
-        dbgMessage("\nNo Ships to launch");
+        dbgMessage("No Ships to launch");
 #endif
         return;
     }
@@ -7053,7 +7053,7 @@ void clLaunchMultipleShips(CommandLayer *comlayer,SelectCommand *selectcom,ShipP
     if (launchFrom == NULL)
     {
 #ifdef DEBUG_COMMANDLAYER
-        dbgMessage("\nNo Ship to launch from");
+        dbgMessage("No Ship to launch from");
 #endif
         return;
     }
@@ -7658,7 +7658,7 @@ void ChangeOrderToProtect(CommandToDo *alreadycommand,ProtectCommand *protectcom
     }
 
 #ifdef DEBUG_COMMANDLAYER
-    dbgMessage("\nChanged Order to protect");
+    dbgMessage("Changed Order to protect");
 #endif
 
     FreeLastOrder(alreadycommand);
@@ -7708,7 +7708,7 @@ CommandToDo *clProtect(CommandLayer *comlayer,SelectCommand *selectcom,ProtectCo
     if (numShips == 0)
     {
 #ifdef DEBUG_COMMANDLAYER
-        dbgMessage("\nNo ships selected as protectors");
+        dbgMessage("No ships selected as protectors");
 #endif
         return NULL;
     }
@@ -7718,7 +7718,7 @@ CommandToDo *clProtect(CommandLayer *comlayer,SelectCommand *selectcom,ProtectCo
     if (numShipsToProtect == 0)
     {
 #ifdef DEBUG_COMMANDLAYER
-        dbgMessage("\nNo ships to protect");
+        dbgMessage("No ships to protect");
 #endif
         return NULL;
     }
@@ -7730,7 +7730,7 @@ CommandToDo *clProtect(CommandLayer *comlayer,SelectCommand *selectcom,ProtectCo
     }
 
 #ifdef DEBUG_COMMANDLAYER
-    dbgMessage("\nReceived Order to protect");
+    dbgMessage("Received Order to protect");
 #endif
 
     RemoveShipsFromDoingStuff(comlayer,selectcom);
@@ -7801,7 +7801,7 @@ void AddShipToGroup(ShipPtr ship,CommandToDo *group)
 void AddShipToFormationGroup(ShipPtr ship,CommandToDo *group)
 {
 #ifdef DEBUG_LAUNCHSHIP
-    dbgMessage("\nAdding ship to group");
+    dbgMessage("Adding ship to group");
 #endif
 
     AddShipToGroup(ship,group);
@@ -7886,7 +7886,7 @@ void clSetMilitaryParade(CommandLayer *comlayer,SelectCommand *selectcom)
     index = MothershipOrCarrierIndexInSelection(selectcom);
     if (index < 0)
     {
-        dbgMessagef("\nWarning: No ship to form parade around");
+        dbgMessagef("Warning: No ship to form parade around");
         return;
     }
 
@@ -8315,7 +8315,7 @@ void clProcess(CommandLayer *comlayer)
         command = (CommandToDo *)listGetStructOfNode(curnode);
 
 #ifdef DEBUG_COMMANDLAYER
-//        dbgMessagef("\nclProcessing %d %d",command->ordertype.order,command->ordertype.attributes);
+//        dbgMessagef("clProcessing %d %d",command->ordertype.order,command->ordertype.attributes);
 #endif
 
         commandselection = command->selection;
@@ -8665,7 +8665,7 @@ processdock:
                     {
                         // reached destination, so change COMMAND_MOVE | COMMAND_MASK_FORMATION to COMMAND_NULL | COMMAND_MASK_FORMATION
 #ifdef DEBUG_FORMATIONS
-                        dbgMessage("\nReached Destination in Formation.");
+                        dbgMessage("Reached Destination in Formation.");
 #endif
                         if (universe.curPlayerPtr->PlayerMothership != NULL)
                         {

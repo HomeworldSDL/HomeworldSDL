@@ -366,7 +366,7 @@ void CirclePoints(int x, int y, color c, int cx, int cy)
     glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glPointSize(4.0f);
     glBegin(GL_POINTS);
-    dbgMessagef("\nCirclePoints %d %d %d %d", x, y, cx, cy);
+    dbgMessagef("CirclePoints %d %d %d %d", x, y, cx, cy);
     glVertex2i(x + cx, y + cy);
     glVertex2i(y + cx, x + cy);
     glVertex2i(y + cx, -x + cy);

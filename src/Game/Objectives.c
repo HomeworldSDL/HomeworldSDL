@@ -520,7 +520,7 @@ void poTextDraw(featom *atom, regionhandle region)
 void poClose(char *string, featom *atom)
 {                                                           //close the window
 #if CM_VERBOSE_LEVEL >= 1
-    dbgMessagef("\nClose mission objectives window.");
+    dbgMessagef("Close mission objectives window.");
 #endif
     feScreenDeleteFlags(poBaseRegion, FE_DONT_DELETE_REGION_IF_SCREEN_NOT_FOUND);
     poBaseRegion = NULL;

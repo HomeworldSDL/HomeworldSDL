@@ -1036,7 +1036,7 @@ udword aishipFlyToPointAvoidingObjsFunc(Ship *ship,vector *destination,udword ai
             if (bitTest(aishipflags,(AISHIP_FirstPointInDirectionFlying+AISHIP_CarTurn)))
             {
         #if DEBUG_AISHIP
-                 dbgMessagef("\nOrienting ship for flight");
+                 dbgMessagef("Orienting ship for flight");
         #endif
                 dbgAssertOrIgnore(destination);     // must have destination for AISHIP_FirstPointInDirectionFlying or AISHIP_CarTurn to have any meaning
                 vecSub(targetVec,*destination,ship->posinfo.position);
@@ -1136,7 +1136,7 @@ startflying:
             }
 
         #if DEBUG_AISHIP
-            dbgMessagef("\nFlying to target vector: (%f %f %f)",targetVec.x,targetVec.y,targetVec.z);
+            dbgMessagef("Flying to target vector: (%f %f %f)",targetVec.x,targetVec.y,targetVec.z);
         #endif
 
             desiredVel = targetVec;
@@ -1184,7 +1184,7 @@ startflying:
             thisBlob = ship->collMyBlob;
             if (thisBlob == NULL)
             {
-                dbgMessagef("\nWarning: flags %x ship %s %s flying with no blob",ship->flags,ShipRaceToStr(ship->shiprace),ShipTypeToStr(ship->shiptype));
+                dbgMessagef("Warning: flags %x ship %s %s flying with no blob",ship->flags,ShipRaceToStr(ship->shiprace),ShipTypeToStr(ship->shiptype));
                 goto noavoid;
             }
 
@@ -1709,7 +1709,7 @@ skipobscurecheck:;
                 }
 
     #if DEBUG_AISHIP
-                dbgMessagef("\nAVOID %x: (%f %f %f)",avoidobj,repulse.x,repulse.y,repulse.z);
+                dbgMessagef("AVOID %x: (%f %f %f)",avoidobj,repulse.x,repulse.y,repulse.z);
     #endif
                 aishipStatsRepulse(repulse);
 
@@ -1728,13 +1728,13 @@ skipobscurecheck:;
 
 
 #ifndef HW_BUILD_FOR_DISTRIBUTION
-            //dbgMessagef("\nAVOID considered: %d",considered);
+            //dbgMessagef("AVOID considered: %d",considered);
 #endif
 
 noavoid:
 
         #if DEBUG_AISHIP
-            dbgMessagef("\nFinal Desired Velocity: (%f %f %f)",desiredVel.x,desiredVel.y,desiredVel.z);
+            dbgMessagef("Final Desired Velocity: (%f %f %f)",desiredVel.x,desiredVel.y,desiredVel.z);
         #endif
 
             aishipStatsDesiredVel(desiredVel);
@@ -1766,7 +1766,7 @@ noavoid:
                         zdistanceleft = (destination->z - ship->posinfo.position.z) * ABS(ship->aidescend);
                         pitchtodescend = getPitchToDescend(zdistanceleft,shipstaticinfo->pitchdescend);
 #if DEBUG_AISHIP
-                        dbgMessagef("\nzdistanceleft: %f pitchtodescend: %f",zdistanceleft,pitchtodescend);
+                        dbgMessagef("zdistanceleft: %f pitchtodescend: %f",zdistanceleft,pitchtodescend);
 #endif
                     }
                     else

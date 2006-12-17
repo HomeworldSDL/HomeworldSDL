@@ -614,12 +614,12 @@ bool glCapValidGL(void)
     GLC_RENDERER = (char const*)glGetString(GL_RENDERER);
     if (GLC_RENDERER == NULL)
     {
-        dbgMessage("\nglCapValidGL: !INVALID!");
+        dbgMessage("glCapValidGL: !INVALID!");
         return FALSE;
     }
     else
     {
-        dbgMessagef("\nglCapValidGL: VALID '%s'", GLC_RENDERER);
+        dbgMessagef("glCapValidGL: VALID '%s'", GLC_RENDERER);
         return TRUE;
     }
 }

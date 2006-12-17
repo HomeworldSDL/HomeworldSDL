@@ -419,7 +419,7 @@ void lmAutoLaunchM(char *string, featom *atom)
             newAutoLaunch &= ~BIT0;
         }
         clWrapAutoLaunch(newAutoLaunch,universe.curPlayerIndex);
-        dbgMessagef("\nAutolaunch sent = %d",newAutoLaunch);
+        dbgMessagef("Autolaunch sent = %d",newAutoLaunch);
     }
 }
 
@@ -467,7 +467,7 @@ void lmAutoLaunchCX(char *string, featom *atom, udword x)
             newAutoLaunch &= ~bit;
         }
         clWrapAutoLaunch(newAutoLaunch,universe.curPlayerIndex);
-        dbgMessagef("\nAutolaunch sent = %d",newAutoLaunch);
+        dbgMessagef("Autolaunch sent = %d",newAutoLaunch);
     }
 }
 

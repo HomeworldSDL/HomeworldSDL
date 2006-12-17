@@ -549,7 +549,7 @@ void mrDockingOrders(char *string, featom *atom)
         soundEvent(NULL, UI_ClickCancel);
     }
 #if MR_VERBOSE_LEVEL >= 1
-    dbgMessage("\nDocking orders");
+    dbgMessage("Docking orders");
 #endif
 }
 
@@ -724,7 +724,7 @@ void mrBuildShips(char *string, featom *atom)
         cmConstructionBegin(ghMainRegion, 0, 0, 0);
     }
 #if MR_VERBOSE_LEVEL >= 1
-    dbgMessage("\nBuild ships.");
+    dbgMessage("Build ships.");
 #endif
 }
 
@@ -734,7 +734,7 @@ void mrTradeStuff(char *string, featom *atom)
     tmTradeBegin(ghMainRegion, 0, 0, 0);
 
 #if MR_VERBOSE_LEVEL >= 1
-    dbgMessage("\nTrading.");
+    dbgMessage("Trading.");
 #endif
 }
 
@@ -791,14 +791,14 @@ void mrMoveShips(char *string, featom *atom)
         }
     }
 #if MR_VERBOSE_LEVEL >= 1
-    dbgMessage("\nMove ships.");
+    dbgMessage("Move ships.");
 #endif
 }
 
 
 void mrInfo(char *string, featom *atom)
 {
-    dbgMessagef("\nInfo - stubbed out.");
+    dbgMessagef("Info - stubbed out.");
 }
 
 
@@ -820,7 +820,7 @@ void mrCancel(char *string, featom *atom)
         clWrapHalt(&universe.mainCommandLayer,(SelectCommand *)&selSelected);
     }
 #if MR_VERBOSE_LEVEL >= 1
-    dbgMessage("\nAll stop - cancel orders.");
+    dbgMessage("All stop - cancel orders.");
 #endif
 }
 
@@ -868,7 +868,7 @@ void mrScuttle(char *string, featom *atom)
             MakeShipMastersIncludeSlaves((SelectCommand *)&selSelected);
             clWrapScuttle(&universe.mainCommandLayer,(SelectCommand *)&selSelected);
 #if MR_VERBOSE_LEVEL >= 1
-        dbgMessage("\nScuttle.");
+        dbgMessage("Scuttle.");
 #endif
         }
         else
@@ -885,7 +885,7 @@ void mrScuttle(char *string, featom *atom)
             tutGameMessage("Game_ScuttleRequest");
             confirmTime = universe.totaltimeelapsed;
 #if MR_VERBOSE_LEVEL >= 1
-        dbgMessage("\nScuttle. Reconfirm.");
+        dbgMessage("Scuttle. Reconfirm.");
 #endif
         }
     }
@@ -931,7 +931,7 @@ void mrRetire(char *string, featom *atom)
         clWrapDock(&universe.mainCommandLayer,(SelectCommand *)&selSelected,DOCK_FOR_RETIRE,NULL);
     }
 #if MR_VERBOSE_LEVEL >= 1
-    dbgMessage("\nRetire orders");
+    dbgMessage("Retire orders");
 #endif
 }
 
@@ -985,7 +985,7 @@ void mrLaunch(char *string, featom *atom)
         lmLaunchBegin(ghMainRegion, 0, 0, 0);
     }
 
-    dbgMessagef("\nLaunch Ships.");
+    dbgMessagef("Launch Ships.");
 }
 void mrResearch(char *string, featom *atom)
 {
@@ -1004,7 +1004,7 @@ void mrResearch(char *string, featom *atom)
     rmResearchGUIBegin(ghMainRegion, 0, 0, 0);
 
 #if MR_VERBOSE_LEVEL >= 1
-    dbgMessage("\nResearch.");
+    dbgMessage("Research.");
 #endif
 }
 void mrEvasiveTactics(char *string, featom *atom)
@@ -1025,7 +1025,7 @@ void mrEvasiveTactics(char *string, featom *atom)
     }
     clWrapSetTactics(&universe.mainCommandLayer,(SelectCommand *)&selSelected,Evasive);
 
-    dbgMessagef("\nEvasive Tactics - stubbed out.");
+    dbgMessagef("Evasive Tactics - stubbed out.");
 }
 void mrNeutralTactics(char *string, featom *atom)
 {
@@ -1045,7 +1045,7 @@ void mrNeutralTactics(char *string, featom *atom)
     }
     clWrapSetTactics(&universe.mainCommandLayer,(SelectCommand *)&selSelected,Neutral);
 
-    dbgMessagef("\nNeutral Tactics - stubbed out.");
+    dbgMessagef("Neutral Tactics - stubbed out.");
 }
 void mrAgressiveTactics(char *string, featom *atom)
 {
@@ -1065,7 +1065,7 @@ void mrAgressiveTactics(char *string, featom *atom)
     }
     clWrapSetTactics(&universe.mainCommandLayer,(SelectCommand *)&selSelected,Aggressive);
 
-    dbgMessagef("\nAgressive Tactics - stubbed out.");
+    dbgMessagef("Agressive Tactics - stubbed out.");
 }
 
 void mrFormAlliance(char *string, featom *atom)
@@ -1392,7 +1392,7 @@ void mrKeyRelease(sdword ID)
 
         default:
 #if MR_VERBOSE_LEVEL >= 2
-            dbgMessagef("\nmrKeyRelease: unprocessed key = 0x%x", ID);
+            dbgMessagef("mrKeyRelease: unprocessed key = 0x%x", ID);
 #endif
             break;
     }
@@ -1719,7 +1719,7 @@ void mrKeyPress(sdword ID)
                     selHotKeyGroupsVerify();
 #endif
 #if MR_VERBOSE_LEVEL >= 2
-                    dbgMessagef("\nHot key group %d assigned.", ID - ZEROKEY);
+                    dbgMessagef("Hot key group %d assigned.", ID - ZEROKEY);
 #endif
                     soundEvent(NULL, UI_ClickAccept);
                     if (bReinforced)
@@ -1749,7 +1749,7 @@ altCase:
                     {
                         ccFocus(&(universe.mainCameraCommand),(FocusCommand *)&selSelected);
 #if MR_VERBOSE_LEVEL >= 2
-                        dbgMessagef("\nHot key group %d selected and focused upon.", ID - ZEROKEY);
+                        dbgMessagef("Hot key group %d selected and focused upon.", ID - ZEROKEY);
 #endif
                         soundEvent(NULL, UI_Click);
                         speechEvent(selHotKeyGroup[ID - ZEROKEY].ShipPtr[0], COMM_AssGrp_Select, ID - ZEROKEY);
@@ -1775,7 +1775,7 @@ altCase:
                 selHotKeyGroupsVerify();
 #endif
 #if MR_VERBOSE_LEVEL >= 2
-                dbgMessagef("\nHot key group %d added to selection.", ID - ZEROKEY);
+                dbgMessagef("Hot key group %d added to selection.", ID - ZEROKEY);
 #endif
                 ioUpdateShipTotals();
                 if (selHotKeyGroup[ID - ZEROKEY].numShips > 0)
@@ -1832,7 +1832,7 @@ altCase:
                         if (selSelected.numShips > 0)
                         {
 #if MR_VERBOSE_LEVEL >= 2
-                            dbgMessagef("\nHot key group %d selected and focused upon.", lastgrouptospeak);
+                            dbgMessagef("Hot key group %d selected and focused upon.", lastgrouptospeak);
 #endif
                             soundEvent(NULL, UI_Click);
                             ccFocus(&(universe.mainCameraCommand),(FocusCommand *)&selSelected);
@@ -1841,7 +1841,7 @@ altCase:
                 }
                 else
                 {
-                    dbgMessagef("Focus on last ship: shipptr %d\n", lastshiptospeak);
+                    dbgMessagef("Focus on last ship: shipptr %d", lastshiptospeak);
                     tutGameMessage("KB_FocusLast");
 
                     selSelecting.TargetPtr[0] = (SpaceObjRotImpTarg *)lastshiptospeak; //make a temporary dummy selection
@@ -1919,7 +1919,7 @@ processEscapeKey:
             if (pilotView)
             {
                 pilotupoffset *= 0.95f;
-                dbgMessagef("\nUpOff %f",pilotupoffset);
+                dbgMessagef("UpOff %f",pilotupoffset);
             }
 #endif
             if (keyIsHit(ALTKEY))
@@ -1942,7 +1942,7 @@ processEscapeKey:
             if (pilotView)
             {
                 pilotupoffset *= 1.05f;
-                dbgMessagef("\nUpOff %f",pilotupoffset);
+                dbgMessagef("UpOff %f",pilotupoffset);
             }
 #endif
             if (keyIsHit(ALTKEY))
@@ -2169,7 +2169,7 @@ cancelfocus:
                         {
                             LOD = selSelected.ShipPtr[0]->staticinfo->staticheader.LOD;
                             lodAutoSave(LOD);
-                            dbgMessagef("\nLOD file '%s' saved.", LOD->fileName);
+                            dbgMessagef("LOD file '%s' saved.", LOD->fileName);
                         }
                     }
                 }
@@ -2195,7 +2195,7 @@ cancelfocus:
                                 LOD->level[rndLOD].bOff = vecMagnitudeSquared(length) / lodScaleFactor;
                             }
                             LOD->level[rndLOD].bOn = LOD->level[rndLOD].bOff * 0.9f;
-                            dbgMessagef("\nLOD #%d remembered at %.2f", rndLOD, LOD->level[rndLOD].bOff);
+                            dbgMessagef("LOD #%d remembered at %.2f", rndLOD, LOD->level[rndLOD].bOff);
                         }
                     }
                 }
@@ -2372,7 +2372,7 @@ cancelfocus:
             if ((!multiPlayerGame) || (playPackets) || (universePause) || (mrDisabled) )
             {
                 universeTurbo = !universeTurbo;
-                dbgMessage(universeTurbo ? "\nTurbo ON" : "\nTurbo OFF");
+                dbgMessage(universeTurbo ? "Turbo ON" : "Turbo OFF");
             }
             break;
 #endif
@@ -2399,7 +2399,7 @@ cancelfocus:
                 }
 
                 universePause = !universePause;
-                dbgMessage(universePause ? "\nPause ON" : "\nPause OFF");
+                dbgMessage(universePause ? "Pause ON" : "Pause OFF");
                 soundEvent(NULL, UI_Click);
             }
 #if MR_SOUND_RELOAD_VOLUMES
@@ -2733,7 +2733,7 @@ docapslock:
 
         default:
 #if MR_VERBOSE_LEVEL >= 2
-            dbgMessagef("\nmrKeyPress: unprocessed key = 0x%x", ID);
+            dbgMessagef("mrKeyPress: unprocessed key = 0x%x", ID);
 #endif
             break;
     }
@@ -3152,7 +3152,7 @@ void mrRightClickMenu(void)
         else
         {
 #if MR_VERBOSE_LEVEL >= 1
-            dbgMessagef("\nTry clicking on some of your own ships!");
+            dbgMessagef("Try clicking on some of your own ships!");
 #endif
         }
     }
@@ -3178,7 +3178,7 @@ void mrRightClickMenu(void)
 #if MR_VERBOSE_LEVEL >= 1
     else
     {
-        dbgMessagef("\nDin't click on nuttin'!");
+        dbgMessagef("Din't click on nuttin'!");
     }
 #endif
 }
@@ -4112,7 +4112,7 @@ endReleaseButtonLogic:
             break;
         default:
 #if MR_VERBOSE_LEVEL >= 2
-            dbgMessagef("\nmrRegionProcess: unprocessed message. reg = 0x%x, ID = 0x%x, event = 0x%x, data = %d", reg, ID, event, data);
+            dbgMessagef("mrRegionProcess: unprocessed message. reg = 0x%x, ID = 0x%x, event = 0x%x, data = %d", reg, ID, event, data);
 #endif
             break;
     }
@@ -5841,13 +5841,13 @@ void mrAddResources(void)
 {
     #define MR_RESOURCE_INCREASE 1000
 
-    dbgMessage("\nAdding Resources");
+    dbgMessage("Adding Resources");
     universe.curPlayerPtr->resourceUnits += MR_RESOURCE_INCREASE;
 }
 
 void mrAllTechnology(void)
 {
-    dbgMessage("\nAdding All Technologies");
+    dbgMessage("Adding All Technologies");
     rmInitializeResearchStruct(universe.curPlayerPtr,TRUE,TECH_ALLTECHNOLOGY);
 }
 
@@ -5856,9 +5856,9 @@ void mrCheapShips(void)
 {
     cmCheapShips = !cmCheapShips;
     if (cmCheapShips)
-        dbgMessage("\nCheap Ships On");
+        dbgMessage("Cheap Ships On");
     else
-        dbgMessage("\nCheap Ships Off");
+        dbgMessage("Cheap Ships Off");
 
 }
 
@@ -5866,16 +5866,16 @@ void mrToggleAI(void)
 {
     mrNoAI = !mrNoAI;
     if (mrNoAI)
-        dbgMessage("\nComputer AI On");
+        dbgMessage("Computer AI On");
     else
-        dbgMessage("\nComputer AI Off");
+        dbgMessage("Computer AI Off");
 }
 
 
 void mrAsteroids(void)
 {
 
-    dbgMessage("\nAsteroids");
+    dbgMessage("Asteroids");
     mrTradeStuffTest(NULL, NULL);
 }
 
@@ -5970,7 +5970,7 @@ void mrScanDebugCodes(sdword ID)
             }
 
             mrPlayerHasCheated = TRUE;
-            dbgMessage("\nDebug code entered");
+            dbgMessage("Debug code entered");
             //add SFX
             (mrDebugFunctions[i].callback)();
 

@@ -1942,7 +1942,7 @@ static void llExcludeAsteroid(char *directory,char *field,void *dataToFillIn)
     type = StrToAsteroidType(field);
     if (type == 0xffffffff)
     {
-        dbgMessagef("\nWarning: tried to exclude unknown asteroid");
+        dbgMessagef("Warning: tried to exclude unknown asteroid");
         return;
     }
 
@@ -2354,10 +2354,10 @@ void TryToFindMothershipsForPlayers()
 
         if (player->PlayerMothership == NULL)
         {
-            dbgMessage("\nWarning: no mothership assigned, trying to find one:");
+            dbgMessage("Warning: no mothership assigned, trying to find one:");
             if (!univFindBackupMothership(player))
             {
-                dbgMessage("\nWarning: no mothership found for this player");
+                dbgMessage("Warning: no mothership found for this player");
             }
         }
     }

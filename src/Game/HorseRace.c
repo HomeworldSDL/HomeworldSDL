@@ -303,7 +303,7 @@ void hrDrawPlayersProgress(featom *atom, regionhandle region)
         {
             percent = horseracestatus.percent[0];
 
-            //dbgMessagef("\npercent %f",percent);
+            //dbgMessagef("percent %f",percent);
 
             hrBarDraw(&pos, colBlack, hrSinglePlayerColor/*teColorSchemes[0].textureColor.base*/, percent);
         }
@@ -1103,7 +1103,7 @@ void hrChatTextEntry(char *name, featom *atom)
         case CM_AcceptText :
             string = ((textentryhandle)atom->pData)->textBuffer;
             sendChatMessage(ALL_PLAYER_MASK^PLAYER_MASK(sigsPlayerIndex),string,(uword)sigsPlayerIndex);
-            dbgMessagef("text entry: %s\n",string);
+            dbgMessagef("text entry: %s",string);
             strcpy(temp.message,string);
             temp.packetheader.frame = (uword)sigsPlayerIndex;
             hrProcessPacket((struct ChatPacket *)&temp);

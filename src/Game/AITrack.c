@@ -127,7 +127,7 @@ bool aitrackStabilizeGuidance(SpaceObjRotImpTargGuidance *ship)
     }
 
 #ifdef gshaw
-//    dbgMessagef("\nZeroing Rot %f %f %f %x",rotx,roty,rotz,(udword)ship);
+//    dbgMessagef("Zeroing Rot %f %f %f %x",rotx,roty,rotz,(udword)ship);
 #endif
 
     shipstaticinfo = ship->staticinfo;
@@ -354,7 +354,7 @@ bool aitrackHeadingAndUp(Ship *ship,vector *desiredHeading,vector *desiredUp,rea
     dotProdCheckUp = vecDotProduct(*desiredUp,curup);
 
 #if DEBUG_AITRACK
-    dbgMessagef("\nHeading accuracy: %f",dotProdCheckHeading);
+    dbgMessagef("Heading accuracy: %f",dotProdCheckHeading);
 #endif
 
     if (dotProdCheckHeading <= -1.0f)   // use <= in case inaccuraces cause number slightly less than 1.0
@@ -374,7 +374,7 @@ bool aitrackHeadingAndUp(Ship *ship,vector *desiredHeading,vector *desiredUp,rea
     if ((dotProdCheckHeading >= accuracy) && (dotProdCheckUp >= accuracy))
     {
 #if DEBUG_AITRACK
-        dbgMessage("\nOn correct heading...");
+        dbgMessage("On correct heading...");
 #endif
         aitrackForceShipZeroRotation(ship);
         return TRUE;     // heading close enough to desired heading, so return
@@ -521,7 +521,7 @@ bool aitrackHeadingFunc(SpaceObjRotImpTargGuidance *ship,vector *desiredHeading,
     dotProdCheckUp = curup.z; //vecDotProduct(desiredUp,curup);
 
 #if DEBUG_AITRACK
-    dbgMessagef("\nHeading accuracy: %f",dotProdCheckHeading);
+    dbgMessagef("Heading accuracy: %f",dotProdCheckHeading);
 #endif
 
     if (dotProdCheckHeading <= -1.0f)
@@ -535,7 +535,7 @@ bool aitrackHeadingFunc(SpaceObjRotImpTargGuidance *ship,vector *desiredHeading,
         ((flags & (AITRACKHEADING_IGNOREUPVEC+AITRACKHEADING_DONTROLL)) || (dotProdCheckUp >= upaccuracy)) )
     {
 #if DEBUG_AITRACK
-        dbgMessage("\nOn correct heading...");
+        dbgMessage("On correct heading...");
 #endif
 		if(!(flags & AITRACK_DONT_ZERO_ME))
 		{
@@ -720,7 +720,7 @@ bool aitrackHeadingWithBankPitchFunc(Ship *ship,vector *desiredHeading,real32 ac
         ((flags & AITRACKHEADING_IGNOREUPVEC) || (dotProdCheckUp >= accuracy)) )
     {
 #if DEBUG_AITRACK
-        dbgMessage("\nCapital ship on correct heading...");
+        dbgMessage("Capital ship on correct heading...");
 #endif
         ship->rotinfo.rotspeed.x = 0.0f;
         ship->rotinfo.rotspeed.y = 0.0f;
@@ -810,7 +810,7 @@ bool aitrackRightVector(Ship *ship,vector *desiredRightVector,real32 accuracy)
     dotProdCheckUp = curup.z; //vecDotProduct(desiredUp,curup)
 
 #if DEBUG_AITRACK
-    dbgMessagef("\nHeading accuracy: %f",dotProdCheckRight);
+    dbgMessagef("Heading accuracy: %f",dotProdCheckRight);
 #endif
 
     if (dotProdCheckRight <= -1.0f)
@@ -823,7 +823,7 @@ bool aitrackRightVector(Ship *ship,vector *desiredRightVector,real32 accuracy)
     if ((dotProdCheckRight >= accuracy) && (dotProdCheckUp >= AITRACKRIGHT_UPACCURACY))
     {
 #if DEBUG_AITRACK
-        dbgMessage("\nOn correct heading...");
+        dbgMessage("On correct heading...");
 #endif
         aitrackForceShipZeroRotation(ship);
         return TRUE;     // heading close enough to desired heading, so return
@@ -972,13 +972,13 @@ void aitrackVelocityVectorGuidance(SpaceObjRotImpTargGuidance *ship,vector *desi
     errorMagSquared = vecMagnitudeSquared(errorDifference);
 
 #if DEBUG_AITRACK
-    dbgMessagef("\nVelocity Error = %f",errorMagSquared);
+    dbgMessagef("Velocity Error = %f",errorMagSquared);
 #endif
 
     if (errorMagSquared < ERROR_VELOCITY_SQUARED)
     {
 #if DEBUG_AITRACK
-        dbgMessage("\nVelocity tracking locked...");
+        dbgMessage("Velocity tracking locked...");
 #endif
         return;     // ship velocity close enought to desired velocity, so return
     }
@@ -1111,7 +1111,7 @@ bool aitrackZeroVelocity(Ship *ship)
     }
 
 #ifdef gshaw
-//    dbgMessagef("\nZeroing velocity %f %f %f %x",hshipVelocity.x,hshipVelocity.y,hshipVelocity.z,(udword)ship);
+//    dbgMessagef("Zeroing velocity %f %f %f %x",hshipVelocity.x,hshipVelocity.y,hshipVelocity.z,(udword)ship);
 #endif
 
     // transfrom shipVelocity into shipVelocity in ship co-ordinate system
@@ -1357,14 +1357,14 @@ bool MoveReachedDestinationVariable(Ship *ship,vector *destination,real32 bounds
         (isBetweenExclusive(lefttogo.z,negbounds,bounds)))
     {
 #ifdef gshaw
-//        dbgMessagef("\nShip %x reached destination!",(udword)ship);
+//        dbgMessagef("Ship %x reached destination!",(udword)ship);
 #endif
         return TRUE;
     }
     else
     {
 #ifdef gshaw
-//        dbgMessagef("\nLeft to go: %f %f %f",lefttogo.x,lefttogo.y,lefttogo.z);
+//        dbgMessagef("Left to go: %f %f %f",lefttogo.x,lefttogo.y,lefttogo.z);
 #endif
         return FALSE;
     }

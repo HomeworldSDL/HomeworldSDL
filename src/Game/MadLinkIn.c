@@ -91,7 +91,7 @@ void madLinkInUpdateMeshAnimations(Ship *ship)
     if(madAnimationUpdate(ship, universe.phystimeelapsed))
     {
 #ifdef DEBUG_MESH_ANIMATIONS
-        dbgMessagef("\nAnimation Finished.");
+        dbgMessagef("Animation Finished.");
 #endif
         //start and pause poo here for pooeyness...(wings just closed, gotta stay closed...etc..
 

@@ -37,7 +37,7 @@ void aivarShutdown(void)
         sdword i;
         for (i=0;i<varsUsed;i++)
         {
-            dbgMessagef("\nWarning Var %s not closed",vars[i]->label);
+            dbgMessagef("Warning Var %s not closed",vars[i]->label);
             memFree(vars[i]);
         }
         memFree(vars);

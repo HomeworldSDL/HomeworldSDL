@@ -642,7 +642,7 @@ void tutTutorial1(char *name, featom *atom)
         beginning = TRUE;
         tutorial = 1;
         dbgAssertOrIgnore(startingGame == FALSE);
-        dbgMessagef("\nTutorial1 started");
+        dbgMessagef("Tutorial1 started");
 
         utySinglePlayerGameStart(name, atom);
     }
@@ -824,7 +824,7 @@ void tutRemovePointerByName(char *name)
         }
     }
 #ifndef HW_BUILD_FOR_DEBUGGING
-    dbgMessagef("\ntutRemovePointerByName: '%s' not found.", name);
+    dbgMessagef("tutRemovePointerByName: '%s' not found.", name);
 #endif
 }
 
@@ -2073,7 +2073,7 @@ void tutGameMessage(char *commandName)
         return;
     }
 
-    dbgMessagef("\ntutGameMessage: '%s'", commandName);
+    dbgMessagef("tutGameMessage: '%s'", commandName);
 
     if( !tutGameMessageInQueue(commandName) && tutGameMessageIndex < 16 )
     {

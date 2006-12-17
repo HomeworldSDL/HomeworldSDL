@@ -157,7 +157,7 @@ bool ResourceMovingTooFast(Resource *resource)
         (ABS(resource->posinfo.velocity.z) > maxvelocitychase) )
     {
 #ifdef DEBUG_COLLECTRESOURCES
-            dbgMessage("\nResource moving too fast. Picking different one...");
+            dbgMessage("Resource moving too fast. Picking different one...");
 #endif
         return TRUE;
     }
@@ -189,7 +189,7 @@ bool ResourceAlreadyBeingHarvested(struct CommandLayer *comlayer,struct CommandT
                 if (command->collect.resource == resource)
                 {
     #ifdef DEBUG_COLLECTRESOURCES
-                dbgMessage("\nResource already targeted. Picking different one...");
+                dbgMessage("Resource already targeted. Picking different one...");
     #endif
                     return TRUE;
                 }
@@ -222,7 +222,7 @@ bool ResourceAlreadyBeingHarvested(struct CommandLayer *comlayer,struct CommandT
         if (targetedby >= resourcestaticinfo->harvestableByMultipleShips)
         {
     #ifdef DEBUG_COLLECTRESOURCES
-            dbgMessage("\nResource being targeted by too many. Picking different one...");
+            dbgMessage("Resource being targeted by too many. Picking different one...");
     #endif
             return TRUE;
         }
@@ -287,12 +287,12 @@ void clCollectResource(CommandLayer *comlayer,SelectCommand *selectcom,ResourceP
 
     if (numShips == 0)
     {
-        dbgMessage("\nNo ships to get resources");
+        dbgMessage("No ships to get resources");
         return;
     }
 
 #ifdef DEBUG_COLLECTRESOURCES
-    dbgMessage("\nReceived command to harvest");
+    dbgMessage("Received command to harvest");
 #endif
 
     RemoveShipsFromDoingStuff(comlayer,selectcom);
@@ -851,7 +851,7 @@ void R1ResourcerHarvestsAsteroid(struct Ship *ship,struct Resource *resource)
                 break;
             }
 #ifdef DEBUG_COLLECTRESOURCES
-            dbgMessagef("\n%x Changing to harvest",ship);
+            dbgMessagef("%x Changing to harvest",ship);
 #endif
             ship->rcstate1 = R1RCASTEROID_HARVEST_ON;
             // deliberately fall through to R1RCASTEROID_HARVEST_ON
@@ -954,13 +954,13 @@ void R1ResourcerHarvestsAsteroid(struct Ship *ship,struct Resource *resource)
 
                 if (rightvelocity < CIRCLE_RIGHT_VELOCITY)
                 {
-//                    dbgMessagef("\nApplying right thrust %f",rightvelocity);
+//                    dbgMessagef("Applying right thrust %f",rightvelocity);
                     physApplyForceToObj((SpaceObj *)ship,ship->nonstatvars.thruststrength[TRANS_RIGHT]*CIRCLE_RIGHT_THRUST,TRANS_RIGHT);
                 }
 
                 if (range > ASTEROID_HARVEST_RANGE)
                 {
-//                    dbgMessage("\nGoing back towards");
+//                    dbgMessage("Going back towards");
                     aishipFlyToPointAvoidingObjsWithVel(ship,&resource->posinfo.position,0,0.0f,&resource->posinfo.velocity);
                 }
                 else
@@ -1060,7 +1060,7 @@ bool processCollectResource(struct CommandToDo *collecttodo)
         if ((ship->resources < shipstatic->resourcesAtOneTime) && ((resource = rescollectFindNearestResource(ship,collecttodo)) != NULL))
         {
 #ifdef DEBUG_COLLECTRESOURCES
-            dbgMessage("\nCollecting next resource...");
+            dbgMessage("Collecting next resource...");
 #endif
             InitShipForResourceCollection(ship,resource);
             collecttodo->collect.resource = resource;
@@ -1072,7 +1072,7 @@ letsdock:
             if ((ship->resources > 0) && ((dockship = FindNearestShipToDockAt(ship,DOCK_TO_DEPOSIT_RESOURCES)) != NULL))
             {
 #ifdef DEBUG_COLLECTRESOURCES
-                dbgMessage("\nFlying back to deposit resources...");
+                dbgMessage("Flying back to deposit resources...");
 #endif
                 // changing COMMAND_COLLECT_RESOURCES to COMMAND_DOCK
                 FreeLastOrder(collecttodo); // free COMMAND_COLLECT_RESOURCES
@@ -1174,7 +1174,7 @@ void R1ResourcerAttacksShip(struct Ship *ship,struct SpaceObjRotImpTarg *target,
                 break;
             }
 
-            dbgMessagef("\nShip Changing to Harvest/attack mode.");
+            dbgMessagef("Ship Changing to Harvest/attack mode.");
 
             ship->rcstate1 = R1RCASTEROID_HARVEST_ON;
             // deliberately fall through to R1RCASTEROID_HARVEST_ON
@@ -1268,13 +1268,13 @@ void R1ResourcerAttacksShip(struct Ship *ship,struct SpaceObjRotImpTarg *target,
 
                 if (rightvelocity < CIRCLE_RIGHT_VELOCITY)
                 {
-//                    dbgMessagef("\nApplying right thrust %f",rightvelocity);
+//                    dbgMessagef("Applying right thrust %f",rightvelocity);
                     physApplyForceToObj((SpaceObj *)ship,ship->nonstatvars.thruststrength[TRANS_RIGHT]*CIRCLE_RIGHT_THRUST,TRANS_RIGHT);
                 }
 
                 if (range > ASTEROID_HARVEST_RANGE)
                 {
-//                    dbgMessage("\nGoing back towards");
+//                    dbgMessage("Going back towards");
                     aishipFlyToPointAvoidingObjsWithVel(ship,&target->posinfo.position,0,0.0f,&target->posinfo.velocity);
                 }
                 else

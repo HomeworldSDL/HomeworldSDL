@@ -1004,7 +1004,7 @@ void tacticsDelegateAttackCommand(Ship *ship,CommandToDo *command, AttackCommand
     if(!gettingRocked)
     {
 #ifdef DEBUG_TACTICS
-//        dbgMessagef("\nBeing Fair to possible Retreaters.");
+//        dbgMessagef("Being Fair to possible Retreaters.");
 #endif
         tacticsBeFairToRetreaters(ship,(SelectCommand *)attack);
         if(attack->numTargets < 1)
@@ -1034,7 +1034,7 @@ void tacticsDelegateAttackCommand(Ship *ship,CommandToDo *command, AttackCommand
        && ship->shiptype != Mothership)     // don't want to ChangeOrderToAttack for Mothership
     {
 #ifdef DEBUG_TACTICS
-        dbgMessagef("\nAttacking Previous Retreaters");
+        dbgMessagef("Attacking Previous Retreaters");
 #endif
         BreakUpShipsIntoAttackCapable(command->selection,&attackSelection,&nonAttackSelection);
         if(attackSelection.numShips == command->selection->numShips)
@@ -1126,7 +1126,7 @@ void tacticsDelegateSingleAttack(Ship *ship,CommandLayer *comlayer,SelectCommand
     if(!gettingRocked)
     {
 #ifdef DEBUG_TACTICS
-//        dbgMessagef("\nBeing Fair to possible Retreaters.");
+//        dbgMessagef("Being Fair to possible Retreaters.");
 #endif
         tacticsBeFairToRetreaters(ship,(SelectCommand *)attack);
         if(attack->numTargets < 1)
@@ -1137,7 +1137,7 @@ void tacticsDelegateSingleAttack(Ship *ship,CommandLayer *comlayer,SelectCommand
     {
         clAttack(comlayer,selectone,attack);
 #ifdef DEBUG_TACTICS
-        dbgMessagef("\nAttacking Previous Retreaters");
+        dbgMessagef("Attacking Previous Retreaters");
 #endif
         return;
     }
@@ -1341,7 +1341,7 @@ void tacticsReportMove(CommandLayer *comlayer,SelectCommand *selection)
                                 //cancel current ships retreat from this
                                 //command, and lets create a new one
 #ifdef DEBUG_TACTICS
-                                dbgMessagef("\nremoving old retreat in favour of a better one");
+                                dbgMessagef("removing old retreat in favour of a better one");
 #endif
                                 tacticsRemoveRetreat(oldretreat);
                             }
@@ -1359,7 +1359,7 @@ void tacticsReportMove(CommandLayer *comlayer,SelectCommand *selection)
                         listAddNode(&universe.RetreatList,&newRetreat->retreatLink,newRetreat);
 #ifdef bpasechn
     #ifdef DEBUG_TACTICS
-                        dbgMessagef("\nRetreat Registered.");
+                        dbgMessagef("Retreat Registered.");
     #endif
 #endif
                         //maybe make a retreat list that we update
@@ -1957,7 +1957,7 @@ void tacticsGlobalUpdate()
                 {
     #ifdef bpasechn
     #ifdef DEBUG_TACTICS
-                    dbgMessagef("\nRetreat Satisfied...");
+                    dbgMessagef("Retreat Satisfied...");
     #endif
     #endif
                     //////////////////////
@@ -2042,7 +2042,7 @@ void tacticsGlobalUpdate()
             if(attackatom->expirytime < universe.totaltimeelapsed)
             {
 #ifdef DEBUG_TACTICS
-                dbgMessagef("\nAttack Lookout timed out");
+                dbgMessagef("Attack Lookout timed out");
 #endif
                 tempnode = rnode->next;
                 listDeleteNode(rnode);
@@ -2202,7 +2202,7 @@ bool tacticsCheckGuardConditionsDuringAttack(CommandToDo *command)
     {
         //guarding ship has
 #ifdef DEBUG_TACTICS
-        dbgMessagef("\nShips guarding a ship cancelling attack and returning to guard duty.");
+        dbgMessagef("Ships guarding a ship cancelling attack and returning to guard duty.");
 #endif
         return TRUE;
     }

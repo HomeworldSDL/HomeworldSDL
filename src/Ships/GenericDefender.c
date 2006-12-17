@@ -135,7 +135,7 @@ void GenericDefenderAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdist)
                 break;
             }
 #ifdef DEBUG_DEFENDER
-            dbgMessagef("\n%x Changing to circle",ship);
+            dbgMessagef("%x Changing to circle",ship);
 #endif
             ship->aistateattack = DEFENDER_CIRCLE;
             goto circleAlreadyCalculatedTrajectory;
@@ -147,7 +147,7 @@ void GenericDefenderAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdist)
             if (range > newrange)
             {
 #ifdef DEBUG_DEFENDER
-            dbgMessagef("\n%x Changing back to approach",ship);
+            dbgMessagef("%x Changing back to approach",ship);
 #endif
                 ship->aistateattack = DEFENDER_APPROACH;
                 break;

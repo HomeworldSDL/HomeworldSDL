@@ -272,7 +272,7 @@ void trStartup(void)
 #endif
 
 #if TR_VERBOSE_LEVEL >= 1
-    dbgMessagef("\ntrStartup: creating a registry of %d entries", trRegistrySize);
+    dbgMessagef("trStartup: creating a registry of %d entries", trRegistrySize);
 #endif  //TR_VERBOSE_LEVEL
     dbgAssertOrIgnore(trTextureRegistry == NULL);
     trTextureRegistry = memAlloc(trRegistrySize * sizeof(texreg),
@@ -343,7 +343,7 @@ void trReset(void)
     trNoPalReset();
 
 #if TR_VERBOSE_LEVEL >= 1
-    dbgMessagef("\ntrReset: resetting texture registry");
+    dbgMessagef("trReset: resetting texture registry");
 #endif  //TR_VERBOSE_LEVEL
     for (index = 0; index < trRegistrySize; index++)
     {
@@ -388,7 +388,7 @@ void trReset(void)
 void trShutdown(void)
 {
 #if TR_VERBOSE_LEVEL >= 1
-    dbgMessagef("\ntrShutdown: shutting down texture registry");
+    dbgMessagef("trShutdown: shutting down texture registry");
 #endif  //TR_VERBOSE_LEVEL
     trReset();                                              //this'll kill all the remaining textures
     memFree(trTextureRegistry);                             //free the texture registry itself
@@ -554,7 +554,7 @@ sdword trTextureDelete(trhandle handle)
     }
 #endif
 #if TR_VERBOSE_LEVEL >= 2
-    dbgMessagef("\ntrTextureDelete: deleting texture handle 0x%x, internalHandle 0x%x", handle, reg->handle);
+    dbgMessagef("trTextureDelete: deleting texture handle 0x%x, internalHandle 0x%x", handle, reg->handle);
 #endif  //TR_VERBOSE_LEVEL
     dbgAssertOrIgnore(trAllocated(trIndex(handle)));
     oldUsageCount = reg->nUsageCount;                       //remember usage count
@@ -820,7 +820,7 @@ trhandle trTextureRegister(char *fileName, trcolorinfo *info, void *meshReferenc
     }
 #endif
 #if TR_VERBOSE_LEVEL >= 2
-    dbgMessagef("\ntrTextureRegister: registering '%s', info 0x%x", fileName, info);
+    dbgMessagef("trTextureRegister: registering '%s', info 0x%x", fileName, info);
 #endif  //TR_VERBOSE_LEVEL
     if (info == NULL)
     {
@@ -847,7 +847,7 @@ trhandle trTextureRegister(char *fileName, trcolorinfo *info, void *meshReferenc
                     dbgAssertOrIgnore(reg->nUsageCount < SDWORD_Max);
                     reg->nUsageCount++; //update usage count
 #if TR_VERBOSE_LEVEL >= 2
-                    dbgMessagef("\ntrTextureRegister: texture handle 0x%x nUsageCount incremented to %d", index, reg->nUsageCount);
+                    dbgMessagef("trTextureRegister: texture handle 0x%x nUsageCount incremented to %d", index, reg->nUsageCount);
 #endif  //TR_VERBOSE_LEVEL
                     return(trHandleMake(index, paletteIndex));//and use this texture
                 }
@@ -858,7 +858,7 @@ trhandle trTextureRegister(char *fileName, trcolorinfo *info, void *meshReferenc
                     dbgAssertOrIgnore(reg->nUsageCount < SDWORD_Max);
                     reg->nUsageCount++; //update usage count
 #if TR_VERBOSE_LEVEL >= 2
-                    dbgMessagef("\ntrTextureRegister: texture handle 0x%x nUsageCount incremented to %d", index, reg->nUsageCount);
+                    dbgMessagef("trTextureRegister: texture handle 0x%x nUsageCount incremented to %d", index, reg->nUsageCount);
 #endif  //TR_VERBOSE_LEVEL
                     /*
                     ((trcolorinfo *)reg->palettes)
@@ -880,7 +880,7 @@ trhandle trTextureRegister(char *fileName, trcolorinfo *info, void *meshReferenc
         if (!trAllocated(index))
         {                                                   //if free structure
 #if TR_VERBOSE_LEVEL >= 2
-            dbgMessagef("\ntrTextureRegister: allocated index 0x%x for texture '%s'.", index, fileName);
+            dbgMessagef("trTextureRegister: allocated index 0x%x for texture '%s'.", index, fileName);
 #endif  //TR_VERBOSE_LEVEL
             // Notice how we just say that all textures are paletted?
             //  Well, we may want to put in a check for some other condition
@@ -1003,7 +1003,7 @@ trhandle trRegisterAddition(trhandle handle, trcolorinfo *info)
         else
         {                                                   //if either color has changed
     #if TR_VERBOSE_LEVEL >= 2
-            dbgMessagef("\ntrRegisterAddition: updating texture handle 0x%x", handle);
+            dbgMessagef("trRegisterAddition: updating texture handle 0x%x", handle);
     #endif  //TR_VERBOSE_LEVEL
             //make duplicate copy of the colorinfo structures
             newColorInfos = memAlloc(TR_NumPaletteSize, "dupe trcolorinfo list", NonVolatile);
@@ -1021,7 +1021,7 @@ trhandle trRegisterAddition(trhandle handle, trcolorinfo *info)
     dbgAssertOrIgnore(reg->nUsageCount < SDWORD_Max);
     reg->nUsageCount++;                                     //update usage count
 #if TR_VERBOSE_LEVEL >= 2
-    dbgMessagef("\ntrTextureRegister: texture handle 0x%x nUsageCount incremented to %d", index, reg->nUsageCount);
+    dbgMessagef("trTextureRegister: texture handle 0x%x nUsageCount incremented to %d", index, reg->nUsageCount);
 #endif  //TR_VERBOSE_LEVEL
     return(newHandle);
 }
@@ -1136,7 +1136,7 @@ void trTextureColorsUpdate(trhandle handle, trcolorinfo *info)
             oldColorInfos[colorIndex].detail != info->detail)
         {                                                   //if either color has changed
     #if TR_VERBOSE_LEVEL >= 2
-            dbgMessagef("\ntrTextureColorsUpdate: updating texture handle 0x%x", handle);
+            dbgMessagef("trTextureColorsUpdate: updating texture handle 0x%x", handle);
     #endif  //TR_VERBOSE_LEVEL
             //make duplicate copy of the colorinfo structures
             newColorInfos = memAlloc(TR_NumPaletteSize, "dupe trcolorinfo list", NonVolatile);
@@ -1180,7 +1180,7 @@ sdword trTextureUnregister(trhandle handle)
         ((trcolorinfo *)trTextureRegistry[index].palettes)[paletteIndex] = trUnusedColorInfo;//this palette not needed anymore
     }
 #if TR_VERBOSE_LEVEL >= 2
-    dbgMessagef("\ntrTextureUnregister: handle 0x%x nUsageCount decremented to %d", handle, trTextureRegistry[index].nUsageCount);
+    dbgMessagef("trTextureUnregister: handle 0x%x nUsageCount decremented to %d", handle, trTextureRegistry[index].nUsageCount);
 #endif  //TR_VERBOSE_LEVEL
     return(trTextureRegistry[index].nUsageCount);
 }
@@ -1197,7 +1197,7 @@ void trTextureDeleteAllUnregistered(void)
     sdword index;
 
 #if TR_VERBOSE_LEVEL >= 1
-    dbgMessagef("\ntrTextureDeleteAllUnregistered");
+    dbgMessagef("trTextureDeleteAllUnregistered");
 #endif  //TR_VERBOSE_LEVEL
     for (index = 0; index <= trHighestAllocated; index++)
     {                                                       //for all textures in allocated range
@@ -2520,7 +2520,7 @@ sdword trCramAttempt(sdword scaleFactor)
     texreg *reg;
 
 #if TR_VERBOSE_LEVEL >= 2
-    dbgMessagef("\ntrCramAttempt: fitting textures, scale factor %d", scaleFactor);
+    dbgMessagef("trCramAttempt: fitting textures, scale factor %d", scaleFactor);
 #endif  //TR_VERBOSE_LEVEL
     for (index = used = 0; index < trNumberRamPools; index++)
     {
@@ -2652,7 +2652,7 @@ sdword trCramRAMScaleCompute(void)
         iterations++;
     }
 #if TR_VERBOSE_LEVEL >= 1
-    dbgMessagef("\ntrCramRAMScaleCompute: fit textures, scale factor %d, in %d iterations", min(65536, bestScaleFactor), iterations);
+    dbgMessagef("trCramRAMScaleCompute: fit textures, scale factor %d, in %d iterations", min(65536, bestScaleFactor), iterations);
 #endif  //TR_VERBOSE_LEVEL
     //now we have a scale factor which will enable us to fit all textures
     //into a given amount of texture RAM, provided we follow the same fitting
@@ -2683,7 +2683,7 @@ void trCramIntoRAM(sdword scaleFactor)
     texreg *reg;
 
 #if TR_VERBOSE_LEVEL >= 2
-    dbgMessagef("\ntrCramIntoRAM: fitting textures, scale factor %d", scaleFactor);
+    dbgMessagef("trCramIntoRAM: fitting textures, scale factor %d", scaleFactor);
 #endif  //TR_VERBOSE_LEVEL
     for (index = used = 0; index < trNumberRamPools; index++)
     {
@@ -3017,7 +3017,7 @@ void trRegistryRefresh(void)
 #endif
 
 #if TR_VERBOSE_LEVEL >= 1
-    dbgMessagef("\ntrRegistryRefresh: Refreshing up to %d textures", trHighestAllocated);
+    dbgMessagef("trRegistryRefresh: Refreshing up to %d textures", trHighestAllocated);
 #endif  //TR_VERBOSE_LEVEL
     trTextureDeleteAllUnregistered();                       //start by getting rid of dead weight
 
@@ -3076,7 +3076,7 @@ void trRegistryRefresh(void)
                 if (!trImageMeasureFromListing(reg->fileName, lifListing, listingLength, &width, &height, &listFlags, &pSharedFrom))
                 {
 #if TR_VERBOSE_LEVEL >= 1
-                    dbgMessagef("\nImage '%s' not found in listing", reg->fileName);
+                    dbgMessagef("Image '%s' not found in listing", reg->fileName);
 #endif
                     strcpy(fullName, reg->fileName);
                     strcat(fullName, ".LiF");
@@ -3124,7 +3124,7 @@ void trRegistryRefresh(void)
                         {                                   //the share parent is not loaded
                             trSharedFilenameCreate(index, lifListing, listingLength);//make the shared filename
 #if TR_VERBOSE_LEVEL >= 2
-                            dbgMessagef("\nTexture '%s' invalid for sharedFrom of '%s'.", pSharedFrom, reg->fileName);
+                            dbgMessagef("Texture '%s' invalid for sharedFrom of '%s'.", pSharedFrom, reg->fileName);
 #endif
                         }
                         else if (!trAllColorsEqual(index, reg->sharedFrom))
@@ -3132,7 +3132,7 @@ void trRegistryRefresh(void)
 #if TR_VERBOSE_LEVEL >= 2
                             if (reg->sharedFrom == TR_NotShared)
                             {
-                                dbgMessagef("\nTexture '%s' has different colors than '%s'", pSharedFrom, reg->fileName);
+                                dbgMessagef("Texture '%s' has different colors than '%s'", pSharedFrom, reg->fileName);
                             }
 #endif
                             reg->sharedFrom = TR_NotShared; //can't allow this case
@@ -3328,7 +3328,7 @@ void trMakeCurrent(trhandle handle)
 #if TR_PRINT_TEXTURE_NAMES
     if (trPrintTextureNames)
     {
-        dbgMessagef("\ntrMakeCurrent: %s", reg->fileName);
+        dbgMessagef("trMakeCurrent: %s", reg->fileName);
     }
 #endif
 #if TR_DEBUG_TEXTURES
@@ -3338,13 +3338,13 @@ void trMakeCurrent(trhandle handle)
         {
             keyClearSticky(LBRACK);
             trSpecialTextureMode = max(TSM_None, trSpecialTextureMode - 1);
-            dbgMessagef("\n%s texture mode.", trSpecialTextureName[trSpecialTextureMode]);
+            dbgMessagef("%s texture mode.", trSpecialTextureName[trSpecialTextureMode]);
         }
         if (keyIsStuck(RBRACK))
         {
             keyClearSticky(RBRACK);
             trSpecialTextureMode = min(TSM_NumberModes - 1, trSpecialTextureMode + 1);
-            dbgMessagef("\n%s texture mode.", trSpecialTextureName[trSpecialTextureMode]);
+            dbgMessagef("%s texture mode.", trSpecialTextureName[trSpecialTextureMode]);
         }
         if (trSpecialTextures && trSpecialTextureMode != TSM_None)
         {
@@ -3825,7 +3825,7 @@ void trNoPalQueueAdd(udword handle)
             trNoPalQueueFreeNext();
         }
 
-        dbgMessagef("\n** nopal freed %dMB of textures **",
+        dbgMessagef("** nopal freed %dMB of textures **",
                     (prevBytes - trNoPalBytesAllocated) >> 20);
     }
 
@@ -3850,7 +3850,7 @@ void trNoPalReadjust(void)
     }
     dbgAssertOrIgnore(trNoPalInitialized);
 
-    dbgMessagef("\n** nopal freed %dMB of textures **", trNoPalBytesAllocated >> 20);
+    dbgMessagef("** nopal freed %dMB of textures **", trNoPalBytesAllocated >> 20);
 
     for (index = 0; index < trRegistrySize; index++)
     {
@@ -3873,7 +3873,7 @@ void trNoPalReadjustWithoutPending(void)
     }
     dbgAssertOrIgnore(trNoPalInitialized);
 
-    dbgMessagef("\n** nopalw/o freed %dMB of textures **", trNoPalBytesAllocated >> 20);
+    dbgMessagef("** nopalw/o freed %dMB of textures **", trNoPalBytesAllocated >> 20);
 
     for (index = 0; index < trRegistrySize; index++)
     {
@@ -4234,7 +4234,7 @@ void trNoPalShutdown(void)
 ----------------------------------------------------------------------------*/
 void trNoPalResizePool(sdword mb)
 {
-    dbgMessagef("\ntrNoPalResizePool: %dMB", mb);
+    dbgMessagef("trNoPalResizePool: %dMB", mb);
     trNoPalMaxBytes = mb << 20;
     trNoPalReadjust();
 }

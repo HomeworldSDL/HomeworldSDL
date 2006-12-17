@@ -1125,7 +1125,7 @@ void keyPressDown(udword key)
     dbgAssertOrIgnore(key < KEY_TOTAL_KEYS);
 #endif
 #ifdef gshaw
-    dbgMessagef("\nKey pressed = %d",key);
+    dbgMessagef("Key pressed = %d",key);
 #endif
 
 
@@ -1165,7 +1165,7 @@ void keyPressDown(udword key)
         {
             keySaveScan[key].keynumpressed++;
     #if KEY_VERBOSE_LEVEL >= 2
-            dbgMessagef("\nkeyRepeat: repeat count of 0x%x incremented to %d", key, keySaveScan[key].keynumpressed);
+            dbgMessagef("keyRepeat: repeat count of 0x%x incremented to %d", key, keySaveScan[key].keynumpressed);
     #endif
         }
         if (!(demDemoRecording | demDemoPlaying))
@@ -1212,7 +1212,7 @@ void keyRepeat(udword key)
     {
         keySaveScan[key].keynumpressed++;
 #if KEY_VERBOSE_LEVEL >= 2
-        dbgMessagef("\nkeyRepeat: repeat count of 0x%x incremented to %d", key, keySaveScan[key].keynumpressed);
+        dbgMessagef("keyRepeat: repeat count of 0x%x incremented to %d", key, keySaveScan[key].keynumpressed);
 #endif
     }
     if (!(demDemoRecording | demDemoPlaying))
@@ -1245,7 +1245,7 @@ void keyPressUp(udword key)
     keySaveScan[key].keypressed = 0;
     keySaveScan[key].keynumpressed = 0;
 #if KEY_VERBOSE_LEVEL >= 2
-        dbgMessagef("\nkeyRepeat: repeat count of 0x%x set to 0", key);
+        dbgMessagef("keyRepeat: repeat count of 0x%x set to 0", key);
 #endif
     if (!(demDemoRecording | demDemoPlaying))
     {

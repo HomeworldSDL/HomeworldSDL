@@ -3250,7 +3250,7 @@ bool singlePlayerNISletNamesGet(char **nisname, char **scriptname, sdword nislet
 #if NIS_PRINT_INFO
     if (nisletNames[missionNumber].name[insertNumber] == NULL)
     {
-        dbgMessagef("\nMission %d insert (%c) is not defined", missionNumber + 1, insertNumber + 'A');
+        dbgMessagef("Mission %d insert (%c) is not defined", missionNumber + 1, insertNumber + 'A');
         return(FALSE);
     }
 #endif
@@ -3273,7 +3273,7 @@ bool singlePlayerNISletNamesGet(char **nisname, char **scriptname, sdword nislet
 #if NIS_PRINT_INFO
     if (!fileExists(nisFileName, 0) || !fileExists(nisScriptName, 0))
     {
-        dbgMessagef("\n'%s' and/or '%s' do not exist.", nisFileName, nisScriptName);
+        dbgMessagef("'%s' and/or '%s' do not exist.", nisFileName, nisScriptName);
         return(0);
     }
 #endif
@@ -3881,24 +3881,24 @@ void spNISletTestAttempt(sdword index)
 
     if (index < 0 || index >= NUMBER_SINGLEPLAYER_MISSIONS)
     {
-        dbgMessage("\nindex < 0 || index >= NUMBER_SINGLEPLAYER_MISSIONS");
+        dbgMessage("index < 0 || index >= NUMBER_SINGLEPLAYER_MISSIONS");
         return;
     }
     if (nisletNames[singlePlayerGameInfo.currentMission - 1].name[index] == NULL)
     {
-        dbgMessagef("\nnisletNames[%d].name[%d] == NULL", singlePlayerGameInfo.currentMission - 1, index);
+        dbgMessagef("nisletNames[%d].name[%d] == NULL", singlePlayerGameInfo.currentMission - 1, index);
         return;
     }
     GetStartPointPlayer(&startpoint);
     singlePlayerNISletNamesGet(&nis, &script, singlePlayerGameInfo.currentMission * 10 + index);
     if (!fileExists(nis, 0))
     {
-        dbgMessagef("\n'%s' not found.", nis);
+        dbgMessagef("'%s' not found.", nis);
         return;
     }
     if (!fileExists(script, 0))
     {
-        dbgMessagef("\n'%s' not found.", script);
+        dbgMessagef("'%s' not found.", script);
         return;
     }
     singlePlayerStartNis(nis, script, FALSE, &startpoint);

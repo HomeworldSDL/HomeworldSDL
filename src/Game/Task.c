@@ -88,7 +88,7 @@ void taskTestFunction(void)
 
     for (index = 0; index < 4; index++)
     {
-        dbgMessagef("\nTask test function called %d times.", index);
+        dbgMessagef("Task test function called %d times.", index);
         aba++;
         taskYield(0);
     }
@@ -108,7 +108,7 @@ sdword taskStartup(udword frequency)
     sdword index;
 
 #if TASK_VERBOSE_LEVEL >= 1
-    dbgMessagef("\ntaskInit: Task module started using a frequency of %dHz", frequency);
+    dbgMessagef("taskInit: Task module started using a frequency of %dHz", frequency);
 #endif
 
     dbgAssertOrIgnore(taskModuleInit == FALSE);
@@ -158,7 +158,7 @@ void taskShutdown(void)
     sdword index;
 
 #if TASK_VERBOSE_LEVEL >= 1
-    dbgMessage("\ntaskClose: closing task module");
+    dbgMessage("taskClose: closing task module");
 #endif
 
     if (!taskModuleInit)
@@ -243,7 +243,7 @@ taskhandle taskStart(taskfunction function, real32 period, udword flags)
 
     Local_taskData= (char *)taskData;
 #if TASK_VERBOSE_LEVEL >= 2
-    dbgMessagef("\ntaskStart: starting task at 0x%x at %d Hz, flags 0x%x using handle %d at 0x%x",
+    dbgMessagef("taskStart: starting task at 0x%x at %d Hz, flags 0x%x using handle %d at 0x%x",
                function, 1.0f/period, flags, handle, taskData[handle]);
 #endif
 
@@ -449,7 +449,7 @@ void taskStop(taskhandle handle)
     dbgAssertOrIgnore(taskData[handle] != NULL);
 
 #if TASK_VERBOSE_LEVEL >= 2
-//    dbgMessagef("\ntaskDestroy: destroying task %d", handle);
+//    dbgMessagef("taskDestroy: destroying task %d", handle);
 #endif
 
     memFree(taskData[handle]);                              //free the memory
@@ -494,7 +494,7 @@ sdword taskExecuteAllPending(sdword ticks)
 #if TASK_VERBOSE_LEVEL >= 2
     if (ticks > 0)
     {
-        dbgMessagef("\ntaskExecuteAllPending: executing tasks for %d ticks", ticks);
+        dbgMessagef("taskExecuteAllPending: executing tasks for %d ticks", ticks);
     }
 #endif
 
@@ -620,7 +620,7 @@ sdword taskExecuteAllPending(sdword ticks)
 #if TASK_VERBOSE_LEVEL >= 3
             if (taskNumberCalls)
             {
-                dbgMessagef("\ntaskExecuteAllPending: executing %d calls of task handle %d", taskNumberCalls, taskCurrentTask);
+                dbgMessagef("taskExecuteAllPending: executing %d calls of task handle %d", taskNumberCalls, taskCurrentTask);
             }
 #endif
             //!!! needed?

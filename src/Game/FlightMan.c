@@ -2099,7 +2099,7 @@ void flightmanInitFunc(Ship *ship,udword flightman,sdword flags)
     }
 
 #ifdef FLIGHTMAN_DEBUG
-    dbgMessagef("\nStarting flightman %d for Ship %x",flightman,(udword)ship);
+    dbgMessagef("Starting flightman %d for Ship %x",flightman,(udword)ship);
 #endif
 
 //    speechEvent(ship,ManeuverSet,flightman);
@@ -2118,12 +2118,12 @@ void flightmanInitFunc(Ship *ship,udword flightman,sdword flags)
     if (!ship->shipisattacking)
     {
         ship->shipisattacking = TRUE;
-        //dbgMessagef("\nShip %i is attacking (flightman)", ship->shipID.shipNumber);
+        //dbgMessagef("Ship %i is attacking (flightman)", ship->shipID.shipNumber);
     }
     if ((ship->attackvars.myWingmanIs)&&(!ship->attackvars.myWingmanIs->shipisattacking))
     {
         ship->attackvars.myWingmanIs->shipisattacking = TRUE;
-        //dbgMessagef("\nShip %i is attacking (flightman - wingman)", ship->attackvars.myWingmanIs->shipID.shipNumber);
+        //dbgMessagef("Ship %i is attacking (flightman - wingman)", ship->attackvars.myWingmanIs->shipID.shipNumber);
     }
 }
 
@@ -2135,7 +2135,7 @@ void flightmanClose(Ship *ship)
     dbgAssertOrIgnore(ship->flightman != FLIGHTMAN_NULL);
 
 #ifdef FLIGHTMAN_DEBUG
-    dbgMessagef("\nEnding flightman %d for Ship %x",ship->flightman,(udword)ship);
+    dbgMessagef("Ending flightman %d for Ship %x",ship->flightman,(udword)ship);
 #endif
 
     flightmanSpecificClose = flightmanSpecificCloseTable[ship->flightman];
@@ -2159,7 +2159,7 @@ bool flightmanExecute(Ship *ship)
     if (ship->flightman == FLIGHTMAN_NULL)
     {
         // should this be happening?
-        dbgMessage("\nWarning: tried to execute NULL flightman");
+        dbgMessage("Warning: tried to execute NULL flightman");
 //        dbgAssertOrIgnore(FALSE);
         return TRUE;
     }

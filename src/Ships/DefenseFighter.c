@@ -430,7 +430,7 @@ void DefenseFighterReportBullet(Ship *ship, Bullet *bullet)
 
     defensefighterstatics = (DefenseFighterStatics *) ((ShipStaticInfo *)(ship->staticinfo))->custstatinfo;
 
-    /*dbgMessagef("\nB: %d",universe.univUpdateCounter);
+    /*dbgMessagef("B: %d",universe.univUpdateCounter);
 
     if (bullet->playerowner!= NULL)
         dbgMessagef(" %d ", bullet->playerowner->playerIndex);
@@ -456,45 +456,45 @@ void DefenseFighterReportBullet(Ship *ship, Bullet *bullet)
 
     if(spec->DefenseList.num < defensefighterstatics->NumTargetsCanAttack)
     {       //don't exceed maximum # of targets
-        //dbgMessagef("\nA: %d",universe.univUpdateCounter);
+        //dbgMessagef("A: %d",universe.univUpdateCounter);
         if(bullet->bulletType == BULLET_Projectile)  //Maybe make
         {
-            //dbgMessagef("\nC: %d",universe.univUpdateCounter);
+            //dbgMessagef("C: %d",universe.univUpdateCounter);
             if(bullet->owner != NULL)
             {   //Only attack owned bullets...a small weakness, but easily fixable by making this more of a mess :)
-                //dbgMessagef("\nD: %d",universe.univUpdateCounter);
+                //dbgMessagef("D: %d",universe.univUpdateCounter);
                 if(bullet->owner->playerowner != ship->playerowner || defensefighterstatics->TargetOwnBullets == TRUE)
                 {
-                    //dbgMessagef("\nE: %d",universe.univUpdateCounter);
+                    //dbgMessagef("E: %d",universe.univUpdateCounter);
                     if(bullet->timelived > universe.phystimeelapsed)
                     {    //don't target bullet if it is in the gun still...it sucks
-                        //dbgMessagef("\nF: %d",universe.univUpdateCounter);
+                        //dbgMessagef("F: %d",universe.univUpdateCounter);
                         if(bitTest(bullet->SpecialEffectFlag,0x0002))
                         {   //Bullet IS being targetted by 'a' defense fighter already...
-                            //dbgMessagef("\nG: %d",universe.univUpdateCounter);
+                            //dbgMessagef("G: %d",universe.univUpdateCounter);
                             if(defensefighterstatics->MultipleTargettingofSingleBullet)
                             {   //we want multiple defense fighters to target the same bullet
-                                //dbgMessagef("\nH: %d",universe.univUpdateCounter);
+                                //dbgMessagef("H: %d",universe.univUpdateCounter);
                                 if(!isbulletbeingtargeted(ship, bullet))   //does laser update if bullet IS in list
                                 {    //bullet ISN'T being targetted by this ship
-                                    //dbgMessagef("\nI: %d",universe.univUpdateCounter);
+                                    //dbgMessagef("I: %d",universe.univUpdateCounter);
                                     if(defensefighterCheckInFront(ship, bullet))
                                     {
-                                        //dbgMessagef("\nJ: %d",universe.univUpdateCounter);
+                                        //dbgMessagef("J: %d",universe.univUpdateCounter);
                                         defensefightertargetbullet(ship, bullet);
-                                        //dbgMessagef("\nTargetted a bullet already being targetted.");
+                                        //dbgMessagef("Targetted a bullet already being targetted.");
                                     }
                                 }
                             }
                         }
                         else
                         {    //bullet is new to defense fighters
-                            //dbgMessagef("\nK: %d",universe.univUpdateCounter);
+                            //dbgMessagef("K: %d",universe.univUpdateCounter);
                             if(defensefighterCheckInFront(ship, bullet))
                             {
-                                //dbgMessagef("\nL: %d",universe.univUpdateCounter);
+                                //dbgMessagef("L: %d",universe.univUpdateCounter);
                                 defensefightertargetbullet(ship, bullet);
-                                //dbgMessagef("\nTargetted a fresh bullet");
+                                //dbgMessagef("Targetted a fresh bullet");
                             }
                         }
                     }
@@ -503,7 +503,7 @@ void DefenseFighterReportBullet(Ship *ship, Bullet *bullet)
             else
             {
                 #ifndef HW_BUILD_FOR_DISTRIBUTION
-  //                  dbgMessagef("\nDfighter: owner null @ %d - f %x",universe.univUpdateCounter,bullet->flags);
+  //                  dbgMessagef("Dfighter: owner null @ %d - f %x",universe.univUpdateCounter,bullet->flags);
                 #endif
             }
         }
@@ -607,7 +607,7 @@ void DefenseFighterHouseKeep(Ship *ship)
         defensestruct = (DefenseStruct *)listGetStructOfNode(bulletnode);
 
 /*        if (defensestruct->bullet)
-            dbgMessagef("\nDS: %d %f %d %f %d %d",
+            dbgMessagef("DS: %d %f %d %f %d %d",
                         universe.univUpdateCounter,
                         defensestruct->bullet->collOptimizeDist,
                         defensestruct->laser ? 1:0,
@@ -615,7 +615,7 @@ void DefenseFighterHouseKeep(Ship *ship)
                         defensestruct->CoolDown ? 1:0,
                         defensestruct->LaserDead ? 1:0);
         else
-            dbgMessagef("\nDS: %d N  %d %f %d %d",
+            dbgMessagef("DS: %d N  %d %f %d %d",
                         universe.univUpdateCounter,
                         defensestruct->laser ? 1:0,
                         defensestruct->CoolDownTime,
@@ -649,7 +649,7 @@ void DefenseFighterHouseKeep(Ship *ship)
                     DefenseFighterDestroyedABullet(ship, defensestruct->bullet, defensestruct->laser);
                     defensestruct->bullet->damage = 0;      //cap at 0;
                     defensestruct->bullet = NULL;   //destroy pointer...
-                    //dbgMessagef("\nDefense Fighter Destroyed A Bullet.");
+                    //dbgMessagef("Defense Fighter Destroyed A Bullet.");
                     if (defensestruct->laser != NULL)
                     {
                         defensestruct->laser->timelived =10000.0f; //kill laser
@@ -681,7 +681,7 @@ void DefenseFighterHouseKeep(Ship *ship)
                             univRemoveObjFromRenderList((SpaceObj *) defensestruct->laser->effect);
                         }
                         defensestruct->laser=NULL;
-                        //dbgMessagef("\nBullet out of range.");
+                        //dbgMessagef("Bullet out of range.");
                         bitClear(defensestruct->bullet->SpecialEffectFlag,0x0002);
                         defensestruct->CoolDown = TRUE;     //begin laser cooldown
                         defensestruct->bullet = NULL;       //set target to NULL so it isn't referenced again!
@@ -697,7 +697,7 @@ void DefenseFighterHouseKeep(Ship *ship)
                             univRemoveObjFromRenderList((SpaceObj *) defensestruct->laser->effect);
                         }
                         defensestruct->laser=NULL;
-                        //dbgMessagef("\nBullet Not infront anymore...stop tracking.");
+                        //dbgMessagef("Bullet Not infront anymore...stop tracking.");
                         if(defensefighterstatics->MultipleTargettingofSingleBullet)
                         {
                             bitClear(defensestruct->bullet->SpecialEffectFlag,0x0002);
@@ -741,7 +741,7 @@ void DefenseFighterHouseKeep(Ship *ship)
             {    //Laser Terminal has cooled down...so free it up
                 tempnode = bulletnode->next;
                 listDeleteNode(bulletnode);
-                //dbgMessagef("\nDeleting defense node in CoolDown.");
+                //dbgMessagef("Deleting defense node in CoolDown.");
                 bulletnode = tempnode;
                 continue;
             }
@@ -852,7 +852,7 @@ void defenseFighterAdjustLaser(Bullet *laser)
         bulletnode = bulletnode->next;
     }
     //we shouldn't get to this point :)
-    //dbgMessagef("\nLaser Drawn doesn't exist in defense fighter records.");
+    //dbgMessagef("Laser Drawn doesn't exist in defense fighter records.");
 
     //on further reflection..if we kill the laster...but it doesn't go bye bye, we might get here...
 }
@@ -897,7 +897,7 @@ void DefenseFighterBulletRemoval(Bullet *bullettogoByeBye)
                         }
                         defstruct->laser = NULL;        //remove pointer to laser...
                         defstruct->LaserDead = TRUE;    //signify dead laser!!!!!!!!!!
-                        //dbgMessagef("\nDefense Targetted Bullet Died...timing out laser.");
+                        //dbgMessagef("Defense Targetted Bullet Died...timing out laser.");
                     }
                     defstruct->CoolDown = TRUE;     //Start or continue cool down process
                     defstruct->bullet = NULL;       //set target to NULL so it isn't referenced again!
@@ -919,7 +919,7 @@ void DefenseFighterDied(Ship *ship)
     DefenseStruct *defensestruct;
 
     bulletnode = spec->DefenseList.head;
-    dbgMessagef("\nDefenseFighter Died: Cleaning up.");
+    dbgMessagef("DefenseFighter Died: Cleaning up.");
     while(bulletnode != NULL)
     {
         defensestruct = (DefenseStruct *)listGetStructOfNode(bulletnode);
@@ -933,12 +933,12 @@ void DefenseFighterDied(Ship *ship)
                 bitSet(defensestruct->laser->flags,SOF_Hide);
             }
             //listDeleteNode(&defensestruct->laser->objlink);
-            //dbgMessagef("\nDefense Dead: Deleting Laser from existance");
+            //dbgMessagef("Defense Dead: Deleting Laser from existance");
             soundEventBurstStop(ship, &ship->gunInfo->guns[0]);
         }
         tempnode = bulletnode->next;
         listDeleteNode(bulletnode);
-        //dbgMessagef("\nDefense Dead: Deleting defense node.");
+        //dbgMessagef("Defense Dead: Deleting defense node.");
 
         bulletnode = tempnode;
     }

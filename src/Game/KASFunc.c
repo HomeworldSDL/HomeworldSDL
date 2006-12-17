@@ -4203,7 +4203,7 @@ void kasfUniversePause(void)
 {
     nisUniversePause = TRUE;
 #if NIS_VERBOSE_LEVEL >= 1
-    dbgMessage("\nKAS has PAUSED the universe.");
+    dbgMessage("KAS has PAUSED the universe.");
 #endif
     //!!! pause KAS timers and FSM's
 }
@@ -4219,7 +4219,7 @@ void kasfUniverseUnpause(void)
 {
     nisUniversePause = FALSE;
 #if NIS_VERBOSE_LEVEL >= 1
-    dbgMessage("\nKAS has UNPAUSED the universe.");
+    dbgMessage("KAS has UNPAUSED the universe.");
 #endif
     //!!! unpause KAS timers and FSM's
 }

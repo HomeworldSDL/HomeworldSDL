@@ -99,11 +99,11 @@ sdword feMenuOverlapMarginX = 0, feMenuOverlapMarginY = 0;
 /*
 void feTestCallback(char *string)
 {
-    dbgMessagef("\nfeTestCallback: '%s'", string);
+    dbgMessagef("feTestCallback: '%s'", string);
 }
 void feTestQuit(char *string)
 {
-    dbgMessage("\nfeTestQuit");
+    dbgMessage("feTestQuit");
     feCurrentScreenDelete();
 }
 */
@@ -121,16 +121,16 @@ void uicTestTextEntry(char *name, featom *atom)
         switch (uicTextEntryMessage(atom))
         {
             case CM_GainFocus:
-                dbgMessagef("\nEntry '%s' gain focus.", name);
+                dbgMessagef("Entry '%s' gain focus.", name);
                 break;
             case CM_LoseFocus:
-                dbgMessagef("\nEntry '%s' lose focus.", name);
+                dbgMessagef("Entry '%s' lose focus.", name);
                 break;
             case CM_AcceptText:
-                dbgMessagef("\nEntry '%s' accept text '%s'.", name, ((textentryhandle)atom->pData)->textBuffer);
+                dbgMessagef("Entry '%s' accept text '%s'.", name, ((textentryhandle)atom->pData)->textBuffer);
                 break;
             case CM_RejectText:
-                dbgMessagef("\nEntry '%s' reject text '%s'.", name, ((textentryhandle)atom->pData)->textBuffer);
+                dbgMessagef("Entry '%s' reject text '%s'.", name, ((textentryhandle)atom->pData)->textBuffer);
                 break;
             default:
                 break;
@@ -240,7 +240,7 @@ void feFunctionExecute(char *name, featom *atom, bool firstcall)
         }
     }
 #if (FEF_VERBOSE_LEVEL || FEF_ERROR_CHECKING)
-    dbgMessagef("\nfeFunctionExecute: function '%s' not found", name);
+    dbgMessagef("feFunctionExecute: function '%s' not found", name);
 #endif
 }
 
@@ -564,7 +564,7 @@ void feStandardScrollBarFunction(char *string, featom *atom)
         listwindow->reg.status |= RSF_DrawThisFrame;
         break;
     default:
-        dbgMessagef("\nunhandled List Window scroll event %d", shandle->clickType);
+        dbgMessagef("unhandled List Window scroll event %d", shandle->clickType);
     }
 
     scAdjustThumbwheel(shandle, (uword)listwindow->UpperIndex, (uword)listwindow->MaxIndex, (uword)listwindow->ListTotal);
@@ -604,7 +604,7 @@ udword feScrollBarProcess(regionhandle region, sdword ID, udword event, udword d
     {
         if (atom->name == NULL)
         {
-            dbgMessage("\natom has no name in feScrollBarProcess");
+            dbgMessage("atom has no name in feScrollBarProcess");
             return 0;
         }
         shandle->event = (udword)data;
@@ -703,13 +703,13 @@ udword feButtonProcess(regionhandle region, sdword ID, udword event, udword data
               atom->type == FA_BitmapButton || atom->type == FA_DragButton);
 
 #if FEF_VERBOSE_LEVEL >= 2
-    dbgMessagef("\nfeButtonProcess: front end button '%s' hit.", atom->name ? atom->name : "NULL");
+    dbgMessagef("feButtonProcess: front end button '%s' hit.", atom->name ? atom->name : "NULL");
 #endif
 
     if (atom->flags & FAF_Link)
     {
 #if FEF_VERBOSE_LEVEL >= 2
-        dbgMessagef("\nfeButtonProcess: link to '%s' hit.", atom->name ? atom->name : "NULL");
+        dbgMessagef("feButtonProcess: link to '%s' hit.", atom->name ? atom->name : "NULL");
 #endif
 #if FEF_ERROR_CHECKING
         if (atom->name == NULL)
@@ -734,14 +734,14 @@ udword feButtonProcess(regionhandle region, sdword ID, udword event, udword data
     {
         dbgAssertOrIgnore(atom->name != NULL);
 #if FEF_VERBOSE_LEVEL >= 2
-        dbgMessagef("\nfeButtonProcess: function button '%s' hit.", atom->name ? atom->name : "NULL");
+        dbgMessagef("feButtonProcess: function button '%s' hit.", atom->name ? atom->name : "NULL");
 #endif
         feFunctionExecute(atom->name, atom, FALSE);
     }
 #if FEF_ERROR_CHECKING
     else
     {
-        dbgMessagef("\nfeButtonProcess: front end button '%s' does nothing.", atom->name ? atom->name : "NULL");
+        dbgMessagef("feButtonProcess: front end button '%s' does nothing.", atom->name ? atom->name : "NULL");
     }
 #endif
     return(0);
@@ -919,7 +919,7 @@ fedrawfunction feDrawCallbackFind(char *name)
         }
     }
 #if FEF_VERBOSE_LEVEL >= 1
-    dbgMessagef("\nUnable to find draw callback for '%s'", name);
+    dbgMessagef("Unable to find draw callback for '%s'", name);
 #endif
     return(NULL);
 }
@@ -1342,7 +1342,7 @@ regionhandle feRegionsAdd(regionhandle parent, fescreen *screen, bool moveToFron
                 {
                     atom->region = NULL;
 #if FEF_ERROR_CHECKING
-                    dbgMessagef("\nfeRegionsAdd: no User region handler for '%s'", atom->name);
+                    dbgMessagef("feRegionsAdd: no User region handler for '%s'", atom->name);
 #else
 #endif
                 }
@@ -1500,7 +1500,7 @@ regionhandle feRegionsAdd(regionhandle parent, fescreen *screen, bool moveToFron
                 break;
 //#if FEF_VERBOSE_LEVEL >= 1
 //            default:
-//                dbgMessagef("\nfeRegionsAdd: unprocessed region type 0x%x (%d of %d) while adding screen '%s'",
+//                dbgMessagef("feRegionsAdd: unprocessed region type 0x%x (%d of %d) while adding screen '%s'",
 //                            atom->type, index, screen->nAtoms, screen->name);
 //#endif
         }
@@ -1567,27 +1567,27 @@ void feAllCallOnCreate(fescreen *screen)
 sdword feStartup(void)
 {
 #if FEF_VERBOSE_LEVEL >= 1
-    dbgMessage("\nStarting front end module");
+    dbgMessage("Starting front end module");
 #endif
     feCallbackIndex = 0;                                    //clear the callback list
     feCallback = memAlloc(feNumberCallbacks *               //allocate new callback list
                  sizeof(fecallback), "Front end callback list", NonVolatile);
 #if FEF_VERBOSE_LEVEL >= 2
-    dbgMessagef("\nfeStartup: allocated %d callbacks", feNumberCallbacks);
+    dbgMessagef("feStartup: allocated %d callbacks", feNumberCallbacks);
 #endif
 
     feDrawCallbackIndex = 0;                                //clear the draw callback list
     feDrawCallback = memAlloc(feNumberDrawCallbacks *       //allocate new callback list
                  sizeof(fedrawcallback), "Front end draw callback list", NonVolatile);
 #if FEF_VERBOSE_LEVEL >= 2
-    dbgMessagef("\nfeStartup: allocated %d draw callbacks", feNumberDrawCallbacks);
+    dbgMessagef("feStartup: allocated %d draw callbacks", feNumberDrawCallbacks);
 #endif
 
     feScreenIndex = 0;                                      //clear screen list
     feScreen = memAlloc(feNumberScreens * sizeof(fescreen *), //allocate screen list
                         "Front end screen list", NonVolatile);
 #if FEF_VERBOSE_LEVEL >= 2
-    dbgMessagef("\nfeStartup: allocated %d screen pointers", feNumberScreens);
+    dbgMessagef("feStartup: allocated %d screen pointers", feNumberScreens);
 #endif
     dbgAssertOrIgnore(ghMainRegion != NULL);                        //first entry on stack (always there) is the main region
     feStack[0].parentRegion = NULL;
@@ -1634,7 +1634,7 @@ void feReset(void)
 void feShutdown(void)
 {
 #if FEF_VERBOSE_LEVEL >= 1
-    dbgMessage("\nClosing front end module");
+    dbgMessage("Closing front end module");
 #endif
     memFree(feDrawCallback);
     memFree(feCallback);
@@ -1811,11 +1811,11 @@ fibfileheader *feScreensLoad(char *fileName)
 
         if (((udword)((ubyte *)screen->links) & 0x03) != 0)
         {
-            dbgMessagef("\nWARNING links %s not byte aligned",fileName);
+            dbgMessagef("WARNING links %s not byte aligned",fileName);
         }
         if (((udword)((ubyte *)screen->atoms) & 0x03) != 0)
         {
-            dbgMessagef("\nWARNING atoms %s not byte aligned",fileName);
+            dbgMessagef("WARNING atoms %s not byte aligned",fileName);
         }
         screen->links = (udword)loadAddress + (ubyte *)screen->links;      //update list pointers
         screen->atoms = (udword)loadAddress + (ubyte *)screen->atoms;
@@ -2463,7 +2463,7 @@ udword feMenuItemProcess(regionhandle region, sdword ID, udword event, udword da
     dbgAssertOrIgnore(atom->type == FA_MenuItem);
 
 #if FEF_VERBOSE_LEVEL >= 2
-    dbgMessagef("\nfeMenuItemProcess: menu item '%s' selected.", atom->name ? atom->name : "NULL");
+    dbgMessagef("feMenuItemProcess: menu item '%s' selected.", atom->name ? atom->name : "NULL");
 #endif
 
     if (atom->flags & FAF_Link)
@@ -2485,12 +2485,12 @@ udword feMenuItemProcess(regionhandle region, sdword ID, udword event, udword da
             if (region->parent == feStack[feStackIndex].baseRegion)
             {                                                   //if it's not the top screen
 #if FEF_VERBOSE_LEVEL >= 2
-                dbgMessagef("\nfeMenuItemProcess: link to '%s' hit.", atom->name ? atom->name : "NULL");
+                dbgMessagef("feMenuItemProcess: link to '%s' hit.", atom->name ? atom->name : "NULL");
 #endif
 #if FEF_ERROR_CHECKING
                 if (atom->name == NULL)
                 {
-                    dbgMessage("\nfeMenuItemProcess: NULL link menu item selected.");
+                    dbgMessage("feMenuItemProcess: NULL link menu item selected.");
                     return(0);
                 }
 #endif
@@ -2498,7 +2498,7 @@ udword feMenuItemProcess(regionhandle region, sdword ID, udword event, udword da
 #if FEF_ERROR_CHECKING
                 if (link == NULL)
                 {
-                    dbgMessagef("\nfeMenuItemProcess: no link found in menu '%s' for link menu item '%s'", feStack[feStackIndex].screen->name, atom->name);
+                    dbgMessagef("feMenuItemProcess: no link found in menu '%s' for link menu item '%s'", feStack[feStackIndex].screen->name, atom->name);
                     return(0);
                 }
 #endif
@@ -2539,7 +2539,7 @@ udword feMenuItemProcess(regionhandle region, sdword ID, udword event, udword da
             {
                 dbgAssertOrIgnore(atom->name != NULL);
 #if FEF_VERBOSE_LEVEL >= 2
-                dbgMessagef("\nfeMenuItemProcess: menu item '%s' selected.", atom->name ? atom->name : "NULL");
+                dbgMessagef("feMenuItemProcess: menu item '%s' selected.", atom->name ? atom->name : "NULL");
 #endif
                 name = atom->name;
                 feFunctionExecute(name, atom, FALSE);
@@ -2579,7 +2579,7 @@ udword feMenuItemProcess(regionhandle region, sdword ID, udword event, udword da
 #if FEF_ERROR_CHECKING
     else
     {
-        dbgMessagef("\nfeMenuItemProcess: menu item '%s' does nothing.", atom->name ? atom->name : "NULL");
+        dbgMessagef("feMenuItemProcess: menu item '%s' does nothing.", atom->name ? atom->name : "NULL");
     }
 #endif
     return(0);
@@ -2920,7 +2920,7 @@ void feCurrentScreenDelete(void)
 
     if (feStack[feStackIndex].screen == NULL)
     {
-        dbgMessage("\n-- NULL screen in feCurrentScreenDelete --");
+        dbgMessage("-- NULL screen in feCurrentScreenDelete --");
         return;
     }
 
@@ -3088,7 +3088,7 @@ fescreen *feScreenPush(void)
     feStack[feStackIndex].screen = NULL;                    //clear out the entry
     feStack[feStackIndex].baseRegion = feStack[feStackIndex].parentRegion = NULL;
 #if FEF_VERBOSE_LEVEL >= 1
-    dbgMessagef("\nfeScreenPush: pushed screen %d", feStackIndex);
+    dbgMessagef("feScreenPush: pushed screen %d", feStackIndex);
 #endif
     return(feStack[feStackIndex - 1].screen);
 }
@@ -3107,7 +3107,7 @@ fescreen *feScreenPop(void)
     dbgAssertOrIgnore(feStackIndex > 0);                            //can't pop the bottom of stack
 #endif
 #if FEF_VERBOSE_LEVEL >= 1
-    dbgMessagef("\nfeScreenPop: popped screen %d", feStackIndex);
+    dbgMessagef("feScreenPop: popped screen %d", feStackIndex);
 #endif
     returnValue = feStack[feStackIndex].screen;
     feStack[feStackIndex].screen = NULL;

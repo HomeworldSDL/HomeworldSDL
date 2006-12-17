@@ -566,7 +566,7 @@ bool gpQuickSave(void)
     path = gpQuickSetup();
     if (path == NULL)
     {
-        dbgMessage("\ngpQuickSave couldn't find a dir");
+        dbgMessage("gpQuickSave couldn't find a dir");
         return FALSE;
     }
 
@@ -585,7 +585,7 @@ bool gpQuickLoad(void)
     path = gpQuickSetup();
     if (path == NULL)
     {
-        dbgMessage("\ngpQuickLoad couldn't find a dir");
+        dbgMessage("gpQuickLoad couldn't find a dir");
         return FALSE;
     }
 
@@ -953,7 +953,7 @@ void gpSaveTheRecordedGame(char *name, featom *atom)
 
 void gpStopPlayback(char *name, featom *atom)
 {
-    dbgMessage("\nStop playback.");
+    dbgMessage("Stop playback.");
 }
 
 void gpStopRecording(char *name, featom *atom)

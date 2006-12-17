@@ -94,7 +94,7 @@ void frShutdown(void)
         if (frFontRegistry[index].name != NULL)
         {                                                   //if non-NULL name, it has been registered
 #if FR_VERBOSE_LEVEL >= 2
-            dbgMessagef("\nfrShutdown: Deleting font %s with a usage count of %d",
+            dbgMessagef("frShutdown: Deleting font %s with a usage count of %d",
                         frFontRegistry[index].name, frFontRegistry[index].nUsageCount);
 #endif
             memFree(frFontRegistry[index].name);            //free previously allocated name
@@ -129,7 +129,7 @@ fonthandle frFontRegister(char *fileName)
             if (frNamesCompare(fileName, frFontRegistry[index].name))
             {                                               //if this is the font you want
 #if FR_VERBOSE_LEVEL >= 2
-            dbgMessagef("\nfrFontRegister: Returning pre-registered font %s with usage count of %d",
+            dbgMessagef("frFontRegister: Returning pre-registered font %s with usage count of %d",
                         frFontRegistry[index].name, frFontRegistry[index].nUsageCount);
 #endif
                 frFontRegistry[index].nUsageCount++;        //increment usage count
@@ -144,7 +144,7 @@ fonthandle frFontRegister(char *fileName)
     }
 #endif
 #if FR_VERBOSE_LEVEL >= 1
-    dbgMessagef("\nfrFontRegister: Font %s not pre-registered, loading now...", fileName);
+    dbgMessagef("frFontRegister: Font %s not pre-registered, loading now...", fileName);
 #endif
     frFontRegistry[freeIndex].name = memStringDupe(fileName);//duplicate name string
     frFontRegistry[freeIndex].nUsageCount = 1;              //start usage count at 1

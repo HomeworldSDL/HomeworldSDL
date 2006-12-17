@@ -154,7 +154,7 @@ bool HeavyCorvetteSpecialTarget(Ship *ship, void *custom)
         if(doBurstFire(ship))
         {
             spec->burstState = BURST_Begin;
-            dbgMessagef("\nFiring Burst Fire.");
+            dbgMessagef("Firing Burst Fire.");
         }
         break;
     default:
@@ -202,7 +202,7 @@ bool doBurstCharging(Ship *ship)
         return(FALSE);
     }
 #ifdef DEBUG_HEAVYCORVETTE
-    dbgMessagef("\nBurst Fire Charged!");
+    dbgMessagef("Burst Fire Charged!");
 #endif
     return(TRUE);
 }
@@ -283,7 +283,7 @@ void HeavyCorvetteHouseKeep(Ship *ship)
     {
         spec->burstChargeState2-=universe.phystimeelapsed;
 #ifdef DEBUG_HEAVYCORVETTE
-            dbgMessagef("\nCooling Down...");
+            dbgMessagef("Cooling Down...");
 #endif
         if(spec->burstChargeState2 <= 0.0f)
         {

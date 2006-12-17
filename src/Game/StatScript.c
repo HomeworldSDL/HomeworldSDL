@@ -639,7 +639,7 @@ void RemoveCommasFromString(char *field)
         }
         else if (*fieldptr == '?')
         {
-            //dbgMessagef("\nWarning: Unknown field in %s",field);
+            //dbgMessagef("Warning: Unknown field in %s",field);
             *fieldptr = '0';
         }
         fieldptr++;

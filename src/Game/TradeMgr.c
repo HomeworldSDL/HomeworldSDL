@@ -375,7 +375,7 @@ void tmCloseIfOpen(void)
 void tmLeave(char *string, featom *atom)
 {                                                           //close the construction manager
 #if TM_VERBOSE_LEVEL >= 1
-    dbgMessagef("\nClose trade manager.");
+    dbgMessagef("Close trade manager.");
 #endif
     feScreenDeleteFlags(tmBaseRegion,FE_DONT_DELETE_REGION_IF_SCREEN_NOT_FOUND);
     tmBaseRegion = NULL;
@@ -417,7 +417,7 @@ void tmAcceptOffer(char *string, featom *atom)
 
     price = (tmTechPrice[tmTechSelected] * tmPriceScale) / 100;
 #if TM_VERBOSE_LEVEL >= 1
-    dbgMessagef("\nReceived the technologies...");
+    dbgMessagef("Received the technologies...");
 #endif
 
     //if the player can't afford the technology selected, bugger out.
@@ -611,7 +611,7 @@ sdword tmSelectAvailable(regionhandle region, sdword ID, udword event, udword da
 
     index = tmSelectTechType(region, mouseCursorY());
 
-    dbgMessagef("\nSelected %i",index);
+    dbgMessagef("Selected %i",index);
 
     price = (tmTechPrice[index] * tmPriceScale) / 100;
 

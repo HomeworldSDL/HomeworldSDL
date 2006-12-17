@@ -1917,7 +1917,7 @@ void gameStart(char *loadfilename)
                 //set race for player
                 universe.players[0].race = whichRaceSelected;
 
-                dbgMessagef("\nplayer is race %u", whichRaceSelected);
+                dbgMessagef("player is race %u", whichRaceSelected);
                 otherRace = (whichRaceSelected == R1) ? R2 : R1;
                 for (i = 1; i < numPlayers; i++)
                 {
@@ -2695,7 +2695,7 @@ bool utyDemoAutoPlay(udword num, void* data, struct BabyCallBack* baby)
         return(TRUE);
     }
 #if DEM_VERBOSE_LEVEL >= 1
-    dbgMessage("\nAttempting to play a demo...");
+    dbgMessage("Attempting to play a demo...");
 #endif
     if (mouseCursorX() != utyDemoWaitMouseX || mouseCursorY() != utyDemoWaitMouseY || taskTimeElapsed - keyLastTimeHit < demAutoDemoWaitTime)
     {
@@ -2725,7 +2725,7 @@ bool utyDemoAutoPlay(udword num, void* data, struct BabyCallBack* baby)
                         MAIN_WindowWidth, MAIN_WindowHeight);
 
 #if DEM_VERBOSE_LEVEL >= 1
-                dbgMessagef("\nTrying to play '%s'...", string);
+                dbgMessagef("Trying to play '%s'...", string);
 #endif
                 if (fileExists(string, 0))
                 {                                           //see if this demo exists in this resolution
@@ -2817,7 +2817,7 @@ void utyLoadSinglePlayerGameGivenFilename(char *filename)
 {
     cpResetRegions();
 
-    dbgMessagef("\nNew single player game being loaded");
+    dbgMessagef("New single player game being loaded");
     feAllScreensDelete();
 /*
     if (nisEnabled && utyTeaserPlaying != NULL)
@@ -2913,7 +2913,7 @@ void utyLoadMultiPlayerGameGivenFilename(char *filename)
 {
     dbgAssertOrIgnore(startingGame == FALSE);
 
-    dbgMessagef("\nNew game started");
+    dbgMessagef("New game started");
     startingGame = TRUE;
 
     if (mgRunning)
@@ -3049,7 +3049,7 @@ void utySinglePlayerGameStart(char *name, featom *atom)
         return;
     }
 
-    dbgMessagef("\nNew single player game started");
+    dbgMessagef("New single player game started");
     feAllScreensDelete();
 
     forceSP = FALSE;
@@ -3167,7 +3167,7 @@ void utyNewGameStart(char *name, featom *atom)
 
     dbgAssertOrIgnore(startingGame == FALSE);
 
-    dbgMessagef("\nNew game started");
+    dbgMessagef("New game started");
     startingGame = TRUE;
 
     if (mgRunning)
@@ -3183,7 +3183,7 @@ void utyNewGameStart(char *name, featom *atom)
             shiplagtotals[i] = 0;
         }
 
-        dbgMessagef("\nsigsPlayerIndex %u",sigsPlayerIndex);
+        dbgMessagef("sigsPlayerIndex %u",sigsPlayerIndex);
         for (i=0;i<MAX_MULTIPLAYER_PLAYERS;i++)
         {
             playersReadyToGo[i] = FALSE;
@@ -3290,7 +3290,7 @@ void utyNewGameStart(char *name, featom *atom)
 ----------------------------------------------------------------------------*/
 void utyGameQuit(char *name, featom *atom)
 {
-    dbgMessagef("\nQuit game, baby!");
+    dbgMessagef("Quit game, baby!");
 #if defined(HW_GAME_DEMO) || defined(HW_GAME_RAIDER_RETREAT)
     if (enableAVI)
     {
@@ -3316,7 +3316,7 @@ void utyGameQuit(char *name, featom *atom)
 void utyGameQuitToMain(char *name, featom *atom)
 {
     bool networkgame=multiPlayerGame;
-    dbgMessagef("\nQuit to main menu!");
+    dbgMessagef("Quit to main menu!");
 
     feAllScreensDelete();
 
@@ -4529,7 +4529,7 @@ DONE_INTROS:
     {                                                       //if recording a demo
         sprintf(demDemoFilename + strlen(demDemoFilename), "%ux%u.dem", MAIN_WindowWidth, MAIN_WindowHeight);
 #if DEM_VERBOSE_LEVEL >= 1
-        dbgMessagef("\nRecording demo '%s'.", demDemoFilename);
+        dbgMessagef("Recording demo '%s'.", demDemoFilename);
 #endif
         determCompPlayer = TRUE;                            //computer player must be deterministic to record demos
         demRecordStart(demDemoFilename, utyPreDemoStateSaveCB);
@@ -4544,7 +4544,7 @@ DONE_INTROS:
         else
         {
 #if DEM_VERBOSE_LEVEL >= 1
-            dbgMessagef("\nDemo '%s' not found.", demDemoFilename);
+            dbgMessagef("Demo '%s' not found.", demDemoFilename);
 #endif
             demDemoPlaying = FALSE;
         }

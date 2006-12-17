@@ -966,7 +966,7 @@ void cmScroller(char *string, featom *atom)
         cmDirtyShipInfo();
         break;
     default:
-        dbgMessagef("\nunhandled consMgr scroll event %d", shandle->clickType);
+        dbgMessagef("unhandled consMgr scroll event %d", shandle->clickType);
     }
 
     scAdjustThumbwheel(shandle, cmUpperIndex, cmMaxIndex, (uword)NUMBER_SHIPS_AVAILABLE);
@@ -1279,7 +1279,7 @@ void cmBuildTaskFunction(void)
                                 }
 
 #if CM_VERBOSE_LEVEL >= 1
-                                dbgMessagef("\nConstruction job #%d has finished a %s",
+                                dbgMessagef("Construction job #%d has finished a %s",
                                             index, ShipTypeToNiceStr(progress->info->shiptype));
 #endif
 //                                clWrapRUTransfer(&universe.mainCommandLayer,0,universe.curPlayerPtr->playerIndex,progress->info->buildCost,RUTRANS_BUILTSHIP);
@@ -1628,7 +1628,7 @@ void cmClose(char *string, featom *atom)
     cmRenderEverythingCounter = 0;
 
 #if CM_VERBOSE_LEVEL >= 1
-    dbgMessagef("\nClose construction manager.");
+    dbgMessagef("Close construction manager.");
 #endif
     curshipsInProgress = NULL;
     cmUpperIndex=0;
@@ -1690,7 +1690,7 @@ void cmBuildShips(char *string, featom *atom)
         return;
 
 #if CM_VERBOSE_LEVEL >= 1
-    dbgMessagef("\nBuild selected ships..");
+    dbgMessagef("Build selected ships..");
 #endif
 
     for (index = 0; cmShipsAvailable[index].nJobs != -1; index++)
@@ -2365,7 +2365,7 @@ bool cmDecrement(shipsinprogress *factory, uword index)
     {
         progress->nJobs--;
         progress->nJobsTotal--;
-        dbgMessagef("\n!! removed a job, jobs %d total %d !!",
+        dbgMessagef("!! removed a job, jobs %d total %d !!",
                     progress->nJobs, progress->nJobsTotal);
 
         if (multiPlayerGame)
@@ -3548,7 +3548,7 @@ sdword cmUpdateFactoryNoReset(Ship* shipfactory)
     if (shipfactory == NULL)
     {
 #if CM_VERBOSE_LEVEL >= 1
-        dbgMessagef("\nShipfactory dead.  Can't build anything!");
+        dbgMessagef("Shipfactory dead.  Can't build anything!");
 #endif
         return(0);
     }
@@ -3558,7 +3558,7 @@ sdword cmUpdateFactoryNoReset(Ship* shipfactory)
     if (!((ShipStaticInfo *)(shipfactory->staticinfo))->canBuildShips)
     {
 #if CM_VERBOSE_LEVEL >= 1
-        dbgMessagef("\nThis ship can't build anything!");
+        dbgMessagef("This ship can't build anything!");
 #endif
         return(0);
     }
@@ -3651,7 +3651,7 @@ sdword cmUpdateFactory(Ship* shipfactory)
     if (shipfactory == NULL)
     {
 #if CM_VERBOSE_LEVEL >= 1
-        dbgMessagef("\nShipfactory dead.  Can't build anything!");
+        dbgMessagef("Shipfactory dead.  Can't build anything!");
 #endif
         return(0);
     }
@@ -3661,7 +3661,7 @@ sdword cmUpdateFactory(Ship* shipfactory)
     if (!((ShipStaticInfo *)(shipfactory->staticinfo))->canBuildShips)
     {
 #if CM_VERBOSE_LEVEL >= 1
-        dbgMessagef("\nThis ship can't build anything!");
+        dbgMessagef("This ship can't build anything!");
 #endif
         return(0);
     }
@@ -3892,7 +3892,7 @@ void cmBuildJobsAdd(shipsinprogress *factory, ShipStaticInfo *info, sdword nJobs
 //    sdword index;
 
 #if CM_VERBOSE_LEVEL >= 1
-    dbgMessagef("\ncmBuildJobAdd: Building %s", ShipTypeToNiceStr(info->shiptype));
+    dbgMessagef("cmBuildJobAdd: Building %s", ShipTypeToNiceStr(info->shiptype));
 #endif
     dbgAssertOrIgnore(info->shiptype < TOTAL_STD_SHIPS);                 //make sure we can add a job
     progress = &factory->progress[info->shiptype];         //update the progress

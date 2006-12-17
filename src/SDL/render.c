@@ -514,12 +514,12 @@ void rndGLStateLogFunction(char *location)
     f = fopen(fileNameFull, "at");
     if (f == NULL)
     {
-        dbgMessagef("\nError opening '%s' for GL state logging.", rndGLStateLogFileName);
+        dbgMessagef("Error opening '%s' for GL state logging.", rndGLStateLogFileName);
         return;
     }
 
 #if RND_GL_STATE_WINDOW
-    dbgMessagef("\n******************** %s", location);
+    dbgMessagef("******************** %s", location);
 #endif
     fprintf(f, "******************** %s\n", location);
     for (index = 0; rndStateSaveTable[index].heading != NULL; index++)
@@ -638,7 +638,7 @@ void rndGLStateLogFunction(char *location)
                 dbgAssertOrIgnore(FALSE);
         }
 #if RND_GL_STATE_WINDOW
-        dbgMessagef("\n%s", totalString);
+        dbgMessagef("%s", totalString);
 #endif
         fprintf(f, "%s\n", totalString);
     }
@@ -675,7 +675,7 @@ void rndFrameRateTaskFunction(void)
 
         if (rndDisplayFrameRate)
         {                                                   //display frame rate
-            dbgMessagef("\nFrame rate: %.2f <= %.2f <= %.2f",
+            dbgMessagef("Frame rate: %.2f <= %.2f <= %.2f",
                        (real32)(rndFrameCountMin) / RND_FrameRateSeconds,
                        (real32)(rndFrameRate) / RND_FrameRateSeconds,
                        (real32)(rndFrameCountMax) / RND_FrameRateSeconds);
@@ -696,7 +696,7 @@ void rndFrameRateTaskFunction(void)
 sdword rndFrameRateToggle(regionhandle region, sdword ID, udword event, udword data)
 {
     rndDisplayFrameRate ^= TRUE;
-    dbgMessagef("\nFrame rate printing %s", rndDisplayFrameRate ? "ON" : "OFF");
+    dbgMessagef("Frame rate printing %s", rndDisplayFrameRate ? "ON" : "OFF");
     return(0);
 }
 
@@ -706,7 +706,7 @@ sdword rndFrameRateToggle(regionhandle region, sdword ID, udword event, udword d
 udword rndCollStatsToggle(regionhandle region, sdword ID, udword event, udword data)
 {
     rndDisplayCollStats ^= TRUE;
-    dbgMessagef("\nCollision stats printing %s", rndDisplayCollStats ? "ON" : "OFF");
+    dbgMessagef("Collision stats printing %s", rndDisplayCollStats ? "ON" : "OFF");
     return(0);
 }
 #endif //COLLISION_CHECK_STATS
@@ -799,7 +799,7 @@ void rndPolyStatsTaskFunction(void)
 sdword rndPolyStatsToggle(regionhandle region, sdword ID, udword event, udword data)
 {
     rndDisplayPolyStats ^= TRUE;
-    dbgMessagef("\nFrame rate printing %s", rndDisplayPolyStats ? "ON" : "OFF");
+    dbgMessagef("Frame rate printing %s", rndDisplayPolyStats ? "ON" : "OFF");
     if (rndDisplayPolyStats)
     {
         strcpy(rndPolyStatsString, "\nnPolys (%textured, %smoothed), nDots, nLines, shipLod, nVertices, nPolys");
@@ -1023,13 +1023,13 @@ sdword rndInit(rndinitdata *initData)
         /*if (!setupPixelFormat(hGLDeviceContext))*/
         if (!setupPixelFormat())
         {
-            dbgMessage("\nrndInit: GL couldn't setupPixelFormat");
+            dbgMessage("rndInit: GL couldn't setupPixelFormat");
             return !OKAY;
         }
         /*if (!setupPalette(hGLDeviceContext))*/
         if (!setupPalette())
         {
-            dbgMessage("\nrndInit: GL couldn't setupPalette");
+            dbgMessage("rndInit: GL couldn't setupPalette");
             return !OKAY;
         }
         /*
@@ -1052,7 +1052,7 @@ sdword rndInit(rndinitdata *initData)
 
         if (!initPositionProc(0, 0, initData->width, initData->height, MAIN_WindowDepth))
         {
-            dbgMessage("\nrndInit: RGL couldn't initPositionProc");
+            dbgMessage("rndInit: RGL couldn't initPositionProc");
             return !OKAY;
         }
     }
@@ -1064,10 +1064,10 @@ sdword rndInit(rndinitdata *initData)
     }
 
 #if RND_VERBOSE_LEVEL >= 1
-    dbgMessagef("\nrndInit: OpenGL Vendor     :%s", glGetString(GL_VENDOR));
-    dbgMessagef("\nrndInit: OpenGL Renderer   :%s", glGetString(GL_RENDERER));
-    dbgMessagef("\nrndInit: OpenGL Version    :%s", glGetString(GL_VERSION));
-    dbgMessagef("\nrndInit: OpenGL Extensions :%s", glGetString(GL_EXTENSIONS));
+    dbgMessagef("rndInit: OpenGL Vendor     :%s", glGetString(GL_VENDOR));
+    dbgMessagef("rndInit: OpenGL Renderer   :%s", glGetString(GL_RENDERER));
+    dbgMessagef("rndInit: OpenGL Version    :%s", glGetString(GL_VERSION));
+    dbgMessagef("rndInit: OpenGL Extensions :%s", glGetString(GL_EXTENSIONS));
 #endif
     rndSetClearColor(colRGBA(0,0,0,255));
     glClearDepth( 1.0 );
@@ -1896,7 +1896,7 @@ void rndPreRenderDebugStuff(Camera *camera)
         if (rndLOD < 10)
         {
             rndLOD++;
-            dbgMessagef("\nLevel of detail = %d", rndLOD);
+            dbgMessagef("Level of detail = %d", rndLOD);
         }
         keyClearSticky(INSERTKEY);
     }
@@ -1905,7 +1905,7 @@ void rndPreRenderDebugStuff(Camera *camera)
         if (rndLOD > 0)
         {
             rndLOD--;
-            dbgMessagef("\nLevel of detail = %d", rndLOD);
+            dbgMessagef("Level of detail = %d", rndLOD);
         }
         keyClearSticky(HOMEKEY);
     }
@@ -1919,18 +1919,18 @@ void rndPreRenderDebugStuff(Camera *camera)
             length.x = camera->eyeposition.x - selSelected.ShipPtr[0]->posinfo.position.x;
             length.y = camera->eyeposition.y - selSelected.ShipPtr[0]->posinfo.position.y;
             length.z = camera->eyeposition.z - selSelected.ShipPtr[0]->posinfo.position.z;
-            dbgMessagef("\nCamera distance = %f", vecMagnitudeSquared(length));
+            dbgMessagef("Camera distance = %f", vecMagnitudeSquared(length));
         }
         else
         {
-            dbgMessagef("\nPlease select one and only one object for LOD tuning.");
+            dbgMessagef("Please select one and only one object for LOD tuning.");
         }
         keyClearSticky(DELETEKEY);
     }
     if (keyIsStuck(ENDKEY))
     {
         lodTuningMode ^= TRUE;
-        dbgMessagef("\nLOD tuning %s", lodTuningMode ? "ON" : "OFF");
+        dbgMessagef("LOD tuning %s", lodTuningMode ? "ON" : "OFF");
         keyClearSticky(ENDKEY);
     }
 #endif
@@ -2692,7 +2692,7 @@ dontdraw2:;
 #if RND_VERBOSE_LEVEL >= 1
                                         if (isnan((double)scaleFactor))
                                         {
-                                            dbgMessage("\n-- scaleFactor is NaN --");
+                                            dbgMessage("-- scaleFactor is NaN --");
                                         }
 #endif
                                         ((Ship *)spaceobj)->magnitudeSquared = scaleFactor;
@@ -4171,7 +4171,7 @@ void rndRenderTask(void)
             if (RGL)
             {
 #if SS_VERBOSE_LEVEL >= 1
-                dbgMessagef("\nMulti-shot end.");
+                dbgMessagef("Multi-shot end.");
 #endif
                 rglFeature(RGL_MULTISHOT_END);
             }
