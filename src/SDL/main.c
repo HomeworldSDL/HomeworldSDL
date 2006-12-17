@@ -1179,12 +1179,16 @@ void mainDevStatsInit(void)
     {
         hwdata = getenv("HW_Data");
 
-        strcpy(devstatspath, hwdata);
-        strcat(devstatspath, "/");
-        strcat(devstatspath, devstatsfile);
+        if (hwdata != NULL)
+        {
+            strcpy(devstatspath, hwdata);
+            strcat(devstatspath, "/");
+            strcat(devstatspath, devstatsfile);
         
-        handle = mainGetDevStatsHandle(devstatspath);
+            handle = mainGetDevStatsHandle(devstatspath);
+        }
     }
+    
     if (!handle) {
         dbgFatal(DBG_Loc, "mainDevStatsInit: couldn't open devstats file");
     }
