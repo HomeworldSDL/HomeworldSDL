@@ -2119,16 +2119,6 @@ bool feAllScreensReposition(void)
                 atom->x = feResRepositionX(atom->x);
                 atom->y = feResRepositionY(atom->y);
             }
-#if 0
-            if (atom->region != NULL)
-            {
-                regionhandle region = (regionhandle)atom->region;
-                region->rect.x0 = atom->x;
-                region->rect.y0 = atom->y;
-                region->rect.x1 = atom->x + atom->width;
-                region->rect.y1 = atom->y + atom->height;
-            }
-#endif
         }
     }
 

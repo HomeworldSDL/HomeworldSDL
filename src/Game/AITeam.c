@@ -35,12 +35,7 @@ AITeam *aitCreate(TeamType teamType)
 
     team           = memAlloc(sizeof(AITeam), "aiteam", 0);
     team->teamType = teamType;
-#if 0
-    if (team->teamType == ScriptTeam)
-        // assign team to computer player (#1 in single player game)
-        team->aiplayerowner = &universe.players[1];
-    else
-#endif
+
     team->aiplayerowner = aiCurrentAIPlayer;
     growSelectInit(&team->shipList);
     listInit(&team->moves);

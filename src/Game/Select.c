@@ -1225,14 +1225,6 @@ void selSelectionDraw5(Ship *ship)      // PLEASE DON'T COMMENT THIS FUNCTION OU
     outline.centreY = y;
     outline.radiusX = outline.radiusY = radius;
     primOvalArcOutline2(&outline, 0.0f, TWOPI, 1, segments, c);
-#if 0
-    if (ship->hotKeyGroup & SEL_HotKeyBit)
-    {                                                       //if member of a hot-key group
-        offset = fixedSin45 * radius / 65536 + selNumberMargin;
-        fontPrint(x + offset, y + offset, selHotKeyNumberColor,
-                  selHotKeyString[ship->hotKeyGroup & SEL_HotKeyMask]);
-    }
-#endif
 }
 #endif
 

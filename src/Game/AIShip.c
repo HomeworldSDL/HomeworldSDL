@@ -258,25 +258,6 @@ void aishipStatsPrint(sdword *y)
 
 #endif
 
-#if 0       // obsolete
-void aishipFlyToPoint(Ship *ship,vector *destination,udword aishipflags)
-{
-    vector desiredVel;
-    vector desiredHead;
-
-    vecSub(desiredVel,*destination,ship->posinfo.position);
-
-    vecMultiplyByScalar(desiredVel,VELOCITY_SCALE_FACTOR);
-
-    if (bitTest(aishipflags,AISHIP_PointInDirectionFlying))
-    {
-        vecCopyAndNormalize(&desiredVel,&desiredHead);
-        aitrackHeading(ship,&desiredHead,FLYSHIP_HEADINGACCURACY);
-    }
-    aitrackVelocityVector(ship,&desiredVel);
-}
-#endif
-
 /*-----------------------------------------------------------------------------
     Name        : aishipPrecalcInfo
     Description : precalculates information used by the AIShip routines and puts
@@ -886,20 +867,6 @@ void rowSignalLeaderInFormationToGetOutOfWayOfMe(Ship *ship,Ship *me,vector *meT
     {
         rowSignalShipToGetOutOfWayOfMe(shipi,me,meToShip,meDirOfTravel);
     }
-
-#if 0
-    for (i=0;i<numShips;i++)
-    {
-        shipi = selection->ShipPtr[i];
-        if (shipi != ship)
-        {
-            if (!(shipi->specialFlags & SPECIAL_rowGettingOutOfWay))    // not already getting out of way
-            {
-                rowSignalShipToGetOutOfWayOfMe(shipi,me,meToShip,meDirOfTravel);
-            }
-        }
-    }
-#endif
 }
 
 udword aishipFlyToPointAvoidingObjsFunc(Ship *ship,vector *destination,udword aishipflags,real32 limitvel,vector *withVel)

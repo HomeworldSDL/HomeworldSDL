@@ -1951,14 +1951,6 @@ processEscapeKey:
             }
             break;
         case TABKEY:
-#if 0
-            if((!multiPlayerGame) && (!singlePlayerGame))
-            if(keyIsHit(CONTROLKEY))
-            {
-                univAddDerelict(Crate,&mrCamera->lookatpoint);
-                break;
-            }
-#endif
             if (selSelected.numShips >= MIN_SHIPS_IN_FORMATION)
             {
                 if (MothershipOrCarrierIndexInSelection((SelectCommand *)&selSelected) >= 0)

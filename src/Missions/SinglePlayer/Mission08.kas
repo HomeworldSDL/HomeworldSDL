@@ -1494,76 +1494,7 @@ ENDINIT
 
 WATCH
 
-      SensorsWeirdness((350 * GetWorldResources()) / VarGet("WorldStartRUs"));
-
-#if 0 //this stuff isn't needed anymore
-//Offensive Ship Selection
-      FindEnemiesInside (VOLUME_WorldVolume, SHIPS_PlayerShips,1000000);
-      ShipsSelectClass (SHIPS_PlayerFighters, SHIPS_PlayerShips, "CLASS_Fighter");
-      ShipsSelectClass (SHIPS_PlayerCorvettes, SHIPS_PlayerShips, "CLASS_Corvette");
-      ShipsSelectClass (SHIPS_PlayerCapitalShips, SHIPS_PlayerShips, "CLASS_CapitalShips");
-      ShipsSelectClass (SHIPS_PlayerMothership, SHIPS_PlayerShips, "CLASS_Mothership");
-
-      ShipsSelectClass (SHIPS_PlayerFrigates, SHIPS_PlayerShips, "CLASS_Frigate");
-      ShipsSelectClass (SHIPS_PlayerDestroyer, SHIPS_PlayerShips, "CLASS_Destroyer");
-      ShipsSelectClass (SHIPS_PlayerHeavyCruiser, SHIPS_PlayerShips, "CLASS_HeavyCruiser");
-      ShipsSelectClass (SHIPS_PlayerCarrier, SHIPS_PlayerShips, "CLASS_Carrier");
-
-      ShipsAdd (SHIPS_PlayerCapitalShips, SHIPS_PlayerFrigates);
-      ShipsAdd (SHIPS_PlayerCapitalShips, SHIPS_PlayerDestroyer);
-      ShipsAdd (SHIPS_PlayerCapitalShips, SHIPS_PlayerHeavyCruiser);
-      ShipsAdd (SHIPS_PlayerCapitalShips, SHIPS_PlayerCarrier);
-
-
-      //Swarmer Leader Selection
-
-      ShipsAdd (SHIPS_SwarmerLeaders, TEAMSHIPS_Swarmer1TeamLeader);
-      ShipsAdd (SHIPS_SwarmerLeaders, TEAMSHIPS_Swarmer2TeamLeader);
-      ShipsAdd (SHIPS_SwarmerLeaders, TEAMSHIPS_Swarmer3TeamLeader);
-      ShipsAdd (SHIPS_SwarmerLeaders, TEAMSHIPS_Swarmer4TeamLeader);
-      ShipsAdd (SHIPS_SwarmerLeaders, TEAMSHIPS_Swarmer5TeamLeader);
-      ShipsAdd (SHIPS_SwarmerLeaders, TEAMSHIPS_Swarmer6TeamLeader);
-      ShipsAdd (SHIPS_SwarmerLeaders, TEAMSHIPS_Swarmer7TeamLeader);
-      ShipsAdd (SHIPS_SwarmerLeaders, TEAMSHIPS_Swarmer8TeamLeader);
-      ShipsAdd (SHIPS_SwarmerLeaders, TEAMSHIPS_Swarmer9TeamLeader);
-      ShipsAdd (SHIPS_SwarmerLeaders, TEAMSHIPS_Swarmer10TeamLeader);
-      ShipsAdd (SHIPS_SwarmerLeaders, TEAMSHIPS_Swarmer11TeamLeader);
-      ShipsAdd (SHIPS_SwarmerLeaders, TEAMSHIPS_Swarmer12TeamLeader);
-
-    IF  ( (ShipsCount(TEAMSHIPS_MSTeam1)=0) AND (VarGet("KickedAssOnce") = FALSE))
-//        Popup (LSTRING_KickedAss);
-        ObjectiveSet("ProtectTheMothership", TRUE);
-        ObjectiveSet("DestroyEnemyMothership", TRUE);
-        VarCreateSet ("KickedAssOnce", TRUE);
-    ENDIF
-
-  //Destroy Team Leaderers Objective
-    IF     ((RenderedShips (SHIPS_SwarmerLeaders, 4)) AND (NOT Varget("DoThisOnce")=True))
-       VarCreateSet ("DoThisOnce", True);
-       TimerCreateSetStart("AnalyzeLeaders",12);
-    ENDIF
-
-    IF (TimerExpiredDestroy("AnalyzeLeaders"))
-        ObjectiveCreate("EliminateLeaders", "Eliminate Swarmer Leaders", "Fleet Intel has analyzed the flight patterns of the enemies strike Craft and determined that the leaders are controlling the rest of the team. If you destroy the leaders the teams will be disorganized.");
-    ENDIF
-
-    IF    (ShipsCount(TEAMSHIPS_Swarmer1TeamLeader) = 0 AND
-           ShipsCount(TEAMSHIPS_Swarmer2TeamLeader) = 0 AND
-           ShipsCount(TEAMSHIPS_Swarmer3TeamLeader) = 0 AND
-           ShipsCount(TEAMSHIPS_Swarmer4TeamLeader) = 0 AND
-           ShipsCount(TEAMSHIPS_Swarmer5TeamLeader) = 0 AND
-           ShipsCount(TEAMSHIPS_Swarmer6TeamLeader) = 0 AND
-           ShipsCount(TEAMSHIPS_Swarmer7TeamLeader) = 0 AND
-           ShipsCount(TEAMSHIPS_Swarmer8TeamLeader) = 0 AND
-           ShipsCount(TEAMSHIPS_Swarmer9TeamLeader) = 0 AND
-           ShipsCount(TEAMSHIPS_Swarmer10TeamLeader) = 0 AND
-           ShipsCount(TEAMSHIPS_Swarmer11TeamLeader) = 0 AND
-           ShipsCount(TEAMSHIPS_Swarmer12TeamLeader) = 0)
-           ObjectiveSet("EliminateLeaders", True);
-     ENDIF
-
-#endif
-
+        SensorsWeirdness((350 * GetWorldResources()) / VarGet("WorldStartRUs"));
 
         //
         //      technology

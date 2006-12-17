@@ -2767,13 +2767,7 @@ void opResolution(char* name, featom* atom)
     {
         opResListWindow = NULL;
         opResListRegion = NULL;
-#if 0
-        if (opRes != NULL)
-        {
-            memFree(opRes);
-            opRes = NULL;
-        }
-#endif
+
         return;
     }
 }
@@ -2995,15 +2989,8 @@ void opRender(char* name, featom* atom)
     }
     else if (FELASTCALL(atom))
     {
-        opNoPalDrawRegion = NULL;
+        opNoPalDrawRegion  = NULL;
         opRenderListWindow = NULL;
-#if 0
-        if (opRnd != NULL)
-        {
-            memFree(opRnd);
-            opRnd = NULL;
-        }
-#endif
     }
 }
 
@@ -3613,22 +3600,6 @@ void DoSmoothies(void)
         {
             smoo = SmoothieArray[i];
 
-#if 0
-            //non-smoothed smoothies.  FIXME: check ranges
-            smoo->buffer = *(smoo->source);
-            if (smoo->dest)
-            {
-                *(smoo->dest) = smoo->buffer;
-            }
-            if (smoo->destint)
-            {
-                *(smoo->destint) = (sdword)smoo->buffer;
-            }
-            if (smoo->callback)
-            {
-                (smoo->callback)(smoo->buffer, smoo);
-            }
-#else
             if (ABS(*(smoo->source)) == smoo->buffer)
             {
                 ; //nothing
@@ -3669,7 +3640,6 @@ void DoSmoothies(void)
                     (smoo->callback)(smoo->buffer, smoo);
                 }
             }
-#endif
         }
     }
 }

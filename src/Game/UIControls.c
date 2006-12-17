@@ -2069,10 +2069,8 @@ udword uicScrollBarProcess(regionhandle region, sdword ID, udword event, udword 
                     mask |= RPR_Redraw;
                     break;
 
-            #if 0
                 default:
-                    shandle->clickType = SC_NoRegion;
-            #endif
+                    break;
             }
             break;
         case UIC_ScrollbarUpButton:
@@ -3398,10 +3396,8 @@ udword uicHorizSliderProcess(regionhandle region, sdword ID, udword event, udwor
             mask |= RPR_Redraw;
             break;
 
-    #if 0
         default:
-            shandle->clickType = SC_NoRegion;
-    #endif
+            break;
     }
 
     if (mask != 0)
@@ -3449,8 +3445,7 @@ udword uicVertSliderProcess(regionhandle region, sdword ID, udword event, udword
             //shandle->clickType = SC_Thumb;
             mask |= RPR_Redraw;
             break;
-    case RPE_HoldLeft:
-
+        case RPE_HoldLeft:
             SetVSliderValue(shandle);
             if (shandle->processFunction)
                 shandle->processFunction(region,ID,event,data);
@@ -3462,10 +3457,8 @@ udword uicVertSliderProcess(regionhandle region, sdword ID, udword event, udword
             mask |= RPR_Redraw;
             break;
 
-    #if 0
         default:
-            shandle->clickType = SC_NoRegion;
-    #endif
+            break;
     }
 
     if (mask != 0)

@@ -187,7 +187,6 @@ void bobRemoveMineFromSpecificBlob(blob *thisBlob,Missile *mine);
 
 void bobUpdateObjsInBlobCollInfo(blob *thisBlob);
 
-real32 bobGetChecksum(LinkedList *list,sdword *numBlobsInChecksum);
 void bobObjectListMedian(vector *dest, real32 *destRadius, sdword nObjects, SpaceObj **objects);
 
 void bobInitProperties();

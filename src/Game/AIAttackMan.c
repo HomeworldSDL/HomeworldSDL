@@ -1281,16 +1281,6 @@ void aiaTeamDied(struct AIPlayer *aiplayer,struct AITeam *team)
 
 bool aiaShipDied(struct AIPlayer *aiplayer, ShipPtr ship)
 {
-#if 0
-    if (ship->playerowner == aiplayer->player)
-    {
-        if (growSelectRemoveShip(&aiplayer->newattackships, ship))
-        {
-            return TRUE;
-        }
-    }
-#endif
-
     if ((aiplayer->aiaArmada.targets) && (clRemoveShipFromSelection(aiplayer->aiaArmada.targets, ship)))
     {
         aiplayerLog((aiplayer->player->playerIndex, "Ship removed from Armada Targets"));
@@ -1474,19 +1464,3 @@ void aiaClose(struct AIPlayer *aiplayer)
     aiumemFree(aiplayer->aiaArmada.targets);
     aiumemFree(aiplayer->Targets);
 }
-
-
-#if 0
-/*-----------------------------------------------------------------------------
-    Name        : aiaAddNewShip
-    Description : Adds new ship to attack manager
-    Inputs      :
-    Outputs     :
-    Return      : void
-----------------------------------------------------------------------------*/
-void aiaAddNewShip(Ship *ship)
-{
-    growSelectAddShip(&aiCurrentAIPlayer->newattackships, ship);
-}
-#endif
-

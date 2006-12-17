@@ -556,19 +556,6 @@ void tbStartup(void)
     tbRegionsAttached = FALSE;
 
     //now scan through the screen's atom list to find the user region for drawing buttons
-#if 0
-    reg = tbBaseRegion->child;
-    for (index = 1; index < screen->nAtoms; index++)
-    {
-        regVerify(reg);
-        if (((featom *)reg->userID)->type == FA_UserRegion) //if this is a user region
-        {
-            tbButtonBaseRegion = reg;                       //this must be the region
-            break;
-        }
-        reg = reg->next;
-    }
-#else
     for (index = 1; index < screen->nAtoms; index++)
     {
         if (screen->atoms[index].type == FA_UserRegion)
@@ -577,8 +564,6 @@ void tbStartup(void)
             break;
         }
     }
-
-#endif
 
     //now re-reposition to bottom of screen
 
@@ -601,15 +586,6 @@ void tbStartup(void)
 
     fontMakeCurrent(fhSave);
 
-#if 0
-    fhSave = fontCurrentGet();                              //save the current font
-    fontMakeCurrent(tbButtonCaptionFont);                   //select the appropriate font
-    tbDotWidth = fontWidth("...");
-    tbTextMarginY = (tbButtonBaseRegion->rect.y1 -
-            tbButtonBaseRegion->rect.y0 - fontHeight("...")) / 2;
-    fontMakeCurrent(fhSave);
-    dbgAssertOrIgnore(tbButtonBaseRegion != NULL);
-#endif
     feAllCallOnCreate(screen);
 //    tbNumberButtons = 0;
 

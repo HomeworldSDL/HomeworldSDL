@@ -1400,13 +1400,6 @@ static void loadMexDataCB(char *directory,char *field,void *dataToFillIn)
     }
 }
 
-#if 0
-static void setRaceCB(char *directory,char *field,void *dataToFillIn)
-{
-    *((ShipRace *)dataToFillIn) = StrToShipRace(field);
-}
-#endif
-
 static void setClassCB(char *directory,char *field,void *dataToFillIn)
 {
     *((ShipClass *)dataToFillIn) = StrToShipClass(field);
@@ -3224,40 +3217,6 @@ void universeStaticInit(void)
         count++;
     }
 
-#if 0
-    for (gascloudtype = 0; gascloudtype < NUM_GASCLOUDTYPES; gascloudtype++)
-    {
-        staticinfo = (StaticInfo *)&gascloudStaticInfos[gascloudtype];
-        if (bitTest(staticinfo->staticheader.infoFlags, IF_InfoNeeded))
-        {                                                   //if info needed
-            if (!bitTest(staticinfo->staticheader.infoFlags, IF_InfoLoaded))
-            {                                               //info needed and not loaded
-                InitStatGasCloudInfo((GasCloudStaticInfo *)staticinfo, gascloudtype);
-                bitSet(staticinfo->staticheader.infoFlags, IF_InfoLoaded);
-#if UNIV_SHIP_LOADFREE_LOG
-                if (logFile)
-                {
-                    fprintf(logFile, "Loading gas cloud: %s\n", GasCloudTypeToStr(gascloudtype));
-                }
-#endif
-            }
-        }
-        else
-        {                                                   //info not needed
-            if (bitTest(staticinfo->staticheader.infoFlags, IF_InfoLoaded))
-            {                                               //info loaded
-                CloseStatGasCloudInfo((GasCloudStaticInfo *)staticinfo);
-#if UNIV_SHIP_LOADFREE_LOG
-                if (logFile)
-                {
-                    fprintf(logFile, "Freeing gascloud: %s\n", GasCloudTypeToStr(gascloudtype));
-                }
-#endif
-            }
-        }
-    }
-#endif
-
     for (nebulatype = 0; nebulatype < NUM_NEBULATYPES; nebulatype++)
     {
         HorseRaceNext(((real32)count)/((real32)max));
@@ -3869,7 +3828,6 @@ void universeUpdateTask(void)
 repeatagainwithoutyielding:         // for horse race hack we need this silly hack
             universeUpdateCounter++;
 
-            autodownloadmapPrintStatus();
             if (sigsPlayerIndex == 0)
             {
                 // for now, lets just bang everything through:

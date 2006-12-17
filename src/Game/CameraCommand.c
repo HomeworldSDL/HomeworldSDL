@@ -514,34 +514,11 @@ udword CloseOnFast(real32 *tracking,real32 desired,real32 minrate)
     return 0;
 }
 
-#if 0
-void EyePositionFollowsLookatpoint(Camera *camera)
-{
-    vector eyeToLookat;
-    real32 distmag;
-    real32 scale;
-
-    vecSub(eyeToLookat,camera->lookatpoint,camera->eyeposition);
-
-    distmag = fsqrt(vecMagnitudeSquared(eyeToLookat));
-
-    if (distmag >= CAMERA_ELASTIC_DISTANCE)
-    {
-        // have camera "pulled" in this directio
-
-        scale = CAMERA_ELASTIC_PULL_FACTOR / distmag;
-        vecMultiplyByScalar(eyeToLookat,scale);
-
-        vecAddTo(camera->eyeposition,eyeToLookat);
-    }
-}
-#endif
-
 
 /*----------------------------------------------------------------------------
    EvalCubic:
 
-   This is the Magic Function™ - It's basically a cubic spline smoothing
+   This is the Magic Function - It's basically a cubic spline smoothing
    function, which uses a current position and speed (*y0 and *m0) as well
    as a target value and a step size (y1 and t) to smoothly interpolate from
    the current value of *y0 to the desired target at y1.
@@ -1148,36 +1125,6 @@ void ccFocusClose(CameraCommand *cameracommand, FocusCommand *focuscom)
    ccFocusGeneral(cameracommand, focuscom, TRUE);
 }
 
-#if 0
-/*-----------------------------------------------------------------------------
-    Name        : ccFocusSideways
-    Description : gives the camera command object the command to focus on
-                  a group of ships, with a given angle and declination of camera
-    Inputs      : focuscom, command which tells what ships to focus on
-    Outputs     :
-    Return      :
-----------------------------------------------------------------------------*/
-void ccFocusSideways(CameraCommand *cameracommand,FocusCommand *focuscom)
-{
-    CameraStackEntry *entry;
-
-    ccFocus(cameracommand,focuscom);
-
-    entry = currentCameraStackEntry(cameracommand);
-
-    if ((entry->remembercam.angle > DEG_TO_RAD(90.0f)) || (entry->remembercam.angle < DEG_TO_RAD(-90.0f)))
-    {
-        entry->remembercam.angle = DEG_TO_RAD(180.0f);
-    }
-    else
-    {
-        entry->remembercam.angle = 0.0f;
-    }
-
-    entry->remembercam.declination = 0.0f;
-}
-#endif
-
 /*-----------------------------------------------------------------------------
     Name        : ccChangeAngleDeclination
     Description : changes the angle and declination of camera
@@ -1551,25 +1498,6 @@ void ccViewToggleMissionSphere(CameraCommand *cameracommand)
             return;
         }
     }
-}
-
-/*-----------------------------------------------------------------------------
-    Name        : ccFreezeLookAtPoint
-    Description :
-    Inputs      :
-    Outputs     :
-    Return      :
-----------------------------------------------------------------------------*/
-void ccFreezeLookAtPoint(CameraCommand *cameracommand,SelectCommand *selectcom)
-{
-#if 0
-    CameraStackEntry *entry = currentCameraStackEntry(cameracommand);
-
-    if (SelectionsAreEquivalent(selectcom,&entry->focus))
-    {
-        cameracommand->lockCameraTimeStamp = taskTimeElapsed;
-    }
-#endif
 }
 
 /*-----------------------------------------------------------------------------

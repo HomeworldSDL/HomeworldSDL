@@ -3227,18 +3227,7 @@ bool ShipDocksAtResourceCollector(struct CommandToDo *docktodo,struct Ship *ship
             if (dockpointindex == -1)
             {
                 protectShip(ship,dockwith,FALSE);
-#if 0
-                if(!MoveReachedDestinationVariable(ship,&dockwith->posinfo.position,WAIT_FOR_LATCH_DISTANCE_ROUGH_GUESS_REALLY_RIGHT_NOW))
-                {
-                    //if not very close, lets keep within WAIT_FOR_LATCH_DISTANCE_ROUGH_GUESS_REALLY_RIGHT_NOW,
-                    aishipFlyToShipAvoidingObjs(ship,dockwith,AISHIP_PointInDirectionFlying | AISHIP_FirstPointInDirectionFlying,0.0f);
-                }
-                else
-                {
-                    //close enough, slow down
-                    aitrackSteadyShip(ship);
-                }
-#endif
+
                 return FALSE;
             }
 
@@ -3504,18 +3493,7 @@ bool ShipDocksAtASF(struct CommandToDo *docktodo,struct Ship *ship,struct Ship *
             if (dockpointindex == -1)
             {
                 protectShip(ship,dockwith,FALSE);
-#if 0
-                if(!MoveReachedDestinationVariable(ship,&dockwith->posinfo.position,WAIT_FOR_LATCH_DISTANCE_ROUGH_GUESS_REALLY_RIGHT_NOW))
-                {
-                    //if not very close, lets keep within WAIT_FOR_LATCH_DISTANCE_ROUGH_GUESS_REALLY_RIGHT_NOW,
-                    aishipFlyToShipAvoidingObjs(ship,dockwith,AISHIP_PointInDirectionFlying | AISHIP_FirstPointInDirectionFlying,0.0f);
-                }
-                else
-                {
-                    //close enough, slow down
-                    aitrackSteadyShip(ship);
-                }
-#endif
+
                 return FALSE;
             }
 
@@ -3804,18 +3782,7 @@ bool ShipDocksAtResController(struct CommandToDo *docktodo,struct Ship *ship,str
             if (dockpointindex == -1)
             {
                 protectShip(ship,dockwith,FALSE);
-#if 0
-                if(!MoveReachedDestinationVariable(ship,&dockwith->posinfo.position,WAIT_FOR_LATCH_DISTANCE_ROUGH_GUESS_REALLY_RIGHT_NOW))
-                {
-                    //if not very close, lets keep within WAIT_FOR_LATCH_DISTANCE_ROUGH_GUESS_REALLY_RIGHT_NOW,
-                    aishipFlyToShipAvoidingObjs(ship,dockwith,AISHIP_PointInDirectionFlying | AISHIP_FirstPointInDirectionFlying,0.0f);
-                }
-                else
-                {
-                    //close enough, slow down
-                    aitrackSteadyShip(ship);
-                }
-#endif
+
                 return FALSE;
             }
 
@@ -4734,18 +4701,7 @@ bool ShipDocksAtCarrierMother(struct CommandToDo *docktodo,struct Ship *ship,str
             if (dockpointindex == -1)
             {
                 protectShip(ship,dockwith,FALSE);
-#if 0
-                if(!MoveReachedDestinationVariable(ship,&dockwith->posinfo.position,WAIT_FOR_LATCH_DISTANCE_ROUGH_GUESS_REALLY_RIGHT_NOW))
-                {
-                    //if not very close, lets keep within WAIT_FOR_LATCH_DISTANCE_ROUGH_GUESS_REALLY_RIGHT_NOW,
-                    aishipFlyToShipAvoidingObjs(ship,dockwith,AISHIP_PointInDirectionFlying | AISHIP_FirstPointInDirectionFlying,0.0f);
-                }
-                else
-                {
-                    //close enough, slow down
-                    aitrackSteadyShip(ship);
-                }
-#endif
+
                 ship->dockwaitforNorm = FALSE;
                 return FALSE;
             }
@@ -4802,18 +4758,7 @@ waitforlatch:
             if (dockpointindex == -1)
             {
                 protectShip(ship,dockwith,FALSE);
-#if 0
-                if(!MoveReachedDestinationVariable(ship,&dockwith->posinfo.position,WAIT_FOR_LATCH_DISTANCE_ROUGH_GUESS_REALLY_RIGHT_NOW))
-                {
-                    //if not very close, lets keep within WAIT_FOR_LATCH_DISTANCE_ROUGH_GUESS_REALLY_RIGHT_NOW,
-                    aishipFlyToShipAvoidingObjs(ship,dockwith,AISHIP_PointInDirectionFlying | AISHIP_FirstPointInDirectionFlying,0.0f);
-                }
-                else
-                {
-                    //close enough, slow down
-                    aitrackSteadyShip(ship);
-                }
-#endif
+
                 return FALSE;
             }
 

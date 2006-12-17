@@ -50,6 +50,8 @@ sdword mrKASDebugDrawVolumes = FALSE;
 sdword mrKASSkipFactor = 0;
 #endif //SP_DEBUGLEVEL2
 
+#define KAS_DEBUG 0
+
 #define OBJECTIVES_COMPLETE_DELAY 10
 
 // run-time scoping for variables, timers, etc.
@@ -188,14 +190,6 @@ void kasExecute(void)
     // no current mission?
     if (!CurrentMissionName[0] || !CurrentMissionWatchFunction)
         return;
-
-    // watch for all objectives (if >= 1 defined) completed
-#if 0
-    if (timTimerExpiredDestroy("ObjectivesComplete"))
-        kasfMissionCompleted();
-    else if (!timTimerRemaining("ObjectivesComplete") && objectivesUsed && objectiveGetAll())
-        timTimerCreateSetStart("ObjectivesComplete", OBJECTIVES_COMPLETE_DELAY);
-#endif
 
     if (kasUnpausedTeam == NULL)
     {                                                       //if KAS is not paused
@@ -1044,7 +1038,7 @@ void kasDebugDraw(void)
         rgluPerspective(mrCamera->fieldofview, rndAspectRatio, mrCamera->clipPlaneNear, mrCamera->clipPlaneFar * 15.0f);
         glMatrixMode(GL_MODELVIEW);
 
-        #if 0
+        #if KAS_DEBUG
         {
             Ship *m0p = aiuFindEnemyMothership(&universe.players[0]),
                  *m1p = aiuFindEnemyMothership(&universe.players[1]);

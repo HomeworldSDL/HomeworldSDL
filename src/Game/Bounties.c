@@ -153,7 +153,7 @@ void calculatePlayerBounties()
 
 
 /*-----------------------------------------------------------------------------
-    Name        : getPlayerBountyWorth
+    Name        : getPlayerBountyWorthDeterm
     Description : Calculates an arbitrary number based on many different factors
                   of how a player is doing
     Inputs      :
@@ -203,118 +203,6 @@ real32 getPlayerBountyWorthDeterm(real32 shipworth,real32 ruworth,real32 totalsh
 
     return worth;
 }
-
-#if 0       // this routine is not deterministic..because the stats are not reliably deterministic!
-real32 getPlayerBountyWorth(sdword playerIndex,bool CPUPlayer)
-{
-    sdword i;
-    real32 playerWorth;//,mothershipRUvalue;
-    real32 playerResourcesCollectedWorth;
-    real32 playerCurrentShipWorth;
-    real32 playerResourcesLostWorth;
-    real32 playerResourcesKilledWorth;
-    real32 playerAllyBountyWorth,universeBountyWorth;
-    real32 temp,playerRUWorth;
-
-    /********* RESOURCES COLLECTED ***************/
-    playerResourcesCollectedWorth = max((real32) universe.gameStats.playerStats[playerIndex].totalResourceUnitsCollected,BOUNTY_MIN_RESOURCE_SKEW)
-                                   /max((real32) universe.gameStats.totalResourceUnitsCollected,BOUNTY_MIN_RESOURCE_SKEW);
-    playerResourcesCollectedWorth *= I_resourcesCollected;
-    /*********************************************/
-
-    /********* SHIPS RU WORTH ********************/
-    /*if(universe.players[playerIndex].PlayerMothership != NULL)
-    {
-        mothershipRUvalue = (real32) universe.players[playerIndex].PlayerMothership->staticinfo->buildCost;
-    }
-    else
-    {
-        mothershipRUvalue = 0.0f;
-    }
-    */
-
-    if(universe.gameStats.totalRUsInAllShips == 0.0f)
-        temp = 1.0f;
-    else
-        temp = (real32)universe.gameStats.totalRUsInAllShips;
-    playerCurrentShipWorth = (universe.gameStats.playerStats[playerIndex].totalRUsInCurrentShips)/
-                             temp;
-    playerCurrentShipWorth *= I_currentShipWorth;
-    /*********************************************/
-
-    /********** RESOURCES KILLED ******************/
-    if(universe.gameStats.totalRUsKilled == 0.0f)
-        temp = 1.0f;
-    else
-        temp = (real32)universe.gameStats.totalRUsKilled;
-    playerResourcesKilledWorth = universe.gameStats.playerStats[playerIndex].totalRUsKilled/temp;
-    if(universe.gameStats.totalRUsLost == 0.0f)
-        temp = 1.0f;
-    else
-        temp = (real32)universe.gameStats.totalRUsLost;
-    playerResourcesLostWorth = ((real32)(universe.gameStats.playerStats[playerIndex].totalRUsLost)/
-                                temp);
-
-    playerResourcesKilledWorth *= I_ResourcesKilled;
-    /*********************************************/
-
-    /********** ALLY STRENGTH ********************/
-    if (!CPUPlayer)
-    {
-        playerAllyBountyWorth = 0.0f;
-        for(i=0;i<tpGameCreated.numPlayers;i++)
-        {
-            if(i == playerIndex)
-                continue;
-
-            if(allianceArePlayersAllied(&universe.players[playerIndex],&universe.players[i]))
-            {
-                playerAllyBountyWorth+= universe.players[i].bounty;
-            }
-            universeBountyWorth += universe.players[i].bounty;
-        }
-        playerAllyBountyWorth = (playerAllyBountyWorth/max(universeBountyWorth,1.0f))*I_AllyStrength;
-    }
-    else
-    {
-        playerAllyBountyWorth = 0.0f;
-    }
-    /*********************************************/
-
-    if (!CPUPlayer)
-    {
-        if(universe.gameStats.updatedRUValuesTime < universe.totaltimeelapsed)
-        {
-            universe.gameStats.updatedRUValuesTime = universe.totaltimeelapsed;
-            universe.gameStats.universeRUWorth = 0;
-            for(i=0;i<tpGameCreated.numPlayers;i++)
-            {
-                universe.gameStats.universeRUWorth += universe.players[i].resourceUnits;
-            }
-        }
-    }
-
-    if (!CPUPlayer)
-    {
-        playerRUWorth = (real32) universe.players[playerIndex].resourceUnits;
-
-        playerRUWorth *=  TW_Bounty_ResourcesInPossesion/universe.gameStats.universeRUWorth;
-    }
-    else
-    {
-        playerRUWorth = 0;
-    }
-
-    playerWorth = playerResourcesCollectedWorth +
-                  playerCurrentShipWorth+
-                  playerResourcesKilledWorth +
-                  playerAllyBountyWorth +
-                  playerRUWorth;
-
-
-    return(playerWorth);
-}
-#endif
 
 /*-----------------------------------------------------------------------------
     Name        : getBountyOnShip
@@ -368,26 +256,3 @@ void bountyShipWasKilled(Ship *ship)
     }
 }
 
-/*-----------------------------------------------------------------------------
-    Name        : bountyCurrentRusForPlayer
-    Description : determines an approximate number of RU's a player has (deterministic value)
-    Inputs      : playerindex
-    Outputs     :
-    Return      :
-----------------------------------------------------------------------------*/
-
-#if 0
-sdword bountyCurrentRusForPlayer(sdword playerIndex)
-{
-    return( universe.gameStats.startingResources +
-            universe.gameStats.playerStats[playerIndex].totalResourceUnitsCollected +
-            universe.gameStats.playerStats[playerIndex].totalResourceUnitsRecieved +
-            universe.gameStats.playerStats[playerIndex].totalRegeneratedResourceUnits +
-            universe.gameStats.playerStats[playerIndex].totalResourceUnitsViaBounties +
-            universe.gameStats.playerStats[playerIndex].totalInjectedResources -
-
-            universe.gameStats.playerStats[playerIndex].totalResourceUnitsGiven -
-            universe.gameStats.playerStats[playerIndex].totalResourceUnitsSpent);
-
-}
-#endif

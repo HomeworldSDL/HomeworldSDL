@@ -298,17 +298,7 @@ void nebShutdown()
 
         numNebulae = 0;
     }
-#if 0
-    if (_alloc > 0)
-    {
-        FILE* out = fopen("neb.dat", "wt");
-        if (out != NULL)
-        {
-            fprintf(out, "bytes %d (%dK)\n", _alloc, _alloc >> 10);
-            fclose(out);
-        }
-    }
-#endif
+
     _alloc = 0;
 }
 
@@ -1961,9 +1951,7 @@ void nebColourTendril(nebTendril* tendril, sdword lod)
     static real32 MAXD = 40000.0f;
 
     dbgAssertOrIgnore(tendril != NULL);
-#if 0
-    tendril->colour = tendril->realColour;
-#else
+
     dA = nebDistanceFromCamera(&tendril->a->position);
     dB = nebDistanceFromCamera(&tendril->b->position);
 
@@ -1979,7 +1967,6 @@ void nebColourTendril(nebTendril* tendril, sdword lod)
     tendril->colour = colRGBA(colRed(tendril->colour), colGreen(tendril->colour),
                               colBlue(tendril->colour),
                               (ubyte)(tendril->fadeFactor * (real32)colAlpha(tendril->colour)));
-#endif
 }
 
 /*-----------------------------------------------------------------------------
@@ -1991,16 +1978,10 @@ void nebColourTendril(nebTendril* tendril, sdword lod)
 ----------------------------------------------------------------------------*/
 bool nebIsClipped(nebTendril* tendril)
 {
-#if 0
-    //FIXME: dammit, this is buggy.  holy moley it's fast, though
-    real32 r = 1.5f * tendril->radius;
-    return rglIsClipped((GLfloat*)&tendril->midpoint, r, r, r);
-#else
     vector veye, vobj;
     vecSub(veye, mrCamera->eyeposition, mrCamera->lookatpoint);
     vecSub(vobj, mrCamera->eyeposition, tendril->midpoint);
     return (vecDotProduct(veye, vobj) < 0.0f);
-#endif
 }
 
 /*-----------------------------------------------------------------------------
@@ -2161,25 +2142,6 @@ void nebDeleteChunkSimply(nebChunk* chunk)
  */
 void nebRemoveTendril(nebTendril* tendril, nebChunk* chunk)
 {
-#if 0
-    if (bitSet(tendril->flags, NEB_TENDRIL_LEADING) ||
-        bitSet(tendril->flags, NEB_TENDRIL_TRAILING))
-    {
-        if (tendril->a != chunk)
-        {
-            nebDeleteChunkSimply(tendril->a);
-        }
-        if (tendril->b != chunk)
-        {
-            nebDeleteChunkSimply(tendril->b);
-        }
-    }
-    else
-    {
-        dbgAssertOrIgnore(tendril != NULL);
-        dbgAssertOrIgnore(chunk != NULL);
-    }
-#else
     bitSet(tendril->flags, NEB_TENDRIL_INACTIVE);
 
     if (tendril->prev != NULL)
@@ -2190,7 +2152,6 @@ void nebRemoveTendril(nebTendril* tendril, nebChunk* chunk)
     {
         bitSet(tendril->next->flags, NEB_TENDRIL_LEADING);
     }
-#endif
 }
 
 /*-----------------------------------------------------------------------------

@@ -129,13 +129,6 @@ void ccClearModeFlag(CameraCommand *cameracommand,udword ccModeFlag);   // use C
 
 void ccChangeAngleDeclination(CameraCommand *cameracommand,real32 angle,real32 declination);
 
-
-
-//void ccFocusSideways(CameraCommand *cameracommand,FocusCommand *focuscom);
-
-
-void ccFreezeLookAtPoint(CameraCommand *cameracommand,SelectCommand *selectcom);
-
 void ccCopyCamera(CameraCommand *cameracommand,Camera *cameraToCopy);
 
 // call this routine to update camera command layer to remove ship

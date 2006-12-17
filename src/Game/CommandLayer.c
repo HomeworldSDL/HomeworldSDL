@@ -6555,16 +6555,6 @@ void clSpecial(CommandLayer *comlayer,SelectCommand *selectcom,SpecialCommand *t
     listAddNode(&comlayer->todolist,&newcommand->todonode,newcommand);
 }
 
-void tacticsChangedForShipCB(Ship *ship,TacticsType oldtactics,TacticsType newtactics)
-{
-#if 0               // take this out due to micromanagement abuse
-    if(newtactics == Evasive)
-    {
-        tacticsSetShipToDoDodge(ship);
-    }
-#endif
-}
-
 /*-----------------------------------------------------------------------------
     Name        : clSetTactics
     Description : Sets tactics for a group of ships
@@ -6615,7 +6605,6 @@ void clSetTactics(CommandLayer *comlayer,SelectCommand *selectcom,TacticsType ta
                 }
 
         ship->tacticstype = tacticstype;
-        tacticsChangedForShipCB(ship,oldtactics,tacticstype);
     }
 }
 
@@ -7952,36 +7941,6 @@ void GroupShip(CommandLayer *comlayer,ShipPtr ship,ShipPtr aroundShip)
     }
 
     GroupShipIntoMilitaryParade(comlayer,ship,aroundShip);
-
-#if 0
-    if (groupSize == 1)
-    {
-        // just position at random location
-        selection.numShips = 1;
-        selection.ShipPtr[0] = ship;
-        GetRandomLocationAroundShip(&destination,aroundShip);
-        clMove(comlayer,&selection,ship->posinfo.position,destination);
-    }
-    else
-    {
-        shipGroup = FindGroupForShip(comlayer,ship,groupSize);
-
-        if (shipGroup == NULL)
-        {
-            // make new group, and position ship at random location
-            selection.numShips = 1;
-            selection.ShipPtr[0] = ship;
-            GetRandomLocationAroundShip(&destination,aroundShip);
-            clFormation(comlayer,&selection,DELTA_FORMATION);
-            clMove(comlayer,&selection,ship->posinfo.position,destination);
-        }
-        else
-        {
-            // put ship in that group
-            AddShipToFormationGroup(ship,shipGroup);
-        }
-    }
-#endif
 }
 
 /*-----------------------------------------------------------------------------
@@ -8037,20 +7996,7 @@ bool TargetWithinAttackRange(Ship *ship,SpaceObjRotImpTarg *target)
     {
         return TRUE;        // consider within attack range sooner
     }
-#if 0
-    if(((ShipStaticInfo *)(ship->staticinfo))->bulletRange[ship->tacticstype] == 0.0f)
-    {
-        if(ship->shiptype == CloakGenerator ||
-            ship->shiptype == DFGFrigate ||
-            ship->shiptype == GravWellGenerator)
-        {
-            if(range < 7000.0f)
-            {
-                return TRUE;
-            }
-        }
-    }
-#endif
+
     if (range < ((ShipStaticInfo *)(ship->staticinfo))->bulletRange[ship->tacticstype])
     {
         return TRUE;
@@ -9178,28 +9124,7 @@ dontretaliate:
 ----------------------------------------------------------------------------*/
 CommandToDo *getShipAndItsCommand(CommandLayer *comlayer,ShipPtr ship)
 {
-#if 0
-    Node *curnode = comlayer->todolist.head;
-    CommandToDo *command;
-
-    while (curnode != NULL)
-    {
-        command = (CommandToDo *)listGetStructOfNode(curnode);
-
-        if (selShipInSelection(command->selection->ShipPtr,command->selection->numShips,ship))
-        {
-            dbgAssertOrIgnore(ship->command == command);
-            return command;
-        }
-
-        curnode = curnode->next;
-    }
-
-    dbgAssertOrIgnore(ship->command == NULL);
-    return NULL;
-#else
     return ship->command;
-#endif
 }
 
 /*-----------------------------------------------------------------------------
@@ -9498,14 +9423,7 @@ void clChecksum(void)
         {
             binwriteanyselection(makenetcheckHeader('S','E','P','A'),command->attack);
         }
-#if 0
-        if (cmd.attributes & COMMAND_MASK_ATTACKING_AND_MOVING)
-        {
-            header = makenetcheckHeader('A','T','M','V');
-            fwrite(&header,sizeof(header),1,netlogfile);
-            fwrite(&command->move,sizeof(MoveCommand),1,netlogfile);
-        }
-#endif
+
         switch (cmd.order)
         {
             case COMMAND_MOVE:

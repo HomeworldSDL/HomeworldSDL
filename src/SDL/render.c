@@ -1441,15 +1441,9 @@ bool rndShipVisible(SpaceObj* spaceobj, Camera* camera)
         //bbox frustum culling
         StaticCollInfo* sinfo = &((SpaceObjRotImp*)spaceobj)->staticinfo->staticheader.staticCollInfo;
 
-#if 0 //GLcompat
-        return !rglIsClipped((GLfloat*)&sinfo->collrectoffset,
-                             sinfo->uplength, sinfo->rightlength,
-                             sinfo->forwardlength);
-#else
         return !clipBBoxIsClipped((real32*)&sinfo->collrectoffset,
                                   sinfo->uplength, sinfo->rightlength,
                                   sinfo->forwardlength);
-#endif
     }
     else
     {
@@ -3856,13 +3850,6 @@ void rndDrawOnScreenDebugInfo(void)
     }
 #endif
 
-#if 0
-    if (selSelected.numShips == 1)
-    {
-        real32 overlap = rndComputeOverlap(selSelected.ShipPtr[0], 2.0f);
-        fontPrintf(0, 0, colWhite, "overlap %0.3f     ", overlap);
-    }
-#endif
 #if RND_SCALECAP_TWEAK
     if (RND_CAPSCALECAP_STATS)
     {
@@ -4123,39 +4110,11 @@ void rndRenderTask(void)
             mouseStoreCursorUnder();
         }
         
-	mouseDraw();                                        //draw mouse atop everything
+        mouseDraw();                                        //draw mouse atop everything
       
         if (universePause)
         {
-#if 0
-            if (singlePlayerGame)
-            {
-                static sdword intelliCount;
-                static Node*  intelliNode;
-
-                //count the number of popped up popups
-                intelliCount = 0;
-                intelliNode  = poFleetIntelligence.head;
-                while (intelliNode != NULL)
-                {
-                    FleetIntelligence* inode = (FleetIntelligence*)listGetStructOfNode(intelliNode);
-                    if (inode->showOnce)
-                    {
-                        intelliCount++;
-                    }
-                    intelliNode = intelliNode->next;
-                }
-                //don't display plug if a popup has paused the game
-                if (intelliCount == 0)
-                {
-                    rndShamelessPlug();
-                }
-            }
-            else
-#endif
-            {
-                rndShamelessPlug();
-            }
+            rndShamelessPlug();
         }
 
         //take a screenshot or sequence thereof
@@ -4916,13 +4875,6 @@ real32 rndComputeOverlap(Ship* ship, real32 scalar)
                     goto nextobj;
                 }
             }
-#if 0
-            //not sure what to do about this yet
-            if (ship->collInfo.precise != NULL)
-            {
-                __asm int 3 ;
-            }
-#endif
 
             //position in cameraspace
             vecSub(vobj, mrCamera->eyeposition, spaceobj->posinfo.position);

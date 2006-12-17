@@ -546,20 +546,6 @@ void collDrawCollisionInfo(SpaceObjRotImp *irobj)
     rndLightingEnable(TRUE);
 }
 
-#if 0
-/*-----------------------------------------------------------------------------
-    Name        :
-    Description :
-    Inputs      :
-    Outputs     :
-    Return      :
-----------------------------------------------------------------------------*/
-void collAddSpaceObjToCollBlobs(SpaceObj *obj)
-{
-    bobAddObjToNearestBlob(&universe.collBlobList,obj);
-}
-#endif
-
 /*-----------------------------------------------------------------------------
     Name        : collUpdateCollBlobs
     Description : Updates collision blobs
@@ -2227,18 +2213,12 @@ nextbullet:
             listRemoveNode(&bullet->bulletlink);
             univRemoveObjFromRenderList((SpaceObj *)bullet);
             listDeleteNode(&bullet->objlink);
-#if 0
-            univDeleteBullet(bullet);
-#endif
         }
         else
         {
             bulletindex++;
         }
     }
-#ifndef HW_BUILD_FOR_DISTRIBUTION
-//    thisBlob->debugFlag = 0;
-#endif
 }
 
 /*-----------------------------------------------------------------------------

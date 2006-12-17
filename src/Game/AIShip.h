@@ -41,7 +41,6 @@ void aishipGetTrajectory(Ship *ship,SpaceObjRotImpTarg *target,vector *trajector
 void aishipGetTrajectoryWithVelPrediction(Ship *ship,SpaceObjRotImpTarg *target,real32 bulletspeed,vector *trajectory);
 void aishipGetTrajectoryWithAngleCorrection(Ship *ship,SpaceObjRotImpTarg *target,vector *trajectory);
 
-//void aishipFlyToPoint(Ship *ship,vector *destination,udword aishipflags);
 udword aishipFlyToPointAvoidingObjsFunc(Ship *ship,vector *destination,udword aishipflags,real32 limitvel,vector *withVel);
 
 bool aishipGuideMissile(Missile *missile);

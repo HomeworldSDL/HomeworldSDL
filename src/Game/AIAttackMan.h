@@ -25,7 +25,5 @@ void aiaP2AttackManager(void);
 void aiaInit(AIPlayer *aiplayer);
 void aiaClose(AIPlayer *aiplayer);
 
-//void aiaAddNewShip(Ship *ship);
-
 #endif
 

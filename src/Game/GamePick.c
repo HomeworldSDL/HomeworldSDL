@@ -116,7 +116,6 @@ fecallback gpCallbacks[] =
     {gpSaveGame,               "IG_SaveGame"},
     {gpDeleteGame,             "IG_DeleteGame"},
     {gpBackToInGameEscapeMenu, "IG_StartEscapeMenu"},
-    //{gpAcceptBackToInGameEscapeMenu, "IG_StartEscapeMenu_AcceptOptions"},
     {gpOverwriteYes,           "OverwriteGameYes" },
     {gpOverwriteNo,            "OverwriteGameNo" },
     {NULL, NULL}
@@ -1174,17 +1173,6 @@ void gpBackPicking(char *name, featom *atom)
 {
     feScreenDisappear(NULL, NULL);
 }
-
-#if 0
-void gpAcceptBackToInGameEscapeMenu(char* name, featom* atom)
-{
-    void opInGameOptionsAccept(char* name, featom* atom);
-
-    opInGameOptionsAccept(name, atom);
-
-    feScreenStart(ghMainRegion, "In_game_esc_menu");
-}
-#endif
 
 void gpBackToInGameEscapeMenu(char *name, featom *atom)
 {

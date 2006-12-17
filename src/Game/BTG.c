@@ -559,12 +559,6 @@ void btgLoad(char* filename)
 
     //set background colour
     universe.backgroundColor = colRGB(btgHead->mBGRed, btgHead->mBGGreen, btgHead->mBGBlue);
-#if 0           // set at end of gameStart to prevent color problems
-    rndSetClearColor(colRGBA(btgHead->mBGRed,
-                             btgHead->mBGGreen,
-                             btgHead->mBGBlue,
-                             255));
-#endif
 
     //version check
     dbgAssertOrIgnore(btgHead->btgFileVersion == BTG_FILE_VERSION);

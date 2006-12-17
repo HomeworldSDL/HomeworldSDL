@@ -145,12 +145,6 @@ void cChannelStateMachine(void)
     }
 }
 
-#if 0
-void cNotifyCurrentRoomPresent(int present)
-{
-}
-#endif
-
 #define FIND_DEFAULT_ROOM_TRIES     3
 
 sdword FindADefaultRoom(void)

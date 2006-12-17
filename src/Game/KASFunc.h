@@ -97,7 +97,6 @@ void kasfPatrolActive(void);
 void kasfLog(char *string);
 void kasfLogInteger(char *string, sdword integer);
 
-sdword kasfTeamMemberHandle(sdword Index);
 sdword kasfTeamHealthAverage(void);
 sdword kasfTeamHealthLowest(void);
 sdword kasfTeamFuelAverage(void);
@@ -163,7 +162,6 @@ void kasfEnableAIFeature(sdword feature, sdword type);
 void kasfDisableAllAIFeatures(void);
 void kasfEnableAllAIFeatures(void);
 
-//void kasfTeamGiveToPlayer(void);
 void kasfTeamSwitchPlayerOwner(void);
 void kasfShipsSwitchPlayerOwner(GrowSelection *ships);
 

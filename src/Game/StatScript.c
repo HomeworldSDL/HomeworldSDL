@@ -752,13 +752,6 @@ bool parseLine(char *line,char **returnName,char **returnValue)
 
     StripTrailingSpaces(value);
 
-#if 0                   // allow NULL value to be returned
-    if (*value == 0)
-    {
-        return FALSE;
-    }
-#endif
-
     *returnName = name;
     *returnValue = value;
 

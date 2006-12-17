@@ -1432,40 +1432,20 @@ void meshCurrentMaterialTex(materialentry *material, sdword iColorScheme)
         rndBackFaceCullEnable(TRUE);                        //enable culling
         if (!usingShader) glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);   //1-sided lightmodel
     }
-//    if (enableTextures == TRUE)
-//    {
-        if (bitTest(material->flags, MPM_Smooth) && enableSmoothing == TRUE)
+
+    if (bitTest(material->flags, MPM_Smooth) && enableSmoothing == TRUE)
+    {
+        meshPolyMode = MPM_SmoothTexture;
+        if (!g_SpecHack)
         {
-            meshPolyMode = MPM_SmoothTexture;
-            if (!g_SpecHack)
-            {
-                glShadeModel(GL_SMOOTH);
-            }
+            glShadeModel(GL_SMOOTH);
         }
-        else
-        {
-            meshPolyMode = MPM_Texture;
-            glShadeModel(GL_FLAT);
-        }
-#if 0
     }
     else
     {
-        if (bitTest(material->flags, MPM_Smooth) && enableSmoothing == TRUE)
-        {
-            meshPolyMode = MPM_Smooth;
-            if (!g_SpecHack)
-            {
-                glShadeModel(GL_SMOOTH);
-            }
-        }
-        else
-        {
-            meshPolyMode = MPM_Flat;
-            glShadeModel(GL_FLAT);
-        }
+        meshPolyMode = MPM_Texture;
+        glShadeModel(GL_FLAT);
     }
-#endif
 }
 
 /*-----------------------------------------------------------------------------

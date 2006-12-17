@@ -145,17 +145,6 @@ real32 SIDESTEP_ROLLROTATE = DEG_TO_RAD(100.0f);
 real32 SIDESTEP_PITCHROTATE = DEG_TO_RAD(100.0f);
 real32 SIDESTEP_BOOTITTIME = 2.0f;
 
-#if 0
-real32 SLALOM_THRUSTMOD = 0.5f;
-real32 SLALOM_THRUSTMODTURN = 1.0f;
-real32 SLALOM_ACCELMODIFIERPITCH = 0.5f;
-real32 SLALOM_MAXROTSPEEDPITCH  = 1.0f;
-real32 SLALOM_ACCELMODIFIERROLL = 0.5f;
-real32 SLALOM_MAXROTSPEEDROLL   = 1.0f;
-sdword SLALOM_BASEITERATIONS = 2;
-sdword SLALOM_RANDOMITERATIONS = 3;  // must be 1,3,7,15, etc.;
-#endif
-
 #define SLALOM_MAXITERATIONS    15          // later don't hardcode to maximum
 
 real32 SLALOM_MINVELOCITY = -300.0f;
@@ -1546,18 +1535,7 @@ bool flightmanWhipStrafeExecute(Ship *ship)
 
         case 2:
             return TRUE;
-#if 0
-            physApplyForceToObj((SpaceObj *)ship,ship->nonstatvars.thruststrength[TRANS_FORWARD] * WHIPSTRAFE_LEVELOUTTHRUSTMOD,TRANS_FORWARD);
 
-            if (flightmanPitchUp(ship,&whipstrafeinfo->totalpitchrotated,DEG_TO_RAD(90.0f),WHIPSTRAFE_LEVEL_MAXROT,WHIPSTRAFE_LEVEL_ACCELMOD))
-            {
-                return TRUE;
-            }
-            else
-            {
-                return FALSE;
-            }
-#endif
         default:
             dbgAssertOrIgnore(FALSE);
             return FALSE;

@@ -143,9 +143,6 @@ void horseRaceRender(void);
 void hrDrawPlayersProgress(featom *atom, regionhandle region);
 void hrDrawChatBox(featom *atom, regionhandle region);
 void hrChatTextEntry(char *name, featom *atom);
-//void hrAbortNetworkGame(char *name, featom *atom);
-//void hrAbortNonNetworkGame(char *name, featom *atom);
-
 void hrAbortLoadingYes(char *name, featom *atom);
 void hrAbortLoadingNo(char *name, featom *atom);
 
@@ -167,8 +164,6 @@ fedrawcallback hrDrawCallback[] =
 fecallback hrCallBack[] =
 {
     {hrChatTextEntry,           "HR_ChatTextEntry"          },
-    //{hrAbortNetworkGame,        "HR_AbortNetworkGame"       },
-    //{hrAbortNonNetworkGame,     "HR_AbortNonNetworkGame"    },
     {hrAbortLoadingYes,         "HR_AbortLoadingYes"        },
     {hrAbortLoadingNo,          "HR_AbortLoadingNo"         },
     {NULL,          NULL}
@@ -257,14 +252,7 @@ void hrDrawPlayersProgress(featom *atom, regionhandle region)
             {
                 PlayersAlreadyDrawnDropped[index] = droppedOut;
 
-#if 0
-                if (hrBackgroundDirty)
-                {
-                    primRectTranslucent2(&outline, colRGBA(0,0,0,64));
-                }
-#else
                 primRectSolid2(&outline, colBlack);
-#endif
 
                 if (droppedOut)
                 {
@@ -1121,20 +1109,6 @@ void hrChatTextEntry(char *name, featom *atom)
         break;
     }
 }
-
-#if 0
-void hrAbortNetworkGame(char *name, featom *atom)
-{
-    hrAbortLoadingGame = TRUE;
-    dbgAssertOrIgnore(multiPlayerGame);
-    SendDroppingOutOfLoad(sigsPlayerIndex);
-}
-
-void hrAbortNonNetworkGame(char *name, featom *atom)
-{
-    hrAbortLoadingGame = TRUE;
-}
-#endif
 
 HorseRaceBars horseBarInfo;
 extern bool8 etgHasBeenStarted;

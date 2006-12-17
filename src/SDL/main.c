@@ -476,63 +476,6 @@ bool SpecifyLogFilePath(char *string)
     return TRUE;
 }
 
-/*
-void EnableComputerPlayers(char *string)
-{
-    char playerStr[20];
-    char *scanning = playerStr;
-    char index;
-
-    if ((string = strtok(NULL, TS_Delimiters)) == NULL)
-        return;
-    sscanf(string, "%s", playerStr);
-
-    while (*scanning != '\0')
-    {
-        if ((*scanning >= '0') && (*scanning <= '9'))
-        {
-            index = (char)(*scanning - '0');
-            dbgAssertOrIgnore(index < MAX_MULTIPLAYER_PLAYERS);
-            dbgAssertOrIgnore(index >= 0);
-
-            ComputerPlayerEnabled[index] = TRUE;
-        }
-
-        scanning++;
-    }
-
-    noDefaultComputerPlayer = TRUE;
-}
-*/
-#if 0
-bool SetAIPlayerLevels(char *string)
-{
-    char playerStr[20];
-    char *scanning = playerStr;
-    char level, i;
-
-
-    if ((string = strtok(NULL, TS_Delimiters)) == NULL)
-        return TRUE;    //error?
-    sscanf(string, "%s", playerStr);
-
-    for (i=0;(*scanning != '\0') || (i > MAX_MULTIPLAYER_PLAYERS); )
-    {
-        if ((*scanning >= '0') && (*scanning <= '9'))
-        {
-            level = (char)(*scanning - '0');
-            dbgAssertOrIgnore(level < (char)AI_NUM_LEVELS);
-            dbgAssertOrIgnore(level >= 0);
-
-            ComputerPlayerLevel[i] = level;
-            i++;
-        }
-
-        scanning++;
-    }
-    return TRUE;
-}
-#endif
 
 #if NIS_TEST
 extern char *nisTestNIS;
@@ -2653,19 +2596,6 @@ void mainCleanupAfterVideo(void)
     }
 }
 
-#if 0
-void RunPatcher(void)
-{
-    DeactivateMe();
-
-    WinExec(PATCHNAME,SW_NORMAL);
-
-//    WindowsCleanup();
-    //PostQuitMessage(0);
-}
-#endif
-
-
 /*-----------------------------------------------------------------------------
     Name        : WinMain
     Description : Entry point to the game
@@ -2846,14 +2776,6 @@ int main (int argc, char* argv[])
                     opTimerExpired();
                 }
             }
-
-#if 0
-            if (patchComplete)
-            {
-                RunPatcher();
-                patchComplete = 0;
-            }
-#endif
         }
     }
     else

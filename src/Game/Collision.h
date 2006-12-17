@@ -25,7 +25,6 @@ bool collCheckLineOfSight(Ship* source, Ship* target, vector* sourcePosition, ve
 
 #define collAddSpaceObjToCollBlobs(obj) bobAddObjToNearestBlob(&universe.collBlobList,obj)
 #define collAddSpaceObjToSpecificBlob(tblob,tobj) bobAddObjToSpecificBlob(tblob,tobj)
-//void collAddSpaceObjToCollBlobs(SpaceObj *obj);
 
 void collUpdateCollBlobs(void);
 void collUpdateObjsInCollBlobs(void);

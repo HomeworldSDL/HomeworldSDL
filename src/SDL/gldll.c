@@ -646,23 +646,6 @@ GLboolean glDLLGetProcs(char* dllName)
         return GL_FALSE;
     }
 
-#if 0
-    DYNALINK_WGL_FUNCTION(CreateContext);
-    DYNALINK_WGL_FUNCTION(DeleteContext);
-    DYNALINK_WGL_FUNCTION(GetProcAddress);
-    DYNALINK_WGL_FUNCTION(MakeCurrent);
-    DYNALINK_WGL_FUNCTION(ChoosePixelFormat);
-    DYNALINK_WGL_FUNCTION(SetPixelFormat);
-    DYNALINK_WGL_FUNCTION(GetPixelFormat);
-    DYNALINK_WGL_FUNCTION(DescribePixelFormat);
-    DYNALINK_WGL_FUNCTION(SwapBuffers);
-
-    if (rwglSwapBuffers != NULL && DynalinkFailed)
-    {
-        return GL_FALSE;
-    }
-#endif
-
     rwglGetProcAddress = (WGETPROCADDRESSproc)SDL_GL_GetProcAddress("rglGetProcAddress");
     if (!rwglGetProcAddress)
     {

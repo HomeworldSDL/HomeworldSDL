@@ -1314,12 +1314,7 @@ void cpAcceptColors(void)
     {                                                       //if this is not the default team colors or it has been changed at all
         cpColorsPicked = TRUE;                              //player has chosen some colors
     }
-#if 0       // could have been set TRUE by other functions, don't reset
-    else
-    {
-        cpColorsPicked = FALSE;
-    }
-#endif
+
     *cpPBaseColor = base;                                   //set the color
     *cpPStripeColor = stripe;
 }

@@ -916,18 +916,3 @@ bool CheckNetworkVersionCompatibility(char *netversion)
     else
         return FALSE;
 }
-
-#if 0
-void titanCDKeyNotFoundCB(void)
-{
-    mgDisplayMessage(strGetString(strNoCDKey));
-    return;
-}
-
-void titanInvalidCDKeyCB(void)
-{
-    mgDisplayMessage(strGetString(strLightweightBadKey));
-    return;
-}
-#endif
-

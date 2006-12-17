@@ -2737,16 +2737,8 @@ void partFillGenericParticles(udword n, psysPtr psys,
             matMultiplyMatByVec(&newVector, &coordSys, &accelVec);
             p->wAccel = newVector;
             //transform rvec
-#if 0
-            p->rvec = velVec;
-            if (p->rvec.x == 0.0f
-                && p->rvec.y == 0.0f
-                && p->rvec.z == 0.0f)
-                p->rvec.z = 1.0f;
-            vecNormalize(&p->rvec);
-#else
             matMultiplyMatByVec(&newVector, &coordSys, &p->rvec);
-#endif
+
             vecNormalize(&p->rvec);
         }
     }

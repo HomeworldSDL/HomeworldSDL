@@ -462,17 +462,3 @@ void autodownloadmapPrintStatusStart()
         strcpy(horseracestatus.hrstatusstr[sigsPlayerIndex],strGetString(strCustomMapAutodownload));
     }
 }
-
-void autodownloadmapPrintStatus()
-{
-#if 0
-    if (sigsPlayerIndex != 0)
-    {
-        if (autodownloadmapInfo.numFilesAutodownloaded != 0)
-        {
-            sprintf(horseracestatus.hrstatusstr[sigsPlayerIndex],"Detected User Map - Autodownloaded %d/%d files",autodownloadmapInfo.numFilesAutodownloaded,autodownloadmapInfo.totalFilesToAutodownload);
-        }
-    }
-#endif
-}
-

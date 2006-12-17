@@ -1164,12 +1164,6 @@ void LoadGunInfo(Ship *ship)
     for (i=0;i<loadedGunInfo->numGuns;i++)
     {
         loadedGunInfo->guns[i].gunstatic = &ship->staticinfo->gunStaticInfo->gunstatics[i];
-#if 0
-        if (loadedGunInfo->guns[i].gunstatic->guntype == GUN_NewGimble)
-        {
-            univResetNewGimbleGun(&loadedGunInfo->guns[i]);
-        }
-#endif
     }
 }
 

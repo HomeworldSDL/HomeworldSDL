@@ -272,13 +272,6 @@ static vertex* octant = NULL;
         (p).z = pz; \
     }
 
-#if 0
-#define SetV(v,px,py,pz,nx,ny,nz) \
-    { \
-        SetP((v)->p,px,py,pz); \
-        SetP((v)->n,nx,ny,nz); \
-    }
-#else
 void SetV(vertex* v, real32 x, real32 y, real32 z,
           real32 nx, real32 ny, real32 nz)
 {
@@ -299,7 +292,6 @@ void SetV(vertex* v, real32 x, real32 y, real32 z,
     v->n.y = ny;
     v->n.z = nz;
 }
-#endif
 
 #define SetF(f,i0,i1,i2) \
     { \

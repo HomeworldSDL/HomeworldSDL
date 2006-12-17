@@ -639,13 +639,6 @@ void spGoNowHyperspaceCB(char *string, featom *atom)
                     if (!(ship->specialFlags & SPECIAL_SinglePlayerInParade))
                     {
                         goto putinparade;
-#if 0
-                        // steady ship and make sure it's pointing the right way.
-                        aitrackForceSteadyShip(ship);
-                        // face same direction as mothership
-                        ship->rotinfo.coordsys = mothership->rotinfo.coordsys;
-                        univUpdateObjRotInfo((SpaceObjRot *)ship);
-#endif
                     }
                 }
 */

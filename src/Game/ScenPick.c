@@ -895,16 +895,6 @@ void spGetScenarioDetails(char* bitmapFile, char *textFile, char *scenarioFile)
 
     for (i = 2; i<=MAX_MULTIPLAYER_PLAYERS; i++)
     {
-#if 0       // if 0 out because it's a bug in my bug list
-        if (!foundBitmap)
-        {
-            sprintf(bitmapFile, "%s%s%c\\preview.bmp", scenarioRootPath, scenarioFile, '0' + i);
-            if (fileExists(bitmapFile, 0))
-            {                                               //see if there is a preview bitmap in this directory
-                foundBitmap = TRUE;
-            }
-        }
-#endif
         if (!foundText)
         {
 #ifdef _WIN32

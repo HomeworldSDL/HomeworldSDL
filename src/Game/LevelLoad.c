@@ -1578,26 +1578,6 @@ static void scriptSetBackgroundCB(char* directory, char* field, void* dataToFill
     }
 }
 
-#if 0
-static void scriptSetBackgroundThetaCB(char* directory, char* field, void* dataToFillIn)
-{
-    real32 btgTheta;
-
-    RemoveCommasFromString(field);
-    sscanf(field, "%f", &btgTheta);
-    btgSetTheta(btgTheta);
-}
-
-static void scriptSetBackgroundPhiCB(char* directory, char* field, void* dataToFillIn)
-{
-    real32 btgPhi;
-
-    RemoveCommasFromString(field);
-    sscanf(field, "%f", &btgPhi);
-    btgSetPhi(btgPhi);
-}
-#endif
-
 static void scriptSetMissionSphereCB(char *directory,char *field,void *dataToFillIn)
 {
     sdword playerNumber;
@@ -2204,25 +2184,6 @@ static void scriptSetDerelictToBeNeeded(char *directory,char *field,void *dataTo
     bitSet(derelictStaticInfos[derelicttype].staticheader.infoFlags, IF_InfoNeeded);
 }
 
-#if 0
-/*-----------------------------------------------------------------------------
-    Name        : levelSetMaybeNeeded
-    Description : Static info parsing callback to move the IF_InfoWillBeNeeded
-                    bit to the IF_InfoNeeded.
-    Inputs      :
-    Outputs     :
-    Return      :
-----------------------------------------------------------------------------*/
-void levelSetMaybeNeeded(StaticInfo *info, ObjType objType)
-{
-    if (bitTest(info->staticheader.infoFlags, IF_InfoWillBeNeeded))
-    {
-        bitSet(info->staticheader.infoFlags, IF_InfoNeeded);
-        bitClear(info->staticheader.infoFlags, IF_InfoWillBeNeeded);
-    }
-}
-#endif
-
 /*-----------------------------------------------------------------------------
     Name        : levelPreInit
     Description : A level init function to be called before any ships are loaded.
@@ -2338,9 +2299,6 @@ void levelPreInit(char *directory,char *pickedMission)
             bitSet(derelictStaticInfos[Crate].staticheader.infoFlags, IF_InfoNeeded);
         }
     }
-
-    //now go through all ships in the .level file and flag them for loading
-    //universeAllStaticsScan(levelSetMaybeNeeded, levelSetMaybeNeeded, levelSetMaybeNeeded, levelSetMaybeNeeded);
 }
 
 void TryToFindMothershipsForPlayers()

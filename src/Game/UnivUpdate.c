@@ -71,15 +71,7 @@
 #include "LaunchMgr.h"
 #include "ProfileTimers.h"
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
-
-#if 0
-#ifdef gshaw
-#define DEBUG_COLLISIONS
-#endif
-#endif
-
-#endif
+#define DEBUG_COLLISIONS 0
 
 vector defaultshipupvector = { 0.0f, 0.0f, 1.0f };
 vector defaultshiprightvector = { 0.0f, -1.0f, 0.0f };
@@ -2329,38 +2321,6 @@ void MakeNewGasCloudStaticInfo(GasCloud *gascloud)
     collUpdateCollRectangle((SpaceObjRotImp *)gascloud);
 }
 
-#if 0
-/*-----------------------------------------------------------------------------
-    Name        : ObjectsAreMovingCloserTogether
-    Description : determines if objects are moving closer together based on
-                  current positions and velocity
-    Inputs      : ship1, ship2, curdistsquared (between ship1,ship2)
-    Outputs     :
-    Return      : TRUE if objects are moving closer together, FALSE otherwise
-----------------------------------------------------------------------------*/
-bool ObjectsAreMovingCloserTogether(SpaceObjRotImp *obj1,SpaceObjRotImp *obj2,real32 curdistsquared)
-{
-    vector newpos1,newpos2;
-    vector d1,d2;
-    vector newdist;
-
-    vecScalarMultiply(d1,obj1->posinfo.velocity,universe.phystimeelapsed);
-    vecScalarMultiply(d2,obj2->posinfo.velocity,universe.phystimeelapsed);
-    vecAdd(newpos1,obj1->collInfo.collPosition,d1);
-    vecAdd(newpos2,obj2->collInfo.collPosition,d2);
-    vecSub(newdist,newpos2,newpos1);
-
-    if (vecMagnitudeSquared(newdist) < curdistsquared)
-    {
-        return TRUE;
-    }
-    else
-    {
-        return FALSE;
-    }
-}
-#endif
-
 /*-----------------------------------------------------------------------------
     Name        : ApplyDamageToCollidingObjects
     Description : Applies collision damage to two colliding objects
@@ -2552,7 +2512,7 @@ void ObjectsCollided(SpaceObjRotImpTarg *obj1,SpaceObjRotImpTarg *obj2,real32 co
 
     vector leftrightdecidevec;
 
-#ifdef DEBUG_COLLISIONS
+#if DEBUG_COLLISIONS
     dbgMessagef("%x and %x collided, Repulsion %f",(udword)obj1,(udword)obj2,repulse);
 #endif
 
@@ -2582,7 +2542,7 @@ void ObjectsCollided(SpaceObjRotImpTarg *obj1,SpaceObjRotImpTarg *obj2,real32 co
 
         if (ShouldDoGlancingCollision(fastobj,fastobjvelmag2,slowobj,slowobjvelmag2))
         {
-#ifdef DEBUG_COLLISIONS
+#if DEBUG_COLLISIONS
         dbgMessage("Glancing Collision");
 #endif
             if ((collforce.x == 0.0f) && (collforce.y == 0.0f))
@@ -2615,7 +2575,7 @@ void ObjectsCollided(SpaceObjRotImpTarg *obj1,SpaceObjRotImpTarg *obj2,real32 co
         }
         else
         {
-#ifdef DEBUG_COLLISIONS
+#if DEBUG_COLLISIONS
         dbgMessage("Xchanging Velocities");
 #endif
         }
@@ -3007,29 +2967,18 @@ bool ApplyDamageToTarget(SpaceObjRotImpTarg *target,real32 damagetaken,GunSoundT
         case OBJ_DustType:
             switch (soundType)
             {
-            case GS_LargeIonCannon:
-            case GS_MediumIonCannon:
-            case GS_SmallIonCannon:
-            case GS_VeryLargeIonCannon:
-                //charge, but don't take damage
-                DustCloudChargesUp((DustCloud*)target, (sdword)damagetaken, targetWasAlive);
-                return FALSE;
-            default:
-                break;
+                case GS_LargeIonCannon:
+                case GS_MediumIonCannon:
+                case GS_SmallIonCannon:
+                case GS_VeryLargeIonCannon:
+                    //charge, but don't take damage
+                    DustCloudChargesUp((DustCloud*)target, (sdword)damagetaken, targetWasAlive);
+                    return FALSE;
+                default:
+                    break;
             }
 
-#if 0
-            if (DustCloudTakesDamage((DustCloud*)target, (sdword)damagetaken, targetWasAlive))
-            {
-                AddTargetToDeleteList(target, soundType);
-                return TRUE;
-            }
-            else
-#endif
-            {
-                return FALSE;
-            }
-            break;
+            return FALSE;
 
         case OBJ_DerelictType:
             if (((Derelict *)target)->derelicttype == HyperspaceGate)
@@ -4956,12 +4905,7 @@ void univGetResourceStatistics(sdword *resourceValue,sdword *numHarvestableResou
         {
             goto nextnode;       // don't pick NIS resources
         }
-#if 0       // Asteroid0's not in Resource list anymore so this isn't needed
-        if ((resource->objtype == OBJ_AsteroidType) && (((Asteroid *)resource)->asteroidtype == Asteroid0))
-        {
-            goto nextnode;      // don't harvest pebbles
-        }
-#endif
+
         total += resource->resourcevalue;
         numharvestable++;
 
@@ -5024,12 +4968,7 @@ Resource *univFindNearestResource(Ship *ship,real32 volumeRadius,vector *volumeP
         {
             goto nextnode;       // don't pick NIS resources
         }
-#if 0       // Asteroid0's not in Resource list anymore so this isn't needed
-        if ((resource->objtype == OBJ_AsteroidType) && (((Asteroid *)resource)->asteroidtype == Asteroid0))
-        {
-            goto nextnode;      // don't harvest pebbles
-        }
-#endif
+
         if (ResourceMovingTooFast(resource))
         {
             goto nextnode;
@@ -6284,34 +6223,6 @@ DONT_MOVE_ME_YET:
     }
 }
 
-#if 0           // no longer needed - univCheckShipState called in univUpdateAllObjPosVel
-/*-----------------------------------------------------------------------------
-    Name        : univCheckShipStates
-    Description : checks if shipidle and gettingrocked, and if so, tells ship
-                  to retaliate
-    Inputs      :
-    Outputs     :
-    Return      :
-----------------------------------------------------------------------------*/
-void univCheckShipStates()
-{
-    Node *objnode = universe.ShipList.head;
-    Ship *ship;
-//    bool attackpassive;
-
-    while (objnode != NULL)
-    {
-        ship = (Ship *)listGetStructOfNode(objnode);
-        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
-
-        univCheckShipState(ship);
-
-nextnode:
-        objnode = objnode->next;
-    }
-}
-#endif
-
 /*-----------------------------------------------------------------------------
     Name        : univupdateReset
     Description : resets univupdate
@@ -6953,20 +6864,6 @@ void univRegrowAsteroids()
 {
     ;       // complete later, regrowing asteroids properly
 }
-
-#if 0
-/*-----------------------------------------------------------------------------
-    Name        : ObjDistCompareCB
-    Description : callback function to compare camera distances of obj1,obj2
-    Inputs      : obj1,obj2
-    Outputs     :
-    Return      : returns TRUE if obj1 camera distance > obj2 camera distance
-----------------------------------------------------------------------------*/
-bool ObjDistCompareCB(SpaceObj *obj1,SpaceObj *obj2)
-{
-    return (obj1->collOptimizeDist > obj2->collOptimizeDist);
-}
-#endif
 
 /*-----------------------------------------------------------------------------
     Name        : univSpaceObjInRenderList
@@ -7675,13 +7572,6 @@ bool univUpdate(real32 phystimeelapsed)
 
     //do global tactics updates
     tacticsGlobalUpdate();
-
-#if 0                           // no longer needed - univCheckShipState called in univUpdateAllPosVel now
-    if (!nisUniversePause)
-    {
-        univCheckShipStates();
-    }
-#endif
 
     univUpdateMineWallFormations();
 

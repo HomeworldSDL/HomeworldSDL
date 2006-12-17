@@ -204,18 +204,6 @@ bool aitrackStabilizeGuidance(SpaceObjRotImpTargGuidance *ship)
         }
     }
 
-#if 0
-    desiredrotspeed = -heading.z
-    if (ship->rotinfo.rotspeed.z < desiredrotspeed)
-    {
-        physApplyRotToObj((SpaceObjRot *)ship,ship->nonstatvars.rotstrength[ROT_ABOUTYCCW],ROT_ABOUTYCCW);
-    }
-    else
-    {
-        physApplyRotToObj((SpaceObjRot *)ship,ship->nonstatvars.rotstrength[ROT_ABOUTYCW],ROT_ABOUTYCW);
-    }
-#endif
-
     return FALSE;
 }
 

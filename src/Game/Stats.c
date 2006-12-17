@@ -180,7 +180,6 @@ static sbyte *RaceCalcFightStatsFor[NUM_RACES_TO_GATHER_STATS_FOR] =
 
 bool ForceTotalRefresh = FALSE;
 
-static void statsTest(void);
 static void StatsForRaceCB(char *directory,char *field,void *dataToFillIn);
 static void StatsForCB(char *directory,char *field,void *dataToFillIn);
 
@@ -336,95 +335,6 @@ ShipStaticInfo *ConvertStatIndexToShipStatic(sdword i)
     }
 }
 
-#if 0
-void GetPrecombatStats(FightStats *fightStats)
-{
-    ShipStaticInfo *shipstatic0 = GetShipStaticInfoValidate(fightStats->shiptype[0],fightStats->shiprace[0]);
-    ShipStaticInfo *shipstatic1 = GetShipStaticInfoValidate(fightStats->shiptype[1],fightStats->shiprace[1]);
-    sdword RU0;
-    sdword RU1;
-
-    dbgAssertOrIgnore(shipstatic0->shiptype == fightStats->shiptype[0]);
-    dbgAssertOrIgnore(shipstatic1->shiptype == fightStats->shiptype[1]);
-
-    // Get # of ships for players 0 and 1 to fight
-
-    RU0 = shipstatic0->buildCost;
-    RU1 = shipstatic1->buildCost;
-
-    if (RU0 == RU1)
-    {
-        fightStats->numShips[0] = (sword)MIN_SHIPS_TO_FIGHT;
-        fightStats->numShips[1] = (sword)MIN_SHIPS_TO_FIGHT;
-    }
-    else
-    {
-        sdword maxRU;
-        sdword minRU;
-        sdword maxRUplayer;
-        sdword numMinRUShips;
-        sdword numMaxRUShips;
-
-        if (RU0 > RU1)
-        {
-            maxRU = RU0;
-            minRU = RU1;
-            maxRUplayer = 0;
-        }
-        else
-        {
-            maxRU = RU1;
-            minRU = RU0;
-            maxRUplayer = 1;
-        }
-
-        numMinRUShips = maxRU / minRU;
-        numMaxRUShips = 1;
-        if (numMinRUShips < MIN_SHIPS_TO_FIGHT)
-        {
-            numMinRUShips = MIN_SHIPS_TO_FIGHT;
-
-            numMaxRUShips = (numMinRUShips * minRU) / maxRU;
-        }
-
-        if (maxRUplayer == 0)
-        {
-            fightStats->numShips[0] = (sword)numMaxRUShips;
-            fightStats->numShips[1] = (sword)numMinRUShips;
-        }
-        else
-        {
-            fightStats->numShips[0] = (sword)numMinRUShips;
-            fightStats->numShips[1] = (sword)numMaxRUShips;
-        }
-    }
-
-    if (fightStats->numShips[0] > cdLimitCaps[fightStats->shiptype[0]])
-    {
-        fightStats->numShips[0] = cdLimitCaps[fightStats->shiptype[0]];
-    }
-
-    if (fightStats->numShips[1] > cdLimitCaps[fightStats->shiptype[1]])
-    {
-        fightStats->numShips[1] = cdLimitCaps[fightStats->shiptype[1]];
-    }
-
-    dbgAssertOrIgnore(fightStats->numShips[0] > 0);
-    dbgAssertOrIgnore(fightStats->numShips[1] > 0);
-
-    dbgMessagef("%s %s Vs %s %s",ShipRaceToStr(fightStats->shiprace[0]),ShipTypeToStr(fightStats->shiptype[0]),ShipRaceToStr(fightStats->shiprace[1]),ShipTypeToStr(fightStats->shiptype[1]));
-    dbgMessagef("%d %d",fightStats->numShips[0],fightStats->numShips[1]);
-
-#if 0
-    fightStats->numRUs[0] = fightStats->numShips[0] * RU0;
-    fightStats->numRUs[1] = fightStats->numShips[1] * RU1;
-
-    fightStats->totalHP[0] = fightStats->numShips[0] * shipstatic0->maxhealth;
-    fightStats->totalHP[1] = fightStats->numShips[1] * shipstatic1->maxhealth;
-#endif
-}
-#endif
-
 void SetupShipsForFight(FightStats *fightStats)
 {
     sdword i,j;
@@ -547,74 +457,6 @@ void CalculateRUKillRatios(FightStats *fightStats)
     statLog(" >%d Vs %d RUratio Killratio %3.3f %3.3f\n",fightStats->numShips[0],fightStats->numShips[1],fightStats->fracRUratio,fightStats->fracKillratio);
 }
 
-#if 0
-void CalculateRatios(FightStats *fightStats)
-{
-    sdword i;
-    ShipStaticInfo *shipstatic[2];
-    sdword numShipsDied[2];
-    real32 numFracShipsDied[2];
-
-    for (i=0;i<2;i++)
-    {
-        shipstatic[i] = GetShipStaticInfoValidate(fightStats->shiptype[i],fightStats->shiprace[i]);
-        fightStats->numFracShipsAfter[i] = ((real32)fightStats->totalHPAfter[i]) / shipstatic[i]->maxhealth;
-        numShipsDied[i] = fightStats->numShips[i] - fightStats->numShipsAfter[i];
-        numFracShipsDied[i] = ((real32)fightStats->numShips[i]) - fightStats->numFracShipsAfter[i];
-    }
-
-#if 0
-    fightStats->RUratio = ((real32)(numShipsDied[1] * shipstatic[1]->buildCost)) /
-                          ((real32)(numShipsDied[0] * shipstatic[0]->buildCost));
-    fightStats->Killratio = ((real32)numShipsDied[1]) / ((real32)numShipsDied[0]);
-#endif
-
-    if (numFracShipsDied[0] == 0.0f)
-    {
-        fightStats->fracRUratio = MAX_RU_RATIO;
-        fightStats->fracKillratio = MAX_KILL_RATIO;
-    }
-    else
-    {
-        fightStats->fracRUratio = ((real32)(numFracShipsDied[1] * shipstatic[1]->buildCost)) /
-                                  ((real32)(numFracShipsDied[0] * shipstatic[0]->buildCost));
-        fightStats->fracKillratio = numFracShipsDied[1] / numFracShipsDied[0];
-    }
-
-    if (fightStats->fracRUratio > MAX_RU_RATIO)
-    {
-        fightStats->fracRUratio = MAX_RU_RATIO;
-    }
-
-    if (fightStats->fracKillratio > MAX_KILL_RATIO)
-    {
-        fightStats->fracKillratio = MAX_KILL_RATIO;
-    }
-}
-#endif
-
-#if 0
-void PrintFightStats(FightStats *fightStats)
-{
-    filehandle statlogfileFH = fileOpen(STATLOG_FILENAME, FF_AppendMode | FF_TextMode);
-    FILE *statlogfile;
-
-    dbgAssertOrIgnore(!fileUsingBigfile(statlogfileFH));
-    statlogfile = fileStream(statlogfileFH);
-
-    if (statlogfile)
-    {
-        fprintf(statlogfile,"STATS for %s %s Vs %s %s\n",ShipRaceToStr(fightStats->shiprace[0]),ShipTypeToStr(fightStats->shiptype[0]),ShipRaceToStr(fightStats->shiprace[1]),ShipTypeToStr(fightStats->shiptype[1]));
-        fprintf(statlogfile,"Before: %3d %3d\n",fightStats->numShips[0],fightStats->numShips[1]);
-//        fprintf(statlogfile,"After : %3d %3d\n",fightStats->numShipsAfter[0],fightStats->numShipsAfter[1]);
-        fprintf(statlogfile,"After: %3.3f %3.3f\n",fightStats->numFracShipsAfter[0],fightStats->numFracShipsAfter[1]);
-//        fprintf(statlogfile,"RU,Kill: %3.3f %3.3f\n",fightStats->RUratio,fightStats->Killratio);
-        fprintf(statlogfile,"RU,Kill: %3.3f %3.3f %3.3f\n",fightStats->fracRUratio,fightStats->fracKillratio,fightStats->battleTime);
-
-        fileClose(statlogfileFH);
-    }
-}
-#endif
 
 void GetPostCombatStats(FightStats *fightStats)
 {
@@ -653,11 +495,6 @@ void GetPostCombatStats(FightStats *fightStats)
     }
 
     fightStats->battleTime = universe.totaltimeelapsed;
-
-#if 0
-    CalculateRatios(fightStats);
-    PrintFightStats(fightStats);
-#endif
 
     universeReset();
     univupdateReset();
@@ -1316,7 +1153,6 @@ void statsLoadFightStats(void)
     }
 
     CalculateOverallSums();
-    statsTest();
 }
 
 void statsPrintTableRaceXVsRaceY(FILE *tablefile,ShipRace racei,ShipRace racej)
@@ -1956,12 +1792,7 @@ real32 statsGetRelativeFleetStrengths(SelectCommand *fleet1,SelectCommand *fleet
 
     //dbgAssertOrIgnore(numShips1 > 0);
     dbgAssertOrIgnore(numShips2 > 0);
-#if 0
-    for (i=0;i<numShips1;i++)
-    {
-        totalstr1 += statsGetKillRatingAgainstFleet(fleet1->ShipPtr[i]->staticinfo,fleet2);
-    }
-#endif
+
     for (j=0;j<numShips2;j++)
     {
         totalstr2 += statsGetKillRatingAgainstFleet(fleet2->ShipPtr[j]->staticinfo,fleet1);
@@ -1973,20 +1804,7 @@ real32 statsGetRelativeFleetStrengths(SelectCommand *fleet1,SelectCommand *fleet
 // strength of ship against fleet strength, e.g. targetstatic strength / fleet1 strength
 real32 statsGetRelativeFleetStrengthAgainstShip(SelectCommand *fleet1,ShipStaticInfo *targetstatic)
 {
-    //sdword numShips1 = fleet1->numShips;
-    //real32 totalstr1 = 0.0f;
-    real32 totalstr2;
-
-    //dbgAssertOrIgnore(numShips1 > 0);
-#if 0
-    for (i=0;i<numShips1;i++)
-    {
-        totalstr1 += statsGetShipKillRatingAgainstShip(fleet1->ShipPtr[i]->staticinfo,targetstatic);
-    }
-#endif
-    totalstr2 = statsGetKillRatingAgainstFleet(targetstatic,fleet1);
-
-    return totalstr2;
+    return statsGetKillRatingAgainstFleet(targetstatic,fleet1);
 }
 
 SelectCommand *statsBestShipsToUseToKillTarget(SelectCommand *freeships,ShipStaticInfo *targetstatic,bool *goodEnough)
@@ -2208,102 +2026,6 @@ void FreeTestSelectionOfShips(SelectCommand *selection)
 
     memFree(selection);
 }
-
-static void statsTest(void)
-{
-#ifndef HW_BUILD_FOR_DISTRIBUTION
-#ifdef gshaw
-#if 0
-    ShipType shiptype1,shiptype2;
-    ShipRace shiprace1,shiprace2;
-    ShipStaticInfo *shipstatic1,*shipstatic2;
-    real32 killratio;
-    real32 ruratio;
-    sdword num;
-    SelectCommand *selection1,*selection2,*selection3,*selection4,*selection5;
-    SelectCommand *fleet1,*fleet2,*fleet3;
-    real32 ratio1,ratio2,ratio3,ratio4;
-    SelectCommand *bestsel;
-    sdword numneeded;
-    Ship *ship;
-    bool goodEnough;
-
-    statsSetOverkillfactor(1.2f);
-
-    shiptype2 = IonCannonFrigate;
-    shiprace2 = R1;
-    shipstatic2 = GetShipStaticInfoValidate(shiptype2,shiprace2);
-
-    shiptype1 = StandardFrigate;
-    shiprace1 = R1;
-    shipstatic1 = GetShipStaticInfoValidate(shiptype1,shiprace1);
-
-    killratio = statsGetShipRURatingAgainstShip(shipstatic1,shipstatic2);
-    ruratio = statsGetShipKillRatingAgainstShip(shipstatic1,shipstatic2);
-
-    shiptype1 = StandardFrigate;
-    shiprace1 = R1;
-    shipstatic1 = GetShipStaticInfoValidate(shiptype1,shiprace1);
-
-    killratio = statsGetOverallKillRating(shipstatic1);
-    ruratio = statsGetOverallRURating(shipstatic1);
-
-    shiptype1 = StandardFrigate;
-    shiprace1 = R1;
-    shipstatic1 = GetShipStaticInfoValidate(shiptype1,shiprace1);
-
-    shipstatic2 = statsBestShipToBuyToKillShip(R1,statShipConstraintsNoneCB,shipstatic1);
-    shipstatic2 = statsBestShipToBuyToKillShip(R1,statShipConstraintsFrigatesOrWorseCB,shipstatic1);
-
-    num = statsNumShipsNeededToKillTarget(shipstatic2,shipstatic1);
-
-    if (!multiPlayerGame)       // game will get out of sync due to test ship creation
-    {
-        selection1 = CreateTestSelectionOfShips(R1,HeavyDefender,10);
-        selection2 = CreateTestSelectionOfShips(R1,LightCorvette,5);
-        selection3 = CreateTestSelectionOfShips(R1,IonCannonFrigate,1);
-        selection4 = CreateTestSelectionOfShips(R1,HeavyDefender,10);
-        selection5 = CreateTestSelectionOfShips(R1,LightInterceptor,22);
-
-        fleet1 = selectMergeTwoSelections(selection1,selection2, NO_DEALLOC);
-        fleet2 = selectMergeTwoSelections(selection3,selection4, NO_DEALLOC);
-
-        ratio2 = statsGetRelativeFleetStrengths(selection2,selection3);
-        ratio3 = statsGetRelativeFleetStrengths(selection2,selection4);
-        ratio4 = statsGetRelativeFleetStrengths(selection1,selection4);
-        ratio1 = statsGetRelativeFleetStrengths(fleet1,fleet2);
-
-        bestsel = statsBestShipsToUseToKillTarget(fleet1,shipstatic1,&goodEnough);
-        memFree(bestsel);
-
-        shipstatic1 = statsBestShipToBuyToKillFleet(R1,statShipConstraintsFrigatesOrWorseCB,fleet2);
-        numneeded = statsNumShipsNeededToKillFleet(shipstatic1,fleet2);
-
-        ratio1 = statsGetRelativeFleetStrengths(fleet2,selection5);
-
-        ship = statsGetMostDangerousShip(fleet2);
-
-        fleet3 = selectMergeTwoSelections(fleet1,selection5, NO_DEALLOC);
-        bestsel = statsBestShipsToUseToKillFleet(fleet3,fleet2,&goodEnough);
-        memFree(bestsel);
-
-        ratio1 = statsGetRelativeFleetStrengths(fleet3,fleet2);
-
-        FreeTestSelectionOfShips(selection1);
-        FreeTestSelectionOfShips(selection2);
-        FreeTestSelectionOfShips(selection3);
-        FreeTestSelectionOfShips(selection4);
-        FreeTestSelectionOfShips(selection5);
-
-        memFree(fleet1);
-        memFree(fleet2);
-        memFree(fleet3);
-    }
-#endif
-#endif
-#endif
-}
-
 
 /*=============================================================================
     Cheat detection:

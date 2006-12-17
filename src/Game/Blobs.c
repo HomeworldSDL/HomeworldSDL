@@ -1557,58 +1557,6 @@ void bobListDelete(LinkedList *list)
 
     dbgAssertOrIgnore(list->num == 0);
 }
-#if 0
-/*-----------------------------------------------------------------------------
-    Name        : bobGetChecksum
-    Description :
-    Inputs      :
-    Outputs     :
-    Return      :
-----------------------------------------------------------------------------*/
-real32 bobGetChecksum(LinkedList *list,sdword *numBlobsInChecksum)
-{
-    Node *blobnode = list->head;
-    blob *thisBlob;
-    real32 x=0.0f;
-    real32 y=0.0f;
-    real32 z=0.0f;
-    sdword countBlobs = 0;
-
-    while (blobnode != NULL)
-    {
-        thisBlob = (blob *)listGetStructOfNode(blobnode);
-
-        x += thisBlob->centre.x;
-        y += thisBlob->centre.y;
-        z += thisBlob->centre.z;
-
-        if ((netlogfile) && (logEnable == LOG_VERBOSE))
-        {
-#if BINNETLOG
-            binnetBlobInfo bi;
-            bi.header = makenetcheckHeader('B','1','0','B');
-            bi.collBlobSortDist = thisBlob->sortDistance;
-            bi.x = thisBlob->centre.x;
-            bi.y = thisBlob->centre.y;
-            bi.z = thisBlob->centre.z;
-            bi.r = thisBlob->radius;
-            bi.numSpaceObjs = thisBlob->blobObjects->numSpaceObjs;
-            fwrite(&bi, sizeof(bi), 1 ,netlogfile);
-#else
-            fprintf(netlogfile,"  Blob:%f %f %f %d\n",thisBlob->centre.x,thisBlob->centre.y,thisBlob->centre.z,thisBlob->blobObjects->numSpaceObjs);
-#endif
-        }
-
-        countBlobs++;
-
-        blobnode = blobnode->next;
-    }
-
-    *numBlobsInChecksum = countBlobs;
-
-    return (x+y+z);
-}
-#endif
 
 /*-----------------------------------------------------------------------------
     Name        : bobRemoveMineFromSpecificBlob
@@ -1752,14 +1700,6 @@ void bobObjectDied(SpaceObj *object,LinkedList *list)
                         break;
                 }
 
-#if 0      // don't do verify here - objects may be deleted from blob before being removed from lists resulting in inconsistancies
-#if BOB_ANAL_CHECKING
-                if (thisBlob->subBlobs.num == BIT31)
-                {
-                    blobAnalVerify(thisBlob);
-                }
-#endif
-#endif
                 goto foundInBlobs;
             }
         }
@@ -1824,19 +1764,6 @@ void AddSpaceObjToSelectionPreserveOrder(SpaceObjSelection *selection,SpaceObj *
         AddSpaceObjToSelectionAfterIndex(obj,selection,foundindex);
     }
 }
-
-#if 0
-void *myMemRealloc(void *currentPointer, sdword newSize, char *name, udword flags)
-{
-    ubyte *newptr;
-
-    newptr = memAlloc(newSize,name,flags);
-    memcpy(newptr,currentPointer,newSize-4);
-    memFree(currentPointer);
-
-    return newptr;
-}
-#endif
 
 /*-----------------------------------------------------------------------------
     Name        : AddObjToObjectListsOfBlob

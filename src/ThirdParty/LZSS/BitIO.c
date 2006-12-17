@@ -165,10 +165,6 @@ int bit;
 		ret = putc( bit_file->rack, bit_file->file ) ;
 		++bit_file->index;
 	    assert( ret == bit_file->rack ); //fatal_error( "Fatal error in OutputBit!\n" );
-#if 0
-        if ( ( bit_file->pacifier_counter++ & PACIFIER_COUNT ) == 0 )
-		    putc( '.', stdout );
-#endif
     	bit_file->rack = 0;
 	    bit_file->mask = 0x80;
     }
@@ -192,10 +188,6 @@ int count;
 			ret = putc( bit_file->rack, bit_file->file ) ;
 			++bit_file->index;
 			assert( ret == bit_file->rack ); //fatal_error( "Fatal error in OutputBit!\n" );
-#if 0
-            if ( ( bit_file->pacifier_counter++ & PACIFIER_COUNT ) == 0 )
-		        putc( '.', stdout );
-#endif
     	    bit_file->rack = 0;
             bit_file->mask = 0x80;
         }
@@ -212,10 +204,6 @@ BitFile *bit_file;
         bit_file->rack = getc( bit_file->file );
 		++bit_file->index;
         assert( bit_file->rack != EOF );  // fatal_error( "Fatal error in InputBit!\n" );
-#if 0
-        if ( ( bit_file->pacifier_counter++ & PACIFIER_COUNT ) == 0 )
-	        putc( '.', stdout );
-#endif
     }
     value = bit_file->rack & bit_file->mask;
     bit_file->mask >>= 1;
@@ -238,10 +226,6 @@ int bit_count;
 	    bit_file->rack = getc( bit_file->file );
 		++bit_file->index;
 		assert( bit_file->rack != EOF );  //fatal_error( "Fatal error in InputBit!\n" );
-#if 0
-        if ( ( bit_file->pacifier_counter++ & PACIFIER_COUNT ) == 0 )
-    		putc( '.', stdout );
-#endif
 	}
 	if ( bit_file->rack & bit_file->mask )
             return_value |= mask;
@@ -344,10 +328,6 @@ void bitioBufferOutputBit(BitBuffer *bitBuffer, int bit)
     if (bitBuffer->mask == 0)
     {
         *(bitBuffer->buffer + bitBuffer->index++) = bitBuffer->rack;
-#if 0
-        if ( ( bit_file->pacifier_counter++ & PACIFIER_COUNT ) == 0 )
-		    putc( '.', stdout );
-#endif
     	bitBuffer->rack = 0;
 	    bitBuffer->mask = 0x80;
     }
@@ -366,10 +346,6 @@ void bitioBufferOutputBits(BitBuffer *bitBuffer, unsigned long code, int count)
         if ( bitBuffer->mask == 0 )
         {
             *(bitBuffer->buffer + bitBuffer->index++) = bitBuffer->rack;
-#if 0
-            if ( ( bit_file->pacifier_counter++ & PACIFIER_COUNT ) == 0 )
-		        putc( '.', stdout );
-#endif
     	    bitBuffer->rack = 0;
             bitBuffer->mask = 0x80;
         }
@@ -384,10 +360,6 @@ int bitioBufferInputBit(BitBuffer *bitBuffer)
     if (bitBuffer->mask == 0x80)
     {
         bitBuffer->rack = *(bitBuffer->buffer + bitBuffer->index++);
-#if 0
-        if ( ( bit_file->pacifier_counter++ & PACIFIER_COUNT ) == 0 )
-	        putc( '.', stdout );
-#endif
     }
     value = bitBuffer->rack & bitBuffer->mask;
     bitBuffer->mask >>= 1;
@@ -408,10 +380,6 @@ unsigned long bitioBufferInputBits(BitBuffer *bitBuffer, int count)
     	if (bitBuffer->mask == 0x80)
         {
     	    bitBuffer->rack = *(bitBuffer->buffer + bitBuffer->index++);
-#if 0
-            if ( ( bit_file->pacifier_counter++ & PACIFIER_COUNT ) == 0 )
-                putc( '.', stdout );
-#endif
     	}
     	if (bitBuffer->rack & bitBuffer->mask)
                 return_value |= mask;

@@ -33,24 +33,6 @@
     Data:
 =============================================================================*/
 #if BATTLE_TEXT
-#if 0
-char *battleString_Fighter_ManeuverGrunts[] =
-{
-    "...oh boy...",
-    "...go...go...go...",
-    "...come on...come on...",
-    "...that's it, that's it...",
-    "...yeah!...",
-    "...[stomach punch grunt]...",
-    "...[stomach twisting groan]...",
-    "...[steady heavy breathing]...",
-    "...[shaky fast breathing]...",
-    "...[hyperventilating rapid breathing]...",
-    "...[G-force induced moan - short]...",
-    "...[G-force induced moan - long]...",
-    NULL
-};
-#endif
 char *battleString_WingmanChased[] =
 {
     "There's one on your tail. Check six. Check six.",
@@ -527,9 +509,6 @@ battleevent battleChatterEvent[] =
 
 /*COMM_F_Grp_Enemy_Fighters_Decl*/ //newEvent("COMM_F_Grp_Enemy_Fighters_Decloaking", COMM_F_Grp_Enemy_Fighters_Decloaking , NULL),
 /*COMM_F_Cloakgen_Decloaking,   */ //newEvent("COMM_F_Cloakgen_Decloaking", COMM_F_Cloakgen_Decloaking , NULL),
-#if 0
-/**/newEvent(),
-#endif
 };
 
 //some chatter is class-specific

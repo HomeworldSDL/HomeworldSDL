@@ -596,23 +596,6 @@ bool ShipCanGuard(ShipStaticInfo *shipstatic)
         return FALSE;
     }
 
-    /*
-    if (shipstatic->shiptype == ProximitySensor)
-    {
-        return FALSE;
-    }
-    */
-#if 0
-    if (shipstatic->shiptype == ResearchShip)
-    {
-        return FALSE;
-    }
-
-    if (shipstatic->shiptype == SensorArray)
-    {
-        return FALSE;
-    }
-#endif
     return TRUE;
 }
 

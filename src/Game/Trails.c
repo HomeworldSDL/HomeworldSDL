@@ -1287,14 +1287,6 @@ void trailPositions(sdword n, vector positions[], vector horizontals[], vector v
             index = index <= 1 ? trail->staticInfo->nSegments - 1 : index - 1;
         }
     }
-
-#if 0
-    if (n > 6)
-    {
-        Ship* ship = (Ship*)trail->vship;
-        trailStraighten(positions, (real32*)&ship->rotinfo.coordsys);
-    }
-#endif
 }
 
 static real32 _HALFWIDTH, _HALFHEIGHT;

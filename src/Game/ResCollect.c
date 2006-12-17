@@ -925,25 +925,6 @@ void R1ResourcerHarvestsAsteroid(struct Ship *ship,struct Resource *resource)
             }
             else
             {
-#if 0
-                real32 forwardvelocity;
-                vector heading;
-
-                aitrackRightVector(ship,&trajectory,FLYSHIP_HEADINGACCURACY);
-
-                matGetVectFromMatrixCol3(heading,ship->rotinfo.coordsys);
-                forwardvelocity = vecDotProduct(heading,ship->posinfo.velocity);
-
-                if (forwardvelocity < CIRCLE_FORWARD_VELOCITY)
-                {
-                    physApplyForceToObj((SpaceObj *)ship,ship->nonstatvars.thruststrength[TRANS_FORWARD]*CIRCLE_FORWARD_THRUST,TRANS_FORWARD);
-                }
-
-                if (range > ASTEROID_HARVEST_RANGE)
-                {
-                    aishipFlyToPointAvoidingObjsWithVel(ship,&resource->posinfo.position,0,0.0f,&resource->posinfo.velocity);
-                }
-#else
                 real32 rightvelocity;
                 vector right;
 
@@ -967,7 +948,6 @@ void R1ResourcerHarvestsAsteroid(struct Ship *ship,struct Resource *resource)
                 {
                     aitrackZeroForwardVelocity(ship);
                 }
-#endif
             }
             break;
     }
@@ -1239,25 +1219,6 @@ void R1ResourcerAttacksShip(struct Ship *ship,struct SpaceObjRotImpTarg *target,
             //
             //else
             {
-#if 0
-                real32 forwardvelocity;
-                vector heading;
-
-                aitrackRightVector(ship,&trajectory,FLYSHIP_HEADINGACCURACY);
-
-                matGetVectFromMatrixCol3(heading,ship->rotinfo.coordsys);
-                forwardvelocity = vecDotProduct(heading,ship->posinfo.velocity);
-
-                if (forwardvelocity < CIRCLE_FORWARD_VELOCITY)
-                {
-                    physApplyForceToObj((SpaceObj *)ship,ship->nonstatvars.thruststrength[TRANS_FORWARD]*CIRCLE_FORWARD_THRUST,TRANS_FORWARD);
-                }
-
-                if (range > ASTEROID_HARVEST_RANGE)
-                {
-                    aishipFlyToPointAvoidingObjsWithVel(ship,&target->posinfo.position,0,0.0f,&target->posinfo.velocity);
-                }
-#else
                 real32 rightvelocity;
                 vector right;
 
@@ -1281,7 +1242,6 @@ void R1ResourcerAttacksShip(struct Ship *ship,struct SpaceObjRotImpTarg *target,
                 {
                     aitrackZeroForwardVelocity(ship);
                 }
-#endif
             }
 
             break;

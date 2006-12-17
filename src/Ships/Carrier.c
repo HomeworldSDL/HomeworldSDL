@@ -78,14 +78,7 @@ void CarrierAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdist)
 
 void CarrierAttackPassive(Ship *ship,Ship *target,bool rotate)
 {
-#if 0
-    if ((rotate) & ((bool)((ShipStaticInfo *)(ship->staticinfo))->rotateToRetaliate))
-    {
-        attackPassiveRotate(ship,target);
-    }
-    else
-#endif
-        attackPassive(ship,target);
+    attackPassive(ship,target);
 }
 
 bool CarrierSpecialTarget(Ship *ship,void *custom)

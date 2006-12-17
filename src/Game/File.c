@@ -1824,13 +1824,6 @@ sdword fileLineRead(filehandle handle, char *dest, sdword nChars)
                 ++length;
             }
             *(dest+length) = 0;
-#if 0
-            if (feof(filesOpen[handle].bigFP) ||
-                filesOpen[handle].offsetVirtual >= filesOpen[handle].length)
-            {
-                return FR_EndOfFile;
-            }
-#endif
         }
     }
     else

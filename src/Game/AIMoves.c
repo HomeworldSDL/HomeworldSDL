@@ -1875,13 +1875,6 @@ sdword aimProcessDock(AITeam *team)
             {
                 clRemoveShipFromSelection(thisMove->params.dock.shipsDocking, ship);
             }
-#if 0       // OLD LOGIC for checking when ships are done docking.  Kept for historical reference.
-            //check to see if all the ships have been refueled.
-            if ((ship->fuel/ship->staticinfo->maxfuel > AIM_DOCK_FINISH_FUEL_THRESHOLD) && (!aiuShipIsHidden(ship)))
-            {
-                clRemoveShipFromSelection(thisMove->params.dock.shipsDocking, ship);
-            }
-#endif
         }
         if (!thisMove->params.dock.shipsDocking->numShips)
         {

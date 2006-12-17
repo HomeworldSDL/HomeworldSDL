@@ -950,18 +950,3 @@ void aidClose(AIPlayer *aiplayer)
     aidClearDistressSignal(aiplayer);
 }
 
-#if 0
-/*-----------------------------------------------------------------------------
-    Name        : aidAddNewShip
-    Description : Adds new ship to defense manager
-    Inputs      :
-    Outputs     :
-    Return      : void
-----------------------------------------------------------------------------*/
-void aidAddNewShip(Ship *ship)
-{
-    growSelectAddShip(&aiCurrentAIPlayer->newdefenseships, ship);
-}
-#endif
-
-

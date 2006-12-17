@@ -12,31 +12,6 @@
 #include <math.h>
 #include "Debug.h"
 
-#if 0
-real32 fmathSqrtGS(real32 num)
-{
-    real32 x = num;
-    sdword *exp = (sdword *)&x;
-    sdword modexp = *exp;
-
-    modexp >>= 23;
-    modexp &= 255;
-
-    modexp -= 127;
-    modexp >>= 1;
-    modexp += 127;
-
-    modexp <<= 23;
-
-    *exp = (*exp & 0x807fffff) | modexp;
-
-    x = 0.5f * (x + num/x);
-    x = 0.5f * (x + num/x);
-
-    return x;
-}
-#endif
-
 /* MOST_SIG_OFFSET gives the (int *) offset from the address of the double
  * to the part of the number containing the sign and exponent.
  * You will need to find the relevant offset for your architecture.
@@ -92,11 +67,6 @@ double fmathSqrtDouble(double f)
 
     unsigned int e;
     unsigned int *fi = (unsigned int *) &f + MOST_SIG_OFFSET;
-#if 0
-    double test = sqrt(f);
-    double test2 = (double)fmathSqrtGS((real32)f);
-    double error;
-#endif
 
     if (f == 0.0)
     {
@@ -111,16 +81,6 @@ double fmathSqrtDouble(double f)
     *fi = (fmathsqrt_tab[*fi >> MANT_SHIFTS]) |
     ((e + EXP_BIAS) << EXP_SHIFTS);
     
-#if 0
-    dbgAssertOrIgnore(f > 0.0f);
-    error = ABS((f - test) / test);
-    if (error > 0.0001)
-    {
-        dbgAssertOrIgnore(FALSE);
-    }
-    dbgAssertOrIgnore(!_isnan(f));
-#endif
-
     return f;
 
 #endif // _MACOSX

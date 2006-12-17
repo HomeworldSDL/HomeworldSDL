@@ -601,19 +601,6 @@ void kasfLogInteger(char *string, sdword integer)
     aiplayerLog((0, tempstr2));
 }
 
-#if 0       // this function is obsolete now
-sdword kasfTeamMemberHandle(sdword Index)
-{
-    sdword numShips;
-
-    numShips = CurrentTeamP->shipList.selection->numShips;
-    if(Index >= numShips)
-        return 0;
-
-    return (sdword)(CurrentTeamP->shipList.selection->ShipPtr[Index]);
-}
-#endif
-
 sdword kasfShipsOrder(GrowSelection *ships)
 {
     Ship *ship;
@@ -1522,24 +1509,6 @@ void kasfEnableAllAIFeatures(void)
 //    aiCurrentAIPlayer->TeamFeatures = 0xFFFFFFFF;
 }
 
-
-#if 0
-void kasfTeamGiveToPlayer(void)
-{
-    Ship *ship;
-
-    if (!CurrentTeamP)
-        return;
-
-    while (CurrentTeamP->shipList.selection->numShips)
-    {
-        ship = CurrentTeamP->shipList.selection->ShipPtr[0];
-        aitRemoveShip(CurrentTeamP, ship);        // remove ship from team - and give to no one so it is free
-        bitSet(ship->flags,SOF_Selectable);         // make sure player can select it
-    }
-}
-#endif
-
 void SelectionSwitchPlayerOwner(SelectCommand *selection)
 {
     sdword i;
@@ -2076,7 +2045,6 @@ sdword kasfPathNextPoint(void)
 //
 void kasfPopupTextDraw(void)
 {
-#if 1
     sdword rowHeight, x, y, i, popupTextBorder;
     rectangle rect;
     fonthandle fhSave;
@@ -2133,106 +2101,6 @@ void kasfPopupTextDraw(void)
         popupTextNumLines = 0;
 
     fontMakeCurrent(fhSave);
-#endif
-#if 0
-       //sdword rowHeight, x, y, i, popupTextBorder;
-    sdword i, width, x, y;
-    bool done, justified;
-    //rectangle rect;
-    fonthandle fhSave;
-    char *pos, *oldpos;
-    char oldline[256], line[256];
-    //char buf[256];
-
-    if (!gameIsRunning || !popupTextNumLines)
-        return;
-
-    // set up textual stuff
-    fhSave = fontCurrentGet();                  //save the current font
-    fontMakeCurrent(selGroupFont2);  // use a common, fairly small font
-
-    //x = 320 - popupTextWidth/2;
-
-    //rowHeight = fontHeight("M") + 3; // used to space the text
-    //y = (480 - (popupTextNumLines+2) * rowHeight) / 2;
-    //popupTextBorder = rowHeight + 6;
-
-    // border
-    //primLineLoopStart2(1, POPUPTEXT_COLOR);
-    //primLineLoopPoint3F(x - popupTextBorder, y - popupTextBorder);
-    //primLineLoopPoint3F(x + popupTextWidth + popupTextBorder, y - popupTextBorder);
-    //primLineLoopPoint3F(x + popupTextWidth + popupTextBorder, y + rowHeight * (popupTextNumLines+2) + popupTextBorder);
-    //primLineLoopPoint3F(x - popupTextBorder, y + rowHeight * (popupTextNumLines+2) + popupTextBorder);
-    //primLineLoopEnd2();
-
-    //rect.x0 = x - popupTextBorder;
-    //rect.x1 = x + popupTextWidth + popupTextBorder;
-    //rect.y0 = y - popupTextBorder;
-    //rect.y1 = y + rowHeight * (popupTextNumLines+2) + popupTextBorder;
-    //primBeveledRectSolid(&rect, POPUPTEXT_BACKGROUND, 4, 4);
-    //primSeriesOfRoundRects(&rect, 1, POPUPTEXT_COLOR, POPUPTEXT_BORDER_COLOR, 5, 4, 4);
-
-    // title
-    //fontPrint(x, y, POPUPTEXT_TITLE_COLOR, "FLEET INTELLIGENCE");
-    //y += rowHeight*2;
-
-    x = rect->x0;
-    y = rect->y0;
-
-    // each line of text
-    for (i = 0; i < popupTextNumLines; i++)
-    {
-        //fontPrint(x, y, POPUPTEXT_COLOR, popupTextLines[i]);
-        pos = popupTextLines[i];
-
-        done = FALSE;
-        while (!done)
-        {
-            justified = FALSE;
-            line[0]=0;
-            while (!justified)
-            {
-                strcpy(oldline, line);
-                oldpos = pos;
-                pos = getWord(line, pos);
-
-                if (pos[0] == '\n')
-                {
-                    justified = TRUE;
-                    pos++;
-                    while ( pos[0] == ' ' ) pos++;
-                }
-                else
-                {
-                    if ( (width=fontWidth(line)) > (rect->x1 - rect->x0))
-                    {
-                        strcpy(line, oldline);
-                        pos = oldpos;
-                        while ( pos[0] == ' ' ) pos++;
-
-                        justified = TRUE;
-                    }
-                    if (pos[0]==0)
-                    {
-                        justified = TRUE;
-                        done      = TRUE;
-                    }
-                }
-            }
-
-            fontPrintf(x,y,POPUPTEXT_COLOR,"%s",line);
-            y += fontHeight(" ");
-            if (y > rect->y1 + fontHeight(" ")) done=TRUE;
-        }
-        //y += rowHeight;
-    }
-
-    // stop displaying when expired
-    //if (universe.totaltimeelapsed > popupTextEndTime)
-    //    popupTextNumLines = 0;
-
-    fontMakeCurrent(fhSave);
-#endif
 }
 
 

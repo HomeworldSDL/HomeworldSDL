@@ -260,17 +260,6 @@ extern DISABLECLIENTSTATEproc glDisableClientState;
 extern ARRAYELEMENTproc glArrayElement;
 
 extern WGETPROCADDRESSproc rwglGetProcAddress;
-#if 0	/* Trying to phase these out... */
-extern WCREATECONTEXTproc rwglCreateContext;
-extern WDELETECONTEXTproc rwglDeleteContext;
-extern WMAKECURRENTproc rwglMakeCurrent;
-extern WCHOOSEPIXELFORMATproc rwglChoosePixelFormat;
-extern WSETPIXELFORMATproc rwglSetPixelFormat;
-extern WGETPIXELFORMATproc rwglGetPixelFormat;
-extern WDESCRIBEPIXELFORMATproc rwglDescribePixelFormat;
-extern WSWAPBUFFERSproc rwglSwapBuffers;
-#endif
-
 GLboolean glDLLGetProcs(char* dllName);
 void glDLLReset(void);
 void glDLLGetGLCompat(void);

@@ -26,7 +26,6 @@ void receivedFilePacketCB(ubyte *packet,udword sizeofPacket);
 bool autodownloadmapReceivedAllFiles();
 void autodownloadmapSendAllFiles(void);
 void autodownloadmapPrintStatusStart();
-void autodownloadmapPrintStatus();
 real32 autodownloadmapPercentReceivedFiles();
 real32 autodownloadmapPercentSentFiles();
 bool autodownloadmapSendAFile(void);

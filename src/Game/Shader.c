@@ -801,16 +801,6 @@ void shSpecularColour(
         memcpy(&vpInfNorm[0], shLight[0].position, sizeof(vector));
         memcpy(&vpInfNorm[1], shLight[1].position, sizeof(vector));
 
-#if 0
-        shTransformVertex(&xvobj, vobj, m);
-        veye.x = xvobj.x;
-        veye.y = xvobj.z;
-        veye.z = xvobj.y;
-        vecNormalize(&veye);
-        nDotVP = nx * veye.x + ny * veye.y + nz * veye.z;
-        alpha0 = gl_pow(CLAMP(nDotVP, 0.0f, 1.0f), 5.0f);
-#endif
-
         alpha1 = 0.0f;
         for (l = 0; l < lightNumLights; l++)
         {

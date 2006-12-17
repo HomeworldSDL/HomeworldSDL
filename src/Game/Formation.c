@@ -1188,9 +1188,7 @@ void processFormationToDo(struct CommandToDo *formationtodo,bool steadyFormation
     if (calcError)
     {
         error /= numShips;
-#if 0
-        dbgMessagef("Formation Error %f  ",error);
-#endif
+
         if (error > FORMATION_ERROR_BIG)
         {
             formationtomodify->formation.percentmaxspeed = FORMATION_TRAVELVEL_MINSCALE;
@@ -1206,9 +1204,6 @@ void processFormationToDo(struct CommandToDo *formationtodo,bool steadyFormation
                 formationtomodify->formation.percentmaxspeed = FORMATION_TRAVELVEL_MAXSCALE - (error / FORMATION_ERROR_BIG) * (FORMATION_TRAVELVEL_MAXSCALE - FORMATION_TRAVELVEL_MINSCALE);
             }
         }
-#if 0
-        dbgMessagef("Perc Max speed %f",formationtomodify->formation.percentmaxspeed);
-#endif
 
         setFormationTravelVelocity(formationtomodify);
     }

@@ -904,31 +904,6 @@ void BreakUpShipsIntoAttackCapable(SelectCommand *selection,
             nonAttackSelection->ShipPtr[nonAttackSelection->numShips++] = ship;
         }
     }
-#if 0       // Bryce, this wasn't consistent with the isShipAttackCapable code in shipselect.h, and caused bugs
-    sdword i,j,k;
-    j=k=0;
-    for(i = 0;i<selection->numShips;i++)
-    {
-        switch(selection->ShipPtr[i]->staticinfo->shipclass)
-        {
-        case CLASS_HeavyCruiser:
-        case CLASS_Carrier:
-        case CLASS_Destroyer:
-        case CLASS_Frigate:
-        case CLASS_Corvette:
-        case CLASS_Fighter:
-            attackSelection->ShipPtr[j] = selection->ShipPtr[i];
-            attackSelection->numShips++;
-            j++;
-            break;
-        default:
-            nonAttackSelection->ShipPtr[k] = selection->ShipPtr[k];
-            nonAttackSelection->numShips++;
-            k++;
-            break;
-        }
-    }
-#endif
 }
 
 #define SPEECH_RETALIATE_REPEAT 15.0f

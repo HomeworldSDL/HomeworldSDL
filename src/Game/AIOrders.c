@@ -51,26 +51,6 @@ void aioCreateGuardShips(AITeam *team, SelectCommand *ships)
 
     aimCreateFancyGetShips(team, HeavyDefender, numShipsToUse, &alternatives, 0, TRUE, FALSE);
 
-#if 0
-    if (ships->numShips > 2)
-    {
-        numShipsToUse = ships->numShips * 3;
-    }
-    else
-    {
-        numShipsToUse = ships->numShips * 4;
-    }
-#endif
-#if 0
-    if (ships->numShips > 2)
-    {
-        aimCreateGetShips(team, HeavyDefender, 6, 0, TRUE, FALSE);
-        aimCreateGetShips(team, MultiGunCorvette, (sbyte)(ships->numShips-2), 0, TRUE, FALSE);
-    }
-    else
-        aimCreateGetShips(team, HeavyDefender, (sbyte)(ships->numShips*3), 0, TRUE, FALSE);
-#endif
-
     aimCreateFormation(team, SPHERE_FORMATION, FALSE, FALSE);  // vary the formation?
     move = aimCreateGuardShips(team, ships, FALSE, FALSE);
     aieHandlerSetFuelLow(move, AIO_GUARD_SHIPS_FUEL_LOW, TRUE, TRUE, aihGenericFuelLowHandler);

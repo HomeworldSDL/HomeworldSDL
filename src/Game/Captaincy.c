@@ -352,25 +352,6 @@ void TransferCaptaincyUpdate(void)
     }
 
     UnLockQueue(&ProcessCaptaincyPktQ);
-
-#if 0
-    if (numPackets == 0)
-    {
-        UnLockQueue(&ProcessCaptaincyPktQ);
-    }
-    else
-    {
-        sizeofPacket = HWDequeue(&ProcessCaptaincyPktQ,&packet);
-        dbgAssertOrIgnore(sizeofPacket > 0);
-        copypacket = memAlloc(sizeofPacket,"cp(miscpacket)",Pyrophoric);
-        memcpy(copypacket,packet,sizeofPacket);
-        UnLockQueue(&ProcessCaptaincyPktQ);
-
-        dbgAssertOrIgnore(((HWPacketHeader *)copypacket)->type == PACKETTYPE_TRANSFERCAPTAINCY);
-        ProcessTransferCaptaincyPacket((TransferCaptaincyPacket *)copypacket);
-        memFree(copypacket);
-    }
-#endif
 }
 
 void ProposeNewCaptain(void)

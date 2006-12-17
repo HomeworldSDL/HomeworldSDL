@@ -56,16 +56,6 @@ void physApplyForceToObj(SpaceObj *obj,real32 force,uword transdir)
         {
             return;     // ship is crazy, so return
         }
-#if 0       // new behaviour for fuel, max velocity of ship is lowered instead
-        if (((ShipStaticInfo *)((Ship *)obj)->staticinfo)->maxfuel != 0.0f)
-        {
-            // ship burns fuel
-            if ( ((Ship *)obj)->fuel <= 0.0f)
-            {
-                return;     // out of fuel, so return
-            }
-        }
-#endif
     }
 
     switch (transdir)
@@ -113,16 +103,6 @@ void physApplyRotToObj(SpaceObjRot *obj,real32 torque,uword rotdir)
         {
             return;     // ship is crazy, so return
         }
-#if 0 // new behaviour for fuel, max velocity of ship is lowered instead
-        if (((ShipStaticInfo *)((Ship *)obj)->staticinfo)->maxfuel != 0.0f)
-        {
-            // ship burns fuel
-            if ( ((Ship *)obj)->fuel <= 0.0f)
-            {
-                return;     // out of fuel, so return
-            }
-        }
-#endif
     }
 
     if (rotdir & 1)
@@ -195,13 +175,6 @@ bool physUpdateBulletPosVel(Bullet *bullet,real32 phystimeelapsed)
                     matMultiplyMatByVec(&gunheadingInWorldCoordSys,&ship->rotinfo.coordsys,&gun->gunheading);
                     bullet->bulletheading = gunheadingInWorldCoordSys;
                     matCreateCoordSysFromHeading(&bullet->rotinfo.coordsys,&gunheadingInWorldCoordSys);
-
-#if 0
-                    if (bullet->effect)
-                    {
-                        bullet->effect->rotinfo.coordsys = bullet->rotinfo.coordsys;
-                    }
-#endif
 
                     // length of bullet
                     vecScalarMultiply(bullet->lengthvec,gunheadingInWorldCoordSys,bullet->beamtraveldist);
@@ -379,21 +352,6 @@ void physUpdateObjPosVel(SpaceObj *obj,real32 phystimeelapsed)
 
                     if ((singlePlayerGame) || (bitTest(tpGameCreated.flag,MG_FuelBurnEnabled)))
                     {
-#if 0   // not being used, take out as optimization
-                        if(((Ship *)obj)->staticinfo->shipclass == CLASS_Fighter)
-                        {
-                            burnmult = tacticsInfo.FuelBurnBonus[((Ship *)obj)->tactics_ordertype][Tactics_Fighter][((Ship *)obj)->tacticstype];
-                        }
-                        else if(((Ship *)obj)->staticinfo->shipclass == CLASS_Corvette)
-                        {
-                            burnmult = tacticsInfo.FuelBurnBonus[((Ship *)obj)->tactics_ordertype][Tactics_Corvette][((Ship *)obj)->tacticstype];
-                        }
-                        else
-                        {
-                            burnmult = 1.0f;    //no change
-                        }
-#endif
-
                         if (((Ship *)obj)->shipisattacking)
                         {
                             ((Ship *)obj)->fuel -= shipstaticinfo->attackfuelburnrate * getVectDistSloppy(d); // fsqrt(vecMagnitudeSquared(d));//*burnmult;
@@ -442,36 +400,7 @@ void physUpdateObjPosVel(SpaceObj *obj,real32 phystimeelapsed)
                             }
                         }
                     }
-
                 }
-#if 0               // new behaviour for fuel, max velocity of ship is lowered instead
-                else
-                {
-                    if (obj->posinfo.isMoving)
-                    {
-                        if (!(TreatAsUdword(a.x) | TreatAsUdword(a.y) | TreatAsUdword(a.z)))   // if object is moving, but has no acceleration
-                        {
-                            if ((isBetweenExclusive(obj->posinfo.velocity.x,CONSIDERED_STILL_LO,CONSIDERED_STILL_HI)) &&
-                                (isBetweenExclusive(obj->posinfo.velocity.y,CONSIDERED_STILL_LO,CONSIDERED_STILL_HI)) &&
-                                (isBetweenExclusive(obj->posinfo.velocity.z,CONSIDERED_STILL_LO,CONSIDERED_STILL_HI)) )
-                            {
-                                obj->posinfo.isMoving = FALSE;
-                                vecZeroVector(d);
-                                vecZeroVector(obj->posinfo.velocity);
-                            }
-                            else
-                            {
-                                obj->posinfo.velocity.x *= OUT_OF_FUEL_FRICTION;
-                                obj->posinfo.velocity.y *= OUT_OF_FUEL_FRICTION;
-                                obj->posinfo.velocity.z *= OUT_OF_FUEL_FRICTION;
-                            }
-                        }
-                    }
-    #ifdef TEST_FUEL
-                        dbgMessage("Ran out of fuel. Slowing ship down");
-    #endif
-                }
-#endif
             }
         }
     }
@@ -706,21 +635,6 @@ void physUpdateObjPosVelShip(Ship *obj,real32 phystimeelapsed)
 
                     if ((singlePlayerGame) || (bitTest(tpGameCreated.flag,MG_FuelBurnEnabled)))
                     {
-#if 0   // not being used, take out as optimization
-                        if(((Ship *)obj)->staticinfo->shipclass == CLASS_Fighter)
-                        {
-                            burnmult = tacticsInfo.FuelBurnBonus[((Ship *)obj)->tactics_ordertype][Tactics_Fighter][((Ship *)obj)->tacticstype];
-                        }
-                        else if(((Ship *)obj)->staticinfo->shipclass == CLASS_Corvette)
-                        {
-                            burnmult = tacticsInfo.FuelBurnBonus[((Ship *)obj)->tactics_ordertype][Tactics_Corvette][((Ship *)obj)->tacticstype];
-                        }
-                        else
-                        {
-                            burnmult = 1.0f;    //no change
-                        }
-#endif
-
                         if (((Ship *)obj)->shipisattacking)
                         {
                             ((Ship *)obj)->fuel -= shipstaticinfo->attackfuelburnrate * getVectDistSloppy(d); // fsqrt(vecMagnitudeSquared(d));//*burnmult;
@@ -730,9 +644,9 @@ void physUpdateObjPosVelShip(Ship *obj,real32 phystimeelapsed)
                             ((Ship *)obj)->fuel -= shipstaticinfo->fuelburnrate * getVectDistSloppy(d); //fsqrt(vecMagnitudeSquared(d));//*burnmult;
                         }
                     }
-    #ifdef TEST_FUEL
+#ifdef TEST_FUEL
                     dbgMessagef("Fuel %f for Ship %x",((Ship *)obj)->fuel,(udword)obj);
-    #endif
+#endif
 
                     if (((Ship *)obj)->playerowner == universe.curPlayerPtr)
                     {
@@ -769,36 +683,7 @@ void physUpdateObjPosVelShip(Ship *obj,real32 phystimeelapsed)
                             }
                         }
                     }
-
                 }
-#if 0               // new behaviour for fuel, max velocity of ship is lowered instead
-                else
-                {
-                    if (obj->posinfo.isMoving)
-                    {
-                        if (!(TreatAsUdword(a.x) | TreatAsUdword(a.y) | TreatAsUdword(a.z)))   // if object is moving, but has no acceleration
-                        {
-                            if ((isBetweenExclusive(obj->posinfo.velocity.x,CONSIDERED_STILL_LO,CONSIDERED_STILL_HI)) &&
-                                (isBetweenExclusive(obj->posinfo.velocity.y,CONSIDERED_STILL_LO,CONSIDERED_STILL_HI)) &&
-                                (isBetweenExclusive(obj->posinfo.velocity.z,CONSIDERED_STILL_LO,CONSIDERED_STILL_HI)) )
-                            {
-                                obj->posinfo.isMoving = FALSE;
-                                vecZeroVector(d);
-                                vecZeroVector(obj->posinfo.velocity);
-                            }
-                            else
-                            {
-                                obj->posinfo.velocity.x *= OUT_OF_FUEL_FRICTION;
-                                obj->posinfo.velocity.y *= OUT_OF_FUEL_FRICTION;
-                                obj->posinfo.velocity.z *= OUT_OF_FUEL_FRICTION;
-                            }
-                        }
-                    }
-    #ifdef TEST_FUEL
-                        dbgMessage("Ran out of fuel. Slowing ship down");
-    #endif
-                }
-#endif
             }
         }
 
