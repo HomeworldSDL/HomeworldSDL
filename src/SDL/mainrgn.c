@@ -738,7 +738,7 @@ void mrTradeStuff(char *string, featom *atom)
 #endif
 }
 
-
+//nn: this function isn't used when your in the sensors manager (smDispatch is used there).
 void mrMoveShips(char *string, featom *atom)
 {
     vector dist;
@@ -1302,6 +1302,7 @@ void mrSelectHold(void)
     }
 }
 //rotate and/or zoom the camera
+//nn: mouse wheel zoom doesn't call this code (at least in game and sensors manager)
 void mrCameraMotion(void)
 {
     rectangle rect;

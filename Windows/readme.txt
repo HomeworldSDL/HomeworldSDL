@@ -27,11 +27,12 @@ without workaround:
 (confirmed in rev64 also)
 
 > ship move rotation bug
-select a ship of yours > sensors manager > press m to move ship and now try rotating around (bug! it becomes uncontrollable and spins around fast)
-- press m to abort move, and now rotate around (works)
+where: this bug only occurs when not in fullscreen mode (eg: if you're using /window)
+
+how: select a ship of yours, press m to move ship and now try rotating around (bug! it becomes uncontrollable and spins around fast)
+press m to abort move, and now rotate around (works)
 - while the bug is rotating you around fast, left click once to temporarily fix the fast rotation.
 (confirmed in rev64 also)
-- this happens mostly in the sensors manager, but it has happened outside of the sensors manager too.
 
 > no BTG background and reduced stars due to code workaround to avoid crashing during level loads.
 (confirmed this workaround was needed in rev64 also)
