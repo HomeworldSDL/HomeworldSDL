@@ -1,36 +1,44 @@
 
-** windows building information (win32)
+*** Windows building information (win32) ***
 
 contents:
-//requirements
-//notes
-//vc8 notes
-//compilers tested
-//OS tested for compiling & running
-//troubleshooting
+// requirements
+// notes
+// compilers tested
+// OS tested for compiling & running
+// troubleshooting
 ----------
 
-//requirements
-> MS visual c++ 2003/7 or 2005/8 (vc8) (2005 express is free) or Mingw*2 using Msys or Cygwin
+// requirements
+> visual c++ 2003 (aka vc7 or vc++ 2003) or vc++ 2005 (vc8) or vc++ 2005 express (it is free) or Mingw*2 using Msys or Cygwin
 > libsdl 1.2.11
 > ddraw.lib, only. if don't have then see *1.
 or download some version of the DirectX sdk (dx9 sdk is around 158mb)
+> Only if you're using vc8 express, see *4
 
-//notes
+// notes
 > compile HWSDL using either the "debug" or "release+symbols" configuration. You can try "Release" but it probably won't run for you (it does compile).
 > kas2c isn't automatically run to generate the required Mission & Tutorial *.c code files, this should be implemented later.
 > if HW_Data environment variable is defined, all homeworld data will be found from the directory it specifies. 
 
-//compilers tested
-vc7.1 sp1 & vc7.1
-vc8 pro sp1 beta & RTM *3
+// compilers tested
+vc7.1 sp1 & vc7.1 RTM
+vc8 pro sp1 beta & vc8 pro RTM *3
 
-//OS tested for compiling & running
+// OS tested for compiling & running
 windows XP Pro SP2
 
-//vc8 notes
+
+
+// troubleshooting
+> if you get link errors referencing Direct3D, DirectDraw, etc, then download the small dx9 sdk package from *1
+
+> missing 'windows.h' and 'user32.lib' files
+You're probably using vc8 express, and either don't have the platform SDK installed, or you didn't
+properly configure vc8 to utilize the platform SDK. See *4.
+
 > if you find that your vc8 compiled hwsdl exe won't run on a different machine, you may need this:
-Microsoft Visual C++ 2005 Redistributable Package (x86)
+Microsoft VC++ 2005 Redistributable Package (x86)
 http://www.microsoft.com/downloads/details.aspx?FamilyId=32BC1BEE-A3F9-4C13-9C99-220B62A191EE&displaylang=en
 see "related downloads" below on that page for x64 versions.
 
@@ -39,14 +47,56 @@ Bootstrapper for the VC++ 2005 Redists (with MSI 3.1)
 http://www.codeproject.com/cpp/vcredists_x86.asp
 
 
-//troubleshooting
-> if you get link errors referencing Direct3D, DirectDraw, etc, then download the small dx9 sdk package from *1
+
 
 *1 see:
 http://homesource.nekomimicon.net/sourceforum/viewtopic.php?t=100
 
-*2: Mingw build option isn't actively maintained by anyone yet, so it might not build or run for you.
+*2: The Mingw build option isn't actively maintained by anyone currently, so HWSDL might not build or run for you.
 
 *3: vc8 is using a temporary .big file search code workaround (so files can be found inside the .big files)).
 File.obj and BigFile.obj compiled from vc7 will be linked against automatically. Don't compile File.c & BigFile.c using vc8 unless you aren't using .big files (eg: you extracted all data from the .big files as mentioned in readme.txt).
+------------------------------------------------------------------------
 
+*4: Installing the platform SDK and configuring VC8 Express to use it.
+
+1. install the platform SDK (around 400mb): 
+http://www.microsoft.com/downloads/details.aspx?familyid=0BAF2B35-C656-4969-ACE8-E4C0C0716ADB&displaylang=en
+
+2. Update the vc8 directories in the 'projects and solutions' section in the Tools>Options dialog box.
+
+Add the paths to the appropriate subsection: (or see *5)
+
+Executable files: C:\Program Files\Microsoft Platform SDK for Windows Server 2003 R2\Bin
+
+Include files: C:\Program Files\Microsoft Platform SDK for Windows Server 2003 R2\Include
+
+Library files: C:\Program Files\Microsoft Platform SDK for Windows Server 2003 R2\Lib
+
+You're done. Steps 3 and 4 are optional.
+
+3. (optional) Updating corewin_express.vsprops file
+
+To make the Win32 template work in VC++ Express. You need to edit this file C:\Program Files\Microsoft Visual Studio 8\VC\VCProjectDefaults\corewin_express.vsprops
+
+Change the line that reads:
+
+AdditionalDependencies="kernel32.lib"
+to:
+
+AdditionalDependencies="kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib"
+
+4. (optional) 
+In VC++ Express, the Win32 Windows Application type is disabled in the Win32 Application Wizard. To enable that type, you need to edit 
+%ProgramFiles%\Microsoft Visual Studio 8\VC\VCWizards\AppWiz\Generic\Application\html\1033\AppSettings.htm
+
+In your editor comment out lines 441-444 by putting a // in front of them as shown here:
+
+// WIN_APP.disabled = true;
+// WIN_APP_LABEL.disabled = true;
+// DLL_APP.disabled = true;
+// DLL_APP_LABEL.disabled = true; 
+
+----------------------------------------------------------------------
+
+*5: Note: Alternatively, you can update the VC++ Directories by modifying the VCProjectEngine.dll.express.config file located in the \vc\vcpackages subdirectory of the VC++ Express install location. Please make sure that you also delete the file "vccomponents.dat" located in the "%USERPROFILE%\Local Settings\Application Data\Microsoft\VCExpress\8.0" if it exists before restarting VC++ Express.
