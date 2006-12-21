@@ -2013,7 +2013,9 @@ void singlePlayerPostInit(bool loadingSaveGame)
     {
         if (singlePlayerGameInfo.currentMission == 1)
         {
-            animBinkPlay(0, 1);
+#ifdef HW_ENABLE_MOVIES
+            animAviPlay(0, 1);
+#endif
         }
     }
     //hyperspacetbbutton = tbButtonCreate("Hyperspace",spTaskBarHyperspaceCB,(ubyte *)0x00,0);
@@ -2469,7 +2471,9 @@ void singlePlayerGameUpdate()
                     if (singlePlayerGameInfo.currentMission < 4)
 #endif
                     //playback level transition animatic
-                    animBinkPlay(singlePlayerGameInfo.currentMission, singlePlayerGameInfo.currentMission + 1);
+#ifdef HW_ENABLE_MOVIES
+                    animAviPlay(singlePlayerGameInfo.currentMission, singlePlayerGameInfo.currentMission + 1);
+#endif
 
 // was: HW_COMPUTER_GAMING_WORLD_DEMO but the standard demo
 // had a short single player campaign surely? If not get rid of this

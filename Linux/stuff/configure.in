@@ -101,6 +101,16 @@ if test "$platform_win32" = "yes" ; then
     fi
 fi
 
+dnl Configure options for Enabling Movies.
+AC_ARG_ENABLE(movies,
+        AC_HELP_STRING([--enable-movies], [include movie code into Homeworld]),[movies=yes])
+if test "x$movies" = "xyes" ; then
+        echo "* Including Movie code for Homeworld (HW_ENABLE_MOVIES) *"
+        HWGAME_CFLAGS+=" -DHW_ENABLE_MOVIES"
+        LDFLAGS+=" -lavcodec -lavformat"
+fi
+
+
 dnl Add necessary flags for compiler and linker.
 dnl - One (and only one) of "HW_BUILD_FOR_DEBUGGING" or "HW_BUILD_FOR_DISTRIBUTION"
 dnl   must be set. This is defined above in the HWBIN_CFLAGS variable.

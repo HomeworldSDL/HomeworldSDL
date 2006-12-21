@@ -25,11 +25,28 @@
 
 #include "avi.h"
 
-extern int fullScreen;
+#ifdef HW_ENABLE_MOVIES
+ #include <ffmpeg/avformat.h>
+ #include <ffmpeg/avcodec.h>
+#endif
+
+extern bool fullScreen;
 extern void* ghMainWindow;
 extern int MAIN_WindowWidth;
 extern int MAIN_WindowHeight;
-extern int systemActive;
+extern bool systemActive;
+
+bool g_bMoreFrames;
+
+int aviDonePlaying = 1;
+int aviIsPlaying = 0;
+int aviHasAudio = 0;
+
+AVFormatContext *pFormatCtx;
+AVCodecContext *pCodecCtx;
+AVStream *streamPointer;
+AVCodec *pCodec;
+AVFrame *pFrame;
 
 
 #ifdef _WIN32	/* Disable AVI code outside of Windows. */
@@ -47,12 +64,6 @@ PGETFRAME     g_pFrame;         //an object to hold info about the video frame w
 double g_FramesPerSec;
 double g_SamplesPerSec;
 
-BOOL g_bMoreFrames;
-
-int aviDonePlaying = 1;
-int aviIsPlaying = 0;
-int aviHasAudio = 0;
-
 HBITMAP g_hBitmap = 0;
 WORD*   g_pBitmap = 0;
 
@@ -63,62 +74,6 @@ int aviVerifyResult(HRESULT Result)
     return (Result == 0 ? 1 : 0);
 }
 
-int aviStart(char* filename)
-{
-    HRESULT Res;
-
-    //initialize the AVI library
-    AVIFileInit();
-
-    Res = AVIStreamOpenFromFile(&g_VidStream, filename, streamtypeVIDEO, 0, OF_READ, NULL);
-    if (!aviVerifyResult(Res))
-    {
-        return FALSE;
-    }
-
-    g_pFrame = AVIStreamGetFrameOpen(g_VidStream, NULL);
-    if (g_pFrame == NULL)
-    {
-        return FALSE;
-    }
-
-    Res = AVIStreamInfo(g_VidStream, &g_VidStreamInfo, sizeof(AVISTREAMINFO));
-    if (!aviVerifyResult(Res))
-    {
-        return FALSE;
-    }
-
-    //now grab the audio stream and its info
-    Res = AVIStreamOpenFromFile(&g_AudStream, filename, streamtypeAUDIO, 0, OF_READ, NULL);
-    if (!aviVerifyResult(Res))
-    {
-        return FALSE;
-    }
-
-    Res = AVIStreamInfo(g_AudStream, &g_AudStreamInfo, sizeof(AVISTREAMINFO));
-    if (!aviVerifyResult(Res))
-    {
-        return FALSE;
-    }
-
-    //convert the "rate and scale" values into meaningful numbers
-    g_FramesPerSec  = (double)g_VidStreamInfo.dwRate / (double)g_VidStreamInfo.dwScale;
-    g_SamplesPerSec = (double)g_AudStreamInfo.dwRate / (double)g_AudStreamInfo.dwScale;
-
-	//check for compressed audio
-	if((g_SamplesPerSec == (double)WAVE_SAMPLERATE)
-		&& (g_AudStreamInfo.dwRate == WAVE_SAMPLERATE*(WAVE_BITSAMPLE/8)*WAVE_NUMCHAN)
-		&& (g_AudStreamInfo.dwScale == (WAVE_BITSAMPLE/8)*WAVE_NUMCHAN))
-			aviHasAudio = TRUE;
-
-    //init the frame and sample numbers
-
-    g_dwCurrFrame  = 0;
-    g_dwCurrSample = 0;
-
-    //so good so far
-    return TRUE;
-}
 
 BOOL aviGetNextFrame(BITMAPINFO** ppbmi)
 {
@@ -134,6 +89,7 @@ void aviResetStream(void)
     g_dwCurrFrame  = 0;
     g_dwCurrSample = 0;
 }
+
 
 void aviShowFrame(BITMAPINFO* pMap)
 {
@@ -184,8 +140,51 @@ void CALLBACK aviTimeProc(UINT uid, UINT msg, DWORD dwUser, DWORD dw1, DWORD dw2
 	}
 }
 
-void aviDisplayFrame()
+#endif	/* _WIN32 */
+
+void aviReverseRGBA(ubyte * surf, int w, int h) {
+    
+    ubyte line[4*w];
+    sdword y, top, bot;
+    sdword pitch;
+
+    pitch = 4*w;
+
+    for (y = 0; y < (h/2); y++)
+    {
+        top = y;
+        bot = (h -1) - y;
+
+        memcpy(line, surf + pitch*top, pitch);
+        memcpy(surf + pitch*top, surf + pitch*bot, pitch);
+        memcpy(surf + pitch*bot, line, pitch);
+    }
+
+
+}
+
+//void aviDisplayFrame( AVFrame *pFrameRGB )
+void aviDisplayFrame( AVPicture *pFrameRGB, int w, int h )
 {
+
+    int x, y;
+
+    x = (MAIN_WindowWidth  - w) / 2;
+    y = (MAIN_WindowHeight  - h) / 2;
+
+//  dbgMessagef("aviDisplayFrame: pFrameRGB=%x %x %x %x", pFrameRGB, pFrameRGB->data[0], pFrameRGB->data[1], pFrameRGB->data[2]);
+
+
+    aviReverseRGBA( pFrameRGB->data[0], w, h );
+
+    glDrawPixels (w,h, GL_RGBA, 0x8035, pFrameRGB->data[0]);
+
+
+//  dbgMessagef("aviDisplayFrame: R=%s  G=%s  B=%s", testR, testG, testB);
+//   dbgMessagef("aviDisplayFrame: R=%s", testR);
+
+
+/*
     if (g_pbmi != NULL)
     {
         aviShowFrame(g_pbmi);
@@ -196,67 +195,251 @@ void aviDisplayFrame()
 		//give audio thread a break :)
 		Sleep(0);
 	}
+
+*/
+}
+
+
+void aviSubUpdate(void) {
+
+    int index;
+
+    for (index = 0; index < SUB_NumberRegions; index++)
+    {
+        if ( index == STR_LetterboxBar)
+        {                                           //if this is the subtitle region
+            tutDrawTextPointers(&subRegion[STR_LetterboxBar].rect);//draw any active pointers there may be
+        }
+        if (subRegion[index].bEnabled && subRegion[index].cardIndex > 0)
+        {
+            if (index == STR_NIS)
+            {
+                subTimeElapsed = &thisNisPlaying->timeElapsed;
+            }
+            else
+            {
+                subTimeElapsed = &universe.totaltimeelapsed;
+            }
+            subTitlesDraw(&subRegion[index]);
+        }
+    }
+
 }
 
 void aviPlayLoop()
 {
-    MSG msg;
-    BOOL bGotMsg;
-    int frameCount = 0;
 
-    PeekMessage(&msg, NULL, 0U, 0U, PM_NOREMOVE);
+#if AVI_VERBOSE_LEVEL >= 2
+dbgMessage("aviPlayLoop:");
+#endif
 
-	g_timerHandle = timeSetEvent(
-				 (long)(1.0f / g_FramesPerSec * 1000.0f),
-				 0,
-				 aviTimeProc,
-				 NULL,
-				 TIME_PERIODIC);
-	if (g_timerHandle == NULL)
-	{
-		return;
-	}
+#ifdef HW_ENABLE_MOVIES
 
-    while (msg.message != WM_QUIT)
-    {
-        if (aviDonePlaying)
-        {
-            return;
-        }
+    int frame = 0;
+    int numBytes;
+    int frameFinished;
+    int event_res = 0;
+    Uint32 local_time, local_last_time, local_interval;
+    SDL_Event e;
+    char * buffer;
+//    AVFrame *pFrameRGB;
+    AVPicture *pPictureRGB;
+    AVPicture PictureRGB;
+    static AVPacket packet;
 
-        if (systemActive)
-        {
-            bGotMsg = PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE);
-        }
-        else
-        {
-            bGotMsg = GetMessage(&msg, NULL, 0U, 0U);
-        }
+    pPictureRGB=&PictureRGB;
 
-        if (bGotMsg)
-        {
-            TranslateMessage(&msg);
-            DispatchMessage(&msg);
-        }
-        else
-        {
-            if (g_dwCurrFrame != frameCount)
-            {
-                frameCount = g_dwCurrFrame;
-                aviDisplayFrame();
+    numBytes=avpicture_get_size(PIX_FMT_RGB32, pCodecCtx->width, pCodecCtx->height);
+#if AVI_VERBOSE_LEVEL >= 2
+dbgMessagef("aviPlayLoop: numBytes= %d, width=%d height=%d", numBytes, pCodecCtx->width, pCodecCtx->height);
+#endif
+
+    buffer = av_malloc(numBytes );
+
+    avpicture_fill(pPictureRGB, buffer, PIX_FMT_RGB32, pCodecCtx->width, pCodecCtx->height);
+
+    while(av_read_frame(pFormatCtx, &packet)>=0) {
+
+#if AVI_VERBOSE_LEVEL >= 9
+dbgMessagef("aviPlayLoop: stream_index=%d, videoStream=%d", packet.stream_index, videoStream);
+#endif
+
+        avcodec_decode_video(pCodecCtx, pFrame, &frameFinished, packet.data, packet.size);
+
+#if AVI_VERBOSE_LEVEL >= 100
+dbgMessagef("aviPlayLoop: frameFinished=%d  packet.data=%x   packet.size=%d ", frameFinished, packet.data, packet.size);
+#endif
+// dbgMessagef("aviPlayLoop: pFrame=%x %x %x %x", pFrame, pFrame->data[0], pFrame->data[1], pFrame->data[2]);
+
+        if(frameFinished) {
+            // Convert the image from its native format to RGB
+            img_convert(pPictureRGB, PIX_FMT_RGB24,
+                (AVPicture*)pFrame, PIX_FMT_YUV420P, pCodecCtx->width,
+                pCodecCtx->height);
+
+            animAviDecode(frame);
+
+            local_time= SDL_GetTicks();
+            local_interval = local_time - local_last_time ;
+            local_last_time = local_time ;
+            if ((local_interval > 0) && (local_interval < 55)) {
+                SDL_Delay(55 - local_interval);  //Close enough. :)
             }
-			if (aviDonePlaying)
-			{
-                aviDisplayFrame();  //display final frame
 
-				(void)timeKillEvent(g_timerHandle);
-                g_timerHandle = NULL;
-			}
+            speechEventUpdate();   //Keep this it works. :)
+            rndClearToBlack();
+
+            aviDisplayFrame(pPictureRGB, pCodecCtx->width,pCodecCtx->height);
+
+            aviSubUpdate();
+
+            rndFlush();
+
+            SDL_PollEvent(&e);
+
+            frame++;
         }
-   }
+        av_free_packet(&packet);
+
+    }
+
+    // Clear Allocs
+
+    av_free(buffer);
+
+//    av_free(pPictureRGB);
+
+#endif //  HW_ENABLE_MOVIES
+
+    
 }
 
-#endif	/* _WIN32 */
+int aviStart(char* filename)
+{
+
+#ifdef HW_ENABLE_MOVIES
+
+    int i;
+    int videoStream = -1;
+
+    if(av_open_input_file(&pFormatCtx, filename, NULL, 0, NULL)!=0) {
+        dbgMessagef("aviStart: Unable to open AVI: %s",filename);
+        return FALSE;
+    }
+
+#if AVI_VERBOSE_LEVEL >= 2
+dump_format(pFormatCtx, 0, filename, 0);
+#endif
+
+    for(i=0; i<pFormatCtx->nb_streams; i++) {
+        streamPointer=pFormatCtx->streams[i];
+//    }
+    if(streamPointer->codec->codec_type==CODEC_TYPE_VIDEO) {
+
+#if AVI_VERBOSE_LEVEL >= 3
+dbgMessagef("aviStart: Found Video Stream= %d.", i);
+#endif
+
+        videoStream=i;
+        i+=pFormatCtx->nb_streams; // get out of the loop!
+    }
+   }
+    if(videoStream==-1) {
+        dbgMessage("aviStart: No Video Stream found");
+        return FALSE;
+    }
+
+    pCodecCtx=pFormatCtx->streams[videoStream]->codec;
+
+#if AVI_VERBOSE_LEVEL >= 2
+dbgMessagef("aviStart: Codec required: %d.", pCodecCtx->codec_id);
+dbgMessagef("aviStart: Pix Format: %d.", pCodecCtx->pix_fmt);
+// dbgMessagef("Frame Rate: %d/%d", pCodecCtx->frame_rate, pCodecCtx->frame_rate_base);
+#endif
+
+// Find the decoder for the video stream
+
+    pCodec=avcodec_find_decoder(pCodecCtx->codec_id);
+    if(pCodec==NULL) {
+        dbgMessage("Unable to find decoder.");
+        return FALSE;
+    }
+
+#if AVI_VERBOSE_LEVEL >= 2
+dbgMessagef("aviStart: Codec required: %s.", pCodec->name);
+#endif
+
+    if(pCodec->capabilities & CODEC_CAP_TRUNCATED) {
+        dbgMessage("Problem with the codec dealing with truncated frames.");
+        pCodecCtx->flags|=CODEC_FLAG_TRUNCATED;
+    }
+
+// Open codec
+    if(avcodec_open(pCodecCtx, pCodec)<0) {
+        dbgMessage("Unable to open Codec");
+        return FALSE;
+    }
+
+    pFrame=avcodec_alloc_frame();
+
+
+/*   I've Left this in for Reference. Remove it later?   Aunxx
+    HRESULT Res;
+
+    //initialize the AVI library
+    AVIFileInit();
+
+    Res = AVIStreamOpenFromFile(&g_VidStream, filename, streamtypeVIDEO, 0, OF_READ, NULL);
+    if (!aviVerifyResult(Res))
+    {
+        return FALSE;
+    }
+
+    g_pFrame = AVIStreamGetFrameOpen(g_VidStream, NULL);
+    if (g_pFrame == NULL)
+    {
+        return FALSE;
+    }
+
+    Res = AVIStreamInfo(g_VidStream, &g_VidStreamInfo, sizeof(AVISTREAMINFO));
+    if (!aviVerifyResult(Res))
+    {
+        return FALSE;
+    }
+
+    //now grab the audio stream and its info
+    Res = AVIStreamOpenFromFile(&g_AudStream, filename, streamtypeAUDIO, 0, OF_READ, NULL);
+    if (!aviVerifyResult(Res))
+    {
+        return FALSE;
+    }
+
+    Res = AVIStreamInfo(g_AudStream, &g_AudStreamInfo, sizeof(AVISTREAMINFO));
+    if (!aviVerifyResult(Res))
+    {
+        return FALSE;
+    }
+
+    //convert the "rate and scale" values into meaningful numbers
+    g_FramesPerSec  = (double)g_VidStreamInfo.dwRate / (double)g_VidStreamInfo.dwScale;
+    g_SamplesPerSec = (double)g_AudStreamInfo.dwRate / (double)g_AudStreamInfo.dwScale;
+
+	//check for compressed audio
+	if((g_SamplesPerSec == (double)WAVE_SAMPLERATE)
+		&& (g_AudStreamInfo.dwRate == WAVE_SAMPLERATE*(WAVE_BITSAMPLE/8)*WAVE_NUMCHAN)
+		&& (g_AudStreamInfo.dwScale == (WAVE_BITSAMPLE/8)*WAVE_NUMCHAN))
+			aviHasAudio = TRUE;
+
+    //init the frame and sample numbers
+
+    g_dwCurrFrame  = 0;
+    g_dwCurrSample = 0;
+*/
+
+#endif // HW_ENABLE_MOVIES
+    //so good so far
+    return TRUE;
+}
 
 
 int aviGetSamples(void* pBuf, long* pNumSamples, long nBufSize)
@@ -288,61 +471,47 @@ int aviGetSamples(void* pBuf, long* pNumSamples, long nBufSize)
 #endif
 }
 
+void aviFileExit (void){
+
+#ifdef HW_ENABLE_MOVIES
+    av_close_input_file(pFormatCtx);
+#endif
+
+}
+	
+
 int aviStop(void)
 {
-#ifdef _WIN32
-    HRESULT Res;
+#ifdef HW_ENABLE_MOVIES
 
-    g_bMoreFrames = FALSE;
-    aviDonePlaying = TRUE;
-
-    if (g_timerHandle != NULL)
-    {
-        (void)timeKillEvent(g_timerHandle);
-        g_timerHandle = NULL;
-    }
-
-    Res = AVIStreamGetFrameClose(g_pFrame);
-    if (!aviVerifyResult(Res))
-    {
-        return FALSE;
-    }
-
-    Res = AVIStreamRelease(g_VidStream);
-    if (!aviVerifyResult(Res))
-    {
-        return FALSE;
-    }
-
-    Res = AVIStreamRelease(g_AudStream);
-    if (!aviVerifyResult(Res))
-    {
-        return FALSE;
-    }
-
-    AVIFileExit();
-
-    return TRUE;
-#else
-    return 1;
+    avcodec_close(pCodecCtx); 
+    aviFileExit();
 #endif
+    return 1;
 }
 
-int aviPlay(char* filename)
+
+bool aviPlay(char* filename)
 {
-#ifdef _WIN32
+#if AVI_VERBOSE_LEVEL >= 2
+dbgMessage("aviPlay:Entering");
+#endif
     char  fullname[1024];
     char* dir;
+
+//TODO  Include Windows file structure. 
 
 	dir = getenv("HW_Data");
     if (dir == NULL)
     {
-        strcpy(fullname, "Movies\\");
+//        strcpy(fullname, "Movies\\");
+        strcpy(fullname, "Movies/");
     }
     else
     {
         strcpy(fullname, dir);
-        strcat(fullname, "\\Movies\\");
+//        strcat(fullname, "\\Movies\\");
+//        strcat(fullname, "/Movies/");
     }
     strcat(fullname, filename);
 
@@ -356,55 +525,37 @@ int aviPlay(char* filename)
         }
     }
 
-	if(aviHasAudio == TRUE)
-	{
-		//start audio playback
-		if(StartWavePlay(WAVE_MAPPER) < 0)
-        {
-            //proceed without audio if something bad happened
-            aviHasAudio = FALSE;
-        }
-        else
-        {
-    		//wait to start video playback
-    		Sleep(250);
-        }
-	}
+//taskFreezeAll();
 
-    g_bMoreFrames = TRUE;
-    aviIsPlaying = TRUE;
-    aviDonePlaying = FALSE;
-    aviPlayLoop();
+
+
+//    nisFadeToSet(a , 0, b);
+
+	    g_bMoreFrames = TRUE;
+	    aviIsPlaying = TRUE;
+	    aviDonePlaying = FALSE;
+	    aviPlayLoop();
     aviIsPlaying = FALSE;
 
-	if(aviHasAudio == TRUE)
-	{
-		//stop audio playback
-		if(StopWavePlay() < 0) return FALSE;
+// taskResumesAll();
 
-		//wait for audio device to stop
-		Sleep(250);
-	}
 
-    return TRUE;
-#else
+    aviStop();
     return 1;
-#endif
 }
 
 int aviInit()
 {
-#ifdef _WIN32
-	DWORD nNum;
 
-	//initialize audio
-	if(InitWave(&nNum) < 0) return FALSE;
-
-    return TRUE;
-#else
-    return 1;
+#ifdef HW_ENABLE_MOVIES
+    av_register_all();
+    avcodec_init();
 #endif
+
+    return 1;
+
 }
+
 
 int aviCleanup()
 {

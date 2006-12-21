@@ -56,7 +56,9 @@
 
 /* Define this if your system has an ANSI-conforming <stdlib.h> file.
  */
+#ifndef HAVE_STDLIB_H
 #define HAVE_STDLIB_H
+#endif
 
 /* Define this if your system does not have an ANSI/SysV <string.h>,
  * but does have a BSD-style <strings.h>.

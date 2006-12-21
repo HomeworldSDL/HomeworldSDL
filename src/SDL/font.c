@@ -283,8 +283,10 @@ void glfontRecreate(fontheader* newHeader)
                 page->width  = 256;
                 page->height = 256;
                 data = glfontPackOntoPage(newHeader, glfont, page, &usedHeight, &lastChar);
+#if FONT_VERBOSE_LEVEL >=1
                 dbgMessagef("glfontCreate: page %d [%d.%d]",
                             glfont->numPages, page->width, page->height);
+#endif
 
                 //update starting character index
                 lastPageChar = lastChar;
@@ -337,8 +339,10 @@ void glfontRecreate(fontheader* newHeader)
                 {
                     page->height = bitHighExponent2(usedHeight);
                 }
+#if FONT_VERBOSE_LEVEL >=1
                 dbgMessagef("glfontCreate: page %d [%d.%d]",
                             glfont->numPages, page->width, page->height);
+#endif
 
                 //create the GL font page
                 glGenTextures(1, &handle);
@@ -446,8 +450,10 @@ glfontheader* glfontCreate(fontheader* header, fontheader* newHeader)
                 page->width  = 256;
                 page->height = 256;
                 data = glfontPackOntoPage(newHeader, glfont, page, &usedHeight, &lastChar);
+#if FONT_VERBOSE_LEVEL >=1
                 dbgMessagef("glfontCreate: page %d [%d.%d]",
                             glfont->numPages, page->width, page->height);
+#endif
 
                 //update starting character index
                 lastPageChar = lastChar;
@@ -503,8 +509,10 @@ glfontheader* glfontCreate(fontheader* header, fontheader* newHeader)
                 {
                     page->height = bitHighExponent2(usedHeight);
                 }
+#if FONT_VERBOSE_LEVEL >=1
                 dbgMessagef("glfontCreate: page %d [%d.%d]",
                             glfont->numPages, page->width, page->height);
+#endif
 
                 //create the GL font page
                 glGenTextures(1, &handle);
