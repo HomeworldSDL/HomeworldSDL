@@ -48,6 +48,7 @@ AVStream *streamPointer;
 AVCodec *pCodec;
 AVFrame *pFrame;
 
+int aviMovieExpandFactor = 1;
 
 #ifdef _WIN32	/* Disable AVI code outside of Windows. */
 
@@ -188,10 +189,10 @@ void aviARGBtoRGBA(ubyte * surf, int w, int h) {
     }
 }
 
-void aviStretchRGBA(ubyte * surf, int w, int h, int factor) {
+void aviStretchRGBA(ubyte * surf, int w, int h) {
 
 
-    if (factor != 1){
+    if (aviMovieExpandFactor != 1){
 
 //    ubyte line[4*w];
 //    sdword x,y, left, right;
@@ -219,7 +220,7 @@ void aviStretchRGBA(ubyte * surf, int w, int h, int factor) {
 void aviDisplayFrame( AVPicture *pFrameRGB, int w, int h )
 {
 
-    int x, y, factor = 1;
+    int x, y;
 
     x = (MAIN_WindowWidth  - w) / 2;
     y = (MAIN_WindowHeight  - h) / 2;
@@ -230,7 +231,7 @@ void aviDisplayFrame( AVPicture *pFrameRGB, int w, int h )
     aviReverseRGBA( pFrameRGB->data[0], w, h );
     aviARGBtoRGBA( pFrameRGB->data[0], w, h );
 
-    aviStretchRGBA( pFrameRGB->data[0], w, h, factor );
+    aviStretchRGBA( pFrameRGB->data[0], w, h );
 
     animAviSetup(TRUE);
     glRasterPos2i(x, y);

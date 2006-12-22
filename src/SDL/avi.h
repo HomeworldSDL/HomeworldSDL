@@ -29,9 +29,7 @@ extern "C" {
 #include "File.h"
 #include "NIS.h"
 #include "avi.h"
-#include <unistd.h>
-#include <ffmpeg/avformat.h>
-#include <ffmpeg/avcodec.h>
+// #include <unistd.h>
 #include <SDL.h>
 
 /*=============================================================================
