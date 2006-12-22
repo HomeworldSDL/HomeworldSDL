@@ -42,11 +42,13 @@ int aviDonePlaying = 1;
 int aviIsPlaying = 0;
 int aviHasAudio = 0;
 
-AVFormatContext *pFormatCtx;
-AVCodecContext *pCodecCtx;
-AVStream *streamPointer;
-AVCodec *pCodec;
-AVFrame *pFrame;
+#ifdef HW_ENABLE_MOVIES
+AVFormatContext *pFormatCtx    = NULL;
+AVCodecContext  *pCodecCtx     = NULL;
+AVStream        *streamPointer = NULL;
+AVCodec         *pCodec        = NULL;
+AVFrame         *pFrame        = NULL;
+#endif
 
 int aviMovieExpandFactor = 1;
 
@@ -216,6 +218,8 @@ void aviStretchRGBA(ubyte * surf, int w, int h) {
     }
 }
 
+#ifdef HW_ENABLE_MOVIES
+
 //void aviDisplayFrame( AVFrame *pFrameRGB )
 void aviDisplayFrame( AVPicture *pFrameRGB, int w, int h )
 {
@@ -262,6 +266,7 @@ void aviDisplayFrame( AVPicture *pFrameRGB, int w, int h )
 */
 }
 
+#endif
 
 void aviSubUpdate(void) {
 
