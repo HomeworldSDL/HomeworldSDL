@@ -493,7 +493,8 @@ void animAviDisplay(binkDisplayCallback_proc callback)
 void animAviDisplay()
 #endif
 {
-    sdword xOfs, yOfs;
+//    sdword xOfs, yOfs;
+    int xOfs, yOfs;
 #if 0
     ubyte* binkSurface = (ubyte*)binkGetSurface();
 
@@ -510,7 +511,8 @@ void animAviDisplay()
     yOfs = (MAIN_WindowHeight - 480) / 2;
 
     animAviSetup(TRUE);
-    glRasterPos2f((real32)xOfs, (real32)yOfs);
+//    glRasterPos2f((real32)xOfs, (real32)yOfs);
+    glRasterPos2i(xOfs, yOfs);
 
 #ifdef NEVER_DEFINE_THIS
     switch (RGLtype)

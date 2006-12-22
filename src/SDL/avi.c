@@ -159,15 +159,67 @@ void aviReverseRGBA(ubyte * surf, int w, int h) {
         memcpy(surf + pitch*top, surf + pitch*bot, pitch);
         memcpy(surf + pitch*bot, line, pitch);
     }
+}
+
+void aviRotateLeft( double c, int times) {
+}
+
+void aviARGBtoRGBA(ubyte * surf, int w, int h) {
+
+/* Someone, somewhere is lying to me about the colour layout. The fix I'm going to do here
+  Will be one Endian specific, and if anyone else is getting really strange colours out of the 
+  animations, then start here. Especially if you get a Yellow background which is wat I've just 
+  had.  Aunxx */
+/* Update: OR more accurately they're telling the truth, and I make mistakes in my code. :( */
+
+    int i, end;
+    int temp;
+    ubyte * cur;
+   
+    cur = surf;
+
+    end = w*h*4;
+    for (i =0; i< end ; i+=4){
+        cur = surf +i;   
+        temp = (int)cur ;
+        memmove(cur+1, cur,3);
+        cur +=3;
+        cur = (ubyte *)temp;
+    }
+}
+
+void aviStretchRGBA(ubyte * surf, int w, int h, int factor) {
 
 
+    if (factor != 1){
+
+//    ubyte line[4*w];
+//    sdword x,y, left, right;
+//    sdword pitch;
+
+//    pitch = 4;
+//for (y=0; y< h ;y ++)
+//{
+//    for (x = w; x > 0; x--)
+//    {
+//        left = x;
+//        right = (w -1) - x;
+
+//        memcpy(line, surf + pitch*top, pitch);
+//        memcpy(surf + pitch*top, surf + pitch*bot, pitch);
+//        memcpy(surf + pitch*bot, line, pitch);
+//    }
+
+//}
+
+    }
 }
 
 //void aviDisplayFrame( AVFrame *pFrameRGB )
 void aviDisplayFrame( AVPicture *pFrameRGB, int w, int h )
 {
 
-    int x, y;
+    int x, y, factor = 1;
 
     x = (MAIN_WindowWidth  - w) / 2;
     y = (MAIN_WindowHeight  - h) / 2;
@@ -176,8 +228,18 @@ void aviDisplayFrame( AVPicture *pFrameRGB, int w, int h )
 
 
     aviReverseRGBA( pFrameRGB->data[0], w, h );
+    aviARGBtoRGBA( pFrameRGB->data[0], w, h );
+
+    aviStretchRGBA( pFrameRGB->data[0], w, h, factor );
+
+    animAviSetup(TRUE);
+    glRasterPos2i(x, y);
+
+//    animAviSetup(FALSE);
 
     glDrawPixels (w,h, GL_RGBA, 0x8035, pFrameRGB->data[0]);
+
+    animAviSetup(FALSE);
 
 
 //  dbgMessagef("aviDisplayFrame: R=%s  G=%s  B=%s", testR, testG, testB);
@@ -273,8 +335,8 @@ dbgMessagef("aviPlayLoop: frameFinished=%d  packet.data=%x   packet.size=%d ", f
 
         if(frameFinished) {
             // Convert the image from its native format to RGB
-            img_convert(pPictureRGB, PIX_FMT_RGB24,
-                (AVPicture*)pFrame, PIX_FMT_YUV420P, pCodecCtx->width,
+            img_convert(pPictureRGB, PIX_FMT_RGB32,
+                (AVPicture*)pFrame, pCodecCtx->pix_fmt, pCodecCtx->width,
                 pCodecCtx->height);
 
             animAviDecode(frame);
@@ -282,8 +344,8 @@ dbgMessagef("aviPlayLoop: frameFinished=%d  packet.data=%x   packet.size=%d ", f
             local_time= SDL_GetTicks();
             local_interval = local_time - local_last_time ;
             local_last_time = local_time ;
-            if ((local_interval > 0) && (local_interval < 55)) {
-                SDL_Delay(55 - local_interval);  //Close enough. :)
+            if ((local_interval > 0) && (local_interval < 76)) {
+                SDL_Delay(77 - local_interval);  //Closer...  :)
             }
 
             speechEventUpdate();   //Keep this it works. :)
@@ -479,10 +541,28 @@ void aviFileExit (void){
 
 }
 	
+void aviSetScreen(int w, int h){
+
+    int xOfs, yOfs;
+
+    xOfs = (MAIN_WindowWidth  - 640) / 2;
+    yOfs = (MAIN_WindowHeight - 480) / 2;
+
+dbgMessagef("aviSetScreen: xOfs=%d yOfs=%d", xOfs, yOfs);
+
+    animAviSetup(TRUE);
+
+    glRasterPos2i(xOfs, yOfs);
+
+    animAviSetup(FALSE);
+
+}
 
 int aviStop(void)
 {
 #ifdef HW_ENABLE_MOVIES
+   
+    SDL_Delay(500); // Give the audio time to stop
 
     avcodec_close(pCodecCtx); 
     aviFileExit();
@@ -527,7 +607,7 @@ dbgMessage("aviPlay:Entering");
 
 //taskFreezeAll();
 
-
+//    aviSetScreen(pCodecCtx->width,pCodecCtx->height);
 
 //    nisFadeToSet(a , 0, b);
 
@@ -567,4 +647,46 @@ int aviCleanup()
 #else
     return 1;
 #endif
+}
+
+int aviIntroPlay()
+{
+    int intro;
+    utilPlayingIntro = TRUE;
+
+    for (intro = 0;intro < 4;intro ++) {
+
+        switch (intro) {
+            case 0:
+                /*binkInit(-1);*/
+                aviInit();
+//                intro++;
+                break;
+            case 1:
+                /*binkPlay("Movies\\sierra.bik", NULL, NULL, S_RGB555, TRUE, ANIM00_Sierra);*/
+#ifdef _WIN32
+                aviPlay("Movies\\sierra.avi");
+#else
+                aviPlay("Movies/sierra.avi");
+#endif
+//                intro++;
+                break;
+            case 2:
+                /*binkPlay("Movies\\relicintro.bik", NULL, NULL, S_RGB555, TRUE, ANIM00_Relic);*/
+#ifdef _WIN32
+                aviPlay("Movies\\relicintro.avi");
+#else
+                aviPlay("Movies/relicintro.avi");
+#endif
+//                    intro++;
+                    break;
+            case 3:
+                /*binkCleanup();*/
+                mainCleanupAfterVideo();
+//                intro++;
+                break;
+//            case 4:
+//                goto DONE_INTROS;
+        }
+    }
 }

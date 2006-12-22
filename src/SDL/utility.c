@@ -4354,6 +4354,9 @@ DONE_INTROS:
     taskCallBackInit();
     utySet2(SS2_BabyCallBackRegistry);
 
+
+// aviIntroPlay();  // PlaceHolder for playing the intro Movies (Relic && Sierra)
+
     universeInit();
     utySet(SSA_Universe);
 
