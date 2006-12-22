@@ -214,6 +214,7 @@ mrKeyFunction[] =
 #if MR_TEST_HPB
     {{OKEY,   0,      0,      0}, 1, RPE_KeyDown},
 #endif
+    {{PLUSMINUS,    0,      0,      0},     1,  RPE_KeyDown            },
     {{NUMPLUSKEY,   0,      0,      0},     1,  RPE_KeyDown | RPE_KeyUp},
     {{PLUSKEY,      0,      0,      0},     1,  RPE_KeyDown | RPE_KeyUp},
     {{NUMMINUSKEY,  0,      0,      0},     1,  RPE_KeyDown | RPE_KeyUp},
@@ -253,7 +254,6 @@ mrKeyFunction[] =
     {{NUMSLASHKEY , 0,      0,      0}, 1, RPE_KeyDown},
     {{NUMDOTKEY   , 0,      0,      0}, 1, RPE_KeyDown},
 #else
-    {{PLUSMINUS   , 0,      0,      0}, 1, RPE_KeyDown},
     {{UKEY        , 0,      0,      0}, 1, RPE_KeyDown},
     {{YKEY        , 0,      0,      0}, 1, RPE_KeyDown},
     {{QKEY        , 0,      0,      0}, 1, RPE_KeyDown},
