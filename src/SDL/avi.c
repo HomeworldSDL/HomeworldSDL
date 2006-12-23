@@ -148,7 +148,12 @@ void CALLBACK aviTimeProc(UINT uid, UINT msg, DWORD dwUser, DWORD dw1, DWORD dw2
 void aviReverseRGBA(ubyte * surf, int w, int h) {
 
     
-    ubyte line[4 * sizeof(w)];
+#ifdef _WIN32
+    ubyte line[4 * 640];  // This needs to hold a line of pixels 4bytes * width (640);
+                          // sizeof(w) wouldn't give enough space. (I could be wrong though.)
+#else
+    ubyte line[4 * w];
+#endif
     sdword y, top, bot;
     sdword pitch;
 

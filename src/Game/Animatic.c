@@ -60,7 +60,9 @@ static sdword subY1;
 // Whilst the Linux folks want to zap most of this file for the moment and replace
 // the original code with dummy functions (see above), the MacOSX folks don't.
 // Please replace with a suitable #if you want to turn it back on. Thanks.
- #ifdef _MACOSX_FIX_ME  // was #if 0 (for Linux)
+
+#ifdef NEVER_DEFINE_THIS  // Just spotted this. we don't want this code at all.
+                          // Left it in for reference. Sorry.
 
 // NB: Bink players available here: http://www.radgametools.com/bnkdown.htm
 // I'm not sure how easy it will be to incorporate them (rather than SDK), nor
@@ -279,7 +281,7 @@ void animBinkEnd(void)
 
 #endif	/* I hear Bink, but I don't see Bink... */
 
-#endif  // #ifdef _MACOSX_FIX_ME
+#endif  // #ifdef NEVER_DEFINE_THIS
 
 /*-----------------------------------------------------------------------------
     Name        : animAviSetup
