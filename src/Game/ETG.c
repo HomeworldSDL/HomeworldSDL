@@ -1604,7 +1604,9 @@ void etgEffectProfileKey(char *directory,char *field,void *dataToFillIn)
 ----------------------------------------------------------------------------*/
 void etgStartup(void)
 {
-    sdword index;
+    sdword index = 0;
+    sdword bigDeathInitialiser = -10;
+    
 #if ETG_VERBOSE_LEVEL >= 1
     dbgMessagef("Starting effects");
 #endif
@@ -1617,8 +1619,8 @@ void etgStartup(void)
     memClearDword(etgSpecialPurposeEffectTable,0,EGT_NumberOfSpecialEffects);
 
     //default the big death amount to something
-    memClearDword(etgBigDeathFactor, (udword)-10, NUM_RACES * NUM_CLASSES);
-    memClearDword(etgBigDeathFactorDerelict, (udword)-10, NUM_DERELICTTYPES);
+    memClearDword(etgBigDeathFactor,         TreatAsUdword(bigDeathInitialiser), NUM_RACES * NUM_CLASSES);
+    memClearDword(etgBigDeathFactorDerelict, TreatAsUdword(bigDeathInitialiser), NUM_DERELICTTYPES);
     //set the default bullet colors for R1 and everything else
     memClearDword(etgBulletColor, R2BulletColor, NUM_RACES * NUM_GUN_SOUND_TYPES);
     memClearDword(etgBulletColor, R1BulletColor, NUM_GUN_SOUND_TYPES);
