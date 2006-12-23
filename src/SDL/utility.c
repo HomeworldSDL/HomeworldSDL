@@ -1013,6 +1013,7 @@ scriptEntry utyOptionsList[] =
     {"PlayerName",                     scriptSetStringCB, &utyName},
     {"PlayerPassword",                 scriptSetStringCB, &utyPassword},
     {"MultiPlayerLastMapID",           scriptSetUdwordCB, &spCurrentSelected},
+    {"MultiPlayerGameFlags",           scriptSetUwordCB,  &tpGameCreated.flag},
     {"MultiPlayerNumComputerPlayers",  scriptSetUbyteCB,  &tpGameCreated.numComputers},
     {"MultiPlayerComputerDifficulty",  scriptSetUbyteCB,  &tpGameCreated.aiplayerDifficultyLevel},
     {"MultiPlayerComputerHatesHumans", scriptSetUbyteCB,  &tpGameCreated.aiplayerBigotry},
