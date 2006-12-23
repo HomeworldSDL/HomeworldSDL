@@ -279,7 +279,7 @@ void animBinkEnd(void)
 
 #endif	/* I hear Bink, but I don't see Bink... */
 
-#endif  // the #if 0/1 right at the very top of this file...
+#endif  // #ifdef _MACOSX_FIX_ME
 
 /*-----------------------------------------------------------------------------
     Name        : animAviSetup
@@ -487,13 +487,11 @@ void animSubtitlesDraw(void)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-#ifdef _WIN32
-void animAviDisplay(binkDisplayCallback_proc callback)
-#else
+//#ifdef _WIN32
+//void animAviDisplay(binkDisplayCallback_proc callback)
 void animAviDisplay()
-#endif
 {
-//    sdword xOfs, yOfs;
+    //sdword xOfs, yOfs;
     int xOfs, yOfs;
 #if 0
     ubyte* binkSurface = (ubyte*)binkGetSurface();
@@ -550,7 +548,7 @@ void animAviDisplay()
 ----------------------------------------------------------------------------*/
 nisheader* animLoadNISScript(char* scriptname)
 {
-dbgMessage("animLoadNISScript: Entering");
+//    dbgMessage("animLoadNISScript: Entering");
     // for localization
 	char *pString;
     char localisedPath[256];

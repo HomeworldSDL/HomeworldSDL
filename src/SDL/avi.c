@@ -146,8 +146,9 @@ void CALLBACK aviTimeProc(UINT uid, UINT msg, DWORD dwUser, DWORD dw1, DWORD dw2
 #endif	/* _WIN32 */
 
 void aviReverseRGBA(ubyte * surf, int w, int h) {
+
     
-    ubyte line[4*w];
+    ubyte line[4 * sizeof(w)];
     sdword y, top, bot;
     sdword pitch;
 
