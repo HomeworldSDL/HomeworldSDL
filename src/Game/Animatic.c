@@ -548,12 +548,15 @@ void animAviDisplay()
 ----------------------------------------------------------------------------*/
 nisheader* animLoadNISScript(char* scriptname)
 {
-//    dbgMessage("animLoadNISScript: Entering");
     // for localization
 	char *pString;
     char localisedPath[256];
     char string[256];
     nisheader* newHeader;
+
+#if AVI_VERBOSE_LEVEL >= 2
+    dbgMessage("animLoadNISScript: Entering");
+#endif
 
     animCurrentEvent = 0;
 
