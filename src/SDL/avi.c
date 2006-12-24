@@ -370,6 +370,10 @@ dbgMessagef("aviPlayLoop: frameFinished=%d  packet.data=%x   packet.size=%d ", f
             rndFlush();
 
             SDL_PollEvent(&e);
+            if(e.type == SDL_KEYDOWN){
+                dbgMessage("Keyboard Event");
+                break;
+            }
 
             frame++;
         }
