@@ -147,6 +147,9 @@ extern bool8 utyStartedBits[SSA_NumberBits];
 extern char utyMusicFilename[];
 extern char utyVoiceFilename[];
 
+char regDataEnvironment[PATH_MAX];
+
+
 /*=============================================================================
     Functions:
 =============================================================================*/

@@ -1120,7 +1120,7 @@ void mainDevStatsInit(void)
     // directory environment variable...
     if (!handle)
     {
-        hwdata = getenv("HW_Data");
+        hwdata = getenv("HW_Data")? getenv("HW_Data") : regDataEnvironment;
 
         if (hwdata != NULL)
         {

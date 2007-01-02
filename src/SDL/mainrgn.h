@@ -20,6 +20,8 @@
 =============================================================================*/
 #define MR_GUI_SINGLECLICK          1
 
+#define ALLOW_PAUSE_ORDERS          0           // Allow orders to be given whilst paused  1=TRUE
+
 #ifndef HW_BUILD_FOR_DISTRIBUTION
 
 #define MR_ERROR_CHECKING           1           //general error checking

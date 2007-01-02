@@ -154,6 +154,7 @@ extern char mainD3DToSelect[];
 
 udword regMagicNum = 0;
 char   regLanguageVersion[50];
+char   regDataEnvironment[PATH_MAX];
 
 typedef struct registryOption
 {
@@ -180,6 +181,7 @@ registryOption regOptionsList[] =
     {"screenHeight",    REG_UDWORD, &MAIN_WindowHeight},
     {"screenDepth",     REG_UDWORD, &MAIN_WindowDepth},
     {"HW_Language",     REG_STRING, &regLanguageVersion},
+    {"HW_Data",         REG_STRING, &regDataEnvironment},
     {REG_MAGIC_STR,     REG_UDWORD, &regMagicNum},  // used for oversize-CD support (UK version only)
     {NULL, 0, NULL}
 };
@@ -3857,7 +3859,7 @@ char* utyGameSystemsPreInit(void)
     // Set file search path
     if (FilePathPrepended == FALSE)
     {
-        if ((dataEnvironment = getenv("HW_Data")) != NULL)
+        if ((dataEnvironment = getenv("HW_Data") ? getenv("HW_Data") : regDataEnvironment) != NULL)
         {
             filePrependPathSet(dataEnvironment);
             utySet(SSA_FilePrepend);
@@ -3897,7 +3899,7 @@ char* utyGameSystemsPreInit(void)
 #ifdef _WIN32
 		// Use the same directory as the Homeworld data (similar to the
 		// functionality in the original Homeworld).
-		if ((dataEnvironment = getenv("HW_Data")) != NULL)
+		if ((dataEnvironment = getenv("HW_Data") ? getenv("HW_Data") : regDataEnvironment) != NULL)
 		{
 			fileUserSettingsPathSet(dataEnvironment);
 		}
@@ -3914,7 +3916,7 @@ char* utyGameSystemsPreInit(void)
 			snprintf(tempPath, PATH_MAX, "%s/" CONFIGDIR, dataEnvironment);
 			fileUserSettingsPathSet(tempPath);
 		}
-		else if ((dataEnvironment = getenv("HW_Data")) != NULL)
+		else if ((dataEnvironment = getenv("HW_Data")  ? getenv("HW_Data") : regDataEnvironment) != NULL)
 		{
 			fileUserSettingsPathSet(dataEnvironment);
 		}
@@ -4126,7 +4128,7 @@ char* utyGameSystemsPreInit(void)
             ;
             char *searchPath = defaultSearchPath;
 
-            dataEnvironment = getenv("HW_Data");
+            dataEnvironment = getenv("HW_Data") ? getenv("HW_Data") : regDataEnvironment;
             if (dataEnvironment != NULL)
             {
                 searchPath = dataEnvironment;

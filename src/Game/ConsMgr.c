@@ -3748,7 +3748,11 @@ sdword cmConstructionBegin(regionhandle region, sdword ID, udword event, udword 
     sdword status = 0;
     ShipPtr bship=NULL;
 
+#if ALLOW_PAUSE_ORDERS
+    if (playPackets) return 0;
+#else
     if ((playPackets) || (universePause)) return 0;
+#endif
 
     if((tutorial==TUTORIAL_ONLY) && !tutEnable.bBuildManager)
         return 0;
