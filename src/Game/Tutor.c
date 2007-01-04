@@ -642,7 +642,10 @@ void tutTutorial1(char *name, featom *atom)
         beginning = TRUE;
         tutorial = 1;
         dbgAssertOrIgnore(startingGame == FALSE);
-        dbgMessagef("Tutorial1 started");
+
+#ifdef HW_BUILD_FOR_DEBUGGING
+        dbgMessage("Tutorial1 started");
+#endif
 
         utySinglePlayerGameStart(name, atom);
     }
@@ -677,12 +680,14 @@ tutpointer *tutPointerAllocate(char *name, sdword type)
             freeIndex = index;
         }
     }
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+    
+#ifdef HW_BUILD_FOR_DEBUGGING
     if (freeIndex < 0)
     {
         dbgFatalf(DBG_Loc, "Cannot allocate tutorial pointer '%s'.", name);
     }
 #endif
+
     memStrncpy(tutPointer[freeIndex].name, name, TUT_PointerNameMax);
     tutPointer[freeIndex].pointerType = type;
     return(&tutPointer[freeIndex]);
@@ -823,7 +828,8 @@ void tutRemovePointerByName(char *name)
             return;
         }
     }
-#ifndef HW_BUILD_FOR_DEBUGGING
+
+#ifdef HW_BUILD_FOR_DEBUGGING
     dbgMessagef("tutRemovePointerByName: '%s' not found.", name);
 #endif
 }
@@ -2066,52 +2072,53 @@ long    StrIndex, Count;
     return Count;
 }
 
-void tutGameMessage(char *commandName)
+void tutGameMessage(char *eventName)
 {
     if (!tutorial)
     {
         return;
     }
 
-    dbgMessagef("tutGameMessage: '%s'", commandName);
+#ifdef HW_BUILD_FOR_DEBUGGING
+    dbgMessagef("%s: '%s'", __func__, eventName);
+#endif
 
-    if( !tutGameMessageInQueue(commandName) && tutGameMessageIndex < 16 )
+    if( !tutGameMessageInQueue(eventName) && tutGameMessageIndex < 16 )
     {
-        strcpy(tutGameMessageList[ tutGameMessageIndex ], commandName);
+        strcpy(tutGameMessageList[ tutGameMessageIndex ], eventName);
         tutGameMessageIndex++;
     }
 }
 
-bool tutGameSentMessage(char *commandNames)
+bool tutGameSentMessage(char *eventNames)
 {
-    bool in_queue = tutGameMessageInQueue(commandNames);
+    bool in_queue = tutGameMessageInQueue(eventNames);
 
     tutResetGameMessageQueue();
     
     return in_queue;
 }
 
-bool tutGameMessageInQueue(char *commandNames)
+bool tutGameMessageInQueue(char *eventNames)
 {
-    bool    RetVal = FALSE;
     udword  i;
     char    szToken[256];
     long    StrIndex;
 
-    StrIndex = GetNextCommaDelimitedToken(commandNames, szToken, 0);
+    StrIndex = GetNextCommaDelimitedToken(eventNames, szToken, 0);
     while (StrIndex)
     {
         for (i=0; i<tutGameMessageIndex; i++)
         {
             if (strcasecmp(szToken, tutGameMessageList[i]) == 0)
             {
-                RetVal = TRUE;
+                return TRUE;
             }
         }
         StrIndex = GetNextCommaDelimitedToken(NULL, szToken, StrIndex);
     }
 
-    return RetVal;;
+    return FALSE;
 }
 
 void tutResetGameMessageQueue(void)
