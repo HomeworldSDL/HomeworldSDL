@@ -3,7 +3,7 @@
 
 #include "Types.h"
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 #define PROFILE_TIMERS
 #endif
 

@@ -11,7 +11,7 @@
 
 #include "SpaceObj.h"
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 
 #define DMG_VERBOSE_LEVEL   1
 

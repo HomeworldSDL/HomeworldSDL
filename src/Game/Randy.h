@@ -13,7 +13,7 @@
 
 // INTERFACE -------------------------------------------------------------------
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
     #define RANDOM_ERROR_CHECKING      1    // general error checking
     #define RANDOM_VERBOSE_LEVEL       2    // control specific output code
     #define RANDOM_DEBUG_CALL_SEQ      1    // debug random number calling sequence

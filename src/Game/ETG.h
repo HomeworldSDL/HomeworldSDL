@@ -20,7 +20,7 @@
 #define ETG_SELECT_EXPLOSION        1           //logic for selecting explosion types
 #define ETG_DEFAULT_EXPLOSIONS      1           //still support older 'explosionType' in .shp files
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 
 #define ETG_ERROR_CHECKING          1           //general error checking
 #define ETG_VERBOSE_LEVEL           1           //control specific output code

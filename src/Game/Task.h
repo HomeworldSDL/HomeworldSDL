@@ -18,7 +18,7 @@
 #define TASK_STACK_SAVE_HACK    0               //save the stack for Windows 95 baby
 #define TASK_STACK_SAVE         0               //save local stack frame the task function may create
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 
 #define TASK_ERROR_CHECKING     1               //general error checking
 #define TASK_STACK_CHECKING     1               //stack corruption checks on entry/exit of tasks
@@ -190,7 +190,7 @@ extern real32 taskFrequency;
 #endif
 
 //save/restore the task local stack only in debug builds
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 #define taskStackSaveDebug(nDwords) taskStackSave(nDwords)
 #define taskStackRestoreDebug() taskStackRestore()
 #else

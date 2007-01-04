@@ -12,7 +12,7 @@
 /*=============================================================================
     Switches:
 =============================================================================*/
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 
 #define BATTLE_VERBOSE_LEVEL    1               //control verbose output
 #define BATTLE_ERROR_CHECKING   1               //basic error checking

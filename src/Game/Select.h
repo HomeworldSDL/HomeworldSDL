@@ -22,7 +22,7 @@
 /*=============================================================================
     Switches:
 =============================================================================*/
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 #define SEL_DRAW_BOXES         1
 
 #define SEL_ERROR_CHECKING     1                //general error checking

@@ -15,7 +15,7 @@
 
 #define BS_TEST                     0           //test the spline module
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 
 #define BS_ERROR_CHECKING           1           //general error checking
 #define BS_VERBOSE_LEVEL            1           //control specific output code

@@ -20,7 +20,7 @@
     Switches:
 =============================================================================*/
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 
 #define SP_ERROR_CHECKING           1           //general error checking
 #define SP_VERBOSE_LEVEL            3           //control specific output code

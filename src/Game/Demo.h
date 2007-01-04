@@ -21,7 +21,7 @@
 #define DEM_RANDY_SAVE          1               //save the randy state at demo start?
 #define DEM_INTERRUPTABLE       1               //can demo playback be interrupted?
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 
 #define DEM_MODULE_TEST         0               //test the module
 #define DEM_ERROR_CHECKING      1               //basic error checking

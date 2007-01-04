@@ -1989,7 +1989,7 @@ void collCheckBulletTargetColl(blob *thisBlob)
 
     sdword pass;
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 //    thisBlob->debugFlag = 1;
 #endif
 
@@ -2270,7 +2270,7 @@ void collCheckMissileShipColl(blob *thisBlob,MissileType missileType)
     }
     numMissiles = missileselection->numMissiles;
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 //    thisBlob->debugFlag = 1;
 #endif
 
@@ -2399,7 +2399,7 @@ nextmissile:
         missileindex++;
     }
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 //    thisBlob->debugFlag = 0;
 #endif
 
@@ -2458,7 +2458,7 @@ void collCheckMissileResourceColl(blob *thisBlob,MissileType missileType)
     }
     numMissiles = missileselection->numMissiles;
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 //    thisBlob->debugFlag = 1;
 #endif
 
@@ -2557,7 +2557,7 @@ nextmissile:
         missileindex++;
     }
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 //    thisBlob->debugFlag = 0;
 #endif
 
@@ -2617,7 +2617,7 @@ void collCheckMissileDerelictColl(blob *thisBlob,MissileType missileType)
     }
     numMissiles = missileselection->numMissiles;
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 //    thisBlob->debugFlag = 1;
 #endif
 
@@ -2711,7 +2711,7 @@ nextmissile:
         missileindex++;
     }
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 //    thisBlob->debugFlag = 0;
 #endif
 
@@ -2759,7 +2759,7 @@ void collCheckMissileMineColl(blob *thisBlob)
         return;
     }
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 //    thisBlob->debugFlag = 1;
 #endif
 
@@ -2856,7 +2856,7 @@ nextmissile:
         missileindex++;
     }
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 //    thisBlob->debugFlag = 0;
 #endif
 

@@ -19,7 +19,7 @@
 /*=============================================================================
     Switches:
 =============================================================================*/
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 
 #define PNG_ERROR_CHECKING      1               //basic error checking
 #define PNG_VERBOSE_LEVEL       2               //control verbose printing

@@ -16,7 +16,7 @@
 /*=============================================================================
     Switches:
 =============================================================================*/
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 
 #define MOUSE_ERROR_CHECKING        1           //general error checking
 #define MOUSE_CURSOR_CLAMP          1           //clamp location of cursor to bounds of the window

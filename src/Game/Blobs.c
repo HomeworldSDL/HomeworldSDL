@@ -621,7 +621,7 @@ void bobSubBlobListCreate(BlobProperties *blobProperties, LinkedList *list, blob
 
             newBlob->RUs = 0;
 
-    #ifndef HW_BUILD_FOR_DISTRIBUTION
+    #ifdef HW_BUILD_FOR_DEBUGGING
 //            newBlob->debugFlag = 0;
     #endif
             newBlob->blobShips = NULL;
@@ -940,7 +940,7 @@ void bobListCreate(BlobProperties *blobProperties, LinkedList *list, udword play
 
         newBlob->RUs = 0;
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 //        newBlob->debugFlag = 0;
 #endif
         newBlob->blobShips = NULL;
@@ -1135,7 +1135,7 @@ Node *bobBlobCombine(blob *thisBlob, blob *otherBlob, real32 newRadius, real32 n
     newselection->numSpaceObjs = totalNumObjects;
     thisBlob->blobObjects = newselection;
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 //    thisBlob->debugFlag = 0;
 #endif
     bitClear(thisBlob->flags, BTF_DontUpdate);              //make sure this blob gets itemized
@@ -1491,7 +1491,7 @@ nextnode:
 ----------------------------------------------------------------------------*/
 void blobFreeContents(blob *thisBlob)
 {
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 //    dbgAssertOrIgnore(thisBlob->debugFlag == 0);
 #endif
 
@@ -1916,7 +1916,7 @@ void bobAddObjToSpecificBlob(blob *putInBlob,SpaceObj *obj)
     }
     dbgAssertOrIgnore(putInBlob);
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 //    dbgAssertOrIgnore(putInBlob->debugFlag == 0);
 #endif
 
@@ -1952,7 +1952,7 @@ void bobAddObjToNearestBlob(LinkedList *list,SpaceObj *obj)
         return;
     }
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 //    dbgAssertOrIgnore(putInBlob->debugFlag == 0);
 #endif
 

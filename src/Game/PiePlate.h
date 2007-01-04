@@ -16,7 +16,7 @@
 =============================================================================*/
 #define PIE_MOVE_NEARTO             0           //enables the 'move near to' variant of the move to command
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 
 #define PIE_ERROR_CHECKING          1           //general error checking
 #define PIE_VERBOSE_LEVEL           2           //control specific output code

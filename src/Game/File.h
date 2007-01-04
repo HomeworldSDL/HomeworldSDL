@@ -14,7 +14,7 @@
 /*=============================================================================
     Switches
 =============================================================================*/
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 
 #define FILE_VERBOSE_LEVEL      1               //control level of verbose info
 #define FILE_ERROR_CHECKING     1               //control error checking

@@ -13,7 +13,7 @@
 // INTERFACE -------------------------------------------------------------------
 
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
     #define LL_ERROR_CHECKING       1           // general error checking
     #define LL_ANAL_CHECKING        0           // extra-anal error checking
     #define LL_VERBOSE_LEVEL        2           // control specific output code
@@ -66,7 +66,7 @@ typedef bool (*MergeSortCompareCb)(void *firststruct,void *secondstruct);
 #endif
 
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 void listCheckSort(LinkedList *list);
 void listCheckSortGeneral(LinkedList *list, MergeSortCompareCb compare);
 #endif

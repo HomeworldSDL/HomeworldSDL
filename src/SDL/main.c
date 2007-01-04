@@ -678,7 +678,7 @@ bool syncDumpInit(char *string1)
 #define entryComment(comment)               {COF_Visible, comment, NULL, NULL, 0, NULL}
 commandoption commandOptions[] =
 {
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
     entryComment("DEBUGGING OPTIONS"),//-----------------------------------------------------
     entryVr("/debug",               DebugWindow, TRUE,                  " - Enable debug window."),
     entryVr("/nodebugInt",          dbgInt3Enabled,FALSE,               " - Fatal errors don't genereate an int 3 before exiting."),
@@ -695,7 +695,7 @@ commandoption commandOptions[] =
 #if RAN_DEBUG_CALLER
     entryVr("/ranCallerDebug",      ranCallerDebug, TRUE,               " - debug non-deterministic calling of random numbers."),
 #endif
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
     entryFn("/autosavedebug",       EnableAutoSaveDebug,                " autosaves game frequently"),
 #endif
 
@@ -705,14 +705,14 @@ commandoption commandOptions[] =
     entryFnParam("/CDpath",         CDROMPathSet,                       " <path> - Sets path to CD-ROM in case of ambiguity."),
     entryFnParam("/settingspath",   UserSettingsPathSet,                " <path> - Sets the path to store settings, saved games, and screenshots (defaults to ~/.homeworld)."),
 #if MAIN_MOUSE_FREE
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
     entryVr("/freemouse",           startupClipMouse, FALSE,            " - Mouse free to move about entire screen at startup.  Use <CTRL>F11 to toggle during play."),
 #else
     entryVrHidden("/freemouse",     startupClipMouse, FALSE,            " - Mouse free to move about entire screen at startup.  Use <CTRL>F11 to toggle during play."),
 #endif
 #endif
     entryVr("/ignoreBigfiles",      IgnoreBigfiles, TRUE,               " - don't use anything from bigfile(s)"),
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
     entryFV("/logFileLoads",        EnableFileLoadLog,LogFileLoads,TRUE," - create log of data files loaded"),
 #endif
 
@@ -779,7 +779,7 @@ commandoption commandOptions[] =
     entryVrHidden("/noPause",             noPauseAltTab, TRUE,                " - don't pause when you alt-tab."),
     entryVrHidden("/noMinimize",          noMinimizeAltTab, TRUE,             " - don't minimize when you alt-tab."),
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
     entryComment("CHEATS AND SHORTCUTS"),         //-----------------------------------------------------
 #if CM_CHEAP_SHIPS
     entryVr("/cheapShips",          cmCheapShips, TRUE,                 " - ships only cost 1 RU."),
@@ -823,13 +823,13 @@ commandoption commandOptions[] =
 #if UNIV_SHIP_LOADFREE_LOG
     entryVr("/loadFreeLog",         univLoadFreeLog, TRUE,              " - enable logging of what was loaded and freed between missions."),
 #endif
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
     entryVr("/NoBind",              bkDisableKeyRemap, TRUE,            " - disable key bindings so that debug keys work."),
 #else
     entryVrHidden("/NoBind",        bkDisableKeyRemap, TRUE,            " - disable key bindings so that debug keys work."),
 #endif
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
     entryComment("COMPUTER PLAYER AND STATS"),//-----------------------------------------------------
 //    {"/compPlayer",  EnableComputerPlayers, "=01234567 to enable all computer players"},
     entryVr("/aiplayerLog",         aiplayerLogEnable, TRUE,            " - enable AI Player Logging"),
@@ -839,7 +839,7 @@ commandoption commandOptions[] =
     entryFnParam("/showStatsFancyFight", EnableShowStatsFancyFight,     "=filename.script"),
 #endif
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
     entryComment("NETWORK PLAY"),   //-----------------------------------------------------
     //entryVr("/captaincyLogOff",     captaincyLogEnable, FALSE,          " - turns off captaincy log file" ),
     //entryVr("/captaincyLogOn",      captaincyLogEnable, TRUE,           " - turns on captaincy log file" ),
@@ -883,7 +883,7 @@ commandoption commandOptions[] =
     entryFnParam("/demoRecord",     EnableDemoRecord,                   " <fileName> - record a demo."),
     entryFnParam("/demoPlay",       EnableDemoPlayback,                 " <fileName> - play a demo."),
 */
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
     entryFV("/packetRecord",        EnablePacketRecord, recordPackets, TRUE, " - record packets of this multiplayer game"),
     entryFV("/packetPlay",          EnablePacketPlay, playPackets, TRUE," <fileName> - play back packet recording"),
 #else
@@ -905,7 +905,7 @@ commandoption commandOptions[] =
 /*
     entryVrHidden("/allowPacking",  mainAllowPacking, TRUE,             " - use the packed textures if available (default)."),
     entryVr("/disablePacking",      mainAllowPacking, FALSE,            " - don't use the packed textures if available."),
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
     entryVr("/onlyPacking",         mainOnlyPacking, TRUE,              " - only display packed textures."),
 #endif
 */

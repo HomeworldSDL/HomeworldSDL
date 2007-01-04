@@ -57,7 +57,7 @@ void lagSlowInternetIcon(void)
 {
     lifheader *texture;
 
-    #ifndef HW_BUILD_FOR_DISTRIBUTION
+    #ifdef HW_BUILD_FOR_DEBUGGING
     #ifdef ddunlop
     dbgMessagef("Total Internet Lag :%f",lagCalculatedTotal);
     #endif

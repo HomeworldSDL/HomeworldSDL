@@ -14,7 +14,7 @@
 /*=============================================================================
     Switches
 =============================================================================*/
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 
 #define LIGHT_ERROR_CHECKING    1               //general error checking
 #define LIGHT_VERBOSE_LEVEL     2               //print extra info

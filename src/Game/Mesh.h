@@ -26,7 +26,7 @@
 #define MESH_PRE_CALLBACK       0
 #define MESH_SURFACE_NAME_DEBUG 0
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 
 #define MESH_VERBOSE_LEVEL      1
 #define MESH_ERROR_CHECKING     1               //general error checking

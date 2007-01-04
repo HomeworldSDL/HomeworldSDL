@@ -1089,7 +1089,7 @@ void versionNumDraw(featom *atom, regionhandle region)
 
     fontPrint(pos.x0, pos.y0, versionColor, versionstr);
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
     pos.y0 += fontheight;
     fontPrint(pos.x0, pos.y0, versionColor, (char*)GLC_VENDOR);
     pos.y0 += fontheight;

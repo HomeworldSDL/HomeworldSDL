@@ -15,7 +15,7 @@
 /*=============================================================================
     Switches:
 =============================================================================*/
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 
 #define BMP_ERROR_CHECKING      1               //basic error checking
 #define BMP_VERBOSE_LEVEL       1               //control verbose printing

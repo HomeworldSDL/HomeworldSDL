@@ -16,7 +16,7 @@
     Switches:
 =============================================================================*/
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 
 #define NUMBER_TRACKING             1           //this module is enabled
 #define TRK_ERROR_CHECKING          1           //general error checking

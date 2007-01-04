@@ -1785,7 +1785,7 @@ void spHyperspaceSelectionOut(SelectCommand *selection)
             }
             growSelectClose(&clampedShips);
         }
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
         else
         {
             char warningmsg[200];
@@ -1837,7 +1837,7 @@ void spHyperspaceSelectionOutStatic(SelectCommand *selection)
                 growSelectAddShip(&singlePlayerGameInfo.ShipsToHyperspace,ship);
             }
         }
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
         else
         {
             char warningmsg[200];
@@ -2680,7 +2680,7 @@ void singlePlayerLoadNewLevel(void)
     // remove sensor weirdness if it's on
     kasfSensorsWeirdness(FALSE);
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
     if (SINGLEPLAYER_DEBUGLEVEL)
     {
         singlePlayerGameInfo.currentMission = SINGLEPLAYER_DEBUGLEVEL;

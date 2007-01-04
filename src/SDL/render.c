@@ -14,7 +14,7 @@
 #define VISIBLE_POLYS 0
 
 #ifdef khentschel
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 #define VERBOSE_SHIP_STATS  1
 #else
 #define VERBOSE_SHIP_STATS  0
@@ -26,7 +26,7 @@
 #endif
 
 #ifdef ddunlop
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 #define FONT_CHECKSPECIAL   0       // special define for testing extended characters
 #else
 #define FONT_CHECKSPECIAL   0       // turn off this function
@@ -3080,7 +3080,7 @@ dontdraw2:;
                                 }
                             }
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
                             if(spaceobj->objtype == OBJ_DerelictType)
                             if(((Derelict *)spaceobj)->derelicttype < NUM_DERELICTTYPES)
                             if (dockLines) dockDrawSalvageInfo((SpaceObjRotImpTargGuidanceShipDerelict *)spaceobj);

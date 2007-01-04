@@ -1345,14 +1345,14 @@ Ship *univCreateShip(ShipType shiptype,ShipRace shiprace,vector *shippos,struct 
 
     dbgAssertOrIgnore(playerowner != NULL);
 /*
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
     if (playerowner->race != shiprace)
     {
         dbgFatal(DBG_Loc,"Illegal race of ship for player");
     }
 #endif
 */
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
     if (!bitTest(shipstaticinfo->staticheader.infoFlags, IF_InfoLoaded))
     {                                                       //if this ships was not loaded properly
 //#ifdef gshaw
@@ -5169,7 +5169,7 @@ real32 univGetChecksum(sdword *numShipsInChecksum)
         objnode = objnode->next;
     }
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 
 #if BINNETLOG
     if ((netlogfile) && (logEnable == LOG_VERBOSE))
@@ -5967,7 +5967,7 @@ void univCheckShipState(Ship *ship)
         }
     }
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
     if (!shipsRetaliate)
     {
         return;
@@ -7092,7 +7092,7 @@ void univUpdateRenderList()
         obj = (SpaceObj *)listGetStructOfNode(objnode);
 
 #ifdef gshaw
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
         if ((obj->objtype == OBJ_AsteroidType) && (((Asteroid *)obj)->asteroidtype == Asteroid0))
         {
             dbgAssertOrIgnore(FALSE);

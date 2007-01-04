@@ -1312,7 +1312,7 @@ void FindEnemies(AIPlayer *aiplayer)
         }
     }
 */
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
     if (primaryEnemyIndex == aiplayer->player->playerIndex)
     {
         aiplayerLog((aiplayer->player->playerIndex, "Super Heap Big Warning!!!  CPU chose itself as primary enemy"));

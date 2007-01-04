@@ -24,7 +24,7 @@
 #include "StatScript.h"
 #include "Universe.h"
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 //#define FLIGHTMAN_DEBUG
 #endif
 
@@ -320,7 +320,7 @@ static FlightmanSpecificClose flightmanSpecificCloseTable[NUM_FLIGHTMANEUVERS];
     Debug:
 =============================================================================*/
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 
 #define FLIGHTMAN_TESTNUM       1
 Ship *testflightmanship = NULL;
@@ -2406,7 +2406,7 @@ void scriptSetFlightManTurnaroundCB(char *directory,char *field, FlightManProb *
     else
         shipclass = StrToShipClass(class_buffer);
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
     CheckValidTacticsClass(tactic,shipclass,field);
 #endif
 
@@ -2434,7 +2434,7 @@ void scriptSetFlightManAIPCB(char *directory,char *field,FlightManProb *dataToFi
     else
         shipclass = StrToShipClass(class_buffer);
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
     CheckValidTacticsClass(tactic,shipclass,field);
 #endif
 
@@ -2462,7 +2462,7 @@ void scriptSetFlightManEvasiveBehindCB(char *directory,char *field,FlightManProb
     else
         shipclass = StrToShipClass(class_buffer);
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
     CheckValidTacticsClass(tactic,shipclass,field);
 #endif
 
@@ -2490,7 +2490,7 @@ void scriptSetFlightManEvasiveFrontCB(char *directory,char *field,FlightManProb 
     else
         shipclass = StrToShipClass(class_buffer);
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
     CheckValidTacticsClass(tactic,shipclass,field);
 #endif
 
@@ -2518,7 +2518,7 @@ void scriptSetFlightManEvasivePureCB(char *directory,char *field,FlightManProb *
     else
         shipclass = StrToShipClass(class_buffer);
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
     CheckValidTacticsClass(tactic,shipclass,field);
 #endif
 

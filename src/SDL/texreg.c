@@ -1848,7 +1848,7 @@ void trPreLoadedTextureScale(sdword handle, sdword newWidth, sdword newHeight)
     bool bUseAlpha;
     sdword index;
 
-#ifndef HW_BUILD_FOR_DISTRIBUTION
+#ifdef HW_BUILD_FOR_DEBUGGING
 #ifdef khentschel
     __asm int 3
 #endif
