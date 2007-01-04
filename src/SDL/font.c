@@ -33,9 +33,11 @@
 //spacing between characters within a glfont page
 #define GLFONT_Y_SPACING     4
 #define GLFONT_X_SPACING     4
-//output targas for the glfont pages if !0
-#define GLFONT_OUTPUT_TARGAS 0
 
+#ifndef _MACOSX_FIX_ME // requires tga.h or equivalent
+    //output targas for the glfont pages if !0
+    #define GLFONT_OUTPUT_TARGAS 0
+#endif
 
 /*=============================================================================
     Data:
@@ -247,140 +249,6 @@ color* glfontPackOntoPage(fontheader* header, glfontheader* glfont, glfontpage* 
     return data;
 }
 
-/*-----------------------------------------------------------------------------
-    Name        : glfontRecreate
-    Description : recreate the GL font pages for the given font
-    Inputs      : header - fontheader type for the font
-    Outputs     :
-    Return      :
-----------------------------------------------------------------------------*/
-void glfontRecreate(fontheader* newHeader)
-{
-    glfontheader* glfont;
-    sdword index;
-    glfontpage* page;
-    sdword dims[4] = {64, 128, 256, 0};
-    sdword usedHeight, lastChar, lastPageChar;
-    color* data;
-    GLuint handle;
-
-    glfont = (glfontheader*)newHeader->glFont;
-
-    lastPageChar = 0;
-
-    for (glfont->numPages = 1;;)
-    {
-    PACK_PAGE:
-        //reset starting character index
-        glfontPackOntoPage(NULL, NULL, NULL, NULL, (sdword*)lastPageChar);
-        page = &glfont->page[glfont->numPages - 1];
-
-        for (index = 0;; index++)
-        {
-            if (dims[index] == 0)
-            {
-                //failure, pack at largest size then create new page
-                page->width  = 256;
-                page->height = 256;
-                data = glfontPackOntoPage(newHeader, glfont, page, &usedHeight, &lastChar);
-#if FONT_VERBOSE_LEVEL >=1
-                dbgMessagef("glfontCreate: page %d [%d.%d]",
-                            glfont->numPages, page->width, page->height);
-#endif
-
-                //update starting character index
-                lastPageChar = lastChar;
-
-                //create the GL font page
-                glGenTextures(1, &handle);
-                page->glhandle = handle;
-                glBindTexture(GL_TEXTURE_2D, handle);
-                glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
-                             page->width, page->height,
-                             0, GL_RGBA, GL_UNSIGNED_BYTE,
-                             data);
-                if (bitTest(gDevcaps, DEVSTAT_NEGXADJUST))
-                {
-                    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-                    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-                }
-                else
-                {
-                    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-                    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-                }
-                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-                memFree(data);
-
-                glfont->numPages++;
-                goto PACK_PAGE;
-            }
-
-            page->width  = dims[index];
-            page->height = dims[index];
-
-            //attempt to pack onto page
-            data = glfontPackOntoPage(newHeader, glfont, page, &usedHeight, &lastChar);
-            if (usedHeight == -1)
-            {
-                //failure, repack at larger dim
-
-                //reset starting character index
-                glfontPackOntoPage(NULL, NULL, NULL, NULL, (sdword*)lastPageChar);
-                memFree(data);
-            }
-            else
-            {
-                //success
-
-                //trim bottom of font page if not RIVA 128 (poor square only cap handling)
-                if (!bitTest(gDevcaps, DEVSTAT_NEGXADJUST))
-                {
-                    page->height = bitHighExponent2(usedHeight);
-                }
-#if FONT_VERBOSE_LEVEL >=1
-                dbgMessagef("glfontCreate: page %d [%d.%d]",
-                            glfont->numPages, page->width, page->height);
-#endif
-
-                //create the GL font page
-                glGenTextures(1, &handle);
-                page->glhandle = handle;
-                glBindTexture(GL_TEXTURE_2D, handle);
-                glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
-                             page->width, page->height,
-                             0, GL_RGBA, GL_UNSIGNED_BYTE,
-                             data);
-                if (bitTest(gDevcaps, DEVSTAT_NEGXADJUST))
-                {
-                    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-                    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-                }
-                else
-                {
-                    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-                    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-                }
-                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-                memFree(data);
-
-                goto PACK_DONE;
-            }
-        }
-    }
-
-PACK_DONE:
-
-    //1 / page.dims
-    for (index = 0; index < glfont->numPages; index++)
-    {
-        glfont->page[index].oneOverWidth  = 1.0f / (real32)glfont->page[index].width;
-        glfont->page[index].oneOverHeight = 1.0f / (real32)glfont->page[index].height;
-    }
-}
-
 #if GLFONT_OUTPUT_TARGAS
 #include "tga.h"
 static void glfontReverse(ubyte* surf, sdword height, sdword pitch)
@@ -430,8 +298,15 @@ glfontheader* glfontCreate(fontheader* header, fontheader* newHeader)
     color* data;
     GLuint handle;
 
-    glfont = memAlloc(sizeof(glfontheader), "glfont", NonVolatile);
-    memset(glfont, 0, sizeof(glfontheader));
+    if (header == NULL)  // no header to convert from => recreate font
+    {
+        glfont = (glfontheader*)newHeader->glFont;
+    }
+    else
+    {
+        glfont = memAlloc(sizeof(glfontheader), "glfont", NonVolatile);
+        memset(glfont, 0, sizeof(glfontheader));
+    }
 
     lastPageChar = 0;
 
@@ -451,8 +326,8 @@ glfontheader* glfontCreate(fontheader* header, fontheader* newHeader)
                 page->height = 256;
                 data = glfontPackOntoPage(newHeader, glfont, page, &usedHeight, &lastChar);
 #if FONT_VERBOSE_LEVEL >=1
-                dbgMessagef("glfontCreate: page %d [%d.%d]",
-                            glfont->numPages, page->width, page->height);
+                dbgMessagef("%s: %d pages [w x h = %d x %d]",
+                            __func__, glfont->numPages, page->width, page->height);
 #endif
 
                 //update starting character index
@@ -467,7 +342,10 @@ glfontheader* glfontCreate(fontheader* header, fontheader* newHeader)
                              0, GL_RGBA, GL_UNSIGNED_BYTE,
                              data);
 #if GLFONT_OUTPUT_TARGAS
-                glfontWritePage(header, glfont->numPages, page, data);
+                if (header != NULL)
+                {
+                    glfontWritePage(header, glfont->numPages, page, data);
+                }
 #endif
                 if (bitTest(gDevcaps, DEVSTAT_NEGXADJUST))
                 {
@@ -510,8 +388,8 @@ glfontheader* glfontCreate(fontheader* header, fontheader* newHeader)
                     page->height = bitHighExponent2(usedHeight);
                 }
 #if FONT_VERBOSE_LEVEL >=1
-                dbgMessagef("glfontCreate: page %d [%d.%d]",
-                            glfont->numPages, page->width, page->height);
+                dbgMessagef("%s: %d pages [w x h = %d x %d]",
+                            __func__, glfont->numPages, page->width, page->height);
 #endif
 
                 //create the GL font page
@@ -523,7 +401,10 @@ glfontheader* glfontCreate(fontheader* header, fontheader* newHeader)
                              0, GL_RGBA, GL_UNSIGNED_BYTE,
                              data);
 #if GLFONT_OUTPUT_TARGAS
-                glfontWritePage(header, glfont->numPages, page, data);
+                if (header != NULL)
+                {
+                    glfontWritePage(header, glfont->numPages, page, data);
+                }
 #endif
                 if (bitTest(gDevcaps, DEVSTAT_NEGXADJUST))
                 {
@@ -554,6 +435,18 @@ PACK_DONE:
     }
 
     return glfont;
+}
+
+/*-----------------------------------------------------------------------------
+    Name        : glfontRecreate
+    Description : recreate the GL font pages for the given font
+    Inputs      : newHeader - fontheader type for the font
+    Outputs     :
+    Return      :
+----------------------------------------------------------------------------*/
+void glfontRecreate(fontheader* newHeader)
+{
+    glfontCreate(NULL, newHeader);
 }
 
 /*-----------------------------------------------------------------------------
