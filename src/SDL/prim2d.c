@@ -360,51 +360,6 @@ void primRealRectUnion2(realrectangle *result, realrectangle *r0, realrectangle 
     result->y0 = min(result->y0, result->y1);
 }
 
-// FIXME
-void CirclePoints(int x, int y, color c, int cx, int cy)
-{
-    glColor3ub(colRed(c), colGreen(c), colBlue(c));
-    glPointSize(4.0f);
-    glBegin(GL_POINTS);
-    dbgMessagef("CirclePoints %d %d %d %d", x, y, cx, cy);
-    glVertex2i(x + cx, y + cy);
-    glVertex2i(y + cx, x + cy);
-    glVertex2i(y + cx, -x + cy);
-    glVertex2i(x + cx, -y + cy);
-    glVertex2i(-x + cx, -y + cy);
-    glVertex2i(-y + cx, x + cy);
-    glVertex2i(-x + cx, y + cy);
-    glEnd();
-    glPointSize(1.0f);
-}
-
-// FIXME
-void primCircleSegment(uword cx, uword cy, uword r, color c)
-{
-    int x, y;
-    real32 d;
-
-    x = 0;
-    y = r;
-    d = (real32)5/(real32)4 - (real32)r;
-    CirclePoints(x, y, c, cx, cy);
-    while (y > x)
-    {
-        if (d < 0)
-        {
-            d = d + 2*x + 3;
-            x++;
-        }
-        else
-        {
-            d = d + 2*(x-y) + 5;
-            x++;
-            y--;
-        }
-        CirclePoints(x, y, c, cx, cy);
-    }
-}
-
 /*-----------------------------------------------------------------------------
     Name        : primOvalArcOutline2
     Description : Draw an outline section of an oval.
