@@ -154,7 +154,7 @@ extern char mainD3DToSelect[];
 
 udword regMagicNum = 0;
 char   regLanguageVersion[50];
-char   regDataEnvironment[PATH_MAX];
+char   regDataEnvironment[PATH_MAX] = "";
 
 typedef struct registryOption
 {
@@ -3870,7 +3870,7 @@ char* utyGameSystemsPreInit(void)
     // Set file search path
     if (FilePathPrepended == FALSE)
     {
-        if ((dataEnvironment = getenv("HW_Data") ? getenv("HW_Data") : regDataEnvironment) != NULL)
+        if ((dataEnvironment = getenv("HW_Data") ? getenv("HW_Data") : regDataEnvironment)[0] != '\0')
         {
             filePrependPathSet(dataEnvironment);
             utySet(SSA_FilePrepend);
@@ -3910,7 +3910,7 @@ char* utyGameSystemsPreInit(void)
 #ifdef _WIN32
 		// Use the same directory as the Homeworld data (similar to the
 		// functionality in the original Homeworld).
-		if ((dataEnvironment = getenv("HW_Data") ? getenv("HW_Data") : regDataEnvironment) != NULL)
+		if ((dataEnvironment = getenv("HW_Data") ? getenv("HW_Data") : regDataEnvironment)[0] != '\0')
 		{
 			fileUserSettingsPathSet(dataEnvironment);
 		}
@@ -3927,7 +3927,7 @@ char* utyGameSystemsPreInit(void)
 			snprintf(tempPath, PATH_MAX, "%s/" CONFIGDIR, dataEnvironment);
 			fileUserSettingsPathSet(tempPath);
 		}
-		else if ((dataEnvironment = getenv("HW_Data")  ? getenv("HW_Data") : regDataEnvironment) != NULL)
+		else if ((dataEnvironment = getenv("HW_Data")  ? getenv("HW_Data") : regDataEnvironment)[0] != '\0')
 		{
 			fileUserSettingsPathSet(dataEnvironment);
 		}
@@ -4140,7 +4140,7 @@ char* utyGameSystemsPreInit(void)
             char *searchPath = defaultSearchPath;
 
             dataEnvironment = getenv("HW_Data") ? getenv("HW_Data") : regDataEnvironment;
-            if (dataEnvironment != NULL)
+            if (dataEnvironment[0] != '\0')
             {
                 searchPath = dataEnvironment;
             }
