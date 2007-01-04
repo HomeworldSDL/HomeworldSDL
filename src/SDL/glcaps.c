@@ -43,20 +43,22 @@ static sdword glCapTexFormat[] =
     0, 0,
 };
 
-static bool glCapVertexArray;
-static bool glCapPointSmooth;
-static bool glCapLineSmooth;
-static bool glCapPointSize;
-static bool glCapDoubleBuffer;
-static bool glCapSwapFriendly;
-static bool glRescaleNormal;
-static bool glPalettedTexture;
-static bool glSharedTexturePalette;
-static bool glLitTexturePalette;
-static bool glCompiledVertexArrays;
-static bool glClippingHint;
-bool glNT;
-bool gl95;
+static bool glCapVertexArray       = FALSE;
+static bool glCapPointSmooth       = FALSE;
+static bool glCapLineSmooth        = FALSE;
+static bool glCapPointSize         = FALSE;
+static bool glCapDoubleBuffer      = FALSE;
+static bool glCapSwapFriendly      = FALSE;
+static bool glRescaleNormal        = FALSE;
+static bool glPalettedTexture      = FALSE;
+static bool glSharedTexturePalette = FALSE;
+static bool glLitTexturePalette    = FALSE;
+static bool glCompiledVertexArrays = FALSE;
+static bool glClippingHint         = FALSE;
+
+bool glNT = FALSE;
+bool gl95 = FALSE;
+
 GLenum glCapDepthFunc;
 
 int NULL_rglINT(void)
@@ -809,12 +811,8 @@ void glCapStartup(void)
     else
     {
         //determine double buffering support
-#ifndef _MACOSX_FIX_ME
         glGetIntegerv(GL_DOUBLEBUFFER, &param);
         glCapDoubleBuffer = param ? TRUE : FALSE;
-#else
-		glCapDoubleBuffer = TRUE;
-#endif
 
         //recommended depthbuffer function
         glCapDepthFunc = GL_LEQUAL;
