@@ -29,6 +29,7 @@
 #include "AutoDownloadMap.h"
 #include "LagPrint.h"
 #include "Sensors.h"
+#include "Formation.h"
 
 /*=============================================================================
     Private Defines:
@@ -885,7 +886,7 @@ void clSendFormation(CommandLayer *comlayer,SelectCommand *selectcom,TypeOfForma
 
     if (selectcom->numShips < ABSOLUTE_MIN_SHIPS_IN_FORMATION)
     {
-#ifdef DEBUG_FORMATIONS
+#if DEBUG_FORMATIONS
         dbgMessage("Not enough ships to do a formation");
 #endif
         return;

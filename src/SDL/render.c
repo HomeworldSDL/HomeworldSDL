@@ -6,38 +6,6 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifdef gshaw
-//#define DEBUG_COLLISIONS
-#endif
-
-#define RND_DOCKLIGHT_TWEAK 0
-#define VISIBLE_POLYS 0
-
-#ifdef khentschel
-#ifdef HW_BUILD_FOR_DEBUGGING
-#define VERBOSE_SHIP_STATS  1
-#else
-#define VERBOSE_SHIP_STATS  0
-#endif
-#define DISPLAY_LOD_SCALE   1
-#else
-#define VERBOSE_SHIP_STATS  0
-#define DISPLAY_LOD_SCALE   1
-#endif
-
-#ifdef ddunlop
-#ifdef HW_BUILD_FOR_DEBUGGING
-#define FONT_CHECKSPECIAL   0       // special define for testing extended characters
-#else
-#define FONT_CHECKSPECIAL   0       // turn off this function
-#endif
-#endif
-
-#define SHOW_TRAIL_STATS      0
-#define RND_WILL_PANIC        0
-#define USE_RND_HINT          0
-#define WILL_TWO_PASS         0
-#define DISABLE_RANDOM_STARS  0     // turn off drawing of random stars over background
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -116,6 +84,25 @@
 #if defined _MSC_VER
 	#define isnan(x) _isnan(x)
 #endif
+
+#ifdef HW_BUILD_FOR_DEBUGGING
+
+#define DEBUG_COLLISIONS      0
+#define DISPLAY_LOD_SCALE     0
+#define FONT_CHECKSPECIAL     0     // special define for testing extended characters
+#define RND_DOCKLIGHT_TWEAK   0
+#define VERBOSE_SHIP_STATS    0
+#define VISIBLE_POLYS         0
+
+#endif
+
+#define SHOW_TRAIL_STATS      0
+#define RND_WILL_PANIC        0
+#define USE_RND_HINT          0
+#define WILL_TWO_PASS         0
+#define DISABLE_RANDOM_STARS  0     // turn off drawing of random stars over background
+
+
 
 bool8 rndFogOn = FALSE;
 
@@ -2019,9 +2006,7 @@ void rndPostRenderDebug2DStuff(Camera *camera)
 #endif
 
 #if RND_SCALECAP_TWEAK
-#ifndef khentschel
     fontPrint(0, 0, colWhite, scaleCapString);
-#endif
 #endif
 
 #if SHOW_TRAIL_STATS
@@ -2612,7 +2597,7 @@ dontdraw2:;
                         selCircleCompute(&rndCameraMatrix, &rndProjectionMatrix, (SpaceObjRotImpTarg *)spaceobj);//compute selection circle
 
 #if RND_VISUALIZATION
-    #ifdef DEBUG_COLLISIONS
+    #if DEBUG_COLLISIONS
                         collDrawCollisionInfo((SpaceObjRotImp *)spaceobj);
     #else
                         if (RENDER_BOXES)
@@ -3032,7 +3017,7 @@ dontdraw2:;
                     selCircleCompute(&rndCameraMatrix, &rndProjectionMatrix, (SpaceObjRotImpTarg *)spaceobj);//compute selection circle
 
 #if RND_VISUALIZATION
-#ifdef DEBUG_COLLISIONS
+#if DEBUG_COLLISIONS
                     collDrawCollisionInfo((SpaceObjRotImp *)spaceobj);
 #else
                     if (RENDER_BOXES)
@@ -3468,10 +3453,6 @@ void rndShamelessPlug()
     GLfloat   projection[16];
     GLfloat   winWidth, winHeight;
 
-#ifdef fpoiker
-    return;
-#endif
-
 #if RND_PLUG_DISABLEABLE
     if (!rndShamelessPlugEnabled)
     {
@@ -3799,7 +3780,7 @@ void rndDrawOnScreenDebugInfo(void)
 
         fontPrintf(0,y += 20,colWhite, "Ships Avoiding Stuff:%d   Avoided Walks:%d   Avoided Checks:%d",
                    shipsavoidingstuff,shipsavoidedwalks,shipsavoidedchecks);
-#ifdef BOB_STATS
+#if BOB_STATS
         if (bobStats.statsValid)
         {
             sdword timeDuration = bobStats.timeDuration / (1000L);
@@ -3809,7 +3790,7 @@ void rndDrawOnScreenDebugInfo(void)
                        bobStats.numChecks, bobStats.trivialRejects, bobStats.initialBlobs, bobStats.finalBlobs);
         }
 #endif
-#ifdef AISHIP_STATS
+#if AISHIP_STATS
         aishipStatsPrint(&y);
 #endif
     }

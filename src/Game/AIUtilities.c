@@ -3726,14 +3726,13 @@ bool aiuFindArmadaTarget(vector *dest_target, SelectCommand **sel_target, Select
     }
     else if (aiCurrentAIPlayer->primaryEnemyPlayer->PlayerMothership)
     {
-#ifndef fpoiker
         if (mothership_blob == NULL)
         {
             aiplayerLog((aiIndex,"Error - mothership blob is NULL... "));
             *sel_target = NULL;
             return FALSE;       // safety
         }
-#endif
+
 		*dest_target = mothership_blob->centre;
 
 		// postfinal: instead of just returning the enemy Mothership

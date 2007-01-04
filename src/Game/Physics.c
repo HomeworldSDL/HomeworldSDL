@@ -25,9 +25,7 @@
 #define UPDATE_COLLRECT_RATE    3
 #define UPDATE_COLLRECT_FRAME   3
 
-#ifdef gshaw
-//#define TEST_FUEL
-#endif
+#define TEST_FUEL 0
 
 /*-----------------------------------------------------------------------------
     Name        : physApplyForceToObj
@@ -361,9 +359,9 @@ void physUpdateObjPosVel(SpaceObj *obj,real32 phystimeelapsed)
                             ((Ship *)obj)->fuel -= shipstaticinfo->fuelburnrate * getVectDistSloppy(d); //fsqrt(vecMagnitudeSquared(d));//*burnmult;
                         }
                     }
-    #ifdef TEST_FUEL
+#if TEST_FUEL
                     dbgMessagef("Fuel %f for Ship %x",((Ship *)obj)->fuel,(udword)obj);
-    #endif
+#endif
 
                     if (((Ship *)obj)->playerowner == universe.curPlayerPtr)
                     {
@@ -644,7 +642,7 @@ void physUpdateObjPosVelShip(Ship *obj,real32 phystimeelapsed)
                             ((Ship *)obj)->fuel -= shipstaticinfo->fuelburnrate * getVectDistSloppy(d); //fsqrt(vecMagnitudeSquared(d));//*burnmult;
                         }
                     }
-#ifdef TEST_FUEL
+#if TEST_FUEL
                     dbgMessagef("Fuel %f for Ship %x",((Ship *)obj)->fuel,(udword)obj);
 #endif
 

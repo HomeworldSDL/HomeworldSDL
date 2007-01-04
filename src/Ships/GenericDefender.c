@@ -25,9 +25,7 @@
 #include "Physics.h"
 #include "GenericInterceptor.h"
 
-#ifdef gshaw
-#define DEBUG_DEFENDER
-#endif
+#define DEBUG_DEFENDER 0
 
 //local prototypes
 bool kamikazeAttack(Ship *ship,SelectAnyCommand *targets);
@@ -134,7 +132,7 @@ void GenericDefenderAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdist)
                 aishipFlyToShipAvoidingObjsWithVel(ship,target,AISHIP_FastAsPossible|AISHIP_PointInDirectionFlying,0.0f,&target->posinfo.velocity);
                 break;
             }
-#ifdef DEBUG_DEFENDER
+#if DEBUG_DEFENDER
             dbgMessagef("%x Changing to circle",ship);
 #endif
             ship->aistateattack = DEFENDER_CIRCLE;
@@ -146,7 +144,7 @@ void GenericDefenderAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdist)
             range = RangeToTargetGivenDist(ship,target,dist);
             if (range > newrange)
             {
-#ifdef DEBUG_DEFENDER
+#if DEBUG_DEFENDER
             dbgMessagef("%x Changing back to approach",ship);
 #endif
                 ship->aistateattack = DEFENDER_APPROACH;

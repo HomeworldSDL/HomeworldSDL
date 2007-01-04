@@ -2301,20 +2301,6 @@ void singlePlayerGameUpdate()
     sdword value;
     static real32 hyperspaceStartTime;
 
-#ifdef gshaw
-    if (triggerNIS)
-    {
-        hvector startpoint;
-        char *nis, *script;
-        bool centre;
-
-        GetStartPointPlayer(&startpoint);
-        singlePlayerNISNamesGet(&nis, &script, &centre, 2);
-        singlePlayerStartNis(nis, script, centre, &startpoint);
-        triggerNIS = FALSE;
-    }
-#endif
-
     //play an nis when the time is right
     if (nisVariable)
     {

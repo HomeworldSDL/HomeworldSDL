@@ -2882,9 +2882,7 @@ udword uicListWindowProcess(regionhandle region, sdword ID, udword event, udword
     {
         case RPE_KeyDown:
             mask |= RPR_Redraw;
-/*#if ddunlop
-            dbgMessagef("uicListWindowProcess:  key pressed: 0x%x, '%c'", data, data);
-#endif*/
+
             switch (data)
             {
                 case ESCKEY:
@@ -2939,10 +2937,6 @@ udword uicListWindowProcess(regionhandle region, sdword ID, udword event, udword
                     feFunctionExecute(((featom *)region->atom)->name, region->atom, FALSE);
                     break;
 
-/*#if ddunlop
-                default:
-                    dbgMessagef(" (unprocessed)");
-#endif*/
             }
             break;
 

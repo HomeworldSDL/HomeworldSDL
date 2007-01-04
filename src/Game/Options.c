@@ -2225,9 +2225,6 @@ udword opNumEffectsProcess(regionhandle reg, sdword ID, udword event, udword dat
     sliderhandle shandle = (sliderhandle)atom->region;
 
     opNumEffects = shandle->value;
-#ifdef ddunlop
-    dbgMessagef("Number of Effects: %u", opNumEffects + etgHistoryScalarMin);
-#endif
     etgHistoryScalar = opNumEffects + etgHistoryScalarMin;
     return (0);
 }

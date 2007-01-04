@@ -464,9 +464,7 @@ void primErrorMessagePrintFunction(char *file, sdword line)
         }
         else
         {
-//#ifndef khentschel
             if (RGLtype != GLtype)
-//#endif
             {
                 dbgWarningf(file, line, "glGetError returned '%s'", rgluErrorString(errorEnum));
 			}

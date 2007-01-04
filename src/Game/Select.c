@@ -37,10 +37,7 @@
 #include "Tutor.h"
 #include "mainrgn.h"
 
-
-#ifdef gshaw
-//#define DEBUG_COLLSPHERES
-#endif
+#define DEBUG_COLLISION_SPHERES 0
 
 /*=============================================================================
     Data:
@@ -1195,7 +1192,7 @@ void selCircleComputeGeneral(hmatrix *modelView, hmatrix *projection, vector *lo
     *destRadius = (radiusProjected.x - screenSpace.x) / screenSpace.w;
 }
 
-#ifdef DEBUG_COLLSPHERES
+#if DEBUG_COLLISION_SPHERES
 /*-----------------------------------------------------------------------------
     Name        : selSelectionDraw0..5
     Description : Draw a particular ship's selection circle at a given
@@ -2068,7 +2065,7 @@ void selStatusDrawNULL(Ship *ship)
 typedef void (*seldrawfunction)(Ship *ship);
 seldrawfunction selStatusDraw[SEL_NumberLOD] =
 {
-#ifdef DEBUG_COLLSPHERES
+#if DEBUG_COLLISION_SPHERES
     selSelectionDraw5,
     selSelectionDraw5,
     selSelectionDraw5,

@@ -33,11 +33,7 @@
 #include "Randy.h"
 #include "ProfileTimers.h"
 
-#ifdef gshaw
 #define DEBUG_AISHIP    0
-#else
-#define DEBUG_AISHIP    0
-#endif
 
 #define PAD_AROUND_SMALLEST_SHIP    1
 
@@ -49,7 +45,7 @@ bool isCapitalShipStaticOrBig(ShipStaticInfo *shipstatic);
     AIShip Stats (optional)
 =============================================================================*/
 
-#ifdef AISHIP_STATS
+#if AISHIP_STATS
 AIshipStats aishipStats = { 0,0,0,0,0,0.0f, 0, {0.0f, 0.0f, 0.0f } };
 #endif
 
@@ -215,7 +211,7 @@ static void scriptAIShipPrecalculate(char *directory,char *field,void *dataToFil
     NEG_AVOID_MIN_VEL = -AVOID_MIN_VEL;
 }
 
-#ifdef AISHIP_STATS
+#if AISHIP_STATS
 void aishipStatsInitFunc(Ship *ship)
 {
     if (selSelected.numShips > 0 && (ship == selSelected.ShipPtr[0]))

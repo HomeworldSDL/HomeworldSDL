@@ -3083,7 +3083,7 @@ void clFormation(CommandLayer *comlayer,SelectCommand *selectcom,TypeOfFormation
 
     if (selectcom->numShips < ABSOLUTE_MIN_SHIPS_IN_FORMATION)
     {
-#ifdef DEBUG_FORMATIONS
+#if DEBUG_FORMATIONS
         dbgMessage("Not enough ships to do a formation");
 #endif
         return;
@@ -3100,7 +3100,7 @@ void clFormation(CommandLayer *comlayer,SelectCommand *selectcom,TypeOfFormation
         {
             if (alreadyformation->formation.formationtype == formation)
             {
-#ifdef DEBUG_FORMATIONS
+#if DEBUG_FORMATIONS
         dbgMessage("Already gave that formation order");
 #endif
                 return;
@@ -3117,7 +3117,7 @@ void clFormation(CommandLayer *comlayer,SelectCommand *selectcom,TypeOfFormation
                 formationTypeHasChanged(alreadyformation);
 
                 PrepareShipsForCommand(alreadyformation,TRUE);
-#ifdef DEBUG_FORMATIONS
+#if DEBUG_FORMATIONS
         dbgMessage("Changing formation");
 #endif
                 return;
@@ -3149,7 +3149,7 @@ void clFormation(CommandLayer *comlayer,SelectCommand *selectcom,TypeOfFormation
 
     majorityshipsare = MajorityShipsAreDoing(selectcom,&majorityshipsmoveto,&majorityshipsattacking);
 
-#ifdef DEBUG_FORMATIONS
+#if DEBUG_FORMATIONS
     dbgMessage("Received Order to do formation");
 #endif
 

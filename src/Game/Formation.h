@@ -12,6 +12,8 @@
     Defines:
 =============================================================================*/
 
+#define DEBUG_FORMATIONS 0
+
 #define MIN_SHIPS_IN_FORMATION 2
 #define ABSOLUTE_MIN_SHIPS_IN_FORMATION 1
 

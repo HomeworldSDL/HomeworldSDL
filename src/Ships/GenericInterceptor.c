@@ -33,9 +33,7 @@
 #include "Randy.h"
 #include "Battle.h"
 
-#ifdef gshaw
-//#define DEBUG_AIATTACK
-#endif
+#define DEBUG_INTERCEPTOR 0
 
 typedef struct
 {
@@ -676,7 +674,7 @@ void GenericInterceptorAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdi
             break;
 
         case STATE_APPROACH:
-#ifdef DEBUG_AIATTACK
+#if DEBUG_INTERCEPTOR
             dbgMessagef("Ship %x STATE_APPROACH",(udword)ship);
 #endif
             aishipGetTrajectory(ship,target,&trajectory);
@@ -691,7 +689,7 @@ void GenericInterceptorAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdi
             break;
 
         case STATE_TURNAROUND:
-#ifdef DEBUG_AIATTACK
+#if DEBUG_INTERCEPTOR
             dbgMessagef("Ship %x STATE_TURNAROUND",(udword)ship);
 #endif
             if (flightmanExecute(ship))
@@ -702,7 +700,7 @@ void GenericInterceptorAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdi
             break;
 
         case STATE_REAPPROACH:
-#ifdef DEBUG_AIATTACK
+#if DEBUG_INTERCEPTOR
             dbgMessagef("Ship %x STATE_REAPPROACH",(udword)ship);
 #endif
             aishipGetTrajectory(ship,target,&trajectory);
@@ -717,7 +715,7 @@ void GenericInterceptorAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdi
             break;
 
         case STATE_WHIPSTRAFE1:
-#ifdef DEBUG_AIATTACK
+#if DEBUG_INTERCEPTOR
             dbgMessagef("Ship %x STATE_WHIPSTRAFE1",(udword)ship);
 #endif
 //            dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_WHIP_STRAFE);
@@ -758,7 +756,7 @@ void GenericInterceptorAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdi
             break;
 
         case STATE_WHIPSTRAFE2:
-#ifdef DEBUG_AIATTACK
+#if DEBUG_INTERCEPTOR
             dbgMessagef("Ship %x STATE_WHIPSTRAFE2",(udword)ship);
 #endif
 //            dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_WHIP_STRAFE);
@@ -789,7 +787,7 @@ void GenericInterceptorAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdi
             break;
 
         case STATE_KILL:
-#ifdef DEBUG_AIATTACK
+#if DEBUG_INTERCEPTOR
             dbgMessagef("Ship %x STATE_KILL",(udword)ship);
 #endif
             if (shipstaticinfo->gunStaticInfo)
@@ -961,7 +959,7 @@ void GenericInterceptorAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdi
             break;
 
         case STATE_BREAK:
-#ifdef DEBUG_AIATTACK
+#if DEBUG_INTERCEPTOR
             dbgMessagef("Ship %x STATE_BREAK",(udword)ship);
 #endif
             aishipGetTrajectory(ship,target,&trajectory);

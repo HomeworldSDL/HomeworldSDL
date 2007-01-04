@@ -38,10 +38,6 @@
 //#define ROTSPEED_FACTOR     20
 //#define ROTACCEL_FACTOR     100
 
-#ifdef ddunlop
-#define DEBUG_FRIGATEATTACK
-#endif
-
 typedef struct
 {
     real32 aiattacklast;        // time stamp for spin up and down time count
@@ -104,6 +100,7 @@ void P2MultiBeamFrigateAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdi
 {
 	P2MultiBeamFrigateAttackDoAttack(ship,target,maxdist,FALSE);
 }
+
 void P2MultiBeamFrigateAttackDoAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdist,bool PassiveAttack)
 
 {
@@ -157,141 +154,6 @@ void P2MultiBeamFrigateAttackDoAttack(Ship *ship,SpaceObjRotImpTarg *target,real
 			P2MultiBeamFrigateFire(ship,target);
 		}
     }
-
-/*  OLD SCHOOL CODE  */
-
-    /*
-    switch (ship->aistateattack)
-    {
-        case STATE_INIT:
-            // deliberatly fall through to state_approach
-//            spec->steady = FALSE;
-            ship->aistateattack=STATE_APPROACH;
-        case STATE_APPROACH:
-#ifdef DEBUG_FRIGATEATTACK
-            dbgMessagef("Ship %x STATE_APPROACH", (udword)ship);
-#endif
-            if (spec->spining)
-            {
-                ship->aistateattack = STATE_SPINDOWN;
-                break;
-            }
-
-            aishipGetTrajectory(ship, target, &trajectory);
-
-            range = RangeToTarget(ship,target,&trajectory);
-
-            if (range < frigstat->MultiBeamRange[ship->tacticstype] || PassiveAttack)
-            {
-                temp = trajectory;
-                temp.z+=5;
-                temp.y+=5;
-                temp.x+=5;
-
-                //vecCrossProduct(heading,trajectory,temp);
-
-                //vecNormalize(&heading);
-                vecNormalize(&trajectory);
-
-				if(!PassiveAttack)
-				{
-					aitrackZeroVelocity(ship);
-				}
-
-
-                if (aitrackHeadingWithFlags(ship,&trajectory,0.99f,AITRACKHEADING_IGNOREUPVEC))
-                {
-                    ship->aistateattack = STATE_SPINUP;
-                    //get up vector
-                    matGetVectFromMatrixCol1(temp,ship->rotinfo.coordsys);
-                    aitrackForceHeading(ship,&trajectory,&temp);
-                }
-            }
-            else
-            {
-				aishipFlyToShipAvoidingObjs(ship,target,AISHIP_PointInDirectionFlying + AISHIP_CarTurn,0.0f);
-			}
-            break;
-        case STATE_SPINUP:
-#ifdef DEBUG_FRIGATEATTACK
-            dbgMessagef("Ship %x STATE_SPINUP", (udword)ship);
-#endif
-            desiredrotspeed = frigstat->AttackRotationSpeed;
-
-			if(!PassiveAttack)
-			{
-				aitrackZeroVelocity(ship);
-			}
-            aitrackHeadingAndUp(ship,&heading,&shipRightVec,0.99f);
-
-			if (aitrackRotationSpeed(ship,desiredrotspeed,ROT_ABOUTZCCW))
-            {
-                ship->aistateattack = STATE_FIRE;
-                spec->spining = TRUE;
-                spec->aifirestarttime = universe.totaltimeelapsed + frigstat->BeamFireTime;
-            }
-
-            break;
-        case STATE_FIRE:
-#ifdef DEBUG_FRIGATEATTACK
-            dbgMessagef("Ship %x STATE_FIRE", (udword)ship);
-#endif
-            shipstaticinfo->custshipheader.CustShipFire(ship, target);
-
-            if(!PassiveAttack)
-			{
-				aitrackZeroVelocity(ship);
-			}
-			aishipGetTrajectory(ship,target,&trajectory);
-
-            range = RangeToTarget(ship,target,&trajectory);
-
-            if (range > frigstat->MultiBeamRange[ship->tacticstype])
-                ship->aistateattack = STATE_INIT;
-
-            temp = trajectory;
-            temp.z+=5;
-            temp.y+=5;
-            temp.x+=5;
-
-            vecCrossProduct(heading,trajectory,temp);
-
-            vecNormalize(&heading);
-            vecNormalize(&trajectory);
-
-            //if (aitrackHeadingWithFlags(ship,&heading,0.99f,AITRACKHEADING_IGNOREUPVEC))
-          //  {
-        //        ship->aistateattack = STATE_INIT;
-      //      }
-            desiredrotspeed = frigstat->AttackRotationSpeed;
-            aitrackRotationSpeed(ship,desiredrotspeed,ROT_ABOUTZCCW);
-
-			if(universe.totaltimeelapsed > spec->aifirestarttime)
-			{
-                //fire time up!  start spindown
-				ship->aistateattack = STATE_SPINDOWN;
-				spec->aifirestarttime = universe.totaltimeelapsed + frigstat->fireDownTime;
-			}
-            break;
-        case STATE_SPINDOWN:
-#ifdef DEBUG_FRIGATEATTACK
-            dbgMessagef("Ship %x STATE_SPINDOWN", (udword)ship);
-#endif
-            desiredrotspeed = 0;
-
-            if(!PassiveAttack)
-			{
-				aitrackZeroVelocity(ship);
-			}
-			if (aitrackRotationSpeed(ship,desiredrotspeed,ROT_ABOUTZCCW) &&
-				universe.totaltimeelapsed > spec->aifirestarttime)
-            {
-                ship->aistateattack = STATE_INIT;
-                spec->spining = FALSE;
-            }
-            break;
-    }
-    */
 }
 
 void P2MultiBeamFrigateFire(Ship *ship,SpaceObjRotImpTarg *target)

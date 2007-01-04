@@ -556,34 +556,19 @@ sdword soundplayFPRVL(sword patnum, real32 freq, sword pan, sdword priority, swo
 		freq = 1.0f;
 	}
 
-#ifdef salfreds
-	dbgAssertOrIgnore(patnum >= 0);
-#else
 	if ((pan < SOUND_PAN_LEFT) || (pan > SOUND_PAN_RIGHT))
 	{
 		return (handle);
 	}
-#endif
 
 	ppatch = &patches[patnum];
 
-#if 0
-	if (ppatch->dataoffset == NULL)
-	{
-		return (handle);
-	}
-#endif
-
 	channel = SNDgetchannel(patnum, priority);
 
-#ifdef salfreds
-    dbgAssertOrIgnore(channel >= 0);
-#else
 	if (channel < SOUND_OK)
 	{
 		return (handle);
 	}
-#endif
 
 	/* create handle here */
 	handle = SNDcreatehandle(channel);

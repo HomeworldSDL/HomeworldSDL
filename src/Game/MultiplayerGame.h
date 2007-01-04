@@ -428,10 +428,6 @@ enum
 
 };
 
-#ifdef gshaw
-#define NEED_MIN_TWO_HUMAN_PLAYERS  0
-#else
 #define NEED_MIN_TWO_HUMAN_PLAYERS  1
-#endif
 
 #endif

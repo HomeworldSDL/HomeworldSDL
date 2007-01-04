@@ -380,14 +380,6 @@ sdword soundstreamqueuePatch(sdword streamhandle, sdword filehandle, sdword offs
 	PATCH *ppatch;
 	STREAMQUEUE *pqueue;
 
-	// make sure the damn offset is valid.
-#ifdef salfreds
-	if (!(flags & SOUND_FLAGS_QUEUESILENCE))
-	{
-		dbgAssertOrIgnore(offset >= 0);
-	}
-#endif
-
 	if (streamer.status == SOUND_STOPPING)
 	{
 		return (SOUND_ERR);

@@ -1176,11 +1176,11 @@ sdword SENextVariationInSeries(sdword numVariations, sdword *lookupsy, sdword wi
     interp->high[0] = (sequence >> 16) & 0xff;
     interp->low[1] = (sequence >> 8) & 0xff;
     interp->low[0] = (sequence) & 0xff;
-#ifdef lmoloney
+
 #if SE_VERBOSE_LEVEL >= 1
     dbgMessagef("Selected variation %d of %d for event at 0x%x of width %d", iVariation, numVariations, lookupsy, width);
 #endif
-#endif
+
     return(iVariation);                                     //return the variation we've found
 }
 

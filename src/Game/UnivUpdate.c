@@ -312,12 +312,7 @@ void IDToPtrTableAdd(IDToPtrTable *table,uword ID,SpaceObj *obj)
     if (ID >= table->numEntries)
     {
         sdword newnumber = table->numEntries+IDTOPTR_GROWBATCH;
-#ifdef gshaw
-        if (ID > (table->numEntries+1))
-        {
-            _asm int 3
-        }
-#endif
+
         if (table->objptrs)
         {
             table->objptrs = memRealloc(table->objptrs,sizeof(SpaceObjPtr) * newnumber,"idtoptrs",0);
@@ -654,9 +649,10 @@ Derelict *univAddHyperspaceGateAsDerelict(hvector *posAndRotation)
     Derelict *derelict = univAddDerelict(HyperspaceGate,(vector *)posAndRotation);
     univRotateObjYaw((SpaceObjRot *)derelict,posAndRotation->w);
     bitSet(derelict->flags,SOF_NotBumpable|SOF_DontApplyPhysics);
-#ifdef gshaw
+
+    // debug
     //bitSet(derelict->flags,SOF_ForceVisible);
-#endif
+
     return derelict;
 }
 
@@ -1344,25 +1340,11 @@ Ship *univCreateShip(ShipType shiptype,ShipRace shiprace,vector *shippos,struct 
     ubyte *extraPointer;
 
     dbgAssertOrIgnore(playerowner != NULL);
-/*
-#ifdef HW_BUILD_FOR_DEBUGGING
-    if (playerowner->race != shiprace)
-    {
-        dbgFatal(DBG_Loc,"Illegal race of ship for player");
-    }
-#endif
-*/
+
 #ifdef HW_BUILD_FOR_DEBUGGING
     if (!bitTest(shipstaticinfo->staticheader.infoFlags, IF_InfoLoaded))
     {                                                       //if this ships was not loaded properly
-//#ifdef gshaw
         dbgFatalf(DBG_Loc,"\n%s\\%s was not loaded properly - stubbing out.", ShipRaceToStr(shiprace), ShipTypeToStr(shiptype));
-//#endif
-        dbgMessagef("%s\\%s was not loaded properly - stubbing out.", ShipRaceToStr(shiprace), ShipTypeToStr(shiptype));
-        universeForceDefaultShip = TRUE;
-        InitStatShipInfo(shipstaticinfo, shiptype, shiprace);
-        bitSet(shipstaticinfo->staticheader.infoFlags, IF_InfoLoaded);
-        universeForceDefaultShip = FALSE;
     }
 #endif
     if ((sizespec = shipstaticinfo->custshipheader.sizeofShipSpecifics) != 0)
@@ -7017,10 +6999,6 @@ void univUpdateMinorRenderList()
     {
         obj = (SpaceObj *)listGetStructOfNode(objnode);
 
-#ifdef gshaw
-        dbgAssertOrIgnore((obj->objtype == OBJ_AsteroidType) && (((Asteroid *)obj)->asteroidtype == Asteroid0));
-#endif
-
         vecSub(distvec,lookatposition,obj->posinfo.position);
         distsqr = vecMagnitudeSquared(distvec);
 
@@ -7090,15 +7068,6 @@ void univUpdateRenderList()
     while (objnode != NULL)
     {
         obj = (SpaceObj *)listGetStructOfNode(objnode);
-
-#ifdef gshaw
-#ifdef HW_BUILD_FOR_DEBUGGING
-        if ((obj->objtype == OBJ_AsteroidType) && (((Asteroid *)obj)->asteroidtype == Asteroid0))
-        {
-            dbgAssertOrIgnore(FALSE);
-        }
-#endif
-#endif
 
         vecSub(distvec,lookatposition,obj->posinfo.position);
         distsqr = vecMagnitudeSquared(distvec);

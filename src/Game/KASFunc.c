@@ -3420,15 +3420,6 @@ void kasfOpenSensors(sdword flag)
 
 void kasfCloseSensors(sdword flag)
 {
-    /*
-#ifdef gshaw
-    if (smFleetIntel != TRUE)
-    {
-        return;
-    }
-#endif
-    dbgAssertOrIgnore(smFleetIntel==TRUE);
-    */
     if ((smSensorsActive) && (!smZoomingIn) && (!smZoomingOut))
     {
         if (kasStoreSMInitialDistance)
@@ -3442,7 +3433,6 @@ void kasfCloseSensors(sdword flag)
         smSensorsClose(NULL, NULL);
         smFleetIntel = FALSE;
     }
-
 }
 
 sdword kasfSensorsIsOpen(sdword flag)

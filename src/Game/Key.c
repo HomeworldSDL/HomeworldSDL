@@ -78,13 +78,11 @@ void keyPressDown(udword key)
 
 
 	originalKey = keySaveScan[key];
+    
 #if KEY_ERROR_CHECKING
     dbgAssertOrIgnore(key < KEY_TOTAL_KEYS);
-#endif
-#ifdef gshaw
     dbgMessagef("Key pressed = %d",key);
 #endif
-
 
     if (opKeyDetour)
     {

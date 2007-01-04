@@ -24,7 +24,7 @@
 #include "TimeoutTimer.h"
 #include "SinglePlayer.h"
 
-#ifdef BOB_STATS
+#if BOB_STATS
 
 BobStats bobStats = { 0,0,0,0,0,0,0,0,0,0,0 };
 

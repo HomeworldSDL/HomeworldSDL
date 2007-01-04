@@ -339,14 +339,7 @@ bool madBindingListCallback(meshdata *mesh, polygonobject *object, sdword iObjec
             }
         }
     }
-/*
-#if MAD_ERROR_CHECKING
-#ifndef gshaw
-    //couldn't find named object in the animation
-    dbgMessagef("object '%s' from '%s' not found in animation.", object->pName, mesh->fileName);
-#endif
-#endif
-*/
+
     madBindingDest->userData = madDupeShip;                 //pass in pointer to ship
     madBindingDest->function = NULL;                       //object not in animation; no binding
     madBindingDest++;                                       //skip to next binding struct

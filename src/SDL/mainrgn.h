@@ -44,19 +44,6 @@
 #define MR_CAN_FOCUS_ROIDS          0           //can focus on asteroids,dust clouds and derelicts with an alt-click
 #define MR_KEYBOARD_CHEATS          0           //enable typing in cheats on the keyboard
 
-// special case stuff so that cheats are enabled for release for bryce and drew
-#ifdef HW_BUILD_FOR_DEBUGGING
-    #ifdef bpasechnik
-        #undef  MR_KEYBOARD_CHEATS
-        #define MR_KEYBOARD_CHEATS      1           //enable typing in cheats on the keyboard
-    #endif
-
-    #ifdef ddunlop
-        #undef  MR_KEYBOARD_CHEATS
-        #define MR_KEYBOARD_CHEATS      1           //enable typing in cheats on the keyboard
-    #endif
-#endif
-
 #endif
 
 /*=============================================================================

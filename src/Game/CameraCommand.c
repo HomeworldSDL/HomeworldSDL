@@ -24,11 +24,7 @@
 #include "SinglePlayer.h"
 #include "Task.h"
 
-#ifdef gshaw
 #define DEBUG_CAMERACOMMAND     0
-#else
-#define DEBUG_CAMERACOMMAND     0
-#endif
 
 extern udword utyNFrameTicks;
 
@@ -792,7 +788,7 @@ void FocusOnNewEntry(CameraCommand *cameracommand,CameraStackEntry *entry)
         listDeleteNode(cameracommand->camerastack.head);
     }
 
-#ifdef gshaw
+#if DEBUG_CAMERACOMMAND
     dbgMessagef("Stack Depth: %d",cameracommand->camerastack.num);
 #endif
 }
