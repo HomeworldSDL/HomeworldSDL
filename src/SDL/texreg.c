@@ -3825,8 +3825,10 @@ void trNoPalQueueAdd(udword handle)
             trNoPalQueueFreeNext();
         }
 
+#ifdef HW_BUILD_FOR_DEBUGGING
         dbgMessagef("** nopal freed %dMB of textures **",
                     (prevBytes - trNoPalBytesAllocated) >> 20);
+#endif
     }
 
     //add to head
@@ -3850,7 +3852,9 @@ void trNoPalReadjust(void)
     }
     dbgAssertOrIgnore(trNoPalInitialized);
 
+#ifdef HW_BUILD_FOR_DEBUGGING
     dbgMessagef("** nopal freed %dMB of textures **", trNoPalBytesAllocated >> 20);
+#endif
 
     for (index = 0; index < trRegistrySize; index++)
     {
@@ -4234,7 +4238,9 @@ void trNoPalShutdown(void)
 ----------------------------------------------------------------------------*/
 void trNoPalResizePool(sdword mb)
 {
+#ifdef HW_BUILD_FOR_DEBUGGING
     dbgMessagef("trNoPalResizePool: %dMB", mb);
+#endif
     trNoPalMaxBytes = mb << 20;
     trNoPalReadjust();
 }

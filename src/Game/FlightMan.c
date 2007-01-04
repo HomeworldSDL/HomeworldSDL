@@ -2137,7 +2137,7 @@ bool flightmanExecute(Ship *ship)
     if (ship->flightman == FLIGHTMAN_NULL)
     {
         // should this be happening?
-        dbgMessage("Warning: tried to execute NULL flightman");
+        dbgMessage("WARNING: tried to execute NULL flightman");
 //        dbgAssertOrIgnore(FALSE);
         return TRUE;
     }

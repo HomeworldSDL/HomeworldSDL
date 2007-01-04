@@ -1920,7 +1920,10 @@ void gameStart(char *loadfilename)
                 //set race for player
                 universe.players[0].race = whichRaceSelected;
 
+#ifdef HW_BUILD_FOR_DEBUGGING
                 dbgMessagef("player is race %u", whichRaceSelected);
+#endif
+
                 otherRace = (whichRaceSelected == R1) ? R2 : R1;
                 for (i = 1; i < numPlayers; i++)
                 {
@@ -2916,7 +2919,10 @@ void utyLoadMultiPlayerGameGivenFilename(char *filename)
 {
     dbgAssertOrIgnore(startingGame == FALSE);
 
+#ifdef HW_BUILD_FOR_DEBUGGING
     dbgMessagef("New game started");
+#endif
+
     startingGame = TRUE;
 
     if (mgRunning)
@@ -3170,7 +3176,9 @@ void utyNewGameStart(char *name, featom *atom)
 
     dbgAssertOrIgnore(startingGame == FALSE);
 
+#ifdef HW_BUILD_FOR_DEBUGGING
     dbgMessagef("New game started");
+#endif
     startingGame = TRUE;
 
     if (mgRunning)
@@ -3293,7 +3301,10 @@ void utyNewGameStart(char *name, featom *atom)
 ----------------------------------------------------------------------------*/
 void utyGameQuit(char *name, featom *atom)
 {
+#ifdef HW_BUILD_FOR_DEBUGGING
     dbgMessagef("Quit game, baby!");
+#endif
+
 #if defined(HW_GAME_DEMO) || defined(HW_GAME_RAIDER_RETREAT)
     if (enableAVI)
     {

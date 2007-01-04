@@ -362,7 +362,9 @@ void tbExitImmediately(char *name, featom *atom)
 {
     if (!multiPlayerGame)
     {
+#ifdef HW_BUILD_FOR_DEBUGGING
         dbgMessagef("Quit game, baby!");
+#endif
         utyCloseOK(NULL, 0, 0, 0);
     }
 }
