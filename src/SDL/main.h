@@ -54,7 +54,6 @@
 =============================================================================*/
 #define ERR_ErrorStart              0xfed5
 #define MAIN_CDCheck                0
-#define MAIN_ExpiryTime             30          //expires after 30 days
 
 //command-line parsing definitions
 #define TS_Delimiters               " \t,="
@@ -91,7 +90,6 @@ udword initialSensorLevel;
 
 extern sdword enableTrails;
 extern sdword showBackgrounds;
-extern bool   POCTrails;
 
 extern bool mainRasterSkip;
 
