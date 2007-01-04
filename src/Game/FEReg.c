@@ -1080,7 +1080,8 @@ void ferDraw(sdword x, sdword y, lifheader *texture)
 {
     real32 widthFrac, heightFrac;
     GLint newwidth, newheight;
-    sdword oldTex, oldMode;
+    sdword oldTex;
+    udword oldMode;
 
     if (dec || (RGLtype == SWtype))
     {

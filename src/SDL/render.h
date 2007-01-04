@@ -63,10 +63,10 @@
 
 #define RND_CameraOffsetX       3.0f
 
-#define RTE_Modulate        0
-#define RTE_Replace         1
-#define RTE_Decal           2
-#define RTE_Blend           3
+#define RTE_Modulate        GL_MODULATE
+#define RTE_Replace         GL_REPLACE
+#define RTE_Decal           GL_DECAL
+#define RTE_Blend           GL_BLEND
 
 //scale cap debug stuff
 #define RND_CapScaleCapKey          NUMPAD4
@@ -100,10 +100,10 @@ extern real32 rndAspectRatio;                                      //aspect rati
 extern bool8  rndFogOn;
 extern hmatrix rndCameraMatrix;
 extern hmatrix rndProjectionMatrix;
-extern sdword rndNormalization;
+extern bool rndNormalization;
 extern bool rndTakeScreenshot;
-extern sdword rndLightingEnabled;
-extern sdword rndScissorEnabled;
+extern udword rndLightingEnabled;
+extern bool rndScissorEnabled;
 
 #if RND_POLY_STATS
 sdword rndDisplayPolyStats;
@@ -145,7 +145,7 @@ sdword rndLightingEnable(sdword bEnable);
 sdword rndTextureEnable(sdword bEnable);
 void rndBillboardEnable(vector *centre);
 void rndBillboardDisable(void);
-sdword rndTextureEnvironment(sdword mode);
+udword rndTextureEnvironment(udword mode);
 sdword rndPerspectiveCorrection(sdword bEnable);
 sdword rndNormalizeEnable(sdword bEnable);
 sdword rndAdditiveBlends(sdword bAdditive);

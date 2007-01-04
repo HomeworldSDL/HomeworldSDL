@@ -170,13 +170,14 @@ static color rndFillColour = 0;
 //callback functions optionally called during rendering a mission sphere
 rendercallback rndPreObjectCallback = NULL, rndPostObjectCallback = NULL;
 
-sdword rndPerspectiveCorrect = FALSE;
-sdword rndTextureEnabled = FALSE;
-sdword rndTextureEnviron = RTE_Modulate;
-sdword rndNormalization = FALSE;
-sdword rndAdditiveBlending = FALSE;
-sdword rndLightingEnabled = TRUE;
-sdword rndScissorEnabled = FALSE;
+udword rndTextureEnviron = RTE_Modulate;
+
+bool rndAdditiveBlending   = FALSE;
+bool rndLightingEnabled    = TRUE;
+bool rndNormalization      = FALSE;
+bool rndPerspectiveCorrect = FALSE;
+bool rndScissorEnabled     = FALSE;
+bool rndTextureEnabled     = FALSE;
 
 //data for billboard geometry
 hmatrix rndCameraMatrix;
@@ -4320,23 +4321,21 @@ sdword rndTextureEnable(sdword bEnable)
 /*-----------------------------------------------------------------------------
     Name        : rndTextureEnvironment
     Description : changes the current texture environment
-    Inputs      : mode - one of RTE_Modulate, RTE_Replace, RTE_Decal, RTE_Blend
+    Inputs      : textureMode - one of RTE_Modulate, RTE_Replace, RTE_Decal, RTE_Blend
     Outputs     : changes the current texture environment mode
     Return      : old mode
 ----------------------------------------------------------------------------*/
-sdword rndTextureModeTable[] =
+udword rndTextureEnvironment(udword textureMode)
 {
-    GL_MODULATE, GL_REPLACE, GL_DECAL, GL_BLEND
-};
-sdword rndTextureEnvironment(sdword mode)
-{
-    sdword oldMode = rndTextureEnviron;
-    if (rndTextureEnviron != mode)
+    udword oldMode = rndTextureEnviron;
+    
+    if (rndTextureEnviron != textureMode)
     {
-        glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, rndTextureModeTable[mode]);
-        rndTextureEnviron = mode;
+        rndTextureEnviron = textureMode;
+        glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, rndTextureEnviron);
     }
-    return(oldMode);
+    
+    return oldMode;
 }
 
 /*-----------------------------------------------------------------------------
@@ -4776,8 +4775,7 @@ void rndResetGLState(void)
     }
     rndPerspectiveCorrection(rndPerspectiveCorrect);
 
-    glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, RTE_Modulate);
-    rndTextureEnviron = RTE_Modulate;
+    rndTextureEnvironment(RTE_Modulate);
 
     if (rndTextureEnabled)
     {
