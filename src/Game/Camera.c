@@ -429,93 +429,62 @@ udword cameraChecksum(Camera *cam)
     Name        : cameraRayCast
     Description : Get a vector for the specified pixel
     Inputs      : cam - what camera to cast the ray from
-                  modelView - camera matrix to match the camera
                   screenX, screenY - what pixel to cast the ray from
                   screenWidth, screenHeight - screenSize
     Outputs     : dest - the casted vector
     Return      :
 ----------------------------------------------------------------------------*/
-//#include "prim3d.h"
-//#include "mouse.h"
 void cameraRayCast(vector *dest, Camera *cam, sdword screenX, sdword screenY, sdword screenWidth, sdword screenHeight)
 {
-    //static int oldMouseX, oldMouseY;
-    real32 aspect;
-    vector plane, right, up, look;
-    //this "fudge factor" is used to scale the look vector to make sure that the move mechanism
-    //can cover the whole screen.  Why is it here?  I'm not really sure but if I've been working
-    //on this bug for 2 days now and it works.  I'm going to leave it.  I'm also leaving the
-    //following code to twiddle it.
-    static real32 FOVMult = 0.49f;
+    real32 mappedMouseX     = 0.0,
+           mappedMouseY     = 0.0,
+           normalisedHeight = 0.0;
+    
+    vector looking,
+           right,
+           down,
+           temp;
+    
+    // form a right-handed, three axis reference frame with "looking" as the +z axis
+    // and the +x axis to the right (which forces the +y axis down - this is the same
+    // direction as the mouse coordinate system)
+    vecSub(looking, cam->lookatpoint, cam->eyeposition);
+    vecCrossProduct(right, looking, cam->upvector);
+    vecCrossProduct(down,  looking, right        );
 
-    /*
-    if (keyIsHit(FOURKEY))
-    {
-        if (keyIsHit(CONTROLKEY))
-        {
-            FOVMult -= 0.0001f;
-        }
-        else
-        {
-            FOVMult -= 0.01f;
-        }
-        dbgMessagef(" *X = %.3f", FOVMult);
-    }
-    if (keyIsHit(FIVEKEY))
-    {
-        if (keyIsHit(CONTROLKEY))
-        {
-            FOVMult += 0.0001f;
-        }
-        else
-        {
-            FOVMult += 0.01f;
-        }
-        dbgMessagef(" *X = %.3f", FOVMult);
-    }
-    */
+    vecNormalize(&looking);
+    vecNormalize(&right);
+    vecNormalize(&down);
 
-    /*
-    //These assertions are tripped when this function is called from pieplate.c after mousePositionSet().  The mouse can indeed be outside the viewport bounds.
-    dbgAssertOrIgnore(screenX >= 0);
-    dbgAssertOrIgnore(screenY >= 0);
-    dbgAssertOrIgnore(screenX < screenWidth);
-    dbgAssertOrIgnore(screenY < screenHeight);
-    */
-    //map the screen coordinates onto a "unit plane" centered on the Z axis.  Plane width is 1 and height is (height/width)
-    plane.z = 1.0f;
-    plane.x = (real32)screenX / (real32)screenWidth - 0.5f;
-    plane.y = (real32)screenY / (real32)screenHeight - 0.5f;
-    aspect = (real32)screenHeight / (real32)screenWidth;
-    plane.y *= aspect;
+    // map the cursor on to an imaginary plane a unit distance away from
+    // eyeposition whose normal is parallel with "looking"
 
-    //use cross products to map that unit plane into camera space
-    vecSub(look, cam->lookatpoint, cam->eyeposition);       //unnormalized look vector
-    vecCrossProduct(right, look, cam->upvector);            //unnormalized right vector
-    vecCrossProduct(up, right, look);                       //unnormalized up vector
-    vecNormalize(&look);                                    //normalize the look vector
-    vecMultiplyByScalar(look, FOVMult);                     //scale the look vector to match FOV
-    vecNormalize(&right);                                   //normalize the right
-    vecMultiplyByScalar(right, plane.x);                    //right vector corresponds to view width
-    vecNormalize(&up);                                      //normalize the Up
-    vecMultiplyByScalar(up, -plane.y);                      //up vector corresponds to view height
-    vecAdd(plane, look, right);                             //add all three vectors together
-    vecAdd(*dest, up, plane);
-    /*
-    if (screenX == mouseCursorX() && screenY == mouseCursorY())
-    {
-        if (oldMouseX != screenX || oldMouseY != screenY)
-        {
-            //dbgMessagef("Ang = %.3f/%.3f Dec = %.3f/%.3f Vec = %.3f %.3f %.3f", RAD_TO_DEG(cam->angle), RAD_TO_DEG(angle), RAD_TO_DEG(cam->declination), RAD_TO_DEG(declination), dest->x, dest->y, dest->z);
-            dbgMessagef("Ang = %.3f Dec = %.3f Vec = %.3f %.3f %.3f", RAD_TO_DEG(cam->angle), RAD_TO_DEG(cam->declination), dest->x, dest->y, dest->z);
-            oldMouseX = screenX;
-            oldMouseY = screenY;
-        }
-    }
-    vecScalarMultiply(plane, *dest, 250.0f);
-    vecAddTo(plane, cam->eyeposition);
-    primCircleOutlineZ(&plane, 10.0f, 8, colWhite);
-    */
+    // half-height of the screen has a normalised height of
+    normalisedHeight = tan(DEG_TO_RAD(cam->fieldofview / 2));
+
+    // NB: the height dimension is how the fieldofview is defined so this is used
+    // as the unit measure. Also note that a centred origin is used in this mapping.
+    mappedMouseY =  ((real32)screenY / (real32)screenHeight) - 0.5;
+    mappedMouseX = (((real32)screenX / (real32)screenWidth ) - 0.5) * rndAspectRatio;
+
+    // clean up the mouse vectors
+    vecMultiplyByScalar(right, normalisedHeight * mappedMouseX);
+    vecMultiplyByScalar(down,  normalisedHeight * mappedMouseY);
+
+    // This is a hack - it shouldn't be here and I don't know what it represents.
+    // The original Relic developer had a similar hack too and he didn't know what
+    // it was either. I suspect that it's something to do with the inter-conversion
+    // with the perspective projection since the maths in this function is dealing 
+    // with orthogonal reference frames.
+    vecMultiplyByScalar(looking, 0.49);
+
+    // add the three vectors to get the cast ray vector
+    // (eyeball to mouse cursor and beyond)
+    vecAdd(temp, looking, right);
+    vecAdd(*dest, down, temp);   
+
+    // finally, normalise the cast ray
+    vecNormalize(dest);
 }
 
 // R1 and other races

@@ -73,8 +73,8 @@ void rgluPerspective(GLdouble fovy, GLdouble aspect, GLdouble zNear, GLdouble zF
     ymax = zNear * tan(fovy * M_PI / 360.0);
     ymin = -ymax;
 
-    xmin = ymin * aspect;
     xmax = ymax * aspect;
+    xmin = -xmax;
 
     glFrustum(xmin, xmax, ymin, ymax, zNear, zFar);
 }

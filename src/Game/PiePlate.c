@@ -643,15 +643,9 @@ void pieWorldLocationCompute(vector *world0, vector *world1, real32 *eyeMag)
     world0->x = mrCamera->eyeposition.x;
     world0->y = mrCamera->eyeposition.y;
     world0->z = mrCamera->eyeposition.z;
+
     *eyeMag = fsqrt(vecMagnitudeSquared(*world0));
 
-/*
-    //ray-cast the four corners of the frustum
-    cameraRayCast(world1, mrCamera, modelView, 0, 0, MAIN_WindowWidth, MAIN_WindowHeight);
-    cameraRayCast(world1, mrCamera, modelView, MAIN_WindowWidth - 1, 0, MAIN_WindowWidth, MAIN_WindowHeight);
-    cameraRayCast(world1, mrCamera, modelView, 0, MAIN_WindowHeight - 1, MAIN_WindowWidth - 1, MAIN_WindowHeight);
-    cameraRayCast(world1, mrCamera, modelView, MAIN_WindowWidth - 1, MAIN_WindowHeight - 1, MAIN_WindowWidth, MAIN_WindowHeight);
-*/
     cameraRayCast(world1, mrCamera, mouseCursorX(), mouseCursorY(), MAIN_WindowWidth, MAIN_WindowHeight);
     vecMultiplyByScalar(*world1, *eyeMag);
     vecAdd(*world1, *world1, *world0);
@@ -1297,7 +1291,7 @@ void piePointSpecDraw(void)
     {
         pieLineDrawCallback(distance);
     }
-    //fraw the horizon
+    //draw the horizon
     if (mrRenderMainScreen)
     {
         smCurrentWorldPlaneColor = colMultiplyClamped(smWorldPlaneColor, smMovementWorldPlaneDim);

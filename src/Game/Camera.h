@@ -48,7 +48,7 @@ typedef struct Camera
     vector lookatpoint;
     vector oldlookatpoint;
     vector upvector;
-    real32 fieldofview;         // in radians
+    real32 fieldofview;         // in degrees
     real32 clipPlaneNear;
     real32 clipPlaneFar;
     real32 closestZoom;
