@@ -6,70 +6,55 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#include <string.h>
-#include <stdlib.h>
-#include <math.h>
-#include "glinc.h"
-#include "Debug.h"
-#include "Matrix.h"
-#include "FastMath.h"
-#include "Memory.h"
-#include "Collision.h"
-#include "Physics.h"
-#include "AITrack.h"
-#include "AIShip.h"
-#include "CommandLayer.h"
-#include "Universe.h"
-#include "Select.h"
-#include "StatScript.h"
-#include "SoundEvent.h"
-#include "Color.h"
-#include "Globals.h"
-#include "FlightMan.h"
 #include "UnivUpdate.h"
-#include "DFGFrigate.h"
-#include "Ships.h"
-#include "Dock.h"
-#include "mainrgn.h"
-#include "PiePlate.h"
-#include "Sensors.h"
-#include "File.h"
-#include "NetCheck.h"
-#include "CommandWrap.h"
-#include "utility.h"
-#include "SinglePlayer.h"
-#include "NIS.h"
-#include "MEX.h"
-#include "mouse.h"
+
+#include <math.h>
+
 #include "AIPlayer.h"
-#include "Clouds.h"
-#include "Nebulae.h"
-#include "Blobs.h"
-#include "StringSupport.h"
-#include "ResearchAPI.h"
-#include "Tactics.h"
-#include "InfoOverlay.h"
-#include "MultiplayerGame.h"
-#include "MeshAnim.h"
+#include "AIShip.h"
+#include "AITrack.h"
 #include "Alliance.h"
+#include "Battle.h"
+#include "Bounties.h"
+#include "Clamp.h"
+#include "Collision.h"
+#include "CommandWrap.h"
+#include "Crates.h"
 #include "Damage.h"
+#include "Debug.h"
+#include "FastMath.h"
+#include "FlightMan.h"
+#include "glinc.h"
+#include "HS.h"
+#include "InfoOverlay.h"
+#include "LaunchMgr.h"
+#include "LevelLoad.h"
 #include "MadLinkIn.h"
 #include "MadLinkInDefs.h"
-#include "Clamp.h"
-#include "LevelLoad.h"
-#include "Attributes.h"
+#include "mainrgn.h"
+#include "MEX.h"
+#include "mouse.h"
+#include "MultiplayerGame.h"
+#include "NetCheck.h"
+#include "NIS.h"
+#include "Physics.h"
 #include "Ping.h"
-#include "Teams.h"
-#include "Bounties.h"
-#include "Tutor.h"
-#include "TradeMgr.h"
-#include "Crates.h"
-#include "SaveGame.h"
-#include "Battle.h"
-#include "Randy.h"
-#include "HS.h"
-#include "LaunchMgr.h"
 #include "ProfileTimers.h"
+#include "Randy.h"
+#include "SaveGame.h"
+#include "Sensors.h"
+#include "Ships.h"
+#include "SinglePlayer.h"
+#include "SoundEvent.h"
+#include "Star3d.h"
+#include "StatScript.h"
+#include "StringsOnly.h"
+#include "Tactics.h"
+#include "TradeMgr.h"
+#include "Tutor.h"
+#include "Universe.h"
+#include "utility.h"
+
 
 #define DEBUG_COLLISIONS 0
 
@@ -112,27 +97,30 @@ real32 FLY_INTO_WORLD_PERCENT_DIST = 0.7f;
 
 udword NUM_STARS            = 800;
 udword NUM_BIG_STARS        = 175;
+sdword MIN_COLLISION_DAMAGE =   5;
+
+real32 MAX_VELOCITY_TANGENT_FACTOR = 1.0f;
 
 color backgroundColor = colRGB(0, 25, 0);
 
-real32 MAX_VELOCITY_TANGENT_FACTOR = 1.0f;
-sdword MIN_COLLISION_DAMAGE = 5;
-
 scriptEntry StarTweaks[] =
 {
-    { "NumStars",               scriptSetUdwordCB, &NUM_STARS },
-    { "NumBigStars",            scriptSetUdwordCB, &NUM_BIG_STARS },
-    { "starMaxColor",           scriptSetUdwordCB, &starMaxColor },
-    { "starMinColor",           scriptSetUdwordCB, &starMinColor },
-    { "starRedVariance",        scriptSetUdwordCB, &starRedVariance },
-    { "starGreenVariance",        scriptSetUdwordCB, &starGreenVariance },
-    { "starBlueVariance",        scriptSetUdwordCB, &starBlueVariance },
-    { NULL, NULL, 0 }
+    { "NumStars",          scriptSetUdwordCB, &NUM_STARS         },
+    { "NumBigStars",       scriptSetUdwordCB, &NUM_BIG_STARS     },
+    { "starMaxColor",      scriptSetUdwordCB, &starMaxColor      },
+    { "starMinColor",      scriptSetUdwordCB, &starMinColor      },
+    { "starRedVariance",   scriptSetUdwordCB, &starRedVariance   },
+    { "starGreenVariance", scriptSetUdwordCB, &starGreenVariance },
+    { "starBlueVariance",  scriptSetUdwordCB, &starBlueVariance  },
+
+    END_SCRIPT_ENTRY
 };
+
 scriptEntry GalaxyTweaks[] =
 {
-    { "BackgroundColor",        scriptSetRGBCB, &backgroundColor },
-    { NULL, NULL, 0 }
+    { "BackgroundColor", scriptSetRGBCB, &backgroundColor },
+
+    END_SCRIPT_ENTRY
 };
 
 void univUpdateObjRotInfo(SpaceObjRot *robj)
