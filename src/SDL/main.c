@@ -168,7 +168,7 @@ extern bool LogFileLoads;
 //command-line switches and parameters
 bool mainNoDrawPixels = FALSE;
 bool mainOutputCRC = FALSE;
-bool mainNoPalettes = FALSE;
+bool mainNoPalettes = TRUE;
 bool mainSoftwareDirectDraw = TRUE;
 bool mainDirectDraw = TRUE;
 bool mainRasterSkip = FALSE;
