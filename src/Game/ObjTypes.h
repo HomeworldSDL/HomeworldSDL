@@ -34,7 +34,6 @@ typedef enum
 
 typedef enum
 {
-    GUN_Fixed,
     GUN_Gimble,
     GUN_NewGimble,
     GUN_MissileLauncher,

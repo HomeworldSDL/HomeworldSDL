@@ -294,7 +294,6 @@ static NumStrXlate explosiontypeinfo[] =
 
 static NumStrXlate guntypeinfo[] =
 {
-    { (uword)GUN_Fixed,  str$(GUN_Fixed) },
     { (uword)GUN_Gimble, str$(GUN_Gimble) },
     { (uword)GUN_NewGimble, str$(GUN_NewGimble) },
     { (uword)GUN_MissileLauncher, str$(GUN_MissileLauncher) },

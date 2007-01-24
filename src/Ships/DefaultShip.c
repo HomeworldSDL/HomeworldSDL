@@ -62,7 +62,6 @@ void DefaultShipFire(Ship *ship,SpaceObjRotImpTarg *target)
 
                 case GUN_NewGimble:
                 case GUN_Gimble:
-                case GUN_Fixed:
                     gunShoot(ship,gun,target);
                     break;
 

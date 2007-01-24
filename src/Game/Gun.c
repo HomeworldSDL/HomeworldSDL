@@ -1337,16 +1337,6 @@ bool gunShootGunsAtTarget(Ship *ship,SpaceObjRotImpTarg *target,real32 range,vec
                             }
                         }
                     break;
-                    case GUN_Fixed:
-                        matGetVectFromMatrixCol3(shipheading,ship->rotinfo.coordsys);
-                        dotprod = vecDotProduct(*trajectory,shipheading);
-
-                        if (dotprod >= triggerHappy)
-                        {
-                            gunShoot(ship,gun,target);
-                            shotguns = TRUE;
-                        }
-                        break;
 
                     case GUN_Gimble:
                     case GUN_NewGimble:
@@ -1451,21 +1441,6 @@ bool gunShootGunsAtMultipleTargets(Ship *ship)
                         if (gunHasMissiles(gun))
                         {
                             missileShoot(ship,gun,target);
-                            shotguns = TRUE;
-                        }
-                        break;
-                    case GUN_Fixed:
-                        aishipGetTrajectory(ship,target,&trajectory);
-                        dist = fsqrt(vecMagnitudeSquared(trajectory));
-                        vecDivideByScalar(trajectory,dist,temp);
-
-                        matGetVectFromMatrixCol3(shipheading,ship->rotinfo.coordsys);
-
-                        dotprod = vecDotProduct(trajectory,shipheading);
-
-                        if (dotprod >= triggerHappy)
-                        {
-                            gunShoot(ship,gun,target);
                             shotguns = TRUE;
                         }
                         break;

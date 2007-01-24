@@ -331,19 +331,6 @@ bool GenericInterceptorCanFire(Ship *ship,SpaceObjRotImpTarg *target,vector *tra
 
         switch (gun->gunstatic->guntype)
         {
-            case GUN_Fixed:
-                matGetVectFromMatrixCol3(shipheading,ship->rotinfo.coordsys);
-                dotprod = vecDotProduct(*trajectory,shipheading);
-
-                if (dotprod >= triggerHappy)
-                {
-                    return TRUE;
-                }
-                else
-                {
-                    return FALSE;
-                }
-
             case GUN_Gimble:
                 if (gunOrientGimbleGun(ship,gun,target))
                 {
