@@ -1332,6 +1332,11 @@ uword svShipCoverage(ShipStaticInfo *statinfo)
         gun = &guninfo->gunstatics[i];
         switch(gun->guntype)
         {
+        case GUN_Fixed:
+            //fixed guns don't really increase by anything..
+            //but we'll make it feel better by giving it +1;
+            coverage+=0.1f;
+            break;
         case GUN_Gimble:
             gunvalue = (acos(gun->cosmaxAngleFromNorm))*2.0f;
                         for(j=i+1;j<numGuns;j++)
