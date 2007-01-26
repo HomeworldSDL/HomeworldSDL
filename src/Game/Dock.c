@@ -551,18 +551,9 @@ sdword ThisShipIs(ShipStaticInfo *shipstatic)
 //returns TRUE if the shiptype requires a mothership in order to retire
 bool shipRetireNeedsMothership(Ship *ship)
 {
-    if(ship->staticinfo->salvageStaticInfo != NULL)
+    if (ship->staticinfo->salvageStaticInfo != NULL)
     {
-        if(ship->staticinfo->salvageStaticInfo->willFitCarrier)
-        {
-            //salvaging says it can fit in a carrier...so retiring can fit too
-            return FALSE;
-        }
-        else
-        {
-            //needs mothership big door!
-            return TRUE;
-        }
+        return !ship->staticinfo->salvageStaticInfo->willFitCarrier;
     }
     else
     {
@@ -3964,7 +3955,7 @@ sdword R2MOTHERSHIP_Res1;
 
 sdword *R2MothershipInConePoints[] = { &R2MOTHERSHIP_In0, &R2MOTHERSHIP_In1, NULL };
 sdword *R2MothershipSmallLaunchPoints[] = { &R2MOTHERSHIP_Out0, &R2MOTHERSHIP_Out1, NULL };
-sdword *R2MothershipCapitalLaunchPoints[] = { &R2MOTHERSHIP_Big, NULL };
+sdword *R2MothershipBigLaunchPoints[] = { &R2MOTHERSHIP_Big, NULL };
 sdword *R2MothershipResourceLatchPoints[] = { &R2MOTHERSHIP_Res0, &R2MOTHERSHIP_Res1, NULL };
 sdword *R2MothershipInBig[] = { &R2MOTHERSHIP_Big, NULL };
 sdword *R2MothershipInResearch[] = { &R2MOTHERSHIP_Big, NULL };
@@ -4036,135 +4027,95 @@ void R1MothershipStaticDockInit(ShipStaticInfo *staticinfo)
 {
     DockStaticInfo *dockStaticInfo = staticinfo->dockStaticInfo;
 
-    R1MOTHERSHIP_In = dockFindDockIndex("In",dockStaticInfo);
-    R1MOTHERSHIP_In1 = dockFindDockIndex("In1",dockStaticInfo);
-    R1MOTHERSHIP_Out = dockFindDockIndex("Out",dockStaticInfo);
-    R1MOTHERSHIP_Out1 = dockFindDockIndex("Out1",dockStaticInfo);
-    R1MOTHERSHIP_Frigate = dockFindDockIndex("Frigate",dockStaticInfo);
-    R1MOTHERSHIP_Big = dockFindDockIndex("Big",dockStaticInfo);
-    R1MOTHERSHIP_ResU = dockFindDockIndex("ResU",dockStaticInfo);
-    R1MOTHERSHIP_ResD = dockFindDockIndex("ResD",dockStaticInfo);
+    R1MOTHERSHIP_In      = dockFindDockIndex("In",      dockStaticInfo);
+    R1MOTHERSHIP_In1     = dockFindDockIndex("In1",     dockStaticInfo);
+    
+    R1MOTHERSHIP_Out     = dockFindDockIndex("Out",     dockStaticInfo);
+    R1MOTHERSHIP_Out1    = dockFindDockIndex("Out1",    dockStaticInfo);
+    
+    R1MOTHERSHIP_Frigate = dockFindDockIndex("Frigate", dockStaticInfo);
+    
+    R1MOTHERSHIP_Big     = dockFindDockIndex("Big",     dockStaticInfo);
+    
+    R1MOTHERSHIP_ResU    = dockFindDockIndex("ResU",    dockStaticInfo);
+    R1MOTHERSHIP_ResD    = dockFindDockIndex("ResD",    dockStaticInfo);
 }
 
 void R2MothershipStaticDockInit(ShipStaticInfo *staticinfo)
 {
     DockStaticInfo *dockStaticInfo = staticinfo->dockStaticInfo;
 
-    R2MOTHERSHIP_In0 = dockFindDockIndex("In0",dockStaticInfo);
-    R2MOTHERSHIP_In1 = dockFindDockIndex("In1",dockStaticInfo);
-    R2MOTHERSHIP_Out0 = dockFindDockIndex("Out0",dockStaticInfo);
-    R2MOTHERSHIP_Out1 = dockFindDockIndex("Out1",dockStaticInfo);
-    R2MOTHERSHIP_Big = dockFindDockIndex("Big",dockStaticInfo);
-    R2MOTHERSHIP_Res0 = dockFindDockIndex("Res0",dockStaticInfo);
-    R2MOTHERSHIP_Res1 = dockFindDockIndex("Res1",dockStaticInfo);
+    R2MOTHERSHIP_In0  = dockFindDockIndex("In0",  dockStaticInfo);
+    R2MOTHERSHIP_In1  = dockFindDockIndex("In1",  dockStaticInfo);
+    
+    R2MOTHERSHIP_Out0 = dockFindDockIndex("Out0", dockStaticInfo);
+    R2MOTHERSHIP_Out1 = dockFindDockIndex("Out1", dockStaticInfo);
+    
+    R2MOTHERSHIP_Big  = dockFindDockIndex("Big",  dockStaticInfo);
+    
+    R2MOTHERSHIP_Res0 = dockFindDockIndex("Res0", dockStaticInfo);
+    R2MOTHERSHIP_Res1 = dockFindDockIndex("Res1", dockStaticInfo);
 }
 
 void P1MothershipStaticDockInit(ShipStaticInfo *staticinfo)
 {
     DockStaticInfo *dockStaticInfo = staticinfo->dockStaticInfo;
 
-    P1MOTHERSHIP_In = dockFindDockIndex("In",dockStaticInfo);
-    P1MOTHERSHIP_Out = dockFindDockIndex("Out",dockStaticInfo);
-    P1MOTHERSHIP_Out1 = dockFindDockIndex("Out1",dockStaticInfo);
+    P1MOTHERSHIP_In   = dockFindDockIndex("In",   dockStaticInfo);
+    
+    P1MOTHERSHIP_Out  = dockFindDockIndex("Out",  dockStaticInfo);
+    P1MOTHERSHIP_Out1 = dockFindDockIndex("Out1", dockStaticInfo);
 }
 
 void P2MothershipStaticDockInit(ShipStaticInfo *staticinfo)
 {
     DockStaticInfo *dockStaticInfo = staticinfo->dockStaticInfo;
 
-    P2MOTHERSHIP_In = dockFindDockIndex("In",dockStaticInfo);
-    P2MOTHERSHIP_In1 = dockFindDockIndex("In1",dockStaticInfo);
-    P2MOTHERSHIP_In2 = dockFindDockIndex("In2",dockStaticInfo);
-    P2MOTHERSHIP_In3 = dockFindDockIndex("In3",dockStaticInfo);
-    P2MOTHERSHIP_In4 = dockFindDockIndex("In4",dockStaticInfo);
-    P2MOTHERSHIP_In5 = dockFindDockIndex("In5",dockStaticInfo);
-    P2MOTHERSHIP_In6 = dockFindDockIndex("In6",dockStaticInfo);
-    P2MOTHERSHIP_In7 = dockFindDockIndex("In7",dockStaticInfo);
-    P2MOTHERSHIP_In8 = dockFindDockIndex("In8",dockStaticInfo);
-    P2MOTHERSHIP_In9 = dockFindDockIndex("In9",dockStaticInfo);
-    P2MOTHERSHIP_In10 = dockFindDockIndex("In10",dockStaticInfo);
-    P2MOTHERSHIP_In11 = dockFindDockIndex("In11",dockStaticInfo);
-    P2MOTHERSHIP_Out = dockFindDockIndex("Out",dockStaticInfo);
-    P2MOTHERSHIP_Out1 = dockFindDockIndex("Out1",dockStaticInfo);
-    P2MOTHERSHIP_Out2 = dockFindDockIndex("Out2",dockStaticInfo);
-    P2MOTHERSHIP_Out3 = dockFindDockIndex("Out3",dockStaticInfo);
-    P2MOTHERSHIP_Out4 = dockFindDockIndex("Out4",dockStaticInfo);
-    P2MOTHERSHIP_Out5 = dockFindDockIndex("Out5",dockStaticInfo);
-    P2MOTHERSHIP_Out6 = dockFindDockIndex("Out6",dockStaticInfo);
-    P2MOTHERSHIP_Out7 = dockFindDockIndex("Out7",dockStaticInfo);
-    P2MOTHERSHIP_Out8 = dockFindDockIndex("Out8",dockStaticInfo);
-    P2MOTHERSHIP_Out9 = dockFindDockIndex("Out9",dockStaticInfo);
-    P2MOTHERSHIP_Out10 = dockFindDockIndex("Out10",dockStaticInfo);
-    P2MOTHERSHIP_Out11 = dockFindDockIndex("Out11",dockStaticInfo);
+    P2MOTHERSHIP_In    = dockFindDockIndex("In",    dockStaticInfo);
+    P2MOTHERSHIP_In1   = dockFindDockIndex("In1",   dockStaticInfo);
+    P2MOTHERSHIP_In2   = dockFindDockIndex("In2",   dockStaticInfo);
+    P2MOTHERSHIP_In3   = dockFindDockIndex("In3",   dockStaticInfo);
+    P2MOTHERSHIP_In4   = dockFindDockIndex("In4",   dockStaticInfo);
+    P2MOTHERSHIP_In5   = dockFindDockIndex("In5",   dockStaticInfo);
+    P2MOTHERSHIP_In6   = dockFindDockIndex("In6",   dockStaticInfo);
+    P2MOTHERSHIP_In7   = dockFindDockIndex("In7",   dockStaticInfo);
+    P2MOTHERSHIP_In8   = dockFindDockIndex("In8",   dockStaticInfo);
+    P2MOTHERSHIP_In9   = dockFindDockIndex("In9",   dockStaticInfo);
+    P2MOTHERSHIP_In10  = dockFindDockIndex("In10",  dockStaticInfo);
+    P2MOTHERSHIP_In11  = dockFindDockIndex("In11",  dockStaticInfo);
+    
+    P2MOTHERSHIP_Out   = dockFindDockIndex("Out",   dockStaticInfo);
+    P2MOTHERSHIP_Out1  = dockFindDockIndex("Out1",  dockStaticInfo);
+    P2MOTHERSHIP_Out2  = dockFindDockIndex("Out2",  dockStaticInfo);
+    P2MOTHERSHIP_Out3  = dockFindDockIndex("Out3",  dockStaticInfo);
+    P2MOTHERSHIP_Out4  = dockFindDockIndex("Out4",  dockStaticInfo);
+    P2MOTHERSHIP_Out5  = dockFindDockIndex("Out5",  dockStaticInfo);
+    P2MOTHERSHIP_Out6  = dockFindDockIndex("Out6",  dockStaticInfo);
+    P2MOTHERSHIP_Out7  = dockFindDockIndex("Out7",  dockStaticInfo);
+    P2MOTHERSHIP_Out8  = dockFindDockIndex("Out8",  dockStaticInfo);
+    P2MOTHERSHIP_Out9  = dockFindDockIndex("Out9",  dockStaticInfo);
+    P2MOTHERSHIP_Out10 = dockFindDockIndex("Out10", dockStaticInfo);
+    P2MOTHERSHIP_Out11 = dockFindDockIndex("Out11", dockStaticInfo);
 }
 
-sdword **InPoints[] = { R1CarrierInConePoints, R2CarrierInConePoints,
-                        R1MothershipInConePoints, R2MothershipInConePoints,
-                        P1MothershipInConePoints, P2MothershipInConePoints,
-                        R1CarrierInFrigate, R2CarrierInFrigate,
-                        R1MothershipInBig, R2MothershipInBig,
-                        R1MothershipInResearch, R2MothershipInResearch };
+sdword **InPoints[] = {
+    R1CarrierInConePoints,    R2CarrierInConePoints,
+    R1MothershipInConePoints, R2MothershipInConePoints,
+    P1MothershipInConePoints, P2MothershipInConePoints,
+    R1CarrierInFrigate,       R2CarrierInFrigate,
+    R1MothershipInBig,        R2MothershipInBig,
+    R1MothershipInResearch,   R2MothershipInResearch
+};
 
-sdword **ResourceLatchPoints[] = { R1CarrierResourceLatchPoints, R2CarrierResourceLatchPoints, R1MothershipResourceLatchPoints, R2MothershipResourceLatchPoints };
+sdword **ResourceLatchPoints[] = {
+    R1CarrierResourceLatchPoints,    R2CarrierResourceLatchPoints,
+    R1MothershipResourceLatchPoints, R2MothershipResourceLatchPoints
+};
 
-#define FINDFREELAUNCHPOINT             1
-#define LAUNCH_FROMLAUNCHPOINT          2
-#define LAUNCH_FROMMOTHERSHIPR1DOOR1    3
-#define LAUNCH_FROMMOTHERSHIPR1DOOR2    4
-
-sdword **FindR1CarrierLaunchPoints(ShipStaticInfo *shipstatic)
-{
-
-    if(isCapitalShipStaticOrBig(shipstatic)
-       ||  (shipstatic->shiptype == ResourceCollector))
-    {
-        return R1CarrierFrigateLaunchPoints;
-    }
-    else
-    {
-        return R1CarrierSmallLaunchPoints;
-    }
-    /*
-    if ((shipstatic->shipclass == CLASS_Frigate)
-        || (shipstatic->shiptype == SensorArray)
-        || (shipstac->shiptype == ResearchShip)
-        || (shipstatic->shiptype == ResourceCollector))
-    {
-        return R1CarrierFrigateLaunchPoints;
-    }
-    else
-    {
-        return R1CarrierSmallLaunchPoints;
-    }
-    */
-}
-
-sdword **FindR2CarrierLaunchPoints(ShipStaticInfo *shipstatic)
-{
-    if(isCapitalShipStaticOrBig(shipstatic)
-       ||  (shipstatic->shiptype == ResourceCollector))
-    {
-        return R2CarrierFrigateLaunchPoints;
-    }
-    else
-    {
-        return R2CarrierSmallLaunchPoints;
-    }
-    /*if (shipstatic->shipclass == CLASS_Frigate || shipstatic->shiptype == SensorArray
-        || shipstatic->shiptype == ResourceCollector
-        || (shipstac->shiptype == ResearchShip)
-        || (shipstatic->shiptype == ResourceCollector)
-        || (shipstatic->shiptype == GravWellGenerator)
-        || (shipstatic->shiptype == CloakGenerator))
-    {
-        return R2CarrierFrigateLaunchPoints;
-    }
-    else
-    {
-        return R2CarrierSmallLaunchPoints;
-    }
-    */
-}
+#define FIND_FREE_LAUNCH_POINT             1
+#define LAUNCH_FROM_LAUNCH_POINT           2
+#define LAUNCH_FROM_MOTHERSHIP_R1_DOOR1    3
+#define LAUNCH_FROM_MOTHERSHIP_R1_DOOR2    4
 
 // Don't use the ship's class to determine which docking bay to use.
 // The Turanic Raider's (p1) Ion Array Frigate requires the large
@@ -4172,141 +4123,100 @@ sdword **FindR2CarrierLaunchPoints(ShipStaticInfo *shipstatic)
 // would exit from the small docking bay. Knowing how the ship would
 // enter the Mothership via salvage, it makes sense that it should
 // always exit that way too, so we use that information instead.
-sdword **FindR1MothershipLaunchPoints(ShipStaticInfo *shipstatic)
+
+// Also be careful of the code in src/Ships/SalCapCorvette.* that is
+// attempting to do the same thing... (Needs to be unified)
+
+bool shipStaticIndicatesBigHangerBayForRace(ShipStaticInfo *ship_static, sdword race)
 {
-    // do we need to use the large docking bay to enter the Mothership?
-    // If so, we'd better leave the same way.
-    if (shipstatic->salvageStaticInfo != NULL) {
-        if (shipstatic->salvageStaticInfo->needBigR1) {
-            return R1MothershipBigLaunchPoints;
+    if (ship_static                    != NULL
+    &&  ship_static->salvageStaticInfo != NULL)
+    {
+        if (race == R1)
+        {
+            return ship_static->salvageStaticInfo->needBigR1;
+        }
+        else if (race == R2) // should be a given but might see P1 et al
+        {
+            return ship_static->salvageStaticInfo->needBigR2;
         }
     }
     
-    // default to the small docking bay
+    // default to using the small hanger bay - it doesn't sound particularly
+    // sensible but that's the way the .shp configuration is set up
+    return FALSE;
+}
+
+bool shipRequiresBigHangerBayWhenDockingWith(Ship *smaller_ship, Ship *larger_ship)
+{
+    if (smaller_ship != NULL && larger_ship != NULL)
+    {
+        return shipStaticIndicatesBigHangerBayForRace(smaller_ship->staticinfo, larger_ship->shiprace);
+    }
+    
+    // use small hanger bay by default
+    return FALSE;
+}
+
+
+sdword **FindR1MothershipLaunchPoints(ShipStaticInfo *shipstatic)
+{
+    if (shipStaticIndicatesBigHangerBayForRace(shipstatic, R1))
+    {
+        return R1MothershipBigLaunchPoints;
+    }
+
     return R1MothershipSmallLaunchPoints;
 }
 
 sdword **FindR2MothershipLaunchPoints(ShipStaticInfo *shipstatic)
 {
-    // do we need to use the large docking bay to enter the Mothership?
-    // If so, we'd better leave the same way.
-    if (shipstatic->salvageStaticInfo != NULL) {
-        if (shipstatic->salvageStaticInfo->needBigR2) {
-            return R2MothershipCapitalLaunchPoints;
-        }
+    if (shipStaticIndicatesBigHangerBayForRace(shipstatic, R2))
+    {
+        return R2MothershipBigLaunchPoints;
     }
 
-    // default to the small docking bay
     return R2MothershipSmallLaunchPoints;
 }
 
 sdword **FindP1MothershipLaunchPoints(ShipStaticInfo *shipstatic)
 {
-//  no capital ships can dock with Pirate 1 Mothership -- July 10/98 - Michael G.
-//    if (isCapitalShipStatic(shipstatic))
-//    {
-//        return P1MothershipSmallLaunchPoints;
-//    }
-//    else
-//    {
-        return P1MothershipSmallLaunchPoints;
-//    }
+    //  no capital ships can dock with Pirate 1 Mothership -- July 10/98 - Michael G.
+    return P1MothershipSmallLaunchPoints;
 }
 
 sdword **FindP2MothershipLaunchPoints(ShipStaticInfo *shipstatic)
 {
-//  no capital ships can dock with Pirate 2 Mothership -- July 10/98 - Michael G.
-//    if (isCapitalShipStatic(shipstatic))
-//    {
-//        return P1MothershipSmallLaunchPoints;
-//    }
-//    else
-//    {
-        return P2MothershipSmallLaunchPoints;
-//    }
+    //  no capital ships can dock with Pirate 2 Mothership -- July 10/98 - Michael G.
+    return P2MothershipSmallLaunchPoints;
 }
 
-//function used to determine use of big door vs small entrances...
-//isn't always called for retiring..hence case where I check if the ship is retiring
-bool dockRetireShipNeedsBig(Ship *ship,Ship *dockwith)
+sdword **FindR1CarrierLaunchPoints(ShipStaticInfo *shipstatic)
 {
-    if(dockwith->shiptype == Mothership)
+    // is this safe?
+    if (isCapitalShipStaticOrBig(shipstatic)
+    ||  shipstatic->shiptype == ResourceCollector)
     {
-        if(dockwith->shiprace == R1)
-        {
-            CommandToDo *command = getShipAndItsCommand(&universe.mainCommandLayer,ship);
-            //command is probably non-null guaranteed...but lets just be safe.
-            if(command != NULL && command->dock.dockType & DOCK_FOR_RETIRE)
-            {
-                if(ship->staticinfo->shipclass == CLASS_Fighter ||
-                   ship->staticinfo->shipclass == CLASS_Corvette ||
-                   ship->staticinfo->shipclass == CLASS_Frigate ||
-                   ship->shiptype == ResourceCollector)
-                {
-                    return FALSE;
-                }
-                else if(ship->shiptype == ProximitySensor ||
-                        ship->shiptype == Probe ||
-                        ship->shiptype == ResearchShip)
-                {
-                    return FALSE;
-                }
-                return TRUE;
-            }
-            else if(ship->staticinfo->shipclass == CLASS_Carrier ||
-               ship->staticinfo->shipclass == CLASS_HeavyCruiser ||
-               ship->staticinfo->shipclass == CLASS_Destroyer ||
-               ship->shiptype == ResourceController)
-            {
-                //need big
-                return TRUE;
-            }
-            return FALSE;
-        }
-        else if(dockwith->shiprace == R2)
-        {
-            if(ship->staticinfo->shipclass == CLASS_Fighter ||
-               ship->staticinfo->shipclass == CLASS_Corvette)
-            {
-                return FALSE;
-            }
-            else if(ship->shiptype == ProximitySensor ||
-                    ship->shiptype == Probe)
-            {
-                return FALSE;
-            }
-            /*
-            if(ship->staticinfo->shipclass == CLASS_Carrier ||
-               ship->staticinfo->shipclass == CLASS_HeavyCruiser ||
-               ship->staticinfo->shipclass == CLASS_Destroyer ||
-               ship->staticinfo->shipclass == CLASS_Frigate ||
-               ship->shiptype == ResourceController ||
-               ship->shiptype == SensorArray ||
-               ship->shiptype == GravWellGenerator ||
-               ship->shiptype == CloakGenerator)
-            {
-                //need big
-                return TRUE;
-            }*/
-
-        }
-        return TRUE;
+        return R1CarrierFrigateLaunchPoints;
     }
     else
     {
-        //carrier
-        if(ship->staticinfo->shipclass == CLASS_Fighter ||
-           ship->staticinfo->shipclass == CLASS_Corvette)
-        {
-            return FALSE;
-        }
-        else if(ship->shiptype == ProximitySensor ||
-                ship->shiptype == Probe)
-        {
-            return FALSE;
-        }
+        return R1CarrierSmallLaunchPoints;
     }
-    return TRUE;
+}
+
+sdword **FindR2CarrierLaunchPoints(ShipStaticInfo *shipstatic)
+{
+    // is this safe?
+    if (isCapitalShipStaticOrBig(shipstatic)
+    ||  shipstatic->shiptype == ResourceCollector)
+    {
+        return R2CarrierFrigateLaunchPoints;
+    }
+    else
+    {
+        return R2CarrierSmallLaunchPoints;
+    }
 }
 
 sdword **GetLaunchPoints(ShipStaticInfo *shipstatic,ShipStaticInfo *dockwithstatic)
@@ -4326,27 +4236,34 @@ sdword **GetLaunchPoints(ShipStaticInfo *shipstatic,ShipStaticInfo *dockwithstat
     {
         if (dockwithstatic->shiprace == R1)
         {
-            if (dockwithstatic->shiptype == Mothership);
+            if (dockwithstatic->shiptype == Mothership)
+            {
                 return FindR1MothershipLaunchPoints(shipstatic);
+            }
         }
-        else
-        if (dockwithstatic->shiprace == R2)
+        else if (dockwithstatic->shiprace == R2)
         {
-            if (dockwithstatic->shiptype == Mothership);
+            if (dockwithstatic->shiptype == Mothership)
+            {
                 return FindR2MothershipLaunchPoints(shipstatic);
+            }
         }
-        else
-        if (dockwithstatic->shiprace == P1)
+        else if (dockwithstatic->shiprace == P1)
         {
-            if (dockwithstatic->shiptype == P1Mothership);
+            if (dockwithstatic->shiptype == P1Mothership)
+            {
                 return FindP1MothershipLaunchPoints(shipstatic);
+            }
         }
         else if (dockwithstatic->shiprace == P2);
         {
-            if (dockwithstatic->shiptype == P2Mothership);
+            if (dockwithstatic->shiptype == P2Mothership)
+            {
                 return FindP2MothershipLaunchPoints(shipstatic);
+            }
         }
     }
+    
     return NULL;
 }
 
@@ -4367,10 +4284,10 @@ bool LaunchShipFromCarrierMother(Ship *ship,Ship *dockwith)
 
             ship->dockvars.launchpoints = GetLaunchPoints(shipstatic,dockwithstatic);
             dbgAssertOrIgnore(ship->dockvars.launchpoints);
-            ship->dockvars.dockstate3 = FINDFREELAUNCHPOINT;
-            // deliberately fall through to FINDFREELAUNCHPOINT
+            ship->dockvars.dockstate3 = FIND_FREE_LAUNCH_POINT;
+            // deliberately fall through to FIND_FREE_LAUNCH_POINT
 
-        case FINDFREELAUNCHPOINT:
+        case FIND_FREE_LAUNCH_POINT:
             dbgAssertOrIgnore(ship->dockvars.launchpoints);
             launchpointindex = dockFindLaunchPointRandom(ship->dockvars.launchpoints,dockwith,ship);
 
@@ -4414,7 +4331,7 @@ bool LaunchShipFromCarrierMother(Ship *ship,Ship *dockwith)
                 //before it is rendered
                 dockPutShipOutside(ship,dockwith,&conepositionInWorldCoordSys,dockstaticpoint->headingdirection,dockstaticpoint->updirection);
                 MothershipAttachObjectToDoor(dockwith,(SpaceObjRotImpTargGuidanceShipDerelict *)ship);
-                ship->dockvars.dockstate3 = LAUNCH_FROMMOTHERSHIPR1DOOR1;
+                ship->dockvars.dockstate3 = LAUNCH_FROM_MOTHERSHIP_R1_DOOR1;
             }
             else
             {
@@ -4440,11 +4357,11 @@ bool LaunchShipFromCarrierMother(Ship *ship,Ship *dockwith)
                     dockPutShipOutside(ship,dockwith,&outpos,dockstaticpoint->headingdirection,dockstaticpoint->updirection);
                 }
 
-                ship->dockvars.dockstate3 = LAUNCH_FROMLAUNCHPOINT;
+                ship->dockvars.dockstate3 = LAUNCH_FROM_LAUNCH_POINT;
             }
 
             return FALSE;
-        case LAUNCH_FROMMOTHERSHIPR1DOOR1:
+        case LAUNCH_FROM_MOTHERSHIP_R1_DOOR1:
             #ifdef HW_BUILD_FOR_DEBUGGING
             dbgAssertOrIgnore(dockwith->shiprace == R1);
             dbgAssertOrIgnore(dockwith->shiptype == Mothership);
@@ -4454,7 +4371,7 @@ bool LaunchShipFromCarrierMother(Ship *ship,Ship *dockwith)
             {
                 //door is open
                 MothershipDettachObjectFromDoor(dockwith);
-                ship->dockvars.dockstate3 = LAUNCH_FROMMOTHERSHIPR1DOOR2;
+                ship->dockvars.dockstate3 = LAUNCH_FROM_MOTHERSHIP_R1_DOOR2;
             }
             else
             {
@@ -4464,7 +4381,7 @@ bool LaunchShipFromCarrierMother(Ship *ship,Ship *dockwith)
                 #endif
             }
             return FALSE;
-        case LAUNCH_FROMMOTHERSHIPR1DOOR2:
+        case LAUNCH_FROM_MOTHERSHIP_R1_DOOR2:
             if (dockFlyAboveMothershipDoor(ship,dockwith))
             {
                 ship->dockingship = NULL;
@@ -4476,7 +4393,7 @@ bool LaunchShipFromCarrierMother(Ship *ship,Ship *dockwith)
                 return FALSE;
             }
             break;
-        case LAUNCH_FROMLAUNCHPOINT:
+        case LAUNCH_FROM_LAUNCH_POINT:
             dockstaticpoint = ship->dockvars.dockstaticpoint;
             dbgAssertOrIgnore(dockstaticpoint);
             //heading,up
@@ -4488,7 +4405,7 @@ bool LaunchShipFromCarrierMother(Ship *ship,Ship *dockwith)
                     h = dockwith->staticinfo->dockOverideInfo->dockOverides[overide].heading;
                     u = dockwith->staticinfo->dockOverideInfo->dockOverides[overide].up;
                 }
-                else if(dockRetireShipNeedsBig(ship,dockwith) && dockwith->shiptype == Mothership && dockwith->shiprace == R2)
+                else if(shipRequiresBigHangerBayWhenDockingWith(ship,dockwith) && dockwith->shiptype == Mothership && dockwith->shiprace == R2)
                 {
                     h = 2;
                     u=0;
@@ -4573,7 +4490,7 @@ bool ShipDocksAtCarrierMother(struct CommandToDo *docktodo,struct Ship *ship,str
                 if (dockwithstatic->shiprace == R1)
                 {
                     if((docktodo->dock.dockType & DOCK_FOR_RETIRE) &&
-                       dockRetireShipNeedsBig(ship,dockwith))
+                       shipRequiresBigHangerBayWhenDockingWith(ship,dockwith))
                     {
                         customdockinfo->inpointsindex = 6;
                     }
@@ -4588,7 +4505,7 @@ bool ShipDocksAtCarrierMother(struct CommandToDo *docktodo,struct Ship *ship,str
                 else
                 {
                     if((docktodo->dock.dockType & DOCK_FOR_RETIRE) &&
-                       dockRetireShipNeedsBig(ship,dockwith))
+                       shipRequiresBigHangerBayWhenDockingWith(ship,dockwith))
                     {
                         customdockinfo->inpointsindex = 7;
                     }
@@ -4609,7 +4526,7 @@ bool ShipDocksAtCarrierMother(struct CommandToDo *docktodo,struct Ship *ship,str
                     dbgAssertOrIgnore(dockwithstatic->shiptype == Mothership);
 
                     if((docktodo->dock.dockType & DOCK_FOR_RETIRE) &&
-                       dockRetireShipNeedsBig(ship,dockwith))
+                       shipRequiresBigHangerBayWhenDockingWith(ship,dockwith))
                     {
                         customdockinfo->inpointsindex = 8;
                     }
@@ -4637,7 +4554,7 @@ bool ShipDocksAtCarrierMother(struct CommandToDo *docktodo,struct Ship *ship,str
                         customdockinfo->inpointsindex = 11;
                     }
                     else if((docktodo->dock.dockType & DOCK_FOR_RETIRE) &&
-                       dockRetireShipNeedsBig(ship,dockwith))
+                       shipRequiresBigHangerBayWhenDockingWith(ship,dockwith))
                     {
                         customdockinfo->inpointsindex = 9;
                     }
@@ -4801,7 +4718,7 @@ waitforlatch:
                 if(docktodo->dock.dockType & DOCK_FOR_RETIRE)
                 {
                     //docking for retiring...
-                    if(dockRetireShipNeedsBig(ship,dockwith))
+                    if(shipRequiresBigHangerBayWhenDockingWith(ship,dockwith))
                     {
                         //ship is a capital ship so we need to add an
                         //extra state to let it align properly to the docking line
@@ -4832,7 +4749,7 @@ waitforlatch:
                 dockFreeDockPoint(ship,dockwith);
                 customdockinfo->giveupdockpointat = -1.0f;
             }
-            flag2 = (docktodo->dock.dockType & DOCK_FOR_RETIRE) && dockwith->shiptype == Mothership && dockRetireShipNeedsBig(ship,dockwith);
+            flag2 = (docktodo->dock.dockType & DOCK_FOR_RETIRE) && dockwith->shiptype == Mothership && shipRequiresBigHangerBayWhenDockingWith(ship,dockwith);
             if (dockFlyToConeOrigin(ship,dockwith,CONEORIGIN_TOLERANCE,CONEORIGIN_MINFLYSPEED,FALSE,flag2))
             {
                 if(ship->shiptype == CloakedFighter)
@@ -4899,7 +4816,7 @@ waitforlatch:
             }
             return FALSE;
         case CARRIERMOTHERDOCK_FOR_RETIRE:
-            if(dockRetireShipNeedsBig(ship,dockwith))
+            if(shipRequiresBigHangerBayWhenDockingWith(ship,dockwith))
             {
                 if(dockwith->shiprace == R1)
                 {
