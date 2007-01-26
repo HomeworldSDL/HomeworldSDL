@@ -9,24 +9,23 @@
 #ifndef ___SENSORS_H
 #define ___SENSORS_H
 
-#include "Types.h"
 #include "FEFlow.h"
+#include "Types.h"
 
 /*=============================================================================
     Switches:
 =============================================================================*/
-#define SM_TEST                     1           //test this module
 #ifdef HW_BUILD_FOR_DEBUGGING
 
-#define SM_ERROR_CHECKING           1           //general error checking
-#define SM_VERBOSE_LEVEL            2           //control specific output code
-#define SM_TOGGLE_SENSORLEVEL       1           //enable toggling the sensprs level with the L key
+#define SM_ERROR_CHECKING        1    // general error checking
+#define SM_VERBOSE_LEVEL         2    // control specific output code
+#define SM_TOGGLE_SENSOR_LEVEL   1    // enable toggling the sensors level with the L key
 
 #else
 
-#define SM_ERROR_CHECKING           0           //general error checking
-#define SM_VERBOSE_LEVEL            0           //control specific output code
-#define SM_TOGGLE_SENSORLEVEL       0           //enable toggling the sensprs level with the L key
+#define SM_ERROR_CHECKING        0
+#define SM_VERBOSE_LEVEL         0
+#define SM_TOGGLE_SENSOR_LEVEL   0
 
 #endif
 
