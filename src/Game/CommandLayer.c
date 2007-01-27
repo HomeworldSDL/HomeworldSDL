@@ -3763,6 +3763,9 @@ void shipHasJustBeenDisabled(Ship *ship)
         case GravWellGenerator:
             GravWellGeneratorJustDisabled(ship);
             break;
+
+        default:
+            break;
     }
     //if ship doesn't have the animation it won't matter
     madLinkInCloseGunsShip(ship);
@@ -6414,9 +6417,10 @@ void clPlaySpeechEventsForSupportCraft(SelectCommand *selection)
                 //I don't think we need battle chatter limiting...
                 speechEvent(selection->ShipPtr[0],COMM_Support,0);
                 return;     //return after first one...all we need!
+            default:
+                break;
             }
         }
-
     }
 }
 

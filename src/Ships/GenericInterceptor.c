@@ -184,29 +184,31 @@ void GenericInterceptorStaticInit(char *directory,char *filename,struct ShipStat
     switch (statinfo->shiptype)
     {
         case LightInterceptor:
-           interceptorstat = (statinfo->shiprace == R1) ? &LightInterceptorStaticRace1 : &LightInterceptorStaticRace2;
-           break;
+            interceptorstat = (statinfo->shiprace == R1) ? &LightInterceptorStaticRace1 : &LightInterceptorStaticRace2;
+            break;
         case HeavyInterceptor:
-           interceptorstat = (statinfo->shiprace == R1) ? &HeavyInterceptorStaticRace1 : &HeavyInterceptorStaticRace2;
-           break;
+            interceptorstat = (statinfo->shiprace == R1) ? &HeavyInterceptorStaticRace1 : &HeavyInterceptorStaticRace2;
+            break;
         case AttackBomber:
-           interceptorstat = (statinfo->shiprace == R1) ? &AttackBomberStaticRace1 : &AttackBomberStaticRace2;
-           break;
+            interceptorstat = (statinfo->shiprace == R1) ? &AttackBomberStaticRace1 : &AttackBomberStaticRace2;
+            break;
         case CloakedFighter:
-           interceptorstat = (statinfo->shiprace == R1) ? (GenericInterceptorStatics *)&CloakedFighterStaticRace1 : (GenericInterceptorStatics *)&CloakedFighterStaticRace2;
-           break;
+            interceptorstat = (statinfo->shiprace == R1) ? (GenericInterceptorStatics *)&CloakedFighterStaticRace1 : (GenericInterceptorStatics *)&CloakedFighterStaticRace2;
+            break;
         case P1Fighter:
-           interceptorstat = &P1FighterStatic;
-           break;
+            interceptorstat = &P1FighterStatic;
+            break;
         case P2Swarmer:
-           interceptorstat = &P2SwarmerStatic;
-           break;
+            interceptorstat = &P2SwarmerStatic;
+            break;
         case P2AdvanceSwarmer:
-           interceptorstat = &P2AdvanceSwarmerStatic;
-           break;
+            interceptorstat = &P2AdvanceSwarmerStatic;
+            break;
         case TargetDrone:
-           interceptorstat = &TargetDroneStatic;
-           break;
+            interceptorstat = &TargetDroneStatic;
+            break;
+        default:
+            break;
     }
     dbgAssertOrIgnore(interceptorstat != NULL);
 

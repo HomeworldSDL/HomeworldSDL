@@ -39,13 +39,15 @@ void P3StandardShipStaticInit(char *directory,char *filename,struct ShipStaticIn
     {
         case P3Destroyer :
             shipstat = &P3DestroyerStatic;
-        break;
+            break;
         case P3Frigate :
             shipstat = &P3FrigateStatic;
-        break;
+            break;
         case P3Megaship :
             shipstat = &P3MegashipStatic;
-        break;
+            break;
+        default:
+            break;
     }
 
     dbgAssertOrIgnore(shipstat != NULL);

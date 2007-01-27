@@ -3427,6 +3427,8 @@ gotselection:
             case SensorArray:
                 smSensorsBegin(NULL, NULL);
                 break;
+            default:
+                break;
         }
     }
 #endif //MR_GUI_SINGLECLICK

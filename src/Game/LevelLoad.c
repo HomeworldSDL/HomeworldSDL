@@ -853,6 +853,9 @@ ShipType GetAppropriateShipTypeForRace(ShipType request,ShipRace shiprace)
             case DFGFrigate:
                 shiptype = DDDFrigate;
                 break;
+                
+            default:
+                break;
         }
         dbgAssertOrIgnore(RacesAllowedForGivenShip[shiptype] & RaceToRaceBits(shiprace));
     }
@@ -886,6 +889,8 @@ bool isCapturableCapitalShip(ShipType shiptype)
         case StandardDestroyer    :
         case StandardFrigate      :
             return TRUE;
+        default:
+            break;
     }
     return FALSE;
 }

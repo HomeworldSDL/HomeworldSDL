@@ -1342,6 +1342,8 @@ void mouseSelectCursorSetting(void)
                         //the mouse is over a selected repair corvette
                         bitSet(mouseInfo.flags, MCF_SupportOverItself);
                         break;
+                    default:
+                        break;
                 }
             }
 
@@ -1386,6 +1388,8 @@ void mouseSelectCursorSetting(void)
                     {
                         bitSet(mouseInfo.flags, MCF_SalvageOnly);
                     }
+                    break;
+                default:
                     break;
             }
 

@@ -124,8 +124,6 @@ typedef udword ShipRace;
 #define NSR_Missile                 (NUM_RACES + 7)
 #define NSR_LastNSR                 (NSR_Missile + 1)
 
-typedef udword ShipType;
-
 // moved ship defines to ShipDefs.h
 
 typedef enum

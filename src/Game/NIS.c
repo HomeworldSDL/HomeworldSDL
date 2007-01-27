@@ -50,6 +50,7 @@
 #include "render.h"
 #include "Eval.h"
 #include "Tracking.h"
+#include "ShipDefs.h"
 
 #ifdef _MSC_VER
 	#define strcasecmp _stricmp
@@ -4546,7 +4547,7 @@ nisheader *nisLoad(char *fileName, char *scriptName)
     sdword index, j;
     spaceobjpath *objPath;
     camerapath *camPath;
-    ShipType type = NULL;
+    ShipType type = ShipType_Uninitialized;
     char *instancePtr;
     char string[256];
     char effectPath[256];
@@ -4728,7 +4729,7 @@ nisheader *nisLoad(char *fileName, char *scriptName)
 #endif                                                      //allocate the new header/NIS data minus strings
         }
 #if NIS_ERROR_CHECKING
-        if (type == -1)
+        if (type == ShipType_Uninitialized)
         {
             dbgFatalf(DBG_Loc, "Invalid object type '%s' of race %d", string, objPath->race);
         }
@@ -4748,7 +4749,7 @@ nisheader *nisLoad(char *fileName, char *scriptName)
             }
             type = StrToShipType(string);
 #if NIS_ERROR_CHECKING
-            if (type == -1)
+            if (type == ShipType_Uninitialized)
             {
                 dbgFatalf(DBG_Loc, "Invalid parentIndex ship type '%s'", string);
             }

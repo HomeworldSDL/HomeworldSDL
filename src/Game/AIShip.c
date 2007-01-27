@@ -321,6 +321,8 @@ void aishipPrecalcInfo(ShipStaticInfo *shipstatinfo)
                     shipstatinfo->pitchturn = FRIGATE_TURNPITCH;
                     shipstatinfo->pitchdescend = FRIGATE_DESCENDPITCH;
                     break;
+                default:
+                    break;
             }
             break;
     }

@@ -214,20 +214,25 @@ void madLinkInSetUpInitialBuiltMadState(Ship *ship)
         case R1:
             switch(ship->shiptype)
             {
-            case HeavyDefender:
-                ship->madGunStatus = MAD_STATUS_GUNS_CLOSED;
-                break;
-            case Probe:
-                ship->madWingStatus = MAD_STATUS_WINGS_CLOSED;
-                break;
+                case HeavyDefender:
+                    ship->madGunStatus = MAD_STATUS_GUNS_CLOSED;
+                    break;
+                case Probe:
+                    ship->madWingStatus = MAD_STATUS_WINGS_CLOSED;
+                    break;
+                default:
+                    break;
             }
             break;
         case R2:
             switch(ship->shiptype)
             {
-            case HeavyCorvette:
-                ship->madWingStatus = MAD_STATUS_WINGS_CLOSED;
-                break;
+                case HeavyCorvette:
+                    ship->madWingStatus = MAD_STATUS_WINGS_CLOSED;
+                    break;
+                    
+                default:
+                    break;
             }
             break;
         case P1:
@@ -266,16 +271,14 @@ void madLinkInSetUpInitialPlacedMadState(Ship *ship)
         case R1:
             switch(ship->shiptype)
             {
-            case HeavyDefender:
-                ship->madGunStatus = MAD_STATUS_GUNS_CLOSED;
-                break;
+                case HeavyDefender:
+                    ship->madGunStatus = MAD_STATUS_GUNS_CLOSED;
+                    break;
+                default:
+                    break;
             }
             break;
         case R2:
-            switch(ship->shiptype)
-            {
-            }
-            break;
         case P1:
         case P2:
         case P3:

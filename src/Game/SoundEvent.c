@@ -1507,6 +1507,8 @@ othersounds:
 					ambienton = FALSE;
 				}
 				break;
+            default:
+                break;
 		}
 
 		// deal with the special sound

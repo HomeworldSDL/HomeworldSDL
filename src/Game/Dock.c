@@ -6420,6 +6420,8 @@ void dockInitializeCustomFunctions(ShipStaticInfo *statinfo,ShipType type,ShipRa
                 statinfo->LaunchShipXFromShipY = NULL;
                 R1ResourceCollectorStaticDockInit(statinfo);
                 break;
+            default:
+                break;
         }
     }
     else if (race == R2)
@@ -6441,7 +6443,6 @@ void dockInitializeCustomFunctions(ShipStaticInfo *statinfo,ShipType type,ShipRa
                 statinfo->LaunchShipXFromShipY = LaunchShipFromCarrierMother;
                 R2MothershipStaticDockInit(statinfo);
                 break;
-
             case RepairCorvette:
                 statinfo->ShipXDocksAtShipY = ShipDocksAtRepairCorvette;
                 statinfo->LaunchShipXFromShipY = NULL;
@@ -6461,6 +6462,8 @@ void dockInitializeCustomFunctions(ShipStaticInfo *statinfo,ShipType type,ShipRa
                 statinfo->LaunchShipXFromShipY = NULL;
                 R2ResourceCollectorStaticDockInit(statinfo);
                 break;
+            default:
+                break;
         }
     }
     else if (race == P1)
@@ -6471,6 +6474,8 @@ void dockInitializeCustomFunctions(ShipStaticInfo *statinfo,ShipType type,ShipRa
                 statinfo->ShipXDocksAtShipY = ShipDocksAtCarrierMother;
                 statinfo->LaunchShipXFromShipY = LaunchShipFromCarrierMother;
                 P1MothershipStaticDockInit(statinfo);
+                break;
+            default:
                 break;
         }
     }
@@ -6488,6 +6493,8 @@ void dockInitializeCustomFunctions(ShipStaticInfo *statinfo,ShipType type,ShipRa
                 statinfo->LaunchShipXFromShipY = NULL;
                 P2FuelPodStaticDockInit(statinfo);
                 break;
+            default:
+                break;
         }
     }
     else if (race == Traders)
@@ -6498,6 +6505,8 @@ void dockInitializeCustomFunctions(ShipStaticInfo *statinfo,ShipType type,ShipRa
                 statinfo->ShipXDocksAtShipY = ShipDocksAtJunkYardHQ;
                 statinfo->LaunchShipXFromShipY = NULL;
                 JunkYardHQStaticDockInit(statinfo);
+                break;
+            default:
                 break;
         }
     }

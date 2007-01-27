@@ -689,6 +689,9 @@ bool aiuShipNotGoodAgainstFighters(Ship *ship)
         case HeavyCruiser:
             return TRUE;
             break;
+            
+        default:
+            break;
     }
 
     return FALSE;
