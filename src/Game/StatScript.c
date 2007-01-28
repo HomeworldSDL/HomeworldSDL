@@ -1291,7 +1291,7 @@ void scriptSetDockPointCB(char *directory,char *field,void *dataToFillIn)
 
     RemoveCommasFromString(field);
 
-    sscanf(field,"%s %s %f %f %f %d %d", &dockstaticpoint->name,
+    sscanf(field,"%s %s %f %f %f %d %d", dockstaticpoint->name,
                                          docktypestr,
                                          &dockstaticpoint->flyawaydist,
                                          &dockstaticpoint->mindist,
@@ -1417,10 +1417,10 @@ void scriptSetDockOverideCB(char *directory,char *field,void *dataToFillIn)
 
     token = strtok(field,seps);sscanf(token,"%s",shipracestr);
     token = strtok(NULL,seps);sscanf(token,"%s",shiptypestr);
-    token = strtok(NULL,seps);sscanf(token,"%d",&dockstaticoveride->useNewOrientation);
-    token = strtok(NULL,seps);sscanf(token,"%d",&dockstaticoveride->heading);
-    token = strtok(NULL,seps);sscanf(token,"%d",&dockstaticoveride->up);
-    token = strtok(NULL,seps);sscanf(token,"%d",&dockstaticoveride->useNewOffset);
+    token = strtok(NULL,seps);sscanf(token,"%hd",&dockstaticoveride->useNewOrientation);
+    token = strtok(NULL,seps);sscanf(token,"%hu",&dockstaticoveride->heading);
+    token = strtok(NULL,seps);sscanf(token,"%hu",&dockstaticoveride->up);
+    token = strtok(NULL,seps);sscanf(token,"%hd",&dockstaticoveride->useNewOffset);
     token = strtok(NULL,seps);sscanf(token,"%f",&tempx);
     token = strtok(NULL,seps);sscanf(token,"%f",&tempy);
     token = strtok(NULL,seps);sscanf(token,"%f",&tempz);
@@ -1562,7 +1562,7 @@ void scriptSetSalvagePointCB(char *directory,char *field,void *dataToFillIn)
     RemoveCommasFromString(field);
 
     //parse line of data here!
-    sscanf(field,"%s %s",&salvagestaticpoint->name,saltypestr);
+    sscanf(field,"%s %s",salvagestaticpoint->name,saltypestr);
 
 
     //sscanf(field,"%s %s %f %f %f %d %d",&dockstaticpoint->name,docktypestr,

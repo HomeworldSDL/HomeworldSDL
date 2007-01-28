@@ -148,7 +148,7 @@ void syncDebugDump(char *filename1,sdword counter,bool save)
     if(save)
     {
         //delete old file if its there.
-        sprintf(filename,"SyncDump_CRC_%X_%X_%X_%X_Player_%s.txt",HomeworldCRC[0],
+        sprintf(filename,"SyncDump_CRC_%lx_%lx_%lx_%lx_Player_%s.txt",HomeworldCRC[0],
                 HomeworldCRC[1],HomeworldCRC[2],HomeworldCRC[3],
                 playerNames[universe.curPlayerIndex]);
 

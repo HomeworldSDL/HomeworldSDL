@@ -794,8 +794,9 @@ sdword isoundmixerprocess(void *pBuf1, udword nSize1, void *pBuf2, udword nSize2
 ----------------------------------------------------------------------------*/
 sdword isoundmixerdecodeEffect(sbyte *readptr, real32 *writeptr1, real32 *writeptr2, ubyte *exponent, sdword size, uword bitrate, EFFECT *effect)
 {
-#ifndef _MACOSX_FIX_ME
-
+#ifdef _MACOSX_FIX_ME
+    return 0;
+#else
     sbyte tempblock[FQ_LEN];
 
 	memset(tempblock, 0, FQ_LEN);

@@ -24,6 +24,7 @@
 #endif
 
 #include "avi.h"
+#include "Tutor.h"
 #include "utility.h"
 
 #ifdef HW_ENABLE_MOVIES
@@ -666,7 +667,7 @@ int aviCleanup()
 #endif
 }
 
-int aviIntroPlay()
+void aviIntroPlay()
 {
     int intro;
     utilPlayingIntro = TRUE;
