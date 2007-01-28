@@ -1681,7 +1681,6 @@ udword uicButtonProcess(regionhandle region, sdword ID, udword event, udword dat
 {
     udword mask = 0;
 #ifdef HW_BUILD_FOR_DEBUGGING
-    udword i;
     featom *atom = (featom *)region->atom;
 #endif
     switch (event)

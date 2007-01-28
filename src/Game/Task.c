@@ -222,11 +222,15 @@ taskhandle taskStart(taskfunction function, real32 period, udword flags)
     static taskhandle handle = ERROR;
     taskdata *newTask;
     static void *taskFunctionContinueSave;
+    
+#ifndef C_ONLY
     static udword taskESISave;
     static udword taskEDISave;
     static udword taskESPSave;
     static udword taskEBPSave;
     static udword taskEBXSave;
+#endif
+
 #if TASK_STACK_SAVE
     static udword taskESPSaveInitial;
     sdword taskESPDiff;

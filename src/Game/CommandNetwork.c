@@ -1069,7 +1069,6 @@ void clSendGodSync(GodSyncCheckSums *checksumStruct,sdword playIndex,udword type
     HWPacketHeader *packet;
     HWCommandHeader *commandheader;
     GodSyncCommand *misc;
-    udword numShips = 0;
 
     sizeofPacket = sizeof(HWPacketHeader) + sizeof(HWCommandHeader)  + sizeof(GodSyncCommand);
 

@@ -378,7 +378,7 @@ void primOvalArcOutline2(oval *o, real32 radStart, real32 radEnd, sdword thickne
     sdword segment, endSegment;
     real32 angle, angleInc;
     real32 centreX, centreY, width, height;
-    real32 x, y, lastX = 0, lastY = 0;
+    real32 x, y;
 
     centreX = primScreenToGLX(o->centreX);                  //get floating-point version of oval attributes
     centreY = primScreenToGLY(o->centreY);

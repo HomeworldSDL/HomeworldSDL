@@ -166,7 +166,10 @@ static int chkcpubit()
 ----------------------------------------------------------------------------*/
 void transStartup(void)
 {
+#if defined (__GNUC__) && defined (__i386__)
     static unsigned int cpu_edx;
+#endif
+
     haveKatmai = 0;
 
     transShutdown();

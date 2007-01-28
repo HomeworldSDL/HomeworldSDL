@@ -261,8 +261,6 @@ bool GenericInterceptorCanFire(Ship *ship,SpaceObjRotImpTarg *target,vector *tra
     GenericInterceptorStatics *interceptorstat = (GenericInterceptorStatics *)(((ShipStaticInfo *)ship->staticinfo)->custstatinfo);
     Gun *curgun;
     Gun *gun;
-    vector shipheading;
-    real32 dotprod;
     GunInfo *gunInfo = ship->gunInfo;
     sdword i;
     bool returnval = FALSE;

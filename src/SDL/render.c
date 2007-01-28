@@ -3619,9 +3619,13 @@ extern sdword channelsinuse;
 
 void rndDrawOnScreenDebugInfo(void)
 {
-    static sdword counter = 0;
-    static color c;
     sdword y = 0;
+
+#if VISIBLE_POLYS
+    static color c;
+    static sdword counter = 0;
+#endif
+
 #if MR_TEST_HPB
     if (mrTestHPBMode)
     {

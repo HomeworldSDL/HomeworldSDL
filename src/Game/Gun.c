@@ -1754,7 +1754,6 @@ sdword tuningGun = 0;
 
 void gunTuneGun(Ship *ship)
 {
-    ShipStaticInfo *shipstatic = ship->staticinfo;
     GunInfo *gunInfo = ship->gunInfo;
     Gun *gun;
     GunStatic *gunstatic;
