@@ -132,7 +132,6 @@ FSM MissionFlow
 
     STATE Intro   //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
         INIT
-            //SubtitleSimulate(0, 4000, LSTRING_FcHyperspaceSuccessful);
             SpeechEvent(M05_Fleet_HyperspaceSuccessful, 0);
             TimerCreateSetStart("FuckTimer", 4);
         ENDINIT
@@ -146,10 +145,8 @@ FSM MissionFlow
     STATE TechAvailable  //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
         INIT
           IF(VarGet("G_WeGetPlaz")=TRUE)
-            //SubtitleSimulate(4, 6000, LSTRING_FiPlasmaTech);
             SpeechEvent(M05_Intel_ResearchPlasmaBomb, 0);
           ELSEIF(VarGet("G_WeGetIonz")=TRUE)
-            //SubtitleSimulate(4, 6000, LSTRING_FiIonTech);
             SpeechEvent(M05_Intel_ResearchIonCannon, 0);
           ENDIF
           TimerCreateSetStart("FuckTimer", 7);
@@ -190,7 +187,6 @@ FSM MissionFlow
 
     STATE FIPlanetoid  //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
         INIT
-          //SubtitleSimulate(4, 6000, LSTRING_FiPlanetoidHere);
           SpeechEvent(M05OEM_Intel_PlanetaryDefense, 0);
           TimerCreateSetStart("FuckTimer", 1);
         ENDINIT
@@ -216,7 +212,6 @@ FSM MissionFlow
     STATE FITuranicFleet //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
         INIT
           TutRemoveAllPointers();
-          //SubtitleSimulate(4, 7000, LSTRING_FiTuranicFleet);
           SpeechEvent(M05OEM_Intel_HyperspacingIn, 0);
           TimerCreateSetStart("FuckTimer", 1);
         ENDINIT
@@ -244,7 +239,6 @@ FSM MissionFlow
 
     STATE FIDestroyBadGuys      //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
         INIT
-          //SubtitleSimulate(4, 7000, LSTRING_FiStopCarriers);
           SpeechEvent(M05OEM_Intel_DestroyCarriers, 0);
           ObjectiveCreate("DestroyEnemyCarriers", LSTRING_Objective1, LSTRING_Objective1);
         ENDINIT
@@ -271,7 +265,6 @@ FSM MissionFlow
              TutCameraFocus(TEAMSHIPS_TuranicCarrier1);
              TutCameraFocus(TEAMSHIPS_TuranicCarrier1);
              MsgSendAll("LaunchYourFighters");
-             //SubtitleSimulate(4, 7000, LSTRING_FiPrepare);
              SpeechEvent(M05OEM_Intel_PrepareForAssault, 0);
              TimerCreateSetStart("FakeNISTimer", 15);
              JUMP WaitForFightersLaunched;
@@ -311,7 +304,6 @@ FSM MissionFlow
             TutCameraFocus(TEAMSHIPS_TuranicCarrier2);
             TutCameraFocus(TEAMSHIPS_TuranicCarrier2);
           ENDIF
-          //SubtitleSimulate(4, 8000, LSTRING_FiYouLoose);
           SpeechEvent(M05OEM_Intel_MissionFailed, 0);
         ENDINIT
         WATCH
@@ -344,7 +336,6 @@ FSM MissionFlow
         INIT
           OpenSensors (TRUE);
           PauseUniverse();
-          //SubtitleSimulate(4, 7000, LSTRING_FiPlanetaryDefensesHere);
           SpeechEvent(M05OEM_Intel_StayOutOfRange, 0);
           TimerCreateSetStart("FuckTimer", 1);
         ENDINIT
@@ -385,7 +376,6 @@ FSM MissionFlow
 
     STATE IllMissYou     //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
         INIT
-          //SubtitleSimulate(4, 8000, LSTRING_FiYouWin);
           SpeechEvent(M05OEM_Intel_DestroyedRaiders, 0);
         ENDINIT
         WATCH

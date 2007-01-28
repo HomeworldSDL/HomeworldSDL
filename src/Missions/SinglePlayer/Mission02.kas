@@ -943,7 +943,6 @@ FSM FleetIntel
             INIT
                     SpeechEvent (M02_10_Intel_DefendMoShipAgain,0);         // We are detecting enemy units advancing on our position.  Organize a defense force to protect the Mothership.
                     //SoundEvent (271);                                   // Play a sound event to notify the player that a subtitle is up
-                    //SubtitleSimulate(4, 10000, LSTRING_FIDefendMothership);
                     TimerCreateSetStart ("FIDefendMothershipPINGTimer", 1);
             ENDINIT
             WATCH
@@ -1054,7 +1053,6 @@ FSM FleetIntel
             INIT
                     SpeechEvent (M02_11_Intel_InvestigatePowerSource,0);
                     //SoundEvent (271);                                   // Play a sound event to notify the player that a subtitle is up
-                    //SubtitleSimulate(4, 10000, LSTRING_FIInvestigateP1Mothership);
                     IFONCE (TRUE)
                             PingRemove ("ACT3FightersPING");
                             PingRemove ("ACT3Corvettes1PING");
@@ -1089,7 +1087,6 @@ FSM FleetIntel
             INIT
                     SpeechEvent (M02_12_Intel_EnemyCarrier,0);
                     //SoundEvent (271);                                   // Play a sound event to notify the player that a subtitle is up
-                    //SubtitleSimulate(4, 10000, LSTRING_FISeenP1Mothership);
                     IFONCE (TRUE)
                             PingRemove ("P1MothershipPING");
                     ENDIFONCE
@@ -1117,7 +1114,6 @@ FSM FleetIntel
             INIT
                     SpeechEvent (M02_Intel_EnemyInferior2,0);                //  We have determined that these enemy units are inferior to ours.
                     //SoundEvent (271);                                   // Play a sound event to notify the player that a subtitle is up
-                    //SubtitleSimulate(4, 10000, LSTRING_FIDestroyAllP1);
             ENDINIT
             WATCH
                     IF (IntelEventEnded ())
@@ -1131,7 +1127,6 @@ FSM FleetIntel
                     //SpeechEvent (M02_13_Intel_DestroyAllP1,0);          // Commander, this race is clearly hostile. We can't allow them to secure a position in our system. I recommend that we destroy the force completely.
                     SpeechEvent (M02_Intel_DestroyCompletely,0);          //  To protect against penetration of the Kharak system, destroy the attacking force completely.
                     //SoundEvent (271);                                   // Play a sound event to notify the player that a subtitle is up
-                    //SubtitleSimulate(4, 10000, LSTRING_FIDestroyAllP1);
             ENDINIT
             WATCH
                     IF (IntelEventEnded ())

@@ -77,7 +77,6 @@ FSM FleetIntel
             INIT
                     SpeechEvent (M14_Fleet_HyperspaceDisengaged, 0);        // Hyperspace successful.  We are at the edge of the Homeworld system.
                     //SoundEvent (4000);                                  // #define Exp_DestProjectileLarge
-                    //SubtitleSimulate (0, 4000, LSTRING_FCIntro);        // Hyperspace successful.  We are at the edge of the Homeworld system.
             ENDINIT
             WATCH
                     IF (IntelEventEnded ())
@@ -122,7 +121,6 @@ FSM FleetIntel
             WATCH
                     IF (TimerExpiredDestroy ("FIDestroyGennyTimer"))
                             //SoundEvent (4000);                                      // #define Exp_DestProjectileLarge
-                            //SubtitleSimulate (4, 6000, LSTRING_FIDestroyGenny);    // Elson's information was correct.  This is the field generator.  We must destroy it.
                             Jump FIDestroyGennyPING;
                     ENDIF
             ENDWATCH
@@ -206,7 +204,6 @@ FSM FleetIntel
             INIT
                     SpeechEvent (M14_Intel_ResearchSensors,0);              // Research Division reports advancements in sensor fidelity which would allow us to determine the location of enemy ships.  We advise commencing research immediately.
                     //SoundEvent (271);                                   // Play a sound event to notify the player that a subtitle is up
-                    //SubtitleSimulate (4, 11000, LSTRING_FISensorTech);  // Research Division reports advancements in sensor fidelity which would allow us to determine the location of enemy ships.  We advise commencing research immediately.
             ENDINIT
             WATCH
                     IF (IntelEventEnded ())
@@ -254,7 +251,6 @@ FSM FleetIntel
             WATCH
                     IF (TimerExpiredDestroy ("FIDestroyGatesTimer"))
                             //SoundEvent (4000);                                      // #define Exp_DestProjectileLarge
-                            //SubtitleSimulate (4, 6000, LSTRING_FIDestroyGates);    // The enemy has activated several standing hyperspace gates.  Destroy the gates to prevent enemy reinforcement.
                             Jump FIDestroyGatesPING;
                     ENDIF
             ENDWATCH
@@ -344,7 +340,6 @@ FSM FleetIntel
             INIT
                     SpeechEvent (M14_Intel_HyperdriveOnline,0);
                     //SoundEvent (271);                                           // Play a sound event to notify the player that a subtitle is up
-                    //SubtitleSimulate (4, 7000, LSTRING_FIHyperdriveOnline);    // The field surrounding the Homeworld system has been shut down.  Hyperdrive on-line.
             ENDINIT
             WATCH
                     IF (IntelEventEnded ())
@@ -368,7 +363,6 @@ FSM FleetIntel
             INIT
                     //SpeechEvent (M14_Fleet_TakeUsHome, 0);                          // Take us home.
                     //SoundEvent (271);                                           // Play a sound event to notify the player that a subtitle is up
-                    //SubtitleSimulate (4, 11000, LSTRING_FCTakeUsHome);          // Take us home.
             ENDINIT
             WATCH
                     //IF (IntelEventEnded ())

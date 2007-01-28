@@ -22,11 +22,6 @@
 			"Benvenuto nelle missioni di addestramento di Homeworld. Qui ti insegneremo tutto ciò che ti serve per giocare a Homeworld. \nCominciamo! \nClicca col sinistro sul pulsante &A&v&a&n&t&i per procedere."
 
 
-//        LSTRING_Intro2
-//            "The ship on your screen is the Mothership.  It is your most important ship - it can build every ship in the game except for another Mothership.  Click on the Next button to continue."
-//            "French stuff here"
-//            "German stuff here"
-
         //Lesson 1: Using the Camera
         //**** this string does not get recorded ****
         LSTRING_SaveCamera
@@ -61,21 +56,6 @@
 			"Per passare al prossimo esercizio, fai ruotare la telecamera di 180 gradi intorno all'Astronave Madre."
 
 
-//        LSTRING_CameraMoveLeftFailed
-//            "You are rotating the camera to the right.  Left is the other way.  Click Next to try it again."
-//            "French stuff here"
-//            "German stuff here"
-//
-//        LSTRING_CameraMoveRight
-//            "Excellent.  Now rotate the camera 180 degrees to the right."
-//            "French stuff here"
-//            "German stuff here"
-//
-//        LSTRING_CameraMoveRightFailed
-//            "You are rotating the camera to the left.  Right is the other way.  This can't be that difficult.  Click Next to try it again."
-//            "French stuff here"
-//            "German stuff here"
-//
         LSTRING_CameraMoveUp
             "Next rotate the camera upward to view the Mothership from above."
             "Puis déplacez-la vers le haut pour obtenir une vue plongeante sur le Vaisseau Mère."
@@ -96,17 +76,6 @@
             "Prima! Bringen Sie die Kamera jetzt wieder in eine horizontale Position. Dann zeige ich Ihnen, wie man heran- und wegzoomt."
             "¡Excelente!  Vuelve a poner la cámara horizontal.  Después te enseñaremos a acercar y alejar el zoom."
 			"Ottimo! Riporta la telecamera sul piano orizzontale, poi ti mostrerò come usare lo zoom."
-
-
-//        LSTRING_SaveCameraZoom
-//            "Zooming the Camera"
-//            "French stuff here"
-//            "German stuff here"
-
-//        LSTRING_CameraZoomIntro
-//            "Perfect.  Now I'll show you how to zoom the camera in and out.  This is very useful when trying to select ships, view battles, or get an overview of your situation in the game."
-//            "French stuff here"
-//            "German stuff here"
 
         LSTRING_CameraZoomDescription
             "To zoom in or out, hold both mouse buttons and drag the mouse up or down.  If your mouse has a wheel, you can use the wheel to zoom as well.\n\nClick &N&e&x&t to continue."
@@ -135,14 +104,6 @@
             "Ausgezeichnet. Von dieser Position aus erhalten wir eine gute Nahansicht der Action.\n\nÜben Sie das Drehen und das Zoomen mit der Kamera.\n\nWenn Sie bereit für Neues sind, klicken Sie auf &W&e&i&t&e&r."
             "Excelente. Desde aquí tienes un buen primer plano de la acción.\n\nPractica con el zoom y el giro de la cámara.\n\nCuando estés listo para continuar, haz clic en &S&i&g&u&i&e&n&t&e."
 			"Eccellente, da qui hai una vista ravvicinata di tutto quello che succede.\n\nFai pratica con lo zoom.\n\nQuando sei pronto a procedere, clicca sul pulsante &A&v&a&n&t&i."
-
-        //**** this string does not get recorded ****
-        LSTRING_TaskbarSave
-            "The Taskbar"
-            "La Barre de tâches"
-            "Die Taskleiste"
-            "La barra de tareas"
-			"La barra delle applicazioni."
 
         LSTRING_LessonTitleBuild
             "Lesson 2: Building Ships\n\nClick &N&e&x&t to begin."

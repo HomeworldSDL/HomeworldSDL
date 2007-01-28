@@ -1741,7 +1741,6 @@ FindEnemiesInside(VOLUME_ResearchStationDefense, SHIPS_StationDefTargets, 2000);
     ENDIFONCE
 
     IFONCE ((ObjectiveGet("DestroyResearchOutpost")=TRUE) AND (ObjectiveGet("DestroyDefenceForces")=TRUE) AND (ObjectiveGet("DestroyEnemyCarrier")=TRUE))
-      //SubtitleSimulate(0, 8000, LSTRING_YoureDone);
       SpeechEvent(M10_Intel_HyperspaceReady, 0);
       ObjectiveCreate("Hyperspace", LSTRING_Hyperspace, LSTRING_Hyperspace);
     ENDIFONCE

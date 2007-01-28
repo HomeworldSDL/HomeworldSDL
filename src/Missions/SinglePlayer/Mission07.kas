@@ -22,55 +22,6 @@
             "LOS JARDINES DE KADESH"
 			"I GIARDINI DI KADESH"
 
-        LSTRING_FINebulaRich
-            "The Nebula is incredibly rich in energy and resources.  Energy levels are so high that our sensors are having trouble compensating.\n\nBegin harvesting the nebula while we address this problem."
-            "La Nébuleuse est incroyablement riche en énergie et en ressources. Il y a de tels niveaux d'énergie que nos détecteurs peinent à compenser.\n\nCommencez la collecte dans la nébuleuse pendant que nous nous penchons sur ce problème."
-            "Der Nebel ist unglaublich reich an Energie und Rohstoffen. Die Energie-Level sind so hoch, dass unsere Sensoren Probleme haben, dies zu kompensieren.\n\nBeginnen Sie mit der Rohstoffernte im Nebel, während wir uns um dieses Problem kümmern."
-            "La nebulosa es muy rica en energía y recursos. Los niveles de energía son tan altos que nuestros sensores no pueden compensarlos.\n\nEmpieza a recolectar en la nebulosa mientras buscamos solución a este problema."
-			"Questa nebulosa è ricchissima di energia e risorse; i livelli energetici sono così alti che i nostri sensori non riescono a calcolarli.\n\nComincia la raccolta delle risorse, mentre tentiamo di risolvere questo problema."
-
-        LSTRING_FIUnknownContacts
-            "There is a contact closing with the Mothership.  Sensors instability in this region makes it difficult to identify."
-            "Contact établi avec véhicule près du Vaisseau Mère, mais l'instabilité des détecteurs dans cette région rend son identification difficile."
-            "Ein Kontakt nähert sich dem Mutterschiff. Die Sensor-Instabilität in dieser Region macht eine Identifikation sehr schwierig."
-            "Se está cerrando un contacto con la Nave nodriza. La inestabilidad de los sensores en esta zona dificulta la identificación de ese contacto."
-			"C'è un contatto in avvicinamento all'Astronave Madre. Purtroppo, i sensori sono fuori scala e non riescono a identificarlo."
-
-        LSTRING_FIPreparingAmbassador
-            "Prepare the Ambassador."
-            "Préparation de l'Ambassadeur."
-            "Botschafter bereitmachen."
-            "Preparad al embajador."
-			"Prepara l'Ambassador."
-
-        LSTRING_FIDefendMothership
-            "Delay the attacking ships while Fleet Command charges the hyperdrive module.  We should have the range to jump clear of the nebula."
-            "Retardez les vaisseaux agresseurs pendant que l'Amirauté charge le module d'hyperpropulsion. La portée devrait être suffisante pour nous faire bondir hors de la nébuleuse."
-            "Halten Sie die angreifenden Schiffe zurück, während das Flottenkommando das Hypersprung-Modul auflädt. Unsere Reichweite sollte so groß sein, dass wir aus dem Nebel herausspringen."
-            "Distrae a las naves atacantes mientras el mando de la flota carga el módulo de hiperpropulsión. Deberemos tener el alcance necesario para salir de la nebulosa."
-			"Trattieni le navi nemiche mentre il Comando della Flotta carica il modulo dell'iperguida. Dovremmo essere in grado di allontanarci dalla nebulosa."
-
-        LSTRING_FCHyperModuleCharging1
-            "Hyperspace module at 35%, ready in 8 minutes."
-            "Module hyperspatial à 35%, prêt dans 8 minutes."
-            "Hypersprung-Modul bei 35%. Bereit in 8 Minuten."
-            "Módulo hiperespacial al 35%, preparado en 8 minutos."
-			"Modulo dell'Iperspazio al 35%, pronto in 8 minuti."
-
-        LSTRING_FCHyperModuleCharging2
-            "Hyperspace module at 90%, ready in 1 minute."
-            "Module hyperspatial à 90%, prêt dans 1 minute."
-            "Hypersprung-Modul bei 90%. Bereit in 1 Minute."
-            "Módulo hiperespacial al 90%, preparado en 1 minuto."
-			"Modulo dell'Iperspazio al 90%, pronto in 1 minuto."
-
-        LSTRING_FCLetsGetOutOfHere
-            "Hyperspace module fully charged.  Get us out of this place."
-            "Activation  maximale du module hyperspatial. Sortez-nous vite d'ici."
-            "Hypersprung-Modul voll aufgeladen. Nichts wie raus hier!"
-            "Módulo hiperespacial completamente cargado. Vámonos de este sitio."
-			"Modulo dell'Iperspazio pronto. Andiamocene da qui."
-
         LSTRING_FIEngage
             "Yes, co-ordinates set.  Engage hyperdrive!"
             "Oui, le cap est déterminé. Enclenchez l'hyperpropulsion!"
@@ -78,47 +29,12 @@
             "Sí, coordenadas establecidas. Activar hiperpropulsión."
 			"Coordinate impostate: attiva l'iperguida!"
 
-        LSTRING_FCHyperdriveFail
-            "Hyperdrive jump failed!  The Quantum waveform collapsed before the ship could enter hyperspace."
-            "Le bond par hyperpropulsion a échoué ! Il y a eu effondrement de l'amplitude quantique avant même que le vaisseau puisse atteindre l'hyperespace.  "
-            "Hyperraum-Sprung fehlgeschlagen! Die Quanten-Wellenform brach zusammen, bevor das Schiff in den Hyperraum eintreten konnte."
-            "Ha fallado la hiperpropulsión. La forma de onda cuántica ha colapsado antes de que la nave pudiera entrar en el hiperespacio."
-			"Salto nell'Iperspazio fallito! La forma d'onda Quantum è collassata prima che la nave potesse entrare nell'Iperspazio."
-
-        LSTRING_FIContinueProtecting
-            "Analyzing malfunction.  Continue to protect the Mothership until the problem is solved."
-            "Analyse de la défaillance. Protection du Vaisseau Mère jusqu'à résolution du problème."
-            "Fehlfunktion wird analysiert. Schützen Sie weiterhin das Mutterschiff, bis das Problem gelöst ist."
-            "Analizando fallo de funcionamiento. Sigue protegiendo la Nave nodriza hasta que se resuelva el problema."
-			"Stiamo analizzando il malfunzionamento: continua a proteggere l'Astronave Madre fino a quando non avremo trovato una soluzione."
-
-        LSTRING_FINewResearch
-            "We have never had to combat so many fighter craft before.  Our Research division has determined that it can design a new type of Corvette specially suited to combat multiple fighters.  Begin Research as soon as possible."
-            "Jamais n'avons nous dû affronter autant de chasseurs. Notre Service de recherche a établi la faisabilité d'un nouveau type de Corvette adapté au combat contre de multiples chasseurs.  Lancez cette recherche dès que possible."
-            "Wir mussten uns noch nie so vielen Jägern gleichzeitig stellen. Unsere Forschungsabteilung hat festgestellt, dass sie einen neuen Korvettentyp entwickeln kann, der speziell für den Kampf gegen mehrere Jäger ausgelegt ist. Beginnen Sie so schnell wie möglich mit den Forschungsarbeiten."
-            "Nunca habíamos tenido que enfrentarnos a tantos cazas juntos. Nuestra división de investigación ha determinado que puede diseñar un nuevo tipo de corbeta concebida especialmente para combatir a varios cazas. La investigación debe comenzar cuanto antes."
-			"Non abbiamo mai dovuto combattere con così tanti caccia prima d'ora. I nostri ricercatori pensano di poter creare un nuovo tipo di Corvetta, dedicata al combattimento contro nemici multipli. Comincia le ricerche il prima possibile."
-
         LSTRING_FIProtectResources
             "Enemy forces are concentrating on our Resource Collectors.  Allocate combat vessels to protect them."
             "Les forces ennemies se concentrent sur nos Collecteurs de Ressources.  Affectez des unités de combat à leur protection."
             "Feindliche Kräfte konzentrieren sich auf unsere Rohstoffernteschiffe. Setzen Sie Kampfschiffe zu ihrem Schutz ein."
             "Las fuerzas enemigas se concentran en nuestros recolectores de recursos. Asigna naves de combate a su protección."
 			"Le forze nemiche si stanno concentrando intorno ai nostri Collettori di Ricerca: disponi le forze in modo da proteggerli."
-
-        LSTRING_FCHyperspaceBack
-            "The Hyperdrive is back on-line."
-            "L'hyperpropulsion est de nouveau opérationnelle."
-            "Das Hypersprung-Aggregat ist wieder online."
-            "Ya funciona la hiperpropulsión."
-			"L'Iperguida è di nuovo operativa."
-
-        LSTRING_FIJumpAway
-            "Let's put these fanatics behind us."
-            "Semons ces fanatiques."
-            "Nichts wie weg von diesen Irren."
-            "Alejémonos de esos fanáticos."
-			"Lasciamoci alle spalle questi pazzi."
 
         LSTRING_TBHyperspace
             "                HYPERSPACE"
@@ -321,7 +237,6 @@ FSM Events
             INIT
                 SoundEvent(262);
                 SpeechEvent(M07_Intel_HarvestNebula, 0);
-//                SubtitleSimulate(4, 18000, LSTRING_FINebulaRich);
                 ObjectiveCreate("Harvest", LSTRING_OBHarvestNebula, "fleet intel 3.2");
                 JUMP NullState;
             ENDINIT
@@ -368,7 +283,6 @@ FSM Events
             INIT
                 SoundEvent(262);
                 SpeechEvent(M07_Intel_AlertStatus, 0);
-//                SubtitleSimulate(4, 15000, LSTRING_FIUnknownContacts);
                 TutSetPointerTargetShipSelection("Contacts", TEAMSHIPS_P2Mothership);
                 PingAddShips(TEAMSHIPS_P2Mothership, "UnknownContacts");
             ENDINIT
@@ -389,7 +303,6 @@ FSM Events
             INIT
                 SoundEvent(262);
                 SpeechEvent(M07_Intel_PrepareAmbassador, 0);
-//                SubtitleSimulate(4, 5000, LSTRING_FIPreparingAmbassador);
             ENDINIT
             WATCH
                 IF (IntelEventEnded())
@@ -432,7 +345,6 @@ FSM Events
                 MusicPlay(B03_Swarmers);
                 SoundEvent(262);
                 SpeechEvent(M07_Intel_DefendMothership, 0);
-//                SubtitleSimulate(4, 10000, LSTRING_FIDefendMothership);
                 ObjectiveCreate("DefendFleet", LSTRING_OBDefendFleet, "fleet intel 3.2");
                 TimerCreateSetStart("ChargeUpTimer1", 30); //30 seconds
             ENDINIT
@@ -448,7 +360,6 @@ FSM Events
             INIT
                 SoundEvent(262);
                 SpeechEvent(M07_Fleet_Charging8Minutes, 0);
-//                SubtitleSimulate(0, 10000, LSTRING_FCHyperModuleCharging1);
                 TimerCreateSetStart("ChargeUpTimer2", 420);
             ENDINIT
             WATCH
@@ -463,7 +374,6 @@ FSM Events
             INIT
                 SoundEvent(262);
                 SpeechEvent(M07_Fleet_Charging1Minute, 0);
-//                SubtitleSimulate(0, 10000, LSTRING_FCHyperModuleCharging2);
                 TimerCreateSetStart("ChargeUpTimer3", 60);
             ENDINIT
             WATCH
@@ -479,7 +389,6 @@ FSM Events
                 SoundEvent(262);
                 SpeechEvent(M07_Fleet_HyperspaceReady, 0);
                 MsgSend(TEAM_P2Mothership, "PlayerPoweredUp");
-//                SubtitleSimulate(0, 10000, LSTRING_FCLetsGetOutOfHere);
             ENDINIT
             WATCH
                 IF (IntelEventEnded())
@@ -496,7 +405,6 @@ FSM Events
             INIT
                 SoundEvent(262);
                 SpeechEvent(M07_Intel_EngageHyperdrive, 0);
-//                SubtitleSimulate(4, 10000, LSTRING_FIEngage);
                 DisablePlayerHyperspace();
                 ObjectiveSet("DefendFleet", TRUE);
                 ObjectiveCreate("Hyperspace", LSTRING_TBHyperspace, LSTRING_FIEngage);
@@ -515,7 +423,6 @@ FSM Events
             INIT
                 SoundEvent(262);
                 SpeechEvent(M07_Fleet_HyperdriveFailedNEW, 0);
-//                SubtitleSimulate(0, 10000, LSTRING_FCHyperdriveFail);
             ENDINIT
             WATCH
                 IF (IntelEventEnded())
@@ -532,7 +439,6 @@ FSM Events
             INIT
                 SoundEvent(262);
                 SpeechEvent(M07_Intel_AnalyzingField, 0);
-//                SubtitleSimulate(4, 10000, LSTRING_FIContinueProtecting);
                 ObjectiveDestroy("DefendFleet");
                 ObjectiveDestroy("Hyperspace");
                 ObjectiveCreate("DefendFleet", LSTRING_OBDefendFleet, "fleet intel 3.2");
@@ -550,7 +456,6 @@ FSM Events
             INIT
                 SoundEvent(262);
                 SpeechEvent(M07_Intel_ResearchMultigunVette, 0);
-//                SubtitleSimulate(4, 10000, LSTRING_FINewResearch);
                 TechSetResearch("TargetingSystems");
             ENDINIT
             WATCH
@@ -566,7 +471,6 @@ FSM Events
             INIT
                 SoundEvent(262);
                 SpeechEvent(M07_Intel_DefendCollectors, 0);
-//                SubtitleSimulate(0, 10000, LSTRING_FIProtectResources);
                 ObjectiveCreateSecondary("ProtectResourcers", LSTRING_OBProtect, LSTRING_FIProtectResources);
             ENDINIT
             WATCH
@@ -613,7 +517,6 @@ FSM Events
             INIT
                 SoundEvent(262);
                 SpeechEvent(M07_Intel_FieldDisappeared, 0);
-//                SubtitleSimulate(0, 10000, LSTRING_FCHyperspaceBack);
                 ObjectiveCreate("Hyperspace", LSTRING_TBHyperspace, LSTRING_FIEngage);
                 ObjectiveSet("DefendFleet", TRUE);
             ENDINIT
@@ -631,7 +534,6 @@ FSM Events
             INIT
                 SoundEvent(262);
                 SpeechEvent(M07_Intel_HyperdriveFunctional, 0);
-                //SubtitleSimulate(4, 10000, LSTRING_FIJumpAway);
             ENDINIT
             WATCH
                 JUMP FinalState;

@@ -33,69 +33,12 @@
             "Hemos perdido Karan. El mando de la flota ha desaparecido. Los equipos biotécnicos de emergencia intentan mantenerla con vida."
 			"Abbiamo perso Karan, il comando della flotta è stato distrutto. Delle squadre biotecnologiche d'emergenza stanno cercando di tenerla in vita."
 
-        LSTRING_FIOhBoyHereWeGoR1
-            "The collision asteroid must have served its purpose as a delay tactic.  There is a large number of Taiidan ships located here.\n\nA Mothership-class vessel is among them.\n\nAll of these forces must be destroyed.  Good luck."
-            "Le choc avec l'asteroïde devait être efficace comme moyen dilatoire. Un nombre important de vaisseaux Taiidan est basé ici.\n\nEt parmi eux une unité de type Vaisseau Mère.\n\nCes forces doivent être détruites dans leur intégralité. Bonne chance."
-            "Der Kollisionsasteroid dürfte seinen Zweck als Hinhaltetaktik erfüllt haben. Es befinden sich viele Taiidan-Schiffe an dieser Stelle.\n\nDarunter ist auch ein Schiff der Mutterschiff-Klasse.\n\nDiese Streitkräfte müssen ausnahmslos alle vernichtet werden. Viel Glück."
-            "El asteroide ha cumplido su misión como táctica de distracción. Hay muchas naves taiidanas aquí.\n\nEntre ellas hay una de la clase Nave nodriza.\n\nEs necesario destruir todas sus fuerzas. ¡Suerte!"
-			"L'asteroide è servito ai nostri nemici per prendere tempo. C'è una grossa flotta di Taiidan in zona.\n\nComprende anche una Nave Madre.\n\nDevi distruggere tutte le forze nemiche, buona fortuna."
-
-        LSTRING_FIOhBoyHereWeGoR2
-            "The collision asteroid must have served its purpose as a delay tactic.  There is a large number of Kushan ships located here.\n\nA Mothership-class vessel is among them.\n\nAll of these forces must be destroyed.  Good luck."
-            "Le choc avec l'asteroïde devait être efficace comme moyen dilatoire. Un nombre important de vaisseaux Kushan est basé ici.\n\nEt parmi eux une unité de type Vaisseau Mère.\n\nCes forces doivent être détruites dans leur intégralité. Bonne chance."
-            "Der Kollisionsasteroid dürfte seinen Zweck als Hinhaltetaktik erfüllt haben. Es befinden sich viele Kushan-Schiffe an dieser Stelle.\n\nDarunter ist auch ein Schiff der Mutterschiff-Klasse.\n\nDiese Streitkräfte müssen ausnahmslos alle vernichtet werden. Viel Glück."
-            "El asteroide ha cumplido su misión como táctica de distracción. Hay muchas naves kushanas aquí.\n\nEntre ellas hay una de la clase Nave nodriza.\n\nEs necesario destruir todas sus fuerzas. ¡Suerte!"
-			"L'asteroide è servito ai nostri nemici per prendere tempo. C'è una grossa flotta di Kushan in zona.\n\nComprende anche una Nave Madre.\n\nDevi distruggere tutte le forze nemiche, buona fortuna."
-
-        LSTRING_FIReinforcements
-            "Enemy reinforcements emerging from hyperspace."
-            "Des renforts ennemis surgissent de l' hyperespace."
-            "Feindliche Verstärkung aus dem Hyperraum eingetroffen."
-            "El enemigo recibe refuerzos desde el hiperespacio."
-			"Dei rinforzi nemici sono appena usciti dall'Iperspazio."
-
-        LSTRING_FIOverwhelmed
-            "Another fleet is coming out of Hyperspace right on top of us.  We are being overwhelmed!"
-            "Une nouvelle flotte sort de l'Hyperespace juste au-dessus de nous. Nous sommes submergés !"
-            "Direkt vor uns kommt eine weitere Flotte aus dem Hyperraum. Wir sind hoffnungslos in Unterzahl!"
-            "Otra flota está saliendo del hiperespacio justo encima de nosotros. Nos superan en número."
-			"Una nuova flotta è uscita dall'Iperspazio proprio di fronte a noi. Sono troppi!"
-
-        LSTRING_DEYayImHereButHurtR1
-            "This is Captain Elson.  We have been battling reinforcement fleets to get here and have lost many ships already.\n\nThe Emperor's flagship is here.  Together we can defeat him and the Taiidan fleet.  I am placing squadrons Cor and Jasah under your command."
-            "Ici le Capitaine Elson. Nous avons dû nous battre contre les flottes de renfort pour arriver ici et nous avons perdu de nombreux vaisseaux.\n\nLe vaisseau-amiral de l'Empereur est ici. Groupés, la victoire contre lui et la flotte Taiidan est à notre portée. Je vous confie le commandement des escadrons Cor et Jasah."
-            "Hier spricht Captain Elson. Wir haben uns mit Verstärkungsflotten herumgeschlagen, um hierher zu gelangen, und bereits viele Schiffe verloren.\n\nDas Flaggschiff des Imperators ist hier. Gemeinsam können wir sowohl ihn als auch die Taiidan-Flotte vernichten. Ich unterstelle die Geschwader Cor und Jasah eurem Kommando."
-            "Aquí el Capitán Elson. Hemos combatido contra flotas de refuerzo para llegar hasta aquí y ya hemos perdido muchas naves.\n\nLa nave insignia del Emperador está aquí. Juntos lo derrotaremos, a él y a la flota taiidana. Pongo los escuadrones Cor y Jasah bajo tu mando."
-			"Parla il Capitano Elson: abbiamo dovuto combattere con i rinforzi nemici per arrivare qui, e abbiamo già subito molte perdite.\n\nL'Ammiraglia dell'Imperatore è qui: insieme potremo distruggerla, e anche la flotta di Taiidan. Sto trasferendo sotto il tuo comando gli squadroni Cor e Jasah."
-
-        LSTRING_DEYayImHereButHurtR2
-            "This is Captain Elson.  We have been battling reinforcement fleets to get here and have lost many ships already.\n\nThe Emperor's flagship is here.  Together we can defeat him and the Kushan fleet.  I am placing squadrons Cor and Jasah under your command."
-            "Ici le Capitaine Elson. Nous avons dû nous battre contre les flottes de renfort pour arriver ici et nous avons perdu de nombreux vaisseaux.\n\nLe vaisseau-amiral de l'Empereur est ici. Groupés, la victoire contre lui et la flotte Kushan est à notre portée. Je vous confie le commandement des escadrons Cor et Jasah."
-            "Hier spricht Captain Elson. Wir haben uns mit Verstärkungsflotten herumgeschlagen, um hierher zu gelangen, und bereits viele Schiffe verloren.\n\nDas Flaggschiff des Imperators ist hier. Gemeinsam können wir sowohl ihn als auch die Kushan-Flotte vernichten. Ich unterstelle die Geschwader Cor und Jasah eurem Kommando."
-            "Aquí el Capitán Elson. Hemos combatido contra flotas de refuerzo para llegar hasta aquí y ya hemos perdido muchas naves.\n\nLa nave insignia del Emperador está aquí. Juntos lo derrotaremos, a él y a la flota kushana. Pongo los escuadrones Cor y Jasah bajo tu mando."
-			"Parla il Capitano Elson: abbiamo dovuto combattere con i rinforzi nemici per arrivare qui, e abbiamo già subito molte perdite.\n\nL'Ammiraglia dell'Imperatore è qui: insieme potremo distruggerla, e anche la flotta di Taiidan. Sto trasferendo sotto il tuo comando gli squadroni Cor e Jasah."
-
         LSTRING_FIHereIsMothership
             "Here is the Emperor's flagship.  It must be destroyed."
             "Voici le vaisseau-amiral de l'Empereur. Sa destruction est impérative."
             "Hier ist das Flaggschiff des Imperators. Es muss zerstört werden."
             "Aquí está la nave insignia del Emperador. Es necesario destruirla."
 			"Ecco l'Ammiraglia dell'Imperatore... Deve essere distrutta."
-
-        LSTRING_FCHoneyImHome
-            "...Fleet Command back online.  The Emperor is gone."
-            "…Amirauté de retour. C'est fini pour l'Empereur."
-            "... Flottenkommando ist wieder online. Der Imperator wurde vernichtet."
-            "...El mando de la flota vuelve a estar operativo. El Emperador ha desaparecido."
-			"… Il comando della flotta è di nuovo operativo. L'Imperatore è andato."
-
-        LSTRING_BTCouncilHere
-            "We have brought the Council.  This war is over."
-            "Le Conseil est venu avec nous. Cette guerre est terminée."
-            "Wir haben den Rat zusammengeholt. Dieser Krieg ist vorbei."
-            "Hemos llegado a un acuerdo. La guerra ha terminado."
-			"Abbiamo riportato il Concilio. La guerra è finita."
-
 
         LSTRING_OBEradicate
             "Eradicate Enemy Forces"
@@ -110,13 +53,6 @@
             "Das Flaggschiff des Imperators zerstören"
 			"Destruye la nave insignia del Emperador"
 			"Distruggi l'ammiraglia dell'Imperatore"
-
-        LSTRING_Objective1
-            "Destroy ALL SHIPS!"
-            "Détruisez tous les ennemis!"
-            "ALLE SCHIFFE vernichten!"
-			"¡Destruye TODAS LAS NAVES!"
-			"Distruggi TUTTE LE ASTRONAVI!!!!"
 
         LSTRING_LevelSave
             "16 - Hiigara"
@@ -272,7 +208,6 @@ FSM Events
         STATE KaranMindControlled
             INIT
                 SpeechEvent(M16_Intel_LostKaran, 0);
-//                SubtitleSimulate(1, 7000, LSTRING_FIKaranMindControlled);
                 ObjectiveCreate("Eradicate", LSTRING_OBEradicate, LSTRING_FIKaranMindControlled);
             ENDINIT
             WATCH
@@ -296,10 +231,8 @@ FSM Events
             INIT
                 IF (RaceOfHuman())
                     SpeechEvent(M16_Intel_CollisionAsteroidTaiidan, 0);
-//                    SubtitleSimulate(1, 7000, LSTRING_FIOhBoyHereWeGoR2);
                 ELSE
                     SpeechEvent(M16_Intel_CollisionAsteroidKushan, 0);
-//                    SubtitleSimulate(1, 7000, LSTRING_FIOhBoyHereWeGoR1);
                 ENDIF
             ENDINIT
             WATCH
@@ -367,7 +300,6 @@ FSM Events
         STATE Reinforcements
             INIT
                 SpeechEvent(M16_Intel_EnemyReinforcements, 0);
-//                SubtitleSimulate(1, 7000, LSTRING_FIReinforcements);
                 TutSetPointerTargetShip("Reinforcements", SHIPS_Reinforcements);
             ENDINIT
             WATCH
@@ -393,7 +325,6 @@ FSM Events
         STATE Overwhelmed
             INIT
                 SpeechEvent(M16_Intel_AnotherFleet, 0);
-//                SubtitleSimulate(1, 7000, LSTRING_FIOverwhelmed);
             ENDINIT
             WATCH
                 IF (IntelEventEnded())
@@ -495,7 +426,6 @@ FSM Events
         STATE HereIsMothership
             INIT
                 SpeechEvent(M16_Intel_DestroyFlagship, 0);
-//                SubtitleSimulate(1, 7000, LSTRING_FIHereIsMothership);
                 ObjectiveCreate("Flagship", LSTRING_OBKillMothership, LSTRING_FIHereIsMothership);
                 TutSetPointerTargetShip("Flag", TEAMSHIPS_ImperialFlagShip);
                 PingAddShips(TEAMSHIPS_ImperialFlagShip, "Moship");
@@ -542,7 +472,6 @@ FSM Events
                 ToggleActor(ACTOR_FLEETCOMMAND_FLAG, TRUE);
                 SpeechEvent(M16_Fleet_BackOnline, 0);
                 PingRemove("Moship");
-//                SubtitleSimulate(1, 7000, LSTRING_FCHoneyImHome);
             ENDINIT
             WATCH
                 IF (IntelEventEnded())
@@ -571,7 +500,6 @@ FSM Events
         STATE CouncilHere
             INIT
                 SpeechEvent(M16_Traders_BroughtTheCouncil, 0);
-//                SubtitleSimulate(1, 7000, LSTRING_BTCouncilHere);
             ENDINIT
             WATCH
                 IF (TimerExpiredDestroy("CouncilFocusTimer2"))

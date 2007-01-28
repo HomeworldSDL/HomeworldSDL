@@ -98,7 +98,6 @@ FSM FleetIntel
             INIT
                     SpeechEvent (M06_Fleet_HyperspaceSuccessful,0);         // Hyperspace jump successful.
                     //SoundEvent (4000);                                  // #define Exp_DestProjectileLarge
-                    //SubtitleSimulate (0, 4000, LSTRING_FCIntro);        // Hyperspace jump successful.
             ENDINIT
             WATCH
                     IF (IntelEventEnded ())
@@ -151,7 +150,6 @@ FSM FleetIntel
             INIT
                     SpeechEvent (M06_Intel_AsteroidCollision,0);            // We haven't cleared the asteroid field.  Prepare for collisions.
                     //SoundEvent (4000);                                      // #define Exp_DestProjectileLarge
-                    //SubtitleSimulate (0, 8000, LSTRING_FIProtectMothership);       // We haven't cleared the asteroid field.  Prepare for collisions.\n\nIncoming asteroids must be destroyed before they impact with the Mothership.  Concentrate fire within this collision envelope.
                     VarCreateSet ("G_ProtectMothershipHasPlayed", TRUE);      // Tells other parts of the script to do stuff (create the objectives)
             ENDINIT
             WATCH
@@ -171,7 +169,6 @@ FSM FleetIntel
                     SpeechEvent (M06_Intel_DestroyAsteroids,0);              // Incoming asteroids must be destroyed before they impact with the Mothership.  Concentrate fire within this collision envelope.
                     Jump FIProtectMothershipPING;
                     //SoundEvent (4000);                                      // #define Exp_DestProjectileLarge
-                    //SubtitleSimulate (0, 8000, LSTRING_FIProtectMothership);       // We haven't cleared the asteroid field.  Prepare for collisions.\n\nIncoming asteroids must be destroyed before they impact with the Mothership.  Concentrate fire within this collision envelope.
             ENDINIT
             WATCH
                     //VarDestroy ("IntelEvent");
@@ -307,7 +304,6 @@ FSM FleetIntel
             INIT
                     SpeechEvent (M06_Intel_ClearedField,0);                 //  We've cleared the field.
                     //SoundEvent (271);                                   // Play a sound event to notify the player that a subtitle is up
-                    //SubtitleSimulate (4, 3500, LSTRING_FIClearedField);
             ENDINIT
             WATCH
                     IF (IntelEventEnded ())
@@ -329,7 +325,6 @@ FSM FleetIntel
                     SpeechEvent (M06_Intel_DetectingBentusi,0);                 //  Detecting incoming Bentusi vessel from the clearing ahead.
                     MusicPlay (NISlet01);
                     //SoundEvent (271);                                   // Play a sound event to notify the player that a subtitle is up
-                    //SubtitleSimulate (4, 3500, "Detecting incoming Bentusi vessel from the clearing ahead.");
             ENDINIT
             WATCH
                     IF (IntelEventEnded ())
@@ -356,7 +351,6 @@ FSM FleetIntel
             INIT
                     SpeechEvent (M06_Traders_ComeToTrade,0);                //  Greetings.  We have come to trade.
                     //SoundEvent (271);                                   // Play a sound event to notify the player that a subtitle is up
-                    //SubtitleSimulate (5, 3500, LSTRING_TradersHello);
             ENDINIT
             WATCH
                     IF (IntelEventEnded ())
@@ -440,7 +434,6 @@ FSM FleetIntel
             INIT
                     SpeechEvent (M06_Fleet_AskTradersForInfo,0);            //  This is a dangerous and unpredictable region.  Can you give us information that will guide us through the nebula ahead?
                     //SoundEvent (271);                                   // Play a sound event to notify the player that a subtitle is up
-                    //SubtitleSimulate (0, 4500, LSTRING_FCGiveUsInfo);
             ENDINIT
             WATCH
                     IF (IntelEventEnded ())
@@ -463,10 +456,8 @@ FSM FleetIntel
             INIT
                     //SoundEvent (271);                                   // Play a sound event to notify the player that a subtitle is up
                     IF (RaceOfHuman () = 0)
-                            //SubtitleSimulate (5, 3500, LSTRING_TradersNebulaTAIIDAN);
                             SpeechEvent (M06_Traders_FearNebulaKushan,0);           //  We hear nothing there.  Even the Taiidan fear the Great Nebula.  No one returns.
                     ELSEIF (RaceOfHuman () = 1)
-                            //SubtitleSimulate (5, 3500, LSTRING_TradersNebulaKUSHAN);
                             SpeechEvent (M06_Traders_FearNebulaTaiidan,0);          //  We hear nothing there.  Even the Kushan fear the Great Nebula.  No one returns.
                     ENDIF
             ENDINIT
@@ -490,7 +481,6 @@ FSM FleetIntel
             INIT
                     SpeechEvent (M06_Intel_HyperspaceReady,0);              //  Hyperspace Module fully charged.
                     //SoundEvent (271);                                   // Play a sound event to notify the player that a subtitle is up
-                    //SubtitleSimulate (0, 1500, LSTRING_FIModuleCharged);
             ENDINIT
             WATCH
                     IF (IntelEventEnded ())

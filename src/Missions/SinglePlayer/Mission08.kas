@@ -26,13 +26,6 @@
             "LA CATEDRAL DE KADESH"
 			"LA CATTEDRALE DI KADESH"
 
-        LSTRING_FCImLost
-            "Something's wrong.  We've been pulled out of hyperspace.  We're still inside the nebula."
-            "C'est pas normal. On s'est fait attirer hors de l'hyperespace. Nous sommes toujours à l'intérieur de la nébuleuse."
-            "Irgendetwas stimmt nicht. Wir wurden aus dem Hyperraum herausgesogen. Und wir befinden uns noch immer innerhalb des Nebels."
-            "Algo marcha mal. Hemos salido del hiperespacio. Todavía estamos en la nebulosa."
-			"C'è qualcosa che non va... Siamo usciti dall'Iperspazio, ma siamo ancora all'interno della nebulosa."
-
         LSTRING_FIIndeed
             "It's a trap!  Sensors detect hyperspace inhibitors in a triangular formation.  Even one can keep us from entering hyperspace.  All of them must be destroyed. \n\nThe nebula is still scrambling our sensors but it looks like we have incoming hostiles."
             "C'est un piège ! C'est en formation triangulaire que les détecteurs sont sensibles aux inhibiteurs d'hyperespace, alors qu'un seul pourrait nous en fermer l'accès. Il faut tous les détruire. \n\nLa nébuleuse continue de brouiller nos détecteurs mais des unités hostiles semblent se diriger vers nous."
@@ -40,98 +33,12 @@
             "¡Es una trampa!  Los sensores detectan inhibidores de hiperespacio en formación triangular. Uno solo podría impedirnos entrar en el hiperespacio. Es necesario destruirlos todos. \n\nLa nebulosa sigue provocando interferencias, pero parece que se acercan más naves enemigas."
 			"Siamo caduti in trappola! I sensori rivelano degli inibitori iperspaziali disposti a triangolo: ognuno di essi ci può impedire di compiere il balzo. Devi distruggerli tutti.\n\nLa nebulosa disturba ancora i nostri strumenti, ma sembra che siano in arrivo delle forze nemiche."
 
-        LSTRING_P2LastChance
-            "Again we offer you the chance to join us and live here in peace."
-            "Nous renouvelons notre offre : joignez-vous à nous et vivez ici en paix."
-            "Und noch einmal bieten wir euch die Gelegenheit, euch bei uns einzufügen und hier in Frieden zu leben."
-            "Volvemos a brindaros la oportunidad de uniros a nosotros y vivir aquí en paz."
-			"Vi offriamo ancora una volta la possibilità di unirvi a noi e di vivere qui, in pace."
-
-        LSTRING_FCWereTheSame
-            "Our future lies elsewhere, but we already have something in common.  The hyperdrive technology we use is identical to yours.  Our ancestors left it in a wreckage on our planet.  We're on a mission to find our Homeworld."
-            "Notre avenir est ailleurs, mais nous partageons désormais quelque chose : notre technologie d'hyperpropulsion est identique à la vôtre. Nos ancêtres nous l'avaient laissée dans une épave sur notre planète. Nous avons pour mission de retrouver Homeworld."
-            "Unsere Zukunft liegt an anderer Stelle, aber wir haben bereits etwas gemeinsam. Die von uns verwendete Hypersprung-Technologie ist mit der eurigen identisch. Unsere Vorfahren ließen sie in einem Wrack auf unserem Planeten zurück. Wir befinden uns auf einer Mission, der Suche nach unserer Heimatwelt."
-            "Nuestro futuro está en otro lugar, pero ya tenemos algo en común. La tecnología de hiperpropulsión que utilizamos es igual que la vuestra. Nuestros antepasados la dejaron cuando se vieron obligados a quedarse en nuestro planeta. Nuestra misión consiste en encontrar nuestro planeta de origen."
-			"Il nostro futuro è altrove, ma abbiamo qualcosa in comune: la tecnologia dell'Iperspazio è identica alla vostra. I nostri antenati precipitarono sul nostro pianeta: noi siamo in missione per trovare il mondo natale."
-
-        LSTRING_P2YoullFail
-            "You will fail.  The evil that drove us here will find and destroy you.  From you they will know of us and come here.  This cannot come to pass."
-            "Ce sera un échec. La force maléfique qui nous a conduits ici vous pourchassera et vous anéantira. Vous leur apprendrez notre présence et ils viendront ici. Il faut absolument empêcher cela."
-            "Ihr werdet versagen. Das Böse, das uns hierher trieb, wird euch aufspüren und vernichten. Über euch werden sie von uns erfahren und hierher kommen. Das darf nicht geschehen."
-            "Fracasaréis. La fuerza maligna que nos ha traído aquí os buscará y os destruirá. Conocerán nuestra existencia por vosotros y vendrán aquí. No podemos permitir que eso ocurra."
-			"Non ci riuscirete. Il male che ci ha costretti qui vi troverà e da voi risalirà a noi. Non possiamo permettere che ciò accada."
-
-//        LSTRING_FCWeveGotColonists
-//            "We can't live here in space, we've got to find our Homeworld.  We've got thousands of colonists on board."
-//            "French stuff here"
-//            "German stuff here"
-
-//        LSTRING_P2WhoCares
-//            "We'll try not to harm them when we destroy you."
-//            "French stuff here"
-//            "German stuff here"
-
-        LSTRING_FIAttackBegun
-            "We have enemy units closing on multiple attack vectors.  Engage and destroy hostiles."
-            "Des unités ennemies approchent sur de multiples vecteurs d'attaque. Affrontez ces unités hostiles et détruisez-les."
-            "Feindliche Einheiten kommen auf mehreren Angriffsvektoren näher. Sie sind anzugreifen und zu vernichten."
-            "Tenemos unidades enemigas en varios vectores de ataque. Hay que atraerlas y destruirlas."
-			"Abbiamo unità nemiche in avvicinamento da vettori multipli. Intercettale e abbattile."
-
-        LSTRING_FINewResearchR1
-            "Research Division reports it is now equipped for Drone technology.  We advise commencing research immediately."
-            "Le Service de recherche annonce qu'il s'est équipé pour la technologie des Drones. Nous recommandons le début immédiat des travaux de recherche."
-            "Die Forschungsabteilung meldet, dass sie jetzt für die Erforschung der Drohnen-Technologie bereit ist. Wir empfehlen, mit den Forschungsarbeiten umgehend zu beginnen."
-            "La división de investigación comunica que está lista para desarrollar las naves teledirigidas. Recomendamos dar comienzo a la investigación de inmediato."
-			"La divisione ricerche segnala che è possibile iniziare lo studio dei Droni: ti suggeriamo di impartire immediatamente l'ordine."
-
-        LSTRING_FINewResearchR2
-            "Research Division reports it is now equipped for Defense Field technology.  We advise commencing research immediately."
-            "Le Service de recherche annonce qu'il s'est équipé pour la technologie des Boucliers. Nous recommandons le début immédiat des travaux de recherche."
-            "Die Forschungsabteilung meldet, dass sie jetzt für die Erforschung der Abwehrschirm-Technologie bereit ist. Wir empfehlen, mit den Forschungsarbeiten umgehend zu beginnen."
-            "La división de investigación comunica que está lista para desarrollar el campo de defensa. Recomendamos dar comienzo a la investigación de inmediato."
-			"La divisione ricerche segnala che è possibile iniziare lo studio dello Scudo Difensivo: ti suggeriamo di impartire immediatamente l'ordine."
-
-        LSTRING_FIEnemyGoingHere
-            "Enemy vessels retreating to this point.  This reading has been consistent despite sensor interference.  It has a friendly signature but none of our ships are in that area."
-            "La retraite des vaisseaux ennemis converge vers ce point, une indication répétée des instruments malgré les interférences qui affectent les détecteurs.C'est en domaine allié mais aucun de nos vaisseaux n'est dans le secteur."
-            "Feindliche Schiffe ziehen sich zu diesem Punkt zurück. Dieser Wert ist trotz der Sensor-Störungen konstant geblieben. Die Signatur könnte von einem unsrer eigenen Schiffe stammen, aber zur Zeit befindet sich keines unserer Schiffe in diesem Gebiet."
-            "Las naves enemigas se retiran a este punto. La lectura es constante a pesar de las interferencias. Por su frecuencia, no parece una nave enemiga, pero no tenemos naves en esa zona."
-			"I vascelli nemici si stanno ritirando verso questa posizione, dove abbiamo rilevato qualcosa (nonostante le interferenze). Il segnale risulta amico, ma non ci sono nostre astronavi in quella zona."
-
-        LSTRING_FCJustLikeKharToba
-            "It looks just like the Khar-Toba."
-            "C'est tout le portrait du Khar-Toba."
-            "Sieht genau wie die Khar-Toba aus."
-            "Tiene el mismo aspecto que Khar-Toba."
-			"Sembra proprio la Khar-Toba."
-
-        LSTRING_FIYeahYoureRight
-            "Metallurgy and structural composition are an identical match to the Khar-Toba wreckage on Kharak."
-            "La composition métallique et l'organisation structurelle sont identiques à celles de l'épave du Khar-Toba sur Kharak."
-            "Metallurgie- und Struktur-Zusammensetzung ist identisch mit der des Wracks der Khar-Toba auf Kharak."
-            "La composición metalúrgica y la estructura son idénticas a las de las ruinas de Khar-Toba, en Kharak."
-			"La struttura e i metalli corrispondono perfettamente al relitto della Khar-Toba su Kharak."
-
-        LSTRING_FCTheyreUs
-            "We are brothers."
-            "Nous sommes frères."
-            "Wir sind Brüder."
-            "Somos hermanos."
-			"Siamo fratelli."
-
         LSTRING_FIWeCanLeave
             "The inhibitor field has ceased.  Hyperspace module back on-line."
             "Le champ inhibiteur s'est désactivé. Le module hyperspatial est opérationnel."
             "Das Inhibitionsfeld besteht nicht mehr. Das Hypersprung-Modul ist wieder online."
             "Se ha disipado el campo inhibidor. Ya funciona el módulo hiperespacial."
 			"Campo inibitore disattivato, il modulo dell'Iperspazio ha ripreso a funzionare."
-
-
-//            LSTRING_FleetIntelIntro
-//                "Enemy fleet in immediate proximity.  Recommend defense."
-//                "French version of Mission8 Fleet Intel intro goes here"
-//                "German version of Mission8 Fleet Intel intro goes here"
 
             LSTRING_OBDestroyInhibitors
                 "Destroy Hyperspace Inhibitors"
@@ -146,30 +53,6 @@
                 "Zerstöre die Angreifer"
 				"Destruye a los atacantes"
 				"Distruggi gli attaccanti"
-
-            LSTRING_ObjectiveMain
-                "Protect the Mothership"
-                "Protection du Vaisseau Mère."
-                "Das Mutterschiff schützen."
-                "Proteger la Nave nodriza"
-				"Proteggi l'Astronave Madre"
-
-            LSTRING_Objective2
-                "Destroy Swarmer Mothership"
-                "Anéantir Vaisseau Mère essaimeur."
-                "Das Schwärmer-Mutterschiff zerstören."
-                "Destruir Nave nodriza de colmena"
-				"Distruggi la Nave Madre Swarmer"
-
-//            LSTRING_DestroyMsIntel
-//                "Enemy Mothership within Range and closing. Recommend Elimination."
-//                "French version of Fleet Intel update goes here"
-//                "German version of Fleet Intel update goes here"
-
-//            LSTRING_KickedAss
-//                "The Mothership has been protected and the ememy threat has been eliminated."
-//                "French version of Fleet Intel update goes here"
-//                "German version of Fleet Intel update goes here"
 
             LSTRING_TBHyperspace
                 "                HYPERSPACE"
@@ -505,7 +388,6 @@ FSM Events
         STATE YoullFail
             INIT
                 SpeechEvent(M08_P2_YouWillFail, 0);
-//                SubtitleSimulate(6, 8000, LSTRING_P2YoullFail);
             ENDINIT
             WATCH
                 IF (!VarGet("SkipCancelFocus") &&
@@ -519,38 +401,6 @@ FSM Events
                 ENDIF
             ENDWATCH
         ENDSTATE YoullFail
-
-        //---------------------------
-        // Events: WeveGotColonists
-        // Fleet command points out colonists
-//        STATE WeveGotColonists
-//            INIT
-//                SoundEvent(262);
-//                SpeechEvent(1700, 0);
-//                SubtitleSimulate(1, 10000, LSTRING_FCWeveGotColonists);
-//            ENDINIT
-//            WATCH
-//                IF (IntelEventEnded())
-//                    JUMP WhoCares;
-//                ENDIF
-//            ENDWATCH
-//        ENDSTATE WeveGotColonists
-
-        //---------------------------
-        // Events: WhoCares
-        // Swarmers don't care about colonists
-//        STATE WhoCares
-//            INIT
-//                SoundEvent(262);
-//                SpeechEvent(1700, 0);
-//                SubtitleSimulate(1, 6000, LSTRING_P2WhoCares);
-//            ENDINIT
-//            WATCH
-//                IF (IntelEventEnded())
-//                    JUMP AttackBegun;
-//                ENDIF
-//            ENDWATCH
-//        ENDSTATE WhoCares
 
         //---------------------------
         // Events: AttackBegunDelay
@@ -582,10 +432,7 @@ FSM Events
                     tutCameraFocusCancel();
                 ENDIF
                 SpeechEvent(M08_Intel_DestroyHostilesNEW, 0);
-//                SubtitleSimulate(1, 9000, LSTRING_FIAttackBegun);
                 ObjectiveCreate("DestroyAtt", LSTRING_OBDestroyAttackers, LSTRING_FIIndeed);
-//                wideScreenOut(30);
-//sensors manager?
             ENDINIT
             WATCH
                 IF (IntelEventEnded())
@@ -602,10 +449,8 @@ FSM Events
             INIT
                 IF (RaceOfHuman())
                     SpeechEvent(M08_Intel_ResearchDefenseField, 0);
-//                    SubtitleSimulate(4, 10000, LSTRING_FINewResearchR2);
                 ELSE
                     SpeechEvent(M08_Intel_ResearchDrones, 0);
-//                    SubtitleSimulate(4, 10000, LSTRING_FINewResearchR1);
                 ENDIF
                 TechSetResearch("DDDFDFGFTech");
             ENDINIT
@@ -638,8 +483,6 @@ FSM Events
                 OpenSensors(45000);
                 PauseUniverse();
                 SpeechEvent(M08_Intel_EnemyRetreating, 0);
-//                SubtitleSimulate(1, 12000, LSTRING_FIEnemyGoingHere);
-//                TutSetPointerTargetShipSelection("Moship", TEAMSHIPS_MsgSender);
                 PingAddPoint(POINT_GhostshipPointy, "Ghostship");
                 TimerCreateSetStart("PointerSwitch", 2);
                 TimerCreateSetStart("MoShipPointerKill", 3);
@@ -684,8 +527,6 @@ FSM Events
         STATE JustLikeKharToba
             INIT
                 SpeechEvent(M08_Fleet_ItsTheKharToba, 0);
-//                SubtitleSimulate(1, 5000, LSTRING_FCJustLikeKharToba);
-                TutCameraFocusDerelictType("PrisonShipOld");
                 TutCameraFocusDerelictType("PrisonShipOld");
             ENDINIT
             WATCH
@@ -701,7 +542,6 @@ FSM Events
         STATE YeahYoureRight
             INIT
                 SpeechEvent(M08_Intel_IdenticalToKharToba, 0);
-//                SubtitleSimulate(1, 10000, LSTRING_FIYeahYoureRight);
             ENDINIT
             WATCH
                 IF (IntelEventEnded())
@@ -709,30 +549,11 @@ FSM Events
                     WideScreenOut(90);
                     SoundEvent(262);
                     tutCameraFocusCancel();
-                    tutCameraFocusCancel();
                     PingRemove("Ghostship");
-//                    JUMP TheyreUs;
                     JUMP NullState;
                 ENDIF
             ENDWATCH
         ENDSTATE YeahYoureRight
-
-        //---------------------------
-        // Events: TheyreUs
-        // Fleet command realizes how bad it really was...
-//        STATE TheyreUs
-//            INIT
-//                SoundEvent(262);
-//                SpeechEvent(M08_Fleet_WeAreBrothers, 0);
-//                SubtitleSimulate(1, 4000, LSTRING_FCTheyreUs);
-//            ENDINIT
-//            WATCH
-//                IF (IntelEventEnded())
-//                    WideScreenOut(90);
-//                    JUMP NullState;
-//                ENDIF
-//            ENDWATCH
-//        ENDSTATE TheyreUs
 
         //---------------------------
         // Events: WeCanLeave
@@ -740,7 +561,6 @@ FSM Events
         STATE WeCanLeave
             INIT
                 SpeechEvent(M08_Intel_InhibitorCeased, 0);
-//                SubtitleSimulate(1, 8000, LSTRING_FIWeCanLeave);
                 ObjectiveCreate("Hyperspace", LSTRING_TBHyperspace, LSTRING_FIWeCanLeave);
                 ObjectiveSet("DestroyP2", TRUE);
             ENDINIT

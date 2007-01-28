@@ -107,7 +107,6 @@ FSM FleetIntel
             INIT
                     SpeechEvent (M05_Fleet_HyperspaceSuccessful, 0);        //  Hyperspace successful.  Current position and pre-jump coordinates are in perfect alignment.  We are on target.
                     //SoundEvent (4000);                                  // #define Exp_DestProjectileLarge
-                    //SubtitleSimulate (0, 8000, LSTRING_FCIntro);        // Hyperspace successful.  Current position and pre-jump coordinates are in perfect alignment.  We are on target.
                     //TimerCreateSetStart ("FCIntroENDTimer", 8);
             ENDINIT
             WATCH
@@ -167,7 +166,6 @@ FSM FleetIntel
                     ENDIF
                     TimerCreateSetStart ("FISendProbePINGTimer", 7);
                     //SoundEvent (4000);                                      // #define Exp_DestProjectileLarge
-                    //SubtitleSimulate (0, 18000, LSTRING_FISendProbe);       // We detect large resource deposits but no vessels.  It is possible that the Taiidan / Kushan could be hiding in the denser portions of the belt, which may cause interference with our sensors.  Send probes to investigate.  All fleet assets should be kept on alert.
                     VarCreateSet ("G_FleetIntelIntroHasPlayed", TRUE);      // Tells other parts of the script to do stuff (create the objectives)
             ENDINIT
             WATCH
@@ -347,7 +345,6 @@ FSM FleetIntel
             INIT
                     SpeechEvent (M05_Intel_ProfilesMatch, 0);                       //  Ship profiles and markings match those from the recording at Kharak.  There is no doubt that this is the fleet.  Destroy them.
                     //SoundEvent (4000);                                          // #define Exp_DestProjectileLarge
-                    //SubtitleSimulate (0, 11000, LSTRING_FIEradicateEnemies);    // Ship profiles and fleet icons match those from the recording at Kharak.  There is no doubt that this is the fleet.  Destroy them.
                     VarCreateSet ("G_EradicateEnemiesHasPlayed", TRUE);
                     Jump FIEradicateEnemiesPING;
             ENDINIT
@@ -455,7 +452,6 @@ FSM FleetIntel
             INIT
                     SpeechEvent (M05_Intel_DestroyEnemyCollector,0);        //  Sensors indicate the enemy is harvesting resources.  Destroy their collector to impair ship production.
                     //SoundEvent (271);                                   // Play a sound event to notify the player that a subtitle is up
-                    //SubtitleSimulate (4, 9000, LSTRING_FIDestroyResourcer);
                     IFONCE (TRUE)
                             VarCreateSet ("G_DestroyResourcerHasPlayed", TRUE);
                             PingAddShips (TEAMSHIPS_Collector, "CollectorPING");
@@ -485,7 +481,6 @@ FSM FleetIntel
             INIT
                     SpeechEvent (M05_Intel_MoveAttackNEW,0);                //  Enemy capital ships appear to have lighter armor on the top, bottom, and rear sides.  Our capital ships should be issued move orders while attacking to take advantage of this weakness.
                     //SoundEvent (271);                                   // Play a sound event to notify the player that a subtitle is up
-                    //SubtitleSimulate (4, 16000, LSTRING_FITeachMoveAttack);
             ENDINIT
             WATCH
                     IF (IntelEventEnded ())
@@ -506,7 +501,6 @@ FSM FleetIntel
             INIT
                     SpeechEvent (M05_Intel_ResearchDefenseFighter,0);       //  The enemy is using a new Fighter class ship with strong defensive capabilities but low maneuverability.  Our Research Division reports that it can produce a similar vessel.  Begin Research as soon as possible.
                     //SoundEvent (271);                                   // Play a sound event to notify the player that a subtitle is up
-                    //SubtitleSimulate (4, 16000, LSTRING_FITeachDefenders);
                     VarCreateSet ("G_TeachDefenderEventHasPlayed", TRUE);
                     VarDestroy ("G_CLICK_ResearchDefenders");
             ENDINIT
@@ -576,7 +570,6 @@ FSM FleetIntel
                             SpeechEvent (M05_Intel_HyperspaceTaiidan, 0);       //  Kushan fleet destroyed.  There's nothing left for us to return to.  Our only option is to follow the path etched into the Guidestone.  Finding our ancient home is our only hope now.Hyperspace coordinates locked in.
                     ENDIF
                     //SoundEvent (271);                                   // Play a sound event to notify the player that a subtitle is up
-                    //SubtitleSimulate(4, 16000, LSTRING_FIObjectivesComplete);
                     //TimerCreateSetStart ("FIObjectivesCompleteENDTimer", 6);
             ENDINIT
             WATCH

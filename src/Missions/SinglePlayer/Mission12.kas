@@ -96,7 +96,6 @@ FSM FleetIntel
                     SpeechEvent (M12_Fleet_HyperspaceDisengaged, 0);        // Dropping out of hyperspace.  All systems online.
                     VarCreateSet ("G_GoGravWells", TRUE);
                     //SoundEvent (4000);                                  // #define Exp_DestProjectileLarge
-                    //SubtitleSimulate (0, 4000, LSTRING_FCIntro);        // Dropping out of hyperspace.  All systems online.
             ENDINIT
             WATCH
                     IF (IntelEventEnded ())
@@ -117,7 +116,6 @@ FSM FleetIntel
             INIT
                     SpeechEvent (M12_Intel_DestroyGravWell, 0);                  // We are caught in a gravity well.  Fighters and Corvettes will be unable to move.  Seek out the source of this field and destroy it.
                     //SoundEvent (4000);                                          // #define Exp_DestProjectileLarge
-                    //SubtitleSimulate (4, 4000, LSTRING_FICaughtInField);        // We are caught in a gravity well.  Fighters and Corvettes will be unable to move.  Seek out the source of this field and destroy it.
                     MusicPlay (B04_EvilEmpire);
             ENDINIT
             WATCH
@@ -186,7 +184,6 @@ FSM FleetIntel
             INIT
                     SpeechEvent (M12_Intel_ResearchMissleDestroyer, 0);
                     //SoundEvent (4000);                                          // #define Exp_DestProjectileLarge
-                    //SubtitleSimulate (4, 6000, LSTRING_FIMissileTechReady);     // The enemy is using a Missile Destroyer.  Research Division reports it can produce a similar ship.  We advise commencing research immediately.
             ENDINIT
             WATCH
                     IF (IntelEventEnded ())
@@ -212,10 +209,8 @@ FSM FleetIntel
             INIT
                     //SoundEvent (4000);                                              // #define Exp_DestProjectileLarge
                     IF (RaceOfHuman () = 0)
-                            //SubtitleSimulate (4, 6000, LSTRING_FINewFighterTechKushan);     // Research Division reports it is now equipped for Cloaked Fighter technology.  We advise commencing research immediately.
                             SpeechEvent (M12_Intel_ResearchCloadkedFighter, 0);             // Research Division reports it is now equipped for Cloaked Fighter technology.  We advise commencing research immediately.
                     ELSEIF (RaceOfHuman () = 1)
-                            //SubtitleSimulate (4, 6000, LSTRING_FINewFighterTechTaiidan);    // Research Division reports it is now equipped for Defense Fighter technology.  We advise commencing research immediately.
                             SpeechEvent (M12_Intel_ResearchDefenseFighter, 0);              // Research Division reports it is now equipped for Defense Fighter technology.  We advise commencing research immediately.
                     ENDIF
             ENDINIT
@@ -265,10 +260,8 @@ FSM FleetIntel
                     //SoundEvent (4000);                                              // #define Exp_DestProjectileLarge
                     TimerCreateSetStart ("G_StayFocusedOnDefector", 6);
                     IF (RaceOfHuman () = 0)
-                            //SubtitleSimulate (9, 12000, LSTRING_DefectorHelpMeKushan);     // Attention Kushan Mothership! ....
                             SpeechEvent (M12_Defector_DefectingKushan, 0);                  // Attention Kushan Mothership! ....
                     ELSEIF (RaceOfHuman () = 1)
-                            //SubtitleSimulate (9, 12000, LSTRING_DefectorHelpMeTaiidan);    // Attention Taiidan Mothership! ....
                             SpeechEvent (M12_Defector_DefectingTaiidan, 0);                 // Attention Kushan Mothership! ....
                     ENDIF
                     TutResetGameMessageQueue();
@@ -333,7 +326,6 @@ FSM FleetIntel
             INIT
                     SpeechEvent (M12_Intel_ProtectDefector, 0);                      // This could be a trap but the Kapella is clearly damaged.  Engage the pursuing fleet and draw it away from the defecting ship.
                     //SoundEvent (4000);                                              // #define Exp_DestProjectileLarge
-                    //SubtitleSimulate (4, 6000, LSTRING_FIHelpDefector);             // This could be a trap but the Kapella is clearly damaged.  Engage the pursuing fleet and draw it away from the defecting ship.
             ENDINIT
             WATCH
                     IF (IntelEventEnded ())
@@ -362,7 +354,6 @@ FSM FleetIntel
             INIT
                     SpeechEvent (M12_Intel_EngageHyperdrive, 0);                    // The defecting captain has been brought aboard.  Engage hyperspace.
                     //SoundEvent (4000);                                              // #define Exp_DestProjectileLarge
-                    //SubtitleSimulate (4, 4000, LSTRING_FIDefectorOnBoard);          // The defecting captain has been brought aboard.  Engage hyperspace.
             ENDINIT
             WATCH
                     IF (IntelEventEnded ())

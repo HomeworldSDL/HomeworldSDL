@@ -40,13 +40,6 @@
                 "Acoplar nave de ataque a relé de comunicaciones"
 				"Attracca con la nave d'assalto al ripetitore di comunicazione"
 
-            LSTRING_HyperSpaceEnabled
-                "Hyperspace Enabled."
-                "Hyperespace actif."
-                "Hypersprung-Aggregat eingeschaltet."
-                "Hiperespacio activado."
-				"Iperspazio attivato."
-
             LSTRING_Hyperspace
                 "                HYPERSPACE"
                 "                HYPERESPACE"
@@ -126,7 +119,6 @@ FSM MissionFlow
     STATE FICom  //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
         INIT
             SpeechEvent(M13_Intel_CommunicationRelay, 0);
-            //SubtitleSimulate(0, 6000, LSTRING_FiIntro);
             ObjectiveCreate("EstablishCommunicationsLink", LSTRING_Objective1, LSTRING_Objective1);
             TimerCreateSetStart("FISeTimer", 1);
         ENDINIT
@@ -211,7 +203,6 @@ FSM MissionFlow
     STATE FILost  //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
         INIT
           SpeechEvent(M13_Intel_CapShipLost, 0);
-          //SubtitleSimulate(0, 6000, LSTRING_FiLost);
           TimerCreateSetStart("FISeTimer", 1);
         ENDINIT
 

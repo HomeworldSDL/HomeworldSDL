@@ -32,13 +32,6 @@
             "Comenzar recolección de recursos."
 			"Inizia la raccolta delle risorse."
 
-        LSTRING_PrimaryObjective02
-            "Destroy all Turanic Raider ships"
-            "Destruction totalité des Vaisseaux du Maraudeur Turanique"
-             "Alle Schiffe der turanischen Freibeuter sind zu zerstören."
-            "Destruir todas las naves de asalto turánicas"
-			"Distruggi tutte le astronavi Raider dei Turanic"
-
         LSTRING_SecondaryObjective01
             "Build and Deploy Resource Controller"
             "Construction et mise en place du Contrôleur des Ressources"

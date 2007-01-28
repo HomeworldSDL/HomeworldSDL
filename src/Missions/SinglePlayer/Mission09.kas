@@ -147,7 +147,6 @@ FSM Traders
         STATE Talking //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
             INIT
               SpeechEvent (M09_Traders_CouldNotApproach, 0);
-              //SubtitleSimulate(5, 6000, LSTRING_InfoExchange);
             ENDINIT
             WATCH
               IF (IntelEventEnded())
@@ -159,7 +158,6 @@ FSM Traders
         STATE TalkingMore //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
             INIT
               SpeechEvent (M09_Traders_ExchangeInfo, 0);
-              //SubtitleSimulate(5, 6000, LSTRING_InfoExchange);
             ENDINIT
             WATCH
               IF (IntelEventEnded())
@@ -310,7 +308,6 @@ FSM MissionFlow
     STATE FIGhost  //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
         INIT
             SpeechEvent(M09_Intel_VesselDetected, 0);
-            //SubtitleSimulate(0, 5000, LSTRING_FIPingGS);
             TimerCreateSetStart("FISeTimer", 1);
         ENDINIT
 
@@ -411,7 +408,6 @@ FSM MissionFlow
     STATE FIYoureStupid  //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
         INIT
             SpeechEvent(M09_Intel_ControlField, 0);
-            //SubtitleSimulate(4, 5000, LSTRING_FIYoureStupid);
             TimerCreateSetStart("FIYoureStupidSeTimer", 1);
         ENDINIT
         WATCH
@@ -545,7 +541,6 @@ FSM MissionFlow
     STATE FIControlField   //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
         INIT
           SpeechEvent (M09_Intel_LostControl,0);
-          //SubtitleSimulate(4, 5000, LSTRING_FIControlField);
         ENDINIT
 
         WATCH

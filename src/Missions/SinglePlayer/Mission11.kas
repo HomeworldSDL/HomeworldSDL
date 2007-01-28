@@ -82,7 +82,6 @@ FSM FleetIntel
             INIT
                     SpeechEvent ( M11_Fleet_HyperspaceDisengaged, 0);       // Hyperdrive disengaged.  The Bentusi are here.  They're in distress.
                     //SoundEvent (4000);                                  // #define Exp_DestProjectileLarge
-                    //SubtitleSimulate (0, 4000, LSTRING_FCIntro);        // Hyperdrive disengaged.  The Bentusi are here.  They're in distress.
                     //TimerCreateSetStart ("FCIntroENDTimer", 8);
             ENDINIT
             WATCH
@@ -107,11 +106,9 @@ FSM FleetIntel
                     IF (RaceOfHuman () = 0)                                             // If the player is Kushan
                             SpeechEvent (M11_Intel_DestroyEnemyKushan, 0);              // The Bentusi must be protected.  Draw the Taiidan fleet away and destroy them.
                             //SoundEvent (4000);                                          // #define Exp_DestProjectileLarge
-                            //SubtitleSimulate (4, 4000, LSTRING_FIDestroyTaiidan);       // The Bentusi must be protected.  Draw the Taiidan fleet away and destroy them.
                     ELSEIF (RaceOfHuman () = 1)                                         // If the player is Taiidan
                             SpeechEvent ( M11_Intel_DestroyEnemyTaiidan, 0);            // The Bentusi must be protected.  Draw the Kushan fleet away and destroy them.
                             //SoundEvent (4000);                                          // #define Exp_DestProjectileLarge
-                            //SubtitleSimulate (4, 4000, LSTRING_FIDestroyKushan);        // The Bentusi must be protected.  Draw the Kushan fleet away and destroy them.
                     ENDIF
             ENDINIT
             WATCH
@@ -158,7 +155,6 @@ FSM FleetIntel
             INIT
                     SpeechEvent (M11_Traders_BetusiInDebt, 0);                  // For the first time in Memory, the Bentusi are in the debt of another.
                     //SoundEvent (4000);                                          // #define Exp_DestProjectileLarge
-                    //SubtitleSimulate (5, 4000, LSTRING_TradersThanks);          // For the first time in Memory, the Bentusi are in the debt of another.
             ENDINIT
             WATCH
                     IF (IntelEventEnded ())
@@ -233,7 +229,6 @@ FSM FleetIntel
             INIT
                     SpeechEvent (M11_Traders_ReachHomeworld, 0);                    // Reach your Homeworld.  Establish your claim.  We will summon the Council.
                     //SoundEvent (4000);                                          // #define Exp_DestProjectileLarge
-                    //SubtitleSimulate (5, 4000, LSTRING_TradersCouncilComin);          // Reach your Homeworld.  Establish your claim.  We will summon the Council.
             ENDINIT
             WATCH
                     IF (IntelEventEnded ())
@@ -260,7 +255,6 @@ FSM FleetIntel
             INIT
                     SpeechEvent (M11_Intel_EngageHyperdrive, 0);                    // Engage Hyperdrive.
                     //SoundEvent (4000);                                              // #define Exp_DestProjectileLarge
-                    //SubtitleSimulate (4, 4000, LSTRING_FIEngageHyperdrive);         // Engage Hyperdrive.
                     IFONCE (TRUE)
                             VarCreateSet ("G_MissionComplete", TRUE);
                     ENDIFONCE
