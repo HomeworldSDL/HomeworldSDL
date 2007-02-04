@@ -81,8 +81,8 @@ AC_ARG_ENABLE(linuxfixme,
 if test "$platform_win32" = "no" ; then
     if test "x$linuxfixme" = "xyes" ; then
     	echo "* Building linux workaround build (-D_LINUX_FIX_ME) *"
-    	CFLAGS+=" -D_LINUX_FIX_ME "
-    	CPPFLAGS+=" -D_LINUX_FIX_ME "
+    	CFLAGS="$CFLAGS -D_LINUX_FIX_ME "
+    	CPPFLAGS="$CPPFLAGS -D_LINUX_FIX_ME "
     else
     	echo "* Building linux un-fixed build *"
     fi
@@ -106,8 +106,8 @@ AC_ARG_ENABLE(movies,
         AC_HELP_STRING([--enable-movies], [include movie code into Homeworld]),[movies=yes])
 if test "x$movies" = "xyes" ; then
         echo "* Including Movie code for Homeworld (HW_ENABLE_MOVIES) *"
-        HWGAME_CFLAGS+=" -DHW_ENABLE_MOVIES"
-        LDFLAGS+=" -lavcodec -lavformat"
+        HWGAME_CFLAGS="$HWGAME_CFLAGS -DHW_ENABLE_MOVIES"
+        LDFLAGS="$LDFLAGS -lavcodec -lavformat"
 fi
 
 
