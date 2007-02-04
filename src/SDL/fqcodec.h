@@ -51,7 +51,9 @@ extern double fChopT;
 // Macros
 #define rfabs(x)	((x<0.0F)?(-(x)):(x)) // Fast floating point absolute value
 #define rmax(x,y)	((x>y)?(x):(y)) // Fast maximize
+#if 0 // Clashes with math.h and apparently not used.
 #define rint(x)		((fChopT = (double)(x)+FQ_BNUM), *(int*)(&fChopT)) // Fast integer cast
+#endif
 
 #ifdef __cplusplus
 extern "C" {

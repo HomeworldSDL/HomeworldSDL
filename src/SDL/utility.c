@@ -3859,7 +3859,6 @@ char* utyGameSystemsPreInit(void)
 
     memset(utyStartedBits, 0, SSA_NumberBits);              //clear all module startup bits
     globalsInit();
-    fmathInit();
 
     keyInit();
 

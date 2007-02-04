@@ -10,8 +10,11 @@
 
 #include "Types.h"
 
-#define fsqrt(x)     (real32)fmathSqrtDouble((real32)(x))
-#define fmathSqrt(x) (real32)fmathSqrtDouble((real32)(x))
+#include <math.h>
+
+#define fsqrt(x)     (real32)sqrtf((real32)(x))
+#define fmathSqrt(x) (real32)sqrtf((real32)(x))
+#define fmathSqrtDouble sqrt
 
 // pi
 #ifndef PI
@@ -33,9 +36,6 @@
 #define circleArea(radius)          (    PI * (radius) * (radius))
 #define sphereArea(radius)          (FOURPI * (radius) * (radius))
 #define sphereVolume(radius)        (FOURPI * (radius) * (radius) * (radius) / 3.0f)
-
-void   fmathInit(void);
-double fmathSqrtDouble(double f);
 
 #endif
 
