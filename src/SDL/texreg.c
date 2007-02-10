@@ -1389,14 +1389,20 @@ udword trPalettedTextureCreate(ubyte *data, color *palette, sdword width, sdword
         }
 #endif //TR_ASPECT_CHECKING
 #if TR_ERROR_CHECKING
-        glTexImage2D(GL_PROXY_TEXTURE_2D, 0, TR_PaletteType, width,
-                     height, 0, GL_COLOR_INDEX, GL_UNSIGNED_BYTE, NULL);
-        glGetTexLevelParameteriv(GL_PROXY_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &internalWidth);
-        if (internalWidth == 0)
-        {
-            dbgFatalf(DBG_Loc, "\ntrPalettedTextureCreate: unable to create proxy texture size %d x %d", width, height);
-        }
-        primErrorMessagePrint();
+	if (!trNoPalettes)
+	{
+	    glTexImage2D(GL_PROXY_TEXTURE_2D, 0, TR_PaletteType,
+			 width, height, 0, GL_COLOR_INDEX, GL_UNSIGNED_BYTE,
+			 NULL);
+	    glGetTexLevelParameteriv(GL_PROXY_TEXTURE_2D, 0, GL_TEXTURE_WIDTH,
+				     &internalWidth);
+	    if (internalWidth == 0)
+	    {
+		dbgFatalf(DBG_Loc, "\ntrPalettedTextureCreate: unable to create proxy texture size %d x %d",
+			  width, height);
+	    }
+	    primErrorMessagePrint();
+	}
 #endif //TR_ERROR_CHECKING
     }
 
