@@ -98,7 +98,13 @@ float  SwapFloat32( float val );
 	#define FIX_ENDIAN_FLOAT_32(x)    SwapFloat32(x)
 #endif
 
-#define TreatAsUdword(x) (*((udword *)(&(x))))
+#if defined (__GNUC__) && defined (__i386__)
+// #define TreatAsUdword(x) (*((udword *)(&(x))))
+ udword TreatAsUdword(real32 a);
+#else 
+ #define TreatAsUdword(x) (*((udword *)(&(x))))
+#endif
+
 #define TreatAsReal32(x) (*((real32 *)(&(x))))
 
 

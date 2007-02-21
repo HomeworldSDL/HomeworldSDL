@@ -179,7 +179,7 @@ color* glfontPackOntoPage(fontheader* header, glfontheader* glfont, glfontpage* 
     if (header == NULL)
     {
         //reset starting character index
-        charIndex = TreatAsUdword(lastChar);
+        charIndex = (udword)(lastChar);
         return NULL;
     }
 

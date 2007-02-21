@@ -236,7 +236,7 @@ void dmgAddEffectToShip(Ship* ship, Effect* effect, sdword level)
         }
     }
 
-    uship = TreatAsUdword(ship);
+    uship = (udword)(ship);
     dbgFatalf(DBG_Loc, "too many damage effects at level %d, ship %u", level, uship);
 }
 
