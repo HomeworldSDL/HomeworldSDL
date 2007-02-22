@@ -385,7 +385,7 @@ SaveChunk *LoadNextChunkSafe()
     return returnchunk;
 }
 
-void SaveInfoNumber(sdword info)
+void SaveInfoNumber(udword info)
 {
     InfoChunkContents infocontents;
     SaveChunk *chunk;

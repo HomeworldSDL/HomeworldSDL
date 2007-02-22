@@ -100,7 +100,7 @@ Ship *SpaceObjRegistryGetShip(sdword id);
 Resource *SpaceObjRegistryGetResource(sdword id);
 Bullet *SpaceObjRegistryGetBullet(sdword id);
 TargetPtr SpaceObjRegistryGetTarget(sdword id);
-void SaveInfoNumber(sdword info);
+void SaveInfoNumber(udword info);
 sdword LoadInfoNumber();
 void *ConvertNumToPointerInList(LinkedList *list,sdword num);
 sdword ConvertPointerInListToNum(LinkedList *list,void *entry);

@@ -100,7 +100,8 @@ float  SwapFloat32( float val );
 
 #if defined (__GNUC__) && defined (__i386__)
 // #define TreatAsUdword(x) (*((udword *)(&(x))))
- udword TreatAsUdword(real32 a);
+ udword Real32ToUdword(real32 a);
+ #define TreatAsUdword(x) (*((udword *)(&(x))))
 #else 
  #define TreatAsUdword(x) (*((udword *)(&(x))))
 #endif

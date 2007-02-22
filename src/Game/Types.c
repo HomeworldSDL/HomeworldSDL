@@ -18,7 +18,7 @@ float SwapFloat32( float val )
 	return swap.f;
 }
 
-udword TreatAsUdword(float a)
+udword Real32ToUdword(float a)
 {
  return (*(udword*)(&a));
 }

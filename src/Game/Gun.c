@@ -1119,9 +1119,9 @@ void gunShoot(Ship *ship, Gun *gun, SpaceObjRotImpTarg *target)
     //figure out some parameters for the effects we are about to spawn
     floatDamage = (real32)bullet->damage;
     floatDamage *= ship->magnitudeSquared;
-    intDamage = TreatAsUdword(floatDamage);
-    intVelocity = TreatAsUdword(bulletspeed);
-    intLength = TreatAsUdword(gunstatic->bulletlength);
+    intDamage = Real32ToUdword(floatDamage);
+    intVelocity = Real32ToUdword(bulletspeed);
+    intLength = Real32ToUdword(gunstatic->bulletlength);
     //create an effect for bullet, if applicable
     if(bitTest(ship->specialFlags,SPECIAL_BurstFiring))
     {
