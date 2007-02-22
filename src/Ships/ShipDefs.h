@@ -1,7 +1,9 @@
 #ifndef ___SHIPDEFS_H
 #define ___SHIPDEFS_H
 
-typedef enum
+#include "Types.h"
+
+enum
 {
     ShipType_Uninitialized = -1,
 
@@ -67,9 +69,12 @@ typedef enum
     Junk_LGun,
     Junk_SGun,
     ResearchStationBridge,
-    ResearchStationTower,
-} ShipType;
+    ResearchStationTower
+};
 
+/* It seems that this needs to be unsigned, else something breaks in
+   NIS.c. */
+typedef udword ShipType;
 
 #define STD_FIRST_SHIP        AdvanceSupportFrigate
 #define STD_LAST_SHIP         CryoTray
