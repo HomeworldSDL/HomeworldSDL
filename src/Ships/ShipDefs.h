@@ -1,9 +1,7 @@
 #ifndef ___SHIPDEFS_H
 #define ___SHIPDEFS_H
 
-#include "Types.h"
-
-enum
+typedef enum
 {
     ShipType_Uninitialized = -1,
 
@@ -70,11 +68,16 @@ enum
     Junk_SGun,
     ResearchStationBridge,
     ResearchStationTower
-};
+} ShipType_enum;
 
+#if defined _LINUX_FIX_ME || defined _WIN32_FIXME
+#include "Types.h"
 /* It seems that this needs to be unsigned, else something breaks in
-   NIS.c. */
+   NIS.c and the assault on Kharak NIS in Mission 3 segfaults. */
 typedef udword ShipType;
+#else
+typedef ShipType_enum ShipType;
+#endif
 
 #define STD_FIRST_SHIP        AdvanceSupportFrigate
 #define STD_LAST_SHIP         CryoTray
