@@ -1619,8 +1619,8 @@ void etgStartup(void)
     memClearDword(etgSpecialPurposeEffectTable,0,EGT_NumberOfSpecialEffects);
 
     //default the big death amount to something
-    memClearDword(etgBigDeathFactor,         TreatAsUdword(bigDeathInitialiser), NUM_RACES * NUM_CLASSES);
-    memClearDword(etgBigDeathFactorDerelict, TreatAsUdword(bigDeathInitialiser), NUM_DERELICTTYPES);
+    memClearDword(etgBigDeathFactor,         (udword)bigDeathInitialiser, NUM_RACES * NUM_CLASSES);
+    memClearDword(etgBigDeathFactorDerelict, (udword)bigDeathInitialiser, NUM_DERELICTTYPES);
     //set the default bullet colors for R1 and everything else
     memClearDword(etgBulletColor, R2BulletColor, NUM_RACES * NUM_GUN_SOUND_TYPES);
     memClearDword(etgBulletColor, R1BulletColor, NUM_GUN_SOUND_TYPES);
@@ -5031,7 +5031,7 @@ sdword etgTimeIndexDefine(struct etgeffectstatic *stat, ubyte *dest, char *opcod
                 break;
             case EVT_Float:
                 nScanned = sscanf(param, "%f", &valueReal);
-                valueInt = TreatAsUdword(valueReal);
+                valueInt = Real32ToUdword(valueReal);
                 opcode = EOP_EffectorCF;
                 break;
             case EVT_RGB:
@@ -6769,7 +6769,7 @@ udword etgFmult(real32 numer, real32 denom)
 {
     real32 value;
     value = numer * denom;
-    return(TreatAsUdword(value));
+    return(Real32ToUdword(value));
 }
 
 //handle 'fdiv'
@@ -6777,7 +6777,7 @@ udword etgFdiv(real32 numer, real32 denom)
 {
     real32 value;
     value = numer / denom;
-    return(TreatAsUdword(value));
+    return(Real32ToUdword(value));
 }
 
 //handle 'fadd'
@@ -6785,7 +6785,7 @@ udword etgFadd(real32 numer, real32 denom)
 {
     real32 value;
     value = numer + denom;
-    return(TreatAsUdword(value));
+    return(Real32ToUdword(value));
 }
 
 //handle 'fsub'
@@ -6793,7 +6793,7 @@ udword etgFsub(real32 numer, real32 denom)
 {
     real32 value;
     value = numer - denom;
-    return(TreatAsUdword(value));
+    return(Real32ToUdword(value));
 }
 
 //handle 'add'
@@ -6825,7 +6825,7 @@ udword etgSin(real32 ang)
 {
     real32 value;
     value = sin(ang);
-    return(TreatAsUdword(value));
+    return(Real32ToUdword(value));
 }
 
 //handle 'cos'
@@ -6833,7 +6833,7 @@ udword etgCos(real32 ang)
 {
     real32 value;
     value = cos(ang);
-    return(TreatAsUdword(value));
+    return(Real32ToUdword(value));
 }
 
 /*-----------------------------------------------------------------------------
@@ -7046,7 +7046,7 @@ udword etgEffectVelocityGet(Effect *effect)
     }
     velocity = vecMagnitudeSquared(*velVector);
     velocity = fsqrt(velocity);
-    intVelocity = TreatAsUdword(velocity);
+    intVelocity = Real32ToUdword(velocity);
     return(intVelocity);
 }
 
@@ -7847,7 +7847,7 @@ udword etgFRandom(real32 low, real32 high)
 
     if (high <= low)
     {
-        return(TreatAsUdword(low));
+        return(Real32ToUdword(low));
     }
 //    dbgAssertOrIgnore(high > low);
     valueInt = ranRandom(RANDOM_ETG);
@@ -7855,7 +7855,7 @@ udword etgFRandom(real32 low, real32 high)
 #if ETG_VERBOSE_LEVEL >= 2
     dbgMessagef("frandom(%f, %f) = %f", low, high, value);
 #endif
-    return(TreatAsUdword(value));
+    return(Real32ToUdword(value));
 }
 
 udword etgIRandom(udword low, udword high)

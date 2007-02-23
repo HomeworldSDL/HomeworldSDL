@@ -3653,7 +3653,7 @@ void nisCameraCutSet(char *directory,char *field,void *dataToFillIn)
         dbgAssertOrIgnore(nScanned == 1);
 #endif
     }
-    event->param[0] = TreatAsUdword(value);
+    event->param[0] = Real32ToSdword(value);
 }
 void nisBlackScreenSet(char *directory, char *field, void *dataToFillIn)
 {
@@ -3716,8 +3716,8 @@ void nisTextScrollSet(char *directory, char *field, void *dataToFillIn)
         dbgAssertOrIgnore(duration > 0.0f && duration < 300.0f);
 #endif
     }
-    event->param[0] = TreatAsUdword(distance);
-    event->param[1] = TreatAsUdword(duration);
+    event->param[0] = Real32ToSdword(distance);
+    event->param[1] = Real32ToSdword(duration);
 }
 void nisTextFadeSet(char *directory, char *field, void *dataToFillIn)
 {
@@ -3936,7 +3936,7 @@ void nisScissorBlendSet(char *directory, char *field, void *dataToFillIn)
     else
     {
         event = nisNewEventNoObject(NEO_ScissorOut);
-        event->param[0] = TreatAsUdword(value);
+        event->param[0] = Real32ToSdword(value);
     }
 }
 void nisFocusAtEndSet(char *directory,char *field,void *dataToFillIn)
@@ -3990,7 +3990,7 @@ void nisMusicStopSet(char *directory,char *field,void *dataToFillIn)
         dbgFatalf(DBG_Loc, "Error scanning '%s' for a fade-out.", field);
     }
 #endif
-    event->param[0] = TreatAsUdword(fadeOut);
+    event->param[0] = Real32ToSdword(fadeOut);
 }
 void nisCentreShipSet(char *directory,char *field,void *dataToFillIn)
 {
@@ -4016,7 +4016,7 @@ void nisFadeSetSet(char *directory,char *field,void *dataToFillIn)
         dbgFatalf(DBG_Loc, "'%s' is not in the range of 0..1", field);
     }
 #endif
-    event->param[0] = TreatAsUdword(level);
+    event->param[0] = Real32ToSdword(level);
 }
 void nisFadeToSet(char *directory,char *field,void *dataToFillIn)
 {
@@ -4063,8 +4063,8 @@ void nisFadeToSet(char *directory,char *field,void *dataToFillIn)
         dbgFatalf(DBG_Loc, "Error scanning '%s'", time);
     }
 #endif
-    event->param[0] = TreatAsUdword(level);
-    event->param[1] = TreatAsUdword(duration);
+    event->param[0] = Real32ToSdword(level);
+    event->param[1] = Real32ToSdword(duration);
 }
 void nisColorSchemeSet(char *directory, char *field, void *dataToFillIn)
 {
@@ -4120,7 +4120,7 @@ void nisMeshAnimationSeekSet(char *directory, char *field, void *dataToFillIn)
         dbgFatalf(DBG_Loc, "Error scanning '%s' for a seek time.", field);
     }
 #endif
-    event->param[0] = TreatAsUdword(seekTime);
+    event->param[0] = Real32ToSdword(seekTime);
 }
 void nisBlendCameraToFocusSet(char *directory, char *field, void *dataToFillIn)
 {
@@ -4136,7 +4136,7 @@ void nisVolumesSet(char *directory, char *field, void *dataToFillIn)
 
     dbgAssertOrIgnore(nScanned == 1);
     dbgAssertOrIgnore(level >= 0.0f && level <= 1.0f);
-    event->param[0] = TreatAsUdword(level);
+    event->param[0] = Real32ToSdword(level);
 }
 void nisTrailZeroSet(char *directory, char *field, void *dataToFillIn)
 {
@@ -4371,7 +4371,7 @@ void nisDamageLevelSet(char *directory, char *field, void *dataToFillIn)
         percentage /= 100.0f;
     }
     dbgAssertOrIgnore(percentage > 0.0f);
-    event->param[0] = TreatAsUdword(percentage);
+    event->param[0] = Real32ToSdword(percentage);
 }
 
 scriptEntry nisScriptTable[] =

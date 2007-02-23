@@ -201,13 +201,13 @@ void hsStart(Ship* ship, real32 cliptDelta, bool into, bool displayEffect)
             vecAddTo(location, vecRotated);
 
             floatUpScale = 0.0f;//HS_DIST * sinfo->uplength;
-            intUpScale = TreatAsUdword(floatUpScale);
+            intUpScale = Real32ToSdword(floatUpScale);
 
             floatRightScale = HS_DIST * sinfo->rightlength;
-            intRightScale = TreatAsUdword(floatRightScale);
+            intRightScale = Real32ToSdword(floatRightScale);
 
             floatDepthScale = 0.25f * sinfo->forwardlength;
-            intDepthScale = TreatAsUdword(floatDepthScale);
+            intDepthScale = Real32ToSdword(floatDepthScale);
 
             effect = etgEffectCreate(stat, ship,
                                      &location,

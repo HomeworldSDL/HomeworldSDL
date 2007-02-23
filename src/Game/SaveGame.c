@@ -385,7 +385,7 @@ SaveChunk *LoadNextChunkSafe()
     return returnchunk;
 }
 
-void SaveInfoNumber(udword info)
+void SaveInfoNumber(sdword info)
 {
     InfoChunkContents infocontents;
     SaveChunk *chunk;
@@ -433,8 +433,8 @@ void SaveBackground(void)
     real32 theta = btgGetTheta();
     real32 phi = btgGetPhi();
 
-    SaveInfoNumber(TreatAsUdword(theta));
-    SaveInfoNumber(TreatAsUdword(phi));
+    SaveInfoNumber(Real32ToSdword(theta));
+    SaveInfoNumber(Real32ToSdword(phi));
     Save_String(btgLastBackground);
 }
 

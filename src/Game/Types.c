@@ -23,3 +23,8 @@ udword Real32ToUdword(float a)
  return (*(udword*)(&a));
 }
 
+udword Real32ToSdword(float a)
+{
+ return (*(sdword*)(&a));
+}
+

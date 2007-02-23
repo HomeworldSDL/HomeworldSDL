@@ -4279,14 +4279,15 @@ void kasfSpawnEffect(GrowSelection *ships, char *effectName, sdword parameter)
         }
 #endif
     }
-    floatParameter = (real32)parameter;
-    intParameter = TreatAsUdword(floatParameter);       //get the user parameter
+//    floatParameter = (real32)parameter;
+//    intParameter = TreatAsUdword(floatParameter);       //get the user parameter
+    intParameter = (udword)parameter;
     count = ships->selection->numShips;
     shipPtr = ships->selection->ShipPtr;
     for (index = 0; index < count; index++, shipPtr++)
     {
         floatParameter = ((ShipStaticInfo *)((*shipPtr)->staticinfo))->staticheader.staticCollInfo.collspheresize;
-        intSize = TreatAsUdword(floatParameter);            //get the size
+        intSize = Real32ToUdword(floatParameter);            //get the size
 
         etgEffectCreate(lastEffect, *shipPtr, NULL, NULL, NULL, 0.0f, EAF_Full, 2, intSize, intParameter);
     }

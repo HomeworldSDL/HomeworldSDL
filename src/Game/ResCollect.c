@@ -716,8 +716,8 @@ void TurnHarvestEffectOn(Ship *ship,Resource *resource,vector *trajectory, real3
 
     matCreateCoordSysFromHeading(&nozzlecoordsys,&nozzletrajectory);
 
-    intLength = TreatAsUdword(nozzletrajectorydist);
-    intWidth = TreatAsUdword(resourceRadius);
+    intLength = Real32ToUdword(nozzletrajectorydist);
+    intWidth = Real32ToUdword(resourceRadius);
 
     vecAddTo(nozzleposition,ship->posinfo.position);
 

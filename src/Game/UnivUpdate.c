@@ -3258,7 +3258,7 @@ nobulletmasstransfer:
                 floatDamage *= etgSoftwareScalarHit;
             }
             floatDamage *= damageMult;
-            intDamage = TreatAsUdword(floatDamage);
+            intDamage = Real32ToUdword(floatDamage);
             etgEffectCreate(stat, NULL, &hitLocation, &target->posinfo.velocity, &hitCoordsys, targetScale, 0, 2, intDamage, fatalHit);
         }
     }
@@ -3425,7 +3425,7 @@ void univMissileCollidedWithTarget(SpaceObjRotImpTarg *target,StaticHeader *targ
                 floatDamage *= etgSoftwareScalarHit;
             }
             floatDamage *= damageMult;
-            intDamage = TreatAsUdword(floatDamage);
+            intDamage = Real32ToUdword(floatDamage);
             etgEffectCreate(stat, NULL, &hitLocation, &target->posinfo.velocity, &missile->rotinfo.coordsys, targetScale, 0, 2, intDamage, fatalHit);
         }
     }
@@ -4003,8 +4003,8 @@ void univDeleteDeadShip(Ship *ship, sdword deathBy)
                 {
                     velMagnitude = 0;
                 }
-                colSizeDword = TreatAsUdword(colSize);
-                velMagnitudeDword = TreatAsUdword(velMagnitude);
+                colSizeDword = Real32ToUdword(colSize);
+                velMagnitudeDword = Real32ToUdword(velMagnitude);
 
                 //!!!??? should there be some EAF_ here???
                 effect = etgEffectCreate(explosion, ship, NULL, NULL, NULL, 1.0f, 0, 2, colSizeDword, velMagnitudeDword);
@@ -4639,8 +4639,8 @@ bool DeleteDeadDerelict(Derelict *derelict, sdword deathBy)
 
             velMagnitude = fsqrt(vecMagnitudeSquared(derelict->posinfo.velocity));
             velMagnitude /= derelict->staticinfo->staticheader.maxvelocity;
-            colSizeDword = TreatAsUdword(colSize);
-            velMagnitudeDword = TreatAsUdword(velMagnitude);
+            colSizeDword = Real32ToUdword(colSize);
+            velMagnitudeDword = Real32ToUdword(velMagnitude);
             //??? EAF_ flags ???
             effect = etgEffectCreate(explosion, derelict, NULL, NULL, NULL, 1.0f, 0, 2, colSizeDword, velMagnitudeDword);
             bitSet(effect->flags, SOF_ForceVisible);
@@ -4797,7 +4797,7 @@ void DeleteDeadMissile(Missile *missile, sdword deathBy)
                 {                                               //smaller hit effects in software
                     floatDamage *= etgSoftwareScalarHit;
                 }
-                intDamage = TreatAsUdword(floatDamage);
+                intDamage = Real32ToUdword(floatDamage);
                 fatalHit = FALSE;
                 etgEffectCreate(stat, NULL, &hitLocation, &missile->posinfo.velocity, &missile->rotinfo.coordsys, 1.0, 0, 2, intDamage, fatalHit);
             }
@@ -5305,59 +5305,59 @@ udword univCalcShipChecksum(void)
             search = search->next;
             continue;
         }
-        shipcheck += TreatAsUdword(ship->collOptimizeDist);
+        shipcheck += Real32ToUdword(ship->collOptimizeDist);
 
-        shipcheck += TreatAsUdword(ship->posinfo.position.x);
-        shipcheck += TreatAsUdword(ship->posinfo.position.y);
-        shipcheck += TreatAsUdword(ship->posinfo.position.z);
-        shipcheck += TreatAsUdword(ship->posinfo.velocity.x);
-        shipcheck += TreatAsUdword(ship->posinfo.velocity.y);
-        shipcheck += TreatAsUdword(ship->posinfo.velocity.z);
-        shipcheck += TreatAsUdword(ship->posinfo.force.x);
-        shipcheck += TreatAsUdword(ship->posinfo.force.y);
-        shipcheck += TreatAsUdword(ship->posinfo.force.z);
+        shipcheck += Real32ToUdword(ship->posinfo.position.x);
+        shipcheck += Real32ToUdword(ship->posinfo.position.y);
+        shipcheck += Real32ToUdword(ship->posinfo.position.z);
+        shipcheck += Real32ToUdword(ship->posinfo.velocity.x);
+        shipcheck += Real32ToUdword(ship->posinfo.velocity.y);
+        shipcheck += Real32ToUdword(ship->posinfo.velocity.z);
+        shipcheck += Real32ToUdword(ship->posinfo.force.x);
+        shipcheck += Real32ToUdword(ship->posinfo.force.y);
+        shipcheck += Real32ToUdword(ship->posinfo.force.z);
         shipcheck += (udword)ship->posinfo.isMoving;
         shipcheck += (udword)ship->posinfo.haventCalculatedDist;
 
-        shipcheck += TreatAsUdword(ship->rotinfo.coordsys.m11);
-        shipcheck += TreatAsUdword(ship->rotinfo.coordsys.m21);
-        shipcheck += TreatAsUdword(ship->rotinfo.coordsys.m31);
-        shipcheck += TreatAsUdword(ship->rotinfo.coordsys.m12);
-        shipcheck += TreatAsUdword(ship->rotinfo.coordsys.m22);
-        shipcheck += TreatAsUdword(ship->rotinfo.coordsys.m32);
-        shipcheck += TreatAsUdword(ship->rotinfo.coordsys.m13);
-        shipcheck += TreatAsUdword(ship->rotinfo.coordsys.m23);
-        shipcheck += TreatAsUdword(ship->rotinfo.coordsys.m33);
-        shipcheck += TreatAsUdword(ship->rotinfo.rotspeed.x);
-        shipcheck += TreatAsUdword(ship->rotinfo.rotspeed.y);
-        shipcheck += TreatAsUdword(ship->rotinfo.rotspeed.z);
-        shipcheck += TreatAsUdword(ship->rotinfo.torque.x);
-        shipcheck += TreatAsUdword(ship->rotinfo.torque.y);
-        shipcheck += TreatAsUdword(ship->rotinfo.torque.z);
+        shipcheck += Real32ToUdword(ship->rotinfo.coordsys.m11);
+        shipcheck += Real32ToUdword(ship->rotinfo.coordsys.m21);
+        shipcheck += Real32ToUdword(ship->rotinfo.coordsys.m31);
+        shipcheck += Real32ToUdword(ship->rotinfo.coordsys.m12);
+        shipcheck += Real32ToUdword(ship->rotinfo.coordsys.m22);
+        shipcheck += Real32ToUdword(ship->rotinfo.coordsys.m32);
+        shipcheck += Real32ToUdword(ship->rotinfo.coordsys.m13);
+        shipcheck += Real32ToUdword(ship->rotinfo.coordsys.m23);
+        shipcheck += Real32ToUdword(ship->rotinfo.coordsys.m33);
+        shipcheck += Real32ToUdword(ship->rotinfo.rotspeed.x);
+        shipcheck += Real32ToUdword(ship->rotinfo.rotspeed.y);
+        shipcheck += Real32ToUdword(ship->rotinfo.rotspeed.z);
+        shipcheck += Real32ToUdword(ship->rotinfo.torque.x);
+        shipcheck += Real32ToUdword(ship->rotinfo.torque.y);
+        shipcheck += Real32ToUdword(ship->rotinfo.torque.z);
 
-        shipcheck += TreatAsUdword(ship->collInfo.collOffset.x);
-        shipcheck += TreatAsUdword(ship->collInfo.collOffset.y);
-        shipcheck += TreatAsUdword(ship->collInfo.collOffset.z);
-        shipcheck += TreatAsUdword(ship->collInfo.collPosition.x);
-        shipcheck += TreatAsUdword(ship->collInfo.collPosition.y);
-        shipcheck += TreatAsUdword(ship->collInfo.collPosition.z);
+        shipcheck += Real32ToUdword(ship->collInfo.collOffset.x);
+        shipcheck += Real32ToUdword(ship->collInfo.collOffset.y);
+        shipcheck += Real32ToUdword(ship->collInfo.collOffset.z);
+        shipcheck += Real32ToUdword(ship->collInfo.collPosition.x);
+        shipcheck += Real32ToUdword(ship->collInfo.collPosition.y);
+        shipcheck += Real32ToUdword(ship->collInfo.collPosition.z);
 
         for (i=0;i<8;i++)
         {
-            shipcheck += TreatAsUdword(ship->collInfo.rectpos[i].x);
-            shipcheck += TreatAsUdword(ship->collInfo.rectpos[i].y);
-            shipcheck += TreatAsUdword(ship->collInfo.rectpos[i].z);
+            shipcheck += Real32ToUdword(ship->collInfo.rectpos[i].x);
+            shipcheck += Real32ToUdword(ship->collInfo.rectpos[i].y);
+            shipcheck += Real32ToUdword(ship->collInfo.rectpos[i].z);
         }
 
-        shipcheck += TreatAsUdword(ship->health);
-        shipcheck += TreatAsUdword(ship->lasttimecollided);
+        shipcheck += Real32ToUdword(ship->health);
+        shipcheck += Real32ToUdword(ship->lasttimecollided);
 
         for (i=0;i<NUM_TRANS_DEGOFFREEDOM;i++)
-            shipcheck += TreatAsUdword(ship->nonstatvars.thruststrength[i]);
+            shipcheck += Real32ToUdword(ship->nonstatvars.thruststrength[i]);
         for (i=0;i<NUM_ROT_DEGOFFREEDOM;i++)
-            shipcheck += TreatAsUdword(ship->nonstatvars.rotstrength[i]);
+            shipcheck += Real32ToUdword(ship->nonstatvars.rotstrength[i]);
         for (i=0;i<NUM_TURN_TYPES;i++)
-            shipcheck += TreatAsUdword(ship->nonstatvars.turnspeed[i]);
+            shipcheck += Real32ToUdword(ship->nonstatvars.turnspeed[i]);
 
         shipcheck += (udword)ship->aistate;
         shipcheck += ship->specialFlags&(~(SPECIAL_Resourcing|SPECIAL_Finished_Resource));
@@ -5366,38 +5366,38 @@ udword univCalcShipChecksum(void)
         for (i=0;i<MAX_MULTIPLAYER_PLAYERS;i++)
             shipcheck += ship->salvageNumTagged[i];
 
-        shipcheck += TreatAsUdword(ship->moveTo.x);
-        shipcheck += TreatAsUdword(ship->moveTo.y);
-        shipcheck += TreatAsUdword(ship->moveTo.z);
-        shipcheck += TreatAsUdword(ship->moveFrom.x);
-        shipcheck += TreatAsUdword(ship->moveFrom.y);
-        shipcheck += TreatAsUdword(ship->moveFrom.z);
-        shipcheck += TreatAsUdword(ship->formationOffset.x);
-        shipcheck += TreatAsUdword(ship->formationOffset.y);
-        shipcheck += TreatAsUdword(ship->formationOffset.z);
-        shipcheck += TreatAsUdword(ship->formationHeading.x);
-        shipcheck += TreatAsUdword(ship->formationHeading.y);
-        shipcheck += TreatAsUdword(ship->formationHeading.z);
-        shipcheck += TreatAsUdword(ship->engineOffset.x);
-        shipcheck += TreatAsUdword(ship->engineOffset.y);
-        shipcheck += TreatAsUdword(ship->engineOffset.z);
-        shipcheck += TreatAsUdword(ship->enginePosition.x);
-        shipcheck += TreatAsUdword(ship->enginePosition.y);
-        shipcheck += TreatAsUdword(ship->enginePosition.z);
+        shipcheck += Real32ToUdword(ship->moveTo.x);
+        shipcheck += Real32ToUdword(ship->moveTo.y);
+        shipcheck += Real32ToUdword(ship->moveTo.z);
+        shipcheck += Real32ToUdword(ship->moveFrom.x);
+        shipcheck += Real32ToUdword(ship->moveFrom.y);
+        shipcheck += Real32ToUdword(ship->moveFrom.z);
+        shipcheck += Real32ToUdword(ship->formationOffset.x);
+        shipcheck += Real32ToUdword(ship->formationOffset.y);
+        shipcheck += Real32ToUdword(ship->formationOffset.z);
+        shipcheck += Real32ToUdword(ship->formationHeading.x);
+        shipcheck += Real32ToUdword(ship->formationHeading.y);
+        shipcheck += Real32ToUdword(ship->formationHeading.z);
+        shipcheck += Real32ToUdword(ship->engineOffset.x);
+        shipcheck += Real32ToUdword(ship->engineOffset.y);
+        shipcheck += Real32ToUdword(ship->engineOffset.z);
+        shipcheck += Real32ToUdword(ship->enginePosition.x);
+        shipcheck += Real32ToUdword(ship->enginePosition.y);
+        shipcheck += Real32ToUdword(ship->enginePosition.z);
 
-        shipcheck += TreatAsUdword(ship->rowOriginalPoint.x);
-        shipcheck += TreatAsUdword(ship->rowOriginalPoint.y);
-        shipcheck += TreatAsUdword(ship->rowOriginalPoint.z);
-        shipcheck += TreatAsUdword(ship->rowOutOfWayPoint.x);
-        shipcheck += TreatAsUdword(ship->rowOutOfWayPoint.y);
-        shipcheck += TreatAsUdword(ship->rowOutOfWayPoint.z);
+        shipcheck += Real32ToUdword(ship->rowOriginalPoint.x);
+        shipcheck += Real32ToUdword(ship->rowOriginalPoint.y);
+        shipcheck += Real32ToUdword(ship->rowOriginalPoint.z);
+        shipcheck += Real32ToUdword(ship->rowOutOfWayPoint.x);
+        shipcheck += Real32ToUdword(ship->rowOutOfWayPoint.y);
+        shipcheck += Real32ToUdword(ship->rowOutOfWayPoint.z);
 
         shipcheck += (udword)ship->shiptype;
         shipcheck += (udword)ship->shiprace;
         shipcheck += (udword)ship->tacticstype;
 
         shipcheck += (udword)ship->isDodging;
-        shipcheck += TreatAsUdword(ship->DodgeTime);
+        shipcheck += Real32ToUdword(ship->DodgeTime);
         shipcheck += (udword)ship->DodgeDir;
         shipcheck += (udword)ship->tacticsFormationVar1;
         shipcheck += ship->DodgeFlag;
@@ -5405,16 +5405,16 @@ udword univCalcShipChecksum(void)
         shipcheck += ship->tacticsTalk;
         shipcheck += (udword)ship->tacticsNeedToFlightMan;
 
-        shipcheck += TreatAsUdword(ship->timeCreated);
+        shipcheck += Real32ToUdword(ship->timeCreated);
         shipcheck += (udword)ship->kamikazeState;
 
-        shipcheck += TreatAsUdword(ship->kamikazeVector.x);
-        shipcheck += TreatAsUdword(ship->kamikazeVector.y);
-        shipcheck += TreatAsUdword(ship->kamikazeVector.z);
+        shipcheck += Real32ToUdword(ship->kamikazeVector.x);
+        shipcheck += Real32ToUdword(ship->kamikazeVector.y);
+        shipcheck += Real32ToUdword(ship->kamikazeVector.z);
 
-        shipcheck += TreatAsUdword(ship->speedBurstTime);
-        shipcheck += TreatAsUdword(ship->singlePlayerSpeedLimiter);
-        shipcheck += TreatAsUdword(ship->deathtime);
+        shipcheck += Real32ToUdword(ship->speedBurstTime);
+        shipcheck += Real32ToUdword(ship->singlePlayerSpeedLimiter);
+        shipcheck += Real32ToUdword(ship->deathtime);
         shipcheck += ship->madAnimationFlags;
         shipcheck += ship->madGunStatus;
         shipcheck += ship->madWingStatus;
@@ -5425,8 +5425,8 @@ udword univCalcShipChecksum(void)
         shipcheck += ship->nextAnim;
         shipcheck += (udword)ship->forceCancelDock;
         shipcheck += (udword)ship->resources;
-        shipcheck += TreatAsUdword(ship->fuel);
-        shipcheck += TreatAsUdword(ship->lastTimeRepaired);
+        shipcheck += Real32ToUdword(ship->fuel);
+        shipcheck += Real32ToUdword(ship->lastTimeRepaired);
 
         shipcheck += (udword)ship->shipidle;
         shipcheck += (udword)ship->autostabilizeship;
@@ -5445,16 +5445,16 @@ udword univCalcShipChecksum(void)
         shipcheck += (udword)ship->recentlyAttacked;
         shipcheck += (udword)ship->recentlyFiredUpon;
         shipcheck += (udword)ship->rowState;
-        shipcheck += TreatAsUdword(ship->aidescend);
+        shipcheck += Real32ToUdword(ship->aidescend);
         shipcheck += ship->flightman;
 
         shipcheck += ship->attackvars.flightmansLeft;
         shipcheck += ship->attackvars.attacksituation;
         shipcheck += ship->attackvars.attackevents;
 
-        shipcheck += TreatAsUdword(ship->dockvars.destination.x);
-        shipcheck += TreatAsUdword(ship->dockvars.destination.y);
-        shipcheck += TreatAsUdword(ship->dockvars.destination.z);
+        shipcheck += Real32ToUdword(ship->dockvars.destination.x);
+        shipcheck += Real32ToUdword(ship->dockvars.destination.y);
+        shipcheck += Real32ToUdword(ship->dockvars.destination.z);
 
         shipcheck += (udword)ship->dockvars.dockstate;
         shipcheck += (udword)ship->dockvars.dockstate2;
@@ -5467,10 +5467,10 @@ udword univCalcShipChecksum(void)
         shipcheck += (udword)ship->whoKilledMe;
         shipcheck += (udword)ship->nDamageLights;
 
-        shipcheck += TreatAsUdword(ship->holdingPatternPos.x);
-        shipcheck += TreatAsUdword(ship->holdingPatternPos.y);
-        shipcheck += TreatAsUdword(ship->holdingPatternPos.z);
-        shipcheck += TreatAsUdword(ship->damageModifier);
+        shipcheck += Real32ToUdword(ship->holdingPatternPos.x);
+        shipcheck += Real32ToUdword(ship->holdingPatternPos.y);
+        shipcheck += Real32ToUdword(ship->holdingPatternPos.z);
+        shipcheck += Real32ToUdword(ship->damageModifier);
 
         shipcheck += ship->tractorbeaminfo;
         shipcheck += ship->tractorvector;
@@ -5483,7 +5483,7 @@ udword univCalcShipChecksum(void)
         shipcheck += (udword)ship->needNewLeader;
         shipcheck += (udword)ship->newDockIndexTransfer;
 
-        shipcheck += TreatAsUdword(ship->shipDeCloakTime);
+        shipcheck += Real32ToUdword(ship->shipDeCloakTime);
         shipcheck += (udword)ship->shipID.shipNumber;
 
         search = search->next;
@@ -5501,25 +5501,25 @@ udword univCalcShipChecksum(void)
             continue;
         }
 
-        //shipcheck += TreatAsUdword(bullet->posinfo.position.x);
-        //shipcheck += TreatAsUdword(bullet->posinfo.position.y);
-        //shipcheck += TreatAsUdword(bullet->posinfo.position.z);
+        //shipcheck += Real32ToUdword(bullet->posinfo.position.x);
+        //shipcheck += Real32ToUdword(bullet->posinfo.position.y);
+        //shipcheck += Real32ToUdword(bullet->posinfo.position.z);
 
-        //shipcheck += TreatAsUdword(bullet->posinfo.velocity.x);
-        //shipcheck += TreatAsUdword(bullet->posinfo.velocity.y);
-        //shipcheck += TreatAsUdword(bullet->posinfo.velocity.z);
+        //shipcheck += Real32ToUdword(bullet->posinfo.velocity.x);
+        //shipcheck += Real32ToUdword(bullet->posinfo.velocity.y);
+        //shipcheck += Real32ToUdword(bullet->posinfo.velocity.z);
         //shipcheck += (udword)bullet->posinfo.isMoving;
         //shipcheck += (udword)bullet->posinfo.haventCalculatedDist;
 
-        //shipcheck += TreatAsUdword(bullet->lengthmag);
-        //shipcheck += TreatAsUdword(bullet->traveldist);
-        //shipcheck += TreatAsUdword(bullet->timelived);
-        //shipcheck += TreatAsUdword(bullet->totallifetime);
-        //shipcheck += TreatAsUdword(bullet->damage);
-        //shipcheck += TreatAsUdword(bullet->damageFull);
+        //shipcheck += Real32ToUdword(bullet->lengthmag);
+        //shipcheck += Real32ToUdword(bullet->traveldist);
+        //shipcheck += Real32ToUdword(bullet->timelived);
+        //shipcheck += Real32ToUdword(bullet->totallifetime);
+        //shipcheck += Real32ToUdword(bullet->damage);
+        //shipcheck += Real32ToUdword(bullet->damageFull);
         //shipcheck += (udword)bullet->SpecialEffectFlag;
-        //shipcheck += TreatAsUdword(bullet->DFGFieldEntryTime);
-        //shipcheck += TreatAsUdword(bullet->BulletSpeed);
+        //shipcheck += Real32ToUdword(bullet->DFGFieldEntryTime);
+        //shipcheck += Real32ToUdword(bullet->BulletSpeed);
         if(bullet->owner != NULL)
         {
             shipcheck += 128;

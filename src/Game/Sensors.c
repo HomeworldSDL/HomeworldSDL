@@ -4320,17 +4320,17 @@ void smObjectDied(void *object)
 
 void smSave(void)
 {
-    SaveInfoNumber(TreatAsUdword(smDepthCueRadius));
-    SaveInfoNumber(TreatAsUdword(smDepthCueStartRadius));
-    SaveInfoNumber(TreatAsUdword(smCircleBorder));
-    SaveInfoNumber(TreatAsUdword(smZoomMax));
-    SaveInfoNumber(TreatAsUdword(smZoomMin));
-    SaveInfoNumber(TreatAsUdword(smZoomMinFactor));
-    SaveInfoNumber(TreatAsUdword(smZoomMaxFactor));
-    SaveInfoNumber(TreatAsUdword(smInitialDistance));
-    SaveInfoNumber(TreatAsUdword(smUniverseSizeX));
-    SaveInfoNumber(TreatAsUdword(smUniverseSizeY));
-    SaveInfoNumber(TreatAsUdword(smUniverseSizeZ));
+    SaveInfoNumber(Real32ToSdword(smDepthCueRadius));
+    SaveInfoNumber(Real32ToSdword(smDepthCueStartRadius));
+    SaveInfoNumber(Real32ToSdword(smCircleBorder));
+    SaveInfoNumber(Real32ToSdword(smZoomMax));
+    SaveInfoNumber(Real32ToSdword(smZoomMin));
+    SaveInfoNumber(Real32ToSdword(smZoomMinFactor));
+    SaveInfoNumber(Real32ToSdword(smZoomMaxFactor));
+    SaveInfoNumber(Real32ToSdword(smInitialDistance));
+    SaveInfoNumber(Real32ToSdword(smUniverseSizeX));
+    SaveInfoNumber(Real32ToSdword(smUniverseSizeY));
+    SaveInfoNumber(Real32ToSdword(smUniverseSizeZ));
 
     SaveInfoNumber(smSensorWeirdness);
 }

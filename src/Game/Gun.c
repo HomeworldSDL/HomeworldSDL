@@ -740,7 +740,7 @@ void missileShoot(Ship *ship,Gun *gun,SpaceObjRotImpTarg *target)
                 floatDamage *= etgSoftwareScalarFire;
             }
             floatDamage *= ship->magnitudeSquared;
-            intDamage = TreatAsUdword(floatDamage);
+            intDamage = Real32ToUdword(floatDamage);
             etgEffectCreate(stat, ship, &missile->posinfo.position, NULL, &newCoordsys, 1.0f, EAF_Velocity | EAF_NLips, 1, intDamage);
         }
     }
@@ -1119,15 +1119,9 @@ void gunShoot(Ship *ship, Gun *gun, SpaceObjRotImpTarg *target)
     //figure out some parameters for the effects we are about to spawn
     floatDamage = (real32)bullet->damage;
     floatDamage *= ship->magnitudeSquared;
-#ifdef _LINUX_FIX_ME
     intDamage = Real32ToUdword(floatDamage);
     intVelocity = Real32ToUdword(bulletspeed);
     intLength = Real32ToUdword(gunstatic->bulletlength);
-#else
-    intDamage = TreatAsUdword(floatDamage);
-    intVelocity = TreatAsUdword(bulletspeed);
-    intLength = TreatAsUdword(gunstatic->bulletlength);
-#endif
     //create an effect for bullet, if applicable
     if(bitTest(ship->specialFlags,SPECIAL_BurstFiring))
     {
