@@ -5992,7 +5992,7 @@ sdword etgCompareVCF(Effect *effect, struct etgeffectstatic *stat, ubyte *opcode
     float var;
 
     var = *((float *)(effect->variable + ((etgconditional *)opcode)->param0));
-    if (var == TreatAsReal32(((etgconditional *)opcode)->param1))
+    if (var == UdwordToReal32(((etgconditional *)opcode)->param1))
     {                                                       //if compare succeeds
         return(sizeof(etgconditional));                     //just size of this opcode
     }                                                       //else condition failed
@@ -6004,7 +6004,7 @@ sdword etgNotEqualVCF(Effect *effect, struct etgeffectstatic *stat, ubyte *opcod
     float var;
 
     var = *((float *)(effect->variable + ((etgconditional *)opcode)->param0));
-    if (var != TreatAsReal32(((etgconditional *)opcode)->param1))
+    if (var != UdwordToReal32(((etgconditional *)opcode)->param1))
     {                                                       //if compare succeeds
         return(sizeof(etgconditional));                     //just size of this opcode
     }                                                       //else condition failed
@@ -6016,7 +6016,7 @@ sdword etgGreaterVCF(Effect *effect, struct etgeffectstatic *stat, ubyte *opcode
     float var;
 
     var = *((float *)(effect->variable + ((etgconditional *)opcode)->param0));
-    if (var > TreatAsReal32(((etgconditional *)opcode)->param1))
+    if (var > UdwordToReal32(((etgconditional *)opcode)->param1))
     {                                                       //if compare succeeds
         return(sizeof(etgconditional));                     //just size of this opcode
     }                                                       //else condition failed
@@ -6028,7 +6028,7 @@ sdword etgGreaterEqualVCF(Effect *effect, struct etgeffectstatic *stat, ubyte *o
     float var;
 
     var = *((float *)(effect->variable + ((etgconditional *)opcode)->param0));
-    if (var >= TreatAsReal32(((etgconditional *)opcode)->param1))
+    if (var >= UdwordToReal32(((etgconditional *)opcode)->param1))
     {                                                       //if compare succeeds
         return(sizeof(etgconditional));                     //just size of this opcode
     }                                                       //else condition failed
@@ -6040,7 +6040,7 @@ sdword etgLessVCF(Effect *effect, struct etgeffectstatic *stat, ubyte *opcode)
     float var;
 
     var = *((float *)(effect->variable + ((etgconditional *)opcode)->param0));
-    if (var < TreatAsReal32(((etgconditional *)opcode)->param1))
+    if (var < UdwordToReal32(((etgconditional *)opcode)->param1))
     {                                                       //if compare succeeds
         return(sizeof(etgconditional));                     //just size of this opcode
     }                                                       //else condition failed
@@ -6052,7 +6052,7 @@ sdword etgLessEqualVCF(Effect *effect, struct etgeffectstatic *stat, ubyte *opco
     float var;
 
     var = *((float *)(effect->variable + ((etgconditional *)opcode)->param0));
-    if (var <= TreatAsReal32(((etgconditional *)opcode)->param1))
+    if (var <= UdwordToReal32(((etgconditional *)opcode)->param1))
     {                                                       //if compare succeeds
         return(sizeof(etgconditional));                     //just size of this opcode
     }                                                       //else condition failed
@@ -6479,7 +6479,7 @@ sdword etgEffectorCF(Effect *effect, struct etgeffectstatic *stat, ubyte *opcode
     var = (real32 *)(effect->variable + ((etgseffector *)opcode)->effector);
     if (effect->effectID[offset / 4] != ((etgseffector *)opcode)->effectorID)
     {                                                       //if effector just now starting
-        end = TreatAsReal32(((etgseffector *)opcode)->end);  //get floating-point endpoint
+        end = UdwordToReal32(((etgseffector *)opcode)->end);  //get floating-point endpoint
         *rate = (end - *var) / etgEffectorDuration;         //rate to be scaled by time delta
         effect->effectID[offset / 4] = ((etgseffector *)opcode)->effectorID;
     }
@@ -6497,7 +6497,7 @@ sdword etgEffectorVF(Effect *effect, struct etgeffectstatic *stat, ubyte *opcode
     var = (real32 *)(effect->variable + ((etgseffector *)opcode)->effector);
     if (effect->effectID[offset / 4] != ((etgseffector *)opcode)->effectorID)
     {                                                       //if effector just now starting
-        //end = TreatAsReal32(((etgseffector *)opcode)->end);  //get floating-point endpoint
+        //end = UdwordToReal32(((etgseffector *)opcode)->end);  //get floating-point endpoint
         end = (real32 *)(effect->variable + ((etgseffector *)opcode)->end);
         *rate = (*end - *var) / etgEffectorDuration;         //rate to be scaled by time delta
         effect->effectID[offset / 4] = ((etgseffector *)opcode)->effectorID;

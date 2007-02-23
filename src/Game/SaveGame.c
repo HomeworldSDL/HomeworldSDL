@@ -443,8 +443,8 @@ void LoadBackground(void)
     sdword datatheta = LoadInfoNumber();
     sdword dataphi = LoadInfoNumber();
 
-    btgSetTheta(TreatAsReal32(datatheta));
-    btgSetPhi(TreatAsReal32(dataphi));
+    btgSetTheta(SdwordToReal32(datatheta));
+    btgSetPhi(SdwordToReal32(dataphi));
     Load_StringToAddress(btgLastBackground);
 
     btgLoadTextures();

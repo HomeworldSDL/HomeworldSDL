@@ -102,6 +102,10 @@ udword Real32ToUdword(real32 a);
 
 udword Real32ToSdword(real32 a);
 
+real32 UdwordToReal32(udword a);
+
+real32 SdwordToReal32(sdword a);
+
 #define TreatAsUdword(x) (*((udword *)(&(x))))
 
 #define TreatAsReal32(x) (*((real32 *)(&(x))))

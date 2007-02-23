@@ -4339,17 +4339,17 @@ void smLoad(void)
 {
     sdword loadnum;
 
-    loadnum = LoadInfoNumber(); smDepthCueRadius = TreatAsReal32(loadnum);
-    loadnum = LoadInfoNumber(); smDepthCueStartRadius = TreatAsReal32(loadnum);
-    loadnum = LoadInfoNumber(); smCircleBorder = TreatAsReal32(loadnum);
-    loadnum = LoadInfoNumber(); smZoomMax = TreatAsReal32(loadnum);
-    loadnum = LoadInfoNumber(); smZoomMin = TreatAsReal32(loadnum);
-    loadnum = LoadInfoNumber(); smZoomMinFactor = TreatAsReal32(loadnum);
-    loadnum = LoadInfoNumber(); smZoomMaxFactor = TreatAsReal32(loadnum);
-    loadnum = LoadInfoNumber(); smInitialDistance = TreatAsReal32(loadnum);
-    loadnum = LoadInfoNumber(); smUniverseSizeX = TreatAsReal32(loadnum);
-    loadnum = LoadInfoNumber(); smUniverseSizeY = TreatAsReal32(loadnum);
-    loadnum = LoadInfoNumber(); smUniverseSizeZ = TreatAsReal32(loadnum);
+    loadnum = LoadInfoNumber(); smDepthCueRadius = SdwordToReal32(loadnum);
+    loadnum = LoadInfoNumber(); smDepthCueStartRadius = SdwordToReal32(loadnum);
+    loadnum = LoadInfoNumber(); smCircleBorder = SdwordToReal32(loadnum);
+    loadnum = LoadInfoNumber(); smZoomMax = SdwordToReal32(loadnum);
+    loadnum = LoadInfoNumber(); smZoomMin = SdwordToReal32(loadnum);
+    loadnum = LoadInfoNumber(); smZoomMinFactor = SdwordToReal32(loadnum);
+    loadnum = LoadInfoNumber(); smZoomMaxFactor = SdwordToReal32(loadnum);
+    loadnum = LoadInfoNumber(); smInitialDistance = SdwordToReal32(loadnum);
+    loadnum = LoadInfoNumber(); smUniverseSizeX = SdwordToReal32(loadnum);
+    loadnum = LoadInfoNumber(); smUniverseSizeY = SdwordToReal32(loadnum);
+    loadnum = LoadInfoNumber(); smUniverseSizeZ = SdwordToReal32(loadnum);
 
     smSensorWeirdness = LoadInfoNumber();
 

@@ -2663,7 +2663,7 @@ void nisMinimumLOD(nisplaying *NIS, nisevent *event)
 void nisDamageLevel(nisplaying *NIS, nisevent *event)
 {
     Ship *goodShip;
-    real32 health = TreatAsReal32(event->param[0]);
+    real32 health = SdwordToReal32(event->param[0]);
 
     goodShip = (Ship *)NIS->objectsInMotion[event->shipID].spaceobj;
     goodShip->health = health * goodShip->staticinfo->maxhealth;
@@ -2693,7 +2693,7 @@ void nisRemainAtEnd(nisplaying *NIS, nisevent *event)
 
 void nisCameraFOV(nisplaying *NIS, nisevent *event)
 {
-    real32 FOV = TreatAsReal32(event->param[0]);
+    real32 FOV = SdwordToReal32(event->param[0]);
 
     nisCamera->fieldofview = FOV;
 }
@@ -2703,7 +2703,7 @@ void nisCameraCut(nisplaying *NIS, nisevent *event)
     objectmotion *path;
     cameramotion *camPath;
     vector position;
-    real32 timeElapsed = TreatAsReal32(event->param[0]);
+    real32 timeElapsed = SdwordToReal32(event->param[0]);
 
     dbgAssertOrIgnore(timeElapsed >= 0);
     dbgAssertOrIgnore(timeElapsed < NIS->header->length);
@@ -2760,14 +2760,14 @@ void nisTextScroll(nisplaying *NIS, nisevent *event)
     {
         return;
     }
-    nisTextScrollDistance = TreatAsReal32(event->param[0]);
+    nisTextScrollDistance = SdwordToReal32(event->param[0]);
     nisTextScrollStart = NIS->timeElapsed;
-    nisTextScrollEnd = nisTextScrollStart + TreatAsReal32(event->param[1]);
+    nisTextScrollEnd = nisTextScrollStart + SdwordToReal32(event->param[1]);
 }
 void nisScissorOut(nisplaying *NIS, nisevent *event)
 {
     soundEvent(NULL, UI_Unletterbox);
-    nisScissorFadeOut = TreatAsReal32(event->param[0]);
+    nisScissorFadeOut = SdwordToReal32(event->param[0]);
     nisScissorFadeTime = 0.0f;
 }
 void nisFocusAtEnd(nisplaying *NIS, nisevent *event)
@@ -2925,25 +2925,25 @@ void nisMusicStart(nisplaying *NIS, nisevent *event)
 void nisMusicStop(nisplaying *NIS, nisevent *event)
 {
 #if NIS_VERBOSE_LEVEL >= 1
-    dbgMessagef("Stopping music over the next %.2f seconds.", TreatAsReal32(event->param[0]));
+    dbgMessagef("Stopping music over the next %.2f seconds.", SdwordToReal32(event->param[0]));
 #endif
-    soundEventStopMusic(TreatAsReal32(event->param[0]));
+    soundEventStopMusic(SdwordToReal32(event->param[0]));
     nisMusicPlaying = FALSE;
 }
 void nisBlackFadeSet(nisplaying *NIS, nisevent *event)
 {
 #if NIS_VERBOSE_LEVEL >= 1
-    dbgMessagef("Setting fade level to %.2f", TreatAsReal32(event->param[0]));
+    dbgMessagef("Setting fade level to %.2f", SdwordToReal32(event->param[0]));
 #endif
-    nisBlackFade = nisBlackFadeDest = TreatAsReal32(event->param[0]);
+    nisBlackFade = nisBlackFadeDest = SdwordToReal32(event->param[0]);
 }
 void nisBlackFadeTo(nisplaying *NIS, nisevent *event)
 {
 #if NIS_VERBOSE_LEVEL >= 1
-    dbgMessagef("Fading to level %.2f over %.2f seconds", TreatAsReal32(event->param[0]), TreatAsReal32(event->param[1]));
+    dbgMessagef("Fading to level %.2f over %.2f seconds", SdwordToReal32(event->param[0]), SdwordToReal32(event->param[1]));
 #endif
-    nisBlackFadeDest = TreatAsReal32(event->param[0]);
-    nisBlackFadeRate = (TreatAsReal32(event->param[0]) - nisBlackFade) / TreatAsReal32(event->param[1]);
+    nisBlackFadeDest = SdwordToReal32(event->param[0]);
+    nisBlackFadeRate = (SdwordToReal32(event->param[0]) - nisBlackFade) / SdwordToReal32(event->param[1]);
 }
 void nisColorScheme(nisplaying *NIS, nisevent *event)
 {
@@ -3008,8 +3008,8 @@ void nisMeshAnimationSeek(nisplaying *NIS, nisevent *event)
     dbgAssertOrIgnore(goodShip->madBindings != NULL);
     if (goodShip->madBindings->nCurrentAnim != -1)
     {                                                       //if there is an animation playing
-//        goodShip->madBindings->time = TreatAsReal32(event->param[0]);
-        seekTime = TreatAsReal32(event->param[0]);
+//        goodShip->madBindings->time = SdwordToReal32(event->param[0]);
+        seekTime = SdwordToReal32(event->param[0]);
         if (seekTime > goodShip->madBindings->time)
         {
             madAnimationUpdate(goodShip, seekTime - goodShip->madBindings->time);
@@ -3120,21 +3120,21 @@ void nisVolumeSet(nisplaying *NIS, nisevent *event)
     {
         case NEO_MusicVolume:
 #if NIS_VERBOSE_LEVEL > 2
-            dbgMessagef("Setting Music volume to %.2f", TreatAsReal32(event->param[0]));
+            dbgMessagef("Setting Music volume to %.2f", SdwordToReal32(event->param[0]));
 #endif
-            soundEventMusicVol(TreatAsReal32(event->param[0]));
+            soundEventMusicVol(SdwordToReal32(event->param[0]));
             break;
         case NEO_SpeechVolume:
 #if NIS_VERBOSE_LEVEL > 2
-            dbgMessagef("Setting Speech volume to %.2f", TreatAsReal32(event->param[0]));
+            dbgMessagef("Setting Speech volume to %.2f", SdwordToReal32(event->param[0]));
 #endif
-            soundEventSpeechVol(TreatAsReal32(event->param[0]));
+            soundEventSpeechVol(SdwordToReal32(event->param[0]));
             break;
         case NEO_SFXVolume:
 #if NIS_VERBOSE_LEVEL > 2
-            dbgMessagef("Setting SFX volume to %.2f", TreatAsReal32(event->param[0]));
+            dbgMessagef("Setting SFX volume to %.2f", SdwordToReal32(event->param[0]));
 #endif
-            soundEventSFXVol(TreatAsReal32(event->param[0]));
+            soundEventSFXVol(SdwordToReal32(event->param[0]));
             break;
         default:
             break;
