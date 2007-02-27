@@ -38,7 +38,7 @@
 ----------------------------------------------------------------------------*/
 void physApplyForceToObj(SpaceObj *obj,real32 force,uword transdir)
 {
-    vector vectorforce;
+    vector vectorforce = VECTOR_ORIGIN;
 
     dbgAssertOrIgnore((obj->flags & SOF_Rotatable) != 0);
 

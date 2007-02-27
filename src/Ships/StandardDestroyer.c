@@ -7,6 +7,7 @@
 
 #include "StandardDestroyer.h"
 
+#include "Attack.h"
 #include "DefaultShip.h"
 
 typedef struct

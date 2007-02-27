@@ -1251,6 +1251,8 @@ filehandle fileOpen(char *_fileName, udword flags)
     int expandedSize, storedSize;
     BitFile *bitFile;
     sdword firstBufUse = FALSE;
+    sdword mainFileNum;
+    sdword updateFileNum;
 
     //  find next available filehandle
     fh = 1;
@@ -1333,7 +1335,6 @@ filehandle fileOpen(char *_fileName, udword flags)
                             logfileLogf(FILELOADSLOG, "%-80s", _fileName);
                             if (filesOpen[fh].bigFP == updateFP)
                             {
-                                sdword mainFileNum, updateFileNum;
                                 sdword inMain = bigTOCFileExists(&mainTOC, _fileName, (int *)&mainFileNum);
                                 sdword inUpdate = updateFP && bigTOCFileExists(&updateTOC, _fileName, (int *)&updateFileNum);
                                 logfileLogf(FILELOADSLOG, " |  %s [U] %s  | ",
@@ -1342,7 +1343,6 @@ filehandle fileOpen(char *_fileName, udword flags)
                             }
                             else
                             {
-                                sdword mainFileNum;
                                 logfileLogf(FILELOADSLOG, " | [M]    %s  | ",
                                             mainNewerAvailable[mainFileNum] == 1 ? "f" : " ");
                             }
@@ -1362,7 +1362,6 @@ filehandle fileOpen(char *_fileName, udword flags)
                             logfileLogf(FILELOADSLOG, "%-80s", _fileName);
                             if (filesOpen[fh].bigFP == updateFP)
                             {
-                                sdword mainFileNum, updateFileNum;
                                 sdword inMain = bigTOCFileExists(&mainTOC, _fileName, (int *)&mainFileNum);
                                 sdword inUpdate = updateFP && bigTOCFileExists(&updateTOC, _fileName, (int *)&updateFileNum);
                                 logfileLogf(FILELOADSLOG, " |  %s [U] %s  | ",
@@ -1371,7 +1370,6 @@ filehandle fileOpen(char *_fileName, udword flags)
                             }
                             else
                             {
-                                sdword mainFileNum;
                                 logfileLogf(FILELOADSLOG, " | [M]    %s  | ",
                                             mainNewerAvailable[mainFileNum] == 1 ? "f" : " ");
                             }
@@ -1400,7 +1398,6 @@ filehandle fileOpen(char *_fileName, udword flags)
                         }
                         else
                         {
-                            sdword mainFileNum;
                             logfileLogf(FILELOADSLOG, " | [M]    %s  | ",
                                         mainNewerAvailable[mainFileNum] == 1 ? "f" : " ");
                         }
@@ -1434,7 +1431,6 @@ filehandle fileOpen(char *_fileName, udword flags)
                     }
                     else
                     {
-                        sdword mainFileNum;
                         logfileLogf(FILELOADSLOG, " | [M]    %s  | ",
                                     mainNewerAvailable[mainFileNum] == 1 ? "f" : " ");
                     }

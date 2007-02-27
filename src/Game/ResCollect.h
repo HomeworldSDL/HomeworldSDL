@@ -13,6 +13,8 @@ typedef struct
     vector resourceVolumePosition;  // position of volume
 } CollectResourceCommand;
 
+#define UNINITIALIZED_RESOURCE_COMMAND  {NULL, 0.0, VECTOR_ORIGIN}
+
 struct CommandLayer;
 
 void ChangeSingleShipToCollectResource(struct CommandToDo *command);

@@ -428,7 +428,7 @@ SphereTableEntry *findSphereTableEntry(sdword numShips)
 {
     sdword tableindex;
     sdword numTables = sphereStaticInfo->numTableEntries;
-    SphereTableEntry *tableentry;
+    SphereTableEntry *tableentry = NULL;
 
     for (tableindex=0;tableindex<numTables;tableindex++)
     {

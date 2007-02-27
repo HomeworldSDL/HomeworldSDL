@@ -992,7 +992,7 @@ void collCheckBigShipSmallShipColl(blob *thisBlob)
     sdword obj1index = 0;
     Ship *obj1;
 
-    sdword obj2index;
+    sdword obj2index = 0;
     Ship *obj2;
 
     real32 dist;
@@ -1303,7 +1303,7 @@ void collCheckShipResourceColl(blob *thisBlob)
     sdword obj1index = 0;
     Ship *obj1;
 
-    sdword obj2index;
+    sdword obj2index = 0;
     Resource *obj2;
 
     real32 dist;

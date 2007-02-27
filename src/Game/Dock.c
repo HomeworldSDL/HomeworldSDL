@@ -919,7 +919,7 @@ sdword clDock(CommandLayer *comlayer,SelectCommand *selectcom,DockType dockType,
     sdword numShips;
     sdword i;
     Ship *ship;
-    CollectResourceCommand collect;
+    CollectResourceCommand collect = UNINITIALIZED_RESOURCE_COMMAND;
 
     if(!(dockType & DOCK_FOR_RETIRE))
     {

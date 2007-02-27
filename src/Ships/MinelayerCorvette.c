@@ -451,7 +451,7 @@ bool MinelayerCorvetteStaticMineDrop(Ship *ship,SpaceObjRotImpTarg *target)
 {
     MinelayerCorvetteStatics *minelayercorvettestatics;
     MinelayerCorvetteSpec *spec = (MinelayerCorvetteSpec *)ship->ShipSpecifics;
-    sdword flag;
+    sdword flag = -1;
     Gun *gun0,*gun1;
     real32 time;
     sdword maxmis;

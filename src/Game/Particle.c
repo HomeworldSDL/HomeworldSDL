@@ -720,7 +720,7 @@ udword partRenderBillSystem(udword n, particle* p, udword flags,
     udword  slices;
     matrix* partMat;
     trhandle tex;
-    real32 saturatedBias[3];
+    real32 saturatedBias[3] = {0.0, 0.0, 0.0};
     sdword blended;
     bool canTexAdd;
 

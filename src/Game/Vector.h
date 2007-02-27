@@ -122,6 +122,8 @@ typedef struct hvector
 #define vecIsZero(a) \
     ( ((a).x == 0.0f) && ((a).y == 0.0f) && ((a).z == 0.0f) )
 
+#define VECTOR_ORIGIN  {0.0, 0.0, 0.0}
+
 void vecPrintVector(vector *a);
 void vecNormalize(vector *a);
 void vecHomogenize(vector* dst, hvector* src);

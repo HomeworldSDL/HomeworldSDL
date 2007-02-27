@@ -7,6 +7,7 @@
 
 #include "StandardFrigate.h"
 
+#include "Attack.h"
 #include "DefaultShip.h"
 
 typedef struct

@@ -1760,7 +1760,7 @@ blob *smBlobsDraw(Camera *camera, LinkedList *list, hmatrix *modelView, hmatrix 
     static bool bPlayedSound;       // ditto
     sdword carrierHalfWidth = 0, mothershipHalfWidth = 0;
     char *carrier = NULL, *mothership = NULL;
-    fonthandle oldFont;
+    fonthandle oldFont = 0;
 
     mouseCursorObjPtr  = NULL;               //Falko: got an obscure crash where mouseCursorObjPtr was mangled, will this work?
 

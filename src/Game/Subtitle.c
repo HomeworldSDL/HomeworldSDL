@@ -1095,7 +1095,7 @@ void subTitlesUpdate(void)
 {
     sdword lastActor = 0, lastSpeechEvent = 0, totalLength = 0, index = 0;
     real32 totalTime = 0.0;
-    char fullNewStringBuffer[SUB_SubtitleLength], *fullNewString;
+    char fullNewStringBuffer[SUB_SubtitleLength], *fullNewString = NULL;
     char *choppedStrings[SUB_MaxLinesPerSubtitle];
     sdword nChoppedStrings;
     subregion *region;

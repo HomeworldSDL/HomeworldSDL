@@ -237,8 +237,10 @@ typedef enum
     EQ_BAR_ON_TOPCAP,
     EQ_BAR_OFF_TOPCAP,
 
-end_texholder
+    end_texholder
 } tex_holder;
+
+#define UNINITIALIZED_TEX_HOLDER  end_texholder
 
 char *tex_names[end_texholder] =
 {
@@ -2568,7 +2570,12 @@ void ferDrawVertSlider(sliderhandle shandle, uword state)
 ----------------------------------------------------------------------------*/
 void ferDrawScrollbar(scrollbarhandle shandle, ferscrollbarstate state)
 {
-    tex_holder bottom, mid, top, tab_bot, tab_mid, tab_top;
+    tex_holder bottom  = UNINITIALIZED_TEX_HOLDER,
+               mid     = UNINITIALIZED_TEX_HOLDER,
+               top     = UNINITIALIZED_TEX_HOLDER,
+               tab_bot = UNINITIALIZED_TEX_HOLDER,
+               tab_mid = UNINITIALIZED_TEX_HOLDER,
+               tab_top = UNINITIALIZED_TEX_HOLDER;
     lifheader *texture[6];
     sdword end_width;
     sdword height, textureHeight;
@@ -2829,7 +2836,15 @@ void ferDrawScrollbarButton(regionhandle region, ferscrollbarbuttonstate state)
 void ferDrawFocusWindow(regionhandle region, ferfocuswindowstate state)
 {
     rectangle *rect = &region->rect;
-    tex_holder nw_corner, n_straight, ne_corner, e_straight, se_corner, s_straight, sw_corner, w_straight, mid;
+    tex_holder nw_corner  = UNINITIALIZED_TEX_HOLDER,
+               n_straight = UNINITIALIZED_TEX_HOLDER,
+               ne_corner  = UNINITIALIZED_TEX_HOLDER,
+               e_straight = UNINITIALIZED_TEX_HOLDER,
+               se_corner  = UNINITIALIZED_TEX_HOLDER,
+               s_straight = UNINITIALIZED_TEX_HOLDER,
+               sw_corner  = UNINITIALIZED_TEX_HOLDER,
+               w_straight = UNINITIALIZED_TEX_HOLDER,
+               mid        = UNINITIALIZED_TEX_HOLDER;
     sdword corner_width, corner_height;
     lifheader *texture;
 

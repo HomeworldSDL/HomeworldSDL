@@ -1322,7 +1322,7 @@ Ship *univCreateShip(ShipType shiptype,ShipRace shiprace,vector *shippos,struct 
 {
     Ship *newship;
     udword sizespec;
-    udword sizeship = sizeof(Ship), totalsize, madAssedSize;
+    udword sizeship = sizeof(Ship), totalsize = 0, madAssedSize = 0;
     ShipStaticInfo *shipstaticinfo = GetShipStaticInfo(shiptype,shiprace);
     sdword i;
     ubyte *extraPointer;

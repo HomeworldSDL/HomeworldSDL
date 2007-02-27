@@ -1504,11 +1504,18 @@ void nebTendrilBounds(nebTendril* tendril)
     real32 dx, dy, dz;
     real32 rad_sq, xspan, yspan, zspan, maxspan;
     real32 old_to_p, old_to_p_sq, old_to_new;
-    vector xmin, xmax, ymin, ymax, zmin, zmax, dia1, dia2;
-    vector caller_p;
+    vector xmin     = VECTOR_ORIGIN,
+           xmax     = VECTOR_ORIGIN,
+           ymin     = VECTOR_ORIGIN,
+           ymax     = VECTOR_ORIGIN,
+           zmin     = VECTOR_ORIGIN,
+           zmax     = VECTOR_ORIGIN,
+           dia1     = VECTOR_ORIGIN,
+           dia2     = VECTOR_ORIGIN,
+           caller_p = VECTOR_ORIGIN;
     real32 BIGNUMBER = 1E9f;
     real32 rad;
-    vector cen;
+    vector cen = VECTOR_ORIGIN;
     sdword lod = 1;
 
     xmin.x = ymin.y = zmin.z = BIGNUMBER;

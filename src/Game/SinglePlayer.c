@@ -3290,8 +3290,8 @@ void singlePlayerStartNis(char *nisname, char *scriptname, bool centreMothership
     Ship *nisCentreShip = NULL;
     bool centreShipFound = FALSE;
     GrowSelection *nisSelection;
-    ShipRace raceOfCentreShip = (ShipRace)-1;
-    ShipType typeOfCentreShip;
+    ShipRace raceOfCentreShip = R1;
+    ShipType typeOfCentreShip = ShipType_Uninitialized;
     sdword instanceOfCentreShip = -1;
     AIVar *nisVar;
     Node *node;
