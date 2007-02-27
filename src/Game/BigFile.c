@@ -15,7 +15,6 @@
 #include "BitIO.h"
 #include "LZSS.h"
 
-
 #ifdef __MINGW32__
     #include <windows.h>
     #include <direct.h>
@@ -2419,8 +2418,10 @@ void bigFilesystemCompare(char *baseDirectory, char *directory, bigTOC *mainTOC,
         return;
 
     if (!directory[0])
+    {
         dbgMessagef("Scanning for newer files in %s", baseDirectory);
-
+    }
+    
 #if _WIN32
 
     sprintf(filespec, "%s\\%s%s*.*", baseDirectory, directory, directory[0] ? "\\" : "");
@@ -2448,12 +2449,17 @@ void bigFilesystemCompare(char *baseDirectory, char *directory, bigTOC *mainTOC,
                 {
                     // newer one available in filesystem
                     updateNewerAvailable[fileNum] = 2;
-
                     ++newerUpdate;
+
+#ifdef HW_BUILD_FOR_DEBUGGING
+                    dbgMessagef("    %s", subpath);
+#endif
                 }
                 else
+                {
                     // older one available in filesystem
                     updateNewerAvailable[fileNum] = 1;
+                }
             }
             if (bigTOCFileExists(mainTOC, subpath, &fileNum))
             {
@@ -2461,13 +2467,17 @@ void bigFilesystemCompare(char *baseDirectory, char *directory, bigTOC *mainTOC,
                 {
                     // newer one available in filesystem
                     mainNewerAvailable[fileNum] = 2;
-                    // this can result in a poopload of messages...
-                    //dbgMessagef("  %s", subpath);
                     ++newerMain;
+
+#ifdef HW_BUILD_FOR_DEBUGGING
+                    dbgMessagef("    %s", subpath);
+#endif
                 }
                 else
+                {
                     // older one available in filesystem
                     mainNewerAvailable[fileNum] = 1;
+                }
             }
         }
         ++compared;
@@ -2518,12 +2528,17 @@ void bigFilesystemCompare(char *baseDirectory, char *directory, bigTOC *mainTOC,
                 {
                     // newer one available in filesystem
                     updateNewerAvailable[fileNum] = 2;
-
                     ++newerUpdate;
+                                        
+#ifdef HW_BUILD_FOR_DEBUGGING
+                    dbgMessagef("    %s", subpath);
+#endif
                 }
                 else
+                {
                     // older one available in filesystem
                     updateNewerAvailable[fileNum] = 1;
+                }
             }
             if (bigTOCFileExists(mainTOC, subpath, &fileNum))
             {
@@ -2531,13 +2546,17 @@ void bigFilesystemCompare(char *baseDirectory, char *directory, bigTOC *mainTOC,
                 {
                     // newer one available in filesystem
                     mainNewerAvailable[fileNum] = 2;
-                    // this can result in a poopload of messages...
-                    //dbgMessagef("  %s", subpath);
                     ++newerMain;
+
+#ifdef HW_BUILD_FOR_DEBUGGING
+                    dbgMessagef("    %s", subpath);
+#endif
                 }
                 else
+                {
                     // older one available in filesystem
                     mainNewerAvailable[fileNum] = 1;
+                }
             }
         }
         ++compared;
@@ -2549,17 +2568,16 @@ void bigFilesystemCompare(char *baseDirectory, char *directory, bigTOC *mainTOC,
 
     if (!directory[0])
     {
-
         if (updateFP)
         {
             dbgMessagef("Compared %d filesystem files to main & update bigfiles.", compared);
-            dbgMessagef("%d files found newer than main bigfile in filesystem.", newerMain);
+            dbgMessagef("%d files found newer than main bigfile in filesystem.",   newerMain);
             dbgMessagef("%d files found newer than update bigfile in filesystem.", newerUpdate);
         }
         else
         {
             dbgMessagef("Compared %d filesystem files to bigfile.", compared);
-            dbgMessagef("%d files found newer in filesystem.", newerMain);
+            dbgMessagef("%d files found newer in filesystem.",      newerMain);
         }
     }
 }
