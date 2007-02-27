@@ -1,24 +1,18 @@
-/*=============================================================================
-    Name    : CloakGenerator.c
-    Purpose : Specifics for the Cloak Generator
+// =============================================================================
+//  CloakGenerator.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 01/06/1998 by bpasechnik
+// =============================================================================
 
-    Created 01/06/1998 by bpasechn
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-#include <string.h>
-#include "Types.h"
 #include "CloakGenerator.h"
-#include "SoundEvent.h"
-#include "LinkedList.h"
-#include "memory.h"
-#include "Universe.h"
-#include "Vector.h"
-#include "SaveGame.h"
+
+#include "Battle.h"
 #include "GenericInterceptor.h"
 #include "SalCapCorvette.h"
-#include "Attack.h"
-#include "Battle.h"
+#include "SaveGame.h"
+#include "SoundEvent.h"
+#include "Universe.h"
 
 typedef struct
 {

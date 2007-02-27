@@ -1,29 +1,22 @@
-/*=============================================================================
-    Name    : DDDFrigate.c
-    Purpose : Specifics for the DDDFrigate
+// =============================================================================
+//  DDDFrigate.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 6/30/1997 by gshaw
+// =============================================================================
 
-    Created 6/30/1997 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-#include "Types.h"
-#include "Debug.h"
-#include "Drone.h"
 #include "DDDFrigate.h"
-#include "StatScript.h"
-#include "Gun.h"
-#include "Attack.h"
+
+#include "AIShip.h"
+#include "AITrack.h"
+#include "Collision.h"
+#include "Drone.h"
+#include "Randy.h"
+#include "SaveGame.h"
+#include "SoundEvent.h"
+#include "SpeechEvent.h"
 #include "Universe.h"
 #include "UnivUpdate.h"
-#include "Formation.h"
-#include "CommandLayer.h"
-#include "Dock.h"
-#include "AIShip.h"
-#include "Collision.h"
-#include "AITrack.h"
-#include "SoundEvent.h"
-#include "SaveGame.h"
-#include "Randy.h"
 
 #define DDDSTATE_ALLINSIDE  0
 #define DDDSTATE_LAUNCHTHEM 1

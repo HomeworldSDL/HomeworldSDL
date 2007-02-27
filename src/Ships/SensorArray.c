@@ -1,14 +1,12 @@
-/*=============================================================================
-    Name    : SensorArray.c
-    Purpose : Specifics for the ProximitySensor
+// =============================================================================
+//  SensorArray.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 01/06/1998 by bpasechnik
+// =============================================================================
 
-    Created 01/06/1998 by bpasechnik
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-#include "Types.h"
 #include "SensorArray.h"
-#include "SoundEvent.h"
+
 #include "Universe.h"
 
 typedef struct

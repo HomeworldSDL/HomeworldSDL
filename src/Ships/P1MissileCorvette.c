@@ -1,19 +1,15 @@
-/*=============================================================================
-    Name    : P1MissileCorvette.c
-    Purpose : Specifics for the P1MissileCorvette
+// =============================================================================
+//  P1MissileCorvette.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 5/06/1998 by ddunlop
+// =============================================================================
 
-    Created 5/06/1998 by ddunlop
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-#include <string.h>
-#include "Types.h"
-#include "Debug.h"
 #include "P1MissileCorvette.h"
-#include "StatScript.h"
-#include "Gun.h"
+
 #include "Attack.h"
 #include "DefaultShip.h"
+#include "Gun.h"
 #include "Universe.h"
 
 typedef struct

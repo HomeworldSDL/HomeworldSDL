@@ -1,16 +1,13 @@
-/*=============================================================================
-    Name    : FloatingCity.c
-    Purpose : Specifics for the FloatingCity
+// =============================================================================
+//  FloatingCity.c
+//  - Bentusi Trader's Mothership
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 5/06/1998 by ddunlop
+// =============================================================================
 
-    Created 5/06/1998 by ddunlop
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-#include "Types.h"
-#include "Debug.h"
 #include "FloatingCity.h"
-#include "StatScript.h"
-#include "Gun.h"
+
 #include "Attack.h"
 #include "DefaultShip.h"
 

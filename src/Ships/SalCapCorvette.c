@@ -1,55 +1,42 @@
-/*=============================================================================
-    Name    : SalCapCorvette.c
-    Purpose : Specifics for the Salvage Capture Corvette
+// =============================================================================
+//  SalCapCorvette.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 11/5/1997 by khent
+// =============================================================================
 
-    Created 11/5/1997 by khent
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-#include <string.h>
-#include <stdio.h>
+#include "SalCapCorvette.h"
+
 #include <math.h>
 
-#include "Types.h"
-#include "Debug.h"
-#include "SalCapCorvette.h"
-#include "StatScript.h"
-#include "Gun.h"
-#include "DefaultShip.h"
-#include "Select.h"
-#include "UnivUpdate.h"
 #include "AIShip.h"
 #include "AITrack.h"
-#include "memory.h"
-#include "Universe.h"
-#include "FastMath.h"
-#include "Dock.h"
-#include "Vector.h"
-#include "CommandLayer.h"
-#include "SoundEvent.h"
-#include "Physics.h"
-#include "MultiplayerGame.h"
-#include "SaveGame.h"
 #include "AIVar.h"
-#include "prim3d.h"
-#include "render.h"
+#include "Alliance.h"
+#include "Battle.h"
+#include "Carrier.h"
 #include "Clamp.h"
-#include "NIS.h"
+#include "Collision.h"
+#include "FastMath.h"
+#include "GenericDefender.h"
+#include "GravWellGenerator.h"
 #include "MadLinkIn.h"
 #include "MadLinkInDefs.h"
 #include "Mothership.h"
-#include "Collision.h"
-#include "Carrier.h"
-#include "Alliance.h"
-#include "Tactics.h"
+#include "MultiplayerGame.h"
+#include "NIS.h"
 #include "Ping.h"
-#include "SinglePlayer.h"
-#include "Battle.h"
-#include "CommandWrap.h"
-#include "GenericDefender.h"
-#include "GravWellGenerator.h"
+#include "prim3d.h"
 #include "Randy.h"
+#include "SaveGame.h"
+#include "Select.h"
+#include "SinglePlayer.h"
+#include "SoundEvent.h"
+#include "Tactics.h"
+#include "Universe.h"
+#include "UnivUpdate.h"
 
-#define DEBUG_SALCAP
+#define DEBUG_SALVAGE_CORVETTE  0
 
 #define SALVAGE_BEGIN               0
 #define SAL_FLYTOTARGET             1
@@ -860,11 +847,11 @@ void salCapHarvestTarget(SpaceObjRotImpTargGuidanceShipDerelict *target,Ship *do
         bitSet(target->specialFlags,SPECIAL_Harvested);
         AddTargetToDeleteList((SpaceObjRotImpTarg *)target,-1);
         break;
-#ifdef DEBUG_SALCAP
     default:
+#if DEBUG_SALVAGE_CORVETTE
         dbgFatalf(DBG_Loc,"\nSal/Cap: Trying to convert an unknown object type to RU's.");
-        break;
 #endif
+        break;
     }
     //thanks lukina de pooina
     //ship->playerowner->resourceUnits -= ship->playerowner->resourceUnits / 3;
@@ -2278,14 +2265,14 @@ reachedit:
 
                     if(vecDotProduct(between,dockwithRight) > 0)
                     {
-#ifdef DEBUG_SALCAP
+#if DEBUG_SALVAGE_CORVETTE
                 dbgMessagef("SAL:dock 0.5");
 #endif
                         spec->salvageState = WAYPOINTHACK2;
                     }
                     else
                     {
-#ifdef DEBUG_SALCAP
+#if DEBUG_SALVAGE_CORVETTE
                         dbgMessagef("SAL:dock 1");
 #endif
 
@@ -2294,7 +2281,7 @@ reachedit:
                 }
                 else
                 {
-#ifdef DEBUG_SALCAP
+#if DEBUG_SALVAGE_CORVETTE
                     dbgMessagef("SAL:dock 1");
 #endif
 
@@ -2303,7 +2290,7 @@ reachedit:
             }
             else
             {
-#ifdef DEBUG_SALCAP
+#if DEBUG_SALVAGE_CORVETTE
                 dbgMessagef("SAL:dock 1");
 #endif
                 spec->salvageState = SAL_DO_DOCK;
@@ -2313,13 +2300,13 @@ reachedit:
     case WAYPOINTHACK2:
         if(salCapFlyToDockingPoint1over2(ship,spec->target))
         {
-#ifdef DEBUG_SALCAP
+#if DEBUG_SALVAGE_CORVETTE
                 dbgMessagef("SAL:dock 1");
+#endif
             spec->salvageState = SAL_DO_DOCK;
         }
         break;
 
-#endif
     case SAL_DO_DOCK:
         bitClear(spec->target->flags, SOF_Selectable);
         if(salCapFlyToDockingPoint1(ship,spec->target))
@@ -2336,7 +2323,7 @@ reachedit:
                     }
                 }
             }
-#ifdef DEBUG_SALCAP
+#if DEBUG_SALVAGE_CORVETTE
                 dbgMessagef("SAL:dock 2");
 #endif
 
@@ -2632,7 +2619,7 @@ bool DropTargetInShip(Ship *dockwith,sdword *targetDepotState, SpaceObjRotImpTar
         }
         if(salCapFlyToDockingPoint2(dockwith,target,*dockindex))
         {
-#ifdef DEBUG_SALCAP
+#if DEBUG_SALVAGE_CORVETTE
                 dbgMessagef("SAL:dock 2");
 #endif
 
@@ -2643,7 +2630,7 @@ bool DropTargetInShip(Ship *dockwith,sdword *targetDepotState, SpaceObjRotImpTar
         bitClear(target->flags, SOF_Selectable);
         if(salCapFlyToDockingPoint3(dockwith,target,*dockindex))
         {
-#ifdef DEBUG_SALCAP
+#if DEBUG_SALVAGE_CORVETTE
                 dbgMessagef("SAL:dock DONE");
 #endif
 
@@ -2909,7 +2896,7 @@ void SalCapRemoveShipReferences(Ship *ship, Ship *shiptoremove)
             StopTractorBeam(ship);
         if(ship->clampInfo != NULL)
         {
-            #ifdef DEBUG_SALCAP
+            #if DEBUG_SALVAGE_CORVETTE
             dbgAssertOrIgnore(ship->clampInfo->host == (SpaceObjRotImpTarg *)shiptoremove);
             #endif
             unClampObj((SpaceObjRotImpTargGuidance *)ship);
@@ -3039,7 +3026,7 @@ void SalCapOrderChangedCleanUp(Ship *ship)
         if(spec->salvageIndex != NO_INDEX)
         {
             //twas busy with index
-    #ifdef DEBUG_SALCAP
+    #if DEBUG_SALVAGE_CORVETTE
             dbgAssertOrIgnore(spec->target != NULL);
     #endif
             salCapUnBusySalvagePoint(ship,spec->target);

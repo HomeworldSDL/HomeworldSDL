@@ -1,21 +1,15 @@
-/*=============================================================================
-    Name    : ResourceController.c
-    Purpose : Specifics for the ResourceController ship
+// =============================================================================
+//  ResourceController.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 6/30/1997 by gshaw
+// =============================================================================
 
-    Created 6/30/1997 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-#include "Types.h"
 #include "ResourceController.h"
-#include "StatScript.h"
-#include "ShipSelect.h"
-#include "AIShip.h"
-#include "Collision.h"
-#include "Dock.h"
-#include "Universe.h"
-#include "CommandLayer.h"
+
 #include "RepairCorvette.h"
+#include "ShipSelect.h"
+#include "StatScript.h"
 
 typedef struct
 {

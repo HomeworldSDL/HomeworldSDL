@@ -1,24 +1,23 @@
-/*=============================================================================
-    Name    : MissileDestroyer.c
-    Purpose : Specifics for the MissileDestroyer
+// =============================================================================
+//  MissileDestroyer.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 6/30/1997 by gshaw
+// =============================================================================
 
-    Created 6/30/1997 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-#include "Types.h"
-#include "Debug.h"
 #include "MissileDestroyer.h"
-#include "StatScript.h"
-#include "Gun.h"
-#include "Attack.h"
-#include "DefaultShip.h"
-#include "Universe.h"
-#include "SoundEvent.h"
-#include "Battle.h"
+
 #include "AIShip.h"
 #include "AITrack.h"
+#include "Attack.h"
+#include "Battle.h"
 #include "Collision.h"
+#include "DefaultShip.h"
+#include "Gun.h"
+#include "SoundEvent.h"
+#include "StatScript.h"
+#include "Universe.h"
+
 
 #define VOLLEY_BEGIN        10
 #define VOLLEY_NOT_BEGIN    20

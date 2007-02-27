@@ -1,17 +1,12 @@
-/*=============================================================================
-    Name    : StandardDestroyer.c
-    Purpose : Specifics for the StandardDestroyer
+// =============================================================================
+//  StandardDestroyer.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 01/06/1998 by bpasechnik
+// =============================================================================
 
-    Created 01/06/1998 by bpasechnik
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-#include "Types.h"
-#include "Debug.h"
 #include "StandardDestroyer.h"
-#include "StatScript.h"
-#include "Gun.h"
-#include "Attack.h"
+
 #include "DefaultShip.h"
 
 typedef struct

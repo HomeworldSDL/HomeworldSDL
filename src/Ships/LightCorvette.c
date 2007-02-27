@@ -1,17 +1,12 @@
-/*=============================================================================
-    Name    : LightCorvette.c
-    Purpose : Specifics for the Light Corvette
+// =============================================================================
+//  LightCorvette.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 6/30/1997 by gshaw
+// =============================================================================
 
-    Created 6/30/1997 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-#include <string.h>
-#include "Types.h"
-#include "Debug.h"
 #include "LightCorvette.h"
-#include "StatScript.h"
-#include "Gun.h"
+
 #include "Attack.h"
 #include "DefaultShip.h"
 

@@ -1,29 +1,25 @@
-/*=============================================================================
-    Name    : GenericDefender.c
-    Purpose : Specifics for the Generic Defender
+// =============================================================================
+//  GenericDefender.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 6/30/1997 by gshaw
+// =============================================================================
 
-    Created 6/30/1997 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-#include "Types.h"
-#include "Debug.h"
 #include "GenericDefender.h"
-#include "StatScript.h"
-#include "Gun.h"
-#include "Attack.h"
-#include "DefaultShip.h"
-#include "ShipSelect.h"
+
 #include "AIShip.h"
-#include "FastMath.h"
-#include "Gun.h"
-#include "Collision.h"
 #include "AITrack.h"
 #include "Battle.h"
-#include "MinelayerCorvette.h"
-#include "SoundEvent.h"
-#include "Physics.h"
+#include "Collision.h"
+#include "Debug.h"
+#include "DefaultShip.h"
+#include "FastMath.h"
 #include "GenericInterceptor.h"
+#include "Gun.h"
+#include "MinelayerCorvette.h"
+#include "Physics.h"
+#include "ShipSelect.h"
+#include "SoundEvent.h"
 
 #define DEBUG_DEFENDER 0
 

@@ -1,25 +1,19 @@
-/*=============================================================================
-    Name    : Carrier.c
-    Purpose : Specifics for the Carrier
+// =============================================================================
+//  Carrier.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 6/30/1997 by gshaw
+// =============================================================================
 
-    Created 6/30/1997 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-#include "Types.h"
-#include "Debug.h"
 #include "Carrier.h"
-#include "StatScript.h"
-#include "Gun.h"
+
 #include "Attack.h"
+#include "ConsMgr.h"
 #include "DefaultShip.h"
-#include "ShipSelect.h"
 #include "RepairCorvette.h"
 #include "SalCapCorvette.h"
 #include "SaveGame.h"
 #include "Universe.h"
-#include "CommandLayer.h"
-#include "ConsMgr.h"
 
 typedef struct
 {

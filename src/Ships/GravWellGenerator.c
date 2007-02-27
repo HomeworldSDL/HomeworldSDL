@@ -1,28 +1,24 @@
-/*=============================================================================
-    Name    : GravWellGenerator.c
-    Purpose : Specifics for the Gravity Well Generator
+// =============================================================================
+//  GravWellGenerator.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 01/06/1998 by bpasechnik
+// =============================================================================
 
-    Created 01/06/1998 by bpasechn
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-#include <string.h>
-#include "Types.h"
 #include "GravWellGenerator.h"
-#include "SoundEvent.h"
-#include "Vector.h"
-#include "Universe.h"
-#include "AITrack.h"
-#include "Select.h"
-#include "SaveGame.h"
-#include "MadLinkIn.h"
-#include "UnivUpdate.h"
+
 #include "Attack.h"
-#include "Randy.h"
 #include "Battle.h"
-#include "FastMath.h"
 #include "Blobs.h"
-#include "ETG.h"
+#include "FastMath.h"
+#include "Randy.h"
+#include "MadLinkIn.h"
+#include "SaveGame.h"
+#include "Select.h"
+#include "SoundEvent.h"
+#include "Universe.h"
+#include "UnivUpdate.h"
+
 
 typedef struct
 {

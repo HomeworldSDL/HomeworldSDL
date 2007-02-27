@@ -1,35 +1,27 @@
-/*=============================================================================
-    Name    : MinelayerCorvette.c
-    Purpose : Specifics for the Minelayer Corvette
+// =============================================================================
+//  MinelayerCorvette.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 11/5/1997 by khent
+// =============================================================================
 
-    Created 11/5/1997 by khent
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-
-//#define DEBUG_ATTACK
-
-#include <string.h>
-#include <math.h>
-#include <stdlib.h>
-#include "Types.h"
-#include "Debug.h"
-#include "UnivUpdate.h"
 #include "MinelayerCorvette.h"
-#include "StatScript.h"
-#include "Gun.h"
-#include "DefaultShip.h"
-#include "Universe.h"
-#include "Gun.h"
-#include "AITrack.h"
+
+#include <math.h>
+
 #include "AIShip.h"
+#include "AITrack.h"
+#include "Battle.h"
 #include "Collision.h"
 #include "FastMath.h"
-#include "Physics.h"
-#include "SaveGame.h"
+#include "Gun.h"
 #include "Randy.h"
+#include "SaveGame.h"
 #include "SoundEvent.h"
-#include "Battle.h"
+#include "Universe.h"
+
+
+#define DEBUG_MINELAYER  0
 
 MinelayerCorvetteStatics MinelayerCorvetteStatic;
 
@@ -285,7 +277,7 @@ void MineLayerAttackRun(Ship *ship,SpaceObjRotImpTarg *target,AttackSideStep *at
     {
         case ATTACK_INIT:
         case APPROACH:
-#ifdef DEBUG_ATTACK
+#if DEBUG_MINELAYER
             dbgMessagef("Ship %x MINELAYER_ATTACK_APPROACH",(udword)ship);
 #endif
             aishipGetTrajectory(ship,target,&trajectory);
@@ -343,7 +335,7 @@ void MineLayerAttackRun(Ship *ship,SpaceObjRotImpTarg *target,AttackSideStep *at
 				break;
 			}
         case BREAKPOSITION:
-#ifdef DEBUG_ATTACK
+#if DEBUG_MINELAYER
         dbgMessagef("Ship %x BREAKPOSITION",(udword)ship);
 #endif
 
@@ -356,7 +348,7 @@ void MineLayerAttackRun(Ship *ship,SpaceObjRotImpTarg *target,AttackSideStep *at
             ship->aistateattack = BREAK1;
 
         case BREAK1:
-#ifdef DEBUG_ATTACK
+#if DEBUG_MINELAYER
     dbgMessagef("Ship %x BREAK1",(udword)ship);
 #endif
 
@@ -379,7 +371,7 @@ void MineLayerAttackRun(Ship *ship,SpaceObjRotImpTarg *target,AttackSideStep *at
 
             break;
         case KILL:
-#ifdef DEBUG_ATTACK
+#if DEBUG_MINELAYER
     dbgMessagef("Ship %x KILL",(udword)ship);
 #endif
             aishipGetTrajectory(ship,target,&trajectory);
@@ -408,7 +400,7 @@ void MineLayerAttackRun(Ship *ship,SpaceObjRotImpTarg *target,AttackSideStep *at
                 vecNormalize(&trajectory);
                 SetAIVecHeading(ship,target,&trajectory);
 
-#ifdef DEBUG_ATTACK
+#if DEBUG_MINELAYER
     dbgMessagef("Ship %x KILL: Adjust for Break2 Sphereizing Godliness Maneuver :)",(udword)ship);
 #endif
 
@@ -417,7 +409,7 @@ void MineLayerAttackRun(Ship *ship,SpaceObjRotImpTarg *target,AttackSideStep *at
             aishipFlyToPointAvoidingObjs(ship,&spec->aivec,AISHIP_FastAsPossible | AISHIP_PointInDirectionFlying,INTERCEPTORBREAK_MINVELOCITY);
             break;
         case BREAK2:
-#ifdef DEBUG_ATTACK
+#if DEBUG_MINELAYER
     dbgMessagef("Ship %x BREAK2",(udword)ship);
 #endif
 

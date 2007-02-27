@@ -1,29 +1,20 @@
-/*=============================================================================
-    Name    : RepairCorvette.c
-    Purpose : Specifics for the RepairCorvette
+// =============================================================================
+//  RepairCorvette.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 6/30/1997 by gshaw
+// =============================================================================
 
-    Created 6/30/1997 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-#include <string.h>
-#include "Types.h"
-#include "Debug.h"
 #include "RepairCorvette.h"
-#include "StatScript.h"
-#include "FastMath.h"
-#include "Gun.h"
-#include "DefaultShip.h"
+
 #include "AIShip.h"
 #include "AITrack.h"
-#include "CommandLayer.h"
-#include "UnivUpdate.h"
-#include "Universe.h"
 #include "Collision.h"
+#include "DefaultShip.h"
 #include "SaveGame.h"
 #include "SoundEvent.h"
-
-void stopRepairEffect(Ship *ship);
+#include "Universe.h"
+#include "UnivUpdate.h"
 
 
 #define flytoRepairDest(scalar,tol) \
@@ -67,9 +58,10 @@ void stopRepairEffect(Ship *ship);
 
 
 
-#ifdef bpasechn
-            #define DEBUG_REPAIR
-#endif
+#define DEBUG_REPAIR_CORVETTE  0
+
+
+void stopRepairEffect(Ship *ship);
 
 typedef struct
 {
@@ -93,7 +85,6 @@ RepairCorvetteStatics RepairCorvetteStaticRace1;
 RepairCorvetteStatics RepairCorvetteStaticRace2;
 
 RepairCorvetteStatics RepairCorvetteStatic;
-
 
 scriptStructEntry RepairCorvetteStaticScriptTable[] =
 {
@@ -258,7 +249,7 @@ bool RepairCorvetteSpecialOps(Ship *ship, void *custom)
         }
         spec->target = (Ship *)targets->TargetPtr[0];
         spec->repairState = REPAIR_APPROACH;
-#ifdef DEBUG_REPAIR
+#if DEBUG_REPAIR_CORVETTE
         dbgMessagef("Aquired Target for Repair.");
 #endif
 
@@ -277,7 +268,7 @@ bool RepairCorvetteSpecialOps(Ship *ship, void *custom)
         {
             //ship is stopped, so it is ready
             spec->repairState = REPAIR_NEARING;
-#ifdef DEBUG_REPAIR
+#if DEBUG_REPAIR_CORVETTE
         dbgMessagef("REPAIR_APPROACH: %f distance reached",repaircorvettestatics->approachAndWaitDistance);
 #endif
 
@@ -292,7 +283,7 @@ bool RepairCorvetteSpecialOps(Ship *ship, void *custom)
                 //ship isn't really doing anything so we can
                 //move in
                 spec->repairState = REPAIR_NEARING;
-#ifdef DEBUG_REPAIR
+#if DEBUG_REPAIR_CORVETTE
 dbgMessagef("REPAIR_APPROACH: %f distance reached",repaircorvettestatics->approachAndWaitDistance);
 #endif
 
@@ -316,7 +307,7 @@ dbgMessagef("REPAIR_APPROACH: %f distance reached",repaircorvettestatics->approa
 
             spec->repairState = REPAIR_STOP_ROTATION;
 
-#ifdef DEBUG_REPAIR
+#if DEBUG_REPAIR_CORVETTE
         dbgMessagef("REPAIR_NEARING: %f distance reached, proceeding to stop rotation.",repaircorvettestatics->rotationStopDistance);
 #endif
             break;
@@ -346,7 +337,7 @@ dbgMessagef("REPAIR_APPROACH: %f distance reached",repaircorvettestatics->approa
         {
             //rotation below special threshold,
             //set it to our rotation threshold (should be pretty dang close
-#ifdef DEBUG_REPAIR
+#if DEBUG_REPAIR_CORVETTE
         dbgMessagef("REPAIR_STOP_ROTATION, rotation stopped, now getting into dock pos.");
 #endif
             spec->repairState = REPAIR_DOCK_1;
@@ -365,7 +356,7 @@ dbgMessagef("REPAIR_APPROACH: %f distance reached",repaircorvettestatics->approa
 
         if(trackflag)
         {
-#ifdef DEBUG_REPAIR
+#if DEBUG_REPAIR_CORVETTE
     dbgMessagef("REPAIR_DOCK_1: Docking Position 1 reached.");
 #endif
             spec->repairState = REPAIR_DOCK_2;
@@ -386,7 +377,7 @@ dbgMessagef("REPAIR_APPROACH: %f distance reached",repaircorvettestatics->approa
         //if(MoveReachedDestinationVariable(ship,&destination,repaircorvettestatics->finaldockDistance))
         if(trackflag)
         {
-#ifdef DEBUG_REPAIR
+#if DEBUG_REPAIR_CORVETTE
             dbgMessagef("REPAIR_DOCK_2: Docking Position 2 reached.");
 #endif
 			ship->soundevent.specialHandle = soundEvent(ship, Ship_RepairLoop);

@@ -1,33 +1,18 @@
-/*=============================================================================
-    Name    : P2MultiBeamFrigate.c
-    Purpose : Specifics for the P2MultiBeamFrigate
+// =============================================================================
+//  P2MultiBeamFrigate.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 5/07/1998 by ddunlop
+// =============================================================================
 
-    Created 5/07/1998 by ddunlop
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-#include <stdlib.h>
-#include <math.h>
-#include <string.h>
-#include "Types.h"
-#include "FastMath.h"
-#include "Debug.h"
-#include "ObjTypes.h"
-#include "Collision.h"
-#include "Physics.h"
-#include "Universe.h"
 #include "P2MultiBeamFrigate.h"
-#include "StatScript.h"
-#include "Gun.h"
+
 #include "AIShip.h"
 #include "AITrack.h"
-#include "Attack.h"
-#include "MEX.h"
-#include "SoundEvent.h"
-#include "FlightMan.h"
-#include "CommandLayer.h"
-#include "UnivUpdate.h"
-#include "DefaultShip.h"
+#include "Collision.h"
+#include "Gun.h"
+#include "StatScript.h"
+#include "Universe.h"
 
 #define STATE_INIT          0
 #define STATE_APPROACH      1

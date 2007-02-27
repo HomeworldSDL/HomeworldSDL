@@ -1,37 +1,29 @@
-/*=============================================================================
-    Name    : GenericInterceptor.c
-    Purpose : Specifics for the Generic Interceptor
+// =============================================================================
+//  GenericInterceptor.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 6/30/1997 by gshaw
+// =============================================================================
 
-    Created 6/30/1997 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-#include <stdlib.h>
-#include <math.h>
-#include <string.h>
-#include "Types.h"
-#include "FastMath.h"
-#include "Debug.h"
-#include "ObjTypes.h"
-#include "Collision.h"
-#include "Physics.h"
-#include "Universe.h"
 #include "GenericInterceptor.h"
-#include "StatScript.h"
-#include "Gun.h"
+
+#include <math.h>
+
 #include "AIShip.h"
 #include "AITrack.h"
-#include "MEX.h"
-#include "SoundEvent.h"
-#include "CommandLayer.h"
-#include "UnivUpdate.h"
-#include "Tactics.h"
-#include "NIS.h"
+#include "Battle.h"
+#include "Collision.h"
+#include "DefenseFighter.h"
+#include "FastMath.h"
+#include "Gun.h"
 #include "MadLinkIn.h"
 #include "MadLinkInDefs.h"
-#include "DefenseFighter.h"
+#include "NIS.h"
 #include "Randy.h"
-#include "Battle.h"
+#include "SoundEvent.h"
+#include "Tactics.h"
+#include "Universe.h"
+
 
 #define DEBUG_INTERCEPTOR 0
 

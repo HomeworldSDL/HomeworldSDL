@@ -1,30 +1,19 @@
-/*=============================================================================
-    Name    : ProximitySensor.c
-    Purpose : Specifics for the ProximitySensor
+// =============================================================================
+//  ProximitySensor.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 01/06/1998 by bpasechnik
+// =============================================================================
 
-    Created 01/06/1998 by bpasechn
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-#include "Types.h"
 #include "ProximitySensor.h"
-#include "SoundEvent.h"
-#include "memory.h"
-#include "UnivUpdate.h"
-#include "LinkedList.h"
-#include "FastMath.h"
-#include "Vector.h"
-#include "Ping.h"
-#include "Blobs.h"
+
+#include "Alliance.h"
+#include "Battle.h"
 #include "MadLinkIn.h"
 #include "MadLinkInDefs.h"
-#include "Battle.h"
-#include "Alliance.h"
+#include "Ping.h"
+#include "SoundEvent.h"
 
-
-/*=============================================================================
-    Data:
-=============================================================================*/
 color ProximitySensorBlipColor = colWhite;
 
 ProximitySensorStatics ProximitySensorStatic;

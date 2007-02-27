@@ -1,16 +1,12 @@
-/*=============================================================================
-    Name    : P2Mothership.c
-    Purpose : Specifics for the P2Mothership
+// =============================================================================
+//  P2Mothership.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 5/07/1998 by ddunlop
+// =============================================================================
 
-    Created 5/06/1998 by ddunlop
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-#include "Types.h"
-#include "Debug.h"
 #include "P2Mothership.h"
-#include "StatScript.h"
-#include "Gun.h"
+
 #include "Attack.h"
 #include "DefaultShip.h"
 

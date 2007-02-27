@@ -1,27 +1,22 @@
-/*=============================================================================
-    Name    : ResearchShip.c
-    Purpose : Specifics for the ResearchShip
+// =============================================================================
+//  ResearchShip.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 01/06/98 Bpasechnik
+// =============================================================================
 
-    Created 01/06/98  Bpasechnik
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+#include "ResearchShip.h"
 
 #include <math.h>
-#include "Types.h"
-#include "ResearchShip.h"
-#include "UnivUpdate.h"
-#include "SoundEvent.h"
-#include "StatScript.h"
+
 #include "AITrack.h"
-#include "Matrix.h"
-#include "AIShip.h"
-#include "Debug.h"
-#include "FastMath.h"
-#include "Select.h"
-#include "Universe.h"
-#include "LinkedList.h"
-#include "SaveGame.h"
 #include "Dock.h"
+#include "FastMath.h"
+#include "SaveGame.h"
+#include "SoundEvent.h"
+#include "Universe.h"
+#include "UnivUpdate.h"
+
 
 #define ROTATE_WAIT 0
 #define ROTATE_DO   1

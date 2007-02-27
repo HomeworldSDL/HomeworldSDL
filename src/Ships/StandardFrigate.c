@@ -1,17 +1,12 @@
-/*=============================================================================
-    Name    : StandardFrigate.c
-    Purpose : Specifics for the Standard Frigate
+// =============================================================================
+//  StandardFrigate.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 6/30/1997 by gshaw
+// =============================================================================
 
-    Created 6/30/1997 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-#include "Types.h"
-#include "Debug.h"
 #include "StandardFrigate.h"
-#include "StatScript.h"
-#include "Gun.h"
-#include "Attack.h"
+
 #include "DefaultShip.h"
 
 typedef struct

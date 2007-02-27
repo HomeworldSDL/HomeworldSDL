@@ -1,16 +1,12 @@
-/*=============================================================================
-    Name    : P1IonArrayFrigate.c
-    Purpose : Specifics for the P1IonArrayFrigate
+// =============================================================================
+//  P1IonArrayFrigate.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 5/06/1998 by ddunlop
+// =============================================================================
 
-    Created 5/06/1998 by ddunlop
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-#include "Types.h"
-#include "Debug.h"
 #include "P1IonArrayFrigate.h"
-#include "StatScript.h"
-#include "Gun.h"
+
 #include "Attack.h"
 #include "DefaultShip.h"
 

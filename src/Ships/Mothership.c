@@ -1,25 +1,21 @@
-/*=============================================================================
-    Name    : Mothership.c
-    Purpose : Specifics for the Mothership
+// =============================================================================
+//  Mothership.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 6/30/1997 by gshaw
+// =============================================================================
 
-    Created 6/30/1997 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-#include "Types.h"
-#include "Debug.h"
 #include "Mothership.h"
-#include "StatScript.h"
-#include "Gun.h"
+
+#include "AITrack.h"
 #include "Attack.h"
 #include "DefaultShip.h"
 #include "MadLinkIn.h"
+#include "MadLinkInDefs.h"
+#include "SalCapCorvette.h"
 #include "SaveGame.h"
 #include "Universe.h"
-#include "AITrack.h"
-#include "SalCapCorvette.h"
-#include "MadLinkInDefs.h"
-#include "CommandLayer.h"
+
 
 extern sdword R1MOTHERSHIP_Big;
 extern sdword R2MOTHERSHIP_Big;

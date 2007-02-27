@@ -1,17 +1,12 @@
-/*=============================================================================
-    Name    : P2AdvanceSwarmer.c
-    Purpose : Specifics for the P2AdvanceSwarmer
+// =============================================================================
+//  P2AdvanceSwarmer.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 6/30/1997 by gshaw
+// =============================================================================
 
-    Created 6/30/1997 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-#include <string.h>
-#include "Types.h"
-#include "Debug.h"
 #include "P2AdvanceSwarmer.h"
-#include "StatScript.h"
-#include "Gun.h"
+
 #include "Attack.h"
 #include "DefaultShip.h"
 

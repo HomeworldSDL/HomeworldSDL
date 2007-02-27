@@ -1,17 +1,16 @@
-/*=============================================================================
-    Name    : DefaultShip.c
-    Purpose : Specifics for the DefaultShip (placeholder ship)
+// =============================================================================
+//  DefaultShip.c
+//  - specifics for the DefaultShip (placeholder ship)
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 6/30/1997 by gshaw
+// =============================================================================
 
-    Created 6/30/1997 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-#include "Types.h"
-#include "Gun.h"
-#include "Attack.h"
-#include "Universe.h"
 #include "DefaultShip.h"
-#include "GenericInterceptor.h"
+
+#include "Attack.h"
+#include "Gun.h"
+#include "Universe.h"
 #include "UnivUpdate.h"
 
 typedef struct

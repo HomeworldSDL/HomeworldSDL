@@ -1,5 +1,5 @@
 // =============================================================================
-//  MinelayerCorvette.h
+//  MissileDestroyer.h
 // =============================================================================
 //  Copyright Relic Entertainment, Inc. All rights reserved.
 //  Created 6/30/1997 by gshaw

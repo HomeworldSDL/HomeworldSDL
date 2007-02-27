@@ -1,29 +1,24 @@
-/*=============================================================================
-    Name    : HeavyCorvette.c
-    Purpose : Specifics for the Heavy Corvette
+// =============================================================================
+//  HeavyCorvette.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 6/30/1997 by gshaw
+// =============================================================================
 
-    Created 6/30/1997 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-#include <string.h>
-#include "Types.h"
-#include "Debug.h"
 #include "HeavyCorvette.h"
-#include "StatScript.h"
-#include "Gun.h"
-#include "DefaultShip.h"
-#include "ShipSelect.h"
+
 #include "AIShip.h"
 #include "AITrack.h"
-#include "Tactics.h"
-#include "FastMath.h"
-#include "Universe.h"
-#include "SoundEvent.h"
 #include "Battle.h"
+#include "DefaultShip.h"
+#include "FastMath.h"
+#include "Gun.h"
+#include "SoundEvent.h"
+#include "Tactics.h"
+#include "Universe.h"
 
-//#define DEBUG_HEAVYCORVETTE
 
+#define DEBUG_HEAVY_CORVETTE  0
 
 typedef struct
 {
@@ -201,7 +196,7 @@ bool doBurstCharging(Ship *ship)
         spec->burstChargeState += universe.phystimeelapsed;
         return(FALSE);
     }
-#ifdef DEBUG_HEAVYCORVETTE
+#if DEBUG_HEAVY_CORVETTE
     dbgMessagef("Burst Fire Charged!");
 #endif
     return(TRUE);
@@ -282,7 +277,7 @@ void HeavyCorvetteHouseKeep(Ship *ship)
     if(spec->cooldown == TRUE)
     {
         spec->burstChargeState2-=universe.phystimeelapsed;
-#ifdef DEBUG_HEAVYCORVETTE
+#if DEBUG_HEAVY_CORVETTE
             dbgMessagef("Cooling Down...");
 #endif
         if(spec->burstChargeState2 <= 0.0f)

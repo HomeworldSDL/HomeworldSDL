@@ -1,32 +1,23 @@
-/*=============================================================================
-    Name    : DefenseFighter.c
-    Purpose : Specifics for the DefenseFighter
+// =============================================================================
+//  DefenseFighter.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 1/27/1998 by Bryce Pasechnik
+// =============================================================================
 
-    Created 01/27/1998 by bryce pasechnik
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-#include <string.h>
-#include <stdlib.h>
-#include "glinc.h"
-#include "Types.h"
-#include "Gun.h"
-#include "Attack.h"
-#include "Universe.h"
 #include "DefenseFighter.h"
-#include "memory.h"
-#include "UnivUpdate.h"
-#include "LinkedList.h"
-#include "FastMath.h"
-#include "Vector.h"
-#include "SoundEvent.h"
-#include "Debug.h"
-#include "Randy.h"
-#include "AITrack.h"
+
 #include "AIShip.h"
+#include "AITrack.h"
 #include "Collision.h"
-#include "ETG.h"
-#include "SaveGame.h"
+#include "FastMath.h"
+#include "glinc.h"
 #include "Randy.h"
+#include "SaveGame.h"
+#include "SoundEvent.h"
+#include "Universe.h"
+#include "UnivUpdate.h"
+#include "UnivUpdate.h"
 
 typedef struct
 {

@@ -1,16 +1,12 @@
-/*=============================================================================
-    Name    : P2FuelPod.c
-    Purpose : Specifics for the P2FuelPod
+// =============================================================================
+//  P2FuelPod.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 5/07/1998 by ddunlop
+// =============================================================================
 
-    Created 5/07/1998 by ddunlop
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-#include "Types.h"
-#include "Debug.h"
 #include "P2FuelPod.h"
-#include "StatScript.h"
-#include "Gun.h"
+
 #include "Attack.h"
 #include "DefaultShip.h"
 

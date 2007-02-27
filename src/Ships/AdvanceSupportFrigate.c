@@ -8,8 +8,8 @@
 #include "AdvanceSupportFrigate.h"
 
 #include "Attack.h"
-#include "RepairCorvette.h"
 #include "DefaultShip.h"
+#include "RepairCorvette.h"
 #include "ShipSelect.h"
 #include "StatScript.h"
 

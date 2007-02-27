@@ -1,16 +1,12 @@
-/*=============================================================================
-    Name    : IonCannonFrigate.c
-    Purpose : Specifics for the Standard Frigate
+// =============================================================================
+//  IonCannonFrigate.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 11/5/1997 by khent
+// =============================================================================
 
-    Created 11/5/1997 by khent
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-#include "Types.h"
-#include "Debug.h"
 #include "IonCannonFrigate.h"
-#include "StatScript.h"
-#include "Gun.h"
+
 #include "Attack.h"
 #include "DefaultShip.h"
 
