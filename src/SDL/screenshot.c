@@ -1,30 +1,40 @@
-/*=============================================================================
-    Name    : screenshot.c
-    Purpose : take screenshots via OpenGL
-
-    Created 7/15/1998 by khent
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  screenshot.c
+//  - take screenshots via OpenGL
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 7/15/1998 by khent
+// =============================================================================
 
 #include "screenshot.h"
 
-#include <stdlib.h>
-#include <string.h>
-#include <limits.h>
-#include <time.h>
-#if !defined _MSC_VER
-#include <unistd.h>
+#ifdef _WIN32
+    #define WIN32_LEAN_AND_MEAN
+    #include <windows.h>
+#else
+    #include <sys/mman.h>
 #endif
 
-#include "main.h"
-#include "Debug.h"
+#include "debug.h"
+#include "gldefines.h"
+#include "gldll.h"
 #include "interfce.h"
+#include "main.h"
 
 #ifdef _MSC_VER
 	#define sleep(x) _sleep((x) * 1000)
+#else
+    #include <unistd.h>
 #endif
 
-static void _appendScreenshotFilename(char* savePath)
+static void _ssAppendScreenshotFilename(char* savePath);
+static void _ssSaveScreenshot(ubyte* buf);
+
+
+// =============================================================================
+
+
+static void _ssAppendScreenshotFilename(char* savePath)
 {
     FILE        *imageFile;
     char         imagePath[PATH_MAX + 1],
@@ -65,7 +75,8 @@ static void _appendScreenshotFilename(char* savePath)
     strcat(savePath, imageName);
 }
 
-void ssSaveScreenshot(ubyte* buf)
+
+static void _ssSaveScreenshot(ubyte* buf)
 {
     char *fname;
     FILE* out;
@@ -78,7 +89,7 @@ void ssSaveScreenshot(ubyte* buf)
     if (!fileMakeDirectory(fname))
         return;
 
-    _appendScreenshotFilename(fname);
+    _ssAppendScreenshotFilename(fname);
 
 #if SS_VERBOSE_LEVEL >= 1
     dbgMessagef("Saving %dx%d screenshot to '%s'.", MAIN_WindowWidth, MAIN_WindowHeight, fname);
@@ -118,4 +129,35 @@ void ssSaveScreenshot(ubyte* buf)
     JpegWrite(&jp);
 
     fclose(out);
+}
+
+
+void ssTakeScreenshot(void)
+{
+    ubyte* screenshot_buffer =
+#ifdef _WIN32
+        (void *)VirtualAlloc(NULL, 3 * MAIN_WindowWidth * MAIN_WindowHeight,  // 3 = RGB
+            MEM_COMMIT, PAGE_READWRITE);
+#else
+        mmap(NULL, 3 * MAIN_WindowWidth * MAIN_WindowHeight,
+            PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANON, -1, 0);
+#endif
+
+    if (screenshot_buffer != NULL)
+    {
+        int result = 0;
+        
+        glReadPixels(0, 0, MAIN_WindowWidth, MAIN_WindowHeight,
+            GL_RGB, GL_UNSIGNED_BYTE, screenshot_buffer);
+            
+        _ssSaveScreenshot(screenshot_buffer);
+
+#ifdef _WIN32
+        result = VirtualFree(buf, 0, MEM_RELEASE);
+        dbgAssertOrIgnore(result);
+#else
+        result = munmap(screenshot_buffer, 3*MAIN_WindowWidth*MAIN_WindowHeight);
+        dbgAssertOrIgnore(result != -1);
+#endif
+    }
 }

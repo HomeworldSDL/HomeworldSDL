@@ -78,7 +78,9 @@ void toFieldSphereDraw(ShipPtr ship,real32 radius, real32 scale);
 void (*smHoldLeft)(void);
 void (*smHoldRight)(void);
 
+#if SM_TOGGLE_SENSOR_LEVEL
 void smToggleSensorsLevel(void);
+#endif
 
 /*=============================================================================
     Data:
@@ -3554,9 +3556,9 @@ altCase:
 
                                 selSelectHotKeyGroup(&selHotKeyGroup[ID - ZEROKEY]);
                                 selHotKeyNumbersSet(ID - ZEROKEY);
-    #if SEL_ERROR_CHECKING
+#if SEL_ERROR_CHECKING
                                 selHotKeyGroupsVerify();
-    #endif
+#endif
                                 if(MP_HyperSpaceFlag)
                                 {
                                     makeSelectionHyperspaceCapable((SelectCommand *)&selSelected);
@@ -3901,6 +3903,7 @@ void smCancelDispatch(char *name, featom *atom)
     piePointSpecMode = SPM_Idle;
 }
 
+
 #if SM_TOGGLE_SENSOR_LEVEL
 void smToggleSensorsLevel(void)
 {
@@ -3914,6 +3917,7 @@ void smToggleSensorsLevel(void)
 #endif
 }
 #endif //SM_TOGGLE_SENSOR_LEVEL
+
 
 void smCancelMoveOrClose(char *name, featom *atom)
 {
@@ -4250,19 +4254,20 @@ void smSensorsBegin(char *name, featom *atom)
     smRenderCount = 0;
 
     //add any additional key messages the sensors manager will need
-    regKeyChildAlloc(smViewportRegion, SHIFTKEY, RPE_KeyUp | RPE_KeyDown, smViewportProcess, 1, SHIFTKEY);
-    regKeyChildAlloc(smViewportRegion, MKEY, RPE_KeyUp | RPE_KeyDown, smViewportProcess, 1, MKEY);
-    regKeyChildAlloc(smViewportRegion, FKEY, RPE_KeyUp | RPE_KeyDown, smViewportProcess, 1, FKEY);
+    regKeyChildAlloc(smViewportRegion, SHIFTKEY,      RPE_KeyUp | RPE_KeyDown, smViewportProcess, 1, SHIFTKEY);
+    regKeyChildAlloc(smViewportRegion, MKEY,          RPE_KeyUp | RPE_KeyDown, smViewportProcess, 1, MKEY);
+    regKeyChildAlloc(smViewportRegion, FKEY,          RPE_KeyUp | RPE_KeyDown, smViewportProcess, 1, FKEY);
     regKeyChildAlloc(smViewportRegion, MMOUSE_BUTTON, RPE_KeyUp | RPE_KeyDown, smViewportProcess, 1, MMOUSE_BUTTON);
 
-    regKeyChildAlloc(smViewportRegion, ARRLEFT , RPE_KeyUp | RPE_KeyDown, smViewportProcess, 1, ARRLEFT );
+    regKeyChildAlloc(smViewportRegion, ARRLEFT,  RPE_KeyUp | RPE_KeyDown, smViewportProcess, 1, ARRLEFT );
     regKeyChildAlloc(smViewportRegion, ARRRIGHT, RPE_KeyUp | RPE_KeyDown, smViewportProcess, 1, ARRRIGHT);
-    regKeyChildAlloc(smViewportRegion, ARRUP   , RPE_KeyUp | RPE_KeyDown, smViewportProcess, 1, ARRUP   );
-    regKeyChildAlloc(smViewportRegion, ARRDOWN , RPE_KeyUp | RPE_KeyDown, smViewportProcess, 1, ARRDOWN );
+    regKeyChildAlloc(smViewportRegion, ARRUP,    RPE_KeyUp | RPE_KeyDown, smViewportProcess, 1, ARRUP   );
+    regKeyChildAlloc(smViewportRegion, ARRDOWN,  RPE_KeyUp | RPE_KeyDown, smViewportProcess, 1, ARRDOWN );
 
 #if SM_TOGGLE_SENSOR_LEVEL
     regKeyChildAlloc(smViewportRegion, LKEY, RPE_KeyUp | RPE_KeyDown, smViewportProcess, 1, LKEY);
 #endif
+
 
     for (index = ZEROKEY; index <= NINEKEY; index++)
     {

@@ -57,6 +57,7 @@
 #include "render.h"
 #include "ResearchGUI.h"
 #include "ResearchShip.h"
+#include "screenshot.h"
 #include "Select.h"
 #include "Sensors.h"
 #include "Shader.h"
@@ -2712,14 +2713,11 @@ docapslock:
             }
             break;
 
+        case SS_SCREENSHOT_KEY:
 #ifdef _MACOSX
-        // MAC OS X captures high F-keys for system functions like monitor
-        // brightness and Expose etc so we remap the screenshot functionality to: 
-        case PRINTKEY:     // F13 on extended keyboards
-        case PLUSMINUS:    // key next to the 1 on the top numeric keys under esc for laptops
-                           // which remaps all the function keys to system use
+        case SS_SCREENSHOT_KEY_2:
+        case SS_SCREENSHOT_KEY_3:
 #endif
-        case SCROLLKEY:
             soundEvent(NULL, UI_Click);
             rndTakeScreenshot = TRUE;
             break;

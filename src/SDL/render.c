@@ -4107,11 +4107,20 @@ void rndRenderTask(void)
         }
 
         //take a screenshot or sequence thereof
-#if SS_SCREENSHOTS
-        if (keyIsStuck(SCROLLKEY))
+        if (keyIsStuck(SS_SCREENSHOT_KEY)
+#ifdef _MACOSX
+        ||  keyIsStuck(SS_SCREENSHOT_KEY_2)
+        ||  keyIsStuck(SS_SCREENSHOT_KEY_3)
+#endif
+            )
         {
-            keyClearSticky(SCROLLKEY);
             rndTakeScreenshot = TRUE;
+
+            keyClearSticky(SS_SCREENSHOT_KEY);
+#ifdef _MACOSX
+            keyClearSticky(SS_SCREENSHOT_KEY_2);
+            keyClearSticky(SS_SCREENSHOT_KEY_3);
+#endif
         }
         else if (keyIsStuck(PAUSEKEY))
         {
@@ -4124,34 +4133,12 @@ void rndRenderTask(void)
                 rglFeature(RGL_MULTISHOT_END);
             }
         }
+        
         if (rndTakeScreenshot)
         {
-            static ubyte* buf;
-
             rndTakeScreenshot = FALSE;
-            //buf = (ubyte*)malloc(3*MAIN_WindowWidth*MAIN_WindowHeight);
-#ifdef _WIN32
-            buf = (void *)VirtualAlloc(NULL, 3*MAIN_WindowWidth*MAIN_WindowHeight, MEM_COMMIT, PAGE_READWRITE);
-#else
-            buf = mmap(NULL, 3*MAIN_WindowWidth*MAIN_WindowHeight,
-                PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANON, -1, 0);
-#endif
-            if (buf != NULL)
-            {
-                int result;
-                glReadPixels(0, 0, MAIN_WindowWidth, MAIN_WindowHeight, GL_RGB, GL_UNSIGNED_BYTE, buf);
-                ssSaveScreenshot(buf);
-                //free(buf);
-#ifdef _WIN32
-                result = VirtualFree(buf, 0, MEM_RELEASE);
-                dbgAssertOrIgnore(result);
-#else
-                result = munmap(buf, 3*MAIN_WindowWidth*MAIN_WindowHeight);
-                dbgAssertOrIgnore(result != -1);
-#endif
-            }
+            ssTakeScreenshot();
         }
-#endif //SS_SCREENSHOTS
 
         if (rndFillCounter)
         {
