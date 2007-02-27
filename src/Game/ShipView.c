@@ -88,105 +88,6 @@ char buf[40];
     Data:
 =============================================================================*/
 
-/*
-real32 svScaleAdvanceSupportFrigate   =  3.0;
-real32 svScaleAttackBomber            = 10.0;
-real32 svScaleCarrier                 =  0.5;
-real32 svScaleCloakedFighter          = 10.0;
-real32 svScaleCloakGenerator          =  4.0;
-real32 svScaleDDDFrigate              =  2.0;
-real32 svScaleDefenseFighter          =  6.0;
-real32 svScaleDFGFrigate              =  2.0;
-real32 svScaleGravWellGenerator       =  2.0;
-real32 svScaleHeavyCorvette           =  9.0;
-real32 svScaleHeavyCruiser            =  0.5;
-real32 svScaleHeavyDefender           = 10.0;
-real32 svScaleHeavyInterceptor        = 10.0;
-real32 svScaleIonCannonFrigate        =  2.5;
-real32 svScaleLightCorvette           =  9.0;
-real32 svScaleLightDefender           = 10.0;
-real32 svScaleLightInterceptor        = 10.0;
-real32 svScaleMinelayerCorvette       =  6.0;
-real32 svScaleMissileDestroyer        =  1.0;
-real32 svScaleMothership              =  4.0; //not used but here because of enumeration dependancy
-real32 svScaleMultiGunCorvette        =  8.0;
-real32 svScaleProbe                   =  6.0;
-real32 svScaleProximitySensor         =  8.0;
-real32 svScaleRepairCorvette          =  8.0;
-real32 svScaleResearchShip            =  3.0;
-real32 svScaleResourceCollector       =  3.0;
-real32 svScaleResourceController      =  1.0;
-real32 svScaleSalCapCorvette          =  8.0;
-real32 svScaleSensorArray             =  1.0;
-real32 svScaleStandardDestroyer       =  1.0;
-real32 svScaleStandardFrigate         =  3.0;
-
-real32 svMinZoomAdvanceSupportFrigate = 500.0;
-real32 svMinZoomAttackBomber          = 500.0;
-real32 svMinZoomCarrier               = 500.0;
-real32 svMinZoomCloakedFighter        = 500.0;
-real32 svMinZoomCloakGenerator        = 500.0;
-real32 svMinZoomDDDFrigate            = 500.0;
-real32 svMinZoomDefenseFighter        = 500.0;
-real32 svMinZoomDFGFrigate            = 500.0;
-real32 svMinZoomGravWellGenerator     = 500.0;
-real32 svMinZoomHeavyCorvette         = 500.0;
-real32 svMinZoomHeavyCruiser          = 500.0;
-real32 svMinZoomHeavyDefender         = 500.0;
-real32 svMinZoomHeavyInterceptor      = 500.0;
-real32 svMinZoomIonCannonFrigate      = 500.0;
-real32 svMinZoomLightCorvette         = 500.0;
-real32 svMinZoomLightDefender         = 500.0;
-real32 svMinZoomLightInterceptor      = 500.0;
-real32 svMinZoomMinelayerCorvette     = 500.0;
-real32 svMinZoomMissileDestroyer      = 500.0;
-real32 svMinZoomMothership            = 500.0; //not used but here because of enumeration dependancy
-real32 svMinZoomMultiGunCorvette      = 500.0;
-real32 svMinZoomProbe                 = 500.0;
-real32 svMinZoomProximitySensor       = 500.0;
-real32 svMinZoomRepairCorvette        = 500.0;
-real32 svMinZoomResearchShip          = 500.0;
-real32 svMinZoomResourceCollector     = 500.0;
-real32 svMinZoomResourceController    = 500.0;
-real32 svMinZoomSalCapCorvette        = 500.0;
-real32 svMinZoomSensorArray           = 500.0;
-real32 svMinZoomStandardDestroyer     = 500.0;
-real32 svMinZoomStandardFrigate       = 500.0;
-
-real32 svMaxZoomAdvanceSupportFrigate = 1000.0;
-real32 svMaxZoomAttackBomber          = 1000.0;
-real32 svMaxZoomCarrier               = 1000.0;
-real32 svMaxZoomCloakedFighter        = 1000.0;
-real32 svMaxZoomCloakGenerator        = 1000.0;
-real32 svMaxZoomDDDFrigate            = 1000.0;
-real32 svMaxZoomDefenseFighter        = 1000.0;
-real32 svMaxZoomDFGFrigate            = 1000.0;
-real32 svMaxZoomGravWellGenerator     = 1000.0;
-real32 svMaxZoomHeavyCorvette         = 1000.0;
-real32 svMaxZoomHeavyCruiser          = 1000.0;
-real32 svMaxZoomHeavyDefender         = 1000.0;
-real32 svMaxZoomHeavyInterceptor      = 1000.0;
-real32 svMaxZoomIonCannonFrigate      = 1000.0;
-real32 svMaxZoomLightCorvette         = 1000.0;
-real32 svMaxZoomLightDefender         = 1000.0;
-real32 svMaxZoomLightInterceptor      = 1000.0;
-real32 svMaxZoomMinelayerCorvette     = 1000.0;
-real32 svMaxZoomMissileDestroyer      = 1000.0;
-real32 svMaxZoomMothership            = 1000.0; //not used but here because of enumeration dependancy
-real32 svMaxZoomMultiGunCorvette      = 1000.0;
-real32 svMaxZoomProbe                 = 1000.0;
-real32 svMaxZoomProximitySensor       = 1000.0;
-real32 svMaxZoomRepairCorvette        = 1000.0;
-real32 svMaxZoomResearchShip          = 1000.0;
-real32 svMaxZoomResourceCollector     = 1000.0;
-real32 svMaxZoomResourceController    = 1000.0;
-real32 svMaxZoomSalCapCorvette        = 1000.0;
-real32 svMaxZoomSensorArray           = 1000.0;
-real32 svMaxZoomStandardDestroyer     = 1000.0;
-real32 svMaxZoomStandardFrigate       = 1000.0;
-
-*/
-
 Camera svCamera;
 
 real32 svAngle         = -150.0;
@@ -203,213 +104,7 @@ scriptEntry ShipViewTweaks[] =
     
     END_SCRIPT_ENTRY
 };
-/*
 
-    makeEntry(svScaleAdvanceSupportFrigate, scriptSetReal32CB),
-    makeEntry(svScaleAttackBomber, scriptSetReal32CB),
-    makeEntry(svScaleCarrier, scriptSetReal32CB),
-    makeEntry(svScaleCloakedFighter, scriptSetReal32CB),
-    makeEntry(svScaleCloakGenerator, scriptSetReal32CB),
-    makeEntry(svScaleDDDFrigate, scriptSetReal32CB),
-    makeEntry(svScaleDefenseFighter, scriptSetReal32CB),
-    makeEntry(svScaleDFGFrigate, scriptSetReal32CB),
-    makeEntry(svScaleGravWellGenerator, scriptSetReal32CB),
-    makeEntry(svScaleHeavyCorvette, scriptSetReal32CB),
-    makeEntry(svScaleHeavyCruiser, scriptSetReal32CB),
-    makeEntry(svScaleHeavyDefender, scriptSetReal32CB),
-    makeEntry(svScaleHeavyInterceptor, scriptSetReal32CB),
-    makeEntry(svScaleIonCannonFrigate, scriptSetReal32CB),
-    makeEntry(svScaleLightCorvette, scriptSetReal32CB),
-    makeEntry(svScaleLightDefender, scriptSetReal32CB),
-    makeEntry(svScaleLightInterceptor, scriptSetReal32CB),
-    makeEntry(svScaleMinelayerCorvette, scriptSetReal32CB),
-    makeEntry(svScaleMissileDestroyer, scriptSetReal32CB),
-    makeEntry(svScaleMothership, scriptSetReal32CB),
-    makeEntry(svScaleMultiGunCorvette, scriptSetReal32CB),
-    makeEntry(svScaleProbe, scriptSetReal32CB),
-    makeEntry(svScaleProximitySensor, scriptSetReal32CB),
-    makeEntry(svScaleRepairCorvette, scriptSetReal32CB),
-    makeEntry(svScaleResearchShip, scriptSetReal32CB),
-    makeEntry(svScaleResourceCollector, scriptSetReal32CB),
-    makeEntry(svScaleResourceController, scriptSetReal32CB),
-    makeEntry(svScaleSalCapCorvette, scriptSetReal32CB),
-    makeEntry(svScaleSensorArray, scriptSetReal32CB),
-    makeEntry(svScaleStandardDestroyer, scriptSetReal32CB),
-    makeEntry(svScaleStandardFrigate, scriptSetReal32CB),
-
-    makeEntry(svMinZoomAdvanceSupportFrigate, scriptSetReal32CB),
-    makeEntry(svMinZoomAttackBomber, scriptSetReal32CB),
-    makeEntry(svMinZoomCarrier, scriptSetReal32CB),
-    makeEntry(svMinZoomCloakedFighter, scriptSetReal32CB),
-    makeEntry(svMinZoomCloakGenerator, scriptSetReal32CB),
-    makeEntry(svMinZoomDDDFrigate, scriptSetReal32CB),
-    makeEntry(svMinZoomDefenseFighter, scriptSetReal32CB),
-    makeEntry(svMinZoomDFGFrigate, scriptSetReal32CB),
-    makeEntry(svMinZoomGravWellGenerator, scriptSetReal32CB),
-    makeEntry(svMinZoomHeavyCorvette, scriptSetReal32CB),
-    makeEntry(svMinZoomHeavyCruiser, scriptSetReal32CB),
-    makeEntry(svMinZoomHeavyDefender, scriptSetReal32CB),
-    makeEntry(svMinZoomHeavyInterceptor, scriptSetReal32CB),
-    makeEntry(svMinZoomIonCannonFrigate, scriptSetReal32CB),
-    makeEntry(svMinZoomLightCorvette, scriptSetReal32CB),
-    makeEntry(svMinZoomLightDefender, scriptSetReal32CB),
-    makeEntry(svMinZoomLightInterceptor, scriptSetReal32CB),
-    makeEntry(svMinZoomMinelayerCorvette, scriptSetReal32CB),
-    makeEntry(svMinZoomMissileDestroyer, scriptSetReal32CB),
-    makeEntry(svMinZoomMothership, scriptSetReal32CB),
-    makeEntry(svMinZoomMultiGunCorvette, scriptSetReal32CB),
-    makeEntry(svMinZoomProbe, scriptSetReal32CB),
-    makeEntry(svMinZoomProximitySensor, scriptSetReal32CB),
-    makeEntry(svMinZoomRepairCorvette, scriptSetReal32CB),
-    makeEntry(svMinZoomResearchShip, scriptSetReal32CB),
-    makeEntry(svMinZoomResourceCollector, scriptSetReal32CB),
-    makeEntry(svMinZoomResourceController, scriptSetReal32CB),
-    makeEntry(svMinZoomSalCapCorvette, scriptSetReal32CB),
-    makeEntry(svMinZoomSensorArray, scriptSetReal32CB),
-    makeEntry(svMinZoomStandardDestroyer, scriptSetReal32CB),
-    makeEntry(svMinZoomStandardFrigate, scriptSetReal32CB),
-
-    makeEntry(svMaxZoomAdvanceSupportFrigate, scriptSetReal32CB),
-    makeEntry(svMaxZoomAttackBomber, scriptSetReal32CB),
-    makeEntry(svMaxZoomCarrier, scriptSetReal32CB),
-    makeEntry(svMaxZoomCloakedFighter, scriptSetReal32CB),
-    makeEntry(svMaxZoomCloakGenerator, scriptSetReal32CB),
-    makeEntry(svMaxZoomDDDFrigate, scriptSetReal32CB),
-    makeEntry(svMaxZoomDefenseFighter, scriptSetReal32CB),
-    makeEntry(svMaxZoomDFGFrigate, scriptSetReal32CB),
-    makeEntry(svMaxZoomGravWellGenerator, scriptSetReal32CB),
-    makeEntry(svMaxZoomHeavyCorvette, scriptSetReal32CB),
-    makeEntry(svMaxZoomHeavyCruiser, scriptSetReal32CB),
-    makeEntry(svMaxZoomHeavyDefender, scriptSetReal32CB),
-    makeEntry(svMaxZoomHeavyInterceptor, scriptSetReal32CB),
-    makeEntry(svMaxZoomIonCannonFrigate, scriptSetReal32CB),
-    makeEntry(svMaxZoomLightCorvette, scriptSetReal32CB),
-    makeEntry(svMaxZoomLightDefender, scriptSetReal32CB),
-    makeEntry(svMaxZoomLightInterceptor, scriptSetReal32CB),
-    makeEntry(svMaxZoomMinelayerCorvette, scriptSetReal32CB),
-    makeEntry(svMaxZoomMissileDestroyer, scriptSetReal32CB),
-    makeEntry(svMaxZoomMothership, scriptSetReal32CB),
-    makeEntry(svMaxZoomMultiGunCorvette, scriptSetReal32CB),
-    makeEntry(svMaxZoomProbe, scriptSetReal32CB),
-    makeEntry(svMaxZoomProximitySensor, scriptSetReal32CB),
-    makeEntry(svMaxZoomRepairCorvette, scriptSetReal32CB),
-    makeEntry(svMaxZoomResearchShip, scriptSetReal32CB),
-    makeEntry(svMaxZoomResourceCollector, scriptSetReal32CB),
-    makeEntry(svMaxZoomResourceController, scriptSetReal32CB),
-    makeEntry(svMaxZoomSalCapCorvette, scriptSetReal32CB),
-    makeEntry(svMaxZoomSensorArray, scriptSetReal32CB),
-    makeEntry(svMaxZoomStandardDestroyer, scriptSetReal32CB),
-    makeEntry(svMaxZoomStandardFrigate, scriptSetReal32CB),
-
-    endEntry
-};
-*/
-/*
-real32* svScale[31] =
-{
-    &svScaleAdvanceSupportFrigate,
-    &svScaleAttackBomber,
-    &svScaleCarrier,
-    &svScaleCloakedFighter,
-    &svScaleCloakGenerator,
-    &svScaleDDDFrigate,
-    &svScaleDefenseFighter,
-    &svScaleDFGFrigate,
-    &svScaleGravWellGenerator,
-    &svScaleHeavyCorvette,
-    &svScaleHeavyCruiser,
-    &svScaleHeavyDefender,
-    &svScaleHeavyInterceptor,
-    &svScaleIonCannonFrigate,
-    &svScaleLightCorvette,
-    &svScaleLightDefender,
-    &svScaleLightInterceptor,
-    &svScaleMinelayerCorvette,
-    &svScaleMissileDestroyer,
-    &svScaleMothership,
-    &svScaleMultiGunCorvette,
-    &svScaleProbe,
-    &svScaleProximitySensor,
-    &svScaleRepairCorvette,
-    &svScaleResearchShip,
-    &svScaleResourceCollector,
-    &svScaleResourceController,
-    &svScaleSalCapCorvette,
-    &svScaleSensorArray,
-    &svScaleStandardDestroyer,
-    &svScaleStandardFrigate
-};
-
-real32* svMinZoom[31] =
-{
-    &svMinZoomAdvanceSupportFrigate,
-    &svMinZoomAttackBomber,
-    &svMinZoomCarrier,
-    &svMinZoomCloakedFighter,
-    &svMinZoomCloakGenerator,
-    &svMinZoomDDDFrigate,
-    &svMinZoomDefenseFighter,
-    &svMinZoomDFGFrigate,
-    &svMinZoomGravWellGenerator,
-    &svMinZoomHeavyCorvette,
-    &svMinZoomHeavyCruiser,
-    &svMinZoomHeavyDefender,
-    &svMinZoomHeavyInterceptor,
-    &svMinZoomIonCannonFrigate,
-    &svMinZoomLightCorvette,
-    &svMinZoomLightDefender,
-    &svMinZoomLightInterceptor,
-    &svMinZoomMinelayerCorvette,
-    &svMinZoomMissileDestroyer,
-    &svMinZoomMothership,
-    &svMinZoomMultiGunCorvette,
-    &svMinZoomProbe,
-    &svMinZoomProximitySensor,
-    &svMinZoomRepairCorvette,
-    &svMinZoomResearchShip,
-    &svMinZoomResourceCollector,
-    &svMinZoomResourceController,
-    &svMinZoomSalCapCorvette,
-    &svMinZoomSensorArray,
-    &svMinZoomStandardDestroyer,
-    &svMinZoomStandardFrigate
-};
-
-real32* svMaxZoom[31] =
-{
-    &svMaxZoomAdvanceSupportFrigate,
-    &svMaxZoomAttackBomber,
-    &svMaxZoomCarrier,
-    &svMaxZoomCloakedFighter,
-    &svMaxZoomCloakGenerator,
-    &svMaxZoomDDDFrigate,
-    &svMaxZoomDefenseFighter,
-    &svMaxZoomDFGFrigate,
-    &svMaxZoomGravWellGenerator,
-    &svMaxZoomHeavyCorvette,
-    &svMaxZoomHeavyCruiser,
-    &svMaxZoomHeavyDefender,
-    &svMaxZoomHeavyInterceptor,
-    &svMaxZoomIonCannonFrigate,
-    &svMaxZoomLightCorvette,
-    &svMaxZoomLightDefender,
-    &svMaxZoomLightInterceptor,
-    &svMaxZoomMinelayerCorvette,
-    &svMaxZoomMissileDestroyer,
-    &svMaxZoomMothership,
-    &svMaxZoomMultiGunCorvette,
-    &svMaxZoomProbe,
-    &svMaxZoomProximitySensor,
-    &svMaxZoomRepairCorvette,
-    &svMaxZoomResearchShip,
-    &svMaxZoomResourceCollector,
-    &svMaxZoomResourceController,
-    &svMaxZoomSalCapCorvette,
-    &svMaxZoomSensorArray,
-    &svMaxZoomStandardDestroyer,
-    &svMaxZoomStandardFrigate
-};
-*/
 ShipType svShipType = DefaultShip;
 
 sdword svMouseCentreX = 0;
@@ -422,11 +117,6 @@ bool8 svMousePressLeft  = FALSE;
 bool8 svMousePressRight = FALSE;
 
 static GLfloat lightPosition0[] = {10000.0f, 1.0f, 1.0f, 0.1f};
-
-//for callback from glcPageFlip, if glcompat module is active
-static featom* _glcAtom;
-static regionhandle _glcRegion;
-bool _svRender = FALSE;
 
 /*=============================================================================
     Function Prototypes
@@ -804,30 +494,27 @@ void svShipViewRender(featom* atom, regionhandle region)
 
     if (svShipType != DefaultShip)
     {
-        if (resetRender || !_svRender)
+        sdword index;
+        //try player index colours first
+        index = universe.curPlayerIndex;
+        if (info->teamColor[index] == 0)
         {
-            sdword index;
-            //try player index colours first
-            index = universe.curPlayerIndex;
-            if (info->teamColor[index] == 0)
+            //colour scheme doesn't exist, search for something valid
+            for (index = 0; index < MAX_MULTIPLAYER_PLAYERS; index++)
             {
-                //colour scheme doesn't exist, search for something valid
-                for (index = 0; index < MAX_MULTIPLAYER_PLAYERS; index++)
+                if (info->teamColor[index] != 0)
                 {
-                    if (info->teamColor[index] != 0)
-                    {
-                        break;
-                    }
-                }
-                if (index == MAX_MULTIPLAYER_PLAYERS)
-                {
-                    //this ship doesn't have any colour info,
-                    //at least avoid a GPF
-                    index = universe.curPlayerIndex;
+                    break;
                 }
             }
-            meshRender((meshdata *)info->staticheader.LOD->level[0].pData, index);
+            if (index == MAX_MULTIPLAYER_PLAYERS)
+            {
+                //this ship doesn't have any colour info,
+                //at least avoid a GPF
+                index = universe.curPlayerIndex;
+            }
         }
+        meshRender((meshdata *)info->staticheader.LOD->level[0].pData, index);
     }
 
     glDisable(GL_NORMALIZE);
@@ -897,11 +584,6 @@ void svShipViewRender(featom* atom, regionhandle region)
     fontMakeCurrent(currentFont);
 
     svDirtyShipView();
-
-    if (resetRender)
-    {
-        _svRender = FALSE;
-    }
 }
 
 
