@@ -709,12 +709,12 @@ void tutSetPointerTargetXYBottomRight(char *name, sdword x, sdword y)
 
 void tutSetPointerTargetXYTaskbar(char *name, sdword x, sdword y)
 {
-    tutSetPointerTargetXY(name, feResRepositionX(x), MAIN_WindowHeight+y-480);
+    tutSetPointerTargetXY(name, feResRepositionCentredX(x), MAIN_WindowHeight+y-480);
 }
 
 void tutSetPointerTargetXYFE(char *name, sdword x, sdword y)
 {
-    tutSetPointerTargetXY(name, feResRepositionX(x), feResRepositionY(y));
+    tutSetPointerTargetXY(name, feResRepositionCentredX(x), feResRepositionCentredY(y));
 }
 
 void tutSetPointerTargetShip(char *name, ShipPtr ship)

@@ -1635,28 +1635,53 @@ void feShutdown(void)
 }
 
 /*-----------------------------------------------------------------------------
-    Name        : feResRepositionX
-    Description : adjusts a frontend screen's x coordinate for hires modes
-    Inputs      : x - x coordinate
+    Name        : feResRepositionCentred[X|Y]
+    Description : adjusts a frontend screen's [x|y] coordinate for hires modes
+                  where the menu/image is still rendered at 640x480 but centred
+    Inputs      : coordinate relative to 640x480
     Outputs     :
-    Return      : adjusted x coordinate
+    Return      : hires adjusted coordinate
 ----------------------------------------------------------------------------*/
-sdword feResRepositionX(sdword x)
+sdword feResRepositionCentredX(sdword x)
 {
-    return(x + ((MAIN_WindowWidth - 640) / 2));
+    return (x + ((MAIN_WindowWidth - 640) / 2));
+}
+
+sdword feResRepositionCentredY(sdword y)
+{
+    return (y + ((MAIN_WindowHeight - 480) / 2));
 }
 
 /*-----------------------------------------------------------------------------
-    Name        : feResRepositionY
-    Description : adjusts a frontend screen's y coordinate for hires modes
-    Inputs      : y - y coordinate
+    Name        : feResRepositionScaled[X|Y]
+    Description : adjusts a frontend screen's [x|y] coordinate for hires modes
+                  where the menu/image is scaled to fit, remembering that for
+                  widescreen modes we also need to recentre too 
+    Inputs      : coordinate relative to 640x480
     Outputs     :
-    Return      : adjusted y coordinate
+    Return      : hires adjusted coordinate
 ----------------------------------------------------------------------------*/
-sdword feResRepositionY(sdword y)
+sdword feResRepositionScaledX(sdword x)
 {
-    return(y + ((MAIN_WindowHeight - 480) / 2));
+    real32 scale = feResScaleToFitFactor();
+
+    return (x * scale)                                 // resize
+         + ((MAIN_WindowWidth  - (640 * scale)) / 2);  // widescreen shift
 }
+
+sdword feResRepositionScaledY(sdword y)
+{
+    real32 scale = feResScaleToFitFactor();
+    
+    return (y * scale)                                 // resize
+         + ((MAIN_WindowHeight - (480 * scale)) / 2);  // widescreen shift
+}
+
+real32 feResScaleToFitFactor(void)
+{
+    return min((MAIN_WindowWidth / 640), (MAIN_WindowHeight / 480));
+}
+
 
 /*-----------------------------------------------------------------------------
     Name        : feResRescaleBackground
@@ -1671,13 +1696,13 @@ void feResRescaleBackground(featom* atom)
     sdword x1, y1;
     sdword bottom, right;
 
-    x0 = feResRepositionX(0);
-    y0 = feResRepositionY(0);
-    x1 = feResRepositionX(640 - 1);
-    y1 = feResRepositionY(480 - 1);
+    x0 = feResRepositionCentredX(0);
+    y0 = feResRepositionCentredY(0);
+    x1 = feResRepositionCentredX(640 - 1);
+    y1 = feResRepositionCentredY(480 - 1);
 
-    atom->x = feResRepositionX(atom->x);
-    atom->y = feResRepositionY(atom->y);
+    atom->x = feResRepositionCentredX(atom->x);
+    atom->y = feResRepositionCentredY(atom->y);
 
     //top edge
     if (atom->y <= y0)
@@ -1901,8 +1926,8 @@ fibfileheader *feScreensLoad(char *fileName)
                         bitSet(screen->atoms[index].flags, FAF_Hidden);
                     }
 
-                    screen->atoms[index].x = feResRepositionX(screen->atoms[index].x);
-                    screen->atoms[index].y = feResRepositionY(screen->atoms[index].y);
+                    screen->atoms[index].x = feResRepositionCentredX(screen->atoms[index].x);
+                    screen->atoms[index].y = feResRepositionCentredY(screen->atoms[index].y);
                 }
             }
 
@@ -2109,8 +2134,8 @@ bool feAllScreensReposition(void)
                     bitSet(atom->flags, FAF_Hidden);
                 }
 
-                atom->x = feResRepositionX(atom->x);
-                atom->y = feResRepositionY(atom->y);
+                atom->x = feResRepositionCentredX(atom->x);
+                atom->y = feResRepositionCentredY(atom->y);
             }
         }
     }

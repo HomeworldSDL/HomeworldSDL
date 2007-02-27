@@ -359,8 +359,11 @@ void feUserRegionDraw(regionhandle region);
 void feAcceleratorSet(regionhandle reg, featom *atom);
 void feScreenAllHotKeysUpdate(fescreen *screen);
 
-sdword feResRepositionX(sdword x);
-sdword feResRepositionY(sdword y);
+sdword feResRepositionCentredX(sdword x);
+sdword feResRepositionCentredY(sdword y);
+sdword feResRepositionScaledX(sdword x);
+sdword feResRepositionScaledY(sdword y);
+real32 feResScaleToFitFactor(void);
 
 bool feAllScreensReposition(void);
 

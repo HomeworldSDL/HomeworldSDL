@@ -71,6 +71,12 @@ extern udword gDevcaps2;
     defines:
 =============================================================================*/
 
+#ifdef _MACOSX
+    #define HR_SCALE_MISSION_LOADING_SCREENS  TRUE
+#else
+    #define HR_SCALE_MISSION_LOADING_SCREENS  FALSE
+#endif
+
 #define HR_PlayerNameFont   "Arial_12.hff"
 #define MAX_CHAT_TEXT       64
 #define NUM_CHAT_LINES      10
@@ -85,7 +91,7 @@ color HorseRaceDropoutColor = colRGB(75,75,75);
 /*extern HDC hGLDeviceContext;*/
 
 static rectangle hrSinglePlayerPos;
-static color hrSinglePlayerColor;
+static color hrSinglePlayerLoadingBarColor = colRGB(255,63,63);  // pastel red
 
 static sdword JustInit;
 static sdword localbar;
@@ -97,9 +103,12 @@ static long hrBackgroundDirty = 0;
 bool hrBackgroundReinit = FALSE;
 static long hrBackXSize, hrBackYSize;
 
+static bool hrScaleMissionLoadingScreens = HR_SCALE_MISSION_LOADING_SCREENS;
+
 static regionhandle hrDecRegion;
 
 HorseStatus horseracestatus;
+static udword hrProgressCounter = 0;
 
 TTimer hrPlayerDropoutTimers[MAX_MULTIPLAYER_PLAYERS];
 
@@ -113,10 +122,9 @@ bool            PlayersAlreadyDrawnDropped[MAX_MULTIPLAYER_PLAYERS];
 
 textentryhandle ChatTextEntryBox = NULL;
 
-regionhandle   hrBaseRegion = NULL;
-regionhandle   hrProgressRegion = NULL;
-regionhandle   hrChatBoxRegion = NULL;
-
+regionhandle   hrBaseRegion       = NULL;
+regionhandle   hrProgressRegion   = NULL;
+regionhandle   hrChatBoxRegion    = NULL;
 regionhandle   hrAbortLoadConfirm = NULL;
 
 region horseCrapRegion =
@@ -289,13 +297,48 @@ void hrDrawPlayersProgress(featom *atom, regionhandle region)
     {
         pos = hrSinglePlayerPos;
 
+        // progress bar
         if (pos.x0 != 0)
         {
             percent = horseracestatus.percent[0];
 
             //dbgMessagef("percent %f",percent);
 
-            hrBarDraw(&pos, colBlack, hrSinglePlayerColor/*teColorSchemes[0].textureColor.base*/, percent);
+            hrBarDraw(&pos, colBlack, hrSinglePlayerLoadingBarColor/*teColorSchemes[0].textureColor.base*/, percent);
+        }
+
+        // blinking hyperspace destination (render every other call)
+        if (++hrProgressCounter % 2 == 0)
+        {
+            hrBackgroundDirty = 3;  // 1 - nothing happens as decremented before rendered
+                                    // 2 - background is cleared but not redrawn
+                                    // 3 - 3's the charm
+            
+            // hyperspace destination circled in first-person view  
+            #define SP_LOADING_HYPERSPACE_DEST_CIRCLE_X  115
+            #define SP_LOADING_HYPERSPACE_DEST_CIRCLE_Y  342
+            
+            // hyperspace destination arrowed in "as the bird flies" view 
+            #define SP_LOADING_HYPERSPACE_DEST_ARROWS_X  195
+            #define SP_LOADING_HYPERSPACE_DEST_ARROWS_Y  134
+
+            // NB: hrDrawFile deals with coordinate mapping
+
+#ifdef _WIN32
+            hrDrawFile("feman\\loadscreen\\ring.lif",
+                SP_LOADING_HYPERSPACE_DEST_CIRCLE_X, SP_LOADING_HYPERSPACE_DEST_CIRCLE_Y
+            );
+            hrDrawFile("feman\\loadscreen\\arrows.lif",
+                SP_LOADING_HYPERSPACE_DEST_ARROWS_X, SP_LOADING_HYPERSPACE_DEST_ARROWS_Y
+            );
+#else
+            hrDrawFile("feman/loadscreen/ring.lif",
+                SP_LOADING_HYPERSPACE_DEST_CIRCLE_X, SP_LOADING_HYPERSPACE_DEST_CIRCLE_Y
+            );
+            hrDrawFile("feman/loadscreen/arrows.lif",
+                SP_LOADING_HYPERSPACE_DEST_ARROWS_X, SP_LOADING_HYPERSPACE_DEST_ARROWS_Y
+            );
+#endif
         }
     }
     else
@@ -360,10 +403,8 @@ void hrDrawChatBox(featom *atom, regionhandle region)
 
 void hrChooseSinglePlayerBitmap(char* pFilenameBuffer)
 {
-    char fname[128], line[64];
-    filehandle handle;
+    char fname[128];
     sdword x, y, width, height;
-    sdword red, green, blue;
 
     memset(&hrSinglePlayerPos, 0, sizeof(hrSinglePlayerPos));
 
@@ -392,34 +433,33 @@ void hrChooseSinglePlayerBitmap(char* pFilenameBuffer)
 
     strcpy(pFilenameBuffer, fname);
 
-    //image script
-    x = 42;
-    y = 132 + ((RGLtype == SWtype) ? 1 : 0);
-    width = 152;
-    height = 3;
-    x = feResRepositionX(x);
-    y = feResRepositionY(y);
+    // loading bar position
+    // NB: the single player loading images are not all aligned properly...
+    #define SP_LOADING_IMAGE_PROGRESS_BAR_X        43
+    #define SP_LOADING_IMAGE_PROGRESS_BAR_Y       133
+    #define SP_LOADING_IMAGE_PROGRESS_BAR_WIDTH   151
+    #define SP_LOADING_IMAGE_PROGRESS_BAR_HEIGHT    2
+
+    x      = hrScaleMissionLoadingScreens
+           ? feResRepositionScaledX (SP_LOADING_IMAGE_PROGRESS_BAR_X)
+           : feResRepositionCentredX(SP_LOADING_IMAGE_PROGRESS_BAR_X);
+      
+    y      = hrScaleMissionLoadingScreens
+           ? feResRepositionScaledY (SP_LOADING_IMAGE_PROGRESS_BAR_Y)
+           : feResRepositionCentredY(SP_LOADING_IMAGE_PROGRESS_BAR_Y);
+    
+    width  = hrScaleMissionLoadingScreens
+           ? (SP_LOADING_IMAGE_PROGRESS_BAR_WIDTH  * feResScaleToFitFactor())
+           :  SP_LOADING_IMAGE_PROGRESS_BAR_WIDTH;
+    
+    height = hrScaleMissionLoadingScreens
+           ? (SP_LOADING_IMAGE_PROGRESS_BAR_HEIGHT * feResScaleToFitFactor())
+           :  SP_LOADING_IMAGE_PROGRESS_BAR_HEIGHT;
+    
     hrSinglePlayerPos.x0 = x;
     hrSinglePlayerPos.y0 = y;
     hrSinglePlayerPos.x1 = x + width;
     hrSinglePlayerPos.y1 = y + height;
-
-#ifdef _WIN32
-    sprintf(fname, "SinglePlayer\\mission%02d\\loading.script", singlePlayerGameInfo.currentMission);
-#else
-    sprintf(fname, "SinglePlayer/mission%02d/loading.script", singlePlayerGameInfo.currentMission);
-#endif
-    if (!fileExists(fname, 0))
-    {
-        hrSinglePlayerColor = colRGB(255,63,63);
-        return;
-    }
-    handle = fileOpen(fname, FF_TextMode);
-    fileLineRead(handle, line, 63);
-    sscanf(line, "%d %d %d", &red, &green, &blue);
-    fileClose(handle);
-
-    hrSinglePlayerColor = colRGB(red, green, blue);
 }
 
 void hrChooseRandomBitmap(char *pFilenameBuffer)
@@ -636,10 +676,10 @@ long FinalLong;
 
 unsigned long hrGetInterpPixel(unsigned char *pSrcImg, long XSize, float Xf, float Yf)
 {
-unsigned long Result, x, y, xx, yy;
-unsigned char *pCol;
-double xfrac, yfrac, xint, yint;
-ColorQuad r, g, b;
+    unsigned long Result, x, y, xx, yy;
+    unsigned char *pCol;
+    double xfrac, yfrac, xint, yint;
+    ColorQuad r, g, b;
 
     x = (unsigned long)Xf;
     y = (unsigned long)Yf;
@@ -658,7 +698,7 @@ ColorQuad r, g, b;
         }
     }
 
-    Result = (unsigned long)hrBilinear(&r, xfrac, yfrac);
+    Result  = (unsigned long)hrBilinear(&r, xfrac, yfrac);
     Result |= (unsigned long)hrBilinear(&g, xfrac, yfrac) << 8;
     Result |= (unsigned long)hrBilinear(&b, xfrac, yfrac) << 16;
     Result |= 0xff000000;
@@ -669,11 +709,11 @@ ColorQuad r, g, b;
 
 long hrShipsToLoadForRace(ShipRace shiprace)
 {
-long ShipsToLoad = 0;
-ShipType shiptype;
-ShipType firstshiptype;
-ShipType lastshiptype;
-ShipStaticInfo *shipstaticinfo;
+    long ShipsToLoad = 0;
+    ShipType shiptype;
+    ShipType firstshiptype;
+    ShipType lastshiptype;
+    ShipStaticInfo *shipstaticinfo;
 
     firstshiptype = FirstShipTypeOfRace[shiprace];
     lastshiptype = LastShipTypeOfRace[shiprace];
@@ -730,18 +770,23 @@ static bool hrDrawPixelsSupported(void)
 
 void hrInitBackground(void)
 {
-char hrImageName[PATH_MAX];
-filehandle handle;
-long XSize, YSize, i;
-unsigned long *pDest;
-unsigned char *pTempImage, *pTempLine, *pRGB;
+    char CurDir[PATH_MAX], NewDir[PATH_MAX];
+    char hrImageName[PATH_MAX];
+    filehandle handle;
+    JPEGDATA    jp;
 
-float SrcX, SrcY, Scale;
-float IncX, IncY;
-long DestX, DestY;
-long DestXSize, DestYSize, Size, Top, Bot;
-JPEGDATA    jp;
-char CurDir[PATH_MAX], NewDir[PATH_MAX];
+    udword imageWidth, imageHeight, i;
+    udword pixelX, pixelY;
+    udword screenWidth, screenHeight, Size, Top, Bottom;
+    udword scaledImageGapSizeX, scaledImageGapSizeY;
+
+    unsigned long *pDest;
+    unsigned char *pTempImage, *pTempLine, *pRGB;
+
+    real32 subPixelX, subPixelY, scaleFactor;
+    real32 subPixelIncrement;
+    
+    bool interpolatingImage = FALSE;
 
     /*GetCurrentDirectory(511, CurDir);*/
     getcwd(CurDir, PATH_MAX);
@@ -753,7 +798,7 @@ char CurDir[PATH_MAX], NewDir[PATH_MAX];
     }
     else
     {
-        hrChooseRandomBitmap( hrImageName );
+        hrChooseRandomBitmap(hrImageName);
     }
 
     /*GetCurrentDirectory(511, NewDir);*/
@@ -763,7 +808,7 @@ char CurDir[PATH_MAX], NewDir[PATH_MAX];
 
     // Load the bitmap image
     handle = fileOpen(hrImageName, FF_ReturnNULLOnFail);
-    if(handle)
+    if (handle)
     {
         memset(&jp, 0, sizeof(jp));
         jp.input_file = handle;
@@ -771,119 +816,137 @@ char CurDir[PATH_MAX], NewDir[PATH_MAX];
 
         fileSeek(handle, 0, SEEK_SET);
 
-        XSize = jp.width;
-        YSize = jp.height;
+        imageWidth = jp.width;
+        imageHeight = jp.height;
 
-        pTempImage = (unsigned char *)memAllocAttempt((XSize+1) * (YSize+1) * 3, "BackgroundTemp", NonVolatile);
-        if(pTempImage == NULL)
+        pTempImage = (unsigned char *)memAllocAttempt((imageWidth+1) * (imageHeight+1) * 3, "BackgroundTemp", NonVolatile);
+        if (pTempImage == NULL)
+        {
             return;
-
+        }
+        
         jp.ptr = pTempImage;
         JpegRead(&jp);
 
         fileClose(handle);
 
-        Size = XSize*3;
+        Size = imageWidth*3;
         pTempLine = (unsigned char *)malloc(Size);
-        for(i=0; i<(YSize/2); i++)
+        for(i=0; i<(imageHeight/2); i++)
         {
-            Top = i;
-            Bot = (YSize-1)-i;
-
+            Top    = i;
+            Bottom = (imageHeight - 1) - i;
+ 
             memcpy(pTempLine, pTempImage + (Size * Top), Size);
-            memcpy(pTempImage + (Size * Top), pTempImage + (Size * Bot), Size);
-            memcpy(pTempImage + (Size * Bot), pTempLine, Size);
+            memcpy(pTempImage + (Size * Top),   pTempImage + (Size * Bottom), Size);
+            memcpy(pTempImage + (Size * Bottom), pTempLine, Size);
         }
         free(pTempLine);
 
         // Replicate the last line to appease the filter algorithm
-        memcpy(&pTempImage[YSize * XSize * 3], &pTempImage[(YSize-1) * XSize * 3], XSize*3);
+        memcpy(&pTempImage[imageHeight * imageWidth * 3], &pTempImage[(imageHeight-1) * imageWidth * 3], imageWidth*3);
 
-        if (singlePlayerGame)
+        if (!hrScaleMissionLoadingScreens
+        ||  !hrDrawPixelsSupported())
         {
-            //fixed width for singleplayer game images
-            DestXSize = 640;
-            DestYSize = 480;
-            hrBackgroundImage = (udword*)malloc(DestXSize * DestYSize * 4);
+            //no DrawPixels support, must use glcompat 640x480 quilting
+            screenWidth = 640;
+            screenHeight = 480;
+            hrBackgroundImage = (udword*)malloc(screenWidth * screenHeight * 4);
         }
         else
         {
-            if (!hrDrawPixelsSupported())
-            {
-                //no DrawPixels support, must use glcompat 640x480 quilting
-                DestXSize = 640;
-                DestYSize = 480;
-                hrBackgroundImage = (udword*)malloc(DestXSize * DestYSize * 4);
-            }
-            else
-            {
-                Scale = 1.1f;
-                do {
-                    Scale -= 0.1f;
-                    DestXSize = (long)((float)MAIN_WindowWidth * Scale);
-                    DestYSize = (long)((float)MAIN_WindowHeight * Scale);
+            scaleFactor = 1.1f;
+            do {
+                scaleFactor -= 0.1f;
+                screenWidth  = (long)((float)MAIN_WindowWidth  * scaleFactor);
+                screenHeight = (long)((float)MAIN_WindowHeight * scaleFactor);
 
-                    hrBackgroundImage = (udword *)malloc(DestXSize * DestYSize * 4);
-                } while((hrBackgroundImage == NULL) && (Scale > 0.4f));
-            }
+                hrBackgroundImage = (udword *)malloc(screenWidth * screenHeight * 4);
+            } while((hrBackgroundImage == NULL) && (scaleFactor > 0.4f));
         }
 
-        //if the memory was not succesfully allocated
+        // if the memory was not succesfully allocated
         if (hrBackgroundImage == NULL)
         {
             memFree(pTempImage);
             return;
         }
 
-        // Stretch the image to fit the current display size
-        IncX = (float)XSize / (float)DestXSize;
-        IncY = (float)YSize / (float)DestYSize;
+        // scale (not stretch) the image to fit the current display size
+        scaleFactor = hrScaleMissionLoadingScreens
+                    ? feResScaleToFitFactor()
+                    : 1;
+                          
+        subPixelIncrement = 1 / scaleFactor;
+
+        scaledImageGapSizeX
+            = (screenWidth  - (imageWidth  * scaleFactor)) / 2;
+        scaledImageGapSizeY
+            = (screenHeight - (imageHeight * scaleFactor)) / 2;
 
         pDest = (unsigned long*)hrBackgroundImage;
-        if((IncX < 1.0f) && (IncY < 1.0f) && (pDest != NULL))
+        
+        if (pDest != NULL)
         {
-            SrcY = 0.0f;
-            for(DestY = 0; DestY < DestYSize; DestY++)
+            subPixelY = 0.0f;
+            for (pixelY = 0; pixelY < screenHeight; pixelY++)
             {
-                SrcX = 0.0f;
-                for(DestX = 0; DestX < DestXSize; DestX++)
+                subPixelX = 0.0f;
+                for (pixelX = 0; pixelX < screenWidth; pixelX++)
                 {
+                    interpolatingImage = TRUE;
+            
+                    // blank area that a proportional resize won't cover
+                    if (pixelX < (scaledImageGapSizeX)
+                    ||  pixelY < (scaledImageGapSizeY)
+                    ||  pixelX > (screenWidth  - scaledImageGapSizeX)
+                    ||  pixelY > (screenHeight - scaledImageGapSizeY))
+                    {
+                        interpolatingImage = FALSE;
+                        pDest[pixelX] = 0xff000000;  // AGBR (black)
+                    }
+                    
+                    // upscaling image (common case)
+                    else if (subPixelIncrement < 1.0f)
+                    {
+                        pDest[pixelX] = hrGetInterpPixel(pTempImage, imageWidth, subPixelX, subPixelY);
+                    }
+                    
+                    // downscaling image (direct pixel sampling so won't be particularly smooth...) 
+                    else
+                    {
+                        pRGB = &pTempImage[(((unsigned long)subPixelY * imageWidth) + (unsigned long)subPixelX) * 3 ];
+
+                        // RGBA -> ABGR
+                        pDest[pixelX] = 0xff000000                       // A
+                                      + ((unsigned long)pRGB[2] << 16)   // B
+                                      + ((unsigned long)pRGB[1] << 8 )   // G
+                                      + ((unsigned long)pRGB[0]      );  // R
+                    }
+
 #if FIX_ENDIAN
-                    pDest[DestX] = FIX_ENDIAN_INT_32( hrGetInterpPixel(pTempImage, XSize, SrcX, SrcY) );
-#else
-                    pDest[DestX] = hrGetInterpPixel(pTempImage, XSize, SrcX, SrcY);
+                    pDest[pixelX] = FIX_ENDIAN_INT_32( pDest[pixelX] );
 #endif
-                    SrcX += IncX;
+
+                    if (interpolatingImage)
+                    {
+                        subPixelX += subPixelIncrement;
+                    }
                 }
-                pDest += DestXSize;
-                SrcY += IncY;
+                
+                if (interpolatingImage)
+                {
+                    subPixelY += subPixelIncrement;
+                }
+
+                pDest += screenWidth;
             }
         }
-        else if (pDest != NULL)
-        {
-            SrcY = 0.0f;
-            for(DestY = 0; DestY < DestYSize; DestY++)
-            {
-                SrcX = 0.0f;
-                for(DestX = 0; DestX < DestXSize; DestX++)
-                {
-                    pRGB = &pTempImage[ (((unsigned long)SrcY * XSize) + (unsigned long)SrcX) * 3 ];
 
-#if FIX_ENDIAN
-                    pDest[DestX] = FIX_ENDIAN_INT_32( 0xff000000 + ((unsigned long)pRGB[0]) + ((unsigned long)pRGB[1] << 8) + ((unsigned long)pRGB[2] << 16) );
-#else
-                    pDest[DestX] = 0xff000000 + ((unsigned long)pRGB[0]) + ((unsigned long)pRGB[1] << 8) + ((unsigned long)pRGB[2] << 16);
-#endif
-
-                    SrcX += IncX;
-                }
-                SrcY += IncY;
-                pDest += DestXSize;
-            }
-        }
-
-        hrBackXSize = DestXSize;
-        hrBackYSize = DestYSize;
+        hrBackXSize = screenWidth;
+        hrBackYSize = screenHeight;
+        
         memFree(pTempImage);
     }
 }
@@ -931,9 +994,17 @@ void hrDrawFile(char* filename, sdword x, sdword y)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, lif->width, lif->height,
                  0, GL_RGBA, GL_UNSIGNED_BYTE, lif->data);
-    x = feResRepositionX(x);
-    y = feResRepositionY(y);
-    x -= lif->width >> 1;
+    
+    // FIXME: there's no LiF scaling here, just translation of the image
+    x = hrScaleMissionLoadingScreens
+      ? feResRepositionScaledX(x)
+      : feResRepositionCentredX(x);
+      
+    y = hrScaleMissionLoadingScreens
+      ? feResRepositionScaledY(y)
+      : feResRepositionCentredY(y);
+    
+    x -= lif->width  >> 1;
     y -= lif->height >> 1;
     rect.x0 = x;
     rect.y0 = y;
@@ -950,6 +1021,7 @@ void hrDrawFile(char* filename, sdword x, sdword y)
 void hrDrawBackground(void)
 {
     real32 x, y;
+    sdword lifX, lifY;
 
     rndClearToBlack();
 
@@ -967,17 +1039,6 @@ void hrDrawBackground(void)
         if (hrDrawPixelsSupported())
         {
             glDrawPixels(hrBackXSize, hrBackYSize, GL_RGBA, GL_UNSIGNED_BYTE, hrBackgroundImage);
-        }
-
-        if (singlePlayerGame && (hrBackgroundInitFrame & 1))
-        {
-#ifdef _WIN32
-            hrDrawFile("feman\\loadscreen\\ring.lif", 115, 342);
-            hrDrawFile("feman\\loadscreen\\arrows.lif", 195, 134);
-#else
-            hrDrawFile("feman/loadscreen/ring.lif", 115, 342);
-            hrDrawFile("feman/loadscreen/arrows.lif", 195, 134);
-#endif
         }
     }
 }
@@ -1209,7 +1270,8 @@ void horseRaceShutdown()
     feScreenDelete(hrBaseRegion);
 
     hrShutdownBackground();
-
+    hrProgressCounter = 0;
+    
     hrBaseRegion = NULL;
     hrProgressRegion = NULL;
     hrChatBoxRegion = NULL;
@@ -1442,8 +1504,9 @@ void horseRaceRender()
 
     // I know this looks weird, but it's correct
     if(hrBackgroundInitFrame == 1)
+    {
         hrInitBackground();
-
+    }
 
     // When there's no background loaded yet, it fills the screen with black
     if (RGLtype == SWtype)
@@ -1477,7 +1540,10 @@ void horseRaceRender()
     // then just draw the progress bars.
     if(hrBackgroundDirty && hrBackgroundInitFrame)
     {
-        if (hrBackgroundDirty > 0) hrBackgroundDirty--;
+        if (hrBackgroundDirty > 0)
+        {
+            hrBackgroundDirty--;
+        }
     }
 
     hrBackgroundInitFrame++;
