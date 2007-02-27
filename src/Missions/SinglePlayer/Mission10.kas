@@ -419,7 +419,6 @@ FSM MissionFlow
           IF (TimerExpiredDestroy("FuckTimer"))
             SoundEvent(262);
             TutCameraFocus(TEAMSHIPS_EliteCarrier);
-            TutCameraFocus(TEAMSHIPS_EliteCarrier);
             Jump StopFocusFI;
           ENDIF
         ENDWATCH
@@ -641,7 +640,6 @@ FSM EliteCarrier
         STATE ItsOver //컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
             INIT
               SoundEvent(262);
-              TutCameraFocus(TEAMSHIPS_EliteCarrier);
               TutCameraFocus(TEAMSHIPS_EliteCarrier);
               TeamHyperSpaceOut();
               MissionFailed();
