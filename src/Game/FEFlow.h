@@ -286,6 +286,19 @@ extern bool fetEnableTextures;
 #define FEFIRSTCALL(atom)   ((atom) && ((atom)->status&FAS_OnCreate))
 #define FELASTCALL(atom)    (atom->status&FAS_OnDelete)
 
+// Relic scaled all their FE graphics to the minimum resolution they supported
+// and centred it on screen. With today's resolutions that's a tad small...
+#define FE_RELIC_SCREEN_WIDTH   640
+#define FE_RELIC_SCREEN_HEIGHT  480
+
+#define FE_SCALE_TO_FIT_FACTOR(to_fit_width, to_fit_height, current_width, current_height)  \
+    min(((real32)(to_fit_width)  / (real32)(current_width)),                                \
+        ((real32)(to_fit_height) / (real32)(current_height)))
+
+#define FE_SCALE_TO_FIT_FACTOR_RELIC_SCREEN                                  \
+    FE_SCALE_TO_FIT_FACTOR(MAIN_WindowWidth,      MAIN_WindowHeight,         \
+                           FE_RELIC_SCREEN_WIDTH, FE_RELIC_SCREEN_HEIGHT)
+
 /*=============================================================================
     Functions:
 =============================================================================*/
@@ -363,7 +376,6 @@ sdword feResRepositionCentredX(sdword x);
 sdword feResRepositionCentredY(sdword y);
 sdword feResRepositionScaledX(sdword x);
 sdword feResRepositionScaledY(sdword y);
-real32 feResScaleToFitFactor(void);
 
 bool feAllScreensReposition(void);
 

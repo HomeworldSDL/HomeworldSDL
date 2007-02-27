@@ -152,6 +152,7 @@ udword      chatline=0;
 void horseRaceRender(void);
 void hrDrawPlayersProgress(featom *atom, regionhandle region);
 void hrDrawChatBox(featom *atom, regionhandle region);
+void hrDrawFile(char* filename, sdword x, sdword y);
 void hrChatTextEntry(char *name, featom *atom);
 void hrAbortLoadingYes(char *name, featom *atom);
 void hrAbortLoadingNo(char *name, featom *atom);
@@ -449,11 +450,11 @@ void hrChooseSinglePlayerBitmap(char* pFilenameBuffer)
            : feResRepositionCentredY(SP_LOADING_IMAGE_PROGRESS_BAR_Y);
     
     width  = hrScaleMissionLoadingScreens
-           ? (SP_LOADING_IMAGE_PROGRESS_BAR_WIDTH  * feResScaleToFitFactor())
+           ? (SP_LOADING_IMAGE_PROGRESS_BAR_WIDTH  * FE_SCALE_TO_FIT_FACTOR_RELIC_SCREEN)
            :  SP_LOADING_IMAGE_PROGRESS_BAR_WIDTH;
     
     height = hrScaleMissionLoadingScreens
-           ? (SP_LOADING_IMAGE_PROGRESS_BAR_HEIGHT * feResScaleToFitFactor())
+           ? (SP_LOADING_IMAGE_PROGRESS_BAR_HEIGHT * FE_SCALE_TO_FIT_FACTOR_RELIC_SCREEN)
            :  SP_LOADING_IMAGE_PROGRESS_BAR_HEIGHT;
     
     hrSinglePlayerPos.x0 = x;
@@ -659,8 +660,8 @@ typedef struct
 //
 unsigned char hrBilinear(ColorQuad *pQuad, double X, double Y)
 {
-float Top, Bot, Final;
-long FinalLong;
+    float Top, Bot, Final;
+    long FinalLong;
 
     Top = (float)pQuad->v[0][0] + ((float)pQuad->v[1][0] - (float)pQuad->v[0][0]) * X;
     Bot = (float)pQuad->v[0][1] + ((float)pQuad->v[1][1] - (float)pQuad->v[0][1]) * X;
@@ -786,7 +787,9 @@ void hrInitBackground(void)
     real32 subPixelX, subPixelY, scaleFactor;
     real32 subPixelIncrement;
     
-    bool interpolatingImage = FALSE;
+    // used when scanning across the image for rescaling
+    bool interpolatingImage    = FALSE;    // at screen position that rescaled image covers
+    bool interpolatedImageLine = FALSE;    // used image information during horizontal scan line
 
     /*GetCurrentDirectory(511, CurDir);*/
     getcwd(CurDir, PATH_MAX);
@@ -850,7 +853,7 @@ void hrInitBackground(void)
         ||  !hrDrawPixelsSupported())
         {
             //no DrawPixels support, must use glcompat 640x480 quilting
-            screenWidth = 640;
+            screenWidth  = 640;
             screenHeight = 480;
             hrBackgroundImage = (udword*)malloc(screenWidth * screenHeight * 4);
         }
@@ -859,8 +862,8 @@ void hrInitBackground(void)
             scaleFactor = 1.1f;
             do {
                 scaleFactor -= 0.1f;
-                screenWidth  = (long)((float)MAIN_WindowWidth  * scaleFactor);
-                screenHeight = (long)((float)MAIN_WindowHeight * scaleFactor);
+                screenWidth  = (udword)((real32)MAIN_WindowWidth  * scaleFactor);
+                screenHeight = (udword)((real32)MAIN_WindowHeight * scaleFactor);
 
                 hrBackgroundImage = (udword *)malloc(screenWidth * screenHeight * 4);
             } while((hrBackgroundImage == NULL) && (scaleFactor > 0.4f));
@@ -874,8 +877,10 @@ void hrInitBackground(void)
         }
 
         // scale (not stretch) the image to fit the current display size
-        scaleFactor = hrScaleMissionLoadingScreens
-                    ? feResScaleToFitFactor()
+        scaleFactor = (hrScaleMissionLoadingScreens
+                       || imageWidth  > screenWidth
+                       || imageHeight > screenHeight)
+                    ? FE_SCALE_TO_FIT_FACTOR(screenWidth, screenHeight, imageWidth, imageHeight)
                     : 1;
                           
         subPixelIncrement = 1 / scaleFactor;
@@ -892,6 +897,8 @@ void hrInitBackground(void)
             subPixelY = 0.0f;
             for (pixelY = 0; pixelY < screenHeight; pixelY++)
             {
+                interpolatedImageLine = FALSE;
+
                 subPixelX = 0.0f;
                 for (pixelX = 0; pixelX < screenWidth; pixelX++)
                 {
@@ -904,18 +911,23 @@ void hrInitBackground(void)
                     ||  pixelY > (screenHeight - scaledImageGapSizeY))
                     {
                         interpolatingImage = FALSE;
+                        
                         pDest[pixelX] = 0xff000000;  // AGBR (black)
                     }
                     
                     // upscaling image (common case)
                     else if (subPixelIncrement < 1.0f)
                     {
+                        interpolatedImageLine = TRUE;
+
                         pDest[pixelX] = hrGetInterpPixel(pTempImage, imageWidth, subPixelX, subPixelY);
                     }
                     
                     // downscaling image (direct pixel sampling so won't be particularly smooth...) 
                     else
                     {
+                        interpolatedImageLine = TRUE;
+
                         pRGB = &pTempImage[(((unsigned long)subPixelY * imageWidth) + (unsigned long)subPixelX) * 3 ];
 
                         // RGBA -> ABGR
@@ -935,7 +947,7 @@ void hrInitBackground(void)
                     }
                 }
                 
-                if (interpolatingImage)
+                if (interpolatedImageLine)
                 {
                     subPixelY += subPixelIncrement;
                 }
@@ -1021,7 +1033,6 @@ void hrDrawFile(char* filename, sdword x, sdword y)
 void hrDrawBackground(void)
 {
     real32 x, y;
-    sdword lifX, lifY;
 
     rndClearToBlack();
 

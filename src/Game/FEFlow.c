@@ -1663,25 +1663,19 @@ sdword feResRepositionCentredY(sdword y)
 ----------------------------------------------------------------------------*/
 sdword feResRepositionScaledX(sdword x)
 {
-    real32 scale = feResScaleToFitFactor();
+    real32 scale = FE_SCALE_TO_FIT_FACTOR_RELIC_SCREEN;
 
-    return (x * scale)                                 // resize
-         + ((MAIN_WindowWidth  - (640 * scale)) / 2);  // widescreen shift
+    return (x * scale)                                                    // resize
+         + ((MAIN_WindowWidth  - (FE_RELIC_SCREEN_WIDTH  * scale)) / 2);  // widescreen centring
 }
 
 sdword feResRepositionScaledY(sdword y)
 {
-    real32 scale = feResScaleToFitFactor();
+    real32 scale = FE_SCALE_TO_FIT_FACTOR_RELIC_SCREEN;
     
-    return (y * scale)                                 // resize
-         + ((MAIN_WindowHeight - (480 * scale)) / 2);  // widescreen shift
+    return (y * scale)                                                    // resize
+         + ((MAIN_WindowHeight - (FE_RELIC_SCREEN_HEIGHT * scale)) / 2);  // widescreen centring
 }
-
-real32 feResScaleToFitFactor(void)
-{
-    return min((MAIN_WindowWidth / 640), (MAIN_WindowHeight / 480));
-}
-
 
 /*-----------------------------------------------------------------------------
     Name        : feResRescaleBackground
