@@ -689,58 +689,6 @@ ShipStaticInfo *shipstaticinfo;
 }
 
 
-long hrIsBackgroundWorthLoading(void)
-{
-long            ToLoad = 0;
-ShipRace        shiprace;
-AsteroidType    asteroidtype;
-DustCloudType   dustcloudtype;
-GasCloudType    gascloudtype;
-NebulaType      nebulatype;
-DerelictType    derelicttype;
-
-    for (shiprace=0;shiprace<NUM_RACES;shiprace++)
-        ToLoad += hrShipsToLoadForRace(shiprace);
-
-    for (asteroidtype=0;asteroidtype<NUM_ASTEROIDTYPES;asteroidtype++)
-    {
-        if(bitTest(asteroidStaticInfos[asteroidtype].staticheader.infoFlags, IF_InfoNeeded) && !bitTest(asteroidStaticInfos[asteroidtype].staticheader.infoFlags, IF_InfoLoaded))
-            ToLoad++;
-    }
-
-    for (dustcloudtype = 0; dustcloudtype < NUM_DUSTCLOUDTYPES; dustcloudtype++)
-    {
-        if(bitTest(dustcloudStaticInfos[dustcloudtype].staticheader.infoFlags, IF_InfoNeeded) && !bitTest(dustcloudStaticInfos[dustcloudtype].staticheader.infoFlags, IF_InfoLoaded))
-            ToLoad++;
-    }
-
-    for (gascloudtype = 0; gascloudtype < NUM_GASCLOUDTYPES; gascloudtype++)
-    {
-        if(bitTest(gascloudStaticInfos[gascloudtype].staticheader.infoFlags, IF_InfoNeeded) && !bitTest(gascloudStaticInfos[gascloudtype].staticheader.infoFlags, IF_InfoLoaded))
-            ToLoad++;
-    }
-
-    for (nebulatype = 0; nebulatype < NUM_NEBULATYPES; nebulatype++)
-    {
-        if(bitTest(nebulaStaticInfos[nebulatype].staticheader.infoFlags, IF_InfoNeeded) && !bitTest(nebulaStaticInfos[nebulatype].staticheader.infoFlags, IF_InfoLoaded))
-            ToLoad++;
-    }
-
-    for (derelicttype=0;derelicttype<NUM_DERELICTTYPES;derelicttype++)
-    {
-        if(bitTest(derelictStaticInfos[derelicttype].staticheader.infoFlags, IF_InfoNeeded) && !bitTest(derelictStaticInfos[derelicttype].staticheader.infoFlags, IF_InfoNeeded))
-            ToLoad++;
-    }
-
-    for (shiprace=0;shiprace<NUM_RACES;shiprace++)
-    {
-        if(bitTest(missileStaticInfos[shiprace].staticheader.infoFlags, IF_InfoNeeded) && !bitTest(missileStaticInfos[shiprace].staticheader.infoFlags, IF_InfoLoaded))
-            ToLoad++;
-    }
-
-    return(ToLoad > 5);
-}
-
 static bool hrDrawPixelsSupported(void)
 {
     extern bool mainNoDrawPixels;
@@ -805,8 +753,7 @@ char CurDir[PATH_MAX], NewDir[PATH_MAX];
     }
     else
     {
-//        if(hrIsBackgroundWorthLoading())
-            hrChooseRandomBitmap( hrImageName );
+        hrChooseRandomBitmap( hrImageName );
     }
 
     /*GetCurrentDirectory(511, NewDir);*/
