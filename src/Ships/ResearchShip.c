@@ -10,10 +10,12 @@
 #include <math.h>
 
 #include "AITrack.h"
+#include "CommandDefs.h"
 #include "Dock.h"
 #include "FastMath.h"
 #include "SaveGame.h"
 #include "SoundEvent.h"
+#include "StatScript.h"
 #include "Universe.h"
 #include "UnivUpdate.h"
 

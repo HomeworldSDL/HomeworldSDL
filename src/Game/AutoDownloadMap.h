@@ -8,10 +8,11 @@
 #define ___AUTODOWNLOADMAP_H
 
 #include "Types.h"
+
 #ifdef __GNUC__
- #ifndef _STRING_H
-  #include <string.h>
- #endif
+    #ifndef _STRING_H
+        #include <string.h>
+    #endif
 #endif
 
 // INTERFACE -------------------------------------------------------------------

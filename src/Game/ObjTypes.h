@@ -9,10 +9,9 @@
 #ifndef ___OBJTYPES_H
 #define ___OBJTYPES_H
 
-#include "Types.h"
-#include "ClassDefs.h"
 #include "RaceDefs.h"
 #include "ShipDefs.h"
+#include "Types.h"
 
 /*=============================================================================
     Types:

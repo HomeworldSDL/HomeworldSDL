@@ -2,11 +2,10 @@
 #ifndef ___TWEAK_H
 #define ___TWEAK_H
 
-#include "Types.h"
-#include "Color.h"
-#include "ShipDefs.h"
 #include "ClassDefs.h"
+#include "Color.h"
 #include "ObjTypes.h"
+#include "Types.h"
 
 /*=============================================================================
     Insert global tweakables here:

@@ -9,6 +9,7 @@
 #define ___DRONE_H
 
 #include "SpaceObj.h"
+#include "Types.h"
 
 #define DRONE_STATE_DORMANT      0
 #define DRONE_STATE_LAUNCHING    1

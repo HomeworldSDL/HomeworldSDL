@@ -10,6 +10,7 @@
 #include "AIShip.h"
 #include "AITrack.h"
 #include "Collision.h"
+#include "CommandDefs.h"
 #include "DefaultShip.h"
 #include "SaveGame.h"
 #include "SoundEvent.h"

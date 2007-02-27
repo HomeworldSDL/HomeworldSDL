@@ -15,22 +15,12 @@
 #ifndef ___UNIVERSE_H
 #define ___UNIVERSE_H
 
-#include "Types.h"
-#include "SpaceObj.h"
-#include "ObjTypes.h"
-#include "Camera.h"
 #include "CameraCommand.h"
 #include "CommandLayer.h"
-#ifndef STATVIEWER_PROGRAM
-#include "Star3d.h"
 #include "ConsMgr.h"
-#include "Globals.h"
-
 #include "GameStats.h"
-#endif
 #include "ResearchAPI.h"
-#include "ObjTypes.h"
-#include "ShipSelect.h"
+#include "Star3d.h"
 
 /*=============================================================================
     Switches:

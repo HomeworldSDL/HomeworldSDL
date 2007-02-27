@@ -6,21 +6,25 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#include "SpaceObj.h"
-#include "Universe.h"
-#include "UnivUpdate.h"
-#include "ResCollect.h"
-#include "CommandWrap.h"
-#include "AIResourceMan.h"
+#include "AIDefenseMan.h"
+#include "AIFeatures.h"
 #include "AIFleetMan.h"
 #include "AIOrders.h"
+#include "AIResourceMan.h"
 #include "AIUtilities.h"
-#include "AIDefenseMan.h"
-#include "Select.h"
 #include "Blobs.h"
+#include "CommandWrap.h"
 #include "ConsMgr.h"
+#include "Debug.h"
+#include "Memory.h"
 #include "MultiplayerGame.h"
 #include "Randy.h"
+#include "ResCollect.h"
+#include "Select.h"
+#include "SpaceObj.h"
+#include "StatScript.h"
+#include "UnivUpdate.h"
+#include "Universe.h"
 
 udword UPDATE_RU_COUNT_RATE = 3;
 

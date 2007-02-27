@@ -9,11 +9,8 @@
 #ifndef ___TASKBAR_H
 #define ___TASKBAR_H
 
-#include "Types.h"
 #include "Region.h"
-#include "FEFlow.h"
-#include "FEColour.h"
-#include "UIControls.h"
+#include "Types.h"
 
 /*=============================================================================
     Switches:

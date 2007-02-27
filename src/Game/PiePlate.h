@@ -9,7 +9,10 @@
 #ifndef ___PIEPLATE_H
 #define ___PIEPLATE_H
 
+#include "Color.h"
+#include "SpaceObj.h"
 #include "Types.h"
+#include "Vector.h"
 
 /*=============================================================================
     Switches:
@@ -110,7 +113,7 @@ void piePointModeOnOff(void);
 void piePointSpecDraw(void);
 void piePointModeToggle(sdword bOn);
 void piePointModePause(sdword bPause);
-void pieShipDied(struct Ship *ship);
+void pieShipDied(Ship *ship);
 void pieAllShipsToPiePlateDraw(real32 distance);
 void piePlaneDraw(real32 distance);
 void pieMovementCursorDraw(real32 distance);

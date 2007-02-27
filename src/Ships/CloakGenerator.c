@@ -9,9 +9,11 @@
 
 #include "Battle.h"
 #include "GenericInterceptor.h"
+#include "Memory.h"
 #include "SalCapCorvette.h"
 #include "SaveGame.h"
 #include "SoundEvent.h"
+#include "Tweak.h"
 #include "Universe.h"
 
 typedef struct

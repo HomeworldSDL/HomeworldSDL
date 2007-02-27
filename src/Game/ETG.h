@@ -10,9 +10,13 @@
 #ifndef ___ETG_H
 #define ___ETG_H
 
-#include "SpaceObj.h"
-#include "Vector.h"
+#include "ClassDefs.h"
+#include "Color.h"
+#include "ObjTypes.h"
 #include "Matrix.h"
+#include "Mesh.h"
+#include "RaceDefs.h"
+#include "Vector.h"
 
 /*=============================================================================
     Switches:

@@ -1,7 +1,6 @@
 #ifndef ___AIEVENTS_H
 #define ___AIEVENTS_H
 
-#include "Types.h"
 #include "ShipSelect.h"
 #include "SpaceObj.h"
 

@@ -14,7 +14,6 @@
     #include "../../Game/SpeechEvent.h"
 #endif
 
-#include "Utilities.kash"
 
     LOCALIZATION //컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
 
@@ -77,6 +76,7 @@
 #define MASTERTEAM         TEAM_Master
 #define EVENTSTEAM         TEAM_Events
 
+#include "Utilities.kash"
 #include "Swarmer.kash"
 
 

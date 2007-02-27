@@ -9,7 +9,6 @@
 #ifndef ___SCROLLER_H
 #define ___SCROLLER_H
 
-#include "prim2d.h"
 #include "UIControls.h"
 
 #define widthOf(r) ((uword)(r.x1 - r.x0))

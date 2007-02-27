@@ -7,8 +7,10 @@
 #ifndef ___MAIN_H
 #define ___MAIN_H
 
-#include "Types.h"
+#include <SDL.h>
+
 #include "mainswitches.h"
+#include "Types.h"
 
 // -----------------------------------------------------------------------------
 // Make sure the game is being compiled with the correct build configuration

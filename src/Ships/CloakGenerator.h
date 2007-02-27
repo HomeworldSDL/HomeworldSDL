@@ -8,7 +8,9 @@
 #ifndef ___CLOAKGENERATOR_H
 #define ___CLOAKGENERATOR_H
 
+#include "LinkedList.h"
 #include "SpaceObj.h"
+#include "Types.h"
 
 typedef struct
 {

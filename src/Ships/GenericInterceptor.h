@@ -8,8 +8,10 @@
 #ifndef ___GENERICINTERCEPTOR_H
 #define ___GENERICINTERCEPTOR_H
 
+#include "ClassDefs.h"
 #include "FlightMan.h"
-#include "SpaceObj.h"
+#include "ObjTypes.h"
+#include "Types.h"
 
 #define STATE_INIT              0
 #define STATE_APPROACH          1

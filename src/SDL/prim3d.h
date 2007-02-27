@@ -9,10 +9,10 @@
 #ifndef ___PRIM3D_H
 #define ___PRIM3D_H
 
-#include "Types.h"
-#include "Vector.h"
 #include "Color.h"
 #include "texreg.h"
+#include "Types.h"
+#include "Vector.h"
 
 #define X_AXIS  0
 #define Y_AXIS  1

@@ -9,10 +9,8 @@
 #ifndef ___FEFLOW_H
 #define ___FEFLOW_H
 
-#include <string.h>
-#include "Types.h"
+#include "Color.h"
 #include "Region.h"
-#include "LinkedList.h"
 
 /*=============================================================================
     Switches:

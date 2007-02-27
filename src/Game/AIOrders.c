@@ -8,8 +8,11 @@
 #include "CommandWrap.h"
 #include "Debug.h"
 #include "FastMath.h"
+#include "Globals.h"
 #include "GravWellGenerator.h"
+#include "Memory.h"
 #include "Randy.h"
+#include "Select.h"
 #include "SpaceObj.h"
 #include "Stats.h"
 

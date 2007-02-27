@@ -12,8 +12,6 @@
 
 #include "FEFlow.h"
 #include "font.h"
-#include "Key.h"
-#include "StringSupport.h"
 
 /*=============================================================================
     Defines :

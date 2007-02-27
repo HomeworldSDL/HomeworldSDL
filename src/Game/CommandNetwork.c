@@ -7,29 +7,32 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#include <string.h>
+#include "CommandNetwork.h"
+
 #include <stdlib.h>
+#include <string.h>
+
+#include "AutoDownloadMap.h"
+#include "Captaincy.h"
 #include "Debug.h"
+#include "Formation.h"
+#include "Globals.h"
+#include "HorseRace.h"
+#include "LagPrint.h"
+#include "mainswitches.h"
 #include "Memory.h"
-#include "Task.h"
+#include "MultiplayerGame.h"        // for mutex stuff
+#include "NetCheck.h"
 #include "Queue.h"
+#include "Sensors.h"
+#include "Task.h"
+#include "TimeoutTimer.h"
+#include "Titan.h"
+#include "TitanInterfaceC.h"
+#include "TitanNet.h"
 #include "Universe.h"
 #include "UnivUpdate.h"
-#include "NetCheck.h"
 #include "utility.h"
-#include "CommandNetwork.h"
-#include "TitanInterfaceC.h"
-#include "HorseRace.h"
-#include "mainswitches.h"
-#include "Captaincy.h"
-#include "Titan.h"
-#include "TimeoutTimer.h"
-#include "TitanNet.h"
-#include "MultiplayerGame.h"        // for mutex stuff
-#include "AutoDownloadMap.h"
-#include "LagPrint.h"
-#include "Sensors.h"
-#include "Formation.h"
 
 /*=============================================================================
     Private Defines:

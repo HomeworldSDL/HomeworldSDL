@@ -9,38 +9,23 @@
 #ifndef ___TRADEMGR_H
 #define ___TRADEMGR_H
 
-#include "Types.h"
+#include "FEFlow.h"
 #include "Region.h"
-
-#include "texreg.h"
-#include "ResearchAPI.h"
+#include "SpaceObj.h"
+#include "Types.h"
 
 /*=============================================================================
     Switches:
 =============================================================================*/
-#ifdef HW_BUILD_FOR_DEBUGGING
-
-#define TM_CHEAP                 0              //traders give stuff away
-#define TM_INVENTORY             0              //traders have everything
-
-#else
-
-#define TM_CHEAP                 1              //traders give stuff away
-#define TM_INVENTORY             1              //traders have everything
-
-#endif
-
-
 #define TM_NUM_TECHS 50
 
 
-
-    //for tmTechForSale[]
+//for tmTechForSale[]
 #define TM_TECH_IS_NOT_FOR_SALE         0
 #define TM_TECH_IS_FOR_SALE             1
 #define TM_TECH_IS_ALREADY_OWNED        2
 
-    //for tmTechResearchable[]
+//for tmTechResearchable[]
 #define TM_TECH_IS_NOT_RESEARCHABLE     0
 #define TM_TECH_IS_RESEARCHABLE         1
 

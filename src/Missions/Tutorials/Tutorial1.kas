@@ -3,11 +3,9 @@
 //
 
 #ifdef _WIN32
-    #include "..\\..\\Game\\Attributes.h"
     #include "..\\..\\Game\\FormationDefs.h"
     #include "..\\..\\Game\\SpeechEvent.h"
 #else
-    #include "../../Game/Attributes.h"
     #include "../../Game/FormationDefs.h"
     #include "../../Game/SpeechEvent.h"
 #endif

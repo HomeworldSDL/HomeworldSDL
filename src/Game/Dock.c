@@ -6,57 +6,60 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
+#include "Dock.h"
+
+#include <math.h>
 #include <stdlib.h>
 #include <string.h>
 
-#if !defined _MSC_VER
-#include <strings.h>
-#endif
-
-#include <math.h>
+#include "AIShip.h"
+#include "AITrack.h"
+#include "AIVar.h"
+#include "Alliance.h"
+#include "Battle.h"
+#include "Clamp.h"
+#include "Collision.h"
+#include "CommandDefs.h"
+#include "CommandLayer.h"
+#include "DDDFrigate.h"
+#include "Debug.h"
+#include "Drone.h"
+#include "FastMath.h"
+#include "LaunchMgr.h"
+#include "LinkedList.h"
+#include "MadLinkIn.h"
+#include "MadLinkInDefs.h"
+#include "Memory.h"
+#include "Mothership.h"
+#include "ObjTypes.h"
+#include "Physics.h"
+#include "prim3d.h"
+#include "Randy.h"
+#include "ResearchShip.h"
+#include "SalCapCorvette.h"
+#include "Select.h"
+#include "SinglePlayer.h"
+#include "SoundEvent.h"
+#include "SoundEventDefs.h"
+#include "SpeechEvent.h"
+#include "Tactics.h"
+#include "Tutor.h"
+#include "Tweak.h"
+#include "Universe.h"
+#include "UnivUpdate.h"
+#include "Vector.h"
 
 #ifndef _MACOSX          // rgl stuff
     #include "kgl.h"
     #include "maths.h"
 #endif
 
-#include "Memory.h"
-#include "Debug.h"
-#include "Vector.h"
-#include "FastMath.h"
-#include "LinkedList.h"
-#include "ObjTypes.h"
-#include "Universe.h"
-#include "AITrack.h"
-#include "AIShip.h"
-#include "CommandLayer.h"
-#include "prim3d.h"
-#include "Select.h"
-#include "SoundEvent.h"
-#include "Dock.h"
-#include "UnivUpdate.h"
-#include "Drone.h"
-#include "ResearchShip.h"
-#include "Physics.h"
-#include "Collision.h"
-#include "LaunchMgr.h"
-#include "Tactics.h"
-#include "SinglePlayer.h"
-#include "MadLinkIn.h"
-#include "MadLinkInDefs.h"
-#include "Mothership.h"
-#include "Clamp.h"
-#include "SalCapCorvette.h"
-#include "Tutor.h"
-#include "Randy.h"
-#include "AIVar.h"
-#include "Alliance.h"
-#include "Battle.h"
-#include "DDDFrigate.h"
-
 #ifdef _MSC_VER
-#define strcasecmp _stricmp
+    #define strcasecmp _stricmp
+#else
+    #include <strings.h>
 #endif
+
 
 //#define DEBUG_DOCKING
 

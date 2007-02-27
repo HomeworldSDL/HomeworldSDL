@@ -9,8 +9,11 @@
 #ifndef ___CONSMGR_H
 #define ___CONSMGR_H
 
-#include "Types.h"
+#include "ClassDefs.h"
+#include "ObjTypes.h"
 #include "Region.h"
+#include "ShipDefs.h"
+#include "SpaceObj.h"
 
 /*=============================================================================
     Switches:

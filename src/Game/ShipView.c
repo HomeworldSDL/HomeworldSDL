@@ -29,8 +29,10 @@
 #include "Probe.h"
 #include "render.h"
 #include "SoundEvent.h"
+#include "StatScript.h"
 #include "StringSupport.h"
 #include "Types.h"
+#include "Tweak.h"
 #include "Universe.h"
 
 #ifdef _WIN32

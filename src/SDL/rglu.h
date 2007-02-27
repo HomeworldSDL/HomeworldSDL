@@ -9,6 +9,8 @@
 #ifndef ___RGLU_H
 #define ___RGLU_H
 
+#include "gldll.h"
+
 void rgluPerspective(GLdouble fovy, GLdouble aspect, GLdouble zNear, GLdouble zFar);
 GLint rgluProject(GLdouble objx, GLdouble objy, GLdouble objz,
                   GLdouble const* model, GLdouble const* proj,

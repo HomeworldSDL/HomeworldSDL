@@ -8,33 +8,32 @@
 
 #include "Trails.h"
 
+#include <float.h>
+#include <math.h>
 #include <stdio.h>
 #include <string.h>
-#include <math.h>
-#include <float.h>
-#include "glinc.h"
-#include "Debug.h"
-#include "Memory.h"
-#include "prim3d.h"
-#include "render.h"
-#include "StatScript.h"
-#include "SpaceObj.h"
-#include "Universe.h"
-#include "Teams.h"
-#include "main.h"
 
-#include "FastMath.h"
-#include "Particle.h"
-#include "Randy.h"
 #include "Camera.h"
-
 #include "Clouds.h"
-#include "Select.h"
-#include "Tactics.h"
-
-#include "glcaps.h"
-#include "Shader.h"
+#include "CommandDefs.h"
+#include "Debug.h"
 #include "devstats.h"
+#include "FastMath.h"
+#include "glcaps.h"
+#include "glinc.h"
+#include "main.h"
+#include "Memory.h"
+#include "Particle.h"
+#include "prim3d.h"
+#include "Randy.h"
+#include "render.h"
+#include "Select.h"
+#include "Shader.h"
+#include "SpaceObj.h"
+#include "StatScript.h"
+#include "Tactics.h"
+#include "Teams.h"
+#include "Universe.h"
 
 #if defined _MSC_VER
 	#define isnan(x) _isnan(x)

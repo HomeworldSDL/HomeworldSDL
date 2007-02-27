@@ -9,13 +9,10 @@
 #ifndef ___UNIVUPDATE_H
 #define ___UNIVUPDATE_H
 
-#include "Types.h"
-#include "Vector.h"
 #include "LinkedList.h"
-#include "ObjTypes.h"
-#include "SpaceObj.h"
 #include "ShipSelect.h"
-#include "Mesh.h"
+#include "SpaceObj.h"
+#include "Types.h"
 
 /*=============================================================================
     Types:

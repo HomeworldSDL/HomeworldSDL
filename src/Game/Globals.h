@@ -9,13 +9,9 @@
 #ifndef ___GLOBALS_H
 #define ___GLOBALS_H
 
-#include "Types.h"
-#include "Tweak.h"
-#include "Color.h"
-#include "ObjTypes.h"
-#include "TitanInterfaceC.h"
-#include "Queue.h"
 #include "MaxMultiplayer.h"
+#include "Queue.h"
+#include "TitanInterfaceC.h"
 
 //define to include a number of checks to see if regions are valid
 #ifdef HW_BUILD_FOR_DEBUGGING

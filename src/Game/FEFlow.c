@@ -6,34 +6,37 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef SW_Render
-#ifdef _WIN32
-#include <windows.h>
-#endif
-#endif
+#include "FEFlow.h"
 
-#include "File.h"
-#include "Memory.h"
 #include "Debug.h"
+#include "FEReg.h"
+#include "File.h"
 #include "font.h"
 #include "FontReg.h"
-#include "prim2d.h"
-#include "utility.h"
-#include "UIControls.h"
-#include "FEReg.h"
-#include "main.h"
-#include "FEFlow.h"
-#include "glinc.h"
-#include "NIS.h"
-#include "mainrgn.h"
-#include "Scroller.h"
-#include "mouse.h"
 #include "glcaps.h"
-#include "StringSupport.h"
-#include "Tutor.h"
+#include "glinc.h"
+#include "Globals.h"
+#include "main.h"
+#include "mainrgn.h"
+#include "Memory.h"
+#include "mouse.h"
+#include "NIS.h"
+#include "prim2d.h"
+#include "Scroller.h"
 #include "SoundEvent.h"
-
+#include "SoundEventDefs.h"
+#include "StringSupport.h"
 #include "Tactics.h"            //long story
+#include "Tutor.h"
+#include "UIControls.h"
+#include "utility.h"
+
+#ifndef SW_Render
+    #ifdef _WIN32
+        #include <windows.h>
+    #endif
+#endif
+
 
 /*=============================================================================
     Defines:

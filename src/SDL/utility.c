@@ -4,11 +4,110 @@
     Created June 1997 by Luke Moloney
 =============================================================================*/
 
+#include "utility.h"
+
+#include <ctype.h>
+#include <limits.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <sys/stat.h>
+
 #include "SDL.h"
 #include "SDL_syswm.h"
 
-#include <stdlib.h>
-#include <stdio.h>
+#include "AIPlayer.h"
+#include "Animatic.h"
+#include "AutoDownloadMap.h"
+#include "AutoLOD.h"
+#include "Battle.h"
+#include "BigFile.h"
+//#include "bink.h"
+#include "Bounties.h"
+#include "BTG.h"
+#include "Captaincy.h"
+#include "Clouds.h"
+#include "ColPick.h"
+#include "CommandNetwork.h"
+#include "ConsMgr.h"
+#include "Damage.h"
+#include "Debug.h"
+#include "debugwnd.h"
+#include "Demo.h"
+#include "dxdraw.h"
+#include "ETG.h"
+#include "FastMath.h"
+#include "FEReg.h"
+#include "File.h"
+#include "font.h"
+#include "FontReg.h"
+#include "GameChat.h"
+#include "GamePick.h"
+#include "glcaps.h"
+#include "glinc.h"
+#include "Globals.h"
+#include "Gun.h"
+#include "HorseRace.h"
+#include "HS.h"
+#include "InfoOverlay.h"
+#include "Key.h"
+#include "KeyBindings.h"
+#include "LaunchMgr.h"
+#include "LevelLoad.h"
+#include "Light.h"
+#include "mainrgn.h"
+#include "Memory.h"
+#include "mouse.h"
+#include "MultiplayerGame.h"
+#include "MultiplayerLANGame.h"
+#include "Nebulae.h"
+#include "NetCheck.h"
+#include "NIS.h"
+#include "Options.h"
+#include "Particle.h"
+#include "PiePlate.h"
+#include "Ping.h"
+#include "PlugScreen.h"
+#include "prim3d.h"
+#include "Randy.h"
+#include "regkey.h"
+#include "render.h"
+#include "ResearchAPI.h"
+#include "ResearchGUI.h"
+#include "resource.h"
+#include "SaveGame.h"
+#include "ScenPick.h"
+#include "Select.h"
+#include "Sensors.h"
+#include "Shader.h"
+#include "ShipView.h"
+#include "SinglePlayer.h"
+#include "SoundEvent.h"
+#include "SpaceObj.h"
+#include "Stats.h"
+#include "StatScript.h"
+#include "StringSupport.h"
+#include "Subtitle.h"
+#include "Tactical.h"
+#include "Tactics.h"
+#include "Task.h"
+#include "TaskBar.h"
+#include "Teams.h"
+#include "texreg.h"
+#include "TitanNet.h"
+#include "TradeMgr.h"
+#include "Trails.h"
+#include "Transformer.h"
+#include "Tutor.h"
+#include "Tweak.h"
+#include "UIControls.h"
+#include "Undo.h"
+#include "Universe.h"
+#include "UnivUpdate.h"
+
+#pragma warning( 4 : 4142 )     //turn off "benign redefinition of type" warning
+#include "main.h"
+#pragma warning( 2 : 4142 )
 
 #ifdef _WIN32
     #define WIN32_LEAN_AND_MEAN
@@ -26,118 +125,17 @@
     #include <X11/keysym.h>
 #endif
 
-#include <string.h>
-
-#if !defined _MSC_VER
-#include <strings.h>
-#elif defined _MSC_VER
-#include <direct.h>//for _mkdir
-#endif
-
-#include <ctype.h>
-#include <sys/stat.h>
-#include <limits.h>
-#include "glinc.h"
-#include "AutoDownloadMap.h"
-#include "regkey.h"
-
-#include "resource.h"
-#include "Key.h"
-#include "debugwnd.h"
-#include "Debug.h"
-#include "Memory.h"
-#pragma warning( 4 : 4142 )     //turn off "benign redefinition of type" warning
-#include "main.h"
-#pragma warning( 2 : 4142 )
-#include "Universe.h"
-#include "Task.h"
-#include "render.h"
-#include "File.h"
-#include "mouse.h"
-#include "mainrgn.h"
-#include "Select.h"
-#include "UIControls.h"
-#include "font.h"
-#include "FontReg.h"
-#include "StatScript.h"
-#include "Stats.h"
-#include "ConsMgr.h"
-#include "SoundEvent.h"
-#include "Globals.h"
-#include "CommandNetwork.h"
-#include "NetCheck.h"
-#include "Undo.h"
-#include "Tactical.h"
-#include "Trails.h"
-#include "Light.h"
-#include "texreg.h"
-#include "TaskBar.h"
-#include "Sensors.h"
-#include "LevelLoad.h"
-#include "ColPick.h"
-#include "Teams.h"
-#include "ScenPick.h"
-#include "Randy.h"
-#include "ETG.h"
-#include "NIS.h"
-#include "SpaceObj.h"
-#include "utility.h"
-#include "UnivUpdate.h"
-#include "Clouds.h"
-#include "FastMath.h"
-#include "SinglePlayer.h"
-#include "FEReg.h"
-#include "Nebulae.h"
-#include "AIPlayer.h"
-#include "BTG.h"
-#include "Gun.h"
-#include "StringSupport.h"
-#include "prim3d.h"
-#include "LaunchMgr.h"
-#include "Demo.h"
-#include "PiePlate.h"
-#include "ResearchAPI.h"
-#include "Tactics.h"
-#include "InfoOverlay.h"
-#include "HorseRace.h"
-#include "MultiplayerGame.h"
-#include "MultiplayerLANGame.h"
-#include "TitanNet.h"
-#include "glcaps.h"
-#include "GamePick.h"
-#include "GameChat.h"
-#include "ShipView.h"
-#include "Damage.h"
-#include "SaveGame.h"
-#include "GamePick.h"
-#include "BigFile.h"
-#include "Tutor.h"
-#include "AutoLOD.h"
-#include "Ping.h"
-#include "Battle.h"
-#include "Shader.h"
-#include "Transformer.h"
-#include "Captaincy.h"
-#include "Options.h"
-#include "Particle.h"
-#include "TradeMgr.h"
-//#include "bink.h"
-#include "Bounties.h"
-#include "Subtitle.h"
-#include "Animatic.h"
-#include "dxdraw.h"
-#include "PlugScreen.h"
-#include "HS.h"
-#include "KeyBindings.h"
-#include "ResearchGUI.h"
-
-
 #ifdef _MSC_VER
 	#define strcasecmp _stricmp
 	#define stat _stat
 	#define S_ISDIR(mode) ((mode) & _S_IFDIR)
 	#define mkdir(p) _mkdir(p)
+    
+    #include <direct.h>  // for _mkdir
+#else
+    #include <strings.h>
 #endif
+
 
 extern char mainDeviceToSelect[];
 extern char mainGLToSelect[];

@@ -11,10 +11,8 @@
 
 #include "Blobs.h"
 #include "Camera.h"
-#include "LinkedList.h"
 #include "prim2d.h"
-#include "SpaceObj.h"
-#include "Types.h"
+#include "ShipSelect.h"
 
 /*=============================================================================
     Switches:

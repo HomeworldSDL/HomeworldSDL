@@ -9,9 +9,8 @@
 #ifndef ___COLLISION_H
 #define ___COLLISION_H
 
-#include "Types.h"
-#include "SpaceObj.h"
 #include "Blobs.h"
+#include "SpaceObj.h"
 
 real32 RangeToTarget(Ship *ship,SpaceObjRotImpTarg *target,vector *trajectory);
 real32 RangeToTargetGivenDist(Ship *ship,SpaceObjRotImpTarg *target,real32 dist);

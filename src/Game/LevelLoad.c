@@ -15,6 +15,7 @@
 #include "Debug.h"
 #include "FastMath.h"
 #include "File.h"
+#include "Globals.h"
 #include "KAS.h"
 #include "Light.h"
 #include "mainrgn.h"

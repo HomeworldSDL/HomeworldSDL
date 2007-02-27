@@ -2,9 +2,8 @@
 #ifndef ___RESCOLLECT_H
 #define ___RESCOLLECT_H
 
-#include "Types.h"
-#include "SpaceObj.h"
 #include "Attributes.h"
+#include "SpaceObj.h"
 
 typedef struct
 {

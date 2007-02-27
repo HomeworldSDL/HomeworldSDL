@@ -8,6 +8,7 @@
 #include "Probe.h"
 
 #include "AITrack.h"
+#include "CommandDefs.h"
 #include "MadLinkIn.h"
 #include "MadLinkInDefs.h"
 #include "StatScript.h"

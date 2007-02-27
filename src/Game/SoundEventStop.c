@@ -6,9 +6,11 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
+// #include "SoundEventStop.h"  // this does not exist
+
+#include "mainswitches.h"
 #include "SoundEventPrivate.h"
-
-
+#include "soundlow.h"
 
 /*-----------------------------------------------------------------------------
     Name        :	soundEventStopSound

@@ -6,42 +6,47 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef SW_Render
-#ifdef _WIN32
-#include <windows.h>
-#endif
-#endif
-#include "glinc.h"
-#include <math.h>
 #include <float.h>
+#include <math.h>
 #include <stdio.h>
-#include "SpaceObj.h"
-#include "Universe.h"
-#include "mouse.h"
-#include "Select.h"
-#include "Undo.h"
+
+#include "Clipper.h"
+#include "Color.h"
+#include "CommandDefs.h"
+#include "FastMath.h"
 #include "font.h"
 #include "FontReg.h"
+#include "glcaps.h"
+#include "glinc.h"
+#include "LOD.h"
 #include "main.h"
-#include "Color.h"
 #include "mainrgn.h"
+#include "mouse.h"
+#include "PiePlate.h"
 #include "prim2d.h"
 #include "prim3d.h"
-#include "FastMath.h"
-#include "render.h"
-#include "Sensors.h"
-#include "mainrgn.h"
-#include "LOD.h"
-#include "Clipper.h"
-#include "PiePlate.h"
-#include "glcaps.h"
 #include "ProximitySensor.h"
-#include "Tutor.h"
+#include "render.h"
+#include "Select.h"
+#include "Sensors.h"
 #include "SoundEvent.h"
+#include "SoundEventDefs.h"
+#include "SpaceObj.h"
+#include "Tutor.h"
+#include "Tweak.h"
+#include "Undo.h"
+#include "Universe.h"
 
 #if defined _MSC_VER
 	#define isnan(x) _isnan(x)
 #endif
+
+#ifndef SW_Render
+    #ifdef _WIN32
+        #include <windows.h>
+    #endif
+#endif
+
 
 /*=============================================================================
     Data:

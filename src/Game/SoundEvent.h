@@ -9,12 +9,12 @@
 #ifndef ___SOUNDEVENT_H
 #define ___SOUNDEVENT_H
 
-#include "Types.h"
-#include "SpeechEvent.h"
+#include "SoundEventDefs.h"
+#include "SoundMusic.h"
 #include "SoundStructs.h"
 #include "SpaceObj.h"
-#include "SoundMusic.h"
-#include "SoundEventDefs.h"
+#include "SpeechEvent.h"
+#include "Types.h"
 
 /*=============================================================================
     Switches:
@@ -39,7 +39,7 @@
 
 #define SOUND_EVENT_DEFAULT			-1
 
-#define SOUND_FRONTEND_TRACK		AMB12_FrontEnd	// defined in soundmusic.h
+#define SOUND_FRONTEND_TRACK		AMB12_FrontEnd
 
 #define SPEECH_HYPERSPACE_DELAY		2.5f
 

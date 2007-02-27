@@ -9,7 +9,6 @@
 #ifndef ___AITRACK_H
 #define ___AITRACK_H
 
-#include "Types.h"
 #include "SpaceObj.h"
 
 /*=============================================================================

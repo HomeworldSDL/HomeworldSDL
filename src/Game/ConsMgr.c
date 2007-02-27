@@ -6,51 +6,58 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifdef _WIN32
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-#endif
+#include "ConsMgr.h"
 
 #include <stdio.h>
-#include "LinkedList.h"
-#include "Universe.h"
-#include "UIControls.h"
+
+#include "CommandLayer.h"
+#include "CommandWrap.h"
+#include "Debug.h"
+#include "FEColour.h"
 #include "FEFlow.h"
+#include "FEReg.h"
 #include "font.h"
 #include "FontReg.h"
-#include "ObjTypes.h"
-#include "Task.h"
+#include "glcaps.h"
+#include "glinc.h"
+#include "Globals.h"
+#include "InfoOverlay.h"
+#include "LinkedList.h"
+#include "main.h"
+#include "mainrgn.h"
+#include "Memory.h"
 #include "mouse.h"
 #include "MultiplayerGame.h"
-#include "CommandLayer.h"
-#include "PiePlate.h"
-#include "ConsMgr.h"
-#include "Globals.h"
-#include "CommandWrap.h"
-#include "Scroller.h"
-#include "SoundEvent.h"
-#include "Randy.h"
-#include "StringSupport.h"
-#include "ResearchAPI.h"
-#include "mainrgn.h"
-#include "TaskBar.h"
-#include "ShipView.h"
-#include "glinc.h"
-#include "glcaps.h"
-#include "render.h"
-#include "mainrgn.h"
-#include "Sensors.h"
-#include "SinglePlayer.h"
-#include "Ping.h"
-#include "texreg.h"
-#include "FEReg.h"
-#include "ShipDefs.h"
 #include "NIS.h"
-#include "Tutor.h"
+#include "ObjTypes.h"
 #include "Options.h"
-#include "FEColour.h"
-#include "InfoOverlay.h"
+#include "PiePlate.h"
+#include "Ping.h"
+#include "Randy.h"
+#include "render.h"
+#include "ResearchAPI.h"
 #include "SaveGame.h"
+#include "Scroller.h"
+#include "Sensors.h"
+#include "ShipDefs.h"
+#include "ShipView.h"
+#include "SinglePlayer.h"
+#include "SoundEvent.h"
+#include "SoundEventDefs.h"
+#include "SpeechEvent.h"
+#include "StringSupport.h"
+#include "Task.h"
+#include "TaskBar.h"
+#include "texreg.h"
+#include "Tutor.h"
+#include "Tweak.h"
+#include "UIControls.h"
+#include "Universe.h"
+
+#ifdef _WIN32
+    #define WIN32_LEAN_AND_MEAN
+    #include <windows.h>
+#endif
 
 /*=============================================================================
     Definitions:

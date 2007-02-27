@@ -9,19 +9,17 @@
 #ifndef ___SCREENSHOT_H
 #define ___SCREENSHOT_H
 
-#define SS_SCREENSHOTS         1
-#ifdef HW_BUILD_FOR_DEBUGGING
-
-#define SS_ERROR_CHECKING      1               //basic error checking
-#define SS_VERBOSE_LEVEL       1               //control verbose printing
-
-#else
-
-#define SS_ERROR_CHECKING      0               //no error ckecking in retail
-#define SS_VERBOSE_LEVEL       1               //SDL prints screenshot path; was 0 for retail
-
-#endif
 #include "Types.h"
+
+#define SS_SCREENSHOTS         1
+
+#ifdef HW_BUILD_FOR_DEBUGGING
+    #define SS_ERROR_CHECKING      1               //basic error checking
+    #define SS_VERBOSE_LEVEL       1               //control verbose printing
+#else
+    #define SS_ERROR_CHECKING      0               //no error ckecking in retail
+    #define SS_VERBOSE_LEVEL       1               //SDL prints screenshot path; was 0 for retail
+#endif
 
 void ssSaveScreenshot(ubyte* buf);
 

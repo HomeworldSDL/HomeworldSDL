@@ -2,8 +2,8 @@
 #ifndef ___LEVELLOAD_H
 #define ___LEVELLOAD_H
 
-#include "Types.h"
 #include "ObjTypes.h"
+#include "ShipDefs.h"
 #include "Universe.h"
 
 /*=============================================================================
@@ -20,9 +20,9 @@ ShipType GetAppropriateShipTypeForRace(ShipType request,ShipRace shiprace);
 void TryToFindMothershipsForPlayers();
 ShipRace GetSinglePlayerRaceEquivalent(ShipRace race);
 
-bool AddResourceToSphere(struct ResourceVolume *sphere,bool regrowing);
-bool AddResourceToCylinder(struct ResourceVolume *cylinder,bool regrowing);
-bool AddResourceToRectangle(struct ResourceVolume *rectangle,bool regrowing);
+bool AddResourceToSphere(ResourceVolume *sphere,bool regrowing);
+bool AddResourceToCylinder(ResourceVolume *cylinder,bool regrowing);
+bool AddResourceToRectangle(ResourceVolume *rectangle,bool regrowing);
 
 void SetInfoNeededForShipAndRelatedStaticInfo(ShipType type,ShipRace race,bool8 dataToFillIn);
 

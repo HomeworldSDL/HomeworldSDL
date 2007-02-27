@@ -8,12 +8,11 @@
 #ifndef ___UTILITY_H
 #define ___UTILITY_H
 
-#include "Types.h"
-#include "prim2d.h"
-#include "Region.h"
 #include "FEFlow.h"
 #include "ObjTypes.h"
+#include "Region.h"
 #include "TitanInterfaceC.h"
+#include "Types.h"
 
 /*=============================================================================
     Switches:

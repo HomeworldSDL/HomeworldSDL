@@ -9,7 +9,6 @@
 #define ___AIHANDLER_H
 
 #include "AITeam.h"
-#include "Select.h"
 
 #define GENERIC_STRENGTHRATIO   1.5
 

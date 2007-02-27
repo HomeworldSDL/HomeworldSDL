@@ -6,27 +6,34 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
+#include "SpeechEvent.h"
 
-#if !defined _MSC_VER
-#include <strings.h>
-#endif
-
-#include "SoundEventPrivate.h"
-#include "SoundEvent.h"
-#include "Select.h"
+//#include "bink.h"
 #include "Blobs.h"
-#include "soundcmn.h"
-#include "NIS.h"
-#include "SoundMusic.h"
-#include "fquant.h"
 #include "Chatting.h"
+#include "File.h"
+#include "fquant.h"
+#include "mainrgn.h"
+#include "Memory.h"
+#include "NIS.h"
+#include "Randy.h"
+#include "Select.h"
 #include "SinglePlayer.h"
-/*#include "bink.h"*/
+#include "soundcmn.h"
+#include "SoundEvent.h"
+#include "SoundEventDefs.h"
+#include "SoundEventPrivate.h"
+#include "SoundMusic.h"
+#include "Types.h"
+#include "UnivUpdate.h"
 #include "utility.h"
 
 #ifdef _MSC_VER
-#define strncasecmp strnicmp
+    #define strncasecmp strnicmp
+#else
+    #include <strings.h>
 #endif
+
 
 #define STATE_BREAK     3
 

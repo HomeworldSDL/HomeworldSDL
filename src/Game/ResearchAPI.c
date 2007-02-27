@@ -1,5 +1,5 @@
 /*=============================================================================
-    Name    : researchapi.c
+    Name    : ResearchAPI.c
     Purpose : logic for the research manager api functions.
 
     Created 5/27/1998 by ddunlop
@@ -8,19 +8,21 @@
 
 #include <stdio.h>
 
-#include "ShipDefs.h"
+#include "ConsMgr.h"
+#include "Debug.h"
+#include "FEReg.h"
+#include "LinkedList.h"
+#include "Memory.h"
+#include "MultiplayerGame.h"
 #include "ObjTypes.h"
 #include "ResearchAPI.h"
-#include "Universe.h"
-#include "StatScript.h"
 #include "ResearchGUI.h"
-#include "StringSupport.h"
-#include "LinkedList.h"
+#include "ShipDefs.h"
 #include "SoundEvent.h"
-#include "FEReg.h"
+#include "StatScript.h"
+#include "StringSupport.h"
 #include "TradeMgr.h"
-#include "MultiplayerGame.h"
-#include "ConsMgr.h"
+#include "Universe.h"
 
 #define makeSPR1TechEntry(var) {"SPR1" #var, scriptSetSdwordCB, &SinglePlayerR1TechStatic.TimeToComplete[var]}
 #define makeSPR2TechEntry(var) {"SPR2" #var, scriptSetSdwordCB, &SinglePlayerR2TechStatic.TimeToComplete[var]}

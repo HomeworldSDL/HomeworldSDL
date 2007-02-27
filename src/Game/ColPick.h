@@ -9,10 +9,8 @@
 #ifndef ___COLPICK_H
 #define ___COLPICK_H
 
-#include "Types.h"
 #include "Color.h"
-#include "prim2d.h"
-#include "FEFlow.h"
+#include "ObjTypes.h"
 #include "texreg.h"
 
 /*=============================================================================

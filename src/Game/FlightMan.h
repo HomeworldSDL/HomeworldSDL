@@ -9,9 +9,9 @@
 #ifndef ___FLIGHTMAN_H
 #define ___FLIGHTMAN_H
 
-#include "Types.h"
-#include "SpaceObj.h"
 #include "FlightManDefs.h"
+#include "ObjTypes.h"
+#include "SpaceObj.h"
 
 #define FLIGHTMAN_TYPE_TURNAROUND   0
 #define FLIGHTMAN_TYPE_AIP          1

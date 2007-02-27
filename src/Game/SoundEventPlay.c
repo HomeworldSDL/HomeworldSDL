@@ -6,10 +6,18 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#include "SoundEventPrivate.h"
-#include "SoundEvent.h"
+// #include "SoundEventPlay.h"  // this does not exist
+
+#include "Debug.h"
+#include "FastMath.h"
 #include "Gun.h"
+#include "mainrgn.h"
+#include "mainswitches.h"
 #include "Matrix.h"
+#include "SoundEvent.h"
+#include "SoundEventDefs.h"
+#include "SoundEventPrivate.h"
+#include "soundlow.h"
 
 #define OBJ_None    -1
 #define OBJ_Gun     -2

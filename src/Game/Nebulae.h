@@ -9,19 +9,8 @@
 #ifndef ___NEBULAE_H
 #define ___NEBULAE_H
 
-
-// -----
-// INCLUDES
-// -----
-
-#include "Types.h"
-#include "Vector.h"
 #include "Clouds.h"
 
-
-// -----
-// DEFINES
-// -----
 
 #define NUM_NEBTENDRIL_LODS 2
 

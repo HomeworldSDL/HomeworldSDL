@@ -9,7 +9,7 @@
 #define ___DEFENSEFIGHTER_H
 
 #include "FlightMan.h"
-#include "SpaceObj.h"
+#include "Types.h"
 
 typedef struct
 {

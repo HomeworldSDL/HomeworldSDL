@@ -9,8 +9,8 @@
 #ifndef ___TRACKING_H
 #define ___TRACKING_H
 
-#include "Types.h"
 #include "Color.h"
+#include "Types.h"
 
 /*=============================================================================
     Switches:

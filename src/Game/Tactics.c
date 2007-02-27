@@ -3,32 +3,38 @@
 
     Created June 1998 Bryce
 =============================================================================*/
-#include <stdlib.h>
 
 #include "Tactics.h"
-#include "UnivUpdate.h"
-#include "StatScript.h"
-#include "FEFlow.h"
-#include "mainrgn.h"
-#include "Universe.h"
-#include "Physics.h"
-#include "ClassDefs.h"
-#include "Types.h"
-#include "CommandLayer.h"
-#include "Tweak.h"
-#include "Blobs.h"
-#include "ProximitySensor.h"
-#include "Formation.h"
-#include "FastMath.h"
-#include "RepairCorvette.h"
-#include "FlightMan.h"
-#include "mouse.h"
-#include "SalCapCorvette.h"
+
+#include <stdlib.h>
+
 #include "Alliance.h"
-#include "Probe.h"
-#include "Randy.h"
-#include "SoundEvent.h"
 #include "Battle.h"
+#include "Blobs.h"
+#include "ClassDefs.h"
+#include "CommandDefs.h"
+#include "CommandLayer.h"
+#include "FastMath.h"
+#include "FEFlow.h"
+#include "FlightMan.h"
+#include "Formation.h"
+#include "mainrgn.h"
+#include "Memory.h"
+#include "mouse.h"
+#include "Physics.h"
+#include "Probe.h"
+#include "ProximitySensor.h"
+#include "Randy.h"
+#include "RepairCorvette.h"
+#include "SalCapCorvette.h"
+#include "Select.h"
+#include "SoundEvent.h"
+#include "StatScript.h"
+#include "Tweak.h"
+#include "Types.h"
+#include "Universe.h"
+#include "UnivUpdate.h"
+
 
 //global data
 BabyCallBack    *tacticsFlashMenuBaby;

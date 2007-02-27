@@ -8,12 +8,9 @@
 #ifndef ___ALLIANCE_H
 #define ___ALLIANCE_H
 
+#include "CommandNetwork.h"
 #include "Types.h"
-
-// forward declarations
-struct ChatPacket;
-struct Ship;
-struct Player;
+#include "Universe.h"
 
 // INTERFACE -------------------------------------------------------------------
 
@@ -22,11 +19,11 @@ struct Player;
 
 void allianceFormWith(udword playerindex);
 void allianceBreakWith(udword playerindex);
-void allianceFormRequestRecievedCB(struct ChatPacket *packet);
+void allianceFormRequestRecievedCB(ChatPacket *packet);
 void allianceSetAlliance(udword AllianceType, uword playerone, uword playertwo);
 
-bool allianceIsShipAlly(struct Ship *ship, struct Player *player);
-bool allianceArePlayersAllied(struct Player *playerone, struct Player *playertwo);
+bool allianceIsShipAlly(Ship *ship, Player *player);
+bool allianceArePlayersAllied(Player *playerone, Player *playertwo);
 
 void allianceBreakAll(void);
 

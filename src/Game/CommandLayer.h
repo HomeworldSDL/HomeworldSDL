@@ -10,14 +10,10 @@
 #ifndef ___COMMANDLAYER_H
 #define ___COMMANDLAYER_H
 
-#include "Types.h"
-#include "Vector.h"
-#include "SpaceObj.h"
-#include "ShipSelect.h"
-#include "Formation.h"
 #include "Dock.h"
+#include "Formation.h"
 #include "ResCollect.h"
-#include "CommandDefs.h"
+
 
 #ifdef HW_BUILD_FOR_DEBUGGING
 

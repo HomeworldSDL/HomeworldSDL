@@ -2,11 +2,9 @@
 #ifndef ___FORMATION_H
 #define ___FORMATION_H
 
-#include "Types.h"
-#include "Vector.h"
-#include "SpaceObj.h"
 #include "FormationDefs.h"
 #include "ShipSelect.h"
+#include "SpaceObj.h"
 
 /*=============================================================================
     Defines:

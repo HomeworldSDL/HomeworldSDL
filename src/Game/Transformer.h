@@ -9,10 +9,10 @@
 #ifndef ___TRANSFORMER_H
 #define ___TRANSFORMER_H
 
-#include "Types.h"
-#include "Vector.h"
 #include "Matrix.h"
 #include "Mesh.h"
+#include "Types.h"
+#include "Vector.h"
 
 extern hvector* eyeVertexList;
 extern hvector* clipVertexList;

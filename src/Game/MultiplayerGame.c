@@ -6,50 +6,51 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
+#include "MultiplayerGame.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 
-#if !defined _MSC_VER
-#include <strings.h>
+#include "ChannelFSM.h"
+#include "Chatting.h"
+#include "ColPick.h"
+#include "CommandNetwork.h"
+#include "Debug.h"
+#include "FEFlow.h"
+#include "File.h"
+#include "FontReg.h"
+#include "GameChat.h"
+#include "Globals.h"
+#include "mainswitches.h"
+#include "Memory.h"
+#include "mouse.h"
+#include "MultiplayerLANGame.h"
+#include "prim2d.h"
+#include "Queue.h"
+#include "Randy.h"
+#include "SaveGame.h"             // for ConvertNumToPointerInList
+#include "ScenPick.h"
+#include "Scroller.h"
+#include "ServerStatus.h"
+#include "StatScript.h"
+#include "StringSupport.h"
+#include "Titan.h"
+#include "TitanNet.h"
+#include "Tweak.h"
+#include "Universe.h"
+#include "utility.h"
+
+#ifdef _WIN32
+    #define strncasecmp _strnicmp
+    #define wcscasecmp    wcsicmp
 #endif
 
+#if !defined _MSC_VER
+    #include <strings.h>
+#endif
 
 #ifndef _MACOSX
     #include <wchar.h>
-#endif
-
-#include "MultiplayerGame.h"
-#include "MultiplayerLANGame.h"
-#include "FEFlow.h"
-#include "utility.h"
-#include "ScenPick.h"
-#include "TitanNet.h"
-#include "mouse.h"
-#include "FontReg.h"
-#include "Scroller.h"
-#include "prim2d.h"
-#include "Randy.h"
-#include "Chatting.h"
-#include "CommandNetwork.h"
-#include "Globals.h"
-#include "ServerStatus.h"
-#include "ChannelFSM.h"
-#include "ColPick.h"
-#include "mainswitches.h"
-#include "Chatting.h"
-#include "StringSupport.h"
-#include "Queue.h"
-#include "Titan.h"
-#include "File.h"
-#include "StatScript.h"
-#include "TitanNet.h"
-#include "Universe.h"
-#include "GameChat.h"
-#include "SaveGame.h" // for ConvertNumToPointerInList
-
-#ifdef _WIN32
-#define strncasecmp _strnicmp
-#define wcscasecmp wcsicmp
 #endif
 
 

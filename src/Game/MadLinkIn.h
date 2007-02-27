@@ -10,6 +10,7 @@
 #define ___MADLINKIN_H
 
 #include "CommandLayer.h"
+#include "SpaceObj.h"
 
 //general prototypes
 void madLinkInUpdateMeshAnimations(Ship *ship);

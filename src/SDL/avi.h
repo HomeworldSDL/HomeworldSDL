@@ -14,23 +14,6 @@ extern "C" {
 #endif
 
 #include "Types.h"
-#include "Globals.h"
-#include "Subtitle.h"
-#include "Debug.h"
-#include "Animatic.h"
-#include "SoundEvent.h"
-#include "soundlow.h"
-#include "glinc.h"
-#include "mouse.h"
-#include "render.h"
-#include "Universe.h"
-#include "glext.h"
-#include "StringSupport.h"
-#include "File.h"
-#include "NIS.h"
-#include "avi.h"
-// #include <unistd.h>
-#include <SDL.h>
 
 /*=============================================================================
     Switches

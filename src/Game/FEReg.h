@@ -9,11 +9,10 @@
 #ifndef ___FEREG_H
 #define ___FEREG_H
 
-#include "FontReg.h"
-#include "texreg.h"
 #include "LinkedList.h"
-#include "Memory.h"
+#include "prim2d.h"
 #include "Region.h"
+#include "texreg.h"
 #include "UIControls.h"
 
 /*=============================================================================

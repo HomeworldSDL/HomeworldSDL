@@ -6,21 +6,24 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#include "FastMath.h"
-#include "Vector.h"
-#include "Matrix.h"
-#include "prim3d.h"
-#include "render.h"
 #include "Collision.h"
-#include "Universe.h"
-#include "UnivUpdate.h"
-#include "SalCapCorvette.h"
+
+#include "Alliance.h"
+#include "Debug.h"
 #include "DefenseFighter.h"
 #include "DFGFrigate.h"
+#include "FastMath.h"
+#include "Globals.h"
+#include "Matrix.h"
 #include "NIS.h"
-#include "Tactics.h"
-#include "Alliance.h"
+#include "prim3d.h"
+#include "render.h"
+#include "SalCapCorvette.h"
 #include "SinglePlayer.h"
+#include "Tactics.h"
+#include "Universe.h"
+#include "UnivUpdate.h"
+#include "Vector.h"
 
 BlobProperties collBlobProperties;
 

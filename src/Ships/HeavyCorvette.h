@@ -9,7 +9,6 @@
 #define ___HEAVYCORVETTE_H
 
 #include "Attack.h"
-#include "SpaceObj.h"
 
 typedef struct
 {

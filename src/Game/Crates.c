@@ -6,21 +6,30 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
+#include "Crates.h"
+
 #include <stdlib.h>
 
-#include "Types.h"
-#include "UnivUpdate.h"
-#include "Universe.h"
-#include "Blobs.h"
 #include "AITrack.h"
-#include "LinkedList.h"
-#include "ResearchAPI.h"
-#include "MultiplayerGame.h"
+#include "Blobs.h"
+#include "Debug.h"
+#include "Globals.h"
 #include "LevelLoad.h"
-#include "Randy.h"
-#include "SoundEvent.h"
-#include "Sensors.h"
+#include "LinkedList.h"
+#include "mainswitches.h"
+#include "Memory.h"
+#include "MultiplayerGame.h"
 #include "PiePlate.h"
+#include "Randy.h"
+#include "ResearchAPI.h"
+#include "Sensors.h"
+#include "SoundEvent.h"
+#include "SoundEventDefs.h"
+#include "SpeechEvent.h"
+#include "StatScript.h"
+#include "Types.h"
+#include "Universe.h"
+#include "UnivUpdate.h"
 
 
 real32 CRATES_DoWeNeedToAddCratesCheckTime =380.0f;  //every X seconds, the crate functions will check to see if it should add a crate to the world
@@ -151,7 +160,7 @@ void cratesReportCratePlacement(Derelict *crate)
 
     universe.numCratesInWorld++;
 
-    if(gameIsRunning)
+    if (gameIsRunning)
     {
         etgLOD = etgSpecialPurposeEffectTable[EGT_CRATE_GENERATED];
 

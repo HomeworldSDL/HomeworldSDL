@@ -10,10 +10,10 @@
 #ifndef ___TEAMS_H
 #define ___TEAMS_H
 
-#include "Types.h"
 #include "Color.h"
+#include "MaxMultiplayer.h"
 #include "texreg.h"
-#include "Globals.h"
+#include "Types.h"
 
 /*=============================================================================
     Switches:

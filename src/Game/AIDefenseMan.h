@@ -10,9 +10,6 @@
 #define ___AIDEFENSEMAN_H
 
 #include "AIPlayer.h"
-#include "AITeam.h"
-#include "SpaceObj.h"
-#include "Types.h"
 
 void aidDefenseManager(void);
 bool aidShipDied(AIPlayer *aiplayer, ShipPtr ship);

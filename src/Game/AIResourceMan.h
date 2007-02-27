@@ -9,9 +9,6 @@
 #define ___AIRESOURCEMAN_H
 
 #include "AIPlayer.h"
-#include "AITeam.h"
-#include "SpaceObj.h"
-#include "Types.h"
 
 void airResourceManager(void);
 

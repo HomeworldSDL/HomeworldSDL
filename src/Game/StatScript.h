@@ -9,8 +9,8 @@
 #ifndef ___STATSCRIPT_H
 #define ___STATSCRIPT_H
 
-#include "Types.h"
 #include "ObjTypes.h"
+#include "Types.h"
 
 /*=============================================================================
     Types:

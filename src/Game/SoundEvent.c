@@ -6,16 +6,26 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#include "SoundEventPrivate.h"
 #include "SoundEvent.h"
-#include "Gun.h"
-#include "Matrix.h"
-#include "Select.h"
-#include "GenericInterceptor.h"
-#include "SalCapCorvette.h"
-#include "render.h"
-#include "SinglePlayer.h"
 
+#include <math.h>
+
+#include "CommandDefs.h"
+#include "FastMath.h"
+#include "File.h"
+#include "Gun.h"
+#include "mainrgn.h"
+#include "Memory.h"
+#include "Matrix.h"
+#include "Randy.h"
+#include "render.h"
+#include "Select.h"
+#include "Ships.h"
+#include "SinglePlayer.h"
+#include "SoundEventPrivate.h"
+#include "soundlow.h"
+#include "Switches.h"
+#include "VolTweakDefs.h"
 
 #define DIRECTSOUND     1
 #define SE_MAX_STRIKECRAFT  10

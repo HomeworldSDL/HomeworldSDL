@@ -6,52 +6,56 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifdef _WIN32
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-#endif
-
-#include <stdio.h>
 #include <math.h>
+#include <stdio.h>
+
+#include "CameraCommand.h"
+#include "CommandLayer.h"
+#include "CommandWrap.h"
+#include "ConsMgr.h"
 #include "FastMath.h"
-#include "LinkedList.h"
-#include "Universe.h"
-#include "UIControls.h"
 #include "FEFlow.h"
+#include "FEReg.h"
 #include "font.h"
 #include "FontReg.h"
-#include "ObjTypes.h"
-#include "Task.h"
-#include "mouse.h"
-#include "CommandLayer.h"
-#include "PiePlate.h"
-#include "ConsMgr.h"
-#include "TradeMgr.h"
-#include "Globals.h"
-#include "CommandWrap.h"
-#include "SoundEvent.h"
-#include "Randy.h"
-#include "StringSupport.h"
-#include "mainrgn.h"
-#include "TaskBar.h"
-#include "ShipView.h"
-#include "glinc.h"
 #include "glcaps.h"
-#include "render.h"
-#include "Sensors.h"
-#include "SinglePlayer.h"
-#include "Ping.h"
-#include "FEReg.h"
-#include "ShipDefs.h"
-#include "NIS.h"
-#include "ResearchGUI.h"
-#include "Select.h"
-#include "Matrix.h"
-#include "Vector.h"
-#include "Key.h"
-#include "CameraCommand.h"
-#include "SaveGame.h"
+#include "glinc.h"
+#include "Globals.h"
 #include "InfoOverlay.h"
+#include "Key.h"
+#include "LinkedList.h"
+#include "mainrgn.h"
+#include "Matrix.h"
+#include "Memory.h"
+#include "mouse.h"
+#include "NIS.h"
+#include "ObjTypes.h"
+#include "PiePlate.h"
+#include "Ping.h"
+#include "Randy.h"
+#include "render.h"
+#include "ResearchGUI.h"
+#include "SaveGame.h"
+#include "Select.h"
+#include "Sensors.h"
+#include "ShipDefs.h"
+#include "ShipView.h"
+#include "SinglePlayer.h"
+#include "SoundEvent.h"
+#include "SoundEventDefs.h"
+#include "StringSupport.h"
+#include "Task.h"
+#include "TaskBar.h"
+#include "TradeMgr.h"
+#include "UIControls.h"
+#include "Universe.h"
+#include "Vector.h"
+
+#ifdef _WIN32
+    #define WIN32_LEAN_AND_MEAN
+    #include <windows.h>
+#endif
+
 
 /*=============================================================================
     Definitions:

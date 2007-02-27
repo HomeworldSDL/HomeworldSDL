@@ -9,11 +9,10 @@
 #ifndef ___MAINRGN_H
 #define ___MAINRGN_H
 
-#include "Types.h"
-#include "Region.h"
-#include "FEFlow.h"
 #include "Camera.h"
+#include "FEFlow.h"
 #include "SpaceObj.h"
+#include "Types.h"
 
 /*=============================================================================
     Switches:

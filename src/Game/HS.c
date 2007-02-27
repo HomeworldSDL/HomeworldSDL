@@ -6,24 +6,26 @@ Created 7/10/1998 by khent
 Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#include <math.h>
 #include <ctype.h>
+#include <math.h>
+
+#include "AIVar.h"
+#include "Damage.h"
+#include "Debug.h"
+#include "FEReg.h"
+#include "glcaps.h"
 #include "glinc.h"
+#include "Globals.h"
+#include "GravWellGenerator.h"
+#include "HS.h"
+#include "Matrix.h"
+#include "Memory.h"
+#include "Particle.h"
 #include "prim3d.h"
 #include "render.h"
-#include "Particle.h"
-#include "HS.h"
-#include "Debug.h"
-#include "Memory.h"
-#include "FEReg.h"
+#include "SaveGame.h"
 #include "SinglePlayer.h"
 #include "UnivUpdate.h"
-#include "glcaps.h"
-#include "SaveGame.h"
-#include "Matrix.h"
-#include "AIVar.h"
-#include "GravWellGenerator.h"
-#include "Damage.h"
 
 //scalar that determines distance out of bbox the window will travel from / to
 #define HS_DIST   1.08f

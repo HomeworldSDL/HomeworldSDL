@@ -11,8 +11,6 @@
 
 #include "AIPlayer.h"
 #include "AITeam.h"
-#include "Types.h"
-#include "Select.h"
 
 AITeam *aiaSendRecon(SelectCommand *ships);
 void aiaAttackManager(void);

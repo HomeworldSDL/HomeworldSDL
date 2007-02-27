@@ -7,16 +7,17 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
+#include "Teams.h"
+
 #include <stdio.h>
 
-#include "Memory.h"
 #include "Debug.h"
-#include "StatScript.h"
+#include "Memory.h"
 #include "SpaceObj.h"
-#include "Universe.h"
 #include "StatScript.h"
 #include "Tactical.h"
-#include "Teams.h"
+#include "Universe.h"
+#include "utility.h"
 
 #define TE_DorkyCheaterBaseColor    colRGB(255, 62, 164)
 #define TE_DorkyCheaterStripeColor  colRGB(255, 62, 164)

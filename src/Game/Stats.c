@@ -6,19 +6,21 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#include <string.h>
-#include <stdarg.h>
+#include "Stats.h"
 
+#include <stdarg.h>
+#include <string.h>
+
+#include "CRC32.h"
+#include "FastMath.h"
+#include "File.h"
+#include "Memory.h"
+#include "NetCheck.h"
+#include "ResearchAPI.h"
+#include "SinglePlayer.h"
+#include "Tweak.h"
 #include "Universe.h"
 #include "UnivUpdate.h"
-#include "File.h"
-#include "Tweak.h"
-#include "Stats.h"
-#include "FastMath.h"
-#include "SinglePlayer.h"
-#include "CRC32.h"
-#include "ResearchAPI.h"
-#include "NetCheck.h"
 
 #define STATLOG_FILENAME "statlog.txt"
 

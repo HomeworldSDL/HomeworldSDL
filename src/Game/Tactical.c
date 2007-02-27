@@ -6,31 +6,33 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
+#include "Tactical.h"
+
 #include <stdio.h>
 
-#if !defined _MSC_VER
-#include <strings.h>
-#endif
-
-
-#include "Memory.h"
-#include "Debug.h"
-#include "StatScript.h"
-#include "SpaceObj.h"
-#include "Universe.h"
-#include "Teams.h"
-#include "Vector.h"
-#include "Tactical.h"
-#include "Ships.h"
-#include "main.h"
-#include "render.h"
 #include "Alliance.h"
-#include "Sensors.h"
 #include "Blobs.h"
+#include "Debug.h"
+#include "font.h"
+#include "main.h"
+#include "Memory.h"
+#include "render.h"
+#include "Sensors.h"
+#include "Ships.h"
+#include "SpaceObj.h"
+#include "StatScript.h"
+#include "Teams.h"
+#include "Tweak.h"
+#include "Universe.h"
+#include "Vector.h"
 
 #ifdef _MSC_VER
-#define strcasecmp _stricmp
+    #define strcasecmp _stricmp
+#else
+    #include <strings.h>
 #endif
+
+
 
 extern fonthandle selGroupFont2;
 

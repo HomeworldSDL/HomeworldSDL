@@ -4,8 +4,6 @@
 #include "AIUtilities.h"
 #include "ShipSelect.h"
 #include "Vector.h"
-#include "Volume.h"
-#include "KASFunc.h"
 
 // run-time scoping for variables, timers, etc.
 enum {

@@ -8,11 +8,9 @@
 #ifndef ___AIUTILITIES_H
 #define ___AIUTILITIES_H
 
-#include "Types.h"
-#include "SpaceObj.h"
 #include "Blobs.h"
-#include "Memory.h"
-#include "Vector.h"
+#include "ShipSelect.h"
+#include "SpaceObj.h"
 #include "Universe.h"
 #include "Volume.h"
 

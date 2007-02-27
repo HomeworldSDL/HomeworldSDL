@@ -9,6 +9,7 @@
 #define ___CARRIER_H
 
 #include "SpaceObj.h"
+#include "Types.h"
 
 typedef struct
 {

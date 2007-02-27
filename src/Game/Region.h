@@ -10,12 +10,10 @@
 #ifndef ___REGION_H
 #define ___REGION_H
 
-#include "Types.h"
-#include "Memory.h"
-#include "Key.h"
 #include "Debug.h"
+#include "Key.h"
 #include "prim2d.h"
-#include "LinkedList.h"
+#include "Task.h"
 
 /*=============================================================================
     Switches:

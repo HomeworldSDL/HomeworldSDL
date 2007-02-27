@@ -1,6 +1,8 @@
 #ifndef ___VOLUME_H
 #define ___VOLUME_H
 
+#include "Vector.h"
+
 typedef enum {
         VOLUME_SPHERE,  // sphere
         VOLUME_AA_BOX,  // axis-aligned box

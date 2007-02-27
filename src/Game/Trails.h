@@ -9,10 +9,10 @@
 #ifndef ___TRAILS_H
 #define ___TRAILS_H
 
-#include "Types.h"
 #include "Color.h"
+#include "MaxMultiplayer.h"
+#include "Types.h"
 #include "Vector.h"
-#include "Globals.h"
 
 /*=============================================================================
     Switches:

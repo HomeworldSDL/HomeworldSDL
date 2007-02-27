@@ -15,6 +15,7 @@
 #include "Collision.h"
 #include "FastMath.h"
 #include "Gun.h"
+#include "Memory.h"
 #include "Randy.h"
 #include "SaveGame.h"
 #include "SoundEvent.h"

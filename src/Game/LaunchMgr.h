@@ -10,7 +10,6 @@
 #ifndef ___LAUNCHMGR_H
 #define ___LAUNCHMGR_H
 
-#include "Types.h"
 #include "Region.h"
 #include "SpaceObj.h"
 

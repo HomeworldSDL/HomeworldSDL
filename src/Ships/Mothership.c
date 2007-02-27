@@ -9,11 +9,13 @@
 
 #include "AITrack.h"
 #include "Attack.h"
+#include "CommandDefs.h"
 #include "DefaultShip.h"
 #include "MadLinkIn.h"
 #include "MadLinkInDefs.h"
 #include "SalCapCorvette.h"
 #include "SaveGame.h"
+#include "Tweak.h"
 #include "Universe.h"
 
 

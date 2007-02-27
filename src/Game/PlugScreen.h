@@ -9,8 +9,8 @@
 #ifndef ___PLUGSCREEN_H
 #define ___PLUGSCREEN_H
 
-#include "texreg.h"
 #include "Region.h"
+#include "texreg.h"
 
 /*=============================================================================
     Switches:

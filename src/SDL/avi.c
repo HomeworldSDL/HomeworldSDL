@@ -13,23 +13,30 @@
 
 /* Doesn't work */
 //nova: this allows MSVC to compile this file
+
+#include "Animatic.h"
+#include "avi.h"
+#include "Debug.h"
+#include "gldll.h"
+#include "NIS.h"
+#include "Subtitle.h"
+#include "Tutor.h"
+#include "utility.h"
+#include "Universe.h"
+
 #ifndef _MSC_VER
-#undef _WIN32
+    #undef _WIN32
 #endif
 
 #ifdef _WIN32
-#include <windows.h>
-#include <vfw.h>
-#include "wave.h"
+    #include <windows.h>
+    #include <vfw.h>
+    #include "wave.h"
 #endif
 
-#include "avi.h"
-#include "Tutor.h"
-#include "utility.h"
-
 #ifdef HW_ENABLE_MOVIES
- #include <ffmpeg/avformat.h>
- #include <ffmpeg/avcodec.h>
+    #include <ffmpeg/avformat.h>
+    #include <ffmpeg/avcodec.h>
 #endif
 
 extern bool fullScreen;

@@ -9,8 +9,8 @@
 #ifndef ___INFOOVERLAY_H
 #define ___INFOOVERLAY_H
 
-#include "SpaceObj.h"
 #include "Region.h"
+#include "SpaceObj.h"
 
 /*=============================================================================
     Defines:

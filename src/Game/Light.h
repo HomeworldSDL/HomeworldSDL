@@ -10,6 +10,7 @@
 #define ___LIGHT_H
 
 #include "Types.h"
+#include "Vector.h"
 
 /*=============================================================================
     Switches

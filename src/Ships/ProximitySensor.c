@@ -13,6 +13,8 @@
 #include "MadLinkInDefs.h"
 #include "Ping.h"
 #include "SoundEvent.h"
+#include "StatScript.h"
+#include "Tweak.h"
 
 color ProximitySensorBlipColor = colWhite;
 

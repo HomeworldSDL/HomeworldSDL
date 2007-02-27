@@ -9,20 +9,22 @@
 #ifndef ___NIS_H
 #define ___NIS_H
 
-#include "Types.h"
 #include "B-Spline.h"
 #include "Camera.h"
+#include "font.h"
+#include "ShipDefs.h"
+#include "ShipSelect.h"
 #include "SpaceObj.h"
-#include "Task.h"
-#include "FontReg.h"
 #include "StatScript.h"
+#include "Task.h"
 #include "texreg.h"
+#include "Types.h"
 
 /*=============================================================================
     Switches:
 =============================================================================*/
 
-#define NIS_NORMALIZE_ANGLES        1           //convert incoming angular domensions to radians an get them in the range of 0..TWOPI
+#define NIS_NORMALIZE_ANGLES        1           //convert incoming angular dimensions to radians an get them in the range of 0..TWOPI
 #define NIS_RENDERLIST_DISABLE      0           //stop updating render list when playing an NIS
 
 #ifdef HW_BUILD_FOR_DEBUGGING

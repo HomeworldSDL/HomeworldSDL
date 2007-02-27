@@ -9,10 +9,9 @@
 #ifndef ___NETCHECK_H
 #define ___NETCHECK_H
 
+#include "CommandNetwork.h"
 #include "Switches.h"
 #include "Types.h"
-#include "File.h"
-#include "CommandNetwork.h"
 
 #define PKTS_EXTENSION  ".pkts"
 

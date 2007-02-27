@@ -8,27 +8,30 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
+#include "BTG.h"
 
-#include <SDL_endian.h>
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
-#include "BTG.h"
-#include "Memory.h"
-#include "Vector.h"
-#include "Matrix.h"
-#include "glinc.h"
-#include "Color.h"
-#include "Universe.h"
-#include "File.h"
-#include "render.h"
+
+#include <SDL_endian.h>
+
 #include "Clipper.h"
-#include "main.h"
-#include "glcaps.h"
-#include "mainrgn.h"
-#include "texreg.h"
+#include "Color.h"
+#include "Debug.h"
 #include "FastMath.h"
+#include "File.h"
+#include "glcaps.h"
+#include "glinc.h"
+#include "main.h"
+#include "mainrgn.h"
+#include "Matrix.h"
+#include "Memory.h"
+#include "render.h"
+#include "texreg.h"
+#include "Universe.h"
+#include "Vector.h"
 
 
 

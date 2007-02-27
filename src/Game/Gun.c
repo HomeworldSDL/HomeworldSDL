@@ -6,37 +6,40 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#include <stdlib.h>
-#include <string.h>
 #include <math.h>
 #include <stdio.h>
-#include "glinc.h"
-#include "FastMath.h"
-#include "Debug.h"
-#include "LinkedList.h"
-#include "Memory.h"
-#include "Physics.h"
-#include "Vector.h"
-#include "Matrix.h"
-#include "Universe.h"
-#include "SoundEvent.h"
-#include "UnivUpdate.h"
-#include "prim3d.h"
-#include "render.h"
-#include "Tweak.h"
-#include "AIShip.h"
-#include "Gun.h"
-#include "Ships.h"
-#include "Collision.h"
-#include "Tactics.h"
-#include "MadLinkInDefs.h"
-#include "MadLinkIn.h"
-#include "Randy.h"
-#include "ETG.h"
+#include <stdlib.h>
+#include <string.h>
 
+#include "AIShip.h"
+#include "Collision.h"
+#include "CommandDefs.h"
+#include "Debug.h"
+#include "ETG.h"
+#include "FastMath.h"
+#include "glinc.h"
+#include "Globals.h"
+#include "Gun.h"
+#include "LinkedList.h"
+#include "MadLinkIn.h"
+#include "MadLinkInDefs.h"
 #include "mainrgn.h"
+#include "Matrix.h"
+#include "Memory.h"
 #include "MEX.h"
 #include "NIS.h"
+#include "Physics.h"
+#include "prim3d.h"
+#include "Randy.h"
+#include "render.h"
+#include "Ships.h"
+#include "SoundEvent.h"
+#include "SoundEventDefs.h"
+#include "Tactics.h"
+#include "Tweak.h"
+#include "Universe.h"
+#include "UnivUpdate.h"
+#include "Vector.h"
 
 #define ENABLE_SHIPRECOIL       0
 

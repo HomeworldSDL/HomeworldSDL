@@ -8,10 +8,12 @@
 #ifndef ___PARTICLE_H
 #define ___PARTICLE_H
 
-#include "Matrix.h"
 #include "Color.h"
+#include "Mesh.h"
 #include "SpaceObj.h"
 #include "texreg.h"
+#include "Types.h"
+#include "Vector.h"
 
 void partFilter(bool on);
 

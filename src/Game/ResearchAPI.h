@@ -9,8 +9,10 @@
 #ifndef ___RESEARCHAPI_H
 #define ___RESEARCHAPI_H
 
+#include "LinkedList.h"
+#include "ObjTypes.h"
+#include "ShipDefs.h"
 #include "Types.h"
-#include "Region.h"
 
 /*=============================================================================
     Definitions:
@@ -122,6 +124,10 @@ extern udword         SetTechLevel;
 /*=============================================================================
     Function Prototypes:
 =============================================================================*/
+
+// Forward declaration to get around circular dependency:
+// Universe.h: Player <-> ResearchAPI.h: PlayerResearchInfo
+struct Player;
 
 // callback to set dependancies
 void rmSetShipDependCB(char *directory, char *field, void *dataToFillIn);

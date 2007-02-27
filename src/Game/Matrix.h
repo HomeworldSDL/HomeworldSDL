@@ -9,10 +9,7 @@
 #define ___MATRIX_H
 
 #include "Types.h"
-
-// forward declarations
-struct hvector;
-struct vector;
+#include "Vector.h"
 
 // INTERFACE -------------------------------------------------------------------
 
@@ -189,11 +186,11 @@ extern const matrix  IdentityMatrix;
 
 
 void hmatMakeHMatFromMat(hmatrix *result, matrix *mat);
-void hmatMakeHMatFromMatAndVec(hmatrix *result, matrix *mat, struct vector *pos);
-void hmatCreateHMatFromHVecs(hmatrix *result, struct hvector *col1, struct hvector *col2, struct hvector *col3, struct hvector *col4);
+void hmatMakeHMatFromMatAndVec(hmatrix *result, matrix *mat, vector *pos);
+void hmatCreateHMatFromHVecs(hmatrix *result, hvector *col1, hvector *col2, hvector *col3, hvector *col4);
 void hmatMultiplyHMatByHMat(hmatrix *result, hmatrix *first, hmatrix *second);
-void hmatMultiplyHMatByHVec(struct hvector *result, hmatrix *matrix, struct hvector *vector);
-void hmatMultiplyHVecByHMat(struct hvector *result, struct hvector *vector, hmatrix *matrix);
+void hmatMultiplyHMatByHVec(hvector *result, hmatrix *matrix, hvector *vector);
+void hmatMultiplyHVecByHMat(hvector *result, hvector *vector, hmatrix *matrix);
 void hmatTranspose(hmatrix *matrix);
 void hmatCopyAndTranspose(hmatrix *src, hmatrix *dsttrans);
 void hmatMakeRotAboutZ(hmatrix *matrix, real32 costheta, real32 sintheta);
@@ -202,11 +199,11 @@ void hmatMakeRotAboutY(hmatrix *matrix, real32 costheta, real32 sintheta);
 void hmatPrintHMatrix(hmatrix *a);
 
 void matGetMatFromHMat(matrix *result, hmatrix *hmat);
-void matCreateCoordSysFromHeading(matrix *result, struct vector *heading);
-void matCreateMatFromVecs(matrix *result, struct vector *col1, struct vector *col2, struct vector *col3);
+void matCreateCoordSysFromHeading(matrix *result, vector *heading);
+void matCreateMatFromVecs(matrix *result, vector *col1, vector *col2, vector *col3);
 void matMultiplyMatByMat(matrix *result, matrix *first, matrix *second);
-void matMultiplyMatByVec(struct vector *result, matrix *matrix, struct vector *vector);
-void matMultiplyVecByMat(struct vector *result, struct vector *vector, matrix *matrix);
+void matMultiplyMatByVec(vector *result, matrix *matrix, vector *vector);
+void matMultiplyVecByMat(vector *result, vector *vector, matrix *matrix);
 void matTranspose(matrix *matrix);
 void matCopyAndTranspose(matrix *src, matrix *dsttrans);
 void matMakeRotAboutZ(matrix *matrix, real32 costheta, real32 sintheta);

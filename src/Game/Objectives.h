@@ -1,13 +1,13 @@
-#ifndef ___OBJECTIVES_H
-#define ___OBJECTIVES_H
-
 //
 //  SINGLE-PLAYER MISSION OBJECTIVES
 //
 
-#include "Types.h"
+#ifndef ___OBJECTIVES_H
+#define ___OBJECTIVES_H
+
 #include "FEFlow.h"
 #include "LinkedList.h"
+
 
 #define MAX_OBJECTIVE_LABEL_LENGTH 32
 #define OBJECTIVES_ALLOC_INITIAL 8

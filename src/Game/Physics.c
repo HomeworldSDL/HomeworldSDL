@@ -6,21 +6,24 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#include <math.h>
-#include "Debug.h"
-#include "Matrix.h"
-#include "FastMath.h"
-#include "Collision.h"
 #include "Physics.h"
+
+#include <math.h>
+
+#include "Attributes.h"
+#include "Battle.h"
+#include "Collision.h"
+#include "Debug.h"
+#include "FastMath.h"
+#include "Gun.h"
+#include "Matrix.h"
+#include "MultiplayerGame.h"
+#include "Select.h"
 #include "SoundEvent.h"
+#include "Tactics.h"
+#include "Tweak.h"
 #include "Universe.h"
 #include "UnivUpdate.h"
-#include "Tweak.h"
-#include "Tactics.h"
-#include "Attributes.h"
-#include "Gun.h"
-#include "MultiplayerGame.h"
-#include "Battle.h"
 
 #define UPDATE_COLLRECT_RATE    3
 #define UPDATE_COLLRECT_FRAME   3

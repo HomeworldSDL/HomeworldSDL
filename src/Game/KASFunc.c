@@ -2,65 +2,69 @@
 //  implementations of KAS functions
 //
 
+#include <ctype.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
-#if !defined _MSC_VER
-#include <strings.h>
-#endif
-
-#include <stdlib.h>
-#include <ctype.h>
-#include "ShipSelect.h"
-#include "AITeam.h"
-#include "KASFunc.h"
-#include "AIPlayer.h"
-#include "Vector.h"
-#include "KAS.h"
-#include "Timer.h"
-#include "CommandWrap.h"
-#include "AIVar.h"
+#include "AIFeatures.h"
 #include "AIMoves.h"
-#include "FormationDefs.h"
-#include "Randy.h"
-#include "SinglePlayer.h"
+#include "AIPlayer.h"
+#include "AITeam.h"
+#include "AITrack.h"
+#include "AIVar.h"
+#include "Animatic.h"
+#include "BTG.h"
+#include "Collision.h"
+#include "CommandDefs.h"
+#include "CommandWrap.h"
+#include "ConsMgr.h"
+#include "DDDFrigate.h"
+#include "Debug.h"
+#include "FastMath.h"
 #include "font.h"
-#include "render.h"
-#include "prim2d.h"
-#include "Ping.h"
+#include "FormationDefs.h"
+#include "HS.h"
+#include "KAS.h"
+#include "KASFunc.h"
+#include "mainrgn.h"
+#include "Memory.h"
+#include "NIS.h"
 #include "Objectives.h"
-#include "UnivUpdate.h"
-#include "Tutor.h"
+#include "PiePlate.h"
+#include "Ping.h"
+#include "prim2d.h"
+#include "Randy.h"
+#include "render.h"
+#include "SalCapCorvette.h"
+#include "SaveGame.h"
+#include "Select.h"
+#include "Sensors.h"
+#include "ShipSelect.h"
+#include "SinglePlayer.h"
 #include "SoundEvent.h"
 #include "SoundEventDefs.h"
 #include "SpeechEvent.h"
-#include "SalCapCorvette.h"
-#include "HS.h"
-#include "SaveGame.h"
-#include "Collision.h"
-#include "mainrgn.h"
-#include "NIS.h"
-#include "texreg.h"
-#include "Sensors.h"
-#include "Subtitle.h"
-#include "BTG.h"
-#include "AITrack.h"
-#include "utility.h"
-#include "FastMath.h"
-#include "Animatic.h"
-#include "TradeMgr.h"
 #include "StringsOnly.h"
+#include "Subtitle.h"
 #include "TaskBar.h"
-#include "DDDFrigate.h"
-#include "ConsMgr.h"
+#include "texreg.h"
+#include "Timer.h"
+#include "TradeMgr.h"
+#include "Tutor.h"
 #include "Universe.h"
-#include "Select.h"
+#include "UnivUpdate.h"
+#include "utility.h"
+#include "Vector.h"
 
 #if defined _MSC_VER
 	#define strncasecmp _strnicmp
 	#define snprintf _snprintf
 	#define vsnprintf _vsnprintf
+#else
+    #include <strings.h>
 #endif
+
 
 extern char SinglePlayerSavedGamesPath[];
 extern sdword CurrentMissionSkillLevel;

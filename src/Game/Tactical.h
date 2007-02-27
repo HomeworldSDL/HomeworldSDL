@@ -8,11 +8,9 @@
 #ifndef ___TACTICAL_H
 #define ___TACTICAL_H
 
-#include "Types.h"
+#include "ClassDefs.h"
 #include "Color.h"
-#include "prim2d.h"
-#include "utility.h"
-#include "ObjTypes.h"
+#include "Types.h"
 
 /*=============================================================================
     Switches:

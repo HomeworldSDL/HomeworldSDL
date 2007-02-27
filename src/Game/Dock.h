@@ -9,10 +9,8 @@
 #ifndef ___DOCK_H
 #define ___DOCK_H
 
-#include "Types.h"
-#include "SpaceObj.h"
 #include "ShipSelect.h"
-#include "render.h"
+#include "SpaceObj.h"
 
 #define DOCK_FOR_BOTHREFUELANDREPAIR    1
 #define DOCK_FOR_REFUEL                 2

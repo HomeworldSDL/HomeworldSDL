@@ -10,11 +10,10 @@
 #ifndef ___BLOBS_H
 #define ___BLOBS_H
 
-#include "Types.h"
-#include "Vector.h"
+#include "Color.h"
 #include "LinkedList.h"
-#include "SpaceObj.h"
 #include "ShipSelect.h"
+#include "Vector.h"
 
 /*=============================================================================
     Switches:

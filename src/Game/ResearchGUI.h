@@ -1,5 +1,5 @@
 /*=============================================================================
-    Name    : Researchgui.h
+    Name    : ResearchGUI.h
     Purpose : definitions for the research manager gui
 
     Created 5/25/1998 by ddunlop
@@ -9,10 +9,10 @@
 #ifndef ___RESEARCHGUI_H
 #define ___RESEARCHGUI_H
 
-#include "Types.h"
 #include "Region.h"
-#include "texreg.h"
 #include "ResearchAPI.h"
+#include "texreg.h"
+#include "Types.h"
 
 /*=============================================================================
     Definitions:

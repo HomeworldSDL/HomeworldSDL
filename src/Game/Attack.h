@@ -9,7 +9,6 @@
 #ifndef ___ATTACK_H
 #define ___ATTACK_H
 
-#include "Types.h"
 #include "SpaceObj.h"
 #include "StatScript.h"
 

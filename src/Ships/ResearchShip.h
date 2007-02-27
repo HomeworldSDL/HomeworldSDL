@@ -9,6 +9,7 @@
 #define ___RESEARCHSHIP_H
 
 #include "SpaceObj.h"
+#include "Types.h"
 
 typedef struct
 {

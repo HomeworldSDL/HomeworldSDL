@@ -7,21 +7,27 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#include <string.h>
-#include "CommandNetwork.h"
 #include "CommandWrap.h"
-#include "Universe.h"
+
+#include <string.h>
+
+#include "CommandDefs.h"
+#include "CommandNetwork.h"
+#include "Debug.h"
 #include "Globals.h"
+#include "InfoOverlay.h"
+#include "mainrgn.h"
 #include "mainswitches.h"
-#include "SoundEvent.h"
-#include "Tutor.h"
+#include "Memory.h"
 #include "MultiplayerGame.h"
 #include "SalCapCorvette.h"
-#include "ShipSelect.h"
 #include "Select.h"
-#include "InfoOverlay.h"
-
-#include "mainrgn.h"
+#include "ShipSelect.h"
+#include "SoundEvent.h"
+#include "SpeechEvent.h"
+#include "Tutor.h"
+#include "Tweak.h"
+#include "Universe.h"
 
 /*-----------------------------------------------------------------------------
     Name        : clCommandMessage

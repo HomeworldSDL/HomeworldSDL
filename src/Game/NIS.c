@@ -6,56 +6,58 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef SW_Render
-#ifdef _WIN32
-#include <windows.h>
-#endif
-#endif
+#include "NIS.h"
+
+#include <ctype.h>
+#include <float.h>
+#include <limits.h>
+#include <math.h>
 #include <stdlib.h>
 #include <string.h>
 
-#if !defined _MSC_VER
-#include <strings.h>
-#endif
-
-#include <math.h>
-#include <float.h>
-#include <ctype.h>
-#include <limits.h>
-#include "glinc.h"
-#include "File.h"
-#include "Debug.h"
-#include "Memory.h"
-#include "Universe.h"
-#include "UnivUpdate.h"
-#include "MEX.h"
-#include "Select.h"
-#include "FastMath.h"
 #include "Attack.h"
-#include "SoundEvent.h"
-#include "Light.h"
+//#include "bink.h"
 #include "BTG.h"
-#include "NIS.h"
+#include "CommandWrap.h"
+#include "Debug.h"
+#include "Eval.h"
+#include "FastMath.h"
+#include "FEFlow.h"
+#include "File.h"
+#include "FontReg.h"
 #include "glcaps.h"
+#include "glinc.h"
+#include "KAS.h"
+#include "Light.h"
+#include "mainrgn.h"
+#include "Memory.h"
+#include "MEX.h"
+#include "mouse.h"
 #include "Randy.h"
 #include "Region.h"
-#include "FEFlow.h"
-#include "mouse.h"
-#include "SoundEvent.h"
-#include "mainrgn.h"
-#include "KAS.h"
-#include "CommandWrap.h"
-#include "StringSupport.h"
-//#include "bink.h"
 #include "render.h"
-#include "Eval.h"
-#include "Tracking.h"
+#include "Select.h"
 #include "ShipDefs.h"
+#include "SoundEvent.h"
+#include "SoundEventDefs.h"
+#include "StringSupport.h"
+#include "Tracking.h"
+#include "Universe.h"
+#include "UnivUpdate.h"
+
+#ifndef SW_Render
+    #ifdef _WIN32
+        #include <windows.h>
+    #endif
+#endif
 
 #ifdef _MSC_VER
 	#define strcasecmp _stricmp
 	#define isnan _isnan
+#else
+    #include <strings.h>
 #endif
+
 
 /*=============================================================================
     Data:

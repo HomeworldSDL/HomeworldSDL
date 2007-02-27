@@ -6,30 +6,35 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef SW_Render
-#ifdef _WIN32
-#include <windows.h>
-#endif
-#endif
+#include "Clouds.h"
+
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
-#include "Memory.h"
-#include "Clouds.h"
-#include "Randy.h"
-#include "glinc.h"
-#include "render.h"
-#include "LinkedList.h"
-#include "Universe.h"
-#include "FastMath.h"
-#include "StatScript.h"
-#include "mainrgn.h"
-#include "Clipper.h"
-#include "Shader.h"
-#include "glcaps.h"
+
 #include "AutoLOD.h"
-#include "UnivUpdate.h"
+#include "Clipper.h"
+#include "Debug.h"
 #include "devstats.h"
+#include "FastMath.h"
+#include "glcaps.h"
+#include "glinc.h"
+#include "Globals.h"
+#include "LinkedList.h"
+#include "mainrgn.h"
+#include "Memory.h"
+#include "Randy.h"
+#include "render.h"
+#include "Shader.h"
+#include "StatScript.h"
+#include "Universe.h"
+#include "UnivUpdate.h"
+
+#ifndef SW_Render
+    #ifdef _WIN32
+        #include <windows.h>
+    #endif
+#endif
 
 #ifndef M_PI_2
 #define M_PI_2 3.14159265358979323846 / 2.0

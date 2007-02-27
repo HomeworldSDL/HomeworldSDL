@@ -9,7 +9,6 @@
 #define ___MINELAYERCORVETTE_H
 
 #include "Attack.h"
-#include "SpaceObj.h"
 
 #define MINE_DROP_ATTACK            0
 #define MINE_DROP_FORMATION         1

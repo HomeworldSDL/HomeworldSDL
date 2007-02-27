@@ -6,35 +6,40 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#include <stdio.h>
-#include <math.h>
-#include "glinc.h"
-#include "Key.h"
-#include "FEFlow.h"
 #include "Options.h"
-#include "FontReg.h"
-#include "mouse.h"
-#include "utility.h"
-#include "UIControls.h"
-#include "texreg.h"
-#include "Sensors.h"
-#include "SoundEvent.h"
-#include "Shader.h"
-#include "AutoLOD.h"
-#include "rinit.h"
+
+#include <math.h>
+#include <stdio.h>
+
 #include "AIPlayer.h"
-#include "FEColour.h"
+#include "AutoLOD.h"
 #include "Battle.h"
-#include "soundlow.h"
-#include "InfoOverlay.h"
-#include "KeyBindings.h"
-#include "glcaps.h"
-#include "MultiplayerGame.h"
+#include "Debug.h"
 #include "debugwnd.h"
 #include "devstats.h"
+#include "FEColour.h"
+#include "FEFlow.h"
+#include "FontReg.h"
+#include "glcaps.h"
+#include "glinc.h"
+#include "InfoOverlay.h"
+#include "Key.h"
+#include "KeyBindings.h"
+#include "Memory.h"
+#include "mouse.h"
+#include "MultiplayerGame.h"
+#include "rinit.h"
+#include "Sensors.h"
+#include "Shader.h"
+#include "SoundEvent.h"
+#include "soundlow.h"
+#include "StringsOnly.h"
+#include "texreg.h"
+#include "UIControls.h"
+#include "utility.h"
 
 #ifdef _MSC_VER
-#define strcasecmp _stricmp
+    #define strcasecmp _stricmp
 #endif
 
 

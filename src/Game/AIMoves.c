@@ -3,6 +3,7 @@
 
 #include "AIAttackMan.h"
 #include "AIEvents.h"
+#include "AIFeatures.h"
 #include "AIFleetMan.h"
 #include "AIHandler.h"
 #include "AIMoves.h"
@@ -10,7 +11,9 @@
 #include "AITeam.h"
 #include "AIUtilities.h"
 #include "AIVar.h"
+#include "CommandDefs.h"
 #include "CommandWrap.h"
+#include "Debug.h"
 #include "Dock.h"
 #include "FastMath.h"
 #include "Memory.h"

@@ -7,26 +7,27 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#include <stdlib.h>
-#include <stdio.h>
+#include <ctype.h>
 #include <stdarg.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
-#if !defined _MSC_VER
-#include <strings.h>
-#endif
-
-#include <ctype.h>
-#include "Task.h"
-#include "mouse.h"
+#include "Debug.h"
 #include "Demo.h"
 #include "main.h"
-#include "utility.h"
+#include "Memory.h"
+#include "mouse.h"
 #include "Region.h"
+#include "Task.h"
+#include "utility.h"
 
 #ifdef _MSC_VER
-#define strcasecmp _stricmp
+    #define strcasecmp _stricmp
+#else
+    #include <strings.h>
 #endif
+
 
 /*=============================================================================
     Data:

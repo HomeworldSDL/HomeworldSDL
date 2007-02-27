@@ -6,14 +6,18 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#include "AIPlayer.h"
-#include "AIMoves.h"
+#include "AIFeatures.h"
 #include "AIHandler.h"
+#include "AIMoves.h"
 #include "AIOrders.h"
+#include "AIPlayer.h"
 #include "CommandWrap.h"
-#include "ShipSelect.h"
+#include "Debug.h"
 #include "GravWellGenerator.h"
+#include "Memory.h"
 #include "Randy.h"
+#include "Select.h"
+#include "ShipSelect.h"
 #include "UnivUpdate.h"
 
 aieHandlerSimple handlerTable[] =

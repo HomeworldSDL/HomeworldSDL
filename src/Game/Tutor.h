@@ -1,16 +1,16 @@
 /*
-
 	Tutor.h - types & protoypes for the Tutorial System
-
 */
 
 #ifndef ___TUTOR_H
 #define ___TUTOR_H
 
-#include "Types.h"
-#include "ShipSelect.h"
-#include "ShipDefs.h"
 #include "FEFlow.h"
+#include "prim2d.h"
+#include "ShipDefs.h"
+#include "ShipSelect.h"
+#include "SpaceObj.h"
+#include "Types.h"
 #include "Volume.h"
 
 /*=============================================================================

@@ -10,11 +10,12 @@
 #define ___COMMANDNETWORK_H
 
 #include "Captaincy.h"
-#include "Switches.h"
-#include "Types.h"
-#include "Globals.h"
-#include "CommandLayer.h"
 #include "Chatting.h"
+#include "CommandLayer.h"
+#include "Globals.h"
+#include "MaxMultiplayer.h"
+#include "SpaceObj.h"
+#include "Switches.h"
 
 struct CaptaincyCustomInfo;
 

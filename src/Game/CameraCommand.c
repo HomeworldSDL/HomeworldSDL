@@ -7,22 +7,28 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#include <string.h>
-#include <math.h>
-#include "FastMath.h"
-#include "Debug.h"
-#include "Memory.h"
-#include "utility.h"
-#include "prim2d.h"
-#include "Universe.h"
 #include "CameraCommand.h"
-#include "ProximitySensor.h"
-#include "Sensors.h"
-#include "main.h"
+
+#include <math.h>
+#include <string.h>
+
 #include "Alliance.h"
-#include "Tutor.h"
+#include "Debug.h"
+#include "FastMath.h"
+#include "Globals.h"
+#include "main.h"
+#include "Memory.h"
+#include "prim2d.h"
+#include "ProximitySensor.h"
+#include "Select.h"
+#include "Sensors.h"
 #include "SinglePlayer.h"
+#include "StatScript.h"
 #include "Task.h"
+#include "Tutor.h"
+#include "Tweak.h"
+#include "Universe.h"
+#include "utility.h"
 
 #define DEBUG_CAMERACOMMAND     0
 

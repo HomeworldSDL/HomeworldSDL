@@ -6,59 +6,61 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifdef _WIN32
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-#include <direct.h>
-#include <io.h>
-#else
-#include <unistd.h>
-#include <dirent.h>
-#endif
+#include "HorseRace.h"
 
+#include <limits.h>
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <math.h>
-#include <limits.h>
-#include "glinc.h"
-#include "Debug.h"
-#include "prim2d.h"
-#include "Universe.h"
-#include "render.h"
+
+#include "AutoDownloadMap.h"
+#include "Chatting.h"
 #include "CommandNetwork.h"
-#include "HorseRace.h"
-#include "Region.h"
-#include "UIControls.h"
+#include "Debug.h"
+#include "Demo.h"
+#include "devstats.h"
+#include "ETG.h"
 #include "FEFlow.h"
+#include "FEReg.h"
+#include "File.h"
 #include "font.h"
 #include "FontReg.h"
-#include "prim2d.h"
-#include "utility.h"
-#include "Task.h"
-#include "Demo.h"
-#include "mouse.h"
-#include "LinkedList.h"
-#include "Chatting.h"
 #include "glcaps.h"
-#include "NIS.h"
-#include "MultiplayerGame.h"
-#include "ETG.h"
-#include "File.h"
-#include "FEReg.h"
+#include "glinc.h"
 #include "interfce.h"
-#include "Teams.h"
-#include "TimeoutTimer.h"
-#include "StringSupport.h"
+#include "LinkedList.h"
+#include "main.h"
+#include "Memory.h"
+#include "mouse.h"
+#include "MultiplayerGame.h"
+#include "NIS.h"
+#include "prim2d.h"
+#include "Region.h"
+#include "render.h"
 #include "SinglePlayer.h"
-#include "AutoDownloadMap.h"
+#include "StringSupport.h"
+#include "Task.h"
+#include "Teams.h"
 #include "texreg.h"
+#include "TimeoutTimer.h"
 #include "Titan.h"
-#include "devstats.h"
+#include "Tweak.h"
+#include "UIControls.h"
+#include "Universe.h"
+#include "utility.h"
 
 #ifdef _WIN32
-#define strcasecmp _stricmp
+    #define WIN32_LEAN_AND_MEAN
+    #define strcasecmp _stricmp
+    #include <direct.h>
+    #include <io.h>
+    #include <windows.h>
+#else
+    #include <dirent.h>
+    #include <unistd.h>
 #endif
+
 
 #define ShouldHaveMousePtr (FALSE)
 

@@ -6,21 +6,27 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
+#include "AITeam.h"
+
 #include <stdlib.h>
 #include <string.h>
-#include "AITeam.h"
+
 #include "AIAttackMan.h"
 #include "AIDefenseMan.h"
-#include "AIHandler.h"
-#include "CommandWrap.h"
-#include "Memory.h"
-#include "Universe.h"
-#include "AIPlayer.h"
+#include "AIFeatures.h"
 #include "AIFleetMan.h"
-#include "SaveGame.h"
+#include "AIHandler.h"
 #include "AIMoves.h"
-#include "Tactics.h"
+#include "AIPlayer.h"
+#include "CommandDefs.h"
+#include "CommandWrap.h"
+#include "Debug.h"
 #include "GravWellGenerator.h"
+#include "Memory.h"
+#include "SaveGame.h"
+#include "Select.h"
+#include "Tactics.h"
+#include "Universe.h"
 
 /*-----------------------------------------------------------------------------
     Name        : aitCreate

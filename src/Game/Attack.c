@@ -6,18 +6,22 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
+#include "Attack.h"
+
 #include <stdlib.h>
-#include "FastMath.h"
-#include "Physics.h"
-#include "Gun.h"
+
 #include "AIShip.h"
 #include "AITrack.h"
 #include "Collision.h"
-#include "Attack.h"
-#include "Universe.h"
-#include "Tweak.h"
+#include "CommandDefs.h"
 #include "CommandLayer.h"
+#include "Debug.h"
+#include "FastMath.h"
+#include "Gun.h"
+#include "Physics.h"
 #include "Randy.h"
+#include "Tweak.h"
+#include "Universe.h"
 
 //#define DEBUG_ATTACK
 

@@ -9,10 +9,9 @@
 #ifndef ___DEMO_H
 #define ___DEMO_H
 
-#include "Types.h"
 #include "Key.h"
-#include "Task.h"
 #include "Randy.h"
+#include "Task.h"
 
 /*=============================================================================
     Switches:

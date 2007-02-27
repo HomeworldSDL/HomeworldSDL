@@ -6,84 +6,88 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#undef UTY_SCREEN_SHOT
+#include "mainrgn.h"
 
-#ifdef _WIN32
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-#endif
-
-#include <stdlib.h>
-#include <stdio.h>
-#include "glinc.h"
-#include <math.h>
 #include <float.h>
-#include "Switches.h"
-#include "FastMath.h"
-#include "Debug.h"
-#include "render.h"
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "AIVar.h"
+#include "Alliance.h"
+#include "Battle.h"
+//#include "bink.h"
 #include "CameraCommand.h"
+#include "Captaincy.h"
+#include "Chatting.h"
+#include "CommandDefs.h"
+#include "CommandNetwork.h"
+#include "CommandWrap.h"
+#include "ConsMgr.h"
+#include "Debug.h"
+#include "ETG.h"
+#include "FastMath.h"
+#include "FlightMan.h"
+#include "font.h"
+#include "FontReg.h"
+#include "GameChat.h"
+#include "GamePick.h"
+#include "glcaps.h"
+#include "glinc.h"
+#include "Globals.h"
+#include "Gun.h"
+#include "InfoOverlay.h"
+#include "KAS.h"
+#include "KASFunc.h"
+#include "KeyBindings.h"
+#include "LaunchMgr.h"
+#include "main.h"
+#include "Memory.h"
+#include "MeshAnim.h"
 #include "mouse.h"
-#include "utility.h"
+#include "NetCheck.h"
+#include "NIS.h"
+#include "Objectives.h"
+#include "Options.h"
+#include "Particle.h"
+#include "PiePlate.h"
 #include "prim2d.h"
 #include "prim3d.h"
+#include "Probe.h"
+#include "render.h"
+#include "ResearchGUI.h"
+#include "ResearchShip.h"
 #include "Select.h"
+#include "Sensors.h"
+#include "Shader.h"
+#include "ShipView.h"
+#include "SinglePlayer.h"
+#include "SoundEvent.h"
+#include "soundlow.h"
+#include "StringSupport.h"
+#include "Switches.h"
+#include "Tactical.h"
+#include "Tactics.h"
+#include "TaskBar.h"
+#include "Teams.h"
+#include "TradeMgr.h"
+#include "Tutor.h"
+#include "Tweak.h"
+#include "Undo.h"
 #include "Universe.h"
 #include "UnivUpdate.h"
-#include "SoundEvent.h"
-#include "ConsMgr.h"
-#include "TradeMgr.h"
-#include "CommandWrap.h"
-#include "Undo.h"
-#include "Tactical.h"
-#include "Globals.h"
-#include "font.h"
-#include "Sensors.h"
-#include "Teams.h"
-#include "mainrgn.h"
-#include "FlightMan.h"
-#include "Particle.h"
-#include "ETG.h"
-#include "NIS.h"
-#include "NetCheck.h"
-#include "Tweak.h"
-#include "main.h"
-#include "FontReg.h"
-#include "Probe.h"
-#include "Gun.h"
-#include "PiePlate.h"
-#include "ResearchShip.h"
-#include "LaunchMgr.h"
-#include "ResearchGUI.h"
-#include "Tactics.h"
-#include "soundlow.h"
-#include "InfoOverlay.h"
-#include "glcaps.h"
-#include "SinglePlayer.h"
-#include "KAS.h"
-#include "GameChat.h"
-#include "MeshAnim.h"
-#include "Chatting.h"
-#include "Alliance.h"
-#include "Shader.h"
-#include "Objectives.h"
-#include "KASFunc.h"
-#include "Tutor.h"
-#include "StringSupport.h"
-#include "Options.h"
-#include "TaskBar.h"
-#include "ShipView.h"
-#include "AIVar.h"
-#include "GamePick.h"
-#include "Battle.h"
-#include "Captaincy.h"
-#include "CommandNetwork.h"
-//#include "bink.h"
-#include "KeyBindings.h"
+#include "utility.h"
+
+#ifdef _WIN32
+    #define WIN32_LEAN_AND_MEAN
+    #include <windows.h>
+#endif
 
 #if defined _MSC_VER
 	#define isnan(x) _isnan(x)
 #endif
+
+#undef UTY_SCREEN_SHOT
 
 /*=============================================================================
     Data:

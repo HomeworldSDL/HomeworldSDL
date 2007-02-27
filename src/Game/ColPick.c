@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 
+#include "Debug.h"
 #include "FastMath.h"
 #include "font.h"
 #include "FontReg.h"

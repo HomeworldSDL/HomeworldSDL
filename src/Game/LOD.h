@@ -9,10 +9,7 @@
 #ifndef ___LOD_H
 #define ___LOD_H
 
-#include "Types.h"
-#include "Color.h"
 #include "Mesh.h"
-#include "Matrix.h"
 #include "Vector.h"
 
 /*=============================================================================

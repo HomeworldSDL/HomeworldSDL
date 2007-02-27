@@ -1,9 +1,7 @@
 #ifndef ___AIMOVES_H
 #define ___AIMOVES_H
 
-#include "Vector.h"
-#include "Volume.h"
-#include "Formation.h"
+#include "AITeam.h"
 
 struct AITeam;
 struct AITeamMove;

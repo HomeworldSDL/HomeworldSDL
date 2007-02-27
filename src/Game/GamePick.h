@@ -9,8 +9,8 @@
 #ifndef ___GAMEPICK_H
 #define ___GAMEPICK_H
 
-#include "Types.h"
 #include "FEFlow.h"
+#include "Region.h"
 
 /*=============================================================================
     Switches:

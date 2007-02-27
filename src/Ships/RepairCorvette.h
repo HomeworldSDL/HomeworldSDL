@@ -10,7 +10,6 @@
 
 #include "Attack.h"
 #include "ShipSelect.h"
-#include "SpaceObj.h"
 
 #define REPAIR_BEGIN          0
 #define REPAIR_APPROACH       1

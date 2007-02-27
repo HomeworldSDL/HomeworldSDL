@@ -1,10 +1,3 @@
-#include <string.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include "Timer.h"
-#include "Memory.h"
-#include "SaveGame.h"
-
 //
 //  Created 1997/07/01  Darren Stone
 //
@@ -16,6 +9,16 @@
 //  the named referencing of these timers make using
 //  them a little slower, but friendly for scripting, etc.
 //
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
+#include "Memory.h"
+#include "SaveGame.h"
+#include "Timer.h"
+#include "Universe.h"
+
 
 sdword timersAllocated = 0;
 sdword timersUsed = 0;

@@ -6,33 +6,36 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifdef _WIN32
-#include <windows.h>
-#endif
 #include <stdio.h>
 #include <stdlib.h>
 
-#if !defined _MSC_VER
-#include <strings.h>
-#endif
-
-#include "GameChat.h"
-#include "utility.h"
-#include "UIControls.h"
-#include "Region.h"
-#include "FontReg.h"
-#include "Universe.h"
 #include "Chatting.h"
-#include "LinkedList.h"
 #include "CommandNetwork.h"
-#include "StringSupport.h"
-#include "mainrgn.h"
 #include "CommandWrap.h"
+#include "Debug.h"
+#include "FontReg.h"
+#include "GameChat.h"
+#include "LinkedList.h"
+#include "mainrgn.h"
+#include "Memory.h"
+#include "Region.h"
 #include "SoundEvent.h"
+#include "SoundEventDefs.h"
+#include "StringSupport.h"
+#include "UIControls.h"
+#include "Universe.h"
+#include "utility.h"
+
+#ifdef _WIN32
+    #include <windows.h>
+#endif
 
 #ifdef _MSC_VER
-#define strncasecmp strnicmp
+    #define strncasecmp strnicmp
+#else
+    #include <strings.h>
 #endif
+
 
 /*=============================================================================
     Defines:

@@ -9,15 +9,12 @@
 #ifndef ___SELECT_H
 #define ___SELECT_H
 
-#include "Types.h"
-#include "prim2d.h"
-#include "Matrix.h"
-#include "SpaceObj.h"
-#include "CommandLayer.h"
 #include "Camera.h"
 #include "font.h"
-
-#include "PiePlate.h"
+#include "prim2d.h"
+#include "ShipSelect.h"
+#include "Types.h"
+#include "Vector.h"
 
 /*=============================================================================
     Switches:

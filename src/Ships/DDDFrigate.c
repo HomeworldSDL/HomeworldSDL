@@ -1,5 +1,6 @@
 // =============================================================================
 //  DDDFrigate.c
+//  - (Defence?) Drone (Deployment?) Frigate
 // =============================================================================
 //  Copyright Relic Entertainment, Inc. All rights reserved.
 //  Created 6/30/1997 by gshaw
@@ -11,10 +12,13 @@
 #include "AITrack.h"
 #include "Collision.h"
 #include "Drone.h"
+#include "Memory.h"
 #include "Randy.h"
 #include "SaveGame.h"
 #include "SoundEvent.h"
+#include "SoundEventDefs.h"
 #include "SpeechEvent.h"
+#include "StatScript.h"
 #include "Universe.h"
 #include "UnivUpdate.h"
 

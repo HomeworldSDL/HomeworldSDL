@@ -9,13 +9,9 @@
 #ifndef ___MULTIPLAYERLANGAME_H
 #define ___MULTIPLAYERLANGAME_H
 
-
-#include "Types.h"
-#include "Region.h"
-#include "LinkedList.h"
-#include "UIControls.h"
-#include "TitanInterfaceC.h"
 #include "MultiplayerGame.h"
+#include "TitanInterfaceC.h"
+#include "Types.h"
 
 /*=============================================================================
     defines:

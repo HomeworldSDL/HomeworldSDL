@@ -9,8 +9,8 @@
 #ifndef ___TITANNET_H
 #define ___TITANNET_H
 
-#include "Types.h"
 #include "TitanInterfaceC.h"
+#include "Types.h"
 
 extern real32 TITAN_PICKER_REFRESH_TIME;
 

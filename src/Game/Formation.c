@@ -1,31 +1,36 @@
 /*=============================================================================
-    Name    : formation.c
+    Name    : Formation.c
     Purpose : Implementation of formations
 
     Created 10/20/1997 by gshaw
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
+#include "Formation.h"
+
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
-#include "Memory.h"
-#include "Debug.h"
-#include "FastMath.h"
+
 #include "AIShip.h"
 #include "AITrack.h"
-#include "Formation.h"
+#include "CommandDefs.h"
 #include "CommandLayer.h"
-#include "Universe.h"
-#include "UnivUpdate.h"
-#include "StatScript.h"
-#include "ProximitySensor.h"
 #include "DDDFrigate.h"
-#include "Tactics.h"
-#include "StringSupport.h"
+#include "Debug.h"
+#include "FastMath.h"
+#include "Globals.h"
+#include "Memory.h"
+#include "ProximitySensor.h"
 #include "SalCapCorvette.h"
 #include "SinglePlayer.h"
+#include "StatScript.h"
+#include "StringSupport.h"
+#include "Tactics.h"
+#include "Tweak.h"
+#include "Universe.h"
+#include "UnivUpdate.h"
 
 //real32 DELTA_FORMATION_PADDING = 50.0f;
 //real32 BROAD_FORMATION_PADDING = 50.0f;

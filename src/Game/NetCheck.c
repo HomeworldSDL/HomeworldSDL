@@ -2,18 +2,24 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+
+#include "Blobs.h"
+#include "CommandWrap.h"
+#include "Debug.h"
+#include "File.h"
+#include "Globals.h"
+#include "Memory.h"
+#include "NetCheck.h"
+#include "Randy.h"
+#include "SaveGame.h"
+#include "SpaceObj.h"
+#include "Stats.h"
+#include "StringsOnly.h"
+#include "Switches.h"
+#include "TitanInterfaceC.h"
+#include "TitanNet.h"
 #include "Universe.h"
 #include "UnivUpdate.h"
-#include "NetCheck.h"
-#include "Blobs.h"
-#include "Globals.h"
-#include "TitanNet.h"
-#include "SaveGame.h"
-#include "Randy.h"
-#include "TitanInterfaceC.h"
-#include "CommandWrap.h"
-#include "StringsOnly.h"
-#include "Stats.h"
 
 #if SYNC_CHECK
 udword randSyncErr;
@@ -24,7 +30,6 @@ udword pktSyncErr;
 udword randSyncErrFrame;
 udword univSyncErrFrame;
 udword blobSyncErrFrame;
-
 #endif
 
 char OrigRecordPacketFileName[MAX_RECORDPACKETFILENAME_STRLEN] = "";

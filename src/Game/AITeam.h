@@ -9,17 +9,12 @@
 #ifndef ___AITEAM_H
 #define ___AITEAM_H
 
-#include "Types.h"
-#include "SpaceObj.h"
-#include "ShipSelect.h"
 #include "AIEvents.h"
-#include "Formation.h"
-#include "FormationDefs.h"
-#include "AIVar.h"
-#include "Vector.h"
 #include "AIUtilities.h"
+#include "AIVar.h"
 #include "KAS.h"
-#include "Volume.h"
+#include "ShipDefs.h"
+#include "ShipSelect.h"
 
 //team flags
 // Mask 0xff00000000 to Special Team Flags

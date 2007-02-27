@@ -1,57 +1,52 @@
 /*
-
     Tutor.c - Functions for the Tutorial System
-
 */
 
-#ifdef _WIN32
-#include <windows.h>
-#endif
+#include "Tutor.h"
+#include "../Missions/Generated/Tutorial1.h"  // why does this need a relative path?
 
-#include "glinc.h"
-#include <stdlib.h>
 #include <math.h>
-#include <stdio.h>
-#include <string.h>
-
-#if !defined _MSC_VER
-#include <strings.h>
-#endif
 
 #include "AIPlayer.h"
-#include "utility.h"
-#include "LevelLoad.h"
-#include "Region.h"
-#include "KAS.h"
-#include "UIControls.h"
-#include "StringSupport.h"
-#include "FontReg.h"
-#include "Select.h"
-#include "texreg.h"
-#include "FontReg.h"
-#include "render.h"
-#include "mouse.h"
-#include "FastMath.h"
-#include "Tutor.h"
-#include "ConsMgr.h"
 #include "CameraCommand.h"
-#include "FastMath.h"
-#include "SaveGame.h"
 #include "Collision.h"
-#include "GamePick.h"
-#include "main.h"
-#include "Subtitle.h"
-#include "SinglePlayer.h"
-#include "SpeechEvent.h"
-#include "SoundEvent.h"
+#include "ConsMgr.h"
+#include "FastMath.h"
 #include "File.h"
+#include "FontReg.h"
+#include "GamePick.h"
+#include "glinc.h"
+#include "KAS.h"
+#include "LevelLoad.h"
+#include "main.h"
 #include "mainrgn.h"
+#include "Memory.h"
+#include "mouse.h"
+#include "PiePlate.h"
+#include "Region.h"
+#include "render.h"
+#include "SaveGame.h"
+#include "Select.h"
+#include "SinglePlayer.h"
+#include "SoundEvent.h"
+#include "SpeechEvent.h"
+#include "StringSupport.h"
+#include "Subtitle.h"
 #include "TaskBar.h"
-#include "../Missions/Generated/Tutorial1.h"
+#include "texreg.h"
+#include "UIControls.h"
+#include "utility.h"
+
+#ifdef _WIN32
+    #include <windows.h>
+#endif
 
 #ifdef _MSC_VER
-#define strcasecmp _stricmp
+    #define strcasecmp _stricmp
+#else
+    #include <strings.h>
 #endif
+
 
 //hack to get the speech to work when game is paused
 bool FalkosFuckedUpTutorialFlag = FALSE;

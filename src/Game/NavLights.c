@@ -6,19 +6,21 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef SW_Render
-#ifdef _WIN32
-#include <windows.h>
-#endif
-#endif
 #include "NavLights.h"
-#include "Matrix.h"
-#include "render.h"
-#include "prim3d.h"
-#include "Universe.h"
-#include "glinc.h"
-#include "glcaps.h"
 
+#include "glcaps.h"
+#include "glinc.h"
+#include "Matrix.h"
+#include "Memory.h"
+#include "prim3d.h"
+#include "render.h"
+#include "Universe.h"
+
+#ifndef SW_Render
+    #ifdef _WIN32
+        #include <windows.h>
+    #endif
+#endif
 
 /*-----------------------------------------------------------------------------
     Name        : navLightBillboardEnable

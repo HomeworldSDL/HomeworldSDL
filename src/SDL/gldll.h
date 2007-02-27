@@ -9,6 +9,8 @@
 #ifndef ___GLDLL_H
 #define ___GLDLL_H
 
+#include "gldefines.h"
+
 typedef unsigned int GLenum;
 typedef unsigned char GLboolean;
 typedef unsigned int GLbitfield;
@@ -27,7 +29,6 @@ typedef void GLvoid;
 
 typedef void (*WGLPROC)();
 
-#include "gldefines.h"
 
 typedef void (APIENTRY * LOCKARRAYSEXTproc)(GLint, GLint);
 typedef void (APIENTRY * UNLOCKARRAYSEXTproc)(void);

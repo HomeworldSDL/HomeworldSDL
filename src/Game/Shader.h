@@ -9,10 +9,10 @@ Copyright Relic Entertainment, Inc.  All rights reserved.
 #ifndef ___SHADER_H
 #define ___SHADER_H
 
+#include "Color.h"
+#include "Matrix.h"
 #include "Types.h"
 #include "Vector.h"
-#include "Matrix.h"
-#include "Color.h"
 
 typedef struct
 {

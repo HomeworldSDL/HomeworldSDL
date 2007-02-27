@@ -9,12 +9,10 @@
 #ifndef ___MULTIPLAYERGAME_H
 #define ___MULTIPLAYERGAME_H
 
-#include "Types.h"
-#include "Region.h"
 #include "LinkedList.h"
-#include "UIControls.h"
 #include "TitanInterfaceC.h"
 #include "TimeoutTimer.h"
+#include "UIControls.h"
 
 /*=============================================================================
     defines:

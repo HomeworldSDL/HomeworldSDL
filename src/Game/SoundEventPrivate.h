@@ -9,30 +9,14 @@
 #ifndef ___SOUNDEVENTPRIVATE_H
 #define ___SOUNDEVENTPRIVATE_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
-
-#include "soundlow.h"
+#include "ObjTypes.h"
+#include "SoundStructs.h"
+#include "SpaceObj.h"
 #include "Types.h"
-#include "Switches.h"
-#include "Memory.h"
-#include "File.h"
-#include "Universe.h"
-#include "UnivUpdate.h"
-#include "FastMath.h"
-#include "Randy.h"
-#include "main.h"
-#include "fqeffect.h"
+#include "Vector.h"
 
-#include "mainrgn.h"
 
-#include "CloakGenerator.h"
-#include "GravWellGenerator.h"
 
-#include "SoundEventDefs.h"
-#include "VolTweakDefs.h"
 
 /*=============================================================================
     Private Defines:

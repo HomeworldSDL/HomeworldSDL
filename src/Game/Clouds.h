@@ -9,11 +9,10 @@
 #ifndef ___CLOUDS_H
 #define ___CLOUDS_H
 
-#include "Types.h"
-#include "Vector.h"
-#include "Matrix.h"
 #include "Color.h"
+#include "Matrix.h"
 #include "ObjTypes.h"
+#include "Vector.h"
 
 /*
  * STRUCTURES

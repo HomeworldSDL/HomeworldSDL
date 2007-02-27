@@ -6,28 +6,33 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#include <stdio.h>
-#include <math.h>
-#include "Types.h"
-#include "Debug.h"
-#include "Memory.h"
-#include "SpaceObj.h"
-#include "Vector.h"
-#include "Matrix.h"
-#include "prim2d.h"
-#include "Camera.h"
-#include "SoundEvent.h"
-#include "Randy.h"
-#include "mainrgn.h"
-#include "FastMath.h"
-#include "Alliance.h"
-#include "Universe.h"
-#include "FlightMan.h"
-#include "Ping.h"
-#include "Gun.h"
-#include "Select.h"
-#include "Blobs.h"
 #include "Battle.h"
+
+#include <math.h>
+#include <stdio.h>
+
+#include "Alliance.h"
+#include "Blobs.h"
+#include "Camera.h"
+#include "CommandDefs.h"
+#include "Debug.h"
+#include "FastMath.h"
+#include "FlightMan.h"
+#include "Gun.h"
+#include "Matrix.h"
+#include "Memory.h"
+#include "Ping.h"
+#include "Randy.h"
+#include "Select.h"
+#include "SoundEvent.h"
+#include "SpaceObj.h"
+#include "SpeechEvent.h"
+#include "StatScript.h"
+#include "Types.h"
+#include "Universe.h"
+#include "Vector.h"
+#include "mainrgn.h"
+#include "prim2d.h"
 
 /*=============================================================================
     Data:

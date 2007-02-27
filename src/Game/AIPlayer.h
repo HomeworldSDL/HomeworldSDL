@@ -9,12 +9,13 @@
 #ifndef ___AIPLAYER_H
 #define ___AIPLAYER_H
 
-#include "Types.h"
-#include "ObjTypes.h"
-#include "Universe.h"
-#include "AIVar.h"
-#include "AIFeatures.h"
 #include "AITeam.h"
+#include "AIVar.h"
+#include "LinkedList.h"
+#include "ShipDefs.h"
+#include "ShipSelect.h"
+#include "SpaceObj.h"
+#include "Universe.h"
 
 typedef enum
 {

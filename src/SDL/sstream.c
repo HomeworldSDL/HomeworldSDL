@@ -6,30 +6,31 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-/* Not using this stuff for now */
-#ifndef _MSC_VER
-#undef _WIN32
-#endif
+// #include "sstream.h"  // this does not exist
 
-#ifdef _WIN32
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-#include <mmsystem.h>
-#include <dsound.h>
-#include <process.h>
-#endif
 #include <string.h>
 
-#include "Types.h"
-#include "Switches.h"
+#include <SDL_thread.h>
+
 #include "Debug.h"
-#include "soundlow.h"
-#include "soundcmn.h"
 #include "File.h"
 #include "fqeffect.h"
+#include "soundcmn.h"
+#include "soundlow.h"
 #include "SoundStructs.h"
 #include "SpeechEvent.h"
 #include "Subtitle.h"
+#include "Switches.h"
+#include "Types.h"
+
+#if defined(_WIN32) && !defined(_MSC_VER)
+    #define WIN32_LEAN_AND_MEAN
+    #include <windows.h>
+    #include <mmsystem.h>
+    #include <dsound.h>
+    #include <process.h>
+#endif
+
 
 /* functions */
 sdword isoundstreamreadheader(STREAM *pstream);

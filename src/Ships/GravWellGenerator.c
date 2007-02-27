@@ -13,6 +13,7 @@
 #include "FastMath.h"
 #include "Randy.h"
 #include "MadLinkIn.h"
+#include "Memory.h"
 #include "SaveGame.h"
 #include "Select.h"
 #include "SoundEvent.h"

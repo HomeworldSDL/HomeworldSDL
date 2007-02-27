@@ -1,22 +1,26 @@
 /*=============================================================================
-    Name    : shipselect.c
+    Name    : ShipSelect.c
     Purpose : Routines for manipulating SelectCommand structures
 
     Created 10/19/1997 by gshaw
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
+#include "ShipSelect.h"
+
 #include <string.h>
 
-#include "ShipSelect.h"
-#include "Universe.h"
 #include "Alliance.h"
 #include "Attributes.h"
+#include "Battle.h"
+#include "CommandDefs.h"
+#include "Memory.h"
 #include "ProximitySensor.h"
 #include "SinglePlayer.h"
 #include "SoundEvent.h"
 #include "SpeechEvent.h"
-#include "Battle.h"
+#include "Tweak.h"
+#include "Universe.h"
 
 /*-----------------------------------------------------------------------------
     Name        : AddSpaceObjToSelectionBeforeIndex

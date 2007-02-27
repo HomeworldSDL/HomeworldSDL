@@ -6,9 +6,79 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
+#include "render.h"
 
+#include <float.h>
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+#include "AIShip.h"
+#include "Animatic.h"
+#include "AutoLOD.h"
+//#include "bink.h"
+#include "BTG.h"
+#include "CameraCommand.h"
+#include "Clipper.h"
+#include "Clouds.h"
+#include "Collision.h"
+#include "CommandNetwork.h"
+#include "Debug.h"
+#include "DefenseFighter.h"
+#include "Demo.h"
+#include "devstats.h"
+#include "Dock.h"
+#include "FastMath.h"
+#include "File.h"
+#include "font.h"
+#include "glcaps.h"
+#include "glinc.h"
+#include "Globals.h"
+#include "Gun.h"
+#include "HS.h"
+#include "Key.h"
+#include "LagPrint.h"
+#include "LaunchMgr.h"
+#include "Light.h"
+#include "main.h"
+#include "mainrgn.h"
+#include "Memory.h"
+#include "Mesh.h"
+#include "mouse.h"
+#include "NavLights.h"
+#include "Nebulae.h"
+#include "NetCheck.h"
+#include "NIS.h"
+#include "Objectives.h"
+#include "PiePlate.h"
+#include "prim2d.h"
+#include "prim3d.h"
+#include "ProfileTimers.h"
+#include "ProximitySensor.h"
+#include "Region.h"
+#include "SalCapCorvette.h"
+#include "screenshot.h"
+#include "Select.h"
+#include "Shader.h"
+#include "SinglePlayer.h"
+#include "SoundEvent.h"
+#include "StringsOnly.h"
+#include "Subtitle.h"
+#include "Switches.h"
+#include "Tactical.h"
+#include "Task.h"
+#include "Teams.h"
+#include "texreg.h"
+#include "Tracking.h"
+#include "Tutor.h"
+#include "Tweak.h"
+#include "Universe.h"
+#include "UnivUpdate.h"
+#include "utility.h"
+
+#if defined _MSC_VER
+	#define isnan(x) _isnan(x)
+#endif
 
 #ifdef _WIN32
     #define WIN32_LEAN_AND_MEAN
@@ -17,73 +87,6 @@
     #include <sys/mman.h>
 #endif
 
-#include "glinc.h"
-#include <math.h>
-#include <float.h>
-#include "Debug.h"
-#include "Switches.h"
-#include "NetCheck.h"
-#include "mouse.h"
-#include "prim2d.h"
-#include "Region.h"
-#include "Task.h"
-#include "Key.h"
-#include "Universe.h"
-#include "NIS.h"
-#include "CameraCommand.h"
-#include "prim3d.h"
-#include "font.h"
-#include "Select.h"
-#include "texreg.h"
-#include "utility.h"
-#include "Globals.h"
-#include "Light.h"
-#include "Shader.h"
-#include "Tactical.h"
-#include "Mesh.h"
-#include "render.h"
-#include "Collision.h"
-#include "UnivUpdate.h"
-#include "SoundEvent.h"
-#include "Gun.h"
-#include "Dock.h"
-#include "NavLights.h"
-#include "main.h"
-#include "Tweak.h"
-#include "DefenseFighter.h"
-#include "Clouds.h"
-#include "Nebulae.h"
-#include "FastMath.h"
-#include "BTG.h"
-#include "Demo.h"
-#include "File.h"
-#include "Clipper.h"
-#include "glcaps.h"
-#include "Teams.h"
-#include "SinglePlayer.h"
-#include "HS.h"
-#include "screenshot.h"
-#include "SalCapCorvette.h"
-#include "AutoLOD.h"
-#include "ProximitySensor.h"
-#include "Objectives.h"
-#include "Subtitle.h"
-#include "Tutor.h"
-#include "Animatic.h"
-//#include "bink.h"
-#include "StringsOnly.h"
-#include "mainrgn.h"
-#include "AIShip.h"
-#include "CommandNetwork.h"
-#include "ProfileTimers.h"
-#include "LagPrint.h"
-#include "Tracking.h"
-#include "LaunchMgr.h"
-#include "devstats.h"
-
-#if defined _MSC_VER
-	#define isnan(x) _isnan(x)
-#endif
 
 #ifdef HW_BUILD_FOR_DEBUGGING
 

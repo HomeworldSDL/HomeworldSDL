@@ -14,6 +14,7 @@
 #include "CommandLayer.h"
 #include "CommandNetwork.h"
 #include "CommandWrap.h"
+#include "Debug.h"
 #include "GameChat.h"
 #include "SpeechEvent.h"
 #include "StringsOnly.h"

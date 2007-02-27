@@ -5,7 +5,7 @@
     #include <stdlib.h>
 #else
     #include <wchar.h>
-#endif // _MACOSX
+#endif
 
 // Homeworld Message Types
 #define TITANMSGTYPE_JOINGAMEREQUEST   0x10

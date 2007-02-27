@@ -9,12 +9,9 @@
 #ifndef ___SINGLEPLAYER_H
 #define ___SINGLEPLAYER_H
 
-#include "Types.h"
-#include "Vector.h"
-#include "Region.h"
-#include "SpaceObj.h"
 #include "KAS.h"
-#include "ETG.h"
+#include "LinkedList.h"
+#include "Types.h"
 
 /*=============================================================================
     Switches:

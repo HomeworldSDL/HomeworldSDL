@@ -9,7 +9,6 @@
 #ifndef ___FONT_H
 #define ___FONT_H
 
-#include "Types.h"
 #include "Color.h"
 #include "prim2d.h"
 

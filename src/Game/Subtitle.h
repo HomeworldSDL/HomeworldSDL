@@ -9,10 +9,10 @@
 #ifndef ___SUBTITLE_H
 #define ___SUBTITLE_H
 
-#include "prim2d.h"
 #include "Color.h"
 #include "font.h"
 #include "texreg.h"
+#include "Types.h"
 
 /*=============================================================================
     Switches:

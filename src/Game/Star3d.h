@@ -9,9 +9,9 @@
 #ifndef ___STAR3D_H
 #define ___STAR3D_H
 
+#include "Color.h"
 #include "Types.h"
 #include "Vector.h"
-#include "Color.h"
 
 /*=============================================================================
     TYPES:

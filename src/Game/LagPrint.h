@@ -10,6 +10,8 @@
 #ifndef ___LAGPRINT_H
 #define ___LAGPRINT_H
 
+#include "Types.h"
+
 #ifdef _WIN32
 #define LAG_PATH                    "FeMan\\LagIcon\\"
 #else

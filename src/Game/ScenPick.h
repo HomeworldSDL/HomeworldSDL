@@ -9,8 +9,8 @@
 #ifndef ___SCENPICK_H
 #define ___SCENPICK_H
 
-#include "Types.h"
 #include "FEFlow.h"
+#include "Types.h"
 
 /*=============================================================================
     Switches:

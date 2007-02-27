@@ -4,35 +4,40 @@
 //  implementations of most functions are in kasfunc.c
 //
 
+#include "KAS.h"
+
 #include <stdio.h>
 #include <string.h>
 
-#if !defined _MSC_VER
-#include <strings.h>
-#endif
-
-#include "glinc.h"
-#include "mainrgn.h"
-#include "AITeam.h"
 #include "AIPlayer.h"
+#include "AITeam.h"
 #include "AIVar.h"
-#include "Timer.h"
-#include "KAS.h"
+#include "CommandWrap.h"
+#include "Debug.h"
 #include "File.h"
 #include "font.h"
-#include "render.h"
-#include "prim3d.h"
-#include "Objectives.h"
-#include "SinglePlayer.h"
-#include "SaveGame.h"
+#include "glinc.h"
 #include "HS.h"
-#include "CommandWrap.h"
+#include "main.h"
+#include "mainrgn.h"
+#include "Memory.h"
+#include "Objectives.h"
+#include "prim3d.h"
+#include "render.h"
+#include "SaveGame.h"
 #include "Select.h"
+#include "SinglePlayer.h"
+#include "Timer.h"
 
 #ifdef _WIN32
-#define strcasecmp  _stricmp
-#define strncasecmp _strnicmp
+    #define strcasecmp  _stricmp
+    #define strncasecmp _strnicmp
 #endif
+
+#if !defined _MSC_VER
+    #include <strings.h>
+#endif
+
 
 extern sdword objectivesUsed;
 #if SP_DEBUGKEYS

@@ -10,12 +10,8 @@
 #ifndef ___CAMERACOMMAND_H
 #define ___CAMERACOMMAND_H
 
-#include "Types.h"
-#include "LinkedList.h"
-#include "SpaceObj.h"
 #include "Camera.h"
 #include "ShipSelect.h"
-#include "StatScript.h"
 
 /*=============================================================================
     Types:

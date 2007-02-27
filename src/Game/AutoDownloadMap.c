@@ -10,6 +10,7 @@
 #include "CommandNetwork.h"
 #include "Debug.h"
 #include "File.h"
+#include "Globals.h"
 #include "HorseRace.h"
 #include "Memory.h"
 #include "StringsOnly.h"

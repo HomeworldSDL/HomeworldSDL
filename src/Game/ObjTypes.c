@@ -1,24 +1,23 @@
 /*=============================================================================
-    Name    : Objtypes.c
+    Name    : ObjTypes.c
     Purpose : Provides conversions for datatypes found in objtypes.h
 
     Created 6/24/1997 by gshaw
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#include <string.h>
-
-#if !defined _MSC_VER
-#include <strings.h>
-#endif
-
-
-#include "StatScript.h"
-#include "StringSupport.h"
 #include "ObjTypes.h"
 
+#include <string.h>
+
+#include "ClassDefs.h"
+#include "StatScript.h"
+#include "StringSupport.h"
+
 #ifdef _MSC_VER
-#define strcasecmp _stricmp
+    #define strcasecmp _stricmp
+#else
+    #include <strings.h>
 #endif
 
 /*=============================================================================

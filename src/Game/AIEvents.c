@@ -1,8 +1,10 @@
 #include "AIEvents.h"
-#include "AITeam.h"
-#include "Memory.h"
+
 #include "AIPlayer.h"
+#include "AITeam.h"
 #include "Blobs.h"
+#include "Debug.h"
+#include "Memory.h"
 
 //
 //  handle any events applicable for the

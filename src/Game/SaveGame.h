@@ -9,9 +9,9 @@
 #ifndef ___SAVEGAME_H
 #define ___SAVEGAME_H
 
-#include "Types.h"
-#include "SpaceObj.h"
 #include "ShipSelect.h"
+#include "SpaceObj.h"
+#include "Types.h"
 
 #define SAVE_VERSION_NUMBER_ORIGINAL    0x10ad0027  // save game version for original Homeworld (Relic)
 #define SAVE_VERSION_NUMBER_HWSDL       0x10ad0028  // save game version for Homeworld SDL project

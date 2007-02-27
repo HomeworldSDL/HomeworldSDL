@@ -7,60 +7,61 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
+#include "Universe.h"
+
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
 
-#if !defined _MSC_VER
-#include <strings.h>
-#endif
-
-
-#include "Debug.h"
-#include "Task.h"
-#include "File.h"
-#include "LinkedList.h"
-#include "Collision.h"
-#include "UnivUpdate.h"
-#include "Stats.h"
-#include "render.h"
-#include "StatScript.h"
-#include "Ships.h"
-#include "Formation.h"
-#include "MEX.h"
-#include "Tweak.h"
-#include "CommandNetwork.h"
-#include "utility.h"
-#include "LevelLoad.h"
-#include "AIShip.h"
-#include "Gun.h"
-#include "ETG.h"
-#include "Dock.h"
-#include "Universe.h"
 #include "AIPlayer.h"
-#include "StringSupport.h"
-#include "SoundEvent.h"
-#include "HorseRace.h"
-#include "MeshAnim.h"
-#include "MultiplayerGame.h"
-#include "GameChat.h"
-#include "SinglePlayer.h"
-#include "NavLights.h"
-#include "Teams.h"
-#include "Captaincy.h"
-#include "Bounties.h"
-#include "Tutor.h"
-#include "Ping.h"
-#include "SaveGame.h"
+#include "AIShip.h"
 #include "AutoDownloadMap.h"
-#include "LagPrint.h"
-#include "ScenPick.h"
+#include "Bounties.h"
+#include "Captaincy.h"
+#include "Collision.h"
+#include "CommandNetwork.h"
+#include "Debug.h"
+#include "Dock.h"
+#include "ETG.h"
 #include "FastMath.h"
+#include "File.h"
+#include "Formation.h"
+#include "GameChat.h"
+#include "Gun.h"
+#include "HorseRace.h"
+#include "LagPrint.h"
+#include "LevelLoad.h"
+#include "LinkedList.h"
+#include "Memory.h"
+#include "MeshAnim.h"
+#include "MEX.h"
+#include "MultiplayerGame.h"
+#include "NavLights.h"
 #include "NetCheck.h"
+#include "Ping.h"
+#include "render.h"
+#include "SaveGame.h"
+#include "ScenPick.h"
+#include "Ships.h"
+#include "SinglePlayer.h"
+#include "SoundEvent.h"
+#include "Stats.h"
+#include "StatScript.h"
+#include "StringSupport.h"
+#include "Task.h"
+#include "Teams.h"
+#include "Tutor.h"
+#include "Tweak.h"
+#include "UnivUpdate.h"
+#include "utility.h"
 
 #ifdef _MSC_VER
-#define strcasecmp _stricmp
+    #define strcasecmp _stricmp
+#else
+    #include <strings.h>
 #endif
+
+
 
 extern bool cheapShips;
 

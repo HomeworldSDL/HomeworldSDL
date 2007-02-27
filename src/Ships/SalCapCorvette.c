@@ -17,6 +17,7 @@
 #include "Carrier.h"
 #include "Clamp.h"
 #include "Collision.h"
+#include "CommandDefs.h"
 #include "FastMath.h"
 #include "GenericDefender.h"
 #include "GravWellGenerator.h"
@@ -33,6 +34,7 @@
 #include "SinglePlayer.h"
 #include "SoundEvent.h"
 #include "Tactics.h"
+#include "Tweak.h"
 #include "Universe.h"
 #include "UnivUpdate.h"
 

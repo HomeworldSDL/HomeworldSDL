@@ -3,11 +3,10 @@
 
 #include <SDL.h>
 
-#include "fqcodec.h"
-#include "fqeffect.h"
-#include "Types.h"
-#include "soundlow.h"
 #include "File.h"
+#include "fqcodec.h"
+#include "soundlow.h"
+#include "Types.h"
 
 #define NUM_FADE_BLOCKS		20
 
@@ -21,12 +20,12 @@
 /* Basic replacement for WAVEFORMATEX. */
 typedef struct
 {
-	Uint16 format;
-        Uint16 channels;
-        Uint32 frequency;
-        Uint32 avgBytesPerSecond;
-        Uint16 blockAlign;
-/*        Unit16 bitsPerSample; */
+    Uint16 format;
+    Uint16 channels;
+    Uint32 frequency;
+    Uint32 avgBytesPerSecond;
+    Uint16 blockAlign;
+/*    Unit16 bitsPerSample; */
 } SDLWAVEFORMAT;
 
 typedef struct

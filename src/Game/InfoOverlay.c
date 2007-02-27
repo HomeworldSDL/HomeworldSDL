@@ -7,16 +7,19 @@
 =============================================================================*/
 
 #include "InfoOverlay.h"
-#include "Key.h"
-#include "FontReg.h"
-#include "utility.h"
-#include "Select.h"
-#include "Task.h"
-#include "StatScript.h"
-#include "StringSupport.h"
-#include "Tutor.h"
 
 #include <stdio.h>
+
+#include "FontReg.h"
+#include "Globals.h"
+#include "Key.h"
+#include "Select.h"
+#include "StatScript.h"
+#include "StringSupport.h"
+#include "Task.h"
+#include "Tutor.h"
+#include "utility.h"
+
 
 /*=============================================================================
     Defines:

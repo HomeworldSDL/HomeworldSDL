@@ -7,22 +7,25 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#include <string.h>
-#include <stdlib.h>
-#include <math.h>
-#include "Debug.h"
-#include "Memory.h"
-#include "Universe.h"
-#include "FastMath.h"
-#include "Sensors.h"
-#include "NetCheck.h"
-#include "Battle.h"
-#include "SoundEvent.h"
-#include "GravWellGenerator.h"
 #include "Blobs.h"
+
+#include <math.h>
+#include <stdlib.h>
+#include <string.h>
+
 #include "Alliance.h"
-#include "TimeoutTimer.h"
+#include "Battle.h"
+#include "Debug.h"
+#include "FastMath.h"
+#include "Globals.h"
+#include "GravWellGenerator.h"
+#include "Memory.h"
+#include "NetCheck.h"
+#include "Sensors.h"
 #include "SinglePlayer.h"
+#include "SoundEvent.h"
+#include "TimeoutTimer.h"
+#include "Universe.h"
 
 #if BOB_STATS
 

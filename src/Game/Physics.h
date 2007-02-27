@@ -9,8 +9,6 @@
 #ifndef ___PHYSICS_H
 #define ___PHYSICS_H
 
-#include "Types.h"
-#include "Vector.h"
 #include "SpaceObj.h"
 
 /*=============================================================================

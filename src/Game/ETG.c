@@ -7,49 +7,51 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifdef _WIN32
-#include <windows.h>
-#endif
+#include "ETG.h"
 
-#include "glinc.h"
-#include <string.h>
-
-#if !defined _MSC_VER
-#include <strings.h>
-#endif
-
-#include <stdarg.h>
 #include <math.h>
-#include "Types.h"
-#include "File.h"
-#include "Memory.h"
-#include "Debug.h"
+#include <string.h>
+#include <stdarg.h>
+
+#include "Battle.h"
+#include "BTG.h"
 #include "Color.h"
+#include "Damage.h"
+#include "Debug.h"
+#include "Eval.h"
+#include "FastMath.h"
+#include "File.h"
+#include "glinc.h"
+#include "HorseRace.h"
+#include "mainrgn.h"
+#include "Memory.h"
+#include "Mesh.h"
+#include "MEX.h"
 #include "Particle.h"
 #include "Randy.h"
-#include "Eval.h"
-#include "StatScript.h"
-#include "utility.h"
-#include "texreg.h"
-#include "Mesh.h"
-#include "Select.h"
-#include "Task.h"
-#include "FastMath.h"
-#include "Battle.h"
-#include "mainrgn.h"
 #include "render.h"
-#include "BTG.h"
-#include "ETG.h"
+#include "Select.h"
 #include "SoundEvent.h"
-#include "MEX.h"
+#include "StatScript.h"
+#include "Task.h"
+#include "texreg.h"
+#include "Tweak.h"
+#include "Types.h"
 #include "Universe.h"
 #include "UnivUpdate.h"
-#include "Damage.h"
-#include "HorseRace.h"
+#include "utility.h"
+
+#ifdef _WIN32
+    #include <windows.h>
+#endif
 
 #ifdef _MSC_VER
-#define strcasecmp _stricmp
+    #define strcasecmp _stricmp
+#else
+    #include <strings.h>
 #endif
+
+
 
 /*=============================================================================
     Data:

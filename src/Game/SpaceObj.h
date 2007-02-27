@@ -7,20 +7,19 @@
 #ifndef ___SPACEOBJ_H
 #define ___SPACEOBJ_H
 
-#include "Types.h"
-#include "Vector.h"
-#include "Matrix.h"
-#include "LinkedList.h"
-#include "Mesh.h"
-#include "LOD.h"
-#include "ObjTypes.h"
-#include "ETG.h"
-#include "Trails.h"
 #include "Color.h"
-#include "SoundStructs.h"
+#include "ETG.h"
+#include "Globals.h"
+#include "LinkedList.h"
+#include "LOD.h"
+#include "Matrix.h"
+#include "MaxMultiplayer.h"
 #include "MeshAnim.h"
-#include "Clouds.h"
 #include "Nebulae.h"
+#include "ObjTypes.h"
+#include "SoundStructs.h"
+#include "Trails.h"
+#include "Vector.h"
 
 /*=============================================================================
     Switches:

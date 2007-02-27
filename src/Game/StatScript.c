@@ -6,35 +6,35 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
+#include "StatScript.h"
+
+#include <limits.h>
 #include <math.h>
 #include <stdio.h>
 #include <string.h>
 
-#if !defined _MSC_VER
-#include <strings.h>
-#endif
-
-#include <limits.h>
-
-#include "Debug.h"
-#include "Memory.h"
-#include "File.h"
 #include "Color.h"
-#include "SpaceObj.h"
-#include "Formation.h"
-#include "StatScript.h"
-#include "texreg.h"
-#include "Tactics.h"
-#include "MEX.h"
-#include "MultiplayerGame.h"
 #include "Crates.h"
-#include "Mothership.h"
+#include "Debug.h"
 #include "FastMath.h"
+#include "File.h"
+#include "Formation.h"
+#include "Memory.h"
+#include "MEX.h"
+#include "Mothership.h"
+#include "MultiplayerGame.h"
+#include "SpaceObj.h"
+#include "Tactics.h"
+#include "texreg.h"
+#include "Tweak.h"
 
 #ifdef _MSC_VER
-#define strcasecmp _stricmp
-#define strncasecmp strnicmp
+    #define strcasecmp  _stricmp
+    #define strncasecmp  strnicmp
+#else
+    #include <strings.h>
 #endif
+
 
 //#define USE_SPHERE_TABLES
 

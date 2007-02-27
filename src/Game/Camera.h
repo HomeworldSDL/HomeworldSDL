@@ -9,9 +9,7 @@
 #ifndef ___CAMERA_H
 #define ___CAMERA_H
 
-#include "Types.h"
 #include "Vector.h"
-#include "Matrix.h"
 
 /*=============================================================================
     Switches:

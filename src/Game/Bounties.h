@@ -9,9 +9,7 @@
 #ifndef ___BOUNTIES_H
 #define ___BOUNTIES_H
 
-#include "Types.h"
 #include "Universe.h"
-#include "SpaceObj.h"
 
 void BountyInit(sdword bountySettingSize);
 sdword getPlayerBountyRender(Player *player);

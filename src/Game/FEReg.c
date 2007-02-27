@@ -7,15 +7,19 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
+#include "FEReg.h"
+
 #include <string.h>
-#include "glinc.h"
+
 #include "Color.h"
+#include "Debug.h"
+#include "glcaps.h"
+#include "glinc.h"
+#include "HorseRace.h"
 #include "main.h"
+#include "Memory.h"
 #include "prim2d.h"
 #include "render.h"
-#include "FEReg.h"
-#include "glcaps.h"
-#include "HorseRace.h"
 
 
 #define DRAW_CUTOUTS 1

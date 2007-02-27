@@ -9,7 +9,6 @@
 #ifndef ___AISHIP_H
 #define ___AISHIP_H
 
-#include "Types.h"
 #include "SpaceObj.h"
 
 /*=============================================================================

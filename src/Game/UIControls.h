@@ -9,12 +9,8 @@
 #ifndef ___UICONTROLS_H
 #define ___UICONTROLS_H
 
-#include "Types.h"
-#include "Region.h"
 #include "FEFlow.h"
 #include "font.h"
-#include "LinkedList.h"
-#include "prim2d.h"
 
 /*=============================================================================
     Switches

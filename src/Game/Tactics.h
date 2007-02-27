@@ -7,12 +7,12 @@
 #ifndef ___TACTICS_H
 #define ___TACTICS_H
 
-#include "SpaceObj.h"
-#include "ObjTypes.h"
-#include "Task.h"
+#include "ClassDefs.h"
+#include "CommandLayer.h"
 #include "Region.h"
-#include "Select.h"
-#include "mainswitches.h"
+#include "SpaceObj.h"
+#include "Task.h"
+#include "Vector.h"
 
 // comment this bitch out and no more tacticsOn crap
 //#define DEBUG_TACTICS

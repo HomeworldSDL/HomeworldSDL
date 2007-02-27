@@ -7,8 +7,8 @@
 #ifndef ___KEY_H
 #define ___KEY_H
 
-#include "Types.h"
 #include "SDL_keysym.h"
+#include "Types.h"
 
 /*=============================================================================
     Switches:

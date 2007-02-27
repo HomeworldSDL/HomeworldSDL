@@ -7,17 +7,20 @@
 =============================================================================*/
 
 #include "AIDefenseMan.h"
-#include "AIPlayer.h"
+#include "AIFeatures.h"
 #include "AIFleetMan.h"
 #include "AIHandler.h"
-#include "AITeam.h"
+#include "AIMoves.h"
 #include "AIOrders.h"
+#include "AIPlayer.h"
+#include "AITeam.h"
 #include "AIUtilities.h"
+#include "Debug.h"
+#include "FastMath.h"
+#include "Memory.h"
+#include "Randy.h"
 #include "Select.h"
 #include "Stats.h"
-#include "AIMoves.h"
-#include "FastMath.h"
-#include "Randy.h"
 
 bool aitAnyTeamOfPlayerGuardingThisShip(struct AIPlayer *aiplayer,Ship *ship)
 {

@@ -10,18 +10,24 @@
 
 #include <stdarg.h>
 #include <string.h>
-#include "File.h"
-#include "Select.h"
-#include "AIFleetMan.h"
+
 #include "AIAttackMan.h"
 #include "AIDefenseMan.h"
-#include "AIUtilities.h"
+#include "AIFleetMan.h"
 #include "AIResourceMan.h"
-#include "Stats.h"
-#include "Randy.h"
+#include "AIUtilities.h"
+#include "Debug.h"
+#include "File.h"
+#include "Globals.h"
+#include "mainswitches.h"
+#include "Memory.h"
 #include "NIS.h"
+#include "Randy.h"
 #include "SaveGame.h"
+#include "Select.h"
 #include "SinglePlayer.h"
+#include "Stats.h"
+#include "Tweak.h"
 
 #define AIPLAYER_LOG_FILE_NAME "aiplayerlog.txt"
 

@@ -12,26 +12,29 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
-#include "Vector.h"
-#include "Matrix.h"
-#include "FastMath.h"
-#include "Debug.h"
-#include "Physics.h"
-#include "AITrack.h"
+
 #include "AIShip.h"
-#include "StatScript.h"
-#include "Universe.h"
-#include "Ships.h"
-#include "UnivUpdate.h"
-#include "Collision.h"
-#include "Blobs.h"
-#include "Tactics.h"
+#include "AITrack.h"
 #include "Alliance.h"
-#include "Randy.h"
+#include "Blobs.h"
+#include "Collision.h"
+#include "CommandDefs.h"
+#include "Debug.h"
+#include "FastMath.h"
+#include "Matrix.h"
+#include "Physics.h"
 #include "ProfileTimers.h"
+#include "Randy.h"
+#include "Ships.h"
+#include "StatScript.h"
+#include "Tactics.h"
+#include "Tweak.h"
+#include "UnivUpdate.h"
+#include "Universe.h"
+#include "Vector.h"
 
 #define DEBUG_AISHIP    0
 

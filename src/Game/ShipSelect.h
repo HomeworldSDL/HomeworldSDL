@@ -9,7 +9,6 @@
 #ifndef ___SHIPSELECT_H
 #define ___SHIPSELECT_H
 
-#include "Types.h"
 #include "SpaceObj.h"
 
 /*=============================================================================

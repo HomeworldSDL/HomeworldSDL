@@ -7,8 +7,8 @@
 #ifndef ___MEMORY_H
 #define ___MEMORY_H
 
-#include "Task.h"
 #include "LinkedList.h"
+#include "Task.h"
 
 /*=============================================================================
     Switches:

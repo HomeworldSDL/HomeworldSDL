@@ -1,9 +1,3 @@
-#ifndef ___TIMER_H
-#define ___TIMER_H
-
-#include "Types.h"
-#include "Universe.h"
-
 //
 //  Created 1997/07/01  Darren Stone
 //
@@ -15,6 +9,11 @@
 //  the named referencing of these timers make using
 //  them a little slower, but friendly for scripting, etc.
 //
+
+#ifndef ___TIMER_H
+#define ___TIMER_H
+
+#include "Types.h"
 
 #define TIMER_NAME_MAX_LENGTH 47
 

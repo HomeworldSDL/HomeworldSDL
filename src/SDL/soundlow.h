@@ -9,9 +9,10 @@
 #ifndef ___SOUNDLOW_H
 #define ___SOUNDLOW_H
 
-#include "Types.h"
-#include "fqcodec.h"
+#include <SDL.h>
+
 #include "fqeffect.h"
+#include "Types.h"
 
 #define SND_SYNC            0x0000  /* play synchronously (default) */
 #define SND_ASYNC           0x0001  /* play asynchronously */

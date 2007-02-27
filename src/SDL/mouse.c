@@ -6,45 +6,47 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifdef _WIN32
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-#endif
+#include "mouse.h"
 
 #include "SDL.h"
 
+#include "CommandWrap.h"
 #include "DDDFrigate.h"
 #include "Debug.h"
+#include "Demo.h"
+#include "devstats.h"
 #include "Dock.h"
+#include "FEFlow.h"
 #include "font.h"
 #include "FontReg.h"
+#include "glcaps.h"
 #include "glinc.h"
 #include "Globals.h"
 #include "GravWellGenerator.h"
+#include "InfoOverlay.h"
+#include "KeyBindings.h"
 #include "main.h"
 #include "mainrgn.h"
-#include "mouse.h"
+#include "Memory.h"
 #include "NIS.h"
+#include "render.h"
+#include "ResearchGUI.h"
 #include "Select.h"
 #include "Sensors.h"
 #include "ShipSelect.h"
+#include "SinglePlayer.h"
 #include "SoundEvent.h"
+#include "StringSupport.h"
 #include "texreg.h"
+#include "Tutor.h"
 #include "Tweak.h"
 #include "Universe.h"
 #include "utility.h"
-#include "CommandWrap.h"
-#include "StringSupport.h"
-#include "Demo.h"
-#include "FEFlow.h"
-#include "ResearchGUI.h"
-#include "glcaps.h"
-#include "render.h"
-#include "Tutor.h"
-#include "SinglePlayer.h"
-#include "KeyBindings.h"
-#include "InfoOverlay.h"
-#include "devstats.h"
+
+#ifdef _WIN32
+    #define WIN32_LEAN_AND_MEAN
+    #include <windows.h>
+#endif
 
 
 #define GLC_STORE 1

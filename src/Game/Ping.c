@@ -15,6 +15,7 @@
 #include "Battle.h"
 #include "Camera.h"
 #include "CameraCommand.h"
+#include "CommandDefs.h"
 #include "Debug.h"
 #include "FastMath.h"
 #include "Memory.h"
@@ -25,10 +26,13 @@
 #include "Select.h"
 #include "Sensors.h"
 #include "SoundEvent.h"
+#include "SoundEventDefs.h"
+#include "StatScript.h"
 #include "StringSupport.h"
 #include "Tactical.h"
 #include "Task.h"
 #include "Teams.h"
+#include "Tweak.h"
 #include "Universe.h"
 
 /*=============================================================================

@@ -1,37 +1,39 @@
 /*=============================================================================
-    Name    : nebulae.c
+    Name    : Nebulae.c
     Purpose : management and display of nebulae
 
     Created 3/9/1998 by khent
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifndef SW_Render
-#ifdef _WIN32
-#include <windows.h>
-#endif
-#endif
+#include "Nebulae.h"
+
+#include <math.h>
 #include <stdio.h>
 #include <string.h>
-#include <math.h>
+
+#include "AutoLOD.h"
+#include "Debug.h"
+#include "FastMath.h"
+#include "glcaps.h"
+#include "glinc.h"
+#include "Globals.h"
+#include "mainrgn.h"
+#include "Matrix.h"
 #include "Memory.h"
 #include "Randy.h"
-#include "glinc.h"
-#include "FastMath.h"
 #include "render.h"
-#include "Debug.h"
-#include "UnivUpdate.h"
-#include "StatScript.h"
-#include "Matrix.h"
-#include "Universe.h"
-#include "Nebulae.h"
-#include "mainrgn.h"
-#include "AutoLOD.h"
-
-#include "Shader.h"
-#include "glcaps.h"
-
 #include "SaveGame.h"
+#include "Shader.h"
+#include "StatScript.h"
+#include "Universe.h"
+#include "UnivUpdate.h"
+
+#ifndef SW_Render
+    #ifdef _WIN32
+        #include <windows.h>
+    #endif
+#endif
 
 ubyte nebColor[4];
 

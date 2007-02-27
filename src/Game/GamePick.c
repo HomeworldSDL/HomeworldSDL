@@ -6,47 +6,45 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#ifdef _WIN32
-#include <windows.h>
-#endif
+#include "GamePick.h"
+
 #include <stdlib.h>
 #include <string.h>
-
-#if !defined _MSC_VER
-#include <strings.h>
-#endif
-
-#ifndef _MSC_VER
-    #include <dirent.h>
-#endif
-#ifdef _MSC_VER
-#include <io.h>
-#endif
 #include <ctype.h>
 #include <limits.h>
+
+#include "CommandDefs.h"
+#include "CommandWrap.h"
 #include "Debug.h"
+#include "FEColour.h"
 #include "File.h"
-#include "Memory.h"
-#include "utility.h"
 #include "font.h"
 #include "FontReg.h"
-#include "prim2d.h"
-#include "Scroller.h"
-#include "SaveGame.h"
-#include "GamePick.h"
-#include "MultiplayerGame.h"
-#include "Universe.h"
-#include "NetCheck.h"
 #include "Globals.h"
-#include "FEColour.h"
-#include "StringsOnly.h"
-#include "CommandWrap.h"
-#include "SinglePlayer.h"
 #include "mainrgn.h"
+#include "mainswitches.h"
+#include "Memory.h"
+#include "MultiplayerGame.h"
+#include "NetCheck.h"
+#include "prim2d.h"
+#include "SaveGame.h"
+#include "Scroller.h"
+#include "SinglePlayer.h"
 #include "SoundEvent.h"
+#include "StringsOnly.h"
+#include "Universe.h"
+#include "utility.h"
+
+#ifdef _WIN32
+    #include <windows.h>
+#endif
 
 #ifdef _MSC_VER
-#define strcasecmp _stricmp
+    #include <io.h>
+    #define strcasecmp _stricmp
+#else
+    #include <dirent.h>
+    #include <strings.h>
 #endif
 
 /*=============================================================================

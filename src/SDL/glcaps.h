@@ -9,14 +9,16 @@ Copyright Relic Entertainment, Inc.  All rights reserved.
 #ifndef ___GLCAPS_H
 #define ___GLCAPS_H
 
-#ifndef SW_Render
-#ifdef _WIN32
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-#endif
-#endif
-#include "Types.h"
 #include "glinc.h"
+#include "Types.h"
+
+#ifndef SW_Render
+    #ifdef _WIN32
+        #define WIN32_LEAN_AND_MEAN
+        #include <windows.h>
+    #endif
+#endif
+
 
 #define GL_SWAPFRIENDLY 0xffe01
 #define GL_COMPILED_ARRAYS_EXT 0xffe02

@@ -7,12 +7,13 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-
-#include "Types.h"
-#include "texreg.h"
 #include "LagPrint.h"
-#include "FEReg.h"
+
 #include "CommandNetwork.h"
+#include "Debug.h"
+#include "FEReg.h"
+#include "texreg.h"
+#include "Types.h"
 
 //  Data to be added to tweak.script later
 

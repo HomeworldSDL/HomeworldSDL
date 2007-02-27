@@ -10,7 +10,8 @@
 #define ___SENSORS_H
 
 #include "FEFlow.h"
-#include "Types.h"
+#include "Matrix.h"
+#include "ShipDefs.h"
 
 /*=============================================================================
     Switches:

@@ -6,39 +6,43 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
+#include "TaskBar.h"
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
-#if !defined _MSC_VER
-#include <strings.h>
-#endif
-
-
+#include "CommandDefs.h"
 #include "Debug.h"
-#include "Memory.h"
-#include "Universe.h"
-#include "mainrgn.h"
-#include "Select.h"
-#include "utility.h"
+#include "FEColour.h"
 #include "font.h"
 #include "FontReg.h"
-#include "Sensors.h"
 #include "Globals.h"
-#include "TaskBar.h"
-#include "main.h"
 #include "InfoOverlay.h"
-#include "Objectives.h"
-#include "Tutor.h"
-#include "ObjTypes.h"
 #include "LaunchMgr.h"
+#include "main.h"
+#include "mainrgn.h"
+#include "Memory.h"
+#include "Objectives.h"
+#include "ObjTypes.h"
+#include "PiePlate.h"
+#include "Select.h"
+#include "Sensors.h"
 #include "SinglePlayer.h"
 #include "StringSupport.h"
 #include "Subtitle.h"
+#include "Tutor.h"
+#include "UIControls.h"
+#include "Universe.h"
+#include "utility.h"
 
 #ifdef _MSC_VER
-#define strcasecmp _stricmp
+    #define strcasecmp _stricmp
+#else
+    #include <strings.h>
 #endif
+
+
 
 
 /*=============================================================================

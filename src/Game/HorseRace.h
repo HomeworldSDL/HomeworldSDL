@@ -8,8 +8,8 @@
 #ifndef ___HORSERACE_H
 #define ___HORSERACE_H
 
-#include "Types.h"
-#include "Globals.h"
+#include "CommandNetwork.h"
+#include "MaxMultiplayer.h"
 
 /*=============================================================================
     defines:
@@ -65,14 +65,12 @@ extern HorseStatus horseracestatus;
 /*=============================================================================
     Prototypes:
 =============================================================================*/
-struct ChatPacket;
-
 void horseRaceInit(void);
 void horseRaceShutdown(void);
 
 void horseRaceWaitForNetworkGameStart(void);
 
-void hrProcessPacket(struct ChatPacket *packet);
+void hrProcessPacket(ChatPacket *packet);
 
 void recievedHorsePacketCB(ubyte *packet,udword sizeofpacket);
 

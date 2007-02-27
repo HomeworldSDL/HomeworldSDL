@@ -6,24 +6,28 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
+#include "PlugScreen.h"
+
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
-#include "glinc.h"
-#include "Task.h"
+
 #include "Color.h"
-#include "prim2d.h"
-#include "interfce.h"
-#include "FontReg.h"
-#include "StatScript.h"
+#include "Debug.h"
 #include "FEFlow.h"
+#include "FontReg.h"
+#include "glinc.h"
+#include "interfce.h"
+#include "Memory.h"
 #include "mouse.h"
-#include "utility.h"
-#include "SoundEvent.h"
-#include "StringSupport.h"
-#include "PlugScreen.h"
+#include "prim2d.h"
 #include "render.h"
+#include "SoundEvent.h"
+#include "StatScript.h"
+#include "StringSupport.h"
+#include "Task.h"
+#include "utility.h"
 
 /*=============================================================================
     Data:

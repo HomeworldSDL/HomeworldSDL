@@ -9,9 +9,8 @@
 #ifndef ___MEX_H
 #define ___MEX_H
 
-#include "Types.h"
-#include "Vector.h"
 #include "SpaceObj.h"
+#include "Vector.h"
 
 typedef struct tagMEXFileHeader
 {

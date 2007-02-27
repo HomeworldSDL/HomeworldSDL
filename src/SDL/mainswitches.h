@@ -2,13 +2,12 @@
 #ifndef ___MAINSWITCHES_H
 #define ___MAINSWITCHES_H
 
+#include "MaxMultiplayer.h"
 #include "Types.h"
+
 #ifndef STATVIEWER_PROGRAM
 //statviewer program is compiling this bitch...lets not do this
-#include "Globals.h"
 #endif
-#include "ObjTypes.h"
-#include "Formation.h"
 
 //command-line switches and parameters
 extern bool DebugWindow;

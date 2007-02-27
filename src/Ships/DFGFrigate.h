@@ -9,6 +9,7 @@
 #define ___DFGFRIGATE_H
 
 #include "SpaceObj.h"
+#include "Types.h"
 
 typedef struct
 {

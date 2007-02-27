@@ -7,23 +7,25 @@
 =============================================================================*/
 
 #include <stdio.h>
+
+#include "Animatic.h"
+#include "avi.h"
+/*#include "bink.h"*/
+#include "Debug.h"
+#include "File.h"
+#include "glcaps.h"
 #include "glinc.h"
 #include "main.h"
 #include "Memory.h"
-/*#include "bink.h"*/
-#include "render.h"
-#include "File.h"
-#include "Debug.h"
-#include "Animatic.h"
-#include "NIS.h"
-#include "Tutor.h"
-#include "Subtitle.h"
-#include "Universe.h"
 #include "mouse.h"
+#include "NIS.h"
+#include "render.h"
 #include "SoundEvent.h"
 #include "soundlow.h"
-#include "glcaps.h"
 #include "StringSupport.h"
+#include "Subtitle.h"
+#include "Tutor.h"
+#include "Universe.h"
 
 sdword animaticJustPlayed = 0;
 

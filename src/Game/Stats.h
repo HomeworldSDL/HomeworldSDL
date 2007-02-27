@@ -9,10 +9,10 @@
 #ifndef ___STATS_H
 #define ___STATS_H
 
-#include "Types.h"
 #include "ShipDefs.h"
-#include "SpaceObj.h"
 #include "ShipSelect.h"
+#include "StatScript.h"
+#include "Types.h"
 
 #define NUM_SHIPS_TO_GATHER_STATS_FOR   (TOTAL_STD_SHIPS+TOTAL_STD_SHIPS+TOTAL_P1_SHIPS+TOTAL_P2_SHIPS+TOTAL_P3_SHIPS)
 

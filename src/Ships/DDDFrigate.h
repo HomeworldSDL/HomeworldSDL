@@ -9,6 +9,7 @@
 #define ___DDDFRIGATE_H
 
 #include "SpaceObj.h"
+#include "Types.h"
 
 #define MAX_NUM_DRONES      24
 
