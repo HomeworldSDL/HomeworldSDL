@@ -1,10 +1,10 @@
-/*=============================================================================
-    Name    : mouse.h
-    Purpose : Hardware abstraction for the mouse.
-
-    Created 6/26/1997 by lmoloney
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  mouse.h
+//  - Hardware abstraction for the mouse.
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 6/26/1997 by lmoloney
+// =============================================================================
 
 #ifndef ___MOUSE_H
 #define ___MOUSE_H
@@ -15,21 +15,6 @@
 #include "Types.h"
 
 /*=============================================================================
-    Switches:
-=============================================================================*/
-#ifdef HW_BUILD_FOR_DEBUGGING
-
-#define MOUSE_ERROR_CHECKING        1           //general error checking
-#define MOUSE_CURSOR_CLAMP          1           //clamp location of cursor to bounds of the window
-
-#else
-
-#define MOUSE_ERROR_CHECKING        0           //general error checking
-#define MOUSE_CURSOR_CLAMP          1           //clamp location of cursor to bounds of the window
-
-#endif //HW_BUILD_FOR_DISTRIBUTION
-
-/*=============================================================================
     Definitions:
 =============================================================================*/
 #define MB_Left             0x0001
@@ -37,9 +22,9 @@
 #define MB_Centre           0x0004
 
 //mouse cursor special modes
-#define MCM_Pointmode      0x0001
-#define MCM_SingleClick    0x0010
-#define MCM_DoubleClick    0x0020
+#define MCM_Pointmode       0x0001
+#define MCM_SingleClick     0x0010
+#define MCM_DoubleClick     0x0020
 #define MCM_CursorOverObj   0x0040
 
 //mouse cursorover types
@@ -53,7 +38,7 @@
 #define MC_MOUSEHOLDTIME 1.0
 
 //cursor colors
-#define MC_ContentColor     colRGB(32, 176, 12)
+#define MC_ContentColor     colRGB( 32, 176,  12)
 #define MC_EdgeColor        colRGB(200, 200, 200)
 
 //cursor bitmap filenames
@@ -77,7 +62,7 @@
 #define MC_SUPPORT_BM               MC_PATH"support.LiF"
 #define MC_TRADERS_BM               MC_PATH"trader.LiF"
 
-#define MOUSE_IdentifyLODMask       0x3       //what LOD you have to see the ship at in order to identify it
+#define MOUSE_IdentifyLODMask       0x3       // LOD required in order to identify a ship
 
 /*=============================================================================
     Data:
@@ -118,36 +103,19 @@ typedef enum
     resource,
     derelict,
     docking,
-   small_docking,
+    small_docking,
     research,
     sensors,
     build,
     salvage,
     support,
     traders,
-   enemy_ship,
+    enemy_ship,
     allied_ship,
     own_ship,
     end_cursor_type
 } mouseCursor;
 
-
-//verify module started/not started
-#if MOUSE_ERROR_CHECKING
-#define mouseInitCheck()                                \
-if (mouseModuleInit == FALSE)                           \
-{                                                       \
-    dbgFatal(DBG_Loc, "Module not initialized.");       \
-}
-#define mouseNotInitCheck()                             \
-if (mouseModuleInit != FALSE)                           \
-{                                                       \
-    dbgFatal(DBG_Loc, "Module not initialized.");       \
-}
-#else
-#define mouseInitCheck()
-#define mouseNotInitCheck()
-#endif //MOUSE_ERROR_CHECKING
 
 #define mouseCursorX()          (mouseCursorXPosition)
 #define mouseCursorY()          (mouseCursorYPosition)
@@ -205,7 +173,6 @@ void mouseCursorSet(udword mode);
 void mouseCursorClear(udword mode);
 
 //cursor text code
-//void mouseCursorText(SpaceObj *cursorobj);
 void mouseCursorTextDraw(void);
 
 //poll current location of mouse and store internally

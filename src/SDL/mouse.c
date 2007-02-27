@@ -49,13 +49,17 @@
 #endif
 
 
-#define GLC_STORE 1
-
-extern udword gDevcaps2;
-
 /*=============================================================================
     Local Type Definitions:
 =============================================================================*/
+#ifdef HW_BUILD_FOR_DEBUGGING
+    #define MOUSE_CURSOR_CLAMP   1    // clamp location of cursor to bounds of the window
+#else
+    #define MOUSE_CURSOR_CLAMP   1
+#endif
+
+#define GLC_STORE 1
+
 //flag settings
 #define MCF_SpecialOp                   0x00000001  //has a special operation
 #define MCF_SpecialOpDeployed           0x00000002  //has a special operation already deployed
@@ -93,7 +97,8 @@ typedef struct
 //so we need to include singlePlayerGameInfo
 extern SinglePlayerGameInfo singlePlayerGameInfo;
 
-//extern void (*mrHoldRight)(void);
+extern udword gDevcaps2;
+
 
 sdword mouseCursorXPosition, mouseCursorYPosition;
 uword mouseButtons;
@@ -174,6 +179,7 @@ static GLuint tex_Traders = 0;
 
 
 static mouseInfoType mouseInfo = {0, 0, 0, MC_NO_SHIP};
+
 
 /*=============================================================================
     Functions:
