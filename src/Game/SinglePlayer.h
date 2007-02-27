@@ -64,6 +64,8 @@ typedef enum
 
 #define SP_CAMERA_POINT_NAME        "StartCameraPosition"
 
+#define NUMBER_SINGLEPLAYER_MISSIONS 19
+
 /*=============================================================================
     Type definitions:
 =============================================================================*/

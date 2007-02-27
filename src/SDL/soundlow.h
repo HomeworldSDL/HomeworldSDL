@@ -9,8 +9,6 @@
 #ifndef ___SOUNDLOW_H
 #define ___SOUNDLOW_H
 
-#include <SDL.h>
-
 #include "fqeffect.h"
 #include "Types.h"
 

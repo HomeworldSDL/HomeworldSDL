@@ -422,16 +422,17 @@ main(int argc, char **argv)
     fprintf(yyhout, "//  types and exposed game functions\n");
     fprintf(yyhout, "//\n");
     fprintf(yyhout, "#include <string.h>\n");
+    fprintf(yyhout, "#include \"AIMoves.h\"\n");
+    fprintf(yyhout, "#include \"AITeam.h\"\n");
+    fprintf(yyhout, "#include \"Attributes.h\"\n");
+    fprintf(yyhout, "#include \"CommandWrap.h\"\n");
+    fprintf(yyhout, "#include \"KASFunc.h\"\n");
+    fprintf(yyhout, "#include \"Objectives.h\"\n");
+    fprintf(yyhout, "#include \"Timer.h\"\n");
+    fprintf(yyhout, "#include \"TradeMgr.h\"\n");
     fprintf(yyhout, "#include \"Types.h\"\n");
     fprintf(yyhout, "#include \"Vector.h\"\n");
-    fprintf(yyhout, "#include \"AITeam.h\"\n");
-    fprintf(yyhout, "#include \"AIMoves.h\"\n");
-    fprintf(yyhout, "#include \"CommandWrap.h\"\n");
-    fprintf(yyhout, "#include \"Timer.h\"\n");
     fprintf(yyhout, "#include \"Volume.h\"\n");
-    fprintf(yyhout, "#include \"Objectives.h\"\n");
-    fprintf(yyhout, "#include \"Attributes.h\"\n");
-    fprintf(yyhout, "#include \"TradeMgr.h\"\n");
 
     // declarations of function list information
     if (yyfout)

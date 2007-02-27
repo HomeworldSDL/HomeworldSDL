@@ -86,9 +86,6 @@
 #endif
 
 
-
-#define NUMBER_SINGLEPLAYER_MISSIONS 19
-
 #define ShipCanMakeHyperspace(ship) (ShipCanHyperspace(ship) && ((ship)->specialFlags & SPECIAL_SinglePlayerWithinHyperSpaceRange))
 #define WARP_FILENAME "Warp.script"
 

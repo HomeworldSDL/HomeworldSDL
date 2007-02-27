@@ -20,6 +20,7 @@
 #include "mouse.h"
 #include "NIS.h"
 #include "render.h"
+#include "SinglePlayer.h"
 #include "SoundEvent.h"
 #include "soundlow.h"
 #include "StringSupport.h"
@@ -29,17 +30,19 @@
 
 sdword animaticJustPlayed = 0;
 
-static sdword g_frame, g_displayFrame;
-static bool   g_cleared;
+static sdword g_frame;
 
-#define NUM_SP_MISSIONS 19
+#ifdef HW_ENABLE_MOVIES
+static sdword g_displayFrame;
+static bool   g_cleared;
+#endif
 
 typedef struct
 {
     char filename[32];
 } animlst;
 
-static animlst animlisting[NUM_SP_MISSIONS];
+static animlst animlisting[NUMBER_SINGLEPLAYER_MISSIONS];
 
 static nisheader* animScriptHeader = NULL;
 static sdword animCurrentEvent;
@@ -642,7 +645,7 @@ void animStartup(void)
     char   line[128], temp[64];
     sdword level;
 
-    memset(animlisting, 0, NUM_SP_MISSIONS*sizeof(animlst));
+    memset(animlisting, 0, NUMBER_SINGLEPLAYER_MISSIONS*sizeof(animlst));
 
 #ifdef _WIN32
     if (!fileExists("Movies\\animatics.lst", 0))
@@ -669,7 +672,7 @@ void animStartup(void)
             continue;
         }
         sscanf(line, "%d %s", &level, temp);
-        dbgAssertOrIgnore(level >= 0 && level < NUM_SP_MISSIONS);
+        dbgAssertOrIgnore(level >= 0 && level < NUMBER_SINGLEPLAYER_MISSIONS);
         memStrncpy(animlisting[level].filename, temp, 31);
     }
     fileClose(lst);
@@ -685,7 +688,7 @@ void animStartup(void)
 void animShutdown(void)
 {
 #ifdef _MACOSX_FIX_ME	/* BINK!@#$3 */
-    memset(animlisting, 0, NUM_SP_MISSIONS*sizeof(animlst));
+    memset(animlisting, 0, NUMBER_SINGLEPLAYER_MISSIONS*sizeof(animlst));
 #endif	/* BONK!@#$1$ */
 }
 
@@ -722,7 +725,7 @@ bool animBinkPlay(sdword a, sdword b)
     }
     else
     {
-        dbgAssertOrIgnore(a >= 0 && b < NUM_SP_MISSIONS);
+        dbgAssertOrIgnore(a >= 0 && b < NUMBER_SINGLEPLAYER_MISSIONS);
         if (animlisting[a].filename[0] == '\0')
         {
             return FALSE;
@@ -810,7 +813,7 @@ bool animAviPlay(sdword a, sdword b)
     }
     else
     {
-        dbgAssertOrIgnore(a >= 0 && b < NUM_SP_MISSIONS);
+        dbgAssertOrIgnore(a >= 0 && b < NUMBER_SINGLEPLAYER_MISSIONS);
         if (animlisting[a].filename[0] == '\0')
         {
             return FALSE;

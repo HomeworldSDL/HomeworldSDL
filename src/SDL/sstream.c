@@ -8,10 +8,6 @@
 
 // #include "sstream.h"  // this does not exist
 
-#include <string.h>
-
-#include <SDL_thread.h>
-
 #include "Debug.h"
 #include "File.h"
 #include "fqeffect.h"
@@ -34,7 +30,6 @@
 
 /* functions */
 sdword isoundstreamreadheader(STREAM *pstream);
-
 
 /* variables */
 streamprintfunction	debugfunction = NULL;

@@ -16,8 +16,6 @@
 #include "Vector.h"
 
 
-
-
 /*=============================================================================
     Private Defines:
 =============================================================================*/
@@ -35,12 +33,12 @@
 #define SOUNDFXDIR "SoundFX/"
 #endif
 
-#define CGW1 0
 #if defined(HW_GAME_DEMO)
 #define SE_NUM_ACTORS		4
 #else
 #define SE_NUM_ACTORS		5
 #endif
+
 #define SE_NUM_STREAMS      (SE_NUM_ACTORS + 2)
 
 #define ACTOR_FLEETCOMMAND  0
