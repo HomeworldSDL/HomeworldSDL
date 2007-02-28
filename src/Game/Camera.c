@@ -16,7 +16,7 @@
 #include "Debug.h"
 #include "FastMath.h"
 #include "Key.h"
-#include "Render.h"
+#include "render.h"
 #include "StatScript.h"
 #include "Universe.h"
 

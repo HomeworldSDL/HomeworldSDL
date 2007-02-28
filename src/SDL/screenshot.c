@@ -15,7 +15,7 @@
     #include <sys/mman.h>
 #endif
 
-#include "debug.h"
+#include "Debug.h"
 #include "gldefines.h"
 #include "gldll.h"
 #include "interfce.h"
