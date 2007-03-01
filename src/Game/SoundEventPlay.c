@@ -18,6 +18,7 @@
 #include "SoundEventDefs.h"
 #include "SoundEventPrivate.h"
 #include "soundlow.h"
+#include "Switches.h"
 
 #define OBJ_None    -1
 #define OBJ_Gun     -2

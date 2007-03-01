@@ -24,6 +24,7 @@
 #include "SoundEventDefs.h"
 #include "SoundEventPrivate.h"
 #include "SoundMusic.h"
+#include "Switches.h"
 #include "Types.h"
 #include "UnivUpdate.h"
 #include "utility.h"
