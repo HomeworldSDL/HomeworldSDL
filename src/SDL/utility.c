@@ -3864,8 +3864,22 @@ char* utyGameSystemsPreInit(void)
     frStartup();
     utySet(SSA_FontReg);
 
+    if (fileHomeworldRootPath[0] == '\0')
+    {
+        // this isn't something we'd ever want to reset so we do the setting
+        // here rather than write a wrapper function in File.c which might
+        // otherwise be abused
+        getcwd(fileHomeworldRootPath, PATH_MAX);
+        
+#ifdef WIN32
+        strncat(fileHomeworldRootPath, "\\", 1);
+#else
+        strncat(fileHomeworldRootPath,  "/", 1);
+#endif
+    }
+
     // Set file search path
-    if (FilePathPrepended == FALSE)
+    if (filePrependPath[0] == '\0')
     {
         if ((dataEnvironment = getenv("HW_Data") ? getenv("HW_Data") : regDataEnvironment)[0] != '\0')
         {
@@ -3875,7 +3889,7 @@ char* utyGameSystemsPreInit(void)
     }
 
     // Attempt to set the CD-ROM path
-    if(CDROMPathPrepended == FALSE)
+    if (fileCDROMPath[0] == '\0')
     {
         char drivePath[PATH_MAX];
 
@@ -3902,7 +3916,7 @@ char* utyGameSystemsPreInit(void)
     }
 
 	// Attempt to set the user settings path.
-	if (UserSettingsPathPrepended == FALSE)
+	if (fileUserSettingsPath[0] == '\0')
 	{
 #ifdef _WIN32
 		// Use the same directory as the Homeworld data (similar to the

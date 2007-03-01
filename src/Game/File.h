@@ -57,20 +57,21 @@
 #define FS_End                  SEEK_END
 
 //results of file stream operations
-#define FR_EndOfFile            -12             //some unlikely number to indicate end of file
+#define FR_EndOfFile            -12             // some unlikely number to indicate end of file
 
 //flags for opening files
-#define FF_TextMode             1               //open file in text mode
-#define FF_IgnoreDisk           2               //don't search on disk, look straight in the .BIG file
-#define FF_DontUse0             4               //These bits are reserved for flag compatability with memory module
-#define FF_DontUse1             8
-#define FF_WriteMode            16              //open file for writing to
-#define FF_AppendMode           32              //open file for appending to
-#define FF_ReturnNULLOnFail     64              //open file, but if fail return NULL instead of doing Fatal Error
-#define FF_CDROM                128             //open from CD-ROM
-#define FF_IgnoreBIG            256             //don't look in .BIG file, only try to load from disk
-#define FF_IgnorePrepend        512             //don't add stock path to beginning of file names
-#define FF_UserSettingsPath     1024            //use ~/.homeworld as the base path
+#define FF_TextMode             0x0001          // open file in text mode
+#define FF_IgnoreDisk           0x0002          // don't search on disk, look straight in the .BIG file
+#define FF_DontUse0             0x0004          // These bits are reserved for flag compatability with memory module
+#define FF_DontUse1             0x0008
+#define FF_WriteMode            0x0010          // open file for writing to
+#define FF_AppendMode           0x0020          // open file for appending to
+#define FF_ReturnNULLOnFail     0x0040          // open file, but if fail return NULL instead of doing Fatal Error
+#define FF_CDROM                0x0080          // open from CD-ROM
+#define FF_IgnoreBIG            0x0100          // don't look in .BIG file, only try to load from disk
+#define FF_IgnorePrepend        0x0200          // don't environment root path to beginning of file names
+#define FF_UserSettingsPath     0x0400          // use user configuration root as the base path
+#define FF_HomeworldRootPath    0x0800          // Homeworld's root directory
 
 //names of log files
 #define FN_OpenLog              "open.log"
@@ -129,6 +130,9 @@ void fileUserSettingsPathSet(char *path);
 #endif
 
 extern char filePrependPath[];
+extern char fileHomeworldRootPath[];
+extern char fileCDROMPath[];
+extern char fileUserSettingsPath[];
 
 //load files directly into memory
 sdword fileLoadAlloc(char *fileName, void **address, udword flags);

@@ -70,11 +70,13 @@ extern FILE *updateFP;
     Data:
 =============================================================================*/
 #if FILE_PREPEND_PATH
-char filePrependPath[PATH_MAX + 1];
-char fileCDROMPath[PATH_MAX + 1];
-char fileUserSettingsPath[PATH_MAX + 1];
-char filePrependedPath[PATH_MAX + 1];
+char filePrependPath       [PATH_MAX + 1] = "";
+char filePrependedPath     [PATH_MAX + 1] = "";
 #endif
+
+char fileHomeworldRootPath [PATH_MAX + 1] = "";
+char fileCDROMPath         [PATH_MAX + 1] = "";
+char fileUserSettingsPath  [PATH_MAX + 1] = "";
 
 // filehandles are an index into this array
 // (NOTE:  the first entry is wasted -- since a filehandle of 0
@@ -2104,23 +2106,29 @@ char *filePathPrepend(char *fileName, udword flags)
 
     if (bitTest(flags, FF_IgnorePrepend))
     {
-        strcpy(filePrependedPath,fileName);     // just copy, don't actually prepend
+        strcpy(filePrependedPath, fileName);                // just copy, don't actually prepend
         return(filePrependedPath);
+    }
+    else if (bitTest(flags, FF_HomeworldRootPath))
+    {
+        strcpy(filePrependedPath, fileHomeworldRootPath);
     }
     else if (bitTest(flags, FF_UserSettingsPath))
     {
-        strcpy(filePrependedPath, fileUserSettingsPath);
+        strcpy(filePrependedPath, fileUserSettingsPath);    // user's personal configuration area
     }
     else if (bitTest(flags, FF_CDROM))
     {
-        strcpy(filePrependedPath, fileCDROMPath);           //get the CD-ROM path
+        strcpy(filePrependedPath, fileCDROMPath);           // get the CD-ROM path
     }
     else
     {
-        strcpy(filePrependedPath, filePrependPath);         //get the prepend path
+        strcpy(filePrependedPath, filePrependPath);         // get the prepend path
     }
-    strcat(filePrependedPath, fileName);                    //put the file name on the end
-    return(filePrependedPath);
+    
+    strcat(filePrependedPath, fileName);                    // put the file name on the end
+
+    return filePrependedPath;
 }
 
 /*-----------------------------------------------------------------------------

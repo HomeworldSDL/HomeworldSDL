@@ -259,17 +259,27 @@ char *spTitleFind(char *directory, char *fileName)
     filehandle handle;
     sdword status;
 
+    // <directory>/<filename>/<filename>.level
     memStrncpy(fullName, directory, PATH_MAX - 1);
-    strcat(fullName, fileName);
+    
 #ifdef _WIN32
     strcat(fullName,"\\");
 #else
     strcat(fullName,"/");
 #endif
-    strcat(fullName, fileName);
-    strcat(fullName,".level");
 
-    handle = fileOpen(fullName, FF_TextMode|FF_ReturnNULLOnFail);
+    strcat(fullName, fileName);
+
+#ifdef _WIN32
+    strcat(fullName,"\\");
+#else
+    strcat(fullName,"/");
+#endif
+
+    strcat(fullName, fileName);
+    strcat(fullName, ".level");
+
+    handle = fileOpen(fullName, FF_TextMode|FF_ReturnNULLOnFail|FF_IgnorePrepend);
     if (!handle)
     {
         return NULL;
@@ -463,7 +473,7 @@ alreadyLoaded:;
 
 #if !(defined (HW_GAME_DEMO) || defined(HW_GAME_RAIDER_RETREAT))
 #ifdef _WIN32
-    startHandle = handle = _findfirst(filePathPrepend("MultiPlayer\\*.", 0), &find);
+    startHandle = handle = _findfirst(filePathPrepend("MultiPlayer\\*.", FF_HomeworldRootPath), &find);
 
     while (handle != -1)
     {
@@ -494,7 +504,7 @@ alreadyLoaded:;
             goto alreadyLoadedFromFileSystem;
         }
 
-        title = spTitleFind("MultiPlayer\\", find.name);
+        title = spTitleFind(filePathPrepend("MultiPlayer", FF_HomeworldRootPath), find.name);
         if (title == NULL)
         {
             goto alreadyLoadedFromFileSystem;
@@ -529,7 +539,8 @@ alreadyLoadedFromFileSystem:;
         handle = _findnext(startHandle, &find);
     }
 #else   /* File search, not _WIN32... */
-    dp = opendir(filePathPrepend("MultiPlayer", 0));
+
+    dp = opendir(filePathPrepend("MultiPlayer", FF_HomeworldRootPath));
 
     if (dp)
     {
@@ -559,10 +570,12 @@ alreadyLoadedFromFileSystem:;
             if (fileName[0] == '\0')
                 continue;
 
-            title = spTitleFind("MultiPlayer/", dir_entry->d_name);
+            title = spTitleFind(filePathPrepend("MultiPlayer", FF_HomeworldRootPath), dir_entry->d_name);
             if (title == NULL)
+            {
                 continue;
-                
+            }
+            
             for (index = 0; index < spNumberScenarios; index++)
             {
                 if (strcasecmp(spScenarios[index].fileSpec, fileName))

@@ -193,9 +193,6 @@ bool mainOnlyPacking = FALSE;
 bool gShowDamage = TRUE;
 bool DebugWindow = FALSE;
 sdword MemoryHeapSize = MEM_HeapSizeDefault;
-bool FilePathPrepended = FALSE;
-bool CDROMPathPrepended = FALSE;
-bool UserSettingsPathPrepended = FALSE;
 #if MAIN_MOUSE_FREE
 bool startupClipMouse = TRUE;
 #endif
@@ -352,14 +349,13 @@ bool HeapSizeSet(char *string)
     return TRUE;
 }
 
-bool PrependPathSet(char *string)
+
+void PrependPathSet(char *string)
 {
     filePrependPathSet(string);
-    FilePathPrepended = TRUE;
-    return TRUE;
 }
 
-bool CDROMPathSet(char *string)
+void CDROMPathSet(char *string)
 {
 #ifdef _WIN32
     char message[80];
@@ -372,15 +368,11 @@ bool CDROMPathSet(char *string)
     }
 #endif
     fileCDROMPathSet(string);
-    CDROMPathPrepended = TRUE;
-    return TRUE;
 }
 
-bool UserSettingsPathSet(char *string)
+void UserSettingsPathSet(char *string)
 {
 	fileUserSettingsPathSet(string);
-	UserSettingsPathPrepended = TRUE;
-	return TRUE;
 }
 
 bool EnableFileLoadLog(char *string)
