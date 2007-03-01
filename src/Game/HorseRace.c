@@ -810,7 +810,7 @@ void hrInitBackground(void)
     dbgAssertOrIgnore(strcasecmp(CurDir,NewDir) == 0);
 
     // Load the bitmap image
-    handle = fileOpen(hrImageName, FF_ReturnNULLOnFail);
+    handle = fileOpen(hrImageName, FF_ReturnNULLOnFail|FF_IgnorePrepend);
     if (handle)
     {
         memset(&jp, 0, sizeof(jp));
