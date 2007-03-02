@@ -3864,55 +3864,44 @@ char* utyGameSystemsPreInit(void)
     frStartup();
     utySet(SSA_FontReg);
 
+    // Homeworld's root directory (full path equivalent of '.')
     if (fileHomeworldRootPath[0] == '\0')
     {
-        // this isn't something we'd ever want to reset so we do the setting
-        // here rather than write a wrapper function in File.c which might
-        // otherwise be abused
         getcwd(fileHomeworldRootPath, PATH_MAX);
+        strncat(fileHomeworldRootPath, "/", 1);
+        fileNameReplaceSlashesInPlace(fileHomeworldRootPath);
+    }
+
+    // used a fair bit in the next section so I'm putting here so we only do it once
+    dataEnvironment = getenv("HW_Data")
+                    ? getenv("HW_Data")
+                    : regDataEnvironment;
+
+    // local filesystem override of .big archive contents
+    if (fileOverrideBigPath[0] == '\0')
+    {
+        char *overrideBigPath = NULL;
+
+#ifdef _MACOSX
+        // let's not have files sprawling everywhere; besides it makes it easier to
+        // create an unofficial patch .big should we ever decide to. (NB: this is a
+        // directory, not a real .big file)
+        strcpy(filePathTempBuffer, fileHomeworldRootPath);
+        strcat(filePathTempBuffer, "/Override.big");
         
-#ifdef WIN32
-        strncat(fileHomeworldRootPath, "\\", 1);
+        overrideBigPath = filePathTempBuffer;
 #else
-        strncat(fileHomeworldRootPath,  "/", 1);
+        // in absence of environment vars (like in a retail install), assume
+        // data file structure will start alongside the EXE
+        overrideBigPath = fileHomeworldRootPath;
 #endif
-    }
 
-    // Set file search path
-    if (filePrependPath[0] == '\0')
-    {
-        if ((dataEnvironment = getenv("HW_Data") ? getenv("HW_Data") : regDataEnvironment)[0] != '\0')
-        {
-            filePrependPathSet(dataEnvironment);
-            utySet(SSA_FilePrepend);
-        }
-    }
+        // use environment setting, falling back to the default
+        overrideBigPath = (dataEnvironment[0] != '\0')
+                        ? dataEnvironment
+                        : overrideBigPath;
 
-    // Attempt to set the CD-ROM path
-    if (fileCDROMPath[0] == '\0')
-    {
-        char drivePath[PATH_MAX];
-
-        // Find the first CD-ROM drive containing the HW CD
-#if !defined _MSC_VER && !defined __MINGW32__
-        utyGetFirstCDPath(drivePath);
-#endif
-        // If found, set the CD-ROM path
-        if(strlen(drivePath) > 0) fileCDROMPathSet(drivePath);
-
-/*
-        sdword index;
-        char drivePath[4] = "A:";
-        for (index = 'A'; index <= 'Z'; index++)
-        {
-            drivePath[0] = index;
-            if (GetDriveType(drivePath) == DRIVE_CDROM)
-            {
-                fileCDROMPathSet(drivePath);
-                break;
-            }
-        }
-*/
+        filePathMaxBufferSet(fileOverrideBigPath, overrideBigPath);
     }
 
 	// Attempt to set the user settings path.
@@ -3921,33 +3910,51 @@ char* utyGameSystemsPreInit(void)
 #ifdef _WIN32
 		// Use the same directory as the Homeworld data (similar to the
 		// functionality in the original Homeworld).
-		if ((dataEnvironment = getenv("HW_Data") ? getenv("HW_Data") : regDataEnvironment)[0] != '\0')
+
+		if (dataEnvironment[0] != '\0')
 		{
-			fileUserSettingsPathSet(dataEnvironment);
+			filePathMaxBufferSet(fileUserSettingsPath, dataEnvironment);
 		}
 		else
 		{	//HACKHACK: This is a temporary hack. Somebody needs to fix this!
-			fileUserSettingsPathSet("C:\\HomeworldData");
+			filePathMaxBufferSet(fileUserSettingsPath, "C:\\HomeworldData");
 		}
 #else
 		// Use the user's own Homeworld configuration dir if possible or
 		// else use the Homeworld data directory itself.
-		if ((dataEnvironment = getenv("HOME")) != NULL)
+        char *homeDir = getenv("HOME");
+        
+		if (homeDir != NULL)
 		{
-			char tempPath[PATH_MAX];
-			snprintf(tempPath, PATH_MAX, "%s/" CONFIGDIR, dataEnvironment);
-			fileUserSettingsPathSet(tempPath);
+			snprintf(filePathTempBuffer, PATH_MAX, "%s/" CONFIGDIR, homeDir);
+			filePathMaxBufferSet(fileUserSettingsPath, filePathTempBuffer);
 		}
-		else if ((dataEnvironment = getenv("HW_Data")  ? getenv("HW_Data") : regDataEnvironment)[0] != '\0')
+		else if (dataEnvironment[0] != '\0')
 		{
-			fileUserSettingsPathSet(dataEnvironment);
+			filePathMaxBufferSet(fileUserSettingsPath, dataEnvironment);
 		}
 		else
 		{
-			fileUserSettingsPathSet("");
+			filePathMaxBufferSet(fileUserSettingsPath, "./");
 		}
 #endif
 	}
+
+    // CD-ROM path
+    if (fileCDROMPath[0] == '\0')
+    {
+        char drivePath[PATH_MAX];
+
+#if !defined _MSC_VER && !defined __MINGW32__
+        // Find the first CD-ROM drive containing the HW CD
+        utyGetFirstCDPath(drivePath);
+#endif
+        // If found, set the CD-ROM path
+        if (strlen(drivePath) > 0)
+        {
+            filePathMaxBufferSet(fileCDROMPath, drivePath);
+        }
+    }
 
 
 #if MAIN_CDCheck
@@ -3961,8 +3968,8 @@ char* utyGameSystemsPreInit(void)
 #endif
 
 #if CD_VALIDATION_ENABLED
-#ifdef HW_BUILD_FOR_DISTRIBUTION
-#ifdef _WIN32
+    #ifdef HW_BUILD_FOR_DISTRIBUTION
+        #ifdef _WIN32
 
     // check pad file
     if (!fileExists(utyPadBigFilename, FF_CDROM))
@@ -4035,8 +4042,8 @@ char* utyGameSystemsPreInit(void)
         return(utyInvalidCDMessages[strCurLanguage]);
     }
 
-#endif
-#endif
+        #endif
+    #endif
 #endif
 
     // check data dir on HD...
@@ -4085,12 +4092,14 @@ char* utyGameSystemsPreInit(void)
             MemoryHeapSize = min(newSize, MEM_HeapDefaultMax);
         }
     }
+    
 #ifdef _WIN32
     utyMemoryHeap = (void *)VirtualAlloc(NULL, MemoryHeapSize + sizeof(memcookie) * 4, MEM_COMMIT, PAGE_READWRITE);
 #else
     utyMemoryHeap = mmap(0, MemoryHeapSize + sizeof(memcookie) * 4,
         PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANON, -1, 0);
 #endif
+
     if (utyMemoryHeap == NULL)
     {
         sprintf(errorString, "Error allocating heap of size %u", MemoryHeapSize);
@@ -4125,6 +4134,7 @@ char* utyGameSystemsPreInit(void)
             return errorString;
         }
     }
+    
     if (!IgnoreBigfiles)
     {
         mainNewerAvailable = memAlloc(mainTOC.numFiles, "mainNewerAvailable", 0);
@@ -4136,29 +4146,8 @@ char* utyGameSystemsPreInit(void)
         }
         if (CompareBigfiles)
         {
-            char  defaultSearchPath[PATH_MAX] =
-#ifdef _MACOSX
-                // let's not have files sprawling everywhere; besides it makes it easier to
-                // create an unofficial patch .big should we ever decide to. (NB: this is a
-                // directory, not a real .big file)
-                "./Override.big"
-#else
-                // in absence of environment vars (like in a retail install), assume
-                // data file structure will start alongside the EXE
-                "."
-#endif
-            ;
-            char *searchPath = defaultSearchPath;
-
-            dataEnvironment = getenv("HW_Data") ? getenv("HW_Data") : regDataEnvironment;
-            if (dataEnvironment[0] != '\0')
-            {
-                searchPath = dataEnvironment;
-            }
-
-            filePrependPathSet(searchPath);
-
-            bigFilesystemCompare(searchPath, "", &mainTOC, &updateTOC, mainNewerAvailable, updateNewerAvailable);
+            bigFilesystemCompare(fileOverrideBigPath, "",
+                &mainTOC, &updateTOC, mainNewerAvailable, updateNewerAvailable);
         }
     }
 
@@ -4171,6 +4160,7 @@ char* utyGameSystemsPreInit(void)
     else
     {
 #endif
+
         HomeworldCRC[0] = 0;  // originally stored CRC for code block (WON hacked client check)
         if (!IgnoreBigfiles)
         {

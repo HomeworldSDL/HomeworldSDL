@@ -142,7 +142,7 @@ lodinfo *lodTableReadScript(char *directory, char *fileName)
         char partialName[PATH_MAX];
         char *fullName;
         sprintf(partialName, "%s%s", directory, fileName);
-        fullName = filePathPrepend(partialName, 0);
+        fullName = filePathPrepend(partialName, FF_IgnorePrepend);
         info->fileName = memStringDupe(fullName);           //store full path to file for saving
     }
 #endif

@@ -9,43 +9,22 @@
 #define ___FILE_H
 
 #include <stdio.h>
+
 #include "BigFile.h"
 
 /*=============================================================================
     Switches
 =============================================================================*/
-#ifdef HW_BUILD_FOR_DEBUGGING
-
-#define FILE_VERBOSE_LEVEL      1               //control level of verbose info
-#define FILE_ERROR_CHECKING     1               //control error checking
-#define FILE_OPEN_LOGGING       1               //display file names as they are opened
-#define FILE_SEEK_WARNING       1               //display warnings as seeks are required
-#define FILE_TEST               0               //test the file module
-#define FILE_PREPEND_PATH       1               //prepend a fixed path to the start of all file open requests
-
-#else
-
-#define FILE_VERBOSE_LEVEL      0               //control level of verbose info
-#define FILE_ERROR_CHECKING     0               //control error checking
-#define FILE_OPEN_LOGGING       0               //display file names as they are opened
-#define FILE_SEEK_WARNING       0               //display warnings as seeks are required
-#define FILE_TEST               0               //test the file module
-#define FILE_PREPEND_PATH       1               //prepend a fixed path to the start of all file open requests
-
-#endif
-
 // If not already defined (such as through a configure setting), define
 // whether or not case-insensitive searches for files should be performed
 // based on the target platform.
 #ifndef FILE_CASE_INSENSITIVE_SEARCH
-
-#if defined (_WIN32) || defined (_MACOSX)
-#define FILE_CASE_INSENSITIVE_SEARCH 0
-#else
-#define FILE_CASE_INSENSITIVE_SEARCH 1
-#endif  // defined (_WIN32) || defined (_MACOSX)
-
-#endif  // !defined (FILE_CASE_INSENSITIVE_SEARCH)
+    #if defined (_WIN32) || defined (_MACOSX)
+        #define FILE_CASE_INSENSITIVE_SEARCH 0
+    #else
+        #define FILE_CASE_INSENSITIVE_SEARCH 1
+    #endif
+#endif
 
 /*=============================================================================
     Definitions:
@@ -85,7 +64,7 @@
 //length of file path fragments
 #define FL_Path                 256             //max length of a full path
 
-#define MAX_FILES_OPEN       32
+#define MAX_FILES_OPEN          32
 
 /*=============================================================================
     Type definitions:
@@ -112,27 +91,19 @@ typedef struct {
     long length;            // length of file in bigfile (uncompressed length)
 } fileOpenInfo;
 
+extern char fileHomeworldRootPath [];
+extern char fileUserSettingsPath  [];
+extern char fileOverrideBigPath   [];
+extern char fileCDROMPath         [];
+extern char filePathTempBuffer    [];
+
+
 /*=============================================================================
     Functions:
 =============================================================================*/
 
-//specify a path for all file open requests
-#if FILE_PREPEND_PATH
-void filePrependPathSet(char *path);
-char *filePathPrepend(char *path, udword flags);
-void fileCDROMPathSet(char *path);
-void fileUserSettingsPathSet(char *path);
-#else
-#define filePrependPathSet(p)
-#define filePathPrepend(p,f)
-#define fileCDROMPathSet(p)
-#define fileUserSettingsPathSet(p)
-#endif
-
-extern char filePrependPath[];
-extern char fileHomeworldRootPath[];
-extern char fileCDROMPath[];
-extern char fileUserSettingsPath[];
+char *filePathPrepend(char *fileName, udword flags);
+void fileNameReplaceSlashesInPlace(char *fileName);
 
 //load files directly into memory
 sdword fileLoadAlloc(char *fileName, void **address, udword flags);

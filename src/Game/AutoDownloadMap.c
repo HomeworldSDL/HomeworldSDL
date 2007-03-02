@@ -176,8 +176,8 @@ void autodownloadmapGetFilesOfMap(void)
     struct dirent* dir_entry;
     unsigned int str_len, j;
 #endif
-    char dir[200];
-    char file[200];
+    char dir[PATH_MAX];
+    char file[PATH_MAX];
     sdword fileSize;
     sdword i;
 
@@ -187,7 +187,7 @@ void autodownloadmapGetFilesOfMap(void)
     {
         GetExactMapDirNames(i);
 
-        strcpy(dir,filePathPrepend(autodownloadmapInfo.exactdirname,0));
+        strcpy(dir, filePathPrepend(autodownloadmapInfo.exactdirname,0));
 #ifdef _WIN32
         strcat(dir,"\\*.*");
 
@@ -373,7 +373,8 @@ void SaveFilePacketToFile(FilePacket *fpacket)
     sdword filecontentssize = fpacket->packetheader.frame;
     sdword filenamesize = fpacket->packetheader.numberOfCommands;
 
-    strcpy(file,filePrependPath);
+    strcpy(file,fileUserSettingsPath);
+    strcat(file,"/MultiPlayer/");
     strcat(file,fpacket->filename);
 
     if (!fileMakeDestinationDirectory(file))
@@ -418,8 +419,10 @@ void receivedFilePacketCB(ubyte *packet,udword sizeofPacket)
         char dirtomake[250];
         char *findlastslashptr;
 
-        strcpy(dirtomake,filePrependPath);
+        strcpy(dirtomake,fileUserSettingsPath);
+        strcat(dirtomake,"/MultiPlayer/");
         strcat(dirtomake,fpacket->filename);
+
         findlastslashptr = &dirtomake[strlen(dirtomake)];
 
         while (--findlastslashptr >= dirtomake)

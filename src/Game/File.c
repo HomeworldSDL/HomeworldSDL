@@ -5,6 +5,18 @@
     Updated August 1998 by Darren Stone - added bigfile support
 =============================================================================*/
 
+#include <limits.h>
+#include <stdarg.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/stat.h>
+
+#include "BitIO.h"
+#include "Debug.h"
+#include "File.h"
+#include "LZSS.h"
+#include "Memory.h"
+
 #ifdef _WIN32
     #define WIN32_LEAN_AND_MEAN
     #include <windows.h>
@@ -14,69 +26,46 @@
     #include <ctype.h>
 #endif
 
-#include <stdlib.h>
-#include <string.h>
-#include <limits.h>
-#include <stdarg.h>
-#include <sys/stat.h>
-
-#include "Memory.h"
-#include "Debug.h"
-#include "File.h"
-#include "BitIO.h"
-#include "LZSS.h"
-
-
-
 #if defined _MSC_VER
 	#define stat _stat
 	#define S_ISDIR(mode) ((mode) & _S_IFDIR)
 #endif
 
+
+#ifdef HW_BUILD_FOR_DEBUGGING
+    #define FILE_ERROR_CHECKING     1       // control error checking
+    #define FILE_OPEN_LOGGING       1       // display file names as they are opened
+    #define FILE_SEEK_WARNING       1       // display warnings as seeks are required
+    #define FILE_TEST               0       // test the file module
+    #define FILE_VERBOSE_LEVEL      1       // control level of verbose info
+#else
+    #define FILE_ERROR_CHECKING     0
+    #define FILE_OPEN_LOGGING       0
+    #define FILE_SEEK_WARNING       0
+    #define FILE_TEST               0
+    #define FILE_VERBOSE_LEVEL      0
+#endif
+
+
 struct stat fileStat;
-
-//
-//  How to interpret the LOGFILELOADS output log:
-//
-//  3 columns:  main_bigfile  update_bigfile  filesystem
-//  M = main bigfile
-//  U = update bigfile
-//  F = filesystem
-//  Each column may be blank (indicating the file was not present there),
-//  or have a lowercase letter there (m/u/f) (indicating that it had an
-//  old or unused version of the file there), or have an uppercase letter
-//  there ([M]/[U]/[F]) (indicating that the file there was used for the
-//  load).
-//
-//  WARNING: If you run with comparebigfiles OFF, it could invalidate some
-//  of the conclusions that this output draws.
-//
-
-
-
 
 // bigfile externs -- options and structures from bigfile.c
 extern bool IgnoreBigfiles;
 extern bool CompareBigfiles;
 extern bool LogFileLoads;
+
 extern bigTOC updateTOC;
 extern bigTOC mainTOC;
+
 extern unsigned char *mainNewerAvailable;
 extern unsigned char *updateNewerAvailable;
+
 extern FILE *mainFP;
 extern FILE *updateFP;
 
 /*=============================================================================
     Data:
 =============================================================================*/
-#if FILE_PREPEND_PATH
-char filePrependPath       [PATH_MAX + 1] = "";
-char filePrependedPath     [PATH_MAX + 1] = "";
-#endif
-
-char fileHomeworldRootPath [PATH_MAX + 1] = "";
-char fileCDROMPath         [PATH_MAX + 1] = "";
-char fileUserSettingsPath  [PATH_MAX + 1] = "";
 
 // filehandles are an index into this array
 // (NOTE:  the first entry is wasted -- since a filehandle of 0
@@ -85,11 +74,30 @@ char fileUserSettingsPath  [PATH_MAX + 1] = "";
 //  for bugs.)
 fileOpenInfo filesOpen[MAX_FILES_OPEN+1];
 
+
+// Homeworld's root directory (full path equivalent of '.')
+char fileHomeworldRootPath [PATH_MAX] = "";
+
+// local directory mimicking the .big archive hierarchy and overrides
+// the contents of those archives. (Mainly used for testing.)
+char fileOverrideBigPath   [PATH_MAX] = "";
+
+// the user's personal configuration/private file area
+// (config/screenshots/savegames)
+char fileUserSettingsPath  [PATH_MAX] = "";
+
+// where the CD ROM drive is mounted
+char fileCDROMPath         [PATH_MAX] = "";
+
+// temporary path manipulation working area
+char filePathTempBuffer    [PATH_MAX] = "";
+
+
 //  space required for opening and reading from compressed streams within a bigfile
-static char  *decompWorkspaceP = NULL;
-static sdword decompWorkspaceSize = 0;
-static sdword decompWorkspaceInUse = FALSE;
 #define decompWorkspaceIncrement 65536;
+static char  *decompWorkspaceP     = NULL;
+static sdword decompWorkspaceSize  = 0;
+static sdword decompWorkspaceInUse = FALSE;
 
 
 /*=============================================================================
@@ -114,16 +122,21 @@ static sdword decompWorkspaceInUse = FALSE;
                   a path, but its file routines work just fine with forward
                   slashes.
 ----------------------------------------------------------------------------*/
-static void fileNameReplaceSlashes (char* fileName)
+void fileNameReplaceSlashesInPlace(char *filePath)
 {
-	char ch;
+	char *ptr = NULL;
 
-	while ((ch = *fileName))
+#if WIN32
+    #define PATH_DELIMITER     '\\'
+    #define REPLACE_DELIMITER  '/'
+#else
+    #define PATH_DELIMITER     '/'
+    #define REPLACE_DELIMITER  '\\'
+#endif
+
+	while ((ptr = strchr(filePath, REPLACE_DELIMITER)) != NULL)
 	{
-		if (ch == '\\')
-			*fileName = '/';
-
-		fileName++;
+        *ptr = PATH_DELIMITER;
 	}
 }
 
@@ -364,7 +377,9 @@ static bool8 fileNameCorrectCase (char* fileName)
 
 		/* Make sure the drive specified exists. */
 		if (stat(fileNameCopy, &fileInfo) != 0)
+        {
 			return FALSE;
+        }
 
 		dbgAssertOrIgnore(strlen(fileNameCopy) <= strlen(fileName));
 		strcpy(fileName, fileNameCopy);
@@ -916,10 +931,12 @@ sdword fileLoadAlloc(char *_fileName, void **address, udword flags)
                         inUpdate ? "u" : " ");
         }
         else
+        {
             logfileLogf(FILELOADSLOG, "%-80s |       [F] |\n", _fileName);
+        }
     }
 
-    return(length);
+    return length;
 }
 
 /*-----------------------------------------------------------------------------
@@ -1031,7 +1048,7 @@ sdword fileLoad(char *_fileName, void *address, udword flags)
 
 /*-----------------------------------------------------------------------------
     Name        : fileSave
-    Description : Saves data of lenght,address to fileName
+    Description : Saves data of length, address to fileName
     Inputs      : fileName, address, length
     Outputs     :
     Return      : length
@@ -1042,7 +1059,7 @@ sdword fileSave(char *_fileName, void *address, sdword length)
     char *fileName;
     sdword lengthWrote;
 
-    fileName = filePathPrepend(_fileName, 0);               //get full path
+    fileName = filePathPrepend(_fileName, FF_UserSettingsPath);    //get full path
     fileNameCorrectCase(fileName);
 
     if (!fileMakeDestinationDirectory(fileName))
@@ -1137,9 +1154,9 @@ sdword fileExists(char *_fileName, udword flags)
             existsInBigfile = bigTOCFileExists(&mainTOC, _fileName, (int *)&fileNum);
             if (existsInBigfile && !(CompareBigfiles && mainNewerAvailable[fileNum] > 1))
             {
-    #if FILE_VERBOSE_LEVEL >= 3
+#if FILE_VERBOSE_LEVEL >= 3
                 dbgMessagef("fileExists: '%s' exists (in main_bigfile)", _fileName);
-    #endif
+#endif
                 return TRUE;
             }
         }
@@ -1197,13 +1214,12 @@ sdword fileSizeGet(char *_fileName, udword flags)
             if (existsInBigfile && !(CompareBigfiles && mainNewerAvailable[fileNum] > 1))
             {
                 length = (mainTOC.fileEntries + fileNum)->realLength;
-    #if FILE_VERBOSE_LEVEL >= 3
+#if FILE_VERBOSE_LEVEL >= 3
                 dbgMessagef("fileSizeGet: '%s' is %d bytes in length (in main_bigfile)", _fileName, length);
-    #endif
+#endif
                 return length;
             }
         }
-
     }
 
     fileName = filePathPrepend(_fileName, flags);            //get full path
@@ -1227,7 +1243,7 @@ void fileDelete(char *_fileName)
 {
     char *fileName;
 
-    fileName = filePathPrepend(_fileName, 0);               //get full path
+    fileName = filePathPrepend(_fileName, FF_IgnorePrepend);    //get full path
     fileNameReplaceSlashes(fileName);
 
     remove(fileName);
@@ -1495,7 +1511,9 @@ filehandle fileOpen(char *_fileName, udword flags)
                         inUpdate ? "u" : " ");
         }
         else
+        {
             logfileLogf(FILELOADSLOG, "%-80s |       [F] |\n", _fileName);
+        }
     }
 
     if (bitTest(flags, FF_AppendMode | FF_WriteMode) &&
@@ -1516,6 +1534,7 @@ filehandle fileOpen(char *_fileName, udword flags)
         }
         dbgFatalf(DBG_Loc, "fileOpen: cannot open file %s", fileName);
     }
+    
 #if FILE_VERBOSE_LEVEL >= 2
     dbgMessagef("fileOpen: '%s' (from filesystem) handle 0x%x, FILE *0x%x", fileName, fh, file);
 #endif
@@ -1610,6 +1629,7 @@ sdword fileSeek(filehandle handle, sdword offset, sdword whence)
 #if FILE_VERBOSE_LEVEL >= 3
     dbgMessagef("fileSeek: handle 0x%x seeked %d bytes (mode %d) to %d", handle, offset, whence, newLocation);
 #endif
+
     return newLocation;
 }
 
@@ -1659,9 +1679,11 @@ sdword fileBlockRead(filehandle handle, void *dest, sdword nBytes)
         dbgFatalf(DBG_Loc, "fileBlockRead: expected %d bytes, read %d", nBytes, lengthRead);
     }
 #endif
+
 #if FILE_VERBOSE_LEVEL >= 3
     dbgMessagef("fileBlockRead: handle 0x%x read %d bytes to 0x%x", handle, lengthRead, dest);
 #endif
+
     return lengthRead;
 }
 
@@ -1886,6 +1908,7 @@ sdword fileLineRead(filehandle handle, char *dest, sdword nChars)
 #if FILE_VERBOSE_LEVEL >= 3
     dbgMessagef("fileLineRead: handle 0x%x read %d chars to 0x%x ('%s')", handle, length, dest, dest);
 #endif
+
     return length;
 }
 
@@ -1997,139 +2020,88 @@ FILE *fileStream(filehandle handle)
 
 
 /*-----------------------------------------------------------------------------
-    Name        : fileSetPrependPath
-    Description : Set the path to look in for all file open requests.
-    Inputs      : path - path to look in for files
-    Outputs     : stores path in a global variable
-    Return      : void
-----------------------------------------------------------------------------*/
-#if FILE_PREPEND_PATH
-void filePrependPathSet(char *path)
-{
-    unsigned int path_len;
-    dbgAssertOrIgnore(path != NULL);
-    strcpy(filePrependPath, path);                          //make copy of specified path
-
-    path_len = strlen(filePrependPath);
-    dbgAssertOrIgnore(path_len);
-#ifdef _WIN32
-    if (filePrependPath[path_len - 1] != '\\')
-    {                                                       //make sure a backslash is on the end
-        strcat(filePrependPath, "\\");                      //put a backslash on the end
-    }
-#else
-    if (filePrependPath[path_len - 1] != '\\' &&
-        filePrependPath[path_len - 1] != '/')
-    {                                    /* make sure a slash is on the end */
-        strcat(filePrependPath, "/");    /* put a slash on the end */
-    }
-#endif
-}
-#endif
-
-/*-----------------------------------------------------------------------------
-    Name        : fileCDROMPathSet
-    Description : Like above, but it sets the path for a CD-ROM file
-    Inputs      : path - path to the root of the CD-ROM
-    Outputs     :
+    Name        : filePathBufferSet
+    Description : populates preallocated buffer with given path and ensures
+                  it is properly formatted/terminated. Buffer should ideally
+                  be PATH_MAX bytes long.
+    Outputs     : 
     Return      :
 ----------------------------------------------------------------------------*/
-void fileCDROMPathSet(char *path)
+void filePathMaxBufferSet(char *buffer, char *path)
 {
-    unsigned int path_len;
-    dbgAssertOrIgnore(path != NULL);
-    strcpy(fileCDROMPath, path);                            //make copy of specified path
+    unsigned int path_len = 0;
+    
+    dbgAssertOrIgnore(buffer != NULL);
+    dbgAssertOrIgnore(path   != NULL);
+    
+    path_len = strlen(path);
 
-    path_len = strlen(fileCDROMPath);
-    dbgAssertOrIgnore(path_len);
-#ifdef _WIN32
-    if (fileCDROMPath[path_len - 1] != '\\')
-    {                                                       //make sure a backslash is on the end
-        strcat(fileCDROMPath, "\\");                        //put a backslash on the end
-    }
-#else
-    if (fileCDROMPath[path_len - 1] != '\\' &&
-        fileCDROMPath[path_len - 1] != '/')
-    {                                    /* make sure a slash is on the end */
-        strcat(fileCDROMPath, "/");      /* put a slash on the end */
-    }
-#endif
+    dbgAssertOrIgnore(path_len < PATH_MAX);
+
+    strncpy(buffer, path, PATH_MAX);
+    
+    // make sure path is delimited
+    strcat(buffer, "/");
+    
+    fileNameReplaceSlashesInPlace(buffer);
 }
 
-/*-----------------------------------------------------------------------------
-    Name        : fileUserSettingsPathSet
-    Description : Like above, but it sets the user settings path for storing
-                  configuration settings, saved games, and screenshots
-                  (typically ~/.homeworld)
-    Inputs      : path - path for user settings
-    Outputs     :
-    Return      :
-----------------------------------------------------------------------------*/
-void fileUserSettingsPathSet(char *path)
-{
-    unsigned int path_len;
-    dbgAssertOrIgnore(path != NULL);
-    strcpy(fileUserSettingsPath, path);                     //make copy of specified path
-
-    path_len = strlen(fileUserSettingsPath);
-    dbgAssertOrIgnore(path_len);
-#ifdef _WIN32
-    if (fileUserSettingsPath[path_len - 1] != '\\')
-    {                                                       //make sure a backslash is on the end
-        strcat(fileUserSettingsPath, "\\");                 //put a backslash on the end
-    }
-#else
-    if (fileUserSettingsPath[path_len - 1] != '\\' &&
-        fileUserSettingsPath[path_len - 1] != '/')
-    {                                       /* make sure a slash is on the end */
-        strcat(fileUserSettingsPath, "/");  /* put a slash on the end */
-    }
-#endif
-}
 
 /*-----------------------------------------------------------------------------
     Name        : filePathPrepend
     Description : Prepend the default path for opening files.
     Inputs      : fileName - file name/relative path to add to end of default path
-                  flags - flags for the file we want.  Only the FF_CDROM and
-                          FF_UserSettingsPath flags are used
+                  flags    - flags to set the root directory we want
     Outputs     : Copies prepend path to global variable and concatenates fileName
     Return      : pointer to new full path
 ----------------------------------------------------------------------------*/
 char *filePathPrepend(char *fileName, udword flags)
 {
-#if FILE_VERBOSE_LEVEL >= 1
-//can't print debug messages yet because it gets called so early on
-//    dbgMessagef("filePathPrepend:  File search path set to '%s'", fileName);
-#endif
     dbgAssertOrIgnore(fileName != NULL);
 
     if (bitTest(flags, FF_IgnorePrepend))
     {
-        strcpy(filePrependedPath, fileName);                // just copy, don't actually prepend
-        return(filePrependedPath);
+        strcpy(filePathTempBuffer, "");
     }
     else if (bitTest(flags, FF_HomeworldRootPath))
     {
-        strcpy(filePrependedPath, fileHomeworldRootPath);
+        strcpy(filePathTempBuffer, fileHomeworldRootPath);
     }
     else if (bitTest(flags, FF_UserSettingsPath))
     {
-        strcpy(filePrependedPath, fileUserSettingsPath);    // user's personal configuration area
+        strcpy(filePathTempBuffer, fileUserSettingsPath);
     }
     else if (bitTest(flags, FF_CDROM))
     {
-        strcpy(filePrependedPath, fileCDROMPath);           // get the CD-ROM path
+        strcpy(filePathTempBuffer, fileCDROMPath);
     }
     else
     {
-        strcpy(filePrependedPath, filePrependPath);         // get the prepend path
+        strcpy(filePathTempBuffer, fileOverrideBigPath);
     }
     
-    strcat(filePrependedPath, fileName);                    // put the file name on the end
+    strcat(filePathTempBuffer, fileName);
 
-    return filePrependedPath;
+    return filePathTempBuffer;
 }
+
+
+//
+//  How to interpret the LOGFILELOADS output log:
+//
+//  3 columns:  main_bigfile  update_bigfile  filesystem
+//  M = main bigfile
+//  U = update bigfile
+//  F = filesystem
+//  Each column may be blank (indicating the file was not present there),
+//  or have a lowercase letter there (m/u/f) (indicating that it had an
+//  old or unused version of the file there), or have an uppercase letter
+//  there ([M]/[U]/[F]) (indicating that the file there was used for the
+//  load).
+//
+//  WARNING: If you run with comparebigfiles OFF, it could invalidate some
+//  of the conclusions that this output draws.
+//
 
 /*-----------------------------------------------------------------------------
     Name        : logfileClear
@@ -2140,13 +2112,12 @@ char *filePathPrepend(char *fileName, udword flags)
 ----------------------------------------------------------------------------*/
 void logfileClear(char *logfile)
 {
-    FILE *file;
+    FILE *file = NULL;
 
-    if ((file = fopen(logfile, "wt")) == NULL)      // open and close to make it 0 size
+    if ((file = fopen(logfile, "wt")) != NULL)      // open and close to make it 0 size
     {
-        return;
+        fclose(file);
     }
-    fclose(file);
 }
 
 /*-----------------------------------------------------------------------------
@@ -2156,11 +2127,11 @@ void logfileClear(char *logfile)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void logfileLog(char *logfile,char *str)
+void logfileLog(char *logfile, char *str)
 {
-    FILE *file;
+    FILE *file = NULL;
 
-    if ((file = fopen(logfile, "at")) != NULL)      // open and close to make it 0 size
+    if ((file = fopen(logfile, "at")) != NULL)
     {
         fprintf(file,str);
         fclose(file);
@@ -2174,12 +2145,12 @@ void logfileLog(char *logfile,char *str)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void logfileLogf(char *logfile,char *format, ...)
+void logfileLogf(char *logfile, char *format, ...)
 {
     char buffer[200];
     va_list argList;
-    va_start(argList, format);                              //get first arg
-    vsprintf(buffer, format, argList);                      //prepare output string
+    va_start(argList, format);                  //get first arg
+    vsprintf(buffer, format, argList);          //prepare output string
     va_end(argList);
 
     logfileLog(logfile,buffer);

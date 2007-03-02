@@ -795,7 +795,7 @@ void scriptSetStruct(char *directory,char *filename,scriptStructEntry info[],uby
         strcpy(fullfilename,filename);
     }
 
-    fh = fileOpen(fullfilename,FF_TextMode);
+    fh = fileOpen(fullfilename,FF_TextMode|FF_IgnorePrepend);
 
     for (;;)
     {
@@ -856,7 +856,7 @@ void scriptSet(char *directory,char *filename,scriptEntry info[])
         strcpy(fullfilename,filename);
     }
 
-    fh = fileOpen(fullfilename,FF_TextMode);
+    fh = fileOpen(fullfilename,FF_TextMode|FF_IgnorePrepend);
 
     for (;;)
     {

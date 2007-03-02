@@ -40,7 +40,6 @@
 typedef enum
 {
     SSA_DebugWindow,
-    SSA_FilePrepend,
     SSA_MemoryHeap,
     SSA_MemoryModule,
     SSA_Timer,

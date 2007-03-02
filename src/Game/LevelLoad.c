@@ -1768,7 +1768,7 @@ bool isLevelMissionManGenerated(char *directory,char *filename)
         strcpy(fullfilename,filename);
     }
 
-    fh = fileOpen(fullfilename,FF_TextMode);
+    fh = fileOpen(fullfilename,FF_TextMode|FF_IgnorePrepend);
 
     status = fileLineRead(fh,line,MAXLINENEED);
 

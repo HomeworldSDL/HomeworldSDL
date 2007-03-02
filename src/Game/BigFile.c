@@ -2249,34 +2249,44 @@ abort:
 //
 sdword bigOpen(char *_bigFilename, char *_updateFilename)
 {
-    char bigFilename[256];
-    char updateFilename[256];
+    char bigFilename[PATH_MAX];
+    char updateFilename[PATH_MAX];
 
-    strcpy(bigFilename, filePathPrepend(_bigFilename, 0));
-    strcpy(updateFilename, filePathPrepend(_updateFilename, 0));
+    strcpy(bigFilename,    filePathPrepend(_bigFilename,    FF_HomeworldRootPath));
+    strcpy(updateFilename, filePathPrepend(_updateFilename, FF_HomeworldRootPath));
 
     if (IgnoreBigfiles)
+    {
         return 1;
+    }
 
     // open main bigfile (mandatory)
     mainFP = fopen(bigFilename, "rb");
     if (!mainFP)
+    {
         return 0;
+    }
 
     updateFP = fopen(updateFilename, "rb");
     if (!updateFP)
+    {
         updateFP = NULL;
+    }
 
     // ensure correct file type & version
     if (!bigHeaderVerify(mainFP) ||
         (updateFP && !bigHeaderVerify(updateFP)))
+    {
         return 0;
-
+    }
+    
     // read toc
     bigTOCRead(mainFP, &mainTOC);
     if (updateFP)
+    {
         bigTOCRead(updateFP, &updateTOC);
-
+    }
+    
     return 1;
 }
 
