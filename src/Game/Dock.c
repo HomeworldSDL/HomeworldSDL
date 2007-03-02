@@ -49,17 +49,17 @@
 #include "UnivUpdate.h"
 #include "Vector.h"
 
-#ifndef _MACOSX          // rgl stuff
-    #include "kgl.h"
-    #include "maths.h"
-#endif
-
-#ifdef _MSC_VER
-    #define strcasecmp _stricmp
-#else
-    #include <strings.h>
-#endif
-
+// rgl predeprecation code
+//#ifndef _MACOSX          // rgl stuff
+//    #include "kgl.h"
+//    #include "maths.h"
+//#endif
+//
+//#ifdef _MSC_VER
+//    #define strcasecmp _stricmp
+//#else
+//    #include <strings.h>
+//#endif
 
 //#define DEBUG_DOCKING
 
