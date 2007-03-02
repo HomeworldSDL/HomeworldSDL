@@ -111,7 +111,7 @@ typedef struct
     real32  deltaLength;
     real32  deltaLengthDist;
     //appearance
-    real32  icolor[4];
+    real32  icolor[4];             // RGBA
     real32  colorDist[4];
     real32  deltaColor[4];
     real32  deltaColorDist[4];
@@ -3156,6 +3156,11 @@ void partModifyColorC(psysPtr psys, color c)
 {
     udword i;
     real32 r, g, b, a;
+
+#if FIX_ENDIAN
+    c = FIX_ENDIAN_INT_32(c);
+#endif
+
     particle *p = (particle*)(psys + partHeaderSize(psys));
 
     r = colUbyteToReal(colRed(c));
@@ -3178,6 +3183,11 @@ void partModifyDeltaColorC(psysPtr psys, color c)
 {
     udword i;
     real32 r, g, b, a;
+
+#if FIX_ENDIAN
+    c = FIX_ENDIAN_INT_32(c);
+#endif
+
     particle *p = (particle*)(psys + partHeaderSize(psys));
 
     r = colUbyteToReal(colRed(c));
@@ -3307,6 +3317,11 @@ void partModifyColorBias(
 void partModifyAddColor(psysPtr psys, color c)
 {
     udword i;
+
+#if FIX_ENDIAN
+    c = FIX_ENDIAN_INT_32(c);
+#endif
+
     real32 r = colUbyteToReal(colRed(c));
     real32 g = colUbyteToReal(colGreen(c));
     real32 b = colUbyteToReal(colBlue(c));
@@ -3482,7 +3497,7 @@ void partModifyColorScheme(psysPtr psys, sdword colorScheme)
     p = (particle*)(psys + partHeaderSize(psys));
     for (i = 0; i < partNumberof(psys); i++, p++)
     {
-        p->colorScheme = colorScheme;
+        p->colorScheme = (ubyte)(uword)(udword)colorScheme;
     }
 }
 
@@ -3796,6 +3811,7 @@ void partSetColor(real32 r, real32 g, real32 b)
     pat.icolor[0] = r;
     pat.icolor[1] = g;
     pat.icolor[2] = b;
+    pat.icolor[3] = 1.0f;
     bitClear(pat.flags, PART_ALPHA);
 }
 

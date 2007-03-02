@@ -7801,18 +7801,41 @@ void etgModifyDrag(ubyte *sys, real32 drag)
 {
     partModifyDrag((psysPtr)sys, 1.0f - drag);
 }
+
 void etgModifyDepthWrite(ubyte *sys, udword write)
 {
     partModifyNoDepthWrite((psysPtr)sys, !write);
 }
 
-void etgSetColorA(color c)
+void etgSetColorA(color c) 
 {
-    partSetColorA(colUbyteToReal(colRed(c)), colUbyteToReal(colGreen(c)), colUbyteToReal(colBlue(c)), colUbyteToReal(colAlpha(c)));
+#if FIX_ENDIAN
+    // color c is actually a numerically calculated RGBA udword
+    // rather than properly constructed from its constituents
+    c = FIX_ENDIAN_INT_32(c);
+#endif
+
+    partSetColorA(
+        colUbyteToReal(colRed  (c)),
+        colUbyteToReal(colGreen(c)),
+        colUbyteToReal(colBlue (c)),
+        colUbyteToReal(colAlpha(c))
+    );
 }
+
 void etgSetColor(color c)
 {
-    partSetColor(colUbyteToReal(colRed(c)), colUbyteToReal(colGreen(c)), colUbyteToReal(colBlue(c)));
+#if FIX_ENDIAN
+    // color c is actually a numerically calculated RGBA udword
+    // rather than properly constructed from its constituents
+    c = FIX_ENDIAN_INT_32(c);
+#endif
+
+    partSetColor(
+        colUbyteToReal(colRed  (c)),
+        colUbyteToReal(colGreen(c)),
+        colUbyteToReal(colBlue (c))
+    );
 }
 
 void etgSetAnimation(void *animation, real32 frameRate, sdword loopCount)
@@ -7872,40 +7895,52 @@ udword etgIRandom(udword low, udword high)
 
 udword etgCRandom(udword loR, udword hiR, udword loG, udword hiG, udword loB, udword hiB)
 {
-    if (loB <= hiB)
-    {
-        hiB = loB + 1;
-    }
-    if (loG <= hiG)
-    {
-        hiG = loG + 1;
-    }
     if (loR <= hiR)
     {
         hiR = loR + 1;
     }
-    return(colRGB(randyrandombetween(RANDOM_ETG, loR, hiR), randyrandombetween(RANDOM_ETG, loG, hiB), randyrandombetween(RANDOM_ETG, loB, hiB)));
+
+    if (loG <= hiG)
+    {
+        hiG = loG + 1;
+    }
+
+    if (loB <= hiB)
+    {
+        hiB = loB + 1;
+    }
+
+    return colRGB(randyrandombetween(RANDOM_ETG, loR, hiR),
+                  randyrandombetween(RANDOM_ETG, loG, hiG),
+                  randyrandombetween(RANDOM_ETG, loB, hiB));
 }
 
 udword etgCARandom(udword loR, udword hiR, udword loG, udword hiG, udword loB, udword hiB, udword loA, udword hiA)
 {
-    if (loA <= hiA)
-    {
-        hiA = loA + 1;
-    }
-    if (loB <= hiB)
-    {
-        hiB = loB + 1;
-    }
-    if (loG <= hiG)
-    {
-        hiG = loG + 1;
-    }
     if (loR <= hiR)
     {
         hiR = loR + 1;
     }
-    return(colRGBA(randyrandombetween(RANDOM_ETG, loR, hiR), randyrandombetween(RANDOM_ETG, loG, hiB), randyrandombetween(RANDOM_ETG, loB, hiB), randyrandombetween(RANDOM_ETG, loA, hiA)));
+    
+    if (loG <= hiG)
+    {
+        hiG = loG + 1;
+    }
+    
+    if (loB <= hiB)
+    {
+        hiB = loB + 1;
+    }
+    
+    if (loA <= hiA)
+    {
+        hiA = loA + 1;
+    }
+    
+    return colRGBA(randyrandombetween(RANDOM_ETG, loR, hiR),
+                   randyrandombetween(RANDOM_ETG, loG, hiG),
+                   randyrandombetween(RANDOM_ETG, loB, hiB),
+                   randyrandombetween(RANDOM_ETG, loA, hiA));
 }
 
 //convert data types
