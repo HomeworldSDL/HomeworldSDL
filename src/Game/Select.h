@@ -9,6 +9,7 @@
 #ifndef ___SELECT_H
 #define ___SELECT_H
 
+#include "PiePlate.h"
 #include "Camera.h"
 #include "font.h"
 #include "prim2d.h"

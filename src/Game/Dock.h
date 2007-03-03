@@ -9,6 +9,7 @@
 #ifndef ___DOCK_H
 #define ___DOCK_H
 
+#include "render.h"
 #include "ShipSelect.h"
 #include "SpaceObj.h"
 
