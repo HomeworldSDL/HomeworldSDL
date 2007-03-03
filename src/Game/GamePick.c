@@ -980,7 +980,7 @@ void gpLoadGivenGame(char* gamename)
 {
     sdword verifysavename;
 
-    if (!fileExists(gamename, 0))
+    if (!fileExists(gamename, FF_UserSettingsPath))
     {
         return;
     }
