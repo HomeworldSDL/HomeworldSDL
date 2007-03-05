@@ -17,6 +17,7 @@
 #include "Animatic.h"
 #include "avi.h"
 #include "Debug.h"
+#include "File.h"
 #include "gldll.h"
 #include "NIS.h"
 #include "Subtitle.h"
@@ -602,12 +603,11 @@ bool aviPlay(char* filename)
 dbgMessage("aviPlay:Entering");
 #endif
     char  fullname[1024];
-    char* dir;
+    char* dir = fileHomeworldDataPath;
 
 //TODO  Include Windows file structure. 
 
-	dir = getenv("HW_Data") ? getenv("HW_Data") : regDataEnvironment;
-    if (dir == NULL)
+    if (dir[0] != '\0')
     {
 //        strcpy(fullname, "Movies\\");
         strcpy(fullname, "Movies/");
@@ -636,16 +636,14 @@ dbgMessage("aviPlay:Entering");
 
 //    nisFadeToSet(a , 0, b);
 
-	    g_bMoreFrames = TRUE;
-	    aviIsPlaying = TRUE;
-	    aviDonePlaying = FALSE;
-	    aviPlayLoop();
-    aviIsPlaying = FALSE;
-
-// taskResumesAll();
-
+    g_bMoreFrames  = TRUE;
+    aviIsPlaying   = TRUE;
+    aviDonePlaying = FALSE;
+    aviPlayLoop();
 
     aviStop();
+    aviIsPlaying = FALSE;
+    
     return 1;
 }
 

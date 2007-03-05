@@ -473,7 +473,7 @@ alreadyLoaded:;
 
 #if !(defined (HW_GAME_DEMO) || defined(HW_GAME_RAIDER_RETREAT))
 #ifdef _WIN32
-    startHandle = handle = _findfirst(filePathPrepend("MultiPlayer\\*.", FF_HomeworldRootPath), &find);
+    startHandle = handle = _findfirst(filePathPrepend("MultiPlayer\\*.", FF_HomeworldDataPath), &find);
 
     while (handle != -1)
     {
@@ -504,7 +504,7 @@ alreadyLoaded:;
             goto alreadyLoadedFromFileSystem;
         }
 
-        title = spTitleFind(filePathPrepend("MultiPlayer", FF_HomeworldRootPath), find.name);
+        title = spTitleFind(filePathPrepend("MultiPlayer", FF_HomeworldDataPath), find.name);
         if (title == NULL)
         {
             goto alreadyLoadedFromFileSystem;
@@ -540,7 +540,7 @@ alreadyLoadedFromFileSystem:;
     }
 #else   /* File search, not _WIN32... */
 
-    dp = opendir(filePathPrepend("MultiPlayer", FF_HomeworldRootPath));
+    dp = opendir(filePathPrepend("MultiPlayer", FF_HomeworldDataPath));
 
     if (dp)
     {
@@ -570,7 +570,7 @@ alreadyLoadedFromFileSystem:;
             if (fileName[0] == '\0')
                 continue;
 
-            title = spTitleFind(filePathPrepend("MultiPlayer", FF_HomeworldRootPath), dir_entry->d_name);
+            title = spTitleFind(filePathPrepend("MultiPlayer", FF_HomeworldDataPath), dir_entry->d_name);
             if (title == NULL)
             {
                 continue;

@@ -50,7 +50,7 @@
 #define FF_IgnoreBIG            0x0100          // don't look in .BIG file, only try to load from disk
 #define FF_IgnorePrepend        0x0200          // don't environment root path to beginning of file names
 #define FF_UserSettingsPath     0x0400          // use user configuration root as the base path
-#define FF_HomeworldRootPath    0x0800          // Homeworld's root directory
+#define FF_HomeworldDataPath    0x0800          // where the main data files are located
 
 //names of log files
 #define FN_OpenLog              "open.log"
@@ -91,7 +91,7 @@ typedef struct {
     long length;            // length of file in bigfile (uncompressed length)
 } fileOpenInfo;
 
-extern char fileHomeworldRootPath [];
+extern char fileHomeworldDataPath [];
 extern char fileUserSettingsPath  [];
 extern char fileOverrideBigPath   [];
 extern char fileCDROMPath         [];
@@ -106,6 +106,7 @@ char *filePathPrepend(char *fileName, udword flags);
 void fileNameReplaceSlashesInPlace(char *fileName);
 
 void fileCDROMPathSet(char *path);
+void fileHomeworldDataPathSet(char *path);
 void fileOverrideBigPathSet(char *path);
 void fileUserSettingsPathSet(char *path);
 

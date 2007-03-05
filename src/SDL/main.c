@@ -5,109 +5,70 @@
         Created June 1997 by Luke Moloney.
 ============================================================================*/
 
-#ifdef _WIN32
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-#include <winreg.h>
-#endif
-
-#include "SDL.h"
-
-#include "regkey.h"
-
-                // guess what?  The game code defines HKEY to 'H' which messes up the registry code.  So the
-                // registry code gets to go here
-#if 0	/* Not registering command line... */
-int RegisterCommandLine(char *commandLine)
-{
-    HKEY key;
-
-    if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, BASEKEYNAME,
-                        0, KEY_SET_VALUE, &key) != ERROR_SUCCESS)
-    {
-        return FALSE;
-    }
-
-    if ((commandLine == NULL) || (commandLine[0] == 0))
-    {
-        if (RegSetValueEx(key, "CmdLine", 0, REG_SZ, "", 1) != ERROR_SUCCESS)
-        {
-            RegCloseKey(key);
-            return FALSE;
-        }
-    }
-    else
-    {
-        if (RegSetValueEx(key, "CmdLine", 0, REG_SZ, (BYTE *)commandLine, strlen(commandLine)+1) != ERROR_SUCCESS)
-        {
-            RegCloseKey(key);
-            return FALSE;
-        }
-    }
-
-    RegCloseKey(key);
-
-    return TRUE;
-}
-#endif
-
-#include <stdlib.h>
+#include <limits.h> // for PATH_MAX
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include <limits.h> // for PATH_MAX
-#include "glinc.h"
-#include "resource.h"
-#include "utility.h"
-#include "Key.h"
-#include "mouse.h"
-#include "debugwnd.h"
-#include "Debug.h"
-#include "Memory.h"
-#include "File.h"
-#include "Camera.h"
-#include "Task.h"
-#include "mainrgn.h"
-#include "main.h"
-#include "Globals.h"
-#include "SoundEvent.h"
-#include "soundlow.h"
-#include "NIS.h"
+
+#include <SDL.h>
+
 #include "AIPlayer.h"
-#include "FontReg.h"
-#include "FEReg.h"
+#include "AutoLOD.h"
+#include "avi.h"
+// #include "bink.h"
+#include "BTG.h"
+#include "Camera.h"
+#include "Captaincy.h"
+#include "ColPick.h"
+#include "CommandLayer.h"
+#include "ConsMgr.h"
+#include "Debug.h"
+#include "debugwnd.h"
 #include "Demo.h"
-#include "ResearchAPI.h"
-#include "ObjTypes.h"
+#include "dxdraw.h"
+#include "FEReg.h"
+#include "File.h"
+#include "FontReg.h"
 #include "Formation.h"
 #include "glcaps.h"
-#include "Tactics.h"
-#include "render.h"
-#include "AutoLOD.h"
-#include "Captaincy.h"
-#include "Options.h"
-#include "Sensors.h"
-#include "BTG.h"
-#include "ResearchGUI.h"
-#include "ConsMgr.h"
-#include "rinit.h"
-#include "avi.h"
-/*#include "bink.h"*/
-#include "TitanNet.h"
-#include "MultiplayerGame.h"
-#include "Subtitle.h"
-#include "dxdraw.h"
-#include "LaunchMgr.h"
-#include "ColPick.h"
+#include "glinc.h"
+#include "Globals.h"
 #include "HorseRace.h"
-#include "Particle.h"
-#include "CommandLayer.h"
 #include "Key.h"
+#include "LaunchMgr.h"
+#include "main.h"
+#include "mainrgn.h"
+#include "Memory.h"
+#include "mouse.h"
+#include "MultiplayerGame.h"
+#include "NIS.h"
+#include "ObjTypes.h"
+#include "Options.h"
+#include "Particle.h"
+#include "regkey.h"
+#include "render.h"
+#include "ResearchAPI.h"
+#include "ResearchGUI.h"
+#include "resource.h"
+#include "rinit.h"
+#include "Sensors.h"
+#include "SoundEvent.h"
+#include "soundlow.h"
 #include "StringSupport.h"
+#include "Subtitle.h"
+#include "Tactics.h"
+#include "Task.h"
+#include "TitanNet.h"
+#include "utility.h"
 
 #ifdef _WIN32
-#define strcasecmp _stricmp
+    #define WIN32_LEAN_AND_MEAN
+    #define strcasecmp _stricmp
+    #include <windows.h>
+    #include <winreg.h>
 #endif
+
 
 /*=============================================================================
     Data:
@@ -337,6 +298,44 @@ bool pilotView = FALSE;
 /*=============================================================================
     Functions:
 =============================================================================*/
+
+                // guess what?  The game code defines HKEY to 'H' which messes up the registry code.  So the
+                // registry code gets to go here
+#if 0	/* Not registering command line... */
+int RegisterCommandLine(char *commandLine)
+{
+    HKEY key;
+
+    if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, BASEKEYNAME,
+                        0, KEY_SET_VALUE, &key) != ERROR_SUCCESS)
+    {
+        return FALSE;
+    }
+
+    if ((commandLine == NULL) || (commandLine[0] == 0))
+    {
+        if (RegSetValueEx(key, "CmdLine", 0, REG_SZ, "", 1) != ERROR_SUCCESS)
+        {
+            RegCloseKey(key);
+            return FALSE;
+        }
+    }
+    else
+    {
+        if (RegSetValueEx(key, "CmdLine", 0, REG_SZ, (BYTE *)commandLine, strlen(commandLine)+1) != ERROR_SUCCESS)
+        {
+            RegCloseKey(key);
+            return FALSE;
+        }
+    }
+
+    RegCloseKey(key);
+
+    return TRUE;
+}
+#endif
+
+
 /*-----------------------------------------------------------------------------
     Command-line parsing functions called when a certain flags are set
 -----------------------------------------------------------------------------*/
@@ -1088,9 +1087,9 @@ void mainDevStatsInit(void)
     // directory environment variable...
     if (!handle)
     {
-        hwdata = getenv("HW_Data")? getenv("HW_Data") : regDataEnvironment;
+        hwdata = fileHomeworldDataPath;
 
-        if (hwdata != NULL)
+        if (hwdata[0] != '\0')
         {
             strcpy(devstatspath, hwdata);
             strcat(devstatspath, "/");

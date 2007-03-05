@@ -75,9 +75,9 @@ extern FILE *updateFP;
 fileOpenInfo filesOpen[MAX_FILES_OPEN+1];
 
 
-// Homeworld's root directory (full path equivalent of '.')
-char fileHomeworldRootPath [PATH_MAX] = "";
-
+// where all the data files are kept (*.big, *.vce, *.wxe)
+char fileHomeworldDataPath [PATH_MAX] = "";
+ 
 // local directory mimicking the .big archive hierarchy and overrides
 // the contents of those archives. (Mainly used for testing.)
 char fileOverrideBigPath   [PATH_MAX] = "";
@@ -2063,9 +2063,9 @@ char *filePathPrepend(char *fileName, udword flags)
     {
         strcpy(filePathTempBuffer, "");
     }
-    else if (bitTest(flags, FF_HomeworldRootPath))
+    else if (bitTest(flags, FF_HomeworldDataPath))
     {
-        strcpy(filePathTempBuffer, fileHomeworldRootPath);
+        strcpy(filePathTempBuffer, fileHomeworldDataPath);
     }
     else if (bitTest(flags, FF_UserSettingsPath))
     {
@@ -2098,6 +2098,11 @@ void fileCDROMPathSet(char *path)
     }
 #endif
     filePathMaxBufferSet(fileCDROMPath, path);
+}
+
+void fileHomeworldDataPathSet(char *path)
+{
+    filePathMaxBufferSet(fileHomeworldDataPath, path);
 }
 
 void fileOverrideBigPathSet(char *path)

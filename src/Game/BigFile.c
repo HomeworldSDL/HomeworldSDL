@@ -2252,8 +2252,8 @@ sdword bigOpen(char *_bigFilename, char *_updateFilename)
     char bigFilename[PATH_MAX];
     char updateFilename[PATH_MAX];
 
-    strcpy(bigFilename,    filePathPrepend(_bigFilename,    FF_HomeworldRootPath));
-    strcpy(updateFilename, filePathPrepend(_updateFilename, FF_HomeworldRootPath));
+    strcpy(bigFilename,    filePathPrepend(_bigFilename,    FF_HomeworldDataPath));
+    strcpy(updateFilename, filePathPrepend(_updateFilename, FF_HomeworldDataPath));
 
     if (IgnoreBigfiles)
     {
