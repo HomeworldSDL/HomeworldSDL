@@ -14,6 +14,7 @@
 #include "SDL.h"
 
 #include "regkey.h"
+
                 // guess what?  The game code defines HKEY to 'H' which messes up the registry code.  So the
                 // registry code gets to go here
 #if 0	/* Not registering command line... */
@@ -350,31 +351,6 @@ bool HeapSizeSet(char *string)
 }
 
 
-void PrependPathSet(char *string)
-{
-    filePrependPathSet(string);
-}
-
-void CDROMPathSet(char *string)
-{
-#ifdef _WIN32
-    char message[80];
-
-    if (GetDriveType(string) != DRIVE_CDROM)
-    {
-        sprintf(message, "'%s' Is not a valid CD-ROM; path ignored.", string);
-        MessageBox(NULL, message, "Invalid CD-ROM path", MB_OK | MB_APPLMODAL);
-        return FALSE;
-    }
-#endif
-    fileCDROMPathSet(string);
-}
-
-void UserSettingsPathSet(char *string)
-{
-	fileUserSettingsPathSet(string);
-}
-
 bool EnableFileLoadLog(char *string)
 {
     logfileClear(FILELOADSLOG);
@@ -693,9 +669,9 @@ commandoption commandOptions[] =
 
     entryComment("SYSTEM OPTIONS"), //-----------------------------------------------------
     entryFnParam("/heap",           HeapSizeSet,                        " <n> - Sets size of global memory heap to [n]."),
-    entryFnParam("/prepath",        PrependPathSet,                     " <path> - Sets path to search for opening files."),
-    entryFnParam("/CDpath",         CDROMPathSet,                       " <path> - Sets path to CD-ROM in case of ambiguity."),
-    entryFnParam("/settingspath",   UserSettingsPathSet,                " <path> - Sets the path to store settings, saved games, and screenshots (defaults to ~/.homeworld)."),
+    entryFnParam("/bigoverride",    fileOverrideBigPathSet,             " <path> - Sets path to search for opening files."),
+    entryFnParam("/CDpath",         fileCDROMPathSet,                   " <path> - Sets path to CD-ROM in case of ambiguity."),
+    entryFnParam("/settingspath",   fileUserSettingsPathSet,            " <path> - Sets the path to store settings, saved games, and screenshots (defaults to ~/.homeworld)."),
 #if MAIN_MOUSE_FREE
 #ifdef HW_BUILD_FOR_DEBUGGING
     entryVr("/freemouse",           startupClipMouse, FALSE,            " - Mouse free to move about entire screen at startup.  Use <CTRL>F11 to toggle during play."),

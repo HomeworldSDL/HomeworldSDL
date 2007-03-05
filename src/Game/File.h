@@ -105,6 +105,11 @@ extern char filePathTempBuffer    [];
 char *filePathPrepend(char *fileName, udword flags);
 void fileNameReplaceSlashesInPlace(char *fileName);
 
+void fileCDROMPathSet(char *path);
+void fileOverrideBigPathSet(char *path);
+void fileUserSettingsPathSet(char *path);
+
+
 //load files directly into memory
 sdword fileLoadAlloc(char *fileName, void **address, udword flags);
 sdword fileLoad(char *fileName, void *address, udword flags);

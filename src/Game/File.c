@@ -1244,7 +1244,7 @@ void fileDelete(char *_fileName)
     char *fileName;
 
     fileName = filePathPrepend(_fileName, FF_IgnorePrepend);    //get full path
-    fileNameReplaceSlashes(fileName);
+    fileNameReplaceSlashesInPlace(fileName);
 
     remove(fileName);
 }
@@ -2083,6 +2083,31 @@ char *filePathPrepend(char *fileName, udword flags)
     strcat(filePathTempBuffer, fileName);
 
     return filePathTempBuffer;
+}
+
+void fileCDROMPathSet(char *path)
+{
+#ifdef _WIN32
+    char message[80];
+
+    if (GetDriveType(string) != DRIVE_CDROM)
+    {
+        sprintf(message, "'%s' Is not a valid CD-ROM; path ignored.", string);
+        MessageBox(NULL, message, "Invalid CD-ROM path", MB_OK | MB_APPLMODAL);
+        return FALSE;
+    }
+#endif
+    filePathMaxBufferSet(fileCDROMPath, path);
+}
+
+void fileOverrideBigPathSet(char *path)
+{
+    filePathMaxBufferSet(fileOverrideBigPath, path);
+}
+
+void fileUserSettingsPathSet(char *path)
+{
+    filePathMaxBufferSet(fileUserSettingsPath, path);
 }
 
 
