@@ -602,12 +602,19 @@ bool mouseLDoubleClick(void)
 //              (isShipOfClass((Ship *)mouseCursorObjPtr, CLASS_Fighter) ||
 //               isShipOfClass((Ship *)mouseCursorObjPtr, CLASS_Corvette)))))
 
+        // This will still act strangely in strange cases: if you have a RCorv and a SF selected and
+        // double-click on a carrier, both will support, contrary to what the cursor shows.
+        // If you have only the RCorv selected, it will dock.  I'd say that at least in this example
+        // the actions are intuitively right.  Unfortunately the cursor shape follows
+        // an entirely separate logic (in mouseSetCursorSetting).
         if (mouseCursorObjPtr &&                // if there's an object being clicked on
             ((isShipOfClass((Ship *)mouseCursorObjPtr, CLASS_Fighter) ||        // Carriers only support strikecraft
               isShipOfClass((Ship *)mouseCursorObjPtr, CLASS_Corvette)) &&
              ShiptypeInSelection((SelectCommand *)&mouseCursorSelect, Carrier)) ||
-            (ShiptypeInSelection((SelectCommand *)&mouseCursorSelect, RepairCorvette) ||
-             ShiptypeInSelection((SelectCommand *)&mouseCursorSelect, AdvanceSupportFrigate)))
+	    (!isShipOfClass((Ship *)mouseCursorObjPtr, CLASS_Mothership) &&     // RCorvs dock instead if possible.
+	     !isShipOfClass((Ship *)mouseCursorObjPtr, CLASS_Carrier) &&
+	     ShiptypeInSelection((SelectCommand *)&mouseCursorSelect, RepairCorvette)) ||
+	    ShiptypeInSelection((SelectCommand *)&mouseCursorSelect, AdvanceSupportFrigate))
         {
             // make a backup of mouseCursorSelect
             tempSelection.numShips = 0;
