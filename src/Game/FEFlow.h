@@ -20,14 +20,14 @@
 #define FEF_ERROR_CHECKING      1               //general error checking
 #define FEF_VERBOSE_LEVEL       2               //print extra info
 #define FEF_TEST                1               //test the module
-#define FE_TEXTURES_DISABLABLE  1
+#define FEF_TEXTURES_DISABLABLE 1
 
 #else
 
 #define FEF_ERROR_CHECKING      0               //general error checking
 #define FEF_VERBOSE_LEVEL       0               //print extra info
 #define FEF_TEST                0               //test the module
-#define FE_TEXTURES_DISABLABLE  0
+#define FEF_TEXTURES_DISABLABLE 0
 
 #endif
 
@@ -267,7 +267,7 @@ extern bool   feRenderEverything;
 extern sdword feMenuLevel;
 extern sdword feDontFlush;
 
-#if FE_TEXTURES_DISABLABLE
+#if FEF_TEXTURES_DISABLABLE
 extern bool fetEnableTextures;
 #endif
 

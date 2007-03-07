@@ -4502,7 +4502,7 @@ DONE_INTROS:
     //clear out the task timer.  Make sure this is the last call in this function.
     utyTaskTimerClear();
 
-#if FE_TEXTURES_DISABLABLE
+#if FEF_TEXTURES_DISABLABLE
     if (fetEnableTextures)
 #endif
     {
@@ -4921,7 +4921,7 @@ char *utyGameSystemsShutdown(void)
         utyClear2(SS2_Prim3D);
     }
     //shutdown front end texture registry
-#if FE_TEXTURES_DISABLABLE
+#if FEF_TEXTURES_DISABLABLE
     if (fetEnableTextures)
 #endif
     {

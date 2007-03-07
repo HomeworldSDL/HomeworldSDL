@@ -820,13 +820,13 @@ void feStaticRectangleDraw(regionhandle region)
 
     if (bitTest(atom->flags, FAF_BorderVisible))
     {
-#if FE_TEXTURES_DISABLABLE
+#if FEF_TEXTURES_DISABLABLE
         if (fetEnableTextures)
         {
 #endif
             ferDrawBoxRegion(region->rect, (drawtype)region->drawstyle[0],
                             (drawtype)region->drawstyle[1], &region->cutouts, bitTest(atom->status, FAS_UseAlpha));
-#if FE_TEXTURES_DISABLABLE
+#if FEF_TEXTURES_DISABLABLE
         }
         else
         {
@@ -876,13 +876,13 @@ void feBaseRegionDraw(regionhandle region)
 
     if (bitTest(atom->flags, FAF_BorderVisible))
     {
-#if FE_TEXTURES_DISABLABLE
+#if FEF_TEXTURES_DISABLABLE
         if (fetEnableTextures)
         {
 #endif
             ferDrawBoxRegion(region->rect, (drawtype)region->drawstyle[0],
                             (drawtype)region->drawstyle[1], &region->cutouts, bitTest(atom->status, FAS_UseAlpha));
-#if FE_TEXTURES_DISABLABLE
+#if FEF_TEXTURES_DISABLABLE
             return;
         }
 
@@ -1506,7 +1506,7 @@ regionhandle feRegionsAdd(regionhandle parent, fescreen *screen, bool moveToFron
     }
 
     //now link up the cutout regions to the regions they cut out
-#if FE_TEXTURES_DISABLABLE
+#if FEF_TEXTURES_DISABLABLE
     if (fetEnableTextures)
 #endif
     {

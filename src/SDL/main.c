@@ -207,7 +207,7 @@ bool8 RENDER_LIGHTLINES = FALSE;
 bool enableTextFeedback = FALSE;
 #endif
 
-#if FE_TEXTURES_DISABLABLE
+#if FEF_TEXTURES_DISABLABLE
 bool fetEnableTextures = TRUE;
 #endif
 bool noDefaultComputerPlayer = FALSE;
@@ -709,7 +709,7 @@ commandoption commandOptions[] =
 #if ETG_DISABLEABLE
     entryVr("/noEffects",           etgEffectsEnabled,FALSE,            " - disable all effects (Debug only)."),
 #endif
-#if FE_TEXTURES_DISABLABLE
+#if FEF_TEXTURES_DISABLABLE
     entryVr("/NoFETextures",        fetEnableTextures, FALSE,           " - turns off front end textures"),
 #endif
     entryVr("/stipple",             enableStipple, TRUE,                " - enable stipple alpha with software renderer."),
