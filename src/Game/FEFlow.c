@@ -1792,7 +1792,7 @@ fibfileheader *feScreensLoad(char *fileName)
     header = (fibfileheader *)loadAddress;                  //get a pointer to the header
 
 #if FIX_ENDIAN
-	header->version = FIX_ENDIAN_INT_16( header->version );
+	header->version  = FIX_ENDIAN_INT_16( header->version );
 	header->nScreens = FIX_ENDIAN_INT_16( header->nScreens );
 #endif
 

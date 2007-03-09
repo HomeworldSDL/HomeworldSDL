@@ -39,9 +39,9 @@
 
 enum tagFIBLinkFlags
 {
-    FL_Enabled = 1,
-    FL_DefaultPrev = 2,
-    FL_DefaultNext = 4,
+    FL_Enabled        = 1,
+    FL_DefaultPrev    = 2,
+    FL_DefaultNext    = 4,
     FL_RetainPrevious = 8,
 
     FL_LastFLF
@@ -189,17 +189,10 @@ typedef struct tagfeatom
     uword  tabstop;                             //denotes the tab ordering of UI controls
     color  borderColor;                         //optional color of border
     color  contentColor;                        //optional color of content
-#if 1
-    sword  x, loadedX;
-    sword  y, loadedY;
-    sword  width, loadedWidth;
+    sword  x,      loadedX;
+    sword  y,      loadedY;
+    sword  width,  loadedWidth;
     sword  height, loadedHeight;
-#else
-    sdword x;                                   //-+
-    sdword y;                                   // |>rectangle of region
-    sdword width;                               // |
-    sdword height;                              //-+
-#endif
     ubyte *pData;                               //pointer to type-specific data
     ubyte *attribs;                             //sound(button atom) or font(static text atom) reference
     char   hotKeyModifiers;
