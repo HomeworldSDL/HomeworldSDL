@@ -8,239 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		3507A51B0B0FA60200E374C5 /* Trails.c in Sources */ = {isa = PBXBuildFile; fileRef = 3507A5190B0FA60200E374C5 /* Trails.c */; };
-		3507A51C0B0FA60200E374C5 /* Trails.h in Headers */ = {isa = PBXBuildFile; fileRef = 3507A51A0B0FA60200E374C5 /* Trails.h */; };
 		3507A51D0B0FA60200E374C5 /* Trails.c in Sources */ = {isa = PBXBuildFile; fileRef = 3507A5190B0FA60200E374C5 /* Trails.c */; };
-		3507A51E0B0FA60200E374C5 /* Trails.h in Headers */ = {isa = PBXBuildFile; fileRef = 3507A51A0B0FA60200E374C5 /* Trails.h */; };
 		3507A57A0B0FBB0B00E374C5 /* Subtitle.c in Sources */ = {isa = PBXBuildFile; fileRef = 3507A5780B0FBB0B00E374C5 /* Subtitle.c */; };
-		3507A57B0B0FBB0B00E374C5 /* Subtitle.h in Headers */ = {isa = PBXBuildFile; fileRef = 3507A5790B0FBB0B00E374C5 /* Subtitle.h */; };
 		3507A57C0B0FBB0B00E374C5 /* Subtitle.c in Sources */ = {isa = PBXBuildFile; fileRef = 3507A5780B0FBB0B00E374C5 /* Subtitle.c */; };
-		3507A57D0B0FBB0B00E374C5 /* Subtitle.h in Headers */ = {isa = PBXBuildFile; fileRef = 3507A5790B0FBB0B00E374C5 /* Subtitle.h */; };
 		3510B754077C8863007B8838 /* mainrgn.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9229064AEE7A003E3D39 /* mainrgn.c */; };
-		3516C82F077C41B0001AA863 /* AIAttackMan.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623BEF064992AE0088361C /* AIAttackMan.h */; };
-		3516C830077C41B0001AA863 /* AIDefenseMan.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623BF1064992AE0088361C /* AIDefenseMan.h */; };
-		3516C831077C41B0001AA863 /* AIEvents.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623BF3064992AE0088361C /* AIEvents.h */; };
-		3516C832077C41B0001AA863 /* AIFeatures.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623BF4064992AE0088361C /* AIFeatures.h */; };
-		3516C833077C41B0001AA863 /* AIFleetMan.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623BF6064992AE0088361C /* AIFleetMan.h */; };
-		3516C834077C41B0001AA863 /* AIHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623BF8064992AE0088361C /* AIHandler.h */; };
-		3516C835077C41B0001AA863 /* AIMoves.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623BFA064992AE0088361C /* AIMoves.h */; };
-		3516C838077C41B0001AA863 /* AIOrders.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623BFE064992AE0088361C /* AIOrders.h */; };
-		3516C83A077C41B0001AA863 /* AIPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C01064992AE0088361C /* AIPlayer.h */; };
-		3516C83B077C41B0001AA863 /* AIResourceMan.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C03064992AE0088361C /* AIResourceMan.h */; };
-		3516C83C077C41B0001AA863 /* AIShip.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C05064992AE0088361C /* AIShip.h */; };
-		3516C83D077C41B0001AA863 /* AITeam.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C07064992AE0088361C /* AITeam.h */; };
-		3516C83E077C41B0001AA863 /* AITrack.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C09064992AE0088361C /* AITrack.h */; };
-		3516C83F077C41B0001AA863 /* AIUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C0B064992AE0088361C /* AIUtilities.h */; };
-		3516C840077C41B0001AA863 /* AIVar.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C0D064992AE0088361C /* AIVar.h */; };
-		3516C841077C41B0001AA863 /* Alliance.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C0F064992AE0088361C /* Alliance.h */; };
-		3516C842077C41B0001AA863 /* Animatic.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C11064992AE0088361C /* Animatic.h */; };
-		3516C843077C41B0001AA863 /* Attack.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C13064992AE0088361C /* Attack.h */; };
-		3516C844077C41B0001AA863 /* Attributes.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C14064992AE0088361C /* Attributes.h */; };
-		3516C845077C41B0001AA863 /* AutoDownloadMap.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C16064992AE0088361C /* AutoDownloadMap.h */; };
-		3516C846077C41B0001AA863 /* AutoLOD.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C18064992AE0088361C /* AutoLOD.h */; };
-		3516C847077C41B0001AA863 /* B-Spline.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C1A064992AE0088361C /* B-Spline.h */; };
-		3516C848077C41B0001AA863 /* Battle.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C1C064992AE0088361C /* Battle.h */; };
-		3516C849077C41B0001AA863 /* BigFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C1E064992AE0088361C /* BigFile.h */; };
-		3516C84B077C41B0001AA863 /* Blobs.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C22064992AE0088361C /* Blobs.h */; };
-		3516C84C077C41B0001AA863 /* BMP.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C24064992AE0088361C /* BMP.h */; };
-		3516C84D077C41B0001AA863 /* Bounties.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C26064992AE0088361C /* Bounties.h */; };
-		3516C84E077C41B0001AA863 /* BTG.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C28064992AE0088361C /* BTG.h */; };
-		3516C84F077C41B0001AA863 /* Camera.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C2A064992AE0088361C /* Camera.h */; };
-		3516C850077C41B0001AA863 /* CameraCommand.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C2C064992AE0088361C /* CameraCommand.h */; };
-		3516C851077C41B0001AA863 /* Captaincy.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C2E064992AE0088361C /* Captaincy.h */; };
-		3516C852077C41B0001AA863 /* ChannelFSM.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C30064992AE0088361C /* ChannelFSM.h */; };
-		3516C853077C41B0001AA863 /* Chatting.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C32064992AE0088361C /* Chatting.h */; };
-		3516C854077C41B0001AA863 /* Clamp.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C34064992AE0088361C /* Clamp.h */; };
-		3516C855077C41B0001AA863 /* ClassDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C35064992AE0088361C /* ClassDefs.h */; };
-		3516C856077C41B0001AA863 /* Clipper.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C37064992AE0088361C /* Clipper.h */; };
-		3516C857077C41B0001AA863 /* Clouds.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C39064992AE0088361C /* Clouds.h */; };
-		3516C858077C41B0001AA863 /* Collision.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C3B064992AE0088361C /* Collision.h */; };
-		3516C859077C41B0001AA863 /* ColPick.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C3D064992AE0088361C /* ColPick.h */; };
-		3516C85A077C41B0001AA863 /* CommandDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C3E064992AE0088361C /* CommandDefs.h */; };
-		3516C85B077C41B0001AA863 /* CommandLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C40064992AE0088361C /* CommandLayer.h */; };
-		3516C85C077C41B0001AA863 /* CommandNetwork.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C42064992AE0088361C /* CommandNetwork.h */; };
-		3516C85D077C41B0001AA863 /* CommandWrap.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C44064992AE0088361C /* CommandWrap.h */; };
-		3516C85E077C41B0001AA863 /* ConsMgr.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C46064992AE0088361C /* ConsMgr.h */; };
-		3516C85F077C41B0001AA863 /* Crates.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C48064992AE0088361C /* Crates.h */; };
-		3516C861077C41B0001AA863 /* Damage.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C4C064992AE0088361C /* Damage.h */; };
-		3516C862077C41B0001AA863 /* Debug.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C4E064992AE0088361C /* Debug.h */; };
-		3516C863077C41B0001AA863 /* Demo.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C50064992AE0088361C /* Demo.h */; };
-		3516C864077C41B0001AA863 /* Dock.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C52064992AE0088361C /* Dock.h */; };
-		3516C865077C41B0001AA863 /* ETG.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C54064992AE0088361C /* ETG.h */; };
-		3516C866077C41B0001AA863 /* Eval.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C56064992AE0088361C /* Eval.h */; };
-		3516C867077C41B0001AA863 /* FastMath.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C58064992AE0088361C /* FastMath.h */; };
-		3516C868077C41B0001AA863 /* FEColour.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C59064992AE0088361C /* FEColour.h */; };
-		3516C869077C41B0001AA863 /* FEFlow.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C5B064992AE0088361C /* FEFlow.h */; };
-		3516C86A077C41B0001AA863 /* FEReg.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C5D064992AE0088361C /* FEReg.h */; };
-		3516C86B077C41B0001AA863 /* File.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C5F064992AE0088361C /* File.h */; };
-		3516C86C077C41B0001AA863 /* FlightMan.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C61064992AE0088361C /* FlightMan.h */; };
-		3516C86D077C41B0001AA863 /* FlightManDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C62064992AE0088361C /* FlightManDefs.h */; };
-		3516C86E077C41B0001AA863 /* FontReg.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C64064992AE0088361C /* FontReg.h */; };
-		3516C86F077C41B0001AA863 /* Formation.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C66064992AE0088361C /* Formation.h */; };
-		3516C870077C41B0001AA863 /* FormationDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C67064992AE0088361C /* FormationDefs.h */; };
-		3516C871077C41B0001AA863 /* GameChat.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C69064992AE0088361C /* GameChat.h */; };
-		3516C872077C41B0001AA863 /* GamePick.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C6B064992AE0088361C /* GamePick.h */; };
-		3516C873077C41B0001AA863 /* GameStats.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C6C064992AE0088361C /* GameStats.h */; };
-		3516C874077C41B0001AA863 /* Globals.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C6E064992AE0088361C /* Globals.h */; };
-		3516C875077C41B0001AA863 /* Gun.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C70064992AE0088361C /* Gun.h */; };
-		3516C876077C41B0001AA863 /* Hash.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C72064992AE0088361C /* Hash.h */; };
-		3516C877077C41B0001AA863 /* HorseRace.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C74064992AE0088361C /* HorseRace.h */; };
-		3516C878077C41B0001AA863 /* HS.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C76064992AE0088361C /* HS.h */; };
-		3516C879077C41B0001AA863 /* InfoOverlay.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C78064992AE0088361C /* InfoOverlay.h */; };
-		3516C87A077C41B0001AA863 /* KAS.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C7A064992AE0088361C /* KAS.h */; };
-		3516C87B077C41B0001AA863 /* KASFunc.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C7C064992AE0088361C /* KASFunc.h */; };
-		3516C87C077C41B0001AA863 /* Key.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C7E064992AE0088361C /* Key.h */; };
-		3516C87D077C41B0001AA863 /* KeyBindings.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C80064992AE0088361C /* KeyBindings.h */; };
-		3516C87E077C41B0001AA863 /* LagPrint.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C82064992AE0088361C /* LagPrint.h */; };
-		3516C87F077C41B0001AA863 /* LaunchMgr.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C84064992AE0088361C /* LaunchMgr.h */; };
-		3516C881077C41B0001AA863 /* LevelLoad.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C87064992AE0088361C /* LevelLoad.h */; };
-		3516C883077C41B0001AA863 /* LinkedList.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C8A064992AE0088361C /* LinkedList.h */; };
-		3516C884077C41B0001AA863 /* LOD.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C8C064992AE0088361C /* LOD.h */; };
-		3516C886077C41B0001AA863 /* MadLinkIn.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C90064992AE0088361C /* MadLinkIn.h */; };
-		3516C887077C41B0001AA863 /* MadLinkInDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C91064992AE0088361C /* MadLinkInDefs.h */; };
-		3516C888077C41B0001AA863 /* Matrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C96064992AF0088361C /* Matrix.h */; };
-		3516C889077C41B0001AA863 /* MaxMultiplayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C98064992AF0088361C /* MaxMultiplayer.h */; };
-		3516C88A077C41B0001AA863 /* Memory.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C9A064992AF0088361C /* Memory.h */; };
-		3516C88B077C41B0001AA863 /* Mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C9C064992AF0088361C /* Mesh.h */; };
-		3516C88C077C41B0001AA863 /* MeshAnim.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C9E064992AF0088361C /* MeshAnim.h */; };
-		3516C88D077C41B0001AA863 /* MEX.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CA0064992AF0088361C /* MEX.h */; };
-		3516C88E077C41B0001AA863 /* MultiplayerGame.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CA2064992AF0088361C /* MultiplayerGame.h */; };
-		3516C88F077C41B0001AA863 /* MultiplayerLANGame.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CA4064992AF0088361C /* MultiplayerLANGame.h */; };
-		3516C890077C41B0001AA863 /* NavLights.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CA6064992AF0088361C /* NavLights.h */; };
-		3516C891077C41B0001AA863 /* Nebulae.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CA8064992AF0088361C /* Nebulae.h */; };
-		3516C892077C41B0001AA863 /* NetCheck.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CAA064992AF0088361C /* NetCheck.h */; };
-		3516C893077C41B0001AA863 /* NIS.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CAC064992AF0088361C /* NIS.h */; };
-		3516C895077C41B0001AA863 /* Objectives.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CAF064992AF0088361C /* Objectives.h */; };
-		3516C896077C41B0001AA863 /* ObjTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CB1064992AF0088361C /* ObjTypes.h */; };
-		3516C897077C41B0001AA863 /* Options.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CB3064992AF0088361C /* Options.h */; };
-		3516C898077C41B0001AA863 /* Particle.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CB5064992AF0088361C /* Particle.h */; };
-		3516C899077C41B0001AA863 /* Physics.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CB7064992AF0088361C /* Physics.h */; };
-		3516C89A077C41B0001AA863 /* PiePlate.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CB9064992AF0088361C /* PiePlate.h */; };
-		3516C89B077C41B0001AA863 /* Ping.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CBB064992AF0088361C /* Ping.h */; };
-		3516C89C077C41B0001AA863 /* PlugScreen.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CBD064992AF0088361C /* PlugScreen.h */; };
-		3516C89D077C41B0001AA863 /* ProfileTimers.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CBF064992AF0088361C /* ProfileTimers.h */; };
-		3516C89E077C41B0001AA863 /* RaceDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CC0064992AF0088361C /* RaceDefs.h */; };
-		3516C89F077C41B0001AA863 /* Randy.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CC2064992AF0088361C /* Randy.h */; };
-		3516C8A0077C41B0001AA863 /* Region.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CC4064992AF0088361C /* Region.h */; };
-		3516C8A1077C41B0001AA863 /* ResCollect.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CC6064992AF0088361C /* ResCollect.h */; };
-		3516C8A2077C41B0001AA863 /* ResearchAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CC8064992AF0088361C /* ResearchAPI.h */; };
-		3516C8A3077C41B0001AA863 /* ResearchGUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CCA064992AF0088361C /* ResearchGUI.h */; };
-		3516C8A4077C41B0001AA863 /* SaveGame.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CCC064992AF0088361C /* SaveGame.h */; };
-		3516C8A5077C41B0001AA863 /* ScenPick.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CCE064992AF0088361C /* ScenPick.h */; };
-		3516C8A6077C41B0001AA863 /* Scroller.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CD0064992AF0088361C /* Scroller.h */; };
-		3516C8A7077C41B0001AA863 /* Select.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CD2064992AF0088361C /* Select.h */; };
-		3516C8A8077C41B0001AA863 /* Sensors.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CD4064992AF0088361C /* Sensors.h */; };
-		3516C8A9077C41B0001AA863 /* Shader.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CD6064992AF0088361C /* Shader.h */; };
-		3516C8AC077C41B0001AA863 /* ShipSelect.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CDA064992AF0088361C /* ShipSelect.h */; };
-		3516C8AD077C41B0001AA863 /* ShipView.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CDC064992AF0088361C /* ShipView.h */; };
-		3516C8AE077C41B0001AA863 /* SinglePlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CDE064992AF0088361C /* SinglePlayer.h */; };
-		3516C8AF077C41B0001AA863 /* SoundEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CE0064992AF0088361C /* SoundEvent.h */; };
-		3516C8B0077C41B0001AA863 /* SoundEventDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CE1064992AF0088361C /* SoundEventDefs.h */; };
-		3516C8B1077C41B0001AA863 /* SoundEventPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CE3064992AF0088361C /* SoundEventPrivate.h */; };
-		3516C8B2077C41B0001AA863 /* SoundMusic.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CE5064992AF0088361C /* SoundMusic.h */; };
-		3516C8B3077C41B0001AA863 /* SoundStructs.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CE6064992AF0088361C /* SoundStructs.h */; };
-		3516C8B4077C41B0001AA863 /* SpaceObj.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CE7064992AF0088361C /* SpaceObj.h */; };
-		3516C8B5077C41B0001AA863 /* SpeechEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CE9064992AF0088361C /* SpeechEvent.h */; };
-		3516C8B6077C41B0001AA863 /* Star3d.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CEB064992AF0088361C /* Star3d.h */; };
-		3516C8B7077C41B0001AA863 /* Stats.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CED064992AF0088361C /* Stats.h */; };
-		3516C8B8077C41B0001AA863 /* StatScript.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CEF064992AF0088361C /* StatScript.h */; };
-		3516C8BA077C41B0001AA863 /* StringsOnly.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CF2064992AF0088361C /* StringsOnly.h */; };
-		3516C8BB077C41B0001AA863 /* Switches.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CF3064992AF0088361C /* Switches.h */; };
-		3516C8BC077C41B0001AA863 /* Tactical.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CF5064992AF0088361C /* Tactical.h */; };
-		3516C8BD077C41B0001AA863 /* Tactics.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CF7064992AF0088361C /* Tactics.h */; };
-		3516C8BE077C41B0001AA863 /* Task.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CF9064992AF0088361C /* Task.h */; };
-		3516C8BF077C41B0001AA863 /* TaskBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CFB064992AF0088361C /* TaskBar.h */; };
-		3516C8C0077C41B0001AA863 /* Teams.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CFD064992AF0088361C /* Teams.h */; };
-		3516C8C1077C41B0001AA863 /* Timer.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CFF064992AF0088361C /* Timer.h */; };
-		3516C8C2077C41B0001AA863 /* TitanNet.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623D01064992AF0088361C /* TitanNet.h */; };
-		3516C8C3077C41B0001AA863 /* Tracking.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623D03064992AF0088361C /* Tracking.h */; };
-		3516C8C4077C41B0001AA863 /* TradeMgr.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623D05064992AF0088361C /* TradeMgr.h */; };
-		3516C8C5077C41B0001AA863 /* Transformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623D08064992AF0088361C /* Transformer.h */; };
-		3516C8C6077C41B0001AA863 /* Tutor.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623D0A064992AF0088361C /* Tutor.h */; };
-		3516C8C7077C41B0001AA863 /* Tweak.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623D0E064992AF0088361C /* Tweak.h */; };
-		3516C8C8077C41B0001AA863 /* Twiddle.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623D10064992AF0088361C /* Twiddle.h */; };
-		3516C8C9077C41B0001AA863 /* Types.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623D12064992AF0088361C /* Types.h */; };
-		3516C8CA077C41B0001AA863 /* UIControls.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623D14064992AF0088361C /* UIControls.h */; };
-		3516C8CB077C41B0001AA863 /* Undo.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623D16064992AF0088361C /* Undo.h */; };
-		3516C8CC077C41B0001AA863 /* Universe.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623D18064992AF0088361C /* Universe.h */; };
-		3516C8CD077C41B0001AA863 /* UnivUpdate.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623D1A064992AF0088361C /* UnivUpdate.h */; };
-		3516C8CE077C41B0001AA863 /* Vector.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623D1C064992AF0088361C /* Vector.h */; };
-		3516C8CF077C41B0001AA863 /* VolTweakDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623D1D064992AF0088361C /* VolTweakDefs.h */; };
-		3516C8D0077C41B0001AA863 /* Volume.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623D1F064992AF0088361C /* Volume.h */; };
-		3516C8EF077C41B0001AA863 /* avi.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9208064AEE7A003E3D39 /* avi.h */; };
-		3516C8F1077C41B0001AA863 /* devstats.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9210064AEE7A003E3D39 /* devstats.h */; };
-		3516C8F2077C41B0001AA863 /* font.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9214064AEE7A003E3D39 /* font.h */; };
-		3516C8F3077C41B0001AA863 /* fqcodec.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9215064AEE7A003E3D39 /* fqcodec.h */; };
-		3516C8F4077C41B0001AA863 /* fqeffect.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9216064AEE7A003E3D39 /* fqeffect.h */; };
-		3516C8F5077C41B0001AA863 /* fquant.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9217064AEE7A003E3D39 /* fquant.h */; };
-		3516C8F6077C41B0001AA863 /* glcaps.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9219064AEE7A003E3D39 /* glcaps.h */; };
-		3516C8F8077C41B0001AA863 /* gldefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD921C064AEE7A003E3D39 /* gldefines.h */; };
-		3516C8F9077C41B0001AA863 /* gldll.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD921E064AEE7A003E3D39 /* gldll.h */; };
-		3516C8FA077C41B0001AA863 /* glext.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD921F064AEE7A003E3D39 /* glext.h */; };
-		3516C8FB077C41B0001AA863 /* glinc.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9220064AEE7A003E3D39 /* glinc.h */; };
-		3516C8FF077C41B0001AA863 /* main.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9228064AEE7A003E3D39 /* main.h */; };
-		3516C900077C41B0001AA863 /* mainrgn.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD922A064AEE7A003E3D39 /* mainrgn.h */; };
-		3516C901077C41B0001AA863 /* mainswitches.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD922B064AEE7A003E3D39 /* mainswitches.h */; };
-		3516C902077C41B0001AA863 /* mouse.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD922F064AEE7A003E3D39 /* mouse.h */; };
-		3516C903077C41B0001AA863 /* prim2d.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9231064AEE7A003E3D39 /* prim2d.h */; };
-		3516C904077C41B0001AA863 /* prim3d.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9233064AEE7A003E3D39 /* prim3d.h */; };
-		3516C905077C41B0001AA863 /* Queue.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9235064AEE7A003E3D39 /* Queue.h */; };
-		3516C906077C41B0001AA863 /* regkey.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9236064AEE7A003E3D39 /* regkey.h */; };
-		3516C907077C41B0001AA863 /* render.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9238064AEE7A003E3D39 /* render.h */; };
-		3516C908077C41B0001AA863 /* resource.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9239064AEE7A003E3D39 /* resource.h */; };
-		3516C909077C41B0001AA863 /* rglu.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD923B064AEE7A003E3D39 /* rglu.h */; };
-		3516C90A077C41B0001AA863 /* rinit.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD923D064AEE7A003E3D39 /* rinit.h */; };
-		3516C90B077C41B0001AA863 /* screenshot.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD923F064AEE7A003E3D39 /* screenshot.h */; };
-		3516C90C077C41B0001AA863 /* soundcmn.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9242064AEE7A003E3D39 /* soundcmn.h */; };
-		3516C90D077C41B0001AA863 /* soundlow.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9245064AEE7A003E3D39 /* soundlow.h */; };
-		3516C90F077C41B0001AA863 /* texreg.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD924D064AEE7A003E3D39 /* texreg.h */; };
-		3516C910077C41B0001AA863 /* TimeoutTimer.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD924F064AEE7A003E3D39 /* TimeoutTimer.h */; };
-		3516C911077C41B0001AA863 /* Titan.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9251064AEE7A003E3D39 /* Titan.h */; };
-		3516C912077C41B0001AA863 /* TitanInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9253064AEE7A003E3D39 /* TitanInterface.h */; };
-		3516C913077C41B0001AA863 /* TitanInterfaceC.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9254064AEE7A003E3D39 /* TitanInterfaceC.h */; };
-		3516C914077C41B0001AA863 /* TitanPacketMsg.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9257064AEE7A003E3D39 /* TitanPacketMsg.h */; };
-		3516C916077C41B0001AA863 /* utility.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD925B064AEE7A003E3D39 /* utility.h */; };
-		3516C917077C41B0001AA863 /* AdvanceSupportFrigate.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD92E8064AEF42003E3D39 /* AdvanceSupportFrigate.h */; };
-		3516C918077C41B0001AA863 /* Carrier.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD92EA064AEF42003E3D39 /* Carrier.h */; };
-		3516C919077C41B0001AA863 /* CloakGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD92EC064AEF42003E3D39 /* CloakGenerator.h */; };
-		3516C91A077C41B0001AA863 /* DDDFrigate.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD92EE064AEF42003E3D39 /* DDDFrigate.h */; };
-		3516C91B077C41B0001AA863 /* DefaultShip.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD92F0064AEF42003E3D39 /* DefaultShip.h */; };
-		3516C91C077C41B0001AA863 /* DefenseFighter.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD92F2064AEF42003E3D39 /* DefenseFighter.h */; };
-		3516C91D077C41B0001AA863 /* DFGFrigate.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD92F4064AEF42003E3D39 /* DFGFrigate.h */; };
-		3516C91E077C41B0001AA863 /* Drone.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD92F6064AEF42003E3D39 /* Drone.h */; };
-		3516C91F077C41B0001AA863 /* FloatingCity.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD92F8064AEF42003E3D39 /* FloatingCity.h */; };
-		3516C920077C41B0001AA863 /* GenericDefender.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD92FA064AEF42003E3D39 /* GenericDefender.h */; };
-		3516C921077C41B0001AA863 /* GenericInterceptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD92FC064AEF42003E3D39 /* GenericInterceptor.h */; };
-		3516C922077C41B0001AA863 /* GravWellGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD92FE064AEF42003E3D39 /* GravWellGenerator.h */; };
-		3516C923077C41B0001AA863 /* HeavyCorvette.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9300064AEF42003E3D39 /* HeavyCorvette.h */; };
-		3516C924077C41B0001AA863 /* HeavyCruiser.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9302064AEF42003E3D39 /* HeavyCruiser.h */; };
-		3516C925077C41B0001AA863 /* IonCannonFrigate.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9304064AEF42003E3D39 /* IonCannonFrigate.h */; };
-		3516C926077C41B0001AA863 /* LightCorvette.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9306064AEF42003E3D39 /* LightCorvette.h */; };
-		3516C927077C41B0001AA863 /* MinelayerCorvette.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD930A064AEF43003E3D39 /* MinelayerCorvette.h */; };
-		3516C928077C41B0001AA863 /* MissileDestroyer.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD930C064AEF43003E3D39 /* MissileDestroyer.h */; };
-		3516C929077C41B0001AA863 /* Mothership.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD930E064AEF43003E3D39 /* Mothership.h */; };
-		3516C92A077C41B0001AA863 /* MultiGunCorvette.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9310064AEF43003E3D39 /* MultiGunCorvette.h */; };
-		3516C92B077C41B0001AA863 /* P1IonArrayFrigate.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9312064AEF43003E3D39 /* P1IonArrayFrigate.h */; };
-		3516C92C077C41B0001AA863 /* P1MissileCorvette.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9314064AEF43003E3D39 /* P1MissileCorvette.h */; };
-		3516C92D077C41B0001AA863 /* P1Mothership.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9316064AEF43003E3D39 /* P1Mothership.h */; };
-		3516C92E077C41B0001AA863 /* P1StandardCorvette.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9318064AEF43003E3D39 /* P1StandardCorvette.h */; };
-		3516C92F077C41B0001AA863 /* P2AdvanceSwarmer.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD931A064AEF43003E3D39 /* P2AdvanceSwarmer.h */; };
-		3516C930077C41B0001AA863 /* P2FuelPod.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD931C064AEF43003E3D39 /* P2FuelPod.h */; };
-		3516C931077C41B0001AA863 /* P2Mothership.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD931E064AEF43003E3D39 /* P2Mothership.h */; };
-		3516C932077C41B0001AA863 /* P2MultiBeamFrigate.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9320064AEF43003E3D39 /* P2MultiBeamFrigate.h */; };
-		3516C933077C41B0001AA863 /* P2Swarmer.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9322064AEF43003E3D39 /* P2Swarmer.h */; };
-		3516C934077C41B0001AA863 /* P3StandardShip.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9324064AEF43003E3D39 /* P3StandardShip.h */; };
-		3516C935077C41B0001AA863 /* Probe.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9326064AEF43003E3D39 /* Probe.h */; };
-		3516C936077C41B0001AA863 /* ProximitySensor.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9328064AEF43003E3D39 /* ProximitySensor.h */; };
-		3516C937077C41B0001AA863 /* RepairCorvette.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD932A064AEF43003E3D39 /* RepairCorvette.h */; };
-		3516C938077C41B0001AA863 /* ResearchShip.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD932C064AEF43003E3D39 /* ResearchShip.h */; };
-		3516C939077C41B0001AA863 /* ResourceCollector.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD932E064AEF43003E3D39 /* ResourceCollector.h */; };
-		3516C93A077C41B0001AA863 /* ResourceController.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9330064AEF43003E3D39 /* ResourceController.h */; };
-		3516C93B077C41B0001AA863 /* SalCapCorvette.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9332064AEF43003E3D39 /* SalCapCorvette.h */; };
-		3516C93C077C41B0001AA863 /* SensorArray.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9334064AEF43003E3D39 /* SensorArray.h */; };
-		3516C93D077C41B0001AA863 /* StandardDestroyer.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9336064AEF43003E3D39 /* StandardDestroyer.h */; };
-		3516C93E077C41B0001AA863 /* StandardFrigate.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9338064AEF43003E3D39 /* StandardFrigate.h */; };
-		3516C93F077C41B0001AA863 /* SDLMain.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD93C2064AF4F3003E3D39 /* SDLMain.h */; };
-		3516C940077C41B0001AA863 /* Homeworld_Prefix.h in Headers */ = {isa = PBXBuildFile; fileRef = 35517D000732720E00691120 /* Homeworld_Prefix.h */; };
 		3516C948077C41B0001AA863 /* AIAttackMan.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623BEE064992AE0088361C /* AIAttackMan.c */; };
 		3516C949077C41B0001AA863 /* AIDefenseMan.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623BF0064992AE0088361C /* AIDefenseMan.c */; };
 		3516C94A077C41B0001AA863 /* AIEvents.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623BF2064992AE0088361C /* AIEvents.c */; };
@@ -438,112 +209,75 @@
 		3516CA67077C41B0001AA863 /* rinit.c in Sources */ = {isa = PBXBuildFile; fileRef = 9030AF93066D5D2C00B32218 /* rinit.c */; };
 		3516CA6B077C41B0001AA863 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		3516CA6C077C41B0001AA863 /* SDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35517D100732744900691120 /* SDL.framework */; };
-		35517D010732720E00691120 /* Homeworld_Prefix.h in Headers */ = {isa = PBXBuildFile; fileRef = 35517D000732720E00691120 /* Homeworld_Prefix.h */; };
 		35517D110732744900691120 /* SDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35517D100732744900691120 /* SDL.framework */; };
 		3578AD080AF40518007BFA9F /* StringSupport.c in Sources */ = {isa = PBXBuildFile; fileRef = 3578AD060AF40518007BFA9F /* StringSupport.c */; };
-		3578AD090AF40518007BFA9F /* StringSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 3578AD070AF40518007BFA9F /* StringSupport.h */; };
 		3578AD0A0AF40518007BFA9F /* StringSupport.c in Sources */ = {isa = PBXBuildFile; fileRef = 3578AD060AF40518007BFA9F /* StringSupport.c */; };
-		3578AD0B0AF40518007BFA9F /* StringSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 3578AD070AF40518007BFA9F /* StringSupport.h */; };
 		3580380F0B18679B00D47728 /* CRC32.c in Sources */ = {isa = PBXBuildFile; fileRef = 3580380C0B18679B00D47728 /* CRC32.c */; };
-		358038100B18679B00D47728 /* CRC32.h in Headers */ = {isa = PBXBuildFile; fileRef = 3580380D0B18679B00D47728 /* CRC32.h */; };
 		358038120B18679B00D47728 /* CRC32.c in Sources */ = {isa = PBXBuildFile; fileRef = 3580380C0B18679B00D47728 /* CRC32.c */; };
-		358038130B18679B00D47728 /* CRC32.h in Headers */ = {isa = PBXBuildFile; fileRef = 3580380D0B18679B00D47728 /* CRC32.h */; };
-		358038560B18A90100D47728 /* ShipDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038540B18A90100D47728 /* ShipDefs.h */; };
-		358038570B18A90100D47728 /* Ships.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038550B18A90100D47728 /* Ships.h */; };
-		358038580B18A90100D47728 /* ShipDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038540B18A90100D47728 /* ShipDefs.h */; };
-		358038590B18A90100D47728 /* Ships.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038550B18A90100D47728 /* Ships.h */; };
 		358038F50B18B1DA00D47728 /* Mission01.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038BF0B18B1DA00D47728 /* Mission01.c */; };
 		358038F60B18B1DA00D47728 /* Mission01.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038C00B18B1DA00D47728 /* Mission01.func.c */; };
-		358038F70B18B1DA00D47728 /* Mission01.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038C10B18B1DA00D47728 /* Mission01.h */; };
 		358038F80B18B1DA00D47728 /* Mission02.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038C20B18B1DA00D47728 /* Mission02.c */; };
 		358038F90B18B1DA00D47728 /* Mission02.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038C30B18B1DA00D47728 /* Mission02.func.c */; };
-		358038FA0B18B1DA00D47728 /* Mission02.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038C40B18B1DA00D47728 /* Mission02.h */; };
 		358038FB0B18B1DA00D47728 /* Mission03.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038C50B18B1DA00D47728 /* Mission03.c */; };
 		358038FC0B18B1DA00D47728 /* Mission03.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038C60B18B1DA00D47728 /* Mission03.func.c */; };
-		358038FD0B18B1DA00D47728 /* Mission03.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038C70B18B1DA00D47728 /* Mission03.h */; };
 		358038FE0B18B1DA00D47728 /* Mission04.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038C80B18B1DA00D47728 /* Mission04.c */; };
 		358038FF0B18B1DA00D47728 /* Mission04.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038C90B18B1DA00D47728 /* Mission04.func.c */; };
-		358039000B18B1DA00D47728 /* Mission04.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038CA0B18B1DA00D47728 /* Mission04.h */; };
 		358039040B18B1DA00D47728 /* Mission05.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038CE0B18B1DA00D47728 /* Mission05.c */; };
 		358039050B18B1DA00D47728 /* Mission05.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038CF0B18B1DA00D47728 /* Mission05.func.c */; };
-		358039060B18B1DA00D47728 /* Mission05.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038D00B18B1DA00D47728 /* Mission05.h */; };
 		358039070B18B1DA00D47728 /* Mission06.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038D10B18B1DA00D47728 /* Mission06.c */; };
 		358039080B18B1DA00D47728 /* Mission06.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038D20B18B1DA00D47728 /* Mission06.func.c */; };
-		358039090B18B1DA00D47728 /* Mission06.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038D30B18B1DA00D47728 /* Mission06.h */; };
 		3580390A0B18B1DA00D47728 /* Mission07.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038D40B18B1DA00D47728 /* Mission07.c */; };
 		3580390B0B18B1DA00D47728 /* Mission07.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038D50B18B1DA00D47728 /* Mission07.func.c */; };
-		3580390C0B18B1DA00D47728 /* Mission07.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038D60B18B1DA00D47728 /* Mission07.h */; };
 		3580390D0B18B1DA00D47728 /* Mission08.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038D70B18B1DA00D47728 /* Mission08.c */; };
 		3580390E0B18B1DA00D47728 /* Mission08.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038D80B18B1DA00D47728 /* Mission08.func.c */; };
-		3580390F0B18B1DA00D47728 /* Mission08.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038D90B18B1DA00D47728 /* Mission08.h */; };
 		358039100B18B1DA00D47728 /* Mission09.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038DA0B18B1DA00D47728 /* Mission09.c */; };
 		358039110B18B1DA00D47728 /* Mission09.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038DB0B18B1DA00D47728 /* Mission09.func.c */; };
-		358039120B18B1DA00D47728 /* Mission09.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038DC0B18B1DA00D47728 /* Mission09.h */; };
 		358039130B18B1DA00D47728 /* Mission10.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038DD0B18B1DA00D47728 /* Mission10.c */; };
 		358039140B18B1DA00D47728 /* Mission10.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038DE0B18B1DA00D47728 /* Mission10.func.c */; };
-		358039150B18B1DA00D47728 /* Mission10.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038DF0B18B1DA00D47728 /* Mission10.h */; };
 		358039160B18B1DA00D47728 /* Mission11.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038E00B18B1DA00D47728 /* Mission11.c */; };
 		358039170B18B1DA00D47728 /* Mission11.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038E10B18B1DA00D47728 /* Mission11.func.c */; };
-		358039180B18B1DA00D47728 /* Mission11.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038E20B18B1DA00D47728 /* Mission11.h */; };
 		358039190B18B1DB00D47728 /* Mission12.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038E30B18B1DA00D47728 /* Mission12.c */; };
 		3580391A0B18B1DB00D47728 /* Mission12.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038E40B18B1DA00D47728 /* Mission12.func.c */; };
-		3580391B0B18B1DB00D47728 /* Mission12.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038E50B18B1DA00D47728 /* Mission12.h */; };
 		3580391C0B18B1DB00D47728 /* Mission13.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038E60B18B1DA00D47728 /* Mission13.c */; };
 		3580391D0B18B1DB00D47728 /* Mission13.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038E70B18B1DA00D47728 /* Mission13.func.c */; };
-		3580391E0B18B1DB00D47728 /* Mission13.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038E80B18B1DA00D47728 /* Mission13.h */; };
 		3580391F0B18B1DB00D47728 /* Mission14.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038E90B18B1DA00D47728 /* Mission14.c */; };
 		358039200B18B1DB00D47728 /* Mission14.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038EA0B18B1DA00D47728 /* Mission14.func.c */; };
-		358039210B18B1DB00D47728 /* Mission14.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038EB0B18B1DA00D47728 /* Mission14.h */; };
 		358039220B18B1DB00D47728 /* Mission15.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038EC0B18B1DA00D47728 /* Mission15.c */; };
 		358039230B18B1DB00D47728 /* Mission15.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038ED0B18B1DA00D47728 /* Mission15.func.c */; };
-		358039240B18B1DB00D47728 /* Mission15.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038EE0B18B1DA00D47728 /* Mission15.h */; };
 		358039250B18B1DB00D47728 /* Mission16.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038EF0B18B1DA00D47728 /* Mission16.c */; };
 		358039260B18B1DB00D47728 /* Mission16.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038F00B18B1DA00D47728 /* Mission16.func.c */; };
-		358039270B18B1DB00D47728 /* Mission16.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038F10B18B1DA00D47728 /* Mission16.h */; };
 		358039280B18B1DB00D47728 /* Tutorial1.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038F20B18B1DA00D47728 /* Tutorial1.c */; };
 		358039290B18B1DB00D47728 /* Tutorial1.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038F30B18B1DA00D47728 /* Tutorial1.func.c */; };
-		3580392A0B18B1DB00D47728 /* Tutorial1.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038F40B18B1DA00D47728 /* Tutorial1.h */; };
 		3580392B0B18B1DB00D47728 /* Mission01.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038BF0B18B1DA00D47728 /* Mission01.c */; };
 		3580392C0B18B1DB00D47728 /* Mission01.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038C00B18B1DA00D47728 /* Mission01.func.c */; };
-		3580392D0B18B1DB00D47728 /* Mission01.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038C10B18B1DA00D47728 /* Mission01.h */; };
 		3580392E0B18B1DB00D47728 /* Mission02.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038C20B18B1DA00D47728 /* Mission02.c */; };
 		3580392F0B18B1DB00D47728 /* Mission02.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038C30B18B1DA00D47728 /* Mission02.func.c */; };
-		358039300B18B1DB00D47728 /* Mission02.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038C40B18B1DA00D47728 /* Mission02.h */; };
 		358039310B18B1DB00D47728 /* Mission03.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038C50B18B1DA00D47728 /* Mission03.c */; };
 		358039320B18B1DB00D47728 /* Mission03.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038C60B18B1DA00D47728 /* Mission03.func.c */; };
-		358039330B18B1DB00D47728 /* Mission03.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038C70B18B1DA00D47728 /* Mission03.h */; };
 		358039340B18B1DB00D47728 /* Mission04.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038C80B18B1DA00D47728 /* Mission04.c */; };
 		358039350B18B1DB00D47728 /* Mission04.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038C90B18B1DA00D47728 /* Mission04.func.c */; };
-		358039360B18B1DB00D47728 /* Mission04.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038CA0B18B1DA00D47728 /* Mission04.h */; };
 		358039380B18B1DB00D47728 /* Mission05_OEM.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038CC0B18B1DA00D47728 /* Mission05_OEM.func.c */; };
-		358039390B18B1DB00D47728 /* Mission05_OEM.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038CD0B18B1DA00D47728 /* Mission05_OEM.h */; };
 		358039730B18B5F700D47728 /* Mission05_OEM.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038CB0B18B1DA00D47728 /* Mission05_OEM.c */; };
-		358039740B18B62500D47728 /* Tutorial1.h in Headers */ = {isa = PBXBuildFile; fileRef = 358038F40B18B1DA00D47728 /* Tutorial1.h */; };
 		358039750B18B62600D47728 /* Tutorial1.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038F30B18B1DA00D47728 /* Tutorial1.func.c */; };
 		358039760B18B62600D47728 /* Tutorial1.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038F20B18B1DA00D47728 /* Tutorial1.c */; };
 		35B1D7F00ABD43B0002214BE /* Homeworld.icns in Resources */ = {isa = PBXBuildFile; fileRef = 35B1D7EF0ABD43B0002214BE /* Homeworld.icns */; };
 		35B1D7F20ABD43BD002214BE /* RaiderRetreat.icns in Resources */ = {isa = PBXBuildFile; fileRef = 35B1D7F10ABD43BD002214BE /* RaiderRetreat.icns */; };
 		35CA99C10B17BC6F00B5118E /* Light.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CA99BF0B17BC6F00B5118E /* Light.c */; };
-		35CA99C20B17BC6F00B5118E /* Light.h in Headers */ = {isa = PBXBuildFile; fileRef = 35CA99C00B17BC6F00B5118E /* Light.h */; };
 		35CA99C30B17BC6F00B5118E /* Light.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CA99BF0B17BC6F00B5118E /* Light.c */; };
-		35CA99C40B17BC6F00B5118E /* Light.h in Headers */ = {isa = PBXBuildFile; fileRef = 35CA99C00B17BC6F00B5118E /* Light.h */; };
 		35CCC930096625FD009D918D /* HomeworldPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 35017183077C54EA00684108 /* HomeworldPlist.strings */; };
 		35CCC93109662605009D918D /* RaiderRetreatPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 351B67AB077E4728002ABC6E /* RaiderRetreatPlist.strings */; };
 		35CD34F30B13ADEE0064A20B /* interfce.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34B20B13ADEE0064A20B /* interfce.c */; };
-		35CD34F40B13ADEE0064A20B /* interfce.h in Headers */ = {isa = PBXBuildFile; fileRef = 35CD34B30B13ADEE0064A20B /* interfce.h */; };
 		35CD34F50B13ADEE0064A20B /* jcapimin.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34B40B13ADEE0064A20B /* jcapimin.c */; };
 		35CD34F60B13ADEE0064A20B /* jcapistd.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34B50B13ADEE0064A20B /* jcapistd.c */; };
 		35CD34F70B13ADEE0064A20B /* jccoefct.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34B60B13ADEE0064A20B /* jccoefct.c */; };
 		35CD34F80B13ADEE0064A20B /* jccolor.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34B70B13ADEE0064A20B /* jccolor.c */; };
 		35CD34F90B13ADEE0064A20B /* jcdctmgr.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34B80B13ADEE0064A20B /* jcdctmgr.c */; };
 		35CD34FA0B13ADEE0064A20B /* jchuff.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34B90B13ADEE0064A20B /* jchuff.c */; };
-		35CD34FB0B13ADEE0064A20B /* jchuff.h in Headers */ = {isa = PBXBuildFile; fileRef = 35CD34BA0B13ADEE0064A20B /* jchuff.h */; };
 		35CD34FC0B13ADEE0064A20B /* jcinit.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34BB0B13ADEE0064A20B /* jcinit.c */; };
 		35CD34FD0B13ADEE0064A20B /* jcmainct.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34BC0B13ADEE0064A20B /* jcmainct.c */; };
 		35CD34FE0B13ADEE0064A20B /* jcmarker.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34BD0B13ADEE0064A20B /* jcmarker.c */; };
 		35CD34FF0B13ADEE0064A20B /* jcmaster.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34BE0B13ADEE0064A20B /* jcmaster.c */; };
 		35CD35000B13ADEE0064A20B /* jcomapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34BF0B13ADEE0064A20B /* jcomapi.c */; };
-		35CD35010B13ADEE0064A20B /* jconfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 35CD34C00B13ADEE0064A20B /* jconfig.h */; };
 		35CD35020B13ADEE0064A20B /* jcparam.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34C10B13ADEE0064A20B /* jcparam.c */; };
 		35CD35030B13ADEE0064A20B /* jcphuff.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34C20B13ADEE0064A20B /* jcphuff.c */; };
 		35CD35040B13ADEE0064A20B /* jcprepct.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34C30B13ADEE0064A20B /* jcprepct.c */; };
@@ -555,10 +289,8 @@
 		35CD350A0B13ADEE0064A20B /* jdatasrc.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34C90B13ADEE0064A20B /* jdatasrc.c */; };
 		35CD350B0B13ADEE0064A20B /* jdcoefct.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34CA0B13ADEE0064A20B /* jdcoefct.c */; };
 		35CD350C0B13ADEE0064A20B /* jdcolor.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34CB0B13ADEE0064A20B /* jdcolor.c */; };
-		35CD350D0B13ADEE0064A20B /* jdct.h in Headers */ = {isa = PBXBuildFile; fileRef = 35CD34CC0B13ADEE0064A20B /* jdct.h */; };
 		35CD350E0B13ADEE0064A20B /* jddctmgr.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34CD0B13ADEE0064A20B /* jddctmgr.c */; };
 		35CD350F0B13ADEE0064A20B /* jdhuff.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34CE0B13ADEE0064A20B /* jdhuff.c */; };
-		35CD35100B13ADEE0064A20B /* jdhuff.h in Headers */ = {isa = PBXBuildFile; fileRef = 35CD34CF0B13ADEE0064A20B /* jdhuff.h */; };
 		35CD35110B13ADEE0064A20B /* jdinput.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34D00B13ADEE0064A20B /* jdinput.c */; };
 		35CD35120B13ADEE0064A20B /* jdmainct.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34D10B13ADEE0064A20B /* jdmainct.c */; };
 		35CD35130B13ADEE0064A20B /* jdmarker.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34D20B13ADEE0064A20B /* jdmarker.c */; };
@@ -569,7 +301,6 @@
 		35CD35180B13ADEE0064A20B /* jdsample.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34D70B13ADEE0064A20B /* jdsample.c */; };
 		35CD35190B13ADEE0064A20B /* jdtrans.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34D80B13ADEE0064A20B /* jdtrans.c */; };
 		35CD351A0B13ADEE0064A20B /* jerror.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34D90B13ADEE0064A20B /* jerror.c */; };
-		35CD351B0B13ADEE0064A20B /* jerror.h in Headers */ = {isa = PBXBuildFile; fileRef = 35CD34DA0B13ADEE0064A20B /* jerror.h */; };
 		35CD351C0B13ADEE0064A20B /* jfdctflt.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34DB0B13ADEE0064A20B /* jfdctflt.c */; };
 		35CD351D0B13ADEE0064A20B /* jfdctfst.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34DC0B13ADEE0064A20B /* jfdctfst.c */; };
 		35CD351E0B13ADEE0064A20B /* jfdctint.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34DD0B13ADEE0064A20B /* jfdctint.c */; };
@@ -577,33 +308,23 @@
 		35CD35200B13ADEE0064A20B /* jidctfst.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34DF0B13ADEE0064A20B /* jidctfst.c */; };
 		35CD35210B13ADEE0064A20B /* jidctint.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34E00B13ADEE0064A20B /* jidctint.c */; };
 		35CD35220B13ADEE0064A20B /* jidctred.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34E10B13ADEE0064A20B /* jidctred.c */; };
-		35CD35230B13ADEE0064A20B /* jinclude.h in Headers */ = {isa = PBXBuildFile; fileRef = 35CD34E20B13ADEE0064A20B /* jinclude.h */; };
 		35CD35240B13ADEE0064A20B /* jmemmgr.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34E30B13ADEE0064A20B /* jmemmgr.c */; };
 		35CD35250B13ADEE0064A20B /* jmemnobs.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34E40B13ADEE0064A20B /* jmemnobs.c */; };
-		35CD35260B13ADEE0064A20B /* jmemsys.h in Headers */ = {isa = PBXBuildFile; fileRef = 35CD34E50B13ADEE0064A20B /* jmemsys.h */; };
-		35CD35270B13ADEE0064A20B /* jmorecfg.h in Headers */ = {isa = PBXBuildFile; fileRef = 35CD34E60B13ADEE0064A20B /* jmorecfg.h */; };
-		35CD35280B13ADEE0064A20B /* jpegint.h in Headers */ = {isa = PBXBuildFile; fileRef = 35CD34E70B13ADEE0064A20B /* jpegint.h */; };
-		35CD35290B13ADEE0064A20B /* jpeglib.h in Headers */ = {isa = PBXBuildFile; fileRef = 35CD34E80B13ADEE0064A20B /* jpeglib.h */; };
-		35CD352A0B13ADEE0064A20B /* jpegrc.h in Headers */ = {isa = PBXBuildFile; fileRef = 35CD34E90B13ADEE0064A20B /* jpegrc.h */; };
 		35CD352B0B13ADEE0064A20B /* jquant1.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34EA0B13ADEE0064A20B /* jquant1.c */; };
 		35CD352C0B13ADEE0064A20B /* jquant2.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34EB0B13ADEE0064A20B /* jquant2.c */; };
 		35CD352D0B13ADEE0064A20B /* jutils.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34EC0B13ADEE0064A20B /* jutils.c */; };
-		35CD352E0B13ADEE0064A20B /* jversion.h in Headers */ = {isa = PBXBuildFile; fileRef = 35CD34ED0B13ADEE0064A20B /* jversion.h */; };
 		35CD35320B13ADEE0064A20B /* interfce.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34B20B13ADEE0064A20B /* interfce.c */; };
-		35CD35330B13ADEE0064A20B /* interfce.h in Headers */ = {isa = PBXBuildFile; fileRef = 35CD34B30B13ADEE0064A20B /* interfce.h */; };
 		35CD35340B13ADEE0064A20B /* jcapimin.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34B40B13ADEE0064A20B /* jcapimin.c */; };
 		35CD35350B13ADEE0064A20B /* jcapistd.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34B50B13ADEE0064A20B /* jcapistd.c */; };
 		35CD35360B13ADEE0064A20B /* jccoefct.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34B60B13ADEE0064A20B /* jccoefct.c */; };
 		35CD35370B13ADEE0064A20B /* jccolor.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34B70B13ADEE0064A20B /* jccolor.c */; };
 		35CD35380B13ADEE0064A20B /* jcdctmgr.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34B80B13ADEE0064A20B /* jcdctmgr.c */; };
 		35CD35390B13ADEE0064A20B /* jchuff.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34B90B13ADEE0064A20B /* jchuff.c */; };
-		35CD353A0B13ADEE0064A20B /* jchuff.h in Headers */ = {isa = PBXBuildFile; fileRef = 35CD34BA0B13ADEE0064A20B /* jchuff.h */; };
 		35CD353B0B13ADEE0064A20B /* jcinit.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34BB0B13ADEE0064A20B /* jcinit.c */; };
 		35CD353C0B13ADEE0064A20B /* jcmainct.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34BC0B13ADEE0064A20B /* jcmainct.c */; };
 		35CD353D0B13ADEE0064A20B /* jcmarker.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34BD0B13ADEE0064A20B /* jcmarker.c */; };
 		35CD353E0B13ADEE0064A20B /* jcmaster.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34BE0B13ADEE0064A20B /* jcmaster.c */; };
 		35CD353F0B13ADEE0064A20B /* jcomapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34BF0B13ADEE0064A20B /* jcomapi.c */; };
-		35CD35400B13ADEE0064A20B /* jconfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 35CD34C00B13ADEE0064A20B /* jconfig.h */; };
 		35CD35410B13ADEE0064A20B /* jcparam.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34C10B13ADEE0064A20B /* jcparam.c */; };
 		35CD35420B13ADEE0064A20B /* jcphuff.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34C20B13ADEE0064A20B /* jcphuff.c */; };
 		35CD35430B13ADEE0064A20B /* jcprepct.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34C30B13ADEE0064A20B /* jcprepct.c */; };
@@ -615,10 +336,8 @@
 		35CD35490B13ADEE0064A20B /* jdatasrc.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34C90B13ADEE0064A20B /* jdatasrc.c */; };
 		35CD354A0B13ADEE0064A20B /* jdcoefct.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34CA0B13ADEE0064A20B /* jdcoefct.c */; };
 		35CD354B0B13ADEE0064A20B /* jdcolor.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34CB0B13ADEE0064A20B /* jdcolor.c */; };
-		35CD354C0B13ADEE0064A20B /* jdct.h in Headers */ = {isa = PBXBuildFile; fileRef = 35CD34CC0B13ADEE0064A20B /* jdct.h */; };
 		35CD354D0B13ADEE0064A20B /* jddctmgr.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34CD0B13ADEE0064A20B /* jddctmgr.c */; };
 		35CD354E0B13ADEE0064A20B /* jdhuff.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34CE0B13ADEE0064A20B /* jdhuff.c */; };
-		35CD354F0B13ADEE0064A20B /* jdhuff.h in Headers */ = {isa = PBXBuildFile; fileRef = 35CD34CF0B13ADEE0064A20B /* jdhuff.h */; };
 		35CD35500B13ADEE0064A20B /* jdinput.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34D00B13ADEE0064A20B /* jdinput.c */; };
 		35CD35510B13ADEE0064A20B /* jdmainct.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34D10B13ADEE0064A20B /* jdmainct.c */; };
 		35CD35520B13ADEE0064A20B /* jdmarker.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34D20B13ADEE0064A20B /* jdmarker.c */; };
@@ -629,7 +348,6 @@
 		35CD35570B13ADEE0064A20B /* jdsample.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34D70B13ADEE0064A20B /* jdsample.c */; };
 		35CD35580B13ADEE0064A20B /* jdtrans.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34D80B13ADEE0064A20B /* jdtrans.c */; };
 		35CD35590B13ADEE0064A20B /* jerror.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34D90B13ADEE0064A20B /* jerror.c */; };
-		35CD355A0B13ADEE0064A20B /* jerror.h in Headers */ = {isa = PBXBuildFile; fileRef = 35CD34DA0B13ADEE0064A20B /* jerror.h */; };
 		35CD355B0B13ADEE0064A20B /* jfdctflt.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34DB0B13ADEE0064A20B /* jfdctflt.c */; };
 		35CD355C0B13ADEE0064A20B /* jfdctfst.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34DC0B13ADEE0064A20B /* jfdctfst.c */; };
 		35CD355D0B13ADEE0064A20B /* jfdctint.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34DD0B13ADEE0064A20B /* jfdctint.c */; };
@@ -637,451 +355,212 @@
 		35CD355F0B13ADEE0064A20B /* jidctfst.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34DF0B13ADEE0064A20B /* jidctfst.c */; };
 		35CD35600B13ADEE0064A20B /* jidctint.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34E00B13ADEE0064A20B /* jidctint.c */; };
 		35CD35610B13ADEE0064A20B /* jidctred.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34E10B13ADEE0064A20B /* jidctred.c */; };
-		35CD35620B13ADEE0064A20B /* jinclude.h in Headers */ = {isa = PBXBuildFile; fileRef = 35CD34E20B13ADEE0064A20B /* jinclude.h */; };
 		35CD35630B13ADEE0064A20B /* jmemmgr.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34E30B13ADEE0064A20B /* jmemmgr.c */; };
 		35CD35640B13ADEE0064A20B /* jmemnobs.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34E40B13ADEE0064A20B /* jmemnobs.c */; };
-		35CD35650B13ADEE0064A20B /* jmemsys.h in Headers */ = {isa = PBXBuildFile; fileRef = 35CD34E50B13ADEE0064A20B /* jmemsys.h */; };
-		35CD35660B13ADEE0064A20B /* jmorecfg.h in Headers */ = {isa = PBXBuildFile; fileRef = 35CD34E60B13ADEE0064A20B /* jmorecfg.h */; };
-		35CD35670B13ADEE0064A20B /* jpegint.h in Headers */ = {isa = PBXBuildFile; fileRef = 35CD34E70B13ADEE0064A20B /* jpegint.h */; };
-		35CD35680B13ADEE0064A20B /* jpeglib.h in Headers */ = {isa = PBXBuildFile; fileRef = 35CD34E80B13ADEE0064A20B /* jpeglib.h */; };
-		35CD35690B13ADEE0064A20B /* jpegrc.h in Headers */ = {isa = PBXBuildFile; fileRef = 35CD34E90B13ADEE0064A20B /* jpegrc.h */; };
 		35CD356A0B13ADEE0064A20B /* jquant1.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34EA0B13ADEE0064A20B /* jquant1.c */; };
 		35CD356B0B13ADEE0064A20B /* jquant2.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34EB0B13ADEE0064A20B /* jquant2.c */; };
 		35CD356C0B13ADEE0064A20B /* jutils.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34EC0B13ADEE0064A20B /* jutils.c */; };
-		35CD356D0B13ADEE0064A20B /* jversion.h in Headers */ = {isa = PBXBuildFile; fileRef = 35CD34ED0B13ADEE0064A20B /* jversion.h */; };
-		35D293150B26295A007CD95A /* ServerStatus.h in Headers */ = {isa = PBXBuildFile; fileRef = 35D293140B26295A007CD95A /* ServerStatus.h */; };
-		35D293160B26295A007CD95A /* ServerStatus.h in Headers */ = {isa = PBXBuildFile; fileRef = 35D293140B26295A007CD95A /* ServerStatus.h */; };
 		35FB9A6D0B124F0500523C83 /* Color.c in Sources */ = {isa = PBXBuildFile; fileRef = 35FB9A6B0B124F0500523C83 /* Color.c */; };
-		35FB9A6E0B124F0500523C83 /* Color.h in Headers */ = {isa = PBXBuildFile; fileRef = 35FB9A6C0B124F0500523C83 /* Color.h */; };
 		35FB9A6F0B124F0500523C83 /* Color.c in Sources */ = {isa = PBXBuildFile; fileRef = 35FB9A6B0B124F0500523C83 /* Color.c */; };
-		35FB9A700B124F0500523C83 /* Color.h in Headers */ = {isa = PBXBuildFile; fileRef = 35FB9A6C0B124F0500523C83 /* Color.h */; };
 		35FE5B270B17CB2300D6E944 /* BitIO.c in Sources */ = {isa = PBXBuildFile; fileRef = 35FE5B220B17CB2200D6E944 /* BitIO.c */; };
-		35FE5B280B17CB2300D6E944 /* BitIO.h in Headers */ = {isa = PBXBuildFile; fileRef = 35FE5B230B17CB2200D6E944 /* BitIO.h */; };
 		35FE5B290B17CB2300D6E944 /* LZSS.c in Sources */ = {isa = PBXBuildFile; fileRef = 35FE5B240B17CB2200D6E944 /* LZSS.c */; };
-		35FE5B2A0B17CB2300D6E944 /* LZSS.h in Headers */ = {isa = PBXBuildFile; fileRef = 35FE5B250B17CB2200D6E944 /* LZSS.h */; };
 		35FE5B2C0B17CB2300D6E944 /* BitIO.c in Sources */ = {isa = PBXBuildFile; fileRef = 35FE5B220B17CB2200D6E944 /* BitIO.c */; };
-		35FE5B2D0B17CB2300D6E944 /* BitIO.h in Headers */ = {isa = PBXBuildFile; fileRef = 35FE5B230B17CB2200D6E944 /* BitIO.h */; };
 		35FE5B2E0B17CB2300D6E944 /* LZSS.c in Sources */ = {isa = PBXBuildFile; fileRef = 35FE5B240B17CB2200D6E944 /* LZSS.c */; };
-		35FE5B2F0B17CB2300D6E944 /* LZSS.h in Headers */ = {isa = PBXBuildFile; fileRef = 35FE5B250B17CB2200D6E944 /* LZSS.h */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		9030AF94066D5D2C00B32218 /* avi.c in Sources */ = {isa = PBXBuildFile; fileRef = 9030AF92066D5D2C00B32218 /* avi.c */; };
 		9030AF95066D5D2C00B32218 /* rinit.c in Sources */ = {isa = PBXBuildFile; fileRef = 9030AF93066D5D2C00B32218 /* rinit.c */; };
 		90623D20064992AF0088361C /* AIAttackMan.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623BEE064992AE0088361C /* AIAttackMan.c */; };
-		90623D21064992AF0088361C /* AIAttackMan.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623BEF064992AE0088361C /* AIAttackMan.h */; };
 		90623D22064992AF0088361C /* AIDefenseMan.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623BF0064992AE0088361C /* AIDefenseMan.c */; };
-		90623D23064992AF0088361C /* AIDefenseMan.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623BF1064992AE0088361C /* AIDefenseMan.h */; };
 		90623D24064992AF0088361C /* AIEvents.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623BF2064992AE0088361C /* AIEvents.c */; };
-		90623D25064992AF0088361C /* AIEvents.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623BF3064992AE0088361C /* AIEvents.h */; };
-		90623D26064992AF0088361C /* AIFeatures.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623BF4064992AE0088361C /* AIFeatures.h */; };
 		90623D27064992AF0088361C /* AIFleetMan.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623BF5064992AE0088361C /* AIFleetMan.c */; };
-		90623D28064992AF0088361C /* AIFleetMan.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623BF6064992AE0088361C /* AIFleetMan.h */; };
 		90623D29064992AF0088361C /* AIHandler.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623BF7064992AE0088361C /* AIHandler.c */; };
-		90623D2A064992AF0088361C /* AIHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623BF8064992AE0088361C /* AIHandler.h */; };
 		90623D2B064992AF0088361C /* AIMoves.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623BF9064992AE0088361C /* AIMoves.c */; };
-		90623D2C064992AF0088361C /* AIMoves.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623BFA064992AE0088361C /* AIMoves.h */; };
 		90623D2F064992AF0088361C /* AIOrders.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623BFD064992AE0088361C /* AIOrders.c */; };
-		90623D30064992AF0088361C /* AIOrders.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623BFE064992AE0088361C /* AIOrders.h */; };
 		90623D32064992AF0088361C /* AIPlayer.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C00064992AE0088361C /* AIPlayer.c */; };
-		90623D33064992AF0088361C /* AIPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C01064992AE0088361C /* AIPlayer.h */; };
 		90623D34064992AF0088361C /* AIResourceMan.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C02064992AE0088361C /* AIResourceMan.c */; };
-		90623D35064992AF0088361C /* AIResourceMan.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C03064992AE0088361C /* AIResourceMan.h */; };
 		90623D36064992AF0088361C /* AIShip.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C04064992AE0088361C /* AIShip.c */; };
-		90623D37064992AF0088361C /* AIShip.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C05064992AE0088361C /* AIShip.h */; };
 		90623D38064992AF0088361C /* AITeam.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C06064992AE0088361C /* AITeam.c */; };
-		90623D39064992AF0088361C /* AITeam.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C07064992AE0088361C /* AITeam.h */; };
 		90623D3A064992AF0088361C /* AITrack.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C08064992AE0088361C /* AITrack.c */; };
-		90623D3B064992AF0088361C /* AITrack.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C09064992AE0088361C /* AITrack.h */; };
 		90623D3C064992AF0088361C /* AIUtilities.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C0A064992AE0088361C /* AIUtilities.c */; };
-		90623D3D064992AF0088361C /* AIUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C0B064992AE0088361C /* AIUtilities.h */; };
 		90623D3E064992AF0088361C /* AIVar.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C0C064992AE0088361C /* AIVar.c */; };
-		90623D3F064992AF0088361C /* AIVar.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C0D064992AE0088361C /* AIVar.h */; };
 		90623D40064992AF0088361C /* Alliance.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C0E064992AE0088361C /* Alliance.c */; };
-		90623D41064992AF0088361C /* Alliance.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C0F064992AE0088361C /* Alliance.h */; };
 		90623D42064992AF0088361C /* Animatic.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C10064992AE0088361C /* Animatic.c */; };
-		90623D43064992AF0088361C /* Animatic.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C11064992AE0088361C /* Animatic.h */; };
 		90623D44064992AF0088361C /* Attack.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C12064992AE0088361C /* Attack.c */; };
-		90623D45064992AF0088361C /* Attack.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C13064992AE0088361C /* Attack.h */; };
-		90623D46064992AF0088361C /* Attributes.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C14064992AE0088361C /* Attributes.h */; };
 		90623D47064992AF0088361C /* AutoDownloadMap.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C15064992AE0088361C /* AutoDownloadMap.c */; };
-		90623D48064992AF0088361C /* AutoDownloadMap.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C16064992AE0088361C /* AutoDownloadMap.h */; };
 		90623D49064992AF0088361C /* AutoLOD.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C17064992AE0088361C /* AutoLOD.c */; };
-		90623D4A064992AF0088361C /* AutoLOD.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C18064992AE0088361C /* AutoLOD.h */; };
 		90623D4B064992AF0088361C /* B-Spline.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C19064992AE0088361C /* B-Spline.c */; };
-		90623D4C064992AF0088361C /* B-Spline.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C1A064992AE0088361C /* B-Spline.h */; };
 		90623D4D064992AF0088361C /* Battle.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C1B064992AE0088361C /* Battle.c */; };
-		90623D4E064992AF0088361C /* Battle.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C1C064992AE0088361C /* Battle.h */; };
 		90623D4F064992AF0088361C /* BigFile.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C1D064992AE0088361C /* BigFile.c */; };
-		90623D50064992AF0088361C /* BigFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C1E064992AE0088361C /* BigFile.h */; };
 		90623D53064992AF0088361C /* Blobs.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C21064992AE0088361C /* Blobs.c */; };
-		90623D54064992AF0088361C /* Blobs.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C22064992AE0088361C /* Blobs.h */; };
 		90623D55064992AF0088361C /* BMP.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C23064992AE0088361C /* BMP.c */; };
-		90623D56064992AF0088361C /* BMP.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C24064992AE0088361C /* BMP.h */; };
 		90623D57064992AF0088361C /* Bounties.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C25064992AE0088361C /* Bounties.c */; };
-		90623D58064992AF0088361C /* Bounties.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C26064992AE0088361C /* Bounties.h */; };
 		90623D59064992AF0088361C /* BTG.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C27064992AE0088361C /* BTG.c */; };
-		90623D5A064992AF0088361C /* BTG.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C28064992AE0088361C /* BTG.h */; };
 		90623D5B064992AF0088361C /* Camera.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C29064992AE0088361C /* Camera.c */; };
-		90623D5C064992AF0088361C /* Camera.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C2A064992AE0088361C /* Camera.h */; };
 		90623D5D064992AF0088361C /* CameraCommand.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C2B064992AE0088361C /* CameraCommand.c */; };
-		90623D5E064992AF0088361C /* CameraCommand.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C2C064992AE0088361C /* CameraCommand.h */; };
 		90623D5F064992AF0088361C /* Captaincy.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C2D064992AE0088361C /* Captaincy.c */; };
-		90623D60064992AF0088361C /* Captaincy.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C2E064992AE0088361C /* Captaincy.h */; };
 		90623D61064992AF0088361C /* ChannelFSM.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C2F064992AE0088361C /* ChannelFSM.c */; };
-		90623D62064992AF0088361C /* ChannelFSM.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C30064992AE0088361C /* ChannelFSM.h */; };
 		90623D63064992AF0088361C /* Chatting.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C31064992AE0088361C /* Chatting.c */; };
-		90623D64064992AF0088361C /* Chatting.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C32064992AE0088361C /* Chatting.h */; };
 		90623D65064992AF0088361C /* Clamp.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C33064992AE0088361C /* Clamp.c */; };
-		90623D66064992AF0088361C /* Clamp.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C34064992AE0088361C /* Clamp.h */; };
-		90623D67064992AF0088361C /* ClassDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C35064992AE0088361C /* ClassDefs.h */; };
 		90623D68064992AF0088361C /* Clipper.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C36064992AE0088361C /* Clipper.c */; };
-		90623D69064992AF0088361C /* Clipper.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C37064992AE0088361C /* Clipper.h */; };
 		90623D6A064992AF0088361C /* Clouds.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C38064992AE0088361C /* Clouds.c */; };
-		90623D6B064992AF0088361C /* Clouds.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C39064992AE0088361C /* Clouds.h */; };
 		90623D6C064992AF0088361C /* Collision.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C3A064992AE0088361C /* Collision.c */; };
-		90623D6D064992AF0088361C /* Collision.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C3B064992AE0088361C /* Collision.h */; };
 		90623D6E064992AF0088361C /* ColPick.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C3C064992AE0088361C /* ColPick.c */; };
-		90623D6F064992AF0088361C /* ColPick.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C3D064992AE0088361C /* ColPick.h */; };
-		90623D70064992AF0088361C /* CommandDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C3E064992AE0088361C /* CommandDefs.h */; };
 		90623D71064992AF0088361C /* CommandLayer.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C3F064992AE0088361C /* CommandLayer.c */; };
-		90623D72064992AF0088361C /* CommandLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C40064992AE0088361C /* CommandLayer.h */; };
 		90623D73064992AF0088361C /* CommandNetwork.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C41064992AE0088361C /* CommandNetwork.c */; };
-		90623D74064992AF0088361C /* CommandNetwork.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C42064992AE0088361C /* CommandNetwork.h */; };
 		90623D75064992AF0088361C /* CommandWrap.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C43064992AE0088361C /* CommandWrap.c */; };
-		90623D76064992AF0088361C /* CommandWrap.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C44064992AE0088361C /* CommandWrap.h */; };
 		90623D77064992AF0088361C /* ConsMgr.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C45064992AE0088361C /* ConsMgr.c */; };
-		90623D78064992AF0088361C /* ConsMgr.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C46064992AE0088361C /* ConsMgr.h */; };
 		90623D79064992AF0088361C /* Crates.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C47064992AE0088361C /* Crates.c */; };
-		90623D7A064992AF0088361C /* Crates.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C48064992AE0088361C /* Crates.h */; };
 		90623D7D064992AF0088361C /* Damage.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C4B064992AE0088361C /* Damage.c */; };
-		90623D7E064992AF0088361C /* Damage.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C4C064992AE0088361C /* Damage.h */; };
 		90623D7F064992AF0088361C /* Debug.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C4D064992AE0088361C /* Debug.c */; };
-		90623D80064992AF0088361C /* Debug.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C4E064992AE0088361C /* Debug.h */; };
 		90623D81064992AF0088361C /* Demo.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C4F064992AE0088361C /* Demo.c */; };
-		90623D82064992AF0088361C /* Demo.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C50064992AE0088361C /* Demo.h */; };
 		90623D83064992AF0088361C /* Dock.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C51064992AE0088361C /* Dock.c */; };
-		90623D84064992AF0088361C /* Dock.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C52064992AE0088361C /* Dock.h */; };
 		90623D85064992AF0088361C /* ETG.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C53064992AE0088361C /* ETG.c */; settings = {COMPILER_FLAGS = "-O0"; }; };
-		90623D86064992AF0088361C /* ETG.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C54064992AE0088361C /* ETG.h */; };
 		90623D87064992AF0088361C /* Eval.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C55064992AE0088361C /* Eval.c */; };
-		90623D88064992AF0088361C /* Eval.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C56064992AE0088361C /* Eval.h */; };
-		90623D8A064992AF0088361C /* FastMath.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C58064992AE0088361C /* FastMath.h */; };
-		90623D8B064992AF0088361C /* FEColour.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C59064992AE0088361C /* FEColour.h */; };
 		90623D8C064992AF0088361C /* FEFlow.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C5A064992AE0088361C /* FEFlow.c */; };
-		90623D8D064992AF0088361C /* FEFlow.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C5B064992AE0088361C /* FEFlow.h */; };
 		90623D8E064992AF0088361C /* FEReg.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C5C064992AE0088361C /* FEReg.c */; };
-		90623D8F064992AF0088361C /* FEReg.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C5D064992AE0088361C /* FEReg.h */; };
 		90623D90064992AF0088361C /* File.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C5E064992AE0088361C /* File.c */; };
-		90623D91064992AF0088361C /* File.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C5F064992AE0088361C /* File.h */; };
 		90623D92064992AF0088361C /* FlightMan.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C60064992AE0088361C /* FlightMan.c */; };
-		90623D93064992AF0088361C /* FlightMan.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C61064992AE0088361C /* FlightMan.h */; };
-		90623D94064992AF0088361C /* FlightManDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C62064992AE0088361C /* FlightManDefs.h */; };
 		90623D95064992AF0088361C /* FontReg.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C63064992AE0088361C /* FontReg.c */; };
-		90623D96064992AF0088361C /* FontReg.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C64064992AE0088361C /* FontReg.h */; };
 		90623D97064992AF0088361C /* Formation.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C65064992AE0088361C /* Formation.c */; };
-		90623D98064992AF0088361C /* Formation.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C66064992AE0088361C /* Formation.h */; };
-		90623D99064992AF0088361C /* FormationDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C67064992AE0088361C /* FormationDefs.h */; };
 		90623D9A064992AF0088361C /* GameChat.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C68064992AE0088361C /* GameChat.c */; };
-		90623D9B064992AF0088361C /* GameChat.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C69064992AE0088361C /* GameChat.h */; };
 		90623D9C064992AF0088361C /* GamePick.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C6A064992AE0088361C /* GamePick.c */; };
-		90623D9D064992AF0088361C /* GamePick.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C6B064992AE0088361C /* GamePick.h */; };
-		90623D9E064992AF0088361C /* GameStats.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C6C064992AE0088361C /* GameStats.h */; };
 		90623D9F064992AF0088361C /* Globals.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C6D064992AE0088361C /* Globals.c */; };
-		90623DA0064992AF0088361C /* Globals.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C6E064992AE0088361C /* Globals.h */; };
 		90623DA1064992AF0088361C /* Gun.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C6F064992AE0088361C /* Gun.c */; };
-		90623DA2064992AF0088361C /* Gun.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C70064992AE0088361C /* Gun.h */; };
 		90623DA3064992AF0088361C /* Hash.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C71064992AE0088361C /* Hash.c */; };
-		90623DA4064992AF0088361C /* Hash.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C72064992AE0088361C /* Hash.h */; };
 		90623DA5064992AF0088361C /* HorseRace.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C73064992AE0088361C /* HorseRace.c */; };
-		90623DA6064992AF0088361C /* HorseRace.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C74064992AE0088361C /* HorseRace.h */; };
 		90623DA7064992AF0088361C /* HS.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C75064992AE0088361C /* HS.c */; };
-		90623DA8064992AF0088361C /* HS.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C76064992AE0088361C /* HS.h */; };
 		90623DA9064992AF0088361C /* InfoOverlay.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C77064992AE0088361C /* InfoOverlay.c */; };
-		90623DAA064992AF0088361C /* InfoOverlay.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C78064992AE0088361C /* InfoOverlay.h */; };
 		90623DAB064992AF0088361C /* KAS.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C79064992AE0088361C /* KAS.c */; };
-		90623DAC064992AF0088361C /* KAS.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C7A064992AE0088361C /* KAS.h */; };
 		90623DAD064992AF0088361C /* KASFunc.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C7B064992AE0088361C /* KASFunc.c */; };
-		90623DAE064992AF0088361C /* KASFunc.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C7C064992AE0088361C /* KASFunc.h */; };
 		90623DAF064992AF0088361C /* Key.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C7D064992AE0088361C /* Key.c */; };
-		90623DB0064992AF0088361C /* Key.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C7E064992AE0088361C /* Key.h */; };
 		90623DB1064992AF0088361C /* KeyBindings.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C7F064992AE0088361C /* KeyBindings.c */; };
-		90623DB2064992AF0088361C /* KeyBindings.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C80064992AE0088361C /* KeyBindings.h */; };
 		90623DB3064992AF0088361C /* LagPrint.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C81064992AE0088361C /* LagPrint.c */; };
-		90623DB4064992AF0088361C /* LagPrint.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C82064992AE0088361C /* LagPrint.h */; };
 		90623DB5064992AF0088361C /* LaunchMgr.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C83064992AE0088361C /* LaunchMgr.c */; };
-		90623DB6064992AF0088361C /* LaunchMgr.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C84064992AE0088361C /* LaunchMgr.h */; };
 		90623DB8064992AF0088361C /* LevelLoad.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C86064992AE0088361C /* LevelLoad.c */; };
-		90623DB9064992AF0088361C /* LevelLoad.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C87064992AE0088361C /* LevelLoad.h */; };
 		90623DBB064992AF0088361C /* LinkedList.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C89064992AE0088361C /* LinkedList.c */; };
-		90623DBC064992AF0088361C /* LinkedList.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C8A064992AE0088361C /* LinkedList.h */; };
 		90623DBD064992AF0088361C /* LOD.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C8B064992AE0088361C /* LOD.c */; };
-		90623DBE064992AF0088361C /* LOD.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C8C064992AE0088361C /* LOD.h */; };
 		90623DC1064992AF0088361C /* MadLinkIn.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C8F064992AE0088361C /* MadLinkIn.c */; };
-		90623DC2064992AF0088361C /* MadLinkIn.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C90064992AE0088361C /* MadLinkIn.h */; };
-		90623DC3064992AF0088361C /* MadLinkInDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C91064992AE0088361C /* MadLinkInDefs.h */; };
 		90623DC7064992AF0088361C /* Matrix.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C95064992AF0088361C /* Matrix.c */; };
-		90623DC8064992AF0088361C /* Matrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C96064992AF0088361C /* Matrix.h */; };
-		90623DCA064992AF0088361C /* MaxMultiplayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C98064992AF0088361C /* MaxMultiplayer.h */; };
 		90623DCB064992AF0088361C /* Memory.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C99064992AF0088361C /* Memory.c */; };
-		90623DCC064992AF0088361C /* Memory.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C9A064992AF0088361C /* Memory.h */; };
 		90623DCD064992AF0088361C /* Mesh.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C9B064992AF0088361C /* Mesh.c */; };
-		90623DCE064992AF0088361C /* Mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C9C064992AF0088361C /* Mesh.h */; };
 		90623DCF064992AF0088361C /* MeshAnim.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C9D064992AF0088361C /* MeshAnim.c */; };
-		90623DD0064992AF0088361C /* MeshAnim.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623C9E064992AF0088361C /* MeshAnim.h */; };
 		90623DD1064992AF0088361C /* MEX.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C9F064992AF0088361C /* MEX.c */; };
-		90623DD2064992AF0088361C /* MEX.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CA0064992AF0088361C /* MEX.h */; };
 		90623DD3064992AF0088361C /* MultiplayerGame.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CA1064992AF0088361C /* MultiplayerGame.c */; };
-		90623DD4064992AF0088361C /* MultiplayerGame.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CA2064992AF0088361C /* MultiplayerGame.h */; };
 		90623DD5064992AF0088361C /* MultiplayerLANGame.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CA3064992AF0088361C /* MultiplayerLANGame.c */; };
-		90623DD6064992AF0088361C /* MultiplayerLANGame.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CA4064992AF0088361C /* MultiplayerLANGame.h */; };
 		90623DD7064992AF0088361C /* NavLights.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CA5064992AF0088361C /* NavLights.c */; };
-		90623DD8064992AF0088361C /* NavLights.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CA6064992AF0088361C /* NavLights.h */; };
 		90623DD9064992AF0088361C /* Nebulae.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CA7064992AF0088361C /* Nebulae.c */; };
-		90623DDA064992AF0088361C /* Nebulae.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CA8064992AF0088361C /* Nebulae.h */; };
 		90623DDB064992AF0088361C /* NetCheck.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CA9064992AF0088361C /* NetCheck.c */; };
-		90623DDC064992AF0088361C /* NetCheck.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CAA064992AF0088361C /* NetCheck.h */; };
 		90623DDD064992AF0088361C /* NIS.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CAB064992AF0088361C /* NIS.c */; };
-		90623DDE064992AF0088361C /* NIS.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CAC064992AF0088361C /* NIS.h */; };
 		90623DE0064992AF0088361C /* Objectives.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CAE064992AF0088361C /* Objectives.c */; };
-		90623DE1064992AF0088361C /* Objectives.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CAF064992AF0088361C /* Objectives.h */; };
 		90623DE2064992AF0088361C /* ObjTypes.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CB0064992AF0088361C /* ObjTypes.c */; };
-		90623DE3064992AF0088361C /* ObjTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CB1064992AF0088361C /* ObjTypes.h */; };
 		90623DE4064992AF0088361C /* Options.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CB2064992AF0088361C /* Options.c */; };
-		90623DE5064992AF0088361C /* Options.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CB3064992AF0088361C /* Options.h */; };
 		90623DE6064992AF0088361C /* Particle.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CB4064992AF0088361C /* Particle.c */; };
-		90623DE7064992AF0088361C /* Particle.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CB5064992AF0088361C /* Particle.h */; };
 		90623DE8064992AF0088361C /* Physics.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CB6064992AF0088361C /* Physics.c */; };
-		90623DE9064992AF0088361C /* Physics.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CB7064992AF0088361C /* Physics.h */; };
 		90623DEA064992AF0088361C /* PiePlate.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CB8064992AF0088361C /* PiePlate.c */; };
-		90623DEB064992AF0088361C /* PiePlate.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CB9064992AF0088361C /* PiePlate.h */; };
 		90623DEC064992AF0088361C /* Ping.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CBA064992AF0088361C /* Ping.c */; };
-		90623DED064992AF0088361C /* Ping.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CBB064992AF0088361C /* Ping.h */; };
 		90623DEE064992AF0088361C /* PlugScreen.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CBC064992AF0088361C /* PlugScreen.c */; };
-		90623DEF064992AF0088361C /* PlugScreen.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CBD064992AF0088361C /* PlugScreen.h */; };
 		90623DF0064992AF0088361C /* ProfileTimers.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CBE064992AF0088361C /* ProfileTimers.c */; };
-		90623DF1064992AF0088361C /* ProfileTimers.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CBF064992AF0088361C /* ProfileTimers.h */; };
-		90623DF2064992AF0088361C /* RaceDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CC0064992AF0088361C /* RaceDefs.h */; };
 		90623DF3064992AF0088361C /* Randy.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CC1064992AF0088361C /* Randy.c */; };
-		90623DF4064992AF0088361C /* Randy.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CC2064992AF0088361C /* Randy.h */; };
 		90623DF5064992AF0088361C /* Region.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CC3064992AF0088361C /* Region.c */; };
-		90623DF6064992AF0088361C /* Region.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CC4064992AF0088361C /* Region.h */; };
 		90623DF7064992AF0088361C /* ResCollect.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CC5064992AF0088361C /* ResCollect.c */; };
-		90623DF8064992AF0088361C /* ResCollect.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CC6064992AF0088361C /* ResCollect.h */; };
 		90623DF9064992AF0088361C /* ResearchAPI.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CC7064992AF0088361C /* ResearchAPI.c */; };
-		90623DFA064992AF0088361C /* ResearchAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CC8064992AF0088361C /* ResearchAPI.h */; };
 		90623DFB064992AF0088361C /* ResearchGUI.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CC9064992AF0088361C /* ResearchGUI.c */; };
-		90623DFC064992AF0088361C /* ResearchGUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CCA064992AF0088361C /* ResearchGUI.h */; };
 		90623DFD064992AF0088361C /* SaveGame.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CCB064992AF0088361C /* SaveGame.c */; };
-		90623DFE064992AF0088361C /* SaveGame.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CCC064992AF0088361C /* SaveGame.h */; };
 		90623DFF064992AF0088361C /* ScenPick.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CCD064992AF0088361C /* ScenPick.c */; };
-		90623E00064992AF0088361C /* ScenPick.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CCE064992AF0088361C /* ScenPick.h */; };
 		90623E01064992AF0088361C /* Scroller.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CCF064992AF0088361C /* Scroller.c */; };
-		90623E02064992AF0088361C /* Scroller.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CD0064992AF0088361C /* Scroller.h */; };
 		90623E03064992AF0088361C /* Select.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CD1064992AF0088361C /* Select.c */; };
-		90623E04064992AF0088361C /* Select.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CD2064992AF0088361C /* Select.h */; };
 		90623E05064992AF0088361C /* Sensors.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CD3064992AF0088361C /* Sensors.c */; };
-		90623E06064992AF0088361C /* Sensors.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CD4064992AF0088361C /* Sensors.h */; };
 		90623E07064992AF0088361C /* Shader.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CD5064992AF0088361C /* Shader.c */; };
-		90623E08064992AF0088361C /* Shader.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CD6064992AF0088361C /* Shader.h */; };
 		90623E0B064992AF0088361C /* ShipSelect.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CD9064992AF0088361C /* ShipSelect.c */; };
-		90623E0C064992AF0088361C /* ShipSelect.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CDA064992AF0088361C /* ShipSelect.h */; };
 		90623E0D064992AF0088361C /* ShipView.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CDB064992AF0088361C /* ShipView.c */; };
-		90623E0E064992AF0088361C /* ShipView.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CDC064992AF0088361C /* ShipView.h */; };
 		90623E0F064992AF0088361C /* SinglePlayer.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CDD064992AF0088361C /* SinglePlayer.c */; };
-		90623E10064992AF0088361C /* SinglePlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CDE064992AF0088361C /* SinglePlayer.h */; };
 		90623E11064992AF0088361C /* SoundEvent.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CDF064992AF0088361C /* SoundEvent.c */; };
-		90623E12064992AF0088361C /* SoundEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CE0064992AF0088361C /* SoundEvent.h */; };
-		90623E13064992AF0088361C /* SoundEventDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CE1064992AF0088361C /* SoundEventDefs.h */; };
 		90623E14064992AF0088361C /* SoundEventPlay.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CE2064992AF0088361C /* SoundEventPlay.c */; };
-		90623E15064992AF0088361C /* SoundEventPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CE3064992AF0088361C /* SoundEventPrivate.h */; };
 		90623E16064992AF0088361C /* SoundEventStop.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CE4064992AF0088361C /* SoundEventStop.c */; };
-		90623E17064992AF0088361C /* SoundMusic.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CE5064992AF0088361C /* SoundMusic.h */; };
-		90623E18064992AF0088361C /* SoundStructs.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CE6064992AF0088361C /* SoundStructs.h */; };
-		90623E19064992AF0088361C /* SpaceObj.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CE7064992AF0088361C /* SpaceObj.h */; };
 		90623E1A064992AF0088361C /* SpeechEvent.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CE8064992AF0088361C /* SpeechEvent.c */; };
-		90623E1B064992AF0088361C /* SpeechEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CE9064992AF0088361C /* SpeechEvent.h */; };
 		90623E1C064992AF0088361C /* Star3d.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CEA064992AF0088361C /* Star3d.c */; };
-		90623E1D064992AF0088361C /* Star3d.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CEB064992AF0088361C /* Star3d.h */; };
 		90623E1E064992AF0088361C /* Stats.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CEC064992AF0088361C /* Stats.c */; };
-		90623E1F064992AF0088361C /* Stats.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CED064992AF0088361C /* Stats.h */; };
 		90623E20064992AF0088361C /* StatScript.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CEE064992AF0088361C /* StatScript.c */; };
-		90623E21064992AF0088361C /* StatScript.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CEF064992AF0088361C /* StatScript.h */; };
-		90623E24064992AF0088361C /* StringsOnly.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CF2064992AF0088361C /* StringsOnly.h */; };
-		90623E25064992AF0088361C /* Switches.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CF3064992AF0088361C /* Switches.h */; };
 		90623E26064992AF0088361C /* Tactical.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CF4064992AF0088361C /* Tactical.c */; };
-		90623E27064992AF0088361C /* Tactical.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CF5064992AF0088361C /* Tactical.h */; };
 		90623E28064992AF0088361C /* Tactics.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CF6064992AF0088361C /* Tactics.c */; };
-		90623E29064992AF0088361C /* Tactics.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CF7064992AF0088361C /* Tactics.h */; };
 		90623E2A064992AF0088361C /* Task.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CF8064992AF0088361C /* Task.c */; };
-		90623E2B064992AF0088361C /* Task.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CF9064992AF0088361C /* Task.h */; };
 		90623E2C064992AF0088361C /* TaskBar.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CFA064992AF0088361C /* TaskBar.c */; };
-		90623E2D064992AF0088361C /* TaskBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CFB064992AF0088361C /* TaskBar.h */; };
 		90623E2E064992AF0088361C /* Teams.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CFC064992AF0088361C /* Teams.c */; };
-		90623E2F064992AF0088361C /* Teams.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CFD064992AF0088361C /* Teams.h */; };
 		90623E30064992AF0088361C /* Timer.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623CFE064992AF0088361C /* Timer.c */; };
-		90623E31064992AF0088361C /* Timer.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623CFF064992AF0088361C /* Timer.h */; };
 		90623E32064992AF0088361C /* TitanNet.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D00064992AF0088361C /* TitanNet.c */; };
-		90623E33064992AF0088361C /* TitanNet.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623D01064992AF0088361C /* TitanNet.h */; };
 		90623E34064992AF0088361C /* Tracking.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D02064992AF0088361C /* Tracking.c */; };
-		90623E35064992AF0088361C /* Tracking.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623D03064992AF0088361C /* Tracking.h */; };
 		90623E36064992AF0088361C /* TradeMgr.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D04064992AF0088361C /* TradeMgr.c */; };
-		90623E37064992AF0088361C /* TradeMgr.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623D05064992AF0088361C /* TradeMgr.h */; };
 		90623E39064992AF0088361C /* Transformer.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D07064992AF0088361C /* Transformer.c */; };
-		90623E3A064992AF0088361C /* Transformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623D08064992AF0088361C /* Transformer.h */; };
 		90623E3B064992AF0088361C /* Tutor.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D09064992AF0088361C /* Tutor.c */; };
-		90623E3C064992AF0088361C /* Tutor.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623D0A064992AF0088361C /* Tutor.h */; };
 		90623E3F064992AF0088361C /* Tweak.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D0D064992AF0088361C /* Tweak.c */; };
-		90623E40064992AF0088361C /* Tweak.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623D0E064992AF0088361C /* Tweak.h */; };
 		90623E41064992AF0088361C /* Twiddle.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D0F064992AF0088361C /* Twiddle.c */; };
-		90623E42064992AF0088361C /* Twiddle.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623D10064992AF0088361C /* Twiddle.h */; };
 		90623E43064992AF0088361C /* Types.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D11064992AF0088361C /* Types.c */; };
-		90623E44064992AF0088361C /* Types.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623D12064992AF0088361C /* Types.h */; };
 		90623E45064992AF0088361C /* UIControls.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D13064992AF0088361C /* UIControls.c */; };
-		90623E46064992AF0088361C /* UIControls.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623D14064992AF0088361C /* UIControls.h */; };
 		90623E47064992AF0088361C /* Undo.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D15064992AF0088361C /* Undo.c */; };
-		90623E48064992AF0088361C /* Undo.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623D16064992AF0088361C /* Undo.h */; };
 		90623E49064992AF0088361C /* Universe.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D17064992AF0088361C /* Universe.c */; };
-		90623E4A064992AF0088361C /* Universe.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623D18064992AF0088361C /* Universe.h */; };
 		90623E4B064992AF0088361C /* UnivUpdate.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D19064992AF0088361C /* UnivUpdate.c */; };
-		90623E4C064992AF0088361C /* UnivUpdate.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623D1A064992AF0088361C /* UnivUpdate.h */; };
 		90623E4D064992AF0088361C /* Vector.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D1B064992AF0088361C /* Vector.c */; };
-		90623E4E064992AF0088361C /* Vector.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623D1C064992AF0088361C /* Vector.h */; };
-		90623E4F064992AF0088361C /* VolTweakDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623D1D064992AF0088361C /* VolTweakDefs.h */; };
 		90623E50064992AF0088361C /* Volume.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D1E064992AF0088361C /* Volume.c */; };
-		90623E51064992AF0088361C /* Volume.h in Headers */ = {isa = PBXBuildFile; fileRef = 90623D1F064992AF0088361C /* Volume.h */; };
-		90BD925F064AEE7B003E3D39 /* avi.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9208064AEE7A003E3D39 /* avi.h */; };
-		90BD9267064AEE7B003E3D39 /* devstats.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9210064AEE7A003E3D39 /* devstats.h */; };
 		90BD926A064AEE7B003E3D39 /* font.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9213064AEE7A003E3D39 /* font.c */; };
-		90BD926B064AEE7B003E3D39 /* font.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9214064AEE7A003E3D39 /* font.h */; };
-		90BD926C064AEE7B003E3D39 /* fqcodec.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9215064AEE7A003E3D39 /* fqcodec.h */; };
-		90BD926D064AEE7B003E3D39 /* fqeffect.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9216064AEE7A003E3D39 /* fqeffect.h */; };
-		90BD926E064AEE7B003E3D39 /* fquant.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9217064AEE7A003E3D39 /* fquant.h */; };
 		90BD926F064AEE7B003E3D39 /* glcaps.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9218064AEE7A003E3D39 /* glcaps.c */; };
-		90BD9270064AEE7B003E3D39 /* glcaps.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9219064AEE7A003E3D39 /* glcaps.h */; };
-		90BD9273064AEE7B003E3D39 /* gldefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD921C064AEE7A003E3D39 /* gldefines.h */; };
 		90BD9274064AEE7B003E3D39 /* gldll.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD921D064AEE7A003E3D39 /* gldll.c */; };
-		90BD9275064AEE7B003E3D39 /* gldll.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD921E064AEE7A003E3D39 /* gldll.h */; };
-		90BD9276064AEE7B003E3D39 /* glext.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD921F064AEE7A003E3D39 /* glext.h */; };
-		90BD9277064AEE7B003E3D39 /* glinc.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9220064AEE7A003E3D39 /* glinc.h */; };
 		90BD927E064AEE7B003E3D39 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9227064AEE7A003E3D39 /* main.c */; };
-		90BD927F064AEE7B003E3D39 /* main.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9228064AEE7A003E3D39 /* main.h */; };
-		90BD9281064AEE7B003E3D39 /* mainrgn.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD922A064AEE7A003E3D39 /* mainrgn.h */; };
-		90BD9282064AEE7B003E3D39 /* mainswitches.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD922B064AEE7A003E3D39 /* mainswitches.h */; };
 		90BD9285064AEE7B003E3D39 /* mouse.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD922E064AEE7A003E3D39 /* mouse.c */; };
-		90BD9286064AEE7B003E3D39 /* mouse.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD922F064AEE7A003E3D39 /* mouse.h */; };
 		90BD9287064AEE7B003E3D39 /* prim2d.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9230064AEE7A003E3D39 /* prim2d.c */; };
-		90BD9288064AEE7B003E3D39 /* prim2d.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9231064AEE7A003E3D39 /* prim2d.h */; };
 		90BD9289064AEE7B003E3D39 /* prim3d.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9232064AEE7A003E3D39 /* prim3d.c */; };
-		90BD928A064AEE7B003E3D39 /* prim3d.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9233064AEE7A003E3D39 /* prim3d.h */; };
 		90BD928B064AEE7B003E3D39 /* Queue.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9234064AEE7A003E3D39 /* Queue.c */; };
-		90BD928C064AEE7B003E3D39 /* Queue.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9235064AEE7A003E3D39 /* Queue.h */; };
-		90BD928D064AEE7B003E3D39 /* regkey.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9236064AEE7A003E3D39 /* regkey.h */; };
 		90BD928E064AEE7B003E3D39 /* render.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9237064AEE7A003E3D39 /* render.c */; };
-		90BD928F064AEE7B003E3D39 /* render.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9238064AEE7A003E3D39 /* render.h */; };
-		90BD9290064AEE7B003E3D39 /* resource.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9239064AEE7A003E3D39 /* resource.h */; };
 		90BD9291064AEE7B003E3D39 /* rglu.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD923A064AEE7A003E3D39 /* rglu.c */; };
-		90BD9292064AEE7B003E3D39 /* rglu.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD923B064AEE7A003E3D39 /* rglu.h */; };
-		90BD9294064AEE7B003E3D39 /* rinit.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD923D064AEE7A003E3D39 /* rinit.h */; };
 		90BD9295064AEE7B003E3D39 /* screenshot.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD923E064AEE7A003E3D39 /* screenshot.c */; };
-		90BD9296064AEE7B003E3D39 /* screenshot.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD923F064AEE7A003E3D39 /* screenshot.h */; };
 		90BD9297064AEE7B003E3D39 /* smixer.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9240064AEE7A003E3D39 /* smixer.c */; };
-		90BD9299064AEE7B003E3D39 /* soundcmn.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9242064AEE7A003E3D39 /* soundcmn.h */; };
 		90BD929A064AEE7B003E3D39 /* soundlow.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9243064AEE7A003E3D39 /* soundlow.c */; };
-		90BD929C064AEE7B003E3D39 /* soundlow.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9245064AEE7A003E3D39 /* soundlow.h */; };
 		90BD929F064AEE7B003E3D39 /* sstream.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9248064AEE7A003E3D39 /* sstream.c */; };
 		90BD92A3064AEE7B003E3D39 /* texreg.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD924C064AEE7A003E3D39 /* texreg.c */; };
-		90BD92A4064AEE7B003E3D39 /* texreg.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD924D064AEE7A003E3D39 /* texreg.h */; };
 		90BD92A5064AEE7B003E3D39 /* TimeoutTimer.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD924E064AEE7A003E3D39 /* TimeoutTimer.c */; };
-		90BD92A6064AEE7B003E3D39 /* TimeoutTimer.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD924F064AEE7A003E3D39 /* TimeoutTimer.h */; };
 		90BD92A7064AEE7B003E3D39 /* Titan.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9250064AEE7A003E3D39 /* Titan.c */; };
-		90BD92A8064AEE7B003E3D39 /* Titan.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9251064AEE7A003E3D39 /* Titan.h */; };
-		90BD92AA064AEE7B003E3D39 /* TitanInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9253064AEE7A003E3D39 /* TitanInterface.h */; };
-		90BD92AB064AEE7B003E3D39 /* TitanInterfaceC.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9254064AEE7A003E3D39 /* TitanInterfaceC.h */; };
 		90BD92AC064AEE7B003E3D39 /* TitanInterfaceC.stub.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9255064AEE7A003E3D39 /* TitanInterfaceC.stub.c */; };
-		90BD92AE064AEE7B003E3D39 /* TitanPacketMsg.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9257064AEE7A003E3D39 /* TitanPacketMsg.h */; };
 		90BD92B1064AEE7B003E3D39 /* utility.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD925A064AEE7A003E3D39 /* utility.c */; };
-		90BD92B2064AEE7B003E3D39 /* utility.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD925B064AEE7A003E3D39 /* utility.h */; };
 		90BD9339064AEF43003E3D39 /* AdvanceSupportFrigate.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD92E7064AEF42003E3D39 /* AdvanceSupportFrigate.c */; };
-		90BD933A064AEF43003E3D39 /* AdvanceSupportFrigate.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD92E8064AEF42003E3D39 /* AdvanceSupportFrigate.h */; };
 		90BD933B064AEF43003E3D39 /* Carrier.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD92E9064AEF42003E3D39 /* Carrier.c */; };
-		90BD933C064AEF43003E3D39 /* Carrier.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD92EA064AEF42003E3D39 /* Carrier.h */; };
 		90BD933D064AEF43003E3D39 /* CloakGenerator.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD92EB064AEF42003E3D39 /* CloakGenerator.c */; };
-		90BD933E064AEF43003E3D39 /* CloakGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD92EC064AEF42003E3D39 /* CloakGenerator.h */; };
 		90BD933F064AEF43003E3D39 /* DDDFrigate.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD92ED064AEF42003E3D39 /* DDDFrigate.c */; };
-		90BD9340064AEF43003E3D39 /* DDDFrigate.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD92EE064AEF42003E3D39 /* DDDFrigate.h */; };
 		90BD9341064AEF43003E3D39 /* DefaultShip.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD92EF064AEF42003E3D39 /* DefaultShip.c */; };
-		90BD9342064AEF43003E3D39 /* DefaultShip.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD92F0064AEF42003E3D39 /* DefaultShip.h */; };
 		90BD9343064AEF43003E3D39 /* DefenseFighter.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD92F1064AEF42003E3D39 /* DefenseFighter.c */; };
-		90BD9344064AEF43003E3D39 /* DefenseFighter.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD92F2064AEF42003E3D39 /* DefenseFighter.h */; };
 		90BD9345064AEF43003E3D39 /* DFGFrigate.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD92F3064AEF42003E3D39 /* DFGFrigate.c */; };
-		90BD9346064AEF43003E3D39 /* DFGFrigate.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD92F4064AEF42003E3D39 /* DFGFrigate.h */; };
 		90BD9347064AEF43003E3D39 /* Drone.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD92F5064AEF42003E3D39 /* Drone.c */; };
-		90BD9348064AEF43003E3D39 /* Drone.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD92F6064AEF42003E3D39 /* Drone.h */; };
 		90BD9349064AEF43003E3D39 /* FloatingCity.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD92F7064AEF42003E3D39 /* FloatingCity.c */; };
-		90BD934A064AEF43003E3D39 /* FloatingCity.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD92F8064AEF42003E3D39 /* FloatingCity.h */; };
 		90BD934B064AEF43003E3D39 /* GenericDefender.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD92F9064AEF42003E3D39 /* GenericDefender.c */; };
-		90BD934C064AEF43003E3D39 /* GenericDefender.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD92FA064AEF42003E3D39 /* GenericDefender.h */; };
 		90BD934D064AEF43003E3D39 /* GenericInterceptor.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD92FB064AEF42003E3D39 /* GenericInterceptor.c */; };
-		90BD934E064AEF43003E3D39 /* GenericInterceptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD92FC064AEF42003E3D39 /* GenericInterceptor.h */; };
 		90BD934F064AEF43003E3D39 /* GravWellGenerator.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD92FD064AEF42003E3D39 /* GravWellGenerator.c */; };
-		90BD9350064AEF43003E3D39 /* GravWellGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD92FE064AEF42003E3D39 /* GravWellGenerator.h */; };
 		90BD9351064AEF43003E3D39 /* HeavyCorvette.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD92FF064AEF42003E3D39 /* HeavyCorvette.c */; };
-		90BD9352064AEF43003E3D39 /* HeavyCorvette.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9300064AEF42003E3D39 /* HeavyCorvette.h */; };
 		90BD9353064AEF43003E3D39 /* HeavyCruiser.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9301064AEF42003E3D39 /* HeavyCruiser.c */; };
-		90BD9354064AEF43003E3D39 /* HeavyCruiser.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9302064AEF42003E3D39 /* HeavyCruiser.h */; };
 		90BD9355064AEF43003E3D39 /* IonCannonFrigate.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9303064AEF42003E3D39 /* IonCannonFrigate.c */; };
-		90BD9356064AEF43003E3D39 /* IonCannonFrigate.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9304064AEF42003E3D39 /* IonCannonFrigate.h */; };
 		90BD9357064AEF43003E3D39 /* LightCorvette.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9305064AEF42003E3D39 /* LightCorvette.c */; };
-		90BD9358064AEF43003E3D39 /* LightCorvette.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9306064AEF42003E3D39 /* LightCorvette.h */; };
 		90BD935B064AEF43003E3D39 /* MinelayerCorvette.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9309064AEF43003E3D39 /* MinelayerCorvette.c */; };
-		90BD935C064AEF43003E3D39 /* MinelayerCorvette.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD930A064AEF43003E3D39 /* MinelayerCorvette.h */; };
 		90BD935D064AEF43003E3D39 /* MissileDestroyer.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD930B064AEF43003E3D39 /* MissileDestroyer.c */; };
-		90BD935E064AEF43003E3D39 /* MissileDestroyer.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD930C064AEF43003E3D39 /* MissileDestroyer.h */; };
 		90BD935F064AEF43003E3D39 /* Mothership.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD930D064AEF43003E3D39 /* Mothership.c */; };
-		90BD9360064AEF43003E3D39 /* Mothership.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD930E064AEF43003E3D39 /* Mothership.h */; };
 		90BD9361064AEF43003E3D39 /* MultiGunCorvette.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD930F064AEF43003E3D39 /* MultiGunCorvette.c */; };
-		90BD9362064AEF43003E3D39 /* MultiGunCorvette.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9310064AEF43003E3D39 /* MultiGunCorvette.h */; };
 		90BD9363064AEF43003E3D39 /* P1IonArrayFrigate.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9311064AEF43003E3D39 /* P1IonArrayFrigate.c */; };
-		90BD9364064AEF43003E3D39 /* P1IonArrayFrigate.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9312064AEF43003E3D39 /* P1IonArrayFrigate.h */; };
 		90BD9365064AEF43003E3D39 /* P1MissileCorvette.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9313064AEF43003E3D39 /* P1MissileCorvette.c */; };
-		90BD9366064AEF43003E3D39 /* P1MissileCorvette.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9314064AEF43003E3D39 /* P1MissileCorvette.h */; };
 		90BD9367064AEF43003E3D39 /* P1Mothership.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9315064AEF43003E3D39 /* P1Mothership.c */; };
-		90BD9368064AEF43003E3D39 /* P1Mothership.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9316064AEF43003E3D39 /* P1Mothership.h */; };
 		90BD9369064AEF43003E3D39 /* P1StandardCorvette.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9317064AEF43003E3D39 /* P1StandardCorvette.c */; };
-		90BD936A064AEF43003E3D39 /* P1StandardCorvette.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9318064AEF43003E3D39 /* P1StandardCorvette.h */; };
 		90BD936B064AEF43003E3D39 /* P2AdvanceSwarmer.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9319064AEF43003E3D39 /* P2AdvanceSwarmer.c */; };
-		90BD936C064AEF43003E3D39 /* P2AdvanceSwarmer.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD931A064AEF43003E3D39 /* P2AdvanceSwarmer.h */; };
 		90BD936D064AEF43003E3D39 /* P2FuelPod.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD931B064AEF43003E3D39 /* P2FuelPod.c */; };
-		90BD936E064AEF43003E3D39 /* P2FuelPod.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD931C064AEF43003E3D39 /* P2FuelPod.h */; };
 		90BD936F064AEF43003E3D39 /* P2Mothership.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD931D064AEF43003E3D39 /* P2Mothership.c */; };
-		90BD9370064AEF43003E3D39 /* P2Mothership.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD931E064AEF43003E3D39 /* P2Mothership.h */; };
 		90BD9371064AEF43003E3D39 /* P2MultiBeamFrigate.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD931F064AEF43003E3D39 /* P2MultiBeamFrigate.c */; };
-		90BD9372064AEF43003E3D39 /* P2MultiBeamFrigate.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9320064AEF43003E3D39 /* P2MultiBeamFrigate.h */; };
 		90BD9373064AEF43003E3D39 /* P2Swarmer.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9321064AEF43003E3D39 /* P2Swarmer.c */; };
-		90BD9374064AEF43003E3D39 /* P2Swarmer.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9322064AEF43003E3D39 /* P2Swarmer.h */; };
 		90BD9375064AEF43003E3D39 /* P3StandardShip.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9323064AEF43003E3D39 /* P3StandardShip.c */; };
-		90BD9376064AEF43003E3D39 /* P3StandardShip.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9324064AEF43003E3D39 /* P3StandardShip.h */; };
 		90BD9377064AEF43003E3D39 /* Probe.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9325064AEF43003E3D39 /* Probe.c */; };
-		90BD9378064AEF43003E3D39 /* Probe.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9326064AEF43003E3D39 /* Probe.h */; };
 		90BD9379064AEF43003E3D39 /* ProximitySensor.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9327064AEF43003E3D39 /* ProximitySensor.c */; };
-		90BD937A064AEF43003E3D39 /* ProximitySensor.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9328064AEF43003E3D39 /* ProximitySensor.h */; };
 		90BD937B064AEF43003E3D39 /* RepairCorvette.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9329064AEF43003E3D39 /* RepairCorvette.c */; };
-		90BD937C064AEF43003E3D39 /* RepairCorvette.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD932A064AEF43003E3D39 /* RepairCorvette.h */; };
 		90BD937D064AEF43003E3D39 /* ResearchShip.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD932B064AEF43003E3D39 /* ResearchShip.c */; };
-		90BD937E064AEF43003E3D39 /* ResearchShip.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD932C064AEF43003E3D39 /* ResearchShip.h */; };
 		90BD937F064AEF43003E3D39 /* ResourceCollector.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD932D064AEF43003E3D39 /* ResourceCollector.c */; };
-		90BD9380064AEF43003E3D39 /* ResourceCollector.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD932E064AEF43003E3D39 /* ResourceCollector.h */; };
 		90BD9381064AEF43003E3D39 /* ResourceController.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD932F064AEF43003E3D39 /* ResourceController.c */; };
-		90BD9382064AEF43003E3D39 /* ResourceController.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9330064AEF43003E3D39 /* ResourceController.h */; };
 		90BD9383064AEF43003E3D39 /* SalCapCorvette.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9331064AEF43003E3D39 /* SalCapCorvette.c */; };
-		90BD9384064AEF43003E3D39 /* SalCapCorvette.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9332064AEF43003E3D39 /* SalCapCorvette.h */; };
 		90BD9385064AEF43003E3D39 /* SensorArray.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9333064AEF43003E3D39 /* SensorArray.c */; };
-		90BD9386064AEF43003E3D39 /* SensorArray.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9334064AEF43003E3D39 /* SensorArray.h */; };
 		90BD9387064AEF43003E3D39 /* StandardDestroyer.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9335064AEF43003E3D39 /* StandardDestroyer.c */; };
-		90BD9388064AEF43003E3D39 /* StandardDestroyer.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9336064AEF43003E3D39 /* StandardDestroyer.h */; };
 		90BD9389064AEF43003E3D39 /* StandardFrigate.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9337064AEF43003E3D39 /* StandardFrigate.c */; };
-		90BD938A064AEF43003E3D39 /* StandardFrigate.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD9338064AEF43003E3D39 /* StandardFrigate.h */; };
 		90BD93C3064AF4F3003E3D39 /* SDLMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BD93C1064AF4F3003E3D39 /* SDLMain.m */; };
-		90BD93C4064AF4F3003E3D39 /* SDLMain.h in Headers */ = {isa = PBXBuildFile; fileRef = 90BD93C2064AF4F3003E3D39 /* SDLMain.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -2444,551 +1923,12 @@
 		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		3516C82E077C41B0001AA863 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3516C82F077C41B0001AA863 /* AIAttackMan.h in Headers */,
-				3516C830077C41B0001AA863 /* AIDefenseMan.h in Headers */,
-				3516C831077C41B0001AA863 /* AIEvents.h in Headers */,
-				3516C832077C41B0001AA863 /* AIFeatures.h in Headers */,
-				3516C833077C41B0001AA863 /* AIFleetMan.h in Headers */,
-				3516C834077C41B0001AA863 /* AIHandler.h in Headers */,
-				3516C835077C41B0001AA863 /* AIMoves.h in Headers */,
-				3516C838077C41B0001AA863 /* AIOrders.h in Headers */,
-				3516C83A077C41B0001AA863 /* AIPlayer.h in Headers */,
-				3516C83B077C41B0001AA863 /* AIResourceMan.h in Headers */,
-				3516C83C077C41B0001AA863 /* AIShip.h in Headers */,
-				3516C83D077C41B0001AA863 /* AITeam.h in Headers */,
-				3516C83E077C41B0001AA863 /* AITrack.h in Headers */,
-				3516C83F077C41B0001AA863 /* AIUtilities.h in Headers */,
-				3516C840077C41B0001AA863 /* AIVar.h in Headers */,
-				3516C841077C41B0001AA863 /* Alliance.h in Headers */,
-				3516C842077C41B0001AA863 /* Animatic.h in Headers */,
-				3516C843077C41B0001AA863 /* Attack.h in Headers */,
-				3516C844077C41B0001AA863 /* Attributes.h in Headers */,
-				3516C845077C41B0001AA863 /* AutoDownloadMap.h in Headers */,
-				3516C846077C41B0001AA863 /* AutoLOD.h in Headers */,
-				3516C847077C41B0001AA863 /* B-Spline.h in Headers */,
-				3516C848077C41B0001AA863 /* Battle.h in Headers */,
-				3516C849077C41B0001AA863 /* BigFile.h in Headers */,
-				3516C84B077C41B0001AA863 /* Blobs.h in Headers */,
-				3516C84C077C41B0001AA863 /* BMP.h in Headers */,
-				3516C84D077C41B0001AA863 /* Bounties.h in Headers */,
-				3516C84E077C41B0001AA863 /* BTG.h in Headers */,
-				3516C84F077C41B0001AA863 /* Camera.h in Headers */,
-				3516C850077C41B0001AA863 /* CameraCommand.h in Headers */,
-				3516C851077C41B0001AA863 /* Captaincy.h in Headers */,
-				3516C852077C41B0001AA863 /* ChannelFSM.h in Headers */,
-				3516C853077C41B0001AA863 /* Chatting.h in Headers */,
-				3516C854077C41B0001AA863 /* Clamp.h in Headers */,
-				3516C855077C41B0001AA863 /* ClassDefs.h in Headers */,
-				3516C856077C41B0001AA863 /* Clipper.h in Headers */,
-				3516C857077C41B0001AA863 /* Clouds.h in Headers */,
-				3516C858077C41B0001AA863 /* Collision.h in Headers */,
-				3516C859077C41B0001AA863 /* ColPick.h in Headers */,
-				3516C85A077C41B0001AA863 /* CommandDefs.h in Headers */,
-				3516C85B077C41B0001AA863 /* CommandLayer.h in Headers */,
-				3516C85C077C41B0001AA863 /* CommandNetwork.h in Headers */,
-				3516C85D077C41B0001AA863 /* CommandWrap.h in Headers */,
-				3516C85E077C41B0001AA863 /* ConsMgr.h in Headers */,
-				3516C85F077C41B0001AA863 /* Crates.h in Headers */,
-				3516C861077C41B0001AA863 /* Damage.h in Headers */,
-				3516C862077C41B0001AA863 /* Debug.h in Headers */,
-				3516C863077C41B0001AA863 /* Demo.h in Headers */,
-				3516C864077C41B0001AA863 /* Dock.h in Headers */,
-				3516C865077C41B0001AA863 /* ETG.h in Headers */,
-				3516C866077C41B0001AA863 /* Eval.h in Headers */,
-				3516C867077C41B0001AA863 /* FastMath.h in Headers */,
-				3516C868077C41B0001AA863 /* FEColour.h in Headers */,
-				3516C869077C41B0001AA863 /* FEFlow.h in Headers */,
-				3516C86A077C41B0001AA863 /* FEReg.h in Headers */,
-				3516C86B077C41B0001AA863 /* File.h in Headers */,
-				3516C86C077C41B0001AA863 /* FlightMan.h in Headers */,
-				3516C86D077C41B0001AA863 /* FlightManDefs.h in Headers */,
-				3516C86E077C41B0001AA863 /* FontReg.h in Headers */,
-				3516C86F077C41B0001AA863 /* Formation.h in Headers */,
-				3516C870077C41B0001AA863 /* FormationDefs.h in Headers */,
-				3516C871077C41B0001AA863 /* GameChat.h in Headers */,
-				3516C872077C41B0001AA863 /* GamePick.h in Headers */,
-				3516C873077C41B0001AA863 /* GameStats.h in Headers */,
-				3516C874077C41B0001AA863 /* Globals.h in Headers */,
-				3516C875077C41B0001AA863 /* Gun.h in Headers */,
-				3516C876077C41B0001AA863 /* Hash.h in Headers */,
-				3516C877077C41B0001AA863 /* HorseRace.h in Headers */,
-				3516C878077C41B0001AA863 /* HS.h in Headers */,
-				3516C879077C41B0001AA863 /* InfoOverlay.h in Headers */,
-				3516C87A077C41B0001AA863 /* KAS.h in Headers */,
-				3516C87B077C41B0001AA863 /* KASFunc.h in Headers */,
-				3516C87C077C41B0001AA863 /* Key.h in Headers */,
-				3516C87D077C41B0001AA863 /* KeyBindings.h in Headers */,
-				3516C87E077C41B0001AA863 /* LagPrint.h in Headers */,
-				3516C87F077C41B0001AA863 /* LaunchMgr.h in Headers */,
-				3516C881077C41B0001AA863 /* LevelLoad.h in Headers */,
-				3516C883077C41B0001AA863 /* LinkedList.h in Headers */,
-				3516C884077C41B0001AA863 /* LOD.h in Headers */,
-				3516C886077C41B0001AA863 /* MadLinkIn.h in Headers */,
-				3516C887077C41B0001AA863 /* MadLinkInDefs.h in Headers */,
-				3516C888077C41B0001AA863 /* Matrix.h in Headers */,
-				3516C889077C41B0001AA863 /* MaxMultiplayer.h in Headers */,
-				3516C88A077C41B0001AA863 /* Memory.h in Headers */,
-				3516C88B077C41B0001AA863 /* Mesh.h in Headers */,
-				3516C88C077C41B0001AA863 /* MeshAnim.h in Headers */,
-				3516C88D077C41B0001AA863 /* MEX.h in Headers */,
-				3516C88E077C41B0001AA863 /* MultiplayerGame.h in Headers */,
-				3516C88F077C41B0001AA863 /* MultiplayerLANGame.h in Headers */,
-				3516C890077C41B0001AA863 /* NavLights.h in Headers */,
-				3516C891077C41B0001AA863 /* Nebulae.h in Headers */,
-				3516C892077C41B0001AA863 /* NetCheck.h in Headers */,
-				3516C893077C41B0001AA863 /* NIS.h in Headers */,
-				3516C895077C41B0001AA863 /* Objectives.h in Headers */,
-				3516C896077C41B0001AA863 /* ObjTypes.h in Headers */,
-				3516C897077C41B0001AA863 /* Options.h in Headers */,
-				3516C898077C41B0001AA863 /* Particle.h in Headers */,
-				3516C899077C41B0001AA863 /* Physics.h in Headers */,
-				3516C89A077C41B0001AA863 /* PiePlate.h in Headers */,
-				3516C89B077C41B0001AA863 /* Ping.h in Headers */,
-				3516C89C077C41B0001AA863 /* PlugScreen.h in Headers */,
-				3516C89D077C41B0001AA863 /* ProfileTimers.h in Headers */,
-				3516C89E077C41B0001AA863 /* RaceDefs.h in Headers */,
-				3516C89F077C41B0001AA863 /* Randy.h in Headers */,
-				3516C8A0077C41B0001AA863 /* Region.h in Headers */,
-				3516C8A1077C41B0001AA863 /* ResCollect.h in Headers */,
-				3516C8A2077C41B0001AA863 /* ResearchAPI.h in Headers */,
-				3516C8A3077C41B0001AA863 /* ResearchGUI.h in Headers */,
-				3516C8A4077C41B0001AA863 /* SaveGame.h in Headers */,
-				3516C8A5077C41B0001AA863 /* ScenPick.h in Headers */,
-				3516C8A6077C41B0001AA863 /* Scroller.h in Headers */,
-				3516C8A7077C41B0001AA863 /* Select.h in Headers */,
-				3516C8A8077C41B0001AA863 /* Sensors.h in Headers */,
-				3516C8A9077C41B0001AA863 /* Shader.h in Headers */,
-				3516C8AC077C41B0001AA863 /* ShipSelect.h in Headers */,
-				3516C8AD077C41B0001AA863 /* ShipView.h in Headers */,
-				3516C8AE077C41B0001AA863 /* SinglePlayer.h in Headers */,
-				3516C8AF077C41B0001AA863 /* SoundEvent.h in Headers */,
-				3516C8B0077C41B0001AA863 /* SoundEventDefs.h in Headers */,
-				3516C8B1077C41B0001AA863 /* SoundEventPrivate.h in Headers */,
-				3516C8B2077C41B0001AA863 /* SoundMusic.h in Headers */,
-				3516C8B3077C41B0001AA863 /* SoundStructs.h in Headers */,
-				3516C8B4077C41B0001AA863 /* SpaceObj.h in Headers */,
-				3516C8B5077C41B0001AA863 /* SpeechEvent.h in Headers */,
-				3516C8B6077C41B0001AA863 /* Star3d.h in Headers */,
-				3516C8B7077C41B0001AA863 /* Stats.h in Headers */,
-				3516C8B8077C41B0001AA863 /* StatScript.h in Headers */,
-				3516C8BA077C41B0001AA863 /* StringsOnly.h in Headers */,
-				3516C8BB077C41B0001AA863 /* Switches.h in Headers */,
-				3516C8BC077C41B0001AA863 /* Tactical.h in Headers */,
-				3516C8BD077C41B0001AA863 /* Tactics.h in Headers */,
-				3516C8BE077C41B0001AA863 /* Task.h in Headers */,
-				3516C8BF077C41B0001AA863 /* TaskBar.h in Headers */,
-				3516C8C0077C41B0001AA863 /* Teams.h in Headers */,
-				3516C8C1077C41B0001AA863 /* Timer.h in Headers */,
-				3516C8C2077C41B0001AA863 /* TitanNet.h in Headers */,
-				3516C8C3077C41B0001AA863 /* Tracking.h in Headers */,
-				3516C8C4077C41B0001AA863 /* TradeMgr.h in Headers */,
-				3516C8C5077C41B0001AA863 /* Transformer.h in Headers */,
-				3516C8C6077C41B0001AA863 /* Tutor.h in Headers */,
-				3516C8C7077C41B0001AA863 /* Tweak.h in Headers */,
-				3516C8C8077C41B0001AA863 /* Twiddle.h in Headers */,
-				3516C8C9077C41B0001AA863 /* Types.h in Headers */,
-				3516C8CA077C41B0001AA863 /* UIControls.h in Headers */,
-				3516C8CB077C41B0001AA863 /* Undo.h in Headers */,
-				3516C8CC077C41B0001AA863 /* Universe.h in Headers */,
-				3516C8CD077C41B0001AA863 /* UnivUpdate.h in Headers */,
-				3516C8CE077C41B0001AA863 /* Vector.h in Headers */,
-				3516C8CF077C41B0001AA863 /* VolTweakDefs.h in Headers */,
-				3516C8D0077C41B0001AA863 /* Volume.h in Headers */,
-				3516C8EF077C41B0001AA863 /* avi.h in Headers */,
-				3516C8F1077C41B0001AA863 /* devstats.h in Headers */,
-				3516C8F2077C41B0001AA863 /* font.h in Headers */,
-				3516C8F3077C41B0001AA863 /* fqcodec.h in Headers */,
-				3516C8F4077C41B0001AA863 /* fqeffect.h in Headers */,
-				3516C8F5077C41B0001AA863 /* fquant.h in Headers */,
-				3516C8F6077C41B0001AA863 /* glcaps.h in Headers */,
-				3516C8F8077C41B0001AA863 /* gldefines.h in Headers */,
-				3516C8F9077C41B0001AA863 /* gldll.h in Headers */,
-				3516C8FA077C41B0001AA863 /* glext.h in Headers */,
-				3516C8FB077C41B0001AA863 /* glinc.h in Headers */,
-				3516C8FF077C41B0001AA863 /* main.h in Headers */,
-				3516C900077C41B0001AA863 /* mainrgn.h in Headers */,
-				3516C901077C41B0001AA863 /* mainswitches.h in Headers */,
-				3516C902077C41B0001AA863 /* mouse.h in Headers */,
-				3516C903077C41B0001AA863 /* prim2d.h in Headers */,
-				3516C904077C41B0001AA863 /* prim3d.h in Headers */,
-				3516C905077C41B0001AA863 /* Queue.h in Headers */,
-				3516C906077C41B0001AA863 /* regkey.h in Headers */,
-				3516C907077C41B0001AA863 /* render.h in Headers */,
-				3516C908077C41B0001AA863 /* resource.h in Headers */,
-				3516C909077C41B0001AA863 /* rglu.h in Headers */,
-				3516C90A077C41B0001AA863 /* rinit.h in Headers */,
-				3516C90B077C41B0001AA863 /* screenshot.h in Headers */,
-				3516C90C077C41B0001AA863 /* soundcmn.h in Headers */,
-				3516C90D077C41B0001AA863 /* soundlow.h in Headers */,
-				3516C90F077C41B0001AA863 /* texreg.h in Headers */,
-				3516C910077C41B0001AA863 /* TimeoutTimer.h in Headers */,
-				3516C911077C41B0001AA863 /* Titan.h in Headers */,
-				3516C912077C41B0001AA863 /* TitanInterface.h in Headers */,
-				3516C913077C41B0001AA863 /* TitanInterfaceC.h in Headers */,
-				3516C914077C41B0001AA863 /* TitanPacketMsg.h in Headers */,
-				3516C916077C41B0001AA863 /* utility.h in Headers */,
-				3516C917077C41B0001AA863 /* AdvanceSupportFrigate.h in Headers */,
-				3516C918077C41B0001AA863 /* Carrier.h in Headers */,
-				3516C919077C41B0001AA863 /* CloakGenerator.h in Headers */,
-				3516C91A077C41B0001AA863 /* DDDFrigate.h in Headers */,
-				3516C91B077C41B0001AA863 /* DefaultShip.h in Headers */,
-				3516C91C077C41B0001AA863 /* DefenseFighter.h in Headers */,
-				3516C91D077C41B0001AA863 /* DFGFrigate.h in Headers */,
-				3516C91E077C41B0001AA863 /* Drone.h in Headers */,
-				3516C91F077C41B0001AA863 /* FloatingCity.h in Headers */,
-				3516C920077C41B0001AA863 /* GenericDefender.h in Headers */,
-				3516C921077C41B0001AA863 /* GenericInterceptor.h in Headers */,
-				3516C922077C41B0001AA863 /* GravWellGenerator.h in Headers */,
-				3516C923077C41B0001AA863 /* HeavyCorvette.h in Headers */,
-				3516C924077C41B0001AA863 /* HeavyCruiser.h in Headers */,
-				3516C925077C41B0001AA863 /* IonCannonFrigate.h in Headers */,
-				3516C926077C41B0001AA863 /* LightCorvette.h in Headers */,
-				3516C927077C41B0001AA863 /* MinelayerCorvette.h in Headers */,
-				3516C928077C41B0001AA863 /* MissileDestroyer.h in Headers */,
-				3516C929077C41B0001AA863 /* Mothership.h in Headers */,
-				3516C92A077C41B0001AA863 /* MultiGunCorvette.h in Headers */,
-				3516C92B077C41B0001AA863 /* P1IonArrayFrigate.h in Headers */,
-				3516C92C077C41B0001AA863 /* P1MissileCorvette.h in Headers */,
-				3516C92D077C41B0001AA863 /* P1Mothership.h in Headers */,
-				3516C92E077C41B0001AA863 /* P1StandardCorvette.h in Headers */,
-				3516C92F077C41B0001AA863 /* P2AdvanceSwarmer.h in Headers */,
-				3516C930077C41B0001AA863 /* P2FuelPod.h in Headers */,
-				3516C931077C41B0001AA863 /* P2Mothership.h in Headers */,
-				3516C932077C41B0001AA863 /* P2MultiBeamFrigate.h in Headers */,
-				3516C933077C41B0001AA863 /* P2Swarmer.h in Headers */,
-				3516C934077C41B0001AA863 /* P3StandardShip.h in Headers */,
-				3516C935077C41B0001AA863 /* Probe.h in Headers */,
-				3516C936077C41B0001AA863 /* ProximitySensor.h in Headers */,
-				3516C937077C41B0001AA863 /* RepairCorvette.h in Headers */,
-				3516C938077C41B0001AA863 /* ResearchShip.h in Headers */,
-				3516C939077C41B0001AA863 /* ResourceCollector.h in Headers */,
-				3516C93A077C41B0001AA863 /* ResourceController.h in Headers */,
-				3516C93B077C41B0001AA863 /* SalCapCorvette.h in Headers */,
-				3516C93C077C41B0001AA863 /* SensorArray.h in Headers */,
-				3516C93D077C41B0001AA863 /* StandardDestroyer.h in Headers */,
-				3516C93E077C41B0001AA863 /* StandardFrigate.h in Headers */,
-				3516C93F077C41B0001AA863 /* SDLMain.h in Headers */,
-				3516C940077C41B0001AA863 /* Homeworld_Prefix.h in Headers */,
-				3578AD0B0AF40518007BFA9F /* StringSupport.h in Headers */,
-				3507A51C0B0FA60200E374C5 /* Trails.h in Headers */,
-				3507A57B0B0FBB0B00E374C5 /* Subtitle.h in Headers */,
-				35FB9A700B124F0500523C83 /* Color.h in Headers */,
-				35CD35330B13ADEE0064A20B /* interfce.h in Headers */,
-				35CD353A0B13ADEE0064A20B /* jchuff.h in Headers */,
-				35CD35400B13ADEE0064A20B /* jconfig.h in Headers */,
-				35CD354C0B13ADEE0064A20B /* jdct.h in Headers */,
-				35CD354F0B13ADEE0064A20B /* jdhuff.h in Headers */,
-				35CD355A0B13ADEE0064A20B /* jerror.h in Headers */,
-				35CD35620B13ADEE0064A20B /* jinclude.h in Headers */,
-				35CD35650B13ADEE0064A20B /* jmemsys.h in Headers */,
-				35CD35660B13ADEE0064A20B /* jmorecfg.h in Headers */,
-				35CD35670B13ADEE0064A20B /* jpegint.h in Headers */,
-				35CD35680B13ADEE0064A20B /* jpeglib.h in Headers */,
-				35CD35690B13ADEE0064A20B /* jpegrc.h in Headers */,
-				35CD356D0B13ADEE0064A20B /* jversion.h in Headers */,
-				35CA99C40B17BC6F00B5118E /* Light.h in Headers */,
-				35FE5B2D0B17CB2300D6E944 /* BitIO.h in Headers */,
-				35FE5B2F0B17CB2300D6E944 /* LZSS.h in Headers */,
-				358038130B18679B00D47728 /* CRC32.h in Headers */,
-				358038580B18A90100D47728 /* ShipDefs.h in Headers */,
-				358038590B18A90100D47728 /* Ships.h in Headers */,
-				3580392D0B18B1DB00D47728 /* Mission01.h in Headers */,
-				358039300B18B1DB00D47728 /* Mission02.h in Headers */,
-				358039330B18B1DB00D47728 /* Mission03.h in Headers */,
-				358039360B18B1DB00D47728 /* Mission04.h in Headers */,
-				358039390B18B1DB00D47728 /* Mission05_OEM.h in Headers */,
-				358039740B18B62500D47728 /* Tutorial1.h in Headers */,
-				35D293160B26295A007CD95A /* ServerStatus.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8D1107270486CEB800E47090 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				90623D21064992AF0088361C /* AIAttackMan.h in Headers */,
-				90623D23064992AF0088361C /* AIDefenseMan.h in Headers */,
-				90623D25064992AF0088361C /* AIEvents.h in Headers */,
-				90623D26064992AF0088361C /* AIFeatures.h in Headers */,
-				90623D28064992AF0088361C /* AIFleetMan.h in Headers */,
-				90623D2A064992AF0088361C /* AIHandler.h in Headers */,
-				90623D2C064992AF0088361C /* AIMoves.h in Headers */,
-				90623D30064992AF0088361C /* AIOrders.h in Headers */,
-				90623D33064992AF0088361C /* AIPlayer.h in Headers */,
-				90623D35064992AF0088361C /* AIResourceMan.h in Headers */,
-				90623D37064992AF0088361C /* AIShip.h in Headers */,
-				90623D39064992AF0088361C /* AITeam.h in Headers */,
-				90623D3B064992AF0088361C /* AITrack.h in Headers */,
-				90623D3D064992AF0088361C /* AIUtilities.h in Headers */,
-				90623D3F064992AF0088361C /* AIVar.h in Headers */,
-				90623D41064992AF0088361C /* Alliance.h in Headers */,
-				90623D43064992AF0088361C /* Animatic.h in Headers */,
-				90623D45064992AF0088361C /* Attack.h in Headers */,
-				90623D46064992AF0088361C /* Attributes.h in Headers */,
-				90623D48064992AF0088361C /* AutoDownloadMap.h in Headers */,
-				90623D4A064992AF0088361C /* AutoLOD.h in Headers */,
-				90623D4C064992AF0088361C /* B-Spline.h in Headers */,
-				90623D4E064992AF0088361C /* Battle.h in Headers */,
-				90623D50064992AF0088361C /* BigFile.h in Headers */,
-				90623D54064992AF0088361C /* Blobs.h in Headers */,
-				90623D56064992AF0088361C /* BMP.h in Headers */,
-				90623D58064992AF0088361C /* Bounties.h in Headers */,
-				90623D5A064992AF0088361C /* BTG.h in Headers */,
-				90623D5C064992AF0088361C /* Camera.h in Headers */,
-				90623D5E064992AF0088361C /* CameraCommand.h in Headers */,
-				90623D60064992AF0088361C /* Captaincy.h in Headers */,
-				90623D62064992AF0088361C /* ChannelFSM.h in Headers */,
-				90623D64064992AF0088361C /* Chatting.h in Headers */,
-				90623D66064992AF0088361C /* Clamp.h in Headers */,
-				90623D67064992AF0088361C /* ClassDefs.h in Headers */,
-				90623D69064992AF0088361C /* Clipper.h in Headers */,
-				90623D6B064992AF0088361C /* Clouds.h in Headers */,
-				90623D6D064992AF0088361C /* Collision.h in Headers */,
-				90623D6F064992AF0088361C /* ColPick.h in Headers */,
-				90623D70064992AF0088361C /* CommandDefs.h in Headers */,
-				90623D72064992AF0088361C /* CommandLayer.h in Headers */,
-				90623D74064992AF0088361C /* CommandNetwork.h in Headers */,
-				90623D76064992AF0088361C /* CommandWrap.h in Headers */,
-				90623D78064992AF0088361C /* ConsMgr.h in Headers */,
-				90623D7A064992AF0088361C /* Crates.h in Headers */,
-				90623D7E064992AF0088361C /* Damage.h in Headers */,
-				90623D80064992AF0088361C /* Debug.h in Headers */,
-				90623D82064992AF0088361C /* Demo.h in Headers */,
-				90623D84064992AF0088361C /* Dock.h in Headers */,
-				90623D86064992AF0088361C /* ETG.h in Headers */,
-				90623D88064992AF0088361C /* Eval.h in Headers */,
-				90623D8A064992AF0088361C /* FastMath.h in Headers */,
-				90623D8B064992AF0088361C /* FEColour.h in Headers */,
-				90623D8D064992AF0088361C /* FEFlow.h in Headers */,
-				90623D8F064992AF0088361C /* FEReg.h in Headers */,
-				90623D91064992AF0088361C /* File.h in Headers */,
-				90623D93064992AF0088361C /* FlightMan.h in Headers */,
-				90623D94064992AF0088361C /* FlightManDefs.h in Headers */,
-				90623D96064992AF0088361C /* FontReg.h in Headers */,
-				90623D98064992AF0088361C /* Formation.h in Headers */,
-				90623D99064992AF0088361C /* FormationDefs.h in Headers */,
-				90623D9B064992AF0088361C /* GameChat.h in Headers */,
-				90623D9D064992AF0088361C /* GamePick.h in Headers */,
-				90623D9E064992AF0088361C /* GameStats.h in Headers */,
-				90623DA0064992AF0088361C /* Globals.h in Headers */,
-				90623DA2064992AF0088361C /* Gun.h in Headers */,
-				90623DA4064992AF0088361C /* Hash.h in Headers */,
-				90623DA6064992AF0088361C /* HorseRace.h in Headers */,
-				90623DA8064992AF0088361C /* HS.h in Headers */,
-				90623DAA064992AF0088361C /* InfoOverlay.h in Headers */,
-				90623DAC064992AF0088361C /* KAS.h in Headers */,
-				90623DAE064992AF0088361C /* KASFunc.h in Headers */,
-				90623DB0064992AF0088361C /* Key.h in Headers */,
-				90623DB2064992AF0088361C /* KeyBindings.h in Headers */,
-				90623DB4064992AF0088361C /* LagPrint.h in Headers */,
-				90623DB6064992AF0088361C /* LaunchMgr.h in Headers */,
-				90623DB9064992AF0088361C /* LevelLoad.h in Headers */,
-				90623DBC064992AF0088361C /* LinkedList.h in Headers */,
-				90623DBE064992AF0088361C /* LOD.h in Headers */,
-				90623DC2064992AF0088361C /* MadLinkIn.h in Headers */,
-				90623DC3064992AF0088361C /* MadLinkInDefs.h in Headers */,
-				90623DC8064992AF0088361C /* Matrix.h in Headers */,
-				90623DCA064992AF0088361C /* MaxMultiplayer.h in Headers */,
-				90623DCC064992AF0088361C /* Memory.h in Headers */,
-				90623DCE064992AF0088361C /* Mesh.h in Headers */,
-				90623DD0064992AF0088361C /* MeshAnim.h in Headers */,
-				90623DD2064992AF0088361C /* MEX.h in Headers */,
-				90623DD4064992AF0088361C /* MultiplayerGame.h in Headers */,
-				90623DD6064992AF0088361C /* MultiplayerLANGame.h in Headers */,
-				90623DD8064992AF0088361C /* NavLights.h in Headers */,
-				90623DDA064992AF0088361C /* Nebulae.h in Headers */,
-				90623DDC064992AF0088361C /* NetCheck.h in Headers */,
-				90623DDE064992AF0088361C /* NIS.h in Headers */,
-				90623DE1064992AF0088361C /* Objectives.h in Headers */,
-				90623DE3064992AF0088361C /* ObjTypes.h in Headers */,
-				90623DE5064992AF0088361C /* Options.h in Headers */,
-				90623DE7064992AF0088361C /* Particle.h in Headers */,
-				90623DE9064992AF0088361C /* Physics.h in Headers */,
-				90623DEB064992AF0088361C /* PiePlate.h in Headers */,
-				90623DED064992AF0088361C /* Ping.h in Headers */,
-				90623DEF064992AF0088361C /* PlugScreen.h in Headers */,
-				90623DF1064992AF0088361C /* ProfileTimers.h in Headers */,
-				90623DF2064992AF0088361C /* RaceDefs.h in Headers */,
-				90623DF4064992AF0088361C /* Randy.h in Headers */,
-				90623DF6064992AF0088361C /* Region.h in Headers */,
-				90623DF8064992AF0088361C /* ResCollect.h in Headers */,
-				90623DFA064992AF0088361C /* ResearchAPI.h in Headers */,
-				90623DFC064992AF0088361C /* ResearchGUI.h in Headers */,
-				90623DFE064992AF0088361C /* SaveGame.h in Headers */,
-				90623E00064992AF0088361C /* ScenPick.h in Headers */,
-				90623E02064992AF0088361C /* Scroller.h in Headers */,
-				90623E04064992AF0088361C /* Select.h in Headers */,
-				90623E06064992AF0088361C /* Sensors.h in Headers */,
-				90623E08064992AF0088361C /* Shader.h in Headers */,
-				90623E0C064992AF0088361C /* ShipSelect.h in Headers */,
-				90623E0E064992AF0088361C /* ShipView.h in Headers */,
-				90623E10064992AF0088361C /* SinglePlayer.h in Headers */,
-				90623E12064992AF0088361C /* SoundEvent.h in Headers */,
-				90623E13064992AF0088361C /* SoundEventDefs.h in Headers */,
-				90623E15064992AF0088361C /* SoundEventPrivate.h in Headers */,
-				90623E17064992AF0088361C /* SoundMusic.h in Headers */,
-				90623E18064992AF0088361C /* SoundStructs.h in Headers */,
-				90623E19064992AF0088361C /* SpaceObj.h in Headers */,
-				90623E1B064992AF0088361C /* SpeechEvent.h in Headers */,
-				90623E1D064992AF0088361C /* Star3d.h in Headers */,
-				90623E1F064992AF0088361C /* Stats.h in Headers */,
-				90623E21064992AF0088361C /* StatScript.h in Headers */,
-				90623E24064992AF0088361C /* StringsOnly.h in Headers */,
-				90623E25064992AF0088361C /* Switches.h in Headers */,
-				90623E27064992AF0088361C /* Tactical.h in Headers */,
-				90623E29064992AF0088361C /* Tactics.h in Headers */,
-				90623E2B064992AF0088361C /* Task.h in Headers */,
-				90623E2D064992AF0088361C /* TaskBar.h in Headers */,
-				90623E2F064992AF0088361C /* Teams.h in Headers */,
-				90623E31064992AF0088361C /* Timer.h in Headers */,
-				90623E33064992AF0088361C /* TitanNet.h in Headers */,
-				90623E35064992AF0088361C /* Tracking.h in Headers */,
-				90623E37064992AF0088361C /* TradeMgr.h in Headers */,
-				90623E3A064992AF0088361C /* Transformer.h in Headers */,
-				90623E3C064992AF0088361C /* Tutor.h in Headers */,
-				90623E40064992AF0088361C /* Tweak.h in Headers */,
-				90623E42064992AF0088361C /* Twiddle.h in Headers */,
-				90623E44064992AF0088361C /* Types.h in Headers */,
-				90623E46064992AF0088361C /* UIControls.h in Headers */,
-				90623E48064992AF0088361C /* Undo.h in Headers */,
-				90623E4A064992AF0088361C /* Universe.h in Headers */,
-				90623E4C064992AF0088361C /* UnivUpdate.h in Headers */,
-				90623E4E064992AF0088361C /* Vector.h in Headers */,
-				90623E4F064992AF0088361C /* VolTweakDefs.h in Headers */,
-				90623E51064992AF0088361C /* Volume.h in Headers */,
-				90BD925F064AEE7B003E3D39 /* avi.h in Headers */,
-				90BD9267064AEE7B003E3D39 /* devstats.h in Headers */,
-				90BD926B064AEE7B003E3D39 /* font.h in Headers */,
-				90BD926C064AEE7B003E3D39 /* fqcodec.h in Headers */,
-				90BD926D064AEE7B003E3D39 /* fqeffect.h in Headers */,
-				90BD926E064AEE7B003E3D39 /* fquant.h in Headers */,
-				90BD9270064AEE7B003E3D39 /* glcaps.h in Headers */,
-				90BD9273064AEE7B003E3D39 /* gldefines.h in Headers */,
-				90BD9275064AEE7B003E3D39 /* gldll.h in Headers */,
-				90BD9276064AEE7B003E3D39 /* glext.h in Headers */,
-				90BD9277064AEE7B003E3D39 /* glinc.h in Headers */,
-				90BD927F064AEE7B003E3D39 /* main.h in Headers */,
-				90BD9281064AEE7B003E3D39 /* mainrgn.h in Headers */,
-				90BD9282064AEE7B003E3D39 /* mainswitches.h in Headers */,
-				90BD9286064AEE7B003E3D39 /* mouse.h in Headers */,
-				90BD9288064AEE7B003E3D39 /* prim2d.h in Headers */,
-				90BD928A064AEE7B003E3D39 /* prim3d.h in Headers */,
-				90BD928C064AEE7B003E3D39 /* Queue.h in Headers */,
-				90BD928D064AEE7B003E3D39 /* regkey.h in Headers */,
-				90BD928F064AEE7B003E3D39 /* render.h in Headers */,
-				90BD9290064AEE7B003E3D39 /* resource.h in Headers */,
-				90BD9292064AEE7B003E3D39 /* rglu.h in Headers */,
-				90BD9294064AEE7B003E3D39 /* rinit.h in Headers */,
-				90BD9296064AEE7B003E3D39 /* screenshot.h in Headers */,
-				90BD9299064AEE7B003E3D39 /* soundcmn.h in Headers */,
-				90BD929C064AEE7B003E3D39 /* soundlow.h in Headers */,
-				90BD92A4064AEE7B003E3D39 /* texreg.h in Headers */,
-				90BD92A6064AEE7B003E3D39 /* TimeoutTimer.h in Headers */,
-				90BD92A8064AEE7B003E3D39 /* Titan.h in Headers */,
-				90BD92AA064AEE7B003E3D39 /* TitanInterface.h in Headers */,
-				90BD92AB064AEE7B003E3D39 /* TitanInterfaceC.h in Headers */,
-				90BD92AE064AEE7B003E3D39 /* TitanPacketMsg.h in Headers */,
-				90BD92B2064AEE7B003E3D39 /* utility.h in Headers */,
-				90BD933A064AEF43003E3D39 /* AdvanceSupportFrigate.h in Headers */,
-				90BD933C064AEF43003E3D39 /* Carrier.h in Headers */,
-				90BD933E064AEF43003E3D39 /* CloakGenerator.h in Headers */,
-				90BD9340064AEF43003E3D39 /* DDDFrigate.h in Headers */,
-				90BD9342064AEF43003E3D39 /* DefaultShip.h in Headers */,
-				90BD9344064AEF43003E3D39 /* DefenseFighter.h in Headers */,
-				90BD9346064AEF43003E3D39 /* DFGFrigate.h in Headers */,
-				90BD9348064AEF43003E3D39 /* Drone.h in Headers */,
-				90BD934A064AEF43003E3D39 /* FloatingCity.h in Headers */,
-				90BD934C064AEF43003E3D39 /* GenericDefender.h in Headers */,
-				90BD934E064AEF43003E3D39 /* GenericInterceptor.h in Headers */,
-				90BD9350064AEF43003E3D39 /* GravWellGenerator.h in Headers */,
-				90BD9352064AEF43003E3D39 /* HeavyCorvette.h in Headers */,
-				90BD9354064AEF43003E3D39 /* HeavyCruiser.h in Headers */,
-				90BD9356064AEF43003E3D39 /* IonCannonFrigate.h in Headers */,
-				90BD9358064AEF43003E3D39 /* LightCorvette.h in Headers */,
-				90BD935C064AEF43003E3D39 /* MinelayerCorvette.h in Headers */,
-				90BD935E064AEF43003E3D39 /* MissileDestroyer.h in Headers */,
-				90BD9360064AEF43003E3D39 /* Mothership.h in Headers */,
-				90BD9362064AEF43003E3D39 /* MultiGunCorvette.h in Headers */,
-				90BD9364064AEF43003E3D39 /* P1IonArrayFrigate.h in Headers */,
-				90BD9366064AEF43003E3D39 /* P1MissileCorvette.h in Headers */,
-				90BD9368064AEF43003E3D39 /* P1Mothership.h in Headers */,
-				90BD936A064AEF43003E3D39 /* P1StandardCorvette.h in Headers */,
-				90BD936C064AEF43003E3D39 /* P2AdvanceSwarmer.h in Headers */,
-				90BD936E064AEF43003E3D39 /* P2FuelPod.h in Headers */,
-				90BD9370064AEF43003E3D39 /* P2Mothership.h in Headers */,
-				90BD9372064AEF43003E3D39 /* P2MultiBeamFrigate.h in Headers */,
-				90BD9374064AEF43003E3D39 /* P2Swarmer.h in Headers */,
-				90BD9376064AEF43003E3D39 /* P3StandardShip.h in Headers */,
-				90BD9378064AEF43003E3D39 /* Probe.h in Headers */,
-				90BD937A064AEF43003E3D39 /* ProximitySensor.h in Headers */,
-				90BD937C064AEF43003E3D39 /* RepairCorvette.h in Headers */,
-				90BD937E064AEF43003E3D39 /* ResearchShip.h in Headers */,
-				90BD9380064AEF43003E3D39 /* ResourceCollector.h in Headers */,
-				90BD9382064AEF43003E3D39 /* ResourceController.h in Headers */,
-				90BD9384064AEF43003E3D39 /* SalCapCorvette.h in Headers */,
-				90BD9386064AEF43003E3D39 /* SensorArray.h in Headers */,
-				90BD9388064AEF43003E3D39 /* StandardDestroyer.h in Headers */,
-				90BD938A064AEF43003E3D39 /* StandardFrigate.h in Headers */,
-				90BD93C4064AF4F3003E3D39 /* SDLMain.h in Headers */,
-				35517D010732720E00691120 /* Homeworld_Prefix.h in Headers */,
-				3578AD090AF40518007BFA9F /* StringSupport.h in Headers */,
-				3507A51E0B0FA60200E374C5 /* Trails.h in Headers */,
-				3507A57D0B0FBB0B00E374C5 /* Subtitle.h in Headers */,
-				35FB9A6E0B124F0500523C83 /* Color.h in Headers */,
-				35CD34F40B13ADEE0064A20B /* interfce.h in Headers */,
-				35CD34FB0B13ADEE0064A20B /* jchuff.h in Headers */,
-				35CD35010B13ADEE0064A20B /* jconfig.h in Headers */,
-				35CD350D0B13ADEE0064A20B /* jdct.h in Headers */,
-				35CD35100B13ADEE0064A20B /* jdhuff.h in Headers */,
-				35CD351B0B13ADEE0064A20B /* jerror.h in Headers */,
-				35CD35230B13ADEE0064A20B /* jinclude.h in Headers */,
-				35CD35260B13ADEE0064A20B /* jmemsys.h in Headers */,
-				35CD35270B13ADEE0064A20B /* jmorecfg.h in Headers */,
-				35CD35280B13ADEE0064A20B /* jpegint.h in Headers */,
-				35CD35290B13ADEE0064A20B /* jpeglib.h in Headers */,
-				35CD352A0B13ADEE0064A20B /* jpegrc.h in Headers */,
-				35CD352E0B13ADEE0064A20B /* jversion.h in Headers */,
-				35CA99C20B17BC6F00B5118E /* Light.h in Headers */,
-				35FE5B280B17CB2300D6E944 /* BitIO.h in Headers */,
-				35FE5B2A0B17CB2300D6E944 /* LZSS.h in Headers */,
-				358038100B18679B00D47728 /* CRC32.h in Headers */,
-				358038560B18A90100D47728 /* ShipDefs.h in Headers */,
-				358038570B18A90100D47728 /* Ships.h in Headers */,
-				358038F70B18B1DA00D47728 /* Mission01.h in Headers */,
-				358038FA0B18B1DA00D47728 /* Mission02.h in Headers */,
-				358038FD0B18B1DA00D47728 /* Mission03.h in Headers */,
-				358039000B18B1DA00D47728 /* Mission04.h in Headers */,
-				358039060B18B1DA00D47728 /* Mission05.h in Headers */,
-				358039090B18B1DA00D47728 /* Mission06.h in Headers */,
-				3580390C0B18B1DA00D47728 /* Mission07.h in Headers */,
-				3580390F0B18B1DA00D47728 /* Mission08.h in Headers */,
-				358039120B18B1DA00D47728 /* Mission09.h in Headers */,
-				358039150B18B1DA00D47728 /* Mission10.h in Headers */,
-				358039180B18B1DA00D47728 /* Mission11.h in Headers */,
-				3580391B0B18B1DB00D47728 /* Mission12.h in Headers */,
-				3580391E0B18B1DB00D47728 /* Mission13.h in Headers */,
-				358039210B18B1DB00D47728 /* Mission14.h in Headers */,
-				358039240B18B1DB00D47728 /* Mission15.h in Headers */,
-				358039270B18B1DB00D47728 /* Mission16.h in Headers */,
-				3580392A0B18B1DB00D47728 /* Tutorial1.h in Headers */,
-				35D293150B26295A007CD95A /* ServerStatus.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
 /* Begin PBXNativeTarget section */
 		3516C82D077C41B0001AA863 /* Raider Retreat */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 35CC221F0955C2E100504293 /* Build configuration list for PBXNativeTarget "Raider Retreat" */;
 			buildPhases = (
 				35BE70E007937E0B00AEFC3C /* ShellScript */,
-				3516C82E077C41B0001AA863 /* Headers */,
 				3516C942077C41B0001AA863 /* Resources */,
 				3516C946077C41B0001AA863 /* Sources */,
 				3516CA6A077C41B0001AA863 /* Frameworks */,
@@ -3009,7 +1949,6 @@
 			buildConfigurationList = 35CC221B0955C2E100504293 /* Build configuration list for PBXNativeTarget "Homeworld" */;
 			buildPhases = (
 				355BE77707935BD200F82BB0 /* ShellScript */,
-				8D1107270486CEB800E47090 /* Headers */,
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
