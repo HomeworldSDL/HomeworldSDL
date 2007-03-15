@@ -360,6 +360,32 @@
 		35CD356A0B13ADEE0064A20B /* jquant1.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34EA0B13ADEE0064A20B /* jquant1.c */; };
 		35CD356B0B13ADEE0064A20B /* jquant2.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34EB0B13ADEE0064A20B /* jquant2.c */; };
 		35CD356C0B13ADEE0064A20B /* jutils.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34EC0B13ADEE0064A20B /* jutils.c */; };
+		35F073420BAA04C600D3AB5D /* Mission05_OEM.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038CC0B18B1DA00D47728 /* Mission05_OEM.func.c */; };
+		35F073430BAA04C600D3AB5D /* Mission05_OEM.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038CB0B18B1DA00D47728 /* Mission05_OEM.c */; };
+		35F073450BAA04EE00D3AB5D /* Mission05.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038CE0B18B1DA00D47728 /* Mission05.c */; };
+		35F073460BAA04EF00D3AB5D /* Mission05.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038CF0B18B1DA00D47728 /* Mission05.func.c */; };
+		35F073470BAA04FB00D3AB5D /* Mission06.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038D10B18B1DA00D47728 /* Mission06.c */; };
+		35F073480BAA04FC00D3AB5D /* Mission06.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038D20B18B1DA00D47728 /* Mission06.func.c */; };
+		35F073490BAA04FF00D3AB5D /* Mission07.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038D40B18B1DA00D47728 /* Mission07.c */; };
+		35F0734A0BAA04FF00D3AB5D /* Mission07.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038D50B18B1DA00D47728 /* Mission07.func.c */; };
+		35F0734B0BAA050200D3AB5D /* Mission08.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038D70B18B1DA00D47728 /* Mission08.c */; };
+		35F0734C0BAA050200D3AB5D /* Mission08.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038D80B18B1DA00D47728 /* Mission08.func.c */; };
+		35F0734E0BAA050600D3AB5D /* Mission09.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038DA0B18B1DA00D47728 /* Mission09.c */; };
+		35F0734F0BAA050600D3AB5D /* Mission09.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038DB0B18B1DA00D47728 /* Mission09.func.c */; };
+		35F073500BAA050900D3AB5D /* Mission10.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038DE0B18B1DA00D47728 /* Mission10.func.c */; };
+		35F073510BAA050A00D3AB5D /* Mission10.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038DD0B18B1DA00D47728 /* Mission10.c */; };
+		35F073520BAA050B00D3AB5D /* Mission11.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038E10B18B1DA00D47728 /* Mission11.func.c */; };
+		35F073530BAA050C00D3AB5D /* Mission11.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038E00B18B1DA00D47728 /* Mission11.c */; };
+		35F073540BAA050D00D3AB5D /* Mission12.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038E40B18B1DA00D47728 /* Mission12.func.c */; };
+		35F073550BAA050E00D3AB5D /* Mission12.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038E30B18B1DA00D47728 /* Mission12.c */; };
+		35F073560BAA051100D3AB5D /* Mission13.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038E70B18B1DA00D47728 /* Mission13.func.c */; };
+		35F073570BAA051200D3AB5D /* Mission13.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038E60B18B1DA00D47728 /* Mission13.c */; };
+		35F073580BAA051400D3AB5D /* Mission14.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038E90B18B1DA00D47728 /* Mission14.c */; };
+		35F073590BAA051500D3AB5D /* Mission14.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038EA0B18B1DA00D47728 /* Mission14.func.c */; };
+		35F0735A0BAA051600D3AB5D /* Mission15.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038EC0B18B1DA00D47728 /* Mission15.c */; };
+		35F0735B0BAA051600D3AB5D /* Mission15.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038ED0B18B1DA00D47728 /* Mission15.func.c */; };
+		35F0735E0BAA051B00D3AB5D /* Mission16.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038EF0B18B1DA00D47728 /* Mission16.c */; };
+		35F0735F0BAA051B00D3AB5D /* Mission16.func.c in Sources */ = {isa = PBXBuildFile; fileRef = 358038F00B18B1DA00D47728 /* Mission16.func.c */; };
 		35FB9A6D0B124F0500523C83 /* Color.c in Sources */ = {isa = PBXBuildFile; fileRef = 35FB9A6B0B124F0500523C83 /* Color.c */; };
 		35FB9A6F0B124F0500523C83 /* Color.c in Sources */ = {isa = PBXBuildFile; fileRef = 35FB9A6B0B124F0500523C83 /* Color.c */; };
 		35FE5B270B17CB2300D6E944 /* BitIO.c in Sources */ = {isa = PBXBuildFile; fileRef = 35FE5B220B17CB2200D6E944 /* BitIO.c */; };
@@ -2421,6 +2447,30 @@
 				358039730B18B5F700D47728 /* Mission05_OEM.c in Sources */,
 				358039750B18B62600D47728 /* Tutorial1.func.c in Sources */,
 				358039760B18B62600D47728 /* Tutorial1.c in Sources */,
+				35F073450BAA04EE00D3AB5D /* Mission05.c in Sources */,
+				35F073460BAA04EF00D3AB5D /* Mission05.func.c in Sources */,
+				35F073470BAA04FB00D3AB5D /* Mission06.c in Sources */,
+				35F073480BAA04FC00D3AB5D /* Mission06.func.c in Sources */,
+				35F073490BAA04FF00D3AB5D /* Mission07.c in Sources */,
+				35F0734A0BAA04FF00D3AB5D /* Mission07.func.c in Sources */,
+				35F0734B0BAA050200D3AB5D /* Mission08.c in Sources */,
+				35F0734C0BAA050200D3AB5D /* Mission08.func.c in Sources */,
+				35F0734E0BAA050600D3AB5D /* Mission09.c in Sources */,
+				35F0734F0BAA050600D3AB5D /* Mission09.func.c in Sources */,
+				35F073500BAA050900D3AB5D /* Mission10.func.c in Sources */,
+				35F073510BAA050A00D3AB5D /* Mission10.c in Sources */,
+				35F073520BAA050B00D3AB5D /* Mission11.func.c in Sources */,
+				35F073530BAA050C00D3AB5D /* Mission11.c in Sources */,
+				35F073540BAA050D00D3AB5D /* Mission12.func.c in Sources */,
+				35F073550BAA050E00D3AB5D /* Mission12.c in Sources */,
+				35F073560BAA051100D3AB5D /* Mission13.func.c in Sources */,
+				35F073570BAA051200D3AB5D /* Mission13.c in Sources */,
+				35F073580BAA051400D3AB5D /* Mission14.c in Sources */,
+				35F073590BAA051500D3AB5D /* Mission14.func.c in Sources */,
+				35F0735A0BAA051600D3AB5D /* Mission15.c in Sources */,
+				35F0735B0BAA051600D3AB5D /* Mission15.func.c in Sources */,
+				35F0735E0BAA051B00D3AB5D /* Mission16.c in Sources */,
+				35F0735F0BAA051B00D3AB5D /* Mission16.func.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2712,6 +2762,8 @@
 				358039260B18B1DB00D47728 /* Mission16.func.c in Sources */,
 				358039280B18B1DB00D47728 /* Tutorial1.c in Sources */,
 				358039290B18B1DB00D47728 /* Tutorial1.func.c in Sources */,
+				35F073420BAA04C600D3AB5D /* Mission05_OEM.func.c in Sources */,
+				35F073430BAA04C600D3AB5D /* Mission05_OEM.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

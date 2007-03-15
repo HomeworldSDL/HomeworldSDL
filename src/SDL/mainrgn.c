@@ -1757,17 +1757,16 @@ void mrKeyPress(sdword ID)
                 {
                     AIVar *var;
                     var = aivarCreate("PlayNis");
-                    aivarValueSet(var, singlePlayerGameInfo.currentMission);
+                    aivarValueSet(var, spGetCurrentMission());
                 }
                 else
                 {
                     if (ID <= THREEKEY)
                     {
                         AIVar *var;
-                        sdword nisLetNumber;
                         char *nisName, *scriptName;
+                        sdword nisLetNumber = (spGetCurrentMission() * 10) + (ID - ONEKEY);  // ID = ONEKEY .. THREEKEY
 
-                        nisLetNumber = (singlePlayerGameInfo.currentMission) * 10 + ID - ZEROKEY - 1;
                         if (singlePlayerNISletNamesGet(&nisName, &scriptName, nisLetNumber))
                         {
                             var = aivarCreate("PlayNisLet");

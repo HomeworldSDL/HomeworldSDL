@@ -411,7 +411,7 @@ void hrChooseSinglePlayerBitmap(char* pFilenameBuffer)
 
     //image itself
 #if defined(HW_GAME_RAIDER_RETREAT)
-    if (singlePlayerGameInfo.currentMission == 5)
+    if (spGetCurrentMission() == MISSION_5B_TURANIC_RAIDER_PLANETOID)
     {
 #ifdef _WIN32
         sprintf(fname, "SinglePlayer\\mission05_OEM\\loading.jpg");
@@ -421,11 +421,14 @@ void hrChooseSinglePlayerBitmap(char* pFilenameBuffer)
     }
     else
 #endif
+    {
 #ifdef _WIN32
-    sprintf(fname, "SinglePlayer\\mission%02d\\loading.jpg", singlePlayerGameInfo.currentMission);
+        sprintf(fname, "SinglePlayer\\mission%02d\\loading.jpg", spGetCurrentMission());
 #else
-    sprintf(fname, "SinglePlayer/mission%02d/loading.jpg", singlePlayerGameInfo.currentMission);
+        sprintf(fname, "SinglePlayer/mission%02d/loading.jpg", spGetCurrentMission());
 #endif
+    }
+
     if (!fileExists(fname, 0))
     {
         pFilenameBuffer[0] = '\0';

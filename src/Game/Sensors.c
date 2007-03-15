@@ -1609,7 +1609,7 @@ void smBlobDrawCloudy(Camera *camera, blob *thisBlob, hmatrix *modelView, hmatri
                     c = teCrateColor;
                 }
                 else if ((((Derelict *)obj)->derelicttype == PrisonShipOld) &&
-                         singlePlayerGameInfo.currentMission == 8)
+                         spGetCurrentMission() == MISSION_8_THE_CATHEDRAL_OF_KADESH)
                 {   //!!!  Single Player game mission specific Code
                     //In Mission 8, the PrisonShipOld derelict shows up
                     //as a friendly ship

@@ -1220,7 +1220,7 @@ void kasSave(void)
     SaveStructureOfSize(CurrentMissionScopeName,sizeof(CurrentMissionScopeName));
     SaveStructureOfSize(CurrentMissionName,sizeof(CurrentMissionName));
 
-    SaveInfoNumber(WatchFunctionToIndex(CurrentMissionWatchFunction));
+    SaveInfoNumber(WatchFunctionToMissionEnum(CurrentMissionWatchFunction));
 
     //this is a fix for a weird bug where after starting the game over and over
     //Current
@@ -1287,7 +1287,7 @@ void kasLoad(void)
     LoadStructureOfSizeToAddress(CurrentMissionScopeName,sizeof(CurrentMissionScopeName));
     LoadStructureOfSizeToAddress(CurrentMissionName,sizeof(CurrentMissionName));
 
-    CurrentMissionWatchFunction = IndexToWatchFunction(LoadInfoNumber());
+    CurrentMissionWatchFunction = MissionEnumToWatchFunction((MissionEnum) LoadInfoNumber());
 
     dbgAssertOrIgnore(universe.players[1].aiPlayer);
     CurrentTeamP = AITeamIndexToTeam(universe.players[1].aiPlayer,LoadInfoNumber());
@@ -1387,11 +1387,13 @@ sdword kasConvertFuncPtrToOffset(void *func)
         const void** func_list;
         udword func_list_size;
 
-        func_list =
-            IndexToFunctionList(singlePlayerGameInfo.currentMission - 1);
-        func_list_size = (func_list
-            ? FunctionListSize(singlePlayerGameInfo.currentMission - 1)
-            : 0);
+        func_list
+            = MissionEnumToFunctionList(spGetCurrentMission());
+            
+        func_list_size
+            = func_list
+            ? FunctionListSize(spGetCurrentMission())
+            : 0;
 
         for (i = 0; i < func_list_size; i++)
         {
@@ -1415,9 +1417,9 @@ void *kasConvertOffsetToFuncPtr(sdword offset)
         udword func_list_size;
 
         func_list =
-            IndexToFunctionList(singlePlayerGameInfo.currentMission - 1);
+            MissionEnumToFunctionList(spGetCurrentMission());
         func_list_size = (func_list
-            ? FunctionListSize(singlePlayerGameInfo.currentMission - 1)
+            ? FunctionListSize(spGetCurrentMission())
             : 0);
 
         return ((udword)offset < func_list_size

@@ -1783,10 +1783,8 @@ bool isLevelMissionManGenerated(char *directory,char *filename)
     {
         return TRUE;
     }
-    else
-    {
-        return FALSE;
-    }
+
+    return FALSE;
 }
 
 ShipRace GetSinglePlayerRaceEquivalent(ShipRace race)

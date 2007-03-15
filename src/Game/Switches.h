@@ -9,10 +9,8 @@
 #ifndef ___SWITCHES_H
 #define ___SWITCHES_H
 
-#define SOUND   1
-
-#define SPEECH  1
-
+#define SOUND       1
+#define SPEECH      1
 #define SYNC_CHECK  1
 
 #endif

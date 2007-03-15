@@ -118,7 +118,7 @@ void bobInitProperties()
 
     if (singlePlayerGame)
     {
-        if (singlePlayerGameInfo.currentMission == 6)
+        if (spGetCurrentMission() == MISSION_6_DIAMOND_SHOALS)
         {
             collBlobProperties.bobBiggestRadius = SINGLEPLAYER_BOBBIGGESTRADIUS_LEVEL6;
         }

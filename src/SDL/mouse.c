@@ -1471,7 +1471,7 @@ void mouseSelectCursorSetting(void)
                 mouseInfo.cursorover = small_docking;
                 break;
             case CryoTray:
-                if ((singlePlayerGameInfo.currentMission != 1) &&
+                if ((spGetCurrentMission() != MISSION_1_KHARAK_SYSTEM) &&
                     (bitTest(mouseInfo.flags, MCF_SalvageOnly)))
                 {
                     mouseInfo.cursorover = salvage;

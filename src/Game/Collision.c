@@ -2901,7 +2901,7 @@ void collCheckAllBumpCollisions(void)
             collCheckShipDerelictColl(thisBlob);
         }
     }
-    else if ((singlePlayerGame) && (singlePlayerGameInfo.currentMission == 4))
+    else if ((singlePlayerGame) && (spGetCurrentMission() == MISSION_4_GREAT_WASTELANDS_TRADERS))
     {
         // for each blob, check all collisions within that blob
         while (blobnode != NULL)

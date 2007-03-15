@@ -57,27 +57,24 @@
 #include "UnivUpdate.h"
 #include "utility.h"
 
-#include "../Missions/Generated/Tutorial1.h"
 #include "../Missions/Generated/Mission01.h"
 #include "../Missions/Generated/Mission02.h"
 #include "../Missions/Generated/Mission03.h"
 #include "../Missions/Generated/Mission04.h"
-#ifdef HW_GAME_RAIDER_RETREAT
-    #include "../Missions/Generated/Mission05_OEM.h"
-#else
-    #include "../Missions/Generated/Mission05.h"
-    #include "../Missions/Generated/Mission06.h"
-    #include "../Missions/Generated/Mission07.h"
-    #include "../Missions/Generated/Mission08.h"
-    #include "../Missions/Generated/Mission09.h"
-    #include "../Missions/Generated/Mission10.h"
-    #include "../Missions/Generated/Mission11.h"
-    #include "../Missions/Generated/Mission12.h"
-    #include "../Missions/Generated/Mission13.h"
-    #include "../Missions/Generated/Mission14.h"
-    #include "../Missions/Generated/Mission15.h"
-    #include "../Missions/Generated/Mission16.h"
-#endif
+#include "../Missions/Generated/Mission05.h"
+#include "../Missions/Generated/Mission05_OEM.h"
+#include "../Missions/Generated/Mission06.h"
+#include "../Missions/Generated/Mission07.h"
+#include "../Missions/Generated/Mission08.h"
+#include "../Missions/Generated/Mission09.h"
+#include "../Missions/Generated/Mission10.h"
+#include "../Missions/Generated/Mission11.h"
+#include "../Missions/Generated/Mission12.h"
+#include "../Missions/Generated/Mission13.h"
+#include "../Missions/Generated/Mission14.h"
+#include "../Missions/Generated/Mission15.h"
+#include "../Missions/Generated/Mission16.h"
+#include "../Missions/Generated/Tutorial1.h"
 
 #ifdef _MSC_VER
     #define strcasecmp _stricmp
@@ -92,25 +89,45 @@
 //stores the current mission filename
 char CurrentLevelName[256] = "";
 
-bool singlePlayerHyperspacingInto = FALSE;
+udword singlePlayerCurrentMissionIndex = 0;
 
-bool spHoldHyperspaceWindow = FALSE;
+MissionEnum missionSequence[] = {
+#if defined(HW_GAME_HOMEWORLD)
+    MISSION_1_KHARAK_SYSTEM,                // *REQUIRED* - creates initial fleet
+    MISSION_2_OUTSKIRTS_OF_KHARAK_SYSTEM,
+    MISSION_3_RETURN_TO_KHARAK,
+    MISSION_4_GREAT_WASTELANDS_TRADERS,
+    MISSION_5_GREAT_WASTELANDS_REVENGE,
+    MISSION_6_DIAMOND_SHOALS,
+    MISSION_7_THE_GARDENS_OF_KADESH,
+    MISSION_8_THE_CATHEDRAL_OF_KADESH,
+    MISSION_9_SEA_OF_LOST_SOULS,
+    MISSION_10_SUPER_NOVA_STATION,
+    MISSION_11_TENHAUSER_GATE,
+    MISSION_12_GALACTIC_CORE,
+    MISSION_13_THE_KAROS_GRAVEYARD,
+    MISSION_14_BRIDGE_OF_SIGHS,
+    MISSION_15_CHAPEL_PERILOUS,
+    MISSION_16_HIIGARA,
+#elif defined(HW_GAME_RAIDER_RETREAT)
+    MISSION_1_KHARAK_SYSTEM,
+    MISSION_2_OUTSKIRTS_OF_KHARAK_SYSTEM,
+    MISSION_3_RETURN_TO_KHARAK,
+    MISSION_4_GREAT_WASTELANDS_TRADERS,
+    MISSION_5B_TURANIC_RAIDER_PLANETOID,
+#elif defined(HW_GAME_DEMO)
+    MISSION_1_KHARAK_SYSTEM,
+    MISSION_2_OUTSKIRTS_OF_KHARAK_SYSTEM,
+#endif
+};
 
-bool hyperspaceOverride = FALSE;
+#define NUMBER_MISSIONS_IN_SEQUENCE   (sizeof(missionSequence) / sizeof(MissionEnum))
 
-real32 spFleetModifier = 0.0f;
-real32 spFleetStr = 0.0f;
+// you'd think you could change that 19 to <= 16 but the NIS stuff overloads this
+// in an array declaration that includes end markers and so is larger than 16
+#define NUMBER_SINGLEPLAYER_MISSIONS  19
 
-real32 BaseFleetStrengthForLevel[NUMBER_SINGLEPLAYER_MISSIONS+1];
-real32 AdvancedFleetStrengthForLevel[NUMBER_SINGLEPLAYER_MISSIONS+1];
-
-bool triggerNIS = FALSE;
-
-sdword warpLevel = 0;
-
-bool spBinkPlay;
-
-extern fonthandle selGroupFont0;
+#define NUMBER_SINGLEPLAYER_NIS       12
 
 // state of kas debug overlays
 #if SP_DEBUGLEVEL2
@@ -121,128 +138,157 @@ extern sdword mrKASDebugDrawVolumes;
 extern sdword mrKASSkipFactor;
 #endif
 
-bool singlePlayerGameLoadNewLevelFlag;
+extern fonthandle selGroupFont0;
+
+bool hyperspaceAtEndOfSinglePlayerNIS = FALSE;
+bool hyperspaceOverride               = FALSE;
+bool singlePlayerGameLoadNewLevelFlag = FALSE;
+bool singlePlayerHyperspacingInto     = FALSE;
+bool spHoldHyperspaceWindow           = FALSE;
+bool spBinkPlay                       = FALSE;
+bool triggerNIS                       = FALSE;
+
+real32 spFleetModifier = 0.0f;
+real32 spFleetStr      = 0.0f;
+
+real32 BaseFleetStrengthForLevel    [NUMBER_SINGLEPLAYER_MISSIONS+1];
+real32 AdvancedFleetStrengthForLevel[NUMBER_SINGLEPLAYER_MISSIONS+1];
+
+sdword SINGLEPLAYER_DEBUGLEVEL  =   0;
+sdword SINGLEPLAYER_STARTINGRUS = 200;
+sdword warpLevel                =   0;
+
+
+fibfileheader *spHyperspaceRollCallHandle = NULL;
+regionhandle   spHyperspaceRollCallScreen = NULL;
+
+char spMissionsDir [32] = "";
+char spMissionsFile[32] = "";
+
 SinglePlayerGameInfo singlePlayerGameInfo;
 
-real32 HYPERSPACE_SLICE_RATE = 0.075f;
-
 bool HYPERSPACE_MOTHERSHIP_ALWAYS_ARRIVES_FIRST = TRUE;
-real32 HYPERSPACE_WAIT_FOR_MOTHERSHIPFOCUS_TIME = 5.0f;
-real32 HYPERSPACE_BASE_WAITTIME = 3.0f;
-real32 HYPERSPACE_BASE_ARRIVETIME = 2.0f;
-real32 HYPERSPACE_BASE_MOTHERSHIPARRIVETIME = 1.0f;
-real32 HYPERSPACE_RANDOM_WAITTIME = 0.2f;
-real32 HYPERSPACE_WAITTIME_PER_DISTANCE = 0.0005f;
-real32 HYPERSPACE_MINWAITTIME_DISTANCE = -1.0f;
-real32 HYPERSPACE_MAXWAITTIME_DISTANCE = 1.0f;
-real32 HYPERSPACE_ACCELERATE_TIME = 3.0f;
-real32 HYPERSPACE_ACCELERATION = 1000.0f;
-real32 HYPERSPACE_WHIP_VELOCITY = 50000.0f;
-real32 HYPERSPACE_HEADINGACCURACY = 0.98f;
-real32 HYPERSPACE_FARCLIPPLANE = 100000.0f;
-real32 HYPERSPACE_WHITEOUTTIME = 0.2f;
-real32 HYPERSPACE_FUNNEL_WIDTH = 5000.0f;
-real32 HYPERSPACE_FUNNEL_WIDTH_TO_BACK_FACTOR = 0.5f;
 
-real32 HYPERSPACE_FARCLIPPLANESQR;
+real32 HS_CLIPT_NEG_FINISH                      =      0.9f;
+real32 HS_CLIPT_NEG_SCALAR                      =      0.33f;
+real32 HS_CLIPT_NEG_THRESH                      =     -0.4f;
+real32 HS_CLIPT_POS_SCALAR                      =      0.5f;
+real32 HS_CLIPT_POS_START                       =      1.0f;
+real32 HS_CLIPT_POS_THRESH                      =      0.5f;
+real32 HYPERSPACEGATE_HEALTH                    =  20000.0f;
+real32 HYPERSPACEGATE_HEIGHT                    =   1000.0f;
+real32 HYPERSPACEGATE_WAYPOINTDIST              =    800.0f;
+real32 HYPERSPACEGATE_WIDTH                     =   1000.0f;
+real32 HYPERSPACE_ACCELERATE_TIME               =      3.0f;
+real32 HYPERSPACE_ACCELERATION                  =   1000.0f;
+real32 HYPERSPACE_BASE_ARRIVETIME               =      2.0f;
+real32 HYPERSPACE_BASE_MOTHERSHIPARRIVETIME     =      1.0f;
+real32 HYPERSPACE_BASE_WAITTIME                 =      3.0f;
+real32 HYPERSPACE_DECELERATE_DIST               =      0.0f;
+real32 HYPERSPACE_DECELERATE_INITIAL_VEL        =      0.0f; 
+real32 HYPERSPACE_DECELERATE_TIME               =      3.0f;
+real32 HYPERSPACE_DECELERATION                  =  10000.0f;
+real32 HYPERSPACE_FARCLIPPLANE                  = 100000.0f;
+real32 HYPERSPACE_FARCLIPPLANESQR               =      0.0f;
+real32 HYPERSPACE_FUNNEL_WIDTH                  =   5000.0f;
+real32 HYPERSPACE_FUNNEL_WIDTH_TO_BACK_FACTOR   =      0.5f;
+real32 HYPERSPACE_HEADINGACCURACY               =      0.98f;
+real32 HYPERSPACE_MAXWAITTIME_DISTANCE          =      1.0f;
+real32 HYPERSPACE_MINWAITTIME_DISTANCE          =     -1.0f;
+real32 HYPERSPACE_RANDOM_WAITTIME               =      0.2f;
+real32 HYPERSPACE_RANGE                         = (3000.0f * 3000.0f);
+real32 HYPERSPACE_SLICE_RATE                    =      0.075f;
+real32 HYPERSPACE_TRAVELDIST_PER_RU_SPENT       =  10000.0f;
+real32 HYPERSPACE_WAITTIME_PER_DISTANCE         =      0.0005f;
+real32 HYPERSPACE_WAIT_FOR_MOTHERSHIPFOCUS_TIME =      5.0f;
+real32 HYPERSPACE_WHIPTOWARDSDIST               =      0.0f;
+real32 HYPERSPACE_WHIP_VELOCITY                 =  50000.0f;
+real32 HYPERSPACE_WHITEOUTTIME                  =      0.2f;
+real32 SINGLEPLAYER_BOBBIGGESTRADIUS_LEVEL6     =  40000.0f;
+real32 SINGLEPLAYER_MISSION14_SPHERE_OVERRIDE   =  50000.0f;
+real32 SUBMESSAGE_SAFETY_TIMEOUT                =     15.0f;
+real32 spHyperspaceDelay                        =      0.0f;
 
-real32 HYPERSPACE_DECELERATE_TIME = 3.0f;
-real32 HYPERSPACE_DECELERATION = 10000.0f;
 
-real32 HYPERSPACE_DECELERATE_DIST;
-real32 HYPERSPACE_DECELERATE_INITIAL_VEL;
-real32 HYPERSPACE_WHIPTOWARDSDIST;
+static sdword WarpToLevelEnabled();
+static udword convertMissionToSequenceIndex(MissionEnum mission);
 
-real32 HYPERSPACE_TRAVELDIST_PER_RU_SPENT = 10000.0f;
+static MissionEnum spGetAdjacentMission(sbyte direction);
 
-sdword SINGLEPLAYER_STARTINGRUS = 200;
-sdword SINGLEPLAYER_DEBUGLEVEL = 0;
+static void singlePlayerKasMissionStart(MissionEnum missionnum);
+static void singlePlayerNISNamesGet(char **nisname, char **scriptname, bool *centreMothership, sdword nisNumber);
+static void singlePlayerStartNis(char *nis, char *script, bool centre, hvector *positionAndAngle);
 
-real32 HS_CLIPT_NEG_THRESH = -0.4f;
-real32 HS_CLIPT_NEG_SCALAR = 0.33f;
-real32 HS_CLIPT_NEG_FINISH = 0.9f;
-real32 HS_CLIPT_POS_THRESH = 0.5f;
-real32 HS_CLIPT_POS_SCALAR = 0.5f;
-real32 HS_CLIPT_POS_START  = 1.0f;
+static void spAbortHyperspaceCB(char *string, featom *atom);
+static void spGoNowHyperspaceCB(char *string, featom *atom);
 
-real32 HYPERSPACEGATE_HEALTH = 20000.0f;
-real32 HYPERSPACEGATE_WIDTH = 1000.0f;
-real32 HYPERSPACEGATE_HEIGHT = 1000.0f;
-real32 HYPERSPACEGATE_WAYPOINTDIST = 800.0f;
+static void spShipsDockedDrawCB   (featom *atom, regionhandle region);
+static void spShipsRemainingDrawCB(featom *atom, regionhandle region);
 
-real32 HYPERSPACE_RANGE = (3000.0f*3000.0f);
-real32 spHyperspaceDelay = 0.0f;
+static void SetBaseFleetStrCB       (char *directory, char *field, void *dataToFillIn);
+static void SetOnMissionCompleteInfo(char *directory, char *field, void *dataToFillIn);
+static void SetWarpFleetCB          (char *directory, char *field, void *dataToFillIn);
+static void WarpFleetStrengthCB     (char *directory, char *field, void *dataToFillIn);
+static void WarpFleetRUStrengthCB   (char *directory, char *field, void *dataToFillIn);
+static void WarpPreLoadCB           (char *directory, char *field, void *dataToFillIn);
 
-real32 SINGLEPLAYER_MISSION14_SPHERE_OVERRIDE = 50000.0f;
-
-real32 SUBMESSAGE_SAFETY_TIMEOUT = 15.0f;
-
-real32 SINGLEPLAYER_BOBBIGGESTRADIUS_LEVEL6 = 40000.0f;
-
-void tmTechInit(void);
-
-static void SetBaseFleetStrCB(char *directory,char *field,void *dataToFillIn);
+static void FindShipsOfShipTypeOfPlayer(GrowSelection *growselect,ShipType shiptype,Player *player);
 
 scriptEntry SinglePlayerTweaks[] =
 {
-    makeEntry(HS_CLIPT_NEG_THRESH, scriptSetReal32CB),
-    makeEntry(HS_CLIPT_NEG_SCALAR, scriptSetReal32CB),
-    makeEntry(HS_CLIPT_NEG_FINISH, scriptSetReal32CB),
-    makeEntry(HS_CLIPT_POS_THRESH, scriptSetReal32CB),
-    makeEntry(HS_CLIPT_POS_SCALAR, scriptSetReal32CB),
-    makeEntry(HS_CLIPT_POS_START,  scriptSetReal32CB),
-    makeEntry(HYPERSPACEGATE_HEALTH, scriptSetReal32CB),
-    makeEntry(HYPERSPACEGATE_WIDTH , scriptSetReal32CB),
-    makeEntry(HYPERSPACEGATE_HEIGHT, scriptSetReal32CB),
-    makeEntry(HYPERSPACEGATE_WAYPOINTDIST, scriptSetReal32CB),
-    makeEntry(HYPERSPACE_SLICE_RATE, scriptSetReal32CB),
-    makeEntry(HYPERSPACE_WAIT_FOR_MOTHERSHIPFOCUS_TIME,scriptSetReal32CB),
-    makeEntry(HYPERSPACE_MOTHERSHIP_ALWAYS_ARRIVES_FIRST,scriptSetBool),
-    makeEntry(HYPERSPACE_BASE_WAITTIME,scriptSetReal32CB),
-    makeEntry(HYPERSPACE_BASE_ARRIVETIME,scriptSetReal32CB),
-    makeEntry(HYPERSPACE_BASE_MOTHERSHIPARRIVETIME,scriptSetReal32CB),
-    makeEntry(HYPERSPACE_RANDOM_WAITTIME,scriptSetReal32CB),
-    makeEntry(HYPERSPACE_WAITTIME_PER_DISTANCE,scriptSetReal32CB),
-    makeEntry(HYPERSPACE_MINWAITTIME_DISTANCE,scriptSetReal32CB),
-    makeEntry(HYPERSPACE_MAXWAITTIME_DISTANCE,scriptSetReal32CB),
-    makeEntry(HYPERSPACE_ACCELERATE_TIME,scriptSetReal32CB),
-    makeEntry(HYPERSPACE_ACCELERATION,scriptSetReal32CB),
-    makeEntry(HYPERSPACE_WHIP_VELOCITY,scriptSetReal32CB),
-    makeEntry(HYPERSPACE_FARCLIPPLANE,scriptSetReal32CB),
-    makeEntry(HYPERSPACE_HEADINGACCURACY,scriptSetCosAngCB),
-    makeEntry(HYPERSPACE_WHITEOUTTIME,scriptSetReal32CB),
-    makeEntry(HYPERSPACE_DECELERATE_TIME,scriptSetReal32CB),
-    makeEntry(HYPERSPACE_DECELERATION,scriptSetReal32CB),
-    makeEntry(HYPERSPACE_TRAVELDIST_PER_RU_SPENT,scriptSetReal32CB),
-    makeEntry(SINGLEPLAYER_STARTINGRUS,scriptSetSdwordCB),
-    makeEntry(SINGLEPLAYER_DEBUGLEVEL,scriptSetSdwordCB),
-    makeEntry(HYPERSPACE_RANGE,scriptSetReal32SqrCB),
-    makeEntry(SINGLEPLAYER_MISSION14_SPHERE_OVERRIDE,scriptSetReal32CB),
-    makeEntry(SUBMESSAGE_SAFETY_TIMEOUT,scriptSetReal32CB),
-    makeEntry(SINGLEPLAYER_BOBBIGGESTRADIUS_LEVEL6,scriptSetReal32CB),
+    makeEntry( HS_CLIPT_NEG_FINISH,                         scriptSetReal32CB    ),
+    makeEntry( HS_CLIPT_NEG_SCALAR,                         scriptSetReal32CB    ),
+    makeEntry( HS_CLIPT_NEG_THRESH,                         scriptSetReal32CB    ),
+    makeEntry( HS_CLIPT_POS_SCALAR,                         scriptSetReal32CB    ),
+    makeEntry( HS_CLIPT_POS_START,                          scriptSetReal32CB    ),
+    makeEntry( HS_CLIPT_POS_THRESH,                         scriptSetReal32CB    ),
+    makeEntry( HYPERSPACEGATE_HEALTH,                       scriptSetReal32CB    ),
+    makeEntry( HYPERSPACEGATE_HEIGHT,                       scriptSetReal32CB    ),
+    makeEntry( HYPERSPACEGATE_WAYPOINTDIST,                 scriptSetReal32CB    ),
+    makeEntry( HYPERSPACEGATE_WIDTH ,                       scriptSetReal32CB    ),
+    makeEntry( HYPERSPACE_ACCELERATE_TIME,                  scriptSetReal32CB    ),
+    makeEntry( HYPERSPACE_ACCELERATION,                     scriptSetReal32CB    ),
+    makeEntry( HYPERSPACE_BASE_ARRIVETIME,                  scriptSetReal32CB    ),
+    makeEntry( HYPERSPACE_BASE_MOTHERSHIPARRIVETIME,        scriptSetReal32CB    ),
+    makeEntry( HYPERSPACE_BASE_WAITTIME,                    scriptSetReal32CB    ),
+    makeEntry( HYPERSPACE_DECELERATE_TIME,                  scriptSetReal32CB    ),
+    makeEntry( HYPERSPACE_DECELERATION,                     scriptSetReal32CB    ),
+    makeEntry( HYPERSPACE_FARCLIPPLANE,                     scriptSetReal32CB    ),
+    makeEntry( HYPERSPACE_HEADINGACCURACY,                  scriptSetCosAngCB    ),
+    makeEntry( HYPERSPACE_MAXWAITTIME_DISTANCE,             scriptSetReal32CB    ),
+    makeEntry( HYPERSPACE_MINWAITTIME_DISTANCE,             scriptSetReal32CB    ),
+    makeEntry( HYPERSPACE_MOTHERSHIP_ALWAYS_ARRIVES_FIRST,  scriptSetBool        ),
+    makeEntry( HYPERSPACE_RANDOM_WAITTIME,                  scriptSetReal32CB    ),
+    makeEntry( HYPERSPACE_RANGE,                            scriptSetReal32SqrCB ),
+    makeEntry( HYPERSPACE_SLICE_RATE,                       scriptSetReal32CB    ),
+    makeEntry( HYPERSPACE_TRAVELDIST_PER_RU_SPENT,          scriptSetReal32CB    ),
+    makeEntry( HYPERSPACE_WAITTIME_PER_DISTANCE,            scriptSetReal32CB    ),
+    makeEntry( HYPERSPACE_WAIT_FOR_MOTHERSHIPFOCUS_TIME,    scriptSetReal32CB    ),
+    makeEntry( HYPERSPACE_WHIP_VELOCITY,                    scriptSetReal32CB    ),
+    makeEntry( HYPERSPACE_WHITEOUTTIME,                     scriptSetReal32CB    ),
+    makeEntry( SINGLEPLAYER_BOBBIGGESTRADIUS_LEVEL6,        scriptSetReal32CB    ),
+    makeEntry( SINGLEPLAYER_DEBUGLEVEL,                     scriptSetSdwordCB    ),
+    makeEntry( SINGLEPLAYER_MISSION14_SPHERE_OVERRIDE,      scriptSetReal32CB    ),
+    makeEntry( SINGLEPLAYER_STARTINGRUS,                    scriptSetSdwordCB    ),
+    makeEntry( SUBMESSAGE_SAFETY_TIMEOUT,                   scriptSetReal32CB    ),
 
-    { "BaseFleetStrengthForLevel",SetBaseFleetStrCB,NULL },
+    { "BaseFleetStrengthForLevel", SetBaseFleetStrCB, NULL },
     
     END_SCRIPT_ENTRY
 };
 
-static void SetWarpFleetCB(char *directory,char *field,void *dataToFillIn);
-static void WarpFleetStrengthCB(char *directory,char *field,void *dataToFillIn);
-static void WarpFleetRUStrengthCB(char *directory,char *field,void *dataToFillIn);
-static void WarpPreLoadCB(char *directory,char *field,void *dataToFillIn);
-
 scriptEntry WarpScriptTable[] =
 {
-    { "WarpStartRU", scriptSetSdwordCB, &universe.players[0].resourceUnits},
-    { "WarpFleet", SetWarpFleetCB, NULL },
+    { "WarpStartRU", scriptSetSdwordCB, &universe.players[0].resourceUnits },
+    { "WarpFleet",   SetWarpFleetCB,    NULL                               },
     
     END_SCRIPT_ENTRY
 };
 
 scriptEntry WarpCalcFleetStrengthTable[] =
 {
-    { "WarpStartRU", WarpFleetRUStrengthCB, NULL},
-    { "WarpFleet", WarpFleetStrengthCB, NULL },
+    { "WarpStartRU", WarpFleetRUStrengthCB, NULL },
+    { "WarpFleet",   WarpFleetStrengthCB,   NULL },
     
     END_SCRIPT_ENTRY
 };
@@ -254,60 +300,98 @@ scriptEntry WarpPreLoadTable[] =
     END_SCRIPT_ENTRY
 };
 
-static sdword WarpToLevelEnabled();
-static void SetOnMissionCompleteInfo(char *directory,char *field,void *dataToFillIn);
-static void singlePlayerKasMissionStart(sdword missionnum);
-static void singlePlayerStartNis(char *nis, char *script, bool centre, hvector *positionAndAngle);
-void singlePlayerNISNamesGet(char **nisname, char **scriptname, bool *centreMothership, sdword nisNumber);
-
-//static bool spSavedCameraYet;
-//static Camera spSavedCamera;
-
 scriptEntry SinglePlayerScriptTable[] =
 {
-    { "onMissionComplete", SetOnMissionCompleteInfo, &singlePlayerGameInfo },
-    { "onMissionLoad", scriptSetSdwordCB, &singlePlayerGameInfo.onLoadPlayNIS},
-    { "MissionStartEnemyRUs", scriptSetSdwordCB, &universe.players[1].resourceUnits },
-    { "MissionStartEnemyRace", scriptSetShipRaceCB, &universe.players[1].race },
-    { "Asteroid0sCanMove", scriptSetBool, &singlePlayerGameInfo.asteroid0sCanMove },
+    { "onMissionComplete",     SetOnMissionCompleteInfo, &singlePlayerGameInfo                   },
+    { "onMissionLoad",         scriptSetSdwordCB,        &singlePlayerGameInfo.onLoadPlayNIS     },
+    { "MissionStartEnemyRUs",  scriptSetSdwordCB,        &universe.players[1].resourceUnits      },
+    { "MissionStartEnemyRace", scriptSetShipRaceCB,      &universe.players[1].race               },
+    { "Asteroid0sCanMove",     scriptSetBool,            &singlePlayerGameInfo.asteroid0sCanMove },
     
     END_SCRIPT_ENTRY
 };
 
-fibfileheader *spHyperspaceRollCallHandle = NULL;
-regionhandle spHyperspaceRollCallScreen = NULL;
-
-//taskbutton *hyperspacetbbutton = NULL;
-
-void spAbortHyperspaceCB(char *string, featom *atom);
-void spGoNowHyperspaceCB(char *string, featom *atom);
-
-void spShipsRemainingDrawCB(featom *atom, regionhandle region);
-void spShipsDockedDrawCB(featom *atom, regionhandle region);
-
-void singlePlayerLoadNewLevel(void);
-
 fecallback spHyperspaceCallback[] =
 {
-    {spAbortHyperspaceCB,  "AbortHyperspace"},
-    {spGoNowHyperspaceCB,  "GoNowHyperspace"},
-    {NULL, NULL}
+    { spAbortHyperspaceCB, "AbortHyperspace" },
+    { spGoNowHyperspaceCB, "GoNowHyperspace" },
+    
+    { NULL,                NULL              },
 };
 
 fedrawcallback spHyperspaceDrawCallback[] =
 {
-    {spShipsRemainingDrawCB, "ShipsRemainingDraw"},
-    {spShipsDockedDrawCB,    "ShipsDockedDraw"},
-    {NULL, NULL}
+    { spShipsRemainingDrawCB, "ShipsRemainingDraw" },
+    { spShipsDockedDrawCB,    "ShipsDockedDraw"    },
+    
+    { NULL,                   NULL                 },
 };
 
-char spMissionsDir[32];
-char spMissionsFile[32];
 
-void GetMissionsDirAndFile(sdword mission)
+udword convertMissionToSequenceIndex(MissionEnum mission)
+{
+    udword index = 0;
+    
+    for (index = 0; index < NUMBER_MISSIONS_IN_SEQUENCE; index++)
+    {
+        if (mission == missionSequence[index])
+        {
+            return index;
+        }
+    }
+    
+    // getting here is seriously bad and I don't see how to recover from it
+    // other than to lie about the index which will probably crash things anyway
+    // so let's die at the point of failure not somewhere else down the line
+    dbgFatalf(DBG_Loc, "unknown MissionEnum enum: %u", mission);
+    
+    return 0;  // this will never be called but keeps the compiler quiet
+}
+
+void spSetCurrentMission(MissionEnum mission)
+{
+    singlePlayerGameInfo.currentMission = mission;
+    
+    singlePlayerCurrentMissionIndex
+        = convertMissionToSequenceIndex(mission);
+}
+
+MissionEnum spGetPreviousMission()
+{
+    return spGetAdjacentMission(-1);
+}
+
+MissionEnum spGetCurrentMission()
+{
+    return singlePlayerGameInfo.currentMission;
+}
+
+MissionEnum spGetNextMission()
+{
+    return spGetAdjacentMission(+1);
+}
+
+MissionEnum spGetAdjacentMission(sbyte direction)
+{
+    sdword adjacentMissionIndex
+        = convertMissionToSequenceIndex(spGetCurrentMission())
+        + (direction < 0 ? -1 : +1);
+    
+    if (adjacentMissionIndex < 0
+    ||  adjacentMissionIndex >= NUMBER_MISSIONS_IN_SEQUENCE)
+    {
+        return MISSION_ENUM_NOT_INITIALISED;
+    }
+    
+    return missionSequence[adjacentMissionIndex];
+}
+
+
+
+void GetMissionsDirAndFile(MissionEnum mission)
 {
 #ifdef HW_GAME_RAIDER_RETREAT
-    if (mission == 5)
+    if (mission == MISSION_5B_TURANIC_RAIDER_PLANETOID)
     {
 #ifdef _WIN32
         sprintf(spMissionsDir, "SinglePlayer\\Mission05_OEM\\");
@@ -315,16 +399,17 @@ void GetMissionsDirAndFile(sdword mission)
         sprintf(spMissionsDir, "SinglePlayer/Mission05_OEM/");
 #endif
         sprintf(spMissionsFile, "Mission05_OEM.mission");
-        return;
     }
+    else
 #endif
-
+    {
 #ifdef _WIN32
-    sprintf(spMissionsDir, "SinglePlayer\\Mission%02d\\", mission);
+        sprintf(spMissionsDir, "SinglePlayer\\Mission%02d\\", mission);
 #else
-    sprintf(spMissionsDir, "SinglePlayer/Mission%02d/", mission);
+        sprintf(spMissionsDir, "SinglePlayer/Mission%02d/", mission);
 #endif
-    sprintf(spMissionsFile,"Mission%02d.mission", mission);
+        sprintf(spMissionsFile,"Mission%02d.mission", mission);
+    }
 }
 
 bool GetPointOfName(hvector *point,char *name)
@@ -388,8 +473,6 @@ real32 GetStrengthOfRUs(sdword RUs)
 {
     return (real32)RUs;
 }
-
-typedef void (*GetStrengthOfFleet)(Player *player);
 
 /*-----------------------------------------------------------------------------
     Name        : GetFleetStrengthHyperspace
@@ -511,6 +594,8 @@ void singlePlayerPreLoadCheck(void)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
+typedef void (*GetStrengthOfFleet)(Player *player);
+
 void SetFleetModifier(sdword level,GetStrengthOfFleet getStrengthOfFleetFunc)
 {
     real32 comparestrength,comparestrength2;
@@ -1861,7 +1946,7 @@ void singlePlayerInit(void)
         }
         else
         {
-            singlePlayerGameInfo.currentMission = 1;
+            singlePlayerGameInfo.currentMission = missionSequence[singlePlayerCurrentMissionIndex];
         }
     }
 
@@ -2012,11 +2097,11 @@ void singlePlayerPostInit(bool loadingSaveGame)
 {
     if (!loadingSaveGame)
     {
-        if (singlePlayerGameInfo.currentMission == 1)
+        if (spGetCurrentMission() == MISSION_1_KHARAK_SYSTEM)
         {
-#ifdef HW_ENABLE_MOVIES
-            animAviPlay(0, 1);
-#endif
+            // doing this using relative missions probably doesn't make much
+            // sense but I'm doing it anyway for consistency
+            animAviPlay(spGetPreviousMission(), spGetCurrentMission());
         }
     }
     //hyperspacetbbutton = tbButtonCreate("Hyperspace",spTaskBarHyperspaceCB,(ubyte *)0x00,0);
@@ -2070,7 +2155,11 @@ void singlePlayerSetMissionAttributes(char *directory,char *filename)
 
 void singlePlayerLevelLoaded(void)
 {
-    if (singlePlayerGameInfo.currentMission == 10)
+    // need to fix up the mission sequence index to match the currentMission
+    singlePlayerCurrentMissionIndex
+        = convertMissionToSequenceIndex(spGetCurrentMission());
+    
+    if (spGetCurrentMission() == MISSION_10_SUPER_NOVA_STATION)
     {
         Node *objnode;
         Ship *ship;
@@ -2451,33 +2540,33 @@ void singlePlayerGameUpdate()
         case HYPERSPACE_WHITEOUT:
             if (universe.totaltimeelapsed >= singlePlayerGameInfo.hyperspaceTimeStamp)
             {
+                // playback level transition animatic
                 if (spBinkPlay)
                 {
 #if defined(HW_GAME_RAIDER_RETREAT)
                     //no animatic between Missions 4 and 5 and thereafter
-                    if (singlePlayerGameInfo.currentMission < 4)
+                    if (spGetCurrentMission() < MISSION_4_GREAT_WASTELANDS_TRADERS)
 #endif
-                    //playback level transition animatic
-#ifdef HW_ENABLE_MOVIES
-                    animAviPlay(singlePlayerGameInfo.currentMission, singlePlayerGameInfo.currentMission + 1);
-#endif
-
+                    {
+                        animAviPlay(spGetCurrentMission(), spGetNextMission());
+                    }
+                    
 // was: HW_COMPUTER_GAMING_WORLD_DEMO but the standard demo
 // had a short single player campaign surely? If not get rid of this
 #ifdef HW_GAME_DEMO
-                    if (singlePlayerGameInfo.currentMission == 2)
+                    if (spGetCurrentMission() == MISSION_2_OUTSKIRTS_OF_KHARAK)
                     {
                         universe.quittime = universe.totaltimeelapsed;
                         utyPlugScreens = TRUE;
                     }
 #elif defined(HW_GAME_RAIDER_RETREAT)
-                    if (singlePlayerGameInfo.currentMission == 5)
+                    if (spGetCurrentMission() == MISSION_5B_TURANIC_RAIDER_PLANETOID)
                     {
                         universe.quittime = universe.totaltimeelapsed;
                         utyPlugScreens = TRUE;
                     }
 #else
-                    if (singlePlayerGameInfo.currentMission == 16)
+                    if (spGetCurrentMission() == MISSION_16_HIIGARA)
                     {
                         universe.quittime = universe.totaltimeelapsed;
                         utyCreditsSequence = TRUE;
@@ -2543,7 +2632,7 @@ void singlePlayerGameUpdate()
                     soundEventPlayMusic(SongNumber);
                 }
 
-                singlePlayerKasMissionStart(singlePlayerGameInfo.currentMission);
+                singlePlayerKasMissionStart(spGetCurrentMission());
 
                 aiplayerGameStart(universe.players[1].aiPlayer);
 
@@ -2675,12 +2764,15 @@ void singlePlayerLoadNewLevel(void)
     }
     else
 #endif
-    singlePlayerGameInfo.currentMission++;                      // go to next level
+    // go to next level (NB: we're doing two things here; bumping the mission index
+    // and changing the mission enum in the singlePlayerGameInfo struct)
+    singlePlayerGameInfo.currentMission
+        = missionSequence[++singlePlayerCurrentMissionIndex];
 
     singlePlayerGameInfo.giveComputerFleetControl = FALSE;      // reset any computer control
     singlePlayerGameInfo.asteroid0sCanMove = FALSE;
 
-    GetMissionsDirAndFile(singlePlayerGameInfo.currentMission); //what mission file to load?
+    GetMissionsDirAndFile(spGetCurrentMission()); //what mission file to load?
 //... start of crazy starting code from utility.c
     //reset the enemy player's race to the 'opposite' (R1/R2 race)
     universe.players[1].race = (universe.players[0].race == R1) ? R2 : R1;
@@ -2701,7 +2793,7 @@ void singlePlayerLoadNewLevel(void)
     trailsRecolorize();
     mistrailsRecolorize();
 
-    SetFleetModifier(singlePlayerGameInfo.currentMission, GetFleetStrengthHyperspace);
+    SetFleetModifier(spGetCurrentMission(), GetFleetStrengthHyperspace);
     levelStartNext(spMissionsDir,spMissionsFile);
     clPresetShipsToPosition(&universe.mainCommandLayer);
     singlePlayerLevelLoaded();
@@ -2788,13 +2880,169 @@ SelectCommand *GetAllPlayersShipsExceptMothership(Player *player)
     return selection;
 }
 
-#define NUMBER_SINGLEPLAYER_NIS 12
+// temporary hack, primarily for the NIS stuff which has some weird
+// array index offsetting based on mission number
+udword spOldMissionNumber(MissionEnum missionEnum)
+{
+    udword oldMissionValue = (udword) missionEnum;
 
-#ifdef _WIN32
-#define NIS_PATH "nis\\"
-#else
-#define NIS_PATH "nis/"
-#endif
+    if (missionEnum == MISSION_5B_TURANIC_RAIDER_PLANETOID)
+    {
+        oldMissionValue = (udword) MISSION_5_GREAT_WASTELANDS_REVENGE;  
+    }
+    
+    return oldMissionValue;
+}
+
+void singlePlayerKasMissionStart(MissionEnum mission)
+{
+    switch (mission)
+    {
+        case MISSION_1_KHARAK_SYSTEM:              kasMissionStart("mission01",     Init_Mission01,     Watch_Mission01);      break;
+        case MISSION_2_OUTSKIRTS_OF_KHARAK_SYSTEM: kasMissionStart("mission02",     Init_Mission02,     Watch_Mission02);      break;
+        case MISSION_3_RETURN_TO_KHARAK:           kasMissionStart("mission03",     Init_Mission03,     Watch_Mission03);      break;
+        case MISSION_4_GREAT_WASTELANDS_TRADERS:   kasMissionStart("mission04",     Init_Mission04,     Watch_Mission04);      break;
+        case MISSION_5B_TURANIC_RAIDER_PLANETOID:  kasMissionStart("mission05_OEM", Init_Mission05_OEM, Watch_Mission05_OEM);  break;
+        case MISSION_5_GREAT_WASTELANDS_REVENGE:   kasMissionStart("mission05",     Init_Mission05,     Watch_Mission05);      break;
+        case MISSION_6_DIAMOND_SHOALS:             kasMissionStart("mission06",     Init_Mission06,     Watch_Mission06);      break;
+        case MISSION_7_THE_GARDENS_OF_KADESH:      kasMissionStart("mission07",     Init_Mission07,     Watch_Mission07);      break;
+        case MISSION_8_THE_CATHEDRAL_OF_KADESH:    kasMissionStart("mission08",     Init_Mission08,     Watch_Mission08);      break;
+        case MISSION_9_SEA_OF_LOST_SOULS:          kasMissionStart("mission09",     Init_Mission09,     Watch_Mission09);      break;
+        case MISSION_10_SUPER_NOVA_STATION:        kasMissionStart("mission10",     Init_Mission10,     Watch_Mission10);      break;
+        case MISSION_11_TENHAUSER_GATE:            kasMissionStart("mission11",     Init_Mission11,     Watch_Mission11);      break;
+        case MISSION_12_GALACTIC_CORE:             kasMissionStart("mission12",     Init_Mission12,     Watch_Mission12);      break;
+        case MISSION_13_THE_KAROS_GRAVEYARD:       kasMissionStart("mission13",     Init_Mission13,     Watch_Mission13);      break;
+        case MISSION_14_BRIDGE_OF_SIGHS:           kasMissionStart("mission14",     Init_Mission14,     Watch_Mission14);      break;
+        case MISSION_15_CHAPEL_PERILOUS:           kasMissionStart("mission15",     Init_Mission15,     Watch_Mission15);      break;
+        case MISSION_16_HIIGARA:                   kasMissionStart("mission16",     Init_Mission16,     Watch_Mission16);      break;
+
+        default:
+            dbgFatalf(DBG_Loc, "Unsupported MissionEnum enum: %d", mission);
+            break;
+    }
+}
+
+void *WatchFunctionAddress(MissionEnum mission)
+{
+    switch (mission)
+    {
+        case MISSION_1_KHARAK_SYSTEM:              return &Watch_Mission01;
+        case MISSION_2_OUTSKIRTS_OF_KHARAK_SYSTEM: return &Watch_Mission02;
+        case MISSION_3_RETURN_TO_KHARAK:           return &Watch_Mission03;
+        case MISSION_4_GREAT_WASTELANDS_TRADERS:   return &Watch_Mission04;
+        case MISSION_5B_TURANIC_RAIDER_PLANETOID:  return &Watch_Mission05_OEM;
+        case MISSION_5_GREAT_WASTELANDS_REVENGE:   return &Watch_Mission05;
+        case MISSION_6_DIAMOND_SHOALS:             return &Watch_Mission06;
+        case MISSION_7_THE_GARDENS_OF_KADESH:      return &Watch_Mission07;
+        case MISSION_8_THE_CATHEDRAL_OF_KADESH:    return &Watch_Mission08;
+        case MISSION_9_SEA_OF_LOST_SOULS:          return &Watch_Mission09;
+        case MISSION_10_SUPER_NOVA_STATION:        return &Watch_Mission10;
+        case MISSION_11_TENHAUSER_GATE:            return &Watch_Mission11;
+        case MISSION_12_GALACTIC_CORE:             return &Watch_Mission12;
+        case MISSION_13_THE_KAROS_GRAVEYARD:       return &Watch_Mission13;
+        case MISSION_14_BRIDGE_OF_SIGHS:           return &Watch_Mission14;
+        case MISSION_15_CHAPEL_PERILOUS:           return &Watch_Mission15;
+        case MISSION_16_HIIGARA:                   return &Watch_Mission16;
+        case MISSION_TUTORIAL:                     return &Watch_Tutorial1;
+        
+        default:
+            break;
+    }
+
+    return NULL;
+}
+
+/* Get the proper FSM function list for the given mission index. */
+const void **FunctionListAddress(MissionEnum mission)
+{
+    switch (mission)
+    {
+        case MISSION_1_KHARAK_SYSTEM:              return Mission01_FunctionPointers;
+        case MISSION_2_OUTSKIRTS_OF_KHARAK_SYSTEM: return Mission02_FunctionPointers;
+        case MISSION_3_RETURN_TO_KHARAK:           return Mission03_FunctionPointers;
+        case MISSION_4_GREAT_WASTELANDS_TRADERS:   return Mission04_FunctionPointers;
+        case MISSION_5B_TURANIC_RAIDER_PLANETOID:  return Mission05_OEM_FunctionPointers;
+        case MISSION_5_GREAT_WASTELANDS_REVENGE:   return Mission05_FunctionPointers;
+        case MISSION_6_DIAMOND_SHOALS:             return Mission06_FunctionPointers;
+        case MISSION_7_THE_GARDENS_OF_KADESH:      return Mission07_FunctionPointers;
+        case MISSION_8_THE_CATHEDRAL_OF_KADESH:    return Mission08_FunctionPointers;
+        case MISSION_9_SEA_OF_LOST_SOULS:          return Mission09_FunctionPointers;
+        case MISSION_10_SUPER_NOVA_STATION:        return Mission10_FunctionPointers;
+        case MISSION_11_TENHAUSER_GATE:            return Mission11_FunctionPointers;
+        case MISSION_12_GALACTIC_CORE:             return Mission12_FunctionPointers;
+        case MISSION_13_THE_KAROS_GRAVEYARD:       return Mission13_FunctionPointers;
+        case MISSION_14_BRIDGE_OF_SIGHS:           return Mission14_FunctionPointers;
+        case MISSION_15_CHAPEL_PERILOUS:           return Mission15_FunctionPointers;
+        case MISSION_16_HIIGARA:                   return Mission16_FunctionPointers;
+        case MISSION_TUTORIAL:                     return Tutorial1_FunctionPointers;
+        
+        default:
+            break;
+    }
+
+    return NULL;
+}
+
+/* Get the size of an FSM function list for the given mission index. */
+udword FunctionListSize(MissionEnum mission)
+{
+    switch (mission)
+    {
+        case MISSION_1_KHARAK_SYSTEM:              return Mission01_FunctionPointerCount;
+        case MISSION_2_OUTSKIRTS_OF_KHARAK_SYSTEM: return Mission02_FunctionPointerCount;
+        case MISSION_3_RETURN_TO_KHARAK:           return Mission03_FunctionPointerCount;
+        case MISSION_4_GREAT_WASTELANDS_TRADERS:   return Mission04_FunctionPointerCount;
+        case MISSION_5B_TURANIC_RAIDER_PLANETOID:  return Mission05_OEM_FunctionPointerCount;
+        case MISSION_5_GREAT_WASTELANDS_REVENGE:   return Mission05_FunctionPointerCount;
+        case MISSION_6_DIAMOND_SHOALS:             return Mission06_FunctionPointerCount;
+        case MISSION_7_THE_GARDENS_OF_KADESH:      return Mission07_FunctionPointerCount;
+        case MISSION_8_THE_CATHEDRAL_OF_KADESH:    return Mission08_FunctionPointerCount;
+        case MISSION_9_SEA_OF_LOST_SOULS:          return Mission09_FunctionPointerCount;
+        case MISSION_10_SUPER_NOVA_STATION:        return Mission10_FunctionPointerCount;
+        case MISSION_11_TENHAUSER_GATE:            return Mission11_FunctionPointerCount;
+        case MISSION_12_GALACTIC_CORE:             return Mission12_FunctionPointerCount;
+        case MISSION_13_THE_KAROS_GRAVEYARD:       return Mission13_FunctionPointerCount;
+        case MISSION_14_BRIDGE_OF_SIGHS:           return Mission14_FunctionPointerCount;
+        case MISSION_15_CHAPEL_PERILOUS:           return Mission15_FunctionPointerCount;
+        case MISSION_16_HIIGARA:                   return Mission16_FunctionPointerCount;
+        case MISSION_TUTORIAL:                     return Tutorial1_FunctionPointerCount;
+        
+        default:
+            break;
+    }
+
+    return 0;
+}
+
+MissionEnum WatchFunctionToMissionEnum(KASWatchFunction watchFunction)
+{
+    MissionEnum mission = MISSION_ENUM_NOT_INITIALISED;
+
+    for (mission = MISSION_ENUM_NOT_INITIALISED; mission < NUMBER_SINGLEPLAYER_MISSIONS; ++mission)
+    {
+        if (watchFunction == WatchFunctionAddress(mission))
+        {
+            return mission;
+        }
+    }
+    return MISSION_ENUM_NOT_INITIALISED;
+}
+
+KASWatchFunction MissionEnumToWatchFunction(MissionEnum mission)
+{
+    dbgAssertOrIgnore(mission >= MISSION_ENUM_NOT_INITIALISED);
+    dbgAssertOrIgnore(mission <  NUMBER_SINGLEPLAYER_MISSIONS);
+    
+    return WatchFunctionAddress(mission);
+}
+
+const void** MissionEnumToFunctionList(MissionEnum mission)
+{
+    dbgAssertOrIgnore(mission >= MISSION_ENUM_NOT_INITIALISED);
+    dbgAssertOrIgnore(mission <  NUMBER_SINGLEPLAYER_MISSIONS);
+    
+    return FunctionListAddress(mission);
+}
 
 //Note: single player order has been changed.  The Previous mission 3
 //      where the player meets the traders and fights the Turanic raiders
@@ -2805,45 +3053,57 @@ SelectCommand *GetAllPlayersShipsExceptMothership(Player *player)
 //Note2:In addition, the previous mission 15 (mining base) has been moved
 //      to Mission 14, with the Headshot asteroid level (old mission 14)
 //      is now Mission 15.  The only change this effects is the nislet names
+
+#ifdef _WIN32
+    #define NIS_PATH "nis\\"
+#else
+    #define NIS_PATH "nis/"
+#endif
+
+char *singlePlayerNISName = NULL;
+
+sdword singlePlayerNisNumber    = -1;
+sdword singlePlayerNisletNumber = -1;
+
 char *nisR1Names[NUMBER_SINGLEPLAYER_NIS][2] =
 {
-    { NIS_PATH"n01r1.nis",    NIS_PATH"n01r1.script" },
+    { NIS_PATH"n01r1.nis",  NIS_PATH"n01r1.script"    },
 #if defined (HW_GAME_DEMO)
-    { NIS_PATH"n02.nis",      NIS_PATH"n02-demo.script" },
+    { NIS_PATH"n02.nis",    NIS_PATH"n02-demo.script" },
 #else
-    { NIS_PATH"n02.nis",      NIS_PATH"n02.script" },
+    { NIS_PATH"n02.nis",    NIS_PATH"n02.script"      },
 #endif
-    { NIS_PATH"n04.nis",      NIS_PATH"n04.script" },
-    { NIS_PATH"n03r1.nis",    NIS_PATH"n03r1.script" },
-    { NIS_PATH"n05r1.nis",    NIS_PATH"n05r1.script" },
-    { NIS_PATH"n06.nis",      NIS_PATH"n06.script" },
-    { NIS_PATH"n07.nis",      NIS_PATH"n07.script" },
-    { NIS_PATH"n08r1a.nis",   NIS_PATH"n08r1a.script" },
-    { NIS_PATH"n09.nis",      NIS_PATH"n09.script" },
-    { NIS_PATH"n10r1.nis",    NIS_PATH"n10r1.script" },
-    { NIS_PATH"n11r1.nis",    NIS_PATH"n11r1.script" },
-    { NIS_PATH"n12r1.nis",    NIS_PATH"n12r1.script" },
+    { NIS_PATH"n04.nis",    NIS_PATH"n04.script"      },
+    { NIS_PATH"n03r1.nis",  NIS_PATH"n03r1.script"    },
+    { NIS_PATH"n05r1.nis",  NIS_PATH"n05r1.script"    },
+    { NIS_PATH"n06.nis",    NIS_PATH"n06.script"      },
+    { NIS_PATH"n07.nis",    NIS_PATH"n07.script"      },
+    { NIS_PATH"n08r1a.nis", NIS_PATH"n08r1a.script"   },
+    { NIS_PATH"n09.nis",    NIS_PATH"n09.script"      },
+    { NIS_PATH"n10r1.nis",  NIS_PATH"n10r1.script"    },
+    { NIS_PATH"n11r1.nis",  NIS_PATH"n11r1.script"    },
+    { NIS_PATH"n12r1.nis",  NIS_PATH"n12r1.script"    },
 };
-char *singlePlayerNISName = NULL;
 
 //See note above regarding the weird NIS ordering
 char *nisR2Names[NUMBER_SINGLEPLAYER_NIS][2] =
 {
-    { NIS_PATH"n01r2.nis",    NIS_PATH"n01r2.script" },
-    { NIS_PATH"n02.nis",      NIS_PATH"n02.script" },
-    { NIS_PATH"n04.nis",      NIS_PATH"n04.script" },
-    { NIS_PATH"n03r2.nis",    NIS_PATH"n03r2.script" },
-    { NIS_PATH"n05r2.nis",    NIS_PATH"n05r2.script" },
-    { NIS_PATH"n06.nis",      NIS_PATH"n06.script" },
-    { NIS_PATH"n07.nis",      NIS_PATH"n07.script" },
-    { NIS_PATH"n08r2a.nis",   NIS_PATH"n08r2a.script" },
-    { NIS_PATH"n09.nis",      NIS_PATH"n09.script" },
-    { NIS_PATH"n10r2.nis",    NIS_PATH"n10r2.script" },
-    { NIS_PATH"n11r2.nis",    NIS_PATH"n11r2.script" },
-    { NIS_PATH"n12r2.nis",    NIS_PATH"n12r2.script" },
+    { NIS_PATH"n01r2.nis",  NIS_PATH"n01r2.script"  },
+    { NIS_PATH"n02.nis",    NIS_PATH"n02.script"    },
+    { NIS_PATH"n04.nis",    NIS_PATH"n04.script"    },
+    { NIS_PATH"n03r2.nis",  NIS_PATH"n03r2.script"  },
+    { NIS_PATH"n05r2.nis",  NIS_PATH"n05r2.script"  },
+    { NIS_PATH"n06.nis",    NIS_PATH"n06.script"    },
+    { NIS_PATH"n07.nis",    NIS_PATH"n07.script"    },
+    { NIS_PATH"n08r2a.nis", NIS_PATH"n08r2a.script" },
+    { NIS_PATH"n09.nis",    NIS_PATH"n09.script"    },
+    { NIS_PATH"n10r2.nis",  NIS_PATH"n10r2.script"  },
+    { NIS_PATH"n11r2.nis",  NIS_PATH"n11r2.script"  },
+    { NIS_PATH"n12r2.nis",  NIS_PATH"n12r2.script"  },
 };
 
 #define NISLETS_PER_LEVEL       3
+
 typedef struct
 {
     char *name[NISLETS_PER_LEVEL];
@@ -2855,23 +3115,24 @@ nisletnames;
 //in addition, Missions 14 and 15 were swapped
 nisletnames nisletNames[NUMBER_SINGLEPLAYER_MISSIONS] =
 {
-    {{NULL, NULL, NULL},                              {FALSE,FALSE,FALSE}},
-    {{NIS_PATH"m02a", NULL, NULL},                    {FALSE,FALSE,FALSE}},
-    {{NULL, NULL, NULL},                              {FALSE,FALSE,FALSE}},
-    {{NIS_PATH"m03", NULL, NULL},                     {FALSE,FALSE,FALSE}},
-    {{NULL, NULL, NULL},                              {FALSE,FALSE,FALSE}},
-    {{NIS_PATH"m06a", NULL, NULL},                    {FALSE,FALSE,FALSE}},
-    {{NIS_PATH"m07a", NULL, NULL},                    {FALSE,FALSE,FALSE}},
-    {{NIS_PATH"m08a", NULL, NULL},                    {FALSE,FALSE,FALSE}},
-    {{NIS_PATH"m09a", NIS_PATH"m09b", NIS_PATH"m06a"},{FALSE,FALSE,FALSE}},
-    {{NIS_PATH"m10a", NULL, NULL},                    {FALSE,FALSE,FALSE}},
-    {{NIS_PATH"m11a", NULL, NULL},                    {FALSE,FALSE,FALSE}},
-    {{NIS_PATH"m12a", NIS_PATH"m12b", NULL},          {FALSE,TRUE, FALSE}},
-    {{NIS_PATH"m13a", NULL, NIS_PATH"m13c"},          {FALSE,FALSE,TRUE }},
-    {{NIS_PATH"m15a", NIS_PATH"m15b", NULL},          {FALSE,FALSE,FALSE}},
-    {{NIS_PATH"m14a", NULL, NULL},                    {TRUE, FALSE,FALSE}},
-    {{NIS_PATH"m16a", NIS_PATH"m16a", NIS_PATH"m16a"},{FALSE,FALSE,TRUE }},
-    {{NULL, NULL, NULL},                              {FALSE,FALSE,FALSE}},
+    { { NULL,           NULL,           NULL           }, { FALSE, FALSE, FALSE } },
+    { { NIS_PATH"m02a", NULL,           NULL           }, { FALSE, FALSE, FALSE } },
+    { { NULL,           NULL,           NULL           }, { FALSE, FALSE, FALSE } },
+    { { NIS_PATH"m03",  NULL,           NULL           }, { FALSE, FALSE, FALSE } },
+    { { NULL,           NULL,           NULL           }, { FALSE, FALSE, FALSE } },
+    { { NIS_PATH"m06a", NULL,           NULL           }, { FALSE, FALSE, FALSE } },
+    { { NIS_PATH"m07a", NULL,           NULL           }, { FALSE, FALSE, FALSE } },
+    { { NIS_PATH"m08a", NULL,           NULL           }, { FALSE, FALSE, FALSE } },
+    { { NIS_PATH"m09a", NIS_PATH"m09b", NIS_PATH"m06a" }, { FALSE, FALSE, FALSE } },
+    { { NIS_PATH"m10a", NULL,           NULL           }, { FALSE, FALSE, FALSE } },
+    { { NIS_PATH"m11a", NULL,           NULL           }, { FALSE, FALSE, FALSE } },
+    { { NIS_PATH"m12a", NIS_PATH"m12b", NULL           }, { FALSE, TRUE,  FALSE } },
+    { { NIS_PATH"m13a", NULL,           NIS_PATH"m13c" }, { FALSE, FALSE, TRUE  } },
+    { { NIS_PATH"m15a", NIS_PATH"m15b", NULL           }, { FALSE, FALSE, FALSE } },
+    { { NIS_PATH"m14a", NULL,           NULL           }, { TRUE,  FALSE, FALSE } },
+    { { NIS_PATH"m16a", NIS_PATH"m16a", NIS_PATH"m16a" }, { FALSE, FALSE, TRUE  } },
+    
+    { { NULL,           NULL,           NULL           }, { FALSE, FALSE, FALSE } },
 };
 
 bool8 nisPlayRelativeToMothership[NUMBER_SINGLEPLAYER_NIS] =
@@ -2879,240 +3140,19 @@ bool8 nisPlayRelativeToMothership[NUMBER_SINGLEPLAYER_NIS] =
     FALSE,
     TRUE,
     TRUE,
+    
     TRUE,
     TRUE,
     TRUE,
+    
     TRUE,
     TRUE,
     TRUE,
+    
     TRUE,
     TRUE,
     TRUE
 };
-
-void *WatchFunctionAddress(sdword i)
-{
-    switch (i)
-    {
-        case 0:     return &Watch_Mission01;
-        case 1:     return &Watch_Mission02;
-        case 2:     return &Watch_Mission03;
-        case 3:     return &Watch_Mission04;
-#ifdef HW_GAME_RAIDER_RETREAT
-        case 4:     return &Watch_Mission05_OEM;
-#else
-        case 4:     return &Watch_Mission05;
-        case 5:     return &Watch_Mission06;
-        case 6:     return &Watch_Mission07;
-        case 7:     return &Watch_Mission08;
-        case 8:     return &Watch_Mission09;
-        case 9:     return &Watch_Mission10;
-        case 10:     return &Watch_Mission11;
-        case 11:     return &Watch_Mission12;
-        case 12:     return &Watch_Mission13;
-        case 13:     return &Watch_Mission14;
-        case 14:     return &Watch_Mission15;
-        case 15:     return &Watch_Mission16;
-#endif
-        case 16:     return &Watch_Tutorial1;
-    }
-
-    return NULL;
-}
-
-sdword WatchFunctionToIndex(KASWatchFunction watchFunction)
-{
-    sdword i;
-
-    for (i=0;i<NUMBER_SINGLEPLAYER_MISSIONS;i++)
-    {
-        if (watchFunction == WatchFunctionAddress(i))
-        {
-            return i;
-        }
-    }
-    return -1;
-}
-
-KASWatchFunction IndexToWatchFunction(sdword index)
-{
-    if (index == -1)
-    {
-        return NULL;
-    }
-
-    dbgAssertOrIgnore(index >= 0);
-    dbgAssertOrIgnore(index < NUMBER_SINGLEPLAYER_MISSIONS);
-    return WatchFunctionAddress(index);
-}
-
-/* Get the proper FSM function list for the given mission index. */
-const void **FunctionListAddress(sdword i)
-{
-    switch (i)
-    {
-        case 0:     return Mission01_FunctionPointers;
-        case 1:     return Mission02_FunctionPointers;
-        case 2:     return Mission03_FunctionPointers;
-        case 3:     return Mission04_FunctionPointers;
-#ifdef HW_GAME_RAIDER_RETREAT
-        case 4:     return Mission05_OEM_FunctionPointers;
-#else
-        case 4:     return Mission05_FunctionPointers;
-        case 5:     return Mission06_FunctionPointers;
-        case 6:     return Mission07_FunctionPointers;
-        case 7:     return Mission08_FunctionPointers;
-        case 8:     return Mission09_FunctionPointers;
-        case 9:     return Mission10_FunctionPointers;
-        case 10:     return Mission11_FunctionPointers;
-        case 11:     return Mission12_FunctionPointers;
-        case 12:     return Mission13_FunctionPointers;
-        case 13:     return Mission14_FunctionPointers;
-        case 14:     return Mission15_FunctionPointers;
-        case 15:     return Mission16_FunctionPointers;
-#endif
-        case 16:     return Tutorial1_FunctionPointers;
-    }
-
-    return NULL;
-}
-
-/* Get the size of an FSM function list for the given mission index. */
-udword FunctionListSize(sdword i)
-{
-    switch (i)
-    {
-        case 0:     return Mission01_FunctionPointerCount;
-        case 1:     return Mission02_FunctionPointerCount;
-        case 2:     return Mission03_FunctionPointerCount;
-        case 3:     return Mission04_FunctionPointerCount;
-#ifdef HW_GAME_RAIDER_RETREAT
-        case 4:     return Mission05_OEM_FunctionPointerCount;
-#else
-        case 4:     return Mission05_FunctionPointerCount;
-        case 5:     return Mission06_FunctionPointerCount;
-        case 6:     return Mission07_FunctionPointerCount;
-        case 7:     return Mission08_FunctionPointerCount;
-        case 8:     return Mission09_FunctionPointerCount;
-        case 9:     return Mission10_FunctionPointerCount;
-        case 10:     return Mission11_FunctionPointerCount;
-        case 11:     return Mission12_FunctionPointerCount;
-        case 12:     return Mission13_FunctionPointerCount;
-        case 13:     return Mission14_FunctionPointerCount;
-        case 14:     return Mission15_FunctionPointerCount;
-        case 15:     return Mission16_FunctionPointerCount;
-#endif
-        case 16:     return Tutorial1_FunctionPointerCount;
-    }
-
-    return 0;
-}
-
-/* Get the the FSM function list for the given level index. */
-const void** IndexToFunctionList(sdword index)
-{
-    if (index == -1)
-    {
-        return NULL;
-    }
-
-    dbgAssertOrIgnore(index >= 0);
-    dbgAssertOrIgnore(index < NUMBER_SINGLEPLAYER_MISSIONS);
-    return FunctionListAddress(index);
-}
-
-//nisplaying *singlePlayerNISPlaying = NULL;
-
-sdword singlePlayerNisNumber = -1;
-sdword singlePlayerNisletNumber = -1;
-
-
-void singlePlayerKasMissionStart(sdword missionnum)
-{
-    switch (missionnum)
-    {
-        case 1: kasMissionStart("mission01", Init_Mission01, Watch_Mission01);  break;
-        case 2: kasMissionStart("mission02", Init_Mission02, Watch_Mission02);  break;
-        case 3: kasMissionStart("mission03", Init_Mission03, Watch_Mission03);  break;
-        case 4: kasMissionStart("mission04", Init_Mission04, Watch_Mission04);  break;
-#ifdef HW_GAME_RAIDER_RETREAT
-        case 5: kasMissionStart("mission05_OEM", Init_Mission05_OEM, Watch_Mission05_OEM);  break;
-#else
-        case 5: kasMissionStart("mission05", Init_Mission05, Watch_Mission05);  break;
-        case 6: kasMissionStart("mission06", Init_Mission06, Watch_Mission06);  break;
-        case 7: kasMissionStart("mission07", Init_Mission07, Watch_Mission07);  break;
-        case 8: kasMissionStart("mission08", Init_Mission08, Watch_Mission08);  break;
-        case 9: kasMissionStart("mission09", Init_Mission09, Watch_Mission09);  break;
-        case 10: kasMissionStart("mission10", Init_Mission10, Watch_Mission10);  break;
-        case 11: kasMissionStart("mission11", Init_Mission11, Watch_Mission11);  break;
-        case 12: kasMissionStart("mission12", Init_Mission12, Watch_Mission12);  break;
-        case 13: kasMissionStart("mission13", Init_Mission13, Watch_Mission13);  break;
-        case 14: kasMissionStart("mission14", Init_Mission14, Watch_Mission14);  break;
-        case 15: kasMissionStart("mission15", Init_Mission15, Watch_Mission15);  break;
-        case 16: kasMissionStart("mission16", Init_Mission16, Watch_Mission16);  break;
-#endif
-        default:
-            dbgFatalf(DBG_Loc,"\nUnsupported mission #%d",missionnum);
-            break;
-    }
-}
-
-bool hyperspaceAtEndOfSinglePlayerNIS = FALSE;
-
-void RotatePlayersFleetAbout(Player *player,vector about,real32 deg)
-{
-    Node *objnode;
-    Ship *ship;
-    vector position;
-    vector rotatedposition;
-    matrix rotzmat;
-    real32 rot = DEG_TO_RAD(deg);
-
-    objnode = universe.ShipList.head;
-    while (objnode != NULL)
-    {
-        ship = (Ship *)listGetStructOfNode(objnode);
-        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
-
-        if (ship->playerowner == player)
-        {
-            vecSub(position,ship->posinfo.position,about);
-
-            matMakeRotAboutZ(&rotzmat,(real32)cos(rot),(real32)sin(rot));
-
-            matMultiplyMatByVec(&rotatedposition,&rotzmat,&position);
-            vecAdd(ship->posinfo.position,about,rotatedposition);
-
-            univRotateObjYaw((SpaceObjRot *)ship,rot);
-        }
-
-        objnode = objnode->next;
-    }
-}
-
-/*-----------------------------------------------------------------------------
-    Name        : FindShipsOfShipTypeOfPlayer
-    Description : finds ships of shiptype and owned by player, puts them in growselect
-    Inputs      : growselect, shiptype, player
-    Outputs     :
-    Return      :
-----------------------------------------------------------------------------*/
-void FindShipsOfShipTypeOfPlayer(GrowSelection *growselect,ShipType shiptype,Player *player)
-{
-    Node *node;
-    Ship *ship;
-
-    for (node = universe.ShipList.head; node != NULL; node = node->next)
-    {
-        ship = (Ship *)listGetStructOfNode(node);
-        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
-
-        if ((ship->playerowner == player) && (ship->shiptype == shiptype))
-        {
-            growSelectAddShip(growselect,ship);
-        }
-    }
-}
 
 void singlePlayerNisStoppedCB(void)
 {
@@ -3397,6 +3437,63 @@ void singlePlayerStartNis(char *nisname, char *scriptname, bool centreMothership
     nisTaskResume();
 }
 
+
+void RotatePlayersFleetAbout(Player *player,vector about,real32 deg)
+{
+    Node *objnode;
+    Ship *ship;
+    vector position;
+    vector rotatedposition;
+    matrix rotzmat;
+    real32 rot = DEG_TO_RAD(deg);
+
+    objnode = universe.ShipList.head;
+    while (objnode != NULL)
+    {
+        ship = (Ship *)listGetStructOfNode(objnode);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
+
+        if (ship->playerowner == player)
+        {
+            vecSub(position,ship->posinfo.position,about);
+
+            matMakeRotAboutZ(&rotzmat,(real32)cos(rot),(real32)sin(rot));
+
+            matMultiplyMatByVec(&rotatedposition,&rotzmat,&position);
+            vecAdd(ship->posinfo.position,about,rotatedposition);
+
+            univRotateObjYaw((SpaceObjRot *)ship,rot);
+        }
+
+        objnode = objnode->next;
+    }
+}
+
+/*-----------------------------------------------------------------------------
+    Name        : FindShipsOfShipTypeOfPlayer
+    Description : finds ships of shiptype and owned by player, puts them in growselect
+    Inputs      : growselect, shiptype, player
+    Outputs     :
+    Return      :
+----------------------------------------------------------------------------*/
+void FindShipsOfShipTypeOfPlayer(GrowSelection *growselect,ShipType shiptype,Player *player)
+{
+    Node *node;
+    Ship *ship;
+
+    for (node = universe.ShipList.head; node != NULL; node = node->next)
+    {
+        ship = (Ship *)listGetStructOfNode(node);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
+
+        if ((ship->playerowner == player) && (ship->shiptype == shiptype))
+        {
+            growSelectAddShip(growselect,ship);
+        }
+    }
+}
+
+
 #define MAXLINENEED 100
 
 sdword WarpToLevelEnabled()
@@ -3617,51 +3714,70 @@ void singleHackResearchWarp(void)
 {
     switch (warpLevel)
     {
-        case 16:
-        case 15:
+        // no breaks and reverse mission order so that you inherit
+        // technology gains from previous levels
+        // FIXME: this doesn't play nicely with the mission sequence
+        // if that is altered
+        case MISSION_16_HIIGARA:
+        case MISSION_15_CHAPEL_PERILOUS:
             PlayerAcquiredTechnology("HeavyGuns");
-        case 14:
+        
+        case MISSION_14_BRIDGE_OF_SIGHS:
             AllowPlayerToResearch("HeavyGuns");
             PlayerAcquiredTechnology("CloakDefenseFighter");
-        case 13:
+        
+        case MISSION_13_THE_KAROS_GRAVEYARD:
             PlayerAcquiredTechnology("MissileWeapons");
             AllowPlayerToResearch("CloakDefenseFighter");
-        case 12:
+        
+        case MISSION_12_GALACTIC_CORE:
             PlayerAcquiredTechnology("GravityWellGeneratorTech");
-        case 11:
+        
+        case MISSION_11_TENHAUSER_GATE:
             AllowPlayerToResearch("GravityWellGeneratorTech");
             PlayerAcquiredTechnology("ProximityDetector");
             PlayerAcquiredTechnology("RepairTech");
-        case 10:
+        
+        case MISSION_10_SUPER_NOVA_STATION:
             AllowPlayerToResearch("RepairTech");
             AllowPlayerToResearch("MissileWeapons");
-        case 9:
+        
+        case MISSION_9_SEA_OF_LOST_SOULS:
             PlayerAcquiredTechnology("DDDFDFGFTech");
             PlayerAcquiredTechnology("TargetingSystems");
-        case 8:
+        
+        case MISSION_8_THE_CATHEDRAL_OF_KADESH:
             AllowPlayerToResearch("TargetingSystems");
-        case 7:
+        
+        case MISSION_7_THE_GARDENS_OF_KADESH:
             AllowPlayerToResearch("DDDFDFGFTech");
             PlayerAcquiredTechnology("MassDrive1Mt");
             PlayerAcquiredTechnology("FireControl");
-        case 6:                                       // Mission 06: GIVE: Plasma Weapons
+            
+        case MISSION_6_DIAMOND_SHOALS:
             PlayerAcquiredTechnology("PlasmaWeapons");
             AllowPlayerToResearch("MassDrive1Mt");
             AllowPlayerToResearch("FireControl");
-        case 5:                                       // Mission 05: GIVE: Capital Ship Chassis, Ion Weapons, ALLOW: Plasma Weapons
+            
+        case MISSION_5_GREAT_WASTELANDS_REVENGE:
+        case MISSION_5B_TURANIC_RAIDER_PLANETOID:
             AllowPlayerToResearch("PlasmaWeapons");
             PlayerAcquiredTechnology("Chassis3");
             PlayerAcquiredTechnology("IonWeapons");
-        case 4:                                       // Mission 04: GIVE: Capital Ship Drive, ALLOW: Capital Ship Chassis
+            
+        case MISSION_4_GREAT_WASTELANDS_TRADERS:
             PlayerAcquiredTechnology("MassDrive100Kt");
             AllowPlayerToResearch("Chassis3");
-        case 3:                                       // Mission 03: GIVE: Corvette Chassis, Heavy Corvette
+            
+        case MISSION_3_RETURN_TO_KHARAK:
             PlayerAcquiredTechnology("Chassis2");
             PlayerAcquiredTechnology("MediumGuns");
-        case 2:                                       // Mission 02: GIVE: Fighter Chassis, Corvette Drive
+            
+        case MISSION_2_OUTSKIRTS_OF_KHARAK_SYSTEM:
             PlayerAcquiredTechnology("Chassis1");
             PlayerAcquiredTechnology("MassDrive10Kt");
-        case 1:                                       // Mission 01, GIVE: Fighter Drive, ALLOW: Fighter Chassis
+            
+        case MISSION_1_KHARAK_SYSTEM:
             PlayerAcquiredTechnology("MassDrive1Kt");
             AllowPlayerToResearch("Chassis1");
     }
@@ -3678,13 +3794,13 @@ void singlePlayerStartGame(void)
 
     if (warpLevel)
     {
-        dbgAssertOrIgnore(singlePlayerGameInfo.currentMission == warpLevel);
+        dbgAssertOrIgnore(spGetCurrentMission() == warpLevel);
 
         universeSwitchToPlayer(0);
 
-        GetMissionsDirAndFile(singlePlayerGameInfo.currentMission);
+        GetMissionsDirAndFile(spGetCurrentMission());
 
-        SetFleetModifier(singlePlayerGameInfo.currentMission, GetFleetStrengthWarpScript);
+        SetFleetModifier(spGetCurrentMission(), GetFleetStrengthWarpScript);
         levelStartNext(spMissionsDir,spMissionsFile);
 
         GetStartPointPlayer(&startPoint);
@@ -3698,7 +3814,7 @@ void singlePlayerStartGame(void)
 
         soundEventPlayMusic(SongNumber);
 
-        singlePlayerKasMissionStart(singlePlayerGameInfo.currentMission);
+        singlePlayerKasMissionStart(spGetCurrentMission());
 
         if (singlePlayerGameInfo.onLoadPlayNIS > 0)
         {
@@ -3714,12 +3830,13 @@ void singlePlayerStartGame(void)
 
     tmTechInit();
     spFleetModifier = 0.0f;
-    GetMissionsDirAndFile(1);
+    GetMissionsDirAndFile(spGetCurrentMission());
     levelInit(spMissionsDir,spMissionsFile);
     singlePlayerLevelLoaded();
-    singlePlayerKasMissionStart(1);
+    singlePlayerKasMissionStart(spGetCurrentMission());
     GetStartPointPlayer(&startPoint);
-    singlePlayerNISNamesGet(&nis, &script, &centre, 1);
+    
+    singlePlayerNISNamesGet(&nis, &script, &centre, spOldMissionNumber(spGetCurrentMission()));
     singlePlayerStartNis(nis, script, centre, &startPoint);
 }
 
@@ -3729,7 +3846,7 @@ void singlePlayerNextLevel(void)
     char *nis, *script;
     bool centre;
 
-    if (singlePlayerGameInfo.currentMission == 16)
+    if (spGetCurrentMission() == MISSION_16_HIIGARA)
     {
         singlePlayerMissionCompleteCB();
         return;
@@ -3868,13 +3985,16 @@ void spNISletTestAttempt(sdword index)
         dbgMessage("index < 0 || index >= NUMBER_SINGLEPLAYER_MISSIONS");
         return;
     }
-    if (nisletNames[singlePlayerGameInfo.currentMission - 1].name[index] == NULL)
+    if (nisletNames[singlePlayerCurrentMissionIndex].name[index] == NULL)
     {
-        dbgMessagef("nisletNames[%d].name[%d] == NULL", singlePlayerGameInfo.currentMission - 1, index);
+        dbgMessagef("nisletNames[%d].name[%d] == NULL", singlePlayerCurrentMissionIndex, index);
         return;
     }
     GetStartPointPlayer(&startpoint);
-    singlePlayerNISletNamesGet(&nis, &script, singlePlayerGameInfo.currentMission * 10 + index);
+
+    singlePlayerNISletNamesGet(&nis, &script,
+        (spOldMissionNumber(spGetCurrentMission()) * 10) + index);
+
     if (!fileExists(nis, 0))
     {
         dbgMessagef("'%s' not found.", nis);

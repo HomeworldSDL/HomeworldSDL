@@ -7247,7 +7247,7 @@ void clAutoLaunch(udword OnOff,udword playerIndex)
         }
     }
 
-    if (speechevent && (singlePlayerGameInfo.currentMission != 16))
+    if (speechevent && (spGetCurrentMission() != MISSION_16_HIIGARA))
     {                  //fleet command is out of commission in Mission 16, so don't play this
         speechEventFleet(COMM_F_AutolaunchOn, 0, playerIndex);
     }

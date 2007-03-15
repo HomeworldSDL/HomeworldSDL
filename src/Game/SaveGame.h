@@ -14,9 +14,12 @@
 #include "Types.h"
 
 #define SAVE_VERSION_NUMBER_ORIGINAL    0x10ad0027  // save game version for original Homeworld (Relic)
-#define SAVE_VERSION_NUMBER_HWSDL       0x10ad0028  // save game version for Homeworld SDL project
 
-#define SAVE_VERSION_NUMBER             SAVE_VERSION_NUMBER_HWSDL
+#define SAVE_VERSION_NUMBER_HWSDL_1     0x10ad0028  // => (20031124) bump for Homeworld SDL project
+#define SAVE_VERSION_NUMBER_HWSDL_2     0x10ad0029  // => (20061214) currentMission -> MissionEnum
+
+// don't forget to update SaveGame.c: supportedVersionNumbers[] if you change this
+#define SAVE_VERSION_NUMBER             SAVE_VERSION_NUMBER_HWSDL_2
 
 #define BASIC_STRUCTURE                 0x80000000
 #define VARIABLE_STRUCTURE              0x40000000

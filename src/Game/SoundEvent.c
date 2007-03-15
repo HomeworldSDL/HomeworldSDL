@@ -782,9 +782,7 @@ void soundEventInit(void)
     }
 
 #if SPEECH
-#ifndef _MACOSX_FIX_ME
     if (enableSpeech)
-#endif
     {
         if (speechEventInit() != SOUND_OK)
         {

@@ -67,10 +67,8 @@ extern sword tmTechResearchable[TM_NUM_TECHS];
 void tmStartup(void);
 void tmShutdown(void);
 
+void tmTechInit(void);
 void tmReset(void);
-
-
-
 void tmClearTechs(void);
 
 

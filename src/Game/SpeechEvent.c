@@ -71,8 +71,6 @@
 
 #define MAX_RELIC_NAMES     33
 
-#define SPEECH_SUPERNOVA_LEVEL  10
-
 /*=============================================================================
     Structures
 =============================================================================*/
@@ -823,7 +821,7 @@ void speechPlayQueue(SPEECHQUEUE *pSQueue, sdword streamchannel)
             mixedeffect[SPEECH_STRIKECRAFT].nBreakMaxRate = damageeffect.nBreakMaxRate;     //(udword)((real32)damageeffect.nBreakMaxRate * mult);
             mixedeffect[SPEECH_STRIKECRAFT].nBreakMaxDur = (udword)((real32)damageeffect.nBreakMaxDur - ((real32)damageeffect.nBreakMaxDur * mult));
 
-            if (singlePlayerGameInfo.currentMission == SPEECH_SUPERNOVA_LEVEL)
+            if (spGetCurrentMission() == MISSION_10_SUPER_NOVA_STATION)
             {
                 /* use the quantize noise */
                 mixedeffect[SPEECH_STRIKECRAFT].nQNoiseMaxRate = (udword)(damageeffect.nQNoiseMaxRate * SPEECH_STIKEDAMAGE_MULT);
@@ -867,7 +865,7 @@ void speechPlayQueue(SPEECHQUEUE *pSQueue, sdword streamchannel)
             mixedeffect[SPEECH_CAPSHIPS].nBreakMaxRate = damageeffect.nBreakMaxRate;    //(udword)((real32)damageeffect.nBreakMaxRate * mult);
             mixedeffect[SPEECH_CAPSHIPS].nBreakMaxDur = (udword)((real32)damageeffect.nBreakMaxDur - ((real32)damageeffect.nBreakMaxDur * mult));   //(udword)(damageeffect.nBreakMaxDur * mult);
 
-            if (singlePlayerGameInfo.currentMission == SPEECH_SUPERNOVA_LEVEL)
+            if (spGetCurrentMission() == MISSION_10_SUPER_NOVA_STATION)
             {
                 /* use the quantize noise */
                 mixedeffect[SPEECH_CAPSHIPS].nQNoiseMaxRate = (udword)(damageeffect.nQNoiseMaxRate * SPEECH_CAPDAMAGE_MULT);

@@ -145,7 +145,7 @@ bool ResourceMovingTooFast(Resource *resource)
 {
     real32 maxvelocitychase = MAX_RESOURCE_VELOCITY_TO_CHASE;
 
-    if (singlePlayerGame && (singlePlayerGameInfo.currentMission == 6))
+    if (singlePlayerGame && (spGetCurrentMission() == MISSION_6_DIAMOND_SHOALS))
     {
         maxvelocitychase = MAX_RESOURCE_VELOCITY_TO_CHASE_LEVEL6;
     }

@@ -124,7 +124,8 @@ void kasfMissionCompleted(void)
         // if you want to finish a level without hyperspacing, you put the stuff that happens here
         speechEventCleanup();
         singlePlayerMissionCompleteCB();
-        animBinkPlay(singlePlayerGameInfo.currentMission, singlePlayerGameInfo.currentMission + 1);
+        
+        animBinkPlay(spGetCurrentMission(), spGetNextMission());
     }
 }
 

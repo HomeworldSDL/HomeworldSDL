@@ -2721,14 +2721,14 @@ sdword aimProcessSwarmAttack(AITeam *team)
                 bitClear(team->teamFlags, TEAM_SwarmTarget);
             }
         }
-        else if (singlePlayerGameInfo.currentMission == 8)
+        else if (spGetCurrentMission() == MISSION_8_THE_CATHEDRAL_OF_KADESH)
         {
             //uses normal code to find swarm targets in mission 8
             targets = aiuFindSwarmTargets(teamShips, randyrandombetween(RANDOM_AI_PLAYER, 1, 3), FALSE);
         }
         else
         {
-            //uses harass code to find target in mission 7
+            //uses harass code to find target in MISSION_7_GARDENS_OF_KADESH
             targets = aiuFindSwarmTargets(teamShips, 1, TRUE);
         }
 
@@ -2931,7 +2931,7 @@ sdword aimProcessSwarmPod(AITeam *team)
         }
 
         // mothership assault code
-/*        if (singlePlayerGameInfo.currentMission == 8)
+/*        if (spGetCurrentMission() == MISSION_8_CATHEDRAL_OF_KADESH)
         {
             if (!thisMove->processing)
             {

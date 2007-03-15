@@ -3051,7 +3051,7 @@ void universeStaticInit(void)
     {
         if (singlePlayerGame)
         {
-            fprintf(logFile, "\n-----------\nCurrent level = %d\n", singlePlayerGameInfo.currentMission);
+            fprintf(logFile, "\n-----------\nCurrent level = %d\n", spGetCurrentMission());
         }
     }
 #endif

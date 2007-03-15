@@ -2441,8 +2441,11 @@ void rndMainViewRenderFunction(Camera *camera)
         primErrorMessagePrint();
         glDisable(GL_DEPTH_TEST);                           //and infinitely far away
         primErrorMessagePrint();
-        if (singlePlayerGame && singlePlayerGameInfo.currentMission == 13)
+        if (singlePlayerGame && spGetCurrentMission() == MISSION_13_THE_KAROS_GRAVEYARD)
         {
+            // third arg = draw stars => don't draw stars at Karos graveyard since the large
+            // hulks would obscure them but if we're not drawing backgrounds for performance
+            // reasons anyway, then draw stars to provide player with orientation reference
             rndBackgroundRender(BG_RADIUS, camera, !showBackgrounds);
         }
         else

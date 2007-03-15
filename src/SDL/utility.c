@@ -1985,12 +1985,12 @@ void gameStart(char *loadfilename)
     }
     else
     {
-        //loadfilename == NULL then singlePlayerGameInfo.currentMission set from singlePlayerInit called earlier
-        //else loadfilename != NULL then singlePlayerGameInfo.currentMission will be set from PreLoadGame
+        //loadfilename == NULL then spGetCurrentMission() set from singlePlayerInit called earlier
+        //else loadfilename != NULL then spGetCurrentMission() will be set from PreLoadGame
         //!!!do a pass on the first SP level and find what ships/textures are needed
         if (loadfilename == NULL)
         {
-            GetMissionsDirAndFile(singlePlayerGameInfo.currentMission);
+            GetMissionsDirAndFile(spGetCurrentMission());
             levelPreInit(spMissionsDir, spMissionsFile);
         }
         // else PreLoadGame already figures out what ships we need to load

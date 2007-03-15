@@ -28,7 +28,7 @@
 #include "Tutor.h"
 #include "Universe.h"
 
-sdword animaticJustPlayed = 0;
+sdword animaticJustPlayed = 0;  // actually a decremented counter for delaying purposes
 
 static sdword g_frame;
 
@@ -758,7 +758,7 @@ bool animBinkPlay(sdword a, sdword b)
                     animBinkDecode,
                     (trLitPaletteBits == 15) ? S_RGB555 : S_RGB565,
                     FALSE, -1);
-#endif // _MACOSX_FIX_ME
+#endif
 
 #ifndef _WIN32
 	animBinkDisplay();
@@ -782,12 +782,11 @@ bool animBinkPlay(sdword a, sdword b)
 ----------------------------------------------------------------------------*/
 bool animAviPlay(sdword a, sdword b)
 {
-
 #if AVI_VERBOSE_LEVEL >= 2
     dbgMessage("animAviPlay: Entering");
 #endif
 
-    bool rval = 1;
+    bool rval = TRUE;
 
 #ifdef HW_ENABLE_MOVIES
 
@@ -854,7 +853,9 @@ bool animAviPlay(sdword a, sdword b)
     animAviEnd();
 
 #endif   // HW_ENABLE_MOVIES
-    return rval;
 
+	animaticJustPlayed = 8;
+
+    return rval;
 }
 

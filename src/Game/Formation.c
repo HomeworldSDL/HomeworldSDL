@@ -592,7 +592,7 @@ void formationSpecificsSphere(CommandToDo *command)
     {
         sphereRadius = shipRadius + ((ProximitySensorStatics *) ((ShipStaticInfo *)(selection->ShipPtr[1]->staticinfo))->custstatinfo)->SearchRadius;
     }
-    else if (singlePlayerGame && singlePlayerGameInfo.currentMission == 14 && /*numShips > 20*/(selection->ShipPtr[0]->playerowner->playerIndex) && selection->ShipPtr[0]->shiptype == IonCannonFrigate)
+    else if (singlePlayerGame && spGetCurrentMission() == MISSION_14_BRIDGE_OF_SIGHS && /*numShips > 20*/(selection->ShipPtr[0]->playerowner->playerIndex) && selection->ShipPtr[0]->shiptype == IonCannonFrigate)
     {                                                                         //^^^^^^^^^^^^^  special case changed to be more general
         sphereRadius = SINGLEPLAYER_MISSION14_SPHERE_OVERRIDE;
     }

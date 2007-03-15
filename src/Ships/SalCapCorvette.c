@@ -818,7 +818,7 @@ void salCapHarvestTarget(SpaceObjRotImpTargGuidanceShipDerelict *target,Ship *do
            (((Ship *)target)->shiptype == TargetDrone) ||
            (singlePlayerGame &&
             (((Ship *)target)->shiptype == StandardFrigate) &&
-            (singlePlayerGameInfo.currentMission == 3) &&
+            (spGetCurrentMission() == MISSION_3_RETURN_TO_KHARAK) &&
             (!spm3AlreadySalvaged)))
         {
             //don't capture research ships
