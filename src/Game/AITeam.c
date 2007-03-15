@@ -253,7 +253,9 @@ void GenericCooperatingTeamDiedCB(AITeam *team)
     Some Save Game here
 =============================================================================*/
 
-#pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#endif
 
 void PreFixCooperatingTeamDiedCB(AITeam *team)
 {
@@ -290,7 +292,9 @@ void FixCooperatingTeamDiedCB(AITeam *team)
     }
 }
 
-#pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#endif
 
 /*=============================================================================
     End of Some Save Game stuff
@@ -2310,7 +2314,9 @@ void aitMsgQueueFree(AITeam *teamp)
     Save Game stuff here on
 =============================================================================*/
 
-#pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#endif
 
 AITeam *savingThisAITeam = NULL;
 
@@ -2609,5 +2615,7 @@ void aitFix(struct AIPlayer *aiplayer)
     }
 }
 
-#pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#endif
 

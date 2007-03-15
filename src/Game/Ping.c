@@ -148,7 +148,9 @@ pingTOList[PTO_NumberTOs] =
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-#pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
+#ifndef _LINUX_FIX_ME
+ #pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
+#endif
 void pingUpdateTask(void)
 {
     static Node *thisNode, *nextNode;
@@ -185,7 +187,9 @@ void pingUpdateTask(void)
         taskYield(0);
     }
 }
-#pragma optimize("", on)
+#ifndef _LINUX_FIX_ME
+ #pragma optimize("", on)
+#endif
 
 /*-----------------------------------------------------------------------------
     Name        : pingStartup
@@ -1066,7 +1070,9 @@ void pingBattlePingsCreate(LinkedList *blobList)
     Save Game Stuff
 =============================================================================*/
 
-#pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#endif
 
 void SaveAnomalyPing(ping *tping)
 {
@@ -1165,7 +1171,9 @@ void pingLoad(void)
     }
 }
 
-#pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#endif
 
 /*=============================================================================
     End of Save Game Stuff

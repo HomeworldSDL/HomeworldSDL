@@ -6055,7 +6055,9 @@ void mgProcessKickedOut(void)
     GameCreator     = FALSE;
 }
 
-#pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
+#ifndef _LINUX_FIX_ME
+ #pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
+#endif
 void mgProcessCallBacksTask(void)
 {
 #ifndef _MACOSX_FIX_ME
@@ -6379,7 +6381,9 @@ void mgProcessCallBacksTask(void)
     }
 #endif // _MACOSX_FIX_ME
 }
-#pragma optimize("", on)
+#ifndef _LINUX_FIX_ME
+ #pragma optimize("", on)
+#endif
 
 /*=============================================================================
     Startup the multiplayer game screens and display the connection screen:

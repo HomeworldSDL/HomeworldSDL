@@ -1037,26 +1037,28 @@ void processFormationToDo(struct CommandToDo *formationtodo,bool steadyFormation
                 }
 
                 if(!bitTest(ship->specialFlags,SPECIAL_BrokenFormation))
-                if (dontrotate)
                 {
-                    if (steadyFormation)
+                    if (dontrotate)
                     {
-                        FormationShipJustMoveSteady(desiredposition)
+                        if (steadyFormation)
+                        {
+                            FormationShipJustMoveSteady(desiredposition)
+                        }
+                        else
+                        {
+                            FormationShipJustMove(desiredposition)
+                        }
                     }
                     else
                     {
-                        FormationShipJustMove(desiredposition)
-                    }
-                }
-                else
-                {
-                    if (steadyFormation)
-                    {
-                        FormationShipMoveToSteady(desiredposition,heading)
-                    }
-                    else
-                    {
-                        FormationShipMoveTo(desiredposition,heading)
+                        if (steadyFormation)
+                        {
+                            FormationShipMoveToSteady(desiredposition,heading)
+                        }
+                        else
+                        {
+                            FormationShipMoveTo(desiredposition,heading)
+                        }
                     }
                 }
             }
@@ -1136,46 +1138,48 @@ void processFormationToDo(struct CommandToDo *formationtodo,bool steadyFormation
                 }
 
                 if(!bitTest(ship->specialFlags,SPECIAL_BrokenFormation))
-                if (dontrotate)
                 {
-                    if (steadyFormation)
+                    if (dontrotate)
                     {
-                        FormationShipJustMoveSteady(desiredposition)
-                    }
-                    else
-                    {
-                        if (protectsurround)
+                        if (steadyFormation)
                         {
-                            FormationShipJustMoveNotToObscuredPoints(desiredposition)
+                            FormationShipJustMoveSteady(desiredposition)
                         }
                         else
                         {
-                            FormationShipJustMove(desiredposition)
-                        }
-                    }
-                }
-                else
-                {
-                    if (steadyFormation)
-                    {
-                        FormationShipMoveToSteady(desiredposition,ship->formationHeading)
-                    }
-                    else
-                    {
-                        if (protectsurround)
-                        {
-                            if (leader->posinfo.isMoving & ISMOVING_MOVING)
+                            if (protectsurround)
                             {
-                                FormationShipMoveToNotToObscuredPoints(desiredposition,heading);
+                                FormationShipJustMoveNotToObscuredPoints(desiredposition)
                             }
                             else
                             {
-                                FormationShipMoveToNotToObscuredPoints(desiredposition,ship->formationHeading);
+                                FormationShipJustMove(desiredposition)
                             }
+                        }
+                    }
+                    else
+                    {
+                        if (steadyFormation)
+                        {
+                            FormationShipMoveToSteady(desiredposition,ship->formationHeading)
                         }
                         else
                         {
-                            FormationShipMoveTo(desiredposition,heading)
+                            if (protectsurround)
+                            {
+                                if (leader->posinfo.isMoving & ISMOVING_MOVING)
+                                {
+                                    FormationShipMoveToNotToObscuredPoints(desiredposition,heading);
+                                }
+                                else
+                                {
+                                    FormationShipMoveToNotToObscuredPoints(desiredposition,ship->formationHeading);
+                                }
+                            }
+                            else
+                            {
+                                FormationShipMoveTo(desiredposition,heading)
+                            }
                         }
                     }
                 }

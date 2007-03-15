@@ -73,7 +73,9 @@ sdword taskLargestLocals = 0;
 /*=============================================================================
     Functions:
 =============================================================================*/
-#pragma optimize("gy", off)                       //turn on stack frame (we need ebp for these functions)
+#ifndef _LINUX_FIX_ME
+ #pragma optimize("gy", off)                       //turn on stack frame (we need ebp for these functions)
+#endif
 /*-----------------------------------------------------------------------------
     Test task function
 -----------------------------------------------------------------------------*/

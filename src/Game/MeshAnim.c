@@ -771,7 +771,9 @@ void madAnimBindingMatrix(matrix *destMatrix, vector *destPos, Ship *ship, sdwor
     Save Game Stuff:
 =============================================================================*/
 
-#pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#endif
 
 void PreFix_madBindings(Ship *ship,Ship *fixcontents)
 {
@@ -844,5 +846,7 @@ void Fix_madBindings(Ship *ship)
     }
 }
 
-#pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#endif
 

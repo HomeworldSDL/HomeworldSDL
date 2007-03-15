@@ -334,7 +334,9 @@ void IDToPtrTableAdd(IDToPtrTable *table,uword ID,SpaceObj *obj)
 /*=============================================================================
     Save Game Stuff
 =============================================================================*/
-#pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#endif
 
 typedef struct SaveIDToPtrTableStruct {
     sdword num;
@@ -397,7 +399,9 @@ void LoadIDToPtrTable(IDToPtrTable *table)
     memFree(chunk);
 }
 
-#pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#endif
 /*=============================================================================
     Save Game Stuff End
 =============================================================================*/

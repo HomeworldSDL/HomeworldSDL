@@ -227,14 +227,18 @@ void aimFix_GetShips(AITeamMove *move)
     move->params.getShips.doneVar = NumberToAIVar((sdword)move->params.getShips.doneVar);
 }
 
-#pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#endif
 
 void aimPreFix_GetShips(AITeamMove *move)
 {
     move->params.getShips.doneVar = (AIVar*)AIVarToNumber(move->params.getShips.doneVar);
 }
 
-#pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#endif
 
 sdword aimProcessVarWait(AITeam *team)
 {
@@ -3782,14 +3786,18 @@ void aimFix_Intercept(AITeamMove *move)
     move->params.intercept.ship = SpaceObjRegistryGetShip((sdword)move->params.intercept.ship);
 }
 
-#pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#endif
 
 void aimPreFix_Intercept(AITeamMove *move)
 {
     move->params.intercept.ship = (ShipPtr)SpaceObjRegistryGetID((SpaceObj *)move->params.intercept.ship);
 }
 
-#pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#endif
 
 /*-----------------------------------------------------------------------------
     Name        : aimCreateMoveTo
@@ -3973,14 +3981,18 @@ AITeamMove *aimCreateAdvancedAttack(AITeam *team, SelectCommand *target, TypeOfF
     return newMove;
 }
 
-#pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#endif
 
 void aimPreFix_AdvancedAttack(AITeamMove *move)
 {
     move->params.advatt.target_ship = (Ship*)SpaceObjRegistryGetID((SpaceObj *)move->params.advatt.target_ship);
 }
 
-#pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#endif
 
 void aimSave_AdvancedAttack(AITeamMove *move)
 {
@@ -4035,14 +4047,18 @@ AITeamMove *aimCreateMoveAttack(AITeam *team, SelectCommand *targets, bool Advan
     return newMove;
 }
 
-#pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#endif
 
 void aimPreFix_MoveAttack(AITeamMove *move)
 {
     move->params.moveatt.target_ship = (Ship*)SpaceObjRegistryGetID((SpaceObj *)move->params.moveatt.target_ship);
 }
 
-#pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#endif
 
 
 void aimFix_MoveAttack(AITeamMove *move)
@@ -4092,14 +4108,18 @@ void aimFix_HarassAttack(AITeamMove *move)
     move->params.harass.target = SpaceObjRegistryGetShip((sdword)move->params.harass.target);
 }
 
-#pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#endif
 
 void aimPreFix_HarassAttack(AITeamMove *move)
 {
     move->params.harass.target = (ShipPtr)SpaceObjRegistryGetID((SpaceObj *)move->params.harass.target);
 }
 
-#pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#endif
 
 /*-----------------------------------------------------------------------------
     Name        : aimCreateDock
@@ -4136,14 +4156,18 @@ AITeamMove *aimCreateDock(AITeam *team, sdword dockmoveFlags, ShipPtr dockAt, bo
     return newMove;
 }
 
-#pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#endif
 
 void aimPreFix_Dock(AITeamMove *move)
 {
     move->params.dock.dockAt = (ShipPtr)SpaceObjRegistryGetID((SpaceObj *)move->params.dock.dockAt);
 }
 
-#pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#endif
 
 void aimFix_Dock(AITeamMove *move)
 {
@@ -4248,7 +4272,9 @@ AITeamMove *aimCreatePatrolMove(AITeam *team, Path *path, udword startIndex,
     return newMove;
 }
 
-#pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#endif
 
 void aimFix_PatrolMove(AITeamMove *move)
 {
@@ -4261,7 +4287,9 @@ void aimPreFix_PatrolMove(AITeamMove *move)
     move->params.patrolmove.loopMove = (AITeamMove*)ConvertPointerInListToNum(&savingThisAITeam->moves,move->params.patrolmove.loopMove);
 }
 
-#pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#endif
 
 void aimSave_PatrolMove(AITeamMove *move)
 {
@@ -4382,7 +4410,9 @@ AITeamMove *aimCreateReinforce(AITeam *team, AITeam *reinforceteam, TypeOfFormat
     return newMove;
 }
 
-#pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#endif
 
 void aimFix_Reinforce(AITeamMove *move)
 {
@@ -4395,7 +4425,9 @@ void aimPreFix_Reinforce(AITeamMove *move)
     move->params.reinforce.reinforceteam = (AITeam *)AITeamToTeamIndex(move->params.reinforce.reinforceteam);
 }
 
-#pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#endif
 
 /*-----------------------------------------------------------------------------
     Name        : aimCreateSupport
@@ -5995,7 +6027,9 @@ AITeamMove *aimCreateFancyGetShips(AITeam *team, ShipType shiptype, sbyte num_sh
     return newMove;
 }
 
-#pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#endif
 
 void aimFix_FancyGetShips(AITeamMove *move)
 {
@@ -6008,5 +6042,7 @@ void aimPreFix_FancyGetShips(AITeamMove *move)
     move->params.fancyGetShips.doneVar = (AIVar *)AIVarToNumber(move->params.fancyGetShips.doneVar);
 }
 
-#pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#endif
 

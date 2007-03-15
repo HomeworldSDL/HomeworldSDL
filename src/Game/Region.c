@@ -912,7 +912,9 @@ udword regRegionProcess(regionhandle reg, udword mask)
     Outputs     : ..
     Return      : void
 ----------------------------------------------------------------------------*/
-#pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
+#ifndef _LINUX_FIX_ME
+  #pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
+#endif
 void regProcessTask(void)
 {
     taskYield(0);
@@ -956,7 +958,9 @@ void regProcessTask(void)
 
     taskExit();
 }
-#pragma optimize("", on)
+#ifndef _LINUX_FIX_ME
+ #pragma optimize("", on)
+#endif
 
 /*-----------------------------------------------------------------------------
     Test processing functions:

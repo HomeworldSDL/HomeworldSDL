@@ -1507,7 +1507,9 @@ void aiplayerAddLeader(AIPlayer *aiplayer, ShipPtr ship)
     Save Game Stuff
 =============================================================================*/
 
-#pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#endif
 
 AIPlayer *fixingThisAIPlayer;
 
@@ -1874,6 +1876,8 @@ void aiplayerLoad(void)
     aiCurrentAIPlayer = NumberToAIPlayer(number);
 }
 
-#pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#endif
 
 

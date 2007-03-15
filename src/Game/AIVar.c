@@ -37,7 +37,9 @@ void aivarShutdown(void)
         sdword i;
         for (i=0;i<varsUsed;i++)
         {
+#if AI_VERBOSE_LOGGING 
             dbgMessagef("WARNING: vars[%d] %s not closed", i, vars[i]->label);
+#endif
             memFree(vars[i]);
         }
         memFree(vars);

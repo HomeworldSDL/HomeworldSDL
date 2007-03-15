@@ -2034,7 +2034,9 @@ typedef struct
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-#pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
+#ifndef _LINUX_FIX_ME
+ #pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
+#endif
 void captainServerTask(void)
 {
     static QInfo *qinfos;
@@ -2173,7 +2175,9 @@ donecap:;
 
     taskExit();
 }
-#pragma optimize("", on)
+#ifndef _LINUX_FIX_ME
+ #pragma optimize("", on)
+#endif
 
 /*-----------------------------------------------------------------------------
     Name        : SendTransferCaptaincyPacket

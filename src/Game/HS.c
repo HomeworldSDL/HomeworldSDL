@@ -1057,7 +1057,9 @@ void hsNoGate(bool state)
     Save Game stuff
 =============================================================================*/
 
-#pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#endif
 
 void hsPreFixStaticData(ubyte *data)
 {
@@ -1145,6 +1147,8 @@ void LoadHyperspaceGates()
     memFree(data);
 }
 
-#pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#endif
 
 

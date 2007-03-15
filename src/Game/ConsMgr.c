@@ -1126,7 +1126,9 @@ void cmRemoveFactory(struct Ship *ship)
 
 static bool resourcesHaveBeenAboveBefore = TRUE;
 
-#pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
+#ifndef _LINUX_FIX_ME
+ #pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
+#endif
 void cmBuildTaskFunction(void)
 {
     static sdword index;
@@ -1342,7 +1344,9 @@ void cmBuildTaskFunction(void)
         taskYield(0);
     }*/
 }
-#pragma optimize("", on)
+#ifndef _LINUX_FIX_ME
+ #pragma optimize("", on)
+#endif
 
 /*=============================================================================
     Functions:
@@ -4657,7 +4661,9 @@ void cmDeterministicBuildProcess(void)
     Save Game Stuff:
 =============================================================================*/
 
-#pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#endif
 
 #define RaceAndTypeToRaceType(race,type) ( ((race)<<16) + (type) )
 #define GetRaceFromRaceType(racetype) ( ((racetype)>>16) & 0x0000ffff )
@@ -4857,4 +4863,6 @@ void LoadConsMgrDetermOptional()
     }
 }
 
-#pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#endif

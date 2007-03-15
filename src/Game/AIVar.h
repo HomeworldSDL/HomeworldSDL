@@ -9,6 +9,21 @@
 
 #include "Types.h"
 
+/*=============================================================================
+    Switches
+=============================================================================*/
+
+#ifdef HW_Debug
+
+#define AI_VERBOSE_LOGGING      1               //General error checking
+
+#else
+
+#define AI_VERBOSE_LOGGING      0               //General error checking
+
+#endif
+
+
 // INTERFACE -------------------------------------------------------------------
 
 #define AIVAR_LABEL_MAX_LENGTH 47

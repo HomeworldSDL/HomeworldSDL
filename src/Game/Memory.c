@@ -101,7 +101,9 @@ int memCookieNameSort(const void *p0, const void *p1)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-#pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
+#ifndef _LINUX_FIX_ME
+ #pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
+#endif
 void memStatsTaskFunction(void)
 {
     static sdword index, nPrinted;
@@ -139,7 +141,9 @@ void memStatsTaskFunction(void)
         taskYield(0);
     }
 }
-#pragma optimize("", on)
+#ifndef _LINUX_FIX_ME
+ #pragma optimize("", on)
+#endif
 
 /*-----------------------------------------------------------------------------
     Name        : memCookieNameAdd

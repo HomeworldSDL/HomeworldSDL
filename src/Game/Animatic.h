@@ -22,6 +22,9 @@ void animAviEnd(void);
 
 bool animBinkPlay(sdword a, sdword b);
 
+void animAviDecode(sdword frame);
+
+
 /*=============================================================================
     Switches
 =============================================================================*/

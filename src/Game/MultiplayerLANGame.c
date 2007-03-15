@@ -2586,7 +2586,9 @@ static void lgExplicitlyDeleteGameFromGameList(wchar_t *name)
 #endif
 }
 
-#pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
+#ifndef _LINUX_FIX_ME
+ #pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
+#endif
 void lgProcessCallBacksTask(void)
 {
     static sdword          sizeofpacket;
@@ -2753,7 +2755,9 @@ void lgProcessCallBacksTask(void)
         taskYield(0);
     }
 }
-#pragma optimize("", on)
+#ifndef _LINUX_FIX_ME
+ #pragma optimize("", on)
+#endif
 
 /*=============================================================================
     Startup the multiplayer game screens and display the connection screen:

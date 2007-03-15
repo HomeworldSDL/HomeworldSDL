@@ -428,7 +428,9 @@ void nisCameraFlyCompute(real32 timeElapsed)
 ----------------------------------------------------------------------------*/
 //void utyTeaserEnd(void);
 extern nisplaying *utyTeaserPlaying;
-#pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
+#ifndef _LINUX_FIX_ME
+ #pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
+#endif
 void nisUpdateTask(void)
 {
     static real32 newTime;
@@ -580,7 +582,9 @@ void nisUpdateTask(void)
         taskYield(0);
     }
 }
-#pragma optimize("", on)
+#ifndef _LINUX_FIX_ME
+ #pragma optimize("", on)
+#endif
 
 /*-----------------------------------------------------------------------------
     Name        : nisStartup
@@ -2671,7 +2675,9 @@ void nisDamageLevel(nisplaying *NIS, nisevent *event)
     goodShip->health = health * goodShip->staticinfo->maxhealth;
 }
 
-#pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#endif 
 void nisRemainAtEnd(nisplaying *NIS, nisevent *event)
 {
     bitSet(NIS->objectsInMotion[event->shipID].flags, OMF_RemainAtEnd);
@@ -2691,7 +2697,9 @@ void nisRemainAtEnd(nisplaying *NIS, nisevent *event)
         event->param[0] = 0;
     }
 }
-#pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#endif 
 
 void nisCameraFOV(nisplaying *NIS, nisevent *event)
 {
@@ -3586,7 +3594,9 @@ void nisAnimaticSpeechEventSet(char* directory, char* field, void* dataToFillIn)
         sscanf(nextString + 1, "%d", &event->param[1]);
     }
 }
-#pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#endif
 void nisRemainAtEndSet(char *directory,char *field,void *dataToFillIn)
 {
     char optionalTeamName[50];
@@ -3605,7 +3615,9 @@ void nisRemainAtEndSet(char *directory,char *field,void *dataToFillIn)
         event->param[0] = 0;
     }
 }
-#pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#endif
 
 void nisCameraFOVSet(char *directory,char *field,void *dataToFillIn)
 {
