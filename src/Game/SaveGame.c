@@ -61,7 +61,6 @@ sdword saveGameVersionNumber = 0;
 
 // all the save game format versions this binary supports
 sdword supportedVersionNumbers[] = {
-    SAVE_VERSION_NUMBER_ORIGINAL,
     SAVE_VERSION_NUMBER_HWSDL_1,
     SAVE_VERSION_NUMBER_HWSDL_2,
 };
