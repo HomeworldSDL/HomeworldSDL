@@ -2250,8 +2250,10 @@ abortloading:
     bobInitProperties();
 
     if (!hrAbortLoadingGame)
+    {
         rndSetClearColor(universe.backgroundColor|0xff000000);
-
+    }
+    
     /* restore sound engine */
     soundEventPause(FALSE);
 
@@ -2259,6 +2261,9 @@ abortloading:
     {
         soundEventPlayMusic(SongNumber);
     }
+    
+    // reset any spurious joystick motion that's been recorded
+    cameraJoystickReset();
 
     gameIsRunning = TRUE;
 }
@@ -4197,7 +4202,7 @@ char* utyGameSystemsPreInit(void)
 char *utyGameSystemsInit(void)
 {
     rndinitdata renderData;
-    Uint32 sdl_flags;
+    Uint32 sdlSubsystemFlags;
 
     utyToggleKeyStatesSave();
     utySet2(SS2_ToggleKeys);
@@ -4222,18 +4227,46 @@ char *utyGameSystemsInit(void)
         HomeworldCRC[0], HomeworldCRC[1], HomeworldCRC[2], HomeworldCRC[3]
     );
     
-    //startup timer
-    sdl_flags = SDL_WasInit(SDL_INIT_EVERYTHING);
-    if (!sdl_flags)
-    {
-        if (SDL_Init(SDL_INIT_TIMER) == -1)
-            return("Unable to initialize SDL timer.");
-    }
-    else if (!(sdl_flags & SDL_INIT_TIMER))
+    // startup any SDL systems we want that haven't already been kicked off
+    sdlSubsystemFlags = SDL_WasInit(SDL_INIT_EVERYTHING);
+
+    if (!(sdlSubsystemFlags & SDL_INIT_TIMER))
     {
         if (SDL_InitSubSystem(SDL_INIT_TIMER) == -1)
-            return("Unable to initialize SDL timer.");
+        {
+            return "Unable to initialize SDL Timer.";
+        }
     }
+    
+    // Joystick used for controlling the 3D camera view. It can be any old
+    // joystick but this is primarily intended to support devices used for
+    // 3D CAD applications which have more degrees of freedom (6) than typical
+    // joysticks (2). For example: 3Dconnexion's SpaceNavigator.
+    // http://www.3dconnexion.com/products/3a1d.php
+    if (!(sdlSubsystemFlags & SDL_INIT_JOYSTICK))
+    {
+        int joystick_i    = 0,
+            num_joysticks = 0;
+        
+        if (SDL_InitSubSystem(SDL_INIT_JOYSTICK) == -1)
+        {
+            return "Unable to initialize SDL Joystick.";
+        }
+        
+        for (joystick_i = 0; joystick_i < SDL_NumJoysticks(); ++joystick_i)
+        {
+            if (strcmp(SDL_JoystickName(joystick_i), "SpaceNavigator") == 0)
+            {
+                SDL_Joystick *joystick;
+                
+                SDL_JoystickEventState(SDL_ENABLE);
+                joystick = SDL_JoystickOpen(joystick_i);
+                
+                dbgMessagef("SpaceNavigator found at index %d", joystick_i);
+            }
+        }
+    }
+    
     utyTimerDivisor = 1000 / UTY_TimerResloutionMax;
     utySet(SSA_Timer);
                                                             //start the task manager

@@ -59,6 +59,7 @@ typedef struct Camera
 =============================================================================*/
 
 void cameraInit(Camera *camera,real32 distance);
+void cameraJoystickReset(void);
 void cameraRotAngle(Camera *camera,real32 angle);
 void cameraRotDeclination(Camera *camera,real32 declination);
 void cameraZoom(Camera *camera,real32 zoomfactor, bool EnforceShipDistances);
@@ -109,11 +110,18 @@ extern real32 CAMERA_MIN_ZOOMOUT_DISTANCE;
 
 extern sdword camMouseX;
 extern sdword camMouseY;
-extern bool8  wheel_up;
-extern bool8  wheel_down;
-extern bool8  useSlowWheelZoomIn;
-extern bool   zoomOutNow;
-extern bool   zoomInNow;
+
+extern sword camJoyZoom;
+extern sword camJoyDeclination;
+extern sword camJoyRightAscension;
+
+extern bool8 wheel_up;
+extern bool8 wheel_down;
+
+extern bool zoomOutNow;
+extern bool zoomInNow;
+
+extern bool8 useSlowWheelZoomIn;
 
 
 #endif

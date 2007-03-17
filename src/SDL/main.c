@@ -2307,7 +2307,62 @@ sdword HandleEvent (const SDL_Event* pEvent)
                 }
             }
             break;
+            
+        // Currently written with use of SpaceNavigator in mind (since that's
+        // what I've got). Needs to be rewritten to be a little more generic
+        // using mappings of registered joystick axes to functionality.
+        case SDL_JOYAXISMOTION:
+            #define DEBUG_JOYSTICK_CAMERA            FALSE
+            #define JOYSTICK_SENSITIVITY_THRESHOLD  (10 * SWORD_Max / 100)
 
+            if (pEvent->jaxis.value > -JOYSTICK_SENSITIVITY_THRESHOLD
+            &&  pEvent->jaxis.value <  JOYSTICK_SENSITIVITY_THRESHOLD)
+            {
+                break;
+            }
+            
+            switch (pEvent->jaxis.axis) 
+            {
+                // zoom: +ve multiplier = zoom out
+                
+                case 1: // translation (+/-) forwards-backwards 
+                    // camJoyZoom = -1 * pEvent->jaxis.value;
+                    break;
+                    
+                case 2: // translation (+/-) up-down
+                    camJoyZoom = -1 * pEvent->jaxis.value;
+                    break;
+
+                // declination: +ve multiplier = move toward north pole
+                
+                case 3: // pitch (+/-) back-forward  - declination
+                    camJoyDeclination = +1 * pEvent->jaxis.value;
+                    break;
+
+                // right ascension: +ve multiplier = anti clockwise about z-axis
+
+                case 0: // translation (+/-) left-right 
+                    // camJoyRightAscension = -1 * pEvent->jaxis.value;
+                    break;
+
+                case 4: // roll  (+/-) left-right    - rotate
+                    // camJoyRightAscension = -1 * pEvent->jaxis.value;
+                    break;
+
+                case 5: // yaw   (+/-) right-left    - rotate
+                    camJoyRightAscension = -1 * pEvent->jaxis.value;
+                    break;
+
+                default: 
+                    break; 
+            }
+
+#if DEBUG_JOYSTICK_CAMERA            
+            dbgMessagef("joystick: dec(%6d) asc(%6d) zoom(%6d)", camJoyDeclination, camJoyRightAscension, camJoyZoom);
+#endif
+            break; 
+    
+    
         case SDL_QUIT:
             if (mainActuallyQuit)
             {
@@ -2757,7 +2812,9 @@ int main (int argc, char* argv[])
 
     /* Stay clean and fresh... */
     if (SDL_WasInit(SDL_INIT_EVERYTHING))
+    {
         SDL_Quit();
+    }
 
     return event_res;
 } /* WinMain */

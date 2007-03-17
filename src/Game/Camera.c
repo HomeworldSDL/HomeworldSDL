@@ -27,11 +27,17 @@
 sdword camMouseX = 0;
 sdword camMouseY = 0;
 
-bool8 wheel_up = FALSE;
+sword camJoyZoom           = 0;
+sword camJoyDeclination    = 0;
+sword camJoyRightAscension = 0;
+
+bool8 wheel_up   = FALSE;
 bool8 wheel_down = FALSE;
-bool8 useSlowWheelZoomIn = FALSE;
+
 bool  zoomOutNow = FALSE;
-bool  zoomInNow = FALSE;
+bool  zoomInNow  = FALSE;
+
+bool8 useSlowWheelZoomIn = FALSE;
 
 /*=============================================================================
     Tweakables:
@@ -238,6 +244,13 @@ void cameraRotDeclination(Camera *camera,real32 declination)
     camDeclinationVerify(camera);
 }
 
+void cameraJoystickReset(void)
+{
+    camJoyZoom           = 0;
+    camJoyDeclination    = 0;
+    camJoyRightAscension = 0;
+}
+
 /*-----------------------------------------------------------------------------
     Name        : cameraMinimumZoom
     Description : walks the focus command to determine minimum zoom distance
@@ -340,20 +353,12 @@ sdword cameraControl(Camera *camera, bool EnforceShipDistances)
         wheel_down = FALSE;
         UserAction |= CAM_USER_ZOOMED;
     }
+    
     if (wheel_up)
     {
         cameraZoom(camera, 1.0f - (1.0f - (useSlowWheelZoomIn ? 0.9f : CAMERA_WHEEL_ZOOM_IN)) * CAMERA_MOUSE_SENS, EnforceShipDistances);
         wheel_up = FALSE;
         UserAction |= CAM_USER_ZOOMED;
-    }
-    else
-    {
-        if (wheel_up)
-        {
-            // keyScanCode[FLYWHEEL_UP].keynumpressed=0;
-            keyClearRepeat(FLYWHEEL_UP);
-            wheel_up = FALSE;
-        }
     }
 
     if (zoomOutNow)//keyIsHit(NUMMINUSKEY) || keyIsHit(MINUSKEY))
@@ -367,6 +372,32 @@ sdword cameraControl(Camera *camera, bool EnforceShipDistances)
         cameraZoom(camera,1.0f - (1.0f - CAMERA_KEY_ZOOM_IN) * CAMERA_MOUSE_SENS, EnforceShipDistances);
         UserAction |= CAM_USER_ZOOMED;
     }
+
+#define CAMERA_JOYSTICK_ZOOM_SENS             0.2
+#define CAMERA_JOYSTICK_DECLINATION_SENS      0.15
+#define CAMERA_JOYSTICK_RIGHT_ASCENSION_SENS  0.15
+
+    if (camJoyZoom != 0)
+    {
+        cameraZoom(camera, 1.0 + CAMERA_JOYSTICK_ZOOM_SENS * camJoyZoom / SWORD_Max, EnforceShipDistances);
+        camJoyZoom = 0;
+        UserAction |= CAM_USER_ZOOMED;      
+    }
+    
+    if (camJoyDeclination != 0)
+    {
+        cameraRotDeclination(camera, CAMERA_JOYSTICK_DECLINATION_SENS * camJoyDeclination / SWORD_Max);
+        camJoyDeclination = 0;
+        UserAction |= CAM_USER_MOVED;
+    }
+    
+    if (camJoyRightAscension != 0)
+    {
+        cameraRotAngle(camera, CAMERA_JOYSTICK_RIGHT_ASCENSION_SENS * camJoyRightAscension / SWORD_Max);
+        camJoyRightAscension = 0;
+        UserAction |= CAM_USER_MOVED;
+    }
+
 
     if (camMouseX || camMouseY)
     {
