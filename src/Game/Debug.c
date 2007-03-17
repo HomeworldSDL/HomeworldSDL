@@ -51,6 +51,7 @@ sdword dbgMessage(char *string)
        reenabled. */
     /*return(dbwPrint(0, string));*/
     printf("%s\n", string);
+    fflush(NULL);
     return OKAY;
 }
 
