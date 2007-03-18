@@ -39,6 +39,7 @@
 #define FR_EndOfFile            -12             // some unlikely number to indicate end of file
 
 //flags for opening files
+#define FF_NoModifers           0x0000          // none of the below (initialiser)
 #define FF_TextMode             0x0001          // open file in text mode
 #define FF_IgnoreDisk           0x0002          // don't search on disk, look straight in the .BIG file
 #define FF_DontUse0             0x0004          // These bits are reserved for flag compatability with memory module
@@ -137,8 +138,8 @@ FILE *fileStream(filehandle handle);
 //utility functions
 bool8 fileMakeDirectory(const char *directoryName);
 bool8 fileMakeDestinationDirectory(const char *fileName);
-sdword fileExistsInBigFile(char *_fileName);
-sdword fileExists(char *fileName, udword flags);
+bool fileExistsInBigFile(char *fileName);
+bool fileExists(char *fileName, udword flags);
 sdword fileSizeGet(char *fileName, udword flags);
 sdword fileSizeRemaining(filehandle handle);
 sdword fileLocation(filehandle handle);

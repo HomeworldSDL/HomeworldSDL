@@ -111,18 +111,37 @@ typedef struct
     char compressionType;  // 0/1
 } bigTOCFileEntry;
 
-
 typedef struct {
     int numFiles;
     int flags;
     bigTOCFileEntry *fileEntries;
 } bigTOC;
 
+#define UNINITIALISED_BIG_TOC  {0, 0, NULL}
+
+typedef enum
+{
+    LOCAL_FILE_DOES_NOT_EXIST = 0,
+    LOCAL_FILE_IS_OLDER,
+    LOCAL_FILE_IS_NEWER,
+}
+bigLocalFileAgeComparison;
+
+typedef struct 
+{
+    char   *bigFileName;
+    bool    required;
+    FILE   *filePtr;
+    bigTOC  tableOfContents;
+    bigLocalFileAgeComparison  *localFileRelativeAge;   // array with TOC file number as index
+}
+bigFileConfiguration;
+
 
 enum {
-    BF_ADD_RES_ADDED = 1,
+    BF_ADD_RES_ADDED   = 1,
     BF_ADD_RES_UPDATED = 2 ,
-    BF_ADD_RES_OLD = 4,
+    BF_ADD_RES_OLD     = 4,
 };
 
 
@@ -133,22 +152,24 @@ int bigAddFile(char *bigFilename, char *filename, char *storedFilename, int optC
 int bigDelete(char *bigfilename, int numFiles, char *filenames[], int consoleOutput);
 int bigView(char *bigfilename, int consoleOutput);
 int bigExtract(char *bigfilename, int numFiles, char *filenames[], int optFreshen, int optMove, int optPathnames, int optOverwrite, int consoleOutput);
-int bigTOCFileExists(bigTOC *toc, char *filename, int *fileNum);
-int bigTOCFileExistsByCRC(bigTOC *toc, bigTOCFileEntry *target, int *fileNum);
+bool bigTOCFileExists(bigTOC *toc, char *filename, udword *fileNum);
+int bigTOCFileExistsByCRC(bigTOC *toc, bigTOCFileEntry *target, udword *fileNum);
 void bigTOCSort(bigTOC *toc);
-int bigCheck(char *bigFilename);
 void bigFilenameEncrypt(char *filename);
 void bigFilenameDecrypt(char *filename, int length);
 crc32 bigTOCCRC(bigTOC *toc);
 
 // not used in command line utility, only in the game
 #ifdef BF_HOMEWORLD
-    sdword bigOpen(char *bigFilename, char *updateFilename);
-    sdword bigFileLoadAlloc(bigTOC *toc, FILE *bigFP, char *filename, sdword fileNum, void **address);
-    sdword bigFileLoad(bigTOC *toc, FILE *bigFP, sdword fileNum, void *address);
-    void bigCRC(udword *bigCrc1,udword *bigCrc2);
-    void bigFilesystemCompare(char *baseDirectory, char *directory, bigTOC *mainTOC, bigTOC *updateTOC, unsigned char *mainNewerAvailable, unsigned char *updateNewerAvailable);
-    void bigClose(void);
+    bool bigOpenAllBigFiles(void);
+    void bigCloseAllBigFiles(void);
+    
+    void bigCRC(udword *bigCRCArray, udword arraySize);
+    void bigFilesystemCompare(char *baseDirectory, char *directory);
+    bool bigFindFile(char *filename, bigFileConfiguration **whereFound, udword *fileIndex);
+
+    sdword bigFileLoadAlloc(bigTOC *toc, FILE *bigFP, char *filename, udword fileNum, void **address);
+    sdword bigFileLoad(bigTOC *toc, FILE *bigFP, udword fileNum, void *address);
 #endif
 
 #endif

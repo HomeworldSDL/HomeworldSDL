@@ -54,15 +54,6 @@ extern bool IgnoreBigfiles;
 extern bool CompareBigfiles;
 extern bool LogFileLoads;
 
-extern bigTOC updateTOC;
-extern bigTOC mainTOC;
-
-extern unsigned char *mainNewerAvailable;
-extern unsigned char *updateNewerAvailable;
-
-extern FILE *mainFP;
-extern FILE *updateFP;
-
 /*=============================================================================
     Data:
 =============================================================================*/
@@ -823,58 +814,35 @@ bool8 fileMakeDestinationDirectory (const char* fileName)
 ----------------------------------------------------------------------------*/
 sdword fileLoadAlloc(char *_fileName, void **address, udword flags)
 {
-    char *memoryName;
-    sdword nameLength;
-    sdword length, lengthRead;
-    FILE *inFile;
-    char *fileName;
-    sdword bigfileResult;
-    sdword mainFileNum;
-    sdword updateFileNum;
-    sdword existsInUpdateBigfile;
-    sdword existsInMainBigfile;
+    char  *memoryName = NULL,
+          *fileName   = NULL;
+    FILE  *inFile     = NULL;
+    
+    bigFileConfiguration *whereFound = NULL;
+    
+    udword nameLength    = 0,
+           length        = 0,
+           lengthRead    = 0,
+           bigFileIndex  = 0;
+    sdword bigfileResult = 0;
 
     dbgAssertOrIgnore(address != NULL);
 
     //  try to load from bigfile
     if (!IgnoreBigfiles && !bitTest(flags, FF_CDROM|FF_IgnoreBIG|FF_UserSettingsPath))
     {
-        // possibly still skip the bigfile version of the file
-        // if there's something newer available in the filesystem
-        existsInUpdateBigfile = updateFP && bigTOCFileExists(&updateTOC, _fileName, (int *)&updateFileNum);
-        if (existsInUpdateBigfile && !(CompareBigfiles && updateNewerAvailable[updateFileNum] > 1))
+        if (bigFindFile(_fileName, &whereFound, &bigFileIndex))
         {
-            bigfileResult = bigFileLoadAlloc(&updateTOC, updateFP, _fileName, updateFileNum, address);
+            bigfileResult = bigFileLoadAlloc(&(whereFound->tableOfContents), whereFound->filePtr, _fileName, bigFileIndex, address);
             if (bigfileResult != -1)
             {
                 if (LogFileLoads)
                 {
-                    existsInMainBigfile = bigTOCFileExists(&mainTOC, _fileName, (int *)&mainFileNum);
-                    logfileLogf(FILELOADSLOG, "%-80s |  %s [U] %s  |\n",
-                                _fileName,
-                                existsInMainBigfile ? "m" : " ",
-                                updateNewerAvailable[updateFileNum] == 1 ? "f" : " ");
+                    logfileLogf(FILELOADSLOG, "%s | %s\n", whereFound->bigFileName, _fileName);
                 }
+                
                 return bigfileResult;
             }
-        }
-        else if (!existsInUpdateBigfile)
-        {
-            // try the main bigfile
-            existsInMainBigfile = bigTOCFileExists(&mainTOC, _fileName, (int *)&mainFileNum);
-            if (existsInMainBigfile && !(CompareBigfiles && mainNewerAvailable[mainFileNum] > 1))
-            {
-                bigfileResult = bigFileLoadAlloc(&mainTOC, mainFP, _fileName, mainFileNum, address);
-                if (bigfileResult != -1)
-                {
-                    if (LogFileLoads)
-                        logfileLogf(FILELOADSLOG, "%-80s | [M]    %s  |\n",
-                                    _fileName,
-                                    mainNewerAvailable[mainFileNum] == 1 ? "f" : " ");
-                    return bigfileResult;
-                }
-            }
-
         }
     }
 
@@ -890,8 +858,10 @@ sdword fileLoadAlloc(char *_fileName, void **address, udword flags)
         memoryName = &fileName[nameLength - MEM_NameLength];
     }
     else
+    {
         memoryName = fileName;
-
+    }
+    
     length = fileSizeGet(_fileName, flags);                 //get size of file
     dbgAssertOrIgnore(length > 0);                                  //and verify it
     *address = memAllocAttempt(length, memoryName, (flags & (NonVolatile | Pyrophoric)) | MBF_String);//allocate the memory for this file
@@ -904,6 +874,7 @@ sdword fileLoadAlloc(char *_fileName, void **address, udword flags)
     {
         dbgFatalf(DBG_Loc, "fileLoadAlloc: coundn't open file %s", fileName);
     }
+
     lengthRead = fread(*address, 1, length, inFile);        //read the file
 
 #if FILE_ERROR_CHECKING
@@ -921,19 +892,7 @@ sdword fileLoadAlloc(char *_fileName, void **address, udword flags)
 
     if (LogFileLoads)
     {
-        if (!IgnoreBigfiles && CompareBigfiles)
-        {
-            sdword inMain = bigTOCFileExists(&mainTOC, _fileName, (int *)&mainFileNum);
-            sdword inUpdate = updateFP && bigTOCFileExists(&updateTOC, _fileName, (int *)&updateFileNum);
-            logfileLogf(FILELOADSLOG, "%-80s |  %s  %s [F] |\n",
-                        _fileName,
-                        inMain ? "m" : " ",
-                        inUpdate ? "u" : " ");
-        }
-        else
-        {
-            logfileLogf(FILELOADSLOG, "%-80s |       [F] |\n", _fileName);
-        }
+        logfileLogf(FILELOADSLOG, "%-80s |       [F] |\n", _fileName);
     }
 
     return length;
@@ -952,54 +911,31 @@ sdword fileLoadAlloc(char *_fileName, void **address, udword flags)
 ----------------------------------------------------------------------------*/
 sdword fileLoad(char *_fileName, void *address, udword flags)
 {
-    FILE *inFile;
-    sdword length, lengthRead;
-    char *fileName;
-    sdword bigfileResult;
-    sdword updateFileNum;
-    sdword mainFileNum;
-    sdword existsInUpdateBigfile;
-    sdword existsInMainBigfile;
+    char  *fileName   = NULL;
+    FILE  *inFile     = NULL;
+    
+    bigFileConfiguration *whereFound = NULL;
+    
+    udword length        = 0,
+           lengthRead    = 0,
+           bigFileIndex  = 0;
+    sdword bigfileResult = 0;
 
     //  try to load from bigfile
     if (!IgnoreBigfiles && !bitTest(flags, FF_CDROM|FF_IgnoreBIG|FF_UserSettingsPath))
     {
-        // possibly still skip the bigfile version of the file
-        // if there's something newer available in the filesystem
-        existsInUpdateBigfile = updateFP && bigTOCFileExists(&updateTOC, _fileName, (int *)&updateFileNum);
-        if (existsInUpdateBigfile && !(CompareBigfiles && updateNewerAvailable[updateFileNum] > 1))
+        if (bigFindFile(_fileName, &whereFound, &bigFileIndex))
         {
-            bigfileResult = bigFileLoad(&updateTOC, updateFP, updateFileNum, address);
+            bigfileResult = bigFileLoad(&(whereFound->tableOfContents), whereFound->filePtr, bigFileIndex, address);
             if (bigfileResult != -1)
             {
                 if (LogFileLoads)
                 {
-                    existsInMainBigfile = bigTOCFileExists(&mainTOC, _fileName, (int *)&mainFileNum);
-                    logfileLogf(FILELOADSLOG, "%-80s |  %s [U] %s  |\n",
-                                _fileName,
-                                existsInMainBigfile ? "m" : " ",
-                                updateNewerAvailable[updateFileNum] == 1 ? "f" : " ");
+                    logfileLogf(FILELOADSLOG, "%s | %s\n", whereFound->bigFileName, _fileName);
                 }
+                
                 return bigfileResult;
             }
-        }
-        else if (!existsInUpdateBigfile)
-        {
-            // try the main bigfile
-            existsInMainBigfile = bigTOCFileExists(&mainTOC, _fileName, (int *)&mainFileNum);
-            if (existsInMainBigfile && !(CompareBigfiles && mainNewerAvailable[mainFileNum] > 1))
-            {
-                bigfileResult = bigFileLoad(&mainTOC, mainFP, mainFileNum, address);
-                if (bigfileResult != -1)
-                {
-                    if (LogFileLoads)
-                        logfileLogf(FILELOADSLOG, "%-80s | [M]    %s  |\n",
-                                    _fileName,
-                                    mainNewerAvailable[mainFileNum] == 1 ? "f" : " ");
-                    return bigfileResult;
-                }
-            }
-
         }
     }
 
@@ -1030,17 +966,7 @@ sdword fileLoad(char *_fileName, void *address, udword flags)
 
     if (LogFileLoads)
     {
-        if (!IgnoreBigfiles && CompareBigfiles)
-        {
-            sdword inMain = bigTOCFileExists(&mainTOC, _fileName, (int *)&mainFileNum);
-            sdword inUpdate = updateFP && bigTOCFileExists(&updateTOC, _fileName, (int *)&mainFileNum);
-            logfileLogf(FILELOADSLOG, "%-80s |  %s  %s [F] |\n",
-                        _fileName,
-                        inMain ? "m" : " ",
-                        inUpdate ? "u" : " ");
-        }
-        else
-            logfileLogf(FILELOADSLOG, "%-80s |       [F] |\n", _fileName);
+        logfileLogf(FILELOADSLOG, "%-80s |       [F] |\n", _fileName);
     }
 
     return(length);
@@ -1101,26 +1027,12 @@ sdword fileSave(char *_fileName, void *address, sdword length)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-sdword fileExistsInBigFile(char *_fileName)
+bool fileExistsInBigFile(char *fileName)
 {
-    sdword existsInBigfile;
-    sdword fileNum;
-
-    if (!IgnoreBigfiles)
-    {
-        existsInBigfile = updateFP && bigTOCFileExists(&updateTOC, _fileName, (int *)&fileNum);
-        if (existsInBigfile)
-        {
-            return TRUE;
-        }
-
-        existsInBigfile = bigTOCFileExists(&mainTOC, _fileName, (int *)&fileNum);
-        if (existsInBigfile)
-        {
-            return TRUE;
-        }
-    }
-    return FALSE;
+    udword fileIndex = 0;
+    bigFileConfiguration *whereFound = NULL;
+    
+    return bigFindFile(fileName, &whereFound, &fileIndex);
 }
 
 /*-----------------------------------------------------------------------------
@@ -1131,34 +1043,15 @@ sdword fileExistsInBigFile(char *_fileName)
     Outputs     : ..
     Return      : TRUE if file found, FALSE otherwise
 ----------------------------------------------------------------------------*/
-sdword fileExists(char *_fileName, udword flags)
+bool fileExists(char *_fileName, udword flags)
 {
     char *fileName;
-    sdword existsInBigfile;
-    sdword fileNum;
 
     if (!IgnoreBigfiles && !bitTest(flags, FF_CDROM|FF_IgnoreBIG|FF_UserSettingsPath))
     {
-        // possibly still skip the bigfile version of the file
-        // if there's something newer available in the filesystem
-        existsInBigfile = updateFP && bigTOCFileExists(&updateTOC, _fileName, (int *)&fileNum);
-        if (existsInBigfile && !(CompareBigfiles && updateNewerAvailable[fileNum] > 1))
+        if (fileExistsInBigFile(_fileName))
         {
-#if FILE_VERBOSE_LEVEL >= 3
-            dbgMessagef("fileExists: '%s' exists (in update_bigfile)", _fileName);
-#endif
             return TRUE;
-        }
-        else if (!existsInBigfile)
-        {
-            existsInBigfile = bigTOCFileExists(&mainTOC, _fileName, (int *)&fileNum);
-            if (existsInBigfile && !(CompareBigfiles && mainNewerAvailable[fileNum] > 1))
-            {
-#if FILE_VERBOSE_LEVEL >= 3
-                dbgMessagef("fileExists: '%s' exists (in main_bigfile)", _fileName);
-#endif
-                return TRUE;
-            }
         }
     }
 
@@ -1166,15 +1059,10 @@ sdword fileExists(char *_fileName, udword flags)
 
     if (fileNameCorrectCase(fileName))
     {
-#if FILE_VERBOSE_LEVEL >= 3
-        dbgMessagef("fileExists: '%s' exists", fileName);
-#endif
-        return(TRUE);
+        return TRUE;
     }
-#if FILE_VERBOSE_LEVEL >= 3
-    dbgMessagef("fileExists: '%s' does not exist", fileName);
-#endif
-    return(FALSE);
+
+    return FALSE;
 }
 
 /*-----------------------------------------------------------------------------
@@ -1192,33 +1080,20 @@ sdword fileSizeGet(char *_fileName, udword flags)
     FILE *file;
     sdword length;
     char *fileName;
-    sdword fileNum;
-    sdword existsInBigfile;
 
     if (!IgnoreBigfiles && !bitTest(flags, FF_CDROM|FF_IgnoreBIG|FF_UserSettingsPath))
     {
-        // possibly still skip the bigfile version of the file
-        // if there's something newer available in the filesystem
-        existsInBigfile = updateFP && bigTOCFileExists(&updateTOC, _fileName, (int *)&fileNum);
-        if (existsInBigfile && !(CompareBigfiles && updateNewerAvailable[fileNum] > 1))
+        bigFileConfiguration *whereFound = NULL;
+        udword fileIndex = 0;
+        
+        if (bigFindFile(_fileName, &whereFound, &fileIndex))
         {
-            length = (updateTOC.fileEntries + fileNum)->realLength;
+            length = (whereFound->tableOfContents.fileEntries + fileIndex)->realLength;
+
 #if FILE_VERBOSE_LEVEL >= 3
-            dbgMessagef("fileSizeGet: '%s' is %d bytes in length (in update_bigfile)", _fileName, length);
+            dbgMessagef("%s: '%s' is %d bytes in length (bigfile)", __func__, _fileName, length);
 #endif
             return length;
-        }
-        else if (!existsInBigfile)
-        {
-            existsInBigfile = bigTOCFileExists(&mainTOC, _fileName, (int *)&fileNum);
-            if (existsInBigfile && !(CompareBigfiles && mainNewerAvailable[fileNum] > 1))
-            {
-                length = (mainTOC.fileEntries + fileNum)->realLength;
-#if FILE_VERBOSE_LEVEL >= 3
-                dbgMessagef("fileSizeGet: '%s' is %d bytes in length (in main_bigfile)", _fileName, length);
-#endif
-                return length;
-            }
         }
     }
 
@@ -1262,15 +1137,13 @@ filehandle fileOpen(char *_fileName, udword flags)
     FILE *file;
     char access[3];
     char *fileName;
-    sdword fileNum; // for bigfile
+    char localPath[PATH_MAX] = "";
     filehandle fh;
-    sdword existsInBigfile;
-    sdword usingBigfile = FALSE;
+    bool usingBigfile    = FALSE;
+    bool firstBufUse     = FALSE;
+    bool localFileExists = FALSE;
     int expandedSize, storedSize;
     BitFile *bitFile;
-    sdword firstBufUse = FALSE;
-    sdword mainFileNum;
-    sdword updateFileNum;
 
     //  find next available filehandle
     fh = 1;
@@ -1291,50 +1164,49 @@ filehandle fileOpen(char *_fileName, udword flags)
 
     strcpy(filesOpen[fh].path, _fileName);
 
-    //  try to load from bigfile
-    if (!IgnoreBigfiles && !bitTest(flags, FF_CDROM|FF_IgnoreBIG|FF_UserSettingsPath))
+    // if the filename starts with a slash it's a full path
+    // which we should use as is
+    if (_fileName[0] == '\\' || _fileName[0] == '/')
     {
-        // possibly still skip the bigfile version of the file
-        // if there's something newer available in the filesystem
-        existsInBigfile = updateFP && bigTOCFileExists(&updateTOC, _fileName, (int *)&fileNum);
-        if (existsInBigfile && !(CompareBigfiles && updateNewerAvailable[fileNum] > 1))
+        strcpy(localPath, _fileName);
+    }
+    // otherwise try a local filesystem version
+    else
+    {
+        filePathPrepend(_fileName, FF_NoModifers);  // this ends up with the override path...
+        strcpy(localPath, filePathTempBuffer);
+    }
+    
+    // don't fiddle with the path any more - we should have an explicit full path
+    // at this point; the question is does a file exist there?
+    localFileExists = fileExists(localPath, FF_IgnorePrepend);
+
+    //  try to load from bigfile
+    if (!localFileExists && !IgnoreBigfiles && !bitTest(flags, FF_CDROM|FF_IgnoreBIG|FF_UserSettingsPath))
+    {
+        bigFileConfiguration *whereFound = NULL;
+        udword fileIndex = 0;
+        
+        if (bigFindFile(_fileName, &whereFound, &fileIndex))
         {
             // no write support for bigfiles currently
             dbgAssertOrIgnore(!bitTest(flags, FF_AppendMode));
             dbgAssertOrIgnore(!bitTest(flags, FF_WriteMode));
 
-            filesOpen[fh].usingBigfile = TRUE;
-            filesOpen[fh].bigFP = updateFP;
-            filesOpen[fh].bigTOC = &updateTOC;
-            filesOpen[fh].textMode = bitTest(flags, FF_TextMode);
-            filesOpen[fh].offsetStart = (filesOpen[fh].bigTOC->fileEntries + fileNum)->offset + (filesOpen[fh].bigTOC->fileEntries + fileNum)->nameLength + 1;
-            filesOpen[fh].offsetVirtual = 0;
-            filesOpen[fh].length = (filesOpen[fh].bigTOC->fileEntries + fileNum)->realLength;
             usingBigfile = TRUE;
-        }
-        else if (!existsInBigfile)
-        {
-            existsInBigfile = bigTOCFileExists(&mainTOC, _fileName, (int *)&fileNum);
-            if (existsInBigfile && !(CompareBigfiles && mainNewerAvailable[fileNum] > 1))
-            {
-                // no write support for bigfiles currently
-                dbgAssertOrIgnore(!bitTest(flags, FF_AppendMode));
-                dbgAssertOrIgnore(!bitTest(flags, FF_WriteMode));
-
-                filesOpen[fh].usingBigfile = TRUE;
-                filesOpen[fh].bigFP = mainFP;
-                filesOpen[fh].bigTOC = &mainTOC;
-                filesOpen[fh].textMode = bitTest(flags, FF_TextMode);
-                filesOpen[fh].offsetStart = (filesOpen[fh].bigTOC->fileEntries + fileNum)->offset + (filesOpen[fh].bigTOC->fileEntries + fileNum)->nameLength + 1;
-                filesOpen[fh].offsetVirtual = 0;
-                filesOpen[fh].length = (filesOpen[fh].bigTOC->fileEntries + fileNum)->realLength;
-                usingBigfile = TRUE;
-            }
+            
+            filesOpen[fh].usingBigfile  = TRUE;
+            filesOpen[fh].bigFP         = whereFound->filePtr;
+            filesOpen[fh].bigTOC        = &(whereFound->tableOfContents);
+            filesOpen[fh].textMode      = bitTest(flags, FF_TextMode);
+            filesOpen[fh].offsetStart   = (filesOpen[fh].bigTOC->fileEntries + fileIndex)->offset + (filesOpen[fh].bigTOC->fileEntries + fileIndex)->nameLength + 1;
+            filesOpen[fh].offsetVirtual = 0;
+            filesOpen[fh].length        = (filesOpen[fh].bigTOC->fileEntries + fileIndex)->realLength;
         }
 
         if (usingBigfile)  // common stuff, whether it's in the main or update bigfile
         {
-            if ((filesOpen[fh].bigTOC->fileEntries + fileNum)->compressionType)
+            if ((filesOpen[fh].bigTOC->fileEntries + fileIndex)->compressionType)
             {
                 // compressed file
                 if (!decompWorkspaceInUse)
@@ -1344,33 +1216,27 @@ filehandle fileOpen(char *_fileName, udword flags)
                         // add a little extra room for the next possible reuse
                         // (an attempt to reduce too many memReallocs)
                         if (decompWorkspaceSize == 0)
+                        {
                             firstBufUse = TRUE;
+                        }
+                        
                         decompWorkspaceSize = filesOpen[fh].length + decompWorkspaceIncrement;
-                        decompWorkspaceP = memRealloc(decompWorkspaceP, decompWorkspaceSize,
+                        decompWorkspaceP    = memRealloc(decompWorkspaceP, decompWorkspaceSize,
                                                       "decompWorkspace", 0);
                         if (LogFileLoads)
                         {
                             logfileLogf(FILELOADSLOG, "%-80s", _fileName);
-                            if (filesOpen[fh].bigFP == updateFP)
-                            {
-                                sdword inMain = bigTOCFileExists(&mainTOC, _fileName, (int *)&mainFileNum);
-                                sdword inUpdate = updateFP && bigTOCFileExists(&updateTOC, _fileName, (int *)&updateFileNum);
-                                logfileLogf(FILELOADSLOG, " |  %s [U] %s  | ",
-                                            inMain ? "m" : " ",
-                                            inUpdate && updateNewerAvailable[updateFileNum] == 1 ? "f" : " ");
-                            }
-                            else
-                            {
-                                logfileLogf(FILELOADSLOG, " | [M]    %s  | ",
-                                            mainNewerAvailable[mainFileNum] == 1 ? "f" : " ");
-                            }
 
                             if (firstBufUse)
+                            {
                                 logfileLogf(FILELOADSLOG, "(decomp buffer created %dk)\n",
                                         decompWorkspaceSize/1024);
+                            }
                             else
+                            {
                                 logfileLogf(FILELOADSLOG, "(decomp buffer increased to %dk)\n",
                                         decompWorkspaceSize/1024);
+                            }
                         }
                     }
                     else  // reuse buffer
@@ -1378,20 +1244,6 @@ filehandle fileOpen(char *_fileName, udword flags)
                         if (LogFileLoads)
                         {
                             logfileLogf(FILELOADSLOG, "%-80s", _fileName);
-                            if (filesOpen[fh].bigFP == updateFP)
-                            {
-                                sdword inMain = bigTOCFileExists(&mainTOC, _fileName, (int *)&mainFileNum);
-                                sdword inUpdate = updateFP && bigTOCFileExists(&updateTOC, _fileName, (int *)&updateFileNum);
-                                logfileLogf(FILELOADSLOG, " |  %s [U] %s  | ",
-                                            inMain ? "m" : " ",
-                                            inUpdate && updateNewerAvailable[updateFileNum] == 1 ? "f" : " ");
-                            }
-                            else
-                            {
-                                logfileLogf(FILELOADSLOG, " | [M]    %s  | ",
-                                            mainNewerAvailable[mainFileNum] == 1 ? "f" : " ");
-                            }
-
                             logfileLogf(FILELOADSLOG, "(decomp buffer reused)\n");
                         }
                     }
@@ -1405,21 +1257,6 @@ filehandle fileOpen(char *_fileName, udword flags)
                     if (LogFileLoads)
                     {
                         logfileLogf(FILELOADSLOG, "%-80s", _fileName);
-                        if (filesOpen[fh].bigFP == updateFP)
-                        {
-                            sdword mainFileNum, updateFileNum;
-                            sdword inMain = bigTOCFileExists(&mainTOC, _fileName, (int *)&mainFileNum);
-                            sdword inUpdate = updateFP && bigTOCFileExists(&updateTOC, _fileName, (int *)&updateFileNum);
-                            logfileLogf(FILELOADSLOG, " |  %s [U] %s  | ",
-                                        inMain ? "m" : " ",
-                                        inUpdate && updateNewerAvailable[updateFileNum] == 1 ? "f" : " ");
-                        }
-                        else
-                        {
-                            logfileLogf(FILELOADSLOG, " | [M]    %s  | ",
-                                        mainNewerAvailable[mainFileNum] == 1 ? "f" : " ");
-                        }
-
                         logfileLogf(FILELOADSLOG, "(decomp buffer created %dk)\n",
                                     decompWorkspaceSize/1024);
                     }
@@ -1430,7 +1267,7 @@ filehandle fileOpen(char *_fileName, udword flags)
                 expandedSize = lzssExpandFileToBuffer(bitFile, filesOpen[fh].decompBuf, filesOpen[fh].length);
                 storedSize = bitioFileInputStop(bitFile);
                 dbgAssertOrIgnore(expandedSize == filesOpen[fh].length);
-                dbgAssertOrIgnore(storedSize == (filesOpen[fh].bigTOC->fileEntries + fileNum)->storedLength);
+                dbgAssertOrIgnore(storedSize == (filesOpen[fh].bigTOC->fileEntries + fileIndex)->storedLength);
             }
             else
             {
@@ -1438,21 +1275,6 @@ filehandle fileOpen(char *_fileName, udword flags)
                 if (LogFileLoads)
                 {
                     logfileLogf(FILELOADSLOG, "%-80s", _fileName);
-                    if (filesOpen[fh].bigFP == updateFP)
-                    {
-                        sdword mainFileNum, updateFileNum;
-                        sdword inMain = bigTOCFileExists(&mainTOC, _fileName, (int *)&mainFileNum);
-                        sdword inUpdate = updateFP && bigTOCFileExists(&updateTOC, _fileName, (int *)&updateFileNum);
-                        logfileLogf(FILELOADSLOG, " |  %s [U] %s  | ",
-                                    inMain ? "m" : " ",
-                                    inUpdate && updateNewerAvailable[updateFileNum] == 1 ? "f" : " ");
-                    }
-                    else
-                    {
-                        logfileLogf(FILELOADSLOG, " | [M]    %s  | ",
-                                    mainNewerAvailable[mainFileNum] == 1 ? "f" : " ");
-                    }
-
                     logfileLogf(FILELOADSLOG, "(uncompressed file)\n");
                 }
             }
@@ -1501,19 +1323,7 @@ filehandle fileOpen(char *_fileName, udword flags)
 
     if (LogFileLoads)
     {
-        if (!IgnoreBigfiles && CompareBigfiles)
-        {
-            sdword inMain = bigTOCFileExists(&mainTOC, _fileName, (int *)&fileNum);
-            sdword inUpdate = updateFP && bigTOCFileExists(&updateTOC, _fileName, (int *)&fileNum);
-            logfileLogf(FILELOADSLOG, "%-80s |  %s  %s [F] |\n",
-                        _fileName,
-                        inMain ? "m" : " ",
-                        inUpdate ? "u" : " ");
-        }
-        else
-        {
-            logfileLogf(FILELOADSLOG, "%-80s |       [F] |\n", _fileName);
-        }
+        logfileLogf(FILELOADSLOG, "%-80s |       [F] |\n", _fileName);
     }
 
     if (bitTest(flags, FF_AppendMode | FF_WriteMode) &&

@@ -467,14 +467,6 @@ udword utyNFrameTicks = 0;
 //global handle of default font
 fonthandle ghDefaultFont = 0;
 
-// name of bigfile
-// NB: HW_GAME_RAIDER_RETREAT uses the Update.big mechanism
-#ifdef HW_GAME_DEMO
-char utyBigFilename[] = "HomeworldDL.big";
-#else
-char utyBigFilename[] = "Homeworld.big";
-#endif
-
 // name of music data file
 #ifdef HW_GAME_DEMO
 char utyMusicFilename[] = "DL_Music.wxd";
@@ -492,12 +484,6 @@ char utyVoiceFilename[] = "HW_comp.vce";
 #endif
 
 // name of other files
-#if defined(HW_GAME_RAIDER_RETREAT) && defined(_MACOSX)
-    // rename allows this to live alongside 1.05 patch's Update.big in standard installation
-    char utyUpdateBigFilename[] = "OEM_Update.big";
-#else
-    char utyUpdateBigFilename[] = "Update.big"; // name for future updates to main bigfile
-#endif
 char utyPadBigFilename[] = "Extra.big"; // name of pad file
 char utyLockFilename[] = "AutoLock.txt"; // name of autorun lock file
 
@@ -3813,14 +3799,6 @@ char *utyInvalidCDMessages[] =
     "CD de Homeworld incorrecto.",
     "CD di Homeworld non valido.",
 };
-char *utyIncompatibleBigMessages[] =
-{
-    "Incompatible file: %s",
-    "Fichier incompatible: %s",
-    "Datei nicht kompatibel: %s",
-    "Archivo incompatible: %s",
-    "File incompatibile: %s",
-};
 char *utyCannotOpenFileMessages[] =
 {
     "Unable to open file: %s",
@@ -4107,43 +4085,7 @@ char* utyGameSystemsPreInit(void)
     }
     utySet(SSA_MemoryModule);
 
-    //
-    //  initialize bigfile(s)
-    //
-    if (!bigOpen(utyBigFilename, utyUpdateBigFilename))
-    {
-        if (bigCheck(utyUpdateBigFilename) == -1)
-        {
-            sprintf(errorString, utyIncompatibleBigMessages[strCurLanguage], utyUpdateBigFilename);
-            return errorString;
-        }
-        else if (bigCheck(utyBigFilename) == -1)
-        {
-            sprintf(errorString, utyIncompatibleBigMessages[strCurLanguage], utyBigFilename);
-            return errorString;
-        }
-        else
-        {
-            sprintf(errorString, utyCannotOpenFileMessages[strCurLanguage], utyBigFilename);
-            return errorString;
-        }
-    }
-    
-    if (!IgnoreBigfiles)
-    {
-        mainNewerAvailable = memAlloc(mainTOC.numFiles, "mainNewerAvailable", 0);
-        memset(mainNewerAvailable, 0, mainTOC.numFiles);
-        if (updateFP)
-        {
-            updateNewerAvailable = memAlloc(updateTOC.numFiles, "updateNewerAvailable", 0);
-            memset(updateNewerAvailable, 0, updateTOC.numFiles);
-        }
-        if (CompareBigfiles)
-        {
-            bigFilesystemCompare(fileOverrideBigPath, "",
-                &mainTOC, &updateTOC, mainNewerAvailable, updateNewerAvailable);
-        }
-    }
+    bigOpenAllBigFiles();
 
 #if 0       // ShortCircuitWON done in titaninterface.cpp now
     if (ShortCircuitWON)
@@ -4156,17 +4098,14 @@ char* utyGameSystemsPreInit(void)
 #endif
 
         HomeworldCRC[0] = 0;  // originally stored CRC for code block (WON hacked client check)
+        HomeworldCRC[1] = 0;
+        HomeworldCRC[2] = 0;
+        HomeworldCRC[3] = 0;
+
         if (!IgnoreBigfiles)
         {
-            bigCRC((udword*)&HomeworldCRC[1],
-                   (udword*)&HomeworldCRC[2]);
+            bigCRC((udword *)HomeworldCRC, sizeof(HomeworldCRC));
         }
-        else
-        {
-            HomeworldCRC[1] = 0;
-            HomeworldCRC[2] = 0;
-        }
-        HomeworldCRC[3] = 0;
 //  }
 
     PrepareVersionStringStuff();
@@ -4219,12 +4158,16 @@ char *utyGameSystemsInit(void)
     utySet2(SS2_Strings);
 
     dbgMessagef(
-        "Homeworld CRCs = "
-        "0x%x (not used) "             // was CRC for code block (WON hacked client check)
-        "0x%x (Homeworld.big's TOC) "
-        "0x%x (Update.big's TOC) "
-        "0x%x (not used)",             // never used
-        HomeworldCRC[0], HomeworldCRC[1], HomeworldCRC[2], HomeworldCRC[3]
+        "Homeworld CRCs:\n"
+        "%22s = 0x%x\n"    
+        "%22s = 0x%x\n"    
+        "%22s = 0x%x\n"    
+        "%22s = 0x%x"    
+        ,
+        "HomeworldSDL.big TOC", HomeworldCRC[0], // was CRC for code block (WON hacked client check)
+        "Update.big TOC",       HomeworldCRC[1],
+        "Homeworld.big TOC",    HomeworldCRC[2],
+        "(not used)",           HomeworldCRC[3]  // never been used
     );
     
     // startup any SDL systems we want that haven't already been kicked off
@@ -4245,8 +4188,7 @@ char *utyGameSystemsInit(void)
     // http://www.3dconnexion.com/products/3a1d.php
     if (!(sdlSubsystemFlags & SDL_INIT_JOYSTICK))
     {
-        int joystick_i    = 0,
-            num_joysticks = 0;
+        int joystick_i = 0;
         
         if (SDL_InitSubSystem(SDL_INIT_JOYSTICK) == -1)
         {
@@ -4620,7 +4562,7 @@ char* utyGameSystemsPreShutdown(void)
         utyClear(SSA_FontReg);
     }
 
-    bigClose();
+    bigCloseAllBigFiles();
 
     keyClose();
 
@@ -4974,7 +4916,7 @@ char *utyGameSystemsShutdown(void)
     //shutdown transformer module
     transShutdown();
 
-    bigClose();
+    bigCloseAllBigFiles();
 
     keyClose();
 
