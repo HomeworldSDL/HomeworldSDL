@@ -387,8 +387,8 @@ static void bigTOCFileEntryWrite(bigTOCFileEntry *fileEntry, FILE *bigFilePtr)
 ----------------------------------------------------------------------------*/
 static int bigTOCWrite(FILE *fp, bigTOC *toc)
 {
-#if FIX_ENDIAN
     int i;
+#if FIX_ENDIAN
 	int numFiles = FIX_ENDIAN_INT_32( toc->numFiles );
 	int flags    = FIX_ENDIAN_INT_32( toc->flags );
 #else
