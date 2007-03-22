@@ -700,12 +700,13 @@ void btgLoad(char* filename)
         for( i=0; i<btgHead->numVerts; i++ )
         {
             btgVerts[i].flags = FIX_ENDIAN_INT_32( btgVerts[i].flags );
+            
             swap  = ( Uint64 *)&btgVerts[i].x;
             *swap = SDL_SwapLE64( *swap );
+            
             swap  = ( Uint64 *)&btgVerts[i].y;
             *swap = SDL_SwapLE64( *swap );
-            btgVerts[i].x          = FIX_ENDIAN_FLOAT_16( btgVerts[i].x );
-//            btgVerts[i].y          = FIX_ENDIAN_FLOAT_16( btgVerts[i].y );
+            
             btgVerts[i].red        = FIX_ENDIAN_INT_32( btgVerts[i].red );
             btgVerts[i].green      = FIX_ENDIAN_INT_32( btgVerts[i].green );
             btgVerts[i].blue       = FIX_ENDIAN_INT_32( btgVerts[i].blue );
@@ -1371,7 +1372,7 @@ void btgRender()
         //simulate DrawElements for buggy GLs
         glBegin(GL_TRIANGLES);
 
-#if BTG_VERBOSE_LEVEL >= 2
+#if BTG_VERBOSE_LEVEL >= 4
  dbgMessagef("numPolys= %d",btgHead->numPolys);
 #endif
 
