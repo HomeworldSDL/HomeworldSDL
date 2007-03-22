@@ -1,7 +1,12 @@
-INCLUDES = -I$(top_srcdir)/src/Game -I$(top_srcdir)/src/Missions/Generated -I$(top_srcdir)/src/ThirdParty/CRC -I$(top_srcdir)/src/ThirdParty/JPG -I$(top_srcdir)/src/ThirdParty/LZSS -I$(top_srcdir)/src/rgl -I$(top_srcdir)/src/SDL -I$(top_srcdir)/src/Ships
+INCLUDES = -I$(top_srcdir)/src/Game -I$(top_srcdir)/src/Missions/Generated -I$(top_srcdir)/src/ThirdParty/CRC -I$(top_srcdir)/src/ThirdParty/JPG -I$(top_srcdir)/src/ThirdParty/LZSS -I$(top_srcdir)/src/SDL -I$(top_srcdir)/src/Ships
+
+# Additional defined flags for extra warnings.
+# CFLAGS += -malign-double -Wall -fno-strict-aliasing -Wextra -Wmissing-prototypes -Wmissing-declarations -Wredundant-decls
+CFLAGS += -malign-double -Wall -fno-strict-aliasing -Wextra
 
 # Note the ordering (we haven't defined the dependencies too strongly).
-SUBDIRS = Missions/Generated Game ThirdParty/CRC ThirdParty/JPG ThirdParty/LZSS rgl SDL Ships obj
+# SUBDIRS = Missions/Generated Game ThirdParty/CRC ThirdParty/JPG ThirdParty/LZSS rgl SDL Ships obj 
+SUBDIRS = Missions/Generated Game ThirdParty/CRC ThirdParty/JPG ThirdParty/LZSS SDL Ships obj
 
 bin_PROGRAMS = homeworld
 

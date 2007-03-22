@@ -645,7 +645,9 @@ void rndGLStateLogFunction(char *location)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-#pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
+#ifndef _LINUX_FIX_ME
+ #pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
+#endif
 void rndFrameRateTaskFunction(void)
 {
     rndFrameRateStart = rndFrameRate = rndPrintCount = 0;   //it counters
@@ -682,7 +684,9 @@ void rndFrameRateTaskFunction(void)
         taskYield(0);
     }
 }
-#pragma optimize("", on)
+#ifndef _LINUX_FIX_ME
+ #pragma optimize("", on)
+#endif
 //toggle frame rate on/off
 sdword rndFrameRateToggle(regionhandle region, sdword ID, udword event, udword data)
 {
@@ -703,7 +707,9 @@ udword rndCollStatsToggle(regionhandle region, sdword ID, udword event, udword d
 #endif //COLLISION_CHECK_STATS
 
 #if RND_POLY_STATS
-#pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
+#ifndef _LINUX_FIX_ME
+ #pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
+#endif
 void rndPolyStatsTaskFunction(void)
 {
     rndNumberPolys    = 0;
@@ -785,7 +791,9 @@ void rndPolyStatsTaskFunction(void)
         taskYield(0);
     }
 }
-#pragma optimize("", on)
+#ifndef _LINUX_FIX_ME
+ #pragma optimize("", on)
+#endif
 //toggle frame rate on/off
 sdword rndPolyStatsToggle(regionhandle region, sdword ID, udword event, udword data)
 {
@@ -3952,7 +3960,9 @@ void rndDrawScissorBars(bool scissorEnabled)
     Outputs     : Clears frame buffer, renders regions, draws mouse, swaps buffers.
     Return      : void
 ----------------------------------------------------------------------------*/
-#pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
+#ifndef _LINUX_FIX_ME
+ #pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
+#endif
 void rndRenderTask(void)
 {
     static bool shouldSwap;
@@ -4215,7 +4225,9 @@ afterTheSwap:
     }
     taskExit();
 }
-#pragma optimize("", on)
+#ifndef _LINUX_FIX_ME
+ #pragma optimize("", on)
+#endif
 
 /*-----------------------------------------------------------------------------
     Name        : rndLightingEnable

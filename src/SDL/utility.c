@@ -105,9 +105,15 @@
 #include "Universe.h"
 #include "UnivUpdate.h"
 
-#pragma warning( 4 : 4142 )     //turn off "benign redefinition of type" warning
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 4 : 4142 )     //turn off "benign redefinition of type" warning
+#endif
+
 #include "main.h"
-#pragma warning( 2 : 4142 )
+
+#ifndef _LINUX_FIX_ME
+ #pragma warning( 2 : 4142 )
+#endif
 
 #ifdef _WIN32
     #define WIN32_LEAN_AND_MEAN

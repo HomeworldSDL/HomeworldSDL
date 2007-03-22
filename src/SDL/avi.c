@@ -24,6 +24,9 @@
 #include "Tutor.h"
 #include "utility.h"
 #include "Universe.h"
+#include "render.h"
+#include "SoundEvent.h"
+
 
 #ifndef _MSC_VER
     #undef _WIN32
@@ -353,7 +356,6 @@ dbgMessagef("aviPlayLoop: stream_index=%d, videoStream=%d", packet.stream_index,
 #if AVI_VERBOSE_LEVEL >= 100
 dbgMessagef("aviPlayLoop: frameFinished=%d  packet.data=%x   packet.size=%d ", frameFinished, packet.data, packet.size);
 #endif
-// dbgMessagef("aviPlayLoop: pFrame=%x %x %x %x", pFrame, pFrame->data[0], pFrame->data[1], pFrame->data[2]);
 
         if(frameFinished) {
             // Convert the image from its native format to RGB
@@ -407,8 +409,12 @@ int aviStart(char* filename)
 
 #ifdef HW_ENABLE_MOVIES
 
-    int i;
+    int i = 0;
+    int alignDoubleSet = 1;
+    int ffmpegAlign = 1;
     int videoStream = -1;
+
+// Add intelligence to identifying path and OS here  -- TODO
 
     if(av_open_input_file(&pFormatCtx, filename, NULL, 0, NULL)!=0) {
         dbgMessagef("aviStart: Unable to open AVI: %s",filename);
@@ -419,25 +425,66 @@ int aviStart(char* filename)
 dump_format(pFormatCtx, 0, filename, 0);
 #endif
 
-    for(i=0; i<pFormatCtx->nb_streams; i++) {
-        streamPointer=pFormatCtx->streams[i];
+    // Identify if there's a problem with the aligned variables.
+
+#if AVI_VERBOSE_LEVEL >= 2
+dbgMessagef("sizeof  AVFormatContext = %d",sizeof(AVFormatContext));
+#endif
+
+    if (sizeof(AVFormatContext) == 3976 ){   //alligned variables 
+	alignDoubleSet = 1;
+    }
+    else {                                   // 3964 should be un-aligned
+        alignDoubleSet = 0;
+    }
+
+    if (*((ubyte*)pFormatCtx+92) == 1) {      // This tests for how the libffmpeg was compiled.
+        ffmpegAlign = 0;                     // There should only be one stream.
+    }
+
+#if AVI_VERBOSE_LEVEL >= 2
+dbgMessagef("alignDoubleSet = %d",alignDoubleSet );
+dbgMessagef("ffmpegAlign = %d",ffmpegAlign );
+#endif
+
+//  There Should only be one stream. So skip the stream test.
+
+//    for(i=0; i<pFormatCtx->nb_streams; i++) {
+//        streamPointer=pFormatCtx->streams[i];
 //    }
-    if(streamPointer->codec->codec_type==CODEC_TYPE_VIDEO) {
+//    if(streamPointer->codec->codec_type==CODEC_TYPE_VIDEO) {
 
 #if AVI_VERBOSE_LEVEL >= 3
 dbgMessagef("aviStart: Found Video Stream= %d.", i);
 #endif
 
-        videoStream=i;
-        i+=pFormatCtx->nb_streams; // get out of the loop!
-    }
-   }
+//        videoStream=i;
+//        i+=pFormatCtx->nb_streams; // get out of the loop!
+//    }
+
+    videoStream=i;
+
     if(videoStream==-1) {
         dbgMessage("aviStart: No Video Stream found");
         return FALSE;
     }
 
-    pCodecCtx=pFormatCtx->streams[videoStream]->codec;
+    if ( (alignDoubleSet ^  ffmpegAlign ) == 0 ){   //should be the same
+
+#if AVI_VERBOSE_LEVEL >= 3
+dbgMessage("same");
+#endif
+
+        pCodecCtx=pFormatCtx->streams[videoStream]->codec;
+    }
+    else {
+
+#if AVI_VERBOSE_LEVEL >= 3
+dbgMessage("different");
+#endif
+        streamPointer=pFormatCtx->nb_streams;
+        pCodecCtx=streamPointer->codec;   //This is not the best way to do this, but works.
+    }
 
 #if AVI_VERBOSE_LEVEL >= 2
 dbgMessagef("aviStart: Codec required: %d.", pCodecCtx->codec_id);

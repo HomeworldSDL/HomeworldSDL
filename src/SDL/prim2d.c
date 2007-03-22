@@ -994,7 +994,9 @@ void primCircleSolid2(sdword x, sdword y, sdword rad, sdword nSlices, color c)
     Outputs     :
     Return      : void
 ----------------------------------------------------------------------------*/
-#pragma optimize("", off)   //intel compiler pukes on this function so compile it without optimizations
+#ifndef _LINUX_FIX_ME
+ #pragma optimize("", off)   //intel compiler pukes on this function so compile it without optimizations
+#endif
 void primCircleBorder(sdword x, sdword y, sdword radInner, sdword radOuter, sdword nSlices, color colInner)
 {
     sdword index;
@@ -1054,7 +1056,9 @@ void primCircleBorder(sdword x, sdword y, sdword radInner, sdword radOuter, sdwo
     glDisable(GL_BLEND);
     glShadeModel(GL_FLAT);
 }
-#pragma optimize("", on)
+#ifndef _LINUX_FIX_ME
+ #pragma optimize("", on)
+#endif
 
 /*-----------------------------------------------------------------------------
     Name        : primBlurryPoint2
