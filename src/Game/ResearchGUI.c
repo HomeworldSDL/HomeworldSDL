@@ -50,7 +50,8 @@
     #endif
 #endif
 
-#ifndef _MACOSX          // rgl stuff
+// rgl predeprecation code
+#ifdef _WIN32          // rgl stuff
     #include "fixed.h"
 #endif
 
