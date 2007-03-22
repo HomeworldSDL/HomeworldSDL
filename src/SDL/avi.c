@@ -43,6 +43,18 @@
     #include <ffmpeg/avcodec.h>
 #endif
 
+
+/*=============================================================================
+    Switches
+=============================================================================*/
+
+#ifdef HW_BUILD_FOR_DEBUGGING
+    #define AVI_VERBOSE_LEVEL  3    // print extra info
+#else
+    #define AVI_VERBOSE_LEVEL  0
+#endif
+
+
 extern bool fullScreen;
 extern void* ghMainWindow;
 extern int MAIN_WindowWidth;

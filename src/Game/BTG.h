@@ -14,23 +14,6 @@
 
 #define BTG_FILE_VERSION 0x600
 
-/*=============================================================================
-    Switches
-=============================================================================*/
-
-#ifdef HW_Debug
-
-#define BTG_ERROR_CHECKING      1               //General error checking
-#define BTG_VERBOSE_LEVEL       3               //print extra info
-
-#else
-
-#define BTG_ERROR_CHECKING      0               //General error checking
-#define BTG_VERBOSE_LEVEL       0               //print extra info
-
-#endif
-
-
 // -----
 // structures
 // -----

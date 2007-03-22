@@ -15,30 +15,9 @@ extern "C" {
 
 #include "Types.h"
 
-/*=============================================================================
-    Switches
-=============================================================================*/
-
-#ifdef HW_Debug
-
-#define AVI_ERROR_CHECKING      1               //General error checking
-#define AVI_VERBOSE_LEVEL       3               //print extra info
-#define AVI_SKIP_PLAY           0               //print extra info
-
-#else
-
-#define AVI_ERROR_CHECKING      0               //General error checking
-#define AVI_VERBOSE_LEVEL       0               //print extra info
-#define AVI_SKIP_PLAY           0               //print extra info
-
-#endif
 
 /*=============================================================================
     Defitions:
-=============================================================================*/
-
-/*=============================================================================
-    Type definitions:
 =============================================================================*/
 
 extern bool utilPlayingIntro;
