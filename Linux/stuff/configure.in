@@ -110,6 +110,17 @@ if test "x$movies" = "xyes" ; then
         LDFLAGS="$LDFLAGS -lavcodec -lavformat"
 fi
 
+dnl Configure options for Enabling Network gaming.
+AC_ARG_ENABLE(network,
+        AC_HELP_STRING([--enable-network], [include network code into Homeworld]),[network=yes])
+if test "x$network" = "xyes" ; then
+        echo "* Including Network Game code for Homeworld (HW_ENABLE_NETWORK) *"
+        HWGAME_CFLAGS="$HWGAME_CFLAGS -DHW_ENABLE_NETWORK"
+        LDFLAGS="$LDFLAGS -lSDL_net"
+fi
+
+
+
 
 dnl Add necessary flags for compiler and linker.
 dnl - One (and only one) of "HW_BUILD_FOR_DEBUGGING" or "HW_BUILD_FOR_DISTRIBUTION"

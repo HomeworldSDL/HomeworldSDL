@@ -429,6 +429,7 @@ fecallback      lgCallBack[]=
 fedrawcallback lgDrawCallback[] =
 {
     {lgCurrentGameDraw              ,   "LG_CurrentGame"                },
+    {lgCurrentChannelDraw	    ,   "LG_CurrentChannel"		},
     {mgDrawMessageBox               ,   "LG_DrawMessageBox"             },
     {lgDrawProtocal                 ,   "LG_Protocal"                   },
     {NULL                           ,   NULL                            }
@@ -708,7 +709,9 @@ void lgAddChatToRoomChat(chatlist *newchat, listwindowhandle listwindow, LinkedL
 
 void lgPrepareLanLoginScreen(void)
 {
-    if (LanProtocalsValid != LANIPXANDTCPIPVALID)
+// Rewrite to disable every buttons when not using TCP/IP
+// and disable IPX button in the other case
+    if (LanProtocalsValid != LANTCPIP_VALID)
     {
         fescreen *screen = feScreenFind("LLAN_Login");
         featom *atom = feAtomFindInScreen(screen,"LG_LanProtocalButton");
@@ -716,6 +719,12 @@ void lgPrepareLanLoginScreen(void)
 
         atom->flags |= FAF_Disabled;
         atom2->flags |= FAF_Disabled;
+    }
+    else
+    {
+	fescreen *screen = feScreenFind("LLAN_Login");
+	featom *atom = feAtomFindInScreen(screen,"LG_LanProtocalButton");
+	atom->flags |= FAF_Disabled;
     }
 }
 
@@ -767,6 +776,8 @@ void lgLaunchLAN(char *name, featom *atom)
         GeneralMessageBox(utyName, strGetString(strMustBeAtLeast2Chars));
         return;
     }
+
+// TODO : Uncomment when titanStart will be rewrite
 
     if (!titanStart(LANGame,IPGame))        // first try protocal specified by LanProtocalButton
     {
@@ -1081,6 +1092,26 @@ void lgUserNameWindowInit(char *name, featom *atom)
         return;
     }
 }
+
+void lgCurrentChannelDraw(featom *atom, regionhandle region)
+{
+    fonthandle oldfont;
+    wchar_t *channelname;
+    static char asciichannelname[MAX_CHANNEL_NAME_LEN];
+
+    oldfont = fontMakeCurrent(lgCurrentChannelFont);
+
+    channelname = GetCurrentChannel();
+    if (channelname[0] == 0)
+	fontPrint(region->rect.x0,region->rect.y0, lgCurrentChannelColor, strGetString(strNoRoom));
+    else
+    {
+	if (wcstombs(asciichannelname, channelname, MAX_CHANNEL_NAME_LEN) > 0)
+	     fontPrint(region->rect.x0,region->rect.y0, lgCurrentChannelColor, asciichannelname);
+    }
+    fontMakeCurrent(oldfont);
+}
+
 
 /*=============================================================================
     Callbacks for the available games screen:
@@ -2479,6 +2510,7 @@ void lgFillInLANAdvertHeader(LANAdvertHeader *header,LANAdvertType type)
 
 void lgAdvertiseMyGame(void)
 {
+    dbgMessagef("\nAdvertiseMyGame");
     LANAdvert_GameHere gamehere;
 
     gamehere.game = lgMyGameInfo;
@@ -2491,6 +2523,7 @@ void lgAdvertiseMyGame(void)
 
 void lgAdvertiseMyself(void)
 {
+    dbgMessagef("\nAdvertiseMyself");
     LANAdvert_UserHere userhere;
 
     dbgAssertOrIgnore(strlen(utyName) < MAX_PERSONAL_NAME_LEN);
@@ -2701,6 +2734,7 @@ void lgProcessCallBacksTask(void)
             LockQueue(&lgThreadTransfer);
 
             sizeofpacket = HWDequeue(&lgThreadTransfer, &packet);
+	    dbgMessagef("size of packet %d",sizeofpacket);
             dbgAssertOrIgnore(sizeofpacket > 0);
             copypacket = memAlloc(sizeofpacket,"lg(lgthreadtransfer)", Pyrophoric);
             memcpy(copypacket, packet, sizeofpacket);
@@ -2900,7 +2934,7 @@ void titanReceivedLanBroadcastCB(const void* thePacket, unsigned short theLen)
                 if (theLen == sizeof(LANAdvert_UserHere))
                 {
                     memcpy(&userhere.userhere,thePacket,sizeof(LANAdvert_UserHere));
-
+		    dbgMessagef("Size udword %d", (udword)sizeof(userhere));
                     HWEnqueue(&lgThreadTransfer, (ubyte *)&userhere, sizeof(userhere));
                 }
                 else

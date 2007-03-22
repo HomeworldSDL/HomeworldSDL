@@ -1863,7 +1863,7 @@ void mgLANIPX(char *name, featom *atom)
     {
         return;
     }
-    LanProtocalsValid = 0;
+    LanProtocalsValid = 2;
     LANGame = TRUE;
 
     if (titanCheckCanNetwork(LANGame,0))
@@ -1881,9 +1881,9 @@ void mgLANIPX(char *name, featom *atom)
 
     if (titanCheckCanNetwork(LANGame,1))
     {
-        LanProtocalsValid |= LANTCPIP_VALID;
+	LanProtocalsValid |= LANTCPIP_VALID;
     }
-    else
+   else
     {
         // disable TCP/IP button
         if (LanProtocalButton == 1)

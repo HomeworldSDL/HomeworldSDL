@@ -90,7 +90,6 @@ void HWEnqueue(Queue *queue,ubyte *packet,udword sizeofPacket)
 {
     ubyte *writeto;
     udword sizeinQ = sizeof(udword) + sizeofPacket;
-
     dbgAssertOrIgnore(sizeofPacket > 0);
 
     if ((queue->totalsize+sizeinQ) > queue->buffersize)
@@ -113,7 +112,7 @@ void HWEnqueue(Queue *queue,ubyte *packet,udword sizeofPacket)
     // to resolve compile issue with GCC v4.
     // Believe that this is correct, but unable to test fully.
     *((udword *)writeto) = sizeofPacket;
-    *((udword *)writeto) += 1;
+    writeto += sizeof(udword);
 
     queue->head += sizeinQ;
     if ((queue->head+sizeof(udword)) > queue->buffersize)
@@ -125,6 +124,7 @@ void HWEnqueue(Queue *queue,ubyte *packet,udword sizeofPacket)
     queue->totaltotalsize += sizeinQ;
 
     memcpy(writeto,packet,sizeofPacket);
+    
     queue->num++;
 }
 
@@ -154,7 +154,7 @@ udword HWDequeue(Queue *queue,ubyte **packet)
     }
 
     sizeofPacket = *((udword *)readfrom);
-    *((udword *)readfrom) += 1;
+    readfrom += sizeof(udword);
     *packet = readfrom;
     sizeinQ = sizeof(udword) + sizeofPacket;
     queue->tail += sizeinQ;

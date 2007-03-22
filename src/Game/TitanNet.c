@@ -631,7 +631,7 @@ void generateDirectoryCustomInfo(DirectoryCustomInfoMax *buildDirectoryCustomInf
 
     buildDirectoryCustomInfo->captainAddress = myAddress;
     buildDirectoryCustomInfo->pingAddress = titanGetMyPingAddress();
-    memcpy(buildDirectoryCustomInfo->sessionKey,titanGetGameKey(),GAMEKEY_SIZE);
+/*    memcpy(buildDirectoryCustomInfo->sessionKey,titanGetGameKey(),GAMEKEY_SIZE);*/
     memcpy(buildDirectoryCustomInfo->versionInfo,networkVersion,MAX_NETWORKVERSION_STRING_LEN);
 }
 
