@@ -146,7 +146,7 @@ void kasJump(char *stateName, KASInitFunction initFunction, KASWatchFunction wat
 //
 //  FSMCreate keyword of KAS language
 //
-//  "creates" an FSM and hands control of a team to it
+//  "creates" an FSM (Finite State Machine) and hands control of a team to it
 //
 void kasFSMCreate(char *fsmName, KASInitFunction initFunction, KASWatchFunction watchFunction, AITeam *teamP)
 {
@@ -1282,12 +1282,18 @@ void kasLoad(void)
 
     // Load Global Variables
 
-    CurrentMissionScope = LoadInfoNumber();
+    // throw this value away; we don't need it as it's tracking the mission
+    // number (effectively) and singlePlayerGameInfo.currentMission is
+    // already doing that perfectly well
+    i = LoadInfoNumber();                         // was: CurrentMissionScope
+    CurrentMissionScope = spGetCurrentMission();  // keep sync'd for consistency
 
-    LoadStructureOfSizeToAddress(CurrentMissionScopeName,sizeof(CurrentMissionScopeName));
-    LoadStructureOfSizeToAddress(CurrentMissionName,sizeof(CurrentMissionName));
+    LoadStructureOfSizeToAddress(CurrentMissionScopeName, sizeof(CurrentMissionScopeName));
+    LoadStructureOfSizeToAddress(CurrentMissionName,      sizeof(CurrentMissionName)     );
 
-    CurrentMissionWatchFunction = MissionEnumToWatchFunction((MissionEnum) LoadInfoNumber());
+    i = LoadInfoNumber();    // another CurrentMissionScope duplicate
+    CurrentMissionWatchFunction = MissionEnumToWatchFunction(CurrentMissionScope);
+
 
     dbgAssertOrIgnore(universe.players[1].aiPlayer);
     CurrentTeamP = AITeamIndexToTeam(universe.players[1].aiPlayer,LoadInfoNumber());
