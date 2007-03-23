@@ -3053,26 +3053,19 @@ void utySinglePlayerGameStart(char *name, featom *atom)
     feAllScreensDelete();
 
     forceSP = FALSE;
-/*
-    if (nisEnabled && utyTeaserPlaying != NULL)
-    {
-        mouseCursorShow();
-        utyTeaserEnd();
-    }
-*/
+
     singlePlayerGame = TRUE;
-    //objectivesShown = TRUE;
 
     if (!(tutorial==TUTORIAL_ONLY))
     {
         tutorial = TUTORIAL_SINGLEPLAYER;
     }
 
-
     numPlayers = 2;     // player 1 is always computer (pirates, opposite race, whatever)
     curPlayer = 0;      // player 0 is human
     strcpy(playerNames[0],"Player");
 
+    spResetMissionSequenceToBeginning();
     singlePlayerInit();
 
     horseRaceInit();

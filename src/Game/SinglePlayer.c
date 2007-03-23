@@ -348,6 +348,13 @@ udword convertMissionToSequenceIndex(MissionEnum mission)
     return 0;  // this will never be called but keeps the compiler quiet
 }
 
+void spResetMissionSequenceToBeginning(void)
+{
+    singlePlayerCurrentMissionIndex = 0;
+    
+    spSetCurrentMission(missionSequence[singlePlayerCurrentMissionIndex]);
+}
+
 void spSetCurrentMission(MissionEnum mission)
 {
     singlePlayerGameInfo.currentMission = mission;

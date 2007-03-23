@@ -176,6 +176,7 @@ void spHyperspaceSelectionOut(SelectCommand *selection);
 void spHyperspaceSelectionInStatic(SelectCommand *selection,hvector *destination);
 void spHyperspaceSelectionOutStatic(SelectCommand *selection);
 
+void spResetMissionSequenceToBeginning(void);
 void singlePlayerInit(void);
 void singlePlayerPostInit(bool loadingSaveGame);
 void singlePlayerClose(void);
