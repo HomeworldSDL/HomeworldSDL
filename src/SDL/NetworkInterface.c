@@ -10,6 +10,7 @@
 #ifdef HW_ENABLE_NETWORK
 SDL_Thread *listenBroadcast;
 static UDPsocket broadcastSendSock, broadcastRecvSock;
+static int endNetwork;
 
 void initNetwork()
 {
@@ -17,6 +18,7 @@ void initNetwork()
 	IPaddress ip, broadcastIp;
 	broadcastIp.host = INADDR_BROADCAST;
 	broadcastIp.port = UDPPORT;
+	endNetwork = 1;
 
 	/* Make sure SDL is initialized. */
 	sdl_flags = SDL_WasInit(SDL_INIT_EVERYTHING);
@@ -83,6 +85,9 @@ void sendBroadcastPacket(const void* packet, int len)
 
 void shutdownNetwork()
 {
+	endNetwork = 0;
+	SDLNet_UDP_Close(broadcastSendSock);
+	broadcastSendSock = NULL;
 	SDL_WaitThread(listenBroadcast,NULL);
 	SDLNet_Quit();
 }
@@ -96,7 +101,7 @@ int broadcastStartThread(void *data)
 	IpList listIps = NULL;
 
 //	unsigned int begin = SDL_GetTicks();
-	while(1)
+	while(endNetwork)
 	{
 		if(SDLNet_UDP_Recv(broadcastRecvSock,packet)>0)
 		{
@@ -126,6 +131,10 @@ int broadcastStartThread(void *data)
 		else
 			SDL_Delay(100);
 	}
+	
+	SDLNet_UDP_Close(broadcastRecvSock);
+	broadcastRecvSock = NULL;
+	
 	return 0;
 }
 

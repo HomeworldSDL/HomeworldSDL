@@ -79,6 +79,9 @@ void titanLeaveGameNotify(void)
 
 void titanShutdown(void)
 {
+#ifdef HW_ENABLE_NETWORK
+	shutdownNetwork();
+#endif
 	dbgMessagef("\ntitanShutdown");
 }
 
