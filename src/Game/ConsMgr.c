@@ -1129,8 +1129,10 @@ static bool resourcesHaveBeenAboveBefore = TRUE;
 #ifndef _LINUX_FIX_ME
  #pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
 #endif
-void cmBuildTaskFunction(void)
+DEFINE_TASK(cmBuildTaskFunction)
 {
+    taskBegin;
+
     static sdword index;
     static shipinprogress *progress;
     static Node *node;
@@ -1343,6 +1345,7 @@ void cmBuildTaskFunction(void)
 /*        taskStackRestoreCond();
         taskYield(0);
     }*/
+    taskEnd;
 }
 #ifndef _LINUX_FIX_ME
  #pragma optimize("", on)

@@ -21,6 +21,7 @@
 #include "GameStats.h"
 #include "ResearchAPI.h"
 #include "Star3d.h"
+#include "Task.h"
 
 /*=============================================================================
     Switches:
@@ -276,7 +277,7 @@ void universeReset(void);
 void universeSetZeroPlayers(void);
 void universeStaticInit(void);
 void universeStaticClose(void);
-void universeUpdateTask(void);
+DECLARE_TASK(universeUpdateTask);
 void universeSwitchToNextPlayer(void);
 void universeSwitchToPlayer(uword playerIndex);
 

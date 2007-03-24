@@ -16,6 +16,7 @@
 #include "MaxMultiplayer.h"
 #include "SpaceObj.h"
 #include "Switches.h"
+#include "Task.h"
 
 struct CaptaincyCustomInfo;
 
@@ -526,7 +527,7 @@ void clSendMpHyperspace(CommandLayer *comlayer,SelectCommand *selectcom,vector f
 void clSendGodSync(GodSyncCheckSums *checksumStruct,sdword playIndex,udword type);
 #endif
 WaitPacketStatus clWaitSyncPacket(CommandLayer *comlayer);
-void captainServerTask(void);
+DECLARE_TASK(captainServerTask);
 void ReceivedPacketCB(ubyte *packet,udword sizeofPacket);
 void netCheck(void);
 

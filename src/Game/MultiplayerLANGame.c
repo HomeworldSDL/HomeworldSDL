@@ -435,7 +435,7 @@ fedrawcallback lgDrawCallback[] =
     {NULL                           ,   NULL                            }
 };
 
-void lgProcessCallBacksTask(void);
+// void lgProcessCallBacksTask(void);
 
 void mgGameTypeScriptInit();
   // use mgGameTypeScriptInit() instead of making a brand
@@ -2622,8 +2622,10 @@ static void lgExplicitlyDeleteGameFromGameList(wchar_t *name)
 #ifndef _LINUX_FIX_ME
  #pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
 #endif
-void lgProcessCallBacksTask(void)
+DEFINE_TASK(lgProcessCallBacksTask)
 {
+    taskBegin;
+
     static sdword          sizeofpacket;
     static ubyte          *packet;
     static ubyte          *copypacket;
@@ -2788,6 +2790,8 @@ void lgProcessCallBacksTask(void)
         taskStackRestoreCond();
         taskYield(0);
     }
+
+    taskEnd;
 }
 #ifndef _LINUX_FIX_ME
  #pragma optimize("", on)

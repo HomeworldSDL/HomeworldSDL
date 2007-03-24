@@ -14,6 +14,7 @@
 #include "Matrix.h"
 #include "SpaceObj.h"
 #include "Types.h"
+#include "Task.h"
 
 /*=============================================================================
     Switches:
@@ -136,7 +137,7 @@ void rndMainViewAllButRenderFunction(Camera *camera);       //compute selection 
 void rndBackgroundRender(real32 radius, Camera *camera, bool bDrawStars);
 
 //main render task
-void rndRenderTask(void);
+DECLARE_TASK(rndRenderTask);
 
 //enable certain renderer options
 void rndHintInc(void);

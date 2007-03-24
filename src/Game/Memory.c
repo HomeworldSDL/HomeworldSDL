@@ -104,8 +104,10 @@ int memCookieNameSort(const void *p0, const void *p1)
 #ifndef _LINUX_FIX_ME
  #pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
 #endif
-void memStatsTaskFunction(void)
+DEFINE_TASK(memStatsTaskFunction)
 {
+    taskBegin;
+
     static sdword index, nPrinted;
 
     taskYield(0);
@@ -140,6 +142,7 @@ void memStatsTaskFunction(void)
         taskStackRestoreCond();
         taskYield(0);
     }
+    taskEnd;
 }
 #ifndef _LINUX_FIX_ME
  #pragma optimize("", on)

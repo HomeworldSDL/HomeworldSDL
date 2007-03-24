@@ -76,8 +76,8 @@ typedef struct
     taskfunction function;                     //task handler entry point
 //    ubyte *stackBase;                           //base (low) of stack allocated to this task
 //    sdword stackLength;                         //size of stack
-    udword ticks;                               //number of timer ticks (usually the remainder after a set of calls)
-    udword ticksPerCall;                        //number of base timer ticks per call
+    udword ticks;                               //ticks accumulated since last call
+    udword ticksPerCall;                        //period in ticks
     //saved context for task switches
     udword ebx;                                 //general-purpose registers
     udword ecx;
@@ -89,6 +89,7 @@ typedef struct
 #if TASK_STACK_SAVE
     udword nBytesStack;                         //amount of stack to be saved between updates
 #endif
+    char *name;                                 //for debugging
 }
 taskdata;
 
@@ -119,7 +120,7 @@ void taskCallBackInit();
 void taskCallBackShutDown();
 BabyCallBack *taskCallBackRegister(babyFuncCB callback, udword num, void *data, real32 callintime);
 void taskCallBackRemove(BabyCallBack *babytogobyebye);
-void taskCallBackProcess();
+// void taskCallBackProcess();
 
 /*=============================================================================
     Data:
@@ -161,6 +162,13 @@ extern real32 taskFrequency;
 #else
 #define taskInitCheck()
 #endif
+
+// Macros for defining task functions.
+// These should make it easier to change the task system implementation.
+#define DECLARE_TASK(name) void name(void)
+#define DEFINE_TASK(name) void name()
+#define taskBegin {             // Debug matching.
+#define taskEnd } taskExit()
 
 //macros for task continuation and exiting
 #ifndef C_ONLY
@@ -205,7 +213,10 @@ sdword taskStartup(udword frequency);
 void taskShutdown(void);
 
 //start/pause/resume/exit/yield a specific task
-taskhandle taskStart(taskfunction function, real32 period, udword flags);
+#define taskStart(function, period, flags) \
+    taskStartName(function, #function, (period), (flags))
+taskhandle taskStartName(taskfunction function, char *name,
+			 real32 period, udword flags);
 void taskPause(taskhandle handle);
 void taskResume(taskhandle handle);
 void taskStop(taskhandle handle);

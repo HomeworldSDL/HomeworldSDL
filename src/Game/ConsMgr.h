@@ -14,6 +14,7 @@
 #include "Region.h"
 #include "ShipDefs.h"
 #include "SpaceObj.h"
+#include "Task.h"
 
 /*=============================================================================
     Switches:
@@ -157,7 +158,7 @@ void cmDeterministicBuild(udword command, sdword numShips,
 void cmDeterministicBuildProcess(void);
 void cmDeterministicBuildDisplay(void);
 void cmDeterministicReset(void);
-void cmBuildTaskFunction(void);
+DECLARE_TASK(cmBuildTaskFunction);
 
 void LoadConsMgrDetermOptional();
 void SaveConsMgrDetermOptional();

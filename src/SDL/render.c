@@ -648,8 +648,10 @@ void rndGLStateLogFunction(char *location)
 #ifndef _LINUX_FIX_ME
  #pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
 #endif
-void rndFrameRateTaskFunction(void)
+DEFINE_TASK(rndFrameRateTaskFunction)
 {
+    taskBegin;
+
     rndFrameRateStart = rndFrameRate = rndPrintCount = 0;   //it counters
     rndFrameCountMax = 0;                                   //set min/max counters
     rndFrameCountMin = SDWORD_Max;                          //to rediculous values
@@ -683,6 +685,7 @@ void rndFrameRateTaskFunction(void)
         taskStackRestoreCond();
         taskYield(0);
     }
+    taskEnd;
 }
 #ifndef _LINUX_FIX_ME
  #pragma optimize("", on)
@@ -710,8 +713,10 @@ udword rndCollStatsToggle(regionhandle region, sdword ID, udword event, udword d
 #ifndef _LINUX_FIX_ME
  #pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
 #endif
-void rndPolyStatsTaskFunction(void)
+DEFINE_TASK(rndPolyStatsTaskFunction)
 {
+    taskBegin;
+
     rndNumberPolys    = 0;
     rndNumberTextured = 0;
     rndNumberSmoothed = 0;
@@ -790,6 +795,7 @@ void rndPolyStatsTaskFunction(void)
         taskStackRestoreCond();
         taskYield(0);
     }
+    taskEnd;
 }
 #ifndef _LINUX_FIX_ME
  #pragma optimize("", on)
@@ -3963,8 +3969,10 @@ void rndDrawScissorBars(bool scissorEnabled)
 #ifndef _LINUX_FIX_ME
  #pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
 #endif
-void rndRenderTask(void)
+DEFINE_TASK(rndRenderTask)
 {
+    taskBegin;
+
     static bool shouldSwap;
     static sdword index;
 #ifdef PROFILE_TIMERS
@@ -4223,7 +4231,7 @@ afterTheSwap:
         taskStackRestoreCond();
         taskYield(0);                                       //hold off to next frame
     }
-    taskExit();
+    taskEnd;
 }
 #ifndef _LINUX_FIX_ME
  #pragma optimize("", on)
