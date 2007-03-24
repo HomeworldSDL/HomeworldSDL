@@ -41,6 +41,8 @@ unsigned long titanStart(unsigned long isLan, unsigned long isIP)
 	dbgMessagef("\ntitanStart");
 #ifdef HW_ENABLE_NETWORK
 	initNetwork();
+	myAddress.AddrPart.IP = getMyAddress();
+	myAddress.Port = TCPPORT;
 	return 1; 
 #else
 	return 0;

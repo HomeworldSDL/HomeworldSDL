@@ -16,9 +16,12 @@ void shutdownNetwork();
 
 int broadcastStartThread(void*);
 void sendBroadcastPacket(const void*, int);
-int checkAndAdd(IPaddress, IpList);
+
 int checkList(IPaddress, IpList);
 IpList addList(IPaddress, IpList);
+
+Uint32 getMyAddress();
+int pingSendThread(void*);
 
 #define TCPPORT 10500
 #define UDPPORT 10600

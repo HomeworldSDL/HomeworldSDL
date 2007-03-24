@@ -161,4 +161,79 @@ IpList addList(IPaddress newIp, IpList list)
 	list = new;
 	return list;
 }
+
+Uint32 getMyAddress()
+{
+        UDPsocket recvSock;
+        UDPpacket *packet = SDLNet_AllocPacket(512);
+
+        printf("thread created\n");
+
+        if(!(recvSock=SDLNet_UDP_Open(45268)))
+        {
+                printf("socket not open\n");
+                exit(5);
+        }
+
+        SDL_Thread *pingRecv = SDL_CreateThread(pingSendThread,NULL);
+
+        while(SDLNet_UDP_Recv(recvSock,packet)<=0);
+
+
+        printf("Packet received, length: %d id: %s port: %d\n", packet->len, packet->data,packet->address.port);
+        Uint32 ipaddr=SDL_SwapBE32(packet->address.host);
+        printf("IP Address : %d.%d.%d.%d\n",
+                                        ipaddr>>24,
+                                        (ipaddr>>16)&0xff,
+                                        (ipaddr>>8)&0xff,
+                                        ipaddr&0xff);
+        printf("receive a packet\n");
+        SDLNet_FreePacket(packet);
+
+        SDL_WaitThread(pingRecv,NULL);
+        SDLNet_UDP_Close(recvSock);
+	return packet->address.host;
+}
+
+int pingSendThread(void *data)
+{
+        UDPsocket sendSock;
+        IPaddress pingIp;
+        pingIp.port = 45268;
+
+
+        if(SDLNet_ResolveHost(&pingIp,NULL,45268)==-1)
+        {
+                exit(2);
+        }
+        pingIp.host = INADDR_BROADCAST;
+
+        UDPpacket *out = SDLNet_AllocPacket(512);
+
+        if(!(sendSock=SDLNet_UDP_Open(0)))
+        {
+                printf("socket not open\n");
+                exit(5);
+        }
+
+        if(!SDLNet_UDP_Bind(sendSock,1,&pingIp ))
+        {
+                exit(10);
+        }
+
+
+        SDL_Delay(100);
+
+        out->len = 10;
+        char* message = "ping";
+        memcpy(out->data,message,strlen(message)+1);
+
+        if(!SDLNet_UDP_Send(sendSock,1,out))
+        {
+                printf("no destination send\n");
+        }
+        SDLNet_FreePacket(out);
+        SDLNet_UDP_Close(sendSock);
+        return 0;
+}
 #endif
