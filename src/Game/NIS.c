@@ -428,13 +428,11 @@ void nisCameraFlyCompute(real32 timeElapsed)
 ----------------------------------------------------------------------------*/
 //void utyTeaserEnd(void);
 extern nisplaying *utyTeaserPlaying;
-#ifndef _LINUX_FIX_ME
+#ifdef _WIN32_FIX_ME
  #pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
 #endif
-DEFINE_TASK(nisUpdateTask)
+void nisUpdateTask(void)
 {
-    taskBegin;
-
     static real32 newTime;
     static real32 timeElapsed;
 
@@ -583,9 +581,8 @@ DEFINE_TASK(nisUpdateTask)
         taskStackRestoreCond();
         taskYield(0);
     }
-    taskEnd;
 }
-#ifndef _LINUX_FIX_ME
+#ifdef _WIN32_FIX_ME
  #pragma optimize("", on)
 #endif
 
@@ -2678,7 +2675,7 @@ void nisDamageLevel(nisplaying *NIS, nisevent *event)
     goodShip->health = health * goodShip->staticinfo->maxhealth;
 }
 
-#ifndef _LINUX_FIX_ME
+#ifdef _WIN32_FIX_ME
  #pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
 #endif 
 void nisRemainAtEnd(nisplaying *NIS, nisevent *event)
@@ -2700,7 +2697,7 @@ void nisRemainAtEnd(nisplaying *NIS, nisevent *event)
         event->param[0] = 0;
     }
 }
-#ifndef _LINUX_FIX_ME
+#ifdef _WIN32_FIX_ME
  #pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
 #endif 
 
@@ -3597,7 +3594,7 @@ void nisAnimaticSpeechEventSet(char* directory, char* field, void* dataToFillIn)
         sscanf(nextString + 1, "%d", &event->param[1]);
     }
 }
-#ifndef _LINUX_FIX_ME
+#ifdef _WIN32_FIX_ME
  #pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
 #endif
 void nisRemainAtEndSet(char *directory,char *field,void *dataToFillIn)
@@ -3618,7 +3615,7 @@ void nisRemainAtEndSet(char *directory,char *field,void *dataToFillIn)
         event->param[0] = 0;
     }
 }
-#ifndef _LINUX_FIX_ME
+#ifdef _WIN32_FIX_ME
  #pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
 #endif
 

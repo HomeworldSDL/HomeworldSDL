@@ -645,13 +645,11 @@ void rndGLStateLogFunction(char *location)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-#ifndef _LINUX_FIX_ME
+#ifdef _WIN32_FIX_ME
  #pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
 #endif
-DEFINE_TASK(rndFrameRateTaskFunction)
+void rndFrameRateTaskFunction(void)
 {
-    taskBegin;
-
     rndFrameRateStart = rndFrameRate = rndPrintCount = 0;   //it counters
     rndFrameCountMax = 0;                                   //set min/max counters
     rndFrameCountMin = SDWORD_Max;                          //to rediculous values
@@ -685,9 +683,8 @@ DEFINE_TASK(rndFrameRateTaskFunction)
         taskStackRestoreCond();
         taskYield(0);
     }
-    taskEnd;
 }
-#ifndef _LINUX_FIX_ME
+#ifdef _WIN32_FIX_ME
  #pragma optimize("", on)
 #endif
 //toggle frame rate on/off
@@ -710,13 +707,11 @@ udword rndCollStatsToggle(regionhandle region, sdword ID, udword event, udword d
 #endif //COLLISION_CHECK_STATS
 
 #if RND_POLY_STATS
-#ifndef _LINUX_FIX_ME
+#ifdef _WIN32_FIX_ME
  #pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
 #endif
-DEFINE_TASK(rndPolyStatsTaskFunction)
+void rndPolyStatsTaskFunction(void)
 {
-    taskBegin;
-
     rndNumberPolys    = 0;
     rndNumberTextured = 0;
     rndNumberSmoothed = 0;
@@ -795,9 +790,8 @@ DEFINE_TASK(rndPolyStatsTaskFunction)
         taskStackRestoreCond();
         taskYield(0);
     }
-    taskEnd;
 }
-#ifndef _LINUX_FIX_ME
+#ifdef _WIN32_FIX_ME
  #pragma optimize("", on)
 #endif
 //toggle frame rate on/off
@@ -3966,13 +3960,11 @@ void rndDrawScissorBars(bool scissorEnabled)
     Outputs     : Clears frame buffer, renders regions, draws mouse, swaps buffers.
     Return      : void
 ----------------------------------------------------------------------------*/
-#ifndef _LINUX_FIX_ME
+#ifdef _WIN32_FIX_ME
  #pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
 #endif
-DEFINE_TASK(rndRenderTask)
+void rndRenderTask(void)
 {
-    taskBegin;
-
     static bool shouldSwap;
     static sdword index;
 #ifdef PROFILE_TIMERS
@@ -4231,9 +4223,9 @@ afterTheSwap:
         taskStackRestoreCond();
         taskYield(0);                                       //hold off to next frame
     }
-    taskEnd;
+    taskExit();
 }
-#ifndef _LINUX_FIX_ME
+#ifdef _WIN32_FIX_ME
  #pragma optimize("", on)
 #endif
 

@@ -37,7 +37,7 @@
 
 //because these images use structures with 2-byte boundaries, let's set the
 //structure packing to words for this file only.
-#ifndef _LINUX_FIX_ME
+#ifdef _WIN32_FIX_ME
  #pragma warning( disable : 4103 )
  #pragma pack(push, 2)
 #endif
@@ -61,7 +61,7 @@ typedef struct
 
 //because these images use structures with 2-byte boundaries, let's set the
 //structure packing to words for this file only.
-#ifndef _LINUX_FIX_ME
+#ifdef _WIN32_FIX_ME
  #pragma pack(pop)
 #endif
 

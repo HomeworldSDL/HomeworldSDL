@@ -3135,7 +3135,9 @@ void SalCapDropTarget(Ship *ship)
 
 // Save Game stuff
 
-#pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#ifdef _WIN32_FIX_ME
+    #pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#endif
 
 void SalCapCorvette_RegisterExtraSpaceObjs(Ship *ship)
 {
@@ -3159,7 +3161,9 @@ void SalCapCorvette_Fix(Ship *ship)
     spec->noDamageTarget = (SpaceObjRotImpTargGuidanceShipDerelict *)SpaceObjRegistryGetTarget((sdword)spec->noDamageTarget);
 }
 
-#pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#ifdef _WIN32_FIX_ME
+    #pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#endif
 
 CustShipHeader SalCapCorvetteHeader =
 {

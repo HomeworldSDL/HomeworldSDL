@@ -777,7 +777,9 @@ void univUpdateMineWallFormations()
 
 }
 
-#pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#ifdef _WIN32_FIX_ME
+    #pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#endif
 
 void MineLayerCorvette_PreFix(Ship *ship)
 {
@@ -793,7 +795,9 @@ void MineLayerCorvette_Fix(Ship *ship)
     spec->mineforminfo = ConvertNumToPointerInList(&universe.MineFormationList,(sdword)spec->mineforminfo);
 }
 
-#pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#ifdef _WIN32_FIX_ME
+    #pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#endif
 
 CustShipHeader MinelayerCorvetteHeader =
 {

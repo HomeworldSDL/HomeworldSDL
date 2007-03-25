@@ -3773,13 +3773,11 @@ void universeStaticClose(void)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-#ifndef _LINUX_FIX_ME
+#ifdef _WIN32_FIX_ME
  #pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
 #endif
-DEFINE_TASK(universeUpdateTask)
+void universeUpdateTask(void)
 {
-    taskBegin;
-
     static WaitPacketStatus waitpacketstatus;
     static sdword repeatuniv;
     static sdword repeattimes;
@@ -4067,9 +4065,9 @@ alldone2:;
         taskYield(0);
     }
 
-    taskEnd;
+    taskExit();
 }
-#ifndef _LINUX_FIX_ME
+#ifdef _WIN32_FIX_ME
  #pragma optimize("", on)
 #endif
 

@@ -1126,13 +1126,11 @@ void cmRemoveFactory(struct Ship *ship)
 
 static bool resourcesHaveBeenAboveBefore = TRUE;
 
-#ifndef _LINUX_FIX_ME
+#ifdef _WIN32_FIX_ME
  #pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
 #endif
-DEFINE_TASK(cmBuildTaskFunction)
+void cmBuildTaskFunction(void)
 {
-    taskBegin;
-
     static sdword index;
     static shipinprogress *progress;
     static Node *node;
@@ -1345,9 +1343,8 @@ DEFINE_TASK(cmBuildTaskFunction)
 /*        taskStackRestoreCond();
         taskYield(0);
     }*/
-    taskEnd;
 }
-#ifndef _LINUX_FIX_ME
+#ifdef _WIN32_FIX_ME
  #pragma optimize("", on)
 #endif
 
@@ -4664,7 +4661,7 @@ void cmDeterministicBuildProcess(void)
     Save Game Stuff:
 =============================================================================*/
 
-#ifndef _LINUX_FIX_ME
+#ifdef _WIN32_FIX_ME
  #pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
 #endif
 
@@ -4866,6 +4863,6 @@ void LoadConsMgrDetermOptional()
     }
 }
 
-#ifndef _LINUX_FIX_ME
+#ifdef _WIN32_FIX_ME
  #pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
 #endif

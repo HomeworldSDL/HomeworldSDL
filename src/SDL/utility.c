@@ -105,13 +105,13 @@
 #include "Universe.h"
 #include "UnivUpdate.h"
 
-#ifndef _LINUX_FIX_ME
+#ifdef _WIN32_FIX_ME
  #pragma warning( 4 : 4142 )     //turn off "benign redefinition of type" warning
 #endif
 
 #include "main.h"
 
-#ifndef _LINUX_FIX_ME
+#ifdef _WIN32_FIX_ME
  #pragma warning( 2 : 4142 )
 #endif
 

@@ -73,19 +73,17 @@ sdword taskLargestLocals = 0;
 /*=============================================================================
     Functions:
 =============================================================================*/
-#ifndef _LINUX_FIX_ME
+#ifdef _WIN32_FIX_ME
  #pragma optimize("gy", off)                       //turn on stack frame (we need ebp for these functions)
 #endif
 /*-----------------------------------------------------------------------------
     Test task function
 -----------------------------------------------------------------------------*/
 #if TASK_TEST
-DEFINE_TASK(taskTestFunction)
+void taskTestFunction(void)
 {
     register sdword index;
     register sdword aba;
-
-    taskBegin;
 
     index = 300;
     aba = 24;
@@ -98,7 +96,7 @@ DEFINE_TASK(taskTestFunction)
         aba++;
         taskYield(0);
     }
-    taskEnd;
+    taskExit();
 }
 #endif //TASK_TEST
 
@@ -211,10 +209,9 @@ sdword taskPointerAlloc(void)
 }
 
 /*-----------------------------------------------------------------------------
-    Name        : taskStartName
+    Name        : taskStart
     Description : Start a specific task
     Inputs      : function - entry point of task
-                  name - a string describing the task for debugging
                   period - period between consecutive calls
                   stacksize - size of task's local stack
                   flags - control execution of task
@@ -222,11 +219,8 @@ sdword taskPointerAlloc(void)
     Return      : handle to task for later manipulation of task
     Note        : if a taskdata structure or stack RAM cannot be allocated, the
                     function will generate a fatal error.
-                  name must be caller-allocated and outlive the task.
-                  This is usually invoked with the taskStart macro.
 ----------------------------------------------------------------------------*/
-taskhandle taskStartName(taskfunction function, char *name,
-                         real32 period, udword flags)
+taskhandle taskStart(taskfunction function, real32 period, udword flags)
 {
     static char  * Local_taskData; // GCC v4 needs locally defined value
     static taskhandle handle = ERROR;
@@ -626,13 +620,7 @@ sdword taskExecuteAllPending(sdword ticks)
 #if TASK_VERBOSE_LEVEL >= 3
             if (taskNumberCalls)
             {
-                dbgMessagef(
-                    "taskExecuteAllPending: task %d (%s) to run %d times, "
-                    "%d ticks elapsed / %d per call = %d",
-                    taskCurrentTask, taskData[taskCurrentTask]->name,
-                    taskNumberCalls,
-                    tLocalTicks, taskData[taskCurrentTask]->ticksPerCall,
-		    tLocalTicks / taskData[taskCurrentTask]->ticksPerCall);
+                dbgMessagef("taskExecuteAllPending: executing %d calls of task handle %d", taskNumberCalls, taskCurrentTask);
             }
 #endif
             //!!! needed?
@@ -1081,14 +1069,12 @@ real32 taskPeriodSet(taskhandle handle, real32 period)
 
 taskhandle babyTaskHandle = -1;
 
-DECLARE_TASK(taskCallBackProcess);
-
+void taskCallBackProcess(void);
 void taskCallBackInit()
 {
     listInit(&callbacks.babies);        //initialize linked list of babies
     babyTaskHandle = taskStart(taskCallBackProcess, BABY_CallBackPeriod, 0);
 }
-
 void taskCallBackShutDown()
 {
     if (babyTaskHandle != -1)
@@ -1098,9 +1084,7 @@ void taskCallBackShutDown()
 
     listDeleteAll(&callbacks.babies);
 }
-
-BabyCallBack *taskCallBackRegister(babyFuncCB callback, udword num,
-                                   void *data, real32 callintime)
+BabyCallBack *taskCallBackRegister(babyFuncCB callback, udword num, void *data, real32 callintime)
 {
     BabyCallBack *baby;
     //(maybe do check of time to see if it is volatile?)
@@ -1113,7 +1097,6 @@ BabyCallBack *taskCallBackRegister(babyFuncCB callback, udword num,
     listAddNode(&callbacks.babies, &baby->babylink,baby);
     return(baby);
 }
-
 void taskCallBackRemove(BabyCallBack *babytogobyebye)
 {
     BabyCallBack *baby;
@@ -1133,10 +1116,8 @@ void taskCallBackRemove(BabyCallBack *babytogobyebye)
     }
 }
 
-DEFINE_TASK(taskCallBackProcess)
+void taskCallBackProcess(void)
 {
-    taskBegin;
-
     static BabyCallBack *baby;
     static Node *babynode,*tempnode;
 
@@ -1172,5 +1153,5 @@ DEFINE_TASK(taskCallBackProcess)
         taskStackRestoreCond();
         taskYield(0);
     }
-    taskEnd;
 }
+

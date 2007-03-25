@@ -994,7 +994,7 @@ void primCircleSolid2(sdword x, sdword y, sdword rad, sdword nSlices, color c)
     Outputs     :
     Return      : void
 ----------------------------------------------------------------------------*/
-#ifndef _LINUX_FIX_ME
+#ifdef _WIN32_FIX_ME
  #pragma optimize("", off)   //intel compiler pukes on this function so compile it without optimizations
 #endif
 void primCircleBorder(sdword x, sdword y, sdword radInner, sdword radOuter, sdword nSlices, color colInner)
@@ -1056,7 +1056,7 @@ void primCircleBorder(sdword x, sdword y, sdword radInner, sdword radOuter, sdwo
     glDisable(GL_BLEND);
     glShadeModel(GL_FLAT);
 }
-#ifndef _LINUX_FIX_ME
+#ifdef _WIN32_FIX_ME
  #pragma optimize("", on)
 #endif
 

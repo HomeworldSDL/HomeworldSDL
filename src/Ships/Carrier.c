@@ -154,7 +154,10 @@ void CarrierRemoveShipReferences(Ship *ship,Ship *shiptoremove)
     }
 }
 
-#pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#ifdef _WIN32_FIX_ME
+    #pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#endif
+
 void Carrier_PreFix(Ship *ship)
 {
     CarrierSpec *spec = (CarrierSpec *)ship->ShipSpecifics;
@@ -174,8 +177,9 @@ void Carrier_Fix(Ship *ship)
         spec->droptarget[i] = (SpaceObjRotImpTargGuidanceShipDerelict *)SpaceObjRegistryGetObj((sdword)spec->droptarget[i]);
     }
 }
-#pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
-
+#ifdef _WIN32_FIX_ME
+    #pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#endif
 
 void CarrierDied(Ship *ship)
 {

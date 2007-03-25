@@ -500,7 +500,9 @@ void CloakGeneratorAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdist)
     attackStraightForward(ship,target,4000.0f,3000.0f);
 }
 
-#pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#ifdef _WIN32_FIX_ME
+    #pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
+#endif
 
 void SaveCloakStruct(CloakStruct *cloakStruct)
 {
@@ -584,7 +586,9 @@ void CloakGenerator_Fix(Ship *ship)
     }
 }
 
-#pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#ifdef _WIN32_FIX_ME
+    #pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
+#endif
 
 CustShipHeader CloakGeneratorHeader =
 {

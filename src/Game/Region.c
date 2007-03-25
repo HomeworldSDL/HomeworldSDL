@@ -912,13 +912,11 @@ udword regRegionProcess(regionhandle reg, udword mask)
     Outputs     : ..
     Return      : void
 ----------------------------------------------------------------------------*/
-#ifndef _LINUX_FIX_ME
+#ifdef _WIN32_FIX_ME
   #pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
 #endif
-DEFINE_TASK(regProcessTask)
+void regProcessTask(void)
 {
-    taskBegin;
-
     taskYield(0);
 
 #ifndef C_ONLY
@@ -958,9 +956,9 @@ DEFINE_TASK(regProcessTask)
         taskYield(0);
     }
 
-    taskEnd;
+    taskExit();
 }
-#ifndef _LINUX_FIX_ME
+#ifdef _WIN32_FIX_ME
  #pragma optimize("", on)
 #endif
 
