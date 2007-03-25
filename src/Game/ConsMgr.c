@@ -1126,13 +1126,9 @@ void cmRemoveFactory(struct Ship *ship)
 
 static bool resourcesHaveBeenAboveBefore = TRUE;
 
-#ifdef _WIN32_FIX_ME
- #pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
-#endif
-DEFINE_TASK(cmBuildTaskFunction)
+// This is not really a task anymore.
+void cmBuildTaskFunction(void)
 {
-    taskBegin;
-
     static sdword index;
     static shipinprogress *progress;
     static Node *node;
@@ -1345,11 +1341,7 @@ DEFINE_TASK(cmBuildTaskFunction)
 /*        taskStackRestoreCond();
         taskYield(0);
     }*/
-    taskEnd;
 }
-#ifdef _WIN32_FIX_ME
- #pragma optimize("", on)
-#endif
 
 /*=============================================================================
     Functions:
