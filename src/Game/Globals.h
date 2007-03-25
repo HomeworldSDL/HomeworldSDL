@@ -45,7 +45,7 @@
 #define MAX_MESSAGE_LENGTH              100
 #define MAX_MESSAGES                    5
 
-#define MAX_BIGMESSAGE_LENGTH           100
+#define MAX_BIGMESSAGE_LENGTH           150
 #define MAX_BIGMESSAGES                 2
 
 /*=============================================================================
