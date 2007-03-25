@@ -431,8 +431,10 @@ extern nisplaying *utyTeaserPlaying;
 #ifdef _WIN32_FIX_ME
  #pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
 #endif
-void nisUpdateTask(void)
+DEFINE_TASK(nisUpdateTask)
 {
+    taskBegin;
+
     static real32 newTime;
     static real32 timeElapsed;
 
@@ -581,6 +583,7 @@ void nisUpdateTask(void)
         taskStackRestoreCond();
         taskYield(0);
     }
+    taskEnd;
 }
 #ifdef _WIN32_FIX_ME
  #pragma optimize("", on)

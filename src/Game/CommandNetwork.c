@@ -2037,8 +2037,10 @@ typedef struct
 #ifdef _WIN32_FIX_ME
  #pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
 #endif
-void captainServerTask(void)
+DEFINE_TASK(captainServerTask)
 {
+    taskBegin;
+
     static QInfo *qinfos;
     static QInfo *curqinfo;
     static udword qTotalNumberEntries;
@@ -2173,7 +2175,7 @@ donecap:;
         taskYield(0);
     }
 
-    taskExit();
+    taskEnd;
 }
 #ifdef _WIN32_FIX_ME
  #pragma optimize("", on)

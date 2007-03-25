@@ -3776,8 +3776,10 @@ void universeStaticClose(void)
 #ifdef _WIN32_FIX_ME
  #pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
 #endif
-void universeUpdateTask(void)
+DEFINE_TASK(universeUpdateTask)
 {
+    taskBegin;
+
     static WaitPacketStatus waitpacketstatus;
     static sdword repeatuniv;
     static sdword repeattimes;
@@ -4065,7 +4067,7 @@ alldone2:;
         taskYield(0);
     }
 
-    taskExit();
+    taskEnd;
 }
 #ifdef _WIN32_FIX_ME
  #pragma optimize("", on)
