@@ -2878,11 +2878,6 @@
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = Homeworld;
 				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
 				WARNING_LDFLAGS = "";
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = YES;
@@ -2920,11 +2915,6 @@
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = Homeworld;
 				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
 				WARNING_LDFLAGS = "";
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = NO;
@@ -2969,11 +2959,6 @@
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = Homeworld;
 				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
 				WARNING_LDFLAGS = "";
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = NO;
@@ -3015,11 +3000,6 @@
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "Raider Retreat";
 				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
 				WARNING_LDFLAGS = "";
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = YES;
@@ -3057,11 +3037,6 @@
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "Raider Retreat";
 				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
 				WARNING_LDFLAGS = "";
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = NO;
@@ -3107,11 +3082,6 @@
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "Raider Retreat";
 				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
 				WARNING_LDFLAGS = "";
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = NO;
@@ -3122,18 +3092,39 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"-Wundef",
+					"-Wextra",
+				);
 			};
 			name = Development;
 		};
 		35CC22250955C2E100504293 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"-Wundef",
+					"-Wextra",
+				);
 			};
 			name = Deployment;
 		};
 		35CC22260955C2E100504293 /* Default */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"-Wundef",
+					"-Wextra",
+				);
 			};
 			name = Default;
 		};
