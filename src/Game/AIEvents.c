@@ -1,10 +1,12 @@
+// =============================================================================
+//  AIEvents.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+// =============================================================================
+
 #include "AIEvents.h"
 
 #include "AIPlayer.h"
-#include "AITeam.h"
-#include "Blobs.h"
-#include "Debug.h"
-#include "Memory.h"
 
 //
 //  handle any events applicable for the

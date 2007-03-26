@@ -1,27 +1,20 @@
-/*=============================================================================
-    Name    : AIAttackMan
-    Purpose : Attack Manager
-
-    Created 1998/05/28 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-#include <string.h>
+// =============================================================================
+//  AIAttackMan.c
+//  - Attack manager
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 1998/05/28 by gshaw
+// =============================================================================
 
 #include "AIAttackMan.h"
+
 #include "AIFeatures.h"
-#include "AIFleetMan.h"
 #include "AIHandler.h"
 #include "AIMoves.h"
 #include "AIOrders.h"
-#include "AIUtilities.h"
-#include "Debug.h"
-#include "Globals.h"
-#include "Memory.h"
 #include "MultiplayerGame.h"
 #include "Randy.h"
 #include "Select.h"
-#include "SpaceObj.h"
 #include "Stats.h"
 
 

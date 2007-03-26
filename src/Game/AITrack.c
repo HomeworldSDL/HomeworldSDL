@@ -1,22 +1,19 @@
-/*=============================================================================
-    Name    : AITrack.c
-    Purpose : Given a desired velocity, heading, etc. this AI layer will
-              make the ship track the desired velocity, heading, etc.
+// =============================================================================
+//  AITrack.c
+//  - Given a desired velocity, heading, etc from AIShip.c, this AI layer will
+//  make the ship track the desired velocity, heading, etc.
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 6/25/1997 by gshaw
+// =============================================================================
 
-    Created 6/25/1997 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+#include "AITrack.h"
 
-#include <math.h>
-#include "Debug.h"
-#include "Vector.h"
-#include "Matrix.h"
+#include "AIShip.h"
 #include "FastMath.h"
 #include "Physics.h"
-#include "AITrack.h"
 #include "StatScript.h"
 #include "Universe.h"
-#include "AIShip.h"
 
 #define DEBUG_AITRACK 0
 

@@ -1,26 +1,22 @@
-/*=============================================================================
-    Name    : AIDefenseMan
-    Purpose : Defense Manager
-
-    Created 1998/05/28 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  AIDefenseMan.c
+//  - Defense manager
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 1998/05/28 by gshaw
+// =============================================================================
 
 #include "AIDefenseMan.h"
+
 #include "AIFeatures.h"
 #include "AIFleetMan.h"
 #include "AIHandler.h"
 #include "AIMoves.h"
 #include "AIOrders.h"
-#include "AIPlayer.h"
-#include "AITeam.h"
-#include "AIUtilities.h"
-#include "Debug.h"
-#include "FastMath.h"
-#include "Memory.h"
 #include "Randy.h"
 #include "Select.h"
 #include "Stats.h"
+
 
 bool aitAnyTeamOfPlayerGuardingThisShip(struct AIPlayer *aiplayer,Ship *ship)
 {

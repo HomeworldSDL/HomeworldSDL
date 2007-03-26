@@ -1,10 +1,9 @@
-/*=============================================================================
-    Name    : AIPlayer.h
-    Purpose : Definitions for AIPlayer
-
-    Created 5/31/1998 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  AIPlayer.h
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 5/31/1998 by gshaw
+// =============================================================================
 
 #ifndef ___AIPLAYER_H
 #define ___AIPLAYER_H

@@ -1,10 +1,10 @@
-/*=============================================================================
-    Name    : AIAttackMan.h
-    Purpose : Definitions for AIAttackMan
-
-    Created 1998/05/28 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  AIAttackMan.h
+//  - Attack manager
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 1998/05/28 by gshaw
+// =============================================================================
 
 #ifndef ___AIATTACKMAN_H
 #define ___AIATTACKMAN_H

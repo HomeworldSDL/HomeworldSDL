@@ -1,32 +1,23 @@
-/*=============================================================================
-    Name    : AITeam.c
-    Purpose : Team stuff for AIPlayer
-
-    Created 5/31/1998 by dstone
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  AITeam.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 5/31/1998 by dstone
+// =============================================================================
 
 #include "AITeam.h"
 
-#include <stdlib.h>
-#include <string.h>
-
-#include "AIAttackMan.h"
-#include "AIDefenseMan.h"
 #include "AIFeatures.h"
 #include "AIFleetMan.h"
 #include "AIHandler.h"
 #include "AIMoves.h"
 #include "AIPlayer.h"
 #include "CommandDefs.h"
-#include "CommandWrap.h"
-#include "Debug.h"
 #include "GravWellGenerator.h"
-#include "Memory.h"
 #include "SaveGame.h"
 #include "Select.h"
 #include "Tactics.h"
-#include "Universe.h"
+
 
 /*-----------------------------------------------------------------------------
     Name        : aitCreate

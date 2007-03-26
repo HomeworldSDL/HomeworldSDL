@@ -1,22 +1,19 @@
-#include <stdlib.h>
-#include <string.h>
+// =============================================================================
+//  AIMoves.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+// =============================================================================
 
-#include "AIAttackMan.h"
-#include "AIEvents.h"
+#include "AIMoves.h"
+
 #include "AIFeatures.h"
 #include "AIFleetMan.h"
 #include "AIHandler.h"
-#include "AIMoves.h"
 #include "AIPlayer.h"
-#include "AITeam.h"
 #include "AIUtilities.h"
-#include "AIVar.h"
 #include "CommandDefs.h"
 #include "CommandWrap.h"
-#include "Debug.h"
-#include "Dock.h"
 #include "FastMath.h"
-#include "Memory.h"
 #include "Randy.h"
 #include "SalCapCorvette.h"
 #include "SaveGame.h"
@@ -24,7 +21,6 @@
 #include "SinglePlayer.h"
 #include "Tutor.h"
 #include "UnivUpdate.h"
-
 
 sdword aimProcessGuardShips(AITeam *team)
 {

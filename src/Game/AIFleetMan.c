@@ -1,29 +1,23 @@
-/*=============================================================================
-    Name    : AIFleetMan
-    Purpose : Controls construction of ships requested from combatman, defenseman, resourceman
+// =============================================================================
+//  AIFleetMan.c
+//  - Controls construction of ships requested from combatman, defenseman, resourceman
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 1998/05/28 by gshaw
+// =============================================================================
 
-    Created 5/28/1998 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-#include <string.h>
-#include "Universe.h"
 #include "AIFleetMan.h"
-#include "AIResourceMan.h"
+
 #include "AIAttackMan.h"
 #include "AIDefenseMan.h"
 #include "AIFeatures.h"
-#include "AIUtilities.h"
-#include "AIVar.h"
-#include "CommandWrap.h"
-#include "Debug.h"
-#include "Memory.h"
-#include "Select.h"
-#include "ResearchAPI.h"
-#include "SinglePlayer.h"
-#include "MultiplayerGame.h"
 #include "Alliance.h"
+#include "AIResourceMan.h"
+#include "CommandWrap.h"
+#include "MultiplayerGame.h"
 #include "Randy.h"
+#include "SinglePlayer.h"
+
 
 Player *aifFindEnemyOf(Player *player)
 {

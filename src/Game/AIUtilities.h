@@ -1,10 +1,10 @@
-/*=============================================================================
-    Name    : AIUtilities.h
-    Purpose : Utility functions, macros and defines for the Homeworld Computer Player
+// =============================================================================
+//  AIUtilities.h
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 6/1/1998 by fpoiker
+// =============================================================================
 
-    Created 6/1/1998 by fpoiker
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
 #ifndef ___AIUTILITIES_H
 #define ___AIUTILITIES_H
 

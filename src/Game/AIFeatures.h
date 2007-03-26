@@ -1,10 +1,10 @@
-/*=============================================================================
-    Name    : AIFeatures.h
-    Purpose : Contains all the flags for AIPlayer features
-
-    Created 5/31/1998 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  AIFeatures.h
+//  - Contains all the flags for AIPlayer features
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 5/31/1998 by gshaw
+// =============================================================================
 
 #ifndef ___AIFEATURES_H
 #define ___AIFEATURES_H

@@ -1,10 +1,10 @@
-/*=============================================================================
-    Name    : AIHandler.h
-    Purpose : Header file for AIHandler.c
+// =============================================================================
+//  AIHandler.h
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 6/19/1998 by fpoiker
+// =============================================================================
 
-    Created 6/19/1998 by fpoiker
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
 #ifndef ___AIHANDLER_H
 #define ___AIHANDLER_H
 

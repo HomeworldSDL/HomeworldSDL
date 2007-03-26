@@ -1,10 +1,10 @@
-/*=============================================================================
-    Name    : AIDefenseMan.h
-    Purpose : Definitions for AIDefenseMan
-
-    Created 1998/05/28 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  AIDefenseMan.h
+//  - Defense manager
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 1998/05/28 by gshaw
+// =============================================================================
 
 #ifndef ___AIDEFENSEMAN_H
 #define ___AIDEFENSEMAN_H

@@ -1,24 +1,22 @@
-/*=============================================================================
-    Name    : AIHandler.c
-    Purpose : Contains the event handler functions for the computer player
+// =============================================================================
+//  AIHandler.h
+//  - Contains the event handler functions for the computer player
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 6/19/1998 by fpoiker
+// =============================================================================
 
-    Created 6/19/1998 by fpoiker
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+#include "AIHandler.h"
 
 #include "AIFeatures.h"
-#include "AIHandler.h"
 #include "AIMoves.h"
 #include "AIOrders.h"
 #include "AIPlayer.h"
-#include "CommandWrap.h"
-#include "Debug.h"
 #include "GravWellGenerator.h"
-#include "Memory.h"
 #include "Randy.h"
 #include "Select.h"
-#include "ShipSelect.h"
 #include "UnivUpdate.h"
+
 
 aieHandlerSimple handlerTable[] =
 {

@@ -1,33 +1,25 @@
-/*=============================================================================
-    Name    : AIPlayer.c
-    Purpose : All Computer Player (AIPlayer) interfaces with game happen here
-
-    Created 5/31/1998 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  AIPlayer.h
+//  - All Computer Player (AIPlayer) interfaces with game happen here
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 5/31/1998 by gshaw
+// =============================================================================
 
 #include "AIPlayer.h"
-
-#include <stdarg.h>
-#include <string.h>
 
 #include "AIAttackMan.h"
 #include "AIDefenseMan.h"
 #include "AIFleetMan.h"
 #include "AIResourceMan.h"
-#include "AIUtilities.h"
-#include "Debug.h"
 #include "File.h"
-#include "Globals.h"
-#include "mainswitches.h"
-#include "Memory.h"
 #include "NIS.h"
 #include "Randy.h"
 #include "SaveGame.h"
-#include "Select.h"
 #include "SinglePlayer.h"
 #include "Stats.h"
 #include "Tweak.h"
+
 
 #define AIPLAYER_LOG_FILE_NAME "aiplayerlog.txt"
 

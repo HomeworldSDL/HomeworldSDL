@@ -1,40 +1,33 @@
-/*=============================================================================
-    Name    : AIShip.c
-    Purpose : This AI layer controls where a ship's velocity vector should be
-              and what heading the ship should face.  It determines this based
-              on commands received (parameters passed), and on where enemy
-              ships are, etc.
-              Note that it is the responsibility of the AItrack layer below
-              to actually cause the ship to follow the desired velocity vector
-              and heading.
-
-    Created 6/26/1997 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+// =============================================================================
+//  AIShip.c
+//  - This AI layer controls where a ship's velocity vector should be
+//  and what heading the ship should face.  It determines this based
+//  on commands received (parameters passed), and on where enemy ships are, etc.
+//  Note that it is the responsibility of the AItrack layer below to
+//  actually cause the ship to follow the desired velocity vector and heading.
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 6/26/1997 by gshaw
+// =============================================================================
 
 #include "AIShip.h"
+
 #include "AITrack.h"
 #include "Alliance.h"
 #include "Blobs.h"
 #include "Collision.h"
 #include "CommandDefs.h"
-#include "Debug.h"
+#include "FlightmanDefs.h"
+#include "FormationDefs.h"
 #include "FastMath.h"
-#include "Matrix.h"
 #include "Physics.h"
 #include "ProfileTimers.h"
 #include "Randy.h"
 #include "Ships.h"
-#include "StatScript.h"
 #include "Tactics.h"
 #include "Tweak.h"
-#include "UnivUpdate.h"
 #include "Universe.h"
-#include "Vector.h"
+
 
 #define DEBUG_AISHIP    0
 
