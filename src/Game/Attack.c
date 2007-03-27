@@ -1,14 +1,12 @@
-/*=============================================================================
-    Name    : Attack.c
-    Purpose : General routines for ships attacking
-
-    Created 10/7/1997 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  Attack.c
+//  - General routines for ships attacking
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 10/7/1997 by gshaw
+// =============================================================================
 
 #include "Attack.h"
-
-#include <stdlib.h>
 
 #include "AIShip.h"
 #include "AITrack.h"
@@ -23,7 +21,8 @@
 #include "Tweak.h"
 #include "Universe.h"
 
-//#define DEBUG_ATTACK
+
+#define DEBUG_ATTACK  0
 
 static AttackSideStepParameters sampleSideStepParameters;
 
@@ -420,7 +419,7 @@ void attackSideStep(Ship *ship,SpaceObjRotImpTarg *target,AttackSideStep *attack
     switch (ship->aistateattack)
     {
         case SIDESTEP_APPROACH:
-#ifdef DEBUG_ATTACK
+#if DEBUG_ATTACK
             dbgMessagef("Ship %x SIDESTEP_APPROACH",(udword)ship);
 #endif
             aishipGetTrajectory(ship,target,&trajectory);
@@ -465,7 +464,7 @@ void attackSideStep(Ship *ship,SpaceObjRotImpTarg *target,AttackSideStep *attack
             break;
 
         case SIDESTEP_APPROACHREPOSITION:
-#ifdef DEBUG_ATTACK
+#if DEBUG_ATTACK
             dbgMessagef("Ship %x SIDESTEP_APPROACHREPOSITION",(udword)ship);
 #endif
             aishipGetTrajectory(ship,target,&trajectory);
@@ -500,7 +499,7 @@ void attackSideStep(Ship *ship,SpaceObjRotImpTarg *target,AttackSideStep *attack
             break;
 
         case SIDESTEP_KILL:
-#ifdef DEBUG_ATTACK
+#if DEBUG_ATTACK
             dbgMessagef("Ship %x SIDESTEP_KILL",(udword)ship);
 #endif
 
@@ -554,7 +553,7 @@ void attackSideStep(Ship *ship,SpaceObjRotImpTarg *target,AttackSideStep *attack
             break;
 
         case SIDESTEP_REPOSITION:
-#ifdef DEBUG_ATTACK
+#if DEBUG_ATTACK
             dbgMessagef("Ship %x SIDESTEP_REPOSITION",(udword)ship);
 #endif
             aishipGetTrajectory(ship,target,&trajectory);

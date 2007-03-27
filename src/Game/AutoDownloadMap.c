@@ -7,24 +7,14 @@
 
 #include "AutoDownloadMap.h"
 
-#include "CommandNetwork.h"
 #include "Debug.h"
 #include "File.h"
 #include "Globals.h"
 #include "HorseRace.h"
 #include "Memory.h"
+#include "standard_library.h"
 #include "StringsOnly.h"
 #include "Titan.h"
-
-#ifdef __MINGW32__
-    #include <direct.h>
-#elif defined(_MSC_VER)
-    #include <direct.h>
-	#include <io.h>
-#else
-    #include <sys/stat.h>
-    #include <dirent.h>
-#endif
 
 
 #define NUM_FILES_OF_MAP_GROW       20

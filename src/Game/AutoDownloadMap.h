@@ -2,18 +2,13 @@
 //  AutoDownloadMap.h
 // =============================================================================
 //  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 99/03/29 by gshaw
 // =============================================================================
 
 #ifndef ___AUTODOWNLOADMAP_H
 #define ___AUTODOWNLOADMAP_H
 
 #include "Types.h"
-
-#ifdef __GNUC__
-    #ifndef _STRING_H
-        #include <string.h>
-    #endif
-#endif
 
 // INTERFACE -------------------------------------------------------------------
 

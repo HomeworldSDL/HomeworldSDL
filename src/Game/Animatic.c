@@ -1,32 +1,26 @@
-/*=============================================================================
-    Name    : animatic.c
-    Purpose : playback of animatics via OpenGL
-
-    Created 2/11/1999 by khent
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-#include <stdio.h>
+// =============================================================================
+//  Animatic.c
+//  - playback of animatics via OpenGL
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 2/11/1999 by khent
+// =============================================================================
 
 #include "Animatic.h"
+
 #include "avi.h"
-/*#include "bink.h"*/
-#include "Debug.h"
 #include "File.h"
-#include "glcaps.h"
-#include "glinc.h"
-#include "main.h"
-#include "Memory.h"
+#include "gldll.h"
 #include "mouse.h"
 #include "NIS.h"
-#include "render.h"
+#include "rglu.h"
 #include "SinglePlayer.h"
 #include "SoundEvent.h"
 #include "soundlow.h"
 #include "StringSupport.h"
 #include "Subtitle.h"
-#include "Tutor.h"
 #include "Universe.h"
+
 
 sdword animaticJustPlayed = 0;  // actually a decremented counter for delaying purposes
 

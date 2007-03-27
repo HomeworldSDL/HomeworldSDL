@@ -1,10 +1,10 @@
-/*=============================================================================
-    Name    : Attributes.h
-    Purpose : Definitions for attributes (properties) set for any object in Mission Editor
-
-    Created 98/09/09 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  Attributes.h
+//  - property definitions set for any object in Mission Editor
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 98/09/09 by gshaw
+// =============================================================================
 
 #ifndef ___ATTRIBUTES_H
 #define ___ATTRIBUTES_H
