@@ -147,224 +147,19 @@ extern char mainDeviceToSelect[];
 extern char mainGLToSelect[];
 extern char mainD3DToSelect[];
 
-#define REG_UDWORD     0
-#define REG_STRING     1
-#define REG_MAGIC_STR  "D657E436967616D4"   // used for CD-checking code
+// #define REG_UDWORD     0
+// #define REG_STRING     1
+// #define REG_MAGIC_STR  "D657E436967616D4"   // used for CD-checking code
 
 #define CD_VALIDATION_ENABLED  0            // toggle checking CD is in drive and anti-piracy checks
 
 #define UTY_CONFIG_FILENAME  "Homeworld.cfg"
-
-
-udword regMagicNum = 0;
-char   regLanguageVersion[50];
-
-typedef struct registryOption
-{
-    char*   name;
-    udword  type;
-    void*   data;
-} registryOption;
 
 extern sdword MAIN_WindowWidth, MAIN_WindowHeight, MAIN_WindowDepth;
 extern udword gDevcaps, gDevcaps2;
 udword loadedDevcaps  = 0xFFFFFFFF;
 udword loadedDevcaps2 = 0xFFFFFFFF;
 
-registryOption regOptionsList[] =
-{
-    {"deviceCRC",       REG_UDWORD, &opDeviceCRC},
-    {"deviceCaps",      REG_UDWORD, &loadedDevcaps},
-    {"deviceCaps2",     REG_UDWORD, &loadedDevcaps2},
-    {"deviceIndex",     REG_UDWORD, &opDeviceIndex},
-    {"deviceToSelect",  REG_STRING, &mainDeviceToSelect},
-    {"glToSelect",      REG_STRING, &mainGLToSelect},
-    {"d3dToSelect",     REG_STRING, &mainD3DToSelect},
-    {"screenWidth",     REG_UDWORD, &MAIN_WindowWidth},
-    {"screenHeight",    REG_UDWORD, &MAIN_WindowHeight},
-    {"screenDepth",     REG_UDWORD, &MAIN_WindowDepth},
-    {"HW_Language",     REG_STRING, &regLanguageVersion},
-    {REG_MAGIC_STR,     REG_UDWORD, &regMagicNum},  // used for oversize-CD support (UK version only)
-    {NULL, 0, NULL}
-};
-
-int utyEnsureRegistry(void)
-{
-    char ch_buf[512];
-    char* home_dir;
-    struct stat file_stat;
-    FILE* fp;
-
-    /* Get the user's home directory. */
-#ifdef _WIN32
-	home_dir = getenv("APPDATA");
-#else
-    home_dir = getenv("HOME");
-#endif
-    if (!home_dir)
-    {
-        fprintf(stderr, "Unable to find home directory in which to store options.\n");
-        return 0;
-    }
-
-    /* Build configuration directory string. */
-    strcpy(ch_buf, home_dir);
-    strcat(ch_buf, "/" CONFIGDIR);
-
-    /* Check for configuration directory. */
-    if (stat(ch_buf, &file_stat))
-    {
-        /* Create configuration directory. */
-#ifdef _WIN32
-        if (mkdir(ch_buf))
-#else
-        if (mkdir(ch_buf, S_IRUSR | S_IWUSR | S_IXUSR))
-#endif
-        {
-            fprintf(stderr, "Unable to create configuration directory \"%s\".\n", ch_buf);
-            return 0;
-        }
-    }
-    else
-    {
-        /* Is the configuration directory a directory? */
-        if (!S_ISDIR(file_stat.st_mode))
-        {
-            fprintf(stderr, "Unable to use \"%s\" for configuration (not a directory).\n", ch_buf);
-            return 0;
-        }
-    }
-
-    /* Check for/create configuration file. */
-    strcat(ch_buf, "/reg");
-    fp = fopen(ch_buf, "a");
-    if (!fp)
-    {
-        fprintf(stderr, "Unable to create/open settings file \"%s\".\n", ch_buf);
-        return 0;
-    }
-    fclose(fp);
-
-    /* Everything seems okay. */
-    return 1;
-}
-
-void utyRegistryOptionsRead(void)
-{
-    char ch_buf[512];
-    char* home_dir;
-    FILE* fp;
-    unsigned int str_len;
-    char* curr_tok;
-    char* next_tok;
-    registryOption* curr_reg;
-
-    /* Check for settings file. */
-    if (!utyEnsureRegistry())
-        return;
-
-    /* Open settings. */
-#ifdef _WIN32
-		home_dir = getenv("APPDATA");
-#else
-    home_dir = getenv("HOME");
-#endif
-    sprintf(ch_buf, "%s/" CONFIGDIR "/reg", home_dir);
-    fp = fopen(ch_buf, "r");
-    if (!fp)
-        return;
-
-    while (fgets(ch_buf, 512, fp))
-    {
-        str_len = strlen(ch_buf);
-        if (ch_buf[str_len - 1] == '\n')
-            ch_buf[str_len - 1] = '\0';
-
-        /* Ignore initial whitespace. */
-        curr_tok = ch_buf;
-        while (*curr_tok && isspace(*curr_tok))
-            curr_tok++;
-        if (*curr_tok == '\0')
-            continue;
-
-        /* Check the setting. */
-        curr_tok = strtok(curr_tok, " \t");
-        next_tok = strtok(0, " \t");
-        curr_reg = regOptionsList;
-        while (curr_reg->name)
-        {
-            if (strcmp(curr_reg->name, curr_tok))
-            {
-                curr_reg++;
-                continue;
-            }
-
-            /* Read the setting. */
-            switch (curr_reg->type)
-            {
-                case REG_UDWORD:
-                    if (next_tok)
-                        sscanf( next_tok, "%u", (udword*)curr_reg->data );
-                    else
-                        *(udword*)curr_reg->data = 0;
-                break;
-
-                case REG_STRING:
-                    if (next_tok)
-                        strcpy((char*)curr_reg->data, next_tok);
-                    else
-                        *((char*)curr_reg->data) = '\0';
-                break;
-            }
-
-            break;
-        }
-    }
-
-    fclose(fp);
-}
-
-void utyRegistryOptionsWrite(void)
-{
-    char ch_buf[512];
-    char* home_dir;
-    FILE* fp;
-    registryOption* curr_reg;
-
-    if (!utyEnsureRegistry())
-    {
-        return;
-    }
-
-    loadedDevcaps  = gDevcaps;
-    loadedDevcaps2 = gDevcaps2;
-
-#ifdef _WIN32
-		home_dir = getenv("APPDATA");
-#else
-    home_dir = getenv("HOME");
-#endif
-    sprintf(ch_buf, "%s/" CONFIGDIR "/reg", home_dir);
-    fp = fopen(ch_buf, "w");
-    curr_reg = regOptionsList;
-    while (curr_reg->name != NULL)
-    {
-        switch (curr_reg->type)
-        {
-            case REG_UDWORD:
-                fprintf(fp, "%s %u\n", curr_reg->name, *(udword*)curr_reg->data);
-            break;
-
-            case REG_STRING:
-                fprintf(fp, "%s %s\n", curr_reg->name, (char*)curr_reg->data);
-            break;
-        }
-
-        curr_reg++;
-    }
-
-    fclose(fp);
-}
 
 /*-----------------------------------------------------------------------------
     Name        : utyBrowserExec
@@ -375,63 +170,7 @@ void utyRegistryOptionsWrite(void)
 ----------------------------------------------------------------------------*/
 bool utyBrowserExec(char *URL)
 {
-#if 0
-    HKEY key;
-    char shellCommand[BIT8];
-    //char options[BIT8] = "";
-    char *optionsString;
-    char *shellCommandString;
-    udword shellCommandLength = BIT8;
-    udword type;
-
-    if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, "SOFTWARE\\Classes\\http\\shell\\open\\command",
-            0, KEY_QUERY_VALUE, &key) != ERROR_SUCCESS)
-    {
-        return(FALSE);
-    }
-
-    if (RegQueryValueEx(key, NULL, 0, &type, (LPBYTE)shellCommand, &shellCommandLength) != ERROR_SUCCESS)
-    {
-       RegCloseKey(key);
-        return(FALSE);
-    }
-
-    if ((optionsString = strstr(shellCommand, " /")) != NULL ||
-       (optionsString = strstr(shellCommand, " -")) != NULL)
-    {                                               //if there are command-line options
-       //strcpy(options, optionsString + 1);
-       //strcat(options, " ");
-       *optionsString = 0;                         //actually, we don't want any of these options
-    }
-    /*
-    else
-    {
-       options[0] = 0;
-    }
-    */
-    //      strcpy(options, URL);
-    shellCommandString = shellCommand;
-    while (strlen(shellCommandString) && shellCommandString[0] == '"')
-    {                                               //strip leading quotes
-       shellCommandString++;
-    }
-    while (strlen(shellCommandString) && shellCommandString[strlen(shellCommandString) - 1] == '"')
-    {                                               //strip trailing quotes
-       shellCommandString[strlen(shellCommandString) - 1] = 0;
-    }
-    ShellExecute(NULL, "open", shellCommandString, URL, NULL, SW_SHOW);
-    /*
-    {
-       char *operaString = " d:\\Internet\\Opera\\Opera.exe ";
-       ShellExecute(NULL, "open", operaString, options, NULL, SW_SHOW);
-    }
-    */
-
-    RegCloseKey(key);
-    return(TRUE);
-#else
     return FALSE;
-#endif
 }
 
 
@@ -911,6 +650,12 @@ color versionColor = colWhite;
 //    the equivalent entry from Tweaks[] (defined in Tweak.c)
 scriptEntry utyOptionsList[] =
 {
+    // reg data
+    {"deviceIndex",             scriptSetUdwordCB, &opDeviceIndex},
+    {"glToSelect",              scriptSetStringCB, &mainGLToSelect},
+    {"screenWidth",             scriptSetUdwordCB, &MAIN_WindowWidth},
+    {"screenHeight",            scriptSetUdwordCB, &MAIN_WindowHeight},
+    {"screenDepth",             scriptSetUdwordCB, &MAIN_WindowDepth},
     // graphics options
     {"effectsLevel",            scriptSetUdwordCB, &opEffectsVal},
     {"noLOD",                   scriptSetUdwordCB, &opNoLODVal},
@@ -1116,7 +861,6 @@ void utyOptionsFileRead(void)
     cameraSensitivitySet(opMouseSens);
     battleChatterFrequencySet(opBattleChatter);
 
-    utyRegistryOptionsRead();
 }
 
 /*-----------------------------------------------------------------------------
@@ -1150,10 +894,6 @@ void utyOptionsFileWrite(void)
     }
     f = fopen(ch_buf, "wt");
 
-    if (f == NULL)
-    {
-        goto REGISTRY;
-    }
     
     for (index = 0; utyOptionsList[index].name != NULL; index++)
     {
@@ -1177,8 +917,6 @@ void utyOptionsFileWrite(void)
     
     fclose(f);
 
-REGISTRY:
-    utyRegistryOptionsWrite();
 }
 
 /*-----------------------------------------------------------------------------
@@ -3810,6 +3548,7 @@ char *utyCannotOpenFileMessages[] =
     "Imposible abrir archivo: %s",
     "Impossibile aprire il file: %s",
 };
+
 
 /*-----------------------------------------------------------------------------
     Name        : utyGameSystemsPreInit
