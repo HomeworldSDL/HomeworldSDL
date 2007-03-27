@@ -656,6 +656,8 @@ scriptEntry utyOptionsList[] =
     {"screenWidth",             scriptSetUdwordCB, &MAIN_WindowWidth},
     {"screenHeight",            scriptSetUdwordCB, &MAIN_WindowHeight},
     {"screenDepth",             scriptSetUdwordCB, &MAIN_WindowDepth},
+// language option stub from reg in case someone wants to put in a working switch based on LanguageVersion? 
+//    {"HW_Language",             scriptSetStringCB,, &regLanguageVersion},
     // graphics options
     {"effectsLevel",            scriptSetUdwordCB, &opEffectsVal},
     {"noLOD",                   scriptSetUdwordCB, &opNoLODVal},
