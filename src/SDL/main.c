@@ -46,6 +46,7 @@
 #include "ObjTypes.h"
 #include "Options.h"
 #include "Particle.h"
+#include "Pieplate.h"
 #include "regkey.h"
 #include "render.h"
 #include "ResearchAPI.h"
@@ -659,7 +660,7 @@ commandoption commandOptions[] =
     entryVrHidden("/debugToFile",   debugToFile, TRUE,                  " - output debugging info to a file."),
 #endif
 #endif
-#if RAN_DEBUG_CALLER
+#if RANDOM_DEBUG_CALL_SEQ
     entryVr("/ranCallerDebug",      ranCallerDebug, TRUE,               " - debug non-deterministic calling of random numbers."),
 #endif
 #ifdef HW_BUILD_FOR_DEBUGGING
@@ -762,7 +763,7 @@ commandoption commandOptions[] =
 #endif
     entryVrHidden("/disableAVI",    enableAVI,FALSE,                    " - don't display intro sequences."),
 
-#if RENDER_LIGHTLINES
+#if RND_VISUALIZATION
     entryComment("VISUALIZATION"),  //-----------------------------------------------------
     entryVr("/dockLines",           dockLines, TRUE,                    " - show dock lines."),
     entryVr("/gunLines",            gunLines, TRUE,                     " - show gun lines."),
@@ -886,7 +887,8 @@ commandoption commandOptions[] =
 
     entryVrHidden("/closeCaptioned",      subCloseCaptionsEnabled, TRUE,      " - close captioned for the hearing impared."),
     entryVr("/pilotView",           pilotView, TRUE, " - enable pilot view.  Focus on single ship and hit Q to toggle."),
-    {0, NULL, NULL}
+
+    END_COMMAND_OPTION,
 };
 
 /*-----------------------------------------------------------------------------

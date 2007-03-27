@@ -780,7 +780,7 @@ void feStaticTextDraw(regionhandle region)
             width = fontWidth(string);
             x = (atom->width - width) / 2 + region->rect.x0;
             break;
-#if FE_ERROR_CHECKING
+#if FEF_ERROR_CHECKING
         default:
             dbgFatalf(DBG_Loc, "Bad justification: %d", atom->flags & FAM_Justification);
 #endif

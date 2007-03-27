@@ -48,8 +48,13 @@ region regRootRegion =
     {0},                                        //no key accelerator
     0,                                          //no user ID
 #if REG_ERROR_CHECKING
-    REG_ValidationKey
+    REG_ValidationKey,
 #endif
+    0,                         // tabstop
+    UNINITIALISED_LINKED_LIST, // cutouts;
+    {0,0},                     // drawstyle[2];
+    0,                         // lastframedrawn;
+    NULL                       // atom;
 };
 
 sdword regModuleInit = FALSE;                   //module init flag

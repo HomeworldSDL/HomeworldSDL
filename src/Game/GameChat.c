@@ -61,22 +61,26 @@ textentryhandle chatentrybox=NULL;
 regionhandle    chatdrawregion=NULL;
 featom          chatdrawatom=
 {
-    "ChatTextDraw",
-    FAF_Function,
-    FA_UserRegion,
-    0,
-    0,
-    0,
-    150,
-    4,
-    300,
-    32,
-    0,
-    0,
-    0,0,0,0,
-    0,0,
-    0,
-    {0},{0}  /* TC: I'm guessing? (thinking this might be based off what's commented out) */
+    "ChatTextDraw",  // name
+    FAF_Function,    // flags
+    FA_UserRegion,   // status
+    0,               // type
+    0,               // borderWidth
+    0,               // tabstop
+    150,             // borderColor
+    4,               // contentColor
+    300, 32,         // x,      loadedX
+    0, 0,            // y,      loadedY
+    0, 0,            // width,  loadedWidth
+    0, 0,            // height, loadedHeight
+    NULL,            // pData
+    NULL,            // attribs
+    0,               // hotKeyModifiers
+    {0, 0, 0, 0, 0}, // hotKey[FE_NumberLanguages]
+    {0, 0},          // pad2[2]
+    {0, 0},          // drawstyle[2]
+    NULL,            // region
+    {0, 0},          // pad[2]
 };
 
 fescreen       *gcScreenHandle=NULL;

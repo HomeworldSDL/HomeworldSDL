@@ -20,37 +20,35 @@
     Switches:
 =============================================================================*/
 #ifdef HW_BUILD_FOR_DEBUGGING
-
-#define RND_ERROR_CHECKING      1               //basic error checking
-#define RND_VERBOSE_LEVEL       1               //control verbose printing
-#define RND_FRAME_RATE          1               //display frame rate
-#define RND_CAMERA_OFFSET       1               //offset camera by a certain amount to avoid lighting problems
-#define RND_BACKGROUND_CHECK    1               //check if we should display background
-#define RND_BACKGROUND_STATIC   1               //attach background to camera so it doesn't move at all
-#define RND_POLY_STATS          1               //display polygon stats
-#define RND_XYZ                 1               //display position of selected ship
-#define RND_SCALECAP_TWEAK      0               //allow adjusting (and printing) of the scaling cap crap
-#define RND_GL_STATE_DEBUG      1               //dump the GL state to a file
-#define RND_GL_STATE_WINDOW     1               //dump the GL state to debug window
-#define RND_PLUG_DISABLEABLE    1               //can disable the shameless plug
-#define RND_VISUALIZATION       1               //enable special visualization options
-
+    #define RND_BACKGROUND_CHECK    1    // check if we should display background
+    #define RND_BACKGROUND_STATIC   1    // attach background to camera so it doesn't move at all
+    #define RND_CAMERA_OFFSET       1    // offset camera by a certain amount to avoid lighting problems
+    #define RND_DOCKLIGHT_TWEAK     0    // allow adjusting (and printing) of dock lights
+    #define RND_ERROR_CHECKING      1    // basic error checking
+    #define RND_FRAME_RATE          1    // display frame rate
+    #define RND_GL_STATE_DEBUG      1    // dump the GL state to a file
+    #define RND_GL_STATE_WINDOW     1    // dump the GL state to debug window
+    #define RND_PLUG_DISABLEABLE    1    // can disable the shameless plug
+    #define RND_POLY_STATS          1    // display polygon stats
+    #define RND_SCALECAP_TWEAK      0    // allow adjusting (and printing) of the scaling cap crap
+    #define RND_VERBOSE_LEVEL       1    // control verbose printing
+    #define RND_VISUALIZATION       1    // enable special visualization options
+    #define RND_XYZ                 1    // display position of selected ship
 #else
-
-#define RND_ERROR_CHECKING      0               //no error ckecking in retail
-#define RND_VERBOSE_LEVEL       0               //don't print any verbose strings in retail
-#define RND_FRAME_RATE          0               //display frame rate
-#define RND_CAMERA_OFFSET       1               //offset camera by a certain amount to avoid lighting problems
-#define RND_BACKGROUND_CHECK    1               //check if we should display background
-#define RND_BACKGROUND_STATIC   1               //attach background to camera so it doesn't move at all
-#define RND_POLY_STATS          0               //display polygon stats
-#define RND_XYZ                 0               //display position of selected ship
-#define RND_SCALECAP_TWEAK      0               //allow adjusting (and printing) of the scaling cap crap
-#define RND_GL_STATE_DEBUG      0               //dump the GL state to a file
-#define RND_GL_STATE_WINDOW     0               //dump the GL state to debug window
-#define RND_PLUG_DISABLEABLE    0               //can disable the shameless plug
-#define RND_VISUALIZATION       0               //enable special visualization options
-
+    #define RND_BACKGROUND_CHECK    1
+    #define RND_BACKGROUND_STATIC   1
+    #define RND_CAMERA_OFFSET       1
+    #define RND_DOCKLIGHT_TWEAK     0
+    #define RND_ERROR_CHECKING      0
+    #define RND_FRAME_RATE          0
+    #define RND_GL_STATE_DEBUG      0
+    #define RND_GL_STATE_WINDOW     0
+    #define RND_PLUG_DISABLEABLE    0
+    #define RND_POLY_STATS          0
+    #define RND_SCALECAP_TWEAK      0
+    #define RND_VERBOSE_LEVEL       0
+    #define RND_VISUALIZATION       0
+    #define RND_XYZ                 0
 #endif
 
 /*=============================================================================

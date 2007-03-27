@@ -21,14 +21,11 @@
     Switches:
 =============================================================================*/
 #ifdef HW_BUILD_FOR_DEBUGGING
-#define SEL_DRAW_BOXES         1
-
-#define SEL_ERROR_CHECKING     1                //general error checking
-
+    #define SEL_DRAW_BOXES         1
+    #define SEL_ERROR_CHECKING     1    // general error checking
 #else
-
-#define SEL_ERROR_CHECKING     0                //general error checking
-
+    #define SEL_DRAW_BOXES         0
+    #define SEL_ERROR_CHECKING     0
 #endif
 
 /*=============================================================================

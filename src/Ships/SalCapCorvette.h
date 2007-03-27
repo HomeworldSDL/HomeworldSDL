@@ -10,6 +10,7 @@
 
 #include "Attack.h"
 #include "ShipSelect.h"
+#include "render.h"
 
 #define SALVAGE_AT_GET_TECH       0x01
 

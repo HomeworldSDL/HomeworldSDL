@@ -117,7 +117,7 @@ void fileNameReplaceSlashesInPlace(char *filePath)
 {
 	char *ptr = NULL;
 
-#if WIN32
+#ifdef WIN32
     #define PATH_DELIMITER     '\\'
     #define REPLACE_DELIMITER  '/'
 #else
@@ -744,7 +744,7 @@ bool8 fileMakeDirectory (const char* directoryName)
 		else
 		{
 			/* Attempt to create the directory. */
-#if defined _MSC_VER || __MINGW32__
+#if defined(_MSC_VER) || defined(__MINGW32__)
 			if (mkdir(directoryCopy) == -1)
 #else
 			if (mkdir(directoryCopy, 0777) == -1)

@@ -2666,7 +2666,7 @@ sdword bigFileLoad(bigTOC *toc, FILE *bigFP, udword fileNum, void *address)
 //
 void bigFilesystemCompare(char *baseDirectory, char *directory)
 {
-#if _WIN32
+#ifdef _WIN32
     struct _finddata_t findData;
     sdword hFile;
 #else
@@ -2692,7 +2692,7 @@ void bigFilesystemCompare(char *baseDirectory, char *directory)
         dbgMessagef("Scanning for newer files in %s", baseDirectory);
     }
     
-#if _WIN32
+#ifdef _WIN32
 
     sprintf(filespec, "%s\\%s%s*.*", baseDirectory, directory, directory[0] ? "\\" : "");
     hFile = _findfirst(filespec, &findData);

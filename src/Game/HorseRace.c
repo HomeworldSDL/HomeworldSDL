@@ -129,18 +129,23 @@ regionhandle   hrAbortLoadConfirm = NULL;
 
 region horseCrapRegion =
 {
-    {-1,-1,-1,-1},          //rectangle
-    NULL,                   //draw function
-    NULL,                   //process function
-    NULL, NULL,             //parent, child
-    NULL, NULL,             //previous, next
-    0, 0,                   //flags, status,
-    0,                      //nKeys
-    {0},                    //keys
-    0,
-#if REG_ERROR_CHECKING      //userID
-    REG_ValidationKey,       //validation key
+    {-1,-1,-1,-1},             // rectangle
+    NULL,                      // draw function
+    NULL,                      // process function
+    NULL, NULL,                // parent, child
+    NULL, NULL,                // previous, next
+    0, 0,                      // flags, status,
+    0,                         // nKeys
+    {0},                       // keys
+    0,                         // userID
+#if REG_ERROR_CHECKING
+    REG_ValidationKey,         // validation key
 #endif
+    0,                         // tabstop
+    UNINITIALISED_LINKED_LIST, // cutouts;
+    {0,0},                     // drawstyle[2];
+    0,                         // lastframedrawn;
+    NULL                       // atom;
 };
 
 bool hrRunning=FALSE;

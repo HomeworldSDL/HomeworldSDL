@@ -131,11 +131,11 @@ struct
 }
 pingTOList[PTO_NumberTOs] =
 {
-    {strPingTO0, &ProximitySensorBlipColor, PTOM_Proximity},
-    {strPingTO1, &pingNewShipColor, PTOM_NewShips},
-    {strPingTO2, &pingAnomalyColor, PTOM_Anomaly},
-    {strPingTO3, &pingBattleColor, PTOM_Battle},
-    {strPingTO4, &TW_HW_PING_COLOUR_OUT, PTOM_Hyperspace}
+    {strPingTO0, &ProximitySensorBlipColor, PTOM_Proximity,  0.0},
+    {strPingTO1, &pingNewShipColor,         PTOM_NewShips,   0.0},
+    {strPingTO2, &pingAnomalyColor,         PTOM_Anomaly,    0.0},
+    {strPingTO3, &pingBattleColor,          PTOM_Battle,     0.0},
+    {strPingTO4, &TW_HW_PING_COLOUR_OUT,    PTOM_Hyperspace, 0.0},
 };
 
 /*=============================================================================

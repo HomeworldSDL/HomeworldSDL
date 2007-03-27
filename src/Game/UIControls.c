@@ -3301,9 +3301,10 @@ void Approach(approacher *app)
         else
         {
             if (((app->currentvalue - app->target)/(decelgoal - app->target)) > app->threshold)
+            {
                 app->vel = app->vel  + app->acc;
-            else
-                ; //don't change vel;
+            }
+            // else don't change vel
         }
     }
     else
@@ -3313,9 +3314,10 @@ void Approach(approacher *app)
         if (decelgoal > app->target)
         {
             if (((app->currentvalue - app->target)/(decelgoal - app->target)) > app->threshold)
+            {
                 app->vel = app->vel  - app->acc;
-            else
-                ; //don't change vel;
+            }
+            // else don't change vel
         }
         else
         {

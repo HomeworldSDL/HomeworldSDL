@@ -10,6 +10,7 @@
 #define ___GUN_H
 
 #include "SpaceObj.h"
+#include "render.h"
 
 /*=============================================================================
     Defines:

@@ -20,18 +20,15 @@
     Switches:
 =============================================================================*/
 #ifdef HW_BUILD_FOR_DEBUGGING
-
-#define CM_ERROR_CHECKING       1               //general error checking
-#define CM_VERBOSE_LEVEL        2               //print extra info
-#define CM_CAP_JOBS_PER_CLASS   0
-#define CM_CHEAP_SHIPS          1               //enable the 'cheapShips' flag
-
+    #define CM_ERROR_CHECKING       1    // general error checking
+    #define CM_VERBOSE_LEVEL        2    // print extra info
+    #define CM_CAP_JOBS_PER_CLASS   0
+    #define CM_CHEAP_SHIPS          1    // enable the 'cheapShips' flag
 #else
-
-#define CM_ERROR_CHECKING       0               //general error checking
-#define CM_VERBOSE_LEVEL        0               //print extra info
-#define CM_CAP_JOBS_PER_CLASS   0
-
+    #define CM_ERROR_CHECKING       0
+    #define CM_VERBOSE_LEVEL        0
+    #define CM_CAP_JOBS_PER_CLASS   0
+    #define CM_CHEAP_SHIPS          0
 #endif
 
 /*=============================================================================
@@ -102,7 +99,9 @@ extern sdword cmNumPlayersCarriers;
 #if CM_CHEAP_SHIPS
 extern bool cmCheapShips;
 #endif
+
 #define CM_SHIFT 256
+
 extern KeysToShips cmShipTypes[];
 extern bool cmPrintHotKey;
 

@@ -2315,7 +2315,7 @@ void ferDrawButton(rectangle dimensions, ferbuttonstate state)
 ----------------------------------------------------------------------------*/
 void ferDrawCheckbox(rectangle dimensions, ferbuttonstate state)
 {
-    lifheader *texture;
+    lifheader *texture = NULL;
     uword x,y;
 
     glEnable(GL_ALPHA_TEST);
@@ -2374,7 +2374,7 @@ void ferDrawCheckbox(rectangle dimensions, ferbuttonstate state)
 ----------------------------------------------------------------------------*/
 void ferDrawRadioButton(rectangle dimensions, ferbuttonstate state)
 {
-    lifheader *texture;
+    lifheader *texture = NULL;
 
     glEnable(GL_ALPHA_TEST);
     glAlphaFunc(GL_GREATER, 0.0f);
@@ -2431,7 +2431,10 @@ void ferDrawHorizSlider(sliderhandle shandle, uword state)
 {
 #define FER_HSLIDER_X - 4
     uword x,y;
-    lifheader *texleft, *texmid, *texright, *texmarker;
+    lifheader *texleft   = NULL,
+              *texmid    = NULL,
+              *texright  = NULL,
+              *texmarker = NULL;
     //rectangle rect;
     real32 spos;
 
@@ -2502,7 +2505,11 @@ void ferDrawVertSlider(sliderhandle shandle, uword state)
 #define FER_VSLIDER_Y (-5)
 #define FER_VSLIDER_MARKER 11
     uword x,y;
-    lifheader *textop, *texmid, *texbot, *texcenter, *texmarker;
+    lifheader *textop    = NULL,
+              *texmid    = NULL,
+              *texbot    = NULL,
+              *texcenter = NULL,
+              *texmarker = NULL;
     real32 spos;
 
     glEnable(GL_ALPHA_TEST);

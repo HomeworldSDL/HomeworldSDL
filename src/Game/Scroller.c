@@ -9,9 +9,8 @@
 #include "mouse.h"
 #include "Scroller.h"
 
-#ifdef khent
-#define SCROLL_DEBUG 0
-#endif
+
+#define DEBUG_SCROLL  0
 
 uword scClassifyRegion(scrollbarhandle shandle)
 {
@@ -97,7 +96,7 @@ void scAdjustThumbwheel(scrollbarhandle shandle, uword up, uword maxDisp, uword 
     {
         udword height, top, thumbHeight;
         real32 divSize;
-#if SCROLL_DEBUG
+#if DEBUG_SCROLL
         dbgMessagef("adjustThumbwheel %d %d %d", up, maxDisp, max);
 #endif
         if (max <= maxDisp)
@@ -118,7 +117,7 @@ void scAdjustThumbwheel(scrollbarhandle shandle, uword up, uword maxDisp, uword 
             shandle->thumb.y0 = shandle->thumbreg.y0 + top;
             shandle->thumb.y1 = shandle->thumbreg.y0 + top + thumbHeight;
         }
-#if SCROLL_DEBUG
+#if DEBUG_SCROLL
         dbgMessagef("top = %d", top);
 #endif
         shandle->divSize = divSize;
@@ -127,7 +126,7 @@ void scAdjustThumbwheel(scrollbarhandle shandle, uword up, uword maxDisp, uword 
     {
         udword width, left, thumbWidth;
         real32 divSize;
-#if SCROLL_DEBUG
+#if DEBUG_SCROLL
         dbgMessagef("adjustThumbwheel %d %d %d", up, maxDisp, max);
 #endif
         thumbWidth = (uword)(widthOf(shandle->thumbreg));
@@ -138,7 +137,7 @@ void scAdjustThumbwheel(scrollbarhandle shandle, uword up, uword maxDisp, uword 
         left = (uword)(divSize * (real32)up);
         shandle->thumb.x0 = shandle->thumbreg.x0 + left;
         shandle->thumb.x1 = shandle->thumbreg.x0 + left + thumbWidth;
-#if SCROLL_DEBUG
+#if DEBUG_SCROLL
         dbgMessagef("left = %d", left);
 #endif
         shandle->divSize = divSize;

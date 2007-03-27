@@ -515,9 +515,9 @@ void btgLoadTextures(void)
 ----------------------------------------------------------------------------*/
 void btgLoad(char* filename)
 {
-    ubyte* btgData;
-    ubyte* btgDataOffset;
-    ubyte*   instarp;
+    ubyte* btgData       = NULL;
+    ubyte* btgDataOffset = NULL;
+    ubyte* instarp       = NULL;
     udword headSize;
     udword vertSize;
     udword vertSizeFile;

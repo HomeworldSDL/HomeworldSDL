@@ -2390,7 +2390,7 @@ void nisObjectShow(nisplaying *NIS, nisevent *event)
         {                                                   //if object not in render list
             univAddObjToRenderList(obj);                    //add it to render list
         }
-#if NIS_VERBOSE_MODE >= 1
+#if NIS_VERBOSE_LEVEL >= 1
         else
         {
             dbgMessagef("nisObjectShow: at time %.2f, object#%d is already visible.", event->time, event->shipID);
@@ -2422,7 +2422,7 @@ void nisObjectHide(nisplaying *NIS, nisevent *event)
         {
             univRemoveObjFromRenderList(obj);
         }
-#if NIS_VERBOSE_MODE >= 1
+#if NIS_VERBOSE_LEVEL >= 1
         else
         {
             dbgMessagef("nisObjectHide: at time %.2f, object#%d is already hidden.", event->time, event->shipID);

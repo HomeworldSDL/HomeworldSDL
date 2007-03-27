@@ -3694,12 +3694,16 @@ void utyGetFirstCDPath(char *szPath)
         strncpy(szPath, env_path, 126);
         szPath[126] = '\0';
         unsigned int str_len = strlen(szPath);
-        if (szPath[str_len - 1] != '/');
+        if (szPath[str_len - 1] != '/')
+        {
             strcat(szPath, "/");
+        }
 
         /* Does it exist? */
         if (!stat(szPath, &dir_stat) && S_ISDIR(dir_stat.st_mode))
+        {
             return;
+        }
     }
 
     /* Default to "/mnt/cdrom". */

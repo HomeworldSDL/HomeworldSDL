@@ -88,16 +88,12 @@
 #endif
 
 
-#ifdef HW_BUILD_FOR_DEBUGGING
-
-#define DEBUG_COLLISIONS      0
-#define DISPLAY_LOD_SCALE     0
-#define FONT_CHECKSPECIAL     0     // special define for testing extended characters
-#define RND_DOCKLIGHT_TWEAK   0
-#define VERBOSE_SHIP_STATS    0
-#define VISIBLE_POLYS         0
-
-#endif
+#define DEBUG_COLLISIONS            0
+#define DEBUG_DISPLAY_LOD_SCALE     0
+#define DEBUG_FONT_CHECK_SPECIAL    0     // special define for testing extended characters
+#define DEBUG_RND_DOCK_LIGHT_TWEAK  0
+#define DEBUG_VERBOSE_SHIP_STATS    0
+#define DEBUG_VISIBLE_POLYS         0
 
 #define SHOW_TRAIL_STATS      0
 #define RND_WILL_PANIC        0
@@ -261,7 +257,7 @@ real32 btgFieldOfView = 50.0f;
 static char fovString[256] = "";
 #endif
 
-#if VERBOSE_SHIP_STATS
+#if DEBUG_VERBOSE_SHIP_STATS
 static sdword shipsAtLOD[5];
 static sdword polysAtLOD[5];
 #endif
@@ -1114,10 +1110,6 @@ sdword rndInit(rndinitdata *initData)
     rndPolyStatsTaskHandle = taskStart(rndPolyStatsTaskFunction, RND_PolyStatsPeriod, 0);//start frame rate task
     regKeyChildAlloc(ghMainRegion, RND_PolyStatsKey, RPE_KeyDown, rndPolyStatsToggle, 1, RND_PolyStatsKey);
 #endif //RND_POLY_STATS
-
-#if TEST_SPAN_PERFORMANCE
-    testHook();
-#endif
 
     glDepthFunc(glCapDepthFunc);
 
@@ -1978,7 +1970,7 @@ void rndPostRenderDebug3DStuff(Camera *camera)
 }
 
 
-#if FONT_CHECKSPECIAL
+#if DEBUG_FONT_CHECK_SPECIAL
 fonthandle testing=1;
 extern fontregistry frFontRegistry[FR_NumberFonts];
 #endif
@@ -2120,7 +2112,8 @@ void rndPostRenderDebug2DStuff(Camera *camera)
         rndCapScaleCapStatsTaskFunction();
     }
 #endif //RND_SCALECAP_TWEAK
-#if RND_DOCKLIGHT_TWEAK
+
+#if DEBUG_RND_DOCK_LIGHT_TWEAK
     if (selSelected.numShips == 1)
     {
         Ship* ship = selSelected.ShipPtr[0];
@@ -2145,7 +2138,7 @@ void rndPostRenderDebug2DStuff(Camera *camera)
     if (rndDisplayFrameRate)
     {
         char   string[256];
-#if VERBOSE_SHIP_STATS
+#if DEBUG_VERBOSE_SHIP_STATS
         sdword i;
 #endif
         extern sdword trTextureChanges, trAvoidedChanges;
@@ -2169,7 +2162,7 @@ void rndPostRenderDebug2DStuff(Camera *camera)
 
         meshRenders = 0;
         fontPrint(MAIN_WindowWidth - fontWidth(string), 0, colWhite, string);
-#if VERBOSE_SHIP_STATS
+#if DEBUG_VERBOSE_SHIP_STATS
         for (i = 0; i < 5; i++)
         {
             sprintf(string, "%d: %d / %d", i, shipsAtLOD[i], polysAtLOD[i]);
@@ -2178,7 +2171,7 @@ void rndPostRenderDebug2DStuff(Camera *camera)
             fontPrint(MAIN_WindowWidth - fontWidth(string), (i+1)*fontHeight(string), colWhite, string);
         }
 #endif
-#if DISPLAY_LOD_SCALE
+#if DEBUG_DISPLAY_LOD_SCALE
         sprintf(string, "scale %f", lodScaleFactor);
         fontPrintf(0, fontHeight(string), colWhite, string);
 #endif
@@ -2239,7 +2232,7 @@ void rndPostRenderDebug2DStuff(Camera *camera)
     }
 #endif
 
-#if FONT_CHECKSPECIAL
+#if DEBUG_FONT_CHECK_SPECIAL
     fontMakeCurrent(testing);
     fontPrint(10,50,colWhite,"ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ");
 
@@ -2810,7 +2803,7 @@ dontdraw2:;
                                              (ssinfo->hsState != HS_FINISHED || singlePlayerGameInfo.hyperspaceFails)) ||
                                             ssinfo == NULL)
                                         {
-#if VISIBLE_POLYS
+#if DEBUG_VISIBLE_POLYS
                                             extern sdword visiblePoly;
                                             extern bool g_Points;
                                             extern bool g_SpecificPoly;
@@ -2820,7 +2813,7 @@ dontdraw2:;
                                                 meshRenderShipHierarchy(((Ship *)spaceobj)->bindings,
                                                         ((Ship *)spaceobj)->currentLOD,
                                                         (meshdata *)level->pData, i);
-#if VISIBLE_POLYS
+#if DEBUG_VISIBLE_POLYS
                                                 if (visiblePoly >= 0)
                                                 {
                                                     g_SpecificPoly = TRUE;
@@ -2843,7 +2836,7 @@ dontdraw2:;
                                             else
                                             {
                                                 meshRender((meshdata *)level->pData, i);
-#if VISIBLE_POLYS
+#if DEBUG_VISIBLE_POLYS
                                                 if (visiblePoly >= 0)
                                                 {
                                                     g_SpecificPoly = TRUE;
@@ -2875,7 +2868,7 @@ dontdraw2:;
 
                                         shDockLight(0.0f);
 
-#if VERBOSE_SHIP_STATS
+#if DEBUG_VERBOSE_SHIP_STATS
                                         if (rndDisplayFrameRate)
                                         {
                                             shipsAtLOD[spaceobj->currentLOD]++;
@@ -3129,7 +3122,7 @@ renderDefault:
                                     }
 
                                     rndPerspectiveCorrection(FALSE);
-#if VERBOSE_SHIP_STATS
+#if DEBUG_VERBOSE_SHIP_STATS
                                     if (rndDisplayFrameRate)
                                     {
                                         shipsAtLOD[spaceobj->currentLOD]++;
@@ -3641,7 +3634,7 @@ void rndDrawOnScreenDebugInfo(void)
 {
     sdword y = 0;
 
-#if VISIBLE_POLYS
+#if DEBUG_VISIBLE_POLYS
     static color c;
     static sdword counter = 0;
 #endif
@@ -3679,7 +3672,7 @@ void rndDrawOnScreenDebugInfo(void)
 
     y = 0;
 
-#if VISIBLE_POLYS
+#if DEBUG_VISIBLE_POLYS
     if (selSelected.numShips == 1)
     {
         extern sdword visiblePoly, visibleSegment, visibleDirection, visibleWhich;

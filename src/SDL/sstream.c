@@ -724,7 +724,8 @@ sdword ssSubtitleRead(STREAMHEADER *header, filehandle handle, sdword actornum, 
     char subTitle[SUB_SubtitleLength];
     real32 time;
 #if VCE_BACKWARDS_COMPATIBLE
-    STREAMHEADER header2, headerTemp;
+    STREAMHEADER header2    = UNINITIALISED_STREAM_HEADER,
+                 headerTemp = UNINITIALISED_STREAM_HEADER;
     udword currentOffset = 0;
 #endif //VCE_BACKWARDS_COMPATIBLE
 

@@ -4258,7 +4258,7 @@ sdword **GetLaunchPoints(ShipStaticInfo *shipstatic,ShipStaticInfo *dockwithstat
                 return FindP1MothershipLaunchPoints(shipstatic);
             }
         }
-        else if (dockwithstatic->shiprace == P2);
+        else if (dockwithstatic->shiprace == P2)
         {
             if (dockwithstatic->shiptype == P2Mothership)
             {

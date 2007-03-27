@@ -2862,11 +2862,11 @@ psysPtr partCreationHelper(particleType t, udword n, udword dist)
 #endif
         p = NULL;
     }
-#if khent
+
 #if PART_Verbose > 1
     dbgMessagef("system required %dK", len >> 10);
 #endif
-#endif
+
     return p;
 }
 

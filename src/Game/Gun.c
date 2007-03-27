@@ -841,7 +841,7 @@ void gunShoot(Ship *ship, Gun *gun, SpaceObjRotImpTarg *target)
     etgeffectstatic *stat;
     etglod *etgLOD;
     sdword LOD;
-    real32 floatDamage,bulletspeed,damagemult,healthFactor;
+    real32 floatDamage = 0.0, bulletspeed = 0.0, damagemult = 0.0, healthFactor = 0.0;
     udword intDamage, intVelocity, intLength;
     vector offset0, offset1;
     CommandToDo *shipFormationCommand;

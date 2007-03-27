@@ -60,11 +60,10 @@
 #include "Universe.h"
 #include "UnivUpdate.h"
 
-#ifdef HW_BUILD_FOR_DEBUGGING
-    #define DEBUG_PASSIVE_ATTACK  0
-    #define DEBUG_LAUNCH_SHIP     0
-    #define DEBUG_COMMAND_LAYER   0
-#endif
+
+#define DEBUG_PASSIVE_ATTACK  0
+#define DEBUG_LAUNCH_SHIP     0
+#define DEBUG_COMMAND_LAYER   0
 
 /*=============================================================================
     Private Functions:

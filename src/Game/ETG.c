@@ -405,30 +405,34 @@ udword etgEffectVelocityGet(Effect *effect);
 //resolve functions:
 void etgCreationResolve(etgeffectstatic *stat, etgfunctioncall *call);
 void etgDepthWriteResolve(struct etgeffectstatic *stat, etgfunctioncall *call);
-#define funcEntryn(name, ret, function)  {name, function, ret, (ubyte)FALSE, ETG_VariableParams}
-#define funcEntry0(name, ret, function)  {name, function, ret, (ubyte)FALSE, NULL, 0}
-#define funcEntry1(name, ret, function, p0) {name, function, ret, (ubyte)FALSE, NULL, 1, {p0}}
-#define funcEntry2(name, ret, function, p0, p1) {name, function, ret, (ubyte)FALSE, NULL, 2, {p0, p1}}
-#define funcEntry3(name, ret, function, p0, p1, p2) {name, function, ret, (ubyte)FALSE, NULL, 3, {p0, p1, p2}}
-#define funcEntry4(name, ret, function, p0, p1, p2, p3) {name, function, ret, (ubyte)FALSE, NULL, 4, {p0, p1, p2, p3}}
-#define funcEntry5(name, ret, function, p0, p1, p2, p3, p4) {name, function, ret, (ubyte)FALSE, NULL, 5, {p0, p1, p2, p3, p4}}
-#define funcEntry6(name, ret, function, p0, p1, p2, p3, p4, p5) {name, function, ret, (ubyte)FALSE, NULL, 6, {p0, p1, p2, p3, p4, p5}}
-#define funcEntry7(name, ret, function, p0, p1, p2, p3, p4, p5, p6) {name, function, ret, (ubyte)FALSE, NULL, 7, {p0, p1, p2, p3, p4, p5, p6}}
-#define funcEntry8(name, ret, function, p0, p1, p2, p3, p4, p5, p6, p7) {name, function, ret, (ubyte)FALSE, NULL, 7, {p0, p1, p2, p3, p4, p5, p6, p7}}
-#define funcEntryThisn(name, ret, function)  {name, function, ret, (ubyte)TRUE, ETG_VariableParams}
-#define funcEntryThis0(name, ret, function)  {name, function, ret, (ubyte)TRUE, NULL, 0}
-#define funcEntryThis1(name, ret, function, p0) {name, function, ret, (ubyte)TRUE, NULL, 1, {p0}}
-#define funcEntryThis2(name, ret, function, p0, p1) {name, function, ret, (ubyte)TRUE, NULL, 2, {p0, p1}}
-#define funcEntryThis3(name, ret, function, p0, p1, p2) {name, function, ret, (ubyte)TRUE, NULL, 3, {p0, p1, p2}}
-#define funcEntryThis4(name, ret, function, p0, p1, p2, p3) {name, function, ret, (ubyte)TRUE, NULL, 4, {p0, p1, p2, p3}}
-#define funcEntryThis5(name, ret, function, p0, p1, p2, p3, p4) {name, function, ret, (ubyte)TRUE, NULL, 5, {p0, p1, p2, p3, p4}}
-#define funcEntryThis6(name, ret, function, p0, p1, p2, p3, p4, p5) {name, function, ret, (ubyte)TRUE, NULL, 6, {p0, p1, p2, p3, p4, p5}}
-#define funcEntryThis7(name, ret, function, p0, p1, p2, p3, p4, p5, p6) {name, function, ret, (ubyte)TRUE, NULL, 7, {p0, p1, p2, p3, p4, p5, p6}}
-#define funcEntryThis8(name, ret, function, p0, p1, p2, p3, p4, p5, p6, p7) {name, function, ret, (ubyte)TRUE, NULL, 7, {p0, p1, p2, p3, p4, p5, p6, p7}}
-#define funcEntryR1(name, ret, function, p0, resolve) {name, function, ret, (ubyte)FALSE, resolve, 1, {p0}}
-#define funcEntryR2(name, ret, function, p0, p1, resolve) {name, function, ret, (ubyte)FALSE, resolve, 2, {p0, p1}}
-#define funcEntryThisR1(name, ret, function, p0, resolve) {name, function, ret, (ubyte)TRUE, resolve, 1, {p0}}
-#define funcEntryThisR2(name, ret, function, p0, p1, resolve) {name, function, ret, (ubyte)TRUE, resolve, 2, {p0, p1}}
+#define funcEntryn(name, ret, function)                                      {name, function, ret, (ubyte)FALSE, ETG_VariableParams}
+#define funcEntry0(name, ret, function)                                      {name, function, ret, (ubyte)FALSE, NULL, 0, {0,0,0,0,0,0,0,0,0}}
+#define funcEntry1(name, ret, function, p0)                                  {name, function, ret, (ubyte)FALSE, NULL, 1, {p0}}
+#define funcEntry2(name, ret, function, p0, p1)                              {name, function, ret, (ubyte)FALSE, NULL, 2, {p0, p1}}
+#define funcEntry3(name, ret, function, p0, p1, p2)                          {name, function, ret, (ubyte)FALSE, NULL, 3, {p0, p1, p2}}
+#define funcEntry4(name, ret, function, p0, p1, p2, p3)                      {name, function, ret, (ubyte)FALSE, NULL, 4, {p0, p1, p2, p3}}
+#define funcEntry5(name, ret, function, p0, p1, p2, p3, p4)                  {name, function, ret, (ubyte)FALSE, NULL, 5, {p0, p1, p2, p3, p4}}
+#define funcEntry6(name, ret, function, p0, p1, p2, p3, p4, p5)              {name, function, ret, (ubyte)FALSE, NULL, 6, {p0, p1, p2, p3, p4, p5}}
+#define funcEntry7(name, ret, function, p0, p1, p2, p3, p4, p5, p6)          {name, function, ret, (ubyte)FALSE, NULL, 7, {p0, p1, p2, p3, p4, p5, p6}}
+#define funcEntry8(name, ret, function, p0, p1, p2, p3, p4, p5, p6, p7)      {name, function, ret, (ubyte)FALSE, NULL, 7, {p0, p1, p2, p3, p4, p5, p6, p7}}
+
+#define funcEntryThisn(name, ret, function)                                  {name, function, ret, (ubyte)TRUE,  ETG_VariableParams}
+#define funcEntryThis0(name, ret, function)                                  {name, function, ret, (ubyte)TRUE,  NULL, 0, {0,0,0,0,0,0,0,0,0}}
+#define funcEntryThis1(name, ret, function, p0)                              {name, function, ret, (ubyte)TRUE,  NULL, 1, {p0}}
+#define funcEntryThis2(name, ret, function, p0, p1)                          {name, function, ret, (ubyte)TRUE,  NULL, 2, {p0, p1}}
+#define funcEntryThis3(name, ret, function, p0, p1, p2)                      {name, function, ret, (ubyte)TRUE,  NULL, 3, {p0, p1, p2}}
+#define funcEntryThis4(name, ret, function, p0, p1, p2, p3)                  {name, function, ret, (ubyte)TRUE,  NULL, 4, {p0, p1, p2, p3}}
+#define funcEntryThis5(name, ret, function, p0, p1, p2, p3, p4)              {name, function, ret, (ubyte)TRUE,  NULL, 5, {p0, p1, p2, p3, p4}}
+#define funcEntryThis6(name, ret, function, p0, p1, p2, p3, p4, p5)          {name, function, ret, (ubyte)TRUE,  NULL, 6, {p0, p1, p2, p3, p4, p5}}
+#define funcEntryThis7(name, ret, function, p0, p1, p2, p3, p4, p5, p6)      {name, function, ret, (ubyte)TRUE,  NULL, 7, {p0, p1, p2, p3, p4, p5, p6}}
+#define funcEntryThis8(name, ret, function, p0, p1, p2, p3, p4, p5, p6, p7)  {name, function, ret, (ubyte)TRUE,  NULL, 7, {p0, p1, p2, p3, p4, p5, p6, p7}}
+
+#define funcEntryR1(name, ret, function, p0, resolve)                        {name, function, ret, (ubyte)FALSE, resolve, 1, {p0}}
+#define funcEntryR2(name, ret, function, p0, p1, resolve)                    {name, function, ret, (ubyte)FALSE, resolve, 2, {p0, p1}}
+
+#define funcEntryThisR1(name, ret, function, p0, resolve)                    {name, function, ret, (ubyte)TRUE,  resolve, 1, {p0}}
+#define funcEntryThisR2(name, ret, function, p0, p1, resolve)                {name, function, ret, (ubyte)TRUE,  resolve, 2, {p0, p1}}
+
 opfunctionentry etgFunctionTable[] =
 {
     //set properties of particle systems to be created
@@ -622,8 +626,7 @@ opfunctionentry etgFunctionTable[] =
     funcEntry3("floats2Color",  EVT_RGB,    etgFloats2Color, EVT_Float, EVT_Float, EVT_Float),
     funcEntry4("floats2ColorA",  EVT_RGB,    etgFloats2ColorA, EVT_Float, EVT_Float, EVT_Float, EVT_Float),
 
-
-    {NULL}
+    END_OP_FUNCTION_ENTRY,
 };
 
 //this table handles differing formats of the standard 'if' statement

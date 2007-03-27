@@ -156,6 +156,8 @@ typedef struct
 	sdword			size;		/* this is the size of this stream */
 } STREAMHEADER;
 
+#define UNINITIALISED_STREAM_HEADER  {0, 0}
+
 typedef struct
 {
 	STREAMHEADER	header;

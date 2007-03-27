@@ -33,6 +33,7 @@
 #define NIS_VERBOSE_LEVEL           3           //control specific output code
 #define NIS_DRAW_CAMERA             1           //draw the NIS camer while not looking from it's POV
 #define NIS_TIME_CONTROLS           1           //key to pause the NIS's
+#define NIS_PAUSE_KEY               0           //key to pause the NIS's
 #define NIS_PRINT_INFO              NUMPAD6     //key to print NIS time info
 #define NIS_CAMERA_RELEASE          NUMPAD4     //allow release of the NIS camera to the standard game camera
 #define NIS_SHIPS_SELECTABLE        1           //make NIS ships selectable
@@ -44,6 +45,7 @@
 #define NIS_ERROR_CHECKING          0           //general error checking
 #define NIS_VERBOSE_LEVEL           0           //control specific output code
 #define NIS_DRAW_CAMERA             0           //draw the NIS camer while not looking from it's POV
+#define NIS_TIME_CONTROLS           0           //key to pause the NIS's
 #define NIS_PAUSE_KEY               0           //key to pause the NIS's
 #define NIS_PRINT_INFO              0           //key to print NIS time info
 #define NIS_CAMERA_RELEASE          0           //allow release of the NIS camera to the standard game camera
