@@ -17,7 +17,7 @@
 #include "Blobs.h"
 #include "Collision.h"
 #include "CommandDefs.h"
-#include "FlightmanDefs.h"
+#include "FlightManDefs.h"
 #include "FormationDefs.h"
 #include "FastMath.h"
 #include "Physics.h"

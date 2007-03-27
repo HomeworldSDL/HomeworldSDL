@@ -46,7 +46,7 @@
 #include "ObjTypes.h"
 #include "Options.h"
 #include "Particle.h"
-#include "Pieplate.h"
+#include "PiePlate.h"
 #include "regkey.h"
 #include "render.h"
 #include "ResearchAPI.h"

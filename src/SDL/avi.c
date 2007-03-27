@@ -437,7 +437,7 @@ dump_format(pFormatCtx, 0, filename, 0);
 dbgMessagef("sizeof  AVFormatContext = %d",sizeof(AVFormatContext));
 #endif
 
-    if (sizeof(AVFormatContext) == 3976 ){   //alligned variables 
+    if ((sizeof(AVFormatContext) == 3976 ) || (sizeof(AVFormatContext) == 3960 )){   //alligned variables 
 	alignDoubleSet = 1;
     }
     else {                                   // 3964 should be un-aligned
