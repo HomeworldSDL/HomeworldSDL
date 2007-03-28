@@ -3754,10 +3754,15 @@ sdword cmConstructionBegin(regionhandle region, sdword ID, udword event, udword 
     sdword status = 0;
     ShipPtr bship=NULL;
 
-    if (playPackets || (universePause && !opPauseOrders) ) return;
+    if (playPackets || (universePause && !opPauseOrders) )
+    {
+        return 0;
+    }
 
     if((tutorial==TUTORIAL_ONLY) && !tutEnable.bBuildManager)
+    {
         return 0;
+    }
 
     if (smZoomingIn || smZoomingOut || universe.curPlayerPtr->PlayerMothership == NULL)
     {

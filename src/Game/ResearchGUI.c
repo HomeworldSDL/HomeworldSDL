@@ -2141,7 +2141,10 @@ sdword rmResearchGUIBegin(regionhandle region, sdword ID, udword event, udword d
 {
     sdword index;
 
-    if (playPackets || (universePause && !opPauseOrders) ) return;
+    if (playPackets || (universePause && !opPauseOrders) )
+    {
+        return 0;
+    }
 
     for(index=0; index<NUM_RESEARCHLABS; index++)
     {

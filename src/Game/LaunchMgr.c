@@ -1585,10 +1585,15 @@ sdword lmLaunchBegin(regionhandle region, sdword ID, udword event, udword data)
     ShipPtr shipinside;
     InsideShip *insideShipStruct;
 
-    if (playPackets || (universePause && !opPauseOrders) ) return;
+    if (playPackets || (universePause && !opPauseOrders) )
+    {
+        return 0;
+    }
 
     if((tutorial==TUTORIAL_ONLY) && !tutEnable.bLaunch)
+    {
         return (0);
+    }
 
     launchship = (Ship *)ID;
 
