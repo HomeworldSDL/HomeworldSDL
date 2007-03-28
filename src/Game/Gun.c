@@ -28,6 +28,7 @@
 #include "Memory.h"
 #include "MEX.h"
 #include "NIS.h"
+#include "Options.h"
 #include "Physics.h"
 #include "prim3d.h"
 #include "Randy.h"
@@ -40,8 +41,6 @@
 #include "Universe.h"
 #include "UnivUpdate.h"
 #include "Vector.h"
-
-#define ENABLE_SHIPRECOIL       0
 
 #define GUNBURST_STATE_READY        0
 #define GUNBURST_STATE_BURST        1
@@ -491,10 +490,9 @@ void missileShoot(Ship *ship,Gun *gun,SpaceObjRotImpTarg *target)
     vector gunheadingInWorldCoordSys;
     vector positionInWorldCoordSys,mineup,mineright,minehead;
 
-#if ENABLE_SHIPRECOIL
-    vector recoil;
-    real32 massovertime;
-#endif
+// Wrapped with #ifdef ENABLE_SHIPRECOIL but unused.
+//    vector recoil;
+//    real32 massovertime;
 
     dbgAssertOrIgnore(gunstatic->guntype == GUN_MissileLauncher || gunstatic->guntype == GUN_MineLauncher);
     dbgAssertOrIgnore(gunHasMissiles(gun));
@@ -850,10 +848,8 @@ void gunShoot(Ship *ship, Gun *gun, SpaceObjRotImpTarg *target)
 
     vector gunDirection, gunPosition;
 
-#if ENABLE_SHIPRECOIL
     vector recoil;
     real32 massovertime;
-#endif
 
     dbgAssertOrIgnore(gunstatic->guntype != GUN_MissileLauncher);
 
@@ -1065,16 +1061,17 @@ void gunShoot(Ship *ship, Gun *gun, SpaceObjRotImpTarg *target)
             break;
     }
 
-#if ENABLE_SHIPRECOIL
-    if (!shipstatic->staticheader.immobile)     // if ship isn't immobile, apply recoil (opposite force)
+    if (opShipRecoil)
     {
-        massovertime = -bullet->bulletmass / universe.phystimeelapsed;
-        recoil = bullet->posinfo.velocity;
-        vecMultiplyByScalar(recoil,massovertime);
-        physApplyForceVectorToObj(ship,recoil);
+        if (!shipstatic->staticheader.immobile)     // if ship isn't immobile, apply recoil (opposite force)
+        {
+            massovertime = -bullet->bulletmass / universe.phystimeelapsed;
+            recoil = bullet->posinfo.velocity;
+            vecMultiplyByScalar(recoil,massovertime);
+            physApplyForceVectorToObj(ship,recoil);
 
+        }
     }
-#endif
 
     // position
     matMultiplyMatByVec(&positionInWorldCoordSys,&ship->rotinfo.coordsys,&gunstatic->position);
