@@ -1,31 +1,25 @@
-/*=============================================================================
-    Name    : Blobs.c
-    Purpose : Code to create and maintain lists of 'blobs' which are spheres
-                encapsulating objects in the game world.
-
-    Created 2/9/1998 by lmoloney
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  Blobs.c
+//  - code to create and maintain lists of 'blobs' which are spheres
+//    encapsulating objects in the game such as the sensor manager's fog of war
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 2/9/1998 by lmoloney
+// =============================================================================
 
 #include "Blobs.h"
-
-#include <math.h>
-#include <stdlib.h>
-#include <string.h>
 
 #include "Alliance.h"
 #include "Battle.h"
 #include "Debug.h"
 #include "FastMath.h"
-#include "Globals.h"
-#include "GravWellGenerator.h"
 #include "Memory.h"
-#include "NetCheck.h"
+#include "GravWellGenerator.h"
 #include "Sensors.h"
 #include "SinglePlayer.h"
 #include "SoundEvent.h"
-#include "TimeoutTimer.h"
 #include "Universe.h"
+
 
 #if BOB_STATS
 

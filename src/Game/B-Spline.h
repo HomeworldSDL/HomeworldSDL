@@ -1,10 +1,10 @@
-/*=============================================================================
-    Name    : b-spline.h
-    Purpose : Code for generic interpolation of beta-spline curves.
-
-    Created 11/29/1997 by lmoloney
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  B-Spline.h
+//  - code for generic interpolation of beta-spline curves
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 11/29/1997 by lmoloney
+// =============================================================================
 
 #ifndef ___B_SPLINE_H
 #define ___B_SPLINE_H 

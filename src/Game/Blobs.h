@@ -1,11 +1,9 @@
-/*=============================================================================
-    Name    : Blobs.h
-    Purpose : Creates 'blobs' or spheres as part of the fog-of-war in the
-                sensors manager.
-
-    Created 2/9/1998 by lmoloney
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  Blobs.h
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 2/9/1998 by lmoloney
+// =============================================================================
 
 #ifndef ___BLOBS_H
 #define ___BLOBS_H

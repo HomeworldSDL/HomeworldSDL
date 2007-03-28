@@ -1,18 +1,15 @@
-/*=============================================================================
-    Name    : bounties.c
-    Purpose : bounty code for the game
-
-    Created oct 6th, bpasechn
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  Bounties.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created oct 6th, bpasechn
+// =============================================================================
 
 #include "Bounties.h"
 
-#include "Alliance.h"
-#include "Debug.h"
-#include "Globals.h"
 #include "MultiplayerGame.h"
 #include "Tweak.h"
+
 
 real32 getPlayerBountyWorthDeterm(real32 shipworth,real32 ruworth,real32 totalshipworth,real32 totalruworth);
 

@@ -6,13 +6,14 @@
     -D _MACOSX                                     \
     -D _MACOSX_FIX_ME                              \
     -I /Library/Frameworks/SDL.framework/Headers   \
+    -I ../../src/SDL                               \
     -I ../../src/ThirdParty/CRC                    \
     -I ../../src/ThirdParty/LZSS                   \
-    *.c *.h                                        \
-    ../../src/Game/BigFile.[ch]                    \
-    ../../src/Game/Types.[ch]                      \
-    ../../src/ThirdParty/CRC/CRC32.[ch]            \
-    ../../src/ThirdParty/LZSS/*.[ch]               \
+    ../../src/Game/Types.c                         \
+    ../../src/Game/BigFile.c                       \
+    ../../src/ThirdParty/CRC/CRC32.c               \
+    ../../src/ThirdParty/LZSS/*.c                  \
+    *.c                                            \
     -o biggie
 
 exit 0

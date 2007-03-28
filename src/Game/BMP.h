@@ -1,10 +1,9 @@
-/*=============================================================================
-    Name    : BMP.H
-    Purpose : Definitions for loading and saving .bmp files.
-
-    Created 1/11/1999 by lmoloney
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  BMP.h
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 1/11/1999 by lmoloney
+// =============================================================================
 
 #ifndef ___BMP_H
 #define ___BMP_H

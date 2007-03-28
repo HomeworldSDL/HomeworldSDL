@@ -7,42 +7,17 @@
 
 #include "BigFile.h"
 
-#include <sys/stat.h>
-
 #include "BitIO.h"
 #include "LZSS.h"
-
-#ifdef __MINGW32__
-    #include <windows.h>
-    #include <direct.h>
-#elif defined(_MSC_VER)
-    #include <windows.h>
-    #include <direct.h>
-	#include <io.h>
-#else
-    #include <unistd.h>
-    #include <dirent.h>
-    #include <ctype.h>
-#endif
-
-
-#ifndef _MACOSX
-    #include <malloc.h>
-#endif
+#include "standard_library.h"
 
 
 #ifdef BF_HOMEWORLD
-    #include "Types.h"
     #include "Memory.h"
     #include "Debug.h"
     #include "File.h"
 #endif
 
-#ifdef _MSC_VER
-    #define strcasecmp _stricmp
-#else
-    #include <sys/param.h>
-#endif
 
 //
 // The following value sets the threshold used by the bigfile system to decide which
@@ -419,7 +394,7 @@ static int bigTOCWrite(FILE *fp, bigTOC *toc)
                   leaving file pointer right after it
                   *** memory is left allocated for toc->fileEntries
                   -- remember to free this when you're done
-    Return      : 1 on succes, 0 on failure
+    Return      : 1 on success, 0 on failure
 ----------------------------------------------------------------------------*/
 static int bigTOCRead(FILE *fp, bigTOC *toc)
 {
@@ -663,7 +638,6 @@ int bigCRC64GT(bigTOCFileEntry *a, bigTOCFileEntry *b)
 
 void bigFilenameEncrypt(char *filename)
 {
-return;
     ubyte maskch = 213;
     ubyte nextmask;
     while (*filename)
@@ -680,7 +654,6 @@ return;
 //
 void bigFilenameDecrypt(char *filename, int len)
 {
-return;
     ubyte maskch = 213;
     while (len--)
     {

@@ -8,19 +8,8 @@
 #define ___BIGFILE_H
 
 #include "CRC32.h"
+#include "standard_library.h"
 #include "Types.h"
-
-#ifdef __GNUC__
-    #ifndef _STDIO_H
-        #include <stdio.h>
-    #endif
-    #ifndef _STRING_H
-        #include <string.h>
-    #endif
-    #ifndef _TIME_H
-        #include <time.h>
-    #endif
-#endif
 
 
 //  Version Notes:

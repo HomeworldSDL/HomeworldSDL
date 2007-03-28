@@ -1,24 +1,15 @@
-/*=============================================================================
-    Name    : btg.c
-    Purpose : BTG - Background Tool of the Geeks
-              This file contains everything (?) necessary to load and render
-              the BTG backgrounds
-
-    Created 4/27/1998 by khent
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  BTG.c
+//  - Background Tool of the Geeks; load and render the BTG backgrounds
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 4/27/1998 by khent
+// =============================================================================
 
 #include "BTG.h"
 
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-#include <SDL_endian.h>
-
+#include "Camera.h"
 #include "Clipper.h"
-#include "Color.h"
 #include "Debug.h"
 #include "FastMath.h"
 #include "File.h"
@@ -26,13 +17,11 @@
 #include "glinc.h"
 #include "main.h"
 #include "mainrgn.h"
-#include "Matrix.h"
 #include "Memory.h"
 #include "render.h"
 #include "texreg.h"
 #include "Universe.h"
 #include "Vector.h"
-
 
 #ifdef HW_BUILD_FOR_DEBUGGING
     #define BTG_VERBOSE_LEVEL  3    // print extra info

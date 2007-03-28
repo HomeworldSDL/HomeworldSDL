@@ -1,19 +1,16 @@
-/*=============================================================================
-    Name    : B-Spline.c
-    Purpose : Code for spline interpolation
+// =============================================================================
+//  B-Spline.c
+//  - code for generic interpolation of beta-spline curves
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 11/29/1997 by lmoloney
+// =============================================================================
 
-    Created 12/1/1997 by lmoloney
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-#include <stdio.h>
-#include <string.h>
-#include "Types.h"
-#include "Memory.h"
-#include "Debug.h"
-#include "Vector.h"
-#include "Matrix.h"
 #include "B-Spline.h"
+
+#include "Debug.h"
+#include "Memory.h"
+#include "Vector.h"
 
 /*=============================================================================
     Functions
