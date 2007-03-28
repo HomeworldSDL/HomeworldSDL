@@ -467,6 +467,10 @@ sdword opSaveInfoOverlay = 1;
 sdword opNumEffects;
 sdword opSaveNumEffects;
 
+// Game Options - Default Values
+udword opShipRecoil = 0;
+udword opPauseOrders = 0;
+
 textentryhandle opAutodockFuelEntryBox     = NULL;
 textentryhandle opAutodockHealthEntryBox   = NULL;
 

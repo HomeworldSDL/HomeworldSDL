@@ -656,22 +656,10 @@ bool aviPlay(char* filename)
 dbgMessage("aviPlay:Entering");
 #endif
     char  fullname[1024];
-    char* dir = fileHomeworldDataPath;
 
 //TODO  Include Windows file structure. 
 
-    if (dir[0] != '\0')
-    {
-//        strcpy(fullname, "Movies\\");
-        strcpy(fullname, "Movies/");
-    }
-    else
-    {
-        strcpy(fullname, dir);
-//        strcat(fullname, "\\Movies\\");
-//        strcat(fullname, "/Movies/");
-    }
-    strcat(fullname, filename);
+    strcpy(fullname, filePathPrepend(filename, FF_HomeworldDataPath));
 
     //try Homeworld\Data\Movies first
     if (!aviStart(fullname))

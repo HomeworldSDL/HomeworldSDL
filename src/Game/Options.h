@@ -74,6 +74,11 @@ extern sdword opDeviceIndex;
 extern sdword opCPUDiff;
 extern sdword opCPUAttack;
 
+// Homeworld.cfg configurable values
+
+extern udword opPauseOrders;
+extern udword opShipRecoil;
+
 void opOptionsSaveCustomEffectsSettings(void);
 
 

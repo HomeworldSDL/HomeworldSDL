@@ -955,6 +955,11 @@ scriptEntry utyOptionsList[] =
     {"ResourceLumpSumAmount",          scriptSetUdwordCB, &tpGameCreated.resourceLumpSumAmount},
     {"FirewallDetect",                 scriptSetUdwordCB, &firewallButton},
 
+    // Game Options
+    {"HomeworldDataPath",              scriptSetStringCB, &fileHomeworldDataPath},
+    {"ShipRecoil",                     scriptSetUdwordCB, &opShipRecoil},
+    {"Pauseorders",                    scriptSetUdwordCB, &opPauseOrders},
+
     END_SCRIPT_ENTRY
 };
 /*=============================================================================
@@ -3792,20 +3797,33 @@ char* utyGameSystemsPreInit(void)
     utySet(SSA_FontReg);
 
     // where the Homeworld data files are
-    if (fileHomeworldDataPath[0] == '\0')
+
+    char *dataPath = getenv("HW_Data");
+    // default to the current directory
+    if (dataPath == NULL)
     {
-        // check for an environment variable override
-        char *dataPath = getenv("HW_Data");
-        
-        // default to the current directory
-        if (dataPath == NULL)
+        // Check to see if fileHomeworldDataPath is set
+        if (fileHomeworldDataPath[0] == '\0')
         {
             getcwd(filePathTempBuffer, PATH_MAX);
             dataPath = filePathTempBuffer;
+
+            fileHomeworldDataPathSet(dataPath);
         }
+    }
+    else
+    {
+        // HW_Data is set. overwrite current setting.
+        // But make sure that there isn't a trailing slash
         
+        if (dataPath[(strlen(dataPath) - 1 )] == '/') 
+        {
+            dataPath[(strlen(dataPath) - 1 )] = '\0';
+        }
+
         fileHomeworldDataPathSet(dataPath);
     }
+
 
     // local filesystem override of .big archive contents
     if (fileOverrideBigPath[0] == '\0')
