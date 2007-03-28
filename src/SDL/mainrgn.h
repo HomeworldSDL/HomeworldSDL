@@ -18,7 +18,6 @@
     Switches:
 =============================================================================*/
 #define MR_GUI_SINGLECLICK          1
-#define ALLOW_PAUSE_ORDERS          0           // Allow orders to be given whilst paused  1=TRUE
 
 #ifdef HW_BUILD_FOR_DEBUGGING
 

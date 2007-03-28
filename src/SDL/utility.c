@@ -958,7 +958,7 @@ scriptEntry utyOptionsList[] =
     // Game Options
     {"HomeworldDataPath",              scriptSetStringCB, &fileHomeworldDataPath},
     {"ShipRecoil",                     scriptSetUdwordCB, &opShipRecoil},
-    {"Pauseorders",                    scriptSetUdwordCB, &opPauseOrders},
+    {"PauseOrders",                    scriptSetUdwordCB, &opPauseOrders},
 
     END_SCRIPT_ENTRY
 };

@@ -26,6 +26,7 @@
 #include "mouse.h"
 #include "MultiplayerGame.h"
 #include "ObjTypes.h"
+#include "Options.h"
 #include "PiePlate.h"
 #include "prim2d.h"
 #include "Randy.h"
@@ -2140,11 +2141,7 @@ sdword rmResearchGUIBegin(regionhandle region, sdword ID, udword event, udword d
 {
     sdword index;
 
-#if ALLOW_PAUSE_ORDERS
-    if (playPackets) return 0;
-#else
-    if ((playPackets) || (universePause)) return 0;
-#endif
+    if (playPackets || (universePause && !opPauseOrders) ) return;
 
     for(index=0; index<NUM_RESEARCHLABS; index++)
     {
