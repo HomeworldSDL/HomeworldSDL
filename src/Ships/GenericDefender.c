@@ -47,8 +47,8 @@ GenericDefenderStatics HeavyDefenderStaticRace2;
 
 scriptStructEntry DefenderStaticScriptTable[] =
 {
-    { "CIRCLE_RIGHT_VELOCITY",    scriptSetReal32CB, (udword) &(HeavyDefenderStaticRace1.CIRCLE_RIGHT_VELOCITY), (udword) &(HeavyDefenderStaticRace1) },
-    { "CIRCLE_RIGHT_THRUST",      scriptSetReal32CB, (udword) &(HeavyDefenderStaticRace1.CIRCLE_RIGHT_THRUST), (udword) &(HeavyDefenderStaticRace1) },
+    { "CIRCLE_RIGHT_VELOCITY",    scriptSetReal32CB,  &(HeavyDefenderStaticRace1.CIRCLE_RIGHT_VELOCITY),  &(HeavyDefenderStaticRace1) },
+    { "CIRCLE_RIGHT_THRUST",      scriptSetReal32CB,  &(HeavyDefenderStaticRace1.CIRCLE_RIGHT_THRUST),    &(HeavyDefenderStaticRace1) },
 
     END_SCRIPT_STRUCT_ENTRY
 };

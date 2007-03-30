@@ -29,7 +29,7 @@ CarrierStatics CarrierStaticRace2;
 
 scriptStructEntry CStaticScriptTable[] =
 {
-    { "repairApproachDistance",    scriptSetReal32CB, (udword) &(CarrierStatic.repairApproachDistance), (udword) &(CarrierStatic) },
+    { "repairApproachDistance",    scriptSetReal32CB,  &(CarrierStatic.repairApproachDistance),  &(CarrierStatic) },
 
     END_SCRIPT_STRUCT_ENTRY
 };

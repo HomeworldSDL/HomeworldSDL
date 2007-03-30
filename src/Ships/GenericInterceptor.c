@@ -138,31 +138,31 @@ GenericInterceptorStatics TargetDroneStatic;
 
 scriptStructEntry LIStaticScriptTable[] =
 {
-    { "gunsFireTime",           scriptSetReal32CB,                  (udword) &(GenericInterceptorStatic.firetime),          (udword) &(GenericInterceptorStatic) },
+    { "gunsFireTime",           scriptSetReal32CB,                   &(GenericInterceptorStatic.firetime),           &(GenericInterceptorStatic) },
 
-    { "flightmanTurnaround",    (void(*)(char *,char *,void*)) scriptSetFlightManTurnaroundCB,     (udword) &(GenericInterceptorStatic.flightmanProb),     (udword) &(GenericInterceptorStatic) },
-    { "flightmanAIP",           (void(*)(char *,char *,void*))scriptSetFlightManAIPCB,            (udword) &(GenericInterceptorStatic.flightmanProb),     (udword) &(GenericInterceptorStatic) },
-    { "flightmanEvasiveBehind", (void(*)(char *,char *,void*))scriptSetFlightManEvasiveBehindCB,  (udword) &(GenericInterceptorStatic.flightmanProb),     (udword) &(GenericInterceptorStatic) },
-    { "flightmanEvasiveFront",  (void(*)(char *,char *,void*))scriptSetFlightManEvasiveFrontCB,   (udword) &(GenericInterceptorStatic.flightmanProb),     (udword) &(GenericInterceptorStatic) },
-    { "flightmanEvasivePure",   (void(*)(char *,char *,void*))scriptSetFlightManEvasivePureCB,    (udword) &(GenericInterceptorStatic.flightmanProb),     (udword) &(GenericInterceptorStatic) },
-    { "maxFlyAwayDist",         scriptSetReal32CB_ARRAY,            (udword) &(GenericInterceptorStatic.maxFlyAwayDist),    (udword) &(GenericInterceptorStatic) },
-    { "breakRange",             scriptSetReal32CB_ARRAY,            (udword) &(GenericInterceptorStatic.breakRange),        (udword) &(GenericInterceptorStatic) },
-    { "flyPastDist",            scriptSetReal32CB_ARRAY,            (udword) &(GenericInterceptorStatic.flyPastDist),       (udword) &(GenericInterceptorStatic) },
-    { "triggerHappy",           scriptSetCosAngCB_ARRAY,            (udword) &(GenericInterceptorStatic.triggerHappy),      (udword) &(GenericInterceptorStatic) },
-    { "faceTargetAccuracy",     scriptSetCosAngCB_ARRAY,            (udword) &(GenericInterceptorStatic.faceTargetAccuracy),(udword) &(GenericInterceptorStatic) },
-    { "maxAttackTime",          scriptSetReal32CB_ARRAY,            (udword) &(GenericInterceptorStatic.maxAttackTime),     (udword) &(GenericInterceptorStatic) },
+    { "flightmanTurnaround",    (void(*)(char *,char *,void*)) scriptSetFlightManTurnaroundCB,      &(GenericInterceptorStatic.flightmanProb),      &(GenericInterceptorStatic) },
+    { "flightmanAIP",           (void(*)(char *,char *,void*))scriptSetFlightManAIPCB,             &(GenericInterceptorStatic.flightmanProb),      &(GenericInterceptorStatic) },
+    { "flightmanEvasiveBehind", (void(*)(char *,char *,void*))scriptSetFlightManEvasiveBehindCB,   &(GenericInterceptorStatic.flightmanProb),      &(GenericInterceptorStatic) },
+    { "flightmanEvasiveFront",  (void(*)(char *,char *,void*))scriptSetFlightManEvasiveFrontCB,    &(GenericInterceptorStatic.flightmanProb),      &(GenericInterceptorStatic) },
+    { "flightmanEvasivePure",   (void(*)(char *,char *,void*))scriptSetFlightManEvasivePureCB,     &(GenericInterceptorStatic.flightmanProb),      &(GenericInterceptorStatic) },
+    { "maxFlyAwayDist",         scriptSetReal32CB_ARRAY,             &(GenericInterceptorStatic.maxFlyAwayDist),     &(GenericInterceptorStatic) },
+    { "breakRange",             scriptSetReal32CB_ARRAY,             &(GenericInterceptorStatic.breakRange),         &(GenericInterceptorStatic) },
+    { "flyPastDist",            scriptSetReal32CB_ARRAY,             &(GenericInterceptorStatic.flyPastDist),        &(GenericInterceptorStatic) },
+    { "triggerHappy",           scriptSetCosAngCB_ARRAY,             &(GenericInterceptorStatic.triggerHappy),       &(GenericInterceptorStatic) },
+    { "faceTargetAccuracy",     scriptSetCosAngCB_ARRAY,             &(GenericInterceptorStatic.faceTargetAccuracy), &(GenericInterceptorStatic) },
+    { "maxAttackTime",          scriptSetReal32CB_ARRAY,             &(GenericInterceptorStatic.maxAttackTime),      &(GenericInterceptorStatic) },
 
     END_SCRIPT_STRUCT_ENTRY
 };
 
 scriptStructEntry CloakedFighterStaticScriptTable[] =
 {
-    { "CloakFuelBurnRate",          scriptSetReal32CB, (udword) &(CloakedFighterStatic.CloakFuelBurnRate),          (udword) &(CloakedFighterStatic) },
-    { "ForceDeCloakAtFuelPercent",  scriptSetReal32CB, (udword) &(CloakedFighterStatic.ForceDeCloakAtFuelPercent),  (udword) &(CloakedFighterStatic) },
-    { "CloakingTime",               scriptSetReal32CB, (udword) &(CloakedFighterStatic.CloakingTime),               (udword) &(CloakedFighterStatic) },
-    { "DeCloakingTime",             scriptSetReal32CB, (udword) &(CloakedFighterStatic.DeCloakingTime),             (udword) &(CloakedFighterStatic) },
-    { "VisibleState",               scriptSetReal32CB, (udword) &(CloakedFighterStatic.VisibleState),               (udword) &(CloakedFighterStatic) },
-    { "battleReCloakTime",          scriptSetReal32CB, (udword) &(CloakedFighterStatic.battleReCloakTime),          (udword) &(CloakedFighterStatic) },
+    { "CloakFuelBurnRate",          scriptSetReal32CB,  &(CloakedFighterStatic.CloakFuelBurnRate),           &(CloakedFighterStatic) },
+    { "ForceDeCloakAtFuelPercent",  scriptSetReal32CB,  &(CloakedFighterStatic.ForceDeCloakAtFuelPercent),   &(CloakedFighterStatic) },
+    { "CloakingTime",               scriptSetReal32CB,  &(CloakedFighterStatic.CloakingTime),                &(CloakedFighterStatic) },
+    { "DeCloakingTime",             scriptSetReal32CB,  &(CloakedFighterStatic.DeCloakingTime),              &(CloakedFighterStatic) },
+    { "VisibleState",               scriptSetReal32CB,  &(CloakedFighterStatic.VisibleState),                &(CloakedFighterStatic) },
+    { "battleReCloakTime",          scriptSetReal32CB,  &(CloakedFighterStatic.battleReCloakTime),           &(CloakedFighterStatic) },
 
     END_SCRIPT_STRUCT_ENTRY
 };

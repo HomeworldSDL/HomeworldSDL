@@ -32,12 +32,12 @@ CloakGeneratorStatics CloakGeneratorStaticRace2;
 
 scriptStructEntry CloakGeneratorStaticScriptTable[] =
 {
-    { "CloakingRadius",    scriptSetReal32CB, (udword) &(CloakGeneratorStatic.CloakingRadius), (udword) &(CloakGeneratorStatic) },
-    { "CloakingTime",    scriptSetReal32CB, (udword) &(CloakGeneratorStatic.CloakingTime), (udword) &(CloakGeneratorStatic) },
-    { "DeCloakingTime",    scriptSetReal32CB, (udword) &(CloakGeneratorStatic.DeCloakingTime), (udword) &(CloakGeneratorStatic) },
-    { "MaxCloakingTime",    scriptSetReal32CB, (udword) &(CloakGeneratorStatic.MaxCloakingTime), (udword) &(CloakGeneratorStatic) },
-    { "ReChargeRate",     scriptSetReal32CB, (udword) &(CloakGeneratorStatic.ReChargeRate), (udword) &(CloakGeneratorStatic) },
-    { "MinCharge",     scriptSetReal32CB, (udword) &(CloakGeneratorStatic.MinCharge), (udword) &(CloakGeneratorStatic) },
+    { "CloakingRadius",    scriptSetReal32CB,  &(CloakGeneratorStatic.CloakingRadius),  &(CloakGeneratorStatic) },
+    { "CloakingTime",    scriptSetReal32CB,  &(CloakGeneratorStatic.CloakingTime),  &(CloakGeneratorStatic) },
+    { "DeCloakingTime",    scriptSetReal32CB,  &(CloakGeneratorStatic.DeCloakingTime),  &(CloakGeneratorStatic) },
+    { "MaxCloakingTime",    scriptSetReal32CB,  &(CloakGeneratorStatic.MaxCloakingTime),  &(CloakGeneratorStatic) },
+    { "ReChargeRate",     scriptSetReal32CB,  &(CloakGeneratorStatic.ReChargeRate),  &(CloakGeneratorStatic) },
+    { "MinCharge",     scriptSetReal32CB,  &(CloakGeneratorStatic.MinCharge),  &(CloakGeneratorStatic) },
 
     END_SCRIPT_STRUCT_ENTRY
 };

@@ -35,9 +35,9 @@ P1MissileCorvetteStatics P1MissileCorvetteStatic;
 
 scriptStructEntry P1MissileCorvetteScriptTable[] =
 {
-    { "MissileRegenerateTime",scriptSetReal32CB,(udword) &(P1MissileCorvetteStatic.missileRegenerateTime),(udword) &(P1MissileCorvetteStatic) },
-    { "MissileVolleyTime",scriptSetReal32CB,(udword) &(P1MissileCorvetteStatic.missileVolleyTime),(udword) &(P1MissileCorvetteStatic) },
-    { "MissileLagVolleyTime",scriptSetReal32CB,(udword) &(P1MissileCorvetteStatic.missileLagVolleyTime),(udword) &(P1MissileCorvetteStatic) },
+    { "MissileRegenerateTime",scriptSetReal32CB, &(P1MissileCorvetteStatic.missileRegenerateTime), &(P1MissileCorvetteStatic) },
+    { "MissileVolleyTime",scriptSetReal32CB, &(P1MissileCorvetteStatic.missileVolleyTime), &(P1MissileCorvetteStatic) },
+    { "MissileLagVolleyTime",scriptSetReal32CB, &(P1MissileCorvetteStatic.missileLagVolleyTime), &(P1MissileCorvetteStatic) },
 
     END_SCRIPT_STRUCT_ENTRY
 };

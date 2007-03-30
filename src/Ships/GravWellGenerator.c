@@ -49,15 +49,15 @@ GravWellGeneratorStatics GravWellGeneratorStaticRace2;
 
 scriptStructEntry GravWellGeneratorStaticScriptTable[] =
 {
-    { "GravWellRadius",    scriptSetReal32CB, (udword) &(GravWellGeneratorStatic.GravWellRadius), (udword) &(GravWellGeneratorStatic) },
-    { "OperationTime",    scriptSetReal32CB, (udword) &(GravWellGeneratorStatic.OperationTime), (udword) &(GravWellGeneratorStatic) },
-    { "EffectConstant",    scriptSetReal32CB, (udword) &(GravWellGeneratorStatic.EffectConstant), (udword) &(GravWellGeneratorStatic) },
-    { "scanrate",    scriptSetUdwordCB, (udword) &(GravWellGeneratorStatic.scanrate), (udword) &(GravWellGeneratorStatic) },
-    { "repulseForce",    scriptSetReal32CB, (udword) &(GravWellGeneratorStatic.repulseForce), (udword) &(GravWellGeneratorStatic) },
-    { "warmupdowntime",    scriptSetReal32CB, (udword) &(GravWellGeneratorStatic.warmupdowntime), (udword) &(GravWellGeneratorStatic) },
-    { "xrot",    scriptSetReal32CB, (udword) &(GravWellGeneratorStatic.xrot), (udword) &(GravWellGeneratorStatic) },
-    { "yrot",    scriptSetReal32CB, (udword) &(GravWellGeneratorStatic.yrot), (udword) &(GravWellGeneratorStatic) },
-    { "zrot",    scriptSetReal32CB, (udword) &(GravWellGeneratorStatic.zrot), (udword) &(GravWellGeneratorStatic) },
+    { "GravWellRadius",    scriptSetReal32CB,  &(GravWellGeneratorStatic.GravWellRadius),  &(GravWellGeneratorStatic) },
+    { "OperationTime",    scriptSetReal32CB,  &(GravWellGeneratorStatic.OperationTime),  &(GravWellGeneratorStatic) },
+    { "EffectConstant",    scriptSetReal32CB,  &(GravWellGeneratorStatic.EffectConstant),  &(GravWellGeneratorStatic) },
+    { "scanrate",    scriptSetUdwordCB,  &(GravWellGeneratorStatic.scanrate),  &(GravWellGeneratorStatic) },
+    { "repulseForce",    scriptSetReal32CB,  &(GravWellGeneratorStatic.repulseForce),  &(GravWellGeneratorStatic) },
+    { "warmupdowntime",    scriptSetReal32CB,  &(GravWellGeneratorStatic.warmupdowntime),  &(GravWellGeneratorStatic) },
+    { "xrot",    scriptSetReal32CB,  &(GravWellGeneratorStatic.xrot),  &(GravWellGeneratorStatic) },
+    { "yrot",    scriptSetReal32CB,  &(GravWellGeneratorStatic.yrot),  &(GravWellGeneratorStatic) },
+    { "zrot",    scriptSetReal32CB,  &(GravWellGeneratorStatic.zrot),  &(GravWellGeneratorStatic) },
 
     END_SCRIPT_STRUCT_ENTRY
 };

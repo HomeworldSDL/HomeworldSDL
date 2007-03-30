@@ -415,6 +415,76 @@ taskContinued:
           , "m" (taskESPSaveInitial)
 #endif
         : "eax", "edx" );
+#elif defined (__GNUC__) && defined (__x86_64__)
+    __asm__ __volatile__ (
+        "    movq $(taskStart_taskContinued), %%rax\n"      /*set point to continue from*/
+        "    movq %%rax, %0\n"
+        : "=m" (taskFunctionContinue)
+        :
+        : "rax" );
+
+        /*taskCurrentTask = handle;*/
+
+    __asm__ __volatile__ (
+        "    movq %%rsi, %%rax\n"
+        "    movq %%rax, %0\n"                              /*save esi,edi*/
+        "    movq %%rdi, %%rax\n"
+        "    movq %%rax, %1\n"
+
+        "    movq %%rsp, %%rax\n"
+        "    movq %%rax, %2\n"
+#if TASK_STACK_SAVE
+        "    movq %%rax, %8\n"
+#endif
+
+        "    movq %%rbp, %%rax\n"
+        "    movq %%rax, %3\n"
+
+        "    movq %%rbx, %%rax\n"
+        "    movq %%rax, %4\n"
+        "    movq %5, %%rax\n"
+
+        "    jmp  *%%rax\n"                                 /*call the function*/
+
+        "taskStart_taskContinued:\n"
+        "    movq %6, %%rdx\n"                              /*get edx->taskdata structure*/
+        "    shlq $2, %%rdx\n"
+        "    addq %7, %%rdx\n"
+        "    movq (%%rdx), %%rdx\n"
+
+        "    popq %%rax\n"                                  /*get return IP from stack (jumped here via a CALL)*/
+        "    movq %%rax, "TOF_Context_STR"+24(%%rdx)\n"     /*eip*/
+        "    movq %%rbx, %%rax\n"
+        "    movq %%rax, "TOF_Context_STR"+0(%%rdx)\n"      /*ebx*/
+        "    movq %%rcx, %%rax\n"
+        "    movq %%rax, "TOF_Context_STR"+4(%%rdx)\n"      /*ecx*/
+        "    movq %%rdi, %%rax\n"
+        "    movq %%rax, "TOF_Context_STR"+8(%%rdx)\n"      /*edi*/
+        "    movq %%rsi, %%rax\n"
+        "    movq %%rax, "TOF_Context_STR"+12(%%rdx)\n"     /*esi*/
+        "    movq %%rsp, %%rax\n"
+        "    movq %%rax, "TOF_Context_STR"+16(%%rdx)\n"     /*esp*/
+        "    movq %%rbp, %%rax\n"
+        "    movq %%rax, "TOF_Context_STR"+20(%%rdx)\n"     /*ebp*/
+
+        "    movq %0, %%rax\n"                          /*restore esi,edi,ebp,esp*/
+        "    movq %%rax, %%rsi\n"
+        "    movq %1, %%rax\n"
+        "    movq %%rax, %%rdi\n"
+        "    movq %2, %%rax\n"
+        "    movq %%rax, %%rsp\n"
+        "    movq %3, %%rax\n"
+        "    movq %%rax, %%rbp\n"
+        "    movq %4, %%rax\n"
+        "    movq %%rax, %%rbx\n"
+        :
+        : "m" (taskESISave), "m" (taskEDISave), "m" (taskESPSave),
+          "m" (taskEBPSave), "m" (taskEBXSave),
+          "m" (function), "m" (handle), "m" (Local_taskData)
+#if TASK_STACK_SAVE
+          , "m" (taskESPSaveInitial)
+#endif
+        : "rax", "rdx" );
 #else
 #error Function uses inline x86 assembly.
 #endif

@@ -34,11 +34,11 @@ DDDFrigateStatics DDDFrigateStaticRace2;
 
 scriptStructEntry DDDStaticScriptTable[] =
 {
-    { "attackRange",    scriptSetReal32CB, (udword) &(DDDFrigateStaticRace1.attackRange), (udword) &(DDDFrigateStaticRace1) },
-    { "tooCloseRange",  scriptSetReal32CB, (udword) &(DDDFrigateStaticRace1.tooCloseRange), (udword) &(DDDFrigateStaticRace1) },
-    { "internalRegenerateRate",  scriptSetReal32CB, (udword) &(DDDFrigateStaticRace1.internalRegenerateRate), (udword) &(DDDFrigateStaticRace1) },
-    { "externalRegenerateRate",  scriptSetReal32CB, (udword) &(DDDFrigateStaticRace1.externalRegenerateRate), (udword) &(DDDFrigateStaticRace1) },
-    { "droneDeploymentRange",  scriptSetReal32CB, (udword) &(DDDFrigateStaticRace1.droneDeploymentRange), (udword) &(DDDFrigateStaticRace1) },
+    { "attackRange",    scriptSetReal32CB,  &(DDDFrigateStaticRace1.attackRange),  &(DDDFrigateStaticRace1) },
+    { "tooCloseRange",  scriptSetReal32CB,  &(DDDFrigateStaticRace1.tooCloseRange),  &(DDDFrigateStaticRace1) },
+    { "internalRegenerateRate",  scriptSetReal32CB,  &(DDDFrigateStaticRace1.internalRegenerateRate),  &(DDDFrigateStaticRace1) },
+    { "externalRegenerateRate",  scriptSetReal32CB,  &(DDDFrigateStaticRace1.externalRegenerateRate),  &(DDDFrigateStaticRace1) },
+    { "droneDeploymentRange",  scriptSetReal32CB,  &(DDDFrigateStaticRace1.droneDeploymentRange),  &(DDDFrigateStaticRace1) },
 
     END_SCRIPT_STRUCT_ENTRY
 };

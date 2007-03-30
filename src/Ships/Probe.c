@@ -24,7 +24,7 @@ ProbeStatics ProbeStaticRace2;
 
 scriptStructEntry ProbeStaticScriptTable[] =
 {
-    { "ProbeDispatchMaxVelocity",     scriptSetReal32CB, (udword) &(ProbeStatic.ProbeDispatchMaxVelocity), (udword) &(ProbeStatic) },
+    { "ProbeDispatchMaxVelocity",     scriptSetReal32CB,  &(ProbeStatic.ProbeDispatchMaxVelocity),  &(ProbeStatic) },
 
     END_SCRIPT_STRUCT_ENTRY
 };

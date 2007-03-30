@@ -22,8 +22,8 @@ typedef struct
 {
     char *name;
     setVarCback setVarCB;
-    udword offset1;     // should really be 1 offset, but I can't get rid of this strange compiler error
-    udword offset2;
+    void * offset1;     // should really be 1 offset, but I can't get rid of this strange compiler error
+    void * offset2;
 } scriptStructEntry;
 
 typedef struct

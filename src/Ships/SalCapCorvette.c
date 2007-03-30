@@ -88,12 +88,12 @@ SalCapCorvetteStatics SalCapCorvetteStaticDawg;
 
 scriptStructEntry SalCapCorvetteStaticTable[] =
 {
-    { "HealthThreshold",    scriptSetReal32CB, (udword) &(SalCapCorvetteStatic.HealthThreshold), (udword) &(SalCapCorvetteStatic) },
-    { "healthRemovedPerSecond",    scriptSetReal32CB, (udword) &(SalCapCorvetteStatic.healthRemovedPerSecond), (udword) &(SalCapCorvetteStatic) },
-    { "getTechTime",    scriptSetReal32CB, (udword) &(SalCapCorvetteStatic.getTechTime), (udword) &(SalCapCorvetteStatic) },
-    { "flyToDistance",    scriptSetReal32CB, (udword) &(SalCapCorvetteStatic.flyToDistance), (udword) &(SalCapCorvetteStatic) },
-    { "maxPushingVelocitySingle",    scriptSetReal32CB, (udword) &(SalCapCorvetteStatic.maxPushingVelocitySingle), (udword) &(SalCapCorvetteStatic) },
-    { "noLightClampingDistance",    scriptSetReal32CB, (udword) &(SalCapCorvetteStatic.noLightClampingDistance), (udword) &(SalCapCorvetteStatic) },
+    { "HealthThreshold",    scriptSetReal32CB,  &(SalCapCorvetteStatic.HealthThreshold),  &(SalCapCorvetteStatic) },
+    { "healthRemovedPerSecond",    scriptSetReal32CB,  &(SalCapCorvetteStatic.healthRemovedPerSecond),  &(SalCapCorvetteStatic) },
+    { "getTechTime",    scriptSetReal32CB,  &(SalCapCorvetteStatic.getTechTime),  &(SalCapCorvetteStatic) },
+    { "flyToDistance",    scriptSetReal32CB,  &(SalCapCorvetteStatic.flyToDistance),  &(SalCapCorvetteStatic) },
+    { "maxPushingVelocitySingle",    scriptSetReal32CB,  &(SalCapCorvetteStatic.maxPushingVelocitySingle),  &(SalCapCorvetteStatic) },
+    { "noLightClampingDistance",    scriptSetReal32CB,  &(SalCapCorvetteStatic.noLightClampingDistance),  &(SalCapCorvetteStatic) },
 
     END_SCRIPT_STRUCT_ENTRY
 };

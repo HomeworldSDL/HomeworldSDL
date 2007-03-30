@@ -89,20 +89,20 @@ RepairCorvetteStatics RepairCorvetteStatic;
 
 scriptStructEntry RepairCorvetteStaticScriptTable[] =
 {
-    { "repairApproachDistance",    scriptSetReal32CB, (udword) &(RepairCorvetteStatic.repairApproachDistance), (udword) &(RepairCorvetteStatic) },
+    { "repairApproachDistance",    scriptSetReal32CB,  &(RepairCorvetteStatic.repairApproachDistance),  &(RepairCorvetteStatic) },
 
-    { "approachAndWaitDistance",    scriptSetReal32CB, (udword) &(RepairCorvetteStatic.approachAndWaitDistance), (udword) &(RepairCorvetteStatic) },
-    { "rotationStopDistance",    scriptSetReal32CB, (udword) &(RepairCorvetteStatic.rotationStopDistance), (udword) &(RepairCorvetteStatic) },
-    { "stopRotMultiplier",    scriptSetReal32CB, (udword) &(RepairCorvetteStatic.stopRotMultiplier), (udword) &(RepairCorvetteStatic) },
-    { "sloppyRotThreshold",    scriptSetReal32CB, (udword) &(RepairCorvetteStatic.sloppyRotThreshold), (udword) &(RepairCorvetteStatic) },
-    { "dockWithRotationSpeed",    scriptSetReal32CB, (udword) &(RepairCorvetteStatic.dockWithRotationSpeed), (udword) &(RepairCorvetteStatic) },
-    { "targetStartDockDistance",    scriptSetReal32CB, (udword) &(RepairCorvetteStatic.targetStartDockDistance), (udword) &(RepairCorvetteStatic) },
-    { "startdockTolerance",    scriptSetReal32CB, (udword) &(RepairCorvetteStatic.startdockTolerance), (udword) &(RepairCorvetteStatic) },
-    { "finaldockDistance",    scriptSetReal32CB, (udword) &(RepairCorvetteStatic.finaldockDistance), (udword) &(RepairCorvetteStatic) },
+    { "approachAndWaitDistance",    scriptSetReal32CB,  &(RepairCorvetteStatic.approachAndWaitDistance),  &(RepairCorvetteStatic) },
+    { "rotationStopDistance",    scriptSetReal32CB,  &(RepairCorvetteStatic.rotationStopDistance),  &(RepairCorvetteStatic) },
+    { "stopRotMultiplier",    scriptSetReal32CB,  &(RepairCorvetteStatic.stopRotMultiplier),  &(RepairCorvetteStatic) },
+    { "sloppyRotThreshold",    scriptSetReal32CB,  &(RepairCorvetteStatic.sloppyRotThreshold),  &(RepairCorvetteStatic) },
+    { "dockWithRotationSpeed",    scriptSetReal32CB,  &(RepairCorvetteStatic.dockWithRotationSpeed),  &(RepairCorvetteStatic) },
+    { "targetStartDockDistance",    scriptSetReal32CB,  &(RepairCorvetteStatic.targetStartDockDistance),  &(RepairCorvetteStatic) },
+    { "startdockTolerance",    scriptSetReal32CB,  &(RepairCorvetteStatic.startdockTolerance),  &(RepairCorvetteStatic) },
+    { "finaldockDistance",    scriptSetReal32CB,  &(RepairCorvetteStatic.finaldockDistance),  &(RepairCorvetteStatic) },
 
-    { "CapitalDistanceRepairStart",    scriptSetReal32CB, (udword) &(RepairCorvetteStatic.CapitalDistanceRepairStart), (udword) &(RepairCorvetteStatic) },
-    { "capitalShipHealthPerSecond",    scriptSetReal32CB, (udword) &(RepairCorvetteStatic.capitalShipHealthPerSecond), (udword) &(RepairCorvetteStatic) },
-    { "AngleDotProdThreshold",    scriptSetReal32CB, (udword) &(RepairCorvetteStatic.AngleDotProdThreshold), (udword) &(RepairCorvetteStatic) },
+    { "CapitalDistanceRepairStart",    scriptSetReal32CB,  &(RepairCorvetteStatic.CapitalDistanceRepairStart),  &(RepairCorvetteStatic) },
+    { "capitalShipHealthPerSecond",    scriptSetReal32CB,  &(RepairCorvetteStatic.capitalShipHealthPerSecond),  &(RepairCorvetteStatic) },
+    { "AngleDotProdThreshold",    scriptSetReal32CB,  &(RepairCorvetteStatic.AngleDotProdThreshold),  &(RepairCorvetteStatic) },
 
     END_SCRIPT_STRUCT_ENTRY
 };

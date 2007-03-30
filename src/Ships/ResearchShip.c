@@ -37,15 +37,15 @@ ResearchShipStatics ResearchShipStaticRace2;
 
 scriptStructEntry ResearchShipStaticScriptTable[] =
 {
-    { "R1final_dock_distance",    scriptSetReal32CB, (udword) &(ResearchShipStatic.R1final_dock_distance), (udword) &(ResearchShipStatic) },
-    { "R1parallel_dock_distance",    scriptSetReal32CB, (udword) &(ResearchShipStatic.R1parallel_dock_distance), (udword) &(ResearchShipStatic) },
-    { "R1VerticalDockDistance",    scriptSetReal32CB, (udword) &(ResearchShipStatic.R1VerticalDockDistance), (udword) &(ResearchShipStatic) },
+    { "R1final_dock_distance",    scriptSetReal32CB,  &(ResearchShipStatic.R1final_dock_distance),  &(ResearchShipStatic) },
+    { "R1parallel_dock_distance",    scriptSetReal32CB,  &(ResearchShipStatic.R1parallel_dock_distance),  &(ResearchShipStatic) },
+    { "R1VerticalDockDistance",    scriptSetReal32CB,  &(ResearchShipStatic.R1VerticalDockDistance),  &(ResearchShipStatic) },
 
-    { "max_rotate",    scriptSetReal32CB, (udword) &(ResearchShipStatic.max_rotate), (udword) &(ResearchShipStatic) },
-    { "rotate_acelleration",    scriptSetReal32CB, (udword) &(ResearchShipStatic.rotate_acelleration), (udword) &(ResearchShipStatic) },
-    { "rotate_slow",    scriptSetReal32CB, (udword) &(ResearchShipStatic.rotate_slow), (udword) &(ResearchShipStatic) },
-    { "R2DockFinalDistance",    scriptSetReal32CB, (udword) &(ResearchShipStatic.R2DockFinalDistance), (udword) &(ResearchShipStatic) },
-    { "RotationAngle",    scriptSetReal32CB, (udword) &(ResearchShipStatic.RotationAngle), (udword) &(ResearchShipStatic) },
+    { "max_rotate",    scriptSetReal32CB,  &(ResearchShipStatic.max_rotate),  &(ResearchShipStatic) },
+    { "rotate_acelleration",    scriptSetReal32CB,  &(ResearchShipStatic.rotate_acelleration),  &(ResearchShipStatic) },
+    { "rotate_slow",    scriptSetReal32CB,  &(ResearchShipStatic.rotate_slow),  &(ResearchShipStatic) },
+    { "R2DockFinalDistance",    scriptSetReal32CB,  &(ResearchShipStatic.R2DockFinalDistance),  &(ResearchShipStatic) },
+    { "RotationAngle",    scriptSetReal32CB,  &(ResearchShipStatic.RotationAngle),  &(ResearchShipStatic) },
 
     END_SCRIPT_STRUCT_ENTRY
 };

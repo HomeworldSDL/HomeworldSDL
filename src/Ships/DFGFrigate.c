@@ -29,11 +29,11 @@ DFGFrigateStatics DFGFrigateStaticRace2;
 
 scriptStructEntry DFGStaticScriptTable[] =
 {
-    { "fieldRadius",    scriptSetReal32CB, (udword) &(DFGFrigateStatic.DFGFrigateFieldRadius), (udword) &(DFGFrigateStatic) },
-    { "BulletDamageMultiplier",    scriptSetReal32CB, (udword) &(DFGFrigateStatic.BulletDamageMultiplier), (udword) &(DFGFrigateStatic) },
-    { "BulletLifeExtension",    scriptSetReal32CB, (udword) &(DFGFrigateStatic.BulletLifeExtension), (udword) &(DFGFrigateStatic) },
-    { "percentageThatGetThrough",    scriptSetUdwordCB, (udword) &(DFGFrigateStatic.percentageThatGetThrough), (udword) &(DFGFrigateStatic) },
-    { "angleVariance",    scriptSetUdwordCB, (udword) &(DFGFrigateStatic.angleVariance), (udword) &(DFGFrigateStatic) },
+    { "fieldRadius",    scriptSetReal32CB,  &(DFGFrigateStatic.DFGFrigateFieldRadius),  &(DFGFrigateStatic) },
+    { "BulletDamageMultiplier",    scriptSetReal32CB,  &(DFGFrigateStatic.BulletDamageMultiplier),  &(DFGFrigateStatic) },
+    { "BulletLifeExtension",    scriptSetReal32CB,  &(DFGFrigateStatic.BulletLifeExtension),  &(DFGFrigateStatic) },
+    { "percentageThatGetThrough",    scriptSetUdwordCB,  &(DFGFrigateStatic.percentageThatGetThrough),  &(DFGFrigateStatic) },
+    { "angleVariance",    scriptSetUdwordCB,  &(DFGFrigateStatic.angleVariance),  &(DFGFrigateStatic) },
 
     END_SCRIPT_STRUCT_ENTRY
 };

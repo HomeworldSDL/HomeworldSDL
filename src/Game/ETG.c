@@ -1940,6 +1940,18 @@ void etgEffectCodeExecute(etgeffectstatic *stat, Effect *effect, udword codeBloc
 		"movl %%edi, %5\n\t" : :
 		"m" (savedreg[0]), "m" (savedreg[1]), "m" (savedreg[2]),
 		"m" (savedreg[3]), "m" (savedreg[4]), "m" (savedreg[5]));
+#elif defined (__GNUC__) && defined (__x86_64__)
+	/* Using an array should guarantee it's in memory, right? */
+	Uint32 savedreg[6];
+ 	__asm__ __volatile__ (
+		"movl %%eax, %0\n\t"
+		"movl %%ebx, %1\n\t"
+		"movl %%ecx, %2\n\t"
+		"movl %%edx, %3\n\t"
+		"movl %%esi, %4\n\t"
+		"movl %%edi, %5\n\t" : :
+		"m" (savedreg[0]), "m" (savedreg[1]), "m" (savedreg[2]),
+		"m" (savedreg[3]), "m" (savedreg[4]), "m" (savedreg[5]));
 #elif !defined(_MACOSX)
     // We know x86 instructions won't work on a PowerPC, thanks. We've coded around it.
 	#error Opcode-handler functions currently only supported on x86 platforms.

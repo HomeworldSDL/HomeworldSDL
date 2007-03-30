@@ -46,23 +46,23 @@ DefenseFighterStatics DefenseFighterStaticRace2;
 
 scriptStructEntry DefenseFighterStaticScriptTable[] =
 {
-    { "NumTargetsCanAttack",    scriptSetUdwordCB, (udword) &(DefenseFighterStatic.NumTargetsCanAttack), (udword) &(DefenseFighterStatic) },
-    { "CoolDownTimePerLaser",    scriptSetReal32CB, (udword) &(DefenseFighterStatic.CoolDownTimePerLaser), (udword) &(DefenseFighterStatic) },
-    { "DamageReductionLow",    scriptSetReal32CB, (udword) &(DefenseFighterStatic.DamageReductionLow), (udword) &(DefenseFighterStatic) },
-    { "DamageReductionHigh",    scriptSetReal32CB, (udword) &(DefenseFighterStatic.DamageReductionHigh), (udword) &(DefenseFighterStatic) },
-    { "DamageRate",    scriptSetUdwordCB, (udword) &(DefenseFighterStatic.DamageRate), (udword) &(DefenseFighterStatic) },
-    { "RangeCheckRate",    scriptSetUdwordCB, (udword) &(DefenseFighterStatic.RangeCheckRate), (udword) &(DefenseFighterStatic) },
-    { "TargetOwnBullets",    scriptSetSdwordCB, (udword) &(DefenseFighterStatic.TargetOwnBullets), (udword) &(DefenseFighterStatic) },
-    { "MultipleTargettingofSingleBullet",    scriptSetSdwordCB, (udword) &(DefenseFighterStatic.MultipleTargettingofSingleBullet), (udword) &(DefenseFighterStatic) },
-    { "max_rot_speed",    scriptSetReal32CB, (udword) &(DefenseFighterStatic.max_rot_speed), (udword) &(DefenseFighterStatic) },
-    { "rotate_recover_time",    scriptSetReal32CB, (udword) &(DefenseFighterStatic.rotate_recover_time), (udword) &(DefenseFighterStatic) },
-    { "rotate_time",    scriptSetReal32CB, (udword) &(DefenseFighterStatic.rotate_time), (udword) &(DefenseFighterStatic) },
+    { "NumTargetsCanAttack",    scriptSetUdwordCB,  &(DefenseFighterStatic.NumTargetsCanAttack),  &(DefenseFighterStatic) },
+    { "CoolDownTimePerLaser",    scriptSetReal32CB,  &(DefenseFighterStatic.CoolDownTimePerLaser),  &(DefenseFighterStatic) },
+    { "DamageReductionLow",    scriptSetReal32CB,  &(DefenseFighterStatic.DamageReductionLow),  &(DefenseFighterStatic) },
+    { "DamageReductionHigh",    scriptSetReal32CB,  &(DefenseFighterStatic.DamageReductionHigh),  &(DefenseFighterStatic) },
+    { "DamageRate",    scriptSetUdwordCB,  &(DefenseFighterStatic.DamageRate),  &(DefenseFighterStatic) },
+    { "RangeCheckRate",    scriptSetUdwordCB,  &(DefenseFighterStatic.RangeCheckRate),  &(DefenseFighterStatic) },
+    { "TargetOwnBullets",    scriptSetSdwordCB,  &(DefenseFighterStatic.TargetOwnBullets),  &(DefenseFighterStatic) },
+    { "MultipleTargettingofSingleBullet",    scriptSetSdwordCB,  &(DefenseFighterStatic.MultipleTargettingofSingleBullet),  &(DefenseFighterStatic) },
+    { "max_rot_speed",    scriptSetReal32CB,  &(DefenseFighterStatic.max_rot_speed),  &(DefenseFighterStatic) },
+    { "rotate_recover_time",    scriptSetReal32CB,  &(DefenseFighterStatic.rotate_recover_time),  &(DefenseFighterStatic) },
+    { "rotate_time",    scriptSetReal32CB,  &(DefenseFighterStatic.rotate_time),  &(DefenseFighterStatic) },
 
-    { "flightmanTurnaround",    scriptSetFlightManTurnaroundCB,     (udword) &(DefenseFighterStatic.flightmanProb),     (udword) &(DefenseFighterStatic) },
-    { "flightmanAIP",           scriptSetFlightManAIPCB,            (udword) &(DefenseFighterStatic.flightmanProb),     (udword) &(DefenseFighterStatic) },
-    { "flightmanEvasiveBehind", scriptSetFlightManEvasiveBehindCB,  (udword) &(DefenseFighterStatic.flightmanProb),     (udword) &(DefenseFighterStatic) },
-    { "flightmanEvasiveFront",  scriptSetFlightManEvasiveFrontCB,   (udword) &(DefenseFighterStatic.flightmanProb),     (udword) &(DefenseFighterStatic) },
-    { "flightmanEvasivePure",   scriptSetFlightManEvasivePureCB,    (udword) &(DefenseFighterStatic.flightmanProb),     (udword) &(DefenseFighterStatic) },
+    { "flightmanTurnaround",    scriptSetFlightManTurnaroundCB,      &(DefenseFighterStatic.flightmanProb),      &(DefenseFighterStatic) },
+    { "flightmanAIP",           scriptSetFlightManAIPCB,             &(DefenseFighterStatic.flightmanProb),      &(DefenseFighterStatic) },
+    { "flightmanEvasiveBehind", scriptSetFlightManEvasiveBehindCB,   &(DefenseFighterStatic.flightmanProb),      &(DefenseFighterStatic) },
+    { "flightmanEvasiveFront",  scriptSetFlightManEvasiveFrontCB,    &(DefenseFighterStatic.flightmanProb),      &(DefenseFighterStatic) },
+    { "flightmanEvasivePure",   scriptSetFlightManEvasivePureCB,     &(DefenseFighterStatic.flightmanProb),      &(DefenseFighterStatic) },
 
     END_SCRIPT_STRUCT_ENTRY
 };

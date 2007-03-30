@@ -47,10 +47,10 @@ void P2MultiBeamFrigateFire(Ship *ship,SpaceObjRotImpTarg *target);
 
 scriptStructEntry P2MultiBeamFrigateScriptTable[] =
 {
-    { "MultiBeamRange"          , scriptSetReal32CB     , (udword) &(P2MultiBeamFrigateStatic.MBRstat)       , (udword) &(P2MultiBeamFrigateStatic) },
-    { "AttackRotationSpeed"     , scriptSetReal32CB     , (udword)&(P2MultiBeamFrigateStatic.AttackRotationSpeed)   , (udword) &(P2MultiBeamFrigateStatic) },
-    { "BeamFireTime"            , scriptSetReal32CB     , (udword)&(P2MultiBeamFrigateStatic.BeamFireTime)          , (udword) &(P2MultiBeamFrigateStatic) },
-	{ "fireDownTime"            , scriptSetReal32CB     , (udword)&(P2MultiBeamFrigateStatic.fireDownTime)          , (udword) &(P2MultiBeamFrigateStatic) },
+    { "MultiBeamRange"          , scriptSetReal32CB     ,  &(P2MultiBeamFrigateStatic.MBRstat)       ,  &(P2MultiBeamFrigateStatic) },
+    { "AttackRotationSpeed"     , scriptSetReal32CB     , &(P2MultiBeamFrigateStatic.AttackRotationSpeed)   ,  &(P2MultiBeamFrigateStatic) },
+    { "BeamFireTime"            , scriptSetReal32CB     , &(P2MultiBeamFrigateStatic.BeamFireTime)          ,  &(P2MultiBeamFrigateStatic) },
+	{ "fireDownTime"            , scriptSetReal32CB     , &(P2MultiBeamFrigateStatic.fireDownTime)          ,  &(P2MultiBeamFrigateStatic) },
 
 //    {"MultiBeamRange", scriptsetReal32CB, &(P2MultiBeamFrigateStatic.MultiBeamRange)},
 //    {"MultiBeamRange", scriptsetReal32CB, &(P2MultiBeamFrigateStatic.MultiBeamRange)},

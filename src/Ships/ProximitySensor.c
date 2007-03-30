@@ -30,15 +30,15 @@ sdword proxBlipThickness(Ship *ship);
 
 scriptStructEntry ProximitySensorStaticScriptTable[] =
 {
-    { "SearchRate",    scriptSetUdwordCB, (udword) &(ProximitySensorStatic.SearchRate), (udword) &(ProximitySensorStatic) },
-    { "SearchRadius",    scriptSetReal32CB, (udword) &(ProximitySensorStatic.SearchRadius), (udword) &(ProximitySensorStatic) },
-    { "SensorCircleRadius",    scriptSetSdwordCB, (udword) &(ProximitySensorStatic.SensorCircleRadius), (udword) &(ProximitySensorStatic) },
-    { "SensorBlinkRate",    scriptSetReal32CB, (udword) &(ProximitySensorStatic.SensorBlinkRate), (udword) &(ProximitySensorStatic) },
-    { "SearchRateAfterFound",    scriptSetUdwordCB, (udword) &(ProximitySensorStatic.SearchRateAfterFound), (udword) &(ProximitySensorStatic) },
-    { "TriggerSpeed",    scriptSetReal32CB, (udword) &(ProximitySensorStatic.TriggerSpeed), (udword) &(ProximitySensorStatic) },
+    { "SearchRate",    scriptSetUdwordCB,  &(ProximitySensorStatic.SearchRate),  &(ProximitySensorStatic) },
+    { "SearchRadius",    scriptSetReal32CB,  &(ProximitySensorStatic.SearchRadius),  &(ProximitySensorStatic) },
+    { "SensorCircleRadius",    scriptSetSdwordCB,  &(ProximitySensorStatic.SensorCircleRadius),  &(ProximitySensorStatic) },
+    { "SensorBlinkRate",    scriptSetReal32CB,  &(ProximitySensorStatic.SensorBlinkRate),  &(ProximitySensorStatic) },
+    { "SearchRateAfterFound",    scriptSetUdwordCB,  &(ProximitySensorStatic.SearchRateAfterFound),  &(ProximitySensorStatic) },
+    { "TriggerSpeed",    scriptSetReal32CB,  &(ProximitySensorStatic.TriggerSpeed),  &(ProximitySensorStatic) },
 
-    { "blipColor",    scriptSetRGBACB, (udword) &(ProximitySensorStatic.blipColor), (udword) &(ProximitySensorStatic) },
-    { "blipThickness",    scriptSetSdwordCB, (udword) &(ProximitySensorStatic.blipThickness), (udword) &(ProximitySensorStatic) },
+    { "blipColor",    scriptSetRGBACB,  &(ProximitySensorStatic.blipColor),  &(ProximitySensorStatic) },
+    { "blipThickness",    scriptSetSdwordCB,  &(ProximitySensorStatic.blipThickness),  &(ProximitySensorStatic) },
 
     END_SCRIPT_STRUCT_ENTRY
 };

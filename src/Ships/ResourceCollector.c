@@ -30,7 +30,7 @@ ResourceCollectorStatics ResourceCollectorStaticRace2;
 
 scriptStructEntry ResourceCollectorStaticScriptTable[] =
 {
-    { "repairApproachDistance",    scriptSetReal32CB, (udword) &(ResourceCollectorStatic.repairApproachDistance), (udword) &(ResourceCollectorStatic) },
+    { "repairApproachDistance",    scriptSetReal32CB,  &(ResourceCollectorStatic.repairApproachDistance),  &(ResourceCollectorStatic) },
 
     END_SCRIPT_STRUCT_ENTRY
 };

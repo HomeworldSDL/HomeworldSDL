@@ -9,7 +9,7 @@ Created 2/1/1999 by khent
 Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#if !defined (_MSC_VER) && !(defined (__GNUC__) && defined (__i386__))
+#if !defined (_MSC_VER) && !(defined (__GNUC__) && defined (__i386__)) && !(defined (__GNUC__) && defined (__x86_64__))
 #error KNI transform routines only available on x86 systems.
 #endif
 

@@ -45,9 +45,9 @@ MissileDestroyerStatics MissileDestroyerStaticRace2;
 
 scriptStructEntry MissileDestroyerScriptTable[] =
 {
-    { "MissileRegenerateTime",scriptSetReal32CB,(udword) &(MissileDestroyerStaticRace1.missileRegenerateTime),(udword) &(MissileDestroyerStaticRace1) },
-    { "MissileVolleyTime",scriptSetReal32CB,(udword) &(MissileDestroyerStaticRace1.missileVolleyTime),(udword) &(MissileDestroyerStaticRace1) },
-    { "MissileLagVolleyTime",scriptSetReal32CB,(udword) &(MissileDestroyerStaticRace1.missileLagVolleyTime),(udword) &(MissileDestroyerStaticRace1) },
+    { "MissileRegenerateTime",scriptSetReal32CB, &(MissileDestroyerStaticRace1.missileRegenerateTime), &(MissileDestroyerStaticRace1) },
+    { "MissileVolleyTime",scriptSetReal32CB, &(MissileDestroyerStaticRace1.missileVolleyTime), &(MissileDestroyerStaticRace1) },
+    { "MissileLagVolleyTime",scriptSetReal32CB, &(MissileDestroyerStaticRace1.missileLagVolleyTime), &(MissileDestroyerStaticRace1) },
 
     END_SCRIPT_STRUCT_ENTRY
 };

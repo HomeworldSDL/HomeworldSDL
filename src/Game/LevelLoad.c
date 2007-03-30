@@ -80,29 +80,29 @@ static void scriptSetUword2CB       (char *directory, char *field, void *dataToF
 
 scriptStructEntry AsteroidDistScriptTable[] =
 {
-    { "Asteroid0", scriptSetUword2CB, (udword)&resourceDistTemplate.probResources[Asteroid0][0], (udword)&resourceDistTemplate },
-    { "Asteroid1", scriptSetUword2CB, (udword)&resourceDistTemplate.probResources[Asteroid1][0], (udword)&resourceDistTemplate },
-    { "Asteroid2", scriptSetUword2CB, (udword)&resourceDistTemplate.probResources[Asteroid2][0], (udword)&resourceDistTemplate },
-    { "Asteroid3", scriptSetUword2CB, (udword)&resourceDistTemplate.probResources[Asteroid3][0], (udword)&resourceDistTemplate },
-    { "Asteroid4", scriptSetUword2CB, (udword)&resourceDistTemplate.probResources[Asteroid4][0], (udword)&resourceDistTemplate },
+    { "Asteroid0", scriptSetUword2CB, &resourceDistTemplate.probResources[Asteroid0][0], &resourceDistTemplate },
+    { "Asteroid1", scriptSetUword2CB, &resourceDistTemplate.probResources[Asteroid1][0], &resourceDistTemplate },
+    { "Asteroid2", scriptSetUword2CB, &resourceDistTemplate.probResources[Asteroid2][0], &resourceDistTemplate },
+    { "Asteroid3", scriptSetUword2CB, &resourceDistTemplate.probResources[Asteroid3][0], &resourceDistTemplate },
+    { "Asteroid4", scriptSetUword2CB, &resourceDistTemplate.probResources[Asteroid4][0], &resourceDistTemplate },
 
     END_SCRIPT_STRUCT_ENTRY
 };
 
 scriptStructEntry DustCloudDistScriptTable[] =
 {
-    { "DustCloud0", scriptSetUword2CB, (udword)&resourceDistTemplate.probResources[DustCloud0][0], (udword)&resourceDistTemplate },
-    { "DustCloud1", scriptSetUword2CB, (udword)&resourceDistTemplate.probResources[DustCloud1][0], (udword)&resourceDistTemplate },
-    { "DustCloud2", scriptSetUword2CB, (udword)&resourceDistTemplate.probResources[DustCloud2][0], (udword)&resourceDistTemplate },
-    { "DustCloud3", scriptSetUword2CB, (udword)&resourceDistTemplate.probResources[DustCloud3][0], (udword)&resourceDistTemplate },
+    { "DustCloud0", scriptSetUword2CB, &resourceDistTemplate.probResources[DustCloud0][0], &resourceDistTemplate },
+    { "DustCloud1", scriptSetUword2CB, &resourceDistTemplate.probResources[DustCloud1][0], &resourceDistTemplate },
+    { "DustCloud2", scriptSetUword2CB, &resourceDistTemplate.probResources[DustCloud2][0], &resourceDistTemplate },
+    { "DustCloud3", scriptSetUword2CB, &resourceDistTemplate.probResources[DustCloud3][0], &resourceDistTemplate },
 
     END_SCRIPT_STRUCT_ENTRY
 };
 
 scriptStructEntry GasCloudDistScriptTable[] =
 {
-    { "GasCloud0", scriptSetUword2CB, (udword)&resourceDistTemplate.probResources[GasCloud0][0], (udword)&resourceDistTemplate },
-    { "GasCloud1", scriptSetUword2CB, (udword)&resourceDistTemplate.probResources[GasCloud1][0], (udword)&resourceDistTemplate },
+    { "GasCloud0", scriptSetUword2CB, &resourceDistTemplate.probResources[GasCloud0][0], &resourceDistTemplate },
+    { "GasCloud1", scriptSetUword2CB, &resourceDistTemplate.probResources[GasCloud1][0], &resourceDistTemplate },
 
     END_SCRIPT_STRUCT_ENTRY
 };

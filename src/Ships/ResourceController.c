@@ -29,7 +29,7 @@ ResourceControllerStatics ResourceControllerStaticRace2;
 
 scriptStructEntry RCStaticScriptTable[] =
 {
-    { "repairApproachDistance",    scriptSetReal32CB, (udword) &(ResourceControllerStatic.repairApproachDistance), (udword) &(ResourceControllerStatic) },
+    { "repairApproachDistance",    scriptSetReal32CB,  &(ResourceControllerStatic.repairApproachDistance),  &(ResourceControllerStatic) },
 
     END_SCRIPT_STRUCT_ENTRY
 };

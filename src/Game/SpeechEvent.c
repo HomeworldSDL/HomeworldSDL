@@ -280,55 +280,55 @@ extern bool FalkosFuckedUpTutorialFlag;
 
 scriptStructEntry streamEQScriptTable[] =
 {
-    { "flags", scriptSetSdwordCB, (udword)&streamEQ[0].flags, (udword)&streamEQ[0] },
-    { "eq0", scriptSetReal32CB, (udword)&streamEQ[0].eq[0], (udword)&streamEQ[0] },
-    { "eq1", scriptSetReal32CB, (udword)&streamEQ[0].eq[1], (udword)&streamEQ[0] },
-    { "eq2", scriptSetReal32CB, (udword)&streamEQ[0].eq[2], (udword)&streamEQ[0] },
-    { "eq3", scriptSetReal32CB, (udword)&streamEQ[0].eq[3], (udword)&streamEQ[0] },
-    { "eq4", scriptSetReal32CB, (udword)&streamEQ[0].eq[4], (udword)&streamEQ[0] },
-    { "eq5", scriptSetReal32CB, (udword)&streamEQ[0].eq[5], (udword)&streamEQ[0] },
-    { "eq6", scriptSetReal32CB, (udword)&streamEQ[0].eq[6], (udword)&streamEQ[0] },
-    { "eq7", scriptSetReal32CB, (udword)&streamEQ[0].eq[7], (udword)&streamEQ[0] },
+    { "flags", scriptSetSdwordCB, &streamEQ[0].flags, &streamEQ[0] },
+    { "eq0", scriptSetReal32CB,   &streamEQ[0].eq[0], &streamEQ[0] },
+    { "eq1", scriptSetReal32CB,   &streamEQ[0].eq[1], &streamEQ[0] },
+    { "eq2", scriptSetReal32CB,   &streamEQ[0].eq[2], &streamEQ[0] },
+    { "eq3", scriptSetReal32CB,   &streamEQ[0].eq[3], &streamEQ[0] },
+    { "eq4", scriptSetReal32CB,   &streamEQ[0].eq[4], &streamEQ[0] },
+    { "eq5", scriptSetReal32CB,   &streamEQ[0].eq[5], &streamEQ[0] },
+    { "eq6", scriptSetReal32CB,   &streamEQ[0].eq[6], &streamEQ[0] },
+    { "eq7", scriptSetReal32CB,   &streamEQ[0].eq[7], &streamEQ[0] },
     
     END_SCRIPT_STRUCT_ENTRY
 };
 
 scriptStructEntry streamDelaySciptTable[] =
 {
-    { "flags", scriptSetSdwordCB, (udword)&streamdelay[0].flags, (udword)&streamdelay[0] },
-    { "level", scriptSetReal32CB, (udword)&streamdelay[0].level, (udword)&streamdelay[0] },
-    { "duration", scriptSetUdwordCB, (udword)&streamdelay[0].duration, (udword)&streamdelay[0] },
-    { "eq0", scriptSetReal32CB, (udword)&streamdelay[0].eq[0], (udword)&streamdelay[0] },
-    { "eq1", scriptSetReal32CB, (udword)&streamdelay[0].eq[1], (udword)&streamdelay[0] },
-    { "eq2", scriptSetReal32CB, (udword)&streamdelay[0].eq[2], (udword)&streamdelay[0] },
-    { "eq3", scriptSetReal32CB, (udword)&streamdelay[0].eq[3], (udword)&streamdelay[0] },
-    { "eq4", scriptSetReal32CB, (udword)&streamdelay[0].eq[4], (udword)&streamdelay[0] },
-    { "eq5", scriptSetReal32CB, (udword)&streamdelay[0].eq[5], (udword)&streamdelay[0] },
-    { "eq6", scriptSetReal32CB, (udword)&streamdelay[0].eq[6], (udword)&streamdelay[0] },
-    { "eq7", scriptSetReal32CB, (udword)&streamdelay[0].eq[7], (udword)&streamdelay[0] },
+    { "flags",    scriptSetSdwordCB, &streamdelay[0].flags,    &streamdelay[0] },
+    { "level",    scriptSetReal32CB, &streamdelay[0].level,    &streamdelay[0] },
+    { "duration", scriptSetUdwordCB, &streamdelay[0].duration, &streamdelay[0] },
+    { "eq0",      scriptSetReal32CB, &streamdelay[0].eq[0],    &streamdelay[0] },
+    { "eq1",      scriptSetReal32CB, &streamdelay[0].eq[1],    &streamdelay[0] },
+    { "eq2",      scriptSetReal32CB, &streamdelay[0].eq[2],    &streamdelay[0] },
+    { "eq3",      scriptSetReal32CB, &streamdelay[0].eq[3],    &streamdelay[0] },
+    { "eq4",      scriptSetReal32CB, &streamdelay[0].eq[4],    &streamdelay[0] },
+    { "eq5",      scriptSetReal32CB, &streamdelay[0].eq[5],    &streamdelay[0] },
+    { "eq6",      scriptSetReal32CB, &streamdelay[0].eq[6],    &streamdelay[0] },
+    { "eq7",      scriptSetReal32CB, &streamdelay[0].eq[7],    &streamdelay[0] },
     
     END_SCRIPT_STRUCT_ENTRY
 };
 
 scriptStructEntry streamEffectScriptTable[] =
 {
-    { "ClockCount", scriptSetUdwordCB, (udword)&cleaneffect[0].nClockCount, (udword)&cleaneffect[0] },
-    { "FilterMinFreq", scriptSetUdwordCB, (udword)&cleaneffect[0].nFiltMinFreq, (udword)&cleaneffect[0] },
-    { "FilterMaxFreq", scriptSetUdwordCB, (udword)&cleaneffect[0].nFiltMaxFreq, (udword)&cleaneffect[0] },
-    { "ToneMinFreq", scriptSetUdwordCB, (udword)&cleaneffect[0].nToneMinFreq, (udword)&cleaneffect[0] },
-    { "ToneMaxFreq", scriptSetUdwordCB, (udword)&cleaneffect[0].nToneMaxFreq, (udword)&cleaneffect[0] },
-    { "ToneDuration", scriptSetUdwordCB, (udword)&cleaneffect[0].nToneDur, (udword)&cleaneffect[0] },
-    { "ToneMute", scriptSetUdwordCB, (udword)&cleaneffect[0].nToneMute, (udword)&cleaneffect[0] },
-    { "ToneCount", scriptSetUdwordCB, (udword)&cleaneffect[0].nToneCount, (udword)&cleaneffect[0] },
-    { "BreakMaxRate", scriptSetUdwordCB, (udword)&cleaneffect[0].nBreakMaxRate, (udword)&cleaneffect[0] },
-    { "BreakMaxDur", scriptSetUdwordCB, (udword)&cleaneffect[0].nBreakMaxDur, (udword)&cleaneffect[0] },
-    { "QNoiseMaxRate", scriptSetUdwordCB, (udword)&cleaneffect[0].nQNoiseMaxRate, (udword)&cleaneffect[0] },
-    { "QNoiseMaxDur", scriptSetUdwordCB, (udword)&cleaneffect[0].nQNoiseMaxDur, (udword)&cleaneffect[0] },
-    { "ScaleLevel", scriptSetReal32CB, (udword)&cleaneffect[0].fScaleLev, (udword)&cleaneffect[0] },
-    { "NoiseLevel", scriptSetReal32CB, (udword)&cleaneffect[0].fNoiseLev, (udword)&cleaneffect[0] },
-    { "ToneLevel", scriptSetReal32CB, (udword)&cleaneffect[0].fToneLev, (udword)&cleaneffect[0] },
-    { "LimitLevel", scriptSetReal32CB, (udword)&cleaneffect[0].fLimitLev, (udword)&cleaneffect[0] },
-    { "PitchShift", scriptSetReal32CB, (udword)&cleaneffect[0].fPitchShift, (udword)&cleaneffect[0] },
+    { "ClockCount",    scriptSetUdwordCB, &cleaneffect[0].nClockCount,    &cleaneffect[0] },
+    { "FilterMinFreq", scriptSetUdwordCB, &cleaneffect[0].nFiltMinFreq,   &cleaneffect[0] },
+    { "FilterMaxFreq", scriptSetUdwordCB, &cleaneffect[0].nFiltMaxFreq,   &cleaneffect[0] },
+    { "ToneMinFreq",   scriptSetUdwordCB, &cleaneffect[0].nToneMinFreq,   &cleaneffect[0] },
+    { "ToneMaxFreq",   scriptSetUdwordCB, &cleaneffect[0].nToneMaxFreq,   &cleaneffect[0] },
+    { "ToneDuration",  scriptSetUdwordCB, &cleaneffect[0].nToneDur,       &cleaneffect[0] },
+    { "ToneMute",      scriptSetUdwordCB, &cleaneffect[0].nToneMute,      &cleaneffect[0] },
+    { "ToneCount",     scriptSetUdwordCB, &cleaneffect[0].nToneCount,     &cleaneffect[0] },
+    { "BreakMaxRate",  scriptSetUdwordCB, &cleaneffect[0].nBreakMaxRate,  &cleaneffect[0] },
+    { "BreakMaxDur",   scriptSetUdwordCB, &cleaneffect[0].nBreakMaxDur,   &cleaneffect[0] },
+    { "QNoiseMaxRate", scriptSetUdwordCB, &cleaneffect[0].nQNoiseMaxRate, &cleaneffect[0] },
+    { "QNoiseMaxDur",  scriptSetUdwordCB, &cleaneffect[0].nQNoiseMaxDur,  &cleaneffect[0] },
+    { "ScaleLevel",    scriptSetReal32CB, &cleaneffect[0].fScaleLev,      &cleaneffect[0] },
+    { "NoiseLevel",    scriptSetReal32CB, &cleaneffect[0].fNoiseLev,      &cleaneffect[0] },
+    { "ToneLevel",     scriptSetReal32CB, &cleaneffect[0].fToneLev,       &cleaneffect[0] },
+    { "LimitLevel",    scriptSetReal32CB, &cleaneffect[0].fLimitLev,      &cleaneffect[0] },
+    { "PitchShift",    scriptSetReal32CB, &cleaneffect[0].fPitchShift,    &cleaneffect[0] },
     
     END_SCRIPT_STRUCT_ENTRY
 };
