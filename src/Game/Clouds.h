@@ -1,10 +1,9 @@
-/*=============================================================================
-    Name    : clouds.h
-    Purpose : dust/gas cloud resource data structure management stuff
-
-    Created 2/8/1998 by khent
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  Clouds.h
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 2/8/1998 by khent
+// =============================================================================
 
 #ifndef ___CLOUDS_H
 #define ___CLOUDS_H

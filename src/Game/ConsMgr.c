@@ -1,63 +1,40 @@
-/*=============================================================================
-    Name    : ConsMgr.c
-    Purpose : Logic for the Construction Manager
-
-    Created 7/18/1997 by lmoloney
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  ConsMgr.c
+//  - construction manager
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 7/18/1997 by lmoloney
+// =============================================================================
 
 #include "ConsMgr.h"
 
-#include <stdio.h>
-
 #include "CommandLayer.h"
 #include "CommandWrap.h"
-#include "Debug.h"
 #include "FEColour.h"
 #include "FEFlow.h"
 #include "FEReg.h"
 #include "font.h"
 #include "FontReg.h"
-#include "glcaps.h"
 #include "glinc.h"
-#include "Globals.h"
 #include "InfoOverlay.h"
-#include "LinkedList.h"
-#include "main.h"
 #include "mainrgn.h"
-#include "Memory.h"
 #include "mouse.h"
 #include "MultiplayerGame.h"
-#include "NIS.h"
-#include "ObjTypes.h"
 #include "Options.h"
 #include "PiePlate.h"
 #include "Ping.h"
 #include "Randy.h"
-#include "render.h"
-#include "ResearchAPI.h"
 #include "SaveGame.h"
 #include "Scroller.h"
 #include "Sensors.h"
-#include "ShipDefs.h"
 #include "ShipView.h"
 #include "SinglePlayer.h"
 #include "SoundEvent.h"
-#include "SoundEventDefs.h"
-#include "SpeechEvent.h"
 #include "StringSupport.h"
-#include "Task.h"
 #include "TaskBar.h"
-#include "texreg.h"
 #include "Tutor.h"
 #include "Tweak.h"
-#include "UIControls.h"
 #include "Universe.h"
-
-#ifdef _WIN32
-    #define WIN32_LEAN_AND_MEAN
-    #include <windows.h>
-#endif
 
 /*=============================================================================
     Definitions:

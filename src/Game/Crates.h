@@ -1,11 +1,9 @@
-/*=============================================================================
-    Name    : crates.h
-    Purpose : contains defines/[prototypes for all crate gameplay
-              related code
-
-    Created bryce in november
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  Crates.h
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created bryce in november
+// =============================================================================
 
 #ifndef ___CRATES_H
 #define ___CRATES_H

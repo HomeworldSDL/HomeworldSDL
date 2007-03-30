@@ -12,6 +12,7 @@
 #include "B-Spline.h"
 #include "Camera.h"
 #include "font.h"
+#include "Key.h"
 #include "ShipDefs.h"
 #include "ShipSelect.h"
 #include "SpaceObj.h"
@@ -19,6 +20,7 @@
 #include "Task.h"
 #include "texreg.h"
 #include "Types.h"
+
 
 /*=============================================================================
     Switches:

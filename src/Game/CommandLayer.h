@@ -1,11 +1,9 @@
-/*=============================================================================
-    Name    : CommandLayer
-    Purpose : Definitions for the ship command layer,
-              and camera commands too.
-
-    Created 7/2/1997 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  CommandLayer.h
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 7/2/1997 by gshaw
+// =============================================================================
 
 #ifndef ___COMMANDLAYER_H
 #define ___COMMANDLAYER_H

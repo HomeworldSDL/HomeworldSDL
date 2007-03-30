@@ -1,33 +1,28 @@
-/*=============================================================================
-    Name    : Collision
-    Purpose : Handles object collisions
-
-    Created 9/25/1997 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  Collision.c
+//  - handles object collisions
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 9/25/1997 by gshaw
+// =============================================================================
 
 #include "Collision.h"
 
 #include "Alliance.h"
 #include "Debug.h"
-#include "DefenseFighter.h"
-#include "DFGFrigate.h"
 #include "FastMath.h"
-#include "Globals.h"
-#include "Matrix.h"
 #include "NIS.h"
 #include "prim3d.h"
-#include "render.h"
-#include "SalCapCorvette.h"
+#include "Ships.h"
 #include "SinglePlayer.h"
 #include "Tactics.h"
 #include "Universe.h"
 #include "UnivUpdate.h"
-#include "Vector.h"
+
 
 BlobProperties collBlobProperties;
 
-#ifdef COLLISION_CHECK_STATS
+#if COLLISION_CHECK_STATS
 
 udword shipsavoidingstuff;
 udword shipsavoidedwalks;
@@ -740,7 +735,7 @@ void collCheckShipShipColl(blob *thisBlob,bool checkSmallShips)
         {
             obj2 = selection->ShipPtr[obj2index];
 
-#ifdef COLLISION_CHECK_STATS
+#if COLLISION_CHECK_STATS
             shipshipwalks++;
 #endif
 
@@ -785,7 +780,7 @@ void collCheckShipShipColl(blob *thisBlob,bool checkSmallShips)
 
             // Check for collisions between obj1 and obj2 here:
 
-#ifdef COLLISION_CHECK_STATS
+#if COLLISION_CHECK_STATS
             shipshipchecks++;
 #endif
 
@@ -1054,7 +1049,7 @@ void collCheckBigShipSmallShipColl(blob *thisBlob)
         {
             obj2 = selection2->ShipPtr[obj2index];
 
-#ifdef COLLISION_CHECK_STATS
+#if COLLISION_CHECK_STATS
             shipshipwalks++;
 #endif
 
@@ -1099,7 +1094,7 @@ void collCheckBigShipSmallShipColl(blob *thisBlob)
 
             // Check for collisions between obj1 and obj2 here:
 
-#ifdef COLLISION_CHECK_STATS
+#if COLLISION_CHECK_STATS
             shipshipchecks++;
 #endif
 
@@ -1368,7 +1363,7 @@ void collCheckShipResourceColl(blob *thisBlob)
         {
             obj2 = resselection->ResourcePtr[obj2index];
 
-#ifdef COLLISION_CHECK_STATS
+#if COLLISION_CHECK_STATS
             shipresourcewalks++;
 #endif
             if ((distcheck = obj2->collOptimizeDist - obj1->collOptimizeDist) > maxdistCollPossible)
@@ -1395,7 +1390,7 @@ void collCheckShipResourceColl(blob *thisBlob)
 
             // Check for collisions between obj1 and obj2 here:
 
-#ifdef COLLISION_CHECK_STATS
+#if COLLISION_CHECK_STATS
             shipresourcechecks++;
 #endif
 
@@ -1532,7 +1527,7 @@ void collCheckShipDerelictColl(blob *thisBlob)
         {
             obj2 = derselection->DerelictPtr[obj2index];
 
-#ifdef COLLISION_CHECK_STATS
+#if COLLISION_CHECK_STATS
             shipderelictwalks++;
 #endif
             if ((distcheck = obj2->collOptimizeDist - obj1->collOptimizeDist) > maxdistCollPossible)
@@ -1563,7 +1558,7 @@ void collCheckShipDerelictColl(blob *thisBlob)
             }
             // Check for collisions between obj1 and obj2 here:
 
-#ifdef COLLISION_CHECK_STATS
+#if COLLISION_CHECK_STATS
             shipderelictchecks++;
 #endif
 
@@ -1786,7 +1781,7 @@ passagain:
         target = targetselection->TargetPtr[targetindex];
         targetstaticheader = &target->staticinfo->staticheader;
 
-#ifdef COLLISION_CHECK_STATS
+#if COLLISION_CHECK_STATS
 bulletwalks++;
 #endif
 
@@ -1797,7 +1792,7 @@ bulletwalks++;
 
         // Check for collisions between bullet and target here:
 
-#ifdef COLLISION_CHECK_STATS
+#if COLLISION_CHECK_STATS
 bulletchecks++;
 #endif
 
@@ -2105,7 +2100,7 @@ passagain:
                     target = targetselection->TargetPtr[targetindex];
                     targetstaticheader = &target->staticinfo->staticheader;
 
-#ifdef COLLISION_CHECK_STATS
+#if COLLISION_CHECK_STATS
             bulletwalks++;
 #endif
 
@@ -2137,7 +2132,7 @@ passagain:
 
                     // Check for collisions between bullet and target here:
 
-#ifdef COLLISION_CHECK_STATS
+#if COLLISION_CHECK_STATS
             bulletchecks++;
 #endif
 
@@ -2337,7 +2332,7 @@ passagain:
         {
             target = targetselection->ShipPtr[targetindex];
 
-#ifdef COLLISION_CHECK_STATS
+#if COLLISION_CHECK_STATS
     missilewalks++;
 #endif
 
@@ -2362,7 +2357,7 @@ passagain:
 
             // Check for collisions between missile and target here:
 
-#ifdef COLLISION_CHECK_STATS
+#if COLLISION_CHECK_STATS
     missilechecks++;
 #endif
             vecSub(distvector,target->collInfo.collPosition,missile->posinfo.position);
@@ -2502,7 +2497,7 @@ void collCheckMissileResourceColl(blob *thisBlob,MissileType missileType)
         {
             target = targetselection->ResourcePtr[targetindex];
 
-#ifdef COLLISION_CHECK_STATS
+#if COLLISION_CHECK_STATS
     missilewalks++;
 #endif
 
@@ -2527,7 +2522,7 @@ void collCheckMissileResourceColl(blob *thisBlob,MissileType missileType)
 
             // Check for collisions between missile and target here:
 
-#ifdef COLLISION_CHECK_STATS
+#if COLLISION_CHECK_STATS
     missilechecks++;
 #endif
             vecSub(distvector,target->collInfo.collPosition,missile->posinfo.position);
@@ -2661,7 +2656,7 @@ void collCheckMissileDerelictColl(blob *thisBlob,MissileType missileType)
         {
             target = targetselection->DerelictPtr[targetindex];
 
-#ifdef COLLISION_CHECK_STATS
+#if COLLISION_CHECK_STATS
     missilewalks++;
 #endif
 
@@ -2681,7 +2676,7 @@ void collCheckMissileDerelictColl(blob *thisBlob,MissileType missileType)
 
             // Check for collisions between missile and target here:
 
-#ifdef COLLISION_CHECK_STATS
+#if COLLISION_CHECK_STATS
     missilechecks++;
 #endif
             vecSub(distvector,target->collInfo.collPosition,missile->posinfo.position);
@@ -2806,7 +2801,7 @@ void collCheckMissileMineColl(blob *thisBlob)
             dbgAssertOrIgnore(target->objtype == OBJ_MissileType);
             dbgAssertOrIgnore(target->missileType == MISSILE_Mine);
 
-#ifdef COLLISION_CHECK_STATS
+#if COLLISION_CHECK_STATS
     missilewalks++;
 #endif
 
@@ -2826,7 +2821,7 @@ void collCheckMissileMineColl(blob *thisBlob)
 
             // Check for collisions between missile and target here:
 
-#ifdef COLLISION_CHECK_STATS
+#if COLLISION_CHECK_STATS
     missilechecks++;
 #endif
             vecSub(distvector,target->collInfo.collPosition,missile->posinfo.position);
@@ -2877,7 +2872,7 @@ void collCheckAllBumpCollisions(void)
     Node *blobnode = universe.collBlobList.head;
     blob *thisBlob;
 
-#ifdef COLLISION_CHECK_STATS
+#if COLLISION_CHECK_STATS
     shipshipwalks = 0;
     shipshipchecks = 0;
     shipresourcewalks = 0;
@@ -2930,7 +2925,7 @@ void collCheckAllBulletMissileCollisions(void)
     udword savemissilewalks;
     udword savemissilechecks;
 
-#ifdef COLLISION_CHECK_STATS
+#if COLLISION_CHECK_STATS
     bulletwalks = 0;
     bulletchecks = 0;
     missilewalks = 0;
@@ -2957,7 +2952,7 @@ void collCheckAllBulletMissileCollisions(void)
         collCheckMissileResourceColl(thisBlob,MISSILE_Regular);
         collCheckMissileDerelictColl(thisBlob,MISSILE_Regular);
 
-#ifdef COLLISION_CHECK_STATS
+#if COLLISION_CHECK_STATS
         savemissilewalks = missilewalks;
         savemissilechecks = missilechecks;
         missilewalks = 0;
@@ -2968,7 +2963,7 @@ void collCheckAllBulletMissileCollisions(void)
         //collCheckMissileResourceColl(thisBlob,MISSILE_Mine);
         collCheckMissileDerelictColl(thisBlob,MISSILE_Mine);
 
-#ifdef COLLISION_CHECK_STATS
+#if COLLISION_CHECK_STATS
         minewalks += missilewalks;
         minechecks += missilechecks;
         missilewalks = savemissilewalks;

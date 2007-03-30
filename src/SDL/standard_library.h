@@ -6,6 +6,7 @@
 //  to put all those platform-specific "#include <*>" tweaks in one place.
 // =============================================================================
 
+#include <stdarg.h> 
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
@@ -33,5 +34,11 @@
     #include <unistd.h>
 #endif
 
+// utility time functions
 
+#ifdef _WIN32
+    #include <windows.h>
+#else
+    #include <sys/time.h>
+#endif
 

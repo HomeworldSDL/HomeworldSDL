@@ -1,34 +1,22 @@
-/*=============================================================================
-    Name    : CommandNetwork.c
-    Purpose : Handles all of the packing/unpacking sending/receiving of
-              Command packets and sync packets
-
-    Created 7/30/1997 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  CommandNetwork.c
+//  - Handles all of the packing/unpacking, sending/receiving of command
+//    packets and sync packets
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 7/30/1997 by gshaw
+// =============================================================================
 
 #include "CommandNetwork.h"
 
-#include <stdlib.h>
-#include <string.h>
-
 #include "AutoDownloadMap.h"
-#include "Captaincy.h"
-#include "Debug.h"
-#include "Formation.h"
-#include "Globals.h"
 #include "HorseRace.h"
 #include "LagPrint.h"
-#include "mainswitches.h"
-#include "Memory.h"
-#include "MultiplayerGame.h"        // for mutex stuff
+#include "MultiplayerGame.h"
 #include "NetCheck.h"
-#include "Queue.h"
 #include "Sensors.h"
-#include "Task.h"
 #include "TimeoutTimer.h"
 #include "Titan.h"
-#include "TitanInterfaceC.h"
 #include "TitanNet.h"
 #include "Universe.h"
 #include "UnivUpdate.h"

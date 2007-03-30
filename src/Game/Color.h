@@ -1,10 +1,9 @@
-/*=============================================================================
-    Name    : Color.h
-    Purpose : Definitions for color definition.
-
-    Created 7/7/1997 by lmoloney
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  Color.h
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 7/7/1997 by lmoloney
+// =============================================================================
 
 #ifndef ___COLOR_H
 #define ___COLOR_H

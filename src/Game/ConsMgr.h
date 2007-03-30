@@ -1,10 +1,10 @@
-/*=============================================================================
-    Name    : ConsMgr.h
-    Purpose : Definitions for the contruction manager.
-
-    Created 7/18/1997 by lmoloney
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  ConsMgr.h
+//  - construction manager
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 7/18/1997 by lmoloney
+// =============================================================================
 
 #ifndef ___CONSMGR_H
 #define ___CONSMGR_H

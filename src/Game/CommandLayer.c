@@ -1,57 +1,33 @@
-/*=============================================================================
-    Name    : CommandLayer.c
-    Purpose : This is the ship command layer of homeworld.  All commands to
-              ship go through this layer, whether the commands originate from
-              across a network, a computer player, a human player, etc.
-
-    Created 7/5/1997 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  CommandLayer.c
+//  - This is the ship command layer of Homeworld. All commands to ships go
+//    through this layer, whether the commands originate from across a network,
+//    a computer player, a human player, etc.
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 7/5/1997 by gshaw
+// =============================================================================
 
 #include "CommandLayer.h"
-
-#include <math.h>
-#include <stdlib.h>
-#include <string.h>
 
 #include "AIPlayer.h"
 #include "AIShip.h"
 #include "AITrack.h"
 #include "Alliance.h"
-#include "Attack.h"
 #include "Battle.h"
-#include "CloakGenerator.h"
 #include "Collision.h"
 #include "CommandDefs.h"
 #include "CommandNetwork.h"
-#include "ConsMgr.h"
-#include "DDDFrigate.h"
-#include "Debug.h"
 #include "FastMath.h"
-#include "FlightMan.h"
-#include "Formation.h"
-#include "GenericDefender.h"
-#include "GenericInterceptor.h"
-#include "Globals.h"
-#include "GravWellGenerator.h"
-#include "HeavyCorvette.h"
 #include "MadLinkIn.h"
-#include "main.h"
 #include "Memory.h"
-#include "MinelayerCorvette.h"
 #include "NetCheck.h"
 #include "Ping.h"
-#include "Probe.h"
-#include "ProximitySensor.h"
 #include "Randy.h"
-#include "RepairCorvette.h"
-#include "ResearchAPI.h"
-#include "ResearchShip.h"
-#include "SalCapCorvette.h"
 #include "Select.h"
+#include "Ships.h"
 #include "SinglePlayer.h"
 #include "SoundEvent.h"
-#include "SoundEventDefs.h"
 #include "SpeechEvent.h"
 #include "StatScript.h"
 #include "Tactics.h"

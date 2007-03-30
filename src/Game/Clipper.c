@@ -1,33 +1,29 @@
-/*=============================================================================
-    Name    : clipper.c
-    Purpose : out-of-GL line clipping / projection code
+// =============================================================================
+//  Clipper.c
+//  - out-of-GL line clipping / projection code
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 4/10/1998 by khent
+// =============================================================================
 
-    Created 4/10/1998 by khent
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-#ifndef SW_Render
-#ifdef _WIN32
-#include <windows.h>
-#endif
-#endif
-#include "Matrix.h"
-#include "glinc.h"
 #include "Clipper.h"
 
+#include "glinc.h"
 
-#define CORRECT_BBOX_CLIP 0
 
+#define CORRECT_BBOX_CLIP  0
 
 #ifndef DEPTH_SCALE
-#define DEPTH_SCALE 65535.0f
-#define CLIP_RIGHT_BIT 1
-#define CLIP_LEFT_BIT 2
-#define CLIP_TOP_BIT 4
-#define CLIP_BOTTOM_BIT 8
-#define CLIP_NEAR_BIT 16
-#define CLIP_FAR_BIT 32
-#define CLIP_ALL_BITS 0x3f
+    #define DEPTH_SCALE      65535.0f
+    
+    #define CLIP_RIGHT_BIT   0x0001
+    #define CLIP_LEFT_BIT    0x0002
+    #define CLIP_TOP_BIT     0x0004
+    #define CLIP_BOTTOM_BIT  0x0008
+    #define CLIP_NEAR_BIT    0x0010
+    #define CLIP_FAR_BIT     0x0020
+    
+    #define CLIP_ALL_BITS    0x3f
 #endif
 
 /*-----------------------------------------------------------------------------

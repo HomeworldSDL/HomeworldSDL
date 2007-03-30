@@ -1,19 +1,12 @@
-/*=============================================================================
-    Name    : Camera.c
-    Purpose : Contains camera code
-
-    Created 6/20/1997 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  Camera.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 6/20/1997 by gshaw
+// =============================================================================
 
 #include "Camera.h"
 
-#include <math.h>
-#include <string.h>
-
-#include "CRC32.h"
-#include "CameraCommand.h"
-#include "Debug.h"
 #include "FastMath.h"
 #include "Key.h"
 #include "render.h"

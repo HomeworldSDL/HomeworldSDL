@@ -15,7 +15,6 @@
 #include "MultiplayerGame.h"
 #include "MultiplayerLANGame.h"
 
-
 void recievedChatPacketCB(ubyte *packet,udword sizeofPacket)
 {
 #define chatpacket ((ChatPacket *)packet)

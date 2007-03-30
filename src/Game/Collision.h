@@ -1,10 +1,9 @@
-/*=============================================================================
-    Name    : collision.h
-    Purpose : Definitions for collision.c
-
-    Created 9/25/1997 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  Collision.h
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 9/25/1997 by gshaw
+// =============================================================================
 
 #ifndef ___COLLISION_H
 #define ___COLLISION_H
@@ -31,12 +30,12 @@ void collUpdateObjsInCollBlobs(void);
 void collCheckAllBumpCollisions(void);
 void collCheckAllBulletMissileCollisions(void);
 
-#define COLLISION_CHECK_STATS
+#define COLLISION_CHECK_STATS  1
 
 /*=============================================================================
     Data:
 =============================================================================*/
-#ifdef COLLISION_CHECK_STATS
+#if COLLISION_CHECK_STATS
 
 extern udword shipsavoidingstuff;
 extern udword shipsavoidedwalks;

@@ -1,13 +1,9 @@
-/*=============================================================================
-    Name    : Color .c
-    Purpose : Color-related utility functions.
-
-    Created 10/13/1997 by lmoloney
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-#include <stdlib.h>
-#include <math.h>
+// =============================================================================
+//  Color.c
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 10/13/1997 by lmoloney
+// =============================================================================
 
 #include "Color.h"
 

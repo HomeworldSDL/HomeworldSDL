@@ -1,44 +1,23 @@
-/*=============================================================================
-    Name    : clouds.c
-    Purpose : dust/gas cloud resource data structure management stuff
-
-    Created 2/9/1998 by khent
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  Clouds.c
+//  - dust/gas cloud resource data structure management stuff
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 2/8/1998 by khent
+// =============================================================================
 
 #include "Clouds.h"
 
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-#include "AutoLOD.h"
-#include "Clipper.h"
-#include "Debug.h"
 #include "devstats.h"
 #include "FastMath.h"
-#include "glcaps.h"
 #include "glinc.h"
-#include "Globals.h"
-#include "LinkedList.h"
 #include "mainrgn.h"
 #include "Memory.h"
 #include "Randy.h"
 #include "render.h"
-#include "Shader.h"
+#include "SpaceObj.h"
 #include "StatScript.h"
 #include "Universe.h"
-#include "UnivUpdate.h"
-
-#ifndef SW_Render
-    #ifdef _WIN32
-        #include <windows.h>
-    #endif
-#endif
-
-#ifndef M_PI_2
-#define M_PI_2 3.14159265358979323846 / 2.0
-#endif
 
 extern udword gDevcaps2;
 

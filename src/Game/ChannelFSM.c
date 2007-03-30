@@ -1,13 +1,18 @@
-#include <stdlib.h>
-#include <string.h>
-#include "Types.h"
-#include "TitanInterfaceC.h"
+// =============================================================================
+//  ChannelFSM.c
+//  - chat room support for multiplayer games
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+// =============================================================================
+
 #include "ChannelFSM.h"
-#include "ServerStatus.h"
-#include "Debug.h"
+
 #include "MultiplayerGame.h"
+#include "ServerStatus.h"
 #include "StringSupport.h"
+#include "TitanInterfaceC.h"
 #include "TitanNet.h"
+
 
 // defines for the state of the connection to the chat server
 #define CS_Idle                 -1

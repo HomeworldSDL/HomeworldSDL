@@ -1,34 +1,26 @@
-/*=============================================================================
-    Name    : CommandWrap.c
-    Purpose : Wrapper functions for calling or sending over the network
-              CommandLayer commands.
-
-    Created 7/30/1997 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  CommandWrap.c
+//  - Wrapper functions for calling/sending CommandLayer commands across network
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 7/30/1997 by gshaw
+// =============================================================================
 
 #include "CommandWrap.h"
 
-#include <string.h>
-
 #include "CommandDefs.h"
 #include "CommandNetwork.h"
-#include "Debug.h"
-#include "Globals.h"
 #include "InfoOverlay.h"
-#include "mainrgn.h"
-#include "mainswitches.h"
-#include "Memory.h"
 #include "MultiplayerGame.h"
 #include "Options.h"
-#include "SalCapCorvette.h"
 #include "Select.h"
-#include "ShipSelect.h"
+#include "Ships.h"
 #include "SoundEvent.h"
 #include "SpeechEvent.h"
 #include "Tutor.h"
 #include "Tweak.h"
 #include "Universe.h"
+
 
 /*-----------------------------------------------------------------------------
     Name        : clCommandMessage

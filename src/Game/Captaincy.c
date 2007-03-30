@@ -8,28 +8,13 @@
 
 #include "Captaincy.h"
 
-#ifdef _WIN32
-    #define WIN32_LEAN_AND_MEAN
-    #include <windows.h>
-#else
-    #include <sys/time.h>
-#endif
-
 #include "CommandNetwork.h"
 #include "CommandWrap.h"
 #include "Debug.h"
 #include "File.h"
-#include "Globals.h"
 #include "Memory.h"
-#include "SDL.h"
+#include "standard_library.h"
 #include "utility.h"
-
-#ifdef __GNUC__
- #ifndef _STDARG_H
-  #include <stdarg.h> 
- #endif
-#endif
-
 
 
 /*

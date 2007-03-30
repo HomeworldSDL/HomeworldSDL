@@ -1,10 +1,9 @@
-/*=============================================================================
-    Name    : Colpick.h
-    Purpose : Definitions for the color picker
-
-    Created 10/12/1997 by lmoloney
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  ColPick.h
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 10/12/1997 by lmoloney
+// =============================================================================
 
 #ifndef ___COLPICK_H
 #define ___COLPICK_H

@@ -1,10 +1,10 @@
-/*=============================================================================
-    Name    : clipper.h
-    Purpose : out-of-GL line clipping / projection code
+// =============================================================================
+//  Clipper.h
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 4/10/1998 by khent
+// =============================================================================
 
-    Created 4/10/1998 by khent
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
 #ifndef ___CLIPPER_H
 #define ___CLIPPER_H
 

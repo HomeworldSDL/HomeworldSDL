@@ -1,33 +1,22 @@
-/*=============================================================================
-    Name    : crates.c
-    Purpose : contains all code for all crate gameplay
-
-    Created bryce in november
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  Crates.c
+//  - crate ("goodie box") handling in multiplayer games
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created bryce in november
+// =============================================================================
 
 #include "Crates.h"
 
-#include <stdlib.h>
-
 #include "AITrack.h"
 #include "Blobs.h"
-#include "Debug.h"
-#include "Globals.h"
 #include "LevelLoad.h"
-#include "LinkedList.h"
-#include "mainswitches.h"
-#include "Memory.h"
 #include "MultiplayerGame.h"
 #include "PiePlate.h"
 #include "Randy.h"
-#include "ResearchAPI.h"
 #include "Sensors.h"
 #include "SoundEvent.h"
-#include "SoundEventDefs.h"
-#include "SpeechEvent.h"
 #include "StatScript.h"
-#include "Types.h"
 #include "Universe.h"
 #include "UnivUpdate.h"
 

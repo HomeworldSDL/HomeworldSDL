@@ -1,10 +1,9 @@
-/*=============================================================================
-    Name    : CommandNetwork.h
-    Purpose : Definitions for CommandNetwork.c
-
-    Created 7/30/1997 by gshaw
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  CommandNetwork.h
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 7/30/1997 by gshaw
+// =============================================================================
 
 #ifndef ___COMMANDNETWORK_H
 #define ___COMMANDNETWORK_H

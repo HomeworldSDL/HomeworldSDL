@@ -1,36 +1,26 @@
-/*=============================================================================
-    Name    : Colpick.c
-    Purpose : Logic for the color picker
-
-    Created 10/12/1997 by lmoloney
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
+// =============================================================================
+//  ColPick.c
+//  - color picker/selection
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 10/12/1997 by lmoloney
+// =============================================================================
 
 #include "ColPick.h"
 
-#include <stdio.h>
-
-#include "Debug.h"
 #include "FastMath.h"
 #include "font.h"
 #include "FontReg.h"
-#include "glinc.h"
 #include "mainrgn.h"
 #include "Memory.h"
 #include "mouse.h"
-#include "ObjTypes.h"
+#include "prim2d.h"
+#include "Region.h"
 #include "render.h"
-#include "ShipView.h"
 #include "StatScript.h"
 #include "Teams.h"
 #include "utility.h"
 
-#ifndef SW_Render
-    #ifdef _WIN32
-        #define WIN32_LEAN_AND_MEAN
-        #include <windows.h>
-    #endif
-#endif
 
 #define PREVIEW_IMAGE    1
 #define CP_SCALE_HUESAT  0

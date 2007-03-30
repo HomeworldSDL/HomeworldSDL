@@ -1,20 +1,19 @@
-/*=============================================================================
-    Name    : clamp.c
-    Purpose : deals with latching one spaceobj to another
+// =============================================================================
+//  Clamp.c
+//  - deals with latching one spaceobj to another
+// =============================================================================
+//  Copyright Relic Entertainment, Inc. All rights reserved.
+//  Created 11/5/1997 by bpasechn
+// =============================================================================
 
-    Created 11/5/1997 by bpasechn
-    Copyright Relic Entertainment, Inc.  All rights reserved.
-=============================================================================*/
-
-#include "Types.h"
-#include "Memory.h"
-#include "Debug.h"
-#include "Universe.h"
-#include "Physics.h"
-#include "UnivUpdate.h"
 #include "Clamp.h"
 
-#define DEBUG_CLAMPING
+#include "Debug.h"
+#include "Memory.h"
+#include "Physics.h"
+#include "Universe.h"
+#include "UnivUpdate.h"
+
 
 /*-----------------------------------------------------------------------------
     Name        :   clampObjToObj
@@ -58,9 +57,8 @@ void clampObjToObj(SpaceObjRotImpTargGuidance *obj,SpaceObjRotImpTargGuidance *d
 ----------------------------------------------------------------------------*/
 void unClampObj(SpaceObjRotImpTargGuidance *obj)
 {
-//#ifdef DEBUG_CLAMPING
-//    dbgAssertOrIgnore(obj->clampInfo != NULL);
-//#endif
+    dbgAssertOrIgnore(obj->clampInfo != NULL);
+
     if (obj->clampInfo != NULL)
     {
         memFree(obj->clampInfo);
@@ -80,9 +78,7 @@ void updateClampedObject(SpaceObjRotImpTargGuidance *obj)
 {
     vector tmpvec;
 
-#ifdef DEBUG_CLAMPING
     dbgAssertOrIgnore(obj->clampInfo != NULL);
-#endif
 
     //Update slave finally
     switch (obj->objtype)
