@@ -21,6 +21,8 @@ void aieExecute(struct AITeam *team)
     SelectCommand *ships = NULL;
     ShipPtr ship;
 
+    ship = NULL;
+
     if (!curMove || curMove->type == MOVE_DONE)
         return;
 
@@ -42,7 +44,7 @@ void aieExecute(struct AITeam *team)
     else if (curMove->events.shipDied.handler &&
              (!curMove->events.shipDied.oneShot ||
               !curMove->events.shipDied.triggered) &&
-             aieCheckShipDied(team, &ship))
+             aieCheckShipDied())
     {
         aiplayerLog((aiIndex,"eventhandler: shipDied"));
         curMove->events.shipDied.triggered = TRUE;
@@ -630,7 +632,7 @@ sdword aieCheckFuelHigh(AITeam *team)
     return FALSE;
 }
 
-sdword aieCheckShipDied(AITeam *team, ShipPtr *ship)
+sdword aieCheckShipDied(void)
 {
     return FALSE;
 }
