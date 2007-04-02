@@ -14,7 +14,7 @@
 void aifFleetCommand(void);
 
 void aifInit(AIPlayer *aiplayer);
-void aifClose(AIPlayer *aiplayer);
+void aifClose(void);
 
 void aifTeamDied(AIPlayer *aiplayer, AITeam *team, bool removeAllReferencesToTeam);
 

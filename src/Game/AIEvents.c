@@ -19,9 +19,7 @@ void aieExecute(struct AITeam *team)
 {
     AITeamMove *curMove = team->curMove;
     SelectCommand *ships = NULL;
-    ShipPtr ship;
-
-    ship = NULL;
+    ShipPtr ship = NULL;
 
     if (!curMove || curMove->type == MOVE_DONE)
         return;

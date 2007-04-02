@@ -794,7 +794,7 @@ void aiplayerClose(AIPlayer *aiplayer)
     listDeleteAll(&aiplayer->DefenseManTeamsWaitingForShipsQ);
     listDeleteAll(&aiplayer->ScriptManTeamsWaitingForShipsQ);
 
-    aifClose(aiplayer);
+    aifClose();
     airClose(aiplayer);
     aiaClose(aiplayer);
     aidClose(aiplayer);

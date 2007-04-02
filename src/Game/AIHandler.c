@@ -284,7 +284,7 @@ void aihHarassDisengageSingleShipHandler(AITeam *team)
 void aihKamikazeHealthLowHandler(AITeam *team)
 {
     MaxSelection shipsToDie;
-    udword i;
+    sdword i;
     ShipPtr ship;
 
     dbgAssertOrIgnore(team->shipList.selection->numShips);
@@ -537,7 +537,8 @@ void aihPatrolEnemyNearbyHandler(AITeam *team, SelectCommand *ships)
 void aihGravWellEnemyNearbyHandler(AITeam *team, SelectCommand *ships)
 {
     AITeamMove *thisMove = team->curMove, *newMove;
-    udword i, numEnemyFighters = 0, numEnemyCorvettes = 0;
+    udword numEnemyFighters = 0, numEnemyCorvettes = 0;
+    sdword i;
 //    ShipPtr ship;
 
     dbgAssertOrIgnore(ships->numShips > 0);
@@ -632,7 +633,7 @@ void aihFastDefenseDistressHandler(AITeam *team, udword *intvar)
     AITeamMove *newMove, *thisMove = team->curMove;
     SelectCommand *enemyShips;
     MaxSelection invadingShips, distressShips;
-    udword i;
+    sdword i;
     TypeOfFormation formation;
 
     if (aiCurrentAIPlayer->aidDistressShips)
@@ -717,7 +718,7 @@ void aihSlowDefenseDistressHandler(AITeam *team, udword *intvar)
     AITeamMove *newMove, *thisMove = team->curMove;
     SelectCommand *enemyShips;
     MaxSelection distressShips, invadingShips;
-    udword i;
+    sdword i;
     real32 distsq_to_ships;
     TypeOfFormation formation;
 

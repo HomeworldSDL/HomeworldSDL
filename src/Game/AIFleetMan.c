@@ -71,13 +71,13 @@ void aifInit(AIPlayer *aiplayer)
 /*-----------------------------------------------------------------------------
     Name        : airClose
     Description : Closes resource manager stuff in aiplayer
-    Inputs      : aiplayer
+    Inputs      : 
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void aifClose(AIPlayer *aiplayer)
+void aifClose(void)
 {
-    ;
+    // Nothing ??
 }
 
 /*-----------------------------------------------------------------------------
@@ -1059,7 +1059,7 @@ void aifProcessShipBuildRequests(void)
 void aifAssignNewShips(void)
 {
     GrowSelection *newships = &aiCurrentAIPlayer->newships;
-    udword i;
+    sdword i;
     ShipPtr ship;
 
     for (i=0;i<newships->selection->numShips;)

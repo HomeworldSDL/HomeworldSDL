@@ -503,7 +503,7 @@ void aimInsertMove(AITeam *team, struct AITeamMove *newMove)
 ----------------------------------------------------------------------------*/
 void aimMoveSplitShipDied(AITeam *team, AITeamMove *move, ShipPtr ship)
 {
-    udword i;
+    sdword i;
     bool found = FALSE;
 
     if (move->params.movesplit.ships)
@@ -1052,7 +1052,7 @@ void aimSwarmDefenseClose(AITeam *team, AITeamMove *move)
 ----------------------------------------------------------------------------*/
 void aimResourceVolumeResourceDied(AITeam *team, AITeamMove *move, Resource *resource)
 {
-    udword i;
+    sdword i;
 
     if ((move->params.resvolume.volResources) &&
         (clRemoveTargetFromSelection((SelectAnyCommand *)move->params.resvolume.volResources, (TargetPtr)resource)))
@@ -1222,7 +1222,7 @@ sdword aimProcessMoveSplit(AITeam *team)
 {
     AITeamMove *thisMove = team->curMove;
     SelectCommand selone;
-    udword i;
+    sdword i;
 
     if (team->shipList.selection->numShips == 0)
     {
@@ -1276,7 +1276,7 @@ sdword aimProcessHyperspace(AITeam *team)
     MaxSelection hyperspacingShips;
     real32 cost, avg_size;
     vector current_location;
-    udword i;
+    sdword i;
 
     if (team->shipList.selection->numShips == 0)
     {
@@ -2458,7 +2458,7 @@ sdword aimProcessShipRecon(AITeam *team)
     SelectCommand *teamships = team->shipList.selection,
                   *moveships = thisMove->params.shiprecon.ships,
                   *nearbyships;
-    udword i;
+    sdword i;
 
     if (!teamships->numShips)
     {
@@ -2640,7 +2640,8 @@ sdword aimProcessSwarmAttack(AITeam *team)
     AITeamMove *thisMove = team->curMove;
     SelectCommand *targets = thisMove->params.swarmatt.targets;
     SelectCommand *teamShips = team->shipList.selection;
-    udword i, fuellow;
+    udword fuellow;
+    sdword i;
 
     for (i=0;i<teamShips->numShips;)
     {
@@ -2780,7 +2781,8 @@ sdword aimProcessSwarmDefense(AITeam *team)
     paramsSwarmDefense *params = &thisMove->params.swarmdef;
     AITeam *newPodTeam;
     ShipPtr ship;
-    udword i, fuellow;
+    udword fuellow;
+    sdword i;
 
     if (!teamShips->numShips)
     {
@@ -3092,7 +3094,7 @@ sdword aimProcessResourceVolume(AITeam *team)
     Resource *resource, *biggestResource;
     SelectCommand selone;
     ShipPtr ship;
-    udword i;
+    sdword i;
 
     if (team->shipList.selection->numShips == 0)
     {
