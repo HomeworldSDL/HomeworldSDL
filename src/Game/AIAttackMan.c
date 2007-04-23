@@ -970,9 +970,10 @@ void aiaProcessSwarm(void)
 {
     SelectCommand *newShips = aiCurrentAIPlayer->newships.selection, *pods;
     MaxSelection newPods, newSwarmers, newLeaders, newAdvSwarmers, newMultiBeams, newMothership;
-    udword numNewAttackTeams, j, k, l, m, numSwarmersPerTeam, numExtraSwarmers, newTeamNum;
-    udword numNewSwarmGroups, numAdvPerTeam, numExtraAdv, numPodsPerTeam, numExtraPods;
-    sdword i;
+    udword
+        numNewAttackTeams, numSwarmersPerTeam, numExtraSwarmers, newTeamNum,
+        numNewSwarmGroups, numAdvPerTeam, numExtraAdv, numPodsPerTeam,
+        numExtraPods, i, j, k, l, m;
     bool fuelpod = FALSE, mothership = FALSE;
     ShipPtr ship;
 
@@ -984,7 +985,7 @@ void aiaProcessSwarm(void)
 
         //scan for pods in newShips
         //later consider new Multibeams and mothership even though no new pods are around
-        for (i=0;i<newShips->numShips;i++)
+        for (i=0; (int)i < newShips->numShips; i++)
         {
             ship = newShips->ShipPtr[i];
             if (ship->shiptype == P2FuelPod)
@@ -1008,7 +1009,7 @@ void aiaProcessSwarm(void)
         newMultiBeams.numShips  = 0;
         newMothership.numShips  = 0;
 
-        for (i=0;i<newShips->numShips;)
+        for (i=0; (int)i < newShips->numShips;)
         {
             ship = newShips->ShipPtr[i];
 
@@ -1088,14 +1089,14 @@ void aiaProcessSwarm(void)
         return;
     }
 
-    for (j=aiCurrentAIPlayer->numAttackTeams,
-         k=aiCurrentAIPlayer->numGuardTeams,
-         l=aiCurrentAIPlayer->numSupportTeams;
-         j < numNewAttackTeams; j++, k++, l++)
+    for (i=aiCurrentAIPlayer->numAttackTeams,
+         j=aiCurrentAIPlayer->numGuardTeams,
+         k=aiCurrentAIPlayer->numSupportTeams;
+         i < numNewAttackTeams; i++, j++, k++)
     {
         //create the pod selection
         aiuNewSelection(pods, numPodsPerTeam+1, "swarmpods");
-        for (m=0;m<numPodsPerTeam;m++)
+        for (l=0;l<numPodsPerTeam;l++)
         {
             selSelectionAddSingleShip((MaxSelection *)pods, newPods.ShipPtr[0]);
             clRemoveShipFromSelection(&newPods, newPods.ShipPtr[0]);
@@ -1114,32 +1115,32 @@ void aiaProcessSwarm(void)
         aiCurrentAIPlayer->numAttackTeams++;
         if (bitTest(aiCurrentAIPlayer->AlertStatus, ALERT_SWARMER_TARGETS))
         {
-            bitSet(aiCurrentAIPlayer->attackTeam[j]->teamFlags, TEAM_SwarmTarget);
+            bitSet(aiCurrentAIPlayer->attackTeam[i]->teamFlags, TEAM_SwarmTarget);
         }
         //setup the swarm defense team
-        aiCurrentAIPlayer->guardTeams[k] = aitCreate(DefenseTeam);
-        aioCreateSwarmDefense(aiCurrentAIPlayer->guardTeams[k], pods);
+        aiCurrentAIPlayer->guardTeams[j] = aitCreate(DefenseTeam);
+        aioCreateSwarmDefense(aiCurrentAIPlayer->guardTeams[j], pods);
         aiCurrentAIPlayer->numGuardTeams++;
         //setup the swarm support team
-        aiCurrentAIPlayer->supportTeam[l] = aitCreate(ResourceTeam);
-        aioCreateSwarmSupport(aiCurrentAIPlayer->supportTeam[l]);
+        aiCurrentAIPlayer->supportTeam[k] = aitCreate(ResourceTeam);
+        aioCreateSwarmSupport(aiCurrentAIPlayer->supportTeam[k]);
         aiCurrentAIPlayer->numSupportTeams++;
 
         //transfer the pods to the pod team
-        for (i=0;i<pods->numShips;i++)
+        for (l=0; (int)l < pods->numShips; l++)
         {
-            aitAddShip(aiCurrentAIPlayer->supportTeam[l], pods->ShipPtr[i]);
+            aitAddShip(aiCurrentAIPlayer->supportTeam[k], pods->ShipPtr[l]);
         }
 
         //set the cooperating teams
-        aiCurrentAIPlayer->attackTeam[j]->cooperatingTeam  = aiCurrentAIPlayer->guardTeams[k];
-        aiCurrentAIPlayer->guardTeams[k]->cooperatingTeam  = aiCurrentAIPlayer->attackTeam[j];
-        aiCurrentAIPlayer->supportTeam[l]->cooperatingTeam = aiCurrentAIPlayer->attackTeam[j];
+        aiCurrentAIPlayer->attackTeam[i]->cooperatingTeam  = aiCurrentAIPlayer->guardTeams[j];
+        aiCurrentAIPlayer->guardTeams[j]->cooperatingTeam  = aiCurrentAIPlayer->attackTeam[i];
+        aiCurrentAIPlayer->supportTeam[k]->cooperatingTeam = aiCurrentAIPlayer->attackTeam[i];
 
         //give the team a leader
         if (newLeaders.numShips)
         {
-            aitAddShip(aiCurrentAIPlayer->guardTeams[k], newLeaders.ShipPtr[0]);
+            aitAddShip(aiCurrentAIPlayer->guardTeams[j], newLeaders.ShipPtr[0]);
             clRemoveShipFromSelection(&newLeaders, newLeaders.ShipPtr[0]);
         }
 
@@ -1148,9 +1149,10 @@ void aiaProcessSwarm(void)
         //the Pod team divides the ships later
 //        if (newAdvSwarmers.numShips > )
 //        {
-            for (i=0; i < newAdvSwarmers.numShips;/*newAdvSwarmers.numShips gets decremented automatically*/)
+        /* newAdvSwarmers.numShips gets decremented automatically */
+        for (m=0; (int)m < newAdvSwarmers.numShips;)
             {
-                aitAddShip(aiCurrentAIPlayer->guardTeams[k], newAdvSwarmers.ShipPtr[0]);
+                aitAddShip(aiCurrentAIPlayer->guardTeams[j], newAdvSwarmers.ShipPtr[0]);
                 clRemoveShipFromSelection(&newAdvSwarmers, newAdvSwarmers.ShipPtr[0]);
             }
 //        }
@@ -1158,7 +1160,7 @@ void aiaProcessSwarm(void)
 //        {
             for (m = 0; m < numSwarmersPerTeam + numExtraSwarmers;m++)
             {
-                aitAddShip(aiCurrentAIPlayer->guardTeams[k], newSwarmers.ShipPtr[0]);
+                aitAddShip(aiCurrentAIPlayer->guardTeams[j], newSwarmers.ShipPtr[0]);
                 clRemoveShipFromSelection(&newSwarmers, newSwarmers.ShipPtr[0]);
             }
             numExtraSwarmers = 0;
@@ -1167,7 +1169,7 @@ void aiaProcessSwarm(void)
 
     dbgAssertOrIgnore(newLeaders.numShips == 0);
 
-    for (i=0; i < newMultiBeams.numShips;)
+    for (i=0; (int)i < newMultiBeams.numShips;)
     {
         newTeamNum = aiCurrentAIPlayer->numAttackTeams;
         aiCurrentAIPlayer->attackTeam[newTeamNum] = aitCreate(AttackTeam);
