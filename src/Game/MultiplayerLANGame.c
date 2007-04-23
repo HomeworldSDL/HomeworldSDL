@@ -2624,11 +2624,11 @@ static void lgExplicitlyDeleteGameFromGameList(wchar_t *name)
 #endif
 DEFINE_TASK(lgProcessCallBacksTask)
 {
-    taskBegin;
-
     static sdword          sizeofpacket;
     static ubyte          *packet;
     static ubyte          *copypacket;
+
+    taskBegin;
 
     taskYield(0);
 

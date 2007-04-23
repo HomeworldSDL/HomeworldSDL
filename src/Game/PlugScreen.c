@@ -577,10 +577,10 @@ void psShutdown(void)
 extern void *hGLDeviceContext;              //void * is really a HDC
 DEFINE_TASK(psRenderTaskFunction)
 {
-    taskBegin;
-
     static bool shouldSwap;
     static regionhandle reg;
+
+    taskBegin;
 
     taskYield(0);
     

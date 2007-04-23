@@ -153,10 +153,10 @@ pingTOList[PTO_NumberTOs] =
 #endif
 DEFINE_TASK(pingUpdateTask)
 {
-    taskBegin;
-
     static Node *thisNode, *nextNode;
     static ping *thisPing;
+
+    taskBegin;
 
     taskYield(0);
     

@@ -1205,10 +1205,10 @@ void taskCallBackRemove(BabyCallBack *babytogobyebye)
 
 DEFINE_TASK(taskCallBackProcess)
 {
-    taskBegin;
-
     static BabyCallBack *baby;
     static Node *babynode,*tempnode;
+
+    taskBegin;
 
     taskYield(0);
 

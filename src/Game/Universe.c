@@ -3778,11 +3778,11 @@ void universeStaticClose(void)
 #endif
 DEFINE_TASK(universeUpdateTask)
 {
-    taskBegin;
-
     static WaitPacketStatus waitpacketstatus;
     static sdword repeatuniv;
     static sdword repeattimes;
+
+    taskBegin;
 
     taskYield(0);
 

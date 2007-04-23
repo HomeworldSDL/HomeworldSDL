@@ -106,9 +106,9 @@ int memCookieNameSort(const void *p0, const void *p1)
 #endif
 DEFINE_TASK(memStatsTaskFunction)
 {
-    taskBegin;
-
     static sdword index, nPrinted;
+
+    taskBegin;
 
     taskYield(0);
 

@@ -3964,13 +3964,14 @@ void rndDrawScissorBars(bool scissorEnabled)
 #endif
 DEFINE_TASK(rndRenderTask)
 {
-    taskBegin;
-
     static bool shouldSwap;
     static sdword index;
 #ifdef PROFILE_TIMERS
     static sdword y;
 #endif
+
+    taskBegin;
+
     taskYield(0);
 
 #ifndef C_ONLY

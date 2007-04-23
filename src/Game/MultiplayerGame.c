@@ -6060,8 +6060,6 @@ void mgProcessKickedOut(void)
 #endif
 DEFINE_TASK(mgProcessCallBacksTask)
 {
-    taskBegin;
-#ifndef _MACOSX_FIX_ME
     static Node           *walk;
     static Node           *nextnode;
     static channellist    *channelinfo;
@@ -6070,6 +6068,10 @@ DEFINE_TASK(mgProcessCallBacksTask)
     static sdword          sizeofpacket, i;
     static ubyte          *packet;
     static ubyte          *copypacket;
+
+    taskBegin;
+
+#ifndef _MACOSX_FIX_ME
 
     taskYield(0);
 

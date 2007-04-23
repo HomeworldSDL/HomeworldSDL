@@ -433,10 +433,10 @@ extern nisplaying *utyTeaserPlaying;
 #endif
 DEFINE_TASK(nisUpdateTask)
 {
-    taskBegin;
-
     static real32 newTime;
     static real32 timeElapsed;
+
+    taskBegin;
 
     taskYield(0);
 

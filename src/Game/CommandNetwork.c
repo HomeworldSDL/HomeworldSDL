@@ -2027,8 +2027,6 @@ typedef struct
 #endif
 DEFINE_TASK(captainServerTask)
 {
-    taskBegin;
-
     static QInfo *qinfos;
     static QInfo *curqinfo;
     static udword qTotalNumberEntries;
@@ -2040,6 +2038,8 @@ DEFINE_TASK(captainServerTask)
     static udword packetlength;
     static udword datalength;
     static udword totalCommands;
+
+    taskBegin;
 
     taskYield(0);
 
