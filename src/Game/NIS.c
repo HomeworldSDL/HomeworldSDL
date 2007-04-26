@@ -428,9 +428,6 @@ void nisCameraFlyCompute(real32 timeElapsed)
 ----------------------------------------------------------------------------*/
 //void utyTeaserEnd(void);
 extern nisplaying *utyTeaserPlaying;
-#ifdef _WIN32_FIX_ME
- #pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
-#endif
 DEFINE_TASK(nisUpdateTask)
 {
     static real32 newTime;
@@ -440,11 +437,8 @@ DEFINE_TASK(nisUpdateTask)
 
     taskYield(0);
 
-#ifndef C_ONLY
     while (1)
-#endif
     {
-        taskStackSaveCond(0);
         //code for playing in-game NIS's
         if (nisScissorFadeOut != 0)
         {                                                   //if fading the scissor window out
@@ -530,13 +524,11 @@ DEFINE_TASK(nisUpdateTask)
                 nisCameraFlyCompute(timeElapsed);
             }
 
-//            taskStackRestoreCond();
         }
         //code for playing test NIS's (similar to above but with special keyboard logic)
 #if NIS_TEST
         if (testPlaying)
         {
-//            taskStackSaveCond(0);
             newTime = nisUpdate(testPlaying, 1.0f / (real32)UNIVERSE_UPDATE_RATE);
             if (newTime == REALlyBig || keyIsStuck(NUMPAD1))
             {
@@ -547,14 +539,12 @@ DEFINE_TASK(nisUpdateTask)
                 testPlaying = NULL;
                 nisFullyScissored = TRUE;
             }
-//            taskStackRestoreCond();
         }
 #endif
         //special-case teaser playing code (must do univupdates and whatnot)
 /*
         if (utyTeaserPlaying != NULL)
         {
-//            taskStackSaveCond(0);
             if (!gameIsRunning)
             {
                 univUpdate(1.0f / (real32)UNIVERSE_UPDATE_RATE);
@@ -580,14 +570,10 @@ DEFINE_TASK(nisUpdateTask)
             }
         }
 */
-        taskStackRestoreCond();
         taskYield(0);
     }
     taskEnd;
 }
-#ifdef _WIN32_FIX_ME
- #pragma optimize("", on)
-#endif
 
 /*-----------------------------------------------------------------------------
     Name        : nisStartup

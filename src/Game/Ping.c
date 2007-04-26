@@ -148,9 +148,6 @@ pingTOList[PTO_NumberTOs] =
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-#ifdef _WIN32_FIX_ME
- #pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
-#endif
 DEFINE_TASK(pingUpdateTask)
 {
     static Node *thisNode, *nextNode;
@@ -160,12 +157,8 @@ DEFINE_TASK(pingUpdateTask)
 
     taskYield(0);
     
-#ifndef C_ONLY
     while (1)
-#endif
     {
-        taskStackSaveCond(0);
-
         thisNode = pingList.head;
 
         //... code to go here...
@@ -185,14 +178,10 @@ DEFINE_TASK(pingUpdateTask)
 
             thisNode = nextNode;
         }
-        taskStackRestoreCond();
         taskYield(0);
     }
     taskEnd;
 }
-#ifdef _WIN32_FIX_ME
- #pragma optimize("", on)
-#endif
 
 /*-----------------------------------------------------------------------------
     Name        : pingStartup

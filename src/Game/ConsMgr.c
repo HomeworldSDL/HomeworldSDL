@@ -1132,8 +1132,7 @@ void cmBuildTaskFunction(void)
             taskYield(0);
             continue;
         }
-        taskStackSaveCond(0);*/
-
+*/
         if (universe.curPlayerPtr->resourceUnits >= 300)
         {
             resourcesHaveBeenAboveBefore = TRUE;
@@ -1315,7 +1314,7 @@ void cmBuildTaskFunction(void)
             node = node->next;
         }
 
-/*        taskStackRestoreCond();
+/*
         taskYield(0);
     }*/
 }

@@ -101,9 +101,6 @@ int memCookieNameSort(const void *p0, const void *p1)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-#ifdef _WIN32_FIX_ME
- #pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
-#endif
 DEFINE_TASK(memStatsTaskFunction)
 {
     static sdword index, nPrinted;
@@ -112,11 +109,8 @@ DEFINE_TASK(memStatsTaskFunction)
 
     taskYield(0);
 
-#ifndef C_ONLY
     while (1)
-#endif
     {
-        taskStackSaveCond(0);
         if (memStatsLogging)
         {
             sprintf(memStatString, "Walks: %d, Allocs: %d, Factor: %.2f, Average pool: %.2f", memNumberWalks, memNumberAllocs, memNumberAllocs == 0 ? 0.0f : (real32)memNumberWalks / (real32)memNumberAllocs, memNumberAllocs == 0 ? 1.0f : (real32)memAllocPool / (real32)memNumberAllocs);
@@ -139,14 +133,10 @@ DEFINE_TASK(memStatsTaskFunction)
             }
             qsort(memStatsCookieNames, MS_NumberCookieNames, sizeof(memcookiename), memCookieNameSort);
         }
-        taskStackRestoreCond();
         taskYield(0);
     }
     taskEnd;
 }
-#ifdef _WIN32_FIX_ME
- #pragma optimize("", on)
-#endif
 
 /*-----------------------------------------------------------------------------
     Name        : memCookieNameAdd

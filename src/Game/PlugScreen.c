@@ -179,7 +179,8 @@ void psLinkDraw(regionhandle region)
                         primRectSolid2(&screenRect, colRGBA(0, 0, 0, min(psFadeLevel, UBYTE_Max)));
                         glDisable(GL_BLEND);
                         keyClearAll();
-                        taskExit();
+                        // Why is this here?  This is not a task.
+                        //taskExit();
                         break;
                 }
                 psFadeLink = NULL;
@@ -584,9 +585,7 @@ DEFINE_TASK(psRenderTaskFunction)
 
     taskYield(0);
     
-#ifndef C_ONLY
     while (1)
-#endif
     {
         primErrorMessagePrint();
 

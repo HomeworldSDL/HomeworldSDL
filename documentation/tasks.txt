@@ -1,0 +1,62 @@
+Task.h and Task.c contain a co-operative multitasking system.  Most of
+the game runs as tasks of this multitasking system.  Some tasks
+execute on each rendering frame, others have a time period.
+taskExecuteAllPending is called from the main loop of the game.  It
+executes all per-frame tasks once.  Other tasks are executed as they
+are due.  It is possible for a task to be executed multiple times in
+sequence if a lot of time has passed since the last call of
+taskExecuteAllPending.  This is capped by a maximum.  Tasks should not
+assume that they are going to get executed once per period even on the
+average.  All that can be said is that they will not get executed more
+often than once per period on the average.
+
+Tasks may be paused, temporarily disabling their execution.  A task
+may terminate itself by exiting, or it may be terminated by taskStop.
+
+The task system originally resorted to low-level stack juggling
+impelmented in x86 assembly.  The current implementation is all C and
+uses switch statements for the control flow, similar to Duff's device.
+See also <URL:http://www.chiark.greenend.org.uk/~sgtatham/coroutines.html>.
+
+Task definitions looks like this:
+
+DEFINE_TASK(name)
+{
+    // Static variable definitions.
+    taskVar;
+    // Task-specific variable definitions.  No initializers or other
+    // funny stuff.  In reality you are declaring struct members here.
+    taskProg(cvar);
+    // Executable code.  The task-specific variables are accessible as
+    // cvar->task_var.  They are malloced, hence not automatically
+    // initialized.
+    taskEnd;
+}
+
+taskVar; taskProg(cvar) may be replaced by "taskBegin;" if there are
+no task-speicific variables.
+
+The executable code must not contain explicit return statements.
+Instead, it can suspend execution with taskYield or terminate the task
+with taskExit.  Local variables may be defined in subblocks.  A block
+that defines automatic variables must not contain taskYield, not even
+recursively.  Static variables are generally more harmless but are of
+course shared among instances of the same task.
+
+taskYield(0) passes control back to the task system.  When the task is
+executed again at the next period, control resumes immediately after
+the taskYield.  The argument is not currently used and should always
+be 0.  If control reaches taskEnd or taskExit is invoked, the task
+terminates.
+
+DEFINE_TASK(name) defines a function "name" of unspecific type
+internal to the task system.  A pointer to this function has type
+taskfunction.  A corresponding function declaration is
+DECLARE_TASK(name);
+
+A task is registered for execution by calling taskStart(name, period,
+flags).  Currently there is no way to pass parameters to the task.
+taskStart returns a handle that can be used as an argument for task
+control functions.  taskStart immediately executes the task once.  The
+task must end this first execution with taskYield: it is an error for
+the task to terminate at this time.

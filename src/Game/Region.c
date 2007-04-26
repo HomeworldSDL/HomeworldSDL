@@ -917,20 +917,14 @@ udword regRegionProcess(regionhandle reg, udword mask)
     Outputs     : ..
     Return      : void
 ----------------------------------------------------------------------------*/
-#ifdef _WIN32_FIX_ME
-  #pragma optimize("gy", off)                       //turn on stack frame (we need ebp for this function)
-#endif
 DEFINE_TASK(regProcessTask)
 {
     taskBegin;
 
     taskYield(0);
 
-#ifndef C_ONLY
     while (1)
-#endif
     {
-        taskStackSaveCond(0);
 #if REG_VERBOSE_LEVEL >= 2
         dbgMessage("Processing regions...");
 #endif
@@ -959,15 +953,11 @@ DEFINE_TASK(regProcessTask)
         regRegionProcess(&regRootRegion, 0xffffffff);
         regProcessingRegions = FALSE;
 
-        taskStackRestoreCond();
         taskYield(0);
     }
 
     taskEnd;
 }
-#ifdef _WIN32_FIX_ME
- #pragma optimize("", on)
-#endif
 
 /*-----------------------------------------------------------------------------
     Test processing functions:

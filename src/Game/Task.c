@@ -32,67 +32,35 @@ real32 taskFrequency;
 //global handle of task currently being executed
 taskhandle taskCurrentTask = -1;
 
-//global branch pointers
-void *taskFunctionReturn = NULL;                //location returned to from task functions
-void *taskFunctionExit = NULL;                  //location branched to for exiting task functions
-void *taskFunctionContinue = NULL;              //location branched to for returning from a task function
-
-//saved context for task calling
-#ifndef C_ONLY
-static udword taskESISave;
-static udword taskEDISave;
-static udword taskESPSave;
-static udword taskEBPSave;
-static udword taskEBXSave;
-#endif
-
-//data and entry points for taskStackSave/Restore
-void *taskStackSaveEntry = NULL;                //location branched to for taskStackSave()
-void *taskStackRestoreEntry = NULL;             //location branched to for taskStackSave()
-udword taskStackSaveESP;                        //stack registers are saved here
-udword taskStackSaveEBP;
-udword taskStackSaveESI;                        //temporary ESI/EDI save
-udword taskStackSaveEDI;
-sdword taskStackSaveDWORDS;                     //number of extra dwords to save
-sdword taskStackSaveDWORDSParameter;            //number of extra dwords to save
 
 real32 taskTimeDelta   = 0.0f;
 real32 taskTimeElapsed = 0.0f;                  //time elapsed, in seconds, since program started
 
-#if TASK_STACK_SAVE_HACK
-udword taskSaveRestoreHackIndex;
-#endif
-
 udword taskProcessIndex = 0;                    //number of calls being executed on this task
 sdword taskNumberCalls;                         //number of times to call the task
-
-#if TASK_STACK_SAVE
-sdword taskLargestLocals = 0;
-#endif
 
 /*=============================================================================
     Functions:
 =============================================================================*/
-#ifdef _WIN32_FIX_ME
- #pragma optimize("gy", off)                       //turn on stack frame (we need ebp for these functions)
-#endif
 /*-----------------------------------------------------------------------------
     Test task function
 -----------------------------------------------------------------------------*/
 #if TASK_TEST
 DEFINE_TASK(taskTestFunction)
 {
-    register sdword index;
-    register sdword aba;
+    taskVar;
 
-    taskBegin;
+    sdword index;
+    sdword aba;
 
-    index = 300;
-    aba = 24;
+    taskProg(state);
+
+    state->index = 300;
+    state->aba = 24;
 
     taskYield(0);
 
-    for (index = 0; index < 4; index++)
+    for (state->index = 0; state->index < 4; state->index++)
     {
         dbgMessagef("Task test function called %d times.", index);
         aba++;
@@ -145,10 +113,6 @@ sdword taskStartup(udword frequency)
     }
 #endif //TASK_TEST
 
-#if TASK_STACK_SAVE_HACK
-    taskSaveRestoreHackIndex = 0;
-#endif
-
     return(OKAY);
 }
 
@@ -175,7 +139,10 @@ void taskShutdown(void)
     {
         if (taskData[index] != NULL)
         {
-            memFree(taskData[index]);                       //free structure and stack associated with this task
+            if (taskData[index]->context != NULL)
+                free(taskData[index]->context);
+            //free structure and stack associated with this task
+            memFree(taskData[index]);
             taskData[index] = NULL;
         }
     }
@@ -224,290 +191,50 @@ sdword taskPointerAlloc(void)
                     function will generate a fatal error.
                   name must be caller-allocated and outlive the task.
                   This is usually invoked with the taskStart macro.
+                  The task is executed once immediately and must yield
+                  rather than exit at this first call.
 ----------------------------------------------------------------------------*/
 taskhandle taskStartName(taskfunction function, char *name,
                          real32 period, udword flags)
 {
-    static char  * Local_taskData; // GCC v4 needs locally defined value
     static taskhandle handle = ERROR;
     taskdata *newTask;
-    static void *taskFunctionContinueSave;
     
-#if TASK_STACK_SAVE
-    static udword taskESPSaveInitial;
-    sdword taskESPDiff;
-#endif
-
     taskInitCheck();
     dbgAssertOrIgnore(function != NULL);
     dbgAssertOrIgnore(period > 0.0f);
 
-    //allocate a new task and it's stack in one fell swoop
     newTask = memAlloc(sizeof(taskdata), "taskData", NonVolatile);
-    handle = taskPointerAlloc();                            //alloc and save the
-    taskData[handle] = newTask;                             //newest task pointer
+    handle = taskPointerAlloc();
+    taskData[handle] = newTask;
 
-    Local_taskData= (char *)taskData;
 #if TASK_VERBOSE_LEVEL >= 2
     dbgMessagef("taskStart: starting task at 0x%x at %d Hz, flags 0x%x using handle %d at 0x%x",
                function, 1.0f/period, flags, handle, taskData[handle]);
 #endif
 
-    newTask->flags = flags | TF_Allocated;                  //make task in use and running
+    //make task in use and running
+    newTask->flags = flags | TF_Allocated;
     newTask->function = function;
-    newTask->ticks = 0;                                     //no residual ticks
+    newTask->context = NULL;
+    newTask->name = name;
+    newTask->ticks = 0;         //no residual ticks
     dbgAssertOrIgnore(period * taskFrequency < (real32)SDWORD_Max);
-    newTask->ticksPerCall = (udword)(period * taskFrequency);//save ticks per call
+    newTask->ticksPerCall = (udword)(period * taskFrequency);
 
-#if DBG_STACK_CONTEXT
-#ifndef C_ONLY
-#if defined (_MSC_VER)
-    _asm
+    function(&newTask->context);
+
+    if (newTask->context == NULL)
     {
-        mov     eax, esp
-        mov     dbgStackBase, eax
+        // Exited already?
+#if TASK_ERROR_CHECKING
+        dbgFatalf("taskStart: stillborn task %s", name);
+#endif
+        taskStop(handle);
+        return ERROR;
     }
-#elif defined (__GNUC__) && defined (__i386__)
-    __asm__ __volatile__ (
-        "    movl %%esp, %%eax\n"
-        "    movl %%eax, %0\n"
-        : "=m" (dbgStackBase)
-        :
-        : "eax" );
-#endif
-#endif // C_ONLY
-#endif // DBG_STACK_CONTEXT
-    //now that stack is created OK, let's call it's handler function to start it
-    taskFunctionContinueSave = taskFunctionContinue;
-#ifndef C_ONLY
-#if defined (_MSC_VER)
-    _asm
-    {
-        mov     eax, OFFSET taskContinued
-        mov     [taskFunctionContinue], eax                 //set point to continue from
-    }
-    //taskCurrentTask = handle;
-    _asm
-    {
-        mov     eax, esi
-        mov     [taskESISave], eax                          //save esi,edi
-        mov     eax, edi
-        mov     [taskEDISave], eax
 
-        mov     eax, esp
-        mov     [taskESPSave], eax
-#if TASK_STACK_SAVE
-        mov     [taskESPSaveInitial], eax
-#endif
-
-        mov     eax, ebp
-        mov     [taskEBPSave], eax
-
-        mov     eax, ebx
-        mov     [taskEBXSave], eax
-        mov     eax, function
-
-        jmp     eax                                         //call the function
-    }
-taskContinued:
-    _asm
-    {
-        mov     edx, handle                                 //get edx->taskdata structure
-        shl     edx, 2
-        add     edx, OFFSET taskData
-        mov     edx, [edx]
-
-        pop     eax                                         //get return IP from stack (jumped here via a CALL)
-        mov     [edx + TOF_Context + 24], eax               //eip
-        mov     eax, ebx
-        mov     [edx + TOF_Context +  0], eax               //ebx
-        mov     eax, ecx
-        mov     [edx + TOF_Context +  4], eax               //ecx
-        mov     eax, edi
-        mov     [edx + TOF_Context +  8], eax               //edi
-        mov     eax, esi
-        mov     [edx + TOF_Context + 12], eax               //esi
-        mov     eax, esp
-        mov     [edx + TOF_Context + 16], eax               //esp
-        mov     eax, ebp
-        mov     [edx + TOF_Context + 20], eax               //ebp
-    }
-    _asm
-    {
-        mov     eax, [taskESISave]                          //restore esi,edi,ebp,esp
-        mov     esi, eax
-        mov     eax, [taskEDISave]
-        mov     edi, eax
-        mov     eax, [taskESPSave]
-        mov     esp, eax
-        mov     eax, [taskEBPSave]
-        mov     ebp, eax
-        mov     eax, [taskEBXSave]
-        mov     ebx, eax
-    }
-#elif defined (__GNUC__) && defined (__i386__)
-    __asm__ __volatile__ (
-        "    movl $(taskStart_taskContinued), %%eax\n"      /*set point to continue from*/
-        "    movl %%eax, %0\n"
-        : "=m" (taskFunctionContinue)
-        :
-        : "eax" );
-
-        /*taskCurrentTask = handle;*/
-
-    __asm__ __volatile__ (
-        "    movl %%esi, %%eax\n"
-        "    movl %%eax, %0\n"                              /*save esi,edi*/
-        "    movl %%edi, %%eax\n"
-        "    movl %%eax, %1\n"
-
-        "    movl %%esp, %%eax\n"
-        "    movl %%eax, %2\n"
-#if TASK_STACK_SAVE
-        "    movl %%eax, %8\n"
-#endif
-
-        "    movl %%ebp, %%eax\n"
-        "    movl %%eax, %3\n"
-
-        "    movl %%ebx, %%eax\n"
-        "    movl %%eax, %4\n"
-        "    movl %5, %%eax\n"
-
-        "    jmp  *%%eax\n"                                 /*call the function*/
-
-        "taskStart_taskContinued:\n"
-        "    movl %6, %%edx\n"                              /*get edx->taskdata structure*/
-        "    shll $2, %%edx\n"
-        "    addl %7, %%edx\n"
-        "    movl (%%edx), %%edx\n"
-
-        "    popl %%eax\n"                                  /*get return IP from stack (jumped here via a CALL)*/
-        "    movl %%eax, "TOF_Context_STR"+24(%%edx)\n"     /*eip*/
-        "    movl %%ebx, %%eax\n"
-        "    movl %%eax, "TOF_Context_STR"+0(%%edx)\n"      /*ebx*/
-        "    movl %%ecx, %%eax\n"
-        "    movl %%eax, "TOF_Context_STR"+4(%%edx)\n"      /*ecx*/
-        "    movl %%edi, %%eax\n"
-        "    movl %%eax, "TOF_Context_STR"+8(%%edx)\n"      /*edi*/
-        "    movl %%esi, %%eax\n"
-        "    movl %%eax, "TOF_Context_STR"+12(%%edx)\n"     /*esi*/
-        "    movl %%esp, %%eax\n"
-        "    movl %%eax, "TOF_Context_STR"+16(%%edx)\n"     /*esp*/
-        "    movl %%ebp, %%eax\n"
-        "    movl %%eax, "TOF_Context_STR"+20(%%edx)\n"     /*ebp*/
-
-        "    movl %0, %%eax\n"                          /*restore esi,edi,ebp,esp*/
-        "    movl %%eax, %%esi\n"
-        "    movl %1, %%eax\n"
-        "    movl %%eax, %%edi\n"
-        "    movl %2, %%eax\n"
-        "    movl %%eax, %%esp\n"
-        "    movl %3, %%eax\n"
-        "    movl %%eax, %%ebp\n"
-        "    movl %4, %%eax\n"
-        "    movl %%eax, %%ebx\n"
-        :
-        : "m" (taskESISave), "m" (taskEDISave), "m" (taskESPSave),
-          "m" (taskEBPSave), "m" (taskEBXSave),
-          "m" (function), "m" (handle), "m" (Local_taskData)
-#if TASK_STACK_SAVE
-          , "m" (taskESPSaveInitial)
-#endif
-        : "eax", "edx" );
-#elif defined (__GNUC__) && defined (__x86_64__)
-    __asm__ __volatile__ (
-        "    movq $(taskStart_taskContinued), %%rax\n"      /*set point to continue from*/
-        "    movq %%rax, %0\n"
-        : "=m" (taskFunctionContinue)
-        :
-        : "rax" );
-
-        /*taskCurrentTask = handle;*/
-
-    __asm__ __volatile__ (
-        "    movq %%rsi, %%rax\n"
-        "    movq %%rax, %0\n"                              /*save esi,edi*/
-        "    movq %%rdi, %%rax\n"
-        "    movq %%rax, %1\n"
-
-        "    movq %%rsp, %%rax\n"
-        "    movq %%rax, %2\n"
-#if TASK_STACK_SAVE
-        "    movq %%rax, %8\n"
-#endif
-
-        "    movq %%rbp, %%rax\n"
-        "    movq %%rax, %3\n"
-
-        "    movq %%rbx, %%rax\n"
-        "    movq %%rax, %4\n"
-        "    movq %5, %%rax\n"
-
-        "    jmp  *%%rax\n"                                 /*call the function*/
-
-        "taskStart_taskContinued:\n"
-        "    movq %6, %%rdx\n"                              /*get edx->taskdata structure*/
-        "    shlq $2, %%rdx\n"
-        "    addq %7, %%rdx\n"
-        "    movq (%%rdx), %%rdx\n"
-
-        "    popq %%rax\n"                                  /*get return IP from stack (jumped here via a CALL)*/
-        "    movq %%rax, "TOF_Context_STR"+24(%%rdx)\n"     /*eip*/
-        "    movq %%rbx, %%rax\n"
-        "    movq %%rax, "TOF_Context_STR"+0(%%rdx)\n"      /*ebx*/
-        "    movq %%rcx, %%rax\n"
-        "    movq %%rax, "TOF_Context_STR"+4(%%rdx)\n"      /*ecx*/
-        "    movq %%rdi, %%rax\n"
-        "    movq %%rax, "TOF_Context_STR"+8(%%rdx)\n"      /*edi*/
-        "    movq %%rsi, %%rax\n"
-        "    movq %%rax, "TOF_Context_STR"+12(%%rdx)\n"     /*esi*/
-        "    movq %%rsp, %%rax\n"
-        "    movq %%rax, "TOF_Context_STR"+16(%%rdx)\n"     /*esp*/
-        "    movq %%rbp, %%rax\n"
-        "    movq %%rax, "TOF_Context_STR"+20(%%rdx)\n"     /*ebp*/
-
-        "    movq %0, %%rax\n"                          /*restore esi,edi,ebp,esp*/
-        "    movq %%rax, %%rsi\n"
-        "    movq %1, %%rax\n"
-        "    movq %%rax, %%rdi\n"
-        "    movq %2, %%rax\n"
-        "    movq %%rax, %%rsp\n"
-        "    movq %3, %%rax\n"
-        "    movq %%rax, %%rbp\n"
-        "    movq %4, %%rax\n"
-        "    movq %%rax, %%rbx\n"
-        :
-        : "m" (taskESISave), "m" (taskEDISave), "m" (taskESPSave),
-          "m" (taskEBPSave), "m" (taskEBXSave),
-          "m" (function), "m" (handle), "m" (Local_taskData)
-#if TASK_STACK_SAVE
-          , "m" (taskESPSaveInitial)
-#endif
-        : "rax", "rdx" );
-#else
-#error Function uses inline x86 assembly.
-#endif
-
-#else  // C_ONLY
-	function();  // calling the taskfunction 'function' pointer argument that this function was given
-#endif // C_ONLY
-
-#if TASK_STACK_SAVE
-    taskESPDiff = (sdword)(taskESPSaveInitial - taskData[handle]->esp);
-    dbgAssertOrIgnore(taskESPDiff >= 0);
-    dbgAssertOrIgnore(taskESPDiff < BIT8);
-    if (taskESPDiff > 0)
-    {
-        taskLargestLocals = max(taskLargestLocals, taskESPDiff);
-        taskData[handle] = memRealloc(taskData[handle], sizeof(taskdata) + taskESPDiff, "task+Stack", NonVolatile);
-        memcpy((ubyte *)(taskData[handle] + 1), ((ubyte *)taskData[handle]->esp), taskESPDiff);//save the extra stack stuff
-    }
-    taskData[handle]->nBytesStack = taskESPDiff;
-#endif //TASK_STACK_SAVE
-    //taskCurrentTask = -1;
-    taskFunctionContinue = taskFunctionContinueSave;
-    return(handle);
+    return handle;
 }
 
 /*-----------------------------------------------------------------------------
@@ -528,9 +255,11 @@ void taskStop(taskhandle handle)
 //    dbgMessagef("taskDestroy: destroying task %d", handle);
 #endif
 
-    memFree(taskData[handle]);                              //free the memory
-    taskData[handle] = NULL;                                //kill the task
-    if (handle == taskMaxTask - 1)                          //if freeing the max task
+    if (taskData[handle]->context != NULL)
+        free(taskData[handle]->context);
+    memFree(taskData[handle]);
+    taskData[handle] = NULL;
+    if (handle == taskMaxTask - 1)
     {
         taskMaxTask--;
     }
@@ -548,25 +277,6 @@ void taskStop(taskhandle handle)
 static sdword tTicks, tLocalTicks;
 sdword taskExecuteAllPending(sdword ticks)
 {
-    static char * Local_taskData; 
-    Local_taskData= (char *)taskData;
-#if TASK_STACK_SAVE
-    static ubyte localStack[BIT8];
-    static ubyte *currentESP;
-    static udword localStackSize;
-    static udword biggestStackSize;
-#endif
-#if defined (__GNUC__) // && defined (__i386__)
-    /* See "taskExec_taskReturned" assembly block for an explanation. */
-    static ubyte continue_hack;
-    continue_hack = 1;
-#endif
-
-/*
-#if TASK_STACK_CHECKING                                     //set the stack underflow detection cookie
-    udword validationCookie;
-#endif
-*/
 #if TASK_VERBOSE_LEVEL >= 2
     if (ticks > 0)
     {
@@ -574,27 +284,10 @@ sdword taskExecuteAllPending(sdword ticks)
     }
 #endif
 
-#if DBG_STACK_CONTEXT
-#ifndef C_ONLY
-#if defined (_MSC_VER)
-    _asm
-    {
-        mov     eax, esp
-        mov     dbgStackBase, eax
-    }
-#elif defined (__GNUC__) && defined (__i386__)
-    __asm__ __volatile__ (
-        "    movl %%esp, %%eax\n"
-        "    movl %%eax, %0\n"
-        : "=m" (dbgStackBase)
-        :
-        : "eax" );
-#endif
-#endif // C_ONLY
-#endif // DBG_STACK_CONTEXT
+    /* Don't do a taskInitCheck because this sometimes gets called on
+       exiting, after all the tasks are shut down. */
     if (taskModuleInit == FALSE)
-    {   //don't do a taskInitCheck because this sometimes gets called on exiting,
-        //after all the tasks are shut down.
+    {
         return(OKAY);
     }
     //taskInitCheck();
@@ -610,393 +303,77 @@ sdword taskExecuteAllPending(sdword ticks)
 
     taskTimeDelta = ticks / taskFrequency;
     taskTimeElapsed += taskTimeDelta;
-    tTicks = ticks;                                         //save the ticks parameter
+    tTicks = ticks;             //save the ticks parameter
 
-    dbgAssertOrIgnore(taskCurrentTask == -1);                       //verify we're not in any task currently
-
-    //save the global task execution pointers
-#ifndef C_ONLY
-#if defined (_MSC_VER)
-    _asm
-    {
-        mov     eax, OFFSET taskContinued
-        mov     [taskFunctionContinue], eax
-        mov     eax, OFFSET taskReturned
-        mov     [taskFunctionReturn], eax
-        mov     [taskFunctionExit], eax
-    }
-#elif defined (__GNUC__) && defined (__i386__)
-    __asm__ __volatile__ (
-        "    movl $(taskExec_taskContinued), %%eax\n"
-        "    movl %%eax, %0\n"
-        "    movl $(taskExec_taskReturned), %%eax\n"
-        "    movl %%eax, %1\n"
-        "    movl %%eax, %2\n"
-        : "=m" (taskFunctionContinue), "=m" (taskFunctionReturn),
-          "=m" (taskFunctionExit)
-        :
-        : "eax" );
-#endif
-#endif // C_ONLY
-#if TASK_STACK_SAVE
-    //save a chunk of the stack that might get overwritten by some of the tasks
-    biggestStackSize = taskLargestLocals;
-    if (biggestStackSize > 0)
-    {
-#if defined (_MSC_VER)
-        _asm
-        {
-            mov     [currentESP], esp
-        }
-#elif defined (__GNUC__) && defined (__i386__)
-        __asm__ __volatile__ (
-            "    movl %%esp, %0\n"
-            : "=m" (currentESP) );
-#endif
-        memcpy(localStack, currentESP, biggestStackSize);
-    }
-#endif // TASK_STACK_SAVE
+    // Verify we're not in any task currently.
+    dbgAssertOrIgnore(taskCurrentTask == -1);
 
     for (taskCurrentTask = 0; taskCurrentTask < taskMaxTask; taskCurrentTask++)
     {
-        if (taskData[taskCurrentTask] != NULL)              //if this task is enabled
+        if (taskData[taskCurrentTask] == NULL
+            || bitTest(taskData[taskCurrentTask]->flags, TF_Paused))
+            continue;
+
+        if (TitanActive)
+            titanPumpEngine();
+
+        //calculate number of calls
+        if (bitTest(taskData[taskCurrentTask]->flags, TF_OncePerFrame))
         {
-            if (bitTest(taskData[taskCurrentTask]->flags, TF_Paused))//don't process if paused
-                continue;
-
-            if (TitanActive)
-                titanPumpEngine();
-
-            //calculate number of calls
-            if (bitTest(taskData[taskCurrentTask]->flags, TF_OncePerFrame))
-            {                                               //if not real-time but frame-time
-// Don't do this if check, because if you do it is possible that hundreds of other tasks will get executed
-// and this task will starve when the game AI gets heavy.  Luke, later check if there's a better way to do this.
+/* Don't do this if check, because if you do it is possible that
+   hundreds of other tasks will get executed and this task will starve
+   when the game AI gets heavy.  Luke, later check if there's a better
+   way to do this. */
 /*
-                if (taskData[taskCurrentTask]->ticks == 0)  //see if time to execute
-                {
+            if (taskData[taskCurrentTask]->ticks == 0)  //see if time to execute
+            {
 */
-                    taskNumberCalls = 1;                             //flag to call once
-                    taskData[taskCurrentTask]->ticks = taskData[taskCurrentTask]->ticksPerCall;
+            taskNumberCalls = 1; //flag to call once
+            taskData[taskCurrentTask]->ticks =
+                taskData[taskCurrentTask]->ticksPerCall;
 /*
-                }
-*/
-                taskData[taskCurrentTask]->ticks--;
             }
-            else
-            {                                               //else it's a real-time task
-                tLocalTicks = tTicks + taskData[taskCurrentTask]->ticks;//add leftover ticks from last frame
-                taskData[taskCurrentTask]->ticks = tLocalTicks %//save leftover ticks for next frame
-                    taskData[taskCurrentTask]->ticksPerCall;
-                taskNumberCalls = tLocalTicks / taskData[taskCurrentTask]->ticksPerCall;//compute number of calls for this frame
+*/
+            taskData[taskCurrentTask]->ticks--;
+        }
+        else
+        {                       //else it's a real-time task
+            //add leftover ticks from last frame
+            tLocalTicks = tTicks + taskData[taskCurrentTask]->ticks;
+            //save leftover ticks for next frame
+            taskData[taskCurrentTask]->ticks =
+                tLocalTicks % taskData[taskCurrentTask]->ticksPerCall;
+            taskNumberCalls =
+                tLocalTicks / taskData[taskCurrentTask]->ticksPerCall;
 #if TASK_MAX_TICKS
-                taskNumberCalls = min(taskNumberCalls, TSK_MaxTicks);         //make sure not too many calls
+            taskNumberCalls = min(taskNumberCalls, TSK_MaxTicks);
 #endif //TASK_MAX_TICKS
             }
 #if TASK_VERBOSE_LEVEL >= 3
-            if (taskNumberCalls)
-            {
-                dbgMessagef(
-                    "taskExecuteAllPending: task %d (%s) to run %d times, "
-                    "%d ticks elapsed / %d per call = %d",
-                    taskCurrentTask, taskData[taskCurrentTask]->name,
-                    taskNumberCalls,
-                    tLocalTicks, taskData[taskCurrentTask]->ticksPerCall,
-		    tLocalTicks / taskData[taskCurrentTask]->ticksPerCall);
-            }
+        if (taskNumberCalls)
+        {
+            dbgMessagef(
+                "taskExecuteAllPending: task %d (%s) to run %d times, "
+                "%d ticks elapsed / %d per call = %d",
+                taskCurrentTask, taskData[taskCurrentTask]->name,
+                taskNumberCalls,
+                tLocalTicks, taskData[taskCurrentTask]->ticksPerCall,
+                tLocalTicks / taskData[taskCurrentTask]->ticksPerCall);
+        }
 #endif
-            //!!! needed?
-            //save the current register context
-#ifndef C_ONLY
-#if defined (_MSC_VER)
-            _asm
-            {
-                mov     eax, esi
-                mov     [taskESISave], eax                  //save esi,edi,esp,ebp
-                mov     eax, edi
-                mov     [taskEDISave], eax
-                mov     eax, esp
-                mov     [taskESPSave], eax
-                mov     eax, ebp
-                mov     [taskEBPSave], eax
-                mov     eax, ebx
-                mov     [taskEBXSave], eax
+        taskProcessIndex++;
+        for (; taskNumberCalls > 0; taskNumberCalls--)
+        {
+            taskData[taskCurrentTask]->function(
+                &taskData[taskCurrentTask]->context);
+            if (taskData[taskCurrentTask]->context == NULL) {
+                // Task has exited.
+                taskStop(taskCurrentTask);
+                break;
             }
-#elif defined (__GNUC__) && defined (__i386__)
-            __asm__ __volatile__ (
-                "    movl %%esi, %%eax\n"
-                "    movl %%eax, %0\n"                      /*save esi,edi,esp,ebp*/
-                "    movl %%edi, %%eax\n"
-                "    movl %%eax, %1\n"
-                "    movl %%esp, %%eax\n"
-                "    movl %%eax, %2\n"
-                "    movl %%ebp, %%eax\n"
-                "    movl %%eax, %3\n"
-                "    movl %%ebx, %%eax\n"
-                "    movl %%eax, %4\n"
-                : "=m" (taskESISave), "=m" (taskEDISave), "=m" (taskESPSave),
-                  "=m" (taskEBPSave), "=m" (taskEBXSave)
-                :
-                : "eax" );
-#endif
-#endif // C_ONLY
-            taskProcessIndex++;
-#if TASK_STACK_SAVE
-            localStackSize = taskData[taskCurrentTask]->nBytesStack;
-            if (localStackSize > 0)
-            {                                               //if this task uses some local stack
-                static sdword count;
-                static udword *src, *dest;
-
-                dest = (udword *)taskData[taskCurrentTask]->esp;
-                src = (udword *)(taskData[taskCurrentTask] + 1);
-                for (count = localStackSize / 4; count > 0; count--, src++, dest++)
-                {
-                    *dest = *src;
-                }
-                //memcpy(((ubyte *)taskData[taskCurrentTask]->esp), (ubyte *)(taskData[taskCurrentTask] + 1), localStackSize);
-            }
-#endif //TASK_STACK_SAVE
-            for (; taskNumberCalls > 0; taskNumberCalls--)
-            {
-/*
-#if TASK_STACK_CHECKING                                     //set the stack underflow detection cookie
-                validationCookie = TSK_StackValidation + taskCurrentTask;
-#endif
-*/
-#ifndef C_ONLY
-#if defined (_MSC_VER)
-                _asm
-                {
-                    //restore register context from the taskdata structure
-
-                    mov     edx, taskCurrentTask            //get edx->taskdata structure
-                    shl     edx, 2
-                    add     edx, OFFSET taskData
-                    mov     eax, [edx]
-
-                    mov     edx, [eax + TOF_Context +  0]   //ebx
-                    mov     ebx, edx
-                    mov     edx, [eax + TOF_Context +  4]   //ecx
-                    mov     ecx, edx
-                    mov     edx, [eax + TOF_Context +  8]   //edi
-                    mov     edi, edx
-                    mov     edx, [eax + TOF_Context + 12]   //esi
-                    mov     esi, edx
-                    mov     edx, [eax + TOF_Context + 16]   //esp
-                    mov     esp, edx
-                    mov     edx, [eax + TOF_Context + 20]   //ebp
-                    mov     ebp, edx
-
-                    mov     edx, [eax + TOF_Context + 24]   //eip
-                    jmp     edx                             //jump to the task
-                }
-taskContinued:
-                //save register context to the taskdata structure
-                _asm
-                {
-                    mov     edx, taskCurrentTask            //get edx->taskdata structure
-                    shl     edx, 2
-                    add     edx, OFFSET taskData
-                    mov     edx, [edx]
-
-                    pop     eax                             //get return IP from stack (jumped here via a CALL)
-                    mov     [edx + TOF_Context + 24], eax   //eip
-                    mov     eax, ebx
-                    mov     [edx + TOF_Context +  0], eax   //ebx
-                    mov     eax, ecx
-                    mov     [edx + TOF_Context +  4], eax   //ecx
-                    mov     eax, edi
-                    mov     [edx + TOF_Context +  8], eax   //edi
-                    mov     eax, esi
-                    mov     [edx + TOF_Context + 12], eax   //esi
-//#if TASK_STACK_CHECKING
-                    mov     eax, esp
-                    mov     [edx + TOF_Context + 16], eax   //esp
-                    mov     eax, ebp
-                    mov     [edx + TOF_Context + 20], eax   //ebp
-//#endif
-                }
-#elif defined (__GNUC__) && defined (__i386__)
-                __asm__ __volatile__ (
-                         /*restore register context from the taskdata structure*/
-
-                    "    movl %0, %%edx\n"                  /*get edx->taskdata structure*/
-                    "    shll $2, %%edx\n"
-                    "    addl %1, %%edx\n"
-                    "    movl (%%edx), %%eax\n"
-
-                    "    movl "TOF_Context_STR"+0(%%eax), %%edx\n"   /*ebx*/
-                    "    movl %%edx, %%ebx\n"
-                    "    movl "TOF_Context_STR"+4(%%eax), %%edx\n"   /*ecx*/
-                    "    movl %%edx, %%ecx\n"
-                    "    movl "TOF_Context_STR"+8(%%eax), %%edx\n"   /*edi*/
-                    "    movl %%edx, %%edi\n"
-                    "    movl "TOF_Context_STR"+12(%%eax), %%edx\n"  /*esi*/
-                    "    movl %%edx, %%esi\n"
-                    "    movl "TOF_Context_STR"+16(%%eax), %%edx\n"  /*esp*/
-                    "    movl %%edx, %%esp\n"
-                    "    movl "TOF_Context_STR"+20(%%eax), %%edx\n"  /*ebp*/
-                    "    movl %%edx, %%ebp\n"
-
-                    "    movl "TOF_Context_STR"+24(%%eax), %%edx\n"  /*eip*/
-                    "    jmp *%%edx\n"                      /*jump to the task*/
-
-                    "taskExec_taskContinued:\n"
-                         /*save register context to the taskdata structure*/
-                    "    movl %0, %%edx\n"                  /*get edx->taskdata structure*/
-                    "    shll $2, %%edx\n"
-                    "    addl %1, %%edx\n"
-                    "    movl (%%edx), %%edx\n"
-
-                    "    popl %%eax\n"                      /*get return IP from stack (jumped here via a CALL)*/
-                    "    movl %%eax, "TOF_Context_STR"+24(%%edx)\n"  /*eip*/
-                    "    movl %%ebx, %%eax\n"
-                    "    movl %%eax, "TOF_Context_STR"+0(%%edx)\n"   /*ebx*/
-                    "    movl %%ecx, %%eax\n"
-                    "    movl %%eax, "TOF_Context_STR"+4(%%edx)\n"   /*ecx*/
-                    "    movl %%edi, %%eax\n"
-                    "    movl %%eax, "TOF_Context_STR"+8(%%edx)\n"   /*edi*/
-                    "    movl %%esi, %%eax\n"
-                    "    movl %%eax, "TOF_Context_STR"+12(%%edx)\n"  /*esi*/
-/*#if TASK_STACK_CHECKING*/
-                    "    movl %%esp, %%eax\n"
-                    "    movl %%eax, "TOF_Context_STR"+16(%%edx)\n"  /*esp*/
-                    "    movl %%ebp, %%eax\n"
-                    "    movl %%eax, "TOF_Context_STR"+20(%%edx)\n"  /*ebp*/
-/*#endif*/
-                    :
-                    : "m" (taskCurrentTask), "m" (Local_taskData)
-                    : "eax", "edx" );
-#endif
-
-#else  // C_ONLY
-
-	// Call current task function
-	taskData[taskCurrentTask]->function();
-
-#endif // C_ONLY
-
-/*
-#if TASK_STACK_CHECKING
-                if (taskData[taskCurrentTask]->esp < taskESPSave)
-                {                                           //check for stack underflow
-                    dbgFatalf(DBG_Loc, "Stack underflow: 0x%x < 0x%x handle %d",
-                              taskData[taskCurrentTask]->esp,
-                              taskESPSave,
-                              taskCurrentTask);
-                }
-#endif //TASK_STACK_CHECKING
-*/
-            }
-            //!!! needed?
-#ifndef C_ONLY
-#if defined (_MSC_VER)
-            _asm
-            {
-                mov     eax, [taskESISave]                  //restore esi,edi,ebp,esp
-                mov     esi, eax
-                mov     eax, [taskEDISave]
-                mov     edi, eax
-                mov     eax, [taskESPSave]
-                mov     esp, eax
-                mov     eax, [taskEBPSave]
-                mov     ebp, eax
-                mov     eax, [taskEBXSave]
-                mov     ebx, eax
-            }
-#elif defined (__GNUC__) && defined (__i386__)
-            __asm__ __volatile__ (
-                "    movl %0, %%eax\n"                      /*restore esi,edi,ebp,esp*/
-                "    movl %%eax, %%esi\n"
-                "    movl %1, %%eax\n"
-                "    movl %%eax, %%edi\n"
-                "    movl %2, %%eax\n"
-                "    movl %%eax, %%esp\n"
-                "    movl %3, %%eax\n"
-                "    movl %%eax, %%ebp\n"
-                "    movl %4, %%eax\n"
-                "    movl %%eax, %%ebx\n"
-                :
-                : "m" (taskESISave), "m" (taskEDISave), "m" (taskESPSave),
-                  "m" (taskEBPSave), "m" (taskEBXSave)
-                : "eax" );
-#endif
-#endif // C_ONLY
-#if TASK_STACK_SAVE
-            if (localStackSize > 0)
-            {                                           //if this task uses some local stack
-                static sdword count;
-                static udword *src, *dest;
-
-                src = (udword *)taskData[taskCurrentTask]->esp;
-                dest = (udword *)(taskData[taskCurrentTask] + 1);
-                for (count = localStackSize / 4; count > 0; count--, src++, dest++)
-                {
-                    *dest = *src;
-                }
-                //memcpy((ubyte *)(taskData[taskCurrentTask] + 1), ((ubyte *)taskData[taskCurrentTask]->esp), localStackSize);
-            }
-#endif //TASK_STACK_SAVE
-#ifndef C_ONLY
-#if defined (_MSC_VER)
-            continue;
-taskReturned:
-            _asm
-            {
-                pop     eax                                 //remove the IP from the stack because it got here from a CALL
-                mov     eax, [taskESISave]                  //restore esi,edi,ebp,esp
-                mov     esi, eax
-                mov     eax, [taskEDISave]
-                mov     edi, eax
-                mov     eax, [taskESPSave]
-                mov     esp, eax
-                mov     eax, [taskEBPSave]
-                mov     ebp, eax
-                mov     eax, [taskEBXSave]
-                mov     ebx, eax
-            }
-#elif defined (__GNUC__) && defined (__i386__)
-            /* The (unconditional) "continue" statement which immediately
-               preceded this block caused GCC to remove all the code following
-               it up to the end of the block, so we need to hack in a way to
-               force GCC not to do so...bleh... */
-            if (continue_hack)
-                continue;
-            __asm__ __volatile__ (
-                "\ntaskExec_taskReturned:\n"
-                "    popl %%eax\n"                          /*remove the IP from the stack because it got here from a CALL*/
-                "    movl %0, %%eax\n"                      /*restore esi,edi,ebp,esp*/
-                "    movl %%eax, %%esi\n"
-                "    movl %1, %%eax\n"
-                "    movl %%eax, %%edi\n"
-                "    movl %2, %%eax\n"
-                "    movl %%eax, %%esp\n"
-                "    movl %3, %%eax\n"
-                "    movl %%eax, %%ebp\n"
-                "    movl %4, %%eax\n"
-                "    movl %%eax, %%ebx\n"
-                :
-                : "m" (taskESISave), "m" (taskEDISave), "m" (taskESPSave),
-                  "m" (taskEBPSave), "m" (taskEBXSave)
-                : "eax" );
-#endif
-#else  // C_ONLY
-			if (continue_hack)
-                continue;
-#endif // C_ONLY
-
-            taskStop(taskCurrentTask);                      //kill the task
         }
     }
-    taskCurrentTask = -1;                                   //not currently executing any tasks
-#if TASK_STACK_SAVE
-    //restore a chunk of the stack that might have been overwritten by some of the tasks
-    if (biggestStackSize > 0)
-    {
-        memcpy(currentESP, localStack, biggestStackSize);
-    }
-#endif
+    taskCurrentTask = -1;       //not currently executing any tasks
     return(OKAY);
 }
 
@@ -1212,12 +589,8 @@ DEFINE_TASK(taskCallBackProcess)
 
     taskYield(0);
 
-#ifndef C_ONLY
     while(1)
-#endif
     {
-        taskStackSaveCond(0);
-
         babynode = callbacks.babies.head;
         while(babynode != NULL)
         {
@@ -1239,7 +612,6 @@ DEFINE_TASK(taskCallBackProcess)
             babynode = babynode->next;
         }
         //break;
-        taskStackRestoreCond();
         taskYield(0);
     }
     taskEnd;

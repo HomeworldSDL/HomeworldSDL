@@ -116,10 +116,8 @@ void dbwCharsPrint(sdword pane, char *string, sdword nChars, sdword bufferFlag)
         return;
     }
 
-    taskStackSaveIf(4);                                     //save task stack context
     if (GetDC(hDebugWindow) != hDebugDC)
     {
-        taskStackRestoreIf();
         return;
     }
     if (bufferFlag)
@@ -142,7 +140,6 @@ void dbwCharsPrint(sdword pane, char *string, sdword nChars, sdword bufferFlag)
 //  ValidateRect(hDebugWindow, &rect);
 
     ReleaseDC(hDebugWindow, hDebugDC);
-    taskStackRestoreIf();                                   //restore task stack context
 }
 
 /*-----------------------------------------------------------------------------
@@ -726,9 +723,7 @@ sdword dbwLineFeed(sdword pane)
             dbwPane[pane].cursorY = dbwPane[pane].bufferHeight - 1;
         }
                                                             //scroll the window
-        taskStackSaveIf(1);                                 //save task stack context
         ScrollWindowEx(hDebugWindow, 0, -dbwFontHeight, &scrollRect, &clipRect, NULL, &updateRect, 0);
-        taskStackRestoreIf();                               //restore task stack context
         dbwCharsPrint(pane, dbwPane[pane].buffer + dbwPane[pane].width * (dbwPane[pane].bufferHeight - 1), dbwPane[pane].width, FALSE);
 //        ValidateRect(hDebugWindow, NULL);
 

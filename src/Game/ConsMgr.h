@@ -157,7 +157,8 @@ void cmDeterministicBuild(udword command, sdword numShips,
 void cmDeterministicBuildProcess(void);
 void cmDeterministicBuildDisplay(void);
 void cmDeterministicReset(void);
-DECLARE_TASK(cmBuildTaskFunction);
+// Not really a task anymore.
+void cmBuildTaskFunction(void);
 
 void LoadConsMgrDetermOptional();
 void SaveConsMgrDetermOptional();
