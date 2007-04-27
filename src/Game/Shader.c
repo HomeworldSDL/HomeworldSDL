@@ -60,10 +60,12 @@ enum
     M30 = 3, M31 = 7, M32 = 11,M33 = 15
 };
 
+/* shGlobalAmbient, shBaseColor and shBaseAlpha are in the range [0, 1]
+   whereas shStdBaseColor is in the range [0, 255]. */
 static real32 shGlobalAmbient[4];
 static real32 shBaseColor[4];
 static real32 shStdBaseColor[4];
-static sdword shBaseAlpha;
+static real32 shBaseAlpha;
 
 typedef struct shadeMaterial
 {
@@ -280,16 +282,15 @@ void shUpdateLighting()
 
     for (l = 0; l < 4; l++)
     {
-        shBaseColor[l] *= 255.0f;
         shStdBaseColor[l] *= 255.0f;
     }
     for (l = 0; l < 3; l++)
     {
-        shBaseColor[l] += shBrightness;
+        shBaseColor[l] += shBrightness / 255.f;
         shStdBaseColor[l] += shBrightness;
     }
 
-    shBaseAlpha = (sdword)shBaseColor[3];
+    shBaseAlpha = shBaseColor[3];
 }
 
 /*-----------------------------------------------------------------------------
@@ -488,23 +489,22 @@ void shColour(
                       + nz * shLight[l].inverseworldposition[2];
         if (nDotVP > 0.0f)
         {
-            nDotVP *= 255.0f;
             sumR += nDotVP * shLight[l].matdiffuse[0];
             sumG += nDotVP * shLight[l].matdiffuse[1];
             sumB += nDotVP * shLight[l].matdiffuse[2];
         }
     }
 
-    color[0] = (ubyte)MIN2(sumR, 255.0f);
-    color[1] = (ubyte)MIN2(sumG, 255.0f);
-    color[2] = (ubyte)MIN2(sumB, 255.0f);
-    color[3] = shBaseAlpha;
+    color[0] = (ubyte)MIN2(sumR * 255.f, 255.0f);
+    color[1] = (ubyte)MIN2(sumG * 255.f, 255.0f);
+    color[2] = (ubyte)MIN2(sumB * 255.f, 255.0f);
+    color[3] = (ubyte)(shBaseAlpha * 255.f);
 }
 
 /*-----------------------------------------------------------------------------
     Name        : shColourSet
     Description : shades a vertex according to the standard lighting model.
-                  also informs the GL of the colour via glColor4ub
+                  also informs the GL of the colour via glColor4*
     Inputs      : side = 0 or 1 (front or back)
                   norm - normal at the vertex
                   color - where output colours go
@@ -515,7 +515,7 @@ void shColour(
 void shColourSet(
     sdword side, vector* norm, real32* minv)
 {
-    sdword l;
+    udword l;
     real32 sumR, sumG, sumB;
     real32 nx, ny, nz;
     real32 nDotVP;
@@ -544,17 +544,16 @@ void shColourSet(
                + nz * shLight[l].inverseworldposition[2];
         if (nDotVP > 0.0f)
         {
-            nDotVP *= 255.0f;
             sumR += nDotVP * shLight[l].matdiffuse[0];
             sumG += nDotVP * shLight[l].matdiffuse[1];
             sumB += nDotVP * shLight[l].matdiffuse[2];
         }
     }
 
-    glColor4ub((ubyte)MIN2(sumR, 255.0f),
-               (ubyte)MIN2(sumG, 255.0f),
-               (ubyte)MIN2(sumB, 255.0f),
-               (ubyte)shBaseAlpha);
+    glColor4f(MIN2(sumR, 1.f),
+              MIN2(sumG, 1.f),
+              MIN2(sumB, 1.f),
+              shBaseAlpha);
 }
 
 /*-----------------------------------------------------------------------------
@@ -626,7 +625,7 @@ void shShadeBuffer(sdword nVertices, hvector* source)
             colorList[i].c[0] = (ubyte)MIN2(sumR, 255.0f);
             colorList[i].c[1] = (ubyte)MIN2(sumG, 255.0f);
             colorList[i].c[2] = (ubyte)MIN2(sumB, 255.0f);
-            colorList[i].c[3] = (ubyte)shBaseAlpha;
+            colorList[i].c[3] = (ubyte)(shBaseAlpha * 255.f);
         }
     }
     else
@@ -674,14 +673,14 @@ void shShadeBuffer(sdword nVertices, hvector* source)
             colorList[i].c[0] = (ubyte)MIN2(sumR, 255.0f);
             colorList[i].c[1] = (ubyte)MIN2(sumG, 255.0f);
             colorList[i].c[2] = (ubyte)MIN2(sumB, 255.0f);
-            colorList[i].c[3] = (ubyte)shBaseAlpha;
+            colorList[i].c[3] = (ubyte)(shBaseAlpha * 255.f);
         }
     }
 }
 
 void shColourSet0(vector* norm)
 {
-    sdword l;
+    udword l;
     real32 sumR, sumG, sumB;
     real32 nx, ny, nz;
     real32 nDotVP;
@@ -701,7 +700,6 @@ void shColourSet0(vector* norm)
                + nz * shLight[l].inverseworldposition[2];
         if (nDotVP > 0.0f)
         {
-            nDotVP *= 255.0f;
             sumR += nDotVP * shLight[l].matdiffuse[0];
             sumG += nDotVP * shLight[l].matdiffuse[1];
             sumB += nDotVP * shLight[l].matdiffuse[2];
@@ -721,7 +719,7 @@ void shColourSet0(vector* norm)
         sumG *= t;
         sumB *= t;
 
-        t = shDockFactor * 255.0f;
+        t = shDockFactor;
 
         //add in dock light colour
         sumR += t * shDockScalarRed;
@@ -729,10 +727,10 @@ void shColourSet0(vector* norm)
         sumB += t * shDockScalarBlue;
     }
 
-    glColor4ub((ubyte)MIN2(sumR, 255.0f),
-               (ubyte)MIN2(sumG, 255.0f),
-               (ubyte)MIN2(sumB, 255.0f),
-               (ubyte)shBaseAlpha);
+    glColor4f(MIN2(sumR, 1.f),
+              MIN2(sumG, 1.f),
+              MIN2(sumB, 1.f),
+              shBaseAlpha);
 }
 
 real32 gl_pow(real32 a, real32 b)
