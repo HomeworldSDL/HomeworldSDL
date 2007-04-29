@@ -456,7 +456,7 @@ bool   hideallscreens=TRUE;
 sdword mgQueryType=-1;
 
 // handle for the task that transfers the information from titan to the main game thread.
-taskhandle ProccessCallback=0;
+static taskhandle ProccessCallback=0;
 
 // pointer to the game that we want to join
 tpscenario  *joingame=NULL;
@@ -6072,7 +6072,6 @@ DEFINE_TASK(mgProcessCallBacksTask)
 
     while (1)
     {
-#ifndef _MACOSX_FIX_ME
 #if defined(HW_GAME_RAIDER_RETREAT) || defined(HW_GAME_DEMO)
 ;
 #else
@@ -6223,9 +6222,9 @@ DEFINE_TASK(mgProcessCallBacksTask)
                         {
                             found = TRUE;
                             break;
-                }
+                        }
                         walk = walk->next;
-            }
+                    }
                     if (found==FALSE)
                     {
                         serverinfo = (serverlist *)memAlloc(sizeof(serverlist),"listofservers",NonVolatile);
@@ -6371,10 +6370,10 @@ DEFINE_TASK(mgProcessCallBacksTask)
             memFree(copypacket);
         }
 #endif //defined(HW_GAME_RAIDER_RETREAT) || defined(HW_GAME_DEMO)
-#endif // _MACOSX_FIX_ME
 
         taskYield(0);
     }
+
     taskEnd;
 }
 

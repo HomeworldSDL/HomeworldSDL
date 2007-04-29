@@ -234,7 +234,7 @@ bool   lghideallscreens=TRUE;
 sdword lgQueryType=-1;
 
 // handle for the task that transfers the information from titan to the main game thread.
-taskhandle lgProccessCallback=0;
+static taskhandle lgProccessCallback=0;
 
 // pointer to the game that we want to join
 extern tpscenario *joingame;

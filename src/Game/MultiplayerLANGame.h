@@ -222,14 +222,10 @@ void lgGoPassword(char *name, featom *atom);
     Data:
 =============================================================================*/
 
-extern taskhandle lgProccessCallback;
-
 extern bool lgRunning;
 
 // = {"","","","",0,0,0,0,0,0,0,0,0,0};
 extern CaptainGameInfo tpGameCreated;
-
-extern taskhandle ProccessCallback;
 
 extern tpscenario lgMyGameInfo;
 
