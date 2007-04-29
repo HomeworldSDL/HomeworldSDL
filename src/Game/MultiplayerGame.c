@@ -6070,10 +6070,9 @@ DEFINE_TASK(mgProcessCallBacksTask)
 
     taskYield(0);
 
-#ifndef _MACOSX_FIX_ME
-
     while (1)
     {
+#ifndef _MACOSX_FIX_ME
 #if defined(HW_GAME_RAIDER_RETREAT) || defined(HW_GAME_DEMO)
 ;
 #else
@@ -6372,10 +6371,10 @@ DEFINE_TASK(mgProcessCallBacksTask)
             memFree(copypacket);
         }
 #endif //defined(HW_GAME_RAIDER_RETREAT) || defined(HW_GAME_DEMO)
+#endif // _MACOSX_FIX_ME
 
         taskYield(0);
     }
-#endif // _MACOSX_FIX_ME
     taskEnd;
 }
 
