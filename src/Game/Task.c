@@ -62,7 +62,7 @@ DEFINE_TASK(taskTestFunction)
 
     for (state->index = 0; state->index < 4; state->index++)
     {
-        dbgMessagef("Task test function called %d times.", index);
+        dbgMessagef("%s: Task test function called %d times.", __func__, index);
         aba++;
         taskYield(0);
     }
@@ -82,7 +82,7 @@ sdword taskStartup(udword frequency)
     sdword index;
 
 #if TASK_VERBOSE_LEVEL >= 1
-    dbgMessagef("taskInit: Task module started using a frequency of %dHz", frequency);
+    dbgMessagef("%s: Task module started using a frequency of %dHz", __func__, frequency);
 #endif
 
     dbgAssertOrIgnore(taskModuleInit == FALSE);
@@ -209,8 +209,8 @@ taskhandle taskStartName(taskfunction function, char *name,
     taskData[handle] = newTask;
 
 #if TASK_VERBOSE_LEVEL >= 2
-    dbgMessagef("taskStart: starting task at 0x%x at %d Hz, flags 0x%x using handle %d at 0x%x",
-               function, 1.0f/period, flags, handle, taskData[handle]);
+    dbgMessagef("%s: starting task at 0x%x at %d Hz, flags 0x%x using handle %d at 0x%x",
+                __func__, function, 1.0f/period, flags, handle, taskData[handle]);
 #endif
 
     //make task in use and running
@@ -252,11 +252,13 @@ void taskStop(taskhandle handle)
     dbgAssertOrIgnore(taskData[handle] != NULL);
 
 #if TASK_VERBOSE_LEVEL >= 2
-//    dbgMessagef("taskDestroy: destroying task %d", handle);
+    dbgMessagef("%s: destroying task %d", __func__, handle);
 #endif
 
     if (taskData[handle]->context != NULL)
+    {
         free(taskData[handle]->context);
+    }
     memFree(taskData[handle]);
     taskData[handle] = NULL;
     if (handle == taskMaxTask - 1)
@@ -280,7 +282,7 @@ sdword taskExecuteAllPending(sdword ticks)
 #if TASK_VERBOSE_LEVEL >= 2
     if (ticks > 0)
     {
-        dbgMessagef("taskExecuteAllPending: executing tasks for %d ticks", ticks);
+        dbgMessagef("%s: executing tasks for %d ticks", __func__, ticks);
     }
 #endif
 
@@ -353,8 +355,9 @@ sdword taskExecuteAllPending(sdword ticks)
         if (taskNumberCalls)
         {
             dbgMessagef(
-                "taskExecuteAllPending: task %d (%s) to run %d times, "
+                "%s: task %d (%s) to run %d times, "
                 "%d ticks elapsed / %d per call = %d",
+                __func__,
                 taskCurrentTask, taskData[taskCurrentTask]->name,
                 taskNumberCalls,
                 tLocalTicks, taskData[taskCurrentTask]->ticksPerCall,
