@@ -228,7 +228,7 @@ taskhandle taskStartName(taskfunction function, char *name,
     {
         // Exited already?
 #if TASK_ERROR_CHECKING
-        dbgFatalf("taskStart: stillborn task %s", name);
+        dbgFatalf(DBG_Loc, "taskStart: stillborn task %s", name);
 #endif
         taskStop(handle);
         return ERROR;
