@@ -2730,7 +2730,7 @@ DEFINE_TASK(lgProcessCallBacksTask)
             LockQueue(&lgThreadTransfer);
 
             sizeofpacket = HWDequeue(&lgThreadTransfer, &packet);
-	    dbgMessagef("size of packet %d",sizeofpacket);
+//	    dbgMessagef("size of packet %d",sizeofpacket);
             dbgAssertOrIgnore(sizeofpacket > 0);
             copypacket = memAlloc(sizeofpacket,"lg(lgthreadtransfer)", Pyrophoric);
             memcpy(copypacket, packet, sizeofpacket);
@@ -2928,8 +2928,7 @@ void titanReceivedLanBroadcastCB(const void* thePacket, unsigned short theLen)
                 if (theLen == sizeof(LANAdvert_UserHere))
                 {
                     memcpy(&userhere.userhere,thePacket,sizeof(LANAdvert_UserHere));
-		    dbgMessagef("Size udword %d", (udword)sizeof(userhere));
-                    HWEnqueue(&lgThreadTransfer, (ubyte *)&userhere, sizeof(userhere));
+		    HWEnqueue(&lgThreadTransfer, (ubyte *)&userhere, sizeof(userhere));
                 }
                 else
                 {

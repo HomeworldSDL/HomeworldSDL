@@ -8,17 +8,26 @@
 #include "NetworkInterface.h"
 
 #ifdef HW_ENABLE_NETWORK
-SDL_Thread *listenBroadcast;
+
+
+SDL_Thread *listenBroadcast, *listenTCP;
 static UDPsocket broadcastSendSock, broadcastRecvSock;
-static int endNetwork;
+static Client* TCPClientsConnected;
+static TCPsocket clientSock;
+static int endNetwork, clientActive, numTCPClientConnected;
+static SDL_sem *semList;
 
 void initNetwork()
 {
 	Uint32 sdl_flags;
-	IPaddress ip, broadcastIp;
+	IPaddress broadcastIp;
 	broadcastIp.host = INADDR_BROADCAST;
 	broadcastIp.port = UDPPORT;
 	endNetwork = 1;
+	clientActive = 0;
+	numTCPClientConnected = 0;
+
+	semList = SDL_CreateSemaphore(1);
 
 	/* Make sure SDL is initialized. */
 	sdl_flags = SDL_WasInit(SDL_INIT_EVERYTHING);
@@ -35,12 +44,9 @@ void initNetwork()
 		exit(1);
 	}
 
-	// Resolve the argument into an IPaddress type
-	if(SDLNet_ResolveHost(&ip,NULL,TCPPORT)==-1)
-	{
-		exit(2);
-	}
+	// Initialisation of Broadcast Sockets
 
+	// Open Udp Port to send Broadcast Packet
 	if(!(broadcastRecvSock = SDLNet_UDP_Open(UDPPORT)))
 	{
 		exit(3);
@@ -52,6 +58,7 @@ void initNetwork()
 		exit(5);
 	}
 
+	// Create Thread to listen to Broadcast Packet on UDP
 	listenBroadcast = SDL_CreateThread(broadcastStartThread,broadcastSendSock);
 	if(!listenBroadcast)
 	{
@@ -69,6 +76,16 @@ void initNetwork()
 	{
 	 	exit(6);
 	}
+
+
+	// Initialisation of TCP Server Thread
+
+	listenTCP = SDL_CreateThread(TCPServerStartThread,NULL);
+	if(!listenBroadcast)
+	{
+		exit(4);
+	}
+
 }
 
 void sendBroadcastPacket(const void* packet, int len)
@@ -105,13 +122,13 @@ int broadcastStartThread(void *data)
 	{
 		if(SDLNet_UDP_Recv(broadcastRecvSock,packet)>0)
 		{
-			printf("Packet received, length: %d id: %s port: %d\n", packet->len, packet->data,packet->address.port);
+//			printf("Packet received, length: %d id: %s port: %d\n", packet->len, packet->data,packet->address.port);
 			ipaddr=SDL_SwapBE32(packet->address.host);
-			printf("IP Address : %d.%d.%d.%d\n",
-						ipaddr>>24,
-						(ipaddr>>16)&0xff,
-						(ipaddr>>8)&0xff,
-						ipaddr&0xff);
+//			printf("IP Address : %d.%d.%d.%d\n",
+//						ipaddr>>24,
+//						(ipaddr>>16)&0xff,
+//						(ipaddr>>8)&0xff,
+//						ipaddr&0xff);
 
 			SDLNet_ResolveHost(&newIp,"255.255.255.255",UDPPORT);
 			newIp.host=packet->address.host;
@@ -125,7 +142,7 @@ int broadcastStartThread(void *data)
 				else
 					printf("binding last ip received, channel %d\n",number);
 			}
-			printf("packet recu taille : %d\n",packet->len);
+//			printf("packet recu taille : %d\n",packet->len);
 			titanReceivedLanBroadcastCB(packet->data, packet->len);
 		}
 		else
@@ -148,7 +165,7 @@ int checkList(IPaddress Ip, IpList list)
 		else
 			tmp = tmp->nextIP;
 	}
-	printf("not found in the list\n");
+//	printf("not found in the list\n");
 
 	return -1;
 }
@@ -161,6 +178,9 @@ IpList addList(IPaddress newIp, IpList list)
 	list = new;
 	return list;
 }
+
+
+// TODO : Sometimes bad packet is received, which will make the connection hang
 
 Uint32 getMyAddress()
 {
@@ -187,6 +207,7 @@ Uint32 getMyAddress()
                                         (ipaddr>>16)&0xff,
                                         (ipaddr>>8)&0xff,
                                         ipaddr&0xff);
+	printf("IP Address : %d\n",packet->address.host);
         printf("receive a packet\n");
         SDLNet_FreePacket(packet);
 
@@ -236,4 +257,170 @@ int pingSendThread(void *data)
         SDLNet_UDP_Close(sendSock);
         return 0;
 }
+
+
+
+void connectToServer(Uint32 serverIP)
+{
+	IPaddress ipToConnect;
+	
+	if(SDLNet_ResolveHost(&ipToConnect,NULL,TCPPORT)==-1)
+	{
+		exit(2);
+	}
+
+	printf("addresse recu en paramètre %d\n",serverIP);
+	ipToConnect.host = serverIP;
+
+	if(!(clientSock = SDLNet_TCP_Open(&ipToConnect)))
+	{
+		printf("can't create Server TCP socket \n");
+		exit(3);
+	}
+
+
+	// Switching to Client Mode.
+	clientActive = 1;
+	
+	
+	printf("Manage to connect");
+	
+	//addSockToList(sock);
+
+	
+}
+
+
+int TCPServerStartThread(void *data)
+{
+	TCPsocket serverTCPSock, sock;
+	SDLNet_SocketSet setSock, clientSet;
+	IPaddress ip;
+	int clientInSet;
+	clientInSet = 0;
+
+	// Resolve the argument into an IPaddress type
+	if(SDLNet_ResolveHost(&ip,NULL,TCPPORT)==-1)
+	{
+		exit(2);
+	}
+
+	if(!(serverTCPSock = SDLNet_TCP_Open(&ip)))
+	{
+		printf("can't create Server TCP socket \n");
+		exit(3);
+	}	
+
+
+	clientSet = SDLNet_AllocSocketSet(1);
+	if(!clientSet)
+		exit(1);
+
+	setSock = SDLNet_AllocSocketSet(100);
+	if(!setSock)
+		exit(1);
+
+	SDLNet_TCP_AddSocket(setSock, serverTCPSock);
+		
+
+	while(endNetwork)
+	{
+		int numready;
+	
+		if(clientActive == 0)
+		{
+			// In case no client connected, we might switch to Client type.
+			if(numTCPClientConnected == 0)
+			{
+				numready=SDLNet_CheckSockets(setSock, (Uint32)200);
+				printf("Testing for 100ms\n");
+			}
+			else
+				numready=SDLNet_CheckSockets(setSock, (Uint32)-1);
+
+			if(numready==-1)
+			{
+				printf("SDLNet_CheckSockets: %s\n",SDLNet_GetError());
+				break;
+			}
+
+			if(!numready)
+				continue;
+			if(SDLNet_SocketReady(serverTCPSock))
+			{
+				numready--;
+				//printf("Connection...\n");
+				sock=SDLNet_TCP_Accept(serverTCPSock);
+				if(sock)
+				{
+					printf("New connection\n");
+					SDLNet_TCP_AddSocket(setSock, sock);
+					addSockToList(sock);
+					IPaddress * testAddress;
+					testAddress = SDLNet_TCP_GetPeerAddress(sock);
+					if(findSockInList(testAddress->host) == sock)
+						printf("L'adresse a bien été rajoutée\n");
+				}
+				else
+					printf("No new connection\n");
+			}
+		}
+		else
+		{
+			printf("Client server\n");
+			if(clientInSet == 0)
+			{
+				printf("Adding socket to set\n");
+				SDLNet_TCP_AddSocket(clientSet, clientSock);
+				clientInSet = 1;
+			}
+
+			numready=SDLNet_CheckSockets(clientSet, (Uint32)-1);
+			
+			// Code as a client
+			if(SDLNet_SocketReady(clientSock))
+			{
+				numready--;
+			}
+
+		}
+
+	}
+	return 0;
+}
+
+
+Client * addSockToList(TCPsocket sock)
+{
+	IPaddress *remoteIp;
+	remoteIp = SDLNet_TCP_GetPeerAddress(sock);
+
+	if(remoteIp != NULL)	
+	{
+		SDL_SemWait(semList);
+		TCPClientsConnected = (Client*) realloc (TCPClientsConnected, (numTCPClientConnected+1)*sizeof(Client));
+		TCPClientsConnected[numTCPClientConnected].sock = sock;
+		TCPClientsConnected[numTCPClientConnected].IP = *remoteIp;
+		numTCPClientConnected++;
+		SDL_SemPost(semList);
+		return (&TCPClientsConnected[numTCPClientConnected-1]);
+	}
+	else
+		return NULL;
+}
+
+TCPsocket findSockInList(Uint32 addressSock)
+{
+	TCPsocket sock;
+	
+	int i;
+	for (i=0; i < numTCPClientConnected; i++)
+		if (addressSock == TCPClientsConnected[i].IP.host)
+			return TCPClientsConnected[i].sock;
+	return NULL;
+}
+
+
 #endif
+
+

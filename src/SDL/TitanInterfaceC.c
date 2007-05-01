@@ -171,8 +171,7 @@ void titanAnyoneBroadcastPacket(unsigned char titanMsgType, const void* thePacke
 
 void titanConnectToClient(Address *address)
 {
-	dbgMessagef("\ntitanConnectToClient");
-
+	connectToServer(address->AddrPart.IP);
 }
 
 
@@ -289,3 +288,11 @@ void titanConnectingCancelHit(void)
 {
 	dbgMessagef("\ntitanConnectingCancelHit");
 }
+
+#ifdef HW_ENABLE_NETWORK
+void HandleTCPMessage()
+{
+
+}
+
+#endif
