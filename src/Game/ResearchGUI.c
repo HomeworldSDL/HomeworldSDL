@@ -51,13 +51,6 @@
     #endif
 #endif
 
-// rgl predeprecation code
-#ifdef _WIN32          // rgl stuff
-    #ifndef __GNUC__   // Not needed by Linux && (Hopefully) Windows (Using GCC)
-        #include "fixed.h"
-    #endif
-#endif
-
 
 /*=============================================================================
     Defines:
