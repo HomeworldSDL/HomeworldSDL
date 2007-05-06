@@ -5,6 +5,13 @@
 //  Created May 1998 by Darren Stone.
 // =============================================================================
 
+#ifndef _WIN32
+/* If it is not Windows, it must be POSIX... right?
+   Unfortunately POSIX does not define a way to test whether a system is
+   POSIX-compatible. */
+#include <fnmatch.h>
+#endif
+
 #include "BigFile.h"
 
 #include "BitIO.h"
@@ -2253,8 +2260,6 @@ int bigExtract(char *bigFilename, int numFiles, char *filenames[], int optFreshe
 
     if (!toc.numFiles)
         printf("No files in %s\n", bigFilename);
-
-    // BUG - not checking for specific files; just dumping the whole lot!
     else
     {
         int i;
@@ -2281,6 +2286,9 @@ int bigExtract(char *bigFilename, int numFiles, char *filenames[], int optFreshe
         // go through the table of contents
         for (i = 0; i < toc.numFiles; i++)
         {
+            int j = 0;
+            bool matches_args = 0;
+
             // get the entry in the TOC for the next file
             fileEntry = toc.fileEntries + i;
 
@@ -2290,6 +2298,35 @@ int bigExtract(char *bigFilename, int numFiles, char *filenames[], int optFreshe
             // first thing is the filename - this includes a NULL terminator
             fread(filename, 1, fileEntry->nameLength + 1, extractFp);
             bigFilenameDecrypt(filename, fileEntry->nameLength);
+
+
+#ifdef _WIN32
+            /* Does anyone know what Windows has instead of fnmatch?
+               Please fix this. */
+            matches_args = 1;
+#else
+            // BUG: filelists (@-notation) are not supported.
+            for (; j < numFiles; j++)
+            {
+                switch (fnmatch(filenames[j], filename, 0))
+                {
+                default:
+                    /* POSIX defines this mechanism for indicating errors
+                       but leaves open what kind of errors might occur
+                       and how to distinguish between them. */
+                    printf("Error matching pattern %s to filename %s\n",
+                           filenames[j], filename);
+                    // fall through
+                case FNM_NOMATCH:
+                    continue;
+                case 0:
+                    matches_args = 1;
+                }
+                break;
+            }
+#endif
+            if (numFiles > 0 && !matches_args)
+                continue;
 
             // the rest is the (possibly compressed) file
             printf("Extracting: %s", filename);
