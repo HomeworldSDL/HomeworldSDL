@@ -422,5 +422,3 @@ TCPsocket findSockInList(Uint32 addressSock)
 
 
 #endif
-
-
