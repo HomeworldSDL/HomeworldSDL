@@ -141,7 +141,7 @@ int main(int argc, char *argv[]) {
             break;
         
         default:
-            printf("ERROR: Unrecognized option: %s\n", OptCommand);
+            printf("ERROR: Unrecognized option: %c\n", OptCommand);
             usage();
             break;
     }
