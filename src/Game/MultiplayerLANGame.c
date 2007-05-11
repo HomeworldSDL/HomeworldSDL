@@ -2510,7 +2510,6 @@ void lgFillInLANAdvertHeader(LANAdvertHeader *header,LANAdvertType type)
 
 void lgAdvertiseMyGame(void)
 {
-    dbgMessagef("\nAdvertiseMyGame");
     LANAdvert_GameHere gamehere;
 
     gamehere.game = lgMyGameInfo;
@@ -2523,7 +2522,6 @@ void lgAdvertiseMyGame(void)
 
 void lgAdvertiseMyself(void)
 {
-    dbgMessagef("\nAdvertiseMyself");
     LANAdvert_UserHere userhere;
 
     dbgAssertOrIgnore(strlen(utyName) < MAX_PERSONAL_NAME_LEN);

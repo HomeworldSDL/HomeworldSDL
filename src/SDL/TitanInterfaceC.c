@@ -131,7 +131,7 @@ void titanCreateDirectory(char *str, char* desc)
 
 void titanSendLanBroadcast(const void* thePacket, unsigned short theLen)
 {
-	dbgMessagef("\ntitanSendLanBroadcast");
+//	dbgMessagef("\ntitanSendLanBroadcast");
 #ifdef HW_ENABLE_NETWORK
 	sendBroadcastPacket(thePacket, theLen);
 #endif
@@ -143,6 +143,9 @@ void titanSendPacketTo(Address *address, unsigned char titanMsgType,
                        const void* thePacket, unsigned short theLen)
 {
 	dbgMessagef("\ntitanSendPacketTo");
+#ifdef HW_ENABLE_NETWORK
+	putPacket(address->AddrPart.IP,titanMsgType,thePacket,theLen);
+#endif
 
 }
 
@@ -293,9 +296,48 @@ void titanConnectingCancelHit(void)
 }
 
 #ifdef HW_ENABLE_NETWORK
-void HandleTCPMessage()
+void HandleTCPMessage(Uint32 address, unsigned char msgTyp, const void* data, unsigned short len)
 {
+	dbgMessagef("\nHandleTCPMessage");
+	switch(msgTyp)
+	{
+		case TITANMSGTYPE_JOINGAMEREQUEST:
+			HandleJoinGame(address,data,len); break;
+		case TITANMSGTYPE_JOINGAMECONFIRM:
+			HandleJoinConfirm(address,data,len);  break;
+	}
+}
 
+void HandleJoinGame(Uint32 address, const void* data, unsigned short len)
+{
+	Address anAddress;
+	anAddress.AddrPart.IP = address;
+	anAddress.Port = TCPPORT;
+	long requestResult;
+
+	if(mGameCreationState==GAME_NOT_STARTED)
+		requestResult = titanRequestReceivedCB(&anAddress, data, len);
+	else
+		requestResult = REQUEST_RECV_CB_JUSTDENY;
+	
+	if (requestResult == REQUEST_RECV_CB_ACCEPT)
+        {
+            titanSendPacketTo(&anAddress, TITANMSGTYPE_JOINGAMECONFIRM, NULL, 0);
+//            titanBroadcastPacket(TITANMSGTYPE_UPDATEGAMEDATA, &tpGameCreated, sizeof(tpGameCreated));
+        }
+        else
+        {
+            titanSendPacketTo(&anAddress, TITANMSGTYPE_JOINGAMEREJECT, NULL, 0);
+        }
+}
+
+void HandleJoinConfirm(Uint32 address, const void* data, unsigned short len)
+{
+	Address anAddress;
+	anAddress.AddrPart.IP = address;
+	anAddress.Port = TCPPORT;
+
+        titanConfirmReceivedCB(&anAddress, data, len);
 }
 
 #endif

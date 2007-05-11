@@ -20,8 +20,8 @@ int TCPServerStartThread(void*);
 void sendBroadcastPacket(const void*, int);
 void connectToServer(Uint32);
 
-Client * addSockToList(TCPsocket sock);
-TCPsocket findSockInList(Uint32 addressSock);
+Client * addSockToList(TCPsocket);
+TCPsocket findSockInList(Uint32);
 
 int checkList(IPaddress, IpList);
 IpList addList(IPaddress, IpList);
@@ -29,8 +29,15 @@ IpList addList(IPaddress, IpList);
 Uint32 getMyAddress();
 int pingSendThread(void*);
 
+
+// Function defined depending on the protocol used
+void putPacket(Uint32, unsigned char, const void*, unsigned short);
+unsigned char getPacket(TCPsocket, unsigned char*, Uint8**, unsigned short*);
+
 // Callback to the function that Handle messages.
-void HandleTCPMessage();
+void HandleTCPMessage(Uint32, unsigned char, const void*, unsigned short);
+void HandleJoinGame(Uint32, const void*, unsigned short);
+void HandleJoinConfirm(Uint32, const void*, unsigned short);
 
 
 #define TCPPORT 10500

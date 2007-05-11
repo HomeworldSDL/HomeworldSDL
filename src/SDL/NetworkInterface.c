@@ -296,8 +296,13 @@ int TCPServerStartThread(void *data)
 	TCPsocket serverTCPSock, sock;
 	SDLNet_SocketSet setSock, clientSet;
 	IPaddress ip;
-	int clientInSet;
+	IPaddress* fromIp;
+	int clientInSet, i;
 	clientInSet = 0;
+	unsigned short lenPacket;
+	unsigned char typMsg;
+	Uint8* packet = NULL;
+
 
 	// Resolve the argument into an IPaddress type
 	if(SDLNet_ResolveHost(&ip,NULL,TCPPORT)==-1)
@@ -321,6 +326,9 @@ int TCPServerStartThread(void *data)
 		exit(1);
 
 	SDLNet_TCP_AddSocket(setSock, serverTCPSock);
+
+						printf("size of packet received %d\n",lenPacket);
+						printf("message type %d\n",typMsg);
 		
 
 	while(endNetwork)
@@ -333,7 +341,7 @@ int TCPServerStartThread(void *data)
 			if(numTCPClientConnected == 0)
 			{
 				numready=SDLNet_CheckSockets(setSock, (Uint32)200);
-				printf("Testing for 100ms\n");
+//				printf("Testing for 100ms\n");
 			}
 			else
 				numready=SDLNet_CheckSockets(setSock, (Uint32)-1);
@@ -356,14 +364,29 @@ int TCPServerStartThread(void *data)
 					printf("New connection\n");
 					SDLNet_TCP_AddSocket(setSock, sock);
 					addSockToList(sock);
-					IPaddress * testAddress;
-					testAddress = SDLNet_TCP_GetPeerAddress(sock);
-					if(findSockInList(testAddress->host) == sock)
-						printf("L'adresse a bien été rajoutée\n");
 				}
 				else
 					printf("No new connection\n");
 			}
+			for(i=0; numready && i<numTCPClientConnected; i++)
+			{
+				if(SDLNet_SocketReady(TCPClientsConnected[i].sock))
+				{
+					printf("New packet incoming from client %d\n",i);
+
+					if(getPacket(TCPClientsConnected[i].sock, &typMsg, &packet, &lenPacket))
+					{
+						numready--;
+						printf("size of packet received %d\n",lenPacket);
+						printf("message type %d\n",typMsg);
+						fromIp = SDLNet_TCP_GetPeerAddress(TCPClientsConnected[i].sock);
+						HandleTCPMessage(fromIp->host, typMsg, packet, lenPacket);
+					}
+//					else
+//						remove_client(i);*/
+				}
+			}
+
 		}
 		else
 		{
@@ -381,6 +404,16 @@ int TCPServerStartThread(void *data)
 			if(SDLNet_SocketReady(clientSock))
 			{
 				numready--;
+				printf("New packet incoming from server\n");
+
+				if(getPacket(clientSock, &typMsg, &packet, &lenPacket))
+				{
+					printf("size of packet received %d\n",lenPacket);
+					printf("message type %d\n",typMsg);
+					fromIp = SDLNet_TCP_GetPeerAddress(clientSock);
+					HandleTCPMessage(fromIp->host, typMsg, packet, lenPacket);
+				}
+
 			}
 
 		}
@@ -419,6 +452,114 @@ TCPsocket findSockInList(Uint32 addressSock)
 			return TCPClientsConnected[i].sock;
 	return NULL;
 }
+
+
+// Implementation of putPacket and getPacket which are Homeworld specific
+// In homeworld with each message, a message type is send
+// We first send the message type, then the message len, and finally the message data
+
+
+void putPacket(Uint32 address, unsigned char msgType, const void* data, unsigned short dataLen)
+{
+	int result;
+	TCPsocket sock;
+
+	if(clientActive == 0)
+	{
+		printf("envoie en tant que serveur\n",dataLen);
+		SDL_SemWait(semList);
+		sock = findSockInList(address);
+		result = SDLNet_TCP_Send(sock,&msgType,sizeof(unsigned char));
+		if(result<sizeof(unsigned char)) {
+			printf("SDLNet_TCP_Send: %s\n", SDLNet_GetError());
+
+		}
+
+		result = SDLNet_TCP_Send(sock,&dataLen,sizeof(unsigned short));
+
+		if(result<sizeof(unsigned short)) {
+			printf("SDLNet_TCP_Send: %s\n", SDLNet_GetError());
+
+		}
+		result = SDLNet_TCP_Send(sock,data,dataLen);
+		if(result<dataLen) {
+			printf("SDLNet_TCP_Send: %s\n", SDLNet_GetError());
+
+		}
+		SDL_SemPost(semList);
+	}
+	else
+	{
+		printf("envoie en tant que client\n",dataLen);
+		printf("message type %d\n",msgType);
+		sock = clientSock;
+		result = SDLNet_TCP_Send(sock,&msgType,sizeof(unsigned char));
+		if(result<sizeof(unsigned char)) {
+			printf("SDLNet_TCP_Send: %s\n", SDLNet_GetError());
+
+		}
+
+		result = SDLNet_TCP_Send(sock,&dataLen,sizeof(unsigned short));
+
+		if(result<sizeof(unsigned short)) {
+			printf("SDLNet_TCP_Send: %s\n", SDLNet_GetError());
+
+		}
+		result = SDLNet_TCP_Send(sock,data,dataLen);
+		if(result<dataLen) {
+			printf("SDLNet_TCP_Send: %s\n", SDLNet_GetError());
+
+		}
+	}
+	printf("packet send, size of the packet :  %d\n",dataLen);
+}
+
+
+unsigned char getPacket(TCPsocket sock, unsigned char* msgType, Uint8** packetData, unsigned short* packetLen)
+{
+	int result;
+	
+	if(*packetData)
+		free(*packetData);
+	*packetData = NULL;
+
+	result=SDLNet_TCP_Recv(sock,msgType,sizeof(unsigned char));
+	if(result<sizeof(unsigned char))
+	{
+		printf("SDLNet_TCP_Recv: %s\n", SDLNet_GetError());
+		return NULL;
+	}
+
+	printf("type of message received %d\n",*msgType);
+
+	result=SDLNet_TCP_Recv(sock,packetLen,sizeof(unsigned short));
+	if(result<sizeof(unsigned short))
+	{
+		printf("SDLNet_TCP_Recv: %s\n", SDLNet_GetError());
+		return NULL;
+	}
+
+	printf("size of packet received %d\n",*packetLen);
+
+	*packetData=(Uint8*)malloc(*packetLen);
+	if(!(*packetData))
+	{
+		return NULL;
+	}
+
+	if(*packetLen > 0)
+	{
+		result=SDLNet_TCP_Recv(sock,*packetData,*packetLen);
+		if(result<*packetLen)
+		{
+			printf("SDLNet_TCP_Recv: %s\n", SDLNet_GetError());
+			return NULL;
+		}
+	}
+	printf("packet received\n");
+	return *msgType;	
+}
+
 
 
 #endif
