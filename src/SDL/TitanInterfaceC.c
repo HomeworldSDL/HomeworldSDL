@@ -43,6 +43,7 @@ unsigned long titanStart(unsigned long isLan, unsigned long isIP)
 	initNetwork();
 	myAddress.AddrPart.IP = getMyAddress();
 	myAddress.Port = TCPPORT;
+	dbgMessagef("\nmyAddress Ip : %d",myAddress.AddrPart.IP);
 	return 1; 
 #else
 	return 0;
@@ -153,6 +154,19 @@ void titanSendPacketTo(Address *address, unsigned char titanMsgType,
 void titanBroadcastPacket(unsigned char titanMsgType, const void* thePacket, unsigned short theLen)
 {
 	dbgMessagef("\ntitanBroadcastPacket");
+#ifdef HW_ENABLE_NETWORK
+    	int i;
+
+	if(mGameCreationState==GAME_NOT_STARTED) {
+		for (i=0;i<tpGameCreated.numPlayers;i++)
+		{
+			if (!InternetAddressesAreEqual(tpGameCreated.playerInfo[i].address,myAddress))
+			{
+				putPacket((tpGameCreated.playerInfo[i].address.AddrPart.IP), titanMsgType, thePacket, theLen);
+			}
+		}
+	}
+#endif
 
 }
 
@@ -176,7 +190,8 @@ void titanConnectToClient(Address *address)
 {
 	dbgMessagef("\ntitanConnectToClient");
 #ifdef HW_ENABLE_NETWORK
-	connectToServer(address->AddrPart.IP);
+	myAddress.AddrPart.IP = connectToServer(address->AddrPart.IP);
+	dbgMessagef("\nmyAddress Ip : %d",myAddress.AddrPart.IP);
 #endif
 }
 
@@ -301,10 +316,43 @@ void HandleTCPMessage(Uint32 address, unsigned char msgTyp, const void* data, un
 	dbgMessagef("\nHandleTCPMessage");
 	switch(msgTyp)
 	{
-		case TITANMSGTYPE_JOINGAMEREQUEST:
-			HandleJoinGame(address,data,len); break;
-		case TITANMSGTYPE_JOINGAMECONFIRM:
-			HandleJoinConfirm(address,data,len);  break;
+		case TITANMSGTYPE_JOINGAMEREQUEST :
+			HandleJoinGame(address,data,len);
+			break;
+		case TITANMSGTYPE_JOINGAMECONFIRM :
+			HandleJoinConfirm(address,data,len);
+			break;
+		case TITANMSGTYPE_JOINGAMEREJECT :
+			break;
+		case TITANMSGTYPE_UPDATEGAMEDATA :
+			HandleGameData(data,len);
+			break;
+		case TITANMSGTYPE_LEAVEGAMEREQUEST :
+			break;
+		case TITANMSGTYPE_GAMEISSTARTING :
+			HandleGameStart(data,len);
+			break;
+		case TITANMSGTYPE_PING :
+			break;
+		case TITANMSGTYPE_PINGREPLY :
+			break;
+		case TITANMSGTYPE_GAME :
+			HandleGameMsg(data,len);
+			break;
+		case TITANMSGTYPE_GAMEDISOLVED :
+			break;
+		case TITANMSGTYPE_UPDATEPLAYER :
+			break;
+		case TITANMSGTYPE_BEGINSTARTGAME :
+			break;
+		case TITANMSGTYPE_CHANGEADDRESS :
+			break;
+		case TITANMSGTYPE_REQUESTPACKETS :
+			break;
+		case TITANMSGTYPE_RECONNECT :
+			break;
+		case TITANMSGTYPE_KICKPLAYER :
+			break;
 	}
 }
 
@@ -323,7 +371,7 @@ void HandleJoinGame(Uint32 address, const void* data, unsigned short len)
 	if (requestResult == REQUEST_RECV_CB_ACCEPT)
         {
             titanSendPacketTo(&anAddress, TITANMSGTYPE_JOINGAMECONFIRM, NULL, 0);
-//            titanBroadcastPacket(TITANMSGTYPE_UPDATEGAMEDATA, &tpGameCreated, sizeof(tpGameCreated));
+            titanBroadcastPacket(TITANMSGTYPE_UPDATEGAMEDATA, &tpGameCreated, sizeof(tpGameCreated));
         }
         else
         {
@@ -338,6 +386,24 @@ void HandleJoinConfirm(Uint32 address, const void* data, unsigned short len)
 	anAddress.Port = TCPPORT;
 
         titanConfirmReceivedCB(&anAddress, data, len);
+}
+
+void HandleGameData(const void* data, unsigned short len)
+{
+        titanUpdateGameDataCB(data,len);
+}
+
+void HandleGameStart(const void* data, unsigned short len)
+{
+	dbgMessagef("\nHandleGameStart");
+	dbgMessagef("\nmyAddress Ip : %d",myAddress.AddrPart.IP);
+	mgGameStartReceivedCB(data,len);
+	dbgMessagef("\nEnd of HandleGameStart");
+}
+
+void HandleGameMsg(const void* data, unsigned short len)
+{
+	titanGameMsgReceivedCB(data,len);
 }
 
 #endif

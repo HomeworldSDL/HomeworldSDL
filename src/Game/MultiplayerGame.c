@@ -7225,6 +7225,8 @@ void mgGameStartReceivedCB(const void *blob,unsigned short bloblength)
     // scan through to find
     for (i=0;i<tpGameCreated.numPlayers;i++)
     {
+	dbgMessagef("Ip in tp : %d",tpGameCreated.playerInfo[i].address.AddrPart.IP);
+	dbgMessagef("My Ip : %d",myAddress.AddrPart.IP);
         if (AddressesAreEqual(tpGameCreated.playerInfo[i].address,myAddress))
         {
             sigsPlayerIndex = i;

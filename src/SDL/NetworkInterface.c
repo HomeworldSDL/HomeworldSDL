@@ -134,6 +134,7 @@ int broadcastStartThread(void *data)
 			newIp.host=packet->address.host;
 			if(checkList(newIp, listIps) == -1)
 			{
+				printf("newIp : %d\n",newIp.host);
 				listIps = addList(newIp, listIps);
 				if((number=SDLNet_UDP_Bind(data,0,&newIp))==-1)
 				{
@@ -186,6 +187,7 @@ Uint32 getMyAddress()
 {
         UDPsocket recvSock;
         UDPpacket *packet = SDLNet_AllocPacket(512);
+	Uint32 ipAdd;
 
         printf("thread created\n");
 
@@ -208,12 +210,13 @@ Uint32 getMyAddress()
                                         (ipaddr>>8)&0xff,
                                         ipaddr&0xff);
 	printf("IP Address : %d\n",packet->address.host);
-        printf("receive a packet\n");
+	ipAdd = packet->address.host;
         SDLNet_FreePacket(packet);
 
         SDL_WaitThread(pingRecv,NULL);
         SDLNet_UDP_Close(recvSock);
-	return packet->address.host;
+	printf("ipAdd : %d\n",ipAdd);
+	return ipAdd;
 }
 
 int pingSendThread(void *data)
@@ -260,9 +263,11 @@ int pingSendThread(void *data)
 
 
 
-void connectToServer(Uint32 serverIP)
+Uint32 connectToServer(Uint32 serverIP)
 {
 	IPaddress ipToConnect;
+	Uint32 ipViewed;
+	int numrdy, result;
 	
 	if(SDLNet_ResolveHost(&ipToConnect,NULL,TCPPORT)==-1)
 	{
@@ -278,6 +283,23 @@ void connectToServer(Uint32 serverIP)
 		exit(3);
 	}
 
+	SDLNet_SocketSet set;
+	set = SDLNet_AllocSocketSet(1);
+	SDLNet_TCP_AddSocket(set, clientSock);
+	numrdy=SDLNet_CheckSockets(set, (Uint32)-1);
+
+	if(SDLNet_SocketReady(clientSock))
+	{
+		result=SDLNet_TCP_Recv(clientSock,&ipViewed,sizeof(Uint32));
+		if(result<sizeof(Uint32))
+		{
+			printf("SDLNet_TCP_Recv: %s\n", SDLNet_GetError());
+			return NULL;
+		}
+	}
+	else
+		printf("Error during connection");
+
 
 	// Switching to Client Mode.
 	clientActive = 1;
@@ -286,8 +308,7 @@ void connectToServer(Uint32 serverIP)
 	printf("Manage to connect");
 	
 	//addSockToList(sock);
-
-	
+	return ipViewed;	
 }
 
 
@@ -364,6 +385,14 @@ int TCPServerStartThread(void *data)
 					printf("New connection\n");
 					SDLNet_TCP_AddSocket(setSock, sock);
 					addSockToList(sock);
+					fromIp = SDLNet_TCP_GetPeerAddress(sock);
+					int res;
+					res = SDLNet_TCP_Send(sock,&(fromIp->host),sizeof(Uint32));
+					if(res<sizeof(Uint32)) {
+						printf("SDLNet_TCP_Send: %s\n", SDLNet_GetError());
+						printf("Error sending back Ip");
+					}
+					
 				}
 				else
 					printf("No new connection\n");

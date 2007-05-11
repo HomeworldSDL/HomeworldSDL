@@ -18,7 +18,7 @@ void shutdownNetwork();
 int broadcastStartThread(void*);
 int TCPServerStartThread(void*);
 void sendBroadcastPacket(const void*, int);
-void connectToServer(Uint32);
+Uint32 connectToServer(Uint32);
 
 Client * addSockToList(TCPsocket);
 TCPsocket findSockInList(Uint32);
@@ -36,8 +36,12 @@ unsigned char getPacket(TCPsocket, unsigned char*, Uint8**, unsigned short*);
 
 // Callback to the function that Handle messages.
 void HandleTCPMessage(Uint32, unsigned char, const void*, unsigned short);
+
 void HandleJoinGame(Uint32, const void*, unsigned short);
 void HandleJoinConfirm(Uint32, const void*, unsigned short);
+void HandleGameData(const void*, unsigned short);
+void HandleGameStart(const void*, unsigned short);
+void HandleGameMsg(const void*, unsigned short);
 
 
 #define TCPPORT 10500
