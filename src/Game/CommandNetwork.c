@@ -219,7 +219,8 @@ void ReceivedRequestSyncPacketsPacketCB(ubyte *packet,udword sizeofPacket)
 
                 titanSendPointMessage(sendto,(ubyte *)&fakelastsyncpkt,sizeof(HWPacketHeader));
             }
-            titanDebug("Warning: Do not have sync pkt %d to send by request to %d\n",i,sendto);
+//            titanDebug("Warning: Do not have sync pkt %d to send by request to %d\n",i,sendto);
+            dbgMessagef("Warning: Do not have sync pkt %d to send by request to %d\n",i,sendto);
         }
     }
 }

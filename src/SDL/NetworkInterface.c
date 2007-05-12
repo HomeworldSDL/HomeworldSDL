@@ -401,13 +401,13 @@ int TCPServerStartThread(void *data)
 			{
 				if(SDLNet_SocketReady(TCPClientsConnected[i].sock))
 				{
-					printf("New packet incoming from client %d\n",i);
+//					printf("New packet incoming from client %d\n",i);
 
 					if(getPacket(TCPClientsConnected[i].sock, &typMsg, &packet, &lenPacket))
 					{
 						numready--;
-						printf("size of packet received %d\n",lenPacket);
-						printf("message type %d\n",typMsg);
+//						printf("size of packet received %d\n",lenPacket);
+//						printf("message type %d\n",typMsg);
 						fromIp = SDLNet_TCP_GetPeerAddress(TCPClientsConnected[i].sock);
 						HandleTCPMessage(fromIp->host, typMsg, packet, lenPacket);
 					}
@@ -419,7 +419,7 @@ int TCPServerStartThread(void *data)
 		}
 		else
 		{
-			printf("Client server\n");
+//			printf("Client server\n");
 			if(clientInSet == 0)
 			{
 				printf("Adding socket to set\n");
@@ -433,12 +433,12 @@ int TCPServerStartThread(void *data)
 			if(SDLNet_SocketReady(clientSock))
 			{
 				numready--;
-				printf("New packet incoming from server\n");
+//				printf("New packet incoming from server\n");
 
 				if(getPacket(clientSock, &typMsg, &packet, &lenPacket))
 				{
-					printf("size of packet received %d\n",lenPacket);
-					printf("message type %d\n",typMsg);
+//					printf("size of packet received %d\n",lenPacket);
+//					printf("message type %d\n",typMsg);
 					fromIp = SDLNet_TCP_GetPeerAddress(clientSock);
 					HandleTCPMessage(fromIp->host, typMsg, packet, lenPacket);
 				}
@@ -495,7 +495,7 @@ void putPacket(Uint32 address, unsigned char msgType, const void* data, unsigned
 
 	if(clientActive == 0)
 	{
-		printf("envoie en tant que serveur\n",dataLen);
+//		printf("envoie en tant que serveur\n",dataLen);
 		SDL_SemWait(semList);
 		sock = findSockInList(address);
 		result = SDLNet_TCP_Send(sock,&msgType,sizeof(unsigned char));
@@ -519,8 +519,8 @@ void putPacket(Uint32 address, unsigned char msgType, const void* data, unsigned
 	}
 	else
 	{
-		printf("envoie en tant que client\n",dataLen);
-		printf("message type %d\n",msgType);
+//		printf("envoie en tant que client\n",dataLen);
+//		printf("message type %d\n",msgType);
 		sock = clientSock;
 		result = SDLNet_TCP_Send(sock,&msgType,sizeof(unsigned char));
 		if(result<sizeof(unsigned char)) {
@@ -540,7 +540,7 @@ void putPacket(Uint32 address, unsigned char msgType, const void* data, unsigned
 
 		}
 	}
-	printf("packet send, size of the packet :  %d\n",dataLen);
+//	printf("packet send, size of the packet :  %d\n",dataLen);
 }
 
 
@@ -559,7 +559,7 @@ unsigned char getPacket(TCPsocket sock, unsigned char* msgType, Uint8** packetDa
 		return NULL;
 	}
 
-	printf("type of message received %d\n",*msgType);
+//	printf("type of message received %d\n",*msgType);
 
 	result=SDLNet_TCP_Recv(sock,packetLen,sizeof(unsigned short));
 	if(result<sizeof(unsigned short))
@@ -568,7 +568,7 @@ unsigned char getPacket(TCPsocket sock, unsigned char* msgType, Uint8** packetDa
 		return NULL;
 	}
 
-	printf("size of packet received %d\n",*packetLen);
+//	printf("size of packet received %d\n",*packetLen);
 
 	*packetData=(Uint8*)malloc(*packetLen);
 	if(!(*packetData))
@@ -585,7 +585,7 @@ unsigned char getPacket(TCPsocket sock, unsigned char* msgType, Uint8** packetDa
 			return NULL;
 		}
 	}
-	printf("packet received\n");
+//	printf("packet received\n");
 	return *msgType;	
 }
 

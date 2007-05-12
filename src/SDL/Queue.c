@@ -194,7 +194,7 @@ udword Peekqueue(Queue *queue,ubyte **packet)
     }
 
     sizeofPacket = *((udword *)readfrom);
-    *((udword *)readfrom) +=1;
+    readfrom += sizeof(udword);
     *packet = readfrom;
 
     return sizeofPacket;
