@@ -1,6 +1,6 @@
 /* Localized versions of Info.plist keys */
 
 CFBundleName = "Homeworld Raider Retreat";
-CFBundleShortVersionString = "Homeworld Raider Retreat 0.8alpha (r346)";
-CFBundleGetInfoString = "Homeworld Raider Retreat 0.8alpha (r346)";
+CFBundleShortVersionString = "Homeworld Raider Retreat 0.9alpha (r613)";
+CFBundleGetInfoString = "Homeworld Raider Retreat 0.9alpha (r613)";
 NSHumanReadableCopyright = "Homeworld SDL is based on source code copyright Relic Entertainment Inc.";
