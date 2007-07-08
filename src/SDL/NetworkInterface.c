@@ -411,8 +411,8 @@ int TCPServerStartThread(void *data)
 						fromIp = SDLNet_TCP_GetPeerAddress(TCPClientsConnected[i].sock);
 						HandleTCPMessage(fromIp->host, typMsg, packet, lenPacket);
 					}
-//					else
-//						remove_client(i);*/
+					else
+						removeSockFromList(i);
 				}
 			}
 
@@ -442,6 +442,12 @@ int TCPServerStartThread(void *data)
 					fromIp = SDLNet_TCP_GetPeerAddress(clientSock);
 					HandleTCPMessage(fromIp->host, typMsg, packet, lenPacket);
 				}
+				else
+				{
+					SDLNet_TCP_Close(clientSock);
+					clientInSet = 0;
+					clientActive = 0;
+				}
 
 			}
 
@@ -469,6 +475,19 @@ Client * addSockToList(TCPsocket sock)
 	}
 	else
 		return NULL;
+}
+
+void removeSockFromList(int num)
+{
+	SDL_SemWait(semList);
+	SDLNet_TCP_Close(TCPClientsConnected[num].sock);
+	numTCPClientConnected--;
+
+	if(num < numTCPClientConnected)
+		memmove(&TCPClientsConnected[num], &TCPClientsConnected[num+1], (numTCPClientConnected-num)*sizeof(Client));
+	TCPClientsConnected = (Client*) realloc (TCPClientsConnected, numTCPClientConnected*sizeof(Client));
+	SDL_SemPost(semList);
+
 }
 
 TCPsocket findSockInList(Uint32 addressSock)
@@ -555,7 +574,8 @@ unsigned char getPacket(TCPsocket sock, unsigned char* msgType, Uint8** packetDa
 	result=SDLNet_TCP_Recv(sock,msgType,sizeof(unsigned char));
 	if(result<sizeof(unsigned char))
 	{
-		printf("SDLNet_TCP_Recv: %s\n", SDLNet_GetError());
+//		printf("SDLNet_TCP_Recv: %s\n", SDLNet_GetError());
+		printf("Other side must have quit");
 		return NULL;
 	}
 

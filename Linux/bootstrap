@@ -5,11 +5,8 @@ if [ ! -d stuff ]; then
     exit 1
 fi
 
-cp -rf stuff/* ../
+cp stuff/configure.ac ../
+cp stuff/Makefile.am ../
 cd ..
 set -x
-libtoolize --force --copy
-aclocal -I config
-autoheader
-automake --add-missing --force-missing --foreign --copy
-autoconf
+autoreconf -i -f

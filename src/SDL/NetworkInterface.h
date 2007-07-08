@@ -22,6 +22,7 @@ Uint32 connectToServer(Uint32);
 
 Client * addSockToList(TCPsocket);
 TCPsocket findSockInList(Uint32);
+void removeSockFromList(int);
 
 int checkList(IPaddress, IpList);
 IpList addList(IPaddress, IpList);

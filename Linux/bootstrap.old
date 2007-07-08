@@ -1,0 +1,15 @@
+#!/bin/sh
+
+if [ ! -d stuff ]; then
+    echo "please cd to Linux directory first"
+    exit 1
+fi
+
+cp -rf stuff/* ../
+cd ..
+set -x
+libtoolize --force --copy
+aclocal -I config
+autoheader
+automake --add-missing --force-missing --foreign --copy
+autoconf
