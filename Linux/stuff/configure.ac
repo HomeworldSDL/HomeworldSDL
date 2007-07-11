@@ -5,8 +5,17 @@ AM_INIT_AUTOMAKE([-Wall foreign dist-bzip2])
 
 AC_LIBTOOL_WIN32_DLL
 AC_PROG_CC
+if test "$CC" = :; then
+  AC_MSG_ERROR([This package needs a C compiler.])
+fi
 AC_PROG_YACC
+if test "$YACC" = :; then
+  AC_MSG_ERROR([This package needs yacc to compile.])
+fi
 AM_PROG_LEX
+if test "$LEX" = :; then
+  AC_MSG_ERROR([This package needs lex to compile.])
+fi
 AC_LIBTOOL_DLOPEN
 AM_PROG_LIBTOOL
 
