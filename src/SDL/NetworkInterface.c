@@ -106,6 +106,7 @@ void shutdownNetwork()
 	SDLNet_UDP_Close(broadcastSendSock);
 	broadcastSendSock = NULL;
 	SDL_WaitThread(listenBroadcast,NULL);
+	SDL_WaitThread(listenTCP,NULL);
 	SDLNet_Quit();
 }
 
@@ -279,7 +280,7 @@ Uint32 connectToServer(Uint32 serverIP)
 
 	if(!(clientSock = SDLNet_TCP_Open(&ipToConnect)))
 	{
-		printf("can't create Server TCP socket \n");
+		printf("can't create TCP socket to connect to server\n");
 		exit(3);
 	}
 
@@ -358,14 +359,7 @@ int TCPServerStartThread(void *data)
 	
 		if(clientActive == 0)
 		{
-			// In case no client connected, we might switch to Client type.
-			if(numTCPClientConnected == 0)
-			{
-				numready=SDLNet_CheckSockets(setSock, (Uint32)200);
-//				printf("Testing for 100ms\n");
-			}
-			else
-				numready=SDLNet_CheckSockets(setSock, (Uint32)-1);
+			numready=SDLNet_CheckSockets(setSock, (Uint32)500);
 
 			if(numready==-1)
 			{
@@ -427,7 +421,7 @@ int TCPServerStartThread(void *data)
 				clientInSet = 1;
 			}
 
-			numready=SDLNet_CheckSockets(clientSet, (Uint32)-1);
+			numready=SDLNet_CheckSockets(clientSet, (Uint32)500);
 			
 			// Code as a client
 			if(SDLNet_SocketReady(clientSock))
@@ -454,6 +448,15 @@ int TCPServerStartThread(void *data)
 		}
 
 	}
+
+	for(i=0; i<numTCPClientConnected; i++)
+	{
+		removeSockFromList(i);
+	}
+
+	SDLNet_TCP_Close(clientSock);
+	SDLNet_TCP_Close(serverTCPSock);
+
 	return 0;
 }
 
