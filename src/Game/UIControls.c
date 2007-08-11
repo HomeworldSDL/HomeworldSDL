@@ -3782,6 +3782,7 @@ udword uicTextEntryProcess(regionhandle reg, sdword ID, udword event, udword dat
                     feFunctionExecute(atom->name, atom, FALSE);
                     uicEscProcess(reg,ID,event,data);
                     break;
+		case RETURNKEY:
                 case ENTERKEY:
                     entry->message = CM_AcceptText;
                     feFunctionExecute(atom->name, atom, FALSE);
