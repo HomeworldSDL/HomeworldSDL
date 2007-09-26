@@ -125,7 +125,7 @@ void kasfMissionCompleted(void)
         speechEventCleanup();
         singlePlayerMissionCompleteCB();
         
-        animBinkPlay(spGetCurrentMission(), spGetNextMission());
+        animAviPlay(spGetCurrentMission(), spGetNextMission());
     }
 }
 
