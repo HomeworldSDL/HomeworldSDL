@@ -498,7 +498,7 @@ DEFINE_TASK(nisUpdateTask)
             }
             //if (!nisPaused)
             {                                               //actually update NIS if NIS unpaused
-                newTime = nisUpdate(thisNisPlaying, 1.0f / (real32)UNIVERSE_UPDATE_RATE);
+                newTime = nisUpdate(thisNisPlaying, UNIVERSE_UPDATE_PERIOD);
                 if (newTime == REALlyBig)
                 {
                     nisStop(thisNisPlaying);
@@ -529,7 +529,7 @@ DEFINE_TASK(nisUpdateTask)
 #if NIS_TEST
         if (testPlaying)
         {
-            newTime = nisUpdate(testPlaying, 1.0f / (real32)UNIVERSE_UPDATE_RATE);
+            newTime = nisUpdate(testPlaying, UNIVERSE_UPDATE_PERIOD);
             if (newTime == REALlyBig || keyIsStuck(NUMPAD1))
             {
                 keyClearSticky(NUMPAD1);
@@ -547,10 +547,10 @@ DEFINE_TASK(nisUpdateTask)
         {
             if (!gameIsRunning)
             {
-                univUpdate(1.0f / (real32)UNIVERSE_UPDATE_RATE);
+                univUpdate(UNIVERSE_UPDATE_PERIOD);
                 soundEventUpdate();
             }
-            newTime = nisUpdate(utyTeaserPlaying, 1.0f / (real32)UNIVERSE_UPDATE_RATE);
+            newTime = nisUpdate(utyTeaserPlaying, UNIVERSE_UPDATE_PERIOD);
 
             if (newTime == REALlyBig)
             {
