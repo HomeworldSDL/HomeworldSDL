@@ -208,7 +208,7 @@ void TimeoutTimerStart(sdword timer,real32 timeout)
 
     timeoutTimers[timer].enabled = TRUE;
     timeoutTimers[timer].timerLast = timerval;
-    timeoutTimers[timer].timeoutTicks = (udword) (timeout * UTY_TimerResloutionMax);
+    timeoutTimers[timer].timeoutTicks = (udword) (timeout * UTY_TimerResolutionMax);
 }
 
 void TimeoutTimerReset(sdword timer)

@@ -4175,7 +4175,7 @@ char *utyGameSystemsInit(void)
         }
     }
     
-    utyTimerDivisor = 1000 / UTY_TimerResloutionMax;
+    utyTimerDivisor = 1000 / UTY_TimerResolutionMax;
     utySet(SSA_Timer);
                                                             //start the task manager
     taskStartup((udword)(1000 / utyTimerDivisor));

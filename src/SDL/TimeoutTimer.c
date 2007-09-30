@@ -92,7 +92,7 @@ void TTimerStart(TTimer *timer,real32 timeout)
     timer->enabled = TRUE;
     timer->timedOut = FALSE;
     timer->timerLast = timerval;
-    timer->timeoutTicks = (udword) (timeout * UTY_TimerResloutionMax);
+    timer->timeoutTicks = (udword) (timeout * UTY_TimerResolutionMax);
 }
 
 void GetRawTime(sqword *time)
