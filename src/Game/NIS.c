@@ -3611,7 +3611,7 @@ void nisRemainAtEndSet(char *directory,char *field,void *dataToFillIn)
 void nisCameraFOVSet(char *directory,char *field,void *dataToFillIn)
 {
     nisevent *event = nisNewEvent(NEO_CameraFOV);
-    sscanf(field, "%f", &event->param[0]);
+    sscanf(field, "%d", &event->param[0]);
 }
 void nisRaceSwap(char *directory,char *field,void *dataToFillIn)
 {
