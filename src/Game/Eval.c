@@ -184,7 +184,7 @@ static void read_token()
     /* check whether it is a function */
 
     f.order = 0; /* dummy */
-    strcpy(f.s, str_token);
+    f.s = str_token;
 
     if ( (ptr = lookup(f)) != NULL )
       cur_token = BEGIN_FUNC + ptr->order;
