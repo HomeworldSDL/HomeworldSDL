@@ -37,7 +37,7 @@ void clCommandMessage(char CommandMessage[MAX_MESSAGE_LENGTH])
     LockMutex(gMessageMutex);
 
     // find the next empty message slot in the global message array
-    while ((i < MAX_MESSAGES)&&(gMessage[i].message[0] != (char)NULL))
+    while ((i < MAX_MESSAGES)&&(gMessage[i].message[0] != '\0'))
     {
         i++;
     }

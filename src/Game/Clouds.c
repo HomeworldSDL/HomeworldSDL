@@ -8,16 +8,21 @@
 
 #include "Clouds.h"
 
+#include "AutoLOD.h"
+#include "Clipper.h"
 #include "devstats.h"
 #include "FastMath.h"
+#include "glcaps.h"
 #include "glinc.h"
 #include "mainrgn.h"
 #include "Memory.h"
 #include "Randy.h"
 #include "render.h"
+#include "Shader.h"
 #include "SpaceObj.h"
 #include "StatScript.h"
 #include "Universe.h"
+#include "UnivUpdate.h"
 
 extern udword gDevcaps2;
 

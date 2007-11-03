@@ -4196,11 +4196,11 @@ void mrCommandMessageDraw(void)
 
     LockMutex(gMessageMutex);
 
-    if (gMessage[0].message[0] == (char)NULL)
+    if (gMessage[0].message[0] == '\0')
         goto done;
 
     // find the last valid message in global array
-    while (gMessage[i].message[0] == (char)NULL)
+    while (gMessage[i].message[0] == '\0')
     {
         i--;
     }
@@ -4218,16 +4218,16 @@ void mrCommandMessageDraw(void)
 
     // remove expired messages
     while ((gMessage[0].MessageExpire < universe.totaltimeelapsed) &&
-           (gMessage[0].message[0] != (char)NULL))
+           (gMessage[0].message[0] != '\0'))
     {
         // shift up remaining messages to fill in void left by expired message
-        while (gMessage[i+1].message[0] != (char)NULL)
+        while (gMessage[i+1].message[0] != '\0')
         {
             strcpy(gMessage[i].message, gMessage[i+1].message);
             gMessage[i].MessageExpire = gMessage[i+1].MessageExpire;
             i++;
         }
-        gMessage[i].message[0]  = (char)NULL;
+        gMessage[i].message[0]  = '\0';
         i = 0;
     }
 
@@ -5689,7 +5689,7 @@ void mrRegionDraw(regionhandle reg)
         }
     }
 
-    if (gMessage[0].message[0] != (char)NULL)
+    if (gMessage[0].message[0] != '\0')
     {
         mrCommandMessageDraw();
     }

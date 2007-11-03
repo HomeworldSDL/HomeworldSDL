@@ -162,7 +162,7 @@ void globalsResetFunc(bool firstTime)
     while (i < MAX_MESSAGES)
     {
         gMessage[i].MessageExpire = (real32)0;
-        gMessage[i].message[0]    = (char)NULL;
+        gMessage[i].message[0]    = '\0';
         i++;
     }
     UnLockMutex(gMessageMutex);
@@ -170,7 +170,7 @@ void globalsResetFunc(bool firstTime)
     for (i=0;i<MAX_BIGMESSAGES;i++)
     {
         bMessage[i].messageOn = FALSE;
-        bMessage[i].message[0] = (char)0;
+        bMessage[i].message[0] = '\0';
     }
 
     for (i=0;i<MAX_MULTIPLAYER_PLAYERS;i++)

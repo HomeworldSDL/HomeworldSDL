@@ -80,7 +80,6 @@ IDToPtrTable MissileIDToPtr;
 void setSalvageInfo(SpaceObjRotImpTargGuidanceShipDerelict *object);
 
 
-bool ApplyDamageToTarget(SpaceObjRotImpTarg *target,real32 damagetaken,GunSoundType soundType,sdword damageHow,sdword playerIndex);
 static void MakeExplosionRockBumpables(Ship *ship,bool scuttle);
 void pointExplosionInSpace(vector *position,real32 blastRadius,real32 maxDamage,sdword playerIndex);
 

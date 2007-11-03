@@ -198,7 +198,7 @@ void transTableSetup(long sofar[], long actual[], long remain[],
   factorize(*nPoints, nFact, actual);
   if (actual[*nFact] > maxPrimeFactor)
     {
-      printf("\nPrime factor of FFT length too large : %6d",actual[*nFact]);
+      printf("\nPrime factor of FFT length too large : %6ld",actual[*nFact]);
       exit(1);
     }
   remain[0]=*nPoints;
