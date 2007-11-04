@@ -15,21 +15,21 @@
 /*=============================================================================
     Switches
 =============================================================================*/
-#ifdef HW_Debug
+#ifdef HW_BUILD_FOR_DEBUGGING
 
 #define LI_ERROR_CHECKING           1           //general error checking
 #define LI_VERBOSE_LEVEL            0           //control specific output code
 #define LI_RETAIN_NAME              1           //keep a copy of the file name around
 #define LI_NAMED_LAYER_WARNINGS     1           //present earnings if cannot find named layers
 
-#else //HW_Debug
+#else
 
 #define LI_ERROR_CHECKING           0           //general error checking
 #define LI_VERBOSE_LEVEL            0           //control specific output code
 #define LI_RETAIN_NAME              0           //keep a copy of the file name around
 #define LI_NAMED_LAYER_WARNINGS     0           //present earnings if cannot find named layers
 
-#endif //HW_Debug
+#endif
 
 /*=============================================================================
     Definitions:
@@ -127,7 +127,7 @@ typedef struct
     uword flags;                                //(see above)
     uword blendMode;                            //blending mode (see above)
     real32 opacity;                             //0.0 .. 1.0
-    char *name;                                 //name of layer
+    ubyte *name;                                //name of layer
     liblendrange greyBlendRange;
     sword nChannels;                            //number of channels in image
     lichannel *channels;                        //list of channels or uncompressed bitmaps

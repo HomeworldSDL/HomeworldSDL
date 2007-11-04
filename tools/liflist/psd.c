@@ -79,7 +79,7 @@ psdBlendNameTable[] =
     Outputs     : ..
     Return      : corresponding uword enumeration.
 ----------------------------------------------------------------------------*/
-uword psdBlendNameToWord(char *name)
+uword psdBlendNameToWord(ubyte *name)
 {
     sdword index;
 
@@ -151,7 +151,7 @@ udword psdFileReadDword(void)
 ----------------------------------------------------------------------------*/
 void psdFileReadBytes(sdword length, ubyte *dest)
 {
-    fileBlockRead(psdFileHandle, dest, length);
+    fileBlockRead(psdFileHandle, (void *)dest, length);
     psdBytesRead += length;
 }
 
@@ -266,9 +266,9 @@ sdword psdFileReadStructure(ubyte *structure, uword *pTemplate)
     Outputs     : Allocates memory for and loads .PSD file.
     Return      : pointer to newly allocated string.
 ----------------------------------------------------------------------------*/
-char *psdPascalStringRead(void)
+ubyte *psdPascalStringRead(void)
 {
-    char *string;
+    ubyte *string;
     ubyte length;
 
     length = psdFileReadByte();                             //read length of string
@@ -283,7 +283,7 @@ char *psdPascalStringRead(void)
     {
         psdFileSkipBytes(4 - ((length + 1) & 3));           //round up to multiple of 4 bytes
     }
-    return(string);
+    return string;
 }
 
 /*-----------------------------------------------------------------------------

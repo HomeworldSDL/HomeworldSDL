@@ -345,7 +345,6 @@ lifheader *trLIFFileLoad(char *fileName, udword flags);
 void trBufferColorRGB(color *dest, color *source, ubyte *teamEffect0, ubyte *teamEffect1, color teamColor0, color teamColor1, sdword size, udword flags, real32 effectScalar0, real32 effectScalar1);
 
 //misc utility functions
-sdword trLayerNameMatch(char *name, char **nameList);
 void trFilterEnable(sdword bEnable);
 texreg *trStructureGet(trhandle handle);
 color *trImageScale(color *data, sdword width, sdword height, sdword newWidth, sdword newHeight, bool bFree);

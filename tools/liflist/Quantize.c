@@ -75,7 +75,7 @@ sdword qQuantizeQueueIndex = 0;
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void Hist3d(long int *vwt, long int *vmr, long int *vmg, long int *vmb, float *m2)
+void Hist3d(sdword *vwt, sdword *vmr, sdword *vmg, sdword *vmb, float *m2)
 {
     register int ind, r, g, b;
     int      inr, ing, inb, table[256];

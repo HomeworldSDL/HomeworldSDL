@@ -34,7 +34,7 @@ lilayer *liLayerFindByName(layerimage *image, char *name)
 
     for (index = 0; index < image->nLayers; index++)
     {                                                       //for all layers
-        if (!strcmp(name, image->layers[index].name))
+        if (!strcmp(name, (char *)image->layers[index].name))
         {                                                   //if layer names match
             return(&image->layers[index]);                  //return pointer to layer
         }

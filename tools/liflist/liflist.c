@@ -6,20 +6,23 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <io.h>
-#include "debug.h"
-#include "memory.h"
+#ifdef _WIN32
+    #define WIN32_LEAN_AND_MEAN
+    #include <windows.h>
+#endif
+
+#include "standard_library.h"
+
+#include "Debug.h"
+#include "File.h"
+#include "Memory.h"
 #include "psd.h"
-#include "crc32.h"
-#include "quantize.h"
-#include "twiddle.h"
+#include "CRC32.h"
+#include "Quantize.h"
+#include "Twiddle.h"
 #include "tga.h"
-#include "file.h"
+#include "texreg.h"
+
 
 /*=============================================================================
     Definitions:
@@ -35,28 +38,14 @@
 #define LL_FileIdentifier           "Event13"
 #define LL_FileVersion              0x104
 #define LL_MaxElements              12000
-#define TS_Delimiters               " \t\n,"
 #define LL_MinWidth                 2
 #define LL_MaxWidth                 512
 #define LL_MinHeight                2
 #define LL_MaxHeight                512
 #define LL_MaxTexEntries            1024
 //tokens defining special layers
-#define TRT_BaseColor1              "COL 1"     //colorization layers
-#define TRT_BaseColor2              "COL1"
-#define TRT_DetailColor1            "COL 2"
-#define TRT_DetailColor2            "COL2"
-#define TRT_Texture                 "TEX"       //base layers
-#define TRT_PanelLinesBlack         "PB"        //detail layers
-#define TRT_PanelLinesWhite         "PW"
-#define TRT_Labels                  "LAB"
-#define TRT_DirtAndGrime            "DIRT"
-#define TRT_Badge                   "BADGE"     //now defunct? (ignore for now)
-#define TRT_Alpha                   "ALPHA"     //alpha-channel in alpha-channel sprites
 #define TR_ColoringThreshold        128
 //flags for texture list
-#define LIF_FileIdentifier          "Willy 7"   //identifier for .LiF files
-#define LIF_FileVersion             0x104       //version number for
 #define LL_BadCRC                   0xdeadbabe
 
 //flags for elements in a texture list
@@ -118,31 +107,6 @@ typedef struct
 }
 rleallimage;
 
-//formats for lif listing files
-typedef struct
-{
-    char ident[8];                              //compared to "Event13"
-    sdword version;                             //version number
-    sdword nElements;                           //number of textures listed
-    sdword stringLength;                        //length of all strings
-    sdword sharingLength;                       //length of all offsets
-    sdword totalLength;                         //total length of file, this header not included
-}
-llfileheader;
-typedef struct
-{
-    char *textureName;                          //name of texture, an offset from start of string block
-    sdword width, height;                       //size of texture
-    udword flags;                               //flags for things like alpha and luminance map
-    crc32 imageCRC;                             //crc of the unquantized image
-//    sdword nSizes;                              //number of image sizes
-//    sdword imageSize[LLC_NumberImages];         //size of the image
-    sdword nShared;                             //number of images which share this one
-    sdword *sharedTo;                           //list of indices of images which share this one
-    sdword sharedFrom;                          //image this one is shared from, or -1 if none
-}
-llelement;
-
 //structure to assist computation of team effect palettes
 typedef struct
 {
@@ -166,22 +130,6 @@ typedef struct
 }
 texentry;
 
-//formats for the .LiF files
-typedef struct
-{
-    char ident[8];                              //compared to "Willy 7"
-    sdword version;                             //version number
-    sdword flags;                               //to plug straight into texreg flags
-    sdword width, height;                       //dimensions of image
-    crc32 paletteCRC;                           //a CRC of palettes for fast comparison
-    crc32 imageCRC;                             //crc of the unquantized image
-    udword data;                                //actual image
-    udword palette;                             //palette for this image
-    udword teamEffect0, teamEffect1;            //palettes of team color effect
-//    sdword nSizes;                              //number of sizes encoded
-//    udword image[LLC_NumberImages];             //offset-pointers to the individual images (from end of this header)
-}
-lifheader;
 
 /*=============================================================================
     Data:
@@ -521,7 +469,7 @@ void llAddMif(char *mifFile)
 {
     FILE *f;
     char string[256], *fileName;
-    char pathBuffer[_MAX_PATH];
+    char pathBuffer[PATH_MAX];
     char drive[_MAX_DRIVE];
     char dir[_MAX_DIR];
     char *dirUpper;
@@ -627,7 +575,7 @@ void llTexturesSubtract(char *mifFile)
 {
     FILE *f;
     char string[256], *fileName;
-    char pathBuffer[_MAX_PATH];
+    char pathBuffer[PATH_MAX];
     char drive[_MAX_DRIVE];
     char dir[_MAX_DIR];
     char *dirUpper;
@@ -918,7 +866,7 @@ char *stristr(char *string, char *subString)
     Outputs     : converts name to upper case before comparisson
     Return      : TRUE if found, FALSE if not
 ----------------------------------------------------------------------------*/
-sdword trLayerNameMatch(char *name, char **nameList)
+sdword trLayerNameMatch(ubyte *name, char **nameList)
 {
     sdword length;
     _strupr(name);
@@ -1193,7 +1141,10 @@ void llLIFSave(texentry *info, color *palette, ubyte *teamPalette0, ubyte *teamP
     }
     header.width = info->image->width;
     header.height = info->image->height;
+
+    // YUCK - dual use of pointer to be memory offset...    
     header.data = sizeof(header);                           //data comes right after the header
+
     if (bitTest(header.flags, TRF_Alpha))
     {                                                       //if it's a truecolor image
         header.palette = 0;
@@ -2141,7 +2092,7 @@ void llTexturesQuantize(char *mifFile)
 {
     FILE *f;
     char string[256], *fileName;
-    char sourcePath[_MAX_PATH], destPath[_MAX_PATH];
+    char sourcePath[PATH_MAX], destPath[PATH_MAX];
     char drive[_MAX_DRIVE];
     char dir[_MAX_DIR], otherDir[_MAX_DIR], *dirUpper;
     char fname[_MAX_FNAME];
@@ -2449,7 +2400,7 @@ doneTheOneLastTime:;
 void llLostFilesFilter(void)
 {
     sdword index, status;
-    char fullPath[_MAX_PATH];
+    char fullPath[PATH_MAX];
     struct _finddata_t findData;
 
     for (index = 0; index < llNElements; index++)
@@ -2594,4 +2545,3 @@ int main(int argc, char *argv[])
     llSystemsShutdown();
     return(0);
 }
-
