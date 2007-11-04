@@ -24,7 +24,7 @@ We need to convert [?]s to one of [Y] or [N] and [Y]s to [A]s. Then get the [A]s
 [?] HWVideoTweaker   not sure what video it tweaks...
 [?] IniScript        .ini script validation?
 [A] KAS              .KAS -> C converter
-[Y] LiFList          creates a list of .LiFs
+[A] LiFList          creates a list of .LiFs
 [?] LWExport         converts <something> to LightWave?
 [?] Mission          Mission(Man) editor but doesn't look like it's complete...
 [?] NetLogView       network debugging tool?
