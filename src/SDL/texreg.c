@@ -28,7 +28,6 @@
 
 #include "glcaps.h"
 #include "Universe.h"
-#include "gldll.h"
 
 #ifdef _MSC_VER
 #define strcasecmp _stricmp

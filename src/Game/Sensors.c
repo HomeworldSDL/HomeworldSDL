@@ -46,6 +46,7 @@
 #include "Randy.h"
 #include "Region.h"
 #include "render.h"
+#include "rglu.h"
 #include "SaveGame.h"
 #include "Select.h"
 #include "Shader.h"

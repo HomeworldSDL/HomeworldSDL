@@ -10,7 +10,7 @@
 
 #include "avi.h"
 #include "File.h"
-#include "gldll.h"
+#include "glinc.h"
 #include "mouse.h"
 #include "NIS.h"
 #include "rglu.h"

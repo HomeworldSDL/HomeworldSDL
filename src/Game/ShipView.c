@@ -28,6 +28,7 @@
 #include "Options.h"
 #include "Probe.h"
 #include "render.h"
+#include "rglu.h"
 #include "SoundEvent.h"
 #include "StatScript.h"
 #include "StringSupport.h"

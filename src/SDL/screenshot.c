@@ -16,8 +16,7 @@
 #endif
 
 #include "Debug.h"
-#include "gldefines.h"
-#include "gldll.h"
+#include "glinc.h"
 #include "interfce.h"
 #include "main.h"
 

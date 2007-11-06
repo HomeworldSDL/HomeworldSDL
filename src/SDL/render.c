@@ -55,6 +55,7 @@
 #include "prim3d.h"
 #include "ProfileTimers.h"
 #include "ProximitySensor.h"
+#include "rglu.h"
 #include "Region.h"
 #include "SalCapCorvette.h"
 #include "screenshot.h"

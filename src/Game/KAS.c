@@ -24,6 +24,7 @@
 #include "Objectives.h"
 #include "prim3d.h"
 #include "render.h"
+#include "rglu.h"
 #include "SaveGame.h"
 #include "Select.h"
 #include "SinglePlayer.h"

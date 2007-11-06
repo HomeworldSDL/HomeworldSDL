@@ -18,7 +18,7 @@
 #include "avi.h"
 #include "Debug.h"
 #include "File.h"
-#include "gldll.h"
+#include "glinc.h"
 #include "NIS.h"
 #include "Subtitle.h"
 #include "Tutor.h"

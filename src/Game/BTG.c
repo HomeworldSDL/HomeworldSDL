@@ -19,6 +19,7 @@
 #include "mainrgn.h"
 #include "Memory.h"
 #include "render.h"
+#include "rglu.h"
 #include "texreg.h"
 #include "Universe.h"
 #include "Vector.h"
