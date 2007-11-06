@@ -265,12 +265,10 @@ void aviDisplayFrame( AVPicture *pFrameRGB, int w, int h )
     animAviSetup(TRUE);
     glRasterPos2i(x, y);
 
-//    glDrawPixels (w,h, GL_RGBA, GL_UNSIGNED_INT_8_8_8_8, pFrameRGB->data[0]);
-//    glDrawPixels (w,h, GL_RGBA, 0x8035, pFrameRGB->data[0]);
+//    glDrawPixels(w, h, GL_RGBA, GL_UNSIGNED_INT_8_8_8_8, pFrameRGB->data[0]);
 
-//    glDrawPixels (w,h, GL_BGRA, GL_UNSIGNED_INT_8_8_8_8_REV,
-//                  pFrameRGB->data[0]);
-    glDrawPixels (w,h, 0x80E1, 0x8367, pFrameRGB->data[0]);
+    glDrawPixels(w, h, GL_BGRA, GL_UNSIGNED_INT_8_8_8_8_REV,
+                 pFrameRGB->data[0]);
 
     animAviSetup(FALSE);
 

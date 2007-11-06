@@ -751,9 +751,7 @@
 #define GL_RGBA                             0x1908
 #define GL_LUMINANCE                        0x1909
 #define GL_LUMINANCE_ALPHA                  0x190A
-/*      GL_ABGR_EXT */
-/*      GL_BGR_EXT */
-/*      GL_BGRA_EXT */
+#define GL_BGRA                             0x80E1
 
 /* PixelMap */
 /*      GL_PIXEL_MAP_I_TO_I */
@@ -1028,6 +1026,9 @@
 #define GL_UNSIGNED_SHORT_5_5_5_1_EXT       0x8034
 #define GL_UNSIGNED_INT_8_8_8_8_EXT         0x8035
 #define GL_UNSIGNED_INT_10_10_10_2_EXT      0x8036
+/* It is not an extension anymore. */
+#define GL_UNSIGNED_INT_8_8_8_8			0x8035
+#define GL_UNSIGNED_INT_8_8_8_8_REV		0x8367
 
 /* EXT_vertex_array */
 #define GL_VERTEX_ARRAY_EXT                 0x8074
