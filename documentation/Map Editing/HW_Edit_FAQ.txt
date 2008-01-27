@@ -1,0 +1,259 @@
+********************************************************************************************
+
+                            Homeworld Mapmaking Help and FAQ                   v2.0a
+
+********************************************************************************************
+
+By Obithrawn (with help)
+
+This is the second version of my help file, and it is more of a FAQ than the previous
+version.  Anyway, first, go to Jason's site (http://www.strategyplanet.com/HWMaps/)
+and go to the editing section, then print out all the editing files there.  I mention them
+a lot, and they helped me (I should explain a lot of things in those, but its nice to have
+them anyway).  Also, I would like to thank Jason (BPLlama), TAKER, Hellhawk666, Skywalker,
+Jacelor, Skywalker, and anyone on the Relic board I didn't mention (especially the makers
+of all those kick-ass Homeworld web sites out there).  And I would like to thank my parents,
+and my cats, Zoe and Stanly, and KoRn, and RatM, and pr0n, and potatoes...oh, and the guy
+who first decided to sqeeze cow utters, and drink what came out of them.  Especially him.
+
+All these questions fit into the catagory "How do I make a map?" which is the most FAQ of all!
+
+To the questions, batman!  And this time don't forget my pants!
+
+********************************************************************************************
+
+1 - What do I need to make my own maps?
+
+To make/edit maps, you need either MissionMan, or Notepad (which, I think, comes with
+Windows).  Actually any text editor will do, just remember save it your files in plain
+text format, not one of those "fancy-pantsie" formats.
+
+Another alternative to MissionMan and Notepad is Excel.  Homeworld map files can
+be loaded and saved with Excel if you use the "Comma Seperated" or "CSV" spreadsheet
+format, and it really lines those columns of numbers up nicely.  Once again Excel isn't
+a must, any spreadsheet or database program that supports CSV should work fine.
+
+********************************************************************************************
+
+2 - Where can I get MissionMan?
+
+It comes with Homeworld, in the instellation menu (when you put the cd in, the installation
+menu should pop up).  But, personally, I think using Notepad is much easier (will be
+covered later).
+
+********************************************************************************************
+
+3 - Are there any other mapmaking programs?
+
+Not as of Christmas '99.  There are several tools, including the Random Derelict Placer,
+the Ringmaker, and the JUICY .dist file creator, that might help you out.  They're
+available on the editing section of Jason's site.
+
+********************************************************************************************
+
+4 - What does MissionMan do?
+
+MissionMan creates a bunch of text files when you generate missions, and they all
+can be opened using notepad.  How to open using notepad:
+
+	1.  Open a map, like Iron Curtin.
+	2.  When the window that say 'what do you want to use to open this' pops up,
+            select notepad.  
+
+It should then open in notepad, and you should be able to see all the text.  This is
+how most people edit maps, straight form notepad.  (I know it looks confusing at first,
+but we'll cover it all)
+
+********************************************************************************************
+
+5 - How do I make distribution files, and what do they do?
+
+You have to have at least one .dist file for every type of resource you have on your
+map.  (EX-one for all the asteroids, one for the dustcoulds)  What they do is tell
+Homeworld how many of each size of asteroid/dustcloud/nebulea to put in.  For example,
+say this was testmap2.  When you opened it up, it looked like this:
+
+	Asteroid0      0 
+	Asteroid1      1
+	Asteroid2      2
+	Asteroid3      4
+	Asteroid4      0
+
+What that means is that there will be twice as many asteroid2's as asteroid1's.  And there
+will be twice as many Asteroid3's as Asteroid2's.  Asteroid0's are the tiny, unharvestable
+dust particles, while Asteroid4's are missile destroyer size.  Also, it is all relative, so
+
+	Asteroid0      0 
+	Asteroid1      10
+	Asteroid2      20
+	Asteroid3      40
+	Asteroid4      0
+
+would have the exact same distribution.
+
+********************************************************************************************
+
+6 - Why are there more than one directory for every map?
+
+Homeworld won't just let you create a single file for a 2-4 player map, you have to
+create on directory for 2 players, 3 players, and 4 players.  Each one will have the
+according number of Mothership_X.missphere files (same number as the folder)
+
+********************************************************************************************
+
+7 - Why do the directories end in a number?
+
+The number at the end is the version for that many players (IronCurtin2 is the 2
+player version)
+
+********************************************************************************************
+
+8 - What does the Desiption.txt do?
+
+The description file just has the informaiton that goes in the menu, font, color of
+writing, the description.  For all the details, look at the stuff I reffered you to ealier
+
+********************************************************************************************
+
+9 - What does the ResourceSphere_X.missphere do?
+
+The ResourceSphere just has all the resources, and any derilects or ships.  When
+ships are placed in the ResourceSphere they go under AI hold, even when playing with no
+computer players.  This is also where the .dist files are linked to.  To see all the
+details, look at the stuff I asked you to print out ealier
+
+********************************************************************************************
+
+10 - What Does The Mothership_X.missphere do?
+
+The Mothership files are the ships each player starts out with, and where they are. 
+Guess what? Look at the stuff to find out all the details.
+
+********************************************************************************************
+
+11 - Do I need one Resource Sphere file?
+
+Yes, you need one, even if your map doesn't have resources.  Well, actually you can have
+more than one, but usually there is no point in having more than one, unless your
+ResourceSphere_X.missphere file is bigger than 64K (See the final question in this FAQ)
+
+********************************************************************************************
+
+12 - Do I have to have the Mothership Missionsphere files in every directory?
+
+Yep, you have to have one for each player on that map.  "No more, no less"
+
+********************************************************************************************
+
+13 - Why should I exclude things from my map?
+
+1. To go along with the story line, or just to create an interesting map (my map,
+   The Strike, for example, only lets you build strike craft) 
+2. To reduce loading time, if you exclude all the races beside R1 and R2, the
+   loading time will be sugnifigantly less.
+3. If you don't load something, the RAM will go to using something else, and this
+   will reduce lag.
+4. If you include too much stuff some of Homeworld's graphics start getting screwy...
+
+********************************************************************************************
+
+14 - Do I have to exclude things individually?
+
+No, you can exclude an entire race by putting:
+
+	ExcludeShips        Race (P1, P2, P3, Traders), ALL
+
+********************************************************************************************
+
+15 - How can I exclude most things, but not all?
+
+Yes, you can put:
+
+	ExcludeShips     P1, ALL
+
+Then below it put:
+
+	IncludeShips      P1, P1MissileCorvette
+
+This will exclude all P1 ships, except for the Missile Corvette
+
+********************************************************************************************
+
+16 - Do I have to include the comment lines on my map?
+
+No, but they help so things are grouped, and easier to edit.
+
+********************************************************************************************
+
+17 - I've made all my files, where do I put them?
+
+You put them in a set of subdirectories inside the Multiplayer directory in
+The Homeworld Folder.  See question 6.
+
+********************************************************************************************
+
+18 - Why doesen't my map show up in the game menu?
+
+Probably because you don't have the folder name, and the name in the .level file the
+same (remember to put the number at the end)
+
+********************************************************************************************
+
+19 - How/where do I put in the description for my map?
+
+The description goes in the description.txt file.  Where it says Description about 5
+times vertically (it has to be whithin those decription lines)
+
+********************************************************************************************
+
+20 - I can select my map, but when I try to load it, it goes back to Windows, whats wrong?
+
+There are many reasons.  Remember the stuff you printed?  Read over the HW_Errors.txt
+written by Taker.
+
+********************************************************************************************
+
+21 - When a map crashes, will it screw up Homeworld?
+
+Luckily, no (my computer wouldn't work if maps screwed up your game by crashing :-)
+
+********************************************************************************************
+
+22 - Where else can I find help?
+
+Relic's forums are good (http://www.relic.com/cgi-bin/Ultimate.cgi)
+
+********************************************************************************************
+
+23 - For practice, can I edit other people's maps?
+
+Sure, thats what  I did for a loooooong time.  Try testing different variables one at
+a time to see what they all do.
+
+********************************************************************************************
+
+24 - How do I put together the files to post to a site?
+
+Download either WinRAR, or WinZip.  For these programs all you have to do is
+put all the files (the folders and a readme usually) into 1 folder, then tell the program to
+zip everything in that folder.
+
+********************************************************************************************
+
+25 - How do I make sure my map will work?
+
+Test it, play on WON, play against the computer with every possible number of players.
+If you can't play over WON, send it to some other people, and have them tell you
+what to change.  I didn't do this for my first map, and as a result I had to keep
+re-releasing it to fix a number of problems.
+
+********************************************************************************************
+
+26 - When I try to play my map over WON, when it tries to download, it chashes. What
+     is wrong?
+
+WON has a size limitation of 64k, if your map has any files larger than 64k it won't
+auto-download over WON.  If you can't split up the big files (see question 11) then just
+have each player download the map regularily (from your website, over ICQ, or whatever).
+
+********************************************************************************************

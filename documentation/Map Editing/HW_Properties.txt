@@ -1,0 +1,63 @@
+
+Properties (Resources):
+********************************************************************************************
+
+The properties consist of a number, which is composed of the addition of
+the following different values: 
+
+
+ATTRIBUTES_ShellOfResources 2 
+ATTRIBUTES_VelToMothership 4 
+ATTRIBUTES_DontApplyFriction 8 
+ATTRIBUTES_KillerCollDamage 16 
+ATTRIBUTES_Anomaly 32 
+ATTRIBUTES_HeadShotVelToMothership 512 
+ATTRIBUTES_HeadShotKillerCollDamage 1024 
+ATTRIBUTES_Regrow 2048 
+
+
+ATTRIBUTES_SMColorInvisible 4096 
+ATTRIBUTES_SMColorYellow 8192 
+ATTRIBUTES_SMColorGreen 12288 
+
+More Properties:
+
+1      Attempts to salvage the object result in the Salvage Corvette attaching, waiting for
+       a short period of time (set by it's value), and then returning to the mothership without the object.
+256    Neutral ship.  It shows up yellow on the mini map, won't attack you, and can't be salvaged.
+
+
+Here are some examples: 
+
+Shell of resources:
+
+- this only works for the spherical distribution. This flag indicates
+instead of a sphere, it should be a shell. 
+
+Set properties of a resource sphere to 2 
+
+
+Regrowing asteroids: 
+
+- This is perhaps the most useful attribute, and allows you to create
+resource pockets that regrow. 
+
+Set properties to 2048 
+Set propertiesParam to indicate regrowing rate from min 0 to max 7, e.g. 7 
+
+Note that properties and propertiesParam can be set from within MissionMan. 
+
+Note that some of these properties were designed for the single player
+game, and may not work in multiplayer. 
+
+Rotating Derelicts:
+
+- Do you want your derelicts turning in space?
+
+Set properties to 8
+If you want y-axis rotation set the first propertiesParam to 1  (Example:  8,1,?)
+If you want z-axis rotation set the second propertiesParam to 1 (Example:  8,?,1)
+Set both to one for rotation along both y and z                 (Example:  8,1,1)
+
+Haven't done much testing yet... The 1 may be a boolean value, or it might be a rate of
+rotation.  Try higher values and see what happens!

@@ -1,0 +1,212 @@
+Hellhawk's Checklist for Advanced Map-Builders
+----------------------------------------------
+
+This file is not a FAQ for people creating their first map, nor is it
+an instruction manual for map creation.  If you need these tools look
+for them in the Homeworld Editing Files section of the Homeworld Map
+Archive.  It is intended for use by experienced map builders, most
+probably using a text editor to create their map files.
+
+The file is a checklist of all the files necessary for your map to
+work, the necessary parameters you should have in these files, and the
+required inter-relationships between files.
+
+It does not contain detailed explanations of how the files work,
+because it is expected that you will either know this already or can
+refer to other documentation to find the answers.
+
+I created this file for my own use so I could be sure I had checked
+all the common problem areas before testing my maps, and to help in 
+finding errors in maps which crashed during testing.
+
+Hellhawk666
+January 3, 2000
+
+----------------------------------------------
+
+
+1. Directory Structure
+----------------------
+
+ a) Are the required number of directories present?
+ b) Have they been numbered correctly?
+ c) Are there any spelling mistakes in the directory names?
+ 
+ 
+ 
+2. Directory Content
+--------------------
+
+ a) Is the "Description.txt" file present in every directory?
+ b) Is the "XXXn.level" file present in every directory?
+ c) Is each "XXXn.level" file correctly spelt and numbered?
+ d) Is each "XXXn.level" file named the same as the directory
+     in which it resides?
+ d) Is the "ResourceSphere_1.missphere" file present in every directory
+     (Did I set up for more than 1 resource sphere in this map?  If so
+     are the ResourceSphere_n.missphere" files present in every
+     directory?)
+     Did I spell ".missphere" correctly?
+ e) Are the required .dist files present in every directory?
+     (XXX.dist, YYY.dist, etc.)
+ f) Are the required "Mothership_n.missphere" files present in each
+     directory?
+     (DIRECTORYp includes "p" instances of Mothership_n.missphere)
+     Are the "Mothership_n.missphere" files sequentially numbered?
+ 
+ 
+ 
+3. Basic File Content
+---------------------
+
+3.1 "Description.txt"
+
+ a) Are all the "Description.txt" files identical?
+ b) Are the game settings correctly formatted?
+ 
+3.2 "XXXn.level" files
+ 
+ a) Does every file have the required comment lines and game
+     information present, eg:
+
+ --------
+ ; MissionMan script, Tuesday, Aug 24 1999, 5:25:46 PM
+ ; Copyright (c) 1998-99, Relic Entertainment Inc.
+ ; Multiplayer Level: Haldane4
+ ; Info: Haldane (2-4)
+ 
+ [Haldane (2-4)]
+ --------
+ 
+ b) Is the "Multiplayer Level:" data identical to the directory
+     name where the file resides?
+ c) Under these lines, does every file have a reference line for 
+     each Resource sphere and Mothership sphere file in the
+     directory in which it resides, eg (for Haldane4):
+ 
+ --------
+ MissionSphere    -1,?,ResourceSphere,0.0,0.0,0.0,30000.0,0.0,ResourceSphere_1.missphere,?
+ MissionSphere    0,R1,Mothership,-50000.0,0.0,50000.0,30000.0,0.0,Mothership_0.missphere,0
+ MissionSphere    1,R2,Mothership,50000.0,0.0,-50000.0,30000.0,0.0,Mothership_1.missphere,0
+ MissionSphere    2,R1,Mothership,-50000.0,0.0,-50000.0,30000.0,0.0,Mothership_2.missphere,0
+ MissionSphere    3,R2,Mothership,50000.0,0.0,50000.0,30000.0,0.0,Mothership_3.missphere,0
+ --------
+ 
+ d) Is everything below these lines identical in each "XXXn.level" file?
+
+3.3 "ResourceSphere_1.missphere"
+
+ a) Are all the "ResourceSphere_1.missphere" files identical?
+ b) If present, are the "ResourceSphere_2.missphere" files etc. 
+     identical.
+
+3.4 "XXX.dist", "YYY.dist", etc.
+     
+ a) Are all the "XXX.dist" files identical?
+    Are all the "YYY.dist" files identical? etc.
+
+3.5 "Mothership_n.missphere" files
+
+ a) Are the "Mothership_n.missphere" files which are present in more
+     than 1 directory all identical?
+     
+     
+     
+4. Detailed Inter-File Content
+------------------------------
+
+4.1 "Description.txt"
+
+ a) no inter-file settings
+ 
+4.2 "XXX.level" files
+
+ a) Are the references to the resource sphere and mothership sphere
+     files numbered correctly, eg (for Haldane4):
+ 
+ --------
+ 
+ MissionSphere    -1,?,ResourceSphere,0.0,0.0,0.0,30000.0,0.0,ResourceSphere_1.missphere,?
+ MissionSphere    0,R1,Mothership,-50000.0,0.0,50000.0,30000.0,0.0,Mothership_0.missphere,0
+ MissionSphere    1,R2,Mothership,50000.0,0.0,-50000.0,30000.0,0.0,Mothership_1.missphere,0
+ MissionSphere    2,R1,Mothership,-50000.0,0.0,-50000.0,30000.0,0.0,Mothership_2.missphere,0
+ MissionSphere    3,R2,Mothership,50000.0,0.0,50000.0,30000.0,0.0,Mothership_3.missphere,0
+ --------
+ 
+ b) Are the Lighting, Background and SongNumber parameters valid
+     and correctly formatted?
+ c) Are the Exclude and Include parameters valid and correctly
+     formatted?
+
+4.3 "ResourceShpere_1.missphere"
+
+ a) Are the resource references correctly formatted, eg:
+ 
+ --------
+ Resources     DustCloud,-350000.0,250000.0,0.0,Cylinder,dustcloud1.dist,10,5000.0,100000.0,0.0,-50.0,2048,7
+ Derelict      AngelMoon_clean,0.0,500000.0,0.0,0.0,-90.0,0
+ Derelict      Crate, 60000.0,0.0,0.0,-75.3, 163.7,4096
+ Ships         ,-179194.4,9334.6,-43982.5,0.0,Traders,Junk_LGun,1,NULL_FORMATION|?|?,4096,?
+ --------
+ 
+ b) Pay attention to spelling errors, particularly:
+       resource types
+       resource.dist file names
+       resource shape types
+ c) Check that there are no derelicts or ships specified which are
+     also excluded in the "XXXn.level" file
+ d) Are the correct resource.dist files associated with each resource
+     type?
+ e) Is the file larger than 64KB in size.  If so it must be cut into
+     two files.
+ f) Check that GasClouds have not been used.
+
+4.4 "XXX.dist" files, etc.
+
+ a) Are the correct resource types present within each type of 
+     resource.dist file? eg:
+     
+     asteroid .dist files - Asteroid0
+                            Asteroid1
+                            Asteroid2
+                            Asteroid3
+                            Asteroid4
+     dustcloud.dist files - DustCloud0
+                            DustCloud1
+                            DustCloud2
+                            DustCloud3
+                            DustCloud4
+     nebula   .dist files - Nebula0
+                            Nebula1
+                            Nebula2
+                            Nebula3
+                            Nebula4
+ b) Is there a space between the resource type label and the value
+     columns? eg:
+     
+     Asteroid3   1   2  etc.
+     
+4.5 "Mothership_n.missphere" files
+
+ a) Are the ship resources for each player formatted correctly? eg:
+ 
+ --------
+ Ships     ,-68732.6,-3678.0,0.0,0.0,R1,Mothership,1,NULL_FORMATION|?|?,0,?
+ Ships     ,-66922.6,-5659.0,-104.0,0.0,R1,ResourceCollector,2,PARADE_FORMATION|?|?,0,?
+ --------
+ 
+ b) Check that no ship is specified which is excluded for that race 
+     by the "XXXn.level" file.
+ c) Check for spelling errors, particularly in the names of ship types
+     and formations.
+ 
+ 
+ 
+5. Testing
+----------
+
+ a) Test vs. CPU for every combination of players.  Test saving the game
+     and recording the game.  Test loading from a cold start.
+ b) Test vs. human opponents online.
+ 
+ ----------------------------------------------

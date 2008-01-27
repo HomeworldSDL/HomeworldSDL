@@ -1,0 +1,33 @@
+So you you are just making your first map, eh? Well, I just did and there was nothing more frustrating than having it crash out on me
+with an exception error in module Homeworld.exe. At first I had NO IDEA what was causing it but after days of frustration I noticed a
+few paterns. The key to figuring out why your map won't load right is often right in front of you!
+
+I put together this list of common exception error causes and what to check. The way this works is to very closely watch for when
+EXACTLY the error occurs. 
+
+A. If the error occurs BEFORE the load indicator bar even comes on the screen:
+1. Your problem is most likely in the .level file
+2. Check to make sure you have two lines at the beginning of the file that say:
+; MissionMan script
+; Copyright (c) 1998-99, Relic Entertainment Inc.
+3. Make sure that your Mission Sphere lines are all there, there need to be at least three (one for resource sphere and two for ships)
+4. Make sure that there are no remark lines missing their ; in front of them
+
+B. If the error occurs just after the load indicator bar comes up (one inch on my 19" monitor):
+1. Your problem is most likely in one of the Mothership_x.missphere files
+2. You may not have enough arguments per line, check yours with one that you know works
+3. There may be a missing ; in front of a remark line
+4. You may have accidentaly put a return in the middle of one, especially if you used notepad to edit with
+
+C. If the error occurs after the load bar has gone a few inches, but not quite half way:
+1. Your problem is likely with the ResourceSphere_x.missphere file (or files if you have more than one)
+2. The most common problem is a mismatched .dist file to the resource type you specified
+e.g. the first argument is "Resource DustCloud" and the .dist file you specified is "Asteroid.dist"
+3. Again, not enough arguments such as only two coordinates or no .dist file specified at all!
+4. Check for carriage returns splitting lines in half
+5. Check for typos in the .dist file names
+6. Make sure the .dist file name that you specified is actually IN the folder you are using
+7. Make sure the .dist file specified is using the matching resources to the type you said would be there
+
+These should help the novice map builder avoid a LOT of the frustration that I went through. If any of you experts would like to add
+some others, feel free to and I will edit this list. Maybe after a few days we can put it up on the web sites.

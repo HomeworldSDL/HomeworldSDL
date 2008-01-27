@@ -1,0 +1,158 @@
+
+
+Ships:
+********************************************************************************************
+
+R1/R2 (Kushan/Taiidan):
+AdvanceSupportFrigate
+AttackBomber
+Carrier
+CloakedFighter (R1 Only)
+CloakGenerator
+CryoTray
+DDDFrigate (R1 Only)
+DefenseFighter (R2 Only)
+DFGFrigate (R2 Only)
+Drone (R1 Only)
+GravWellGenerator
+HeadShotAsteroid
+HeavyCorvette
+HeavyCruiser
+HeavyDefender
+HeavyInterceptor
+IonCannonFrigate
+LightCorvette
+LightDefender
+LightInterceptor
+MinelayerCorvette
+MissileDestroyer
+Mothership
+MultiGunCorvette
+Probe
+ProximitySensor
+RepairCorvette
+ResearchShip
+ResourceCollector
+ResourceController
+SalCapCorvette
+SensorArray
+StandardDestroyer
+StandardFrigate
+TargetDrone
+
+
+P1 (Turanic Raiders):
+P1Fighter
+P1IonArrayFrigate
+P1MissileCorvette
+P1Mothership
+P1StandardCorvette
+
+P2 (Kadeshi Garden Protectors):
+P2AdvanceSwarmer
+P2FuelPod
+P2Mothership
+P2MultiBeamFrigate
+P2Swarmer
+
+P3 (T-Mat):
+P3Frigate
+P3MegaShip
+
+Traders (Bentusi & assorted):
+CargoBarge
+FloatingCity
+GhostShip
+Junk_LGun
+Junk_SGun
+JunkyardDawg
+JunkyardHQ
+MiningBase
+ResearchStation
+ResearchStationBridge
+ResearchStationTower
+
+
+Derelicts:
+********************************************************************************************
+AdvanceSupportFrigate
+AngelMoon
+AngelMoon_clean
+Carrier
+Crate
+DDDFrigate
+FragmentPanel0a
+FragmentPanel0b
+FragmentPanel0c
+FragmentPanel1
+FragmentPanel2
+FragmentPanel3
+FragmentStrut
+HeavyCorvette
+HeavyCruiser
+HomeWorld
+IonCannonFrigate
+Junk0_antenna
+Junk0_fin1
+Junk0_fin2
+Junk0_GunAmmo
+Junk0_LGun
+Junk0_panel
+Junk0_sensors
+Junk0_SGun
+Junk1_partA
+Junk1_partB
+Junk1_shell
+Junk1_strut
+Junk2_panelA
+Junk2_panelB
+Junk2_panelC
+Junk2_panelD
+Junk2_shipwreck
+Junk2_Boiler             - Note:  Causes mission to crash if used
+Junk2_BoilerCasing       - Note:  Causes mission to crash if used
+LifeBoat
+LightCorvette
+M13PanelA
+M13PanelB
+M13PanelC
+MineLayerCorvette
+MultiGunCorvette
+PlanetOfOrigin
+PlanetOfOrigin_scarred
+PrisonShip
+PrisonShipNew
+PrisonShipOld
+RepairCorvette
+ResourceController
+SalCapCorvette
+Scaffold
+Scaffold_scarred
+ScaffoldFingerA_scarred
+ScaffoldFingerB_scarred
+Shipwreck
+StandardFrigate
+
+
+Resources:
+********************************************************************************************
+Asteroid0
+Asteroid1
+Asteroid2
+Asteroid3
+Asteroid4
+DustCloud0
+DustCloud1
+DustCloud2
+DustCloud3
+DustCloud4
+GasCloud0                - Note:  Not supported by Homeworld (Invisible and contains 0 RU)
+GasCloud1                - Note:  Not supported by Homeworld
+GasCloud2                - Note:  Not supported by Homeworld
+GasCloud3                - Note:  Not supported by Homeworld
+GasCloud4                - Note:  Not supported by Homeworld
+Nebula0
+Nebula1
+Nebula2
+Nebula3
+Nebula4

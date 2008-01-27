@@ -1,0 +1,723 @@
+
+
+           AN INTRODUCTION TO MAP BUILDING
+              By TAKER, aka James Tooman
+
+Original version located here:
+http://www.relicnews.com/articles/taker/intromap1.html
+
+
+So you want to build a map, huh? This is a first in a series of articles
+designed to orient the first time Homeworld Map builder. Contrary to
+what you might have heard, Homeworld maps are actually quite easy to
+build. They are not, however, intuitive. Without understanding some
+basic concepts about them it is hard to know where to start. I will start
+by discussing three things:
+
+
+1. Map Concepts
+2. Map Components
+3. Editing Tools
+
+MAP CONCEPTS 
+
+Before you make a map you should have some idea of what you want
+to do. All user modified Homeworld maps are multiplayer maps that are
+either played against CPU players using Skirmish mode, or they are
+played versus human players either over the Internet on WON or via a
+LAN. Although making a Homeworld map is not as time consuming or as
+difficult as most First Person Shooter maps, it is not quick to learn like
+other Real Time Strategy maps. As a result you should have a clear
+idea of what you want to make. Some suggestions:
+
+
+a. Modify an existing map's starting ships or number of players
+b. Change an existing map's resources
+c. Create a new map from scratch
+
+Once you know what your goal is, draw it! Get a piece of paper and
+sketch out where you want your resources, roughly, and indicate which
+ones are above the mid-point of the map and which are below it. Put
+numbers where the players will start. This will be a template as you
+begin editing your map. It is wise to not start too ambitious as the
+more changes you make the more opportunity for you to cause fatal
+errors that you will not be able to easily debug.
+
+Homeworld maps are created by assigning each element of the map
+(ships, resources, dust clouds) a three-part Cartesian coordinate ( X,Y,Z
+values). The X and Y values are the axis that run along the mid point
+plane and the Z coordinate is how far above and below the mid point
+something is located. The center of all Homeworld maps is at 0,0,0.
+This means that elements placed below the midpoint have negative
+values and those above it have positive values.
+
+In addition to map elements, you can set the overall universe size, the
+background picture, the music played and what ships will and won't be
+allowed in the map. You cannot change ship attributes, other than color,
+nor can you use your own music in a custom map. Also, you cannot
+change the background to one of your own design as all of these
+elements are only "keyed" from the map files and not stored in them.
+
+
+MAP COMPONENTS
+
+Homeworld maps are made up using a bunch of text files that contain
+values separated by commas. In general, a single line in a Homeworld
+text file pertains to a single element that has all of its attributes set by
+these comma-separated values. Unlike other games, Homeworld needs
+an entire set of map files for each number of start positions in the map.
+This means that when you make a map for 2-4 players you will have to
+make three versions of the map: one for two players, one for three and
+one for four. Luckily the changes in the different maps are very minor
+and involve only deleting the excess starting positions and renaming a
+file. This means that you should ALWAYS start your map by editing the
+version with the MOST number of players that you will make starting
+positions for.
+
+The multiplayer maps are stored in your Homeworld folder, in the
+Multiplayer folder. Each version of the map has its own sub-folder named
+after the map followed by the number corresponding to the number of
+players that version of the map is made for. For illustration purposes I
+will use two multiplayer maps, Genesis-240D (a HUGE map for up to 8
+players) and Smallmap (an example map made for only four players)
+Example:
+
+
+[] Genesis-240D2
+[] Genesis-240D3
+[] Genesis-240D4
+[] Genesis-240D5
+[] Genesis-240D6
+[] Genesis-240D7
+[] Genesis-240D8
+[] Smallmap2
+[] Smallmap3
+[] Smallmap4
+
+In this example of several sub-folders in the Homeworld/multiplayer
+directory, the map Genesis-240D is a map for 2-8 players and the map
+Smallmap is for 2-4 players. In each of these sub-folders contains the
+text files needed to run the map. A typical folder might have the
+following files:
+
+Smallmap4.level
+Mothership_0.missphere
+Mothership_1.missphere
+Mothership_2.missphere
+Mothership_3.missphere
+ResourceSphere_1.missphere
+Asteroid.dist
+DustCloud.dist
+Tiny.dist
+Description.txt
+
+You may have noticed that only one of these files says that it is a text
+file. Don't worry, they all are. Every file here can be opened with MS
+Notepad or any other text editor. You may also sometimes see a large
+file called:
+
+
+mission.mdr
+
+This file is created by the Mission Man editing utility by Relic and is NOT
+NEEDED by Homeworld to run your map. Generally most custom map
+builders delete this file if they use Mission Man prior to zipping it for
+public use as it is usually larger than all of the map files combined. A
+quick note on the Mission Man editing utility: It is NOT supported by
+Relic and may not run reliably on your machine. It is easier to use than
+text editing for some tasks and harder for others. If you are planning a
+complex map with lots of dust particles and resources it is also quite
+slow. It will not let you edit every aspect of your map, but may prove to
+be easier for you to use once you understand what it is doing. Essentially
+it is a GUI for changing all of the little attributes on each line of the map
+files, and it outputs the text files, pre-named for you. I do NOT use it for
+my maps as it does not run reliably on my machine and I find that it is
+difficult to make large, uniform changes to your map quickly using it.
+
+On to the explanations of the files:
+
+The ".level" File
+
+This file contains all the basic information about your map. It contains
+the name and race of all the starting ship files, the name of the
+resource file, the universe size, the lighting type, the background type,
+the sensor manager zoom sizes, the default song to be played and any
+ship restrictions. Each of these elements have their own line and their
+own series of comma separated attributes. An example of a ship line is:
+
+MissionSphere
+0,R1,Mothership,0,0,0,30000,0,Mothership_0.missphere,1000
+
+The part that makes editing Homeworld files tricky is that these lines
+must contain ALL of the required values, in the proper order, even if the
+value is zero. Incorrect punctuation or tiny typos will torpedo an entire
+map and cause it to crash the game on a load. I am not saying this to
+scare you away, but to make you aware that care must be taken as you
+edit to insure that you leave the lines of values intact.
+
+NOTE: If a line begins with a semi-colon (;) then it is a remark line and
+contains no values used by Homeworld for you map, BUT certain remark
+lines ARE NEEDED in order for Homeworld to correctly identify the file so
+do not delete them unless you know that they are not needed.
+
+Here is our sample level file for Smallmap4.level:
+
+-----
+
+; MissionMan script
+; Copyright (c) 1998-99, Relic Entertainment Inc.
+; Multiplayer Level: Smallmap4
+; Info: Smallmap (2-4)
+
+[Smallmap (2-4)]
+
+MissionSphere -1, ?, ResourceSphere, 0,0,0, 30000, 0,
+ResourceSphere_1.missphere, 1000
+MissionSphere 0, R1, Mothership, 0,0,0, 30000, 0,
+Mothership_0.missphere, 1000
+MissionSphere 1, R2, Mothership, 0,0,0, 30000, 0,
+Mothership_1.missphere, 1000
+MissionSphere 2, R1, Mothership, 0,0,0, 30000, 0,
+Mothership_2.missphere, 1000
+MissionSphere 3, R2, Mothership, 0,0,0, 30000, 0,
+Mothership_3.missphere, 1000
+
+Lighting ez01
+Background ez01, 0, 0
+smDepthCueRadius 50000
+smDepthCueStartRadius 20000
+smCircleBorder 70000
+smZoomMax 90000
+smZoomMin 20000
+smInitialDistance 50000
+smUniverseSizeX 100000
+smUniverseSizeZ 100000
+smUniverseSizeY 100000
+ExcludeShips P1,All
+ExcludeShips P2,All
+ExcludeShips P3,All
+ExcludeShips Traders,All
+ExcludeShips R1,LightDefender
+ExcludeShips R2,LightDefender
+ExcludeShips R2,TargetDrone
+ExcludeShips R1,TargetDrone
+ExcludeShips R1,HeadShotAsteroid
+ExcludeShips R2,HeadShotAsteroid
+ExcludeDerelict All
+IncludeDerelict Crate
+SongNumber 11
+
+-----
+
+Relic has published this information concerning the actual effects of all
+the values in the level file or at least most of them.
+
+-----
+
+For .level files:
+*******************************************
+(Written by Gary Shaw)
+MissionSphere
+playerNumber, raceName, posx, posy, posz, radius ,sphererotz ,contents
+,starting
+
+Editor's Note: Spaces were added between the variable as to not screw up the
+page format.
+
+ResourceUnits
+
+Defaults:
+MissionSphere -1,?,0.0,0.0,0.0,30000.0,1000.0,sphere.missphere
+
+; where playerNumber is player #, -1 for no player
+; raceName is name of the race or ? for no race
+; posx, posy, posz are positions
+; radius is radius of mission sphere
+; sphererotz is angle of rotation of the mission sphere, 1000.0 points
+towards centre of universe
+; contents refers to .missphere file
+; startingResourceUnits is # of RUs the player starts with (integer,
+optional)
+
+Lighting lightingfilename
+; where lightingfilename is the filename of a lighting file
+
+Background backgroundfilename,angle1,angle2
+; where backgroundfilename is the filename of a background file
+; where angle1 and angle2 are angles of rotation
+
+smDepthCueRadius realnum
+smDepthCueStartRadius realnum
+smCircleBorder realnum
+smZoomMax realnum
+smZoomMin realnum
+smInitialDistance realnum
+smUniverseSizeX realnum
+smUniverseSizeY realnum
+smUniverseSizeZ realnum
+Defaults:
+; where realnum is a floating point number for tuning
+
+-----
+
+When we get into the actual choosing of values for the map I will explain
+this in more detail and walk you through some of the variables and what
+they do.
+
+The Mission Sphere Files
+
+As you may have noticed, the .level file has 5 lines that are prefaced
+with "MissionSphere". These lines give information about our staring
+ships and the map's resources. The first MissionSphere line in our
+example level file contains information about our resources, including,
+most importantly, the name of the resource file:
+"ResourceSphere_1.missphere" This file contains every single resource
+element that we want to use in the map including asteroids, dust clouds
+and particles. Here's our sample ResourceSphere_1.missphere file:
+
+-----
+
+; SMALLMAP by *TAKER* aka James Tooman (taker@lords.com)
+
+;CENTER RESOURCES
+Resources Asteroid,0,0,0,Sphere,Asteroid.dist,15,2500,5000,0,0,?,?
+
+;OUTER RESOURCES
+Resources DustCloud,20000,0,0,Sphere,DustCloud.dist,15,2500,5000,0,0,?,?
+Resources DustCloud,-20000,0,0,Sphere,DustCloud.dist,15,2500,5000,0,0,?,?
+Resources DustCloud,0,20000,0,Sphere,DustCloud.dist,15,2500,5000,0,0,?,?
+Resources DustCloud,0,-20000,0,Sphere,DustCloud.dist,15,2500,5000,0,0,?,?
+Resources DustCloud,0,0,20000,Sphere,DustCloud.dist,15,2500,5000,0,0,?,?
+Resources DustCloud,0,0,-20000,Sphere,DustCloud.dist,15,2500,5000,0,0,?,?
+
+;VERTICAL PARTICLE WALL
+Resources Asteroid,0,0,-20000,Cylinder,Tiny.dist,100,30000,1000,0,0,90,?
+
+-----
+
+Resources can be of the following resource types:
+
+Resources Asteroid
+Resources DustCloud
+Resources Nebula
+
+It is VERY important that if you are placing resources that you insure that
+the ".dist" file contains the right kind of resources for the "Resource"
+type listed.
+
+Here are Relic's notes on resource lines:
+
+-----
+
+For .missphere files:
+******************************
+(Written by Gary Shaw)
+Resources
+resourcetype,posx,posy,posz,layout,distribution,numResources,
+radius,length,roty,rotz,properties
+
+Defaults:
+Resources
+Asteroid,0.0,0.0,0.0,Sphere,distrib.dist,10,5000.0,10000.0,0.0,0.0,?
+
+; where resourcetype is Asteroid, Nebula, GasCloud, or DustCloud
+; posx, posy, posz are positions
+; layout is Sphere, Cylinder, Nebula (Nebula is a sphere, see section
+below)
+; distribution refers to distribution file
+; numResources is # of resources
+; radius is radius of cylinder or sphere
+; length is length of cylinder or the *diameter* of the sphere (not
+relevant for spheres)
+; roty, rotz are angles of rotation (not relevant for spheres)
+
+-----
+
+NOTE: All resource lines in the resource file must begin with "Resources"
+unless you are placing a Derelict. Derelict lines look a little different:
+
+
+Derelict PlanetOfOrigin,-291925,291925,-60000,0,-45,?,0,?
+
+Here are Relic's notes and listing of all Derelicts:
+
+-----
+
+Derelict derelicttype,posx,posy,posz,roty,rotz,properties
+
+Defaults:
+Derelict Shipwreck,0.0,0.0,0.0,0.0,?
+
+; where derelicttype is Shipwreck, Ghostship, Fragment, etc (see list
+below)
+; posx, posy, posz are positions
+; roty, rotz are angles of rotation (not relevant for spheres)
+; properties is 
+
+
+Derelicts:
+*********************************
+AngelMoon
+AngelMoon_clean
+Crate
+FragmentPanel0a
+FragmentPanel0b
+FragmentPanel0c
+FragmentPanel1
+FragmentPanel2
+FragmentPanel3
+FragmentStrut
+HomeWorld
+Junk0_antenna
+Junk0_fin1
+Junk0_fin2
+Junk0_GunAmmo
+Junk0_LGun
+Junk0_panel
+Junk0_sensors
+Junk0_SGun
+Junk1_partA
+Junk1_partB
+Junk1_shell
+Junk1_strut
+Junk2_panelA
+Junk2_panelB
+Junk2_panelC
+Junk2_panelD
+Junk2_shipwreck
+Junk2_Boiler - Note: Causes mission to crash if used
+Junk2_BoilerCasing - Note: Causes mission to crash if used
+LifeBoat
+PlanetOfOrigin
+PlanetOfOrigin_scarred
+PrisonShipNew
+PrisonShipOld
+Scaffold
+Scaffold_scarred
+ScaffoldFingerA_scarred
+ScaffoldFingerB_scarred
+Shipwreck
+
+-----
+
+Our example map has a maximum of four players, and as this is the
+version that we wish to work on first, the last four MissionSpheres (in the
+level file) are setting, among other things, the names of those files as
+well as race flags for CPU players and color schemes. In the example
+the second MissionSphere line contains the first of the ship file names:
+"Mothership_0.missphere" This file contains every ship that player 0
+starts with and where it is located. Here is a sample file:
+
+-----
+
+; MissionMan script
+; Copyright (c) 1998-99, Relic Entertainment Inc.
+; MissionSphere Object: R1,Mothership
+
+Ships ,25000,25000,25000,135,R1,Mothership,1,NULL_FORMATION|?|?,?,?
+Ships ,26000,25000,25000,135,R1,ResourceCollector,1,PARADE_FORMATION|?|?,?,?
+Ships ,27000,25000,25000,135,R1,ResearchShip,1,PARADE_FORMATION|?|?,?,?
+Ships ,28000,25000,25000,135,R1,ResourceController,1,PARADE_FORMATION|?|?,?,?
+
+-----
+
+Here are Relic's notes on the file:
+
+-----
+
+For .missphere files:
+********************************
+(Written by Gary Shaw)
+Ships
+Label,posx,posy,posz,rot,race,shiptype,numShips,formation|flag|color
+,properties[,numShips2]
+
+Defaults:
+Ships 0.0,0.0,0.0,0.0,R1,LightInterceptor,NULL_FORMATION|?|?,?
+
+; where Label is AI label (no spaces) or ?
+; posx, posy, posz are positions
+; rot is rotation angle of ship
+; race is R1, R2, P1, P2, P3, or Traders
+; shiptype is ship (e.g. LightInterceptor)
+; numShips is # of ships to place
+; formation is:
+; NULL_FORMATION
+: PARADE_FORMATION
+; DELTA_FORMATION
+; BROAD_FORMATION
+; DELTA3D_FORMATION
+; CLAW_FORMATION
+; WALL_FORMATION
+; SPHERE_FORMATION
+; PICKET_FORMATION
+; color (see Colors: below)
+; flag is UseAsMothership or ?
+
+-----
+
+As you may have noticed, ship files require the names of ships. Here is
+a list of all the valid ship names in Homeworld:
+
+-----
+
+Ships:
+****************************************
+
+R1/R2 (Kushan/Taiidan):
+AdvanceSupportFrigate
+AttackBomber
+Carrier
+CloakedFighter (R1 Only)
+CloakGenerator
+CryoTray
+DDDFrigate (R1 Only)
+DefenseFighter (R2 Only)
+DFGFrigate (R2 Only)
+Drone (R1 Only)
+GravWellGenerator
+HeadShotAsteroid
+HeavyCorvette
+HeavyCruiser
+HeavyDefender
+HeavyInterceptor
+IonCannonFrigate
+LightCorvette
+LightDefender
+LightInterceptor
+MinelayerCorvette
+MissileDestroyer
+Mothership
+MultiGunCorvette
+Probe
+ProximitySensor
+RepairCorvette
+ResearchShip
+ResourceCollector
+ResourceController
+SalCapCorvette
+SensorArray
+StandardDestroyer
+StandardFrigate
+TargetDrone
+
+P1 (Turanic Raiders):
+P1Fighter
+P1IonArrayFrigate
+P1MissileCorvette
+P1Mothership
+P1StandardCorvette
+
+P2 (Kadeshi Garden Protectors):
+P2AdvanceSwarmer
+P2FuelPod
+P2Mothership
+P2MultiBeamFrigate
+P2Swarmer
+
+P3 (T-Mat):
+P3Frigate
+P3MegaShip
+
+Traders (Bentusi & assorted):
+CargoBarge
+FloatingCity
+GhostShip
+Junk_LGun
+Junk_SGun
+JunkyardDawg
+JunkyardHQ
+MiningBase
+ResearchStation
+ResearchStationBridge
+ResearchStationTower
+
+-----
+
+The Distribution Files
+
+The ".dist" files set the type and distribution of the resources that
+reference the file. The type of resources IN the file MUST match the
+resource type on the resource line in the resource file. Here is an
+example of a .dist file:
+
+
+; Relative frequencies of asteroid types
+Asteroid0 0 0
+Asteroid1 3 3
+Asteroid2 2 2
+Asteroid3 1 1
+Asteroid4 0 0
+
+This file has each asteroid type and lists the relative frequency of the
+different sized asteroids to each other. Size 0 is just unharvestable
+motes, while size 4 asteroids are the size of a Destroyer or larger.
+
+-----
+
+.dist file post by Gary Shaw
+
+In MissionMan, to create a resource pocket that regrows:
+when you create a resource pocket, make sure you...
+
+Set properties to 2048 
+Set propertiesParam to indicate regrowing rate from min 0 to max 7, e.g. 7 
+
+... on that line in the resource missionsphere
+
+Make a .dist file, with two columns. The second column contains the
+distribution of resources as they regrow. E.g:
+
+Asteroid0 1 0
+Asteroid1 1 0
+Asteroid2 1 1
+Asteroid3 3 3
+Asteroid4 5 5
+
+From this distribution file, the intial resource distribution will have some
+Asteroid0's. As you harvest it and asteroids regrow, they will  regrow
+with the distribution of 0 0 1 3 5.
+
+In general you do not want asteroid0's to regrow. (You cannot harvest
+Asteroid0's, if they regrow then eventually the entire resource pocket
+will become Asteroid0's.)
+
+-----
+
+The Description File
+
+The last file in the folder is a Description file where all of the default
+flags plus the level description are stored. Here is our sample
+Description.txt file:
+
+-----
+
+Description Smallmap (2-4)
+Description The emergence of a new mapbuilder has him testing his craft on this small practice map.
+Description
+Description SETTINGS : Default, V1.0 (jan2000)
+Description AUTHOR : James Tooman (taker@lords.com)
+
+Font Arial_b12.hff
+Color 250, 25, 25
+DropShadow Yes
+
+; DEFAULT SETTINGS:
+type.flag BIT1 ; destroy mothership
+type.flagNeeded BIT1 ; FLAG: destroy mothership
+
+;type.flag BIT2 ; capture capital ship
+type.flagNeeded BIT2 ; FLAG: capture capital ship
+
+type.flag BIT3 ; research
+type.flagNeeded BIT3 ; FLAG: research
+
+;BIT4 = bounties - Obselete!
+
+type.flag BIT5 ; enable harvesting
+type.flagNeeded BIT5 ; FLAG: enable harvesting
+
+;type.flag BIT6 ; resouce injections
+type.flagNeeded BIT6 ; FLAG: resource injections
+
+;type.flag BIT7 ; resouce lump sum
+type.flagNeeded BIT7 ; FLAG: resource lump sum
+
+;BIT8 = password protected - only let the user change this
+
+;type.flag BIT9 ; unit caps
+;type.flagNeeded BIT9 ; FLAG: unit caps
+
+type.flag BIT10 ; fuel burn
+type.flagNeeded BIT10 ; FLAG: fuel burn
+
+;type.flag BIT11 ; allied victory
+type.flagNeeded BIT11 ; FLAG: allied victory
+
+;type.flag BIT12 ; crates
+type.flagNeeded BIT12 ; FLAG: crates
+
+;type.flag BIT13 ; carrier only
+type.flagNeeded BIT13 ; FLAG: carrier only
+
+type.flag BIT14 ; hyperspace
+type.flagNeeded BIT14 ; FLAG: hyperspace
+
+type.numComputers 0
+type.startingFleet 1
+type.bountySize 3 ; turn off bounties (3 = off)
+type.startingResources 1
+;type.resourceInjectionInterval 14400
+;type.resourceInjectionsAmount 2000
+;type.resourceLumpSumTime 19200
+;type.resourceLumpSumAmount 2000
+
+-----
+
+If you want a flag on, remove the (;) remark from in front of it. If you
+want it off, place one in front of the "type.flag" line, not the
+"type.flgNeeded" line.
+
+
+EDITING TOOLS
+
+There are several ways to edit Homeworld maps. If you want to use
+Mission Man, there is a help file with it that should get you started.
+Remember that it is not supported and it may not work on your machine.
+Also, all it does is provide a windows based GUI for entering in these
+values. You still need to understand the way the files work.
+
+You can use any text editor such as MS Notepad. I personally,
+however, find that when editing the Resource or Ship files that I prefer
+MSExcel (although any spreadsheet with .csv files will work) and I edit
+using the Comma Seperated Values file format. It can be opened by any
+text editor and it enables very quick copy/paste of entire blocks of
+information or file names. If you use a .csv compatible spreadsheet
+program, remember to "save as" the appropriate file name or your map
+will not work.
+
+In addition there are several excellent sources of editing information
+such as the following links:
+
+Relic Editing Message Board
+http://www.relic.com/cgi-bin/forumdisplay.cgi?action=topics&number=7&forum=Editing
+
+TAKER's Exception Errors Demystified
+http://www.relicnews.com/articles/eedemystify.html
+
+Hellhawk's Map Checklist
+http://www.strategyplanet.com/hwmaps/edit/HW_Checklist.txt
+
+Obithrawn's Map making FAQ
+http://www.strategyplanet.com/hwmaps/edit/HW_Edit_FAQ.txt
+
+TAKER's MSExcel Ring Maker utility
+http://dl.fileplanet.com/dl/dl.asp?StrategyPlanet/hwmaps/RingMaker.zip
+
+Roon's Mission Man editing steps
+http://www.strategyplanet.com/hwmaps/edit/HW_Forum.txt
+
+The entire text of the Relic editing doc
+http://www.relicnews.com/general/editing.txt
+
+Relic's Properties doc
+http://www.strategyplanet.com/hwmaps/edit/HW_Properties.txt
+
+
+In closing, this article is meant as an INTRODUCTION to map making and so it
+does not cover all the details. If you are pretty computer and map making
+savvy, this article plus the sources mentioned above will get you WELL on
+your way. My thanks go out to BPLama, Obithrawn and Hellhawk666 for their
+contributions to my knowledge and their dedicated help to budding map makers
+on the Relic Editing boards.
+
+If you have a specific problem with your map and the above resources do not
+seem to help at all, post it to the Relic Editing boards and I am sure that
+one of us will do our best to help you. Above all, HAVE FUN and don't give up!
+There are a lot of little details in Homeworld Map building, but once you
+understand how the files are put together, it's a snap compared to most 3D
+map making.
+
+
+TAKER
+aka James Tooman
