@@ -1,0 +1,43 @@
+<html>
+<head><title> VCEPacker QuickGuide </title></head>
+
+<body bgcolor="#ffffff">
+
+<table width=100% border=0 height=100%>
+<tr height=90%><td width=10%>&nbsp;</td><td width=80%>
+<b><font size=+1>Encoding WAVs</font></b>
+<p><font face="Tahoma">
+
+Homeworld is restricted to using 384 block bitrate because of the aforementioned hardcoded 
+dependency on 384 for many of the phrases in the exe.  In order to avoid crashes, this program
+is limited to 384 for homeworld.  Cataclysm (when support is included) will be limited to 512.
+
+<p>
+For each wav file, an encoding window will popup, one at a time. The program may seem to be locked up
+but it is because of the blocking nature of the DOS call and the huge CPU usage by the encoder.  Depending
+on the number of files and size of the files, it may take a LONG time.  I would suggest running this part
+overnight.  Yes, encoding large numbers of files at a low bitrate of 384 is slow, even my 1.2ghz Athlon
+can take a few hours.  It could be less, depending on your files. NOTE: One of the early testers mentioned
+that Win98 had a memory leak and crashed after several hundred dos windows popped up and closed during this
+part.  They had to build a DOS batch file to do the encoding.  My WinXP never had this problem.
+
+<p> 
+Also, you should make sure your wav source directory is in a short directory name with no spaces.  I
+suggest something like C:\VCEWAVS or something like that.  The enc.exe file won't like spaces or long names.
+This is a DOS drawback.  It won't even let you know that it didn't like it.
+
+<p> 
+When encoding is over, you should have the same filenames, but with .aifr extensions, in the aifr destination
+directory, including a file called encfiles.log which lists the destination files and paths for later use.
+
+<p>
+<img src="img/enc.jpg">
+
+
+</font>
+</td><td width=10%>&nbsp;</td>
+</tr>
+<tr height=10%><td colspan=3 align=right><a href="vcepack4.htm">Prev</a>&nbsp;|&nbsp;<a href="vcepack6.htm">Next</a></table>
+
+</body>
+</html>

@@ -1,0 +1,149 @@
+[Root]
+Most Recent Package=Standard Setup Package 1
+
+
+[Package|Standard Setup Package 1|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=C:\My Projects\vcepack\setup
+
+[Package|Standard Setup Package 1|Configure DAO ISAMs]
+Applicable=No
+
+[Package|Standard Setup Package 1|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|Standard Setup Package 1|Files Found]
+
+[Package|Standard Setup Package 1|Files Released]
+speechsentence_comp.lut=
+speechphrase_comp.lut=
+
+[Package|Standard Setup Package 1|Missing Dependency Information]
+C:\WINNT\system32\FM20.DLL=
+C:\My Projects\vcepack\replicate.exe=
+
+[Package|Standard Setup Package 1|Out-of-Date Dependency Information]
+
+[Package|Standard Setup Package 1|Files Added]
+c:\my projects\vcepack\sox.exe=
+c:\my projects\vcepack\enc.exe=
+c:\my projects\vcepack\replicate.exe=
+c:\my projects\vcepack\filter.dat=
+c:\my projects\vcepack\phrlut.lut=
+c:\my projects\vcepack\restore.bat=
+c:\my projects\vcepack\sentlut.lut=
+c:\my projects\vcepack\blank.aifr=
+c:\my projects\vcepack\blank.wav=
+C:\My Projects\hwspeechlisting\byphrase_new.html=
+C:\My Projects\hwspeechlisting\nlist.csv=
+
+[Package|Standard Setup Package 1|Files Removed]
+c:\my projects\vcepack\replicate.exe=
+
+[Package|Standard Setup Package 1|Files In Project]
+C:\My Projects\vcepack\vcepack.exe=Yes
+C:\WINNT\system32\msvbvm60.dll=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+C:\WINNT\system32\TABCTL32.OCX=Yes
+C:\WINNT\system32\FM20.DLL=Yes
+C:\WINNT\system32\comdlg32.ocx=Yes
+C:\WINNT\system32\comctl32.ocx=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+C:\WINNT\system32\VB6STKIT.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+C:\My Projects\vcepack\sox.exe=Yes
+C:\My Projects\vcepack\enc.exe=Yes
+C:\My Projects\vcepack\replicate.exe=No
+C:\My Projects\vcepack\filter.dat=Yes
+C:\My Projects\vcepack\phrlut.lut=Yes
+C:\My Projects\vcepack\restore.bat=Yes
+C:\My Projects\vcepack\sentlut.lut=Yes
+C:\My Projects\vcepack\blank.aifr=Yes
+C:\My Projects\vcepack\blank.wav=Yes
+C:\My Projects\hwspeechlisting\byphrase_new.html=Yes
+C:\My Projects\hwspeechlisting\nlist.csv=Yes
+
+[Package|Standard Setup Package 1|Configure Registry Files]
+Applicable=No
+
+[Package|Standard Setup Package 1|Configure Remote Servers]
+Applicable=No
+
+[Package|Standard Setup Package 1|Install Locations]
+C:\My Projects\vcepack\vcepack.exe=$(AppPath)
+C:\WINNT\system32\msvbvm60.dll=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+C:\WINNT\system32\TABCTL32.OCX=$(WinSysPath)
+C:\WINNT\system32\FM20.DLL=$(WinSysPath)
+C:\WINNT\system32\comdlg32.ocx=$(WinSysPath)
+C:\WINNT\system32\comctl32.ocx=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+C:\WINNT\system32\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+C:\My Projects\vcepack\sox.exe=$(AppPath)
+C:\My Projects\vcepack\enc.exe=$(AppPath)
+C:\My Projects\vcepack\replicate.exe=$(AppPath)
+C:\My Projects\vcepack\filter.dat=$(AppPath)
+C:\My Projects\vcepack\phrlut.lut=$(AppPath)
+C:\My Projects\vcepack\restore.bat=$(AppPath)
+C:\My Projects\vcepack\sentlut.lut=$(AppPath)
+C:\My Projects\vcepack\speechphrase_comp.lut=$(AppPath)
+C:\My Projects\vcepack\speechsentence_comp.lut=$(AppPath)
+C:\My Projects\vcepack\blank.aifr=$(AppPath)
+C:\My Projects\vcepack\blank.wav=$(AppPath)
+C:\My Projects\hwspeechlisting\byphrase_new.html=$(AppPath)
+C:\My Projects\hwspeechlisting\nlist.csv=$(AppPath)
+
+[Package|Standard Setup Package 1|Configure Shared Files]
+Applicable=Yes
+C:\My Projects\vcepack\vcepack.exe=No
+C:\My Projects\vcepack\sox.exe=No
+C:\My Projects\vcepack\enc.exe=No
+C:\My Projects\vcepack\replicate.exe=No
+C:\My Projects\vcepack\filter.dat=No
+C:\My Projects\vcepack\phrlut.lut=No
+C:\My Projects\vcepack\restore.bat=No
+C:\My Projects\vcepack\sentlut.lut=No
+C:\My Projects\vcepack\speechphrase_comp.lut=No
+C:\My Projects\vcepack\speechsentence_comp.lut=No
+C:\My Projects\vcepack\blank.aifr=No
+C:\My Projects\vcepack\blank.wav=No
+C:\My Projects\hwspeechlisting\byphrase_new.html=No
+C:\My Projects\hwspeechlisting\nlist.csv=No
+
+[Package|Standard Setup Package 1|Distribution]
+Type=single
+Size=
+Title=VCEPacker
+
+[Package|Standard Setup Package 1|Package]
+PackageFolder=C:\My Projects\vcepack\setup
+ProjectFolder=C:\My Projects\vcepack
+ServerSideCab=
+File1=C:\My Projects\vcepack\setup\setup.exe
+File2=C:\My Projects\vcepack\setup\Setup.Lst
+File3=C:\My Projects\vcepack\setup\vcepack.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz
+
+[Package|Standard Setup Package 1|IconGroups]
+Group0=Homeworld Tools
+PrivateGroup0=-1
+Parent0=$(Programs)
+
+[Package|Standard Setup Package 1|Homeworld Tools]
+Icon1=vcepack.exe
+Title1=VCEPacker
+StartIn1=$(AppPath)
+Key1=Icon1

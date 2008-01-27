@@ -1,0 +1,18 @@
+// List of valid front-end files for FEMan
+
+Construction_Manager\Construction_Manager.FEM
+Context_sensitive_menus\CSM_All01.fem
+Front_End\Front_End.FEM
+Game_Chat\Game_Chat.FEM
+Horse_Race\Horse_Race.FEM
+In-game_Front_End\In_game_esc_menu.FEM
+In-game_Front_End\Mission_objective.FEM
+Launch_Manager\Launch_Manager.FEM
+Misc_Small_Screens\Hyperspace_Roll_Call.fem
+Multiplayer_Game\Multiplayer_Game.FEM
+Multiplayer_LAN_Game\Multiplayer_LAN_Game.FEM
+Research_Manager\Research_manager.fem
+Sensors_Manager\Sensors_Manager.FEM
+TaskBar\TaskBar.FEM
+Trader_Interface\Trader_Interface.fem
+Multiplayer_Game\Choose_Server.FEM

@@ -1,0 +1,47 @@
+<html>
+<body bgcolor=#ffffff link=#0000ff vlink=#ff0000>
+
+<br><br><br><br>
+
+<center>
+<img src="wav2aifr.jpg">
+<br><br>
+<table width=100% border=0><tr><td width=10%>&nbsp;</td><td width=80%>
+
+Everything audio in Homeworld is first compressed using the aifr codec from
+Relic.  This is included in the hwss toolkit.  HWSS won't even start unless you've
+installed the NCT audio editor OCX. It can be found from:
+<br><a href="http://www.nctsoft.com/products/NCTAudioEditor/">nctsoft</a>
+<br><br>
+Start HWSS, click the Convert button on the left.  This will change the view
+window (right side) to show the conversion functions.
+<br><br>
+Click the wav->aifr tab.  The view will further change.  On the left side, set
+the directory where your wav files are stored.  The right side will list any 
+wav files there.  Set the encoding bitrate with the drop list (middle) and 
+hit the button to start encoding.  The bottom section will show some debug
+output so you can know what will happen.
+<br><br>
+The program will pop up some dos windows while it is encoding each file.  The
+main program may behave like it is locked up until it is finished encoding each
+wav file in the list.  This is normal.  The dos windows should disappear on 
+their own.  If not, close them when the encoding is done.
+<br><br>
+The aifr files should now appear in the same directory as the wav files.  Each 
+will also have an associated LOG file.  These log files are VERY important, please
+leave them alone.
+<br><br>
+<b>NOTE:</b> Each wav file must have a playback time of at LEAST 1 second, or the
+relic encoder will produce an empty file.  You can use a program like Goldwave32
+to extend or add silence to a sound file that is less than 3 seconds in playback time.
+
+
+</td><td width=10%>&nbsp;</td></tr></table>
+
+
+<center>
+<a href="index5.htm">Next page</a>
+</center>
+
+</body>
+</html>

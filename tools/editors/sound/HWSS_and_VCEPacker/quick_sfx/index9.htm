@@ -1,0 +1,59 @@
+<html>
+<body bgcolor=#ffffff link=#0000ff vlink=#ff0000>
+
+<br><br><br><br>
+
+<center>
+<img src="setentry.jpg">
+<br><br>
+<table width=100% border=0><tr><td width=10%>&nbsp;</td><td width=80%>
+
+
+Now, set the path to the aifrb file that will replace this sound effect.  Once
+this is set, the attributes for this sound will populate the fields (which, before would
+only show the attibutes for the sound already in this sound entry).
+<br><br>
+These attributes are derived from the log file.  They should be correct, so 
+don't change them, else they will probably not playback correctly.  Some of 
+the advanced features (like panning, volume, looping, etc) haven't been tested,
+so it is good to leave them alone now).
+<br><br>
+Once you select the sound you want, <b><u>YOU MUST HIT THE SET BUTTON!</u></b>, if not, 
+you'll lose this selection, when you select a new sound entry to change.  If you chose the wrong
+one, or make a mistake, you can hit the cancel button, which will only revert to the original
+sound effect for this sound entry only.
+<br><br>
+REPEAT, YOU MUST HIT THE SET BUTTON AFTER CHOOSING EACH SOUND ENTRY AND ITS NEW SOUND!
+<br><br>
+One of the problems of earlier versions of HWSS was that replacing certain long
+sounds could cause a crash when pausing the game.  This was primarily due to the
+looping of a sound.  The two biggest examples of a sound loop are the ion cannon
+that is firing when the game is paused (the firing sound is looping within the
+body of the raw sound), and another is the thrust sound which loops either in
+paused or flight mode.
+<br><br>
+In order to loop a sound, a looping flag in the BNK header for that entry must
+be set, and then two other fields (loopstart and loopstop) must be set.  These
+are byte offsets into the raw sound.  Earlier versions of HWSS didn't handle these
+and just copied over old loop values and flag settings.  In the case where the
+new sound wasn't as big as the old sound, and the loopstart/loopend offsets extended
+beyond this size, the game would crash to windows.
+<br><br> 
+HWSS v1.36 has looping turned off by default and you can't re-enable it.  This 
+will be enabled in the next version.  Whatever is showing in the looping field 
+won't be copied as long as the looping flag is shut off (and v1.36 won't let you
+turn it on).
+<br><br>
+What happens now is, for the ION cannon, when firing and the game is paused, the 
+new sound effect is played out, then stops making noise.  Until this looping is
+fixed, it isn't a good idea to change the thrust sounds (which are in ships.bnk, I think).
+
+</td><td width=10%>&nbsp;</td></tr></table>
+
+
+<center>
+<a href="index10.htm">Next page</a>
+</center>
+
+</body>
+</html>

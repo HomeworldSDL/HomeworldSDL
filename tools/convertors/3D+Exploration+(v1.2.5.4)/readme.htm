@@ -1,0 +1,657 @@
+<html>
+
+<head>
+<style TYPE="text/css">
+<!-- 
+body		{ background: #FFFFFF;  
+		/*font-size: 75%;  */			 /* K2 and Proxy */
+		font-size: 70%;  		/* SMS, NT5, and Win98 */
+		font-family: Verdana, Arial, Helvetica, MS Sans Serif  }
+
+a:link		{ color: #0000CC; } 
+
+a:active	{ color: #996699; }
+
+a:visited 	{ color: #996699; }
+
+p		{ margin-top: .6em; margin-bottom: .6em	}
+
+p.bigfix	{ margin-top: -.4em; margin-bottom: 0em;}
+
+p.margin	{ margin-left: 2em; margin-top: -1.75em;}	/*for SMS links*/
+
+p.K2		{ margin-top: 0em; margin-left: 10pt;}
+
+/*	HEADING TAGS	*/
+
+h1		{ font-size: 145%; 
+		margin-bottom: .5em; }
+
+h2		{ font-size: 125%;  
+		margin-top: 1.5em;
+		margin-bottom: .5em;  }
+
+h3		{ font-size: 110%; 
+		margin-top: 1.2em;  
+		margin-bottom: .5em;  }
+
+h4		{font-size: 105%;
+		margin-top: 1.2em;
+		margin-bottom: .5em  }
+
+h5		{font-size: 100%;
+		margin-top: 1.2em;
+		margin-bottom: .5em }
+
+big		{  font-weight: bold; 
+		font-size: 105%;  }
+		
+p.proclabel		{ font-weight: bold;
+				font-size: 100%;
+				margin-top: 1.2em }  	/*procedure heading*/
+
+
+/*	LIST TAGS	*/
+
+ol		{ margin-top: .6em; margin-bottom: 0em; margin-left: 4em }	
+	
+ul		{ margin-top: .6em; margin-bottom: 0em }	
+
+ol ul	{ list-style: disc; margin-top: .6em  }
+
+ul ul	{ list-style: disc }
+
+li		{ margin-bottom: .7em;
+		margin-left: -2em }
+		
+		
+
+/*	TERM AND DEFINITION TAGS	*/
+
+dl		{ margin-top: 0em }
+
+dt		{ font-weight: bold;
+		margin-top: 1em;
+		/* margin-left: 0em; */ 	/*for SMS terms*/ 
+		margin-left: 1.5em;  }
+
+dd		{ margin-bottom: 0em;	/*not currently working*/
+		margin-left: 1.5em  }
+
+dl li	{ margin-bottom: .7em }	/*list item inside a term/def list*/
+
+dl dl	{  margin-top: 0em;
+		margin-left: 0em  }	/*term/def list inside a term/def list*/
+
+
+
+/*	TABLE TAGS	*/
+
+
+table	{ font-size: 100%;
+		margin-top: 1em; 
+		margin-bottom: 1em }
+		
+th		{ text-align: left;
+		vertical-align: bottom;
+		background: #dddddd	}
+		
+th.center	{ text-align: center }
+		
+tr		{ vertical-align: top }
+
+td		{ vertical-align: top;
+		background: #eeeeee }	/*not used for K2*/
+
+
+/*	MISC. TAGS	*/
+
+pre			{ font-family: Courier;
+			font-size: 125%; 
+			margin-top: 1.2em;
+			margin-bottom: 1.5em  }
+		
+code		{ font-family: Courier;
+			font-size: 125%;  }
+		
+pre code	{ font-size: 100%; }
+							
+hr.sms	{ color: black; text-align: left  }  /*SMS specific rule used under procedure title*/
+
+hr.iis		{  color: black }		/*IIS specific - preceding copyright*/
+-->
+</style>
+<meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+<title>3D Exploration README</title>
+</head>
+
+<body>
+
+<p align="center"><font size="4"><b>3D Exploration v1.2</b>.54<b> Release Notes</b></font></p>
+
+<p align="center">Copyright (c) 1999-2000 X Dimension Software</p>
+
+<p><b><font size="4">Welcome!</font></b><br>
+Thanks for your interest in 3D Exploration. This document contains important information
+that should be read before running the software.<br>
+</p>
+
+<p><b><font size="4">3D Import:</font></b></p>
+
+<table border="0">
+  <tr>
+    <td width="60"><strong>3ds</strong></td>
+    <td width="280">3D Studio Binary</td>
+    <td width="250"></td>
+  </tr>
+  <tr>
+    <td><strong>prj</strong></td>
+    <td>3D Studio Project</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><strong>asc</strong></td>
+    <td>3D Studio ASCII</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><strong>cob</strong></td>
+    <td>Caligari objects </td>
+    <td>binary and ASCII</td>
+  </tr>
+  <tr>
+    <td><strong>scn</strong></td>
+    <td>Caligari scenes</td>
+    <td>binary and ASCII</td>
+  </tr>
+  <tr>
+    <td><strong>lwo,lw</strong></td>
+    <td>LightWave object / Lightwave layered object</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><strong>obj</strong></td>
+    <td>Alias WaveFront objects</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><strong>objf</strong></td>
+    <td>Stripe objf file format</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><strong>off</strong></td>
+    <td>Object file format</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><strong>geo</strong></td>
+    <td>AOFF File Format</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><strong>raw</strong></td>
+    <td>RAW File Format</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><strong>rax</strong></td>
+    <td>RAX File Format</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><strong>x</strong></td>
+    <td>Direct X</td>
+    <td>binary and ASCII</td>
+  </tr>
+  <tr>
+    <td><strong>wrl</strong></td>
+    <td>Virtual Reality Markup Language VRML 1.0, VRML 2.0</td>
+    <td>ASCII only</td>
+  </tr>
+  <tr>
+    <td><strong>c4d</strong></td>
+    <td>Cinema 4D</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><strong>3dm,3dmf</strong></td>
+    <td>3D Metafile</td>
+    <td>binary files only</td>
+  </tr>
+  <tr>
+    <td><strong>iob</strong></td>
+    <td>Imagine</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><strong>dxf,dxb</strong></td>
+    <td>AutoCAD DXF</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><strong>stl</strong></td>
+    <td>StereoLitho</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><strong>3dm</strong></td>
+    <td>Rhinoceros</td>
+    <td>All NURBS and MESH objects</td>
+  </tr>
+  <tr>
+    <td><strong>pro</strong></td>
+    <td>Power Render</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><strong>mts</strong></td>
+    <td>Metastream file</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><strong>flt</strong></td>
+    <td>OpenFlight Scene Description Database</td>
+    <td>Multigen API DLL's not required</td>
+  </tr>
+  <tr>
+    <td><strong>ase</strong></td>
+    <td>3D Studio MAX ASCII Scene Export</td>
+    <td>without animation support</td>
+  </tr>
+  <tr>
+    <td><strong>dwg</strong></td>
+    <td>AutoCAD DWG</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><strong>ndo</strong></td>
+    <td>Nendo v1.0/v1.1</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td width="60"><strong>mdl</strong></td>
+    <td width="280">Quake I model</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><strong>md2</strong></td>
+    <td>Quake II model</td>
+    <td>with animation support</td>
+  </tr>
+  <tr>
+    <td><strong>md3</strong></td>
+    <td>Quake III model</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><strong>mdl</strong></td>
+    <td>Half Life model</td>
+    <td>with animation support</td>
+  </tr>
+  <tr>
+    <td><strong>xsi</strong></td>
+    <td>SOFTIMAGE XSI</td>
+    <td>with animation support</td>
+  </tr>
+  <tr>
+    <td><strong>spx</strong></td>
+    <td>SPX file format</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><strong>peo/geo</strong></td>
+    <td>Homeworld geometry</td>
+    <td>with LiF textures</td>
+  </tr>
+</table>
+
+<p>&nbsp;</p>
+
+<p><b><font size="4">3D Import Notes:</font></b><br>
+<strong>Other formats.</strong><br>
+Inform me about the other formats, necessary to you, and they will appear in the future
+versions.</p>
+
+<p><strong>The following is skipped in all formats:</strong> 
+
+<ul>
+  <li>The vertex and face normals - normals are calculated automatically</li>
+  <li>The vertex and face colors</li>
+  <li>Animation (except for Half-Life, Quake II, Direct X, XSI and 3D Studio).</li>
+</ul>
+
+<p>&nbsp;</p>
+
+<p><b><font size="4">Textures and 2d Import:</font></b></p>
+<div align="left">
+
+<table border="0">
+  <tr>
+    <td width="60"><strong>bmp</strong></td>
+    <td width="280">Windows Bitmap</td>
+    <td width="250">Windows and OS/2. 1/8/16/24/32 bpp. RLE and uncompressed</td>
+  </tr>
+  <tr>
+    <td><strong>gif</strong></td>
+    <td>Graphics Interchange Format </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><strong>jpg</strong></td>
+    <td>JPEG JFIF </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><strong>png</strong></td>
+    <td>Portable Network Graphics</td>
+    <td>All sub-types supported</td>
+  </tr>
+  <tr>
+    <td><strong>tiff</strong></td>
+    <td>Tag Image File Format </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><strong>tga</strong></td>
+    <td>Targa TGA</td>
+    <td>All sub-types supported</td>
+  </tr>
+  <tr>
+    <td><strong>pcx</strong></td>
+    <td>ZSoft Publisher’s Paintbrush</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><strong>ppm</strong></td>
+    <td>PPM Image</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><strong>cel</strong></td>
+    <td>Autodesk CEL file</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><strong>iff</strong></td>
+    <td>EA/Amiga Interchange File Format</td>
+    <td>1-24 bpp</td>
+  </tr>
+  <tr>
+    <td><strong>rgb</strong></td>
+    <td>SGI Image Format </td>
+    <td>8-32 bpp; no colormaps. RLE or uncompressed</td>
+  </tr>
+  <tr>
+    <td><strong>fli,flc</strong></td>
+    <td>Autodesk FLI/FLC file</td>
+    <td>First frame only</td>
+  </tr>
+  <tr>
+    <td><strong>pic</strong></td>
+    <td>SOFTIMAGE pic</td>
+    <td></td>
+  </tr>
+</table>
+</div>
+
+<p>&nbsp;</p>
+
+<p><b><font size="4">Export:</font></b></p>
+
+<table border="0">
+  <tr>
+    <td width="60"><strong>asc</strong></td>
+    <td width="280">3D Studio ASCII</td>
+    <td width="250"></td>
+  </tr>
+  <tr>
+    <td><strong>cob</strong></td>
+    <td>Caligari objects </td>
+    <td>binary and ASCII</td>
+  </tr>
+  <tr>
+    <td><strong>obj</strong></td>
+    <td>Alias WaveFront objects</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><strong>off</strong></td>
+    <td>Object file format</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><strong>raw</strong></td>
+    <td>RAW File Format</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><strong>dxf</strong></td>
+    <td>AutoCAD DXF</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><strong>stl</strong></td>
+    <td>StereoLitho</td>
+    <td>binary and ASCII</td>
+  </tr>
+  <tr>
+    <td><strong>x</strong></td>
+    <td>Direct X</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td width="60"><strong>cpp</strong></td>
+    <td width="280">Open GL cpp code</td>
+    <td width="250">APP, Gen list, arrays</td>
+  </tr>
+  <tr>
+    <td width="60"><strong>bmp</strong></td>
+    <td width="280">Windows Bitmap</td>
+    <td width="250"></td>
+  </tr>
+  <tr>
+    <td><strong>jpg</strong></td>
+    <td>JPEG JFIF </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><strong>ppm</strong></td>
+    <td>PPM Image</td>
+    <td></td>
+  </tr>
+</table>
+
+<p>&nbsp;</p>
+
+<p><b><font size="4">Open GL and Hardware Acceleration</font></b><br>
+3D Exploration can work with 3D Acceleration graphics card that support hardware Open GL
+acceleration. For this purpose from the Render, API submenu select Open GL. The speed of
+3D acceleration is 3 to 5 times faster compared with 3D Exploration on an identical 3D
+card without acceleration.</p>
+
+<p>&nbsp;</p>
+
+<p><b><font size="4">Why you need to register your copy of 3D Exploration ?</font></b><br>
+The current version does not contain any limitations and the registered version differs
+only by absence of the <strong>UNREGISTERED</strong> text. Registered version also shows
+your name and email as the registered user.<br>
+If you register your copy 3D Exploration you will help us in development of new versions
+of 3D Exploration. 3D Exploration is trialware and you must register the program to
+continue using it after 30 day trial period (although it doesn't expire, actually). The
+registration fee is only <strong>$40</strong>. Once registered, you remain a registered
+user for this and all future versions of 3D Exploration. Registered users will receive
+information about latest versions of the program via e-mail.<br>
+All problems, which will arise for you and all your wishes will be considered first of
+all.</p>
+
+<p>&nbsp;</p>
+
+<p><b><font size="4">Product History</font></b><br>
+</p>
+
+<p>&nbsp;</p>
+
+<p><strong>Version 1.2.54</strong> 
+
+<ul>
+  <li>3DS import , addedd: support of instances, detecting of Bad Parity problem within 3D
+    Studio files <font color="#FF0000"><strong>[!]</strong></font></li>
+  <li>Cinema 4D - the local matrixes now are processed correctly</li>
+  <li>Homeworld geometry import added</li>
+</ul>
+
+<p><strong>Version 1.2.50</strong> 
+
+<ul>
+  <li>Batch conversion added</li>
+  <li>Camera customization added</li>
+  <li>LW textures support added and many fixes in LW import</li>
+  <li>Select object by name added</li>
+  <li>Fixes in obj, cob export</li>
+  <li>Minor changes and fixes</li>
+</ul>
+
+<p><strong>Version 1.2.11</strong> 
+
+<ul>
+  <li>SPX file format import added</li>
+  <li>Alternate Open GL rendering added</li>
+  <li>Minor changes in Open GL cpp export filter</li>
+  <li>Background image added</li>
+</ul>
+
+<p><strong>Version 1.2.03</strong> 
+
+<ul>
+  <li>Softimage XSI, Softimage PIC import added</li>
+  <li>Beta version of &quot;Geometry Inspector&quot; added</li>
+  <li>Minor changes in JPEG, NENDO and DWG import filters</li>
+  <li>Lightwave 3d layered object and MetaNURBS(tm) patches now supported</li>
+</ul>
+
+<p><strong>Version 1.2</strong> 
+
+<ul>
+  <li>Completely rewritten DXF Import converter. Now support ASCII and binary dxf</li>
+  <li>DWG import added</li>
+  <li>Nendo v1.0/v1.1 import added</li>
+  <li>Direct X import rewriten. Now with animation support</li>
+  <li>[Ctrl]+Mouse Click - command added</li>
+  <li>Direct X export - top frame feature added</li>
+  <li>New feature: Transformation before saving</li>
+  <li>Many other minor changes and fixes.</li>
+</ul>
+
+<p><strong>Version 1.2 (BETA 2)</strong> 
+
+<ul>
+  <li>Several bugs fixed</li>
+  <li>Stripe OBJF file import added</li>
+  <li>Rhino notes support added</li>
+  <li>Auto hide alpha channel button added</li>
+</ul>
+
+<p><strong>Version 1.2 (BETA)</strong> 
+
+<ul>
+  <li>Open GL cpp code export significantly improved ( Now with textures and materials export)</li>
+  <li>Direct X export added</li>
+  <li>Rhinoceros Layers support added</li>
+  <li>ASE import added</li>
+  <li>OpenFlight import added (while not available)</li>
+  <li>Windows help changed to HTML help</li>
+  <li>New registration code required</li>
+  <li>Auto reload textures feature added</li>
+  <li>View R,G,B and Alpha channels for bitmaps</li>
+  <li>More thumnails options added</li>
+  <li>FullScreen mode - auto show/hide objects list added</li>
+  <li>Command line options added and view mode added</li>
+  <li>TrueSpace export - rescale option added</li>
+  <li>Wavefront export - normals export added</li>
+  <li>Always on top option added</li>
+  <li>World / Screen coordinate system switch added (for scene rotation only)</li>
+  <li>Cinema4D - texture coordiantes import added</li>
+  <li>Many other minor changes and fixes</li>
+</ul>
+
+<p><strong>Version 1.11.6 (BETA)</strong> 
+
+<ul>
+  <li>Rhinoceros Import improved (Mesh import fixed , NURBS tesselation accelerated up to 2
+    times, some minor changes.)</li>
+  <li>2D Image viewing improved</li>
+</ul>
+
+<p><strong>Version 1.11.5 (BETA)</strong> 
+
+<ul>
+  <li>Rhinoceros Import added</li>
+  <li>RGB Import added</li>
+  <li>Power Render (*.PRO) import added</li>
+</ul>
+
+<p><strong>Version 1.11 (BETA)</strong> 
+
+<ul>
+  <li>METASTREAM Import added</li>
+  <li>THUMBNAILS for 2D files now works</li>
+  <li>Changes in material(MAP) dialog</li>
+</ul>
+
+<p><strong>Version 1.10</strong> 
+
+<ul>
+  <li>VRML and Quake 3 Import added</li>
+  <li>Open GL cpp code export added</li>
+  <li>List of external fiels ( textures, inline files ...)</li>
+  <li>Windows Explorer context file menu</li>
+  <li>Drag from 3D Exploration</li>
+  <li>Many bugs fixed</li>
+</ul>
+
+<p>&nbsp;</p>
+
+<p><b><font size="4">SDK</font></b><br>
+The 3D Exploration SDK are available. Mail to&nbsp;<a href="mailto:info@xdsoft.com">info@xdsoft.com</a>
+for more information.</p>
+
+<p>&nbsp;</p>
+
+<p><b><font size="4">3D Exploration Library</font></b><br>
+Add 3D Viewing capability to your VB / C++ application. Mail to&nbsp;<a
+href="mailto:info@xdsoft.com">info@xdsoft.com</a> for more information.</p>
+
+<p>&nbsp;</p>
+
+<p><b><font size="4">Copyrights</font></b><br>
+3D Exploration Copyright (c) 1999-2000 X Dimension Software</p>
+
+<p>Portions of this software are based in part on the work of the Independent JPEG Group.</p>
+
+<p>This software uses the PolyBoolean library<br>
+(C) 1998-1999 Michael Leonov (<a href="http://members.xoom.com/msleonov/pb.html">http://members.xoom.com/msleonov/pb.html</a>)<br>
+<br>
+Rhinoceros Import Module based on Rhino IO toolkit<br>
+Rhino IO toolkit Copyright (c) 1993-1998 Robert McNeel &amp; Associates. All rights
+reserved.<br>
+Rhinoceros is a registered trademark of Robert McNeel &amp; Assoicates.<br>
+<br>
+MetaStream Import Module based on MetaStream IO FILE SDK<br>
+Portions Copyright c Intel Corporation (1998,1999).<br>
+Portions Copyright c MetaCreations Corporation (1998,1999).<br>
+MetaStream is a trademark of MetaCreations Corp.</p>
+
+<p>&nbsp;</p>
+
+<p><b><font size="4">Latest Versions</font></b><br>
+Necessarily visit our server for obtaining the latest version.<br>
+If you want to receive news about 3D Exploration subscribe for our mailing list.<br>
+<br>
+WWW:&nbsp;&nbsp; <a href="http://www.xdsoft.com/explorer/">http://www.xdsoft.com/explorer/</a><br>
+eMail:&nbsp;&nbsp;&nbsp; <a href="mailto:info@xdsoft.com">info@xdsoft.com</a><br>
+<br>
+Copyright (c) 1999-2000 X Dimension Software<br>
+eMail:&nbsp;&nbsp;&nbsp; <a href="mailto:info@xdsoft.com">info@xdsoft.com</a></p>
+</body>
+</html>

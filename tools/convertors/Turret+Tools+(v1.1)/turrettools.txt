@@ -1,0 +1,32 @@
+
+**Homeworld turret tools V1.0 by Ratbag**            15-9-00
+
+peoinfo.exe       peodupe.exe       peochain.exe       peomatrix.exe
+
+
+peoinfo.exe              general header & object info
+usage is : "peoinfo filename.peo", will output text file with some relevent info about the peo structure called "filename.peo.txt".  Not nessessary for turrets but is useful.
+
+
+peodupe.exe              usage : "peodupe filename.peo"  Duplicates selected object mesh.  Program will prompt for input about number of duplicates and names.  Names can be up to 30 characters long.  Because one object exists already(if you made the model correctly;)), if you wanted 10 turrets then make 9 duplicates.  Output is "filename.peo.new".
+**NOTE: peodupe.exe now saves textures properly**
+     
+
+peochain.exe             links all objects in 1st level heirarchy
+usage : "peochain filename.peo"   Objects need to be linked so the game engine knows what is attached to what, in which order.  This does it for first level objects, ie turrets and wings and other things that are attached to the hull, but not for level 2 or further which would be turrets barrels, flaps on wing etc.  Next version will address this.  This program writes to the original file so make sure you have a backup.
+
+
+peomatrix.exe            modifys object transform, scale & orientation
+Usage : "peomatrix filename.peo"  Writes to original file, make a backup!.  This is the most important one.  This will modify the transformation matrix for the object, ie shift it from its position of 0,0,0 to wherever it should be on the hull.  Program will prompt for input of x,y & z offsets and rotation and scale.  XYZ are straight forward, ROTATION is in degrees, ie for a turret on the bottom of the ship rotate 180 degrees, SCALE changes the size of the object in a reciprical fashion, ie if you wanted a particular turret to be 2 times the normal size then enter .5, if you want it half size then enter 2 etc.  Will only operate on one object at a time and terminates, just run again for each object.  One thing that shits me that I will fix eventually is that you have to enter x,y & z everytime.  So if you just want to make a small adjustment to z, you still have to enter x & y. 
+
+
+Tips:  When making the model place the mouse or some dummy objects where the turrets will go and get the co-ordinates of that point.  Write them down.  You'll be glad you did when it comes to modifying the offsets!
+
+If the program seems to be sitting there doing nothing just hit enter again.
+
+If you terminate the program  before it is finished the results are unknown but probably wont be good.  Remember, backup!
+
+Warning:  These are really rough little programs that I wrote for myself and as such there is almost no data saftey. If the program wants you to enter a number and you enter LOBSTER, then some strange shit is gunna happen to your file!  It could also write past the end of file and overwrite some other data on you disk! I of course, in the tradition of Microsoft, accept absolutely no reponsibility for any damage done to your system through the use of these tools and you use them at your own risk!   Just do what the program says and nobody will get hurt!
+
+ratbag.
+

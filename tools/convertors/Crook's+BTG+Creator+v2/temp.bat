@@ -1,0 +1,1 @@
+Resource\terra -p 1000 -o resource\temp.obj obj resource\temp.pgm      

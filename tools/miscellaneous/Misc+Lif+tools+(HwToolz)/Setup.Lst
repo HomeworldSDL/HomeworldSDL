@@ -1,0 +1,40 @@
+[Bootstrap]
+SetupTitle=Install
+SetupText=Copying Files, please stand by.
+CabFile=HwToolz.CAB
+Spawn=Setup1.exe
+Uninstal=st6unst.exe
+TmpDir=msftqws.pdw
+Cabs=1
+
+[Bootstrap Files]
+File1=@VB6STKIT.DLL,$(WinSysPathSysFile),,,3/26/99 12:00:00 AM,101888,6.0.84.50
+
+[IconGroups]
+Group0=HwToolz
+PrivateGroup0=True
+Parent0=$(Programs)
+
+[HwToolz]
+Icon1="Lif2Psd.exe"
+Title1=HwToolz
+StartIn1=$(AppPath)
+
+[Setup]
+Title=HwToolz
+DefaultDir=$(ProgramFiles)\HwToolz
+AppExe=Lif2Psd.exe
+AppToUninstall=Lif2Psd.exe
+
+[Setup1 Files]
+File1=@Lif2psd.bat,$(AppPath),,,5/8/01 12:26:12 PM,40,0.0.0.0
+File2=@bldmifsubpsd.bat,$(AppPath),,,5/8/01 11:13:54 AM,15,0.0.0.0
+File3=@Bldmif.man.txt,$(AppPath),,,5/8/01 12:53:00 PM,873,0.0.0.0
+File4=@Readme.txt,$(AppPath),,,5/21/01 2:40:32 PM,1279,0.0.0.0
+File5=@bldmif.exe,$(AppPath),,,5/8/01 10:44:06 PM,24576,2.0.0.0
+File6=@Mif2Dir.exe,$(AppPath),,,5/8/01 3:45:42 PM,20480,2.0.0.0
+File7=@LifView.exe,$(AppPath),,,4/20/01 10:32:26 PM,45056,1.1.0.0
+File8=@GoMaker.exe,$(AppPath),,,5/8/01 10:44:28 PM,20480,1.0.0.0
+File9=@TextureWorks.exe,$(AppPath),,,4/27/01 3:07:54 PM,57344,1.0.0.0
+File10=@Lif2Psd.exe,$(AppPath),,,4/20/01 10:31:56 PM,61440,2.1.0.0
+File11=@HwToolz.txt,$(AppPath),,,5/21/01 2:40:32 PM,1052,0.0.0.0

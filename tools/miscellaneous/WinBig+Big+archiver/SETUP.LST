@@ -1,0 +1,32 @@
+[Bootstrap]
+SetupTitle=Install
+SetupText=Copying Files, please stand by.
+CabFile=WinBig.CAB
+Spawn=Setup1.exe
+Uninstal=st6unst.exe
+TmpDir=msftqws.pdw
+Cabs=1
+
+[Bootstrap Files]
+File1=@VB6STKIT.DLL,$(WinSysPathSysFile),,,3/25/99 11:00:00 PM,101888,6.0.84.50
+
+[IconGroups]
+Group0=WinBig
+PrivateGroup0=-1
+Parent0=$(Programs)
+
+[WinBig]
+Icon1="WinBig.exe"
+Title1=WinBig
+StartIn1=$(AppPath)
+
+[Setup]
+Title=WinBig
+DefaultDir=$(ProgramFiles)\WinBig
+AppExe=WinBig.exe
+AppToUninstall=WinBig.exe
+
+[Setup1 Files]
+File1=@Winbig.txt,$(AppPath),,,8/30/01 1:42:44 PM,1257,0.0.0.0
+File2=@HwBigWrk.dll,$(AppPath),$(DLLSelfRegister),$(Shared),8/30/01 9:55:22 PM,57344,1.0.0.0
+File3=@WinBig.exe,$(AppPath),,,8/30/01 9:55:26 PM,81920,1.0.0.0

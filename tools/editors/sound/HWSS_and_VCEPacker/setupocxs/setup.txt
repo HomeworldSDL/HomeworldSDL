@@ -1,0 +1,13 @@
+Copy the files to your system directory (windows/system on 95/98/ME, or WINNT/system32 on NT,2k or XP)
+
+run from command line:
+
+regsvr32 tabctl32.ocx
+regsvr32 comdlg32.ocx
+regsvr32 mscomct2.ocx
+regsvr32 mscomctl.ocx
+regsvr32 msflxgrd.ocx
+regsvr32 fm20.dll
+regsvr32 shell32.dll
+
+Then try starting HWSS again.

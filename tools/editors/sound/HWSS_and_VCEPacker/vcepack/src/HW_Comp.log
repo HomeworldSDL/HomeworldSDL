@@ -1,0 +1,575 @@
+Entry #       offset        chars         text          #
+1100,          5703977,      11,          Event155_01,   1100
+2595,          14116436,     94,          This is the Garden of Kadesh.  For thirteen generations we have protected it from the unclean.,    2595
+2596,          14151538,     152,         The Turanic Raiders who came before you failed to join and were punished for this trespass. Like theirs, your ship has already defiled this holy place. ,  2596
+2597,          14197066,     161,         If you have come to join we welcome you and will spare your ship until all have disembarked.  If you have come to consume the garden you will be removed at once.,       2597
+2598,          14255323,     25,          What are your intentions?,   2598
+2599,          14260884,     72,          If you will not join, then die.  There is no withdrawal from the Garden.,            2599
+2600,          14287900,     64,          Again we offer you the chance to join us and live here in peace.,      2600
+2601,          14304108,     143,         You will fail.  The evil that drove us here will find and destroy you.  From you they will know of us and come here.  This cannot come to pass.,           2601
+2602,          14358987,     50,          I am Group Captain Elson of the Destroyer Kapella.,      2602
+2603,          14370141,     71,          The Kushan empire has become decadent and corrupt over the centuries.  ,             2603
+2604,          14385588,     72,          The Taiidan empire has become decadent and corrupt over the centuries.  ,            2604
+2605,          14400652,     102,         The use of the forbidden atmosphere-deprivation device on your planet finally triggered the Rebellion.,          2605
+2606,          14422034,     60,          Help me get access to the Rebellion's communication network.,          2606
+2607,          14435550,     70,          I will show you a way through the defenses surrounding your Homeworld.,              2607
+2608,          14449988,     41,          Take me to the ship graveyard at Karos.  ,               2608
+2609,          14460749,     63,          Hidden in a derelict there is a relay I can use with your help.,       2609
+2610,          14475564,     60,          The Rebellion waits for my sign to move into its next phase.,          2610
+2611,          14488888,     141,         Patching into command node now... The Kushan resistance has been informed of your actions and are preparing the fleets.  You have our thanks.,             2611
+2612,          14521829,     142,         Patching into command node now... The Taiidan resistance has been informed of your actions and are preparing the fleets.  You have our thanks.,            2612
+2613,          14555443,     91,          The hyperspace coordinates you require have been transferred to your Mothership.  Farewell.,       2613
+2614,          14575854,     112,         This is Captain Elson.  We have been battling reinforcement fleets to get here and have lost many ships already.,              2614
+2615,          14601134,     139,         The Emperor's flagship is here.  Together we can defeat him and the Kushan fleet.  I am placing squadrons Cor and Jasah under your command.,               2615
+2616,          14642137,     140,         The Emperor's flagship is here.  Together we can defeat him and the Taiidan fleet.  I am placing squadrons Cor and Jasah under your command.,              2616
+4364,          28117541,     22,          Construction online...,      4364
+4365,          28132075,     63,          This is Fleet Command.  Reporting Mothership pre-launch status.,       4365
+4366,          28168058,     18,          Command on-line...,          4366
+4367,          28179996,     20,          Resourcing online...,        4367
+4368,          28192512,     43,          Cryogenic subsections A through J online...,             4368
+4369,          28221659,     21,          K through S online...,       4369
+4370,          28238880,     42,          Scaffold Control stand by for alignment...,              4370
+4371,          28259578,     47,          Alingment confirmed.  Stand by Release Control.,         4371
+4372,          28289881,     40,          The Mothership has cleared the Scaffold.,  4372
+4373,          28306833,     12,          We are away.,  4373
+4374,          28313965,     36,          Stand by for Command Line testing...,      4374
+4375,          28330913,     62,          Mothership sustained minor hull damage.  Repairs are underway.,        4375
+4376,          28360079,     209,         This is the Mothership calling Support Vessel Khar-Selim.  Come in please.  We have mis-jumped and are requesting your beacon. . . This is the Mothership calling Support Vessel Khar-Selim.  Please Respond. . .,               4376
+4377,          28490288,     57,          They're attacking?!. . . The Mothership is under attack!!,             4377
+4378,          28521657,     104,         We made it. Hyperspace jump complete!  All systems nominal and the quantum wave effect has dissipated.
+,              4378
+4379,          28587345,     59,          No one's left. . .Everything's gone!. . .Kharak is burning!,           4379
+4380,          28637916,     144,         Wait!  On the maintenance frequency.  I'm getting a signal from the Cryo Tray systems in orbit.  One of them is suffering a massive malfunction.,          4380
+4381,          28714300,     89,          Those trays contain all that remain of our people.  Without them, we will become extinct.,         4381
+4382,          28762501,     61,          We are all that's left of our world, our culture, our people.,         4382
+4383,          28794354,     73,          Cryogenic trays have been processed and our colonists are safe for now.  ,           4383
+4384,          28829963,     30,          I can't believe this happened.,            4384
+4385,          28842009,     47,          Our first hyperdrive test led to near genocide.,         4385
+4386,          28865784,     21,          Kharak... destroyed. ,       4386
+4387,          28879549,     56,          All of us, all that's left, hunted by two alien races...,              4387
+4388,          28914469,     16,          Ambassador away.,            4388
+4389,          28925445,     27,          Hyperspace jump successful.,               4389
+4390,          28939024,     33,          Bentusi Trading link established.,         4390
+4391,          28954913,     19,          Emergency alert!!  ,         4391
+4392,          28965220,     19,          Standby for impact.,         4392
+4393,          28976583,     25,          Hyperdrive malfunction.  ,   4393
+4394,          28987952,     37,          The quantum waveform is collapsing.  ,     4394
+4395,          29002885,     25,          Saftey interrupt engaged.,   4395
+4396,          29017038,     46,          Prepare for immediate return to normal space. ,          4396
+4397,          29038028,     17,          What's happening?,           4397
+4398,          29058413,     35,          This is Fleet Command, signing off.,       4398
+4399,          29081312,     110,         Hyperspace successful.  Current position and pre-jump coordinates are in perfect alignment.  We are on target.,  4399
+4400,          29143934,     27,          Hyperspace jump successful.,               4400
+4401,          29158185,     34,          The Bentusi said "No one returns.",        4401
+4402,          29190491,     113,         This is a dangerous and unpredictable region.  Can you give us information that will guide us through the nebula?,             4402
+4403,          29235356,     16,          Ambassador away.,            4403
+4404,          29244892,     45,          Hyperspace module at 35%, ready in 8 minutes.,           4404
+4405,          29275481,     44,          Hyperspace module at 90%, ready in 1 minute.,            4405
+4406,          29307989,     32,          Hyperspace module fully charged.,          4406
+4407,          29323973,     96,          Hyperdrive jump failed!  The Quantum waveform collapsed before the fleet could enter hyperspace.,  4407
+4408,          29375445,     31,          The Hyperdrive is back on-line.,           4408
+4409,          29389604,     88,          Something's wrong.  We've been pulled out of hyperspace.  We're still inside the nebula.,          4409
+4410,          29434540,     219,         Our future lies elsewhere, but we already have something in common.  The hyperdrive technology we use is identical to yours.  Our ancestors left it in a wreckage on our planet.  We're on a mission to find our Homeworld.,     4410
+4411,          29552087,     33,          It looks just like the Khar-Toba.,         4411
+4412,          29571528,     36,          Anomaly detected.  Override engaged.,      4412
+4413,          29597116,     71,          The Kushan are determined to destroy us.  Will you help us defeat them?,             4413
+4414,          29635603,     72,          The Taiidan are determined to destroy us.  Will you help us defeat them?,            4414
+4415,          29672363,     69,          Hyperspace jump successful.  We have cleared the Outer Rim dust bank.,               4415
+4416,          29705088,     95,          The supernova is two hundred and fifteen light years away.  It is emitting intense radiation.
+,              4416
+4417,          29751567,     67,          Hyperdrive disengaged.  The Bentusi are here.  They're in distress.,   4417
+4418,          29800898,     48,          Dropping out of hyperspace.  All systems online.,        4418
+4419,          29829282,     58,          Hyperspace transition complete.  We have arrived at Karos.,            4419
+4420,          29859788,     67,          Hyperspace successful.  We are at the edge of the Homeworld system.,   4420
+4421,          29894911,     13,          Take us home.,               4421
+4422,          29902716,     23,          Hyperspace interrupted.,     4422
+4423,          29915523,     51,          ...Fleet Command back online.  The Emperor is gone.,     4423
+4424,          29953030,     115,         If the hyperspace targeting system is accurate, we will emerge in close proximity to the support vessel Khar-Selim.,           4424
+4425,          30004233,     111,         This ship has spent the past 10 years travelling on conventional drives to reach the edge of the Kharak system.,               4425
+4426,          30046600,     126,         The Khar-Selim will monitor the quantum waveform as we return to normal space and assist in tuning our drive control systems. ,              4426
+4427,          30105878,     92,          If the hyperspace module malfunctions, the Khar-Selim will provide assistance and re-supply.,      4427
+4428,          30153602,     125,         Mission objectives will be to dock with the support vessel in order to complete adjustments to the Mothership and her drives.,               4428
+4429,          30200879,     114,         Analysis of wreckage reveals the hostile units are using strike craft ranging from Fighters to combat Corvettes.  ,            4429
+4430,          30253617,     91,          All pilots will be briefed in case hostiles have penetrated farther into the Kharak system.,       4430
+4431,          30293468,     133,         On our return to Kharak, the final outfit of the Mothership must be accelerated in order to defend against possible future attacks.  ,       4431
+4432,          30350065,     52,          Many major Mothership systems are still incomplete. ,    4432
+4433,          30374901,     75,          We will notify the Kharak Missile Defense System of this possible threat.  ,         4433
+4434,          30406288,     60,          The Mothership will then dock with the Scaffold for repairs.,          4434
+4435,          30431900,     38,          Standby for Hyperspace exit to Kharak.,    4435
+4436,          30453074,     48,          Extermination of our planet was the consequence.,        4436
+4437,          30472722,     112,         The captain claimed our people violated a 4000 year old treaty forbidding us to develop hyperspace technology.  ,              4437
+4438,          30521426,     146,         From the interrogation we learned that a frontier fleet patrolling the borders of a vast interstellar empire was dispatched to destroy our planet.,        4438
+4439,          30583604,     42,          The subject did not survive interrogation.,              4439
+4440,          30601518,     62,          We have repaired the damage incurred by the Turanic Raiders.  ,        4440
+4441,          30623292,     61,          Combat and sensor systems returning to optimal functionality.,         4441
+4442,          30650825,     87,          We must focus on the matter at hand: elimination of the fleet that destroyed our world.,           4442
+4443,          30689424,     37,          Coming up on hyperspace co-ordinates.,     4443
+4444,          30703685,     157,         #+Kharak is being consumed by a firestorm.  The Scaffold has been destroyed.  All orbital facilities destroyed.  Significant debris ring in low Kharak orbit.,           4444
+4445,          30829714,     76,          Receiving no communications from anywhere in the system... Not even beacons.,        4445
+4446,          30874158,     67,          Capture at least one vessel for interrogation and destroy the rest.,   4446
+4447,          30912353,     70,          #+Hostile vessel captured.  Crew interned.  Interrogation is underway.,              4447
+4448,          30958135,     113,         While searching the enemy ship's computer systems, we came across these flight recordings.  Standby for playback.,             4448
+4449,          31014712,     107,         #+Analysis of the recording indicates that the Kharak missile defenses heavily damaged the attacking fleet.,     4449
+4450,          31065427,     199,         However, we have concluded that at present they can still easily defeat us.  We have therefore plotted a course to a deep space asteroid belt.  There we can hide and prepare our fleet for an assault.,           4450
+4451,          31155306,     136,         #+Our research division has analyzed the captured frigate.  We have reverse engineered the drive technology and developed two new ships.,    4451
+4452,          31222370,     81,          Plans for a third vessel are underway, but will require Frigate Chassis research.,   4452
+4453,          31256739,     62,          Withdraw attack and deploy a Salvage Team.  We need that ship.,        4453
+4454,          31291377,     103,         Cryo trays loaded and secure.  Hyperspace module charged.  There's nothing left for us here.  Let's go.,         4454
+4455,          31361288,     171,         #+Using data from the Taiidan vessel captured at Kharak, we have been able to determine their location.  If we strike now we can take advantage of their damaged condition.,           4455
+4456,          31441539,     144,         Resource Controllers are available for construction.  To improve the efficiency of collection, build one and position it near the asteroid vein.,          4456
+4457,          31507555,     121,         #+Long range sensors indicate a Mothership-class mass signature.  It's coming in fast.  Power readings are off the scale.,     4457
+4458,          31577772,     40,          Full combat alert.  Standby for contact.,  4458
+4459,          31597796,     23,          Prepare the ambassador.,     4459
+4460,          31607723,     31,          Recommend immediate cease-fire.,           4460
+4461,          31626682,     118,         Turanic Raider fighters are attacking our resource operation.  Defend it and prepare for more hostile ships to arrive.,        4461
+4462,          31684320,     91,          Several Turanic Raider capital ships have just emerged from hyperspace near the Mothership.,       4462
+4463,          31718507,     98,          The Raider Carrier has been located.  It is reinforcing their squadrons of Fighters and Corvettes.,              4463
+4464,          31762397,     123,         The Carrier is retreating.  If it escapes they will warn the Kushan fleet of our pursuit.  Do not allow them to hyperspace.,   4464
+4465,          31827240,     98,          Scanner data indicates asteroid density is 
+highest in this region.  Commence resource gathering.,   4465
+4466,          31874682,     124,         The Carrier is retreating.  If it escapes they will warn the Taiidan fleet of our pursuit.  Do not allow them to hyperspace.,  4466
+4467,          31940294,     154,         #+The Turanic Raiders have been defeated.  We can now return to our immediate goal: preparation for an attack on the  Kushan fleet that devastated Kharak.,              4467
+4468,          32015728,     154,         #+The Turanic Raiders have been defeated.  We can now return to our immediate goal: preparation for an attack on the Taiidan fleet that devastated Kharak.,              4468
+4469,          32091930,     170,         #+Using data from the Kushan vessel captured at Kharak, we have been able to determine their location.  If we strike now we can take advantage of their damaged condition.,            4469
+4470,          32171124,     63,          Hyperspace co-ordinates have been transferred to Fleet Command.,       4470
+4471,          32191651,     126,         Ship profiles and markings match those from the recording at Kharak.  There is no doubt that this is the fleet.  Destroy them.,              4471
+4472,          32252273,     115,         Research Division reports it is now equipped for Ion Cannon technology.  We advise commencing research immediately.,           4472
+4473,          32306644,     116,         Research Division reports it is now equipped for Plasma Bomb technology.  We advise commencing research immediately.,          4473
+4474,          32361880,     103,         Sensors indicate the enemy is harvesting resources.  Destroy their collector to impair ship production.,         4474
+4475,          32410575,     79,          #+Enemy capital ships appear to be most heavily armored on the front and sides.,     4475
+4476,          32451854,     110,         Our capital ships should be issued move orders while attacking to take advantage of the more vulnerable sides.,  4476
+4477,          32502764,     105,         #+The enemy is using a new Fighter class ship with strong defensive capabilities but low maneuverability.,       4477
+4478,          32555685,     104,         Our Research Division reports that it can produce a similar vessel.  Begin Research as soon as possible.,        4478
+4479,          32604861,     58,          Kushan fleet destroyed.  Hyperspace coordinates locked in.,            4479
+4480,          32636039,     60,          Taiidan  fleet destroyed.  Hyperspace coordinates locked in.,          4480
+4481,          32670195,     39,          It appears to be an imperial broadcast.,   4481
+4482,          32688298,     132,         In order to stay clear of these outposts, our course will take us into a turbulent asteroid field and through the heart of a nebula.,        4482
+4483,          32751230,     79,          The enemy Mothership appeared to be equipped with a powerful field generator.  ,     4483
+4484,          32781181,     89,          This field deformed our quantum wavefront and prevented us from making a hyperspace jump.,         4484
+4485,          32818918,     96,          We also observed that the enemy's hyperspace module has an identical power signature to our own.,  4485
+4486,          32860598,     120,         This raises interesting questions considering our own technology was reverse-engineered from the wreck of the Khar-Toba.,      4486
+4487,          32906142,     100,         Our hyperspace systems are now functioning properly and this jump will carry us clear of the Nebula.,            4487
+4488,          32942834,     128,         After analyzing the data we collected from the Khar-Toba's sister ship we've been able to determine what happened in the nebula.,            4488
+4489,          32990882,     95,          While the Khar-Toba was able to limp to Kharak, this ship instead must have tried to hide here.,   4489
+4490,          33032465,     66,          They soon resorted to preying on ships passing through the nebula.,    4490
+4491,          33058563,     55,          In time the nebula became off limits to all shipping.  ,               4491
+4492,          33088970,     115,         They developed hyperspace inhibitor technology to trap prey from far away without leaving the safety of the nebula.,           4492
+4493,          33138253,     65,          Eventually it became the center of their existence and ultimately,     4493
+4494,          33175678,     15,          Their religion.,             4494
+4495,          33183005,     62,          We are about to enter the outer limits of the Kushan empire.  ,        4495
+4496,          33206219,     63,          We are about to enter the outer limits of the Taiidan empire.  ,       4496
+4497,          33229530,     69,          As we approach the galactic core, resistance is expected to increase.,               4497
+4498,          33263503,     54,          We have identified a weak point in the enemy defenses.,  4498
+4499,          33284693,     68,          There is a remote research station located near an active supernova.,  4499
+4500,          33316265,     51,          It should only have a minor garrison protecting it.,     4500
+4501,          33334188,     52,          It is time to hunt the enemy as they have hunted us.,    4501
+4502,          33354320,     48,          We have intercepted a coded Kushan transmission:,        4502
+4503,          33375696,     50,          We have intercepted a coded Taiidan  transmission:,      4503
+4504,          33396210,     127,         According to the data we received from Captain Elson, the Homeworld system is surrounded by a network of hyperspace inhibitors.,             4504
+4505,          33455585,     76,          The inhibitors are all heavily shielded and do not show up on any sensors.  ,        4505
+4506,          33486973,     83,          Elson has provided us with co-ordinates of the most vulnerable inhibitor station.  ,               4506
+4507,          33520096,     67,          Our goal is to destroy the station and create our own access point.,   4507
+4508,          33555987,     87,          We have to assume that the Homeworld's defensive fleet must be alerted to our presence.,           4508
+4509,          33588826,     44,          All vessels and crew at maximum readiness.  ,            4509
+4510,          33607030,     42,          Weapons and tracking at 100% efficiency.  ,              4510
+4511,          33629264,     19,          The fleet is ready.,         4511
+4512,          33635923,     28,          There can be no retreat now.,              4512
+4513,          33646335,     37,          The Enemy must have been desperate.  ,     4513
+4514,          33657716,     76,          The time we took to break up that attack has allowed them time to reinforce.,        4514
+4515,          33688816,     71,          The chemical composition of this system matches that of the Guidestone.,             4515
+4516,          33722791,     11,          We're home.,   4516
+4517,          33729346,     63,          We haven't cleared the asteroid field.  Prepare for collisions.,       4517
+4518,          33757745,     126,         Incoming asteroids must be destroyed before they impact with the Mothership.  Concentrate fire within this collision envelope.,              4518
+4519,          33823743,     129,         Research Division reports it is now equipped for Super Capital Ship Drive technology.  We advise commencing research immediately.,           4519
+4520,          33884272,     82,          Strike Craft are proving ineffective.  We recommend using primarily capital ships.,  4520
+4521,          33923346,     24,          We've cleared the field.,    4521
+4522,          33934042,     32,          Hyperspace module fully charged.,          4522
+4523,          33951370,     131,         The Nebula is incredibly rich in energy and resources.  Energy levels are so high that our sensors are having trouble compensating.,         4523
+4524,          34015645,     61,          Begin harvesting the nebula while we recalibrate the sensors.,         4524
+4525,          34041834,     115,         There is a contact closing with the Mothership.  Sensors instability in this region makes it difficult to identify.,           4525
+4526,          34097165,     23,          Prepare the Ambassador.,     4526
+4527,          34107284,     131,         Delay the attacking ships while Fleet Command charges the hyperdrive module.  We should have the range to jump clear of the nebula.,         4527
+4528,          34165511,     37,          Co-ordinates set.  Engage hyperdrive!,     4528
+4529,          34188508,     87,          Analyzing malfunction.  Continue to protect the Mothership until the problem is solved.,           4529
+4530,          34231427,     100,         Enemy forces are concentrating on our Resource Collectors.  Allocate combat vessels to protect them.,            4530
+4531,          34276183,     35,          Let's put these fanatics behind us.,       4531
+4532,          34291594,     143,         Sensors detect hyperspace inhibitors in a triangular formation.  Even one can keep us from entering hyperspace.  All of them must be destroyed.,           4532
+4533,          34369129,     90,          The nebula is still scrambling our sensors but it looks like we have incoming enemy units.,        4533
+4534,          34404275,     110,         Research Division reports it is now equipped for Drone technology.  We advise commencing research immediately.,  4534
+4535,          34456049,     85,          We have enemy units closing on multiple attack vectors.  Engage and destroy hostiles.,             4535
+4536,          34500502,     157,         Enemy vessels retreating to this point.  This reading has been consistent despite sensor interference.  It has a friendly signature but it's not one of ours.,           4536
+4537,          34587747,     97,          Metallurgy and structural composition are an identical match to the Khar-Toba wreckage on Kharak.,               4537
+4538,          34637396,     64,          The inhibitor field has ceased.  Hyperspace module back on-line.,      4538
+4539,          34673284,     120,         Sensors detect a vessel here.  It doesn't match any of the profiles we have encountered.  Send in a team to investigate.,      4539
+4540,          34736588,     89,          We are detecting various ships surrounding the alien vessel.  They appear to be inactive.,         4540
+4541,          34779317,     119,         Attention!  Those ships are operational.  We believe the control center is the alien vessel.  It should be neutralized.,       4541
+4542,          34838972,     75,          We've lost control of capital ships in close proximity to the alien vessel.,         4542
+4543,          34872759,     131,         We've determined that the alien control field covers this area.  No capital ships should cross into this zone or we will lose them.,         4543
+4544,          34932426,     121,         Our weapons are having minimal effect on the alien vessel but each strike causes a tiny fluctuation in the control field.,     4544
+4545,          34982195,     69,          Direct all fire at the alien ship in an attempt to disable the field.,               4545
+4546,          35013672,     92,          After seizing the Missile Destroyer, construction reports we can now build a similar vessel.,      4546
+4547,          35055252,     25,          Alien vessel neutralized.,   4547
+4548,          35069117,     201,         While the field was up they were able to analyze the alien control system.  We now have control of the foreign vessels.  In addition, we detect no life signs aboard the alien vessel.  It is a derelict.,         4548
+4549,          35166006,     157,         Research Division reports it has developed plans for gravity warping technology based on the alien control field.  We advise commencing research immediately.,           4549
+4550,          35243939,     60,          Hyperspace Module fully charged.  Engage at your discretion.,          4550
+4551,          35276271,     125,         Strike Craft are especially vulnerable to this radiation.  Capital ships will be the most effective due to their heavy armor.,               4551
+4552,          35333532,     84,          The Research Station is located here.  Assemble a heavy strike force and destroy it.,              4552
+4553,          35379904,     107,         Radiation is much heavier than we expected.  Sensors indicate that asteroids may have shielding properties.,     4553
+4554,          35431003,     55,          We recommend using the asteroid pockets for protection.,               4554
+4555,          35455650,     134,         The radiation is disrupting our normal resource collecting operations.  Deploy a Resource Controller in the shielded asteroid pockets.,      4555
+4556,          35520984,     121,         Research Division reports it is now equipped for Proximity Sensor technology.  We advise commencing research immediately.,     4556
+4557,          35579777,     145,         The enemy is using mines.  Research Division reports it can produce a Corvette-class minelaying ship.  We advise commencing research immediately.,         4557
+4558,          35654338,     89,          We've completed de-crypting data from the enemy frigate we captured in the Kharak system.,         4558
+4559,          35689291,     139,         We must destroy the garrison protecting the station.  Enemy units cannot be allowed to escape or they may alert the Empire to our presence.,               4559
+4560,          35753766,     140,         We are picking up a quantum wave effect.  A Kushan Carrier is loading ships and powering up.  It must be destroyed before it can hyperspace.,              4560
+4561,          35822082,     141,         We are picking up a quantum wave effect.  A Taiidan Carrier is loading ships and powering up.  It must be destroyed before it can hyperspace.,             4561
+4562,          35893663,     58,          Enemy base and fleet destroyed.  Hyperspace drives online.,            4562
+4563,          35929833,     76,          The Bentusi must be protected.  Draw the Kushan fleet away and destroy them.,        4563
+4564,          35962661,     77,          The Bentusi must be protected.  Draw the Taiidan fleet away and destroy them.,       4564
+4565,          35998370,     18,          Engage Hyperdrive.,          4565
+4566,          36010212,     130,         We are caught in a gravity well.  Fighters and Corvettes will be unable to move.  Seek out the source of this field and destroy it,          4566
+4567,          36072278,     141,         The enemy is using a Missile Destroyer.  Research Division reports it can produce a similar ship.  We advise commencing research immediately.,             4567
+4568,          36139347,     120,         Research Division reports it is now equipped for Cloaked Fighter technology.  We advise commencing research immediately.,      4568
+4569,          36194299,     120,         Research Division reports it is now equipped for Defense Fighter technology.  We advise commencing research immediately.,      4569
+4570,          36250979,     37,          We are under attack by Kushan forces.,     4570
+4571,          36271576,     38,          We are under attack by Taiidan forces.,    4571
+4572,          36293134,     125,         This could be a trap but the Kapella is clearly damaged.  Engage the pursuing fleet and draw it away from the defecting ship.,               4572
+4573,          36350203,     66,          The defecting captain has been brought aboard.  Engage hyperspace.,    4573
+4574,          36382733,     96,          The communication relay is here.  A Fighter or Corvette must dock with it to establish the link.,  4574
+4575,          36427869,     101,         Attention.  We have lost contact with one of our capital ships.  It's last recorded position is here.,           4575
+4576,          36483186,     84,          Hyperspace signatures have been found at these locations but we detect no new ships.,              4576
+4577,          36525718,     92,          We've located one of the missing ships.  It appears that it can be salvaged and reactivated.,      4577
+4578,          36566434,     107,         The Graveyard is defended by autoguns.  They will complicate our attempt to reach the communications array.,     4578
+4579,          36615997,     19,          Hyperspace Enabled.,         4579
+4580,          36626304,     83,          Elson's information was correct.  This is the field generator.  We must destroy it.,               4580
+4581,          36670563,     115,         Research Division reports it is now equipped for Heavy Guns technology.  We advise commencing research immediately.,           4581
+4582,          36725030,     164,         Research Division reports advancements in sensor fidelity which would allow us to determine the location of enemy ships.  We advise commencing research immediately.,    4582
+4583,          36796250,     110,         The enemy has activated several standing hyperspace gates.  Destroy the gates to prevent enemy reinforcement. ,  4583
+4584,          36851672,     83,          The field surrounding the Homeworld system has been shut down.  Hyperdrive on-line.,               4584
+4585,          36894107,     73,          Shutting down the inhibitor field has alerted the Kushan to our presence.,           4585
+4586,          36923956,     74,          Shutting down the inhibitor field has alerted the Taiidan to our presence.,          4586
+4587,          36952462,     54,          It must be destroyed before it impacts the Mothership.,  4587
+4588,          36973652,     25,          Impact in twenty minutes.,   4588
+4589,          36986941,     26,          Impact in fifteen minutes.,  4589
+4590,          37001575,     22,          Impact in ten minutes.,      4590
+4591,          37013421,     23,          Impact in five minutes.,     4591
+4592,          37025940,     24,          Impact in three minutes.,    4592
+4593,          37038460,     22,          Impact in two minutes.,      4593
+4594,          37050210,     21,          Impact in one minute.,       4594
+4595,          37059751,     25,          Impact in thirty seconds.,   4595
+4596,          37073424,     22,          Impact in ten seconds.,      4596
+4597,          37088918,     36,          Hyperspace module charged and ready.,      4597
+4598,          37107594,     97,          We've lost Karan.  Fleet Command is gone.  Emergency biotech teams are working to keep her alive.,               4598
+4599,          37182779,     125,         The collision asteroid must have served its purpose as a delay tactic.  There is a large number of Kushan ships located here.,               4599
+4600,          37242440,     126,         The collision asteroid must have served its purpose as a delay tactic.  There is a large number of Taiidan ships located here.,              4600
+4601,          37302390,     40,          A Mothership-class vessel is among them.,  4601
+4602,          37317134,     50,          All of these forces must be destroyed.  Good luck.,      4602
+4603,          37350800,     46,          Enemy reinforcements emerging from hyperspace.,          4603
+4604,          37373134,     88,          Another fleet is coming out of Hyperspace right on top of us.  We are being overwhelmed!,          4604
+4605,          37411830,     54,          Here is the Emperor's flagship.  It must be destroyed.,  4605
+4606,          37445500,     60,          Dispatch Salvage Corvettes immediately to collect the trays.,          4606
+4607,          37468712,     83,          We are on a collision course with a very large object.  It appears to have escorts.,               4607
+4608,          37514987,     23,          Impact in four minutes.,     4608
+4609,          37527314,     171,         Fleet Intelligence going on-line.  Our task is to analyze all sensor data and generate mission objectives.  Before the hyperdrive test, several trials must be completed.
+,              4609
+4610,          37612269,     56,          Test construction by building the primary research ship.,              4610
+4611,          37638069,     69,          Test resource processing by harvesting the asteroids provided nearby.,               4611
+4612,          37672138,     101,         Target Drones have been provided here.  Assign a formation to your Fighters and destroy the Drones.
+,              4612
+4613,          37723903,     82,          Standby to begin combat trials.  First we will be monitoring formation performance,  4613
+4614,          37766529,     101,         Formation trial complete.  Flight analysis shows a twenty-two percent increase in combat performance.,           4614
+4615,          37820118,     157,         The next trial will test the effectiveness of tactics.  Standby to begin tactics trial.  Use Aggressive or Evasive tactics and engage the Target Drones here.,           4615
+4616,          37913027,     115,         Hyperspace module fully charged.  I am ready to initiate quantum wave generation on your mark.  Good luck everyone.,           4616
+4617,          37975078,     122,         Hyperspace module charging.  35% capacity and rising.  The Mothership will be ready for the Hyperdrive test in 10 minutes.,    4617
+4618,          38055856,     47,          All Hyperspace systems operating at full power.,         4618
+4619,          38078575,     164,         Target Drone destroyed.  A replacement Drone is being sent to the same location.  Completion of this trial requires a successful capture of the drone.  Begin again.,    4619
+4620,          38168131,     83,          The primary Research Ship has been constructed and the Research Division is online.,               4620
+4621,          38212006,     45,          Begin Fighter Chassis research immediately.
+,              4621
+4622,          38231075,     154,         Target Drones destroyed.  Replacement Drones are being sent to the same location.  Completion of this trial requires the use of a formation.  Begin again.,              4622
+4623,          38315053,     150,         Target Drones destroyed.  Replacement Drones are being sent to the same location.  Completion of this trial requires the use of tactics.  Begin again.,    4623
+4624,          38398163,     23,          Tactics trial complete.,     4624
+4625,          38409434,     111,         The next trial will test the performance of the Salvage Corvette.  Build one and capture the Target Drone here.,               4625
+4626,          38467353,     40,          Interceptors are ready for construction.,  4626
+4627,          38487281,     121,         Advanced Target Drones with heavier armor have been provided.  Using Interceptors, begin the mock combat exercise here.
+,              4627
+4628,          38547994,     155,         Target Drones destroyed.  Replacement Drones are being sent to the same location.  Completion of this trial requires the use of Interceptors.  Begin again.,             4628
+4629,          38628325,     110,         Standby for Hyperdrive test.  Internal pressure doors will be sealed in 2 minutes.  Abort systems standing by.,  4629
+4630,          38691427,     80,          All sections have reported in.  Trigger the hyperspace drive at your discretion.,    4630
+4631,          38738467,     131,         We have mis-jumped.  The support ship is not here.  Fleet Command will signal the Khar-Selim while we confirm our current position.,         4631
+4632,          38801302,     165,         The Khar-Selim has been destroyed.  Heavy weapon damage is visible on the remaining fragment.  A Salvage Corvette must be sent to retrieve the mission data recorder.,   4632
+4633,          38889131,     56,          Engage incoming units.  The Mothership must be defended.,              4633
+4634,          38918483,     44,          Hostile units destroyed.  Threat eliminated.,            4634
+4635,          38944175,     94,          Priority Alert!  Additional hostile units detected on an intercept course with the Khar-Selim.,    4635
+4636,          38985469,     131,         Protection of the Salvage team is a primary Objective.  It must return to Mothership with the mission recorder.  We need that data.,         4636
+4637,          39049648,     101,         Salvage Corvette has been destroyed.  Use an escort force to guard next team.  We need those records.,           4637
+4638,          39109765,     87,          Salvage Team docked safely.  Downloading Mission Data Recording.  Replaying last entry:,           4638
+4639,          39158348,     108,         We are detecting enemy units advancing on our position.  Organize a defense force to protect the Mothership.,    4639
+4640,          39205896,     73,          Large power signature detected nearby. Recommend immediate investigation.,           4640
+4641,          39247649,     104,         It's an enemy Carrier.  They appear to be reinforcing their squadrons of Fighters and Corvettes with it.,        4641
+4642,          39295673,     63,          We have determined that these enemy units are inferior to ours.,       4642
+4643,          39320040,     92,          To protect against penetration of the Kharak system, destroy the attacking force completely.,      4643
+4644,          39374004,     90,          Enemy units are retreating.  Objectives complete.  Standby for immediate return to Kharak.,        4644
+4645,          39419614,     61,          Objectives complete.  Standby for immediate return to Kharak.,         4645
+4647,          39458203,     61,          Send a probe to make contact and re-establish communications.,         4647
+4648,          39488616,     69,          Priority Alert.  We have picked up the Khar-Selim's automated beacon.,               4648
+4649,          39520573,     13,          It's a trap! ,               4649
+4650,          39534426,     118,         Research Division reports it is now equipped for Defense Field technology.  We advise commencing research immediately.,        4650
+4869,          46656832,     62,          Every mind became focused on the true origin of our people ...,        4869
+4870,          46693390,     23,          An expedition was sent.,     4870
+4871,          46708405,     40,          An ancient starship, buried in the sand.,  4871
+4872,          46734573,     92,          Deep inside the ruin was a single stone that would change the course of our history forever.,      4872
+4873,          46791513,     38,          On the stone was etched a galactic map,    4873
+4874,          46819215,     58,          and a single word more ancient than the clans themselves: ,            4874
+4875,          46855673,     8,           Higaara.,      4875
+4876,          46864817,     9,           Our home.,     4876
+4877,          46878282,     61,          The clans were united and a massive colony ship was designed.,         4877
+4878,          46910039,     34,          Construction would take 60 years. ,        4878
+4879,          46933513,     82,          100 years ago, a satellite detected an object under the sands of the Great Desert.,  4879
+4880,          46985835,     68,          It would demand new technologies, new industries and new sacrifices.,  4880
+4881,          47035647,     138,         The greatest of these was made by the scientist Karan Sjet who had herself permanently integrated into the colony ship as its living core.,  4881
+4882,          47117785,     25,          She is now Fleet Command.,   4882
+4883,          47137794,     61,          The promise of the Guidestone united the entire population.  ,         4883
+4884,          47171471,     88,          ... every effort on the construction of the ship that would seek it out among the stars.,          4884
+4885,          47220727,     109,         #+Turanic Raiders, servants of the Kushan are arriving.  They must not learn of our contact.  We must depart.,   4885
+4886,          47302932,     110,         #+Turanic Raiders, servants of the Taiidan are arriving.  They must not learn of our contact.  We must depart.,  4886
+4887,          47374866,     104,         The Bentusi wish only to trade and make contact.  Your attack is unwarranted and ill-advised.  Stop now.,        4887
+4888,          47446506,     50,          You insist on conflict.  This is most unfortunate.,      4888
+4889,          47481420,     34,          Greetings.  We have come to trade.,        4889
+4890,          47507198,     79,          We hear nothing there.  Even the Kushan fear the Great Nebula.  No one returns.,     4890
+4891,          47569693,     80,          We hear nothing there.  Even the Taiidan fear the Great Nebula.  No one returns.,    4891
+4892,          47628733,     105,         We have known of this ship but could never approach it.  We are particularly vulnerable to its influence.,       4892
+4893,          47691830,     119,         The Bentusi would like the information you have acquired.  It will be transferred automatically if you choose to trade.,       4893
+4894,          47760413,     57,          The information was successfully transferred.  Thank you.,             4894
+4895,          47797062,     145,         Conflict is not our way.  We will bring your cause to the Galactic Council.  The Kushan rule the Empire but even they must answer to the council.,         4895
+4896,          47886215,     146,         Conflict is not our way.  We will bring your cause to the Galactic Council.  The Taiidan rule the Empire but even they must answer to the council.,        4896
+4897,          47976425,     69,          For the first time in memory, the Bentusi are in the debt of another.,               4897
+4898,          48020190,     148,         It has been forbidden to possess this information for some time.  But after your intervention on our behalf, we feel compelled to share it with you.,      4898
+4899,          48112802,     7,           Behold:,       4899
+4900,          48124729,     124,         This barren world appeared to be salvation. Their true legacy forgotten, a new vision of destiny had grown out of captivity.,  4900
+4901,          48207237,     70,          Do not fail us again, or the Elite Guard will require a new commander.,              4901
+4902,          48263771,     146,         Our spies believe that the Bentusi have interfered.  They must not be allowed to bring this matter to the Council and gain support for the Exiles.,        4902
+4903,          48358493,     202,         In the First Time, a terrible war brought with it the collapse of your ancient empire.  So vicious were your enemies that all would have been slaughtered were it not for the collective outcry for mercy.,        4903
+4904,          48480919,     118,         In an effort to sooth relations, the conquerors spared the lives of the defeated.  All survivors were sent into exile.,        4904
+4905,          48559965,     86,          None were permitted to follow or aid the fallen.  All memory of them was to be erased.,            4905
+4906,          48613539,     92,          For generations the convoy moved silently through space.  They endured great difficulties...,      4906
+4907,          48674319,     26,          ...imperfect technology...,  4907
+4908,          48693465,     53,          In time, a suitable system to receive them was found.,   4908
+4909,          48731646,     144,         You have failed to keep the Exiles from penetrating the outer perimeter.  This could be disastrous.  You will find and destroy them immediately.,          4909
+4910,          48837022,     179,         A single artifact survived the journey.  The Guidestone you now carry.  It was removed from the sacred "Angel Moon" of your Homeworld, a place long since reduced to myth and tale.,   4910
+4911,          48963745,     118,         Your progress is becoming known among the Inner Rim worlds and elsewhere.  Many cultures have prophesized your return.,        4911
+4912,          49045095,     47,          We have brought the Council.  This war is over.,         4912
+4913,          49080966,     72,          Reach your Homeworld.  Establish your claim. We will summon the Council.,            4913
+4914,          49137694,     79,          All that moves is easily heard in the void.  We will listen for you.  Farewell.,     4914
+4915,          49196061,     143,         You will fail.  The evil that drove us here will find and destroy you.  From you they will know of us and come here.  This cannot come to pass.,           4915
+4916,          49305660,     152,         The Turanic Raiders who came before you refused to join and were punished for this trespass. Like theirs, your ship has already defiled this holy place.,  4916
+4917,          49396548,     161,         If you have come to join we welcome you and will spare your ship until all have disembarked.  If you have come to consume the garden you will be removed at once.,       4917
+4918,          49512885,     25,          What are your intentions?,   4918
+4919,          49523966,     72,          If you will not join, then die.  There is no withdrawal from the Garden.,            4919
+4920,          49577910,     64,          Again we offer you the chance to join us and live here in peace.,      4920
+4921,          49610246,     94,          This is the Garden of Kadesh.  For thirteen generations we have protected it from the unclean.,    4921
+4922,          49680340,     140,         The Emperor's flagship is here.  Together we can defeat him and the Taiidan fleet.  I am placing squadrons Cor and Jasah under your command.,              4922
+4923,          49760368,     69,          The Kushan empire has become decadent and corrupt over the centuries.,               4923
+4924,          49791173,     70,          The Taiidan empire has become decadent and corrupt over the centuries.,              4924
+4925,          49821211,     102,         The use of the forbidden atmosphere-deprivation device on your planet finally triggered the Rebellion.,          4925
+4926,          49863857,     60,          Help me get access to the Rebellion's communication network.,          4926
+4927,          49890813,     70,          I will show you a way through the defenses surrounding your Homeworld.,              4927
+4928,          49919603,     39,          Take me to the ship graveyard at Karos.,   4928
+4929,          49941066,     63,          Hidden in a derelict there is a relay I can use with your help.,       4929
+4930,          49970617,     60,          The Rebellion waits for my sign to move into its next phase.,          4930
+4931,          49997189,     141,         Patching into command node now... The Kushan resistance has been informed of your actions and are preparing the fleets.  You have our thanks.,             4931
+4932,          50062914,     142,         Patching into command node now... The Taiidan resistance has been informed of your actions and are preparing the fleets.  You have our thanks.,            4932
+4933,          50129984,     91,          The hyperspace coordinates you require have been transferred to your Mothership.  Farewell.,       4933
+4934,          50170699,     112,         This is Captain Elson.  We have been battling reinforcement fleets to get here and have lost many ships already.,              4934
+4935,          50221131,     139,         The Emperor's flagship is here.  Together we can defeat him and the Kushan fleet.  I am placing squadrons Cor and Jasah under your command.,               4935
+4936,          50302982,     50,          I am Group Captain Elson of the Destroyer Kapella.,      4936
+4937,          50325224,     194,         Attention Taiidan Mothership!  This is Captain Elson of the Kushan Elite Guard Destroyer Kapella.  We wish to defect and need assistance.  In return we are prepared to help you.  Please respond.,  4937
+4938,          50431034,     194,         Attention Kushan Mothership!  This is Captain Elson of the Taiidan Elite Guard Destroyer Kapella.  We wish to defect and need assistance.  In return we are prepared to help you.  Please respond.,  4938
+4939,          50532524,     55,          I'm in ... I've docked!  Communication link established,               4939
+4940,          50555107,     44,          I've docked!  Communication link established,            4940
+4941,          50566255,     39,          I'm in!  Communication link established,   4941
+4942,          50578310,     55,          I'm in ... I've docked!  Communication link established,               4942
+4943,          50600893,     44,          I've docked!  Communication link established,            4943
+4944,          50612041,     39,          I'm in!  Communication link established,   4944
+4945,          50624096,     55,          I'm in ... I've docked!  Communication link established,               4945
+4946,          50646679,     44,          I've docked!  Communication link established,            4946
+4947,          50657827,     39,          I'm in!  Communication link established,   4947
+4970,          50846922,     59,          Trajectory locked in, hailing signal open on all channels. ,           4970
+4971,          50859909,     47,          Entering magnetic field now... almost there... ,         4971
+4972,          50873604,     51,          Fleet, we've lost guidance & are being drawn in... ,     4972
+4973,          50884711,     97,          There's a lot of lights... uh... there seems to be... some kind of activity inside, I can see... ,               4973
+4974,          50910888,     200,         Fleet, this is ambassador.  We are clear of the Bentusi vessel, all systems green.  Harbor control has released Guidance and the exchange unit is secure.  Receiving crews, prep the quarantine chamber.,          4974
+4975,          50958192,     37,          Roger that.  Quarantine standing by. ,     4975
+4976,          50965109,     42,          Surface attack group to first positions...,              4976
+4977,          50973135,     21,          Incoming missiles... ,       4977
+4978,          50976820,     18,          Evasive maneuvers!,          4978
+4979,          50981990,     25,          We're hit! Damage report!,   4979
+4980,          50986591,     12,          What the...?,  4980
+4981,          50988251,     23,          There's another one... ,     4981
+4982,          50990642,     42,          Prepare for immediate surface bombardment!,              4982
+4983,          50999436,     12,          Standing by.,  4983
+4984,          51002872,     26,          Commence surface delivery.,  4984
+4985,          51008242,     19,          Delivery confirmed.,         4985
+4986,          51012261,     21,          All targets acquired.,       4986
+4987,          51016570,     27,          Multiple impacts confirmed.,               4987
+4988,          51022421,     56,          Surface temperature fifteen-twenty-three and climbing...,              4988
+4989,          51034397,     43,          Estimated immediate casualties: 98 percent.,             4989
+4990,          51044680,     53,          Surface temperature seventeen-forty-two and stable...,   4990
+4991,          51055165,     25,          Orbital target acquired. ,   4991
+4992,          51060822,     39,          Watch the spread pattern... stay sharp.,   4992
+4993,          51068077,     17,          Target destroyed.,           4993
+4994,          51071662,     28,          Requesting clearance to dock,              4994
+4995,          51077370,     18,          Clearance granted.,          4995
+4996,          51080716,     27,          Primary directive achieved.,               4996
+4997,          51087047,     34,          Prepare for secondary directive.  ,        4997
+4998,          51095209,     23,          Prepare for hyperspace.,     4998
+4999,          51100912,     72,          Group three moving in... allright now, stay together... ready... SPREAD!,            4999
+5000,          51121064,     42,          Fleet trajectory calculated and locked in.,              5000
+5001,          51131106,     26,          We're hit!  Damage report!,  5001
+5002,          51135276,     30,          Entering magnetic field now...,            5002
+5003,          51142138,     68,          almost there... Fleet, we've lost guidance and are being drawn in...,  5003
+5004,          51157630,     96,          there's a lot of lights... uh... there seems to be... some kind of activity inside, I can see...,  5004
+5005,          51181166,     200,         Fleet, this is ambassador.  We are clear of the Bentusi vessel, all systems green.  Harbor control has released guidance and the exchange unit is secure.  Receiving crews, prep the quarantine chamber.,          5005
+5007,          51224886,     75,          Group three moving in...  allright now, stay together...  ready...  SPREAD!,         5007
+5008,          51238369,     42,          Surface attack going to first positions...,              5008
+5009,          51245435,     19,          Incoming missles...,         5009
+5010,          51248686,     18,          Evasive maneuvers!,          5010
+5011,          51252320,     59,          Trajectory locked in, hailing signals open on all channels.,           5011
+5012,          51265931,     12,          What the...?,  5012
+5013,          51267591,     22,          There's another one...,      5013
+5014,          51270173,     42,          Prepare for immediate surface bombardment!,              5014
+5015,          51277431,     12,          Standing by.,  5015
+5016,          51279763,     26,          Commence surface delivery.,  5016
+5017,          51284317,     19,          Delivery confirmed.,         5017
+5018,          51287808,     21,          All targets acquired.,       5018
+5019,          51291733,     27,          Multiple impacts confirmed.,               5019
+5020,          51296960,     56,          Surface temperature fifteen-twenty-three and climbing...,              5020
+5021,          51308552,     44,          Estimated immediate casualties:  98 percent.,            5021
+5022,          51318356,     53,          Surface temperature seventeen-forty-two and stable...,   5022
+5023,          51330089,     24,          Orbital target acquired.,    5023
+5024,          51335169,     40,          Watch the spread pattern...  stay sharp.,  5024
+5025,          51341129,     17,          Target destroyed.,           5025
+5026,          51344282,     29,          Requesting clearance to dock.,             5026
+5027,          51349319,     18,          Clearance granted.,          5027
+5028,          51352137,     27,          Primary directive achieved.,               5028
+5029,          51357076,     32,          Prepare for secondary directive.,          5029
+5030,          51364804,     23,          Prepare for hyperspace.,     5030
+5031,          51369499,     42,          Fleet trajectory calculated and locked in.,              5031
+5032,          51378197,     23,          Prepare for hyperspace.,     5032
+5033,          51383324,     59,          Trajectory locked in, hailing signal open on all channels. ,           5033
+5034,          51396455,     47,          Entering magnetic field now... almost there... ,         5034
+5035,          51410246,     200,         Fleet, this is ambassador.  We are clear of the Bentusi vessel, all systems green.  Harbor control has released Guidance and the exchange unit is secure.  Receiving crews, prep the quarantine chamber.,          5035
+5036,          51456014,     72,          Group three moving in... allright now, stay together... ready... SPREAD!,            5036
+5037,          51476502,     42,          Surface attack group to first positions...,              5037
+5038,          51484816,     21,          Incoming missiles... ,       5038
+5039,          51489365,     18,          Evasive maneuvers!,          5039
+5040,          51494295,     25,          We're hit! Damage report!,   5040
+5041,          51500336,     12,          What the...?,  5041
+5042,          51502908,     23,          There's another one... ,     5042
+5043,          51505539,     42,          Prepare for immediate surface bombardment!,              5043
+5044,          51513757,     12,          Standing by.,  5044
+5045,          51516233,     26,          Commence surface delivery.,  5045
+5046,          51521459,     19,          Delivery confirmed.,         5046
+5047,          51526006,     21,          All targets acquired.,       5047
+5048,          51530987,     27,          Multiple impacts confirmed.,               5048
+5049,          51537894,     56,          Surface temperature fifteen-twenty-three and climbing...,              5049
+5050,          51547950,     43,          Estimated immediate casualties: 98 percent.,             5050
+5051,          51562025,     53,          Surface temperature seventeen-forty-two and stable...,   5051
+5052,          51572270,     25,          Orbital target acquired. ,   5052
+5053,          51577639,     39,          Watch the spread pattern... stay sharp.,   5053
+5054,          51584366,     17,          Target destroyed.,           5054
+5055,          51588479,     29,          Requesting clearance to dock.,             5055
+5056,          51594140,     18,          Clearance granted.,          5056
+5057,          51597630,     27,          Primary directive achieved.,               5057
+5058,          51603337,     32,          Prepare for secondary directive.,          5058
+5059,          51609817,     37,          Roger that.  Quarantine standing by. ,     5059
+5060,          51617262,     70,          uh... there seems to be... some kind of activity inside, I can see... ,              5060
+5061,          51638180,     78,          Fleet, we've lost guidance & are being drawn in... There's a lot of lights... ,      5061
+5062,          51651906,     42,          Fleet trajectory calculated and locked in.,              5062
+5063,          51660220,     40,          You've taken one step too close to me.  ,  5063
+5064,          51689556,     6,           Karan.,        5064
+5065,          51699946,     26,          From here I can touch you.,  5065
+5066,          51728980,     157,         We were unaware of the significance of this location.  We mean you no conflict.  Please allow us time to prepare our engines so we may withdraw as requested.,           5066
+5067,          51765585,     162,         We were unaware of the significance of this location.  We mean you no conflict.  Please allow us time to prepare our engines so that we may withdraw as requested.,      5067
+5068,          51799507,     157,         We were unaware of the significance of this location.  We mean you no conflict.  Please allow us time to prepare our engines so we may withdraw as requested.,           5068
+5085,          52291888,     250,         We detect large resource deposits but no vessels.  It is possible that the Taiidan could be hiding in the denser portions of the belt. It may cause interference with our sensors.  Send probes to investigate.  All fleet assets should be kept on alert.,  5085
+5086,          52421562,     249,         We detect large resource deposits but no vessels.  It is possible that the Kushan could be hiding in the denser portions of the belt. It may cause interference with our sensors.  Send probes to investigate.  All fleet assets should be kept on alert.,   5086
+5087,          52551523,     32,          Our crews have regained control.,          5087
+5088,          52565203,     60,          They are concentrating fire on our immobilized Strike Craft.,          5088
+5089,          52591103,     56,          Cryo tray loaded.  Four hundred thousand people secured.,              5089
+5090,          52619783,     55,          Cryo tray loaded.  Two hundred thousand people secured.,               5090
+5091,          52652302,     57,          Cryo tray loaded.  Three hundred thousand people secured.,             5091
+5092,          52679831,     55,          Cryo tray loaded.  One hundred thousand people secured.,               5092
+5093,          52709470,     56,          Cryo tray loaded.  Five hundred thousand people secured.,              5093
+5094,          52741510,     45,          All symbols of the old empire were destroyed.,           5094
+5095,          52767299,     103,         The sacrifice of thousands has left a trail of destruction behind us, like a path across the galaxy ...,         5095
+5096,          52830970,     31,           ... to Higaara, our Homeworld.,           5096
+5097,          52853097,     56,          So much destruction, so many lives lost, for this place.,              5097
+5098,          52892433,     61,          A place of wonder to those who knew only the sands of Kharak.,         5098
+5099,          52930718,     50,          Our colonists were released from their long sleep.,      5099
+5100,          52958144,     56,          The Galactic Council recognized our claim to this world.,              5100
+5101,          52989320,     41,          But the conflict will never be forgotten.,               5101
+5102,          53014337,     49,          A celebration marked the beginning of a new time.,       5102
+5103,          53045218,     83,          No longer Fleet Command, Karan Sjet survived extraction from the Mothership's core.,               5103
+5104,          53101189,     90,          She insisted that she would be the last person to disembark and set foot on the Homeworld.,        5104
+5180,          54553631,     19,          Copy of GE_14_com32,         5180
+5209,          55082306,     27,          Primary objective complete.,               5209
+5210,          55096077,     29,          Secondary objective complete.,             5210
+5211,          55111386,     89,          Standby for Hyperdrive test.  Internal pressure doors sealed.  Abort systems standing by.,         5211
+5212,          55167843,     92,          The enemy Mothership is hyperspacing.  Recall all Fighters and prepare for return to Kharak.,      5212
+5213,          55214895,     170,         Radiation is much heavier than we expected.  Sensors indicate that these veins of space dust may have shielding properties. We recommend using the veins for protection.
+,              5213
+5214,          55297545,     46,          The Cryo Trays are under attack.  Defend them.,          5214
+5215,          55323143,     57,          Enemy units neutralized.  Begin salvaging the cryo trays.,             5215
+5216,          55360176,     110,         To increase harvesting efficiency, move your Resource Controller as close to heavy resource areas as possible.,  5216
+5217,          55419534,     183,         Enemy capital ships appear to have lighter armor on the top, bottom, and rear sides. Our capital ships should be issued move orders while attacking to take advantage of this weakness.,             5217
+5218,          55516213,     117,         Research Division reports it is now equipped for Ion Cannon technology.  We advise commencing research immediately.
+,              5218
+5219,          55577978,     116,         Research Division reports it is now equipped for Plasma Bomb technology.  We advise commencing research immediately.,          5219
+5220,          55639646,     92,          Hyperdrive jump failed!  The Quantum waveform collapsed due to some kind of inhibitor field.,      5220
+5221,          55686506,     35,          The Hyperdrive is fully functional.,       5221
+5222,          55701629,     81,          Analyzing field.  Continue to protect the Mothership until the source is located.,   5222
+5223,          55743102,     36,          The inhibitor field has disappeared.,      5223
+5224,          55757650,     78,          We have enemy units closing from all directions.  Engage and destroy hostiles.,      5224
+5225,          55796816,     70,          The inhibitor field has ceased.  Hyperspace ability has been restored.,              5225
+5226,          55835974,     19,          It's the Khar-Toba.,         5226
+5227,          55844937,     136,         Metallurgy and structural composition of the ship are an identical match to the Khar-Toba wreckage on Kharak.  Our origins are the same.,    5227
+5228,          55911329,     90,          Salvage Team docked.  The alien ship is millions of years old.  Its purpose is unclear. 
+,              5228
+5229,          55966635,     122,         Research Division reports it is now equipped for Cloaked Generator technology.  We advise commencing research immediately.,    5229
+5230,          56029749,     124,         Research Division reports it is now equipped for Super Heavy Chassis technology.  We advise commencing research immediately.,  5230
+5231,          56092865,     118,         While the field was up they were able to analyze the alien control system.  We now have control of the foreign vessels,        5231
+5232,          56153479,     58,          Send a Salvage Team to further investigate the alien ship.,            5232
+5233,          56183601,     25,          Alien vessel neutralized.,   5233
+5234,          56203802,     174,         However, Research Division reports it has developed plans for gravity warping technology based on composition of the alien hull.  We advise commencing research immediately.
+,              5234
+5238,          56331768,     84,          Sensors indicate a heavily armed planetary defense system which we cannot penetrate.,              5238
+5239,          56370556,     111,         The planetary garrison must have alerted the main Turanic Raider Fleet which is currently Hyperspacing in here.,               5239
+5240,          56412539,     117,         They are retreating to the planetoid. We must stop their Carriers from reaching the safety of the planetary defenses.,         5240
+5241,          56463456,     70,          The Turanic Carriers are launching Strike Craft.  Prepare for assault.,              5241
+5242,          56499350,     106,         A Turanic Raider Carrier has reached the planetary defense zone.  They will remain a serious threat to us.,      5242
+5243,          56549008,     132,         The planetary defense system covers this area. Any of our ships entering its range will be destroyed.  Avoid this area at all costs.,        5243
+5244,          56624036,     115,         We have destroyed the body of the Turanic Raider fleet. We can now proceed on our journey. Hyperspace when ready.
+,              5244
+5245,          56686951,     166,         We've located the origin of the Turanic Raider fleets.  They came from a small, isolated planetoid located in a remote area of the Great Wasteland. Engage hyperspace.,  5245
+5246,          56777277,     115,         The resources you collect are of value to the Bentusi Exchange.  They will serve as an acceptable medium for trade.,           5246
+5247,          56857856,     159,         We are the Bentusi and welcome you among space-faring cultures.  The Unbound.  The Outer Limb Trade Routes were established in the First Time by our ancestors.,         5247
+5248,          56967663,     149,         It has been our custom to equip trading partners with an exchange unit.  It has therefore been provided to your ambassador as a gesture of good will.,     5248
+5249,          57065364,     156,         There's nothing left for us to return to.  Our only option is to follow the path etched into the Guidestone.  Finding our ancient home is our only hope now.,            5249
+5250,          57164704,     92,          Hyperdrive jump failed!  The quantum waveform collapsed due to some kind of inhibitor field.,      5250
+5251,          57213484,     51,          Hyperspace module charging, ready in eight minutes.,     5251
+5252,          57244367,     48,          Hyperspace module charging, ready in one minute.,        5252
+5253,          57272655,     228,         We cannot stay - we're on a journey.  But let there be peace between us, for we have something in common.  The hyperdrive technology left to us by our ancestors is identical to yours.  The Homeworld we seek may be yours as well.,          5253
+5258,          57505379,     60,          A mission objective remains incomplete.  Consult objectives.,          5258
+5259,          57544143,     58,          Detecting incoming Bentusi vessel from the clearing ahead.,            5259
+5260,          57570713,     15,          Mission Failed.,             5260
+5261,          57581976,     203,         The enemy is relying heavily on Fighter-class ships.  Our Research division reports it can design a new type of Corvette specially suited to combat multiple fighters.  Begin Research as soon as possible.,       5261
+5266,          57707971,     133,         These ships are different from those we encountered at the Khar-Selim.  It is likely they were involved in the destruction of Kharak.,       5266
+5267,          57766104,     80,          Turanic Raider fighters are attacking. Prepare for more hostile ships to arrive.,    5267
+5268,          57803832,     105,         #+Khar-Selim to Mothership!  If you are receiving, abort hyperdrive test.  Repeat: abort hyperdrive test!,       5268
+5269,          57855313,     121,         #+Sir, I have multiple contacts on closing vectors.  Unknown profiles...  No recognition codes...  Ahh, they're not ours.,     5269
+5270,          57929370,     50,          #+Well if they're not ours, who the hell are they?,      5270
+5271,          57962172,     159,         #+Sir, they're coming in fast...  Check...  Incoming fire!  We are under attack!  They're getting through!  Breaches across all decks!  Hull integrity failing!,         5271
+5272,          58066699,     82,          #+What do you mean you detect a Hyperspace entry?  The mothership isn't due for...,  5272
+5273,          58095981,     5,                ,         5273
+5274,          58139010,     7,           #+     ,       5274

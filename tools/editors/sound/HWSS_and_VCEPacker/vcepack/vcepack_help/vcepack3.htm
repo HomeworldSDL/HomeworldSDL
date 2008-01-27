@@ -1,0 +1,68 @@
+<html>
+<head><title> VCEPacker QuickGuide </title></head>
+
+<body bgcolor="#ffffff">
+
+<table width=100% border=0 height=100%>
+<tr height=90%><td width=10%>&nbsp;</td><td width=80%>
+<b><font size=+1>Sentence Overview</font></b>
+<p><font face="Tahoma">
+There are 11292 Sentences in Homeworld.  Many are just slight variations of the same thought.  
+The sentences are made up of phrases buried in the large VCE file.  Each sentence can be from 1 to 7 phrases
+combined to make a full sentence.  This is in order to drop the overall size of the VCE file by taking a 
+common phrases, such as "Carrier under attack" and breaking out the "under attack" part as a common phrase
+and "Carrier" as another phrase.  That way, in order to have many sentences saying each different ship type is
+under attack, they would only need a vce phrase entry for each ship name and a single phrase "under attack".
+
+<p>
+Usually, only 1 or 2 phrases are combined into a sentence, but the original homeworld does have one that uses all 7.
+Even though Cataclysm support isn't finished in this version, it should be noted that Cataclysm only allows up to 2 
+phrases per sentence.  NOTE: The tool makes each sentence only 1 phrase each.  This was for design simplicity and in
+case some non-English languages don't break up as easily.
+
+<p>
+Each phrase in the VCE can theoretically have an associated subtitle which is displayed as text when that phrase is 
+played.  It may not be a good idea to have each phrase, or very commonly spoken phrases showing text, as that would
+slow down game play.  There is a strict subtitle mode which is explained later.
+
+</font><p>
+<b><font size=+1>Sentence Prep</font></b>
+<p><font face="Tahoma">
+The file named BYPHRASE_NEW.HTML lists the sentence number and shows which phrases in the original VCE make up that
+sentence, a description and also the subtitle (if any).  Disregard the last column, bitrate, because it won't 
+matter with this program.  Yes, some are blank and some say 2 entries, but only refer to one.  This isn't a mistake.
+
+<p>
+This tool doesn't allow changing just a few sentences.  It is built for entire speech replacement.  This is because of 
+changes in how the LUTs are built and the sentences and phrases are ordered.  It would have been far more complicated
+to just append, because of how some information is hidden in the LUTs.  Also, because of a hardcoded dependency on a 
+certain bitrate for certain phrase in the exe, this tool had to completely rebuild all files.
+
+<p>
+In order to make a new sentence to replace one listed in the phrase html file, record the sound with the following properties:
+<br>44khz, mono, 16 bit, uncompressed pcm WAV<br>
+Then, save the file as the sentence number with the wav extension.  Example, I want to replace the sentence:
+"Multiple impacts confirmed."  which is sentence #11136, with something else, then I would record it with the listed properties
+as an UNCOMPRESSED PCM WAV file, and save it with the filename 11136.WAV .  And if I wanted a subtitle to be displayed when this 
+is played, I would type it in as a text file and save as 11136.TXT.
+
+<p>
+All WAVs must be in the same directory.  All TXT file must be in a common directory.  TXT and WAV files don't have to be
+in the same directory though.  Also, make sure you have no leading 0's in the filename.  Example:  136.wav (right), not 00136.wav
+(wrong).
+
+<p> 
+If you don't plan to replace all 11292 sentences (and who would, really?), then, any missing sentence numbers will just
+play a blank sound with no subtitle.  Be careful, as it may be that in some single player missions, that some triggers fire
+after a sentence is played (tutorial?)  Just test it.
+
+
+
+
+</font>
+</td><td width=10%>&nbsp;</td>
+</tr>
+<tr height=10%><td colspan=3 align=right><a href="vcepack2.htm">Prev</a>&nbsp;|&nbsp;<a href="vcepack4.htm">Next</a></table>
+
+</body>
+</html>

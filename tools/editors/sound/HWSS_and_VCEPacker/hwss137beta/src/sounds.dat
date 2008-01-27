@@ -1,0 +1,259 @@
+[GUNS.BNK]
+1  - spark / ricochet?
+2  - multiple projectile
+3  - big turret move
+4  - small turret/barrel move
+5  - large energy cannon
+6  - medium energy cannon
+7  - small energy
+8  - large plasma bomb
+9  - missile launch
+10 - small plasma bomb
+11 - vulcan
+12 - scout fire
+13 - shot and turret move
+14 - ion cannon
+15 - long small projectile sound
+16 - short small projectile sound
+17 - single projectile
+
+[SHIPS.BNK]
+1    - whoom (turbolift?)
+2    - whoof (on then off)
+3    - hyperspace in
+4    - frigate leaving ms?
+5    - corvette idling?
+6    - thrust leaving
+7    - graveyard junk?
+8    - frigate thrust
+9    - ambient hum
+10   - probe scan
+11   - probe travel 1
+12   - probe transmit 1
+13   - probe transmit 2
+14   - probe tavel 2
+15   - probe transmit 3
+16   - fighter startup
+17   - super capital startup
+18   - 2 beeps
+19   - corvette startup
+20   - unknown startup
+21   - big engine hum
+22   - unknown2 startup
+23   - burning?
+24   - medium hum
+25   - frigate startup
+26   - derelict hum?
+27   - small ship movement start?
+28   - low hum
+29   - hum and beep
+30   - flight noise
+31   - flight noise 2
+32   - hum and static
+33   - 
+34   - 
+35   - corvette hum?
+36   - 
+37   - deepspace derelict
+38   - 
+39   - 
+40   - repair beam
+41   - 
+42   - 
+43   - 
+44   - frigate hum?
+45   - flight hum
+46   - 
+47   - 
+48   - 
+49   - 
+50   - hum and beep
+51   - high hum
+52   - higher hum
+53   - tubular alarm
+54   - 
+55   - 
+56   - 
+57   - scanner?
+58   - scanner2?
+59   - 
+60   - light burning?
+61   - 
+62   - 
+63   - 
+64   - 
+65   - 
+66   - 
+67   - 
+68   - 
+69   - 
+70   - heavy burning
+71   - light burning
+72   - light burning 2
+73   - hyperspace out 
+74   - 
+75   - 
+76   - 
+77   - sudden shutdown
+78   - 
+79   - wind down
+80   - wind down 2
+81   - 
+82   - 
+83   - 
+84   - high hum
+85   - 2 beeps
+86   - 
+87   - 
+88   - 
+89   - 
+90   - 
+91   - 
+92   - 
+93   - 
+94   - 
+95   - 
+96   - 
+97   - 
+98   - 
+99   - 
+100  - 
+101  - part moving?
+102  - turanic sound 1?
+103  - turanic sound 2?
+104  - turanic sound 3?
+105  - turanic sound 4?
+106  - turanic sound 5?
+107  - turanic sound 6?
+108  - turanic sound 7?
+109  - turanic sound 8?
+110  - turanic sound 10?
+111  - lifeboat?
+112  - derelict
+113  - 
+114  - 
+115  - 
+116  - 
+117  - 
+118  - 
+119  - 
+120  - 
+121  - echo voice - hanger?
+122  - 
+123  - echo voice 2
+124  - 'take to 115'
+125  - 'cleared for approach'
+126  - echo voice 3
+127  - 
+128  - 
+129  - 
+130  - hyperspace in 3
+131  - collector sound?
+132  - 
+133  - 
+134  - 
+135  - 
+136  - 
+
+[SPECIALEFFECTS.BNK]
+1   - low explosion
+2   - low explosion2
+3   - low explosion3
+4   - bullet hit
+5   - plasma hit 1
+6   - plasma hit 2
+7   - long hit
+8   - missile hit
+9   - ricochet
+10  - frigate explosion
+11  - fighter explosion
+12  - blitter explosion
+13  - long explosion
+14  - lightsaber1
+15  - lightsaber2
+16  - lightsaber3
+17  - lightsaber4
+18  - lightsaber5
+19  - lightsaber6
+20  - big explosion	-distant
+21  - explosion - far
+22  - bump
+23  - shot sound far
+24  - saw
+25  - puffy explosion
+26  - doppler explode
+27  - corvette explode?
+28  - bang
+29  - ping
+30  - 3 small pings
+31  - electrocute
+32  - spark 2
+33  - spark 3
+34  - spark 4
+35  - spark 5
+36  - spark 6
+37  - spark 7
+38  - spark 8
+39  - spark 9
+40  - spark 10
+41  - spark 11
+42  - bullet hit
+43  - bullet hit 2
+44  - bullet hit 3
+45  - bullet hit 4
+46  - bullet hit 5
+47  - bullet hit 6
+48  - cannon hit?
+49  - missile hit?
+50  - explosion
+51  - big explode
+52  - big explode 2
+53  - medium explode
+54  - medium explode 2
+55  - medium explode 3
+56  - small explode
+57  - small explode 2
+58  - small explode 3
+59  - 2 explodes
+60  - pre-explode, explode
+61  - pre-explode2, explode
+62  - explode, zzztt
+63  - long shot
+64  - plasma hit?
+65  - plasma hit?
+66  - fizzle out
+67  - ricochet hit
+68  - hit ping
+69  - thunder?
+70  - flying and burning
+71  - burnout
+72  - pop, burn away
+73  - burnout2
+74  - billow explode
+
+[UI.BNK]
+1   - 3 beeps
+2   - button
+3   - high beep
+4   - 3 medium beeps
+5   - hum
+6   - low hum- down
+7   - low hum- up
+8   - chirp
+9   - chirp 2
+10  - chirp 3
+11  - research sound
+12  - tactical?
+13  - short beep
+14  - short beep 2
+15  - loud ambient
+16  - beep on tactical
+17  - tactical zoom
+18  - tactical zoom2
+19  - static (short)
+20  - static (short)2
+21  - tactical low beep
+22  - ui beep
+23  - power up?
+
+

@@ -1,0 +1,60 @@
+<html>
+<head><title> VCEPacker QuickGuide </title></head>
+
+<body bgcolor="#ffffff">
+
+<table width=100% border=0 height=100%>
+<tr height=90%><td width=10%>&nbsp;</td><td width=80%>
+<b><font size=+1>Packing the VCE</font></b>
+<p><font face="Tahoma">
+
+Now, click on the VCE Pack tab on the top to change views.  The encfiles.log file should be listed in the 
+Encoded File List field, in the directory where the aifrs went.  Also, the lengths.dat file should be there
+as well.
+
+<p>
+VERY IMPORTANT:  You must re-run RESTORE.BAT file in the installation directory before each packing.  Failing
+to do so will probably make bad LUT files.   I will automate this in a future version.
+
+<p>
+Just set the path for the output VCE file, and set the directory on the left side with all of the subtitle 
+text files in it.  If you check the Strict Subtitles option, it will warn you if you don't have a subtitle 
+for one that had a subtitle in the original and will also warn you if you have one for one that didn't
+originally.  I would suggest you leave this unchecked unless you are completely changing all 11292 sentences.
+
+<p>
+Currently, there is a slider under the bitrate field.  Moving this will change the bitrate listed in the lut.  DO
+NOT CHANGE THIS.  Leave it at 384.  It will be removed in a future version for safety's sake.  For Cataclysm,
+it will be 512, but for homeworld, it must be 384.
+
+<p>
+This section will do many things:<br>
+<li>It will make a new speechsentence_comp.lut file stating that all sentences use 384 bitrate<br>
+<li>It will make a new VCE file with the phrases and subtitles and the associated speechphrase_comp.lut file<br>
+<li>The speechphrase_comp.lut file will list the phrases in the vce that make up each sentence and the subtitle durations<br>
+
+<p>
+After this is over (and this is another thing that may take a couple of hours if you have lots of files, less time for 
+fewer files), you will have the VCE file you specified in the field for the vce file.  Also, you will have two new LUT files
+in the VCEPacker installation directory (I will move this to the vce directory in a future version).
+
+<p> Now, you need to make a directory called soundfx under the main homeworld game directory and copy the two lut files into this.
+You must now rename or delete the old HW_Comp.VCE file in the main homeworld game directory and put this new vce into the main
+homeworld game directory with that name.  Also, your homeworld game must have been originally installed with speech on the harddrive.
+
+<p> Start the game and try it out.
+
+TheMamboMan
+
+
+<p>
+<img src="img/pack.jpg">
+
+
+</font>
+</td><td width=10%>&nbsp;</td>
+</tr>
+<tr height=10%><td colspan=3 align=right><a href="vcepack5.htm">Prev</a></table>
+
+</body>
+</html>

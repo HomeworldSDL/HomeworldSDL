@@ -1,0 +1,15 @@
+frmMain = 110, 110, 604, 551, , 22, 22, 516, 463, C
+modScreen = 176, 176, 669, 617, 
+modGeneral = 66, 66, 559, 507, C
+modConvert = 110, 145, 701, 593, C
+modFileMovement = 0, 0, 591, 421, 
+frmNotice = 0, 0, 599, 430, C, 154, 203, 753, 633, C
+modWXHfile = 0, 0, 599, 430, Z
+modWAV = 110, 145, 731, 578, 
+modBNKfile = 110, 145, 731, 578, 
+modSpeechLUT = 88, 116, 647, 580, 
+lutdefs = 176, 232, 881, 725, 
+frmSpecial = 0, 0, 0, 0, C, 0, 0, 0, 0, C
+modNewMusic = 0, 0, 0, 0, C
+modSoundFX = 88, 116, 663, 542, 
+modLog = 0, 0, 0, 0, C
