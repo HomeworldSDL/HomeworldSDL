@@ -327,6 +327,7 @@ void HandleTCPMessage(Uint32 address, unsigned char msgTyp, const void* data, un
 			HandleJoinConfirm(address,data,len);
 			break;
 		case TITANMSGTYPE_JOINGAMEREJECT :
+			HandleJoinReject(address,data,len);
 			dbgMessagef("\nTITANMSGTYPE_JOINGAMEREJECT HandleTCPMessage");
 			break;
 		case TITANMSGTYPE_UPDATEGAMEDATA :
@@ -401,6 +402,15 @@ void HandleJoinConfirm(Uint32 address, const void* data, unsigned short len)
 	anAddress.Port = TCPPORT;
 
         titanConfirmReceivedCB(&anAddress, data, len);
+}
+
+void HandleJoinReject(Uint32 address, const void* data, unsigned short len)
+{
+	Address anAddress;
+	anAddress.AddrPart.IP = address;
+	anAddress.Port = TCPPORT;
+
+        titanRejectReceivedCB(&anAddress, data, len);
 }
 
 void HandleGameData(const void* data, unsigned short len)
