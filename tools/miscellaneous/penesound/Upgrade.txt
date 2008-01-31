@@ -1,0 +1,33 @@
+Sulpherlabs PeneSound Upgrade History
+====================================
+1.0.0.18 Final
+==========
+Aug 1st, 2002
+1.Several minor bugs fixed.
+2.Added Documents
+This is the final one.
+
+0.9.0.15 Beta
+==========
+Jul 26th, 2002
+1.Several minor bugs fixed.
+2.Added About box.
+3.Better appearance.
+
+0.9.0.11 Beta
+==========
+Jul 23rd, 2002
+!!A GREAT UPDATE!!
+1.Integrated VCE,WXD,BNK Extractor together, into one single application.
+2.Added OFC(Opened File Cache) Technology. Faster in opening files that had been analysed.
+3.Added DFC(Differently File Controlling) Technology.
+4.Increased file extraction speed.
+5.InSound Play function several bugs fixed.
+6.PeneSound is now fully supported BNK files.
+7.Load Winamp at startup, faster in loaing files.
+8.Several minor bugs fixed.
+
+0.9.0.5 Beta
+==========
+Jul 18th, 2002
+1.Added VCE/WXD file checksum to determine the file source(HW/HW:C)
