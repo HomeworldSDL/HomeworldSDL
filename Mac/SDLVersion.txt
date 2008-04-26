@@ -1,1 +1,1 @@
-SDL version: 1.2.12
+SDL version: 1.2.13
