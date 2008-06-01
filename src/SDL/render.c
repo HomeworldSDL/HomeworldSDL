@@ -1207,7 +1207,7 @@ void rndFilter(bool on)
 
 static real64 rndNear(real64 in)
 {
-    return (RGLtype == D3Dtype) ? 0.5 * in : in;
+    return in;
 }
 
 /*-----------------------------------------------------------------------------
@@ -4168,10 +4168,6 @@ DEFINE_TASK(rndRenderTask)
         if (mainReinitRenderer > 0)
         {
             mainReinitRenderer--;
-            if (mainReinitRenderer == 0)
-            {
-                mainReinitRGL();
-            }
         }
         else
         {

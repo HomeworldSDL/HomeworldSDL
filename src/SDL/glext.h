@@ -79,9 +79,6 @@ Copyright Relic Entertainment, Inc.  All rights reserved.
 
 #define RGL_SHUTDOWN        0x4620
 
-#define RGL_D3D_SHUFFLE     0x4630
-#define RGL_D3D_FULLSCENE   0x4631
-
 #define RGL_SKIP_RASTER     0x4640
 #define RGL_NOSKIP_RASTER   0x4641
 #endif //RGL_ISA_BACKGROUND
@@ -101,7 +98,6 @@ Copyright Relic Entertainment, Inc.  All rights reserved.
 #endif //RGL_VERTEX_LIST
 
 #define SWtype    0
-#define D3Dtype   2
 #define GLtype    3
 
 typedef void* (*MemAllocFunc)(GLint len, char* name, GLuint flags);
@@ -134,9 +130,6 @@ extern void (*rglSmoothTexturedTriangle)(GLint iPoly);
 extern void (*rglMeshRender)(GLint n, void (*callback)(GLint material), GLint* meshPolyMode);
 
 extern void (*rglSelectDevice)(char* name, char* data);
-
-extern void  (*rglD3DSetDevice)(char* dev);
-extern char* (*rglD3DGetDevice)(void);
 
 extern void* (*rglGetFramebuffer)(GLint* pitch);
 

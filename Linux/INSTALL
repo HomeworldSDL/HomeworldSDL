@@ -1,7 +1,7 @@
   *** IMPORTANT BUILD INSTRUCTIONS ***
 
 Homeworld SDL - Source Installation Instructions 
- Version 0.3 alpha? (still?)
+ Version 0.5 alpha? (still?)
  Subversion repository: http://www.homeworldsdl.org
  Current Subversion revision as of this update: 391
 
@@ -10,7 +10,7 @@ Homeworld SDL maintainer:
  
 ---------------------------------------------------------------------
 
-Homeworld  1999-2000 Sierra On-Line, Inc.  All Rights Reserved. 
+Homeworld copyright 1999-2000 Sierra On-Line, Inc.  All Rights Reserved. 
 Homeworld is a registered trademark, and Sierra and Sierra Studios
 are registered trademarks of Sierra On-Line, Inc.  Relic is a
 trademark of Relic Entertainment, Inc. 
@@ -79,7 +79,6 @@ should do the trick.
  
  You will need at least 
  - Homeworld.big 
- - devstats.dat 
  - Update.big 
 
 Homeworld.big comes from the game CD, and the devstats.dat and Update.big files have to be the updated versions from the 1.05 patch.

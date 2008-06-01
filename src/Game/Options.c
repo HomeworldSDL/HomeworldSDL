@@ -1330,45 +1330,7 @@ void opOptionsAcceptHelper(char* name, featom* atom, char* linkName)
     opOldDevcaps  = gDevcaps;
     opOldDevcaps2 = gDevcaps2;
 
-    if (rnd->type == RIN_TYPE_DIRECT3D)
-    {
-        if ((RGLtype != D3Dtype) ||
-            opResChanged() ||
-            (strcmp(rnd->data, lastDev) != 0))
-        {
-            if (opResHackSupported())
-            {
-                soundEventShutdown();
-                mainSaveRender();
-                opGLCStop();
-
-                MAIN_WindowWidth  = opSaveMAIN_WindowWidth;
-                MAIN_WindowHeight = opSaveMAIN_WindowHeight;
-                MAIN_WindowDepth  = opSaveMAIN_WindowDepth;
-
-                opDevcaps  = gDevcaps;
-                opDevcaps2 = gDevcaps2;
-                gDevcaps  = rnd->dev->devcaps;
-                gDevcaps2 = rnd->dev->devcaps2;
-                if (mainLoadParticularRGL("d3d", rnd->data))
-                {
-                    memStrncpy(lastDev, rnd->data, 63);
-                    opDeviceIndex = opRenderCurrentSelected;
-                    opCountdownBoxStart();
-                }
-                else
-                {
-                    gDevcaps  = opDevcaps;
-                    gDevcaps2 = opDevcaps2;
-                    mainRestoreRender();
-                    opModeswitchFailed();
-                }
-                soundEventRestart();
-                opGLCStart();
-            }
-        }
-    }
-    else if (rnd->type == RIN_TYPE_OPENGL)
+    if (rnd->type == RIN_TYPE_OPENGL)
     {
         if (RGLtype != GLtype || opResChanged() || 
             (opDeviceIndex != opRenderCurrentSelected))
@@ -2829,16 +2791,13 @@ void opRenderItemDraw(rectangle* rect, listitemhandle data)
         c1 = FEC_ListItemStandard;
     }
 
-    x = rect->x0 + fontWidth("(D3D)");
+    x = rect->x0 + fontWidth("(OGL)");
     y = rect->y0;
 
     switch (rnd->type)
     {
     case RIN_TYPE_OPENGL:
         sprintf(temp, "(GL)");
-        break;
-    case RIN_TYPE_DIRECT3D:
-        sprintf(temp, "(D3D)");
         break;
     default:
         sprintf(temp, "(SW)");
@@ -2895,17 +2854,6 @@ void opRenderListLoad(void)
             {
                 opRenderCurrentSelected = opRenderNumber;
                 opRndSelected = &opRnd[opRenderNumber];
-            }
-            break;
-
-        case D3Dtype:
-            if (dev->type == RIN_TYPE_DIRECT3D)
-            {
-                if (strcmp(dev->data, lastDev) == 0)
-                {
-                    opRenderCurrentSelected = opRenderNumber;
-                    opRndSelected = &opRnd[opRenderNumber];
-                }
             }
             break;
 

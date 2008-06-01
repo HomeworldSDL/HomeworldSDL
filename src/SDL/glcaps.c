@@ -172,12 +172,6 @@ void NULL_rglMeshRender(GLint n, void (*callback)(GLint material), GLint* meshPo
 void (*rglSelectDevice)(char* name, char* data);
 void NULL_rglSelectDevice(char* name, char* data) RGLVOID
 
-void (*rglD3DSetDevice)(char* dev);
-void NULL_rglD3DSetDevice(char* dev) RGLVOID
-
-char* (*rglD3DGetDevice)(void);
-char* NULL_rglD3DGetDevice(void) RGLPCHAR
-
 void* (*rglGetFramebuffer)(GLint* pitch);
 void* NULL_rglGetFramebuffer(GLint* pitch) RGLPVOID
 
@@ -218,8 +212,6 @@ typedef void (*RGLSMOOTHTRIANGLEPROC)(GLint);
 typedef void (*RGLSMOOTHTEXTUREDTRIANGLEPROC)(GLint);
 typedef void (*RGLMESHRENDERPROC)(GLint, void (*)(GLint), GLint*);
 typedef void (*RGLSELECTDEVICEPROC)(char*, char*);
-typedef void (*RGLD3DSETDEVICEPROC)(char*);
-typedef char* (*RGLD3DGETDEVICEPROC)(void);
 typedef void* (*RGLGETFRAMEBUFFERPROC)(GLint*);
 typedef void (*RGLDRAWPITCHEDPIXELSPROC)(GLint, GLint, GLint, GLint, GLsizei, GLsizei, GLsizei, GLvoid const*);
 
@@ -259,8 +251,6 @@ void glCapGetRGLAddresses()
     rglSmoothTexturedTriangle = (RGLSMOOTHTEXTUREDTRIANGLEPROC)rwglGetProcAddress("rglSmoothTexturedTriangle");
     rglMeshRender = (RGLMESHRENDERPROC)rwglGetProcAddress("rglMeshRender");
     rglSelectDevice = (RGLSELECTDEVICEPROC)rwglGetProcAddress("rglSelectDevice");
-    rglD3DSetDevice = (RGLD3DSETDEVICEPROC)rwglGetProcAddress("rglD3DSetDevice");
-    rglD3DGetDevice = (RGLD3DGETDEVICEPROC)rwglGetProcAddress("rglD3DGetDevice");
 
     rglGetFramebuffer = (RGLGETFRAMEBUFFERPROC)rwglGetProcAddress("rglGetFramebuffer");
     rglDrawPitchedPixels = (RGLDRAWPITCHEDPIXELSPROC)rwglGetProcAddress("rglDrawPitchedPixels");
@@ -303,8 +293,6 @@ void glCapResetRGLAddresses(void)
     rglSmoothTexturedTriangle = NULL_rglSmoothTexturedTriangle;
     rglMeshRender = NULL_rglMeshRender;
     rglSelectDevice = NULL_rglSelectDevice;
-    rglD3DSetDevice = NULL_rglD3DSetDevice;
-    rglD3DGetDevice = NULL_rglD3DGetDevice;
 
     rglGetFramebuffer = NULL_rglGetFramebuffer;
     rglDrawPitchedPixels = NULL_rglDrawPitchedPixels;
@@ -383,54 +371,20 @@ bool glCapFeatureExists(GLenum feature)
         return glCapLineSmooth;
 
     case RGL_BROKEN_MIXED_DEPTHTEST:
-        if (RGLtype == D3Dtype)
-        {
-            if (bitTest(gDevcaps2, DEVSTAT2_BROKEN_DEPTH))
-            {
-                return TRUE;
-            }
-            else
-            {
-                return FALSE;
-            }
-        }
-        else
-        {
-            return FALSE;
-        }
+        return FALSE;
 
     case RGL_COLOROP_ADD:
         return RGL ? rglFeature(RGL_COLOROP_ADD) : FALSE;
-
-    case RGL_D3D_FULLSCENE:
-        return (RGLtype == D3Dtype) ? rglFeature(RGL_D3D_FULLSCENE) : FALSE;
 
     case GL_POINT_SIZE:
         return glCapPointSize;
 
     case GL_SCISSOR_TEST:
-        return !(RGLtype == D3Dtype);
+        return RGLtype;
 
     case GL_COLOR_CLEAR_VALUE:
         if (bitTest(gDevcaps, DEVSTAT_NO_BGCOLOUR))
-        {
-            return FALSE;
-        }
-        else if (RGLtype == D3Dtype)
-        {
-#if 1
-            return FALSE;
-#else
-            if (bitTest(gDevcaps, DEVSTAT_NOD3D_BGCOLOUR))
-            {
-                return FALSE;
-            }
-            else
-            {
-                return TRUE;
-            }
-#endif
-        }
+        return FALSE;
 
     default:
         return FALSE;
@@ -679,14 +633,6 @@ void glCapStartup(void)
     if (haveExtension("GL_RGL_rgl_feature", GLC_EXTENSIONS))
     {
         RGL = TRUE;
-        if (strstr(GLC_EXTENSIONS, "direct3d"))
-        {
-            RGLtype = D3Dtype;
-        }
-        else
-        {
-            RGLtype = SWtype;
-        }
         glCapGetRGLAddresses();
     }
     else
@@ -734,14 +680,7 @@ void glCapStartup(void)
     glRescaleNormal = haveExtension("GL_EXT_rescale_normal", GLC_EXTENSIONS);
     glPalettedTexture = haveExtension("GL_EXT_paletted_texture", GLC_EXTENSIONS);
     glSharedTexturePalette = haveExtension("GL_EXT_shared_texture_palette", GLC_EXTENSIONS);
-    if (RGLtype == D3Dtype)
-    {
-        //Direct3D doesn't get palette support, ever
-        glPalettedTexture = FALSE;
-        glSharedTexturePalette = FALSE;
-        trNoPalettes = TRUE;
-    }
-    else if (mainNoPalettes || bitTest(gDevcaps, DEVSTAT_NOPAL))
+    if (mainNoPalettes || bitTest(gDevcaps, DEVSTAT_NOPAL))
     {
         //no palettes if globally disabled, or for this device
         trNoPalettes = TRUE;
@@ -806,7 +745,7 @@ void glCapStartup(void)
         }
 
         //recommended depthbuffer function
-        glCapDepthFunc = (RGLtype == D3Dtype) ? GL_LEQUAL : GL_LESS;
+        glCapDepthFunc = GL_LESS;
     }
     else
     {
@@ -820,21 +759,6 @@ void glCapStartup(void)
 
     //enable/disable linesmoothing as per devcaps et al
     glCapLineSmooth = TRUE;
-    if (bitTest(gDevcaps, DEVSTAT_NO_AA))
-    {
-        //explicitly disabled
-        glCapLineSmooth = FALSE;
-    }
-    else if (RGL)
-    {
-        //rGL+sw and rGL+D3D don't support aa lines
-        glCapLineSmooth = FALSE;
-    }
-    else
-    {
-        //OpenGL by default supports antialiasing
-        glCapLineSmooth = TRUE;
-    }
 
     //enable/disable pointsmoothing as per devcaps et al
     glCapPointSmooth = !RGL;
@@ -875,15 +799,6 @@ void glCapStartup(void)
     {
         //software is always swapfriendly
         glCapSwapFriendly = TRUE;
-    }
-    else if (RGLtype == D3Dtype)
-    {
-        if (bitTest(gDevcaps, DEVSTAT_NOFFE) ||
-            bitTest(gDevcaps, DEVSTAT_NOFFE_D3D))
-        {
-            //disabled as per devcaps
-            glCapSwapFriendly = FALSE;
-        }
     }
     else
     {

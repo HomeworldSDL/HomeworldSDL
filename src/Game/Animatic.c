@@ -193,10 +193,6 @@ void animBinkDisplay()
     case SWtype:
         glDrawPixels(640, 480, GL_RGBA16, GL_UNSIGNED_BYTE, binkSurface);
         break;
-    case D3Dtype:
-        animBinkReverseRGBA(binkSurface);
-        glDrawPixels(640, 480, GL_RGBA, GL_UNSIGNED_BYTE, binkSurface);
-        break;
     default:
         dbgFatalf(DBG_Loc, "what's this RGLtype: %d [binkSimpleDisplayProc]", RGLtype);
     }
@@ -521,10 +517,6 @@ void animAviDisplay()
         break;
     case SWtype:
         glDrawPixels(640, 480, GL_RGBA16, GL_UNSIGNED_BYTE, binkSurface);
-        break;
-    case D3Dtype:
-        animBinkReverseRGBA(binkSurface);
-        glDrawPixels(640, 480, GL_RGBA, GL_UNSIGNED_BYTE, binkSurface);
         break;
     default:
         dbgFatalf(DBG_Loc, "what's this RGLtype: %d [binkSimpleDisplayProc]", RGLtype);

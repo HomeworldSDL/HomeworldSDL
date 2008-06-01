@@ -26,7 +26,6 @@
 #include "Debug.h"
 #include "debugwnd.h"
 #include "Demo.h"
-#include "dxdraw.h"
 #include "FEReg.h"
 #include "File.h"
 #include "FontReg.h"
@@ -109,16 +108,16 @@ static char windowTitle[] = "Homeworld";//name of window
 char ersWindowInit[] = "Error creating window";
 
 //screen width, height
-sdword MAIN_WindowWidth = 640;
-sdword MAIN_WindowHeight = 480;
-sdword MAIN_WindowDepth = 16;
+int MAIN_WindowWidth = 640;
+int MAIN_WindowHeight = 480;
+int MAIN_WindowDepth = 16;
 
 sdword mainWidthAdd = 0;
 sdword mainHeightAdd = 0;
 
-sdword mainWindowWidth = 640;
-sdword mainWindowHeight = 480;
-sdword mainWindowDepth = 16;
+int mainWindowWidth;
+int mainWindowHeight;
+int mainWindowDepth;
 #ifdef _WIN32
 void *ghMainWindow = NULL;
 void *ghInstance = NULL;
@@ -132,8 +131,8 @@ extern bool LogFileLoads;
 bool mainNoDrawPixels = FALSE;
 bool mainOutputCRC = FALSE;
 bool mainNoPalettes = TRUE;
-bool mainSoftwareDirectDraw = TRUE;
-bool mainDirectDraw = TRUE;
+bool mainSoftwareDirectDraw = FALSE;
+bool mainDirectDraw = FALSE;
 bool mainRasterSkip = FALSE;
 bool mainDoubleIsTriple = FALSE;
 #ifdef __GNUC__
@@ -194,7 +193,6 @@ bool coopDSound = FALSE;
 bool accelFirst = FALSE;
 char mainDeviceToSelect[128] = "";
 char mainGLToSelect[512] = "";
-char mainD3DToSelect[128] = "";
 char deviceToSelect[128] = "";
 #ifdef _WIN32
 char glToSelect[512] = "opengl32.dll";
@@ -360,10 +358,6 @@ bool EnableFileLoadLog(char *string)
 bool SelectDevice(char* string)
 {
     memStrncpy(deviceToSelect, string, 16 - 1);
-    if (strcasecmp(deviceToSelect, "d3d") == 0)
-    {
-        mainReinitRenderer = 2;
-    }
     selectedDEVICE = TRUE;
     return TRUE;
 }
@@ -375,20 +369,6 @@ bool SelectMSGL(char* string)
 #else
     memStrncpy(glToSelect, "libGL.so", 512 - 1);
 #endif
-    return TRUE;
-}
-
-bool SelectD3D(char* string)
-{
-#ifdef _WIN32
-    memStrncpy(glToSelect, "librgl.dll", 512 - 1);
-#else
-    memStrncpy(glToSelect, "libGL.so", 512 - 1);
-#endif
-    memStrncpy(deviceToSelect, "d3d", 16 - 1);
-    selectedGL = TRUE;
-    selectedDEVICE = TRUE;
-    mainReinitRenderer = 2;
     return TRUE;
 }
 
@@ -728,7 +708,6 @@ commandoption commandOptions[] =
     entryVr("/fullscreen",          fullScreen, TRUE,                   " - display fullscreen with software renderer (default)."),
     entryVr("/window",              fullScreen, FALSE,                  " - display in a window."),
     entryVr("/noBorder",            showBorder, FALSE,                  " - no border on window."),
-    entryVrHidden("/d3dDeviceCRC",  mainOutputCRC, TRUE,                " - generate d3dDeviceCRC.txt for video troubleshooting."),
     entryFnHidden("/minny",           EnableMiniRes,                      " - run at 320x240 resolution."),
     entryFn("/640",                 EnableLoRes,                        " - run at 640x480 resolution (default)."),
     entryFn("/800",                 EnableHiRes,                        " - run at 800x600 resolution."),
@@ -740,9 +719,8 @@ commandoption commandOptions[] =
 //    entryFn("/d32",                 Enable32Bit,                        " - run in 32 bits of colour."),
 //    entryVr("/truecolor",           trueColor, TRUE,                    " - try 24bit modes before 15/16bit."),
 //    entryVr("/slowBlits",           slowBlits, TRUE,                    " - use slow screen blits if the default is buggy."),
-    entryFnParam("/device",         SelectDevice,                       " <dev> - select an rGL device by name, eg. sw, fx, d3d."),
+    entryFnParam("/device",         SelectDevice,                       " <dev> - select an rGL device by name, eg. sw, fx."),
 //    entryFV("/gl",                  SelectMSGL, selectedGL, TRUE,       " - select default OpenGL as renderer."),
-//    entryFn("/d3d",                 SelectD3D,                          " - select Direct3D as renderer."),
     entryVr("/nohint",              mainNoPerspective, TRUE,            " - disable usage of OpenGL perspective correction hints."),
     entryVrHidden("/noPause",             noPauseAltTab, TRUE,                " - don't pause when you alt-tab."),
     entryVrHidden("/noMinimize",          noMinimizeAltTab, TRUE,             " - don't minimize when you alt-tab."),
@@ -1060,123 +1038,18 @@ filehandle mainGetDevStatsHandle(char *filepath) {
 }
 
 /*-----------------------------------------------------------------------------
-    Name        : mainDevStatsInit
-    Description : initialize the devstats table.  this table contains features
-                  that need to be disabled on particular (D3D) devices
-    Inputs      :
-    Outputs     :
-    Return      :
+devstat init startup removed
 ----------------------------------------------------------------------------*/
-void mainDevStatsInit(void)
-{
-    char *hwdata = NULL;
-    char devstatsfile[] = "devstats.dat";
-    char devstatspath[PATH_MAX];
-    filehandle handle = 0;
-    char string[512];
-    crc32 crc;
-    udword flags0, flags1, flags2;
-    sdword size, index;
-
-    // find devstats file in:
-    
-    // current directory...
-    if (!handle) {
-        strcpy(devstatspath, devstatsfile);
-        handle = mainGetDevStatsHandle(devstatspath);
-    }
-    
-    // directory environment variable...
-    if (!handle)
-    {
-        hwdata = fileHomeworldDataPath;
-
-        if (hwdata[0] != '\0')
-        {
-            strcpy(devstatspath, hwdata);
-            strcat(devstatspath, "/");
-            strcat(devstatspath, devstatsfile);
-        
-            handle = mainGetDevStatsHandle(devstatspath);
-        }
-    }
-    
-    if (!handle) {
-        dbgFatal(DBG_Loc, "mainDevStatsInit: couldn't open devstats file");
-    }
-
-    for (devTableLength = 0;;)
-    {
-        if (fileLineRead(handle, string, 511) == FR_EndOfFile)
-        {
-            break;
-        }
-        if (string[0] == ';')
-        {
-            continue;
-        }
-        if (strlen(string) < 4)
-        {
-            continue;
-        }
-
-        //xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx ...
-        sscanf(string, "%X %X %X %X", &crc, &flags0, &flags1, &flags2);
-        if (crc != 0)
-        {
-            devTableLength++;
-        }
-    }
-    fileClose(handle);
-
-    if (devTableLength > 0)
-    {
-        size = 4 * sizeof(udword) * devTableLength;
-        devTable = (udword*)malloc(size);
-        if (devTable == NULL)
-        {
-            dbgFatal(DBG_Loc, "mainDevStatsInit couldn't allocate memory for devTable");
-        }
-        memset(devTable, 0, size);
-
-        handle = mainGetDevStatsHandle(devstatspath);
-
-        for (index = 0;;)
-        {
-            if (fileLineRead(handle, string, 511) == FR_EndOfFile)
-            {
-                break;
-            }
-            if (string[0] == ';')
-            {
-                continue;
-            }
-            if (strlen(string) < 4)
-            {
-                continue;
-            }
-
-            //xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx ...
-            sscanf(string, "%X %X %X %X", &crc, &flags0, &flags1, &flags2);
-            if (crc != 0)
-            {
-                devTable[index+0] = crc;
-                devTable[index+1] = flags0;
-                devTable[index+2] = flags1;
-                devTable[index+3] = flags2;
-                index += 4;
-            }
-        }
-        fileClose(handle);
-    }
-}
 
 /*-----------------------------------------------------------------------------
+
     Name        : mainDevStatsShutdown
     Description : release memory used by the devstats table
     Inputs      :
     Outputs     :
     Return      :
+
+fixme: This section was called devstats shutdown but seems to be more. Cleanup required...
 ----------------------------------------------------------------------------*/
 void mainDevStatsShutdown(void)
 {
@@ -1448,7 +1321,6 @@ bool mainStartupGL(char* data)
         return FALSE;
     }
     mainDeviceToSelect[0] = '\0';
-    mainD3DToSelect[0] = '\0';
     memStrncpy(mainGLToSelect, glToSelect, 512 - 1);
 
     /* Window creation moved to rndSmallInit()/rndInit()...no more
@@ -1578,7 +1450,6 @@ bool mainStartupParticularRGL(char* device, char* data)
         return FALSE;
     }
     memStrncpy(mainDeviceToSelect, device, 16 - 1);
-    memStrncpy(mainD3DToSelect, data, 64 - 1);
     memStrncpy(mainGLToSelect, glToSelect, 512 - 1);
 
     mainContinueRGL(data);
@@ -1613,7 +1484,7 @@ bool mainStartupParticularRGL(char* device, char* data)
     Description : returns the type of currently active renderer
     Inputs      :
     Outputs     :
-    Return      : GLtype, D3Dtype, SWtype
+    Return      : GLtype, SWtype
 ----------------------------------------------------------------------------*/
 sdword mainActiveRenderer(void)
 {
@@ -1758,7 +1629,6 @@ sdword saveMAIN_WindowHeight;
 sdword saveMAIN_WindowDepth;
 char saveglToSelect[512];
 char savedeviceToSelect[16];
-char saved3dToSelect[64];
 
 /*-----------------------------------------------------------------------------
     Name        : mainSaveRender
@@ -1775,7 +1645,6 @@ void mainSaveRender(void)
     saveMAIN_WindowDepth  = MAIN_WindowDepth;
     memStrncpy(saveglToSelect, mainGLToSelect, 512 - 1);
     memStrncpy(savedeviceToSelect, mainDeviceToSelect, 16 - 1);
-    memStrncpy(saved3dToSelect, mainD3DToSelect, 64 - 1);
 }
 
 void mainSetupSoftware(void)
@@ -1787,18 +1656,16 @@ void mainSetupSoftware(void)
 //    strcpy(mainGLToSelect, "librgl.dll");
     strcpy(deviceToSelect, "sw");
     strcpy(mainDeviceToSelect, "sw");
-    strcpy(mainD3DToSelect, "");
 #else
     strcpy(glToSelect, "libGL.so");
     strcpy(mainGLToSelect, "libGL.so");
     strcpy(deviceToSelect, "sw");
     strcpy(mainDeviceToSelect, "sw");
-    strcpy(mainD3DToSelect, "");
 #endif
 
-    mainWindowWidth  = MAIN_WindowWidth  = 640;
-    mainWindowHeight = MAIN_WindowHeight = 480;
-    mainWindowDepth  = MAIN_WindowDepth  = 16;
+    mainWindowWidth  = MAIN_WindowWidth;
+    mainWindowHeight = MAIN_WindowHeight;
+    mainWindowDepth  = MAIN_WindowDepth;
 
     opDeviceIndex = -1;
 
@@ -1848,7 +1715,6 @@ void mainRestoreRender(void)
     memStrncpy(mainGLToSelect, saveglToSelect, 512 - 1);
     memStrncpy(deviceToSelect, savedeviceToSelect, 16 - 1);
     memStrncpy(mainDeviceToSelect, savedeviceToSelect, 16 - 1);
-    memStrncpy(mainD3DToSelect, saved3dToSelect, 64 - 1);
 
     mainWindowWidth  = MAIN_WindowWidth  = saveMAIN_WindowWidth;
     mainWindowHeight = MAIN_WindowHeight = saveMAIN_WindowHeight;
@@ -1861,14 +1727,6 @@ void mainRestoreRender(void)
     if (RGLtype == GLtype)
     {
         if (!mainLoadGL(NULL))
-        {
-            //couldn't restore, try basic software
-            mainRestoreSoftware();
-        }
-    }
-    else
-    {
-        if (!mainLoadParticularRGL(savedeviceToSelect, saved3dToSelect))
         {
             //couldn't restore, try basic software
             mainRestoreSoftware();
@@ -1946,7 +1804,7 @@ bool mainLoadGL(char* data)
 /*-----------------------------------------------------------------------------
     Name        : mainLoadParticularRGL
     Description : close existing render, startup rGL w/ specified device
-    Inputs      : device - device name {sw, d3d, fx}
+    Inputs      : device - device name {sw, fx}
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
@@ -1980,37 +1838,6 @@ bool mainLoadParticularRGL(char* device, char* data)
     alodStartup();
 
     mainReinitRenderer = 2;
-
-    return TRUE;
-}
-
-/*-----------------------------------------------------------------------------
-    Name        : mainReinitRGL
-    Description : reinitializes rGL, currently used to work around a disheartening
-                  D3D problem wrt alpha textures
-    Inputs      :
-    Outputs     :
-    Return      :
-----------------------------------------------------------------------------*/
-bool mainReinitRGL(void)
-{
-    if (RGLtype != D3Dtype)
-    {
-        return TRUE;
-    }
-
-    reinitInProgress = TRUE;
-
-//    mainCloseRender();
-    rglFeature(RGL_REINIT_RENDERER);
-//    glCapStartup();
-//    mainOpenRender();
-//    glCapStartup();
-//    lodScaleFactor = (RGLtype == SWtype) ? LOD_ScaleFactor : 1.0f;
-//    alodStartup();
-    dbgMessage("-- reinit rGL --");
-
-    reinitInProgress = FALSE;
 
     return TRUE;
 }
@@ -2392,8 +2219,7 @@ sdword HandleEvent (const SDL_Event* pEvent)
 ----------------------------------------------------------------------------*/
 static bool InitWindow ()
 {
-    char d3dToSelect[64];
-	unsigned int rinDevCRC;
+    unsigned int rinDevCRC;
 
     /*
      * create a window
@@ -2418,34 +2244,19 @@ static bool InitWindow ()
     mainWidthAdd  = 0;
     mainHeightAdd = 0;
 
-    if (mainForceSoftware)
-    {
-        MAIN_WindowWidth  = 640;
-        MAIN_WindowHeight = 480;
-        MAIN_WindowDepth  = 16;
-    }
-
     mainWindowTotalWidth  = MAIN_WindowWidth  + mainWidthAdd;
     mainWindowTotalHeight = MAIN_WindowHeight + mainHeightAdd;
 
     /* Window created in renderer initialization.. */
 
-    mainDevStatsInit();
     rinEnumerateDevices();
-
-    d3dToSelect[0] = '\0';
 
     if (mainAutoRenderer &&
         (strlen(mainGLToSelect) > 0))
     {
         if (selectedDEVICE)
         {
-            d3dToSelect[0] = '\0';
-        }
-        else
-        {
             memStrncpy(deviceToSelect, mainDeviceToSelect, 16 - 1);
-            memStrncpy(d3dToSelect, mainD3DToSelect, 64 - 1);
         }
         if (!selectedGL)
         {
@@ -2477,11 +2288,6 @@ static bool InitWindow ()
         strcpy(glToSelect, "libGL.so");
         strcpy(mainGLToSelect, "libGL.so");
 #endif
-        d3dToSelect[0] = '\0';
-        mainD3DToSelect[0] = '\0';
-        MAIN_WindowWidth  = 640;
-        MAIN_WindowHeight = 480;
-        MAIN_WindowDepth  = 16;
 
         utyForceTopmost(fullScreen);
 
@@ -2526,11 +2332,6 @@ static bool InitWindow ()
 
     glCapStartup();
 
-    if (strcasecmp(deviceToSelect, "d3d") == 0)
-    {
-        mainReinitRenderer = 2;
-    }
-
     if (RGL)
     {
         rglSetAllocs((MemAllocFunc)mainMemAlloc, (MemFreeFunc)mainMemFree);
@@ -2565,11 +2366,7 @@ static bool InitWindow ()
         }
         if (deviceToSelect[0] != '\0')
         {
-            rglSelectDevice(deviceToSelect, d3dToSelect);
-            if (strcmp(deviceToSelect, "sw"))
-            {
-                lodScaleFactor = 1.0f;
-            }
+            lodScaleFactor = 1.0f;
         }
     }
     else
