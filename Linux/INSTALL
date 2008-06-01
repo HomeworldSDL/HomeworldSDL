@@ -81,11 +81,11 @@ should do the trick.
  - Homeworld.big 
  - Update.big 
 
-Homeworld.big comes from the game CD, and the devstats.dat and Update.big files have to be the updated versions from the 1.05 patch.
+Homeworld.big comes from the game CD, and the Update.big file has to be the updated version from the 1.05 patch.
 
 Unfortunately the only way to extract Homeworld.big and accompanying data files from the Windows installer is to run it natively in Windows or use an emulator/compatibility layer like Wine. (Alternatively, if someone cares to work on it, a native installer could be created based on the public domain "HWUN" (Heuristic WISE Unpacker) program. This is known to work with HWSetup.exe but unfortunately uses VirtualPascal and its accompanying Windows libraries. There are similar programs to HWUN (e.g. e_wise (Pascal) and exwise (C)) but they don't work with HWSetup.exe as-is.)
 
-The files from the patch are simpler to get at: just open the patch .exe in any zip file program and extract the devstats.dat and Update.big files from it.
+The files from the patch are simpler to get at: just open the patch .exe in any zip file program and extract the Update.big files from it.
  
  You can place the game data files in the 'src' directory created within the Linux directory where the "homeworld' binary you just compiled is located. 
  
