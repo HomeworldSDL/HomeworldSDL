@@ -244,12 +244,91 @@ void aviStretchRGBA(ubyte * surf, int w, int h) {
 }
 
 #ifdef HW_ENABLE_MOVIES
+static GLint strtex;
+static int texinit = 0;
+
+static GLint maxtex = -1;
+static int maxTextureSize() {
+	if (maxtex < 0)
+		glGetIntegerv(GL_MAX_TEXTURE_SIZE, &maxtex);
+	return maxtex;
+}
+
+static void Draw_Stretch (int x, int y, int w, int h, int cols, int rows, char *data)
+{
+	int texsize;
+
+	texsize = cols > rows ? cols : rows;
+	while (texsize != (texsize & -texsize))
+		texsize += (texsize & -texsize);
+	while (texsize > maxTextureSize())
+		texsize /= 2;
+
+	unsigned	image32[texsize*texsize];
+	unsigned int	*source, *dest;
+	float		hscale;
+	int		i, j, row, trows, frac, fracstep;
+	float		t;
+
+	if (!texinit) {
+		glGenTextures(1, &strtex);
+		texinit = 1;
+	}
+	glBindTexture(GL_TEXTURE_2D, strtex);
+
+	if (rows<=texsize)
+	{
+		hscale = 1;
+		trows = rows;
+	}
+	else
+	{
+		hscale = rows/texsize;
+		trows = texsize;
+	}
+	t = rows*hscale / texsize - 1.0/512.0;
+
+	for (i=0 ; i<trows ; i++)
+	{
+		row = (int)(i*hscale);
+		if (row > rows)
+			break;
+		source = ((unsigned int*)data) + cols*row;
+		dest = &image32[i*texsize];
+		fracstep = cols*0x10000/texsize;
+		frac = fracstep >> 1;
+		for (j=0 ; j<texsize ; j++)
+		{
+			dest[j] = source[frac>>16];
+			frac += fracstep;
+		}
+	}
+
+	glTexImage2D (GL_TEXTURE_2D, 0, GL_RGB, texsize, texsize, 0, GL_BGRA, GL_UNSIGNED_BYTE, image32);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+	glEnable(GL_TEXTURE_2D);
+
+	glBegin (GL_QUADS);
+	glTexCoord2f (1.0/512.0, 1.0/512.0);
+	glVertex2f (x, y);
+	glTexCoord2f (511.0/512.0, 1.0/512.0);
+	glVertex2f (x+w, y);
+	glTexCoord2f (511.0/512.0, t);
+	glVertex2f (x+w, y+h);
+	glTexCoord2f (1.0/512.0, t);
+	glVertex2f (x, y+h);
+	glEnd ();
+
+}
 
 //void aviDisplayFrame( AVFrame *pFrameRGB )
 void aviDisplayFrame( AVPicture *pFrameRGB, int w, int h )
 {
 
-    int x, y;
+/*    int x, y;
 
     x = (MAIN_WindowWidth  - w) / 2;
     y = (MAIN_WindowHeight  - h) / 2;
@@ -274,8 +353,13 @@ void aviDisplayFrame( AVPicture *pFrameRGB, int w, int h )
 
 
 //  dbgMessagef("aviDisplayFrame: R=%s  G=%s  B=%s", testR, testG, testB);
-//   dbgMessagef("aviDisplayFrame: R=%s", testR);
+//   dbgMessagef("aviDisplayFrame: R=%s", testR);*/
 
+    aviReverseRGBA( pFrameRGB->data[0], w, h );
+
+    animAviSetup(TRUE);
+    Draw_Stretch(0, 0, MAIN_WindowWidth, MAIN_WindowHeight, w, h, pFrameRGB->data[0]);
+    animAviSetup(FALSE);
 
 /*
     if (g_pbmi != NULL)
@@ -333,7 +417,10 @@ dbgMessage("aviPlayLoop:");
     int numBytes;
     int frameFinished;
     int event_res = 0;
-    Uint32 local_time, local_last_time, local_interval;
+#if AVI_VERBOSE_LEVEL >= 2
+    Uint32 start_time = SDL_GetTicks();
+#endif
+    Uint32 last_time = SDL_GetTicks();
     SDL_Event e;
     char * buffer;
 //    AVFrame *pFrameRGB;
@@ -372,12 +459,9 @@ dbgMessagef("aviPlayLoop: frameFinished=%d  packet.data=%x   packet.size=%d ", f
 
             animAviDecode(frame);
 
-            local_time= SDL_GetTicks();
-            local_interval = local_time - local_last_time ;
-            local_last_time = local_time ;
-            if ((local_interval > 0) && (local_interval < 76)) {
-                SDL_Delay(77 - local_interval);  //Closer...  :)
-            }
+            while (SDL_GetTicks() - last_time < 67)
+                SDL_Delay(1);
+            last_time = SDL_GetTicks();
 
             speechEventUpdate();   //Keep this it works. :)
             rndClearToBlack();
@@ -400,6 +484,9 @@ dbgMessagef("aviPlayLoop: frameFinished=%d  packet.data=%x   packet.size=%d ", f
 
     }
 
+#if AVI_VERBOSE_LEVEL >= 2
+dbgMessagef("aviPlayLoop: play_time=%d ", SDL_GetTicks() - start_time);
+#endif
     // Clear Allocs
 
     av_free(buffer);
@@ -511,10 +598,11 @@ dbgMessagef("aviStart: Pix Format: %d.", pCodecCtx->pix_fmt);
 dbgMessagef("aviStart: Codec required: %s.", pCodec->name);
 #endif
 
-    if(pCodec->capabilities & CODEC_CAP_TRUNCATED) {
+/* this results in corrupted video */
+/*    if(pCodec->capabilities & CODEC_CAP_TRUNCATED) {
         dbgMessage("Problem with the codec dealing with truncated frames.");
         pCodecCtx->flags|=CODEC_FLAG_TRUNCATED;
-    }
+    }*/
 
 // Open codec
     if(avcodec_open(pCodecCtx, pCodec)<0) {
