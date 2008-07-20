@@ -824,19 +824,35 @@ sdword isoundmixerdecodeEffect(sbyte *readptr, real32 *writeptr1, real32 *writep
 	Outputs		:
 	Return		:
 ----------------------------------------------------------------------------*/	
+static Uint8 oddbuf[MIX_BLOCK_SIZE];
+static udword oddbufpos = 0;
+
 void isoundmixerqueueSDL(Uint8 *stream, int len)
 {
 	udword size_written = 0;
 
-	dbgAssertOrIgnore((len % MIX_BLOCK_SIZE) == 0);
+	/* dbgAssertOrIgnore((len % MIX_BLOCK_SIZE) == 0); */
+
+	if (oddbufpos > 0) {
+		memcpy(stream, oddbuf + oddbufpos, MIX_BLOCK_SIZE - oddbufpos);
+		size_written += MIX_BLOCK_SIZE - oddbufpos;
+		oddbufpos = 0;
+	}
 
 	while (size_written < len) {
 		// process 256 samples, 16-bit (independent of # of channels)
-		isoundmixerprocess(stream + size_written,
-				FQ_SIZE * sizeof(short),
-				NULL, 0);
-		/* write(adump_fd, lpvWritePtr, FQ_SIZE * sizeof(short)); */
-		size_written += MIX_BLOCK_SIZE;
+		if (size_written + MIX_BLOCK_SIZE > len) {
+			isoundmixerprocess(oddbuf, FQ_SIZE * sizeof(short), NULL, 0);
+			oddbufpos = len - size_written;
+			memcpy(stream + size_written, oddbuf, oddbufpos);
+			size_written += oddbufpos;
+		} else {
+			isoundmixerprocess(stream + size_written,
+					FQ_SIZE * sizeof(short),
+					NULL, 0);
+			/* write(adump_fd, lpvWritePtr, FQ_SIZE * sizeof(short)); */
+			size_written += MIX_BLOCK_SIZE;
+		}
 	}
 }
 

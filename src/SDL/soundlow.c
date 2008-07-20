@@ -241,7 +241,8 @@ sdword soundinit(bool mode)
 	    result = SOUND_OK;
 	}
 
-	dbgAssertOrIgnore(aspec.samples == SDL_BUFFERSIZE);
+	/* extra buffer added to smixer, not necessary anymore */
+	/* dbgAssertOrIgnore(aspec.samples == SDL_BUFFERSIZE); */
 
 	return result;
 }
