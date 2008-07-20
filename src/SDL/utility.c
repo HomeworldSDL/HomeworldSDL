@@ -4129,7 +4129,7 @@ DONE_INTROS:
     utySet2(SS2_BabyCallBackRegistry);
 
 
-// aviIntroPlay();  // PlaceHolder for playing the intro Movies (Relic && Sierra)
+    aviIntroPlay();  // PlaceHolder for playing the intro Movies (Relic && Sierra)
 
     universeInit();
     utySet(SSA_Universe);
