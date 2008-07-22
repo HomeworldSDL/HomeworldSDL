@@ -19,7 +19,7 @@
 #define FQ_STAT		pSStream	// Statistics stream
 
 // Scale constants
-#define FQ_SDATA	aSDBlock	// Scale data
+#define FQ_SDATA	gSDBlock	// Scale data
 
 // Encoder flags
 #define FQ_ENORM	0x0000	// Normal
@@ -38,7 +38,7 @@
 #define	FQ_BR22		256			// 22
 
 // Critical band constants
-#define	FQ_CBDATA	aCBBlock	// Critical band data
+#define	FQ_CBDATA	gCBBlock	// Critical band data
 #define FQ_CBNUM	27			// # of critical bands
 
 // Sub-band constants
@@ -52,21 +52,21 @@ extern "C" {
 #endif
 
 // Functions
-int fqInitQuant(FILE *pStream);
+//int fqInitQuant(FILE *pStream);
 
-int fqQuantBlock(char *aQBlock,float *aFPBlock,float *aFSBlock,float *aFMBlock,unsigned char *aEBlock,
-				 unsigned long nLen,unsigned long nRate,unsigned long nSize,int nFlags);
+//int fqQuantBlock(char *aQBlock,float *aFPBlock,float *aFSBlock,float *aFMBlock,unsigned char *aEBlock,
+//				 unsigned long nLen,unsigned long nRate,unsigned long nSize,int nFlags);
 
 int fqInitDequant(void);
 
 int fqDequantBlock(char *aQBlock,float *aFPBlock,float *aFSBlock,unsigned char *aEBlock,
 				 unsigned long nLen,unsigned long nRate,unsigned long nSize);
 
-int fqSPack(short nVal,unsigned long nLen,unsigned long nPos,char *aBlock);
+//int fqSPack(short nVal,unsigned long nLen,unsigned long nPos,char *aBlock);
 long fqSUnpack(unsigned long nLen,unsigned long nPos,char *aBlock);
 unsigned long fqUnpack(unsigned long nLen,unsigned long nPos,char *aBlock);
 
-int linint(float *xa,float *ya,unsigned long n,float x,float *y);
+//int linint(float *xa,float *ya,unsigned long n,float x,float *y);
 
 #ifdef __cplusplus
 }		// extern "C"

@@ -60,11 +60,11 @@ extern "C" {
 #endif
 
 // Functions
-int fqEncOver(float *aTPBlock,float *aTSBlock,float *aFPBlock,float *aFSBlock,
-		float *aCBlock,float *aWBlock,unsigned long nSize);
+//int fqEncOver(float *aTPBlock,float *aTSBlock,float *aFPBlock,float *aFSBlock,
+//		float *aCBlock,float *aWBlock,unsigned long nSize);
 
-int fqEncBlock(float *aTPBlock,float *aTSBlock,
-	float *aFPBlock,float *aFSBlock,int nMode);
+//int fqEncBlock(float *aTPBlock,float *aTSBlock,
+//	float *aFPBlock,float *aFSBlock,int nMode);
 
 int fqDecOver(float *aFPBlock,float *aFSBlock,float *aTPBlock,float *aTSBlock,
 		float *aCBlock,float *aWBlock,unsigned long nSize);

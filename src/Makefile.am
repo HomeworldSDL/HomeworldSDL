@@ -9,12 +9,16 @@ bin_PROGRAMS = homeworld
 HW_LIBS = \
    ./Game/libhw_Game.a \
    ./SDL/libhw_SDL.a \
-   ./obj/libhw_Sound.a \
    ./Ships/libhw_Ships.a \
    ./Missions/Generated/libhw_Generated.a \
    ./ThirdParty/LZSS/libhw_LZSS.a \
    ./ThirdParty/CRC/libhw_CRC.a \
    ./ThirdParty/JPG/libhw_JPG.a
+
+if OLD_SOUND
+SUBDIRS += obj
+HW_LIBS += ./obj/libhw_Sound.a
+endif
 
 DEP_LIBS = \
    ./Game/libhw_Game.a \

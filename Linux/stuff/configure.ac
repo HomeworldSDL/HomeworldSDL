@@ -140,6 +140,11 @@ if test "x$network" = "xyes" ; then
 	],[])
 fi
 
+dnl Configure options for Enabling old sound code.
+AC_ARG_ENABLE(oldsound,
+        AS_HELP_STRING([--enable-oldsound],[include old sound objects into Homeworld]),[oldsound=yes])
+AM_CONDITIONAL(OLD_SOUND, test "$oldsound" = "yes")
+
 AC_SUBST([MOVIE_LIBS])
 AC_SUBST([NET_LIBS])
 
