@@ -449,11 +449,11 @@ void matMultiplyMatByMat(matrix *result,matrix *first,matrix *second)
     __asm__ __volatile__ (
         "    pushl     %%ebp\n"
         "    movl      $-3, %%eax\n"
-        "    jmp       mat_x_mat_l1\n"
+        "    jmp       1f\n"
         "    .align    4\n"
-        "mat_x_mat_l2:\n"
+        "2:\n"
         "    fstps     32(%%ebx, %%eax, "FSIZE_STR")\n"
-        "mat_x_mat_l1:\n"
+        "1:\n"
         "    flds      36(%%ecx, %%eax, "FSIZE_STR")\n"
         "    fmuls     8(%%edx)\n"
         "    flds      (%%edx)\n"
@@ -489,7 +489,7 @@ void matMultiplyMatByMat(matrix *result,matrix *first,matrix *second)
         "    fmuls     24(%%edx)\n"
         "    faddp     %%st, %%st(1)\n"
         "    incl      %%eax\n"
-        "    jne       mat_x_mat_l2\n"
+        "    jne       2b\n"
         "    fstps     32(%%ebx, %%eax, "FSIZE_STR")\n"
         "    popl      %%ebp\n"
         :

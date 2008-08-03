@@ -122,33 +122,33 @@ static int chkcpubit()
         "    pushfl\n"
         "    popl %%eax\n"
         "    testl $0x00200000, %%eax\n"
-        "    jz chkcpubit_set_21\n"
+        "    jz 1f\n"
         "    andl $0xffdfffff, %%eax\n"
         "    pushl %%eax\n"
         "    popfl\n"
         "    pushfl\n"
         "    popl %%eax\n"
         "    testl $0x00200000, %%eax\n"
-        "    jz chkcpubit_cpu_id_ok\n"
-        "    jmp chkcpubit_err\n"
+        "    jz 3f\n"
+        "    jmp 2f\n"
 
-        "chkcpubit_set_21:\n"
+        "1:\n"
         "    orl $0x00200000, %%eax\n"
         "    pushl %%eax\n"
         "    popfl\n"
         "    pushfl\n"
         "    popl %%eax\n"
         "    testl $0x00200000, %%eax\n"
-        "    jnz chkcpubit_cpu_id_ok\n"
+        "    jnz 3f\n"
 
-        "chkcpubit_err:\n"
+        "2:\n"
         "    movl $0, %%eax\n"
-        "    jmp chkcpubit_exit\n"
+        "    jmp 4f\n"
 
-        "chkcpubit_cpu_id_ok:\n"
+        "3:\n"
         "    movl $1, %%eax\n"
 
-        "chkcpubit_exit:\n"
+        "4:\n"
         : "=a" (rval) );
 #else
     rval = 0;
@@ -393,11 +393,11 @@ void transTransformVertexList_asm(sdword n, hvector* dest, vertexentry* source, 
         "    negl %%ecx\n"
 
         "    cmpl $0, %%ecx\n"
-        "    je MEGA1\n"
+        "    je 1f\n"
 
         ".align 16\n"
 
-        "MEGA0:\n"
+        "2:\n"
         "    flds    0*"FSIZE_STR"(%%esi, %%ecx)\n"
         "    fmuls   (0*4+0)*"FSIZE_STR"(%%edi)\n"
         "    flds    1*"FSIZE_STR"(%%esi, %%ecx)\n"
@@ -441,9 +441,9 @@ void transTransformVertexList_asm(sdword n, hvector* dest, vertexentry* source, 
         "    fstps   2*"FSIZE_STR"(%%ebx, %%ecx)\n"
 
         "    addl    $(4*"FSIZE_STR"), %%ecx\n"
-        "    jnz     MEGA0\n"
+        "    jnz     2b\n"
 
-        "MEGA1:\n"
+        "1:\n"
         :
         : "c" (n), "S" (source), "b" (dest), "D" (m) );
 #endif
@@ -531,11 +531,11 @@ void transPerspectiveTransform_asm(sdword n, hvector* dest, hvector* source, hma
 #elif defined (__GNUC__) && defined (__i386__)
     __asm__ __volatile__ (
         "    testl %%ecx, %%ecx\n"
-        "    jz perspxform_two\n"
+        "    jz 2f\n"
 
         "    .align 16\n"
 
-        "perspxform_one:\n"
+        "1:\n"
         "    flds "S(0)"\n"
         "    fmuls "M(0)"\n"
         "    flds "S(1)"\n"
@@ -564,9 +564,9 @@ void transPerspectiveTransform_asm(sdword n, hvector* dest, hvector* source, hma
 
         "    movl %%eax, "D(3)"\n"
         "    leal "D(4)", %%edi\n"
-        "    jnz perspxform_one\n"
+        "    jnz 1b\n"
 
-        "perspxform_two:\n"
+        "2:\n"
         :
         : "c" (n), "S" (source), "D" (dest), "d" (m)
         : "eax" );
