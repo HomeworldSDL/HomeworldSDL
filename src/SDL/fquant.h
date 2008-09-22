@@ -8,6 +8,8 @@
 #ifndef ___FQUANT_H
 #define ___FQUANT_H
 
+#include "Types.h"
+
 // General constants
 #define FQ_LEN		260			// Block length (bytes)
 #define FQ_SCALE	10.0F		// Quantization scale
@@ -55,18 +57,18 @@ extern "C" {
 //int fqInitQuant(FILE *pStream);
 
 //int fqQuantBlock(char *aQBlock,float *aFPBlock,float *aFSBlock,float *aFMBlock,unsigned char *aEBlock,
-//				 unsigned long nLen,unsigned long nRate,unsigned long nSize,int nFlags);
+//				 udword nLen,udword nRate,udword nSize,int nFlags);
 
 int fqInitDequant(void);
 
 int fqDequantBlock(char *aQBlock,float *aFPBlock,float *aFSBlock,unsigned char *aEBlock,
-				 unsigned long nLen,unsigned long nRate,unsigned long nSize);
+				 udword nLen,udword nRate,udword nSize);
 
-//int fqSPack(short nVal,unsigned long nLen,unsigned long nPos,char *aBlock);
-long fqSUnpack(unsigned long nLen,unsigned long nPos,char *aBlock);
-unsigned long fqUnpack(unsigned long nLen,unsigned long nPos,char *aBlock);
+//int fqSPack(short nVal,udword nLen,udword nPos,char *aBlock);
+sdword fqSUnpack(udword nLen,udword nPos,char *aBlock);
+udword fqUnpack(udword nLen,udword nPos,char *aBlock);
 
-//int linint(float *xa,float *ya,unsigned long n,float x,float *y);
+//int linint(float *xa,float *ya,udword n,float x,float *y);
 
 #ifdef __cplusplus
 }		// extern "C"

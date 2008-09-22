@@ -372,6 +372,6 @@ sdword feResRepositionScaledY(sdword y);
 
 bool feAllScreensReposition(void);
 
-udword feButtonProcess(regionhandle region, sdword ID, udword event, udword data);
+udword feButtonProcess(regionhandle region, smemsize ID, udword event, udword data);
 
 #endif

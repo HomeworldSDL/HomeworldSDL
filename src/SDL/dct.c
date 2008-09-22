@@ -8,8 +8,8 @@
 #define PI		3.14159265358979323846F
 #endif
 
-int Initdct(float *buf, unsigned long len) {
-	unsigned long i;
+int Initdct(float *buf, udword len) {
+	udword i;
 	float f;
 
 	for (i = 0; i < len >> 2; i++) {
@@ -21,13 +21,13 @@ int Initdct(float *buf, unsigned long len) {
 	return OK;
 }
 
-int idct(float *a, float *b, float *c, unsigned long len) {
-	unsigned long i, j;
+int idct(float *a, float *b, float *c, udword len) {
+	udword i, j;
 	float aa[len], ab[len], ac[len], ad[len], ae[len];
 
-	unsigned long hlen = len / 2;
-	unsigned long qlen = len / 4;
-	unsigned long q3len = qlen * 3;
+	udword hlen = len / 2;
+	udword qlen = len / 4;
+	udword q3len = qlen * 3;
 	float factor = 8.0 / sqrt(len);
 
 	memset(aa, 0, len << 2);

@@ -1,0 +1,29 @@
+
+Various tool for converting files to X86_64 format:
+
+Filename should be obvious, but there is no error checking.
+    (didn't think you'd use a convertor against the wrong 
+        format.)
+
+bank:
+    Used for the soundbank file *.bnk
+ 
+fib:
+    feman (Interface) files. *.fib 
+
+font:
+    Font files. *.hff
+
+geo:
+    Mesh files. *.geo *.peo
+
+lif:
+    textures. *.lif
+
+mad:
+    Mesh thingumies. *.mad
+
+nis:
+    NIS files. *.nis
+
+

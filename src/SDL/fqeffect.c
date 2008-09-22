@@ -57,13 +57,13 @@ double fqSqrt(double (*pFunc)(double)) {
 	return OK;
 }
 
-int fqSize(unsigned long nSize) {
+int fqSize(udword nSize) {
 	nBSize = nSize;
 	return OK;
 }
 
 int fqAdd(float *aPBlock, float *aSBlock) {
-	unsigned long i;
+	udword i;
 
 	for (i = 0; i < nBSize; i++)
 		aPBlock[i] += aSBlock[i];
@@ -72,7 +72,7 @@ int fqAdd(float *aPBlock, float *aSBlock) {
 }
 
 int fqScale(float *aBlock, float fLev) {
-	unsigned long i;
+	udword i;
 
 	if (fLev == 0.0)
 		memset(aBlock, 0, nBSize << 2);
@@ -84,7 +84,7 @@ int fqScale(float *aBlock, float fLev) {
 }
 
 int fqMix(float *aPBlock, float *aSBlock, float fLev) {
-	unsigned long i;
+	udword i;
 
 	if (fLev > 0.0) {
 		if (fLev == 1.0)
@@ -99,7 +99,7 @@ int fqMix(float *aPBlock, float *aSBlock, float fLev) {
 }
 
 int fqPitchShift(float *aBlock, float fShift) {
-	unsigned long i, ipos;
+	udword i, ipos;
 	float pos, buf[FQ_DSIZE];
 
 	if (fShift != 1.0) {
@@ -107,7 +107,7 @@ int fqPitchShift(float *aBlock, float fShift) {
 		for (i = 0; i < nBSize; i++) {
 			pos = (float)i * fShift;
 			if (pos < (float)nBSize) {
-				ipos = (unsigned long)floor(pos);
+				ipos = (udword)floor(pos);
 				if (ipos > nBSize - 2)
 					ipos = nBSize - 2;
 				buf[i] = (aBlock[ipos] - aBlock[ipos + 1]) * (pos - (float)ipos) + aBlock[ipos];
@@ -120,7 +120,7 @@ int fqPitchShift(float *aBlock, float fShift) {
 }
 
 int fqEqualize(float *aBlock, float *aEq) {
-	unsigned long i, j;
+	udword i, j;
 
 	for (i = 0; i < FQ_EQNUM - 1; i++) {
 		if (aEq[i] <= 0.0)
@@ -133,9 +133,9 @@ int fqEqualize(float *aBlock, float *aEq) {
 	return OK;
 }
 
-static int fqIncEffect(float *aBlock, float *fVal, unsigned long nDur, float *aBuf, long nSize, long *nPos, char aEffect) {
-	unsigned long s;
-	long t;
+static int fqIncEffect(float *aBlock, float *fVal, udword nDur, float *aBuf, sdword nSize, sdword *nPos, char aEffect) {
+	udword s;
+	sdword t;
 
 	if (aBlock == 0) {
 		if (nSize < FQ_SIZE) {
@@ -150,8 +150,8 @@ static int fqIncEffect(float *aBlock, float *fVal, unsigned long nDur, float *aB
 	if (nDur > 0) {
 		if (*nPos >= nSize)
 			*nPos = 0;
-		s = (unsigned long)floor((float)nSize / (float)FQ_SIZE * FQ_SLICE);
-		t = *nPos - ((unsigned long)floor((float)rmin(nDur, s) / FQ_SLICE) * FQ_SIZE);
+		s = (udword)floor((float)nSize / (float)FQ_SIZE * FQ_SLICE);
+		t = *nPos - ((udword)floor((float)rmin(nDur, s) / FQ_SLICE) * FQ_SIZE);
 		if (t < 0)
 			t += nSize;
 		fqAdd(aBlock, &aBuf[t]);
@@ -166,11 +166,11 @@ static int fqIncEffect(float *aBlock, float *fVal, unsigned long nDur, float *aB
 	return OK;
 }
 
-int fqDelay(float *aBlock, float fLev, unsigned long nDur, float *aBuf, long nSize, long *nPos) {
+int fqDelay(float *aBlock, float fLev, udword nDur, float *aBuf, sdword nSize, sdword *nPos) {
 	return fqIncEffect(aBlock, &fLev, nDur, aBuf, nSize, nPos, FQ_TIME_DELAY);
 }
 
-int fqAcModel(float *aBlock, float *aEq, unsigned long nDur, float *aBuf, long nSize, long *nPos) {
+int fqAcModel(float *aBlock, float *aEq, udword nDur, float *aBuf, sdword nSize, sdword *nPos) {
 	return fqIncEffect(aBlock, aEq, nDur, aBuf, nSize, nPos, FQ_TIME_ACMODEL);
 }
 
@@ -205,7 +205,7 @@ int fqFilterE(float *aBlock, EFFECT *rEffect) {
 }
 
 int fqAddNoiseE(float *aBlock, EFFECT *rEffect) {
-	unsigned long i;
+	udword i;
 
 	if (rEffect->fNoiseLev > 0.0)
 		for(i = rmin(rEffect->nFiltMinFreq, nBSize); i < rmin(rEffect->nFiltMaxFreq, nBSize); i++)
@@ -230,7 +230,7 @@ int fqAddBreakE(float *aBlock, EFFECT *rEffect) {
 	return OK;
 }
 
-int fqGenQNoiseE(char *aQBlock, unsigned long nRate, EFFECT *rEffect) {
+int fqGenQNoiseE(char *aQBlock, udword nRate, EFFECT *rEffect) {
 	if (rEffect->nQNoiseMaxRate > 0 && rEffect->nQNoiseMaxDur > 0) {
 		printf("unimplemented: fqGenQNoiseE\n");
 	}
@@ -239,7 +239,7 @@ int fqGenQNoiseE(char *aQBlock, unsigned long nRate, EFFECT *rEffect) {
 }
 
 int fqLimitE(float *aBlock, EFFECT *rEffect) {
-	unsigned long i;
+	udword i;
 
 	if (rEffect->fLimitLev != 1.0) {
 		if (rEffect->fLimitLev == 0.0) {

@@ -128,7 +128,7 @@ struct tagRegion;
 
 //pointers to region functions
 typedef void (*regiondrawfunction) (struct tagRegion *reg);
-typedef udword (*regionfunction) (struct tagRegion *reg, sdword ID, udword event, udword data);
+typedef udword (*regionfunction) (struct tagRegion *reg, smemsize ID, udword event, udword data);
 
 //structure for a region, the base element of the front end
 typedef struct tagRegion
@@ -142,7 +142,7 @@ typedef struct tagRegion
     uword status;                               //status bits (32 bits not enough)
     sword nKeys;
     keyindex key[REG_NumberKeys];               //accelerator key sequence
-    sdword userID;                              //user-assigned ID for processing
+    smemsize userID;                              //user-assigned ID for processing
 #if REG_ERROR_CHECKING
     udword validationKey;                       //used for validation of structure integrity
 #endif
@@ -234,10 +234,10 @@ sdword regStartup(void);
 void regShutdown(void);
 
 //insert regions as either a child or a sibling of another region
-regionhandle regChildAlloc(regionhandle parent, sdword ID, sdword x, sdword y, sdword width, sdword height, sdword extra, udword filter);
-regionhandle regSiblingAlloc(regionhandle sibling, sdword ID, sdword x, sdword y, sdword width, sdword height, sdword extra, udword filter);
-regionhandle regKeyChildAlloc(regionhandle parent, sdword ID, udword filter, regionfunction function, sdword nKeys, ...);
-regionhandle regKeySiblingAlloc(regionhandle sibling, sdword ID, udword filter, regionfunction function, sdword nKeys, ...);
+regionhandle regChildAlloc(regionhandle parent, smemsize ID, sdword x, sdword y, sdword width, sdword height, sdword extra, udword filter);
+regionhandle regSiblingAlloc(regionhandle sibling, smemsize ID, sdword x, sdword y, sdword width, sdword height, sdword extra, udword filter);
+regionhandle regKeyChildAlloc(regionhandle parent, smemsize ID, udword filter, regionfunction function, sdword nKeys, ...);
+regionhandle regKeySiblingAlloc(regionhandle sibling, smemsize ID, udword filter, regionfunction function, sdword nKeys, ...);
 void regRegionDelete(regionhandle region);
 
 //adjust region links (usually only used by region allocation/deletion functions)
@@ -286,7 +286,7 @@ regionhandle regSiblingFindByFunction(regionhandle reg, regionfunction find);
 regionhandle regFindChildByAtomName(regionhandle reg, char *pAtomName);
 
 //process null poo
-udword regNULLProcessFunction(regionhandle region, sdword ID, udword event, udword data);
+udword regNULLProcessFunction(regionhandle region, smemsize ID, udword event, udword data);
 
 
 #endif

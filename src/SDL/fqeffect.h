@@ -30,22 +30,22 @@
 // Structures
 typedef struct
 {
-	unsigned long	nClockCount;	// Clock count (1 unit = approx 6 ms)
+	udword	nClockCount;	// Clock count (1 unit = approx 6 ms)
 
-	unsigned long	nFiltMinFreq;	// Minimum filter frequency (1 unit = approx. 86 Hz)
-	unsigned long	nFiltMaxFreq;	// Maximum filter frequency (1 unit = approx. 86 Hz)
+	udword	nFiltMinFreq;	// Minimum filter frequency (1 unit = approx. 86 Hz)
+	udword	nFiltMaxFreq;	// Maximum filter frequency (1 unit = approx. 86 Hz)
 
-	unsigned long	nToneMinFreq;	// Minimum tone frequency (1 unit = approx. 86 Hz)
-	unsigned long	nToneMaxFreq;	// Maximum tone frequency (1 unit = approx. 86 Hz)
-	unsigned long	nToneDur;		// Tone duration (1 unit = approx. 6 msec)
-	unsigned long	nToneMute;		// Tone mute (1 unit = approx. 6 msec)
-	unsigned long	nToneCount;		// Tone count
+	udword	nToneMinFreq;	// Minimum tone frequency (1 unit = approx. 86 Hz)
+	udword	nToneMaxFreq;	// Maximum tone frequency (1 unit = approx. 86 Hz)
+	udword	nToneDur;		// Tone duration (1 unit = approx. 6 msec)
+	udword	nToneMute;		// Tone mute (1 unit = approx. 6 msec)
+	udword	nToneCount;		// Tone count
 
-	unsigned long	nBreakMaxRate;	// Maximum break rate (1 unit = approx. 6 msec)
-	unsigned long	nBreakMaxDur;	// Maximum break duration (1 unit = approx. 6 msec)
+	udword	nBreakMaxRate;	// Maximum break rate (1 unit = approx. 6 msec)
+	udword	nBreakMaxDur;	// Maximum break duration (1 unit = approx. 6 msec)
 
-	unsigned long	nQNoiseMaxRate;	// Maximum q-noise rate (1 unit = approx. 6 msec)
-	unsigned long	nQNoiseMaxDur;	// Maximum q-noise duration (1 unit = approx. 6 msec)
+	udword	nQNoiseMaxRate;	// Maximum q-noise rate (1 unit = approx. 6 msec)
+	udword	nQNoiseMaxDur;	// Maximum q-noise duration (1 unit = approx. 6 msec)
 
 	float			fScaleLev;		// Scale level (1.0 = 100%)
 	float			fNoiseLev;		// Noise level (maximum = arbit. 1000.0)
@@ -64,25 +64,25 @@ extern "C" {
 // Functions
 int fqRand(int (*pFunc)(int),int nParam);
 double fqSqrt(double (*pFunc)(double));
-int fqSize(unsigned long nSize);
+int fqSize(udword nSize);
 
 int fqAdd(float *aPBlock,float *aSBlock);
 //int fqMult(float *aPBlock,float *aSBlock);
 //int fqMax(float *aPBlock,float *aSBlock);
 int fqScale(float *aBlock,float fLev);
 int fqMix(float *aPBlock,float *aSBlock,float fLev);
-//int fqFilter(float *aBlock,unsigned long nMinFreq,unsigned long nMaxFreq);
-//int fqAddNoise(float *aBlock,float fLev,unsigned long nMinFreq,unsigned long nMaxFreq);
-//int fqGenNoise(float *aBlock,float fLev,unsigned long nMinFreq,unsigned long nMaxFreq);
+//int fqFilter(float *aBlock,udword nMinFreq,udword nMaxFreq);
+//int fqAddNoise(float *aBlock,float fLev,udword nMinFreq,udword nMaxFreq);
+//int fqGenNoise(float *aBlock,float fLev,udword nMinFreq,udword nMaxFreq);
 
 int fqPitchShift(float *aBlock,float fShift);
-//int fqPitchSlide(float *aBlock,long nSlideFreq);
+//int fqPitchSlide(float *aBlock,sdword nSlideFreq);
 //int fqStretch(float *aRBlock,float *aBlock,float *aBuf);
 //int fqGate(float *aBlock,float fLev);
 //int fqLimit(float *aBlock,float fLev);
 int fqEqualize(float *aBlock,float *aEq);
-int fqDelay(float *aBlock,float fLev,unsigned long nDur,float *aBuf,long nSize,long *nPos);
-int fqAcModel(float *aBlock,float *aEq,unsigned long nDur,float *aBuf,long nSize,long *nPos);
+int fqDelay(float *aBlock,float fLev,udword nDur,float *aBuf,sdword nSize,sdword *nPos);
+int fqAcModel(float *aBlock,float *aEq,udword nDur,float *aBuf,sdword nSize,sdword *nPos);
 
 int fqInitE(EFFECT *rEffect);
 //int fqScaleE(float *aBlock,EFFECT *rEffect);
@@ -95,7 +95,7 @@ int fqAddBreakE(float *aBlock,EFFECT *rEffect);
 
 //int fqGenNoiseE(float *aBlock,EFFECT *rEffect);
 //int fqGenBreakE(float *fLev,EFFECT *rEffect);
-int fqGenQNoiseE(char *aQBlock,unsigned long nRate,EFFECT *rEffect);
+int fqGenQNoiseE(char *aQBlock,udword nRate,EFFECT *rEffect);
 
 //int fqPitchShiftE(float *aBlock,EFFECT *rEffect);
 int fqLimitE(float *aBlock,EFFECT *rEffect);

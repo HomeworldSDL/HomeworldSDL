@@ -8,6 +8,8 @@
 #ifndef ___FQCODEC_H
 #define ___FQCODEC_H
 
+#include "Types.h"
+
 // General constants
 #ifndef OK
 #define OK		0
@@ -61,19 +63,19 @@ extern "C" {
 
 // Functions
 //int fqEncOver(float *aTPBlock,float *aTSBlock,float *aFPBlock,float *aFSBlock,
-//		float *aCBlock,float *aWBlock,unsigned long nSize);
+//		float *aCBlock,float *aWBlock,udword nSize);
 
 //int fqEncBlock(float *aTPBlock,float *aTSBlock,
 //	float *aFPBlock,float *aFSBlock,int nMode);
 
 int fqDecOver(float *aFPBlock,float *aFSBlock,float *aTPBlock,float *aTSBlock,
-		float *aCBlock,float *aWBlock,unsigned long nSize);
+		float *aCBlock,float *aWBlock,udword nSize);
 
 int fqDecBlock(float *aFPBlock,float *aFSBlock,
 	float *aTPBlock,float *aTSBlock,int nMode,int nFact);
 
 int fqWriteTBlock(float *aLBlock,float *aRBlock,short nChan,
-	void *pBuf1,unsigned long nSize1,void *pBuf2,unsigned long nSize2);
+	void *pBuf1,udword nSize1,void *pBuf2,udword nSize2);
 
 #ifdef __cplusplus
 }		// extern "C"

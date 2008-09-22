@@ -5,8 +5,8 @@
 extern "C" {
 #endif
 
-int Initdct(float *buf, unsigned long len);
-int idct(float *a, float *b, float *c, unsigned long len);
+int Initdct(float *buf, udword len);
+int idct(float *a, float *b, float *c, udword len);
 
 #ifdef __cplusplus
 }		// extern "C"

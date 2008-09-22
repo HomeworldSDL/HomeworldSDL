@@ -93,10 +93,11 @@ typedef struct
 
     //char name[BF_MAX_FILENAME_LENGTH];  for speed & space concerns, these now preceed the datafile portions of the bigfile
 
-    unsigned long storedLength;
-    unsigned long realLength;
-    unsigned long offset;
-    time_t timeStamp;
+    udword storedLength;
+    udword realLength;
+    udword offset;
+//    time_t timeStamp;
+    udword timeStamp;
     char compressionType;  // 0/1
 } bigTOCFileEntry;
 

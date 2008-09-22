@@ -119,8 +119,8 @@ typedef struct tagGeoFileHeader
     udword  localSize;                      // Object size (in bytes).
     udword  nPublicMaterials;               // Number of public materials.
     udword  nLocalMaterials;                // Number of local materials.
-    udword  oPublicMaterial;                //list of public materials
-    udword  oLocalMaterial;                 //list of local materials
+    memsize oPublicMaterial;                //list of public materials
+    memsize oLocalMaterial;                 //list of local materials
     udword  nPolygonObjects;                // Number of polygon objects.
     ubyte   reserved[24];                   // Reserved for future use.
 }
@@ -169,7 +169,7 @@ typedef struct tagmaterialentry
     color  diffuse;                         // Diffuse color information.
     color  specular;                        // Specular color information.
     real32 kAlpha;                          // Alpha blending information.
-    udword texture;                         // Pointer to texture information (or CRC32).
+    memsize texture;                         // Pointer to texture information (or CRC32).
     uword  flags;                           // Flags for this material.
     ubyte  nFullAmbient;                    // Number of self-illuminating colors in texture.
     bool8  bTexturesRegistered;             // Set to TRUE when some textures have been registered.
@@ -232,7 +232,7 @@ typedef struct
 {
     mhbindingfunction function;             //function to call to get a new matrix
     void *userData;                         //pointer data to pass
-    sdword userID;                          //integer data to pass
+    smemsize userID;                          //integer data to pass
     udword flags;                           //flags on how this binding operates (see above)
     polygonobject *object;                  //object of this binding
     hmatrix matrix;

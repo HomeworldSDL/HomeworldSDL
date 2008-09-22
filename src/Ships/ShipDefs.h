@@ -76,6 +76,9 @@ typedef enum
     ResearchStationTower
 } ShipType_enum;
 
+#ifdef _X86_64   //Capture this first, and make sure it's correctly sized.
+typedef udword  ShipType;
+#else
 #if defined _LINUX_FIX_ME || defined _WIN32_FIXME
 #include "Types.h"
 /* It seems that this needs to be unsigned, else something breaks in
@@ -83,7 +86,8 @@ typedef enum
 typedef udword ShipType;
 #else
 typedef ShipType_enum ShipType;
-#endif
+#endif  // _LINUX_FIX_ME || defined _WIN32_FIXME
+#endif // _X86_64
 
 #define STD_FIRST_SHIP        AdvanceSupportFrigate
 #define STD_LAST_SHIP         CryoTray

@@ -74,6 +74,7 @@
 #define TR_InvalidInternalPending   0xfffffffe
 #define TR_NotShared                0xfdfbfaf5
 
+
 #define TR_PaletteLength            256
 #define TR_PaletteType              GL_COLOR_INDEX8_EXT
 #define TR_RGBType                  GL_RGB
@@ -107,7 +108,11 @@
 #define TR_PerScaleFactor           (10 * (TR_TexSizesX + TR_TexSizesY))//for adjusting scale factor per-size
 
 //info for texture listing
+#ifdef _X86_64
+#define TR_LifListing               "textures.ll.64"
+#else
 #define TR_LifListing               "textures.ll"
+#endif
 #define LL_FileIdentifier           "Event13"
 #define LL_FileVersion              0x104
 #define LL_MaxElements              12000
@@ -139,7 +144,7 @@
     Type definitions:
 =============================================================================*/
 //type of a handle from the texture registry
-typedef udword trhandle;
+typedef memsize trhandle;
 
 //information for coloring a texture
 typedef struct
@@ -225,6 +230,9 @@ typedef struct
     sdword stringLength;                        //length of all strings
     sdword sharingLength;                       //length of all offsets
     sdword totalLength;                         //total length of file, this header not included
+#ifdef _X86_64
+    sdword pad;
+#endif
 }
 llfileheader;
 typedef struct
@@ -257,6 +265,25 @@ typedef struct
 //    udword image[LLC_NumberImages];             //offset-pointers to the individual images (from end of this header)
 }
 lifheader;
+
+#ifdef _X86_64
+typedef struct
+{
+    char ident[8];                              //compared to "Willy 7"
+    sdword version;                             //version number
+    sdword flags;                               //to plug straight into texreg flags
+    sdword width, height;                       //dimensions of image
+    crc32 paletteCRC;                           //a CRC of palettes for fast comparison
+    crc32 imageCRC;                             //crc of the unquantized image
+    udword data; //*                              //actual image
+    udword palette;//*                            //palette for this image
+    udword teamEffect0, teamEffect1; //* *        //palettes of team color effect
+//    sdword nSizes;                              //number of sizes encoded
+//    udword image[LLC_NumberImages];             //offset-pointers to the individual images (from end of this header)
+}
+lifheader_disk;
+#endif
+
 
 #define UNINITIALISED_LIF_HEADER  {{0, 0, 0, 0, 0, 0, 0, 0}, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL}
 

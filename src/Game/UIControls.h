@@ -292,14 +292,14 @@ void uicStartup(void);
 void uicShutdown(void);
 
 //create controls
-buttonhandle uicChildButtonAlloc(controlhandle parent, sdword ID, sdword x, sdword y,
+buttonhandle uicChildButtonAlloc(controlhandle parent, smemsize ID, sdword x, sdword y,
                 sdword width, sdword height, uicfunction function, udword flags);
 
-scrollbarhandle uicChildScrollBarAlloc(controlhandle parent, sdword ID,
+scrollbarhandle uicChildScrollBarAlloc(controlhandle parent, smemsize ID,
                                        sdword x, sdword y, sdword width, sdword height,
                                        uicfunction function, udword flags);
 
-listwindowhandle uicChildListWindowAlloc(controlhandle parent, sdword ID,
+listwindowhandle uicChildListWindowAlloc(controlhandle parent, smemsize ID,
                                          sdword x, sdword y, sdword width, sdword height,
                                          uicfunction function, udword flags);
 

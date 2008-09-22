@@ -82,7 +82,7 @@ void scriptSetFlightManEvasivePureCB(char *directory,char *field,FlightManProb *
 udword flightmanGetRandom(FlightManProb *prob,udword flightmanSubtype);
 bool flightmanTestRandom(FlightManProb *prob,udword flightmanSubtype,udword flightman);
 
-void flightmanInitFunc(Ship *ship,udword flightman,sdword flags);
+void flightmanInitFunc(Ship *ship,udword flightman,smemsize flags);
 
 bool flightmanExecute(Ship *ship);
 void flightmanClose(Ship *ship);

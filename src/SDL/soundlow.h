@@ -220,10 +220,10 @@ sdword splayFPRVL(void *bankaddress, sdword patnum, real32 *eq, real32 freq, swo
 
 void soundstreamquery(sdword maxstreams, sdword *pbuffersize, sdword *pstreamersize);
 sdword soundstreaminit(void *pstreamer, sdword size, sdword numstreams, streamprintfunction printfunction);
-udword soundstreamopenfile(char *pszStreamFile, sdword *handle);
+udword soundstreamopenfile(char *pszStreamFile, smemsize *handle);
 sdword soundstreamcreatebuffer(void *pstreambuffer, sdword size, uword bitrate);
 
-sdword soundstreamqueuePatch(sdword streamhandle, sdword filehandle, sdword offset, udword flags, sword vol, sword pan, sword numchannels, sword bitrate, EFFECT *peffect, STREAMEQ *pEQ, STREAMDELAY *pdelay, void *pmixpatch, sdword level, real32 silence, real32 fadetime, sdword actornum, sdword speechEvent, bool bWait);
+sdword soundstreamqueuePatch(sdword streamhandle, smemsize filehandle, smemsize offset, udword flags, sword vol, sword pan, sword numchannels, sword bitrate, EFFECT *peffect, STREAMEQ *pEQ, STREAMDELAY *pdelay, void *pmixpatch, sdword level, real32 silence, real32 fadetime, sdword actornum, sdword speechEvent, bool bWait);
 #define soundstreamqueue(a, b, c, d, e, f, g, h, i, j, k, l)	soundstreamqueuePatch(a, b, c, d, e, f, g, h, i, j, k, NULL, SOUND_VOL_MIN, 0.0, 0.0, -1, l, FALSE)
 #define soundstreamqueuefade(a, b, c, d, e, f, g, h, i, j, k, l)	soundstreamqueuePatch(a, b, c, d, e, f, g, h, i, j, k, NULL, SOUND_VOL_MIN, 0.0, l, -1, -1, FALSE)
 #define soundstreamqueueSilence(a, b, c, d, e, f, g, h, i, j)	soundstreamqueuePatch(a, SOUND_DEFAULT, SOUND_DEFAULT, b, c, d, e, f, g, h, i, NULL, SOUND_DEFAULT, j, 0.0, -1, -1, FALSE)

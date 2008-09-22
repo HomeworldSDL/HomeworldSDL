@@ -24,7 +24,7 @@ typedef struct tagMEXChunk
     // Generic stuff.
     char            type[4];
     char            name[8];
-    unsigned long   chunkSize;
+    udword          chunkSize;
 } MEXChunk;
 
 typedef struct tagMEXGunChunk
@@ -32,7 +32,7 @@ typedef struct tagMEXGunChunk
     // Generic stuff.
     char            type[4];
     char            name[8];
-    unsigned long   chunkSize;
+    udword          chunkSize;
 
     // Specific stuff...
     vector          position;
@@ -47,7 +47,7 @@ typedef struct tagMEXEngineChunk
     // Generic stuff.
     char            type[4];
     char            name[8];
-    unsigned long   chunkSize;
+    udword          chunkSize;
 
     // Specific stuff...
     vector          position;
@@ -62,7 +62,7 @@ typedef struct tagMEXCollisionSphereChunk
     // Generic stuff.
     char            type[4];
     char            name[8];
-    unsigned long   chunkSize;
+    udword          chunkSize;
 
     // Specific stuff...
     udword          level;
@@ -77,7 +77,7 @@ typedef struct tagMEXCollisionRectangleChunk
     // Generic stuff.
     char            type[4];
     char            name[8];
-    unsigned long   chunkSize;
+    udword          chunkSize;
 
     // Specific stuff...
     udword          level;
@@ -97,7 +97,7 @@ typedef struct tagMEXDockingChunk
     // Generic stuff.
     char            type[4];
     char            name[8];            // Always "DOCK"
-    unsigned long   chunkSize;
+    udword          chunkSize;
 
     // Specific stuff...
     vector          position;
@@ -114,7 +114,7 @@ typedef struct tagMEXSalvageChunk
     // Generic stuff.
     char            type[4];
     char            name[8];            // Always "SALVAGE"
-    unsigned long   chunkSize;
+    udword          chunkSize;
 
     // Specific stuff...
     vector          position;

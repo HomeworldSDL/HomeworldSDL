@@ -1,0 +1,57 @@
+
+The code has been modified to run on X86_64 machines.
+Due to the way the code had been written, the changes were 
+tricky in places, and almost all of the binary files had to 
+be modified due to including pointers within them as double 
+word (32-bit integer) values which were then cast via the 
+loadbase plus the stored value to a pointer. I don't know
+if this is standard practice, but as the pointer size doubled
+in 64-bit architecture the files needed to be adjusted.
+
+
+
+Instructions:
+
+If you're familiar with the normal procedure, it's the same 
+except for the additional config switch and HomeworldSDL.big. 
+
+
+Hopefully it should be 
+1:  cd Linux        (Hopefully this directory)
+2:  './bootstrap'
+3:  '../configure --enable-x86_64'
+        This should finish and include the -DX86_64 flag
+4:  'make'
+5:  copy the homeworld binary found in src/ to the root of 
+    your homeworld install directory.
+6:  Make sure you have the latest HomeworldSDL.big in the
+    same directory.
+7:  run the game.
+
+
+
+
+TODO:
+Player 1 mothership MAD door launches don't work cleanly.
+    I know where the code is, just don't have time to 
+    wrap my head around where it's going wrong.
+        This will get fixed eventually. hopefully.
+
+Movies:
+    Might work. :) Not tested. 
+    I need to re-do a lot of the cludged movie code anyway.
+
+Network Play:
+    Unsigned longs are different between x86 and x86_64
+    Lots of work to do here.
+    Azurief: I'll need your help! :)
+
+Testing:
+    Got to level 4, no real problems. You know where to put
+    any problems for me to look into. 
+    No promises on how long it'll take me though. :)
+
+
+
+Aunxx.
+    22/9/2008

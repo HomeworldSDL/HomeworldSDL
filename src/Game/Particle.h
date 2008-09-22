@@ -59,7 +59,13 @@ typedef struct
 {
     trhandle    tex;        //== -1 if end, stay at last frame
     ubyte       uv[2][2];
+#ifdef _X86_64
+    ubyte       pad1[4];
+#endif
     udword      flags;      //LOOPSTART = 1, LOOP = 2
+#ifdef _X86_64
+    udword       pad2;
+#endif
 } texAnim;
 
 typedef struct

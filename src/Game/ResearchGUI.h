@@ -133,7 +133,7 @@ void rmClearLab(sdword labindex); // Turn off lab selected
 
 //start the Research Manager.  It will kill itself when you hit the launch button.
 void   rmSetPrintList(udword whichlist, TechStatics *techstat);
-sdword rmResearchGUIBegin(regionhandle region, sdword ID, udword event, udword data);
+sdword rmResearchGUIBegin(regionhandle region, smemsize ID, udword event, udword data);
 void   rmGUIStartup(void);
 void   rmGUIShutdown(void);
 void rmCloseIfOpen(void);

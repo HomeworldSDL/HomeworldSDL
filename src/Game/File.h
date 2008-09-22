@@ -70,7 +70,7 @@
 /*=============================================================================
     Type definitions:
 =============================================================================*/
-typedef sdword  filehandle;
+typedef smemsize  filehandle;
 
 typedef struct {
     sdword inUse;

@@ -53,7 +53,7 @@ extern bool lmActive;
 =============================================================================*/
 
 //start the launch manager.  It will kill itself when you hit the launch button.
-sdword lmLaunchBegin(regionhandle region, sdword ID, udword event, udword data);
+sdword lmLaunchBegin(regionhandle region, smemsize ID, udword event, udword data);
 void   lmUpdateShipsInside(void);
 void   lmStartup(void);
 void   lmShutdown(void);

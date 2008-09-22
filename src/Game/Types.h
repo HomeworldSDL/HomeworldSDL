@@ -62,6 +62,16 @@ typedef Uint64  uqword;
 typedef float   real32;
 typedef double  real64;
 
+#ifdef _X86_64
+typedef uqword	memsize;	
+typedef sqword	smemsize;	
+typedef real64  memrealsize;
+#else
+typedef udword	memsize;
+typedef sdword	smemsize;
+typedef real32  memrealsize;
+#endif
+
 #ifndef bool                 // was: __cplusplus
 typedef udword  bool;
 #endif
@@ -109,6 +119,14 @@ real32 SdwordToReal32(sdword a);
 #define TreatAsUdword(x) (*((udword *)(&(x))))
 
 #define TreatAsReal32(x) (*((real32 *)(&(x))))
+
+#ifdef _X86_64
+#define SCALEVALUE(x)  ((memsize)(udword)(x))
+#define SCALESHIFT(x) (2*(x))    //Make the thing scale from 4 to 8 bytes offset
+#else
+#define SCALEVALUE(x) (x)
+#define SCALESHIFT(x) (x)
+#endif
 
 
 /*-------------------------------------------------------------------------

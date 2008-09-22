@@ -130,7 +130,7 @@ typedef struct spaceobjpath
 {
     sdword instance;                            //instance of this type object
     ShipType type;                              //type of ship
-    sdword parentIndex;                         //parent ship (NULL if none)
+    ShipType parentIndex;                         //parent ship (NULL if none)
     udword race;                                //0..5 (see racedefs.h).  For determining what exact ship to use.
     sdword nSamples;                            //number of samples, including 2 extra at start and end
     real32 timeOffset;                          //if positive, path will wait this long before starting
@@ -228,7 +228,7 @@ typedef struct
     nisopcode code;                             //what event it is
     sdword shipID;                              //index of the object this event works on, not always a ship
     sdword initialID;                           //index of event in the .script file for correctly time-sorting events
-    sdword param[2];                            //parameters, event-specific
+    smemsize param[2];                            //parameters, event-specific
 }
 nisevent;
 

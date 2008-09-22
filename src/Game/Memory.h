@@ -84,15 +84,28 @@
 #define MBF_VerifyValue         (0xfa7babe5 & MBF_VerifyMask)
 
 //max length for cookie name strings
-#if MEM_DETECT_VOLATILE
-#define MEM_NameLength          16
+#ifdef _X86_64
+ #if MEM_DETECT_VOLATILE
+  #define MEM_NameLength          48
+ #else
+  #define MEM_NameLength          52
+ #endif
+ #if MEM_LOG_MOSTVOLATILE
+  #define MBH_NameLength          20
+ #else
+  #define MBH_NameLength          16
+ #endif
 #else
-#define MEM_NameLength          20
-#endif
-#if MEM_LOG_MOSTVOLATILE
-#define MBH_NameLength          4
-#else
-#define MBH_NameLength          8
+ #if MEM_DETECT_VOLATILE
+  #define MEM_NameLength          16
+ #else
+  #define MEM_NameLength          20
+ #endif
+ #if MEM_LOG_MOSTVOLATILE
+  #define MBH_NameLength          4
+ #else
+  #define MBH_NameLength          8
+ #endif
 #endif
 
 //allocation block granularity.

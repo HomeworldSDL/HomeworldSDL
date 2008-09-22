@@ -169,8 +169,13 @@ etgopcode;
 #define EVT_This                    10          //include a 'this' pointer
 
 //amounts to allocate during parsing of an effect
+#ifdef _X86_64
+#define ETG_StartupParseSize        32768
+#define ETG_EachFrameParseSize      32768
+#else
 #define ETG_StartupParseSize        16384
 #define ETG_EachFrameParseSize      16384
+#endif
 #define ETG_TimeIndexParseSize      8192
 #define ETG_VarTableParseLength     256
 #define ETG_NewParticleLength       8
@@ -289,6 +294,12 @@ etgopcode;
 
 #define ETG_TokenDelimiters         ", \t"
 
+#ifdef _X86_64
+#define MINUS1              0xffffffffffffffff
+#else
+#define MINUS1              0xffffffff
+#endif
+
 /*=============================================================================
     Type definitions:
 =============================================================================*/
@@ -361,7 +372,7 @@ typedef struct
 {
     etgopcode opcode;
     udword codeBlock;
-    udword branchTo;                            //location to branch to
+    memsize branchTo;                            //location to branch to
 }
 etgbranch;
 //EOP_Return
@@ -374,7 +385,7 @@ etgreturn;
 typedef struct
 {
     etgopcode opcode;
-    udword param0, param1;                      //can be constants or variable offsets
+    memsize param0, param1;                      //can be constants or variable offsets
     sdword codeBytes;                           //bytes of conditional code
 //    sdword elseBytes;                           //bytes of conditional else code
 }
@@ -383,21 +394,21 @@ etgconditional;
 typedef struct
 {
     etgopcode opcode;
-    udword source, dest;                         //source and destination of var copy
+    memsize source, dest;                         //source and destination of var copy
 }
 etgvariablecopy;
 //EOP_Function
 typedef struct
 {
     etgopcode opcode;
-    udword (*function)(void);                   //function to call
+    memsize (*function)(void);                   //function to call
     udword nParameters;                         //number of parameters to pass
-    udword returnValue;                         //variable to assign return value to, if any
+    memsize returnValue;                         //variable to assign return value to, if any
     bool passThis;                              //shall we pass a reference to this effect?
     struct
     {
         udword type;                            //type of parameter, see above
-        udword param;                           //constant, variable or pointer
+        memsize param;                           //constant, variable or pointer
     }
     parameter[1];                               //ragged array of parameters to pass
 }
@@ -456,7 +467,7 @@ typedef struct
     char *name;                                 //name of variable
     udword offset;                              //offset in variable block of this effect
     udword rateOffset;                          //offset in the variable rate block or 0xffffffff
-    udword initial;                             //initial value of type, if any
+    memsize initial;                             //initial value of type, if any
     ubyte bInitial;                             //flag set nonzero if there is an initial value
     ubyte type;                                 //type of variable
     ubyte size;                                 //optional size of pointer-variable, not needed for dword types
@@ -524,7 +535,7 @@ typedef struct etgeffectstatic
     udword rateSize;                            //size of variables rates block.
     sdword effectSize;                          //total size of the effect (sans particle systems)
     ubyte *variableOffsets;                     //variable initialization data
-    udword *variableInitData;                   //variable init data
+    memsize *variableInitData;                   //variable init data
     sdword initLength;                          //length of variable init data
     ubyte *constData;                           //constant data, such as texture animations
     udword constLength;                         //length of constant data
@@ -615,7 +626,11 @@ extern bool   etgBulletEffectsEnabled;
 /*=============================================================================
     Macros:
 =============================================================================*/
-#define etgFunctionSize(n)  (sizeof(etgfunctioncall) + sizeof(sdword) * 2 * ((n) - 1))
+//#ifdef _X86_64
+//#define etgFunctionSize(n)  (sizeof(etgfunctioncall) + sizeof(sdword) * 4 * ((n) - 1))
+//#else
+#define etgFunctionSize(n)  (sizeof(etgfunctioncall) + sizeof(memsize) * 2 * ((n) - 1))
+//#endif
 #define etgEffectSize(n)  (sizeof(Effect) + sizeof(ubyte *) * ((n) - 1))
 #define etgDecisionSize(n) (sizeof(etgdecision) + sizeof(decisionoffset) * ((n) - 1))
 #define etgLODSize(n)      (sizeof(etglod) + sizeof(etgeffectstatic *) * ((n) - 1))

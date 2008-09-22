@@ -33,10 +33,10 @@ typedef struct
 	udword			id;
 	udword			priority;
 	sdword			pitch;
-	sdword			dataoffset;
-	sdword			datasize;
-	sdword			loopstart;
-	sdword			loopend;
+	smemsize        dataoffset;
+	smemsize		datasize;
+	smemsize		loopstart;
+	smemsize		loopend;
 	
 	sword			bitrate;
 	sword			flags;
@@ -119,7 +119,7 @@ typedef struct
 typedef struct
 {
 	filehandle		fhandle;	/* this is the stream file handle */
-	sdword			offset;		/* this is the offset within that file */
+	smemsize		offset;		/* this is the offset within that file */
 	sdword			flags;		/* looping? */
 	sdword			size;
 	
@@ -178,7 +178,7 @@ typedef struct
 	sdword			writeblock;	/* this is which buffer is being written into from the CD */
 
 	sdword			dataleft;	/* amount of data left to read in this stream */
-	sdword			lastpos;
+	smemsize		lastpos;
 
 //	sdword			writepos;	/* location in the DirectSound buffer to write at */
 

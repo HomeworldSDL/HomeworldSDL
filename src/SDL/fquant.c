@@ -18,30 +18,30 @@ int fqInitDequant(void) {
 	return OK;
 }
 
-long fqSUnpack(unsigned long nLen, unsigned long nPos, char *aBlock) {
-	unsigned long shift, mask;
+sdword fqSUnpack(udword nLen, udword nPos, char *aBlock) {
+	udword shift, mask;
 
 	shift = nPos - nPos / 8 * 8;
 	mask = ((1 << nLen) - 1) << shift;
-	if ((*(unsigned long*)(aBlock + nPos / 8) & mask) >> shift >> (nLen - 1) == 1) {
-		return (long)0 - (((*(unsigned long*)(aBlock + nPos / 8) & mask) >> shift << (33 - nLen)) >> (33 - nLen));
+	if ((*(udword*)(aBlock + nPos / 8) & mask) >> shift >> (nLen - 1) == 1) {
+		return (sdword)0 - (((*(udword*)(aBlock + nPos / 8) & mask) >> shift << (33 - nLen)) >> (33 - nLen));
 	}
 
-	return (long)((*(unsigned long*)(aBlock + nPos / 8) & mask) >> shift);
+	return (sdword)((*(udword*)(aBlock + nPos / 8) & mask) >> shift);
 }
 
-unsigned long fqUnpack(unsigned long nLen, unsigned long nPos, char *aBlock) {
-	unsigned long shift, mask;
+udword fqUnpack(udword nLen, udword nPos, char *aBlock) {
+	udword shift, mask;
 
 	shift = nPos - nPos / 8 * 8;
 	mask = ((1 << nLen) - 1) << shift;
 
-	return (*(unsigned long*)(aBlock + nPos / 8) & mask) >> shift;
+	return (*(udword*)(aBlock + nPos / 8) & mask) >> shift;
 }
 
-int fqDequantBlock(char *aQBlock, float *aFPBlock, float *aFSBlock, unsigned char *aEBlock, unsigned long nLen, unsigned long nRate, unsigned long nSize) {
-	unsigned long pos, count, ua, ub, uc, ud, u, i;
-	long j, s;
+int fqDequantBlock(char *aQBlock, float *aFPBlock, float *aFSBlock, unsigned char *aEBlock, udword nLen, udword nRate, udword nSize) {
+	udword pos, count, ua, ub, uc, ud, u, i;
+	sdword j, s;
 
 	memset(aFPBlock, 0, FQ_SIZE * sizeof(float));
 	memset(aFSBlock, 0, FQ_SIZE * sizeof(float));

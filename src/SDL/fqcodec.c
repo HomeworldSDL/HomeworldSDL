@@ -18,8 +18,8 @@ static float gCHBlock[FQ_HSIZE];
 static float gCBlock[FQ_SIZE];
 static float gCDBlock[FQ_DSIZE];
 
-static void fqWriteTBlockBuf(float *aLBlock, float *aRBlock, short nChan, short *pBuf, unsigned long nSize) {
-	unsigned long i;
+static void fqWriteTBlockBuf(float *aLBlock, float *aRBlock, short nChan, short *pBuf, udword nSize) {
+	udword i;
 
 	if ((pBuf != 0) && (nSize > 0)) {
 		for (i = 0; i < nSize; i += 2) {
@@ -33,15 +33,15 @@ static void fqWriteTBlockBuf(float *aLBlock, float *aRBlock, short nChan, short 
 	}
 }
 
-int fqWriteTBlock(float *aLBlock, float *aRBlock, short nChan, void *pBuf1, unsigned long nSize1, void *pBuf2, unsigned long nSize2) {
+int fqWriteTBlock(float *aLBlock, float *aRBlock, short nChan, void *pBuf1, udword nSize1, void *pBuf2, udword nSize2) {
 	fqWriteTBlockBuf(aLBlock, aRBlock, nChan, pBuf1, nSize1);
 	fqWriteTBlockBuf(aLBlock, aRBlock, nChan, pBuf2, nSize2);
 	return OK;
 }
 
-int fqDecOver(float *aFPBlock, float *aFSBlock, float *aTPBlock, float *aTSBlock, float *aCBlock, float *aWBlock, unsigned long nSize) {
+int fqDecOver(float *aFPBlock, float *aFSBlock, float *aTPBlock, float *aTSBlock, float *aCBlock, float *aWBlock, udword nSize) {
 	float buf[FQ_DSIZE];
-	unsigned long h = nSize >> 1, i;
+	udword h = nSize >> 1, i;
 
 	memcpy(aTPBlock, aTSBlock, nSize * sizeof(float));
 	idct(aFPBlock, buf, aCBlock, nSize);

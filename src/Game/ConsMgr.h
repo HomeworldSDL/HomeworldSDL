@@ -125,7 +125,7 @@ void cmForceBuildShipType(ShipType type);
 void cmReset(void); // Free carrier ship pointers used by construction manager
 
 //start the construction manager.  It will kill itself when you hit the quit button.
-sdword cmConstructionBegin(regionhandle region, sdword ID, udword event, udword data);
+sdword cmConstructionBegin(regionhandle region, smemsize ID, udword event, udword data);
 
 //start a new build job
 void cmBuildJobsAdd(shipsinprogress *factory, ShipStaticInfo *info, sdword index);
