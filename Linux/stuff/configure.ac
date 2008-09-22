@@ -83,6 +83,19 @@ else
 	HWBIN_CFLAGS="-DHW_BUILD_FOR_DISTRIBUTION"
 fi
 
+dnl Configure options for building X86_64 version.
+AC_ARG_ENABLE(x86_64,
+    AS_HELP_STRING([--enable-x86_64],[build an experimental x86_64 binary for Homeworld]),
+    enable_x86_64=yes)
+if test "x$enable_x86_64" = "x" ; then
+    echo "* Building x86 binary for Homeworld (X86) *"
+    CFLAGS="$CFLAGS -malign-double -D_X86"
+else
+    echo "* Building x86_64 binary for Homeworld (X86_64) *"
+    CFLAGS="$CFLAGS -D_X86_64 -D_X86_64_FIX_ME"
+fi
+
+
 dnl LINUX FIX ME
 AC_ARG_ENABLE(linuxfixme,
 	AS_HELP_STRING([--disable-linuxfixme],

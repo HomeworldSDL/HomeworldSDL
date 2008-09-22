@@ -2,7 +2,7 @@
 # CFLAGS += -malign-double -Wall -fno-strict-aliasing -Wextra
 #  Additional Modified CFLAGS line
 # CFLAGS += -malign-double -Wall -fno-strict-aliasing   -Wextra -Wmissing-prototypes -Wmissing-declarations -Wredundant-decls
-AM_CFLAGS = -malign-double -Wall -fno-strict-aliasing -Wextra
+AM_CFLAGS = -Wall -fno-strict-aliasing -Wextra
 
 noinst_LIBRARIES = libhw_SDL.a
 libhw_SDL_a_SOURCES = avi.c avi.h debugwnd.h devstats.h font.c font.h fqcodec.h fqeffect.h fquant.h glcaps.c glcaps.h gldefines.h gldll.c gldll.h glext.h glinc.h main.c main.h mainrgn.c mainrgn.h mainswitches.h mixfft.c mouse.c mouse.h NetworkInterface.c NetworkInterface.h prim2d.c prim2d.h prim3d.c prim3d.h Queue.c Queue.h regkey.h render.c render.h resource.h rglu.c rglu.h rinit.c rinit.h screenshot.c screenshot.h smixer.c soundcmn.h soundlow.c soundlow.h sstream.c texreg.c texreg.h TimeoutTimer.c TimeoutTimer.h Titan.c Titan.h TitanInterfaceC.h TitanInterfaceC.c utility.c utility.h
