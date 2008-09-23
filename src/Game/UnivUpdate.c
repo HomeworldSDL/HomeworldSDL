@@ -1159,7 +1159,7 @@ shipbindings *univMeshBindingsDupe(ShipStaticInfo *shipstaticinfo, Ship *newShip
                 //using an index set up in setGunBindInfo(), set new gun pointer
                 bindingListDest->function = bindingListSource->function;
                 bindingListDest->userData = &newShip->gunInfo->guns[bindingListSource->userID];
-                bindingListDest->userID = (sdword)newShip;    //also save ship pointer
+                bindingListDest->userID = (smemsize)newShip;    //also save ship pointer
                 bindingListDest->flags = bindingListSource->flags;
                 bindingListDest->object = bindingListSource->object;
             }
@@ -3267,7 +3267,7 @@ nobulletmasstransfer:
             }
             floatDamage *= damageMult;
             intDamage = Real32ToUdword(floatDamage);
-            etgEffectCreate(stat, NULL, &hitLocation, &target->posinfo.velocity, &hitCoordsys, targetScale, 0, 2, intDamage, fatalHit);
+            etgEffectCreate(stat, NULL, &hitLocation, &target->posinfo.velocity, &hitCoordsys, targetScale, 0, 2, SCALECAST(intDamage), SCALECAST(fatalHit));
         }
     }
 }
@@ -3434,7 +3434,7 @@ void univMissileCollidedWithTarget(SpaceObjRotImpTarg *target,StaticHeader *targ
             }
             floatDamage *= damageMult;
             intDamage = Real32ToUdword(floatDamage);
-            etgEffectCreate(stat, NULL, &hitLocation, &target->posinfo.velocity, &missile->rotinfo.coordsys, targetScale, 0, 2, intDamage, fatalHit);
+            etgEffectCreate(stat, NULL, &hitLocation, &target->posinfo.velocity, &missile->rotinfo.coordsys, targetScale, 0, 2, SCALECAST(intDamage), SCALECAST(fatalHit));
         }
     }
 }
@@ -4015,7 +4015,7 @@ void univDeleteDeadShip(Ship *ship, sdword deathBy)
                 velMagnitudeDword = Real32ToUdword(velMagnitude);
 
                 //!!!??? should there be some EAF_ here???
-                effect = etgEffectCreate(explosion, ship, NULL, NULL, NULL, 1.0f, 0, 2, colSizeDword, velMagnitudeDword);
+                effect = etgEffectCreate(explosion, ship, NULL, NULL, NULL, 1.0f, 0, 2, SCALECAST(colSizeDword), SCALECAST(velMagnitudeDword));
                 /*
                 if (!univSpaceObjInRenderList((SpaceObj *)effect))
                 {
@@ -4650,7 +4650,7 @@ bool DeleteDeadDerelict(Derelict *derelict, sdword deathBy)
             colSizeDword = Real32ToUdword(colSize);
             velMagnitudeDword = Real32ToUdword(velMagnitude);
             //??? EAF_ flags ???
-            effect = etgEffectCreate(explosion, derelict, NULL, NULL, NULL, 1.0f, 0, 2, colSizeDword, velMagnitudeDword);
+            effect = etgEffectCreate(explosion, derelict, NULL, NULL, NULL, 1.0f, 0, 2, SCALECAST(colSizeDword), SCALECAST(velMagnitudeDword));
             bitSet(effect->flags, SOF_ForceVisible);
         }
     }
@@ -4807,7 +4807,7 @@ void DeleteDeadMissile(Missile *missile, sdword deathBy)
                 }
                 intDamage = Real32ToUdword(floatDamage);
                 fatalHit = FALSE;
-                etgEffectCreate(stat, NULL, &hitLocation, &missile->posinfo.velocity, &missile->rotinfo.coordsys, 1.0, 0, 2, intDamage, fatalHit);
+                etgEffectCreate(stat, NULL, &hitLocation, &missile->posinfo.velocity, &missile->rotinfo.coordsys, 1.0, 0, 2, SCALECAST(intDamage), SCALECAST(fatalHit));
             }
         }
     }

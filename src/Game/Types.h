@@ -121,10 +121,10 @@ real32 SdwordToReal32(sdword a);
 #define TreatAsReal32(x) (*((real32 *)(&(x))))
 
 #ifdef _X86_64
-#define SCALEVALUE(x)  ((memsize)(udword)(x))
+#define SCALECAST(x)  ((memsize)(udword)(x))
 #define SCALESHIFT(x) (2*(x))    //Make the thing scale from 4 to 8 bytes offset
 #else
-#define SCALEVALUE(x) (x)
+#define SCALECAST(x) (x)
 #define SCALESHIFT(x) (x)
 #endif
 

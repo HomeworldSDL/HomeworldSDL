@@ -653,7 +653,7 @@ void TurnHarvestEffectOff(Ship *ship)
 
     if (bitTest(((etgeffectstatic *)ship->rceffect->staticinfo)->specialOps, ESO_SelfDeleting))
     {                                                       //if the effect will delete itself
-        ((real32 *)ship->rceffect->variable)[ETG_ResourceDurationParam] =
+        ((real32 *)ship->rceffect->variable)[SCALESHIFT(ETG_ResourceDurationParam)] =
             ship->rceffect->timeElapsed;                            //time it out
     }
     else
@@ -753,7 +753,7 @@ void TurnHarvestEffectOn(Ship *ship,Resource *resource,vector *trajectory, real3
         else //if (resource->objtype == OBJ_DustType)
             ship->soundevent.specialHandle = soundEvent(ship, Ship_ResourceDustCloud);
         /* should have other resource types too? */
-        ship->rceffect = etgEffectCreate(stat, ship, &nozzleposition, &ship->posinfo.velocity, &nozzlecoordsys, 1.0f, EAF_Velocity | EAF_NLips, 2, intLength, intWidth);
+        ship->rceffect = etgEffectCreate(stat, ship, &nozzleposition, &ship->posinfo.velocity, &nozzlecoordsys, 1.0f, EAF_Velocity | EAF_NLips, 2, SCALECAST(intLength), SCALECAST(intWidth));
     }
     else
     {
@@ -792,8 +792,8 @@ void ModifyHarvestEffect(Effect *effect,Ship *ship,vector *trajectory, real32 re
 
     matCreateCoordSysFromHeading(&effect->rotinfo.coordsys,&nozzletrajectory);
 
-    ((real32 *)effect->variable)[ETG_ResourceLengthParam] = nozzletrajectorydist;
-    ((real32 *)effect->variable)[ETG_ResourceRadiusParam] = resourceRadius;
+    ((real32 *)effect->variable)[SCALESHIFT(ETG_ResourceLengthParam)] = nozzletrajectorydist;
+    ((real32 *)effect->variable)[SCALESHIFT(ETG_ResourceRadiusParam)] = resourceRadius;
 }
 
 void DefaultShipHarvestsResource(struct Ship *ship,struct Resource *resource)

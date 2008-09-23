@@ -67,6 +67,12 @@ madheader *madFileLoad(char *fileName)
     filehandle file;
     sdword fileSize;
 
+#ifdef _X86_64
+    char newFileName[80];
+    sprintf(newFileName, "%s.64",fileName);
+    fileName = newFileName;
+#endif
+
     dbgAssertOrIgnore(fileName != NULL);
 
     fileSize = fileSizeGet(fileName, 0);
@@ -115,35 +121,35 @@ madheader *madFileLoad(char *fileName)
     for (index = 0; index < newHeader->nAnimations; index++)
     {                                                       //fixup the name of all animations
 #if FIX_ENDIAN
-		newHeader->anim[index].name      = ( char *)FIX_ENDIAN_INT_32( ( udword )newHeader->anim[index].name );
+		newHeader->anim[index].name      = ( char *)FIX_ENDIAN_INT_32( ( memsize )newHeader->anim[index].name );
 		newHeader->anim[index].startTime = FIX_ENDIAN_FLOAT_32( newHeader->anim[index].startTime );
 		newHeader->anim[index].endTime   = FIX_ENDIAN_FLOAT_32( newHeader->anim[index].endTime );
 		newHeader->anim[index].flags     = FIX_ENDIAN_INT_32( newHeader->anim[index].flags );
 #endif
 
-        newHeader->anim[index].name += (udword)newHeader->stringBlock;
+        newHeader->anim[index].name += (memsize)newHeader->stringBlock;
     }
-    newHeader->objPath = (madobjpath *)((udword)newHeader + (ubyte *)newHeader->objPath);
+    newHeader->objPath = (madobjpath *)((memsize)newHeader + (ubyte *)newHeader->objPath);
     for (index = 0; index < newHeader->nObjects; index++)
     {
 #if FIX_ENDIAN
-		newHeader->objPath[index].name = ( char *)FIX_ENDIAN_INT_32( ( udword )newHeader->objPath[index].name );
+		newHeader->objPath[index].name = ( char *)FIX_ENDIAN_INT_32( ( memsize )newHeader->objPath[index].name );
 		newHeader->objPath[index].nameCRC = FIX_ENDIAN_INT_16( newHeader->objPath[index].nameCRC );
 		newHeader->objPath[index].animationBits = FIX_ENDIAN_INT_32( newHeader->objPath[index].animationBits );
 		newHeader->objPath[index].nKeyframes = FIX_ENDIAN_INT_32( newHeader->objPath[index].nKeyframes );
 		newHeader->objPath[index].times = ( real32 *)FIX_ENDIAN_INT_32( ( udword )newHeader->objPath[index].times );
 		newHeader->objPath[index].parameters = ( tcb *)FIX_ENDIAN_INT_32( ( udword )newHeader->objPath[index].parameters );
 #endif
-        newHeader->objPath[index].name += (udword)newHeader->stringBlock;//fixup name
+        newHeader->objPath[index].name += (memsize)newHeader->stringBlock;//fixup name
         newHeader->objPath[index].nameCRC = crc16Compute((ubyte *)newHeader->objPath[index].name, strlen(newHeader->objPath[index].name));
-        newHeader->objPath[index].times = (real32 *)((udword)newHeader + (ubyte *)newHeader->objPath[index].times);//fixup times pointers
-        newHeader->objPath[index].parameters = (tcb *)((udword)newHeader + (ubyte *)newHeader->objPath[index].parameters);//fixup times pointers
+        newHeader->objPath[index].times = (real32 *)((memsize)newHeader + (ubyte *)newHeader->objPath[index].times);//fixup times pointers
+        newHeader->objPath[index].parameters = (tcb *)((memsize)newHeader + (ubyte *)newHeader->objPath[index].parameters);//fixup times pointers
         for (j = 0; j < 6; j++)
         {                                                   //fixup the motion path array pointers
 #if FIX_ENDIAN
 			newHeader->objPath[index].path[j] = ( real32 *)FIX_ENDIAN_INT_32( ( udword )newHeader->objPath[index].path[j] );
 #endif
-            newHeader->objPath[index].path[j] = (real32 *)((udword)newHeader + (ubyte *)newHeader->objPath[index].path[j]);
+            newHeader->objPath[index].path[j] = (real32 *)((memsize)newHeader + (ubyte *)newHeader->objPath[index].path[j]);
         }
 
 #if FIX_ENDIAN

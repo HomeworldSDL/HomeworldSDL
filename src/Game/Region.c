@@ -977,7 +977,7 @@ void regNULLRenderFunction(regionhandle region)
 {
     ;
 }
-udword regNULLProcessFunction(regionhandle region, sdword ID, udword event, udword data)
+udword regNULLProcessFunction(regionhandle region, smemsize ID, udword event, udword data)
 {
     return(0);
 }
@@ -1126,7 +1126,7 @@ void regFunctionsDraw(void)
     Outputs     : Allocates memory for the structure and inserts into linked list.
     Return      : pointer to newly allocated region.
 ----------------------------------------------------------------------------*/
-regionhandle regChildAlloc(regionhandle parent, sdword ID, sdword x, sdword y, sdword width, sdword height, sdword extra, udword flags)
+regionhandle regChildAlloc(regionhandle parent, smemsize ID, sdword x, sdword y, sdword width, sdword height, sdword extra, udword flags)
 {
     regionhandle newRegion;
 
@@ -1183,7 +1183,7 @@ regionhandle regChildAlloc(regionhandle parent, sdword ID, sdword x, sdword y, s
     Outputs     : Allocates memory for the structure and inserts into linked list.
     Return      : pointer to newly allocated region.
 ----------------------------------------------------------------------------*/
-regionhandle regSiblingAlloc(regionhandle sibling, sdword ID, sdword x, sdword y, sdword width, sdword height, sdword extra, udword flags)
+regionhandle regSiblingAlloc(regionhandle sibling, smemsize ID, sdword x, sdword y, sdword width, sdword height, sdword extra, udword flags)
 {
     regionhandle newRegion;
 
@@ -1293,7 +1293,7 @@ regionhandle regSiblingMoveToFront(regionhandle region)
     Notes       : Filter flags other than key events can be passed in, however
         mouse events will never be genterated because the region has zero size.
 ----------------------------------------------------------------------------*/
-regionhandle regKeyChildAlloc(regionhandle parent, sdword ID, udword filter, regionfunction function, sdword nKeys, ...)
+regionhandle regKeyChildAlloc(regionhandle parent, smemsize ID, udword filter, regionfunction function, sdword nKeys, ...)
 {
     regionhandle newRegion;
     sdword index;
@@ -1317,7 +1317,7 @@ regionhandle regKeyChildAlloc(regionhandle parent, sdword ID, udword filter, reg
     va_end(argPointer);
     return(newRegion);
 }
-regionhandle regKeySiblingAlloc(regionhandle sibling, sdword ID, udword filter, regionfunction function, sdword nKeys, ...)
+regionhandle regKeySiblingAlloc(regionhandle sibling, smemsize ID, udword filter, regionfunction function, sdword nKeys, ...)
 {
     regionhandle newRegion;
     sdword index;

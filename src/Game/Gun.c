@@ -742,7 +742,7 @@ void missileShoot(Ship *ship,Gun *gun,SpaceObjRotImpTarg *target)
             }
             floatDamage *= ship->magnitudeSquared;
             intDamage = Real32ToUdword(floatDamage);
-            etgEffectCreate(stat, ship, &missile->posinfo.position, NULL, &newCoordsys, 1.0f, EAF_Velocity | EAF_NLips, 1, intDamage);
+            etgEffectCreate(stat, ship, &missile->posinfo.position, NULL, &newCoordsys, 1.0f, EAF_Velocity | EAF_NLips, 1, SCALECAST(intDamage));
         }
     }
     if(bitTest(ship->flags,SOF_CloakGenField))
@@ -1163,7 +1163,7 @@ void gunShoot(Ship *ship, Gun *gun, SpaceObjRotImpTarg *target)
         if (stat != NULL && etgBulletEffectsEnabled && !etgFrequencyExceeded(stat))
 #endif
         {
-            bullet->effect = etgEffectCreate(stat, (Ship *)bullet, NULL, &ship->posinfo.velocity, NULL, 1.0f, EAF_AllButNLips, 3, intDamage, intVelocity, intLength);
+            bullet->effect = etgEffectCreate(stat, (Ship *)bullet, NULL, &ship->posinfo.velocity, NULL, 1.0f, EAF_AllButNLips, 3, intDamage, intVelocity, SCALECAST(intLength));
         }
         else
         {
@@ -1209,7 +1209,7 @@ void gunShoot(Ship *ship, Gun *gun, SpaceObjRotImpTarg *target)
             {                                                   //smaller muzzle flashes in software
                 floatDamage *= etgSoftwareScalarFire;
             }
-            etgEffectCreate(stat, ship, &bullet->posinfo.position, &ship->posinfo.velocity, &bullet->rotinfo.coordsys, 1.0f, EAF_Velocity, 1, intDamage);
+            etgEffectCreate(stat, ship, &bullet->posinfo.position, &ship->posinfo.velocity, &bullet->rotinfo.coordsys, 1.0f, EAF_Velocity, 1, SCALECAST(intDamage));
         }
     }
     if(bitTest(ship->flags,SOF_CloakGenField))

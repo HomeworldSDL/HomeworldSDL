@@ -215,7 +215,7 @@ void hsStart(Ship* ship, real32 cliptDelta, bool into, bool displayEffect)
                                      &location,
                                      &ship->posinfo.velocity,
                                      &ship->rotinfo.coordsys, 1.0f,
-                                     EAF_NLips, 3, intUpScale, intRightScale, intDepthScale);
+                                     EAF_NLips, 3, SCALECAST(intUpScale), SCALECAST(intRightScale), SCALECAST(intDepthScale));
 
             ssinfo->hyperspaceEffect = effect;
 
