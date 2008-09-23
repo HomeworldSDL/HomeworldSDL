@@ -77,7 +77,8 @@ typedef enum
 } ShipType_enum;
 
 #ifdef _X86_64   //Capture this first, and make sure it's correctly sized.
-typedef udword  ShipType;
+#include "Types.h"
+typedef smemsize  ShipType;
 #else
 #if defined _LINUX_FIX_ME || defined _WIN32_FIXME
 #include "Types.h"

@@ -1686,7 +1686,7 @@ color *trImageScale(color *data, sdword width, sdword height, sdword newWidth, s
     return(newBuffer);                                      //and allocate the new one
 }
 
-#ifdef _X886_64
+#ifdef _X86_64
 
 /*-----------------------------------------------------------------------------
     Name        : tr64LifAdjustLoad

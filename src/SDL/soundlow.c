@@ -460,7 +460,7 @@ udword soundbankadd(void *bankaddress)
 	/* figure out where the patch data starts */
 	for (i = 0; i < numpatches; i++)
 	{
-		patches[i].dataoffset = (sdword)bankaddress + patches[i].dataoffset;
+		patches[i].dataoffset = (smemsize)bankaddress + patches[i].dataoffset;
 		patches[i].loopstart += patches[i].dataoffset;
 		patches[i].loopend += patches[i].dataoffset;
 		patches[i].datasize += patches[i].dataoffset;
