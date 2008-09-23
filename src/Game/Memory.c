@@ -186,7 +186,11 @@ sdword memStartup(void *heapStart, sdword heapSize, memgrowcallback grow)
     char *memNonVolatileFileName;
 #endif
 
+#ifdef _X86_64
+    if ((sizeof(mbhcookie) != 64) || (sizeof(memcookie) != 64))
+#else
     if ((sizeof(mbhcookie) != 32) || (sizeof(memcookie) != 32))
+#endif
     {
         dbgFatalf(DBG_Loc, "Bad cookie size: %d, %d", sizeof(mbhcookie), sizeof(memcookie));
     }
@@ -203,7 +207,7 @@ sdword memStartup(void *heapStart, sdword heapSize, memgrowcallback grow)
 #endif //MEM_VERBOSE_LEVEL >= 2
 
     memMainPool.wholePool = heapStart;
-    memMainPool.pool = (ubyte *)(((udword)((ubyte *)heapStart + sizeof(memcookie) - 1)) & (~(sizeof(memcookie) - 1)));
+    memMainPool.pool = (ubyte *)(((memsize)((ubyte *)heapStart + sizeof(memcookie) - 1)) & (~(sizeof(memcookie) - 1)));
     memMainPool.poolLength = memMainPool.heapLength = heapSize;
 
     memModuleInit = TRUE;
@@ -270,7 +274,7 @@ void memPoolReset(mempool *pool, void *heapStart, sdword heapSize, bool bSmallHe
 #endif
 
     pool->wholePool = heapStart;
-    pool->pool = (ubyte *)(((udword)((ubyte *)heapStart + sizeof(memcookie) - 1)) & (~(sizeof(memcookie) - 1)));
+    pool->pool = (ubyte *)(((memsize)((ubyte *)heapStart + sizeof(memcookie) - 1)) & (~(sizeof(memcookie) - 1)));
     pool->poolLength = pool->heapLength = heapSize;
 
     memInitCheck();
@@ -329,7 +333,7 @@ void memPoolReset(mempool *pool, void *heapStart, sdword heapSize, bool bSmallHe
 #endif //MEM_SMALL_BLOCK_HEAP
     }
     //set pointer to first free memory cookie
-    pool->first = pool->firstFree = (memcookie *)memRoundUp((udword)poolData);
+    pool->first = pool->firstFree = (memcookie *)memRoundUp((memsize)poolData);
     //get length of newly sized pool
     pool->heapLength = memRoundDown(pool->pool + pool->poolLength - (ubyte *)pool->first);
     dbgAssertOrIgnore(pool->heapLength > 1);

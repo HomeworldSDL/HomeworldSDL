@@ -186,7 +186,7 @@ void tbSetupHyperspace(void);
     Outputs     : ...user defined...
     Return      : flags indicating further operation:
 ----------------------------------------------------------------------------*/
-udword tbBumperProcess(regionhandle region, sdword ID, udword event, udword data)
+udword tbBumperProcess(regionhandle region, smemsize ID, udword event, udword data)
 {
     if (tbDisable)
     {
@@ -468,7 +468,7 @@ void tbButtonDraw(regionhandle region)
     Return      : flags indicating further operation:
 
 ----------------------------------------------------------------------------*/
-udword tbButtonProcess(regionhandle region, sdword ID, udword event, udword data)
+udword tbButtonProcess(regionhandle region, smemsize ID, udword event, udword data)
 {
     sdword index;
     switch (event)

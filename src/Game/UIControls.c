@@ -71,26 +71,26 @@ scriptEntry FrontEndColourTweaks[] =
 };
 
 void uicButtonDraw(regionhandle reg);
-udword uicButtonProcess(regionhandle region, sdword ID, udword event, udword data);
+udword uicButtonProcess(regionhandle region, smemsize ID, udword event, udword data);
 void uicToggleDraw(regionhandle reg);
-udword uicToggleProcess(regionhandle region, sdword ID, udword event, udword data);
+udword uicToggleProcess(regionhandle region, smemsize ID, udword event, udword data);
 void uicCheckBoxDraw(regionhandle reg);
-udword uicRadioButtonProcess(regionhandle region, sdword ID, udword event, udword data);
+udword uicRadioButtonProcess(regionhandle region, smemsize ID, udword event, udword data);
 void uicRadioButtonDraw(regionhandle reg);
-udword uicScrollBarProcess(regionhandle region, sdword ID, udword event, udword data);
+udword uicScrollBarProcess(regionhandle region, smemsize ID, udword event, udword data);
 void uicScrollBarDraw(regionhandle reg);
 void uicScrollBarButtonDraw(regionhandle reg);
-udword uicListWindowProcess(regionhandle region, sdword ID, udword event, udword data);
+udword uicListWindowProcess(regionhandle region, smemsize ID, udword event, udword data);
 void uicListWindowDraw(regionhandle reg);
-udword uicTextEntryProcess(regionhandle reg, sdword ID, udword event, udword data);
+udword uicTextEntryProcess(regionhandle reg, smemsize ID, udword event, udword data);
 void uicTextEntryDraw(regionhandle reg);
-//udword uicBitmapButtonProcess(regionhandle reg, sdword ID, udword event, udword data);
+//udword uicBitmapButtonProcess(regionhandle reg, smemsize ID, udword event, udword data);
 void uicBitmapButtonDraw(regionhandle reg);
-udword uicHorizSliderProcess(regionhandle region, sdword ID, udword event, udword data);
-udword uicVertSliderProcess(regionhandle region, sdword ID, udword event, udword data);
+udword uicHorizSliderProcess(regionhandle region, smemsize ID, udword event, udword data);
+udword uicVertSliderProcess(regionhandle region, smemsize ID, udword event, udword data);
 void uicHorizSliderDraw(regionhandle reg);
 void uicVertSliderDraw(regionhandle reg);
-udword uicDragButtonProcess(regionhandle region, sdword ID, udword event, udword data);
+udword uicDragButtonProcess(regionhandle region, smemsize ID, udword event, udword data);
 
 bool uicClearCurrent(regionhandle reg);
 void uicSetCurrent(regionhandle reg, bool bUserInput);
@@ -1551,7 +1551,7 @@ void uicFocusToMouse(regionhandle region)
 =============================================================================*/
 #if UIC_TEST
 extern regionhandle ghMainRegion;
-sdword uicTestProcess(regionhandle region, sdword ID, udword event, udword data)
+sdword uicTestProcess(regionhandle region, smemsize ID, udword event, udword data)
 {
     dbgMessagef("UI test function region = 0x%x, ID = %d, event = 0x%x, data = %d", region, ID, event, data);
     return(0);
@@ -1680,7 +1680,7 @@ void uicButtonDraw(regionhandle reg)
                     up properly.
 ----------------------------------------------------------------------------*/
 bool uicButtonReleased = FALSE;
-udword uicButtonProcess(regionhandle region, sdword ID, udword event, udword data)
+udword uicButtonProcess(regionhandle region, smemsize ID, udword event, udword data)
 {
     udword mask = 0;
 #ifdef HW_BUILD_FOR_DEBUGGING
@@ -1922,7 +1922,7 @@ void uicToggleDraw(regionhandle reg)
     Note        : can call user function with any region message if filter set
                     up properly.
 ----------------------------------------------------------------------------*/
-udword uicToggleProcess(regionhandle region, sdword ID, udword event, udword data)
+udword uicToggleProcess(regionhandle region, smemsize ID, udword event, udword data)
 {
     udword mask = 0;
 
@@ -1975,7 +1975,7 @@ udword uicToggleProcess(regionhandle region, sdword ID, udword event, udword dat
     Note        : can call user function with any region message if filter set
                     up properly.
 ----------------------------------------------------------------------------*/
-udword uicRadioButtonProcess(regionhandle region, sdword ID, udword event, udword data)
+udword uicRadioButtonProcess(regionhandle region, smemsize ID, udword event, udword data)
 {
     udword mask = 0;
     featom *atom;
@@ -2013,7 +2013,7 @@ udword uicRadioButtonProcess(regionhandle region, sdword ID, udword event, udwor
 }
 
 //process scrollbar messages
-udword uicScrollBarProcess(regionhandle region, sdword ID, udword event, udword data)
+udword uicScrollBarProcess(regionhandle region, smemsize ID, udword event, udword data)
 {
     scrollbarhandle shandle;
     udword mask = 0,x,y;
@@ -2861,7 +2861,7 @@ void uicListWindowPageDown(listwindowhandle listhandle)
     Outputs     :
     Return      : void
 ----------------------------------------------------------------------------*/
-udword uicListWindowProcess(regionhandle region, sdword ID, udword event, udword data)
+udword uicListWindowProcess(regionhandle region, smemsize ID, udword event, udword data)
 {
     listwindowhandle listhandle;
     listitemhandle   item;
@@ -3352,7 +3352,7 @@ void SetVSliderValue(sliderhandle shandle)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-udword uicHorizSliderProcess(regionhandle region, sdword ID, udword event, udword data)
+udword uicHorizSliderProcess(regionhandle region, smemsize ID, udword event, udword data)
 {
     sliderhandle shandle;
     udword mask = 0; //x,y;
@@ -3406,7 +3406,7 @@ udword uicHorizSliderProcess(regionhandle region, sdword ID, udword event, udwor
 }
 
 
-udword uicVertSliderProcess(regionhandle region, sdword ID, udword event, udword data)
+udword uicVertSliderProcess(regionhandle region, smemsize ID, udword event, udword data)
 {
     sliderhandle shandle;
     udword mask = 0; //x,y;
@@ -3756,7 +3756,7 @@ udword keyLanguageTranslate(udword wParam);
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-udword uicTextEntryProcess(regionhandle reg, sdword ID, udword event, udword data)
+udword uicTextEntryProcess(regionhandle reg, smemsize ID, udword event, udword data)
 {
     textentryhandle entry = (textentryhandle)reg;
     featom *atom = (featom *)reg->userID;
@@ -4255,7 +4255,7 @@ void uicTextEntryDraw(regionhandle reg)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-udword uicDragButtonProcess(regionhandle region, sdword ID, udword event, udword data)
+udword uicDragButtonProcess(regionhandle region, smemsize ID, udword event, udword data)
 {
     udword mask = 0;
 
@@ -4378,7 +4378,7 @@ void uicShutdown(void)
     Outputs     : allocates and initializes the region
     Return      : handle to the newly created button
 ----------------------------------------------------------------------------*/
-buttonhandle uicChildButtonAlloc(controlhandle parent, sdword ID, sdword x, sdword y,
+buttonhandle uicChildButtonAlloc(controlhandle parent, smemsize ID, sdword x, sdword y,
                 sdword width, sdword height, uicfunction function, udword flags)
 {
     buttonhandle newHandle;
@@ -4435,7 +4435,7 @@ void setRect(rectangle *rect, rectangle* ofs,
     Outputs     : allocates and initializes the region
     Return      : handle to the newly created scrollbar
 ----------------------------------------------------------------------------*/
-scrollbarhandle uicChildScrollBarAlloc(controlhandle parent, sdword ID,
+scrollbarhandle uicChildScrollBarAlloc(controlhandle parent, smemsize ID,
                                        sdword x, sdword y, sdword width, sdword height,
                                        uicfunction function, udword flags)
 {
@@ -4507,7 +4507,7 @@ scrollbarhandle uicChildScrollBarAlloc(controlhandle parent, sdword ID,
     Outputs     : uiclistwindow structure handle
     Return      : void
 ----------------------------------------------------------------------------*/
-listwindowhandle uicChildListWindowAlloc(controlhandle parent, sdword ID,
+listwindowhandle uicChildListWindowAlloc(controlhandle parent, smemsize ID,
                                          sdword x, sdword y, sdword width, sdword height,
                                          uicfunction function, udword flags)
 {
@@ -5062,7 +5062,7 @@ textentryhandle uicChildTextEntryAlloc(controlhandle parent, featom *atom,
 {
     textentryhandle newHandle;
 
-    newHandle = (textentryhandle)regChildAlloc((regionhandle)parent, (sdword)atom,
+    newHandle = (textentryhandle)regChildAlloc((regionhandle)parent, (smemsize)atom,
                     x, y, width, height, uicStructureExtra(uictextentry),
                     UIF_TextEntry);
 

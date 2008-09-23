@@ -2130,7 +2130,7 @@ void rmUpdateTechList(void)
     Outputs     : success fail
     Return      :
 ----------------------------------------------------------------------------*/
-sdword rmResearchGUIBegin(regionhandle region, sdword ID, udword event, udword data)
+sdword rmResearchGUIBegin(regionhandle region, smemsize ID, udword event, udword data)
 {
     sdword index;
 

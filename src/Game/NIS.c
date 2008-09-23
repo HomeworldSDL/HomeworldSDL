@@ -3597,7 +3597,7 @@ void nisRemainAtEndSet(char *directory,char *field,void *dataToFillIn)
     event = nisNewEvent(NEO_RemainAtEnd);
     if (strlen(optionalTeamName) > 0)
     {
-        event->param[0] = (udword)memStringDupe(optionalTeamName);
+        event->param[0] = (memsize)memStringDupe(optionalTeamName);
     }
     else
     {
@@ -3835,7 +3835,7 @@ void nisTextCardSet(char *directory, char *field, void *dataToFillIn)
     }
     nisCurrentTextCardX += fontWidth(lineStart);
 
-    event->param[0] = (udword)card;
+    event->param[0] = (memsize)card;
     fontMakeCurrent(fhSave);
 }
 void nisCameraBlendInSet(char *directory, char *field, void *dataToFillIn)
@@ -4084,7 +4084,7 @@ void nisColorSchemeSet(char *directory, char *field, void *dataToFillIn)
 void nisMeshAnimationStartSet(char *directory, char *field, void *dataToFillIn)
 {
     nisevent *event = nisNewEvent(NEO_MeshAnimationStart);
-    event->param[0] = (udword)memStringDupe(field);
+    event->param[0] = (memsize)memStringDupe(field);
 }
 void nisMeshAnimationStopSet(char *directory, char *field, void *dataToFillIn)
 {
@@ -4133,7 +4133,7 @@ void nisVolumesSet(char *directory, char *field, void *dataToFillIn)
 {
     sdword nScanned;
     float level;
-    nisevent *event = nisNewEventNoObject((udword)dataToFillIn);
+    nisevent *event = nisNewEventNoObject((memsize)dataToFillIn);
 
     nScanned = sscanf(field, "%f", &level);
 
@@ -4173,7 +4173,7 @@ void nisNewEnvironmentSet(char *directory, char *field, void *dataToFillIn)
     scan = strtok(NULL, " \n\t,");
     dbgAssertOrIgnore(scan);
     sscanf(scan, "%f", &env->phi);
-    event->param[0] = (udword)env;
+    event->param[0] = (memsize)env;
 }
 void nisLookyObjectSet(char *directory, char *field, void *dataToFillIn)
 {
@@ -4222,7 +4222,7 @@ void nisSMPTEOnSet(char *directory, char *field, void *dataToFillIn)
     newSMPTE->startTime = nisCurrentTime - (hours * 3600 + minutes * 60 + seconds + frames / NIS_FrameRate);
     newSMPTE->font = frFontRegister(fontString);
     newSMPTE->c = colRGB(red, green, blue);
-    event->param[0] = (udword)newSMPTE;
+    event->param[0] = (memsize)newSMPTE;
 }
 void nisSMPTEOffSet(char *directory, char *field, void *dataToFillIn)
 {
@@ -4279,7 +4279,7 @@ void nisStaticOnSet(char *directory, char *field, void *dataToFillIn)
     newStatic->alphaVariation = alphaVariation;
     newStatic->bAlpha = (alpha != 1.0f || alphaVariation != 0.0f);
     newStatic->bTextured = scriptStringToBool(bTextureString);
-    event->param[0] = (udword)newStatic;
+    event->param[0] = (memsize)newStatic;
 }
 void nisStaticOffSet(char *directory, char *field, void *dataToFillIn)
 {
@@ -4317,7 +4317,7 @@ void nisNewNISSet(char *directory, char *field, void *dataToFillIn)
 #endif
     strcat(fileName, nisName);
     dbgAssertOrIgnore(fileExists(fileName, 0));
-    event->param[0] = (udword)memStringDupeNV(fileName);
+    event->param[0] = (memsize)memStringDupeNV(fileName);
 #ifdef _WIN32
     strcpy(fileName, "nis\\");
 #else
@@ -4325,7 +4325,7 @@ void nisNewNISSet(char *directory, char *field, void *dataToFillIn)
 #endif
     strcat(fileName, scriptName);
     dbgAssertOrIgnore(fileExists(fileName, 0));
-    event->param[1] = (udword)memStringDupeNV(fileName);
+    event->param[1] = (memsize)memStringDupeNV(fileName);
 }
 void nisAttributesSet(char *directory, char *field, void *dataToFillIn)
 {
@@ -4344,7 +4344,7 @@ void nisAttackKasSelectionSet(char *directory, char *field, void *dataToFillIn)
     selection = kasGetGrowSelectionPtrIfExists(field);      //get a named selection
     dbgAssertOrIgnore(selection != NULL);
     dbgAssertOrIgnore(selection->selection->numShips > 0);          //verify there are ships in it
-    event->param[0] = (udword)(selection->selection);
+    event->param[0] = (memsize)(selection->selection);
 }
 void nisKeepMovingAtEndSet(char *directory, char *field, void *dataToFillIn)
 {
@@ -4558,6 +4558,12 @@ nisheader *nisLoad(char *fileName, char *scriptName)
     char localisedPath[256];
     sdword instanceID;
 
+#ifdef _X86_64
+    char newFileName[80];
+    sprintf(newFileName, "%s.64",fileName);
+    fileName = newFileName;
+#endif
+
     f = fileOpen(fileName, 0);                              //open the file
     fileBlockRead(f, &header, sizeof(nisheader));           //read the header
 
@@ -4591,11 +4597,11 @@ nisheader *nisLoad(char *fileName, char *scriptName)
         dbgFatalf(DBG_Loc, "Invalid version number in %s.  Expected 0x%x found 0x%x", fileName, NIS_VersionNumber, header.version);
     }
 #endif                                                      //allocate the new header/NIS data minus strings
-    newHeader = memAlloc((udword)header.stringBlock, "NISHeader", NonVolatile);
+    newHeader = memAlloc((memsize)header.stringBlock, "NISHeader", NonVolatile);
     memset(newHeader, 0, sizeof(nisheader));
     memcpy(newHeader, &header, sizeof(nisheader));         //make allocated copy of header
     fileBlockRead(f, (ubyte *)newHeader + sizeof(nisheader),//read in the main body of NIS
-                  (sdword)header.stringBlock - sizeof(nisheader));
+                  (sdword)(memsize)header.stringBlock - sizeof(nisheader));
     //separately allocate and load in the string block
     newHeader->stringBlock = memAlloc(newHeader->stringBlockLength, "NISStrings", NonVolatile);
     fileBlockRead(f, newHeader->stringBlock, newHeader->stringBlockLength);
@@ -4603,7 +4609,7 @@ nisheader *nisLoad(char *fileName, char *scriptName)
     newHeader->flags = 0;
 //    newHeader->name += (udword)newHeader->stringBlock;      //fixup file name
 
-    newHeader->objectPath = (spaceobjpath *)((udword)newHeader + (ubyte *)newHeader->objectPath);//fixup the object motion path array
+    newHeader->objectPath = (spaceobjpath *)((memsize)newHeader + (ubyte *)newHeader->objectPath);//fixup the object motion path array
 
 #if FIX_ENDIAN
 	for (index = 0; index < newHeader->nObjectPaths; index++)
@@ -4632,11 +4638,11 @@ nisheader *nisLoad(char *fileName, char *scriptName)
     for (index = 0; index < newHeader->nObjectPaths; index++)
     {                                                       //for each object motion path
         objPath = &newHeader->objectPath[index];            //get pointer to this motion path
-        objPath->parameters = (tcb *)((udword)newHeader + (ubyte *)objPath->parameters);  //fixup the various arrays
-        objPath->times = (real32 *)((udword)newHeader + (ubyte *)objPath->times);
+        objPath->parameters = (tcb *)((memsize)newHeader + (ubyte *)objPath->parameters);  //fixup the various arrays
+        objPath->times = (real32 *)((memsize)newHeader + (ubyte *)objPath->times);
         for (j = 0; j < 6; j++)
         {
-            objPath->curve[j] = (real32 *)((udword)newHeader + (ubyte *)objPath->curve[j]);
+            objPath->curve[j] = (real32 *)((memsize)newHeader + (ubyte *)objPath->curve[j]);
         }
 
 #if FIX_ENDIAN
@@ -4669,7 +4675,7 @@ nisheader *nisLoad(char *fileName, char *scriptName)
 
 #endif
         //convert ship name to type
-        strcpy(string, (char *)objPath->type + (udword)newHeader->stringBlock);
+        strcpy(string, (char *)objPath->type + (memsize)newHeader->stringBlock);
         if ((instancePtr = strchr(string, '(')) != NULL)
         {
             sscanf(instancePtr + 1, "%d", &instanceID);
@@ -4740,7 +4746,7 @@ nisheader *nisLoad(char *fileName, char *scriptName)
         objPath->type = type;                               //set new scanned ship type
         if (objPath->parentIndex != 0)
         {
-            strcpy(string, (char *)objPath->parentIndex + (udword)newHeader->stringBlock);
+            strcpy(string, (char *)objPath->parentIndex + (memsize)newHeader->stringBlock);
             if ((instancePtr = strchr(string, '(')) != NULL)//if there is an instance
             {
                 sscanf(instancePtr + 1, "%d", &instanceID);
@@ -4777,7 +4783,7 @@ foundOne:;
         }
     }
 
-    newHeader->cameraPath = (camerapath * )((udword)newHeader + (ubyte *)newHeader->cameraPath);    //fixup the object motion path array
+    newHeader->cameraPath = (camerapath * )((memsize)newHeader + (ubyte *)newHeader->cameraPath);    //fixup the object motion path array
     for (index = 0; index < newHeader->nCameraPaths; index++)
     {                                                       //for each object motion path
         camPath = &newHeader->cameraPath[index];            //get pointer to this motion path
@@ -4790,14 +4796,14 @@ foundOne:;
 		camPath->parameters = ( tcb *)FIX_ENDIAN_INT_32( ( udword )camPath->parameters );
 #endif
 
-        camPath->parameters = (tcb *)((udword)newHeader + (ubyte *)camPath->parameters);  //fixup the various arrays
-        camPath->times = (real32 *)((udword)newHeader + (ubyte *)camPath->times);
+        camPath->parameters = (tcb *)((memsize)newHeader + (ubyte *)camPath->parameters);  //fixup the various arrays
+        camPath->times = (real32 *)((memsize)newHeader + (ubyte *)camPath->times);
         for (j = 0; j < 6; j++)
         {
 #if FIX_ENDIAN
 			camPath->curve[j] = ( real32 *)FIX_ENDIAN_INT_32( ( udword )camPath->curve[j] );
 #endif
-            camPath->curve[j] = (real32 *)((udword)newHeader + (ubyte *)camPath->curve[j]);
+            camPath->curve[j] = (real32 *)((memsize)newHeader + (ubyte *)camPath->curve[j]);
         }
 
 #if FIX_ENDIAN

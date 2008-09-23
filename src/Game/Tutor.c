@@ -54,9 +54,9 @@ bool FalkosFuckedUpTutorialFlag = FALSE;
 // Function declarations
 void utySinglePlayerGameStart(char *name, featom *atom);
 char *tutGetNextTextLine(char *pDest, char *pString, long Width, int pDestSize);
-udword tutProcessNextButton(struct tagRegion *reg, sdword ID, udword event, udword data);
-udword tutProcessBackButton(struct tagRegion *reg, sdword ID, udword event, udword data);
-udword uicButtonProcess(regionhandle region, sdword ID, udword event, udword data);
+udword tutProcessNextButton(struct tagRegion *reg, smemsize ID, udword event, udword data);
+udword tutProcessBackButton(struct tagRegion *reg, smemsize ID, udword event, udword data);
+udword uicButtonProcess(regionhandle region, smemsize ID, udword event, udword data);
 
 // flags for controlling game elements from the tutorial
 tutGameEnableFlags tutEnable;
@@ -924,7 +924,7 @@ void tutAllocateRootRegion(void)
 {
     if(tutRootRegionCount == 0)
     {
-        tutRootRegion = regChildAlloc(ghMainRegion, (sdword)&tutRootAtom,
+        tutRootRegion = regChildAlloc(ghMainRegion, (smemsize)&tutRootAtom,
             tutRootAtom.x, tutRootAtom.y, tutRootAtom.width, tutRootAtom.height, 0, RPE_DrawEveryFrame);
 
         tutRootAtom.region = (void*)tutRootRegion;
@@ -993,7 +993,7 @@ char        Line[256], *pString;
     tutTextRect.x1 = tutTextRect.x0 + tutTextSizeX + 10;
     tutTextRect.y1 = tutTextRect.y0 + max(Height, tutTextSizeY) + 10;
 
-    tutTextRegion = regChildAlloc(tutRootRegion, (sdword)&tutTextAtom,
+    tutTextRegion = regChildAlloc(tutRootRegion, (smemsize)&tutTextAtom,
         tutTextAtom.x, tutTextAtom.y, tutTextAtom.width, tutTextAtom.height, 0, 0);
 
     tutTextAtom.region = (void*)tutTextRegion;
@@ -1474,7 +1474,7 @@ void tutShowNextButton(void)
     tutNextAtom.width = 64;
     tutNextAtom.height = 32;
 
-    tutNextRegion = (buttonhandle)regChildAlloc(tutRootRegion, (sdword)&tutNextAtom,
+    tutNextRegion = (buttonhandle)regChildAlloc(tutRootRegion, (smemsize)&tutNextAtom,
         tutNextAtom.x, tutNextAtom.y, tutNextAtom.width, tutNextAtom.height, sizeof(buttonhandle) - sizeof(regionhandle), 0);
 
     tutNextAtom.region = (void*)tutNextRegion;
@@ -1502,7 +1502,7 @@ void tutHideNextButton(void)
 
 }
 
-udword tutProcessNextButton(struct tagRegion *reg, sdword ID, udword event, udword data)
+udword tutProcessNextButton(struct tagRegion *reg, smemsize ID, udword event, udword data)
 {
     if(event == CM_ButtonClick)
     {
@@ -1557,7 +1557,7 @@ void tutShowBackButton(void)
     tutBackAtom.width = 128;
     tutBackAtom.height = 32;
 
-    tutBackRegion = (buttonhandle)regChildAlloc(tutRootRegion, (sdword)&tutBackAtom,
+    tutBackRegion = (buttonhandle)regChildAlloc(tutRootRegion, (smemsize)&tutBackAtom,
         tutBackAtom.x, tutBackAtom.y, tutBackAtom.width, tutBackAtom.height, sizeof(buttonhandle) - sizeof(regionhandle), 0);
 
     tutBackAtom.region = (void*)tutBackRegion;
@@ -1596,7 +1596,7 @@ void tutHideBackButton(void)
 
 }
 
-udword tutProcessBackButton(struct tagRegion *reg, sdword ID, udword event, udword data)
+udword tutProcessBackButton(struct tagRegion *reg, smemsize ID, udword event, udword data)
 {
     if(event == CM_ButtonClick)
     {
@@ -1753,7 +1753,7 @@ long    ImageCount;
     tutImageAtom.width = ImageCount * 64;
     tutImageAtom.height = 64;
 
-    tutImageRegion = regChildAlloc(tutRootRegion, (sdword)&tutImageAtom,
+    tutImageRegion = regChildAlloc(tutRootRegion, (smemsize)&tutImageAtom,
         tutImageAtom.x, tutImageAtom.y, tutImageAtom.width, tutImageAtom.height, 0, 0);
 
     tutImageAtom.region = (void*)tutImageRegion;
@@ -1936,8 +1936,8 @@ long    i;
 
 void tutSetFlagIndex(long Index, long Val)
 {
-long *pFlagMem;
-long FlagBit;
+sdword *pFlagMem;
+sdword FlagBit;
 
     //hack code to get speech to work when game paused
     if (Index == 1)
@@ -1945,7 +1945,7 @@ long FlagBit;
         FalkosFuckedUpTutorialFlag = !Val;
     }
 
-    pFlagMem = (long *)&tutEnable;
+    pFlagMem = (sdword *)&tutEnable;
 	pFlagMem += Index/32;
 
 #ifdef _MACOSX_FIX_ME // FIX_ENDIAN?

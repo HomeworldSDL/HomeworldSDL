@@ -3725,7 +3725,7 @@ sdword cmUpdateFactory(Ship* shipfactory)
     Outputs     : Starts up the construction manager and returns.
     Return      : void
 ----------------------------------------------------------------------------*/
-sdword cmConstructionBegin(regionhandle region, sdword ID, udword event, udword data)
+sdword cmConstructionBegin(regionhandle region, smemsize ID, udword event, udword data)
 {
     sdword status = 0;
     ShipPtr bship=NULL;
