@@ -1057,7 +1057,7 @@ void lmCorvetteUsedDraw(featom *atom, regionhandle region)
     Outputs     : none
     Return      : void
 ----------------------------------------------------------------------------*/
-sdword lmSelectMotherShip(regionhandle region, sdword ID, udword event, udword data)
+sdword lmSelectMotherShip(regionhandle region, smemsize ID, udword event, udword data)
 {
     if (universe.curPlayerPtr->PlayerMothership == NULL) return(0);
 
@@ -1088,7 +1088,7 @@ sdword lmSelectMotherShip(regionhandle region, sdword ID, udword event, udword d
     Outputs     : none
     Return      : void
 ----------------------------------------------------------------------------*/
-sdword lmSelectCarrierX(regionhandle region, sdword ID, udword event, udword data, udword x)
+sdword lmSelectCarrierX(regionhandle region, smemsize ID, udword event, udword data, udword x)
 {
     if (lmCarrierX[x-1] == NULL) return (0);
 
@@ -1117,22 +1117,22 @@ sdword lmSelectCarrierX(regionhandle region, sdword ID, udword event, udword dat
     Outputs     : none
     Return      : void
 ----------------------------------------------------------------------------*/
-sdword lmSelectCarrier1(regionhandle region, sdword ID, udword event, udword data)
+sdword lmSelectCarrier1(regionhandle region, smemsize ID, udword event, udword data)
 {
     return lmSelectCarrierX(region,ID,event,data,1);
 }
 
-sdword lmSelectCarrier2(regionhandle region, sdword ID, udword event, udword data)
+sdword lmSelectCarrier2(regionhandle region, smemsize ID, udword event, udword data)
 {
     return lmSelectCarrierX(region,ID,event,data,2);
 }
 
-sdword lmSelectCarrier3(regionhandle region, sdword ID, udword event, udword data)
+sdword lmSelectCarrier3(regionhandle region, smemsize ID, udword event, udword data)
 {
     return lmSelectCarrierX(region,ID,event,data,3);
 }
 
-sdword lmSelectCarrier4(regionhandle region, sdword ID, udword event, udword data)
+sdword lmSelectCarrier4(regionhandle region, smemsize ID, udword event, udword data)
 {
     return lmSelectCarrierX(region,ID,event,data,4);
 }
@@ -1144,7 +1144,7 @@ sdword lmSelectCarrier4(regionhandle region, sdword ID, udword event, udword dat
     Outputs     :
     Return      : void
 ----------------------------------------------------------------------------*/
-void lmDrawShipImage(regionhandle region, sdword shipID)
+void lmDrawShipImage(regionhandle region, smemsize shipID)
 {
     rectangle rect;
     sdword usetexture;
@@ -1578,7 +1578,7 @@ void lmUpdateShipsInside(void)
     Outputs     :
     Return      : sdword
 ----------------------------------------------------------------------------*/
-sdword lmLaunchBegin(regionhandle region, sdword ID, udword event, udword data)
+sdword lmLaunchBegin(regionhandle region, smemsize ID, udword event, udword data)
 {
     uword i;
     Node *walk;

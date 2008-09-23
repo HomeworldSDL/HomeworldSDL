@@ -1934,7 +1934,7 @@ long    i;
     tutEnableEverything();
 }
 
-void tutSetFlagIndex(long Index, long Val)
+void tutSetFlagIndex(sdword Index, sdword Val)
 {
 sdword *pFlagMem;
 sdword FlagBit;

@@ -1163,7 +1163,7 @@ void gunShoot(Ship *ship, Gun *gun, SpaceObjRotImpTarg *target)
         if (stat != NULL && etgBulletEffectsEnabled && !etgFrequencyExceeded(stat))
 #endif
         {
-            bullet->effect = etgEffectCreate(stat, (Ship *)bullet, NULL, &ship->posinfo.velocity, NULL, 1.0f, EAF_AllButNLips, 3, intDamage, intVelocity, SCALECAST(intLength));
+            bullet->effect = etgEffectCreate(stat, (Ship *)bullet, NULL, &ship->posinfo.velocity, NULL, 1.0f, EAF_AllButNLips, 3, SCALECAST(intDamage), SCALECAST(intVelocity), SCALECAST(intLength));
         }
         else
         {

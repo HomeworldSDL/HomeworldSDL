@@ -2079,7 +2079,7 @@ sdword dockFindLaunchPointRandom(sdword *dockpointindices[],Ship *dockwith,Ship 
     sdword foundNumberIndices = 0;
     sdword retval;
 
-    PotentialIndices = memAlloc(numDockPoints<<2,"pi(potentialindxs)",Pyrophoric);
+    PotentialIndices = memAlloc(numDockPoints*sizeof(memsize),"pi(potentialindxs)",Pyrophoric);
 
     while (curlaunchpoint != NULL)
     {

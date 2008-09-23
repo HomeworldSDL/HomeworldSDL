@@ -338,11 +338,11 @@ void dmgPlayEffect(Ship* ship, etglod* effect, sdword level)
                                  &ship->posinfo.velocity,
                                  &finalCoordSys,
                                  ship->magnitudeSquared, EAF_NLips | EAF_Velocity,
-                                 2, intDamage, intSize);
+                                 2, SCALECAST(intDamage), SCALECAST(intSize));
 #else
         Effect* effect = etgEffectCreate(stat, ship, &location, &ship->posinfo.velocity,
                                          &coordsys, ship->magnitudeSquared, EAF_NLips | EAF_Velocity | EAF_OwnerCoordSys,
-                                         2, intDamage, intSize);
+                                         2, SCALECAST(intDamage), SCALECAST(intSize));
 #endif
         dmgAddEffectToShip(ship, effect, level);
     }

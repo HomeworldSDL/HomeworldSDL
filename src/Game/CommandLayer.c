@@ -1352,12 +1352,12 @@ bool processAttackToDo(CommandToDo *attacktodo)
                         InitShipAI(wingman,FALSE);
 
                         wingman->flightmanState2 = SANDWICH_RIGHT;
-                        flightmanInitWithFlags(wingman,FLIGHTMAN_SANDWICH,(udword)target);
+                        flightmanInitWithFlags(wingman,FLIGHTMAN_SANDWICH,(memsize)target);
                         wingman->attackvars.flightmansLeft = 1;
                         wingman->attackvars.attacksituation = ATTACKSITUATION_SANDWICH;
 
                         ship->flightmanState2 = SANDWICH_LEFT;
-                        flightmanInitWithFlags(ship,FLIGHTMAN_SANDWICH,(udword)target);
+                        flightmanInitWithFlags(ship,FLIGHTMAN_SANDWICH,(memsize)target);
                         attackvars->flightmansLeft = 1;
                         attackvars->attacksituation = ATTACKSITUATION_SANDWICH;
                         goto skipattack;

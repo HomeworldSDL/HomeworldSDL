@@ -165,7 +165,7 @@ sdword SEcleanqueue(SPEECHQUEUE *pSQueue);
 
 SPEECHQUEUE speechqueue[SE_NUM_ACTORS];
 sdword  streamhandle[SE_NUM_ACTORS];
-sdword  speechfilehandle;
+smemsize  speechfilehandle;
 
 sdword  numSinglePlayerEvents;
 
@@ -197,7 +197,7 @@ EFFECT      damageeffect;
 /* music variables */
 MUSICINFO   musicinfo[2];
 sdword  musicstreamhandle[2];
-sdword  musicfilehandle;
+smemsize  musicfilehandle;
 ubyte   *pmusicbuffer0;
 ubyte   *pmusicbuffer1;
 MUSICHEADER *musicheader;
@@ -1048,8 +1048,8 @@ void speechPlayQueue(SPEECHQUEUE *pSQueue, sdword streamchannel)
 #endif
         if (bookend && enableSFX)
         {
-            soundstreamqueuewait(streamhandle[streamchannel], (sdword)UIBank,
-                             (sdword)UIEventsLUT->lookup[GetPatch(UIEventsLUT, 0, UI_RadioBeepStart)],
+            soundstreamqueuewait(streamhandle[streamchannel], (smemsize)UIBank,
+                             (smemsize)UIEventsLUT->lookup[GetPatch(UIEventsLUT, 0, UI_RadioBeepStart)],
                              SOUND_FLAGS_QUEUEPATCH, (sword)vol, pan, SOUND_MONO, SOUND_DEFAULT, NULL, NULL, NULL, event);
 
 //          soundstreamqueueSilence(streamhandle[stream], SOUND_FLAGS_QUEUESILENCE, vol, pan, SOUND_MONO,
@@ -1075,8 +1075,8 @@ void speechPlayQueue(SPEECHQUEUE *pSQueue, sdword streamchannel)
 //          soundstreamqueueSilence(streamhandle[stream], SOUND_FLAGS_QUEUESILENCE, vol, pan, SOUND_MONO,
 //                                  SentenceLUT->compbitrate, fqeffect, pEQ, pdelay, SEsilence());
 
-            soundstreamqueue(streamhandle[streamchannel], (sdword)UIBank,
-                             (sdword)UIEventsLUT->lookup[GetPatch(UIEventsLUT, 0, UI_RadioBeepEnd)],
+            soundstreamqueue(streamhandle[streamchannel], (smemsize)UIBank,
+                             (smemsize)UIEventsLUT->lookup[GetPatch(UIEventsLUT, 0, UI_RadioBeepEnd)],
                              SOUND_FLAGS_QUEUEPATCH, (sword)vol, pan, SOUND_MONO, SOUND_DEFAULT, NULL, NULL, NULL, event);
         }
         else
@@ -2290,8 +2290,8 @@ sdword SEspeechevent(sdword stream, sdword actor, sdword event, sdword var, swor
     {
         if (bookend && enableSFX)
         {
-            soundstreamqueue(streamhandle[stream], (sdword)SpecialEffectBank,
-                             (sdword)SpecEffectEventsLUT->lookup[GetPatch(SpecEffectEventsLUT, 0, Spec_RadioBeepStart)],
+            soundstreamqueue(streamhandle[stream], (smemsize)SpecialEffectBank,
+                             (smemsize)SpecEffectEventsLUT->lookup[GetPatch(SpecEffectEventsLUT, 0, Spec_RadioBeepStart)],
                              SOUND_FLAGS_QUEUEPATCH, vol, pan, SOUND_MONO, SOUND_DEFAULT, NULL, NULL, NULL, pSQueue->current.event);
 
 //          soundstreamqueueSilence(streamhandle[stream], SOUND_FLAGS_QUEUESILENCE, vol, pan, SOUND_MONO,
@@ -2311,8 +2311,8 @@ sdword SEspeechevent(sdword stream, sdword actor, sdword event, sdword var, swor
 //          soundstreamqueueSilence(streamhandle[stream], SOUND_FLAGS_QUEUESILENCE, vol, pan, SOUND_MONO,
 //                                  SentenceLUT->compbitrate, fqeffect, pEQ, pdelay, SEsilence());
 
-            soundstreamqueue(streamhandle[stream], (sdword)SpecialEffectBank,
-                             (sdword)SpecEffectEventsLUT->lookup[GetPatch(SpecEffectEventsLUT, 0, Spec_RadioBeepEnd)],
+            soundstreamqueue(streamhandle[stream], (smemsize)SpecialEffectBank,
+                             (smemsize)SpecEffectEventsLUT->lookup[GetPatch(SpecEffectEventsLUT, 0, Spec_RadioBeepEnd)],
                              SOUND_FLAGS_QUEUEPATCH, vol, pan, SOUND_MONO, SOUND_DEFAULT, NULL, NULL, NULL, pSQueue->current.event);
         }
     }

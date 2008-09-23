@@ -1152,7 +1152,7 @@ typedef struct
     real32 timestamp;
 } SandwichInfo;
 
-void flightmanSandwichInit(Ship *ship,sdword flags)
+void flightmanSandwichInit(Ship *ship,smemsize flags)
 {
     Ship *target = (Ship *)flags;
     SandwichInfo *sandwichinfo;
@@ -2062,7 +2062,7 @@ bool flightmanSideStepExecute(Ship *ship)
     Flight maneuver intialization, execution, close commands
 =============================================================================*/
 
-void flightmanInitFunc(Ship *ship,udword flightman,sdword flags)
+void flightmanInitFunc(Ship *ship,udword flightman,smemsize flags)
 {
     FlightmanSpecificInit flightmanSpecificInit;
 

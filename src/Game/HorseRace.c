@@ -789,7 +789,7 @@ void hrInitBackground(void)
     udword screenWidth, screenHeight, Size, Top, Bottom;
     udword scaledImageGapSizeX, scaledImageGapSizeY;
 
-    unsigned long *pDest;
+    udword *pDest;
     unsigned char *pTempImage, *pTempLine, *pRGB;
 
     real32 subPixelX, subPixelY, scaleFactor;

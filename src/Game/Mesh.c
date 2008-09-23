@@ -289,7 +289,11 @@ StaticInfo *meshNameToStaticInfo(char *fileName)
         return(NULL);
     }
     type = StrToShipType(typeString);
+#ifdef _X86_64
+    if (type == 0xffffffffffffffff)
+#else
     if (type == 0xffffffff)
+#endif
     {
         if (strcasecmp(typeString, "MISSILE") == 0)
         {
@@ -637,7 +641,7 @@ meshdata *meshLoad(char *inFileName)
     filehandle file;
     meshdata *mesh;
     sdword index;
-    udword offset;
+    memsize offset;
     polygonobject *object;
     char fullName[FL_Path];
     sdword fileLength;
@@ -662,6 +666,8 @@ meshdata *meshLoad(char *inFileName)
 
     allowPacking = mainAllowPacking;
 
+
+
     if (allowPacking && meshPagedVersionExists(inFileName))
     {
         meshPagedName(pagedName, inFileName);
@@ -671,6 +677,13 @@ meshdata *meshLoad(char *inFileName)
     {
         fileName = inFileName;
     }
+
+#ifdef _X86_64
+    char newFileName[80];
+    sprintf(newFileName, "%s.64",fileName);
+    fileName = newFileName;
+#endif
+
 
     fileLength = fileSizeGet(fileName, 0);
 
@@ -724,7 +737,7 @@ meshdata *meshLoad(char *inFileName)
                     sizeof(polygonobject), fileName, NonVolatile);
     memNameSetLong((memcookie*)((ubyte *)mesh - sizeof(memcookie)), fileName);
     //now that it is all loaded in, all pointers need to be fixed up
-    offset = (udword)mesh - sizeof(GeoFileHeader) +
+    offset = (memsize)mesh - sizeof(GeoFileHeader) +
         sizeof(meshdata) - sizeof(polygonobject);           //!!! add size of materials when they're in???
 //    mesh->localSize = header.localSize;
     if (newFormat)
@@ -1185,7 +1198,18 @@ void meshFree(meshdata *mesh)
             {                                               //for each player
                 if (((trhandle *)mesh->localMaterial[index].texture)[j] != TR_Invalid)
                 {                                           //if this player was this race
+#ifdef _X86_64
+                    if (((trhandle *)mesh->localMaterial[index].texture)[j] != 0xffffffffffffffff) // Check for -1
+                    {
+                        if (((trhandle *)mesh->localMaterial[index].texture)[j] < 6000 ) {
+#endif
+                
                     trTextureUnregister(((trhandle *)mesh->localMaterial[index].texture)[j]);
+
+#ifdef _X86_64
+                        }
+                    }
+#endif
                 }                                           //unregister the texture
             }
             memFree((ubyte *)mesh->localMaterial[index].texture);    //free the texture handle list
@@ -2903,6 +2927,7 @@ void meshMorphedObjectRenderTex(polygonobject* object1, polygonobject* object2,
                                 polyentry *uvPolys, materialentry* material,
                                 real32 frac, sdword iColorScheme)
 {
+//    dbgMessagef("meshCurrentMaterialTex O1: 0x%lx O2: 0x%lx", object1,object2); // Something very bad was happening here. :(
     meshCurrentMaterial = meshCurrentMaterialTex;
     meshMorphedObjectRender(object1, object2, uvPolys, material, frac, 0);
     meshCurrentMaterial = meshCurrentMaterialDefault;

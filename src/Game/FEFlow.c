@@ -645,7 +645,7 @@ udword feScrollBarProcess(regionhandle region, sdword ID, udword event, udword d
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-udword feListWindowProcess(regionhandle region, sdword ID, udword event, udword data)
+udword feListWindowProcess(regionhandle region, smemsize ID, udword event, udword data)
 {
     listwindowhandle listwindow = (listwindowhandle)region;
 
@@ -686,7 +686,7 @@ udword feListWindowProcess(regionhandle region, sdword ID, udword event, udword 
     Return      : flags indicating further operation:
 
 ----------------------------------------------------------------------------*/
-udword feButtonProcess(regionhandle region, sdword ID, udword event, udword data)
+udword feButtonProcess(regionhandle region, smemsize ID, udword event, udword data)
 {
     featom *atom = (featom *)ID;
     felink *link;
@@ -1272,7 +1272,7 @@ regionhandle feRegionsAdd(regionhandle parent, fescreen *screen, bool moveToFron
     dbgAssertOrIgnore(screen->nAtoms >= 1);                         //make sure there is at least a blank screen
     atom = screen->atoms;
 
-    baseRegion = regChildAlloc(parent, (sdword)atom, atom->x, atom->y, //create base dummy region
+    baseRegion = regChildAlloc(parent, (smemsize)atom, atom->x, atom->y, //create base dummy region
                                atom->width, atom->height, 0, RPE_PressLeft);
     if (moveToFront)
     {
@@ -1318,7 +1318,7 @@ regionhandle feRegionsAdd(regionhandle parent, fescreen *screen, bool moveToFron
 
                 if (atom->pData != NULL)
                 {
-                    region = regChildAlloc(baseRegion, (sdword)atom, atom->x, atom->y,
+                    region = regChildAlloc(baseRegion, (smemsize)atom, atom->x, atom->y,
                                    atom->width, atom->height, 0, 0);
                     atom->region = (void*)region;
                     region->atom = atom;
@@ -1341,7 +1341,7 @@ regionhandle feRegionsAdd(regionhandle parent, fescreen *screen, bool moveToFron
                 }
                 break;
             case FA_StaticText:                             //static text message
-                region = regChildAlloc(baseRegion, (sdword)atom, atom->x, atom->y,
+                region = regChildAlloc(baseRegion, (smemsize)atom, atom->x, atom->y,
                                atom->width, atom->height, 0, 0);
                 atom->region = (void*)region;
                 region->atom = atom;
@@ -1355,10 +1355,10 @@ regionhandle feRegionsAdd(regionhandle parent, fescreen *screen, bool moveToFron
                 }
                 break;
             case FA_DecorativeRegion:
-                region = regChildAlloc(baseRegion, (sdword)atom, atom->x, atom->y,
+                region = regChildAlloc(baseRegion, (smemsize)atom, atom->x, atom->y,
                                        atom->width, atom->height, 0, 0);
                 region->atom = atom;
-                region->userID = (sdword)atom->name;
+                region->userID = (smemsize)atom->name;
                 atom->region = (void*)region;
                 if (bitTest(atom->flags, FAF_Hidden))
                 {
@@ -1370,10 +1370,10 @@ regionhandle feRegionsAdd(regionhandle parent, fescreen *screen, bool moveToFron
                 }
                 break;
             case FA_OpaqueDecorativeRegion:
-                region = regChildAlloc(baseRegion, (sdword)atom, atom->x, atom->y,
+                region = regChildAlloc(baseRegion, (smemsize)atom, atom->x, atom->y,
                                        atom->width, atom->height, 0, 0);
                 region->atom = atom;
-                region->userID = (sdword)atom->name;
+                region->userID = (smemsize)atom->name;
                 atom->region = (void*)region;
                 if (bitTest(atom->flags, FAF_Hidden))
                 {
@@ -1392,7 +1392,7 @@ regionhandle feRegionsAdd(regionhandle parent, fescreen *screen, bool moveToFron
             case FA_HorizSlider:
             case FA_VertSlider:
             case FA_DragButton:
-                button = uicChildButtonAlloc(baseRegion, (sdword)atom, atom->x, atom->y,
+                button = uicChildButtonAlloc(baseRegion, (smemsize)atom, atom->x, atom->y,
                                atom->width, atom->height, feButtonProcess, atom->type | CM_ButtonClick);
                 ((regionhandle)&button->reg)->atom = atom;
                 atom->region = (void*)button;
@@ -1408,7 +1408,7 @@ regionhandle feRegionsAdd(regionhandle parent, fescreen *screen, bool moveToFron
                 uicBorderColor(button, atom->borderColor);
                 break;
             case FA_ScrollBar:
-                scroller = uicChildScrollBarAlloc(baseRegion, (sdword)atom,
+                scroller = uicChildScrollBarAlloc(baseRegion, (smemsize)atom,
                                                 atom->x, atom->y, atom->width, atom->height,
                                                 feScrollBarProcess, atom->type | CM_ButtonClick);
                 ((regionhandle)&scroller->reg)->atom = atom;
@@ -1429,7 +1429,7 @@ regionhandle feRegionsAdd(regionhandle parent, fescreen *screen, bool moveToFron
                 }
                 break;
             case FA_ListWindow:
-                listwindow = uicChildListWindowAlloc(baseRegion, (sdword)atom,
+                listwindow = uicChildListWindowAlloc(baseRegion, (smemsize)atom,
                                                      atom->x, atom->y, atom->width, atom->height,
                                                      feListWindowProcess, atom->type | CM_ButtonClick);
                 scatom = &listwindow->scrollbaratom;
@@ -1444,7 +1444,7 @@ regionhandle feRegionsAdd(regionhandle parent, fescreen *screen, bool moveToFron
                 scatom->pData   = NULL;
                 scatom->attribs = NULL;
 
-                listwindow->scrollbar = uicChildScrollBarAlloc((regionhandle)listwindow, (sdword)scatom,
+                listwindow->scrollbar = uicChildScrollBarAlloc((regionhandle)listwindow, (smemsize)scatom,
                                                 scatom->x, scatom->y, scatom->width, scatom->height,
                                                 feScrollBarProcess, FA_ScrollBar | CM_ButtonClick);
 
@@ -1468,7 +1468,7 @@ regionhandle feRegionsAdd(regionhandle parent, fescreen *screen, bool moveToFron
                 element->rect.y0 = atom->y;
                 element->rect.x1 = atom->x + atom->width;
                 element->rect.y1 = atom->y + atom->height;
-                element->region  = regChildAlloc(baseRegion, (sdword)atom, atom->x, atom->y,
+                element->region  = regChildAlloc(baseRegion, (smemsize)atom, atom->x, atom->y,
                                                 atom->width, atom->height, 0, 0);
                 atom->region = (void*)element->region;
                 element->region->atom = atom;
@@ -1476,7 +1476,7 @@ regionhandle feRegionsAdd(regionhandle parent, fescreen *screen, bool moveToFron
 
                 break;
             default://!!! for now, default to plain rectangles
-                region = regChildAlloc(baseRegion, (sdword)atom, atom->x, atom->y,
+                region = regChildAlloc(baseRegion, (smemsize)atom, atom->x, atom->y,
                                atom->width, atom->height, 0, 0);
                 atom->region = (void*)region;
                 region->atom = atom;
@@ -1788,7 +1788,13 @@ fibfileheader *feScreensLoad(char *fileName)
     sdword screenIndex, index;
     bool menuItemsPresent;
 
+#ifdef _X86_64
+    char newFileName[80];
+    sprintf(newFileName, "%s.64",fileName);
+    fileLoadAlloc(newFileName, (void **)&loadAddress, NonVolatile);
+#else
     fileLoadAlloc(fileName, (void **)&loadAddress, NonVolatile);     //load in the file
+#endif
     header = (fibfileheader *)loadAddress;                  //get a pointer to the header
 
 #if FIX_ENDIAN
@@ -1819,7 +1825,7 @@ fibfileheader *feScreensLoad(char *fileName)
 #endif
 
         dbgAssertOrIgnore(screen->name != NULL);                    //screens need a name
-        screen->name += (udword)loadAddress;                //fix up load address
+        screen->name += (memsize)loadAddress;                //fix up load address
 
         if (((udword)((ubyte *)screen->links) & 0x03) != 0)
         {
@@ -1829,8 +1835,8 @@ fibfileheader *feScreensLoad(char *fileName)
         {
             dbgMessagef("WARNING atoms %s not byte aligned",fileName);
         }
-        screen->links = (udword)loadAddress + (ubyte *)screen->links;      //update list pointers
-        screen->atoms = (udword)loadAddress + (ubyte *)screen->atoms;
+        screen->links = (memsize)loadAddress + (ubyte *)screen->links;      //update list pointers
+        screen->atoms = (memsize)loadAddress + (ubyte *)screen->atoms;
         for (index = 0; index < screen->nLinks; index++)
         {                                                   //for each link in screen
 
@@ -1843,9 +1849,9 @@ fibfileheader *feScreensLoad(char *fileName)
             if (bitTest(screen->links[index].flags, FL_Enabled))
             {                                               //if link enabled
                 dbgAssertOrIgnore(screen->links[index].name);
-                screen->links[index].name += (udword)loadAddress;//fix up the link name
+                screen->links[index].name += (memsize)loadAddress;//fix up the link name
                 dbgAssertOrIgnore(screen->links[index].linkToName);
-                screen->links[index].linkToName += (udword)loadAddress;//fix up the link name
+                screen->links[index].linkToName += (memsize)loadAddress;//fix up the link name
             }
         }
         //see if there are any menu items present in the screen so we can
@@ -1927,13 +1933,13 @@ fibfileheader *feScreensLoad(char *fileName)
 
             if (screen->atoms[index].name != NULL)          //if name string present
             {
-                screen->atoms[index].name += (udword)loadAddress;
+                screen->atoms[index].name += (memsize)loadAddress;
             }
             if (screen->atoms[index].pData != NULL)
             {                                               //fix up data pointer
                 if (screen->atoms[index].type != FA_RadioButton)
                 {                                           //special case: don't fix-up radio button pointers
-                    screen->atoms[index].pData += (udword)loadAddress;
+                    screen->atoms[index].pData += (memsize)loadAddress;
                 }
                 if (screen->atoms[index].flags & FAF_Bitmap)
                 {                                           //if this is a bitmap
@@ -1950,12 +1956,12 @@ fibfileheader *feScreensLoad(char *fileName)
                 if (screen->atoms[index].type == FA_StaticText)
                 {                                           //if static text
                     screen->atoms[index].attribs = (ubyte *)//load in the font
-                        frFontRegister((char *)(screen->atoms[index].attribs + (udword)loadAddress));
+                        frFontRegister((char *)(screen->atoms[index].attribs + (memsize)loadAddress));
                     dbgAssertOrIgnore(screen->atoms[index].attribs != NULL);
                 }
                 if (screen->atoms[index].type == FA_BitmapButton)
                 {
-                    screen->atoms[index].attribs += (udword)loadAddress;
+                    screen->atoms[index].attribs += (memsize)loadAddress;
                     dbgAssertOrIgnore(screen->atoms[index].attribs != NULL);
                 }
             }
@@ -2454,7 +2460,7 @@ regionhandle mrBottomMostAtomRegion(regionhandle baseRegion)
     Return      : flags indicating further operation:
 
 ----------------------------------------------------------------------------*/
-udword feMenuItemProcess(regionhandle region, sdword ID, udword event, udword data)
+udword feMenuItemProcess(regionhandle region, smemsize ID, udword event, udword data)
 {
     featom *atom = (featom *)ID;
     fescreen *screentodraw;
@@ -2699,20 +2705,20 @@ regionhandle feMenuRegionsAdd(regionhandle parent, fescreen *screen, sdword x, s
         switch (atom->type)
         {
             case FA_MenuItem:                               //menu item
-                region = regChildAlloc(baseRegion, (sdword)atom,
+                region = regChildAlloc(baseRegion, (smemsize)atom,
                             atom->x + x, atom->y + y, atom->width, atom->height, 0, FE_MenuFlags);
                 regDrawFunctionSet(region, feMenuItemDraw);
                 regFunctionSet(region, feMenuItemProcess);
                 break;
             case FA_StaticText:                             //static text message
-                region = regChildAlloc(baseRegion, (sdword)atom, atom->x + x, atom->y + y,
+                region = regChildAlloc(baseRegion, (smemsize)atom, atom->x + x, atom->y + y,
                                atom->width, atom->height, 0, 0);
                 regDrawFunctionSet(region, feStaticTextDraw);
                 break;
             case FA_Button:                                 //button
             case FA_ToggleButton:
             case FA_CheckBox:
-                button = uicChildButtonAlloc(baseRegion, (sdword)atom, atom->x + x, atom->y + y,
+                button = uicChildButtonAlloc(baseRegion, (smemsize)atom, atom->x + x, atom->y + y,
                                atom->width, atom->height, feButtonProcess, atom->type | CM_ButtonClick);
                 feAcceleratorSet(&button->reg, atom);
 /*
@@ -2731,12 +2737,12 @@ regionhandle feMenuRegionsAdd(regionhandle parent, fescreen *screen, sdword x, s
                 uicBorderColor(button, atom->borderColor);
                 break;
             case FA_Divider:
-                region = regChildAlloc(baseRegion, (sdword)atom,
+                region = regChildAlloc(baseRegion, (smemsize)atom,
                             atom->x + x, atom->y + y, atom->width, atom->height, 0, 0);
                 regDrawFunctionSet(region, feDividerDraw);
                 break;
             default:                                        //anything else is a plain rectangle
-                region = regChildAlloc(baseRegion, (sdword)atom, atom->x + x, atom->y + y,
+                region = regChildAlloc(baseRegion, (smemsize)atom, atom->x + x, atom->y + y,
                                atom->width, atom->height, 0, 0);
                 regDrawFunctionSet(region, feStaticRectangleDraw);
                 break;
