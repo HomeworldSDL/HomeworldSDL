@@ -722,7 +722,7 @@ void mrBuildShips(char *string, featom *atom)
     soundEvent(NULL, UI_Click);
     if (selSelected.numShips == 1)
     {
-        cmConstructionBegin(ghMainRegion,(sdword)selSelected.ShipPtr[0], 0, 0);
+        cmConstructionBegin(ghMainRegion,(smemsize)selSelected.ShipPtr[0], 0, 0);
     }
     else
     {
@@ -983,7 +983,7 @@ void mrLaunch(char *string, featom *atom)
 
     if (selSelected.numShips == 1)
     {
-        lmLaunchBegin(ghMainRegion,(sdword)selSelected.ShipPtr[0], 0, 0);
+        lmLaunchBegin(ghMainRegion,(smemsize)selSelected.ShipPtr[0], 0, 0);
     }
     else
     {
@@ -3343,11 +3343,11 @@ gotselection:
                 else
                 {
 */
-                    cmConstructionBegin(ghMainRegion,(sdword)selSelected.ShipPtr[0], 0, 0);
+                    cmConstructionBegin(ghMainRegion,(smemsize)selSelected.ShipPtr[0], 0, 0);
 //                }
                 break;
             case ResearchShip:
-                rmResearchGUIBegin(ghMainRegion,(sdword)selSelected.ShipPtr[0], 0, 0);
+                rmResearchGUIBegin(ghMainRegion,(smemsize)selSelected.ShipPtr[0], 0, 0);
                 break;
             case SensorArray:
                 smSensorsBegin(NULL, NULL);

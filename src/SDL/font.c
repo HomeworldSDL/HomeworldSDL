@@ -700,7 +700,13 @@ fontheader *fontLoad(char *fileName)
 
     antialias = TRUE;
 
+#ifdef _X86_64
+    char newFileName[80];
+    sprintf(newFileName, "%s.64",fileName);
+    length = fileLoadAlloc(newFileName, (void **)(&fileHeader), NonVolatile);
+#else
     length = fileLoadAlloc(fileName, (void **)(&fileHeader), NonVolatile);
+#endif
 
 #if FIX_ENDIAN
 	fileHeader->version = FIX_ENDIAN_INT_16( fileHeader->version );
@@ -738,7 +744,7 @@ fontheader *fontLoad(char *fileName)
     dbgMessagef("fontLoad: loaded %d bytes and %d characters from file '%s'", length, header->nCharacters, fileName);
 #endif
 
-    header->image += (udword)fileHeader;                    //fix-up image pointer
+    header->image += (memsize)fileHeader;                    //fix-up image pointer
 
     header->reserved[0] = (ubyte)antialias;
 
@@ -747,12 +753,12 @@ fontheader *fontLoad(char *fileName)
     for (index = iCharacter = 0; index < 256; index++)
     {                                                       //for all possible characters
 #if FIX_ENDIAN
-		header->character[index] = ( charheader *)FIX_ENDIAN_INT_32( ( udword )header->character[index] );
+		header->character[index] = ( charheader *)FIX_ENDIAN_INT_32( ( memsize )header->character[index] );
 #endif
 
         if (header->character[index] != NULL)
         {
-		header->character[index] = (charheader *)((udword)fileHeader + (ubyte *)header->character[index]);
+		header->character[index] = (charheader *)((memsize)fileHeader + (ubyte *)header->character[index]);
 #if FIX_ENDIAN
 			header->character[index]->width   = FIX_ENDIAN_INT_16( header->character[index]->width );
 			header->character[index]->height  = FIX_ENDIAN_INT_16( header->character[index]->height );

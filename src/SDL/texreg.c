@@ -1161,6 +1161,14 @@ sdword trTextureUnregister(trhandle handle)
     sdword index = trIndex(handle);
     sdword paletteIndex = trPaletteIndex(handle);
 
+#ifdef _X86_64
+// Legacy error catching due to not everything working straight away.
+if (handle >= TR_RegistrySize){
+    dbgMessagef("Invalid handle %lx in trTextureUnregister",handle);
+    return 0;
+}
+#endif
+
 #if TR_NIL_TEXTURE
     if (GLOBAL_NO_TEXTURES)
     {
@@ -1678,6 +1686,55 @@ color *trImageScale(color *data, sdword width, sdword height, sdword newWidth, s
     return(newBuffer);                                      //and allocate the new one
 }
 
+#ifdef _X886_64
+
+/*-----------------------------------------------------------------------------
+    Name        : tr64LifAdjustLoad
+    Description : Load in a .lif file and fix up it's pointers
+    Inputs      : fileName - name of file to load
+                  flags - load volatile?
+    Outputs     :
+    Return      : pointer to the header of newly allocated file.
+    Note        : the header of this image can be memfreed as it's all 1 big block
+----------------------------------------------------------------------------*/
+
+lifheader* tr64LifAdjustLoad(lifheader_disk *oldHeader, sdword oldLength)
+{
+
+    sdword newLength;
+    sdword lenDiff;
+    lifheader *newHeader = NULL;
+
+
+    lenDiff =  sizeof(lifheader) - sizeof(lifheader_disk);
+    newLength = oldLength + lenDiff;
+    
+    newHeader =  (lifheader *)memAlloc (newLength,"",0);
+
+
+    strcpy(newHeader->ident,oldHeader->ident);
+    newHeader->version = oldHeader->version;
+    newHeader->flags = oldHeader->flags;
+    newHeader->width = oldHeader->width;
+    newHeader->height = oldHeader->height;
+    newHeader->paletteCRC = oldHeader->paletteCRC;
+    newHeader->imageCRC = oldHeader->imageCRC;
+    newHeader->data = (ubyte *)((Uint64)oldHeader->data + lenDiff);
+    newHeader->palette = (color*)((Uint64)oldHeader->palette + lenDiff);
+    newHeader->teamEffect0 = (ubyte *)((Uint64)oldHeader->teamEffect0 + lenDiff);
+    newHeader->teamEffect1 = (ubyte *)((Uint64)oldHeader->teamEffect1 + lenDiff);
+
+    memcpy ((void*)newHeader+sizeof(lifheader), (void*)oldHeader + sizeof(lifheader_disk), oldLength - sizeof(lifheader_disk));
+
+//    memFree(oldHeader); // Probably should free this here as it'll not be free'ed elsewhere
+    return newHeader;
+
+
+}
+
+#endif
+
+
 /*-----------------------------------------------------------------------------
     Name        : trLIFFileLoad
     Description : Load in a .lif file and fix up it's pointers
@@ -1691,7 +1748,14 @@ lifheader *trLIFFileLoad(char *fileName, udword flags)
 {
     lifheader *newHeader;
 
+#ifdef _X86_64
+    sdword loadLength= 0;
+    lifheader *oldHeader;
+    loadLength = fileLoadAlloc(fileName, (void**)&oldHeader, flags);             //load in the .LiF file
+    newHeader = tr64LifAdjustLoad((lifheader_disk *)oldHeader, loadLength);
+#else
     fileLoadAlloc(fileName, (void**)&newHeader, flags);             //load in the .LiF file
+#endif
 
 #if FIX_ENDIAN
 	newHeader->version     = FIX_ENDIAN_INT_32( newHeader->version );
@@ -1723,10 +1787,10 @@ lifheader *trLIFFileLoad(char *fileName, udword flags)
     */
 #endif
     //fixup pointers in the header
-    newHeader->data = (udword)newHeader + (ubyte *)newHeader->data;
-    newHeader->palette = (color *)((udword)newHeader + (ubyte *)newHeader->palette);
-    newHeader->teamEffect0 = (udword)newHeader + (ubyte *)newHeader->teamEffect0;
-    newHeader->teamEffect1 = (udword)newHeader + (ubyte *)newHeader->teamEffect1;
+    newHeader->data = (memsize)newHeader + newHeader->data;
+    newHeader->palette = (color *)((memsize)newHeader + (ubyte *)newHeader->palette);
+    newHeader->teamEffect0 = (memsize)newHeader + (ubyte *)newHeader->teamEffect0;
+    newHeader->teamEffect1 = (memsize)newHeader + (ubyte *)newHeader->teamEffect1;
 
     return(newHeader);
 }
@@ -2814,7 +2878,7 @@ llelement *trListFileLoad(char *name, sdword *number)
 		list[index].sharedFrom  = FIX_ENDIAN_INT_32( list[index].sharedFrom );
 #endif
 
-        list[index].textureName += (udword)stringBlock;
+        list[index].textureName += (memsize)stringBlock;
     }
     //fix up any sharing pointers there may be
     if (header.sharingLength != 0)
@@ -2825,7 +2889,7 @@ llelement *trListFileLoad(char *name, sdword *number)
             if (list[index].nShared != 0)
             {
 //                (ubyte *)list[index].sharedTo += (udword)sharingBlock;
-                list[index].sharedTo = (sdword *)((udword)sharingBlock + (ubyte *)list[index].sharedTo);
+                list[index].sharedTo = (sdword *)((memsize)sharingBlock + (ubyte *)list[index].sharedTo);
 
 #if FIX_ENDIAN
                 // anonymous block so I can declare i with limited scope and not have
@@ -3096,7 +3160,8 @@ void trRegistryRefresh(void)
                     }
                     else
                     {
-                        dbgFatalf(DBG_Loc, "Cannot open '%s'.", fullName);
+                        dbgMessagef("Cannot open '%s'. index=%d", fullName,index);
+                        dbgFatalf(DBG_Loc, "Cannot open '%s'. index=%d", fullName,index);
                     }
                 }
                 else
@@ -3280,6 +3345,15 @@ void trMakeCurrent(trhandle handle)
 {
     ubyte *newPalette;
     texreg *reg;
+
+#ifdef _X86_64
+//GE01  Seem to be sent spurious texture handles due to the multiplayer options. 
+// Print them then ignore them. :)  probably should wrap this further in build_for_debug tests.
+if (handle >= 6000){
+    dbgMessagef("trMakeCurrent: sent invalid handle: 0x%lx",handle);
+    return;
+    }
+#endif
 
 #if TR_NIL_TEXTURE
     if (GLOBAL_NO_TEXTURES)

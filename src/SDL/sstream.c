@@ -369,7 +369,7 @@ sdword soundstreamfading(sdword streamhandle)
 	Outputs		:
 	Return		:
 ----------------------------------------------------------------------------*/	
-sdword soundstreamqueuePatch(sdword streamhandle, sdword filehandle, sdword offset, udword flags, sword vol, sword pan, sword numchannels, sword bitrate, EFFECT *peffect, STREAMEQ *pEQ, STREAMDELAY *pdelay, void *pmixpatch, sdword level, real32 silence, real32 fadetime, sdword actornum, sdword speechEvent, bool bWait)
+sdword soundstreamqueuePatch(sdword streamhandle, sdword filehandle, smemsize offset, udword flags, sword vol, sword pan, sword numchannels, sword bitrate, EFFECT *peffect, STREAMEQ *pEQ, STREAMDELAY *pdelay, void *pmixpatch, sdword level, real32 silence, real32 fadetime, sdword actornum, sdword speechEvent, bool bWait)
 {
 	sdword chan;
 	STREAM	*pstream;
@@ -493,7 +493,7 @@ sdword soundstreamqueuePatch(sdword streamhandle, sdword filehandle, sdword offs
 			if (ppatch != NULL)
 			{
 				pqueue = &pstream->queue[pstream->queueindex];
-				pqueue->offset = (sdword)ppatch;
+				pqueue->offset = (smemsize)ppatch;
 				pqueue->flags = flags;
 				pqueue->vol = vol;
 				pqueue->pan = pan;
@@ -967,7 +967,7 @@ sdword isoundstreamreadheader(STREAM *pstream)
 }
 
 
-sdword isoundstreamreadblock(STREAMQUEUE *pqueue, void *buffer, sdword position, sdword size)
+sdword isoundstreamreadblock(STREAMQUEUE *pqueue, void *buffer, smemsize position, sdword size)
 {
 	sdword ret = SOUND_ERR;
 

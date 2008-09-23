@@ -55,9 +55,15 @@ LONGLONG __cdecl _ftol(void)
 asm (".globl _chkstk\n"
      ".type   _chkstk, @function\n"
      "_chkstk:\n"
+#ifdef _X86_64
+     "popq %rcx\n"           /* Copy function's return address */
+     "subl %eax, %esp\n"
+     "pushq %rcx\n"          /* Restore original return address */
+#else
      "popl %ecx\n"           /* Copy function's return address */
      "subl %eax, %esp\n"
      "pushl %ecx\n"          /* Restore original return address */
+#endif
      "ret\n"
      ".size   _chkstk, .-_chkstk\n");
 #endif
