@@ -1,20 +1,20 @@
-#!/bin/zsh
+#!/bin/sh
 
 BIGGIE="tools/biggie/biggie"
 HOMEWORLDSDL_BIG_DIR="HomeworldSDL_big"
 HOMEWORLDSDL_BIG_FILE="HomeworldSDL.big"
 
-if [[ ! -e $PWD/$HOMEWORLDSDL_BIG_DIR ]] then
+if [ ! -e $PWD/$HOMEWORLDSDL_BIG_DIR ]; then
     echo -e "Sorry to be a pain but in order to make it easier to use this script"
     echo -e "I'm going to force you to run it from the root directory to ensure"
     echo -e "things are in a known location. Try cd'ing up a directory."
     echo -e "(Yes, I'm aware of the irony of this.)"
-    exit
+    exit;
 fi
 
-if [[ ! -e $BIGGIE ]] then
+if [ ! -e $BIGGIE ]; then
     echo -e "It doesn't look like $BIGGIE exists. Please compile it first."
-    exit
+    exit;
 fi
 
 # Having ascertained we're in the right place and ready to go - let's change
