@@ -150,7 +150,7 @@ sdword soundstreaminit(void *pstreamer, sdword size, sdword nostreams, streampri
 	Outputs		:
 	Return		:
 ----------------------------------------------------------------------------*/
-udword soundstreamopenfile(char *pszStreamFile, sdword *handle)
+udword soundstreamopenfile(char *pszStreamFile, smemsize *handle)
 {
 	filehandle streamfile;
     udword identifier;
@@ -369,7 +369,7 @@ sdword soundstreamfading(sdword streamhandle)
 	Outputs		:
 	Return		:
 ----------------------------------------------------------------------------*/	
-sdword soundstreamqueuePatch(sdword streamhandle, sdword filehandle, smemsize offset, udword flags, sword vol, sword pan, sword numchannels, sword bitrate, EFFECT *peffect, STREAMEQ *pEQ, STREAMDELAY *pdelay, void *pmixpatch, sdword level, real32 silence, real32 fadetime, sdword actornum, sdword speechEvent, bool bWait)
+sdword soundstreamqueuePatch(sdword streamhandle, smemsize filehandle, smemsize offset, udword flags, sword vol, sword pan, sword numchannels, sword bitrate, EFFECT *peffect, STREAMEQ *pEQ, STREAMDELAY *pdelay, void *pmixpatch, sdword level, real32 silence, real32 fadetime, sdword actornum, sdword speechEvent, bool bWait)
 {
 	sdword chan;
 	STREAM	*pstream;

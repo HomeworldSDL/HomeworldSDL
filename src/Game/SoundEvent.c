@@ -296,7 +296,7 @@ sdword numMoships;
 
 
 extern sdword  streamhandle[];
-extern sdword  speechfilehandle;
+extern smemsize  speechfilehandle;
 extern SENTENCELUT *SentenceLUT;
 
 sdword SEselectsentence(sdword actor, sdword event, sdword variable, sdword setvariation, sdword **pOffsets, udword *pDuration);
