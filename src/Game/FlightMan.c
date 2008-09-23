@@ -304,7 +304,7 @@ scriptEntry FlightmanTweaks[] =
     Private types:
 =============================================================================*/
 
-typedef void (*FlightmanSpecificInit) (Ship *ship,sdword flags);
+typedef void (*FlightmanSpecificInit) (Ship *ship,smemsize flags);
 typedef bool (*FlightmanSpecificExecute) (Ship *ship);
 typedef void (*FlightmanSpecificClose) (Ship *ship);
 
@@ -568,7 +568,7 @@ typedef struct
     udword rollleft;
 } FlipTurnInfo;
 
-void flightmanFlipTurnInit(Ship *ship,sdword flags)
+void flightmanFlipTurnInit(Ship *ship,smemsize flags)
 {
     FlipTurnInfo *flipturninfo;
 
@@ -649,7 +649,7 @@ typedef struct
     udword rollleft;
 } CorkscrewInfo;
 
-void flightmanCorkscrewInit(Ship *ship,sdword flags)
+void flightmanCorkscrewInit(Ship *ship,smemsize flags)
 {
     CorkscrewInfo *corkscrewinfo;
 
@@ -704,7 +704,7 @@ typedef struct
     bool rollleft;
 } ImmelmanInfo;
 
-void flightmanImmelmanInit(Ship *ship,sdword flags)
+void flightmanImmelmanInit(Ship *ship,smemsize flags)
 {
     ImmelmanInfo *immelmaninfo;
 
@@ -788,7 +788,7 @@ typedef struct
     bool16 inverted;
 } SplitSInfo;
 
-void flightmanSplitSInit(Ship *ship,sdword flags)
+void flightmanSplitSInit(Ship *ship,smemsize flags)
 {
     SplitSInfo *splitsinfo;
 
@@ -877,7 +877,7 @@ typedef struct
     bool rollleft;
 } HardBankInfo;
 
-void flightmanHardBankInit(Ship *ship,sdword flags)
+void flightmanHardBankInit(Ship *ship,smemsize flags)
 {
     HardBankInfo *hardbankinfo;
 
@@ -954,7 +954,7 @@ typedef struct
     bool rollleft;
 } SoftBankInfo;
 
-void flightmanSoftBankInit(Ship *ship,sdword flags)
+void flightmanSoftBankInit(Ship *ship,smemsize flags)
 {
     SoftBankInfo *softbankinfo;
 
@@ -1031,7 +1031,7 @@ typedef struct
     real32 timestamp;
 } SlalomInfo;
 
-void flightmanSlalomInit(Ship *ship,sdword flags)
+void flightmanSlalomInit(Ship *ship,smemsize flags)
 {
     SlalomInfo *slalominfo;
     bool rightdirection;
@@ -1218,7 +1218,7 @@ typedef struct
     bool rollleft;
 } RollInfo;
 
-void flightmanBarrelRollInit(Ship *ship,sdword flags)
+void flightmanBarrelRollInit(Ship *ship,smemsize flags)
 {
     RollInfo *barrelrollinfo;
 
@@ -1262,7 +1262,7 @@ bool flightmanBarrelRollExecute(Ship *ship)
     Swarmer Barrel roll
 =============================================================================*/
 
-void flightmanSwarmerBRollInit(Ship *ship,sdword flags)
+void flightmanSwarmerBRollInit(Ship *ship,smemsize flags)
 {
     RollInfo *sbrollinfo;
 
@@ -1306,7 +1306,7 @@ bool flightmanSwarmerBRollExecute(Ship *ship)
     Roll 180
 =============================================================================*/
 
-void flightmanRoll180Init(Ship *ship,sdword flags)
+void flightmanRoll180Init(Ship *ship,smemsize flags)
 {
     RollInfo *rollinfo;
 
@@ -1350,7 +1350,7 @@ bool flightmanRoll180Execute(Ship *ship)
     Barrelroll Out
 =============================================================================*/
 
-void flightmanBRollOutInit(Ship *ship,sdword flags)
+void flightmanBRollOutInit(Ship *ship,smemsize flags)
 {
     RollInfo *rollinfo;
 
@@ -1395,7 +1395,7 @@ typedef struct
     bool rollleft;
 } EndoverInfo;
 
-void flightmanEndoverInit(Ship *ship,sdword flags)
+void flightmanEndoverInit(Ship *ship,smemsize flags)
 {
     EndoverInfo *rollinfo;
 
@@ -1443,7 +1443,7 @@ bool flightmanEndoverExecute(Ship *ship)
     Celebration flip
 =============================================================================*/
 
-void flightmanCelebFlipInit(Ship *ship,sdword flags)
+void flightmanCelebFlipInit(Ship *ship,smemsize flags)
 {
     RollInfo *cfinfo;
 
@@ -1485,7 +1485,7 @@ typedef struct
 //    real32 totalpitchrotated;
 } WhipStrafeInfo;
 
-void flightmanWhipStrafeInit(Ship *ship,sdword flags)
+void flightmanWhipStrafeInit(Ship *ship,smemsize flags)
 {
     WhipStrafeInfo *whipstrafeinfo;
 
@@ -1554,7 +1554,7 @@ typedef struct
     bool rollleft;
 } RollAwayInfo;
 
-void flightmanRollAwayInit(Ship *ship,sdword flags)
+void flightmanRollAwayInit(Ship *ship,smemsize flags)
 {
     RollAwayInfo *rollawayinfo;
 
@@ -1650,7 +1650,7 @@ typedef struct
     bool rollleft;
 } SplitSEvasiveInfo;
 
-void flightmanSplitSEvasiveInit(Ship *ship,sdword flags)
+void flightmanSplitSEvasiveInit(Ship *ship,smemsize flags)
 {
     SplitSEvasiveInfo *splitsevasiveinfo;
 
@@ -1758,7 +1758,7 @@ typedef struct
     real32 timestamp;
 } HiYoYoInfo;
 
-void flightmanHiYoYoInit(Ship *ship,sdword flags)
+void flightmanHiYoYoInit(Ship *ship,smemsize flags)
 {
     HiYoYoInfo *hiyoyoinfo;
 
@@ -1852,7 +1852,7 @@ typedef struct
     real32 timestamp;
 } LoYoYoInfo;
 
-void flightmanLoYoYoInit(Ship *ship,sdword flags)
+void flightmanLoYoYoInit(Ship *ship,smemsize flags)
 {
     LoYoYoInfo *loyoyoinfo;
 
@@ -1950,7 +1950,7 @@ typedef struct
     bool yawleft;
 } SideStepInfo;
 
-void flightmanSideStepInit(Ship *ship,sdword flags)
+void flightmanSideStepInit(Ship *ship,smemsize flags)
 {
     SideStepInfo *sidestepinfo;
 
