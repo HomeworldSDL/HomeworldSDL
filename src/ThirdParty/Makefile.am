@@ -1,0 +1,1 @@
+SUBDIRS = CRC JPG LZSS Titan

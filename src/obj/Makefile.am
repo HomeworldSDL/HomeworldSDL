@@ -7,6 +7,7 @@ libhw_Sound_a_SOURCES =
 # rm *.donotkillofiles.
 OBJEXT=donotkillofiles
 
+if OLD_SOUND
 if PLATFORM_WIN32
    libhw_Sound_a_LIBADD = \
       dct.munged \
@@ -19,6 +20,7 @@ else
       $(top_srcdir)/src/obj/fqcodec.o \
       $(top_srcdir)/src/obj/fqeffect.o \
       $(top_srcdir)/src/obj/fquant.o
+endif
 endif
 
 %.munged: %.o

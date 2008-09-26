@@ -171,5 +171,5 @@ dnl - We don't want to include $SDL_LIBS when building librgl.
 CFLAGS="$CFLAGS $HWGAME_CFLAGS $HWBIN_CFLAGS $SDL_CFLAGS $WIN32_FIXME"
 
 AC_CONFIG_HEADERS([config.h])
-AC_CONFIG_FILES([Makefile src/Makefile src/Game/Makefile src/Missions/Generated/Makefile src/ThirdParty/CRC/Makefile src/ThirdParty/JPG/Makefile src/ThirdParty/LZSS/Makefile src/SDL/Makefile src/Ships/Makefile src/obj/Makefile tools/Makefile tools/kas2c/Makefile])
+AC_CONFIG_FILES([Makefile src/Makefile src/Game/Makefile src/Missions/Generated/Makefile src/ThirdParty/Makefile src/ThirdParty/CRC/Makefile src/ThirdParty/JPG/Makefile src/ThirdParty/LZSS/Makefile src/ThirdParty/Titan/Makefile src/SDL/Makefile src/Ships/Makefile src/obj/Makefile tools/Makefile tools/kas2c/Makefile])
 AC_OUTPUT

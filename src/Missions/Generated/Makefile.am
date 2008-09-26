@@ -16,9 +16,9 @@ libhw_Generated_a_CPPFLAGS = -I$(top_srcdir)/src/Game -I$(top_srcdir)/src/SDL -I
 
 # Single-player missions (note the "-x c" option to force C
 # preprocessing...don't know if this is very portable)
-Mission%.kp: ../SinglePlayer/Mission%.kas
+Mission%.kp: $(top_builddir)src/Missions/SinglePlayer/Mission%.kas
 	$(CPP) -x c $(INCLUDES) $< > $@
 
 # Tutorials (again, uses "-x c" to force C preprocessing)
-Tutorial%.kp: ../Tutorials/Tutorial%.kas
+Tutorial%.kp: $(top_builddir)src/Missions/Tutorials/Tutorial%.kas
 	$(CPP) -x c $(INCLUDES) $< > $@

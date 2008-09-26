@@ -2,7 +2,7 @@
 # CFLAGS += -malign-double -Wall -fno-strict-aliasing -Wextra -Wmissing-prototypes -Wmissing-declarations -Wredundant-decls
 
 # Note the ordering (we haven't defined the dependencies too strongly).
-SUBDIRS = Missions/Generated Game ThirdParty/CRC ThirdParty/JPG ThirdParty/LZSS SDL Ships obj
+SUBDIRS = Missions/Generated Game ThirdParty SDL Ships obj
 
 bin_PROGRAMS = homeworld
 
