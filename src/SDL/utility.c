@@ -154,6 +154,8 @@ extern char mainGLToSelect[];
 extern int MAIN_WindowWidth, MAIN_WindowHeight, MAIN_WindowDepth;
 
 extern udword gDevcaps, gDevcaps2;
+
+extern udword aviPlayIntros;
 udword loadedDevcaps  = 0xFFFFFFFF;
 udword loadedDevcaps2 = 0xFFFFFFFF;
 
@@ -650,12 +652,14 @@ char filecfgblankspace = '\0';
 
 scriptEntry utyOptionsList[] =
 {
-  {"\n[init options]\n", scriptSetStringCB, &filecfgblankspace},
+  {"\n[init options]\n",    scriptSetStringCB, &filecfgblankspace},
 
-    {"HomeworldDataPath", scriptSetStringCB, &fileHomeworldDataPath},
-    {"screenWidth", scriptSetUdwordCB, &MAIN_WindowWidth},
-    {"screenHeight", scriptSetUdwordCB, &MAIN_WindowHeight},
-    {"screenDepth", scriptSetUdwordCB, &MAIN_WindowDepth},
+    {"HomeworldDataPath",   scriptSetStringCB, &fileHomeworldDataPath},
+    {"screenWidth",         scriptSetUdwordCB, &MAIN_WindowWidth},
+    {"screenHeight",        scriptSetUdwordCB, &MAIN_WindowHeight},
+    {"screenDepth",         scriptSetUdwordCB, &MAIN_WindowDepth},
+/* Does this need to be in here? Useful but possibly may cause problems */
+    {"fullScreen",          scriptSetUdwordCB, &fullScreen},
 
 
   {"\n[old reg data - to be deprecated]\n", scriptSetStringCB, &filecfgblankspace},
@@ -794,6 +798,7 @@ scriptEntry utyOptionsList[] =
 
     {"ShipRecoil",                     scriptSetUdwordCB, &opShipRecoil},
     {"PauseOrders",                    scriptSetUdwordCB, &opPauseOrders},
+    {"PlayIntros",                     scriptSetUdwordCB, &aviPlayIntros},
 
     END_SCRIPT_ENTRY
 };

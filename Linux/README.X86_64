@@ -36,10 +36,12 @@ Player 1 mothership MAD door launches don't work cleanly.
     I know where the code is, just don't have time to 
     wrap my head around where it's going wrong.
         This will get fixed eventually. hopefully.
+**FIXED**
 
 Movies:
     Might work. :) Not tested. 
     I need to re-do a lot of the cludged movie code anyway.
+**POSSIBLY FIXED**
 
 Network Play:
     Unsigned longs are different between x86 and x86_64

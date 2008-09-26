@@ -61,6 +61,8 @@ int aviDonePlaying = 1;
 int aviIsPlaying = 0;
 int aviHasAudio = 0;
 
+udword aviPlayIntros = 1;
+
 #ifdef HW_ENABLE_MOVIES
 AVFormatContext *pFormatCtx    = NULL;
 AVCodecContext  *pCodecCtx     = NULL;
@@ -823,22 +825,26 @@ void aviIntroPlay()
                 break;
             case 1:
                 /*binkPlay("Movies\\sierra.bik", NULL, NULL, S_RGB555, TRUE, ANIM00_Sierra);*/
+                if (aviPlayIntros) {
 #ifdef _WIN32
-                aviPlay("Movies\\sierra.avi");
+                    aviPlay("Movies\\sierra.avi");
 #else
-                aviPlay("Movies/sierra.avi");
+                    aviPlay("Movies/sierra.avi");
 #endif
 //                intro++;
+                }
                 break;
             case 2:
                 /*binkPlay("Movies\\relicintro.bik", NULL, NULL, S_RGB555, TRUE, ANIM00_Relic);*/
+                if (aviPlayIntros) {
 #ifdef _WIN32
-                aviPlay("Movies\\relicintro.avi");
+                    aviPlay("Movies\\relicintro.avi");
 #else
-                aviPlay("Movies/relicintro.avi");
+                    aviPlay("Movies/relicintro.avi");
 #endif
 //                    intro++;
-                    break;
+                  }
+                  break;
             case 3:
                 /*binkCleanup();*/
                 mainCleanupAfterVideo();
