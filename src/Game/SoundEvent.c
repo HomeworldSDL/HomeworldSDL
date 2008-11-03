@@ -2856,7 +2856,7 @@ void soundEventStopCD(void)
 
 void soundEventPlayMusic(sdword tracknum)
 {
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_SOUND
     musicEventPlay(tracknum);
 #endif
 
@@ -2866,7 +2866,7 @@ void soundEventPlayMusic(sdword tracknum)
 
 void soundEventStopMusic(real32 fadetime)
 {
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_SOUND
     musicEventStop(-1, fadetime);
 #endif
     return;
@@ -2875,7 +2875,7 @@ void soundEventStopMusic(real32 fadetime)
 
 void soundEventStopTrack(sdword tracknum, real32 fadetime)
 {
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_SOUND
     musicEventStop(tracknum, fadetime);
 #endif
     return;

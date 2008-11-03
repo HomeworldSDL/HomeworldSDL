@@ -277,12 +277,13 @@ void soundrestore(void)
 	soundpause(TRUE);
 
 	soundinited = FALSE;
-
+#ifndef _MACOSX_FIX_86
 #ifndef _WIN32_FIXME
 	while (!((streamer.status == SOUND_FREE) && (mixer.status == SOUND_FREE)))
 	{
 		SDL_Delay(0);
 	}
+#endif
 #endif
 
 	isoundmixerrestore();

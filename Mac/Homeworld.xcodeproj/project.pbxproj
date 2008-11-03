@@ -587,6 +587,11 @@
 		90BD9387064AEF43003E3D39 /* StandardDestroyer.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9335064AEF43003E3D39 /* StandardDestroyer.c */; };
 		90BD9389064AEF43003E3D39 /* StandardFrigate.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9337064AEF43003E3D39 /* StandardFrigate.c */; };
 		90BD93C3064AF4F3003E3D39 /* SDLMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BD93C1064AF4F3003E3D39 /* SDLMain.m */; };
+		EDB88AFF0EBF5AAA00D2C5CF /* fqcodec.c in Sources */ = {isa = PBXBuildFile; fileRef = EDB88AF80EBF5AAA00D2C5CF /* fqcodec.c */; };
+		EDB88B000EBF5AAA00D2C5CF /* fquant.c in Sources */ = {isa = PBXBuildFile; fileRef = EDB88AF90EBF5AAA00D2C5CF /* fquant.c */; };
+		EDB88B010EBF5AAA00D2C5CF /* fqeffect.c in Sources */ = {isa = PBXBuildFile; fileRef = EDB88AFA0EBF5AAA00D2C5CF /* fqeffect.c */; };
+		EDB88B020EBF5AAA00D2C5CF /* dct.c in Sources */ = {isa = PBXBuildFile; fileRef = EDB88AFB0EBF5AAA00D2C5CF /* dct.c */; };
+		EDB88B030EBF5AAA00D2C5CF /* mixfft.c in Sources */ = {isa = PBXBuildFile; fileRef = EDB88AFE0EBF5AAA00D2C5CF /* mixfft.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -683,7 +688,7 @@
 		358038F20B18B1DA00D47728 /* Tutorial1.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Tutorial1.c; sourceTree = "<group>"; };
 		358038F30B18B1DA00D47728 /* Tutorial1.func.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Tutorial1.func.c; sourceTree = "<group>"; };
 		358038F40B18B1DA00D47728 /* Tutorial1.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Tutorial1.h; sourceTree = "<group>"; };
-		35A501A6078CB77000E7D8E2 /* RaiderRetreat.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = RaiderRetreat.plist; sourceTree = "<group>"; };
+		35A501A6078CB77000E7D8E2 /* RaiderRetreat.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = RaiderRetreat.plist; sourceTree = "<group>"; };
 		35B1D7EF0ABD43B0002214BE /* Homeworld.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Homeworld.icns; sourceTree = "<group>"; };
 		35B1D7F10ABD43BD002214BE /* RaiderRetreat.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = RaiderRetreat.icns; sourceTree = "<group>"; };
 		35CA99BF0B17BC6F00B5118E /* Light.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Light.c; sourceTree = "<group>"; };
@@ -755,7 +760,7 @@
 		35FE5B230B17CB2200D6E944 /* BitIO.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = BitIO.h; sourceTree = "<group>"; };
 		35FE5B240B17CB2200D6E944 /* LZSS.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = LZSS.c; sourceTree = "<group>"; };
 		35FE5B250B17CB2200D6E944 /* LZSS.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = LZSS.h; sourceTree = "<group>"; };
-		8D1107310486CEB800E47090 /* Homeworld.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Homeworld.plist; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* Homeworld.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Homeworld.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Homeworld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Homeworld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9030AF92066D5D2C00B32218 /* avi.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = avi.c; path = ../src/SDL/avi.c; sourceTree = SOURCE_ROOT; };
 		9030AF93066D5D2C00B32218 /* rinit.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = rinit.c; path = ../src/SDL/rinit.c; sourceTree = SOURCE_ROOT; };
@@ -1176,6 +1181,13 @@
 		90BD9338064AEF43003E3D39 /* StandardFrigate.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = StandardFrigate.h; path = ../src/Ships/StandardFrigate.h; sourceTree = SOURCE_ROOT; };
 		90BD93C1064AF4F3003E3D39 /* SDLMain.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = SDLMain.m; sourceTree = "<group>"; };
 		90BD93C2064AF4F3003E3D39 /* SDLMain.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SDLMain.h; sourceTree = "<group>"; };
+		EDB88AF80EBF5AAA00D2C5CF /* fqcodec.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fqcodec.c; sourceTree = "<group>"; };
+		EDB88AF90EBF5AAA00D2C5CF /* fquant.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fquant.c; sourceTree = "<group>"; };
+		EDB88AFA0EBF5AAA00D2C5CF /* fqeffect.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fqeffect.c; sourceTree = "<group>"; };
+		EDB88AFB0EBF5AAA00D2C5CF /* dct.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dct.c; sourceTree = "<group>"; };
+		EDB88AFC0EBF5AAA00D2C5CF /* dct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dct.h; sourceTree = "<group>"; };
+		EDB88AFD0EBF5AAA00D2C5CF /* mixfft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mixfft.h; sourceTree = "<group>"; };
+		EDB88AFE0EBF5AAA00D2C5CF /* mixfft.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mixfft.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1798,6 +1810,13 @@
 		90BD9206064AEE7A003E3D39 /* SDL */ = {
 			isa = PBXGroup;
 			children = (
+				EDB88AF80EBF5AAA00D2C5CF /* fqcodec.c */,
+				EDB88AF90EBF5AAA00D2C5CF /* fquant.c */,
+				EDB88AFA0EBF5AAA00D2C5CF /* fqeffect.c */,
+				EDB88AFB0EBF5AAA00D2C5CF /* dct.c */,
+				EDB88AFC0EBF5AAA00D2C5CF /* dct.h */,
+				EDB88AFD0EBF5AAA00D2C5CF /* mixfft.h */,
+				EDB88AFE0EBF5AAA00D2C5CF /* mixfft.c */,
 				3522273F0BB9D92500E42E42 /* standard_library.h */,
 				9030AF92066D5D2C00B32218 /* avi.c */,
 				90BD9208064AEE7A003E3D39 /* avi.h */,
@@ -1998,9 +2017,11 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = 35CC22230955C2E100504293 /* Build configuration list for PBXProject "Homeworld" */;
+			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Homeworld */;
 			projectDirPath = "";
+			projectRoot = ..;
 			targets = (
 				8D1107260486CEB800E47090 /* Homeworld */,
 				3516C82D077C41B0001AA863 /* Raider Retreat */,
@@ -2820,6 +2841,11 @@
 				358039290B18B1DB00D47728 /* Tutorial1.func.c in Sources */,
 				35F073420BAA04C600D3AB5D /* Mission05_OEM.func.c in Sources */,
 				35F073430BAA04C600D3AB5D /* Mission05_OEM.c in Sources */,
+				EDB88AFF0EBF5AAA00D2C5CF /* fqcodec.c in Sources */,
+				EDB88B000EBF5AAA00D2C5CF /* fquant.c in Sources */,
+				EDB88B010EBF5AAA00D2C5CF /* fqeffect.c in Sources */,
+				EDB88B020EBF5AAA00D2C5CF /* dct.c in Sources */,
+				EDB88B030EBF5AAA00D2C5CF /* mixfft.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2875,7 +2901,6 @@
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = "";
 				LIBRARY_STYLE = DYNAMIC;
-				OPTIMIZATION_CFLAGS = "-O0";
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = Homeworld;
@@ -2997,7 +3022,6 @@
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = "";
 				LIBRARY_STYLE = DYNAMIC;
-				OPTIMIZATION_CFLAGS = "-O0";
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "Raider Retreat";

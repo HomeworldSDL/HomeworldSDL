@@ -5746,7 +5746,7 @@ sdword etgVarAssign(Effect *effect, struct etgeffectstatic *stat, ubyte *opcode)
     return(sizeof(etgvariablecopy));
 }
 
-#ifdef _MACOSX_FIX_ME
+#ifdef __ppc__
 /* handle function calls
 
  This function causes error during compilation of ETG.c with optimization on, and still
@@ -6238,7 +6238,7 @@ sdword etgFunctionCall(Effect *effect, struct etgeffectstatic *stat, ubyte *opco
     return(etgFunctionSize(nParams));
 }
 
-#endif // _MACOSX_FIX_ME
+#endif // __ppc__, _X86_64, Other x86
 
 //handle 'end'
 sdword etgEnd(Effect *effect, struct etgeffectstatic *stat, ubyte *opcode)
