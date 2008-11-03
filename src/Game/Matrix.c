@@ -445,7 +445,7 @@ void matMultiplyMatByMat(matrix *result,matrix *first,matrix *second)
         pop       esi
         pop       edi
     }
-#elif defined (__GNUC__) && defined (__i386__)
+#elif defined (__GNUC__) && defined (__i386__) && !defined (_MACOSX_FIX_86)
     __asm__ __volatile__ (
         "    pushl     %%ebp\n"
         "    movl      $-3, %%eax\n"
@@ -594,7 +594,7 @@ void matMultiplyMatByVec(vector *result,matrix *matrix,vector *vector)
         pop     edi
         pop     esi
     }
-#elif defined (__GNUC__) && defined (__i386__)
+#elif defined (__GNUC__) && defined (__i386__) && !defined (_MACOSX_FIX_86)
     __asm__ __volatile__ (
         "    flds    0*"FSIZE_STR"("SOURCE")\n"               /*s0*/
         "    fmuls   (0+0*3)*"FSIZE_STR"("MATRIX")\n"         /*a0*/
@@ -725,7 +725,7 @@ void matMultiplyVecByMat(vector *result,vector *vector,matrix *matrix)
         pop     edi
         pop     esi
     }
-#elif defined (__GNUC__) && defined (__i386__)
+#elif defined (__GNUC__) && defined (__i386__) && !defined (_MACOSX_FIX_86)
     __asm__ __volatile__ (
         "    flds    0*"FSIZE_STR"("SOURCE")\n"               /*s0*/
         "    fmuls   (0+0*3)*"FSIZE_STR"("MATRIX")\n"         /*a0*/

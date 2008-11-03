@@ -1483,7 +1483,7 @@ sdword fileBlockRead(filehandle handle, void *dest, sdword nBytes)
         lengthRead = fread(dest, 1, nBytes, filesOpen[handle].fileP);    //read in the data
     }
 
-#ifndef _MACOSX_FIX_ME  // zero-length .wxd since you can't play the original
+#ifndef _MACOSX_FIX_MISC  // zero-length .wxd since you can't play the original
 #if FILE_ERROR_CHECKING
     if (lengthRead != nBytes)
     {                                                       //make sure it was all read in

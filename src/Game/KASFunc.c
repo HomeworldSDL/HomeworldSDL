@@ -3589,7 +3589,7 @@ void kasfSoundEventShips(GrowSelection *ships, sdword event)
 void kasfSpeechEvent(sdword event, sdword variable)
 {
     subMessageEnded = 0;
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_SOUND
     speechEventFleet(event, variable, universe.curPlayerIndex);
 #endif
 }

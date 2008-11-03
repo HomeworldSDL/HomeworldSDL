@@ -228,7 +228,7 @@ sdword soundstreamcreatebuffer(void *pstreambuffer, sdword size, uword bitrate)
 			pstream->playing = FALSE;
 			memset(pstream->buffer, 0, pstream->buffersize);
 
-#ifndef _MACOSX_FIX_ME			
+#ifndef _MACOSX_FIX_SOUND			
 			fqAcModel(NULL, NULL, 0, pstream->delaybuffer1, DELAY_BUF_SIZE, &(pstream->delaypos1));
 			fqAcModel(NULL, NULL, 0, pstream->delaybuffer2, DELAY_BUF_SIZE, &(pstream->delaypos2));
 #endif
@@ -1036,7 +1036,7 @@ void isoundstreamcleanup(void)
 ----------------------------------------------------------------------------*/	
 void isoundstreamupdate(void *dummy)
 {
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_SOUND
 
 	sdword i;
 	STREAM *pstream;
@@ -1392,6 +1392,6 @@ Recover:
 
 	streamer.status = SOUND_FREE;
 
-#endif // _MACOSX_FIX_ME
+#endif // _MACOSX_FIX_SOUND
 }
 

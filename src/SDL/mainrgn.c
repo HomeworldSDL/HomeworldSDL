@@ -2415,7 +2415,7 @@ cancelfocus:
             break;
 
         case QKEY:
-#ifdef _MACOSX_FIX_ME
+#ifdef _MACOSX_FIX_MISC
             if (keyIsHit(METAKEY))  // Command-Q; player wants to quit!
             {
                 // Ideally we'd have an "are you sure" dialog at this point but the nice
@@ -4050,7 +4050,7 @@ plainOldClickAction:
 
                         if (ship != NULL)
                         {                                       //if mouse over a ship
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_MISC
 // Mac OS X: the [ALT] + [left mouse button] hack does not work 
 // in the tutorial unless we ignore this check
                             if((!(tutorial==TUTORIAL_ONLY)) || tutEnable.bClickSelect)

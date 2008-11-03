@@ -473,7 +473,7 @@ GLboolean glDLLGetProcs(char* dllName)
 
     glDLLEnvironment();
 
-#ifdef _MACOSX_FIX_ME
+#ifdef _MACOSX_FIX_GL
     dllName = NULL;
 #endif
 

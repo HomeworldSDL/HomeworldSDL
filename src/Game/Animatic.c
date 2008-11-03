@@ -71,7 +71,7 @@ static sdword subY1;
 
 
 
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_ANIM
 extern HDC hGLDeviceContext;
 #endif
 
@@ -184,7 +184,7 @@ void animBinkDisplay()
     animBinkSetup(TRUE);
     glRasterPos2f((real32)xOfs, (real32)yOfs);
 
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_ANIM
     switch (RGLtype)
     {
     case GLtype:
@@ -673,7 +673,7 @@ void animStartup(void)
 ----------------------------------------------------------------------------*/
 void animShutdown(void)
 {
-#ifdef _MACOSX_FIX_ME	/* BINK!@#$3 */
+#ifdef _MACOSX_FIX_ANIM	/* BINK!@#$3 */
     memset(animlisting, 0, NUMBER_SINGLEPLAYER_MISSIONS*sizeof(animlst));
 #endif	/* BONK!@#$1$ */
 }
@@ -738,7 +738,7 @@ bool animBinkPlay(sdword a, sdword b)
     universe.totaltimeelapsed = 0.0f;
 
     soundEventGetVolume(&animPreviousSFXVolume, &animPreviousSpeechVolume, &animPreviousMusicVolume);
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_ANIM
     rval = binkPlay(filename,
                     animBinkDisplay,
                     animBinkDecode,

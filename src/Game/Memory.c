@@ -389,7 +389,7 @@ sdword memReset(void)
         memFree(c);
         memFree(d);
         memFree(f);
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_MISC
         memDefragment();
 #endif
     }

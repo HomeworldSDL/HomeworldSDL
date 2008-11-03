@@ -137,7 +137,7 @@ sdword trLitPaletteBitDepth(void)
 {
     sdword bits = 0;
 
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_MISC
     dbgAssertOrIgnore(glLitColorTableEXT != NULL);
     glLitColorTableEXT(0, 0, 0, 0, 0, &bits);
 #endif
@@ -208,7 +208,7 @@ void trColorTable(color* palette)
 ----------------------------------------------------------------------------*/
 void trReload(void)
 {
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_MISC
     //glcaps module has already asserted that paletted texture extensions exist
     if (!trNoPalettes)
     {
@@ -224,9 +224,9 @@ void trReload(void)
     }
     else
     {
-#endif // _MACOSX_FIX_ME
+#endif // _MACOSX_FIX_MISC
         trLitPaletteBits = 0;
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_MISC
     }
 #endif
 
@@ -279,7 +279,7 @@ void trStartup(void)
 
     glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST);
 
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_MISC
     //glcaps module has already asserted that paletted texture extensions exist
     if (!trNoPalettes)
     {
@@ -295,9 +295,9 @@ void trStartup(void)
     }
     else
     {
-#endif // _MACOSX_FIX_ME
+#endif // _MACOSX_FIX_MISC
         trLitPaletteBits = 0;
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_MISC
     }
 #endif
 

@@ -116,7 +116,7 @@ void soundMixerGetMode(sdword *mode)	// mode SOUND_MODE_NORM or SOUND_MODE_AUTO 
 
 void soundMixerSetMode(sdword mode)		// mode SOUND_MODE_NORM or SOUND_MODE_AUTO or SOUND_MODE_LOW
 {
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_SOUND
 
 	if(mode == SOUND_MODE_LOW)
 	{
@@ -159,7 +159,7 @@ void soundMixerSetMode(sdword mode)		// mode SOUND_MODE_NORM or SOUND_MODE_AUTO 
 	// set panic mode
 	dctpanicmode=SOUND_MODE_NORM;
 
-#endif // _MACOSX_FIX_ME
+#endif // _MACOSX_FIX_SOUND
 
 	return;
 }
@@ -181,7 +181,7 @@ void soundPanicReset(void)
 ----------------------------------------------------------------------------*/	
 sdword isoundmixerinit(SDL_AudioSpec *aspec)
 {
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_SOUND
 
 	// Initialize codec
 	fqInitDequant();
@@ -206,7 +206,7 @@ sdword isoundmixerinit(SDL_AudioSpec *aspec)
 		return (SOUND_ERR);
 	}
 
-#endif // _MACOSX_FIX_ME
+#endif // _MACOSX_FIX_SOUND
 
 	return (SOUND_OK);
 }
@@ -234,7 +234,7 @@ void isoundmixerrestore(void)
 ----------------------------------------------------------------------------*/	
 sdword isoundmixerprocess(void *pBuf1, udword nSize1, void *pBuf2, udword nSize2)
 {
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_SOUND
 
 	sdword i, amountread;
 	CHANNEL	*pchan;
@@ -794,7 +794,7 @@ sdword isoundmixerprocess(void *pBuf1, udword nSize1, void *pBuf2, udword nSize2
 ----------------------------------------------------------------------------*/
 sdword isoundmixerdecodeEffect(sbyte *readptr, real32 *writeptr1, real32 *writeptr2, ubyte *exponent, sdword size, uword bitrate, EFFECT *effect)
 {
-#ifdef _MACOSX_FIX_ME
+#ifdef _MACOSX_FIX_SOUND
     return 0;
 #else
     sbyte tempblock[FQ_LEN];

@@ -893,7 +893,7 @@ bool setupPixelFormat()
 
 	SDL_ShowCursor(SDL_DISABLE);
 
-#ifdef _MACOSX_FIX_ME
+#ifdef _MACOSX_FIX_GL
 	if (!((flags & SDL_FULLSCREEN)))
     {
 		SDL_WM_GrabInput(SDL_GRAB_ON);
@@ -975,7 +975,7 @@ sdword rndSmallInit(rndinitdata* initData, bool GL)
         }
     }
 
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_GL
     glLockArraysEXT   = (LOCKARRAYSEXTproc)rwglGetProcAddress("glLockArraysEXT");
     glUnlockArraysEXT = (UNLOCKARRAYSEXTproc)rwglGetProcAddress("glUnlockArraysEXT");
 #endif
@@ -1095,7 +1095,7 @@ sdword rndInit(rndinitdata *initData)
 
     glDepthFunc(glCapDepthFunc);
 
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_GL
     glLockArraysEXT   = (LOCKARRAYSEXTproc)rwglGetProcAddress("glLockArraysEXT");
     glUnlockArraysEXT = (UNLOCKARRAYSEXTproc)rwglGetProcAddress("glUnlockArraysEXT");
 #endif

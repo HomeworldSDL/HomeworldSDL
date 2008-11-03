@@ -191,7 +191,7 @@ extern void soundfeedercb(void *userdata, Uint8 *stream, int len);
 ----------------------------------------------------------------------------*/
 sdword soundinit(bool mode)
 {
-#ifdef _MACOSX_FIX_ME
+#ifdef _MACOSX_FIX_SOUND
 	return SOUND_ERR;
 #endif
 

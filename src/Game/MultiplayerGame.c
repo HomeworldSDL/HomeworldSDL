@@ -926,7 +926,7 @@ void mgResetNamePassword(void)
 
 void mgGameInterestedIn(wchar_t *interested)
 {
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_LAN
     LockMutex(GameWereInterestedInMutex);
     wcscpy(GameWereInterestedIn,interested);
     UnLockMutex(GameWereInterestedInMutex);
@@ -1819,7 +1819,7 @@ void mgSkirmish(char *name, featom *atom)
     
     mgShowScreen(MGS_Skirmish_Basic, TRUE);
 
-#ifdef _MACOSX_FIX_ME
+#ifdef _MACOSX_FIX_LAN
 	multiPlayerGame = FALSE;
 #endif
 }
@@ -2695,7 +2695,7 @@ void mgJoinChannelNow(wchar_t *channelname,wchar_t *description)
 
 void mgJoinChannel(char*name,featom*atom)
 {
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_LAN
     sdword       i;
     channellist *channelinfo;
 
@@ -2993,7 +2993,7 @@ void mgChannelConfirmEntry(char*name, featom *atom)
 
 bool channelAlreadyExists(wchar_t *channelname)
 {
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_LAN
     sdword i;
 
     tpLockChannelList();
@@ -3199,7 +3199,7 @@ void mgJoinGame(char*name,featom*atom)
             }
         }
         
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_LAN
         if (wcslen(gameinfo->game.directoryCustomInfo.stringdata)>1)
         {
             joingame = &gameinfo->game;
@@ -3237,7 +3237,7 @@ void mgListOfGamesBack(char *name, featom *atom)
 // callback for sorting the game list window
 bool mgListOfGamesCompare(void *firststruct,void *secondstruct)
 {
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_LAN
     sdword i;
 #endif
 
@@ -3255,7 +3255,7 @@ bool mgListOfGamesCompare(void *firststruct,void *secondstruct)
             return(FALSE);
     }
 
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_LAN
     switch (mgListOfGamesWindow->sorttype)
     {
         case MG_SortByGameName:
@@ -3308,7 +3308,7 @@ bool mgListOfGamesCompare(void *firststruct,void *secondstruct)
 
         }
     }
-#endif // _MACOSX_FIX_ME
+#endif // _MACOSX_FIX_LAN
 
     return FALSE;
 }
@@ -3473,7 +3473,7 @@ void mgListOfGamesItemDraw(rectangle *rect, listitemhandle data)
     bool gameinprogress = gameinfo->game.directoryCustomInfo.flag & GAME_IN_PROGRESS;
     bool diffversion = (!CheckNetworkVersionCompatibility(gameinfo->game.directoryCustomInfo.versionInfo));
 
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_LAN
     udword passwordlen;
 #endif
 
@@ -3509,7 +3509,7 @@ void mgListOfGamesItemDraw(rectangle *rect, listitemhandle data)
     sprintf(temp,"%i",gameinfo->game.directoryCustomInfo.numPlayers);
     fontPrint(x-fontWidth(temp)-fontWidth("W"),y,c,temp);
 
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_LAN
     passwordlen = wcslen(gameinfo->game.directoryCustomInfo.stringdata);
 
     wcstombs(temp,gameinfo->game.directoryCustomInfo.stringdata + 1+passwordlen,512);
@@ -4118,7 +4118,7 @@ void mgDirtyNumPlayerRegions()
 
 bool mgInvalidGameName()
 {
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_LAN
     featom  *atomchange;
 
     if (wcslen(tpGameCreated.Name)<2)
@@ -4150,7 +4150,7 @@ bool mgInvalidGameName()
 
 bool mgInvalidGamePassword()
 {
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_LAN
     if (bitTest(tpGameCreated.flag,MG_PasswordProtected))
     {
         if (wcslen(tpGameCreated.Password) < 2)
@@ -4203,7 +4203,7 @@ void mgCreateGameNow(char *name, featom *atom)
                 return;
             }
 
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_LAN
             if (wcslen(GetCurrentChannel()) <= 0)
             {
                 mgPrepareMessageBox(strGetString(strMustBeInRoomToCreateGame),strGetString(strMustBeInRoomToCreateGame2));
@@ -5447,7 +5447,7 @@ void mgBackFromPassword(char *name, featom *atom)
 
 void mgGoPassword(char *name, featom *atom)
 {
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_LAN
     static wchar_t widepasswordentryboxtext[MAX_PASSWORD_LENGTH];
 
     if (joingame!=NULL)
@@ -5473,7 +5473,7 @@ void mgBackFromRoomPassword(char *name, featom *atom)
 
 void mgGoRoomPassword(char *name, featom *atom)
 {
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_LAN
     if (wcslen(joinchannelname) >= 2)
     {
         mbstowcs(ChannelPassword,mgGamePasswordEntryEntryBox->textBuffer,strlen(mgGamePasswordEntryEntryBox->textBuffer)+1);
@@ -5724,7 +5724,7 @@ void mgProcessPingInfo(mgqueuenewping *ping)
 
 void mgProcessGameListGameAdded(mgqueuegamelistgame *added)
 {
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_LAN
     Node       *walk;
     gamelist   *gameinfo;
 
@@ -5769,7 +5769,7 @@ void mgProcessGameListGameAdded(mgqueuegamelistgame *added)
 
 void mgProcessGameListGameRemoved(mgqueuegamelistgame *removed)
 {
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_LAN
     Node       *walk;
     gamelist   *gameinfo;
 
@@ -5809,7 +5809,7 @@ foundit:
 
 void mgProcessGameListGameChanged(mgqueuegamelistgame *changed)
 {
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_LAN
     Node       *walk;
     gamelist   *gameinfo;
 
@@ -5845,7 +5845,7 @@ foundit:
 #endif
         mgListOfGamesWindow->reg.status |= RSF_DrawThisFrame;
     }
-#endif // _MACOSX_FIX_ME
+#endif // _MACOSX_FIX_LAN
 }
 
 void mgProcessGameListNew(mgqueuegamelistnew *newlist)
@@ -7577,7 +7577,7 @@ void mgDrawListOfServersTitle(rectangle *rect)
 // callback for sorting the server list window
 bool mgListOfServersCompare(void *firststruct,void *secondstruct)
 {
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_LAN
     sdword i;
     serverlist *one = (serverlist *)(((listitemhandle)firststruct)->data);
     serverlist *two = (serverlist *)(((listitemhandle)secondstruct)->data);

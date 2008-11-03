@@ -34,7 +34,7 @@
 #define GLFONT_Y_SPACING     4
 #define GLFONT_X_SPACING     4
 
-#ifdef _MACOSX_FIX_ME
+#ifdef _MACOSX_FIX_MISC
     // requires tga.h or equivalent
     #define GLFONT_OUTPUT_TARGAS 0
 #else

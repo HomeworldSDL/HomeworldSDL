@@ -519,7 +519,7 @@ int rinEnumerateDevices(void)
     rdevice  primaryDev;
     bool primaryVal;
     
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_GL
     int maxWidth;
 #endif
 
@@ -620,7 +620,7 @@ int rinEnumerateDevices(void)
         }
     }
 
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_GL
     //add software renderer, an explicitly known device
     dev = (rdevice*)rinMemAlloc(sizeof(rdevice));
     dev->devcaps = 0;

@@ -4093,7 +4093,7 @@ char *utyGameSystemsInit(void)
     //show the opening plugscreens later
 #endif
 
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_ANIM
 DONE_INTROS:
 #endif
 
@@ -4289,7 +4289,7 @@ DONE_INTROS:
 
     opUpdateSettings();
 
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_SOUND
     soundEventPlayMusic(SOUND_FRONTEND_TRACK);
 #endif
 

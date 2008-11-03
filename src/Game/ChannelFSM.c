@@ -270,7 +270,7 @@ void cNotifyChatConnected(void)
     {
         cChannelFSMState = CS_RoomConnected;
         cChannelStateMachine();
-#ifndef _MACOSX_FIX_ME
+#ifndef _MACOSX_FIX_LAN
         if (wcslen(RemoveGameRequest) >= 1)
         {
             titanRemoveGame(RemoveGameRequest);
