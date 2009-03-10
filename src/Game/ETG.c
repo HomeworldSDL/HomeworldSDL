@@ -2012,6 +2012,7 @@ void etgEffectCodeExecute(etgeffectstatic *stat, Effect *effect, udword codeBloc
 		pop eax
 	}
 #elif defined (__GNUC__) && defined (__i386__) && !defined (_MACOSX_86)
+	/* This is a problem on x86 macs, because OSX requires PIC compliant asm, and this clobbers ebx */
 	__asm__ __volatile__ (
 		"movl %0, %%eax\n\t"
 		"movl %1, %%ebx\n\t"
@@ -6178,26 +6179,26 @@ sdword etgFunctionCall(Effect *effect, struct etgeffectstatic *stat, ubyte *opco
     udword param, nParams, returnType;
     sdword index;
 #ifdef _MACOSX_86
-	udword count = 0;
-	udword offset;
+	udword count = 0; // the number of times the for loop below is run.
+	udword offset; // the offset used when the parameter is placed above the stack pointer.
 #endif
-	
-	etgfunctioncall *opptr = (etgfunctioncall *)opcode;
+	etgfunctioncall *opptr = (etgfunctioncall *)opcode; //opcode pointer
 
+	
     nParams = opptr->nParameters;
     returnType = opptr->returnValue;
     for (index = (sdword)nParams - 1; index >= 0; index--) {		//for each parameter
 #ifdef _MACOSX_86
-		count++;
-		if (opptr->passThis) {
-			offset = nParams*4 - count*4 + 4;
+		count++;								// add one to count each time the for loop runs
+		if (opptr->passThis) {					// check to see if more offset is needed becasue a 'this' pointer will also be passed.
+			offset = nParams*4 - count*4 + 4;	// compute the offset for parameter plus extra offset for a 'this' pointer.
 		}
 		else {
-			offset = nParams*4 - count*4;
+			offset = nParams*4 - count*4;		// compute the offset for paramenter.
 		}
 #endif
 		param = opptr->parameter[index].param;
-        switch (opptr->parameter[index].type)
+        switch (opptr->parameter[index].type)	
         {
             case EVT_Constant:
                 break;
