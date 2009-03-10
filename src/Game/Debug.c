@@ -183,7 +183,7 @@ sdword dbgFatalf(char *file, sdword line, char *format, ...)
 {
 #if DBG_FATAL_DIE_NOISILY
     char *null_ptr = NULL;
-    *null_ptr = 1;  // deliberate out of bounds memory assignment
+	*null_ptr = 1;  // deliberate out of bounds memory assignment
 #else
 
     char newFormat[DBG_BufferLength];
@@ -209,7 +209,7 @@ sdword dbgFatalf(char *file, sdword line, char *format, ...)
     {
 #if defined (_MSC_VER)
         _asm int 3
-#elif defined (__GNUC__) && defined (__i386__)
+#elif defined (__GNUC__) && defined (__i386__) && !defined (_MACOSX_FIX_86)
         __asm__ ( "int $3\n\t" );
 #endif
     }
@@ -235,7 +235,7 @@ sdword dbgNonFatal(char *file, sdword line, char *error)
     {
 #if defined (_MSC_VER)
         _asm int 3
-#elif defined (__GNUC__) && defined (__i386__)
+#elif defined (__GNUC__) && defined (__i386__) && !defined (_MACOSX_FIX_86)
         __asm__ ( "int $3\n\t" );
 #endif
     }

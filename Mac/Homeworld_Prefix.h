@@ -28,6 +28,8 @@
 	//	#define _MACOSX_FIX_ME 1
 	//#endif
 	#ifdef __ppc__
+		#define _MACOSX_PPC 1
+        #define _MACOSX_FIX_GL 1
 		#define _MACOSX_FIX_PPC 1
 		#define _MACOSX_FIX_SOUND 1
 	#endif

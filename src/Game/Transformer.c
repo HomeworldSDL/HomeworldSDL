@@ -117,7 +117,7 @@ static int chkcpubit()
 
         popa
     }
-#elif defined (__GNUC__) && defined (__i386__)
+#elif defined (__GNUC__) && defined (__i386__) && !defined (_MACOSX_FIX_86)
     __asm__ __volatile__ (
         "    pushfl\n"
         "    popl %%eax\n"
@@ -528,7 +528,7 @@ void transPerspectiveTransform_asm(sdword n, hvector* dest, hvector* source, hma
         pop edi
         pop esi
     }
-#elif defined (__GNUC__) && defined (__i386__)
+#elif defined (__GNUC__) && defined (__i386__) && !defined (_MACOSX_FIX_86)
     __asm__ __volatile__ (
         "    testl %%ecx, %%ecx\n"
         "    jz 2f\n"
@@ -777,7 +777,7 @@ void transGeneralPerspectiveTransform_asm(sdword n, hvector* dest, hvector* sour
         pop edi
         pop esi
     }
-#elif defined (__GNUC__) && defined (__i386__)
+#elif defined (__GNUC__) && defined (__i386__) && !defined (_MACOSX_FIX_86)
     __asm__ __volatile__ (
         "    testl %%ecx, %%ecx\n"
         "    jz genperspxform_two\n"

@@ -1928,7 +1928,7 @@ void etgEffectCodeExecute(etgeffectstatic *stat, Effect *effect, udword codeBloc
 		push esi
 		push edi
 	}
-#elif defined (__GNUC__) && defined (__i386__)
+#elif defined (__GNUC__) && defined (__i386__) && !defined (_MACOSX_86)
 	/* Using an array should guarantee it's in memory, right? */
 	Uint32 savedreg[6];
  	__asm__ __volatile__ (
@@ -1980,6 +1980,7 @@ void etgEffectCodeExecute(etgeffectstatic *stat, Effect *effect, udword codeBloc
     while (etgExecStack.etgCodeBlock[etgExecStack.etgCodeBlockIndex].offset <
            etgExecStack.etgCodeBlock[etgExecStack.etgCodeBlockIndex].length)
     {
+		
         pOpcode = etgExecStack.etgCodeBlock[etgExecStack.etgCodeBlockIndex].code + etgExecStack.etgCodeBlock[etgExecStack.etgCodeBlockIndex].offset;
         opcode = *((udword *)pOpcode);                      //get an opcode
 #if ETG_ERROR_CHECKING
@@ -1995,6 +1996,7 @@ void etgEffectCodeExecute(etgeffectstatic *stat, Effect *effect, udword codeBloc
         //execute the opcode
         size = etgHandleTable[opcode].function(effect, stat, pOpcode);
         etgExecStack.etgCodeBlock[etgExecStack.etgCodeBlockIndex].offset += size;
+		
     }
 //    etgExecStackIndex--;
 	//this function does not interface well with optimized code which assumes 
@@ -2009,7 +2011,7 @@ void etgEffectCodeExecute(etgeffectstatic *stat, Effect *effect, udword codeBloc
 		pop ebx
 		pop eax
 	}
-#elif defined (__GNUC__) && defined (__i386__)
+#elif defined (__GNUC__) && defined (__i386__) && !defined (_MACOSX_86)
 	__asm__ __volatile__ (
 		"movl %0, %%eax\n\t"
 		"movl %1, %%ebx\n\t"
@@ -5568,7 +5570,7 @@ void etgCallbackClose(memsize codeBlock, sdword offset, sdword newOffset, ubyte 
 //a special-case parsing function to handle particle-creation call-back code.
 void etgCreationResolve(struct etgeffectstatic *stat, etgfunctioncall *call)
 {
-    etgNestFunctionSet(etgCallbackOpen, etgCallbackClose, etgParseMode,//set callbacks to structure the callback code
+    etgNestFunctionSet(etgCallbackOpen, (nestfunction)etgCallbackClose, etgParseMode,//set callbacks to structure the callback code
         etgExecStack.etgCodeBlock[etgParseMode].offset,
         (ubyte *)(etgExecStack.etgCodeBlock[etgParseMode].code +
                   etgExecStack.etgCodeBlock[etgParseMode].offset));
@@ -6175,13 +6177,27 @@ sdword etgFunctionCall(Effect *effect, struct etgeffectstatic *stat, ubyte *opco
 {
     udword param, nParams, returnType;
     sdword index;
+#ifdef _MACOSX_86
+	udword count = 0;
+	udword offset;
+#endif
+	
+	etgfunctioncall *opptr = (etgfunctioncall *)opcode;
 
-    nParams = ((etgfunctioncall *)opcode)->nParameters;
-    returnType = ((etgfunctioncall *)opcode)->returnValue;
-    for (index = (sdword)nParams - 1; index >= 0; index--)
-    {                                                       //for each parameter
-        param = ((etgfunctioncall *)opcode)->parameter[index].param;
-        switch (((etgfunctioncall *)opcode)->parameter[index].type)
+    nParams = opptr->nParameters;
+    returnType = opptr->returnValue;
+    for (index = (sdword)nParams - 1; index >= 0; index--) {		//for each parameter
+#ifdef _MACOSX_86
+		count++;
+		if (opptr->passThis) {
+			offset = nParams*4 - count*4 + 4;
+		}
+		else {
+			offset = nParams*4 - count*4;
+		}
+#endif
+		param = opptr->parameter[index].param;
+        switch (opptr->parameter[index].type)
         {
             case EVT_Constant:
                 break;
@@ -6208,33 +6224,45 @@ sdword etgFunctionCall(Effect *effect, struct etgeffectstatic *stat, ubyte *opco
             mov eax, param
             push eax
         }
-#elif defined (__GNUC__) && defined (__i386__)
+#elif defined (__GNUC__) && defined (__i386__) && !defined (_MACOSX_86)
         __asm__ __volatile__ (                              /* push it onto the stack */
             "pushl %0\n\t"
             :
             : "a" (param) );
+#elif defined (_MACOSX_86)
+		__asm__ __volatile__ (								/* store parameters above the stack pointer */
+			"movl %0, (%%esp,%1)\n\t"						
+			:
+			: "a" (param), "r" (offset) );
 #endif
-    }
-    if (((etgfunctioncall *)opcode)->passThis)
-    {                                                       //pass a 'this' pointer
-#if defined (_MSC_VER)
+    }// end of above for loop
+	
+	
+    if (opptr->passThis) {                                  
+#if defined (_MSC_VER)										//pass a 'this' pointer
         _asm
         {
             mov eax, effect
             push eax
         }
-#elif defined (__GNUC__) && defined (__i386__)
+#elif defined (__GNUC__) && defined (__i386__) && !defined (_MACOSX_86)
         __asm__ __volatile__ (                              /* pass a 'this' pointer */
             "pushl %0\n\t"
             :
             : "a" (effect) );
+#elif defined (_MACOSX_86)
+		__asm__ __volatile__ (								/* pass a 'this' pointer */
+			"movl %0, (%%esp)\n\t"
+			:
+			: "a" (effect) );
 #endif
     }
-    param = ((etgfunctioncall *)opcode)->function();        //call the function
+    param = opptr->function();								//call the function
     if (returnType != 0xffffffff)                           //if a return value is desired
     {
         *((udword *)(effect->variable + returnType)) = param;//set the return parameter
     }
+	
     return(etgFunctionSize(nParams));
 }
 

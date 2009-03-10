@@ -65,7 +65,7 @@ int NULL_rglINT(void)
 {
 #if defined (_MSC_VER)
     __asm int 3 ;
-#elif defined (__GNUC__) && defined (__i386__)
+#elif defined (__GNUC__) && defined (__i386__) && !defined (_MACOSX_FIX_86)
     __asm__ ( "int $3\n\t" );
 #endif
     return 0;
@@ -75,7 +75,7 @@ void NULL_rglVOID(void)
 {
 #if defined (_MSC_VER)
     __asm int 3 ;
-#elif defined (__GNUC__) && defined (__i386__)
+#elif defined (__GNUC__) && defined (__i386__) && !defined (_MACOSX_FIX_86)
     __asm__ ( "int $3\n\t" );
 #endif
 }
@@ -84,7 +84,7 @@ char* NULL_rglPCHAR(void)
 {
 #if defined (_MSC_VER)
     __asm int 3 ;
-#elif defined (__GNUC__) && defined (__i386__)
+#elif defined (__GNUC__) && defined (__i386__) && !defined (_MACOSX_FIX_86)
     __asm__ ( "int $3\n\t" );
 #endif
     return NULL;
