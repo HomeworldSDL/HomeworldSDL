@@ -95,6 +95,15 @@ else
     CFLAGS="$CFLAGS -D_X86_64 -D_X86_64_FIX_ME"
 fi
 
+dnl Force generic ETG function call
+AC_ARG_ENABLE(generic_ETG,
+	AS_HELP_STRING([--enable-generic-etg],
+        [Some platforms have assembly implementation of etgFunctionCall, if you want to test the C only generic implementation on these platforms use this option]),
+        enable_generic_etg=yes)
+if test "x$enable_generic_etg" = "xyes" ; then
+    echo "* Forceing generic etgFunctionCall (-DGENERIC_ETGCALLFUNCTION) *"
+    CFLAGS="$CFLAGS -DGENERIC_ETGCALLFUNCTION "
+fi
 
 dnl LINUX FIX ME
 AC_ARG_ENABLE(linuxfixme,

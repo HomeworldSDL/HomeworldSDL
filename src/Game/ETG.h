@@ -398,10 +398,13 @@ typedef struct
 }
 etgvariablecopy;
 //EOP_Function
-typedef struct
+typedef struct _etgfunctioncall_
 {
     etgopcode opcode;
     memsize (*function)(void);                   //function to call
+#ifdef GENERIC_ETGCALLFUNCTION
+    memsize (*wrap_function)(struct Effect *, struct etgeffectstatic *,struct _etgfunctioncall_ *);  //wrap function to call
+#endif
     udword nParameters;                         //number of parameters to pass
     memsize returnValue;                         //variable to assign return value to, if any
     bool passThis;                              //shall we pass a reference to this effect?
@@ -451,6 +454,9 @@ typedef struct
 {
     char *name;                                 //name of function
     void *function;                             //function pointer
+#ifdef GENERIC_ETGCALLFUNCTION
+    memsize (*wrap_function)(struct Effect *, struct etgeffectstatic *,etgfunctioncall *);  //wrap function to call
+#endif
     ubyte returnType;                           //return value type, if any
     ubyte passThis;
     etgresolvefunction resolve;

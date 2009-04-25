@@ -41,6 +41,11 @@
 #include "UnivUpdate.h"
 #include "utility.h"
 
+#ifdef GENERIC_ETGCALLFUNCTION
+#include "wrapped_functions.h"
+#include "wrapped_unlisted_functions.h"
+#endif
+
 #ifdef _WIN32
     #include <windows.h>
 #endif
@@ -50,8 +55,6 @@
 #else
     #include <strings.h>
 #endif
-
-
 
 /*=============================================================================
     Data:
@@ -405,6 +408,39 @@ udword etgEffectVelocityGet(Effect *effect);
 //resolve functions:
 void etgCreationResolve(etgeffectstatic *stat, etgfunctioncall *call);
 void etgDepthWriteResolve(struct etgeffectstatic *stat, etgfunctioncall *call);
+
+
+#ifdef GENERIC_ETGCALLFUNCTION
+#define funcEntryn(name, ret, function)                                      {name, function, wrap_##function, ret, (ubyte)FALSE, ETG_VariableParams}
+#define funcEntry0(name, ret, function)                                      {name, function, wrap_##function, ret, (ubyte)FALSE, NULL, 0, {0,0,0,0,0,0,0,0,0}}
+#define funcEntry1(name, ret, function, p0)                                  {name, function, wrap_##function, ret, (ubyte)FALSE, NULL, 1, {p0}}
+#define funcEntry2(name, ret, function, p0, p1)                              {name, function, wrap_##function, ret, (ubyte)FALSE, NULL, 2, {p0, p1}}
+#define funcEntry3(name, ret, function, p0, p1, p2)                          {name, function, wrap_##function, ret, (ubyte)FALSE, NULL, 3, {p0, p1, p2}}
+#define funcEntry4(name, ret, function, p0, p1, p2, p3)                      {name, function, wrap_##function, ret, (ubyte)FALSE, NULL, 4, {p0, p1, p2, p3}}
+#define funcEntry5(name, ret, function, p0, p1, p2, p3, p4)                  {name, function, wrap_##function, ret, (ubyte)FALSE, NULL, 5, {p0, p1, p2, p3, p4}}
+#define funcEntry6(name, ret, function, p0, p1, p2, p3, p4, p5)              {name, function, wrap_##function, ret, (ubyte)FALSE, NULL, 6, {p0, p1, p2, p3, p4, p5}}
+#define funcEntry7(name, ret, function, p0, p1, p2, p3, p4, p5, p6)          {name, function, wrap_##function, ret, (ubyte)FALSE, NULL, 7, {p0, p1, p2, p3, p4, p5, p6}}
+#define funcEntry8(name, ret, function, p0, p1, p2, p3, p4, p5, p6, p7)      {name, function, wrap_##function, ret, (ubyte)FALSE, NULL, 7, {p0, p1, p2, p3, p4, p5, p6, p7}}
+
+#define funcEntryThisn(name, ret, function)                                  {name, function, wrap_##function, ret, (ubyte)TRUE,  ETG_VariableParams}
+#define funcEntryThis0(name, ret, function)                                  {name, function, wrap_##function, ret, (ubyte)TRUE,  NULL, 0, {0,0,0,0,0,0,0,0,0}}
+#define funcEntryThis1(name, ret, function, p0)                              {name, function, wrap_##function, ret, (ubyte)TRUE,  NULL, 1, {p0}}
+#define funcEntryThis2(name, ret, function, p0, p1)                          {name, function, wrap_##function, ret, (ubyte)TRUE,  NULL, 2, {p0, p1}}
+#define funcEntryThis3(name, ret, function, p0, p1, p2)                      {name, function, wrap_##function, ret, (ubyte)TRUE,  NULL, 3, {p0, p1, p2}}
+#define funcEntryThis4(name, ret, function, p0, p1, p2, p3)                  {name, function, wrap_##function, ret, (ubyte)TRUE,  NULL, 4, {p0, p1, p2, p3}}
+#define funcEntryThis5(name, ret, function, p0, p1, p2, p3, p4)              {name, function, wrap_##function, ret, (ubyte)TRUE,  NULL, 5, {p0, p1, p2, p3, p4}}
+#define funcEntryThis6(name, ret, function, p0, p1, p2, p3, p4, p5)          {name, function, wrap_##function, ret, (ubyte)TRUE,  NULL, 6, {p0, p1, p2, p3, p4, p5}}
+#define funcEntryThis7(name, ret, function, p0, p1, p2, p3, p4, p5, p6)      {name, function, wrap_##function, ret, (ubyte)TRUE,  NULL, 7, {p0, p1, p2, p3, p4, p5, p6}}
+#define funcEntryThis8(name, ret, function, p0, p1, p2, p3, p4, p5, p6, p7)  {name, function, wrap_##function, ret, (ubyte)TRUE,  NULL, 7, {p0, p1, p2, p3, p4, p5, p6, p7}}
+
+#define funcEntryR1(name, ret, function, p0, resolve)                        {name, function, wrap_##function, ret, (ubyte)FALSE, resolve, 1, {p0}}
+#define funcEntryR2(name, ret, function, p0, p1, resolve)                    {name, function, wrap_##function, ret, (ubyte)FALSE, resolve, 2, {p0, p1}}
+
+#define funcEntryThisR1(name, ret, function, p0, resolve)                    {name, function, wrap_##function, ret, (ubyte)TRUE,  resolve, 1, {p0}}
+#define funcEntryThisR2(name, ret, function, p0, p1, resolve)                {name, function, wrap_##function, ret, (ubyte)TRUE,  resolve, 2, {p0, p1}}
+
+#else
+
 #define funcEntryn(name, ret, function)                                      {name, function, ret, (ubyte)FALSE, ETG_VariableParams}
 #define funcEntry0(name, ret, function)                                      {name, function, ret, (ubyte)FALSE, NULL, 0, {0,0,0,0,0,0,0,0,0}}
 #define funcEntry1(name, ret, function, p0)                                  {name, function, ret, (ubyte)FALSE, NULL, 1, {p0}}
@@ -433,6 +469,7 @@ void etgDepthWriteResolve(struct etgeffectstatic *stat, etgfunctioncall *call);
 #define funcEntryThisR1(name, ret, function, p0, resolve)                    {name, function, ret, (ubyte)TRUE,  resolve, 1, {p0}}
 #define funcEntryThisR2(name, ret, function, p0, p1, resolve)                {name, function, ret, (ubyte)TRUE,  resolve, 2, {p0, p1}}
 
+#endif
 opfunctionentry etgFunctionTable[] =
 {
     //set properties of particle systems to be created
@@ -1918,6 +1955,7 @@ void etgEffectCodeExecute(etgeffectstatic *stat, Effect *effect, udword codeBloc
 
 	//this function does not interface well with optimized code which assumes 
 	//certain variables will not get stomped, hence the pushes
+#ifndef GENERIC_ETGCALLFUNCTION
 #if defined (_MSC_VER)
 	_asm
 	{
@@ -1958,7 +1996,7 @@ void etgEffectCodeExecute(etgeffectstatic *stat, Effect *effect, udword codeBloc
     // We know x86 instructions won't work on a PowerPC, thanks. We've coded around it.
 	#error Opcode-handler functions currently only supported on x86 platforms.
 #endif
-
+#endif
 /*
 #if ETG_ERROR_CHECKING
     if (etgExecStackIndex >= ETG_ExecStackDepth - 1)
@@ -2001,6 +2039,7 @@ void etgEffectCodeExecute(etgeffectstatic *stat, Effect *effect, udword codeBloc
 //    etgExecStackIndex--;
 	//this function does not interface well with optimized code which assumes 
 	//certain variables will not get stomped, hence the pushes
+#ifndef GENERIC_ETGCALLFUNCTION
 #if defined (_MSC_VER)
 	_asm
 	{
@@ -2037,6 +2076,7 @@ void etgEffectCodeExecute(etgeffectstatic *stat, Effect *effect, udword codeBloc
 		"m" (savedreg[3]), "m" (savedreg[4]), "m" (savedreg[5]),
 		"m" (savedreg[6]), "m" (savedreg[7]));
 
+#endif
 #endif
 }
 
@@ -4089,6 +4129,7 @@ sdword etgSetTextureParse(struct etgeffectstatic *stat, ubyte *dest, char *opcod
     if (strcmp(opcode, "setTexture") == 0)
     {
         function->function = (memsize (*)(void))partSetTrHandle;
+	function->wrap_function = (memsize (*)(struct Effect *, struct etgeffectstatic *,etgfunctioncall *)) wrap_partSetTrHandle;
     }
     else
     {
@@ -4113,6 +4154,7 @@ sdword etgSetTextureParse(struct etgeffectstatic *stat, ubyte *dest, char *opcod
         function->parameter[function->nParameters].type = EVT_Int;//first param is the texture handle
         function->parameter[function->nParameters].param = lVar->offset;
         function->function = (memsize (*)(void))partModifyTexture;
+	function->wrap_function = (memsize (*)(struct Effect *, struct etgeffectstatic *,etgfunctioncall *)) wrap_partModifyTexture;
         function->nParameters++;
         param = strtok(NULL, ETG_TokenDelimiters);
     }
@@ -4258,6 +4300,7 @@ sdword etgSetMeshParse(struct etgeffectstatic *stat, ubyte *dest, char *opcode, 
 #endif
     function->opcode = EOP_Function;
     function->function = (memsize (*)(void))partSetMeshdata;
+    function->wrap_function = (memsize (*)(struct Effect *, struct etgeffectstatic *,etgfunctioncall *))wrap_partSetMeshdata;
     function->nParameters = 1;
     function->returnValue = MINUS1;
     function->passThis = FALSE;
@@ -5368,6 +5411,7 @@ sdword etgSpawnParse(struct etgeffectstatic *stat, ubyte *dest, char *opcodeStri
 
     call->opcode = EOP_Function;
     call->function = (memsize (*)(void))etgSpawnNewEffect;
+    call->wrap_function = (memsize (*)(struct Effect *, struct etgeffectstatic *,etgfunctioncall *))wrap_etgSpawnNewEffect;
     call->returnValue = MINUS1;
     call->passThis = TRUE;
     while((param = strtok(NULL, ETG_TokenDelimiters)) != NULL)
@@ -5524,6 +5568,7 @@ void etgCallbackOpen(sdword codeBlock, sdword offset, ubyte *userData)
     call = (etgfunctioncall *)userData;
     call->opcode = EOP_Function;
     call->function = (memsize (*)(void))etgCreateCallbackSetup;
+    call->wrap_function = (memsize (*)(struct Effect *, struct etgeffectstatic *,etgfunctioncall *))wrap_etgCreateCallbackSetup;
     call->passThis = TRUE;
     call->returnValue = MINUS1;
     call->nParameters = 1;
@@ -5653,6 +5698,7 @@ sdword etgCreateEffectsParse(struct etgeffectstatic *stat, ubyte *dest, char *op
     }
     call->opcode = EOP_Function;
     call->function = (memsize (*)(void))etgCreateEffects;
+    call->wrap_function = (memsize (*)(struct Effect *, struct etgeffectstatic *,etgfunctioncall *))wrap_etgCreateEffects;
     call->returnValue = MINUS1;
     call->passThis = TRUE;
     while((param = strtok(NULL, ETG_TokenDelimiters)) != NULL)
@@ -6169,6 +6215,45 @@ sdword etgFunctionCall(Effect *effect, struct etgeffectstatic *stat, ubyte *opco
     }
     
     return (etgFunctionSize(nParams));
+}
+
+#elif defined GENERIC_ETGCALLFUNCTION
+
+sdword etgFunctionCall(Effect *effect, struct etgeffectstatic *stat, ubyte *opcode)
+{
+    udword param, nParams, returnType;
+    etgfunctioncall *opptr = (etgfunctioncall *)opcode;
+
+    nParams = opptr->nParameters;
+    returnType = opptr->returnValue;
+
+    opfunctionentry *entry = NULL;
+    udword currEntry=0;
+        
+    while ((entry = &etgFunctionTable[currEntry++])->name != NULL)
+    {
+        if (entry->function == ((etgfunctioncall *)opcode)->function)
+        {
+            break;
+        }
+    }
+
+	if (entry->name == NULL)
+	{
+		entry = NULL;
+	}
+
+    if (entry)
+        param = entry->wrap_function(effect, stat, opptr);		//call the function
+    else
+        param = opptr->wrap_function(effect, stat, opptr);
+
+    if (returnType != 0xffffffff)                           //if a return value is desired
+    {
+        *((udword *)(effect->variable + returnType)) = param;//set the return parameter
+    }
+
+    return(etgFunctionSize(nParams));
 }
 
 #else // for lucky so and so's with x86 processors...
