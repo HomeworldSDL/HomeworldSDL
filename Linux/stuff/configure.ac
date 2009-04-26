@@ -1,6 +1,8 @@
 AC_INIT([HomeworldSDL],[0.6],[baucheta@gmail.com])
 AC_CONFIG_AUX_DIR(config)
 AC_CANONICAL_TARGET
+AC_CANONICAL_HOST
+AC_CANONICAL_SYSTEM
 AM_INIT_AUTOMAKE([-Wall foreign dist-bzip2])
 
 AC_LIBTOOL_WIN32_DLL
@@ -35,7 +37,6 @@ AM_CONDITIONAL(PLATFORM_WIN32, test "$platform_win32" = "yes")
 
 dnl Platform-independent data types.
 dnl AX_CREATE_STDINT_H
-
 
 dnl "bool" supported by C++ compiler?
 dnl AC_CXX_BOOL
@@ -83,17 +84,32 @@ else
 	HWBIN_CFLAGS="-DHW_BUILD_FOR_DISTRIBUTION"
 fi
 
+dnl Stolen from gcc, set CC_FOR_BUILD right so we build host tools with host compiler
+if test "${build}" != "${host}" ; then
+  CC_FOR_BUILD=${CC_FOR_BUILD-gcc}
+else
+  CC_FOR_BUILD="${CC}"
+fi
+
 dnl Configure options for building X86_64 version.
 AC_ARG_ENABLE(x86_64,
     AS_HELP_STRING([--enable-x86_64],[build an experimental x86_64 binary for Homeworld]),
     enable_x86_64=yes)
 if test "x$enable_x86_64" = "x" ; then
-    echo "* Building x86 binary for Homeworld (X86) *"
-    CFLAGS="$CFLAGS -malign-double -D_X86"
+    if test "$host_cpu" = "arm" ; then
+        echo "* Building ARM binary for Homeworld (ARM)"
+        CFLAGS="$CFLAGS -DARM -DGENERIC_ETGCALLFUNCTION"
+    else
+        echo "* Building x86 binary for Homeworld (X86) *"
+        CFLAGS="$CFLAGS -malign-double -D_X86"
+	x86_class_cpu="true"
+    fi
 else
     echo "* Building x86_64 binary for Homeworld (X86_64) *"
     CFLAGS="$CFLAGS -D_X86_64 -D_X86_64_FIX_ME"
+    x86_class_cpu="true"
 fi
+AM_CONDITIONAL(X86_CPU, test x$x86_class_cpu = xtrue)
 
 dnl Force generic ETG function call
 AC_ARG_ENABLE(generic_ETG,
@@ -169,6 +185,9 @@ AM_CONDITIONAL(OLD_SOUND, test "$oldsound" = "yes")
 
 AC_SUBST([MOVIE_LIBS])
 AC_SUBST([NET_LIBS])
+AC_SUBST([SSE_FLAGS])
+AC_SUBST([TRANSFORM])
+AC_SUBST(CC_FOR_BUILD)
 
 dnl Add necessary flags for compiler and linker.
 dnl - One (and only one) of "HW_BUILD_FOR_DEBUGGING" or "HW_BUILD_FOR_DISTRIBUTION"

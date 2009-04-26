@@ -262,7 +262,7 @@ real32 SdwordToReal32(sdword a);
         *((udword *)(&(b))) ^= *((udword *)(&(a)));   \
         *((udword *)(&(a))) ^= *((udword *)(&(b)));
 
-#define str$(x) #x
+#define strdollar(x) #x
 
 //fuzzy equals using a tolerance
 #define roughlyEqual(a, b, t)   (((b) <= ((a) + (t))) && ((b) >= ((a) - (t))))

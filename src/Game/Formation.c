@@ -61,15 +61,15 @@ real32 TARGETDRONE_FORMATION_SIZE = 1000.0f;
 
 static NumStrXlate formationtypeinfo[] =
 {
-    { (uword)DELTA_FORMATION,  str$(DELTA_FORMATION) },
-    { (uword)BROAD_FORMATION, str$(BROAD_FORMATION) },
-    { (uword)DELTA3D_FORMATION, str$(DELTA3D_FORMATION) },
-    { (uword)CLAW_FORMATION, str$(CLAW_FORMATION) },
-    { (uword)WALL_FORMATION, str$(WALL_FORMATION) },
-    { (uword)SPHERE_FORMATION, str$(SPHERE_FORMATION) },
-    { (uword)CUSTOM_FORMATION, str$(CUSTOM_FORMATION) },
-    { (uword)NO_FORMATION, str$(NO_FORMATION) },
-    { (uword)SAME_FORMATION, str$(SAME_FORMATION) },
+    { (uword)DELTA_FORMATION,  strdollar(DELTA_FORMATION) },
+    { (uword)BROAD_FORMATION, strdollar(BROAD_FORMATION) },
+    { (uword)DELTA3D_FORMATION, strdollar(DELTA3D_FORMATION) },
+    { (uword)CLAW_FORMATION, strdollar(CLAW_FORMATION) },
+    { (uword)WALL_FORMATION, strdollar(WALL_FORMATION) },
+    { (uword)SPHERE_FORMATION, strdollar(SPHERE_FORMATION) },
+    { (uword)CUSTOM_FORMATION, strdollar(CUSTOM_FORMATION) },
+    { (uword)NO_FORMATION, strdollar(NO_FORMATION) },
+    { (uword)SAME_FORMATION, strdollar(SAME_FORMATION) },
     { 0,NULL }
 };
 

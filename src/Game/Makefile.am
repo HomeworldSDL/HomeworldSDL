@@ -19,13 +19,21 @@ libhw_Game_a_SOURCES = AIAttackMan.c AIAttackMan.h AIDefenseMan.c AIDefenseMan.h
 
 # KNITransform.c requires SSE instructions, but we don't want to force SSE
 # instructions throughout the project.
+if X86_CPU
 KNITransform.o: KNITransform.c
 	if $(COMPILE) -msse -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" \
 	  -c -o $@ `test -f '$<' || echo '$(srcdir)/'`$<; \
 	then mv "$(DEPDIR)/$*.Tpo" "$(DEPDIR)/$*.Po"; \
 	else rm -f "$(DEPDIR)/$*.Tpo"; exit 1; \
 	fi
-
+else
+KNITransform.o: StubTransform.c
+	if $(COMPILE) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" \
+	  -c -o $@ `test -f '$<' || echo '$(srcdir)/'`$<; \
+	then mv "$(DEPDIR)/$*.Tpo" "$(DEPDIR)/$*.Po"; \
+	else rm -f "$(DEPDIR)/$*.Tpo"; exit 1; \
+	fi
+endif
 # Optimization thrashes Task.c, ETG.c, and FastMath.c (although we should
 # definitely fix FastMath.c at some point, being that it is straight C).
 Task.o: Task.c

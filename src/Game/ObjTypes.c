@@ -60,87 +60,87 @@ uword NumShipTypesInRace[NUM_RACES] =
 
 static NumStrXlate shiptypeinfo[] =
 {
-    { (uword)AdvanceSupportFrigate, str$(AdvanceSupportFrigate) },
-    { (uword)AttackBomber, str$(AttackBomber) },
-    { (uword)Carrier, str$(Carrier) },
-    { (uword)CloakedFighter, str$(CloakedFighter) },
-    { (uword)CloakGenerator, str$(CloakGenerator) },
-    { (uword)DDDFrigate, str$(DDDFrigate) },
-    { (uword)DefenseFighter, str$(DefenseFighter) },
-    { (uword)DFGFrigate, str$(DFGFrigate) },
-    { (uword)GravWellGenerator, str$(GravWellGenerator) },
-    { (uword)HeavyCorvette, str$(HeavyCorvette) },
-    { (uword)HeavyCruiser, str$(HeavyCruiser) },
-    { (uword)HeavyDefender, str$(HeavyDefender) },
-    { (uword)HeavyInterceptor, str$(HeavyInterceptor) },
-    { (uword)IonCannonFrigate, str$(IonCannonFrigate) },
-    { (uword)LightCorvette, str$(LightCorvette) },
-    { (uword)LightDefender, str$(LightDefender) },
-    { (uword)LightInterceptor, str$(LightInterceptor) },
-    { (uword)MinelayerCorvette, str$(MinelayerCorvette) },
-    { (uword)MissileDestroyer, str$(MissileDestroyer) },
-    { (uword)Mothership, str$(Mothership) },
-    { (uword)MultiGunCorvette, str$(MultiGunCorvette) },
-    { (uword)Probe, str$(Probe) },
-    { (uword)ProximitySensor, str$(ProximitySensor) },
-    { (uword)RepairCorvette, str$(RepairCorvette) },
-    { (uword)ResearchShip, str$(ResearchShip) },
-    { (uword)ResourceCollector, str$(ResourceCollector) },
-    { (uword)ResourceController, str$(ResourceController) },
-    { (uword)SalCapCorvette, str$(SalCapCorvette) },
-    { (uword)SensorArray, str$(SensorArray) },
-    { (uword)StandardDestroyer, str$(StandardDestroyer) },
-    { (uword)StandardFrigate, str$(StandardFrigate) },
-    { (uword)Drone, str$(Drone) },
-    { (uword)TargetDrone, str$(TargetDrone) },
-    { (uword)HeadShotAsteroid, str$(HeadShotAsteroid) },
-    { (uword)CryoTray, str$(CryoTray) },
-    { (uword)P1Fighter, str$(P1Fighter) },
-    { (uword)P1IonArrayFrigate, str$(P1IonArrayFrigate) },
-    { (uword)P1MissileCorvette, str$(P1MissileCorvette) },
-    { (uword)P1Mothership, str$(P1Mothership) },
-    { (uword)P1StandardCorvette, str$(P1StandardCorvette) },
-    { (uword)P2AdvanceSwarmer, str$(P2AdvanceSwarmer) },
-    { (uword)P2FuelPod, str$(P2FuelPod) },
-    { (uword)P2Mothership, str$(P2Mothership) },
-    { (uword)P2MultiBeamFrigate, str$(P2MultiBeamFrigate) },
-    { (uword)P2Swarmer, str$(P2Swarmer) },
-    { (uword)P3Destroyer, str$(P3Destroyer) },
-    { (uword)P3Frigate, str$(P3Frigate) },
-    { (uword)P3Megaship, str$(P3Megaship) },
-    { (uword)FloatingCity, str$(FloatingCity) },
-    { (uword)CargoBarge, str$(CargoBarge) },
-    { (uword)MiningBase, str$(MiningBase) },
-    { (uword)ResearchStation, str$(ResearchStation) },
-    { (uword)JunkYardDawg, str$(JunkYardDawg) },
-    { (uword)JunkYardHQ, str$(JunkYardHQ) },
-    { (uword)Ghostship,  str$(Ghostship)},
-    { (uword)Junk_LGun,  str$(Junk_LGun)},
-    { (uword)Junk_SGun,  str$(Junk_SGun)},
-    { (uword)ResearchStationBridge,  str$(ResearchStationBridge)},
-    { (uword)ResearchStationTower,  str$(ResearchStationTower)},
+    { (uword)AdvanceSupportFrigate, strdollar(AdvanceSupportFrigate) },
+    { (uword)AttackBomber, strdollar(AttackBomber) },
+    { (uword)Carrier, strdollar(Carrier) },
+    { (uword)CloakedFighter, strdollar(CloakedFighter) },
+    { (uword)CloakGenerator, strdollar(CloakGenerator) },
+    { (uword)DDDFrigate, strdollar(DDDFrigate) },
+    { (uword)DefenseFighter, strdollar(DefenseFighter) },
+    { (uword)DFGFrigate, strdollar(DFGFrigate) },
+    { (uword)GravWellGenerator, strdollar(GravWellGenerator) },
+    { (uword)HeavyCorvette, strdollar(HeavyCorvette) },
+    { (uword)HeavyCruiser, strdollar(HeavyCruiser) },
+    { (uword)HeavyDefender, strdollar(HeavyDefender) },
+    { (uword)HeavyInterceptor, strdollar(HeavyInterceptor) },
+    { (uword)IonCannonFrigate, strdollar(IonCannonFrigate) },
+    { (uword)LightCorvette, strdollar(LightCorvette) },
+    { (uword)LightDefender, strdollar(LightDefender) },
+    { (uword)LightInterceptor, strdollar(LightInterceptor) },
+    { (uword)MinelayerCorvette, strdollar(MinelayerCorvette) },
+    { (uword)MissileDestroyer, strdollar(MissileDestroyer) },
+    { (uword)Mothership, strdollar(Mothership) },
+    { (uword)MultiGunCorvette, strdollar(MultiGunCorvette) },
+    { (uword)Probe, strdollar(Probe) },
+    { (uword)ProximitySensor, strdollar(ProximitySensor) },
+    { (uword)RepairCorvette, strdollar(RepairCorvette) },
+    { (uword)ResearchShip, strdollar(ResearchShip) },
+    { (uword)ResourceCollector, strdollar(ResourceCollector) },
+    { (uword)ResourceController, strdollar(ResourceController) },
+    { (uword)SalCapCorvette, strdollar(SalCapCorvette) },
+    { (uword)SensorArray, strdollar(SensorArray) },
+    { (uword)StandardDestroyer, strdollar(StandardDestroyer) },
+    { (uword)StandardFrigate, strdollar(StandardFrigate) },
+    { (uword)Drone, strdollar(Drone) },
+    { (uword)TargetDrone, strdollar(TargetDrone) },
+    { (uword)HeadShotAsteroid, strdollar(HeadShotAsteroid) },
+    { (uword)CryoTray, strdollar(CryoTray) },
+    { (uword)P1Fighter, strdollar(P1Fighter) },
+    { (uword)P1IonArrayFrigate, strdollar(P1IonArrayFrigate) },
+    { (uword)P1MissileCorvette, strdollar(P1MissileCorvette) },
+    { (uword)P1Mothership, strdollar(P1Mothership) },
+    { (uword)P1StandardCorvette, strdollar(P1StandardCorvette) },
+    { (uword)P2AdvanceSwarmer, strdollar(P2AdvanceSwarmer) },
+    { (uword)P2FuelPod, strdollar(P2FuelPod) },
+    { (uword)P2Mothership, strdollar(P2Mothership) },
+    { (uword)P2MultiBeamFrigate, strdollar(P2MultiBeamFrigate) },
+    { (uword)P2Swarmer, strdollar(P2Swarmer) },
+    { (uword)P3Destroyer, strdollar(P3Destroyer) },
+    { (uword)P3Frigate, strdollar(P3Frigate) },
+    { (uword)P3Megaship, strdollar(P3Megaship) },
+    { (uword)FloatingCity, strdollar(FloatingCity) },
+    { (uword)CargoBarge, strdollar(CargoBarge) },
+    { (uword)MiningBase, strdollar(MiningBase) },
+    { (uword)ResearchStation, strdollar(ResearchStation) },
+    { (uword)JunkYardDawg, strdollar(JunkYardDawg) },
+    { (uword)JunkYardHQ, strdollar(JunkYardHQ) },
+    { (uword)Ghostship,  strdollar(Ghostship)},
+    { (uword)Junk_LGun,  strdollar(Junk_LGun)},
+    { (uword)Junk_SGun,  strdollar(Junk_SGun)},
+    { (uword)ResearchStationBridge,  strdollar(ResearchStationBridge)},
+    { (uword)ResearchStationTower,  strdollar(ResearchStationTower)},
     { 0,NULL }
 };
 
 static NumStrXlate shipraceinfo[] =
 {
-    { (uword)R1, str$(R1) },
-    { (uword)R2, str$(R2) },
-    { (uword)P1, str$(P1) },
-    { (uword)P2, str$(P2) },
-    { (uword)P3, str$(P3) },
-    { (uword)Traders, str$(Traders) },
+    { (uword)R1, strdollar(R1) },
+    { (uword)R2, strdollar(R2) },
+    { (uword)P1, strdollar(P1) },
+    { (uword)P2, strdollar(P2) },
+    { (uword)P3, strdollar(P3) },
+    { (uword)Traders, strdollar(Traders) },
     { 0,NULL }
 };
 
 static NumStrXlate nisraceinfo[] =
 {
-    { (uword)R1, str$(R1) },
-    { (uword)R2, str$(R2) },
-    { (uword)P1, str$(P1) },
-    { (uword)P2, str$(P2) },
-    { (uword)P3, str$(P3) },
-    { (uword)Traders, str$(Traders) },
+    { (uword)R1, strdollar(R1) },
+    { (uword)R2, strdollar(R2) },
+    { (uword)P1, strdollar(P1) },
+    { (uword)P2, strdollar(P2) },
+    { (uword)P3, strdollar(P3) },
+    { (uword)Traders, strdollar(Traders) },
     { (uword)NSR_Asteroid , "Asteroids" },
     { (uword)NSR_DustCloud, "DustClouds" },
     { (uword)NSR_GasCloud , "GasClouds" },
@@ -153,15 +153,15 @@ static NumStrXlate nisraceinfo[] =
 };
 static NumStrXlate shipclassinfo[] =
 {
-    { (uword)CLASS_Mothership,     str$(CLASS_Mothership) },
-    { (uword)CLASS_HeavyCruiser,   str$(CLASS_HeavyCruiser) },
-    { (uword)CLASS_Carrier,        str$(CLASS_Carrier) },
-    { (uword)CLASS_Destroyer,      str$(CLASS_Destroyer) },
-    { (uword)CLASS_Frigate,        str$(CLASS_Frigate) },
-    { (uword)CLASS_Corvette,       str$(CLASS_Corvette) },
-    { (uword)CLASS_Fighter,        str$(CLASS_Fighter) },
-    { (uword)CLASS_Resource,       str$(CLASS_Resource) },
-    { (uword)CLASS_NonCombat,      str$(CLASS_NonCombat) },
+    { (uword)CLASS_Mothership,     strdollar(CLASS_Mothership) },
+    { (uword)CLASS_HeavyCruiser,   strdollar(CLASS_HeavyCruiser) },
+    { (uword)CLASS_Carrier,        strdollar(CLASS_Carrier) },
+    { (uword)CLASS_Destroyer,      strdollar(CLASS_Destroyer) },
+    { (uword)CLASS_Frigate,        strdollar(CLASS_Frigate) },
+    { (uword)CLASS_Corvette,       strdollar(CLASS_Corvette) },
+    { (uword)CLASS_Fighter,        strdollar(CLASS_Fighter) },
+    { (uword)CLASS_Resource,       strdollar(CLASS_Resource) },
+    { (uword)CLASS_NonCombat,      strdollar(CLASS_NonCombat) },
     { 0,NULL }
 };
 
@@ -181,59 +181,59 @@ static NumStrXlate shipclassinfo[] =
 
 static NumStrXlate asteroidtypeinfo[] =
 {
-    { (uword)Asteroid0, str$(Asteroid0) },
-    { (uword)Asteroid1, str$(Asteroid1) },
-    { (uword)Asteroid2, str$(Asteroid2) },
-    { (uword)Asteroid3, str$(Asteroid3) },
-    { (uword)Asteroid4, str$(Asteroid4) },
+    { (uword)Asteroid0, strdollar(Asteroid0) },
+    { (uword)Asteroid1, strdollar(Asteroid1) },
+    { (uword)Asteroid2, strdollar(Asteroid2) },
+    { (uword)Asteroid3, strdollar(Asteroid3) },
+    { (uword)Asteroid4, strdollar(Asteroid4) },
     { 0,NULL }
 };
 
 static NumStrXlate dustcloudtypeinfo[] =
 {
-    { (uword)DustCloud0, str$(DustCloud0) },
-    { (uword)DustCloud1, str$(DustCloud1) },
-    { (uword)DustCloud2, str$(DustCloud2) },
-    { (uword)DustCloud3, str$(DustCloud3) },
+    { (uword)DustCloud0, strdollar(DustCloud0) },
+    { (uword)DustCloud1, strdollar(DustCloud1) },
+    { (uword)DustCloud2, strdollar(DustCloud2) },
+    { (uword)DustCloud3, strdollar(DustCloud3) },
     { 0,NULL }
 };
 
 static NumStrXlate gascloudtypeinfo[] =
 {
-    { (uword)GasCloud0, str$(GasCloud0) },
-    { (uword)GasCloud1, str$(GasCloud1) },
+    { (uword)GasCloud0, strdollar(GasCloud0) },
+    { (uword)GasCloud1, strdollar(GasCloud1) },
     { 0,NULL }
 };
 
 static NumStrXlate nebulatypeinfo[] =
 {
-    { (uword)Nebula0, str$(Nebula0) },
+    { (uword)Nebula0, strdollar(Nebula0) },
     { 0, NULL }
 };
 
 static NumStrXlate derelicttypeinfo[] =
 {
-    { (uword)AngelMoon,           str$(AngelMoon)},
-    { (uword)AngelMoon_clean,     str$(AngelMoon_clean)},
-    { (uword)Crate,               str$(Crate)},
-    { (uword)FragmentPanel0a,     str$(FragmentPanel0a)},
-    { (uword)FragmentPanel0b,     str$(FragmentPanel0b)},
-    { (uword)FragmentPanel0c,     str$(FragmentPanel0c)},
-    { (uword)FragmentPanel1,      str$(FragmentPanel1)},
-    { (uword)FragmentPanel2,      str$(FragmentPanel2)},
-    { (uword)FragmentPanel3,      str$(FragmentPanel3)},
-    { (uword)FragmentStrut,       str$(FragmentStrut)},
-    { (uword)Homeworld,           str$(Homeworld)},
-    { (uword)LifeBoat,            str$(LifeBoat)},
-    { (uword)PlanetOfOrigin,      str$(PlanetOfOrigin)},
-    { (uword)PlanetOfOrigin_scarred, str$(PlanetOfOrigin_scarred)},
-    { (uword)PrisonShipOld,       str$(PrisonShipOld)},
-    { (uword)PrisonShipNew,       str$(PrisonShipNew)},
-    { (uword)Scaffold,            str$(Scaffold)},
-    { (uword)Scaffold_scarred,    str$(Scaffold_scarred)},
-    { (uword)ScaffoldFingerA_scarred, str$(ScaffoldFingerA_scarred)},
-    { (uword)ScaffoldFingerB_scarred, str$(ScaffoldFingerB_scarred)},
-    { (uword)Shipwreck,           str$(Shipwreck)},
+    { (uword)AngelMoon,           strdollar(AngelMoon)},
+    { (uword)AngelMoon_clean,     strdollar(AngelMoon_clean)},
+    { (uword)Crate,               strdollar(Crate)},
+    { (uword)FragmentPanel0a,     strdollar(FragmentPanel0a)},
+    { (uword)FragmentPanel0b,     strdollar(FragmentPanel0b)},
+    { (uword)FragmentPanel0c,     strdollar(FragmentPanel0c)},
+    { (uword)FragmentPanel1,      strdollar(FragmentPanel1)},
+    { (uword)FragmentPanel2,      strdollar(FragmentPanel2)},
+    { (uword)FragmentPanel3,      strdollar(FragmentPanel3)},
+    { (uword)FragmentStrut,       strdollar(FragmentStrut)},
+    { (uword)Homeworld,           strdollar(Homeworld)},
+    { (uword)LifeBoat,            strdollar(LifeBoat)},
+    { (uword)PlanetOfOrigin,      strdollar(PlanetOfOrigin)},
+    { (uword)PlanetOfOrigin_scarred, strdollar(PlanetOfOrigin_scarred)},
+    { (uword)PrisonShipOld,       strdollar(PrisonShipOld)},
+    { (uword)PrisonShipNew,       strdollar(PrisonShipNew)},
+    { (uword)Scaffold,            strdollar(Scaffold)},
+    { (uword)Scaffold_scarred,    strdollar(Scaffold_scarred)},
+    { (uword)ScaffoldFingerA_scarred, strdollar(ScaffoldFingerA_scarred)},
+    { (uword)ScaffoldFingerB_scarred, strdollar(ScaffoldFingerB_scarred)},
+    { (uword)Shipwreck,           strdollar(Shipwreck)},
     //pre-revision ships as junkyard derelicts:
     { (uword)JunkAdvanceSupportFrigate,     "AdvanceSupportFrigate"},
     { (uword)JunkCarrier,                   "Carrier"},
@@ -293,73 +293,73 @@ static NumStrXlate explosiontypeinfo[] =
 
 static NumStrXlate guntypeinfo[] =
 {
-    { (uword)GUN_Fixed,  str$(GUN_Fixed) },
-    { (uword)GUN_Gimble, str$(GUN_Gimble) },
-    { (uword)GUN_NewGimble, str$(GUN_NewGimble) },
-    { (uword)GUN_MissileLauncher, str$(GUN_MissileLauncher) },
-    { (uword)GUN_MineLauncher, str$(GUN_MineLauncher) },
+    { (uword)GUN_Fixed,  strdollar(GUN_Fixed) },
+    { (uword)GUN_Gimble, strdollar(GUN_Gimble) },
+    { (uword)GUN_NewGimble, strdollar(GUN_NewGimble) },
+    { (uword)GUN_MissileLauncher, strdollar(GUN_MissileLauncher) },
+    { (uword)GUN_MineLauncher, strdollar(GUN_MineLauncher) },
     { 0,NULL }
 };
 
 static NumStrXlate dockpointtypeinfo[] =
 {
-    { (uword)DockingCone, str$(DockingCone) },
-    { (uword)LatchPoint, str$(LatchPoint) },
-    { (uword)LaunchPoint, str$(LaunchPoint) },
+    { (uword)DockingCone, strdollar(DockingCone) },
+    { (uword)LatchPoint, strdollar(LatchPoint) },
+    { (uword)LaunchPoint, strdollar(LaunchPoint) },
 
     { 0,NULL }
 };
 
 static NumStrXlate salvagepointtypeinfo[] =
 {
-    { (uword)Heading, str$(Heading) },
-    { (uword)Up, str$(Up) },
-    { (uword)AttachPoint, str$(AttachPoint) },
+    { (uword)Heading, strdollar(Heading) },
+    { (uword)Up, strdollar(Up) },
+    { (uword)AttachPoint, strdollar(AttachPoint) },
 
     { 0,NULL }
 };
 
 static NumStrXlate navlighttypeinfo[] =
 {
-    { (uword)NAVLIGHT_Default, str$(NAVLIGHT_Default) },
+    { (uword)NAVLIGHT_Default, strdollar(NAVLIGHT_Default) },
     { 0,NULL }
 };
 
 static NumStrXlate gunsoundtypeinfo[] =
 {
-    { (uword)GS_LargeEnergyCannon, str$(GS_LargeEnergyCannon) },
-    { (uword)GS_LargeIonCannon, str$(GS_LargeIonCannon) },
-    { (uword)GS_LargePlasmaBomb, str$(GS_LargePlasmaBomb) },
-    { (uword)GS_LargeProjectile, str$(GS_LargeProjectile) },
-    { (uword)GS_MediumEnergyCannon, str$(GS_MediumEnergyCannon) },
-    { (uword)GS_MediumIonCannon, str$(GS_MediumIonCannon) },
-    { (uword)GS_MediumPlasmaBomb, str$(GS_MediumPlasmaBomb) },
-    { (uword)GS_MediumProjectile, str$(GS_MediumProjectile) },
-    { (uword)GS_MineLauncher, str$(GS_MineLauncher) },
-    { (uword)GS_MissleLauncher, str$(GS_MissleLauncher) },
-    { (uword)GS_SmallEnergyCannon, str$(GS_SmallEnergyCannon) },
-    { (uword)GS_SmallIonCannon, str$(GS_SmallIonCannon) },
-    { (uword)GS_SmallPlasmaBomb, str$(GS_SmallPlasmaBomb) },
-    { (uword)GS_SmallProjectile, str$(GS_SmallProjectile) },
-    { (uword)GS_VeryLargeEnergyCannon, str$(GS_VeryLargeEnergyCannon) },
-    { (uword)GS_VeryLargeIonCannon, str$(GS_VeryLargeIonCannon) },
-    { (uword)GS_VeryLargePlasmaBomb, str$(GS_VeryLargePlasmaBomb) },
-    { (uword)GS_Laser, str$(GS_Laser) },
+    { (uword)GS_LargeEnergyCannon, strdollar(GS_LargeEnergyCannon) },
+    { (uword)GS_LargeIonCannon, strdollar(GS_LargeIonCannon) },
+    { (uword)GS_LargePlasmaBomb, strdollar(GS_LargePlasmaBomb) },
+    { (uword)GS_LargeProjectile, strdollar(GS_LargeProjectile) },
+    { (uword)GS_MediumEnergyCannon, strdollar(GS_MediumEnergyCannon) },
+    { (uword)GS_MediumIonCannon, strdollar(GS_MediumIonCannon) },
+    { (uword)GS_MediumPlasmaBomb, strdollar(GS_MediumPlasmaBomb) },
+    { (uword)GS_MediumProjectile, strdollar(GS_MediumProjectile) },
+    { (uword)GS_MineLauncher, strdollar(GS_MineLauncher) },
+    { (uword)GS_MissleLauncher, strdollar(GS_MissleLauncher) },
+    { (uword)GS_SmallEnergyCannon, strdollar(GS_SmallEnergyCannon) },
+    { (uword)GS_SmallIonCannon, strdollar(GS_SmallIonCannon) },
+    { (uword)GS_SmallPlasmaBomb, strdollar(GS_SmallPlasmaBomb) },
+    { (uword)GS_SmallProjectile, strdollar(GS_SmallProjectile) },
+    { (uword)GS_VeryLargeEnergyCannon, strdollar(GS_VeryLargeEnergyCannon) },
+    { (uword)GS_VeryLargeIonCannon, strdollar(GS_VeryLargeIonCannon) },
+    { (uword)GS_VeryLargePlasmaBomb, strdollar(GS_VeryLargePlasmaBomb) },
+    { (uword)GS_Laser, strdollar(GS_Laser) },
     { 0,NULL }
 };
 
 static NumStrXlate bullettypeinfo[] =
 {
-    { (uword)BULLET_Projectile, str$(BULLET_Projectile) },
-    { (uword)BULLET_PlasmaBomb, str$(BULLET_PlasmaBomb) },
-    { (uword)BULLET_Beam, str$(BULLET_Beam) },
+    { (uword)BULLET_Projectile, strdollar(BULLET_Projectile) },
+    { (uword)BULLET_PlasmaBomb, strdollar(BULLET_PlasmaBomb) },
+    { (uword)BULLET_Beam, strdollar(BULLET_Beam) },
     { 0,NULL }
 };
 
 static NumStrXlate missiletypeinfo[] =
 {
-    { (uword)MISSILE_Regular, str$(MISSILE_Regular) },
-    { (uword)MISSILE_Mine, str$(MISSILE_Mine) },
+    { (uword)MISSILE_Regular, strdollar(MISSILE_Regular) },
+    { (uword)MISSILE_Mine, strdollar(MISSILE_Mine) },
     { 0,NULL }
 };
 
@@ -404,9 +404,9 @@ static NumStrXlate SpecialEffectinfo[] =
 
 static NumStrXlate tacticsinfo[] =
 {
-    { (uword)Evasive, str$(Evasive) },
-    { (uword)Neutral, str$(Neutral) },
-    { (uword)Aggressive, str$(Aggressive) },
+    { (uword)Evasive, strdollar(Evasive) },
+    { (uword)Neutral, strdollar(Neutral) },
+    { (uword)Aggressive, strdollar(Aggressive) },
     { 0,NULL }
 };
 
