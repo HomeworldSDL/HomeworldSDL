@@ -4129,7 +4129,9 @@ sdword etgSetTextureParse(struct etgeffectstatic *stat, ubyte *dest, char *opcod
     if (strcmp(opcode, "setTexture") == 0)
     {
         function->function = (memsize (*)(void))partSetTrHandle;
+#ifdef GENERIC_ETGCALLFUNCTION
 	function->wrap_function = (memsize (*)(struct Effect *, struct etgeffectstatic *,etgfunctioncall *)) wrap_partSetTrHandle;
+#endif
     }
     else
     {
@@ -4154,7 +4156,9 @@ sdword etgSetTextureParse(struct etgeffectstatic *stat, ubyte *dest, char *opcod
         function->parameter[function->nParameters].type = EVT_Int;//first param is the texture handle
         function->parameter[function->nParameters].param = lVar->offset;
         function->function = (memsize (*)(void))partModifyTexture;
+#ifdef GENERIC_ETGCALLFUNCTION
 	function->wrap_function = (memsize (*)(struct Effect *, struct etgeffectstatic *,etgfunctioncall *)) wrap_partModifyTexture;
+#endif
         function->nParameters++;
         param = strtok(NULL, ETG_TokenDelimiters);
     }
@@ -4300,7 +4304,9 @@ sdword etgSetMeshParse(struct etgeffectstatic *stat, ubyte *dest, char *opcode, 
 #endif
     function->opcode = EOP_Function;
     function->function = (memsize (*)(void))partSetMeshdata;
+#ifdef GENERIC_ETGCALLFUNCTION
     function->wrap_function = (memsize (*)(struct Effect *, struct etgeffectstatic *,etgfunctioncall *))wrap_partSetMeshdata;
+#endif
     function->nParameters = 1;
     function->returnValue = MINUS1;
     function->passThis = FALSE;
@@ -5411,7 +5417,9 @@ sdword etgSpawnParse(struct etgeffectstatic *stat, ubyte *dest, char *opcodeStri
 
     call->opcode = EOP_Function;
     call->function = (memsize (*)(void))etgSpawnNewEffect;
+#ifdef GENERIC_ETGCALLFUNCTION
     call->wrap_function = (memsize (*)(struct Effect *, struct etgeffectstatic *,etgfunctioncall *))wrap_etgSpawnNewEffect;
+#endif
     call->returnValue = MINUS1;
     call->passThis = TRUE;
     while((param = strtok(NULL, ETG_TokenDelimiters)) != NULL)
@@ -5568,7 +5576,9 @@ void etgCallbackOpen(sdword codeBlock, sdword offset, ubyte *userData)
     call = (etgfunctioncall *)userData;
     call->opcode = EOP_Function;
     call->function = (memsize (*)(void))etgCreateCallbackSetup;
+#ifdef GENERIC_ETGCALLFUNCTION
     call->wrap_function = (memsize (*)(struct Effect *, struct etgeffectstatic *,etgfunctioncall *))wrap_etgCreateCallbackSetup;
+#endif
     call->passThis = TRUE;
     call->returnValue = MINUS1;
     call->nParameters = 1;
@@ -5698,7 +5708,9 @@ sdword etgCreateEffectsParse(struct etgeffectstatic *stat, ubyte *dest, char *op
     }
     call->opcode = EOP_Function;
     call->function = (memsize (*)(void))etgCreateEffects;
+#ifdef GENERIC_ETGCALLFUNCTION
     call->wrap_function = (memsize (*)(struct Effect *, struct etgeffectstatic *,etgfunctioncall *))wrap_etgCreateEffects;
+#endif
     call->returnValue = MINUS1;
     call->passThis = TRUE;
     while((param = strtok(NULL, ETG_TokenDelimiters)) != NULL)
