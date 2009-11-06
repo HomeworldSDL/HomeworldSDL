@@ -598,13 +598,11 @@ void glCapStartup(void)
     extern bool mainFastFrontend;
     extern bool mainNoPalettes;
 
-#ifdef _MACOSX_FIX_GL
 	if( !rndSmallInit( NULL, TRUE ) )
 	{
 		fprintf( stderr, "Cannot initialize OpenGL\n" );
 		return;
 	}
-#endif
 
     GLC_EXTENSIONS = (char const*)glGetString(GL_EXTENSIONS);
     GLC_RENDERER   = (char const*)glGetString(GL_RENDERER);
