@@ -42,7 +42,11 @@
 #include "utility.h"
 
 #ifdef GENERIC_ETGCALLFUNCTION
+#ifdef _MACOSX_FIX_MISC
+#include "functions.h"
+#else
 #include "wrapped_functions.h"
+#endif
 #include "wrapped_unlisted_functions.h"
 #endif
 
@@ -6275,10 +6279,6 @@ sdword etgFunctionCall(Effect *effect, struct etgeffectstatic *stat, ubyte *opco
 {
     udword param, nParams, returnType;
     sdword index;
-#ifdef _MACOSX_86
-	udword count = 0; // the number of times the for loop below is run.
-	udword offset; // the offset used when the parameter is placed above the stack pointer.
-#endif
 	etgfunctioncall *opptr = (etgfunctioncall *)opcode; //opcode pointer
 
 	
@@ -6286,12 +6286,11 @@ sdword etgFunctionCall(Effect *effect, struct etgeffectstatic *stat, ubyte *opco
     returnType = opptr->returnValue;
     for (index = (sdword)nParams - 1; index >= 0; index--) {		//for each parameter
 #ifdef _MACOSX_86
-		count++;								// add one to count each time the for loop runs
 		if (opptr->passThis) {					// check to see if more offset is needed becasue a 'this' pointer will also be passed.
-			offset = nParams*4 - count*4 + 4;	// compute the offset for parameter plus extra offset for a 'this' pointer.
+			offset = index*4 + 4; // compute the offset for parameter plus extra offset for a 'this' pointer.
 		}
 		else {
-			offset = nParams*4 - count*4;		// compute the offset for paramenter.
+			offset = index*4; // compute the offset for paramenter.
 		}
 #endif
 		param = opptr->parameter[index].param;

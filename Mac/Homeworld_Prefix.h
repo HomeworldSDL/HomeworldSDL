@@ -19,6 +19,7 @@
 // FIX_ENDIAN       - use where data needs byte-swapping 
 
 #ifdef _MACOSX
+#define GENERIC_ETGCALLFUNCTION
 	#define _MACOSX_FIX_ANIM 1
 	//#define _MACOSX_FIX_SOUND 1
 	#define _MACOSX_FIX_LAN 1
