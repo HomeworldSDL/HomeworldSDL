@@ -3561,6 +3561,9 @@ void utyGrowthHeapFree(void *heap)
     BOOL result;
     result = VirtualFree(heap, 0, MEM_RELEASE);
     dbgAssertOrIgnore(result);
+#elif _MACOSX
+	//not sure if this is an equivalent statement, but it fixes a crash on exit
+	free(heap);
 #else
     int result;
     result = munmap(heap, 0);
@@ -4732,6 +4735,9 @@ char *utyGameSystemsShutdown(void)
         bool result;
         result = VirtualFree(utyMemoryHeap, 0, MEM_RELEASE);
         dbgAssertOrIgnore(result);
+#elif _MACOSX
+		//not sure if this is an equivalent statement, but it fixes a crash on exit
+		free(utyMemoryHeap);
 #else
         int result;
         result = munmap(utyMemoryHeap, 0);
