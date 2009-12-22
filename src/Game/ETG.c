@@ -2393,7 +2393,20 @@ void etgEffectDraw(Effect *effect)
             timeElapsed = universe.totaltimeelapsed - part->lastUpdated;
             if (timeElapsed >= 0)
             {
+#ifdef _MACOSX_FIX_MISC
+				pointSystem *pp = (pointSystem *)effect->particleBlock[index];
+				trhandle correctTex = ((meshSystem *)pp)->tex;
+				
                 partUpdateSystem((psysPtr)effect->particleBlock[index], timeElapsed, &velInverse);
+				
+				trhandle textureTest = ((meshSystem *)pp)->tex;
+				if (textureTest >= 6000) {
+					//dbgMessagef("Tex test: %d", textureTest);
+					((meshSystem *)pp)->tex = correctTex;
+				}
+#else
+				partUpdateSystem((psysPtr)effect->particleBlock[index], timeElapsed, &velInverse);
+#endif
                 part->lastUpdated = universe.totaltimeelapsed;
             }
 
@@ -6327,10 +6340,18 @@ sdword etgFunctionCall(Effect *effect, struct etgeffectstatic *stat, ubyte *opco
             :
             : "a" (param) );
 #elif defined (_MACOSX_86)
-		__asm__ __volatile__ (								/* store parameters above the stack pointer */
-			"movl %0, (%%esp,%1)\n\t"						
-			:
-			: "a" (param), "r" (offset) );
+		
+//		__asm__ __volatile__ (								/* store parameters above the stack pointer */
+//			"movl %0, (%%esp,%1)\n\t"						
+//			:
+//			: "a" (param), "r" (offset) );
+		void *stackPointer;
+		__asm__ __volatile__ (
+			"movl %%esp, %0\n\t"
+			: "=r"(stackPointer)
+			:);
+		stackPointer += offset;
+		*stackPointer = param;
 #endif
     }// end of above for loop
 	
@@ -6348,10 +6369,16 @@ sdword etgFunctionCall(Effect *effect, struct etgeffectstatic *stat, ubyte *opco
             :
             : "a" (effect) );
 #elif defined (_MACOSX_86)
-		__asm__ __volatile__ (								/* pass a 'this' pointer */
-			"movl %0, (%%esp)\n\t"
-			:
-			: "a" (effect) );
+//		__asm__ __volatile__ (								/* pass a 'this' pointer */
+//			"movl %0, (%%esp)\n\t"
+//			:
+//			: "a" (effect) );
+		void *stackPointer;
+		__asm__ __volatile__ (
+			"movl %%esp, %0\n\t"
+			: "=r"(stackPointer)
+			:);
+		*stackPointer = effect;
 #endif
     }
     param = opptr->function();								//call the function
