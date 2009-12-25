@@ -2393,20 +2393,7 @@ void etgEffectDraw(Effect *effect)
             timeElapsed = universe.totaltimeelapsed - part->lastUpdated;
             if (timeElapsed >= 0)
             {
-#ifdef _MACOSX_FIX_MISC
-				pointSystem *pp = (pointSystem *)effect->particleBlock[index];
-				trhandle correctTex = ((meshSystem *)pp)->tex;
-				
-                partUpdateSystem((psysPtr)effect->particleBlock[index], timeElapsed, &velInverse);
-				
-				trhandle textureTest = ((meshSystem *)pp)->tex;
-				if (textureTest >= 6000) {
-					//dbgMessagef("Tex test: %d", textureTest);
-					((meshSystem *)pp)->tex = correctTex;
-				}
-#else
-				partUpdateSystem((psysPtr)effect->particleBlock[index], timeElapsed, &velInverse);
-#endif
+				partUpdateSystem((psysPtr)effect->particleBlock[index], timeElapsed, &velInverse); //update the particle
                 part->lastUpdated = universe.totaltimeelapsed;
             }
 
@@ -2438,7 +2425,7 @@ void etgEffectDraw(Effect *effect)
                 glMultMatrixf((GLfloat*)&ownerCoordMatrix);
                 glMultMatrixf((GLfloat*)&coordMatrixX);
 
-                partRenderSystem((psysPtr)effect->particleBlock[index]);
+                partRenderSystem((psysPtr)effect->particleBlock[index]);  //render the particle
 
                 glPopMatrix();
             }

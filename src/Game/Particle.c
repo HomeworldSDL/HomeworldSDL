@@ -2162,7 +2162,11 @@ sdword partAdvanceTexAnim(billSystem* bsys, particle* p)
             {
                 return frame;   //found the start of the loop
             }
-            else if (next->tex == 0x7fffffff)
+#ifdef _MACOSX_FIX_86
+            else if (next->tex == 0xffffffff)
+#else
+			else if (next->tex == 0x7fffffff)
+#endif
             {
                 return -1;      //error condition
             }
@@ -2172,7 +2176,11 @@ sdword partAdvanceTexAnim(billSystem* bsys, particle* p)
     //find the trivial next
     frame = (sdword)p->currentFrame + 1;
     next = animblock + frame;
-    if (next->tex == 0x7fffffff)
+#ifdef _MACOSX_FIX_86
+    if (next->tex == 0xffffffff)
+#else
+	if (next->tex == 0x7fffffff)
+#endif
     {
         if (!p->loop)
         {
