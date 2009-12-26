@@ -445,15 +445,19 @@ void matMultiplyMatByMat(matrix *result,matrix *first,matrix *second)
         pop       esi
         pop       edi
     }
-#elif defined (__GNUC__) && defined (__i386__) && !defined (_MACOSX_FIX_86)
+#elif defined (__GNUC__) && !defined (__i386__) && !defined (_X86_64) && !defined (_MACOSX_FIX_86)
+/* This block of code is the modified version of the code above.
+ * It was safe to use upto gcc 4.1, but seems to generate a 
+ * problem once we use -O2 with gcc 4.3  */
+ 
     __asm__ __volatile__ (
         "    pushl     %%ebp\n"
         "    movl      $-3, %%eax\n"
-        "    jmp       1f\n"
+        "    jmp       mat_x_mat_l1%=\n"
         "    .align    4\n"
-        "2:\n"
+        "mat_x_mat_l2%=:\n"
         "    fstps     32(%%ebx, %%eax, "FSIZE_STR")\n"
-        "1:\n"
+        "mat_x_mat_l1%=:\n"
         "    flds      36(%%ecx, %%eax, "FSIZE_STR")\n"
         "    fmuls     8(%%edx)\n"
         "    flds      (%%edx)\n"
@@ -489,7 +493,7 @@ void matMultiplyMatByMat(matrix *result,matrix *first,matrix *second)
         "    fmuls     24(%%edx)\n"
         "    faddp     %%st, %%st(1)\n"
         "    incl      %%eax\n"
-        "    jne       2b\n"
+        "    jne       mat_x_mat_l2%=\n"
         "    fstps     32(%%ebx, %%eax, "FSIZE_STR")\n"
         "    popl      %%ebp\n"
         :
