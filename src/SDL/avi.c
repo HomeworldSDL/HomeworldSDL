@@ -39,8 +39,9 @@
 #endif
 
 #ifdef HW_ENABLE_MOVIES
-    #include <ffmpeg/avformat.h>
-    #include <ffmpeg/avcodec.h>
+    #include <libavformat/avformat.h>
+    #include <libavcodec/avcodec.h>
+    #include <libswscale/swscale.h>
 #endif
 
 
@@ -61,7 +62,8 @@ int aviDonePlaying = 1;
 int aviIsPlaying = 0;
 int aviHasAudio = 0;
 
-udword aviPlayIntros = 1;
+// Set to 1 if you want to watch the Intros.
+udword aviPlayIntros = 0;
 
 #ifdef HW_ENABLE_MOVIES
 AVFormatContext *pFormatCtx    = NULL;
@@ -432,6 +434,8 @@ dbgMessage("aviPlayLoop:");
 
     pPictureRGB=&PictureRGB;
 
+    static struct SwsContext *img_convert_ctx = NULL;
+
     numBytes=avpicture_get_size(PIX_FMT_RGB32, pCodecCtx->width, pCodecCtx->height);
 #if AVI_VERBOSE_LEVEL >= 2
 dbgMessagef("aviPlayLoop: numBytes= %d, width=%d height=%d", numBytes, pCodecCtx->width, pCodecCtx->height);
@@ -440,6 +444,11 @@ dbgMessagef("aviPlayLoop: numBytes= %d, width=%d height=%d", numBytes, pCodecCtx
     buffer = av_malloc(numBytes );
 
     avpicture_fill(pPictureRGB, buffer, PIX_FMT_RGB32, pCodecCtx->width, pCodecCtx->height);
+
+    if (img_convert_ctx == NULL){
+        img_convert_ctx = sws_getContext(pCodecCtx->width, pCodecCtx->height, pCodecCtx->pix_fmt, pCodecCtx->width, pCodecCtx->height, PIX_FMT_RGB32, SWS_BICUBIC, NULL, NULL, NULL);
+        
+    }
 
     while(av_read_frame(pFormatCtx, &packet)>=0) {
 
@@ -455,9 +464,11 @@ dbgMessagef("aviPlayLoop: frameFinished=%d  packet.data=%x   packet.size=%d ", f
 
         if(frameFinished) {
             // Convert the image from its native format to RGB
-            img_convert(pPictureRGB, PIX_FMT_RGB32,
-                (AVPicture*)pFrame, pCodecCtx->pix_fmt, pCodecCtx->width,
-                pCodecCtx->height);
+//            img_convert(pPictureRGB, PIX_FMT_RGB32,
+//                (AVPicture*)pFrame, pCodecCtx->pix_fmt, pCodecCtx->width,
+//                pCodecCtx->height);
+            sws_scale(img_convert_ctx, pFrame->data,pFrame->linesize, 0, pCodecCtx->height, pPictureRGB->data,pPictureRGB->linesize);
+            
 
             animAviDecode(frame);
 
