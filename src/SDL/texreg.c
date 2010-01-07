@@ -3346,7 +3346,16 @@ void trMakeCurrent(trhandle handle)
     ubyte *newPalette;
     texreg *reg;
 
-	
+#if defined (_X86_64) 
+	//
+	//GE01  Seem to be sent spurious texture handles due to the multiplayer options. 
+	// Print them then ignore them. :)  probably should wrap this further in build_for_debug tests.
+	//
+	if (handle >= 6000){
+		dbgMessagef("trMakeCurrent: sent invalid handle: 0x%lx",handle);
+		return;
+    }
+#endif
 
 #if TR_NIL_TEXTURE
     if (GLOBAL_NO_TEXTURES)
