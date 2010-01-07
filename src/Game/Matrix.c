@@ -445,10 +445,16 @@ void matMultiplyMatByMat(matrix *result,matrix *first,matrix *second)
         pop       esi
         pop       edi
     }
-#elif defined (__GNUC__) && !defined (__i386__) && !defined (_X86_64) && !defined (_MACOSX_FIX_86)
+#elif defined (__GNUC__) && defined (__i386__) && !defined (_MACOSX_FIX_86)
 /* This block of code is the modified version of the code above.
  * It was safe to use upto gcc 4.1, but seems to generate a 
  * problem once we use -O2 with gcc 4.3  */
+
+/* This seems to be to do with the result matrix being outside this function.
+ * It is bypassed by defining it locally, and copying the matrix
+ * back into the result. */
+
+    matrix matResult[]={{0,0,0, 0,0,0, 0,0,0}};
  
     __asm__ __volatile__ (
         "    pushl     %%ebp\n"
@@ -496,9 +502,129 @@ void matMultiplyMatByMat(matrix *result,matrix *first,matrix *second)
         "    jne       mat_x_mat_l2%=\n"
         "    fstps     32(%%ebx, %%eax, "FSIZE_STR")\n"
         "    popl      %%ebp\n"
-        :
-        : "b" (result), "c" (first), "d" (second)
+        : 
+        : "b" (matResult), "c" (first), "d" (second)
         : "eax", "edi", "esi" );
+
+    memcpy(result, matResult, sizeof(struct matrix));
+
+#elif defined (__GNUC__) && defined (_X86_64) 
+/* This is the AMD64 version of the above code but using the 
+ * xmm 128-bit SSE registers. It looks longer but should be a 
+ * lot quicker as most of the operations are in parallel.
+ * Any CPU which supports SSE should be able to use these
+ * operations, (Pentium3 and above) though not tested. */
+
+    matrix matResult[]={{0,0,0, 0,0,0, 0,0,0}};
+
+    __asm__ (
+
+    "xorps %%xmm7,%%xmm7\n"         // Blank xmm7
+    "xorps %%xmm6,%%xmm6\n"         // Blank xmm6
+
+    "movlps %1, %%xmm7\n"           // Move first->m11 and first->m21 into xmm7
+    "movlhps %%xmm7, %%xmm7\n"      // Swap low to high in xmm7
+    "movlps 0xc%1, %%xmm7\n"        // Move first->m21 and first->m22 into xmm7
+    "movlps 0x18%1, %%xmm6\n"       // Move first->m31 and first->m32 into xmm6
+
+    "movaps %%xmm7, %%xmm0\n"       // Move xmm7 into xmm0 
+    "shufps $0x82, %%xmm6, %%xmm0\n"       //  3,1,1,3 == 10,00,00,10 == 82
+
+    "movaps %%xmm7, %%xmm1\n"       // Move xmm7 into xmm1 
+    "shufps $0x97, %%xmm6, %%xmm1\n"       //  3,2,2,4 == 10,01,01,11 == 97
+
+    "xorps %%xmm2,%%xmm2\n"         // Blank xmm2
+
+    "movss 0x20%1, %%xmm7\n"        // Move first->m33 into low xmm7
+    "movss 0x8%1, %%xmm2\n"         // Move first->m31 into low xmm2
+    "movlhps %%xmm2, %%xmm2\n"      // Swap low to high in xmm2
+    "movlps 0x14%1, %%xmm2\n"       // Move first->m32 into low xmm2
+
+    "shufps $0x42, %%xmm7, %%xmm2\n"       //  2,1,1,3 == 01,00,00,10 == 42
+
+
+    "xorps %%xmm7,%%xmm7\n"         // Blank xmm7
+    "movss 0x8%2, %%xmm7\n"         // Move second->m31 into low xmm7
+    "movlhps %%xmm7, %%xmm7\n"      // Swap low to high in xmm7
+    "movlps %2, %%xmm7\n"           // Move second->m11 second->m21 into xmm7
+    "movaps %%xmm7, %%xmm3\n"       // Move xmm7 into xmm3 (second column 1)
+
+    "xorps %%xmm7,%%xmm7\n"         // Blank xmm7
+    "movss 0x14%2, %%xmm7\n"        // Move second->m32 into low xmm7
+    "movlhps %%xmm7, %%xmm7\n"      // Swap low to high in xmm7
+    "movlps 0xc%2, %%xmm7\n"        // Move second->m12 second->m22 into xmm7
+    "movaps %%xmm7, %%xmm4\n"       // Move xmm7 into xmm4 (second column 2)
+
+    "xorps %%xmm7,%%xmm7\n"         // Blank xmm7
+    "movss 0x20%2, %%xmm7\n"        // Move second->m33 into low xmm7
+    "movlhps %%xmm7, %%xmm7\n"      // Swap low to high in xmm7
+    "movlps 0x18%2, %%xmm7\n"       // Move second->m13 second->m23 into xmm7
+    "movaps %%xmm7, %%xmm5\n"       // Move xmm7 into xmm5 (second column 3)
+
+
+    "xorps %%xmm6,%%xmm6\n"         // Blank xmm6
+
+    "movaps %%xmm3, %%xmm7\n"       // Move second column 1 into xmm7
+    "mulps %%xmm0, %%xmm7\n"        // Multiply by first row 1
+    "haddps %%xmm6, %%xmm7\n"       // Add
+    "haddps %%xmm6, %%xmm7\n"       // Add
+    "movss %%xmm7, %0\n"            // Move result to result->m11
+
+    "movaps %%xmm3, %%xmm7\n"       // Move second column 1 into xmm7
+    "mulps %%xmm1, %%xmm7\n"        // Multiply by first row 2
+    "haddps %%xmm6, %%xmm7\n"       // Add
+    "haddps %%xmm6, %%xmm7\n"       // Add
+    "movss %%xmm7, 0x4%0\n"           // Move result to result->m21
+
+    "movaps %%xmm3, %%xmm7\n"       // Move second column 1 into xmm7
+    "mulps %%xmm2, %%xmm7\n"        // Multiply by first row 3
+    "haddps %%xmm6, %%xmm7\n"       // Add
+    "haddps %%xmm6, %%xmm7\n"       // Add
+    "movss %%xmm7, 0x8%0\n"           // Move result to result->m31
+
+    "movaps %%xmm4, %%xmm7\n"       // Move second column 2 into xmm7
+    "mulps %%xmm0, %%xmm7\n"        // Multiply by first row 1
+    "haddps %%xmm6, %%xmm7\n"       // Add
+    "haddps %%xmm6, %%xmm7\n"       // Add
+    "movss %%xmm7, 0xc%0\n"            // Move result to result->m11
+
+    "movaps %%xmm4, %%xmm7\n"       // Move second column 1 into xmm7
+    "mulps %%xmm1, %%xmm7\n"        // Multiply by first row 2
+    "haddps %%xmm6, %%xmm7\n"       // Add
+    "haddps %%xmm6, %%xmm7\n"       // Add
+    "movss %%xmm7, 0x10%0\n"           // Move result to result->m21
+
+
+    "movaps %%xmm4, %%xmm7\n"       // Move second column 1 into xmm7
+    "mulps %%xmm2, %%xmm7\n"        // Multiply by first row 3
+    "haddps %%xmm6, %%xmm7\n"       // Add
+    "haddps %%xmm6, %%xmm7\n"       // Add
+    "movss %%xmm7, 0x14%0\n"           // Move result to result->m31
+
+    "movaps %%xmm5, %%xmm7\n"       // Move second column 2 into xmm7
+    "mulps %%xmm0, %%xmm7\n"        // Multiply by first row 1
+    "haddps %%xmm6, %%xmm7\n"       // Add
+    "haddps %%xmm6, %%xmm7\n"       // Add
+    "movss %%xmm7, 0x18%0\n"            // Move result to result->m11
+
+    "movaps %%xmm5, %%xmm7\n"       // Move second column 1 into xmm7
+    "mulps %%xmm1, %%xmm7\n"        // Multiply by first row 2
+    "haddps %%xmm6, %%xmm7\n"       // Add
+    "haddps %%xmm6, %%xmm7\n"       // Add
+    "movss %%xmm7, 0x1c%0\n"           // Move result to result->m21
+
+    "movaps %%xmm5, %%xmm7\n"       // Move second column 1 into xmm7
+    "mulps %%xmm2, %%xmm7\n"        // Multiply by first row 3
+    "haddps %%xmm6, %%xmm7\n"       // Add
+    "haddps %%xmm6, %%xmm7\n"       // Add
+    "movss %%xmm7, 0x20%0\n"           // Move result to result->m31
+
+    : "=m" (matResult)
+    : "m" (*first), "m" (*second)
+    : "%xmm0", "%xmm1", "%xmm2", "%xmm3", "%xmm4", "%xmm5", "%xmm6", "%xmm7", "memory"  );
+
+    memcpy(result, matResult, sizeof(struct matrix));
+
 #else
 #define A(row,col) a[3*col+row]
 #define B(row,col) b[3*col+row]
