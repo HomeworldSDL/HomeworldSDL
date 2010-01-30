@@ -118,6 +118,8 @@
 #define STREAM_FLAGS_ACMODEL	0x2
 #define STREAM_FLAGS_EQ			0x4
 
+#define SOUND_PAUSE_DELAY		100
+#define SOUND_PAUSE_BREAKOUT		50
 
 /* structures */
 typedef struct

@@ -308,12 +308,16 @@ void soundpause(bool bPause)
 
 		if (bPause)
 		{
+			int timeout=SOUND_PAUSE_BREAKOUT;
 			soundstopall(SOUND_FADE_STOPALL);
 
-			while (!(mixer.status == SOUND_STOPPED))
+			while ((mixer.status != SOUND_STOPPED) && (--timeout))
 			{
 				musicEventUpdateVolume();
-				SDL_Delay(0);
+				SDL_Delay(SOUND_PAUSE_DELAY);
+			}
+			if (!timeout) {
+				dbgMessagef("WARNING: Sound refused to pause in %d*%d ms, forcing exit", SOUND_PAUSE_BREAKOUT, SOUND_PAUSE_DELAY);
 			}
 		} else {
 		    SDL_PauseAudio(FALSE);
