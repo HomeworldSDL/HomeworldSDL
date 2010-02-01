@@ -26,15 +26,84 @@
 
 #define DBG_ExitCode            0xfed5   // default exit code
 
-#define DBG_FATAL_DIE_NOISILY     TRUE   // fatals assert(0) for debugger to catch
-
-
 /*=============================================================================
     Data:
 =============================================================================*/
 char dbgFatalErrorString[DBG_BufferLength];
 sdword dbgInt3Enabled = TRUE;
 
+/*-----------------------------------------------------------------------------
+    Name        : dbgStackDump
+    Description : Dumps the stack to a file for debugging purposes.
+    Inputs      : void
+    Outputs     :
+    Return      : filename of file written to, or NULL on error
+----------------------------------------------------------------------------*/
+#if DBG_STACK_CONTEXT
+static char dbgStackFilename[PATH_MAX + 1];
+udword dbgStackBase = 0;
+
+
+char *dbgStackDump(void)
+{
+    udword nDwords, _ESP;
+    char *blankPtr;
+    struct tm *newtime;
+    time_t aclock;
+    FILE *fp;
+    udword referenceAddress;
+
+    if (dbgStackBase == 0)
+    {
+        return(NULL);
+    }
+
+    //find stack pointers
+#if defined (_MSC_VER)
+    _asm mov eax, esp
+    _asm mov _ESP, eax
+#elif defined (__GNUC__) && defined (__i386__)
+    __asm__ __volatile__ ( "movl %%esp, %0\n\t" : "=r" (_ESP) );
+#endif
+
+    _ESP = _ESP & (~3);                                     //round off to dword boundary
+    dbgStackBase = dbgStackBase & (~3);
+    nDwords = dbgStackBase - _ESP;
+
+    //create a filename with the time in it
+    time( &aclock );                                        //Get time in seconds
+    newtime = localtime( &aclock );                         //Convert time to struct
+    sprintf(dbgStackFilename, "stack-%s.dump", asctime(newtime));
+    for (blankPtr = dbgStackFilename; *blankPtr; blankPtr++)
+    {
+        if (strchr(": \n\r", *blankPtr))
+        {
+            *blankPtr = '-';
+        }
+    }
+
+    blankPtr = filePathPrepend(dbgStackFilename, FF_UserSettingsPath);
+    if (!fileMakeDestinationDirectory(blankPtr))
+        return NULL;
+
+    fp = fopen(blankPtr, "wb");                             //open the dump file
+    if (fp == NULL)
+    {
+        return(NULL);
+    }
+    fwrite(&_ESP, sizeof(udword), 1, fp);                   //write the stack reference
+    referenceAddress = (udword)&dbgFatalf;
+    fwrite(&referenceAddress, sizeof(udword), 1, fp);       //write the .text reference
+    while (nDwords)
+    {
+        fwrite((udword *)_ESP, sizeof(udword), 1, fp);      //write the stack block
+        nDwords--;
+        _ESP++;
+    }
+    fclose(fp);                                             //close the file
+    return(dbgStackFilename);
+}
+#endif //DBG_STACK_CONTEXT
 
 /*-----------------------------------------------------------------------------
     Name        : dbgMessage
@@ -136,13 +205,10 @@ sdword dbgWarningf(char *file, sdword line, char *format, ...)
 ----------------------------------------------------------------------------*/
 sdword dbgFatal(char *file, sdword line, char *string)
 {
-#if DBG_FATAL_DIE_NOISILY
-    assert(0);
-#else
-
     snprintf(dbgFatalErrorString, DBG_BufferMax, "\n%s (%d): Fatal error - %s", file, line, string);
 
 #if DBG_STACK_CONTEXT
+char *dbgStackDump(void);
     {
         char *fileName = dbgStackDump();
         if (fileName)
@@ -153,17 +219,20 @@ sdword dbgFatal(char *file, sdword line, char *string)
 #endif
 
     dbgMessage(dbgFatalErrorString);                        //print the message
+
+#if DBG_FATAL_DIE_NOISILY
+    assert(0);
+#else
     if (dbgInt3Enabled)
     {
 #if defined (_MSC_VER)
         _asm int 3
-#elif defined (__GNUC__) && defined (__i386__)
+#elif defined (__GNUC__) && (defined (__i386__) || defined (__x86_64__))
         __asm__ ( "int $3\n\t" );
 #endif
     }
-    utyFatalErrorWaitLoop(DBG_ExitCode);                    //exit with a MessageBox
-
 #endif
+    utyFatalErrorWaitLoop(DBG_ExitCode);                    //exit with a MessageBox
 
     return(ERROR);
 }
@@ -181,11 +250,6 @@ sdword dbgFatal(char *file, sdword line, char *string)
 ----------------------------------------------------------------------------*/
 sdword dbgFatalf(char *file, sdword line, char *format, ...)
 {
-#if DBG_FATAL_DIE_NOISILY
-    char *null_ptr = NULL;
-	*null_ptr = 1;  // deliberate out of bounds memory assignment
-#else
-
     char newFormat[DBG_BufferLength];
     va_list argList;
 
@@ -205,17 +269,21 @@ sdword dbgFatalf(char *file, sdword line, char *format, ...)
 #endif
 
     dbgMessage(dbgFatalErrorString);                        //print the message
+
+#if DBG_FATAL_DIE_NOISILY
+    char *null_ptr = NULL;
+	*null_ptr = 1;  // deliberate out of bounds memory assignment
+#else
     if (dbgInt3Enabled)
     {
 #if defined (_MSC_VER)
         _asm int 3
-#elif defined (__GNUC__) && defined (__i386__) && !defined (_MACOSX_FIX_86)
+#elif defined (__GNUC__) && (defined (__i386__) || defined (__x86_64__)) && !defined (_MACOSX_FIX_86)
         __asm__ ( "int $3\n\t" );
 #endif
     }
-    utyFatalErrorWaitLoop(DBG_ExitCode);                    //exit with a MessageBox
-
 #endif
+    utyFatalErrorWaitLoop(DBG_ExitCode);                    //exit with a MessageBox
 
     return(ERROR);
 }
@@ -263,77 +331,4 @@ sdword dbgNonFatalf(char *file, sdword line, char *format, ...)
     return(0);
 }
 
-/*-----------------------------------------------------------------------------
-    Name        : dbgStackDump
-    Description : Dumps the stack to a file for debugging purposes.
-    Inputs      : void
-    Outputs     :
-    Return      : filename of file written to, or NULL on error
-----------------------------------------------------------------------------*/
-#if DBG_STACK_CONTEXT
-static char dbgStackFilename[PATH_MAX + 1];
-udword dbgStackBase = 0;
-
-char *dbgStackDump(void);
-
-char *dbgStackDump(void)
-{
-    udword nDwords, _ESP;
-    char *blankPtr;
-    struct tm *newtime;
-    time_t aclock;
-    FILE *fp;
-    udword referenceAddress;
-
-    if (dbgStackBase == 0)
-    {
-        return(NULL);
-    }
-
-    //find stack pointers
-#if defined (_MSC_VER)
-    _asm mov eax, esp
-    _asm mov _ESP, eax
-#elif defined (__GNUC__) && defined (__i386__)
-    __asm__ __volatile__ ( "movl %%esp, %0\n\t" : "=r" (_ESP) );
-#endif
-
-    _ESP = _ESP & (~3);                                     //round off to dword boundary
-    dbgStackBase = dbgStackBase & (~3);
-    nDwords = dbgStackBase - _ESP;
-
-    //create a filename with the time in it
-    time( &aclock );                                        //Get time in seconds
-    newtime = localtime( &aclock );                         //Convert time to struct
-    sprintf(dbgStackFilename, "stack-%s.dump", asctime(newtime));
-    for (blankPtr = dbgStackFilename; *blankPtr; blankPtr++)
-    {
-        if (strchr(": \n\r", *blankPtr))
-        {
-            *blankPtr = '-';
-        }
-    }
-
-    blankPtr = filePathPrepend(dbgStackFilename, FF_UserSettingsPath);
-    if (!fileMakeDestinationDirectory(blankPtr))
-        return NULL;
-
-    fp = fopen(blankPtr, "wb");                             //open the dump file
-    if (fp == NULL)
-    {
-        return(NULL);
-    }
-    fwrite(&_ESP, sizeof(udword), 1, fp);                   //write the stack reference
-    referenceAddress = (udword)&dbgFatalf;
-    fwrite(&referenceAddress, sizeof(udword), 1, fp);       //write the .text reference
-    while (nDwords)
-    {
-        fwrite((udword *)_ESP, sizeof(udword), 1, fp);      //write the stack block
-        nDwords--;
-        _ESP++;
-    }
-    fclose(fp);                                             //close the file
-    return(dbgStackFilename);
-}
-#endif //DBG_STACK_CONTEXT
 
