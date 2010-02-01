@@ -724,11 +724,11 @@ void expireCrate(Derelict *crate)
     vector zero = {0.0f,0.0f,0.0f};
     matrix ident = IdentityMatrix;
 
-    universe.numCratesInWorld--;
 #ifdef HW_BUILD_FOR_DEBUGGING
     //don't drop below 0!
-    dbgAssertOrIgnore(universe.numCratesInWorld >= 0);
+    dbgAssertOrIgnore(universe.numCratesInWorld >= 1);
 #endif
+    universe.numCratesInWorld--;
 
     //delete target
     AddTargetToDeleteList((SpaceObjRotImpTarg *)crate,-1);
