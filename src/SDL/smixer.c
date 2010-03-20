@@ -836,7 +836,7 @@ void isoundmixerqueueSDL(Uint8 *stream, int len)
 //GE01
 //This code is different, so I'll just put my code in a different block then come back
 //to fix it once I know that sound is working....
-#ifdef _X86_64
+#ifdef _X86_64_BROKEN	// this skips and makes noise; the original code in #else works ok on X86_64
     while (size_written + MIX_BLOCK_SIZE < len) {
         // process 256 samples, 16-bit (independent of # of channels)
         isoundmixerprocess(stream + size_written,
