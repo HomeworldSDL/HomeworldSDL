@@ -2131,6 +2131,30 @@ void partUpdateMeshAnimation(meshSystem* psys, particle* part, real32 dt)
     partSetMeshFromAnimation(part);
 }
 
+/*
+ * returns true if this texture handle is last/invalid (teminator tex)
+ */
+int is_final_tex(trhandle tex)
+{
+#ifdef _MACOSX_FIX_86
+    if (tex == 0xffffffff) return 1;
+#else
+    if (tex == 0x7fffffff) return 1;
+#endif
+
+#ifdef _X86_64_FIX_ME
+    if (0x7fffffff == (tex & 0x7fffffff)) { 
+      /* it will catch stuff like 0x9cce2641ffffffff on 64-bit... but source of 32/64 should really be found and fixed */
+      dbgWarningf(DBG_Loc, "is_final_tex got invalid tex pointer 0x%lx - trying to work around", tex);
+      return 1;
+    }
+    if (tex >= 6000) { dbgFatalf(DBG_Loc, "tex handle 0x%lx is broken in is_final_tex, unable to continue", tex); }
+#endif
+        
+    return 0;
+}
+
+
 /*-----------------------------------------------------------------------------
     Name        : partUpdateTexAnim
     Description : returns an incremented frame counter for a texture animation
@@ -2162,11 +2186,7 @@ sdword partAdvanceTexAnim(billSystem* bsys, particle* p)
             {
                 return frame;   //found the start of the loop
             }
-#ifdef _MACOSX_FIX_86
-            else if (next->tex == 0xffffffff)
-#else
-			else if (next->tex == 0x7fffffff)
-#endif
+            else if (is_final_tex(next->tex))
             {
                 return -1;      //error condition
             }
@@ -2176,11 +2196,7 @@ sdword partAdvanceTexAnim(billSystem* bsys, particle* p)
     //find the trivial next
     frame = (sdword)p->currentFrame + 1;
     next = animblock + frame;
-#ifdef _MACOSX_FIX_86
-    if (next->tex == 0xffffffff)
-#else
-	if (next->tex == 0x7fffffff)
-#endif
+    if (is_final_tex(next->tex))
     {
         if (!p->loop)
         {
@@ -2758,6 +2774,7 @@ psysPtr partCreateSystemWithDelta(particleType t, udword n, udword delta)
     real32 d = (real32)delta;
     real32 rn = (real32)n;
     rn = partRealDist(rn, d);
+    dbgAssertOrIgnore (rn > 0);	// otherwise casting to (udword) will wreak havoc...
     return partCreateSystem(t, (udword)rn);
 }
 
@@ -2766,6 +2783,7 @@ psysPtr partCreateSphericalSystemWithDelta(particleType t, udword n, udword delt
     real32 d = (real32)delta;
     real32 rn = (real32)n;
     rn = partRealDist(rn, d);
+    dbgAssertOrIgnore (rn > 0);	// otherwise casting to (udword) will wreak havoc...
     return partCreateSphericalSystem(t, (udword)rn);
 }
 
