@@ -5811,7 +5811,46 @@ sdword etgVarAssign(Effect *effect, struct etgeffectstatic *stat, ubyte *opcode)
     return(sizeof(etgvariablecopy));
 }
 
-#ifdef __ppc__
+#if defined GENERIC_ETGCALLFUNCTION
+
+sdword etgFunctionCall(Effect *effect, struct etgeffectstatic *stat, ubyte *opcode)
+{
+    udword param, nParams, returnType;
+    etgfunctioncall *opptr = (etgfunctioncall *)opcode;
+
+    nParams = opptr->nParameters;
+    returnType = opptr->returnValue;
+
+    opfunctionentry *entry = NULL;
+    udword currEntry=0;
+        
+    while ((entry = &etgFunctionTable[currEntry++])->name != NULL)
+    {
+        if (entry->function == ((etgfunctioncall *)opcode)->function)
+        {
+            break;
+        }
+    }
+
+	if (entry->name == NULL)
+	{
+		entry = NULL;
+	}
+
+    if (entry)
+        param = entry->wrap_function(effect, stat, opptr);		//call the function
+    else
+        param = opptr->wrap_function(effect, stat, opptr);
+
+    if (returnType != 0xffffffff)                           //if a return value is desired
+    {
+        *((udword *)(effect->variable + returnType)) = param;//set the return parameter
+    }
+
+    return(etgFunctionSize(nParams));
+}
+
+#elif defined __ppc__
 /* handle function calls
 
  This function causes error during compilation of ETG.c with optimization on, and still
@@ -6231,45 +6270,6 @@ sdword etgFunctionCall(Effect *effect, struct etgeffectstatic *stat, ubyte *opco
     }
     
     return (etgFunctionSize(nParams));
-}
-
-#elif defined GENERIC_ETGCALLFUNCTION
-
-sdword etgFunctionCall(Effect *effect, struct etgeffectstatic *stat, ubyte *opcode)
-{
-    udword param, nParams, returnType;
-    etgfunctioncall *opptr = (etgfunctioncall *)opcode;
-
-    nParams = opptr->nParameters;
-    returnType = opptr->returnValue;
-
-    opfunctionentry *entry = NULL;
-    udword currEntry=0;
-        
-    while ((entry = &etgFunctionTable[currEntry++])->name != NULL)
-    {
-        if (entry->function == ((etgfunctioncall *)opcode)->function)
-        {
-            break;
-        }
-    }
-
-	if (entry->name == NULL)
-	{
-		entry = NULL;
-	}
-
-    if (entry)
-        param = entry->wrap_function(effect, stat, opptr);		//call the function
-    else
-        param = opptr->wrap_function(effect, stat, opptr);
-
-    if (returnType != 0xffffffff)                           //if a return value is desired
-    {
-        *((udword *)(effect->variable + returnType)) = param;//set the return parameter
-    }
-
-    return(etgFunctionSize(nParams));
 }
 
 #else // for lucky so and so's with x86 processors...
