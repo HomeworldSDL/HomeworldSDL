@@ -20,7 +20,7 @@ Hopefully it should be
 1:  cd Linux        (Hopefully this directory)
 2:  './bootstrap'
 3:  '../configure --enable-x86_64'
-        This should finish and include the -DX86_64 flag
+        This should finish and include the -D_X86_64 flag
 4:  'make'
 5:  copy the homeworld binary found in src/ to the root of 
     your homeworld install directory.
