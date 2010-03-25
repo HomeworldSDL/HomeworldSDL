@@ -223,7 +223,7 @@ typedef struct
 /* functions */
 sdword isoundmixerinit(SDL_AudioSpec *aspec);
 void isoundmixerrestore(void);
-void isoundstreamupdate(void *dummy);
+int isoundstreamupdate(void *dummy);
 
 sdword SNDreleasebuffer(CHANNEL *pchan);
 sdword SNDchannel(sdword handle);

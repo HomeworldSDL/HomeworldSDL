@@ -1034,7 +1034,7 @@ void isoundstreamcleanup(void)
 	Outputs		:
 	Return		:
 ----------------------------------------------------------------------------*/	
-void isoundstreamupdate(void *dummy)
+int isoundstreamupdate(void *dummy)
 {
 #ifndef _MACOSX_FIX_SOUND
 
@@ -1050,7 +1050,7 @@ void isoundstreamupdate(void *dummy)
 	if (streams == NULL)
 	{
 	/* not inited yet */
-	return;
+	return 0;
 	}
 
 	while (soundinited && (streamer.status >= SOUND_STOPPED))
@@ -1393,5 +1393,6 @@ Recover:
 	streamer.status = SOUND_FREE;
 
 #endif // _MACOSX_FIX_SOUND
+    return 1;
 }
 

@@ -807,10 +807,10 @@ sdword isoundmixerdecodeEffect(sbyte *readptr, real32 *writeptr1, real32 *writep
 	
 	if (effect != NULL)
 	{
-		fqGenQNoiseE(tempblock, bitrate, effect);
+		fqGenQNoiseE((char *)tempblock, bitrate, effect);
 	}
 
-	fqDequantBlock(tempblock, writeptr1, writeptr2, exponent,
+	fqDequantBlock((char *)tempblock, writeptr1, writeptr2, exponent,
 					FQ_LEN, bitrate, size);
 
 	return (bitrate >> 3);
