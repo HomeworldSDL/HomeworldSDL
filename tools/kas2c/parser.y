@@ -272,6 +272,7 @@ int yyerror (char *s)
         fprintf(stderr, "%s(%d) error : at '%s', %s\n", curFilename, lineNum, yytext, stateHelpGet());
     else
         fprintf(stderr, "%s(%d) error : at '%s', %s (%s)\n", curFilename, lineNum, yytext, stateHelpGet(), s);
+    return 99;
 }
 
 char *levelNameGet(void)
@@ -289,7 +290,7 @@ char *curFilenameGet()
     return curFilename;
 }
 
-main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     char infilename[256], outfilename[256], houtfilename[256], foutfilename[256];
     char *shortinfilename, tempfilename[256];
@@ -498,5 +499,5 @@ main(int argc, char **argv)
         if (foutfilename[0]);
             unlink(foutfilename);
     }
-
+    return 0;
 }

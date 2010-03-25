@@ -977,15 +977,15 @@ void PreFix_ShipXHarvestsResourceY(Ship *ship)
 {
     if (ship->ShipXHarvestsResourceY == DefaultShipHarvestsResource)
     {
-        ship->ShipXHarvestsResourceY = 0;
+        ship->ShipXHarvestsResourceY = (void *) 0;
     }
     else if (ship->ShipXHarvestsResourceY == R1ResourcerHarvestsAsteroid)
     {
-        ship->ShipXHarvestsResourceY = 1;
+        ship->ShipXHarvestsResourceY = (void *) 1;
     }
     else
     {
-        ship->ShipXHarvestsResourceY = -1;
+        ship->ShipXHarvestsResourceY = (void *) -1;
     }
 }
 

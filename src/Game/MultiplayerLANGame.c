@@ -43,7 +43,9 @@
     #define strncasecmp _strnicmp
     #define wcscasecmp  _wcsicmp
 #else
-    #define _GNU_SOURCE   /* Get to wcscasecmp() */
+    #ifndef _GNU_SOURCE
+        #define _GNU_SOURCE   /* Get to wcscasecmp() */
+    #endif
 #endif
 
 #if !defined _MSC_VER

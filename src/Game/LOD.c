@@ -77,8 +77,8 @@ scriptStructEntry lodScriptTable[] =
     { "pSpriteFile3", lodSpriteFileRead, (&lodStaticInfo.level[3].pData), (&lodStaticInfo)},
     { "pSpriteFile4", lodSpriteFileRead, (&lodStaticInfo.level[4].pData), (&lodStaticInfo)},
     { "pSpriteFile5", lodSpriteFileRead, (&lodStaticInfo.level[5].pData), (&lodStaticInfo)},
-    { "baseScalar",   lodColorScalarRead,0,            0},
-    { "stripeScalar", lodColorScalarRead,2,          1},
+    { "baseScalar",   lodColorScalarRead,(void *) 0, (void *) 0},
+    { "stripeScalar", lodColorScalarRead,(void *) 2, (void *) 1},
 
     END_SCRIPT_STRUCT_ENTRY
 };

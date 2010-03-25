@@ -796,9 +796,9 @@ void PreFix_madBindings(Ship *ship,Ship *fixcontents)
     for (i=0;i<numCurves;i++)
     {
         // store offsets from madBindings->header
-        curvesToModify[i].points = ((ubyte *)curvesToModify[i].points) - ((ubyte *)madBindings->header);
-        curvesToModify[i].times = ((ubyte *)curvesToModify[i].times) - ((ubyte *)madBindings->header);
-        curvesToModify[i].params = ((ubyte *)curvesToModify[i].params) - ((ubyte *)madBindings->header);
+        curvesToModify[i].points = (real32 *) (((ubyte *)curvesToModify[i].points) - ((ubyte *)madBindings->header));
+        curvesToModify[i].times = (real32 *) (((ubyte *)curvesToModify[i].times) - ((ubyte *)madBindings->header));
+        curvesToModify[i].params = (tcb *) (((ubyte *)curvesToModify[i].params) - ((ubyte *)madBindings->header));
     }
 
     // store offset from madBindings

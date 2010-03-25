@@ -1758,7 +1758,7 @@ long    ImageCount;
 
     tutImageAtom.region = (void*)tutImageRegion;
     tutImageRegion->atom = &tutImageAtom;
-    tutImageAtom.pData = szImages;
+    tutImageAtom.pData = (ubyte *) szImages;
 
     tutImageVisible = TRUE;
 

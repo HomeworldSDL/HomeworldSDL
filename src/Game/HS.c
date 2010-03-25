@@ -91,7 +91,7 @@ void hsOrientEffect(Ship* ship)
     {
         if (effect->particleBlock[index] != NULL)
         {
-            system = effect->particleBlock[index];
+            system = (psysPtr) effect->particleBlock[index];
             part = (particle*)((ubyte*)system + partHeaderSize(system));
 
             bitSet(part->flags, PART_XYZSCALE);
@@ -371,7 +371,7 @@ void hsContinue(Ship* ship, bool displayEffect)
         {
             if (effect->particleBlock[index] != NULL)
             {
-                system = effect->particleBlock[index];
+                system = (psysPtr) effect->particleBlock[index];
                 part = (particle*)((ubyte*)system + partHeaderSize(system));
                 part->position = effect->posinfo.position;
             }
@@ -1068,7 +1068,7 @@ void hsPreFixStaticData(ubyte *data)
 
     for (i = 0, pGate = (hsStaticGate*)data; i < hsStaticNumGates; i++, pGate++)
     {
-        pGate->derelict = SpaceObjRegistryGetID((SpaceObj *)pGate->derelict);
+        pGate->derelict = (DerelictPtr) SpaceObjRegistryGetID((SpaceObj *)pGate->derelict);
     }
 }
 

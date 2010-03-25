@@ -3274,7 +3274,7 @@ void Save_CommandToDo(CommandToDo *command)
 
         case COMMAND_ATTACK:
             // save
-            dbgAssertOrIgnore((command->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING) == NULL);
+            dbgAssertOrIgnore((command->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING) == 0);
             dbgAssertOrIgnore(command->attack);
             SaveSelection((SpaceObjSelection *)command->attack);
             break;
@@ -3395,7 +3395,7 @@ void Load_CommandToDo(LinkedList *list)
 
         case COMMAND_ATTACK:
             // load
-            dbgAssertOrIgnore((command->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING) == NULL);
+            dbgAssertOrIgnore((command->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING) == 0);
             command->attack = (AttackCommand *)LoadSelectionAndFix();
             break;
 
@@ -3801,11 +3801,11 @@ void Prefix_PlayerResearchInfo(PlayerResearchInfo *researchinfo)
         if (researchinfo->researchlabs[i].labstatus == LS_RESEARCHITEM)
         {
             researchinfo->researchlabs[i].topic = (ResearchTopic *)ConvertPointerInListToNum(&researchinfo->listoftopics,researchinfo->researchlabs[i].topic);
-            dbgAssertOrIgnore(researchinfo->researchlabs[i].topic != -1);
+            dbgAssertOrIgnore(researchinfo->researchlabs[i].topic != (ResearchTopic *) -1);
         }
         else
         {
-            researchinfo->researchlabs[i].topic = (ResearchTopic *)-1;
+            researchinfo->researchlabs[i].topic = (ResearchTopic *) -1;
         }
     }
 }

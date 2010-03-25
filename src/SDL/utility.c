@@ -4097,7 +4097,9 @@ char *utyGameSystemsInit(void)
 #endif
 
 #ifndef _MACOSX_FIX_ANIM
+#if 0
 DONE_INTROS:
+#endif
 #endif
 
     utilPlayingIntro = FALSE;

@@ -922,7 +922,7 @@ void gcStartup(void)
         chatdrawatom.y      = gcScreenHandle->atoms[0].y;
         chatdrawatom.width  = gcScreenHandle->atoms[0].width;
         chatdrawatom.height = gcScreenHandle->atoms[0].height;
-        chatdrawatom.pData = (char *)gcChatTextDraw;
+        chatdrawatom.pData = (unsigned char *)gcChatTextDraw;
 
         chatwidth = chatdrawatom.width;
 
