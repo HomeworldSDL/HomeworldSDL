@@ -1402,7 +1402,7 @@ udword trPalettedTextureCreate(ubyte *data, color *palette, sdword width, sdword
 			 width, height, 0, GL_COLOR_INDEX, GL_UNSIGNED_BYTE,
 			 NULL);
 	    glGetTexLevelParameteriv(GL_PROXY_TEXTURE_2D, 0, GL_TEXTURE_WIDTH,
-				     &internalWidth);
+				     (GLint *) &internalWidth);
 	    if (internalWidth == 0)
 	    {
 		dbgFatalf(DBG_Loc, "\ntrPalettedTextureCreate: unable to create proxy texture size %d x %d",
@@ -2194,6 +2194,7 @@ void trMeshSortListLoad(trmeshsort *sortList)
                 memStrncpy(fullName, reg->fileName, count + 1);
                 //fullName[count] = 0;
                 race = StrToShipRace(fullName);
+                dbgAssertOrIgnore ((race < 10) || (race == 0xffffffff));
                 if (race != 0xffffffff)
                 {
                     for (count = 0; count < reg->nPalettes; count++)
