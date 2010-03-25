@@ -109,7 +109,7 @@ typedef struct
     real32 size;                 // size of light in meters.
     udword minLOD;               // min LOD to draw light at.
     char name[20];               // name of nav light
-    udword texturehandle;      // handle to a texture (if any).
+    memsize texturehandle;      // handle to a texture (if any).		// actually trhandle, but not defined here
 } NAVLightStatic;
 
 typedef struct
@@ -1558,7 +1558,6 @@ typedef struct Effect
     ubyte *variable;                            //variable block
     ubyte *variableRate;                        //variable rate block (effectors)
     ubyte *effectID;                            //effector ID block for variables
-//    udword *alternate;                          //list of alternates
     sdword nParticleBlocks;                     //max number of particle systems
     sdword iParticleBlock;                      //current number of particle systems
     ubyte *particleBlock[1];                    //ragged array of particle systems in effect

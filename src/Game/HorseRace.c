@@ -898,7 +898,7 @@ void hrInitBackground(void)
         scaledImageGapSizeY
             = (screenHeight - (imageHeight * scaleFactor)) / 2;
 
-        pDest = (unsigned long*)hrBackgroundImage;
+        pDest = (udword*)hrBackgroundImage;
         
         if (pDest != NULL)
         {

@@ -55,7 +55,7 @@ extern unsigned int gDevcaps;
 static sdword alternateIndex = 0;
 typedef struct alternate_s
 {
-    sdword trhandle;    //of the etg texture
+    trhandle trhandle;    //of the etg texture
     udword glhandle;    //of the alternate
 } alternate_t;
 
@@ -1347,9 +1347,9 @@ udword partRenderMeshSystem(udword n, particle *p, udword flags, trhandle tex, m
         mesh = p->mesh;
 // MeshMorphedObjectRender crash fixme part 1
 #ifdef _LINUX_FIX_ME
-        if ((mesh != NULL) && (mesh != 0x7fffffff))
+        if ((mesh != NULL) && (mesh != (meshdata*) 0x7fffffff))
 #else   
-        if ((mesh != NULL) && (mesh != 0xffffffff))
+        if ((mesh != NULL) && (mesh != (meshdata*) 0xffffffff))
 #endif
         {
             partMeshOrient(p, bRescaleNormal, meshPart);
@@ -1873,6 +1873,7 @@ real32 partRealDist(real32 n, real32 d)
     real32 sign = (ranRandom(RANDOM_PARTICLE_STREAM) % 2 == 0) ? -1.0f : 1.0f;
     if (d < 0.0f)
         sign = -1.0f;
+//    if (n + sign*r*d < 0) dbgWarningf(DBG_Loc, "/mn/ partRealDist input n=%f, d=%f; derived r=%f, sign=%f; return n+sign*r*d=%f", n, d, r, sign, n + sign*r*d);
     return n + sign*r*d;
 }
 
@@ -2049,9 +2050,9 @@ sdword partAdvanceMeshMorph(meshSystem* psys, particle* p)
     next = animblock + frame;
 // MeshMorphedObjectRender crash fixme part 2
 #ifdef _LINUX_FIX_ME
-    if (next->mesh == NULL || next->mesh == 0x7fffffff)
+    if (next->mesh == NULL || next->mesh == (meshdata*) 0x7fffffff)
 #else    
-    if (next->mesh == NULL || next->mesh == 0xffffffff)
+    if (next->mesh == NULL || next->mesh == (meshdata*) 0xffffffff)
 #endif
     {
         if (p->loopCount == 0)

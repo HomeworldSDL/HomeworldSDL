@@ -190,7 +190,7 @@ bool lmIoSaveState;
 Ship *lmCarrierX[NUM_LMCARRIERS] = { NULL, NULL, NULL, NULL };
 
 
-udword lmShipTexture[MAX_RACES][NUM_LMTEXTURES] =
+trhandle lmShipTexture[MAX_RACES][NUM_LMTEXTURES] =
 {
     {TR_InvalidHandle, TR_InvalidHandle},
     {TR_InvalidHandle, TR_InvalidHandle}

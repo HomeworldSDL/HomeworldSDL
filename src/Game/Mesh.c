@@ -329,10 +329,13 @@ StaticInfo *meshNameToStaticInfo(char *fileName)
 trhandle meshTextureRegisterAllPlayers(char *fullName, void *meshReference)
 {
     trhandle handleList[MAX_MULTIPLAYER_PLAYERS], *allocedList;
-    sdword index, nRegistered = 0;
+    sdword index, nRegistered = 0, nHandles = TE_NumberPlayers;
     StaticInfo *info;
 
-    memClearDword(handleList, TR_Invalid, TE_NumberPlayers);//allocate and clear handle list
+    //allocate and clear handle list
+    trhandle *d = ( trhandle *) handleList;
+    while (nHandles--) *d++ = TR_Invalid;
+
     info = meshNameToStaticInfo(fullName);
     if (info == NULL)
     {
@@ -937,7 +940,7 @@ meshdata *meshLoad(char *inFileName)
         mesh->localMaterial[index].bTexturesRegistered = FALSE;
         if (mesh->localMaterial[index].texture != 0)
         {                                                   //if there is a texture
-            mesh->localMaterial[index].texture = offset + (ubyte *)mesh->localMaterial[index].texture;//fix up texture name pointer
+            mesh->localMaterial[index].texture = (trhandle)(offset + (char *)(mesh->localMaterial[index].texture));//fix up texture name pointer
             mesh->localMaterial[index].textureNameSave = (char *)mesh->localMaterial[index].texture;
             meshTextureNameToPath(fullName, fileName, (char *)mesh->localMaterial[index].texture);
             handle = meshTextureRegisterAllPlayers(fullName, mesh);//register the texture
