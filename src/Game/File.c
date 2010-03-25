@@ -1897,7 +1897,7 @@ char *filePathPrepend(char *fileName, udword flags)
     return filePathTempBuffer;
 }
 
-void fileCDROMPathSet(char *path)
+bool fileCDROMPathSet(char *path)
 {
 #ifdef _WIN32
     char message[80];
@@ -1910,6 +1910,7 @@ void fileCDROMPathSet(char *path)
     }
 #endif
     filePathMaxBufferSet(fileCDROMPath, path);
+    return TRUE;
 }
 
 void fileHomeworldDataPathSet(char *path)
@@ -1917,14 +1918,16 @@ void fileHomeworldDataPathSet(char *path)
     filePathMaxBufferSet(fileHomeworldDataPath, path);
 }
 
-void fileOverrideBigPathSet(char *path)
+bool fileOverrideBigPathSet(char *path)
 {
     filePathMaxBufferSet(fileOverrideBigPath, path);
+    return TRUE;
 }
 
-void fileUserSettingsPathSet(char *path)
+bool fileUserSettingsPathSet(char *path)
 {
     filePathMaxBufferSet(fileUserSettingsPath, path);
+    return TRUE;
 }
 
 

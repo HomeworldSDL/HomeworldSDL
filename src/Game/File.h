@@ -106,10 +106,10 @@ extern char filePathTempBuffer    [];
 char *filePathPrepend(char *fileName, udword flags);
 void fileNameReplaceSlashesInPlace(char *fileName);
 
-void fileCDROMPathSet(char *path);
+bool fileCDROMPathSet(char *path);
 void fileHomeworldDataPathSet(char *path);
-void fileOverrideBigPathSet(char *path);
-void fileUserSettingsPathSet(char *path);
+bool fileOverrideBigPathSet(char *path);
+bool fileUserSettingsPathSet(char *path);
 
 
 //load files directly into memory
