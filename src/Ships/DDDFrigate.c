@@ -596,7 +596,7 @@ void DDDFrigate_PreFix(Ship *ship)
 
     for (i=0;i<MAX_NUM_DRONES;i++)
     {
-        spec->DronePtrs[i] = SpaceObjRegistryGetID((SpaceObj *)spec->DronePtrs[i]);
+        spec->DronePtrs[i] = (ShipPtr) SpaceObjRegistryGetID((SpaceObj *)spec->DronePtrs[i]);	// just a handle actually, not ShipPtr ??
     }
 }
 

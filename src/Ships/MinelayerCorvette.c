@@ -785,7 +785,7 @@ void MineLayerCorvette_PreFix(Ship *ship)
 {
     MinelayerCorvetteSpec *spec = (MinelayerCorvetteSpec *)ship->ShipSpecifics;
 
-    spec->mineforminfo = ConvertPointerInListToNum(&universe.MineFormationList,spec->mineforminfo);
+    spec->mineforminfo = (MineFormationInfo *) ConvertPointerInListToNum(&universe.MineFormationList,spec->mineforminfo);
 }
 
 void MineLayerCorvette_Fix(Ship *ship)

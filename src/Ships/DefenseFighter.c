@@ -1001,8 +1001,8 @@ void SaveDefenseStruct(DefenseStruct *defenseStruct)
     chunk = CreateChunk(BASIC_STRUCTURE,sizeof(DefenseStruct),defenseStruct);
     savecontents = (DefenseStruct *)chunkContents(chunk);
 
-    savecontents->bullet = SpaceObjRegistryGetID((SpaceObj *)savecontents->bullet);
-    savecontents->laser = SpaceObjRegistryGetID((SpaceObj *)savecontents->laser);
+    savecontents->bullet = (Bullet *) SpaceObjRegistryGetID((SpaceObj *)savecontents->bullet);
+    savecontents->laser = (Bullet *) SpaceObjRegistryGetID((SpaceObj *)savecontents->laser);
 
     SaveThisChunk(chunk);
     memFree(chunk);

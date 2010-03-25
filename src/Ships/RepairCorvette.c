@@ -240,9 +240,9 @@ bool RepairCorvetteSpecialOps(Ship *ship, void *custom)
                 targets->TargetPtr[i] = targets->TargetPtr[targets->numTargets];
             }
             //object is a ship
-            else if( ((Ship *)targets->TargetPtr[i])->staticinfo->shipclass != CLASS_Fighter &&
-                ((Ship *)targets->TargetPtr[i])->staticinfo->shipclass != CLASS_Corvette ||
-                ((Ship *)targets->TargetPtr[i])->playerowner != ship->playerowner)
+            else if((((Ship *)targets->TargetPtr[i])->staticinfo->shipclass != CLASS_Fighter &&
+                     ((Ship *)targets->TargetPtr[i])->staticinfo->shipclass != CLASS_Corvette) ||
+                     ((Ship *)targets->TargetPtr[i])->playerowner != ship->playerowner)
             {
                 targets->numTargets--;
                 targets->TargetPtr[i] = targets->TargetPtr[targets->numTargets];
@@ -684,8 +684,8 @@ bool refuelRepairShips(Ship *ship, SelectAnyCommand *targets,real32 rangetoRefue
         }
 
         //object is a ship
-        if( ((Ship *)targets->TargetPtr[i])->staticinfo->shipclass != CLASS_Fighter &&
-            ((Ship *)targets->TargetPtr[i])->staticinfo->shipclass != CLASS_Corvette ||
+        if((((Ship *)targets->TargetPtr[i])->staticinfo->shipclass != CLASS_Fighter &&
+            ((Ship *)targets->TargetPtr[i])->staticinfo->shipclass != CLASS_Corvette) ||
             ((Ship *)targets->TargetPtr[i])->playerowner != ship->playerowner)
         {
             if(ship->staticinfo->repairBeamCapable)
