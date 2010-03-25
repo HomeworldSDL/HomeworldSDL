@@ -296,7 +296,7 @@ void ioStartup(void)
                                                   x, y, IO_ListWidth, fontHeight(" "),
                                                   0, RPE_PressLeft);
         regDrawFunctionSet(overlayinfo[index].region, ioShipListDraw);
-        regFunctionSet(overlayinfo[index].region, ioListClick);
+        regFunctionSet(overlayinfo[index].region, (regionfunction) ioListClick);
         regLinkRemove(overlayinfo[index].region);
         overlayinfo[index].inlist = FALSE;
         y+=fontHeight(" ")-2;

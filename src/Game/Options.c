@@ -616,7 +616,7 @@ void opKeyboardDraw(featom *atom, regionhandle region)
     {                                                       //if region not processed yet
         region->flags = RPE_PressLeft | RPE_PressRight |
                         RPE_WheelUp | RPE_WheelDown;        //receive mouse presses from now on
-        regFunctionSet(region, opSelectKey);          //set new region handler function
+        regFunctionSet(region, (regionfunction) opSelectKey);          //set new region handler function
         regFilterSet(region, region->flags | RPE_DoubleLeft | RPE_DoubleRight);
 
         //opKeyboardStart();
@@ -1943,7 +1943,7 @@ void opMusicVolume(char* name, featom* atom)
        f = regFilterSet(atom->region, 0);
        regFilterSet(atom->region, f | RPE_HoldLeft);
 
-       shandle->processFunction  = opMusicVolumeProcess;
+       shandle->processFunction  = (uicfunction) opMusicVolumeProcess;
        opMusicVolumeProcess(atom->region, 0, 0, 0);
 
 //       shandle->processFunction  = opMusicVolumeProcess;
@@ -1977,7 +1977,7 @@ void opSFXVolume(char* name, featom* atom)
         f = regFilterSet(atom->region, 0);
         regFilterSet(atom->region, f | RPE_HoldLeft);
 
-        shandle->processFunction  = opSFXVolumeProcess;
+        shandle->processFunction  = (uicfunction) opSFXVolumeProcess;
         opSFXVolumeProcess(atom->region, 0, 0, 0);
 
 //        AddSmoothie(&sfxsmoothie);
@@ -2009,7 +2009,7 @@ void opSpeechVolume(char* name, featom* atom)
         f = regFilterSet(atom->region, 0);
         regFilterSet(atom->region, f | RPE_HoldLeft);
 
-        shandle->processFunction  = opSpeechVolumeProcess;
+        shandle->processFunction  = (uicfunction) opSpeechVolumeProcess;
 
         opSpeechVolumeProcess(atom->region, 0, 0, 0);
 
@@ -2064,7 +2064,7 @@ void opNumberChannels(char* name, featom* atom)
         f = regFilterSet(atom->region, 0);
         regFilterSet(atom->region, f | RPE_HoldLeft);
 
-        shandle->processFunction  = opNumChannelsProcess;
+        shandle->processFunction  = (uicfunction) opNumChannelsProcess;
         opNumChannelsProcess(atom->region, 0, 0, 0);
     }
     else
@@ -2480,7 +2480,7 @@ void opDetailThreshold(char* name, featom* atom)
         f = regFilterSet(atom->region, 0);
         regFilterSet(atom->region, f | RPE_HoldLeft);
 
-        shandle->processFunction  = opDetailThresholdProcess;
+        shandle->processFunction  = (uicfunction) opDetailThresholdProcess;
 
         opDetailDisable();
     }
@@ -2515,7 +2515,7 @@ void opBrightness(char* name, featom* atom)
         f = regFilterSet(atom->region, 0);
         regFilterSet(atom->region, f | RPE_HoldLeft);
 
-        shandle->processFunction = opBrightnessProcess;
+        shandle->processFunction = (uicfunction) opBrightnessProcess;
     }
     else
     {
@@ -2963,7 +2963,7 @@ void EqualizerCommon(char* name, featom* atom, sdword ID)
         f = regFilterSet(atom->region, 0);
         regFilterSet(atom->region, f | RPE_HoldLeft);
 
-        shandle->processFunction = opEqualizerProcess;
+        shandle->processFunction = (uicfunction) opEqualizerProcess;
 
 /*        //smoothies
         smootheqvalue[ID] = (real32)opEqualizerSettings[shandle->ID];
@@ -3250,7 +3250,7 @@ void opMouseSensitivity(char* name, featom* atom)
        f = regFilterSet(atom->region, 0);
        regFilterSet(atom->region, f | RPE_HoldLeft);
 
-       shandle->processFunction  = opMouseSensitivityProcess;
+       shandle->processFunction  = (uicfunction) opMouseSensitivityProcess;
 
     }
     else
@@ -3275,7 +3275,7 @@ void opBattleChatterCB(char* name, featom* atom)
        f = regFilterSet(atom->region, 0);
        regFilterSet(atom->region, f | RPE_HoldLeft);
 
-       shandle->processFunction  = opBattleChatterProcess;
+       shandle->processFunction  = (uicfunction) opBattleChatterProcess;
        opBattleChatterProcess(atom->region, 0, 0, 0);
     }
     else
@@ -3299,7 +3299,7 @@ void opNumberEffects(char* name, featom* atom)
        f = regFilterSet(atom->region, 0);
        regFilterSet(atom->region, f | RPE_HoldLeft);
 
-       shandle->processFunction  = opNumEffectsProcess;
+       shandle->processFunction  = (uicfunction) opNumEffectsProcess;
        opNumEffectsProcess(atom->region, 0, 0, 0);
     }
     else if (FELASTCALL(atom))
@@ -3322,7 +3322,7 @@ void opCPUDifficulty(char* name, featom* atom)
         f = regFilterSet(atom->region, 0);
         regFilterSet(atom->region, f | RPE_HoldLeft);
 
-        shandle->processFunction = opCPUDifficultyProcess;
+        shandle->processFunction = (uicfunction) opCPUDifficultyProcess;
     }
     else if (FELASTCALL(atom))
     {
@@ -3344,7 +3344,7 @@ void opCPUAttacks(char* name, featom* atom)
         f = regFilterSet(atom->region, 0);
         regFilterSet(atom->region, f | RPE_HoldLeft);
 
-        shandle->processFunction = opCPUAttacksProcess;
+        shandle->processFunction = (uicfunction) opCPUAttacksProcess;
     }
     else if (FELASTCALL(atom))
     {
@@ -3685,7 +3685,7 @@ void opNoPalDecrease(featom* atom, regionhandle region)
         region->flags = RPE_PressLeft | RPE_ReleaseLeft | RPE_Enter | RPE_Exit;
         if (!bitTest(atom->flags, FAF_Disabled))
         {
-            regFunctionSet(region, opNoPalDecreaseProcess);
+            regFunctionSet(region, (regionfunction) opNoPalDecreaseProcess);
         }
     }
     mgDrawArrow(region, TRUE, FALSE);
@@ -3698,7 +3698,7 @@ void opNoPalIncrease(featom* atom, regionhandle region)
         region->flags = RPE_PressLeft | RPE_ReleaseLeft | RPE_Enter | RPE_Exit;
         if (!bitTest(atom->flags, FAF_Disabled))
         {
-            regFunctionSet(region, opNoPalIncreaseProcess);
+            regFunctionSet(region, (regionfunction) opNoPalIncreaseProcess);
         }
     }
     mgDrawArrow(region, FALSE, FALSE);

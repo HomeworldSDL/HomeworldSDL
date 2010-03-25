@@ -643,10 +643,10 @@ void cpBaseColor(char *name, featom *atom)
         dbgMessage("cpBaseColor: CallOnCreate");
 #endif                                                      //set up the two process user regions
         cpHueSaturationRegion = feRegionFindByFunction("CP_HueSaturation");
-        regFunctionSet(cpHueSaturationRegion, cpHueSaturationProcess);
+        regFunctionSet(cpHueSaturationRegion, (regionfunction) cpHueSaturationProcess);
         regFilterSet(cpHueSaturationRegion, RPE_PressLeft | RPE_HoldLeft | RPE_ReleaseLeft | RPE_ExitHoldLeft);
         cpValueRegion = feRegionFindByFunction("CP_Value");
-        regFunctionSet(cpValueRegion, cpValueProcess);
+        regFunctionSet(cpValueRegion, (regionfunction) cpValueProcess);
         regFilterSet(cpValueRegion, RPE_PressLeft | RPE_HoldLeft | RPE_ReleaseLeft | RPE_ExitHoldLeft);
                                                             //set toggle state of the base/strip color selector buttons
         feToggleButtonSet("CP_BaseColor", TRUE);

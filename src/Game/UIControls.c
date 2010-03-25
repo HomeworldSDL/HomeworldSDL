@@ -2928,7 +2928,7 @@ udword uicListWindowProcess(regionhandle region, smemsize ID, udword event, udwo
                     break;
                 case TABKEY:
                     // process this tab key to go to the next tabstop
-                    tabRegion = regSiblingFindByFunction(region, uicTabProcess);
+                    tabRegion = regSiblingFindByFunction(region, (regionfunction) uicTabProcess);
                     if (tabRegion == NULL) break;
                     uicTabProcess(region, tabRegion->userID, 0, 0);
                     break;
@@ -3825,7 +3825,7 @@ udword uicTextEntryProcess(regionhandle reg, smemsize ID, udword event, udword d
                     uicCursorMoveRelative(entry, SWORD_Max);
                     break;
                 case TABKEY:
-                    tabRegion = regSiblingFindByFunction(reg, uicTabProcess);
+                    tabRegion = regSiblingFindByFunction(reg, (regionfunction) uicTabProcess);
                     if (tabRegion == NULL) break;
                     uicTabProcess(reg, tabRegion->userID, 0, 0);
                     break;

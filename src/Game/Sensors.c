@@ -4058,7 +4058,7 @@ void smSensorsBegin(char *name, featom *atom)
         reg = reg->next;
     }
     dbgAssertOrIgnore(smViewportRegion != NULL);
-    regFunctionSet(smViewportRegion, smViewportProcess);
+    regFunctionSet(smViewportRegion, (regionfunction) smViewportProcess);
     regFilterSet(smViewportRegion, SM_ViewportFilter);
     smViewRectangle = smViewportRegion->rect;
 
@@ -4255,24 +4255,24 @@ void smSensorsBegin(char *name, featom *atom)
     smRenderCount = 0;
 
     //add any additional key messages the sensors manager will need
-    regKeyChildAlloc(smViewportRegion, SHIFTKEY,      RPE_KeyUp | RPE_KeyDown, smViewportProcess, 1, SHIFTKEY);
-    regKeyChildAlloc(smViewportRegion, MKEY,          RPE_KeyUp | RPE_KeyDown, smViewportProcess, 1, MKEY);
-    regKeyChildAlloc(smViewportRegion, FKEY,          RPE_KeyUp | RPE_KeyDown, smViewportProcess, 1, FKEY);
-    regKeyChildAlloc(smViewportRegion, MMOUSE_BUTTON, RPE_KeyUp | RPE_KeyDown, smViewportProcess, 1, MMOUSE_BUTTON);
+    regKeyChildAlloc(smViewportRegion, SHIFTKEY,      RPE_KeyUp | RPE_KeyDown, (regionfunction) smViewportProcess, 1, SHIFTKEY);
+    regKeyChildAlloc(smViewportRegion, MKEY,          RPE_KeyUp | RPE_KeyDown, (regionfunction) smViewportProcess, 1, MKEY);
+    regKeyChildAlloc(smViewportRegion, FKEY,          RPE_KeyUp | RPE_KeyDown, (regionfunction) smViewportProcess, 1, FKEY);
+    regKeyChildAlloc(smViewportRegion, MMOUSE_BUTTON, RPE_KeyUp | RPE_KeyDown, (regionfunction) smViewportProcess, 1, MMOUSE_BUTTON);
 
-    regKeyChildAlloc(smViewportRegion, ARRLEFT,  RPE_KeyUp | RPE_KeyDown, smViewportProcess, 1, ARRLEFT );
-    regKeyChildAlloc(smViewportRegion, ARRRIGHT, RPE_KeyUp | RPE_KeyDown, smViewportProcess, 1, ARRRIGHT);
-    regKeyChildAlloc(smViewportRegion, ARRUP,    RPE_KeyUp | RPE_KeyDown, smViewportProcess, 1, ARRUP   );
-    regKeyChildAlloc(smViewportRegion, ARRDOWN,  RPE_KeyUp | RPE_KeyDown, smViewportProcess, 1, ARRDOWN );
+    regKeyChildAlloc(smViewportRegion, ARRLEFT,  RPE_KeyUp | RPE_KeyDown, (regionfunction) smViewportProcess, 1, ARRLEFT );
+    regKeyChildAlloc(smViewportRegion, ARRRIGHT, RPE_KeyUp | RPE_KeyDown, (regionfunction) smViewportProcess, 1, ARRRIGHT);
+    regKeyChildAlloc(smViewportRegion, ARRUP,    RPE_KeyUp | RPE_KeyDown, (regionfunction) smViewportProcess, 1, ARRUP   );
+    regKeyChildAlloc(smViewportRegion, ARRDOWN,  RPE_KeyUp | RPE_KeyDown, (regionfunction) smViewportProcess, 1, ARRDOWN );
 
 #if SM_TOGGLE_SENSOR_LEVEL
-    regKeyChildAlloc(smViewportRegion, LKEY, RPE_KeyUp | RPE_KeyDown, smViewportProcess, 1, LKEY);
+    regKeyChildAlloc(smViewportRegion, LKEY, RPE_KeyUp | RPE_KeyDown, (regionfunction) smViewportProcess, 1, LKEY);
 #endif
 
 
     for (index = ZEROKEY; index <= NINEKEY; index++)
     {
-        regKeyChildAlloc(smViewportRegion, index, RPE_KeyUp | RPE_KeyDown, smViewportProcess, 1, index);
+        regKeyChildAlloc(smViewportRegion, index, RPE_KeyUp | RPE_KeyDown, (regionfunction) smViewportProcess, 1, index);
     }
     mouseCursorShow();
     cameraCopyPositionInfo(&smCamera, mrCamera);

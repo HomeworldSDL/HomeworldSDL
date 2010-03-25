@@ -500,12 +500,12 @@ void mrStartup(void)
                    RPE_RightClickButton | RPE_HoldRight |
                    RPE_WheelUp | RPE_WheelDown | RPE_DoubleLeft | RPE_DoubleCentre);
     regDrawFunctionSet(ghMainRegion, mrRegionDraw);         //set it's functions
-    regFunctionSet(ghMainRegion, mrRegionProcess);
+    regFunctionSet(ghMainRegion, (regionfunction) mrRegionProcess);
 
     for (index = 0; mrKeyFunction[index].nKeys != 0; index++)
     {                                                       //now set all the keys
         regKeyChildAlloc(ghMainRegion, mrKeyFunction[index].key[0], mrKeyFunction[index].filter,
-                         mrRegionProcess, mrKeyFunction[index].nKeys,
+                         (regionfunction) mrRegionProcess, mrKeyFunction[index].nKeys,
                          mrKeyFunction[index].key[0], mrKeyFunction[index].key[1],
                          mrKeyFunction[index].key[2], mrKeyFunction[index].key[3]);
     }

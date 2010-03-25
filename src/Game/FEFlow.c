@@ -1286,7 +1286,7 @@ regionhandle feRegionsAdd(regionhandle parent, fescreen *screen, bool moveToFron
     if (bitTest(atom->flags, FAF_Draggable))
     {
         regFilterSet(baseRegion, regFilterGet(baseRegion) | (RPE_PressLeft | RPE_HoldLeft | RPE_ReleaseLeft | RPE_ExitHoldLeft | RPE_ExitHoldRight));
-        regFunctionSet(baseRegion, feBaseRegionDrag);
+        regFunctionSet(baseRegion, (regionfunction) feBaseRegionDrag);
     }
 
 //    bitSet(atom->flags,FAF_UseAlpha);
@@ -1410,7 +1410,7 @@ regionhandle feRegionsAdd(regionhandle parent, fescreen *screen, bool moveToFron
             case FA_ScrollBar:
                 scroller = uicChildScrollBarAlloc(baseRegion, (smemsize)atom,
                                                 atom->x, atom->y, atom->width, atom->height,
-                                                feScrollBarProcess, atom->type | CM_ButtonClick);
+                                                (uicfunction) feScrollBarProcess, atom->type | CM_ButtonClick);
                 ((regionhandle)&scroller->reg)->atom = atom;
                 atom->region = (void*)scroller;
                 scroller->screen = screen;
@@ -1446,7 +1446,7 @@ regionhandle feRegionsAdd(regionhandle parent, fescreen *screen, bool moveToFron
 
                 listwindow->scrollbar = uicChildScrollBarAlloc((regionhandle)listwindow, (smemsize)scatom,
                                                 scatom->x, scatom->y, scatom->width, scatom->height,
-                                                feScrollBarProcess, FA_ScrollBar | CM_ButtonClick);
+                                                (uicfunction) feScrollBarProcess, FA_ScrollBar | CM_ButtonClick);
 
                 listwindow->scrollbaratom.region = (void*)listwindow->scrollbar;
                 listwindow->scrollbar->reg.atom = &listwindow->scrollbaratom;
@@ -2329,16 +2329,16 @@ regionhandle feScreenStart(regionhandle parent, char *screenName)
     // adds keyboard control by defining a region for the key
     if (numButtons)
     {
-        regKeyChildAlloc(baseRegion, numButtons, RPE_KeyDown, uicTabProcess, 1, TABKEY);
-        regKeyChildAlloc(baseRegion, numButtons, RPE_KeyDown, uicRightArrowProcess, 1, ARRRIGHT);
-        regKeyChildAlloc(baseRegion, numButtons, RPE_KeyDown, uicLeftArrowProcess, 1, ARRLEFT);
-        regKeyChildAlloc(baseRegion, numButtons, RPE_KeyDown, uicUpArrowProcess, 1, ARRUP);
-        regKeyChildAlloc(baseRegion, numButtons, RPE_KeyDown, uicDownArrowProcess, 1, ARRDOWN);
-        regKeyChildAlloc(baseRegion, numButtons, RPE_KeyDown, uicSpacebarProcess, 1, SPACEKEY);
-        regKeyChildAlloc(baseRegion, numButtons, RPE_KeyDown, uicReturnProcess, 1, RETURNKEY);
-        regKeyChildAlloc(baseRegion, numButtons, RPE_KeyDown, uicEscProcess, 1, ESCKEY);
-        regKeyChildAlloc(baseRegion, numButtons, RPE_KeyDown, uicHomeProcess, 1, HOMEKEY);
-        regKeyChildAlloc(baseRegion, numButtons, RPE_KeyDown, uicEndProcess, 1, ENDKEY);
+        regKeyChildAlloc(baseRegion, numButtons, RPE_KeyDown, (regionfunction) uicTabProcess, 1, TABKEY);
+        regKeyChildAlloc(baseRegion, numButtons, RPE_KeyDown, (regionfunction) uicRightArrowProcess, 1, ARRRIGHT);
+        regKeyChildAlloc(baseRegion, numButtons, RPE_KeyDown, (regionfunction) uicLeftArrowProcess, 1, ARRLEFT);
+        regKeyChildAlloc(baseRegion, numButtons, RPE_KeyDown, (regionfunction) uicUpArrowProcess, 1, ARRUP);
+        regKeyChildAlloc(baseRegion, numButtons, RPE_KeyDown, (regionfunction) uicDownArrowProcess, 1, ARRDOWN);
+        regKeyChildAlloc(baseRegion, numButtons, RPE_KeyDown, (regionfunction) uicSpacebarProcess, 1, SPACEKEY);
+        regKeyChildAlloc(baseRegion, numButtons, RPE_KeyDown, (regionfunction) uicReturnProcess, 1, RETURNKEY);
+        regKeyChildAlloc(baseRegion, numButtons, RPE_KeyDown, (regionfunction) uicEscProcess, 1, ESCKEY);
+        regKeyChildAlloc(baseRegion, numButtons, RPE_KeyDown, (regionfunction) uicHomeProcess, 1, HOMEKEY);
+        regKeyChildAlloc(baseRegion, numButtons, RPE_KeyDown, (regionfunction) uicEndProcess, 1, ENDKEY);
     }
 
     mouseCursorDelayShow(1);
@@ -2674,8 +2674,8 @@ regionhandle feMenuRegionsAdd(regionhandle parent, fescreen *screen, sdword x, s
     baseRegion = regChildAlloc(parent, 0, 0, 0,             //create base dummy region
                                MAIN_WindowWidth, MAIN_WindowHeight, 0, RPE_PressLeft | RPE_PressRight);
     regSiblingMoveToFront(baseRegion);
-    regFunctionSet(baseRegion, feBaseRegionProcess);
-    regFunctionSet(baseRegion, feMenuBaseRegionProcess);
+    regFunctionSet(baseRegion, (regionfunction) feBaseRegionProcess);
+    regFunctionSet(baseRegion, (regionfunction) feMenuBaseRegionProcess);
 
     atom = &screen->atoms[0];                               //pointer to base atom
     baseRegion->drawstyle[0] = atom->drawstyle[0];
@@ -2754,7 +2754,7 @@ regionhandle feMenuRegionsAdd(regionhandle parent, fescreen *screen, sdword x, s
         }
     }
     dbgAssertOrIgnore(region != NULL);                              //base region
-    regFunctionSet(region, feBaseRegionProcess);
+    regFunctionSet(region, (regionfunction) feBaseRegionProcess);
     regFilterSet(region, regFilterGet(region) | RPE_Exit);
 
     return(baseRegion);

@@ -1083,14 +1083,14 @@ sdword rndInit(rndinitdata *initData)
 
 #if RND_FRAME_RATE
     rndFrameRateTaskHandle = taskStart(rndFrameRateTaskFunction, RND_FrameRatePeriod, 0);//start frame rate task
-    regKeyChildAlloc(ghMainRegion, RND_FrameRateKey, RPE_KeyDown, rndFrameRateToggle, 1, RND_FrameRateKey);
+    regKeyChildAlloc(ghMainRegion, RND_FrameRateKey, RPE_KeyDown, (regionfunction) rndFrameRateToggle, 1, RND_FrameRateKey);
 #endif//RND_FRAME_RATE
 #if defined(COLLISION_CHECK_STATS) || defined(PROFILE_TIMERS)
-    regKeyChildAlloc(ghMainRegion, RND_CollStatsKey, RPE_KeyDown, rndCollStatsToggle, 1, RND_CollStatsKey);
+    regKeyChildAlloc(ghMainRegion, RND_CollStatsKey, RPE_KeyDown, (regionfunction) rndCollStatsToggle, 1, RND_CollStatsKey);
 #endif
 #if RND_POLY_STATS
     rndPolyStatsTaskHandle = taskStart(rndPolyStatsTaskFunction, RND_PolyStatsPeriod, 0);//start frame rate task
-    regKeyChildAlloc(ghMainRegion, RND_PolyStatsKey, RPE_KeyDown, rndPolyStatsToggle, 1, RND_PolyStatsKey);
+    regKeyChildAlloc(ghMainRegion, RND_PolyStatsKey, RPE_KeyDown, (regionfunction) rndPolyStatsToggle, 1, RND_PolyStatsKey);
 #endif //RND_POLY_STATS
 
     glDepthFunc(glCapDepthFunc);
