@@ -876,7 +876,7 @@ udword kasCountDisplayLines(udword *states, udword *variables)
             if (aiCurrentAIPlayer->teams[i]->teamType == ScriptTeam)
             {
                 display++;
-                *states++;
+                (*states)++;
             }
         }
     }
@@ -888,7 +888,7 @@ udword kasCountDisplayLines(udword *states, udword *variables)
             if (vars[i]->label[0] != '_' && vars[i]->label[1] != 'V')
             {
                 display++;
-                *variables++;
+                (*variables)++;
             }
         }
     }
