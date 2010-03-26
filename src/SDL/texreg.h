@@ -17,7 +17,6 @@
     Switches:
 =============================================================================*/
 #define TR_ALLOW_PCX                1           //load .PCX file if layered format not about
-#define TR_SPECIAL_DEBUG            0           //special debugging modes active
 #define TR_ASPECT_CHECKING          1           //fixup extreme texture aspect ratios for GL
 
 #ifdef HW_BUILD_FOR_DEBUGGING
@@ -71,7 +70,6 @@
 #define TR_Invalid                  0xffffffff
 #define TR_InvalidHandle            0xffffffff
 #define TR_InvalidInternalHandle    0xffffffff
-#define TR_InvalidInternalPending   0xfffffffe
 #define TR_NotShared                0xfdfbfaf5
 
 
@@ -293,14 +291,12 @@ lifheader_disk;
 #define trIndex(handle)         ((handle) & 0x0000ffff)
 #define trPaletteIndex(handle)  ((handle)  >> 16)
 #define trStructure(handle)     (&trTextureRegistry[trIndex(handle)])
-#define trHandleMake(index, palette) (index | (palette << 16))
+#define trHandleMake(index, palette) (trhandle)(index | (palette << 16))
 //#define trColorsEqual(a, b)     (((a) == (b)) || (((a) != NULL) && ((b) != NULL) && ((a)->base == (b)->base) && ((a)->detail == (b)->detail)))
 #define trAllocated(index)      (bitTest(trTextureRegistry[index].flags, TRF_Allocated))
 #define trSetAllocated(index)   (bitSet(trTextureRegistry[index].flags, TRF_Allocated))
 #define trSetFree(index)        (bitClear(trTextureRegistry[index].flags, TRF_Allocated))
-//#define trPending(index)        (trTextureRegistry[index].handle == TR_InvalidInternalPending)
 #define trPending(index)        (bitTest(trTextureRegistry[index].flags, TRF_Pending))
-//#define trSetPending(index)     (trTextureRegistry[index].handle = TR_InvalidInternalPending)
 #define trSetPending(index)     (bitSet(trTextureRegistry[index].flags, TRF_Pending))
 #define trClearPending(index)     (bitClear(trTextureRegistry[index].flags, TRF_Pending))
 #define trUnusedInfo(c)     ((c)->base == TR_UnusedColorInfo && (c)->detail == TR_UnusedColorInfo)
@@ -358,7 +354,18 @@ void trTextureDeleteAllUnregistered(void);
 void trClearCurrent(void);
 
 //make a given texture current for rendering
-void trMakeCurrent(trhandle handle);
+//void trMakeCurrent(trhandle handle);
+
+#define check_tr(x) if ((x != TR_Invalid) && (x >= 6000)) { dbgWarningf(DBG_Loc, "Uh, handle 0x%lx is broken calling trMakeCurrent", x); }
+#define assert_tr(x) if ((x != TR_Invalid) && (x >= 6000)) { dbgFatalf(DBG_Loc, "FATAL: Uh, handle 0x%lx is broken calling trMakeCurrent", x); }
+
+#ifdef HW_BUILD_FOR_DEBUGGING
+#define trMakeCurrent(x) check_tr(x); _trMakeCurrent(x);
+#else
+#define trMakeCurrent(x) _trMakeCurrent(x);
+#endif
+
+
 
 //functions for directly manipulating textures, without having to go through
 //the texture registry

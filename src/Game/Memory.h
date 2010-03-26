@@ -13,7 +13,6 @@
 /*=============================================================================
     Switches:
 =============================================================================*/
-#define MEM_FORCE_CREEP_UP      0               //force the memory pointers to creep up
 #define MEM_SMALL_BLOCK_HEAP    1               //enable small block heap allocations
 #define MEM_VOLATILE_CLEARING   1               //the clear dwords are volatile and unreliable
 
@@ -406,5 +405,7 @@ char *memStrncpy(char *dest, char *source, sdword count);
 #if MEM_ANALYSIS
 sdword memFreeMemGet(mempool *pool);
 #endif
+
+const memsize * check_mem(const memsize * data);
 
 #endif

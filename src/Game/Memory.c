@@ -80,6 +80,34 @@ udword memFreeSetting = MEM_FreeSetting;
     Functions:
 =============================================================================*/
 
+/*-----------------------------------------------------------------------------
+    Name        : check_mem
+    Description : asserts if pointer or data it points to is invalid (debug function)
+    Inputs      : pointer to data
+    Outputs     : 
+    Return      : pointer to data (unchanged)
+----------------------------------------------------------------------------*/
+const memsize * check_mem(const memsize * data)
+{
+#ifdef HW_BUILD_FOR_DEBUGGING
+  udword d1, d2, a1, a2;
+  a1 = (memsize) data & 0xffffffffL;
+  a2 = (memsize) data >> 16;
+  
+  if ((a1 == memFreeSetting) || (a2 == memFreeSetting))    dbgFatalf (DBG_Loc, "check_mem: address 0x%lx is invalid - has memFreeSetting magic!", (memsize) data); 
+  if ((a1 == memClearSetting) || (a2 == memClearSetting))  dbgFatalf (DBG_Loc, "check_mem: address 0x%lx is invalid - has memClearSetting magic!", (memsize) data); 
+  if ((a1 == 0xffffffff) || (a2 == 0xffffffff))            dbgFatalf (DBG_Loc, "check_mem: address 0x%lx is invalid - has 0xffffffff magic!", (memsize) data); 
+
+  d1 = *data & 0xffffffff;
+  d2 = *data >> 16;
+  
+  if ((d1 == memFreeSetting) || (d2 == memFreeSetting))    dbgFatalf (DBG_Loc, "check_mem: pointer 0x%lx points to memFreeSetting magic (0x%lx)!", (memsize) data, (memsize) *data);
+  if ((d1 == memClearSetting) || (d2 == memClearSetting))  dbgFatalf (DBG_Loc, "check_mem: pointer 0x%lx points to memClearSetting magic (0x%lx)!", (memsize) data, (memsize) *data);
+  if ((d1 == 0xffffffff) || (d2 == 0xffffffff))            dbgFatalf (DBG_Loc, "check_mem: pointer 0x%lx points to 0xffffffff magic (0x%lx)!", (memsize) data, (memsize) *data);
+#endif  
+  return data;
+}
+
 #if MEM_STATISTICS
 /*-----------------------------------------------------------------------------
     Name        : memCookieNameSort
@@ -251,6 +279,7 @@ sdword memStartup(void *heapStart, sdword heapSize, memgrowcallback grow)
             memFreeSetting = (udword)ranRandom(RANDOM_ETG);
         }
     }
+    dbgMessagef("memClearSetting=0x%lx, memFreeSetting=0x%lx", memClearSetting, memFreeSetting);
 #endif
     return(memReset());
 }
@@ -389,9 +418,7 @@ sdword memReset(void)
         memFree(c);
         memFree(d);
         memFree(f);
-#ifndef _MACOSX_FIX_MISC
-        memDefragment();
-#endif
+        //check_mem(b);
     }
 #endif // MEM_MODULE_TEST
 
