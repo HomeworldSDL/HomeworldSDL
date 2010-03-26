@@ -3342,7 +3342,7 @@ void trClearCurrent()
                     handles which define the various colorized versions of the
                     texture.
 ----------------------------------------------------------------------------*/
-void trMakeCurrent(trhandle handle)
+void _trMakeCurrent(trhandle handle)
 {
     ubyte *newPalette;
     texreg *reg;
