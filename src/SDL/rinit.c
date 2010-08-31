@@ -492,11 +492,10 @@ bool rinEnumeratePrimary(rdevice* dev)
 			{
 				for (i = 0; modes[i]; i++)
 				{
-					if (modes[i]->w < 640 || modes[i]->h < 480 ||
-						modes[i]->w > 1600)
-						continue;
-
-					rinAddMode(dev, modes[i]->w, modes[i]->h, depths[j]);
+					if (modes[i]->w >= 640 && modes[i]->h >= 480)
+                    {
+                        rinAddMode(dev, modes[i]->w, modes[i]->h, depths[j]);
+                    }
 				}
 			}
 		}
