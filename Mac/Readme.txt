@@ -9,7 +9,7 @@ The directory containing this Readme also contains all the files specific to bui
 Instructions for installation should be included but basically you need to copy SDL.framework into either:
 
     /Library/Frameworks/                 # available to all users on the machine
-    /home/<user>/Library/Frameworks/     # only available to <user>
+    /Users/<user>/Library/Frameworks/    # only available to <user>
 
 
 2) Install the Apple Developer Tools. You can either do this from your Mac OS X CD/DVDs or via Apple's Developer connection (http://developer.apple.com/). The current IDE is Xcode 2.4. If you require them, previous projects for ProjectBuilder/Xcode (not up-to-date obviously) are available in the following tagged versions of the repository tree:
