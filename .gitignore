@@ -1,0 +1,14 @@
+HomeworldSDL.big
+
+Mac/build
+Mac/Homeworld.xcodeproj/*.mode*
+Mac/Homeworld.xcodeproj/*.pbxuser
+
+src/Missions/Generated
+
+tools/biggie/biggie
+
+tools/kas2c/kas2c
+tools/kas2c/lexer.c
+tools/kas2c/parser.c
+tools/kas2c/parser.h
