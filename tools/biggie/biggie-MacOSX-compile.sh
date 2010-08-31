@@ -4,7 +4,6 @@
 
 /usr/bin/gcc                                       \
     -D _MACOSX                                     \
-    -D _MACOSX_FIX_ME                              \
     -I /Library/Frameworks/SDL.framework/Headers   \
     -I ../../src/SDL                               \
     -I ../../src/ThirdParty/CRC                    \

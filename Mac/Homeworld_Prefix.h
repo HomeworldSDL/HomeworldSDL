@@ -8,7 +8,6 @@
 
 // _MACOSX           - use for platform-specific fixes (#define'd on gcc command line) (or in the target info in xcode)
 
-// _MACOSX_FIX_ME    - use to temporarily turn off code in order to get around the compiler (Depricated)
 // _MACOSX_FIX_ANIM  - use to toggle animatic code
 // _MACOSX_FIX_LAN   - use to toggle lan related code
 // _MACOSX_FIX_GL    - use to turn off glcaps and other gl related code
