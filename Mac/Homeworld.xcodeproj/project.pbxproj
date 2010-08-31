@@ -3106,6 +3106,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_VERSION = "";
 				WARNING_CFLAGS = (
 					"-Wmost",
