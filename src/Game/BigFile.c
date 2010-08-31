@@ -528,7 +528,7 @@ static int bigSort(char *bigfilename)
 ----------------------------------------------------------------------------*/
 bool bigTOCFileExists(bigTOC *toc, char *filename, udword *fileNum)
 {
-    char filenamei[BF_MAX_FILENAME_LENGTH+1];
+    char filenamei[PATH_MAX] = "";
     bigTOCFileEntry target;
     int numFiles = toc->numFiles;
     unsigned int i;
