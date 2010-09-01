@@ -66,7 +66,7 @@
 #define NIS_OneKeyframe             5
 #define NIS_FirstKeyFrame           2
 #define NIS_FrameRate               30.0f
-#define NIS_LetterHeight            ((MAIN_WindowHeight - MAIN_WindowWidth * 20 / 37) / 2)          //1.85:1
+#define NIS_LetterHeight            (MAIN_WindowHeight / 8)  // 16:9 widescreen on 4:3 screen (Mantis #55)
 #define NIS_HeaderExtra             64          //extra amount of RAM at the end of a header
 #define NIS_LookScalar              10000.0f
 
