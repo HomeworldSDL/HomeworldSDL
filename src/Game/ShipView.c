@@ -63,6 +63,9 @@
 
 #define SV_ViewMargin               8
 
+#define SV_360_ROTATION_SECS        5.0f
+#define SV_PITCH_FLATTEN_SECS       2.0f
+
 regionhandle svShipViewRegion  = NULL;
 regionhandle svFirepowerRegion = NULL;
 regionhandle svCoverageRegion  = NULL;
@@ -314,6 +317,13 @@ void svShipViewRender(featom* atom, regionhandle region)
     char* keystring;
     bool resetRender = FALSE;
     char    temp[100];
+
+    // facilitates smooth transition between auto/manual rotation of ship
+    static real32 angle_user_rotated_to       = 0.0f;
+    static real32 declination_user_rotated_to = 0.0f;
+    static real32 time_user_rotated_view      = 0.0f;
+           real32 real_time_angle             = 0.0f;
+    static real32 user_real_angle_offset      = 0.0f;
     
     rect = &region->rect;
     viewRect.x0 = 0;
@@ -397,14 +407,34 @@ void svShipViewRender(featom* atom, regionhandle region)
 
             mouseCursorHide();
             mousePositionSet(svMouseCentreX, svMouseCentreY); // Reset position so it doesn't walk off region
+
+            // keep track of where the user left the camera so we can sync auto-rotation with it
+            angle_user_rotated_to       = svCamera.angle;
+            declination_user_rotated_to = svCamera.declination;
+            time_user_rotated_view      = universe.totaltimeelapsed;
         }
         else // auto rotate ship model
         {
             // continual 360 degree yaw rotation
-            svCamera.angle += DEG_TO_RAD(1);
+            real_time_angle = DEG_TO_RAD(remainder(universe.totaltimeelapsed, SV_360_ROTATION_SECS) / SV_360_ROTATION_SECS * 360);
+
+            if (angle_user_rotated_to >= 0.0) {
+                user_real_angle_offset = angle_user_rotated_to - real_time_angle;
+                angle_user_rotated_to = -1.0;
+            }
+
+            svCamera.angle = real_time_angle + user_real_angle_offset;
             
             // collapse pitch to default declination
-            svCamera.declination += 0.02 * (DEG_TO_RAD(svDeclination) - svCamera.declination);
+            if (time_user_rotated_view > 0.0) {
+                if (universe.totaltimeelapsed > time_user_rotated_view + SV_PITCH_FLATTEN_SECS) {
+                    svCamera.declination = DEG_TO_RAD(svDeclination);
+                    time_user_rotated_view = 0.0;
+                }
+                else {
+                    svCamera.declination = declination_user_rotated_to + (DEG_TO_RAD(svDeclination) - declination_user_rotated_to) * ((universe.totaltimeelapsed - time_user_rotated_view) / SV_PITCH_FLATTEN_SECS);
+                }
+            }
             
             if (svMouseInside) mouseCursorShow();
         }
