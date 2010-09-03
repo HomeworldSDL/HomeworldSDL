@@ -955,7 +955,6 @@ static void scriptSetShipsCB(char *directory,char *field,void *dataToFillIn)
     real32 rot;
     char racestr[50];
     char shiptypestr[50];
-//    char formationstr[50];
     char miscstr[256];
     char *miscPointer;
     char label[KAS_TEAM_NAME_MAX_LENGTH+1];
@@ -1095,12 +1094,7 @@ static void scriptSetShipsCB(char *directory,char *field,void *dataToFillIn)
             shiptype = GetAppropriateShipTypeForRace(shiptype,shiprace);
         }
     }
-/*
-    if (strcmp(formationstr,"PARADE_FORMATION") == 0)
-    {
-        paradeFormation = TRUE;
-    }
-*/
+
     //parse everything else to the end of the line including formations
     miscPointer = strtok(miscstr, llMiscDelimiters);
     if (miscPointer != NULL)
