@@ -180,7 +180,7 @@ TypeOfFormation NiceStrToTypeOfFormation(char *str)
 ----------------------------------------------------------------------------*/
 char *TypeOfFormationToNiceStr(TypeOfFormation formation)
 {
-    if (formation == -1)
+    if (formation == PARADE_FORMATION)
         return strGetString(strPARADE_FORMATION);
     else
         return (strGetString(formation+strFormationOffset));

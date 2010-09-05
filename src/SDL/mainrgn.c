@@ -268,7 +268,6 @@ mrKeyFunction[] =
 };
 
 //stuff for changing formations
-#define PARADE_FORMATION_FLAG   ((udword)-1)
 TypeOfFormation mrNewFormation = 0;                 //index of current formation we're selecting
 char *mrFormationName = NULL;                   //if non-NULL, we're in the changing formations state
 real32 mrFormationTime;                         //time a particular formation was set
@@ -1430,7 +1429,7 @@ void mrSetTheFormation(TypeOfFormation formationtype)
         if (MothershipOrCarrierIndexInSelection((SelectCommand *)&selSelected) >= 0)
         {
             soundEvent(NULL, UI_Click);
-            mrNewFormation = PARADE_FORMATION_FLAG;
+            mrNewFormation = PARADE_FORMATION;
             mrFormationName = strGetString(strPARADE_FORMATION);
             speechEvent(selSelected.ShipPtr[0], COMM_SetFormation, PICKET_FORMATION);
             clWrapSetMilitaryParade(&universe.mainCommandLayer,(SelectCommand *)&selSelected);
@@ -1960,7 +1959,7 @@ processEscapeKey:
             {
                 if (MothershipOrCarrierIndexInSelection((SelectCommand *)&selSelected) >= 0)
                 {
-                    mrNewFormation = PARADE_FORMATION_FLAG;
+                    mrNewFormation = PARADE_FORMATION;
                     mrFormationName = strGetString(strPARADE_FORMATION);
                     mrFormationTime = universe.totaltimeelapsed;
                     mrDrawFormationTime = universe.totaltimeelapsed;
@@ -1969,7 +1968,7 @@ processEscapeKey:
                 else
                 {
                     TypeOfFormation alreadyformed = clSelectionAlreadyInFormation(&universe.mainCommandLayer,(SelectCommand *)&selSelected);
-                    if ((alreadyformed == NO_FORMATION && mrFormationName == NULL) || (mrNewFormation == PARADE_FORMATION_FLAG))
+                    if ((alreadyformed == NO_FORMATION && mrFormationName == NULL) || (mrNewFormation == PARADE_FORMATION))
                     {
                         mrNewFormation = 0;
                     }
@@ -5659,11 +5658,11 @@ void mrRegionDraw(regionhandle reg)
                 // check again if mothership or carrier in - don't want them in delta, etc.
                 if (MothershipOrCarrierIndexInSelection((SelectCommand *)&selSelected) >= 0)
                 {
-                    mrNewFormation = PARADE_FORMATION_FLAG;
+                    mrNewFormation = PARADE_FORMATION;
                 }
 
                 strcpy(msgName, "Game_Formation_");
-                if (mrNewFormation == PARADE_FORMATION_FLAG)
+                if (mrNewFormation == PARADE_FORMATION)
                 {
                     strcat(msgName, strGetString(strPARADE_FORMATION));
                 }
@@ -5674,7 +5673,7 @@ void mrRegionDraw(regionhandle reg)
                 tutGameMessage(msgName);
 
                 mrFormationName = NULL;                         //no longer selecting formations
-                if (mrNewFormation == PARADE_FORMATION_FLAG)
+                if (mrNewFormation == PARADE_FORMATION)
                 {
                     speechEvent(selSelected.ShipPtr[0], COMM_SetFormation, PICKET_FORMATION);
                     clWrapSetMilitaryParade(&universe.mainCommandLayer,(SelectCommand *)&selSelected);
