@@ -480,7 +480,7 @@ fecallback utyCallbacks[] =
     {mrClawFormation,           "CSM_ClawFormation"},
     {mrWallFormation,           "CSM_WallFormation"},
     {mrSphereFormation,         "CSM_SphereFormation"},
-    {mrPicketFormation,         "CSM_PicketFormation"},
+    {mrCustomFormation,         "CSM_PicketFormation"},
     {mrHarvestResources,        "CSM_Harvest"},
     {mrBuildShips,              "CSM_Build"},
     {mrTradeStuff,              "CSM_Trade"},

@@ -649,7 +649,7 @@ void mrSphereFormation(char *string, featom *atom)
 }
 
 
-void mrPicketFormation(char *string, featom *atom)
+void mrCustomFormation(char *string, featom *atom)
 {
     if ((playPackets) || (universePause && !opPauseOrders) || (mrDisabled))
     {
@@ -1431,7 +1431,7 @@ void mrSetTheFormation(TypeOfFormation formationtype)
             soundEvent(NULL, UI_Click);
             mrNewFormation = PARADE_FORMATION;
             mrFormationName = strGetString(strPARADE_FORMATION);
-            speechEvent(selSelected.ShipPtr[0], COMM_SetFormation, PICKET_FORMATION);
+            speechEvent(selSelected.ShipPtr[0], COMM_SetFormation, SPEECH_PARADE_FORMATION);
             clWrapSetMilitaryParade(&universe.mainCommandLayer,(SelectCommand *)&selSelected);
 
             strcat(msgName, strGetString(strPARADE_FORMATION));
@@ -2840,7 +2840,7 @@ char *mrMenuItemByFormation[] =
     /* CLAW_FORMATION    */ "CSM_ClawFormation",
     /* WALL_FORMATION    */ "CSM_WallFormation",
     /* SPHERE_FORMATION  */ "CSM_SphereFormation",
-    /* PICKET_FORMATION  */ "CSM_PicketFormation",
+    /* CUSTOM_FORMATION  */ "CSM_PicketFormation",
 };
 
 char *mrMenuItemByTactic[] =
@@ -5675,7 +5675,7 @@ void mrRegionDraw(regionhandle reg)
                 mrFormationName = NULL;                         //no longer selecting formations
                 if (mrNewFormation == PARADE_FORMATION)
                 {
-                    speechEvent(selSelected.ShipPtr[0], COMM_SetFormation, PICKET_FORMATION);
+                    speechEvent(selSelected.ShipPtr[0], COMM_SetFormation, SPEECH_PARADE_FORMATION);
                     clWrapSetMilitaryParade(&universe.mainCommandLayer,(SelectCommand *)&selSelected);
                 }
                 else

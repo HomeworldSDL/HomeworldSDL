@@ -450,7 +450,7 @@ Ships 0.0,0.0,0.0,0.0,R1,LightInterceptor,NULL_FORMATION|?|?,?
 ; CLAW_FORMATION
 ; WALL_FORMATION
 ; SPHERE_FORMATION
-; PICKET_FORMATION
+; CUSTOM_FORMATION  (was PICKET_FORMATION)
 ; color (see Colors: below)
 ; flag is UseAsMothership or ?
 

@@ -300,7 +300,7 @@ scriptEntry LanguageStrings[] =
     strEntry(strCLAW_FORMATION),
     strEntry(strWALL_FORMATION),
     strEntry(strSPHERE_FORMATION),
-    strEntry(strPICKET_FORMATION),
+    strEntry(strPICKET_FORMATION),  // custom formation
 
     strEntry(strPARADE_FORMATION),
 

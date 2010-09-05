@@ -117,7 +117,7 @@ void mrXFormation(char *string, featom *atom);
 void mrClawFormation(char *string, featom *atom);
 void mrWallFormation(char *string, featom *atom);
 void mrSphereFormation(char *string, featom *atom);
-void mrPicketFormation(char *string, featom *atom);
+void mrCustomFormation(char *string, featom *atom);
 void mrHarvestResources(char *string, featom *atom);
 void mrBuildShips(char *string, featom *atom);
 void mrTradeStuff(char *string, featom *atom);

@@ -286,7 +286,7 @@ typedef enum
     strCLAW_FORMATION,
     strWALL_FORMATION,
     strSPHERE_FORMATION,
-    strPICKET_FORMATION,
+    strPICKET_FORMATION,   // custom formation
 
     strPARADE_FORMATION,
 

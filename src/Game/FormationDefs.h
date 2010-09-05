@@ -11,8 +11,6 @@
 #define WALL_FORMATION      4    // F9
 #define SPHERE_FORMATION    5    // F10
 
-#define PICKET_FORMATION    6
-
 #define CUSTOM_FORMATION    6    // F11
 #define NO_FORMATION        7
 #define SAME_FORMATION      8    // for computer player
@@ -20,5 +18,11 @@
 // -----------------------------------------------------------------------------
 
 #define PARADE_FORMATION    100
+
+// There was a formation type of "picket" during original evelopment. This
+// became the "custom" formation but was overloaded with aspects of the
+// "[military] parade" formation. This is an attempt to split that overloading
+// and hence why this #define has a value equal to CUSTOM_FORMATION.
+#define SPEECH_PARADE_FORMATION  6
 
 #endif
