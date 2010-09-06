@@ -17,6 +17,9 @@
 
 // -----------------------------------------------------------------------------
 
+#define FIRST_CYCLE_FORMATION  (DELTA_FORMATION)
+#define LAST_CYCLE_FORMATION   (SPHERE_FORMATION)
+
 #define PARADE_FORMATION    100
 
 // There was a formation type of "picket" during original evelopment. This

@@ -1967,8 +1967,7 @@ processEscapeKey:
                 }
                 else
                 {
-                    TypeOfFormation alreadyformed = clSelectionAlreadyInFormation(&universe.mainCommandLayer,(SelectCommand *)&selSelected);
-                    if ((alreadyformed == NO_FORMATION && mrFormationName == NULL) || (mrNewFormation == PARADE_FORMATION))
+                    if (mrNewFormation > LAST_CYCLE_FORMATION)
                     {
                         mrNewFormation = 0;
                     }
@@ -1976,23 +1975,28 @@ processEscapeKey:
                     {
                         if (keyIsHit(SHIFTKEY))
                         {
-                            if (mrNewFormation <= 0)
+                            if (mrNewFormation == FIRST_CYCLE_FORMATION)
                             {
-                                mrNewFormation = CUSTOM_FORMATION - 1;
+                                mrNewFormation = LAST_CYCLE_FORMATION;
                             }
                             else
                             {
                                 mrNewFormation--;
                             }
+
                             tutGameMessage("KB_FormationPrevious");
                         }
                         else
                         {
-                            mrNewFormation++;
-                            if (mrNewFormation >= CUSTOM_FORMATION)
+                            if (mrNewFormation == LAST_CYCLE_FORMATION)
                             {
-                                mrNewFormation = 0;
+                                mrNewFormation = FIRST_CYCLE_FORMATION;
                             }
+                            else
+                            {
+                                mrNewFormation++;
+                            }
+
                             tutGameMessage("KB_FormationNext");
                         }
                     }
