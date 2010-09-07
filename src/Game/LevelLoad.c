@@ -977,7 +977,7 @@ static void scriptSetShipsCB(char *directory,char *field,void *dataToFillIn)
 
     udword sizeofselect;
     SelectCommand *selectcom;
-    TypeOfFormation formation = 0xffffffff;
+    TypeOfFormation formation = NO_FORMATION;
 
     matrix rotaboutz;
     vector rotatedposition;

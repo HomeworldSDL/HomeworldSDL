@@ -201,7 +201,7 @@ void clWrapFormation(CommandLayer *comlayer,SelectCommand *selectcom,TypeOfForma
     makeShipsControllable(selectcom,COMMAND_NULL);
     if (selectcom->numShips == 0) return;
 
-    if (!((formation >= 0) && (formation < NO_FORMATION)))
+    if (formation > NO_FORMATION && formation != PARADE_FORMATION)
     {
         dbgFatalf(DBG_Loc,"Invalid formation %d",formation);
     }

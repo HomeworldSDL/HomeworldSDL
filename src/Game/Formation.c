@@ -3083,7 +3083,7 @@ void clFormation(CommandLayer *comlayer,SelectCommand *selectcom,TypeOfFormation
     vector majorityshipsmoveto;
     GrowSelection majorityshipsattacking;
 
-    if (!((formation >= 0) && (formation < NO_FORMATION)))
+    if (formation > NO_FORMATION && formation != PARADE_FORMATION)
     {
         dbgFatalf(DBG_Loc,"Invalid formation %d",formation);
     }

@@ -268,7 +268,7 @@ mrKeyFunction[] =
 };
 
 //stuff for changing formations
-TypeOfFormation mrNewFormation = 0;                 //index of current formation we're selecting
+TypeOfFormation mrNewFormation = NO_FORMATION;  //index of current formation we're selecting
 char *mrFormationName = NULL;                   //if non-NULL, we're in the changing formations state
 real32 mrFormationTime;                         //time a particular formation was set
 bool   mrDrawFormation=FALSE;
@@ -1969,7 +1969,7 @@ processEscapeKey:
                 {
                     if (mrNewFormation > LAST_CYCLE_FORMATION)
                     {
-                        mrNewFormation = 0;
+                        mrNewFormation = DELTA_FORMATION;
                     }
                     else
                     {
