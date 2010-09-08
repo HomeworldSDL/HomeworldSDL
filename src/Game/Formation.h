@@ -16,7 +16,6 @@
 #define ABSOLUTE_MIN_SHIPS_IN_FORMATION 1
 
 #define FORMATION_SORT_BIGGEST_THEN_CLOSEST 1
-//#define FORMATION_SORT_PICKET               2
 
 /*=============================================================================
     Types:
@@ -160,8 +159,6 @@ void paradeSetTweakables();
 #define sizeofFormationSphereInfo(n) (sizeof(FormationSphereInfo) + sizeof(SphereVar)*((n)-1))
 #define sizeofSphereStaticInfo(n) (sizeof(SphereStaticInfo) + sizeof(SphereTableEntry *)*((n)-1))
 #define sizeofSphereTableEntry(n) (sizeof(SphereTableEntry) + sizeof(SphereDeclination)*((n)-1))
-
-#define sizeofFormationPicketInfo(n) (sizeof(FormationPicketInfo) + sizeof(PicketVar)*((n)-1))
 
 /*=============================================================================
     Functions:
