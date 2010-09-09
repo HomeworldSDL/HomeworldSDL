@@ -79,6 +79,11 @@ typedef udword  bool;
 typedef sbyte   bool8;
 typedef sword   bool16;
 
+typedef ubyte   bitflag8;
+typedef uword   bitflag16;
+typedef udword  bitflag32;
+typedef uqword  bitflag64;
+
 /*-------------------------------------------------------------------------
 	Functions for converting endian-specific values
 --------------------------------------------------------------------------*/
