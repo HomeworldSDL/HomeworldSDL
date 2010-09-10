@@ -2515,7 +2515,7 @@ sdword kasfShipsSelectMoving(GrowSelection *newShips, GrowSelection *originalShi
     for (i = 0; i < originalShips->selection->numShips; ++i)
     {
         ship = originalShips->selection->ShipPtr[i];
-        selected = ship->posinfo.isMoving & ISMOVING_MOVING;  // moving
+        selected = IS_MOVING_LINEARLY(ship->posinfo.isMoving);
         if (!selected && sourceIsDest)
             // remove from source (dest)
             clRemoveShipFromSelection(originalShips->selection, ship);

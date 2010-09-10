@@ -1216,7 +1216,7 @@ void nisStop(nisplaying *NIS)
                         vecZeroVector(ship->posinfo.force);
                         vecZeroVector(ship->rotinfo.torque);
                         vecZeroVector(ship->rotinfo.rotspeed);
-                        ship->posinfo.isMoving = FALSE;
+                        SET_MOVING_IMMOBILE(ship->posinfo.isMoving);
                     }
                     ship->health = ship->staticinfo->maxhealth; //make it 'vincible'
 
@@ -1231,7 +1231,7 @@ void nisStop(nisplaying *NIS)
 
                     ship->flags &= ~(SOF_DontApplyPhysics | SOF_NISShip);
                     vecZeroVector(ship->posinfo.velocity);
-                    ship->posinfo.isMoving = FALSE;
+                    SET_MOVING_IMMOBILE(ship->posinfo.isMoving);
                     ship = NULL;
                     break;
                 case NSR_Derelict:
@@ -1239,7 +1239,7 @@ void nisStop(nisplaying *NIS)
                     derelict->health = derelict->staticinfo->maxhealth;//make it 'vincible'
                     derelict->flags &= ~(SOF_DontApplyPhysics | SOF_NISShip);
                     vecZeroVector(derelict->posinfo.velocity);
-                    derelict->posinfo.isMoving = FALSE;
+                    SET_MOVING_IMMOBILE(derelict->posinfo.isMoving);
                     ship = NULL;
                     break;
                 case NSR_Effect:
@@ -1247,7 +1247,7 @@ void nisStop(nisplaying *NIS)
 
                     ship->flags &= ~(SOF_DontApplyPhysics | SOF_NISShip);
                     vecZeroVector(ship->posinfo.velocity);
-                    ship->posinfo.isMoving = FALSE;
+                    SET_MOVING_IMMOBILE(ship->posinfo.isMoving);
                     ship = NULL;
                     break;
 #if NIS_ERROR_CHECKING
@@ -1804,14 +1804,14 @@ real32 nisUpdate(nisplaying *NIS, real32 timeElapsed)
         }
         if (path->curve[0] == NULL)
         {                                                   //if NULL motion path or NULL object
-            path->spaceobj->posinfo.isMoving = FALSE;
+            SET_MOVING_IMMOBILE(path->spaceobj->posinfo.isMoving);
             continue;                                       //leave this object where it was
         }
         xyz.x = bsCurveUpdate(path->curve[0], timeElapsed); //update the first curve
         //this chunk of code checks if the NIS loops
         if (xyz.x == REALlyBig)                             //if curve ends
         {                                                   //(all curves should end at same time)
-            path->spaceobj->posinfo.isMoving = FALSE;
+            SET_MOVING_IMMOBILE(path->spaceobj->posinfo.isMoving);
             continue;                                       //don't update this one anymore
         }
         //get rest of motion path
@@ -1858,11 +1858,11 @@ real32 nisUpdate(nisplaying *NIS, real32 timeElapsed)
             {
                 vecCapVector(&tempVect, ((Ship *)path->spaceobj)->staticinfo->staticheader.maxvelocity);
             }
-            path->spaceobj->posinfo.isMoving = TRUE;
+            SET_MOVING_LINEARLY(path->spaceobj->posinfo.isMoving);
         }
         else
         {
-            path->spaceobj->posinfo.isMoving = FALSE;
+            SET_MOVING_IMMOBILE(path->spaceobj->posinfo.isMoving);
         }
         path->spaceobj->posinfo.velocity = tempVect;
         if (path->spaceobj->flags & SOF_Rotatable)

@@ -265,7 +265,7 @@ bool RepairCorvetteSpecialOps(Ship *ship, void *custom)
         }
         //we are within range so lets see if we can fix it, or if we need
         //to wait
-        if(!(spec->target->posinfo.isMoving & ISMOVING_MOVING))
+        if(!IS_MOVING_LINEARLY(spec->target->posinfo.isMoving))
         {
             //ship is stopped, so it is ready
             spec->repairState = REPAIR_NEARING;
@@ -302,7 +302,7 @@ dbgMessagef("REPAIR_APPROACH: %f distance reached",repaircorvettestatics->approa
         }
         //we are within range so lets see if we can fix it, or if we need
         //to wait
-        if(!(spec->target->posinfo.isMoving & ISMOVING_MOVING))
+        if(!IS_MOVING_LINEARLY(spec->target->posinfo.isMoving))
         {
             //ship is stopped, so it is ready
 

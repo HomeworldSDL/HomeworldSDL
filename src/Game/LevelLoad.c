@@ -338,7 +338,7 @@ void AddRandomVelocityTowards(SpaceObj *obj,vector *from,vector *towards,real32 
     vecMultiplyByScalar(diff,avgVel);
 
     obj->posinfo.velocity = diff;
-    obj->posinfo.isMoving = TRUE;
+    SET_MOVING_LINEARLY(obj->posinfo.isMoving);
 }
 
 void AddRandomVelocityDirection(SpaceObj *obj,vector *direction,real32 avgVel,real32 deviation)
@@ -356,7 +356,7 @@ void AddRandomVelocityDirection(SpaceObj *obj,vector *direction,real32 avgVel,re
     vecMultiplyByScalar(*direction,avgVel);
 
     obj->posinfo.velocity = *direction;
-    obj->posinfo.isMoving = TRUE;
+    SET_MOVING_LINEARLY(obj->posinfo.isMoving);
 }
 
 bool AddResourceToVolumeAtPosition(struct ResourceVolume *volume,bool regrowing,vector *position)

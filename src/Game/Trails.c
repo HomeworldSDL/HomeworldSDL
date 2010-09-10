@@ -1934,7 +1934,7 @@ void trailDraw(vector *current, shiptrail *trail, sdword LOD, sdword teamIndex)
         return;
     }
 
-    if (((ship->posinfo.isMoving & ISMOVING_MOVING) == 0) || (ship->flags & (SOF_DontDrawTrails|SOF_Clamped|SOF_Disabled)))  // clamped objs dont draw trails either
+    if (!IS_MOVING_LINEARLY(ship->posinfo.isMoving) || (ship->flags & (SOF_DontDrawTrails|SOF_Clamped|SOF_Disabled)))  // clamped objs dont draw trails either
     {
         dontdrawtrail = TRUE;
     }

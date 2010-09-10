@@ -5324,7 +5324,7 @@ bool dockFlyToPiePoint(Ship *ship,Ship *dockwith)
         vecAdd(destination,destination,DockWithUp);
     }
 
-    if(dockwith->posinfo.isMoving & ISMOVING_MOVING)
+    if(IS_MOVING_LINEARLY(dockwith->posinfo.isMoving))
         aishipFlyToPointAvoidingObjsWithVel(ship,&destination,AISHIP_FirstPointInDirectionFlying + AISHIP_PointInDirectionFlying + AISHIP_FastAsPossible,((ShipStaticInfo *)ship->staticinfo)->staticheader.maxvelocity/2,&dockwith->posinfo.velocity);
     else
         aishipFlyToPointAvoidingObjsWithVel(ship,&destination,AISHIP_FirstPointInDirectionFlying + AISHIP_PointInDirectionFlying + AISHIP_FastAsPossible,0.0f,&dockwith->posinfo.velocity);

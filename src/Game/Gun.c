@@ -635,7 +635,7 @@ void missileShoot(Ship *ship,Gun *gun,SpaceObjRotImpTarg *target)
     missile->posinfo.position.y += gunheadingInWorldCoordSys.y * gunstatic->barrelLength;
     missile->posinfo.position.z += gunheadingInWorldCoordSys.z * gunstatic->barrelLength;
 
-    missile->posinfo.isMoving = TRUE;
+    SET_MOVING_LINEARLY(missile->posinfo.isMoving);
     missile->posinfo.haventCalculatedDist = TRUE;
 
     vecScalarMultiply(missile->posinfo.velocity,gunheadingInWorldCoordSys,gunstatic->bulletspeed);
@@ -1088,7 +1088,7 @@ void gunShoot(Ship *ship, Gun *gun, SpaceObjRotImpTarg *target)
     bullet->posinfo.position.y += gunheadingInWorldCoordSys.y * gunstatic->barrelLength;
     bullet->posinfo.position.z += gunheadingInWorldCoordSys.z * gunstatic->barrelLength;
 
-    bullet->posinfo.isMoving = TRUE;
+    SET_MOVING_LINEARLY(bullet->posinfo.isMoving);
     bullet->posinfo.haventCalculatedDist = TRUE;
 
     if ((target != NULL) && (target->collMyBlob != NULL))

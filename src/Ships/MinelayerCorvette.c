@@ -223,7 +223,7 @@ void SetAIVecHeading(Ship *ship, SpaceObjRotImpTarg *target, vector *trajectory)
         vecAddTo(spec->aivec, *trajectory);
         vecScalarMultiply(spec->aivec,spec->aivec,minelayercorvettestatics->FlyAwayDist[target_class]);
     }
-    if(!(target->posinfo.isMoving & ISMOVING_MOVING))
+    if(!IS_MOVING_LINEARLY(target->posinfo.isMoving))
     {    //if target isn't moving, randomize trajectory
         randeg = randombetween(5,30);
         randegf = (real32) ((randeg & 1) ? randeg : -randeg);

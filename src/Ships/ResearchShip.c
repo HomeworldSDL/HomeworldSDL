@@ -119,7 +119,8 @@ void make_all_slaves_moving(Ship *ship)
     while (slavenode != NULL)
     {
         slave = (Ship *) listGetStructOfNode(slavenode);
-        slave->posinfo.isMoving = ISMOVING_MOVING | ISMOVING_ROTATING;
+        SET_MOVING_LINEARLY(slave->posinfo.isMoving);
+        SET_MOVING_ROTATIONALLY(slave->posinfo.isMoving);
         slavenode = slavenode->next;
     }
 
@@ -268,7 +269,8 @@ void ResearchShipHouseKeep(Ship *ship)
                     case ROTATE_STOP:
                     case ROTATE_STOP_QUICK:
                     case ROTATE_DO:
-                        ship->posinfo.isMoving = ISMOVING_MOVING | ISMOVING_ROTATING;
+                            SET_MOVING_LINEARLY(ship->posinfo.isMoving);
+                            SET_MOVING_ROTATIONALLY(ship->posinfo.isMoving);
                         make_all_slaves_moving(ship);
                         if(ship->slaveinfo->slaves.num < 5)
                         {
@@ -382,7 +384,8 @@ void ResearchShipHouseKeep(Ship *ship)
                     case ROTATE_STOP:
                     case ROTATE_STOP_QUICK:
                     case ROTATE_DO:
-                        ship->posinfo.isMoving = ISMOVING_MOVING | ISMOVING_ROTATING;
+                        SET_MOVING_LINEARLY(ship->posinfo.isMoving);
+                        SET_MOVING_ROTATIONALLY(ship->posinfo.isMoving);
                         make_all_slaves_moving(ship);
                         if(ship->slaveinfo->slaves.num < 3)
                         {

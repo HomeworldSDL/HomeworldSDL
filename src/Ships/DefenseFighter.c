@@ -161,7 +161,7 @@ void defensefightertargetbullet(Ship *ship, Bullet *bullettotarget)
     laser->traveldist = gunstatic->bulletlength;
     laser->beamtraveldist = gunstatic->bulletlength;
 
-    //laser->posinfo.isMoving = TRUE;
+    //SET_MOVING_LINEARLY(laser->posinfo.isMoving);
     //laser->posinfo.haventCalculatedDist = TRUE;
     laser->DFGFieldEntryTime = 0.0f;
 
@@ -318,7 +318,7 @@ void defensefightertargetbullet(Ship *ship, Bullet *bullettotarget)
         newEffect->posinfo.position = bullettotarget->posinfo.position; //start at same spot as bullet
         newEffect->posinfo.velocity = bullettotarget->posinfo.velocity; //start at same spot as bullet
         etgEffectCodeStart(stat, newEffect, 1, intDamage);//get the code a-runnin'
-        newEffect->posinfo.isMoving = FALSE;
+        SET_MOVING_IMMOBILE(newEffect->posinfo.isMoving);
         newEffect->posinfo.haventCalculatedDist = TRUE;
         univUpdateObjRotInfo((SpaceObjRot *)newEffect);
 

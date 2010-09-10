@@ -220,7 +220,7 @@ void univInitSpaceObjPosRot(SpaceObj *obj,vector *position,bool randomOrientatio
 {
     memset(&(obj->posinfo),0,sizeof(obj->posinfo));
     obj->posinfo.position = *position;
-    obj->posinfo.isMoving = FALSE;
+    SET_MOVING_IMMOBILE(obj->posinfo.isMoving);
     obj->posinfo.haventCalculatedDist = TRUE;
 
     if (bitTest(obj->flags,SOF_Rotatable))
@@ -725,7 +725,7 @@ Missile *univAddMissile(ShipRace race)
     universe.missileNumber++;
 
     //position, velocity and coordsys left blank
-    missile->posinfo.isMoving = TRUE;
+    SET_MOVING_LINEARLY(missile->posinfo.isMoving);
     missile->posinfo.haventCalculatedDist = TRUE;
 
     collAddSpaceObjToCollBlobs((SpaceObj *)missile);

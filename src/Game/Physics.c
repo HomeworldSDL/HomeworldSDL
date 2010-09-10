@@ -205,7 +205,7 @@ bool physUpdateBulletPosVel(Bullet *bullet,real32 phystimeelapsed)
             break;
     }
 
-    bullet->posinfo.isMoving = TRUE;
+    SET_MOVING_LINEARLY(bullet->posinfo.isMoving);
 
     bullet->timelived += phystimeelapsed;
     if (bullet->timelived > bullet->totallifetime)
@@ -266,7 +266,7 @@ void physUpdateObjPosVel(SpaceObj *obj,real32 phystimeelapsed)
 
     if (Real32ToUdword(obj->posinfo.velocity.x) | Real32ToUdword(obj->posinfo.velocity.y) | Real32ToUdword(obj->posinfo.velocity.z))
     {
-        obj->posinfo.isMoving = TRUE;
+        SET_MOVING_LINEARLY(obj->posinfo.isMoving);
 
         if(obj->objtype == OBJ_MissileType)         //replace with a better method later
         {
@@ -305,7 +305,7 @@ void physUpdateObjPosVel(SpaceObj *obj,real32 phystimeelapsed)
     }
     else
     {
-        obj->posinfo.isMoving = FALSE;
+        SET_MOVING_IMMOBILE(obj->posinfo.isMoving);
         vecZeroVector(d);
     }
 
@@ -324,7 +324,7 @@ void physUpdateObjPosVel(SpaceObj *obj,real32 phystimeelapsed)
                             (isBetweenExclusive(obj->posinfo.velocity.y,CONSIDERED_STILL_LO,CONSIDERED_STILL_HI)) &&
                             (isBetweenExclusive(obj->posinfo.velocity.z,CONSIDERED_STILL_LO,CONSIDERED_STILL_HI)) )
                         {
-                            obj->posinfo.isMoving = FALSE;
+                            SET_MOVING_IMMOBILE(obj->posinfo.isMoving);
                             vecZeroVector(d);
                             vecZeroVector(obj->posinfo.velocity);
                         }
@@ -416,7 +416,7 @@ void physUpdateObjPosVel(SpaceObj *obj,real32 phystimeelapsed)
                     (isBetweenExclusive(obj->posinfo.velocity.y,CONSIDERED_STILL_LO,CONSIDERED_STILL_HI)) &&
                     (isBetweenExclusive(obj->posinfo.velocity.z,CONSIDERED_STILL_LO,CONSIDERED_STILL_HI)) )
                 {
-                    obj->posinfo.isMoving = FALSE;
+                    SET_MOVING_IMMOBILE(obj->posinfo.isMoving);
                     vecZeroVector(d);
                     vecZeroVector(obj->posinfo.velocity);
                 }
@@ -575,7 +575,7 @@ void physUpdateObjPosVelShip(Ship *obj,real32 phystimeelapsed)
 
     if (Real32ToUdword(obj->posinfo.velocity.x) | Real32ToUdword(obj->posinfo.velocity.y) | Real32ToUdword(obj->posinfo.velocity.z))
     {
-        obj->posinfo.isMoving = TRUE;
+        SET_MOVING_LINEARLY(obj->posinfo.isMoving);
 
         // cap velocity vector
         speedmult = tacticsGetShipsMaxVelocity(((Ship *)obj));
@@ -590,7 +590,7 @@ void physUpdateObjPosVelShip(Ship *obj,real32 phystimeelapsed)
     }
     else
     {
-        obj->posinfo.isMoving = FALSE;
+        SET_MOVING_IMMOBILE(obj->posinfo.isMoving);
         vecZeroVector(d);
     }
 
@@ -607,7 +607,7 @@ void physUpdateObjPosVelShip(Ship *obj,real32 phystimeelapsed)
                             (isBetweenExclusive(obj->posinfo.velocity.y,CONSIDERED_STILL_LO,CONSIDERED_STILL_HI)) &&
                             (isBetweenExclusive(obj->posinfo.velocity.z,CONSIDERED_STILL_LO,CONSIDERED_STILL_HI)) )
                         {
-                            obj->posinfo.isMoving = FALSE;
+                            SET_MOVING_IMMOBILE(obj->posinfo.isMoving);
                             vecZeroVector(d);
                             vecZeroVector(obj->posinfo.velocity);
                         }
@@ -730,7 +730,7 @@ void physUpdateObjPosVelShip(Ship *obj,real32 phystimeelapsed)
             tempmat = robj->rotinfo.coordsys;
             matMultiplyMatByMat(&(robj->rotinfo.coordsys),&tempmat,&rotxmatrix);
             coordsysChanged = TRUE;
-            bitSet(obj->posinfo.isMoving,ISMOVING_ROTATING);
+            SET_MOVING_ROTATIONALLY(obj->posinfo.isMoving);
         }
 
         if (robj->rotinfo.rotspeed.y)
@@ -742,7 +742,7 @@ void physUpdateObjPosVelShip(Ship *obj,real32 phystimeelapsed)
             tempmat = robj->rotinfo.coordsys;
             matMultiplyMatByMat(&(robj->rotinfo.coordsys),&tempmat,&rotymatrix);
             coordsysChanged = TRUE;
-            bitSet(obj->posinfo.isMoving,ISMOVING_ROTATING);
+            SET_MOVING_ROTATIONALLY(obj->posinfo.isMoving);
         }
 
         if (robj->rotinfo.rotspeed.z)
@@ -754,7 +754,7 @@ void physUpdateObjPosVelShip(Ship *obj,real32 phystimeelapsed)
             tempmat = robj->rotinfo.coordsys;
             matMultiplyMatByMat(&(robj->rotinfo.coordsys),&tempmat,&rotzmatrix);
             coordsysChanged = TRUE;
-            bitSet(obj->posinfo.isMoving,ISMOVING_ROTATING);
+            SET_MOVING_ROTATIONALLY(obj->posinfo.isMoving);
         }
 
         if (bitTest(obj->flags,SOF_Impactable))
@@ -821,7 +821,7 @@ void physUpdateObjPosVelDerelicts(Derelict *obj,real32 phystimeelapsed)
 
     if (Real32ToUdword(obj->posinfo.velocity.x) | Real32ToUdword(obj->posinfo.velocity.y) | Real32ToUdword(obj->posinfo.velocity.z))
     {
-        obj->posinfo.isMoving = TRUE;
+        SET_MOVING_LINEARLY(obj->posinfo.isMoving);
         vecCapVectorSloppy(&obj->posinfo.velocity,staticheader->maxvelocity);
         // d = vt
         vecScalarMultiply(d,obj->posinfo.velocity,phystimeelapsed);
@@ -830,7 +830,7 @@ void physUpdateObjPosVelDerelicts(Derelict *obj,real32 phystimeelapsed)
     }
     else
     {
-        obj->posinfo.isMoving = FALSE;
+        SET_MOVING_IMMOBILE(obj->posinfo.isMoving);
         vecZeroVector(d);
     }
 
@@ -843,7 +843,7 @@ void physUpdateObjPosVelDerelicts(Derelict *obj,real32 phystimeelapsed)
                 (isBetweenExclusive(obj->posinfo.velocity.y,CONSIDERED_STILL_LO,CONSIDERED_STILL_HI)) &&
                 (isBetweenExclusive(obj->posinfo.velocity.z,CONSIDERED_STILL_LO,CONSIDERED_STILL_HI)) )
             {
-                obj->posinfo.isMoving = FALSE;
+                SET_MOVING_IMMOBILE(obj->posinfo.isMoving);
                 vecZeroVector(d);
                 vecZeroVector(obj->posinfo.velocity);
             }
@@ -898,7 +898,7 @@ void physUpdateObjPosVelDerelicts(Derelict *obj,real32 phystimeelapsed)
             tempmat = robj->rotinfo.coordsys;
             matMultiplyMatByMat(&(robj->rotinfo.coordsys),&tempmat,&rotxmatrix);
             coordsysChanged = TRUE;
-            bitSet(obj->posinfo.isMoving,ISMOVING_ROTATING);
+            SET_MOVING_ROTATIONALLY(obj->posinfo.isMoving);
         }
 
         if (robj->rotinfo.rotspeed.y)
@@ -910,7 +910,7 @@ void physUpdateObjPosVelDerelicts(Derelict *obj,real32 phystimeelapsed)
             tempmat = robj->rotinfo.coordsys;
             matMultiplyMatByMat(&(robj->rotinfo.coordsys),&tempmat,&rotymatrix);
             coordsysChanged = TRUE;
-            bitSet(obj->posinfo.isMoving,ISMOVING_ROTATING);
+            SET_MOVING_ROTATIONALLY(obj->posinfo.isMoving);
         }
 
         if (robj->rotinfo.rotspeed.z)
@@ -922,7 +922,7 @@ void physUpdateObjPosVelDerelicts(Derelict *obj,real32 phystimeelapsed)
             tempmat = robj->rotinfo.coordsys;
             matMultiplyMatByMat(&(robj->rotinfo.coordsys),&tempmat,&rotzmatrix);
             coordsysChanged = TRUE;
-            bitSet(obj->posinfo.isMoving,ISMOVING_ROTATING);
+            SET_MOVING_ROTATIONALLY(obj->posinfo.isMoving);
         }
 
         if (bitTest(obj->flags,SOF_Impactable))
@@ -979,7 +979,7 @@ void physUpdateObjPosVelMissile(Missile *obj,real32 phystimeelapsed)
 
     if (Real32ToUdword(obj->posinfo.velocity.x) | Real32ToUdword(obj->posinfo.velocity.y) | Real32ToUdword(obj->posinfo.velocity.z))
     {
-        obj->posinfo.isMoving = TRUE;
+        SET_MOVING_LINEARLY(obj->posinfo.isMoving);
 
         if(((Missile *)obj)->FORCE_DROPPED == TRUE)
         {
@@ -1000,7 +1000,7 @@ void physUpdateObjPosVelMissile(Missile *obj,real32 phystimeelapsed)
     }
     else
     {
-        obj->posinfo.isMoving = FALSE;
+        SET_MOVING_IMMOBILE(obj->posinfo.isMoving);
         vecZeroVector(d);
     }
 
@@ -1131,7 +1131,7 @@ void physUpdateObjPosVelBasic(SpaceObj *obj,real32 phystimeelapsed)
 
     if (Real32ToUdword(obj->posinfo.velocity.x) | Real32ToUdword(obj->posinfo.velocity.y) | Real32ToUdword(obj->posinfo.velocity.z))
     {
-        obj->posinfo.isMoving = TRUE;
+        SET_MOVING_LINEARLY(obj->posinfo.isMoving);
 
         vecCapVectorSloppy(&obj->posinfo.velocity,staticheader->maxvelocity);
 
@@ -1144,7 +1144,7 @@ void physUpdateObjPosVelBasic(SpaceObj *obj,real32 phystimeelapsed)
     }
     else
     {
-        obj->posinfo.isMoving = FALSE;
+        SET_MOVING_IMMOBILE(obj->posinfo.isMoving);
         vecZeroVector(d);
     }
 

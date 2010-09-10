@@ -1165,7 +1165,7 @@ void processFormationToDo(struct CommandToDo *formationtodo,bool steadyFormation
                         {
                             if (protectsurround)
                             {
-                                if (leader->posinfo.isMoving & ISMOVING_MOVING)
+                                if (IS_MOVING_LINEARLY(leader->posinfo.isMoving))
                                 {
                                     FormationShipMoveToNotToObscuredPoints(desiredposition,heading);
                                 }

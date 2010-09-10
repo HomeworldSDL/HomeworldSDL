@@ -2459,7 +2459,7 @@ bool processMpHyperspaceingToDo(CommandToDo *movetodo)
     bool dontgoyet=FALSE;
     for(i=0;i<movetodo->selection->numShips;i++)
     {
-       movetodo->selection->ShipPtr[i]->posinfo.isMoving = TRUE;
+       SET_MOVING_LINEARLY(movetodo->selection->ShipPtr[i]->posinfo.isMoving);
     }
     switch(movetodo->hyperspaceState)
     {

@@ -116,7 +116,7 @@ void ProbeHouseKeep(Ship *ship)
         }
         */
         bitClear(ship->dontrotateever,1);
-        if(ship->posinfo.isMoving & ISMOVING_MOVING)
+        if(IS_MOVING_LINEARLY(ship->posinfo.isMoving))
         {
             //if above a certain velocity lets rotate like its 1492...
             if(vecMagnitudeSquared(ship->posinfo.velocity) > 10000.0f)      //later optimize by normalizing ourselves below...

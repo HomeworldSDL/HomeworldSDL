@@ -1454,7 +1454,7 @@ udword etgEffectTest(regionhandle reg, sdword ID, udword event, udword data)
     {                                                       //make it sort forward, if applicable
         bitSet(newEffect->flags, SOF_AlwaysSortFront);
     }
-    newEffect->posinfo.isMoving = FALSE;
+    SET_MOVING_IMMOBILE(newEffect->posinfo.isMoving);
     newEffect->posinfo.haventCalculatedDist = TRUE;
     newEffect->rotinfo.coordsys = coordSystem;
     univUpdateObjRotInfo((SpaceObjRot *)newEffect);
@@ -7736,7 +7736,7 @@ void etgCreateEffects(Effect *effect, etgeffectstatic *stat, sdword number, sdwo
         newEffect->cameraDistanceSquared = effect->cameraDistanceSquared;
         newEffect->timeElapsed = -part->waitspan;           //use delay from the particle
 
-        newEffect->posinfo.isMoving = FALSE;
+        SET_MOVING_IMMOBILE(newEffect->posinfo.isMoving);
         newEffect->posinfo.haventCalculatedDist = TRUE;
         newEffect->drag = ((pointSystem*)system)->drag;
         //compute new velocity vector
@@ -8115,7 +8115,7 @@ memsize etgSpawnNewEffect(Effect *effect, etgeffectstatic *stat, sdword nParams,
     {
         newEffect->rotinfo.coordsys = effect->rotinfo.coordsys;
     }
-    newEffect->posinfo.isMoving = FALSE;
+    SET_MOVING_IMMOBILE(newEffect->posinfo.isMoving);
     newEffect->posinfo.haventCalculatedDist = TRUE;
     newEffect->drag = effect->drag;
 //    newEffect->rotinfo.coordsys = coordSystem;

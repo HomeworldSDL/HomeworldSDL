@@ -1930,7 +1930,7 @@ bool aishipGuideMissile(Missile *missile)
         vecZeroVector(missile->rotinfo.torque);
     }
 
-    missile->posinfo.isMoving = TRUE;
+    SET_MOVING_LINEARLY(missile->posinfo.isMoving);
 
     missile->timelived += universe.phystimeelapsed;
     if (missile->timelived > missile->totallifetime)
@@ -2385,7 +2385,7 @@ bool aishipGuideMine(Missile *mine)
         break;
     }
 
-    mine->posinfo.isMoving = TRUE;
+    SET_MOVING_LINEARLY(mine->posinfo.isMoving);
 
     // all mines, including force dropped ones, now expire
     mine->timelived += universe.phystimeelapsed;

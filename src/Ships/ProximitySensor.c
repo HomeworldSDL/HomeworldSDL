@@ -291,7 +291,7 @@ void ProximitySensorHouseKeep(Ship *ship)
     //    return;                                         //if this prox sensor isn't the local users
                                                         // don't do anything
     //deal with the mesh animations cleverlike!
-    if(ship->posinfo.isMoving & ISMOVING_MOVING)
+    if(IS_MOVING_LINEARLY(ship->posinfo.isMoving))
     {
         //if prox is going above a reasonable speed..and not just being moved a bit!
         if(vecMagnitudeSquared(ship->posinfo.velocity) > 40000.0f)

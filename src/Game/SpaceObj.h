@@ -854,15 +854,23 @@ typedef struct
 }
 PreciseSelection;
 
-#define ISMOVING_MOVING     1
-#define ISMOVING_ROTATING   2
+#define MOVING_LINEARLY_BIT         BIT0
+#define MOVING_ROTATIONALLY_BIT     BIT1
+
+#define SET_MOVING_LINEARLY(x)      bitSet((x), MOVING_LINEARLY_BIT)
+#define SET_MOVING_ROTATIONALLY(x)  bitSet((x), MOVING_ROTATIONALLY_BIT)
+#define SET_MOVING_IMMOBILE(x)      bitClear((x), MOVING_LINEARLY_BIT | MOVING_ROTATIONALLY_BIT)
+
+#define IS_MOVING_LINEARLY(x)       bitTest((x), MOVING_LINEARLY_BIT)
+#define IS_MOVING_ROTATIONALLY(x)   bitTest((x), MOVING_ROTATIONALLY_BIT)
+#define IS_MOVING_IMMOBILE(x)       (!(IS_MOVING_LINEARLY(x) || IS_MOVING_ROTATIONALLY(x)))
 
 typedef struct
 {
     vector position;        // object position in universe
     vector velocity;        // velocity of object
     vector force;           // force acting on object
-    bool16 isMoving;        // flag indicating if object is moving
+    bitflag16 isMoving;           // bit flag indicating how object is moving
     bool16 haventCalculatedDist;  // flag indicating haven't yet calculated distance
 } PosInfo;
 
