@@ -2389,15 +2389,7 @@ bool aishipGuideMine(Missile *mine)
 
     // all mines, including force dropped ones, now expire
     mine->timelived += universe.phystimeelapsed;
-    if (mine->timelived > mine->totallifetime)
-    {
-        return TRUE;
-    }
-    else
-    {
-        return FALSE;
-    }
 
-    return FALSE;
+    return mine->timelived > mine->totallifetime;
 }
 
