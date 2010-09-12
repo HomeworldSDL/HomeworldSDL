@@ -194,7 +194,7 @@ void JpegRead( JPEGDATA *data ) {
      row_stride = cinfo.output_width * cinfo.output_components;
 
      buffer = (*cinfo.mem->alloc_sarray)
-     		((j_common_ptr) &cinfo, JPOOL_IMAGE, row_stride, 1);
+		((j_common_ptr) &cinfo, JPOOL_IMAGE, row_stride, 1);
 
      bf = data->ptr;
      y  = 0;
