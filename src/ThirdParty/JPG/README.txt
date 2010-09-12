@@ -23,4 +23,8 @@ I tried to #define a way of making these changes whilst retaining the original J
    jpeg_stdio_src (j_decompress_ptr cinfo, filehandle infile)
 
 
+NB: interfce.[ch] and jconfig.h are the "hook" files between Homeworld SDL and the JPEG code.
+Do not delete these when upgrading the JPEG code.
+
+
 Laurence Passmore (20061119)

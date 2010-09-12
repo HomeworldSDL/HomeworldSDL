@@ -1,5 +1,5 @@
 /*
- * jconfig.doc
+ * jconfig.h (copy and tweak of jconfig.txt for Homeworld SDL)
  *
  * Copyright (C) 1991-1994, Thomas G. Lane.
  * This file is part of the Independent JPEG Group's software.

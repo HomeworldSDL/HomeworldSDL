@@ -4,7 +4,7 @@
 // ---------------------
 // Author...: Gus J Grubba
 // Date ....: October 1995
-// Descr....: Interface to JPEG library
+// Descr....: Interface to JPEG library (Homeworld SDL)
 //
 // History .: Oct, 27 1995 - Started
 //
