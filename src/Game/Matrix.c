@@ -378,7 +378,7 @@ void matCreateMatFromVecs(matrix *result,vector *col1,vector *col2,vector *col3)
 ----------------------------------------------------------------------------*/
 void matMultiplyMatByMat(matrix *result,matrix *first,matrix *second)
 {
-#if defined (_MSC_VER)
+#if defined (_MSC_VER) && defined (_USE_ASM) 
     static real32* c;
     static real32* a;
     static real32* b;
@@ -445,7 +445,7 @@ void matMultiplyMatByMat(matrix *result,matrix *first,matrix *second)
         pop       esi
         pop       edi
     }
-#elif defined (__GNUC__) && defined (__i386__) && !defined (_MACOSX_FIX_86)
+#elif defined (_USE_ASM) && defined (__GNUC__) && defined (__i386__) && !defined (_MACOSX_FIX_86)
 /* This block of code is the modified version of the code above.
  * It was safe to use upto gcc 4.1, but seems to generate a 
  * problem once we use -O2 with gcc 4.3  */
@@ -508,7 +508,7 @@ void matMultiplyMatByMat(matrix *result,matrix *first,matrix *second)
 
     memcpy(result, matResult, sizeof(struct matrix));
 
-#elif defined (__GNUC__) && defined (_X86_64) 
+#elif defined (_USE_ASM) && defined (__GNUC__) && defined (_X86_64) 
 /* This is the AMD64 version of the above code but using the 
  * xmm 128-bit SSE registers. It looks longer but should be a 
  * lot quicker as most of the operations are in parallel.
