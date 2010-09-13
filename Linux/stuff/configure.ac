@@ -135,6 +135,36 @@ if test "$platform_win32" = "no" ; then
     fi
 fi
 
+AC_MSG_CHECKING([if libraries can be versioned])
+GLD=`$LD --help < /dev/null 2>/dev/null | grep version-script`
+if test "$GLD"; then
+	have_ld_version_script=yes
+	AC_MSG_RESULT(yes)
+else
+	have_ld_version_script=no
+	AC_MSG_RESULT(no)
+	AC_MSG_WARN(*** You have not enabled versioned symbols.)
+fi
+AM_CONDITIONAL(HAVE_LD_VERSION_SCRIPT, test "$have_ld_version_script" = "yes")
+
+dnl JPEG MEMORY MANAGER
+AC_ARG_ENABLE(jpegmemmgr,
+	AS_HELP_STRING([--enable-jpegmemmgr],
+		[Needs sorting, but will force here to jmemansi]), [jpegmemmgr=jmemansi], [jpegmemmgr=jmemansi])
+	AC_SUBST(MEMORYMGR,[jmemansi])
+	echo "* JPEG Memory manager defined as jmemansi *"
+
+
+dnl USE ASM
+AC_ARG_ENABLE(asm,
+	AS_HELP_STRING([--enable-asm],
+		[Force the use of compiled code. Should be removing this code so this is for fallback testing]),[useasm=yes],[useasm=no])
+if test "x$useasm" = "xyes" ; then
+	echo "* Compiling ASM code. (-D_USE_ASM) *"
+	CFLAGS="$CFLAGS -D_USE_ASM "
+	CPPFLAGS="$CPPFLAGS -D_USE_ASM "
+fi
+
 dnl WIN32 FIX ME
 AC_ARG_ENABLE(win32fixme,
 	AS_HELP_STRING([--disable-win32fixme],

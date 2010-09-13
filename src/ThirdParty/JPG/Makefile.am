@@ -5,6 +5,8 @@
 #  This file is written by Bob Friesenhahn, Guido Vollbeding
 #
 
+JPEG_LIB_VERSION="8" // Should be defined somewhere other than here
+
 # Sources to build library
 LIBSOURCES = jaricom.c jcapimin.c jcapistd.c jcarith.c jccoefct.c jccolor.c \
         jcdctmgr.c jchuff.c jcinit.c jcmainct.c jcmarker.c jcmaster.c \
@@ -76,19 +78,20 @@ if HAVE_LD_VERSION_SCRIPT
 endif
 
 # Executables to build
-bin_PROGRAMS = cjpeg djpeg jpegtran rdjpgcom wrjpgcom
+# Not Required for HW
+# bin_PROGRAMS = cjpeg djpeg jpegtran rdjpgcom wrjpgcom
 
 # Executable sources & libs
-cjpeg_SOURCES    = cjpeg.c rdppm.c rdgif.c rdtarga.c rdrle.c rdbmp.c \
-        rdswitch.c cdjpeg.c
-cjpeg_LDADD      = libjpeg.la
-djpeg_SOURCES    = djpeg.c wrppm.c wrgif.c wrtarga.c wrrle.c wrbmp.c \
-        rdcolmap.c cdjpeg.c
-djpeg_LDADD      = libjpeg.la
-jpegtran_SOURCES = jpegtran.c rdswitch.c cdjpeg.c transupp.c
-jpegtran_LDADD   = libjpeg.la
-rdjpgcom_SOURCES = rdjpgcom.c
-wrjpgcom_SOURCES = wrjpgcom.c
+#cjpeg_SOURCES    = cjpeg.c rdppm.c rdgif.c rdtarga.c rdrle.c rdbmp.c \
+#        rdswitch.c cdjpeg.c
+#cjpeg_LDADD      = libjpeg.la
+#djpeg_SOURCES    = djpeg.c wrppm.c wrgif.c wrtarga.c wrrle.c wrbmp.c \
+#        rdcolmap.c cdjpeg.c
+#djpeg_LDADD      = libjpeg.la
+#jpegtran_SOURCES = jpegtran.c rdswitch.c cdjpeg.c transupp.c
+#jpegtran_LDADD   = libjpeg.la
+#rdjpgcom_SOURCES = rdjpgcom.c
+#wrjpgcom_SOURCES = wrjpgcom.c
 
 # Manual pages to install
 man_MANS = $(DISTMANS)
@@ -132,3 +135,6 @@ check-local:
 	cmp $(srcdir)/testimg.ppm testoutp.ppm
 	cmp $(srcdir)/testimgp.jpg testoutp.jpg
 	cmp $(srcdir)/testorig.jpg testoutt.jpg
+
+AM_CPPFLAGS = -I$(top_srcdir)/src/Game -I$(top_srcdir)/src/SDL -I$(top_srcdir)/src/ThirdParty/CRC
+
