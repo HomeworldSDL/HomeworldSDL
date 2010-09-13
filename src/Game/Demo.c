@@ -209,6 +209,7 @@ void demStateSave(void)
 #if DEM_CHECKSUM
     sdword numShips;
 #endif
+    ubyte keyScanCodeCopy;
 
     dbgAssertOrIgnore(demDemoRecording);
     state.time = taskTimeElapsed;                           //basic state stuff
@@ -265,7 +266,8 @@ void demStateSave(void)
 
     for (index = state.nKeys = 0; index < KEY_TOTAL_KEYS; index++)
     {                                                       //for all keys
-        if (*((ubyte *)&keyScanCode[index]) != 0)
+	memcpy(&keyScanCodeCopy, &keyScanCode[index], sizeof(ubyte));
+        if (keyScanCodeCopy != 0)
         {                                                   //if this scan code has some activity
             state.key[state.nKeys].index = (ubyte)index;    //save it
             state.key[state.nKeys].key = keyScanCode[index];
