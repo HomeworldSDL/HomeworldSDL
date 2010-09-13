@@ -2144,9 +2144,12 @@ int is_final_tex(trhandle tex)
 #endif
 
 #ifdef _X86_64_FIX_ME
+    if (tex == 0xffffffff) {
+      return 1;
+    }
     if (0x7fffffff == (tex & 0x7fffffff)) { 
       /* it will catch stuff like 0x9cce2641ffffffff on 64-bit... but source of 32/64 should really be found and fixed */
-      dbgWarningf(DBG_Loc, "is_final_tex got invalid tex pointer 0x%lx - trying to work around", tex);
+      dbgWarningf("Particle.c",2149, "is_final_tex got invalid tex pointer 0x%lx - trying to work around", tex);
       return 1;
     }
     if (tex >= 6000) { dbgFatalf(DBG_Loc, "tex handle 0x%lx is broken in is_final_tex, unable to continue", tex); }
