@@ -4074,7 +4074,7 @@ void univDeleteDeadShip(Ship *ship, sdword deathBy)
 
     IDToPtrTableObjDied(&ShipIDToPtr,ship->shipID.shipNumber);
 
-    growSelectRemoveShipBySettingNULL(&universe.HousekeepShipList,ship);
+    growSelectRemoveShip(&universe.HousekeepShipList,ship);
 
     // Remove ships that are destroyed from any current selection
     clRemoveShipFromSelection((SelectCommand *)&selSelected,ship);
@@ -6523,7 +6523,7 @@ void univRemoveShipReferences(Ship *ship)
 
     IDToPtrTableObjDied(&ShipIDToPtr,ship->shipID.shipNumber);
 
-    growSelectRemoveShipBySettingNULL(&universe.HousekeepShipList,ship);
+    growSelectRemoveShip(&universe.HousekeepShipList,ship);
 
     // Remove ships that are destroyed from any hot key groups
     univRemoveShipFromHotkeyGroup(ship,FALSE);

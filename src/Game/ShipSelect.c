@@ -1901,37 +1901,6 @@ bool growSelectRemoveShip(GrowSelection *growSelect,Ship *ship)
     return clRemoveShipFromSelection(growSelect->selection,ship);
 }
 
-/*-----------------------------------------------------------------------------
-    Name        : growSelectRemoveShipBySettingNULL
-    Description : Remove ship references from a grow selection
-    Inputs      :
-    Outputs     :
-    Return      : TRUE if a ship reference was removed
-----------------------------------------------------------------------------*/
-bool growSelectRemoveShipBySettingNULL(GrowSelection *growSelect,Ship *ship)
-{
-    SelectCommand *selection = growSelect->selection;
-    sdword numShips;
-    sdword i;
-
-    if (selection == NULL)
-    {
-        return FALSE;
-    }
-    numShips = selection->numShips;
-
-    for (i=0;i<numShips;i++)
-    {
-        if (selection->ShipPtr[i] == ship)
-        {
-            selection->ShipPtr[i] = NULL;
-            return TRUE;
-        }
-    }
-
-    return FALSE;
-}
-
 void growSelectRemoveShipIndex(GrowSelection *growSelect,sdword index)
 {
     SelectCommand *selection = growSelect->selection;

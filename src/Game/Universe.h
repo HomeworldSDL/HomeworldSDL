@@ -159,7 +159,7 @@ typedef struct
     // regrow resources stuff
     LinkedList ResourceVolumeList;
 
-    GrowSelection HousekeepShipList;       // special GrowSelect which can have NULL's in it
+    GrowSelection HousekeepShipList;
 
     Star3dInfo *star3dinfo;
     udword univUpdateCounter;

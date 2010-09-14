@@ -132,9 +132,6 @@ void growSelectAddShip(GrowSelection *growSelect,Ship *ship);
 // Returns TRUE if obj was removed
 bool growSelectRemoveShip(GrowSelection *growSelect,Ship *ship);
 
-// Returns TRUE if obj was removed
-bool growSelectRemoveShipBySettingNULL(GrowSelection *growSelect,Ship *ship);
-
 // Removes ship at index index from growSelect
 void growSelectRemoveShipIndex(GrowSelection *growSelect,sdword index);
 
