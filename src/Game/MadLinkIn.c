@@ -73,7 +73,7 @@ void madLinkInUpdateMeshAnimations(Ship *ship)
         }
         madAnimationStart(ship, ship->cuedAnimationIndex);  //start 0th cued animation
 		/* play special animation sound here */
-		soundEvent(ship, ship->shaneyPooSoundEventAnimationTypeFlag);
+		soundEvent(ship, ship->soundEventAnimationTypeFlag);
         bitClear(ship->madAnimationFlags,MAD_NEED_TO_START_NEW_ANIMATION);
         if(ship->shiptype == Mothership)
         {
@@ -328,7 +328,7 @@ void madOpenGunsShip(Ship *ship)
             //and ship has damaged animations as well
             animIndex = randombetween(0,(ship->staticinfo->madStatic->numGunOpenDamagedIndexes-1));
             ship->cuedAnimationIndex = ship->staticinfo->madStatic->gunOpenDamagedIndexes[animIndex];
-			ship->shaneyPooSoundEventAnimationTypeFlag = ShipCmn_AnimDamagedOpen;
+			ship->soundEventAnimationTypeFlag = ShipCmn_AnimDamagedOpen;
 
         }
         else
@@ -336,7 +336,7 @@ void madOpenGunsShip(Ship *ship)
             //ships health is normalish..use normal gun anims
             animIndex = randombetween(0,(ship->staticinfo->madStatic->numGunOpenIndexes-1));
             ship->cuedAnimationIndex = ship->staticinfo->madStatic->gunOpenIndexes[animIndex];
-			ship->shaneyPooSoundEventAnimationTypeFlag = ShipCmn_AnimOpening;
+			ship->soundEventAnimationTypeFlag = ShipCmn_AnimOpening;
         }
         ship->cuedAnimationType = MAD_ANIMATION_GUN_OPENING;
         ship->madGunStatus = MAD_STATUS_GUNS_OPENING;
@@ -415,14 +415,14 @@ void madLinkInCloseGunsShip(Ship *ship)
             //and ship has damaged animations as well
             animIndex = randombetween(0,(ship->staticinfo->madStatic->numGunCloseDamagedIndexes-1));
             ship->cuedAnimationIndex = ship->staticinfo->madStatic->gunCloseDamagedIndexes[animIndex];
-			ship->shaneyPooSoundEventAnimationTypeFlag = ShipCmn_AnimDamagedClose;
+			ship->soundEventAnimationTypeFlag = ShipCmn_AnimDamagedClose;
         }
         else
         {
             //ships health is normalish..use normal gun anims
             animIndex = randombetween(0,(ship->staticinfo->madStatic->numGunCloseIndexes-1));
             ship->cuedAnimationIndex = ship->staticinfo->madStatic->gunCloseIndexes[animIndex];
-			ship->shaneyPooSoundEventAnimationTypeFlag = ShipCmn_AnimClosing;
+			ship->soundEventAnimationTypeFlag = ShipCmn_AnimClosing;
 		}
         ship->cuedAnimationType = MAD_ANIMATION_GUN_CLOSING;
         ship->madGunStatus = MAD_STATUS_GUNS_CLOSING;
@@ -491,14 +491,14 @@ void madLinkInPostDockingShip(Ship *ship)
             //and ship has damaged animations as well
             animIndex = randombetween(0,(ship->staticinfo->madStatic->numPostDockDamagedIndexes-1));
             ship->cuedAnimationIndex = ship->staticinfo->madStatic->PostDockDamagedIndexes[animIndex];
-			ship->shaneyPooSoundEventAnimationTypeFlag = ShipCmn_AnimDamagedOpen;
+			ship->soundEventAnimationTypeFlag = ShipCmn_AnimDamagedOpen;
 		}
         else
         {
             //ships health is normalish..use normal gun anims
             animIndex = randombetween(0,(ship->staticinfo->madStatic->numPostDockIndexes-1));
             ship->cuedAnimationIndex = ship->staticinfo->madStatic->PostDockIndexes[animIndex];
-			ship->shaneyPooSoundEventAnimationTypeFlag = ShipCmn_AnimOpening;
+			ship->soundEventAnimationTypeFlag = ShipCmn_AnimOpening;
         }
         ship->cuedAnimationType = MAD_ANIMATION_WINGS_OPENING;
         ship->madWingStatus = MAD_STATUS_WINGS_OPENING;
@@ -566,14 +566,14 @@ void madLinkInPreDockingShip(Ship *ship)
             //and ship has damaged animations as well
             animIndex = randombetween(0,(ship->staticinfo->madStatic->numDockDamagedIndexes-1));
             ship->cuedAnimationIndex = ship->staticinfo->madStatic->DockDamagedIndexes[animIndex];
-			ship->shaneyPooSoundEventAnimationTypeFlag = ShipCmn_AnimDamagedClose;
+			ship->soundEventAnimationTypeFlag = ShipCmn_AnimDamagedClose;
         }
         else
         {
             //ships health is normalish..use normal gun anims
             animIndex = randombetween(0,(ship->staticinfo->madStatic->numDockIndexes-1));
             ship->cuedAnimationIndex = ship->staticinfo->madStatic->DockIndexes[animIndex];
-            ship->shaneyPooSoundEventAnimationTypeFlag = ShipCmn_AnimClosing;
+            ship->soundEventAnimationTypeFlag = ShipCmn_AnimClosing;
         }
         ship->cuedAnimationType = MAD_ANIMATION_WINGS_CLOSING;
         ship->madWingStatus = MAD_STATUS_WINGS_CLOSING;
@@ -623,7 +623,7 @@ void madLinkInOpenDoor(Ship *ship)
         ship->cuedAnimationType = MAD_ANIMATION_DOOR_OPENING;
         ship->madDoorStatus = MAD_STATUS_DOOR_OPENING;
         bitSet(ship->madAnimationFlags,MAD_NEED_TO_START_NEW_ANIMATION);
-		ship->shaneyPooSoundEventAnimationTypeFlag = ShipCmn_AnimOpening;
+		ship->soundEventAnimationTypeFlag = ShipCmn_AnimOpening;
     }
 }
 
@@ -669,7 +669,7 @@ void madLinkInCloseDoor(Ship *ship)
         ship->cuedAnimationType = MAD_ANIMATION_DOOR_CLOSING;
         ship->madDoorStatus = MAD_STATUS_DOOR_CLOSING;
         bitSet(ship->madAnimationFlags,MAD_NEED_TO_START_NEW_ANIMATION);
-		ship->shaneyPooSoundEventAnimationTypeFlag = ShipCmn_AnimClosing;
+		ship->soundEventAnimationTypeFlag = ShipCmn_AnimClosing;
     }
 }
 
@@ -744,14 +744,14 @@ void madLinkInOpenSpecialShip(Ship *ship)
             //and ship has damaged animations as well
             animIndex = randombetween(0,(ship->staticinfo->madStatic->numSpecialOpenDamagedIndexes-1));
             ship->cuedAnimationIndex = ship->staticinfo->madStatic->specialOpenDamagedIndexes[animIndex];
-            ship->shaneyPooSoundEventAnimationTypeFlag = ShipCmn_AnimDamagedOpen;
+            ship->soundEventAnimationTypeFlag = ShipCmn_AnimDamagedOpen;
         }
         else
         {
             //ships health is normalish..use normal gun anims
             animIndex = randombetween(0,(ship->staticinfo->madStatic->numSpecialOpenIndexes-1));
             ship->cuedAnimationIndex = ship->staticinfo->madStatic->specialOpenIndexes[animIndex];
-			ship->shaneyPooSoundEventAnimationTypeFlag = ShipCmn_AnimOpening;
+			ship->soundEventAnimationTypeFlag = ShipCmn_AnimOpening;
         }
         ship->cuedAnimationType = MAD_ANIMATION_SPECIAL_OPENING;
         ship->madSpecialStatus = MAD_STATUS_SPECIAL_OPENING;
@@ -802,14 +802,14 @@ void madLinkInCloseSpecialShip(Ship *ship)
             //and ship has damaged animations as well
             animIndex = randombetween(0,(ship->staticinfo->madStatic->numSpecialCloseDamagedIndexes-1));
             ship->cuedAnimationIndex = ship->staticinfo->madStatic->specialCloseDamagedIndexes[animIndex];
-			ship->shaneyPooSoundEventAnimationTypeFlag = ShipCmn_AnimDamagedClose;
+			ship->soundEventAnimationTypeFlag = ShipCmn_AnimDamagedClose;
         }
         else
         {
             //ships health is normalish..use normal gun anims
             animIndex = randombetween(0,(ship->staticinfo->madStatic->numSpecialCloseIndexes-1));
             ship->cuedAnimationIndex = ship->staticinfo->madStatic->specialCloseIndexes[animIndex];
-			ship->shaneyPooSoundEventAnimationTypeFlag = ShipCmn_AnimClosing;
+			ship->soundEventAnimationTypeFlag = ShipCmn_AnimClosing;
         }
         ship->cuedAnimationType = MAD_ANIMATION_SPECIAL_CLOSING;
         ship->madSpecialStatus = MAD_STATUS_SPECIAL_CLOSING;

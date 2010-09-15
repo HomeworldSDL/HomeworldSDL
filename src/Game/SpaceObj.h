@@ -1371,7 +1371,7 @@ typedef struct Ship         // Ship object
     udword cuedAnimationIndex;            //Animation index waiting in the wings to be played
     udword cuedAnimationType;      //cue of animation types (guns, wings, etc...)
     udword nextAnim;
-    udword shaneyPooSoundEventAnimationTypeFlag;    //opening,closing,damaged_opening,damaged_closing
+    udword soundEventAnimationTypeFlag;    //opening,closing,damaged_opening,damaged_closing
     sdword forceCancelDock;
     real32 gravwellTimeEffect;      //time the gravwell effect sould be played again
     //

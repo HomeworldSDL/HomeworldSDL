@@ -227,7 +227,7 @@ void syncDebugDump(char *filename1,sdword counter,bool save)
             us->ship[j].collInfo.precise=0;
 
             us->ship[j].flashtimer=0;
-            us->ship[j].shaneyPooSoundEventAnimationTypeFlag=0;
+            us->ship[j].soundEventAnimationTypeFlag=0;
             us->ship[j].chatterBits=0;
             us->ship[j].hyperspacePing=0;
             us->ship[j].hotKeyGroup=0;
