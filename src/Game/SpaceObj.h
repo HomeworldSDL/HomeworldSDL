@@ -1244,49 +1244,49 @@ typedef struct ShipID
 //#define DEATH_By_Poofing                888 //somewheres in the code this ship was poofed out of existence.
 
 //ship struct "specialflags" defines
-#define SPECIAL_StopForResearchDocking              0x00000001
-#define SPECIAL_Kamikaze                            0x00000002
-#define SPECIAL_BrokenFormation                     0x00000004
-#define SPECIAL_KamikazeCrazyFast                   0x00000008
-#define SPECIAL_SpeedBurst                          0x00000010
-#define SPECIAL_SpeedBurstCooling                   0x00000020
-#define SPECIAL_BurstFiring                         0x00000040
-#define SPECIAL_SinglePlayerWithinHyperSpaceRange   0x00000080
-#define SPECIAL_SinglePlayerLimitSpeed              0x00000100
-#define SPECIAL_BUSY_BECAUSE_SALVAGE_DOCKING        0x00000200
-#define SPECIAL_Harvested                           0x00000400
-#define SPECIAL_EXITING_DOOR                        0x00000800
-#define SPECIAL_STAY_TILL_EXPLICITLAUNCH            0x00001000
-#define SPECIAL_KasSpecialDamageModifier            0x00002000  // !!!FREE FLAG YOU CAN USE!!!///
-#define SPECIAL_Finished_Resource                   0x00004000  //flag indicates when a resource collector has just finished collecting resources from one particular resource (computer player specific)
-#define SPECIAL_Resourcing                          0x00008000  //flag indicates when a resource collector has started resourcing - computer player specific
-#define SPECIAL_SinglePlayerInParade                0x00010000
-#define SPECIAL_rowGettingOutOfWay                  0x00020000
-#define SPECIAL_ATTACKMOVECANCEL                    0x00040000
-#define SPECIAL_FriendlyStatus                      0x00080000  //set by KAS - player's ships don't autoretaliate against this ship.  Also allows you to dock with them.
-#define SPECIAL_IsASalvager                         0x00100000  //used by junkyard dawg and salcap corvette...elminates double checks of the ship types!
-#define SPECIAL_SalvagerHasSomethingAttachedAndIsDoingSomethingElse 0x00200000
-#define SPECIAL_AttackFromAbove                     0x00400000
-#define SPECIAL_SalvagedTargetGoingIntoDockWithShip 0x00800000
-#define SPECIAL_SalvageTakingHomeTechnology         0x01000000
-#define SPECIAL_Hyperspacing                        0x02000000
-#define SPECIAL_ForcedAttackStatus                  0x04000000  //ship is in combat status, despite not actually attacking ships (must be turned off - doesn't expire)
+#define SPECIAL_StopForResearchDocking              BIT0
+#define SPECIAL_Kamikaze                            BIT1
+#define SPECIAL_BrokenFormation                     BIT2
+#define SPECIAL_KamikazeCrazyFast                   BIT3
+#define SPECIAL_SpeedBurst                          BIT4
+#define SPECIAL_SpeedBurstCooling                   BIT5
+#define SPECIAL_BurstFiring                         BIT6
+#define SPECIAL_SinglePlayerWithinHyperSpaceRange   BIT7
+#define SPECIAL_SinglePlayerLimitSpeed              BIT8
+#define SPECIAL_BUSY_BECAUSE_SALVAGE_DOCKING        BIT9
+#define SPECIAL_Harvested                           BIT10
+#define SPECIAL_EXITING_DOOR                        BIT11
+#define SPECIAL_STAY_TILL_EXPLICITLAUNCH            BIT12
+#define SPECIAL_KasSpecialDamageModifier            BIT13
+#define SPECIAL_Finished_Resource                   BIT14  //flag indicates when a resource collector has just finished collecting resources from one particular resource (computer player specific)
+#define SPECIAL_Resourcing                          BIT15  //flag indicates when a resource collector has started resourcing - computer player specific
+#define SPECIAL_SinglePlayerInParade                BIT16
+#define SPECIAL_rowGettingOutOfWay                  BIT17
+#define SPECIAL_ATTACKMOVECANCEL                    BIT18
+#define SPECIAL_FriendlyStatus                      BIT19  //set by KAS - player's ships don't autoretaliate against this ship.  Also allows you to dock with them.
+#define SPECIAL_IsASalvager                         BIT20  //used by junkyard dawg and salcap corvette...elminates double checks of the ship types!
+#define SPECIAL_SalvagerHasSomethingAttachedAndIsDoingSomethingElse BIT21
+#define SPECIAL_AttackFromAbove                     BIT22
+#define SPECIAL_SalvagedTargetGoingIntoDockWithShip BIT23
+#define SPECIAL_SalvageTakingHomeTechnology         BIT24
+#define SPECIAL_Hyperspacing                        BIT25
+#define SPECIAL_ForcedAttackStatus                  BIT26  //ship is in combat status, despite not actually attacking ships (must be turned off - doesn't expire)
 
-#define SPECIAL_LaunchedFromKas                     0x10000000
-#define SPECIAL_KasCheckDoneLaunching               0x20000000
-#define SPECIAL_Launching                           0x40000000      //indicates ship is launching
-#define SPECIAL_ParadeNeedTomoveCloser              0x80000000
+#define SPECIAL_LaunchedFromKas                     BIT28
+#define SPECIAL_KasCheckDoneLaunching               BIT29
+#define SPECIAL_Launching                           BIT30  //indicates ship is launching
+#define SPECIAL_ParadeNeedTomoveCloser              BIT31
 
 
 //////////SPECIAL_2 Flags
-#define SPECIAL_2_SalvageTargetAlreadyDriven        0x00000001
-#define SPECIAL_2_ShipInGravwell                    0x00000002
-#define SPECIAL_2_InUnitCaps                        0x00000004
-#define SPECIAL_2_CircularGuard                     0x00000008
-#define SPECIAL_2_NoMoreDockingAllowed              0x00000010
-#define SPECIAL_2_DontPlowThroughEnemyShips         0x00000020
-#define SPECIAL_2_BusiedDockPoint                   0x00000040
-#define SPECIAL_2_DisabledForever                   0x00000080
+#define SPECIAL_2_SalvageTargetAlreadyDriven        BIT0
+#define SPECIAL_2_ShipInGravwell                    BIT1
+#define SPECIAL_2_InUnitCaps                        BIT2
+#define SPECIAL_2_CircularGuard                     BIT3
+#define SPECIAL_2_NoMoreDockingAllowed              BIT4
+#define SPECIAL_2_DontPlowThroughEnemyShips         BIT5
+#define SPECIAL_2_BusiedDockPoint                   BIT6
+#define SPECIAL_2_DisabledForever                   BIT7
 				
 
 struct Resource;
@@ -1324,8 +1324,8 @@ typedef struct Ship         // Ship object
     ubyte pad1[2];
     sbyte putOnDoor;
     struct Ship *dockingship;       // if non-NULL, indicates no collisions should occur with this ship
-    udword specialFlags;            //general purpose ship flags, see above for defines
-    udword specialFlags2;            //general purpose ship flags, see above for defines
+    bitflag32 specialFlags;         //general purpose ship flags, see above for defines
+    bitflag32 specialFlags2;        //general purpose ship flags, see above for defines
     sdword salvageNumTagged[MAX_MULTIPLAYER_PLAYERS];        //number of salcaps vying for ship...used to disperese them amonst many targets
     NAVLightInfo *navLightInfo;
     // HERE UP SAME for Derelicts and Ships
