@@ -110,6 +110,10 @@ bool clRemoveTargetFromSelection(SelectAnyCommand *selection,TargetPtr removeTar
     sdword i;
     bool removedAny = FALSE;
 
+    if (selection == NULL) {
+        return FALSE;
+    }
+
     for (i=0;i<selection->numTargets; )
     {
         if (removeTargetPtr == selection->TargetPtr[i])
