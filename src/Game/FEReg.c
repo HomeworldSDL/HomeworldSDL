@@ -3031,16 +3031,3 @@ void ferDrawBitmapButton(regionhandle region, ferbitmapbuttonstate state)
     texture = ferTextureRegisterSpecial(name, decorative, none);
     ferDraw(region->rect.x0, region->rect.y1, texture);
 }
-
-/*-----------------------------------------------------------------------------
-    Name        : ferDrawBoxIntoBuffer
-    Description : renders a box into an offscreen buffer
-    Inputs      : width, height - dimensions of the buffer
-                  data - the buffer
-    Outputs     : data contains an image of a frontend box
-    Return      :
-----------------------------------------------------------------------------*/
-void ferDrawBoxIntoBuffer(sdword width, sdword height, ubyte* data)
-{
-    //nothing here
-}

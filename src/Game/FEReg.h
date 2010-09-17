@@ -351,7 +351,6 @@ void ferDrawSelectedDot(rectangle *rect);
 void ferDrawPopoutArrow(rectangle *rect);
 void ferDrawBitmapButton(regionhandle region, ferbitmapbuttonstate state);
 
-void ferDrawBoxIntoBuffer(sdword width, sdword height, ubyte* data);
 void ferDrawHorizSlider(sliderhandle shandle, uword state);
 void ferDrawVertSlider(sliderhandle shandle, uword state);
 
