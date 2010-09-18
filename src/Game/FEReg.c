@@ -1033,26 +1033,6 @@ void ferTextureDeregister(tex_holder holder)
 // ============================================================================
 // Front end Texture code
 // ============================================================================
-/*-----------------------------------------------------------------------------
-    Name        : ferFindLimits
-    Description : finds out if x or y are at the edge of the screen (causes
-                  errors in drawing
-    Inputs      : x, y coordinates to check
-    Outputs     :
-    Return      : TRUE if coordinates out of screenspace
-----------------------------------------------------------------------------*/
-bool ferFindLimits(sdword x, sdword y)
-{
-    if ((x < 1) || (y < 1) || (x > 639) || (y > 479))
-    {
-        return TRUE;
-    }
-    else
-    {
-        return FALSE;
-    }
-}
-
 
 static sdword nextLog2(sdword n)
 {
