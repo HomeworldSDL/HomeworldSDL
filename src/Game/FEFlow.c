@@ -2431,13 +2431,13 @@ udword feBaseRegionProcess(regionhandle region, sdword ID, udword event, udword 
 }
 
 /*-----------------------------------------------------------------------------
-    Name        : mrBottomMostAtomRegion
+    Name        : feBottomMostAtomRegion
     Description : Return the region which is the last child of a base region.
     Inputs      :
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-regionhandle mrBottomMostAtomRegion(regionhandle baseRegion)
+regionhandle feBottomMostAtomRegion(regionhandle baseRegion)
 {
     baseRegion = baseRegion->child;
 
@@ -2482,7 +2482,7 @@ udword feMenuItemProcess(regionhandle region, smemsize ID, udword event, udword 
             {                                                   //if it's not the top screen
                 while (region->parent != feStack[feStackIndex].baseRegion)
                 {                                           //clear down to this menu screen
-                    baseRegion = mrBottomMostAtomRegion(feStack[feStackIndex].baseRegion);
+                    baseRegion = feBottomMostAtomRegion(feStack[feStackIndex].baseRegion);
                     if (bitTest(baseRegion->status, RSF_MouseInside))
                     {
                         break;
@@ -2573,7 +2573,7 @@ udword feMenuItemProcess(regionhandle region, smemsize ID, udword event, udword 
             {                                               //if entering a lower menu item
                 while (region->parent != feStack[feStackIndex].baseRegion)
                 {                                           //clear down to this menu screen
-                    baseRegion = mrBottomMostAtomRegion(feStack[feStackIndex].baseRegion);
+                    baseRegion = feBottomMostAtomRegion(feStack[feStackIndex].baseRegion);
 
                     if (bitTest(baseRegion->status, RSF_MouseInside))
                     {
