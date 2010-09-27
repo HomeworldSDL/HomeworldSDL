@@ -956,6 +956,10 @@ void utyOptionsFileWrite(void)
             fprintf(f, "%s    %s\n", utyOptionsList[index].name,
                 (char*)utyOptionsList[index].dataPtr);
         }
+        else if (utyOptionsList[index].setVarCB == scriptSetBool) {
+            fprintf(f, "%s    %s\n", utyOptionsList[index].name,
+                *((bool *)utyOptionsList[index].dataPtr) ? "TRUE" : "FALSE");
+        }
     }
     
     fclose(f);
