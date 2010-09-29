@@ -1,0 +1,26 @@
+Homeworld SDL has a number of feature enhancements over the original Homeworld
+and are described below:
+
+
+--------------------------------------------------------------------------------
+Hardware support
+--------------------------------------------------------------------------------
+
+- Supports resolutions larger than 1600x1200.
+
+- Supports widescreen resolutions.
+
+- 3D CAD joystick controller support.
+
+
+--------------------------------------------------------------------------------
+Game features
+--------------------------------------------------------------------------------
+
+Homeworld.cfg includes a section for Homeworld SDL configuration options
+labelled:
+
+    [New HWSDL Options]
+
+This section can have the following options and are shown with their default
+value:
