@@ -349,7 +349,7 @@ trhandle meshTextureRegisterAllPlayers(char *fullName, void *meshReference)
             dbgAssertOrIgnore(index < TE_NumberPlayers);
             handleList[index] = TR_Invalid;
 
-            if (((ShipStaticInfo *)info)->teamColor[index])
+            if (utyShipsAlwaysUseOwnerColors || ((ShipStaticInfo *)info)->teamColor[index])
             {                                               //if this player can build this ship
                 handleList[index] = trTextureRegister(fullName, //register in this players's colors
                         &teColorSchemes[index].textureColor, meshReference);

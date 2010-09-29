@@ -17,6 +17,7 @@
 #include "SaveGame.h"
 #include "Tweak.h"
 #include "Universe.h"
+#include "utility.h"
 
 
 extern sdword R1MOTHERSHIP_Big;
@@ -449,7 +450,7 @@ void MothershipHouseKeep(Ship *ship)
                         spec->CAPshiprace[i],
                         ship->playerowner->playerIndex,
                         ship);
-                newship->colorScheme = spec->CAPcolorScheme[i];
+                newship->colorScheme = utyShipsAlwaysUseOwnerColors ? ship->playerowner->playerIndex : spec->CAPcolorScheme[i];
             }
 
             spec->CAP_NumInBuildCue--;

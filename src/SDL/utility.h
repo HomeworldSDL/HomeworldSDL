@@ -127,6 +127,8 @@ extern ShipRace whichRaceSelected;
 
 extern color utyBaseColor;
 extern color utyStripeColor;
+extern bool  utyShipsAlwaysUseOwnerColors;
+
 extern char utyName[MAX_PERSONAL_NAME_LEN];
 extern char utyPassword[MAX_PERSONAL_NAME_LEN];
 

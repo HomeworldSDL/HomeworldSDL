@@ -799,6 +799,7 @@ scriptEntry utyOptionsList[] =
     {"PauseOrders",                    scriptSetUdwordCB, &opPauseOrders},
     {"PlayIntros",                     scriptSetUdwordCB, &aviPlayIntros},
     {"ShipRecoil",                     scriptSetUdwordCB, &opShipRecoil},
+    {"ShipsAlwaysUseOwnerColors",      scriptSetBool,     &utyShipsAlwaysUseOwnerColors},
 
     END_SCRIPT_ENTRY
 };
@@ -975,6 +976,7 @@ void utyOptionsFileWrite(void)
 ----------------------------------------------------------------------------*/
 color utyBaseColor;
 color utyStripeColor;
+bool  utyShipsAlwaysUseOwnerColors = FALSE;
 //bool utyColorsPicked = FALSE;
 
 void utyPickColors(char *name, featom *atom)

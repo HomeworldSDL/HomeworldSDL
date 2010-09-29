@@ -24,3 +24,13 @@ labelled:
 
 This section can have the following options and are shown with their default
 value:
+
+ShipsAlwaysUseOwnerColors    FALSE
+
+    In the original game, captured ships retained the colour scheme of the
+    player who originally built it. This adds a certain degree of competitiveness
+    since a player's success at stealing his opponent's ships is visually
+    apparent. However, it also makes battles more confusing to command when ships
+    on opposing sides nevertheless have the same colour scheme. This option
+    allows you to specify whether captured vessels should be repainted with their
+    new owner's colour scheme.

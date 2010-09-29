@@ -14,6 +14,7 @@
 #include "SalCapCorvette.h"
 #include "SaveGame.h"
 #include "Universe.h"
+#include "utility.h"
 
 typedef struct
 {
@@ -120,7 +121,7 @@ void CarrierHouseKeep(Ship *ship)
                         spec->CAPshiprace[i],
                         ship->playerowner->playerIndex,
                         ship);
-                newship->colorScheme = spec->CAPcolorScheme[i];
+                newship->colorScheme = utyShipsAlwaysUseOwnerColors ? ship->playerowner->playerIndex : spec->CAPcolorScheme[i];
             }
 
             spec->CAP_NumInBuildCue--;
