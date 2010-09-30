@@ -195,9 +195,7 @@ mrKeyFunction[] =
     {{HOMEKEY,   0,      0,      0}, 1, RPE_KeyDown},
     {{PAGEDOWNKEY,0,     0,      0}, 1, RPE_KeyDown},
     {{PAGEUPKEY, 0,      0,      0}, 1, RPE_KeyDown},
-#if UNIVERSE_TURBOPAUSE_DEBUG
     {{BACKSLASHKEY,      0,      0,      0}, 1, RPE_KeyDown},
-#endif
     {{PKEY,              0,      0,      0}, 1, RPE_KeyDown},
 #if MR_TEST_GUNS
     {{TKEY,      0,      0,      0}, 1, RPE_KeyDown},
@@ -2367,7 +2365,7 @@ cancelfocus:
                 mrScuttle(NULL, NULL);
             }
             break;
-#if UNIVERSE_TURBOPAUSE_DEBUG
+
         case BACKSLASHKEY:
             if ((!multiPlayerGame) || (playPackets) || (universePause) || (mrDisabled) )
             {
@@ -2375,7 +2373,7 @@ cancelfocus:
                 dbgMessage(universeTurbo ? "Turbo ON" : "Turbo OFF");
             }
             break;
-#endif
+
         case IKEY:
             {
                 tutGameMessage("KB_Retire");

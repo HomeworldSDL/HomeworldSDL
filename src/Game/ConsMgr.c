@@ -123,8 +123,6 @@ sdword cmSelectRightAdjust = 0;
 
 #define NUM_CMCARRIERS          4
 
-#define UNIVERSE_TURBO_REPEAT       19
-
 #define CM_MaxJobsMothership    2
 #define CM_MaxJobsHeavyCruiser  2
 #define CM_MaxJobsCarrier       2
@@ -1180,14 +1178,7 @@ void cmBuildTaskFunction(void)
                                 progress->timeFraction = decrement & 0x0000FFFF; // save fraction bits
                                 decrement >>= 16; // Convert back to integer
                             }
-/*#if (!UNIVERSE_TURBORECORD_ONLY)
-#if UNIVERSE_TURBOPAUSE_DEBUG
-                            if (universeTurbo)
-                            {
-                                decrement *= (UNIVERSE_TURBO_REPEAT+1);
-                            }
-#endif
-#endif*/
+
                             if (!universePause)
                             {
                                 progress->costSoFar += decrement;
@@ -1221,19 +1212,7 @@ void cmBuildTaskFunction(void)
                                 else
         #endif
                                 {
-/*#if (!UNIVERSE_TURBORECORD_ONLY)
-#if UNIVERSE_TURBOPAUSE_DEBUG
-                                    if (universeTurbo)
-                                    {
-                                        progress->timeLeft-=UNIVERSE_TURBO_REPEAT;
-                                    }
-                                    else
-#endif
-#endif*/
-                                    {
-                                        progress->timeLeft--;                   //decrement the time
-                                    }
-
+                                    progress->timeLeft--;                   //decrement the time
                                 }
                             }
 

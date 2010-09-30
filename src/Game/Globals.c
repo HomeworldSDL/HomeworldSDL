@@ -101,10 +101,6 @@ bool8 ComputerPlayerOn[MAX_MULTIPLAYER_PLAYERS] = { -1,-1,-1,-1,-1,-1,-1,-1 };
 sdword numPendingIn = 0;
 sdword numPendingOut = 0;
 
-#if UNIVERSE_TURBOPAUSE_DEBUG
-extern bool universeTurbo;
-#endif
-
 bool startRecordingGameWhenSafe = FALSE;
 
 /*-----------------------------------------------------------------------------
@@ -155,9 +151,7 @@ void globalsResetFunc(bool firstTime)
     numPlayers = 0;
     curPlayer = 0;
     universePause = FALSE;
-#if UNIVERSE_TURBOPAUSE_DEBUG
-    universeTurbo = FALSE;
-#endif
+
     LockMutex(gMessageMutex);
     while (i < MAX_MESSAGES)
     {

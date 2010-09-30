@@ -97,11 +97,8 @@ real32 maxMineCollSphereSize;
 
 meshdata *defaultmesh = NULL;
 
-#if UNIVERSE_TURBOPAUSE_DEBUG
-#define UNIVERSE_TURBO_REPEAT       19
+ubyte turboTimeCompressionFactor = 8;  // same as Homeworld Cataclysm
 bool universeTurbo = FALSE;
-#endif
-
 bool universePause = FALSE;
 
 sdword cdMaxShipsAllowed;            // max number of ships allowed
@@ -3936,16 +3933,15 @@ processtextures:
                     }
                 }
 
-#if UNIVERSE_TURBOPAUSE_DEBUG
                 if ((playPackets|recordFakeSendPackets) && universeTurbo)
                 {
-                    repeattimes = UNIVERSE_TURBO_REPEAT>>1;
+                    repeattimes = (turboTimeCompressionFactor-1)>>1;
                     dbgAssertOrIgnore(repeattimes >= 1);
                 }
                 else
-#endif
+                {
                     repeattimes = 1;
-
+                }
 
 
                 for (repeatuniv=0;repeatuniv<repeattimes;repeatuniv++)
@@ -4012,11 +4008,9 @@ processtextures:
                     goto alldone2;
                 }
 
-#if (!UNIVERSE_TURBORECORD_ONLY)
-#if UNIVERSE_TURBOPAUSE_DEBUG
                 if (universeTurbo)
                 {
-                    for (repeatuniv=0;repeatuniv<UNIVERSE_TURBO_REPEAT;repeatuniv++)
+                    for (repeatuniv=0;repeatuniv<(turboTimeCompressionFactor-1);repeatuniv++)
                     {
                         if (univUpdate(UNIVERSE_UPDATE_PERIOD))
                         {
@@ -4027,8 +4021,6 @@ processtextures:
 #endif
                     }
                 }
-#endif
-#endif
                 univUpdate(UNIVERSE_UPDATE_PERIOD);
 alldone2:;
 #ifdef HW_BUILD_FOR_DEBUGGING

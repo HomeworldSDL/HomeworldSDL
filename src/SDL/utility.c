@@ -800,6 +800,7 @@ scriptEntry utyOptionsList[] =
     {"PlayIntros",                     scriptSetUdwordCB, &aviPlayIntros},
     {"ShipRecoil",                     scriptSetUdwordCB, &opShipRecoil},
     {"ShipsAlwaysUseOwnerColors",      scriptSetBool,     &utyShipsAlwaysUseOwnerColors},
+    {"TimeCompressionFactor",          scriptSetUbyteCB,  &turboTimeCompressionFactor},
 
     END_SCRIPT_ENTRY
 };

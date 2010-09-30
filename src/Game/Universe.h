@@ -28,15 +28,11 @@
 =============================================================================*/
 #ifdef HW_BUILD_FOR_DEBUGGING
 
-#define UNIVERSE_TURBOPAUSE_DEBUG       1       //enable turbo and pause modes
-#define UNIVERSE_TURBORECORD_ONLY       0
 #define UNIV_SHIP_LOADFREE_LOG          1       //spit out a list of what ships were loaded and freed
 #define UNIV_LOAD_FREE_FILENAME         "loadfree.log"
 
 #else
 
-#define UNIVERSE_TURBORECORD_ONLY       1
-#define UNIVERSE_TURBOPAUSE_DEBUG       1       //enable turbo and pause modes
 #define UNIV_SHIP_LOADFREE_LOG          0       //spit out a list of what ships were loaded and freed
 
 #endif
@@ -233,9 +229,8 @@ extern meshdata *defaultmesh;
 
 extern uword RacesAllowedForGivenShip[TOTAL_NUM_SHIPS];
 
-#if UNIVERSE_TURBOPAUSE_DEBUG
+extern ubyte turboTimeCompressionFactor;
 extern bool universeTurbo;
-#endif
 extern bool universePause;
 
 extern sdword cdMaxShipsAllowed;            // max number of ships allowed

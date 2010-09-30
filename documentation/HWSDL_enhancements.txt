@@ -34,3 +34,10 @@ ShipsAlwaysUseOwnerColors    FALSE
     on opposing sides nevertheless have the same colour scheme. This option
     allows you to specify whether captured vessels should be repainted with their
     new owner's colour scheme.
+
+TimeCompressionFactor    8
+
+    You can speed the game up in order to travel across large maps quickly or
+    when you are waiting for something to complete (build/research etc). The
+    default value is the same as in Homeworld Cataclysm (8 times faster). You
+    can toggle the game's speed with the '\' key.
