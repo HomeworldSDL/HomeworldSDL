@@ -1381,7 +1381,7 @@ udword ferDrawBoxCorners(rectangle dimensions, tex_holder cornerName, textype cu
 
 /*-----------------------------------------------------------------------------
     Name        : ferDrawBoxSides
-    Description : Draws the corners of a textured box
+    Description : Draws the sides of a textured box
     Inputs      : dimensions - dimensions of the box
                   sideName - name of the texturemap to draw the side lines
                   corner_width - width of the corner texturemaps
