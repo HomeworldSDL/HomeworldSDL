@@ -1160,37 +1160,6 @@ bool NoneDoingHS(udword state)
     return TRUE;
 }
 
-bool AllDoingExceptMeHS(udword state, Ship* me)
-{
-    InsideShip* insideship;
-    Node* objnode;
-    Ship* ship;
-
-    objnode = singlePlayerGameInfo.ShipsInHyperspace.head;
-    while (objnode != NULL)
-    {
-        insideship = (InsideShip*)listGetStructOfNode(objnode);
-        ship = insideship->ship;
-        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
-
-        if (allianceIsShipAlly(ship,universe.curPlayerPtr) &&
-            ShipCanMakeHyperspace(ship))
-        {
-            if (ship != me)
-            {
-                if (ship->shipSinglePlayerGameInfo->hsState != state)
-                {
-                    return FALSE;
-                }
-            }
-        }
-
-        objnode = objnode->next;
-    }
-
-    return TRUE;
-}
-
 void InstantlyHyperspaceOut(Ship *ship,Ship *mothership)
 {
     CalculateHyperspaceTimeForShip(ship,mothership);
