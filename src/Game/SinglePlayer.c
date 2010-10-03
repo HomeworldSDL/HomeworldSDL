@@ -7,6 +7,7 @@
 #include <string.h>
 
 #include "AIPlayer.h"
+#include "AIResourceMan.h"
 #include "AIShip.h"
 #include "AITrack.h"
 #include "AIVar.h"
@@ -147,6 +148,7 @@ bool singlePlayerHyperspacingInto     = FALSE;
 bool spHoldHyperspaceWindow           = FALSE;
 bool spBinkPlay                       = FALSE;
 bool triggerNIS                       = FALSE;
+bool spCollectResourcesAtEndOfMission = FALSE;
 
 real32 spFleetModifier = 0.0f;
 real32 spFleetStr      = 0.0f;
@@ -2062,6 +2064,27 @@ void spHyperspaceButtonPushed(void)
     spMainScreenAndLockout(SPLOCKOUT_MR);
 
     HyperspaceRollCallBegin(ghMainRegion,0,0,0);
+
+    if (spCollectResourcesAtEndOfMission) {
+        SelectCommand *playerFleet = selectAllPlayersShips(universe.curPlayerPtr);
+
+        // player must have a resource collector available
+        if (ShiptypeInSelection(playerFleet, ResourceCollector)) {
+            SelectCommand *shipsRemaining = selectMemDupSelection(universe.HousekeepShipList.selection, "remaining ships", 0);
+
+            MakeShipsNotIncludeTheseShips(shipsRemaining, playerFleet);          // = enemy ships remaining
+            MakeShipsOnlyFollowConstraints(shipsRemaining, aiuIsShipDangerous);  // = offensive enemy ships remaining
+
+            // player must have eliminated all offensive enemy vessels to harvest automatically safely
+            if (shipsRemaining->numShips == 0) {
+                universe.curPlayerPtr->resourceUnits += NumberOfEasilyAccesibleRUs(NULL);
+            }
+
+            memFree(shipsRemaining);
+        }
+
+        memFree(playerFleet);
+    }
 }
 
 void spTaskBarHyperspaceCB(struct taskbutton *button, ubyte *userData)

@@ -18,6 +18,7 @@ void airClose(AIPlayer *aiplayer);
 bool airShipDied(AIPlayer *aiplayer, ShipPtr ship);
 void airTeamDied(AIPlayer *aiplayer, AITeam *team);
 
+sdword NumberOfEasilyAccesibleRUs(Player *player);
 sdword NumRUDockPointsOnThisShip(Ship *ship);
 
 void airAddNewShip(Ship *ship);

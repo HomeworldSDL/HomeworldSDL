@@ -25,6 +25,14 @@ labelled:
 This section can have the following options and are shown with their default
 value:
 
+CollectResourcesAtEndOfMission    FALSE
+
+    Once you have completed the objectives for a level, any remaining resources
+    will automatically be harvested once you issue the hyperspace order to your
+    fleet. However, harvesting will only occur if you have at least one
+    harvester and have eliminated all offensive enemy vessels, otherwise the
+    resources will be left behind when you leave/flee.
+
 ShipsAlwaysUseOwnerColors    FALSE
 
     In the original game, captured ships retained the colour scheme of the

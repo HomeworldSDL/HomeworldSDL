@@ -168,6 +168,7 @@ extern SinglePlayerGameInfo singlePlayerGameInfo;
 extern bool singlePlayerGameLoadNewLevelFlag;
 extern bool hyperspaceFails;
 extern bool singlePlayerHyperspacingInto;
+extern bool spCollectResourcesAtEndOfMission;
 
 void spHyperspaceButtonPushed(void);
 

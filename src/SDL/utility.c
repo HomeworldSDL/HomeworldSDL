@@ -796,6 +796,7 @@ scriptEntry utyOptionsList[] =
   {"\n[New HWSDL Options]\n", scriptSetStringCB, &filecfgblankspace},
 
 
+    {"CollectResourcesAtEndOfMission", scriptSetBool,     &spCollectResourcesAtEndOfMission},
     {"PauseOrders",                    scriptSetUdwordCB, &opPauseOrders},
     {"PlayIntros",                     scriptSetUdwordCB, &aviPlayIntros},
     {"ShipRecoil",                     scriptSetUdwordCB, &opShipRecoil},
