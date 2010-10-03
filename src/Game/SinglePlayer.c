@@ -2070,7 +2070,7 @@ void spHyperspaceButtonPushed(void)
 
         // player must have a resource collector available
         if (ShiptypeInSelection(playerFleet, ResourceCollector)) {
-            SelectCommand *shipsRemaining = selectMemDupSelection(universe.HousekeepShipList.selection, "remaining ships", 0);
+            SelectCommand *shipsRemaining = shipLinkedListAsSelectCommand(&universe.ShipList, "remaining ships");
 
             MakeShipsNotIncludeTheseShips(shipsRemaining, playerFleet);          // = enemy ships remaining
             MakeShipsOnlyFollowConstraints(shipsRemaining, aiuIsShipDangerous);  // = offensive enemy ships remaining
