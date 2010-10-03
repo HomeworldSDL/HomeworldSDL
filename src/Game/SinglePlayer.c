@@ -2077,7 +2077,21 @@ void spHyperspaceButtonPushed(void)
 
             // player must have eliminated all offensive enemy vessels to harvest automatically safely
             if (shipsRemaining->numShips == 0) {
-                universe.curPlayerPtr->resourceUnits += NumberOfEasilyAccesibleRUs(NULL);
+                sdword resourcesLeft = NumberOfEasilyAccesibleRUs(NULL);
+
+                if (resourcesLeft > 0) {
+                    char *resources_collected_strings[] = {
+                        "Resources collected",
+                        "Ressources collectées",
+                        "Ressourcen gesammelt",
+                        "Los recursos recaudados",
+                        "Le risorse raccolte",
+                    };
+
+                    universe.curPlayerPtr->resourceUnits += resourcesLeft;
+
+                    kasfLocationCard(5000, resources_collected_strings[strCurLanguage]);
+                }
             }
 
             memFree(shipsRemaining);
