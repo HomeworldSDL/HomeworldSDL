@@ -298,6 +298,9 @@ void makeSelectionHyperspaceCapable(SelectCommand *selection);
 //isn't wacky
 void makeShipsNotHaveNonCombatShipsForGuardAttack(SelectCommand *selection);
 
+// convert a LinkedList of ships into the equivalent SelectCommand
+SelectCommand * shipLinkedListAsSelectCommand(LinkedList *list, char *label);
+
 // Selects all of the current player's non-hyperspacing ships
 SelectCommand *selectAllCurrentPlayersNonHyperspacingShips(void);
 

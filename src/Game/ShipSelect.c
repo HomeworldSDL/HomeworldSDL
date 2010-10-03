@@ -1965,4 +1965,27 @@ bool MakeSelectionKamikazeCapable(SelectCommand *selection)
     return TRUE;
 }
 
+SelectCommand * shipLinkedListAsSelectCommand(LinkedList *list, char *label)
+{
+    Node *objnode = NULL;
+    SelectCommand *selection = NULL;
+    Ship *ship = NULL;
+    udword i = 0;
 
+    selection = memAlloc(sizeofSelectCommand(list->num), (label == NULL ? "" : label), 0);
+    objnode = list->head;
+
+    while (objnode != NULL)
+    {
+        ship = (Ship *)listGetStructOfNode(objnode);
+        dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
+
+        selection->ShipPtr[i++] = ship;
+
+        objnode = objnode->next;
+    }
+
+    selection->numShips = i;
+
+    return selection;
+}
