@@ -1204,7 +1204,7 @@ void meshFree(meshdata *mesh)
 #ifdef _X86_64
                     if (((trhandle *)mesh->localMaterial[index].texture)[j] != 0xffffffffffffffff) // Check for -1
                     {
-                        if (((trhandle *)mesh->localMaterial[index].texture)[j] < 6000 ) {
+                        if (((trhandle *)mesh->localMaterial[index].texture)[j] < TR_RegistrySize ) {
 #endif
                 
                     trTextureUnregister(((trhandle *)mesh->localMaterial[index].texture)[j]);

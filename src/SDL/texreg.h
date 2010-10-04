@@ -356,8 +356,8 @@ void trClearCurrent(void);
 //make a given texture current for rendering
 //void trMakeCurrent(trhandle handle);
 
-#define check_tr(x) if ((x != TR_Invalid) && (x >= 6000)) { dbgWarningf(DBG_Loc, "Uh, handle 0x%lx is broken calling trMakeCurrent", x); }
-#define assert_tr(x) if ((x != TR_Invalid) && (x >= 6000)) { dbgFatalf(DBG_Loc, "FATAL: Uh, handle 0x%lx is broken calling trMakeCurrent", x); }
+#define check_tr(x)  if ((x != TR_Invalid) && (x >= TR_RegistrySize)) { dbgWarningf(DBG_Loc, "Uh, handle 0x%lx is broken calling trMakeCurrent", x); }
+#define assert_tr(x) if ((x != TR_Invalid) && (x >= TR_RegistrySize)) { dbgFatalf(DBG_Loc, "FATAL: Uh, handle 0x%lx is broken calling trMakeCurrent", x); }
 
 #ifdef HW_BUILD_FOR_DEBUGGING
 #define trMakeCurrent(x) check_tr(x); _trMakeCurrent(x);

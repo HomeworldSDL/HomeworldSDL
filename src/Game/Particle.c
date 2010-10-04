@@ -2152,7 +2152,7 @@ int is_final_tex(trhandle tex)
       dbgWarningf("Particle.c",2149, "is_final_tex got invalid tex pointer 0x%lx - trying to work around", tex);
       return 1;
     }
-    if (tex >= 6000) { dbgFatalf(DBG_Loc, "tex handle 0x%lx is broken in is_final_tex, unable to continue", tex); }
+    if (tex >= TR_RegistrySize) { dbgFatalf(DBG_Loc, "tex handle 0x%lx is broken in is_final_tex, unable to continue", tex); }
 #endif
         
     return 0;
