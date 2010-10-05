@@ -485,7 +485,6 @@ sdword ferPopoutArrowMarginY = 1;
 
 //register a font
 lifheader *ferTextureRegister(tex_holder holder, textype newtype, textype origtype);
-void ferTextureUnregister(tex_holder holder);
 void ferDrawBox(rectangle dimensions, tex_holder outerCornerName, tex_holder innerCornerName,
                 tex_holder sideName, udword kludgyflag);
 
