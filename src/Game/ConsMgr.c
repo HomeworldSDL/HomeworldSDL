@@ -4239,47 +4239,6 @@ void cmDeterministicReset(void)
     listDeleteAll(&cmDetermProgress);
 }
 
-crc32 cmDeterministicCRC(void)
-{
-    Node* node;
-    cmDetermProgress_t* block;
-    cmDetermProgress_t* ptr;
-    cmDetermProgress_t* curNode;
-    sdword size;
-    crc32 crc;
-
-    if (cmDetermProgress.num == 0)
-    {
-        return 0;
-    }
-
-    size = cmDetermProgress.num * sizeof(cmDetermProgress_t);
-    block = (cmDetermProgress_t*)memAlloc(size, "temp dblock", Volatile);
-    ptr  = block;
-    node = cmDetermProgress.head;
-    while (node != NULL)
-    {
-        curNode = (cmDetermProgress_t*)listGetStructOfNode(node);
-
-        //copy node into block
-        memcpy(ptr, curNode, sizeof(cmDetermProgress_t));
-
-        //clear non-deterministic members
-        memset(&ptr->node, 0, sizeof(Node));
-        ptr->creator = NULL;
-
-        //advance
-        ptr++;
-        node = node->next;
-    }
-
-    crc = crc32Compute((ubyte*)block, size);
-
-    memFree(block);
-
-    return crc;
-}
-
 void cmDeterministicBuildDisplay(void)
 {
     Node* node;
