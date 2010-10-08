@@ -49,10 +49,6 @@ void DFGFrigateStaticInit(char *directory,char *filename,struct ShipStaticInfo *
     dfgstat->DFGFrigateFieldRadiusSqr = dfgstat->DFGFrigateFieldRadius*dfgstat->DFGFrigateFieldRadius;
 }
 
-void DFGFInit(Ship *ship)
-{
-}
-
 void univDFGFieldEffect(Ship *ship, Bullet *bullet,real32 totaltimeelapsed)
 {
     vector  dir1,shiptobullet;
