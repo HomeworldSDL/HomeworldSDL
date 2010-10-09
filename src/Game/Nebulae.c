@@ -2126,13 +2126,6 @@ void nebRenderNebula(nebulae_t* neb)
     }
 }
 
-//MUST also remove itself from the resource list, &c
-void nebDeleteChunkSimply(nebChunk* chunk)
-{
-    dbgAssertOrIgnore(chunk != NULL);
-    bitSet(chunk->flags, NEB_CHUNK_DEAD);
-}
-
 /*-----------------------------------------------------------------------------
     Name        : nebRemoveTendril
     Description : wipes out a tendril after a chunk in its link has been harvested
