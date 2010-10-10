@@ -61,7 +61,6 @@ fonthandle poTextFont = 0;
 
 // Forward reference for callback tables
 void poClose(char *string, featom *atom);
-void poBackgroundDraw(featom *atom, regionhandle region);
 void poTextDraw(featom *atom, regionhandle region);
 
 fecallback poCallback[] =
