@@ -7271,11 +7271,6 @@ void univCheckRegrowResources(void)
     }
 }
 
-
-
-
-void wkSmoothShips(void);
-
 /*-----------------------------------------------------------------------------
     Name        : univUpdate
     Description : Updates the mission sphere ships and objects
