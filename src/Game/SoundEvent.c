@@ -23,6 +23,7 @@
 #include "Ships.h"
 #include "SinglePlayer.h"
 #include "SoundEventPrivate.h"
+#include "soundcmn.h"
 #include "soundlow.h"
 #include "Switches.h"
 #include "VolTweakDefs.h"
@@ -232,10 +233,10 @@ sdword  ambienthandle = SOUND_DEFAULT;
 bool    soundpaused = FALSE;
 
 /* new banks */
-ubyte   *GunBank;
-ubyte   *ShipBank;
-ubyte   *SpecialEffectBank;
-ubyte   *UIBank;
+BANK   *GunBank;
+BANK   *ShipBank;
+BANK   *SpecialEffectBank;
+BANK   *UIBank;
 
 /* SFX lookup tables */
 SFXLUT  *GunEventsLUT;

@@ -10,6 +10,7 @@
 #define ___SOUNDEVENTPRIVATE_H
 
 #include "ObjTypes.h"
+#include "soundcmn.h"
 #include "SoundStructs.h"
 #include "SpaceObj.h"
 #include "Types.h"
@@ -197,11 +198,10 @@ extern SFXLUT	*SpecHitEventsLUT;
 extern SFXLUT	*UIEventsLUT;
 
 /* new banks */
-extern ubyte	*GunBank;
-extern ubyte	*ShipBank;
-extern ubyte	*SpecialEffectBank;
-extern ubyte	*UIBank;
-
+extern BANK *GunBank;
+extern BANK *ShipBank;
+extern BANK *SpecialEffectBank;
+extern BANK *UIBank;
 
 extern sdword  ambienthandle;
 
