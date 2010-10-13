@@ -2136,7 +2136,7 @@ void singlePlayerClose(void)
     }
     smSensorWeirdness = FALSE;
     // turns on Fleet command again, if it's been turned off
-    soundEventSetActorFlag(ACTOR_FLEETCOMMAND_FLAG, TRUE);
+    soundEventSetActorFlag(SPEECH_ACTOR_FLEET_COMMAND, TRUE);
 #if SP_DEBUGLEVEL2
     mrKASDebugDrawStates = FALSE;
     mrKASDebugDrawTimers = FALSE;

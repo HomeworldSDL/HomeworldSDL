@@ -679,7 +679,7 @@ void speechQueueUpdate(void)
                 dbgMessagef("Queue %d, stopped", i);
 #endif
                 /* was it a single player event? */
-                if (pSQueue->current.event & SPEECH_SINGLEPLAYER_FLAG)
+                if (pSQueue->current.event & SPEECH_TYPE_SINGLE_PLAYER)
                 {
                     numSinglePlayerEvents--;
                 }
@@ -725,7 +725,7 @@ void speechQueueUpdate(void)
 
             /* play this one */
             speechPlayQueue(pSQueue, i);
-            if (pSQueue->current.event & SPEECH_SINGLEPLAYER_FLAG)
+            if (pSQueue->current.event & SPEECH_TYPE_SINGLE_PLAYER)
             {
                 numSinglePlayerEvents++;
             }
@@ -780,7 +780,7 @@ void speechPlayQueue(SPEECHQUEUE *pSQueue, sdword streamchannel)
     actornum = pSQueue->current.actornum;
 
     /* figure out all the filtering etc */
-    if ((event & ACTOR_PILOT_FLAG) && (!nisIsRunning))//gameIsRunning))
+    if ((event & SPEECH_ACTOR_PILOT) && (!nisIsRunning))//gameIsRunning))
     {
         /* this is one of the Pilot actors */
 
@@ -890,11 +890,11 @@ void speechPlayQueue(SPEECHQUEUE *pSQueue, sdword streamchannel)
 
         if (fqeffect != NULL)
         {
-            if (event & SPEECH_STATUS_FLAG)
+            if (event & SPEECH_TYPE_STATUS)
             {
                 fqeffect->fScaleLev *= SPEECH_STATUS_RATIO;
             }
-            else if (event & SPEECH_CHATTER_FLAG)
+            else if (event & SPEECH_TYPE_CHATTER)
             {
                 fqeffect->fScaleLev *= SPEECH_CHATTER_RATIO;
             }
@@ -907,11 +907,11 @@ void speechPlayQueue(SPEECHQUEUE *pSQueue, sdword streamchannel)
     {
         /* this is a non-pilot actor */
 
-        actor = (event & SPEECH_FLAG_MASK);
+        actor = (event & SPEECH_ACTOR_MASK);
 
         switch (actor)
         {
-            case ACTOR_FLEETCOMMAND_FLAG:
+            case SPEECH_ACTOR_FLEET_COMMAND:
 #if 0
                 if (SPEECH_AMBIENT_ENABLE)
                 {
@@ -923,7 +923,7 @@ void speechPlayQueue(SPEECHQUEUE *pSQueue, sdword streamchannel)
                 fqeffect = &cleaneffect[SPEECH_FLEET];
                 break;
 
-            case ACTOR_FLEETINTEL_FLAG:
+            case SPEECH_ACTOR_FLEET_INTELLIGENCE:
 #if 0
                 if (SPEECH_AMBIENT_ENABLE)
                 {
@@ -935,14 +935,14 @@ void speechPlayQueue(SPEECHQUEUE *pSQueue, sdword streamchannel)
                 fqeffect = &cleaneffect[SPEECH_INTEL];
                 break;
 
-            case ACTOR_ALLSHIPSENEMY_FLAG:
+            case SPEECH_ACTOR_ALL_ENEMY_SHIPS:
                 bookend = TRUE;
                 pdelay = &streamdelay[SPEECH_STRIKECRAFT];
                 fqeffect = &cleaneffect[SPEECH_STRIKECRAFT];
                 fqeffect->fScaleLev = 1.3f;
                 break;
 
-            case  ACTOR_PILOT_FLAG:
+            case  SPEECH_ACTOR_PILOT:
                 if ((streamchannel > 0)  && (streamchannel < SentenceLUT->numactors))
                 {
                     bookend = TRUE;
@@ -953,7 +953,7 @@ void speechPlayQueue(SPEECHQUEUE *pSQueue, sdword streamchannel)
                 dbgMessage("Pilot");
 #endif
                 break;
-            case ACTOR_AMBASSADOR_FLAG:
+            case SPEECH_ACTOR_AMBASSADOR:
                 pdelay = &streamdelay[SPEECH_STRIKECRAFT];
                 fqeffect = &cleaneffect[SPEECH_STRIKECRAFT];
                 fqeffect->fScaleLev = 2.5f;
@@ -963,32 +963,32 @@ void speechPlayQueue(SPEECHQUEUE *pSQueue, sdword streamchannel)
                 dbgMessage("Ambassador");
 #endif
                 break;
-            case ACTOR_TRADERS_FLAG:
+            case SPEECH_ACTOR_TRADERS:
 #if SE_VERBOSE_LEVEL >= 2
                 dbgMessage("Traders");
 #endif
                 break;
-            case ACTOR_PIRATES2_FLAG:
+            case SPEECH_ACTOR_P2_KADESHI:
 #if SE_VERBOSE_LEVEL >= 2
                 dbgMessage("Pirates2");
 #endif
                 break;
-            case ACTOR_NARRATOR_FLAG:
+            case SPEECH_ACTOR_NARRATOR:
 #if SE_VERBOSE_LEVEL >= 2
                 dbgMessage("Narrator");
 #endif
                 break;
-            case ACTOR_DEFECTOR_FLAG:
+            case SPEECH_ACTOR_DEFECTOR:
 #if SE_VERBOSE_LEVEL >= 2
                 dbgMessage("Defector");
 #endif
                 break;
-            case ACTOR_EMPEROR_FLAG:
+            case SPEECH_ACTOR_EMPEROR:
 #if SE_VERBOSE_LEVEL >= 2
                 dbgMessage("Emperor");
 #endif
                 break;
-            case ACTOR_KHARSELIM_FLAG:
+            case SPEECH_ACTOR_KHAR_SELIM:
 #if SE_VERBOSE_LEVEL >= 2
                 dbgMessage("KharSelim");
 #endif
@@ -1025,7 +1025,7 @@ void speechPlayQueue(SPEECHQUEUE *pSQueue, sdword streamchannel)
     vol *= volSpeech;
 
     /* if this is not a single player event and there is a single player event playing then turn it down */
-    if ((numSinglePlayerEvents > 0) && !(event & SPEECH_SINGLEPLAYER_FLAG))
+    if ((numSinglePlayerEvents > 0) && !(event & SPEECH_TYPE_SINGLE_PLAYER))
     {
         vol *= SPEECH_SINGLEPLAYER_RATIO;
     }
@@ -1091,7 +1091,7 @@ void speechPlayQueue(SPEECHQUEUE *pSQueue, sdword streamchannel)
             /* straight forward, this was just a ship */
             lastshiptospeak = pSQueue->current.pShip;
         }
-        else if (event & SPEECH_GROUP_FLAG)
+        else if (event & SPEECH_TYPE_GROUP)
         {
             lastshiptospeak = (Ship *)-1;
             lastgrouptospeak = pSQueue->current.variable;
@@ -1381,46 +1381,46 @@ sdword speechEventQueue(void *object, sdword event, sdword var, sdword variation
 
     /* if an NIS is playing, only want to hear NIS events */
 //  if (nisIsRunning && (event < SPEECH_FIRST_SP_EVENT))
-    if (nisIsRunning && !(event & (SPEECH_NIS_FLAG + SPEECH_ANIMATIC_FLAG)))
+    if (nisIsRunning && !(event & (SPEECH_TYPE_NIS + SPEECH_TYPE_ANIMATIC)))
     {
         return (handle);
     }
 
     /* if single player events are happening, don't want any chatter */
-    if ((numSinglePlayerEvents > 0) && (event & SPEECH_CHATTER_FLAG))
+    if ((numSinglePlayerEvents > 0) && (event & SPEECH_TYPE_CHATTER))
     {
         return (handle);
     }
 
     /* toss out events the user doesn't want to hear */
-    if ((event & SPEECH_CHATTER_FLAG) && !bChatterOn)
+    if ((event & SPEECH_TYPE_CHATTER) && !bChatterOn)
     {
         return (handle);
     }
-    else if ((event & SPEECH_STATUS_FLAG) && !bStatusOn)
+    else if ((event & SPEECH_TYPE_STATUS) && !bStatusOn)
     {
         return (handle);
     }
-    else if ((event & SPEECH_COMMAND_FLAG) && !bCommandsOn)
+    else if ((event & SPEECH_TYPE_COMMAND) && !bCommandsOn)
     {
         return (handle);
     }
 
 #if 1       // enable when new speech is put in game
-    if (!((event & SPEECH_FLAG_MASK) & actorFlagsEnabled))
+    if (!((event & SPEECH_ACTOR_MASK) & actorFlagsEnabled))
     {
         return (handle);
     }
 #endif
 
-    if ((object != NULL) && !(event & ACTOR_FLEETCOMMAND_FLAG))
+    if ((object != NULL) && !(event & SPEECH_ACTOR_FLEET_COMMAND))
     {
         /* this is probably a ship, so this is one of the ALL SHIPS voices */
         spaceobject = (SpaceObj *)object;
 
-        if (!univSpaceObjInRenderList(spaceobject) && ((event & SPEECH_STATUS_FLAG) || (event & SPEECH_CHATTER_FLAG)))
+        if (!univSpaceObjInRenderList(spaceobject) && ((event & SPEECH_TYPE_STATUS) || (event & SPEECH_TYPE_CHATTER)))
         {
-            if (!(event & SPEECH_ALWAYSPLAY_FLAG))
+            if (!(event & SPEECH_TYPE_ALWAYS_PLAY))
             {
                 return (SOUND_ERR);        // only do sound events for objects in current mission sphere we are viewing
             }
@@ -1652,7 +1652,7 @@ sdword speechEventQueue(void *object, sdword event, sdword var, sdword variation
             pQEvent->status = SOUND_OK;
             pQEvent->actornum = actor;
 
-            if (event & SPEECH_GROUP_FLAG)
+            if (event & SPEECH_TYPE_GROUP)
             {
                 pQEvent->pShip = NULL;
             }
@@ -1882,7 +1882,7 @@ sdword SEcleanqueue(SPEECHQUEUE *pSQueue)
         if (pSQueue->queue[i].timeout >= 0.0f)
         {
             if ((pSQueue->queue[i].timeout < universe.totaltimeelapsed)
-                && ((pSQueue->queue[i].event & SPEECH_TYPE_MASK) < SPEECH_TUTORIAL_FLAG))   // don't throw out Animatic, NIS, Single Player
+                && ((pSQueue->queue[i].event & SPEECH_TYPE_MASK) < SPEECH_TYPE_TUTORIAL))   // don't throw out Animatic, NIS, Single Player
             {                                                                               // or Tutorial speech events.
                 /* get ride of this one */
                 /* IS IT LINKED? */
@@ -2008,7 +2008,7 @@ sdword speechEventPlay(void *object, sdword event, sdword var, sdword playernum,
         }
 
 //      if (event >= SPEECH_FIRST_SP_EVENT)
-        if (event & SPEECH_SINGLEPLAYER_FLAG)
+        if (event & SPEECH_TYPE_SINGLE_PLAYER)
         {
             shipclass = CLASS_Fighter;
         }
@@ -2793,7 +2793,7 @@ sdword musicEventStop(sdword tracknum, real32 fadetime)
             }
             musicinfo[NISSTREAM].status = SOUND_STOPPING;
 
-            speechEventStopAllSpecific(1.0f, SPEECH_NIS_FLAG);
+            speechEventStopAllSpecific(1.0f, SPEECH_TYPE_NIS);
         }
         else if ((tracknum >= MUS_FIRST_AMBIENT) && (tracknum <= MUS_LAST_BATTLE))
         {

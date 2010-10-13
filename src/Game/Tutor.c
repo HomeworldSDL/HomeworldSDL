@@ -1021,7 +1021,7 @@ void tutHideText(void)
     tutRemoveAllPointers();
 
     //kills the speech associated with the text
-    speechEventActorStop(ACTOR_FLEETCOMMAND_FLAG, 0.1f);
+    speechEventActorStop(SPEECH_ACTOR_FLEET_COMMAND, 0.1f);
 }
 
 

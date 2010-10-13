@@ -789,43 +789,43 @@ foundInfo:;
     {
         if (actornum == 0)
         {                                                   //all single-player voices are on the same channel
-            if (bitTest(speechEvent, ACTOR_FLEETCOMMAND_FLAG))
+            if (bitTest(speechEvent, SPEECH_ACTOR_FLEET_COMMAND))
             {
                 actornum = STA_FleetCommand;
             }
-            else if (bitTest(speechEvent, ACTOR_FLEETINTEL_FLAG))
+            else if (bitTest(speechEvent, SPEECH_ACTOR_FLEET_INTELLIGENCE))
             {
                 actornum = STA_FleetIntel;
             }
-            else if (bitTest(speechEvent, ACTOR_TRADERS_FLAG))
+            else if (bitTest(speechEvent, SPEECH_ACTOR_TRADERS))
             {
                 actornum = STA_Traders;
             }
-            else if (bitTest(speechEvent, ACTOR_PIRATES2_FLAG))
+            else if (bitTest(speechEvent, SPEECH_ACTOR_P2_KADESHI))
             {
                 actornum = STA_Pirates2;
             }
-            else if (bitTest(speechEvent, ACTOR_ALLSHIPSENEMY_FLAG))
+            else if (bitTest(speechEvent, SPEECH_ACTOR_ALL_ENEMY_SHIPS))
             {
                 actornum = STA_AllEnemyShips;
             }
-            else if (bitTest(speechEvent, ACTOR_AMBASSADOR_FLAG))
+            else if (bitTest(speechEvent, SPEECH_ACTOR_AMBASSADOR))
             {
                 actornum = STA_Ambassador;
             }
-            else if (bitTest(speechEvent, ACTOR_NARRATOR_FLAG))
+            else if (bitTest(speechEvent, SPEECH_ACTOR_NARRATOR))
             {
                 actornum = STA_Narrator;
             }
-            else if (bitTest(speechEvent, ACTOR_DEFECTOR_FLAG))
+            else if (bitTest(speechEvent, SPEECH_ACTOR_DEFECTOR))
             {
                 actornum = STA_Defector;
             }
-            else if (bitTest(speechEvent, ACTOR_EMPEROR_FLAG))
+            else if (bitTest(speechEvent, SPEECH_ACTOR_EMPEROR))
             {
                 actornum = STA_Emperor;
             }
-            else if (bitTest(speechEvent, ACTOR_KHARSELIM_FLAG))
+            else if (bitTest(speechEvent, SPEECH_ACTOR_KHAR_SELIM))
             {
                 actornum = STA_KharSelim;
             }

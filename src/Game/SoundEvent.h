@@ -108,11 +108,11 @@ sdword speechEventQueue(void *object, sdword event, sdword var, sdword variation
 sdword speechEventRemoveShip(Ship *pShip);
 sdword speechEventStop(sdword handle, real32 fadetime, bool addstatic);
 sdword speechEventStopAllSpecific(real32 fadetime, sdword speechType);
-#define speechEventStopAll(ft)		speechEventStopAllSpecific(ft, SPEECH_SINGLEPLAYER_FLAG)
+#define speechEventStopAll(ft)		speechEventStopAllSpecific(ft, SPEECH_TYPE_SINGLE_PLAYER)
 sdword speechEventActorStop(udword actorMask, real32 fadetime);
-#define speechEventFleetIntelStop(ft)       speechEventActorStop(ACTOR_FLEETINTEL_FLAG, (ft))
-#define speechEventFleetCommandStop(ft)     speechEventActorStop(ACTOR_FLEETCOMMAND_FLAG, (ft))
-#define ACTOR_ALL_ACTORS    (ACTOR_FLEETCOMMAND_FLAG | ACTOR_FLEETINTEL_FLAG | ACTOR_TRADERS_FLAG | ACTOR_PIRATES2_FLAG | ACTOR_ALLSHIPSENEMY_FLAG | ACTOR_AMBASSADOR_FLAG)
+#define speechEventFleetIntelStop(ft)       speechEventActorStop(SPEECH_ACTOR_FLEET_INTELLIGENCE, (ft))
+#define speechEventFleetCommandStop(ft)     speechEventActorStop(SPEECH_ACTOR_FLEET_COMMAND, (ft))
+#define ACTOR_ALL_ACTORS    (SPEECH_ACTOR_FLEET_COMMAND | SPEECH_ACTOR_FLEET_INTELLIGENCE | SPEECH_ACTOR_TRADERS | SPEECH_ACTOR_P2_KADESHI | SPEECH_ACTOR_ALL_ENEMY_SHIPS | SPEECH_ACTOR_AMBASSADOR)
 sdword speechEventCleanup(void);
 
 

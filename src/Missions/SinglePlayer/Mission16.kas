@@ -85,7 +85,7 @@ FSM Events
     ENDINIT
     WATCH
         IFONCE (1)
-            ToggleActor(ACTOR_FLEETCOMMAND_FLAG, FALSE);
+            ToggleActor(SPEECH_ACTOR_FLEET_COMMAND, FALSE);
         ENDIFONCE
 
         IFONCE (RenderedShips(TEAMSHIPS_AssaultCruiser1, 3))
@@ -469,7 +469,7 @@ FSM Events
         // Fleet command is back online
         STATE HoneyImHome
             INIT
-                ToggleActor(ACTOR_FLEETCOMMAND_FLAG, TRUE);
+                ToggleActor(SPEECH_ACTOR_FLEET_COMMAND, TRUE);
                 SpeechEvent(M16_Fleet_BackOnline, 0);
                 PingRemove("Moship");
             ENDINIT
