@@ -3937,16 +3937,6 @@ void kasfLocationCard(sdword milliseconds, char *location)
     kasfDummyEventNumber++;
 }
 
-//display easter egg location card
-void kasfLocationCardSpecial(sdword milliseconds, char *string)
-{
-//    char buffer[SUB_SubtitleLength];
-
-    dbgAssertOrIgnore(milliseconds > 10);
-    subTitleAdd(STA_LocationCard, kasfDummyEventNumber, string, strlen(string), (real32)milliseconds / 1000.0f);
-    kasfDummyEventNumber++;
-}
-
 sdword kasfRaceOfHuman(void)
 {
     return universe.players[0].race;
