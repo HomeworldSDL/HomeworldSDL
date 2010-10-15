@@ -365,7 +365,6 @@ ResearchTopic *multipleresearchtopic;
 =============================================================================*/
 
 void   rmUpdateTechList(void);
-sdword rmSelectAvailableTech(regionhandle region, sdword ID, udword event, udword data);
 sdword rmSelectTechType(regionhandle region, sdword yClicked);
 void   SelectTechWindow(void);
 
