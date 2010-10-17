@@ -3377,48 +3377,6 @@ void scriptSetHomeworldCRC(char *directory,char *field,void *dataToFillIn)
     onlygetfirstcrc = TRUE;
 }
 
-char *strBetweenWords(char *buffer,char *word1,char *word2)
-{
-    char *word1loc;
-    char *word2loc;
-
-    if ((!buffer) || (buffer[0] == 0)) return NULL;
-
-    word1loc = strstr(buffer,word1);
-    if (!word1loc) return NULL;
-
-    for(;;)
-    {
-        if (*word1loc == 0)
-            return NULL;
-
-        if (*word1loc == ' ')
-            break;
-
-        word1loc++;
-    }
-
-    word1loc++;
-    if (*word1loc == 0)
-        return NULL;
-
-    word2loc = strstr(buffer,word2);
-    if (!word2loc)
-    {
-        return NULL;
-    }
-
-    word2loc--;
-
-    if (word2loc < word1loc)
-    {
-        return NULL;
-    }
-
-    *word2loc = 0;
-    return word1loc;
-}
-
 /*-----------------------------------------------------------------------------
     Name        : utyGetFirstCDPath
     Description : Gets path to first CD-ROM drive containing the HW CD ("D:\",
