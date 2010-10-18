@@ -1089,35 +1089,6 @@ bool opResHackSupported(void)
     return FALSE;
 }
 
-bool opResSupported(sdword index)
-{
-    opres* res;
-    rdevice* dev;
-    rmode* mode;
-    int width, height, depth;
-
-    res = &opRes[index];
-    dev = opRnd[opRenderCurrentSelected].dev;
-
-    width  = res->width;
-    height = res->height;
-    depth  = res->depth;
-
-    mode = dev->modes;
-    while (mode != NULL)
-    {
-        if (mode->width == width &&
-            mode->height == height &&
-            mode->depth == depth)
-        {
-            return TRUE;
-        }
-        mode = mode->next;
-    }
-
-    return FALSE;
-}
-
 bool opResResSupported(opres* res)
 {
     rdevice* dev;
