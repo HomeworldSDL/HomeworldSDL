@@ -999,24 +999,6 @@ void opKeyboardStart(void)
     }
 }
 
-void opKeyResetToDefault(char* name, featom* atom)
-{
-    sdword i;
-
-    for (i = 0; KeyTranslations[i].sendkey > 0; i++)
-    {
-        TempKeyTranslations[i].key1 = DefaultKeyTranslations[i];
-        TempKeyTranslations[i].key2 = 0;
-    }
-
-#ifdef DEBUG_STOMP
-    regVerify(keyboardregion);
-#endif
-
-    bitSet(keyboardregion->status, RSF_DrawThisFrame);
-}
-
-
 char UpperHex2Char(uword num)
 {
     uword x;
