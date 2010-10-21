@@ -19,23 +19,6 @@
 #include "SinglePlayer.h"
 
 
-Player *aifFindEnemyOf(Player *player)
-{
-    uword i;
-    Player *enemy;
-
-    for (i=0;i<universe.numPlayers;i++)
-    {
-        enemy = &universe.players[i];
-        if (enemy != player)
-        {
-            return enemy;
-        }
-    }
-
-    return NULL;
-}
-
 /*-----------------------------------------------------------------------------
     Name        : aifInit
     Description : initialize resource manager stuff in aiplayer
