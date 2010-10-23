@@ -302,30 +302,6 @@ sdword dockFindDockIndex(char *name,DockStaticInfo *dockstaticinfo)
 }
 
 /*-----------------------------------------------------------------------------
-    Name        : dockFindDockIndex
-    Description : finds a dock point with given name
-    Inputs      : name, dockstaticinfo
-    Outputs     :
-    Return      : returns an index to the found dockstaticpoint
-----------------------------------------------------------------------------*/
-DockStaticPoint *dockFindDockStaticPoint(char *name,DockStaticInfo *dockstaticinfo)
-{
-    sdword numDockPoints = dockstaticinfo->numDockPoints;
-    DockStaticPoint *curdockpoint;
-    sdword i;
-
-    for (i=0,curdockpoint=&dockstaticinfo->dockstaticpoints[0];i<numDockPoints;i++,curdockpoint++)
-    {
-        if (strcasecmp(name,curdockpoint->name) == 0)
-        {
-            return curdockpoint;
-        }
-    }
-    dbgAssertOrIgnore(FALSE);
-    return NULL;
-}
-
-/*-----------------------------------------------------------------------------
     Name        : ShipWithinDockRange
     Description : returns TRUE if ship is within docking range of target
     Inputs      : ship, target
