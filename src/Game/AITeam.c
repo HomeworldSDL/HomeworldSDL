@@ -228,13 +228,6 @@ void aitSpecialDefenseCoopTeamDiedCB(AITeam *team)
     }
 }
 
-
-void aitTakeoutMothershipGuardCoopTeamDiedCB(AITeam *team)
-{
-    //small chance of going bezerk
-    //large chance of going to find another big ship and guarding it.
-}
-
 void GenericCooperatingTeamDiedCB(AITeam *team)
 {
     team->cooperatingTeam = NULL;
