@@ -77,9 +77,6 @@ void tmLeave(char *string, featom *atom);
 
 void tmCloseIfOpen(void);
 
-bool tmCanBuildTechType(void);
-
-
 void tmCostListDraw(featom *atom, regionhandle region);
 void tmTecListDraw(featom *atom, regionhandle region);
 void tmDialogDraw(featom *atom, regionhandle region);

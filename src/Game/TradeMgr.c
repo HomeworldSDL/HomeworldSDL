@@ -951,11 +951,6 @@ void tmTechInfoDraw(featom *atom, regionhandle region)
     fontMakeCurrent(currentFont);
 }
 
-bool tmCanBuildTechType(void)
-{
-    return TRUE;
-}
-
 void tmReset(void)
 {
     tmBaseRegion      = NULL;
