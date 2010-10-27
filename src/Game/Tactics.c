@@ -78,7 +78,7 @@ real32 DELAY_FORMTIGHTNESS_CHANGE = 5.0f;
 
 //local prototypes
 bool tacticsShipCanDodge(Ship *ship);
-bool tacticsShipIsAffectedByTactcis(Ship *ship);
+bool tacticsShipIsAffectedByTactics(Ship *ship);
 bool tacticsIsShipLookingForAnyOfThese(Ship *ship,SelectCommand *selection);
 bool tacticsAreEnemiesNearby(Ship *leadership, Ship *thisship,real32 retaliateZone);
 
@@ -782,10 +782,10 @@ bool tacticsShipCanDodge(Ship *ship)
             return FALSE;
         }
     }
-    return(tacticsShipIsAffectedByTactcis(ship));
+    return(tacticsShipIsAffectedByTactics(ship));
 }
 
-bool tacticsShipIsAffectedByTactcis(Ship *ship)
+bool tacticsShipIsAffectedByTactics(Ship *ship)
 {
 #ifdef DEBUG_TACTICS
     dbgAssertOrIgnore(tacticsOn);
@@ -822,7 +822,7 @@ sdword tacticsGetFormationOptimalState(SelectCommand *selection)
         for(i=0;i<selection->numShips;i++)
         {
             //if non-strike craft in formation, maintain tight formation
-            if(!tacticsShipIsAffectedByTactcis(selection->ShipPtr[i]))
+            if(!tacticsShipIsAffectedByTactics(selection->ShipPtr[i]))
                 return(TightFormation);
 
             //for now, loose formations ONLY if ALL evasive...later we'll fix
