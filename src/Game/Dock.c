@@ -2596,12 +2596,6 @@ void dockRemoveSlave(Ship *master, Ship *slavetoremove)
     master->health-=slavetoremove->health;
 }
 
-void dockLiberateSlave(Ship *freedomSlave)
-{
-    dbgAssertOrIgnore(bitTest(freedomSlave->slaveinfo->flags,SF_SLAVE));
-    dockRemoveSlave(freedomSlave->slaveinfo->Master,freedomSlave);
-}
-
 void dockCrushMaster(Ship *master)
 {
     Ship *slave;
