@@ -12,18 +12,6 @@
 
 #define DEBUG_SCROLL  0
 
-uword scClassifyRegion(scrollbarhandle shandle)
-{
-/*    if (mouseInRect(&shandle->neg))
-        return SC_Negative;
-    else if (mouseInRect(&shandle->pos))
-        return SC_Positive;
-    else if (mouseInRect(&shandle->thumb))
-        return SC_Thumb;
-    else*/
-        return SC_Other;
-}
-
 uword scThumbRelativeX(scrollbarhandle shandle)
 {
     return((uword)(mouseCursorX() - shandle->thumb.x0));
