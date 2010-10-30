@@ -54,7 +54,6 @@
 bool gpQuickSave(void);
 bool gpQuickLoad(void);
 
-void gpRecGameWindowInit(char *name, featom *atom);
 void gpGameWindowInit(char *name, featom *atom);
 void gpTextEntryWindowInit(char *name, featom *atom);
 void gpGameNameDraw(featom *atom, regionhandle region);
