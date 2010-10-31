@@ -2012,7 +2012,14 @@
 			isa = PBXProject;
 			buildConfigurationList = 35CC22230955C2E100504293 /* Build configuration list for PBXProject "Homeworld" */;
 			compatibilityVersion = "Xcode 2.4";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Homeworld */;
 			projectDirPath = "";
 			projectRoot = ..;
