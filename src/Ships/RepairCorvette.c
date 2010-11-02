@@ -147,20 +147,6 @@ void RepairCorvetteAttackPassive(Ship *ship,Ship *target,bool rotate)
     }
 }
 
-void removeShipFromSelection(Ship *ship,SelectCommand *targets)
-{
-    sdword i;
-    for(i=0;i<targets->numShips;i++)
-    {
-        if(ship == targets->ShipPtr[i])
-        {
-            targets->numShips--;
-            targets->ShipPtr[i] = targets->ShipPtr[targets->numShips];
-            break;
-        }
-    }
-}
-
 bool rotSpeedLessThanSloppy(vector *rotspeed, real32 thresh,real32 max)
 {
     //check if rotspeed is less than the threshold
