@@ -147,50 +147,6 @@ void RepairCorvetteAttackPassive(Ship *ship,Ship *target,bool rotate)
     }
 }
 
-bool rotSpeedLessThanSloppy(vector *rotspeed, real32 thresh,real32 max)
-{
-    //check if rotspeed is less than the threshold
-    real32 rotx,roty,rotz;
-    real32 mx=1.0f;
-    real32 my=1.0f;
-    real32 mz=1.0f;
-
-
-    if(rotspeed->x < 0.0f)
-    {rotx = -rotspeed->x;mx=-1.0f;}
-    else
-    {rotx = rotspeed->x;}
-
-    if(rotspeed->y < 0.0f)
-    {roty = -rotspeed->y;my=-1.0f;}
-    else
-    {roty = rotspeed->y;}
-
-    if(rotspeed->z < 0.0f)
-    {rotz = -rotspeed->z;mz=-1.0f;}
-    else
-    {rotz = rotspeed->z;}
-
-
-    if(rotx > thresh)
-        return FALSE;
-    if(roty > thresh)
-        return FALSE;
-    if(rotz > thresh)
-        return FALSE;
-
-    //check if rotspeed is above max rotation speed
-    //and if so set it to the max rotation speed
-    if(max < rotx)
-        rotspeed->x = max*mx;
-    if(max < roty)
-        rotspeed->y = max*my;
-    if(max < rotz)
-        rotspeed->z = max*mz;
-
-    return TRUE;
-}
-
 void RepairCorvetteRemoveShipReferences(Ship *ship, Ship *shiptoremove)
 {
     RepairCorvetteSpec *spec = (RepairCorvetteSpec *)ship->ShipSpecifics;
