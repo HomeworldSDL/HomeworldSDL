@@ -18,47 +18,6 @@
 #include "UnivUpdate.h"
 
 
-#define flytoRepairDest(scalar,tol) \
-        matGetVectFromMatrixCol1(targetup,spec->target->rotinfo.coordsys);                  \
-        matGetVectFromMatrixCol3(targetheading,spec->target->rotinfo.coordsys);             \
-                                                                                            \
-        trackflag = TRUE;                                                                   \
-        vecScalarMultiply(targetdown,targetup,-1.0f);                                       \
-                                                                                            \
-        if(ship->shiprace == R1)                                                            \
-        {                                                                                   \
-            vecScalarMultiply(trackup,targetup,-1.0f);                                      \
-        }                                                                                   \
-        else                                                                                \
-        {                                                                                   \
-            vecScalarMultiply(trackup,targetup, 1.0f);                                      \
-        }                                                                                   \
-                                                                                            \
-        if(!aitrackHeadingAndUp(ship,&targetheading,&trackup,0.999f))                       \
-        {                                                                                   \
-            trackflag = FALSE;                                                              \
-        }                                                                                   \
-                                                                                            \
-        vecScalarMultiply(destination,targetdown,scalar);                                   \
-        vecAddTo(destination,spec->target->posinfo.position);                               \
-                                                                                            \
-        if(!MoveReachedDestinationVariable(ship,&destination,tol))                          \
-        {                                                                                   \
-            aishipFlyToPointAvoidingObjs(ship,&destination,0,0.0f);                         \
-            trackflag = FALSE;                                                              \
-        }                                                                                   \
-        else                                                                                \
-        {                                                                                   \
-            aitrackZeroVelocity(ship);                                                      \
-        }
-/*
-        aishipGetTrajectory(ship,(SpaceObjRotImpTarg *)spec->target,&trajectory);           \
-        range = RangeToTarget(ship,(SpaceObjRotImpTarg *)spec->target,&trajectory);         \
-*/                                                                                          
-
-
-
-
 #define DEBUG_REPAIR_CORVETTE  0
 
 
