@@ -1614,30 +1614,6 @@ sdword salCapFlyToDockingPoint3(Ship *dockwith,SpaceObjRotImpTargGuidanceShipDer
     return FALSE;
 }
 
-void salCapPointAtTarget(Ship *ship,SpaceObjRotImpTargGuidanceShipDerelict *target)
-{
-    SalCapCorvetteSpec *spec = (SalCapCorvetteSpec *)ship->ShipSpecifics;
-    vector conepositionInWorldCoordSys,heading;
-
-    SalvageStaticPoint *salvagestaticpoint;
-    if(target->salvageInfo != NULL)
-    {
-        salvagestaticpoint = target->salvageInfo->salvagePoints[spec->salvageIndex].salvageStaticPoint;
-        matMultiplyMatByVec(&conepositionInWorldCoordSys,&target->rotinfo.coordsys,&salvagestaticpoint->position);
-        vecAddTo(conepositionInWorldCoordSys,target->posinfo.position);
-
-        vecSub(heading,conepositionInWorldCoordSys,ship->posinfo.position);
-        vecNormalize(&heading);
-    }
-    else
-    {
-        conepositionInWorldCoordSys = target->posinfo.position;
-        vecSub(heading,conepositionInWorldCoordSys,ship->posinfo.position);
-        vecNormalize(&heading);
-    }
-    aitrackHeading(ship,&heading,0.999f);
-}
-
 void removeTargetFromSelection(SpaceObjRotImpTarg *target,SelectAnyCommand *targets)
 {
     sdword i=0;
