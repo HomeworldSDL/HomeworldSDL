@@ -1628,30 +1628,6 @@ real32 tacticsMaxDistToTarget(SelectCommand *selection,SpaceObjRotImpTarg *targe
     return(fsqrt(maxdistsqr));
 }
 
-bool tacticsIsShipLookingForShip(Ship *ship,Ship *target)
-{
-    AttackAtom  *attackatom;
-    Node *node;
-    sdword i;
-
-    node = universe.AttackMemory.head;
-
-    while(node != NULL)
-    {
-        attackatom = (AttackAtom *)listGetStructOfNode(node);
-        if(target == attackatom->retreater)
-        {
-            for(i=0;i<attackatom->attackerList.numShips;i++)
-            {
-                if(ship == attackatom->attackerList.ShipPtr[i])
-                   return TRUE;
-            }
-        }
-        node = node->next;
-    }
-    return FALSE;
-}
-
 //function to perform dodging perhaps bad place...
 void tacticsDodgeUpdate(Ship *ship)
 {
