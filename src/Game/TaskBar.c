@@ -1623,48 +1623,6 @@ void tbResetHyperspace(void)
     }*/
 }
 
-/*void tpSetupHyperspaceTaskActive(void)
-{
-    regionhandle hs = tbFindRegion("CSM_Hyperspace");
-    regionhandle lw = tbFindRegion("TB_ObjectivesWindowInit");
-    if (hs == NULL || lw == NULL)
-    {
-        return;
-    }
-#ifdef HW_BUILD_FOR_DEBUGGING
-    regVerify(hs);
-    regVerify(lw);
-#endif
-
-    if (tbSetup)
-    {
-        //reset if still setup
-        void tbResetHyperspace(void);
-        tbResetHyperspace();
-    }
-
-    tbSetup = TRUE;
-
-    tbSP = singlePlayerGame;
-
-    if (singlePlayerGame)
-    {
-        tbHS = singlePlayerGameInfo.playerCanHyperspace;
-        if (singlePlayerGameInfo.playerCanHyperspace)
-        {
-            regRegionScroll(lw, 0, 400);
-        }
-        else
-        {
-            regRegionScroll(hs, 0, 400);
-        }
-    }
-    else
-    {
-        regRegionScroll(hs, 0, 400);
-    }
-}*/
-
 void tbTaskBarInit(void)
 {
     tbCalcTotalShipCommands();
