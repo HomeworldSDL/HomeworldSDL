@@ -5751,11 +5751,6 @@ void univSetupShipsForControl()
     growSelectReset(&universe.HousekeepShipList);       // don't need to keep track of them anymore
 }
 
-//same as above but for derelicts
-void univSetupDerelictsForControl()
-{
-
-}
 SelectCommand *getEnemiesWithinProximity(Ship *thisship,real32 retaliateZone)
 {
     Player *playerowner = thisship->playerowner;
@@ -7493,8 +7488,6 @@ bool univUpdate(real32 phystimeelapsed)
         univSetupShipsForControl();     // only do it first time, since its done at end of univUpdateAllPosVel
         gameStatsCalcShipCostTotals();      // calculate the total ship cost at game start for the game stats
     }
-    //univSetupDerelictsForControl();
-
 
     if (wkTradeStuffActive)
     {
