@@ -97,7 +97,7 @@ Ship *statsBestShipToUseToKillFleet(SelectCommand *freeShips,SelectCommand *targ
 
 sdword statsNumShipsNeededToKillTarget(ShipStaticInfo *shipstatic,ShipStaticInfo *targetstatic);
 sdword statsNumShipsNeededToKillFleet(ShipStaticInfo *shipstatic,SelectCommand *targetFleet);
-sdword statsNumShipsNeededToKillFleetStatic(ShipStaticInfo *shipstatic,SelectCommandStatic *targetFleetStatic);
+
 // strength of fleet2 against fleet1, e.g. fleet2/fleet1
 real32 statsGetRelativeFleetStrengths(SelectCommand *fleet1,SelectCommand *fleet2);
 // strength of ship against fleet strength, e.g. targetstatic strength / fleet1 strength

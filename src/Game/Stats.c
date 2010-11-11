@@ -1760,27 +1760,6 @@ sdword statsNumShipsNeededToKillFleet(ShipStaticInfo *shipstatic,SelectCommand *
     return (((sdword)(num * statsOverkillfactor)));
 }
 
-sdword statsNumShipsNeededToKillFleetStatic(ShipStaticInfo *shipstatic,SelectCommandStatic *targetFleetStatic)
-{
-    real32 killratio = statsGetKillRatingAgainstFleetStatic(shipstatic,targetFleetStatic);
-    real32 num;
-
-    if (killratio == 0.0f)
-    {
-        return 0;
-    }
-    else if (killratio >= 1)
-    {
-        num = 1.0f;     // can kill >= 1 target with just 1 ship, so we only need 1
-    }
-    else
-    {
-        num = 1.0f / killratio;
-    }
-
-    return (((sdword)(num * statsOverkillfactor)));
-}
-
 // strength of fleet2 against fleet1, e.g. fleet2/fleet1
 real32 statsGetRelativeFleetStrengths(SelectCommand *fleet1,SelectCommand *fleet2)
 {
