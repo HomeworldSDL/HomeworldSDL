@@ -24,7 +24,5 @@ sdword NumRUDockPointsOnThisShip(Ship *ship);
 void airAddNewShip(Ship *ship);
 void airProcessSpecialTeams(void);
 
-real32 BlobInbetweenMothershipAndEnemyRating(void *thisBlob);
-
 #endif
 
