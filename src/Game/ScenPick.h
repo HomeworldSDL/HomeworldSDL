@@ -91,7 +91,6 @@ void spBackPicking(char *name, featom *atom);
 
 void spFindMap(char *MapName);
 
-sdword spScenarioListProcess(regionhandle region, sdword ID, udword event, udword data);
 sdword spScenarioFind(char *scenarioName);
 
 #endif
