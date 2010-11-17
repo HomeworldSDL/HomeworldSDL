@@ -142,7 +142,6 @@ missiletrail* mistrailNew(trailstatic* staticInfo, void* vmissile);
 void mistrailDelete(missiletrail* trail);
 void mistrailUpdate(missiletrail* trail, vector* position);
 void mistrailDraw(vector* current, missiletrail* trail, sdword LOD, sdword teamIndex);
-void mistrailZeroLength(missiletrail* trail);
 
 //allocate and initialize a new ship trail
 shiptrail *trailNew(trailstatic *staticInfo, void* vship, bool8 second, ubyte trailNum);
