@@ -124,7 +124,6 @@ typedef struct hvector
 
 #define VECTOR_ORIGIN  {0.0, 0.0, 0.0}
 
-void vecPrintVector(vector *a);
 void vecNormalize(vector *a);
 void vecHomogenize(vector* dst, hvector* src);
 void vecCopyAndNormalize(vector *src, vector *dst);
