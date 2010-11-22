@@ -134,7 +134,6 @@ void tutLoadTutorialGame(void);
 
 void tutTutorial1(char *name, featom *atom);
 
-void tutSetPointerTargetOff(void);
 void tutSetPointerTargetXY(char *name, sdword x, sdword y);
 void tutSetPointerTargetXYRight(char *name, sdword x, sdword y);
 void tutSetPointerTargetXYBottomRight(char *name, sdword x, sdword y);
