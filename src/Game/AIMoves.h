@@ -42,7 +42,6 @@ sdword aimProcessSpecial(struct AITeam *team);
 sdword aimProcessAttack(struct AITeam *team);
 sdword aimProcessAdvancedAttack(struct AITeam *team);
 sdword aimProcessMoveAttack(struct AITeam *team);
-sdword aimProcessMoveTeam(struct AITeam *team);
 sdword aimProcessIntercept(struct AITeam *team);
 sdword aimProcessMoveTo(struct AITeam *team);
 sdword aimProcessMoveSplit(struct AITeam *team);
