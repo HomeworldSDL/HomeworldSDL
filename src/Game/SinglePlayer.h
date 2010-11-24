@@ -243,7 +243,6 @@ bool spFindCameraAttitude(vector *position);
 void UpdateMidLevelHyperspacingShips();
 
 void singlePlayerPreLoadCheck(void);
-bool isShipSinglePlayerHyperspaceable(Ship *ship);
 
 //stores the current mission filename
 extern char CurrentLevelName[];
