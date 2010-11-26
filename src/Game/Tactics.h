@@ -161,7 +161,6 @@ void tacticsShipDied(Ship *ship);
 void tacticsGlobalUpdate();
 void tacticsAttackCommandVoided(CommandToDo *command);
 
-void tacticsRearrangeFormationSuperDuper(SelectCommand *selection,TypeOfFormation formationtype);
 real32 tacticsMaxDistToTarget(SelectCommand *selection,SpaceObjRotImpTarg *target);
 bool tacticsCheckGuardConditionsDuringAttack(struct CommandToDo *command);
 real32 tacticsGetShipsMaxVelocity(Ship *ship);
