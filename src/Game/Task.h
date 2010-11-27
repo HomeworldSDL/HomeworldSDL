@@ -209,7 +209,4 @@ void taskSavePauseStatus(void);
 //execute all pending tasks
 sdword taskExecuteAllPending(sdword ticks);
 
-//adjust attributes of tasks
-udword taskFrequencySet(taskhandle handle, udword frequency);
-
 #endif
