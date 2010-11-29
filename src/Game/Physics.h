@@ -21,7 +21,6 @@
     Functions:
 =============================================================================*/
 
-void physApplyArbitraryForceToObj(SpaceObj *obj,vector *force);
 void physApplyForceToObj(SpaceObj *obj,real32 force,uword transdir);
 void physApplyRotToObj(SpaceObjRot *obj,real32 torque,uword rotdir);
 void physUpdateObjPosVel(SpaceObj *obj,real32 phystimeelapsed);
