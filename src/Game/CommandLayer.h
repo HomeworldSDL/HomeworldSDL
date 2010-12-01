@@ -194,9 +194,6 @@ SelectCommand *getShipAndItsFormation(CommandLayer *comlayer,ShipPtr ship);
 // returns TRUE if searchfor is in comlayer
 bool CommandInCommandLayer(CommandLayer *comlayer,CommandToDo *searchfor);
 
-// Call this function to play appropriate formation sound
-void PlayFormationSound(TypeOfFormation formation);
-
 // Call this function to see if this selection is already in formation
 TypeOfFormation clSelectionAlreadyInFormation(CommandLayer *comlayer,SelectCommand *selectcom);
 
