@@ -152,7 +152,6 @@ extern sdword RANDOM_AMBIENCE_ADDRANDOM;
 =============================================================================*/
 void SEupdateShipRange(void);
 
-sword SEcalcvolumeold(double distance);
 sword SEcalcvolume(real32 distance, real32 maxdist);
 sword SEcalcenginevol(sdword shipclass, real32 distance);
 sword SEcalcvol(sdword shipclass, real32 distance);
