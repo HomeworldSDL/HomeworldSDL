@@ -254,13 +254,6 @@ static sdword n_max = 0;
 static slot* table = NULL;
 static vertex* octant = NULL;
 
-#define SetP(p,px,py,pz) \
-    { \
-        (p).x = px; \
-        (p).y = py; \
-        (p).z = pz; \
-    }
-
 void SetV(vertex* v, real32 x, real32 y, real32 z,
           real32 nx, real32 ny, real32 nz)
 {
