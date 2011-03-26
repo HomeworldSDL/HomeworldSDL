@@ -298,7 +298,6 @@ void meshMorphedObjectRenderTex(polygonobject* object1, polygonobject* object2,
                                 polyentry *uvPolys, materialentry* material,
                                 real32 frac, sdword iColorScheme);
 void meshRenderShipHierarchy(shipbindings *bindings, sdword currentLOD, meshdata *mesh, sdword iColorScheme);
-void meshObjectRenderRGL(polygonobject* object, materialentry* materials, sdword iColorScheme);
 void meshObjectRender(polygonobject *object, materialentry *materials, sdword iColorScheme);
 void meshObjectRenderTex(polygonobject *object, materialentry *material);
 
