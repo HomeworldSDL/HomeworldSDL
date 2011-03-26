@@ -57,8 +57,6 @@ void clampObjToObj(SpaceObjRotImpTargGuidance *obj,SpaceObjRotImpTargGuidance *d
 ----------------------------------------------------------------------------*/
 void unClampObj(SpaceObjRotImpTargGuidance *obj)
 {
-    dbgAssertOrIgnore(obj->clampInfo != NULL);
-
     if (obj->clampInfo != NULL)
     {
         memFree(obj->clampInfo);
