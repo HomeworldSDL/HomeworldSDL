@@ -43,7 +43,6 @@ void hsStaticInit(sdword nVectors); //level start (init structs)
 void hsStaticReset(void);   //level reset (clear structs)
 void hsStaticDestroy(hvector*); //destroy a gate
 sdword hsSizeofStaticData(void);    //return size of static hyperspace gate data
-void hsGetStaticData(sdword* size, ubyte* data); //retrieve static gate data (for saving)
 void hsSetStaticData(sdword size, ubyte* data); //set static gate data (for loading)
 void hsStaticRender(void);  //render all static gates
 void hsNoGate(bool state);
