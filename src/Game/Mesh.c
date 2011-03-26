@@ -691,7 +691,6 @@ meshdata *meshLoad(char *inFileName)
 #if FIX_ENDIAN
 	header.version          = FIX_ENDIAN_INT_32( header.version );
 	header.pName            = ( char *)FIX_ENDIAN_INT_32( ( udword )header.pName );
-	header.fileSize         = FIX_ENDIAN_INT_32( header.fileSize );
 	header.localSize        = FIX_ENDIAN_INT_32( header.localSize );
 	header.nPublicMaterials = FIX_ENDIAN_INT_32( header.nPublicMaterials );
 	header.nLocalMaterials  = FIX_ENDIAN_INT_32( header.nLocalMaterials );
@@ -731,7 +730,7 @@ meshdata *meshLoad(char *inFileName)
         newFormat = FALSE;
     }
 
-    mesh = memAlloc(fileLength - sizeof(header)/*header.fileSize*/ + sizeof(meshdata) -   //allocate the memory for file
+    mesh = memAlloc(fileLength - sizeof(header) + sizeof(meshdata) -   //allocate the memory for file
                     sizeof(polygonobject), fileName, NonVolatile);
     memNameSetLong((memcookie*)((ubyte *)mesh - sizeof(memcookie)), fileName);
     //now that it is all loaded in, all pointers need to be fixed up
@@ -755,7 +754,7 @@ meshdata *meshLoad(char *inFileName)
 #if MESH_RETAIN_FILENAMES
     mesh->fileName = memStringDupe(fileName);
 #endif
-    fileBlockRead(file, &mesh->object[0], fileLength - sizeof(header)/*header.fileSize*/);
+    fileBlockRead(file, &mesh->object[0], fileLength - sizeof(header));
     fileClose(file);                                        //close the file
 
     mesh->name = header.pName + offset;                     //set name pointer

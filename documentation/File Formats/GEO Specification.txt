@@ -19,7 +19,7 @@ typedef struct tagGeoFileHeader
     char    identifier[MESH_FileIDLength];  // File identifier.
     udword  version;                        // File version.
     char   *pName;                          // Offset to a file name.
-    udword  fileSize;                       // File size (in bytes), not counting this header.
+    udword  __obsolete;                     // was: fileSize => File size (in bytes), not counting this header.
     udword  localSize;                      // Object size (in bytes).
     udword  nPublicMaterials;               // Number of public materials.
     udword  nLocalMaterials;                // Number of local materials.
