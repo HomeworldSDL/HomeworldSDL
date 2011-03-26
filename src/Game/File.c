@@ -1118,7 +1118,7 @@ void fileDelete(char *_fileName)
 {
     char *fileName;
 
-    fileName = filePathPrepend(_fileName, FF_IgnorePrepend);    //get full path
+    fileName = filePathPrepend(_fileName, FF_IgnorePrepend);  // use unadulterated path
     fileNameReplaceSlashesInPlace(fileName);
 
     remove(fileName);
