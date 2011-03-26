@@ -15,7 +15,6 @@
 #include "AutoLOD.h"
 #include "Battle.h"
 #include "Debug.h"
-#include "debugwnd.h"
 #include "devstats.h"
 #include "FEColour.h"
 #include "FEFlow.h"
@@ -42,6 +41,9 @@
     #define strcasecmp _stricmp
 #endif
 
+#ifdef _WIN32
+    #include "debugwnd.h"
+#endif
 
 /*=============================================================================
     Definitions:

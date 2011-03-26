@@ -24,7 +24,6 @@
 #include "CommandLayer.h"
 #include "ConsMgr.h"
 #include "Debug.h"
-#include "debugwnd.h"
 #include "Demo.h"
 #include "FEReg.h"
 #include "File.h"
@@ -67,6 +66,7 @@
     #define strcasecmp _stricmp
     #include <windows.h>
     #include <winreg.h>
+    #include "debugwnd.h"
 #endif
 
 

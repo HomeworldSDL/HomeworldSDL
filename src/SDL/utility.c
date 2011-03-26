@@ -32,7 +32,6 @@
 #include "ConsMgr.h"
 #include "Damage.h"
 #include "Debug.h"
-#include "debugwnd.h"
 #include "Demo.h"
 #include "ETG.h"
 #include "FastMath.h"
@@ -141,6 +140,9 @@
     #include <strings.h>
 #endif
 
+#ifdef _WIN32
+    #include "debugwnd.h"
+#endif
 
 extern char mainDeviceToSelect[];
 extern char mainGLToSelect[];
