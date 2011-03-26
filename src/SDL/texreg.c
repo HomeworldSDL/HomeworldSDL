@@ -37,7 +37,6 @@
     Data:
 =============================================================================*/
 //configuration information:
-sdword trRegistrySize = TR_RegistrySize;        //size of texture registry
 static bool trNoPalInitialized = FALSE;
 
 sdword trTextureChanges = 0;
@@ -267,12 +266,12 @@ void trStartup(void)
 #endif
 
 #if TR_VERBOSE_LEVEL >= 1
-    dbgMessagef("trStartup: creating a registry of %d entries", trRegistrySize);
+    dbgMessagef("trStartup: creating a registry of %d entries", TR_RegistrySize);
 #endif  //TR_VERBOSE_LEVEL
     dbgAssertOrIgnore(trTextureRegistry == NULL);
-    trTextureRegistry = memAlloc(trRegistrySize * sizeof(texreg),
+    trTextureRegistry = memAlloc(TR_RegistrySize * sizeof(texreg),
                                  "Texture registry", NonVolatile);//allocate texture registry
-    trNameCRCs = memAlloc(trRegistrySize * sizeof(crc32), "texRegCRC's", NonVolatile);
+    trNameCRCs = memAlloc(TR_RegistrySize * sizeof(crc32), "texRegCRC's", NonVolatile);
 
     trNoPalStartup();                                       //must come before trReset
     trReset();                                              //reset the newly-allocated texture registry
@@ -340,7 +339,7 @@ void trReset(void)
 #if TR_VERBOSE_LEVEL >= 1
     dbgMessagef("trReset: resetting texture registry");
 #endif  //TR_VERBOSE_LEVEL
-    for (index = 0; index < trRegistrySize; index++)
+    for (index = 0; index < TR_RegistrySize; index++)
     {
         if ((!bNewList) && (trAllocated(index)))
         {
@@ -370,7 +369,7 @@ void trReset(void)
     trHighestAllocated = -1;
     bNewList = FALSE;
     trCurrentHandle = TR_Invalid;
-    memClearDword(trNameCRCs, 0, trRegistrySize);           //clear all CRC's to 0
+    memClearDword(trNameCRCs, 0, TR_RegistrySize);           //clear all CRC's to 0
 }
 
 /*-----------------------------------------------------------------------------
@@ -870,7 +869,7 @@ trhandle trTextureRegister(char *fileName, trcolorinfo *info, void *meshReferenc
 
     //if we get here, no matching texture was found; allocate a
     //registry structure and load in texture
-    for (index = trLowestFree; index < trRegistrySize; index++)
+    for (index = trLowestFree; index < TR_RegistrySize; index++)
     {                                                       //search for a free structure
         if (!trAllocated(index))
         {                                                   //if free structure
@@ -913,7 +912,7 @@ trhandle trTextureRegister(char *fileName, trcolorinfo *info, void *meshReferenc
             trHighestAllocated = max(trHighestAllocated, index);//update highest allocated
             if (index == trLowestFree)
             {                                               //if allocating lowest free
-                for (; trLowestFree < trRegistrySize; trLowestFree++)
+                for (; trLowestFree < TR_RegistrySize; trLowestFree++)
                 {                                           //search for lowest free structure
                     if (!trAllocated(trLowestFree))
                     {                                       //if structure free
@@ -926,7 +925,7 @@ trhandle trTextureRegister(char *fileName, trcolorinfo *info, void *meshReferenc
     }
 
 #if TR_ERROR_CHECKING
-    dbgFatalf(DBG_Loc, "\ntrTextureRegister: unable to allocate texture '%s' from list of %d entries", fileName, trRegistrySize);
+    dbgFatalf(DBG_Loc, "\ntrTextureRegister: unable to allocate texture '%s' from list of %d entries", fileName, TR_RegistrySize);
 #endif //TR_ERROR_CHECKING
     //should never get here
     return(0);
@@ -3537,7 +3536,7 @@ void trFilterEnable(sdword bEnable)
 
     if (RGL) rglFeature(RGL_FASTBIND_ON);
 
-    for (index = 0; index < trRegistrySize; index++)
+    for (index = 0; index < TR_RegistrySize; index++)
     {
         if (trAllocated(index) && (!trPending(index)) && (trTextureRegistry[index].sharedFrom == TR_NotShared))
         {                                                   //if we can change this guy
@@ -3805,7 +3804,7 @@ void trNoPalQueueStartup(void)
 {
     trNoPalQueueHead = 0;
     trNoPalQueueTail = 0;
-    trNoPalQueueSize = trRegistrySize;
+    trNoPalQueueSize = TR_RegistrySize;
     trNoPalQueue = (udword*)memAlloc(trNoPalQueueSize * sizeof(udword), "nopal queue", NP_MEMFLAGS);
     memset(trNoPalQueue, 0, trNoPalQueueSize * sizeof(udword));
 }
@@ -3926,7 +3925,7 @@ void trNoPalReadjust(void)
     dbgMessagef("** nopal freed %dMB of textures **", trNoPalBytesAllocated >> 20);
 #endif
 
-    for (index = 0; index < trRegistrySize; index++)
+    for (index = 0; index < TR_RegistrySize; index++)
     {
         if (trNoPalAllocated(index))
         {
@@ -3949,7 +3948,7 @@ void trNoPalReadjustWithoutPending(void)
 
     dbgMessagef("** nopalw/o freed %dMB of textures **", trNoPalBytesAllocated >> 20);
 
-    for (index = 0; index < trRegistrySize; index++)
+    for (index = 0; index < TR_RegistrySize; index++)
     {
         if (trNoPalAllocated(index))
         {
@@ -3985,7 +3984,7 @@ udword trNoPalGetHandle(void)
     handle = trNoPalHighestAllocated;
 
     trNoPalHighestAllocated++;
-    dbgAssertOrIgnore(trNoPalHighestAllocated < trRegistrySize);
+    dbgAssertOrIgnore(trNoPalHighestAllocated < TR_RegistrySize);
 
     return handle;
 }
@@ -4225,8 +4224,8 @@ void trNoPalStartup(void)
     {
         return;
     }
-    trNoPalRegistry = (nopalreg*)memAlloc(trRegistrySize * sizeof(nopalreg), "nopal registry", NP_MEMFLAGS);
-    memset(trNoPalRegistry, 0, trRegistrySize * sizeof(nopalreg));
+    trNoPalRegistry = (nopalreg*)memAlloc(TR_RegistrySize * sizeof(nopalreg), "nopal registry", NP_MEMFLAGS);
+    memset(trNoPalRegistry, 0, TR_RegistrySize * sizeof(nopalreg));
     trNoPalHighestAllocated = 0;
     trNoPalBytesAllocated = 0;
 
@@ -4251,7 +4250,7 @@ void trNoPalReset(void)
         return;
     }
 
-    for (index = 0; index < trRegistrySize; index++)
+    for (index = 0; index < TR_RegistrySize; index++)
     {
         if (trNoPalAllocated(index))
         {
@@ -4281,7 +4280,7 @@ void trNoPalShutdown(void)
         return;
     }
 
-    for (index = 0; index < trRegistrySize; index++)
+    for (index = 0; index < TR_RegistrySize; index++)
     {
         if (trNoPalAllocated(index))
         {
