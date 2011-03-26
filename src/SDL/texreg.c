@@ -3344,21 +3344,21 @@ void trClearCurrent()
                     handles which define the various colorized versions of the
                     texture.
 ----------------------------------------------------------------------------*/
-void _trMakeCurrent(trhandle handle)
+void trMakeCurrent(trhandle handle)
 {
     ubyte *newPalette;
     texreg *reg;
 
-#if defined (_X86_64) 
-	//
-	//GE01  Seem to be sent spurious texture handles due to the multiplayer options. 
-	// Print them then ignore them. :)  probably should wrap this further in build_for_debug tests.
-	//
-	if (handle >= TR_RegistrySize){
-		dbgMessagef("trMakeCurrent: sent invalid handle: 0x%lx",handle);
-		return;
-    }
+    //
+    //GE01  Seem to be sent spurious texture handles due to the multiplayer options.
+    // Print them then ignore them. :)  probably should wrap this further in build_for_debug tests.
+    //
+    if (handle != TR_Invalid && handle >= TR_RegistrySize){
+#if TR_ERROR_CHECKING
+        dbgMessagef("%s: sent invalid trhandle: 0x%lx", __func__, handle);
 #endif
+        return;
+    }
 
 #if TR_NIL_TEXTURE
     if (GLOBAL_NO_TEXTURES)
