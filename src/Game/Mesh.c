@@ -319,9 +319,9 @@ StaticInfo *meshNameToStaticInfo(char *fileName)
                     race and only one handle is allocated (cookie wast can you say?)
                   meshReference - mesh reference to pass to the texture registry
     Outputs     : allocates a list of texture handles MAX_MULTIPLAYER_PLAYERS in length.
-    Return      : pointer to this new list of handles cast to a handle.
+    Return      : pointer to this new list of handles
 ----------------------------------------------------------------------------*/
-trhandle meshTextureRegisterAllPlayers(char *fullName, void *meshReference)
+trhandle * meshTextureRegisterAllPlayers(char *fullName, void *meshReference)
 {
     trhandle handleList[MAX_MULTIPLAYER_PLAYERS], *allocedList;
     sdword index, nRegistered = 0, nHandles = MAX_MULTIPLAYER_PLAYERS;
@@ -352,13 +352,16 @@ trhandle meshTextureRegisterAllPlayers(char *fullName, void *meshReference)
             }
         }
     }
+
     if (nRegistered > 0)
-    {                                                       //if some were registered
+    {
+        // copy handleList because it will go out of scope once we leave this function
         allocedList = memAlloc(MAX_MULTIPLAYER_PLAYERS * sizeof(trhandle), "trhandle*MAX_MULTIPLAYER_PLAYERS", NonVolatile);
         memcpy(allocedList, handleList, MAX_MULTIPLAYER_PLAYERS * sizeof(trhandle));
-        return((trhandle)(allocedList));                    //return memAlloced copy
+        return allocedList;
     }
-    return(TR_Invalid);
+
+    return NULL;
 }
 
 /*-----------------------------------------------------------------------------
@@ -643,7 +646,7 @@ meshdata *meshLoad(char *inFileName)
     polygonobject *object;
     char fullName[FL_Path];
     sdword fileLength;
-    trhandle handle;
+    trhandle *handles;
 
 #if FIX_ENDIAN
     sdword i;
@@ -936,10 +939,10 @@ meshdata *meshLoad(char *inFileName)
             mesh->localMaterial[index].texture = (trhandle)(offset + (char *)(mesh->localMaterial[index].texture));//fix up texture name pointer
             mesh->localMaterial[index].textureNameSave = (char *)mesh->localMaterial[index].texture;
             meshTextureNameToPath(fullName, fileName, (char *)mesh->localMaterial[index].texture);
-            handle = meshTextureRegisterAllPlayers(fullName, mesh);//register the texture
-            if (handle != TR_Invalid)
+            handles = meshTextureRegisterAllPlayers(fullName, mesh);
+            if (handles != NULL)
             {                                               //if anything was registered
-                mesh->localMaterial[index].texture = handle;
+                mesh->localMaterial[index].texture = handles;
                 mesh->localMaterial[index].bTexturesRegistered = TRUE;
             }
         }
@@ -1040,7 +1043,6 @@ void meshRecolorize(meshdata *mesh)
     trhandle *handles, validHandle;
     StaticInfo *info;
     char fullName[FL_Path];
-    trhandle handle;
 
     info = meshNameToStaticInfo(mesh->fileName);
     if (info == NULL)
@@ -1055,10 +1057,10 @@ void meshRecolorize(meshdata *mesh)
             if (!mesh->localMaterial[index].bTexturesRegistered)
             {                                               //if textures were never registered properly
                 meshTextureNameToPath(fullName, mesh->fileName, (char *)mesh->localMaterial[index].texture);
-                handle = meshTextureRegisterAllPlayers(fullName, mesh);//register the texture
-                if (handle != TR_Invalid)
+                handles = meshTextureRegisterAllPlayers(fullName, mesh);
+                if (handles != NULL)
                 {                                               //if anything was registered
-                    mesh->localMaterial[index].texture = handle;
+                    mesh->localMaterial[index].texture = handles;
                     mesh->localMaterial[index].bTexturesRegistered = TRUE;
                 }
             }
