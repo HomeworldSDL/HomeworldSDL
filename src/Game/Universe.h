@@ -314,7 +314,6 @@ void initGameStats(Universe *universe);
 void gameStatsAddShip(Ship *ship,sdword playerIndex);
 void writeGameStatsToFile(char *filename);
 void gameStatsShipDied(Ship *ship);
-void damageDoneToPlayerByPlayer(sdword DamagedIndex, sdword damageDoerIndex, real32 damage);
 void gameStatsCalcShipCostTotals(void);
 
 bool isStrikeCraft(ShipType type);
