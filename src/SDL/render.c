@@ -2712,7 +2712,7 @@ dontdraw2:;
                                 }
 */
                                 i = ((Ship *)spaceobj)->colorScheme;
-                                dbgAssertOrIgnore(i >= 0 && i < TE_NumberPlayers);
+                                dbgAssertOrIgnore(i >= 0 && i < MAX_MULTIPLAYER_PLAYERS);
                                 if (bitTest(spaceobj->flags,SOF_Cloaked))
                                 {
                                     g_WireframeHack = (bool8)((((Ship *)spaceobj)->playerowner == universe.curPlayerPtr) || proximityCanPlayerSeeShip(universe.curPlayerPtr,((Ship *)spaceobj)));

@@ -26,7 +26,7 @@
 /*=============================================================================
     Data:
 =============================================================================*/
-tecolorscheme teColorSchemes[TE_NumberPlayers];
+tecolorscheme teColorSchemes[MAX_MULTIPLAYER_PLAYERS];
 trcolorinfo teRace1Default, teRace2Default;
 trhlscolorize teTrailColorize[TE_NumberTrailColors];//how to colorize the trails
 #if !TO_STANDARD_COLORS
@@ -84,7 +84,7 @@ void teTrailColorSet(char *directory,char *field,void *dataToFillIn)
 
     nScanned = sscanf(field, "%d,%d,%d,%d,%d", &iPlayer, &iPoint, &red, &green, &blue);
     dbgAssertOrIgnore(nScanned == 5);
-    dbgAssertOrIgnore(iPlayer >= 0 && iPlayer < TE_NumberPlayers);
+    dbgAssertOrIgnore(iPlayer >= 0 && iPlayer < MAX_MULTIPLAYER_PLAYERS);
     dbgAssertOrIgnore(iPoint >= 0 && iPoint < TE_NumberTrailColors);
     dbgAssertOrIgnore(red >= 0 && red < 256);
     dbgAssertOrIgnore(green >= 0 && green < 256);
@@ -106,7 +106,7 @@ void teColorSet(char *directory,char *field,void *dataToFillIn)
 
     nScanned = sscanf(field, "%d,%d,%d,%d", &iPlayer, &red, &green, &blue);
     dbgAssertOrIgnore(nScanned == 4);
-    dbgAssertOrIgnore(iPlayer >= 0 && iPlayer < TE_NumberPlayers);
+    dbgAssertOrIgnore(iPlayer >= 0 && iPlayer < MAX_MULTIPLAYER_PLAYERS);
     dbgAssertOrIgnore(red >= 0 && red < 256);
     dbgAssertOrIgnore(green >= 0 && green < 256);
     dbgAssertOrIgnore(blue >= 0 && blue < 256);
@@ -231,7 +231,7 @@ void teTeamColorsSet(sdword iTeam, color baseColor, color stripeColor)
     sdword index;
     real32 red, green, blue, hue, sat, val;
 
-    dbgAssertOrIgnore(iTeam >= 0 && iTeam < TE_NumberPlayers);
+    dbgAssertOrIgnore(iTeam >= 0 && iTeam < MAX_MULTIPLAYER_PLAYERS);
 
     if (multiPlayerGame)
     {                                                       //if somebody in a multiplayer game
@@ -258,7 +258,7 @@ void teTeamColorsSet(sdword iTeam, color baseColor, color stripeColor)
         teColorSchemes[iTeam].trailColors[index] =
             teColorAdjust(baseColor, &teTrailColorize[index]);
     }
-    for (iTeam = 0; iTeam < TE_NumberPlayers; iTeam++)
+    for (iTeam = 0; iTeam < MAX_MULTIPLAYER_PLAYERS; iTeam++)
     {
         teColorSchemes[iTeam].ambient = colRGB(colClamp256(colRed(teColorSchemes[iTeam].textureColor.base) * teAmbientAdjust / 65536),
             colClamp256(colGreen(teColorSchemes[iTeam].textureColor.base) * teAmbientAdjust / 65536),

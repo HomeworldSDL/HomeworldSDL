@@ -318,13 +318,13 @@ StaticInfo *meshNameToStaticInfo(char *fileName)
                   race - race of players to compare to.  If NUM_RACES, there is no
                     race and only one handle is allocated (cookie wast can you say?)
                   meshReference - mesh reference to pass to the texture registry
-    Outputs     : allocates a list of texture handles TE_NumberPlayers in length.
+    Outputs     : allocates a list of texture handles MAX_MULTIPLAYER_PLAYERS in length.
     Return      : pointer to this new list of handles cast to a handle.
 ----------------------------------------------------------------------------*/
 trhandle meshTextureRegisterAllPlayers(char *fullName, void *meshReference)
 {
     trhandle handleList[MAX_MULTIPLAYER_PLAYERS], *allocedList;
-    sdword index, nRegistered = 0, nHandles = TE_NumberPlayers;
+    sdword index, nRegistered = 0, nHandles = MAX_MULTIPLAYER_PLAYERS;
     StaticInfo *info;
 
     //allocate and clear handle list
@@ -341,7 +341,7 @@ trhandle meshTextureRegisterAllPlayers(char *fullName, void *meshReference)
     {
         for (index = 0; index < MAX_MULTIPLAYER_PLAYERS; index++)
         {
-            dbgAssertOrIgnore(index < TE_NumberPlayers);
+            dbgAssertOrIgnore(index < MAX_MULTIPLAYER_PLAYERS);
             handleList[index] = TR_Invalid;
 
             if (utyShipsAlwaysUseOwnerColors || ((ShipStaticInfo *)info)->teamColor[index])
@@ -354,8 +354,8 @@ trhandle meshTextureRegisterAllPlayers(char *fullName, void *meshReference)
     }
     if (nRegistered > 0)
     {                                                       //if some were registered
-        allocedList = memAlloc(TE_NumberPlayers * sizeof(trhandle), "trhandle*TE_NumberPlayers", NonVolatile);
-        memcpy(allocedList, handleList, TE_NumberPlayers * sizeof(trhandle));
+        allocedList = memAlloc(MAX_MULTIPLAYER_PLAYERS * sizeof(trhandle), "trhandle*MAX_MULTIPLAYER_PLAYERS", NonVolatile);
+        memcpy(allocedList, handleList, MAX_MULTIPLAYER_PLAYERS * sizeof(trhandle));
         return((trhandle)(allocedList));                    //return memAlloced copy
     }
     return(TR_Invalid);
@@ -1190,7 +1190,7 @@ void meshFree(meshdata *mesh)
 //        if (mesh->localMaterial[index].texture != TR_Invalid)//if material has a texture
         if (mesh->localMaterial[index].bTexturesRegistered)
         {
-            for (j = 0; j < TE_NumberPlayers; j++)
+            for (j = 0; j < MAX_MULTIPLAYER_PLAYERS; j++)
             {                                               //for each player
                 if (((trhandle *)mesh->localMaterial[index].texture)[j] != TR_Invalid)
                 {                                           //if this player was this race

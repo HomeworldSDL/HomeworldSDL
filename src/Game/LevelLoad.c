@@ -2076,7 +2076,7 @@ static void scriptSetShipsToBeNeeded(char *directory,char *field,void *dataToFil
     char *miscPointer;
     udword numShips, nScanned;
     sdword colorScheme = -1;
-    bool8 teamCol[TE_NumberPlayers];
+    bool8 teamCol[MAX_MULTIPLAYER_PLAYERS];
 
     if (field[0] == '?') field++;
 

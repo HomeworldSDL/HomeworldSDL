@@ -69,7 +69,7 @@ sdword subMessageEnded = FALSE;
 //retained copy of the player's race and all team colors so we know when to
 //re-load the speech icon textures.
 ShipRace subLastRace;
-trcolorinfo subLastTeamColors[TE_NumberPlayers];
+trcolorinfo subLastTeamColors[MAX_MULTIPLAYER_PLAYERS];
 
 /*-----------------------------------------------------------------------------
     This next section of data should only be accessed under the protection
@@ -271,7 +271,7 @@ void subThemePictureSet(char *directory, char *field, void *dataToFillIn)
     {
         dbgFatalf(DBG_Loc, "Invalid theme number %d.  Must be between 0 and %d.", iTheme, SUB_NumberThemes);
     }
-    if (iColorScheme < 0 || iColorScheme >= TE_NumberPlayers)
+    if (iColorScheme < 0 || iColorScheme >= MAX_MULTIPLAYER_PLAYERS)
     {
         dbgFatalf(DBG_Loc, "Invalid color scheme %d for '%s'", iColorScheme, pictureString);
     }
@@ -506,7 +506,7 @@ void subTextureInfoRemember(void)
 {
     sdword index;
     subLastRace = universe.players[0].race;
-    for (index = 0; index < TE_NumberPlayers; index++)
+    for (index = 0; index < MAX_MULTIPLAYER_PLAYERS; index++)
     {
         subLastTeamColors[index] = teColorSchemes[index].textureColor;
     }

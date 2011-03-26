@@ -24,7 +24,6 @@
     Definitions:
 =============================================================================*/
 #define TE_NumberTrailColors        4
-#define TE_NumberPlayers            MAX_MULTIPLAYER_PLAYERS
 #define TE_ColorScript              "TeamColors.script"
 #define TE_SpecularAdjust           80000
 #define TE_DiffuseAdjust            36000
@@ -74,7 +73,7 @@ tecolorscheme;
 /*=============================================================================
     Data:
 =============================================================================*/
-extern tecolorscheme teColorSchemes[TE_NumberPlayers];
+extern tecolorscheme teColorSchemes[MAX_MULTIPLAYER_PLAYERS];
 extern trcolorinfo teRace1Default, teRace2Default;
 #if TO_STANDARD_COLORS
 extern color teFriendlyColor;
