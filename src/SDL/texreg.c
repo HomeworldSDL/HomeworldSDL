@@ -3353,7 +3353,7 @@ void trMakeCurrent(trhandle handle)
     //GE01  Seem to be sent spurious texture handles due to the multiplayer options.
     // Print them then ignore them. :)  probably should wrap this further in build_for_debug tests.
     //
-    if (handle != TR_Invalid && handle >= TR_RegistrySize){
+    if (handle != TR_Invalid && trIndex(handle) >= TR_RegistrySize){
 #if TR_ERROR_CHECKING
         dbgMessagef("%s: sent invalid trhandle: 0x%lx", __func__, handle);
 #endif
