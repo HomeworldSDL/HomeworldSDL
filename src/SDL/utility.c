@@ -4260,9 +4260,7 @@ DONE_INTROS:
 
     opUpdateSettings();
 
-#ifndef _MACOSX_FIX_SOUND
     soundEventPlayMusic(SOUND_FRONTEND_TRACK);
-#endif
 
 //    if (!nisEnabled)
 //    {
