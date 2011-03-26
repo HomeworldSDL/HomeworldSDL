@@ -50,11 +50,6 @@
 
 #define meshColour(NORMAL) shColourSet0((vector*)NORMAL);
 
-#define _MESH_OBJECT_RENDER(O, M, C)\
-    if (g_Output) meshObjectOutput(O, M, C);\
-    else if (g_Points) meshObjectPoints(O, M, C);\
-    else meshObjectRender(O, M, C);
-
 #define MESH_OBJECT_RENDER(O, M, C)\
     if (g_SpecHack)\
     {\
