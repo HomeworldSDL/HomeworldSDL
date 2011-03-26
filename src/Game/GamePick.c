@@ -1103,7 +1103,10 @@ void gpDeleteGame(char *name, featom *atom)
 
     feScreenDisappear(NULL, NULL);
 
+    char *tmpFilePath = filePathPrepend(filename, FF_UserSettingsPath);
+    strcpy(filename, tmpFilePath);
     fileDelete(filename);
+
     if (SavedGamesPath == RecordedGamesPath)
     {
         char tmpfile[PATH_MAX] = "";
