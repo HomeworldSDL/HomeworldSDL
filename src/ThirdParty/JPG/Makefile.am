@@ -1,9 +1,4 @@
 ## Process this file with automake to produce Makefile.in
-#
-#  Automake Makefile for the JPEG library
-#
-#  This file is written by Bob Friesenhahn, Guido Vollbeding
-#
 
 noinst_LIBRARIES = libhw_JPG.a
 libhw_JPG_a_SOURCES = interfce.c interfce.h \
