@@ -2183,11 +2183,13 @@ void trMeshSortListLoad(trmeshsort *sortList)
             stripeScalar = colUdwordToReal(reg->stripeScalar);
 #ifdef _WIN32
             if (strchr(reg->fileName, '\\') && (baseScalar != 0.0f || stripeScalar != 0.0f))
-            {
-                count = strchr(reg->fileName, '\\') - (reg->fileName);
 #else
             if (strpbrk(reg->fileName, "\\/") && (baseScalar != 0.0f || stripeScalar != 0.0f))
+#endif
             {
+#ifdef _WIN32
+                count = strchr(reg->fileName, '\\') - (reg->fileName);
+#else
                 count = strpbrk(reg->fileName, "\\/") - (reg->fileName);
 #endif
                 dbgAssertOrIgnore(count > 0);
