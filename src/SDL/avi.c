@@ -11,8 +11,6 @@
  * we're doing...
  */
 
-/* Doesn't work */
-
 #include "Animatic.h"
 #include "avi.h"
 #include "Debug.h"
