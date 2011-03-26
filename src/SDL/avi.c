@@ -12,7 +12,6 @@
  */
 
 /* Doesn't work */
-//nova: this allows MSVC to compile this file
 
 #include "Animatic.h"
 #include "avi.h"
@@ -27,7 +26,7 @@
 #include "render.h"
 #include "SoundEvent.h"
 
-
+//nova: this allows MSVC to compile this file
 #ifndef _MSC_VER
     #undef _WIN32
 #endif
