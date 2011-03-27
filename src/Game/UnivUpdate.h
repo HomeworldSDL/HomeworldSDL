@@ -134,8 +134,6 @@ ResourcePtr ResourceIDtoResourcePtr(ResourceID resourceID);
 MissilePtr MissileIDtoMissilePtr(MissileID missileID);
 DerelictPtr DerelictIDToDerelictPtr(DerelictID derelictID);
 
-void univSortObjects(void);
-
 void univInitSpaceObjPosRot(SpaceObj *obj,vector *position,bool randomOrientation);
 void univUpdateObjRotInfo(SpaceObjRot *robj);
 
