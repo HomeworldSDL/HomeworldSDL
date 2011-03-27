@@ -1508,7 +1508,7 @@ void utyFatalErrorWaitLoop(int exitCode)
 
 /*-----------------------------------------------------------------------------
     Name        : utyNonFatalErrorWaitLoop
-    Description : Handles messages in case of fatal errors.  Also sends message
+    Description : Handles messages in case of non-fatal errors.  Also sends message
                     to create a message box.
     Outputs     : ..
     Return      : TRUE if the CANCEL button (debug) was selected
