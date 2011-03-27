@@ -629,13 +629,13 @@ commandoption commandOptions[] =
 #ifdef HW_BUILD_FOR_DEBUGGING
     entryComment("DEBUGGING OPTIONS"),//-----------------------------------------------------
     entryVr("/debug",               DebugWindow, TRUE,                  " - Enable debug window."),
-    entryVr("/nodebugInt",          dbgInt3Enabled,FALSE,               " - Fatal errors don't genereate an int 3 before exiting."),
+    entryVr("/nodebugInt",          dbgAllowInterrupts, FALSE,          " - Fatal errors don't generate an interrupt before exiting."),
 #if DBW_TO_FILE
     entryVr("/debugToFile",         debugToFile, TRUE,                  " - output debugging info to a file."),
 #endif
 #else
     entryVrHidden("/debug",         DebugWindow, TRUE,                  " - Enable debug window."),
-    entryVrHidden("/nodebugInt",    dbgInt3Enabled,FALSE,               " - Fatal errors don't genereate an int 3 before exiting."),
+    entryVrHidden("/nodebugInt",    dbgAllowInterrupts, FALSE,          " - Fatal errors don't generate an interrupt before exiting."),
 #if DBW_TO_FILE
     entryVrHidden("/debugToFile",   debugToFile, TRUE,                  " - output debugging info to a file."),
 #endif

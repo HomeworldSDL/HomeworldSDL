@@ -28,7 +28,7 @@
     Data:
 =============================================================================*/
 char dbgFatalErrorString[DBG_BufferLength];
-sdword dbgInt3Enabled = TRUE;
+sdword dbgAllowInterrupts = TRUE;
 
 /*-----------------------------------------------------------------------------
     Name        : dbgStackDump
@@ -209,7 +209,7 @@ void dbgFatal(char *file, sdword line, char *string)
     char *null_ptr = NULL;
 	*null_ptr = 1;  // deliberate out of bounds memory assignment
 #else
-    if (dbgInt3Enabled)
+    if (dbgAllowInterrupts)
     {
 #if defined (_MSC_VER)
         _asm int 3
@@ -256,7 +256,7 @@ void dbgNonFatal(char *file, sdword line, char *string)
 
     dbgMessage(dbgFatalErrorString);
 
-    if (dbgInt3Enabled)
+    if (dbgAllowInterrupts)
     {
 #if defined (_MSC_VER)
         _asm int 3

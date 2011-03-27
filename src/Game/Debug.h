@@ -51,8 +51,7 @@
 #endif
 
 extern char   dbgFatalErrorString[DBG_BufferLength];
-extern sdword dbgInt3Enabled;
-
+extern sdword dbgAllowInterrupts;
 
 void dbgMessage  (char *string     );
 void dbgMessagef (char *format, ...);
