@@ -377,7 +377,6 @@ void partSetAlphaMode(udword mode);     //0 - normal, 1 - additive, 2 - stippled
 void partSetColorScheme(sdword colorScheme);
 
 void partCreateCallbackSet(void (*function)(sdword userValue, ubyte *userData), sdword userValue, ubyte *userData);
-void partMultiplySystemByMatrix(psysPtr psys, matrix *m);
 
 void partCircleSolid3(vector* centre, real32 radius, sdword nSlices, color c);
 
