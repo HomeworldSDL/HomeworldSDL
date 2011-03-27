@@ -165,7 +165,5 @@ sdword nebTendrilPtrToNum(nebulae_t* neb, nebTendril *nebTendril);
 nebChunk *nebNumToChunkPtr(nebulae_t* neb, sdword num);
 sdword nebChunkPtrToNum(nebulae_t* neb, nebChunk *nebChunk);
 
-sdword nebNebulaePtrToNum(nebulae_t* neb);
-
 #endif
 
