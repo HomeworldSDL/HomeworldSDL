@@ -201,9 +201,6 @@ void lgNotifyGameDisolved(void);
 void lgStartup(void);
 void lgShutdown(void);
 
-//sets the game options based on gameName
-void lgSetGameType(char *gameName);
-
 void mgShowScreen(sdword screennum, bool disappear);
 
 //misc stuff MultiPlayerGame.c needs
