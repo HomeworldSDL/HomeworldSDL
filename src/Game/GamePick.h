@@ -75,8 +75,6 @@ bool gpQuickLoad(void);
 
 bool gpGetGameName(char *name, featom *atom, char *filename);
 
-sdword gpGameListProcess(regionhandle region, sdword ID, udword event, udword data);
-
 sdword gpCountTrainingSavegames(void);
 
 #endif
