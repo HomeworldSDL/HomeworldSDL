@@ -1492,8 +1492,6 @@ void utyFatalErrorWaitLoop(int exitCode)
 {
     SDL_Event e;
 
-    //OutputDebugString(dbgFatalErrorString);                 //print error string to the debugger
-
     while (SDL_PollEvent(&e)) { }                           //remove all messages from Queue
 
     e.user.type = SDL_USEREVENT;                            //tell app to exit
@@ -1502,7 +1500,6 @@ void utyFatalErrorWaitLoop(int exitCode)
     e.user.data2 = 0;
     SDL_PushEvent(&e);
 
-    fprintf(stderr, "%s\n", dbgFatalErrorString);
     //e.quit.type = SDL_QUIT;
     //SDL_PushMessage(&e);                                    //???
 
@@ -1519,9 +1516,6 @@ void utyFatalErrorWaitLoop(int exitCode)
 sdword utyNonFatalErrorWaitLoop(void)
 {
     //int returnValue;
-
-    //OutputDebugString(dbgFatalErrorString);                 //print error string to the debugger
-    fprintf(stderr, "%s\n", dbgFatalErrorString);
 
 #ifdef HW_BUILD_FOR_DEBUGGING
     return TRUE;

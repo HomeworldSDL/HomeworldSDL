@@ -48,7 +48,6 @@
     extern udword dbgStackBase;
 #endif
 
-extern char   dbgFatalErrorString[DBG_BufferLength];
 extern sdword dbgAllowInterrupts;
 
 void dbgMessage  (char *string     );

@@ -1015,9 +1015,7 @@ void CommandProcess(int code)
 
     switch (code)
     {
-        case CID_ExitError:                                 //error message posted, exit with a message box
-            fprintf(stderr, "Fatal Error: %s\n", dbgFatalErrorString);
-
+        case CID_ExitError:
             e.quit.type = SDL_QUIT;
             SDL_PushEvent(&e);
 
