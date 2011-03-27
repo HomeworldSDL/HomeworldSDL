@@ -7,8 +7,6 @@
 
 #include "Debug.h"
 
-#include <assert.h>
-
 #include "File.h"
 #include "utility.h"
 
@@ -124,24 +122,23 @@ void dbgMessage(char *string)
 }
 
 /*-----------------------------------------------------------------------------
-    Name        : dbgMessagef
-    Description : Post a generic formatted message
-    Inputs      :
-        format - format string
-        ...    - variable number of parameters
-    Outputs     : ..
-    Return      : void
-----------------------------------------------------------------------------*/
+ Name        : dbgMessagef
+ Description : same as dbgMessage() but with interpolated string
+ Inputs      : same as dbgMessage()
+ Outputs     :
+ Return      : void
+ ----------------------------------------------------------------------------*/
 void dbgMessagef(char *format, ...)
 {
-    char buffer[DBG_BufferLength];
+    char message[DBG_BufferLength];
     va_list argList;
 
-    va_start(argList, format);                              //get first arg
-    vsnprintf(buffer, DBG_BufferMax, format, argList);                      //prepare output string
+    // interpolate variable arguments into formatted string
+    va_start(argList, format);
+    vsnprintf(message, DBG_BufferMax, format, argList);
     va_end(argList);
 
-    dbgMessage(buffer);
+    dbgMessage(message);
 }
 
 /*-----------------------------------------------------------------------------
@@ -156,36 +153,29 @@ void dbgMessagef(char *format, ...)
 ----------------------------------------------------------------------------*/
 void dbgWarning(char *file, sdword line, char *string)
 {
-    char buffer[DBG_BufferLength];
+    snprintf(dbgFatalErrorString, DBG_BufferMax, "\n%s (%d): Warning - %s", file, line, string);
 
-    snprintf(buffer, DBG_BufferMax, "\n%s (%d): Warning- %s", file, line, string);
-
-    dbgMessage(buffer);
+    dbgMessage(dbgFatalErrorString);
 }
 
 /*-----------------------------------------------------------------------------
-    Name        : dbgWarning
-    Description : Post a formatted warning message
-    Inputs      :
-        file - points to file name string
-        line - line number called from
-        format - format string
-        ...    - variable number of parameters
-    Outputs     :
-    Return      : void
-----------------------------------------------------------------------------*/
+ Name        : dbgWarningf
+ Description : same as dbgWarning() but with interpolated string
+ Inputs      : same as dbgWarning()
+ Outputs     :
+ Return      : void
+ ----------------------------------------------------------------------------*/
 void dbgWarningf(char *file, sdword line, char *format, ...)
 {
-    char buffer[DBG_BufferLength];
-    char newFormat[DBG_BufferLength];
+    char message[DBG_BufferLength];
     va_list argList;
 
-    snprintf(newFormat, DBG_BufferMax, "\n%s (%d): Warning- %s", file, line, format);
-    va_start(argList, format);                              //get first arg
-    vsnprintf(buffer, DBG_BufferMax, newFormat, argList);                   //prepare output string
+    // interpolate variable arguments into formatted string
+    va_start(argList, format);
+    vsnprintf(message, DBG_BufferMax, format, argList);
     va_end(argList);
 
-    dbgMessage(buffer);
+    dbgWarning(file, line, message);
 }
 
 /*-----------------------------------------------------------------------------
@@ -200,68 +190,20 @@ void dbgWarningf(char *file, sdword line, char *format, ...)
 ----------------------------------------------------------------------------*/
 void dbgFatal(char *file, sdword line, char *string)
 {
-    snprintf(dbgFatalErrorString, DBG_BufferMax, "\n%s (%d): Fatal error - %s", file, line, string);
+    char *fileName = NULL;
 
 #if DBG_STACK_CONTEXT
-char *dbgStackDump(void);
-    {
-        char *fileName = dbgStackDump();
-        if (fileName)
-        {
-            sprintf(dbgFatalErrorString + strlen(dbgFatalErrorString), "\nDumped to '%s'.", fileName);
-        }
+    fileName = dbgStackDump();
+#endif
+
+    if (fileName) {
+        snprintf(dbgFatalErrorString, DBG_BufferMax, "\n%s (%d): Fatal error - %s (Dumped to '%s')", file, line, string, fileName);
     }
-#endif
-
-    dbgMessage(dbgFatalErrorString);                        //print the message
-
-#if DBG_FATAL_DIE_NOISILY
-    assert(0);
-#else
-    if (dbgInt3Enabled)
-    {
-#if defined (_MSC_VER)
-        _asm int 3
-#elif defined (__GNUC__) && (defined (__i386__) || defined (__x86_64__))
-        __asm__ ( "int $3\n\t" );
-#endif
+    else {
+        snprintf(dbgFatalErrorString, DBG_BufferMax, "\n%s (%d): Fatal error - %s", file, line, string);
     }
-#endif
-    utyFatalErrorWaitLoop(DBG_ExitCode);                    //exit with a MessageBox
-}
 
-/*-----------------------------------------------------------------------------
-    Name        : dbgFatalf
-    Description : Print a formatted fatal error message and exit program.
-    Inputs      :
-        file - points to file name string
-        line - line number called from
-        format - format string
-        ...    - variable number of parameters
-    Outputs     :
-    Return      : void
-----------------------------------------------------------------------------*/
-void dbgFatalf(char *file, sdword line, char *format, ...)
-{
-    char newFormat[DBG_BufferLength];
-    va_list argList;
-
-    snprintf(newFormat, DBG_BufferMax, "\n%s (%d): Fatal Error - %s", file, line, format);
-    va_start(argList, format);                              //get first arg
-    vsnprintf(dbgFatalErrorString, DBG_BufferMax, newFormat, argList);      //prepare output string
-    va_end(argList);
-    
-#if DBG_STACK_CONTEXT
-    {
-        char *fileName = dbgStackDump();
-        if (fileName)
-        {
-        sprintf(dbgFatalErrorString + strlen(dbgFatalErrorString), "\nDumped to '%s'.", fileName);
-        }
-    }
-#endif
-
-    dbgMessage(dbgFatalErrorString);                        //print the message
+    dbgMessage(dbgFatalErrorString);
 
 #if DBG_FATAL_DIE_NOISILY
     char *null_ptr = NULL;
@@ -276,7 +218,28 @@ void dbgFatalf(char *file, sdword line, char *format, ...)
 #endif
     }
 #endif
+
     utyFatalErrorWaitLoop(DBG_ExitCode);                    //exit with a MessageBox
+}
+
+/*-----------------------------------------------------------------------------
+ Name        : dbgFatalf
+ Description : same as dbgFatal() but with interpolated string
+ Inputs      : same as dbgFatal()
+ Outputs     :
+ Return      : void
+ ----------------------------------------------------------------------------*/
+void dbgFatalf(char *file, sdword line, char *format, ...)
+{
+    char message[DBG_BufferLength];
+    va_list argList;
+
+    // interpolate variable arguments into formatted string
+    va_start(argList, format);
+    vsnprintf(message, DBG_BufferMax, format, argList);
+    va_end(argList);
+    
+    dbgFatal(file, line, message);
 }
 
 /*-----------------------------------------------------------------------------
@@ -289,8 +252,11 @@ void dbgFatalf(char *file, sdword line, char *format, ...)
 ----------------------------------------------------------------------------*/
 void dbgNonFatal(char *file, sdword line, char *string)
 {
-    sprintf(dbgFatalErrorString, "\n%s (%d): Non-fatal error - %s", file, line, string);
-    if (utyNonFatalErrorWaitLoop() && dbgInt3Enabled)
+    snprintf(dbgFatalErrorString, DBG_BufferMax, "\n%s (%d): Non-fatal error - %s", file, line, string);
+
+    dbgMessage(dbgFatalErrorString);
+
+    if (dbgInt3Enabled)
     {
 #if defined (_MSC_VER)
         _asm int 3
@@ -298,26 +264,28 @@ void dbgNonFatal(char *file, sdword line, char *string)
         __asm__ ( "int $3\n\t" );
 #endif
     }
+
+    utyNonFatalErrorWaitLoop();
 }
 
 /*-----------------------------------------------------------------------------
     Name        : dbgNonFatalf
-    Description : Non-fatal error handling: pops up a dialog but does not
-                    exit the game.
-    Inputs      : same as dbgFatalf
+    Description : same as dbgNonFatal() but with interpolated string
+    Inputs      : same as dbgNonFatal()
     Outputs     :
     Return      : void
 ----------------------------------------------------------------------------*/
 void dbgNonFatalf(char *file, sdword line, char *format, ...)
 {
+    char message[DBG_BufferLength];
     va_list argList;
-    char error[DBG_BufferLength];
 
-    va_start(argList, format);                              //get first arg
-    vsprintf(error, format, argList);                       //prepare output string
+    // interpolate variable arguments into formatted string
+    va_start(argList, format);
+    vsnprintf(message, DBG_BufferMax, format, argList);
     va_end(argList);
 
-    dbgNonFatal(file, line, error);                         //print the message
+    dbgNonFatal(file, line, message);
 }
 
 
