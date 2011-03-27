@@ -2754,11 +2754,6 @@ void SalCapCorvetteHouseKeep(Ship *ship)
 */
 }
 
-//Don't forget to clear tractorbeaminfo in ship and derelict structures!
-void SalCapClose(Ship *ship)
-{
-}
-
 void salCapClearTechBool()
 {
     universe.DerelictTech = FALSE;
@@ -3141,7 +3136,7 @@ CustShipHeader SalCapCorvetteHeader =
     SalCapCorvetteStaticInit,
     NULL,
     SalCapCorvetteInit,
-    SalCapClose,
+    NULL,
     NULL, // SalCapCorvetteAttack,
     NULL, // DefaultShipFire,
     NULL, // SalCapCorvetteAttackPassive,
@@ -3163,7 +3158,7 @@ CustShipHeader JunkYardDawgHeader =
     SalCapCorvetteStaticInit,
     NULL,
     SalCapCorvetteInit,
-    SalCapClose,
+    NULL,
     NULL, // SalCapCorvetteAttack,
     NULL, // DefaultShipFire,
     NULL, // SalCapCorvetteAttackPassive,
