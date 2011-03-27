@@ -188,7 +188,6 @@ lgqueuegameplayerinfo;
 void lgStartMultiPlayerLANGameScreens(regionhandle region, sdword ID, udword event, udword data, bool AlreadyLoggedIn);
 void lgShutdownMultiPlayerGameScreens(void);
 
-void lgConnectedToChannel(bool existing);
 void lgFailedToConnectToChannel(bool existing);
 
 void lgDisplayMessage(char *message);
