@@ -296,9 +296,9 @@ sdword dbgFatalf(char *file, sdword line, char *format, ...)
     Outputs     :
     Return      : 0
 ----------------------------------------------------------------------------*/
-sdword dbgNonFatal(char *file, sdword line, char *error)
+sdword dbgNonFatal(char *file, sdword line, char *string)
 {
-    sprintf(dbgFatalErrorString, "\n%s (%d): Non-fatal error - %s", file, line, error);
+    sprintf(dbgFatalErrorString, "\n%s (%d): Non-fatal error - %s", file, line, string);
     if (utyNonFatalErrorWaitLoop() && dbgInt3Enabled)
     {
 #if defined (_MSC_VER)

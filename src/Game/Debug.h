@@ -57,13 +57,13 @@ extern sdword dbgInt3Enabled;
 sdword dbgMessage  (char *string);
 sdword dbgMessagef (char *format, ...);
 
-sdword dbgWarning  (char *file, sdword line, char *format      );
+sdword dbgWarning  (char *file, sdword line, char *string      );
 sdword dbgWarningf (char *file, sdword line, char *format, ... );
 
-sdword dbgFatal    (char *file, sdword line, char *format      );
+sdword dbgFatal    (char *file, sdword line, char *string      );
 sdword dbgFatalf   (char *file, sdword line, char *format, ... );
 
-sdword dbgNonFatal (char *file, sdword line, char *error       );
+sdword dbgNonFatal (char *file, sdword line, char *string      );
 sdword dbgNonFatalf(char *file, sdword line, char *format, ... );
 
 #endif
