@@ -272,43 +272,6 @@ color* cpHueSatImageCreate(void)
     return cpHueSatData;
 }
 
-color* cpValueTextureGradientCreateScaled(sdword width, sdword height)
-{
-    color* buffer;
-    sdword hue, sat, i;
-    real32 realRed, realGreen, realBlue, value, valStep;
-
-    valStep = 1.0f / (real32)height;
-    value   = 1.0f;
-
-    if (cpColorMode == 0)
-    {
-        hue = cpBaseHue;
-        sat = cpBaseSaturation;
-    }
-    else
-    {
-        hue = cpStripeHue;
-        sat = cpStripeSaturation;
-    }
-
-    buffer = memAlloc(height * width * sizeof(color), "ColorPickerValue", 0);
-
-    for (i = 0; i < height; i++)
-    {
-        colHSVToRGB(&realRed, &realGreen, &realBlue,
-                    colUbyteToReal(hue), colUbyteToReal(sat), value);
-
-        memClearDword(buffer + i * width,
-                      colRGB(colRealToUbyte(realRed), colRealToUbyte(realGreen), colRealToUbyte(realBlue)),
-                      width);
-
-        value -= valStep;
-    }
-
-    return(buffer);
-}
-
 /*-----------------------------------------------------------------------------
     Name        : cpValueTextureGradientCreate
     Description : Create the gradient bitmap for the value slider.  Gradient built off the
