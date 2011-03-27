@@ -205,19 +205,17 @@ void dbgFatal(char *file, sdword line, char *string)
 
     dbgMessage(dbgFatalErrorString);
 
-#if DBG_FATAL_DIE_NOISILY
-    char *null_ptr = NULL;
-	*null_ptr = 1;  // deliberate out of bounds memory assignment
-#else
     if (dbgAllowInterrupts)
     {
 #if defined (_MSC_VER)
         _asm int 3
 #elif defined (__GNUC__) && (defined (__i386__) || defined (__x86_64__))
         __asm__ ( "int $3\n\t" );
+#else
+        char *null_ptr = NULL;
+        *null_ptr = 1;  // deliberate out of bounds memory assignment
 #endif
     }
-#endif
 
     utyFatalErrorWaitLoop(DBG_ExitCode);                    //exit with a MessageBox
 }
@@ -262,6 +260,9 @@ void dbgNonFatal(char *file, sdword line, char *string)
         _asm int 3
 #elif defined (__GNUC__) && (defined (__i386__) || defined (__x86_64__))
         __asm__ ( "int $3\n\t" );
+#else
+        char *null_ptr = NULL;
+        *null_ptr = 1;  // deliberate out of bounds memory assignment
 #endif
     }
 
@@ -287,5 +288,3 @@ void dbgNonFatalf(char *file, sdword line, char *format, ...)
 
     dbgNonFatal(file, line, message);
 }
-
-

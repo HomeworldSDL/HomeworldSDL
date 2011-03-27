@@ -16,12 +16,10 @@
     #define DBG_ASSERT                 1   // assertion checking
     #define DBG_FILE_LINE              1   // print file and line
     #define DBG_STACK_CONTEXT          1   // dump stack context at fatal error time
-    #define DBG_FATAL_DIE_NOISILY      FALSE // FALSE==use int 3, TRUE==assert(0) for debugger to catch
 #else
     #define DBG_ASSERT                 0
     #define DBG_FILE_LINE              0
     #define DBG_STACK_CONTEXT          0
-    #define DBG_FATAL_DIE_NOISILY      TRUE
 #endif
 
 
