@@ -584,14 +584,6 @@ void collUpdateObjsInCollBlobs(void)
     }
 }
 
-//function "fixes" a ships velocity and forces such that
-//a collision looks good, as opposed to physically correct...
-
-void kamikazeVelocityFix(SpaceObjRotImpTarg *obj1, SpaceObjRotImpTarg *obj2)
-{
-
-}
-
 bool kamikazeCheck(SpaceObjRotImpTarg *obj1, SpaceObjRotImpTarg *obj2)
 {
     real32 damage1,damage2;
@@ -961,8 +953,6 @@ dontapplydamage:
                         {
                             //fix collided ships velocity....
                             ObjectsCollided((SpaceObjRotImpTarg *)obj1,(SpaceObjRotImpTarg *)obj2,colldist,&distvector,dist,distsquared);
-                            kamikazeVelocityFix((SpaceObjRotImpTarg *)obj1,(SpaceObjRotImpTarg *)obj2);
-
                         }
 
                     }
@@ -1275,7 +1265,6 @@ dontapplydamage:
                         {
                             //fix collided ships velocity....
                             ObjectsCollided((SpaceObjRotImpTarg *)obj1,(SpaceObjRotImpTarg *)obj2,colldist,&distvector,dist,distsquared);
-                            kamikazeVelocityFix((SpaceObjRotImpTarg *)obj1,(SpaceObjRotImpTarg *)obj2);
                         }
                     }
 
@@ -1440,7 +1429,6 @@ void collCheckShipResourceColl(blob *thisBlob)
                         {
                              //fix collided ships velocity....
                             ObjectsCollided((SpaceObjRotImpTarg *)obj1,(SpaceObjRotImpTarg *)obj2,colldist,&distvector,dist,distsquared);
-                            kamikazeVelocityFix((SpaceObjRotImpTarg *)obj1,(SpaceObjRotImpTarg *)obj2);
                         }
                     }
                 }
@@ -1620,7 +1608,6 @@ void collCheckShipDerelictColl(blob *thisBlob)
                         {
                              //fix collided ships velocity....
                             ObjectsCollided((SpaceObjRotImpTarg *)obj1,(SpaceObjRotImpTarg *)obj2,colldist,&distvector,dist,distsquared);
-                            kamikazeVelocityFix((SpaceObjRotImpTarg *)obj1,(SpaceObjRotImpTarg *)obj2);
                         }
                     }
                 }
