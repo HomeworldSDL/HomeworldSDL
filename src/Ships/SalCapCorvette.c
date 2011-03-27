@@ -3112,10 +3112,6 @@ void SalCapDropTarget(Ship *ship)
     #pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
 #endif
 
-void SalCapCorvette_RegisterExtraSpaceObjs(Ship *ship)
-{
-}
-
 void SalCapCorvette_PreFix(Ship *ship)
 {
     SalCapCorvetteSpec *spec = (SalCapCorvetteSpec *)ship->ShipSpecifics;

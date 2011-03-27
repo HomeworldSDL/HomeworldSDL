@@ -928,11 +928,6 @@ void RegisterAllSpaceObjs(void)
                 // check ships inside too
                 RegisterAllSpaceObjsInsideMe(((Ship *)obj)->shipsInsideMe);
             }
-
-            if (((Ship *)obj)->specialFlags & SPECIAL_IsASalvager)
-            {
-                SalCapCorvette_RegisterExtraSpaceObjs((Ship *)obj);
-            }
         }
 
 nextnode:

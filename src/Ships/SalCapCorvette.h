@@ -52,7 +52,6 @@ bool DropTargetInShip(Ship *dockwith,sdword *targetDepotState, SpaceObjRotImpTar
 bool isThereAnotherTargetForMe(Ship *ship,SelectAnyCommand *targets);
 void salCapCleanUpCloakingTarget(Ship *ship, Ship *shiptoremove);
 void salCapClearTechBool();
-void SalCapCorvette_RegisterExtraSpaceObjs(Ship *ship);
 void SalCapDropTarget(Ship *ship);
 void salCapExtraSpecialOrderCleanUp(SelectCommand *selection,udword ordertype,Ship *dockwith,SelectCommand *targets);
 void salCapHarvestTarget(SpaceObjRotImpTargGuidanceShipDerelict *target,Ship *dockwith);
