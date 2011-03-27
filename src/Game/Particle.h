@@ -222,8 +222,6 @@ psysPtr partCreateSystem(particleType t, udword n);
 psysPtr partCreateSystemWithDelta(particleType t, udword n, udword delta);
 psysPtr partCreateSphericalSystem(particleType t, udword n);
 psysPtr partCreateSphericalSystemWithDelta(particleType t, udword n, udword delta);
-void partDefaultSystem(ShipPtr ship);
-
 udword partHeaderSize(psysPtr psys);
 
 //system modifiers
