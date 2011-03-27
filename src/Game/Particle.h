@@ -253,7 +253,6 @@ void partModifyDeltaColor(psysPtr psys,
                           real32 dr, real32 dg, real32 db, real32 da);
 void partModifyColorBias(psysPtr psys, real32 rb, real32 gb, real32 bb);
 void partModifyAddColor(psysPtr psys, color c);
-void partModifyOffsetLOF(psysPtr psys, real32 offset);
 
 //for billboard systems
 void partModifyAnimation(psysPtr psys, void* tstruct);
