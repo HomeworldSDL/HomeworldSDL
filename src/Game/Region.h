@@ -269,7 +269,6 @@ void regDirtyScreensAboveRegion(regionhandle region);
 
 //get attributes of regions
 #define regFilterGet(r)    ((r)->flags)
-regiondrawfunction regDrawFunctionGet(regionhandle region);
 regionfunction regFunctionGet(regionhandle region);
 
 //add render events and render them all
