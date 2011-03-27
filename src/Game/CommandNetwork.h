@@ -531,7 +531,6 @@ void ReceivedPacketCB(ubyte *packet,udword sizeofPacket);
 void netCheck(void);
 
 void SendNonCaptainReadyPacket(udword playerIndex);
-void SendNonCaptainInfoPacket(udword playerIndex);
 void SendDroppingOutOfLoad(udword playerIndex);
 void SendInGameQuittingPacket(udword playerIndex);
 
