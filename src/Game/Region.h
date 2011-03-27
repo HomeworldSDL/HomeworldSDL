@@ -245,7 +245,6 @@ bool regRegionInside(regionhandle needle, regionhandle haystack);
 void regChildInsert(regionhandle regionToInsert, regionhandle parent);
 void regSiblingInsert(regionhandle regionToInsert, regionhandle sibling);
 void regMoveLinkChild(regionhandle regionToMove, regionhandle newParent);
-void regMoveLinkSibling(regionhandle regionToMove, regionhandle newSibling);
 void regLinkRemove(regionhandle region);
 regionhandle regSiblingMoveToFront(regionhandle region);
 
