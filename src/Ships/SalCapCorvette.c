@@ -99,7 +99,6 @@ scriptStructEntry SalCapCorvetteStaticTable[] =
 };
 
 
-udword salvageNumNeeded(Ship *ship, SpaceObjRotImpTarg *target);
 void salvageSetDockVector(Ship *ship, Ship *dockwith,vector *trackHeading, vector *trackUp,vector *coneheadingInWorldCoordSys);
 bool salvageTargetTrackVector(Ship *ship, vector *trackvector);
 bool handOffTargetToDockWith(Ship *ship);
