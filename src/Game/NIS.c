@@ -97,7 +97,6 @@ void nisSoundEvent(nisplaying *NIS, nisevent *event);
 void nisSpeechEvent(nisplaying *NIS, nisevent *event);
 void nisFleetSpeechEvent(nisplaying *NIS, nisevent *event);
 void nisAnimaticSpeechEvent(nisplaying *NIS, nisevent *event);
-void nisEnableDefaultSpeech(nisplaying *NIS, nisevent *event);
 void nisCustomEffect(nisplaying *NIS, nisevent *event);
 void nisCustomGunEffect(nisplaying *NIS, nisevent *event);
 void nisGunShoot(nisplaying *NIS, nisevent *event);
