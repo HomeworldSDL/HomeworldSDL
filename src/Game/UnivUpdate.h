@@ -164,8 +164,6 @@ void univMissileCollidedWithTarget(SpaceObjRotImpTarg *target,StaticHeader *targ
 
 SelectCommand *getEnemiesWithinProximity(Ship *thisship,real32 retaliateZone);
 
-void univDeleteBullet(Bullet *bullet);
-
 #define PLAYERKILLED_DROPPEDOUT         -1
 #define PLAYERKILLED_STANDARDDEATH      0
 #define PLAYERKILLED_CAPTUREDSHIP       1
