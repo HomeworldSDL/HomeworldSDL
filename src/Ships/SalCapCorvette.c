@@ -1611,21 +1611,6 @@ sdword salCapFlyToDockingPoint3(Ship *dockwith,SpaceObjRotImpTargGuidanceShipDer
     return FALSE;
 }
 
-void removeTargetFromSelection(SpaceObjRotImpTarg *target,SelectAnyCommand *targets)
-{
-    sdword i=0;
-    for(i=0;i<targets->numTargets;)
-    {
-        if(target == targets->TargetPtr[i])
-        {
-            targets->numTargets--;
-            targets->TargetPtr[i] = targets->TargetPtr[targets->numTargets];
-            continue;
-        }
-        i++;
-    }
-}
-
 /*-----------------------------------------------------------------------------
     Name        :   SalCapCorvetteSpecialTarget
     Description :   Performs salvageing!  Hopefully
@@ -1780,7 +1765,7 @@ reachedit:
                 //so force to zero...these functions can be called twice..unfortunatly
                 spec->target->salvageNumTagged[ship->playerowner->playerIndex] = 0;
             }
-            removeTargetFromSelection((SpaceObjRotImpTarg *)spec->target,targets);
+            clRemoveTargetFromSelection(targets, (SpaceObjRotImpTarg *)spec->target);
             CleanSalCapSpec(ship);
             return FALSE;
         }
@@ -1816,7 +1801,7 @@ reachedit:
                 //so force to zero...these functions can be called twice..unfortunatly
                 spec->target->salvageNumTagged[ship->playerowner->playerIndex] = 0;
             }
-            removeTargetFromSelection((SpaceObjRotImpTarg *)spec->target,targets);
+            clRemoveTargetFromSelection(targets, (SpaceObjRotImpTarg *)spec->target);
             CleanSalCapSpec(ship);
             return FALSE;
         }
@@ -1844,7 +1829,7 @@ reachedit:
                     //so force to zero...these functions can be called twice..unfortunatly
                     spec->target->salvageNumTagged[ship->playerowner->playerIndex] = 0;
             }
-            removeTargetFromSelection((SpaceObjRotImpTarg *)spec->target,targets);
+            clRemoveTargetFromSelection(targets, (SpaceObjRotImpTarg *)spec->target);
             CleanSalCapSpec(ship);
             return FALSE;
         }
@@ -1892,7 +1877,7 @@ reachedit:
                     //so force to zero...these functions can be called twice..unfortunatly
                     spec->target->salvageNumTagged[ship->playerowner->playerIndex] = 0;
             }
-            removeTargetFromSelection((SpaceObjRotImpTarg *)spec->target,targets);
+            clRemoveTargetFromSelection(targets, (SpaceObjRotImpTarg *)spec->target);
             CleanSalCapSpec(ship);
             return FALSE;
         }
@@ -1905,7 +1890,7 @@ reachedit:
                     //so force to zero...these functions can be called twice..unfortunatly
                     spec->target->salvageNumTagged[ship->playerowner->playerIndex] = 0;
             }
-            removeTargetFromSelection((SpaceObjRotImpTarg *)spec->target,targets);
+            clRemoveTargetFromSelection(targets, (SpaceObjRotImpTarg *)spec->target);
             CleanSalCapSpec(ship);
             return FALSE;
         }
@@ -1919,7 +1904,7 @@ reachedit:
                     //so force to zero...these functions can be called twice..unfortunatly
                     spec->target->salvageNumTagged[ship->playerowner->playerIndex] = 0;
             }
-            removeTargetFromSelection((SpaceObjRotImpTarg *)spec->target,targets);
+            clRemoveTargetFromSelection(targets, (SpaceObjRotImpTarg *)spec->target);
             CleanSalCapSpec(ship);
             return FALSE;
         }
@@ -1935,7 +1920,7 @@ reachedit:
                     //so force to zero...these functions can be called twice..unfortunatly
                     spec->target->salvageNumTagged[ship->playerowner->playerIndex] = 0;
             }
-            removeTargetFromSelection((SpaceObjRotImpTarg *)spec->target,targets);
+            clRemoveTargetFromSelection(targets, (SpaceObjRotImpTarg *)spec->target);
             CleanSalCapSpec(ship);
             return FALSE;
         }
@@ -1962,7 +1947,7 @@ reachedit:
                     //so force to zero...these functions can be called twice..unfortunatly
                     spec->target->salvageNumTagged[ship->playerowner->playerIndex] = 0;
             }
-            removeTargetFromSelection((SpaceObjRotImpTarg *)spec->target,targets);
+            clRemoveTargetFromSelection(targets, (SpaceObjRotImpTarg *)spec->target);
             CleanSalCapSpec(ship);
             return FALSE;
         }
