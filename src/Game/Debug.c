@@ -110,9 +110,9 @@ char *dbgStackDump(void)
     Description : Post a generic message
     Inputs      : string - message to print
     Outputs     : ..
-    Return      : ..
+    Return      : void
 ----------------------------------------------------------------------------*/
-sdword dbgMessage(char *string)
+void dbgMessage(char *string)
 {
     /* Debug window disabled (using stdout instead, at least for now).
        dbw*() functions in other parts of code (main.c, utility.c, and
@@ -121,7 +121,6 @@ sdword dbgMessage(char *string)
     /*return(dbwPrint(0, string));*/
     printf("%s\n", string);
     fflush(NULL);
-    return OKAY;
 }
 
 /*-----------------------------------------------------------------------------
@@ -131,20 +130,18 @@ sdword dbgMessage(char *string)
         format - format string
         ...    - variable number of parameters
     Outputs     : ..
-    Return      : Number of characters printed
+    Return      : void
 ----------------------------------------------------------------------------*/
-sdword dbgMessagef(char *format, ...)
+void dbgMessagef(char *format, ...)
 {
     char buffer[DBG_BufferLength];
     va_list argList;
-    sdword nParams;
 
     va_start(argList, format);                              //get first arg
     vsnprintf(buffer, DBG_BufferMax, format, argList);                      //prepare output string
     va_end(argList);
 
-    nParams = dbgMessage(buffer);
-    return(nParams);
+    dbgMessage(buffer);
 }
 
 /*-----------------------------------------------------------------------------
@@ -155,15 +152,15 @@ sdword dbgMessagef(char *format, ...)
         line - line number called from
         string - output string
     Outputs     :
-    Return      :
+    Return      : void
 ----------------------------------------------------------------------------*/
-sdword dbgWarning(char *file, sdword line, char *string)
+void dbgWarning(char *file, sdword line, char *string)
 {
     char buffer[DBG_BufferLength];
 
     snprintf(buffer, DBG_BufferMax, "\n%s (%d): Warning- %s", file, line, string);
 
-    return(dbgMessage(buffer));                             //print the message
+    dbgMessage(buffer);
 }
 
 /*-----------------------------------------------------------------------------
@@ -175,22 +172,20 @@ sdword dbgWarning(char *file, sdword line, char *string)
         format - format string
         ...    - variable number of parameters
     Outputs     :
-    Return      :
+    Return      : void
 ----------------------------------------------------------------------------*/
-sdword dbgWarningf(char *file, sdword line, char *format, ...)
+void dbgWarningf(char *file, sdword line, char *format, ...)
 {
     char buffer[DBG_BufferLength];
     char newFormat[DBG_BufferLength];
     va_list argList;
-    sdword returnValue;
 
     snprintf(newFormat, DBG_BufferMax, "\n%s (%d): Warning- %s", file, line, format);
     va_start(argList, format);                              //get first arg
     vsnprintf(buffer, DBG_BufferMax, newFormat, argList);                   //prepare output string
     va_end(argList);
 
-    returnValue = dbgMessage(buffer);
-    return(returnValue);                                    //print the message
+    dbgMessage(buffer);
 }
 
 /*-----------------------------------------------------------------------------
@@ -201,9 +196,9 @@ sdword dbgWarningf(char *file, sdword line, char *format, ...)
         line - line number called from
         string - output string
     Outputs     :
-    Return      :
+    Return      : void
 ----------------------------------------------------------------------------*/
-sdword dbgFatal(char *file, sdword line, char *string)
+void dbgFatal(char *file, sdword line, char *string)
 {
     snprintf(dbgFatalErrorString, DBG_BufferMax, "\n%s (%d): Fatal error - %s", file, line, string);
 
@@ -233,8 +228,6 @@ char *dbgStackDump(void);
     }
 #endif
     utyFatalErrorWaitLoop(DBG_ExitCode);                    //exit with a MessageBox
-
-    return(ERROR);
 }
 
 /*-----------------------------------------------------------------------------
@@ -246,9 +239,9 @@ char *dbgStackDump(void);
         format - format string
         ...    - variable number of parameters
     Outputs     :
-    Return      :
+    Return      : void
 ----------------------------------------------------------------------------*/
-sdword dbgFatalf(char *file, sdword line, char *format, ...)
+void dbgFatalf(char *file, sdword line, char *format, ...)
 {
     char newFormat[DBG_BufferLength];
     va_list argList;
@@ -284,8 +277,6 @@ sdword dbgFatalf(char *file, sdword line, char *format, ...)
     }
 #endif
     utyFatalErrorWaitLoop(DBG_ExitCode);                    //exit with a MessageBox
-
-    return(ERROR);
 }
 
 /*-----------------------------------------------------------------------------
@@ -294,9 +285,9 @@ sdword dbgFatalf(char *file, sdword line, char *format, ...)
                     exit the game.
     Inputs      : same as dbgFatal
     Outputs     :
-    Return      : 0
+    Return      : void
 ----------------------------------------------------------------------------*/
-sdword dbgNonFatal(char *file, sdword line, char *string)
+void dbgNonFatal(char *file, sdword line, char *string)
 {
     sprintf(dbgFatalErrorString, "\n%s (%d): Non-fatal error - %s", file, line, string);
     if (utyNonFatalErrorWaitLoop() && dbgInt3Enabled)
@@ -307,7 +298,6 @@ sdword dbgNonFatal(char *file, sdword line, char *string)
         __asm__ ( "int $3\n\t" );
 #endif
     }
-    return(0);
 }
 
 /*-----------------------------------------------------------------------------
@@ -316,9 +306,9 @@ sdword dbgNonFatal(char *file, sdword line, char *string)
                     exit the game.
     Inputs      : same as dbgFatalf
     Outputs     :
-    Return      : 0
+    Return      : void
 ----------------------------------------------------------------------------*/
-sdword dbgNonFatalf(char *file, sdword line, char *format, ...)
+void dbgNonFatalf(char *file, sdword line, char *format, ...)
 {
     va_list argList;
     char error[DBG_BufferLength];
@@ -328,7 +318,6 @@ sdword dbgNonFatalf(char *file, sdword line, char *format, ...)
     va_end(argList);
 
     dbgNonFatal(file, line, error);                         //print the message
-    return(0);
 }
 
 
