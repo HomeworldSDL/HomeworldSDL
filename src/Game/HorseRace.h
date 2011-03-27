@@ -68,8 +68,6 @@ extern HorseStatus horseracestatus;
 void horseRaceInit(void);
 void horseRaceShutdown(void);
 
-void horseRaceWaitForNetworkGameStart(void);
-
 void hrProcessPacket(ChatPacket *packet);
 
 void recievedHorsePacketCB(ubyte *packet,udword sizeofpacket);
