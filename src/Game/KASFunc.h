@@ -227,7 +227,6 @@ sdword kasfShipsSelectDamaged(GrowSelection *newShips, GrowSelection *originalSh
 sdword kasfShipsSelectMoving(GrowSelection *newShips, GrowSelection *originalShips);
 sdword kasfShipsSelectCapital(GrowSelection *newShips, GrowSelection *originalShips);
 sdword kasfShipsSelectNonCapital(GrowSelection *newShips, GrowSelection *originalShips);
-sdword kasfShipsSelectStrikeCraft(GrowSelection *newShips, GrowSelection *originalShips);
 sdword kasfShipsSelectNotDocked(GrowSelection *newShips, GrowSelection *originalShips);
 sdword kasfShipsSelectIndex(GrowSelection *newShips, GrowSelection *originalShips, sdword Index);
 sdword kasfShipsSelectNearby(GrowSelection *newShips, GrowSelection *originalShips, hvector *location, sdword distance);
