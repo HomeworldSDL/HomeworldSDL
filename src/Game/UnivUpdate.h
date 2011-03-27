@@ -119,8 +119,6 @@ bool univSpaceObjInRenderList(SpaceObj *spaceobj);
 #define univRemoveObjFromMinorRenderList univRemoveObjFromRenderList
 #define univSpaceObjInMinorRenderList univSpaceObjInRenderList
 
-bool univResourceMovingTooFast(Resource *resource);
-
 real32 univGetChecksum(sdword *numShipsInChecksum);
 udword univCalcShipChecksum();
 
