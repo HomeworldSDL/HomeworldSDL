@@ -213,7 +213,7 @@ void dbgFatal(char *file, sdword line, char *string)
     {
 #if defined (_MSC_VER)
         _asm int 3
-#elif defined (__GNUC__) && (defined (__i386__) || defined (__x86_64__)) && !defined (_MACOSX_FIX_86)
+#elif defined (__GNUC__) && (defined (__i386__) || defined (__x86_64__))
         __asm__ ( "int $3\n\t" );
 #endif
     }
@@ -260,7 +260,7 @@ void dbgNonFatal(char *file, sdword line, char *string)
     {
 #if defined (_MSC_VER)
         _asm int 3
-#elif defined (__GNUC__) && defined (__i386__) && !defined (_MACOSX_FIX_86)
+#elif defined (__GNUC__) && (defined (__i386__) || defined (__x86_64__))
         __asm__ ( "int $3\n\t" );
 #endif
     }
