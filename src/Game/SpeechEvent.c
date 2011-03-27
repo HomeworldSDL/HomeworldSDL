@@ -1314,24 +1314,6 @@ sdword SEselectsentence(sdword actor, sdword event, sdword variable, sdword setv
 
 
 /*-----------------------------------------------------------------------------
-    Name        :
-    Description :   this function updates the actual speech that is playing,
-                    decides when to fade volumes or cut off particular events
-    Inputs      :
-    Outputs     :
-    Return      :
-----------------------------------------------------------------------------*/
-void speechUpdateSpeech(void)
-{
-    /* what is the most important speech? */
-    /* should something else be shut off? */
-    /* are we past the max # of events that should be playing? */
-
-
-}
-
-
-/*-----------------------------------------------------------------------------
     Name        :   speechEventQueue
     Description :   Adds speech events to the queue if there is space for them.  Does trivial rejection on
                     low priority speech events.
