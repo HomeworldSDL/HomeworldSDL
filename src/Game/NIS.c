@@ -97,7 +97,6 @@ void nisSoundEvent(nisplaying *NIS, nisevent *event);
 void nisSpeechEvent(nisplaying *NIS, nisevent *event);
 void nisFleetSpeechEvent(nisplaying *NIS, nisevent *event);
 void nisAnimaticSpeechEvent(nisplaying *NIS, nisevent *event);
-void nisGunShoot(nisplaying *NIS, nisevent *event);
 void nisRemainAtEnd(nisplaying *NIS, nisevent *event);
 void nisCameraFOV(nisplaying *NIS, nisevent *event);
 void nisCameraCut(nisplaying *NIS, nisevent *event);
