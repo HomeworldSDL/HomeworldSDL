@@ -99,7 +99,6 @@ scriptStructEntry SalCapCorvetteStaticTable[] =
 };
 
 
-bool salvageTargetTrackVector(Ship *ship, vector *trackvector);
 bool handOffTargetToDockWith(Ship *ship);
 void SalCapRemoveShipReferences(Ship *ship, Ship *shiptoremove);
 
