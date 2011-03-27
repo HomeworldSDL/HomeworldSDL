@@ -141,7 +141,6 @@ bool8 fileMakeDestinationDirectory(const char *fileName);
 bool fileExistsInBigFile(char *fileName);
 bool fileExists(char *fileName, udword flags);
 sdword fileSizeGet(char *fileName, udword flags);
-sdword fileSizeRemaining(filehandle handle);
 
 void logfileClear(char *logfile);
 void logfileLog(char *logfile,char *str);
