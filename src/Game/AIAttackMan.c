@@ -909,19 +909,6 @@ void aiaAttackManager(void)
     P2 Specific Functions:
 =============================================================================*/
 /*-----------------------------------------------------------------------------
-    Name        : aiaProcessMultiBeamFrigates
-    Description : Controls the attack pattern of the multi beam frigates
-    Inputs      :
-    Outputs     : Creates a few teams
-    Return      : void
-----------------------------------------------------------------------------*/
-void aiaProcessFrigates(void)
-{
-    //does nothing for now
-}
-
-
-/*-----------------------------------------------------------------------------
     Name        : aiaCleanUpSwarmers
     Description : Cleans up the swarm teams: deletes groups that have no ships or only pods left.  Puts the pods back into the newships selection
     Inputs      : nah-zink
@@ -1203,8 +1190,6 @@ void aiaProcessSwarm(void)
 void aiaP2AttackManager(void)
 {
     aiaProcessSwarm();
-
-    aiaProcessFrigates();
 }
 
 
