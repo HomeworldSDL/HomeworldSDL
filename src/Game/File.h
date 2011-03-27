@@ -143,7 +143,6 @@ bool fileExists(char *fileName, udword flags);
 sdword fileSizeGet(char *fileName, udword flags);
 sdword fileSizeRemaining(filehandle handle);
 sdword fileLocation(filehandle handle);
-sdword fileEndoOfFile(filehandle handle);
 
 void logfileClear(char *logfile);
 void logfileLog(char *logfile,char *str);
