@@ -285,7 +285,6 @@ struct ChatPacket;
 void mgStartMultiPlayerGameScreens(regionhandle region, sdword ID, udword event, udword data, bool AlreadyLoggedIn);
 void mgShutdownMultiPlayerGameScreens(void);
 
-void mgConnectedToChannel(bool existing);
 void mgFailedToConnectToChannel(bool existing);
 
 void mgDisplayMessage(char *message);
