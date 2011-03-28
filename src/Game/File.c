@@ -443,17 +443,23 @@ static bool8 fileNameCorrectCase (char* fileName)
 	if (isalpha(fileNameCopy[0]) && strcmp(fileNameCopy + 1, ":") == 0)
 	{
 		fileNameCopy[2] = '/';
-#else
-	if (fileNameCopy[0] == '\0')
-	{
-		fileNameCopy[0] = '/';
-#endif
 
 		dbgAssertOrIgnore(pathComponentCount > 1);
 		pathComponentCount--;
 
 		isPathAbsolute = TRUE;
 	}
+#else
+	if (fileNameCopy[0] == '\0')
+	{
+		fileNameCopy[0] = '/';
+
+		dbgAssertOrIgnore(pathComponentCount > 1);
+		pathComponentCount--;
+
+		isPathAbsolute = TRUE;
+	}
+#endif
 
 	/* Now we start the search for the given file.  For each path component,
 	   we first do an exact check to see if it exists using the case given
