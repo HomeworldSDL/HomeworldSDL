@@ -7,26 +7,35 @@ I tried to #define a way of making these changes whilst retaining the original J
    #include "File.h"
 
 
-2) jinclude.h: change the JFREAD #define to:
+2) jinclude.h: rename the JFREAD #define to JFREAD_ANSI and add a new JFREAD #define that uses the functions in File.h:
 
-   #define JFREAD(file, buf, sizeofbuf)  \
+    // Homeworld SDL
+    #define JFREAD(file,buf,sizeofbuf)  \
       (fileBlockReadNoError((file), (void *) (buf), (sizeofbuf)))
+    #define JFREAD_ANSI(file,buf,sizeofbuf)  \
+      ((size_t) fread((void *) (buf), (size_t) 1, (size_t) (sizeofbuf), (file)))
 
 
-3) jpeglib.h: change jpeg_stdio_src's function prototype to accept filehandles:
+3) JFREAD is referenced by all the JPEG library code so that it is easy to call whatever file handling code we want to use. However, the JPEG library also includes a virtual memory implementation that relies on tmpfile(). File.c does not support any temporary file handling (it expects to read/write known files) and it's not worth adding it for this one use-case, so we need to call the standard ANSI fread in that bit of code. In jmemansi.c, replace read_backing_store's use of JFREAD with JFREAD_ANSI:
+
+    if (JFREAD_ANSI(info->temp_file, buffer_address, byte_count)
+        != (size_t) byte_count)
+
+
+4) jpeglib.h: change jpeg_stdio_src's function prototype to accept filehandles:
 
    EXTERN(void) jpeg_stdio_src JPP((j_decompress_ptr cinfo, filehandle infile));
 
 
-4) jdatasrc.c: change jpeg_stdio_src's function definition to accept filehandles:
+5) jdatasrc.c: change jpeg_stdio_src's function definition to accept filehandles:
 
    jpeg_stdio_src (j_decompress_ptr cinfo, filehandle infile)
 
 
-5) delete Makefile.in (built from Makefile.am)
+6) delete Makefile.in (built from Makefile.am)
 
 
-6) check if Makefile.am needs updating (unlikely unless new files have been added/deleted).
+7) check if Makefile.am needs updating (unlikely unless new files have been added/deleted).
 
 
 NB: interfce.[ch] and jconfig.h are the "hook" files between Homeworld SDL and the JPEG code.

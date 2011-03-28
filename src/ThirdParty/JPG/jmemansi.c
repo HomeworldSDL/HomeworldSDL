@@ -100,7 +100,7 @@ read_backing_store (j_common_ptr cinfo, backing_store_ptr info,
 {
   if (fseek(info->temp_file, file_offset, SEEK_SET))
     ERREXIT(cinfo, JERR_TFILE_SEEK);
-  if (JFREAD(info->temp_file, buffer_address, byte_count)
+  if (JFREAD_ANSI(info->temp_file, buffer_address, byte_count)
       != (size_t) byte_count)
     ERREXIT(cinfo, JERR_TFILE_READ);
 }

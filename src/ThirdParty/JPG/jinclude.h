@@ -86,7 +86,11 @@
  * CAUTION: argument order is different from underlying functions!
  */
 
+// Homeworld SDL
 #define JFREAD(file,buf,sizeofbuf)  \
-  (fileBlockReadNoError((file), (void *) (buf), (sizeofbuf)))  // Homeworld SDL
+  (fileBlockReadNoError((file), (void *) (buf), (sizeofbuf)))
+#define JFREAD_ANSI(file,buf,sizeofbuf)  \
+  ((size_t) fread((void *) (buf), (size_t) 1, (size_t) (sizeofbuf), (file)))
+
 #define JFWRITE(file,buf,sizeofbuf)  \
   ((size_t) fwrite((const void *) (buf), (size_t) 1, (size_t) (sizeofbuf), (file)))
