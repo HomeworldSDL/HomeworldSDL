@@ -114,7 +114,7 @@ void SalCapCorvetteStaticInit(char *directory,char *filename,struct ShipStaticIn
     {
         corvstat = (statinfo->shiprace == R1) ? &SalCapCorvetteStaticRace1 : &SalCapCorvetteStaticRace2;
     }
-    memset(corvstat,sizeof(*corvstat),0);
+    memset(corvstat, 0, sizeof(SalCapCorvetteStatics));
     scriptSetStruct(directory,filename,AttackSideStepParametersScriptTable,(ubyte *)&corvstat->sidestepParameters);
     scriptSetStruct(directory,filename,SalCapCorvetteStaticTable,(ubyte *)corvstat);
     statinfo->custstatinfo = corvstat;

@@ -26,7 +26,7 @@ void P1StandardCorvetteStaticInit(char *directory,char *filename,struct ShipStat
 {
     P1StandardCorvetteStatics *corvstat = &P1StandardCorvetteStatic;
 
-    memset(corvstat,sizeof(*corvstat),0);
+    memset(corvstat, 0, sizeof(P1StandardCorvetteStatics));
     scriptSetStruct(directory,filename,AttackSideStepParametersScriptTable,(ubyte *)&corvstat->sidestepParameters);
 
     statinfo->custstatinfo = corvstat;

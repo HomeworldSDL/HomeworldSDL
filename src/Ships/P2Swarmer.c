@@ -28,7 +28,7 @@ void P2SwarmerStaticInit(char *directory,char *filename,struct ShipStaticInfo *s
 {
     P2SwarmerStatics *corvstat = (statinfo->shiprace == R1) ? &P2SwarmerStaticRace1 : &P2SwarmerStaticRace2;
 
-    memset(corvstat,sizeof(*corvstat),0);
+    memset(corvstat, 0, sizeof(P2SwarmerStatics));
     scriptSetStruct(directory,filename,AttackSideStepParametersScriptTable,(ubyte *)&corvstat->sidestepParameters);
 
     statinfo->custstatinfo = corvstat;

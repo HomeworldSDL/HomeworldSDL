@@ -70,7 +70,7 @@ void RepairCorvetteStaticInit(char *directory,char *filename,struct ShipStaticIn
 {
     RepairCorvetteStatics *corvstat = (statinfo->shiprace == R1) ? &RepairCorvetteStaticRace1 : &RepairCorvetteStaticRace2;
 
-    memset(corvstat,sizeof(*corvstat),0);
+    memset(corvstat, 0, sizeof(RepairCorvetteStatics));
     scriptSetStruct(directory,filename,AttackSideStepParametersScriptTable,(ubyte *)&corvstat->sidestepParameters);
     scriptSetStruct(directory,filename,RepairCorvetteStaticScriptTable,(ubyte *)corvstat);
 

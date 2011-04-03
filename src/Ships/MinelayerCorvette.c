@@ -89,7 +89,7 @@ void MinelayerCorvetteStaticInit(char *directory,char *filename,struct ShipStati
 {
     MinelayerCorvetteStatics *corvstat = (statinfo->shiprace == R1) ? &MinelayerCorvetteStaticRace1 : &MinelayerCorvetteStaticRace2;
 
-    memset(corvstat,sizeof(*corvstat),0);
+    memset(corvstat, 0, sizeof(MinelayerCorvetteStatics));
     scriptSetStruct(directory,filename,AttackSideStepParametersScriptTable,(ubyte *)&corvstat->sidestepParameters);
 
     statinfo->custstatinfo = corvstat;

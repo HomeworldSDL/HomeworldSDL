@@ -27,7 +27,7 @@ void MultiGunCorvetteStaticInit(char *directory,char *filename,struct ShipStatic
 {
     MultiGunCorvetteStatics *corvstat = (statinfo->shiprace == R1) ? &MultiGunCorvetteStaticRace1 : &MultiGunCorvetteStaticRace2;
 
-    memset(corvstat,sizeof(*corvstat),0);
+    memset(corvstat, 0, sizeof(MultiGunCorvetteStatics));
     scriptSetStruct(directory,filename,AttackSideStepParametersScriptTable,(ubyte *)&corvstat->sidestepParameters);
 
     statinfo->custstatinfo = corvstat;

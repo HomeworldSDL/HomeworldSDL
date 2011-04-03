@@ -47,7 +47,7 @@ void P1MissileCorvetteStaticInit(char *directory,char *filename,struct ShipStati
     udword i;
     P1MissileCorvetteStatics *corvstat = &P1MissileCorvetteStatic;
 
-    memset(corvstat,sizeof(*corvstat),0);
+    memset(corvstat, 0, sizeof(P1MissileCorvetteStatics));
 
     scriptSetStruct(directory,filename,AttackSideStepParametersScriptTable,(ubyte *)&corvstat->sidestepParameters);
     scriptSetStruct(directory,filename,P1MissileCorvetteScriptTable,(ubyte *)corvstat);

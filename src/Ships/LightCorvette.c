@@ -28,7 +28,7 @@ void LightCorvetteStaticInit(char *directory,char *filename,struct ShipStaticInf
 {
     LightCorvetteStatics *corvstat = (statinfo->shiprace == R1) ? &LightCorvetteStaticRace1 : &LightCorvetteStaticRace2;
 
-    memset(corvstat,sizeof(*corvstat),0);
+    memset(corvstat, 0, sizeof(LightCorvetteStatics));
     scriptSetStruct(directory,filename,AttackSideStepParametersScriptTable,(ubyte *)&corvstat->sidestepParameters);
 
     statinfo->custstatinfo = corvstat;
