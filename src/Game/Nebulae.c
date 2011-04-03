@@ -2025,7 +2025,7 @@ void nebRenderNebula(nebulae_t* neb)
     atOn = glIsEnabled(GL_ALPHA_TEST);
     cullOff = !glIsEnabled(GL_CULL_FACE);
 
-    glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
+    glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
     if (fogOn) glDisable(GL_FOG);
 
     rndLightingEnable(FALSE);

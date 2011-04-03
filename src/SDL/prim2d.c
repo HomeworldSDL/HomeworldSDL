@@ -108,15 +108,16 @@ void primTriSolid2(triangle *tri, color c)
 ----------------------------------------------------------------------------*/
 void primTriOutline2(triangle *tri, sdword thickness, color c)
 {
+    GLfloat linewidth;
+    glGetFloatv(GL_LINE_WIDTH, &linewidth);
     glColor3ub(colRed(c), colGreen(c), colBlue(c));
-    glPushAttrib(GL_LINE_BIT);
     glLineWidth((GLfloat)thickness);
     glBegin(GL_LINE_LOOP);
     glVertex2f(primScreenToGLX(tri->x0), primScreenToGLY(tri->y0));
     glVertex2f(primScreenToGLX(tri->x1), primScreenToGLY(tri->y1));
     glVertex2f(primScreenToGLX(tri->x2), primScreenToGLY(tri->y2));
     glEnd();
-    glPopAttrib();
+    glLineWidth(linewidth);
 }
 
 /*-----------------------------------------------------------------------------
@@ -235,12 +236,11 @@ void primRectTranslucent2(rectangle* rect, color c)
 ----------------------------------------------------------------------------*/
 void primRectOutline2(rectangle *rect, sdword thickness, color c)
 {
-    sdword bottom;
-
-    bottom = rect->y1 - 1;
+    sdword bottom = rect->y1 - 1;
+    GLfloat linewidth;
+    glGetFloatv(GL_LINE_WIDTH, &linewidth);
 
     glColor3ub(colRed(c), colGreen(c), colBlue(c));
-    glPushAttrib(GL_LINE_BIT);
     glLineWidth((GLfloat)thickness);
 
     glBegin(GL_LINE_LOOP);
@@ -250,7 +250,7 @@ void primRectOutline2(rectangle *rect, sdword thickness, color c)
     glVertex2f(primScreenToGLX(rect->x0), primScreenToGLY(bottom));
     glEnd();
 
-    glPopAttrib();
+    glLineWidth(linewidth);
 }
 
 /*-----------------------------------------------------------------------------
@@ -344,6 +344,8 @@ void primOvalArcOutline2(oval *o, real32 radStart, real32 radEnd, sdword thickne
     real32 angle, angleInc;
     real32 centreX, centreY, width, height;
     real32 x, y;
+    GLfloat linewidth;
+    glGetFloatv(GL_LINE_WIDTH, &linewidth);
 
     centreX = primScreenToGLX(o->centreX);                  //get floating-point version of oval attributes
     centreY = primScreenToGLY(o->centreY);
@@ -354,7 +356,6 @@ void primOvalArcOutline2(oval *o, real32 radStart, real32 radEnd, sdword thickne
     endSegment = (sdword)(radEnd * (real32)segments / (2.0f * PI) - 0.01f);//get ending segment
 
     glColor3ub(colRed(c), colGreen(c), colBlue(c));
-    glPushAttrib(GL_LINE_BIT);
     glLineWidth((GLfloat)thickness);
     glBegin(GL_LINE_STRIP);
 
@@ -382,7 +383,7 @@ void primOvalArcOutline2(oval *o, real32 radStart, real32 radEnd, sdword thickne
     glVertex2f(x, y);                                       //draw last vertex
     
     glEnd();
-    glPopAttrib();
+    glLineWidth(linewidth);
 }
 
 /*-----------------------------------------------------------------------------
@@ -482,14 +483,15 @@ void primNonAALine2(sdword x0, sdword y0, sdword x1, sdword y1, color c)
 ----------------------------------------------------------------------------*/
 void primLineThick2(sdword x0, sdword y0, sdword x1, sdword y1, sdword thickness, color c)
 {
-    glPushAttrib(GL_LINE_BIT);
+    GLfloat linewidth;
+    glGetFloatv(GL_LINE_WIDTH, &linewidth);
     glLineWidth((GLfloat)thickness);
     glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glBegin(GL_LINES);
     glVertex2f(primScreenToGLX(x0), primScreenToGLY(y0));
     glVertex2f(primScreenToGLX(x1), primScreenToGLY(y1));
     glEnd();
-    glPopAttrib();
+    glLineWidth(linewidth);
 }
 
 /*-----------------------------------------------------------------------------
@@ -502,13 +504,14 @@ void primLineThick2(sdword x0, sdword y0, sdword x1, sdword y1, sdword thickness
                     primLineLoopPoint calls inbetween
 ----------------------------------------------------------------------------*/
 static bool LLblendon;
+static GLfloat LLlinewidth;
 void primLineLoopStart2(sdword thickness, color c)
 {
+    glGetFloatv(GL_LINE_WIDTH, &LLlinewidth);
     LLblendon = glIsEnabled(GL_BLEND);
     glEnable(GL_LINE_SMOOTH);
     if (!LLblendon) glEnable(GL_BLEND);
     glColor3ub(colRed(c), colGreen(c), colBlue(c));
-    glPushAttrib(GL_LINE_BIT);
     glLineWidth((GLfloat)thickness);
     glBegin(GL_LINE_LOOP);
 }
@@ -535,7 +538,7 @@ void primLineLoopPoint3F(real32 x, real32 y)
 void primLineLoopEnd2(void)
 {
     glEnd();
-    glPopAttrib();
+    glLineWidth(LLlinewidth);
     if (!LLblendon) glDisable(GL_BLEND);
     glDisable(GL_LINE_SMOOTH);
 }
@@ -654,8 +657,9 @@ void primBeveledRectSolid(rectangle *rect, color c, uword xb, uword yb)
 void primBeveledRectOutline(rectangle *rect, sdword thickness, color c,
                             uword xb, uword yb)
 {
+    GLfloat linewidth;
+    glGetFloatv(GL_LINE_WIDTH, &linewidth);
     glColor3ub(colRed(c), colGreen(c), colBlue(c));
-    glPushAttrib(GL_LINE_BIT);
     glLineWidth((GLfloat)thickness);
     glBegin(GL_LINE_LOOP);
     glVertex2f(SX(X0+xb), SY(Y0));
@@ -667,7 +671,7 @@ void primBeveledRectOutline(rectangle *rect, sdword thickness, color c,
     glVertex2f(SX(X0), SY(Y1-yb));
     glVertex2f(SX(X0), SY(Y0+yb));
     glEnd();
-    glPopAttrib();
+    glLineWidth(linewidth);
 }
 
 /*-----------------------------------------------------------------------------
@@ -683,9 +687,10 @@ void primRoundRectOutline(rectangle *rect, sdword thickness, color c, uword xb, 
 {
     oval o;
     sdword segs = SEGS;
+    GLfloat linewidth;
+    glGetFloatv(GL_LINE_WIDTH, &linewidth);
 
     glColor3ub(colRed(c), colGreen(c), colBlue(c));
-    glPushAttrib(GL_LINE_BIT);
     glLineWidth((GLfloat)thickness);
     glBegin(GL_LINES);
     glVertex2f(SX(X0+xb), SY(Y0));
@@ -697,7 +702,7 @@ void primRoundRectOutline(rectangle *rect, sdword thickness, color c, uword xb, 
     glVertex2f(SX(X0), SY(Y1-yb));
     glVertex2f(SX(X0), SY(Y0+yb));
     glEnd();
-    glPopAttrib();
+    glLineWidth(linewidth);
 
 //    if (xb > 4 || yb > 4)
 //        segs *= 2;
@@ -736,9 +741,10 @@ void primMaskedRoundRectOutline(rectangle *rect, sdword thickness, color c,
 {
     oval o;
     sdword segs = SEGS;
+    GLfloat linewidth;
+    glGetFloatv(GL_LINE_WIDTH, &linewidth);
 
     glColor3ub(colRed(c), colGreen(c), colBlue(c));
-    glPushAttrib(GL_LINE_BIT);
     glLineWidth((GLfloat)thickness);
     glBegin(GL_LINES);
     glVertex2f(SX(X0+xb), SY(Y0));
@@ -780,7 +786,7 @@ void primMaskedRoundRectOutline(rectangle *rect, sdword thickness, color c,
     }
 
     glEnd();
-    glPopAttrib();
+    glLineWidth(linewidth);
 
     if (xb > 4 || yb > 4)
         segs *= 2;

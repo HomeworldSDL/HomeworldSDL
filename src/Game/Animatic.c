@@ -507,7 +507,7 @@ void animAviDisplay()
 
     animAviSetup(TRUE);
 //    glRasterPos2f((real32)xOfs, (real32)yOfs);
-    glRasterPos2i(xOfs, yOfs);
+//    glRasterPos2i(xOfs, yOfs);
 
 #ifdef NEVER_DEFINE_THIS
     switch (RGLtype)

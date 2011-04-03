@@ -28,6 +28,6 @@ DEP_LIBS = \
    ./ThirdParty/LZSS/libhw_LZSS.a
 
 homeworld_LIBTOOLFLAGS = --preserve-dup-deps
-homeworld_LDADD = $(HW_LIBS) $(DEP_LIBS) -L/usr/X11R6/lib -lX11 -lXext -lGL @SDL_LIBS@ $(MOVIE_LIBS) $(NET_LIBS)
+homeworld_LDADD = $(HW_LIBS) $(DEP_LIBS) -L/usr/X11R6/lib -lX11 -lXext @SDL_LIBS@ $(GL_LIBS) $(MOVIE_LIBS) $(NET_LIBS)
 homeworld_LDFLAGS = -Wl,--as-needed
 

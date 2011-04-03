@@ -862,7 +862,7 @@ void cloudStartup()
 
     dontNebulate = FALSE;
 
-    glFogi(GL_FOG_MODE, GL_LINEAR);
+    glFogf(GL_FOG_MODE, GL_LINEAR);
 
     ellipsoid_init(5);
     ellipsoid_seq(&ellipseLOD[0], 5, 1.0f, 1.0f, 1.0f);
@@ -1242,7 +1242,7 @@ void cloudRenderSystem(void* mesh, cloudSystem* system, sdword lod)
         return;
     }
 
-    glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
+    glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
     rndTextureEnable(FALSE);
     glShadeModel(GL_SMOOTH);
     glEnable(GL_BLEND);

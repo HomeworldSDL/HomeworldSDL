@@ -602,6 +602,7 @@ void partBindAlternate(trhandle tex)
         return;
     }
 
+#ifndef HW_ENABLE_GLES
     //check alternates
     for (i = 0; i < alternateIndex; i++)
     {
@@ -643,6 +644,7 @@ void partBindAlternate(trhandle tex)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
     memFree(data);
+#endif
 }
 
 /*-----------------------------------------------------------------------------
@@ -1439,8 +1441,9 @@ udword partRenderLineSystem(udword n, particle *p, udword flags)
     vector pos;
     bool texEnabled, lightEnabled;
     bool alpha = FALSE;
+    GLfloat linewidth;
 
-    glPushAttrib(GL_LINE_BIT);
+    glGetFloatv(GL_LINE_WIDTH, &linewidth);
     if (bitTest(flags, PART_ALPHA))
     {
         alpha = TRUE;
@@ -1524,7 +1527,7 @@ udword partRenderLineSystem(udword n, particle *p, udword flags)
     rndTextureEnable(texEnabled);
     rndLightingEnable(lightEnabled);
 
-    glPopAttrib();
+    glLineWidth(linewidth);
     return hits;
 }
 
@@ -1589,11 +1592,12 @@ udword partRenderPointSystem(udword n, particle *p, udword flags)
     bool alpha = FALSE;
 
     bool texEnabled, lightEnabled;
+    GLfloat pointsize;
 
     texEnabled = rndTextureEnable(FALSE);
     lightEnabled = rndLightingEnable(FALSE);
 
-    glPushAttrib(GL_POINT_BIT);
+    glGetFloatv(GL_POINT_SIZE, &pointsize);
     if (bitTest(flags, PART_ALPHA))
     {
         alpha = TRUE;
@@ -1637,7 +1641,7 @@ udword partRenderPointSystem(udword n, particle *p, udword flags)
     rndTextureEnable(texEnabled);
     rndLightingEnable(lightEnabled);
 
-    glPopAttrib();
+    glPointSize(pointsize);
     rndAdditiveBlends(FALSE);
     return hits;
 }

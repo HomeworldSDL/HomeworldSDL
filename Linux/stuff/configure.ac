@@ -215,8 +215,21 @@ AC_ARG_ENABLE(oldsound,
         AS_HELP_STRING([--enable-oldsound],[include old sound objects into Homeworld]),[oldsound=yes])
 AM_CONDITIONAL(OLD_SOUND, test "$oldsound" = "yes")
 
+AC_CHECK_LIB([GL], [glBegin], [
+    echo "* Using OpenGL for Homeworld *"
+    GL_LIBS="-lGL"
+], [
+    AC_CHECK_LIB([GLES_CM], [glEnableClientState], [
+            echo "* Using OpenGL ES for Homeworld (HW_ENABLE_GLES) *"
+            HWGAME_CFLAGS="$HWGAME_CFLAGS -DHW_ENABLE_GLES"
+            GL_LIBS="-lSDL_gles -lGLES_CM"
+    ], [
+    ])
+])
+
 AC_SUBST([MOVIE_LIBS])
 AC_SUBST([NET_LIBS])
+AC_SUBST([GL_LIBS])
 AC_SUBST([SSE_FLAGS])
 AC_SUBST([TRANSFORM])
 AC_SUBST(CC_FOR_BUILD)

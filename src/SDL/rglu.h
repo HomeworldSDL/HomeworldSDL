@@ -11,19 +11,19 @@
 
 #include "glinc.h"
 
-void rgluPerspective(GLdouble fovy, GLdouble aspect, GLdouble zNear, GLdouble zFar);
-GLint rgluProject(GLdouble objx, GLdouble objy, GLdouble objz,
-                  GLdouble const* model, GLdouble const* proj,
+void rgluPerspective(GLfloat fovy, GLfloat aspect, GLfloat zNear, GLfloat zFar);
+GLint rgluProject(GLfloat objx, GLfloat objy, GLfloat objz,
+                  GLfloat const* model, GLfloat const* proj,
                   GLint const* viewport,
-                  GLdouble* winx, GLdouble* winy, GLdouble* winz);
-GLint rgluUnProject(GLdouble winx, GLdouble winy, GLdouble winz,
-                    GLdouble const* model, GLdouble const* proj,
+                  GLfloat* winx, GLfloat* winy, GLfloat* winz);
+GLint rgluUnProject(GLfloat winx, GLfloat winy, GLfloat winz,
+                    GLfloat const* model, GLfloat const* proj,
                     GLint const* viewport,
-                    GLdouble* objx, GLdouble* objy, GLdouble* objz);
-void rgluLookAt(GLdouble eyex, GLdouble eyey, GLdouble eyez,
-                GLdouble centerx, GLdouble centery, GLdouble centerz,
-                GLdouble upx, GLdouble upy, GLdouble upz);
-void rgluOrtho2D(GLdouble left, GLdouble right, GLdouble bottom, GLdouble top);
+                    GLfloat* objx, GLfloat* objy, GLfloat* objz);
+void rgluLookAt(GLfloat eyex, GLfloat eyey, GLfloat eyez,
+                GLfloat centerx, GLfloat centery, GLfloat centerz,
+                GLfloat upx, GLfloat upy, GLfloat upz);
+void rgluOrtho2D(GLfloat left, GLfloat right, GLfloat bottom, GLfloat top);
 char* rgluErrorString(GLenum err);
 
 #endif

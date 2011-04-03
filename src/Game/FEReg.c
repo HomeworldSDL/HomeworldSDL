@@ -33,8 +33,6 @@
     Data:
 =============================================================================*/
 
-static bool dec = FALSE;
-
 //to speed up texture loading, the registry refers to the texture number
 //rather than the texture name.  The names are stored in an array and the number
 //corresponds to their array location.
@@ -1029,21 +1027,9 @@ void ferTextureDeregister(tex_holder holder)
 
 static sdword nextLog2(sdword n)
 {
-    if (n <= 2)
-        return 2;
-    if (n <= 4)
-        return 4;
-    if (n <= 8)
-        return 8;
-    if (n <= 16)
-        return 16;
-    if (n <= 32)
-        return 32;
-    if (n <= 64)
-        return 64;
-    if (n <= 128)
-        return 128;
-    return 256;
+    sdword r = 1;
+    while (r < n) r <<= 1;
+    return r;
 }
 
 /*-----------------------------------------------------------------------------
@@ -1061,13 +1047,6 @@ void ferDraw(sdword x, sdword y, lifheader *texture)
     GLint newwidth, newheight;
     sdword oldTex;
     udword oldMode;
-
-    if (dec)
-    {
-        glRasterPos2f(primScreenToGLX(x), primScreenToGLY(y));
-        glDrawPixels(texture->width, texture->height, GL_RGBA, GL_UNSIGNED_BYTE, texture->data);
-        return;
-    }
 
     if (g_Entry == NULL)
     {
@@ -2366,37 +2345,48 @@ void ferDrawHorizSlider(sliderhandle shandle, uword state)
     {
     case s_disabled:
         texleft = ferTextureRegister(VOLUME_DISABLED_LEFTCAP, none, none);
+        ferDraw(shandle->reg.rect.x0 - slider_end_width + FER_HSLIDER_X, shandle->reg.rect.y1, texleft);
         texright = ferTextureRegister(VOLUME_DISABLED_RIGHTCAP, none, none);
+        ferDraw(shandle->reg.rect.x1 + FER_HSLIDER_X, shandle->reg.rect.y1, texright);
         texmid = ferTextureRegister(VOLUME_DISABLED_MID, none, none);
+        ferDrawLine(shandle->reg.rect.x0 + FER_HSLIDER_X, shandle->reg.rect.y1,
+                    shandle->reg.rect.x1 + slider_end_width + FER_HSLIDER_X,
+                    shandle->reg.rect.y1, slider_end_width, texmid, 0);
         break;
 
     case s_off:
         texleft = ferTextureRegister(VOLUME_OFF_LEFTCAP, none, none);
+        ferDraw(shandle->reg.rect.x0 - slider_end_width + FER_HSLIDER_X, shandle->reg.rect.y1, texleft);
         texright = ferTextureRegister(VOLUME_OFF_RIGHTCAP, none, none);
+        ferDraw(shandle->reg.rect.x1 + FER_HSLIDER_X, shandle->reg.rect.y1, texright);
         texmid = ferTextureRegister(VOLUME_OFF_MID, none, none);
+        ferDrawLine(shandle->reg.rect.x0 + FER_HSLIDER_X, shandle->reg.rect.y1,
+                    shandle->reg.rect.x1 + slider_end_width + FER_HSLIDER_X,
+                    shandle->reg.rect.y1, slider_end_width, texmid, 0);
         break;
 
     case s_off_mouse:
         texleft = ferTextureRegister(VOLUME_MOUSE_LEFTCAP, none, none);
+        ferDraw(shandle->reg.rect.x0 - slider_end_width + FER_HSLIDER_X, shandle->reg.rect.y1, texleft);
         texright = ferTextureRegister(VOLUME_MOUSE_RIGHTCAP, none, none);
+        ferDraw(shandle->reg.rect.x1 + FER_HSLIDER_X, shandle->reg.rect.y1, texright);
         texmid = ferTextureRegister(VOLUME_MOUSE_MID, none, none);
+        ferDrawLine(shandle->reg.rect.x0 + FER_HSLIDER_X, shandle->reg.rect.y1,
+                    shandle->reg.rect.x1 + slider_end_width + FER_HSLIDER_X,
+                    shandle->reg.rect.y1, slider_end_width, texmid, 0);
         break;
 
     case s_on_mouse:
         texleft = ferTextureRegister(VOLUME_ON_LEFTCAP, none, none);
+        ferDraw(shandle->reg.rect.x0 - slider_end_width + FER_HSLIDER_X, shandle->reg.rect.y1, texleft);
         texright = ferTextureRegister(VOLUME_ON_RIGHTCAP, none, none);
+        ferDraw(shandle->reg.rect.x1 + FER_HSLIDER_X, shandle->reg.rect.y1, texright);
         texmid = ferTextureRegister(VOLUME_ON_MID, none, none);
+        ferDrawLine(shandle->reg.rect.x0 + FER_HSLIDER_X, shandle->reg.rect.y1,
+                    shandle->reg.rect.x1 + slider_end_width + FER_HSLIDER_X,
+                    shandle->reg.rect.y1, slider_end_width, texmid, 0);
         break;
     }
-
-    dec = TRUE;
-
-    ferDrawLine(shandle->reg.rect.x0 + FER_HSLIDER_X, shandle->reg.rect.y1,
-                shandle->reg.rect.x1 + slider_end_width + FER_HSLIDER_X,
-                shandle->reg.rect.y1, slider_end_width, texmid, 0);
-
-    ferDraw(shandle->reg.rect.x0 - slider_end_width + FER_HSLIDER_X, shandle->reg.rect.y1, texleft);
-    ferDraw(shandle->reg.rect.x1 + FER_HSLIDER_X, shandle->reg.rect.y1, texright);
 
     spos =  ((real32) (shandle->value) / shandle->maxvalue);
     spos = spos * (shandle->reg.rect.x1-shandle->reg.rect.x0);
@@ -2407,8 +2397,6 @@ void ferDrawHorizSlider(sliderhandle shandle, uword state)
 
     texmarker = ferTextureRegister(VOLUME_BUTTON, none, none);
     ferDraw(x, y, texmarker);
-
-    dec = FALSE;
 
     glDisable(GL_ALPHA_TEST);
 #undef FER_HSLIDER_X
@@ -2440,40 +2428,46 @@ void ferDrawVertSlider(sliderhandle shandle, uword state)
     {
     case s_off:
         textop = ferTextureRegister(EQ_BAR_OFF_TOPCAP, none, none);
+        ferDraw(shandle->reg.rect.x0, shandle->reg.rect.y0+FER_VSLIDER_Y, textop);
         texmid = ferTextureRegister(EQ_BAR_OFF_STRAIGHT, none, none);
+        ferDrawLine(shandle->reg.rect.x0, shandle->reg.rect.y0+FER_VSLIDER_Y,
+                    shandle->reg.rect.x0,
+                    shandle->reg.rect.y1 + slider_vert_end_width + FER_VSLIDER_Y,
+                    slider_vert_end_width, texmid, 0);
         texbot = ferTextureRegister(EQ_BAR_OFF_BOTCAP, none, none);
+        ferDraw(shandle->reg.rect.x0, shandle->reg.rect.y1-slider_vert_end_width+FER_VSLIDER_Y, texbot);
         texcenter = ferTextureRegister(EQ_BAR_OFF_MIDDLE, none, none);
+        ferDraw(shandle->reg.rect.x0, shandle->reg.rect.y1-slider_vert_end_width/2+FER_VSLIDER_Y, texcenter);
         break;
 
     case s_off_mouse:
         textop = ferTextureRegister(EQ_BAR_MOUSE_TOPCAP, none, none);
+        ferDraw(shandle->reg.rect.x0, shandle->reg.rect.y0+FER_VSLIDER_Y, textop);
         texmid = ferTextureRegister(EQ_BAR_MOUSE_STRAIGHT, none, none);
+        ferDrawLine(shandle->reg.rect.x0, shandle->reg.rect.y0+FER_VSLIDER_Y,
+                    shandle->reg.rect.x0,
+                    shandle->reg.rect.y1 + slider_vert_end_width + FER_VSLIDER_Y,
+                    slider_vert_end_width, texmid, 0);
         texbot = ferTextureRegister(EQ_BAR_MOUSE_BOTCAP, none, none);
+        ferDraw(shandle->reg.rect.x0, shandle->reg.rect.y1-slider_vert_end_width+FER_VSLIDER_Y, texbot);
         texcenter = ferTextureRegister(EQ_BAR_MOUSE_MIDDLE, none, none);
+        ferDraw(shandle->reg.rect.x0, shandle->reg.rect.y1-slider_vert_end_width/2+FER_VSLIDER_Y, texcenter);
         break;
 
     case s_on_mouse:
         textop = ferTextureRegister(EQ_BAR_ON_TOPCAP, none, none);
+        ferDraw(shandle->reg.rect.x0, shandle->reg.rect.y0+FER_VSLIDER_Y, textop);
         texmid = ferTextureRegister(EQ_BAR_ON_STRAIGHT, none, none);
+        ferDrawLine(shandle->reg.rect.x0, shandle->reg.rect.y0+FER_VSLIDER_Y,
+                    shandle->reg.rect.x0,
+                    shandle->reg.rect.y1 + slider_vert_end_width + FER_VSLIDER_Y,
+                    slider_vert_end_width, texmid, 0);
         texbot = ferTextureRegister(EQ_BAR_ON_BOTCAP, none, none);
+        ferDraw(shandle->reg.rect.x0, shandle->reg.rect.y1-slider_vert_end_width+FER_VSLIDER_Y, texbot);
         texcenter = ferTextureRegister(EQ_BAR_ON_MIDDLE, none, none);
+        ferDraw(shandle->reg.rect.x0, shandle->reg.rect.y1-slider_vert_end_width/2+FER_VSLIDER_Y, texcenter);
         break;
     }
-
-    dec = TRUE;
-
-    //bar:
-    ferDrawLine(shandle->reg.rect.x0, shandle->reg.rect.y0+FER_VSLIDER_Y,
-                shandle->reg.rect.x0,
-                shandle->reg.rect.y1 + slider_vert_end_width + FER_VSLIDER_Y,
-                slider_vert_end_width, texmid, 0);
-
-    //top:
-    ferDraw(shandle->reg.rect.x0, shandle->reg.rect.y0+FER_VSLIDER_Y, textop);
-    //bot:
-    ferDraw(shandle->reg.rect.x0, shandle->reg.rect.y1-slider_vert_end_width+FER_VSLIDER_Y, texbot);
-    //center:
-    ferDraw(shandle->reg.rect.x0, shandle->reg.rect.y1-slider_vert_end_width/2+FER_VSLIDER_Y, texcenter);
 
     spos =  ((real32) (shandle->value) / shandle->maxvalue);
     spos = spos * (shandle->reg.rect.y1-shandle->reg.rect.y0);
@@ -2484,8 +2478,6 @@ void ferDrawVertSlider(sliderhandle shandle, uword state)
 
     texmarker = ferTextureRegister(EQ_BAR_BUTTON, none, none);
     ferDraw(x, y, texmarker);
-
-    dec = FALSE;
 
     glDisable(GL_ALPHA_TEST);
 #undef FER_VSLIDER_Y
@@ -2513,8 +2505,6 @@ void ferDrawScrollbar(scrollbarhandle shandle, ferscrollbarstate state)
     sdword height, textureHeight;
 
     glEnable(GL_BLEND);
-
-    dec = TRUE;
 
     top      = VERTSB_TOP;
     mid      = VERTSB_MID;
@@ -2563,29 +2553,33 @@ void ferDrawScrollbar(scrollbarhandle shandle, ferscrollbarstate state)
 
         if(textureHeight < height)
         {
+            texture[0] = ferTextureRegister(top, none, none);
             ferDraw(shandle->reg.rect.x0, shandle->reg.rect.y0+texture[0]->height, texture[0]);
 
             end_width = texture[0]->height;
+            texture[1] = ferTextureRegister(mid, none, none);
             ferDrawLine(shandle->reg.rect.x0, shandle->reg.rect.y0, shandle->reg.rect.x0,
                         shandle->reg.rect.y1, end_width, texture[1], 0);
 
             //draw the thumbwheel region
+            texture[2] = ferTextureRegister(bottom, none, none);
             ferDraw(shandle->reg.rect.x0, shandle->reg.rect.y1, texture[2]);
 
             //draw the thumbwheel
+            texture[3] = ferTextureRegister(tab_top, none, none);
             ferDraw(shandle->thumb.x0, shandle->thumb.y0+texture[3]->height, texture[3]);
 
             end_width = texture[3]->height;
+            texture[4] = ferTextureRegister(tab_mid, none, none);
             ferDrawLine(shandle->thumb.x0, shandle->thumb.y0, shandle->thumb.x0,
                         shandle->thumb.y1, end_width, texture[4], 0);
 
+            texture[5] = ferTextureRegister(tab_bot, none, none);
             ferDraw(shandle->thumb.x0, shandle->thumb.y1, texture[5]);
         }
     }
 
     glDisable(GL_BLEND);
-
-    dec = FALSE;
 }
 
 
@@ -2752,8 +2746,6 @@ void ferDrawDecorative(regionhandle region)
             glDisable(GL_ALPHA_TEST);
             rndAdditiveBlends(FALSE);
         }
-
-        dec = TRUE;
     }
     else
     {
@@ -2764,12 +2756,10 @@ void ferDrawDecorative(regionhandle region)
     ferDraw(region->rect.x0, region->rect.y1, texture);
     glDisable(GL_ALPHA_TEST);
 
-    if (hrRunning && (dec == TRUE) && bitTest(texture->flags, TRF_Alpha))
+    if (hrRunning && bitTest(texture->flags, TRF_Alpha))
     {
         glDisable(GL_BLEND);
     }
-
-    dec = FALSE;
 }
 
 void ferDrawOpaqueDecorative(regionhandle region)

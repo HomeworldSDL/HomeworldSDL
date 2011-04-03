@@ -1660,30 +1660,6 @@ ubyte *trImageScaleIndexed(ubyte *data, sdword width, sdword height, sdword newW
 }
 
 /*-----------------------------------------------------------------------------
-    Name        : trTextureHandleScale
-    Description : Takes a GL internal texture handle, scales it to a new size
-                    and creates a new texture.
-    Inputs      : handle - handle of existing texture
-                  width, height - size of existing texture
-                  newWidth, newHeight - size to scale it to
-    Outputs     :
-    Return      : new texture handle
-----------------------------------------------------------------------------*/
-udword trTextureHandleScale(udword handle, sdword width, sdword height, sdword newWidth, sdword newHeight, bool bUseAlpha)
-{
-    color *newRGB, *oldRGB;
-    udword newHandle;
-
-    oldRGB = memAlloc(width * height * sizeof(color), "ghq(TempBuffffer(:#", Pyrophoric);
-    trClearCurrent();
-    glBindTexture(GL_TEXTURE_2D, handle);
-    glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, oldRGB);
-    newRGB = trImageScale(oldRGB, width, height, newWidth, newHeight, TRUE);
-    newHandle = trRGBTextureCreate(newRGB, newWidth, newHeight, bUseAlpha);
-    memFree(newRGB);
-    return(newHandle);
-}
-/*-----------------------------------------------------------------------------
     Name        : trPreLoadedTextureScale
     Description : Scale an already-loaded image to a new size.
     Inputs      : handle - index into texture registry

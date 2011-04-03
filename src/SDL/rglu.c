@@ -21,13 +21,13 @@
 #define A(row,col)  a[(col<<2)+row]
 #define B(row,col)  b[(col<<2)+row]
 #define P(row,col)  c[(col<<2)+row]
-void mat4_multd(GLdouble* c, GLdouble const* a, GLdouble const* b)
+void mat4_multd(GLfloat* c, GLfloat const* a, GLfloat const* b)
 {
     int i;
 
     for (i = 0; i < 4; i++)
     {
-	    GLdouble ai0=A(i,0),  ai1=A(i,1),  ai2=A(i,2),  ai3=A(i,3);
+	    GLfloat ai0=A(i,0),  ai1=A(i,1),  ai2=A(i,2),  ai3=A(i,3);
 	    P(i,0) = ai0 * B(0,0) + ai1 * B(1,0) + ai2 * B(2,0) + ai3 * B(3,0);
 	    P(i,1) = ai0 * B(0,1) + ai1 * B(1,1) + ai2 * B(2,1) + ai3 * B(3,1);
 	    P(i,2) = ai0 * B(0,2) + ai1 * B(1,2) + ai2 * B(2,2) + ai3 * B(3,2);
@@ -38,7 +38,7 @@ void mat4_multd(GLdouble* c, GLdouble const* a, GLdouble const* b)
 #undef B
 #undef P
 
-void mat4_inversed(GLdouble* d, GLdouble* s)
+void mat4_inversed(GLfloat* d, GLfloat* s)
 {
     GLfloat in[16], out[16];
     GLint i;
@@ -50,13 +50,13 @@ void mat4_inversed(GLdouble* d, GLdouble* s)
     shInvertMatrix(out, in);
     for (i = 0; i < 16; i++)
     {
-        d[i] = (GLdouble)out[i];
+        d[i] = (GLfloat)out[i];
     }
 }
 
-void v4_projectd(GLdouble u[4], GLdouble const v[4], GLdouble const m[16])
+void v4_projectd(GLfloat u[4], GLfloat const v[4], GLfloat const m[16])
 {
-    GLdouble v0 = v[0], v1 = v[1], v2 = v[2], v3 = v[3];
+    GLfloat v0 = v[0], v1 = v[1], v2 = v[2], v3 = v[3];
 #define M(row,col)  m[(col<<2)+row]
     u[0] = v0 * M(0,0) + v1 * M(1,0) + v2 * M(2,0) + v3 * M(3,0);
     u[1] = v0 * M(0,1) + v1 * M(1,1) + v2 * M(2,1) + v3 * M(3,1);
@@ -66,9 +66,9 @@ void v4_projectd(GLdouble u[4], GLdouble const v[4], GLdouble const m[16])
 }
 
 
-void rgluPerspective(GLdouble fovy, GLdouble aspect, GLdouble zNear, GLdouble zFar)
+void rgluPerspective(GLfloat fovy, GLfloat aspect, GLfloat zNear, GLfloat zFar)
 {
-    GLdouble xmin, xmax, ymin, ymax;
+    GLfloat xmin, xmax, ymin, ymax;
 
     ymax = zNear * tan(fovy * M_PI / 360.0);
     ymin = -ymax;
@@ -76,15 +76,19 @@ void rgluPerspective(GLdouble fovy, GLdouble aspect, GLdouble zNear, GLdouble zF
     xmax = ymax * aspect;
     xmin = -xmax;
 
+#ifdef HW_ENABLE_GLES
+    glFrustumf(xmin, xmax, ymin, ymax, zNear, zFar);
+#else
     glFrustum(xmin, xmax, ymin, ymax, zNear, zFar);
+#endif
 }
 
-GLint rgluProject(GLdouble objx, GLdouble objy, GLdouble objz,
-                  GLdouble const* model, GLdouble const* proj,
+GLint rgluProject(GLfloat objx, GLfloat objy, GLfloat objz,
+                  GLfloat const* model, GLfloat const* proj,
                   GLint const* viewport,
-                  GLdouble* winx, GLdouble* winy, GLdouble* winz)
+                  GLfloat* winx, GLfloat* winy, GLfloat* winz)
 {
-    GLdouble in[4], out[4];
+    GLfloat in[4], out[4];
 
     in[0] = objx;
     in[1] = objy;
@@ -107,9 +111,9 @@ GLint rgluProject(GLdouble objx, GLdouble objy, GLdouble objz,
 }
 
 static void transform_point(
-                GLdouble out[4],
-                GLdouble const m[16],
-			    GLdouble const in[4])
+                GLfloat out[4],
+                GLfloat const m[16],
+			    GLfloat const in[4])
 {
 #define M(row,col)  m[col*4+row]
    out[0] = M(0,0) * in[0] + M(0,1) * in[1] + M(0,2) * in[2] + M(0,3) * in[3];
@@ -119,13 +123,13 @@ static void transform_point(
 #undef M
 }
 
-GLint rgluUnProject(GLdouble winx, GLdouble winy, GLdouble winz,
-                    GLdouble const* model, GLdouble const* proj,
+GLint rgluUnProject(GLfloat winx, GLfloat winy, GLfloat winz,
+                    GLfloat const* model, GLfloat const* proj,
                     GLint const* viewport,
-                    GLdouble* objx, GLdouble* objy, GLdouble* objz)
+                    GLfloat* objx, GLfloat* objy, GLfloat* objz)
 {
-    GLdouble m[16], A[16];
-    GLdouble in[4], out[4];
+    GLfloat m[16], A[16];
+    GLfloat in[4], out[4];
 
     in[0] = (winx - viewport[0]) * 2 / viewport[2] - 1.0;
     in[1] = (winy - viewport[1]) * 2 / viewport[3] - 1.0;
@@ -144,13 +148,13 @@ GLint rgluUnProject(GLdouble winx, GLdouble winy, GLdouble winz,
     return GL_TRUE;
 }
 
-void rgluLookAt(GLdouble eyex, GLdouble eyey, GLdouble eyez,
-                GLdouble centerx, GLdouble centery, GLdouble centerz,
-                GLdouble upx, GLdouble upy, GLdouble upz)
+void rgluLookAt(GLfloat eyex, GLfloat eyey, GLfloat eyez,
+                GLfloat centerx, GLfloat centery, GLfloat centerz,
+                GLfloat upx, GLfloat upy, GLfloat upz)
 {
-    GLdouble m[16];
-    GLdouble x[3], y[3], z[3];
-    GLdouble mag;
+    GLfloat m[16];
+    GLfloat x[3], y[3], z[3];
+    GLfloat mag;
 
     z[0] = eyex - centerx;
     z[1] = eyey - centery;
@@ -198,13 +202,17 @@ void rgluLookAt(GLdouble eyex, GLdouble eyey, GLdouble eyez,
     M(3,0) = 0.0;   M(3,1) = 0.0;   M(3,2) = 0.0;  M(3,3) = 1.0;
 #undef M
 
-    glMultMatrixd(m);
-    glTranslated(-eyex, -eyey, -eyez);
+    glMultMatrixf(m);
+    glTranslatef(-eyex, -eyey, -eyez);
 }
 
-void rgluOrtho2D(GLdouble left, GLdouble right, GLdouble bottom, GLdouble top)
+void rgluOrtho2D(GLfloat left, GLfloat right, GLfloat bottom, GLfloat top)
 {
+#ifdef HW_ENABLE_GLES
+    glOrthof(left, right, bottom, top, -1.0f, 1.0f);
+#else
     glOrtho(left, right, bottom, top, -1.0, 1.0);
+#endif
 }
 
 char* rgluErrorString(GLenum err)

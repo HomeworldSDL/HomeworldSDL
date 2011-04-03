@@ -1228,13 +1228,13 @@ void meshCurrentMaterialDefault(materialentry *material, sdword iColorScheme)
     {                                                       //if 2-sided material
         face = GL_FRONT_AND_BACK;
         rndBackFaceCullEnable(FALSE);                       //disable culling
-        if (!usingShader) glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);    //2-sided lightmodel
+        if (!usingShader) glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);    //2-sided lightmodel
     }
     else
     {
         face = GL_FRONT;
         rndBackFaceCullEnable(TRUE);                        //enable culling
-        if (!usingShader) glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);   //1-sided lightmodel
+        if (!usingShader) glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);   //1-sided lightmodel
     }
 
     gSelfIllum = FALSE;
@@ -1432,13 +1432,13 @@ void meshCurrentMaterialTex(materialentry *material, sdword iColorScheme)
     {                                                       //if 2-sided material
         face = GL_FRONT_AND_BACK;
         rndBackFaceCullEnable(FALSE);                       //disable culling
-        if (!usingShader) glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);    //2-sided lightmodel
+        if (!usingShader) glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);    //2-sided lightmodel
     }
     else
     {
         face = GL_FRONT;
         rndBackFaceCullEnable(TRUE);                        //enable culling
-        if (!usingShader) glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);   //1-sided lightmodel
+        if (!usingShader) glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);   //1-sided lightmodel
     }
 
     if (bitTest(material->flags, MPM_Smooth) && enableSmoothing == TRUE)
@@ -1631,7 +1631,6 @@ void meshObjectRender(polygonobject *object, materialentry *materials, sdword iC
 
     if (g_WireframeHack)
     {
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         lightOn = rndLightingEnable(FALSE);
         glColor3ub(200,200,200);
         enableBlend = TRUE;
@@ -1653,7 +1652,7 @@ void meshObjectRender(polygonobject *object, materialentry *materials, sdword iC
     normalList = object->pNormalList;                       //get base of normal list
     polygon = object->pPolygonList;                         //get first polygon list entry
 
-    glBegin(GL_TRIANGLES);                                  //prepare to draw triangles
+    glBegin(g_WireframeHack ? GL_LINE_LOOP : GL_TRIANGLES);                                  //prepare to draw triangles
 
     for (iPoly = 0; iPoly < object->nPolygons; iPoly++)
     {
@@ -1671,7 +1670,7 @@ void meshObjectRender(polygonobject *object, materialentry *materials, sdword iC
             {
                 glEnable(GL_BLEND);
             }
-            glBegin(GL_TRIANGLES);                          //start new run
+            glBegin(g_WireframeHack ? GL_LINE_LOOP : GL_TRIANGLES);                          //start new run
 #if MESH_MATERIAL_STATS
             nMaterialChanges++;                             //record material stats
             iMaterialMax = max(currentMaterial, iMaterialMax);
@@ -1839,7 +1838,7 @@ void meshObjectRender(polygonobject *object, materialentry *materials, sdword iC
     glEnd();                                            //done drawing these triangles
 
     glShadeModel(GL_SMOOTH);
-    if (!usingShader) glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
+    if (!usingShader) glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
 
     if (enableBlend)
     {
@@ -1848,7 +1847,6 @@ void meshObjectRender(polygonobject *object, materialentry *materials, sdword iC
 
     if (g_WireframeHack)
     {
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         rndLightingEnable(lightOn);
         if (enableBlend)
         {
@@ -2008,7 +2006,7 @@ void meshSpecObjectRender(polygonobject *object, materialentry *materials, sdwor
     glEnd();                                            //done drawing these triangles
 
     glShadeModel(GL_SMOOTH);
-    if (!usingShader) glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
+    if (!usingShader) glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
     rndLightingEnable(lightOn);
 }
 
@@ -2344,7 +2342,7 @@ void meshMorphedObjectRender(
     }
 
     glShadeModel(GL_SMOOTH);
-    if (!usingShader) glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
+    if (!usingShader) glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
 }
 
 /*-----------------------------------------------------------------------------

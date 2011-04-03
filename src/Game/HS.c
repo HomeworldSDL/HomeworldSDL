@@ -223,36 +223,40 @@ void hsStart(Ship* ship, real32 cliptDelta, bool into, bool displayEffect)
     }
 }
 
+#ifdef HW_ENABLE_GLES
+void hsGetEquation(Ship* ship, GLfloat equation[])
+#else
 void hsGetEquation(Ship* ship, GLdouble equation[])
+#endif
 {
     StaticCollInfo* sinfo = &ship->staticinfo->staticheader.staticCollInfo;
     ShipSinglePlayerGameInfo* ssinfo = ship->shipSinglePlayerGameInfo;
 
-    equation[0] = 0.0;
-    equation[1] = 0.0;
-    equation[2] = 1.0;
-    equation[3] = 0.0;
+    equation[0] = 0.0f;
+    equation[1] = 0.0f;
+    equation[2] = 1.0f;
+    equation[3] = 0.0f;
 
     switch (ssinfo->hsState)
     {
     case HS_SLICING_INTO:
-        equation[2] = -1.0;
+        equation[2] = -1.0f;
         equation[3] = ssinfo->clipt * (sinfo->forwardlength);
         break;
     case HS_COLLAPSE_INTO:
-        equation[2] = -1.0;
+        equation[2] = -1.0f;
         equation[3] = -(sinfo->forwardlength);
         break;
     case HS_POPUP_OUTOF:
-        equation[2] = 1.0;
+        equation[2] = 1.0f;
         equation[3] = -(sinfo->forwardlength);
         break;
     case HS_SLICING_OUTOF:
-        equation[2] = 1.0;
+        equation[2] = 1.0f;
         equation[3] = -ssinfo->clipt * (sinfo->forwardlength);
         break;
     case HS_COLLAPSE_OUTOF:
-        equation[2] = 1.0;
+        equation[2] = 1.0f;
         equation[3] = (sinfo->forwardlength);
     }
 }
@@ -266,7 +270,11 @@ void hsGetEquation(Ship* ship, GLdouble equation[])
 ----------------------------------------------------------------------------*/
 void hsContinue(Ship* ship, bool displayEffect)
 {
+#ifdef HW_ENABLE_GLES
+    GLfloat equation[4] = {0.0, 0.0, 1.0, 0.0};
+#else
     GLdouble equation[4] = {0.0, 0.0, 1.0, 0.0};
+#endif
     StaticCollInfo* sinfo = &ship->staticinfo->staticheader.staticCollInfo;
     ShipSinglePlayerGameInfo* ssinfo = ship->shipSinglePlayerGameInfo;
 
@@ -295,7 +303,11 @@ void hsContinue(Ship* ship, bool displayEffect)
                 nliphak = host->magnitudeSquared;
                 glScalef(nliphak,nliphak,nliphak);
 
+#ifdef HW_ENABLE_GLES
+                glClipPlanef(GL_CLIP_PLANE0, equation);
+#else
                 glClipPlane(GL_CLIP_PLANE0, equation);
+#endif
                 glEnable(GL_CLIP_PLANE0);
 
                 glLoadMatrixf((GLfloat*)&prevModelview);
@@ -379,7 +391,11 @@ void hsContinue(Ship* ship, bool displayEffect)
 
     if (!singlePlayerGameInfo.hyperspaceFails)
     {
+#ifdef HW_ENABLE_GLES
+        glClipPlanef(GL_CLIP_PLANE0, equation);
+#else
         glClipPlane(GL_CLIP_PLANE0, equation);
+#endif
         glEnable(GL_CLIP_PLANE0);
     }
 }

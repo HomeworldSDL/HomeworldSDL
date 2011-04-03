@@ -97,10 +97,11 @@ static sdword localbar;
 
 // Pixels and info about the background image chosen
 static bool hrBackgroundInitFrame = 0;
-static udword *hrBackgroundImage = NULL;
 static long hrBackgroundDirty = 0;
 bool hrBackgroundReinit = FALSE;
 static long hrBackXSize, hrBackYSize;
+static GLfloat hrBackXFrac, hrBackYFrac;
+static GLuint hrBackgroundTexture = 0;
 
 static bool hrScaleMissionLoadingScreens = HR_SCALE_MISSION_LOADING_SCREENS;
 
@@ -736,56 +737,15 @@ long hrShipsToLoadForRace(ShipRace shiprace)
     return ShipsToLoad;
 }
 
-
-static bool hrDrawPixelsSupported(void)
-{
-    extern bool mainNoDrawPixels;
-
-    if (mainNoDrawPixels)
-    {
-        //commandline option
-        return FALSE;
-    }
-    if (mainSafeGL)
-    {
-        //running in "safe mode"
-        return FALSE;
-    }
-    if (bitTest(gDevcaps2, DEVSTAT2_NO_DRAWPIXELS))
-    {
-        //bit in devcaps2
-        return FALSE;
-    }
-    else
-    {
-        //assume support
-        return TRUE;
-    }
-}
-
 void hrInitBackground(void)
 {
     char CurDir[PATH_MAX], NewDir[PATH_MAX];
     char hrImageName[PATH_MAX];
     filehandle handle;
     JPEGDATA    jp;
+    unsigned char *pTempImage;
+    udword i;
 
-    udword imageWidth, imageHeight, i;
-    udword pixelX, pixelY;
-    udword screenWidth, screenHeight, Size, Top, Bottom;
-    udword scaledImageGapSizeX, scaledImageGapSizeY;
-
-    udword *pDest;
-    unsigned char *pTempImage, *pTempLine, *pRGB;
-
-    real32 subPixelX, subPixelY, scaleFactor;
-    real32 subPixelIncrement;
-    
-    // used when scanning across the image for rescaling
-    bool interpolatingImage    = FALSE;    // at screen position that rescaled image covers
-    bool interpolatedImageLine = FALSE;    // used image information during horizontal scan line
-
-    /*GetCurrentDirectory(511, CurDir);*/
     getcwd(CurDir, PATH_MAX);
 
     hrImageName[0] = 0;
@@ -798,7 +758,6 @@ void hrInitBackground(void)
         hrChooseRandomBitmap(hrImageName);
     }
 
-    /*GetCurrentDirectory(511, NewDir);*/
     getcwd(NewDir, PATH_MAX);
 
     dbgAssertOrIgnore(strcasecmp(CurDir,NewDir) == 0);
@@ -813,171 +772,70 @@ void hrInitBackground(void)
 
         fileSeek(handle, 0, SEEK_SET);
 
-        imageWidth = jp.width;
-        imageHeight = jp.height;
+        hrBackXSize = jp.width;
+        hrBackYSize = jp.height;
 
-        pTempImage = (unsigned char *)memAllocAttempt((imageWidth+1) * (imageHeight+1) * 3, "BackgroundTemp", NonVolatile);
-        if (pTempImage == NULL)
+        jp.ptr = (unsigned char *)memAllocAttempt((hrBackXSize) * (hrBackYSize) * 3, "BackgroundTemp", NonVolatile);
+        if (jp.ptr == NULL)
         {
             return;
         }
         
-        jp.ptr = pTempImage;
         JpegRead(&jp);
-
         fileClose(handle);
 
-        Size = imageWidth*3;
-        pTempLine = (unsigned char *)malloc(Size);
-        for(i=0; i<(imageHeight/2); i++)
-        {
-            Top    = i;
-            Bottom = (imageHeight - 1) - i;
- 
-            memcpy(pTempLine, pTempImage + (Size * Top), Size);
-            memcpy(pTempImage + (Size * Top),   pTempImage + (Size * Bottom), Size);
-            memcpy(pTempImage + (Size * Bottom), pTempLine, Size);
-        }
-        free(pTempLine);
+        hrBackXSize = 1; hrBackYSize = 1;
+        while (hrBackXSize < jp.width) hrBackXSize <<= 1;
+        while (hrBackYSize < jp.height) hrBackYSize <<= 1;
+        pTempImage = (unsigned char *)memAllocAttempt(hrBackXSize * hrBackYSize * 3, "BackgroundTemp", NonVolatile);
+        memset(pTempImage, 0, hrBackXSize * hrBackYSize * 3);
+        for (i = 0; i < jp.height; i++)
+            memcpy(pTempImage + (hrBackXSize * 3 * i), jp.ptr + (jp.width * 3 * i), jp.width * 3);
 
-        // Replicate the last line to appease the filter algorithm
-        memcpy(&pTempImage[imageHeight * imageWidth * 3], &pTempImage[(imageHeight-1) * imageWidth * 3], imageWidth*3);
-
-        if (!hrScaleMissionLoadingScreens
-        ||  !hrDrawPixelsSupported())
-        {
-            //no DrawPixels support, must use glcompat 640x480 quilting
-            screenWidth  = 640;
-            screenHeight = 480;
-            hrBackgroundImage = (udword*)malloc(screenWidth * screenHeight * 4);
-        }
-        else
-        {
-            scaleFactor = 1.1f;
-            do {
-                scaleFactor -= 0.1f;
-                screenWidth  = (udword)((real32)MAIN_WindowWidth  * scaleFactor);
-                screenHeight = (udword)((real32)MAIN_WindowHeight * scaleFactor);
-
-                hrBackgroundImage = (udword *)malloc(screenWidth * screenHeight * 4);
-            } while((hrBackgroundImage == NULL) && (scaleFactor > 0.4f));
-        }
-
-        // if the memory was not succesfully allocated
-        if (hrBackgroundImage == NULL)
-        {
-            memFree(pTempImage);
-            return;
-        }
-
-        // scale (not stretch) the image to fit the current display size
-        scaleFactor = (hrScaleMissionLoadingScreens
-                       || imageWidth  > screenWidth
-                       || imageHeight > screenHeight)
-                    ? FE_SCALE_TO_FIT_FACTOR(screenWidth, screenHeight, imageWidth, imageHeight)
-                    : 1;
-                          
-        subPixelIncrement = 1 / scaleFactor;
-
-        scaledImageGapSizeX
-            = (screenWidth  - (imageWidth  * scaleFactor)) / 2;
-        scaledImageGapSizeY
-            = (screenHeight - (imageHeight * scaleFactor)) / 2;
-
-        pDest = (udword*)hrBackgroundImage;
+        glGenTextures(1, &hrBackgroundTexture);
+        trClearCurrent();
+        glBindTexture(GL_TEXTURE_2D, hrBackgroundTexture);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, hrBackXSize, hrBackYSize,
+                    0, GL_RGB, GL_UNSIGNED_BYTE, pTempImage);
         
-        if (pDest != NULL)
-        {
-            subPixelY = 0.0f;
-            for (pixelY = 0; pixelY < screenHeight; pixelY++)
-            {
-                interpolatedImageLine = FALSE;
-
-                subPixelX = 0.0f;
-                for (pixelX = 0; pixelX < screenWidth; pixelX++)
-                {
-                    interpolatingImage = TRUE;
-            
-                    // blank area that a proportional resize won't cover
-                    if (pixelX < (scaledImageGapSizeX)
-                    ||  pixelY < (scaledImageGapSizeY)
-                    ||  pixelX > (screenWidth  - scaledImageGapSizeX)
-                    ||  pixelY > (screenHeight - scaledImageGapSizeY))
-                    {
-                        interpolatingImage = FALSE;
-                        
-                        pDest[pixelX] = 0xff000000;  // AGBR (black)
-                    }
-                    
-                    // upscaling image (common case)
-                    else if (subPixelIncrement < 1.0f)
-                    {
-                        interpolatedImageLine = TRUE;
-
-                        pDest[pixelX] = hrGetInterpPixel(pTempImage, imageWidth, subPixelX, subPixelY);
-                    }
-                    
-                    // downscaling image (direct pixel sampling so won't be particularly smooth...) 
-                    else
-                    {
-                        interpolatedImageLine = TRUE;
-
-                        pRGB = &pTempImage[(((unsigned long)subPixelY * imageWidth) + (unsigned long)subPixelX) * 3 ];
-
-                        // RGBA -> ABGR
-                        pDest[pixelX] = 0xff000000                       // A
-                                      + ((unsigned long)pRGB[2] << 16)   // B
-                                      + ((unsigned long)pRGB[1] << 8 )   // G
-                                      + ((unsigned long)pRGB[0]      );  // R
-                    }
-
-#if FIX_ENDIAN
-                    pDest[pixelX] = FIX_ENDIAN_INT_32( pDest[pixelX] );
-#endif
-
-                    if (interpolatingImage)
-                    {
-                        subPixelX += subPixelIncrement;
-                    }
-                }
-                
-                if (interpolatedImageLine)
-                {
-                    subPixelY += subPixelIncrement;
-                }
-
-                pDest += screenWidth;
-            }
-        }
-
-        hrBackXSize = screenWidth;
-        hrBackYSize = screenHeight;
-        
+        memFree(jp.ptr);
         memFree(pTempImage);
+        
+        hrBackXFrac = (GLfloat)jp.width / (GLfloat)hrBackXSize;
+        hrBackYFrac = (GLfloat)jp.height / (GLfloat)hrBackYSize;
+        hrBackXSize = jp.width;
+        hrBackYSize = jp.height;
     }
 }
 
-#define COORD(S,T,X,Y) \
-    glTexCoord2f(S, T); \
-    glVertex2f(primScreenToGLX(X), primScreenToGLY(Y));
 void hrRectSolidTextured2(rectangle *rect)
 {
-    glColor3ub(255, 255, 255);
+    GLfloat t[8] = { 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f };
+    GLfloat v[8] = { primScreenToGLX(rect->x0), primScreenToGLY(rect->y1 - 1),
+                     primScreenToGLX(rect->x1), primScreenToGLY(rect->y1 - 1),
+                     primScreenToGLX(rect->x0), primScreenToGLY(rect->y0),
+                     primScreenToGLX(rect->x1), primScreenToGLY(rect->y0) };
+
+    glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 
     rndTextureEnvironment(RTE_Replace);
     rndTextureEnable(TRUE);
 
-    glBegin(GL_QUADS);
-    COORD(0.0f, 0.0f, rect->x0, rect->y0);
-    COORD(0.0f, 1.0f, rect->x0, rect->y1 - 1);
-    COORD(1.0f, 1.0f, rect->x1, rect->y1 - 1);
-    COORD(1.0f, 0.0f, rect->x1, rect->y0);
-    glEnd();
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+    glVertexPointer(2, GL_FLOAT, 0, v);
+    glTexCoordPointer(2, GL_FLOAT, 0, t);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    glDisableClientState(GL_VERTEX_ARRAY);
+    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
     rndTextureEnable(FALSE);
     rndTextureEnvironment(RTE_Modulate);
 }
-#undef COORD
 
 //don't mind if this is inefficient as it only
 //gets called once per image anyway
@@ -1026,25 +884,50 @@ void hrDrawFile(char* filename, sdword x, sdword y)
 
 void hrDrawBackground(void)
 {
-    real32 x, y;
-
     rndClearToBlack();
 
-    // Draw the cached background bitmap using glDrawPixels
-    if (hrBackgroundImage)
+    if (hrBackgroundTexture)
     {
-        x = -((real32)hrBackXSize / (real32)MAIN_WindowWidth);
-        y = -((real32)hrBackYSize / (real32)MAIN_WindowHeight);
+        real32 x = -((real32)hrBackXSize / (real32)MAIN_WindowWidth);
+        real32 y = -((real32)hrBackYSize / (real32)MAIN_WindowHeight);
+        GLfloat v[8], t[8];
 
-        rndTextureEnable(FALSE);
-        rndLightingEnable(FALSE);
-        glDisable(GL_BLEND);
-        glDisable(GL_DEPTH_TEST);
-        glRasterPos2f(x, y);
-        if (hrDrawPixelsSupported())
-        {
-            glDrawPixels(hrBackXSize, hrBackYSize, GL_RGBA, GL_UNSIGNED_BYTE, hrBackgroundImage);
-        }
+        sdword oldTex = rndTextureEnable(TRUE);
+        udword oldMode = rndTextureEnvironment(RTE_Replace);
+        bool cull = glIsEnabled(GL_CULL_FACE) ? TRUE : FALSE;
+        bool blend = glIsEnabled(GL_BLEND) ? TRUE : FALSE;
+        glDisable(GL_CULL_FACE);
+        glEnable(GL_BLEND);
+
+        trClearCurrent();
+        glBindTexture(GL_TEXTURE_2D, hrBackgroundTexture);
+
+        t[0] = 0.0f;        t[1] = 0.0f;
+        t[2] = hrBackXFrac; t[3] = 0.0f;
+        t[4] = 0.0f;        t[5] = hrBackYFrac;
+        t[6] = hrBackXFrac; t[7] = hrBackYFrac;
+
+        v[0] = primScreenToGLX(hrScaleMissionLoadingScreens ? feResRepositionScaledX(0) : feResRepositionCentredX(0));
+        v[1] = primScreenToGLY(hrScaleMissionLoadingScreens ? feResRepositionScaledY(0) : feResRepositionCentredY(0));
+        v[2] = primScreenToGLX(hrScaleMissionLoadingScreens ? feResRepositionScaledX(640) : feResRepositionCentredX(640));
+        v[3] = primScreenToGLY(hrScaleMissionLoadingScreens ? feResRepositionScaledY(0) : feResRepositionCentredY(0));
+        v[4] = primScreenToGLX(hrScaleMissionLoadingScreens ? feResRepositionScaledX(0) : feResRepositionCentredX(0));
+        v[5] = primScreenToGLY(hrScaleMissionLoadingScreens ? feResRepositionScaledY(480) : feResRepositionCentredY(480));
+        v[6] = primScreenToGLX(hrScaleMissionLoadingScreens ? feResRepositionScaledX(640) : feResRepositionCentredX(640));
+        v[7] = primScreenToGLY(hrScaleMissionLoadingScreens ? feResRepositionScaledY(480) : feResRepositionCentredY(480));
+
+        glEnableClientState(GL_VERTEX_ARRAY);
+        glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+        glTexCoordPointer(2, GL_FLOAT, 0, t);
+        glVertexPointer(2, GL_FLOAT, 0, v);
+        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+        glDisableClientState(GL_VERTEX_ARRAY);
+        glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+
+        rndTextureEnvironment(oldMode);
+        rndTextureEnable(oldTex);
+        if (cull) glEnable(GL_CULL_FACE);
+        if (!blend) glDisable(GL_BLEND);
     }
 }
 
@@ -1052,10 +935,10 @@ void hrShutdownBackground(void)
 {
     // free the memory required by the cached background bitmap
 
-    if (hrBackgroundImage != NULL)
+    if (hrBackgroundTexture != 0)
     {
-        free(hrBackgroundImage);
-        hrBackgroundImage = NULL;
+        glDeleteTextures(1, &hrBackgroundTexture);
+        hrBackgroundTexture = 0;
     }
     hrBackgroundInitFrame = 0;
     hrBackgroundReinit = FALSE;
@@ -1360,10 +1243,10 @@ void horseRaceRender()
 
     if (hrBackgroundReinit)
     {
-        if (hrBackgroundImage != NULL)
+        if (hrBackgroundTexture != 0)
         {
-            free(hrBackgroundImage);
-            hrBackgroundImage = NULL;
+            glDeleteTextures(1, &hrBackgroundTexture);
+            hrBackgroundTexture = 0;
         }
         hrBackgroundReinit = FALSE;
         hrBackgroundDirty = 3;
@@ -1477,8 +1360,11 @@ void horseRaceRender()
 
     if (ShouldHaveMousePtr)
     {
-        rndClearToBlack();
-        glClear(GL_DEPTH_BUFFER_BIT);
+        if (!feShouldSaveMouseCursor())
+        {
+            rndClearToBlack();
+            glClear(GL_DEPTH_BUFFER_BIT);
+        }
     }
 
 //    primErrorMessagePrint();
@@ -1499,10 +1385,10 @@ void horseRaceRender()
     }
     else
     {
-        if (hrBackgroundImage != NULL)
+        if (hrBackgroundTexture != 0)
         {
-            free(hrBackgroundImage);
-            hrBackgroundImage = NULL;
+            glDeleteTextures(1, &hrBackgroundTexture);
+            hrBackgroundTexture = 0;
         }
     }
 

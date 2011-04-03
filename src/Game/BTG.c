@@ -66,7 +66,7 @@ static btgStar*        btgStars = NULL;
 static btgPolygon*     btgPolys = NULL;
 static btgTransVertex* btgTransVerts = NULL;
 static btgTransStar*   btgTransStars = NULL;
-static udword*         btgIndices = NULL;
+static uword*          btgIndices = NULL;
 
 typedef struct starTex
 {
@@ -858,7 +858,7 @@ void btgLoad(char* filename)
 
     memFree(btgData);
 
-    btgIndices = (udword*)memAlloc(3 * btgHead->numPolys * sizeof(udword), "btg indices", NonVolatile);
+    btgIndices = (uword*)memAlloc(3 * btgHead->numPolys * sizeof(uword), "btg indices", NonVolatile);
 
 #ifndef _WIN32_FIXME
     //spherically project things, blend colours, &c
@@ -1321,8 +1321,13 @@ void btgRender()
     }
 
     //use DrawElements to render the bg polys
-    glInterleavedArrays(GL_C4UB_V3F, 0, (void*)btgTransVerts);
-    glDrawElements(GL_TRIANGLES, 3 * btgHead->numPolys, GL_UNSIGNED_INT, btgIndices);
+    glEnableClientState(GL_COLOR_ARRAY);
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glColorPointer(4, GL_UNSIGNED_BYTE, 16, (GLubyte*)btgTransVerts);
+    glVertexPointer(3, GL_FLOAT, 16, ((GLubyte*)btgTransVerts) + 4);
+    glDrawElements(GL_TRIANGLES, 3 * btgHead->numPolys, GL_UNSIGNED_SHORT, btgIndices);
+    glDisableClientState(GL_COLOR_ARRAY);
+    glDisableClientState(GL_VERTEX_ARRAY);
 
     //stars
     rndPerspectiveCorrection(FALSE);

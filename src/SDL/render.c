@@ -136,6 +136,10 @@ renderfunction rndMainViewRender = rndMainViewRenderFunction;
 static sdword rndHint = 0;
 #endif
 
+#ifdef HW_ENABLE_GLES
+SDL_GLES_Context *context = 0;
+#endif
+
 /* Should remove this stuff after cleaning up rgl functions. */
 /*
 HGLRC hGLRenderContext;
@@ -857,20 +861,47 @@ bool setupPixelFormat()
 			return FALSE;
 	}
 
-	/* Set attributes. */
-	SDL_GL_SetAttribute(SDL_GL_BUFFER_SIZE,  MAIN_WindowDepth);
-	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE,   16);
-	SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 0);
-	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+    /* Create OpenGL window. */
+    flags = SDL_SWSURFACE;
+#ifdef HW_ENABLE_GLES
+    if (!context) {
+        if (SDL_GLES_Init(SDL_GLES_VERSION_1_1) != 0) {
+            fprintf(stderr, "failed to initialize SDL_gles\n");
+            return FALSE;
+        }
+    }
+    /* Set attributes. */
+    //SDL_GLES_SetAttribute(SDL_GLES_BUFFER_SIZE,  MAIN_WindowDepth);
+    SDL_GLES_SetAttribute(SDL_GLES_DEPTH_SIZE,   16);
+    //SDL_GLES_SetAttribute(SDL_GLES_STENCIL_SIZE, 0);
+#else
+    flags |= SDL_OPENGL;
 
-	/* Create OpenGL window. */
-	flags = SDL_HWSURFACE | SDL_OPENGL;
-	if (/* main */ fullScreen) flags |= SDL_FULLSCREEN;
+    /* Set attributes. */
+    SDL_GL_SetAttribute(SDL_GL_BUFFER_SIZE,  MAIN_WindowDepth);
+    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE,   16);
+    SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 0);
+    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+#endif
+
+    if (/* main */ fullScreen) flags |= SDL_FULLSCREEN;
 	if (!SDL_SetVideoMode(MAIN_WindowWidth, MAIN_WindowHeight,
 		MAIN_WindowDepth, flags))
 		return FALSE;
 
-	
+#ifdef HW_ENABLE_GLES
+    SDL_GLES_Context *newcontext = SDL_GLES_CreateContext();
+    if (!newcontext) {
+        fprintf(stderr, "failed to create SDL_gles context\n");
+        return FALSE;
+    }
+    if (SDL_GLES_MakeCurrent(newcontext) != 0) {
+        fprintf(stderr, "failed to make SDL_gles context current\n");
+        return FALSE;
+    }
+    if (context) SDL_GLES_DeleteContext(context);
+    context = newcontext;
+#else
 	if ( FSAA ) {
 	    SDL_GL_SetAttribute( SDL_GL_MULTISAMPLEBUFFERS, 1 );
 	    SDL_GL_SetAttribute( SDL_GL_MULTISAMPLESAMPLES, FSAA );
@@ -889,6 +920,7 @@ bool setupPixelFormat()
                 return FALSE;
 	    }
 	}
+#endif
 
 	SDL_ShowCursor(SDL_DISABLE);
 
@@ -912,7 +944,11 @@ bool setupPalette()
 {
 	int pix_size;
 
+#ifdef HW_ENABLE_GLES
+    if (SDL_GLES_GetAttribute(SDL_GLES_BUFFER_SIZE, &pix_size) == -1)
+#else
 	if (SDL_GL_GetAttribute(SDL_GL_BUFFER_SIZE, &pix_size) == -1)
+#endif
 	{
 		/* Hoping it will work... */
 		pix_size = MAIN_WindowDepth;
@@ -944,6 +980,11 @@ sdword rndSmallInit(rndinitdata* initData, bool GL)
     {
         /* Kill the window we created. */
         flags = SDL_WasInit(SDL_INIT_EVERYTHING);
+#ifdef HW_ENABLE_GLES
+        SDL_GLES_DeleteContext(context);
+        context = 0;
+        SDL_GLES_Quit();
+#endif
         if (flags & ~SDL_INIT_VIDEO)
             SDL_QuitSubSystem(SDL_INIT_VIDEO);
         else
@@ -986,7 +1027,11 @@ sdword rndInit(rndinitdata *initData)
     dbgMessagef("rndInit: OpenGL Extensions :%s", glGetString(GL_EXTENSIONS));
 #endif
     rndSetClearColor(colRGBA(0,0,0,255));
+#ifdef HW_ENABLE_GLES
+    glClearDepthf( 1.0f );
+#else
     glClearDepth( 1.0 );
+#endif
 
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     rndAdditiveBlending = FALSE;
@@ -1043,6 +1088,11 @@ void rndClose(void)
     Uint32 flags = SDL_WasInit(SDL_INIT_EVERYTHING);
     if (!(flags & SDL_INIT_VIDEO))
         return;
+#ifdef HW_ENABLE_GLES
+    SDL_GLES_DeleteContext(context);
+    context = 0;
+    SDL_GLES_Quit();
+#endif
     if (flags ^ SDL_INIT_VIDEO)
         SDL_QuitSubSystem(SDL_INIT_VIDEO);
     else
@@ -1171,7 +1221,10 @@ void rndBackgroundRender(real32 radius, Camera* camera, bool bDrawStars)
                         rndNear(camera->clipPlaneNear), camera->clipPlaneFar);
 
         //draw small stars
-        glInterleavedArrays(GL_C4UB_V3F, 0, (GLvoid*)stararray);
+        glEnableClientState(GL_COLOR_ARRAY);
+        glEnableClientState(GL_VERTEX_ARRAY);
+        glColorPointer(4, GL_UNSIGNED_BYTE, 16, (GLubyte*)stararray);
+        glVertexPointer(3, GL_FLOAT, 16, ((GLubyte*)stararray) + 4);
         glDrawArrays(GL_POINTS, 0, universe.star3dinfo->Num3dStars - NUM_BIG_STARS);
 
         if (blends && pointSize)
@@ -1194,8 +1247,11 @@ void rndBackgroundRender(real32 radius, Camera* camera, bool bDrawStars)
         }
 
         //draw big stars
-        glInterleavedArrays(GL_C4UB_V3F, 0, (GLvoid*)bigstararray);
+        glColorPointer(4, GL_UNSIGNED_BYTE, 16, (GLubyte*)bigstararray);
+        glVertexPointer(3, GL_FLOAT, 16, ((GLubyte*)bigstararray) + 4);
         glDrawArrays(GL_POINTS, 0, NUM_BIG_STARS);
+        glDisableClientState(GL_COLOR_ARRAY);
+        glDisableClientState(GL_VERTEX_ARRAY);
 
         if (blends)
         {
@@ -4594,6 +4650,10 @@ void rndFlush(void)
 {
     glFlush();
     primErrorMessagePrint();
+#ifdef HW_ENABLE_GLES
+    SDL_GLES_SwapBuffers();
+#else
     SDL_GL_SwapBuffers();
+#endif
     SDL_Delay(1);
 }

@@ -165,216 +165,54 @@ void CALLBACK aviTimeProc(UINT uid, UINT msg, DWORD dwUser, DWORD dw1, DWORD dw2
 
 #endif	/* _WIN32 */
 
-void aviReverseRGBA(ubyte * surf, int w, int h) {
-
-    
-#ifdef _WIN32
-    ubyte line[4 * 640];  // This needs to hold a line of pixels 4bytes * width (640);
-                          // sizeof(w) wouldn't give enough space. (I could be wrong though.)
-#else
-    ubyte line[4 * w];
-#endif
-    sdword y, top, bot;
-    sdword pitch;
-
-    pitch = 4*w;
-
-    for (y = 0; y < (h/2); y++)
-    {
-        top = y;
-        bot = (h -1) - y;
-
-        memcpy(line, surf + pitch*top, pitch);
-        memcpy(surf + pitch*top, surf + pitch*bot, pitch);
-        memcpy(surf + pitch*bot, line, pitch);
-    }
-}
-
-void aviRotateLeft( double c, int times) {
-}
-
-void aviARGBtoRGBA(ubyte * surf, int w, int h) {
-
-/* Someone, somewhere is lying to me about the colour layout. The fix I'm going to do here
-  Will be one Endian specific, and if anyone else is getting really strange colours out of the 
-  animations, then start here. Especially if you get a Yellow background which is wat I've just 
-  had.  Aunxx */
-/* Update: OR more accurately they're telling the truth, and I make mistakes in my code. :( */
-
-    int i, end;
-    int temp;
-    ubyte * cur;
-   
-    cur = surf;
-
-    end = w*h*4;
-    for (i =0; i< end ; i+=4){
-        cur = surf +i;   
-        temp = (int)cur ;
-        memmove(cur+1, cur,3);
-        cur +=3;
-        cur = (ubyte *)temp;
-    }
-}
-
-void aviStretchRGBA(ubyte * surf, int w, int h) {
-
-
-    if (aviMovieExpandFactor != 1){
-
-//    ubyte line[4*w];
-//    sdword x,y, left, right;
-//    sdword pitch;
-
-//    pitch = 4;
-//for (y=0; y< h ;y ++)
-//{
-//    for (x = w; x > 0; x--)
-//    {
-//        left = x;
-//        right = (w -1) - x;
-
-//        memcpy(line, surf + pitch*top, pitch);
-//        memcpy(surf + pitch*top, surf + pitch*bot, pitch);
-//        memcpy(surf + pitch*bot, line, pitch);
-//    }
-
-//}
-
-    }
-}
-
 #ifdef HW_ENABLE_MOVIES
 static GLint strtex;
 static int texinit = 0;
 
-static GLint maxtex = -1;
-static int maxTextureSize() {
-	if (maxtex < 0)
-		glGetIntegerv(GL_MAX_TEXTURE_SIZE, &maxtex);
-	return maxtex;
-}
-
 static void Draw_Stretch (int x, int y, int w, int h, int cols, int rows, char *data)
 {
-	int texsize;
+    GLsizei tex_width = 1;
+    GLsizei tex_height = 1;
 
-	texsize = cols > rows ? cols : rows;
-	while (texsize != (texsize & -texsize))
-		texsize += (texsize & -texsize);
-	while (texsize > maxTextureSize())
-		texsize /= 2;
+    while (tex_width < cols) tex_width <<= 1;
+    while (tex_height < rows) tex_height <<= 1;
 
-	unsigned	image32[texsize*texsize];
-	unsigned int	*source, *dest;
-	float		hscale;
-	int		i, j, row, trows, frac, fracstep;
-	float		t;
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+    glEnable(GL_TEXTURE_2D);
 
-	if (!texinit) {
-		glGenTextures(1, &strtex);
-		texinit = 1;
-	}
-	glBindTexture(GL_TEXTURE_2D, strtex);
+    if (!texinit) {
+        unsigned int i;
+        unsigned char blank[tex_width*tex_height*3];
+        memset(blank, 0, tex_width*tex_height*3);
 
-	if (rows<=texsize)
-	{
-		hscale = 1;
-		trows = rows;
-	}
-	else
-	{
-		hscale = rows/texsize;
-		trows = texsize;
-	}
-	t = rows*hscale / texsize - 1.0/512.0;
+        glGenTextures(1, &strtex);
+        glBindTexture(GL_TEXTURE_2D, strtex);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, tex_width, tex_height, 0, GL_RGB, GL_UNSIGNED_BYTE, blank);
+        texinit = 1;
+    }
 
-	for (i=0 ; i<trows ; i++)
-	{
-		row = (int)(i*hscale);
-		if (row > rows)
-			break;
-		source = ((unsigned int*)data) + cols*row;
-		dest = &image32[i*texsize];
-		fracstep = cols*0x10000/texsize;
-		frac = fracstep >> 1;
-		for (j=0 ; j<texsize ; j++)
-		{
-			dest[j] = source[frac>>16];
-			frac += fracstep;
-		}
-	}
+    glBindTexture(GL_TEXTURE_2D, strtex);
+    glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, cols, rows, GL_RGB, GL_UNSIGNED_BYTE, data);
 
-	glTexImage2D (GL_TEXTURE_2D, 0, GL_RGB, texsize, texsize, 0, GL_BGRA, GL_UNSIGNED_BYTE, image32);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-	glEnable(GL_TEXTURE_2D);
-
-	glBegin (GL_QUADS);
-	glTexCoord2f (1.0/512.0, 1.0/512.0);
-	glVertex2f (x, y);
-	glTexCoord2f (511.0/512.0, 1.0/512.0);
-	glVertex2f (x+w, y);
-	glTexCoord2f (511.0/512.0, t);
-	glVertex2f (x+w, y+h);
-	glTexCoord2f (1.0/512.0, t);
-	glVertex2f (x, y+h);
-	glEnd ();
-
+    glBegin (GL_QUADS);
+    glTexCoord2f (0.0f, (GLfloat)rows/tex_height);
+    glVertex2f (x, y);
+    glTexCoord2f ((GLfloat)cols/tex_width, (GLfloat)rows/tex_height);
+    glVertex2f (x+w, y);
+    glTexCoord2f ((GLfloat)cols/tex_width, 0.0f);
+    glVertex2f (x+w, y+h);
+    glTexCoord2f (0.0f, 0.0f);
+    glVertex2f (x, y+h);
+    glEnd ();
 }
 
-//void aviDisplayFrame( AVFrame *pFrameRGB )
 void aviDisplayFrame( AVPicture *pFrameRGB, int w, int h )
 {
-
-/*    int x, y;
-
-    x = (MAIN_WindowWidth  - w) / 2;
-    y = (MAIN_WindowHeight  - h) / 2;
-
-//  dbgMessagef("aviDisplayFrame: pFrameRGB=%x %x %x %x", pFrameRGB, pFrameRGB->data[0], pFrameRGB->data[1], pFrameRGB->data[2]);
-
-
-    aviReverseRGBA( pFrameRGB->data[0], w, h );
-//    aviARGBtoRGBA( pFrameRGB->data[0], w, h );
-
-    aviStretchRGBA( pFrameRGB->data[0], w, h );
-
-    animAviSetup(TRUE);
-    glRasterPos2i(x, y);
-
-//    glDrawPixels(w, h, GL_RGBA, GL_UNSIGNED_INT_8_8_8_8, pFrameRGB->data[0]);
-
-    glDrawPixels(w, h, GL_BGRA, GL_UNSIGNED_INT_8_8_8_8_REV,
-                 pFrameRGB->data[0]);
-
-    animAviSetup(FALSE);
-
-
-//  dbgMessagef("aviDisplayFrame: R=%s  G=%s  B=%s", testR, testG, testB);
-//   dbgMessagef("aviDisplayFrame: R=%s", testR);*/
-
-    aviReverseRGBA( pFrameRGB->data[0], w, h );
-
     animAviSetup(TRUE);
     Draw_Stretch(0, 0, MAIN_WindowWidth, MAIN_WindowHeight, w, h, pFrameRGB->data[0]);
     animAviSetup(FALSE);
-
-/*
-    if (g_pbmi != NULL)
-    {
-        aviShowFrame(g_pbmi);
-    }
-
-	if(aviHasAudio == TRUE)
-	{
-		//give audio thread a break :)
-		Sleep(0);
-	}
-
-*/
 }
 
 #endif
@@ -433,17 +271,17 @@ dbgMessage("aviPlayLoop:");
 
     static struct SwsContext *img_convert_ctx = NULL;
 
-    numBytes=avpicture_get_size(PIX_FMT_RGB32, pCodecCtx->width, pCodecCtx->height);
+    numBytes=avpicture_get_size(PIX_FMT_RGB24, pCodecCtx->width, pCodecCtx->height);
 #if AVI_VERBOSE_LEVEL >= 2
 dbgMessagef("aviPlayLoop: numBytes= %d, width=%d height=%d", numBytes, pCodecCtx->width, pCodecCtx->height);
 #endif
 
     buffer = av_malloc(numBytes );
 
-    avpicture_fill(pPictureRGB, buffer, PIX_FMT_RGB32, pCodecCtx->width, pCodecCtx->height);
+    avpicture_fill(pPictureRGB, buffer, PIX_FMT_RGB24, pCodecCtx->width, pCodecCtx->height);
 
     if (img_convert_ctx == NULL){
-        img_convert_ctx = sws_getContext(pCodecCtx->width, pCodecCtx->height, pCodecCtx->pix_fmt, pCodecCtx->width, pCodecCtx->height, PIX_FMT_RGB32, SWS_BICUBIC, NULL, NULL, NULL);
+        img_convert_ctx = sws_getContext(pCodecCtx->width, pCodecCtx->height, pCodecCtx->pix_fmt, pCodecCtx->width, pCodecCtx->height, PIX_FMT_RGB24, SWS_BICUBIC, NULL, NULL, NULL);
         
     }
 
@@ -461,7 +299,7 @@ dbgMessagef("aviPlayLoop: frameFinished=%d  packet.data=%x   packet.size=%d ", f
 
         if(frameFinished) {
             // Convert the image from its native format to RGB
-//            img_convert(pPictureRGB, PIX_FMT_RGB32,
+//            img_convert(pPictureRGB, PIX_FMT_RGB24,
 //                (AVPicture*)pFrame, pCodecCtx->pix_fmt, pCodecCtx->width,
 //                pCodecCtx->height);
             sws_scale(img_convert_ctx, pFrame->data,pFrame->linesize, 0, pCodecCtx->height, pPictureRGB->data,pPictureRGB->linesize);
@@ -733,12 +571,6 @@ void aviSetScreen(int w, int h){
     yOfs = (MAIN_WindowHeight - 480) / 2;
 
 dbgMessagef("aviSetScreen: xOfs=%d yOfs=%d", xOfs, yOfs);
-
-    animAviSetup(TRUE);
-
-    glRasterPos2i(xOfs, yOfs);
-
-    animAviSetup(FALSE);
 
 }
 
