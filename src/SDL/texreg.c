@@ -3121,7 +3121,7 @@ void trMakeCurrent(trhandle handle)
         dbgMessagef("trMakeCurrent: %s", reg->fileName);
     }
 #endif
-#if TR_DEBUG_TEXTURES
+#if 0
     if (trSpecialTextures)
     {
         if (keyIsStuck(LBRACK))

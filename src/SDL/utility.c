@@ -865,7 +865,7 @@ void versionNumDraw(featom *atom, regionhandle region)
 
     fontPrint(pos.x0, pos.y0, versionColor, versionstr);
 
-#ifdef HW_BUILD_FOR_DEBUGGING
+#if 0
     pos.y0 += fontheight;
     fontPrint(pos.x0, pos.y0, versionColor, (char*)GLC_VENDOR);
     pos.y0 += fontheight;
