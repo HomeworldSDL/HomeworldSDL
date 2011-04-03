@@ -851,10 +851,6 @@ void trailDrawCapitalGlow(shiptrail* trail, sdword LOD)
     rndTextureEnable(FALSE);
     glEnable(GL_CULL_FACE);
     glDepthMask(GL_FALSE);
-    if (!usingShader && RGL)
-    {
-        rglFeature(RGL_SPECULAR3_RENDER);
-    }
     glEnable(GL_BLEND);
     rndAdditiveBlends(TRUE);
 
@@ -972,10 +968,6 @@ void trailDrawCapitalGlow(shiptrail* trail, sdword LOD)
     {
         shSetExponent(2, trail->exponent);
     }
-    else if (RGL)
-    {
-        rglSpecExp(2, trail->exponent);
-    }
 
     if (bitTest(gDevcaps2, DEVSTAT2_NO_IALPHA))
     {
@@ -1087,11 +1079,6 @@ void trailDrawCapitalGlow(shiptrail* trail, sdword LOD)
 
     glDisable(GL_NORMALIZE);
     g_NoMatSwitch = FALSE;
-
-    if (!usingShader && RGL)
-    {
-        rglFeature(RGL_NORMAL_RENDER);
-    }
 
     glDepthMask(GL_TRUE);
     glDisable(GL_BLEND);

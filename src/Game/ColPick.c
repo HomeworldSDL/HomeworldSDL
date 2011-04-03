@@ -830,14 +830,6 @@ void cpNumberDraw(featom *atom, regionhandle region, sdword value)
         primRectOutline2(r, atom->borderWidth, atom->borderColor);
     }
 
-    if (feShouldSaveMouseCursor())
-    {
-        rectangle rect = region->rect;
-        rect.x0++;
-        rect.y1 -= 2;
-        primRectSolid2(&rect, colBlack);
-    }
-
     fhSave = fontCurrentGet();                              //save the current font
     fontMakeCurrent(cpValuesFont);                          //select the appropriate font
     fontPrintf(r->x0 + CP_NumberMarginX, r->y0 + (r->y1 - r->y0 - fontHeight(" ")) / 2, atom->borderColor, "%d", value);
@@ -1057,15 +1049,6 @@ void cpValueDraw(featom *atom, regionhandle region)
     else
     {
         val = cpStripeValue;
-    }
-
-    if (feShouldSaveMouseCursor())
-    {
-        rectangle rect = region->rect;
-        rect.x1++;
-        rect.y0 -= cpValueArrowHeight / 2 + 1;
-        rect.y1 += cpValueArrowHeight / 2 + 1;
-        primRectSolid2(&rect, colBlack);
     }
 
     val = val * (region->rect.y1 - region->rect.y0) / CP_ValueTextureHeight;

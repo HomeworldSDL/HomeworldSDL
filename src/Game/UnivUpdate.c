@@ -3261,10 +3261,6 @@ nobulletmasstransfer:
             vecCopyAndNegate(LOF,bullet->bulletheading);
             matCreateCoordSysFromHeading(&hitCoordsys,&LOF);
             floatDamage = (real32)damagetaken;
-            if (RGLtype == SWtype)
-            {                                               //smaller hit effects in software
-                floatDamage *= etgSoftwareScalarHit;
-            }
             floatDamage *= damageMult;
             intDamage = Real32ToUdword(floatDamage);
             etgEffectCreate(stat, NULL, &hitLocation, &target->posinfo.velocity, &hitCoordsys, targetScale, 0, 2, SCALECAST(intDamage), SCALECAST(fatalHit));
@@ -3428,10 +3424,6 @@ void univMissileCollidedWithTarget(SpaceObjRotImpTarg *target,StaticHeader *targ
             }
 
             floatDamage = (real32)damagetaken;
-            if (RGLtype == SWtype)
-            {                                               //smaller hit effects in software
-                floatDamage *= etgSoftwareScalarHit;
-            }
             floatDamage *= damageMult;
             intDamage = Real32ToUdword(floatDamage);
             etgEffectCreate(stat, NULL, &hitLocation, &target->posinfo.velocity, &missile->rotinfo.coordsys, targetScale, 0, 2, SCALECAST(intDamage), SCALECAST(fatalHit));
@@ -4801,10 +4793,6 @@ void DeleteDeadMissile(Missile *missile, sdword deathBy)
                 hitLocation = missile->posinfo.position;
 
                 floatDamage = missile->damage;
-                if (RGLtype == SWtype)
-                {                                               //smaller hit effects in software
-                    floatDamage *= etgSoftwareScalarHit;
-                }
                 intDamage = Real32ToUdword(floatDamage);
                 fatalHit = FALSE;
                 etgEffectCreate(stat, NULL, &hitLocation, &missile->posinfo.velocity, &missile->rotinfo.coordsys, 1.0, 0, 2, SCALECAST(intDamage), SCALECAST(fatalHit));

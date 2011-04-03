@@ -262,11 +262,6 @@ void defensefightertargetbullet(Ship *ship, Bullet *bullettotarget)
     if (stat != NULL && etgFireEffectsEnabled && !etgFrequencyExceeded(stat))
 #endif
     {                                                       //if there is a gun fire effect
-        if (RGLtype == SWtype)
-        {                                                   //smaller fire effects in software
-            floatDamage *= etgSoftwareScalarFire;
-            intDamage = TreatAsUdword(floatDamage);
-        }
         newEffect = etgEffectCreate(stat, laser, NULL, NULL, NULL, 1.0f, EAF_AllButNLips, 1, intDamage);
 //        univAddObjToRenderListIf((SpaceObj *)newEffect,(SpaceObj *)ship);     // add to render list if parent ship is in render list
     }
@@ -560,10 +555,6 @@ void DefenseFighterDestroyedABullet(Ship *ship, Bullet *bullet, Bullet *laser)
     {
         //floatDamage = 30.0f;     //?????
         floatDamage = bullet->damageFull;
-        if (RGLtype == SWtype)
-        {                                                   //smaller bullet death effects in software
-            floatDamage *= etgSoftwareScalarHit;
-        }
         intDamage = TreatAsUdword(floatDamage);
 
 //        vecScalarMultiply(newVelocity,bullet->posinfo.velocity,0.3f);

@@ -1757,7 +1757,6 @@ blob *smBlobsDraw(Camera *camera, LinkedList *list, hmatrix *modelView, hmatrix 
     sdword radius;
     vector p0, p1;
     real32 x, y, screenRadius;
-    bool reActivateStipple;
 #if BOB_VERBOSE_LEVEL >= 2
     sdword nBlobs = 0;
 #endif
@@ -1808,22 +1807,7 @@ blob *smBlobsDraw(Camera *camera, LinkedList *list, hmatrix *modelView, hmatrix 
     closestSortDistance -= smClosestMargin;
     farthestSortDistance += smFarthestMargin;
 
-    if (RGL && glIsEnabled(GL_POLYGON_STIPPLE))
-    {
-        reActivateStipple = TRUE;
-        glDisable(GL_POLYGON_STIPPLE);
-    }
-    else
-    {
-        reActivateStipple = FALSE;
-    }
-
     //do 1 pass (backwards) through all the blobs to render the blobs themselves
-//    node = list->tail;
-//    while (node != NULL)
-//    {
-//        thisBlob = (blob *)listGetStructOfNode(node);
-//        node = node->prev;
     for (blobIndex = smNumberBlobsSorted - 1; blobIndex >= 0; blobIndex--)
     {
         thisBlob = smBlobSortList[blobIndex];
@@ -1900,11 +1884,6 @@ blob *smBlobsDraw(Camera *camera, LinkedList *list, hmatrix *modelView, hmatrix 
                 closestBlob = thisBlob;
             }
         }
-    }
-
-    if (reActivateStipple)
-    {
-        glEnable(GL_POLYGON_STIPPLE);
     }
 
 #if SM_VERBOSE_LEVEL >= 3
@@ -2292,8 +2271,6 @@ void smSensorsCloseForGood(void)
                              255));
     smSensorsActive = FALSE;
     universe.dontUpdateRenderList = FALSE;
-    if (RGL)
-        rglFeature(RGL_NORMDEPTH);
     if (smScrollListLeft) memFree(smScrollListLeft);
     if (smScrollListRight) memFree(smScrollListRight);
     if (smScrollListTop) memFree(smScrollListTop);
@@ -4250,8 +4227,6 @@ void smSensorsBegin(char *name, featom *atom)
     soundEvent(NULL, UI_SensorsIntro);
 
     universe.dontUpdateRenderList = TRUE;
-    if (RGL)
-        rglFeature(RGL_SANSDEPTH);
     smRenderCount = 0;
 
     //add any additional key messages the sensors manager will need

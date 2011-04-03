@@ -656,8 +656,6 @@ void svFirepowerRender(featom *atom, regionhandle region)
 
     currentFont = fontMakeCurrent(svShipStatFont);
 
-    if (RGLtype == SWtype) primRectSolid2(&region->rect, FEC_Background);
-
     if(info->svFirePower !=0)
     {
         firepower = (uword) info->svFirePower;
@@ -740,8 +738,6 @@ void svCoverageRender(featom *atom, regionhandle region)
 
     width = fontWidthf("%s",buf);
 
-    if (RGLtype == SWtype) primRectSolid2(&region->rect, FEC_Background);
-
     fontPrintf(
         rect->x0,//rect->x1 - width,
         rect->y0,
@@ -787,8 +783,6 @@ void svManeuverRender(featom *atom, regionhandle region)
     }
 
     currentFont = fontMakeCurrent(svShipStatFont);
-
-    if (RGLtype == SWtype) primRectSolid2(&region->rect, FEC_Background);
 
     svShipManeuverability(info,maneuverability);
     sprintf(buf,ShipStatToNiceStr(Maneuver),maneuverability);
@@ -848,8 +842,6 @@ void svArmorRender(featom *atom, regionhandle region)
 
     width = fontWidthf("%s",buf);
 
-    if (RGLtype == SWtype) primRectSolid2(&region->rect, FEC_Background);
-
     fontPrintf(
         rect->x0,//rect->x1 - width,
         rect->y0,
@@ -896,8 +888,6 @@ void svTopSpeedRender(featom *atom, regionhandle region)
     }
 
     currentFont = fontMakeCurrent(svShipStatFont);
-
-    if (RGLtype == SWtype) primRectSolid2(&region->rect, FEC_Background);
 
     //sprintf(buf,"%d", (uword)info->staticheader.maxvelocity);
     //topspeed contains a %d for the numerical location of the maxvelocity
@@ -971,8 +961,6 @@ void svMassRender(featom *atom, regionhandle region)
         buf);                       //width of number
         //ShipTypeStatToNiceStr(svShipType, Mass));//width of number
 
-
-    if (RGLtype == SWtype) primRectSolid2(&region->rect, FEC_Background);
 
     fontPrintf(
         rect->x0,//rect->x1 - width,

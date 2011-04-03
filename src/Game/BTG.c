@@ -1287,29 +1287,14 @@ void btgRender()
     dnext = (udword*)_bgByte;
     dlast = (udword*)lastbg;
 
-    fastBlends = FALSE;//glCapFastFeature(GL_BLEND);
-    textureStars = (RGLtype == SWtype) ? FALSE : TRUE;
+    fastBlends = FALSE;
+    textureStars = TRUE;
 
     depthOn = glIsEnabled(GL_DEPTH_TEST);
     lightOn = rndLightingEnable(FALSE);
     texOn = glIsEnabled(GL_TEXTURE_2D);
     blendOn = glIsEnabled(GL_BLEND);
-    if (RGLtype == SWtype)
-    {
-        glDisable(GL_DEPTH_TEST);
-    }
-    else
-    {
-        if (glCapFeatureExists(RGL_BROKEN_MIXED_DEPTHTEST))
-        {
-            glDisable(GL_DEPTH_TEST);
-            glDepthMask(GL_FALSE);
-        }
-        else
-        {
-            glDisable(GL_DEPTH_TEST);
-        }
-    }
+    glDisable(GL_DEPTH_TEST);
     glDisable(GL_CULL_FACE);
     glDisable(GL_TEXTURE_2D);
     if (fastBlends)
@@ -1336,8 +1321,7 @@ void btgRender()
         lastFade = btgFade;
     }
 
-    if (glCapFeatureExists(GL_VERTEX_ARRAY) &&
-        (RGLtype != GLtype))
+    if (glCapFeatureExists(GL_VERTEX_ARRAY))
     {
         //use DrawElements to render the bg polys
         glInterleavedArrays(GL_C4UB_V3F, 0, (void*)btgTransVerts);

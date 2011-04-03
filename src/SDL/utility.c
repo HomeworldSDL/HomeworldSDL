@@ -1174,18 +1174,6 @@ void utyStippleToggle(char* name, featom* atom)
         else
             enableStipple = FALSE;
         feToggleButtonSet("VO_BitmapStipple",enableStipple);
-
-        if (RGL)
-        {
-            if (enableStipple)
-            {
-                glEnable(GL_POLYGON_STIPPLE);
-            }
-            else
-            {
-                glDisable(GL_POLYGON_STIPPLE);
-            }
-        }
     }
 
     utySetCustomEffects();
@@ -1203,18 +1191,6 @@ void utyStippleBitmapToggle(char* name, featom* atom)
         else
             enableStipple = FALSE;
         feToggleButtonSet("VO_Stipple",enableStipple);
-
-        if (RGL)
-        {
-            if (enableStipple)
-            {
-                glEnable(GL_POLYGON_STIPPLE);
-            }
-            else
-            {
-                glDisable(GL_POLYGON_STIPPLE);
-            }
-        }
     }
 }
 void utyTrailsToggle(char* name, featom* atom)
@@ -4612,10 +4588,6 @@ char *utyGameSystemsShutdown(void)
 
     if (utyTest(SSA_Render))
     {
-        if (!RGL)
-        {
-            /*hwDeleteWindow();*/
-        }
         rndClose();
         //the GL has now SHUTDOWN
         utyClear(SSA_Render);

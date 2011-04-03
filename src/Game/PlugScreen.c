@@ -578,7 +578,6 @@ void psShutdown(void)
 extern void *hGLDeviceContext;              //void * is really a HDC
 DEFINE_TASK(psRenderTaskFunction)
 {
-    static bool shouldSwap;
     static regionhandle reg;
 
     taskBegin;
@@ -657,27 +656,12 @@ DEFINE_TASK(psRenderTaskFunction)
             }
             psScreenTimeout = 0.0f;                         //don't try to time out any more
         }
-        shouldSwap = feSavingMouseCursor;
-        if (shouldSwap)
-        {
-            if (RGL)
-                rglFeature(RGL_SAVEBUFFER_ON);
-        }
-        else
-        {
-            if (RGL)
-                rglFeature(RGL_SAVEBUFFER_OFF);
-        }
         primErrorMessagePrint();
         regFunctionsDraw();                                 //render all regions
         primErrorMessagePrint();
         /* need to update audio event layer */
         soundEventUpdate();
 
-        if (shouldSwap)
-        {
-            mouseStoreCursorUnder();
-        }
         mouseDraw();                                        //draw mouse atop everything
 
         if (!feDontFlush)
@@ -686,10 +670,6 @@ DEFINE_TASK(psRenderTaskFunction)
         }
         feDontFlush = FALSE;
         primErrorMessagePrint();
-        if (shouldSwap)
-        {
-            mouseRestoreCursorUnder();
-        }
         primErrorMessagePrint();
 
         taskYield(0);

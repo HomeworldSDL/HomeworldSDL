@@ -867,24 +867,10 @@ udword regRegionProcess(regionhandle reg, udword mask)
         }
     }
     bitClear(reg->status, RSF_Processing);                  //no longer using this region
-    if (feShouldSaveMouseCursor())
-    {
-        if (bitTest(reg->flags, RPE_DrawEveryFrame))            //check permanent draw flag for this region
-        {
 #ifdef DEBUG_STOMP
-            regVerify(reg);
+    regVerify(reg);
 #endif
-            bitSet(reg->status, RSF_DrawThisFrame);
-        }
-    }
-    else
-    {
-        //we must redraw the entire frontend
-#ifdef DEBUG_STOMP
-        regVerify(reg);
-#endif
-        bitSet(reg->status, RSF_DrawThisFrame);
-    }
+    bitSet(reg->status, RSF_DrawThisFrame);
 #if REG_DRAW_REGION_BORDERS
     if (regDrawBorders)
     {
@@ -896,11 +882,6 @@ udword regRegionProcess(regionhandle reg, udword mask)
 #endif
     if (bitTest(reg->status, RSF_DrawThisFrame))            //if need to draw this frame
     {
-        if (feShouldSaveMouseCursor())
-        {
-            regDirtyChildren(reg);
-//            regDirtySiblingsInside(reg);
-        }
         regDrawFunctionAddPossibly(reg);
 #ifdef DEBUG_STOMP
         regVerify(reg);
@@ -1469,12 +1450,6 @@ void regRegionDelete(regionhandle region)
     regInitCheck();
     regVerify(region);
     listDeleteAll(&region->cutouts);
-
-    //dirty regions below us if we need to
-    if (feShouldSaveMouseCursor())
-    {
-        regDirtyEverythingUpwardsSelectively(region, region);
-    }
 
     if (bitTest(region->status, RSF_Processing))            //if processing this region
     {

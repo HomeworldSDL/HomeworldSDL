@@ -311,10 +311,6 @@ void dmgPlayEffect(Ship* ship, etglod* effect, sdword level)
     floatDamage = ship->health * ship->staticinfo->oneOverMaxHealth;
     intDamage = Real32ToUdword(floatDamage);
     floatSize = ship->staticinfo->staticheader.staticCollInfo.collspheresize;
-    if (RGLtype == SWtype)
-    {                                                       //smaller damage effects in software
-        floatSize *= etgSoftwareScalarDamage;
-    }
     intSize = Real32ToUdword(floatSize);
 
 #if ETG_DISABLEABLE

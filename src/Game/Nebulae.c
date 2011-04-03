@@ -37,8 +37,6 @@
 
 ubyte nebColor[4];
 
-#define NEB_RENDER RGL_SPECULAR2_RENDER
-
 #define TENDRILBRIGHTEN 60
 
 #define TENDRILCOLOR0(a) \
@@ -1357,8 +1355,6 @@ void nebRenderChunk(nebChunk* chunk, sdword lod)
 
     dbgAssertOrIgnore(chunk != NULL);
 
-    if (RGL && !usingShader) rglFeature(NEB_RENDER);
-
     TENDRILCOLOR0(TENDRILALPHA);
 
     if (chunk->counter < neb_frame_counter)
@@ -1387,8 +1383,6 @@ void nebRenderChunk(nebChunk* chunk, sdword lod)
         }
     }
 
-    if (RGL && !usingShader) rglFeature(RGL_NORMAL_RENDER);
-
     TENDRILCOLOR0(TENDRILALPHA);
 }
 
@@ -1416,8 +1410,6 @@ void nebDrawTendril(nebTendril* tendril, sdword lod)
 
     dPosA = tendril->a->dPos;
     dPosB = tendril->b->dPos;
-
-    if (RGL && !usingShader) rglFeature(NEB_RENDER);
 
     glBegin(GL_QUADS);
     for (j = 1; j <= tendril->lod[lod].stacks; j++)
@@ -1489,8 +1481,6 @@ void nebDrawTendril(nebTendril* tendril, sdword lod)
     }
     glEnd();
     alodIncPolys(tendril->lod[lod].stacks * tendril->lod[lod].slices);
-
-    if (RGL && !usingShader) rglFeature(RGL_NORMAL_RENDER);
 }
 
 /*-----------------------------------------------------------------------------
@@ -2039,15 +2029,7 @@ void nebRenderNebula(nebulae_t* neb)
     glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
     if (fogOn) glDisable(GL_FOG);
 
-    if (RGL && !usingShader)
-    {
-        rndLightingEnable(TRUE);
-    }
-    else
-    {
-        rndLightingEnable(FALSE);
-    }
-
+    rndLightingEnable(FALSE);
     rndTextureEnable(FALSE);
     glEnable(GL_BLEND);
     rndAdditiveBlends(FALSE);

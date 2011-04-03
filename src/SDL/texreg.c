@@ -159,43 +159,27 @@ void trColorTable(color* palette)
     {
         return;
     }
-    if (RGL)
+    ubyte  newpalette[3*256];
+    sdword i;
+    color  c;
+
+    if (trSharedPalettes && !trUpdate && (trLastPalette == (ubyte*)palette))
     {
-        if (trSharedPalettes && !trUpdate && (trLastPalette == (ubyte*)palette))
-        {
-            return;
-        }
-
-        trLastPalette = (ubyte*)palette;
-        trUpdate = FALSE;
-
-        glColorTableEXT(GL_TEXTURE_2D, GL_RGBA, TR_PaletteLength,
-                        GL_RGBA, GL_UNSIGNED_BYTE, palette);
+        return;
     }
-    else
+
+    trLastPalette = (ubyte*)palette;
+    trUpdate = FALSE;
+
+    for (i = 0; i < 256; i++)
     {
-        ubyte  newpalette[3*256];
-        sdword i;
-        color  c;
-
-        if (trSharedPalettes && !trUpdate && (trLastPalette == (ubyte*)palette))
-        {
-            return;
-        }
-
-        trLastPalette = (ubyte*)palette;
-        trUpdate = FALSE;
-
-        for (i = 0; i < 256; i++)
-        {
-            c = palette[i];
-            newpalette[3*i + 0] = colRed(c);
-            newpalette[3*i + 1] = colGreen(c);
-            newpalette[3*i + 2] = colBlue(c);
-        }
-        glColorTableEXT(GL_TEXTURE_2D, GL_RGB, TR_PaletteLength,
-                        GL_RGB, GL_UNSIGNED_BYTE, newpalette);
+        c = palette[i];
+        newpalette[3*i + 0] = colRed(c);
+        newpalette[3*i + 1] = colGreen(c);
+        newpalette[3*i + 2] = colBlue(c);
     }
+    glColorTableEXT(GL_TEXTURE_2D, GL_RGB, TR_PaletteLength,
+                    GL_RGB, GL_UNSIGNED_BYTE, newpalette);
 }
 
 /*-----------------------------------------------------------------------------
@@ -216,30 +200,8 @@ void trReload(void)
     }
 
     glLitColorTableEXT = NULL;
-    if (RGLtype == SWtype)
-    {
-        glLitColorTableEXT = (PFNGLCOLORTABLEEXTPROC)rwglGetProcAddress("glLitColorTableEXT");
-        trLitPaletteBits = trLitPaletteBitDepth();
-    }
-    else
-    {
 #endif // _MACOSX_FIX_MISC
-        trLitPaletteBits = 0;
-#ifndef _MACOSX_FIX_MISC
-    }
-#endif
-
-    if (RGL)
-    {
-        if (enableStipple)
-        {
-            glEnable(GL_POLYGON_STIPPLE);
-        }
-        else
-        {
-            glDisable(GL_POLYGON_STIPPLE);
-        }
-    }
+    trLitPaletteBits = 0;
 
     trSharedPalettes = glCapFeatureExists(GL_SHARED_TEXTURE_PALETTE_EXT);
     if (trSharedPalettes)
@@ -287,30 +249,8 @@ void trStartup(void)
     }
 
     glLitColorTableEXT = NULL;
-    if (RGLtype == SWtype)
-    {
-        glLitColorTableEXT = (PFNGLCOLORTABLEEXTPROC)rwglGetProcAddress("glLitColorTableEXT");
-        trLitPaletteBits = trLitPaletteBitDepth();
-    }
-    else
-    {
 #endif // _MACOSX_FIX_MISC
-        trLitPaletteBits = 0;
-#ifndef _MACOSX_FIX_MISC
-    }
-#endif
-
-    if (RGL)
-    {
-        if (enableStipple)
-        {
-            glEnable(GL_POLYGON_STIPPLE);
-        }
-        else
-        {
-            glDisable(GL_POLYGON_STIPPLE);
-        }
-    }
+    trLitPaletteBits = 0;
 
     trSharedPalettes = glCapFeatureExists(GL_SHARED_TEXTURE_PALETTE_EXT);
     if (trSharedPalettes)
@@ -1373,26 +1313,24 @@ udword trPalettedTextureCreate(ubyte *data, color *palette, sdword width, sdword
     }
     primErrorMessagePrint();
     //first see if this texture can fit in RAM.  It should because we've already packed the textures
-    if (!RGL)
-    {
 #if TR_ASPECT_CHECKING
-        if ((width / height) > 8 || (height / width) > 8)
-        {
-            dbgWarningf(DBG_Loc, "\ntrPalettedTextureCreate: aspect overflow in texture of size %d x %d", width, height);
+    if ((width / height) > 8 || (height / width) > 8)
+    {
+        dbgWarningf(DBG_Loc, "\ntrPalettedTextureCreate: aspect overflow in texture of size %d x %d", width, height);
 
-            oldWidth  = width;
-            oldHeight = height;
-            while ((width / height) > 8)
-            {
-                width >>= 1;
-            }
-            while ((height / width) > 8)
-            {
-                height >>= 1;
-            }
-            tempData = trImageScaleIndexed(data, oldWidth, oldHeight, width, height, FALSE);
-            data = tempData;
+        oldWidth  = width;
+        oldHeight = height;
+        while ((width / height) > 8)
+        {
+            width >>= 1;
         }
+        while ((height / width) > 8)
+        {
+            height >>= 1;
+        }
+        tempData = trImageScaleIndexed(data, oldWidth, oldHeight, width, height, FALSE);
+        data = tempData;
+    }
 #endif //TR_ASPECT_CHECKING
 #if TR_ERROR_CHECKING
 	if (!trNoPalettes)
@@ -1410,7 +1348,6 @@ udword trPalettedTextureCreate(ubyte *data, color *palette, sdword width, sdword
 	    primErrorMessagePrint();
 	}
 #endif //TR_ERROR_CHECKING
-    }
 
     if (trNoPalettes)
     {
@@ -1482,25 +1419,22 @@ udword trRGBTextureCreate(color *data, sdword width, sdword height, bool useAlph
     }
     //first see if this texture can fit in RAM.  It should because we've already packed the textures
 #if TR_ASPECT_CHECKING
-    if (!RGL)
+    if (width / height > 8 || height / width > 8)
     {
-        if (width / height > 8 || height / width > 8)
-        {
-            dbgWarningf(DBG_Loc, "\ntrRGBTextureCreate: aspect overflow in texture of size %d x %d", width, height);
+        dbgWarningf(DBG_Loc, "\ntrRGBTextureCreate: aspect overflow in texture of size %d x %d", width, height);
 
-            oldWidth  = width;
-            oldHeight = height;
-            while ((width / height) > 8)
-            {
-                width >>= 1;
-            }
-            while ((height / width) > 8)
-            {
-                height >>= 1;
-            }
-            tempData = trImageScale(data, oldWidth, oldHeight, width, height, FALSE);
-            data = tempData;
+        oldWidth  = width;
+        oldHeight = height;
+        while ((width / height) > 8)
+        {
+            width >>= 1;
         }
+        while ((height / width) > 8)
+        {
+            height >>= 1;
+        }
+        tempData = trImageScale(data, oldWidth, oldHeight, width, height, FALSE);
+        data = tempData;
     }
 #endif //TR_ASPECT_CHECKING
     glTexImage2D(GL_TEXTURE_2D, 0, destType, width,       //create the GL texture object
@@ -1921,57 +1855,23 @@ void trPreLoadedTextureScale(sdword handle, sdword newWidth, sdword newHeight)
     dbgAssertOrIgnore(newWidth != reg->scaledWidth || newHeight != reg->scaledHeight);
     dbgAssertOrIgnore(!trPending(handle));
 
-    if (RGLtype != SWtype || newWidth > reg->scaledWidth || newHeight > reg->scaledHeight || trNoPalettes)
-    {                                                       //if texture is to be scaled up
-        //... flag the texture for re-loading (make pending).
-        if (bitTest(reg->flags, TRF_Paletted))
-        {                                                   //if it's a paletted texture
-            oldColorInfos = (trcolorinfo *)((ubyte *)reg->palettes + TR_PaletteSize * reg->nPalettes);
-        }
-        else
-        {                                                   //else's it's an RGB texture
-            oldColorInfos = (trcolorinfo *)((ubyte *)reg->palettes + sizeof(udword) * reg->nPalettes);
-        }
-        //make duplicate copy of the colorinfo structures
-        newColorInfos = memAlloc(TR_NumPaletteSize, "dupe trcolorinfo list", NonVolatile);
-        memcpy(newColorInfos, oldColorInfos, sizeof(trcolorinfo) * reg->nPalettes);
-
-        trInternalTexturesDelete(handle);                   //kill the GL textures and palettes
-        reg->palettes = (ubyte *)newColorInfos;             //save new list of color infos
-        trSetPending(trIndex(handle));                      //make this texture pending, to be re-loaded
+    //... flag the texture for re-loading (make pending).
+    if (bitTest(reg->flags, TRF_Paletted))
+    {                                                   //if it's a paletted texture
+        oldColorInfos = (trcolorinfo *)((ubyte *)reg->palettes + TR_PaletteSize * reg->nPalettes);
     }
     else
-    {                                                       //texture is scaling down
-        //... get texture from the GL, delete old texture, scale down, create new ones
-        if (bitTest(reg->flags, TRF_Paletted))
-        {                                                   //if it's a paletted texture
-            oldIndexed = memAlloc(reg->scaledWidth * reg->scaledHeight, "ZZY(TempBuffer)", Pyrophoric);
-            trClearCurrent();
-            glBindTexture(GL_TEXTURE_2D, reg->handle);
-            glGetTexImage(GL_TEXTURE_2D, 0, GL_COLOR_INDEX, GL_UNSIGNED_BYTE, oldIndexed);
-            glDeleteTextures(1, (GLuint*)&reg->handle);              //delete GL-internal texture
-            newIndexed = trImageScaleIndexed(oldIndexed, reg->scaledWidth, reg->scaledHeight, newWidth, newHeight, TRUE);
-            reg->handle = trPalettedTextureCreate(newIndexed, (color *)reg->palettes, newWidth, newHeight);
-            memFree(newIndexed);
-        }
-        else
-        {                                                   //else's it's an RGB texture
-            bUseAlpha = bitTest(reg->flags, TRF_Alpha);     //is this an alpha texture? most likely
-            dbgAssertOrIgnore(bUseAlpha);
-            if (reg->nPalettes == 1)
-            {                                               //if only 1 palette
-                reg->handle = trTextureHandleScale(reg->handle, reg->scaledWidth, reg->scaledHeight, newWidth, newHeight, bUseAlpha);
-            }
-            else
-            {                                               //else scale all colorized copies of this texture down
-                handles = (udword *)reg->palettes;
-                for (index = 0; index < reg->nPalettes; index++, handles++)
-                {
-                    *handles = trTextureHandleScale(*handles, reg->scaledWidth, reg->scaledHeight, newWidth, newHeight, bUseAlpha);
-                }
-            }
-        }
+    {                                                   //else's it's an RGB texture
+        oldColorInfos = (trcolorinfo *)((ubyte *)reg->palettes + sizeof(udword) * reg->nPalettes);
     }
+    //make duplicate copy of the colorinfo structures
+    newColorInfos = memAlloc(TR_NumPaletteSize, "dupe trcolorinfo list", NonVolatile);
+    memcpy(newColorInfos, oldColorInfos, sizeof(trcolorinfo) * reg->nPalettes);
+
+    trInternalTexturesDelete(handle);                   //kill the GL textures and palettes
+    reg->palettes = (ubyte *)newColorInfos;             //save new list of color infos
+    trSetPending(trIndex(handle));                      //make this texture pending, to be re-loaded
+
     reg->scaledWidth = newWidth;
     reg->scaledHeight = newHeight;
 }
@@ -3304,12 +3204,6 @@ abortloading:
 #if MEM_ANALYSIS
     memAnalysisCreate();
 #endif
-#if TR_ERROR_CHECKING
-    if (RGL)
-    {
-        rglFeature(RGL_TEXTURE_LOG);
-    }
-#endif
 
 #if TR_TEXTURE_USAGE
     trTextureUsageList("texturesUsage.list");
@@ -3485,7 +3379,7 @@ void trMakeCurrent(trhandle handle)
 
                 primErrorMessagePrint();
             }
-            else// if (!RGL && !trSharedPalettes)
+            else
             {
                 dbgAssertOrIgnore(trPaletteIndex(handle) < (udword)reg->nPalettes);
 
@@ -3533,8 +3427,6 @@ void trFilterEnable(sdword bEnable)
 {
     sdword index, j;
     texreg *reg;
-
-    if (RGL) rglFeature(RGL_FASTBIND_ON);
 
     for (index = 0; index < TR_RegistrySize; index++)
     {
@@ -3602,8 +3494,6 @@ void trFilterEnable(sdword bEnable)
     texLinearFiltering = bEnable;                           //set new filter mode flag
 
     trClearCurrent();
-
-    if (RGL) rglFeature(RGL_FASTBIND_OFF);
 }
 
 /*-----------------------------------------------------------------------------

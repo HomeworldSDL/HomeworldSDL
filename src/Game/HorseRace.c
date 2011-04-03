@@ -747,27 +747,14 @@ static bool hrDrawPixelsSupported(void)
         //commandline option
         return FALSE;
     }
-    if (mainSafeGL && (RGLtype == GLtype))
+    if (mainSafeGL)
     {
         //running in "safe mode"
         return FALSE;
     }
-    if ((RGLtype == GLtype) &&
-        bitTest(gDevcaps2, DEVSTAT2_NO_DRAWPIXELS))
+    if (bitTest(gDevcaps2, DEVSTAT2_NO_DRAWPIXELS))
     {
         //bit in devcaps2
-        return FALSE;
-    }
-    else if (strcasecmp(GLC_VENDOR, "ati") == 0 &&
-             strstr(GLC_RENDERER, "128") != NULL)
-    {
-        //ATI Rage 128
-        return FALSE;
-    }
-    else if (strstr(GLC_VENDOR, "Matrox") != NULL ||
-             strstr(GLC_VENDOR, "atrox ") != NULL)
-    {
-        //Matrox cards
         return FALSE;
     }
     else
@@ -1260,11 +1247,7 @@ void horseRaceInit()
     playernamefont = frFontRegister(HR_PlayerNameFont);
 
     hrRunning=TRUE;
-    if (RGLtype == SWtype && feShouldSaveMouseCursor())
-    {
-        rglFeature(RGL_SAVEBUFFER_ON);
-    }
-    hrBackgroundDirty = (RGLtype == SWtype) ? 10000 : 3;
+    hrBackgroundDirty = 3;
     hrBackgroundReinit = FALSE;
 }
 
@@ -1295,15 +1278,6 @@ void horseRaceShutdown()
     hrProgressRegion = NULL;
     hrChatBoxRegion = NULL;
     ChatTextEntryBox = NULL;
-
-    if (RGL)
-    {
-        if (RGLtype == SWtype)
-        {
-            rglFeature(RGL_SAVEBUFFER_OFF);
-        }
-        rglSuperClear();
-    }
 }
 
 void horseRaceWaitForNetworkGameStartShutdown()
@@ -1393,12 +1367,12 @@ void horseRaceRender()
             hrBackgroundImage = NULL;
         }
         hrBackgroundReinit = FALSE;
-        hrBackgroundDirty = (RGLtype == SWtype) ? 10000 : 3;
+        hrBackgroundDirty = 3;
         hrBackgroundInitFrame = 0;
     }
 
     // Make sure the Homeworld text gets drawn on the correct frames
-    if (hrBackgroundDirty || RGLtype == SWtype)
+    if (hrBackgroundDirty)
     {
         regRecursiveSetDirty(&horseCrapRegion);
         hrDecRegion = NULL;
@@ -1504,16 +1478,8 @@ void horseRaceRender()
 
     if (ShouldHaveMousePtr)
     {
-        if (feShouldSaveMouseCursor())
-        {
-            if (RGLtype == SWtype) rglFeature(RGL_SAVEBUFFER_ON);
-        }
-        else
-        {
-            if (RGLtype == SWtype) rglFeature(RGL_SAVEBUFFER_OFF);
-            rndClearToBlack();
-            glClear(GL_DEPTH_BUFFER_BIT);
-        }
+        rndClearToBlack();
+        glClear(GL_DEPTH_BUFFER_BIT);
     }
 
 //    primErrorMessagePrint();
@@ -1528,23 +1494,16 @@ void horseRaceRender()
     }
 
     // When there's no background loaded yet, it fills the screen with black
-    if (RGLtype == SWtype)
+    if (hrBackgroundDirty)
     {
         hrDrawBackground();
     }
     else
     {
-        if (hrBackgroundDirty)
+        if (hrBackgroundImage != NULL)
         {
-            hrDrawBackground();
-        }
-        else
-        {
-            if (hrBackgroundImage != NULL)
-            {
-                free(hrBackgroundImage);
-                hrBackgroundImage = NULL;
-            }
+            free(hrBackgroundImage);
+            hrBackgroundImage = NULL;
         }
     }
 

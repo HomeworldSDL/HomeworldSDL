@@ -1136,16 +1136,6 @@ void DeactivateMe()
     }
     sounddeactivate(TRUE);
 
-    if (RGL)
-    {
-        rglFeature(RGL_DEACTIVATE);
-    }
-    /*
-    else
-    {
-        (void)hwActivate(FALSE);
-    }
-    */
     wasDemoPlaying = demDemoPlaying;                        //save demo playback state
     demDemoPlaying = FALSE;                                 //stop the demo playback for now
 
@@ -1193,17 +1183,6 @@ void ActivateMe()
     sounddeactivate(FALSE);
 
     demDemoPlaying = wasDemoPlaying;                        //keep playing demo if it was playing when we minimized
-    if (RGL)
-    {
-        rglFeature(RGL_ACTIVATE);
-        mainReinitRenderer = 2;
-    }
-    /*
-    else
-    {
-        (void)hwActivate(TRUE);
-    }
-    */
 
     feRenderEverything = TRUE;
 
@@ -1257,7 +1236,6 @@ void mainFreeLibraries(void)
 
     /* No longer unload the library (SDL should handle this). */
 
-    RGL = FALSE;
     glCapResetRGLAddresses();
 }
 
@@ -1477,18 +1455,6 @@ bool mainStartupParticularRGL(char* device, char* data)
     return TRUE;
 }
 
-/*-----------------------------------------------------------------------------
-    Name        : mainActiveRenderer
-    Description : returns the type of currently active renderer
-    Inputs      :
-    Outputs     :
-    Return      : GLtype, SWtype
-----------------------------------------------------------------------------*/
-sdword mainActiveRenderer(void)
-{
-    return RGLtype;
-}
-
 void mainDestroyWindow(void)
 {
     mainActuallyQuit = FALSE;
@@ -1593,12 +1559,6 @@ void mainCloseRender(void)
     {
         trSetAllPending(FALSE);
         trNoPalShutdown();
-#if TR_ERROR_CHECKING
-        if (RGL)
-        {
-            rglFeature(RGL_TEXTURE_LOG);
-        }
-#endif
     }
 }
 
@@ -1621,7 +1581,6 @@ void mainOpenRender(void)
     frReloadGL();
 }
 
-udword saveRGLtype;
 sdword saveMAIN_WindowWidth;
 sdword saveMAIN_WindowHeight;
 sdword saveMAIN_WindowDepth;
@@ -1637,7 +1596,6 @@ char savedeviceToSelect[16];
 ----------------------------------------------------------------------------*/
 void mainSaveRender(void)
 {
-    saveRGLtype = RGLtype;
     saveMAIN_WindowWidth  = MAIN_WindowWidth;
     saveMAIN_WindowHeight = MAIN_WindowHeight;
     saveMAIN_WindowDepth  = MAIN_WindowDepth;
@@ -1720,15 +1678,11 @@ void mainRestoreRender(void)
 
     mainRescaleMainWindow();
 
-    RGLtype = saveRGLtype;
     bMustFree = FALSE;
-    if (RGLtype == GLtype)
+    if (!mainLoadGL(NULL))
     {
-        if (!mainLoadGL(NULL))
-        {
-            //couldn't restore, try basic software
-            mainRestoreSoftware();
-        }
+        //couldn't restore, try basic software
+        mainRestoreSoftware();
     }
     bMustFree = TRUE;
 
@@ -1747,14 +1701,7 @@ bool mainShutdownRenderer(void)
     dbgMessage("mainShutdownRenderer");
 
     mainCloseRender();
-    if (RGLtype == GLtype)
-    {
-        mainShutdownGL();
-    }
-    else
-    {
-        mainShutdownRGL();
-    }
+    mainShutdownGL();
     mainFreeLibraries();
 
     return TRUE;
@@ -1774,15 +1721,7 @@ bool mainLoadGL(char* data)
     if (bMustFree)
     {
         mainCloseRender();
-
-        if (RGLtype == GLtype)
-        {
-            mainShutdownGL();
-        }
-        else
-        {
-            mainShutdownRGL();
-        }
+        mainShutdownGL();
         mainFreeLibraries();
     }
 
@@ -1813,15 +1752,7 @@ bool mainLoadParticularRGL(char* device, char* data)
     if (bMustFree)
     {
         mainCloseRender();
-
-        if (RGLtype == GLtype)
-        {
-            mainShutdownGL();
-        }
-        else
-        {
-            mainShutdownRGL();
-        }
+        mainShutdownGL();
         mainFreeLibraries();
     }
 
@@ -1832,7 +1763,7 @@ bool mainLoadParticularRGL(char* device, char* data)
 
     mainOpenRender();
 
-    lodScaleFactor = (RGLtype == SWtype) ? LOD_ScaleFactor : 1.0f;
+    lodScaleFactor = 1.0f;
     alodStartup();
 
     mainReinitRenderer = 2;
@@ -1989,45 +1920,15 @@ sdword HandleEvent (const SDL_Event* pEvent)
                     break;
 #endif
                 case SDLK_F12:
-                    if (!RGL)
+                    if (keyIsHit(SHIFTKEY) && keyIsHit(CONTROLKEY))
                     {
-                        if (keyIsHit(SHIFTKEY) && keyIsHit(CONTROLKEY))
-                        {
-                            mainCloseRender();
-                            mainShutdownGL();
-                            mainRestoreSoftware();
-                            mainOpenRender();
-                            glCapStartup();
-                            lodScaleFactor = LOD_ScaleFactor;
-                            alodStartup();
-                        }
-                    }
-                    else
-                    {
-                        dbgMessagef("previous GL RENDERER: %s", glGetString(GL_RENDERER));
-                        if (keyIsHit(SHIFTKEY) && keyIsHit(CONTROLKEY))
-                        {
-                            mainCloseRender();
-                            mainShutdownRGL();
-                            mainRestoreSoftware();
-                        }
-                        else
-                        {
-                            break;
-                        }
-                        glCapStartup();
+                        mainCloseRender();
+                        mainShutdownGL();
+                        mainRestoreSoftware();
                         mainOpenRender();
                         glCapStartup();
-                        if (RGLtype == SWtype)
-                        {
-                            lodScaleFactor = LOD_ScaleFactor;
-                        }
-                        else
-                        {
-                            lodScaleFactor = 1.0f;
-                        }
+                        lodScaleFactor = LOD_ScaleFactor;
                         alodStartup();
-                        dbgMessagef("new GL RENDERER: %s", glGetString(GL_RENDERER));
                     }
                     break;
                 default:
@@ -2330,47 +2231,7 @@ static bool InitWindow ()
 
     glCapStartup();
 
-    if (RGL)
-    {
-        rglSetAllocs((MemAllocFunc)mainMemAlloc, (MemFreeFunc)mainMemFree);
-        if (fullScreen)
-        {
-            rglFeature(RGL_FULLSCREEN);
-        }
-        else
-        {
-            rglFeature(RGL_WINDOWED);
-        }
-        if (mainSoftwareDirectDraw)
-        {
-            rglFeature(RGL_HICOLOR);
-        }
-        else
-        {
-            rglFeature(RGL_TRUECOLOR);
-        }
-        if (slowBlits)
-        {
-            rglFeature(RGL_SLOWBLT);
-        }
-        else
-        {
-            rglFeature(RGL_FASTBLT);
-        }
-        if (accelFirst)
-        {
-            rglSelectDevice("fx", "");
-            lodScaleFactor = 1.0f;
-        }
-        if (deviceToSelect[0] != '\0')
-        {
-            lodScaleFactor = 1.0f;
-        }
-    }
-    else
-    {
-        lodScaleFactor = 1.0f;
-    }
+    lodScaleFactor = 1.0f;
 
     return TRUE;
 } /* doInit */
@@ -2385,10 +2246,6 @@ static bool InitWindow ()
 void WindowsCleanup(void)
 {
     utyGameSystemsShutdown();
-    if (!RGL)
-    {
-        /*hwDeleteWindow();*/
-    }
     rinFreeDevices();
 }
 
@@ -2405,13 +2262,6 @@ void mainCleanupAfterVideo(void)
     if (windowNeedsDeleting)
     {
         windowNeedsDeleting = FALSE;
-        //restore previous display mode
-        /*hwSetRes(0, 0, 0);*/
-    }
-    if (!RGL)
-    {
-        //create a window at appropriate res
-        /*(void)hwCreateWindow((int)ghMainWindow, MAIN_WindowWidth, MAIN_WindowHeight, MAIN_WindowDepth);*/
     }
 }
 
@@ -2548,7 +2398,7 @@ int main (int argc, char* argv[])
             */
             utyForceTopmost(TRUE);
         }
-        else if (!RGL)
+        else
         {
             windowNeedsDeleting = FALSE;
             /*(void)hwCreateWindow((int)ghMainWindow, MAIN_WindowWidth, MAIN_WindowHeight, MAIN_WindowDepth);*/

@@ -1068,7 +1068,7 @@ void ferDraw(sdword x, sdword y, lifheader *texture)
     sdword oldTex;
     udword oldMode;
 
-    if (dec || (RGLtype == SWtype))
+    if (dec)
     {
         glRasterPos2f(primScreenToGLX(x), primScreenToGLY(y));
         glDrawPixels(texture->width, texture->height, GL_RGBA, GL_UNSIGNED_BYTE, texture->data);
@@ -1250,20 +1250,9 @@ void ferDrawCorner(sdword x, sdword y, lifheader *texture, curvetype curve, text
 void ferDrawBoxLine(sdword x0, sdword y0, sdword x1, sdword y1, sdword corner_offset,
                  sdword corner_width, lifheader *texture, udword kludgyflag)
 {
-    sdword sub;
+    sdword sub = 0;
     sdword dist_x = x1 - x0, dist_y = y1 - y0,                    // distance to travel
            dist_tx = 0, dist_ty = 0;                              // distance traveled
-
-#if SUB_ADJUST
-    if (RGL && (RGLtype == SWtype))
-    {
-        sub = 1;
-    }
-    else
-#endif
-    {
-        sub = 0;
-    }
 
     // set the starting values with respect to the corner texturemap
     if (y0 == y1)
@@ -1989,20 +1978,9 @@ void ferDrawBoxRegion(rectangle dimensions, drawtype textures,
 void ferDrawLine(sdword x0, sdword y0, sdword x1, sdword y1,
                  sdword corner_width, lifheader *texture, udword kludgyflag)
 {
-    sdword sub;
+    sdword sub = 0;
     sdword dist_x = x1 - x0, dist_y = y1 - y0,                    // distance to travel
            dist_tx = 0, dist_ty = 0;                              // distance traveled
-
-#if SUB_ADJUST
-    if (RGL && (RGLtype == SWtype))
-    {
-        sub = 1;
-    }
-    else
-#endif
-    {
-        sub = 0;
-    }
 
     // set the starting values with respect to the corner texturemap
     if (y0 == y1)

@@ -1419,13 +1419,6 @@ udword etgEffectTest(regionhandle reg, sdword ID, udword event, udword data)
 #endif
         return(0);
     }
-    if (RGLtype == SWtype)
-    {
-        if (stat->softwareVersion != NULL)
-        {
-            stat = stat->softwareVersion;
-        }
-    }
 #if ETG_VERBOSE_LEVEL >= 1
     dbgMessagef("Testing effect '%s' with light '%s'", etgTestKey[ID].effectName, etgTestKey[ID].lightName);
 #endif
@@ -7699,13 +7692,6 @@ void etgCreateEffects(Effect *effect, etgeffectstatic *stat, sdword number, sdwo
     smemsize arg[ETG_NumberParameters];
     va_list argList;
 
-    if (RGLtype == SWtype)
-    {
-        if (stat->softwareVersion != NULL)
-        {
-            stat = stat->softwareVersion;
-        }
-    }
     matGetVectFromMatrixCol1(up, effect->rotinfo.coordsys);
 
 #if ETG_VERBOSE_LEVEL >= 2
@@ -7835,13 +7821,6 @@ void *etgEffectCreate(etgeffectstatic *stat, void *owner, vector *pos, vector *v
     smemsize arg[ETG_NumberParameters];
     Effect *newEffect;
 
-    if (RGLtype == SWtype)
-    {
-        if (stat->softwareVersion != NULL)
-        {
-            stat = stat->softwareVersion;
-        }
-    }
     newEffect = memAlloc(stat->effectSize, "GE(GenEffect)", Pyrophoric);//allocate the new effect
 
     newEffect->objtype = OBJ_EffectType;                    //type of spaceobj
@@ -8045,13 +8024,6 @@ memsize etgSpawnNewEffect(Effect *effect, etgeffectstatic *stat, sdword nParams,
     memsize arg[ETG_NumberParameters];
 
 
-    if (RGLtype == SWtype)
-    {
-        if (stat->softwareVersion != NULL)
-        {
-            stat = stat->softwareVersion;
-        }
-    }
     if (etgFrequencyExceeded(stat))
     {
         return(0);

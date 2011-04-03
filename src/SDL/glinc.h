@@ -9,9 +9,4 @@
     #include <windows.h>
 #endif
 
-
-extern unsigned int RGL;
-extern unsigned int RGLtype;
-
-
 #endif

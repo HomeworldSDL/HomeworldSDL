@@ -99,16 +99,8 @@ void alodReset(void)
     alodAmPanicking = FALSE;
     alodEnabled = TRUE;
 
-    if (RGL && (RGLtype == SWtype))
-    {
-        alodSetMinMax(alodSlowMinScale, alodSlowMaxScale);
-        alodSetTargetPolys(0/*alodSlowTargetPolys*/, alodSlowTargetDelta);
-    }
-    else
-    {
-        alodSetMinMax(alodFastMinScale, alodFastMaxScale);
-        alodSetTargetPolys(0/*alodFastTargetPolys*/, alodFastTargetDelta);
-    }
+    alodSetMinMax(alodFastMinScale, alodFastMaxScale);
+    alodSetTargetPolys(alodFastTargetPolys, alodFastTargetDelta);
 }
 
 /*-----------------------------------------------------------------------------

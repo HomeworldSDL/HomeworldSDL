@@ -201,35 +201,6 @@ void primRectSolid2(rectangle *rect, color c)
 }
 
 /*-----------------------------------------------------------------------------
-    Name        : primRectTranslucentRGL2
-    Description : helper for primRectTranslucent2, rGL(sw) only (will temporarily
-                  disable stippling)
-    Inputs      : rect - rectangle structure containing coordinates
-                  c - color of the rectangle
-    Outputs     :
-    Return      :
-----------------------------------------------------------------------------*/
-void primRectTranslucentRGL2(rectangle* rect, color c)
-{
-    GLboolean blendOn;
-    GLboolean stippleOn;
-
-    blendOn = glIsEnabled(GL_BLEND);
-    stippleOn = glIsEnabled(GL_POLYGON_STIPPLE);
-    if (!blendOn) glEnable(GL_BLEND);
-    if (stippleOn) glDisable(GL_POLYGON_STIPPLE);
-    glColor4ub(colRed(c), colGreen(c), colBlue(c), colAlpha(c));
-    glBegin(GL_QUADS);
-    glVertex2f(primScreenToGLX(rect->x0), primScreenToGLY(rect->y0));
-    glVertex2f(primScreenToGLX(rect->x0), primScreenToGLY(rect->y1));
-    glVertex2f(primScreenToGLX(rect->x1), primScreenToGLY(rect->y1));
-    glVertex2f(primScreenToGLX(rect->x1), primScreenToGLY(rect->y0));
-    glEnd();
-    if (!blendOn) glDisable(GL_BLEND);
-    if (stippleOn) glEnable(GL_POLYGON_STIPPLE);
-}
-
-/*-----------------------------------------------------------------------------
     Name        : primRectTranslucent2
     Description : Draw a translucent 2d rectangle.
     Inputs      : rect - pointer to rectangle structure containing coordinates.
@@ -240,12 +211,6 @@ void primRectTranslucentRGL2(rectangle* rect, color c)
 void primRectTranslucent2(rectangle* rect, color c)
 {
     GLboolean blendOn;
-
-    if (RGL && RGLtype == SWtype)
-    {
-        primRectTranslucentRGL2(rect, c);
-        return;
-    }
 
     blendOn = glIsEnabled(GL_BLEND);
     if (!blendOn) glEnable(GL_BLEND);
@@ -462,13 +427,6 @@ void primErrorMessagePrintFunction(char *file, sdword line)
         if (errorEnum == GL_NO_ERROR)
         {
             return;
-        }
-        else
-        {
-            if (RGLtype != GLtype)
-            {
-                dbgWarningf(file, line, "glGetError returned '%s'", rgluErrorString(errorEnum));
-			}
         }
     }
 }

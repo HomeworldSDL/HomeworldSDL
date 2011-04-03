@@ -1065,8 +1065,7 @@ sdword fontPrintN(sdword x, sdword y, color c, char *string, sdword maxCharacter
     }
 
     //display the GL font-page version if we "should" and "can"
-    if (RGLtype != SWtype &&
-        glfontDisplayString(fontCurrentFont, string, x, y, c))
+    if (glfontDisplayString(fontCurrentFont, string, x, y, c))
     {
         return TRUE;
     }

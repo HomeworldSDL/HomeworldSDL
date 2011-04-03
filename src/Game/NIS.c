@@ -991,11 +991,6 @@ nisplaying *nisStart(nisheader *header, vector *position, matrix *coordSystem)
     universe.dontUpdateRenderList = TRUE;                   //don't let automatic NIS updating go on
 #endif
 
-    if (RGL)
-    {
-        rglSuperClear();
-    }
-
     nisTextCardIndex = 0;
 
     //initialize the NIS camera

@@ -2219,7 +2219,6 @@ cancelfocus:
         case LBRACK:
             if(keyIsHit(SHIFTKEY))
             {
-                if (RGL) rglFeature(RGL_GAMMA_DN);
                 shGammaDown();
                 break;
             }
@@ -2241,7 +2240,6 @@ cancelfocus:
         case RBRACK:
             if(keyIsHit(SHIFTKEY))
             {
-                if (RGL) rglFeature(RGL_GAMMA_UP);
                 shGammaUp();
                 break;
             }
@@ -5777,10 +5775,6 @@ void mrReset(void)
     mrHoldRight = mrHoldLeft = mrNULL;                      //in case player was band-boxing or rotating
     mouseCursorShow();
     piePointSpecMode = PSM_Idle;                             //in case player was moving
-    if (RGLtype == SWtype)
-    {
-        rglFeature(RGL_SPEEDY);
-    }
 }
 
 /*-----------------------------------------------------------------------------

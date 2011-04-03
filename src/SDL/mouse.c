@@ -893,53 +893,6 @@ lifheader* mouseGetLIF(void)
     }
 }
 
-GLubyte cursorUnderContents[4096];
-
-sdword lastUnderWidth = 0, lastUnderHeight = 0;
-static sdword lastUnderX = 0, lastUnderY = 0;
-
-void mouseRestoreCursorUnder(void)
-{
-    if (!feShouldSaveMouseCursor())
-    {
-        return;
-    }
-    if (RGLtype == SWtype)
-    {
-        rglRestoreCursorUnder(cursorUnderContents,
-                              lastUnderWidth, lastUnderHeight,
-                              lastUnderX, lastUnderY);
-    }
-}
-
-void mouseStoreCursorUnder(void)
-{
-    lifheader* texture;
-
-    if (!feShouldSaveMouseCursor())
-    {
-        return;
-    }
-
-    texture = mouseGetLIF();
-    if (texture == NULL)
-    {
-        memset(cursorUnderContents, 0, 4096);
-    }
-    else
-    {
-        lastUnderWidth = texture->width + 2;
-        lastUnderHeight = texture->height + 2;
-        if (RGLtype == SWtype)
-        {
-            lastUnderX = mouseCursorXPosition - 1;
-            lastUnderY = mouseCursorYPosition - 1;
-            rglSaveCursorUnder(cursorUnderContents, lastUnderWidth, lastUnderHeight, lastUnderX, lastUnderY);
-        }
-    }
-}
-
-
 /*-----------------------------------------------------------------------------
     Name        : mouseDraw
     Description : Update the position of the mouse by polling the system and
@@ -976,17 +929,7 @@ void mouseDraw(void)
         return;                                             //don't draw mouse if not visible
     }
 
-//    glPushAttrib(GL_ENABLE_BIT | GL_PIXEL_MODE_BIT | GL_LINE_BIT | GL_POINT_BIT | GL_POLYGON_BIT | GL_TEXTURE_BIT | GL_LIGHTING_BIT | GL_HINT_BIT | GL_DEPTH_BUFFER_BIT | GL_CURRENT_BIT);
-    //rndGLStateLog("MouseDraw (start)");
-
-    if (RGLtype == SWtype)
-    {
-        textureMouse = FALSE;
-    }
-    else
-    {
-        textureMouse = TRUE;//!glcActive();
-    }
+    textureMouse = TRUE;
 
     if (textureMouse && !mouseGLInitialized)
     {

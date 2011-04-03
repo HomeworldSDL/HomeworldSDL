@@ -32,9 +32,6 @@ char const* GLC_VENDOR;
 char const* GLC_RENDERER;
 char const* GLC_EXTENSIONS;
 
-unsigned int RGL;
-unsigned int RGLtype;
-
 static sdword glCapTexFormat[] =
 {
     GL_RGB,     1,
@@ -265,8 +262,6 @@ void glCapGetRGLAddresses()
 ----------------------------------------------------------------------------*/
 void glCapResetRGLAddresses(void)
 {
-    RGL = 0;
-
     rglFeature = NULL_rglFeature;
     rglSpecExp = NULL_rglSpecExp;
     rglLightingAdjust = NULL_rglLightingAdjust;
@@ -310,13 +305,13 @@ bool glCapFastFeature(GLenum feature)
     switch (feature)
     {
     case GL_BLEND:
-        return RGL ? rglIsFast(RGL_FEATURE_BLEND) : TRUE;
+        return TRUE;
 
     case GL_SRC_ALPHA_SATURATE:
-        return RGL ? rglIsFast(RGL_FEATURE_BLEND) : FALSE;
+        return FALSE;
 
     case GL_LINE_STIPPLE:
-        return RGL ? TRUE : FALSE;
+        return FALSE;
 
     default:
         return FALSE;
@@ -353,7 +348,7 @@ bool glCapFeatureExists(GLenum feature)
         return glPalettedTexture;
 
     case GL_SHARED_TEXTURE_PALETTE_EXT:
-        return RGL ? rglFeature(GL_SHARED_TEXTURE_PALETTE_EXT) : glSharedTexturePalette;
+        return glSharedTexturePalette;
 
     case GL_LIT_TEXTURE_PALETTE_EXT:
         return glLitTexturePalette;
@@ -374,13 +369,13 @@ bool glCapFeatureExists(GLenum feature)
         return FALSE;
 
     case RGL_COLOROP_ADD:
-        return RGL ? rglFeature(RGL_COLOROP_ADD) : FALSE;
+        return FALSE;
 
     case GL_POINT_SIZE:
         return glCapPointSize;
 
     case GL_SCISSOR_TEST:
-        return RGLtype;
+        return TRUE;
 
     case GL_COLOR_CLEAR_VALUE:
         if (bitTest(gDevcaps, DEVSTAT_NO_BGCOLOUR))
@@ -426,16 +421,7 @@ bool glCapTexSupport(GLenum format)
 ----------------------------------------------------------------------------*/
 sdword glCapNumBuffers(void)
 {
-    extern bool mainDoubleIsTriple;
-//    if ((RGLtype == GLtype) && bitTest(gDevcaps, DEVSTAT_GL_TRIPLE))
-    if (RGLtype == GLtype)
-    {
-        return 3;
-    }
-    else
-    {
-        return mainDoubleIsTriple ? 3 : 2;
-    }
+    return 3;
 }
 
 /*-----------------------------------------------------------------------------
@@ -610,8 +596,6 @@ void glCapStartup(void)
 
     if (GLC_EXTENSIONS == NULL)
     {
-        RGL = 0;
-        RGLtype = GLtype;
         return;
     }
 
@@ -630,13 +614,10 @@ void glCapStartup(void)
     //see if we're using rGL or OpenGL
     if (haveExtension("GL_RGL_rgl_feature", GLC_EXTENSIONS))
     {
-        RGL = TRUE;
         glCapGetRGLAddresses();
     }
     else
     {
-        RGL = 0;
-        RGLtype = GLtype;
         glCapResetRGLAddresses();
     }
 
@@ -647,30 +628,16 @@ void glCapStartup(void)
         {
             break;
         }
-        if (RGL)
+        glTexImage2D(GL_PROXY_TEXTURE_2D, 0, glCapTexFormat[i], 16, 16,
+                        0, glCapTexFormat[i], GL_UNSIGNED_BYTE, data);
+        glGetTexLevelParameteriv(GL_PROXY_TEXTURE_2D, 0, GL_TEXTURE_INTERNAL_FORMAT, &param);
+        if (param == glCapTexFormat[i])
         {
-            if ((RGLtype == SWtype) && (glCapTexFormat[i] == GL_RGBA16))
-            {
-                glCapTexFormat[i+1] = 0;
-            }
-            else
-            {
-                glCapTexFormat[i+1] = 1;
-            }
+            glCapTexFormat[i+1] = 1;
         }
         else
         {
-            glTexImage2D(GL_PROXY_TEXTURE_2D, 0, glCapTexFormat[i], 16, 16,
-                         0, glCapTexFormat[i], GL_UNSIGNED_BYTE, data);
-            glGetTexLevelParameteriv(GL_PROXY_TEXTURE_2D, 0, GL_TEXTURE_INTERNAL_FORMAT, &param);
-            if (param == glCapTexFormat[i])
-            {
-                glCapTexFormat[i+1] = 1;
-            }
-            else
-            {
-                glCapTexFormat[i+1] = 0;
-            }
+            glCapTexFormat[i+1] = 0;
         }
     }
 
@@ -698,7 +665,7 @@ void glCapStartup(void)
     }
 
     //palettes are not "safe"
-    if (mainSafeGL && (RGLtype == GLtype))
+    if (mainSafeGL)
     {
         trNoPalettes = TRUE;
     }
@@ -715,7 +682,7 @@ void glCapStartup(void)
         glCapVertexArray = TRUE;
     }
 
-    if (mainSafeGL && (RGLtype == GLtype))
+    if (mainSafeGL)
     {
         //vertex array extensions are not "safe"
         glCapVertexArray = FALSE;
@@ -725,7 +692,7 @@ void glCapStartup(void)
     glClippingHint = haveExtension("GL_EXT_clip_volume_hint", GLC_EXTENSIONS);
     glLitTexturePalette = haveExtension("GL_RGL_lit_texture_palette", GLC_EXTENSIONS);
 
-    if (mainSafeGL && (RGLtype == GLtype))
+    if (mainSafeGL)
     {
         //compiled vertex arrays are not "safe"
         glCompiledVertexArrays = FALSE;
@@ -734,32 +701,18 @@ void glCapStartup(void)
     glCapSwapFriendly = FALSE;
     glCapPointSize = TRUE;
 
-    if (RGL)
-    {
-        glCapDoubleBuffer = TRUE;
-        if (RGLtype != SWtype)
-        {
-            glLitTexturePalette = FALSE;
-        }
+    //determine double buffering support
+    glGetIntegerv(GL_DOUBLEBUFFER, &param);
+    glCapDoubleBuffer = param ? TRUE : FALSE;
 
-        //recommended depthbuffer function
-        glCapDepthFunc = GL_LESS;
-    }
-    else
-    {
-        //determine double buffering support
-        glGetIntegerv(GL_DOUBLEBUFFER, &param);
-        glCapDoubleBuffer = param ? TRUE : FALSE;
-
-        //recommended depthbuffer function
-        glCapDepthFunc = GL_LEQUAL;
-    }
+    //recommended depthbuffer function
+    glCapDepthFunc = GL_LEQUAL;
 
     //enable/disable linesmoothing as per devcaps et al
     glCapLineSmooth = TRUE;
 
     //enable/disable pointsmoothing as per devcaps et al
-    glCapPointSmooth = !RGL;
+    glCapPointSmooth = FALSE;
     if (!glCapLineSmooth)
     {
         //no pointsmoothing if no linesmoothing
@@ -776,7 +729,7 @@ void glCapStartup(void)
         glCapPointSmooth = FALSE;
     }
 
-    if (mainSafeGL && (RGLtype == GLtype))
+    if (mainSafeGL)
     {
         //antialiasing is not "safe"
         glCapLineSmooth = FALSE;
@@ -793,18 +746,10 @@ void glCapStartup(void)
         glCapSwapFriendly = FALSE;
     }
 
-    if (RGLtype == SWtype)
+    if (bitTest(gDevcaps, DEVSTAT_NOFFE) ||
+        bitTest(gDevcaps, DEVSTAT_NOFFE_GL))
     {
-        //software is always swapfriendly
-        glCapSwapFriendly = TRUE;
-    }
-    else
-    {
-        if (bitTest(gDevcaps, DEVSTAT_NOFFE) ||
-            bitTest(gDevcaps, DEVSTAT_NOFFE_GL))
-        {
-            //disabled as per devcaps
-            glCapSwapFriendly = FALSE;
-        }
+        //disabled as per devcaps
+        glCapSwapFriendly = FALSE;
     }
 }

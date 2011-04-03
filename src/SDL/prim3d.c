@@ -652,12 +652,6 @@ void primSolidTexture3(vector *p1, real32 size, color c, trhandle tex)
     biasGreen = colReal32(colGreen(c));
     biasBlue = colReal32(colBlue(c));
 
-    if (RGL)
-    {
-        glPixelTransferf(GL_RED_BIAS, biasRed);
-        glPixelTransferf(GL_GREEN_BIAS, biasGreen);
-        glPixelTransferf(GL_BLUE_BIAS, biasBlue);
-    }
     glColor3f(biasRed, biasGreen, biasBlue);
 
     glBegin(GL_QUADS);
@@ -670,13 +664,6 @@ void primSolidTexture3(vector *p1, real32 size, color c, trhandle tex)
     glTexCoord2f(0.0f, 1.0f);
     glVertex3f(p1->x-halfsize, p1->y+halfsize, 0.0f);
     glEnd();
-
-    if (RGL)
-    {
-        glPixelTransferf(GL_RED_BIAS, 0.0f);
-        glPixelTransferf(GL_GREEN_BIAS, 0.0f);
-        glPixelTransferf(GL_BLUE_BIAS, 0.0f);
-    }
 
     glDisable(GL_BLEND);
 //    glDepthMask(GL_TRUE);
@@ -704,12 +691,6 @@ void primSolidTexture3Fade(vector *p1, real32 size, color c, trhandle tex, real3
    biasGreen = colReal32(colGreen(c));
    biasBlue = colReal32(colBlue(c));
 
-   if (RGL)
-   {
-       glPixelTransferf(GL_RED_BIAS, biasRed);
-       glPixelTransferf(GL_GREEN_BIAS, biasGreen);
-       glPixelTransferf(GL_BLUE_BIAS, biasBlue);
-   }
    glColor4f(biasRed, biasGreen, biasBlue, fade);
 
    glBegin(GL_QUADS);
@@ -722,13 +703,6 @@ void primSolidTexture3Fade(vector *p1, real32 size, color c, trhandle tex, real3
    glTexCoord2f(0.0f, 1.0f);
    glVertex3f(p1->x-halfsize, p1->y+halfsize, 0.0f);
    glEnd();
-
-   if (RGL)
-   {
-       glPixelTransferf(GL_RED_BIAS, 0.0f);
-       glPixelTransferf(GL_GREEN_BIAS, 0.0f);
-       glPixelTransferf(GL_BLUE_BIAS, 0.0f);
-   }
 
    glDisable(GL_BLEND);
    rndAdditiveBlends(FALSE);

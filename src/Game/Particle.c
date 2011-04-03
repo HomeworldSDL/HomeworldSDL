@@ -553,51 +553,6 @@ void partFilter(bool on)
     }
 }
 
-//save GL stipple setting
-void stippleSave()
-{
-    if (RGL)
-        wasStippled = (bool)glIsEnabled(GL_POLYGON_STIPPLE);
-}
-
-//restore previous GL stipple setting
-void stippleRestore()
-{
-    if (RGL)
-    {
-        if (wasStippled)
-        {
-            glEnable(GL_POLYGON_STIPPLE);
-        }
-        else
-        {
-            glDisable(GL_POLYGON_STIPPLE);
-        }
-    }
-}
-
-//decide whether to enable stippling or not
-void handleStipple(particle* p)
-{
-    if (!RGL)
-        return;
-
-    if (wasStippled)
-    {
-        //leave stippling alone if global stippling enabled
-        return;
-    }
-
-    if (bitTest(p->flags, PART_STIPPLE))
-    {
-        glEnable(GL_POLYGON_STIPPLE);
-    }
-    else if (!wasStippled)
-    {
-        glDisable(GL_POLYGON_STIPPLE);
-    }
-}
-
 /*-----------------------------------------------------------------------------
     Name        : partSaturateAdd
     Description : adds then normalizes input colour values
@@ -736,10 +691,7 @@ udword partRenderBillSystem(udword n, particle* p, udword flags,
     glDepthMask(GL_FALSE);
     glShadeModel(GL_SMOOTH);
 
-    if (RGLtype != SWtype)
-    {
-        rndTextureEnvironment(RTE_Modulate);
-    }
+    rndTextureEnvironment(RTE_Modulate);
 
     if (currentTex != TR_Invalid)
     {
@@ -781,8 +733,6 @@ udword partRenderBillSystem(udword n, particle* p, udword flags,
         }
 
         handleIllum(p);
-        //set appropriate stipple mode
-        handleStipple(p);
 
         blended = 0;
         if (canTexAdd)
@@ -1318,7 +1268,6 @@ udword partRenderMeshSystem(udword n, particle *p, udword flags, trhandle tex, m
         }
 
         handleIllum(p);
-        handleStipple(p);
 
         if (bitTest(p->flags, PART_SPECULAR))
         {
@@ -1358,8 +1307,6 @@ udword partRenderMeshSystem(udword n, particle *p, udword flags, trhandle tex, m
             {
                 if (usingShader)
                     shSetExponent(0, p->exponent);
-                else if (RGL)
-                    rglSpecExp(0, p->exponent);
             }
 
             if (bitTest(flags, PART_ALPHA))
@@ -1518,23 +1465,8 @@ udword partRenderMeshSystem(udword n, particle *p, udword flags, trhandle tex, m
         glPopMatrix();
     }
 
-    if (RGL)
-    {
-        if (usingShader)
-        {
-            shSetExponent(0, -1.0f);
-            meshSetSpecular(-1, 0, 0, 0, 0);
-        }
-        else
-        {
-            rglSpecExp(0, -1.0f);
-        }
-    }
-    else
-    {
-        shSetExponent(0, -1.0f);
-        meshSetSpecular(-1, 0, 0, 0, 0);
-    }
+    shSetExponent(0, -1.0f);
+    meshSetSpecular(-1, 0, 0, 0, 0);
 
     if (canTexAdd)
     {
@@ -1588,7 +1520,6 @@ udword partRenderLineSystem(udword n, particle *p, udword flags)
             continue;
 
         handleIllum(p);
-        handleStipple(p);
 
         if (bitTest(p->flags, PART_ADDITIVE))
         {
@@ -1748,8 +1679,6 @@ udword partRenderPointSystem(udword n, particle *p, udword flags)
         handleIllum(p);
 
         glPointSize((p->scale <= 3.0f) ? p->scale : 3.0f);
-        if (RGL)
-            rglFeature(RGL_EFFECTPOINT);
         glBegin(GL_POINTS);
         if (alpha)
             glColor4f(p->icolor[0], p->icolor[1], p->icolor[2], p->icolor[3]);
@@ -1795,7 +1724,6 @@ void partRenderSystem(psysPtr psys)
 
     pp = (pointSystem*)psys;
     storeIllum();
-    stippleSave();
     isWorldspace = bitTest(pp->flags, PART_WORLDSPACE) ? TRUE : FALSE;
 
     p = (particle*)(psys + partHeaderSize(psys));
@@ -1850,7 +1778,6 @@ void partRenderSystem(psysPtr psys)
     }
 
     restoreIllum();
-    stippleRestore();
 
     if (!hits)                      //kill the system
     {

@@ -1285,77 +1285,38 @@ void opOptionsAcceptHelper(char* name, featom* atom, char* linkName)
     opOldDevcaps  = gDevcaps;
     opOldDevcaps2 = gDevcaps2;
 
-    if (rnd->type == RIN_TYPE_OPENGL)
+    if (opResChanged() || opDeviceIndex != opRenderCurrentSelected)
     {
-        if (RGLtype != GLtype || opResChanged() || 
-            (opDeviceIndex != opRenderCurrentSelected))
+        if (opResHackSupported())
         {
-            if (opResHackSupported())
+            soundEventShutdown();
+            mainSaveRender();
+            opGLCStop();
+
+            MAIN_WindowWidth  = opSaveMAIN_WindowWidth;
+            MAIN_WindowHeight = opSaveMAIN_WindowHeight;
+            MAIN_WindowDepth  = opSaveMAIN_WindowDepth;
+
+            opDevcaps  = gDevcaps;
+            opDevcaps2 = gDevcaps2;
+            gDevcaps  = rnd->dev->devcaps;
+            gDevcaps2 = rnd->dev->devcaps2;
+            if (mainLoadGL(rnd->data))
             {
-                soundEventShutdown();
-                mainSaveRender();
-                opGLCStop();
-
-                MAIN_WindowWidth  = opSaveMAIN_WindowWidth;
-                MAIN_WindowHeight = opSaveMAIN_WindowHeight;
-                MAIN_WindowDepth  = opSaveMAIN_WindowDepth;
-
-                opDevcaps  = gDevcaps;
-                opDevcaps2 = gDevcaps2;
-                gDevcaps  = rnd->dev->devcaps;
-                gDevcaps2 = rnd->dev->devcaps2;
-                if (mainLoadGL(rnd->data))
-                {
-                    opDeviceIndex = opRenderCurrentSelected;
-                    opCountdownBoxStart();
-                }
-                else
-                {
-                    gDevcaps  = opDevcaps;
-                    gDevcaps2 = opDevcaps2;
-                    mainRestoreRender();
-                    opModeswitchFailed();
-                }
-
-                soundEventRestart();
-                SDL_Delay(20);
-                opGLCStart();
+                opDeviceIndex = opRenderCurrentSelected;
+                opCountdownBoxStart();
             }
-        }
-    }
-    else
-    {
-        if (RGLtype != SWtype || opResChanged())
-        {
-            if (opResHackSupported())
+            else
             {
-                soundEventShutdown();
-                mainSaveRender();
-                opGLCStop();
-
-                MAIN_WindowWidth  = opSaveMAIN_WindowWidth;
-                MAIN_WindowHeight = opSaveMAIN_WindowHeight;
-                MAIN_WindowDepth  = opSaveMAIN_WindowDepth;
-
-                opDevcaps  = gDevcaps;
-                opDevcaps2 = gDevcaps2;
-                gDevcaps  = rnd->dev->devcaps;
-                gDevcaps2 = rnd->dev->devcaps2;
-                if (mainLoadParticularRGL("sw", ""))
-                {
-                    opDeviceIndex = opRenderCurrentSelected;
-                    opCountdownBoxStart();
-                }
-                else
-                {
-                    gDevcaps  = opDevcaps;
-                    gDevcaps2 = opDevcaps2;
-                    mainRestoreRender();
-                    opModeswitchFailed();
-                }
-                soundEventRestart();
-                opGLCStart();
+                gDevcaps  = opDevcaps;
+                gDevcaps2 = opDevcaps2;
+                mainRestoreRender();
+                opModeswitchFailed();
             }
+
+            soundEventRestart();
+            SDL_Delay(20);
+            opGLCStart();
         }
     }
 
@@ -2339,17 +2300,6 @@ void opEffectsHelper(void)
     }
 
     trFilterEnable(texLinearFiltering);
-    if (RGL)
-    {
-        if (enableStipple)
-        {
-            glEnable(GL_POLYGON_STIPPLE);
-        }
-        else
-        {
-            glDisable(GL_POLYGON_STIPPLE);
-        }
-    }
 }
 
 void opUpdateVideoSettings(void)
@@ -2802,23 +2752,8 @@ void opRenderListLoad(void)
         memStrncpy(opRnd[opRenderNumber].data, dev->data, 63);
         memStrncpy(opRnd[opRenderNumber].name, dev->name, 63);
 
-        switch (mainActiveRenderer())
-        {
-        case GLtype:
-            if (dev->type == RIN_TYPE_OPENGL)
-            {
-                opRenderCurrentSelected = opRenderNumber;
-                opRndSelected = &opRnd[opRenderNumber];
-            }
-            break;
-
-        default:
-            if (dev->type == RIN_TYPE_SOFTWARE)
-            {
-                opRenderCurrentSelected = opRenderNumber;
-                opRndSelected = &opRnd[opRenderNumber];
-            }
-        }
+        opRenderCurrentSelected = opRenderNumber;
+        opRndSelected = &opRnd[opRenderNumber];
 
         //increment device count
         opRenderNumber++;

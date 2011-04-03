@@ -145,65 +145,6 @@ void uicTestTextEntry(char *name, featom *atom)
 #endif
 
 /*-----------------------------------------------------------------------------
-    Name        : feShouldSaveMouseCursor
-    Description : for deciding whether to save the mouse cursor, perform region
-                  dirtying, &c
-    Inputs      :
-    Outputs     :
-    Return      : >0 (yes) or 0 (no)
-----------------------------------------------------------------------------*/
-bool glcfeShouldSaveMouseCursor(void)
-{
-    return FALSE;
-}
-
-bool feShouldSaveMouseCursor(void)
-{
-    extern bool lmActive;
-    extern bool hrRunning;
-
-    if (RGLtype != SWtype)
-    {
-        return glcfeShouldSaveMouseCursor();
-    }
-
-    if (hrRunning)
-    {
-        return feSavingMouseCursor;
-    }
-    if (feRenderEverything)
-    {
-        return FALSE;
-    }
-    //launch manager
-    if (lmActive)
-    {
-        return FALSE;
-    }
-    //titan picker
-/*    if (tpActive)
-    {
-        return FALSE;
-    }*/
-    //nis running
-    if (nisIsRunning)
-    {
-        return FALSE;
-    }
-    //sensors manager active (redundant)
-    if (smSensorsActive)
-    {
-        return FALSE;
-    }
-    //game running and not in a fullscreen gui
-    if (gameIsRunning && mrRenderMainScreen)
-    {
-        return FALSE;
-    }
-    return feSavingMouseCursor;
-}
-
-/*-----------------------------------------------------------------------------
     Name        : feFunctionExecute
     Description : Execute a named callback function
     Inputs      : name - name of function to execute
@@ -791,10 +732,6 @@ void feStaticTextDraw(regionhandle region)
     {
         fontShadowSet((atom->flags & FAM_DropShadow) >> FSB_DropShadow, atom->borderColor);
     }
-//    if (RGL && (RGLtype == SWtype))
-//    {
-//       primRectSolid2(&region->rect, atom->contentColor);
-//    }
     fontPrint(x, region->rect.y0, atom->contentColor, string);
     fontShadowSet(FS_NONE, 0);
     fontMakeCurrent(fhSave);
@@ -1515,7 +1452,6 @@ regionhandle feRegionsAdd(regionhandle parent, fescreen *screen, bool moveToFron
     }
     listDeleteAll(&cutouts);
 
-//    if (feShouldSaveMouseCursor())
     if (!gameIsRunning || !mrRenderMainScreen)
     {
         feFindChildren(baseRegion);

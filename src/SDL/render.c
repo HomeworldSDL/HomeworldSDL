@@ -913,7 +913,6 @@ bool setupPalette()
 {
 	int pix_size;
 
-	/* Never call SDL_GL_GetAttribute when using RGL... */
 	if (SDL_GL_GetAttribute(SDL_GL_BUFFER_SIZE, &pix_size) == -1)
 	{
 		/* Hoping it will work... */
@@ -997,47 +996,15 @@ sdword rndInit(rndinitdata *initData)
     static GLfloat  diffuseProperties[] = {0.8f, 0.8f, 0.8f, 1.0f};
     static GLfloat  specularProperties[] = {1.0f, 1.0f, 1.0f, 1.0f};
 
-    if (!RGL)
+    if (!setupPixelFormat())
     {
-        /*
-        hGLWindow = initData->hWnd;
-        hGLDeviceContext = GetDC(initData->hWnd);
-        */
-        /*if (!setupPixelFormat(hGLDeviceContext))*/
-        if (!setupPixelFormat())
-        {
-            dbgMessage("rndInit: GL couldn't setupPixelFormat");
-            return !OKAY;
-        }
-        /*if (!setupPalette(hGLDeviceContext))*/
-        if (!setupPalette())
-        {
-            dbgMessage("rndInit: GL couldn't setupPalette");
-            return !OKAY;
-        }
-        /*
-        hGLRenderContext = (HGLRC)rwglCreateContext((unsigned int)hGLDeviceContext);  //greate GL render context and select into window
-        rwglMakeCurrent((int)hGLDeviceContext, (int)hGLRenderContext);
-        */
-
-//        auxInitPosition(0, 0, initData->width, initData->height);   //create the viewport for rendering
-//        auxInitDisplayMode(AUX_RGB | AUX_DEPTH | AUX_DOUBLE);       //set mode (direct color, Z-buffered, double buffered)
+        dbgMessage("rndInit: GL couldn't setupPixelFormat");
+        return !OKAY;
     }
-    else
+    if (!setupPalette())
     {
-        AUXINITPOSITIONPROC initPositionProc;
-
-        initPositionProc = (AUXINITPOSITIONPROC)rwglGetProcAddress("rauxInitPosition");
-        dbgAssertOrIgnore(initPositionProc != NULL);
-
-        hGLWindow = (udword)(initData->hWnd);
-        rglCreateWindow((GLint)hGLWindow, (GLint)MAIN_WindowWidth, (GLint)MAIN_WindowDepth);
-
-        if (!initPositionProc(0, 0, initData->width, initData->height, MAIN_WindowDepth))
-        {
-            dbgMessage("rndInit: RGL couldn't initPositionProc");
-            return !OKAY;
-        }
+        dbgMessage("rndInit: GL couldn't setupPalette");
+        return !OKAY;
     }
 
     glCapStartup();
@@ -1112,28 +1079,13 @@ sdword rndInit(rndinitdata *initData)
 ----------------------------------------------------------------------------*/
 void rndClose(void)
 {
-    if (RGL)
-    {
-        rglDeleteWindow((GLint)hGLWindow);
-    }
+    Uint32 flags = SDL_WasInit(SDL_INIT_EVERYTHING);
+    if (!(flags & SDL_INIT_VIDEO))
+        return;
+    if (flags ^ SDL_INIT_VIDEO)
+        SDL_QuitSubSystem(SDL_INIT_VIDEO);
     else
-    {
-        /*
-        if (hGLRenderContext)
-        {
-            rwglMakeCurrent(0, 0);                              //release GL render context
-            rwglDeleteContext((int)hGLRenderContext);
-        }
-        ReleaseDC(hGLWindow, hGLDeviceContext);                 //release the Device context
-        */
-		Uint32 flags = SDL_WasInit(SDL_INIT_EVERYTHING);
-		if (!(flags & SDL_INIT_VIDEO))
-			return;
-		if (flags ^ SDL_INIT_VIDEO)
-			SDL_QuitSubSystem(SDL_INIT_VIDEO);
-		else
-			SDL_Quit();
-    }
+        SDL_Quit();
 }
 
 /*-----------------------------------------------------------------------------
@@ -1189,20 +1141,6 @@ void rndBillboardDisable(void)
 
 void rndFilter(bool on)
 {
-    if (!RGL)
-    {
-        return;
-    }
-    if (on)
-    {
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    }
-    else
-    {
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    }
 }
 
 static real64 rndNear(real64 in)
@@ -1604,26 +1542,17 @@ bool rndFade(SpaceObj* spaceobj, Camera* camera)
 
     if (distsqr < mindist || g_ReplaceHack)
     {
-        if (RGL && !usingShader)
-            rglLightingAdjust(0.0f);
-        else
-            meshSetFade(0.0f);
+        meshSetFade(0.0f);
     }
     else if (distsqr < mindist+fadedist)
     {
         real32 amount = (distsqr - mindist) / fadedist;
-        if (RGL && !usingShader)
-            rglLightingAdjust(amount);
-        else
-            meshSetFade(amount);
+        meshSetFade(amount);
         rndAdditiveBlends(FALSE);
     }
     else
     {
-        if (RGL && !usingShader)
-            rglLightingAdjust(1.0f);
-        else
-            meshSetFade(1.0f);
+        meshSetFade(1.0f);
         return TRUE;
     }
 
@@ -1632,10 +1561,7 @@ bool rndFade(SpaceObj* spaceobj, Camera* camera)
 
 void rndUnFade()
 {
-    if (RGL && !usingShader)
-        rglLightingAdjust(0.0f);
-    else
-        meshSetFade(0.0f);
+    meshSetFade(0.0f);
 }
 
 /*-----------------------------------------------------------------------------
@@ -2125,19 +2051,9 @@ void rndPostRenderDebug2DStuff(Camera *camera)
 #endif
         extern sdword trTextureChanges, trAvoidedChanges;
 
-        if (RGL)
-        {
-            sprintf(string, "(%d . %d) (%u) %u . %u . %u",
-                    trTextureChanges, trAvoidedChanges,
-                    alodGetPolys(), rglNumPolys(),
-                    rglCulledPolys(), meshRenders);
-        }
-        else
-        {
-            sprintf(string, "(%d . %d) (%u) . %u",
-                    trTextureChanges, trAvoidedChanges,
-                    alodGetPolys(), meshRenders);
-        }
+        sprintf(string, "(%d . %d) (%u) . %u",
+                trTextureChanges, trAvoidedChanges,
+                alodGetPolys(), meshRenders);
 
         trTextureChanges = 0;
         trAvoidedChanges = 0;
@@ -2282,7 +2198,6 @@ void rndMainViewAllButRenderFunction(Camera *camera)
 void rndMainViewRenderFunction(Camera *camera)
 {
     Node *objnode;
-    bool twopass;
     SpaceObj *spaceobj;
     udword i,numstars;
     Star3d *star;
@@ -2320,11 +2235,6 @@ void rndMainViewRenderFunction(Camera *camera)
         return;
     }
 #endif
-
-    if (RGL)
-    {
-        rglFeature(RGL_LOCK);                               //exclusive lock on the framebuffer
-    }
 
     primModeClear2();                                       //go to 3D rendering mode
 
@@ -2482,11 +2392,6 @@ void rndMainViewRenderFunction(Camera *camera)
         rc();
     }
 
-    if (RGL && rndFogOn)
-    {
-        glEnable(GL_FOG);
-    }
-
 #if PIE_MOVE_NEARTO
     //clear out the 'move near to' info
     selClosestTarget = NULL;
@@ -2496,26 +2401,7 @@ void rndMainViewRenderFunction(Camera *camera)
     trailsRendered = shipTrails = 0;
     alodSetPolys(0);
 
-#if WILL_TWO_PASS
-    if (RGL && (RGLtype == SWtype))
-    {
-        twopass = TRUE;
-    }
-    else
-    {
-        twopass = FALSE;
-    }
-#else
-    twopass = FALSE;
-#endif
-    if (twopass)
-    {
-        objnode = universe.RenderList.tail;
-    }
-    else
-    {
-        objnode = universe.RenderList.head;
-    }
+    objnode = universe.RenderList.head;
 
     while (objnode != NULL)
     {
@@ -2549,33 +2435,30 @@ dontdraw:
                 }
                 break;
             case OBJ_EffectType:                            //if type effect
-                if (!twopass)
+                effect = (Effect *)spaceobj;                    //get effect pointer
+                if(effect->owner != NULL)
                 {
-                    effect = (Effect *)spaceobj;                    //get effect pointer
-                    if(effect->owner != NULL)
+                    SpaceObj *effectowner = (SpaceObj *)effect->owner;
+                    if(effectowner->objtype == OBJ_BulletType)
                     {
-                       SpaceObj *effectowner = (SpaceObj *)effect->owner;
-                       if(effectowner->objtype == OBJ_BulletType)
-                       {
-                         //effect is owned by a bullet
-                         if(((Bullet *) effectowner)->bulletType == BULLET_Laser)
-                         {
-                            //effect is owned by a defense fighter laser beam
-                            defenseFighterAdjustLaser(((Bullet *) effectowner));
-                            etgEffectUpdate(effect, 0.0f);                        //luke suggested fix to laser length problem
-                         }
-                         else if(((Bullet *) effectowner)->bulletType == BULLET_Beam)
-                         {
-                             if(((Bullet *)effectowner)->timelived <= UNIVERSE_UPDATE_PERIOD)
-                             {
-                                goto dontdraw2;
-                             }
-                         }
-                       }
+                        //effect is owned by a bullet
+                        if(((Bullet *) effectowner)->bulletType == BULLET_Laser)
+                        {
+                        //effect is owned by a defense fighter laser beam
+                        defenseFighterAdjustLaser(((Bullet *) effectowner));
+                        etgEffectUpdate(effect, 0.0f);                        //luke suggested fix to laser length problem
+                        }
+                        else if(((Bullet *) effectowner)->bulletType == BULLET_Beam)
+                        {
+                            if(((Bullet *)effectowner)->timelived <= UNIVERSE_UPDATE_PERIOD)
+                            {
+                            goto dontdraw2;
+                            }
+                        }
                     }
-                    etgEffectDraw(effect);
-dontdraw2:;
                 }
+                etgEffectDraw(effect);
+dontdraw2:;
                 break;
             case OBJ_ShipType:
                 if (spaceobj->staticinfo->staticheader.LOD != NULL)
@@ -2608,12 +2491,6 @@ dontdraw2:;
                         if (taskTimeElapsed-((Ship *)spaceobj)->flashtimer < FLASH_TIMER)
                         {
                             g_ReplaceHack = TRUE;
-                            if (RGL)
-                            {
-                                glPixelTransferf(GL_RED_BIAS, 0.3f);
-                                glPixelTransferf(GL_GREEN_BIAS, 0.3f);
-                                glPixelTransferf(GL_BLUE_BIAS, 0.3f);
-                            }
                         }
 
                         switch (level->flags & LM_LODType)
@@ -2899,12 +2776,6 @@ dontdraw2:;
                         if (g_ReplaceHack)
                         {
                             g_ReplaceHack = FALSE;
-                            if (RGL)
-                            {
-                                glPixelTransferf(GL_RED_BIAS, 0.0f);
-                                glPixelTransferf(GL_GREEN_BIAS, 0.0f);
-                                glPixelTransferf(GL_BLUE_BIAS, 0.0f);
-                            }
                         }
 
                         {
@@ -3028,12 +2899,6 @@ dontdraw2:;
                     if (taskTimeElapsed-((Ship *)spaceobj)->flashtimer < FLASH_TIMER)
                     {
                         g_ReplaceHack = TRUE;
-                        if (RGL)
-                        {
-                            glPixelTransferf(GL_RED_BIAS, 0.3f);
-                            glPixelTransferf(GL_GREEN_BIAS, 0.3f);
-                            glPixelTransferf(GL_BLUE_BIAS, 0.3f);
-                        }
                     }
 
                     switch (level->flags & LM_LODType)
@@ -3143,12 +3008,6 @@ renderDefault:
                     if (g_ReplaceHack)
                     {
                         g_ReplaceHack = FALSE;
-                        if (RGL)
-                        {
-                            glPixelTransferf(GL_RED_BIAS, 0.0f);
-                            glPixelTransferf(GL_GREEN_BIAS, 0.0f);
-                            glPixelTransferf(GL_BLUE_BIAS, 0.0f);
-                        }
                     }
 
                     glPopMatrix();
@@ -3172,58 +3031,7 @@ renderDefault:
             default:
                 dbgFatalf(DBG_Loc, "Undefined object type %d", spaceobj->objtype);
         }
-        if (twopass)
-        {
-            objnode = objnode->prev;
-        }
-        else
-        {
-            objnode = objnode->next;
-        }
-    }
-
-    if (twopass)
-    {
-        objnode = universe.RenderList.head;
-        while (objnode != NULL)
-        {
-            spaceobj = (SpaceObj*)listGetStructOfNode(objnode);
-            g_WireframeHack = FALSE;
-            rndPerspectiveCorrection(FALSE);
-            switch (spaceobj->objtype)
-            {
-            case OBJ_EffectType:
-                effect = (Effect *)spaceobj;                    //get effect pointer
-                if(effect->owner != NULL)
-                {
-                   SpaceObj *effectowner = (SpaceObj *)effect->owner;
-                   if(effectowner->objtype == OBJ_BulletType)
-                   {
-                     //effect is owned by a bullet
-                     if(((Bullet *) effectowner)->bulletType == BULLET_Laser)
-                     {
-                        //effect is owned by a defense fighter laser beam
-                        defenseFighterAdjustLaser(((Bullet *) effectowner));
-                        etgEffectUpdate(effect, 0.0f);                        //luke suggested fix to laser length problem
-                     }
-                     else if(((Bullet *) effectowner)->bulletType == BULLET_Beam)
-                     {
-                         if(((Bullet *)effectowner)->timelived <= UNIVERSE_UPDATE_PERIOD)
-                         {
-                            goto dontdraw3;
-                         }
-                     }
-                   }
-                }
-                etgEffectDraw(effect);
-                break;
-
-            default:
-                dbgFatalf(DBG_Loc, "Undefined object type %d", spaceobj->objtype);
-dontdraw3:;
-            }
-            objnode = objnode->next;
-        }
+        objnode = objnode->next;
     }
 
     //
@@ -3273,11 +3081,6 @@ dontdraw3:;
 
     rndPerspectiveCorrection(FALSE);
 
-    if (RGL)
-    {
-        glDisable(GL_FOG);
-    }
-
     nebRender();
 
     if (rndPostObjectCallback != NULL)
@@ -3288,10 +3091,6 @@ dontdraw3:;
     rndPostRenderDebug3DStuff(camera);
     primModeSet2();
     rndPostRenderDebug2DStuff(camera);
-    if (RGL)
-    {
-        rglFeature(RGL_UNLOCK);         //remove our exclusive lock
-    }
 }
 
 GLuint plug_handle = 0;
@@ -3484,32 +3283,22 @@ void rndShamelessPlug()
     winWidth  -= 1.0f;
     winHeight -= 1.0f;
 
-    if (RGLtype == SWtype)
-    {
-        glTexCoord2f(winWidth - fwidth, 0);
-        trClearCurrent();
-        glBindTexture(GL_TEXTURE_2D, plug_handle);
-        glDrawPixels(plug_width, plug_height, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
-    }
-    else
-    {
-        rndTextureEnable(TRUE);
-        rndAdditiveBlends(FALSE);
-        trClearCurrent();
-        glBindTexture(GL_TEXTURE_2D, plug_handle);
+    rndTextureEnable(TRUE);
+    rndAdditiveBlends(FALSE);
+    trClearCurrent();
+    glBindTexture(GL_TEXTURE_2D, plug_handle);
 
-        glColor4ub(255,255,255,255);
-        glBegin(GL_QUADS);
-        glTexCoord2f(0.0f, 1.0f);
-        glVertex2f(winWidth - fwidth, fheight);
-        glTexCoord2f(0.0f, 0.0f);
-        glVertex2f(winWidth - fwidth, 0);
-        glTexCoord2f(1.0f, 0.0f);
-        glVertex2f(winWidth, 0);
-        glTexCoord2f(1.0f, 1.0f);
-        glVertex2f(winWidth, fheight);
-        glEnd();
-    }
+    glColor4ub(255,255,255,255);
+    glBegin(GL_QUADS);
+    glTexCoord2f(0.0f, 1.0f);
+    glVertex2f(winWidth - fwidth, fheight);
+    glTexCoord2f(0.0f, 0.0f);
+    glVertex2f(winWidth - fwidth, 0);
+    glTexCoord2f(1.0f, 0.0f);
+    glVertex2f(winWidth, 0);
+    glTexCoord2f(1.0f, 1.0f);
+    glVertex2f(winWidth, fheight);
+    glEnd();
 
     glPopMatrix();
     glMatrixMode(GL_PROJECTION);
@@ -3943,7 +3732,6 @@ void rndDrawScissorBars(bool scissorEnabled)
 ----------------------------------------------------------------------------*/
 DEFINE_TASK(rndRenderTask)
 {
-    static bool shouldSwap;
     static sdword index;
 #ifdef PROFILE_TIMERS
     static sdword y;
@@ -3990,47 +3778,14 @@ DEFINE_TASK(rndRenderTask)
         }
 #endif
         glColor3ub(colRed(RND_StarColor), colGreen(RND_StarColor), colBlue(RND_StarColor));
-        shouldSwap = feShouldSaveMouseCursor();
-        if (shouldSwap)
+        if (lmActive)
         {
-            if (RGL)
-            {
-                rglFeature(RGL_SAVEBUFFER_ON);
-                if (mainRasterSkip)
-                {
-                    rglFeature(RGL_NOSKIP_RASTER);
-                }
-            }
+            rndClearToBlack();
+            glClear(GL_DEPTH_BUFFER_BIT);
         }
         else
         {
-            if (RGL)
-            {
-                rglFeature(RGL_SAVEBUFFER_OFF);
-            }
-            /*if (binkDonePlaying)*/
-            {
-                if (RGL)
-                {
-                    if (mainRasterSkip && gameIsRunning)
-                    {
-                        rglFeature(RGL_SKIP_RASTER);
-                    }
-                    else
-                    {
-                        rglFeature(RGL_NOSKIP_RASTER);
-                    }
-                }
-                if (lmActive)
-                {
-                    rndClearToBlack();
-                    glClear(GL_DEPTH_BUFFER_BIT);
-                }
-                else
-                {
-                    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //clear the buffers
-                }
-            }
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //clear the buffers
         }
 
         rndScissorEnabled = glIsEnabled(GL_SCISSOR_TEST);   //can we do scissoring?
@@ -4084,11 +3839,6 @@ DEFINE_TASK(rndRenderTask)
         // set the cursor type, reset the variables then draw the mouse cursor
         mouseSelectCursorSetting();
         mouseSetCursorSetting();
-        shouldSwap = feShouldSaveMouseCursor();
-        if (shouldSwap)
-        {
-            mouseStoreCursorUnder();
-        }
         
         mouseDraw();                                        //draw mouse atop everything
       
@@ -4116,13 +3866,6 @@ DEFINE_TASK(rndRenderTask)
         else if (keyIsStuck(PAUSEKEY))
         {
             keyClearSticky(PAUSEKEY);
-            if (RGL)
-            {
-#if SS_VERBOSE_LEVEL >= 1
-                dbgMessagef("Multi-shot end.");
-#endif
-                rglFeature(RGL_MULTISHOT_END);
-            }
         }
         
         if (rndTakeScreenshot)
@@ -4180,12 +3923,6 @@ DEFINE_TASK(rndRenderTask)
                 rndFlush();
             }
             feDontFlush = FALSE;
-        }
-        primErrorMessagePrint();
-
-        if (shouldSwap)
-        {
-            mouseRestoreCursorUnder();
         }
         primErrorMessagePrint();
 afterTheSwap:
@@ -4326,7 +4063,6 @@ sdword rndPerspectiveCorrection(sdword bEnable)
 #endif
     if (mainNoPerspective)
     {
-        if (RGL) glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST);
         return(oldStatus);
     }
     if (bEnable)
@@ -4949,11 +4685,6 @@ void rndClear(void)
         glClear(GL_COLOR_BUFFER_BIT);
         rndFlush();
     }
-
-    if (RGLtype == SWtype)
-    {
-        rglFeature(RGL_SPEEDY);
-    }
 }
 
 /*-----------------------------------------------------------------------------
@@ -4967,9 +4698,6 @@ void rndFlush(void)
 {
     glFlush();
     primErrorMessagePrint();
-    if (!RGL)
-    {
-        SDL_GL_SwapBuffers();
-    }
+    SDL_GL_SwapBuffers();
     SDL_Delay(1);
 }
