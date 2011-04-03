@@ -19,7 +19,6 @@
 #include "FEColour.h"
 #include "FEFlow.h"
 #include "FontReg.h"
-#include "glcaps.h"
 #include "glinc.h"
 #include "InfoOverlay.h"
 #include "Key.h"
@@ -1136,11 +1135,6 @@ void opCountdownYes(char* name, featom* atom)
     opTimerActive = FALSE;
     feScreenDisappear(NULL, NULL);
     opGLCStart();
-    if (strcasecmp(GLC_RENDERER, GENERIC_OPENGL_RENDERER) == 0)
-    {
-        GeneralMessageBox(strGetString(strGDIGeneric0),
-                          strGetString(strGDIGeneric1));
-    }
 }
 
 void opCountdownNo(char* name, featom* atom)
@@ -3526,15 +3520,12 @@ udword opNoPalIncreaseProcess(regionhandle region, sdword ID, udword event, udwo
 
     if (event == RPE_ReleaseLeft)
     {
-        if (trNoPalettes)
+        opNoPalMB += 4;
+        if (opNoPalMB > opNoPalMaxMB)
         {
-            opNoPalMB += 4;
-            if (opNoPalMB > opNoPalMaxMB)
-            {
-                opNoPalMB = opNoPalMaxMB;
-            }
-            trNoPalResizePool(opNoPalMB);
+            opNoPalMB = opNoPalMaxMB;
         }
+        trNoPalResizePool(opNoPalMB);
         region->status |= RSF_DrawThisFrame;
         opNoPalDirty();
         return 0;
@@ -3551,15 +3542,12 @@ udword opNoPalDecreaseProcess(regionhandle region, sdword ID, udword event, udwo
 
     if (event == RPE_ReleaseLeft)
     {
-        if (trNoPalettes)
+        opNoPalMB -= 4;
+        if (opNoPalMB < opNoPalMinMB)
         {
-            opNoPalMB -= 4;
-            if (opNoPalMB < opNoPalMinMB)
-            {
-                opNoPalMB = opNoPalMinMB;
-            }
-            trNoPalResizePool(opNoPalMB);
+            opNoPalMB = opNoPalMinMB;
         }
+        trNoPalResizePool(opNoPalMB);
         region->status |= RSF_DrawThisFrame;
         opNoPalDirty();
         return 0;
@@ -3615,11 +3603,11 @@ void opNoPalDraw(featom* atom, regionhandle region)
     primRectSolid2(&region->rect, colBlack);
     oldfont = fontMakeCurrent(ghDefaultFont);
 
-    sprintf(buf, "%dMB", trNoPalettes ? opNoPalMB : 0);
-    c = trNoPalettes ? colRGB(255,200,0) : colRGB(191,150,0);
-    opBlackRect(region->rect.x0 - (trNoPalettes ? 5 : 0),
+    sprintf(buf, "%dMB", opNoPalMB);
+    c = colRGB(255,200,0);
+    opBlackRect(region->rect.x0 - 5,
                 region->rect.y0, buf);
-    fontPrint(region->rect.x0 - (trNoPalettes ? 5 : 0), region->rect.y0, c, buf);
+    fontPrint(region->rect.x0 - 5, region->rect.y0, c, buf);
     fontMakeCurrent(oldfont);
 }
 

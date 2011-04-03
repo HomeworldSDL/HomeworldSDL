@@ -21,8 +21,6 @@
 #include "Types.h"
 
 
-extern unsigned int glNT;
-extern unsigned int gl95;
 extern unsigned int mainSoftwareDirectDraw;
 extern unsigned int mainOutputCRC;
 extern unsigned long strCurLanguage;
@@ -606,66 +604,8 @@ int rinEnumerateDevices(void)
 
     if (!(gDevcaps & DEVSTAT_NOGL_9X))
     {
-        if (gl95)
-        {
-            if (!(gDevcaps2 & DEVSTAT2_NOGL_95))
-            {
-                rinAddDevice(gldev);
-            }
-        }
-        else
-        {
-            rinAddDevice(gldev);
-        }
+        rinAddDevice(gldev);
     }
-
-#ifndef _MACOSX_FIX_GL
-    //add software renderer, an explicitly known device
-    dev = (rdevice*)rinMemAlloc(sizeof(rdevice));
-    dev->devcaps = 0;
-    dev->type = RIN_TYPE_SOFTWARE;
-    dev->data[0] = '\0';
-    strncpy(dev->name, "Software", 63);
-    dev->modes = NULL;
-    if (primaryVal)
-    {
-        if (gDevcaps & DEVSTAT_DISABLE_SW)
-        {
-            primaryDev.devcaps = gDevcaps;
-            rinSortModes(&primaryDev);
-        }
-        rinCopyModesSelectively(dev, &primaryDev, 16, 1600);
-        if (!dev->modes)
-            rinCopyModesSelectively(dev, &primaryDev, 24, 1600);
-        if (!dev->modes)
-            rinCopyModesSelectively(dev, &primaryDev, 32, 1600);
-    }
-    else
-    {
-        maxWidth = rinMaxWidth();
-        rinAddMode(dev, 640, 480, 16);
-        rinAddMode(dev, 800, 600, 16);
-        rinAddMode(dev, 1024, 768, 16);
-        if (maxWidth >= 1280)
-        {
-            rinAddMode(dev, 1280, 1024, 16);
-        }
-        if (maxWidth >= 1600)
-        {
-            rinAddMode(dev, 1600, 1200, 16);
-        }
-    }
-    rinSortModes(dev);
-    rinAddDevice(dev);
-    nDevices++;
-#endif // _MACOSX
-
-#if 0	/* CRC log only used by Direct3D. */
-    if (mainOutputCRC)
-    {
-        rinCloseCRCLog();
-    }
-#endif
 
     //success
     return 1;

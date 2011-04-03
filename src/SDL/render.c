@@ -31,7 +31,6 @@
 #include "FastMath.h"
 #include "File.h"
 #include "font.h"
-#include "glcaps.h"
 #include "glinc.h"
 #include "Globals.h"
 #include "Gun.h"
@@ -929,55 +928,28 @@ typedef int (*AUXINITPOSITIONPROC)(GLuint, GLuint, GLuint, GLuint, GLuint);
 
 sdword rndSmallInit(rndinitdata* initData, bool GL)
 {
-    if (GL)
+    Uint32 flags;
+
+    /*
+    hGLWindow = initData->hWnd;
+    hGLDeviceContext = GetDC(initData->hWnd);
+    */
+    /*if (!setupPixelFormat(hGLDeviceContext))*/
+    if (!setupPixelFormat())
     {
-        Uint32 flags;
-
-        /*
-        hGLWindow = initData->hWnd;
-        hGLDeviceContext = GetDC(initData->hWnd);
-        */
-        /*if (!setupPixelFormat(hGLDeviceContext))*/
-        if (!setupPixelFormat())
-        {
-            return FALSE;
-        }
-        /*if (!setupPalette(hGLDeviceContext))*/
-        if (!setupPalette())
-        {
-            /* Kill the window we created. */
-            flags = SDL_WasInit(SDL_INIT_EVERYTHING);
-            if (flags & ~SDL_INIT_VIDEO)
-                SDL_QuitSubSystem(SDL_INIT_VIDEO);
-            else
-                SDL_Quit();
-            return FALSE;
-        }
-        /*
-        hGLRenderContext = (HGLRC)rwglCreateContext((unsigned int)hGLDeviceContext);
-        rwglMakeCurrent((int)hGLDeviceContext, (int)hGLRenderContext);
-        */
+        return FALSE;
     }
-    else
+    /*if (!setupPalette(hGLDeviceContext))*/
+    if (!setupPalette())
     {
-        AUXINITPOSITIONPROC initPositionProc;
-
-        initPositionProc = (AUXINITPOSITIONPROC)rwglGetProcAddress("rauxInitPosition");
-        dbgAssertOrIgnore(initPositionProc != NULL);
-
-        hGLWindow = (udword)(initData->hWnd);
-        rglCreateWindow((GLint)hGLWindow, (GLint)MAIN_WindowWidth, (GLint)MAIN_WindowDepth);
-
-        if (!initPositionProc(0, 0, initData->width, initData->height, MAIN_WindowDepth))
-        {
-            return FALSE;
-        }
+        /* Kill the window we created. */
+        flags = SDL_WasInit(SDL_INIT_EVERYTHING);
+        if (flags & ~SDL_INIT_VIDEO)
+            SDL_QuitSubSystem(SDL_INIT_VIDEO);
+        else
+            SDL_Quit();
+        return FALSE;
     }
-
-#ifndef _MACOSX_FIX_GL
-    glLockArraysEXT   = (LOCKARRAYSEXTproc)rwglGetProcAddress("glLockArraysEXT");
-    glUnlockArraysEXT = (UNLOCKARRAYSEXTproc)rwglGetProcAddress("glUnlockArraysEXT");
-#endif
 
     return TRUE;
 }
@@ -1005,12 +977,6 @@ sdword rndInit(rndinitdata *initData)
     {
         dbgMessage("rndInit: GL couldn't setupPalette");
         return !OKAY;
-    }
-
-    glCapStartup();
-    if (!glCapFeatureExists(GL_SHARED_TEXTURE_PALETTE_EXT))
-    {
-        trNoPalettes = TRUE;
     }
 
 #if RND_VERBOSE_LEVEL >= 1
@@ -1060,12 +1026,7 @@ sdword rndInit(rndinitdata *initData)
     regKeyChildAlloc(ghMainRegion, RND_PolyStatsKey, RPE_KeyDown, (regionfunction) rndPolyStatsToggle, 1, RND_PolyStatsKey);
 #endif //RND_POLY_STATS
 
-    glDepthFunc(glCapDepthFunc);
-
-#ifndef _MACOSX_FIX_GL
-    glLockArraysEXT   = (LOCKARRAYSEXTproc)rwglGetProcAddress("glLockArraysEXT");
-    glUnlockArraysEXT = (UNLOCKARRAYSEXTproc)rwglGetProcAddress("glUnlockArraysEXT");
-#endif
+    glDepthFunc(GL_LEQUAL);
 
     return(OKAY);
 }
@@ -1186,8 +1147,8 @@ void rndBackgroundRender(real32 radius, Camera* camera, bool bDrawStars)
     {
         bool blends, pointSize;
 
-        blends = glCapFeatureExists(GL_POINT_SMOOTH);
-        pointSize = glCapFeatureExists(GL_POINT_SIZE);
+        blends = TRUE;
+        pointSize = TRUE;
 
         glPointSize(1.0f);
 
@@ -1210,22 +1171,8 @@ void rndBackgroundRender(real32 radius, Camera* camera, bool bDrawStars)
                         rndNear(camera->clipPlaneNear), camera->clipPlaneFar);
 
         //draw small stars
-        if (glCapFeatureExists(GL_VERTEX_ARRAY))
-        {
-            glInterleavedArrays(GL_C4UB_V3F, 0, (GLvoid*)stararray);
-            glDrawArrays(GL_POINTS, 0, universe.star3dinfo->Num3dStars - NUM_BIG_STARS);
-        }
-        else
-        {
-            glBegin(GL_POINTS);
-            for (index = 0; index < (universe.star3dinfo->Num3dStars - NUM_BIG_STARS); index++)
-            {
-                glColor4ub(stararray[index].c[0], stararray[index].c[1],
-                           stararray[index].c[2], stararray[index].c[3]);
-                glVertex3fv((GLfloat*)&stararray[index].v);
-            }
-            glEnd();
-        }
+        glInterleavedArrays(GL_C4UB_V3F, 0, (GLvoid*)stararray);
+        glDrawArrays(GL_POINTS, 0, universe.star3dinfo->Num3dStars - NUM_BIG_STARS);
 
         if (blends && pointSize)
         {
@@ -1247,22 +1194,8 @@ void rndBackgroundRender(real32 radius, Camera* camera, bool bDrawStars)
         }
 
         //draw big stars
-        if (glCapFeatureExists(GL_VERTEX_ARRAY))
-        {
-            glInterleavedArrays(GL_C4UB_V3F, 0, (GLvoid*)bigstararray);
-            glDrawArrays(GL_POINTS, 0, NUM_BIG_STARS);
-        }
-        else
-        {
-            glBegin(GL_POINTS);
-            for (index = 0; index < NUM_BIG_STARS; index++)
-            {
-                glColor4ub(bigstararray[index].c[0], bigstararray[index].c[1],
-                           bigstararray[index].c[2], bigstararray[index].c[3]);
-                glVertex3fv((GLfloat*)&bigstararray[index].v);
-            }
-            glEnd();
-        }
+        glInterleavedArrays(GL_C4UB_V3F, 0, (GLvoid*)bigstararray);
+        glDrawArrays(GL_POINTS, 0, NUM_BIG_STARS);
 
         if (blends)
         {
@@ -1754,7 +1687,7 @@ void rndDrawAsteroid0(sdword n)
     color   c;
     vector* v;
 
-    glPointSize(glCapFeatureExists(GL_POINT_SIZE) ? 2.0f : 1.0f);
+    glPointSize(2.0f);
     glBegin(GL_POINTS);
     for (index = 0; index < n; index++)
     {
@@ -2531,15 +2464,8 @@ dontdraw2:;
                                     if (shipStaticInfo->scaleCap != 0.0f)
                                     {                   //if there's a scaling cap
                                         real32 scaleFactor;
-                                        if (glCapFeatureExists(GL_RESCALE_NORMAL))
-                                        {
-                                            glEnable(GL_RESCALE_NORMAL);
-                                            rndNormalization = TRUE;
-                                        }
-                                        else
-                                        {
-                                            rndNormalizeEnable(TRUE);
-                                        }
+                                        glEnable(GL_RESCALE_NORMAL);
+                                        rndNormalization = TRUE;
                                         scaleFactor = 1.0f - selCameraSpace.z * shipStaticInfo->scaleCap;
 #if RND_VERBOSE_LEVEL >= 1
                                         if (isnan((double)scaleFactor))
@@ -2743,15 +2669,8 @@ dontdraw2:;
                                 }
                                 shPopLightMatrix();
 
-                                if (glCapFeatureExists(GL_RESCALE_NORMAL))
-                                {
-                                    glDisable(GL_RESCALE_NORMAL);
-                                    rndNormalization = FALSE;
-                                }
-                                else
-                                {
-                                    rndNormalizeEnable(FALSE);
-                                }
+                                glDisable(GL_RESCALE_NORMAL);
+                                rndNormalization = FALSE;
                                 break;
                             case LT_TinySprite:
                                 dbgFatalf(DBG_Loc, "Unsupported LOD type 0x%x", level->flags);
@@ -4415,17 +4334,10 @@ void rndSetScreenFill(sdword count, color c)
 ----------------------------------------------------------------------------*/
 void rndSetClearColor(color c)
 {
-    if (glCapFeatureExists(GL_COLOR_CLEAR_VALUE))
-    {
-        glClearColor(colReal32(colRed(c)),
-                     colReal32(colGreen(c)),
-                     colReal32(colBlue(c)),
-                     1.0f);
-    }
-    else
-    {
-        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    }
+    glClearColor(colReal32(colRed(c)),
+                    colReal32(colGreen(c)),
+                    colReal32(colBlue(c)),
+                    1.0f);
 }
 
 /*-----------------------------------------------------------------------------
@@ -4622,22 +4534,14 @@ void rndClearToBlack(void)
 {
     real32 bgcolor[4];
 
-    if (glCapFeatureExists(GL_COLOR_CLEAR_VALUE))
-    {
-        //get current clearcolor
-        glGetFloatv(GL_COLOR_CLEAR_VALUE, (GLfloat*)bgcolor);
-        //set clearcolor to black
-        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-        //clear the screen
-        glClear(GL_COLOR_BUFFER_BIT);
-        //reset clearcolor
-        glClearColor(bgcolor[0], bgcolor[1], bgcolor[2], bgcolor[3]);
-    }
-    else
-    {
-        //clear the screen
-        glClear(GL_COLOR_BUFFER_BIT);
-    }
+    //get current clearcolor
+    glGetFloatv(GL_COLOR_CLEAR_VALUE, (GLfloat*)bgcolor);
+    //set clearcolor to black
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    //clear the screen
+    glClear(GL_COLOR_BUFFER_BIT);
+    //reset clearcolor
+    glClearColor(bgcolor[0], bgcolor[1], bgcolor[2], bgcolor[3]);
 }
 
 /*-----------------------------------------------------------------------------
@@ -4651,22 +4555,14 @@ void rndAllClearToBlack(void)
 {
     real32 bgcolor[4];
 
-    if (glCapFeatureExists(GL_COLOR_CLEAR_VALUE))
-    {
-        //get current clearcolor
-        glGetFloatv(GL_COLOR_CLEAR_VALUE, (GLfloat*)bgcolor);
-        //set clearcolor to black
-        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-        //clear the screen
-        rndClear();
-        //reset clearcolor
-        glClearColor(bgcolor[0], bgcolor[1], bgcolor[2], bgcolor[3]);
-    }
-    else
-    {
-        //clear the screen
-        rndClear();
-    }
+    //get current clearcolor
+    glGetFloatv(GL_COLOR_CLEAR_VALUE, (GLfloat*)bgcolor);
+    //set clearcolor to black
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    //clear the screen
+    rndClear();
+    //reset clearcolor
+    glClearColor(bgcolor[0], bgcolor[1], bgcolor[2], bgcolor[3]);
 }
 
 /*-----------------------------------------------------------------------------

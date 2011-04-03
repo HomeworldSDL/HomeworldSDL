@@ -13,7 +13,6 @@
 #include "Debug.h"
 #include "FastMath.h"
 #include "File.h"
-#include "glcaps.h"
 #include "glinc.h"
 #include "main.h"
 #include "mainrgn.h"
@@ -1254,7 +1253,7 @@ void btgRender()
     udword nStar;
     sdword lightOn, index;
     GLboolean texOn, blendOn, depthOn;
-    bool fastBlends, textureStars, compiledArrays;
+    bool fastBlends, textureStars;
     real32 modelview[16], projection[16];
     udword* dlast;
     udword* dnext;
@@ -1321,52 +1320,9 @@ void btgRender()
         lastFade = btgFade;
     }
 
-    if (glCapFeatureExists(GL_VERTEX_ARRAY))
-    {
-        //use DrawElements to render the bg polys
-        glInterleavedArrays(GL_C4UB_V3F, 0, (void*)btgTransVerts);
-        if (glCapFeatureExists(GL_COMPILED_ARRAYS_EXT))
-        {
-            compiledArrays = TRUE;
-            glLockArraysEXT(0, btgHead->numVerts);
-        }
-        else
-        {
-            compiledArrays = FALSE;
-        }
-
-        glDrawElements(GL_TRIANGLES, 3 * btgHead->numPolys, GL_UNSIGNED_INT, btgIndices);
-        if (compiledArrays)
-        {
-            glUnlockArraysEXT();
-        }
-    }
-    else
-    {
-        //simulate DrawElements for buggy GLs
-        glBegin(GL_TRIANGLES);
-
-#if BTG_VERBOSE_LEVEL >= 4
- dbgMessagef("numPolys= %d",btgHead->numPolys);
-#endif
-
-        for (index = 0; index < (3*btgHead->numPolys); index++)
-        {
-            btgTransVertex* pVert = &btgTransVerts[btgIndices[index]];
-#if BTG_VERBOSE_LEVEL >= 4
- dbgMessagef("pVert.Red= %d",pVert->red);
- dbgMessagef("pVert.green= %d",pVert->green);
- dbgMessagef("pVert.blue= %d",pVert->blue);
- dbgMessagef("pVert.alpha= %d\n",pVert->alpha);
-#endif
-
-#ifndef _WIN32_FIXME
-			glColor4ub(pVert->red, pVert->green, pVert->blue, pVert->alpha);
-			glVertex3fv((GLfloat*)&pVert->position);
-#endif
-				}
-        glEnd();
-    }
+    //use DrawElements to render the bg polys
+    glInterleavedArrays(GL_C4UB_V3F, 0, (void*)btgTransVerts);
+    glDrawElements(GL_TRIANGLES, 3 * btgHead->numPolys, GL_UNSIGNED_INT, btgIndices);
 
     //stars
     rndPerspectiveCorrection(FALSE);
@@ -1496,9 +1452,5 @@ void btgRender()
     else
     {
         glDisable(GL_DEPTH_TEST);
-    }
-    if (glCapFeatureExists(RGL_BROKEN_MIXED_DEPTHTEST))
-    {
-        glDepthMask(GL_TRUE);
     }
 }

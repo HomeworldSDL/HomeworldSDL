@@ -13,7 +13,6 @@
 
 #include "Color.h"
 #include "Debug.h"
-#include "glcaps.h"
 #include "glinc.h"
 #include "HorseRace.h"
 #include "main.h"
@@ -34,7 +33,6 @@
     Data:
 =============================================================================*/
 
-static bool glRGBA16;
 static bool dec = FALSE;
 
 //to speed up texture loading, the registry refers to the texture number
@@ -619,8 +617,6 @@ void ferStartup(void)
     {
         listInit(&ferTextureRegistry[i]);
     }
-
-    glRGBA16 = glCapTexSupport(GL_RGBA16);
 }
 
 /*-----------------------------------------------------------------------------
@@ -651,8 +647,6 @@ void ferReset(void)
             node = node->next;
         }
     }
-
-    glRGBA16 = glCapTexSupport(GL_RGBA16);
 }
 
 /*-----------------------------------------------------------------------------
@@ -1092,36 +1086,14 @@ void ferDraw(sdword x, sdword y, lifheader *texture)
         GLushort* data;
         GLushort* rp;
 
-        if (glRGBA16)
+        data = (GLushort*)memAlloc(4 * newwidth * newheight, "fer data", 0);
+
+        for (iy = 0; iy < texture->height; iy++)
         {
-            data = (GLushort*)memAlloc(2 * newwidth * newheight, "fer data", 0);
+            GLushort* dp = &data[2 * newwidth * ((texture->height - 1) - iy)];
+            cp = texture->data + 4 * texture->width * iy;
 
-            for (iy = 0; iy < texture->height; iy++)
-            {
-                rp = &data[newwidth * ((texture->height - 1) - iy)];
-                cp = texture->data + 4 * texture->width * iy;
-
-                for (ix = 0; ix < texture->width; ix++, rp++, cp += 4)
-                {
-                    *rp = (GLushort)
-                         (((cp[3] & 0xf0) << 8) |
-                          ((cp[0] & 0xf0) << 4) |
-                           (cp[1] & 0xf0) |
-                          ((cp[2] & 0xf0) >> 4));
-                }
-            }
-        }
-        else
-        {
-            data = (GLushort*)memAlloc(4 * newwidth * newheight, "fer data", 0);
-
-            for (iy = 0; iy < texture->height; iy++)
-            {
-                GLushort* dp = &data[2 * newwidth * ((texture->height - 1) - iy)];
-                cp = texture->data + 4 * texture->width * iy;
-
-                memcpy(dp, cp, 4 * texture->width);
-            }
+            memcpy(dp, cp, 4 * texture->width);
         }
 
         glGenTextures(1, &thandle);
@@ -1133,16 +1105,8 @@ void ferDraw(sdword x, sdword y, lifheader *texture)
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
-        if (glRGBA16)
-        {
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16, newwidth, newheight,
-                         0, GL_RGBA16, GL_UNSIGNED_BYTE, data);
-        }
-        else
-        {
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, newwidth, newheight,
-                         0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-        }
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, newwidth, newheight,
+                        0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 
         memFree(data);
 
@@ -2548,17 +2512,7 @@ void ferDrawScrollbar(scrollbarhandle shandle, ferscrollbarstate state)
     sdword end_width;
     sdword height, textureHeight;
 
-    GLboolean blends = glCapFastFeature(GL_BLEND);
-
-    if (blends)
-    {
-        glEnable(GL_BLEND);
-    }
-    else
-    {
-        glEnable(GL_ALPHA_TEST);
-        glAlphaFunc(GL_GREATER, 0.0f);
-    }
+    glEnable(GL_BLEND);
 
     dec = TRUE;
 
@@ -2628,92 +2582,8 @@ void ferDrawScrollbar(scrollbarhandle shandle, ferscrollbarstate state)
             ferDraw(shandle->thumb.x0, shandle->thumb.y1, texture[5]);
         }
     }
-    /*
-        //note - because the region is overwritten by the up and down buttons,
-        //       the region is drawn to the top of the buttons
-        texture = ferTextureRegister(top, none, none);
-        ferDraw(shandle->reg.rect.x0, shandle->reg.rect.y0+texture->height, texture);
 
-        end_width = texture->height;
-        texture = ferTextureRegister(mid, none, none);
-        ferDrawLine(shandle->reg.rect.x0, shandle->reg.rect.y0, shandle->reg.rect.x0,
-                    shandle->reg.rect.y1, end_width, texture, 0);
-
-        //draw the thumbwheel region
-        texture = ferTextureRegister(bottom, none, none);
-        ferDraw(shandle->reg.rect.x0, shandle->reg.rect.y1, texture);
-
-        //draw the thumbwheel
-        texture = ferTextureRegister(tab_top, none, none);
-        ferDraw(shandle->thumb.x0, shandle->thumb.y0+texture->height, texture);
-
-        end_width = texture->height;
-        texture = ferTextureRegister(tab_mid, none, none);
-        ferDrawLine(shandle->thumb.x0, shandle->thumb.y0, shandle->thumb.x0,
-                    shandle->thumb.y1, end_width, texture, 0);
-
-        texture = ferTextureRegister(tab_bot, none, none);
-        ferDraw(shandle->thumb.x0, shandle->thumb.y1, texture);
-    }
-    */
-/*    else
-    {
-        bottom   = HORI_SBAR_BOTTOM;
-        mid      = HORI_SBAR_MID;
-        top      = HORI_SBAR_TOP;
-        up_but   = HORI_SBAR_UP_BUTTON;
-        down_but = HORI_SBAR_DOWN_BUTTON;
-        tab_bot  = HORI_STAB_BOTTOM;
-        tab_mid  = HORI_STAB_MID;
-        tab_top  = HORI_STAB_TOP;
-
-        //draw the thumbwheel region
-        texture = ferTextureRegister(bottom, none, none);
-        ferDraw(shandle->thumbreg.x0, shandle->thumbreg.y1, texture);
-
-        //note - because the region is overwritten by the up and down buttons,
-        //       the region is drawn to the top of the buttons
-        texture = ferTextureRegister(top, none, none);
-        ferDraw(shandle->neg.x0, shandle->thumbreg.y1, texture);
-        end_width = texture->width;
-
-        texture = ferTextureRegister(mid, none, none);
-        ferDrawLine(shandle->thumbreg.x0, shandle->thumbreg.y1, shandle->neg.x0,
-                    shandle->thumbreg.y1, end_width, texture, 0);
-
-        //draw the right button
-        texture = ferTextureRegister(up_but, none, none);
-        ferDraw(shandle->pos.x0, shandle->pos.y1, texture);
-
-        //draw the left button
-        texture = ferTextureRegister(down_but, none, none);
-        ferDraw(shandle->neg.x0, shandle->neg.y1, texture);
-
-        //draw the thumbwheel
-        texture = ferTextureRegister(tab_bot, none, none);
-        ferDraw(shandle->thumb.x0, shandle->thumb.y1, texture);
-
-        texture = ferTextureRegister(tab_top, none, none);
-        ferDraw(shandle->thumb.x1 - texture->width, shandle->thumb.y0, texture);
-        end_width = texture->height;
-
-        texture = ferTextureRegister(tab_mid, none, none);
-        ferDrawLine(shandle->thumb.x0, shandle->thumb.y1, shandle->thumb.x1,
-                    shandle->thumb.y1, end_width, texture, 0);
-
-        texture = ferTextureRegister(arrow, none, none);
-        ferDraw((shandle->thumb.x0 + shandle->thumb.x1)/2 + texture->width,
-                shandle->thumb.y1, texture);
-    }*/
-
-    if (blends)
-    {
-        glDisable(GL_BLEND);
-    }
-    else
-    {
-        glDisable(GL_ALPHA_TEST);
-    }
+    glDisable(GL_BLEND);
 
     dec = FALSE;
 }
@@ -2736,17 +2606,7 @@ void ferDrawScrollbarButton(regionhandle region, ferscrollbarbuttonstate state)
     lifheader *texture;
     scrollbarbuttonhandle sbutton = (scrollbarbuttonhandle)region;
 
-    GLboolean blends = glCapFastFeature(GL_BLEND);
-
-    if (blends)
-    {
-        glEnable(GL_BLEND);
-    }
-    else
-    {
-        glEnable(GL_ALPHA_TEST);
-        glAlphaFunc(GL_GREATER, 0.0f);
-    }
+    glEnable(GL_BLEND);
 
     if (sbutton->scrollbar->isVertical)
     {
@@ -2778,18 +2638,8 @@ void ferDrawScrollbarButton(regionhandle region, ferscrollbarbuttonstate state)
             break;
         }
     }
-/*    else
-    {
-    }*/
 
-    if (blends)
-    {
-        glDisable(GL_BLEND);
-    }
-    else
-    {
-        glDisable(GL_ALPHA_TEST);
-    }
+    glDisable(GL_BLEND);
 }
 
 

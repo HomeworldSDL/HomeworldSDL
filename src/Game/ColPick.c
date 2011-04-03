@@ -367,15 +367,8 @@ void cpPreviewTexturePrepare(void)
     }
     else
     {
-        if (trNoPalettes)
-        {
-            trRGBTextureDelete(cpPreviewTexture);
-            cpPreviewTexture = trPalettedTextureCreate(cpPreviewImage->data, cpPreviewTexturePalette, CP_PreviewWidth, CP_PreviewHeight);
-        }
-        else
-        {
-            trPalettedTextureMakeCurrent(cpPreviewTexture, cpPreviewTexturePalette);
-        }
+        trRGBTextureDelete(cpPreviewTexture);
+        cpPreviewTexture = trPalettedTextureCreate(cpPreviewImage->data, cpPreviewTexturePalette, CP_PreviewWidth, CP_PreviewHeight);
     }
 #endif //PREVIEW_IMAGE
 }

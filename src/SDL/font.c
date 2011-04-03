@@ -20,7 +20,6 @@
 #include "font.h"
 #include "FontReg.h"
 #include "main.h"
-#include "glcaps.h"
 #include "texreg.h"
 #include "Twiddle.h"
 #include "devstats.h"

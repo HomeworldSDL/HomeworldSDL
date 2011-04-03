@@ -19,7 +19,6 @@
 #include "Debug.h"
 #include "devstats.h"
 #include "FastMath.h"
-#include "glcaps.h"
 #include "glinc.h"
 #include "main.h"
 #include "Memory.h"
@@ -202,7 +201,6 @@ meshdata* trailMeshes[TM_NUMDEFS];
 
 sdword trailInsertCount = 0;
 
-bool8 _fastBlends;
 bool8 _afterburning;
 
 static void trailSegmentsRead(char *directory,char *field,void *dataToFillIn);
@@ -1602,11 +1600,7 @@ void trailLineBillboard(
 
     //render
 
-    if (_fastBlends)
-    {
-        glEnable(GL_BLEND);
-    }
-
+    glEnable(GL_BLEND);
     glDisable(GL_CULL_FACE);
     glDepthMask(GL_FALSE);
 
@@ -1631,10 +1625,7 @@ void trailLineBillboard(
     glEnd();
 
     glEnable(GL_CULL_FACE);
-    if (_fastBlends)
-    {
-        glDisable(GL_BLEND);
-    }
+    glDisable(GL_BLEND);
     glDepthMask(GL_TRUE);
 
     VECCOPY(&lastTo, &to);
@@ -1705,15 +1696,8 @@ void trailLineSequence(sdword LOD, sdword n, vector vectors[], color* segmentArr
     color c;
     ubyte alpha;
 
-    if (_fastBlends)
-    {
-        alpha = 163;
-        glEnable(GL_BLEND);
-    }
-    else
-    {
-        alpha = 255;
-    }
+    alpha = 163;
+    glEnable(GL_BLEND);
 
     if (usingShader)
     {
@@ -1737,10 +1721,7 @@ void trailLineSequence(sdword LOD, sdword n, vector vectors[], color* segmentArr
         glLineWidth(1.0f);
     }
 
-    if (_fastBlends)
-    {
-        glDisable(GL_BLEND);
-    }
+    glDisable(GL_BLEND);
 }
 
 /*-----------------------------------------------------------------------------
@@ -1756,10 +1737,7 @@ void trailLine(sdword LOD, sdword i, vector vectors[], color c,
     if (bitTest(gDevcaps2, DEVSTAT2_NO_IALPHA))
     {
         trailLineBillboard(LOD, i, vectors + i, vectors + i + 1, c);
-        if (_fastBlends)
-        {
-            trailLineFuzzySheath(LOD, i, vectors + i, vectors + i + 1, c, horiz);
-        }
+        trailLineFuzzySheath(LOD, i, vectors + i, vectors + i + 1, c, horiz);
         return;
     }
     switch (LOD)
@@ -1767,20 +1745,14 @@ void trailLine(sdword LOD, sdword i, vector vectors[], color c,
     case 0:
     case 1:
         trailLineBillboard(LOD, i, vectors + i, vectors + i + 1, c);
-        if (_fastBlends)
+        if (activeTrail->style == 1)
         {
-            if (activeTrail->style == 1)
-            {
-                trailLinePyramid(LOD, i, vectors + i, vectors + i + 1, c, horiz, vert, wides[i]);
-            }
+            trailLinePyramid(LOD, i, vectors + i, vectors + i + 1, c, horiz, vert, wides[i]);
         }
         break;
     case 2:
         trailLineBillboard(LOD, i, vectors + i, vectors + i + 1, c);
-        if (_fastBlends)
-        {
-            trailLineFuzzySheath(LOD, i, vectors + i, vectors + i + 1, c, horiz);
-        }
+        trailLineFuzzySheath(LOD, i, vectors + i, vectors + i + 1, c, horiz);
         break;
     }
 }
@@ -1798,28 +1770,16 @@ void trailLine(sdword LOD, sdword i, vector vectors[], color c,
 ----------------------------------------------------------------------------*/
 void mistrailDrawLine(vector* a, vector* b, sdword segment, sdword nSegments, color c0, color c1)
 {
-    if (_fastBlends)
-    {
-        sdword alpha;
+    sdword alpha;
 
-        alpha = (sdword)(255.0f * (1.0f - ((real32)segment / (real32)nSegments)));
+    alpha = (sdword)(255.0f * (1.0f - ((real32)segment / (real32)nSegments)));
 
-        glBegin(GL_LINES);
-        glColor4ub(colRed(c0), colGreen(c0), colBlue(c0), (GLubyte)alpha);
-        glVertex3fv((GLfloat*)a);
-        glColor4ub(colRed(c1), colGreen(c1), colBlue(c1), (GLubyte)alpha);
-        glVertex3fv((GLfloat*)b);
-        glEnd();
-    }
-    else
-    {
-        glBegin(GL_LINES);
-        glColor3ub(colRed(c0), colGreen(c0), colBlue(c0));
-        glVertex3fv((GLfloat*)a);
-        glColor3ub(colRed(c1), colGreen(c1), colBlue(c1));
-        glVertex3fv((GLfloat*)b);
-        glEnd();
-    }
+    glBegin(GL_LINES);
+    glColor4ub(colRed(c0), colGreen(c0), colBlue(c0), (GLubyte)alpha);
+    glVertex3fv((GLfloat*)a);
+    glColor4ub(colRed(c1), colGreen(c1), colBlue(c1), (GLubyte)alpha);
+    glVertex3fv((GLfloat*)b);
+    glEnd();
 }
 
 /*-----------------------------------------------------------------------------
@@ -1844,8 +1804,6 @@ void mistrailDraw(vector* current, missiletrail* trail, sdword LOD, sdword teamI
 
     dbgAssertOrIgnore(teamIndex >= 0 && teamIndex < MAX_MULTIPLAYER_PLAYERS);
 
-    _fastBlends = glCapFastFeature(GL_BLEND);
-
     rndLightingEnable(FALSE);
     rndTextureEnable(FALSE);
     glShadeModel(GL_SMOOTH);
@@ -1854,11 +1812,8 @@ void mistrailDraw(vector* current, missiletrail* trail, sdword LOD, sdword teamI
     lastVector = current;
     segmentArray = trail->staticInfo->segmentColor[teamIndex];
 
-    if (_fastBlends)
-    {
-        rndAdditiveBlends(TRUE);
-        glEnable(GL_BLEND);
-    }
+    rndAdditiveBlends(TRUE);
+    glEnable(GL_BLEND);
 
     for (count = 1; count < trail->nLength; count++)
     {
@@ -1881,11 +1836,8 @@ void mistrailDraw(vector* current, missiletrail* trail, sdword LOD, sdword teamI
     }
 
     rndLightingEnable(TRUE);
-    if (_fastBlends)
-    {
-        glDisable(GL_BLEND);
-        rndAdditiveBlends(FALSE);
-    }
+    glDisable(GL_BLEND);
+    rndAdditiveBlends(FALSE);
 }
 
 /*-----------------------------------------------------------------------------
@@ -1997,8 +1949,6 @@ void trailDraw(vector *current, shiptrail *trail, sdword LOD, sdword teamIndex)
         trailZeroLength(trail);
         return;
     }
-
-    _fastBlends = glCapFastFeature(GL_BLEND);
 
     trailGetNozzleOffset(lastSegment.position, trail);
     trailGetCoordsys(lastSegment.rotation, trail);

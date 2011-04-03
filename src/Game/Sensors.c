@@ -26,7 +26,6 @@
 #include "devstats.h"
 #include "FastMath.h"
 #include "font.h"
-#include "glcaps.h"
 #include "glinc.h"
 #include "GravWellGenerator.h"
 #include "InfoOverlay.h"
@@ -1163,15 +1162,8 @@ renderDerelictAsDot:
     rndTextureEnable(FALSE);
     rndLightingEnable(FALSE);
 
-    if (glCapFastFeature(GL_BLEND))
-    {
-        glEnable(GL_BLEND);
-        rndAdditiveBlends(FALSE);
-    }
-    else
-    {
-        glDisable(GL_BLEND);
-    }
+    glEnable(GL_BLEND);
+    rndAdditiveBlends(FALSE);
     glShadeModel(GL_FLAT);
     for (index = 0; index < numNebulae; index++)
     {
@@ -1768,7 +1760,7 @@ blob *smBlobsDraw(Camera *camera, LinkedList *list, hmatrix *modelView, hmatrix 
 
     mouseCursorObjPtr  = NULL;               //Falko: got an obscure crash where mouseCursorObjPtr was mangled, will this work?
 
-    smBigPoints = glCapFeatureExists(GL_POINT_SIZE);
+    smBigPoints = TRUE;
 
     memset(toClassUsed, 0, sizeof(toClassUsed));
     closestBlob = NULL;

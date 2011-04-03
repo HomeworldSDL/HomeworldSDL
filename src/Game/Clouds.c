@@ -12,7 +12,6 @@
 #include "Clipper.h"
 #include "devstats.h"
 #include "FastMath.h"
-#include "glcaps.h"
 #include "glinc.h"
 #include "mainrgn.h"
 #include "Memory.h"
@@ -1257,41 +1256,25 @@ void cloudRenderSystem(void* mesh, cloudSystem* system, sdword lod)
     }
 
     {
-        GLubyte alpha;
-        if (glCapFastFeature(GL_BLEND) || glIsEnabled(GL_POLYGON_STIPPLE))
-        {
-            alpha = 127;
-        }
-        else
-        {
-            alpha = 192;
-        }
         gCloudColor[0] = colRed(cloudColor);
         gCloudColor[1] = colGreen(cloudColor);
         gCloudColor[2] = colBlue(cloudColor);
-        gCloudColor[3] = alpha;
+        gCloudColor[3] = 127;
         glColor4ub(gCloudColor[0], gCloudColor[1], gCloudColor[2], gCloudColor[3]);
     }
 
-    if (glCapFastFeature(GL_BLEND))
+    switch (lod)
     {
-        switch (lod)
-        {
-        case 0:
+    case 0:
 //            ellipsoid_render(&ellipseLOD[0], radius);
 //            break;
-        case 1:
+    case 1:
 //            ellipsoid_render(&ellipseLOD[1], radius);
 //            break;
-        case 2:
-            ellipsoid_render(&ellipseLOD[2], radius);
-            break;
-        default:
-            ellipsoid_render(&ellipseLOD[3], radius);
-        }
-    }
-    else
-    {
+    case 2:
+        ellipsoid_render(&ellipseLOD[2], radius);
+        break;
+    default:
         ellipsoid_render(&ellipseLOD[3], radius);
     }
 

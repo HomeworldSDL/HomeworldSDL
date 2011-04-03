@@ -30,7 +30,6 @@
 #include "Universe.h"
 #include "AutoLOD.h"
 #include "Shader.h"
-#include "glcaps.h"
 #include "devstats.h"
 
 #if defined _MSC_VER
@@ -677,7 +676,6 @@ udword partRenderBillSystem(udword n, particle* p, udword flags,
     trhandle tex;
     real32 saturatedBias[3] = {0.0, 0.0, 0.0};
     sdword blended;
-    bool canTexAdd;
 
     slices = bpart->slices;
     partMat = bpart->partMat;
@@ -710,8 +708,6 @@ udword partRenderBillSystem(udword n, particle* p, udword flags,
 */
     }
 
-    canTexAdd = glCapFeatureExists(RGL_COLOROP_ADD);
-
     for (i = hits = 0; i < n; i++, p++)
     {
         if (p->lifespan < 0.0f || p->waitspan > 0.0f)
@@ -735,25 +731,16 @@ udword partRenderBillSystem(udword n, particle* p, udword flags,
         handleIllum(p);
 
         blended = 0;
-        if (canTexAdd)
-        {
-            glPixelTransferf(GL_RED_BIAS, p->bias[0]);
-            glPixelTransferf(GL_GREEN_BIAS, p->bias[1]);
-            glPixelTransferf(GL_BLUE_BIAS, p->bias[2]);
-        }
-        else
-        {
-            saturatedBias[0] = p->bias[0];
-            saturatedBias[1] = p->bias[1];
-            saturatedBias[2] = p->bias[2];
+        saturatedBias[0] = p->bias[0];
+        saturatedBias[1] = p->bias[1];
+        saturatedBias[2] = p->bias[2];
 
-            //see if device can handle multiple pass rendering
-            if (!bitTest(gDevcaps, DEVSTAT_NO_GETTEXIMAGE))
+        //see if device can handle multiple pass rendering
+        if (!bitTest(gDevcaps, DEVSTAT_NO_GETTEXIMAGE))
+        {
+            if ((p->bias[0] + p->bias[1] + p->bias[2]) > 0.0f)
             {
-                if ((p->bias[0] + p->bias[1] + p->bias[2]) > 0.0f)
-                {
-                    blended = 1;
-                }
+                blended = 1;
             }
         }
 
@@ -866,13 +853,6 @@ AGAIN1:
     glEnable(GL_CULL_FACE);
     glDepthMask(GL_TRUE);
     glDisable(GL_BLEND);
-
-    if (canTexAdd)
-    {
-        glPixelTransferf(GL_RED_BIAS, 0.0f);
-        glPixelTransferf(GL_GREEN_BIAS, 0.0f);
-        glPixelTransferf(GL_BLUE_BIAS, 0.0f);
-    }
 
     partFilter(FALSE);
     rndAdditiveBlends(FALSE);
@@ -1224,33 +1204,22 @@ udword partRenderMeshSystem(udword n, particle *p, udword flags, trhandle tex, m
     materialentry *materialList;
     real32 frac;
     trhandle currentTex = tex;
-    bool bRescaleNormal, canTexAdd;
     bool hsColor;
     extern bool8 g_SpecHack;
 
     glColor3ub(200,200,200);
 
-    bRescaleNormal = glCapFeatureExists(GL_RESCALE_NORMAL);
-
     hsColor = FALSE;
     if (bitTest(p->flags, PART_XYZSCALE))
     {
         //addColor makes hs effect too distinct
-        canTexAdd = FALSE;
         if (partEffectColor != colBlack)
         {
             hsColor = TRUE;
         }
     }
-    else
-    {
-        canTexAdd = glCapFeatureExists(RGL_COLOROP_ADD);
-    }
 
-    if (!canTexAdd)
-    {
-        rndTextureEnvironment(RTE_Modulate);
-    }
+    rndTextureEnvironment(RTE_Modulate);
 
     for (i = hits = 0; i < n; i++, p++)
     {
@@ -1301,7 +1270,7 @@ udword partRenderMeshSystem(udword n, particle *p, udword flags, trhandle tex, m
         if ((mesh != NULL) && (mesh != (meshdata*) 0xffffffff))
 #endif
         {
-            partMeshOrient(p, bRescaleNormal, meshPart);
+            partMeshOrient(p, TRUE, meshPart);
 
             if (g_SpecHack)
             {
@@ -1327,36 +1296,25 @@ udword partRenderMeshSystem(udword n, particle *p, udword flags, trhandle tex, m
                 }
             }
 
-            if (canTexAdd)
-            {
-                glPixelTransferf(GL_RED_BIAS, p->bias[0]);
-                glPixelTransferf(GL_GREEN_BIAS, p->bias[1]);
-                glPixelTransferf(GL_BLUE_BIAS, p->bias[2]);
-            }
-            else
-            {
-                //simulate colorop_add in a crude manner
+            real32 csat[3];
 
-                real32 csat[3];
-
-                if ((p->bias[0] + p->bias[1] + p->bias[2]) > 0.0f)
+            if ((p->bias[0] + p->bias[1] + p->bias[2]) > 0.0f)
+            {
+                if (hsColor)
                 {
-                    if (hsColor)
-                    {
-                        p->bias[0] = colReal32(colRed(partEffectColor));
-                        p->bias[1] = colReal32(colGreen(partEffectColor));
-                        p->bias[2] = colReal32(colBlue(partEffectColor));
-                    }
-                    partSaturateAdd(csat, p->bias, p->icolor);
+                    p->bias[0] = colReal32(colRed(partEffectColor));
+                    p->bias[1] = colReal32(colGreen(partEffectColor));
+                    p->bias[2] = colReal32(colBlue(partEffectColor));
+                }
+                partSaturateAdd(csat, p->bias, p->icolor);
 
-                    if (bitTest(flags, PART_ALPHA))
-                    {
-                        glColor4f(csat[0], csat[1], csat[2], p->icolor[3]);
-                    }
-                    else
-                    {
-                        glColor3f(csat[0], csat[1], csat[2]);
-                    }
+                if (bitTest(flags, PART_ALPHA))
+                {
+                    glColor4f(csat[0], csat[1], csat[2], p->icolor[3]);
+                }
+                else
+                {
+                    glColor3f(csat[0], csat[1], csat[2]);
                 }
             }
 
@@ -1421,10 +1379,7 @@ udword partRenderMeshSystem(udword n, particle *p, udword flags, trhandle tex, m
                 mesh2 = partMeshNextMesh(meshPart, p);
                 frac = p->meshFrame - (real32)((sdword)p->meshFrame);
 
-                if (bRescaleNormal)
-                {
-                    glDisable(GL_RESCALE_NORMAL);
-                }
+                glDisable(GL_RESCALE_NORMAL);
                 glEnable(GL_NORMALIZE);
                 polyList = ((meshAnim*)p->mstruct)->mesh->object[0].pPolygonList;
                 materialList = ((meshAnim*)p->mstruct)->mesh->localMaterial;
@@ -1451,14 +1406,7 @@ udword partRenderMeshSystem(udword n, particle *p, udword flags, trhandle tex, m
 
             if (p->scale != 1.0f)
             {
-                if (bRescaleNormal)
-                {
-                    glDisable(GL_RESCALE_NORMAL);
-                }
-                else
-                {
-                    glDisable(GL_NORMALIZE);
-                }
+                glDisable(GL_RESCALE_NORMAL);
             }
         }
 
@@ -1467,13 +1415,6 @@ udword partRenderMeshSystem(udword n, particle *p, udword flags, trhandle tex, m
 
     shSetExponent(0, -1.0f);
     meshSetSpecular(-1, 0, 0, 0, 0);
-
-    if (canTexAdd)
-    {
-        glPixelTransferf(GL_RED_BIAS, 0.0f);
-        glPixelTransferf(GL_GREEN_BIAS, 0.0f);
-        glPixelTransferf(GL_BLUE_BIAS, 0.0f);
-    }
 
     g_SpecHack = FALSE;
     glDepthMask(GL_TRUE);

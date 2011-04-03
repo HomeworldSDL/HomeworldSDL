@@ -29,7 +29,6 @@
 #include "File.h"
 #include "FontReg.h"
 #include "Formation.h"
-#include "glcaps.h"
 #include "glinc.h"
 #include "Globals.h"
 #include "HorseRace.h"
@@ -191,15 +190,6 @@ bool useWaveout = FALSE;
 bool useDSound = FALSE;
 bool coopDSound = FALSE;
 bool accelFirst = FALSE;
-char mainDeviceToSelect[128] = "";
-char mainGLToSelect[512] = "";
-char deviceToSelect[128] = "";
-#ifdef _WIN32
-char glToSelect[512] = "opengl32.dll";
-//char glToSelect[512] = "librgl.dll";
-#else
-char glToSelect[512] = "libGL.so";
-#endif
 bool8 RENDER_BOXES = FALSE;
 bool8 RENDER_LIGHTLINES = FALSE;
 #if CL_TEXTFEEDBACK
@@ -357,18 +347,12 @@ bool EnableFileLoadLog(char *string)
 
 bool SelectDevice(char* string)
 {
-    memStrncpy(deviceToSelect, string, 16 - 1);
     selectedDEVICE = TRUE;
     return TRUE;
 }
 
 bool SelectMSGL(char* string)
 {
-#ifdef _WIN32
-    memStrncpy(glToSelect, "opengl32.dll", 512 - 1);
-#else
-    memStrncpy(glToSelect, "libGL.so", 512 - 1);
-#endif
     return TRUE;
 }
 
@@ -1060,10 +1044,6 @@ void mainDevStatsShutdown(void)
 
 void IntroDeactivateMe()
 {
-    if (gl95)
-    {
-        return;                                             //don't allow the program to deactivate under Windows 95
-    }
     sounddeactivate(TRUE);
 
 #if 0	/* Bink, no? */
@@ -1130,10 +1110,6 @@ void IntroActivateMe()
 ----------------------------------------------------------------------------*/
 void DeactivateMe()
 {
-    if (gl95)
-    {
-        return;                                             //don't allow the program to deactivate under Windows 95
-    }
     sounddeactivate(TRUE);
 
     wasDemoPlaying = demDemoPlaying;                        //save demo playback state
@@ -1232,11 +1208,6 @@ void ActivateMe()
 ----------------------------------------------------------------------------*/
 void mainFreeLibraries(void)
 {
-    void glCapResetRGLAddresses(void);
-
-    /* No longer unload the library (SDL should handle this). */
-
-    glCapResetRGLAddresses();
 }
 
 /*-----------------------------------------------------------------------------
@@ -1286,22 +1257,6 @@ bool mainStartupGL(char* data)
 
     mainRescaleMainWindow();
 
-#ifdef _WIN32
-    memStrncpy(glToSelect, "opengl32.dll", 512 - 1);
-#else
-    memStrncpy(glToSelect, "libGL.so", 512 - 1);
-#endif
-
-    if (!glCapLoadOpenGL(glToSelect))
-    {
-        return FALSE;
-    }
-    mainDeviceToSelect[0] = '\0';
-    memStrncpy(mainGLToSelect, glToSelect, 512 - 1);
-
-    /* Window creation moved to rndSmallInit()/rndInit()...no more
-       hwCreateWindow()... */
-
     renderData.width = MAIN_WindowWidth;
     renderData.height = MAIN_WindowHeight;
 #ifdef _WIN32
@@ -1310,19 +1265,10 @@ bool mainStartupGL(char* data)
     renderData.hWnd = 0;
     if (!rndSmallInit(&renderData, TRUE))
     {
-        /*(void)hwDeleteWindow();*/
-        return FALSE;
-    }
-
-    if (!glCapValidGL())
-    {
-        /*(void)hwDeleteWindow();*/
         return FALSE;
     }
 
     utyForceTopmost(fullScreen);
-
-    glCapStartup();
 
     return TRUE;
 }
@@ -1354,55 +1300,6 @@ void mainMemFree(void* pointer)
 }
 
 /*-----------------------------------------------------------------------------
-    Name        : mainContinueRGL
-    Description : set rGL's features
-    Inputs      :
-    Outputs     :
-    Return      :
-----------------------------------------------------------------------------*/
-void mainContinueRGL(char* data)
-{
-    rglSetAllocs((MemAllocFunc)mainMemAlloc, (MemFreeFunc)mainMemFree);
-    if (fullScreen)
-    {
-        rglFeature(RGL_FULLSCREEN);
-    }
-    else
-    {
-        rglFeature(RGL_WINDOWED);
-    }
-    if (mainSoftwareDirectDraw)
-    {
-        rglFeature(RGL_HICOLOR);
-    }
-    else
-    {
-        rglFeature(RGL_TRUECOLOR);
-    }
-    if (slowBlits)
-    {
-        rglFeature(RGL_SLOWBLT);
-    }
-    else
-    {
-        rglFeature(RGL_FASTBLT);
-    }
-    if (accelFirst)
-    {
-        rglSelectDevice("fx", "");
-        lodScaleFactor = 1.0f;
-    }
-    if (deviceToSelect[0] != '\0')
-    {
-        rglSelectDevice(deviceToSelect, data);
-        if (strcmp(deviceToSelect, "sw"))
-        {
-            lodScaleFactor = 1.0f;
-        }
-    }
-}
-
-/*-----------------------------------------------------------------------------
     Name        : mainStartupParticularRGL
     Description : startup rGL as a renderer and activate a particular device
     Inputs      : device - rGL device name
@@ -1415,23 +1312,6 @@ bool mainStartupParticularRGL(char* device, char* data)
 
     mainRescaleMainWindow();
 
-#ifdef _WIN32
-			memStrncpy(glToSelect, "opengl32.dll", 512 - 1);
-//    memStrncpy(glToSelect, "librgl.dll", 512 - 1);
-#else
-    memStrncpy(glToSelect, "libGL.so", 512 - 1);
-#endif
-    if (!glCapLoadOpenGL(glToSelect))
-    {
-        return FALSE;
-    }
-    memStrncpy(mainDeviceToSelect, device, 16 - 1);
-    memStrncpy(mainGLToSelect, glToSelect, 512 - 1);
-
-    mainContinueRGL(data);
-
-    rglSelectDevice(device, data);
-
     renderData.width = MAIN_WindowWidth;
     renderData.height = MAIN_WindowHeight;
 #ifdef _WIN32
@@ -1443,14 +1323,7 @@ bool mainStartupParticularRGL(char* device, char* data)
         return FALSE;
     }
 
-    if (!glCapValidGL())
-    {
-        return FALSE;
-    }
-
     utyForceTopmost(fullScreen);
-
-    glCapStartup();
 
     return TRUE;
 }
@@ -1522,7 +1395,6 @@ void mainShutdownRGL(void)
 ----------------------------------------------------------------------------*/
 void mainResetRender(void)
 {
-    glDLLReset();
     rndResetGLState();
     feRenderEverything = TRUE;
     frReset();
@@ -1584,8 +1456,6 @@ void mainOpenRender(void)
 sdword saveMAIN_WindowWidth;
 sdword saveMAIN_WindowHeight;
 sdword saveMAIN_WindowDepth;
-char saveglToSelect[512];
-char savedeviceToSelect[16];
 
 /*-----------------------------------------------------------------------------
     Name        : mainSaveRender
@@ -1599,26 +1469,10 @@ void mainSaveRender(void)
     saveMAIN_WindowWidth  = MAIN_WindowWidth;
     saveMAIN_WindowHeight = MAIN_WindowHeight;
     saveMAIN_WindowDepth  = MAIN_WindowDepth;
-    memStrncpy(saveglToSelect, mainGLToSelect, 512 - 1);
-    memStrncpy(savedeviceToSelect, mainDeviceToSelect, 16 - 1);
 }
 
 void mainSetupSoftware(void)
 {
-#ifdef _WIN32
-    strcpy(glToSelect, "opengl32.dll");
-    strcpy(mainGLToSelect, "opengl32.dll");
-//    strcpy(glToSelect, "librgl.dll");
-//    strcpy(mainGLToSelect, "librgl.dll");
-    strcpy(deviceToSelect, "sw");
-    strcpy(mainDeviceToSelect, "sw");
-#else
-    strcpy(glToSelect, "libGL.so");
-    strcpy(mainGLToSelect, "libGL.so");
-    strcpy(deviceToSelect, "sw");
-    strcpy(mainDeviceToSelect, "sw");
-#endif
-
     mainWindowWidth  = MAIN_WindowWidth;
     mainWindowHeight = MAIN_WindowHeight;
     mainWindowDepth  = MAIN_WindowDepth;
@@ -1667,11 +1521,6 @@ void mainRestoreSoftware(void)
 ----------------------------------------------------------------------------*/
 void mainRestoreRender(void)
 {
-    memStrncpy(glToSelect, saveglToSelect, 512 - 1);
-    memStrncpy(mainGLToSelect, saveglToSelect, 512 - 1);
-    memStrncpy(deviceToSelect, savedeviceToSelect, 16 - 1);
-    memStrncpy(mainDeviceToSelect, savedeviceToSelect, 16 - 1);
-
     mainWindowWidth  = MAIN_WindowWidth  = saveMAIN_WindowWidth;
     mainWindowHeight = MAIN_WindowHeight = saveMAIN_WindowHeight;
     mainWindowDepth  = MAIN_WindowDepth  = saveMAIN_WindowDepth;
@@ -1926,7 +1775,6 @@ sdword HandleEvent (const SDL_Event* pEvent)
                         mainShutdownGL();
                         mainRestoreSoftware();
                         mainOpenRender();
-                        glCapStartup();
                         lodScaleFactor = LOD_ScaleFactor;
                         alodStartup();
                     }
@@ -2150,19 +1998,6 @@ static bool InitWindow ()
 
     rinEnumerateDevices();
 
-    if (mainAutoRenderer &&
-        (strlen(mainGLToSelect) > 0))
-    {
-        if (selectedDEVICE)
-        {
-            memStrncpy(deviceToSelect, mainDeviceToSelect, 16 - 1);
-        }
-        if (!selectedGL)
-        {
-            memStrncpy(glToSelect, mainGLToSelect, 512 - 1);
-        }
-    }
-
 	rinDevCRC = rinDeviceCRC();
     if (opDeviceCRC != rinDevCRC)
     {
@@ -2176,18 +2011,6 @@ static bool InitWindow ()
 
     if (mainForceSoftware)
     {
-        strcpy(deviceToSelect, "sw");
-        strcpy(mainDeviceToSelect, "sw");
-#ifdef _WIN32
-        strcpy(glToSelect, "opengl32.dll");
-        strcpy(mainGLToSelect, "opengl32.dll");
-//        strcpy(glToSelect, "librgl.dll");
-//        strcpy(mainGLToSelect, "librgl.dll");
-#else
-        strcpy(glToSelect, "libGL.so");
-        strcpy(mainGLToSelect, "libGL.so");
-#endif
-
         utyForceTopmost(fullScreen);
 
         mainRescaleMainWindow();
@@ -2212,24 +2035,6 @@ static bool InitWindow ()
             gDevcaps2 = 0;
         }
     }
-
-    if (!glCapLoadOpenGL(glToSelect))
-    {
-        mainSetupSoftware();
-
-        utyForceTopmost(fullScreen);
-
-        mainRescaleMainWindow();
-        if (!glCapLoadOpenGL(glToSelect))
-        {
-            fprintf(stderr, "Fatal Error: Couldn't initialize default rendering system\n.");
-            return FALSE;
-        }
-    }
-    memStrncpy(mainDeviceToSelect, deviceToSelect, 16 - 1);
-    memStrncpy(mainGLToSelect, glToSelect, 512 - 1);
-
-    glCapStartup();
 
     lodScaleFactor = 1.0f;
 
@@ -2320,8 +2125,6 @@ int main (int argc, char* argv[])
     }
 #endif  /* Support for other platforms? */
 
-    mainDeviceToSelect[0] = '\0';
-
     //load in options from the options file
     utyOptionsFileRead();
 
@@ -2338,9 +2141,6 @@ int main (int argc, char* argv[])
     {
         return 0;
     }
-
-    glNT = glCapNT();
-    gl95 = glCap95();
 
     if (selectedRES)
     {

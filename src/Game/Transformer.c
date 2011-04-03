@@ -6,7 +6,6 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#include "glcaps.h"
 #include "Transformer.h"
 #include "Memory.h"
 #include "main.h"

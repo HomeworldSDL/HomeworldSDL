@@ -11,7 +11,6 @@
 #include "Color.h"
 #include "FEReg.h"
 #include "FontReg.h"
-#include "glcaps.h"
 #include "glinc.h"
 #include "mainswitches.h"
 #include "Memory.h"
@@ -1595,8 +1594,6 @@ void colAdjust(color *c, sword amount)
 //draw a button
 void uicButtonDraw(regionhandle reg)
 {
-    featom* atom;
-
     if ((feStack[feStackIndex].screen!=NULL) &&
         (feStack[feStackIndex].screen != ((buttonhandle)reg)->screen) )
     {
@@ -1609,27 +1606,6 @@ void uicButtonDraw(regionhandle reg)
 
     if (!uicMouseFocus)
         uicFocusToMouse(reg);
-
-    atom = (featom*)reg->atom;
-    if (atom != NULL && glCapFeatureExists(GL_SWAPFRIENDLY))
-    {
-        color c;
-        rectangle r;
-
-        r = reg->rect;
-        r.y1++;
-
-        if (bitTest(atom->flags, FAF_Background))
-        {
-            c = FEC_Background;
-        }
-        else
-        {
-            c = colBlack;
-        }
-
-        primRectSolid2(&r, c);
-    }
 
     if (bitTest(reg->status, RSF_RegionDisabled))
     {
@@ -1731,17 +1707,6 @@ udword uicButtonProcess(regionhandle region, smemsize ID, udword event, udword d
 ----------------------------------------------------------------------------*/
 void uicToggleDraw(regionhandle reg)
 {
-    featom* atom;
-
-    /*
-    rectangle erase;
-
-    erase = reg->rect;                                      //erase the background to get rid of text that might be there
-    erase.y0 += 3;
-    erase.x0 += 3;
-    erase.x1 -= 3;
-      */
-    //primRectSolid2(&erase, colBlack);
     if (feStack[feStackIndex].screen != ((buttonhandle)reg)->screen)
     {                                                       //if a button on a different screen
         ferDrawButton(reg->rect, tb_off);                   //draw it normally
@@ -1750,27 +1715,6 @@ void uicToggleDraw(regionhandle reg)
 
     if (!uicMouseFocus)
         uicFocusToMouse(reg);
-
-    atom = (featom*)reg->atom;
-    if (atom != NULL && glCapFeatureExists(GL_SWAPFRIENDLY))
-    {
-        color c;
-        rectangle r;
-
-        r = reg->rect;
-        r.y1++;
-
-        if (bitTest(atom->flags, FAF_Background))
-        {
-            c = FEC_Background;
-        }
-        else
-        {
-            c = colBlack;
-        }
-
-        primRectSolid2(&r, c);
-    }
 
     if (bitTest(reg->status, RSF_RegionDisabled))
     {
@@ -1848,65 +1792,6 @@ void uicToggleDraw(regionhandle reg)
             }
         }
     }
-/*
-    color c, ForeColor;
-    bool8 checked;
-    sdword width;
-    uword cloops;
-
-    if (!uicMouseFocus)
-        uicFocusToMouse(reg);
-
-    checked = (bool8)((bitTest(((featom *)reg->userID)->flags, FAF_Checked)) ? TRUE : FALSE);
-
-
-    // a toggle button is a normal button that retains it's on state if it is toggled
-    if (fetEnableTextures)
-    {
-        if (bitTest(reg->status, RSF_LeftPressed) && bitTest(reg->status, RSF_MouseInside))
-        {
-            ferDrawButton(reg->rect, on);
-        }
-        else if (checked)
-        {
-            ferDrawButton(reg->rect, mouse);
-        }
-        else
-        {
-            if ( ( (!uicMouseFocus) && (bitTest(reg->status, RSF_CurrentSelected)) ) ||
-                ( (uicMouseFocus)  && (bitTest(reg->status, RSF_MouseInside    )) )  )
-            {
-                ferDrawButton(reg->rect, mouse);
-            }
-            else
-            {
-                ferDrawButton(reg->rect, off);
-            }
-        }
-        return;
-    }
-
-    c = ((buttonhandle)reg)->contentColor;
-    width = 2;
-    if ((bitTest(reg->status, RSF_LeftPressed) && bitTest(reg->status, RSF_MouseInside)))
-    {
-        colAdjust(&c, 64);
-    }
-    else if (bitTest(reg->status, RSF_CurrentSelected))
-    {
-        colAdjust(&c, 32);
-    }
-    else if (checked)
-    {
-        colAdjust(&c, 16);
-    }
-
-    primBeveledRectSolid(&reg->rect, c, 3, 3);
-
-    ForeColor = ((buttonhandle)reg)->borderColor;
-    cloops = (bool8)(checked ? 7 : 3);
-    colAdjust(&ForeColor, 64);
-    primSeriesOfRoundRects(&reg->rect, 1, ForeColor, c, cloops, 2, 2);*/
 }
 
 /*-----------------------------------------------------------------------------

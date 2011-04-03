@@ -32,7 +32,6 @@
 #include "FontReg.h"
 #include "GameChat.h"
 #include "GamePick.h"
-#include "glcaps.h"
 #include "glinc.h"
 #include "Globals.h"
 #include "Gun.h"
@@ -5479,31 +5478,6 @@ void mrRegionDraw(regionhandle reg)
         }
         */
         return;
-    }
-
-    if (!glCapFastFeature(GL_BLEND))
-    {
-        if (mrWhiteOut)
-        {
-            rectangle rect = { 0,0,MAIN_WindowWidth,MAIN_WindowHeight };
-            sdword c;
-            real32 t;
-
-            if (mrWhiteOutT < 0.5f)
-            {
-                t = mrWhiteOutT * 2.0f;
-                c = (sdword)(t * 255.0f);
-                primRectSolid2(&rect, colRGB((70*c)>>8,(70*c)>>8,(255*c)>>8));
-            }
-            else
-            {
-                t = 2.0f * (mrWhiteOutT - 0.5f);
-                c = (sdword)(t * 155.0f);
-                primRectSolid2(&rect, colRGB(70+c,70+c,255));
-            }
-
-            return;
-        }
     }
 
     if (piePointSpecMode != PSM_Idle)

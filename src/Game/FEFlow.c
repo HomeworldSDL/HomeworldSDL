@@ -13,7 +13,6 @@
 #include "File.h"
 #include "font.h"
 #include "FontReg.h"
-#include "glcaps.h"
 #include "glinc.h"
 #include "Globals.h"
 #include "main.h"
@@ -58,8 +57,6 @@ extern bool mrMenuDontDisappear;  //TRUE if the menu shouldn't disappear
 //TRUE if a blank screen is to be skipped by not flipping buffers
 sdword feDontFlush = FALSE;
 
-//TRUE if running in software.  used by feShouldSaveMouseCursor() - don't check this directly
-bool feSavingMouseCursor;
 //global variable indicating total redraw should occur
 bool feRenderEverything = TRUE;
 
@@ -1536,8 +1533,6 @@ sdword feStartup(void)
     feCallbackAdd("UIC_TestTextEntry", uicTestTextEntry);
 #endif
 
-    feSavingMouseCursor = glCapFeatureExists(GL_SWAPFRIENDLY);
-
     return(OKAY);
 }
 
@@ -1550,7 +1545,6 @@ sdword feStartup(void)
 ----------------------------------------------------------------------------*/
 void feReset(void)
 {
-    feSavingMouseCursor = glCapFeatureExists(GL_SWAPFRIENDLY);
 }
 
 /*-----------------------------------------------------------------------------

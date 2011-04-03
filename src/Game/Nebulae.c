@@ -15,7 +15,6 @@
 #include "AutoLOD.h"
 #include "Debug.h"
 #include "FastMath.h"
-#include "glcaps.h"
 #include "glinc.h"
 #include "Globals.h"
 #include "mainrgn.h"
@@ -259,7 +258,7 @@ void nebStartup()
 
     nebColorInit();
 
-    _bright = glCapFastFeature(GL_BLEND);
+    _bright = TRUE;
 }
 
 /*-----------------------------------------------------------------------------
@@ -2020,7 +2019,7 @@ void nebRenderNebula(nebulae_t* neb)
         return;
     }
 
-    _bright = glCapFastFeature(GL_BLEND);
+    _bright = TRUE;
 
     fogOn = glIsEnabled(GL_FOG);
     atOn = glIsEnabled(GL_ALPHA_TEST);

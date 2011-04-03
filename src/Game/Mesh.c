@@ -34,7 +34,6 @@
 #include "Universe.h"
 #include "Mesh.h"
 #include "Shader.h"
-#include "glcaps.h"
 #include "AutoLOD.h"
 #include "CRC32.h"
 #include "Hash.h"
@@ -1635,7 +1634,7 @@ void meshObjectRender(polygonobject *object, materialentry *materials, sdword iC
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         lightOn = rndLightingEnable(FALSE);
         glColor3ub(200,200,200);
-        enableBlend = glCapFeatureExists(GL_LINE_SMOOTH);
+        enableBlend = TRUE;
         if (enableBlend)
         {
             glEnable(GL_LINE_SMOOTH);

@@ -8,7 +8,6 @@
 
 #include "NavLights.h"
 
-#include "glcaps.h"
 #include "glinc.h"
 #include "Matrix.h"
 #include "Memory.h"

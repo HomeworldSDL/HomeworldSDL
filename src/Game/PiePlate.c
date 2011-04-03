@@ -16,7 +16,6 @@
 #include "FastMath.h"
 #include "font.h"
 #include "FontReg.h"
-#include "glcaps.h"
 #include "glinc.h"
 #include "LOD.h"
 #include "main.h"
@@ -732,37 +731,16 @@ bool pieNeedSpecialAttackAndMoveColor()
 ----------------------------------------------------------------------------*/
 void pieMovementCursorDraw(real32 distance)
 {
-    bool stipple;
     real32 scaledSize;
     sdword nSegments;
 
-    stipple = glCapFastFeature(GL_LINE_STIPPLE);
     if (ABS(piePointSpecZ) < pieDottedDistance)
     {
-        if (stipple)
-        {
-            glEnable(GL_LINE_STIPPLE);
-            glLineStipple(1, (GLushort)pieStipplePattern);
-        }
         primLine3(&piePlanePoint, &selCentrePoint, moveLineColor);//draw line from centre to mouse point on x/y plane
-        if (stipple)
-        {
-            glDisable(GL_LINE_STIPPLE);
-        }
     }
     else
     {                                                       //if point off standard Z-plane
-        if (stipple)
-        {
-            glEnable(GL_LINE_STIPPLE);
-            glLineStipple(1, (GLushort)pieStipplePattern);
-        }
         primLine3(&pieHeightPoint, &selCentrePoint, moveLineColor);//draw from centre of dish to height point
-        if (stipple)
-        {
-            glDisable(GL_LINE_STIPPLE);
-        }
-
         primLine3(&pieHeightPoint, &piePlanePoint, moveLineColor); //TW_MOVE_PIZZA_COLOR tweakable global variable (tweak.*)
         primLine3(&piePlanePoint, &selCentrePoint, moveLineColor);//draw line from centre to mouse point on x/y plane
         //destination circle
@@ -1030,23 +1008,9 @@ void piePointSpecDraw(void)
     real32 moveLength, maxMoveLength;
     real32 windowHeightMinusOne;
     real32 eyeMagnitude;
-    //static int oldMouseX, oldMouseY;
-/*
-    bool stipple;
 
-    stipple = glCapFastFeature(GL_LINE_STIPPLE);
-*/
     mousePoll();
 
-    /*
-    if (oldMouseX != mouseCursorX() || oldMouseY != mouseCursorY())
-    {
-        cameraRayCast(&world0, mrCamera, mouseCursorX(), mouseCursorY(), MAIN_WindowWidth, MAIN_WindowHeight);
-        dbgMessagef("Vec = %.3f %.3f %.3f", world0.x, world0.y, world0.z);
-        oldMouseX = mouseCursorX();
-        oldMouseY = mouseCursorY();
-    }
-    */
     if (pieDistReadFont == 0)
     {
         pieDistReadFont = frFontRegister(TW_DISTANCE_READOUT_FONT);

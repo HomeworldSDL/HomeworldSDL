@@ -14,7 +14,6 @@
 
 #include "Debug.h"
 #include "FastMath.h"
-#include "glcaps.h"
 #include "glinc.h"
 #include "render.h"
 #include "rglu.h"
@@ -443,12 +442,6 @@ void primLine2(sdword x0, sdword y0, sdword x1, sdword y1, color c)
 {
     bool blendon;
 
-    if (!glCapFeatureExists(GL_LINE_SMOOTH))
-    {
-        primNonAALine2(x0, y0, x1, y1, c);
-        return;
-    }
-
     blendon = glIsEnabled(GL_BLEND);
     if (!blendon) glEnable(GL_BLEND);
     glEnable(GL_LINE_SMOOTH);
@@ -511,12 +504,9 @@ void primLineThick2(sdword x0, sdword y0, sdword x1, sdword y1, sdword thickness
 static bool LLblendon;
 void primLineLoopStart2(sdword thickness, color c)
 {
-    if (glCapFeatureExists(GL_LINE_SMOOTH))
-    {
-        LLblendon = glIsEnabled(GL_BLEND);
-        glEnable(GL_LINE_SMOOTH);
-        if (!LLblendon) glEnable(GL_BLEND);
-    }
+    LLblendon = glIsEnabled(GL_BLEND);
+    glEnable(GL_LINE_SMOOTH);
+    if (!LLblendon) glEnable(GL_BLEND);
     glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glPushAttrib(GL_LINE_BIT);
     glLineWidth((GLfloat)thickness);
@@ -546,11 +536,8 @@ void primLineLoopEnd2(void)
 {
     glEnd();
     glPopAttrib();
-    if (glCapFeatureExists(GL_LINE_SMOOTH))
-    {
-        if (!LLblendon) glDisable(GL_BLEND);
-        glDisable(GL_LINE_SMOOTH);
-    }
+    if (!LLblendon) glDisable(GL_BLEND);
+    glDisable(GL_LINE_SMOOTH);
 }
 
 /*-----------------------------------------------------------------------------

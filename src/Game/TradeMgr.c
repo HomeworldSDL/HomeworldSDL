@@ -18,7 +18,6 @@
 #include "FEReg.h"
 #include "font.h"
 #include "FontReg.h"
-#include "glcaps.h"
 #include "glinc.h"
 #include "Globals.h"
 #include "InfoOverlay.h"

@@ -25,7 +25,6 @@
 #include "FEFlow.h"
 #include "File.h"
 #include "FontReg.h"
-#include "glcaps.h"
 #include "glinc.h"
 #include "KAS.h"
 #include "Light.h"

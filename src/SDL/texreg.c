@@ -26,7 +26,6 @@
 #include "utility.h"
 #include "HorseRace.h"
 
-#include "glcaps.h"
 #include "Universe.h"
 
 #ifdef _MSC_VER
@@ -41,16 +40,6 @@ static bool trNoPalInitialized = FALSE;
 
 sdword trTextureChanges = 0;
 sdword trAvoidedChanges = 0;
-
-bool trNoPalettes = FALSE;
-bool trSharedPalettes = FALSE;
-
-typedef void (APIENTRY * PFNGLCOLORTABLEEXTPROC) (GLenum target, GLenum internalformat, GLsizei width, GLenum format, GLenum type, const GLvoid *table);
-
-PFNGLCOLORTABLEEXTPROC glColorTableEXT = NULL;  //address of palette-download function
-PFNGLCOLORTABLEEXTPROC glLitColorTableEXT = NULL;
-
-sdword trLitPaletteBits;
 
 //actual registry:
 texreg *trTextureRegistry = NULL;
@@ -116,71 +105,11 @@ udword* trNoPalQueue;
 
 sdword trNoPalMaxBytes = 20 * 1024 * 1024;
 
-bool glRGBA16 = FALSE;
-
-
 /*=============================================================================
     Functions:
 =============================================================================*/
 
 void trNoPalReadjustWithoutPending(void);
-
-/*-----------------------------------------------------------------------------
-    Name        : trLitPaletteBitDepth
-    Description : determines the required bit depth of pre-lit palettes
-    Inputs      :
-    Outputs     :
-    Return      : number of bits in palette entries
-----------------------------------------------------------------------------*/
-sdword trLitPaletteBitDepth(void)
-{
-    sdword bits = 0;
-
-#ifndef _MACOSX_FIX_MISC
-    dbgAssertOrIgnore(glLitColorTableEXT != NULL);
-    glLitColorTableEXT(0, 0, 0, 0, 0, &bits);
-#endif
-
-    return bits;
-}
-
-/*-----------------------------------------------------------------------------
-    Name        : trColorTable
-    Description : wrapper for glColorTableEXT
-    Inputs      : palette - the palette
-    Outputs     :
-    Return      :
-----------------------------------------------------------------------------*/
-static bool trUpdate = FALSE;
-static ubyte* trLastPalette = NULL;
-void trColorTable(color* palette)
-{
-    if (trNoPalettes)
-    {
-        return;
-    }
-    ubyte  newpalette[3*256];
-    sdword i;
-    color  c;
-
-    if (trSharedPalettes && !trUpdate && (trLastPalette == (ubyte*)palette))
-    {
-        return;
-    }
-
-    trLastPalette = (ubyte*)palette;
-    trUpdate = FALSE;
-
-    for (i = 0; i < 256; i++)
-    {
-        c = palette[i];
-        newpalette[3*i + 0] = colRed(c);
-        newpalette[3*i + 1] = colGreen(c);
-        newpalette[3*i + 2] = colBlue(c);
-    }
-    glColorTableEXT(GL_TEXTURE_2D, GL_RGB, TR_PaletteLength,
-                    GL_RGB, GL_UNSIGNED_BYTE, newpalette);
-}
 
 /*-----------------------------------------------------------------------------
     Name        : trReload
@@ -191,23 +120,6 @@ void trColorTable(color* palette)
 ----------------------------------------------------------------------------*/
 void trReload(void)
 {
-#ifndef _MACOSX_FIX_MISC
-    //glcaps module has already asserted that paletted texture extensions exist
-    if (!trNoPalettes)
-    {
-        glColorTableEXT = (PFNGLCOLORTABLEEXTPROC)rwglGetProcAddress("glColorTableEXT");
-        dbgAssertOrIgnore(glColorTableEXT != NULL);
-    }
-
-    glLitColorTableEXT = NULL;
-#endif // _MACOSX_FIX_MISC
-    trLitPaletteBits = 0;
-
-    trSharedPalettes = glCapFeatureExists(GL_SHARED_TEXTURE_PALETTE_EXT);
-    if (trSharedPalettes)
-    {
-        glEnable(GL_SHARED_TEXTURE_PALETTE_EXT);
-    }
 }
 
 /*-----------------------------------------------------------------------------
@@ -239,24 +151,6 @@ void trStartup(void)
     trReset();                                              //reset the newly-allocated texture registry
 
     glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST);
-
-#ifndef _MACOSX_FIX_MISC
-    //glcaps module has already asserted that paletted texture extensions exist
-    if (!trNoPalettes)
-    {
-        glColorTableEXT = (PFNGLCOLORTABLEEXTPROC)rwglGetProcAddress("glColorTableEXT");
-        dbgAssertOrIgnore(glColorTableEXT != NULL);
-    }
-
-    glLitColorTableEXT = NULL;
-#endif // _MACOSX_FIX_MISC
-    trLitPaletteBits = 0;
-
-    trSharedPalettes = glCapFeatureExists(GL_SHARED_TEXTURE_PALETTE_EXT);
-    if (trSharedPalettes)
-    {
-        glEnable(GL_SHARED_TEXTURE_PALETTE_EXT);
-    }
 }
 
 /*-----------------------------------------------------------------------------
@@ -271,8 +165,6 @@ void trReset(void)
 {
     sdword index;
     texreg *reg;
-
-    glRGBA16 = glCapTexSupport(GL_RGBA16);
 
     trNoPalReset();
 
@@ -333,11 +225,6 @@ void trShutdown(void)
     bNewList = TRUE;
 
     trNoPalShutdown();
-
-    if (trSharedPalettes)
-    {
-        glDisable(GL_SHARED_TEXTURE_PALETTE_EXT);
-    }
 }
 
 /*-----------------------------------------------------------------------------
@@ -372,15 +259,14 @@ void trInternalTexturesDelete(trhandle handle)
     }
     newColorInfos = memAlloc(TR_NumPaletteSize, "dupe trcolorinfo list", NonVolatile);
     memcpy(newColorInfos, oldColorInfos, sizeof(trcolorinfo) * reg->nPalettes);
-    if (trNoPalettes && bitTest(reg->flags, TRF_Paletted))
+    if (bitTest(reg->flags, TRF_Paletted))
     {
         if (reg->handle != TR_InvalidInternalHandle)
         {
             trNoPalTextureDelete(reg->handle);
         }
     }
-    else if (bitTest(reg->flags, TRF_Paletted) ||           //if unpaletted texture
-             reg->nPalettes == 1)
+    else if (reg->nPalettes == 1)
     {
         if (reg->handle != TR_InvalidInternalHandle)
         {                                                   //if this texture exists
@@ -1332,35 +1218,9 @@ udword trPalettedTextureCreate(ubyte *data, color *palette, sdword width, sdword
         data = tempData;
     }
 #endif //TR_ASPECT_CHECKING
-#if TR_ERROR_CHECKING
-	if (!trNoPalettes)
-	{
-	    glTexImage2D(GL_PROXY_TEXTURE_2D, 0, TR_PaletteType,
-			 width, height, 0, GL_COLOR_INDEX, GL_UNSIGNED_BYTE,
-			 NULL);
-	    glGetTexLevelParameteriv(GL_PROXY_TEXTURE_2D, 0, GL_TEXTURE_WIDTH,
-				     (GLint *) &internalWidth);
-	    if (internalWidth == 0)
-	    {
-		dbgFatalf(DBG_Loc, "\ntrPalettedTextureCreate: unable to create proxy texture size %d x %d",
-			  width, height);
-	    }
-	    primErrorMessagePrint();
-	}
-#endif //TR_ERROR_CHECKING
 
-    if (trNoPalettes)
-    {
-        trCreateUnpalettedTexture((ubyte*)palette, data, width, height);
-    }
-    else
-    {
-        trUpdate = TRUE;
-        trColorTable(palette);
-        primErrorMessagePrint();                                //new palette downloaded
-        glTexImage2D(GL_TEXTURE_2D, 0, TR_PaletteType, width,   //create the GL texture object
-                     height, 0, GL_COLOR_INDEX, GL_UNSIGNED_BYTE, data);
-    }
+    trCreateUnpalettedTexture((ubyte*)palette, data, width, height);
+
     if (tempData != NULL)
     {
         memFree(tempData);
@@ -1501,8 +1361,6 @@ void trPalettedTextureMakeCurrent(udword handle, color *palette)
 {
     trClearCurrent();
     glBindTexture(GL_TEXTURE_2D, handle);
-    trUpdate = TRUE;
-    trColorTable(palette);
     primErrorMessagePrint();
 }
 
@@ -2219,14 +2077,7 @@ alreadyFoundPalette:;
                 scaledData = trImageScaleIndexed(lifFile->data, reg->diskWidth, reg->diskHeight, reg->scaledWidth, reg->scaledHeight, FALSE);
 
                 //create the GL texture object now
-                if (trNoPalettes)
-                {
-                    reg->handle = trNoPalTextureCreate(scaledData, (ubyte*)reg->palettes, reg->scaledWidth, reg->scaledHeight, sortList->textureList[index]);
-                }
-                else
-                {
-                    reg->handle = trPalettedTextureCreate(scaledData, (color *)reg->palettes, reg->scaledWidth, reg->scaledHeight);
-                }
+                reg->handle = trNoPalTextureCreate(scaledData, (ubyte*)reg->palettes, reg->scaledWidth, reg->scaledHeight, sortList->textureList[index]);
 
                 //save the palette CRC for palette sharing
                 reg->paletteCRC = lifFile->paletteCRC;
@@ -3345,51 +3196,23 @@ void trMakeCurrent(trhandle handle)
 
     if (bitTest(reg->flags, TRF_Paletted))
     {                                                       //if we should use palettes
-        if (trNoPalettes)
+        if ((udword)reg->currentPalette != trPaletteIndex(handle))
         {
-            if ((udword)reg->currentPalette != trPaletteIndex(handle))
-            {
-                reg->currentPalette = (sword)trPaletteIndex(handle);
-                dbgAssertOrIgnore((sdword)trPaletteIndex(handle) < reg->nPalettes);
-                newPalette = &reg->palettes[trPaletteIndex(handle) * TR_PaletteSize];
-            }
-            else
-            {
-                dbgAssertOrIgnore(trPaletteIndex(handle) < (udword)reg->nPalettes);
-                newPalette = &reg->palettes[trPaletteIndex(handle) * TR_PaletteSize];
-            }
-            if (bitTest(reg->flags, TRF_NoPalPending))
-            {
-                trNoPalTextureRecreate(newPalette, reg->handle);
-            }
-            trNoPalMakeCurrent(newPalette, reg->handle);
-            primErrorMessagePrint();
+            reg->currentPalette = (sword)trPaletteIndex(handle);
+            dbgAssertOrIgnore((sdword)trPaletteIndex(handle) < reg->nPalettes);
+            newPalette = &reg->palettes[trPaletteIndex(handle) * TR_PaletteSize];
         }
         else
         {
-            glBindTexture(GL_TEXTURE_2D, reg->handle);          //set new texture
-            primErrorMessagePrint();
-            if ((udword)reg->currentPalette != trPaletteIndex(handle))
-            {                                                   //if we need to download a new palette
-                reg->currentPalette = (sword)trPaletteIndex(handle);
-                dbgAssertOrIgnore((sdword)trPaletteIndex(handle) < reg->nPalettes);
-
-                newPalette = &reg->palettes[trPaletteIndex(handle) * TR_PaletteSize];//select appropriate palette
-                trColorTable((color*)newPalette);               //download new palette
-
-                primErrorMessagePrint();
-            }
-            else
-            {
-                dbgAssertOrIgnore(trPaletteIndex(handle) < (udword)reg->nPalettes);
-
-                newPalette = &reg->palettes[trPaletteIndex(handle) * TR_PaletteSize];
-                trColorTable((color*)newPalette);               //download new palette
-
-                primErrorMessagePrint();
-            }
+            dbgAssertOrIgnore(trPaletteIndex(handle) < (udword)reg->nPalettes);
+            newPalette = &reg->palettes[trPaletteIndex(handle) * TR_PaletteSize];
         }
-//!!!        glDisable(GL_BLEND);                                //never alpha on paletted textures
+        if (bitTest(reg->flags, TRF_NoPalPending))
+        {
+            trNoPalTextureRecreate(newPalette, reg->handle);
+        }
+        trNoPalMakeCurrent(newPalette, reg->handle);
+        primErrorMessagePrint();
         glDisable(GL_ALPHA_TEST);                           //ditto
     }
     else
@@ -3436,7 +3259,7 @@ void trFilterEnable(sdword bEnable)
 
             if (bitTest(reg->flags, TRF_Paletted) || reg->nPalettes == 1)
             {                                               //if paletted image
-                if (bitTest(reg->flags, TRF_Paletted) && trNoPalettes)
+                if (bitTest(reg->flags, TRF_Paletted))
                 {
                     trNoPalFilter(bEnable, reg->handle);
                 }
@@ -3582,14 +3405,7 @@ void trNoPalSingleRepDelete(udword handle, sdword index)
 
     reg = trNoPalStructure(handle);
     glDeleteTextures(1, (GLuint*)&reg->glhandle[index]);
-    if (glRGBA16)
-    {
-        trNoPalBytesAllocated -= 2 * reg->width * reg->height;
-    }
-    else
-    {
-        trNoPalBytesAllocated -= 4 * reg->width * reg->height;
-    }
+    trNoPalBytesAllocated -= 4 * reg->width * reg->height;
     reg->glhandle[index] = 0;
     reg->crc[index] = 0;
     reg->timeStamp[index] = 0.0f;
@@ -3805,10 +3621,6 @@ void trNoPalReadjust(void)
 {
     sdword index;
 
-    if (!trNoPalettes)
-    {
-        return;
-    }
     dbgAssertOrIgnore(trNoPalInitialized);
 
 #ifdef HW_BUILD_FOR_DEBUGGING
@@ -3830,10 +3642,6 @@ void trNoPalReadjustWithoutPending(void)
 {
     sdword index;
 
-    if (!trNoPalettes)
-    {
-        return;
-    }
     dbgAssertOrIgnore(trNoPalInitialized);
 
     dbgMessagef("** nopalw/o freed %dMB of textures **", trNoPalBytesAllocated >> 20);
@@ -3908,48 +3716,24 @@ void trNoPalTexImage(ubyte* data, ubyte* palette, sdword width, sdword height)
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     }
 
-    if (glRGBA16)
+    rgba = memAlloc(4 * width * height, "temp rgba", Pyrophoric);
+
+    dp = rgba;
+    sp = data;
+    for (i = 0; i < width*height; i++, dp += 4, sp++)
     {
-        rgba = memAlloc(2 * width * height, "temp srgba", Pyrophoric);
-
-        sdp = (uword*)rgba;
-        sp = data;
-        for (i = 0; i < width*height; i++, sdp++, sp++)
-        {
-            index = (*sp) << 2;
-            r = palette[index + 0];
-            g = palette[index + 1];
-            b = palette[index + 2];
-            *sdp = (0xF0 << 8) | ((r & 0xF0) << 4) | (g & 0xF0) | ((b & 0xF0) >> 4);
-        }
-
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16, width, height, 0, GL_RGBA16, GL_UNSIGNED_BYTE, rgba);
-
-        memFree(rgba);
-
-        trNoPalBytesAllocated += 2 * width * height;
+        index = (*sp) << 2;
+        dp[0] = palette[index + 0];
+        dp[1] = palette[index + 1];
+        dp[2] = palette[index + 2];
+        dp[3] = palette[index + 3];
     }
-    else
-    {
-        rgba = memAlloc(4 * width * height, "temp rgba", Pyrophoric);
 
-        dp = rgba;
-        sp = data;
-        for (i = 0; i < width*height; i++, dp += 4, sp++)
-        {
-            index = (*sp) << 2;
-            dp[0] = palette[index + 0];
-            dp[1] = palette[index + 1];
-            dp[2] = palette[index + 2];
-            dp[3] = palette[index + 3];
-        }
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, rgba);
 
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, rgba);
+    memFree(rgba);
 
-        memFree(rgba);
-
-        trNoPalBytesAllocated += 4 * width * height;
-    }
+    trNoPalBytesAllocated += 4 * width * height;
 }
 
 /*-----------------------------------------------------------------------------
@@ -4108,9 +3892,7 @@ void trNoPalMakeCurrent(ubyte* palette, udword handle)
 ----------------------------------------------------------------------------*/
 void trNoPalStartup(void)
 {
-    glRGBA16 = glCapTexSupport(GL_RGBA16);
-
-    if (trNoPalInitialized/* || !trNoPalettes*/)
+    if (trNoPalInitialized)
     {
         return;
     }
@@ -4135,7 +3917,7 @@ void trNoPalReset(void)
 {
     sdword index;
 
-    if (!trNoPalInitialized/* || !trNoPalettes*/)
+    if (!trNoPalInitialized)
     {
         return;
     }
@@ -4165,7 +3947,7 @@ void trNoPalShutdown(void)
 //    ASSERT: trReset calls trNoPalReset
 //    ASSERT: trShutdown calls trReset
 
-    if (!trNoPalInitialized/* || !trNoPalettes*/)
+    if (!trNoPalInitialized)
     {
         return;
     }

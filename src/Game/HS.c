@@ -13,7 +13,6 @@ Copyright Relic Entertainment, Inc.  All rights reserved.
 #include "Damage.h"
 #include "Debug.h"
 #include "FEReg.h"
-#include "glcaps.h"
 #include "glinc.h"
 #include "Globals.h"
 #include "GravWellGenerator.h"
@@ -170,7 +169,7 @@ void hsStart(Ship* ship, real32 cliptDelta, bool into, bool displayEffect)
 
     dmgStopEffect(ship, DMG_All);
 
-    if (!glCapFastFeature(GL_BLEND) || !displayEffect)
+    if (!displayEffect)
     {
         //don't bother with the tons-of-alpha effect if the horsepower isn't available
         return;

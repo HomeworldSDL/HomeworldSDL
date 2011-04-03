@@ -41,7 +41,6 @@
 #include "FontReg.h"
 #include "GameChat.h"
 #include "GamePick.h"
-#include "glcaps.h"
 #include "glinc.h"
 #include "Globals.h"
 #include "Gun.h"
@@ -143,9 +142,6 @@
 #ifdef _WIN32
     #include "debugwnd.h"
 #endif
-
-extern char mainDeviceToSelect[];
-extern char mainGLToSelect[];
 
 // #define REG_MAGIC_STR  "D657E436967616D4"   // used for CD-checking code
 
@@ -671,8 +667,8 @@ scriptEntry utyOptionsList[] =
     {"deviceCaps",      scriptSetUdwordCB, &loadedDevcaps},
     {"deviceCaps2",     scriptSetUdwordCB, &loadedDevcaps2},
     {"deviceIndex",     scriptSetUdwordCB, &opDeviceIndex},
-    {"deviceToSelect",  scriptSetStringCB, &mainDeviceToSelect},
-    {"glToSelect",      scriptSetStringCB, &mainGLToSelect},
+//    {"deviceToSelect",  scriptSetStringCB, &mainDeviceToSelect},
+//    {"glToSelect",      scriptSetStringCB, &mainGLToSelect},
 
 
   {"\n[graphics options]\n", scriptSetStringCB, &filecfgblankspace},
