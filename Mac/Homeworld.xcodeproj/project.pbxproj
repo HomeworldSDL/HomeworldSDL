@@ -355,6 +355,7 @@
 		35CD356A0B13ADEE0064A20B /* jquant1.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34EA0B13ADEE0064A20B /* jquant1.c */; };
 		35CD356B0B13ADEE0064A20B /* jquant2.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34EB0B13ADEE0064A20B /* jquant2.c */; };
 		35CD356C0B13ADEE0064A20B /* jutils.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34EC0B13ADEE0064A20B /* jutils.c */; };
+		35E8607713487BD10079E9AB /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E8607613487BD10079E9AB /* OpenGL.framework */; };
 		35EFB925123D18A7006C9E20 /* jaricom.c in Sources */ = {isa = PBXBuildFile; fileRef = 35EFB921123D18A7006C9E20 /* jaricom.c */; };
 		35EFB926123D18A7006C9E20 /* jcarith.c in Sources */ = {isa = PBXBuildFile; fileRef = 35EFB922123D18A7006C9E20 /* jcarith.c */; };
 		35EFB927123D18A7006C9E20 /* jdarith.c in Sources */ = {isa = PBXBuildFile; fileRef = 35EFB923123D18A7006C9E20 /* jdarith.c */; };
@@ -746,6 +747,7 @@
 		35CD34EC0B13ADEE0064A20B /* jutils.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = jutils.c; sourceTree = "<group>"; };
 		35CD34ED0B13ADEE0064A20B /* jversion.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = jversion.h; sourceTree = "<group>"; };
 		35D293140B26295A007CD95A /* ServerStatus.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ServerStatus.h; sourceTree = "<group>"; };
+		35E8607613487BD10079E9AB /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		35EFB921123D18A7006C9E20 /* jaricom.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = jaricom.c; sourceTree = "<group>"; };
 		35EFB922123D18A7006C9E20 /* jcarith.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = jcarith.c; sourceTree = "<group>"; };
 		35EFB923123D18A7006C9E20 /* jdarith.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = jdarith.c; sourceTree = "<group>"; };
@@ -1195,6 +1197,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+				35E8607713487BD10079E9AB /* OpenGL.framework in Frameworks */,
 				35517D110732744900691120 /* SDL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1206,6 +1209,7 @@
 			isa = PBXGroup;
 			children = (
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
+				35E8607613487BD10079E9AB /* OpenGL.framework */,
 				35517D100732744900691120 /* SDL.framework */,
 			);
 			name = "Linked Frameworks";
