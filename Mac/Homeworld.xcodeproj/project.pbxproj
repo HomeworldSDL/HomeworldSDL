@@ -145,8 +145,6 @@
 		3516C9CF077C41B0001AA863 /* Vector.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D1B064992AF0088361C /* Vector.c */; };
 		3516C9D0077C41B0001AA863 /* Volume.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D1E064992AF0088361C /* Volume.c */; };
 		3516CA23077C41B0001AA863 /* font.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9213064AEE7A003E3D39 /* font.c */; };
-		3516CA24077C41B0001AA863 /* glcaps.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9218064AEE7A003E3D39 /* glcaps.c */; };
-		3516CA26077C41B0001AA863 /* gldll.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD921D064AEE7A003E3D39 /* gldll.c */; };
 		3516CA2A077C41B0001AA863 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9227064AEE7A003E3D39 /* main.c */; };
 		3516CA2B077C41B0001AA863 /* mainrgn.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9229064AEE7A003E3D39 /* mainrgn.c */; };
 		3516CA2C077C41B0001AA863 /* mouse.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD922E064AEE7A003E3D39 /* mouse.c */; };
@@ -533,8 +531,6 @@
 		90623E4D064992AF0088361C /* Vector.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D1B064992AF0088361C /* Vector.c */; };
 		90623E50064992AF0088361C /* Volume.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D1E064992AF0088361C /* Volume.c */; };
 		90BD926A064AEE7B003E3D39 /* font.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9213064AEE7A003E3D39 /* font.c */; };
-		90BD926F064AEE7B003E3D39 /* glcaps.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9218064AEE7A003E3D39 /* glcaps.c */; };
-		90BD9274064AEE7B003E3D39 /* gldll.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD921D064AEE7A003E3D39 /* gldll.c */; };
 		90BD927E064AEE7B003E3D39 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9227064AEE7A003E3D39 /* main.c */; };
 		90BD9285064AEE7B003E3D39 /* mouse.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD922E064AEE7A003E3D39 /* mouse.c */; };
 		90BD9287064AEE7B003E3D39 /* prim2d.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9230064AEE7A003E3D39 /* prim2d.c */; };
@@ -1053,12 +1049,6 @@
 		90BD9215064AEE7A003E3D39 /* fqcodec.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = fqcodec.h; path = ../src/SDL/fqcodec.h; sourceTree = SOURCE_ROOT; };
 		90BD9216064AEE7A003E3D39 /* fqeffect.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = fqeffect.h; path = ../src/SDL/fqeffect.h; sourceTree = SOURCE_ROOT; };
 		90BD9217064AEE7A003E3D39 /* fquant.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = fquant.h; path = ../src/SDL/fquant.h; sourceTree = SOURCE_ROOT; };
-		90BD9218064AEE7A003E3D39 /* glcaps.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = glcaps.c; path = ../src/SDL/glcaps.c; sourceTree = SOURCE_ROOT; };
-		90BD9219064AEE7A003E3D39 /* glcaps.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = glcaps.h; path = ../src/SDL/glcaps.h; sourceTree = SOURCE_ROOT; };
-		90BD921C064AEE7A003E3D39 /* gldefines.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = gldefines.h; path = ../src/SDL/gldefines.h; sourceTree = SOURCE_ROOT; };
-		90BD921D064AEE7A003E3D39 /* gldll.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = gldll.c; path = ../src/SDL/gldll.c; sourceTree = SOURCE_ROOT; };
-		90BD921E064AEE7A003E3D39 /* gldll.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = gldll.h; path = ../src/SDL/gldll.h; sourceTree = SOURCE_ROOT; };
-		90BD921F064AEE7A003E3D39 /* glext.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = glext.h; path = ../src/SDL/glext.h; sourceTree = SOURCE_ROOT; };
 		90BD9220064AEE7A003E3D39 /* glinc.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = glinc.h; path = ../src/SDL/glinc.h; sourceTree = SOURCE_ROOT; };
 		90BD9227064AEE7A003E3D39 /* main.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = main.c; path = ../src/SDL/main.c; sourceTree = SOURCE_ROOT; };
 		90BD9228064AEE7A003E3D39 /* main.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = main.h; path = ../src/SDL/main.h; sourceTree = SOURCE_ROOT; };
@@ -1813,12 +1803,6 @@
 				90BD9215064AEE7A003E3D39 /* fqcodec.h */,
 				90BD9216064AEE7A003E3D39 /* fqeffect.h */,
 				90BD9217064AEE7A003E3D39 /* fquant.h */,
-				90BD9218064AEE7A003E3D39 /* glcaps.c */,
-				90BD9219064AEE7A003E3D39 /* glcaps.h */,
-				90BD921C064AEE7A003E3D39 /* gldefines.h */,
-				90BD921D064AEE7A003E3D39 /* gldll.c */,
-				90BD921E064AEE7A003E3D39 /* gldll.h */,
-				90BD921F064AEE7A003E3D39 /* glext.h */,
 				90BD9220064AEE7A003E3D39 /* glinc.h */,
 				90BD9227064AEE7A003E3D39 /* main.c */,
 				90BD9228064AEE7A003E3D39 /* main.h */,
@@ -2389,8 +2373,6 @@
 				3516C9CF077C41B0001AA863 /* Vector.c in Sources */,
 				3516C9D0077C41B0001AA863 /* Volume.c in Sources */,
 				3516CA23077C41B0001AA863 /* font.c in Sources */,
-				3516CA24077C41B0001AA863 /* glcaps.c in Sources */,
-				3516CA26077C41B0001AA863 /* gldll.c in Sources */,
 				3516CA2A077C41B0001AA863 /* main.c in Sources */,
 				3516CA2B077C41B0001AA863 /* mainrgn.c in Sources */,
 				3516CA2C077C41B0001AA863 /* mouse.c in Sources */,
@@ -2687,8 +2669,6 @@
 				90623E4D064992AF0088361C /* Vector.c in Sources */,
 				90623E50064992AF0088361C /* Volume.c in Sources */,
 				90BD926A064AEE7B003E3D39 /* font.c in Sources */,
-				90BD926F064AEE7B003E3D39 /* glcaps.c in Sources */,
-				90BD9274064AEE7B003E3D39 /* gldll.c in Sources */,
 				90BD927E064AEE7B003E3D39 /* main.c in Sources */,
 				90BD9285064AEE7B003E3D39 /* mouse.c in Sources */,
 				90BD9287064AEE7B003E3D39 /* prim2d.c in Sources */,
