@@ -222,7 +222,7 @@ AC_CHECK_LIB([GL], [glBegin], [
     AC_CHECK_LIB([GLES_CM], [glEnableClientState], [
             echo "* Using OpenGL ES for Homeworld (HW_ENABLE_GLES) *"
             HWGAME_CFLAGS="$HWGAME_CFLAGS -DHW_ENABLE_GLES"
-            GL_LIBS="-lSDL_gles -lGLES_CM"
+            GL_LIBS="-lGLES_CM"
     ], [
     ])
 ])
