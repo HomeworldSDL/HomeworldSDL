@@ -217,6 +217,14 @@ static inline void glVertex3fv(const GLfloat *v) {
 
 #include <SDL_opengl.h>
 
+extern PFNGLBINDBUFFERPROC glBindBuffer;
+extern PFNGLDELETEBUFFERSPROC glDeleteBuffers;
+extern PFNGLGENBUFFERSPROC glGenBuffers;
+extern PFNGLBUFFERDATAPROC glBufferData;
+extern PFNGLBUFFERSUBDATAPROC glBufferSubData;
+
 #endif
+
+int glCheckExtension(const char *ext);
 
 #endif

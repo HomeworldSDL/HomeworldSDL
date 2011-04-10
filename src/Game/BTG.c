@@ -36,6 +36,8 @@
 
 #define M_PI_F 3.1415926535f
 
+static bool useVBO = FALSE;
+
 static ubyte lastbg[4] = {255,255,255,0};
 
 char btgLastBackground[128] = "";
@@ -56,8 +58,14 @@ typedef struct btgTransVertex
 
 typedef struct btgTransStar
 {
-    vector ul, ll, lr, ur;
-    vector mid;
+    vector ll;
+    GLfloat llt[2];
+    vector lr;
+    GLfloat lrt[2];
+    vector ul;
+    GLfloat ult[2];
+    vector ur;
+    GLfloat urt[2];
 } btgTransStar;
 
 static btgHeader*      btgHead = NULL;
@@ -67,6 +75,10 @@ static btgPolygon*     btgPolys = NULL;
 static btgTransVertex* btgTransVerts = NULL;
 static btgTransStar*   btgTransStars = NULL;
 static uword*          btgIndices = NULL;
+
+static GLuint          vboTransVerts;
+static GLuint          vboTransStars;
+static GLuint          vboIndices;
 
 typedef struct starTex
 {
@@ -115,6 +127,7 @@ typedef struct tagTGAFileHeader
 void btgStartup()
 {
     btgReset();
+    useVBO = glCheckExtension("GL_ARB_vertex_buffer_object");
 }
 
 /*-----------------------------------------------------------------------------
@@ -187,16 +200,19 @@ void btgReset()
     }
     if (btgTransVerts != NULL)
     {
+        if (useVBO) glDeleteBuffers(1, &vboTransVerts);
         memFree(btgTransVerts);
         btgTransVerts = NULL;
     }
     if (btgTransStars != NULL)
     {
+        if (useVBO) glDeleteBuffers(1, &vboTransStars);
         memFree(btgTransStars);
         btgTransStars = NULL;
     }
     if (btgIndices != NULL)
     {
+        if (useVBO) glDeleteBuffers(1, &vboIndices);
         memFree(btgIndices);
         btgIndices = NULL;
     }
@@ -464,7 +480,7 @@ void btgAddTexToList(char *filename, udword glhandle, sdword width, sdword heigh
 ----------------------------------------------------------------------------*/
 void btgCloseTextures(void)
 {
-    sdword i;
+    udword i;
     btgStar* pStar;
 
     if (btgStars != NULL)
@@ -513,7 +529,7 @@ void btgLoad(char* filename)
     udword starSize, fileStarSize;
     udword polySize;
     real32 thetaSave, phiSave;
-    sdword i;
+    udword i;
 #if FIX_ENDIAN
     Uint64 *swap;
 #endif
@@ -859,6 +875,7 @@ void btgLoad(char* filename)
     memFree(btgData);
 
     btgIndices = (uword*)memAlloc(3 * btgHead->numPolys * sizeof(uword), "btg indices", NonVolatile);
+    if (useVBO) glGenBuffers(1, &vboIndices);
 
 #ifndef _WIN32_FIXME
     //spherically project things, blend colours, &c
@@ -903,7 +920,7 @@ int btgSortCompare(const void* p0, const void* p1)
     Outputs     : listToSort is sorted
     Return      :
 ----------------------------------------------------------------------------*/
-void btgSortByY(sdword* listToSort, sdword n)
+void btgSortByY(udword* listToSort, sdword n)
 {
     qsort(listToSort, n, sizeof(sdword), btgSortCompare);
 }
@@ -917,9 +934,9 @@ void btgSortByY(sdword* listToSort, sdword n)
 ----------------------------------------------------------------------------*/
 void btgZip(void)
 {
-    sdword i, iPoly;
-    sdword numLeft, numRight;
-    sdword lefts[64], rights[64];
+    udword i, iPoly;
+    udword numLeft, numRight;
+    udword lefts[64], rights[64];
     btgVertex* vert;
     btgPolygon* poly;
 
@@ -946,7 +963,7 @@ void btgZip(void)
 #endif
 
     //continue only if approximately equal number of edge verts
-    if (ABS(numLeft - numRight) > 1)
+    if ((numLeft > numRight ? numLeft - numRight : numRight - numLeft) > 1)
     {
         return;
     }
@@ -994,7 +1011,7 @@ void btgZip(void)
     Outputs     : out is modified
     Return      :
 ----------------------------------------------------------------------------*/
-void btgConvertAVert(vector* out, real64 x, real64 y)
+void btgConvertAVert(vector* out, real32 x, real32 y)
 {
     real32 xFrac, yFrac;
     real32 theta, phi;
@@ -1006,7 +1023,7 @@ void btgConvertAVert(vector* out, real64 x, real64 y)
     pageWidth  = (real32)btgHead->pageWidth;
     pageHeight = (real32)btgHead->pageHeight;
 
-    x = ((real64)pageWidth - 1.0) - x;
+    x = ((real32)pageWidth - 1.0) - x;
 
     xFrac = (real32)x / pageWidth;
     yFrac = (real32)y / pageHeight;
@@ -1061,31 +1078,39 @@ void btgConvertVert(btgTransVertex* out, udword nVert)
 void btgConvertStar(btgTransStar* out, udword nVert)
 {
     btgStar* in;
-    real64   x, y;
-    real64   halfWidth, halfHeight;
+    real32   x, y;
+    real32   halfWidth, halfHeight;
 
     in = btgStars + nVert;
 
-    halfWidth  = (real64)in->width / 2.0;
-    halfHeight = (real64)in->height / 2.0;
-
-    btgConvertAVert(&out->mid, in->x, in->y);
-
-    x = in->x - halfWidth;
-    y = in->y - halfHeight;
-    btgConvertAVert(&out->ul, x, y);
+    halfWidth  = (real32)in->width / 2.0f;
+    halfHeight = (real32)in->height / 2.0f;
+    halfWidth *= 640.0f / MAIN_WindowWidth;
+    halfHeight *= 480.0f / MAIN_WindowHeight;
 
     x = in->x - halfWidth;
     y = in->y + halfHeight;
     btgConvertAVert(&out->ll, x, y);
+    out->llt[0] = 0.0f;
+    out->llt[1] = 0.0f;
 
     x = in->x + halfWidth;
     y = in->y + halfHeight;
     btgConvertAVert(&out->lr, x, y);
+    out->lrt[0] = 1.0f;
+    out->lrt[1] = 0.0f;
+
+    x = in->x - halfWidth;
+    y = in->y - halfHeight;
+    btgConvertAVert(&out->ul, x, y);
+    out->ult[0] = 0.0f;
+    out->ult[1] = 1.0f;
 
     x = in->x + halfWidth;
     y = in->y - halfHeight;
     btgConvertAVert(&out->ur, x, y);
+    out->urt[0] = 1.0f;
+    out->urt[1] = 1.0f;
 }
 
 /*-----------------------------------------------------------------------------
@@ -1105,10 +1130,12 @@ void btgConvertVerts()
     btgZip();
 
     btgTransVerts = memAlloc(btgHead->numVerts * sizeof(btgTransVertex), "btg trans verts", NonVolatile);
+    if (useVBO) glGenBuffers(1, &vboTransVerts);
 
     if (btgHead->numStars > 0)
     {
         btgTransStars = memAlloc(btgHead->numStars * sizeof(btgTransStar), "btg trans stars", NonVolatile);
+        if (useVBO) glGenBuffers(1, &vboTransStars);
     }
     else
     {
@@ -1135,26 +1162,14 @@ void btgConvertVerts()
         btgIndices[index + 1] = pPoly->v1;
         btgIndices[index + 2] = pPoly->v2;
     }
-}
 
-/*-----------------------------------------------------------------------------
-    Name        : btgBlendColour
-    Description : blend a colour to the current background colour
-    Inputs      :
-    Outputs     :
-    Return      :
-----------------------------------------------------------------------------*/
-void btgBlendColour(
-    GLubyte* dr, GLubyte* dg, GLubyte* db, sdword sr, sdword sg, sdword sb, sdword sa)
-{
-    *dr = (GLubyte)((sr * sa) >> 8);
-    *dg = (GLubyte)((sg * sa) >> 8);
-    *db = (GLubyte)((sb * sa) >> 8);
-    if (sa < 252)
-    {
-        if (*dr < _bgByte[0]) *dr = _bgByte[0];
-        if (*dg < _bgByte[1]) *dg = _bgByte[1];
-        if (*db < _bgByte[2]) *db = _bgByte[2];
+    if (useVBO) {
+        glBindBuffer(GL_ARRAY_BUFFER, vboTransStars);
+        glBufferData(GL_ARRAY_BUFFER, btgHead->numStars * sizeof(btgTransStar), btgTransStars, GL_STATIC_DRAW);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboIndices);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, btgHead->numPolys * 3 * sizeof(uword), btgIndices, GL_STATIC_DRAW);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     }
 }
 
@@ -1162,32 +1177,17 @@ void btgBlendColour(
     Name        : btgVertexColor
     Description : sets the GL's colour from a btg vertex
     Inputs      : nVert - index of vertex in the big array
-                  fastBlends - TRUE if alpha blending is fast
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void btgVertexColor(udword nVert, bool fastBlends)
+void btgVertexColor(udword nVert)
 {
-    if (fastBlends)
-    {
-        btgVertex* pVert;
-        sdword alpha;
+    btgVertex* pVert;
+    sdword alpha;
 
-        pVert = btgVerts + nVert;
-        alpha = (pVert->alpha * pVert->brightness) >> 8;
-        glColor4ub((GLubyte)pVert->red, (GLubyte)pVert->green,
-                   (GLubyte)pVert->blue, (GLubyte)alpha);
-    }
-    else
-    {
-        btgVertex* pVert;
-        GLubyte r, g, b, a;
-
-        pVert = btgVerts + nVert;
-        a = (pVert->alpha * pVert->brightness) >> 8;
-        btgBlendColour(&r, &g, &b, pVert->red, pVert->green, pVert->blue, a);
-        glColor3ub(r, g, b);
-    }
+    pVert = btgVerts + nVert;
+    alpha = (pVert->alpha * pVert->brightness) >> 8;
+    glColor4ub((GLubyte)pVert->red, (GLubyte)pVert->green, (GLubyte)pVert->blue, (GLubyte)alpha);
 }
 
 /*-----------------------------------------------------------------------------
@@ -1197,34 +1197,20 @@ void btgVertexColor(udword nVert, bool fastBlends)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void btgColorVertices(bool fastBlends)
+void btgColorVertices()
 {
     btgVertex* pVert;
     btgTransVertex* transVert;
-    sdword nVert;
-    GLubyte r, g, b, a;
+    udword nVert;
 
     for (nVert = 0, pVert = btgVerts, transVert = btgTransVerts;
          nVert < btgHead->numVerts;
          nVert++, pVert++, transVert++)
     {
-        if (fastBlends)
-        {
-            a = (pVert->alpha * pVert->brightness * btgFade) >> 16;
-            transVert->red = pVert->red;
-            transVert->green = pVert->green;
-            transVert->blue = pVert->blue;
-            transVert->alpha = a;
-        }
-        else
-        {
-            a = (pVert->alpha * pVert->brightness * btgFade) >> 16;
-            btgBlendColour(&r, &g, &b, pVert->red, pVert->green, pVert->blue, a);
-            transVert->red = r;
-            transVert->green = g;
-            transVert->blue = b;
-            transVert->alpha = 255;
-        }
+        transVert->red = pVert->red;
+        transVert->green = pVert->green;
+        transVert->blue = pVert->blue;
+        transVert->alpha = (pVert->alpha * pVert->brightness * btgFade) >> 16;
     }
 }
 
@@ -1253,8 +1239,6 @@ void btgRender()
     udword nStar;
     sdword lightOn, index;
     GLboolean texOn, blendOn, depthOn;
-    bool fastBlends, textureStars;
-    real32 modelview[16], projection[16];
     udword* dlast;
     udword* dnext;
     static sdword lastFade = 255;
@@ -1286,9 +1270,6 @@ void btgRender()
     dnext = (udword*)_bgByte;
     dlast = (udword*)lastbg;
 
-    fastBlends = FALSE;
-    textureStars = TRUE;
-
     depthOn = glIsEnabled(GL_DEPTH_TEST);
     lightOn = rndLightingEnable(FALSE);
     texOn = glIsEnabled(GL_TEXTURE_2D);
@@ -1296,15 +1277,10 @@ void btgRender()
     glDisable(GL_DEPTH_TEST);
     glDisable(GL_CULL_FACE);
     glDisable(GL_TEXTURE_2D);
-    if (fastBlends)
-    {
-        glEnable(GL_BLEND);
-        rndAdditiveBlends(FALSE);
-    }
-    else
-    {
-        glDisable(GL_BLEND);
-    }
+    glEnable(GL_BLEND);
+    rndAdditiveBlends(FALSE);
+
+    if (useVBO) glBindBuffer(GL_ARRAY_BUFFER, vboTransVerts);
 
     //polys
     if (btgFade != lastFade || *dnext != *dlast)
@@ -1314,8 +1290,9 @@ void btgRender()
             btgFade = 255;
         }
 #ifndef _WIN32_FIXME
-        btgColorVertices(fastBlends);
+        btgColorVertices();
 #endif
+        if (useVBO) glBufferData(GL_ARRAY_BUFFER, btgHead->numVerts * sizeof(btgTransVertex), btgTransVerts, GL_STATIC_DRAW);
         *dlast = *dnext;
         lastFade = btgFade;
     }
@@ -1323,118 +1300,48 @@ void btgRender()
     //use DrawElements to render the bg polys
     glEnableClientState(GL_COLOR_ARRAY);
     glEnableClientState(GL_VERTEX_ARRAY);
-    glColorPointer(4, GL_UNSIGNED_BYTE, 16, (GLubyte*)btgTransVerts);
-    glVertexPointer(3, GL_FLOAT, 16, ((GLubyte*)btgTransVerts) + 4);
-    glDrawElements(GL_TRIANGLES, 3 * btgHead->numPolys, GL_UNSIGNED_SHORT, btgIndices);
+    if (useVBO) {
+        glColorPointer(4, GL_UNSIGNED_BYTE, sizeof(btgTransVertex), 0);
+        glVertexPointer(3, GL_FLOAT, sizeof(btgTransVertex), (GLvoid*)4);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboIndices);
+        glDrawElements(GL_TRIANGLES, 3 * btgHead->numPolys, GL_UNSIGNED_SHORT, 0);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    } else {
+        glColorPointer(4, GL_UNSIGNED_BYTE, sizeof(btgTransVertex), (GLubyte*)btgTransVerts);
+        glVertexPointer(3, GL_FLOAT, sizeof(btgTransVertex), ((GLubyte*)btgTransVerts) + 4);
+        glDrawElements(GL_TRIANGLES, 3 * btgHead->numPolys, GL_UNSIGNED_SHORT, btgIndices);
+    }
     glDisableClientState(GL_COLOR_ARRAY);
-    glDisableClientState(GL_VERTEX_ARRAY);
 
     //stars
     rndPerspectiveCorrection(FALSE);
 
-    glGetFloatv(GL_MODELVIEW_MATRIX, modelview);
-    glGetFloatv(GL_PROJECTION_MATRIX, projection);
-    if (textureStars)
-    {
-        glMatrixMode(GL_PROJECTION);
-        glLoadIdentity();
-        rgluOrtho2D(0.0f, (GLfloat)MAIN_WindowWidth, 0.0f, (GLfloat)MAIN_WindowHeight);
-        glMatrixMode(GL_MODELVIEW);
-        glLoadIdentity();
+    trClearCurrent();
+    glEnable(GL_TEXTURE_2D);
+    rndTextureEnvironment(RTE_Modulate);
+    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+    if (useVBO) {
+        glBindBuffer(GL_ARRAY_BUFFER, vboTransStars);
+        glVertexPointer(3, GL_FLOAT, sizeof(GLfloat) * 5, 0);
+        glTexCoordPointer(2, GL_FLOAT, sizeof(GLfloat) * 5, (GLubyte*)sizeof(vector));
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+    } else {
+        glVertexPointer(3, GL_FLOAT, sizeof(GLfloat) * 5, (GLubyte*)btgTransStars);
+        glTexCoordPointer(2, GL_FLOAT, sizeof(GLfloat) * 5, ((GLubyte*)btgTransStars) + sizeof(vector));
     }
 
-    rndAdditiveBlends(TRUE);
-    glEnable(GL_BLEND);
-
-    trClearCurrent();
-
-    for (nStar = 0; nStar < btgHead->numStars; nStar++)
-    {
-        btgTransStar* pStar;
-
-        pStar = &btgTransStars[nStar];
-        glColor4ub((GLubyte)btgStars[nStar].red,
-                   (GLubyte)btgStars[nStar].green,
-                   (GLubyte)btgStars[nStar].blue,
-                   (GLubyte)btgStars[nStar].alpha);
-
-        if (btgStars[nStar].glhandle != 0)
-        {
-            vector pscreen;
-            bool   billboard = TRUE;
-
-            glEnable(GL_TEXTURE_2D);
+    for (nStar = 0; nStar < btgHead->numStars; nStar++) {
+        if (btgStars[nStar].glhandle) {
+            glColor4ub((GLubyte)btgStars[nStar].red, (GLubyte)btgStars[nStar].green, (GLubyte)btgStars[nStar].blue, (GLubyte)btgStars[nStar].alpha);
             glBindTexture(GL_TEXTURE_2D, btgStars[nStar].glhandle);
-            rndTextureEnvironment(RTE_Modulate);
-
-#ifndef _WIN32_FIXME
-            if (billboard)
-            {
-                if (clipPointToScreenWithMatrices(&pStar->ul, &pscreen, modelview, projection, 0) ||
-                    clipPointToScreenWithMatrices(&pStar->ll, &pscreen, modelview, projection, 0) ||
-                    clipPointToScreenWithMatrices(&pStar->lr, &pscreen, modelview, projection, 0) ||
-                    clipPointToScreenWithMatrices(&pStar->ur, &pscreen, modelview, projection, 0))
-                {
-                    sdword width, height;
-					
-                    width  = btgStars[nStar].width  >> 1;
-                    height = btgStars[nStar].height >> 1;
-
-                    clipPointToScreenWithMatrices(&pStar->mid, &pscreen, modelview, projection, 1);
-
-                    if (textureStars)//this one part doesn't crash on WIN32, but enabling it, i notice no difference
-                    {
-                        glColor3ub((ubyte)((btgStars[nStar].red * btgFade) >> 8),
-                                   (ubyte)((btgStars[nStar].green * btgFade) >> 8),
-                                   (ubyte)((btgStars[nStar].blue * btgFade) >> 8));
-                        glBegin(GL_QUADS);
-
-                        glTexCoord2f(0.0f, 0.0f);
-                        glVertex2f(pscreen.x - width, pscreen.y - height);
-
-                        glTexCoord2f(0.0f, 1.0f);
-                        glVertex2f(pscreen.x - width, pscreen.y + height);
-
-                        glTexCoord2f(1.0f, 1.0f);
-                        glVertex2f(pscreen.x + width, pscreen.y + height);
-
-                        glTexCoord2f(1.0f, 0.0f);
-                        glVertex2f(pscreen.x + width, pscreen.y - height);
-
-                        glEnd();
-                    }
-                    else
-                    {
-                        glTexCoord2f(pscreen.x - width, pscreen.y - height);
-                        glDrawPixels(btgStars[nStar].width, btgStars[nStar].height,
-                                     GL_RGBA, GL_UNSIGNED_BYTE, NULL);
-                    }
-                }
-            }
-            else
-            {
-                glBegin(GL_QUADS);
-                glTexCoord2f(0.0f, 1.0f);
-                glVertex3fv((GLfloat*)&pStar->ul);
-                glTexCoord2f(0.0f, 0.0f);
-                glVertex3fv((GLfloat*)&pStar->ll);
-                glTexCoord2f(1.0f, 0.0f);
-                glVertex3fv((GLfloat*)&pStar->lr);
-                glTexCoord2f(1.0f, 1.0f);
-                glVertex3fv((GLfloat*)&pStar->ur);
-                glEnd();
-            }
-#endif// _WIN32_FIXME
+            glDrawArrays(GL_TRIANGLE_STRIP, nStar * 4, 4);
          }
     }
 
-    if (textureStars)
-    {
-        glMatrixMode(GL_PROJECTION);
-        glLoadMatrixf(projection);
-        glMatrixMode(GL_MODELVIEW);
-        glLoadMatrixf(modelview);
-    }
+    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+    glDisableClientState(GL_VERTEX_ARRAY);
+
     glDisable(GL_BLEND);
 
     rndAdditiveBlends(FALSE);

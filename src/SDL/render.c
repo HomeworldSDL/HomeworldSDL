@@ -144,7 +144,18 @@ static EGLDisplay *egl_display = EGL_NO_DISPLAY;
 static EGLSurface egl_surface = EGL_NO_SURFACE;
 static EGLContext egl_context = EGL_NO_CONTEXT;
 static EGLConfig egl_config;
+#else
+PFNGLBINDBUFFERPROC glBindBuffer = 0;
+PFNGLDELETEBUFFERSPROC glDeleteBuffers = 0;
+PFNGLGENBUFFERSPROC glGenBuffers = 0;
+PFNGLBUFFERDATAPROC glBufferData = 0;
+PFNGLBUFFERSUBDATAPROC glBufferSubData = 0;
 #endif
+
+static char *gl_extensions = 0;
+
+static bool useVBO = FALSE;
+static GLuint vboStars;
 
 /* Should remove this stuff after cleaning up rgl functions. */
 /*
@@ -190,8 +201,6 @@ typedef struct c4ub_v3f_s
     real32 v[3];
 } c4ub_v3f;
 c4ub_v3f* stararray = NULL;
-c4ub_v3f* bigstararray = NULL;
-
 
 //asteroid0 stuff
 typedef struct asteroid0data
@@ -979,7 +988,28 @@ bool setupPixelFormat()
 	lastDepth  = MAIN_WindowDepth;
 	lastFull   = fullScreen;
 
+#ifndef HW_ENABLE_GLES
+    glBindBuffer = SDL_GL_GetProcAddress("glBindBuffer");
+    glDeleteBuffers = SDL_GL_GetProcAddress("glDeleteBuffers");
+    glGenBuffers = SDL_GL_GetProcAddress("glGenBuffers");
+    glBufferData = SDL_GL_GetProcAddress("glBufferData");
+    glBufferSubData = SDL_GL_GetProcAddress("glBufferSubData");
+#endif
+
+    gl_extensions = glGetString(GL_EXTENSIONS);
+    printf("GL Extensions:\n%s\n", gl_extensions);
+
+    useVBO = glCheckExtension("GL_ARB_vertex_buffer_object");
+
 	return TRUE;
+}
+
+int glCheckExtension(const char *ext) {
+#ifdef HW_ENABLE_GLES
+    /* part of the standard in GLES */
+    if (strcmp(ext, "GL_ARB_vertex_buffer_object") == 0) return 1;
+#endif
+    return gl_extensions ? strstr(gl_extensions, ext) != NULL : gl_extensions;
 }
 
 /*bool setupPalette(HDC hDC)*/
@@ -1135,6 +1165,12 @@ void rndClose(void)
     Uint32 flags = SDL_WasInit(SDL_INIT_EVERYTHING);
     if (!(flags & SDL_INIT_VIDEO))
         return;
+    if (stararray) {
+        if (useVBO)
+            glDeleteBuffers(1, &vboStars);
+        else
+            memFree(stararray);
+    }
 #ifdef HW_ENABLE_GLES
     eglMakeCurrent(egl_display, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
     eglDestroyContext(egl_display, egl_context);
@@ -1274,8 +1310,15 @@ void rndBackgroundRender(real32 radius, Camera* camera, bool bDrawStars)
         //draw small stars
         glEnableClientState(GL_COLOR_ARRAY);
         glEnableClientState(GL_VERTEX_ARRAY);
-        glColorPointer(4, GL_UNSIGNED_BYTE, 16, (GLubyte*)stararray);
-        glVertexPointer(3, GL_FLOAT, 16, ((GLubyte*)stararray) + 4);
+        if (useVBO) {
+            glBindBuffer(GL_ARRAY_BUFFER, vboStars);
+            glColorPointer(4, GL_UNSIGNED_BYTE, 16, 0);
+            glVertexPointer(3, GL_FLOAT, 16, (GLubyte*)4);
+            glBindBuffer(GL_ARRAY_BUFFER, 0);
+        } else {
+            glColorPointer(4, GL_UNSIGNED_BYTE, 16, (GLubyte*)stararray);
+            glVertexPointer(3, GL_FLOAT, 16, ((GLubyte*)stararray) + 4);
+        }
         glDrawArrays(GL_POINTS, 0, universe.star3dinfo->Num3dStars - NUM_BIG_STARS);
 
         if (blends && pointSize)
@@ -1298,9 +1341,7 @@ void rndBackgroundRender(real32 radius, Camera* camera, bool bDrawStars)
         }
 
         //draw big stars
-        glColorPointer(4, GL_UNSIGNED_BYTE, 16, (GLubyte*)bigstararray);
-        glVertexPointer(3, GL_FLOAT, 16, ((GLubyte*)bigstararray) + 4);
-        glDrawArrays(GL_POINTS, 0, NUM_BIG_STARS);
+        glDrawArrays(GL_POINTS, (universe.star3dinfo->Num3dStars - NUM_BIG_STARS), NUM_BIG_STARS);
         glDisableClientState(GL_COLOR_ARRAY);
         glDisableClientState(GL_VERTEX_ARRAY);
 
@@ -2349,11 +2390,10 @@ void rndMainViewRenderFunction(Camera *camera)
         {
             c4ub_v3f* ptr;
 
-            stararray = (c4ub_v3f*)memAlloc((numstars - NUM_BIG_STARS) * sizeof(c4ub_v3f), "stararray", NonVolatile);
-            bigstararray = (c4ub_v3f*)memAlloc(NUM_BIG_STARS * sizeof(c4ub_v3f), "bigstararray", NonVolatile);
+            stararray = (c4ub_v3f*)memAlloc(numstars * sizeof(c4ub_v3f), "stararray", NonVolatile);
 
             ptr = stararray;
-            for (i = 0, star = universe.star3dinfo->Stars; i < (numstars - NUM_BIG_STARS); i++, star++, ptr++)
+            for (i = 0, star = universe.star3dinfo->Stars; i < numstars; i++, star++, ptr++)
             {
                 ptr->c[0] = star->r;
                 ptr->c[1] = star->g;
@@ -2364,15 +2404,12 @@ void rndMainViewRenderFunction(Camera *camera)
                 ptr->v[2] = star->position.z;
             }
 
-            for (ptr = bigstararray; i < numstars; i++, star++, ptr++)
-            {
-                ptr->c[0] = star->r;
-                ptr->c[1] = star->g;
-                ptr->c[2] = star->b;
-                ptr->c[3] = 200;
-                ptr->v[0] = star->position.x;
-                ptr->v[1] = star->position.y;
-                ptr->v[2] = star->position.z;
+            if (useVBO) {
+                glGenBuffers(1, &vboStars);
+                glBindBuffer(GL_ARRAY_BUFFER, vboStars);
+                glBufferData(GL_ARRAY_BUFFER, numstars * sizeof(c4ub_v3f), stararray, GL_STATIC_DRAW);
+                glBindBuffer(GL_ARRAY_BUFFER, 0);
+                memFree(stararray);
             }
         }
 
