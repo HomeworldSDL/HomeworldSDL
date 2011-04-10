@@ -75,6 +75,9 @@
 #include "Universe.h"
 #include "UnivUpdate.h"
 #include "utility.h"
+#ifdef HW_ENABLE_GLES
+#include "SDL_syswm.h"
+#endif
 
 #if defined _MSC_VER
 	#define isnan(x) _isnan(x)
@@ -137,7 +140,10 @@ static sdword rndHint = 0;
 #endif
 
 #ifdef HW_ENABLE_GLES
-SDL_GLES_Context *context = 0;
+static EGLDisplay *egl_display = EGL_NO_DISPLAY;
+static EGLSurface egl_surface = EGL_NO_SURFACE;
+static EGLContext egl_context = EGL_NO_CONTEXT;
+static EGLConfig egl_config;
 #endif
 
 /* Should remove this stuff after cleaning up rgl functions. */
@@ -838,6 +844,18 @@ bool setupPixelFormat()
 	static Uint32 lastDepth  = 0;
 	static bool   lastFull   = FALSE;
 	int FSAA = 0; //os_config_read_uint( NULL, "FSAA", 1 )
+#ifdef HW_ENABLE_GLES
+    SDL_SysWMinfo info;
+    EGLint num_config = 1;
+    EGLint attribs[] = {
+        EGL_RENDERABLE_TYPE, EGL_OPENGL_ES_BIT,
+        EGL_SURFACE_TYPE, EGL_WINDOW_BIT,
+        EGL_DEPTH_SIZE, 16,
+        EGL_NONE
+    };
+    EGLContext new_context = EGL_NO_CONTEXT;
+    EGLSurface new_surface = EGL_NO_SURFACE;
+#endif
 
     // don't bother doing anything if nothing's actually changed
 	if(lastWidth  == MAIN_WindowWidth
@@ -863,18 +881,8 @@ bool setupPixelFormat()
 
     /* Create OpenGL window. */
     flags = SDL_SWSURFACE;
-#ifdef HW_ENABLE_GLES
-    if (!context) {
-        if (SDL_GLES_Init(SDL_GLES_VERSION_1_1) != 0) {
-            fprintf(stderr, "failed to initialize SDL_gles\n");
-            return FALSE;
-        }
-    }
-    /* Set attributes. */
-    //SDL_GLES_SetAttribute(SDL_GLES_BUFFER_SIZE,  MAIN_WindowDepth);
-    SDL_GLES_SetAttribute(SDL_GLES_DEPTH_SIZE,   16);
-    //SDL_GLES_SetAttribute(SDL_GLES_STENCIL_SIZE, 0);
-#else
+    
+#ifndef HW_ENABLE_GLES
     flags |= SDL_OPENGL;
 
     /* Set attributes. */
@@ -890,17 +898,52 @@ bool setupPixelFormat()
 		return FALSE;
 
 #ifdef HW_ENABLE_GLES
-    SDL_GLES_Context *newcontext = SDL_GLES_CreateContext();
-    if (!newcontext) {
-        fprintf(stderr, "failed to create SDL_gles context\n");
+    SDL_VERSION(&info.version);
+    if (SDL_GetWMInfo(&info) != 1) {
+        fprintf(stderr, "EGL cannot use this SDL version\n");
         return FALSE;
     }
-    if (SDL_GLES_MakeCurrent(newcontext) != 0) {
-        fprintf(stderr, "failed to make SDL_gles context current\n");
+
+    egl_display = eglGetDisplay((EGLNativeDisplayType)info.info.x11.gfxdisplay);
+    if (egl_display == EGL_NO_DISPLAY) {
+        fprintf(stderr, "EGL found no available displays\n");
         return FALSE;
     }
-    if (context) SDL_GLES_DeleteContext(context);
-    context = newcontext;
+
+    if (!eglInitialize(egl_display, NULL, NULL)) {
+        fprintf(stderr, "EGL failed to initialize: code 0x%x\n", eglGetError());
+        return FALSE;
+    }
+
+    if (!eglChooseConfig(egl_display, attribs, &egl_config, 1, &num_config) || num_config < 1) {
+        fprintf(stderr, "EGL failed to find any valid config with required attributes: code 0x%x\n", eglGetError());
+        return FALSE;
+    }
+
+    new_context = eglCreateContext(egl_display, egl_config, EGL_NO_CONTEXT, NULL);
+    if (new_context == EGL_NO_CONTEXT) {
+        fprintf(stderr, "EGL failed to create context: code 0x%x\n", eglGetError());
+        return FALSE;
+    }
+    
+    new_surface = eglCreateWindowSurface(egl_display, egl_config, (EGLNativeWindowType)info.info.x11.window, NULL);
+    if (new_surface == EGL_NO_SURFACE) {
+        fprintf(stderr, "EGL failed to create a window surface: 0x%x\n", eglGetError());
+        return FALSE;
+    }
+
+    if (!eglMakeCurrent(egl_display, new_surface, new_surface, new_context)) {
+        fprintf(stderr, "EGL failed to change current surface: 0x%x\n", eglGetError());
+        return FALSE;
+    }
+
+    if (egl_context != EGL_NO_CONTEXT) {
+        eglMakeCurrent(egl_display, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
+        eglDestroyContext(egl_display, egl_context);
+        eglDestroySurface(egl_display, egl_surface);
+    }
+    egl_context = new_context;
+    egl_surface = new_surface;
 #else
 	if ( FSAA ) {
 	    SDL_GL_SetAttribute( SDL_GL_MULTISAMPLEBUFFERS, 1 );
@@ -944,15 +987,15 @@ bool setupPalette()
 {
 	int pix_size;
 
-#ifdef HW_ENABLE_GLES
-    if (SDL_GLES_GetAttribute(SDL_GLES_BUFFER_SIZE, &pix_size) == -1)
-#else
+#ifndef HW_ENABLE_GLES
 	if (SDL_GL_GetAttribute(SDL_GL_BUFFER_SIZE, &pix_size) == -1)
-#endif
 	{
+#endif
 		/* Hoping it will work... */
 		pix_size = MAIN_WindowDepth;
+#ifndef HW_ENABLE_GLES
 	}
+#endif
 	if (pix_size >= 15)
 		return TRUE;
 
@@ -981,9 +1024,13 @@ sdword rndSmallInit(rndinitdata* initData, bool GL)
         /* Kill the window we created. */
         flags = SDL_WasInit(SDL_INIT_EVERYTHING);
 #ifdef HW_ENABLE_GLES
-        SDL_GLES_DeleteContext(context);
-        context = 0;
-        SDL_GLES_Quit();
+        eglMakeCurrent(egl_display, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
+        eglDestroyContext(egl_display, egl_context);
+        egl_config = EGL_NO_CONTEXT;
+        eglDestroySurface(egl_display, egl_surface);
+        egl_surface = EGL_NO_SURFACE;
+        eglTerminate(egl_display);
+        egl_display = EGL_NO_DISPLAY;
 #endif
         if (flags & ~SDL_INIT_VIDEO)
             SDL_QuitSubSystem(SDL_INIT_VIDEO);
@@ -1089,9 +1136,13 @@ void rndClose(void)
     if (!(flags & SDL_INIT_VIDEO))
         return;
 #ifdef HW_ENABLE_GLES
-    SDL_GLES_DeleteContext(context);
-    context = 0;
-    SDL_GLES_Quit();
+    eglMakeCurrent(egl_display, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
+    eglDestroyContext(egl_display, egl_context);
+    egl_config = EGL_NO_CONTEXT;
+    eglDestroySurface(egl_display, egl_surface);
+    egl_surface = EGL_NO_SURFACE;
+    eglTerminate(egl_display);
+    egl_display = EGL_NO_DISPLAY;
 #endif
     if (flags ^ SDL_INIT_VIDEO)
         SDL_QuitSubSystem(SDL_INIT_VIDEO);
@@ -4651,7 +4702,7 @@ void rndFlush(void)
     glFlush();
     primErrorMessagePrint();
 #ifdef HW_ENABLE_GLES
-    SDL_GLES_SwapBuffers();
+    eglSwapBuffers(egl_display, egl_surface);
 #else
     SDL_GL_SwapBuffers();
 #endif

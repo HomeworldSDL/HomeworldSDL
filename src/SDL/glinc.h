@@ -3,9 +3,8 @@
 
 #ifdef HW_ENABLE_GLES
 
-#include <SDL.h>
-#include <SDL_gles.h>
-#include <GLES/gl.h>
+#include <GLES/egl.h>
+#include <GLES/glext.h>
 
 #define GL_QUADS                0x0007
 #define GL_POLYGON              0x0009

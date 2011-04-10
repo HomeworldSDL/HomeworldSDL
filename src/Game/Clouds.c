@@ -246,7 +246,7 @@ void ellipsoid_seq(ellipseObject* ellipsoid, sdword n, float a, float b, float c
 typedef struct slot
 {
     float cos, sin;
-    enum { None, Only, Done } flag;
+    enum { SlotNone, SlotOnly, SlotDone } flag;
 } slot;
 
 static sdword n_max = 0;
@@ -518,7 +518,7 @@ void ellipsoid_init(sdword n)
 
         for (t0 = table, k = n_table; k > 0; k--, t0++)
         {
-            t0->flag = None;
+            t0->flag = SlotNone;
         }
 
         for (t0 = table, k = 0, l = 1, m = 3, i = 2; i <= n_max; i++)
@@ -529,17 +529,17 @@ void ellipsoid_init(sdword n)
 
             for (t1 = t0+i - 2, j = 1; j < i; j++, k++, t0++, t1--)
             {
-                if (t0->flag == None)
+                if (t0->flag == SlotNone)
                 {
                     theta = (real32)((M_PI_2 * j) / i);
                     t0->cos = t1->sin = (real32)cos((double)theta);
                     t0->sin = t1->cos = (real32)sin((double)theta);
-                    t0->flag = t1->flag = Only;
+                    t0->flag = t1->flag = SlotOnly;
                 }
 
-                if (t0->flag == Only)
+                if (t0->flag == SlotOnly)
                 {
-                    t0->flag = Done;
+                    t0->flag = SlotDone;
 
                     for (d = k+l, t2 = t0; h > 0; h--)
                     {
@@ -547,7 +547,7 @@ void ellipsoid_init(sdword n)
                         d += l;
                         t2->cos = t0->cos;
                         t2->sin = t0->sin;
-                        t2->flag = Done;
+                        t2->flag = SlotDone;
                     }
                 }
             }
