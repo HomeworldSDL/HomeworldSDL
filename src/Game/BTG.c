@@ -1316,6 +1316,7 @@ void btgRender()
 
     //stars
     rndPerspectiveCorrection(FALSE);
+    rndAdditiveBlends(TRUE);
 
     trClearCurrent();
     glEnable(GL_TEXTURE_2D);
