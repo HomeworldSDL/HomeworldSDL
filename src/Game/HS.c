@@ -409,78 +409,31 @@ void hsContinue(Ship* ship, bool displayEffect)
 ----------------------------------------------------------------------------*/
 void hsRectangle(vector* origin, real32 rightlength, real32 uplength, ubyte alpha, bool outline, color c)
 {
-    real32 x, y, z;
-    real32 rightlen, uplen;
-    ubyte red, green, blue;
+    real32 rlen = HS_DIST_2 * uplength;
+    real32 ulen = HS_DIST_2 * rightlength;
+    real32 v[12] = { origin->x - rlen, origin->y + ulen, origin->z,
+                     origin->x + rlen, origin->y + ulen, origin->z,
+                     origin->x - rlen, origin->y - ulen, origin->z,
+                     origin->x + rlen, origin->y - ulen, origin->z };
+    ubyte red = colRed(c);
+    ubyte green = colGreen(c);
+    ubyte blue = colBlue(c);
 
-    red = colRed(c);
-    green = colGreen(c);
-    blue = colBlue(c);
-
-    x = origin->x;
-    y = origin->y;
-    z = origin->z;
-    rightlen = HS_DIST_2 * uplength;
-    uplen = HS_DIST_2 * rightlength;
-
-    glColor4ub(red, green, blue, alpha);
-    glBegin(GL_QUADS);
-    glVertex3f(x - rightlen, y - uplen, z);
-    glVertex3f(x - rightlen, y + uplen, z);
-    glVertex3f(x + rightlen, y + uplen, z);
-    glVertex3f(x + rightlen, y - uplen, z);
-    glEnd();
-
-    if (outline)
-    {
-        glLineWidth(2.0f);
-        glColor4ub((ubyte)(red + 40), (ubyte)(green + 40), blue, alpha);
-        glBegin(GL_LINE_LOOP);
-        glVertex3f(x - rightlen, y - uplen, z);
-        glVertex3f(x - rightlen, y + uplen, z);
-        glVertex3f(x + rightlen, y + uplen, z);
-        glVertex3f(x + rightlen, y - uplen, z);
-        glEnd();
-        glLineWidth(1.0f);
-    }
-}
-
-void hsRectangle2(vector* origin, real32 rightlength, real32 uplength, ubyte alpha, bool outline)
-{
-    real32 x, y, z;
-    real32 rightlen, uplen;
-    ubyte red, green, blue;
-
-    red = 70;
-    green = 90;
-    blue = 255;
-
-    x = origin->x;
-    y = origin->y;
-    z = origin->z;
-    rightlen = HS_DIST_2 * uplength;
-    uplen = HS_DIST_2 * rightlength;
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glVertexPointer(3, GL_FLOAT, 0, v);
 
     glColor4ub(red, green, blue, alpha);
-    glBegin(GL_QUADS);
-    glVertex3f(x - rightlen, y - uplen, z);
-    glVertex3f(x - rightlen, y + uplen, z);
-    glVertex3f(x + rightlen, y + uplen, z);
-    glVertex3f(x + rightlen, y - uplen, z);
-    glEnd();
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
-    if (outline)
-    {
+    if (outline) {
+        ubyte l[4] = { 0, 1, 3, 2 };
         glLineWidth(2.0f);
         glColor4ub((ubyte)(red + 40), (ubyte)(green + 40), blue, alpha);
-        glBegin(GL_LINE_LOOP);
-        glVertex3f(x - rightlen, y - uplen, z);
-        glVertex3f(x - rightlen, y + uplen, z);
-        glVertex3f(x + rightlen, y + uplen, z);
-        glVertex3f(x + rightlen, y - uplen, z);
-        glEnd();
+        glDrawElements(GL_LINE_LOOP, 4, GL_UNSIGNED_BYTE, l);
         glLineWidth(1.0f);
     }
+
+    glDisableClientState(GL_VERTEX_ARRAY);
 }
 
 /*-----------------------------------------------------------------------------
@@ -518,24 +471,19 @@ void hsDesat(ubyte* r, ubyte* g, ubyte* b, color c, real32 scale)
 ----------------------------------------------------------------------------*/
 void hsLine(vector* origin, real32 rightlength, real32 uplength, ubyte alpha, color c)
 {
-    real32 x, y, z;
-    real32 length, width;
+    real32 rlen = 0.8f * rightlength;
+    real32 v[6] = { origin->x, origin->y - rlen, origin->z,
+                    origin->x, origin->y + rlen, origin->z };
     ubyte  red, green, blue;
 
     hsDesat(&red, &green, &blue, c, 0.70f);
-
-    x = origin->x;
-    y = origin->y;
-    z = origin->z;
-    length = 0.8f * rightlength;
-    width = uplength;
-
     glColor4ub(red, green, blue, alpha);
-    glLineWidth(width);
-    glBegin(GL_LINES);
-    glVertex3f(x, y - length, z);
-    glVertex3f(x, y + length, z);
-    glEnd();
+
+    glLineWidth(uplength);
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glVertexPointer(3, GL_FLOAT, 0, v);
+    glDrawArrays(GL_LINES, 0, 2);
+    glDisableClientState(GL_VERTEX_ARRAY);
     glLineWidth(1.0f);
 }
 
@@ -940,7 +888,9 @@ void hsStaticGateRender(hsStaticGate* gate)
     bool lightEnabled;
     Derelict* derelict;
     hmatrix hmat;
-    vector origin = {0.0f, 0.0f, 0.0f};
+    vector origin = { 0.0f, 0.0f, 0.0f };
+    color c = colRGB(70, 90, 255);
+
 
     if (singlePlayerHyperspacingInto)
     {
@@ -974,7 +924,7 @@ void hsStaticGateRender(hsStaticGate* gate)
 
     glEnable(GL_BLEND);
     glDepthMask(GL_FALSE);
-    hsRectangle2(&origin, HYPERSPACEGATE_WIDTH, HYPERSPACEGATE_HEIGHT, 90, TRUE);
+    hsRectangle(&origin, HYPERSPACEGATE_WIDTH, HYPERSPACEGATE_HEIGHT, 90, TRUE, c);
 
     glDepthMask(GL_TRUE);
     glDisable(GL_BLEND);
