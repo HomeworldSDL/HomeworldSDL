@@ -21,7 +21,6 @@
 #define MESH_MATERIAL_STATS     1               //display material statistics
 #define MESH_HACK_TEAM_COLORS   0               //hack team colors
 #define MESH_TEAM_COLORS        0               //enable auto-team coloring of certain surfaces
-#define MESH_SPECULAR           0               //enable specification of specular material attributes
 #define MESH_PRE_CALLBACK       0
 #define MESH_SURFACE_NAME_DEBUG 0
 

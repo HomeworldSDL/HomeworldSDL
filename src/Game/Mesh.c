@@ -75,8 +75,6 @@ void meshSpecObjectRender(polygonobject *object, materialentry *materials, sdwor
 
 bool gSelfIllum;
 
-bool usingShader = TRUE;
-
 bool bFade = FALSE;
 real32 meshFadeAlpha = 1.0f;
 
@@ -147,7 +145,6 @@ meshMorphLineColors[] =
 ----------------------------------------------------------------------------*/
 void meshStartup()
 {
-    usingShader = TRUE;
 }
 
 /*-----------------------------------------------------------------------------
@@ -171,21 +168,14 @@ void meshShutdown()
 ----------------------------------------------------------------------------*/
 void meshSetFade(real32 fade)
 {
-    if (!usingShader)
+    meshFadeAlpha = 1.0f - fade;
+    if (meshFadeAlpha == 1.0f)
     {
         bFade = FALSE;
     }
     else
     {
-        meshFadeAlpha = 1.0f - fade;
-        if (meshFadeAlpha == 1.0f)
-        {
-            bFade = FALSE;
-        }
-        else
-        {
-            bFade = TRUE;
-        }
+        bFade = TRUE;
     }
 }
 
@@ -1220,21 +1210,19 @@ void meshCurrentMaterialDefault(materialentry *material, sdword iColorScheme)
     GLenum face;
 #if MESH_TEAM_COLORS
     color teamAmbient, teamDiffuse;
-#if MESH_SPECULAR
     color teamSpecular;
-#endif
 #endif
     if (bitTest(material->flags, MDF_2Sided))
     {                                                       //if 2-sided material
         face = GL_FRONT_AND_BACK;
         rndBackFaceCullEnable(FALSE);                       //disable culling
-        if (!usingShader) glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);    //2-sided lightmodel
+        glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);    //2-sided lightmodel
     }
     else
     {
         face = GL_FRONT;
         rndBackFaceCullEnable(TRUE);                        //enable culling
-        if (!usingShader) glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);   //1-sided lightmodel
+        glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);   //1-sided lightmodel
     }
 
     gSelfIllum = FALSE;
@@ -1267,14 +1255,7 @@ void meshCurrentMaterialDefault(materialentry *material, sdword iColorScheme)
         attribs[1] = (GLfloat)(colGreen(material->ambient)) / 255.0f;
         attribs[2] = (GLfloat)(colBlue(material->ambient)) / 255.0f;
         attribs[3] = 1.0f;
-        if (usingShader)
-        {
-            shSetMaterial(attribs, NULL); //shader
-        }
-        else
-        {
-            rndMaterialfv(face, GL_AMBIENT, attribs);
-        }
+        glMaterialfv(face, GL_AMBIENT, attribs);
 
         attribs[0] = (GLfloat)(colRed(material->diffuse)) / 255.0f;
         attribs[1] = (GLfloat)(colGreen(material->diffuse)) / 255.0f;
@@ -1287,21 +1268,12 @@ void meshCurrentMaterialDefault(materialentry *material, sdword iColorScheme)
         {
             attribs[3] = 1.0f;
         }
-        if (usingShader)
-        {
-            shSetMaterial(NULL, attribs); //shader
-        }
-        else
-        {
-            rndMaterialfv(face, GL_DIFFUSE, attribs);
-        }
+        glMaterialfv(face, GL_DIFFUSE, attribs);
 
-#if MESH_SPECULAR
         attribs[0] = (GLfloat)(colRed(material->specular)) / 255.0f;
         attribs[1] = (GLfloat)(colGreen(material->specular)) / 255.0f;
         attribs[2] = (GLfloat)(colBlue(material->specular)) / 255.0f;
         glMaterialfv(face, GL_SPECULAR, attribs);
-#endif
 #if MESH_TEAM_COLORS
     }
     else
@@ -1310,30 +1282,19 @@ void meshCurrentMaterialDefault(materialentry *material, sdword iColorScheme)
         {                                                   //it's a base color poly
             teamAmbient  = teColorSchemes[iColorScheme].ambient;
             teamDiffuse  = teColorSchemes[iColorScheme].diffuse;
-#if MESH_SPECULAR
             teamSpecular = teColorSchemes[iColorScheme].specular;
-#endif
         }
         else
         {                                                   //else it's a stripe color
             teamAmbient  = teColorSchemes[iColorScheme].stripeAmbient;
             teamDiffuse  = teColorSchemes[iColorScheme].stripeDiffuse;
-#if MESH_SPECULAR
             teamSpecular = teColorSchemes[iColorScheme].stripeSpecular;
-#endif
         }
         attribs[0] = (GLfloat)(colRed(teamAmbient)) / 255.0f;
         attribs[1] = (GLfloat)(colGreen(teamAmbient)) / 255.0f;
         attribs[2] = (GLfloat)(colBlue(teamAmbient)) / 255.0f;
         attribs[3] = 1.0f;
-        if (usingShader)
-        {
-            shSetMaterial(attribs, NULL); //shader
-        }
-        else
-        {
-            rndMaterialfv(face, GL_AMBIENT, attribs);
-        }
+        glMaterialfv(face, GL_AMBIENT, attribs);
 
         attribs[0] = (GLfloat)(colRed(teamDiffuse)) / 255.0f;
         attribs[1] = (GLfloat)(colGreen(teamDiffuse)) / 255.0f;
@@ -1346,21 +1307,12 @@ void meshCurrentMaterialDefault(materialentry *material, sdword iColorScheme)
         {
             attribs[3] = 1.0f;
         }
-        if (usingShader)
-        {
-            shSetMaterial(NULL, attribs); //shader
-        }
-        else
-        {
-            rndMaterialfv(face, GL_DIFFUSE, attribs);
-        }
+        glMaterialfv(face, GL_DIFFUSE, attribs);
 
-#if MESH_SPECULAR
         attribs[0] = (GLfloat)(colRed(teamSpecular)) / 255.0f;
         attribs[1] = (GLfloat)(colGreen(teamSpecular)) / 255.0f;
         attribs[2] = (GLfloat)(colBlue(teamSpecular)) / 255.0f;
         glMaterialfv(face, GL_SPECULAR, attribs);
-#endif
     }
 #endif //MESH_TEAM_COLORS
 //    if (material->texture != TR_Invalid && !g_WireframeHack)
@@ -1409,11 +1361,6 @@ void meshCurrentMaterialDefault(materialentry *material, sdword iColorScheme)
             glShadeModel(GL_FLAT);
         }
     }
-
-    if (usingShader)
-    {
-        shUpdateLighting(); //shader
-    }
 }
 
 /*-----------------------------------------------------------------------------
@@ -1432,13 +1379,13 @@ void meshCurrentMaterialTex(materialentry *material, sdword iColorScheme)
     {                                                       //if 2-sided material
         face = GL_FRONT_AND_BACK;
         rndBackFaceCullEnable(FALSE);                       //disable culling
-        if (!usingShader) glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);    //2-sided lightmodel
+        glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);    //2-sided lightmodel
     }
     else
     {
         face = GL_FRONT;
         rndBackFaceCullEnable(TRUE);                        //enable culling
-        if (!usingShader) glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);   //1-sided lightmodel
+        glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);   //1-sided lightmodel
     }
 
     if (bitTest(material->flags, MPM_Smooth) && enableSmoothing == TRUE)
@@ -1838,7 +1785,7 @@ void meshObjectRender(polygonobject *object, materialentry *materials, sdword iC
     glEnd();                                            //done drawing these triangles
 
     glShadeModel(GL_SMOOTH);
-    if (!usingShader) glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
+    glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
 
     if (enableBlend)
     {
@@ -2006,7 +1953,7 @@ void meshSpecObjectRender(polygonobject *object, materialentry *materials, sdwor
     glEnd();                                            //done drawing these triangles
 
     glShadeModel(GL_SMOOTH);
-    if (!usingShader) glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
+    glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
     rndLightingEnable(lightOn);
 }
 
@@ -2342,7 +2289,7 @@ void meshMorphedObjectRender(
     }
 
     glShadeModel(GL_SMOOTH);
-    if (!usingShader) glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
+    glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
 }
 
 /*-----------------------------------------------------------------------------

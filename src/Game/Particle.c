@@ -877,9 +877,7 @@ void partMeshMaterialPrepare(particle *p, trhandle currentTex, materialentry *ma
     texreg *reg;
     GLfloat attribs[4];
     real32 ambientFactor;
-#if MESH_SPECULAR
     real32 specularFactor;
-#endif
     real32 diffuseRed, otherRed;
     GLenum face = GL_FRONT_AND_BACK;  //!!!
 
@@ -910,22 +908,18 @@ void partMeshMaterialPrepare(particle *p, trhandle currentTex, materialentry *ma
         diffuseRed = colUbyteToReal(colRed(material->diffuse));
         otherRed = colUbyteToReal(colRed(material->ambient));
         ambientFactor = otherRed / diffuseRed;
-#if MESH_SPECULAR
         otherRed = colUbyteToReal(colRed(material->specular));
         specularFactor = otherRed / diffuseRed;
-#endif
 
         attribs[0] = p->icolor[0] * ambientFactor;
         attribs[1] = p->icolor[1] * ambientFactor;
         attribs[2] = p->icolor[2] * ambientFactor;
         attribs[3] = 1.0f;
         glMaterialfv(face, GL_AMBIENT, attribs);
-#if MESH_SPECULAR
         attribs[0] = p->icolor[0] * specularFactor;
         attribs[1] = p->icolor[1] * specularFactor;
         attribs[2] = p->icolor[2] * specularFactor;
         glMaterialfv(face, GL_SPECULAR, attribs);
-#endif
         attribs[0] = p->icolor[0];
         attribs[1] = p->icolor[1];
         attribs[2] = p->icolor[2];
@@ -1243,14 +1237,12 @@ udword partRenderMeshSystem(udword n, particle *p, udword flags, trhandle tex, m
         if (bitTest(p->flags, PART_SPECULAR))
         {
             g_SpecHack = TRUE;
-            if (usingShader)
-                meshSetSpecular(0, 200,200,200,200);
+            meshSetSpecular(0, 200,200,200,200);
         }
         else
         {
             g_SpecHack = FALSE;
-            if (usingShader)
-                meshSetSpecular(-1, 0,0,0,0);
+            meshSetSpecular(-1, 0,0,0,0);
         }
 
         if (bitTest(p->flags, PART_NODEPTHWRITE))
@@ -1276,15 +1268,14 @@ udword partRenderMeshSystem(udword n, particle *p, udword flags, trhandle tex, m
 
             if (g_SpecHack)
             {
-                if (usingShader)
-                    shSetExponent(0, p->exponent);
+                shSetExponent(0, p->exponent);
             }
 
             if (bitTest(flags, PART_ALPHA))
             {
                 glColor4f(p->icolor[0], p->icolor[1], p->icolor[2], p->icolor[3]);
                 glEnable(GL_BLEND);
-                if (usingShader && g_SpecHack)
+                if (g_SpecHack)
                 {
                     meshSetSpecular(0, RUB(p->icolor[0]), RUB(p->icolor[1]), RUB(p->icolor[2]), RUB(p->icolor[3]));
                 }
@@ -1292,7 +1283,7 @@ udword partRenderMeshSystem(udword n, particle *p, udword flags, trhandle tex, m
             else
             {
                 glColor3f(p->icolor[0], p->icolor[1], p->icolor[2]);
-                if (usingShader && g_SpecHack)
+                if (g_SpecHack)
                 {
                     meshSetSpecular(0, RUB(p->icolor[0]), RUB(p->icolor[1]), RUB(p->icolor[2]), 255);
                 }

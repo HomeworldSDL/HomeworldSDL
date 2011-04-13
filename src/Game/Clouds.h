@@ -75,18 +75,18 @@ extern lightning _lightnings[MAX_LIGHTNINGS];
 //ellipse stuff
 typedef struct { real32 x, y, z; } point;
 typedef struct { point p, n; } vertex;
-typedef struct { int v0, v1, v2; } face;
+typedef struct { unsigned short v0, v1, v2; } face;
 typedef struct
 {
     sdword nv, nf;
     vertex* v;
     face* f;
+    unsigned int vb;
+    unsigned int fb;
 } ellipseObject;
 
 extern ellipseObject genericEllipse[4];
 void ellipsoid_render(ellipseObject* ellipse, real32 radius);
-void ellipsoid_render_as(ellipseObject* ellipse, int what, vector* offset);
-void ellipsoid_render_as_radii(ellipseObject* ellipse, int what, vector* offset, real32 ra, real32 rb, real32 rc);
 
 /*
  * FUNCTIONS
@@ -101,14 +101,14 @@ void cloudShutdown(void);
 //reset things
 void cloudReset(void);
 
-//create a cloud system with specified radius and given variance
-cloudSystem* cloudCreateSystem(real32 radius, real32 variance);
+//create a cloud system with specified radius
+cloudSystem* cloudCreateSystem(real32 radius);
 
 //convenient
 void cloudDeleteSystem(cloudSystem* system);
 
 //render a cloud system
-void cloudRenderSystem(void* mesh, cloudSystem* system, sdword lod);
+void cloudRenderSystem(cloudSystem* system, sdword lod);
 
 //set fog based on camera distance to dust clouds
 void cloudSetFog(void);
