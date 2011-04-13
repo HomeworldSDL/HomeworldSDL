@@ -1220,7 +1220,7 @@ void meshCurrentMaterialDefault(materialentry *material, sdword iColorScheme)
     }
     else
     {
-        face = GL_FRONT;
+        face = GL_FRONT_AND_BACK;
         rndBackFaceCullEnable(TRUE);                        //enable culling
         glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);   //1-sided lightmodel
     }
@@ -1383,7 +1383,7 @@ void meshCurrentMaterialTex(materialentry *material, sdword iColorScheme)
     }
     else
     {
-        face = GL_FRONT;
+        face = GL_FRONT_AND_BACK;
         rndBackFaceCullEnable(TRUE);                        //enable culling
         glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);   //1-sided lightmodel
     }

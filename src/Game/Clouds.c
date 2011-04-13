@@ -1083,15 +1083,15 @@ void cloudRenderSystem(cloudSystem* system, sdword lod)
     attrib[1] = 0.0f;
     attrib[2] = 0.0f;
     attrib[3] = 0.0f;
-    glMaterialfv(GL_FRONT, GL_AMBIENT, attrib);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, attrib);
     attrib[3] = 0.5f;
-    glMaterialfv(GL_FRONT, GL_DIFFUSE, attrib);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, attrib);
     attrib[0] = (GLfloat)colRed(cloudColor) / 255.0f;
     attrib[1] = (GLfloat)colGreen(cloudColor) / 255.0f;
     attrib[2] = (GLfloat)colBlue(cloudColor) / 255.0f;
-    glMaterialfv(GL_FRONT, GL_SPECULAR, attrib);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, attrib);
     attrib[0] = 11.0f;
-    glMaterialfv(GL_FRONT, GL_SHININESS, attrib);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, attrib);
 
     switch (lod)
     {

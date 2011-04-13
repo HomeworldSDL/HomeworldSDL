@@ -4232,87 +4232,6 @@ sdword rndAdditiveBlends(sdword bAdditive)
     return(oldStatus);
 }
 
-/*-----------------------------------------------------------------------------
-    Name        : rndMaterialfv
-    Description : set GL material params
-    Inputs      : face - GL_FRONT or GL_FRONT_AND_BACK
-                  pname - GL_AMBIENT or GL_DIFFUSE
-                  params - RGBA [0..1]
-    Outputs     :
-    Return      : TRUE if material was updated, FALSE if same as last
-----------------------------------------------------------------------------*/
-#define V4_EQUAL(A, B) (A[0] != B[0] || A[1] != B[1] || A[2] != B[2] || A[3] != B[3]) ? FALSE : TRUE
-#define V4_SET(D, S) \
-    { \
-        D[0] = S[0]; \
-        D[1] = S[1]; \
-        D[2] = S[2]; \
-        D[3] = S[3]; \
-    }
-sdword rndMaterialfv(sdword face, sdword pname, real32* params)
-{
-    static real32 ambient[2][4] = {{-1.0f, -1.0f, -1.0f, -1.0f},{-1.0f, -1.0f, -1.0f, -1.0f}};
-    static real32 diffuse[2][4] = {{-1.0f, -1.0f, -1.0f, -1.0f},{-1.0f, -1.0f, -1.0f, -1.0f}};
-
-    if (face == -1)
-    {
-        real32 reset[4] = {-1.0f, -1.0f, -1.0f, -1.0f};
-        V4_SET(ambient[0], reset);
-        V4_SET(ambient[1], reset);
-        V4_SET(diffuse[0], reset);
-        V4_SET(diffuse[1], reset);
-        return TRUE;
-    }
-
-    if (face == GL_FRONT)
-    {
-        if (pname == GL_AMBIENT)
-        {
-            if (!V4_EQUAL(ambient[0], params))
-            {
-                V4_SET(ambient[0], params);
-                glMaterialfv(face, pname, params);
-                return TRUE;
-            }
-        }
-        else
-        {
-            if (!V4_EQUAL(diffuse[0], params))
-            {
-                V4_SET(diffuse[0], params);
-                glMaterialfv(face, pname, params);
-                return TRUE;
-            }
-        }
-    }
-    else
-    {
-        if (pname == GL_AMBIENT)
-        {
-            if (!V4_EQUAL(ambient[0], params) || !V4_EQUAL(ambient[1], params))
-            {
-                V4_SET(ambient[0], params);
-                V4_SET(ambient[1], params);
-                glMaterialfv(face, pname, params);
-                return TRUE;
-            }
-        }
-        else
-        {
-            if (!V4_EQUAL(diffuse[0], params) || !V4_EQUAL(ambient[1], params))
-            {
-                V4_SET(diffuse[0], params);
-                V4_SET(diffuse[1], params);
-                glMaterialfv(face, pname, params);
-                return TRUE;
-            }
-        }
-    }
-
-    return FALSE;
-}
-
-
 #define vcSub(a,b,c) \
     (a)->x = (b)->x - (c)->x; \
     (a)->y = (b)->y - (c)->y; \
@@ -4505,8 +4424,6 @@ void rndSetClearColor(color c)
 void rndResetGLState(void)
 {
     trClearCurrent();
-
-    rndMaterialfv(-1, 0, NULL);
 
     if (rndAdditiveBlending)
     {
