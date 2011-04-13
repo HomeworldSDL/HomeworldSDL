@@ -152,6 +152,8 @@ PFNGLBUFFERDATAPROC glBufferData = 0;
 PFNGLBUFFERSUBDATAPROC glBufferSubData = 0;
 #endif
 
+PFNGLDRAWTEXIOESPROC glDrawTexiOES = 0;
+
 static char *gl_extensions = 0;
 
 static bool useVBO = FALSE;
@@ -988,7 +990,9 @@ bool setupPixelFormat()
 	lastDepth  = MAIN_WindowDepth;
 	lastFull   = fullScreen;
 
-#ifndef HW_ENABLE_GLES
+#ifdef HW_ENABLE_GLES
+    glDrawTexiOES = eglGetProcAddress("glDrawTexiOES");
+#else
     glBindBuffer = SDL_GL_GetProcAddress("glBindBuffer");
     glDeleteBuffers = SDL_GL_GetProcAddress("glDeleteBuffers");
     glGenBuffers = SDL_GL_GetProcAddress("glGenBuffers");
@@ -1005,11 +1009,18 @@ bool setupPixelFormat()
 }
 
 int glCheckExtension(const char *ext) {
+    bool gotext = gl_extensions ? strstr(gl_extensions, ext) != NULL : gl_extensions;
+    if (strcmp(ext, "GL_ARB_vertex_buffer_object") == 0) {
 #ifdef HW_ENABLE_GLES
-    /* part of the standard in GLES */
-    if (strcmp(ext, "GL_ARB_vertex_buffer_object") == 0) return 1;
+        /* part of the standard in GLES */
+        return 1;
+#else
+        return gotext && glBindBuffer && glDeleteBuffers && glGenBuffers && glBufferData && glBufferSubData;
 #endif
-    return gl_extensions ? strstr(gl_extensions, ext) != NULL : gl_extensions;
+    } else if (strcmp(ext, "GL_OES_draw_texture") == 0) {
+        return gotext && glDrawTexiOES;
+    }
+    return gotext;
 }
 
 /*bool setupPalette(HDC hDC)*/
