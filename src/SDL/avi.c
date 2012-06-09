@@ -291,7 +291,9 @@ dbgMessagef("aviPlayLoop: numBytes= %d, width=%d height=%d", numBytes, pCodecCtx
 dbgMessagef("aviPlayLoop: stream_index=%d, videoStream=%d", packet.stream_index, videoStream);
 #endif
 
-        avcodec_decode_video(pCodecCtx, pFrame, &frameFinished, packet.data, packet.size);
+// avcodec_decode_video has been depreciated in preference for avcodec_decode_video2
+//        avcodec_decode_video(pCodecCtx, pFrame, &frameFinished, packet.data, packet.size);
+        avcodec_decode_video2(pCodecCtx, pFrame, &frameFinished, &packet);
 
 #if AVI_VERBOSE_LEVEL >= 100
 dbgMessagef("aviPlayLoop: frameFinished=%d  packet.data=%x   packet.size=%d ", frameFinished, packet.data, packet.size);
