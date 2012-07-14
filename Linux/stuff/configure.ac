@@ -186,10 +186,10 @@ if test "x$movies" = "xyes" ; then
 		AC_CHECK_HEADER([libavcodec/avcodec.h], [
 		  AC_CHECK_HEADER([libswscale/swscale.h], [
 			AC_CHECK_LIB([swscale], [sws_scale], [
-				AC_CHECK_LIB([avformat],[av_open_input_file],[
+				AC_CHECK_LIB([avformat],[avformat_open_input],[
 			        	echo "* Including Movie code for Homeworld (HW_ENABLE_MOVIES) *"
 				        HWGAME_CFLAGS="$HWGAME_CFLAGS -DHW_ENABLE_MOVIES"
-				        MOVIE_LIBS="-lavcodec -lavformat -lswscale"
+				        MOVIE_LIBS="-lavcodec -lavformat -lswscale -lavutil"
 				],[])
 	          ],[])
 			], [])

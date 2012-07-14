@@ -360,7 +360,7 @@ int aviStart(char* filename)
 
 // Add intelligence to identifying path and OS here  -- TODO
 
-    if(av_open_input_file(&pFormatCtx, filename, NULL, 0, NULL)!=0) {
+    if(avformat_open_input(&pFormatCtx, filename, NULL, NULL)!=0) {
         dbgMessagef("aviStart: Unable to open AVI: %s",filename);
         return FALSE;
     }
@@ -632,7 +632,6 @@ int aviInit()
 
 #ifdef HW_ENABLE_MOVIES
     av_register_all();
-    avcodec_init();
 #endif
 
     return 1;
