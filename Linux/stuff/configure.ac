@@ -205,7 +205,7 @@ if test "x$network" = "xyes" ; then
 		AC_CHECK_LIB([SDL_net], [SDLNet_Init], [
 		        echo "* Including Network Game code for Homeworld (HW_ENABLE_NETWORK) *"
 			HWGAME_CFLAGS="$HWGAME_CFLAGS -DHW_ENABLE_NETWORK"	
-			NET_LIBS="-lSDL_net"
+			NET_LIBS="-lSDL_net -lm"
 		], [])
 	],[])
 fi
