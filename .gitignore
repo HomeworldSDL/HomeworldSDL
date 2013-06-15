@@ -30,3 +30,6 @@ config.h.in
 config
 configure
 configure.ac
+
+cscope.files
+cscope.out
