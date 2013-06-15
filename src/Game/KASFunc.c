@@ -741,6 +741,9 @@ void kasfGrowSelectionClear(GrowSelection *ships)
 
 sdword kasfShipsCount(GrowSelection *ships)
 {
+    if (ships == NULL)
+        return 0;
+
     return ships->selection->numShips;
 }
 
