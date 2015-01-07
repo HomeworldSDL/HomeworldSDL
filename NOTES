@@ -1,0 +1,11 @@
+ПРИМЕЧАНИЯ:
+#################
+
+- WON перестал существовать (https://ru.wikipedia.org/wiki/World_Opponent_Network)
+- Ubuntu SDL 1.2
+  sudo apt-get install libsdl1.2-dev libsdl1.2debian
+- Установить Flex и Bison
+  sudo apt-get install flex bison
+- В gcc4 не используется -fwritable-strings (https://gcc.gnu.org/gcc-4.0/changes.html)
+- Automake рекомендуется automake1.7 но с ним вылетают пару ошибок перед сборкой, поэтому 1.11
+  sudo apt-get install automake

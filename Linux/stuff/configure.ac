@@ -217,7 +217,7 @@ AM_CONDITIONAL(OLD_SOUND, test "$oldsound" = "yes")
 
 AC_CHECK_LIB([GL], [glBegin], [
     echo "* Using OpenGL for Homeworld *"
-    GL_LIBS="-lGL"
+    GL_LIBS="-lGL -lm"
 ], [
     AC_CHECK_LIB([GLES_CM], [glEnableClientState], [
             echo "* Using OpenGL ES for Homeworld (HW_ENABLE_GLES) *"
