@@ -1,7 +1,8 @@
 ПРИМЕЧАНИЯ:
 #################
 
-- WON перестал существовать (https://ru.wikipedia.org/wiki/World_Opponent_Network)
+- WON перестал существовать (https://ru.wikipedia.org/wiki/World_Opponent_Network), но есть клон
+  https://code.google.com/p/world-opponent-network/
 - Ubuntu SDL 1.2
   sudo apt-get install libsdl1.2-dev libsdl1.2debian
 - Установить Flex и Bison
