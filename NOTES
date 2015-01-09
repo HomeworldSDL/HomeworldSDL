@@ -10,3 +10,13 @@
 - В gcc4 не используется -fwritable-strings (https://gcc.gnu.org/gcc-4.0/changes.html)
 - Automake рекомендуется automake1.7 но с ним вылетают пару ошибок перед сборкой, поэтому 1.11
   sudo apt-get install automake
+
+
+СБОРКА:
+#################
+cd ./Linux
+./bootstrap
+../configure
+make
+
+- Для сборки под x86-64 нужно конфигурировать с ключом, а потом еще собрать HomeworldSLD.big
