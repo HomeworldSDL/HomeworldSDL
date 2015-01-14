@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
+#include <sys/types.h>
 
 #include "BitIO.h"
 #include "Debug.h"
@@ -690,7 +691,7 @@ bool8 fileMakeDirectory (const char* directoryName)
 		return TRUE;
 
 	/* Add a trailing slash to our directory name. */
-#ifdef _WINDOWS
+#ifdef _WIN32
 	if (directoryCopy[directoryLen - 1] != '\\')
 	{
 		directoryCopy[directoryLen] = '\\';
@@ -708,7 +709,7 @@ bool8 fileMakeDirectory (const char* directoryName)
 
 	/* Find the first path element that isn't the root directory or a parent
 	   directory delimiter. */
-#ifdef _WINDOWS
+#ifdef _WIN32
 	pChar = strchr(directoryCopy, '\\');
 #else
 	pChar = strchr(directoryCopy, '/');
@@ -717,14 +718,14 @@ bool8 fileMakeDirectory (const char* directoryName)
 	{
 		*pChar = '\0';
 
-#ifdef _WINDOWS
+#ifdef _WIN32
 		if (isalpha(directoryCopy[0]) && directoryCopy[1] == ':' &&
 		    directoryCopy[2] == '\0')
 #else
 		if (directoryCopy[0] == '\0')
 #endif
 		{
-#ifdef _WINDOWS
+#ifdef _WIN32
 			*pChar = '\\';
 			pChar = strchr(pChar + 1, '\\');
 #else
@@ -758,7 +759,7 @@ bool8 fileMakeDirectory (const char* directoryName)
 				return FALSE;
 		}
 		/* Continue with the next path element. */
-#ifdef _WINDOWS
+#ifdef _WIN32
 		*pChar = '\\';
 		pChar = strchr(pChar + 1, '\\');
 #else
@@ -1908,9 +1909,9 @@ bool fileCDROMPathSet(char *path)
 #ifdef _WIN32
     char message[80];
 
-    if (GetDriveType(string) != DRIVE_CDROM)
+    if (GetDriveType(path) != DRIVE_CDROM)
     {
-        sprintf(message, "'%s' Is not a valid CD-ROM; path ignored.", string);
+        sprintf(message, "'%s' Is not a valid CD-ROM; path ignored.", path);
         MessageBox(NULL, message, "Invalid CD-ROM path", MB_OK | MB_APPLMODAL);
         return FALSE;
     }

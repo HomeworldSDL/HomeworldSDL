@@ -223,7 +223,13 @@ AC_CHECK_LIB([GL], [glBegin], [
             echo "* Using OpenGL ES for Homeworld (HW_ENABLE_GLES) *"
             HWGAME_CFLAGS="$HWGAME_CFLAGS -DHW_ENABLE_GLES"
             GL_LIBS="-lGLES_CM"
-    ], [
+    ],[
+	   AC_CHECK_LIB([opengl32], [main], [
+		echo "*Using OpenGL for Homeworld, -lopengl32 *"
+		GL_LIBS="-lopengl32"
+	   ],[
+		AC_MSG_ERROR([*** Found neither -lGL nor -lGLES_CM !])
+	   ])
     ])
 ])
 
@@ -241,7 +247,8 @@ dnl   HW_BUILD_FOR_DEBUGGING is set via "--enable-hwdebug";
 dnl   HW_BUILD_FOR_DISTRIBUTION is the default.
 dnl - $SDL_CFLAGS and $SDL_LIBS should be pretty much self-explanatory. =]
 dnl - We don't want to include $SDL_LIBS when building librgl.
-CFLAGS="$CFLAGS $HWGAME_CFLAGS $HWBIN_CFLAGS $SDL_CFLAGS $WIN32_FIXME"
+CFLAGS="$CFLAGS $SDL_LIBS $HWGAME_CFLAGS $HWBIN_CFLAGS $SDL_CFLAGS $WIN32_FIXME"
+LDFLAGS="$SDL_LIBS $LDFLAGS"
 
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile src/Makefile src/Game/Makefile src/Missions/Generated/Makefile src/ThirdParty/Makefile src/ThirdParty/CRC/Makefile src/ThirdParty/JPG/Makefile src/ThirdParty/LZSS/Makefile src/ThirdParty/Titan/Makefile src/SDL/Makefile src/Ships/Makefile src/obj/Makefile tools/Makefile tools/kas2c/Makefile])

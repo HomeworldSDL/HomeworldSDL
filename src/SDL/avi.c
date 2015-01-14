@@ -25,6 +25,10 @@
 #include "SoundEvent.h"
 
 //nova: this allows MSVC to compile this file
+#ifdef _WIN32
+ 	#define sleep(x) _sleep((x) * 1000)
+#endif
+
 #ifndef _MSC_VER
     #undef _WIN32
 #endif
@@ -366,7 +370,7 @@ int aviStart(char* filename)
     }
 
 #if AVI_VERBOSE_LEVEL >= 2
-dump_format(pFormatCtx, 0, filename, 0);
+av_dump_format(pFormatCtx, 0, filename, 0);
 #endif
 
     // Identify if there's a problem with the aligned variables.
@@ -376,7 +380,8 @@ dbgMessagef("sizeof  AVFormatContext = %d",sizeof(AVFormatContext));
 #endif
 
 #ifndef _X86_64 // Really, really, really must redo this. It's hideous. :(
-    if ((sizeof(AVFormatContext) == 3976 ) || (sizeof(AVFormatContext) == 3960 )){   //alligned variables 
+    if ((sizeof(AVFormatContext) == 3976 ) || (sizeof(AVFormatContext) == 3960 )
+			|| (sizeof(AVFormatContext) == 1336 ) ){   //alligned variables 
 	alignDoubleSet = 1;
     }
     else {                                   // 3964 should be un-aligned
