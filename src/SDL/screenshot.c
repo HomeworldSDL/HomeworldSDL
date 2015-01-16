@@ -20,7 +20,7 @@
 #include "interfce.h"
 #include "main.h"
 
-#ifdef _MSC_VER
+#ifdef _WIN32
 	#define sleep(x) _sleep((x) * 1000)
 #else
     #include <unistd.h>
@@ -152,7 +152,7 @@ void ssTakeScreenshot(void)
         _ssSaveScreenshot(screenshot_buffer);
 
 #ifdef _WIN32
-        result = VirtualFree(buf, 0, MEM_RELEASE);
+        result = VirtualFree(screenshot_buffer, 0, MEM_RELEASE);
         dbgAssertOrIgnore(result);
 #else
         result = munmap(screenshot_buffer, 3*MAIN_WindowWidth*MAIN_WindowHeight);

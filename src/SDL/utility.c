@@ -3656,12 +3656,13 @@ char* utyGameSystemsPreInit(void)
 #if !defined _MSC_VER && !defined __MINGW32__
         // Find the first CD-ROM drive containing the HW CD
         utyGetFirstCDPath(drivePath);
-#endif
+
         // If found, set the CD-ROM path
         if (strlen(drivePath) > 0)
         {
             fileCDROMPathSet(drivePath);
         }
+#endif
     }
 
 #if MAIN_CDCheck
