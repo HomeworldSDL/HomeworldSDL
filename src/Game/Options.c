@@ -373,10 +373,10 @@ fonthandle opKeyboardFont;
 
 extern void mgDrawArrow(regionhandle region, bool leftArrow, bool human);
 
-sdword opNoPalMaxMB = 32;
+sdword opNoPalMaxMB = 128;
 sdword opNoPalMinMB = 16;
 sdword opSaveNoPalMB;
-sdword opNoPalMB = 20;
+sdword opNoPalMB = 64;
 
 static regionhandle opNoPalDrawRegion = NULL;
 
