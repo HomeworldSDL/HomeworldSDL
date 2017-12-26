@@ -1258,7 +1258,7 @@ udword partRenderMeshSystem(udword n, particle *p, udword flags, trhandle tex, m
 
         mesh = p->mesh;
 // MeshMorphedObjectRender crash fixme part 1
-#ifdef _LINUX_FIX_ME
+#if !defined(__FreeBSD__) && defined(_LINUX_FIX_ME)
         if ((mesh != NULL) && (mesh != (meshdata*) 0x7fffffff))
 #else   
         if ((mesh != NULL) && (mesh != (meshdata*) 0xffffffff))
@@ -1912,7 +1912,7 @@ sdword partAdvanceMeshMorph(meshSystem* psys, particle* p)
     frame = (sdword)p->meshFrame + 1;
     next = animblock + frame;
 // MeshMorphedObjectRender crash fixme part 2
-#ifdef _LINUX_FIX_ME
+#if !defined(__FreeBSD__) && defined(_LINUX_FIX_ME)
     if (next->mesh == NULL || next->mesh == (meshdata*) 0x7fffffff)
 #else    
     if (next->mesh == NULL || next->mesh == (meshdata*) 0xffffffff)

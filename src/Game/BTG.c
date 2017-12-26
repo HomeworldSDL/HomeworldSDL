@@ -566,7 +566,7 @@ void btgLoad(char* filename)
 // This allows us to align variables. It replaces 
 //  memcpy(btgHead, btgData, headSize);
 
-    memset(btgHead,0,sizeof(btgHead));
+    memset(btgHead,0,sizeof(*btgHead));
 
     memcpy( (ubyte*)btgHead+offsetof(btgHeader,btgFileVersion), btgDataOffset, 4 );
     btgDataOffset += 4;

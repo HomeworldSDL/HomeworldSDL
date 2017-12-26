@@ -15,8 +15,8 @@
 
 #ifdef _MACOSX
     #include <malloc/malloc.h>
-#else
-    #include <malloc.h>
+#elif !defined(_WIN32)
+    #include <stdlib.h>
 #endif
 
 // filesystem directory traversal; symlink handling

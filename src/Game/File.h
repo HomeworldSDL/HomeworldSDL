@@ -10,6 +10,10 @@
 
 #include <stdio.h>
 
+#ifdef __FreeBSD__
+#include <sys/syslimits.h>
+#endif
+
 #include "BigFile.h"
 
 /*=============================================================================
