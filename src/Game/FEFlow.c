@@ -2718,7 +2718,8 @@ void feAcceleratorSet(regionhandle reg, featom *atom)
         keys[nKeys] = ALTKEY;
         nKeys++;
     }
-    if (atom->hotKey[strCurLanguage])
+	/* TODO: XXX what causes the key to be out of bounds sometimes? */
+    if (atom->hotKey[strCurLanguage]>0 && atom->hotKey[strCurLanguage]<=SDLK_LAST+8)
     {
         keys[nKeys] = atom->hotKey[strCurLanguage];
         nKeys++;
