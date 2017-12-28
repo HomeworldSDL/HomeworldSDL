@@ -1108,9 +1108,11 @@ void piePointSpecDraw(void)
                 {                                               //if mouse off bottom of line
                     mousePositionSet(mouseCursorX(), (sdword)(windowHeightMinusOne - pieScreen0.y));
                 }
+#ifndef _LINUX_FIX_ME
                 slope = (pieScreen0.x - pieScreen1.x) / (pieScreen1.y - pieScreen0.y);
                 b = pieScreen1.x - slope * (windowHeightMinusOne - pieScreen1.y);
                 mousePositionSet((sdword)(slope * mouseCursorY() + b), mouseCursorY());
+#endif
 
                 //mouse position was adjusted; recompute mouse location in world space
                 pieWorldLocationCompute(&world0, &world1, &eyeMagnitude);

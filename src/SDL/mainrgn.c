@@ -4105,7 +4105,8 @@ endReleaseButtonLogic:
                 //mouseCursorShow();                          //show mouse cursor
                 mouseCursorShow();
                 mrHoldRight = mrNULL;                       //idle mode
-                mouseClipToRect(&defaultRect);
+                //mouseClipToRect(&defaultRect);
+                mouseClipToRect(NULL);
 
                 if (!mrDisabled && mrMouseHasMoved <= MR_MouseMovementClickLimit)
                 {                                           //if it's moved a fair bit
