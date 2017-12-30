@@ -1622,6 +1622,7 @@ void regKeysSet(regionhandle region, sdword nKeys, ...)
 {
     sdword index;
     va_list argPointer;
+    char keyname[2] = {0,0};
 
     dbgAssertOrIgnore(nKeys <= REG_NumberKeys);                     //verify validity
     dbgAssertOrIgnore(region != NULL);
@@ -1631,7 +1632,18 @@ void regKeysSet(regionhandle region, sdword nKeys, ...)
     va_start(argPointer, nKeys);
     for (index = 0; index < nKeys; index++)
     {
-        region->key[index] = tolower(va_arg(argPointer, keyindex));
+        keyname[0] = tolower(va_arg(argPointer, keyindex));
+        switch(keyname[0])
+        {
+            case 27:
+                region->key[index] = ESCKEY;
+                break;
+            case ' ':
+                region->key[index] = SPACEKEY;
+                break;
+            default:
+                region->key[index] = SDL_GetScancodeFromName(keyname);
+        }
     }
     va_end(argPointer);
 }

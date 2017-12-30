@@ -260,7 +260,9 @@ real32  MasterEQ[SOUND_EQ_SIZE] = {1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0};
 
 extern bool nisIsRunning;
 
+#ifdef USING_SDL1
 SDL_CD* gCD = NULL;  /* CD device used for CD playback. */
+#endif
 
 real32 cardiod[CARDIOD_POINTS];
 
@@ -2780,6 +2782,7 @@ void SEloadbank(void)
 }
 
 
+#ifdef USING_SDL1
 /*-----------------------------------------------------------------------------
     Name        :
     Description :
@@ -2861,6 +2864,7 @@ void soundEventStopCD(void)
     SDL_CDClose(gCD);
     gCD = NULL;
 }
+#endif /* USING_SDL1 */
 
 
 void soundEventPlayMusic(sdword tracknum)

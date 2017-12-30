@@ -5,6 +5,7 @@ if [ ! -d stuff ]; then
     exit 1
 fi
 
+cp stuff/acinclude.m4 ../
 cp stuff/configure.ac ../
 cp stuff/Makefile.am ../
 cd ..

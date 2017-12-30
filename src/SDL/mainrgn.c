@@ -216,7 +216,7 @@ mrKeyFunction[] =
 #if MR_TEST_HPB
     {{OKEY,   0,      0,      0}, 1, RPE_KeyDown},
 #endif
-    {{PLUSMINUS,    0,      0,      0},     1,  RPE_KeyDown            },
+    //{{PLUSMINUS,    0,      0,      0},     1,  RPE_KeyDown            },
     {{NUMPLUSKEY,   0,      0,      0},     1,  RPE_KeyDown | RPE_KeyUp},
     {{PLUSKEY,      0,      0,      0},     1,  RPE_KeyDown | RPE_KeyUp},
     {{NUMMINUSKEY,  0,      0,      0},     1,  RPE_KeyDown | RPE_KeyUp},
@@ -1669,7 +1669,7 @@ void mrKeyPress(sdword ID)
         case SEVENKEY:
         case EIGHTKEY:
         case NINEKEY:
-            dbgAssertOrIgnore((ID - ZEROKEY) < COMMAND_MAX_SHIPS);
+            dbgAssertOrIgnore(NUMKEYNUM(ID) < COMMAND_MAX_SHIPS);
 #if NIS_PRINT_INFO
             if (keyIsHit(NKEY))
             {                                               //n-#: play an NIS or NISlet
@@ -1702,46 +1702,46 @@ void mrKeyPress(sdword ID)
 #if SP_NISLET_TEST
                 if (keyIsHit(ALTKEY) && singlePlayerGame)
                 {                                           //control-alt-#: attempt to test a NISlet
-                    spNISletTestAttempt(ID - ZEROKEY - 1);
+                    spNISletTestAttempt(NUMKEYNUM(ID) - 1);
                 }
 #endif
                 if (selSelected.numShips != 0)
                 {
                     bool bReinforced;
-//                    selHotKeyNumbersSet(&selHotKeyGroup[ID - ZEROKEY], (uword)SEL_InvalidHotKey);
+//                    selHotKeyNumbersSet(&selHotKeyGroup[ID - FIRSTNUMKEY], (uword)SEL_InvalidHotKey);
 
                     tutGameMessage("KB_GroupAssign");
 
-                    selHotKeyGroupRemoveReferences(ID - ZEROKEY);
-                    bReinforced = selSelectionIsReinforced((MaxAnySelection *)&selHotKeyGroup[ID - ZEROKEY],(MaxAnySelection *)&selSelected);
-                    selSelectionCopy((MaxAnySelection *)&selHotKeyGroup[ID - ZEROKEY],(MaxAnySelection *)&selSelected);
-                    selHotKeyNumbersSet(ID - ZEROKEY);
+                    selHotKeyGroupRemoveReferences(NUMKEYNUM(ID));
+                    bReinforced = selSelectionIsReinforced((MaxAnySelection *)&selHotKeyGroup[NUMKEYNUM(ID)],(MaxAnySelection *)&selSelected);
+                    selSelectionCopy((MaxAnySelection *)&selHotKeyGroup[NUMKEYNUM(ID)],(MaxAnySelection *)&selSelected);
+                    selHotKeyNumbersSet(NUMKEYNUM(ID));
 #if SEL_ERROR_CHECKING
                     selHotKeyGroupsVerify();
 #endif
 #if MR_VERBOSE_LEVEL >= 2
-                    dbgMessagef("Hot key group %d assigned.", ID - ZEROKEY);
+                    dbgMessagef("Hot key group %d assigned.", NUMKEYNUM(ID));
 #endif
                     soundEvent(NULL, UI_ClickAccept);
                     if (bReinforced)
                     {                                       //if this assignment was a reinforcement
-                        speechEventFleet(COMM_F_AssGrp_AddingShips, ID - ZEROKEY, universe.curPlayerIndex);
+                        speechEventFleet(COMM_F_AssGrp_AddingShips, NUMKEYNUM(ID), universe.curPlayerIndex);
                     }
                     else
                     {                                       //no reinforcment, straight assignment
-                        speechEventFleet(COMM_F_Group_Assigning, ID - ZEROKEY, universe.curPlayerIndex);
+                        speechEventFleet(COMM_F_Group_Assigning, NUMKEYNUM(ID), universe.curPlayerIndex);
                     }
                 }
             }
             else if (keyIsHit(ALTKEY))
             {                                               //alt-# select and focus on a hot key group
 altCase:
-                if (selHotKeyGroup[ID - ZEROKEY].numShips != 0)
+                if (selHotKeyGroup[NUMKEYNUM(ID)].numShips != 0)
                 {
                     tutGameMessage("KB_GroupFocus");
 
-                    selSelectHotKeyGroup(&selHotKeyGroup[ID - ZEROKEY]);
-                    selHotKeyNumbersSet(ID - ZEROKEY);
+                    selSelectHotKeyGroup(&selHotKeyGroup[NUMKEYNUM(ID)]);
+                    selHotKeyNumbersSet(NUMKEYNUM(ID));
                     ioUpdateShipTotals();
 #if SEL_ERROR_CHECKING
                     selHotKeyGroupsVerify();
@@ -1750,39 +1750,39 @@ altCase:
                     {
                         ccFocus(&(universe.mainCameraCommand),(FocusCommand *)&selSelected);
 #if MR_VERBOSE_LEVEL >= 2
-                        dbgMessagef("Hot key group %d selected and focused upon.", ID - ZEROKEY);
+                        dbgMessagef("Hot key group %d selected and focused upon.", NUMKEYNUM(ID));
 #endif
                         soundEvent(NULL, UI_Click);
-                        speechEvent(selHotKeyGroup[ID - ZEROKEY].ShipPtr[0], COMM_AssGrp_Select, ID - ZEROKEY);
+                        speechEvent(selHotKeyGroup[NUMKEYNUM(ID)].ShipPtr[0], COMM_AssGrp_Select, NUMKEYNUM(ID));
                     }
                }
             }
             else if (keyIsHit(SHIFTKEY))
             {                                               //shift-# add hot key group to current selection
                 sdword index;
-                if(tutorial && selHotKeyGroup[ID - ZEROKEY].numShips != 0)
+                if(tutorial && selHotKeyGroup[NUMKEYNUM(ID)].numShips != 0)
                     tutGameMessage("KB_GroupAddSelect");
 
-                for (index = selHotKeyGroup[ID - ZEROKEY].numShips - 1; index >= 0; index--)
+                for (index = selHotKeyGroup[NUMKEYNUM(ID)].numShips - 1; index >= 0; index--)
                 {                                           //for all ships in hot key group
-                    if( selHotKeyGroup[ID - ZEROKEY].ShipPtr[index]->collMyBlob != NULL &&
-                        selHotKeyGroup[ID - ZEROKEY].ShipPtr[index]->flags & SOF_Selectable )
+                    if( selHotKeyGroup[NUMKEYNUM(ID)].ShipPtr[index]->collMyBlob != NULL &&
+                        selHotKeyGroup[NUMKEYNUM(ID)].ShipPtr[index]->flags & SOF_Selectable )
                     {
-                        selSelectionAddSingleShip(&selSelected, selHotKeyGroup[ID - ZEROKEY].ShipPtr[index]);
+                        selSelectionAddSingleShip(&selSelected, selHotKeyGroup[NUMKEYNUM(ID)].ShipPtr[index]);
                     }
                 }
-                selHotKeyNumbersSet(ID - ZEROKEY);
+                selHotKeyNumbersSet(NUMKEYNUM(ID));
 #if SEL_ERROR_CHECKING
                 selHotKeyGroupsVerify();
 #endif
 #if MR_VERBOSE_LEVEL >= 2
-                dbgMessagef("Hot key group %d added to selection.", ID - ZEROKEY);
+                dbgMessagef("Hot key group %d added to selection.", NUMKEYNUM(ID));
 #endif
                 ioUpdateShipTotals();
-                if (selHotKeyGroup[ID - ZEROKEY].numShips > 0)
+                if (selHotKeyGroup[NUMKEYNUM(ID)].numShips > 0)
                 {
                     soundEvent(NULL, UI_Click);
-                    speechEvent(selHotKeyGroup[ID - ZEROKEY].ShipPtr[0], COMM_AssGrp_Select, ID - ZEROKEY);
+                    speechEvent(selHotKeyGroup[NUMKEYNUM(ID)].ShipPtr[0], COMM_AssGrp_Select, NUMKEYNUM(ID));
                 }
             }
             else if (ID == mrLastKeyPressed && universe.totaltimeelapsed <= mrLastKeyTime + mrNumberDoublePressTime)
@@ -1792,12 +1792,12 @@ altCase:
             }
             else
             {                                               //plain# select a hot key group
-                if (selHotKeyGroup[ID - ZEROKEY].numShips != 0)
+                if (selHotKeyGroup[NUMKEYNUM(ID)].numShips != 0)
                 {
                     tutGameMessage("KB_GroupSelect");
 
-                    selSelectHotKeyGroup(&selHotKeyGroup[ID - ZEROKEY]);
-                    selHotKeyNumbersSet(ID - ZEROKEY);
+                    selSelectHotKeyGroup(&selHotKeyGroup[NUMKEYNUM(ID)]);
+                    selHotKeyNumbersSet(NUMKEYNUM(ID));
 #if SEL_ERROR_CHECKING
                     selHotKeyGroupsVerify();
 #endif
@@ -1805,7 +1805,7 @@ altCase:
                     if (selSelected.numShips > 0)
                     {
                         soundEvent(NULL, UI_Click);
-                        speechEvent(selHotKeyGroup[ID - ZEROKEY].ShipPtr[0], COMM_AssGrp_Select, ID - ZEROKEY);
+                        speechEvent(selHotKeyGroup[NUMKEYNUM(ID)].ShipPtr[0], COMM_AssGrp_Select, NUMKEYNUM(ID));
                     }
                 }
             }

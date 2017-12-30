@@ -185,7 +185,7 @@ uicKeyTable uicKeyEntryTable[KEY_TOTAL_KEYS] =
     /*              41 */    { ')' , ')' },
     /*              42 */    { '*' , '*' },
     /*              43 */    { '+' , '+' },
-    /*              44 */    { ',' , '"' },
+    /*              44 */    { ',' , '<' },
     /*              45 */    { '-' , '_' },
     /*              46 */    { '.' , '>' },
     /*              47 */    { '/' , '?' },
@@ -3648,6 +3648,7 @@ udword uicTextEntryProcess(regionhandle reg, smemsize ID, udword event, udword d
     regionhandle tabRegion;
     udword mask = 0;
     bool bShift = bitTest(data, RF_ShiftBit);
+    int keyname;
 
     bitClear(data, RF_ShiftBit);
 
@@ -3667,7 +3668,7 @@ udword uicTextEntryProcess(regionhandle reg, smemsize ID, udword event, udword d
                     feFunctionExecute(atom->name, atom, FALSE);
                     uicEscProcess(reg,ID,event,data);
                     break;
-		case RETURNKEY:
+                case RETURNKEY:
                 case ENTERKEY:
                     entry->message = CM_AcceptText;
                     feFunctionExecute(atom->name, atom, FALSE);
@@ -3724,43 +3725,44 @@ udword uicTextEntryProcess(regionhandle reg, smemsize ID, udword event, udword d
                     }
                     break;
                 default:
+                    keyname = (int)(SDL_GetKeyName(SDL_GetKeyFromScancode(data))[0]);
                     switch (strCurKeyboardLanguage)
                     {
                         case languageEnglish:
                             if (bitTest(entry->textflags,UICTE_NumberEntry))
                             {
-                                if ( (data>= ZEROKEY) && (data<=NINEKEY) )
+                                if ( (data >= FIRSTNUMKEY) && (data <= FIRSTNUMKEY+10) )
                                 {
-                                    uicInsertCharacter(entry, uicKeyEntryTable[data].regularKey);
+                                    uicInsertCharacter(entry, uicKeyEntryTable[keyname].regularKey);
                                 }
-                                if ( (data>=NUMPAD0) && (data<=NUMPAD9) )
+                                if ( (data >= FIRSTNUMPADKEY) && (data <= FIRSTNUMPADKEY+10) )
                                 {
-                                    uicInsertCharacter(entry, uicKeyEntryTable[data].regularKey);
+                                    uicInsertCharacter(entry, uicKeyEntryTable[keyname].regularKey);
                                 }
                             }
                             else
                             {
                                 if (bShift)
                                 {
-                                    if (uicKeyEntryTable[data].shiftKey)
+                                    if (uicKeyEntryTable[keyname].shiftKey)
                                     {
                                         if ( (bitTest(entry->textflags, UICTE_UserNameEntry)) &&
                                              (data != SPACEKEY) )
                                         {
-                                            uicInsertCharacter(entry, uicKeyEntryTable[data].shiftKey);
+                                            uicInsertCharacter(entry, uicKeyEntryTable[keyname].shiftKey);
                                         }
                                         else
-                                            uicInsertCharacter(entry, uicKeyEntryTable[data].shiftKey);
+                                            uicInsertCharacter(entry, uicKeyEntryTable[keyname].shiftKey);
                                     }
                                 }
-                                else if (uicKeyEntryTable[data].regularKey)
+                                else if (uicKeyEntryTable[keyname].regularKey)
                                 {
                                     if (bitTest(entry->textflags, UICTE_UserNameEntry))
                                     {
-                                        if (data != SPACEKEY) uicInsertCharacter(entry, uicKeyEntryTable[data].regularKey);
+                                        if (data != SPACEKEY) uicInsertCharacter(entry, uicKeyEntryTable[keyname].regularKey);
                                     }
                                     else
-                                        uicInsertCharacter(entry, uicKeyEntryTable[data].regularKey);
+                                        uicInsertCharacter(entry, uicKeyEntryTable[keyname].regularKey);
                                 }
                             }
 
@@ -3776,38 +3778,38 @@ udword uicTextEntryProcess(regionhandle reg, smemsize ID, udword event, udword d
                         case languageFrench:
                             if (bitTest(entry->textflags,UICTE_NumberEntry))
                             {
-                                if ( (data>= ZEROKEY) && (data<=NINEKEY) )
+                                if ( (data >= FIRSTNUMKEY) && (data <= FIRSTNUMKEY+10) )
                                 {
-                                    uicInsertCharacter(entry, uicFrenchKeyEntryTable[data].regularKey);
+                                    uicInsertCharacter(entry, uicFrenchKeyEntryTable[keyname].regularKey);
                                 }
-                                if ( (data>=NUMPAD0) && (data<=NUMPAD9) )
+                                if ( (data >= FIRSTNUMPADKEY) && (data <= FIRSTNUMPADKEY+10) )
                                 {
-                                    uicInsertCharacter(entry, uicFrenchKeyEntryTable[data].regularKey);
+                                    uicInsertCharacter(entry, uicFrenchKeyEntryTable[keyname].regularKey);
                                 }
                             }
                             else
                             {
                                 if (bShift)
                                 {
-                                    if (uicFrenchKeyEntryTable[data].shiftKey)
+                                    if (uicFrenchKeyEntryTable[keyname].shiftKey)
                                     {
                                         if ( (bitTest(entry->textflags, UICTE_UserNameEntry)) &&
                                              (data != SPACEKEY) )
                                         {
-                                            uicInsertCharacter(entry, uicFrenchKeyEntryTable[data].shiftKey);
+                                            uicInsertCharacter(entry, uicFrenchKeyEntryTable[keyname].shiftKey);
                                         }
                                         else
-                                            uicInsertCharacter(entry, uicFrenchKeyEntryTable[data].shiftKey);
+                                            uicInsertCharacter(entry, uicFrenchKeyEntryTable[keyname].shiftKey);
                                     }
                                 }
-                                else if (uicFrenchKeyEntryTable[data].regularKey)
+                                else if (uicFrenchKeyEntryTable[keyname].regularKey)
                                 {
                                     if (bitTest(entry->textflags, UICTE_UserNameEntry))
                                     {
-                                        if (data != SPACEKEY) uicInsertCharacter(entry, uicFrenchKeyEntryTable[data].regularKey);
+                                        if (data != SPACEKEY) uicInsertCharacter(entry, uicFrenchKeyEntryTable[keyname].regularKey);
                                     }
                                     else
-                                        uicInsertCharacter(entry, uicFrenchKeyEntryTable[data].regularKey);
+                                        uicInsertCharacter(entry, uicFrenchKeyEntryTable[keyname].regularKey);
                                 }
                             }
 
@@ -3823,38 +3825,38 @@ udword uicTextEntryProcess(regionhandle reg, smemsize ID, udword event, udword d
                         case languageGerman:
                             if (bitTest(entry->textflags,UICTE_NumberEntry))
                             {
-                                if ( (data>= ZEROKEY) && (data<=NINEKEY) )
+                                if ( (data >= FIRSTNUMKEY) && (data <= FIRSTNUMKEY+10) )
                                 {
-                                    uicInsertCharacter(entry, uicGermanKeyEntryTable[data].regularKey);
+                                    uicInsertCharacter(entry, uicGermanKeyEntryTable[keyname].regularKey);
                                 }
-                                if ( (data>=NUMPAD0) && (data<=NUMPAD9) )
+                                if ( (data >= FIRSTNUMPADKEY) && (data <= FIRSTNUMPADKEY+10) )
                                 {
-                                    uicInsertCharacter(entry, uicGermanKeyEntryTable[data].regularKey);
+                                    uicInsertCharacter(entry, uicGermanKeyEntryTable[keyname].regularKey);
                                 }
                             }
                             else
                             {
                                 if (bShift)
                                 {
-                                    if (uicGermanKeyEntryTable[data].shiftKey)
+                                    if (uicGermanKeyEntryTable[keyname].shiftKey)
                                     {
                                         if ( (bitTest(entry->textflags, UICTE_UserNameEntry)) &&
                                              (data != SPACEKEY) )
                                         {
-                                            uicInsertCharacter(entry, uicGermanKeyEntryTable[data].shiftKey);
+                                            uicInsertCharacter(entry, uicGermanKeyEntryTable[keyname].shiftKey);
                                         }
                                         else
-                                            uicInsertCharacter(entry, uicGermanKeyEntryTable[data].shiftKey);
+                                            uicInsertCharacter(entry, uicGermanKeyEntryTable[keyname].shiftKey);
                                     }
                                 }
-                                else if (uicGermanKeyEntryTable[data].regularKey)
+                                else if (uicGermanKeyEntryTable[keyname].regularKey)
                                 {
                                     if (bitTest(entry->textflags, UICTE_UserNameEntry))
                                     {
-                                        if (data != SPACEKEY) uicInsertCharacter(entry, uicGermanKeyEntryTable[data].regularKey);
+                                        if (data != SPACEKEY) uicInsertCharacter(entry, uicGermanKeyEntryTable[keyname].regularKey);
                                     }
                                     else
-                                        uicInsertCharacter(entry, uicGermanKeyEntryTable[data].regularKey);
+                                        uicInsertCharacter(entry, uicGermanKeyEntryTable[keyname].regularKey);
                                 }
                             }
 
@@ -3870,38 +3872,38 @@ udword uicTextEntryProcess(regionhandle reg, smemsize ID, udword event, udword d
                         case languageSpanish:
                             if (bitTest(entry->textflags,UICTE_NumberEntry))
                             {
-                                if ( (data>= ZEROKEY) && (data<=NINEKEY) )
+                                if ( (data >= FIRSTNUMKEY) && (data <= FIRSTNUMKEY+10) )
                                 {
-                                    uicInsertCharacter(entry, uicSpanishKeyEntryTable[data].regularKey);
+                                    uicInsertCharacter(entry, uicSpanishKeyEntryTable[keyname].regularKey);
                                 }
-                                if ( (data>=NUMPAD0) && (data<=NUMPAD9) )
+                                if ( (data >= FIRSTNUMPADKEY) && (data <= FIRSTNUMPADKEY+10) )
                                 {
-                                    uicInsertCharacter(entry, uicSpanishKeyEntryTable[data].regularKey);
+                                    uicInsertCharacter(entry, uicSpanishKeyEntryTable[keyname].regularKey);
                                 }
                             }
                             else
                             {
                                 if (bShift)
                                 {
-                                    if (uicSpanishKeyEntryTable[data].shiftKey)
+                                    if (uicSpanishKeyEntryTable[keyname].shiftKey)
                                     {
                                         if ( (bitTest(entry->textflags, UICTE_UserNameEntry)) &&
                                              (data != SPACEKEY) )
                                         {
-                                            uicInsertCharacter(entry, uicSpanishKeyEntryTable[data].shiftKey);
+                                            uicInsertCharacter(entry, uicSpanishKeyEntryTable[keyname].shiftKey);
                                         }
                                         else
-                                            uicInsertCharacter(entry, uicSpanishKeyEntryTable[data].shiftKey);
+                                            uicInsertCharacter(entry, uicSpanishKeyEntryTable[keyname].shiftKey);
                                     }
                                 }
-                                else if (uicSpanishKeyEntryTable[data].regularKey)
+                                else if (uicSpanishKeyEntryTable[keyname].regularKey)
                                 {
                                     if (bitTest(entry->textflags, UICTE_UserNameEntry))
                                     {
-                                        if (data != SPACEKEY) uicInsertCharacter(entry, uicSpanishKeyEntryTable[data].regularKey);
+                                        if (data != SPACEKEY) uicInsertCharacter(entry, uicSpanishKeyEntryTable[keyname].regularKey);
                                     }
                                     else
-                                        uicInsertCharacter(entry, uicSpanishKeyEntryTable[data].regularKey);
+                                        uicInsertCharacter(entry, uicSpanishKeyEntryTable[keyname].regularKey);
                                 }
                             }
 
@@ -3917,38 +3919,38 @@ udword uicTextEntryProcess(regionhandle reg, smemsize ID, udword event, udword d
                         case languageItalian:
                             if (bitTest(entry->textflags,UICTE_NumberEntry))
                             {
-                                if ( (data>= ZEROKEY) && (data<=NINEKEY) )
+                                if ( (data >= FIRSTNUMKEY) && (data <= FIRSTNUMKEY+10) )
                                 {
-                                    uicInsertCharacter(entry, uicItalianKeyEntryTable[data].regularKey);
+                                    uicInsertCharacter(entry, uicItalianKeyEntryTable[keyname].regularKey);
                                 }
-                                if ( (data>=NUMPAD0) && (data<=NUMPAD9) )
+                                if ( (data >= FIRSTNUMPADKEY) && (data <= FIRSTNUMPADKEY+10) )
                                 {
-                                    uicInsertCharacter(entry, uicItalianKeyEntryTable[data].regularKey);
+                                    uicInsertCharacter(entry, uicItalianKeyEntryTable[keyname].regularKey);
                                 }
                             }
                             else
                             {
                                 if (bShift)
                                 {
-                                    if (uicItalianKeyEntryTable[data].shiftKey)
+                                    if (uicItalianKeyEntryTable[keyname].shiftKey)
                                     {
                                         if ( (bitTest(entry->textflags, UICTE_UserNameEntry)) &&
                                              (data != SPACEKEY) )
                                         {
-                                            uicInsertCharacter(entry, uicItalianKeyEntryTable[data].shiftKey);
+                                            uicInsertCharacter(entry, uicItalianKeyEntryTable[keyname].shiftKey);
                                         }
                                         else
-                                            uicInsertCharacter(entry, uicItalianKeyEntryTable[data].shiftKey);
+                                            uicInsertCharacter(entry, uicItalianKeyEntryTable[keyname].shiftKey);
                                     }
                                 }
-                                else if (uicItalianKeyEntryTable[data].regularKey)
+                                else if (uicItalianKeyEntryTable[keyname].regularKey)
                                 {
                                     if (bitTest(entry->textflags, UICTE_UserNameEntry))
                                     {
-                                        if (data != SPACEKEY) uicInsertCharacter(entry, uicItalianKeyEntryTable[data].regularKey);
+                                        if (data != SPACEKEY) uicInsertCharacter(entry, uicItalianKeyEntryTable[keyname].regularKey);
                                     }
                                     else
-                                        uicInsertCharacter(entry, uicItalianKeyEntryTable[data].regularKey);
+                                        uicInsertCharacter(entry, uicItalianKeyEntryTable[keyname].regularKey);
                                 }
                             }
 

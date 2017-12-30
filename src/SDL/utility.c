@@ -107,6 +107,7 @@
 #endif
 
 #include "main.h"
+#include "avi.h"
 
 #ifdef _WIN32_FIX_ME
  #pragma warning( 2 : 4142 )
@@ -149,6 +150,7 @@
 
 #define UTY_CONFIG_FILENAME  "Homeworld.cfg"
 
+extern SDL_Window *sdlwindow;
 extern int MAIN_WindowWidth, MAIN_WindowHeight, MAIN_WindowDepth;
 
 extern udword gDevcaps, gDevcaps2;
@@ -3917,6 +3919,7 @@ char *utyGameSystemsInit(void)
         }
     }
     
+#if 0
     // Joystick used for controlling the 3D camera view. It can be any old
     // joystick but this is primarily intended to support devices used for
     // 3D CAD applications which have more degrees of freedom (6) than typical
@@ -3944,6 +3947,7 @@ char *utyGameSystemsInit(void)
             }
         }
     }
+#endif
     
     utyTimerDivisor = 1000 / UTY_TimerResolutionMax;
     utySet(SSA_Timer);
@@ -4747,6 +4751,7 @@ void utyTaskTimerClear(void)
                     rect gets the new rectangle.
     Return      :
 ----------------------------------------------------------------------------*/
+#if 0
 void utyClientRectGet(rectangle *rect)
 {
 #if 0
@@ -4785,6 +4790,7 @@ void utyClientRectGet(rectangle *rect)
         rect->y1 = 0;
     }
 }
+#endif
 
 /*-----------------------------------------------------------------------------
     Name        : utyForceTopmost
@@ -4931,10 +4937,10 @@ static sdword utyNumLockState;
 static sdword utyScrollLockState;
 void utyToggleKeyStatesSave(void)
 {
-    Uint8* state = SDL_GetKeyState(0);
-    utyCapsLockState = state[SDLK_CAPSLOCK] & 1;
-    utyNumLockState = state[SDLK_NUMLOCK] & 1;
-    utyScrollLockState = state[SDLK_SCROLLOCK] & 1;
+    const Uint8* state = SDL_GetKeyboardState(NULL);
+    utyCapsLockState = state[SDL_SCANCODE_CAPSLOCK] & 1;
+    utyNumLockState = state[SDL_SCANCODE_NUMLOCKCLEAR] & 1;
+    utyScrollLockState = state[SDL_SCANCODE_SCROLLLOCK] & 1;
 }
 
 /*-----------------------------------------------------------------------------
@@ -4948,11 +4954,12 @@ void utyToggleKeyStatesSave(void)
 ----------------------------------------------------------------------------*/
 void utyToggleKeyStatesRestore(void)
 {
-    Uint8* state;
+    SDL_Keymod target = 0;
+    const Uint8* state = SDL_GetKeyboardState(NULL);
 #if !defined(_WIN32) && !defined(_MACOSX)
     SDL_SysWMinfo info;
     SDL_VERSION(&info.version);
-    SDL_GetWMInfo(&info);
+    SDL_GetWindowWMInfo(sdlwindow,&info);
     XEvent xe;
     xe.xkey.display = info.info.x11.display;
     xe.xkey.window = info.info.x11.window;
@@ -4967,8 +4974,7 @@ void utyToggleKeyStatesRestore(void)
     xe.xkey.state = 0;
     xe.xkey.same_screen = TRUE;
 #endif
-    state = SDL_GetKeyState(0);
-    if((utyCapsLockState && !(state[SDLK_NUMLOCK] & 1)) || (!utyCapsLockState && (state[SDLK_CAPSLOCK] & 1)) )
+    if((utyCapsLockState && !(state[SDL_SCANCODE_NUMLOCKCLEAR] & 1)) || (!utyCapsLockState && (state[SDL_SCANCODE_CAPSLOCK] & 1)) )
     {
 #ifdef _WIN32
         // Simulate a key press
@@ -4989,8 +4995,9 @@ void utyToggleKeyStatesRestore(void)
         XSendEvent(info.info.x11.display, info.info.x11.window, TRUE,
             KeyPressMask, &xe);
 #endif
+        target |= KMOD_CAPS;
     }
-    if((utyScrollLockState && !(state[SDLK_NUMLOCK] & 1)) || (!utyScrollLockState && (state[SDLK_SCROLLOCK] & 1)) )
+    if((utyScrollLockState && !(state[SDL_SCANCODE_NUMLOCKCLEAR] & 1)) || (!utyScrollLockState && (state[SDL_SCANCODE_SCROLLLOCK] & 1)) )
     {
 #ifdef _WIN32
         // Simulate a key press
@@ -5012,7 +5019,7 @@ void utyToggleKeyStatesRestore(void)
             KeyPressMask, &xe);
 #endif
     }
-    if((utyNumLockState && !(state[SDLK_NUMLOCK] & 1)) || (!utyNumLockState && (state[SDLK_NUMLOCK] & 1)) )
+    if((utyNumLockState && !(state[SDL_SCANCODE_NUMLOCKCLEAR] & 1)) || (!utyNumLockState && (state[SDL_SCANCODE_NUMLOCKCLEAR] & 1)) )
     {
 #ifdef _WIN32
         // Simulate a key press
@@ -5033,14 +5040,16 @@ void utyToggleKeyStatesRestore(void)
         XSendEvent(info.info.x11.display, info.info.x11.window, TRUE,
             KeyPressMask, &xe);
 #endif
+        target |= KMOD_NUM;
     }
     /* Modifying internal keystate array.  Original HW source code did this
        using the Windows API SetKeyboardState() function, so hopefully we get
        the same result here ("state" already points to the internal array used
        by SDL). */
-    state[SDLK_CAPSLOCK]  = (state[SDLK_CAPSLOCK]  & 0xfe) | (utyCapsLockState);
-    state[SDLK_NUMLOCK]   = (state[SDLK_NUMLOCK]   & 0xfe) | (utyNumLockState);
-    state[SDLK_SCROLLOCK] = (state[SDLK_SCROLLOCK] & 0xfe) | (utyScrollLockState);
+    //state[SDL_SCANCODE_CAPSLOCK]  = (state[SDL_SCANCODE_CAPSLOCK]  & 0xfe) | (utyCapsLockState);
+    //state[SDL_SCANCODE_NUMLOCKCLEAR]   = (state[SDL_SCANCODE_NUMLOCKCLEAR]   & 0xfe) | (utyNumLockState);
+    //state[SDL_SCANCODE_SCROLLLOCK] = (state[SDL_SCANCODE_SCROLLLOCK] & 0xfe) | (utyScrollLockState);
+    SDL_SetModState(target);
 }
 
 /*-----------------------------------------------------------------------------
@@ -5052,8 +5061,7 @@ void utyToggleKeyStatesRestore(void)
 ----------------------------------------------------------------------------*/
 bool utyCapsLockToggleState(void)
 {
-    Uint8* state = SDL_GetKeyState(0);
-    return(state[SDLK_CAPSLOCK] & 1);
+    return SDL_GetModState() & KMOD_CAPS;
 }
 
 void utyStartDroppedDialog(sdword playernum)

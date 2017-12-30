@@ -85,7 +85,7 @@ sdword streamStartThread(void)
 {
 	streamer.status = SOUND_PLAYING;
 
-	SDL_CreateThread(isoundstreamupdate, NULL);
+	SDL_CreateThread(isoundstreamupdate, "soundstream", NULL);
 			
 	return (SOUND_OK);
 }

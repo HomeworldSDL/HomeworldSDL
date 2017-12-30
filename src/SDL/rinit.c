@@ -168,8 +168,8 @@ static bool rinModeAccepted(rdevice* dev, int width, int height, int depth)
 {
     int index;
 
-    //accept 16 & 32 bit mode only
-    if (depth != 16 && depth != 32)
+    //accept 16, 24, or 32 bit mode only
+    if (depth != 16 && depth != 24 && depth != 32)
     {
         return FALSE;
     }
@@ -213,7 +213,7 @@ static bool rinModeAccepted(rdevice* dev, int width, int height, int depth)
 /*-----------------------------------------------------------------------------
     Name        : rinSortModes
     Description : sorts a device's display modes the way I like them
-                  (one bitdepth at a time)
+                  (one bitdepth at a time), and remove duplicates
     Inputs      : dev - the device whose modes are to be sorted
     Outputs     :
     Return      :
@@ -223,7 +223,7 @@ void rinSortModes(rdevice* dev)
     rmode* cmode;
     rmode* freeMode;
     rdevice dummy;
-    int depths[] = { 32, 16, 0 };
+    int depths[] = { 32, 24, 16, 0 };
     int depth;
 
     if (dev->modes == NULL)
@@ -240,7 +240,9 @@ void rinSortModes(rdevice* dev)
         {
             if (cmode->depth == depths[depth])
             {
-                if (rinModeAccepted(dev, cmode->width, cmode->height, cmode->depth))
+                if (rinModeAccepted(dev, cmode->width, cmode->height, cmode->depth) &&
+                    (cmode->next==NULL || cmode->next->width!=cmode->width ||
+                     cmode->next->height!=cmode->height || cmode->next->depth!=cmode->depth))
                 {
                     rinAddMode(&dummy, cmode->width, cmode->height, cmode->depth);
                 }
@@ -443,12 +445,11 @@ int rinMaxWidth(void)
 ----------------------------------------------------------------------------*/
 bool rinEnumeratePrimary(rdevice* dev)
 {
-	SDL_PixelFormat fmt;
-	SDL_Rect** modes;
+	SDL_DisplayMode mode;
     Uint32 flags;
-	int depths[] = { 32, 16, 0 };
 	int max_width;
 	int i, j;
+	const int display_index = 0;
 
 	if (!dev)
 		return FALSE;
@@ -468,36 +469,16 @@ bool rinEnumeratePrimary(rdevice* dev)
 			return FALSE;
 	}
 
-	/* Test for supported pixel depths */
-	for (j = 0; depths[j] != 0; j++)
-	{
-		fmt.BitsPerPixel = depths[j];
-		modes = SDL_ListModes(&fmt, SDL_FULLSCREEN | SDL_HWSURFACE);
-		if (modes)
-		{
-			if (modes == (SDL_Rect**)-1)
-			{
-				/* Add basic modes (shouldn't really happen). */
-				rinAddMode(dev,  640, 480, depths[j]);
-				rinAddMode(dev,  800, 600, depths[j]);
-				rinAddMode(dev, 1024, 768, depths[j]);
-				if (max_width >= 1280)
-					rinAddMode(dev, 1280, 1024, depths[j]);
-				if (max_width >= 1600)
-					rinAddMode(dev, 1600, 1200, depths[j]);
-			}
-			else
-			{
-				for (i = 0; modes[i]; i++)
-				{
-					if (modes[i]->w >= 640 && modes[i]->h >= 480)
-                    {
-                        rinAddMode(dev, modes[i]->w, modes[i]->h, depths[j]);
-                    }
-				}
-			}
+	for(i=SDL_GetNumDisplayModes(display_index); i>0; i--){
+		if(SDL_GetDisplayMode(display_index, i-1, &mode)){
+			dbgMessagef("Error in SDL_GetDisplayMode(): %d %s",i-1,SDL_GetError());
+			return FALSE;
 		}
-    }
+		if (mode.w >= 640 && mode.h >= 480)
+		{
+			rinAddMode(dev, mode.w, mode.h, SDL_BITSPERPIXEL(mode.format));
+		}
+	}
 	
 	return (dev->modes != 0);
 }

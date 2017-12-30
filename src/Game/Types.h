@@ -47,7 +47,7 @@
 /*-------------------------------------------------------------------------
    Declare basic integer data types
 --------------------------------------------------------------------------*/
-#ifndef SDL_HAS_64BIT_TYPE
+#if defined(USING_SDL1) && !defined(SDL_HAS_64BIT_TYPE)
 #error 64-bit integer type not supported on this platform.
 #endif
 

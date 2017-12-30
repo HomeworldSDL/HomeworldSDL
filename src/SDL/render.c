@@ -139,6 +139,8 @@ renderfunction rndMainViewRender = rndMainViewRenderFunction;
 static sdword rndHint = 0;
 #endif
 
+SDL_Window *sdlwindow=NULL;
+SDL_GLContext glcontext;
 #ifdef HW_ENABLE_GLES
 static EGLDisplay *egl_display = EGL_NO_DISPLAY;
 static EGLSurface egl_surface = EGL_NO_SURFACE;
@@ -154,7 +156,7 @@ PFNGLBUFFERSUBDATAPROC glBufferSubData = 0;
 
 PFNGLDRAWTEXIOESPROC glDrawTexiOES = 0;
 
-static char *gl_extensions = 0;
+static const char *gl_extensions = 0;
 
 static bool useVBO = FALSE;
 static GLuint vboStars;
@@ -891,11 +893,9 @@ bool setupPixelFormat()
 	}
 
     /* Create OpenGL window. */
-    flags = SDL_SWSURFACE;
+    flags = SDL_WINDOW_OPENGL;
     
 #ifndef HW_ENABLE_GLES
-    flags |= SDL_OPENGL;
-
     /* Set attributes. */
     SDL_GL_SetAttribute(SDL_GL_BUFFER_SIZE,  MAIN_WindowDepth);
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE,   16);
@@ -903,12 +903,20 @@ bool setupPixelFormat()
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 #endif
 
-    if (/* main */ fullScreen) flags |= SDL_FULLSCREEN;
-	if (!SDL_SetVideoMode(MAIN_WindowWidth, MAIN_WindowHeight,
-		MAIN_WindowDepth, flags))
-		return FALSE;
+    if (/* main */ fullScreen)
+        flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 
 #ifdef HW_ENABLE_GLES
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
+    if (!(sdlwindow=SDL_CreateWindow("HomeworldSDL", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+        MAIN_WindowWidth, MAIN_WindowHeight, flags)))
+        return FALSE;
+
+    if(!(glcontext = SDL_GL_CreateContext(sdlwindow)))
+        return FALSE;
+
     SDL_VERSION(&info.version);
     if (SDL_GetWMInfo(&info) != 1) {
         fprintf(stderr, "EGL cannot use this SDL version\n");
@@ -961,25 +969,32 @@ bool setupPixelFormat()
 	    SDL_GL_SetAttribute( SDL_GL_MULTISAMPLESAMPLES, FSAA );
 	}
 
-	if (SDL_SetVideoMode (MAIN_WindowWidth, MAIN_WindowHeight, MAIN_WindowDepth, flags) == NULL)
+	if (!(sdlwindow=SDL_CreateWindow("HomeworldSDL", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+		MAIN_WindowWidth, MAIN_WindowHeight, flags)))
 	{
 	    fprintf (stderr, "Couldn't set FSAA video mode: %s\n", SDL_GetError ());
 	    SDL_GL_SetAttribute( SDL_GL_MULTISAMPLEBUFFERS, 0 );
 	    SDL_GL_SetAttribute( SDL_GL_MULTISAMPLESAMPLES, 0 );
 
-	    if (SDL_SetVideoMode (MAIN_WindowWidth, MAIN_WindowHeight, MAIN_WindowDepth, flags) == NULL)
+		if (!(sdlwindow=SDL_CreateWindow("HomeworldSDL", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+			MAIN_WindowWidth, MAIN_WindowHeight, flags)))
 	    {
 		fprintf (stderr, "Couldn't set video mode: %s\n", SDL_GetError ());
 		//exit (1);
                 return FALSE;
 	    }
 	}
+
+    if(!(glcontext = SDL_GL_CreateContext(sdlwindow)))
+        return FALSE;
 #endif
+
+    SDL_GL_MakeCurrent(sdlwindow, glcontext);
 
 	SDL_ShowCursor(SDL_DISABLE);
 
 #ifdef _MACOSX_FIX_GL
-	if (!((flags & SDL_FULLSCREEN)))
+	if (!((flags & SDL_WINDOW_FULLSCREEN_DESKTOP)))
     {
 		SDL_WM_GrabInput(SDL_GRAB_ON);
     }
@@ -1009,7 +1024,7 @@ bool setupPixelFormat()
 }
 
 int glCheckExtension(const char *ext) {
-    bool gotext = gl_extensions ? strstr(gl_extensions, ext) != NULL : gl_extensions;
+    bool gotext = gl_extensions && strstr(gl_extensions, ext) != NULL;
     if (strcmp(ext, "GL_ARB_vertex_buffer_object") == 0) {
 #ifdef HW_ENABLE_GLES
         /* part of the standard in GLES */
@@ -4669,7 +4684,7 @@ void rndFlush(void)
 #ifdef HW_ENABLE_GLES
     eglSwapBuffers(egl_display, egl_surface);
 #else
-    SDL_GL_SwapBuffers();
+    SDL_GL_SwapWindow(sdlwindow);
 #endif
     SDL_Delay(1);
 }

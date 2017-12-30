@@ -466,11 +466,11 @@ void mouseCursorDelayShow(uword delay)
 ----------------------------------------------------------------------------*/
 void mousePositionSet(sdword x, sdword y)
 {
-    rectangle clientRect;
+    //rectangle clientRect;
 //    RECT clientRect, windowRect;
 //    POINT mousePoint;
 
-    utyClientRectGet(&clientRect);                          //get window location
+    //utyClientRectGet(&clientRect);                          //get window location
 //  GetWindowRect(ghMainWindow, &windowRect);
 //  GetClientRect(ghMainWindow, &clientRect);               //get location of window
 /*
@@ -502,7 +502,7 @@ void mousePositionSet(sdword x, sdword y)
     SetCursorPos(mousePoint.x, mousePoint.y);               //set Windows mouse location
     */
 
-    SDL_WarpMouse(x, y);
+    SDL_WarpMouseInWindow(NULL, x, y);
 }
 
 /*-----------------------------------------------------------------------------
@@ -1828,7 +1828,7 @@ void mouseClipPointToRect(sdword *x, sdword *y, rectangle *rect)
 =============================================================================*/
 void mousePoll(void)
 {
-    rectangle clientRect;
+    //rectangle clientRect;
     //POINT mousePoint;
 
     if (mouseDisabled)
@@ -1839,7 +1839,7 @@ void mousePoll(void)
     {
         return;
     }
-    utyClientRectGet(&clientRect);                          //get window location
+    //utyClientRectGet(&clientRect);                          //get window location
     /*
     GetCursorPos(&mousePoint);                              //get location of Windows mouse cursor
     mouseCursorXPosition = mousePoint.x - clientRect.x0;    //compute relative coords

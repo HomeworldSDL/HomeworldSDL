@@ -20,3 +20,13 @@ cd ./Linux
 make
 
 - Для сборки под x86-64 нужно конфигурировать с ключом, а потом еще собрать HomeworldSLD.big
+
+Migration to SDL2 API:
+#####################
+Probably broken (untested):
+- OpenGL ES
+- MacOS
+Definitly broken:
+- Joystick: I see no reason to have this enabled and can't be bothered to work on it
+- Scroll lock state flipping (utyToggleKeyStatesRestore)
+- PLUSMINUS key, whatever that is

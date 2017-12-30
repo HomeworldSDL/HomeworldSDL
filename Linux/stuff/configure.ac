@@ -42,7 +42,7 @@ dnl "bool" supported by C++ compiler?
 dnl AC_CXX_BOOL
 
 dnl Check for SDL.
-SDL_VERSION=1.2.0
+SDL_VERSION=2.0.0
 AM_PATH_SDL($SDL_VERSION,
             :,
             AC_MSG_ERROR([*** SDL version $SDL_VERSION not found!])
@@ -201,11 +201,11 @@ dnl Configure options for Enabling Network gaming.
 AC_ARG_ENABLE(network,
         AC_HELP_STRING([--enable-network], [include network code into Homeworld]),[network=yes])
 if test "x$network" = "xyes" ; then
-	AC_CHECK_HEADER([SDL/SDL_net.h],[
-		AC_CHECK_LIB([SDL_net], [SDLNet_Init], [
+	AC_CHECK_HEADER([SDL2/SDL_net.h],[
+		AC_CHECK_LIB([SDL2_net], [SDLNet_Init], [
 		        echo "* Including Network Game code for Homeworld (HW_ENABLE_NETWORK) *"
 			HWGAME_CFLAGS="$HWGAME_CFLAGS -DHW_ENABLE_NETWORK"	
-			NET_LIBS="-lSDL_net -lm"
+			NET_LIBS="-lSDL2_net -lm"
 		], [])
 	],[])
 fi

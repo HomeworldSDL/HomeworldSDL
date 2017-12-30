@@ -2839,9 +2839,9 @@ void smHotkeyGroupsDraw(void)
     MaxSelection selection;
 
     fontMakeCurrent(selGroupFont3);
-    for (index = ZEROKEY; index <= NINEKEY; index++)
+    for (index = 0; index < 10; index++)
     {
-        MakeShipsNotHidden((SelectCommand *)&selection, (SelectCommand *)&selHotKeyGroup[index - ZEROKEY]);
+        MakeShipsNotHidden((SelectCommand *)&selection, (SelectCommand *)&selHotKeyGroup[index]);
         if (selection.numShips > 0)
         {
             centre = selCentrePointComputeGeneral(&selection, &averageSize);
@@ -2850,7 +2850,7 @@ void smHotkeyGroupsDraw(void)
             {
                 fontPrint(primGLToScreenX(x) + smHotKeyOffsetX,
                            primGLToScreenY(y) + smHotKeyOffsetY,
-                           selHotKeyNumberColor, selHotKeyString[index - ZEROKEY]);
+                           selHotKeyNumberColor, selHotKeyString[index]);
             }
         }
     }
@@ -3501,9 +3501,9 @@ udword smViewportProcess(regionhandle region, sdword ID, udword event, udword da
                         if (keyIsHit(ALTKEY))
                         {                                   //alt-# select and focus on a hot key group
 altCase:
-                            if (selHotKeyGroup[ID - ZEROKEY].numShips != 0)
+                            if (selHotKeyGroup[NUMKEYNUM(ID)].numShips != 0)
                             {
-                                selSelectionCopy((MaxAnySelection *)&selSelected,(MaxAnySelection *)&selHotKeyGroup[ID - ZEROKEY]);
+                                selSelectionCopy((MaxAnySelection *)&selSelected,(MaxAnySelection *)&selHotKeyGroup[NUMKEYNUM(ID)]);
                                 selSelectionCopy((MaxAnySelection *)&selSelecting,(MaxAnySelection *)&selSelected);
                                 if(MP_HyperSpaceFlag)
                                 {
@@ -3511,7 +3511,7 @@ altCase:
                                 }
                                 smCullAndFocusSelecting();
 #if SM_VERBOSE_LEVEL >= 2
-                                dbgMessagef("Hot key group %d selected and focused upon.", ID - ZEROKEY);
+                                dbgMessagef("Hot key group %d selected and focused upon.", NUMKEYNUM(ID));
 #endif
                             }
                         }
@@ -3522,12 +3522,12 @@ altCase:
                         }
                         else
                         {                                   //plain# select a hot key group
-                            if (selHotKeyGroup[ID - ZEROKEY].numShips != 0)
+                            if (selHotKeyGroup[NUMKEYNUM(ID)].numShips != 0)
                             {
                                 tutGameMessage("KB_GroupSelect");
 
-                                selSelectHotKeyGroup(&selHotKeyGroup[ID - ZEROKEY]);
-                                selHotKeyNumbersSet(ID - ZEROKEY);
+                                selSelectHotKeyGroup(&selHotKeyGroup[NUMKEYNUM(ID)]);
+                                selHotKeyNumbersSet(NUMKEYNUM(ID));
 #if SEL_ERROR_CHECKING
                                 selHotKeyGroupsVerify();
 #endif
@@ -3540,7 +3540,7 @@ altCase:
                                 if (selSelected.numShips > 0)
                                 {
                                     soundEvent(NULL, UI_Click);
-                                    speechEvent(selHotKeyGroup[ID - ZEROKEY].ShipPtr[0], COMM_AssGrp_Select, ID - ZEROKEY);
+                                    speechEvent(selHotKeyGroup[NUMKEYNUM(ID)].ShipPtr[0], COMM_AssGrp_Select, NUMKEYNUM(ID));
                                 }
                             }
                         }
@@ -4239,7 +4239,7 @@ void smSensorsBegin(char *name, featom *atom)
 #endif
 
 
-    for (index = ZEROKEY; index <= NINEKEY; index++)
+    for (index = FIRSTNUMKEY; index < FIRSTNUMKEY+10; index++)
     {
         regKeyChildAlloc(smViewportRegion, index, RPE_KeyUp | RPE_KeyDown, (regionfunction) smViewportProcess, 1, index);
     }

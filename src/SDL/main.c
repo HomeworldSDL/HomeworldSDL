@@ -1708,14 +1708,8 @@ sdword HandleEvent (const SDL_Event* pEvent)
 
     switch (pEvent->type)
     {
-        case SDL_ACTIVEEVENT:
-#if 0
-            if (!mainActuallyQuit)
-            {
-                return 0;
-            }
-#endif
-            if (pEvent->active.gain && systemActive == FALSE)
+        case SDL_APP_DIDENTERFOREGROUND:
+            if (systemActive == FALSE)
             {                                               //we're being activated
                 if (utilPlayingIntro)
                 {
@@ -1726,7 +1720,10 @@ sdword HandleEvent (const SDL_Event* pEvent)
                     ActivateMe();
                 }
             }
-            else if (!pEvent->active.gain && systemActive == TRUE)
+            else
+                return 0;
+        case SDL_APP_WILLENTERBACKGROUND:
+            if (systemActive == TRUE)
             {                                               //we're being deactivated
                 if (utilPlayingIntro)
                 {
@@ -1738,9 +1735,7 @@ sdword HandleEvent (const SDL_Event* pEvent)
                 }
             }
             else
-                break;
-
-            return 0;                                       //per documentation
+                return 0;                                   //per documentation
 
         case SDL_KEYUP:                                     //keys up/down
             switch (pEvent->key.keysym.sym)
@@ -1754,7 +1749,7 @@ sdword HandleEvent (const SDL_Event* pEvent)
                     else
 #endif
                     {
-                        keyPressUp(pEvent->key.keysym.sym);
+                        keyPressUp(pEvent->key.keysym.scancode);
                     }
 #if MAIN_MOUSE_FREE
                 case SDLK_F11:                              //toggle clipped cursor
@@ -1764,7 +1759,7 @@ sdword HandleEvent (const SDL_Event* pEvent)
                     }
                     else
                     {
-                        keyPressUp(pEvent->key.keysym.sym);
+                        keyPressUp(pEvent->key.keysym.scancode);
                     }
                     break;
 #endif
@@ -1780,7 +1775,7 @@ sdword HandleEvent (const SDL_Event* pEvent)
                     }
                     break;
                 default:
-                    keyPressUp(keyLanguageTranslate(pEvent->key.keysym.sym));//keyPressUp(KeyMapFromWindows(wParam));
+                    keyPressUp(keyLanguageTranslate(pEvent->key.keysym.scancode));//keyPressUp(KeyMapFromWindows(wParam));
             }
             return 0;
 
@@ -1792,7 +1787,7 @@ sdword HandleEvent (const SDL_Event* pEvent)
                 keyRepeat(keyLanguageTranslate(wParam));
             }
             */
-            keyPressDown(keyLanguageTranslate(pEvent->key.keysym.sym));
+            keyPressDown(keyLanguageTranslate(pEvent->key.keysym.scancode));
             //keyPressDown(KeyMapFromWindows(wParam));
             return 0;
 
@@ -1850,17 +1845,20 @@ sdword HandleEvent (const SDL_Event* pEvent)
                         mbDownTime[2] = curr_time;
                     break;
 
-                    case SDL_BUTTON_WHEELUP:
-                        keyPressDown(FLYWHEEL_UP);
-                    break;
-
-                    case SDL_BUTTON_WHEELDOWN:
-                        keyPressDown(FLYWHEEL_DOWN);
-                    break;
-                }
+               }
             }
             break;
 
+        case SDL_MOUSEWHEEL:
+            if (!mouseDisabled)
+            {
+                if(pEvent->wheel.y == 1)
+                    keyPressDown(FLYWHEEL_UP);
+                else if(pEvent->wheel.y == -1)
+                    keyPressDown(FLYWHEEL_DOWN);
+                break;
+            }
+ 
         case SDL_MOUSEBUTTONUP:
             if (!mouseDisabled)
             {

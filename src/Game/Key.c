@@ -53,6 +53,25 @@ void keyClose(void)
 }
 
 /*-----------------------------------------------------------------------------
+    Name        : leftModSide
+    Description : Convert right shift/ctrl/alt/meta to left equiv
+    Inputs      : key-index of key to set
+    Outputs     : the modified key or original if unchanged
+    Return      : udword
+----------------------------------------------------------------------------*/
+udword leftModSide(udword key){
+    if (key == RSHIFTKEY)
+        key = LSHIFTKEY;
+    else if (key == RCONTROLKEY)
+        key = LCONTROLKEY;
+    else if (key == RALTKEY)
+        key = LALTKEY;
+    else if (key == RMETAKEY) // Apple/Command/"Windows" key
+        key = LMETAKEY;
+    return key;
+}
+
+/*-----------------------------------------------------------------------------
     Name        : keyPressDown
     Description : Called from Windows, sets the on and sticky bits of key
     Inputs      : key-index of key to set
@@ -67,17 +86,9 @@ void keyPressDown(udword key)
 
     /* Game not specific about left or right Shift/Ctrl/Alt key, so neither
        are we. */
-    if (key == SDLK_RSHIFT)
-        key = SDLK_LSHIFT;
-    else if (key == SDLK_RCTRL)
-        key = SDLK_LCTRL;
-    else if (key == SDLK_RALT)
-        key = SDLK_LALT;
-    else if (key == SDLK_RMETA) // Apple/Command/"Windows" key
-        key = SDLK_LMETA;
+    key = leftModSide(key);
 
-
-	originalKey = keySaveScan[key];
+    originalKey = keySaveScan[key];
     
 #if KEY_ERROR_CHECKING
     dbgAssertOrIgnore(key < KEY_TOTAL_KEYS);
@@ -150,14 +161,7 @@ void keyRepeat(udword key)
 {
     /* Game not specific about left or right Shift/Ctrl/Alt key, so neither
        are we. */
-    if (key == SDLK_RSHIFT)
-        key = SDLK_LSHIFT;
-    else if (key == SDLK_RCTRL)
-        key = SDLK_LCTRL;
-    else if (key == SDLK_RALT)
-        key = SDLK_LALT;
-    else if (key == SDLK_RMETA) // Apple/Command/"Windows" key
-        key = SDLK_LMETA;
+    key = leftModSide(key);
 
 #if KEY_ERROR_CHECKING
     dbgAssertOrIgnore(key < KEY_TOTAL_KEYS);
@@ -188,14 +192,7 @@ void keyPressUp(udword key)
 {
     /* Game not specific about left or right Shift/Ctrl/Alt key, so neither
        are we. */
-    if (key == SDLK_RSHIFT)
-        key = SDLK_LSHIFT;
-    else if (key == SDLK_RCTRL)
-        key = SDLK_LCTRL;
-    else if (key == SDLK_RALT)
-        key = SDLK_LALT;
-    else if (key == SDLK_RMETA) // Apple/Command/"Windows" key
-        key = SDLK_LMETA;
+    key = leftModSide(key);
 
     keySaveScan[key].keypressed = 0;
     keySaveScan[key].keynumpressed = 0;
@@ -331,14 +328,7 @@ void keyBufferAdd(udword key, bool bShift)
 
     /* Game not specific about left or right Shift/Ctrl/Alt key, so neither
        are we. */
-    if (key == SDLK_RSHIFT)
-        key = SDLK_LSHIFT;
-    else if (key == SDLK_RCTRL)
-        key = SDLK_LCTRL;
-    else if (key == SDLK_RALT)
-        key = SDLK_LALT;
-    else if (key == SDLK_RMETA) // Apple/Command/"Windows" key
-        key = SDLK_LMETA;
+    key = leftModSide(key);
 
     for (i = 0; keysToNotBuffer[i]; i++)
     {

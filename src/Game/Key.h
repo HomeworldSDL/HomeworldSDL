@@ -7,7 +7,8 @@
 #ifndef ___KEY_H
 #define ___KEY_H
 
-#include "SDL_keysym.h"
+#include "SDL_scancode.h"
+#include "SDL_keycode.h"
 #include "Types.h"
 
 /*=============================================================================
@@ -24,127 +25,135 @@
 /*=============================================================================
     Definitions:
 =============================================================================*/
-#define KEY_TOTAL_KEYS          (SDLK_LAST+8)  // Use SDL keysyms, plus some for mouse
+#define KEY_TOTAL_KEYS          (SDL_NUM_SCANCODES+8)  // Use SDL keysyms, plus some for mouse
 #define KEY_BufferLength        16
 
 #define KEY_NUMPRESSED_BITS     5
 #define KEY_NUMPRESSED_MAX      ((1 << (KEY_NUMPRESSED_BITS + 1)) - 1)
-#define BACKSPACEKEY            SDLK_BACKSPACE
-#define TABKEY                  SDLK_TAB
-#define ENTERKEY                SDLK_KP_ENTER
-#define SHIFTKEY                SDLK_LSHIFT
-/*#define LSHIFTKEY               SDLK_LSHIFT*/
-/*#define RSHIFTKEY               SDLK_RSHIFT*/
-#define CONTROLKEY              SDLK_LCTRL
-/*#define LCONTROLKEY             SDLK_LCTRL*/
-/*#define RCONTROLKEY             SDLK_RCTRL*/
-#define ALTKEY                  SDLK_LALT
-/*#define LALTKEY                 SDLK_LALT*/
-/*#define RALTKEY                 SDLK_RALT*/
-#define METAKEY                 SDLK_LMETA      // Apple/Command/"Windows" key
-/*#define LMETAKEY                SDLK_LMETA*/
-/*#define RMETAKEY                SDLK_RMETA*/
-#define CAPSLOCKKEY             SDLK_CAPSLOCK
-#define ESCKEY                  SDLK_ESCAPE
-#define ARRLEFT                 SDLK_LEFT
-#define ARRRIGHT                SDLK_RIGHT
-#define ARRUP                   SDLK_UP
-#define ARRDOWN                 SDLK_DOWN
-#define ENDKEY                  SDLK_END
-#define HOMEKEY                 SDLK_HOME
-#define PAGEUPKEY               SDLK_PAGEUP
-#define PAGEDOWNKEY             SDLK_PAGEDOWN
-#define INSERTKEY               SDLK_INSERT
-#define DELETEKEY               SDLK_DELETE
-#define LESSTHAN                SDLK_COMMA
-#define GREATERTHAN             SDLK_PERIOD
-#define PLUSMINUS               SDLK_WORLD_0  // key under ESC and next to upper row numeric 1 
-#define ZEROKEY                 '0'
-#define ONEKEY                  '1'
-#define TWOKEY                  '2'
-#define THREEKEY                '3'
-#define FOURKEY                 '4'
-#define FIVEKEY                 '5'
-#define SIXKEY                  '6'
-#define SEVENKEY                '7'
-#define EIGHTKEY                '8'
-#define NINEKEY                 '9'
-#define AKEY                    'a'
-#define BKEY                    'b'
-#define CKEY                    'c'
-#define DKEY                    'd'
-#define EKEY                    'e'
-#define FKEY                    'f'
-#define GKEY                    'g'
-#define HKEY2                   'h'//fix for mingw msys
-#define IKEY                    'i'
-#define JKEY                    'j'
-#define KKEY                    'k'
-#define LKEY                    'l'
-#define MKEY                    'm'
-#define NKEY                    'n'
-#define OKEY                    'o'
-#define PKEY                    'p'
-#define QKEY                    'q'
-#define RKEY                    'r'
-#define SKEY                    's'
-#define TKEY                    't'
-#define UKEY                    'u'
-#define VKEY                    'v'
-#define WKEY                    'w'
-#define XKEY                    'x'
-#define YKEY                    'y'
-#define ZKEY                    'z'
-#define SPACEKEY                ' '
-#define RETURNKEY               SDLK_RETURN
-#define NUMPAD0                 SDLK_KP0
-#define NUMPAD1                 SDLK_KP1
-#define NUMPAD2                 SDLK_KP2
-#define NUMPAD3                 SDLK_KP3
-#define NUMPAD4                 SDLK_KP4
-#define NUMPAD5                 SDLK_KP5
-#define NUMPAD6                 SDLK_KP6
-#define NUMPAD7                 SDLK_KP7
-#define NUMPAD8                 SDLK_KP8
-#define NUMPAD9                 SDLK_KP9
-#define LBRACK                  SDLK_LEFTBRACKET
-#define RBRACK                  SDLK_RIGHTBRACKET
-#define F1KEY                   SDLK_F1
-#define F2KEY                   SDLK_F2
-#define F3KEY                   SDLK_F3
-#define F4KEY                   SDLK_F4
-#define F5KEY                   SDLK_F5
-#define F6KEY                   SDLK_F6
-#define F7KEY                   SDLK_F7
-#define F8KEY                   SDLK_F8
-#define F9KEY                   SDLK_F9
-#define F10KEY                  SDLK_F10
-#define F11KEY                  SDLK_F11
-#define F12KEY                  SDLK_F12
-#define PRINTKEY                SDLK_PRINT      // F13 on Apple Extended keyboard
-#define SCROLLKEY               SDLK_SCROLLOCK  // F14 (caught by MacOSX: -brightness)
-#define PAUSEKEY                SDLK_PAUSE      // F15 (caught by MacOSX: +brightness)
-#define TILDEKEY                SDLK_BACKQUOTE
-#define NUMMINUSKEY             SDLK_KP_MINUS
-#define NUMPLUSKEY              SDLK_KP_PLUS
-#define NUMSTARKEY              SDLK_KP_MULTIPLY
-#define NUMSLASHKEY             SDLK_KP_DIVIDE
-#define NUMPADSLASH             SDLK_KP_DIVIDE
-#define NUMDOTKEY               SDLK_KP_PERIOD
-#define MINUSKEY                SDLK_MINUS
-#define PLUSKEY                 SDLK_EQUALS
-#define BACKSLASHKEY            SDLK_BACKSLASH
+#define BACKSPACEKEY            SDL_SCANCODE_BACKSPACE
+#define TABKEY                  SDL_SCANCODE_TAB
+#define ENTERKEY                SDL_SCANCODE_KP_ENTER
+#define SHIFTKEY                SDL_SCANCODE_LSHIFT
+#define LSHIFTKEY               SDL_SCANCODE_LSHIFT
+#define RSHIFTKEY               SDL_SCANCODE_RSHIFT
+#define CONTROLKEY              SDL_SCANCODE_LCTRL
+#define LCONTROLKEY             SDL_SCANCODE_LCTRL
+#define RCONTROLKEY             SDL_SCANCODE_RCTRL
+#define ALTKEY                  SDL_SCANCODE_LALT
+#define LALTKEY                 SDL_SCANCODE_LALT
+#define RALTKEY                 SDL_SCANCODE_RALT
+#define METAKEY                 SDL_SCANCODE_LGUI      // Apple/Command/"Windows" key
+#define LMETAKEY                SDL_SCANCODE_LGUI
+#define RMETAKEY                SDL_SCANCODE_RGUI
+#define CAPSLOCKKEY             SDL_SCANCODE_CAPSLOCK
+#define ESCKEY                  SDL_SCANCODE_ESCAPE
+#define ARRLEFT                 SDL_SCANCODE_LEFT
+#define ARRRIGHT                SDL_SCANCODE_RIGHT
+#define ARRUP                   SDL_SCANCODE_UP
+#define ARRDOWN                 SDL_SCANCODE_DOWN
+#define ENDKEY                  SDL_SCANCODE_END
+#define HOMEKEY                 SDL_SCANCODE_HOME
+#define PAGEUPKEY               SDL_SCANCODE_PAGEUP
+#define PAGEDOWNKEY             SDL_SCANCODE_PAGEDOWN
+#define INSERTKEY               SDL_SCANCODE_INSERT
+#define DELETEKEY               SDL_SCANCODE_DELETE
+#define LESSTHAN                SDL_SCANCODE_COMMA
+#define GREATERTHAN             SDL_SCANCODE_PERIOD
+//#define PLUSMINUS               SDL_SCANCODE_WORLD_0  // key under ESC and next to upper row numeric 1 
+#define ZEROKEY                 SDL_SCANCODE_0
+#define ONEKEY                  SDL_SCANCODE_1
+#define TWOKEY                  SDL_SCANCODE_2
+#define THREEKEY                SDL_SCANCODE_3
+#define FOURKEY                 SDL_SCANCODE_4
+#define FIVEKEY                 SDL_SCANCODE_5
+#define SIXKEY                  SDL_SCANCODE_6
+#define SEVENKEY                SDL_SCANCODE_7
+#define EIGHTKEY                SDL_SCANCODE_8
+#define NINEKEY                 SDL_SCANCODE_9
+#define FIRSTNUMKEY             ONEKEY /* number scancodes don't start at zero for some insane reason */
+#define FIRSTNUMKEYNUM          1
+#define AKEY                    SDL_SCANCODE_A
+#define BKEY                    SDL_SCANCODE_B
+#define CKEY                    SDL_SCANCODE_C
+#define DKEY                    SDL_SCANCODE_D
+#define EKEY                    SDL_SCANCODE_E
+#define FKEY                    SDL_SCANCODE_F
+#define GKEY                    SDL_SCANCODE_G
+#define HKEY2                   SDL_SCANCODE_H
+#define IKEY                    SDL_SCANCODE_I
+#define JKEY                    SDL_SCANCODE_J
+#define KKEY                    SDL_SCANCODE_K
+#define LKEY                    SDL_SCANCODE_L
+#define MKEY                    SDL_SCANCODE_M
+#define NKEY                    SDL_SCANCODE_N
+#define OKEY                    SDL_SCANCODE_O
+#define PKEY                    SDL_SCANCODE_P
+#define QKEY                    SDL_SCANCODE_Q
+#define RKEY                    SDL_SCANCODE_R
+#define SKEY                    SDL_SCANCODE_S
+#define TKEY                    SDL_SCANCODE_T
+#define UKEY                    SDL_SCANCODE_U
+#define VKEY                    SDL_SCANCODE_V
+#define WKEY                    SDL_SCANCODE_W
+#define XKEY                    SDL_SCANCODE_X
+#define YKEY                    SDL_SCANCODE_Y
+#define ZKEY                    SDL_SCANCODE_Z
+#define SPACEKEY                SDL_SCANCODE_SPACE
+#define RETURNKEY               SDL_SCANCODE_RETURN
+#define NUMPAD0                 SDL_SCANCODE_KP_0
+#define NUMPAD1                 SDL_SCANCODE_KP_1
+#define NUMPAD2                 SDL_SCANCODE_KP_2
+#define NUMPAD3                 SDL_SCANCODE_KP_3
+#define NUMPAD4                 SDL_SCANCODE_KP_4
+#define NUMPAD5                 SDL_SCANCODE_KP_5
+#define NUMPAD6                 SDL_SCANCODE_KP_6
+#define NUMPAD7                 SDL_SCANCODE_KP_7
+#define NUMPAD8                 SDL_SCANCODE_KP_8
+#define NUMPAD9                 SDL_SCANCODE_KP_9
+#define FIRSTNUMPADKEY          NUMPAD1
+#define FIRSTNUMPADKEYNUM          1
+#define LBRACK                  SDL_SCANCODE_LEFTBRACKET
+#define RBRACK                  SDL_SCANCODE_RIGHTBRACKET
+#define F1KEY                   SDL_SCANCODE_F1
+#define F2KEY                   SDL_SCANCODE_F2
+#define F3KEY                   SDL_SCANCODE_F3
+#define F4KEY                   SDL_SCANCODE_F4
+#define F5KEY                   SDL_SCANCODE_F5
+#define F6KEY                   SDL_SCANCODE_F6
+#define F7KEY                   SDL_SCANCODE_F7
+#define F8KEY                   SDL_SCANCODE_F8
+#define F9KEY                   SDL_SCANCODE_F9
+#define F10KEY                  SDL_SCANCODE_F10
+#define F11KEY                  SDL_SCANCODE_F11
+#define F12KEY                  SDL_SCANCODE_F12
+#define PRINTKEY                SDL_SCANCODE_PRINTSCREEN      // F13 on Apple Extended keyboard
+#define SCROLLKEY               SDL_SCANCODE_SCROLLLOCK  // F14 (caught by MacOSX: -brightness)
+#define PAUSEKEY                SDL_SCANCODE_PAUSE      // F15 (caught by MacOSX: +brightness)
+#define TILDEKEY                SDL_SCANCODE_GRAVE
+#define NUMMINUSKEY             SDL_SCANCODE_KP_MINUS
+#define NUMPLUSKEY              SDL_SCANCODE_KP_PLUS
+#define NUMSTARKEY              SDL_SCANCODE_KP_MULTIPLY
+#define NUMSLASHKEY             SDL_SCANCODE_KP_DIVIDE
+#define NUMPADSLASH             SDL_SCANCODE_KP_DIVIDE
+#define NUMDOTKEY               SDL_SCANCODE_KP_PERIOD
+#define MINUSKEY                SDL_SCANCODE_MINUS
+#define PLUSKEY                 SDL_SCANCODE_EQUALS
+#define BACKSLASHKEY            SDL_SCANCODE_BACKSLASH
 
-#define LMOUSE_BUTTON           (SDLK_LAST+0)
-#define RMOUSE_BUTTON           (SDLK_LAST+1)
-#define MMOUSE_BUTTON           (SDLK_LAST+3)
+#define LMOUSE_BUTTON           (SDL_NUM_SCANCODES+0)
+#define RMOUSE_BUTTON           (SDL_NUM_SCANCODES+1)
+#define MMOUSE_BUTTON           (SDL_NUM_SCANCODES+3)
 
-#define FLYWHEEL_UP             (SDLK_LAST+2)
-#define FLYWHEEL_DOWN           (SDLK_LAST+4)
+#define FLYWHEEL_UP             (SDL_NUM_SCANCODES+2)
+#define FLYWHEEL_DOWN           (SDL_NUM_SCANCODES+4)
 
-#define LMOUSE_DOUBLE           (SDLK_LAST+5)
-#define RMOUSE_DOUBLE           (SDLK_LAST+6)
-#define MMOUSE_DOUBLE           (SDLK_LAST+7)
+#define LMOUSE_DOUBLE           (SDL_NUM_SCANCODES+5)
+#define RMOUSE_DOUBLE           (SDL_NUM_SCANCODES+6)
+#define MMOUSE_DOUBLE           (SDL_NUM_SCANCODES+7)
+
+#define NUMKEYNUM_GENERIC(x,first,firstnum) (((x - first)+firstnum)%10)
+#define NUMKEYNUM(x) NUMKEYNUM_GENERIC(x,FIRSTNUMKEY,FIRSTNUMKEYNUM)
+#define NUMPADKEYNUM(x) NUMKEYNUM_GENERIC(x,FIRSTNUMPADKEY,FIRSTNUMPADKEYNUM)
 
 /*=============================================================================
     Type definitions:

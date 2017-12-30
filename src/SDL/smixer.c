@@ -880,6 +880,7 @@ void isoundmixerqueueSDL(Uint8 *stream, int len)
 
 void soundfeedercb(void *userdata, Uint8 *stream, int len)
 {
+	memset(stream, 0, len);
 	if (mixer.status >= SOUND_PLAYING) {
 		isoundmixerqueueSDL(stream, len);
 	}
