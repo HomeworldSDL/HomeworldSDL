@@ -502,7 +502,8 @@ void mousePositionSet(sdword x, sdword y)
     SetCursorPos(mousePoint.x, mousePoint.y);               //set Windows mouse location
     */
 
-    SDL_WarpMouseInWindow(NULL, x, y);
+    if (!mouseClip)
+        SDL_WarpMouseInWindow(NULL, x, y);
 }
 
 /*-----------------------------------------------------------------------------
@@ -514,6 +515,7 @@ void mousePositionSet(sdword x, sdword y)
 ----------------------------------------------------------------------------*/
 void mouseClipToRect(rectangle *rect)
 {
+    sdword x, y;
     if (rect == NULL)
     {
         mouseClip = FALSE;
@@ -522,7 +524,9 @@ void mouseClipToRect(rectangle *rect)
     {
         mouseClip = TRUE;
         mouseClipRect = *rect;
+        SDL_GetRelativeMouseState(&x, &y); // prime the next poll to start at 0,0
     }
+    SDL_SetRelativeMouseMode(mouseClip);
 }
 
 
@@ -1830,6 +1834,7 @@ void mousePoll(void)
 {
     //rectangle clientRect;
     //POINT mousePoint;
+    sdword tmpX, tmpY;
 
     if (mouseDisabled)
     {
@@ -1845,12 +1850,18 @@ void mousePoll(void)
     mouseCursorXPosition = mousePoint.x - clientRect.x0;    //compute relative coords
     mouseCursorYPosition = mousePoint.y - clientRect.y0;
     */
-    SDL_GetMouseState(&mouseCursorXPosition, &mouseCursorYPosition);
 
     if (mouseClip)
     {
+        SDL_GetRelativeMouseState(&tmpX, &tmpY);
+        mouseCursorXPosition += tmpX;
+        mouseCursorYPosition += tmpY;
         mouseClipPointToRect(&mouseCursorXPosition, &mouseCursorYPosition, &mouseClipRect);
         mousePositionSet(mouseCursorXPosition, mouseCursorYPosition);
+    }
+    else
+    {
+        SDL_GetMouseState(&mouseCursorXPosition, &mouseCursorYPosition);
     }
     //perform client area enter/exit logic to hide/show Windows system cursor
     /*
