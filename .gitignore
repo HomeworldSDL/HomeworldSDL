@@ -28,6 +28,7 @@ aclocal.m4
 acinclude.m4
 autom4te.cache
 config.h.in
+config.h.in~
 config
 configure
 configure.ac
