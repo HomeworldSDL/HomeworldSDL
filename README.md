@@ -50,6 +50,38 @@ Open the game installation folder (usually `~/.wine/drive_c/Sierra/Homeworld`). 
 3. Run the game
 4. Jump to [Configuring the OpenGL renderer](#configuring-the-opengl-renderer)
 
+#### Compiling from source
+
+> This is only a quickstart, more information can be found in the documentation files inside the [`Linux/`](Linux/) folder.
+
+``` sh
+cd Linux
+./bootstrap
+../configure --enable-x86_64
+make
+```
+
+Now put the compiled executable `src/homeworld` in a directory with the [required assets](#asset-checklist).
+
+For `HomeworldSDL.big` see [Packaging HomeworldSDL.big](#packaging-homeworldsdl.big)
+
+You are now ready to run the game and [configure the OpenGL renderer](#configuring-the-opengl-renderer)
+
+> The configuration step has a lot of flags, run `../configure --help` to see them. (Notably the `--disable-linux-fixme` flag)
+
+##### Packaging HomeworldSDL.big
+
+From the root of this repository:
+
+``` sh
+cd tools/biggie
+./biggie-Linux-compile.sh
+cd ../../HomeworldSDL_big
+./convert_directory_to_big_file
+```
+
+You should now have a `HomeworldSDL.big` file in the root of the repo.
+
 ## Configuring the OpenGL renderer
 
 The first time you run the game, you'll have to configure the renderer to use OpenGL. This will be saved in your `~/.homeworld`, so you won't have to do it every time you run the game.
@@ -96,4 +128,3 @@ If you know of other maintained repositories or if you plan to take on maintenan
 [timdetering/HomeworldSDL]: https://github.com/timdetering/HomeworldSDL/
 [contact]: mailto:thibault.lemaire@protonmail.com
 [issues]: https://github.com/ThibaultLemaire/HomeworldSDL/releases
-
