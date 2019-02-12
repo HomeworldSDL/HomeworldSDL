@@ -59,7 +59,7 @@ Once the game has launched, you need to:
 - Select "Options" from the main game menu.
 - Select "Video" from the available option sub-menus listed on
     the right side of the screen.
-- Select "(GL) Default OpenGL" from the "Rendering System" box. 
+- Select "(GL) Default OpenGL" from the "Rendering System" box.
 - Choose a resolution from the "Resolution" box (any resolution
     you choose will do fine).
 - Click on the "Accept!" button in the bottom-right corner of the screen.
