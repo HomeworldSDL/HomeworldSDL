@@ -1,5 +1,9 @@
 Homeworld SDL - Change log
 
+* later releases
+ - I don't want to maintain two changelogs, so please refer to
+   https://github.com/ThibaultLemaire/HomeworldSDL/releases
+
 * 0.5 (2007-02-25)
  - So many improvements we've forgotten so e of them :)
  - Homeworld SDL now compiles under gcc 4!
