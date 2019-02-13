@@ -34,6 +34,8 @@ make
 
 ## Packaging HomeworldSDL.big
 
+> Note: compiling biggie requires compiled objects from `Linux/src/`. Which means you must first compile the game.
+
 From the root of this repository:
 
 ``` sh
