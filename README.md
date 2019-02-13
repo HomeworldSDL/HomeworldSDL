@@ -52,35 +52,7 @@ Open the game installation folder (usually `~/.wine/drive_c/Sierra/Homeworld`). 
 
 #### Compiling from source
 
-> This is only a quickstart, more information can be found in the documentation files inside the [`Linux/`](Linux/) folder.
-
-``` sh
-cd Linux
-./bootstrap
-../configure --enable-x86_64
-make
-```
-
-Now put the compiled executable `src/homeworld` in a directory with the [required assets](#asset-checklist).
-
-For `HomeworldSDL.big` see [Packaging HomeworldSDL.big](#packaging-homeworldsdl.big)
-
-You are now ready to run the game and [configure the OpenGL renderer](#configuring-the-opengl-renderer)
-
-> The configuration step has a lot of flags, run `../configure --help` to see them. (Notably the `--disable-linux-fixme` flag)
-
-##### Packaging HomeworldSDL.big
-
-From the root of this repository:
-
-``` sh
-cd tools/biggie
-./biggie-Linux-compile.sh
-cd ../../HomeworldSDL_big
-./convert_directory_to_big_file
-```
-
-You should now have a `HomeworldSDL.big` file in the root of the repo.
+Please refer to [`Linux/BUILD.md`](Linux/BUILD.md).
 
 ## Configuring the OpenGL renderer
 
