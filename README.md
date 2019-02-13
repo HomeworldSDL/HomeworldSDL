@@ -109,6 +109,8 @@ This repository, at the time of writing (2019/02/12), holds the most up to date 
 
 The owner is no expert in C and a latecomer to the homeworldSDL party, but intends to improve the documentation (such as this README) and make the project more accessible. Indeed, most of the resources that were previously available (such as compiled HomeworldSDL binaries), are now -- 15 years later -- down, so the author decided he had to do something about it.
 
+This repository focuses on Linux support.
+
 ### [timdetering/HomeworldSDL]
 
 This is the only remnant that the author could find of the HomeworldSDL source code that was previously hosted on svn (at least the only one that preserved the commit history).
