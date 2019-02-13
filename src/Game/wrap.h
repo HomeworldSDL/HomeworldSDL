@@ -10,23 +10,23 @@ static inline udword do_get_arg(Effect *effect, struct etgeffectstatic *stat, et
 {
 	udword param = opcode->parameter[index].param;
 
-        switch (opcode->parameter[index].type)	
-        {
-            case EVT_Constant:
-                break;
-            case EVT_Label:
-                dbgAssertOrIgnore(FALSE);
-                break;
-            case EVT_ConstLabel:
-                param = (udword)stat->constData + param;
-                break;
-            case EVT_VarLabel:
-                param = (udword)effect->variable + param;
-                break;
-            default:
-                param = *((udword *)(effect->variable + param));
-                break;
-        }
+	switch (opcode->parameter[index].type)	
+	{
+		case EVT_Constant:
+			break;
+		case EVT_Label:
+			dbgAssertOrIgnore(FALSE);
+			break;
+		case EVT_ConstLabel:
+			param = (udword)stat->constData + param;
+			break;
+		case EVT_VarLabel:
+			param = (udword)effect->variable + param;
+			break;
+		default:
+			param = *((udword *)(effect->variable + param));
+			break;
+	}
 	return param;
 }
 
