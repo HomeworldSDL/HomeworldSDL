@@ -2830,7 +2830,7 @@ bool etgOpcodeScan(struct etgeffectstatic *stat, char *string, ubyte *dest, sdwo
             }
             //call the parsing function
             *destLength = etgParseTable[index].function(stat, dest, start, params, returnValue);
-            dbgAssertOrIgnore(*destLength < OPCODE_MAX && *destLength >= 0);
+            dbgAssertOrIgnore(0 <= *destLength && *destLength < OPCODE_MAX);
             return(TRUE);
         }
     }
