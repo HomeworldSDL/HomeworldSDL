@@ -6,9 +6,9 @@
 #define get_EVT_RGB(n)		do_get_arg(effect, stat, opcode, n)
 #define get_EVT_RGBA(n)		do_get_arg(effect, stat, opcode, n)
 
-static inline udword do_get_arg(Effect *effect, struct etgeffectstatic *stat, etgfunctioncall *opcode, udword index)
+static inline memsize do_get_arg(Effect *effect, struct etgeffectstatic *stat, etgfunctioncall *opcode, udword index)
 {
-	udword param = opcode->parameter[index].param;
+	memsize param = opcode->parameter[index].param;
 
 	switch (opcode->parameter[index].type)	
 	{
@@ -18,13 +18,13 @@ static inline udword do_get_arg(Effect *effect, struct etgeffectstatic *stat, et
 			dbgAssertOrIgnore(FALSE);
 			break;
 		case EVT_ConstLabel:
-			param = (udword)stat->constData + param;
+			param = (memsize)stat->constData + param;
 			break;
 		case EVT_VarLabel:
-			param = (udword)effect->variable + param;
+			param = (memsize)effect->variable + param;
 			break;
 		default:
-			param = *((udword *)(effect->variable + param));
+			param = *((memsize *)(effect->variable + param));
 			break;
 	}
 	return param;
