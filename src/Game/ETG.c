@@ -5808,18 +5808,17 @@ sdword etgVarAssign(Effect *effect, struct etgeffectstatic *stat, ubyte *opcode)
 
 sdword etgFunctionCall(Effect *effect, struct etgeffectstatic *stat, ubyte *opcode)
 {
-    udword param, nParams, returnType;
+    memsize param = 0;
     etgfunctioncall *opptr = (etgfunctioncall *)opcode;
 
-    nParams = opptr->nParameters;
-    returnType = opptr->returnValue;
+    udword nParams = opptr->nParameters;
+    memsize returnValue = opptr->returnValue;
 
     opfunctionentry *entry = NULL;
-    udword currEntry=0;
-        
+    udword currEntry = 0;
     while ((entry = &etgFunctionTable[currEntry++])->name != NULL)
     {
-        if (entry->function == ((etgfunctioncall *)opcode)->function)
+        if (entry->function == opptr->function)
         {
             break;
         }
@@ -5835,9 +5834,9 @@ sdword etgFunctionCall(Effect *effect, struct etgeffectstatic *stat, ubyte *opco
     else
         param = opptr->wrap_function(effect, stat, opptr);
 
-    if (returnType != 0xffffffff)                           //if a return value is desired
+    if (returnValue != MINUS1)                           //if a return value is desired
     {
-        *((udword *)(effect->variable + returnType)) = param;//set the return parameter
+        *((memsize *)(effect->variable + returnValue)) = param;//set the return parameter
     }
 
     return(etgFunctionSize(nParams));
