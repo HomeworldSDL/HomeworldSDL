@@ -2,7 +2,7 @@
 #define get_EVT_ConstLabel(n)	do_get_arg(effect, stat, opcode, n)
 #define get_EVT_VarLabel(n)	do_get_arg(effect, stat, opcode, n)
 #define get_EVT_Int(n)		do_get_arg(effect, stat, opcode, n)
-#define get_EVT_Float(n)	UdwordToReal32(do_get_arg(effect, stat, opcode, n))
+#define get_EVT_Float(n)	MemsizeToReal32(do_get_arg(effect, stat, opcode, n))
 #define get_EVT_RGB(n)		do_get_arg(effect, stat, opcode, n)
 #define get_EVT_RGBA(n)		do_get_arg(effect, stat, opcode, n)
 

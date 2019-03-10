@@ -121,6 +121,8 @@ real32 UdwordToReal32(udword a);
 
 real32 SdwordToReal32(sdword a);
 
+real32 MemsizeToReal32(memsize a);
+
 #define TreatAsUdword(x) (*((udword *)(&(x))))
 
 #define TreatAsReal32(x) (*((real32 *)(&(x))))

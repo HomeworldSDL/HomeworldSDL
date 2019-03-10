@@ -37,3 +37,8 @@ real32 SdwordToReal32(sdword a)
 {
  return (*(real32*)(&a));
 }
+
+real32 MemsizeToReal32(memsize a)
+{
+    return (*(real32 *)(&a));
+}
