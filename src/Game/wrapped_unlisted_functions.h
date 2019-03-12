@@ -5,11 +5,11 @@ void partSetTrHandle(trhandle t, udword u0, udword v0, udword u1, udword v1);
 memsize wrap_partSetTrHandle(Effect *effect, struct etgeffectstatic *stat, etgfunctioncall *opcode)
 {
     partSetTrHandle(
-        get_arg(0),
-        get_arg(1),
-        get_arg(2),
-        get_arg(3),
-        get_arg(4));
+        (trhandle)get_arg(0),
+        (udword)get_arg(1),
+        (udword)get_arg(2),
+        (udword)get_arg(3),
+        (udword)get_arg(4));
 
     return 0;
 }
@@ -19,12 +19,12 @@ void partModifyTexture(psysPtr psys, trhandle tex, udword u0, udword v0, udword 
 memsize wrap_partModifyTexture(Effect *effect, struct etgeffectstatic *stat, etgfunctioncall *opcode)
 {
     partModifyTexture(
-        get_arg(0),
-        get_arg(1),
-        get_arg(2),
-        get_arg(3),
-        get_arg(4),
-        get_arg(5));
+        (psysPtr)get_arg(0),
+        (trhandle)get_arg(1),
+        (udword)get_arg(2),
+        (udword)get_arg(3),
+        (udword)get_arg(4),
+        (udword)get_arg(5));
 
     return 0;
 }
@@ -33,7 +33,7 @@ void partSetMeshdata(meshdata *m);
 
 memsize wrap_partSetMeshdata(Effect *effect, struct etgeffectstatic *stat, etgfunctioncall *opcode)
 {
-    partSetMeshdata(get_arg(0));
+    partSetMeshdata((meshdata *)get_arg(0));
 
     return 0;
 }
@@ -42,7 +42,7 @@ void etgCreateCallbackSetup(Effect *effect, sdword codeOffset);
 
 memsize wrap_etgCreateCallbackSetup(Effect *effect, struct etgeffectstatic *stat, etgfunctioncall *opcode)
 {
-    etgCreateCallbackSetup(effect, get_arg(0));
+    etgCreateCallbackSetup(effect, (sdword)get_arg(0));
 
     return 0;
 }
