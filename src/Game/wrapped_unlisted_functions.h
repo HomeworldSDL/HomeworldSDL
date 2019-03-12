@@ -33,20 +33,18 @@ void partSetMeshdata(meshdata *m);
 
 memsize wrap_partSetMeshdata(Effect *effect, struct etgeffectstatic *stat, etgfunctioncall *opcode)
 {
-    udword var0 = do_get_arg(effect, stat, opcode, 0);
-    memsize (*func_ptr)(udword) = (memsize(*)(udword))opcode->function;
+    partSetMeshdata(get_arg(0));
 
-    return func_ptr(var0);
+    return 0;
 }
 
 void etgCreateCallbackSetup(Effect *effect, sdword codeOffset);
 
 memsize wrap_etgCreateCallbackSetup(Effect *effect, struct etgeffectstatic *stat, etgfunctioncall *opcode)
 {
-    udword var0 = do_get_arg(effect, stat, opcode, 0);
-    memsize (*func_ptr)(Effect *, udword) = (memsize(*)(Effect *, udword))opcode->function;
+    etgCreateCallbackSetup(effect, get_arg(0));
 
-    return func_ptr(effect, var0);
+    return 0;
 }
 
 memsize etgSpawnNewEffect(Effect *effect, etgeffectstatic *stat, sdword nParams, ...);
