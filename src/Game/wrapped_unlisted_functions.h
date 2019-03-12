@@ -18,15 +18,15 @@ void partModifyTexture(psysPtr psys, trhandle tex, udword u0, udword v0, udword 
 
 memsize wrap_partModifyTexture(Effect *effect, struct etgeffectstatic *stat, etgfunctioncall *opcode)
 {
-    udword var0 = do_get_arg(effect, stat, opcode, 0);
-    udword var1 = do_get_arg(effect, stat, opcode, 1);
-    udword var2 = do_get_arg(effect, stat, opcode, 2);
-    udword var3 = do_get_arg(effect, stat, opcode, 3);
-    udword var4 = do_get_arg(effect, stat, opcode, 4);
-    udword var5 = do_get_arg(effect, stat, opcode, 5);
-    memsize (*func_ptr)(udword, udword, udword, udword, udword, udword) = (memsize(*)(udword, udword, udword, udword, udword, udword))opcode->function;
+    partModifyTexture(
+        get_arg(0),
+        get_arg(1),
+        get_arg(2),
+        get_arg(3),
+        get_arg(4),
+        get_arg(5));
 
-    return func_ptr(var0, var1, var2, var3, var4, var5);
+    return 0;
 }
 
 void partSetMeshdata(meshdata *m);
