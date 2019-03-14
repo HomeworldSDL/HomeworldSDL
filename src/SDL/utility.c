@@ -3510,8 +3510,8 @@ void utyGrowthHeapFree(void *heap)
 char *utyMissingCDMessages[] =
 {
     "Invalid or missing Homeworld CD. Please insert valid CD.",
-    "CD Homeworld non valide. Veuillez insérer un CD valide.",
-    "Ungültige oder fehlende Homeworld-CD. Bitte gültige CD einlegen.",
+    "CD Homeworld non valide. Veuillez insÃ©rer un CD valide.",
+    "UngÃ¼ltige oder fehlende Homeworld-CD. Bitte gÃ¼ltige CD einlegen.",
     "El CD de Homeworld no es correcto o no se encuentra en la unidad. Introduce el CD correcto.",
     "CD di Homeworld mancante o non valido. Inserisci un CD valido.",
 };
@@ -3519,15 +3519,15 @@ char *utyInvalidCDMessages[] =
 {
     "Invalid Homeworld CD.",
     "CD Homeworld invalide.",
-    "Ungültige Homeworld-CD.",
+    "UngÃ¼ltige Homeworld-CD.",
     "CD de Homeworld incorrecto.",
     "CD di Homeworld non valido.",
 };
 char *utyCannotOpenFileMessages[] =
 {
     "Unable to open file: %s",
-    "Impossible d’ouvrir le fichier: %s",
-    "Datei kann nicht geöffnet werden: %s",
+    "Impossible dâ€™ouvrir le fichier: %s",
+    "Datei kann nicht geÃ¶ffnet werden: %s",
     "Imposible abrir archivo: %s",
     "Impossibile aprire il file: %s",
 };
@@ -4394,7 +4394,7 @@ char *utyGameSystemsShutdown(void)
     if (utyTest2(SS2_SoundEngine))
     {
         // shutdown sound engine
-#ifndef _LINUX_FIX_ME
+#if !defined(_LINUX_FIX_ME) && !defined(_X86_64)
         soundEventClose();
 #endif
         utyClear2(SS2_SoundEngine);
@@ -4697,7 +4697,7 @@ char *utyGameSystemsShutdown(void)
 
     if (utyTest2(SS2_ToggleKeys))
     {
-#ifndef _LINUX_FIX_ME
+#if !defined(_LINUX_FIX_ME) && !defined(_X86_64)
         utyToggleKeyStatesRestore();
 #endif
     }
