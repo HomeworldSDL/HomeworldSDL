@@ -2830,7 +2830,7 @@ bool etgOpcodeScan(struct etgeffectstatic *stat, char *string, ubyte *dest, sdwo
             }
             //call the parsing function
             *destLength = etgParseTable[index].function(stat, dest, start, params, returnValue);
-            dbgAssertOrIgnore(*destLength < OPCODE_MAX && *destLength >= 0);
+            dbgAssertOrIgnore(0 <= *destLength && *destLength < OPCODE_MAX);
             return(TRUE);
         }
     }
@@ -5808,18 +5808,17 @@ sdword etgVarAssign(Effect *effect, struct etgeffectstatic *stat, ubyte *opcode)
 
 sdword etgFunctionCall(Effect *effect, struct etgeffectstatic *stat, ubyte *opcode)
 {
-    udword param, nParams, returnType;
+    memsize param = 0;
     etgfunctioncall *opptr = (etgfunctioncall *)opcode;
 
-    nParams = opptr->nParameters;
-    returnType = opptr->returnValue;
+    udword nParams = opptr->nParameters;
+    memsize returnValue = opptr->returnValue;
 
     opfunctionentry *entry = NULL;
-    udword currEntry=0;
-        
+    udword currEntry = 0;
     while ((entry = &etgFunctionTable[currEntry++])->name != NULL)
     {
-        if (entry->function == ((etgfunctioncall *)opcode)->function)
+        if (entry->function == opptr->function)
         {
             break;
         }
@@ -5835,9 +5834,9 @@ sdword etgFunctionCall(Effect *effect, struct etgeffectstatic *stat, ubyte *opco
     else
         param = opptr->wrap_function(effect, stat, opptr);
 
-    if (returnType != 0xffffffff)                           //if a return value is desired
+    if (returnValue != MINUS1)                           //if a return value is desired
     {
-        *((udword *)(effect->variable + returnType)) = param;//set the return parameter
+        *((memsize *)(effect->variable + returnValue)) = param;//set the return parameter
     }
 
     return(etgFunctionSize(nParams));
@@ -6010,63 +6009,6 @@ sdword etgFunctionCall(Effect *effect, struct etgeffectstatic *stat, ubyte *opco
            
 	opfunctionentry *entry;
 
-/*
-    if (((etgfunctioncall *)opcode)->function == etgSpawnNewEffect){
-
-//        dbgMessagef("Function: %lx:%d   -> %s",((etgfunctioncall *)opcode)->function, nParams+((etgfunctioncall *)opcode)->passThis ,  stat->name);
-
-        switch  (nParams+((etgfunctioncall *)opcode)->passThis){
-            case 4: 
-                etgSpawnNewEffect(effect, ((etgfunctioncall *)opcode)->parameter[0].param,1,((etgfunctioncall *)opcode)->parameter[2].param);
-                return (etgFunctionSize(nParams));
-                break;
-            case 5: 
-                etgSpawnNewEffect(effect, ((etgfunctioncall *)opcode)->parameter[0].param,2,((etgfunctioncall *)opcode)->parameter[2].param,((etgfunctioncall *)opcode)->parameter[3].param);
-                return (etgFunctionSize(nParams));
-                break;
-            case 6: 
-                etgSpawnNewEffect(effect, ((etgfunctioncall *)opcode)->parameter[0].param,3,((etgfunctioncall *)opcode)->parameter[2].param,((etgfunctioncall *)opcode)->parameter[3].param,((etgfunctioncall *)opcode)->parameter[4].param);
-                return (etgFunctionSize(nParams));
-                break;
-
-            case 7:
-            case 8:
-            case 9:
-                return (etgFunctionSize(nParams));
-                break;
-
-            default: 
-                break;
-        }
-    } 
-*/ // etgSpawnNewEffect
-/*
-    if (((etgfunctioncall *)opcode)->function == etgCreateEffects){
-        switch  (nParams+((etgfunctioncall *)opcode)->passThis){
-            case 6: 
-                etgCreateEffects(effect, ((etgfunctioncall *)opcode)->parameter[0].param,((etgfunctioncall *)opcode)->parameter[1].param,((etgfunctioncall *)opcode)->parameter[2].param,1, ((etgfunctioncall *)opcode)->parameter[4].param);
-                return (etgFunctionSize(nParams));
-                break;
-            case 7: 
-                etgCreateEffects(effect, ((etgfunctioncall *)opcode)->parameter[0].param,((etgfunctioncall *)opcode)->parameter[1].param,((etgfunctioncall *)opcode)->parameter[2].param,1, ((etgfunctioncall *)opcode)->parameter[4].param, ((etgfunctioncall *)opcode)->parameter[5].param);
-                return (etgFunctionSize(nParams));
-                break;
-            case 8: 
-                etgCreateEffects(effect, ((etgfunctioncall *)opcode)->parameter[0].param,((etgfunctioncall *)opcode)->parameter[1].param,((etgfunctioncall *)opcode)->parameter[2].param,1, ((etgfunctioncall *)opcode)->parameter[4].param, ((etgfunctioncall *)opcode)->parameter[5].param,((etgfunctioncall *)opcode)->parameter[6].param);
-                return (etgFunctionSize(nParams));
-                break;
-
-            case 9:
-            case 10:
-            case 11:
-                return (etgFunctionSize(nParams));
-                break;
-
-            default: 
-                break;
-        }
-    } 
-*/ //etgCreateEffects
 	while ((entry = &etgFunctionTable[currEntry++])->name != NULL)
 	{
 		if (entry->function == ((etgfunctioncall *)opcode)->function)
@@ -6099,23 +6041,10 @@ sdword etgFunctionCall(Effect *effect, struct etgeffectstatic *stat, ubyte *opco
                 isLabel = 0;
                 break;
             case EVT_ConstLabel:
-//                param = (udword)stat->constData + param;
                 param = (memsize)stat->constData + param;
                 isLabel = 1;
                 break;
-//            case EVT_Pointer:   
-//                param = effect->variable + param;
-//                if ( (memsize)((etgfunctioncall *)opcode)->parameter[index].paramptr != 0 ) {
-//                param = *((memsize*)(effect->variable + param));
-//                    param = (memsize)((etgfunctioncall *)opcode)->parameter[index].paramptr; 
-//                }
-//                else {
-//                    param = (memsize)((etgfunctioncall *)opcode)->parameter[index].paramptr; 
-//                }
-//                isLabel = 1;
-//                break;
             case EVT_VarLabel:
-//                param = (udword)effect->variable + param;
                 param = (memsize) effect->variable + param;
                 isLabel = 1;
                 break;
@@ -6166,21 +6095,16 @@ sdword etgFunctionCall(Effect *effect, struct etgeffectstatic *stat, ubyte *opco
 
     if ((memsize)((etgfunctioncall *)opcode)->function == (memsize) etgSpawnNewEffect){
 
-//        dbgMessagef("Function: %lx:%d   -> %s",((etgfunctioncall *)opcode)->function, nParams+((etgfunctioncall *)opcode)->passThis ,  stat->name);
-
         switch  (nParams+((etgfunctioncall *)opcode)->passThis){
             case 4: 
-//                dbgMessagef("etgSpawnNewEffect %lx,%lx,%lx,%lx", effect,intParam[1],1,intParam[3]);
                 etgSpawnNewEffect(effect, (etgeffectstatic *) intParam[1],1,intParam[3]);
                 return (etgFunctionSize(nParams));
                 break;
             case 5: 
-//                dbgMessagef("etgSpawnNewEffect %lx,%lx,%lx,%lx,%lx", effect,intParam[1],2,intParam[3],intParam[4]);
                 etgSpawnNewEffect(effect, (etgeffectstatic *) intParam[1],2,intParam[3],intParam[4]);
                 return (etgFunctionSize(nParams));
                 break;
             case 6: 
-//                dbgMessagef("etgSpawnNewEffect %lx,%lx,%lx,%lx,%lx,%lx", effect,intParam[1],3,intParam[3],intParam[4],intParam[5]);
                 etgSpawnNewEffect(effect, (etgeffectstatic *) intParam[1],3,intParam[3],intParam[4],intParam[5]);
                 return (etgFunctionSize(nParams));
                 break;
@@ -6192,24 +6116,20 @@ sdword etgFunctionCall(Effect *effect, struct etgeffectstatic *stat, ubyte *opco
                 break;
 
             default: 
-//                dbgMessagef("etgSpawnNewEffect %lx,%lx", effect,intParam[1],intParam[2]);
                 break;
         }
     } 
     if ((memsize)((etgfunctioncall *)opcode)->function == (memsize) etgCreateEffects){
         switch  (nParams+((etgfunctioncall *)opcode)->passThis){
             case 6: 
-//                dbgMessagef("etgCreateEffects %lx,%lx,%lx,%lx,%lx,%lx", effect,intParam[1],intParam[2],intParam[3],1,intParam[5]);
                 etgCreateEffects(effect, (etgeffectstatic *) intParam[1],intParam[2],intParam[3],1, intParam[5]);
                 return (etgFunctionSize(nParams));
                 break;
             case 7: 
-//                dbgMessagef("etgCreateEffects %lx,%lx,%lx,%lx,%lx,%lx,%lx", effect,intParam[1],intParam[2],intParam[3],2,intParam[5],intParam[6]);
                 etgCreateEffects(effect, (etgeffectstatic *) intParam[1],intParam[2],intParam[3],2, intParam[5], intParam[6]);
                 return (etgFunctionSize(nParams));
                 break;
             case 8: 
-//                dbgMessagef("etgCreateEffects %lx,%lx,%lx,%lx,%lx,%lx,%lx,%lx", effect,intParam[1],intParam[2],intParam[3],3,intParam[5],intParam[6],intParam[7]);
                 etgCreateEffects(effect, (etgeffectstatic *) intParam[1],intParam[2],intParam[3],3, intParam[5], intParam[6],intParam[7]);
                 return (etgFunctionSize(nParams));
                 break;
@@ -6221,7 +6141,6 @@ sdword etgFunctionCall(Effect *effect, struct etgeffectstatic *stat, ubyte *opco
                 break;
 
             default: 
-//                dbgMessagef("etgCreateEffects %lx,%lx,%lx,%lx,%lx", effect,intParam[1],intParam[2],intParam[3],intParam[4]);
                 break;
         }
     } 
