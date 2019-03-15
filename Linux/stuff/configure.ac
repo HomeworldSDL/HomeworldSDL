@@ -124,8 +124,9 @@ fi
 
 dnl LINUX FIX ME
 AC_ARG_ENABLE(linuxfixme,
-	AS_HELP_STRING([--disable-linuxfixme],
-		[some major buggy (on linux) code exists, disable if temporary workaround isn't wanted]), [linuxfixme=no], [linuxfixme=yes])
+	AS_HELP_STRING([--enable-linuxfixme],
+		[Some code is known to be problematic on Linux.
+		Enable this to try the workarounds for this code.]), [linuxfixme=yes], [linuxfixme=no])
 if test "$platform_win32" = "no" ; then
     if test "x$linuxfixme" = "xyes" ; then
     	echo "* Building linux workaround build (-D_LINUX_FIX_ME) *"
