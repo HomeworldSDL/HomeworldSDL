@@ -116,7 +116,7 @@ AC_ARG_ENABLE(generic_ETG,
 	AS_HELP_STRING([--disable-generic-etg],
         [Some platforms have assembly implementation of etgFunctionCall,
 				if you want to test them use this option. (Otherwise, generic C code is used)]),
-        [generic_etg=no], [generic-etg=yes])
+        [generic_etg=no], [generic_etg=yes])
 if test "x$generic_etg" = "xyes" ; then
     echo "* Forceing generic etgFunctionCall (-DGENERIC_ETGCALLFUNCTION) *"
     CFLAGS="$CFLAGS -DGENERIC_ETGCALLFUNCTION "
