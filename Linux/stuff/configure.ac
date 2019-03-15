@@ -94,8 +94,8 @@ fi
 dnl Configure options for building X86_64 version.
 AC_ARG_ENABLE(x86_64,
     AS_HELP_STRING([--disable-x86_64],[build the 32b version]),
-    disable_x86_64=yes)
-if test "x$disable_x86_64" = "x" ; then
+    [x86_64=no], [x86_64=yes])
+if test "x$x86_64" = "xyes" ; then
     echo "* Building x86_64 binary for Homeworld (X86_64) *"
     CFLAGS="$CFLAGS -D_X86_64 -D_X86_64_FIX_ME"
     x86_class_cpu="true"
@@ -116,8 +116,8 @@ AC_ARG_ENABLE(generic_ETG,
 	AS_HELP_STRING([--disable-generic-etg],
         [Some platforms have assembly implementation of etgFunctionCall,
 				if you want to test them use this option. (Otherwise, generic C code is used)]),
-        disable_generic_etg=yes)
-if test "x$disable_generic_etg" = "x" ; then
+        [generic_etg=no], [generic-etg=yes])
+if test "x$generic_etg" = "xyes" ; then
     echo "* Forceing generic etgFunctionCall (-DGENERIC_ETGCALLFUNCTION) *"
     CFLAGS="$CFLAGS -DGENERIC_ETGCALLFUNCTION "
 fi
@@ -126,7 +126,8 @@ dnl LINUX FIX ME
 AC_ARG_ENABLE(linuxfixme,
 	AS_HELP_STRING([--enable-linuxfixme],
 		[Some code is known to be problematic on Linux.
-		Enable this to try the workarounds for this code.]), [linuxfixme=yes], [linuxfixme=no])
+		Enable this to try the workarounds for this code.]),
+		[linuxfixme=yes], [linuxfixme=no])
 if test "$platform_win32" = "no" ; then
     if test "x$linuxfixme" = "xyes" ; then
     	echo "* Building linux workaround build (-D_LINUX_FIX_ME) *"
