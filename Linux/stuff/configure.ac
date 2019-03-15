@@ -113,10 +113,11 @@ AM_CONDITIONAL(X86_CPU, test x$x86_class_cpu = xtrue)
 
 dnl Force generic ETG function call
 AC_ARG_ENABLE(generic_ETG,
-	AS_HELP_STRING([--enable-generic-etg],
-        [Some platforms have assembly implementation of etgFunctionCall, if you want to test the C only generic implementation on these platforms use this option]),
-        enable_generic_etg=yes)
-if test "x$enable_generic_etg" = "xyes" ; then
+	AS_HELP_STRING([--disable-generic-etg],
+        [Some platforms have assembly implementation of etgFunctionCall,
+				if you want to test them use this option. (Otherwise, generic C code is used)]),
+        disable_generic_etg=yes)
+if test "x$disable_generic_etg" = "x" ; then
     echo "* Forceing generic etgFunctionCall (-DGENERIC_ETGCALLFUNCTION) *"
     CFLAGS="$CFLAGS -DGENERIC_ETGCALLFUNCTION "
 fi
