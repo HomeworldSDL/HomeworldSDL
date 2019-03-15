@@ -4394,7 +4394,7 @@ char *utyGameSystemsShutdown(void)
     if (utyTest2(SS2_SoundEngine))
     {
         // shutdown sound engine
-#if !defined(_LINUX_FIX_ME) || !defined(_X86_64_FIX_ME)
+#if !defined(_LINUX_FIX_ME) && !defined(_X86_64_FIX_ME)
         soundEventClose();
 #endif
         utyClear2(SS2_SoundEngine);
@@ -4697,7 +4697,7 @@ char *utyGameSystemsShutdown(void)
 
     if (utyTest2(SS2_ToggleKeys))
     {
-#if !defined(_LINUX_FIX_ME) || !defined(_X86_64_FIX_ME)
+#if !defined(_LINUX_FIX_ME) && !defined(_X86_64_FIX_ME)
         utyToggleKeyStatesRestore();
 #endif
     }
