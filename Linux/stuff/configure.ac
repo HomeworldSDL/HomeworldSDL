@@ -93,9 +93,13 @@ fi
 
 dnl Configure options for building X86_64 version.
 AC_ARG_ENABLE(x86_64,
-    AS_HELP_STRING([--enable-x86_64],[build an experimental x86_64 binary for Homeworld]),
-    enable_x86_64=yes)
-if test "x$enable_x86_64" = "x" ; then
+    AS_HELP_STRING([--disable-x86_64],[build the 32b version]),
+    disable_x86_64=yes)
+if test "x$disable_x86_64" = "x" ; then
+    echo "* Building x86_64 binary for Homeworld (X86_64) *"
+    CFLAGS="$CFLAGS -D_X86_64 -D_X86_64_FIX_ME"
+    x86_class_cpu="true"
+else
     if test "$host_cpu" = "arm" ; then
         echo "* Building ARM binary for Homeworld (ARM)"
         CFLAGS="$CFLAGS -DARM -DGENERIC_ETGCALLFUNCTION"
@@ -104,10 +108,6 @@ if test "x$enable_x86_64" = "x" ; then
         CFLAGS="$CFLAGS -malign-double -D_X86"
 	x86_class_cpu="true"
     fi
-else
-    echo "* Building x86_64 binary for Homeworld (X86_64) *"
-    CFLAGS="$CFLAGS -D_X86_64 -D_X86_64_FIX_ME"
-    x86_class_cpu="true"
 fi
 AM_CONDITIONAL(X86_CPU, test x$x86_class_cpu = xtrue)
 
