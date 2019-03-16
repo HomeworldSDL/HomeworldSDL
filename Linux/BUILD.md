@@ -7,7 +7,7 @@
 ``` sh
 cd Linux
 ./bootstrap
-../configure --enable-x86_64
+../configure
 make
 ```
 
@@ -21,16 +21,18 @@ You are now ready to run the game and [configure the OpenGL renderer](../README#
 
 ## x86 (intel/amd 32-bit)
 
-You may want to cross-compile the game to 32bit even if your machine is 64bit. (mainly because the x86_64 port is unstable)
+This is if you want to cross-compile the game to 32bit even if your machine is 64bit.
 
 The process is the same as for x86_64, except for the `../configure` step, as follows:
 
 ``` sh
 cd Linux
 ./bootstrap
-CFLAGS='-m32' ../configure  # here
+CFLAGS='-m32' ../configure --disable-x86_64  # here
 make
 ```
+
+> Note: this will output a binary without debug symbols. Building a 32b binary with debug symbols on a 64b machine is feasible (I have done it for debugging), but not supported by autoconf and therefore not very straightforward.
 
 ## Packaging HomeworldSDL.big
 

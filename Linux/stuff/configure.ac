@@ -93,9 +93,13 @@ fi
 
 dnl Configure options for building X86_64 version.
 AC_ARG_ENABLE(x86_64,
-    AS_HELP_STRING([--enable-x86_64],[build an experimental x86_64 binary for Homeworld]),
-    enable_x86_64=yes)
-if test "x$enable_x86_64" = "x" ; then
+    AS_HELP_STRING([--disable-x86_64],[build the 32b version]),
+    [x86_64=no], [x86_64=yes])
+if test "x$x86_64" = "xyes" ; then
+    echo "* Building x86_64 binary for Homeworld (X86_64) *"
+    CFLAGS="$CFLAGS -D_X86_64 -D_X86_64_FIX_ME"
+    x86_class_cpu="true"
+else
     if test "$host_cpu" = "arm" ; then
         echo "* Building ARM binary for Homeworld (ARM)"
         CFLAGS="$CFLAGS -DARM -DGENERIC_ETGCALLFUNCTION"
@@ -104,27 +108,26 @@ if test "x$enable_x86_64" = "x" ; then
         CFLAGS="$CFLAGS -malign-double -D_X86"
 	x86_class_cpu="true"
     fi
-else
-    echo "* Building x86_64 binary for Homeworld (X86_64) *"
-    CFLAGS="$CFLAGS -D_X86_64 -D_X86_64_FIX_ME"
-    x86_class_cpu="true"
 fi
 AM_CONDITIONAL(X86_CPU, test x$x86_class_cpu = xtrue)
 
 dnl Force generic ETG function call
 AC_ARG_ENABLE(generic_ETG,
-	AS_HELP_STRING([--enable-generic-etg],
-        [Some platforms have assembly implementation of etgFunctionCall, if you want to test the C only generic implementation on these platforms use this option]),
-        enable_generic_etg=yes)
-if test "x$enable_generic_etg" = "xyes" ; then
+	AS_HELP_STRING([--disable-generic-etg],
+        [Some platforms have assembly implementation of etgFunctionCall,
+				if you want to test them use this option. (Otherwise, generic C code is used)]),
+        [generic_etg=no], [generic_etg=yes])
+if test "x$generic_etg" = "xyes" ; then
     echo "* Forceing generic etgFunctionCall (-DGENERIC_ETGCALLFUNCTION) *"
     CFLAGS="$CFLAGS -DGENERIC_ETGCALLFUNCTION "
 fi
 
 dnl LINUX FIX ME
 AC_ARG_ENABLE(linuxfixme,
-	AS_HELP_STRING([--disable-linuxfixme],
-		[some major buggy (on linux) code exists, disable if temporary workaround isn't wanted]), [linuxfixme=no], [linuxfixme=yes])
+	AS_HELP_STRING([--enable-linuxfixme],
+		[Some code is known to be problematic on Linux.
+		Enable this to try the workarounds for this code.]),
+		[linuxfixme=yes], [linuxfixme=no])
 if test "$platform_win32" = "no" ; then
     if test "x$linuxfixme" = "xyes" ; then
     	echo "* Building linux workaround build (-D_LINUX_FIX_ME) *"
