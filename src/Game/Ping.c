@@ -170,7 +170,7 @@ DEFINE_TASK(pingUpdateTask)
             if (universe.totaltimeelapsed - thisPing->lastEvaluateTime >= thisPing->evaluatePeriod)
             {                                               //if time to evaluate a ping
                 thisPing->lastEvaluateTime = universe.totaltimeelapsed;
-                if (thisPing->evaluate(thisPing, thisPing->userID, (char *)(thisPing + 1), FALSE))
+                if (thisPing->evaluate(thisPing, thisPing->user, (char *)(thisPing + 1), FALSE))
                 {                                           //did this ping just expire?
                     listDeleteNode(thisNode);               //kill it if so
                 }
@@ -244,7 +244,7 @@ void pingShutdown(void)
                     ping structure.
     Return      : Pointer to newly allocated ping structure.
 ----------------------------------------------------------------------------*/
-ping *pingCreate(vector *loc, SpaceObj *owner, pingeval evaluate, ubyte **userData, sdword userDataSize, udword userID)
+ping *pingCreate(vector *loc, SpaceObj *owner, pingeval evaluate, ubyte **userData, sdword userDataSize, SpaceObj *user)
 {
     ping *newPing;
 
@@ -271,7 +271,7 @@ ping *pingCreate(vector *loc, SpaceObj *owner, pingeval evaluate, ubyte **userDa
     newPing->lastEvaluateTime = universe.totaltimeelapsed;
     newPing->evaluate = evaluate;
     newPing->userDataSize = userDataSize;
-    newPing->userID = userID;
+    newPing->user = user;
     newPing->TOMask = 0;
     if (userData != NULL)
     {
@@ -306,9 +306,9 @@ void pingObjectDied(SpaceObj *obj)
             thisPing->centre = obj->posinfo.position;
             thisPing->owner = NULL;                         //remove object from reference
         }
-        if (thisPing->userID != 0 || thisPing->userDataSize != 0)
+        if (thisPing->user != NULL || thisPing->userDataSize != 0)
         {                                                   //see if there's anything in the user data
-            if (thisPing->evaluate(thisPing, thisPing->userID, (char *)(thisPing + 1), TRUE))
+            if (thisPing->evaluate(thisPing, thisPing->user, (char *)(thisPing + 1), TRUE))
             {                                               //did this ping just expire?
                 listDeleteNode(thisNode);                   //kill it if it did
             }
@@ -563,7 +563,7 @@ void pingListDraw(Camera *camera, hmatrix *modelView, hmatrix *projection, recta
     Outputs     :
     Return      : TRUE if the ping times out.
 ----------------------------------------------------------------------------*/
-bool pingAnomalyPingTimeout(struct ping *hellaPing, udword userID, char *userData, bool bRemoveReferences)
+bool pingAnomalyPingTimeout(struct ping *hellaPing, SpaceObj *user, char *userData, bool bRemoveReferences)
 {
     SelectCommand *selection;
     real32 dummySize;
@@ -615,7 +615,7 @@ void pingAnomalySelectionPingAdd(char *pingName, SelectCommand *selection)
 
     position = selCentrePointComputeGeneral((MaxSelection *)selection, &dummySize);
     dataSize = strlen(pingName) + 1 + selSelectionSize(selection->numShips);
-    newPing = pingCreate(&position, NULL, pingAnomalyPingTimeout, &userData, dataSize, 0);
+    newPing = pingCreate(&position, NULL, pingAnomalyPingTimeout, &userData, dataSize, NULL);
     selSelectionCopy((MaxAnySelection *)userData, (MaxAnySelection *)selection);//copy the ship selection to the ping
     strcpy((char *)userData + selSelectionSize(selection->numShips), pingName);//set the name
     newPing->c              = pingAnomalyColor;
@@ -643,7 +643,7 @@ void pingAnomalyObjectPingAdd(char *pingName, SpaceObj *owner)
     sdword dataSize, zero = 0;
 
     dataSize = strlen(pingName) + 1 + selSelectionSize(zero);
-    newPing = pingCreate(NULL, owner, pingAnomalyPingTimeout, &userData, dataSize, (udword)owner);
+    newPing = pingCreate(NULL, owner, pingAnomalyPingTimeout, &userData, dataSize, owner);
     ((SelectCommand *)userData)->numShips = 0;              //dummy selection
     strcpy((char *)userData + selSelectionSize(zero), pingName);       //set the name
     newPing->c              = pingAnomalyColor;
@@ -671,7 +671,7 @@ void pingAnomalyPositionPingAdd(char *pingName, vector *position)
     sdword dataSize, zero = 0;
 
     dataSize = strlen(pingName) + 1 + selSelectionSize(zero);
-    newPing = pingCreate(position, NULL, pingAnomalyPingTimeout, &userData, dataSize, 0);
+    newPing = pingCreate(position, NULL, pingAnomalyPingTimeout, &userData, dataSize, NULL);
     ((SelectCommand *)userData)->numShips = 0;              //dummy selection
     strcpy((char *)userData + selSelectionSize(zero), pingName);       //set the name
     newPing->c              = pingAnomalyColor;
@@ -802,7 +802,7 @@ bool pingBattleBlobCriteria(blob *superBlob, SpaceObj *obj)
     Outputs     : Battle sound code will be performed here.
     Return      : TRUE, or maybe false, depending on the mood
 ----------------------------------------------------------------------------*/
-bool pingBattlePingEvaluate(struct ping *hellaPing, udword userID, char *userData, bool bRemoveReferences)
+bool pingBattlePingEvaluate(struct ping *hellaPing, SpaceObj *user, char *userData, bool bRemoveReferences)
 {
     sdword index;
     Ship **thisShip;
@@ -904,7 +904,7 @@ void pingAttackPingsCreate(blob *superBlob)
         {
             nTotalShips = superBlob->blobShips->numShips;
         }
-        newPing = pingCreate(&thisBlob->centre, NULL, pingBattlePingEvaluate, (ubyte **)&battlePing, battlePingSize(nTotalShips), 0);
+        newPing = pingCreate(&thisBlob->centre, NULL, pingBattlePingEvaluate, (ubyte **)&battlePing, battlePingSize(nTotalShips), NULL);
         newPing->c              = pingBattleColor;
 //        newPing->size           = pingBattleSize;
         newPing->size           = thisBlob->radius;
@@ -1000,7 +1000,7 @@ shipAlreadyInSelection:;
     Return      : TRUE because this function should only be called when the
                     ping times out
 ----------------------------------------------------------------------------*/
-bool pingNewShipCallback(struct ping *hellaPing, udword userID, char *userData, bool bRemoveReferences)
+bool pingNewShipCallback(struct ping *hellaPing, SpaceObj *user, char *userData, bool bRemoveReferences)
 {
     return(TRUE);
 }
@@ -1017,7 +1017,7 @@ void pingNewShipPingCreate(vector *position)
     ping *newPing;
     ubyte *userData;
 
-    newPing = pingCreate(position, NULL, pingNewShipCallback, &userData, 0, 0);
+    newPing = pingCreate(position, NULL, pingNewShipCallback, &userData, 0, NULL);
     newPing->c              = pingNewShipColor;
     newPing->size           = pingNewShipSize;
     newPing->minSize        = pingNewShipMinSize;
@@ -1076,7 +1076,7 @@ void SaveAnomalyPing(ping *tping)
     savecontents = (ping *)chunkContents(chunk);
 
     savecontents->owner = (SpaceObj *)SpaceObjRegistryGetID(tping->owner);
-    savecontents->userID = SpaceObjRegistryGetID((SpaceObj *)tping->userID);
+    savecontents->user = (SpaceObj *)SpaceObjRegistryGetID(tping->user);
 
     SaveThisChunk(chunk);
     memFree(chunk);
@@ -1106,7 +1106,7 @@ ping *LoadAndFixAnomalyPing(void)
     memFree(chunk);
 
     newping->owner = SpaceObjRegistryGetObj((sdword)newping->owner);
-    newping->userID = (sdword)SpaceObjRegistryGetObj((sdword)newping->userID);
+    newping->user = SpaceObjRegistryGetObj(newping->user);
     newping->evaluate = pingAnomalyPingTimeout;
 
     if (newping->userDataSize > 0)

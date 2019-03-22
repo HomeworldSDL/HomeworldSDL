@@ -76,7 +76,7 @@
 
 struct ping;
 
-typedef bool (*pingeval)(struct ping *hellaPing, udword userID, char *userData, bool bRemoveReferences);
+typedef bool (*pingeval)(struct ping *hellaPing, SpaceObj *user, char *userData, bool bRemoveReferences);
 //structure of a ping
 typedef struct ping
 {
@@ -94,7 +94,7 @@ typedef struct ping
     real32 lastEvaluateTime;                    //last time ping was evaluated
     pingeval evaluate;                          //function to evaluate the expiry of the ping.
     sdword userDataSize;                        //size of the user data associated with this ping
-    udword userID;                              //user ID to pass back to user function
+    SpaceObj *user;                              //user pointer to pass back to user function
     real32 cameraDistanceSquared;               //distance^2 from the camera
     udword TOMask;          //default 0         //TO Mask, if any
 }
@@ -114,7 +114,7 @@ void pingStartup(void);
 void pingShutdown(void);
 void pingReset(void);
 
-ping *pingCreate(vector *loc, SpaceObj *owner, pingeval evaluate, ubyte **userData, sdword userDataSize, udword userID);
+ping *pingCreate(vector *loc, SpaceObj *owner, pingeval evaluate, ubyte **userData, sdword userDataSize, SpaceObj *user);
 void pingObjectDied(SpaceObj *obj);
 void pingListDraw(Camera *camera, hmatrix *modelView, hmatrix *projection, rectangle *viewPort);
 

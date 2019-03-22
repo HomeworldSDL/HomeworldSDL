@@ -2317,18 +2317,18 @@ bool processAttackToDoInFormation(CommandToDo *attacktodo)
     Outputs     :
     Return      : TRUE if the ping times out.
 ----------------------------------------------------------------------------*/
-bool hyperspaceOutPingTimeOut(struct ping *hellaPing, udword userID, ubyte *userData, bool bRemoveReferences)
+bool hyperspaceOutPingTimeOut(struct ping *hellaPing, SpaceObj *user, ubyte *userData, bool bRemoveReferences)
 {
     if (bRemoveReferences)
     {
-        if ((SpaceObj *)userID == pingDyingObject)
+        if (user == pingDyingObject)
         {
             return(TRUE);
         }
         return(FALSE);
     }
 
-    if(((Ship *)userID)->flags & SOF_Hyperspace)
+    if(((Ship *)user)->flags & SOF_Hyperspace)
     {
         return(TRUE);
     }
@@ -2344,17 +2344,17 @@ bool hyperspaceOutPingTimeOut(struct ping *hellaPing, udword userID, ubyte *user
     Outputs     :
     Return      : TRUE if the ping times out.
 ----------------------------------------------------------------------------*/
- bool hyperspaceInPingTimeOut(struct ping *hellaPing, udword userID, ubyte *userData, bool bRemoveReferences)
+ bool hyperspaceInPingTimeOut(struct ping *hellaPing, SpaceObj *user, ubyte *userData, bool bRemoveReferences)
 {
     if (bRemoveReferences)
     {
-        if ((SpaceObj *)userID == pingDyingObject)
+        if (user == pingDyingObject)
         {
             return(TRUE);
         }
         return(FALSE);
     }
-    if(((Ship *)userID)->shipSinglePlayerGameInfo->shipHyperspaceState == SHIPHYPERSPACE_NONE)
+    if(((Ship *)user)->shipSinglePlayerGameInfo->shipHyperspaceState == SHIPHYPERSPACE_NONE)
     {
         return(TRUE);
     }
@@ -2530,7 +2530,7 @@ bool processMpHyperspaceingToDo(CommandToDo *movetodo)
 
                     movetodo->selection->ShipPtr[j]->hyperspacePing=TRUE;
                     //create ping HERE!
-                    newPing = pingCreate(NULL, (SpaceObj *)movetodo->selection->ShipPtr[j], (pingeval)hyperspaceOutPingTimeOut, NULL, 0, (udword)movetodo->selection->ShipPtr[j]);
+                    newPing = pingCreate(NULL, (SpaceObj *)movetodo->selection->ShipPtr[j], (pingeval)hyperspaceOutPingTimeOut, NULL, 0, movetodo->selection->ShipPtr[j]);
                     newPing->c = TW_HW_PING_COLOUR_OUT;
                     newPing->size = TW_HW_PING_MAX_SIZE_OUT;
                     newPing->minScreenSize = primScreenToGLScaleX(2);
@@ -2626,7 +2626,7 @@ bool processMpHyperspaceingToDo(CommandToDo *movetodo)
                     ping *newPing;
                     movetodo->selection->ShipPtr[j]->hyperspacePing=TRUE;
                     //create ping HERE!
-                    newPing = pingCreate(NULL, (SpaceObj *)movetodo->selection->ShipPtr[j], (pingeval)hyperspaceInPingTimeOut, NULL, 0, (udword)movetodo->selection->ShipPtr[j]);
+                    newPing = pingCreate(NULL, (SpaceObj *)movetodo->selection->ShipPtr[j], (pingeval)hyperspaceInPingTimeOut, NULL, 0, movetodo->selection->ShipPtr[j]);
                     newPing->c = TW_HW_PING_COLOUR_IN;
                     newPing->size = TW_HW_PING_MAX_SIZE_IN;
                     newPing->minScreenSize = primScreenToGLScaleX(2);
