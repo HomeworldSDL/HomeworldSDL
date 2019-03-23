@@ -653,7 +653,7 @@ void TurnHarvestEffectOff(Ship *ship)
 
     if (bitTest(((etgeffectstatic *)ship->rceffect->staticinfo)->specialOps, ESO_SelfDeleting))
     {                                                       //if the effect will delete itself
-        ((real32 *)ship->rceffect->variable)[SCALESHIFT(ETG_ResourceDurationParam)] =
+        ((real32 *)ship->rceffect->variable)[ETG_ResourceDurationParam] =
             ship->rceffect->timeElapsed;                            //time it out
     }
     else

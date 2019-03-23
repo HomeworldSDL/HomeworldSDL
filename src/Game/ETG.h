@@ -255,7 +255,7 @@ etgopcode;
 #define ETG_BulletDurationParam     3           //duration of bullet effects
 #define ETG_ResourceLengthParam     0           //length parameter of resourcing effects
 #define ETG_ResourceRadiusParam     1           //width parameter of resourcing effects
-#define ETG_ResourceDurationParam   2           //duration parameter of resourcing effects
+#define ETG_ResourceDurationParam   SCALESHIFT(2)           //duration parameter of resourcing effects
 #define ETG_NumberParameters        8           //number of parameters supported by variable-parameter functions
 
 //effect flags
