@@ -250,13 +250,13 @@ etgopcode;
 #define ETG_R1BulletColor           colRGB(255,180,0)
 
 //parameter indices and whatnot
-#define ETG_LengthVariable          2           //length parameter of bullet effects
-#define ETG_SpecialDurationParam    1           //duration of special effects
-#define ETG_BulletDurationParam     3           //duration of bullet effects
-#define ETG_ResourceLengthParam     0           //length parameter of resourcing effects
-#define ETG_ResourceRadiusParam     1           //width parameter of resourcing effects
-#define ETG_ResourceDurationParam   2           //duration parameter of resourcing effects
-#define ETG_NumberParameters        8           //number of parameters supported by variable-parameter functions
+#define ETG_LengthVariable          2              //length parameter of bullet effects
+#define ETG_SpecialDurationParam    1              //duration of special effects
+#define ETG_BulletDurationParam     3              //duration of bullet effects
+#define ETG_ResourceLengthParam     0              //length parameter of resourcing effects
+#define ETG_ResourceRadiusParam     1              //width parameter of resourcing effects
+#define ETG_ResourceDurationParam   SCALESHIFT(2)  //duration parameter of resourcing effects
+#define ETG_NumberParameters        8              //number of parameters supported by variable-parameter functions
 
 //effect flags
 #define EF_Rendered                 0x00000010
