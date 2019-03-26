@@ -245,13 +245,13 @@ sdword proxGetBlipRadius(Ship *ship)
     Outputs     :
     Return      : TRUE if the ping times out.
 ----------------------------------------------------------------------------*/
-bool ProximitySensorPingTimeout(struct ping *hellaPing, udword userID, char *userData, bool bRemoveReferences)
+bool ProximitySensorPingTimeout(struct ping *hellaPing, SpaceObj *user, char *userData, bool bRemoveReferences)
 {
-    ProximitySensorSpec *spec = (ProximitySensorSpec *)((Ship *)userID)->ShipSpecifics;
+    ProximitySensorSpec *spec = (ProximitySensorSpec *)((Ship *)user)->ShipSpecifics;
 
     if (bRemoveReferences)
     {
-        if ((SpaceObj *)userID == pingDyingObject)
+        if (user == pingDyingObject)
         {
             return(TRUE);
         }
@@ -346,7 +346,7 @@ void ProximitySensorHouseKeep(Ship *ship)
                     {
                         battleChatterFleetAttempt(SOUND_EVENT_DEFAULT, BCE_STAT_F_ProxSensor_Detection, SOUND_EVENT_DEFAULT, &ship->posinfo.position);
                     }
-                    newPing = pingCreate(NULL, (SpaceObj *)ship, ProximitySensorPingTimeout, NULL, 0, (udword)ship);
+                    newPing = pingCreate(NULL, (SpaceObj *)ship, ProximitySensorPingTimeout, NULL, 0, ship);
                     newPing->c = proxBlipColor(ship);
                     newPing->size = proximitysensorstatics->SearchRadius;
                     newPing->minScreenSize = primScreenToGLScaleX(2);
