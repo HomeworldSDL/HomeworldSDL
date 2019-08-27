@@ -1,4 +1,4 @@
-AC_INIT([HomeworldSDL],[0.6],[baucheta@gmail.com])
+AC_INIT([HomeworldSDL],[1.0.2],[baucheta@gmail.com])
 AC_CONFIG_AUX_DIR(config)
 AC_CANONICAL_TARGET
 AC_CANONICAL_HOST
