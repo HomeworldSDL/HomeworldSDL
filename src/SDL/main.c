@@ -915,7 +915,7 @@ void DebugHelpDefault(char *string)
     }
 
     /*DialogBox(ghInstance, MAKEINTRESOURCE(IDD_CommandLine), NULL, CommandLineFunction);*/
-    printf(gHelpString);
+    printf("%s", gHelpString);
     free(gHelpString);                                       //done with string, free it
 }
 

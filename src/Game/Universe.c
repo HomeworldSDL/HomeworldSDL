@@ -5251,16 +5251,22 @@ void writeGameStatsToFile(char *filename)
                     fprintf(statsFile,"\n");
                     switch (universe.gameStats.playerStats[i].typeOfPlayerDeath)
                     {
-                        case PLAYERKILLED_DROPPEDOUT    : fprintf(statsFile,strGetString(strStatsDeathByDropout));                  break;
-                        case PLAYERKILLED_CAPTUREDSHIP  : fprintf(statsFile,strGetString(strStatsDeathByShipCapture));              break;
-                        case PLAYERKILLED_LOSTMISSION   : fprintf(statsFile,strGetString(strStatsDeathByLossOfMission));            break;
+                        case PLAYERKILLED_DROPPEDOUT:
+                            fprintf(statsFile, "%s", strGetString(strStatsDeathByDropout));
+                            break;
+                        case PLAYERKILLED_CAPTUREDSHIP:
+                            fprintf(statsFile, "%s", strGetString(strStatsDeathByShipCapture));
+                            break;
+                        case PLAYERKILLED_LOSTMISSION:
+                            fprintf(statsFile, "%s", strGetString(strStatsDeathByLossOfMission));
+                            break;
                     }
                 }
             }
             else
             {
                 fprintf(statsFile,"\n");
-                fprintf(statsFile,strGetString(strStatsDeathStillAlive));
+                fprintf(statsFile, "%s", strGetString(strStatsDeathStillAlive));
             }
 
             switch(tpGameCreated.startingResources)
@@ -5321,7 +5327,7 @@ void writeGameStatsToFile(char *filename)
                 if(verifyGameStatsShipsBounds(statsFile,i,universe.gameStats.playerStats[i].totalShips,1) == TRUE)
                     verifyGameStatsShipsAcquiredTotals(statsFile,i);
             fprintf(statsFile,"\n\n");
-            fprintf(statsFile,strGetString(strStatsTotalAcqShipsByType));
+            fprintf(statsFile, "%s", strGetString(strStatsTotalAcqShipsByType));
             fprintf(statsFile,"\n");
 
             for(j=0;j<TOTAL_NUM_SHIPS;j++)
@@ -5334,7 +5340,7 @@ void writeGameStatsToFile(char *filename)
                 }
             }
             fprintf(statsFile,"\n___________________\n\n\n");
-            fprintf(statsFile,strGetString(strStatsTotalAcqShipsByClass));
+            fprintf(statsFile, "%s", strGetString(strStatsTotalAcqShipsByClass));
             for(j=0;j<NUM_CLASSES;j++)
             {
                 if(universe.gameStats.playerStats[i].totalForEachClass[j] > 0)
