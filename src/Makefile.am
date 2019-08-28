@@ -31,7 +31,7 @@ homeworld_LIBTOOLFLAGS = --preserve-dup-deps
 if PLATFORM_WIN32
 homeworld_LDADD = $(HW_LIBS) $(DEP_LIBS) @SDL_LIBS@ $(GL_LIBS) $(MOVIE_LIBS) $(NET_LIBS)
 else
-homeworld_LDADD = $(HW_LIBS) $(DEP_LIBS) -L/usr/X11R6/lib -lX11 -lXext @SDL_LIBS@ $(GL_LIBS) $(MOVIE_LIBS) $(NET_LIBS)
+homeworld_LDADD = $(HW_LIBS) $(DEP_LIBS) -lX11 @SDL_LIBS@ $(GL_LIBS) $(MOVIE_LIBS) $(NET_LIBS)
 endif
 homeworld_LDFLAGS = -Wl,--as-needed
 
