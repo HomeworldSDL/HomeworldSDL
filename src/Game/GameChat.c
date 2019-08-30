@@ -648,7 +648,7 @@ void gcChatTextDraw(featom *atom, regionhandle region)
                     fontPrint(x,y,tpGameCreated.playerInfo[chat->playerindex].baseColor,temp);
                     x+=fontWidth(temp);
 
-                    sprintf(temp, strGetString(strWhisperedMessage));
+                    sprintf(temp, "%s", strGetString(strWhisperedMessage));
                     fontPrint(x,y,gcGameWhisperedColor, temp);
                     x+=fontWidth(temp);
 
