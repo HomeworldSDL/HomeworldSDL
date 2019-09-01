@@ -1,6 +1,11 @@
 # Homeworld SDL
 
-[SDL] port of the [Homeworld] source code that was [released in 2003] by [Relic].
+[SDL] port of the [Homeworld] source code that was [released in 2003] by [Relic Entertainment].
+
+[SDL]: https://en.wikipedia.org/wiki/Simple_DirectMedia_Layer
+[Homeworld]: https://en.wikipedia.org/wiki/Homeworld
+[released in 2003]: http://www.gearboxsoftware.com/2013/11/inside-the-box-homeworld-a-brief-history-of-code/
+[Relic Entertainment]: https://www.relic.com/
 
 ## Installing
 
@@ -43,6 +48,8 @@ wine si_homeworld_update_105.exe
 
 Open the game installation folder (usually `~/.wine/drive_c/Sierra/Homeworld`). This is where you'll find the [required files](#asset-checklist). We'll be getting back at them later on.
 
+[wine]: https://www.winehq.org/
+
 #### Installing the binary distribution
 
 1. Download [__the latest release__][releases]. (Extract it if necessary)
@@ -71,34 +78,10 @@ Once the game has launched, you need to:
  The game will now attempt to switch to the OpenGL renderer.  
  If everything goes okay, you should be presented with a confirmation that the settings you requested were changed.  Select "Yes", and you should be ready to go!
 
-## About
+## [About][wiki]
 
-This source port exists thanks to the hard work of a few devoted fans and began in 2003, soon after [Relic] released their source code for Homeworld 1. And this even though __the code is not [libre]__. This code and all contributions to it still remain the property of [Relic] (see the [LICENSE](LICENSE.txt) for details).
+If you want to know more about this project (and see some screenshots!), please head over to the [wiki].
 
-### [ThibaultLemaire/HomeworldSDL]
+[wiki]: https://gitlab.com/ThibaultLemaire/HomeworldSDL/wikis/home
 
-This repository, at the time of writing (2019/02/12), holds the most up to date code (to the author's knowledge), and is the only one to provide compiled binaries (see [releases]).
-
-The owner is no expert in C and a latecomer to the homeworldSDL party, but intends to improve the documentation (such as this README) and make the project more accessible. Indeed, most of the resources that were previously available (such as compiled HomeworldSDL binaries), are now -- 15 years later -- down, so the author decided he had to do something about it.
-
-This repository focuses on Linux support.
-
-### [timdetering/HomeworldSDL]
-
-This is the only remnant that the author could find of the HomeworldSDL source code that was previously hosted on svn (at least the only one that preserved the commit history).
-
-### Other repos
-
-If you know of other maintained repositories or if you plan to take on maintenance of this project, please go ahead and [contact] me or open an [issue][issues]!
-
-[SDL]: https://en.wikipedia.org/wiki/Simple_DirectMedia_Layer
-[Homeworld]: https://en.wikipedia.org/wiki/Homeworld
-[released in 2003]: http://www.gearboxsoftware.com/2013/11/inside-the-box-homeworld-a-brief-history-of-code/
-[Relic]: https://www.relic.com/
-[releases]: https://github.com/ThibaultLemaire/HomeworldSDL/releases
-[wine]: https://www.winehq.org/
-[libre]: https://en.wikipedia.org/wiki/Free_software
-[ThibaultLemaire/HomeworldSDL]: https://github.com/ThibaultLemaire/HomeworldSDL/
-[timdetering/HomeworldSDL]: https://github.com/timdetering/HomeworldSDL/
-[contact]: mailto:thibault.lemaire@protonmail.com
-[issues]: https://github.com/ThibaultLemaire/HomeworldSDL/releases
+[releases]: https://gitlab.com/ThibaultLemaire/HomeworldSDL/-/releases
