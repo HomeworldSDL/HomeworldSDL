@@ -1503,7 +1503,7 @@ bool gunShootGunsAtMultipleTargets(Ship *ship)
     Outputs     : computes and fills in the gun matrix.
     Return      : true = matrix updated
 ----------------------------------------------------------------------------*/
-bool gunMatrixUpdate(udword flags, hmatrix *startMatrix, hmatrix *matrix, void *data, sdword ID)
+bool gunMatrixUpdate(udword flags, hmatrix *startMatrix, hmatrix *matrix, void *data, smemsize ID)
 {
     Ship *ship;
     Gun *gun;

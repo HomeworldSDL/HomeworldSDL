@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1793E3D2236CBB71006F67CB /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1793E3D1236CBB71006F67CB /* SDL2.framework */; };
-		1793E3D3236CBB71006F67CB /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1793E3D1236CBB71006F67CB /* SDL2.framework */; };
+		1793E3D7237095FD006F67CB /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1793E3D6237095FD006F67CB /* SDL2.framework */; };
+		1793E3D8237095FD006F67CB /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1793E3D6237095FD006F67CB /* SDL2.framework */; };
 		3507A51B0B0FA60200E374C5 /* Trails.c in Sources */ = {isa = PBXBuildFile; fileRef = 3507A5190B0FA60200E374C5 /* Trails.c */; };
 		3507A51D0B0FA60200E374C5 /* Trails.c in Sources */ = {isa = PBXBuildFile; fileRef = 3507A5190B0FA60200E374C5 /* Trails.c */; };
 		3507A57A0B0FBB0B00E374C5 /* Subtitle.c in Sources */ = {isa = PBXBuildFile; fileRef = 3507A5780B0FBB0B00E374C5 /* Subtitle.c */; };
@@ -598,7 +598,7 @@
 
 /* Begin PBXFileReference section */
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
-		1793E3D1236CBB71006F67CB /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL2.framework; sourceTree = "<group>"; };
+		1793E3D6237095FD006F67CB /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL2.framework; sourceTree = "<group>"; };
 		35017184077C54EA00684108 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/HomeworldPlist.strings; sourceTree = "<group>"; };
 		3507A5190B0FA60200E374C5 /* Trails.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Trails.c; sourceTree = "<group>"; };
 		3507A51A0B0FA60200E374C5 /* Trails.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Trails.h; sourceTree = "<group>"; };
@@ -1187,8 +1187,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1793E3D3236CBB71006F67CB /* SDL2.framework in Frameworks */,
 				3516CA6B077C41B0001AA863 /* Cocoa.framework in Frameworks */,
+				1793E3D8237095FD006F67CB /* SDL2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1196,9 +1196,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1793E3D7237095FD006F67CB /* SDL2.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				35E8607713487BD10079E9AB /* OpenGL.framework in Frameworks */,
-				1793E3D2236CBB71006F67CB /* SDL2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1208,9 +1208,9 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1793E3D6237095FD006F67CB /* SDL2.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
 				35E8607613487BD10079E9AB /* OpenGL.framework */,
-				1793E3D1236CBB71006F67CB /* SDL2.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
