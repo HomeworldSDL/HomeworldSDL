@@ -64,10 +64,10 @@ static NSString *getApplicationName(void)
 @end
 #endif
 
-@interface NSApplication (SDLApplication)
+@interface SDLApplication : NSApplication
 @end
 
-@implementation NSApplication (SDLApplication)
+@implementation SDLApplication
 /* Invoked from the Quit menu item */
 - (void)terminate:(id)sender
 {
@@ -119,6 +119,7 @@ static NSString *getApplicationName(void)
         if ([menuItem hasSubmenu])
             [self fixMenu:[menuItem submenu] withAppName:appName];
     }
+    [ aMenu sizeToFit ];
 }
 
 #else
@@ -163,8 +164,8 @@ static void setApplicationMenu(void)
     [NSApp setAppleMenu:appleMenu];
 
     /* Finally give up our references to the objects */
-    [appleMenu release];
-    [menuItem release];
+    //[appleMenu release];
+    //[menuItem release];
 }
 
 /* Create a window menu */
@@ -179,7 +180,7 @@ static void setupWindowMenu(void)
     /* "Minimize" item */
     menuItem = [[NSMenuItem alloc] initWithTitle:@"Minimize" action:@selector(performMiniaturize:) keyEquivalent:@"m"];
     [windowMenu addItem:menuItem];
-    [menuItem release];
+    //[menuItem release];
     
     /* Put menu into the menubar */
     windowMenuItem = [[NSMenuItem alloc] initWithTitle:@"Window" action:nil keyEquivalent:@""];
@@ -190,18 +191,18 @@ static void setupWindowMenu(void)
     [NSApp setWindowsMenu:windowMenu];
 
     /* Finally give up our references to the objects */
-    [windowMenu release];
-    [windowMenuItem release];
+    //[windowMenu release];
+    //[windowMenuItem release];
 }
 
 /* Replacement for NSApplicationMain */
 static void CustomApplicationMain (int argc, char **argv)
 {
-    NSAutoreleasePool	*pool = [[NSAutoreleasePool alloc] init];
-    SDLMain				*sdlMain;
-
+    //NSAutoreleasePool    *pool = [[NSAutoreleasePool alloc] init];
+    SDLMain                *sdlMain;
+    
     /* Ensure the application object is initialised */
-    [NSApplication sharedApplication];
+    [SDLApplication sharedApplication];
     
 #ifdef SDL_USE_CPS
     {
@@ -210,7 +211,7 @@ static void CustomApplicationMain (int argc, char **argv)
         if (!CPSGetCurrentProcess(&PSN))
             if (!CPSEnableForegroundOperation(&PSN,0x03,0x3C,0x2C,0x1103))
                 if (!CPSSetFrontProcess(&PSN))
-                    [NSApplication sharedApplication];
+                    [SDLApplication sharedApplication];
     }
 #endif /* SDL_USE_CPS */
 
@@ -226,8 +227,8 @@ static void CustomApplicationMain (int argc, char **argv)
     /* Start the main event loop */
     [NSApp run];
     
-    [sdlMain release];
-    [pool release];
+    //[sdlMain release];
+    //[pool release];
 }
 
 #endif
@@ -297,10 +298,15 @@ static void CustomApplicationMain (int argc, char **argv)
 
     /* Hand off to main application code */
     gCalledAppMainline = TRUE;
-    status = SDL_main (gArgc, gArgv);
-
+    //status = SDL_main (gArgc, gArgv);
+    if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) != 0) {
+        SDL_Log("Unable to initialize SDL: %s", SDL_GetError());
+        return 1;
+    }
+    
     /* We're done, thank you for playing */
-    exit(status);
+    SDL_Quit();
+    exit(0);
 }
 @end
 
@@ -352,7 +358,7 @@ static void CustomApplicationMain (int argc, char **argv)
 
 
 /* Main entry point to executable - should *not* be SDL_main! */
-int main (int argc, char **argv)
+int SDLmain (int argc, char **argv)
 {
     /* Copy the arguments into a global variable */
     /* This is passed if we are launched by double-clicking */
@@ -372,6 +378,7 @@ int main (int argc, char **argv)
     }
 
 #if SDL_USE_NIB_FILE
+    [SDLApplication poseAsClass:[NSApplication class]];
     NSApplicationMain (argc, argv);
 #else
     CustomApplicationMain (argc, argv);

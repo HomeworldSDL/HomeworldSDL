@@ -30,7 +30,7 @@
     
     // key next to the 1 on the top numeric keys under esc for laptops
     // which remaps all the function keys to system use
-    #define SS_SCREENSHOT_KEY_3  PLUSMINUS
+    //#define SS_SCREENSHOT_KEY_3  PLUSMINUS
 #endif
 
 

@@ -328,6 +328,10 @@ int RegisterCommandLine(char *commandLine)
 /*-----------------------------------------------------------------------------
     Command-line parsing functions called when a certain flags are set
 -----------------------------------------------------------------------------*/
+bool XcodeDebug(char *string)
+{
+    DebugWindow=TRUE;
+}
 bool HeapSizeSet(char *string)
 {
     sscanf(string, "%d", &MemoryHeapSize);
@@ -612,6 +616,7 @@ commandoption commandOptions[] =
 {
 #ifdef HW_BUILD_FOR_DEBUGGING
     entryComment("DEBUGGING OPTIONS"),//-----------------------------------------------------
+    entryFnParam("/NSDocumentRevisionsDebugMode",XcodeDebug," - Enable debug window."),
     entryVr("/debug",               DebugWindow, TRUE,                  " - Enable debug window."),
     entryVr("/nodebugInt",          dbgAllowInterrupts, FALSE,          " - Fatal errors don't generate an interrupt before exiting."),
 #if DBW_TO_FILE
@@ -915,7 +920,7 @@ void DebugHelpDefault(char *string)
     }
 
     /*DialogBox(ghInstance, MAKEINTRESOURCE(IDD_CommandLine), NULL, CommandLineFunction);*/
-    printf("%s", gHelpString);
+    printf(gHelpString);
     free(gHelpString);                                       //done with string, free it
 }
 

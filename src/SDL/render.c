@@ -3940,7 +3940,7 @@ DEFINE_TASK(rndRenderTask)
         if (keyIsStuck(SS_SCREENSHOT_KEY)
 #ifdef _MACOSX
         ||  keyIsStuck(SS_SCREENSHOT_KEY_2)
-        ||  keyIsStuck(SS_SCREENSHOT_KEY_3)
+        //||  keyIsStuck(SS_SCREENSHOT_KEY_3)
 #endif
             )
         {
@@ -3949,7 +3949,7 @@ DEFINE_TASK(rndRenderTask)
             keyClearSticky(SS_SCREENSHOT_KEY);
 #ifdef _MACOSX
             keyClearSticky(SS_SCREENSHOT_KEY_2);
-            keyClearSticky(SS_SCREENSHOT_KEY_3);
+            //keyClearSticky(SS_SCREENSHOT_KEY_3);
 #endif
         }
         else if (keyIsStuck(PAUSEKEY))
