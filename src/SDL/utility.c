@@ -1445,12 +1445,18 @@ void utyHideMenuOrGotoQuitGame(char *name, featom *atom)
 udword utyCloseOK(regionhandle region, sdword ID, udword event, udword data)
 {
     SDL_Event e;
+    int returncode;
     e.user.type = SDL_USEREVENT;                            //exit the game
     e.user.code = CID_ExitOK;
     e.user.data1 = 0;
     e.user.data2 = 0;
-    SDL_PushEvent(&e);
+    returncode = SDL_PushEvent(&e);
 
+#ifdef _MACOSX
+//quit hangs otherwise, so we just exit.
+    exit(0);
+#endif //_MACOSX
+  
     return 0;
 }
 

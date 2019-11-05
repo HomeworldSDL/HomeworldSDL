@@ -1,4 +1,6 @@
-HomeworldSDL.big
+*.big
+*.wxd
+*.vce
 
 Mac/build
 Mac/Homeworld.xcodeproj/*.mode*

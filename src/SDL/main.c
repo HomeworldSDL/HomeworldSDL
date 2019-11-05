@@ -10,7 +10,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-
 #include <SDL.h>
 
 #include "AIPlayer.h"
@@ -2091,6 +2090,15 @@ int PASCAL WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance,
 int main (int argc, char* argv[])
 {
     static char *errorString = NULL;
+
+#ifdef _MACOSX
+  //set working directory to load resources (.bigs etc)
+  //On OSX we use Resources in App bundle.
+  char resourcesdir[PATH_MAX];
+  strncpy(resourcesdir,argv[0],strlen(argv[0])-15);
+  strcat(resourcesdir,"Resources");
+  chdir(resourcesdir);
+#endif //_MACOSX
 #ifdef _WIN32
     static HANDLE hMapping;
 #endif

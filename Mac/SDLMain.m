@@ -3,7 +3,10 @@
        Non-NIB-Code & other changes: Max Horn <max@quendi.de>
 
     Feel free to customize this file to suit your needs
-*/
+
+    AZ - As far as I can tell this file is not used at all.
+       - I'll exclude it from the targets but leave it here in case I'm wrong.
+ */
 
 #include "SDL.h"
 #include "SDLMain.h"
@@ -64,7 +67,7 @@ static NSString *getApplicationName(void)
 @end
 #endif
 
-@interface SDLApplication : NSApplication
+@interface NSApplication (SDLApplication)
 @end
 
 @implementation SDLApplication
@@ -202,8 +205,8 @@ static void CustomApplicationMain (int argc, char **argv)
     SDLMain                *sdlMain;
     
     /* Ensure the application object is initialised */
-    [SDLApplication sharedApplication];
-    
+    [NSApplication sharedApplication];
+
 #ifdef SDL_USE_CPS
     {
         CPSProcessSerNum PSN;
@@ -211,7 +214,7 @@ static void CustomApplicationMain (int argc, char **argv)
         if (!CPSGetCurrentProcess(&PSN))
             if (!CPSEnableForegroundOperation(&PSN,0x03,0x3C,0x2C,0x1103))
                 if (!CPSSetFrontProcess(&PSN))
-                    [SDLApplication sharedApplication];
+                    [NSApplication sharedApplication];
     }
 #endif /* SDL_USE_CPS */
 
