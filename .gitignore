@@ -1,8 +1,11 @@
-HomeworldSDL.big
+*.big
+*.wxd
+*.vce
 
 Mac/build
 Mac/Homeworld.xcodeproj/*.mode*
 Mac/Homeworld.xcodeproj/*.pbxuser
+Mac/SDL2.framework
 
 src/Missions/Generated
 
