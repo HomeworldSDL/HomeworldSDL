@@ -78,6 +78,12 @@ Once the game has launched, you need to:
  The game will now attempt to switch to the OpenGL renderer.  
  If everything goes okay, you should be presented with a confirmation that the settings you requested were changed.  Select "Yes", and you should be ready to go!
 
+### Mac
+
+- Copy assets listed above into the Root repo directory.
+- Open Xcode project in Mac directory
+- 
+
 ## [About][wiki]
 
 If you want to know more about this project (and see some screenshots!), please head over to the [wiki].

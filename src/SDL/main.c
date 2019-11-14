@@ -170,11 +170,12 @@ bool GLOBAL_NO_TEXTURES = FALSE;
 // turn fullscreen off when debugging so that if the debugger kicks in
 // after a crash you don't find yourself locked out and have to reboot...
 #if defined(_MACOSX) && defined(HW_BUILD_FOR_DEBUGGING) 
-bool fullScreen = FALSE;
+bool fullScreen = TRUE;
 #else
 bool fullScreen = TRUE;
 #endif
-
+//Display to draw window on
+int displayNum = 0;
 bool slowBlits = FALSE;
 #if RND_VISUALIZATION
 bool dockLines = FALSE;
@@ -327,6 +328,11 @@ int RegisterCommandLine(char *commandLine)
 /*-----------------------------------------------------------------------------
     Command-line parsing functions called when a certain flags are set
 -----------------------------------------------------------------------------*/
+bool SetDisplayNum(char *string)
+{
+  displayNum = atoi(string);
+}
+
 bool XcodeDebug(char *string)
 {
     DebugWindow=TRUE;
@@ -694,6 +700,7 @@ commandoption commandOptions[] =
     entryVrHidden("/noSavedMode",   mainAutoRenderer, FALSE,            " - disable recovery of previous display mode."),
     entryFn("/noFastFE",            DisableFastFrontend,                " - disable fast frontend rendering."),
     entryVr("/fullscreen",          fullScreen, TRUE,                   " - display fullscreen with software renderer (default)."),
+    entryFnParam("/displayNum",     SetDisplayNum,                      " <0-?> - Choose display, 0 is First Display."),
     entryVr("/window",              fullScreen, FALSE,                  " - display in a window."),
     entryVr("/noBorder",            showBorder, FALSE,                  " - no border on window."),
     entryFnHidden("/minny",           EnableMiniRes,                      " - run at 320x240 resolution."),

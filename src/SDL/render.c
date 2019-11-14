@@ -969,7 +969,20 @@ bool setupPixelFormat()
 	    SDL_GL_SetAttribute( SDL_GL_MULTISAMPLESAMPLES, FSAA );
 	}
 
-	if (!(sdlwindow=SDL_CreateWindow("HomeworldSDL", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+  /*
+  //Look for additional monitors: https://stackoverflow.com/questions/41745492/sdl2-how-to-position-a-window-on-a-second-monitor
+  //enumerate displays
+  int totalDisplays = SDL_GetNumVideoDisplays();
+  int targetDisplay=0;
+  dbgMessagef("Found %i displays",totalDisplays);
+  if (totalDisplays < displayNum)
+  {
+    dbgMessagef("%i display request but we detect %i displays, defaulting to display 0",displayNum,totalDisplays);
+  } else {
+    targetDisplay = displayNum;
+  }
+*/
+	if (!(sdlwindow=SDL_CreateWindow("HomeworldSDL", SDL_WINDOWPOS_UNDEFINED_DISPLAY(displayNum), SDL_WINDOWPOS_UNDEFINED_DISPLAY(displayNum),
 		MAIN_WindowWidth, MAIN_WindowHeight, flags)))
 	{
 	    fprintf (stderr, "Couldn't set FSAA video mode: %s\n", SDL_GetError ());

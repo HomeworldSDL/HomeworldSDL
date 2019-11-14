@@ -660,6 +660,7 @@ scriptEntry utyOptionsList[] =
     {"screenDepth",         scriptSetUdwordCB, &MAIN_WindowDepth},
 /* Does this need to be in here? Useful but possibly may cause problems */
     {"fullScreen",          scriptSetUdwordCB, &fullScreen},
+    {"displayNum",          scriptSetUdwordCB, &displayNum},
 
 
   {"\n[old reg data - to be deprecated]\n", scriptSetStringCB, &filecfgblankspace},
