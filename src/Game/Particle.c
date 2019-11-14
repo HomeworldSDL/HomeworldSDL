@@ -1365,6 +1365,11 @@ udword partRenderMeshSystem(udword n, particle *p, udword flags, trhandle tex, m
             else
             {                                               //else there is a morph animation
                 mesh2 = partMeshNextMesh(meshPart, p);
+              /* it will catch stuff like 0x9cce2641ffffffff on 64-bit... but source of 32/64 should really be found and fixed */
+              if ( 0xffffffff == ((memsize)mesh2 & 0xffffffff)) {
+                dbgMessagef("partRenderMeshSystem: Got mesh2 with suspected flag: %d",mesh2);
+                return 0; //kill the render system
+              }
                 frac = p->meshFrame - (real32)((sdword)p->meshFrame);
 
                 glDisable(GL_RESCALE_NORMAL);
