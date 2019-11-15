@@ -10,7 +10,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-
 #include <SDL.h>
 
 #include "AIPlayer.h"
@@ -171,11 +170,12 @@ bool GLOBAL_NO_TEXTURES = FALSE;
 // turn fullscreen off when debugging so that if the debugger kicks in
 // after a crash you don't find yourself locked out and have to reboot...
 #if defined(_MACOSX) && defined(HW_BUILD_FOR_DEBUGGING) 
-bool fullScreen = FALSE;
+bool fullScreen = TRUE;
 #else
 bool fullScreen = TRUE;
 #endif
-
+//Display to draw window on
+int displayNum = 0;
 bool slowBlits = FALSE;
 #if RND_VISUALIZATION
 bool dockLines = FALSE;
@@ -328,6 +328,15 @@ int RegisterCommandLine(char *commandLine)
 /*-----------------------------------------------------------------------------
     Command-line parsing functions called when a certain flags are set
 -----------------------------------------------------------------------------*/
+bool SetDisplayNum(char *string)
+{
+  displayNum = atoi(string);
+}
+
+bool XcodeDebug(char *string)
+{
+    DebugWindow=TRUE;
+}
 bool HeapSizeSet(char *string)
 {
     sscanf(string, "%d", &MemoryHeapSize);
@@ -612,6 +621,7 @@ commandoption commandOptions[] =
 {
 #ifdef HW_BUILD_FOR_DEBUGGING
     entryComment("DEBUGGING OPTIONS"),//-----------------------------------------------------
+    entryFnParam("/NSDocumentRevisionsDebugMode",XcodeDebug," - Enable debug window."),
     entryVr("/debug",               DebugWindow, TRUE,                  " - Enable debug window."),
     entryVr("/nodebugInt",          dbgAllowInterrupts, FALSE,          " - Fatal errors don't generate an interrupt before exiting."),
 #if DBW_TO_FILE
@@ -690,6 +700,7 @@ commandoption commandOptions[] =
     entryVrHidden("/noSavedMode",   mainAutoRenderer, FALSE,            " - disable recovery of previous display mode."),
     entryFn("/noFastFE",            DisableFastFrontend,                " - disable fast frontend rendering."),
     entryVr("/fullscreen",          fullScreen, TRUE,                   " - display fullscreen with software renderer (default)."),
+    entryFnParam("/displayNum",     SetDisplayNum,                      " <0-?> - Choose display, 0 is First Display."),
     entryVr("/window",              fullScreen, FALSE,                  " - display in a window."),
     entryVr("/noBorder",            showBorder, FALSE,                  " - no border on window."),
     entryFnHidden("/minny",           EnableMiniRes,                      " - run at 320x240 resolution."),
@@ -915,7 +926,7 @@ void DebugHelpDefault(char *string)
     }
 
     /*DialogBox(ghInstance, MAKEINTRESOURCE(IDD_CommandLine), NULL, CommandLineFunction);*/
-    printf("%s", gHelpString);
+    printf(gHelpString);
     free(gHelpString);                                       //done with string, free it
 }
 
@@ -2086,6 +2097,15 @@ int PASCAL WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance,
 int main (int argc, char* argv[])
 {
     static char *errorString = NULL;
+
+#ifdef _MACOSX
+  //set working directory to load resources (.bigs etc)
+  //On OSX we use Resources in App bundle.
+  char resourcesdir[PATH_MAX];
+  strncpy(resourcesdir,argv[0],strlen(argv[0])-15);
+  strcat(resourcesdir,"Resources");
+  chdir(resourcesdir);
+#endif //_MACOSX
 #ifdef _WIN32
     static HANDLE hMapping;
 #endif

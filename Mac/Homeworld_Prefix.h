@@ -31,7 +31,7 @@
 	#define _MACOSX_FIX_ANIM 1
 	//#define _MACOSX_FIX_SOUND 1
 	#define _MACOSX_FIX_LAN 1
-	#define _MACOSX_FIX_GL 1
+	//#define _MACOSX_FIX_GL 1
 	#define _MACOSX_FIX_MISC 1
 	//#ifndef _MACOSX_FIX_ME
 	//	#define _MACOSX_FIX_ME 1
@@ -46,4 +46,9 @@
 		#define _MACOSX_86 1
 		#define _MACOSX_FIX_86 1
 	#endif
+#ifdef __x86_64__
+  #define _MACOSX_64 1
+  #define _MACOSX_FIX_64 1
+  #define _X86_64 1
+#endif
 #endif

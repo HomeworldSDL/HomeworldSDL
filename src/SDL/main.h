@@ -105,6 +105,7 @@ extern bool mainAllowPacking;
 extern bool mainOnlyPacking;
 
 extern bool fullScreen;
+extern int displayNum;
 
 extern bool enableAVI;
 

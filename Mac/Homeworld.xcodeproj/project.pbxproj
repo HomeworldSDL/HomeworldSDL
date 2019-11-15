@@ -7,6 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1793E3D7237095FD006F67CB /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1793E3D6237095FD006F67CB /* SDL2.framework */; };
+		1793E3D8237095FD006F67CB /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1793E3D6237095FD006F67CB /* SDL2.framework */; };
+		1793E3DC23710C09006F67CB /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9227064AEE7A003E3D39 /* main.c */; };
+		1793E3DD23710C0A006F67CB /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9227064AEE7A003E3D39 /* main.c */; };
+		1793E3E62371F081006F67CB /* Homeworld.big in Resources */ = {isa = PBXBuildFile; fileRef = 1793E3E12371F080006F67CB /* Homeworld.big */; };
+		1793E3E72371F081006F67CB /* Homeworld.big in Resources */ = {isa = PBXBuildFile; fileRef = 1793E3E12371F080006F67CB /* Homeworld.big */; };
+		1793E3E82371F081006F67CB /* HW_Music.wxd in Resources */ = {isa = PBXBuildFile; fileRef = 1793E3E22371F080006F67CB /* HW_Music.wxd */; };
+		1793E3E92371F081006F67CB /* HW_Music.wxd in Resources */ = {isa = PBXBuildFile; fileRef = 1793E3E22371F080006F67CB /* HW_Music.wxd */; };
+		1793E3EA2371F081006F67CB /* Update.big in Resources */ = {isa = PBXBuildFile; fileRef = 1793E3E32371F081006F67CB /* Update.big */; };
+		1793E3EB2371F081006F67CB /* Update.big in Resources */ = {isa = PBXBuildFile; fileRef = 1793E3E32371F081006F67CB /* Update.big */; };
+		1793E3EC2371F081006F67CB /* HomeworldSDL.big in Resources */ = {isa = PBXBuildFile; fileRef = 1793E3E42371F081006F67CB /* HomeworldSDL.big */; };
+		1793E3ED2371F081006F67CB /* HomeworldSDL.big in Resources */ = {isa = PBXBuildFile; fileRef = 1793E3E42371F081006F67CB /* HomeworldSDL.big */; };
+		1793E3EE2371F081006F67CB /* HW_Comp.vce in Resources */ = {isa = PBXBuildFile; fileRef = 1793E3E52371F081006F67CB /* HW_Comp.vce */; };
+		1793E3EF2371F081006F67CB /* HW_Comp.vce in Resources */ = {isa = PBXBuildFile; fileRef = 1793E3E52371F081006F67CB /* HW_Comp.vce */; };
 		3507A51B0B0FA60200E374C5 /* Trails.c in Sources */ = {isa = PBXBuildFile; fileRef = 3507A5190B0FA60200E374C5 /* Trails.c */; };
 		3507A51D0B0FA60200E374C5 /* Trails.c in Sources */ = {isa = PBXBuildFile; fileRef = 3507A5190B0FA60200E374C5 /* Trails.c */; };
 		3507A57A0B0FBB0B00E374C5 /* Subtitle.c in Sources */ = {isa = PBXBuildFile; fileRef = 3507A5780B0FBB0B00E374C5 /* Subtitle.c */; };
@@ -145,7 +159,6 @@
 		3516C9CF077C41B0001AA863 /* Vector.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D1B064992AF0088361C /* Vector.c */; };
 		3516C9D0077C41B0001AA863 /* Volume.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D1E064992AF0088361C /* Volume.c */; };
 		3516CA23077C41B0001AA863 /* font.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9213064AEE7A003E3D39 /* font.c */; };
-		3516CA2A077C41B0001AA863 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9227064AEE7A003E3D39 /* main.c */; };
 		3516CA2B077C41B0001AA863 /* mainrgn.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9229064AEE7A003E3D39 /* mainrgn.c */; };
 		3516CA2C077C41B0001AA863 /* mouse.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD922E064AEE7A003E3D39 /* mouse.c */; };
 		3516CA2D077C41B0001AA863 /* prim2d.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9230064AEE7A003E3D39 /* prim2d.c */; };
@@ -202,17 +215,14 @@
 		3516CA62077C41B0001AA863 /* SensorArray.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9333064AEF43003E3D39 /* SensorArray.c */; };
 		3516CA63077C41B0001AA863 /* StandardDestroyer.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9335064AEF43003E3D39 /* StandardDestroyer.c */; };
 		3516CA64077C41B0001AA863 /* StandardFrigate.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9337064AEF43003E3D39 /* StandardFrigate.c */; };
-		3516CA65077C41B0001AA863 /* SDLMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BD93C1064AF4F3003E3D39 /* SDLMain.m */; };
 		3516CA66077C41B0001AA863 /* avi.c in Sources */ = {isa = PBXBuildFile; fileRef = 9030AF92066D5D2C00B32218 /* avi.c */; };
 		3516CA67077C41B0001AA863 /* rinit.c in Sources */ = {isa = PBXBuildFile; fileRef = 9030AF93066D5D2C00B32218 /* rinit.c */; };
 		3516CA6B077C41B0001AA863 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		3516CA6C077C41B0001AA863 /* SDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35517D100732744900691120 /* SDL.framework */; };
 		352F5638131A8CD2000C95B3 /* dct.c in Sources */ = {isa = PBXBuildFile; fileRef = EDB88AFB0EBF5AAA00D2C5CF /* dct.c */; };
 		352F5639131A8CD3000C95B3 /* fqcodec.c in Sources */ = {isa = PBXBuildFile; fileRef = EDB88AF80EBF5AAA00D2C5CF /* fqcodec.c */; };
 		352F563A131A8CD4000C95B3 /* fqeffect.c in Sources */ = {isa = PBXBuildFile; fileRef = EDB88AFA0EBF5AAA00D2C5CF /* fqeffect.c */; };
 		352F563B131A8CD5000C95B3 /* fquant.c in Sources */ = {isa = PBXBuildFile; fileRef = EDB88AF90EBF5AAA00D2C5CF /* fquant.c */; };
 		352F563C131A8CD8000C95B3 /* mixfft.c in Sources */ = {isa = PBXBuildFile; fileRef = EDB88AFE0EBF5AAA00D2C5CF /* mixfft.c */; };
-		35517D110732744900691120 /* SDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35517D100732744900691120 /* SDL.framework */; };
 		3578AD080AF40518007BFA9F /* StringSupport.c in Sources */ = {isa = PBXBuildFile; fileRef = 3578AD060AF40518007BFA9F /* StringSupport.c */; };
 		3578AD0A0AF40518007BFA9F /* StringSupport.c in Sources */ = {isa = PBXBuildFile; fileRef = 3578AD060AF40518007BFA9F /* StringSupport.c */; };
 		3580380F0B18679B00D47728 /* CRC32.c in Sources */ = {isa = PBXBuildFile; fileRef = 3580380C0B18679B00D47728 /* CRC32.c */; };
@@ -532,7 +542,6 @@
 		90623E4D064992AF0088361C /* Vector.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D1B064992AF0088361C /* Vector.c */; };
 		90623E50064992AF0088361C /* Volume.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D1E064992AF0088361C /* Volume.c */; };
 		90BD926A064AEE7B003E3D39 /* font.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9213064AEE7A003E3D39 /* font.c */; };
-		90BD927E064AEE7B003E3D39 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9227064AEE7A003E3D39 /* main.c */; };
 		90BD9285064AEE7B003E3D39 /* mouse.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD922E064AEE7A003E3D39 /* mouse.c */; };
 		90BD9287064AEE7B003E3D39 /* prim2d.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9230064AEE7A003E3D39 /* prim2d.c */; };
 		90BD9289064AEE7B003E3D39 /* prim3d.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9232064AEE7A003E3D39 /* prim3d.c */; };
@@ -588,7 +597,6 @@
 		90BD9385064AEF43003E3D39 /* SensorArray.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9333064AEF43003E3D39 /* SensorArray.c */; };
 		90BD9387064AEF43003E3D39 /* StandardDestroyer.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9335064AEF43003E3D39 /* StandardDestroyer.c */; };
 		90BD9389064AEF43003E3D39 /* StandardFrigate.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9337064AEF43003E3D39 /* StandardFrigate.c */; };
-		90BD93C3064AF4F3003E3D39 /* SDLMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BD93C1064AF4F3003E3D39 /* SDLMain.m */; };
 		EDB88AFF0EBF5AAA00D2C5CF /* fqcodec.c in Sources */ = {isa = PBXBuildFile; fileRef = EDB88AF80EBF5AAA00D2C5CF /* fqcodec.c */; };
 		EDB88B000EBF5AAA00D2C5CF /* fquant.c in Sources */ = {isa = PBXBuildFile; fileRef = EDB88AF90EBF5AAA00D2C5CF /* fquant.c */; };
 		EDB88B010EBF5AAA00D2C5CF /* fqeffect.c in Sources */ = {isa = PBXBuildFile; fileRef = EDB88AFA0EBF5AAA00D2C5CF /* fqeffect.c */; };
@@ -598,7 +606,13 @@
 
 /* Begin PBXFileReference section */
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
-		35017184077C54EA00684108 /* English */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/HomeworldPlist.strings; sourceTree = "<group>"; };
+		1793E3D6237095FD006F67CB /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL2.framework; sourceTree = "<group>"; };
+		1793E3E12371F080006F67CB /* Homeworld.big */ = {isa = PBXFileReference; lastKnownFileType = file; name = Homeworld.big; path = ../Homeworld.big; sourceTree = "<group>"; };
+		1793E3E22371F080006F67CB /* HW_Music.wxd */ = {isa = PBXFileReference; lastKnownFileType = file; name = HW_Music.wxd; path = ../HW_Music.wxd; sourceTree = "<group>"; };
+		1793E3E32371F081006F67CB /* Update.big */ = {isa = PBXFileReference; lastKnownFileType = file; name = Update.big; path = ../Update.big; sourceTree = "<group>"; };
+		1793E3E42371F081006F67CB /* HomeworldSDL.big */ = {isa = PBXFileReference; lastKnownFileType = file; name = HomeworldSDL.big; path = ../HomeworldSDL.big; sourceTree = "<group>"; };
+		1793E3E52371F081006F67CB /* HW_Comp.vce */ = {isa = PBXFileReference; lastKnownFileType = file; name = HW_Comp.vce; path = ../HW_Comp.vce; sourceTree = "<group>"; };
+		35017184077C54EA00684108 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/HomeworldPlist.strings; sourceTree = "<group>"; };
 		3507A5190B0FA60200E374C5 /* Trails.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Trails.c; sourceTree = "<group>"; };
 		3507A51A0B0FA60200E374C5 /* Trails.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Trails.h; sourceTree = "<group>"; };
 		3507A5780B0FBB0B00E374C5 /* Subtitle.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Subtitle.c; sourceTree = "<group>"; };
@@ -607,7 +621,6 @@
 		351B67AA077E4728002ABC6E /* English */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/RaiderRetreatPlist.strings; sourceTree = "<group>"; };
 		3522273F0BB9D92500E42E42 /* standard_library.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = standard_library.h; sourceTree = "<group>"; };
 		35517D000732720E00691120 /* Homeworld_Prefix.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Homeworld_Prefix.h; sourceTree = "<group>"; };
-		35517D100732744900691120 /* SDL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL.framework; path = /Library/Frameworks/SDL.framework; sourceTree = "<absolute>"; };
 		3578AD060AF40518007BFA9F /* StringSupport.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = StringSupport.c; sourceTree = "<group>"; };
 		3578AD070AF40518007BFA9F /* StringSupport.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = StringSupport.h; sourceTree = "<group>"; };
 		3580380C0B18679B00D47728 /* CRC32.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = CRC32.c; sourceTree = "<group>"; };
@@ -1188,7 +1201,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3516CA6B077C41B0001AA863 /* Cocoa.framework in Frameworks */,
-				3516CA6C077C41B0001AA863 /* SDL.framework in Frameworks */,
+				1793E3D8237095FD006F67CB /* SDL2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1196,9 +1209,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1793E3D7237095FD006F67CB /* SDL2.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				35E8607713487BD10079E9AB /* OpenGL.framework in Frameworks */,
-				35517D110732744900691120 /* SDL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1208,9 +1221,9 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1793E3D6237095FD006F67CB /* SDL2.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
 				35E8607613487BD10079E9AB /* OpenGL.framework */,
-				35517D100732744900691120 /* SDL.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -1249,6 +1262,11 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1793E3E12371F080006F67CB /* Homeworld.big */,
+				1793E3E42371F081006F67CB /* HomeworldSDL.big */,
+				1793E3E52371F081006F67CB /* HW_Comp.vce */,
+				1793E3E22371F080006F67CB /* HW_Music.wxd */,
+				1793E3E32371F081006F67CB /* Update.big */,
 				35B1D7EF0ABD43B0002214BE /* Homeworld.icns */,
 				8D1107310486CEB800E47090 /* Homeworld.plist */,
 				35017183077C54EA00684108 /* HomeworldPlist.strings */,
@@ -1971,6 +1989,8 @@
 			buildConfigurationList = 35CC221B0955C2E100504293 /* Build configuration list for PBXNativeTarget "Homeworld" */;
 			buildPhases = (
 				355BE77707935BD200F82BB0 /* ShellScript */,
+				1793E3DE2371C0B2006F67CB /* ShellScript */,
+				1793E3E02371C316006F67CB /* ShellScript */,
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
@@ -1991,6 +2011,8 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+			};
 			buildConfigurationList = 35CC22230955C2E100504293 /* Build configuration list for PBXProject "Homeworld" */;
 			compatibilityVersion = "Xcode 2.4";
 			developmentRegion = English;
@@ -2016,8 +2038,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1793E3E92371F081006F67CB /* HW_Music.wxd in Resources */,
 				35CCC93109662605009D918D /* RaiderRetreatPlist.strings in Resources */,
+				1793E3EF2371F081006F67CB /* HW_Comp.vce in Resources */,
+				1793E3EB2371F081006F67CB /* Update.big in Resources */,
 				35B1D7F20ABD43BD002214BE /* RaiderRetreat.icns in Resources */,
+				1793E3ED2371F081006F67CB /* HomeworldSDL.big in Resources */,
+				1793E3E72371F081006F67CB /* Homeworld.big in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2025,14 +2052,53 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1793E3E82371F081006F67CB /* HW_Music.wxd in Resources */,
 				35CCC930096625FD009D918D /* HomeworldPlist.strings in Resources */,
+				1793E3EE2371F081006F67CB /* HW_Comp.vce in Resources */,
+				1793E3EA2371F081006F67CB /* Update.big in Resources */,
 				35B1D7F00ABD43B0002214BE /* Homeworld.icns in Resources */,
+				1793E3EC2371F081006F67CB /* HomeworldSDL.big in Resources */,
+				1793E3E62371F081006F67CB /* Homeworld.big in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1793E3DE2371C0B2006F67CB /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\n#Compile HomeworldSDL.big into repo root\ncd ../tools/biggie\n./biggie-MacOSX-compile.sh\ncd ../../HomeworldSDL_big\n./convert_directory_to_big_file\n";
+		};
+		1793E3E02371C316006F67CB /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#download required resources to repo root\ncd ../\nif [ ! -e Homeworld.big ]; then\ncurl -L --output Homeworld.big 'https://drive.google.com/uc?id=1MYRzDQa95qqzQbK15VEgAJblzc4GXC_C&export=download'\nfi\nif [ ! -e HW_Comp.vce ]; then\ncurl -L --output HW_Comp.vce 'https://drive.google.com/uc?id=1cBSfugIM0i0FolAocv6sJuDFgJg0f43E&export=download'\nfi\nif [ ! -e HW_Music.wxd ]; then\ncurl -L --output HW_Music.wxd 'https://drive.google.com/uc?id=1tYdBSAMPQpRQuboplFPzT8VnBJtPUrII&export=download'\nfi\nif [ ! -e Update.big ]; then\ncurl -L --output Update.big 'https://drive.google.com/uc?id=1_JdtnsUUEt4-guveuTJkhxsPYzt6I4CD&export=download'\nfi\n";
+		};
 		3507D813079955A400F093F4 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 12;
@@ -2045,7 +2111,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "# force the shell; XCode really likes sh regardless of configuration\n/bin/zsh\n\ncase \"${BUILD_STYLE}\" in\n\n    Deployment)\n\n        # copy in the SDL framework\n        mkdir -p ./build/Deployment/Homeworld.app/Contents/Frameworks\n        cp -pR /Library/Frameworks/SDL.framework ./build/Deployment/Homeworld.app/Contents/Frameworks\n\n        # remove the SDL framework headers (and associated symlink)\n        rm -f  ./build/Deployment/Homeworld.app/Contents/Frameworks/SDL.framework/Headers\n        rm -rf ./build/Deployment/Homeworld.app/Contents/Frameworks/SDL.framework/Versions/Current/Headers\n\n        # rename InfoPlist.strings files correctly\n        # (why doesn't XCode do this when the 'Info.plist File' is set?)\n        find ./build/Deployment/Homeworld.app/Contents/Resources/*.lproj -name HomeworldPlist.strings -execdir mv {} InfoPlist.strings \\;\n\n        # clean up any Subversion files that may have been pulled in\n        find ./build/Deployment/Homeworld.app/ -name '.svn' -exec rm -rf {} \\;\n\n        # clean up Mac OS X .DS_Store folder files\n        find ./build/Deployment/Homeworld.app/ -name '.DS_Store' -exec rm {} \\;\n\n        # end of case condition\n        ;;\n\nesac";
+			shellScript = "# force the shell; XCode really likes sh regardless of configuration\n/bin/zsh\n\ncase \"${BUILD_STYLE}\" in\n\n    Deployment)\n\n        # copy in the SDL framework\n        mkdir -p ./build/Deployment/Homeworld.app/Contents/Frameworks\n        cp -pR /Library/Frameworks/SDL2.framework ./build/Deployment/Homeworld.app/Contents/Frameworks\n\n        # remove the SDL framework headers (and associated symlink)\n        rm -f  ./build/Deployment/Homeworld.app/Contents/Frameworks/SDL2.framework/Headers\n        rm -rf ./build/Deployment/Homeworld.app/Contents/Frameworks/SDL2.framework/Versions/Current/Headers\n\n        # rename InfoPlist.strings files correctly\n        # (why doesn't XCode do this when the 'Info.plist File' is set?)\n        find ./build/Deployment/Homeworld.app/Contents/Resources/*.lproj -name HomeworldPlist.strings -execdir mv {} InfoPlist.strings \\;\n\n        # clean up any Subversion files that may have been pulled in\n        find ./build/Deployment/Homeworld.app/ -name '.svn' -exec rm -rf {} \\;\n\n        # clean up Mac OS X .DS_Store folder files\n        find ./build/Deployment/Homeworld.app/ -name '.DS_Store' -exec rm {} \\;\n\n        # end of case condition\n        ;;\n\nesac\n";
 		};
 		3507D89707996FCC00F093F4 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2147,7 +2213,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "# force the shell; XCode really likes sh regardless of configuration\n/bin/zsh\n\n# make sure that kas2c is compiled\ncd ../tools/kas2c\n./kas2c-MacOSX-compile.sh\n\n# now compile the *.kas mission files\ncd ../../src/Missions\n\nfor Y in SinglePlayer Tutorials\ndo\n    # change to the .kas folders in turn\n    cd $Y\n\n    for X in *.kas\n    do\n        # get the mission name\n        `/bin/echo $X | /usr/bin/awk -F '\\.' '{print \"export MISSION=\" $1}'`\n\n        # use gcc's preprocessor to produce the input for kas2c; the grep -v is\n        # to strip a gcc #pragma that kas2c cannot cope with\n        /usr/bin/gcc -E -x c $MISSION.kas | /usr/bin/grep -v \\#pragma > $MISSION.kp\n\n        # produce the actual mission .h and .c files\n        ../../../tools/kas2c/kas2c $MISSION.kp $MISSION.c $MISSION.h $MISSION.func.c\n    done\n\n    # move the .h and .c files to the Generated folder\n    mv *.h *.c ../Generated\n\n    # clean up the intermediate .kp files\n    rm *.kp\n\n    # return to src/Missions root\n    cd ..\n\ndone";
+			shellScript = "# force the shell; XCode really likes sh regardless of configuration\n/bin/zsh\n\n# make sure that kas2c is compiled\ncd ../tools/kas2c\npwd\n./kas2c-MacOSX-compile.sh\n\n# now compile the *.kas mission files\ncd ../../src/Missions\npwd\nfor Y in SinglePlayer Tutorials\ndo\n    # change to the .kas folders in turn\n    cd $Y\n\n    for X in *.kas\n    do\n        # get the mission name\n        `/bin/echo $X | /usr/bin/awk -F '\\.' '{print \"export MISSION=\" $1}'`\n\n        # use gcc's preprocessor to produce the input for kas2c; the grep -v is\n        # to strip a gcc #pragma that kas2c cannot cope with\n        /usr/bin/gcc -E -x c $MISSION.kas | /usr/bin/grep -v \\#pragma > $MISSION.kp\n\n        # produce the actual mission .h and .c files\n        ../../../tools/kas2c/kas2c $MISSION.kp $MISSION.c $MISSION.h $MISSION.func.c\n    done\n\n    # move the .h and .c files to the Generated folder\n    mv *.h *.c ../Generated\n\n    # clean up the intermediate .kp files\n    rm *.kp\n\n    # return to src/Missions root\n    cd ..\n\ndone\n";
 		};
 		35BE70E007937E0B00AEFC3C /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2377,7 +2443,6 @@
 				3516C9CF077C41B0001AA863 /* Vector.c in Sources */,
 				3516C9D0077C41B0001AA863 /* Volume.c in Sources */,
 				3516CA23077C41B0001AA863 /* font.c in Sources */,
-				3516CA2A077C41B0001AA863 /* main.c in Sources */,
 				3516CA2B077C41B0001AA863 /* mainrgn.c in Sources */,
 				3516CA2C077C41B0001AA863 /* mouse.c in Sources */,
 				3516CA2D077C41B0001AA863 /* prim2d.c in Sources */,
@@ -2434,7 +2499,6 @@
 				3516CA62077C41B0001AA863 /* SensorArray.c in Sources */,
 				3516CA63077C41B0001AA863 /* StandardDestroyer.c in Sources */,
 				3516CA64077C41B0001AA863 /* StandardFrigate.c in Sources */,
-				3516CA65077C41B0001AA863 /* SDLMain.m in Sources */,
 				3516CA66077C41B0001AA863 /* avi.c in Sources */,
 				3516CA67077C41B0001AA863 /* rinit.c in Sources */,
 				3578AD0A0AF40518007BFA9F /* StringSupport.c in Sources */,
@@ -2530,6 +2594,7 @@
 				35EFB92C123D18A7006C9E20 /* jmemansi.c in Sources */,
 				352F5638131A8CD2000C95B3 /* dct.c in Sources */,
 				352F5639131A8CD3000C95B3 /* fqcodec.c in Sources */,
+				1793E3DD23710C0A006F67CB /* main.c in Sources */,
 				352F563A131A8CD4000C95B3 /* fqeffect.c in Sources */,
 				352F563B131A8CD5000C95B3 /* fquant.c in Sources */,
 				352F563C131A8CD8000C95B3 /* mixfft.c in Sources */,
@@ -2673,7 +2738,6 @@
 				90623E4D064992AF0088361C /* Vector.c in Sources */,
 				90623E50064992AF0088361C /* Volume.c in Sources */,
 				90BD926A064AEE7B003E3D39 /* font.c in Sources */,
-				90BD927E064AEE7B003E3D39 /* main.c in Sources */,
 				90BD9285064AEE7B003E3D39 /* mouse.c in Sources */,
 				90BD9287064AEE7B003E3D39 /* prim2d.c in Sources */,
 				90BD9289064AEE7B003E3D39 /* prim3d.c in Sources */,
@@ -2729,7 +2793,6 @@
 				90BD9385064AEF43003E3D39 /* SensorArray.c in Sources */,
 				90BD9387064AEF43003E3D39 /* StandardDestroyer.c in Sources */,
 				90BD9389064AEF43003E3D39 /* StandardFrigate.c in Sources */,
-				90BD93C3064AF4F3003E3D39 /* SDLMain.m in Sources */,
 				9030AF94066D5D2C00B32218 /* avi.c in Sources */,
 				9030AF95066D5D2C00B32218 /* rinit.c in Sources */,
 				3510B754077C8863007B8838 /* mainrgn.c in Sources */,
@@ -2826,6 +2889,7 @@
 				EDB88B020EBF5AAA00D2C5CF /* dct.c in Sources */,
 				EDB88B030EBF5AAA00D2C5CF /* mixfft.c in Sources */,
 				35EFB925123D18A7006C9E20 /* jaricom.c in Sources */,
+				1793E3DC23710C09006F67CB /* main.c in Sources */,
 				35EFB926123D18A7006C9E20 /* jcarith.c in Sources */,
 				35EFB927123D18A7006C9E20 /* jdarith.c in Sources */,
 				35EFB928123D18A7006C9E20 /* jmemansi.c in Sources */,
@@ -2857,12 +2921,18 @@
 		35CC221C0955C2E100504293 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					_MACOSX,
 					HW_BUILD_FOR_DEBUGGING,
 					HW_GAME_HOMEWORLD,
 				);
 				INFOPLIST_FILE = Homeworld.plist;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				OTHER_CFLAGS = "-DHW_BUILD_FOR_DEBUGGING";
 				PRODUCT_NAME = Homeworld;
 				WRAPPER_EXTENSION = app;
 			};
@@ -2871,12 +2941,18 @@
 		35CC221D0955C2E100504293 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					_MACOSX,
 					HW_BUILD_FOR_DISTRIBUTION,
 					HW_GAME_HOMEWORLD,
 				);
 				INFOPLIST_FILE = Homeworld.plist;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				OTHER_CFLAGS = "-DHW_BUILD_FOR_DISTRIBUTION";
 				PRODUCT_NAME = Homeworld;
 				WRAPPER_EXTENSION = app;
 			};
@@ -2885,12 +2961,21 @@
 		35CC221E0955C2E100504293 /* Default */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 			};
 			name = Default;
 		};
 		35CC22200955C2E100504293 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					_MACOSX,
 					HW_BUILD_FOR_DEBUGGING,
@@ -2905,6 +2990,10 @@
 		35CC22210955C2E100504293 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					_MACOSX,
 					HW_BUILD_FOR_DISTRIBUTION,
@@ -2919,6 +3008,10 @@
 		35CC22220955C2E100504293 /* Default */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 			};
 			name = Default;
 		};
@@ -2929,7 +3022,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Homeworld_Prefix.h;
-				HEADER_SEARCH_PATHS = /Library/Frameworks/SDL.framework/Headers;
+				HEADER_SEARCH_PATHS = /Library/Frameworks/SDL2.framework/Headers;
 			};
 			name = Development;
 		};
@@ -2940,7 +3033,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Homeworld_Prefix.h;
-				HEADER_SEARCH_PATHS = /Library/Frameworks/SDL.framework/Headers;
+				HEADER_SEARCH_PATHS = /Library/Frameworks/SDL2.framework/Headers;
 			};
 			name = Deployment;
 		};

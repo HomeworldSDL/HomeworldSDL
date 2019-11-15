@@ -215,7 +215,7 @@ meshdata;
 
 //hierarchy binding information
 struct shipbindings;
-typedef bool (*mhbindingfunction)(udword flags, hmatrix *startMatrix, hmatrix *matrix, void *data, sdword ID);
+typedef bool (*mhbindingfunction)(udword flags, hmatrix *startMatrix, hmatrix *matrix, void *data, smemsize ID);
 typedef void (*mhhelperfunction)(meshdata *mesh, struct shipbindings *bindings, sdword currentLOD);
 typedef struct
 {
