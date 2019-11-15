@@ -81,8 +81,15 @@ Once the game has launched, you need to:
 ### Mac
 
 - Copy assets listed above into the Root repo directory.
+<<<<<<< Updated upstream
 - Open Xcode project in Mac directory
 - 
+=======
+- Open Xcode project in Mac directory.
+- Run from Xcode or build.
+- Assets are copied into App bundle
+- config file is at ~Library/Application Support/Homeworld/Homeworld.cfg
+>>>>>>> Stashed changes
 
 ## [About][wiki]
 
