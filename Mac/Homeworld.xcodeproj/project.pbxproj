@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		174F9C6A239017B10087B2DB /* SDL2.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1793E3D6237095FD006F67CB /* SDL2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1793E3D7237095FD006F67CB /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1793E3D6237095FD006F67CB /* SDL2.framework */; };
 		1793E3D8237095FD006F67CB /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1793E3D6237095FD006F67CB /* SDL2.framework */; };
 		1793E3DC23710C09006F67CB /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9227064AEE7A003E3D39 /* main.c */; };
@@ -603,6 +604,19 @@
 		EDB88B020EBF5AAA00D2C5CF /* dct.c in Sources */ = {isa = PBXBuildFile; fileRef = EDB88AFB0EBF5AAA00D2C5CF /* dct.c */; };
 		EDB88B030EBF5AAA00D2C5CF /* mixfft.c in Sources */ = {isa = PBXBuildFile; fileRef = EDB88AFE0EBF5AAA00D2C5CF /* mixfft.c */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		174F9C69239017860087B2DB /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				174F9C6A239017B10087B2DB /* SDL2.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
@@ -1995,6 +2009,7 @@
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
 				3507D813079955A400F093F4 /* ShellScript */,
+				174F9C69239017860087B2DB /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -2931,7 +2946,8 @@
 					HW_GAME_HOMEWORLD,
 				);
 				INFOPLIST_FILE = Homeworld.plist;
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks $(LD_RUNPATH_SEARCH_PATHS_$(IS_MACCATALYST))";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				OTHER_CFLAGS = "-DHW_BUILD_FOR_DEBUGGING";
 				PRODUCT_NAME = Homeworld;
 				WRAPPER_EXTENSION = app;
@@ -2951,7 +2967,8 @@
 					HW_GAME_HOMEWORLD,
 				);
 				INFOPLIST_FILE = Homeworld.plist;
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks $(LD_RUNPATH_SEARCH_PATHS_$(IS_MACCATALYST))";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				OTHER_CFLAGS = "-DHW_BUILD_FOR_DISTRIBUTION";
 				PRODUCT_NAME = Homeworld;
 				WRAPPER_EXTENSION = app;
@@ -2965,7 +2982,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks $(LD_RUNPATH_SEARCH_PATHS_$(IS_MACCATALYST))";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 			};
 			name = Default;
 		};
@@ -3022,7 +3040,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Homeworld_Prefix.h;
-				HEADER_SEARCH_PATHS = /Library/Frameworks/SDL2.framework/Headers;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/SDL2.framework/Headers\"";
 			};
 			name = Development;
 		};
@@ -3033,7 +3051,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Homeworld_Prefix.h;
-				HEADER_SEARCH_PATHS = /Library/Frameworks/SDL2.framework/Headers;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/SDL2.framework/Headers\"";
 			};
 			name = Deployment;
 		};
