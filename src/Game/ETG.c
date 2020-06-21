@@ -6729,7 +6729,7 @@ sdword etgAtVar(Effect *effect, struct etgeffectstatic *stat, ubyte *opcode)
 
     variable = *((real32 *)(effect->variable + ((etgbeforeafteratvar *)opcode)->variable));
 #if ETG_ERROR_CHECKING
-    if (variable <= 0.0f || variable > 10000.0f)
+    if (variable < 0.0f || variable > 10000.0f)
     {
         dbgFatalf(DBG_Loc, "Invalid 'at' variable set to %.4f", variable);
     }
