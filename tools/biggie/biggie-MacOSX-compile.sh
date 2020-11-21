@@ -4,7 +4,7 @@
 
 /usr/bin/gcc                                       \
     -D _MACOSX                                     \
-    -I /Library/Frameworks/SDL2.framework/Headers  \
+    -I ../../Mac/SDL2.framework/Headers            \
     -I ../../src/SDL                               \
     -I ../../src/ThirdParty/CRC                    \
     -I ../../src/ThirdParty/LZSS                   \
