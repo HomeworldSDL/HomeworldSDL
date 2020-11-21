@@ -2,9 +2,13 @@
 *.wxd
 *.vce
 
+.vscode
+
 Mac/build
 Mac/Homeworld.xcodeproj/*.mode*
 Mac/Homeworld.xcodeproj/*.pbxuser
+Mac/Homeworld.xcodeproj/project.xcworkspace/xcuserdata/
+Mac/Homeworld.xcodeproj/xcuserdata/
 Mac/SDL2.framework
 
 src/Missions/Generated
