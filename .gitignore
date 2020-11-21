@@ -2,6 +2,8 @@
 *.wxd
 *.vce
 
+.vscode
+
 Mac/build
 Mac/Homeworld.xcodeproj/*.mode*
 Mac/Homeworld.xcodeproj/*.pbxuser
