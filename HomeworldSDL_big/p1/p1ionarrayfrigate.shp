@@ -1,0 +1,150 @@
+[P1IonArrayFrigate]
+
+;Source Files
+;=----------=
+LODFile                             P1IonArrayFrigate.lod
+pMexData                            P1IonArrayFrigate\Rl0\LOD0\P1IonArrayFrigate.mex
+
+;Ship Physics
+;=----------=
+mass                                400.0                          ; ship mass [fighter = 1]
+momentOfInertiaX                    400.0                          ; resistance to rotation
+momentOfInertiaY                    400.0                          ; [fighter = 1]
+momentOfInertiaZ                    400.0
+maxvelocity                         245.0                        ; [fighter = 1000]
+maxrot                              1.0                          ; maximum rotation speed [don't make faster than ~10]
+
+;Basic Ship Stats
+;=--------------=
+shipclass                           CLASS_Frigate
+isCapitalShip                       TRUE
+buildCost                           500                          ; resource units to build
+buildTime                           60                           ; time in seconds to build
+maxhealth                           12400                         ; hit points
+groupSize                           2                            ; size of group ships of this type tend to form
+repairTime                          90                            ; every this many seconds
+repairDamage                        0                           ; this much damage is repaired
+
+blastRadiusShockWave                1.75
+blastRadiusDamage                   275
+
+;Moving Around
+;=-----------=
+thruststrength[TRANS_UP]            50.0                         ; acceleration (m/s^2) [1-1000 approx. range]
+thruststrength[TRANS_DOWN]          50.0
+thruststrength[TRANS_RIGHT]         50.0
+thruststrength[TRANS_LEFT]          50.0
+thruststrength[TRANS_FORWARD]       50.0
+thruststrength[TRANS_BACK]          50.0
+rotstrength[ROT_YAWLEFT]            0.25                          ; rotational acceleration (deg/s^2) [0.01 - 10]
+rotstrength[ROT_YAWRIGHT]           0.25
+rotstrength[ROT_PITCHUP]            0.05
+rotstrength[ROT_PITCHDOWN]          0.05
+rotstrength[ROT_ROLLRIGHT]          0.05
+rotstrength[ROT_ROLLLEFT]           0.05
+turnspeed[TURN_YAW]                 0.3                          ; speed at which ship tries to turn (1=standard)
+turnspeed[TURN_PITCH]               0.3
+turnspeed[TURN_ROLL]                0.3
+
+rotateToRetaliate                   TRUE
+
+;Weapons
+;=-----=
+NUMBER_OF_GUNS                      1
+;(one BIG gun)
+
+GUN         0
+//Desired Range =  6500
+//ADD this amount: 280 to compensate for centrepoint
+//ADD this amount: 702 to compensate for stopping distance
+{
+Type                            GUN_Gimble
+SoundType                       GS_LargeIonCannon
+BulletType                      BULLET_Beam
+DamageLo                        20                            ; damage variance per shot - low  (continuous damage for BULLET_Beam)
+DamageHi                        25                            ; damage variance per shot - high
+MinAngle                        0
+MaxAngle                        6
+BulletLength                    7482.0                        ; visual only.  Length of bullet on screen
+BulletRange                     7482.0                        ; distance bullets travel before disappearing
+BulletSpeed                     0.0                           ; measured in m/s.
+BulletLifeTime                  1.5
+BulletMass                      0.0                           ; mass of bullet
+FireTime                        3.0                           ; fire repeat rate (reciprocal = shots/second)
+;Triggerhappy                    10.0
+}
+
+NUMBER_OF_NAV_LIGHTS           5
+
+; format is NavLight            name, type, blinkrate (in seconds), size (in meters), min LOD, texture name
+NavLight                        antenna1,       NAVLIGHT_Default, 2,   1,   0,  8,  2, etg\textures\glow32
+NavLight                        antenna2,       NAVLIGHT_Default, 2,   1,  0.5, 8,  2, etg\textures\glow32
+NavLight                        antenna3,       NAVLIGHT_Default, 2,   1,   1,  8,  2, etg\textures\glow32
+NavLight                        caution1,       NAVLIGHT_Default, 1,   0.5, 0,  7,  2, etg\textures\glow32
+NavLight                        caution2,       NAVLIGHT_Default, 1,   0.5, 0,  7,  2, etg\textures\glow32
+
+
+NUMBER_OF_SALVAGE_POINTS        2
+NUM_NEEDED_FOR_SALVAGE          2               ;number of ships needed to capture a craft
+NEED_BIGR1                      TRUE
+NEED_BIGR2                      TRUE
+WILL_FIT_CARRIER                FALSE
+
+;       format:                    name,type
+SalvagePoint                       Point1,AttachPoint
+SalvagePoint                       Point2,AttachPoint
+
+
+;Mad Animation Sillyness
+;upon creation animation state:
+;animation specified is started then paused
+;i.e:   HeaveyDefender needs to start a gun opening animation,
+;       and then pause it.
+
+;MadStartInfo        needs a starting     /Animation Text Name(no spaces allowed!)
+                     animation(1-yes,0-no)/
+MadStartInfo                   1 , Array_Open , 1 , Array_Open
+
+;MadGunAnims          definitions in explination below
+;                       n = number, g = gun, o = open, c = close, d = damaged, a = animations
+
+;                            ;ngoa,names,...,ngca,names,...,ngoda,names,... ,ngcda,names,...
+;if this doesn't
+;makes sence, ask Bryce
+MadGunAnims                     1, Array_Open, 1, Array_Close, 1,Array_Open_DMG, 1, Array_Close_DMG
+
+;Ships health must be below this percentage to use the damaged animations.
+madGunOpenDamagedHealthThreshold                0.70    ;<= 1.0f
+
+;Explosions
+;=--------=
+explosionType                       ET_FrigateExplosion
+
+BindAnimations                      1
+
+;Scaling effects
+;=--------=
+N-LIPS                              0.0001                   ; Max value for Interceptors 0.0005
+scaleFactor                         1.0                      ; Used for debugging
+
+;Engine Glow
+;=---------=
+trailWidth          70.0
+trailHeight         65.0
+trailLength         100.0
+trailStyle          3
+trailScaleCap       0.00025
+trailAngle          118
+
+;Engine Glow #2
+;=---------=
+trailWidth2         70.0
+trailHeight2        65.0
+trailLength2        100.0
+trailStyle2         3
+trailScaleCap2      0.0001
+trailAngle2         72
+
+minimumZoomDistance                 375
+
+

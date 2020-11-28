@@ -877,6 +877,7 @@ r2\lightcorvette.mad.64
 r2\heavyinterceptor.mad.64
 p2\p2fuelpod.mad.64
 p1\p1ionarrayfrigate.mad.64
+p1\p1ionarrayfrigate.shp
 traders\junkyarddawg.mad.64
 textures.ll.64
 nis\m02a.nis.64
