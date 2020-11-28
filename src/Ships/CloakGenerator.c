@@ -497,7 +497,7 @@ void CloakGeneratorHouseKeep(Ship *ship)
 
 void CloakGeneratorAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdist)
 {
-    attackStraightForward(ship,target,4000.0f,3000.0f);
+    attackStraightForward(ship, target, 4000.0f, 3000.0f, NULL, NULL);
 }
 
 #ifdef _WIN32_FIX_ME

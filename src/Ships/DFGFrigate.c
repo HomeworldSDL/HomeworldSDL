@@ -162,7 +162,7 @@ void DFGFrigateAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdist)
 {
     DFGFrigateStatics *DFGFstatics = (DFGFrigateStatics *) ((ShipStaticInfo *)(ship->staticinfo))->custstatinfo;
 
-    attackStraightForward(ship,target,DFGFstatics->DFGFrigateFieldRadius,1000.0f);
+    attackStraightForward(ship, target, DFGFstatics->DFGFrigateFieldRadius, 1000.0f, NULL, NULL);
 }
 
 

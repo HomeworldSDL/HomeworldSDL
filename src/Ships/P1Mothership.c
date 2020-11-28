@@ -42,18 +42,18 @@ void P1MothershipAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdist)
     ShipStaticInfo *shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;
     P1MothershipStatics *motherstat = (P1MothershipStatics *)shipstaticinfo->custstatinfo;
 
-    attackStraightForward(ship,target,motherstat->p1mothershipGunRange[ship->tacticstype],motherstat->p1mothershipTooCloseRange[ship->tacticstype]);
+    attackStraightForward(ship, target, motherstat->p1mothershipGunRange[ship->tacticstype], motherstat->p1mothershipTooCloseRange[ship->tacticstype], NULL, NULL);
 }
 
 void P1MothershipAttackPassive(Ship *ship,Ship *target,bool rotate)
 {
     if ((rotate) & ((bool)((ShipStaticInfo *)(ship->staticinfo))->rotateToRetaliate))
     {
-        attackPassiveRotate(ship,target);
+        attackPassiveRotate(ship, target, NULL, NULL);
     }
     else
     {
-        attackPassive(ship,target);
+        attackPassive(ship, target, NULL, NULL);
     }
 }
 

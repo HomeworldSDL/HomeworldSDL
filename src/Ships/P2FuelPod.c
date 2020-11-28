@@ -42,18 +42,18 @@ void P2FuelPodAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdist)
     ShipStaticInfo *shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;
     P2FuelPodStatics *podstat = (P2FuelPodStatics *)shipstaticinfo->custstatinfo;
 
-    attackStraightForward(ship,target,podstat->podGunRange[ship->tacticstype],podstat->podTooCloseRange[ship->tacticstype]);
+    attackStraightForward(ship, target, podstat->podGunRange[ship->tacticstype], podstat->podTooCloseRange[ship->tacticstype], NULL, NULL);
 }
 
 void P2FuelPodAttackPassive(Ship *ship,Ship *target,bool rotate)
 {
     if ((rotate) & ((bool)((ShipStaticInfo *)(ship->staticinfo))->rotateToRetaliate))
     {
-        attackPassiveRotate(ship,target);
+        attackPassiveRotate(ship, target, NULL, NULL);
     }
     else
     {
-        attackPassive(ship,target);
+        attackPassive(ship, target, NULL, NULL);
     }
 }
 

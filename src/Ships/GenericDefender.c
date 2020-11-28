@@ -167,11 +167,11 @@ circleAlreadyCalculatedTrajectory:
 
             if (ship->attackvars.multipleAttackTargets)
             {
-                gunShootGunsAtMultipleTargets(ship);
+                gunShootGunsAtMultipleTargets(ship, NULL, NULL);
             }
             else
             {
-                gunShootGunsAtTarget(ship,target,range,&trajectory);
+                gunShootGunsAtTarget(ship, target, range, &trajectory, NULL, NULL);
             }
 
             break;
@@ -181,18 +181,18 @@ circleAlreadyCalculatedTrajectory:
             break;
     }
 
-//    attackStraightForward(ship,target,newrange,defenderstat->tooCloseRange[ship->tacticstype]);
+    //attackStraightForward(ship,target,newrange,defenderstat->tooCloseRange[ship->tacticstype], NULL, NULL);
 }
 
 void GenericDefenderAttackPassive(Ship *ship,Ship *target,bool rotate)
 {
     if ((rotate) & ((bool)((ShipStaticInfo *)(ship->staticinfo))->rotateToRetaliate))
     {
-        attackPassiveRotate(ship,target);
+        attackPassiveRotate(ship, target, NULL, NULL);
     }
     else
     {
-        attackPassive(ship,target);
+        attackPassive(ship, target, NULL, NULL);
     }
 }
 
@@ -293,7 +293,7 @@ void doKamikazeAttack(Ship *ship,SpaceObjRotImpTarg *target)
         }
         else
         {
-            gunShootGunsAtTarget(ship,target,range,&trajectory);
+            gunShootGunsAtTarget(ship, target, range, &trajectory, NULL, NULL);
         }
 dontshoot:
         aishipFlyToPointAvoidingObjs(ship,&destination,AISHIP_PointInDirectionFlying | AISHIP_FirstPointInDirectionFlying | AISHIP_FastAsPossible,0.0f);

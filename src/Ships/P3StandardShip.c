@@ -63,18 +63,18 @@ void P3StandardShipAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdist)
     ShipStaticInfo *shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;
     P3StandardShipStatics *shipstat = (P3StandardShipStatics *)shipstaticinfo->custstatinfo;
 
-    attackStraightForward(ship,target,shipstat->shipGunRange[ship->tacticstype],shipstat->shipTooCloseRange[ship->tacticstype]);
+    attackStraightForward(ship, target, shipstat->shipGunRange[ship->tacticstype], shipstat->shipTooCloseRange[ship->tacticstype], NULL, NULL);
 }
 
 void P3StandardShipAttackPassive(Ship *ship,Ship *target,bool rotate)
 {
     if ((rotate) & ((bool)((ShipStaticInfo *)(ship->staticinfo))->rotateToRetaliate))
     {
-        attackPassiveRotate(ship,target);
+        attackPassiveRotate(ship, target, NULL, NULL);
     }
     else
     {
-        attackPassive(ship,target);
+        attackPassive(ship, target, NULL, NULL);
     }
 }
 

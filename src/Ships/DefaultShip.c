@@ -55,13 +55,13 @@ void DefaultShipFire(Ship *ship,SpaceObjRotImpTarg *target)
                 case GUN_MineLauncher:
                     if (gunHasMissiles(gun))
                     {
-                        missileShoot(ship,gun,target);
+                        missileShoot(ship, gun, target, NULL, NULL);
                     }
                     break;
 
                 case GUN_NewGimble:
                 case GUN_Gimble:
-                    gunShoot(ship,gun,target);
+                    gunShoot(ship, gun, target, NULL, NULL);
                     break;
 
                 default:
@@ -82,18 +82,18 @@ void DefaultShipAttack(Ship *ship,SpaceObjRotImpTarg *target, real32 maxdist)
         return;
     }
 
-    attackStraightForward(ship,target,shipstaticinfo->bulletRange[ship->tacticstype],shipstaticinfo->minBulletRange[ship->tacticstype]*0.9f);
+    attackStraightForward(ship, target, shipstaticinfo->bulletRange[ship->tacticstype], shipstaticinfo->minBulletRange[ship->tacticstype] * 0.9f, NULL, NULL);
 }
 
 void DefaultShipAttackPassive(Ship *ship,Ship *target,bool rotate)
 {
     if ((rotate) & ((bool)((ShipStaticInfo *)(ship->staticinfo))->rotateToRetaliate))
     {
-        attackPassiveRotate(ship,target);
+        attackPassiveRotate(ship, target, NULL, NULL);
     }
     else
     {
-        attackPassive(ship,target);
+        attackPassive(ship, target, NULL, NULL);
     }
 }
 

@@ -43,18 +43,18 @@ void StandardDestroyerAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdis
     ShipStaticInfo *shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;
     StandardDestroyerStatics *sdestroyerstat = (StandardDestroyerStatics *)shipstaticinfo->custstatinfo;
 
-    attackStraightForward(ship,target,sdestroyerstat->standarddestroyerGunRange[ship->tacticstype],sdestroyerstat->standarddestroyerTooCloseRange[ship->tacticstype]);
+    attackStraightForward(ship, target, sdestroyerstat->standarddestroyerGunRange[ship->tacticstype], sdestroyerstat->standarddestroyerTooCloseRange[ship->tacticstype], NULL, NULL);
 }
 
 void StandardDestroyerAttackPassive(Ship *ship,Ship *target,bool rotate)
 {
     if ((rotate) & ((bool)((ShipStaticInfo *)(ship->staticinfo))->rotateToRetaliate))
     {
-        attackPassiveRotate(ship,target);
+        attackPassiveRotate(ship, target, NULL, NULL);
     }
     else
     {
-        attackPassive(ship,target);
+        attackPassive(ship, target, NULL, NULL);
     }
 }
 

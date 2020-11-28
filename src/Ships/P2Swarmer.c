@@ -47,18 +47,18 @@ void P2SwarmerAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdist)
     P2SwarmerSpec *spec = (P2SwarmerSpec *)ship->ShipSpecifics;
     P2SwarmerStatics *corvstat = (P2SwarmerStatics *)((ShipStaticInfo *)ship->staticinfo)->custstatinfo;
 
-    attackSideStep(ship,target,&spec->attacksidestep,&corvstat->sidestepParameters);
+    attackSideStep(ship, target, &spec->attacksidestep, &corvstat->sidestepParameters, NULL, NULL);
 }
 
 void P2SwarmerAttackPassive(Ship *ship,Ship *target,bool rotate)
 {
     if ((rotate) & ((bool)((ShipStaticInfo *)(ship->staticinfo))->rotateToRetaliate))
     {
-        attackPassiveRotate(ship,target);
+        attackPassiveRotate(ship, target, NULL, NULL);
     }
     else
     {
-        attackPassive(ship,target);
+        attackPassive(ship, target, NULL, NULL);
     }
 }
 

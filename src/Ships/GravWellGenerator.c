@@ -727,7 +727,7 @@ void GravWellGenerator_PreFix(Ship *ship)
 
 void GravWellAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdist)
 {
-    attackStraightForward(ship,target,4000.0f,3000.0f);
+    attackStraightForward(ship, target, 4000.0f, 3000.0f, NULL, NULL);
 }
 
 CustShipHeader GravWellGeneratorHeader =

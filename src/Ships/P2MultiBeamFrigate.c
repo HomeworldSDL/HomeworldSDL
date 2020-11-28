@@ -162,7 +162,7 @@ void P2MultiBeamFrigateFire(Ship *ship,SpaceObjRotImpTarg *target)
             if (gun->gunstatic->guntype==GUN_Gimble)
             {
                 gunOrientGimbleGun(ship,gun,target);
-                gunShoot(ship,gun,target);
+                gunShoot(ship, gun, target, NULL, NULL);
             }
     }
 }

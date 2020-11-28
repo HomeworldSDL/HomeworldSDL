@@ -369,7 +369,7 @@ void GenericInterceptorFire(Ship *ship,SpaceObjRotImpTarg *target)
 
     dbgAssertOrIgnore(spec->activeGun < gunInfo->numGuns);
 
-    gunShoot(ship,&gunInfo->guns[spec->activeGun],target);
+    gunShoot(ship, &gunInfo->guns[spec->activeGun], target, NULL, NULL);
 
     spec->activeGun++;
     if (spec->activeGun >= gunInfo->numGuns)

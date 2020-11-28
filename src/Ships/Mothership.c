@@ -116,12 +116,12 @@ void MothershipInit(Ship *ship)
 }
 void MothershipAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdist)
 {
-    attackPassive(ship,(Ship *)target);  // Typecast to prevent warning, attackPassive will handle SpaceObjRotImpTarg
+    attackPassive(ship,(Ship *)target, NULL, NULL);  // Typecast to prevent warning, attackPassive will handle SpaceObjRotImpTarg
 }
 
 void MothershipAttackPassive(Ship *ship,Ship *target,bool rotate)
 {
-    attackPassive(ship,target);
+    attackPassive(ship, target, NULL, NULL);
 }
 
 //single player game...called when hs button is pushed for quick
