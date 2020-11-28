@@ -28,6 +28,14 @@ repairDamage                        0                           ; this much dama
 blastRadiusShockWave                1.75
 blastRadiusDamage                   275
 
+;Cloaking Device Stats
+;=--------------=
+CloakingTime                        0.05                           ; Cloaking Time in seconds
+DeCloakingTime                      0.1                           ; Decloaking time
+VisibleState                        0.1                           ; Point at which ship becomes 'invisible' to sensors, ships, and everything else
+                                                                 ; Visually: 1.0 is completly vissible, and 0.0 is completly invisible
+battleReCloakTime                   2.2                           ; seconds after ship fires that it starts recloaking
+
 ;Moving Around
 ;=-----------=
 thruststrength[TRANS_UP]            50.0                         ; acceleration (m/s^2) [1-1000 approx. range]
