@@ -1303,7 +1303,7 @@ void selStatusDraw0(Ship *ship)
         fontMakeCurrent(selGroupFont0);
         fontPrint(x - halfWidth - fontWidth("C") - 1, rect.y1 + 5 - fontHeight(" "), selHotKeyNumberColor, "C");
     }
-    if((ship->shiptype == MissileDestroyer) || (ship->shiptype == MinelayerCorvette))      //ship has missles, so display missile status
+    if((ship->shiptype == MissileDestroyer) || (ship->shiptype == MinelayerCorvette) || (ship->shiptype == P1MissileCorvette))      //ship has missles, so display missile status
     {
         GunStatic *gunstatic;
         numGuns = ship->gunInfo->numGuns;
@@ -1552,7 +1552,7 @@ void selStatusDraw1(Ship *ship)
         fontMakeCurrent(selGroupFont1);
         fontPrint(x - halfWidth - fontWidth("C") - 1,rect.y1 + 4 - fontHeight(" ") , selHotKeyNumberColor, "C");
     }
-    if((ship->shiptype == MissileDestroyer) || (ship->shiptype == MinelayerCorvette))     //ship has missles, so display missile status
+    if((ship->shiptype == MissileDestroyer) || (ship->shiptype == MinelayerCorvette) || (ship->shiptype == P1MissileCorvette))     //ship has missles, so display missile status
     {
         GunStatic *gunstatic;
         numGuns = ship->gunInfo->numGuns;
@@ -1771,7 +1771,7 @@ void selStatusDraw2(Ship *ship)
             tutPointerShipGroupRect->y1 = rect.y1 + 3 + 2;
         }
     }
-    if((ship->shiptype == MissileDestroyer) || (ship->shiptype == MinelayerCorvette))    //ship has missles, so display missile status
+    if((ship->shiptype == MissileDestroyer) || (ship->shiptype == MinelayerCorvette) || (ship->shiptype == P1MissileCorvette))    //ship has missles, so display missile status
     {
         GunStatic *gunstatic;
         numGuns = ship->gunInfo->numGuns;
