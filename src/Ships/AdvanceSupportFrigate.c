@@ -58,18 +58,18 @@ void AdvanceSupportFrigateAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 ma
     ShipStaticInfo *shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;
     AdvanceSupportFrigateStatics *asfstat = (AdvanceSupportFrigateStatics *)shipstaticinfo->custstatinfo;
 
-    attackStraightForward(ship,target,asfstat->asfGunRange[ship->tacticstype],asfstat->asfTooCloseRange[ship->tacticstype]);
+    attackStraightForward(ship, target, asfstat->asfGunRange[ship->tacticstype], asfstat->asfTooCloseRange[ship->tacticstype], NULL, NULL);
 }
 
 void AdvanceSupportFrigateAttackPassive(Ship *ship,Ship *target,bool rotate)
 {
     if ((rotate) & ((bool)((ShipStaticInfo *)(ship->staticinfo))->rotateToRetaliate))
     {
-        attackPassiveRotate(ship,target);
+        attackPassiveRotate(ship, target, NULL, NULL);
     }
     else
     {
-        attackPassive(ship,target);
+        attackPassive(ship, target, NULL, NULL);
     }
 }
 

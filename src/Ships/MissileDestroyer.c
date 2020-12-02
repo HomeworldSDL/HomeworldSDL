@@ -84,18 +84,18 @@ void MissileDestroyerAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdist
     ShipStaticInfo *shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;
     MissileDestroyerStatics *mdestroyerstat = (MissileDestroyerStatics *)shipstaticinfo->custstatinfo;
 
-    attackStraightForward(ship,target,mdestroyerstat->missiledestroyerGunRange[ship->tacticstype],mdestroyerstat->missiledestroyerTooCloseRange[ship->tacticstype]);
+    attackStraightForward(ship, target, mdestroyerstat->missiledestroyerGunRange[ship->tacticstype], mdestroyerstat->missiledestroyerTooCloseRange[ship->tacticstype], NULL, NULL);
 }
 
 void MissileDestroyerAttackPassive(Ship *ship,Ship *target,bool rotate)
 {
     if ((rotate) & ((bool)((ShipStaticInfo *)(ship->staticinfo))->rotateToRetaliate))
     {
-        attackPassiveRotate(ship,target);
+        attackPassiveRotate(ship, target, NULL, NULL);
     }
     else
     {
-        attackPassive(ship,target);
+        attackPassive(ship, target, NULL, NULL);
     }
 }
 
@@ -229,7 +229,7 @@ bool MissileDestroyerSpecialTarget(Ship *ship,void *custom)
 
                     target = targets->TargetPtr[spec->curTargetIndex];
 
-                    missileShoot(ship,gun,target);
+                    missileShoot(ship, gun, target, NULL, NULL);
 
                     spec->curTargetIndex++;
                     if (spec->curTargetIndex >= numShipsToTarget)

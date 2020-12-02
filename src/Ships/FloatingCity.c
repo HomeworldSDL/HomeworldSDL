@@ -43,18 +43,18 @@ void FloatingCityAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdist)
     ShipStaticInfo *shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;
     FloatingCityStatics *floatingcitystat = (FloatingCityStatics *)shipstaticinfo->custstatinfo;
 
-    attackStraightForward(ship,target,floatingcitystat->floatingcityGunRange[ship->tacticstype],floatingcitystat->floatingcityTooCloseRange[ship->tacticstype]);
+    attackStraightForward(ship, target, floatingcitystat->floatingcityGunRange[ship->tacticstype], floatingcitystat->floatingcityTooCloseRange[ship->tacticstype], NULL, NULL);
 }
 
 void FloatingCityAttackPassive(Ship *ship,Ship *target,bool rotate)
 {
     if ((rotate) & ((bool)((ShipStaticInfo *)(ship->staticinfo))->rotateToRetaliate))
     {
-        attackPassiveRotate(ship,target);
+        attackPassiveRotate(ship, target, NULL, NULL);
     }
     else
     {
-        attackPassive(ship,target);
+        attackPassive(ship, target, NULL, NULL);
     }
 }
 

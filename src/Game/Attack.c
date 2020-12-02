@@ -74,22 +74,25 @@ bool needToGoToSameVerticalPlane(Ship *ship,SpaceObjRotImpTarg *target, real32 t
     return TRUE;
 }
 
-/*-----------------------------------------------------------------------------
-    Name        : attackPassiveRotate
-    Description : does a passive attack with rotation, which means it may rotate in place and aim it guns in enemy's
-                  direction, without moving the ship.
-    Inputs      : ship, target
-    Outputs     :
-    Return      :
-----------------------------------------------------------------------------*/
-void attackPassiveRotate(Ship *ship,Ship *target)
+/**
+ * @brief Sets the ship to attack the target in the ship's current position if the target is within range.
+ * The ship will attempt to face towards the enemy, but will not move towards it.
+ * 
+ * @param ship The attacking ship.
+ * @param target The target object to attack.
+ * @param onFireStart Invoked right before the weapon fires.
+ * @param onFireStop Invoked right after the weapon fires.
+ */
+void attackPassiveRotate(
+    Ship *ship,                             // The attacking ship.
+    Ship *target,                           // The target object to attack.
+    void (*onFireStart)(struct Ship *ship), // Invoked right before the weapon fires.
+    void (*onFireStop)(struct Ship *ship))  // Invoked right after the weapon fires.
 {
     vector trajectory;
     real32 range;
     real32 dist;
     real32 temp;
-//    CommandToDo *command;
-//    sdword i;
 
     if (ship->specialFlags & SPECIAL_Hyperspacing)
         return;
@@ -115,64 +118,30 @@ void attackPassiveRotate(Ship *ship,Ship *target)
 
     if (ship->attackvars.multipleAttackTargets)
     {
-        gunShootGunsAtMultipleTargets(ship);
+        gunShootGunsAtMultipleTargets(ship, onFireStart, onFireStop);
     }
     else
     {
         range = RangeToTargetGivenDist(ship,(SpaceObjRotImpTarg *)target,dist);
 
-        gunShootGunsAtTarget(ship,(SpaceObjRotImpTarg *)target,range,&trajectory);
+        gunShootGunsAtTarget(ship, (SpaceObjRotImpTarg *)target, range, &trajectory, onFireStart, onFireStop);
     }
-
-    /*
-    //check to see if we should back up!
-    if(ship->tacticstype == Evasive)
-    {
-        command = getShipAndItsCommand(&universe.mainCommandLayer,ship);
-        if(command != NULL)
-        {
-            for(i=0;i<command->selection->numShips;i++)
-            {
-                if(!isCapitalShip(command->selection->ShipPtr[i]))
-                {
-                    //returns if a NON capital ship is in the selection.
-                    return;
-                }
-            }
-            if(command->ordertype.order == COMMAND_NULL)
-            {
-                //command group is doint nothing but passive attacking
-                if(command->ordertype.attributes & COMMAND_MASK_FORMATION)
-                {
-                    if(command->selection->ShipPtr[0] != ship)
-                        return; //not leader..so return! so we only move leader
-                }
-                if(command->ordertype.attributes & COMMAND_MASK_HOLDING_PATTERN ||
-                   command->ordertype.attributes & COMMAND_MASK_PROTECTING)
-                {
-                    return;  //if doing either of these things...we don't want to back up
-                }
-            }
-            else
-            {
-                return; //if doing something else, we have to return
-            }
-        }
-        vecScalarMultiply(trajectory,trajectory,-5000.0f);
-        vecAddTo(trajectory,ship->posinfo.position);
-        aishipFlyToPointAvoidingObjs(ship,&trajectory,AISHIP_FastAsPossible,0.0f);
-    }
-    */
 }
 
-/*-----------------------------------------------------------------------------
-    Name        : attackSimple
-    Description : simplest attack possible, attacks target without turning or anything
-    Inputs      : ship, target
-    Outputs     :
-    Return      :
-----------------------------------------------------------------------------*/
-void attackSimple(Ship *ship,SpaceObjRotImpTarg *target)
+/**
+ * @brief Sets the ship to attack in the simplest way possible.
+ * The ship will not perform any maneuvers whatsoever. This function is used by the AIShip type.
+ * 
+ * @param ship The attacking ship.
+ * @param target The target object to attack.
+ * @param onFireStart Invoked right before the weapon fires.
+ * @param onFireStop Invoked right after the weapon fires.
+ */
+void attackSimple(
+    Ship *ship,                             // The attacking ship.
+    SpaceObjRotImpTarg *target,             // The target object to attack.
+    void (*onFireStart)(struct Ship *ship), // Invoked right before the weapon fires.
+    void (*onFireStop)(struct Ship *ship))  // Invoked right after the weapon fires.
 {
     vector trajectory;
     real32 range;
@@ -185,33 +154,36 @@ void attackSimple(Ship *ship,SpaceObjRotImpTarg *target)
     vecDivideByScalar(trajectory,dist,temp);
 
     range = RangeToTargetGivenDist(ship,(SpaceObjRotImpTarg *)target,dist);
-    gunShootGunsAtTarget(ship,(SpaceObjRotImpTarg *)target,range,&trajectory);
+    gunShootGunsAtTarget(ship, (SpaceObjRotImpTarg *)target, range, &trajectory, onFireStart, onFireStop);
     ship->shipisattacking = FALSE;      // we're not attacking, just blowing stuff up in our way
 }
 
-/*-----------------------------------------------------------------------------
-    Name        : attackPassive
-    Description : does a passive attack (shoots at enemy if possible, but does not try to face in enemy's direction or
-                  to move in enemy's direction)
-    Inputs      : ship, target
-    Outputs     :
-    Return      :
-----------------------------------------------------------------------------*/
-void attackPassive(Ship *ship,Ship *target)
+/**
+ * @brief Sets the ship to attack the target in the ship's current position and orientation if the target is within range.
+ * The ship will not attempt to face towards the enemy nor move towards it.
+ * 
+ * @param ship The attacking ship.
+ * @param target The target object to attack.
+ * @param onFireStart Invoked right before the weapon fires.
+ * @param onFireStop Invoked right after the weapon fires.
+ */
+void attackPassive(
+    Ship *ship,                             // The attacking ship.
+    Ship *target,                           // The target object to attack.
+    void (*onFireStart)(struct Ship *ship), // Invoked right before the weapon fires.
+    void (*onFireStop)(struct Ship *ship))  // Invoked right after the weapon fires.
 {
     vector trajectory;
     real32 range;
     real32 dist;
     real32 temp;
-//    CommandToDo *command;
-//    sdword i;
 
     if (ship->specialFlags & SPECIAL_Hyperspacing)
         return;
 
     if (ship->attackvars.multipleAttackTargets)
     {
-        gunShootGunsAtMultipleTargets(ship);
+        gunShootGunsAtMultipleTargets(ship, onFireStart, onFireStart);
     }
     else
     {
@@ -221,58 +193,28 @@ void attackPassive(Ship *ship,Ship *target)
         vecDivideByScalar(trajectory,dist,temp);
 
         range = RangeToTargetGivenDist(ship,(SpaceObjRotImpTarg *)target,dist);
-        gunShootGunsAtTarget(ship,(SpaceObjRotImpTarg *)target,range,&trajectory);
+        gunShootGunsAtTarget(ship, (SpaceObjRotImpTarg *)target, range, &trajectory, onFireStart, onFireStart);
     }
-
-    /*
-        //check to see if we should back up!
-    if(ship->tacticstype == Evasive)
-    {
-        command = getShipAndItsCommand(&universe.mainCommandLayer,ship);
-        if(command != NULL)
-        {
-            for(i=0;i<command->selection->numShips;i++)
-            {
-                if(!isCapitalShip(command->selection->ShipPtr[i]))
-                {
-                    //returns if a NON capital ship is in the selection.
-                    return;
-                }
-            }
-            if(command->ordertype.order == COMMAND_NULL)
-            {
-                //command group is doint nothing but passive attacking
-                if(command->ordertype.attributes & COMMAND_MASK_FORMATION)
-                {
-                    if(command->selection->ShipPtr[0] != ship)
-                        return; //not leader..so return! so we only move leader
-                }
-                if(command->ordertype.attributes & COMMAND_MASK_HOLDING_PATTERN ||
-                   command->ordertype.attributes & COMMAND_MASK_PROTECTING)
-                {
-                    return;  //if doing either of these things...we don't want to back up
-                }
-            }
-            else
-            {
-                return; //if doing something else, we have to return
-            }
-        }
-        vecScalarMultiply(trajectory,trajectory,-5000.0f);
-        vecAddTo(trajectory,ship->posinfo.position);
-        aishipFlyToPointAvoidingObjs(ship,&trajectory,AISHIP_FastAsPossible,0.0f);
-    }
-    */
 }
 
-/*-----------------------------------------------------------------------------
-    Name        : attackStraightForward
-    Description : attacks target by going straight for it (but not too close).
-    Inputs      : ship, target, gunRange, tooCloseRange
-    Outputs     :
-    Return      :
-----------------------------------------------------------------------------*/
-void attackStraightForward(Ship *ship,SpaceObjRotImpTarg *target,real32 gunRange,real32 tooCloseRange)
+/**
+ * @brief Sets the ship to attack the target by moving straight towards it up to a minimum range.
+ * If the ship is too close, the ship will attempt to avoid it.
+ * 
+ * @param ship The attacking ship.
+ * @param target The target object to attack.
+ * @param gunRange Weapon attack distance.
+ * @param tooCloseRange Weapon minimum attack distance.
+ * @param onFireStart Invoked right before the weapon fires.
+ * @param onFireStop Invoked right after the weapon fires.
+ */
+void attackStraightForward(
+    Ship *ship,                             // The attacking ship.
+    SpaceObjRotImpTarg *target,             // The target object to attack.
+    real32 gunRange,                        // Weapon attack distance.
+    real32 tooCloseRange,                   // Weapon minimum attack distance.
+    void (*onFireStart)(struct Ship *ship), // Invoked right before the weapon fires.
+    void (*onFireStop)(struct Ship *ship))  // Invoked right after the weapon fires.
 {
     vector trajectory;
     vector destination,newHeading;
@@ -296,8 +238,6 @@ void attackStraightForward(Ship *ship,SpaceObjRotImpTarg *target,real32 gunRange
         destination.x = ship->posinfo.position.x;
         destination.z = target->posinfo.position.z;
         destination.y = ship->posinfo.position.y;
-
-        //aishipFlyToPointAvoidingObjs(ship,&destination,AISHIP_FastAsPossible,0.0f);
 
         //also fly towards the ship
         if (range > tooCloseRange)
@@ -349,7 +289,6 @@ dontgotosameplane:
         if (range > gunRange)
         {
             // too far away, so fly in
-
             aishipFlyToShipAvoidingObjsWithVel(ship,target,0,0.0f,&target->posinfo.velocity);
         }
         else if (range > tooCloseRange)
@@ -372,11 +311,11 @@ dontgotosameplane:
     {
         if (ship->attackvars.multipleAttackTargets)
         {
-            gunShootGunsAtMultipleTargets(ship);
+            gunShootGunsAtMultipleTargets(ship, onFireStart, onFireStop);
         }
         else
         {
-            gunShootGunsAtTarget(ship,target,range,&trajectory);
+            gunShootGunsAtTarget(ship, target, range, &trajectory, onFireStart, onFireStop);
         }
     }
 }
@@ -399,15 +338,24 @@ void attackSideStepInit(AttackSideStep *attacksidestep)
     attacksidestep->aidirection = 0;
 }
 
-/*-----------------------------------------------------------------------------
-    Name        : attackSideStep
-    Description : Does a "sidestep" attack.  The ship will shoot at target, and then at random either slide left or
-                  right before doing another attack.
-    Inputs      : ship, target, attacksidestep (contains internal state variables), parameters (tunable constants)
-    Outputs     :
-    Return      :
-----------------------------------------------------------------------------*/
-void attackSideStep(Ship *ship,SpaceObjRotImpTarg *target,AttackSideStep *attacksidestep,AttackSideStepParameters *parameters)
+/**
+ * @brief Sets the ship to attack the target while performing a "sidestep".
+ * The ship will shoot at the target object, then s left or right randomly before starting another attack.
+ * 
+ * @param ship The attacking ship.
+ * @param target The target object to attack.
+ * @param attacksidestep Internal state variables used for the ship's attack AI behavior, i.e. timing and direction.
+ * @param parameters Options for the ship's attack AI behavior.
+ * @param onFireStart Invoked right before the weapon fires.
+ * @param onFireStop Invoked right after the weapon fires.
+ */
+void attackSideStep(
+    Ship *ship,                            // The attacking ship.
+    SpaceObjRotImpTarg *target,            // The target object to attack.
+    AttackSideStep *attacksidestep,        // Internal state variables used for the ship's attack AI behavior, i.e. timing and direction.
+    AttackSideStepParameters *parameters,  // Options for the ship's attack AI behavior.
+    void (*onFireStart)(struct Ship *ship),  // Invoked right before the weapon fires.
+    void (*onFireStop)(struct Ship *ship)) // Invoked right after the weapon fires.
 {
     vector trajectory;
     real32 dist;
@@ -431,11 +379,11 @@ void attackSideStep(Ship *ship,SpaceObjRotImpTarg *target,AttackSideStep *attack
             {
                 if (ship->attackvars.multipleAttackTargets)
                 {
-                    didshoot = gunShootGunsAtMultipleTargets(ship);
+                    didshoot = gunShootGunsAtMultipleTargets(ship, onFireStart, onFireStop);
                 }
                 else
                 {
-                    didshoot = gunShootGunsAtTarget(ship,target,range,&trajectory);
+                    didshoot = gunShootGunsAtTarget(ship, target, range, &trajectory, onFireStart, onFireStop);
                 }
             }
 
@@ -482,7 +430,7 @@ void attackSideStep(Ship *ship,SpaceObjRotImpTarg *target,AttackSideStep *attack
 
             if (ship->attackvars.multipleAttackTargets)
             {
-                gunShootGunsAtMultipleTargets(ship);
+                gunShootGunsAtMultipleTargets(ship, onFireStart, onFireStop);
             }
 
             if ((universe.totaltimeelapsed - attacksidestep->aitime) > parameters->repositionTime)
@@ -519,11 +467,11 @@ void attackSideStep(Ship *ship,SpaceObjRotImpTarg *target,AttackSideStep *attack
             {
                 if (ship->attackvars.multipleAttackTargets)
                 {
-                    didshoot = gunShootGunsAtMultipleTargets(ship);
+                    didshoot = gunShootGunsAtMultipleTargets(ship, onFireStart, onFireStop);
                 }
                 else
                 {
-                    didshoot = gunShootGunsAtTarget(ship,target,range,&trajectory);
+                    didshoot = gunShootGunsAtTarget(ship, target, range, &trajectory, onFireStart, onFireStop);
                 }
             }
 
@@ -571,7 +519,7 @@ void attackSideStep(Ship *ship,SpaceObjRotImpTarg *target,AttackSideStep *attack
 
             if (ship->attackvars.multipleAttackTargets)
             {
-                gunShootGunsAtMultipleTargets(ship);
+                gunShootGunsAtMultipleTargets(ship, onFireStart, onFireStop);
             }
 
             if (range > parameters->circleRange)
@@ -599,4 +547,3 @@ void attackSideStep(Ship *ship,SpaceObjRotImpTarg *target,AttackSideStep *attack
     }
 
 }
-

@@ -37,11 +37,11 @@ void DroneAttackPassive(Ship *ship,Ship *target,bool rotate)
 
     if ((rotate) & ((bool)((ShipStaticInfo *)(ship->staticinfo))->rotateToRetaliate))
     {
-        attackPassiveRotate(ship,target);
+        attackPassiveRotate(ship, target, NULL, NULL);
     }
     else
     {
-        attackPassive(ship,target);
+        attackPassive(ship, target, NULL, NULL);
     }
 }
 

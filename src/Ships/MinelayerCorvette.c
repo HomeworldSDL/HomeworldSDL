@@ -135,7 +135,7 @@ void MinelayerCorvetteFire(Ship *ship,SpaceObjRotImpTarg *target)
             {   //if there is ammo
                 if (gunCanShoot(ship, gun0))
                 {
-                    missileShoot(ship,gun0, target);
+                    missileShoot(ship, gun0, target, NULL, NULL);
                 }
             }
             else
@@ -144,7 +144,7 @@ void MinelayerCorvetteFire(Ship *ship,SpaceObjRotImpTarg *target)
                 {
                     if (gunCanShoot(ship, gun1))
                     {
-                        missileShoot(ship,gun1, target);
+                        missileShoot(ship, gun1, target, NULL, NULL);
                     }
                 }
             }
@@ -155,7 +155,7 @@ void MinelayerCorvetteFire(Ship *ship,SpaceObjRotImpTarg *target)
             {   //if there is ammo
                 if (gunCanShoot(ship, gun1))
                 {
-                    missileShoot(ship,gun1, target);
+                    missileShoot(ship, gun1, target, NULL, NULL);
                 }
             }
             else
@@ -164,7 +164,7 @@ void MinelayerCorvetteFire(Ship *ship,SpaceObjRotImpTarg *target)
                 {
                     if (gunCanShoot(ship, gun0))
                     {
-                        missileShoot(ship,gun0, target);
+                        missileShoot(ship, gun0, target, NULL, NULL);
                     }
                 }
             }
@@ -176,7 +176,7 @@ void MinelayerCorvetteFire(Ship *ship,SpaceObjRotImpTarg *target)
         {   //if there is ammo
             if (gunCanShoot(ship, gun0))
             {
-            missileShoot(ship,gun0, target);
+                missileShoot(ship, gun0, target, NULL, NULL);
             }
         }
     }

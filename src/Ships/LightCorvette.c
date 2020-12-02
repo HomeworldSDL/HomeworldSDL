@@ -47,18 +47,18 @@ void LightCorvetteAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdist)
     LightCorvetteSpec *spec = (LightCorvetteSpec *)ship->ShipSpecifics;
     LightCorvetteStatics *corvstat = (LightCorvetteStatics *)((ShipStaticInfo *)ship->staticinfo)->custstatinfo;
 
-    attackSideStep(ship,target,&spec->attacksidestep,&corvstat->sidestepParameters);
+    attackSideStep(ship, target, &spec->attacksidestep, &corvstat->sidestepParameters, NULL, NULL);
 }
 
 void LightCorvetteAttackPassive(Ship *ship,Ship *target,bool rotate)
 {
     if ((rotate) & ((bool)((ShipStaticInfo *)(ship->staticinfo))->rotateToRetaliate))
     {
-        attackPassiveRotate(ship,target);
+        attackPassiveRotate(ship, target, NULL, NULL);
     }
     else
     {
-        attackPassive(ship,target);
+        attackPassive(ship, target, NULL, NULL);
     }
 }
 

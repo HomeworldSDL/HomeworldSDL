@@ -24,16 +24,16 @@ typedef struct
     bool fullMovementFreedom;
 } AttackSideStepParameters;
 
-void attackPassiveRotate(Ship *ship,Ship *target);
+void attackPassiveRotate(Ship *ship, Ship *target, void (*onPreFire)(struct Ship *ship), void (*onPostFire)(struct Ship *ship));
 
 void attackSideStepInit(AttackSideStep *attacksidestep);
-void attackSideStep(Ship *ship,SpaceObjRotImpTarg *target,AttackSideStep *attacksidestep,AttackSideStepParameters *parameters);
+void attackSideStep(Ship *ship, SpaceObjRotImpTarg *target, AttackSideStep *attacksidestep, AttackSideStepParameters *parameters, void (*onPreFire)(struct Ship *ship), void (*onPostFire)(struct Ship *ship));
 
-void attackStraightForward(Ship *ship,SpaceObjRotImpTarg *target,real32 gunRange,real32 tooCloseRange);
+void attackStraightForward(Ship *ship, SpaceObjRotImpTarg *target, real32 gunRange, real32 tooCloseRange, void (*onPreFire)(struct Ship *ship), void (*onPostFire)(struct Ship *ship));
 
-void attackPassive(Ship *ship,Ship *target);
+void attackPassive(Ship *ship, Ship *target, void (*onPreFire)(struct Ship *ship), void (*onPostFire)(struct Ship *ship));
 
-void attackSimple(Ship *ship,SpaceObjRotImpTarg *target);
+void attackSimple(Ship *ship, SpaceObjRotImpTarg *target, void (*onPreFire)(struct Ship *ship), void (*onPostFire)(struct Ship *ship));
 
 /*=============================================================================
     Data:
@@ -42,4 +42,3 @@ void attackSimple(Ship *ship,SpaceObjRotImpTarg *target);
 extern scriptStructEntry AttackSideStepParametersScriptTable[];
 
 #endif
-

@@ -52,18 +52,18 @@ void P2MothershipAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdist)
         toocloserange += shipstaticinfo->staticheader.staticCollInfo.collspheresize;
     }
 
-    attackStraightForward(ship,target,motherstat->p2mothershipGunRange[ship->tacticstype],toocloserange);
+    attackStraightForward(ship, target, motherstat->p2mothershipGunRange[ship->tacticstype], toocloserange, NULL, NULL);
 }
 
 void P2MothershipAttackPassive(Ship *ship,Ship *target,bool rotate)
 {
     if ((rotate) & ((bool)((ShipStaticInfo *)(ship->staticinfo))->rotateToRetaliate))
     {
-        attackPassiveRotate(ship,target);
+        attackPassiveRotate(ship, target, NULL, NULL);
     }
     else
     {
-        attackPassive(ship,target);
+        attackPassive(ship, target, NULL, NULL);
     }
 }
 

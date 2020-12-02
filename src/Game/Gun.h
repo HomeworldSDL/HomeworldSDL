@@ -39,10 +39,10 @@
 
 bool gunCanShoot(Ship *ship, Gun *gun);
 bool gunOrientGimbleGun(Ship *ship,Gun *gun,SpaceObjRotImpTarg *target);
-void missileShoot(Ship *ship,Gun *gun,SpaceObjRotImpTarg *target);
-void gunShoot(Ship *ship,Gun *gun, SpaceObjRotImpTarg *target);
-bool gunShootGunsAtTarget(Ship *ship,SpaceObjRotImpTarg *target,real32 range,vector *trajectory);
-bool gunShootGunsAtMultipleTargets(Ship *ship);
+void missileShoot(Ship *ship, Gun *gun, SpaceObjRotImpTarg *target, void (*onPreFire)(struct Ship *ship), void (*onPostFire)(struct Ship *ship));
+void gunShoot(Ship *ship, Gun *gun, SpaceObjRotImpTarg *target, void (*onPreFire)(struct Ship *ship), void (*onPostFire)(struct Ship *ship));
+bool gunShootGunsAtTarget(Ship *ship, SpaceObjRotImpTarg *target, real32 range, vector *trajectory, void (*onPreFire)(struct Ship *ship), void (*onPostFire)(struct Ship *ship));
+bool gunShootGunsAtMultipleTargets(Ship *ship, void (*onPreFire)(struct Ship *ship), void (*onPostFire)(struct Ship *ship));
 
 bool gunMatrixUpdate(udword flags, hmatrix *startMatrix, hmatrix *matrix, void *data, smemsize ID);
 

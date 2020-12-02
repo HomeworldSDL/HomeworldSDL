@@ -57,18 +57,18 @@ void HeavyCorvetteAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdist)
     HeavyCorvetteSpec *spec = (HeavyCorvetteSpec *)ship->ShipSpecifics;
     HeavyCorvetteStatics *corvstat = (HeavyCorvetteStatics *)((ShipStaticInfo *)ship->staticinfo)->custstatinfo;
 
-    attackSideStep(ship,target,&spec->attacksidestep,&corvstat->sidestepParameters);
+    attackSideStep(ship, target, &spec->attacksidestep, &corvstat->sidestepParameters, NULL, NULL);
 }
 
 void HeavyCorvetteAttackPassive(Ship *ship,Ship *target,bool rotate)
 {
     if ((rotate) & ((bool)((ShipStaticInfo *)(ship->staticinfo))->rotateToRetaliate))
     {
-        attackPassiveRotate(ship,target);
+        attackPassiveRotate(ship, target, NULL, NULL);
     }
     else
     {
-        attackPassive(ship,target);
+        attackPassive(ship, target, NULL, NULL);
     }
 }
 
@@ -260,7 +260,7 @@ bool doBurstFire(Ship *ship)
     spec->bulletLifeTime = range*oneOverburstSpeed;
 
     bitSet(ship->specialFlags,SPECIAL_BurstFiring);
-    done = gunShootGunsAtTarget(ship,&dummyTarg,0.0f,&trajectory);
+    done = gunShootGunsAtTarget(ship, &dummyTarg, 0.0f, &trajectory, NULL, NULL);
     bitClear(ship->specialFlags,SPECIAL_BurstFiring);
     if(done == TRUE)
     {

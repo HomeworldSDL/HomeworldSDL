@@ -1752,7 +1752,7 @@ noavoid:
             }
 
             if (takeOutInMyWay)
-                attackSimple(ship,takeOutInMyWay);
+                attackSimple(ship, takeOutInMyWay, NULL, NULL);
 
             aitrackVelocityVector(ship,&desiredVel);
 
