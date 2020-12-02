@@ -71,23 +71,40 @@ void P1IonArrayFrigateInit(Ship *ship)
     spec->ReCloak = FALSE;
 }
 
+void P1IonArrayFrigateHandleFireStart(Ship *ship)
+{
+    if (ship->shiptype != P1IonArrayFrigate)
+    {
+        return;
+    }
+
+    if (bitTest(ship->flags, SOF_Cloaked) || bitTest(ship->flags, SOF_Cloaking))
+    {                                        //ship is cloaked...make it decloak...
+        bitClear(ship->flags, SOF_Cloaking); //if bastard is trying to cloak,
+        bitSet(ship->flags, SOF_DeCloaking); //put an end to it pronto!
+        real32 reCloakTimestamp = universe.totaltimeelapsed + ((P1IonArrayFrigateStatics *)((ShipStaticInfo *)(ship->staticinfo))->custstatinfo)->battleReCloakTime;
+        ((P1IonArrayFrigateSpec *)ship->ShipSpecifics)->ReCloak = TRUE;
+        ((P1IonArrayFrigateSpec *)ship->ShipSpecifics)->ReCloakTime = reCloakTimestamp;
+    }
+}
+
 void P1IonArrayFrigateAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdist)
 {
     ShipStaticInfo *shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;
     P1IonArrayFrigateStatics *frigstat = (P1IonArrayFrigateStatics *)shipstaticinfo->custstatinfo;
 
-    attackStraightForward(ship, target, frigstat->frigateGunRange[ship->tacticstype], frigstat->frigateTooCloseRange[ship->tacticstype], NULL, NULL);
+    attackStraightForward(ship, target, frigstat->frigateGunRange[ship->tacticstype], frigstat->frigateTooCloseRange[ship->tacticstype], P1IonArrayFrigateHandleFireStart, NULL);
 }
 
 void P1IonArrayFrigateAttackPassive(Ship *ship,Ship *target,bool rotate)
 {
     if ((rotate) & ((bool)((ShipStaticInfo *)(ship->staticinfo))->rotateToRetaliate))
     {
-        attackPassiveRotate(ship, target, NULL, NULL);
+        attackPassiveRotate(ship, target, P1IonArrayFrigateHandleFireStart, NULL);
     }
     else
     {
-        attackPassive(ship, target, NULL, NULL);
+        attackPassive(ship, target, P1IonArrayFrigateHandleFireStart, NULL);
     }
 }
 
