@@ -35,6 +35,16 @@ typedef struct
 
 P1IonArrayFrigateStatics P1IonArrayFrigateStatic;
 
+scriptStructEntry P1IonArrayFrigateStaticScriptTable[] =
+{
+    { "CloakingTime",               scriptSetReal32CB,  &(P1IonArrayFrigateStatic.CloakingTime),                &(P1IonArrayFrigateStatic) },
+    { "DeCloakingTime",             scriptSetReal32CB,  &(P1IonArrayFrigateStatic.DeCloakingTime),              &(P1IonArrayFrigateStatic) },
+    { "VisibleState",               scriptSetReal32CB,  &(P1IonArrayFrigateStatic.VisibleState),                &(P1IonArrayFrigateStatic) },
+    { "battleReCloakTime",          scriptSetReal32CB,  &(P1IonArrayFrigateStatic.battleReCloakTime),           &(P1IonArrayFrigateStatic) },
+
+    END_SCRIPT_STRUCT_ENTRY
+};
+
 void P1IonArrayFrigateStaticInit(char *directory,char *filename,struct ShipStaticInfo *statinfo)
 {
     udword i;
@@ -47,6 +57,8 @@ void P1IonArrayFrigateStaticInit(char *directory,char *filename,struct ShipStati
         frigstat->frigateGunRange[i] = statinfo->bulletRange[i];
         frigstat->frigateTooCloseRange[i] = statinfo->minBulletRange[i] * 0.9f;
     }
+
+    scriptSetStruct(directory, filename, P1IonArrayFrigateStaticScriptTable, (ubyte *)frigstat);
 
     frigstat->CloakingTime = 1 / frigstat->CloakingTime;
 }
