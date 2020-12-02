@@ -465,14 +465,21 @@ void gunGetGunPositionInWorld(vector *positionInWorldCoordSys,matrix *coordsys,G
     matMultiplyMatByVec(positionInWorldCoordSys,coordsys,&gunstatic->position);
 }
 
-/*-----------------------------------------------------------------------------
-    Name        : missileShoot
-    Description : shoots a missile
-    Inputs      : ship which owns gun, gun to fire missile
-    Outputs     :
-    Return      :
-----------------------------------------------------------------------------*/
-void missileShoot(Ship *ship,Gun *gun,SpaceObjRotImpTarg *target)
+/**
+ * @brief Launches a missile from ship towards the target. The missile is instantiated.
+ * 
+ * @param ship The attacking vessel which owns the selected missile weapon.
+ * @param gun The weapon to fire.
+ * @param target (optional) The target object to be shot at.
+ * @param onFireStart (optional) Invoked right before the weapon fires.
+ * @param onFireStop (optional) Invoked right after the weapon fires.
+ */
+void missileShoot(
+    Ship *ship,                             // The attacking vessel which owns the missile weapon.
+    Gun *gun,                               // The weapon to fire.
+    SpaceObjRotImpTarg *target,             // (optional) The target object to be shot at.
+    void (*onFireStart)(struct Ship *ship), // (optional) Invoked right before the weapon fires.
+    void (*onFireStop)(struct Ship *ship))  // (optional) Invoked right after the weapon fires.
 {
     Missile *missile;
     GunStatic *gunstatic = gun->gunstatic;
@@ -512,6 +519,13 @@ void missileShoot(Ship *ship,Gun *gun,SpaceObjRotImpTarg *target)
 #endif
             return;
         }
+    }
+
+    if (onFireStart != NULL)
+    {
+        // Invoke prefire callback.
+        // At this level, the callback is expected to know that the ship is in the "attacking" state.
+        onFireStart(ship);
     }
 
     gun->numMissiles--;
@@ -756,6 +770,13 @@ void missileShoot(Ship *ship,Gun *gun,SpaceObjRotImpTarg *target)
         ((Ship *)target)->firingAtUs = ship;
         ((Ship *)target)->recentlyFiredUpon = RECENT_ATTACK_DURATION;
     }
+
+    if (onFireStop != NULL)
+    {
+        // Invoke postfire callback.
+        // Wait for the entire method to clean up before invoking the callback.
+        onFireStop(ship);
+    }
 }
 
 
@@ -818,16 +839,21 @@ void gunRecoilVectorCompute(vector *dest, real32 recoilLength, real32 lastFired,
     dest->z *= offset;
 }
 
-/*-----------------------------------------------------------------------------
-    Name        : gunShoot
-    Description : shoots a given gun of the given ship
-    Inputs      : ship  - that which owns gun
-                  gun - gun to fire
-                  target - object being shot at or NULL
-    Outputs     :
-    Return      :
-----------------------------------------------------------------------------*/
-void gunShoot(Ship *ship, Gun *gun, SpaceObjRotImpTarg *target)
+/**
+ * @brief Fires the weapon of the ship at the target.
+ * 
+ * @param ship The attacking vessel which owns the gun weapon.
+ * @param gun The weapon to fire.
+ * @param target (optional) The target object to be shot at.
+ * @param onFireStart (optional) Invoked right before the weapon fires.
+ * @param onFireStop (optional) Invoked right after the weapon fires.
+ */
+void gunShoot(
+    Ship *ship,                             // The attacking vessel which owns the gun weapon.
+    Gun *gun,                               // The weapon to fire.
+    SpaceObjRotImpTarg *target,             // (optional) The target object to be shot at.
+    void (*onFireStart)(struct Ship *ship), // (optional) Invoked right before the weapon fires.
+    void (*onFireStop)(struct Ship *ship))  // (optional) Invoked right after the weapon fires.
 {
     Bullet *bullet;
     GunStatic *gunstatic = gun->gunstatic;
@@ -890,6 +916,12 @@ void gunShoot(Ship *ship, Gun *gun, SpaceObjRotImpTarg *target)
         return; //don't let it fire.
     }
 
+    if (onFireStart != NULL)
+    {
+        // Invoke prefire callback.
+        // At this level, the callback is expected to know that the ship is in the "attacking" state.
+        onFireStart(ship);
+    }
 
     shipstatic = (ShipStaticInfo *)ship->staticinfo;
 
@@ -1219,18 +1251,33 @@ void gunShoot(Ship *ship, Gun *gun, SpaceObjRotImpTarg *target)
         ((Ship *)target)->firingAtUs = ship;
         ((Ship *)target)->recentlyFiredUpon = RECENT_ATTACK_DURATION;
     }
+
+    if (onFireStop != NULL)
+    {
+        // Invoke postfire callback.
+        // Wait for the entire method to clean up before invoking the callback.
+        onFireStop(ship);
+    }
 }
-/*-----------------------------------------------------------------------------
-    Name        : gunShootGunsAtTarget
-    Description : shoots a ship's guns at target
-    Inputs      : ship, target, range, [trajectory] (trajectory required for ships with fixed guns)
-    Outputs     :
-    Return      :
-    Note        : trajectory can be passed in as NULL for ships that don't have
-                  any fixed guns.  trajectory is required only for ships that have
-                  fixed guns.
-----------------------------------------------------------------------------*/
-bool gunShootGunsAtTarget(Ship *ship,SpaceObjRotImpTarg *target,real32 range,vector *trajectory)
+
+/**
+ * @brief Fires a ship's weapons at a target.
+ *
+ * @param ship The attacking vessel.
+ * @param target The object to attack.
+ * @param range The distance to the target.
+ * @param trajectory (optional) Projectile flight path. Required only for ships that have fixed guns.
+ * @param onFireStart (optional) Invoked right before the weapon fires.
+ * @param onFireStop (optional) Invoked right after the weapon fires.
+ * @return Indication of whether the ship's guns has shot at target.
+ */
+bool gunShootGunsAtTarget(
+    Ship *ship,                             // The attacking vessel.
+    SpaceObjRotImpTarg *target,             // The object to attack.
+    real32 range,                           // The distance to the target.
+    vector *trajectory,                     // (optional) Projectile flight path. Required only for ships that have fixed guns.
+    void (*onFireStart)(struct Ship *ship), // (optional) Invoked right before the weapon fires.
+    void (*onFireStop)(struct Ship *ship))  // (optional) Invoked right after the weapon fires.
 {
     GunInfo *gunInfo = ship->gunInfo;
     sdword numGuns;
@@ -1311,7 +1358,7 @@ bool gunShootGunsAtTarget(Ship *ship,SpaceObjRotImpTarg *target,real32 range,vec
 
                             if (dotprod >= triggerHappy)
                             {
-                                missileShoot(ship,gun,target);
+                                missileShoot(ship, gun, target, onFireStart, onFireStop);
                                 shotguns = TRUE;
                             }
                         }
@@ -1324,7 +1371,7 @@ bool gunShootGunsAtTarget(Ship *ship,SpaceObjRotImpTarg *target,real32 range,vec
 
                             if (dotprod >= triggerHappy)
                             {
-                                missileShoot(ship,gun,target);
+                                missileShoot(ship, gun, target, onFireStart, onFireStop);
                                 shotguns = TRUE;
                             }
                         }
@@ -1335,7 +1382,7 @@ bool gunShootGunsAtTarget(Ship *ship,SpaceObjRotImpTarg *target,real32 range,vec
 
                         if (dotprod >= triggerHappy)
                         {
-                            gunShoot(ship,gun,target);
+                            gunShoot(ship, gun, target, onFireStart, onFireStop);
                             shotguns = TRUE;
                         }
                         break;
@@ -1344,7 +1391,7 @@ bool gunShootGunsAtTarget(Ship *ship,SpaceObjRotImpTarg *target,real32 range,vec
                     case GUN_NewGimble:
                         if (gunOrientGimbleGun(ship,gun,target))
                         {
-                            gunShoot(ship,gun,target);
+                            gunShoot(ship, gun, target, onFireStart, onFireStop);
                             shotguns = TRUE;
                         }
                         break;
@@ -1366,14 +1413,18 @@ bool gunShootGunsAtTarget(Ship *ship,SpaceObjRotImpTarg *target,real32 range,vec
     return shotguns;
 }
 
-/*-----------------------------------------------------------------------------
-    Name        : gunShootGunsAtMultipleTargets
-    Description : shoots a ship's guns at multiple targets
-    Inputs      : ship
-    Outputs     :
-    Return      :
-----------------------------------------------------------------------------*/
-bool gunShootGunsAtMultipleTargets(Ship *ship)
+/**
+ * @brief Fires a ship's weapons at more than one target.
+ * 
+ * @param ship The attacking vessel.
+ * @param onFireStart (optional) Invoked right before the weapon fires.
+ * @param onFireStop (optional) Invoked right after the weapon fires.
+ * @return Indication of whether the ship's guns has shot at target.
+ */
+bool gunShootGunsAtMultipleTargets(
+    Ship *ship,                             // The attacking vessel.
+    void (*onFireStart)(struct Ship *ship), // (optional) Invoked right before the weapon fires.
+    void (*onFireStop)(struct Ship *ship))  // (optional) Invoked right after the weapon fires.
 {
     GunInfo *gunInfo = ship->gunInfo;
     sdword numGuns = gunInfo->numGuns;
@@ -1435,14 +1486,14 @@ bool gunShootGunsAtMultipleTargets(Ship *ship)
                     case GUN_MissileLauncher:
                         if (gunHasMissiles(gun))
                         {
-                            missileShoot(ship,gun,target);
+                            missileShoot(ship, gun, target, onFireStart, onFireStop);
                             shotguns = TRUE;
                         }
                         break;
                     case GUN_MineLauncher:
                         if (gunHasMissiles(gun))
                         {
-                            missileShoot(ship,gun,target);
+                            missileShoot(ship, gun, target, onFireStart, onFireStop);
                             shotguns = TRUE;
                         }
                         break;
@@ -1457,7 +1508,7 @@ bool gunShootGunsAtMultipleTargets(Ship *ship)
 
                         if (dotprod >= triggerHappy)
                         {
-                            gunShoot(ship,gun,target);
+                            gunShoot(ship, gun, target, onFireStart, onFireStop);
                             shotguns = TRUE;
                         }
                         break;
@@ -1466,7 +1517,7 @@ bool gunShootGunsAtMultipleTargets(Ship *ship)
                     case GUN_NewGimble:
                         if (gunOrientGimbleGun(ship,gun,target))
                         {
-                            gunShoot(ship,gun,target);
+                            gunShoot(ship, gun, target, onFireStart, onFireStop);
                             shotguns = TRUE;
                         }
                         break;
@@ -1845,4 +1896,3 @@ void gunTuneGun(Ship *ship)
     }
 }
 #endif
-
