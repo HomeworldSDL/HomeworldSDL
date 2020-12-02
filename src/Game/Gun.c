@@ -497,10 +497,6 @@ void missileShoot(
     vector gunheadingInWorldCoordSys;
     vector positionInWorldCoordSys,mineup,mineright,minehead;
 
-// Wrapped with #ifdef ENABLE_SHIPRECOIL but unused.
-//    vector recoil;
-//    real32 massovertime;
-
     dbgAssertOrIgnore(gunstatic->guntype == GUN_MissileLauncher || gunstatic->guntype == GUN_MineLauncher);
     dbgAssertOrIgnore(gunHasMissiles(gun));
 
@@ -658,7 +654,6 @@ void missileShoot(
     if (gunstatic->guntype == GUN_MineLauncher)
     {   //mine launcher so fix mine rotation depending on gun launched from...and race?
         //hard coded fix to a special exception :)
-
         if(ship->gunInfo->numGuns > 1)
         {    //race 1 ship..do rotation..later make global LOD on this..since its a waste of time..really
             //build mine coordinate system from the ships...BIG savings...
@@ -689,7 +684,6 @@ void missileShoot(
             matPutVectIntoMatrixCol1(mineup,missile->rotinfo.coordsys);
             matPutVectIntoMatrixCol2(mineright,missile->rotinfo.coordsys);
             matPutVectIntoMatrixCol3(minehead,missile->rotinfo.coordsys);
-            //            matCreateCoordSysFromHeading(&missile->rotinfo.coordsys,&gunheadingInWorldCoordSys);
         }
     }
     else
@@ -712,15 +706,10 @@ void missileShoot(
     listAddNode(&universe.MissileList,&(missile->missilelink),missile);
 
     univAddObjToRenderListIf((SpaceObj *)missile,(SpaceObj *)ship);     // add missile to render list if parent ship is in render list
-
-//    if (gunstatic->burstFireTime == 0.0f)
-    {
-        soundEventPlay(ship, Gun_WeaponShot, gun);
-    }
+    soundEventPlay(ship, Gun_WeaponShot, gun);
 
     //muzle flash effect trigger and set collision event
     missile->hitEffect = etgGunEventTable[shipstatic->shiprace][gunstatic->gunsoundtype][EGT_GunHit];//get pointer to bullet effect
-//    missile->hitEffect = etgGunEventTable[shiprace][gunstatic->gunsoundtype][EGT_GunHit];//just get pointer from parent gun
     etgLOD = etgGunEventTable[shipstatic->shiprace][gunstatic->gunsoundtype][EGT_GunFire];//get pointer to bullet effect
     if (etgLOD != NULL)
     {
@@ -738,7 +727,6 @@ void missileShoot(
     {
         stat = NULL;
     }
-//    stat = etgGunEventTable[shiprace][gunstatic->gunsoundtype][EGT_GunFire];//get gun effect
 
     if (univSpaceObjInRenderList((SpaceObj *)ship))
     {
@@ -903,12 +891,10 @@ void gunShoot(
     if (!ship->shipisattacking)
     {
         ship->shipisattacking = TRUE;
-        //dbgMessagef("Ship %i is attacking (gun)", ship->shipID.shipNumber);
     }
     if ((ship->attackvars.myWingmanIs)&&(!ship->attackvars.myWingmanIs->shipisattacking))
     {
         ship->attackvars.myWingmanIs->shipisattacking = TRUE;
-        //dbgMessagef("Ship %i is attacking (gun - wingman)", ship->attackvars.myWingmanIs->shipID.shipNumber);
     }
     if(ship->specialFlags2 & SPECIAL_2_ShipInGravwell)
     {
@@ -999,7 +985,7 @@ void gunShoot(
     bullet->owner = ship;
     bullet->playerowner = ship->playerowner;
     bullet->gunowner = gun;
-    if ((target != NULL))// && (target->objtype != OBJ_MissileType))
+    if ((target != NULL))
     {
         if(bitTest(ship->specialFlags,SPECIAL_BurstFiring))
             bullet->target = NULL;
@@ -1132,16 +1118,13 @@ void gunShoot(
 
     univAddObjToRenderListIf((SpaceObj *)bullet,(SpaceObj *)ship);     // add to render list if parent ship is in render list
 
-//    if (gunstatic->burstFireTime == 0.0f)
+    if (bullet->bulletType == BULLET_Beam)
     {
-        if (bullet->bulletType == BULLET_Beam)
-        {
-            soundEventPlay(ship, Gun_WeaponFireLooped, gun);
-        }
-        else
-        {
-            soundEventPlay(ship, Gun_WeaponShot, gun);
-        }
+        soundEventPlay(ship, Gun_WeaponFireLooped, gun);
+    }
+    else
+    {
+        soundEventPlay(ship, Gun_WeaponShot, gun);
     }
 
     //figure out some parameters for the effects we are about to spawn
@@ -1205,7 +1188,6 @@ void gunShoot(
 
     //fire effect trigger and set collision event
     bullet->hitEffect = etgGunEventTable[shipstatic->shiprace][gunstatic->gunsoundtype][EGT_GunHit];//get pointer to bullet effect
-//    bullet->hitEffect = etgGunEventTable[ship->shiprace][gunstatic->gunsoundtype][EGT_GunHit];//just get pointer from parent gun
     etgLOD = etgGunEventTable[shipstatic->shiprace][gunstatic->gunsoundtype][EGT_GunFire];//get pointer to bullet effect
     if (etgLOD != NULL)
     {
@@ -1223,7 +1205,6 @@ void gunShoot(
     {
         stat = NULL;
     }
-//    stat = etgGunEventTable[ship->shiprace][gunstatic->gunsoundtype][EGT_GunFire];//get gun effect
 
     if (univSpaceObjInRenderList((SpaceObj *)ship))
     {
@@ -1292,7 +1273,6 @@ bool gunShootGunsAtTarget(
 
     if (gunInfo == NULL)
     {
-//        dbgMessagef("WARNING: no guns on ship %s %s, tried to shoot",ShipRaceToStr(ship->shiprace),ShipTypeToStr(ship->shiptype));
         return shotguns;
     }
 
@@ -1351,18 +1331,6 @@ bool gunShootGunsAtTarget(
                 switch (gunstatic->guntype)
                 {
                     case GUN_MissileLauncher:
-                        if (gunHasMissiles(gun))
-                        {
-                            matGetVectFromMatrixCol3(shipheading,ship->rotinfo.coordsys);
-                            dotprod = vecDotProduct(*trajectory,shipheading);
-
-                            if (dotprod >= triggerHappy)
-                            {
-                                missileShoot(ship, gun, target, onFireStart, onFireStop);
-                                shotguns = TRUE;
-                            }
-                        }
-                        break;
                     case GUN_MineLauncher:
                         if (gunHasMissiles(gun))
                         {
@@ -1375,7 +1343,7 @@ bool gunShootGunsAtTarget(
                                 shotguns = TRUE;
                             }
                         }
-                    break;
+                        break;
                     case GUN_Fixed:
                         matGetVectFromMatrixCol3(shipheading,ship->rotinfo.coordsys);
                         dotprod = vecDotProduct(*trajectory,shipheading);
@@ -1403,13 +1371,7 @@ bool gunShootGunsAtTarget(
             }
         }
     }
-/*
-    if (shotguns && target->objtype == OBJ_ShipType)
-    {                                                       //if we succeeded in shooting at enemy
-        ((Ship *)target)->firingAtUs = ship;
-        ((Ship *)target)->recentlyFiredUpon = RECENT_ATTACK_DURATION;
-    }
-    */
+
     return shotguns;
 }
 

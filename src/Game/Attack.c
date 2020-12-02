@@ -93,8 +93,6 @@ void attackPassiveRotate(
     real32 range;
     real32 dist;
     real32 temp;
-//    CommandToDo *command;
-//    sdword i;
 
     if (ship->specialFlags & SPECIAL_Hyperspacing)
         return;
@@ -128,46 +126,6 @@ void attackPassiveRotate(
 
         gunShootGunsAtTarget(ship, (SpaceObjRotImpTarg *)target, range, &trajectory, onFireStart, onFireStop);
     }
-
-    /*
-    //check to see if we should back up!
-    if(ship->tacticstype == Evasive)
-    {
-        command = getShipAndItsCommand(&universe.mainCommandLayer,ship);
-        if(command != NULL)
-        {
-            for(i=0;i<command->selection->numShips;i++)
-            {
-                if(!isCapitalShip(command->selection->ShipPtr[i]))
-                {
-                    //returns if a NON capital ship is in the selection.
-                    return;
-                }
-            }
-            if(command->ordertype.order == COMMAND_NULL)
-            {
-                //command group is doint nothing but passive attacking
-                if(command->ordertype.attributes & COMMAND_MASK_FORMATION)
-                {
-                    if(command->selection->ShipPtr[0] != ship)
-                        return; //not leader..so return! so we only move leader
-                }
-                if(command->ordertype.attributes & COMMAND_MASK_HOLDING_PATTERN ||
-                   command->ordertype.attributes & COMMAND_MASK_PROTECTING)
-                {
-                    return;  //if doing either of these things...we don't want to back up
-                }
-            }
-            else
-            {
-                return; //if doing something else, we have to return
-            }
-        }
-        vecScalarMultiply(trajectory,trajectory,-5000.0f);
-        vecAddTo(trajectory,ship->posinfo.position);
-        aishipFlyToPointAvoidingObjs(ship,&trajectory,AISHIP_FastAsPossible,0.0f);
-    }
-    */
 }
 
 /**
@@ -219,8 +177,6 @@ void attackPassive(
     real32 range;
     real32 dist;
     real32 temp;
-//    CommandToDo *command;
-//    sdword i;
 
     if (ship->specialFlags & SPECIAL_Hyperspacing)
         return;
@@ -239,46 +195,6 @@ void attackPassive(
         range = RangeToTargetGivenDist(ship,(SpaceObjRotImpTarg *)target,dist);
         gunShootGunsAtTarget(ship, (SpaceObjRotImpTarg *)target, range, &trajectory, onFireStart, onFireStart);
     }
-
-    /*
-        //check to see if we should back up!
-    if(ship->tacticstype == Evasive)
-    {
-        command = getShipAndItsCommand(&universe.mainCommandLayer,ship);
-        if(command != NULL)
-        {
-            for(i=0;i<command->selection->numShips;i++)
-            {
-                if(!isCapitalShip(command->selection->ShipPtr[i]))
-                {
-                    //returns if a NON capital ship is in the selection.
-                    return;
-                }
-            }
-            if(command->ordertype.order == COMMAND_NULL)
-            {
-                //command group is doint nothing but passive attacking
-                if(command->ordertype.attributes & COMMAND_MASK_FORMATION)
-                {
-                    if(command->selection->ShipPtr[0] != ship)
-                        return; //not leader..so return! so we only move leader
-                }
-                if(command->ordertype.attributes & COMMAND_MASK_HOLDING_PATTERN ||
-                   command->ordertype.attributes & COMMAND_MASK_PROTECTING)
-                {
-                    return;  //if doing either of these things...we don't want to back up
-                }
-            }
-            else
-            {
-                return; //if doing something else, we have to return
-            }
-        }
-        vecScalarMultiply(trajectory,trajectory,-5000.0f);
-        vecAddTo(trajectory,ship->posinfo.position);
-        aishipFlyToPointAvoidingObjs(ship,&trajectory,AISHIP_FastAsPossible,0.0f);
-    }
-    */
 }
 
 /**
@@ -322,8 +238,6 @@ void attackStraightForward(
         destination.x = ship->posinfo.position.x;
         destination.z = target->posinfo.position.z;
         destination.y = ship->posinfo.position.y;
-
-        //aishipFlyToPointAvoidingObjs(ship,&destination,AISHIP_FastAsPossible,0.0f);
 
         //also fly towards the ship
         if (range > tooCloseRange)
@@ -375,7 +289,6 @@ dontgotosameplane:
         if (range > gunRange)
         {
             // too far away, so fly in
-
             aishipFlyToShipAvoidingObjsWithVel(ship,target,0,0.0f,&target->posinfo.velocity);
         }
         else if (range > tooCloseRange)
