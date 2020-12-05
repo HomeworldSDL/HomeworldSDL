@@ -589,6 +589,7 @@ typedef struct ShipStaticInfo
     bool8 canTargetMultipleTargets;
     bool8 rotateToRetaliate;
     bool8 canReceiveTheseShips[4];
+    bool8 hasAmmo; // Indicates whether at least one of the ship's weapons carry ammunition.
 
     bool passiveAttackPenaltyExempt;
 
