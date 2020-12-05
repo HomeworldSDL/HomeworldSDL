@@ -1332,6 +1332,7 @@ void mouseSelectCursorSetting(void)
             {
                 case MissileDestroyer:
                 case HeavyCorvette:
+                case P1MissileCorvette:
                     bitSet(mouseInfo.flags, MCF_SpecialAttack);
                     break;
                 case Carrier:
