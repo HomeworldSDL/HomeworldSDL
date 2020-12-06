@@ -8,9 +8,15 @@
 #include "P1MissileCorvette.h"
 
 #include "Attack.h"
+#include "Battle.h"
 #include "DefaultShip.h"
 #include "Gun.h"
+#include "SoundEvent.h"
+#include "StatScript.h"
 #include "Universe.h"
+
+#define VOLLEY_BEGIN 10
+#define VOLLEY_NOT_BEGIN 20
 
 typedef struct
 {
@@ -19,6 +25,7 @@ typedef struct
     real32 lasttimeFiredVolley;
     real32 lasttimeDidSpecialTargeting;
     sdword curTargetIndex;
+    sdword volleyState;
 } P1MissileCorvetteSpec;
 
 typedef struct
@@ -71,6 +78,7 @@ void P1MissileCorvetteInit(Ship *ship)
     spec->lasttimeFiredVolley = 0.0f;
     spec->lasttimeDidSpecialTargeting = -100000.0f;
     spec->curTargetIndex = 0;
+    spec->volleyState = VOLLEY_BEGIN;
 }
 
 void P1MissileCorvetteAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdist)
@@ -158,6 +166,7 @@ bool P1MissileCorvetteSpecialTarget(Ship *ship,void *custom)
 
     spec->lasttimeDidSpecialTargeting = universe.totaltimeelapsed;
 
+    // check that the "volley reload time" has passed
     if ((universe.totaltimeelapsed - spec->lasttimeFiredVolley) > mcorvettestat->missileVolleyTime)
     {
         spec->lasttimeFiredVolley = universe.totaltimeelapsed;
@@ -174,7 +183,25 @@ bool P1MissileCorvetteSpecialTarget(Ship *ship,void *custom)
     {
         // have destroyed targets, so we are done
         spec->curTargetIndex = 0;
+        spec->volleyState = VOLLEY_BEGIN;
         return TRUE;
+    }
+
+    if(spec->volleyState == VOLLEY_BEGIN)
+    {
+        spec->volleyState = VOLLEY_NOT_BEGIN;
+        //////////////////////
+        //Volley attack speech event!
+        //event num: COMM_MissleDest_VolleyAttack
+        //use battle chatter
+        if(ship->playerowner->playerIndex == universe.curPlayerIndex)
+        {
+            if (battleCanChatterAtThisTime(BCE_COMM_MissleDest_VolleyAttack, ship))
+            {
+                battleChatterAttempt(SOUND_EVENT_DEFAULT, BCE_COMM_MissleDest_VolleyAttack, ship, SOUND_EVENT_DEFAULT);
+            }
+        }
+        //////////////////////
     }
 
     if (spec->curTargetIndex >= numShipsToTarget)
@@ -215,6 +242,7 @@ bool P1MissileCorvetteSpecialTarget(Ship *ship,void *custom)
     {
         // all empty of missiles, so we are done
         spec->curTargetIndex = 0;
+        spec->volleyState = VOLLEY_BEGIN;
         return TRUE;
     }
 }
