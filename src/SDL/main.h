@@ -81,7 +81,7 @@ commandoption;
 extern void *ghMainWindow;
 extern void *ghInstance;
 #if MAIN_SENSOR_LEVEL
-udword initialSensorLevel;
+extern udword initialSensorLevel;
 #endif
 
 extern sdword enableTrails;

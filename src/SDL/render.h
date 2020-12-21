@@ -105,12 +105,12 @@ extern udword rndLightingEnabled;
 extern bool rndScissorEnabled;
 
 #if RND_POLY_STATS
-sdword rndDisplayPolyStats;
-sdword rndNumberPolys;
-sdword rndNumberTextured;
-sdword rndNumberSmoothed;
-sdword rndNumberDots;
-sdword rndNumberLines;
+extern sdword rndDisplayPolyStats;
+extern sdword rndNumberPolys;
+extern sdword rndNumberTextured;
+extern sdword rndNumberSmoothed;
+extern sdword rndNumberDots;
+extern sdword rndNumberLines;
 #endif
 
 #if RND_PLUG_DISABLEABLE

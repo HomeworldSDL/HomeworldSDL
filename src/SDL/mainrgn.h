@@ -91,7 +91,7 @@ extern real32 mrLastKeyTime;
 extern bool mrDisabled;
 
 #if MR_CAN_FOCUS_ROIDS
-bool mrCanFocusRoids;
+extern bool mrCanFocusRoids;
 #endif
 
 /*=============================================================================
