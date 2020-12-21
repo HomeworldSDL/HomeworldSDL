@@ -74,8 +74,8 @@ extern sdword primModeEnabled;
 #define primModeSet2() if (!primModeEnabled) primModeSetFunction2();
 #define primModeClear2() if (primModeEnabled) primModeClearFunction2();
 
-#define primScreenToGLX(x) (((real32)(x)+0.325f) / (real32)(MAIN_WindowWidth) * 2.0f - 1.0f)
-#define primScreenToGLY(y) (1.0f - ((real32)(y)+0.325f) / (real32)(MAIN_WindowHeight) * 2.0f)
+#define primScreenToGLX(x) (((real32)(x)) / (real32)(MAIN_WindowWidth) * 2.0f - 1.0f)
+#define primScreenToGLY(y) (1.0f - ((real32)(y)) / (real32)(MAIN_WindowHeight) * 2.0f)
 #define primScreenToGLScaleX(x) ((real32)(x) / (real32)(MAIN_WindowWidth) * 2.0f)
 #define primScreenToGLScaleY(y) ((real32)(y) / (real32)(MAIN_WindowHeight) * 2.0f)
 #define primGLToScreenX(x) (MAIN_WindowWidth / 2 + (sdword)((x) * (real32)MAIN_WindowWidth / 2.0f))
