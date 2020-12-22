@@ -20,6 +20,7 @@
 #include "Key.h"
 #include "texreg.h"
 #include "LOD.h"
+#include "Options.h"
 
 extern meshdata *defaultmesh;          // hack for now.  remove later when defaults no longer needed
 
@@ -302,6 +303,9 @@ lod *lodLevelGet(void *spaceObj, vector *camera, vector *ship)
             obj->currentLOD--;                              //go to higher level
         }
     }
+
+    if (opNoLODVal) obj->currentLOD = 0;
+
     dbgAssertOrIgnore(obj->currentLOD >= 0);
     dbgAssertOrIgnore(obj->currentLOD < info->nLevels);             //verify we are within the available levels of detail
 #if LOD_PRINT_DISTANCE
