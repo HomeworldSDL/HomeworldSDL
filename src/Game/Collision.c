@@ -1463,7 +1463,7 @@ void collCheckShipDerelictColl(blob *thisBlob)
     real32 maxdistCollPossible = 0.0;
     real32 distcheck           = 0.0;
     real32 absdistcheck        = 0.0;
-    
+
     vector distvector;
 
 
@@ -1927,7 +1927,7 @@ void collCheckBeamColl(blob *thisBlob,Bullet *bullet)
     //adjust length of effect associated with bullet, if applicable
     if (bullet->effect != NULL)
     {
-        ((real32 *)bullet->effect->variable)[ETG_LengthVariable] = bullet->beamtraveldist;
+        ((real32 *)bullet->effect->variable)[SCALESHIFT(ETG_LengthVariable)] = bullet->beamtraveldist;
     }
 }
 
@@ -2960,5 +2960,3 @@ void collCheckAllBulletMissileCollisions(void)
         collCheckMissileMineColl(thisBlob);
     }
 }
-
-
