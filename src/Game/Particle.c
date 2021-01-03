@@ -1202,6 +1202,7 @@ udword partRenderMeshSystem(udword n, particle *p, udword flags, trhandle tex, m
     trhandle currentTex = tex;
     bool hsColor;
     extern bool8 g_SpecHack;
+	real32 csat[3];
 
     glColor3ub(200,200,200);
 
@@ -1294,7 +1295,7 @@ udword partRenderMeshSystem(udword n, particle *p, udword flags, trhandle tex, m
                 }
             }
 
-            real32 csat[3];
+            
 
             if ((p->bias[0] + p->bias[1] + p->bias[2]) > 0.0f)
             {
