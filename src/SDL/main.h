@@ -15,20 +15,12 @@
 // -----------------------------------------------------------------------------
 // Make sure the game is being compiled with the correct build configuration
 // -----------------------------------------------------------------------------
- 
-#define HW_GAME_TYPE_COUNT    defined( HW_GAME_HOMEWORLD      ) \
-                            + defined( HW_GAME_RAIDER_RETREAT ) \
-                            + defined( HW_GAME_DEMO           )
 
-#define HW_BUILD_TYPE_COUNT   defined( HW_BUILD_FOR_DEBUGGING    ) \
-                            + defined( HW_BUILD_FOR_DISTRIBUTION ) 
-
-
-#if HW_GAME_TYPE_COUNT != 1
+#if defined( HW_GAME_HOMEWORLD ) + defined( HW_GAME_RAIDER_RETREAT ) + defined( HW_GAME_DEMO ) != 1
     #error Please specify ONE of the HW_GAME_* types
 #endif
 
-#if HW_BUILD_TYPE_COUNT != 1
+#if defined( HW_BUILD_FOR_DEBUGGING ) + defined( HW_BUILD_FOR_DISTRIBUTION ) != 1
     #error Please specify ONE of the HW_BUILD_* types
 #endif
 
