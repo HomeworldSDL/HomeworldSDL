@@ -3013,6 +3013,12 @@ void mrMenuDisplay(udword actionMask, TypeOfFormation currentFormation, udword t
                 index--;
             }
         }
+        if (feNamesEqual(newScreen->atoms[index].name, "Disappear"))
+        {                                                   //remove weird artefact showing up
+                                                            //TODO: where does that entry come from?
+            index = mrDeleteAllAtomsWithin(newScreen, index);
+            index--;
+        }
     }
     //now scan through the remaining atoms and move up any atoms below a given gap
     for (index = nGaps - 1; index >= 0; index--)
