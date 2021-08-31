@@ -69,7 +69,7 @@
 #define BIGGIE_VERSION "3.00"   // biggie: .BIG file extractor tool (see /tools)
 
 // some things don't get compiled into the command line tool
-#if defined(HW_BUILD_FOR_DEBUGGING) || defined(HW_BUILD_FOR_DISTRIBUTION) 
+#if defined(HW_BUILD_FOR_DEBUGGING) || defined(HW_BUILD_FOR_DISTRIBUTION)
     #define BF_HOMEWORLD
 #endif
 
@@ -101,6 +101,25 @@ typedef struct
     char compressionType;  // 0/1
 } bigTOCFileEntry;
 
+typedef struct
+{
+    // together, the CRCs and nameLength make up a very unique identifier for
+    // the filename (so we don't have to do string compares when searching or
+    // or store long names in the TOC)
+    crc32 nameCRC1, nameCRC2;  // CRC of 1st and 2nd halves of name
+    unsigned short nameLength;
+
+    //char name[BF_MAX_FILENAME_LENGTH];  for speed & space concerns, these now preceed the datafile portions of the bigfile
+
+    udword storedLength;
+    udword realLength;
+    udword offset;
+//    time_t timeStamp;
+    udword timeStamp;
+    udword unknown; // why would someone change the file format and not change the version number. It says right here in the file!
+    char compressionType;  // 0/1
+} bigTOCFileEntryRemaster;
+
 typedef struct {
     int numFiles;
     int flags;
@@ -117,7 +136,7 @@ typedef enum
 }
 bigLocalFileAgeComparison;
 
-typedef struct 
+typedef struct
 {
     char   *bigFileName;
     bool    required;
@@ -153,7 +172,7 @@ crc32 bigTOCCRC(bigTOC *toc);
 #ifdef BF_HOMEWORLD
     bool bigOpenAllBigFiles(void);
     void bigCloseAllBigFiles(void);
-    
+
     void bigCRC(udword *bigCRCArray, udword arraySize);
     void bigFilesystemCompare(char *baseDirectory, char *directory);
     bool bigFindFile(char *filename, bigFileConfiguration **whereFound, udword *fileIndex);

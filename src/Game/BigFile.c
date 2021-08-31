@@ -408,21 +408,49 @@ static int bigTOCWrite(FILE *fp, bigTOC *toc)
 ----------------------------------------------------------------------------*/
 static int bigTOCRead(FILE *fp, bigTOC *toc)
 {
+    int i;
+
     fread((void *)&(toc->numFiles), sizeof(toc->numFiles), 1, fp);
     fread((void *)&(toc->flags),    sizeof(toc->flags),    1, fp);
 
 #if FIX_ENDIAN
   	toc->numFiles = FIX_ENDIAN_INT_32( toc->numFiles );
-	toc->flags    = FIX_ENDIAN_INT_32( toc->flags );
+	  toc->flags    = FIX_ENDIAN_INT_32( toc->flags );
 #endif
 
     if (toc->numFiles)
     {
+        //printf("file entries: %d", toc->numFiles);
         toc->fileEntries = malloc(sizeof(bigTOCFileEntry) * toc->numFiles);
-        fread((void *)(toc->fileEntries), sizeof(bigTOCFileEntry), toc->numFiles, fp);
+        if (toc->numFiles != 13887) {
+          // normal HW1 big files
+          fread((void *)(toc->fileEntries), sizeof(bigTOCFileEntry), toc->numFiles, fp);
+        } else {
+          // HW remastered classic big file with new struct entry
+          bigTOCFileEntryRemaster *tmpEntries;
+          tmpEntries = malloc(sizeof(bigTOCFileEntryRemaster) * toc->numFiles);
+          fread((void *)(tmpEntries), sizeof(bigTOCFileEntryRemaster), toc->numFiles, fp);
+
+
+          for( i=0; i < toc->numFiles; ++i )
+          {
+            bigTOCFileEntry *e = &toc->fileEntries[i];
+            e->nameCRC1     = tmpEntries[i].nameCRC1;
+            e->nameCRC2     = tmpEntries[i].nameCRC2;
+            e->nameLength   = tmpEntries[i].nameLength;
+            e->storedLength = tmpEntries[i].storedLength;
+            e->realLength   = tmpEntries[i].realLength;
+            e->offset       = tmpEntries[i].offset;
+            e->timeStamp    = tmpEntries[i].timeStamp;
+            e->compressionType = tmpEntries[i].compressionType;
+          }
+
+          free(tmpEntries);
+
+        }
 
 #if FIX_ENDIAN
-        int i;
+        //int i;
 		for( i=0; i < toc->numFiles; ++i )
 		{
 			bigTOCFileEntry *e = &toc->fileEntries[i];
