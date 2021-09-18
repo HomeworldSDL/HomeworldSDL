@@ -1257,12 +1257,7 @@ udword partRenderMeshSystem(udword n, particle *p, udword flags, trhandle tex, m
         glPushMatrix();
 
         mesh = p->mesh;
-// MeshMorphedObjectRender crash fixme part 1
-#if !defined(__FreeBSD__) && defined(_LINUX_FIX_ME)
-        if ((mesh != NULL) && (mesh != (meshdata*) 0x7fffffff))
-#else   
         if ((mesh != NULL) && (mesh != (meshdata*) 0xffffffff))
-#endif
         {
             partMeshOrient(p, TRUE, meshPart);
 
@@ -1911,12 +1906,7 @@ sdword partAdvanceMeshMorph(meshSystem* psys, particle* p)
     //find the trivial next
     frame = (sdword)p->meshFrame + 1;
     next = animblock + frame;
-// MeshMorphedObjectRender crash fixme part 2
-#if !defined(__FreeBSD__) && defined(_LINUX_FIX_ME)
-    if (next->mesh == NULL || next->mesh == (meshdata*) 0x7fffffff)
-#else    
     if (next->mesh == NULL || next->mesh == (meshdata*) 0xffffffff)
-#endif
     {
         if (p->loopCount == 0)
         {
