@@ -1100,9 +1100,9 @@ sdword SNDresetchannel(CHANNEL *pchan)
 	pchan->numchannels = SOUND_MONO;
 	pchan->volfactorL = 1.0f;
 	pchan->volfactorR = 1.0f;
-	
-	memset(pchan->filter, 1, SOUND_EQ_SIZE);
-	memset(pchan->cardiodfilter, 1, SOUND_EQ_SIZE);
+
+	memset(pchan->filter, 1, SOUND_EQ_SIZE * sizeof(real32));
+	memset(pchan->cardiodfilter, 1, SOUND_EQ_SIZE * sizeof(real32));
 	pchan->usecardiod = FALSE;
 
 	return (SOUND_OK);

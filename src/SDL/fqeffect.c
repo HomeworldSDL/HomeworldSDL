@@ -21,24 +21,24 @@ static float gauss = 0.0;
 static char gotgauss = 0;
 
 float gaussian() {
-	float a, b, c, d, g;
+	float a, b, c, d;
 
 	if (gotgauss) {
 		gotgauss = 0;
-		g = gauss;
+		b = gauss;
 	} else {
 		do {
 			a = ((float)(pRandF(nRandP) & 0x7fff) / 32767.0 - 0.5) * 2.0;
 			b = ((float)(pRandF(nRandP) & 0x7fff) / 32767.0 - 0.5) * 2.0;
-			c = b * b;
-		} while ((a * a) + c < 1.0);
+			c = a * a + b * b;
+		} while (c > 1.0);
 		d = pSqrtF(log(c) * -2.0 / c);
-		g = b * d;
-		gauss = a * d;
+    gauss = a * d;
+		b = b * d;
 		gotgauss = 1;
 	}
 
-	return g;
+	return b;
 }
 
 int rrand(int nDummy) {
@@ -58,7 +58,7 @@ double fqSqrt(double (*pFunc)(double)) {
 }
 
 int fqSize(udword nSize) {
-	nBSize = nSize;
+	nBSize = nSize < 256 ? nSize : 256;
 	return OK;
 }
 
@@ -110,8 +110,10 @@ int fqPitchShift(float *aBlock, float fShift) {
 				ipos = (udword)floor(pos);
 				if (ipos > nBSize - 2)
 					ipos = nBSize - 2;
-				buf[i] = (aBlock[ipos] - aBlock[ipos + 1]) * (pos - (float)ipos) + aBlock[ipos];
-			}
+				buf[i] = (aBlock[ipos + 1] - aBlock[ipos]) * (pos - (float)ipos) + aBlock[ipos];
+			} else {
+        buf[i] = 0.0;
+      }
 		}
 		memcpy(aBlock, buf, nBSize * 4);
 	}
@@ -120,13 +122,18 @@ int fqPitchShift(float *aBlock, float fShift) {
 }
 
 int fqEqualize(float *aBlock, float *aEq) {
-	udword i, j;
+	udword i, j, jEnd;
 
 	for (i = 0; i < FQ_EQNUM - 1; i++) {
-		if (aEq[i] <= 0.0)
+
+    if (nBSize - 1 < aEQBlock[i]) break;
+    jEnd = aEQBlock[i + 1];
+    if (nBSize < jEnd) jEnd = nBSize;
+
+    if (aEq[i] == 0.0)
 			memset(&aBlock[aEQBlock[i]], 0, (aEQBlock[i + 1] - aEQBlock[i]) << 2);
 		else if (aEq[i] != 1.0)
-			for (j = aEQBlock[i]; j < aEQBlock[i + 1]; j++)
+			for (j = aEQBlock[i]; j < jEnd; j++)
 				aBlock[j] *= aEq[i];
 	}
 
@@ -150,7 +157,7 @@ static int fqIncEffect(float *aBlock, float *fVal, udword nDur, float *aBuf, sdw
 	if (nDur > 0) {
 		if (*nPos >= nSize)
 			*nPos = 0;
-		s = (udword)floor((float)nSize / (float)FQ_SIZE * FQ_SLICE);
+		s = (udword)floor(((float)nSize / (float)FQ_SIZE) * FQ_SLICE);
 		t = *nPos - ((udword)floor((float)rmin(nDur, s) / FQ_SLICE) * FQ_SIZE);
 		if (t < 0)
 			t += nSize;
@@ -242,19 +249,26 @@ int fqLimitE(float *aBlock, EFFECT *rEffect) {
 	udword i;
 
 	if (rEffect->fLimitLev != 1.0) {
+    udword nFiltMinFreq = rmin(rEffect->nFiltMinFreq, nBSize);
+    udword nFiltMaxFreq = rmin(rEffect->nFiltMaxFreq, nBSize);
+
 		if (rEffect->fLimitLev == 0.0) {
-			memset(&aBlock[rmin(rEffect->nFiltMinFreq, nBSize)], 0, (rmin(rEffect->nFiltMaxFreq, nBSize) - rmin(rEffect->nFiltMinFreq, nBSize)) << 2);
+			memset(&aBlock[nFiltMinFreq], 0, (nFiltMaxFreq - nFiltMinFreq) * 4);
 		} else {
-			for (i = rmin(rEffect->nFiltMinFreq, nBSize); i < rmin(rEffect->nFiltMaxFreq, nBSize); i++) {
-				if ((aBlock[i] > 0.0) && (aBlock[i] > rEffect->fLimitLev * 32767.0))
-					aBlock[i] = rEffect->fLimitLev * 32767.0;
-				if ((aBlock[i] < 0.0) && (aBlock[i] < rEffect->fLimitLev * -32767.0))
-					aBlock[i] = rEffect->fLimitLev * -32767.0;
+      float oneOver3fLimitLev = 1.0 / (rEffect->fLimitLev * 3.0);
+      float fLimitLev = rEffect->fLimitLev * 32767.0;
+
+			for (i = nFiltMinFreq; i < nFiltMaxFreq; i++) {
+				if ((aBlock[i] > 0.0) && (aBlock[i] > fLimitLev))
+					aBlock[i] = fLimitLev;
+				if ((aBlock[i] < 0.0) && (aBlock[i] < -fLimitLev))
+					aBlock[i] = -fLimitLev;
 			}
-			if (1.0 / rEffect->fLimitLev * 3.0 < 1.0)
-				for (i = rmin(rEffect->nFiltMinFreq, nBSize); i < rmin(rEffect->nFiltMaxFreq, nBSize); i++)
+
+			if (oneOver3fLimitLev > 1.0)
+				for (i = nFiltMinFreq; i < nFiltMaxFreq; i++)
 					if (aBlock[i] != 0.0)
-						aBlock[i] *= (1.0 / rEffect->fLimitLev * 3.0);
+						aBlock[i] *= oneOver3fLimitLev;
 		}
 	}
 

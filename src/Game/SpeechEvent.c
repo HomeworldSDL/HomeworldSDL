@@ -405,14 +405,10 @@ void SEinitdelayEQ(void)
         memset(streamdelay[i].eq, 0, SOUND_EQ_SIZE * sizeof(real32));
 //      streamEQ[i].flags = STREAM_FLAGS_NOEFFECT;
 //      memset(streamEQ[i].eq, 0, SOUND_EQ_SIZE * sizeof(real32));
-#if 0  /* fq*() functions not yet implemented... */
         fqInitE(&cleaneffect[i]);
         fqInitE(&mixedeffect[i]);
-#endif
     }
-#if 0  /* fq*() functions not yet implemented... */
     fqInitE(&damageeffect);
-#endif
 }
 
 

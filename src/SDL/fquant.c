@@ -9,34 +9,30 @@ static unsigned short gCBBlock[FQ_CBNUM] = { 0x0000, 0x0001, 0x0002, 0x0003, 0x0
 int fqInitDequant(void) {
 	unsigned int i;
 
-	gSDBlock[0] = 10;
+	gSDBlock[0] = FQ_SCALE;
 	for (i = 1; i < FQ_EXP; i++)
 		gSDBlock[i] = gSDBlock[i - 1] * FQ_SCALE;
 	for (i = 0; i < FQ_EXP; i++)
-		gSDBlock[i] *= FQ_FMASK / (((1 << i) + 1) - 1);
+    gSDBlock[i] = FQ_FMASK / (double) ((1 << (i + 1)) - 1) * gSDBlock[i];
 
 	return OK;
 }
 
-sdword fqSUnpack(udword nLen, udword nPos, char *aBlock) {
-	udword shift, mask;
+sdword fqSUnpack(udword bits, udword offset, char *buf) {
+    int val; // edx
 
-	shift = nPos - nPos / 8 * 8;
-	mask = ((1 << nLen) - 1) << shift;
-	if ((*(udword*)(aBlock + nPos / 8) & mask) >> shift >> (nLen - 1) == 1) {
-		return (sdword)0 - (((*(udword*)(aBlock + nPos / 8) & mask) >> shift << (33 - nLen)) >> (33 - nLen));
-	}
-
-	return (sdword)((*(udword*)(aBlock + nPos / 8) & mask) >> shift);
+    val = (*(int *) &buf[offset >> 3]
+            & (uint32_t) (((1 << bits) - 1) << (offset - 8 * (offset >> 3))))
+            >> (offset - 8 * (offset >> 3));
+    if ((uint32_t) val >> (bits - 1) == 1)
+        val = -((uint32_t) (val << (32 - bits + 1)) >> (32 - bits + 1));
+    return val;
 }
 
-udword fqUnpack(udword nLen, udword nPos, char *aBlock) {
-	udword shift, mask;
-
-	shift = nPos - nPos / 8 * 8;
-	mask = ((1 << nLen) - 1) << shift;
-
-	return (*(udword*)(aBlock + nPos / 8) & mask) >> shift;
+udword fqUnpack(udword bits, udword offset, char *buf) {
+    return (*(int *) &buf[offset >> 3]
+            & (uint32_t) (((1 << bits) - 1) << (offset - 8 * (offset >> 3))))
+            >> (offset - 8 * (offset >> 3));
 }
 
 int fqDequantBlock(char *aQBlock, float *aFPBlock, float *aFSBlock, unsigned char *aEBlock, udword nLen, udword nRate, udword nSize) {
