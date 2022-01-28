@@ -4,7 +4,7 @@
 #include "fqcodec.h"
 #include "dct.h"
 
-#define iclamp(x, a, b) (x > a ? a : (x < b ? b : x)) 
+#define iclamp(x, a, b) (x > a ? a : (x < b ? b : x))
 
 #ifndef PI
 #define PI		3.14159265358979323846F
@@ -18,16 +18,25 @@ static float gCHBlock[FQ_HSIZE];
 static float gCBlock[FQ_SIZE];
 static float gCDBlock[FQ_DSIZE];
 
+
+inline float compress(float sample) {
+  static float limitLev = 0.5 * 32767;
+  if (sample >  limitLev) return  limitLev + log(1.0 + 0.75 * ( sample - limitLev)/limitLev) * limitLev;
+  if (sample < -limitLev) return -limitLev - log(1.0 + 0.75 * (-sample - limitLev)/limitLev) * limitLev;
+  return sample;
+}
+
+
 static void fqWriteTBlockBuf(float *aLBlock, float *aRBlock, short nChan, short *pBuf, udword nSize) {
 	udword i;
 
 	if ((pBuf != 0) && (nSize > 0)) {
 		for (i = 0; i < nSize; i += 2) {
-			pBuf[i] = iclamp(rint(aLBlock[i/2]), 32767, -32768);
+			pBuf[i] = iclamp(rint(compress(aLBlock[i/2])), 32767, -32768);
 			if (nChan <= 1) {
 				pBuf[i + 1] = pBuf[i];
 			} else {
-				pBuf[i + 1] = iclamp(rint(aRBlock[i/2]), 32767, -32768);
+				pBuf[i + 1] = iclamp(rint(compress(aRBlock[i/2])), 32767, -32768);
 			}
 		}
 	}
