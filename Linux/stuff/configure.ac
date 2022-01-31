@@ -259,7 +259,7 @@ dnl   HW_BUILD_FOR_DEBUGGING is set via "--enable-hwdebug";
 dnl   HW_BUILD_FOR_DISTRIBUTION is the default.
 dnl - $SDL_CFLAGS and $SDL_LIBS should be pretty much self-explanatory. =]
 dnl - We don't want to include $SDL_LIBS when building librgl.
-CFLAGS="$CFLAGS $SDL_LIBS $HWGAME_CFLAGS $HWBIN_CFLAGS $SDL_CFLAGS $WIN32_FIXME"
+CFLAGS="$CFLAGS $SDL_LIBS $HWGAME_CFLAGS $HWBIN_CFLAGS $SDL_CFLAGS $WIN32_FIXME -I../Missions/Generated"
 LDFLAGS="$SDL_LIBS $LDFLAGS"
 
 AC_CONFIG_HEADERS([config.h])

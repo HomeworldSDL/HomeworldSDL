@@ -7,8 +7,7 @@
 If you have [Nix] installed, there is a [`flake.nix`](flake.nix) file listing the build depencies so you can just run the build in a `nix develop` environment without installing anything:
 
 ``` sh
-cd Linux
-nix develop
+nix develop ./Linux
 ```
 
 You can then go on with the [Quick Start](#quick-start) in that virtual environment.
@@ -19,7 +18,21 @@ You can then go on with the [Quick Start](#quick-start) in that virtual environm
 
 > More information can be found in the documentation files next to this one.
 
-### x86_64 (intel/amd 64-bit)
+### Meson
+
+``` sh
+meson setup build
+cd build
+meson compile
+```
+
+> You are free to replace `build` above with anything you like. It will be the name of the build directory
+
+You can now [run the compiled executable for the first time](../README#running-the-game-for-the-first-time).
+
+### Autotools (Deprecated)
+
+#### x86_64 (intel/amd 64-bit)
 
 ``` sh
 cd Linux
@@ -34,10 +47,7 @@ make -j4
 
 > The configuration step has a lot of flags, run `../configure --help` to see them. (Notably the `--disable-linux-fixme` flag)
 
-
-You can now [run the compiled executable for the first time](../README#running-the-game-for-the-first-time).
-
-### x86 (intel/amd 32-bit)
+#### x86 (intel/amd 32-bit)
 
 This is if you want to cross-compile the game to 32bit even if your machine is 64bit.
 
@@ -67,19 +77,30 @@ cd ../../HomeworldSDL_big
 
 You should now have a `HomeworldSDL.big` file in the root of the repo.
 
-### Hacking
+## Hacking
 
 So you want to dive into the code and start hacking, huh?
 Here are a few pointers to help you with that:
 
-#### Clangd
+### Clangd
 
 [Clangd] is a _language server_ that can work with many editors (including [VSCode]) via a plugin.
 It adds smart features to your editor: code completion, compile errors, go-to-definition and more.
 
-To give proper hints, though, it needs to know the compile flags used (otherwise you'll get "header not found" errors).
+To give proper hints, though, clangd needs to know the compile flags used (otherwise you'll get "header not found" errors).
 To that end, it uses a `compile_commands.json` file describing how each file was compiled.
-You can use [bear] to auto-generate it.
+
+[Clangd]: https://clangd.llvm.org
+[VSCode]: https://vscodium.com/
+
+### With Meson
+
+Meson automatically generates `compile_commands.json`, so if you named your build dir `build` as clangd expects, then you have nothing to do.
+Enjoy your modern development environment!
+
+#### With Autotools (Deprecated)
+
+You can use [bear] to auto-generate `compile_commands.json`.
 In the build steps outlined above, replace the `make` step with:
 
 ```sh
@@ -95,16 +116,14 @@ Then link or copy the result to the root of the repo, so that clangd finds it au
 ln -srv compile_commands.json ..
 ```
 
-That's it! Enjoy your modern development environment!
-
-[Clangd]: https://clangd.llvm.org
-[VSCode]: https://vscodium.com/
 [bear]: https://github.com/rizsotto/Bear
 
-#### Sanitizers
+### Sanitizers
 
 [LLVM's Sanitizers] are a powerful suite of tools for memory debugging.
 They can detect and help debug many kinds of invalid or dangerous memory handling patterns (like buffer overflows, use after free, or leaks).
+
+#### With Autotools
 
 You can build a debug version of the game that includes those sanitizers with
 

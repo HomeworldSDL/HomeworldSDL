@@ -3,7 +3,7 @@
 */
 
 #include "Tutor.h"
-#include "../Missions/Generated/Tutorial1.h"  // why does this need a relative path?
+#include "Tutorial1.h"
 
 #include <math.h>
 

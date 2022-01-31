@@ -58,24 +58,24 @@
 #include "UnivUpdate.h"
 #include "utility.h"
 
-#include "../Missions/Generated/Mission01.h"
-#include "../Missions/Generated/Mission02.h"
-#include "../Missions/Generated/Mission03.h"
-#include "../Missions/Generated/Mission04.h"
-#include "../Missions/Generated/Mission05.h"
-#include "../Missions/Generated/Mission05_OEM.h"
-#include "../Missions/Generated/Mission06.h"
-#include "../Missions/Generated/Mission07.h"
-#include "../Missions/Generated/Mission08.h"
-#include "../Missions/Generated/Mission09.h"
-#include "../Missions/Generated/Mission10.h"
-#include "../Missions/Generated/Mission11.h"
-#include "../Missions/Generated/Mission12.h"
-#include "../Missions/Generated/Mission13.h"
-#include "../Missions/Generated/Mission14.h"
-#include "../Missions/Generated/Mission15.h"
-#include "../Missions/Generated/Mission16.h"
-#include "../Missions/Generated/Tutorial1.h"
+#include "Mission01.h"
+#include "Mission02.h"
+#include "Mission03.h"
+#include "Mission04.h"
+#include "Mission05.h"
+#include "Mission05_OEM.h"
+#include "Mission06.h"
+#include "Mission07.h"
+#include "Mission08.h"
+#include "Mission09.h"
+#include "Mission10.h"
+#include "Mission11.h"
+#include "Mission12.h"
+#include "Mission13.h"
+#include "Mission14.h"
+#include "Mission15.h"
+#include "Mission16.h"
+#include "Tutorial1.h"
 
 #ifdef _MSC_VER
     #define strcasecmp _stricmp
@@ -2082,7 +2082,7 @@ void spHyperspaceButtonPushed(void)
                 if (resourcesLeft > 0) {
                     char *resources_collected_strings[] = {
                         "Resources collected",
-                        "Ressources collectées",
+                        "Ressources collectï¿½es",
                         "Ressourcen gesammelt",
                         "Los recursos recaudados",
                         "Le risorse raccolte",

@@ -134,10 +134,10 @@ Go into the 'Mac' directory, and use the xcode project.  Please note, you will n
 The first time you run the game, you will have to point it to [the directory containing the required assets](#setting-up-the-assets-folder). For example, if you have [compiled the game from source](#compiling-from-source):
 
 ```sh
-HW_Data=$ASSETS_FOLDER src/homeworld
+HW_Data=$ASSETS_FOLDER ./homeworld
 ```
 
-where `src/homeworld` is the path to your HomeworldSDL binary executable.
+where `./homeworld` is the path to your HomeworldSDL binary executable.
 
 Once the game starts, you should then [configure the OpenGL renderer](#configuring-the-opengl-renderer).
 

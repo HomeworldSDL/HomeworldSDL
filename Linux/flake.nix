@@ -19,7 +19,10 @@
       mkShell {
         buildInputs = self.packages.x86_64-linux.default.buildInputs ++ [
           clang-tools_16 # clangd, clang-format
-          bear # build `compile_commands.json` for clangd
+          meson
+          pkg-config
+          python3
+          ninja
           gdb
           nixpkgs-fmt
         ];

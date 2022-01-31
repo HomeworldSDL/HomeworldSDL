@@ -1,6 +1,8 @@
 //
-// file.cpp
+// file.c
 //
+
+#include <stdbool.h>
 
 #include <stdio.h>
 #include "file.h"
