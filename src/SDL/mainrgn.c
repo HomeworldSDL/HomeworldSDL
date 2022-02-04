@@ -3013,7 +3013,7 @@ void mrMenuDisplay(udword actionMask, TypeOfFormation currentFormation, udword t
                 index--;
             }
         }
-        if (feNamesEqual(newScreen->atoms[index].name, "Disappear"))
+        if ((newScreen->atoms[index].name != 0) && (feNamesEqual(newScreen->atoms[index].name, "Disappear")))
         {                                                   //remove weird artefact showing up
                                                             //TODO: where does that entry come from?
             index = mrDeleteAllAtomsWithin(newScreen, index);
