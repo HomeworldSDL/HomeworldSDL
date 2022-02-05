@@ -1,3 +1,7 @@
+__📣 Development moved over to [Gardens of Kadesh](https://github.com/GardensOfKadesh/Homeworld) 📣__
+
+---
+
 # Homeworld SDL
 
 [SDL] port of the [Homeworld] source code that was [released in 2003] by [Relic Entertainment].
