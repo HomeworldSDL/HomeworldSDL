@@ -11,7 +11,7 @@
 
 /usr/bin/gcc                                       \
     -D_MACOSX                                      \
-    -I /Library/Frameworks/SDL2.framework/Headers   \
+    -I ../../Mac/SDL2.framework/Headers            \
     *.c                                            \
     -o kas2c
 
