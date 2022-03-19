@@ -673,7 +673,7 @@ void aiplayerStartup(udword num_players, udword num_human_players, udword num_co
 {
     if (aiplayerLogEnable)
     {
-        logfileClear(AIPLAYER_LOG_FILE_NAME);
+        logfileClear(filePathPrepend(AIPLAYER_LOG_FILE_NAME,FF_UserSettingsPath));
     }
     aivarStartup();
 
@@ -705,8 +705,8 @@ void aiplayerDebugLog(uword playerIndex, char *format, ...)
         //find a way to put playernum in as well
         sprintf(buffer2,"\nAI%i: %0.1f %s", playerIndex, universe.totaltimeelapsed, buffer);
 
-        logfileLog(AIPLAYER_LOG_FILE_NAME,buffer2);
-        dbgMessage(buffer2);
+        logfileLog(filePathPrepend(AIPLAYER_LOG_FILE_NAME,FF_UserSettingsPath),buffer2);
+        //dbgMessage(buffer2);
     }
 }
 
@@ -1371,7 +1371,7 @@ void aiplayerShipDied(ShipPtr ship)
         return;
     }
 
-    aiplayerLog((ship->playerowner->playerIndex,"%s Ship died, ", ShipTypeToStr(ship->shiptype)));
+    aiplayerLog((ship->playerowner->playerIndex,"%s Ship died, %d ships left", ShipTypeToStr(ship->shiptype),ship->playerowner->totalships));
 
     for (i = 0; i < universe.numPlayers;i++)
     {
