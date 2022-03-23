@@ -1225,6 +1225,51 @@ void selSelectionDraw5(Ship *ship)      // PLEASE DON'T COMMENT THIS FUNCTION OU
 }
 #endif
 
+/**
+ * @brief Prints the ammunition counter if the ship has ammunition.
+ * 
+ * @param ship The reference ship.
+ * @param font Font to use for the particular LOD.
+ * @param x Coordinates to print on screen from the left.
+ * @param y Coordinates to print on screen from the top.
+ * @param c Color to draw the counter text in.
+ */
+void selFontPrintAmmoAtLod(
+    Ship *ship,      // The reference ship.
+    fonthandle font, // Font to use for the particular LOD.
+    sdword x,        // Coordinates to print on screen from the left.
+    sdword y,        // Coordinates to print on screen from the top.
+    color c          // Color to draw the counter text in.
+)
+{
+    ShipStaticInfo *stat = (ShipStaticInfo *)ship->staticinfo;
+    if (!stat->hasAmmo) 
+    {
+        return;
+    }
+
+    // Loop through each gun and accumulate ammo.
+    GunStatic *gunstatic;
+    sdword noOfRounds = 0;
+    sdword noOfGuns = ship->gunInfo->numGuns;
+    sdword index;
+    for (index = 0; index < noOfGuns; index++)
+    {
+        gunstatic = &((ShipStaticInfo *)ship->staticinfo)->gunStaticInfo->gunstatics[index];
+        if (!gunstatic->maxMissiles)
+        {
+            continue;
+        }
+        Gun *gun;
+        gun = &ship->gunInfo->guns[index];
+        noOfRounds += gun->numMissiles;
+    }
+
+    // Print them.
+    fontMakeCurrent(font);
+    fontPrintf(x, y, c, "%d", noOfRounds);
+}
+
 //lod0: health/fuel with outline and hollow centre
 void selStatusDraw0(Ship *ship)
 {
@@ -1303,24 +1348,8 @@ void selStatusDraw0(Ship *ship)
         fontMakeCurrent(selGroupFont0);
         fontPrint(x - halfWidth - fontWidth("C") - 1, rect.y1 + 5 - fontHeight(" "), selHotKeyNumberColor, "C");
     }
-    if((ship->shiptype == MissileDestroyer) || (ship->shiptype == MinelayerCorvette))      //ship has missles, so display missile status
-    {
-        GunStatic *gunstatic;
-        numGuns = ship->gunInfo->numGuns;
-        for (i=0;i < numGuns;i++)
-        {
-            //gunstatic = ((ShipStaticInfo *)ship->staticinfo)->gunStaticInfo->gunstatics[i];
-            gunstatic = &((ShipStaticInfo *)ship->staticinfo)->gunStaticInfo->gunstatics[i];
-            if (gunstatic->guntype == GUN_MissileLauncher || gunstatic->guntype == GUN_MineLauncher)
-            {
-                Gun *gun;
-                gun = &ship->gunInfo->guns[i];
-                missilecount += gun->numMissiles;
-            }
-        }
-        fontMakeCurrent(selGroupFont0);
-        fontPrintf(x - halfWidth , rect.y1 + 5, selHotKeyNumberColor, "%d", missilecount);
-    }
+
+    selFontPrintAmmoAtLod(ship, selGroupFont0, x - halfWidth, rect.y1 + 5, selHotKeyNumberColor);
 
     maxFuel = ((ShipStaticInfo *)ship->staticinfo)->maxfuel;
     maxResources = ((ShipStaticInfo *)ship->staticinfo)->maxresources;
@@ -1552,25 +1581,8 @@ void selStatusDraw1(Ship *ship)
         fontMakeCurrent(selGroupFont1);
         fontPrint(x - halfWidth - fontWidth("C") - 1,rect.y1 + 4 - fontHeight(" ") , selHotKeyNumberColor, "C");
     }
-    if((ship->shiptype == MissileDestroyer) || (ship->shiptype == MinelayerCorvette))     //ship has missles, so display missile status
-    {
-        GunStatic *gunstatic;
-        numGuns = ship->gunInfo->numGuns;
-        for (i=0;i < numGuns;i++)
-        {
-            //gunstatic = ((ShipStaticInfo *)ship->staticinfo)->gunStaticInfo->gunstatics[i];
-            gunstatic = &((ShipStaticInfo *)ship->staticinfo)->gunStaticInfo->gunstatics[i];
-            if (gunstatic->guntype == GUN_MissileLauncher || gunstatic->guntype == GUN_MineLauncher)
-            {
-                Gun *gun;
-                gun = &ship->gunInfo->guns[i];
-                missilecount += gun->numMissiles;
-            }
-        }
-        fontMakeCurrent(selGroupFont1);
-        fontPrintf(x - halfWidth , rect.y1 + 4, selHotKeyNumberColor, "%d", missilecount);
-    }
 
+    selFontPrintAmmoAtLod(ship, selGroupFont1, x - halfWidth, rect.y1 + 4, selHotKeyNumberColor);
 
     maxFuel = ((ShipStaticInfo *)ship->staticinfo)->maxfuel;
     maxResources = ((ShipStaticInfo *)ship->staticinfo)->maxresources;
@@ -1771,24 +1783,8 @@ void selStatusDraw2(Ship *ship)
             tutPointerShipGroupRect->y1 = rect.y1 + 3 + 2;
         }
     }
-    if((ship->shiptype == MissileDestroyer) || (ship->shiptype == MinelayerCorvette))    //ship has missles, so display missile status
-    {
-        GunStatic *gunstatic;
-        numGuns = ship->gunInfo->numGuns;
-        for (i=0;i < numGuns;i++)
-        {
-            //gunstatic = ((ShipStaticInfo *)ship->staticinfo)->gunStaticInfo->gunstatics[i];
-            gunstatic = &((ShipStaticInfo *)ship->staticinfo)->gunStaticInfo->gunstatics[i];
-            if (gunstatic->guntype == GUN_MissileLauncher || gunstatic->guntype == GUN_MineLauncher)
-            {
-                Gun *gun;
-                gun = &ship->gunInfo->guns[i];
-                missilecount += gun->numMissiles;
-            }
-        }
-        fontMakeCurrent(selGroupFont2);
-        fontPrintf(x - halfWidth , rect.y1 + 1, selHotKeyNumberColor, "%d", missilecount);
-    }
+
+    selFontPrintAmmoAtLod(ship, selGroupFont2, x - halfWidth, rect.y1 + 1, selHotKeyNumberColor);
 
     //Add cloaking Status if ship is for some reason cloaked...
     if(bitTest(ship->flags,SOF_Cloaked))    //if the ship is cloaked

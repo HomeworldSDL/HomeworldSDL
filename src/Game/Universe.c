@@ -2247,9 +2247,14 @@ void InitStatShipInfo(ShipStaticInfo *statinfo,ShipType type,ShipRace race)
     if (statinfo->gunStaticInfo != NULL)
     {
         GunStaticInfo *gunstaticinfo = statinfo->gunStaticInfo;
+        GunStatic *gunstatic;
         for (i=0;i<gunstaticinfo->numGuns;i++)
         {
             gunstaticinfo->gunstatics[i].gunindex = i;
+            gunstatic = &(statinfo)->gunStaticInfo->gunstatics[i];
+
+            // Precompute indication that this ship will carry ammunition.
+            statinfo->hasAmmo = statinfo->hasAmmo || gunstatic->maxMissiles;
         }
         mexGetGunStaticInfo(gunstaticinfo,statinfo->staticheader.pMexData);
     }
@@ -2261,7 +2266,6 @@ void InitStatShipInfo(ShipStaticInfo *statinfo,ShipType type,ShipRace race)
             statinfo->bulletRangeSquared[i] = statinfo->bulletRange[i] * statinfo->bulletRange[i];
         }
     }
-
 
     //load in the hierarchy binding information
     scriptSetStruct(directory,shipname,HierarchyBindingTable,(ubyte *)statinfo);
