@@ -4,6 +4,7 @@
 
 /usr/bin/gcc                                       \
     -D _MACOSX                                     \
+    -I /opt/homebrew/include/SDL                   \
     -I ../../Mac/SDL2.framework/Headers            \
     -I ../../src/SDL                               \
     -I ../../src/ThirdParty/CRC                    \
