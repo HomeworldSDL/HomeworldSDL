@@ -2103,6 +2103,8 @@ int main (int argc, char* argv[])
   //On OSX we use Resources in App bundle.
   char resourcesdir[PATH_MAX];
   strncpy(resourcesdir,argv[0],strlen(argv[0])-15);
+  //manually add null character, see goodstrncpy
+  resourcesdir[strlen(argv[0])-15] = '\0';
   strcat(resourcesdir,"Resources");
   chdir(resourcesdir);
 #endif //_MACOSX

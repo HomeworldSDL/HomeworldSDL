@@ -19,6 +19,7 @@
 #include "rinit.h"
 #include "devstats.h"
 #include "Types.h"
+#include "debug.h"
 
 
 extern unsigned int mainSoftwareDirectDraw;

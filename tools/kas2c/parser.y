@@ -27,6 +27,15 @@
 #undef TRUE
 #undef FALSE
 
+/* includes, C defs */
+
+#if YYBISON
+union YYSTYPE;
+//int yylex(union YYSTYPE *, void *);
+int yylex();
+int yyerror(char *);
+#endif
+
 int parseLevel = LEVEL_LEVEL;
 
 int ifOnceIndex;  // up to 2^32 IFONCE statements per WATCH or INIT routine
@@ -259,6 +268,8 @@ state_end:      ENDS    { kasStateEnd(""); }
     ;
 
 %%
+
+int yylex();
 
 int lineNum = 1;
 char curFilename[256]; // current input filename

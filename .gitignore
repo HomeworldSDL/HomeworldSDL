@@ -1,6 +1,7 @@
 *.big
 *.wxd
 *.vce
+*.DS_Store
 
 .vscode
 
