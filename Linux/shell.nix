@@ -1,14 +1,17 @@
 { pkgs ? import <nixpkgs> {} }:
-pkgs.mkShell {
+
+with pkgs;
+
+mkShell {
     buildInputs = [
-        pkgs.libtool
-        pkgs.autoconf
-        pkgs.automake
-        pkgs.gnumake
-        pkgs.gcc
-        pkgs.yacc
-        pkgs.flex
-        pkgs.SDL2
+        libtool
+        autoconf
+        automake
+        gnumake
+        gcc
+        yacc
+        flex
+        SDL2
     ];
 }
 
