@@ -1,15 +1,16 @@
-__📣 Development moved over to [Gardens of Kadesh](https://github.com/GardensOfKadesh/Homeworld) 📣__
-
----
-
 # Homeworld SDL
 
 [SDL] port of the [Homeworld] source code that was [released in 2003] by [Relic Entertainment].
+
+🛈 This repository focuses on providing a stable native experience on x64 Linux.
+
+If you want to try a web version, check out our sister project: [Gardens of Kadesh] !
 
 [SDL]: https://en.wikipedia.org/wiki/Simple_DirectMedia_Layer
 [Homeworld]: https://en.wikipedia.org/wiki/Homeworld
 [released in 2003]: http://www.insidemacgames.com/news/story.php?ArticleID=8516
 [Relic Entertainment]: https://www.relic.com/
+[Gardens of Kadesh]: https://github.com/GardensOfKadesh/Homeworld
 
 ## Installing
 
