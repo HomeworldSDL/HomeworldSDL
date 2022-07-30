@@ -30,11 +30,9 @@ make
 
 > The configuration step has a lot of flags, run `../configure --help` to see them. (Notably the `--disable-linux-fixme` flag)
 
-Now put the compiled executable `src/homeworld` in a directory with the [required assets](../README#asset-checklist).
+> If you tried to speed up compilation with e.g. `make -j 6`, and it was the first time you compiled, then you probably got `fatal error: parser.h: No such file or directory`. Just run your `make` command again.
 
-For `HomeworldSDL.big` see [Packaging HomeworldSDL.big](#packaging-homeworldsdl.big)
-
-You are now ready to run the game and [configure the OpenGL renderer](../README#configuring-the-opengl-renderer)
+You can now [run the compiled executable for the first time](../README#running-the-game-for-the-first-time).
 
 ### x86 (intel/amd 32-bit)
 

@@ -12,61 +12,92 @@ If you want to try a web version, check out our sister project: [Gardens of Kade
 [Relic Entertainment]: https://www.relic.com/
 [Gardens of Kadesh]: https://github.com/GardensOfKadesh/Homeworld
 
-## Installing
 
-### Requirements
+## Requirements
 
 This repository contains only the source code for Homeworld's engine (metaphorically, the skeleton). In order to have a playable game, you will need the original assets (artwork, textures, sounds, meshes, ... Metaphorically again, the flesh).
 
-So make sure you have:
+To be clear: **You need to have bought the game to use this project.**
 
-- The Homeworld CD
-- [The 1.05 Patch](http://www.homeworldaccess.net/downloads/hw1patch/si_homeworld_update_105.exe)
+So make sure you either have:
+
+- The original Homeworld game from 1999 (It is not sold anywhere anymore, so either you have a CD dusting on your shelf, or you'll have to get one second-hand).
+  In that case, you should also download [the official 1.05 patch].
+
+- [The Homeworld Remastered Collection](https://www.homeworldremastered.com/)
 
 ### Asset checklist
 
-To sum it up, here are the files required for the game to run:
+This section is intended as a quick checklist to make sure you have everything needed for the game to run. If you don't know where to find one of these files, see the appropriate section below. (Most of them can be found in the game's installation folder.)
+
+- [ ] `HomeworldSDL.big` You will have to build this one from this repo. (Except if you plan to play with a 32b version, which is not the default, and deprecated.)
+
+#### Original (1999)
 
 - [ ] `Homeworld.big`  
     > sha256: af9dcc06e3f99404334a0a8ec17e399876080e85feb5b47858382dc715136040
-- [ ] `Update.big` (This comes from the official 1.05 Patch)  
+- [ ] `Update.big` Provided by the official 1.05 Patch  
     > sha256: c71b07758ee7696b3a19c1d75c946cbd68830e03b30cd3c2888f2f6d22b7c976
 - [ ] `HW_Comp.vce`  
     > sha256: 15c4b988adb09b0969b0dc288b21ddc10ca9d42a2064d15b46b53dcf02fc2e44
 
 - [ ] `HW_Music.wxd`  
     > sha256: b909c2cdbc8c8db67be168f6005bf8e8facaa9857263b16d186c824a0c4eed4f
-- [x] `HomeworldSDL.big` (This file should be included in the [releases])
 
-Usually you will find these files in your installation folder. For more detailed instructions, read on.
+#### Remaster (2015)
 
-### Linux
+- [ ] `homeworld.big` (You might have to rename it to `Homeworld.big`, with a capital `H`)
+    > sha256: e38c0528c1d4bd9d9195d26d5231ae29bef18f57d9bd1fe2eed33fb2b9b172a8
+- [ ] `HW_Comp.vce`  
+    > sha256: 15c4b988adb09b0969b0dc288b21ddc10ca9d42a2064d15b46b53dcf02fc2e44
 
-#### Extracting game assets with wine
+- [ ] `HW_Music.wxd`  
+    > sha256: 48f93c07bf718c56c20727aba12f06baf13d4d11d1c7185d2d2153543834e454
 
-Install the game and patch with [wine] (tested with wine 4.1)
+## Compiling from source
+
+Please refer to [`Linux/BUILD.md`](Linux/BUILD.md).
+
+## Setting up the assets folder
+
+You should choose an installation folder where you will put (copy|move|symlink) all the [required files](#asset-checklist). This will be refered to as `$ASSETS_FOLDER` from here on out. (For example `~/Games/HomeworldSDL/`)
+
+### Extracting the assets
+
+#### Original (1999)
+
+Install the game and [patch][the official 1.05 patch] with [wine] (tested with wine 4.1)
 
 ``` sh
 wine HWSetup.EXE
 wine si_homeworld_update_105.exe
 ```
 
-Open the game installation folder (usually `~/.wine/drive_c/Sierra/Homeworld`). This is where you'll find the [required files](#asset-checklist). We'll be getting back at them later on.
+Open the game installation folder (usually `~/.wine/drive_c/Sierra/Homeworld`). This is where you'll find the [required files](#asset-checklist). Put them to `$ASSETS_FOLDER`.
 
 [wine]: https://www.winehq.org/
 
-#### Installing the binary distribution
+#### Remaster (2015)
 
-1. Download [__the latest release__][releases]. (Extract it if necessary)
-2. Copy [the files you gathered earlier](#extracting-game-assets-with-wine) in the folder you just downloaded
-3. Run the game
-4. Jump to [Configuring the OpenGL renderer](#configuring-the-opengl-renderer)
+##### Steam
 
-#### Compiling from source
+After installing the game, you should find the [required assets](#asset-checklist) in `~/.local/share/Steam/steamapps/common/Homeworld/Homeworld1Classic/Data`. Put them to `$ASSETS_FOLDER`.
 
-Please refer to [`Linux/BUILD.md`](Linux/BUILD.md).
+## Running the game for the first time
 
-## Configuring the OpenGL renderer
+The first time you run the game, you will have to point it to [the directory containing the required assets](#setting-up-the-assets-folder). For example, if you have [compiled the game from source](#compiling-from-source):
+
+```sh
+HW_Data=$ASSETS_FOLDER src/homeworld
+```
+
+where `src/homeworld` is the path to your HomeworldSDL binary executable.
+
+Once the game starts, you should then [configure the OpenGL renderer](#configuring-the-opengl-renderer).
+
+The game stores its configuration in `~/.homeworld`, and will remember the asset directory and graphics configuration for later runs, which means you don't need to provide the `HW_Data` dir the next time you run the game, and you can safely move the executable around.
+
+### Configuring the OpenGL renderer
 
 The first time you run the game, you'll have to configure the renderer to use OpenGL. This will be saved in your `~/.homeworld`, so you won't have to do it every time you run the game.
 
@@ -90,3 +121,4 @@ If you want to know more about this project (and see some screenshots!), please 
 [wiki]: https://gitlab.com/ThibaultLemaire/HomeworldSDL/wikis/home
 
 [releases]: https://gitlab.com/ThibaultLemaire/HomeworldSDL/-/releases
+[the official 1.05 patch]: https://www.homeworldaccess.net/infusions/downloads/downloads.php?file_id=35
