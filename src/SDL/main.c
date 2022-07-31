@@ -2217,24 +2217,25 @@ int main (int argc, char* argv[])
     if (errorString == NULL)
     {
         preInit = FALSE;
+        bool breakMainLoop = FALSE;
 
         while (TRUE)
         {
             // Give sound a break :)
             SDL_Delay(0);
 
-            if (SDL_PollEvent(&e))
+            while (SDL_PollEvent(&e))
             {
                 event_res = HandleEvent(&e);
 
                 if (e.type == SDL_QUIT) {
+                    breakMainLoop = TRUE;
                     break;
                 }
             }
-            else
-            {
-                utyTasksDispatch();                         //execute all tasks
-            }
+            if (breakMainLoop) break;
+
+            utyTasksDispatch();                         //execute all tasks
 
             if (opTimerActive)
             {
