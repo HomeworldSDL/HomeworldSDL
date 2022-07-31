@@ -289,7 +289,7 @@ scriptStructEntry streamEQScriptTable[] =
     { "eq5", scriptSetReal32CB,   &streamEQ[0].eq[5], &streamEQ[0] },
     { "eq6", scriptSetReal32CB,   &streamEQ[0].eq[6], &streamEQ[0] },
     { "eq7", scriptSetReal32CB,   &streamEQ[0].eq[7], &streamEQ[0] },
-    
+
     END_SCRIPT_STRUCT_ENTRY
 };
 
@@ -306,7 +306,7 @@ scriptStructEntry streamDelaySciptTable[] =
     { "eq5",      scriptSetReal32CB, &streamdelay[0].eq[5],    &streamdelay[0] },
     { "eq6",      scriptSetReal32CB, &streamdelay[0].eq[6],    &streamdelay[0] },
     { "eq7",      scriptSetReal32CB, &streamdelay[0].eq[7],    &streamdelay[0] },
-    
+
     END_SCRIPT_STRUCT_ENTRY
 };
 
@@ -329,7 +329,7 @@ scriptStructEntry streamEffectScriptTable[] =
     { "ToneLevel",     scriptSetReal32CB, &cleaneffect[0].fToneLev,       &cleaneffect[0] },
     { "LimitLevel",    scriptSetReal32CB, &cleaneffect[0].fLimitLev,      &cleaneffect[0] },
     { "PitchShift",    scriptSetReal32CB, &cleaneffect[0].fPitchShift,    &cleaneffect[0] },
-    
+
     END_SCRIPT_STRUCT_ENTRY
 };
 
@@ -426,7 +426,7 @@ sdword speechEventInit(void)
     sdword streamersize;
     char loadfile[100];
     sdword i, j;
-    
+
 #if FIX_ENDIAN
     sdword p, z;
 #endif
@@ -463,7 +463,7 @@ sdword speechEventInit(void)
 		SentenceLUT->lookup[z] = FIX_ENDIAN_INT_16( SentenceLUT->lookup[z] );
 	}
 #endif // FIX_ENDIAN
-	
+
     strcpy(loadfile, SOUNDFXDIR);
 #ifdef HW_GAME_DEMO
     strcat(loadfile, "DLphrase.lut");
@@ -548,7 +548,7 @@ sdword speechEventInit(void)
         streamhandle[2] = soundstreamcreatebuffer(pspeechbuffer2, buffersize, SentenceLUT->compbitrate[2]);
 #if defined(HW_GAME_DEMO)
     pspeechbuffer4 = memAlloc(buffersize, "SpeechBuffer4", NonVolatile);
-        streamhandle[4] = soundstreamcreatebuffer(pspeechbuffer4, buffersize, SentenceLUT->compbitrate[0]);
+        streamhandle[3] = soundstreamcreatebuffer(pspeechbuffer4, buffersize, SentenceLUT->compbitrate[0]);
 #else
     pspeechbuffer3 = memAlloc(buffersize, "SpeechBuffer3", NonVolatile);
         streamhandle[3] = soundstreamcreatebuffer(pspeechbuffer3, buffersize, SentenceLUT->compbitrate[3]);
@@ -1053,7 +1053,7 @@ void speechPlayQueue(SPEECHQUEUE *pSQueue, sdword streamchannel)
         }
 
 #if SE_VERBOSE_LEVEL >= 2
-        dbgMessagef("speechEvent: %d, channel: %d, volume: %d",
+        dbgMessagef("speechEvent: %d, channel: %d, volume: %f",
                 event, streamchannel, vol);
 #endif
 
@@ -3106,4 +3106,3 @@ sdword musicEventCurrentTrack(void)
 {
     return (musicinfo[AMBIENTSTREAM].tracknum);
 }
-
