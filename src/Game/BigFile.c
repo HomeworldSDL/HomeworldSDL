@@ -81,7 +81,7 @@ bigFileConfiguration bigFilePrecedence[] = {
 #else
         "Update.big",
 #endif
-        TRUE,
+        FALSE,
         NULL,
         UNINITIALISED_BIG_TOC,
         NULL,
@@ -2540,6 +2540,11 @@ bool bigOpenAllBigFiles(void)
             }
             else
             {
+                // This may or may not be a problem.
+                // E.g. Update.big is not required if we use `homeworld.big` from the
+                // Remastered collection. Likewise, `HomeworldSDL.big` might not be required
+                // with a 32b build.
+                dbgWarningf(DBG_Loc, "Unable to open optional .big file: %s", filePathTempBuffer);
                 continue;
             }
         }
