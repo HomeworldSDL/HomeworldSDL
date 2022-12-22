@@ -5841,6 +5841,18 @@ void univCheckShipState(Ship *ship)
     AttackCommand *attack;
     CommandToDo *command;
 
+    // kill ships with NaN positions
+    // seems to happen on Mission 10 frequently preventing objective to be fullfilled as ships can't be found and killed
+    // NOTE: what is causing the NaNs in the first place is unclear at this time.
+    //       Since I encountered in mission 10 it might be the radiation effect?
+    if ((ship->flags & SOF_Dead) == 0) {
+      if (isnan(ship->posinfo.position.x) || isnan(ship->posinfo.position.y) || isnan(ship->posinfo.position.z)) {
+        dbgMessage("univCheckShipState(): Ship position contains NaN! Killing it.");
+        ship->health = 0;
+        AddShipToDeleteShipList(ship, -1);
+      }
+    }
+
     if (ship->deathtime != 0.0f)
     {
         if ((ship->flags & SOF_Dead) == 0)
