@@ -10,7 +10,7 @@ static inline memsize do_get_arg(Effect *effect, struct etgeffectstatic *stat, e
 {
     memsize param = opcode->parameter[index].param;
 
-    switch (opcode->parameter[index].type)    
+    switch (opcode->parameter[index].type)
     {
         case EVT_Constant:
             break;
@@ -30,20 +30,27 @@ static inline memsize do_get_arg(Effect *effect, struct etgeffectstatic *stat, e
     return param;
 }
 
+#define call_and_return_EVT_Void(f) f return 0;
+#define call_and_return_EVT_RGB(f) return f
+#define call_and_return_EVT_RGBA(f) return f
+#define call_and_return_EVT_Int(f) return f
+#define call_and_return_EVT_Float(f) return f
+
+
 
 #define funcEntry0(name, ret, func) \
 memsize wrap_##func(Effect *effect, struct etgeffectstatic *stat ,etgfunctioncall *opcode) \
 { \
-    memsize (*func_ptr)(void) = opcode->function; \
-    return func_ptr(); \
+    _RET_##ret (*func_ptr)(void) = (_RET_##ret (*)(void)) opcode->function; \
+    call_and_return_##ret(func_ptr();) \
 }
 
 #define funcEntry1(name, ret, func, p0) \
 memsize wrap_##func(Effect *effect, struct etgeffectstatic *stat ,etgfunctioncall *opcode) \
 { \
     _##p0 var0 = get_##p0(0); \
-    memsize (*func_ptr)(_##p0) = (memsize (*)(_##p0)) opcode->function; \
-    return func_ptr(var0); \
+    _RET_##ret (*func_ptr)(_##p0) = (_RET_##ret (*)(_##p0)) opcode->function; \
+    call_and_return_##ret(func_ptr(var0);) \
 }
 
 #define funcEntry2(name, ret, func, p0, p1) \
@@ -51,8 +58,8 @@ memsize wrap_##func(Effect *effect, struct etgeffectstatic *stat ,etgfunctioncal
 { \
     _##p0 var0 = get_##p0(0); \
     _##p1 var1 = get_##p1(1); \
-    memsize (*func_ptr)(_##p0, _##p1) = (memsize (*)(_##p0, _##p1)) opcode->function; \
-    return func_ptr(var0, var1); \
+    _RET_##ret (*func_ptr)(_##p0, _##p1) = (_RET_##ret (*)(_##p0, _##p1)) opcode->function; \
+    call_and_return_##ret(func_ptr(var0, var1);) \
 }
 
 #define funcEntry3(name, ret, func, p0, p1, p2) \
@@ -61,8 +68,8 @@ memsize wrap_##func(Effect *effect, struct etgeffectstatic *stat ,etgfunctioncal
     _##p0 var0 = get_##p0(0); \
     _##p1 var1 = get_##p1(1); \
     _##p2 var2 = get_##p2(2); \
-    memsize (*func_ptr)(_##p0, _##p1, _##p2) = (memsize (*)(_##p0, _##p1, _##p2)) opcode->function; \
-    return func_ptr(var0, var1, var2); \
+    _RET_##ret (*func_ptr)(_##p0, _##p1, _##p2) = (_RET_##ret (*)(_##p0, _##p1, _##p2)) opcode->function; \
+    call_and_return_##ret(func_ptr(var0, var1, var2);) \
 }
 
 #define funcEntry4(name, ret, func, p0, p1, p2, p3) \
@@ -72,8 +79,8 @@ memsize wrap_##func(Effect *effect, struct etgeffectstatic *stat ,etgfunctioncal
     _##p1 var1 = get_##p1(1); \
     _##p2 var2 = get_##p2(2); \
     _##p3 var3 = get_##p3(3); \
-    memsize (*func_ptr)(_##p0, _##p1, _##p2, _##p3) = (memsize (*)(_##p0, _##p1, _##p2, _##p3)) opcode->function; \
-    return func_ptr(var0, var1, var2, var3); \
+    _RET_##ret (*func_ptr)(_##p0, _##p1, _##p2, _##p3) = (_RET_##ret (*)(_##p0, _##p1, _##p2, _##p3)) opcode->function; \
+    call_and_return_##ret(func_ptr(var0, var1, var2, var3);) \
 }
 
 #define funcEntry5(name, ret, func, p0, p1, p2, p3, p4) \
@@ -84,8 +91,8 @@ memsize wrap_##func(Effect *effect, struct etgeffectstatic *stat ,etgfunctioncal
     _##p2 var2 = get_##p2(2); \
     _##p3 var3 = get_##p3(3); \
     _##p4 var4 = get_##p4(4); \
-    memsize (*func_ptr)(_##p0, _##p1, _##p2, _##p3, _##p4) = (memsize (*)(_##p0, _##p1, _##p2, _##p3, _##p4)) opcode->function; \
-    return func_ptr(var0, var1, var2, var3, var4); \
+    _RET_##ret (*func_ptr)(_##p0, _##p1, _##p2, _##p3, _##p4) = (_RET_##ret (*)(_##p0, _##p1, _##p2, _##p3, _##p4)) opcode->function; \
+    call_and_return_##ret(func_ptr(var0, var1, var2, var3, var4);) \
 }
 
 #define funcEntry6(name, ret, func, p0, p1, p2, p3, p4, p5) \
@@ -97,8 +104,8 @@ memsize wrap_##func(Effect *effect, struct etgeffectstatic *stat ,etgfunctioncal
     _##p3 var3 = get_##p3(3); \
     _##p4 var4 = get_##p4(4); \
     _##p5 var5 = get_##p5(5); \
-    memsize (*func_ptr)(_##p0, _##p1, _##p2, _##p3, _##p4, _##p5) = (memsize (*)(_##p0, _##p1, _##p2, _##p3, _##p4, _##p5)) opcode->function; \
-    return func_ptr(var0, var1, var2, var3, var4, var5); \
+    _RET_##ret (*func_ptr)(_##p0, _##p1, _##p2, _##p3, _##p4, _##p5) = (_RET_##ret (*)(_##p0, _##p1, _##p2, _##p3, _##p4, _##p5)) opcode->function; \
+    call_and_return_##ret(func_ptr(var0, var1, var2, var3, var4, var5);) \
 }
 
 #define funcEntry7(name, ret, func, p0, p1, p2, p3, p4, p5, p6) \
@@ -111,8 +118,8 @@ memsize wrap_##func(Effect *effect, struct etgeffectstatic *stat ,etgfunctioncal
     _##p4 var4 = get_##p4(4); \
     _##p5 var5 = get_##p5(5); \
     _##p6 var6 = get_##p6(6); \
-    memsize (*func_ptr)(_##p0, _##p1, _##p2, _##p3, _##p4, _##p5, _##p6) = (memsize (*)(_##p0, _##p1, _##p2, _##p3, _##p4, _##p5, _##p6)) opcode->function; \
-    return func_ptr(var0, var1, var2, var3, var4, var5, var6); \
+    _RET_##ret (*func_ptr)(_##p0, _##p1, _##p2, _##p3, _##p4, _##p5, _##p6) = (_RET_##ret (*)(_##p0, _##p1, _##p2, _##p3, _##p4, _##p5, _##p6)) opcode->function; \
+    call_and_return_##ret(func_ptr(var0, var1, var2, var3, var4, var5, var6);) \
 }
 
 #define funcEntry8(name, ret, func, p0, p1, p2, p3, p4, p5, p6, p7) \
@@ -126,8 +133,8 @@ memsize wrap_##func(Effect *effect, struct etgeffectstatic *stat ,etgfunctioncal
     _##p5 var5 = get_##p5(5); \
     _##p6 var6 = get_##p6(6); \
     _##p7 var7 = get_##p7(7); \
-    memsize (*func_ptr)(_##p0, _##p1, _##p2, _##p3, _##p4, _##p5, _##p6,  _##p7) = (memsize (*)(_##p0, _##p1, _##p2, _##p3, _##p4, _##p5, _##p6,  _##p7)) opcode->function; \
-    return func_ptr(var0, var1, var2, var3, var4, var5, var6, var7); \
+    _RET_##ret (*func_ptr)(_##p0, _##p1, _##p2, _##p3, _##p4, _##p5, _##p6,  _##p7) = (_RET_##ret (*)(_##p0, _##p1, _##p2, _##p3, _##p4, _##p5, _##p6,  _##p7)) opcode->function; \
+    call_and_return_##ret(func_ptr(var0, var1, var2, var3, var4, var5, var6, var7);) \
 }
 
 /**************************************************************************************/
@@ -135,16 +142,16 @@ memsize wrap_##func(Effect *effect, struct etgeffectstatic *stat ,etgfunctioncal
 #define funcEntryThis0(name, ret, func) \
 memsize wrap_##func(Effect *effect, struct etgeffectstatic *stat ,etgfunctioncall *opcode) \
 { \
-    memsize (*func_ptr)(void *) = (memsize (*)(void *)) opcode->function; \
-    return func_ptr(effect); \
+    _RET_##ret (*func_ptr)(void *) = (_RET_##ret (*)(void *)) opcode->function; \
+    call_and_return_##ret(func_ptr(effect);) \
 }
 
 #define funcEntryThis1(name, ret, func, p0) \
 memsize wrap_##func(Effect *effect, struct etgeffectstatic *stat ,etgfunctioncall *opcode) \
 { \
     _##p0 var0 = get_##p0(0); \
-    memsize (*func_ptr)(void *, _##p0) = (memsize (*)(void *, _##p0)) opcode->function; \
-    return func_ptr(effect, var0); \
+    _RET_##ret (*func_ptr)(void *, _##p0) = (_RET_##ret (*)(void *, _##p0)) opcode->function; \
+    call_and_return_##ret(func_ptr(effect, var0);) \
 }
 
 #define funcEntryThis2(name, ret, func, p0, p1) \
@@ -152,8 +159,8 @@ memsize wrap_##func(Effect *effect, struct etgeffectstatic *stat ,etgfunctioncal
 { \
     _##p0 var0 = get_##p0(0); \
     _##p1 var1 = get_##p1(1); \
-    memsize (*func_ptr)(void *, _##p0, _##p1) = (memsize (*)(void *, _##p0, _##p1)) opcode->function; \
-    return func_ptr(effect, var0, var1); \
+    _RET_##ret (*func_ptr)(void *, _##p0, _##p1) = (_RET_##ret (*)(void *, _##p0, _##p1)) opcode->function; \
+    call_and_return_##ret(func_ptr(effect, var0, var1);) \
 }
 
 #define funcEntryThis3(name, ret, func, p0, p1, p2) \
@@ -162,8 +169,8 @@ memsize wrap_##func(Effect *effect, struct etgeffectstatic *stat ,etgfunctioncal
     _##p0 var0 = get_##p0(0); \
     _##p1 var1 = get_##p1(1); \
     _##p2 var2 = get_##p2(2); \
-    memsize (*func_ptr)(void *, _##p0, _##p1, _##p2) = (memsize (*)(void *, _##p0, _##p1, _##p2)) opcode->function; \
-    return func_ptr(effect, var0, var1, var2); \
+    _RET_##ret (*func_ptr)(void *, _##p0, _##p1, _##p2) = (_RET_##ret (*)(void *, _##p0, _##p1, _##p2)) opcode->function; \
+    call_and_return_##ret(func_ptr(effect, var0, var1, var2);) \
 }
 
 #define funcEntryThis4(name, ret, func, p0, p1, p2, p3) \
@@ -173,8 +180,8 @@ memsize wrap_##func(Effect *effect, struct etgeffectstatic *stat ,etgfunctioncal
     _##p1 var1 = get_##p1(1); \
     _##p2 var2 = get_##p2(2); \
     _##p3 var3 = get_##p3(3); \
-    memsize (*func_ptr)(void *, _##p0, _##p1, _##p2, _##p3) = (memsize (*)(void *, _##p0, _##p1, _##p2, _##p3)) opcode->function; \
-    return func_ptr(effect, var0, var1, var2, var3); \
+    _RET_##ret (*func_ptr)(void *, _##p0, _##p1, _##p2, _##p3) = (_RET_##ret (*)(void *, _##p0, _##p1, _##p2, _##p3)) opcode->function; \
+    call_and_return_##ret(func_ptr(effect, var0, var1, var2, var3);) \
 }
 
 #define funcEntryThis5(name, ret, func, p0, p1, p2, p3, p4) \
@@ -185,8 +192,8 @@ memsize wrap_##func(Effect *effect, struct etgeffectstatic *stat ,etgfunctioncal
     _##p2 var2 = get_##p2(2); \
     _##p3 var3 = get_##p3(3); \
     _##p4 var4 = get_##p4(4); \
-    memsize (*func_ptr)(void *, _##p0, _##p1, _##p2, _##p3, _##p4) = (memsize (*)(void *, _##p0, _##p1, _##p2, _##p3, _##p4)) opcode->function; \
-    return func_ptr(effect, var0, var1, var2, var3, var4); \
+    _RET_##ret (*func_ptr)(void *, _##p0, _##p1, _##p2, _##p3, _##p4) = (_RET_##ret (*)(void *, _##p0, _##p1, _##p2, _##p3, _##p4)) opcode->function; \
+    call_and_return_##ret(func_ptr(effect, var0, var1, var2, var3, var4);) \
 }
 
 #define funcEntryThis6(name, ret, func, p0, p1, p2, p3, p4, p5) \
@@ -198,8 +205,8 @@ memsize wrap_##func(Effect *effect, struct etgeffectstatic *stat ,etgfunctioncal
     _##p3 var3 = get_##p3(3); \
     _##p4 var4 = get_##p4(4); \
     _##p5 var5 = get_##p5(5); \
-    memsize (*func_ptr)(void *, _##p0, _##p1, _##p2, _##p3, _##p4, _##p5) = (memsize (*)(void *, _##p0, _##p1, _##p2, _##p3, _##p4, _##p5)) opcode->function; \
-    return func_ptr(effect, var0, var1, var2, var3, var4, var5); \
+    _RET_##ret (*func_ptr)(void *, _##p0, _##p1, _##p2, _##p3, _##p4, _##p5) = (_RET_##ret (*)(void *, _##p0, _##p1, _##p2, _##p3, _##p4, _##p5)) opcode->function; \
+    call_and_return_##ret(func_ptr(effect, var0, var1, var2, var3, var4, var5);) \
 }
 
 #define funcEntryThis7(name, ret, func, p0, p1, p2, p3, p4, p5, p6) \
@@ -212,8 +219,8 @@ memsize wrap_##func(Effect *effect, struct etgeffectstatic *stat ,etgfunctioncal
     _##p4 var4 = get_##p4(4); \
     _##p5 var5 = get_##p5(5); \
     _##p6 var6 = get_##p6(6); \
-    memsize (*func_ptr)(void *, _##p0, _##p1, _##p2, _##p3, _##p4, _##p5, _##p6) = (memsize (*)(void *, _##p0, _##p1, _##p2, _##p3, _##p4, _##p5, _##p6)) opcode->function; \
-    return func_ptr(effect, var0, var1, var2, var3, var4, var5, var6); \
+    _RET_##ret (*func_ptr)(void *, _##p0, _##p1, _##p2, _##p3, _##p4, _##p5, _##p6) = (_RET_##ret (*)(void *, _##p0, _##p1, _##p2, _##p3, _##p4, _##p5, _##p6)) opcode->function; \
+    call_and_return_##ret(func_ptr(effect, var0, var1, var2, var3, var4, var5, var6);) \
 }
 
 #define funcEntryThis8(name, ret, func, p0, p1, p2, p3, p4, p5, p6, p7) \
@@ -227,8 +234,8 @@ memsize wrap_##func(Effect *effect, struct etgeffectstatic *stat ,etgfunctioncal
     _##p5 var5 = get_##p5(5); \
     _##p6 var6 = get_##p6(6); \
     _##p7 var7 = get_##p7(7); \
-    memsize (*func_ptr)(void *, _##p0, _##p1, _##p2, _##p3, _##p4, _##p5, _##p6, _##p7) = (memsize (*)(void *, _##p0, _##p1, _##p2, _##p3, _##p4, _##p5, _##p6, _##p7)) opcode->function; \
-    return func_ptr(effect, var0, var1, var2, var3, var4, var5, var6, var7); \
+    _RET_##ret (*func_ptr)(void *, _##p0, _##p1, _##p2, _##p3, _##p4, _##p5, _##p6, _##p7) = (_RET_##ret (*)(void *, _##p0, _##p1, _##p2, _##p3, _##p4, _##p5, _##p6, _##p7)) opcode->function; \
+    call_and_return_##ret(return func_ptr(effect, var0, var1, var2, var3, var4, var5, var6, var7);) \
 }
 
 /************************************************/
@@ -237,8 +244,8 @@ memsize wrap_##func(Effect *effect, struct etgeffectstatic *stat ,etgfunctioncal
 memsize wrap_##func(Effect *effect, struct etgeffectstatic *stat ,etgfunctioncall *opcode) \
 { \
     _##p0 var0 = get_##p0(0); \
-    memsize (*func_ptr)(_##p0) = (memsize (*)(_##p0)) opcode->function; \
-    return func_ptr(var0); \
+    _RET_##ret (*func_ptr)(_##p0) = (_RET_##ret (*)(_##p0)) opcode->function; \
+    call_and_return_##ret(func_ptr(var0);) \
 }
 
 #define funcEntryR2(name, ret, func, p0, p1, resolve) \
@@ -246,8 +253,8 @@ memsize wrap_##func(Effect *effect, struct etgeffectstatic *stat ,etgfunctioncal
 { \
     _##p0 var0 = get_##p0(0); \
     _##p1 var1 = get_##p1(1); \
-    memsize (*func_ptr)(_##p0, _##p1) = (memsize (*)(_##p0, _##p1)) opcode->function; \
-    return func_ptr(var0, var1); \
+    _RET_##ret (*func_ptr)(_##p0, _##p1) = (_RET_##ret (*)(_##p0, _##p1)) opcode->function; \
+    call_and_return_##ret(func_ptr(var0, var1);) \
 }
 
 /************************************************/
@@ -256,8 +263,8 @@ memsize wrap_##func(Effect *effect, struct etgeffectstatic *stat ,etgfunctioncal
 memsize wrap_##func(Effect *effect, struct etgeffectstatic *stat ,etgfunctioncall *opcode) \
 { \
     _##p0 var0 = get_##p0(0); \
-    memsize (*func_ptr)(void *, _##p0) = (memsize (*)(void *, _##p0)) opcode->function; \
-    return func_ptr(effect, var0); \
+    _RET_##ret (*func_ptr)(void *, _##p0) = (_RET_##ret (*)(void *, _##p0)) opcode->function; \
+    call_and_return_##ret(func_ptr(effect, var0);) \
 }
 
 #define funcEntryThisR2(name, ret, func, p0, p1, resolve) \
@@ -265,7 +272,6 @@ memsize wrap_##func(Effect *effect, struct etgeffectstatic *stat ,etgfunctioncal
 { \
     _##p0 var0 = get_##p0(0); \
     _##p1 var1 = get_##p1(1); \
-    memsize (*func_ptr)(void *, _##p0, _##p1) = (memsize (*)(void *, _##p0, _##p1)) opcode->function; \
-    return func_ptr(effect, var0, var1); \
+    _RET_##ret (*func_ptr)(void *, _##p0, _##p1) = (_RET_##ret (*)(void *, _##p0, _##p1)) opcode->function; \
+    call_and_return_##ret(func_ptr(effect, var0, var1);) \
 }
-

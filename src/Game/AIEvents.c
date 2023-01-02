@@ -667,7 +667,7 @@ void aiePreFixAIEvents(struct AITeamMove *move)
     {
         // convert pointer to offset into AIPlayer structure
         dbgAssertOrIgnore(move->events.interrupt.intvar);
-        move->events.interrupt.intvar = ((ubyte *)move->events.interrupt.intvar) - ((ubyte *)fixingThisAIPlayer);
+        move->events.interrupt.intvar = (udword *)(((ubyte *)move->events.interrupt.intvar) - ((ubyte *)fixingThisAIPlayer));
         dbgAssertOrIgnore(move->events.interrupt.intvar < sizeof(AIPlayer));
     }
 
@@ -714,4 +714,3 @@ void aieFixAIEvents(struct AITeamMove *move)
 #ifdef _WIN32_FIX_ME
  #pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
 #endif
-

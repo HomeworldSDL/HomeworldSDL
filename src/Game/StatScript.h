@@ -102,10 +102,10 @@ void scriptSetGunStatics(char *directory,char *filename,struct ShipStaticInfo *s
 void scriptSetNAVLightStatics(char *directory,char *filename,struct ShipStaticInfo *shipstatinfo);
 void scriptSetDockStatics(char *directory,char *filename,struct ShipStaticInfo *statinfo);
 struct SphereStaticInfo *scriptSetSphereStaticInfo(char *directory,char *filename);
-void scriptSetShipGroupSizeCB(char *directory, char *field, sdword *dataToFillIn);
-void scriptSetShipProbCB(char *directory, char *field, real32 *dataToFillIn);
-void scriptSetHyperspaceCostCB(char *directory, char *field, real32 *dataToFillIn);
-void scriptSetSpecialDoorOffsetCB(char *directory, char *field, real32 *dataToFillIn);
+void scriptSetShipGroupSizeCB(char *directory, char *field, void *dataToFillIn);
+void scriptSetShipProbCB(char *directory, char *field, void *dataToFillIn);
+void scriptSetHyperspaceCostCB(char *directory, char *field, void *dataToFillIn);
+void scriptSetSpecialDoorOffsetCB(char *directory, char *field, void *dataToFillIn);
 void scriptSetBlobPropertyOverlap(char *directory,char *field,void *dataToFillIn);
 void scriptSetBlobBiggestRadius(char *directory,char *field,void *dataToFillIn);
 
@@ -119,4 +119,3 @@ void CheckValidTacticsClass(TacticsType tactic,ShipClass shipclass,char *field);
 #endif
 
 #endif
-

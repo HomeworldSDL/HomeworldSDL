@@ -912,7 +912,7 @@ meshdata *meshLoad(char *inFileName)
         mesh->localMaterial[index].bTexturesRegistered = FALSE;
         if (mesh->localMaterial[index].texture != 0)
         {                                                   //if there is a texture
-            mesh->localMaterial[index].texture = (trhandle)(offset + (char *)(mesh->localMaterial[index].texture));//fix up texture name pointer
+            mesh->localMaterial[index].texture = (trhandle *)(offset + (char *)(mesh->localMaterial[index].texture));//fix up texture name pointer
             mesh->localMaterial[index].textureNameSave = (char *)mesh->localMaterial[index].texture;
             meshTextureNameToPath(fullName, fileName, (char *)mesh->localMaterial[index].texture);
             handles = meshTextureRegisterAllPlayers(fullName, mesh);

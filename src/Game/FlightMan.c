@@ -2388,7 +2388,7 @@ void setFlightManProb(char *field,udword *flightprobs,udword *flightcums,udword 
     *sumtotal = cum;
 }
 
-void scriptSetFlightManTurnaroundCB(char *directory,char *field, FlightManProb *dataToFillIn)
+void scriptSetFlightManTurnaroundCB(char *directory,char *field, void *dataToFillIn)
 {
     char tactic_buffer[32];
     char class_buffer[64];
@@ -2410,13 +2410,13 @@ void scriptSetFlightManTurnaroundCB(char *directory,char *field, FlightManProb *
     CheckValidTacticsClass(tactic,shipclass,field);
 #endif
 
-    dataToFillIn += (tactic * (NUM_CLASSES + 1)) + shipclass;
-    prob = dataToFillIn;
+    prob = (FlightManProb *)dataToFillIn;
+    prob += (tactic * (NUM_CLASSES + 1)) + shipclass;
     setFlightManProb(field2,prob->flightprobTurnaround,prob->flightcumTurnaround,&prob->sumtotalTurnaround,FLIGHTMAN_TYPE_TURNAROUND_NUM);
     prob->valid = FLIGHTPROB_VALID;
 }
 
-void scriptSetFlightManAIPCB(char *directory,char *field,FlightManProb *dataToFillIn)
+void scriptSetFlightManAIPCB(char *directory,char *field,void *dataToFillIn)
 {
     char tactic_buffer[32];
     char class_buffer[64];
@@ -2438,13 +2438,13 @@ void scriptSetFlightManAIPCB(char *directory,char *field,FlightManProb *dataToFi
     CheckValidTacticsClass(tactic,shipclass,field);
 #endif
 
-    dataToFillIn += (tactic * (NUM_CLASSES + 1)) + shipclass;
-    prob = dataToFillIn;
+    prob = (FlightManProb *)dataToFillIn;
+    prob += (tactic * (NUM_CLASSES + 1)) + shipclass;
     setFlightManProb(field2,prob->flightprobAIP,prob->flightcumAIP,&prob->sumtotalAIP,FLIGHTMAN_TYPE_AIP_NUM);
     prob->valid = FLIGHTPROB_VALID;
 }
 
-void scriptSetFlightManEvasiveBehindCB(char *directory,char *field,FlightManProb *dataToFillIn)
+void scriptSetFlightManEvasiveBehindCB(char *directory,char *field,void *dataToFillIn)
 {
     char tactic_buffer[32];
     char class_buffer[64];
@@ -2466,13 +2466,13 @@ void scriptSetFlightManEvasiveBehindCB(char *directory,char *field,FlightManProb
     CheckValidTacticsClass(tactic,shipclass,field);
 #endif
 
-    dataToFillIn += (tactic * (NUM_CLASSES + 1)) + shipclass;
-    prob = dataToFillIn;
+    prob = (FlightManProb *)dataToFillIn;
+    prob += (tactic * (NUM_CLASSES + 1)) + shipclass;
     setFlightManProb(field2,prob->flightprobEvasiveBehind,prob->flightcumEvasiveBehind,&prob->sumtotalEvasiveBehind,FLIGHTMAN_TYPE_TURNAROUND_NUM);
     prob->valid = FLIGHTPROB_VALID;
 }
 
-void scriptSetFlightManEvasiveFrontCB(char *directory,char *field,FlightManProb *dataToFillIn)
+void scriptSetFlightManEvasiveFrontCB(char *directory,char *field,void *dataToFillIn)
 {
     char tactic_buffer[32];
     char class_buffer[64];
@@ -2494,13 +2494,13 @@ void scriptSetFlightManEvasiveFrontCB(char *directory,char *field,FlightManProb 
     CheckValidTacticsClass(tactic,shipclass,field);
 #endif
 
-    dataToFillIn += (tactic * (NUM_CLASSES + 1)) + shipclass;
-    prob = dataToFillIn;
+    prob = (FlightManProb *)dataToFillIn;
+    prob += (tactic * (NUM_CLASSES + 1)) + shipclass;
     setFlightManProb(field2,prob->flightprobEvasiveFront,prob->flightcumEvasiveFront,&prob->sumtotalEvasiveFront,FLIGHTMAN_TYPE_TURNAROUND_NUM);
     prob->valid = FLIGHTPROB_VALID;
 }
 
-void scriptSetFlightManEvasivePureCB(char *directory,char *field,FlightManProb *dataToFillIn)
+void scriptSetFlightManEvasivePureCB(char *directory,char *field,void *dataToFillIn)
 {
     char tactic_buffer[32];
     char class_buffer[64];
@@ -2522,8 +2522,8 @@ void scriptSetFlightManEvasivePureCB(char *directory,char *field,FlightManProb *
     CheckValidTacticsClass(tactic,shipclass,field);
 #endif
 
-    dataToFillIn += (tactic * (NUM_CLASSES + 1)) + shipclass;
-    prob = dataToFillIn;
+    prob = (FlightManProb *)dataToFillIn;
+    prob += (tactic * (NUM_CLASSES + 1)) + shipclass;
     setFlightManProb(field2,prob->flightprobEvasivePure,prob->flightcumEvasivePure,&prob->sumtotalEvasivePure,FLIGHTMAN_TYPE_TURNAROUND_NUM);
     prob->valid = FLIGHTPROB_VALID;
 }
@@ -2621,4 +2621,3 @@ static FlightmanSpecificClose flightmanSpecificCloseTable[NUM_FLIGHTMANEUVERS] =
   NULL,
   NULL
 };
-

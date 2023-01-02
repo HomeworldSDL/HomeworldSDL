@@ -73,11 +73,11 @@ typedef struct
     Functions:
 =============================================================================*/
 
-void scriptSetFlightManTurnaroundCB(char *directory,char *field,FlightManProb *dataToFillIn);
-void scriptSetFlightManAIPCB(char *directory,char *field,FlightManProb *dataToFillIn);
-void scriptSetFlightManEvasiveBehindCB(char *directory,char *field,FlightManProb *dataToFillIn);
-void scriptSetFlightManEvasiveFrontCB(char *directory,char *field,FlightManProb *dataToFillIn);
-void scriptSetFlightManEvasivePureCB(char *directory,char *field,FlightManProb *dataToFillIn);
+void scriptSetFlightManTurnaroundCB(char *directory,char *field,void *dataToFillIn);
+void scriptSetFlightManAIPCB(char *directory,char *field,void *dataToFillIn);
+void scriptSetFlightManEvasiveBehindCB(char *directory,char *field,void *dataToFillIn);
+void scriptSetFlightManEvasiveFrontCB(char *directory,char *field,void *dataToFillIn);
+void scriptSetFlightManEvasivePureCB(char *directory,char *field,void *dataToFillIn);
 
 udword flightmanGetRandom(FlightManProb *prob,udword flightmanSubtype);
 bool flightmanTestRandom(FlightManProb *prob,udword flightmanSubtype,udword flightman);
@@ -121,4 +121,3 @@ void flightmanTest();
 #endif
 
 #endif
-

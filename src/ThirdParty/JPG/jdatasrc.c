@@ -233,7 +233,7 @@ jpeg_stdio_src (j_decompress_ptr cinfo, filehandle infile)  // Homeworld SDL
   src->pub.skip_input_data = skip_input_data;
   src->pub.resync_to_restart = jpeg_resync_to_restart; /* use default method */
   src->pub.term_source = term_source;
-  src->infile = infile;
+  src->infile = (FILE *)infile;
   src->pub.bytes_in_buffer = 0; /* forces fill_input_buffer on first read */
   src->pub.next_input_byte = NULL; /* until buffer loaded */
 }

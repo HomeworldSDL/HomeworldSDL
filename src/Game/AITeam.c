@@ -245,11 +245,11 @@ void PreFixCooperatingTeamDiedCB(AITeam *team)
 {
     if (team->cooperatingTeamDiedCB == aitSpecialDefenseCoopTeamDiedCB)
     {
-        team->cooperatingTeamDiedCB = 1;
+        team->cooperatingTeamDiedCB = (void *)1;
     }
     else if (team->cooperatingTeamDiedCB == GenericCooperatingTeamDiedCB)
     {
-        team->cooperatingTeamDiedCB = 2;
+        team->cooperatingTeamDiedCB = (void *)2;
     }
     else
     {
@@ -2497,18 +2497,18 @@ void SaveThisAITeam(AITeam *team)
     chunk = CreateChunk(BASIC_STRUCTURE|AITEAM,sizeof(AITeam),team);
     sc = chunkContents(chunk);
 
-    sc->aiplayerowner = AIPlayerToNumber(team->aiplayerowner);
+    sc->aiplayerowner = (struct AIPlayer *)AIPlayerToNumber(team->aiplayerowner);
 
-    sc->curMove = ConvertPointerInListToNum(&team->moves,team->curMove);
+    sc->curMove = (struct AITeamMove *)ConvertPointerInListToNum(&team->moves,team->curMove);
     dbgAssertOrIgnore(team->custTeamInfo == NULL);      // not supported yet, will not support if no one uses it, fix later
     dbgAssertOrIgnore(team->TeamDiedCB == NULL);        // not supported yet, will not support if no one uses it, fix later
     PreFixCooperatingTeamDiedCB(sc);
 
-    sc->cooperatingTeam = AITeamToTeamIndex(team->cooperatingTeam);
-    sc->msgSender = AITeamToTeamIndex(team->msgSender);
+    sc->cooperatingTeam = (struct AITeam *)AITeamToTeamIndex(team->cooperatingTeam);
+    sc->msgSender = (struct AITeam *)AITeamToTeamIndex(team->msgSender);
 
-    sc->kasFSMWatchFunction = kasConvertFuncPtrToOffset(team->kasFSMWatchFunction);
-    sc->kasStateWatchFunction = kasConvertFuncPtrToOffset(team->kasStateWatchFunction);
+    sc->kasFSMWatchFunction = (void *)kasConvertFuncPtrToOffset(team->kasFSMWatchFunction);
+    sc->kasStateWatchFunction = (void *)kasConvertFuncPtrToOffset(team->kasStateWatchFunction);
 
     SaveThisChunk(chunk);
     memFree(chunk);

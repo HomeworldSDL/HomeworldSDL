@@ -1106,7 +1106,7 @@ ping *LoadAndFixAnomalyPing(void)
     memFree(chunk);
 
     newping->owner = SpaceObjRegistryGetObj((sdword)newping->owner);
-    newping->user = SpaceObjRegistryGetObj(newping->user);
+    newping->user = SpaceObjRegistryGetObj((sdword)newping->user);
     newping->evaluate = pingAnomalyPingTimeout;
 
     if (newping->userDataSize > 0)

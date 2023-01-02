@@ -273,9 +273,10 @@ void scriptSetReal32CB_ARRAY(char *directory, char *field, void *dataToFillIn)
 #endif
 
     dataToFillIn = (tactic * (NUM_CLASSES + 1)) + shipclass + (real32*)dataToFillIn;
-    *(real32*)dataToFillIn = value;
+    *((real32*)dataToFillIn) = value;
 }
-void scriptSetShipProbCB(char *directory, char *field, real32 *dataToFillIn)
+
+void scriptSetShipProbCB(char *directory, char *field, void *dataToFillIn)
 {
     char shipname[64];
     real32 prob;
@@ -286,10 +287,10 @@ void scriptSetShipProbCB(char *directory, char *field, real32 *dataToFillIn)
     shiptype = StrToShipType(shipname);
 
     dataToFillIn += shiptype;
-    *dataToFillIn = prob;
+    *((real32 *)dataToFillIn) = prob;
 }
 
-void scriptSetHyperspaceCostCB(char *directory, char *field, real32 *dataToFillIn)
+void scriptSetHyperspaceCostCB(char *directory, char *field, void *dataToFillIn)
 {
     char shipname[200];
     real32 mincost,slopecost,maxcost,mindistance;
@@ -309,7 +310,7 @@ void scriptSetHyperspaceCostCB(char *directory, char *field, real32 *dataToFillI
     costData->canMpHyperspace = TRUE;
 }
 
-void scriptSetSpecialDoorOffsetCB(char *directory, char *field, real32 *dataToFillIn)
+void scriptSetSpecialDoorOffsetCB(char *directory, char *field, void *dataToFillIn)
 {
     char shipname[200];
     char racename[50];
@@ -339,7 +340,7 @@ void scriptSetSpecialDoorOffsetCB(char *directory, char *field, real32 *dataToFi
 }
 
 
-void scriptSetShipGroupSizeCB(char *directory, char *field, sdword *dataToFillIn)
+void scriptSetShipGroupSizeCB(char *directory, char *field, void *dataToFillIn)
 {
     char shipname[64];
     sdword numingroup;
@@ -350,7 +351,7 @@ void scriptSetShipGroupSizeCB(char *directory, char *field, sdword *dataToFillIn
     shiptype = StrToShipType(shipname);
 
     dataToFillIn += shiptype;
-    *dataToFillIn = numingroup;
+    *((sdword *)dataToFillIn) = numingroup;
 }
 
 
