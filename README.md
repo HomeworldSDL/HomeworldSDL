@@ -61,10 +61,6 @@ This section is intended as a quick checklist to make sure you have everything n
 - [ ] `HW_Music.wxd`  
     > sha256: 48f93c07bf718c56c20727aba12f06baf13d4d11d1c7185d2d2153543834e454
 
-## Compiling from source
-
-Please refer to [`Linux/BUILD.md`](Linux/BUILD.md).
-
 ## Setting up the assets folder
 
 You should choose an installation folder where you will put (copy|move|symlink) all the [required files](#asset-checklist). This will be refered to as `$ASSETS_FOLDER` from here on out. (For example `~/Games/HomeworldSDL/`)
@@ -89,6 +85,21 @@ Open the game installation folder (usually `~/.wine/drive_c/Sierra/Homeworld`). 
 ##### Steam
 
 After installing the game, you should find the [required assets](#asset-checklist) in `~/.local/share/Steam/steamapps/common/Homeworld/Homeworld1Classic/Data`. Put them to `$ASSETS_FOLDER`.
+
+## Compiling from source
+
+If you have [Nix] installed, just run:
+
+
+```sh
+HW_Data=$ASSETS_FOLDER nix run 'git+https://gitlab.com/homeworldsdl/TenhauserGate.git?dir=Linux'
+```
+
+Nix will download everything it needs, build the HomeworldSDL source code, then run the resulting binary.
+
+If you don't have Nix installed, please refer to [`Linux/BUILD.md`](Linux/BUILD.md).
+
+[Nix]: https://nixos.org/nix/
 
 ## Running the game for the first time
 

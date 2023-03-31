@@ -31,7 +31,10 @@ config.h.in
 config.h.in~
 config
 configure
+configure~
 configure.ac
 
 cscope.files
 cscope.out
+
+.direnv/

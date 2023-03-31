@@ -1,0 +1,46 @@
+{
+  "nodes": {
+    "guidestone": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1686306597,
+        "narHash": "sha256-z12UrQTcD3I0AgltGRaODijK1pIDmywFC3yEUvylFf0=",
+        "ref": "refs/heads/main",
+        "rev": "b728a37c5a166c647e1857f3b1d7524487d35b5f",
+        "revCount": 2,
+        "type": "git",
+        "url": "https://gitlab.com/homeworldsdl/the-guidestone.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://gitlab.com/homeworldsdl/the-guidestone.git"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1680242334,
+        "narHash": "sha256-HlCbTg1oj6cWLtdQ9Gi8p27t4bde9cSWgtmWrBXdh8w=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "f30990fc98b8468eba13d75f6c4c2190a61073ea",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
+    "root": {
+      "inputs": {
+        "guidestone": "guidestone",
+        "nixpkgs": "nixpkgs"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

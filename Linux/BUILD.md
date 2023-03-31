@@ -4,11 +4,11 @@
 
 ### Using [Nix]
 
-If you have [Nix] installed, there is a [`shell.nix`](shell.nix) file listing the build depencies so you can just run the build in a `nix-shell` without installing anything:
+If you have [Nix] installed, there is a [`flake.nix`](flake.nix) file listing the build depencies so you can just run the build in a `nix develop` environment without installing anything:
 
 ``` sh
 cd Linux
-nix-shell
+nix develop
 ```
 
 You can then go on with the [Quick Start](#quick-start) in that virtual environment.
