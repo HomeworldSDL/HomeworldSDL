@@ -9,6 +9,9 @@ Source port of Homeworld 1 for Linux.
 [Homeworld] is a 3D space real-time strategy game released in 1999.
 It's source code was [released in 2003] by [Relic Entertainment], allowing a small but dedicated community of fans to port it to [SDL], enabling native versions for Linux, MacOS, and more recently, web browsers.
 
+💬 Join our [matrix space]
+
+[matrix space]: https://matrix.to/#/#homeworld-sdl:matrix.org
 [Homeworld SDL]: https://github.com/HomeworldSDL/HomeworldSDL
 [SDL]: https://en.wikipedia.org/wiki/Simple_DirectMedia_Layer
 [Homeworld]: https://en.wikipedia.org/wiki/Homeworld
