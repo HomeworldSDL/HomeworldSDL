@@ -112,9 +112,9 @@
 #define MEM_BlocksPerCookie     1
 
 //default memory heap size
-#define MEM_HeapSizeDefault     (18 * 1024 * 1024)
+#define MEM_HeapSizeDefault     (64 * 1024 * 1024)
 #define MEM_HeapDefaultScalar   0.40f
-#define MEM_HeapDefaultMax      (64 * 1024 * 1024)
+#define MEM_HeapDefaultMax      (128 * 1024 * 1024)
 
 //default name strings
 #define MEM_NameHeap            "HeapLow(free)"
@@ -161,7 +161,7 @@
 
 //definitions for growing the memory heaps
 #define MGH_NumberGrowthHeaps   16              //maximum number of extra heaps we can grow to
-#define MGH_MinGrowthSize       (4 * 1024 * 1024 - sizeof(memcookie) * 2)//grow in 4MB increments.  That's 64MB extra heap size.  Should be sufficient.
+#define MGH_MinGrowthSize       (8 * 1024 * 1024 - sizeof(memcookie) * 2)//grow in 8MB increments.  That's 64MB extra heap size.  Should be sufficient.
 
 /*=============================================================================
     Type definitions:
