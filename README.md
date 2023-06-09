@@ -90,6 +90,11 @@ After installing the game, you should find the [required assets](#asset-checklis
 
 If you have [Nix] installed, just run:
 
+```sh
+HW_Data=$ASSETS_FOLDER nix run --impure 'git+https://gitlab.com/homeworldsdl/TenhauserGate.git?dir=Linux#i-am-not-on-nixos'
+```
+
+Or if you are on NixOS:
 
 ```sh
 HW_Data=$ASSETS_FOLDER nix run 'git+https://gitlab.com/homeworldsdl/TenhauserGate.git?dir=Linux'

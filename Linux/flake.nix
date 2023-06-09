@@ -6,10 +6,14 @@
       url = git+https://gitlab.com/homeworldsdl/the-guidestone.git;
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixGL = {
+      url = github:guibou/nixGL;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
 
-  outputs = { self, nixpkgs, guidestone }: {
+  outputs = { self, nixpkgs, guidestone, nixGL }: {
 
     devShells.x86_64-linux.default = with nixpkgs.legacyPackages.x86_64-linux;
       mkShell {
@@ -34,6 +38,10 @@
         version = self.version;
         src = self.source-code;
       });
+
+    packages.x86_64-linux.i-am-not-on-nixos = nixpkgs.legacyPackages.x86_64-linux.writeShellScriptBin "non-nixos" ''
+      ${nixGL.packages.x86_64-linux.default}/bin/nixGL ${self.packages.x86_64-linux.default}/bin/homeworld
+    '';
 
     apps.x86_64-linux.default = {
       type = "app";
