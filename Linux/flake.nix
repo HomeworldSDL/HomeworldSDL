@@ -29,10 +29,11 @@
       '';
     version = "${builtins.substring 0 8 (self.lastModifiedDate or self.lastModified or "19700101")}.${self.shortRev or "dirty"}";
 
-    packages.x86_64-linux.default = guidestone.packages.x86_64-linux.default.overrideAttrs (attrs: {
-      version = self.version;
-      src = self.source-code;
-    });
+    packages.x86_64-linux.default = guidestone.packages.x86_64-linux.default.overrideAttrs
+      (attrs: {
+        version = self.version;
+        src = self.source-code;
+      });
 
     apps.x86_64-linux.default = {
       type = "app";

@@ -7,11 +7,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1686306597,
-        "narHash": "sha256-z12UrQTcD3I0AgltGRaODijK1pIDmywFC3yEUvylFf0=",
+        "lastModified": 1686328743,
+        "narHash": "sha256-8D87HRUeppB1oN+4xIDROHQWuhqBAYuJjngVv0UkPic=",
         "ref": "refs/heads/main",
-        "rev": "b728a37c5a166c647e1857f3b1d7524487d35b5f",
-        "revCount": 2,
+        "rev": "457fdde5658b3f3826dc993fdfb3b4acf1f27dce",
+        "revCount": 3,
         "type": "git",
         "url": "https://gitlab.com/homeworldsdl/the-guidestone.git"
       },
@@ -22,11 +22,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1680242334,
-        "narHash": "sha256-HlCbTg1oj6cWLtdQ9Gi8p27t4bde9cSWgtmWrBXdh8w=",
+        "lastModified": 1686277352,
+        "narHash": "sha256-quryYLnntwZZrwJ4Vsx24hiCkwiYZAEttiOu983akGg=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "f30990fc98b8468eba13d75f6c4c2190a61073ea",
+        "rev": "a9fa8f8450a2ae296f152a9b3d52df68d24b7cfc",
         "type": "github"
       },
       "original": {
