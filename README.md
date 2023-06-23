@@ -1,11 +1,29 @@
 # Homeworld SDL
 
-[SDL] port of the [Homeworld] source code that was [released in 2003] by [Relic Entertainment].
+📣 **Play in your browser!** Try our experimental wasm port here: [Gardens of Kadesh]
 
+Source port of Homeworld 1 for Linux.
+
+🛈 This repo is the central hub for the HomeworldSDL projects. There are different forks focused on different platforms.
+
+- Web & Windows: [Gardens of Kadesh]
+- Linux: [Tenhauser Gate]
+- Mac: No dedicated fork. This repository should work best.
+
+[Homeworld] is a 3D space real-time strategy game released in 1999.
+It's source code was [released in 2003] by [Relic Entertainment], allowing a small but dedicated community of fans to port it to [SDL], enabling native versions for Linux, MacOS, and more recently, web browsers.
+
+💬 Join our [matrix space] or [discord]
+
+[matrix space]: https://matrix.to/#/#homeworld-sdl:matrix.org
+[discord]: https://discord.gg/3hTsAsargq
 [SDL]: https://en.wikipedia.org/wiki/Simple_DirectMedia_Layer
 [Homeworld]: https://en.wikipedia.org/wiki/Homeworld
 [released in 2003]: http://www.insidemacgames.com/news/story.php?ArticleID=8516
 [Relic Entertainment]: https://www.relic.com/
+[Gardens of Kadesh]: https://gardensofkadesh.github.io/
+[Tenhauser Gate]: https://gitlab.com/homeworldsdl/TenhauserGate
+
 
 ## Installing
 
