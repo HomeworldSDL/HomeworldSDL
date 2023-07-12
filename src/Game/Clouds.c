@@ -1103,10 +1103,10 @@ void cloudRenderSystem(cloudSystem* system, sdword lod)
         //ellipsoid_render(&ellipseLOD[1], radius);
         //break;
     case 2:
-        ellipsoid_render(&ellipseLOD[2], radius);
-        break;
+        //ellipsoid_render(&ellipseLOD[2], radius);
+        //break;
     default:
-        ellipsoid_render(&ellipseLOD[3], radius);
+        ellipsoid_render(&ellipseLOD[0], radius);
     }
 
     rndLightingEnable(FALSE);
