@@ -1544,7 +1544,10 @@ bool rndFade(SpaceObj* spaceobj, Camera* camera)
     real32 distsqr0, distsqr1, distsqr;
     real32 fadedist, maxdist, mindist;
 
-    real32 mult = 1.3f;
+    // Not sure when and why the 1.3 multiplier was introduced
+    // but culling of render objects, based on renderlistLimitSqr, doesn't include this multiplier
+    // and hence some objects won't ever fade and just disappear suddenly.
+    real32 mult = 1.0f; //1.3f;
 
     vecSub(distvec, camera->lookatpoint, spaceobj->posinfo.position);
     distsqr0 = vecMagnitudeSquared(distvec);
@@ -1647,21 +1650,46 @@ bool rndFade(SpaceObj* spaceobj, Camera* camera)
     fadedist *= fadedist;
     mindist *= mindist;
 
+    real32 fadeAmount = 0.0f;
+
     if (distsqr < mindist || g_ReplaceHack)
     {
-        meshSetFade(0.0f);
+        fadeAmount = 0.0f;
     }
     else if (distsqr < mindist+fadedist)
     {
-        real32 amount = (distsqr - mindist) / fadedist;
-        meshSetFade(amount);
-        rndAdditiveBlends(FALSE);
+        fadeAmount = (distsqr - mindist) / fadedist;
     }
     else
+    {
+        fadeAmount = 1.0f;
+    }
+
+    // When the camera eye is far from an object it can happen
+    // that the object is rendered further away then the camera far clip plane and
+    // gets only partially rendered (if at all). Lets fade out the object gracefully before that happens.
+    real32 cameraDistFade = 0.1f * CAMERA_CLIP_FAR;
+    real32 cameraDist = fsqrt(distsqr1);
+    if (cameraDist > (CAMERA_CLIP_FAR - cameraDistFade))
+    {
+        fadeAmount = min(1.0f, max(fadeAmount, (cameraDist - (CAMERA_CLIP_FAR - cameraDistFade))/cameraDistFade));
+    }
+
+    if (fadeAmount >= 1.0f)
     {
         meshSetFade(1.0f);
         return TRUE;
     }
+    else if (fadeAmount > 0.0f)
+    {
+        meshSetFade(fadeAmount);
+        rndAdditiveBlends(FALSE);
+    }
+    else
+    {
+        meshSetFade(0.0f);
+    }
+
 
     return FALSE;
 }
@@ -2239,7 +2267,7 @@ void rndPostRenderDebug2DStuff(Camera *camera)
 
 #if DEBUG_FONT_CHECK_SPECIAL
     fontMakeCurrent(testing);
-    fontPrint(10,50,colWhite,"ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏĞÑÒÓÔÕÖ×ØÙÚÛÜİŞßàáâãäåæçèéêëìíîïğñòóôõö÷øùúûüışÿ");
+    fontPrint(10,50,colWhite,"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 
     if ((keyIsStuck(CONTROLKEY)) && (keyIsHit(SHIFTKEY)))
     {
