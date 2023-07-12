@@ -2653,7 +2653,7 @@ void AddShipToDeleteShipList(Ship *ship,GunSoundType damageType)
     // add to delete ship list
     deleteShip = memAlloc(sizeof(DeleteShip),"DeleteShip",Pyrophoric);
     deleteShip->ship = ship;
-    if (ship->health <= etgBigDeathFactor[shipstaticinfo->shiprace][shipstaticinfo->shipclass])
+    if (ship->health <= etgBigDeathFactor[shipstaticinfo->shiprace][shipstaticinfo->shipclass] && damageType != -1)
     {                                   //ship took a really big bong hit
         deleteShip->deathBy = (udword)etgDeathModeByGunType[damageType];
     }
