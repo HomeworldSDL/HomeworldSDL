@@ -19,7 +19,7 @@ static float gCBlock[FQ_SIZE];
 static float gCDBlock[FQ_DSIZE];
 
 
-inline float compress(float sample) {
+float compress(float sample) {
   static float limitLev = 0.5 * 32767;
   if (sample >  limitLev) return  limitLev + log(1.0 + 0.75 * ( sample - limitLev)/limitLev) * limitLev;
   if (sample < -limitLev) return -limitLev - log(1.0 + 0.75 * (-sample - limitLev)/limitLev) * limitLev;

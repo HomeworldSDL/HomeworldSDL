@@ -77,6 +77,9 @@ int fqDecBlock(float *aFPBlock,float *aFSBlock,
 int fqWriteTBlock(float *aLBlock,float *aRBlock,short nChan,
 	void *pBuf1,udword nSize1,void *pBuf2,udword nSize2);
 
+float compress(float sample);
+
+
 #ifdef __cplusplus
 }		// extern "C"
 #endif
