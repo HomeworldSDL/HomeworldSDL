@@ -396,6 +396,8 @@ void kasfToggleActor(sdword Actor, sdword on);
 void kasfMusicPlay(sdword trackNum);
 void kasfMusicStop(sdword fadeTime);
 
+// Returns 1 if at least one ship in the selection has been rendered with the given LOD or lower
+// (that is, closer to the camera / with higher details). 0 otherwise
 sdword kasfRenderedShips(GrowSelection *ships, sdword LOD);
 void kasfResetShipRenderFlags(GrowSelection *ships);
 sdword kasfRenderedDerelicts(char *derelictType, sdword LOD);

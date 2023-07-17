@@ -8,7 +8,7 @@
     #include "../../Game/SpeechEvent.h"
 #endif
 
-    LOCALIZATION //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+    LOCALIZATION //â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 //LString Standards:
 //LSTRING_(type)(string name)
 //types:
@@ -32,14 +32,14 @@
 
         LSTRING_OBDefendCryos
             "Defend cryo trays"
-            "Défendre les modules cryogéniques"
-            "Kälteschlaf-Container verteidigen."
-			"Defiende los soportes criogénicos"
+            "DÃ©fendre les modules cryogÃ©niques"
+            "KÃ¤lteschlaf-Container verteidigen."
+			"Defiende los soportes criogÃ©nicos"
 			"Difendi le camere criogeniche"
 
         LSTRING_OBObjective1
             "Capture enemy ship using 2 Salvage Corvettes"
-            "Capture Unité ennemie avec 2 Corvettes de Recuperation"
+            "Capture UnitÃ© ennemie avec 2 Corvettes de Recuperation"
             "Feindliches Schlachtschiff mit 2 Bergungskorvetten erobern."
 			"Captura la nave enemiga utilizando 2 corbetas de salvamento"
 			"Cattura l'astronave nemica con 2 Corvette di Recupero"
@@ -48,13 +48,13 @@
             "Salvage cryo trays"
             "Sauver les plates-formes"
             "Container abholen"
-			"Rescata los soportes criogénicos"
+			"Rescata los soportes criogÃ©nicos"
 			"Recupera le camere criogeniche"
 
         LSTRING_LevelSave
             "03 - Return To Kharak"
             "03 - Retour vers Kharak"
-            "03 – Rückkehr nach Kharak"
+            "03 â€“ RÃ¼ckkehr nach Kharak"
             "03 - Volver a Kharak"
 			"03 - Ritorno a Kharak"
 
@@ -67,15 +67,15 @@
 
         LSTRING_OBReadyToGo
             "Cryogenic Trays loaded.  Hyperspace module charged.  It's time to go."
-            "Chargement des plates-formes cryo accompli. Module Hyperspatial activé. On y va."
-            "Kälteschlaf-Container geladen. Hypersprung-Modul aufgeladen. Es wird Zeit zum Abflug."
-            "Soportes criogénicos cargados. Módulo hiperespacial cargado. Ha llegado el momento de partir."
-			"Camere Criogeniche a bordo. Modulo iperspaziale caricato. È ora di andare."
+            "Chargement des plates-formes cryo accompli. Module Hyperspatial activÃ©. On y va."
+            "KÃ¤lteschlaf-Container geladen. Hypersprung-Modul aufgeladen. Es wird Zeit zum Abflug."
+            "Soportes criogÃ©nicos cargados. MÃ³dulo hiperespacial cargado. Ha llegado el momento de partir."
+			"Camere Criogeniche a bordo. Modulo iperspaziale caricato. Ãˆ ora di andare."
 
 
 
 
-    ENDL //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+    ENDL //Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„Ã„
 
 
 
@@ -373,10 +373,7 @@ FSM ImNotHere
             WATCH
                 IF ((RenderedShips(TEAMSHIPS_EnemyFrig01, 4)) OR
                     (RenderedShips(TEAMSHIPS_EnemyFrig02, 4)) OR
-                    (RenderedShips(TEAMSHIPS_ImNotDeadYet, 4)) OR
-                    (RenderedShips(TEAMSHIPS_EnemyFrig01, 3)) OR
-                    (RenderedShips(TEAMSHIPS_EnemyFrig02, 3)) OR
-                    (RenderedShips(TEAMSHIPS_ImNotDeadYet, 3)))
+                    (RenderedShips(TEAMSHIPS_ImNotDeadYet, 4)))
                     JUMP LBXIn2;
                 ENDIF
             ENDWATCH
@@ -1527,7 +1524,7 @@ WATCH
         VarSet("G_SalCapNearby", FALSE);
     ENDIF
 
-    //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+    //â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     //      technology
     //
 
@@ -1552,7 +1549,7 @@ WATCH
     //this Mission's technology is added in the Events FSM when
     //the Frigate is captured.
 
-    //ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+    //â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 ENDWATCH
 
