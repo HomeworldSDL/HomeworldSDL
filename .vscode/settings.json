@@ -1,3 +1,9 @@
 {
-    "editor.formatOnSaveMode": "modifications"
+    "editor.formatOnSaveMode": "modifications",
+    "[cpp]": {
+        "editor.defaultFormatter": "xaver.clang-format"
+    },
+    "[c]": {
+        "editor.defaultFormatter": "xaver.clang-format"
+    }
 }

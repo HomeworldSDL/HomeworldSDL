@@ -1,0 +1,6 @@
+{
+    "recommendations": [
+        "xaver.clang-format",
+        "llvm-vs-code-extensions.vscode-clangd"
+    ]
+}
