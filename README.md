@@ -8,7 +8,7 @@ Source port of Homeworld 1 for Linux.
 
 - Web & Windows: [Gardens of Kadesh]
 - Linux: [Tenhauser Gate]
-- Mac: No dedicated fork. This repository should work best.
+- Mac: [Hiigara]
 
 [Homeworld] is a 3D space real-time strategy game released in 1999.
 It's source code was [released in 2003] by [Relic Entertainment], allowing a small but dedicated community of fans to port it to [SDL], enabling native versions for Linux, MacOS, and more recently, web browsers.
@@ -23,6 +23,7 @@ It's source code was [released in 2003] by [Relic Entertainment], allowing a sma
 [Relic Entertainment]: https://www.relic.com/
 [Gardens of Kadesh]: https://gardensofkadesh.github.io/
 [Tenhauser Gate]: https://gitlab.com/homeworldsdl/TenhauserGate
+[Hiigara]: https://github.com/atsb/Hiigara
 
 
 ## Installing
