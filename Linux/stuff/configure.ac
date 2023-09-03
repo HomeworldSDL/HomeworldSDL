@@ -4,8 +4,8 @@ AC_CANONICAL_TARGET
 AC_CANONICAL_HOST
 AC_CANONICAL_SYSTEM
 AM_INIT_AUTOMAKE([-Wall foreign dist-bzip2])
+AC_PROG_RANLIB
 
-AC_LIBTOOL_WIN32_DLL
 AC_PROG_CC
 if test "$CC" = :; then
   AC_MSG_ERROR([This package needs a C compiler.])
@@ -18,8 +18,6 @@ AM_PROG_LEX
 if test "$LEX" = :; then
   AC_MSG_ERROR([This package needs lex to compile.])
 fi
-AC_LIBTOOL_DLOPEN
-AM_PROG_LIBTOOL
 
 dnl Check if building on Windows (based off GTK+ 2.2.4 configure.in...I'm not
 dnl very familiar with autoconf).
@@ -100,9 +98,10 @@ if test "x$x86_64" = "xyes" ; then
     CFLAGS="$CFLAGS -D_X86_64 -D_X86_64_FIX_ME"
     x86_class_cpu="true"
 else
-    if test "$host_cpu" = "arm" ; then
-        echo "* Building ARM binary for Homeworld (ARM)"
-        CFLAGS="$CFLAGS -DARM -DGENERIC_ETGCALLFUNCTION"
+    if test "$host_cpu" = "aarch64" ; then
+        echo "* Building ARM64 binary for Homeworld (ARM)"
+        CFLAGS="$CFLAGS -D_X86_64 -D_X86_64_FIX_ME"
+	x86_class_cpu="false"
     else
         echo "* Building x86 binary for Homeworld (X86) *"
         CFLAGS="$CFLAGS -malign-double -D_X86"
@@ -118,7 +117,7 @@ AC_ARG_ENABLE(generic_etg,
 				if you want to test them use this option. (Otherwise, generic C code is used)]),
         [generic_etg=no], [generic_etg=yes])
 if test "x$generic_etg" = "xyes" ; then
-    echo "* Forceing generic etgFunctionCall (-DGENERIC_ETGCALLFUNCTION) *"
+    echo "* Forcing generic etgFunctionCall (-DGENERIC_ETGCALLFUNCTION) *"
     CFLAGS="$CFLAGS -DGENERIC_ETGCALLFUNCTION "
 fi
 

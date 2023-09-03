@@ -951,8 +951,10 @@ void *memAllocFunctionA(sdword length, udword flags, mempool *pool)
     memcookie *cookie, *newCookie, *nextCookie;
 
     memInitCheck();
-
+    
+#ifndef __aarch64__
     dbgAssertOrIgnore(length > 0/* && length < pool->heapLength*/);        //verify size is reasonable
+#endif
 
 #if MEM_VERBOSE_LEVEL >= 2
     dbgMessagef("memAllocFunctionA: allocating %d bytes for '%s'", length, name);
@@ -1195,10 +1197,12 @@ void *memAllocAttemptFunction(sdword length, udword flags)
     ubyte *newPointer = NULL;
 
 #if MEM_ERROR_CHECKING
+#ifndef __aarch64__
     if (length <= 0)
     {
         dbgFatalf(DBG_Loc, "Attempted to allocate %d bytes of '%s'", length, name);
     }
+#endif
 #endif
     if (!bitTest(flags, MBF_ExtendedPoolOnly))
     {
@@ -1605,8 +1609,10 @@ foundPool:;
 #endif //MEM_DETECT_VOLATILE
 
 #if MEM_ERROR_CHECKING
+#ifndef __aarch64__
     dbgAssertOrIgnore(cookie->blocksNext > 0);                      //ensure non-zero size
     dbgAssertOrIgnore((ubyte *)cookie + sizeof(memcookie) + memBlocksToBytes(cookie->blocksNext) <= (ubyte *)pool->last);
+#endif
 #endif
 
 #if MEM_VERBOSE_LEVEL >= 2
