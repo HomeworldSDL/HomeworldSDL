@@ -8,7 +8,7 @@
 
 #include "mouse.h"
 
-#include "SDL.h"
+#include <SDL2/SDL.h>
 
 #include "CommandWrap.h"
 #include "DDDFrigate.h"

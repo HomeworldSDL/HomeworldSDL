@@ -500,7 +500,7 @@ sdword memClearDword(void *dest, udword pattern, sdword nDwords)
         mov eax,pattern
         rep stosd
     }
-#elif defined (__GNUC__) && defined (__i386__) && !defined (_MACOSX_86)
+#elif defined (__GNUC__) && defined (__i386__)
     __asm__ (
         "rep stosl\n\t"
         :
@@ -952,7 +952,7 @@ void *memAllocFunctionA(sdword length, udword flags, mempool *pool)
 
     memInitCheck();
     
-#ifndef __aarch64__
+#if !defined(__APPLE__) || !defined(__aarch64__)
     dbgAssertOrIgnore(length > 0/* && length < pool->heapLength*/);        //verify size is reasonable
 #endif
 
@@ -1196,8 +1196,8 @@ void *memAllocAttemptFunction(sdword length, udword flags)
     mempool *pool;
     ubyte *newPointer = NULL;
 
+#if !defined(__APPLE__) || !defined(__aarch64__)
 #if MEM_ERROR_CHECKING
-#ifndef __aarch64__
     if (length <= 0)
     {
         dbgFatalf(DBG_Loc, "Attempted to allocate %d bytes of '%s'", length, name);
@@ -1608,8 +1608,8 @@ foundPool:;
     }
 #endif //MEM_DETECT_VOLATILE
 
+#if !defined(__APPLE__) || !defined(__aarch64__)
 #if MEM_ERROR_CHECKING
-#ifndef __aarch64__
     dbgAssertOrIgnore(cookie->blocksNext > 0);                      //ensure non-zero size
     dbgAssertOrIgnore((ubyte *)cookie + sizeof(memcookie) + memBlocksToBytes(cookie->blocksNext) <= (ubyte *)pool->last);
 #endif

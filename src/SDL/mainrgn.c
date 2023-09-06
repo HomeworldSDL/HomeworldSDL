@@ -1598,7 +1598,7 @@ void mrKeyPress(sdword ID)
 // handler code unless we explicitly skip that lookup. Of course having checked for it
 // here we could also put the handler code here too but for consistency that's been left
 // in the switch().
-#ifdef _MACOSX                  
+#ifdef __APPLE__
     if (ID != QKEY)
 #endif
     {
@@ -2635,7 +2635,7 @@ docapslock:
             break;
 
         case SS_SCREENSHOT_KEY:
-#ifdef _MACOSX
+#ifdef __APPLE__
         case SS_SCREENSHOT_KEY_2:
         case SS_SCREENSHOT_KEY_3:
 #endif
@@ -3681,7 +3681,7 @@ udword mrRegionProcess(regionhandle reg, sdword ID, udword event, udword data)
         return(0);
     }
 
-#ifdef _MACOSX
+#ifdef __APPLE__
 // Mac OS X remaps [ALT] + [left mouse button] to [middle mouse button] for the
 // benefit of single mouse button users. This confuses the key-press and mouse
 // code no end. Fortunately, some of the low level stuff is keeping track that

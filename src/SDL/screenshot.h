@@ -21,7 +21,7 @@
 
 #define SS_SCREENSHOT_KEY   SCROLLKEY
 
-#ifdef _MACOSX
+#ifdef __APPLE__
     // MAC OS X captures high F-keys for system functions like monitor
     // brightness and Expose etc so we also check for: 
 
@@ -30,7 +30,7 @@
     
     // key next to the 1 on the top numeric keys under esc for laptops
     // which remaps all the function keys to system use
-    #define SS_SCREENSHOT_KEY_3  PLUSMINUS
+    #define SS_SCREENSHOT_KEY_3  SDL_SCANCODE_KP_PLUSMINUS
 #endif
 
 

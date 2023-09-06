@@ -1,7 +1,7 @@
 #ifndef ___TITANINTERFACEC_H
 #define ___TITANINTERFACEC_H
 
-#ifdef _MACOSX
+#ifdef __APPLE__
     #include <stdlib.h>
 #else
     #include <wchar.h>

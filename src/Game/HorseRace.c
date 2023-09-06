@@ -70,7 +70,7 @@ extern udword gDevcaps2;
     defines:
 =============================================================================*/
 
-#ifdef _MACOSX
+#ifdef __APPLE__
     #define HR_SCALE_MISSION_LOADING_SCREENS  TRUE
 #else
     #define HR_SCALE_MISSION_LOADING_SCREENS  FALSE

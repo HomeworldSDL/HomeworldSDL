@@ -7,8 +7,9 @@
 #ifndef ___KEY_H
 #define ___KEY_H
 
-#include "SDL_scancode.h"
-#include "SDL_keycode.h"
+#include <SDL2/SDL_scancode.h>
+#include <SDL2/SDL_keycode.h>
+
 #include "Types.h"
 
 /*=============================================================================

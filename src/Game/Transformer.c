@@ -116,7 +116,7 @@ static int chkcpubit()
 
         popa
     }
-#elif defined (__GNUC__) && defined (__i386__) && !defined (_MACOSX_FIX_86)
+#elif defined (__GNUC__) && defined (__i386__)
     __asm__ __volatile__ (
         "    pushfl\n"
         "    popl %%eax\n"
@@ -206,7 +206,7 @@ void transStartup(void)
                 haveFXSR = 1;
             }
 
-#elif defined (__GNUC__) && defined (__i386__) && !defined (_MACOSX_FIX_86)
+#elif defined (__GNUC__) && defined (__i386__)
             __asm__ __volatile__ (
                 "    movl $1, %%eax\n"
                 "    cpuid\n"
@@ -383,7 +383,7 @@ void transTransformVertexList_asm(sdword n, hvector* dest, vertexentry* source, 
         add     ecx, 4*FSIZE
         jnz     MEGA0
     }
-#elif defined (__GNUC__) && defined (__i386__) && !defined (_MACOSX_FIX_86)
+#elif defined (__GNUC__) && defined (__i386__)
     __asm__ __volatile__ (
         "    shll $4, %%ecx\n"
         "    addl %%ecx, %%esi\n"
@@ -527,7 +527,7 @@ void transPerspectiveTransform_asm(sdword n, hvector* dest, hvector* source, hma
         pop edi
         pop esi
     }
-#elif defined (__GNUC__) && defined (__i386__) && !defined (_MACOSX_FIX_86)
+#elif defined (__GNUC__) && defined (__i386__)
     __asm__ __volatile__ (
         "    testl %%ecx, %%ecx\n"
         "    jz 2f\n"
@@ -776,7 +776,7 @@ void transGeneralPerspectiveTransform_asm(sdword n, hvector* dest, hvector* sour
         pop edi
         pop esi
     }
-#elif defined (__GNUC__) && defined (__i386__) && !defined (_MACOSX_FIX_86)
+#elif defined (__GNUC__) && defined (__i386__)
     __asm__ __volatile__ (
         "    testl %%ecx, %%ecx\n"
         "    jz genperspxform_two\n"

@@ -12,8 +12,8 @@
 #ifndef ___TYPES_H
 #define ___TYPES_H
 
-#include "SDL_stdinc.h"
-#include "SDL_endian.h"
+#include <SDL2/SDL_stdinc.h>
+#include <SDL2/SDL_endian.h>
 
 #ifdef _MSC_VER
     #ifndef WIN32_LEAN_AND_MEAN
@@ -26,7 +26,7 @@
 // "maximum length of a filesystem path string".
 #ifdef WIN32
     #define PATH_MAX MAX_PATH
-#elif defined _MACOSX
+#elif defined __APPLE__
     #include <sys/syslimits.h>
 #elif defined linux
     #include <limits.h>

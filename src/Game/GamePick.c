@@ -84,7 +84,7 @@ char TutorialSavedGamesPath[] = "SavedGames\\Training\\";
 #else
 
 //SinglePlayerSavedGamesPath is non-static because it is used in KASFunc.c
-#if defined(HW_GAME_RAIDER_RETREAT) && defined(_MACOSX)
+#if defined(HW_GAME_RAIDER_RETREAT) && defined(__APPLE__)
 char SinglePlayerSavedGamesPath[] = "SavedGames/Raider\ Retreat/";
 #else
 char SinglePlayerSavedGamesPath[] = "SavedGames/SinglePlayer/";

@@ -445,7 +445,7 @@ void matMultiplyMatByMat(matrix *result,matrix *first,matrix *second)
         pop       esi
         pop       edi
     }
-#elif defined (_USE_ASM) && defined (__GNUC__) && defined (__i386__) && !defined (_MACOSX_FIX_86)
+#elif defined (_USE_ASM) && defined (__GNUC__) && defined (__i386__)
 /* This block of code is the modified version of the code above.
  * It was safe to use upto gcc 4.1, but seems to generate a 
  * problem once we use -O2 with gcc 4.3  */
@@ -724,7 +724,7 @@ void matMultiplyMatByVec(vector *result,matrix *matrix,vector *vector)
         pop     edi
         pop     esi
     }
-#elif defined (__GNUC__) && defined (__i386__) && !defined (_MACOSX_FIX_86)
+#elif defined (__GNUC__) && defined (__i386__)
     __asm__ __volatile__ (
         "    flds    0*"FSIZE_STR"("SOURCE")\n"               /*s0*/
         "    fmuls   (0+0*3)*"FSIZE_STR"("MATRIX")\n"         /*a0*/
@@ -855,7 +855,7 @@ void matMultiplyVecByMat(vector *result,vector *vector,matrix *matrix)
         pop     edi
         pop     esi
     }
-#elif defined (__GNUC__) && defined (__i386__) && !defined (_MACOSX_FIX_86)
+#elif defined (__GNUC__) && defined (__i386__)
     __asm__ __volatile__ (
         "    flds    0*"FSIZE_STR"("SOURCE")\n"               /*s0*/
         "    fmuls   (0+0*3)*"FSIZE_STR"("MATRIX")\n"         /*a0*/

@@ -1,7 +1,7 @@
 #ifndef ___SOUNDCMN_H
 #define ___SOUNDCMN_H
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 #include "File.h"
 #include "fqcodec.h"

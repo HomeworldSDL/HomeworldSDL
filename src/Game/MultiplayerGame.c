@@ -49,9 +49,7 @@
     #include <strings.h>
 #endif
 
-#ifndef _MACOSX
-    #include <wchar.h>
-#endif
+#include <wchar.h>
 
 
 /*=============================================================================

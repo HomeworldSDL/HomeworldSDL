@@ -38,3 +38,4 @@ cscope.files
 cscope.out
 
 .direnv/
+*.DS_Store

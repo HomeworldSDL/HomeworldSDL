@@ -3,10 +3,19 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 42;
+	objectVersion = 45;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A0FC9972AADEF8D0077F592 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A0FC9952AADEF830077F592 /* SDL2.framework */; };
+		2A0FC9982AADEF8D0077F592 /* SDL2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2A0FC9952AADEF830077F592 /* SDL2.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		2A0FC99A2AADF3020077F592 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A0FC9952AADEF830077F592 /* SDL2.framework */; };
+		2A0FC99B2AADF3020077F592 /* SDL2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2A0FC9952AADEF830077F592 /* SDL2.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		2A33B4C02AA1FCB30067FBDC /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E8607613487BD10079E9AB /* OpenGL.framework */; };
+		2A33B4C22AA1FCB50067FBDC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		2AA6D5A12AA8FE1B00C00360 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AA6D5A02AA8FE1A00C00360 /* OpenGL.framework */; };
+		2AF203152AB0D40D0018711B /* File_Mac.c in Sources */ = {isa = PBXBuildFile; fileRef = 2AF203142AB0D28C0018711B /* File_Mac.c */; };
+		2AF203162AB0D41A0018711B /* File_Mac.c in Sources */ = {isa = PBXBuildFile; fileRef = 2AF203142AB0D28C0018711B /* File_Mac.c */; };
 		3507A51B0B0FA60200E374C5 /* Trails.c in Sources */ = {isa = PBXBuildFile; fileRef = 3507A5190B0FA60200E374C5 /* Trails.c */; };
 		3507A51D0B0FA60200E374C5 /* Trails.c in Sources */ = {isa = PBXBuildFile; fileRef = 3507A5190B0FA60200E374C5 /* Trails.c */; };
 		3507A57A0B0FBB0B00E374C5 /* Subtitle.c in Sources */ = {isa = PBXBuildFile; fileRef = 3507A5780B0FBB0B00E374C5 /* Subtitle.c */; };
@@ -61,7 +70,6 @@
 		3516C978077C41B0001AA863 /* Eval.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C55064992AE0088361C /* Eval.c */; };
 		3516C97A077C41B0001AA863 /* FEFlow.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C5A064992AE0088361C /* FEFlow.c */; };
 		3516C97B077C41B0001AA863 /* FEReg.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C5C064992AE0088361C /* FEReg.c */; };
-		3516C97C077C41B0001AA863 /* File.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C5E064992AE0088361C /* File.c */; };
 		3516C97D077C41B0001AA863 /* FlightMan.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C60064992AE0088361C /* FlightMan.c */; };
 		3516C97E077C41B0001AA863 /* FontReg.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C63064992AE0088361C /* FontReg.c */; };
 		3516C97F077C41B0001AA863 /* Formation.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C65064992AE0088361C /* Formation.c */; };
@@ -161,7 +169,7 @@
 		3516CA38077C41B0001AA863 /* TimeoutTimer.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD924E064AEE7A003E3D39 /* TimeoutTimer.c */; };
 		3516CA39077C41B0001AA863 /* Titan.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9250064AEE7A003E3D39 /* Titan.c */; };
 		3516CA3A077C41B0001AA863 /* TitanInterfaceC.stub.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9255064AEE7A003E3D39 /* TitanInterfaceC.stub.c */; };
-		3516CA3C077C41B0001AA863 /* utility.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD925A064AEE7A003E3D39 /* utility.c */; };
+		3516CA3C077C41B0001AA863 /* utility_mac.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD925A064AEE7A003E3D39 /* utility_mac.c */; };
 		3516CA3D077C41B0001AA863 /* AdvanceSupportFrigate.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD92E7064AEF42003E3D39 /* AdvanceSupportFrigate.c */; };
 		3516CA3E077C41B0001AA863 /* Carrier.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD92E9064AEF42003E3D39 /* Carrier.c */; };
 		3516CA3F077C41B0001AA863 /* CloakGenerator.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD92EB064AEF42003E3D39 /* CloakGenerator.c */; };
@@ -202,17 +210,14 @@
 		3516CA62077C41B0001AA863 /* SensorArray.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9333064AEF43003E3D39 /* SensorArray.c */; };
 		3516CA63077C41B0001AA863 /* StandardDestroyer.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9335064AEF43003E3D39 /* StandardDestroyer.c */; };
 		3516CA64077C41B0001AA863 /* StandardFrigate.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9337064AEF43003E3D39 /* StandardFrigate.c */; };
-		3516CA65077C41B0001AA863 /* SDLMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BD93C1064AF4F3003E3D39 /* SDLMain.m */; };
 		3516CA66077C41B0001AA863 /* avi.c in Sources */ = {isa = PBXBuildFile; fileRef = 9030AF92066D5D2C00B32218 /* avi.c */; };
 		3516CA67077C41B0001AA863 /* rinit.c in Sources */ = {isa = PBXBuildFile; fileRef = 9030AF93066D5D2C00B32218 /* rinit.c */; };
 		3516CA6B077C41B0001AA863 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		3516CA6C077C41B0001AA863 /* SDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35517D100732744900691120 /* SDL.framework */; };
 		352F5638131A8CD2000C95B3 /* dct.c in Sources */ = {isa = PBXBuildFile; fileRef = EDB88AFB0EBF5AAA00D2C5CF /* dct.c */; };
 		352F5639131A8CD3000C95B3 /* fqcodec.c in Sources */ = {isa = PBXBuildFile; fileRef = EDB88AF80EBF5AAA00D2C5CF /* fqcodec.c */; };
 		352F563A131A8CD4000C95B3 /* fqeffect.c in Sources */ = {isa = PBXBuildFile; fileRef = EDB88AFA0EBF5AAA00D2C5CF /* fqeffect.c */; };
 		352F563B131A8CD5000C95B3 /* fquant.c in Sources */ = {isa = PBXBuildFile; fileRef = EDB88AF90EBF5AAA00D2C5CF /* fquant.c */; };
 		352F563C131A8CD8000C95B3 /* mixfft.c in Sources */ = {isa = PBXBuildFile; fileRef = EDB88AFE0EBF5AAA00D2C5CF /* mixfft.c */; };
-		35517D110732744900691120 /* SDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35517D100732744900691120 /* SDL.framework */; };
 		3578AD080AF40518007BFA9F /* StringSupport.c in Sources */ = {isa = PBXBuildFile; fileRef = 3578AD060AF40518007BFA9F /* StringSupport.c */; };
 		3578AD0A0AF40518007BFA9F /* StringSupport.c in Sources */ = {isa = PBXBuildFile; fileRef = 3578AD060AF40518007BFA9F /* StringSupport.c */; };
 		3580380F0B18679B00D47728 /* CRC32.c in Sources */ = {isa = PBXBuildFile; fileRef = 3580380C0B18679B00D47728 /* CRC32.c */; };
@@ -355,7 +360,6 @@
 		35CD356A0B13ADEE0064A20B /* jquant1.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34EA0B13ADEE0064A20B /* jquant1.c */; };
 		35CD356B0B13ADEE0064A20B /* jquant2.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34EB0B13ADEE0064A20B /* jquant2.c */; };
 		35CD356C0B13ADEE0064A20B /* jutils.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CD34EC0B13ADEE0064A20B /* jutils.c */; };
-		35E8607713487BD10079E9AB /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E8607613487BD10079E9AB /* OpenGL.framework */; };
 		35EFB925123D18A7006C9E20 /* jaricom.c in Sources */ = {isa = PBXBuildFile; fileRef = 35EFB921123D18A7006C9E20 /* jaricom.c */; };
 		35EFB926123D18A7006C9E20 /* jcarith.c in Sources */ = {isa = PBXBuildFile; fileRef = 35EFB922123D18A7006C9E20 /* jcarith.c */; };
 		35EFB927123D18A7006C9E20 /* jdarith.c in Sources */ = {isa = PBXBuildFile; fileRef = 35EFB923123D18A7006C9E20 /* jdarith.c */; };
@@ -396,7 +400,6 @@
 		35FE5B290B17CB2300D6E944 /* LZSS.c in Sources */ = {isa = PBXBuildFile; fileRef = 35FE5B240B17CB2200D6E944 /* LZSS.c */; };
 		35FE5B2C0B17CB2300D6E944 /* BitIO.c in Sources */ = {isa = PBXBuildFile; fileRef = 35FE5B220B17CB2200D6E944 /* BitIO.c */; };
 		35FE5B2E0B17CB2300D6E944 /* LZSS.c in Sources */ = {isa = PBXBuildFile; fileRef = 35FE5B240B17CB2200D6E944 /* LZSS.c */; };
-		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		9030AF94066D5D2C00B32218 /* avi.c in Sources */ = {isa = PBXBuildFile; fileRef = 9030AF92066D5D2C00B32218 /* avi.c */; };
 		9030AF95066D5D2C00B32218 /* rinit.c in Sources */ = {isa = PBXBuildFile; fileRef = 9030AF93066D5D2C00B32218 /* rinit.c */; };
 		90623D20064992AF0088361C /* AIAttackMan.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623BEE064992AE0088361C /* AIAttackMan.c */; };
@@ -448,7 +451,6 @@
 		90623D87064992AF0088361C /* Eval.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C55064992AE0088361C /* Eval.c */; };
 		90623D8C064992AF0088361C /* FEFlow.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C5A064992AE0088361C /* FEFlow.c */; };
 		90623D8E064992AF0088361C /* FEReg.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C5C064992AE0088361C /* FEReg.c */; };
-		90623D90064992AF0088361C /* File.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C5E064992AE0088361C /* File.c */; };
 		90623D92064992AF0088361C /* FlightMan.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C60064992AE0088361C /* FlightMan.c */; };
 		90623D95064992AF0088361C /* FontReg.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C63064992AE0088361C /* FontReg.c */; };
 		90623D97064992AF0088361C /* Formation.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623C65064992AE0088361C /* Formation.c */; };
@@ -547,7 +549,7 @@
 		90BD92A5064AEE7B003E3D39 /* TimeoutTimer.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD924E064AEE7A003E3D39 /* TimeoutTimer.c */; };
 		90BD92A7064AEE7B003E3D39 /* Titan.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9250064AEE7A003E3D39 /* Titan.c */; };
 		90BD92AC064AEE7B003E3D39 /* TitanInterfaceC.stub.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9255064AEE7A003E3D39 /* TitanInterfaceC.stub.c */; };
-		90BD92B1064AEE7B003E3D39 /* utility.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD925A064AEE7A003E3D39 /* utility.c */; };
+		90BD92B1064AEE7B003E3D39 /* utility_mac.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD925A064AEE7A003E3D39 /* utility_mac.c */; };
 		90BD9339064AEF43003E3D39 /* AdvanceSupportFrigate.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD92E7064AEF42003E3D39 /* AdvanceSupportFrigate.c */; };
 		90BD933B064AEF43003E3D39 /* Carrier.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD92E9064AEF42003E3D39 /* Carrier.c */; };
 		90BD933D064AEF43003E3D39 /* CloakGenerator.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD92EB064AEF42003E3D39 /* CloakGenerator.c */; };
@@ -588,7 +590,6 @@
 		90BD9385064AEF43003E3D39 /* SensorArray.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9333064AEF43003E3D39 /* SensorArray.c */; };
 		90BD9387064AEF43003E3D39 /* StandardDestroyer.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9335064AEF43003E3D39 /* StandardDestroyer.c */; };
 		90BD9389064AEF43003E3D39 /* StandardFrigate.c in Sources */ = {isa = PBXBuildFile; fileRef = 90BD9337064AEF43003E3D39 /* StandardFrigate.c */; };
-		90BD93C3064AF4F3003E3D39 /* SDLMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BD93C1064AF4F3003E3D39 /* SDLMain.m */; };
 		EDB88AFF0EBF5AAA00D2C5CF /* fqcodec.c in Sources */ = {isa = PBXBuildFile; fileRef = EDB88AF80EBF5AAA00D2C5CF /* fqcodec.c */; };
 		EDB88B000EBF5AAA00D2C5CF /* fquant.c in Sources */ = {isa = PBXBuildFile; fileRef = EDB88AF90EBF5AAA00D2C5CF /* fquant.c */; };
 		EDB88B010EBF5AAA00D2C5CF /* fqeffect.c in Sources */ = {isa = PBXBuildFile; fileRef = EDB88AFA0EBF5AAA00D2C5CF /* fqeffect.c */; };
@@ -596,18 +597,48 @@
 		EDB88B030EBF5AAA00D2C5CF /* mixfft.c in Sources */ = {isa = PBXBuildFile; fileRef = EDB88AFE0EBF5AAA00D2C5CF /* mixfft.c */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		2A703E7C2AA5955000BF4C5A /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				2A0FC99B2AADF3020077F592 /* SDL2.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2AA6D59F2AA8FE0400C00360 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				2A0FC9982AADEF8D0077F592 /* SDL2.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
-		35017184077C54EA00684108 /* English */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/HomeworldPlist.strings; sourceTree = "<group>"; };
+		2A0FC9952AADEF830077F592 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL2.framework; sourceTree = "<group>"; };
+		2A33B4C42AA2002A0067FBDC /* Homeworld.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Homeworld.entitlements; sourceTree = "<group>"; };
+		2A58F0A52AA1A28B001D2C18 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HomeworldPlist.strings; sourceTree = "<group>"; };
+		2A58F0A62AA1A28C001D2C18 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/RaiderRetreatPlist.strings; sourceTree = "<group>"; };
+		2AA6D5A02AA8FE1A00C00360 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		2AA6D5A22AA8FE2600C00360 /* Raider Retreat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Raider Retreat.entitlements"; sourceTree = "<group>"; };
+		2AB589B52AA1ED4B00452DD3 /* HomeworldSDL.big */ = {isa = PBXFileReference; lastKnownFileType = file; name = HomeworldSDL.big; path = ../HomeworldSDL.big; sourceTree = "<group>"; };
+		2AF203142AB0D28C0018711B /* File_Mac.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = File_Mac.c; sourceTree = "<group>"; };
 		3507A5190B0FA60200E374C5 /* Trails.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Trails.c; sourceTree = "<group>"; };
 		3507A51A0B0FA60200E374C5 /* Trails.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Trails.h; sourceTree = "<group>"; };
 		3507A5780B0FBB0B00E374C5 /* Subtitle.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Subtitle.c; sourceTree = "<group>"; };
 		3507A5790B0FBB0B00E374C5 /* Subtitle.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Subtitle.h; sourceTree = "<group>"; };
 		351B671C077E3D80002ABC6E /* Raider Retreat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Raider Retreat.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		351B67AA077E4728002ABC6E /* English */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/RaiderRetreatPlist.strings; sourceTree = "<group>"; };
 		3522273F0BB9D92500E42E42 /* standard_library.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = standard_library.h; sourceTree = "<group>"; };
 		35517D000732720E00691120 /* Homeworld_Prefix.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Homeworld_Prefix.h; sourceTree = "<group>"; };
-		35517D100732744900691120 /* SDL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL.framework; path = /Library/Frameworks/SDL.framework; sourceTree = "<absolute>"; };
 		3578AD060AF40518007BFA9F /* StringSupport.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = StringSupport.c; sourceTree = "<group>"; };
 		3578AD070AF40518007BFA9F /* StringSupport.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = StringSupport.h; sourceTree = "<group>"; };
 		3580380C0B18679B00D47728 /* CRC32.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = CRC32.c; sourceTree = "<group>"; };
@@ -866,7 +897,6 @@
 		90623C5B064992AE0088361C /* FEFlow.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = FEFlow.h; path = ../src/Game/FEFlow.h; sourceTree = SOURCE_ROOT; };
 		90623C5C064992AE0088361C /* FEReg.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = FEReg.c; path = ../src/Game/FEReg.c; sourceTree = SOURCE_ROOT; };
 		90623C5D064992AE0088361C /* FEReg.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = FEReg.h; path = ../src/Game/FEReg.h; sourceTree = SOURCE_ROOT; };
-		90623C5E064992AE0088361C /* File.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = File.c; path = ../src/Game/File.c; sourceTree = SOURCE_ROOT; };
 		90623C5F064992AE0088361C /* File.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = File.h; path = ../src/Game/File.h; sourceTree = SOURCE_ROOT; };
 		90623C60064992AE0088361C /* FlightMan.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = FlightMan.c; path = ../src/Game/FlightMan.c; sourceTree = SOURCE_ROOT; };
 		90623C61064992AE0088361C /* FlightMan.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = FlightMan.h; path = ../src/Game/FlightMan.h; sourceTree = SOURCE_ROOT; };
@@ -1089,7 +1119,7 @@
 		90BD9254064AEE7A003E3D39 /* TitanInterfaceC.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TitanInterfaceC.h; path = ../src/SDL/TitanInterfaceC.h; sourceTree = SOURCE_ROOT; };
 		90BD9255064AEE7A003E3D39 /* TitanInterfaceC.stub.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = TitanInterfaceC.stub.c; path = ../src/SDL/TitanInterfaceC.stub.c; sourceTree = SOURCE_ROOT; };
 		90BD9257064AEE7A003E3D39 /* TitanPacketMsg.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TitanPacketMsg.h; path = ../src/SDL/TitanPacketMsg.h; sourceTree = SOURCE_ROOT; };
-		90BD925A064AEE7A003E3D39 /* utility.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = utility.c; path = ../src/SDL/utility.c; sourceTree = SOURCE_ROOT; };
+		90BD925A064AEE7A003E3D39 /* utility_mac.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = utility_mac.c; path = ../src/SDL/utility_mac.c; sourceTree = SOURCE_ROOT; };
 		90BD925B064AEE7A003E3D39 /* utility.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = utility.h; path = ../src/SDL/utility.h; sourceTree = SOURCE_ROOT; };
 		90BD92E7064AEF42003E3D39 /* AdvanceSupportFrigate.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = AdvanceSupportFrigate.c; path = ../src/Ships/AdvanceSupportFrigate.c; sourceTree = SOURCE_ROOT; };
 		90BD92E8064AEF42003E3D39 /* AdvanceSupportFrigate.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = AdvanceSupportFrigate.h; path = ../src/Ships/AdvanceSupportFrigate.h; sourceTree = SOURCE_ROOT; };
@@ -1171,8 +1201,6 @@
 		90BD9336064AEF43003E3D39 /* StandardDestroyer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = StandardDestroyer.h; path = ../src/Ships/StandardDestroyer.h; sourceTree = SOURCE_ROOT; };
 		90BD9337064AEF43003E3D39 /* StandardFrigate.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = StandardFrigate.c; path = ../src/Ships/StandardFrigate.c; sourceTree = SOURCE_ROOT; };
 		90BD9338064AEF43003E3D39 /* StandardFrigate.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = StandardFrigate.h; path = ../src/Ships/StandardFrigate.h; sourceTree = SOURCE_ROOT; };
-		90BD93C1064AF4F3003E3D39 /* SDLMain.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = SDLMain.m; sourceTree = "<group>"; };
-		90BD93C2064AF4F3003E3D39 /* SDLMain.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SDLMain.h; sourceTree = "<group>"; };
 		EDB88AF80EBF5AAA00D2C5CF /* fqcodec.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fqcodec.c; sourceTree = "<group>"; };
 		EDB88AF90EBF5AAA00D2C5CF /* fquant.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fquant.c; sourceTree = "<group>"; };
 		EDB88AFA0EBF5AAA00D2C5CF /* fqeffect.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fqeffect.c; sourceTree = "<group>"; };
@@ -1187,8 +1215,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A0FC9972AADEF8D0077F592 /* SDL2.framework in Frameworks */,
 				3516CA6B077C41B0001AA863 /* Cocoa.framework in Frameworks */,
-				3516CA6C077C41B0001AA863 /* SDL.framework in Frameworks */,
+				2AA6D5A12AA8FE1B00C00360 /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1196,9 +1225,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
-				35E8607713487BD10079E9AB /* OpenGL.framework in Frameworks */,
-				35517D110732744900691120 /* SDL.framework in Frameworks */,
+				2A0FC99A2AADF3020077F592 /* SDL2.framework in Frameworks */,
+				2A33B4C02AA1FCB30067FBDC /* OpenGL.framework in Frameworks */,
+				2A33B4C22AA1FCB50067FBDC /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1210,7 +1239,6 @@
 			children = (
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
 				35E8607613487BD10079E9AB /* OpenGL.framework */,
-				35517D100732744900691120 /* SDL.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -1227,6 +1255,9 @@
 		29B97314FDCFA39411CA2CEA /* Homeworld */ = {
 			isa = PBXGroup;
 			children = (
+				2AA6D5A22AA8FE2600C00360 /* Raider Retreat.entitlements */,
+				2A33B4C42AA2002A0067FBDC /* Homeworld.entitlements */,
+				2AB589B52AA1ED4B00452DD3 /* HomeworldSDL.big */,
 				90623BEA064992490088361C /* src */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -1240,8 +1271,6 @@
 			isa = PBXGroup;
 			children = (
 				35517D000732720E00691120 /* Homeworld_Prefix.h */,
-				90BD93C2064AF4F3003E3D39 /* SDLMain.h */,
-				90BD93C1064AF4F3003E3D39 /* SDLMain.m */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -1262,6 +1291,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2A0FC9952AADEF830077F592 /* SDL2.framework */,
+				2AA6D5A02AA8FE1A00C00360 /* OpenGL.framework */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 			);
 			name = Frameworks;
@@ -1597,7 +1628,7 @@
 				90623C5B064992AE0088361C /* FEFlow.h */,
 				90623C5C064992AE0088361C /* FEReg.c */,
 				90623C5D064992AE0088361C /* FEReg.h */,
-				90623C5E064992AE0088361C /* File.c */,
+				2AF203142AB0D28C0018711B /* File_Mac.c */,
 				90623C5F064992AE0088361C /* File.h */,
 				90623C60064992AE0088361C /* FlightMan.c */,
 				90623C61064992AE0088361C /* FlightMan.h */,
@@ -1846,7 +1877,7 @@
 				90BD9254064AEE7A003E3D39 /* TitanInterfaceC.h */,
 				90BD9255064AEE7A003E3D39 /* TitanInterfaceC.stub.c */,
 				90BD9257064AEE7A003E3D39 /* TitanPacketMsg.h */,
-				90BD925A064AEE7A003E3D39 /* utility.c */,
+				90BD925A064AEE7A003E3D39 /* utility_mac.c */,
 				90BD925B064AEE7A003E3D39 /* utility.h */,
 			);
 			name = SDL;
@@ -1951,10 +1982,12 @@
 			buildConfigurationList = 35CC221F0955C2E100504293 /* Build configuration list for PBXNativeTarget "Raider Retreat" */;
 			buildPhases = (
 				35BE70E007937E0B00AEFC3C /* ShellScript */,
+				2AA6D5A32AA8FEC500C00360 /* ShellScript */,
 				3516C942077C41B0001AA863 /* Resources */,
 				3516C946077C41B0001AA863 /* Sources */,
 				3516CA6A077C41B0001AA863 /* Frameworks */,
 				3507D89707996FCC00F093F4 /* ShellScript */,
+				2AA6D59F2AA8FE0400C00360 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1970,11 +2003,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 35CC221B0955C2E100504293 /* Build configuration list for PBXNativeTarget "Homeworld" */;
 			buildPhases = (
-				355BE77707935BD200F82BB0 /* ShellScript */,
+				355BE77707935BD200F82BB0 /* Run Script */,
+				2A5B03802AA1DA76009CF45F /* ShellScript */,
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
 				3507D813079955A400F093F4 /* ShellScript */,
+				2A703E7C2AA5955000BF4C5A /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1991,15 +2026,19 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1310;
+			};
 			buildConfigurationList = 35CC22230955C2E100504293 /* Build configuration list for PBXProject "Homeworld" */;
 			compatibilityVersion = "Xcode 2.4";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 1;
 			knownRegions = (
-				English,
-				Japanese,
-				French,
-				German,
+				fr,
+				de,
+				ja,
+				en,
+				Base,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Homeworld */;
 			projectDirPath = "";
@@ -2033,6 +2072,40 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		2A5B03802AA1DA76009CF45F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\n#Compile HomeworldSDL.big into repo root\ncd ../tools/biggie\n./biggie-macOS-compile.sh\ncd ../../HomeworldSDL_big\n./convert_directory_to_big_file\n";
+		};
+		2AA6D5A32AA8FEC500C00360 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\n#Compile HomeworldSDL.big into repo root\ncd ../tools/biggie\n./biggie-macOS-compile.sh\ncd ../../HomeworldSDL_big\n./convert_directory_to_big_file\n";
+		};
 		3507D813079955A400F093F4 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 12;
@@ -2045,7 +2118,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "# force the shell; XCode really likes sh regardless of configuration\n/bin/zsh\n\ncase \"${BUILD_STYLE}\" in\n\n    Deployment)\n\n        # copy in the SDL framework\n        mkdir -p ./build/Deployment/Homeworld.app/Contents/Frameworks\n        cp -pR /Library/Frameworks/SDL.framework ./build/Deployment/Homeworld.app/Contents/Frameworks\n\n        # remove the SDL framework headers (and associated symlink)\n        rm -f  ./build/Deployment/Homeworld.app/Contents/Frameworks/SDL.framework/Headers\n        rm -rf ./build/Deployment/Homeworld.app/Contents/Frameworks/SDL.framework/Versions/Current/Headers\n\n        # rename InfoPlist.strings files correctly\n        # (why doesn't XCode do this when the 'Info.plist File' is set?)\n        find ./build/Deployment/Homeworld.app/Contents/Resources/*.lproj -name HomeworldPlist.strings -execdir mv {} InfoPlist.strings \\;\n\n        # clean up any Subversion files that may have been pulled in\n        find ./build/Deployment/Homeworld.app/ -name '.svn' -exec rm -rf {} \\;\n\n        # clean up Mac OS X .DS_Store folder files\n        find ./build/Deployment/Homeworld.app/ -name '.DS_Store' -exec rm {} \\;\n\n        # end of case condition\n        ;;\n\nesac";
+			shellScript = "# force the shell; XCode really likes sh regardless of configuration\n/bin/zsh\n\ncase \"${BUILD_STYLE}\" in\n\n    Deployment)\n\n        # copy in the SDL framework\n        mkdir -p ./build/Deployment/Homeworld.app/Contents/Frameworks\n        cp -pR /Library/Frameworks/SDL2.framework ./build/Deployment/Homeworld.app/Contents/Frameworks\n\n        # remove the SDL framework headers (and associated symlink)\n        rm -f  ./build/Deployment/Homeworld.app/Contents/Frameworks/SDL2.framework/Headers\n        rm -rf ./build/Deployment/Homeworld.app/Contents/Frameworks/SDL2.framework/Versions/Current/Headers\n\n        # rename InfoPlist.strings files correctly\n        # (why doesn't XCode do this when the 'Info.plist File' is set?)\n        find ./build/Deployment/Homeworld.app/Contents/Resources/*.lproj -name HomeworldPlist.strings -execdir mv {} InfoPlist.strings \\;\n\n        # clean up any Subversion files that may have been pulled in\n        find ./build/Deployment/Homeworld.app/ -name '.svn' -exec rm -rf {} \\;\n\n        # clean up Mac OS X .DS_Store folder files\n        find ./build/Deployment/Homeworld.app/ -name '.DS_Store' -exec rm {} \\;\n\n        # end of case condition\n        ;;\n\nesac\n";
 		};
 		3507D89707996FCC00F093F4 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2059,9 +2132,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "# force the shell; XCode really likes sh regardless of configuration\n/bin/zsh\n\ncase \"${BUILD_STYLE}\" in\n\n    Deployment)\n\n        # copy in the SDL framework\n        mkdir -p ./build/Deployment/Raider\\ Retreat.app/Contents/Frameworks\n        cp -pR /Library/Frameworks/SDL.framework ./build/Deployment/Raider\\ Retreat.app/Contents/Frameworks\n\n        # remove the SDL framework headers (and associated symlink)\n        rm -f  ./build/Deployment/Raider\\ Retreat.app/Contents/Frameworks/SDL.framework/Headers\n        rm -rf ./build/Deployment/Raider\\ Retreat.app/Contents/Frameworks/SDL.framework/Versions/Current/Headers\n\n        # rename InfoPlist.strings files correctly\n        # (why doesn't XCode do this when the 'Info.plist File' is set?)\n        find ./build/Deployment/Raider\\ Retreat.app/Contents/Resources/*.lproj -name RaiderRetreatPlist.strings -execdir mv {} InfoPlist.strings \\;\n\n        # clean up any Subversion files that may have been pulled in\n        find ./build/Deployment/Raider\\ Retreat.app/ -name '.svn' -exec rm -rf {} \\;\n\n        # clean up Mac OS X .DS_Store folder files\n        find ./build/Deployment/Raider\\ Retreat.app/ -name '.DS_Store' -exec rm {} \\;\n\n        # end of case condition\n        ;;\n\nesac";
+			shellScript = "# force the shell; XCode really likes sh regardless of configuration\n/bin/zsh\n\ncase \"${BUILD_STYLE}\" in\n\n    Deployment)\n\n        # copy in the SDL framework\n        mkdir -p ./build/Deployment/Raider\\ Retreat.app/Contents/Frameworks\n        cp -pR /Library/Frameworks/SDL.framework ./build/Deployment/Raider\\ Retreat.app/Contents/Frameworks\n\n        # remove the SDL framework headers (and associated symlink)\n        rm -f  ./build/Deployment/Raider\\ Retreat.app/Contents/Frameworks/SDL.framework/Headers\n        rm -rf ./build/Deployment/Raider\\ Retreat.app/Contents/Frameworks/SDL.framework/Versions/Current/Headers\n\n        # rename InfoPlist.strings files correctly\n        # (why doesn't XCode do this when the 'Info.plist File' is set?)\n        find ./build/Deployment/Raider\\ Retreat.app/Contents/Resources/*.lproj -name RaiderRetreatPlist.strings -execdir mv {} InfoPlist.strings \\;\n\n        # clean up any Subversion files that may have been pulled in\n        find ./build/Deployment/Raider\\ Retreat.app/ -name '.svn' -exec rm -rf {} \\;\n\n        # clean up Mac OS X .DS_Store folder files\n        find ./build/Deployment/Raider\\ Retreat.app/ -name '.DS_Store' -exec rm {} \\;\n\n        # end of case condition\n        ;;\n\nesac\n";
 		};
-		355BE77707935BD200F82BB0 /* ShellScript */ = {
+		355BE77707935BD200F82BB0 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			comments = "This script ensures that kas2c is compiled and then converts the mission.kas files into their equivalent .c and .h files prior to full compilation of the project.";
@@ -2088,6 +2161,9 @@
 				../src/Missions/SinglePlayer/Utilities.kash,
 				../src/Missions/Tutorials/Tutorial1.kas,
 				../src/Missions/SinglePlayer/Mission05_OEM.kas,
+			);
+			name = "Run Script";
+			outputFileListPaths = (
 			);
 			outputPaths = (
 				../src/Missions/Generated/Mission01.c,
@@ -2147,7 +2223,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "# force the shell; XCode really likes sh regardless of configuration\n/bin/zsh\n\n# make sure that kas2c is compiled\ncd ../tools/kas2c\n./kas2c-MacOSX-compile.sh\n\n# now compile the *.kas mission files\ncd ../../src/Missions\n\nfor Y in SinglePlayer Tutorials\ndo\n    # change to the .kas folders in turn\n    cd $Y\n\n    for X in *.kas\n    do\n        # get the mission name\n        `/bin/echo $X | /usr/bin/awk -F '\\.' '{print \"export MISSION=\" $1}'`\n\n        # use gcc's preprocessor to produce the input for kas2c; the grep -v is\n        # to strip a gcc #pragma that kas2c cannot cope with\n        /usr/bin/gcc -E -x c $MISSION.kas | /usr/bin/grep -v \\#pragma > $MISSION.kp\n\n        # produce the actual mission .h and .c files\n        ../../../tools/kas2c/kas2c $MISSION.kp $MISSION.c $MISSION.h $MISSION.func.c\n    done\n\n    # move the .h and .c files to the Generated folder\n    mv *.h *.c ../Generated\n\n    # clean up the intermediate .kp files\n    rm *.kp\n\n    # return to src/Missions root\n    cd ..\n\ndone";
+			shellScript = "# force the shell; XCode really likes sh regardless of configuration\n/bin/zsh\n\n# make sure that kas2c is compiled\ncd ../tools/kas2c\npwd\n./kas2c-macOS-compile.sh\n\n# now compile the *.kas mission files\ncd ../../src/Missions\npwd\nfor Y in SinglePlayer Tutorials\ndo\n    # change to the .kas folders in turn\n    cd $Y\n\n    for X in *.kas\n    do\n        # get the mission name\n        `/bin/echo $X | /usr/bin/awk -F '\\.' '{print \"export MISSION=\" $1}'`\n\n        # use gcc's preprocessor to produce the input for kas2c; the grep -v is\n        # to strip a gcc #pragma that kas2c cannot cope with\n        /usr/bin/gcc -E -x c $MISSION.kas | /usr/bin/grep -v \\#pragma > $MISSION.kp\n\n        # produce the actual mission .h and .c files\n        ../../../tools/kas2c/kas2c $MISSION.kp $MISSION.c $MISSION.h $MISSION.func.c\n    done\n\n    # move the .h and .c files to the Generated folder\n    mv *.h *.c ../Generated\n\n    # clean up the intermediate .kp files\n    rm *.kp\n\n    # return to src/Missions root\n    cd ..\n\ndone\n";
 		};
 		35BE70E007937E0B00AEFC3C /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2235,7 +2311,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "# force the shell; XCode really likes sh regardless of configuration\n/bin/zsh\n\n# make sure that kas2c is compiled\ncd ../tools/kas2c\n./kas2c-MacOSX-compile.sh\n\n# now compile the *.kas mission files\ncd ../../src/Missions\n\nfor Y in SinglePlayer Tutorials\ndo\n    # change to the .kas folders in turn\n    cd $Y\n\n    for X in *.kas\n    do\n        # get the mission name\n        `/bin/echo $X | /usr/bin/awk -F '\\.' '{print \"export MISSION=\" $1}'`\n\n        # use gcc's preprocessor to produce the input for kas2c; the grep -v is\n        # to strip a gcc #pragma that kas2c cannot cope with\n        /usr/bin/gcc -E -x c $MISSION.kas | /usr/bin/grep -v \\#pragma > $MISSION.kp\n\n        # produce the actual mission .h and .c files\n        ../../../tools/kas2c/kas2c $MISSION.kp $MISSION.c $MISSION.h $MISSION.func.c\n    done\n\n    # move the .h and .c files to the Generated folder\n    mv *.h *.c ../Generated\n\n    # clean up the intermediate .kp files\n    rm *.kp\n\n    # return to src/Missions root\n    cd ..\n\ndone";
+			shellScript = "# force the shell; XCode really likes sh regardless of configuration\n/bin/zsh\n\n# make sure that kas2c is compiled\ncd ../tools/kas2c\n./kas2c-MacOSX-compile.sh\n\n# now compile the *.kas mission files\ncd ../../src/Missions\n\nfor Y in SinglePlayer Tutorials\ndo\n    # change to the .kas folders in turn\n    cd $Y\n\n    for X in *.kas\n    do\n        # get the mission name\n        `/bin/echo $X | /usr/bin/awk -F '\\.' '{print \"export MISSION=\" $1}'`\n\n        # use gcc's preprocessor to produce the input for kas2c; the grep -v is\n        # to strip a gcc #pragma that kas2c cannot cope with\n        /usr/bin/gcc -E -x c $MISSION.kas | /usr/bin/grep -v \\#pragma > $MISSION.kp\n\n        # produce the actual mission .h and .c files\n        ../../../tools/kas2c/kas2c $MISSION.kp $MISSION.c $MISSION.h $MISSION.func.c\n    done\n\n    # move the .h and .c files to the Generated folder\n    mv *.h *.c ../Generated\n\n    # clean up the intermediate .kp files\n    rm *.kp\n\n    # return to src/Missions root\n    cd ..\n\ndone\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2244,6 +2320,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2AF203162AB0D41A0018711B /* File_Mac.c in Sources */,
 				3516C948077C41B0001AA863 /* AIAttackMan.c in Sources */,
 				3516C949077C41B0001AA863 /* AIDefenseMan.c in Sources */,
 				3516C94A077C41B0001AA863 /* AIEvents.c in Sources */,
@@ -2293,7 +2370,6 @@
 				3516C978077C41B0001AA863 /* Eval.c in Sources */,
 				3516C97A077C41B0001AA863 /* FEFlow.c in Sources */,
 				3516C97B077C41B0001AA863 /* FEReg.c in Sources */,
-				3516C97C077C41B0001AA863 /* File.c in Sources */,
 				3516C97D077C41B0001AA863 /* FlightMan.c in Sources */,
 				3516C97E077C41B0001AA863 /* FontReg.c in Sources */,
 				3516C97F077C41B0001AA863 /* Formation.c in Sources */,
@@ -2393,7 +2469,7 @@
 				3516CA38077C41B0001AA863 /* TimeoutTimer.c in Sources */,
 				3516CA39077C41B0001AA863 /* Titan.c in Sources */,
 				3516CA3A077C41B0001AA863 /* TitanInterfaceC.stub.c in Sources */,
-				3516CA3C077C41B0001AA863 /* utility.c in Sources */,
+				3516CA3C077C41B0001AA863 /* utility_mac.c in Sources */,
 				3516CA3D077C41B0001AA863 /* AdvanceSupportFrigate.c in Sources */,
 				3516CA3E077C41B0001AA863 /* Carrier.c in Sources */,
 				3516CA3F077C41B0001AA863 /* CloakGenerator.c in Sources */,
@@ -2434,7 +2510,6 @@
 				3516CA62077C41B0001AA863 /* SensorArray.c in Sources */,
 				3516CA63077C41B0001AA863 /* StandardDestroyer.c in Sources */,
 				3516CA64077C41B0001AA863 /* StandardFrigate.c in Sources */,
-				3516CA65077C41B0001AA863 /* SDLMain.m in Sources */,
 				3516CA66077C41B0001AA863 /* avi.c in Sources */,
 				3516CA67077C41B0001AA863 /* rinit.c in Sources */,
 				3578AD0A0AF40518007BFA9F /* StringSupport.c in Sources */,
@@ -2540,6 +2615,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2AF203152AB0D40D0018711B /* File_Mac.c in Sources */,
 				90623D20064992AF0088361C /* AIAttackMan.c in Sources */,
 				90623D22064992AF0088361C /* AIDefenseMan.c in Sources */,
 				90623D24064992AF0088361C /* AIEvents.c in Sources */,
@@ -2589,7 +2665,6 @@
 				90623D87064992AF0088361C /* Eval.c in Sources */,
 				90623D8C064992AF0088361C /* FEFlow.c in Sources */,
 				90623D8E064992AF0088361C /* FEReg.c in Sources */,
-				90623D90064992AF0088361C /* File.c in Sources */,
 				90623D92064992AF0088361C /* FlightMan.c in Sources */,
 				90623D95064992AF0088361C /* FontReg.c in Sources */,
 				90623D97064992AF0088361C /* Formation.c in Sources */,
@@ -2688,7 +2763,7 @@
 				90BD92A5064AEE7B003E3D39 /* TimeoutTimer.c in Sources */,
 				90BD92A7064AEE7B003E3D39 /* Titan.c in Sources */,
 				90BD92AC064AEE7B003E3D39 /* TitanInterfaceC.stub.c in Sources */,
-				90BD92B1064AEE7B003E3D39 /* utility.c in Sources */,
+				90BD92B1064AEE7B003E3D39 /* utility_mac.c in Sources */,
 				90BD9339064AEF43003E3D39 /* AdvanceSupportFrigate.c in Sources */,
 				90BD933B064AEF43003E3D39 /* Carrier.c in Sources */,
 				90BD933D064AEF43003E3D39 /* CloakGenerator.c in Sources */,
@@ -2729,7 +2804,6 @@
 				90BD9385064AEF43003E3D39 /* SensorArray.c in Sources */,
 				90BD9387064AEF43003E3D39 /* StandardDestroyer.c in Sources */,
 				90BD9389064AEF43003E3D39 /* StandardFrigate.c in Sources */,
-				90BD93C3064AF4F3003E3D39 /* SDLMain.m in Sources */,
 				9030AF94066D5D2C00B32218 /* avi.c in Sources */,
 				9030AF95066D5D2C00B32218 /* rinit.c in Sources */,
 				3510B754077C8863007B8838 /* mainrgn.c in Sources */,
@@ -2838,7 +2912,7 @@
 		35017183077C54EA00684108 /* HomeworldPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				35017184077C54EA00684108 /* English */,
+				2A58F0A52AA1A28B001D2C18 /* en */,
 			);
 			name = HomeworldPlist.strings;
 			sourceTree = "<group>";
@@ -2846,7 +2920,7 @@
 		351B67AB077E4728002ABC6E /* RaiderRetreatPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				351B67AA077E4728002ABC6E /* English */,
+				2A58F0A62AA1A28C001D2C18 /* en */,
 			);
 			name = RaiderRetreatPlist.strings;
 			sourceTree = "<group>";
@@ -2857,13 +2931,36 @@
 		35CC221C0955C2E100504293 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = Homeworld.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				COMPILER_INDEX_STORE_ENABLE = "";
+				CURRENT_PROJECT_VERSION = 0.9alpha;
+				ENABLE_HARDENED_RUNTIME = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					_MACOSX,
 					HW_BUILD_FOR_DEBUGGING,
 					HW_GAME_HOMEWORLD,
+					_X86_64_FIX_ME,
+					_X86_64,
+					_MACOSX,
+					BF_HOMEWORLD,
 				);
 				INFOPLIST_FILE = Homeworld.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				OTHER_CFLAGS = "";
+				OTHER_CODE_SIGN_FLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.homeworldsdl.homeworld;
 				PRODUCT_NAME = Homeworld;
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Development;
@@ -2871,13 +2968,36 @@
 		35CC221D0955C2E100504293 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = Homeworld.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				COMPILER_INDEX_STORE_ENABLE = "";
+				CURRENT_PROJECT_VERSION = 0.9alpha;
+				ENABLE_HARDENED_RUNTIME = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					_MACOSX,
 					HW_BUILD_FOR_DISTRIBUTION,
 					HW_GAME_HOMEWORLD,
+					_X86_64_FIX_ME,
+					_X86_64,
+					_MACOSX,
+					BF_HOMEWORLD,
 				);
 				INFOPLIST_FILE = Homeworld.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				OTHER_CFLAGS = "";
+				OTHER_CODE_SIGN_FLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.homeworldsdl.homeworld;
 				PRODUCT_NAME = Homeworld;
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Deployment;
@@ -2885,18 +3005,55 @@
 		35CC221E0955C2E100504293 /* Default */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = Homeworld.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				COMPILER_INDEX_STORE_ENABLE = "";
+				CURRENT_PROJECT_VERSION = 0.9alpha;
+				ENABLE_HARDENED_RUNTIME = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+					"$(PROJECT_DIR)",
+				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				OTHER_CFLAGS = "";
+				OTHER_CODE_SIGN_FLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.homeworldsdl.homeworld;
+				SDKROOT = macosx;
 			};
 			name = Default;
 		};
 		35CC22200955C2E100504293 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = "Raider Retreat.entitlements";
+				CODE_SIGN_IDENTITY = "-";
+				ENABLE_HARDENED_RUNTIME = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					_MACOSX,
 					HW_BUILD_FOR_DEBUGGING,
 					HW_GAME_RAIDER_RETREAT,
+					BF_HOMEWORLD,
+					_X86_64,
+					_X86_64_FIX_ME,
 				);
 				INFOPLIST_FILE = RaiderRetreat.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.homeworldsdl.raiderretreat;
 				PRODUCT_NAME = "Raider Retreat";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2905,12 +3062,29 @@
 		35CC22210955C2E100504293 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = "Raider Retreat.entitlements";
+				CODE_SIGN_IDENTITY = "-";
+				ENABLE_HARDENED_RUNTIME = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					_MACOSX,
 					HW_BUILD_FOR_DISTRIBUTION,
 					HW_GAME_RAIDER_RETREAT,
+					_X86_64,
+					_X86_64_FIX_ME,
+					BF_HOMEWORLD,
 				);
 				INFOPLIST_FILE = RaiderRetreat.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.homeworldsdl.raiderretreat;
 				PRODUCT_NAME = "Raider Retreat";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2919,6 +3093,20 @@
 		35CC22220955C2E100504293 /* Default */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = "Raider Retreat.entitlements";
+				CODE_SIGN_IDENTITY = "-";
+				ENABLE_HARDENED_RUNTIME = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.homeworldsdl.raiderretreat;
 			};
 			name = Default;
 		};
@@ -2926,10 +3114,42 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMPILER_INDEX_STORE_ENABLE = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Homeworld_Prefix.h;
-				HEADER_SEARCH_PATHS = /Library/Frameworks/SDL.framework/Headers;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
 			};
 			name = Development;
 		};
@@ -2937,16 +3157,78 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMPILER_INDEX_STORE_ENABLE = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Homeworld_Prefix.h;
-				HEADER_SEARCH_PATHS = /Library/Frameworks/SDL.framework/Headers;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				SDKROOT = macosx;
 			};
 			name = Deployment;
 		};
 		35CC22260955C2E100504293 /* Default */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMPILER_INDEX_STORE_ENABLE = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				SDKROOT = macosx;
 			};
 			name = Default;
 		};

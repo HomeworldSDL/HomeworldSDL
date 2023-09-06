@@ -75,12 +75,7 @@ bigFileConfiguration bigFilePrecedence[] = {
         NULL,                       // localFileRelativeAge
     },
     {
-#if defined(HW_GAME_RAIDER_RETREAT) && defined(_MACOSX)
-        // rename allows this to live alongside 1.05 patch's Update.big in standard installation
-        "OEM_Update.big",
-#else
         "Update.big",
-#endif
         FALSE,
         NULL,
         UNINITIALISED_BIG_TOC,

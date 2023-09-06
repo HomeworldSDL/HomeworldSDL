@@ -13,7 +13,7 @@
 
 // memory allocation
 
-#ifdef _MACOSX
+#ifdef __APPLE__
     #include <malloc/malloc.h>
 #elif !defined(_WIN32)
     #include <stdlib.h>

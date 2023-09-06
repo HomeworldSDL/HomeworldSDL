@@ -7,7 +7,7 @@
 #ifndef ___MAIN_H
 #define ___MAIN_H
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 #include "mainswitches.h"
 #include "Types.h"

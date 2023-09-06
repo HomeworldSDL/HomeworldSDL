@@ -903,8 +903,17 @@ bool setupPixelFormat()
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 #endif
 
+#ifdef __APPLE__
+#ifndef HW_BUILD_FOR_DEBUGGING
+        flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
+#elif defined HW_BUILD_FOR_DEBUGGING
     if (/* main */ fullScreen)
         flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
+#endif
+#else
+    if (/* main */ fullScreen)
+        flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
+#endif
 
 #ifdef HW_ENABLE_GLES
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
@@ -992,13 +1001,6 @@ bool setupPixelFormat()
     SDL_GL_MakeCurrent(sdlwindow, glcontext);
 
 	SDL_ShowCursor(SDL_DISABLE);
-
-#ifdef _MACOSX_FIX_GL
-	if (!((flags & SDL_WINDOW_FULLSCREEN_DESKTOP)))
-    {
-		SDL_WM_GrabInput(SDL_GRAB_ON);
-    }
-#endif
 
 	lastWidth  = MAIN_WindowWidth;
 	lastHeight = MAIN_WindowHeight;
@@ -3966,7 +3968,7 @@ DEFINE_TASK(rndRenderTask)
 
         //take a screenshot or sequence thereof
         if (keyIsStuck(SS_SCREENSHOT_KEY)
-#ifdef _MACOSX
+#ifdef __APPLE__
         ||  keyIsStuck(SS_SCREENSHOT_KEY_2)
         ||  keyIsStuck(SS_SCREENSHOT_KEY_3)
 #endif
@@ -3975,7 +3977,7 @@ DEFINE_TASK(rndRenderTask)
             rndTakeScreenshot = TRUE;
 
             keyClearSticky(SS_SCREENSHOT_KEY);
-#ifdef _MACOSX
+#ifdef __APPLE__
             keyClearSticky(SS_SCREENSHOT_KEY_2);
             keyClearSticky(SS_SCREENSHOT_KEY_3);
 #endif

@@ -6,7 +6,7 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
-#include "SDL.h"
+#include <SDL2/SDL.h>
 
 #include "TimeoutTimer.h"
 #include "utility.h"

@@ -2,7 +2,8 @@
 #ifndef ___QUEUE_H
 #define ___QUEUE_H
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
+
 #include "Types.h"
 
 /*=============================================================================

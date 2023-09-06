@@ -11,7 +11,7 @@
 #include <string.h>
 #include <time.h>
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 #include "AIPlayer.h"
 #include "AutoLOD.h"
@@ -99,7 +99,7 @@ bool mainNoPerspective = FALSE;
 
 bool systemActive = FALSE;              //active flag for the program
 
-#ifndef _MACOSX
+#ifndef __APPLE__
 static char windowTitle[] = "Homeworld";//name of window
 #endif
 
@@ -170,7 +170,7 @@ bool GLOBAL_NO_TEXTURES = FALSE;
 
 // turn fullscreen off when debugging so that if the debugger kicks in
 // after a crash you don't find yourself locked out and have to reboot...
-#if defined(_MACOSX) && defined(HW_BUILD_FOR_DEBUGGING) 
+#if defined(__APPLE__) && defined(HW_BUILD_FOR_DEBUGGING) 
 bool fullScreen = FALSE;
 #else
 bool fullScreen = TRUE;

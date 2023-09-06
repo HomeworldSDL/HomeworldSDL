@@ -28,8 +28,8 @@
 #endif
 
 #if defined _MSC_VER
-    #define stat _stat
-    #define S_ISDIR(mode) ((mode) & _S_IFDIR)
+	#define stat _stat
+	#define S_ISDIR(mode) ((mode) & _S_IFDIR)
 #endif
 
 
@@ -116,7 +116,7 @@ static sdword decompWorkspaceInUse = FALSE;
 ----------------------------------------------------------------------------*/
 void fileNameReplaceSlashesInPlace(char *filePath)
 {
-    char *ptr = NULL;
+	char *ptr = NULL;
 
 #ifdef WIN32
     #define PATH_DELIMITER     '\\'
@@ -126,10 +126,10 @@ void fileNameReplaceSlashesInPlace(char *filePath)
     #define REPLACE_DELIMITER  '\\'
 #endif
 
-    while ((ptr = strchr(filePath, REPLACE_DELIMITER)) != NULL)
-    {
+	while ((ptr = strchr(filePath, REPLACE_DELIMITER)) != NULL)
+	{
         *ptr = PATH_DELIMITER;
-    }
+	}
 }
 
 
@@ -142,189 +142,189 @@ void fileNameReplaceSlashesInPlace(char *filePath)
 ----------------------------------------------------------------------------*/
 static void fileNameReducePath (char* pathName)
 {
-    size_t pathLen;
+	size_t pathLen;
 
-    char* pathElem[PATH_MAX];
-    udword pathElemCount;
+	char* pathElem[PATH_MAX];
+	udword pathElemCount;
 
-    size_t searchLoc;
-    bool8 isPathAbsolute;
+	size_t searchLoc;
+	bool8 isPathAbsolute;
 
-    udword i;
+	udword i;
 
-    dbgAssertOrIgnore(pathName != NULL);
+	dbgAssertOrIgnore(pathName != NULL);
 
-    pathLen = strlen(pathName);
+	pathLen = strlen(pathName);
 
-    /* Reduce slashes. */
-    for (i = 1; i < pathLen; i++)
-    {
-        char chPrev = pathName[i - 1];
-        char chCurr = pathName[i];
-        if ((chPrev == '/' || chPrev == '\\') &&
-            (chCurr == '/' || chCurr == '\\'))
-        {
-            memmove(pathName + i - 1, pathName + i, pathLen - i + 1);
-            pathLen--;
-            i--;
-        }
-    }
+	/* Reduce slashes. */
+	for (i = 1; i < pathLen; i++)
+	{
+		char chPrev = pathName[i - 1];
+		char chCurr = pathName[i];
+		if ((chPrev == '/' || chPrev == '\\') &&
+		    (chCurr == '/' || chCurr == '\\'))
+		{
+			memmove(pathName + i - 1, pathName + i, pathLen - i + 1);
+			pathLen--;
+			i--;
+		}
+	}
 
-    /* Remove trailing slashes. */
-    while (pathName[pathLen - 1] == '/' ||
-           pathName[pathLen - 1] == '\\')
-    {
-        pathLen--;
-        pathName[pathLen] = '\0';
-    }
+	/* Remove trailing slashes. */
+	while (pathName[pathLen - 1] == '/' ||
+	       pathName[pathLen - 1] == '\\')
+	{
+		pathLen--;
+		pathName[pathLen] = '\0';
+	}
 
-    /* Split up the path string into an array containing each path
-       component. */
-    pathElem[0] = pathName;
-    pathElemCount = 1;
+	/* Split up the path string into an array containing each path
+	   component. */
+	pathElem[0] = pathName;
+	pathElemCount = 1;
 
-    searchLoc = strcspn(pathName, "/\\");
-    while (searchLoc != pathLen)
-    {
-        size_t searchLocPrev = searchLoc;
+	searchLoc = strcspn(pathName, "/\\");
+	while (searchLoc != pathLen)
+	{
+		size_t searchLocPrev = searchLoc;
 
-        pathName[searchLoc] = '\0';
+		pathName[searchLoc] = '\0';
 
-        pathElem[pathElemCount] = pathName + searchLoc + 1;
-        pathElemCount++;
+		pathElem[pathElemCount] = pathName + searchLoc + 1;
+		pathElemCount++;
 
-        searchLoc = strcspn(pathName + searchLocPrev + 1, "/\\");
-        searchLoc += searchLocPrev + 1;
-    }
+		searchLoc = strcspn(pathName + searchLocPrev + 1, "/\\");
+		searchLoc += searchLocPrev + 1;
+	}
 
 #ifdef _WIN32
-    isPathAbsolute = (isalpha(pathName[0]) && pathName[1] == ':' &&
-        pathName[2] == '\0');
+	isPathAbsolute = (isalpha(pathName[0]) && pathName[1] == ':' &&
+		pathName[2] == '\0');
 #else
-    isPathAbsolute = (pathName[0] == '\0');
+	isPathAbsolute = (pathName[0] == '\0');
 #endif
 
-    if (isPathAbsolute)
-    {
-        /* Skip over the root path element, we don't need to look at it for
-           now. */
-        pathElemCount--;
-        if (pathElemCount != 0)
-        {
-            memmove(pathElem, pathElem + 1, sizeof(char*) * pathElemCount);
-        }
-    }
+	if (isPathAbsolute)
+	{
+		/* Skip over the root path element, we don't need to look at it for
+		   now. */
+		pathElemCount--;
+		if (pathElemCount != 0)
+		{
+			memmove(pathElem, pathElem + 1, sizeof(char*) * pathElemCount);
+		}
+	}
 
-    /* Using our array of path components, reduce any occurences of "." and
-       "..". */
-    for (i = 0; i < pathElemCount; i++)
-    {
-        char* currentElem = pathElem[i];
+	/* Using our array of path components, reduce any occurences of "." and
+	   "..". */
+	for (i = 0; i < pathElemCount; i++)
+	{
+		char* currentElem = pathElem[i];
 
-        if (currentElem[0] != '.')
-            continue;
+		if (currentElem[0] != '.')
+			continue;
 
-        if (currentElem[1] == '\0')
-        {
-            /* The current path element refers to the current directory ("."),
-               so we can remove it. */
-            pathElemCount--;
-            if (i < pathElemCount)
-            {
-                memmove(
-                    pathElem + i, pathElem + i + 1,
-                    sizeof(char*) * pathElemCount - i);
-            }
+		if (currentElem[1] == '\0')
+		{
+			/* The current path element refers to the current directory ("."),
+			   so we can remove it. */
+			pathElemCount--;
+			if (i < pathElemCount)
+			{
+				memmove(
+					pathElem + i, pathElem + i + 1,
+					sizeof(char*) * pathElemCount - i);
+			}
 
-            i--;
+			i--;
 
-            continue;
-        }
+			continue;
+		}
 
-        if (!(currentElem[1] == '.' && currentElem[2] == '\0'))
-            continue;
+		if (!(currentElem[1] == '.' && currentElem[2] == '\0'))
+			continue;
 
-        /* The current path element refers to the parent directory (".."). */
-        if (i == 0)
-        {
-            if (isPathAbsolute)
-            {
-                dbgMessagef("fileNameReducePath(): Attempted to reach a "
-                            "parent directory of the root directory.");
+		/* The current path element refers to the parent directory (".."). */
+		if (i == 0)
+		{
+			if (isPathAbsolute)
+			{
+				dbgMessagef("fileNameReducePath(): Attempted to reach a "
+				            "parent directory of the root directory.");
 
-                /* Attempting to reach a directory below the root directory, so
-                   just get rid of the current element. */
-                pathElemCount--;
-                if (pathElemCount != 0)
-                {
-                    memmove(
-                        pathElem, pathElem + 1,
-                        sizeof(char*) * pathElemCount);
-                }
+				/* Attempting to reach a directory below the root directory, so
+				   just get rid of the current element. */
+				pathElemCount--;
+				if (pathElemCount != 0)
+				{
+					memmove(
+						pathElem, pathElem + 1,
+						sizeof(char*) * pathElemCount);
+				}
 
-                i--;
-            }
+				i--;
+			}
 
-            continue;
-        }
+			continue;
+		}
 
-        if (!strcmp(pathElem[i - 1], ".."))
-        {
-            /* Previous path element also represents the previous directory, so
-               keep this element and allow further traversal up the directory
-               tree. */
-            continue;
-        }
+		if (!strcmp(pathElem[i - 1], ".."))
+		{
+			/* Previous path element also represents the previous directory, so
+			   keep this element and allow further traversal up the directory
+			   tree. */
+			continue;
+		}
 
-        /* Remove the current and previous path elements. */
-        dbgAssertOrIgnore(pathElemCount >= 2);
-        pathElemCount--;
-        if (i < pathElemCount)
-        {
-            memmove(
-                pathElem + i - 1, pathElem + i + 1,
-                sizeof(char*) * pathElemCount - i);
-        }
+		/* Remove the current and previous path elements. */
+		dbgAssertOrIgnore(pathElemCount >= 2);
+		pathElemCount--;
+		if (i < pathElemCount)
+		{
+			memmove(
+				pathElem + i - 1, pathElem + i + 1,
+				sizeof(char*) * pathElemCount - i);
+		}
 
-        pathElemCount--;
-        i -= 2;
-    }
+		pathElemCount--;
+		i -= 2;
+	}
 
-    /* Rebuild the path string. */
-    pathLen = 0;
+	/* Rebuild the path string. */
+	pathLen = 0;
 
-    if (isPathAbsolute)
-    {
+	if (isPathAbsolute)
+	{
 #ifdef _WIN32
-        pathName[2] = '/';
-        pathLen = 3;
+		pathName[2] = '/';
+		pathLen = 3;
 #else
-        pathName[0] = '/';
-        pathLen = 1;
+		pathName[0] = '/';
+		pathLen = 1;
 #endif
-    }
+	}
 
-    if (pathElemCount == 0)
-    {
-        pathName[pathLen] = '\0';
-        return;
-    }
+	if (pathElemCount == 0)
+	{
+		pathName[pathLen] = '\0';
+		return;
+	}
 
-    for (i = 0; i < pathElemCount; i++)
-    {
-        char* currentElem = pathElem[i];
-        size_t elemLen = strlen(currentElem);
+	for (i = 0; i < pathElemCount; i++)
+	{
+		char* currentElem = pathElem[i];
+		size_t elemLen = strlen(currentElem);
 
-        memmove(
-            pathName + pathLen, currentElem, sizeof(char) * elemLen);
+		memmove(
+			pathName + pathLen, currentElem, sizeof(char) * elemLen);
 
-        pathLen += elemLen;
-        pathName[pathLen] = '/';
-        pathLen++;
-    }
+		pathLen += elemLen;
+		pathName[pathLen] = '/';
+		pathLen++;
+	}
 
-    /* Remove the trailing slash. */
-    pathName[pathLen - 1] = '\0';
+	/* Remove the trailing slash. */
+	pathName[pathLen - 1] = '\0';
 }
 
 
@@ -338,290 +338,290 @@ static void fileNameReducePath (char* pathName)
                     modified if the file is not found.
     Return      : TRUE if the file was found, FALSE if not.
 ----------------------------------------------------------------------------*/
-#if FILE_CASE_INSENSITIVE_SEARCH
+#if defined (_WIN32) || defined (__APPLE__)
 
 static bool8 fileNameCorrectCase (char* fileName)
 {
-    char fileNameCopy[PATH_MAX + 1];
-    char* pChar;
-    udword pathComponentCount;
-    bool8 isPathAbsolute;
-    udword i;
+	char fileNameCopy[PATH_MAX + 1];
+	char* pChar;
+	udword pathComponentCount;
+	bool8 isPathAbsolute;
+	udword i;
 
-    dbgAssertOrIgnore(fileName);
+	dbgAssertOrIgnore(fileName);
 
-    /* Make a copy of the file name string to abuse as we wish. */
-    dbgAssertOrIgnore(strlen(fileName) <= PATH_MAX);
-    strncpy(fileNameCopy, fileName, PATH_MAX);
-    fileNameCopy[PATH_MAX] = '\0';
+	/* Make a copy of the file name string to abuse as we wish. */
+	dbgAssertOrIgnore(strlen(fileName) <= PATH_MAX);
+	strncpy(fileNameCopy, fileName, PATH_MAX);
+	fileNameCopy[PATH_MAX] = '\0';
 
-    /* Compress any directory changes in the path so we can easily search for
-       directory names while ignoring case. */
-    fileNameReducePath(fileNameCopy);
-    if (fileNameCopy[0] == '\0')
-        return FALSE;
+	/* Compress any directory changes in the path so we can easily search for
+	   directory names while ignoring case. */
+	fileNameReducePath(fileNameCopy);
+	if (fileNameCopy[0] == '\0')
+		return FALSE;
 
-    /* Check if the file name is just a root directory reference. */
+	/* Check if the file name is just a root directory reference. */
 #ifdef _WIN32
-    if (isalpha(fileNameCopy[0]) && strcmp(fileNameCopy + 1, ":/") == 0)
-    {
-        struct stat fileInfo;
+	if (isalpha(fileNameCopy[0]) && strcmp(fileNameCopy + 1, ":/") == 0)
+	{
+		struct stat fileInfo;
 
-        /* Make sure the drive specified exists. */
-        if (stat(fileNameCopy, &fileInfo) != 0)
+		/* Make sure the drive specified exists. */
+		if (stat(fileNameCopy, &fileInfo) != 0)
         {
-            return FALSE;
+			return FALSE;
         }
 
-        dbgAssertOrIgnore(strlen(fileNameCopy) <= strlen(fileName));
-        strcpy(fileName, fileNameCopy);
+		dbgAssertOrIgnore(strlen(fileNameCopy) <= strlen(fileName));
+		strcpy(fileName, fileNameCopy);
 
-        return TRUE;
-    }
+		return TRUE;
+	}
 #else
-    if (strcmp(fileNameCopy, "/") == 0)
-    {
-        /* We should always have a root directory... */
-        fileName[0] = '/';
-        fileName[1] = '\0';
+	if (strcmp(fileNameCopy, "/") == 0)
+	{
+		/* We should always have a root directory... */
+		fileName[0] = '/';
+		fileName[1] = '\0';
 
-        return TRUE;
-    }
+		return TRUE;
+	}
 #endif
 
-    /* Split the path name components into separate strings. */
-    pathComponentCount = 1;
-    while ((pChar = strrchr(fileNameCopy, '/')))
-    {
-        *pChar = '\0';
-        pathComponentCount++;
-    }
+	/* Split the path name components into separate strings. */
+	pathComponentCount = 1;
+	while ((pChar = strrchr(fileNameCopy, '/')))
+	{
+		*pChar = '\0';
+		pathComponentCount++;
+	}
 
-    /* Find the first path component that is not a reference to the parent
-       directory. */
-    pChar = fileNameCopy;
-    for (i = 0; i < pathComponentCount; i++)
-    {
-        if (strcmp(pChar, "..") != 0)
-            break;
+	/* Find the first path component that is not a reference to the parent
+	   directory. */
+	pChar = fileNameCopy;
+	for (i = 0; i < pathComponentCount; i++)
+	{
+		if (strcmp(pChar, "..") != 0)
+			break;
 
-        pChar += strlen(pChar);
+		pChar += strlen(pChar);
 
-        /* Merge all parent directory references with the next path
-           component. */
-        if (i != pathComponentCount - 1)
-        {
-            *pChar = '/';
-            pChar++;
-        }
-    }
+		/* Merge all parent directory references with the next path
+		   component. */
+		if (i != pathComponentCount - 1)
+		{
+			*pChar = '/';
+			pChar++;
+		}
+	}
 
-    dbgAssertOrIgnore(i < pathComponentCount);
-    if (i == pathComponentCount)
-    {
-        /* Apparently every element of the path is a parent directory
-           reference.  Whatever...let's at least check if it exists. */
-        struct stat fileInfo;
+	dbgAssertOrIgnore(i < pathComponentCount);
+	if (i == pathComponentCount)
+	{
+		/* Apparently every element of the path is a parent directory
+		   reference.  Whatever...let's at least check if it exists. */
+		struct stat fileInfo;
 
-        dbgAssertOrIgnore(pathComponentCount == 1);
+		dbgAssertOrIgnore(pathComponentCount == 1);
 
-        if (stat(fileNameCopy, &fileInfo) != 0)
-            return FALSE;
+		if (stat(fileNameCopy, &fileInfo) != 0)
+			return FALSE;
 
-        /* The entry exists, so copy the reduced file name string into the
-           original string. */
-        dbgAssertOrIgnore(strlen(fileNameCopy) <= strlen(fileName));
-        strcpy(fileName, fileNameCopy);
+		/* The entry exists, so copy the reduced file name string into the
+		   original string. */
+		dbgAssertOrIgnore(strlen(fileNameCopy) <= strlen(fileName));
+		strcpy(fileName, fileNameCopy);
 
-        return TRUE;
-    }
+		return TRUE;
+	}
 
-    /* Check if the path name is an absolute path, merging the first two path
-       components (the root directory reference and the first path component
-       following it) if so. */
-    isPathAbsolute = FALSE;
+	/* Check if the path name is an absolute path, merging the first two path
+	   components (the root directory reference and the first path component
+	   following it) if so. */
+	isPathAbsolute = FALSE;
 #ifdef _WIN32
-    if (isalpha(fileNameCopy[0]) && strcmp(fileNameCopy + 1, ":") == 0)
-    {
-        fileNameCopy[2] = '/';
+	if (isalpha(fileNameCopy[0]) && strcmp(fileNameCopy + 1, ":") == 0)
+	{
+		fileNameCopy[2] = '/';
 
-        dbgAssertOrIgnore(pathComponentCount > 1);
-        pathComponentCount--;
+		dbgAssertOrIgnore(pathComponentCount > 1);
+		pathComponentCount--;
 
-        isPathAbsolute = TRUE;
-    }
+		isPathAbsolute = TRUE;
+	}
 #else
-    if (fileNameCopy[0] == '\0')
-    {
-        fileNameCopy[0] = '/';
+	if (fileNameCopy[0] == '\0')
+	{
+		fileNameCopy[0] = '/';
 
-        dbgAssertOrIgnore(pathComponentCount > 1);
-        pathComponentCount--;
+		dbgAssertOrIgnore(pathComponentCount > 1);
+		pathComponentCount--;
 
-        isPathAbsolute = TRUE;
-    }
+		isPathAbsolute = TRUE;
+	}
 #endif
 
-    /* Now we start the search for the given file.  For each path component,
-       we first do an exact check to see if it exists using the case given
-       case.  If that fails, we then perform a case-insensitive comparison
-       against each entry in the directory in which the path element resides.
-       If a match is found, the file name of the matching entry is copied into
-       the path string, and the search is continued with the next path
-       component.  If a match is not found, the search is stopped, and we
-       return a null pointer immediately. */
-    for (i = 0; i < pathComponentCount; i++)
-    {
+	/* Now we start the search for the given file.  For each path component,
+	   we first do an exact check to see if it exists using the case given
+	   case.  If that fails, we then perform a case-insensitive comparison
+	   against each entry in the directory in which the path element resides.
+	   If a match is found, the file name of the matching entry is copied into
+	   the path string, and the search is continued with the next path
+	   component.  If a match is not found, the search is stopped, and we
+	   return a null pointer immediately. */
+	for (i = 0; i < pathComponentCount; i++)
+	{
 #ifdef _WIN32
-        char filespec[PATH_MAX + 1];
-        struct _finddata_t findData;
-        long hFile;
-        bool foundResult;
+		char filespec[PATH_MAX + 1];
+		struct _finddata_t findData;
+		long hFile;
+		bool foundResult;
 #else
-        struct dirent* pEntry;
-        DIR* pDir;
+		struct dirent* pEntry;
+		DIR* pDir;
 #endif
-        struct stat fileInfo;
+		struct stat fileInfo;
 
-        /* Check if the current entry exists in the given case. */
-        if (stat(fileNameCopy, &fileInfo) != 0)
-        {
-            /* Temporarily remove the last path delimiter so we can separate
-               the entry we're searching for from the directory in which it
-               resides. */
-            pChar = strrchr(fileNameCopy, '/');
-            if (pChar)
-            {
-                if (i == 0 && isPathAbsolute)
-                {
-                    /* Special case for the first entry in an absolute path:
-                       keep the trailing slash in the root directory name when
-                       opening the root directory for searching. */
-                    char tempChar;
+		/* Check if the current entry exists in the given case. */
+		if (stat(fileNameCopy, &fileInfo) != 0)
+		{
+			/* Temporarily remove the last path delimiter so we can separate
+			   the entry we're searching for from the directory in which it
+			   resides. */
+			pChar = strrchr(fileNameCopy, '/');
+			if (pChar)
+			{
+				if (i == 0 && isPathAbsolute)
+				{
+					/* Special case for the first entry in an absolute path:
+					   keep the trailing slash in the root directory name when
+					   opening the root directory for searching. */
+					char tempChar;
 
-                    pChar++;
-                    tempChar = *pChar;
-                    *pChar = '\0';
-
-#ifdef _WIN32
-                    filespec[PATH_MAX] = '\0';
-                    strncpy(filespec, fileNameCopy, PATH_MAX);
-                    strncat(filespec, "/*.*", PATH_MAX - strlen(filespec));
-#else
-                    pDir = opendir(fileNameCopy);
-#endif
-
-                    *pChar = tempChar;
-                }
-                else
-                {
-                    /* Remove the path delimiter and open the parent
-                       directory. */
-                    *pChar = '\0';
-                    pChar++;
+					pChar++;
+					tempChar = *pChar;
+					*pChar = '\0';
 
 #ifdef _WIN32
-                    filespec[PATH_MAX] = '\0';
-                    strncpy(filespec, fileNameCopy, PATH_MAX);
-                    strncat(filespec, "/*.*", PATH_MAX - strlen(filespec));
+					filespec[PATH_MAX] = '\0';
+					strncpy(filespec, fileNameCopy, PATH_MAX);
+					strncat(filespec, "/*.*", PATH_MAX - strlen(filespec));
 #else
-                    pDir = opendir(fileNameCopy);
+					pDir = opendir(fileNameCopy);
 #endif
-                }
-            }
-            else
-            {
-                /* The current entry we're searching for should be in the
-                   current working directory. */
-                pChar = fileNameCopy;
+
+					*pChar = tempChar;
+				}
+				else
+				{
+					/* Remove the path delimiter and open the parent
+					   directory. */
+					*pChar = '\0';
+					pChar++;
 
 #ifdef _WIN32
-                strcpy(filespec, "*.*");
+					filespec[PATH_MAX] = '\0';
+					strncpy(filespec, fileNameCopy, PATH_MAX);
+					strncat(filespec, "/*.*", PATH_MAX - strlen(filespec));
 #else
-                pDir = opendir(".");
+					pDir = opendir(fileNameCopy);
 #endif
-            }
+				}
+			}
+			else
+			{
+				/* The current entry we're searching for should be in the
+				   current working directory. */
+				pChar = fileNameCopy;
 
 #ifdef _WIN32
-            /* Get the first entry in the directory. */
-            hFile = _findfirst(filespec, &findData);
-            if (hFile == -1)
-                return FALSE;
-
-            /* Search through each entry in the current directory, performing
-               a case-insensitive check against the entry name. */
-            foundResult = FALSE;
-            do
-            {
-                if (_stricmp(pChar, findData.name) == 0)
-                {
-                    foundResult = TRUE;
-                    break;
-                }
-            } while (_findnext(hFile, &findData) == 0);
-
-            _findclose(hFile);
-
-            /* Check if a match was found. */
-            if (!foundResult)
-                return FALSE;
-
-            /* Copy over the entry name with the correct case. */
-            strcpy(pChar, findData.name);
+				strcpy(filespec, "*.*");
 #else
-            /* Make sure we could successfully open the directory. */
-            if (!pDir)
-                return FALSE;
+				pDir = opendir(".");
+#endif
+			}
 
-            /* Search through each entry in the current directory, performing
-               a case-insensitive check against the entry name. */
-            while ((pEntry = readdir(pDir)))
-            {
-                if (strcasecmp(pChar, pEntry->d_name) == 0)
-                    break;
-            }
+#ifdef _WIN32
+			/* Get the first entry in the directory. */
+			hFile = _findfirst(filespec, &findData);
+			if (hFile == -1)
+				return FALSE;
 
-            /* Check if a match was found. */
-            if (!pEntry)
-            {
-                closedir(pDir);
-                return FALSE;
-            }
+			/* Search through each entry in the current directory, performing
+			   a case-insensitive check against the entry name. */
+			foundResult = FALSE;
+			do
+			{
+				if (_stricmp(pChar, findData.name) == 0)
+				{
+					foundResult = TRUE;
+					break;
+				}
+			} while (_findnext(hFile, &findData) == 0);
 
-            /* Copy over the entry name with the correct case. */
-            strcpy(pChar, pEntry->d_name);
+			_findclose(hFile);
+
+			/* Check if a match was found. */
+			if (!foundResult)
+				return FALSE;
+
+			/* Copy over the entry name with the correct case. */
+			strcpy(pChar, findData.name);
+#else
+			/* Make sure we could successfully open the directory. */
+			if (!pDir)
+				return FALSE;
+
+			/* Search through each entry in the current directory, performing
+			   a case-insensitive check against the entry name. */
+			while ((pEntry = readdir(pDir)))
+			{
+				if (strcasecmp(pChar, pEntry->d_name) == 0)
+					break;
+			}
+
+			/* Check if a match was found. */
+			if (!pEntry)
+			{
+				closedir(pDir);
+				return FALSE;
+			}
+
+			/* Copy over the entry name with the correct case. */
+			strcpy(pChar, pEntry->d_name);
 #endif
 
-            /* Restore the full path up to the current entry. */
-            if (pChar != fileNameCopy)
-            {
-                pChar--;
-                *pChar = '/';
-            }
+			/* Restore the full path up to the current entry. */
+			if (pChar != fileNameCopy)
+			{
+				pChar--;
+				*pChar = '/';
+			}
 
 #ifndef _WIN32
-            closedir(pDir);
+			closedir(pDir);
 #endif
-        }
+		}
 
-        /* If this is not the last component of the path name, add a slash to
-           the end of the current entry to form a full path to the next
-           entry. */
-        if (i != pathComponentCount - 1)
-        {
-            fileNameCopy[strlen(fileNameCopy)] = '/';
-        }
-    }
+		/* If this is not the last component of the path name, add a slash to
+		   the end of the current entry to form a full path to the next
+		   entry. */
+		if (i != pathComponentCount - 1)
+		{
+			fileNameCopy[strlen(fileNameCopy)] = '/';
+		}
+	}
 
-    /* Everything checks out with the file name, so copy the case-sensitive
-       result back over into the original file name string. */
-    dbgAssertOrIgnore(strlen(fileNameCopy) <= strlen(fileName));
-    strcpy(fileName, fileNameCopy);
+	/* Everything checks out with the file name, so copy the case-sensitive
+	   result back over into the original file name string. */
+	dbgAssertOrIgnore(strlen(fileNameCopy) <= strlen(fileName));
+	strcpy(fileName, fileNameCopy);
 
-    return TRUE;
+	return TRUE;
 }
 
-#else  /* FILE_CASE_INSENSITIVE_SEARCH */
+#else
 
 /* If we're not manually performing case-insensitive file searches, merely
    make sure the file exists.  This should allow us to use this function even
@@ -630,35 +630,35 @@ static bool8 fileNameCorrectCase (char* fileName)
    systems. */
 static bool8 fileNameCorrectCase (char* fileName)
 {
-    char fileNameCopy[PATH_MAX + 1];
-    struct stat fileInfo;
+	char fileNameCopy[PATH_MAX + 1];
+	struct stat fileInfo;
 
-    dbgAssertOrIgnore(fileName);
+	dbgAssertOrIgnore(fileName);
 
-    /* Make a copy of the file name string. */
-    dbgAssertOrIgnore(strlen(fileName) <= PATH_MAX);
-    strncpy(fileNameCopy, fileName, PATH_MAX);
-    fileNameCopy[PATH_MAX] = '\0';
+	/* Make a copy of the file name string. */
+	dbgAssertOrIgnore(strlen(fileName) <= PATH_MAX);
+	strncpy(fileNameCopy, fileName, PATH_MAX);
+	fileNameCopy[PATH_MAX] = '\0';
 
-    /* Compress any directory changes in the path and convert all slashes to
-       forward slashes. */
-    fileNameReducePath(fileNameCopy);
-    if (fileNameCopy[0] == '\0')
-        return FALSE;
+	/* Compress any directory changes in the path and convert all slashes to
+	   forward slashes. */
+	fileNameReducePath(fileNameCopy);
+	if (fileNameCopy[0] == '\0')
+		return FALSE;
 
-    /* Check if the file exists. */
-    if (stat(fileNameCopy, &fileInfo) != 0)
-        return FALSE;
+	/* Check if the file exists. */
+	if (stat(fileNameCopy, &fileInfo) != 0)
+		return FALSE;
 
-    /* File exists, so copy the reduced path string into the original file
-       name string. */
-    dbgAssertOrIgnore(strlen(fileNameCopy) <= strlen(fileName));
-    strcpy(fileName, fileNameCopy);
+	/* File exists, so copy the reduced path string into the original file
+	   name string. */
+	dbgAssertOrIgnore(strlen(fileNameCopy) <= strlen(fileName));
+	strcpy(fileName, fileNameCopy);
 
-    return TRUE;
+	return TRUE;
 }
 
-#endif  /* FILE_CASE_INSENSITIVE_SEARCH */
+#endif
 
 
 /*-----------------------------------------------------------------------------
@@ -670,105 +670,105 @@ static bool8 fileNameCorrectCase (char* fileName)
 ----------------------------------------------------------------------------*/
 bool8 fileMakeDirectory (const char* directoryName)
 {
-    char directoryCopy[PATH_MAX + 1];
-    size_t directoryLen;
+	char directoryCopy[PATH_MAX + 1];
+	size_t directoryLen;
 
-    char* pChar;
+	char* pChar;
 
-    dbgAssertOrIgnore(directoryName != NULL);
-    dbgAssertOrIgnore(strlen(directoryName) <= PATH_MAX);
+	dbgAssertOrIgnore(directoryName != NULL);
+	dbgAssertOrIgnore(strlen(directoryName) <= PATH_MAX);
 
-    /* Make a copy of the directory name with which we can modify as
-       needed. */
-    strncpy(directoryCopy, directoryName, PATH_MAX);
-    directoryCopy[PATH_MAX] = '\0';
+	/* Make a copy of the directory name with which we can modify as
+	   needed. */
+	strncpy(directoryCopy, directoryName, PATH_MAX);
+	directoryCopy[PATH_MAX] = '\0';
 
-    /* Reduce the path name. */
-    fileNameReducePath(directoryCopy);
+	/* Reduce the path name. */
+	fileNameReducePath(directoryCopy);
 
-    directoryLen = strlen(directoryCopy);
-    if (directoryLen == 0)
-        return TRUE;
+	directoryLen = strlen(directoryCopy);
+	if (directoryLen == 0)
+		return TRUE;
 
-    /* Add a trailing slash to our directory name. */
+	/* Add a trailing slash to our directory name. */
 #ifdef _WIN32
-    if (directoryCopy[directoryLen - 1] != '\\')
-    {
-        directoryCopy[directoryLen] = '\\';
-        directoryLen++;
-        directoryCopy[directoryLen] = '\0';
-    }
+	if (directoryCopy[directoryLen - 1] != '\\')
+	{
+		directoryCopy[directoryLen] = '\\';
+		directoryLen++;
+		directoryCopy[directoryLen] = '\0';
+	}
 #else
-    if (directoryCopy[directoryLen - 1] != '/')
-    {
-        directoryCopy[directoryLen] = '/';
-        directoryLen++;
-        directoryCopy[directoryLen] = '\0';
-    }
+	if (directoryCopy[directoryLen - 1] != '/')
+	{
+		directoryCopy[directoryLen] = '/';
+		directoryLen++;
+		directoryCopy[directoryLen] = '\0';
+	}
 #endif
 
-    /* Find the first path element that isn't the root directory or a parent
-       directory delimiter. */
+	/* Find the first path element that isn't the root directory or a parent
+	   directory delimiter. */
 #ifdef _WIN32
-    pChar = strchr(directoryCopy, '\\');
+	pChar = strchr(directoryCopy, '\\');
 #else
-    pChar = strchr(directoryCopy, '/');
+	pChar = strchr(directoryCopy, '/');
 #endif
-    if (pChar)
-    {
-        *pChar = '\0';
+	if (pChar)
+	{
+		*pChar = '\0';
 
 #ifdef _WIN32
-        if (isalpha(directoryCopy[0]) && directoryCopy[1] == ':' &&
-            directoryCopy[2] == '\0')
+		if (isalpha(directoryCopy[0]) && directoryCopy[1] == ':' &&
+		    directoryCopy[2] == '\0')
 #else
-        if (directoryCopy[0] == '\0')
+		if (directoryCopy[0] == '\0')
 #endif
-        {
+		{
 #ifdef _WIN32
-            *pChar = '\\';
-            pChar = strchr(pChar + 1, '\\');
+			*pChar = '\\';
+			pChar = strchr(pChar + 1, '\\');
 #else
-            *pChar = '/';
-            pChar = strchr(pChar + 1, '/');
+			*pChar = '/';
+			pChar = strchr(pChar + 1, '/');
 #endif
-            *pChar = '\0';
-        }
-    }
+			*pChar = '\0';
+		}
+	}
 
-    /* Create each directory as needed. */
-    while (pChar)
-    {
-        *pChar = 0;
+	/* Create each directory as needed. */
+	while (pChar)
+	{
+		*pChar = 0;
 
-        /* Check if the directory exists. */
-        if (stat(directoryCopy, &fileStat) == 0)
-        {
-            /* A filesystem entry exists, so make sure it's a directory. */
-            if (!S_ISDIR(fileStat.st_mode))
-                return FALSE;
-        }
-        else
-        {
-            /* Attempt to create the directory. */
+		/* Check if the directory exists. */
+		if (stat(directoryCopy, &fileStat) == 0)
+		{
+			/* A filesystem entry exists, so make sure it's a directory. */
+			if (!S_ISDIR(fileStat.st_mode))
+				return FALSE;
+		}
+		else
+		{
+			/* Attempt to create the directory. */
 #if defined(_MSC_VER) || defined(__MINGW32__)
-            if (mkdir(directoryCopy) == -1)
+			if (mkdir(directoryCopy) == -1)
 #else
-            if (mkdir(directoryCopy, 0777) == -1)
+			if (mkdir(directoryCopy, 0777) == -1)
 #endif
-                return FALSE;
-        }
-        /* Continue with the next path element. */
+				return FALSE;
+		}
+		/* Continue with the next path element. */
 #ifdef _WIN32
-        *pChar = '\\';
-        pChar = strchr(pChar + 1, '\\');
+		*pChar = '\\';
+		pChar = strchr(pChar + 1, '\\');
 #else
-        *pChar = '/';
-        pChar = strchr(pChar + 1, '/');
+		*pChar = '/';
+		pChar = strchr(pChar + 1, '/');
 #endif
-    }
+	}
 
-    return TRUE;
+	return TRUE;
 }
 
 
@@ -781,30 +781,30 @@ bool8 fileMakeDirectory (const char* directoryName)
 ----------------------------------------------------------------------------*/
 bool8 fileMakeDestinationDirectory (const char* fileName)
 {
-    char directoryName[PATH_MAX + 1];
-    char* pChar0;
-    char* pChar1;
+	char directoryName[PATH_MAX + 1];
+	char* pChar0;
+	char* pChar1;
 
-    dbgAssertOrIgnore(fileName);
+	dbgAssertOrIgnore(fileName);
 
-    /* Make a copy of the directory name string, excluding the file itself. */
-    strncpy(directoryName, fileName, PATH_MAX);
-    directoryName[PATH_MAX] = '\0';
+	/* Make a copy of the directory name string, excluding the file itself. */
+	strncpy(directoryName, fileName, PATH_MAX);
+	directoryName[PATH_MAX] = '\0';
 
-    pChar0 = strrchr(directoryName, '/');
-    pChar1 = strrchr(directoryName, '\\');
-    if (pChar1 > pChar0)
-        pChar0 = pChar1;
+	pChar0 = strrchr(directoryName, '/');
+	pChar1 = strrchr(directoryName, '\\');
+	if (pChar1 > pChar0)
+		pChar0 = pChar1;
 
-    /* If the file is in the current directory, assume the directory
-       exists. */
-    if (!pChar0)
-        return TRUE;
+	/* If the file is in the current directory, assume the directory
+	   exists. */
+	if (!pChar0)
+		return TRUE;
 
-    /* Create the directory. */
-    *pChar0 = '\0';
+	/* Create the directory. */
+	*pChar0 = '\0';
 
-    return fileMakeDirectory(directoryName);
+	return fileMakeDirectory(directoryName);
 }
 
 
@@ -1843,7 +1843,7 @@ FILE *fileStream(filehandle handle)
     Description : populates preallocated buffer with given path and ensures
                   it is properly formatted/terminated. Buffer should ideally
                   be PATH_MAX bytes long.
-    Outputs     :
+    Outputs     : 
     Return      :
 ----------------------------------------------------------------------------*/
 void filePathMaxBufferSet(char *buffer, char *path)
