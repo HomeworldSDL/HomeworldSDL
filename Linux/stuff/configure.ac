@@ -82,6 +82,17 @@ else
 	HWBIN_CFLAGS="-DHW_BUILD_FOR_DISTRIBUTION"
 fi
 
+AC_ARG_ENABLE(sanitizers,
+	AS_HELP_STRING([--enable-sanitizers],[build with LLVM's memory sanitizers for debugging]),
+	enable_sanitizers=yes)
+if test "x$enable_sanitizers" = "xyes" ; then
+	echo "* Building with memory sanitizers *"
+	# The options here follow suggestions from https://clang.llvm.org/docs/AddressSanitizer.html#usage
+	# The gcc provided by nixpkgs has _FORTIFY_SOURCE enabled by default,
+	# but that doesn't play well with ASAN so we `-U`nset it
+	CFLAGS="$CFLAGS -fsanitize=undefined,address -g -O1 -fno-omit-frame-pointer -fno-optimize-sibling-calls -U_FORTIFY_SOURCE"
+fi
+
 dnl Stolen from gcc, set CC_FOR_BUILD right so we build host tools with host compiler
 if test "${build}" != "${host}" ; then
   CC_FOR_BUILD=${CC_FOR_BUILD-gcc}

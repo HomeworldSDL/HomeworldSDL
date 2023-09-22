@@ -62,3 +62,29 @@ cd ../../HomeworldSDL_big
 ```
 
 You should now have a `HomeworldSDL.big` file in the root of the repo.
+
+### Debug
+
+#### Sanitizers
+
+[LLVM's Sanitizers] are a powerful suite of tools for memory debugging.
+They can detect and help debug many kinds of invalid or dangerous memory handling patterns (like buffer overflows, use after free, or leaks).
+
+You can build a debug version of the game that includes those sanitizers with
+
+```sh
+../configure --enable-sanitizers
+```
+
+Unfortunately `kas2c` itself -- which is used in the build process -- leaks memory.
+When LSan (the Leak Sanitizer) detects leaks, it exits with a non-zero code, leading the build process to think kas2c failed to transpile the KAS files. So you probably want to
+
+```sh
+export ASAN_OPTIONS="detect_leaks=0"
+```
+
+before building.
+
+> ⚠️ Beware, though, that as of 2023-09-22, enabling sanitizers surfaces a lot of issues, making the game crash where it does not without them.
+
+[LLVM's Sanitizers]: https://clang.llvm.org/docs/AddressSanitizer.html

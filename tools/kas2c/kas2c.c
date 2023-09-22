@@ -2000,15 +2000,15 @@ void kasFunctionParamCharPtr(void)
 //  validate next param type
 void kasFunctionParamAITeamPtr(void)
 {
+    if (curFuncDepth < 0)
+        return;
+
     int funcNum = callStack[curFuncDepth].functionNum;
     int type;
 
 #ifdef LOTS_OF_DEBUGS
     fprintf(stderr, "-=*> kasFunctionParamAITeamPtr()\n");
 #endif
-
-    if (curFuncDepth < 0)
-        return;
 
     if (++(callStack[curFuncDepth].paramsSoFar) > functions[funcNum].numParams)
     {
