@@ -18,7 +18,8 @@
     devShells.x86_64-linux.default = with nixpkgs.legacyPackages.x86_64-linux;
       mkShell {
         buildInputs = self.packages.x86_64-linux.default.buildInputs ++ [
-          clang-tools_13 # clangd, clang-format
+          clang-tools_16 # clangd, clang-format
+          bear # build `compile_commands.json` for clangd
           nixpkgs-fmt
         ];
       };

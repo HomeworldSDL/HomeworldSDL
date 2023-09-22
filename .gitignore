@@ -39,3 +39,8 @@ cscope.out
 
 .direnv/
 *.DS_Store
+
+# Required by clangd to properly discover headers
+compile_commands.json
+# Clangd's cache
+.cache/

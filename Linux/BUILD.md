@@ -25,8 +25,12 @@ You can then go on with the [Quick Start](#quick-start) in that virtual environm
 cd Linux
 ./bootstrap
 ../configure
-make
+make -j4
 ```
+
+> The `-j4` flag passed to `make` is just an example.
+  `-j` controls the number of "jobs" used by `make` to compile the sources.
+  If your machine is equipped with, e.g., 12 cores, then replace `-j4` by `-j12` for a faster build.
 
 > The configuration step has a lot of flags, run `../configure --help` to see them. (Notably the `--disable-linux-fixme` flag)
 
@@ -63,7 +67,39 @@ cd ../../HomeworldSDL_big
 
 You should now have a `HomeworldSDL.big` file in the root of the repo.
 
-### Debug
+### Hacking
+
+So you want to dive into the code and start hacking, huh?
+Here are a few pointers to help you with that:
+
+#### Clangd
+
+[Clangd] is a _language server_ that can work with many editors (including [VSCode]) via a plugin.
+It adds smart features to your editor: code completion, compile errors, go-to-definition and more.
+
+To give proper hints, though, it needs to know the compile flags used (otherwise you'll get "header not found" errors).
+To that end, it uses a `compile_commands.json` file describing how each file was compiled.
+You can use [bear] to auto-generate it.
+In the build steps outlined above, replace the `make` step with:
+
+```sh
+bear -- make -j4
+```
+
+> ⚠️ As of 2023-09-22, this breaks the build if you also used the [`--enable-sanitizers`](#sanitizers) option in the `configure step`.
+  You will have to run a first build __without__ this option, then re-enable it, and re-build once the `compile_commands.json` has been generated.
+
+Then link or copy the result to the root of the repo, so that clangd finds it automatically
+
+```sh
+ln -srv compile_commands.json ..
+```
+
+That's it! Enjoy your modern development environment!
+
+[Clangd]: https://clangd.llvm.org
+[VSCode]: https://vscodium.com/
+[bear]: https://github.com/rizsotto/Bear
 
 #### Sanitizers
 
