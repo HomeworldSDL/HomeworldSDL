@@ -1,6 +1,7 @@
 {
     "recommendations": [
         "xaver.clang-format",
-        "llvm-vs-code-extensions.vscode-clangd"
+        "llvm-vs-code-extensions.vscode-clangd",
+        "webfreak.debug"
     ]
 }
