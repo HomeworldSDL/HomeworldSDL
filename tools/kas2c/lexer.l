@@ -38,7 +38,7 @@ cand    \&\&
 {comment2}  ;
 {ppline}    {   sscanf(yytext, "# %d %s", &lineNum, curFilename);
             }
-{qstring}   {   yylval.string = strdup(yytext+1); /* skip open quote */
+{qstring}   {   yylval.string = kas_strdup(yytext+1); /* skip open quote */
                 if (yylval.string[yyleng-2] != '"')
                     fprintf(stderr, "Unterminated character string\n");
                 else
@@ -98,7 +98,7 @@ lstring     { return LSTRING; }
 {gte}       { return GTE; }
 {cneq}      { return NEQ; }
 {neq}       { return NEQ; }
-{id}        {   yylval.string = strdup(yytext);
+{id}        {   yylval.string = kas_strdup(yytext);
                 return ID;
             }
 {cor}       { return OR; }

@@ -5,6 +5,7 @@
 //
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #if !defined _MSC_VER
@@ -2264,5 +2265,42 @@ int kasFunction(char *name)
         else if (!strcasecmp(name, functions[i].name))
             return i;
         ++i;
+    }
+}
+
+// ---- Memory Leaks Stop Gap ----
+// This kas2c transpiler leaks memory in the form of lexer tokens being `strdup()`ed to be available to the parser.
+// And if you compile this transpiler with LLVM's Leak Sanitizer (LSan), it is sure to pick it up. Which is a problem
+// since the program will then report the memory it leaked and _exit with an error_, tricking `make` into thinking it
+// failed to transpile.
+//
+// So we're keeping track of all the memory allocated to free it before exiting, which is technically useless since that
+// memory would be reclaimed by the OS mere moments later. (And since a new instance of the program is spawned for each
+// .kas file, the leaks really don't matter.)
+//
+// This is a rather verbose way to tell LSan that "Yes, it's leaking, and that's fine."
+
+// Max number of tokens to track.
+// As of 2023-09-04 this is the number of tokens in M12 - Galactic Core, and -- according to source control -- has been
+// since at least 2003-10-12, and probably since the release of the game in 1999.
+static char *tokenArena[5686] = {NULL};
+
+// Wrap strdup to keep a pointer to free later
+char *kas_strdup(const char *const other) {
+    static unsigned short tokenArenaIndex = 0;
+
+    // In case there is no more room in the arena, make sure things don't go boom.
+    // Any call beyond that size will just leak and be reported by LSan. And without LSan, things just keep working.
+    // Leave the last element NULL as the stop condition for kas_memfree
+    if (((sizeof(tokenArena) / sizeof(tokenArena[0])) - 1) <= tokenArenaIndex) {
+        tokenArenaIndex = 0;
+    }
+
+    return tokenArena[tokenArenaIndex++] = strdup(other);
+}
+
+void kas_memfree() {
+    for (char **token = tokenArena; *token; ++token) {
+        free(*token);
     }
 }

@@ -112,13 +112,4 @@ You can build a debug version of the game that includes those sanitizers with
 ../configure --enable-sanitizers
 ```
 
-Unfortunately `kas2c` itself -- which is used in the build process -- leaks memory.
-When LSan (the Leak Sanitizer) detects leaks, it exits with a non-zero code, leading the build process to think kas2c failed to transpile the KAS files. So you probably want to
-
-```sh
-export ASAN_OPTIONS="detect_leaks=0"
-```
-
-before building.
-
 [LLVM's Sanitizers]: https://clang.llvm.org/docs/AddressSanitizer.html

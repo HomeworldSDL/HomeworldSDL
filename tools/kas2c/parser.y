@@ -502,5 +502,8 @@ int main(int argc, char **argv)
         if (foutfilename[0]);
             unlink(foutfilename);
     }
+
+    kas_memfree();
+
     return 0;
 }

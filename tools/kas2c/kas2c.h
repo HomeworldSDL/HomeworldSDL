@@ -2,7 +2,7 @@
 #define __KAS2C_H
 
 //#define KAS2C_VERSION "2.05"
-#define KAS2C_VERSION "2.05sdl"
+#define KAS2C_VERSION "2.06noleak"
 
 // "depth" of script we're currently parsing at
 #define LEVEL_LEVEL 0
@@ -114,6 +114,10 @@ void kasLStringDefineStart(char *name);
 void kasLStringDefineEnd(void);
 void kasLStringValue(char *value);
 void kasLStringReference(char *name);
+
+// Support functions to avoid memory leaks
+char *kas_strdup(const char *const);
+void kas_memfree();
 
 char* stateHelpGet ();
 
