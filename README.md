@@ -110,6 +110,19 @@ Nix will download everything it needs, build the HomeworldSDL source code, then 
 
 If you don't have Nix installed, please refer to [`Linux/BUILD.md`](Linux/BUILD.md).
 
+#### Game is slow/crashes
+
+By default, the version compiled by nix has debugging tools enabled which can slow down the game _and_ crash when its trying to fit round pegs in square holes.
+
+__If you experience any crash, please, send us the log!__
+
+But if you would prefer the latest stable version compiled in release mode (faster):
+
+```sh
+HW_Data=$ASSETS_FOLDER nix run 'git+https://gitlab.com/homeworldsdl/the-guidestone.git'
+```
+
+
 ### macOS
 
 Go into the 'Mac' directory, and use the xcode project.  Please note, you will need the SDL2.framework before you start.  This can be found on the releases page of SDL's github repository as a .dmg file.  Place this file into the same directory as the xcode project file and then proceed to build the engine.

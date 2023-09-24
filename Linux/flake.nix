@@ -37,11 +37,17 @@
       '';
     version = "${builtins.substring 0 8 (self.lastModifiedDate or self.lastModified or "19700101")}.${self.shortRev or "dirty"}";
 
-    packages.x86_64-linux.default = guidestone.packages.x86_64-linux.default.overrideAttrs
-      (attrs: {
-        version = self.version;
-        src = self.source-code;
-      });
+    packages.x86_64-linux.default = (guidestone.galactic_map {
+      version = self.version;
+      src = self.source-code;
+      configureOptions = "--enable-hwdebug --enable-sanitizers";
+    }).overrideAttrs (attrs: {
+      dontStrip = true;
+      nativeBuildInputs = [ nixpkgs.legacyPackages.x86_64-linux.makeWrapper ];
+      installPhase = attrs.installPhase + ''
+        wrapProgram $out/bin/homeworld --set LD_LIBRARY_PATH "${self.devShells.x86_64-linux.default.LD_LIBRARY_PATH}"
+      '';
+    });
 
     packages.x86_64-linux.i-am-not-on-nixos = nixpkgs.legacyPackages.x86_64-linux.writeShellScriptBin "non-nixos" ''
       ${nixGL.packages.x86_64-linux.default}/bin/nixGL ${self.packages.x86_64-linux.default}/bin/homeworld
