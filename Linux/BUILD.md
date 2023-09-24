@@ -121,6 +121,4 @@ export ASAN_OPTIONS="detect_leaks=0"
 
 before building.
 
-> ⚠️ Beware, though, that as of 2023-09-22, enabling sanitizers surfaces a lot of issues, making the game crash where it does not without them.
-
 [LLVM's Sanitizers]: https://clang.llvm.org/docs/AddressSanitizer.html

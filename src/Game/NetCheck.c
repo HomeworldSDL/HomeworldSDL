@@ -256,7 +256,7 @@ void syncDebugDump(char *filename1,sdword counter,bool save)
             }
             else
             {
-                us->ship[j].dockingship=-1;
+                us->ship[j].dockingship = (Ship *)-1;
             }
             us->ship[j].navLightInfo=0;
 
@@ -271,7 +271,7 @@ void syncDebugDump(char *filename1,sdword counter,bool save)
             }
             else
             {
-                us->ship[j].rowGetOutOfWay=-1;
+                us->ship[j].rowGetOutOfWay = (Ship *)-1;
             }
 
             if(us->ship[j].playerowner != NULL)
@@ -280,7 +280,7 @@ void syncDebugDump(char *filename1,sdword counter,bool save)
             }
             else
             {
-                us->ship[j].playerowner = -1;
+                us->ship[j].playerowner = (Player *)-1;
             }
 
             if(us->ship[j].gettingrocked != NULL)
@@ -289,7 +289,7 @@ void syncDebugDump(char *filename1,sdword counter,bool save)
             }
             else
             {
-                us->ship[j].gettingrocked=-1;
+                us->ship[j].gettingrocked = (Ship *)-1;
             }
             if(us->ship[j].recentAttacker != NULL)
             {
@@ -297,7 +297,7 @@ void syncDebugDump(char *filename1,sdword counter,bool save)
             }
             else
             {
-                us->ship[j].recentAttacker=-1;
+                us->ship[j].recentAttacker = (Ship *)-1;
             }
             if(us->ship[j].firingAtUs != NULL)
             {
@@ -305,7 +305,7 @@ void syncDebugDump(char *filename1,sdword counter,bool save)
             }
             else
             {
-                us->ship[j].firingAtUs=-1;
+                us->ship[j].firingAtUs = (Ship *)-1;
             }
 
             us->ship[j].flightmanInfo=0;
@@ -316,7 +316,7 @@ void syncDebugDump(char *filename1,sdword counter,bool save)
             }
             else
             {
-                us->ship[j].command = -1;
+                us->ship[j].command = (CommandToDo *)-1;
             }
 
             //turn off this COMPUTER PLAYER specific variale!
@@ -332,7 +332,7 @@ void syncDebugDump(char *filename1,sdword counter,bool save)
 
             if(us->ship[j].dockvars.dockship!=NULL)
             {
-                us->ship[j].dockvars.dockship = us->ship[j].dockvars.dockship->shipID.shipNumber;
+                us->ship[j].dockvars.dockship = (Ship *)us->ship[j].dockvars.dockship->shipID.shipNumber;
             }
             else
             {

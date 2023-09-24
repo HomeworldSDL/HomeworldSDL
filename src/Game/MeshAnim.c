@@ -6,6 +6,7 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
+#include <math.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -13,17 +14,17 @@
 #include <strings.h>
 #endif
 
-#include <math.h>
 #include "Debug.h"
-#include "Memory.h"
 #include "File.h"
-#include "SpaceObj.h"
-#include "Vector.h"
 #include "Matrix.h"
-#include "Universe.h"
-#include "NIS.h"
-#include "mainrgn.h"
+#include "Memory.h"
 #include "MeshAnim.h"
+#include "NIS.h"
+#include "SpaceObj.h"
+#include "Types.h"
+#include "Universe.h"
+#include "Vector.h"
+#include "mainrgn.h"
 
 #ifdef _MSC_VER
 #define strcasecmp _stricmp
@@ -197,8 +198,7 @@ void madHeaderDelete(madheader *header)
     Outputs     :
     Return      : (Matrix not updated)
 ----------------------------------------------------------------------------*/
-bool madAnimBindingPause(udword flags, hmatrix *startMatrix, hmatrix *matrixDest, void *data, sdword ID)
-{
+bool madAnimBindingPause(udword flags, hmatrix *startMatrix, hmatrix *matrixDest, void *data, smemsize ID) {
     return(FALSE);
 }
 
@@ -212,8 +212,7 @@ bool madAnimBindingPause(udword flags, hmatrix *startMatrix, hmatrix *matrixDest
     Outputs     : matrixDest - animated matrix
     Return      : TRUE = matrix updated
 ----------------------------------------------------------------------------*/
-bool madAnimBindingUpdate(udword flags, hmatrix *startMatrix, hmatrix *matrixDest, void *data, sdword ID)
-{
+bool madAnimBindingUpdate(udword flags, hmatrix *startMatrix, hmatrix *matrixDest, void *data, smemsize ID) {
     real32 timeElapsed;
     Ship *ship = (Ship *)data;
     sdword j, startPoint;

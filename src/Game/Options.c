@@ -93,8 +93,7 @@ sdword speechEventCleanup(void);
 
 #define OP_SMOOTHIE_RATE        0.01f
 
-#define NUM_EQ_BANDS            8
-
+#define NUM_EQ_BANDS SOUND_EQ_SIZE
 
 #if(0)
 

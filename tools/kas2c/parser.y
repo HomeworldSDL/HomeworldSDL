@@ -31,10 +31,8 @@ int parseLevel = LEVEL_LEVEL;
 
 int ifOnceIndex;  // up to 2^32 IFONCE statements per WATCH or INIT routine
 
-#ifdef __APPLE__
 int yylex();
 int yyerror();
-#endif
 
 extern FILE *yyout;
 extern char *yytext;

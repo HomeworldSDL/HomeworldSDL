@@ -10,22 +10,21 @@
 /*#define WIN32_LEAN_AND_MEAN*/
 #define STRICT
 
-#include <SDL2/SDL.h>
+#include "rinit.h"
 
-#include "Debug.h"
-
-#include <stdio.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "rinit.h"
-#include "devstats.h"
-#include "Types.h"
 
+#include <SDL2/SDL.h>
+
+#include "Debug.h"
+#include "StringSupport.h"
+#include "Types.h"
+#include "devstats.h"
 
 extern unsigned int mainSoftwareDirectDraw;
 extern unsigned int mainOutputCRC;
-extern unsigned long strCurLanguage;
 
 #define RIN_MODESINDEVSTATLIST 10
 unsigned int rinDevstatModeTable[RIN_MODESINDEVSTATLIST][3] =

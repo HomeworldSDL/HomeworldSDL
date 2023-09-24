@@ -1015,6 +1015,83 @@ sdword feFindChildrenForARegion(regionhandle region, regionhandle *firstChild)
     return(totalHits);
 }
 */
+
+sdword feFindChildrenInner(regionhandle region) {
+    static ubyte feCanStack[] = {
+        /* 0                            */ FALSE,
+        /* FA_UserRegion = 1,           */ TRUE,
+        /* FA_StaticText,               */ TRUE,
+        /* FA_Button,                   */ TRUE,
+        /* FA_CheckBox,                 */ TRUE,
+        /* FA_ToggleButton,             */ TRUE,
+        /* FA_ScrollBar,                */ FALSE,
+        /* FA_StatusBar,                */ FALSE,
+        /* FA_TextEntry,                */ TRUE,
+        /* FA_ListViewExpandButton,     */ FALSE,
+        /* FA_TitleBar,                 */ FALSE,
+        /* FA_MenuItem,                 */ TRUE,
+        /* FA_RadioButton,              */ TRUE,
+        /* FA_CutoutRegion,             */ FALSE,
+        /* FA_DecorativeRegion,         */ FALSE,
+        /* FA_Divider,                  */ FALSE,
+        /* FA_ListWindow,               */ FALSE,
+        /* FA_BitmapButton,             */ TRUE,
+        /* FA_HorizSlider,              */ FALSE,
+        /* FA_VertSlider,               */ FALSE,
+        /* FA_DragButton,               */ TRUE,
+        /* FA_OpaqueDecorativeRegion,   */ FALSE,
+    };
+
+    sdword hits = 0;
+    while (region != NULL) {
+        featom *atom = (featom *)region->atom;
+        if ((region->userID > 255) && feCanStack[atom->type]) {
+            // scan previous members and see if they want to become children
+            regionhandle child = region->previous;
+
+            while (child != NULL) {
+                if (regRegionInside(child, region)) {
+                    hits++;
+
+                    // remove child from siblings
+                    if (child->previous == NULL) {
+                        child->next->previous = NULL;
+                        child->parent->child = child->next;
+                    } else {
+                        child->previous->next = child->next;
+                        child->next->previous = child->previous;
+                    }
+
+                    child->previous = NULL;
+                    child->next = NULL;
+
+                    // add child to children
+                    if (region->child == NULL) {
+                        region->child = child;
+                    } else {
+                        regionhandle sibling;
+                        for (sibling = region->child; sibling->next != NULL;) {
+                            sibling = sibling->next;
+                        }
+
+                        sibling->next = child;
+                        child->previous = sibling;
+                    }
+
+                    // re-parent
+                    child->parent = region;
+
+                    return hits; // RESTART
+                }
+
+                child = child->previous;
+            }
+        }
+        region = region->next;
+    }
+    return hits;
+}
+
 /*-----------------------------------------------------------------------------
     Name        : feFindChildren
     Description : for all children of the base region, find possible other children inside
@@ -1023,109 +1100,11 @@ sdword feFindChildrenForARegion(regionhandle region, regionhandle *firstChild)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-static ubyte feCanStack[] =
-{
-/* 0                            */ FALSE,
-/* FA_UserRegion = 1,           */ TRUE,
-/* FA_StaticText,               */ TRUE,
-/* FA_Button,                   */ TRUE,
-/* FA_CheckBox,                 */ TRUE,
-/* FA_ToggleButton,             */ TRUE,
-/* FA_ScrollBar,                */ FALSE,
-/* FA_StatusBar,                */ FALSE,
-/* FA_TextEntry,                */ TRUE,
-/* FA_ListViewExpandButton,     */ FALSE,
-/* FA_TitleBar,                 */ FALSE,
-/* FA_MenuItem,                 */ TRUE,
-/* FA_RadioButton,              */ TRUE,
-/* FA_CutoutRegion,             */ FALSE,
-/* FA_DecorativeRegion,         */ FALSE,
-/* FA_Divider,                  */ FALSE,
-/* FA_ListWindow,               */ FALSE,
-/* FA_BitmapButton,             */ TRUE,
-/* FA_HorizSlider,              */ FALSE,
-/* FA_VertSlider,               */ FALSE,
-/* FA_DragButton,               */ TRUE,
-/* FA_OpaqueDecorativeRegion,   */ FALSE,
-};
-void feFindChildren(regionhandle baseRegion)
-{
-    regionhandle region, child, sibling, lastRegion;
-    sdword hits = 1;
-    featom *atom;
-
-RESTART:
-    if (!hits)
-    {
-        return;
-    }
-    region = baseRegion->child;
-    if (region == NULL)
-    {
-        return;
-    }
-
-    hits = 0;
-    while (region != NULL)
-    {
-        atom = (featom *)region->userID;
-        if ((region->userID > 255) && feCanStack[atom->type])
-        {
-            //scan previous members and see if they want to become children
-            child = region->previous;
-
-            lastRegion = region;
-
-            while (child != NULL)
-            {
-                if (regRegionInside(child, region))
-                {
-                    hits++;
-
-                    //remove child from siblings
-                    if (child->previous == NULL)
-                    {
-                        child->next->previous = NULL;
-                        child->parent->child = child->next;
-                    }
-                    else
-                    {
-                        child->previous->next = child->next;
-                        child->next->previous = child->previous;
-                    }
-
-                    child->previous = NULL;
-                    child->next = NULL;
-
-                    //add child to children
-                    if (region->child == NULL)
-                    {
-                        region->child = child;
-                    }
-                    else
-                    {
-                        for (sibling = region->child; sibling->next != NULL;)
-                        {
-                            sibling = sibling->next;
-                        }
-
-                        sibling->next = child;
-                        child->previous = sibling;
-                    }
-
-                    //re-parent
-                    child->parent = region;
-
-                    goto RESTART;
-                }
-
-                lastRegion = child;
-                child = child->previous;
-            }
-
-        }
-        region = region->next;
-    }
+void feFindChildren(regionhandle baseRegion) {
+    sdword hits;
+    do {
+        hits = feFindChildrenInner(baseRegion->child);
+    } while (hits != 0);
 }
 
 /*-----------------------------------------------------------------------------
