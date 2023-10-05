@@ -1257,7 +1257,7 @@ udword partRenderMeshSystem(udword n, particle *p, udword flags, trhandle tex, m
         glPushMatrix();
 
         mesh = p->mesh;
-        if ((mesh != NULL) && (mesh != (meshdata*) 0xffffffff))
+        if ((mesh != NULL) && (mesh != (meshdata*) 0xffffffff) && (mesh != (meshdata*) 0x7fffffff))
         {
             partMeshOrient(p, TRUE, meshPart);
 
@@ -1366,7 +1366,7 @@ udword partRenderMeshSystem(udword n, particle *p, udword flags, trhandle tex, m
             {                                               //else there is a morph animation
                 mesh2 = partMeshNextMesh(meshPart, p);
               /* it will catch stuff like 0x9cce2641ffffffff on 64-bit... but source of 32/64 should really be found and fixed */
-              if ( 0xffffffff == ((memsize)mesh2 & 0xffffffff)) {
+              if ( (0xffffffff == ((memsize)mesh2 & 0xffffffff)) || (0x7fffffff == ((memsize)mesh2 & 0x7fffffff))) {
                 dbgMessagef("partRenderMeshSystem: Got mesh2 with suspected flag: %d",mesh2);
                 return 0; //kill the render system
               }
@@ -1911,7 +1911,7 @@ sdword partAdvanceMeshMorph(meshSystem* psys, particle* p)
     //find the trivial next
     frame = (sdword)p->meshFrame + 1;
     next = animblock + frame;
-    if (next->mesh == NULL || next->mesh == (meshdata*) 0xffffffff)
+    if (next->mesh == NULL || next->mesh == (meshdata*) 0xffffffff || next->mesh == (meshdata*) 0x7fffffff)
     {
         if (p->loopCount == 0)
         {
