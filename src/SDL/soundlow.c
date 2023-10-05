@@ -277,7 +277,7 @@ void soundrestore(void)
 	soundpause(TRUE);
 
 	soundinited = FALSE;
-#ifndef _WIN32_FIXME
+#ifndef _WIN32
 	while (!((streamer.status == SOUND_FREE) && (mixer.status == SOUND_FREE)))
 	{
 		SDL_Delay(0);

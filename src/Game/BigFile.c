@@ -2709,7 +2709,7 @@ void bigFilesystemCompare(char *baseDirectory, char *directory)
 {
 #ifdef _WIN32
     struct _finddata_t findData;
-    sdword hFile;
+    intptr_t hFile;
 #else
     struct stat file_stat;
     DIR *dp;

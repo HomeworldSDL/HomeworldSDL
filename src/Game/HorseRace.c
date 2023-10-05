@@ -475,7 +475,7 @@ void hrChooseRandomBitmap(char *pFilenameBuffer)
 {
 #ifdef _WIN32
     struct _finddata_t  FindData;
-    long hFind;
+    intptr_t hFind;
 #else
     DIR *dp;
     struct dirent* dir_entry;

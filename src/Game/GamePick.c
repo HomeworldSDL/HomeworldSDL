@@ -251,7 +251,7 @@ sdword gpCountTrainingSavegames(void)
 {
 #ifdef _WIN32
     struct _finddata_t find;
-    sdword handle, startHandle;
+    intptr_t handle, startHandle;
 #else
     DIR* dp;
     struct dirent* dir_entry;
@@ -306,7 +306,7 @@ void gpTitleListLoad(void)
 {
 #ifdef _WIN32
     struct _finddata_t find;
-    sdword handle, startHandle;
+    intptr_t handle, startHandle;
 #else
     DIR* dp;
     struct dirent* dir_entry;
