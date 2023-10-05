@@ -9,9 +9,13 @@ src/Missions/Generated
 tools/biggie/biggie
 
 tools/kas2c/kas2c
+tools/kas2c/kas2c.exe
 tools/kas2c/lexer.c
 tools/kas2c/parser.c
 tools/kas2c/parser.h
+
+tools/x86_64/*.o
+tools/x86_64/*.exe
 
 Linux/Makefile
 Linux/config.h
@@ -44,3 +48,12 @@ cscope.out
 compile_commands.json
 # Clangd's cache
 .cache/
+
+mingw/*.res
+mingw/bin/*
+mingw/build/*
+mingw/cv2pdb/*
+windows/bin/*
+windows/build/*
+*.c.d
+*.c.o
