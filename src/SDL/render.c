@@ -894,7 +894,11 @@ bool setupPixelFormat()
 
     /* Create OpenGL window. */
     flags = SDL_WINDOW_OPENGL;
-    
+
+#ifdef _WIN32
+    HRESULT hr = SetProcessDPIAware();
+#endif
+
 #ifndef HW_ENABLE_GLES
     /* Set attributes. */
     SDL_GL_SetAttribute(SDL_GL_BUFFER_SIZE,  MAIN_WindowDepth);
