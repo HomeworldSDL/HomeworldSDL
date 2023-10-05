@@ -42,11 +42,7 @@
 #include "utility.h"
 
 #ifdef GENERIC_ETGCALLFUNCTION
-#ifdef _MACOSX_FIX_MISC
 #include "functions.h"
-#else
-#include "wrapped_functions.h"
-#endif
 #include "wrapped_unlisted_functions.h"
 #endif
 
@@ -685,6 +681,7 @@ etgcondentry etgConditionalTable[] =
 
 //table for parsing the etg script
 etgeffectstatic *etgEffectLoad(char *directory,char *field,void *dataToFillIn);
+void etgEffectLoadVoid(char *directory,char *field,void *dataToFillIn);
 void etgEffectTestKey(char *directory,char *field,void *dataToFillIn);
 void etgEffectProfileKey(char *directory,char *field,void *dataToFillIn);
 void etgDeathEventSet(char *directory,char *field,void *dataToFillIn);
@@ -704,7 +701,7 @@ void etgNumberEffectsParse(char *directory,char *field,void *dataToFillIn);
 void etgSoftwareEffect(char *directory,char *field,void *dataToFillIn);
 scriptEntry etgScriptParseTable[] =
 {
-    {"LoadEffect",                  (setVarCback)etgEffectLoad, NULL},
+    {"LoadEffect",                  etgEffectLoadVoid, NULL},
     {"SoftwareVersion",             etgSoftwareEffect, NULL},
     {"setDeathEvent",               etgDeathEventSet, NULL},
     {"setFireEvent",                etgFireEventSet, NULL},
@@ -910,6 +907,12 @@ etglod *etgLODLoad(char *directory, char *name, etglod *oldLOD)
     Note        : Can be called from script loading stuff or directly from
                     special loading functions.
 ----------------------------------------------------------------------------*/
+void etgEffectLoadVoid(char *directory,char *field,void *dataToFillIn)
+{
+    etgEffectLoad(directory, field, dataToFillIn);
+    return;
+}
+
 etgeffectstatic *etgEffectLoad(char *directory,char *field,void *dataToFillIn)
 {
     char path[PATH_MAX];

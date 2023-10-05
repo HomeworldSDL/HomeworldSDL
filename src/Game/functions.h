@@ -127,14 +127,14 @@
     funcEntry8(carandom, EVT_RGBA, etgCARandom, EVT_Int, EVT_Int, EVT_Int, EVT_Int, EVT_Int, EVT_Int, EVT_Int, EVT_Int)
 
     //special-case functions
-    funcEntryThis0(deleteParentShip, EVT_Int, etgParentShipDelete)
-    funcEntryThis0(hideParentShip, EVT_Int, etgParentShipHide)
+    funcEntryThis0(deleteParentShip, EVT_Void, etgParentShipDelete)
+    funcEntryThis0(hideParentShip, EVT_Void, etgParentShipHide)
     funcEntryThis1(playSound, EVT_Int, soundEffect, EVT_Int)
-    funcEntryThis1(playChatter, EVT_Int, etgChatterEventPlay, EVT_Int)
-    funcEntryThis0(deathCries, EVT_Int, etgDeathCriesPlay)
-    funcEntryThis0(getColorScheme, EVT_Int, etgOwnerColorSchemeGet)
-    funcEntryThis0(getEffectVelocity,   EVT_Int, etgEffectVelocityGet)
-    funcEntryThis0(damageDone, EVT_Int, etgDamageDone)
+    funcEntryThis1(playChatter, EVT_Void, etgChatterEventPlay, EVT_Int)
+    funcEntryThis0(deathCries, EVT_Void, etgDeathCriesPlay)
+    funcEntryThis0(getColorScheme, EVT_Float, etgOwnerColorSchemeGet)
+    funcEntryThis0(getEffectVelocity,   EVT_Float, etgEffectVelocityGet)
+    funcEntryThis0(damageDone, EVT_Void, etgDamageDone)
 
     //adjust parameters of effects to be spawned
     funcEntry1(setEffOffsetLOF,   EVT_Void, etgEffOffsetLOF,  EVT_Float)
