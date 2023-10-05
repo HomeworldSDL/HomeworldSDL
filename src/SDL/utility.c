@@ -3497,9 +3497,7 @@ void utyGrowthHeapFree(void *heap)
     BOOL result;
     result = VirtualFree(heap, 0, MEM_RELEASE);
     dbgAssertOrIgnore(result);
-#endif
-
-#ifdef __aarch64__
+#elif defined(__aarch64__)
     int result;
     result = munmap(heap, 0);
     dbgAssertOrIgnore(result != NULL);
@@ -4673,9 +4671,7 @@ char *utyGameSystemsShutdown(void)
         bool result;
         result = VirtualFree(utyMemoryHeap, 0, MEM_RELEASE);
         dbgAssertOrIgnore(result);
-#endif
-
-#ifdef __aarch64__
+#elif defined(__aarch64__)
         int result;
         result = munmap(utyMemoryHeap, 0);
         dbgAssertOrIgnore(result != NULL);
