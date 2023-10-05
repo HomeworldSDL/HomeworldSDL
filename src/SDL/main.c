@@ -1338,7 +1338,7 @@ void mainDestroyWindow(void)
 #ifdef _WIN32
     if (DebugWindow)
     {
-        dbwClose();
+        //dbwClose();
     }
 #endif
 
@@ -1353,7 +1353,7 @@ void mainDestroyWindow(void)
         /* If porting this back to Windows, you'll need to get a hold of
            values for these (hWnd is in the SDL_SysWMinfo structure, hInst
            would need to be acquired through Windows API calls). */
-        dbwStart((udword)ghInstance, (udword)ghMainWindow);
+        //dbwStart((udword)ghInstance, (udword)ghMainWindow);
     }
 #endif
 }
@@ -2160,7 +2160,7 @@ int main (int argc, char* argv[])
 #ifdef _WIN32
         if (DebugWindow)
         {
-            dbwClose();
+            //dbwClose();
         }
 #endif
         preInit = TRUE;
@@ -2174,7 +2174,7 @@ int main (int argc, char* argv[])
             /* If porting this back to Windows, you'll need to get a hold of
                values for these (hWnd is in the SDL_SysWMinfo structure, hInst
                would need to be acquired through Windows API calls). */
-            dbwStart((udword)ghInstance, (udword)ghMainWindow);
+            //dbwStart((udword)ghInstance, (udword)ghMainWindow);
             utySet(SSA_DebugWindow);
         }
 #endif
