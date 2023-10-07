@@ -123,7 +123,12 @@ ln -srv compile_commands.json ..
 [LLVM's Sanitizers] are a powerful suite of tools for memory debugging.
 They can detect and help debug many kinds of invalid or dangerous memory handling patterns (like buffer overflows, use after free, or leaks).
 
-#### With Autotools
+#### With Meson
+
+The `address` and `undefined` sanitizers are enabled by default.
+You can disable them by passing the `-Db_sanitize=none` option to `meson setup`.
+
+#### With Autotools (Deprecated)
 
 You can build a debug version of the game that includes those sanitizers with
 

@@ -112,15 +112,17 @@ If you don't have Nix installed, please refer to [`Linux/BUILD.md`](Linux/BUILD.
 
 #### Game is slow/crashes
 
-By default, the version compiled by nix has debugging tools enabled which can slow down the game _and_ crash when its trying to fit round pegs in square holes.
+By default, the game is compiled with debugging tools which can slow down the game _and_ crash it when it is trying to fit round pegs in square holes.
 
 __If you experience any crash, please, send us the log!__
 
-But if you would prefer the latest stable version compiled in release mode (faster):
+But if the game is too slow or you encounter a crash that you cannot work around, you can compile an optimised version with:
 
 ```sh
-HW_Data=$ASSETS_FOLDER nix run 'git+https://gitlab.com/homeworldsdl/the-guidestone.git'
+meson setup --buildtype=release -Db_sanitize=none build.fast
 ```
+
+> More info on compiling the game with meson in [`Linux/BUILD.md`](Linux/BUILD.md#meson)
 
 
 ### macOS

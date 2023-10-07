@@ -1,7 +1,7 @@
 project('homeworld',
         'c',
-        version: '0.1',
-        default_options: ['warning_level=3', 'c_std=c17'])
+        version: '1.2.0',
+        default_options: ['warning_level=3', 'c_std=c17', 'b_sanitize=address,undefined'])
 
 dep_x11 = dependency('x11')
 dep_gl = dependency('gl')
@@ -40,10 +40,6 @@ if get_option('debug')
 	c_args = c_base_args + '-DHW_BUILD_FOR_DEBUGGING'
 else
 	c_args = c_base_args + '-DHW_BUILD_FOR_DISTRIBUTION'
-
-	if build_machine.cpu_family() == 'x86_64'
-		c_args += '-DGENERIC_ETGCALLFUNCTION'
-	endif
 endif
 
 subdir('tools')
