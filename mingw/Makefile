@@ -58,7 +58,7 @@ COMMONFLAGS = -MMD \
               -DWINDOWS \
               -DSTDC_HEADERS \
               -DGIT_VERSION="\"$(GIT_VERSION)\"" \
-              -I $(BUILDDIR)/Missions/ \
+              -I $(BUILDDIR)/Missions/Generated/ \
               -I ../src/Game/ \
               -I ../src/Ships/ \
               -I ../src/Game/ \
