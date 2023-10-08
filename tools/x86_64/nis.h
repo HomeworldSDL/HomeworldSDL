@@ -1,3 +1,4 @@
+#include "B-Spline.h"
 #include "Types.h"
 //#include "NIS.h"
 //
