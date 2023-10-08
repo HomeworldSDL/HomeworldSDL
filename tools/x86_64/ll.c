@@ -104,7 +104,7 @@ main (int argc, char *argv[])
             newElement->sharedTo = (sdword*)((memsize)oldElement->sharedTo); 
         }
         else {
-            newElement->sharedTo = -1;
+            newElement->sharedTo = (sdword *)-1;
         }
         if (oldElement->sharedFrom != -1){    
      //       printf("%x:pointer to parent %x\n",i,oldElement->sharedFrom);

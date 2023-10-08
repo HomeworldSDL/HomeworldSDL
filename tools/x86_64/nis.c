@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
     camerapath_disk *oldCamPath = NULL;
     camerapath *newCamPath = NULL;
 
-    memsize offset = 0;
+    void *offset = 0;
     memsize loopsize = 0;
 
     void *oldptr = NULL;
@@ -109,7 +109,7 @@ int main(int argc, char *argv[]) {
 
         loopcount = newHeader->nObjectPaths;
         for (loopvar = 0; loopvar < loopcount; loopvar++) {
-            newObjPath[loopvar].instance = offset;
+            newObjPath[loopvar].instance = (sdword)offset;
             newObjPath[loopvar].type = oldObjPath[loopvar].type;
             newObjPath[loopvar].parentIndex = oldObjPath[loopvar].parentIndex;
             newObjPath[loopvar].race = oldObjPath[loopvar].race;
@@ -144,7 +144,7 @@ int main(int argc, char *argv[]) {
 
         loopcount = newHeader->nCameraPaths;
         for (loopvar = 0; loopvar < loopcount; loopvar++) {
-            newCamPath[loopvar].oLength = offset;
+            newCamPath[loopvar].oLength = (udword)offset;
             memcpy(newptr, oldptr + oldCamPath[loopvar].oLength, 4 * oldCamPath[loopvar].nSamples);
             offset += 4 * newCamPath[loopvar].nSamples;
             newptr += 4 * newCamPath[loopvar].nSamples;
@@ -178,7 +178,7 @@ int main(int argc, char *argv[]) {
 
         offset += oldHeader->stringBlockLength;
 
-        if (fileSave(newFile, newbase, offset) == 0) {
+        if (fileSave(newFile, newbase, (sdword)offset) == 0) {
             return 1;
         }
         printf("%s size is %d\n", newFile, offset);
