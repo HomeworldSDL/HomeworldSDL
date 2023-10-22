@@ -368,7 +368,8 @@ int main(int argc, char **argv)
             break;
         }
     }
-    fprintf(stderr, "%s\n", shortinfilename);
+    // When everything went fine, this will be the only log of kas2c. When building with autotools it can serve as a sort of rudimentary progress indicator, but with other build systems it's just noisy. Feel free to remove it. - T.L. 2023-10-22
+    fprintf(stdout, "%s\n", shortinfilename);
 
     strcpy(tempfilename, shortinfilename);
     strcpy(infilename, tempfilename);
