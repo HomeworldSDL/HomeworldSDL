@@ -30,6 +30,22 @@ meson compile
 
 You can now [run the compiled executable for the first time](../README#running-the-game-for-the-first-time).
 
+#### Building HomeworldSDL.big
+
+In [the above folder](#meson), run
+
+```sh
+meson compile assets
+```
+
+If it exits complaining about "memory leaks", that's expected. Just ignore that, you should have a `HomeworldSDL.big` file in your build folder!
+
+> This is an unwanted side-effect of including debugging tools into the game.
+  The tool used to build that asset file, `biggie`, shares code with the main game, and inherits those debugging tools.
+  So the error you're seeing comes from those tools and is telling you that `biggie` failed to free some memory it had allocated before exiting.
+  But for a short-running process this is completely OK as that memory will just be reclaimed by the kernel once it exited.
+  (We're working on fixing that)
+
 ### Autotools (Deprecated)
 
 #### x86_64 (intel/amd 64-bit)
