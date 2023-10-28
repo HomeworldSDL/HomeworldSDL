@@ -283,6 +283,8 @@ udword initialSensorLevel = 0;
 
 bool pilotView = FALSE;
 
+bool debugScreenshots = FALSE;
+
 
 /*=============================================================================
     Functions:
@@ -849,6 +851,8 @@ commandoption commandOptions[] =
 
     entryVrHidden("/closeCaptioned",      subCloseCaptionsEnabled, TRUE,      " - close captioned for the hearing impared."),
     entryVr("/pilotView",           pilotView, TRUE, " - enable pilot view.  Focus on single ship and hit Q to toggle."),
+
+    entryVr("/debugScreenshots",    debugScreenshots, TRUE, " - take screenshots from all single-player missions for render debugging then exit."),
 
     END_COMMAND_OPTION,
 };

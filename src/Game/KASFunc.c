@@ -110,6 +110,8 @@ extern real32 subMessageReturnedFalseTime;
 extern real32 nisBlackFadeDest;
 extern real32 nisBlackFadeRate;
 
+extern bool debugScreenshots;
+
 void kasfMissionCompleted(void)
 {
     if (tutorial == TUTORIAL_ONLY)
@@ -3856,6 +3858,8 @@ sdword kasfShipsDisabled(GrowSelection *ships)
 //saves a single player level
 void kasfSaveLevel(sdword LevelNum, char *LevelName)
 {
+    // Disable autosaving when taking debug screenshots
+    if (debugScreenshots) return;
 //    char levelName[256];
 
 //LM:Why is this here?  It trips an assertion...    btgSetColourMultiplier(-1.0f);

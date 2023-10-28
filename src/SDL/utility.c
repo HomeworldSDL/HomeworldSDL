@@ -144,6 +144,8 @@
     #include "debugwnd.h"
 #endif
 
+extern bool debugScreenshots;
+
 // #define REG_MAGIC_STR  "D657E436967616D4"   // used for CD-checking code
 
 #define CD_VALIDATION_ENABLED  0            // toggle checking CD is in drive and anti-piracy checks
@@ -4284,6 +4286,13 @@ DONE_INTROS:
 */
 
     utySet(SS2_SystemStarted);                              //!!! leave this at the end of this function
+
+    // when we want to take debug screenshots directly start the singleplayer campaing
+    if (debugScreenshots)
+    {
+        utySinglePlayerGameStart("", NULL);
+    }
+
     return(NULL);                                           //success, return no error
 }
 

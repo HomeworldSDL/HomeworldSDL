@@ -105,6 +105,8 @@
 #define DISABLE_RANDOM_STARS  0     // turn off drawing of random stars over background
 
 
+extern bool debugScreenshots;
+extern bool hyperspaceOverride;
 
 bool8 rndFogOn = FALSE;
 
@@ -3959,6 +3961,68 @@ DEFINE_TASK(rndRenderTask)
         y = 300;
         if (rndDisplayCollStats) profTimerStatsPrint(&y);        // compiled out automatically if PROFILE_TIMERS not defined
 #endif
+
+// remove this when we merged in the higher universe update rate changes
+#ifndef UNIVERSE_UPDATE_RATE_FACTOR
+#define UNIVERSE_UPDATE_RATE_FACTOR 1
+#endif
+        // Automatic screenshot generation for render debugging
+        if (debugScreenshots) {
+            mouseCursorHide();
+            
+            char screenshotName[64];
+            static MissionEnum screenshotMission = 0;
+            static sdword screenshotTimer = 128 * UNIVERSE_UPDATE_RATE_FACTOR;
+
+            // Reset the screenshot timer if we've changed missions
+            if (screenshotMission != spGetCurrentMission()) {
+                screenshotTimer = 128 * UNIVERSE_UPDATE_RATE_FACTOR;
+                screenshotMission = spGetCurrentMission();
+            }
+
+            // Take a screenshot every 112 universe ticks
+            if (universe.univUpdateCounter >= screenshotTimer) {
+                printf("debugScreenshots univUpdateCounter: %d\n", universe.univUpdateCounter);
+                screenshotTimer += 112 * UNIVERSE_UPDATE_RATE_FACTOR;
+                sprintf(screenshotName, "golden-%02d-%05d.jpg", spGetCurrentMission(),
+                        universe.univUpdateCounter / UNIVERSE_UPDATE_RATE_FACTOR);
+                ssTakeScreenshot(screenshotName);
+            }
+
+            // We can't hyperspace early while a NIS is playing - abort any playing NIS
+            if (universe.univUpdateCounter > 800 * UNIVERSE_UPDATE_RATE_FACTOR) {
+                if (thisNisPlaying) {
+                    printf("debugScreenshots nisGoToEnd()\n");
+                    nisGoToEnd(thisNisPlaying);
+                }
+            }
+            
+            // Enough screenshots taken for current mission
+            if (universe.univUpdateCounter > 816 * UNIVERSE_UPDATE_RATE_FACTOR) {
+                // Exit game if this is last mission
+                if (spGetCurrentMission() == MISSION_16_HIIGARA) {
+                    utyGameQuit(NULL, NULL);    
+                }
+
+                // Engage docking and hyperspace routine to jump to next mission
+                if (singlePlayerGameInfo.hyperspaceState == NO_HYPERSPACE) {
+                    printf("debugScreenshots singlePlayerNextLevel()\n");
+                    hyperspaceOverride = TRUE;
+                    singlePlayerNextLevel();
+                }
+            }
+            
+            // Keep pressing spacebar to press the quick dock button
+            // Sometimes needs multiple presses to work
+            if (universe.univUpdateCounter > 832 * UNIVERSE_UPDATE_RATE_FACTOR) {
+                if ((universe.univUpdateCounter % (16 * UNIVERSE_UPDATE_RATE_FACTOR) == 0) &&
+                    (singlePlayerGameInfo.hyperspaceState == HYPERSPACE_WAITINGROLLCALL)) {
+                    printf("debugScreenshots keyPressDown()\n");
+                    keyPressDown(SDL_SCANCODE_SPACE);
+                }
+            }
+        }
+
         // set the cursor type, reset the variables then draw the mouse cursor
         mouseSelectCursorSetting();
         mouseSetCursorSetting();
@@ -3990,11 +4054,11 @@ DEFINE_TASK(rndRenderTask)
         {
             keyClearSticky(PAUSEKEY);
         }
-        
+
         if (rndTakeScreenshot)
         {
             rndTakeScreenshot = FALSE;
-            ssTakeScreenshot();
+            ssTakeScreenshot(NULL);
         }
 
         if (rndFillCounter)

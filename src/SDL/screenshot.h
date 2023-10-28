@@ -33,7 +33,6 @@
     #define SS_SCREENSHOT_KEY_3  SDL_SCANCODE_KP_PLUSMINUS
 #endif
 
-
-void ssTakeScreenshot(void);
+void ssTakeScreenshot(const char *filename);
 
 #endif

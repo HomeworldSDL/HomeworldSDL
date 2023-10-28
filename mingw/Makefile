@@ -71,7 +71,7 @@ COMMONFLAGS = -MMD \
 
 EMXX = gcc
 EMXXFLAGS = $(COMMONFLAGS) -O0 -ggdb3 `sdl2-config --cflags` -mconsole
-EMXXLINK = -O0 -ggdb3 -lSDL2main -lSDL2 `sdl2-config --libs` -lopengl32 -lglew32 -mconsole
+EMXXLINK = -O0 -ggdb3 -lSDL2main -lSDL2 `sdl2-config --libs` -lopengl32 -mconsole
 
 
 KAS2CFLAGS = -O0 -ggdb3 `sdl2-config --cflags` -lSDL2main -lSDL2 `sdl2-config --libs` -mconsole
