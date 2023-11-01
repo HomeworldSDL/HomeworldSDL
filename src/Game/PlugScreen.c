@@ -5,6 +5,8 @@
     Created 3/31/1999 by lmoloney
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 
 #include "PlugScreen.h"
 
@@ -18,7 +20,6 @@
 #include "FEFlow.h"
 #include "FontReg.h"
 #include "glinc.h"
-#include "interfce.h"
 #include "Memory.h"
 #include "mouse.h"
 #include "prim2d.h"
@@ -328,9 +329,8 @@ udword psBaseRegionProcess(regionhandle region, sdword ID, udword event, udword 
 ----------------------------------------------------------------------------*/
 void psImageLoad(psimage *destImage, char *directory, char *imageName)
 {
-    JPEGDATA    jp;
     sdword x, y, quiltX, quiltY, endX, endY;
-    ubyte *pSource, *imageBuffer;
+    ubyte *pSource, *imageBuffer, *fileData;
     color *pDest;
     udword *quiltSquare;
     color quiltBuffer[PS_QuiltPieceHeight * PS_QuiltPieceWidth];
@@ -344,17 +344,18 @@ void psImageLoad(psimage *destImage, char *directory, char *imageName)
     }
     strcat(fileName, imageName);
 
-    memset(&jp, 0, sizeof(jp));
-    jp.input_file = fileOpen(fileName, 0);                  //open the file
-    JpegInfo(&jp);                                          //get info on the file
-    fileSeek(jp.input_file, 0, SEEK_SET);                   //reset file pointer
+    uint32_t fileSize = fileLoadAlloc(fileName, (void**)&fileData, 0);
+
+    SDL_RWops *rwOp = SDL_RWFromMem(fileData, fileSize);
+    SDL_Surface *surface = IMG_Load_RW(rwOp, 0);
                                                             //alloc a buffer to load the image to
-    imageBuffer = memAlloc(jp.width * jp.height * sizeof(color), "PlugScreenImage", 0);
-    jp.ptr = (ubyte *)imageBuffer;                          //load in the image
-    destImage->width = jp.width;
-    destImage->height = jp.height;
-    JpegRead(&jp);
-    fileClose(jp.input_file);                               //close the file
+    imageBuffer = surface->pixels;
+
+    destImage->width = surface->w;
+    destImage->height = surface->h;
+    
+    SDL_RWclose(rwOp);
+    memFree(fileData);
 
     bFilterSave = texLinearFiltering;
     texLinearFiltering = FALSE;
@@ -390,7 +391,7 @@ void psImageLoad(psimage *destImage, char *directory, char *imageName)
         }
     }
     texLinearFiltering = bFilterSave;
-    memFree(imageBuffer);
+    SDL_FreeSurface(surface);
 }
 
 /*-----------------------------------------------------------------------------

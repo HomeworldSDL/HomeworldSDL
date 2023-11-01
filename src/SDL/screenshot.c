@@ -6,6 +6,9 @@
 //  Created 7/15/1998 by khent
 // =============================================================================
 
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+
 #include "screenshot.h"
 
 #ifdef _WIN32
@@ -17,7 +20,7 @@
 
 #include "Debug.h"
 #include "glinc.h"
-#include "interfce.h"
+#include "File.h"
 #include "main.h"
 
 #ifdef _WIN32
@@ -77,11 +80,8 @@ static void _ssAppendScreenshotFilename(char* savePath)
 static void _ssSaveScreenshot(ubyte* buf, const char* targetFilename)
 {
     char *fname;
-    FILE* out;
     unsigned char *pTempLine;
     long Top, Bot, i, Size;
-
-    JPEGDATA jp;
 
     fname = filePathPrepend("ScreenShots/", FF_UserSettingsPath);
     if (!fileMakeDirectory(fname))
@@ -100,12 +100,7 @@ static void _ssSaveScreenshot(ubyte* buf, const char* targetFilename)
     dbgMessagef("Saving %dx%d screenshot to '%s'.", MAIN_WindowWidth, MAIN_WindowHeight, fname);
 #endif
 
-    out = fopen(fname, "wb");
-    if (out == NULL)
-    {
-        return;
-    }
-
+    // Flip buffer contents vertically due to OpenGL's origin being in the lower-left corner
     Size = MAIN_WindowWidth*3;
     pTempLine = (unsigned char *)malloc(Size);
 
@@ -118,22 +113,13 @@ static void _ssSaveScreenshot(ubyte* buf, const char* targetFilename)
         memcpy(buf + (Size * Top), buf + (Size * Bot), Size);
         memcpy(buf + (Size * Bot), pTempLine, Size);
     }
-
     free(pTempLine);
 
-    // Fill out the JPG lib info structure
-    memset(&jp, 0, sizeof(jp));
-
-    jp.ptr = buf;
-    jp.width = MAIN_WindowWidth;
-    jp.height = MAIN_WindowHeight;
-    jp.output_file = out;
-    jp.aritcoding = 0;
-    jp.quality = 100;
-
-    JpegWrite(&jp);
-
-    fclose(out);
+    SDL_Surface *surface = SDL_CreateRGBSurfaceFrom(buf, MAIN_WindowWidth, MAIN_WindowHeight, 24, 3 * MAIN_WindowWidth, 0x0000FF, 0x00FF00, 0xFF0000, 0);
+    
+    IMG_SaveJPG(surface, fname, 100);
+    
+    SDL_FreeSurface(surface);
 }
 
 

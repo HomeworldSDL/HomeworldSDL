@@ -1,6 +1,6 @@
 # Remove rgl Includes.
 # INCLUDES = -I$(top_srcdir)/src/ThirdParty/CRC -I$(top_srcdir)/src/ThirdParty/JPG -I$(top_srcdir)/src/ThirdParty/LZSS -I$(top_srcdir)/src/rgl -I$(top_srcdir)/src/SDL -I$(top_srcdir)/src/Ships -I$(top_srcdir)/src/ThirdParty/Titan
-AM_CPPFLAGS = -I$(top_srcdir)/src/ThirdParty/CRC -I$(top_srcdir)/src/ThirdParty/JPG -I$(top_srcdir)/src/ThirdParty/LZSS -I$(top_srcdir)/src/SDL -I$(top_srcdir)/src/Ships -I$(top_srcdir)/src/ThirdParty/Titan
+AM_CPPFLAGS = -I$(top_srcdir)/src/ThirdParty/CRC -I$(top_srcdir)/src/ThirdParty/LZSS -I$(top_srcdir)/src/SDL -I$(top_srcdir)/src/Ships -I$(top_srcdir)/src/ThirdParty/Titan
 
 # Task functions rely on the frame pointer, but it doesn't seem that we can
 # enable it on a per-function basis with GCC.

@@ -12,8 +12,7 @@ HW_LIBS = \
    ./Ships/libhw_Ships.a \
    ./Missions/Generated/libhw_Generated.a \
    ./ThirdParty/LZSS/libhw_LZSS.a \
-   ./ThirdParty/CRC/libhw_CRC.a \
-   ./ThirdParty/JPG/libhw_JPG.a
+   ./ThirdParty/CRC/libhw_CRC.a 
 
 if OLD_SOUND
 SUBDIRS += obj

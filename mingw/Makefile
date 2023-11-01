@@ -3,16 +3,6 @@ GIT_VERSION = `git config --get remote.origin.url | sed -r 's/.*(\@|\/\/)(.*)(\:
 BUILDDIR = build/build
 BINDIR = bin
 
-JPG_MODULES = interfce.c \
-              jaricom.c jcapimin.c jcapistd.c jcarith.c jccoefct.c jccolor.c \
-              jcdctmgr.c jchuff.c jcinit.c jcmainct.c jcmarker.c jcmaster.c \
-              jcomapi.c jcparam.c jcprepct.c jcsample.c jctrans.c jdapimin.c \
-              jdapistd.c jdarith.c jdatadst.c jdatasrc.c jdcoefct.c jdcolor.c \
-              jddctmgr.c jdhuff.c jdinput.c jdmainct.c jdmarker.c jdmaster.c \
-              jdmerge.c jdpostct.c jdsample.c jdtrans.c jerror.c jfdctflt.c \
-              jfdctfst.c jfdctint.c jidctflt.c jidctfst.c jidctint.c jquant1.c \
-              jquant2.c jutils.c jmemmgr.c jmemnobs.c
-
 GAME_MODULES = AIAttackMan.c AIDefenseMan.c AIEvents.c AIFleetMan.c AIHandler.c AIMoves.c AIOrders.c AIPlayer.c AIResourceMan.c AIShip.c AITeam.c AITrack.c AIUtilities.c AIVar.c \
                Alliance.c Animatic.c Attack.c AutoDownloadMap.c AutoLOD.c B-Spline.c Battle.c BigFile.c Blobs.c BMP.c Bounties.c BTG.c Camera.c CameraCommand.c Captaincy.c \
                ChannelFSM.c Chatting.c Clamp.c Clipper.c Clouds.c Collision.c Color.c ColPick.c CommandLayer.c CommandNetwork.c CommandWrap.c ConsMgr.c Crates.c Damage.c Debug.c \
@@ -35,7 +25,6 @@ SRCDIR = ../src
 MODULES = $(SDL_MODULES:%=$(SRCDIR)/SDL/%) \
           $(GAME_MODULES:%=$(SRCDIR)/Game/%) \
           $(wildcard $(SRCDIR)/Ships/*.c) \
-          $(JPG_MODULES:%=$(SRCDIR)/ThirdParty/JPG/%) \
           $(SRCDIR)/ThirdParty/CRC/CRC32.c \
           $(wildcard $(SRCDIR)/ThirdParty/LZSS/*.c)
 
@@ -66,12 +55,11 @@ COMMONFLAGS = -MMD \
               -I ../src/ThirdParty/CRC/ \
               -I ../src/ThirdParty/LZSS/ \
               -I ../src/ThirdParty/Titan/ \
-              -I ../src/ThirdParty/JPG/ \
               -I .
 
 EMXX = gcc
 EMXXFLAGS = $(COMMONFLAGS) -O0 -ggdb3 `sdl2-config --cflags` -mconsole
-EMXXLINK = -O0 -ggdb3 -lSDL2main -lSDL2 `sdl2-config --libs` -lopengl32 -mconsole
+EMXXLINK = -O0 -ggdb3 -lSDL2main -lSDL2 -lSDL2_image `sdl2-config --libs` -lopengl32 -mconsole
 
 
 KAS2CFLAGS = -O0 -ggdb3 `sdl2-config --cflags` -lSDL2main -lSDL2 `sdl2-config --libs` -mconsole

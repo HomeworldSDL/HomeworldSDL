@@ -13,8 +13,8 @@
 #include <string.h>
 #include <sys/stat.h>
 
-#include "SDL.h"
-#include "SDL_syswm.h"
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_syswm.h>
 
 #include "AIPlayer.h"
 #include "Animatic.h"

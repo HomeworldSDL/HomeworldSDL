@@ -6,6 +6,7 @@ project('homeworld',
 dep_x11 = dependency('x11')
 dep_gl = dependency('gl')
 dep_sdl = dependency('sdl2')
+dep_sdl_img = dependency('SDL2_image')
 dep_math = meson.get_compiler('c').find_library('m', required: false)
 
 c_base_args = ['-DHW_GAME_HOMEWORLD']
@@ -67,7 +68,7 @@ alias_target('assets', asset_homeworldsdl_big)
 executable(meson.project_name(),
            src,
            include_directories: inc_src,
-           link_with: [lib_jpg, lib_sdl],
-           dependencies: [dep_x11, dep_gl, dep_sdl, dep_math],
+           link_with: [lib_sdl],
+           dependencies: [dep_x11, dep_gl, dep_sdl, dep_math, dep_sdl_img],
            c_args: c_args,
            install: true)

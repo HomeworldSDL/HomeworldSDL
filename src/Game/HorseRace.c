@@ -6,6 +6,9 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+
 #include "HorseRace.h"
 
 #include <limits.h>
@@ -27,7 +30,6 @@
 #include "font.h"
 #include "FontReg.h"
 #include "glinc.h"
-#include "interfce.h"
 #include "LinkedList.h"
 #include "main.h"
 #include "Memory.h"
@@ -742,8 +744,7 @@ void hrInitBackground(void)
     char CurDir[PATH_MAX], NewDir[PATH_MAX];
     char hrImageName[PATH_MAX];
     filehandle handle;
-    JPEGDATA    jp;
-    unsigned char *pTempImage;
+    ubyte *fileData;
     udword i;
 
     getcwd(CurDir, PATH_MAX);
@@ -762,35 +763,15 @@ void hrInitBackground(void)
 
     dbgAssertOrIgnore(strcasecmp(CurDir,NewDir) == 0);
 
-    // Load the bitmap image
-    handle = fileOpen(hrImageName, FF_ReturnNULLOnFail|FF_IgnorePrepend);
-    if (handle)
+    if (fileExists(hrImageName, 0))
     {
-        memset(&jp, 0, sizeof(jp));
-        jp.input_file = handle;
-        JpegInfo(&jp);
+        uint32_t fileSize = fileLoadAlloc(hrImageName, (void**)&fileData, 0);
 
-        fileSeek(handle, 0, SEEK_SET);
-
-        hrBackXSize = jp.width;
-        hrBackYSize = jp.height;
-
-        jp.ptr = (unsigned char *)memAllocAttempt((hrBackXSize) * (hrBackYSize) * 3, "BackgroundTemp", NonVolatile);
-        if (jp.ptr == NULL)
-        {
-            return;
-        }
+        SDL_RWops *rwOp = SDL_RWFromMem(fileData, fileSize);
+        SDL_Surface *surface = IMG_Load_RW(rwOp, 0);
         
-        JpegRead(&jp);
-        fileClose(handle);
-
-        hrBackXSize = 1; hrBackYSize = 1;
-        while (hrBackXSize < jp.width) hrBackXSize <<= 1;
-        while (hrBackYSize < jp.height) hrBackYSize <<= 1;
-        pTempImage = (unsigned char *)memAllocAttempt(hrBackXSize * hrBackYSize * 3, "BackgroundTemp", NonVolatile);
-        memset(pTempImage, 0, hrBackXSize * hrBackYSize * 3);
-        for (i = 0; i < jp.height; i++)
-            memcpy(pTempImage + (hrBackXSize * 3 * i), jp.ptr + (jp.width * 3 * i), jp.width * 3);
+        hrBackXSize = surface->w;
+        hrBackYSize = surface->h;
 
         glGenTextures(1, &hrBackgroundTexture);
         trClearCurrent();
@@ -800,15 +781,14 @@ void hrInitBackground(void)
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, hrBackXSize, hrBackYSize,
-                    0, GL_RGB, GL_UNSIGNED_BYTE, pTempImage);
+                    0, GL_RGB, GL_UNSIGNED_BYTE, surface->pixels);
         
-        memFree(jp.ptr);
-        memFree(pTempImage);
+        SDL_RWclose(rwOp);
+        SDL_FreeSurface(surface);
+        memFree(fileData);
         
-        hrBackXFrac = (GLfloat)jp.width / (GLfloat)hrBackXSize;
-        hrBackYFrac = (GLfloat)jp.height / (GLfloat)hrBackYSize;
-        hrBackXSize = jp.width;
-        hrBackYSize = jp.height;
+        hrBackXFrac = 1.0f;
+        hrBackYFrac = 1.0f;
     }
 }
 

@@ -18,6 +18,7 @@
     devShells.x86_64-linux.default = with nixpkgs.legacyPackages.x86_64-linux;
       mkShell {
         buildInputs = self.packages.x86_64-linux.default.buildInputs ++ [
+          SDL2_image
           clang-tools_16 # clangd, clang-format
           meson
           pkg-config
@@ -47,6 +48,7 @@
     }).overrideAttrs (attrs: {
       dontStrip = true;
       nativeBuildInputs = [ nixpkgs.legacyPackages.x86_64-linux.makeWrapper ];
+      buildInputs = attrs.buildInputs ++ [ nixpkgs.legacyPackages.x86_64-linux.SDL2_image ];
       installPhase = attrs.installPhase + ''
         wrapProgram $out/bin/homeworld --set LD_LIBRARY_PATH "${self.devShells.x86_64-linux.default.LD_LIBRARY_PATH}"
       '';
