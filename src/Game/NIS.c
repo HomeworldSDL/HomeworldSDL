@@ -1841,7 +1841,7 @@ real32 nisUpdate(nisplaying *NIS, real32 timeElapsed)
             }
         }
         //cap the velocity vector of the ship
-        if (ABS(tempVect.x) + ABS(tempVect.y) + ABS(tempVect.z) > 0.0f)
+        if (ABS(tempVect.x) + ABS(tempVect.y) + ABS(tempVect.z) > 0.0001f) // only mark object as moving if it's actually moving in a "meaningful" quantity
         {
             if (NIS->header->objectPath[index].type < NUM_RACES)
             {
