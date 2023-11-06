@@ -222,15 +222,9 @@ extern PFNGLDELETEBUFFERSPROC glDeleteBuffers;
 extern PFNGLGENBUFFERSPROC glGenBuffers;
 extern PFNGLBUFFERDATAPROC glBufferData;
 extern PFNGLBUFFERSUBDATAPROC glBufferSubData;
+extern PFNGLTEXSTORAGE2DPROC glTexStorage2D;
+extern PFNGLGENERATEMIPMAPPROC glGenerateMipmap;
 
-typedef void (APIENTRYP PFNGLDRAWTEXIOESPROC) (GLint x, GLint y, GLint z, GLint width, GLint height);
-
-#endif
-
-extern PFNGLDRAWTEXIOESPROC glDrawTexiOES;
-
-#ifndef GL_TEXTURE_CROP_RECT_OES
-#define GL_TEXTURE_CROP_RECT_OES 0x8B9D
 #endif
 
 int glCheckExtension(const char *ext);

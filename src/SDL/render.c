@@ -153,9 +153,10 @@ PFNGLDELETEBUFFERSPROC glDeleteBuffers = 0;
 PFNGLGENBUFFERSPROC glGenBuffers = 0;
 PFNGLBUFFERDATAPROC glBufferData = 0;
 PFNGLBUFFERSUBDATAPROC glBufferSubData = 0;
+PFNGLTEXSTORAGE2DPROC glTexStorage2D = 0;
+PFNGLGENERATEMIPMAPPROC glGenerateMipmap = 0;
 #endif
 
-PFNGLDRAWTEXIOESPROC glDrawTexiOES = 0;
 
 static const char *gl_extensions = 0;
 
@@ -857,7 +858,7 @@ bool setupPixelFormat()
 	static Uint32 lastHeight = 0;
 	static Uint32 lastDepth  = 0;
 	static bool   lastFull   = FALSE;
-	int FSAA = 0; //os_config_read_uint( NULL, "FSAA", 1 )
+	int MSAA = 4;
 #ifdef HW_ENABLE_GLES
     SDL_SysWMinfo info;
     EGLint num_config = 1;
@@ -978,25 +979,34 @@ bool setupPixelFormat()
     egl_context = new_context;
     egl_surface = new_surface;
 #else
-	if ( FSAA ) {
+	if ( MSAA ) {
 	    SDL_GL_SetAttribute( SDL_GL_MULTISAMPLEBUFFERS, 1 );
-	    SDL_GL_SetAttribute( SDL_GL_MULTISAMPLESAMPLES, FSAA );
+	    SDL_GL_SetAttribute( SDL_GL_MULTISAMPLESAMPLES, MSAA );
 	}
 
-	if (!(sdlwindow=SDL_CreateWindow("HomeworldSDL", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+	while (!(sdlwindow=SDL_CreateWindow("HomeworldSDL", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
 		MAIN_WindowWidth, MAIN_WindowHeight, flags)))
 	{
-	    fprintf (stderr, "Couldn't set FSAA video mode: %s\n", SDL_GetError ());
-	    SDL_GL_SetAttribute( SDL_GL_MULTISAMPLEBUFFERS, 0 );
-	    SDL_GL_SetAttribute( SDL_GL_MULTISAMPLESAMPLES, 0 );
+	    fprintf (stderr, "Couldn't set %dx MSAA video mode: %s\n", MSAA, SDL_GetError ());
+	    
+        if (MSAA == 2)
+        {
+            SDL_GL_SetAttribute( SDL_GL_MULTISAMPLEBUFFERS, 0 );
+            SDL_GL_SetAttribute( SDL_GL_MULTISAMPLESAMPLES, 0 );
 
-		if (!(sdlwindow=SDL_CreateWindow("HomeworldSDL", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-			MAIN_WindowWidth, MAIN_WindowHeight, flags)))
-	    {
-		fprintf (stderr, "Couldn't set video mode: %s\n", SDL_GetError ());
-		//exit (1);
-                return FALSE;
-	    }
+            if (!(sdlwindow=SDL_CreateWindow("HomeworldSDL", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+                MAIN_WindowWidth, MAIN_WindowHeight, flags)))
+            {
+            fprintf (stderr, "Couldn't set video mode: %s\n", SDL_GetError ());
+            //exit (1);
+                    return FALSE;
+            }
+        }
+
+        MSAA /= 2;
+        
+        SDL_GL_SetAttribute( SDL_GL_MULTISAMPLEBUFFERS, 1 );
+        SDL_GL_SetAttribute( SDL_GL_MULTISAMPLESAMPLES, MSAA );
 	}
 
     if(!(glcontext = SDL_GL_CreateContext(sdlwindow)))
@@ -1012,15 +1022,13 @@ bool setupPixelFormat()
 	lastDepth  = MAIN_WindowDepth;
 	lastFull   = fullScreen;
 
-#ifdef HW_ENABLE_GLES
-    glDrawTexiOES = eglGetProcAddress("glDrawTexiOES");
-#else
     glBindBuffer = SDL_GL_GetProcAddress("glBindBuffer");
     glDeleteBuffers = SDL_GL_GetProcAddress("glDeleteBuffers");
     glGenBuffers = SDL_GL_GetProcAddress("glGenBuffers");
     glBufferData = SDL_GL_GetProcAddress("glBufferData");
     glBufferSubData = SDL_GL_GetProcAddress("glBufferSubData");
-#endif
+    glTexStorage2D = SDL_GL_GetProcAddress("glTexStorage2D");
+    glGenerateMipmap = SDL_GL_GetProcAddress("glGenerateMipmap");
 
     gl_extensions = glGetString(GL_EXTENSIONS);
     printf("GL Extensions:\n%s\n", gl_extensions);
@@ -1040,7 +1048,7 @@ int glCheckExtension(const char *ext) {
         return gotext && glBindBuffer && glDeleteBuffers && glGenBuffers && glBufferData && glBufferSubData;
 #endif
     } else if (strcmp(ext, "GL_OES_draw_texture") == 0) {
-        return gotext && glDrawTexiOES;
+        return gotext;
     }
     return gotext;
 }
@@ -3319,8 +3327,8 @@ udword rndLoadTarga(char* filename, sdword* width, sdword* height)
     glGenTextures(1, &handle);
     trClearCurrent();
     glBindTexture(GL_TEXTURE_2D, handle);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, *width, *height,
@@ -4324,8 +4332,8 @@ sdword rndAdditiveBlends(sdword bAdditive)
     {
         rndAdditiveBlending = bAdditive;
         if (bAdditive)
-            {
-                glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+        {
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE);
         }
         else
         {
@@ -4549,7 +4557,7 @@ void rndResetGLState(void)
     }
     rndNormalizeEnable(rndNormalization);
 
-    if (rndPerspectiveCorrect)
+        if (rndPerspectiveCorrect)
     {
         glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
     }
@@ -4558,7 +4566,7 @@ void rndResetGLState(void)
         glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST);
     }
     rndPerspectiveCorrection(rndPerspectiveCorrect);
-
+    
     rndTextureEnvironment(RTE_Modulate);
 
     if (rndTextureEnabled)
