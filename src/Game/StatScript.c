@@ -706,6 +706,12 @@ bool parseLine(char *line,char **returnName,char **returnValue)
     do
     {
         length = strlen(line);
+
+        if (length == 0)
+        {
+            return FALSE;
+        }
+
         if (line[length - 1] == ' ' || line[length - 1] == '\t')
         {
             line[length - 1] = 0;
