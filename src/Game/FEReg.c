@@ -472,8 +472,6 @@ sdword ferSelectedDotMarginY = 1;
 sdword ferPopoutArrowMarginX = 13;
 sdword ferPopoutArrowMarginY = 1;
 
-static bool useDrawTex = FALSE;
-
 #define NUM_CUTS 8
 
 /*=============================================================================
@@ -612,8 +610,6 @@ rectangle ferGetCutoutDimensions(textype cutout)
 void ferStartup(void)
 {
     uword i;
-
-    useDrawTex = glCheckExtension("GL_OES_draw_texture");
 
     for (i = 0; i < FER_NumTextures; i++)
     {
@@ -1074,10 +1070,7 @@ void ferDraw(sdword x, sdword y, lifheader *texture)
         for (iy = 0; iy < texture->height; iy++)
         {
             GLushort* dp = &data[2 * newwidth * ((texture->height - 1) - iy)];
-            if (useDrawTex)
-                cp = texture->data + 4 * texture->width * (texture->height - (iy + 1));
-            else
-                cp = texture->data + 4 * texture->width * iy;
+            cp = texture->data + 4 * texture->width * iy;
 
             memcpy(dp, cp, 4 * texture->width);
         }
@@ -1110,24 +1103,18 @@ void ferDraw(sdword x, sdword y, lifheader *texture)
     oldTex = rndTextureEnable(TRUE);
     oldMode = rndTextureEnvironment(RTE_Replace);
 
-    if (useDrawTex) {
-        int crop[4] = { 0, 0, texture->width, texture->height };
-        glTexParameteriv(GL_TEXTURE_2D, GL_TEXTURE_CROP_RECT_OES, crop);
-        glDrawTexiOES(x, MAIN_WindowHeight - y, 0, texture->width, texture->height);
-    } else {
-        GLfloat t[8] = { 0.0f, heightFrac, widthFrac, heightFrac, 0.0f, 0.0f, widthFrac, 0.0f };
-        GLfloat v[8] = { primScreenToGLX(x), primScreenToGLY(y),
-                         primScreenToGLX(x + texture->width), primScreenToGLY(y),
-                         primScreenToGLX(x), primScreenToGLY(y - texture->height),
-                         primScreenToGLX(x + texture->width), primScreenToGLY(y - texture->height) };
-        glEnableClientState(GL_VERTEX_ARRAY);
-        glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-        glVertexPointer(2, GL_FLOAT, 0, v);
-        glTexCoordPointer(2, GL_FLOAT, 0, t);
-        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-        glDisableClientState(GL_VERTEX_ARRAY);
-        glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-    }
+    GLfloat t[8] = { 0.0f, heightFrac, widthFrac, heightFrac, 0.0f, 0.0f, widthFrac, 0.0f };
+    GLfloat v[8] = { primScreenToGLX(x), primScreenToGLY(y),
+                        primScreenToGLX(x + texture->width), primScreenToGLY(y),
+                        primScreenToGLX(x), primScreenToGLY(y - texture->height),
+                        primScreenToGLX(x + texture->width), primScreenToGLY(y - texture->height) };
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+    glVertexPointer(2, GL_FLOAT, 0, v);
+    glTexCoordPointer(2, GL_FLOAT, 0, t);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    glDisableClientState(GL_VERTEX_ARRAY);
+    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
     rndTextureEnvironment(oldMode);
     rndTextureEnable(oldTex);
