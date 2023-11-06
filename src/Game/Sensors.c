@@ -23,7 +23,6 @@
 #include "CommandDefs.h"
 #include "CommandWrap.h"
 #include "Debug.h"
-#include "devstats.h"
 #include "FastMath.h"
 #include "font.h"
 #include "glinc.h"
@@ -101,8 +100,6 @@ bool smFocusOnMothershipOnClose = FALSE;
 extern ubyte* stararray;
 
 extern color HorseRaceDropoutColor;
-
-extern udword gDevcaps2;
 
 //region handle for the sensors manager viewport
 regionhandle smViewportRegion;
@@ -1854,7 +1851,7 @@ blob *smBlobsDraw(Camera *camera, LinkedList *list, hmatrix *modelView, hmatrix 
                 nSegments = min(nSegments, SEL_SegmentsMax);
                 */
                 nSegments = pieCircleSegmentsCompute(thisBlob->screenRadius * smCircleBorder);
-                if (smFuzzyBlobs && !bitTest(gDevcaps2, DEVSTAT2_NO_IALPHA))
+                if (smFuzzyBlobs)
                 {
                     primCircleBorder(o.centreX, o.centreY, o.radiusX, radius, nSegments, c);
                 }

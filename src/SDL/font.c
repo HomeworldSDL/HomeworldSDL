@@ -22,7 +22,6 @@
 #include "main.h"
 #include "texreg.h"
 #include "Twiddle.h"
-#include "devstats.h"
 
 
 /*=============================================================================
@@ -44,8 +43,6 @@
 /*=============================================================================
     Data:
 =============================================================================*/
-
-extern udword gDevcaps;
 
 udword fontRedBrightFactor =    FONT_RedBrightFactor;
 udword fontGreenBrightFactor =  FONT_GreenBrightFactor;
@@ -349,16 +346,10 @@ glfontheader* glfontCreate(fontheader* header, fontheader* newHeader)
                     glfontWritePage(header, glfont->numPages, page, data);
                 }
 #endif
-                if (bitTest(gDevcaps, DEVSTAT_NEGXADJUST))
-                {
-                    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-                    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-                }
-                else
-                {
-                    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-                    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-                }
+
+                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
                 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
                 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
                 memFree(data);
@@ -384,11 +375,8 @@ glfontheader* glfontCreate(fontheader* header, fontheader* newHeader)
             {
                 //success
 
-                //trim bottom of font page if not RIVA 128 (poor square only cap handling)
-                if (!bitTest(gDevcaps, DEVSTAT_NEGXADJUST))
-                {
-                    page->height = bitHighExponent2(usedHeight);
-                }
+                page->height = bitHighExponent2(usedHeight);
+
 #if FONT_VERBOSE_LEVEL >=1
                 dbgMessagef("%s: %d pages [w x h = %d x %d]",
                             __func__, glfont->numPages, page->width, page->height);
@@ -408,16 +396,9 @@ glfontheader* glfontCreate(fontheader* header, fontheader* newHeader)
                     glfontWritePage(header, glfont->numPages, page, data);
                 }
 #endif
-                if (bitTest(gDevcaps, DEVSTAT_NEGXADJUST))
-                {
-                    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-                    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-                }
-                else
-                {
-                    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-                    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-                }
+                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
                 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
                 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
                 memFree(data);
@@ -519,24 +500,6 @@ bool glfontDisplayCharacter(fontheader* font, char ch, sdword x, sdword y, color
     sEnd   = (real32)(character->u + fcharacter->width) * page->oneOverWidth;
     tBegin = (real32)character->v * page->oneOverHeight;
     tEnd   = (real32)(character->v + fcharacter->height) * page->oneOverHeight;
-
-    if (bitTest(gDevcaps, DEVSTAT_YADJUST))
-    {
-        yFrac = 0.1f * page->oneOverHeight;
-        tBegin += yFrac;
-        tEnd   -= yFrac;
-    }
-    if (bitTest(gDevcaps, DEVSTAT_XADJUST))
-    {
-        xFrac = 0.1f * page->oneOverWidth;
-        sBegin += xFrac;
-        sEnd   -= xFrac;
-    }
-    if (bitTest(gDevcaps, DEVSTAT_NEGXADJUST))
-    {
-        xFrac = 0.5f * page->oneOverWidth;
-        sEnd += xFrac;
-    }
 
     //only switch textures if new page differs from last
     if (lastGLHandle != page->glhandle)

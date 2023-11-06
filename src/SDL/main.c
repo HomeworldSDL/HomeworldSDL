@@ -73,8 +73,6 @@
     Data:
 =============================================================================*/
 
-extern udword gDevcaps, gDevcaps2;
-
 bool mainSafeGL = FALSE;
 
 udword* devTable = NULL;
@@ -1482,8 +1480,6 @@ void mainSetupSoftware(void)
     mainWindowDepth  = MAIN_WindowDepth;
 
     opDeviceIndex = -1;
-
-    gDevcaps = gDevcaps2 = 0;
 }
 
 /*-----------------------------------------------------------------------------
@@ -2018,24 +2014,6 @@ static bool InitWindow ()
         mainRescaleMainWindow();
 
         opDeviceIndex = -1;
-
-        gDevcaps = gDevcaps2 = 0;
-    }
-    else
-    {
-        extern udword loadedDevcaps, loadedDevcaps2;
-        //successfully re-using previous device,
-        //re-use previous devcaps
-        gDevcaps = loadedDevcaps;
-        if (gDevcaps == 0xFFFFFFFF)
-        {
-            gDevcaps = 0;
-        }
-        gDevcaps2 = loadedDevcaps2;
-        if (gDevcaps2 == 0xFFFFFFFF)
-        {
-            gDevcaps2 = 0;
-        }
     }
 
     lodScaleFactor = 1.0f;

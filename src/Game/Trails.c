@@ -17,7 +17,6 @@
 #include "Clouds.h"
 #include "CommandDefs.h"
 #include "Debug.h"
-#include "devstats.h"
 #include "FastMath.h"
 #include "glinc.h"
 #include "main.h"
@@ -46,8 +45,6 @@
 #define HMATCOPY(D,S) memcpy(D, S, sizeof(hmatrix))
 
 #define TRAIL_LINE_CUTOFF_LOD 2
-
-extern udword gDevcaps2;
 
 sdword bTrailRender = 1;
 sdword bTrailDraw = 1;
@@ -948,14 +945,7 @@ void trailDrawCapitalGlow(shiptrail* trail, sdword LOD)
     glEnable(GL_NORMALIZE);
     shSetExponent(2, trail->exponent);
 
-    if (bitTest(gDevcaps2, DEVSTAT2_NO_IALPHA))
-    {
-        glShadeModel(GL_FLAT);
-    }
-    else
-    {
-        glShadeModel(GL_SMOOTH);
-    }
+    glShadeModel(GL_SMOOTH);
 
     if (shipstaticinfo->shiprace == P1 &&
         shipstaticinfo->shipclass == CLASS_Mothership)
@@ -1709,12 +1699,6 @@ void trailLineSequence(sdword LOD, sdword n, vector vectors[], color* segmentArr
 void trailLine(sdword LOD, sdword i, vector vectors[], color c,
                vector horiz[], vector vert[], bool wides[])
 {
-    if (bitTest(gDevcaps2, DEVSTAT2_NO_IALPHA))
-    {
-        trailLineBillboard(LOD, i, vectors + i, vectors + i + 1, c);
-        trailLineFuzzySheath(LOD, i, vectors + i, vectors + i + 1, c, horiz);
-        return;
-    }
     switch (LOD)
     {
     case 0:

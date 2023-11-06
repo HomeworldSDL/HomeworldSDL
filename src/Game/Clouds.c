@@ -10,7 +10,6 @@
 
 #include "AutoLOD.h"
 #include "Clipper.h"
-#include "devstats.h"
 #include "FastMath.h"
 #include "glinc.h"
 #include "mainrgn.h"
@@ -24,8 +23,6 @@
 #include "UnivUpdate.h"
 
 #define TEST_LIGHTNING 0
-
-extern udword gDevcaps2;
 
 static real32 fogColor[4];
 

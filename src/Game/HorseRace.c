@@ -22,7 +22,6 @@
 #include "CommandNetwork.h"
 #include "Debug.h"
 #include "Demo.h"
-#include "devstats.h"
 #include "ETG.h"
 #include "FEFlow.h"
 #include "FEReg.h"
@@ -66,7 +65,6 @@
 #define ShouldHaveMousePtr (FALSE)
 
 extern Uint32 utyTimerLast;
-extern udword gDevcaps2;
 
 /*=============================================================================
     defines:

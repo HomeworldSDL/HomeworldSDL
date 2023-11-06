@@ -30,13 +30,10 @@
 #include "Universe.h"
 #include "AutoLOD.h"
 #include "Shader.h"
-#include "devstats.h"
 
 #if defined _MSC_VER
 	#define isnan(x) _isnan(x)
 #endif
-
-extern unsigned int gDevcaps;
 
 #ifndef RUB
 #define RUB(c) (ubyte)(c * 255.0f)
@@ -596,12 +593,6 @@ void partBindAlternate(trhandle tex)
         return;
     }
 
-    //check devcaps for valid GetTexImage
-    if (bitTest(gDevcaps, DEVSTAT_NO_GETTEXIMAGE))
-    {
-        return;
-    }
-
 #ifndef HW_ENABLE_GLES
     //check alternates
     for (i = 0; i < alternateIndex; i++)
@@ -737,13 +728,9 @@ udword partRenderBillSystem(udword n, particle* p, udword flags,
         saturatedBias[1] = p->bias[1];
         saturatedBias[2] = p->bias[2];
 
-        //see if device can handle multiple pass rendering
-        if (!bitTest(gDevcaps, DEVSTAT_NO_GETTEXIMAGE))
+        if ((p->bias[0] + p->bias[1] + p->bias[2]) > 0.0f)
         {
-            if ((p->bias[0] + p->bias[1] + p->bias[2]) > 0.0f)
-            {
-                blended = 1;
-            }
+            blended = 1;
         }
 
         if (p->icolor[3] == 1.0f)

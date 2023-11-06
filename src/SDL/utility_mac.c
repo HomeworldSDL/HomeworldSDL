@@ -118,11 +118,7 @@
 extern SDL_Window *sdlwindow;
 extern int MAIN_WindowWidth, MAIN_WindowHeight, MAIN_WindowDepth;
 
-extern udword gDevcaps, gDevcaps2;
-
 extern udword aviPlayIntros;
-udword loadedDevcaps  = 0xFFFFFFFF;
-udword loadedDevcaps2 = 0xFFFFFFFF;
 
 /*-----------------------------------------------------------------------------
     Name        : utyBrowserExec
@@ -630,8 +626,8 @@ scriptEntry utyOptionsList[] =
 
 
     {"deviceCRC",       scriptSetUdwordCB, &opDeviceCRC},
-    {"deviceCaps",      scriptSetUdwordCB, &loadedDevcaps},
-    {"deviceCaps2",     scriptSetUdwordCB, &loadedDevcaps2},
+//    {"deviceCaps",      scriptSetUdwordCB, &loadedDevcaps},
+//    {"deviceCaps2",     scriptSetUdwordCB, &loadedDevcaps2},
     {"deviceIndex",     scriptSetUdwordCB, &opDeviceIndex},
 //    {"deviceToSelect",  scriptSetStringCB, &mainDeviceToSelect},
 //    {"glToSelect",      scriptSetStringCB, &mainGLToSelect},

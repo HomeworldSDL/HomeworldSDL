@@ -12,7 +12,6 @@
 #include <stdlib.h>
 
 #include "Debug.h"
-#include "devstats.h"
 #include "FastMath.h"
 #include "FastMath.h"
 #include "glinc.h"
@@ -546,7 +545,6 @@ static void primSolidTexture3_multi(vector* p1, real32 size, color c, trhandle t
 {
     real32 halfsize;
     texreg* reg;
-    extern udword gDevcaps;
 
     halfsize = 0.5f * size;
 
@@ -573,18 +571,16 @@ static void primSolidTexture3_multi(vector* p1, real32 size, color c, trhandle t
     glTexCoord2f(0.0f, 1.0f);
     glVertex3f(p1->x-halfsize, p1->y+halfsize, 0.0f);
 
-    if (!bitTest(gDevcaps, DEVSTAT_NO_GETTEXIMAGE))
-    {
-        glColor3ub(172, 172, 172);
-        glTexCoord2f(0.0f, 0.0f);
-        glVertex3f(p1->x-halfsize, p1->y-halfsize, 0.0f);
-        glTexCoord2f(1.0f, 0.0f);
-        glVertex3f(p1->x+halfsize, p1->y-halfsize, 0.0f);
-        glTexCoord2f(1.0f, 1.0f);
-        glVertex3f(p1->x+halfsize, p1->y+halfsize, 0.0f);
-        glTexCoord2f(0.0f, 1.0f);
-        glVertex3f(p1->x-halfsize, p1->y+halfsize, 0.0f);
-    }
+    glColor3ub(172, 172, 172);
+    glTexCoord2f(0.0f, 0.0f);
+    glVertex3f(p1->x-halfsize, p1->y-halfsize, 0.0f);
+    glTexCoord2f(1.0f, 0.0f);
+    glVertex3f(p1->x+halfsize, p1->y-halfsize, 0.0f);
+    glTexCoord2f(1.0f, 1.0f);
+    glVertex3f(p1->x+halfsize, p1->y+halfsize, 0.0f);
+    glTexCoord2f(0.0f, 1.0f);
+    glVertex3f(p1->x-halfsize, p1->y+halfsize, 0.0f);
+
 
     glEnd();
 

@@ -26,7 +26,6 @@
 #include "Debug.h"
 #include "DefenseFighter.h"
 #include "Demo.h"
-#include "devstats.h"
 #include "Dock.h"
 #include "FastMath.h"
 #include "File.h"
@@ -4319,22 +4318,14 @@ void rndHintInc()
 sdword rndAdditiveBlends(sdword bAdditive)
 {
     sdword oldStatus;
-    extern udword gDevcaps2;
 
     oldStatus = rndAdditiveBlending;
     if (bAdditive != rndAdditiveBlending)
     {
         rndAdditiveBlending = bAdditive;
         if (bAdditive)
-        {
-            if (bitTest(gDevcaps2, DEVSTAT2_NO_ADDITIVE))
-            {
-                glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-            }
-            else
             {
                 glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-            }
         }
         else
         {

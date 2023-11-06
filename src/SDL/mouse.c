@@ -14,7 +14,6 @@
 #include "DDDFrigate.h"
 #include "Debug.h"
 #include "Demo.h"
-#include "devstats.h"
 #include "Dock.h"
 #include "FEFlow.h"
 #include "font.h"
@@ -95,9 +94,6 @@ typedef struct
 //we don't want the player to be able to salvage cryotrays in mission1
 //so we need to include singlePlayerGameInfo
 extern SinglePlayerGameInfo singlePlayerGameInfo;
-
-extern udword gDevcaps2;
-
 
 sdword mouseCursorXPosition, mouseCursorYPosition;
 uword mouseButtons;

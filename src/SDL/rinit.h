@@ -25,8 +25,6 @@ typedef struct rdevice
     int type;
     char data[64];
     char name[64];
-    unsigned int devcaps;
-    unsigned int devcaps2;
 
     struct rmode* modes;
 

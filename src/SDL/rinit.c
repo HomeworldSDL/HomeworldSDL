@@ -21,34 +21,15 @@
 #include "Debug.h"
 #include "StringSupport.h"
 #include "Types.h"
-#include "devstats.h"
 
 extern unsigned int mainSoftwareDirectDraw;
 extern unsigned int mainOutputCRC;
-
-#define RIN_MODESINDEVSTATLIST 10
-unsigned int rinDevstatModeTable[RIN_MODESINDEVSTATLIST][3] =
-{
-    { 16,  640, DEVSTAT_NO_64048016 },
-    { 16,  800, DEVSTAT_NO_80060016 },
-    { 16, 1024, DEVSTAT_NO_102476816 },
-    { 16, 1280, DEVSTAT_NO_1280102416 },
-    { 16, 1600, DEVSTAT_NO_1600120016 },
-    { 32,  640, DEVSTAT_NO_64048032 },
-    { 32,  800, DEVSTAT_NO_80060032 },
-    { 32, 1024, DEVSTAT_NO_102476832 },
-    { 32, 1280, DEVSTAT_NO_1280102432 },
-    { 32, 1600, DEVSTAT_NO_1600120032 },
-};
 
 extern unsigned int* devTable;
 extern int devTableLength;
 
 static rdevice* rDeviceList;
 static int nDevices;
-
-unsigned int gDevcaps  = 0xFFFFFFFF;
-unsigned int gDevcaps2 = 0x00000000;
 
 #if 0	/* Direct3D stuff...not used. */
 char* gDescription = NULL;
@@ -173,39 +154,6 @@ static bool rinModeAccepted(rdevice* dev, int width, int height, int depth)
     if (depth != 16 && depth != 24 && depth != 32)
     {
         return FALSE;
-    }
-
-    //possibly eliminate 32bit modes, if devstats tells us to
-    if (depth == 32)
-    {
-        if (dev->type == RIN_TYPE_DIRECT3D)
-        {
-            if (dev->devcaps & DEVSTAT_NO_32BIT)
-            {
-                return FALSE;
-            }
-        }
-        else if (dev->type == RIN_TYPE_OPENGL)
-        {
-            if ((dev->devcaps & DEVSTAT_NO_32BIT_GL) ||
-                (dev->devcaps & DEVSTAT_NO_32BIT))
-            {
-                return FALSE;
-            }
-        }
-    }
-	
-    //check for specifically disabled display modes
-    for (index = 0; index < RIN_MODESINDEVSTATLIST; index++)
-    {
-        if (rinDevstatModeTable[index][0] == depth &&
-            rinDevstatModeTable[index][1] == width)
-        {
-            if (dev->devcaps & rinDevstatModeTable[index][2])
-            {
-                return FALSE;
-            }
-        }
     }
 
     return TRUE;
@@ -511,38 +459,12 @@ int rinEnumerateDevices(void)
 
     rDeviceList = NULL;
     nDevices = 0;
-    gDevcaps  = 0xFFFFFFFF;
-    gDevcaps2 = 0x00000000;
 
     //add Direct3D devices
     /*nDevices += rinEnumerateDirect3D();*/
 
     //add OpenGL device
     dev = (rdevice*)rinMemAlloc(sizeof(rdevice));
-    if (nDevices == 1)
-    {
-        dev->devcaps  = rDeviceList->devcaps;
-        dev->devcaps2 = rDeviceList->devcaps2;
-    }
-    else if (nDevices == 2)
-    {
-        dev->devcaps  = rDeviceList->next->devcaps;
-        dev->devcaps2 = rDeviceList->next->devcaps2;
-    }
-    else if (gDevcaps != 0xFFFFFFFF)
-    {
-        dev->devcaps  = gDevcaps;
-        dev->devcaps2 = gDevcaps2;
-    }
-    else
-    {
-        dev->devcaps = gDevcaps = 0;
-        dev->devcaps2 = gDevcaps2 = 0;
-    }
-    if (dev->devcaps & DEVSTAT_NO_DDRAWSW)
-    {
-        mainSoftwareDirectDraw = 0;
-    }
     dev->type = RIN_TYPE_OPENGL;
     dev->data[0] = '\0';
     if (strCurLanguage == 1)
@@ -584,10 +506,7 @@ int rinEnumerateDevices(void)
     gldev = dev;
     nDevices++;
 
-    if (!(gDevcaps & DEVSTAT_NOGL_9X))
-    {
-        rinAddDevice(gldev);
-    }
+    rinAddDevice(gldev);
 
     //success
     return 1;
