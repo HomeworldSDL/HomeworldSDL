@@ -126,6 +126,8 @@ vector g_RndPosition;
 
 bool rndTakeScreenshot = FALSE;
 
+extern bool enableMSAA;
+
 /*=============================================================================
     Private Types:
 =============================================================================*/
@@ -858,7 +860,7 @@ bool setupPixelFormat()
 	static Uint32 lastHeight = 0;
 	static Uint32 lastDepth  = 0;
 	static bool   lastFull   = FALSE;
-	int MSAA = 4;
+	int MSAA = 0;
 #ifdef HW_ENABLE_GLES
     SDL_SysWMinfo info;
     EGLint num_config = 1;
@@ -979,7 +981,8 @@ bool setupPixelFormat()
     egl_context = new_context;
     egl_surface = new_surface;
 #else
-	if ( MSAA ) {
+	if (enableMSAA) {
+        MSAA = 8;
 	    SDL_GL_SetAttribute( SDL_GL_MULTISAMPLEBUFFERS, 1 );
 	    SDL_GL_SetAttribute( SDL_GL_MULTISAMPLESAMPLES, MSAA );
 	}

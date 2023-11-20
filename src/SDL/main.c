@@ -166,6 +166,8 @@ sdword enableTrails = TRUE;
 bool GLOBAL_NO_TEXTURES = FALSE;
 #endif
 
+bool enableMSAA = FALSE;
+
 // turn fullscreen off when debugging so that if the debugger kicks in
 // after a crash you don't find yourself locked out and have to reboot...
 #if defined(__APPLE__) && defined(HW_BUILD_FOR_DEBUGGING) 
@@ -679,6 +681,7 @@ commandoption commandOptions[] =
 #endif
     entryVr("/stipple",             enableStipple, TRUE,                " - enable stipple alpha with software renderer."),
     entryVr("/noShowDamage",        gShowDamage, FALSE,                 " - Disables showing ship damage effects."),
+    entryVr("/msaa",                enableMSAA, TRUE,                   " - Enable multisample anti-aliasing (MSAA)."),
 
     entryComment("VIDEO MODE OPTIONS"),//-----------------------------------------------------
     entryVr("/safeGL",              mainSafeGL, TRUE,                   " - don't use possibly buggy optimized features of OpenGL for rendering."),
