@@ -626,11 +626,7 @@ scriptEntry utyOptionsList[] =
 
 
     {"deviceCRC",       scriptSetUdwordCB, &opDeviceCRC},
-//    {"deviceCaps",      scriptSetUdwordCB, &loadedDevcaps},
-//    {"deviceCaps2",     scriptSetUdwordCB, &loadedDevcaps2},
     {"deviceIndex",     scriptSetUdwordCB, &opDeviceIndex},
-//    {"deviceToSelect",  scriptSetStringCB, &mainDeviceToSelect},
-//    {"glToSelect",      scriptSetStringCB, &mainGLToSelect},
 
 
   {"\n[graphics options]\n", scriptSetStringCB, &filecfgblankspace},

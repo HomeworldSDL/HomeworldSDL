@@ -111,9 +111,6 @@ extern sdword mainWindowWidth;
 extern sdword mainWindowHeight;
 extern sdword mainWindowDepth;
 
-extern char mainDeviceToSelect[];
-extern char mainGLToSelect[];
-
 extern bool mainNoPerspective;
 extern bool systemActive;
 
