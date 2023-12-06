@@ -2108,6 +2108,9 @@ int main (int argc, char* argv[])
     }
 #endif  /* Support for other platforms? */
 
+    // set audio resampling to highest quality
+    SDL_SetHint(SDL_HINT_AUDIO_RESAMPLING_MODE, "3");
+
     //load in options from the options file
     utyOptionsFileRead();
 
