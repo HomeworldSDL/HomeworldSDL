@@ -1601,8 +1601,8 @@ void feResRescaleBackground(featom* atom)
 
     x0 = feResRepositionCentredX(0);
     y0 = feResRepositionCentredY(0);
-    x1 = feResRepositionCentredX(640 - 1);
-    y1 = feResRepositionCentredY(480 - 1);
+    x1 = feResRepositionCentredX(640);
+    y1 = feResRepositionCentredY(480);
 
     atom->x = feResRepositionCentredX(atom->x);
     atom->y = feResRepositionCentredY(atom->y);
@@ -1626,14 +1626,14 @@ void feResRescaleBackground(featom* atom)
     //bottom edge
     if ((atom->y + atom->height) >= y1)
     {
-        bottom = MAIN_WindowHeight - 1;
+        bottom = MAIN_WindowHeight;
         atom->height = bottom - atom->y;
     }
 
     //right edge
     if ((atom->x + atom->width) >= x1)
     {
-        right = MAIN_WindowWidth - 1;
+        right = MAIN_WindowWidth;
         atom->width = right - atom->x;
     }
 }
