@@ -449,8 +449,17 @@ void svShipViewRender(featom* atom, regionhandle region)
     height = drawRect.y1 - drawRect.y0;
 
     glGetIntegerv(GL_VIEWPORT, viewPort);
-    glViewport(drawRect.x0, MAIN_WindowHeight - drawRect.y1, width, height);
 
+    // Fix up the viewport for the ship view
+    // Since we request a fullscreen window and not true fullscreen the MAIN_WindowX values
+    // do not represent the actual render resolution. Only the ship view messes with the
+    // viewport and trips over this disconnect. Fix this up here until we have a clean
+    // solution for UI scaling and windows vs fullscreen rendering.
+    // original code: glViewport(drawRect.x0, MAIN_WindowHeight - drawRect.y1, width, height);
+    float factorX = (float)viewPort[2]/(float)MAIN_WindowWidth;
+    float factorY = (float)viewPort[3]/(float)MAIN_WindowHeight;
+    glViewport(drawRect.x0 * factorX, viewPort[3] - drawRect.y1 * factorY, width * factorX, height * factorY);
+    
     primModeSet2();
     if (!resetRender)
     {
