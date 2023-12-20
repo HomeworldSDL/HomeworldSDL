@@ -86,10 +86,6 @@ Open the game installation folder (usually `~/.wine/drive_c/Sierra/Homeworld`). 
 
 After installing the game, you should find the [required assets](#asset-checklist) in `~/.local/share/Steam/steamapps/common/Homeworld/Homeworld1Classic/Data`. Put them to `$ASSETS_FOLDER`.
 
-##### macOS
-
-To setup either the data from the original or remaster.  Please place the data assets into 'Library/Application Support/Homeworld' or, if you are using Raider Retreat, place them in the same destination folder except to use 'Raider Retreat' instead of 'Homeworld'.
-
 ## Compiling from source
 
 ### Linux
@@ -108,7 +104,7 @@ HW_Data=$ASSETS_FOLDER nix run 'git+https://gitlab.com/homeworldsdl/TenhauserGat
 
 Nix will download everything it needs, build the HomeworldSDL source code, then run the resulting binary.
 
-If you don't have Nix installed, please refer to [`Linux/BUILD.md`](Linux/BUILD.md).
+If you don't have Nix installed, please refer to [`Linux/BUILD.md`](Linux/BUILD.md)
 
 #### Game is slow/crashes
 
@@ -127,7 +123,9 @@ meson setup --buildtype=release -Db_sanitize=none build.fast
 
 ### macOS
 
-Go into the 'Mac' directory, and use the xcode project.  Please note, you will need the SDL2.framework before you start.  This can be found on the releases page of SDL's github repository as a .dmg file.  Place this file into the same directory as the xcode project file and then proceed to build the engine.
+Please refer to [`Mac/BUILD.md`](Mac/BUILD.md).
+
+To setup either the data from the original or remaster.  Please place the data assets into 'Library/Application Support/Homeworld' or, if you are using Raider Retreat, place them in the same destination folder except to use 'Raider Retreat' instead of 'Homeworld'.
 
 [Nix]: https://nixos.org/nix/
 
