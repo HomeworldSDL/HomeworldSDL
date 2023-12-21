@@ -135,9 +135,13 @@ main (int argc, char *argv[])
         newfeatom->height = oldfeatom->height;
         newfeatom->loadedHeight = oldfeatom->loadedHeight;
         if (oldfeatom->pData != 0){
-          newfeatom->pData = (char *)((Uint64)newptr - (Uint64)newrootptr );
-          newptr = stpcpy(newptr,  (char *)((Uint64)oldfeatom->pData + oldrootptr) );
-          newptr = (void*)(((Uint64)newptr + 8) & ((Uint64) ~7)); 
+          if (oldfeatom->type == FA_RadioButton){
+            newfeatom->pData = oldfeatom->pData;
+          } else {
+            newfeatom->pData = (char *)((Uint64)newptr - (Uint64)newrootptr );
+            newptr = stpcpy(newptr,  (char *)((Uint64)oldfeatom->pData + oldrootptr) );
+            newptr = (void*)(((Uint64)newptr + 8) & ((Uint64) ~7));
+          }
         }
         if (oldfeatom->attribs != 0){
           newfeatom->attribs = (char *)((Uint64)newptr - (Uint64)newrootptr );
