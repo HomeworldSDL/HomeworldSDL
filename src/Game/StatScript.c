@@ -783,8 +783,7 @@ bool parseLine(char *line,char **returnName,char **returnValue)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void scriptSetStruct(char *directory,char *filename,scriptStructEntry info[],ubyte *structureToFillIn)
-{
+void scriptSetStruct(char *directory, char *filename, scriptStructEntry info[], void *structureToFillIn) {
     filehandle fh;
     char line[MAX_LINE_CHARS];
     char *name, *value;

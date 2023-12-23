@@ -20,7 +20,7 @@ typedef void (*setVarCback)(char *directory,char *field,void *dataToFillIn);
 
 typedef struct
 {
-    char *name;
+    char const *name;
     setVarCback setVarCB;
     void * offset1;     // should really be 1 offset, but I can't get rid of this strange compiler error
     void * offset2;
@@ -95,7 +95,7 @@ void scriptSetSalvageStatCB(char *directory,char *field,void *dataToFillIn);
 void scriptSetSalvageStatics(char *directory,char *filename,struct StaticInfoHealthGuidanceShipDerelict *statinfo);
 void scriptSetDockOverideStatics(char *directory,char *filename,struct ShipStaticInfo *shipstatinfo);
 
-void scriptSetStruct(char *directory,char *filename,scriptStructEntry info[],ubyte *structureToFillIn);
+void scriptSetStruct(char *directory, char *filename, scriptStructEntry info[], void *structureToFillIn);
 void scriptSet(char *directory,char *filename,scriptEntry info[]);
 void scriptSetFileSystem(char *directory,char *filename,scriptEntry info[]);
 void scriptSetGunStatics(char *directory,char *filename,struct ShipStaticInfo *shipstatinfo);
