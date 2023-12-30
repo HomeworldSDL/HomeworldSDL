@@ -134,13 +134,31 @@ typedef struct uicbutton
 {
     region reg;
     uicfunction processFunction;                //function to recieve notification
-//    udword regionFilter;                        //region messages to pass to control processor
+    udword regionFilter;                        //region messages to pass to control processor
     color contentColor, borderColor;            //colors of button
     fescreen *screen;                           //optional front-end atom pointer
     sdword clickX, clickY;                      //where the mouse was clicked to start dragging (only for drag buttons)
     bool bDragged;                              //was this button ever dragged?
 }
 uicbutton;
+
+// the options code casts uicbuttons directly to uicsliders,
+// make sure the common fields are at the beginning of the struct
+//structure for a slider control.
+typedef struct uicslider
+{
+    region reg;
+    uicfunction processFunction;                //function to recieve notification
+    udword regionFilter;                        //region messages to pass to control processor
+    color contentColor, borderColor;            //colors of button
+    fescreen *screen;                           //optional front-end atom pointer
+    sdword clickX, clickY;                      //where the mouse was clicked to start dragging (only for drag buttons)
+    bool bDragged;                              //was this button ever dragged?
+    udword value;                               //current value of slider
+    udword maxvalue;                            //max value of slider
+    sdword ID;                                  //for a bunch of of sliders
+}
+uicslider;
 
 //structure for a scroll bar up and down buttons
 typedef struct uicscrollbarbutton
@@ -178,24 +196,6 @@ typedef struct uicscrollbar
     udword clickType;
 }
 uicscrollbar;
-
-//structure for a slider control.
-typedef struct uicslider
-{
-    region reg;
-    uicfunction processFunction;                //function to recieve notification
-    udword regionFilter;                        //region messages to pass to control processor
-    color contentColor, borderColor;            //colors of button
-    fescreen *screen;                           //optional front-end atom pointer
-    udword value;                               //current value of slider
-    udword maxvalue;                            //max value of slider
-    sdword ID;                                  //for a bunch of of sliders
-    uword mouseX, mouseY;
-    sword mouseMoved;           //relative mouse coord for thumb drag
-}
-uicslider;
-
-
 
 //structure for a text entry control
 typedef struct uictextentry

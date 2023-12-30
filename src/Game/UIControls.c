@@ -4272,7 +4272,7 @@ buttonhandle uicChildButtonAlloc(controlhandle parent, smemsize ID, sdword x, sd
     featom      *atom=(featom *)ID;
 
     newHandle = (buttonhandle)regChildAlloc((regionhandle)parent, ID, //create region with some extra RAM
-                    x, y, width, height, uicStructureExtra(uicbutton),
+                    x, y, width, height, max(uicStructureExtra(uicslider), uicStructureExtra(uicbutton)), // allocate enough to cover uicslider as well as uicbutton struct
                     uicControlFunctions[flags & CFM_ControlType].regionFilter);
 
     if (bitTest(atom->flags,FAF_Disabled)) bitSet(newHandle->reg.status,RSF_RegionDisabled);
