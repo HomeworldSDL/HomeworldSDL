@@ -718,9 +718,9 @@ trhandle trTextureRegister(char *fileName, trcolorinfo *info, void *meshReferenc
             */
 
             trTextureRegistry[index].meshReference = meshReference;//texture's parent mesh
-			trTextureRegistry[index].nUsageCount = 1;       //one usage of this texture
+            trTextureRegistry[index].nUsageCount = 1;       //one usage of this texture
             trNameCRCs[index] = nameCRC;                    //save the name CRC
-			trTextureRegistry[index].fileName = memAlloc(length + 1, "NameTex", NonVolatile);
+            trTextureRegistry[index].fileName = memAlloc(length + 1, "NameTex", NonVolatile);
             strcpy(trTextureRegistry[index].fileName, fileName);
             trTextureRegistry[index].nPalettes = 1;         //one palette to start
             trTextureRegistry[index].currentPalette = -1;   //no palette yet registered
@@ -728,7 +728,7 @@ trhandle trTextureRegister(char *fileName, trcolorinfo *info, void *meshReferenc
             trTextureRegistry[index].palettes =             //allocate the temp palette list
                 memAlloc(TR_NumPaletteSize, "Temp trcolorinfo list", 0);
             memClearDword(trTextureRegistry[index].palettes, TR_UnusedColorInfo, TR_NumPaletteSize / sizeof(udword));
-			trTextureRegistry[index].baseScalar = (uword)colRealToUdword(trBaseColorScalar);
+            trTextureRegistry[index].baseScalar = (uword)colRealToUdword(trBaseColorScalar);
             trTextureRegistry[index].stripeScalar = (uword)colRealToUdword(trStripeColorScalar);
             trTextureRegistry[index].handle = TR_InvalidInternalHandle;
             dbgAssertOrIgnore(info != NULL);
@@ -1151,9 +1151,13 @@ void trCreateUnpalettedTexture(ubyte* palette, ubyte* data, sdword width, sdword
         dp[3] = palette[index + 3];
     }
 
+#ifdef __APPLE__
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, rgba);
+#else
     glTexStorage2D(GL_TEXTURE_2D, 4, GL_RGBA8, width, height);
     glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, rgba);
-
+#endif
+    
     memFree(rgba);
 }
 
@@ -1188,6 +1192,19 @@ udword trPalettedTextureCreate(ubyte *data, color *palette, sdword width, sdword
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    
+#ifdef __APPLE__
+    if (texLinearFiltering)
+    {                                                       //set min/mag filters to point samplingor linear
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    }
+    else
+    {
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    }
+#endif
 
     primErrorMessagePrint();
     //first see if this texture can fit in RAM.  It should because we've already packed the textures
@@ -1213,6 +1230,7 @@ udword trPalettedTextureCreate(ubyte *data, color *palette, sdword width, sdword
 
     trCreateUnpalettedTexture((ubyte*)palette, data, width, height);
 
+#ifndef __APPLE__
     if (texLinearFiltering)
     {                                                       //set min/mag filters to point samplingor linear
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
@@ -1225,7 +1243,8 @@ udword trPalettedTextureCreate(ubyte *data, color *palette, sdword width, sdword
     }
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, 8);
     glGenerateMipmap(GL_TEXTURE_2D);
-
+#endif
+    
     if (tempData != NULL)
     {
         memFree(tempData);
@@ -1267,6 +1286,19 @@ udword trRGBTextureCreate(color *data, sdword width, sdword height, bool useAlph
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
+#ifdef __APPLE__
+    if (texLinearFiltering)
+    {                                                       //set min/mag filters to point samplingor linear
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    }
+    else
+    {
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    }
+#endif
+    
     //first see if this texture can fit in RAM.  It should because we've already packed the textures
 #if TR_ASPECT_CHECKING
     if (width / height > 8 || height / width > 8)
@@ -1288,6 +1320,10 @@ udword trRGBTextureCreate(color *data, sdword width, sdword height, bool useAlph
     }
 #endif //TR_ASPECT_CHECKING
 
+#ifdef __APPLE__
+    glTexImage2D(GL_TEXTURE_2D, 0, destType, width,       //create the GL texture object
+                     height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+#else
     glTexStorage2D(GL_TEXTURE_2D, 4, GL_RGBA8, width, height);
     glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, data);
 
@@ -1304,7 +1340,8 @@ udword trRGBTextureCreate(color *data, sdword width, sdword height, bool useAlph
     }
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, 8);
     glGenerateMipmap(GL_TEXTURE_2D);
-
+#endif
+    
     if (tempData != NULL)
     {
         memFree(tempData);
@@ -1326,9 +1363,15 @@ void trRGBTextureUpdate(udword handle, color *data, sdword width, sdword height)
     trClearCurrent();
     glBindTexture(GL_TEXTURE_2D, handle);                   //bind texture for modification
     primErrorMessagePrint();
+    
+#ifdef __APPLE__
+    glTexImage2D(GL_TEXTURE_2D, 0, TR_RGBType, width,       //create the GL texture object
+                 height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+#else
     glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width,
                  height, GL_RGBA, GL_UNSIGNED_BYTE, data);
     glGenerateMipmap(GL_TEXTURE_2D);
+#endif
 }
 /*-----------------------------------------------------------------------------
     Name        : trRGBTextureDelete
@@ -1556,16 +1599,16 @@ lifheader *trLIFFileLoad(char *fileName, udword flags)
 #endif
 
 #if FIX_ENDIAN
-	newHeader->version     = FIX_ENDIAN_INT_32( newHeader->version );
-	newHeader->flags       = FIX_ENDIAN_INT_32( newHeader->flags );
-	newHeader->width       = FIX_ENDIAN_INT_32( newHeader->width );
-	newHeader->height      = FIX_ENDIAN_INT_32( newHeader->height );
-	newHeader->paletteCRC  = FIX_ENDIAN_INT_32( newHeader->paletteCRC );
-	newHeader->imageCRC    = FIX_ENDIAN_INT_32( newHeader->imageCRC );
-	newHeader->data        = ( ubyte *)FIX_ENDIAN_INT_32( ( udword )newHeader->data );
-	newHeader->palette     = ( color *)FIX_ENDIAN_INT_32( ( udword )newHeader->palette );
-	newHeader->teamEffect0 = ( ubyte *)FIX_ENDIAN_INT_32( ( udword )newHeader->teamEffect0 );
-	newHeader->teamEffect1 = ( ubyte *)FIX_ENDIAN_INT_32( ( udword )newHeader->teamEffect1 );
+    newHeader->version     = FIX_ENDIAN_INT_32( newHeader->version );
+    newHeader->flags       = FIX_ENDIAN_INT_32( newHeader->flags );
+    newHeader->width       = FIX_ENDIAN_INT_32( newHeader->width );
+    newHeader->height      = FIX_ENDIAN_INT_32( newHeader->height );
+    newHeader->paletteCRC  = FIX_ENDIAN_INT_32( newHeader->paletteCRC );
+    newHeader->imageCRC    = FIX_ENDIAN_INT_32( newHeader->imageCRC );
+    newHeader->data        = ( ubyte *)FIX_ENDIAN_INT_32( ( udword )newHeader->data );
+    newHeader->palette     = ( color *)FIX_ENDIAN_INT_32( ( udword )newHeader->palette );
+    newHeader->teamEffect0 = ( ubyte *)FIX_ENDIAN_INT_32( ( udword )newHeader->teamEffect0 );
+    newHeader->teamEffect1 = ( ubyte *)FIX_ENDIAN_INT_32( ( udword )newHeader->teamEffect1 );
 #endif
 
 #if TR_ERROR_CHECKING
@@ -2572,11 +2615,11 @@ llelement *trListFileLoad(char *name, sdword *number)
     fileBlockRead(f, &header, sizeof(llfileheader));        //read the file header
 
 #if FIX_ENDIAN
-	header.version       = FIX_ENDIAN_INT_32( header.version );
-	header.nElements     = FIX_ENDIAN_INT_32( header.nElements );
-	header.stringLength  = FIX_ENDIAN_INT_32( header.stringLength );
-	header.sharingLength = FIX_ENDIAN_INT_32( header.sharingLength );
-	header.totalLength   = FIX_ENDIAN_INT_32( header.totalLength );
+    header.version       = FIX_ENDIAN_INT_32( header.version );
+    header.nElements     = FIX_ENDIAN_INT_32( header.nElements );
+    header.stringLength  = FIX_ENDIAN_INT_32( header.stringLength );
+    header.sharingLength = FIX_ENDIAN_INT_32( header.sharingLength );
+    header.totalLength   = FIX_ENDIAN_INT_32( header.totalLength );
 #endif
 
 #if TR_ERROR_CHECKING
@@ -2604,14 +2647,14 @@ llelement *trListFileLoad(char *name, sdword *number)
     for (index = 0; index < header.nElements; index++)
     {
 #if FIX_ENDIAN
-		list[index].textureName = ( char *)FIX_ENDIAN_INT_32( ( udword )list[index].textureName );
-		list[index].width       = FIX_ENDIAN_INT_32( list[index].width );
-		list[index].height      = FIX_ENDIAN_INT_32( list[index].height );
-		list[index].flags       = FIX_ENDIAN_INT_32( list[index].flags );
-		list[index].imageCRC    = FIX_ENDIAN_INT_32( list[index].imageCRC );
-		list[index].nShared     = FIX_ENDIAN_INT_32( list[index].nShared );
-		list[index].sharedTo    = ( sdword *)FIX_ENDIAN_INT_32( ( udword )list[index].sharedTo );
-		list[index].sharedFrom  = FIX_ENDIAN_INT_32( list[index].sharedFrom );
+        list[index].textureName = ( char *)FIX_ENDIAN_INT_32( ( udword )list[index].textureName );
+        list[index].width       = FIX_ENDIAN_INT_32( list[index].width );
+        list[index].height      = FIX_ENDIAN_INT_32( list[index].height );
+        list[index].flags       = FIX_ENDIAN_INT_32( list[index].flags );
+        list[index].imageCRC    = FIX_ENDIAN_INT_32( list[index].imageCRC );
+        list[index].nShared     = FIX_ENDIAN_INT_32( list[index].nShared );
+        list[index].sharedTo    = ( sdword *)FIX_ENDIAN_INT_32( ( udword )list[index].sharedTo );
+        list[index].sharedFrom  = FIX_ENDIAN_INT_32( list[index].sharedFrom );
 #endif
 
         list[index].textureName += (memsize)stringBlock;
@@ -2756,16 +2799,16 @@ bool trLiFMeasure(char *fileName, sdword *width, sdword *height, udword *flags)
     fileClose(handle);
 
 #if FIX_ENDIAN
-	header.version     = FIX_ENDIAN_INT_32( header.version );
-	header.flags       = FIX_ENDIAN_INT_32( header.flags );
-	header.width       = FIX_ENDIAN_INT_32( header.width );
-	header.height      = FIX_ENDIAN_INT_32( header.height );
-	header.paletteCRC  = FIX_ENDIAN_INT_32( header.paletteCRC );
-	header.imageCRC    = FIX_ENDIAN_INT_32( header.imageCRC );
-	header.data        = ( ubyte *)FIX_ENDIAN_INT_32( ( udword )header.data );
-	header.palette     = ( color *)FIX_ENDIAN_INT_32( ( udword )header.palette );
-	header.teamEffect0 = ( ubyte *)FIX_ENDIAN_INT_32( ( udword )header.teamEffect0 );
-	header.teamEffect1 = ( ubyte *)FIX_ENDIAN_INT_32( ( udword )header.teamEffect1 );
+    header.version     = FIX_ENDIAN_INT_32( header.version );
+    header.flags       = FIX_ENDIAN_INT_32( header.flags );
+    header.width       = FIX_ENDIAN_INT_32( header.width );
+    header.height      = FIX_ENDIAN_INT_32( header.height );
+    header.paletteCRC  = FIX_ENDIAN_INT_32( header.paletteCRC );
+    header.imageCRC    = FIX_ENDIAN_INT_32( header.imageCRC );
+    header.data        = ( ubyte *)FIX_ENDIAN_INT_32( ( udword )header.data );
+    header.palette     = ( color *)FIX_ENDIAN_INT_32( ( udword )header.palette );
+    header.teamEffect0 = ( ubyte *)FIX_ENDIAN_INT_32( ( udword )header.teamEffect0 );
+    header.teamEffect1 = ( ubyte *)FIX_ENDIAN_INT_32( ( udword )header.teamEffect1 );
 #endif
 
     if (strcmp(header.ident, LIF_FileIdentifier))
@@ -3689,6 +3732,19 @@ void trNoPalTexImage(ubyte* data, ubyte* palette, sdword width, sdword height)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
+#ifdef __APPLE__
+    if (texLinearFiltering)
+    {
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    }
+    else
+    {
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    }
+#endif
+    
     rgba = memAlloc(4 * width * height, "temp rgba", Pyrophoric);
 
     dp = rgba;
@@ -3702,6 +3758,9 @@ void trNoPalTexImage(ubyte* data, ubyte* palette, sdword width, sdword height)
         dp[3] = palette[index + 3];
     }
 
+#ifdef __APPLE__
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, rgba);
+#else
     glTexStorage2D(GL_TEXTURE_2D, 4, GL_RGBA8, width, height);
     glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, rgba);
 
@@ -3717,7 +3776,8 @@ void trNoPalTexImage(ubyte* data, ubyte* palette, sdword width, sdword height)
     }
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, 8);
     glGenerateMipmap(GL_TEXTURE_2D);
-
+#endif
+    
     memFree(rgba);
 
     trNoPalBytesAllocated += 4 * width * height;

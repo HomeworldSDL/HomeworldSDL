@@ -15,5 +15,8 @@
     main.c                                         \
     options.c                                      \
     -o biggie
+    
+cd ../../HomeworldSDL_big
+./convert_directory_to_big_file
 
 exit 0
