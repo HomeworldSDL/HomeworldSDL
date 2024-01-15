@@ -98,7 +98,7 @@ bool mainNoPerspective = FALSE;
 bool systemActive = FALSE;              //active flag for the program
 
 #ifndef __APPLE__
-static char windowTitle[] = "Homeworld";//name of window
+static char windowTitle[] = "HomeworldSDL";//name of window
 #endif
 
 //error strings
@@ -237,19 +237,10 @@ bool noMinimizeAltTab = FALSE;
 //options altered by a password function:
 bool mainCDCheckEnabled = TRUE;
 
-#if defined(HW_GAME_DEMO)
-char networkVersion[MAX_NETWORKVERSION_STRING_LEN] =   "DLD_05";
-#elif defined(HW_GAME_RAIDER_RETREAT)
-char networkVersion[MAX_NETWORKVERSION_STRING_LEN] =   "OEMV1";
-#else
-char networkVersion[MAX_NETWORKVERSION_STRING_LEN] =   "HomeworldV1C";
-#endif
+char networkVersion[MAX_NETWORKVERSION_STRING_LEN] =   "HomeworldSDL";
 
-#if defined(HW_GAME_RAIDER_RETREAT)
-char minorBuildVersion[] = "051";
-#else
-char minorBuildVersion[] = "06.1";
-#endif
+char minorBuildVersion[] = "1.2.0";
+
 char languageVersion[50] = "";    // constructed at beginning of program
 
 // The version string is now constructed as follows:

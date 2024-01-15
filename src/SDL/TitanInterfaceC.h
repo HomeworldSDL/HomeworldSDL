@@ -301,7 +301,7 @@ const unsigned char *titanGetGameKey(void);
 
 // callback for when titan gets valid version strings (one string, multiple version strings seperated by tabs)
 void titanGotValidVersionStrings(char *validversions);
-void titanResetValidVersions();     // clears ValidVersions string
+void titanResetValidVersions(void);     // clears ValidVersions string
 
 Address titanGetMyPingAddress(void);
 
