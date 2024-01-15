@@ -31,7 +31,7 @@ extern int devTableLength;
 static rdevice* rDeviceList;
 static int nDevices;
 
-#if 0	/* Direct3D stuff...not used. */
+#if 0    /* Direct3D stuff...not used. */
 char* gDescription = NULL;
 char* gDriverName = NULL;
 
@@ -394,42 +394,42 @@ int rinMaxWidth(void)
 ----------------------------------------------------------------------------*/
 bool rinEnumeratePrimary(rdevice* dev)
 {
-	SDL_DisplayMode mode;
+    SDL_DisplayMode mode;
     Uint32 flags;
-	int max_width;
-	int i, j;
-	const int display_index = 0;
+    int max_width;
+    int i, j;
+    const int display_index = 0;
 
-	if (!dev)
-		return FALSE;
+    if (!dev)
+        return FALSE;
 
-	max_width = rinMaxWidth();
+    max_width = rinMaxWidth();
 
-	/* Make sure SDL video is initialized. */
-	flags = SDL_WasInit(SDL_INIT_EVERYTHING);
-	if (!flags)
-	{
-		if (SDL_Init(SDL_INIT_VIDEO) == -1)
-			return FALSE;
-	}
-	else if (!(flags & SDL_INIT_VIDEO))
-	{
-		if (SDL_InitSubSystem(SDL_INIT_VIDEO) == -1)
-			return FALSE;
-	}
+    /* Make sure SDL video is initialized. */
+    flags = SDL_WasInit(SDL_INIT_EVERYTHING);
+    if (!flags)
+    {
+        if (SDL_Init(SDL_INIT_VIDEO) == -1)
+            return FALSE;
+    }
+    else if (!(flags & SDL_INIT_VIDEO))
+    {
+        if (SDL_InitSubSystem(SDL_INIT_VIDEO) == -1)
+            return FALSE;
+    }
 
-	for(i=SDL_GetNumDisplayModes(display_index); i>0; i--){
-		if(SDL_GetDisplayMode(display_index, i-1, &mode)){
-			dbgMessagef("Error in SDL_GetDisplayMode(): %d %s",i-1,SDL_GetError());
-			return FALSE;
-		}
-		if (mode.w >= 640 && mode.h >= 480)
-		{
-			rinAddMode(dev, mode.w, mode.h, SDL_BITSPERPIXEL(mode.format));
-		}
-	}
-	
-	return (dev->modes != 0);
+    for(i=SDL_GetNumDisplayModes(display_index); i>0; i--){
+        if(SDL_GetDisplayMode(display_index, i-1, &mode)){
+            dbgMessagef("Error in SDL_GetDisplayMode(): %d %s",i-1,SDL_GetError());
+            return FALSE;
+        }
+        if (mode.w >= 640 && mode.h >= 480)
+        {
+            rinAddMode(dev, mode.w, mode.h, SDL_BITSPERPIXEL(mode.format));
+        }
+    }
+    
+    return (dev->modes != 0);
 }
 
 /*-----------------------------------------------------------------------------
@@ -454,6 +454,7 @@ int rinEnumerateDevices(void)
     dev = (rdevice*)rinMemAlloc(sizeof(rdevice));
     dev->type = RIN_TYPE_OPENGL;
     dev->data[0] = '\0';
+    strncpy(dev->name, "OpenGL", 63);
     
     dev->modes = NULL;
     memset(&primaryDev, 0, sizeof(rdevice));
