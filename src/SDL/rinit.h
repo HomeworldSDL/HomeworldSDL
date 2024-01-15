@@ -17,8 +17,6 @@ typedef struct rmode
 } rmode;
 
 #define RIN_TYPE_OPENGL   1
-#define RIN_TYPE_DIRECT3D 2
-#define RIN_TYPE_SOFTWARE 4
 
 typedef struct rdevice
 {

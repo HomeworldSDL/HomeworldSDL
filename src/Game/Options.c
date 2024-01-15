@@ -2655,32 +2655,19 @@ void opRenderItemDraw(rectangle* rect, listitemhandle data)
 
     oldfont = fontMakeCurrent(opRenderListFont);
 
-    if (bitTest(data->flags, UICLI_Selected))
-    {
-        c0 = c1 = FEC_ListItemSelected;
-        if (opRndSelected != rnd || opRes == NULL)
-        {
-            opRndSelected = rnd;
-            opResListSet(rnd->dev);
-        }
-        opSaveRndSelected = rnd;
-    }
-    else
-    {
-        c0 = FEC_ListItemStandard;
-        c1 = FEC_ListItemStandard;
-    }
+    c0 = c1 = FEC_ListItemSelected;
+    opRndSelected = rnd;
+    opResListSet(rnd->dev);
+    opSaveRndSelected = rnd;
 
-    x = rect->x0 + fontWidth("(OGL)");
+    x = rect->x0 + fontWidth("OpenGL");
     y = rect->y0;
 
     switch (rnd->type)
     {
     case RIN_TYPE_OPENGL:
-        sprintf(temp, "(GL)");
+        sprintf(temp, "OpenGL");
         break;
-    default:
-        sprintf(temp, "(SW)");
     }
 
     fontPrint(x - fontWidth(temp), y, c0, temp);

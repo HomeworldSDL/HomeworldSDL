@@ -81,8 +81,8 @@ sdword  devTableLength = 0;
 static bool mainActuallyQuit = TRUE;
 
 bool selectedRES = FALSE;
-bool selectedDEVICE = FALSE;
-bool selectedGL = FALSE;
+bool selectedDEVICE = TRUE;
+bool selectedGL = TRUE;
 
 sdword mainReinitRenderer = 0;
 static bool reinitInProgress = FALSE;
@@ -105,9 +105,9 @@ static char windowTitle[] = "Homeworld";//name of window
 char ersWindowInit[] = "Error creating window";
 
 //screen width, height
-int MAIN_WindowWidth = 640;
-int MAIN_WindowHeight = 480;
-int MAIN_WindowDepth = 16;
+int MAIN_WindowWidth = 1024;
+int MAIN_WindowHeight = 768;
+int MAIN_WindowDepth = 32;
 
 sdword mainWidthAdd = 0;
 sdword mainHeightAdd = 0;
@@ -1988,9 +1988,6 @@ static bool InitWindow ()
             mainWindowDepth  = MAIN_WindowDepth;
         }
     }
-
-    mainWidthAdd  = 0;
-    mainHeightAdd = 0;
 
     mainWindowTotalWidth  = MAIN_WindowWidth  + mainWidthAdd;
     mainWindowTotalHeight = MAIN_WindowHeight + mainHeightAdd;

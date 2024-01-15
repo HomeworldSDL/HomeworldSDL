@@ -450,57 +450,17 @@ int rinEnumerateDevices(void)
     int maxWidth;
 #endif
 
-#if 0	/* CRC log only used by Direct3D. */
-    if (mainOutputCRC)
-    {
-        rinResetCRCLog();
-    }
-#endif
-
-    rDeviceList = NULL;
-    nDevices = 0;
-
-    //add Direct3D devices
-    /*nDevices += rinEnumerateDirect3D();*/
-
     //add OpenGL device
     dev = (rdevice*)rinMemAlloc(sizeof(rdevice));
     dev->type = RIN_TYPE_OPENGL;
     dev->data[0] = '\0';
-    if (strCurLanguage == 1)
-    {
-        strncpy(dev->name, "OpenGL Standard", 63);
-    }
-    else if (strCurLanguage == 2)
-    {
-        strncpy(dev->name, "Standard-OpenGL", 63);
-    }
-    if (strCurLanguage == 3)
-    {
-        strncpy(dev->name, "OpenGL predeterminado", 63);
-    }
-    else if (strCurLanguage == 4)
-    {
-        strncpy(dev->name, "OpenGL di Default", 63);
-    }
-    else
-    {
-        strncpy(dev->name, "Default OpenGL", 63);
-    }
+    
     dev->modes = NULL;
-    //try good old DirectDraw <= 3 enumeration
     memset(&primaryDev, 0, sizeof(rdevice));
     primaryVal = rinEnumeratePrimary(&primaryDev);
     if (primaryVal)
     {
         rinCopyModes(dev, &primaryDev);
-    }
-    else
-    {
-        //assume these are supported
-        rinAddMode(dev,  640, 480, 16);
-        rinAddMode(dev,  800, 600, 16);
-        rinAddMode(dev, 1024, 768, 16);
     }
     rinSortModes(dev);
     gldev = dev;
