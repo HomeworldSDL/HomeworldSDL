@@ -1717,8 +1717,6 @@ void feScreensLoadAndConvertTo64Bit(char *fileName, void** loadAddress)
     int oldlength;
 
     oldlength = fileLoadAlloc(fileName, (void **)&oldrootptr, NonVolatile);
-    
-    printf("%s size is %d\n", fileName, oldlength);
 
     header = oldptr = oldrootptr;
   
