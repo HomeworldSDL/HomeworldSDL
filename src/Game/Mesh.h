@@ -255,6 +255,75 @@ shipbindings;
 //mesh hierarchy walking callback
 typedef bool (*meshcallback)(meshdata *mesh, polygonobject *object, sdword iObject);
 
+
+typedef struct tagGeoFileHeader_disk
+{
+    char    identifier[MESH_FileIDLength];  // File identifier.
+    udword  version;                        // File version.
+    udword   pName;   //    *               // Offset to a file name.
+    udword  fileSize;                       // File size (in bytes), not counting this header.
+    udword  localSize;                      // Object size (in bytes).
+    udword  nPublicMaterials;               // Number of public materials.
+    udword  nLocalMaterials;                // Number of local materials.
+    udword  oPublicMaterial;                //list of public materials
+    udword  oLocalMaterial;                 //list of local materials
+    udword  nPolygonObjects;                // Number of polygon objects.
+    ubyte   reserved[24];                   // Reserved for future use.
+}
+GeoFileHeader_disk;
+
+typedef struct polygonobject_disk
+{
+    udword  pName;    // *                        // Name for animation.
+    ubyte   flags;                          // General flags (see above)
+    ubyte   iObject;                        // fixed up at load time so we know what object index we have when recursively processing
+    uword   nameCRC;                        // 16-bit CRC of name (!!!!no room for 32 right now - make room next version)
+    sdword  nVertices;                      // Number of vertices in vertex list for this object.
+    sdword  nFaceNormals;                   // Number of face normals for this object.
+    sdword  nVertexNormals;                 // Number of vertex normals for this object.
+    sdword  nPolygons;                      // Number of polygons in this object.
+    udword pVertexList; //vertexentry *pVertexList;     // Offset to the vertex list in this object.
+    udword pNormalList;//normalentry *pNormalList;     // Offset to the normal list in this object.
+    udword pPolygonList; //polyentry   *pPolygonList;   // Offset to the polygon list in this object.
+    udword pMother; // struct polygonobject *pMother;          // link to parent object
+    udword pDaughter; //struct polygonobject *pDaughter;        // link to child object
+    udword pSister; //struct polygonobject *pSister;          // link to sibling object
+    hmatrix localMatrix;
+}
+polygonobject_disk;
+
+typedef struct
+{
+    char *name;
+    udword localSize;                       //size required for each instance of this mesh
+    sdword nPublicMaterials;                //number of shared materials
+    sdword nLocalMaterials;                 //number of local materials
+    sdword nPolygonObjects;                 //number of polygon objects in mesh file
+    struct tagmaterialentry *localMaterial; //list of local materials
+    struct tagmaterialentry *publicMaterial;//list of public materials
+#if MESH_RETAIN_FILENAMES
+    char *fileName;                         //for debugging
+#endif
+    polygonobject object[1];                //array of polygon object files
+}
+meshdata_disk;
+
+typedef struct tagmaterialentry_disk
+{
+    udword  pName;   // *                        // Offset to name of material (may be a CRC32).
+    color  ambient;                         // Ambient color information.
+    color  diffuse;                         // Diffuse color information.
+    color  specular;                        // Specular color information.
+    real32 kAlpha;                          // Alpha blending information.
+    udword texture;  // *                       // Pointer to texture information (or CRC32).
+    uword  flags;                           // Flags for this material.
+    ubyte  nFullAmbient;                    // Number of self-illuminating colors in texture.
+    bool8  bTexturesRegistered;             // Set to TRUE when some textures have been registered.
+    udword   textureNameSave; // *               // the name of the texture, after the texture has been registered
+}
+materialentry_disk;
+
+
 /*=============================================================================
     Data:
 =============================================================================*/

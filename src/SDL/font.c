@@ -641,6 +641,91 @@ bool glfontDisplayString(fontheader* font, char* string, sdword x, sdword y, col
     return rval;
 }
 
+
+#ifdef _X86_64
+sdword fontLoadAndConvertTo64Bit(char *fileName, void** loadAddress)
+{
+    int i;
+    int j;
+    int offset;
+
+    fontfileheader_disk *oldfontfileheader = NULL;
+    fontfileheader *newfontfileheader = NULL;
+
+    fontheader_disk *oldfontheader = NULL;
+    fontheader *newfontheader = NULL;
+
+    charheader_disk *oldcharheader = NULL;
+    charheader *newcharheader = NULL;
+
+    int fontfileheaderdiff;
+    int fontheaderdiff;
+    int charheaderdiff;
+
+    sdword no_of_chars = 0;
+
+    void * oldrootptr = NULL;
+    void * newrootptr = NULL;
+
+    void * oldptr = NULL;
+    void * newptr = NULL;
+
+    int oldlength;
+    int newlength;
+
+    fontfileheaderdiff = sizeof(fontfileheader) - sizeof(fontfileheader_disk);
+    fontheaderdiff = sizeof(fontheader) - sizeof(fontheader_disk);
+    charheaderdiff = sizeof(charheader) - sizeof(charheader_disk);
+
+    offset = fontheaderdiff + 256 * charheaderdiff;
+
+    oldlength = fileLoadAlloc(fileName, (void **)&oldrootptr, NonVolatile);
+
+    oldfontfileheader = oldptr = oldrootptr;  
+
+    newfontfileheader = newptr = newrootptr = newrootptr = memAlloc(2 * oldlength, "font 64bit conversion", 0);
+    memset(newrootptr, 0,2*oldlength);
+
+    strncpy(newfontfileheader->identification, oldfontfileheader->identification, 8);
+    newfontfileheader->version = oldfontfileheader->version;
+    newfontfileheader->flags = oldfontfileheader->flags;
+
+    oldfontheader = &oldfontfileheader->header;
+    newfontheader = &newfontfileheader->header;
+
+    no_of_chars = newfontheader->nCharacters = oldfontheader->nCharacters;
+    newfontheader->spacing = oldfontheader->spacing;
+    newfontheader->fullHeight = oldfontheader->fullHeight;
+    newfontheader->baseLine = oldfontheader->baseLine;
+    if (oldfontheader->name != 0){
+      newfontheader->name = (char *)((Uint64)oldfontheader->name +  fontfileheaderdiff);
+    }
+    newfontheader->imageWidth = oldfontheader->imageWidth;
+    newfontheader->imageHeight = oldfontheader->imageHeight;
+    newfontheader->nColors = oldfontheader->nColors;
+    newfontheader->palette = (color *)((Uint64)oldfontheader->palette +  fontfileheaderdiff);
+    newfontheader->image = (ubyte *)((Uint64)oldfontheader->image +  fontfileheaderdiff);
+    newfontheader->glFont = (void *)((Uint64)oldfontheader->glFont +  fontfileheaderdiff);
+    memcpy(newfontheader->reserved, newfontheader->reserved, 12);
+    for (j=0; j<256; j++)
+    {
+      if (oldfontheader->character_disk[j] != 0){
+        newfontheader->character[j] = (charheader *)((Uint64)oldfontheader->character_disk[j] +  fontfileheaderdiff);
+      }
+    }
+
+    memcpy(newrootptr + sizeof(fontfileheader), oldrootptr + sizeof(fontfileheader_disk), oldlength - sizeof(fontfileheader_disk));
+
+    newlength = oldlength + fontfileheaderdiff;
+
+    memFree(oldrootptr);
+
+    *loadAddress = newrootptr;
+    return newlength;
+}
+#endif
+
+
 /*-----------------------------------------------------------------------------
     Name        : fontLoad
     Description : Load in a font.
@@ -663,9 +748,7 @@ fontheader *fontLoad(char *fileName)
     antialias = TRUE;
 
 #ifdef _X86_64
-    char newFileName[80];
-    sprintf(newFileName, "%s.64",fileName);
-    length = fileLoadAlloc(newFileName, (void **)(&fileHeader), NonVolatile);
+    length = fontLoadAndConvertTo64Bit(fileName, (void **)(&fileHeader));
 #else
     length = fileLoadAlloc(fileName, (void **)(&fileHeader), NonVolatile);
 #endif

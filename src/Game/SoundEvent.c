@@ -2577,6 +2577,99 @@ void SEstopsoundhandle(sdword *shandle, real32 fadetime)
 }
 
 
+#ifdef _X86_64
+void loadbankAndConvertTo64Bit(char *fileName, void** loadAddress)
+{
+	int i;
+
+	int loopvar;
+	int loopcount;
+
+	BANK *oldHeader = NULL;
+	BANK *newHeader = NULL;
+
+	PATCH_DISK *oldPatch = NULL;
+	PATCH *newPatch = NULL;
+
+	memsize offset=0;
+	memsize loopsize=0;
+
+	void * oldptr = NULL;
+	void * newptr = NULL;
+	void * oldbase = NULL;
+	void * newbase = NULL;
+	void * tmpptr = NULL;
+
+	int oldLength;
+	int newLength;
+
+	udword *oldShare = NULL;
+	udword *newShare = NULL;
+
+	oldLength = fileLoadAlloc(fileName, (void **)&oldbase, NonVolatile);
+    oldHeader = oldptr = oldbase;
+
+    //printf("%s size is %d\n",oldFile, oldLength);
+
+    newLength = 2*oldLength;
+
+	newbase = memAlloc(2* oldLength, "bank 64bit conversion", 0); 
+    newHeader = newbase;
+    newptr =  (void*) newbase;
+
+    memset (newbase, 0 ,2*oldLength);
+  
+
+    newHeader->id, oldHeader->id;
+    newHeader->checksum = oldHeader->checksum;
+    newHeader->numpatches = oldHeader->numpatches;
+
+    oldPatch = (PATCH_DISK*)&oldHeader->firstpatch;
+    newPatch = (PATCH*)&newHeader->firstpatch;
+
+
+    offset=newHeader->numpatches * (sizeof(PATCH) - sizeof(PATCH_DISK));
+    //printf("New data offset =  +%d\n",offset);
+
+    loopsize=newHeader->numpatches;
+
+    for (i=0;i<loopsize;i++){
+        //printf("%3d: %d: dataoffset:%ld datasize: %ld loopstart: %ld loopend: %ld\n",i, oldPatch->id , oldPatch->dataoffset, oldPatch->datasize, oldPatch->loopstart, oldPatch -> loopend); 
+        newPatch->id = oldPatch->id;
+        newPatch->priority = oldPatch->priority;
+        newPatch->pitch = oldPatch->pitch;
+        newPatch->dataoffset = oldPatch->dataoffset + offset;
+        newPatch->datasize = oldPatch->datasize;
+        newPatch->loopstart = oldPatch->loopstart;
+        newPatch->loopend = oldPatch->loopend;
+        newPatch->bitrate = oldPatch->bitrate;
+        newPatch->flags = oldPatch->flags;
+        newPatch->volume = oldPatch->volume;
+        newPatch->pan = oldPatch->pan;
+        newPatch->waveformat.format = oldPatch->waveformat.format;
+        newPatch->waveformat.channels = oldPatch->waveformat.channels;
+        newPatch->waveformat.frequency = oldPatch->waveformat.frequency;
+        newPatch->waveformat.avgBytesPerSecond = oldPatch->waveformat.avgBytesPerSecond;
+        newPatch->waveformat.blockAlign = oldPatch->waveformat.blockAlign;
+        newPatch->wavepad = oldPatch->wavepad;
+        //printf(" becomes dataoffset:%ld \n", newPatch->dataoffset); 
+
+    oldPatch++;
+    newPatch++;
+    }
+
+    newLength = oldLength + offset;
+    
+    offset = (memsize)oldptr + oldLength - (memsize) oldPatch;
+
+    memcpy (newPatch, oldPatch, offset);
+
+	memFree(oldbase);
+	*loadAddress = newbase;
+}
+#endif
+
+
 /*-----------------------------------------------------------------------------
     Name        :
     Description :
@@ -2728,12 +2821,12 @@ void SEloadbank(void)
 #endif
 
     strcpy(loadfile, SOUNDFXDIR);
+	strcat(loadfile, "Guns.bnk");
 #ifdef _X86_64
-    strcat(loadfile, "Guns.bnk.64");
+    loadbankAndConvertTo64Bit(loadfile, (void**)&GunBank);
 #else
-    strcat(loadfile, "Guns.bnk");
-#endif
     fileLoadAlloc(loadfile, (void**)&GunBank, NonVolatile);
+#endif
 	if (soundbankadd(GunBank) != GunEventsLUT->checksum)
 	{
 		dbgMessage("Lookup tables do not match.  Not from same generate.");
@@ -2741,12 +2834,12 @@ void SEloadbank(void)
 	}
 
     strcpy(loadfile, SOUNDFXDIR);
+	strcat(loadfile, "Ships.bnk");
 #ifdef _X86_64
-    strcat(loadfile, "Ships.bnk.64");
+    loadbankAndConvertTo64Bit(loadfile, (void**)&ShipBank);
 #else
-    strcat(loadfile, "Ships.bnk");
-#endif
     fileLoadAlloc(loadfile, (void**)&ShipBank, NonVolatile);
+#endif
 	if (soundbankadd(ShipBank) != ShipCmnEventsLUT->checksum)
 	{
 		dbgMessage("Ship bank file does not match Lookup tables.  Not from same generate.");
@@ -2754,12 +2847,12 @@ void SEloadbank(void)
 	}
 
     strcpy(loadfile, SOUNDFXDIR);
+	strcat(loadfile, "SpecialEffects.bnk");
 #ifdef _X86_64
-    strcat(loadfile, "SpecialEffects.bnk.64");
+    loadbankAndConvertTo64Bit(loadfile, (void**)&SpecialEffectBank);
 #else
-    strcat(loadfile, "SpecialEffects.bnk");
-#endif
     fileLoadAlloc(loadfile, (void**)&SpecialEffectBank, NonVolatile);
+#endif
 //	if (soundbankadd(SpecialEffectBank) != SpecEffectEventsLUT->checksum)
 	if (soundbankadd(SpecialEffectBank) != SpecExpEventsLUT->checksum)
 	{
@@ -2768,12 +2861,12 @@ void SEloadbank(void)
 	}
 
     strcpy(loadfile, SOUNDFXDIR);
+	strcat(loadfile, "UI.bnk");
 #ifdef _X86_64
-    strcat(loadfile, "UI.bnk.64");
+    loadbankAndConvertTo64Bit(loadfile, (void**)&UIBank);
 #else
-    strcat(loadfile, "UI.bnk");
-#endif
     fileLoadAlloc(loadfile, (void**)&UIBank, NonVolatile);
+#endif
 	if (soundbankadd(UIBank) != UIEventsLUT->checksum)
 	{
 		dbgMessage("Lookup tables do not match.  Not from same generate.");

@@ -1682,6 +1682,155 @@ bool feAtomOnScreen(featom* atom)
     }
 }
 
+#ifdef _X86_64
+char *stpcpy_reimplementation(char *__restrict__ dest, const char *__restrict__ src)
+{
+  while ((*dest++ = *src++) != '\0')
+    /* nothing */;
+  return --dest;
+}
+
+void feScreensLoadAndConvertTo64Bit(char *fileName, void** loadAddress)
+{
+    int i;
+    int j;
+    int k;
+    int offset;
+
+    void * oldrootptr = NULL;
+    void * newrootptr = NULL;
+
+    fibfileheader *header = NULL;
+    
+    fescreen_disk *oldfescreen = NULL;
+    fescreen *newfescreen = NULL;
+
+    void * oldptr = NULL;
+    void * newptr = NULL;
+
+    struct tagfelink_disk * oldfelink = NULL;
+    struct tagfelink * newfelink = NULL;
+
+    struct tagfeatom * newfeatom = NULL;
+    struct tagfeatom_disk * oldfeatom = NULL;
+
+    int oldlength;
+
+    oldlength = fileLoadAlloc(fileName, (void **)&oldrootptr, NonVolatile);
+    
+    printf("%s size is %d\n", fileName, oldlength);
+
+    header = oldptr = oldrootptr;
+  
+
+    oldfescreen = oldrootptr + sizeof(fibfileheader); 
+  
+//    newfescreen = newptr = newrootptr = malloc(sizeof(fescreen) * header->nScreens);
+    newrootptr = memAlloc(2* oldlength, "feflow 64bit conversion", 0); 
+    newfescreen = newrootptr +sizeof(fibfileheader);
+
+    newptr = (void *)((sizeof(fescreen) * header->nScreens)+ newrootptr+ sizeof(fibfileheader));
+    memset(newrootptr, 0,2*oldlength);
+    memcpy(newrootptr, oldrootptr, sizeof(fibfileheader));
+
+    for (i = 0; i<header->nScreens; i++, oldfescreen++, newfescreen++){
+      newfescreen->name = (char *)((Uint64)newptr - (Uint64)newrootptr );
+      newptr = stpcpy_reimplementation(newptr,  (char *)((Uint64)oldfescreen->name + oldrootptr) );
+      newptr = (void*)(((Uint64)newptr + 8) & ((Uint64) ~7)); 
+      newfescreen->flags = oldfescreen->flags ;
+      newfescreen->nLinks = oldfescreen->nLinks ;
+      newfescreen->nAtoms = oldfescreen->nAtoms ;
+      newfescreen->links = (struct tagfelink *)((Uint64)newptr - (Uint64)newrootptr);
+
+      newfelink = (struct tagfelink*) newptr;
+      newptr += sizeof(struct tagfelink) * oldfescreen->nLinks;
+
+      oldfelink= (struct tagfelink_disk *)((Uint64)oldfescreen->links + oldrootptr);
+
+      for(j=0; j<oldfescreen->nLinks;j++,newfelink++,oldfelink++){
+        newfelink->name = (char *)((Uint64)newptr - (Uint64)newrootptr );
+        newptr = stpcpy_reimplementation(newptr,  (char *)((Uint64)oldfelink->name + oldrootptr) );
+        newptr = (void*)(((Uint64)newptr + 8) & ((Uint64) ~7)); 
+        
+        newfelink->flags = oldfelink->flags;
+
+        newfelink->linkToName = (char *)((Uint64)newptr - (Uint64)newrootptr );
+        newptr = stpcpy_reimplementation(newptr,  (char *)((Uint64)oldfelink->linkToName + oldrootptr) );
+        newptr = (void*)(((Uint64)newptr + 8) & ((Uint64) ~7)); 
+      }
+
+      newfescreen->atoms = (struct tagfeatom *)((Uint64)newptr - (Uint64)newrootptr);
+      newfeatom = ( struct tagfeatom*) newptr;
+      oldfeatom = (struct tagfeatom_disk*) ((Uint64)oldfescreen->atoms + oldrootptr);
+      newptr += sizeof(struct tagfeatom) * oldfescreen->nAtoms;
+
+      for(j=0; j<oldfescreen->nAtoms;j++,newfeatom++,oldfeatom++){
+        if (oldfeatom->name != 0){
+          newfeatom->name = (char *)((Uint64)newptr - (Uint64)newrootptr );
+          newptr = stpcpy_reimplementation(newptr,  (char *)((Uint64)oldfeatom->name + oldrootptr) );
+          newptr = (void*)(((Uint64)newptr + 8) & ((Uint64) ~7)); 
+        }
+        newfeatom->flags = oldfeatom->flags;
+        newfeatom->status = oldfeatom->status;
+        newfeatom->type = oldfeatom->type;
+        newfeatom->borderWidth = oldfeatom->borderWidth;
+        newfeatom->tabstop = oldfeatom->tabstop;
+        newfeatom->borderColor = oldfeatom->borderColor;
+        newfeatom->contentColor = oldfeatom->contentColor;
+        newfeatom->x = oldfeatom->x;
+        newfeatom->loadedX = oldfeatom->loadedX;
+        newfeatom->y = oldfeatom->y;
+        newfeatom->loadedY = oldfeatom->loadedY;
+        newfeatom->width = oldfeatom->width;
+        newfeatom->loadedWidth = oldfeatom->loadedWidth;
+        newfeatom->height = oldfeatom->height;
+        newfeatom->loadedHeight = oldfeatom->loadedHeight;
+        if (oldfeatom->pData != 0){
+          if (oldfeatom->type == FA_RadioButton){
+            newfeatom->pData = oldfeatom->pData;
+          } else {
+            newfeatom->pData = (char *)((Uint64)newptr - (Uint64)newrootptr );
+            newptr = stpcpy_reimplementation(newptr,  (char *)((Uint64)oldfeatom->pData + oldrootptr) );
+            newptr = (void*)(((Uint64)newptr + 8) & ((Uint64) ~7));
+          }
+        }
+        if (oldfeatom->attribs != 0){
+          newfeatom->attribs = (char *)((Uint64)newptr - (Uint64)newrootptr );
+          newptr = stpcpy_reimplementation(newptr,  (char *)((Uint64)oldfeatom->attribs + oldrootptr) );
+          newptr = (void*)(((Uint64)newptr + 8) & ((Uint64) ~7)); 
+        }
+//        strncpy(newfeatom->hotKeyModifiers, oldfeatom->hotKeyModifiers, 1);
+        newfeatom->hotKeyModifiers = oldfeatom->hotKeyModifiers;
+        strncpy(newfeatom->hotKey, oldfeatom->hotKey, FE_NumberLanguages);
+        newfeatom->drawstyle[0] = oldfeatom->drawstyle[0];
+        newfeatom->drawstyle[1] = oldfeatom->drawstyle[1];
+        if ((oldfeatom->region != 0) && (oldfeatom->region !=0xcdcdcdcd)){
+          newfeatom->region = (char *)((Uint64)newptr - (Uint64)newrootptr );
+          newptr = stpcpy_reimplementation(newptr,  (char *)((Uint64)oldfeatom->region + oldrootptr) );
+          newptr = (void*)(((Uint64)newptr + 8) & ((Uint64) ~7)); 
+        }
+
+
+
+
+      }
+
+    }
+
+    newfescreen=newrootptr;
+    oldfescreen=oldrootptr + sizeof(fibfileheader);
+
+    oldfelink= (struct tagfelink_disk *)((Uint64)oldfescreen->links + oldrootptr);
+    newfelink = (struct tagfelink*) newptr;
+
+
+    memFree(oldrootptr);
+
+    *loadAddress = newrootptr;
+}
+#endif
+
+
 /*-----------------------------------------------------------------------------
     Name        : feScreensLoad
     Description : Load in a file containing any number of front end screens
@@ -1698,9 +1847,7 @@ fibfileheader *feScreensLoad(char *fileName)
     bool menuItemsPresent;
 
 #ifdef _X86_64
-    char newFileName[80];
-    sprintf(newFileName, "%s.64",fileName);
-    fileLoadAlloc(newFileName, (void **)&loadAddress, NonVolatile);
+    feScreensLoadAndConvertTo64Bit(fileName, (void **)&loadAddress);
 #else
     fileLoadAlloc(fileName, (void **)&loadAddress, NonVolatile);     //load in the file
 #endif

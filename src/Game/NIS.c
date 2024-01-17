@@ -4538,6 +4538,165 @@ sdword nisGenericObjectRegister(nisheader *header, char *name)
     return(header->nGenericObjects - 1);
 }
 
+
+#ifdef _X86_64
+void nisLoadAndConvertTo64Bit(char *fileName, void** loadAddress)
+{
+    int i;
+    int j;
+
+    int loopvar;
+    int loopcount;
+
+    char oldFile[80];
+    char newFile[80];
+
+    nisheader_disk *oldHeader = NULL;
+    nisheader *newHeader = NULL;
+
+    spaceobjpath_disk *oldObjPath = NULL;
+    spaceobjpath *newObjPath = NULL;
+
+    camerapath_disk *oldCamPath = NULL;
+    camerapath *newCamPath = NULL;
+
+    void *offset = 0;
+    memsize loopsize = 0;
+
+    void *oldptr = NULL;
+    void *newptr = NULL;
+    void *oldbase = NULL;
+    void *newbase = NULL;
+
+    int oldLength;
+    int newLength;
+
+    oldLength = fileLoadAlloc(fileName, (void **)&oldbase, NonVolatile);
+    //oldbase = fileloadalloc(oldFile, &oldLength, 0);
+
+    oldHeader = oldptr = oldbase;
+
+    newLength = 2 * oldLength;
+
+    newbase = memAlloc(2* oldLength, "nis 64bit conversion", 0);
+    //newbase = malloc(2 * oldLength);
+    newHeader = newbase;
+    newptr = (void *)newbase;
+
+    memset(newbase, 0, 2 * oldLength);
+
+    offset = 0;
+
+    strncpy(newHeader->identifier, oldHeader->identifier, 12);
+    newHeader->version = oldHeader->version;
+    newHeader->flags = oldHeader->flags;
+    newHeader->stringBlockLength = oldHeader->stringBlockLength;
+    newHeader->length = oldHeader->length;
+    newHeader->loop = oldHeader->loop;
+    newHeader->nObjectPaths = oldHeader->nObjectPaths;
+    newHeader->nCameraPaths = oldHeader->nCameraPaths;
+    newHeader->nLightPaths = oldHeader->nLightPaths;
+    newHeader->nEvents = oldHeader->nEvents;
+
+    offset += sizeof(nisheader);
+    newptr += sizeof(nisheader);
+
+    newHeader->objectPath = offset;
+
+    oldObjPath = (spaceobjpath_disk *)((void *)oldHeader + sizeof(nisheader_disk));
+    newObjPath = (spaceobjpath *)newptr;
+
+    offset += sizeof(spaceobjpath) * newHeader->nObjectPaths;
+
+    newHeader->cameraPath = offset;
+
+    offset += sizeof(camerapath) * newHeader->nCameraPaths;
+    offset += sizeof(lightpath) * newHeader->nLightPaths;
+    offset += sizeof(nisevent) * newHeader->nEvents;
+
+    newptr = (void *)((memsize)newbase + offset);
+
+    //printf("offest of objects: %x -- %d:%d:%d:%d\n", offset, newHeader->nObjectPaths, newHeader->nCameraPaths,
+    //        newHeader->nLightPaths, newHeader->nEvents);
+
+    loopcount = newHeader->nObjectPaths;
+    for (loopvar = 0; loopvar < loopcount; loopvar++) {
+        newObjPath[loopvar].instance = (sdword)offset;
+        newObjPath[loopvar].type = oldObjPath[loopvar].type;
+        newObjPath[loopvar].parentIndex = oldObjPath[loopvar].parentIndex;
+        newObjPath[loopvar].race = oldObjPath[loopvar].race;
+        newObjPath[loopvar].nSamples = oldObjPath[loopvar].nSamples;
+        memcpy(newptr, oldptr + oldObjPath[loopvar].instance, 4 * oldObjPath[loopvar].nSamples);
+        offset += 4 * newObjPath[loopvar].nSamples;
+        newptr += 4 * newObjPath[loopvar].nSamples;
+        newObjPath[loopvar].timeOffset = oldObjPath[loopvar].timeOffset;
+
+        newObjPath[loopvar].times = offset;
+        memcpy(newptr, oldptr + oldObjPath[loopvar].times, 4 * oldObjPath[loopvar].nSamples);
+        offset += 4 * newObjPath[loopvar].nSamples;
+        newptr += 4 * newObjPath[loopvar].nSamples;
+
+        newObjPath[loopvar].parameters = offset;
+        memcpy(newptr, oldptr + oldObjPath[loopvar].parameters, sizeof(tcb) * oldObjPath[loopvar].nSamples);
+        offset += sizeof(tcb) * newObjPath[loopvar].nSamples;
+        newptr += sizeof(tcb) * newObjPath[loopvar].nSamples;
+
+        for (j = 0; j < 6; j++) {
+            newObjPath[loopvar].curve[j] = offset;
+            memcpy(newptr, oldptr + oldObjPath[loopvar].curve[j], sizeof(real32) * oldObjPath[loopvar].nSamples);
+            offset += sizeof(real32) * newObjPath[loopvar].nSamples;
+            newptr += sizeof(real32) * newObjPath[loopvar].nSamples;
+        }
+    }
+
+    //    newHeader->cameraPath = offset;
+
+    oldCamPath = (camerapath_disk *)&oldObjPath[loopvar]; // seqential objects!
+    newCamPath = (camerapath *)&newObjPath[loopvar];      // seqential objects!
+
+    loopcount = newHeader->nCameraPaths;
+    for (loopvar = 0; loopvar < loopcount; loopvar++) {
+        newCamPath[loopvar].oLength = (udword)offset;
+        memcpy(newptr, oldptr + oldCamPath[loopvar].oLength, 4 * oldCamPath[loopvar].nSamples);
+        offset += 4 * newCamPath[loopvar].nSamples;
+        newptr += 4 * newCamPath[loopvar].nSamples;
+
+        newCamPath[loopvar].nSamples = oldCamPath[loopvar].nSamples;
+
+        memcpy(newptr, oldptr + oldCamPath[loopvar].oLength, 4 * oldCamPath[loopvar].nSamples);
+        offset += 4 * newCamPath[loopvar].nSamples;
+        newptr += 4 * newCamPath[loopvar].nSamples;
+
+        newCamPath[loopvar].times = offset;
+        memcpy(newptr, oldptr + oldCamPath[loopvar].times, 4 * oldCamPath[loopvar].nSamples);
+        offset += 4 * newCamPath[loopvar].nSamples;
+        newptr += 4 * newCamPath[loopvar].nSamples;
+
+        newCamPath[loopvar].parameters = offset;
+        memcpy(newptr, oldptr + oldCamPath[loopvar].parameters, sizeof(tcb) * oldCamPath[loopvar].nSamples);
+        offset += sizeof(tcb) * newCamPath[loopvar].nSamples;
+        newptr += sizeof(tcb) * newCamPath[loopvar].nSamples;
+
+        for (j = 0; j < 6; j++) {
+            newCamPath[loopvar].curve[j] = offset;
+            memcpy(newptr, oldptr + oldCamPath[loopvar].curve[j], sizeof(real32) * oldCamPath[loopvar].nSamples);
+            offset += sizeof(real32) * newCamPath[loopvar].nSamples;
+            newptr += sizeof(real32) * newCamPath[loopvar].nSamples;
+        }
+    }
+
+    memcpy(newptr, oldptr + (udword)oldHeader->stringBlock, oldHeader->stringBlockLength);
+    newHeader->stringBlock = offset;
+
+    offset += oldHeader->stringBlockLength;
+    
+    memFree(oldbase);
+
+    *loadAddress = newbase;
+}
+#endif
+
+
 /*-----------------------------------------------------------------------------
     Name        : nisLoad
     Description : Load in an NIS from file
@@ -4560,15 +4719,15 @@ nisheader *nisLoad(char *fileName, char *scriptName)
     char *pString;
     char localisedPath[256];
     sdword instanceID;
+    ubyte* loadAddress;
 
 #ifdef _X86_64
-    char newFileName[80];
-    sprintf(newFileName, "%s.64",fileName);
-    fileName = newFileName;
+    nisLoadAndConvertTo64Bit(fileName, (void **)&loadAddress);
+#else
+    fileLoadAlloc(fileName, (void **)&loadAddress, NonVolatile);
 #endif
-
-    f = fileOpen(fileName, 0);                              //open the file
-    fileBlockRead(f, &header, sizeof(nisheader));           //read the header
+    
+    memcpy(&header, loadAddress, sizeof(nisheader));
 
 #if FIX_ENDIAN
 	header.version           = FIX_ENDIAN_INT_32( header.version );
@@ -4603,12 +4762,15 @@ nisheader *nisLoad(char *fileName, char *scriptName)
     newHeader = memAlloc((memsize)header.stringBlock, "NISHeader", NonVolatile);
     memset(newHeader, 0, sizeof(nisheader));
     memcpy(newHeader, &header, sizeof(nisheader));         //make allocated copy of header
-    fileBlockRead(f, (ubyte *)newHeader + sizeof(nisheader),//read in the main body of NIS
-                  (sdword)(memsize)header.stringBlock - sizeof(nisheader));
+    memcpy((ubyte *)newHeader + sizeof(nisheader), loadAddress + sizeof(nisheader), //read in the main body of NIS
+           (sdword)(memsize)header.stringBlock - sizeof(nisheader));
+
     //separately allocate and load in the string block
     newHeader->stringBlock = memAlloc(newHeader->stringBlockLength, "NISStrings", NonVolatile);
-    fileBlockRead(f, newHeader->stringBlock, newHeader->stringBlockLength);
-    fileClose(f);                                           //done with the file
+    memcpy(newHeader->stringBlock, loadAddress + (sdword)(memsize)header.stringBlock, //read in the main body of NIS
+           newHeader->stringBlockLength);
+    memFree(loadAddress); //done with the file
+
     newHeader->flags = 0;
 //    newHeader->name += (udword)newHeader->stringBlock;      //fixup file name
 

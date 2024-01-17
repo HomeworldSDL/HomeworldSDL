@@ -31,7 +31,7 @@
 
 #else
 
-#define TR_ERROR_CHECKING           0           //general error checking
+#define TR_ERROR_CHECKING           1           //general error checking
 #define TR_VERBOSE_LEVEL            0           //control specific output code
 #define TR_DEBUG_TEXTURES           0           //enable special 'debug' textures
 #define TR_PRINT_TEXTURE_NAMES      0           //special extra-verbose printing
@@ -106,11 +106,7 @@
 #define TR_PerScaleFactor           (10 * (TR_TexSizesX + TR_TexSizesY))//for adjusting scale factor per-size
 
 //info for texture listing
-#ifdef _X86_64
-#define TR_LifListing               "textures.ll.64"
-#else
 #define TR_LifListing               "textures.ll"
-#endif
 #define LL_FileIdentifier           "Event13"
 #define LL_FileVersion              0x104
 #define LL_MaxElements              12000
@@ -246,6 +242,19 @@ typedef struct
     sdword sharedFrom;                          //image this one is shared from, or -1 if none
 }
 llelement;
+
+typedef struct
+{
+    udword textureName;  // *char               //name of texture, an offset from start of string block
+    sdword width, height;                       //size of texture
+    udword flags;                               //flags for things like alpha and luminance map
+    crc32 imageCRC;                             //crc of the unquantized image
+
+    sdword nShared;                             //number of images which share this one
+    udword sharedTo;  // *sdword                //list of indices of images which share this one
+    sdword sharedFrom;                          //image this one is shared from, or -1 if none
+}
+llelement_disk;
 
 //format for the .LiF files
 typedef struct

@@ -51,6 +51,27 @@ typedef struct
 
 typedef struct
 {
+    udword          id;
+    udword          priority;
+    sdword          pitch;
+    sdword            dataoffset;
+    sdword            datasize;
+    sdword            loopstart;
+    sdword            loopend;
+
+    sword           bitrate;
+    sword           flags;
+
+    ubyte           volume;
+    sbyte           pan;
+    sbyte           pad[2];
+
+    SDLWAVEFORMAT   waveformat;
+    sword           wavepad;
+} PATCH_DISK;
+
+typedef struct
+{
 	udword			id;
 	udword			checksum;
 	sdword			numpatches;

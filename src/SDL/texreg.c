@@ -2594,6 +2594,128 @@ itFitFine:;
     }
 }
 
+#ifdef _X86_64
+void trListFileLoadAndConvertTo64Bit(char *fileName, void** loadAddress)
+{
+    int i;
+
+    int loopvar;
+    int loopcount;
+
+    llfileheader *oldHeader = NULL;
+    llfileheader *newHeader = NULL;
+
+    llelement_disk *oldElement = NULL;
+    llelement *newElement = NULL;
+
+    memsize offset=0;
+    memsize loopsize=0;
+
+    void * oldptr = NULL;
+    void * newptr = NULL;
+    void * oldbase = NULL;
+    void * newbase = NULL;
+    void * tmpptr = NULL;
+
+    int oldLength;
+    int newLength;
+
+    udword *oldShare = NULL;
+    udword *newShare = NULL;
+
+    oldLength = fileLoadAlloc(fileName, (void **)&oldbase, NonVolatile);
+
+    //oldbase = fileloadalloc(oldFile, &oldLength, 0);
+    oldHeader = oldptr = oldbase;
+
+    //printf("%s size is %d\n", fileName, oldLength);
+
+    newLength = 2*oldLength;
+
+    newbase = memAlloc(2*oldLength, "texreg 64bit conversion", 0);
+    newHeader = newbase;
+    newptr =  (void*) newbase;
+
+    memset (newbase, 0 ,2*oldLength);
+  
+
+    offset=0;
+
+    strncpy(newHeader->ident, oldHeader->ident,8);
+    newHeader->version = oldHeader->version;
+    newHeader->nElements = oldHeader->nElements;
+    newHeader->stringLength = oldHeader->stringLength;
+    newHeader->sharingLength = oldHeader->sharingLength;
+    newHeader->totalLength = oldHeader->totalLength + oldHeader->sharingLength;
+
+    offset +=sizeof(llfileheader);
+    newptr +=sizeof(llfileheader);
+
+    tmpptr=oldbase + 28 + ( newHeader->nElements * sizeof(llelement_disk));
+
+    oldElement= oldbase+ /*sizeof(llfileheader)*/ 28/*old llfileheader*/; 
+    newElement= newbase+ sizeof(llfileheader); 
+
+    for (i=0;i<newHeader->nElements;i++){
+        newElement->textureName = (char*)((memsize)oldElement->textureName); 
+        newElement->width = oldElement->width; 
+        newElement->height = oldElement->height; 
+        newElement->flags = oldElement->flags; 
+        newElement->imageCRC = oldElement->imageCRC; 
+        newElement->nShared = oldElement->nShared; 
+        if (oldElement->sharedTo != -1){    
+    //        printf("%x: pointer to %x\n",i,oldElement->sharedTo);
+            newElement->sharedTo = (sdword*)((memsize)oldElement->sharedTo); 
+        }
+        else {
+            newElement->sharedTo = (sdword *)-1;
+        }
+        if (oldElement->sharedFrom != -1){    
+     //       printf("%x:pointer to parent %x\n",i,oldElement->sharedFrom);
+            newElement->sharedFrom = oldElement->sharedFrom; 
+        }
+        else{
+            newElement->sharedFrom = -1;
+        }
+
+        //printf("%5d: %s: shared:%2d sharedTo: %5d sharedFrom:%5d\n",i, (memsize)tmpptr + (memsize)newElement->textureName, newElement->nShared,  newElement->sharedTo, newElement->sharedFrom); 
+
+        offset += sizeof(llelement);
+        newptr += sizeof(llelement);
+        oldElement++;
+        newElement++;
+
+    }
+
+    oldptr = (void*)oldElement;
+    memcpy(newptr,oldptr,newHeader->stringLength);
+    offset+=newHeader->stringLength;
+    newptr+=newHeader->stringLength;
+
+    loopcount= oldHeader->sharingLength / 4;
+
+    
+    oldShare=(udword*)((memsize)oldptr +newHeader->stringLength) ;
+    newShare=(sdword*)newptr;
+
+    for(loopvar = 0; loopvar<loopcount; loopvar++){
+        newShare[loopvar] = oldShare[loopvar] ;
+    }
+
+    offset+=newHeader->sharingLength;
+    newptr+=newHeader->sharingLength;
+
+    newHeader->totalLength = offset - sizeof(llfileheader);
+
+
+    memFree(oldbase);
+    
+    *loadAddress = newbase;
+}
+#endif
+
+
+
 /*-----------------------------------------------------------------------------
     Name        : trListFileLoad
     Description : Loads in the named liflist file.
@@ -2605,14 +2727,19 @@ itFitFine:;
 ----------------------------------------------------------------------------*/
 llelement *trListFileLoad(char *name, sdword *number)
 {
-    filehandle f;
     llfileheader header;
     sdword index;
     llelement *list;
     char *stringBlock, *sharingBlock;
+    ubyte* loadAddress;
 
-    f = fileOpen(name, 0);
-    fileBlockRead(f, &header, sizeof(llfileheader));        //read the file header
+#ifdef _X86_64
+    trListFileLoadAndConvertTo64Bit(name, (void **)&loadAddress);
+#else
+    fileLoadAlloc(name, (void **)&loadAddress, NonVolatile);
+#endif
+
+    memcpy(&header, loadAddress, sizeof(llfileheader));
 
 #if FIX_ENDIAN
     header.version       = FIX_ENDIAN_INT_32( header.version );
@@ -2641,7 +2768,7 @@ llelement *trListFileLoad(char *name, sdword *number)
     list = memAlloc(header.totalLength, "LiFList", 0);
     stringBlock = (char *)list + header.nElements * sizeof(llelement);
     //read in the existing file to the element list/string table
-    fileBlockRead(f, list, header.totalLength);
+    memcpy(list, loadAddress + sizeof(llfileheader), header.totalLength);
 
     //fix up the names of the texture files
     for (index = 0; index < header.nElements; index++)
@@ -2684,7 +2811,7 @@ llelement *trListFileLoad(char *name, sdword *number)
             }
         }
     }
-    fileClose(f);
+    memFree(loadAddress);
     //return some info
     *number = header.nElements;
     return(list);
