@@ -2625,7 +2625,6 @@ void trListFileLoadAndConvertTo64Bit(char *fileName, void** loadAddress)
 
     oldLength = fileLoadAlloc(fileName, (void **)&oldbase, NonVolatile);
 
-    //oldbase = fileloadalloc(oldFile, &oldLength, 0);
     oldHeader = oldptr = oldbase;
 
     //printf("%s size is %d\n", fileName, oldLength);
@@ -2637,7 +2636,6 @@ void trListFileLoadAndConvertTo64Bit(char *fileName, void** loadAddress)
     newptr =  (void*) newbase;
 
     memset (newbase, 0 ,2*oldLength);
-  
 
     offset=0;
 

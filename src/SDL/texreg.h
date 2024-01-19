@@ -31,7 +31,7 @@
 
 #else
 
-#define TR_ERROR_CHECKING           1           //general error checking
+#define TR_ERROR_CHECKING           0           //general error checking
 #define TR_VERBOSE_LEVEL            0           //control specific output code
 #define TR_DEBUG_TEXTURES           0           //enable special 'debug' textures
 #define TR_PRINT_TEXTURE_NAMES      0           //special extra-verbose printing
