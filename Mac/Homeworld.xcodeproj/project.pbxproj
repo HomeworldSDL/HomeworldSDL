@@ -140,7 +140,6 @@
 		3516C9C3077C41B0001AA863 /* TitanNet.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D00064992AF0088361C /* TitanNet.c */; };
 		3516C9C4077C41B0001AA863 /* Tracking.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D02064992AF0088361C /* Tracking.c */; };
 		3516C9C5077C41B0001AA863 /* TradeMgr.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D04064992AF0088361C /* TradeMgr.c */; };
-		3516C9C6077C41B0001AA863 /* Transformer.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D07064992AF0088361C /* Transformer.c */; };
 		3516C9C7077C41B0001AA863 /* Tutor.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D09064992AF0088361C /* Tutor.c */; };
 		3516C9C8077C41B0001AA863 /* Tweak.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D0D064992AF0088361C /* Tweak.c */; };
 		3516C9C9077C41B0001AA863 /* Twiddle.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D0F064992AF0088361C /* Twiddle.c */; };
@@ -432,7 +431,6 @@
 		90623E32064992AF0088361C /* TitanNet.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D00064992AF0088361C /* TitanNet.c */; };
 		90623E34064992AF0088361C /* Tracking.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D02064992AF0088361C /* Tracking.c */; };
 		90623E36064992AF0088361C /* TradeMgr.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D04064992AF0088361C /* TradeMgr.c */; };
-		90623E39064992AF0088361C /* Transformer.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D07064992AF0088361C /* Transformer.c */; };
 		90623E3B064992AF0088361C /* Tutor.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D09064992AF0088361C /* Tutor.c */; };
 		90623E3F064992AF0088361C /* Tweak.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D0D064992AF0088361C /* Tweak.c */; };
 		90623E41064992AF0088361C /* Twiddle.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623D0F064992AF0088361C /* Twiddle.c */; };
@@ -909,8 +907,6 @@
 		90623D03064992AF0088361C /* Tracking.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Tracking.h; path = ../src/Game/Tracking.h; sourceTree = SOURCE_ROOT; };
 		90623D04064992AF0088361C /* TradeMgr.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = TradeMgr.c; path = ../src/Game/TradeMgr.c; sourceTree = SOURCE_ROOT; };
 		90623D05064992AF0088361C /* TradeMgr.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TradeMgr.h; path = ../src/Game/TradeMgr.h; sourceTree = SOURCE_ROOT; };
-		90623D07064992AF0088361C /* Transformer.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Transformer.c; path = ../src/Game/Transformer.c; sourceTree = SOURCE_ROOT; };
-		90623D08064992AF0088361C /* Transformer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Transformer.h; path = ../src/Game/Transformer.h; sourceTree = SOURCE_ROOT; };
 		90623D09064992AF0088361C /* Tutor.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Tutor.c; path = ../src/Game/Tutor.c; sourceTree = SOURCE_ROOT; };
 		90623D0A064992AF0088361C /* Tutor.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Tutor.h; path = ../src/Game/Tutor.h; sourceTree = SOURCE_ROOT; };
 		90623D0D064992AF0088361C /* Tweak.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = Tweak.c; path = ../src/Game/Tweak.c; sourceTree = SOURCE_ROOT; };
@@ -1588,8 +1584,6 @@
 				90623D05064992AF0088361C /* TradeMgr.h */,
 				3507A5190B0FA60200E374C5 /* Trails.c */,
 				3507A51A0B0FA60200E374C5 /* Trails.h */,
-				90623D07064992AF0088361C /* Transformer.c */,
-				90623D08064992AF0088361C /* Transformer.h */,
 				90623D09064992AF0088361C /* Tutor.c */,
 				90623D0A064992AF0088361C /* Tutor.h */,
 				90623D0D064992AF0088361C /* Tweak.c */,
@@ -2129,7 +2123,6 @@
 				3516C9C3077C41B0001AA863 /* TitanNet.c in Sources */,
 				3516C9C4077C41B0001AA863 /* Tracking.c in Sources */,
 				3516C9C5077C41B0001AA863 /* TradeMgr.c in Sources */,
-				3516C9C6077C41B0001AA863 /* Transformer.c in Sources */,
 				3516C9C7077C41B0001AA863 /* Tutor.c in Sources */,
 				3516C9C8077C41B0001AA863 /* Tweak.c in Sources */,
 				3516C9C9077C41B0001AA863 /* Twiddle.c in Sources */,
@@ -2377,7 +2370,6 @@
 				90623E32064992AF0088361C /* TitanNet.c in Sources */,
 				90623E34064992AF0088361C /* Tracking.c in Sources */,
 				90623E36064992AF0088361C /* TradeMgr.c in Sources */,
-				90623E39064992AF0088361C /* Transformer.c in Sources */,
 				90623E3B064992AF0088361C /* Tutor.c in Sources */,
 				90623E3F064992AF0088361C /* Tweak.c in Sources */,
 				90623E41064992AF0088361C /* Twiddle.c in Sources */,

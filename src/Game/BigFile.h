@@ -153,7 +153,6 @@ enum {
     BF_ADD_RES_OLD     = 4,
 };
 
-
 int bigAdd(char *bigfilename, int numFiles, char *filenames[], int optCompression, int optNewer, int optMove, int optPathnames, int consoleOutput);
 int bigFastCreate(char *bigfilename, int numFiles, char *filenames[], int optCompression, int optNewer, int optMove, int optPathnames, int consoleOutput);
 int bigPatch(char *oldfilename, char *newfilename, char *patchfilename, int consoleOutput);

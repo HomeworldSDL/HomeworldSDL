@@ -1342,11 +1342,8 @@ void horseRaceRender()
 
     if (ShouldHaveMousePtr)
     {
-        if (!feShouldSaveMouseCursor())
-        {
-            rndClearToBlack();
-            glClear(GL_DEPTH_BUFFER_BIT);
-        }
+        rndClearToBlack();
+        glClear(GL_DEPTH_BUFFER_BIT);
     }
 
 //    primErrorMessagePrint();
@@ -1398,22 +1395,11 @@ void horseRaceRender()
         // set the cursor type, reset the variables then draw the mouse cursor
         mouseSelectCursorSetting();
         mouseSetCursorSetting();
-        if (feShouldSaveMouseCursor())
-        {
-            mouseStoreCursorUnder();
-        }
         mousePoll();
         mouseDraw();                                        //draw mouse atop everything
     }
 
     rndFlush();
-    if (ShouldHaveMousePtr)
-    {
-        if (feShouldSaveMouseCursor())
-        {
-            mouseRestoreCursorUnder();
-        }
-    }
     primErrorMessagePrint();
 }
 

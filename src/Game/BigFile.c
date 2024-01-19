@@ -21,6 +21,11 @@
 #include "LZSS.h"
 #include "standard_library.h"
 
+#ifdef _MSC_VER
+#define strcasecmp _stricmp
+#else
+#include <strings.h>
+#endif
 
 #ifdef BF_HOMEWORLD
     #include "Memory.h"

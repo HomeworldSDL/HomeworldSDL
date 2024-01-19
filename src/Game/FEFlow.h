@@ -350,8 +350,6 @@ void feShutdown(void);
 
 void feFunctionExecute(char *name, featom *atom, bool firstcall);
 
-bool feShouldSaveMouseCursor(void);
-
 //load in a front end screen
 fibfileheader *feScreensLoad(char *fileName);
 sdword feScreensDelete(fibfileheader *screens);

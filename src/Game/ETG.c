@@ -1952,21 +1952,10 @@ void etgEffectCodeExecute(etgeffectstatic *stat, Effect *effect, udword codeBloc
     sdword size;
     ubyte *pOpcode;
 
-
 	//this function does not interface well with optimized code which assumes 
 	//certain variables will not get stomped, hence the pushes
 #ifndef GENERIC_ETGCALLFUNCTION
-#if defined (_MSC_VER)
-	_asm
-	{
-		push eax
-		push ebx
-		push ecx
-		push edx
-		push esi
-		push edi
-	}
-#elif defined (__GNUC__) && defined (__i386__)
+#if defined(__GNUC__) && defined(__i386__)
 	/* Using an array should guarantee it's in memory, right? */
 	Uint32 savedreg[6];
  	__asm__ __volatile__ (
@@ -1978,7 +1967,7 @@ void etgEffectCodeExecute(etgeffectstatic *stat, Effect *effect, udword codeBloc
 		"movl %%edi, %5\n\t" : :
 		"m" (savedreg[0]), "m" (savedreg[1]), "m" (savedreg[2]),
 		"m" (savedreg[3]), "m" (savedreg[4]), "m" (savedreg[5]));
-#elif defined (__GNUC__) && defined (__x86_64__)
+#elif defined(__GNUC__) && defined(__x86_64__) || defined(__APPLE__) && !defined(__arm64__)
 	Uint64 savedreg[8];
  	__asm__ __volatile__ (
 		"movq %%rax, %0\n\t"
@@ -1992,26 +1981,25 @@ void etgEffectCodeExecute(etgeffectstatic *stat, Effect *effect, udword codeBloc
 		"m" (savedreg[0]), "m" (savedreg[1]), "m" (savedreg[2]),
 		"m" (savedreg[3]), "m" (savedreg[4]), "m" (savedreg[5]),
 		"m" (savedreg[6]), "m" (savedreg[7]));
-#elif !defined(__APPLE__)
-    // We know x86 instructions won't work on a PowerPC, thanks. We've coded around it.
-	#error Opcode-handler functions currently only supported on x86 platforms.
+#if defined(__APPLE__) && defined(__arm64__)
+    uint64_t savedreg[8];
+    __asm__ __volatile__(
+        "str x0, %0\n\t"
+        "str x1, %1\n\t"
+        "str x2, %2\n\t"
+        "str x3, %3\n\t"
+        "str x4, %4\n\t"
+        "str x5, %5\n\t"
+        "str x6, %6\n\t"
+        "str x7, %7\n\t" : :
+        "m"(savedreg[0]), "m"(savedreg[1]), "m"(savedreg[2]),
+        "m"(savedreg[3]), "m"(savedreg[4]), "m"(savedreg[5]), 
+        "m"(savedreg[6]), "m"(savedreg[7]));
 #endif
 #endif
-/*
-#if ETG_ERROR_CHECKING
-    if (etgExecStackIndex >= ETG_ExecStackDepth - 1)
-    {
-        dbgFatalf(ETG, "Overflowed exec stack of depth %d", ETG_ExecStackDepth);
-    }
-#endif
-    etgExecStackIndex++;
-*/
+#endif //GENERIC_ETGCALLFUNCTION
 
     etgExecStack.etgCodeBlockIndex = codeBlock;
-    //set the proper code block and code length
-    //start at beginning of code.  !!!We may want to implement the yield() function.
-//    etgCodeOffset = 0;
-    //!!! this does not support the yield function
     etgExecStack.etgCodeBlock[EPM_Startup].offset = etgExecStack.etgCodeBlock[EPM_EachFrame].offset = etgExecStack.etgCodeBlock[EPM_TimeIndex].offset = 0;
     etgExecStack.etgVariables = effect->variable;
 
@@ -2040,17 +2028,7 @@ void etgEffectCodeExecute(etgeffectstatic *stat, Effect *effect, udword codeBloc
 	//this function does not interface well with optimized code which assumes 
 	//certain variables will not get stomped, hence the pushes
 #ifndef GENERIC_ETGCALLFUNCTION
-#if defined (_MSC_VER)
-	_asm
-	{
-		pop edi
-		pop esi
-		pop edx
-		pop ecx
-		pop ebx
-		pop eax
-	}
-#elif defined (__GNUC__) && defined (__i386__)
+#if defined (__GNUC__) && defined (__i386__)
 	/* This is a problem on x86 macs, because OSX requires PIC compliant asm, and this clobbers ebx */
 	__asm__ __volatile__ (
 		"movl %0, %%eax\n\t"
@@ -5845,143 +5823,6 @@ sdword etgFunctionCall(Effect *effect, struct etgeffectstatic *stat, ubyte *opco
     return(etgFunctionSize(nParams));
 }
 
-#elif defined __ppc__
-/* handle function calls
-
- This function causes error during compilation of ETG.c with optimization on, and still
- needs to be fixed. It works (or seems to work) in debug mode, though. It simply calls other
- functions, but in relly messed way. (etgfunctioncall *)opcode contains a table of paramaters
- and a pointer to function to call. Number of params can vary from function to function, so 
- on x86 they simply push every parameter to the stack and then call function without any params.
- On PowerPC however, parameters are passed using registers (starting from r3 or f1 for floats),
- that's why I have to iterate trough etgFunctionTable to check types of each param - thanks for
- that I know what register to use. I'm still not sure if all functions called here are in this
- table... Second thing is that I have to use this ugly if-else block to put params in right 
- registers (and I assumed there are max. 8 params, which also may not be true). Anyway, when
- using optimizatons, compiling stops because of float-handling part of function.
-*/
-sdword etgFunctionCall(Effect *effect, struct etgeffectstatic *stat, ubyte *opcode)
-{
-    udword index       = 0,
-           currEntry   = 0,
-           currParam   = 0,
-           currParamF  = 0,
-           param       = 0,
-           nParams     = ((etgfunctioncall *)opcode)->nParameters,
-           returnValue = ((etgfunctioncall *)opcode)->returnValue;
-           
-	opfunctionentry *entry;
-        
-	while ((entry = &etgFunctionTable[currEntry++])->name != NULL)
-	{
-		if (entry->function == ((etgfunctioncall *)opcode)->function)
-        {
-			break;
-        }
-	}
-
-	if (entry->name == NULL)
-	{
-		entry = NULL;
-	}
-
-    if (((etgfunctioncall *)opcode)->passThis)
-	{                                                       //pass a 'this' pointer
-		__asm__ (
-			"lwz r3, %0\n"
-			:
-			: "m" (effect)
-			: "r3"
-		);
-
-		currParam++;
-	}
-
-	for (index = 0; index < nParams; index++)
-    {                                                       //for each parameter
-        param = ((etgfunctioncall *)opcode)->parameter[index].param;
-        switch (((etgfunctioncall *)opcode)->parameter[index].type)
-        {
-            case EVT_Constant:
-                break;
-            case EVT_Label:
-                dbgAssertOrIgnore(FALSE);
-                break;
-            case EVT_ConstLabel:
-                param = (udword)stat->constData + param;
-                break;
-            case EVT_VarLabel:
-                param = (udword)effect->variable + param;
-                break;
-            default:
-                param = *((udword *)(effect->variable + param));
-                break;
-        }
-
-        // floats are treated differently due to the way registers work on PPC
-        // (see main comment before function declaration)
-		if (entry != NULL
-        &&  entry->type[index] == EVT_Float)
-        {
-            // now it *really* shouldn't be necessary to do this but for some reason
-            // gcc 4.0 simply will not allow direct references to 'param' with the
-            // address operator (&), or indeed whatever the variable is called in the
-            // 'else' clause's assembly (sic). To get around this we copy the value to a
-            // temporary variable and do the float conversion on that.  
-            udword param_copy = param;
-            float paramf = *((float *)&param_copy);
-        
-			if( currParamF == 0 )
-				__asm__ ( "lfs f1, %0\n" : : "g" (paramf) : "f1" );
-			else if( currParamF == 1 )
-				__asm__ ( "lfs f2, %0\n" : : "g" (paramf) : "f2" );
-			else if( currParamF == 2 )
-				__asm__ ( "lfs f3, %0\n" : : "g" (paramf) : "f3" );
-			else if( currParamF == 3 )
-				__asm__ ( "lfs f4, %0\n" : : "g" (paramf) : "f4" );
-			else if( currParamF == 4 )
-				__asm__ ( "lfs f5, %0\n" : : "g" (paramf) : "f5" );
-			else if( currParamF == 5 )
-				__asm__ ( "lfs f6, %0\n" : : "g" (paramf) : "f6" );
-			else if( currParamF == 6 )
-				__asm__ ( "lfs f7, %0\n" : : "g" (paramf) : "f7" );
-			else if( currParamF == 7 )
-				__asm__ ( "lfs f8, %0\n" : : "g" (paramf) : "f8" );
-            
-            currParamF++;
-        }
-		else
-		{
-            if( currParam == 0 )
-                __asm__ ( "lwz r3, %0\n" : : "g" (param) : "r3" );
-            else if( currParam == 1 )
-                __asm__ ( "lwz r4, %0\n" : : "g" (param) : "r4" );
-            else if( currParam == 2 )
-                __asm__ ( "lwz r5, %0\n" : : "g" (param) : "r5" );
-            else if( currParam == 3 )
-                __asm__ ( "lwz r6, %0\n" : : "g" (param) : "r6" );
-            else if( currParam == 4 )
-                __asm__ ( "lwz r7, %0\n" : : "g" (param) : "r7" );
-            else if( currParam == 5 )
-                __asm__ ( "lwz r8, %0\n" : : "g" (param) : "r8" );
-            else if( currParam == 6 )
-                __asm__ ( "lwz r9, %0\n" : : "g" (param) : "r9" );
-            else if( currParam == 7 )
-                __asm__ ( "lwz r10, %0\n" : : "g" (param) : "r10" );
-
-            currParam++;
-        }
-	}
-
-	param = ((etgfunctioncall *)opcode)->function();            // call the function
-    if (returnValue != 0xffffffff)                              // if a return value is desired
-    {
-        *((udword *)(effect->variable + returnValue)) = param;  // set the return parameter
-    }
-    
-    return (etgFunctionSize(nParams));
-}
-
 #elif defined _X86_64
 /* handle function calls
 
@@ -6217,17 +6058,8 @@ sdword etgFunctionCall(Effect *effect, struct etgeffectstatic *stat, ubyte *opco
                 param = *((udword *)(effect->variable + param));
                 break;
         }
-//      if (((etgfunctioncall *)opcode)->parameter[index].type != EVT_Constant)
-//      {
-//          param = *((udword *)(effect->variable + param));
-//      }
-#if defined (_MSC_VER)
-        _asm                                                //push it onto the stack
-        {
-            mov eax, param
-            push eax
-        }
-#elif defined (__GNUC__) && defined (__i386__)
+
+#if defined (__GNUC__) && defined (__i386__)
         __asm__ __volatile__ (                              /* push it onto the stack */
             "pushl %0\n\t"
             :
@@ -6237,13 +6069,7 @@ sdword etgFunctionCall(Effect *effect, struct etgeffectstatic *stat, ubyte *opco
 	
 	
     if (opptr->passThis) {                                  
-#if defined (_MSC_VER)										//pass a 'this' pointer
-        _asm
-        {
-            mov eax, effect
-            push eax
-        }
-#elif defined (__GNUC__) && defined (__i386__)
+#if defined (__GNUC__) && defined (__i386__)
         __asm__ __volatile__ (                              /* pass a 'this' pointer */
             "pushl %0\n\t"
             :

@@ -163,8 +163,6 @@ void mouseClipToRect(rectangle *rect);
 void mouseClipPointToRect(sdword *x, sdword *y, rectangle *rect);
 
 //draw mouse cursor and update cursor position/button flags
-void mouseStoreCursorUnder(void);
-void mouseRestoreCursorUnder(void);
 void mouseDraw(void);
 void mouseDrawType(mouseCursor cursortype);
 void mouseSelectCursorSetting();

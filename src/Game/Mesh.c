@@ -38,7 +38,6 @@
 #include "CRC32.h"
 #include "Hash.h"
 #include "prim3d.h"
-#include "Transformer.h"
 
 #ifdef _MSC_VER
 #define strcasecmp _stricmp

@@ -492,24 +492,9 @@ sdword memClose(memgrowthfreecallback freeMem)
 ----------------------------------------------------------------------------*/
 sdword memClearDword(void *dest, udword pattern, sdword nDwords)
 {
-#if defined (_MSC_VER)
-    _asm
-    {
-        mov edi,dest
-        mov ecx,nDwords
-        mov eax,pattern
-        rep stosd
-    }
-#elif defined (__GNUC__) && defined (__i386__)
-    __asm__ (
-        "rep stosl\n\t"
-        :
-        : "D" (dest), "c" (nDwords), "a" (pattern) );
-#else
 	udword *d = ( udword *)dest;
     while (nDwords--)
         *d++ = pattern;
-#endif
     return(OKAY);
 }
 

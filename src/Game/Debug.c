@@ -57,10 +57,7 @@ char *dbgStackDump(void)
     }
 
     //find stack pointers
-#if defined (_MSC_VER)
-    _asm mov eax, esp
-    _asm mov _ESP, eax
-#elif defined (__GNUC__) && defined (__i386__)
+#if defined (__GNUC__) && defined (__i386__)
     __asm__ __volatile__ ( "movl %%esp, %0\n\t" : "=r" (_ESP) );
 #endif
 
@@ -207,14 +204,8 @@ void dbgFatal(char *file, sdword line, char *string)
 
     if (dbgAllowInterrupts)
     {
-#if defined (_MSC_VER)
-        _asm int 3
-#elif defined (__GNUC__) && (defined (__i386__) || defined (__x86_64__))
-        __asm__ ( "int $3\n\t" );
-#else
         char *null_ptr = NULL;
         *null_ptr = 1;  // deliberate out of bounds memory assignment
-#endif
     }
 
     utyFatalErrorWaitLoop(DBG_ExitCode);                    //exit with a MessageBox
@@ -256,14 +247,8 @@ void dbgNonFatal(char *file, sdword line, char *string)
 
     if (dbgAllowInterrupts)
     {
-#if defined (_MSC_VER)
-        _asm int 3
-#elif defined (__GNUC__) && (defined (__i386__) || defined (__x86_64__))
-        __asm__ ( "int $3\n\t" );
-#else
         char *null_ptr = NULL;
         *null_ptr = 1;  // deliberate out of bounds memory assignment
-#endif
     }
 
     utyNonFatalErrorWaitLoop();

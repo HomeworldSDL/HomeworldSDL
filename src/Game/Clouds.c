@@ -21,6 +21,7 @@
 #include "StatScript.h"
 #include "Universe.h"
 #include "UnivUpdate.h"
+#include "win32_vc.h"
 
 #define TEST_LIGHTNING 0
 
@@ -975,7 +976,11 @@ void cloudGenerateLightning(vector *from, vector *to) {
 }
 
 void cloudRenderLightning(vector* pa, vector* pb, udword depth, sdword lod) {
+#if _MSC_VER
+    vector *lightning = (vector *)malloc(depth * sizeof(vector));
+#else
     vector lightning[depth];
+#endif
     real32 width = 12.0f / (real32)(lod + 1);
     real32 alpha = width / 10.0f;
     if (width > 3.0f) alpha = 1.0f;

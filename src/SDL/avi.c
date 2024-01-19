@@ -29,13 +29,9 @@
  	#define sleep(x) _sleep((x) * 1000)
 #endif
 
-#ifndef _MSC_VER
-    #undef _WIN32
-#endif
-
 #ifdef _WIN32
     #include <windows.h>
-    #include <vfw.h>
+    #include <Vfw.h>
     #include "wave.h"
 #endif
 

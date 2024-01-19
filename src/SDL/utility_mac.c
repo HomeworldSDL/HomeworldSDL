@@ -95,7 +95,6 @@
 #include "TitanNet.h"
 #include "TradeMgr.h"
 #include "Trails.h"
-#include "Transformer.h"
 #include "Tutor.h"
 #include "Tweak.h"
 #include "UIControls.h"
@@ -3867,9 +3866,6 @@ DONE_INTROS:
 
     meshStartup();
 
-    //startup transformer module
-    transStartup();
-
     if (feStartup() != OKAY)
     {                                                       //start the front end
         return("Unable to start front end.");
@@ -4385,9 +4381,6 @@ char *utyGameSystemsShutdown(void)
 
     //shutdown mesh.c
     meshShutdown();
-
-    //shutdown transformer module
-    transShutdown();
 
     bigCloseAllBigFiles();
 

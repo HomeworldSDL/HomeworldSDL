@@ -58,7 +58,6 @@
 #include "Tactical.h"
 #include "TaskBar.h"
 #include "Teams.h"
-#include "Transformer.h"
 #include "Tutor.h"
 #include "Tweak.h"
 #include "Universe.h"
@@ -1329,12 +1328,9 @@ void smSensorWeirdnessDraw(hmatrix *modelView, hmatrix *projection)
         smwGeneratePing(smWeird[j].location);
     }
 
-
     primModeSet2();
-    //    rndGLStateLog("RocksAreBig");
     for (i=0;i<num_points;i++)
     {
-        transSingleTotalTransform(&tempvec, modelView, projection, &smWeird[i].location);
         rect.x0 = primGLToScreenX(tempvec.x);
         rect.y0 = primGLToScreenY(tempvec.y);
         rect.x1 = rect.x0 + 2;

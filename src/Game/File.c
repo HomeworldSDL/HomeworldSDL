@@ -1228,7 +1228,7 @@ filehandle fileOpen(char *_fileName, udword flags)
                         }
                         
                         decompWorkspaceSize = filesOpen[fh].length + decompWorkspaceIncrement;
-                        decompWorkspaceP    = memRealloc(decompWorkspaceP, decompWorkspaceSize,
+                        decompWorkspaceP = (char *)memRealloc(decompWorkspaceP, decompWorkspaceSize,
                                                       "decompWorkspace", 0);
                         if (LogFileLoads)
                         {
@@ -1259,7 +1259,7 @@ filehandle fileOpen(char *_fileName, udword flags)
                 }
                 else // allocate a new, temporary buffer
                 {
-                    filesOpen[fh].decompBuf = memAlloc(filesOpen[fh].length, "decompBuf", 0);
+                    filesOpen[fh].decompBuf = (char *)memAlloc(filesOpen[fh].length, "decompBuf", 0);
 
                     if (LogFileLoads)
                     {

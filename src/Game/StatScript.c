@@ -286,8 +286,9 @@ void scriptSetShipProbCB(char *directory, char *field, void *dataToFillIn)
 
     shiptype = StrToShipType(shipname);
 
-    dataToFillIn += shiptype;
-    *((real32 *)dataToFillIn) = prob;
+    char *charPtr = (char *)dataToFillIn;
+    charPtr += shiptype;
+    *((real32 *)charPtr) = prob;
 }
 
 void scriptSetHyperspaceCostCB(char *directory, char *field, void *dataToFillIn)
@@ -350,8 +351,9 @@ void scriptSetShipGroupSizeCB(char *directory, char *field, void *dataToFillIn)
 
     shiptype = StrToShipType(shipname);
 
-    dataToFillIn += shiptype;
-    *((sdword *)dataToFillIn) = numingroup;
+    char *charPtr = (char *)dataToFillIn;
+    charPtr += shiptype;
+    *((real32 *)charPtr) = numingroup;
 }
 
 
@@ -818,7 +820,8 @@ void scriptSetStruct(char *directory, char *filename, scriptStructEntry info[], 
             if (foundentry != NULL)
             {
                 strcpy(globalScriptFileName,filename);
-                foundentry->setVarCB(directory,value,structureToFillIn + (foundentry->offset1 - foundentry->offset2) );
+
+                foundentry->setVarCB(directory, value, (char*)structureToFillIn + (foundentry->offset1 - foundentry->offset2));
             }
         }
     }
