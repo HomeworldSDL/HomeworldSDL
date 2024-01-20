@@ -309,6 +309,7 @@
 		3CB115842B3360F000371B43 /* SDL2_image.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3CB1157C2B335ED500371B43 /* SDL2_image.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3CB115892B33624200371B43 /* SDL2_image.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3CB115872B33624200371B43 /* SDL2_image.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3CB1158A2B33624200371B43 /* SDL2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3CB115882B33624200371B43 /* SDL2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3CFB01772B5C6E6500B89E6B /* Transformer.c in Sources */ = {isa = PBXBuildFile; fileRef = 3CFB01762B5C69DC00B89E6B /* Transformer.c */; };
 		9030AF94066D5D2C00B32218 /* avi.c in Sources */ = {isa = PBXBuildFile; fileRef = 9030AF92066D5D2C00B32218 /* avi.c */; };
 		9030AF95066D5D2C00B32218 /* rinit.c in Sources */ = {isa = PBXBuildFile; fileRef = 9030AF93066D5D2C00B32218 /* rinit.c */; };
 		90623D20064992AF0088361C /* AIAttackMan.c in Sources */ = {isa = PBXBuildFile; fileRef = 90623BEE064992AE0088361C /* AIAttackMan.c */; };
@@ -645,6 +646,8 @@
 		3CB1157C2B335ED500371B43 /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL2_image.framework; sourceTree = "<group>"; };
 		3CB115872B33624200371B43 /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL2_image.framework; sourceTree = "<group>"; };
 		3CB115882B33624200371B43 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL2.framework; sourceTree = "<group>"; };
+		3CFB01752B5C69DC00B89E6B /* Transformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Transformer.h; sourceTree = "<group>"; };
+		3CFB01762B5C69DC00B89E6B /* Transformer.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Transformer.c; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Homeworld.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Homeworld.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Homeworld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Homeworld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9030AF92066D5D2C00B32218 /* avi.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = avi.c; path = ../src/SDL/avi.c; sourceTree = SOURCE_ROOT; };
@@ -1315,6 +1318,8 @@
 		90623BED064992AE0088361C /* Game */ = {
 			isa = PBXGroup;
 			children = (
+				3CFB01762B5C69DC00B89E6B /* Transformer.c */,
+				3CFB01752B5C69DC00B89E6B /* Transformer.h */,
 				90623BEE064992AE0088361C /* AIAttackMan.c */,
 				90623BEF064992AE0088361C /* AIAttackMan.h */,
 				90623BF0064992AE0088361C /* AIDefenseMan.c */,
@@ -2249,6 +2254,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CFB01772B5C6E6500B89E6B /* Transformer.c in Sources */,
 				2AF203152AB0D40D0018711B /* File_Mac.c in Sources */,
 				90623D20064992AF0088361C /* AIAttackMan.c in Sources */,
 				90623D22064992AF0088361C /* AIDefenseMan.c in Sources */,
