@@ -461,10 +461,6 @@ char rndGLStateLogFileName[128];
 sdword rndGLStateLogIndex = 0;
 #endif //RND_GL_STATE_DEBUG
 
-#if RND_PLUG_DISABLEABLE
-bool8 rndShamelessPlugEnabled = TRUE;
-#endif
-
 /*=============================================================================
     Functions:
 =============================================================================*/
@@ -3342,112 +3338,6 @@ udword rndLoadTarga(char* filename, sdword* width, sdword* height)
     return handle;
 }
 
-/*-----------------------------------------------------------------------------
-    Name        : rndLoadShamelessPlug
-    Description : loads or frees the Relic shameless plug texture
-    Inputs      : on - TRUE or FALSE (load or free)
-    Outputs     : plug_handle is either valid or invalid
-    Return      :
-----------------------------------------------------------------------------*/
-void rndLoadShamelessPlug(bool on)
-{
-    if (on)
-    {
-        plug_handle = rndLoadTarga("plug.tga", &plug_width, &plug_height);
-    }
-    else
-    {
-        if (plug_handle != 0)
-        {
-            glDeleteTextures(1, &plug_handle);
-            plug_handle = 0;
-        }
-    }
-}
-
-/*-----------------------------------------------------------------------------
-    Name        : rndShamelessPlug
-    Description : displays the Relic shameless plug in bottom right corner of screen
-    Inputs      :
-    Outputs     :
-    Return      :
-----------------------------------------------------------------------------*/
-void rndShamelessPlug()
-{
-    GLboolean blendOn, depthOn;
-    GLfloat   fwidth, fheight;
-    GLint     matrixMode;
-    sdword    lightOn;
-
-    GLfloat   projection[16];
-    GLfloat   winWidth, winHeight;
-
-#if RND_PLUG_DISABLEABLE
-    if (!rndShamelessPlugEnabled)
-    {
-        return;
-    }
-#endif
-
-    if (plug_handle == 0)
-    {
-        rndLoadShamelessPlug(TRUE);
-    }
-
-    fwidth  = (GLfloat)plug_width;
-    fheight = (GLfloat)plug_height;
-    winWidth  = (GLfloat)MAIN_WindowWidth;
-    winHeight = (GLfloat)MAIN_WindowHeight;
-
-    glGetIntegerv(GL_MATRIX_MODE, &matrixMode);
-    glGetFloatv(GL_PROJECTION_MATRIX, projection);
-
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    rgluOrtho2D(0.0f, winWidth, 0.0f, winHeight);
-    glMatrixMode(GL_MODELVIEW);
-    glPushMatrix();
-    glLoadIdentity();
-
-    blendOn = glIsEnabled(GL_BLEND);
-    lightOn = rndLightingEnable(FALSE);
-    depthOn = glIsEnabled(GL_DEPTH_TEST);
-    if (!blendOn) glEnable(GL_BLEND);
-    if (depthOn)  glDisable(GL_DEPTH_TEST);
-
-    winWidth  -= 1.0f;
-    winHeight -= 1.0f;
-
-    rndTextureEnable(TRUE);
-    rndAdditiveBlends(FALSE);
-    trClearCurrent();
-    glBindTexture(GL_TEXTURE_2D, plug_handle);
-
-    glColor4ub(255,255,255,255);
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 1.0f);
-    glVertex2f(winWidth - fwidth, fheight);
-    glTexCoord2f(0.0f, 0.0f);
-    glVertex2f(winWidth - fwidth, 0);
-    glTexCoord2f(1.0f, 0.0f);
-    glVertex2f(winWidth, 0);
-    glTexCoord2f(1.0f, 1.0f);
-    glVertex2f(winWidth, fheight);
-    glEnd();
-
-    glPopMatrix();
-    glMatrixMode(GL_PROJECTION);
-    glLoadMatrixf(projection);
-    if (matrixMode == GL_MODELVIEW)
-    {
-        glMatrixMode(GL_MODELVIEW);
-    }
-
-    rndLightingEnable(lightOn);
-    if (!blendOn) glDisable(GL_BLEND);
-    if (depthOn)  glEnable(GL_DEPTH_TEST);
-}
-
 extern udword receivedPacketNumber;
 
 static udword printLagMinFrames = 0;
@@ -4039,9 +3929,11 @@ DEFINE_TASK(rndRenderTask)
         
         mouseDraw();                                        //draw mouse atop everything
       
-        if (universePause)
+        if (universePause || !gameIsRunning)
         {
-            rndShamelessPlug();
+            fontMakeCurrent(selGroupFont2);
+        	fontPrint(MAIN_WindowWidth - fontWidth(minorBuildVersion) - 2, MAIN_WindowHeight - fontHeight(" ") - 2, colWhite, minorBuildVersion);
+            fontPrint(MAIN_WindowWidth - fontWidth(networkVersion) - fontWidth(minorBuildVersion) - 8, MAIN_WindowHeight - fontHeight(" ") - 2, colWhite, networkVersion);
         }
 
         //take a screenshot or sequence thereof

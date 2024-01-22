@@ -1404,11 +1404,6 @@ void horseRaceRender()
         }
         mousePoll();
         mouseDraw();                                        //draw mouse atop everything
-
-        if (demDemoPlaying)
-        {
-            rndShamelessPlug();
-        }
     }
 
     rndFlush();

@@ -237,7 +237,7 @@ bool noMinimizeAltTab = FALSE;
 //options altered by a password function:
 bool mainCDCheckEnabled = TRUE;
 
-char networkVersion[MAX_NETWORKVERSION_STRING_LEN] =   "HomeworldSDL";
+char networkVersion[MAX_NETWORKVERSION_STRING_LEN] = "HomeworldSDL";
 
 char minorBuildVersion[] = "1.2.0";
 
@@ -837,10 +837,6 @@ commandoption commandOptions[] =
     entryComment("MISC OPTIONS"),   //-----------------------------------------------------
     entryVrHidden("/smCentreCamera",      smCentreWorldPlane, FALSE,          " - centres the SM world plane about 0,0,0 rather than the camera."),
 
-#if RND_PLUG_DISABLEABLE
-    entryVr("/noPlug",              rndShamelessPlugEnabled, FALSE,     " - don't display relic logo on pause."),
-#endif
-
     entryVrHidden("/closeCaptioned",      subCloseCaptionsEnabled, TRUE,      " - close captioned for the hearing impared."),
     entryVr("/pilotView",           pilotView, TRUE, " - enable pilot view.  Focus on single ship and hit Q to toggle."),
 
@@ -1417,7 +1413,6 @@ void mainCloseRender(void)
     cpTexturesPurge();
     lmFreeTextures();
     cpPreviewImageDelete();
-    rndLoadShamelessPlug(FALSE);    //shameless plug handles reloading itself
     btgCloseTextures();
     cmCloseTextures();
     rmGUIShutdown();
@@ -1445,7 +1440,6 @@ void mainOpenRender(void)
     cmLoadTextures();
     btgLoadTextures();
     lmLoadTextures();
-    //shameless plug handles reloading itself
     frReloadGL();
 }
 

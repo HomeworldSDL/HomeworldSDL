@@ -28,7 +28,6 @@
     #define RND_FRAME_RATE          1    // display frame rate
     #define RND_GL_STATE_DEBUG      1    // dump the GL state to a file
     #define RND_GL_STATE_WINDOW     1    // dump the GL state to debug window
-    #define RND_PLUG_DISABLEABLE    1    // can disable the shameless plug
     #define RND_POLY_STATS          1    // display polygon stats
     #define RND_SCALECAP_TWEAK      0    // allow adjusting (and printing) of the scaling cap crap
     #define RND_VERBOSE_LEVEL       1    // control verbose printing
@@ -43,7 +42,6 @@
     #define RND_FRAME_RATE          0
     #define RND_GL_STATE_DEBUG      0
     #define RND_GL_STATE_WINDOW     0
-    #define RND_PLUG_DISABLEABLE    0
     #define RND_POLY_STATS          0
     #define RND_SCALECAP_TWEAK      0
     #define RND_VERBOSE_LEVEL       0
@@ -113,10 +111,6 @@ extern sdword rndNumberDots;
 extern sdword rndNumberLines;
 #endif
 
-#if RND_PLUG_DISABLEABLE
-extern bool8 rndShamelessPlugEnabled;
-#endif
-
 extern renderfunction rndMainViewRender;
 
 /*=============================================================================
@@ -153,7 +147,6 @@ void rndSetClearColor(color c);
 
 real32 rndComputeOverlap(Ship* ship, real32 scalar);
 
-void rndShamelessPlug(void);
 void rndEnvironmentMap(vector* camera, vector* A, vector* B, vector* C,
                        vector* U, vector* V, vector* W);
 void rndEnvironmentMapConvex(vector* camera, vector* A, vector* B, vector* C,
@@ -161,8 +154,6 @@ void rndEnvironmentMapConvex(vector* camera, vector* A, vector* B, vector* C,
 
 void rndSetScreenFill(sdword count, color c);
 
-void rndLoadShamelessPlug(bool on);     //load / free shameless plug texture
-void rndShamelessPlug(void);
 
 void rndResetGLState(void);
 
