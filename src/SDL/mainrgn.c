@@ -1211,16 +1211,13 @@ void mrSelectHold(void)
         abs(mouseCursorY() - mrOldMouseY) >= selClickBoxHeight)
     {                                                       //if mouse has moved from anchor point
         mrSelectRectBuild(&mrSelectionRect, mrOldMouseX, mrOldMouseY);//create a selection rect
-        if (keyIsHit(GKEY) || (keyIsHit(CONTROLKEY) && keyIsHit(ALTKEY)))
-        {                                                   //guard mode
+        if (guardKeyIsHit()) {                                        // guard mode
             selRectDrag(&(universe.mainCameraCommand.actualcamera), &mrSelectionRect);
             if ((playPackets) || (universePause && !opPauseOrders) || (mrDisabled))
             {                           // if in recorded packet playback then can't issue a gaurd order.
                 selRectNone();
             }
-        }
-        else if (keyIsHit(CONTROLKEY))
-        {
+        } else if (keyIsHit(CONTROLKEY)) {
             if (keyIsHit(SHIFTKEY))
             {                                               //ctrl-shift - select anything targetable
                 selRectDragAnythingToAttack(&(universe.mainCameraCommand.actualcamera), &mrSelectionRect);
@@ -1251,13 +1248,9 @@ void mrSelectHold(void)
                     MakeTargetsOnlyNonForceAttackTargets((SelectAnyCommand *)&selSelecting, universe.curPlayerPtr);//always remove allied/player ships from selection
                 }
             }
-        }
-        else if (keyIsHit(ALTKEY))
-        {                                                   //alt - select any ships
+        } else if (keyIsHit(ALTKEY) || keyIsHit(RALTKEY)) { // alt - select any ships
             selRectDragAnybody(&(universe.mainCameraCommand.actualcamera), &mrSelectionRect);
-        }
-        else if (kbCommandKeyIsHit(kbSHIP_SPECIAL))
-        {                                                   //special action modifier
+        } else if (kbCommandKeyIsHit(kbSHIP_SPECIAL)) { // special action modifier
             if (mrCanZBandBox(&bFriendlies, &bEnemies))
             {
                 if ((playPackets) || (universePause && !opPauseOrders) || (mrDisabled))
@@ -1289,9 +1282,7 @@ void mrSelectHold(void)
             {
                 selRectNone();
             }
-        }
-        else
-        {                                                   //select player's ships
+        } else { // select player's ships
             selRectDrag(&(universe.mainCameraCommand.actualcamera), &mrSelectionRect);
         }
     }
@@ -1407,7 +1398,7 @@ void gpStartInGameEscapeMenu(void);
 
 bool NoModifierKeyPressed(void)
 {
-    return !(keyIsHit(SHIFTKEY) || keyIsHit(CONTROLKEY) || keyIsHit(ALTKEY));
+    return !(keyIsHit(SHIFTKEY) || keyIsHit(CONTROLKEY) || keyIsHit(ALTKEY) || keyIsHit(RALTKEY));
 }
 
 void mrSetTheFormation(TypeOfFormation formationtype)
@@ -1733,7 +1724,7 @@ void mrKeyPress(sdword ID)
                     }
                 }
             }
-            else if (keyIsHit(ALTKEY))
+            else if (keyIsHit(ALTKEY) || keyIsHit(RALTKEY))
             {                                               //alt-# select and focus on a hot key group
 altCase:
                 if (selHotKeyGroup[NUMKEYNUM(ID)].numShips != 0)
@@ -1923,7 +1914,7 @@ processEscapeKey:
                 dbgMessagef("UpOff %f",pilotupoffset);
             }
 #endif
-            if (keyIsHit(ALTKEY))
+            if (keyIsHit(ALTKEY) || keyIsHit(RALTKEY))
             {
                 goto cancelfocus;
             }
@@ -1946,7 +1937,7 @@ processEscapeKey:
                 dbgMessagef("UpOff %f",pilotupoffset);
             }
 #endif
-            if (keyIsHit(ALTKEY))
+            if (keyIsHit(ALTKEY) || keyIsHit(RALTKEY))
             {
                 goto forwardfocus;
             }
@@ -2011,7 +2002,7 @@ processEscapeKey:
                 goto caseEKey;
             }*/
 #if MAD_TEST_ANIMATION
-            if (keyIsHit(ALTKEY))
+            if (keyIsHit(ALTKEY) || keyIsHit(RALTKEY))
             {                                               //alt-a: test mesh animation
                 if (selSelected.numShips >= 1)
                 {                                           //if ships selected
@@ -2120,7 +2111,7 @@ cancelfocus:
 			
         case MMOUSE_BUTTON:
         case MMOUSE_DOUBLE:
-            if (keyIsHit(ALTKEY))
+            if (keyIsHit(ALTKEY) || keyIsHit(RALTKEY))
             {
                 // attempting to focus on single, possibly enemy, ship but this is handled
                 // elsewhere
@@ -2299,7 +2290,7 @@ cancelfocus:
             }
             break;
         case MKEY:
-            if (keyIsHit(ALTKEY))
+            if (keyIsHit(ALTKEY) || keyIsHit(RALTKEY))
             {
                 focusOnMothership:;
                 {
@@ -2535,7 +2526,7 @@ docapslock:
             {
                 if(!multiPlayerGame)
                 {
-                    if(keyIsHit(ALTKEY))
+                    if(keyIsHit(ALTKEY) || keyIsHit(RALTKEY))
                     {
                         universeRealTimeTweak((SelectCommand *)&selSelected);
                     }
@@ -3379,8 +3370,7 @@ void mrObjectClick(Ship *ship)
     bool bForceAttackEnemies = FALSE;
 
 //    dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
-    if (((keyIsHit(ALTKEY) && keyIsHit(CONTROLKEY)) || keyIsHit(GKEY)) && ship->objtype == OBJ_ShipType)
-    {
+    if (guardKeyIsHit() && ship->objtype == OBJ_ShipType) {
         if ((playPackets) || (universePause && !opPauseOrders) || (mrDisabled))
         {
             return;  // playing back a recorded game do nothing!
@@ -3406,9 +3396,7 @@ void mrObjectClick(Ship *ship)
                 }
             }
         }
-    }
-    else if (keyIsHit(ALTKEY))
-    {	                                                       //alt-click: focus on a ship
+    } else if (keyIsHit(ALTKEY) || keyIsHit(RALTKEY)) { // alt-click: focus on a ship
 #if MR_CAN_FOCUS_ROIDS
         if ((mrCanFocusRoids && !multiPlayerGame) || ship->objtype == OBJ_ShipType || ship->objtype == OBJ_DerelictType)
 #else
@@ -3424,9 +3412,7 @@ void mrObjectClick(Ship *ship)
                     (FocusCommand *)&selSelecting);         //focus on these ships
             selSelecting.numTargets = 0;
         }
-    }
-    else if (kbCommandKeyIsHit(kbSHIP_SPECIAL))
-    {                                                       //z-key: special target operation
+    } else if (kbCommandKeyIsHit(kbSHIP_SPECIAL)) { // z-key: special target operation
         if ((playPackets) || (universePause && !opPauseOrders) || (mrDisabled))
         {
             return;  // playing back a recorded game do nothing!
@@ -3465,21 +3451,17 @@ void mrObjectClick(Ship *ship)
             }
             selSelecting.numTargets = 0;
         }
-    }
-    else if ((ship->objtype == OBJ_DerelictType || (ship->objtype == OBJ_ShipType &&
-                (!allianceIsShipAlly(ship, universe.curPlayerPtr)))) &&
-                keyIsHit(CONTROLKEY) && keyIsHit(SHIFTKEY))
-    {                                                       //control-shift-click on derelict or enemy:attack
+    } else if ((ship->objtype == OBJ_DerelictType ||
+                (ship->objtype == OBJ_ShipType && (!allianceIsShipAlly(ship, universe.curPlayerPtr)))) &&
+               keyIsHit(CONTROLKEY) && keyIsHit(SHIFTKEY)) { // control-shift-click on derelict or enemy:attack
         if ((playPackets) || (universePause && !opPauseOrders) || (mrDisabled))
         {
             return;  // playing back a recorded game do nothing!
         }
         goto regularEnemyCase;
-    }
-    else if (((ship->objtype == OBJ_DerelictType) ||
-              (ship->objtype == OBJ_ShipType)) &&
-             (MakeShipsSingleClickSpecialCapable((SelectCommand *)&tempSelection, (SelectCommand *)&selSelected)))
-    {                                                       //single-click special ships
+    } else if (((ship->objtype == OBJ_DerelictType) || (ship->objtype == OBJ_ShipType)) &&
+               (MakeShipsSingleClickSpecialCapable((SelectCommand *)&tempSelection,
+                                                   (SelectCommand *)&selSelected))) { // single-click special ships
         if ((playPackets) || (universePause && !opPauseOrders) || (mrDisabled))
         {
             return;  // playing back a recorded game do nothing!
@@ -3514,19 +3496,16 @@ void mrObjectClick(Ship *ship)
                 goto regularEnemyCase;
             }
         }
-    }
-    else if ((ship->objtype == OBJ_AsteroidType || ship->objtype == OBJ_DustType) &&
-             keyIsHit(CONTROLKEY) && keyIsHit(SHIFTKEY))
-    {                                                   //ctrl-shift-click resource: force attack
+    } else if ((ship->objtype == OBJ_AsteroidType || ship->objtype == OBJ_DustType) && keyIsHit(CONTROLKEY) &&
+               keyIsHit(SHIFTKEY)) { // ctrl-shift-click resource: force attack
         if ((playPackets) || (universePause && !opPauseOrders) || (mrDisabled))
         {
             return;  // playing back a recorded game do nothing!
         }
         goto regularEnemyCase;
-    }
-    else if ((ship->objtype == OBJ_AsteroidType || ship->objtype == OBJ_DustType) &&
-             MakeShipsHarvestCapable((SelectCommand *)&tempSelection, (SelectCommand *)&selSelected))
-    {                                                   //there are harvesters present
+    } else if ((ship->objtype == OBJ_AsteroidType || ship->objtype == OBJ_DustType) &&
+               MakeShipsHarvestCapable((SelectCommand *)&tempSelection,
+                                       (SelectCommand *)&selSelected)) { // there are harvesters present
         if ((playPackets) || (universePause && !opPauseOrders) || (mrDisabled))
         {
             return;  // playing back a recorded game do nothing!
@@ -3535,26 +3514,20 @@ void mrObjectClick(Ship *ship)
         clWrapCollectResource(&universe.mainCommandLayer,(SelectCommand *)&tempSelection,(Resource *)ship);
         soundEventStartEngine(tempSelection.ShipPtr[0]);
         tutGameMessage("Game_ClickHarvest");
-    }
-    else if ((ship->objtype == OBJ_AsteroidType) &&
-             (ship->attributes & (ATTRIBUTES_KillerCollDamage|ATTRIBUTES_HeadShotKillerCollDamage)) )
-    {
+    } else if ((ship->objtype == OBJ_AsteroidType) &&
+               (ship->attributes & (ATTRIBUTES_KillerCollDamage | ATTRIBUTES_HeadShotKillerCollDamage))) {
         if ((playPackets) || (universePause && !opPauseOrders) || (mrDisabled))
         {
             return;  // playing back a recorded game do nothing!
         }
         goto regularEnemyCase;
-    }
-    else if ((ship->objtype == OBJ_DerelictType) && (((Derelict *)ship)->derelicttype == HyperspaceGate))
-    {
+    } else if ((ship->objtype == OBJ_DerelictType) && (((Derelict *)ship)->derelicttype == HyperspaceGate)) {
         if ((playPackets) || (universePause && !opPauseOrders) || (mrDisabled))
         {
             return;  // playing back a recorded game do nothing!
         }
         goto regularEnemyCase;
-    }
-    else if (!mrDisabled)
-    {
+    } else if (!mrDisabled) {
         if (ship->objtype == OBJ_ShipType)
         {
             if (ship->playerowner == universe.curPlayerPtr)
@@ -3687,18 +3660,6 @@ udword mrRegionProcess(regionhandle reg, sdword ID, udword event, udword data)
         return(0);
     }
 
-#ifdef __APPLE__
-// Mac OS X remaps [ALT] + [left mouse button] to [middle mouse button] for the
-// benefit of single mouse button users. This confuses the key-press and mouse
-// code no end. Fortunately, some of the low level stuff is keeping track that
-// the [ALT] key has been pressed. We just have to override the cascade chain
-// when the [ALT] key is pressed to get the right behaviour...
-    if (ID == MMOUSE_BUTTON && keyIsHit(ALTKEY)) {
-        // pretend it's just normal left click
-        goto plainOldClickAction;
-    }
-#endif
-
     switch (event)
     {
         case RPE_HoldLeft:
@@ -3723,7 +3684,7 @@ udword mrRegionProcess(regionhandle reg, sdword ID, udword event, udword data)
                     mrOldMouseY = mouseCursorY();
                     mrHoldLeft = mrSelectHold;              //set to select mode
                 }
-                else if (keyIsHit(ALTKEY))
+                else if (keyIsHit(ALTKEY) || keyIsHit(RALTKEY))
                 {
                     mrOldMouseX = mouseCursorX();           //store anchor point
                     mrOldMouseY = mouseCursorY();
@@ -3861,7 +3822,7 @@ udword mrRegionProcess(regionhandle reg, sdword ID, udword event, udword data)
                     abs(mouseCursorY() - mrOldMouseY) >= selClickBoxHeight)
                 {                                           //if selection rect dragged
                     mrSelectRectBuild(&mrSelectionRect, mrOldMouseX, mrOldMouseY);//select a group of ships
-                    if ((keyIsHit(ALTKEY) && keyIsHit(CONTROLKEY)) || keyIsHit(GKEY))
+                    if (((keyIsHit(ALTKEY) && keyIsHit(CONTROLKEY)) || keyIsHit(GKEY) || (keyIsHit(RALTKEY) && (keyIsHit(CONTROLKEY)))))
                     {                                       //alt key pressed
                         if (mrDisabled) goto endReleaseButtonLogic;
 
@@ -3887,7 +3848,7 @@ udword mrRegionProcess(regionhandle reg, sdword ID, udword event, udword data)
                             selSelecting.numTargets = 0;
                         }
                     }
-                    else if (keyIsHit(ALTKEY))
+                    else if (keyIsHit(ALTKEY) || keyIsHit(RALTKEY))
                     {                                       //alt-bandbox: focus
                         selRectDragAnybody(&(universe.mainCameraCommand.actualcamera), &mrSelectionRect);//most recent selection
                         if (selSelecting.numTargets != 0)

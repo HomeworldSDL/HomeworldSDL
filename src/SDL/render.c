@@ -3445,7 +3445,7 @@ void rndDrawOnScreenDebugInfo(void)
             fontPrintf(MAIN_WindowWidth - width, fontHeight(" ") + 1, colWhite, "P:  %.2f", mrPitch * 180.0f / PI);
             fontPrintf(MAIN_WindowWidth - width, (fontHeight(" ") + 1) * 2, colWhite, "B:  %.2f", mrBank * 180.0f / PI);
             fontPrintf(MAIN_WindowWidth - width, (fontHeight(" ") + 1) * 3, colWhite, "I: %d", madTestHPBIndex);
-            if (keyIsHit(ALTKEY))
+            if (keyIsHit(ALTKEY) || keyIsHit(RALTKEY))
             {
                 mrHeading = mrPitch = mrBank = 0.0f;
             }

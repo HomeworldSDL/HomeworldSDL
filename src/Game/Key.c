@@ -64,8 +64,6 @@ udword leftModSide(udword key){
         key = LSHIFTKEY;
     else if (key == RCONTROLKEY)
         key = LCONTROLKEY;
-    else if (key == RALTKEY)
-        key = LALTKEY;
     else if (key == RMETAKEY) // Apple/Command/"Windows" key
         key = LMETAKEY;
     return key;

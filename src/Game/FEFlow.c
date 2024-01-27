@@ -2842,6 +2842,21 @@ void feAcceleratorSet(regionhandle reg, featom *atom)
         keys[nKeys] = ALTKEY;
         nKeys++;
     }
+    if (bitTest(atom->hotKeyModifiers, HKM_RControl))
+    {
+        keys[nKeys] = RCONTROLKEY;
+        nKeys++;
+    }
+    if (bitTest(atom->hotKeyModifiers, HKM_RShift))
+    {
+        keys[nKeys] = RSHIFTKEY;
+        nKeys++;
+    }
+    if (bitTest(atom->hotKeyModifiers, HKM_RAlt))
+    {
+        keys[nKeys] = RALTKEY;
+        nKeys++;
+    }
     if (atom->hotKey[strCurLanguage]>0)
     {
         keys[nKeys] = atom->hotKey[strCurLanguage];

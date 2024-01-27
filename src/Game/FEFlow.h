@@ -9,6 +9,9 @@
 #ifndef ___FEFLOW_H
 #define ___FEFLOW_H
 
+#include <SDL2/SDL_scancode.h>
+#include <SDL2/SDL_keycode.h>
+
 #include "Color.h"
 #include "Region.h"
 
@@ -133,9 +136,12 @@ enum tagFIBAtomFlagsff
 #define FE_NumberLanguages      5
 
 //hot key modifiers
-#define HKM_Control         0x01
-#define HKM_Alt             0x02
-#define HKM_Shift           0x04
+#define HKM_Control         SDL_SCANCODE_LCTRL
+#define HKM_Alt             SDL_SCANCODE_LALT
+#define HKM_Shift           SDL_SCANCODE_LSHIFT
+#define HKM_RControl         SDL_SCANCODE_RCTRL
+#define HKM_RAlt             SDL_SCANCODE_RALT
+#define HKM_RShift           SDL_SCANCODE_RSHIFT
 
 /*=============================================================================
     Type definitions:

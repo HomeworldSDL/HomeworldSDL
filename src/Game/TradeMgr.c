@@ -1462,7 +1462,7 @@ void wkTradeControl(void)
 {
     if (keyIsHit(ARRRIGHT))
     {
-        if (keyIsHit(ALTKEY))
+        if (keyIsHit(ALTKEY) || keyIsHit(RALTKEY))
         {
             wkTradeControlShip->controlstrafe = 1;
             wkTradeControlShip->controlrot = 0;
@@ -1475,7 +1475,7 @@ void wkTradeControl(void)
 
     } else if (keyIsHit(ARRLEFT))
     {
-        if (keyIsHit(ALTKEY))
+        if (keyIsHit(ALTKEY) || keyIsHit(RALTKEY))
         {
             wkTradeControlShip->controlstrafe = -1;
             wkTradeControlShip->controlrot = 0;

@@ -3494,7 +3494,7 @@ udword smViewportProcess(regionhandle region, sdword ID, udword event, udword da
                 case NINEKEY:
                     if (!smFleetIntel)
                     {
-                        if (keyIsHit(ALTKEY))
+                        if (keyIsHit(ALTKEY) || keyIsHit(RALTKEY))
                         {                                   //alt-# select and focus on a hot key group
 altCase:
                             if (selHotKeyGroup[NUMKEYNUM(ID)].numShips != 0)

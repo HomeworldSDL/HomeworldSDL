@@ -187,7 +187,7 @@ extern volatile keyScanType keySaveScan[KEY_TOTAL_KEYS];
 extern real32 keyLastTimeHit;
 
 /*=============================================================================
-    Macros:
+    Convenience:
 =============================================================================*/
 
 #define keyIsHit(key)           (keyScanCode[(key)].keypressed)
@@ -197,6 +197,8 @@ extern real32 keyLastTimeHit;
 #define keyClearRepeat(key)     keyScanCode[(key)].keynumpressed = 0,keySaveScan[(key)].keynumpressed = 0
 #define keyClearSticky(key)     if (keyScanCode[(key)].keystick) {keyScanCode[(key)].keystick--,keySaveScan[(key)].keystick--;}
 #define keySetSticky(key)       if (keyScanCode[(key)].keystick < 3) {keyScanCode[(key)].keystick++,keySaveScan[(key)].keystick++;}
+
+#define guardKeyIsHit() (keyIsHit(GKEY) || (keyIsHit(CONTROLKEY) && (keyIsHit(RALTKEY) || keyIsHit(ALTKEY))))
 
 /*=============================================================================
     Functions:

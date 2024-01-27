@@ -1513,7 +1513,7 @@ void mouseSetCursorSetting(void)
     // if the player is disabled, only a few cursor bitmaps are shown
     if (mrDisabled)
     {
-        if (keyIsHit(ALTKEY))
+        if (keyIsHit(ALTKEY) || keyIsHit(RALTKEY))
         {
             mouseDrawType(focus_no_select);
             return;
@@ -1538,8 +1538,7 @@ void mouseSetCursorSetting(void)
                 return;
             }
             //guard ships
-            if ((keyIsHit(CONTROLKEY) && keyIsHit(ALTKEY)) || keyIsHit(GKEY))
-            {
+            if (guardKeyIsHit()) {
                 mouseDrawType(m_guard);
                 return;
             }
@@ -1563,7 +1562,7 @@ void mouseSetCursorSetting(void)
                 }
             }
             //forced focus
-            if (keyIsHit(ALTKEY))
+            if (keyIsHit(ALTKEY) || keyIsHit(RALTKEY))
             {
                 mouseDrawType(focus_no_select);
                 return;
@@ -1691,7 +1690,7 @@ void mouseSetCursorSetting(void)
         else
         {
             //forced focus
-            if (keyIsHit(ALTKEY))
+            if (keyIsHit(ALTKEY) || keyIsHit(RALTKEY))
             {
                 mouseDrawType(focus_no_select);
             }
