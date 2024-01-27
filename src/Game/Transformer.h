@@ -14,7 +14,6 @@
 #include "Types.h"
 #include "Vector.h"
 
-void transformVertexList(sdword n, hvector* dest, vertexentry* source, hmatrix* m);
 void transSingleTotalTransform(vector* screenSpace, hmatrix* modelview, hmatrix* projection, vector* worldSpace);
 
 #endif

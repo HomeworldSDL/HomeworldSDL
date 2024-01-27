@@ -1333,7 +1333,7 @@ void smSensorWeirdnessDraw(hmatrix *modelView, hmatrix *projection)
     for (i=0;i<num_points;i++)
     {
         // Reimplement the weirdness
-        //transSingleTotalTransform(&tempvec, modelView, projection, &smWeird[i].location);
+        transSingleTotalTransform(&tempvec, modelView, projection, &smWeird[i].location);
         rect.x0 = primGLToScreenX(tempvec.x);
         rect.y0 = primGLToScreenY(tempvec.y);
         rect.x1 = rect.x0 + 2;
