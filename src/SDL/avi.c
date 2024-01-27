@@ -29,7 +29,7 @@
  	#define sleep(x) _sleep((x) * 1000)
 #endif
 
-#ifdef _WIN32
+#ifdef HW_ENABLE_MOVIES_WIN32
     #include <windows.h>
     #include <Vfw.h>
     #include "wave.h"
@@ -72,7 +72,7 @@ AVFrame         *pFrame        = NULL;
 
 int aviMovieExpandFactor = 1;
 
-#ifdef _WIN32	/* Disable AVI code outside of Windows. */
+#ifdef HW_ENABLE_MOVIES_WIN32	/* Disable AVI code outside of Windows. */
 
 PAVISTREAM    g_VidStream;      //the AVI video stream
 AVISTREAMINFO g_VidStreamInfo;  //info about the AVI stream
@@ -531,7 +531,7 @@ dbgMessagef("aviStart: Codec required: %s.", pCodec->name);
 
 int aviGetSamples(void* pBuf, long* pNumSamples, long nBufSize)
 {
-#ifdef _WIN32
+#ifdef HW_ENABLE_MOVIES_WIN32
     HRESULT Res;
     long nSampRead;
 
@@ -642,7 +642,7 @@ int aviInit()
 
 int aviCleanup()
 {
-#ifdef _WIN32
+#ifdef HW_ENABLE_MOVIES_WIN32
 	//cleanup audio
 	if(EndWave() < 0) return FALSE;
 
