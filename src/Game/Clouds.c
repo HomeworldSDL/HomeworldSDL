@@ -1146,6 +1146,7 @@ void cloudRenderSystem(cloudSystem* system, sdword lod)
 
     glDepthMask(GL_TRUE);
     rndLightingEnable(TRUE);
+    glDisable(GL_BLEND);
     rndAdditiveBlends(FALSE);
     if (fogOn) glEnable(GL_FOG);
 }
