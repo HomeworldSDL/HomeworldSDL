@@ -3438,6 +3438,7 @@ udword smViewportProcess(regionhandle region, sdword ID, udword event, udword da
             piePointModePause(TRUE);                         //pause the point spec mode
             break;
         case RPE_ReleaseRight:
+            mouseClipToRect(NULL);
             if (smHoldRight == mrCameraMotion)
             {                                               //if in camera movement mode
                 mousePositionSet(mrOldMouseX, mrOldMouseY); //restore mouse position
@@ -3446,7 +3447,6 @@ udword smViewportProcess(regionhandle region, sdword ID, udword event, udword da
             }
             //region->rect = smViewRectangle;                 //restore origional rectangle
             piePointModePause(FALSE);
-            mouseClipToRect(NULL);
             break;
         case RPE_WheelUp:
             wheel_up = TRUE;
