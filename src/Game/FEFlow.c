@@ -1997,7 +1997,7 @@ fibfileheader *feScreensLoad(char *fileName)
                 }
                 if (screen->atoms[index].flags & FAF_Bitmap)
                 {                                           //if this is a bitmap
-                    /* _asm nop */
+                    dbgNonFatal(DBG_Loc,"FAF_Bitmap: No Operation.");
                     //...code to load in the bitmap and set new pointer
                 }
                 else if (screen->atoms[index].type != FA_RadioButton)

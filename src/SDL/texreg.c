@@ -1904,12 +1904,7 @@ void trMeshSortListLoad(trmeshsort *sortList)
         if (trPending(sortList->textureList[index]))
         {                                                   //if texture needs loading
             reg = &trTextureRegistry[sortList->textureList[index]];
-/*
-            if (_stricmp(reg->fileName, "DERELICTS\\SHIPWRECK\\RL0\\LOD2\\PAGE1") == 0)
-            {
-                _asm int 3
-            }
-*/
+
             if (reg->sharedFrom != TR_NotShared)
             {                                               //if this texture just refers to another texture
                 // notice that we keep the allocated copy of the colorInfo structures (reg->palettes)
@@ -3025,12 +3020,6 @@ void trRegistryRefresh(void)
             reg = &trTextureRegistry[index];                //get pointer to current texture reg struct
             if (trPending(index))
             {                                               //if pending a load
-                /*
-                if (_stricmp(reg->fileName, "R1\\AdvanceSupportFrigate\\RL0\\LOD1\\frontupperantenna") == 0)
-                {
-                    _asm int 3
-                }
-                */
                 //... get width/height/flags trying several methods
                 if (!trImageMeasureFromListing(reg->fileName, lifListing, listingLength, &width, &height, &listFlags, &pSharedFrom))
                 {

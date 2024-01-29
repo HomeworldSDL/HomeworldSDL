@@ -56,11 +56,6 @@ char *dbgStackDump(void)
         return(NULL);
     }
 
-    //find stack pointers
-#if defined (__GNUC__) && defined (__i386__)
-    __asm__ __volatile__ ( "movl %%esp, %0\n\t" : "=r" (_ESP) );
-#endif
-
     _ESP = _ESP & (~3);                                     //round off to dword boundary
     dbgStackBase = dbgStackBase & (~3);
     nDwords = dbgStackBase - _ESP;

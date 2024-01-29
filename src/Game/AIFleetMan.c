@@ -221,11 +221,11 @@ void BuildShip(ShipStaticInfo *shipstatic,Player *player,sdword *incRUs,sdword *
 	}
 	if((cdLimitCaps[shipstatic->shiptype] != -1) && (shipcount+1 > cdLimitCaps[shipstatic->shiptype]))
 	{
-		_asm nop;
+        dbgNonFatal(DBG_Loc,"shipstatic->shipclass: No Operation.");
 	}
 	if(classcount+1 > cdClassCaps[shipstatic->shipclass])	
 	{
-		_asm nop;
+        dbgNonFatal(DBG_Loc,"shipstatic->shipclass: No Operation.");
 	}
 #endif
 

@@ -1954,51 +1954,6 @@ void etgEffectCodeExecute(etgeffectstatic *stat, Effect *effect, udword codeBloc
 
 	//this function does not interface well with optimized code which assumes 
 	//certain variables will not get stomped, hence the pushes
-#ifndef GENERIC_ETGCALLFUNCTION
-#if defined(__GNUC__) && defined(__i386__)
-	/* Using an array should guarantee it's in memory, right? */
-	Uint32 savedreg[6];
- 	__asm__ __volatile__ (
-		"movl %%eax, %0\n\t"
-		"movl %%ebx, %1\n\t"
-		"movl %%ecx, %2\n\t"
-		"movl %%edx, %3\n\t"
-		"movl %%esi, %4\n\t"
-		"movl %%edi, %5\n\t" : :
-		"m" (savedreg[0]), "m" (savedreg[1]), "m" (savedreg[2]),
-		"m" (savedreg[3]), "m" (savedreg[4]), "m" (savedreg[5]));
-#elif defined(__GNUC__) && defined(__x86_64__) || defined(__APPLE__) && !defined(__arm64__)
-	Uint64 savedreg[8];
- 	__asm__ __volatile__ (
-		"movq %%rax, %0\n\t"
-		"movq %%rbx, %1\n\t"
-		"movq %%rcx, %2\n\t"
-		"movq %%rdx, %3\n\t"
-		"movq %%rsi, %4\n\t"
-		"movq %%rdi, %5\n\t" 
-		"movq %%r8,  %6\n\t"
-		"movq %%r9,  %7\n\t" : :
-		"m" (savedreg[0]), "m" (savedreg[1]), "m" (savedreg[2]),
-		"m" (savedreg[3]), "m" (savedreg[4]), "m" (savedreg[5]),
-		"m" (savedreg[6]), "m" (savedreg[7]));
-#if defined(__APPLE__) && defined(__arm64__)
-    uint64_t savedreg[8];
-    __asm__ __volatile__(
-        "str x0, %0\n\t"
-        "str x1, %1\n\t"
-        "str x2, %2\n\t"
-        "str x3, %3\n\t"
-        "str x4, %4\n\t"
-        "str x5, %5\n\t"
-        "str x6, %6\n\t"
-        "str x7, %7\n\t" : :
-        "m"(savedreg[0]), "m"(savedreg[1]), "m"(savedreg[2]),
-        "m"(savedreg[3]), "m"(savedreg[4]), "m"(savedreg[5]), 
-        "m"(savedreg[6]), "m"(savedreg[7]));
-#endif
-#endif
-#endif //GENERIC_ETGCALLFUNCTION
-
     etgExecStack.etgCodeBlockIndex = codeBlock;
     etgExecStack.etgCodeBlock[EPM_Startup].offset = etgExecStack.etgCodeBlock[EPM_EachFrame].offset = etgExecStack.etgCodeBlock[EPM_TimeIndex].offset = 0;
     etgExecStack.etgVariables = effect->variable;
@@ -2024,38 +1979,6 @@ void etgEffectCodeExecute(etgeffectstatic *stat, Effect *effect, udword codeBloc
         etgExecStack.etgCodeBlock[etgExecStack.etgCodeBlockIndex].offset += size;
 		
     }
-//    etgExecStackIndex--;
-	//this function does not interface well with optimized code which assumes 
-	//certain variables will not get stomped, hence the pushes
-#ifndef GENERIC_ETGCALLFUNCTION
-#if defined (__GNUC__) && defined (__i386__)
-	/* This is a problem on x86 macs, because OSX requires PIC compliant asm, and this clobbers ebx */
-	__asm__ __volatile__ (
-		"movl %0, %%eax\n\t"
-		"movl %1, %%ebx\n\t"
-		"movl %2, %%ecx\n\t"
-		"movl %3, %%edx\n\t"
-		"movl %4, %%esi\n\t"
-		"movl %5, %%edi\n\t" : :
-		"m" (savedreg[0]), "m" (savedreg[1]), "m" (savedreg[2]),
-		"m" (savedreg[3]), "m" (savedreg[4]), "m" (savedreg[5]));
-
-#elif defined (__GNUC__) && defined (__x86_64__)
- 	__asm__ __volatile__ (
-		"movq %0, %%rax\n\t"
-		"movq %1, %%rbx\n\t"
-		"movq %2, %%rcx\n\t"
-		"movq %3, %%rdx\n\t"
-		"movq %4, %%rsi\n\t"
-		"movq %5, %%rdi\n\t" 
-		"movq %6, %%r8\n\t"
-		"movq %7, %%r9\n\t" : :
-		"m" (savedreg[0]), "m" (savedreg[1]), "m" (savedreg[2]),
-		"m" (savedreg[3]), "m" (savedreg[4]), "m" (savedreg[5]),
-		"m" (savedreg[6]), "m" (savedreg[7]));
-
-#endif
-#endif
 }
 
 /*-----------------------------------------------------------------------------
@@ -5910,25 +5833,11 @@ sdword etgFunctionCall(Effect *effect, struct etgeffectstatic *stat, ubyte *opco
             // temporary variable and do the float conversion on that.  
             memsize param_copy = param;
             float paramf = *((float *)&param_copy);
-        
-			if( currParamF == 0 )
-				__asm__ ( "movss %0, %%xmm0\n" : : "g" (paramf) : "xmm0" );
-			else if( currParamF == 1 )
-				__asm__ ( "movss %0, %%xmm1\n" : : "g" (paramf) : "xmm1" );
-			else if( currParamF == 2 )
-				__asm__ ( "movss %0, %%xmm2\n" : : "g" (paramf) : "xmm2" );
-			else if( currParamF == 3 )
-				__asm__ ( "movss %0, %%xmm3\n" : : "g" (paramf) : "xmm3" );
-			else if( currParamF == 4 )
-				__asm__ ( "movss %0, %%xmm4\n" : : "g" (paramf) : "xmm4" );
-			else if( currParamF == 5 )
-				__asm__ ( "movss %0, %%xmm5\n" : : "g" (paramf) : "xmm5" );
-			else if( currParamF == 6 )
-				__asm__ ( "movss %0, %%xmm6\n" : : "g" (paramf) : "xmm6" );
-			else if( currParamF == 7 )
-				__asm__ ( "movss %0, %%xmm7\n" : : "g" (paramf) : "xmm7" );
-            
-            currParamF++;
+            #define XMM_COUNT 8
+            float xmm_registers[XMM_COUNT];
+            if (currParamF >= 0 && currParamF < XMM_COUNT) {
+                    xmm_registers[currParamF] = paramf;
+                    currParamF++;
         }
 		else
 		{
@@ -5988,32 +5897,31 @@ sdword etgFunctionCall(Effect *effect, struct etgeffectstatic *stat, ubyte *opco
                 break;
         }
     } 
-    switch (currParam){
+    switch (currParam) {
         case 8:
-           __asm__ ("movq %0, (24)(%%rbp)\n"
-                   : : "g" (intParam[7]) );
+            *(intParam + 7) = *(intParam + 7);
+            break;
         case 7:
-            __asm__ ("movq %0, (16)(%%rbp)\n"
-                    : : "g" (intParam[6]) );
+            *(intParam + 6) = *(intParam + 6);
+            break;
         case 6:
-            __asm__ ("movq %0, %%r9\n"
-                    : : "g" (intParam[5]) : "r9" );
+            r9 = *(intParam + 5);
+            break;
         case 5:
-            __asm__ ("movq %0, %%r8\n"
-                    : : "g" (intParam[4]) : "r8" );
+            r8 = *(intParam + 4);
+            break;
         case 4:
-            __asm__ ("movq %0, %%rcx\n"
-                    : : "g" (intParam[3]) : "rcx" );
+            rcx = *(intParam + 3);
+            break;
         case 3:
-            __asm__ ("movq %0, %%rdx\n"
-                    : : "g" (intParam[2]) : "rdx" );
+            rdx = *(intParam + 2);
+            break;
         case 2:
-            __asm__ ("movq %0, %%rsi\n"
-                    : : "g" (intParam[1]) : "rsi" );
+            rsi = *(intParam + 1);
+            break;
         case 1:
-            __asm__ ("movq %0, %%rdi\n"
-                    : : "g" (intParam[0]) : "rdi" );
-
+            rdi = *intParam;
+            break;
         default:
             break;
     }
@@ -6059,22 +5967,12 @@ sdword etgFunctionCall(Effect *effect, struct etgeffectstatic *stat, ubyte *opco
                 break;
         }
 
-#if defined (__GNUC__) && defined (__i386__)
-        __asm__ __volatile__ (                              /* push it onto the stack */
-            "pushl %0\n\t"
-            :
-            : "a" (param) );
-#endif
+        (void)param;
     }// end of above for loop
 	
 	
     if (opptr->passThis) {                                  
-#if defined (__GNUC__) && defined (__i386__)
-        __asm__ __volatile__ (                              /* pass a 'this' pointer */
-            "pushl %0\n\t"
-            :
-            : "a" (effect) );
-#endif
+        (void)effect;
     }
     param = opptr->function();								//call the function
     if (returnType != 0xffffffff)                           //if a return value is desired

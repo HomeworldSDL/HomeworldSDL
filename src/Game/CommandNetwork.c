@@ -1667,9 +1667,7 @@ void clProcessSyncPacket(CommandLayer *comlayer,ubyte *packet,udword sizeofPacke
                         case GOD_COMMAND_HALTONSYNC:
                             if(syncDumpOn)
                             {
-                                //user wants an int 3
                                 syncDebugDump("syncDump.txt",universe.univUpdateCounter,TRUE);
-                                //_asm int 3;
                                 dbgNonFatal(DBG_Loc,"SYNC Error Detected crash to debuger?");
                             }
                             break;

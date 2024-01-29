@@ -1637,7 +1637,7 @@ bool delegateCommand(CommandToDo *attacktodo,sdword group,sdword doform, SelectC
 #ifdef bpasechn
     #ifdef DEBUG_TACTICS
                     if(ship->flightman == FLIGHTMAN_NULL)
-                        _asm int 3
+                        dbgNonFatal(DBG_Loc,"FLIGHTMAN_NULL Detected.");
     #endif
 #endif
 
@@ -1686,7 +1686,7 @@ bool delegateCommand(CommandToDo *attacktodo,sdword group,sdword doform, SelectC
 #ifdef bpasechn
     #ifdef DEBUG_TACTICS
                 if(ship->flightman == FLIGHTMAN_NULL)
-                    _asm int 3
+                    dbgNonFatal(DBG_Loc,"FLIGHTMAN_NULL Detected.");
 #endif
                 if(ship->flightman != FLIGHTMAN_NULL)
 #endif

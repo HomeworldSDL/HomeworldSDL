@@ -874,14 +874,6 @@ void netcheckCheckChecksum(NetSyncChecksums *checksum)
                 if(!randSyncErr)
                 {
                     randSyncErrFrame = universe.univUpdateCounter;
-                    /*
-                    if(intOnSync)
-                    {
-                        //user wants an int 3
-                        _asm int 3;
-                    }
-                    syncDebugDump("SyncRand.txt");
-                    */
                 }
                 randSyncErr++;
                 //if (intOnSync) clSendMisc(&universe.mainCommandLayer,NULL,MISCCOMMAND_HALTONSYNC,0);
@@ -892,12 +884,6 @@ void netcheckCheckChecksum(NetSyncChecksums *checksum)
                 if(!univSyncErr)
                 {
                     univSyncErrFrame = universe.univUpdateCounter;
-                    /*if(intOnSync)
-                    {
-                        //user wants an int 3
-                        _asm int 3;
-                    }
-                    syncDebugDump("SyncUniv.txt");*/
                 }
                 univSyncErr++;
                 //if (intOnSync) clSendMisc(&universe.mainCommandLayer,NULL,MISCCOMMAND_HALTONSYNC,0);
@@ -908,12 +894,6 @@ void netcheckCheckChecksum(NetSyncChecksums *checksum)
                 if(!blobSyncErr)
                 {
                     blobSyncErrFrame = universe.univUpdateCounter;
-                    /*if(intOnSync)
-                    {
-                        //user wants an int 3
-                        _asm int 3;
-                    }
-                    syncDebugDump("SyncBlob.txt");*/
                     if (multiPlayerGame)
                         SendCheatDetect();
                 }

@@ -533,7 +533,7 @@ void formationSpecificsSphere(CommandToDo *command)
                 //
 #ifdef DEBUG_TACTICS
     #ifdef bpasechn
-                _asm int 3
+                dbgNonFatal(DBG_Loc,"AttackTarget is NULL Detected.");
     #endif
 #endif
                 centreship = (Ship*)command->attack->TargetPtr[0];      //this can't possibly be invalid!
@@ -1095,7 +1095,7 @@ void processFormationToDo(struct CommandToDo *formationtodo,bool steadyFormation
                         //
                         //
 #ifdef DEBUG_TACTICS
-                        _asm int 3
+                        dbgNonFatal(DBG_Loc,"AttackTarget is NULL Detected.");
 #endif
                         protectship = (Ship*)formationtodo->attack->TargetPtr[0];       //this can't possibly be invalid!
                     }
