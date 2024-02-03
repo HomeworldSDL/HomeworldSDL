@@ -3893,10 +3893,8 @@ char *utyGameSystemsInit(void)
         "Homeworld CRCs:\n"
         "%22s = 0x%x\n"    
         "%22s = 0x%x\n"    
-        "%22s = 0x%x\n"    
         "%22s = 0x%x"    
         ,
-        "HomeworldSDL.big TOC", HomeworldCRC[0], // was CRC for code block (WON hacked client check)
         "Update.big TOC",       HomeworldCRC[1],
         "Homeworld.big TOC",    HomeworldCRC[2],
         "(not used)",           HomeworldCRC[3]  // never been used

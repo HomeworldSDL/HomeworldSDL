@@ -1,3 +1,13 @@
+EDIT, Thibault L., 2024-02-03:
+
+64-bit builds are now the default (x86_64 *and* aarch64), and no longer require
+an additional `.big` file to override the assets as described below.
+Assets are instead translated in-memory at load time now.
+
+The following notes are no longer relevant.
+
+
+Aunxx, 2008-09-22:
 
 The code has been modified to run on X86_64 machines.
 Due to the way the code had been written, the changes were 
@@ -52,8 +62,3 @@ Testing:
     Got to level 4, no real problems. You know where to put
     any problems for me to look into. 
     No promises on how long it'll take me though. :)
-
-
-
-Aunxx.
-    22/9/2008

@@ -70,21 +70,13 @@ bool LogFileLoads = FALSE;
 
 #endif
 
-
 bigFileConfiguration bigFilePrecedence[] = {
     {
-        "HomeworldSDL.big",         // bigFileName
-        FALSE,                      // required
-        NULL,                       // filePtr
-        UNINITIALISED_BIG_TOC,      // tableOfContents
-        NULL,                       // localFileRelativeAge
-    },
-    {
-        "Update.big",
-        FALSE,
-        NULL,
-        UNINITIALISED_BIG_TOC,
-        NULL,
+        "Update.big",          // bigFileName
+        FALSE,                 // required
+        NULL,                  // filePtr
+        UNINITIALISED_BIG_TOC, // tableOfContents
+        NULL,                  // localFileRelativeAge
     },
     {
 #ifdef HW_GAME_DEMO
@@ -2542,8 +2534,7 @@ bool bigOpenAllBigFiles(void)
             {
                 // This may or may not be a problem.
                 // E.g. Update.big is not required if we use `homeworld.big` from the
-                // Remastered collection. Likewise, `HomeworldSDL.big` might not be required
-                // with a 32b build.
+                // Remastered collection.
                 dbgWarningf(DBG_Loc, "Unable to open optional .big file: %s", filePathTempBuffer);
                 continue;
             }

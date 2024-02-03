@@ -37,8 +37,6 @@ So make sure you either have:
 
 This section is intended as a quick checklist to make sure you have everything needed for the game to run. If you don't know where to find one of these files, see the appropriate section below. (Most of them can be found in the game's installation folder.)
 
-- [ ] `HomeworldSDL.big` You will have to build this one from this repo. See [Building HomeworldSDL.big](Linux/BUILD.md#building-homeworldsdlbig). (Except if you plan to play with a 32b version, which is not the default, and deprecated.)
-
 #### Original (1999)
 
 - [ ] `Homeworld.big`  

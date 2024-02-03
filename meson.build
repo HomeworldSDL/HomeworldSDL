@@ -52,19 +52,6 @@ if build_machine.cpu_family() == 'x86_64'
 	subdir('tools/x86_64')
 endif
 
-subdir('HomeworldSDL_big')
-
-alias_target('tools', exe_tools)
-
-python = find_program('python', required: true)
-
-asset_homeworldsdl_big = custom_target('HomeworldSDL.big',
-                                       output: 'HomeworldSDL.big',
-                                       command: [python, script_assets_homeworldsdl_big_generate, exe_tools_biggie, '@OUTPUT@'],
-                                       depends: [exe_tools_biggie])
-
-alias_target('assets', asset_homeworldsdl_big)
-
 executable(meson.project_name(),
            src,
            include_directories: inc_src,
