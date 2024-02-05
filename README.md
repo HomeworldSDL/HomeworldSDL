@@ -2,18 +2,19 @@
 
 📣 **Play in your browser!** Try our experimental wasm port here: [Gardens of Kadesh]
 
-Source port of Homeworld 1 for Linux.
+Source port of Homeworld 1 for modern operating systems (Linux, Windows, macOS).
 
-🛈 This repo is the central hub for the HomeworldSDL projects. There are different forks focused on different platforms.
+🛈 This repo is the central hub for the HomeworldSDL projects and is less frequently updated. There are currently a few different forks focused on different platforms and in the process of being stabilised and merged here.
 
 - Web & Windows: [Gardens of Kadesh]
-- Linux: [Tenhauser Gate]
-- Mac: [Hiigara]
+- Linux, macOS, Windows: [Tenhauser Gate]
 
 [Homeworld] is a 3D space real-time strategy game released in 1999.
-It's source code was [released in 2003] by [Relic Entertainment], allowing a small but dedicated community of fans to port it to [SDL], enabling native versions for Linux, MacOS, and more recently, web browsers.
+Its source code was [released in 2003] by [Relic Entertainment], allowing a small but dedicated community of fans to port it to [SDL], enabling native versions for Linux, MacOS, and more recently, web browsers.
 
 💬 Join our [matrix space] or [discord]
+
+⚠️ Instructions below are unmaintained, and probably outdated. Please check one of the forks above first.
 
 [matrix space]: https://matrix.to/#/#homeworld-sdl:matrix.org
 [discord]: https://discord.gg/3hTsAsargq
@@ -23,8 +24,6 @@ It's source code was [released in 2003] by [Relic Entertainment], allowing a sma
 [Relic Entertainment]: https://www.relic.com/
 [Gardens of Kadesh]: https://gardensofkadesh.github.io/
 [Tenhauser Gate]: https://gitlab.com/homeworldsdl/TenhauserGate
-[Hiigara]: https://github.com/atsb/Hiigara
-
 
 ## Installing
 
