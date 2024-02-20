@@ -78,35 +78,34 @@ bool lmPaletted;
 
 LaunchShipsAvailable shipsavailable[LM_CORVETTE_SPACER+1];
 
-#define LM_NUMSHIPS     21
+#define LM_NUMSHIPS 20
 
-sdword PrintOrder[LM_NUMSHIPS] =
-{
-    LM_FIGHTER_SPACER   ,
+sdword PrintOrder[LM_NUMSHIPS + 1] = {
+    LM_FIGHTER_SPACER,
 
-    LightDefender       ,
-    HeavyDefender       ,
-    LightInterceptor    ,
-    HeavyInterceptor    ,
-    CloakedFighter      ,
-    DefenseFighter      ,
-    AttackBomber        ,
-    P1Fighter           ,
-    P2Swarmer           ,
-    P2AdvanceSwarmer    ,
+    LightDefender,
+    HeavyDefender,
+    LightInterceptor,
+    HeavyInterceptor,
+    CloakedFighter,
+    DefenseFighter,
+    AttackBomber,
+    P1Fighter,
+    P2Swarmer,
+    P2AdvanceSwarmer,
 
-    LM_CORVETTE_SPACER  ,
+    LM_CORVETTE_SPACER,
 
-    LightCorvette       ,
-    HeavyCorvette       ,
-    RepairCorvette      ,
-    SalCapCorvette      ,
-    MinelayerCorvette   ,
-    MultiGunCorvette    ,
-    P1StandardCorvette  ,
-    P1MissileCorvette   ,
+    LightCorvette,
+    HeavyCorvette,
+    RepairCorvette,
+    SalCapCorvette,
+    MinelayerCorvette,
+    MultiGunCorvette,
+    P1StandardCorvette,
+    P1MissileCorvette,
 
-    -1
+    -1, // sentinel value
 };
 
 // This is a bool that is TRUE if the ship is in the printlist. dynamically calculated
