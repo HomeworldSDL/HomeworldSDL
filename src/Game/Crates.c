@@ -683,7 +683,7 @@ void cratesUpdate()
         }
     }
 
-    if( (universe.univUpdateCounter & CRATES_ArePlayersNearUpdateMask) == CRATES_ArePlayersNearUpdateFrame)
+    if(UNIVERSE_WOODPECKER(CRATES_ArePlayersNearUpdateMask, CRATES_ArePlayersNearUpdateFrame))
     {
         //time to do a crate nearity check ;)
 
@@ -701,7 +701,7 @@ void cratesUpdate()
                     numChecked++;
 
                     //do time expiry checked here...
-                    if((universe.totaltimeelapsed - crate->creationTime) > CRATE_EXPIRY_TIME)
+                    if((universe.totaltimeelapsed - crate->creationTime) > (CRATE_EXPIRY_TIME * UNIVERSE_UPDATE_RATE_FACTOR))
                     {
                         expireCrate(crate);
                     }

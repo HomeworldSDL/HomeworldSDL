@@ -328,7 +328,7 @@ void ProximitySensorHouseKeep(Ship *ship)
         spec->sensorState = SENSOR_SENSE;
         break;
     case SENSOR_SENSE:
-        if((universe.univUpdateCounter & TW_ProximitySensorSearchRate) == TW_ProximitySensorSearchFrame)
+        if(UNIVERSE_WOODPECKER(TW_ProximitySensorSearchRate, TW_ProximitySensorSearchFrame))
         {   //its time to search for ships in vicinity
            if(DetectShips(ship))
            {    //enemy detected in vicinity....notifiy user..later through in # of Enemies?
@@ -370,7 +370,7 @@ void ProximitySensorHouseKeep(Ship *ship)
         if(spec->blipRadius >= (real32) proximitysensorstatics->SensorCircleRadius)
             spec->blipRadius = 0.0f;
 
-        if((universe.univUpdateCounter & TW_ProximitySensorSearchRate) == TW_ProximitySensorSearchFrame)
+        if(UNIVERSE_WOODPECKER(TW_ProximitySensorSearchRate, TW_ProximitySensorSearchFrame))
         {   //its time to search and see if Enemies STILL in vicinity...or if relief has come?
            if(!DetectShips(ship))
            {   //Enemies No longer being Detected
@@ -407,6 +407,3 @@ CustShipHeader ProximitySensorHeader =
     NULL,
     NULL
 };
-
-
-

@@ -118,7 +118,7 @@ scriptEntry ResCollectTweaks[] =
     makeEntry(regenerateRUs,scriptSetSdwordCB),
     makeEntry(CHECK_HARV_OUTOFWORLD_RESOURCE_RATE,scriptSetUdwordCB),
     makeEntry(CHECK_SHIP_OUTOFWORLD_RATE,scriptSetUdwordCB),
-    
+
     END_SCRIPT_ENTRY
 };
 
@@ -593,7 +593,7 @@ bool CollectResources(Ship *ship,Resource *resource)
         return FALSE;       // ship full, can't collect resources
     }
 
-    if ((universe.univUpdateCounter & shipstatic->harvestRate) == 0)
+    if (UNIVERSE_WOODPECKER(shipstatic->harvestRate, 0))
     {
         resourceWasAlive = ((resource->flags & SOF_Dead) == 0);
 
@@ -1097,7 +1097,7 @@ letsdock:
             return FALSE;
         }
 
-        if ((universe.univUpdateCounter & CHECK_HARV_OUTOFWORLD_RESOURCE_RATE) == (resource->resourceID.resourceNumber & CHECK_HARV_OUTOFWORLD_RESOURCE_RATE))
+        if (UNIVERSE_WOODPECKER(CHECK_HARV_OUTOFWORLD_RESOURCE_RATE, resource->resourceID.resourceNumber & CHECK_HARV_OUTOFWORLD_RESOURCE_RATE))
         {
             if (univObjectOutsideWorld((SpaceObj *)resource))
             {
@@ -1258,5 +1258,3 @@ void removeResourcerFromAttacking(Ship *ship)
         TurnHarvestEffectOff(ship);
     }
 }
-
-

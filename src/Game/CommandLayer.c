@@ -138,7 +138,7 @@ scriptEntry CommandLayerTweaks[] =
     makeEntry(SHRINKMAX,scriptSetReal32CB),
     makeEntry(FLY_INTO_WORLD_PERCENT_DIST,scriptSetReal32CB),
     makeEntry(RESCONTROLLER_FOLLOW_BEHIND,scriptSetReal32CB),
-    
+
     END_SCRIPT_ENTRY
 };
 
@@ -954,7 +954,7 @@ bool processPassiveAttackToDo(CommandToDo *attacktodo)
         {
             dbgAssertOrIgnore(shipstaticinfo->canTargetMultipleTargets);
 
-            if ((universe.univUpdateCounter & MULTIPLETARGETS_RETARGET_RATE) == (ship->shipID.shipNumber & MULTIPLETARGETS_RETARGET_RATE))
+            if (UNIVERSE_WOODPECKER(MULTIPLETARGETS_RETARGET_RATE, ship->shipID.shipNumber & MULTIPLETARGETS_RETARGET_RATE))
             {
                 pickMultipleAttackTargets(ship,attack);
             }
@@ -1115,7 +1115,7 @@ bool processAttackToDo(CommandToDo *attacktodo)
             {
                 dbgAssertOrIgnore(shipstaticinfo->canTargetMultipleTargets);
 
-                if ((universe.univUpdateCounter & MULTIPLETARGETS_RETARGET_RATE) == (ship->shipID.shipNumber & MULTIPLETARGETS_RETARGET_RATE))
+                if (UNIVERSE_WOODPECKER(MULTIPLETARGETS_RETARGET_RATE, ship->shipID.shipNumber & MULTIPLETARGETS_RETARGET_RATE))
                 {
                     pickMultipleAttackTargets(ship,attack);
                 }
@@ -1207,7 +1207,7 @@ bool processAttackToDo(CommandToDo *attacktodo)
 
             if (target != NULL)
             {
-                if ((universe.univUpdateCounter & checkbogeyrate) == (CHECKBOGEY_FRAME & checkbogeyrate))
+                if (UNIVERSE_WOODPECKER(checkbogeyrate, CHECKBOGEY_FRAME & checkbogeyrate))
                 {
                     if (!isThisShipThreateningMe(target,ship))
                     {
@@ -1276,7 +1276,7 @@ bool processAttackToDo(CommandToDo *attacktodo)
                     else
                     {
                         // ship is threatening me, perhaps a token pure evasive maneuver if we are in Evasive tactics?
-                        if ((ship->tacticstype == Evasive) && ((universe.univUpdateCounter & FLIGHTMAN_TOKEN_EVASIVEPURE_CHECKRATE) == FLIGHTMAN_TOKEN_EVASIVEPURE_CHECKFRAME))
+                        if ((ship->tacticstype == Evasive) && (UNIVERSE_WOODPECKER(FLIGHTMAN_TOKEN_EVASIVEPURE_CHECKRATE, FLIGHTMAN_TOKEN_EVASIVEPURE_CHECKFRAME)))
                         {
                             if ((gamerand() & 255) < FLIGHTMAN_TOKEN_EVASIVEPURE_PROB)
                             {
@@ -1806,7 +1806,7 @@ bool delegateCommand(CommandToDo *attacktodo,sdword group,sdword doform, SelectC
         {
             dbgAssertOrIgnore(shipstaticinfo->canTargetMultipleTargets);
 
-            if ((universe.univUpdateCounter & MULTIPLETARGETS_RETARGET_RATE) == (ship->shipID.shipNumber & MULTIPLETARGETS_RETARGET_RATE))
+            if (UNIVERSE_WOODPECKER(MULTIPLETARGETS_RETARGET_RATE, ship->shipID.shipNumber & MULTIPLETARGETS_RETARGET_RATE))
             {
                 pickMultipleAttackTargets(ship,attack);
             }
@@ -1967,7 +1967,7 @@ bool delegateCommand(CommandToDo *attacktodo,sdword group,sdword doform, SelectC
         {
             dbgAssertOrIgnore(shipstaticinfo->canTargetMultipleTargets);
 
-            if ((universe.univUpdateCounter & MULTIPLETARGETS_RETARGET_RATE) == (ship->shipID.shipNumber & MULTIPLETARGETS_RETARGET_RATE))
+            if (UNIVERSE_WOODPECKER(MULTIPLETARGETS_RETARGET_RATE, ship->shipID.shipNumber & MULTIPLETARGETS_RETARGET_RATE))
             {
                 pickMultipleAttackTargets(ship,attack);
             }
@@ -2215,7 +2215,7 @@ bool processAttackToDoInFormation(CommandToDo *attacktodo)
             if(attacktodo->formation.formationtype == SPHERE_FORMATION)
             {
                 //do this check infrequently
-                if ((universe.univUpdateCounter & SPHERE_CHECK_TARGET_MASK) == SPHERE_CHECK_TARGET_FRAME)
+                if (UNIVERSE_WOODPECKER(SPHERE_CHECK_TARGET_MASK, SPHERE_CHECK_TARGET_FRAME))
                 {
                     if(targetIsntNearShip(ship,ship->attackvars.attacktarget))
                     {
@@ -2230,7 +2230,7 @@ bool processAttackToDoInFormation(CommandToDo *attacktodo)
         {
             dbgAssertOrIgnore(shipstaticinfo->canTargetMultipleTargets);
 
-            if ((universe.univUpdateCounter & MULTIPLETARGETS_RETARGET_RATE) == (ship->shipID.shipNumber & MULTIPLETARGETS_RETARGET_RATE))
+            if (UNIVERSE_WOODPECKER(MULTIPLETARGETS_RETARGET_RATE, ship->shipID.shipNumber & MULTIPLETARGETS_RETARGET_RATE))
             {
                 pickMultipleAttackTargets(ship,attack);
             }
@@ -8311,7 +8311,7 @@ void clProcess(CommandLayer *comlayer)
                                 {
                                     if(command->ordertype.attributes & COMMAND_MASK_ATTACKING_AND_MOVING)
                                     {
-                                        if((universe.univUpdateCounter & CHECK_ATTACKMOVE_TO_MOVE_RATE)==CHECK_ATTACKMOVE_TO_MOVE_FRAME)
+                                        if(UNIVERSE_WOODPECKER(CHECK_ATTACKMOVE_TO_MOVE_RATE, CHECK_ATTACKMOVE_TO_MOVE_FRAME))
                                         if(getRangeToClosestTarget(command) >= tacticsInfo.movingAttackTurnsIntoMoveCommandDistanceSqr)
                                         {
                                             if(command->selection->ShipPtr[0]->aistatecommand == 0)
@@ -8367,7 +8367,7 @@ void clProcess(CommandLayer *comlayer)
                                 {
                                     if(command->ordertype.attributes & COMMAND_MASK_ATTACKING_AND_MOVING)
                                     {
-                                        if((universe.univUpdateCounter & CHECK_ATTACKMOVE_TO_MOVE_RATE)==CHECK_ATTACKMOVE_TO_MOVE_FRAME)
+                                        if(UNIVERSE_WOODPECKER(CHECK_ATTACKMOVE_TO_MOVE_RATE, CHECK_ATTACKMOVE_TO_MOVE_FRAME))
                                         if(getRangeToClosestTarget(command) >= tacticsInfo.movingAttackTurnsIntoMoveCommandDistanceSqr)
                                         {
                                             if(command->selection->ShipPtr[0]->aistatecommand == 0)
@@ -8679,7 +8679,7 @@ processdock:
                     {
                         if(command->ordertype.attributes & COMMAND_MASK_ATTACKING_AND_MOVING)
                         {
-                            if((universe.univUpdateCounter & CHECK_ATTACKMOVE_TO_MOVE_RATE)==CHECK_ATTACKMOVE_TO_MOVE_FRAME)
+                            if(UNIVERSE_WOODPECKER(CHECK_ATTACKMOVE_TO_MOVE_RATE, CHECK_ATTACKMOVE_TO_MOVE_FRAME))
                             if(getRangeToClosestTarget(command) >= tacticsInfo.movingAttackTurnsIntoMoveCommandDistanceSqr)
                             {
                                 //it is at this distance that the group of ships turns and hitails it out of there...

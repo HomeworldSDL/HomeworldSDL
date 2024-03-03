@@ -193,7 +193,7 @@ scriptEntry AIShipTweaks[] =
     makeEntry(DONTUSEVELOCITYPRED_IFBELOW,scriptSetReal32CB),
     { "rowDetails", rowSetDetails, NULL },
     { "AISHIP_OTHER_CALCULATIONS", scriptAIShipPrecalculate, NULL },        // should go last
-    
+
     END_SCRIPT_ENTRY
 };
 
@@ -1911,7 +1911,7 @@ bool aishipGuideMissile(Missile *missile)
         }
         else if(missile->haveCheckedForLoss < tweakNumTimesCheck)
         {
-            if((universe.univUpdateCounter & tweakCheckMissileTargetLossRate) == (universe.univUpdateCounter & missile->missileID.missileNumber))
+            if(UNIVERSE_WOODPECKER(tweakCheckMissileTargetLossRate, universe.univUpdateCounter & missile->missileID.missileNumber))
             {
                 if(shouldMissileLoseTarget(missile))
                 {
@@ -2257,7 +2257,7 @@ Ship *aishipmineaquiretarget(Missile *mine)
 // If it is time, it orders a search for a target
 bool mine_do_search(Missile *mine)
 {
-    if((universe.univUpdateCounter & MINE_DO_SEARCH_MASK) == (mine->missileID.missileNumber & MINE_DO_SEARCH_MASK))
+    if(UNIVERSE_WOODPECKER(MINE_DO_SEARCH_MASK, mine->missileID.missileNumber & MINE_DO_SEARCH_MASK))
     {   //only do a check ever MINE_DO_SEARCH_MASKth frame...much quicker!
         if(mine->target == NULL)
         {

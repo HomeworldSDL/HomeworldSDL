@@ -622,7 +622,7 @@ void DefenseFighterHouseKeep(Ship *ship)
                 bulletnode=bulletnode->next;
                 continue;
             }
-            if((universe.univUpdateCounter & defensefighterstatics->DamageRate) == 0)
+            if(UNIVERSE_WOODPECKER(defensefighterstatics->DamageRate, 0))
             {
                 // Time to do damage...
                 //Do damage to bullet
@@ -651,7 +651,7 @@ void DefenseFighterHouseKeep(Ship *ship)
             if(defensestruct->laser != NULL)
             {
                 //check if bullet is still in range and infront...
-                if((universe.univUpdateCounter & defensefighterstatics->RangeCheckRate) == 0)
+                if(UNIVERSE_WOODPECKER(defensefighterstatics->RangeCheckRate, 0))
                 {
                     //time to check if in front
                     vecSub(seperationvector, ship->posinfo.position, defensestruct->bullet->posinfo.position);
@@ -1093,4 +1093,3 @@ CustShipHeader DefenseFighterHeader =
     DefenseFighter_Load,
     DefenseFighter_Fix
 };
-

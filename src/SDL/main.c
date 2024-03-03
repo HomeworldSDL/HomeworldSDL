@@ -59,6 +59,7 @@
 #include "Task.h"
 #include "TitanNet.h"
 #include "utility.h"
+#include "Universe.h"
 
 #ifdef _WIN32
     #define WIN32_LEAN_AND_MEAN
@@ -275,7 +276,8 @@ udword initialSensorLevel = 0;
 bool pilotView = FALSE;
 
 bool debugScreenshots = FALSE;
-
+bool vanillaMode = FALSE;
+extern ubyte UNIVERSE_UPDATE_RATE_SHIFT;
 
 /*=============================================================================
     Functions:
@@ -841,6 +843,7 @@ commandoption commandOptions[] =
     entryVr("/pilotView",           pilotView, TRUE, " - enable pilot view.  Focus on single ship and hit Q to toggle."),
 
     entryVr("/debugScreenshots",    debugScreenshots, TRUE, " - take screenshots from all single-player missions for render debugging then exit."),
+    entryVr("/vanilla",              vanillaMode, TRUE, " - restore original engine behaviour (Universe update rate)."),
 
     END_COMMAND_OPTION,
 };
@@ -2108,6 +2111,12 @@ int main (int argc, char* argv[])
     if (ProcessCommandLine(argc, argv) != OKAY)
     {
         return 0;
+    }
+
+    // set everything back to original behaviour
+    if (vanillaMode)
+    {
+        UNIVERSE_UPDATE_RATE_SHIFT = 0;
     }
 
     if (selectedRES)

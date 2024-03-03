@@ -13,6 +13,7 @@
 #include "Region.h"
 #include "TitanInterfaceC.h"
 #include "Types.h"
+#include "Universe.h"
 
 /*=============================================================================
     Switches:
@@ -35,7 +36,7 @@
     Definitions:
 =============================================================================*/
 #define UTY_ErrorStringLength       256
-#define UTY_TimerResolutionMax      240         //maximum timer resolution
+#define UTY_TimerResolutionMax (15 * UNIVERSE_UPDATE_RATE) // maximum timer resolution
 //bit-field flags stating which system has started properly
 typedef enum
 {

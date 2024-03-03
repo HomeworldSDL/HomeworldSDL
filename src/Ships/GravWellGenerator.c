@@ -505,7 +505,7 @@ void GravWellGeneratorHouseKeep(Ship *ship)
                 spec->gravityEffect = NULL;
             }
         }
-        else if ((universe.univUpdateCounter & gravwellgeneratorstatics->scanrate) == gravwellgeneratorstatics->scanrate)
+        else if (UNIVERSE_WOODPECKER(gravwellgeneratorstatics->scanrate, gravwellgeneratorstatics->scanrate))
         {       //15th frame..so do a search on other ships withing 'proximity'
             if (spec->gravityEffect == NULL)
             {
@@ -545,7 +545,7 @@ etgLOD = etgSpecialPurposeEffectTable[EGT_GRAVWELL_ON];
                 }
 
             }
- 
+
 			GravAddObjectsInProximity(ship);
         }
 
@@ -751,4 +751,3 @@ CustShipHeader GravWellGeneratorHeader =
     GravWellGenerator_Load,
     GravWellGenerator_Fix
 };
-

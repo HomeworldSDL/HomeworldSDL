@@ -843,7 +843,7 @@ void aiplayerUpdateAll(void)
             {
                 aiCurrentAIPlayer = universe.players[1].aiPlayer;
                 dbgAssertOrIgnore(aiCurrentAIPlayer);
-                if ((universe.univUpdateCounter & aiCurrentAIPlayer->aiplayerUpdateRate) == (SP_KAS_UPDATE_FRAME & aiCurrentAIPlayer->aiplayerUpdateRate))
+                if (UNIVERSE_WOODPECKER(aiCurrentAIPlayer->aiplayerUpdateRate, SP_KAS_UPDATE_FRAME & aiCurrentAIPlayer->aiplayerUpdateRate))
                 {
                     universe.aiplayerProcessing = TRUE;
                     kasExecute();
@@ -858,7 +858,7 @@ void aiplayerUpdateAll(void)
             {
                 if ((aiplayer = universe.players[i].aiPlayer) != NULL)
                 {
-                    if (((universe.univUpdateCounter & aiplayer->aiplayerUpdateRate) == (i & aiplayer->aiplayerUpdateRate)) &&
+                    if (UNIVERSE_WOODPECKER(aiplayer->aiplayerUpdateRate, i & aiplayer->aiplayerUpdateRate) &&
                         (aiplayer->player->playerState != PLAYER_DEAD) &&
                         (!mrNoAI))
                     {
@@ -871,7 +871,7 @@ void aiplayerUpdateAll(void)
         if(tutorial==TUTORIAL_ONLY)
         {
             // In the tutorial, execute Kas script every other frame - we want REALTIME Kas.
-            if( (universe.univUpdateCounter & TUTORIAL_KAS_UPDATE_MASK) == TUTORIAL_KAS_UPDATE_FRAME)
+            if(UNIVERSE_WOODPECKER(TUTORIAL_KAS_UPDATE_MASK, TUTORIAL_KAS_UPDATE_FRAME))
                 kasExecute();
         }
     }

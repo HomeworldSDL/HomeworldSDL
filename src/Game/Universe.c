@@ -72,6 +72,8 @@ extern real32 GLOBAL_SHIP_SPEED_MODIFIER;
     Public Data:
 =============================================================================*/
 
+ubyte UNIVERSE_UPDATE_RATE_SHIFT = 2;
+
 Universe universe;
 AsteroidStaticInfo asteroidStaticInfos[NUM_ASTEROIDTYPES];
 DustCloudStaticInfo dustcloudStaticInfos[NUM_DUSTCLOUDTYPES];

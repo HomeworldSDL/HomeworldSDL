@@ -1917,7 +1917,11 @@ void collCheckBeamColl(blob *thisBlob,Bullet *bullet)
     if (minbeamTarget != NULL)        // beam only collides with closest target
     {
         dbgAssertOrIgnore(minbeamCollideLineDist >= 0.0f);
-        univBulletCollidedWithTarget(minbeamTarget,&minbeamTarget->staticinfo->staticheader,bullet,minbeamCollideLineDist,minbeamCollSide);
+
+        // don't apply beam damage every tick, correct with update rate factor
+        if ((universe.univUpdateCounter % (UNIVERSE_UPDATE_RATE_FACTOR)) == 0) {
+            univBulletCollidedWithTarget(minbeamTarget,&minbeamTarget->staticinfo->staticheader,bullet,minbeamCollideLineDist,minbeamCollSide);
+        }
         bullet->beamtraveldist = minbeamCollideLineDist;
     }
     else

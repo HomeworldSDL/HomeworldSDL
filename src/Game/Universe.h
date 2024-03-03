@@ -41,9 +41,16 @@
     Defines:
 =============================================================================*/
 
-#define UNIVERSE_UPDATE_RATE        16
-#define UNIVERSE_UPDATE_PERIOD      (1.0f/(real32)UNIVERSE_UPDATE_RATE)
+#define UNIVERSE_UPDATE_RATE_ORIG   16          // original update rate
+extern ubyte UNIVERSE_UPDATE_RATE_SHIFT;          // define multiplier in shift values (e.g. 2^n) to preserve original timing, set to 2 in universe.c
+                                                // original behaviour with 16 updates per second (shift=0) can be restored with /legacy command line option.
+#define UNIVERSE_UPDATE_RATE_FACTOR (1<<UNIVERSE_UPDATE_RATE_SHIFT)
+#define UNIVERSE_UPDATE_RATE (UNIVERSE_UPDATE_RATE_ORIG*UNIVERSE_UPDATE_RATE_FACTOR)
+#define UNIVERSE_UPDATE_PERIOD (1.0f/(real32)UNIVERSE_UPDATE_RATE)
 #define UNIVERSE_UPDATE_STACK_SIZE  100000
+
+// macro to adapt the original update rate to the higher one
+#define UNIVERSE_WOODPECKER(r, f) (((universe.univUpdateCounter % UNIVERSE_UPDATE_RATE_FACTOR) == 0) && (((universe.univUpdateCounter >> UNIVERSE_UPDATE_RATE_SHIFT) & r) == (f)))
 
 #define RENDER_STACK_SIZE 100000
 

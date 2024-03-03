@@ -3862,17 +3862,13 @@ DEFINE_TASK(rndRenderTask)
         if (rndDisplayCollStats) profTimerStatsPrint(&y);        // compiled out automatically if PROFILE_TIMERS not defined
 #endif
 
-// remove this when we merged in the higher universe update rate changes
-#ifndef UNIVERSE_UPDATE_RATE_FACTOR
-#define UNIVERSE_UPDATE_RATE_FACTOR 1
-#endif
         // Automatic screenshot generation for render debugging
         if (debugScreenshots) {
             mouseCursorHide();
             
             char screenshotName[64];
             static MissionEnum screenshotMission = 0;
-            static sdword screenshotTimer = 128 * UNIVERSE_UPDATE_RATE_FACTOR;
+            static sdword screenshotTimer = 0;
 
             // Reset the screenshot timer if we've changed missions
             if (screenshotMission != spGetCurrentMission()) {

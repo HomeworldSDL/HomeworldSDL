@@ -501,7 +501,7 @@ void physUpdateObjPosVel(SpaceObj *obj,real32 phystimeelapsed)
             if (coordsysChanged)
             {
                 matMultiplyMatByVec(&irobj->collInfo.collOffset,&(irobj->rotinfo.coordsys),&staticheader->staticCollInfo.collsphereoffset);
-                if ((universe.univUpdateCounter & UPDATE_COLLRECT_RATE) == UPDATE_COLLRECT_FRAME)
+                if (UNIVERSE_WOODPECKER(UPDATE_COLLRECT_RATE, UPDATE_COLLRECT_FRAME))
                     collUpdateCollRectangle(irobj);
             }
 
@@ -525,7 +525,10 @@ void physUpdateObjPosVel(SpaceObj *obj,real32 phystimeelapsed)
                 missile->enginePosition = obj->posinfo.position;
                 if (missile->trail != NULL)
                 {
-                    mistrailUpdate(missile->trail, &missile->enginePosition);
+                    if((universe.univUpdateCounter % UNIVERSE_UPDATE_RATE_FACTOR) == 0)
+                    {
+                        mistrailUpdate(missile->trail, &missile->enginePosition);
+                    }
                 }
             }
         }
@@ -762,7 +765,7 @@ void physUpdateObjPosVelShip(Ship *obj,real32 phystimeelapsed)
             if (coordsysChanged)
             {
                 matMultiplyMatByVec(&irobj->collInfo.collOffset,&(irobj->rotinfo.coordsys),&staticheader->staticCollInfo.collsphereoffset);
-                if ((universe.univUpdateCounter & UPDATE_COLLRECT_RATE) == UPDATE_COLLRECT_FRAME)
+                if (UNIVERSE_WOODPECKER(UPDATE_COLLRECT_RATE, UPDATE_COLLRECT_FRAME))
                     collUpdateCollRectangle(irobj);
             }
 
@@ -930,7 +933,7 @@ void physUpdateObjPosVelDerelicts(Derelict *obj,real32 phystimeelapsed)
             if (coordsysChanged)
             {
                 matMultiplyMatByVec(&irobj->collInfo.collOffset,&(irobj->rotinfo.coordsys),&staticheader->staticCollInfo.collsphereoffset);
-                if ((universe.univUpdateCounter & UPDATE_COLLRECT_RATE) == UPDATE_COLLRECT_FRAME)
+                if (UNIVERSE_WOODPECKER(UPDATE_COLLRECT_RATE, UPDATE_COLLRECT_FRAME))
                     collUpdateCollRectangle(irobj);
             }
 
@@ -1075,7 +1078,7 @@ void physUpdateObjPosVelMissile(Missile *obj,real32 phystimeelapsed)
             if (coordsysChanged)
             {
                 matMultiplyMatByVec(&irobj->collInfo.collOffset,&(irobj->rotinfo.coordsys),&staticheader->staticCollInfo.collsphereoffset);
-                if ((universe.univUpdateCounter & UPDATE_COLLRECT_RATE) == UPDATE_COLLRECT_FRAME)
+                if (UNIVERSE_WOODPECKER(UPDATE_COLLRECT_RATE, UPDATE_COLLRECT_FRAME))
                     collUpdateCollRectangle(irobj);
             }
 
@@ -1084,7 +1087,10 @@ void physUpdateObjPosVelMissile(Missile *obj,real32 phystimeelapsed)
             obj->enginePosition = obj->posinfo.position;
             if (obj->trail != NULL)
             {
-                mistrailUpdate(obj->trail, &obj->enginePosition);
+                if((universe.univUpdateCounter % UNIVERSE_UPDATE_RATE_FACTOR) == 0)
+                {
+                    mistrailUpdate(obj->trail, &obj->enginePosition);
+                }
             }
         }
         vecZeroVector(robj->rotinfo.torque);
@@ -1219,7 +1225,7 @@ void physUpdateObjPosVelBasic(SpaceObj *obj,real32 phystimeelapsed)
             if (coordsysChanged)
             {
                 matMultiplyMatByVec(&irobj->collInfo.collOffset,&(irobj->rotinfo.coordsys),&staticheader->staticCollInfo.collsphereoffset);
-                if ((universe.univUpdateCounter & UPDATE_COLLRECT_RATE) == UPDATE_COLLRECT_FRAME)
+                if (UNIVERSE_WOODPECKER(UPDATE_COLLRECT_RATE, UPDATE_COLLRECT_FRAME))
                     collUpdateCollRectangle(irobj);
             }
 
@@ -1232,5 +1238,3 @@ void physUpdateObjPosVelBasic(SpaceObj *obj,real32 phystimeelapsed)
 
     vecZeroVector(obj->posinfo.force);
 }
-
-

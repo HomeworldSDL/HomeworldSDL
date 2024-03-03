@@ -106,7 +106,7 @@ scriptEntry FormationTweaks[] =
     makeEntry(FORMATION_ERROR_NEGLIGIBLE,scriptSetReal32CB),
     makeEntry(TARGETDRONE_FORMATION_SIZE,scriptSetReal32CB),
     makeEntry(SPHERESIZE_IGNORE_NUMDECLINATIONS,scriptSetReal32CB),
-    
+
     END_SCRIPT_ENTRY
 };
 
@@ -442,9 +442,9 @@ SphereTableEntry *findSphereTableEntry(sdword numShips)
             return tableentry;
         }
     }
-    
+
     dbgFatal(DBG_Loc,"\nSphere formation too big");
-    
+
     // never going to get here because of the dbgFatal above; this is here just to keep the compiler happy
     return tableentry;
 }
@@ -984,7 +984,7 @@ void processFormationToDo(struct CommandToDo *formationtodo,bool steadyFormation
     vector heading;
     real32 error = 0;
     vector errorvect;
-    bool calcError = ((universe.univUpdateCounter & FORMATION_ERROR_CALCULATE_RATE) == FORMATION_ERROR_CALCULATE_FRAME);
+    bool calcError = (UNIVERSE_WOODPECKER(FORMATION_ERROR_CALCULATE_RATE, FORMATION_ERROR_CALCULATE_FRAME));
     // write to leader->formationcommand instead of formationtodo - formationtodo might be a fakeCommand from delegateCommand
     CommandToDo *formationtomodify = leader->formationcommand;
 
@@ -3562,5 +3562,3 @@ void unlockFormation(CommandToDo *formationcommand)
     //dbgAssertOrIgnore(formationcommand->formation.formationLocked == TRUE);
     formationcommand->formation.formationLocked = FALSE;
 }
-
-

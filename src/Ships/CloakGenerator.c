@@ -332,7 +332,7 @@ void CloakGeneratorHouseKeep(Ship *ship)
     if(spec->CloakOn == TRUE)       //Cloaking Generator is On
     {
         //15th frame..so do a search on other ships within 'proximity'
-        if ((universe.univUpdateCounter & CLOAKGENERATOR_CLOAKCHECK_RATE) == (ship->shipID.shipNumber & CLOAKGENERATOR_CLOAKCHECK_RATE))
+        if (UNIVERSE_WOODPECKER(CLOAKGENERATOR_CLOAKCHECK_RATE, ship->shipID.shipNumber & CLOAKGENERATOR_CLOAKCHECK_RATE))
         {
             CloakAddObjectsInProximity(ship);   //this opp is slow!  So maybe decrease frequency
         }
@@ -384,7 +384,7 @@ void CloakGeneratorHouseKeep(Ship *ship)
 
         // wierd crash ...
 
-		if (spaceobj==NULL) 
+		if (spaceobj==NULL)
 		{
 			temp = cloaknode;
 			cloaknode = cloaknode->next;
@@ -392,7 +392,7 @@ void CloakGeneratorHouseKeep(Ship *ship)
 			listDeleteNode(temp);
 			continue;
 		}
-		
+
 		//if spaceobj is dead for some reason, remove its references and stop bothering with it
         if (bitTest(spaceobj->flags,SOF_Dead))
         {   //dead so get rid of quickly...
@@ -403,7 +403,7 @@ void CloakGeneratorHouseKeep(Ship *ship)
 
         //perform a change check!
         //this seems like a waste because we are AGAIN calculating distances.  Do better later!
-        if ((universe.univUpdateCounter & CLOAKGENERATOR_CLOAKCHECK_RATE) == (ship->shipID.shipNumber & CLOAKGENERATOR_CLOAKCHECK_RATE))
+        if (UNIVERSE_WOODPECKER(CLOAKGENERATOR_CLOAKCHECK_RATE, ship->shipID.shipNumber & CLOAKGENERATOR_CLOAKCHECK_RATE))
         {
             vecSub(diff,spaceobj->posinfo.position,ship->posinfo.position);
             distanceSqr = vecMagnitudeSquared(diff);
@@ -611,4 +611,3 @@ CustShipHeader CloakGeneratorHeader =
     CloakGenerator_Load,
     CloakGenerator_Fix
 };
-

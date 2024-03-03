@@ -1671,7 +1671,7 @@ void tacticsUpdateOrderStatus(Ship *ship)
 
     //scan to see if enemies are near by
 
-    if((universe.univUpdateCounter & EnemyNearByCheckRate) == EnemyNearByCheckFrame)
+    if(UNIVERSE_WOODPECKER(EnemyNearByCheckRate, EnemyNearByCheckFrame))
     {
         if(command != NULL)
         {
@@ -1882,7 +1882,7 @@ void tacticsGlobalUpdate()
 #endif
     //Deal with retreats here:
 
-    if((universe.univUpdateCounter & RetreatCheckRate) == RetreatCheckFrame)
+    if(UNIVERSE_WOODPECKER(RetreatCheckRate, RetreatCheckFrame))
     {
         //time to do tactics update
         vector tempvec2;
@@ -1989,7 +1989,7 @@ void tacticsGlobalUpdate()
         }
     }
 
-    if((universe.univUpdateCounter & ATTACKMEMORY_CLEANUP_RATE) == ATTACKMEMORY_CLEANUP_FRAME)
+    if(UNIVERSE_WOODPECKER(ATTACKMEMORY_CLEANUP_RATE, ATTACKMEMORY_CLEANUP_FRAME))
     {
         //perform attackmemory cleanups...
         rnode = universe.AttackMemory.head;
@@ -2299,4 +2299,3 @@ bool tacticsHasShipRetreatedFromShip(Ship *shipA, Ship *shipB)
     }
     return FALSE;
 }
-

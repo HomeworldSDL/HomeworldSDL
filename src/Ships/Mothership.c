@@ -76,7 +76,7 @@ scriptStructEntry MothershipStaticTable[] =
     END_SCRIPT_STRUCT_ENTRY
 };
 
-real32 DOCKPOINT_BUSY_TOO_LONG = UNIVERSE_UPDATE_RATE * 60;
+#define DOCKPOINT_BUSY_TOO_LONG (UNIVERSE_UPDATE_RATE * 60)
 
 void MothershipStaticInit(char *directory,char *filename,struct ShipStaticInfo *statinfo)
 {
