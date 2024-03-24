@@ -3,4 +3,14 @@ Language:        Cpp
 BasedOnStyle:  LLVM
 IndentWidth:     4
 ColumnLimit:     120
+# Match existing style in codebase
+AlignConsecutiveMacros: true
+# Match existing style in codebase
+IndentCaseLabels: true
+# The pointer is part of the type, not of the variable name. Keep it tacked onto to the type
+PointerAlignment: Left
+# More consistent when qualifying pointers (int const* const)
+QualifierAlignment: Right
+# Make ambiguous if continuation less likely (easier to see when it's all on a single line. If it's too long, it probably shouldn't be a one-liner anyway)
+AllowShortIfStatementsOnASingleLine: AllIfsAndElse
 ...
