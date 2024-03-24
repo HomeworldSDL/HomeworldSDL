@@ -37,7 +37,7 @@ elif build_machine.system() == 'windows'
 
 endif
 
-if get_option('debug')
+if get_option('debug') and get_option('debug_asserts')
 	c_args = c_base_args + '-DHW_BUILD_FOR_DEBUGGING'
 else
 	c_args = c_base_args + '-DHW_BUILD_FOR_DISTRIBUTION'
