@@ -20,8 +20,8 @@
 
 #define MEM_MODULE_TEST         0               //test the module
 #define MEM_ERROR_CHECKING      1               //basic error checking
-#define MEM_CLEAR_MEM           1               //clear newly allocated blocks to all clear code
-#define MEM_CLEAR_MEM_ON_FREE   1               //clear newly freed blocks to all clear code
+#define MEM_CLEAR_MEM           0               // don't clear any blocks to zeros
+#define MEM_CLEAR_MEM_ON_FREE   0               // clear newly freed blocks to all clear code
 #define MEM_VERBOSE_LEVEL       1               //control verbose printing
 #define MEM_USE_NAMES           1               //use names in allocated blocks
 #define MEM_DEFRAGMENT_FREE     1               //attempt to join with adjacent free block(s) when freeing
@@ -41,8 +41,8 @@
 
 #define MEM_MODULE_TEST         0               //don't test the module
 #define MEM_ERROR_CHECKING      0               //no error ckecking in retail
-#define MEM_CLEAR_MEM           0               //don't clear any blocks to zeros
-#define MEM_CLEAR_MEM_ON_FREE   0               //clear newly freed blocks to all clear code
+#define MEM_CLEAR_MEM           1               // clear newly allocated blocks to all clear code
+#define MEM_CLEAR_MEM_ON_FREE   1               // clear newly freed blocks to all clear code
 #define MEM_VERBOSE_LEVEL       0               //don't print any verbose strings in retail
 #define MEM_USE_NAMES           0               //no names please ma'am
 #define MEM_DEFRAGMENT_FREE     1               //attempt to join with adjacent free block(s) when freeing
