@@ -768,11 +768,12 @@ bool animBinkPlay(sdword a, sdword b)
 ----------------------------------------------------------------------------*/
 bool animAviPlay(sdword a, sdword b)
 {
+    bool rval = TRUE;
+
 #if AVI_VERBOSE_LEVEL >= 2
     dbgMessage("animAviPlay: Entering");
 #endif
 
-    bool rval = TRUE;
 
 #ifdef HW_ENABLE_MOVIES
 
