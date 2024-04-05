@@ -62,22 +62,22 @@
     Data:
 =============================================================================*/
 extern regionhandle ghMainRegion;
-bool nisScreenStarted = FALSE;
+bool32 nisScreenStarted = FALSE;
 
-bool nisIsRunning = FALSE;
-bool nisCaptureCamera = FALSE;
-bool nisEnabled = TRUE;
+bool32 nisIsRunning = FALSE;
+bool32 nisCaptureCamera = FALSE;
+bool32 nisEnabled = TRUE;
 Camera *nisCamera = NULL;
 
 #if NIS_TIME_CONTROLS
 real32 nisPlayFactor = 1.0f;
 #endif
-bool nisPaused = FALSE;
+bool32 nisPaused = FALSE;
 
 #if NIS_PRINT_INFO
 char nisInfoString[256] = "";
-bool nisPrintInfo = FALSE;
-bool nisNoLockout = FALSE;
+bool32 nisPrintInfo = FALSE;
+bool32 nisNoLockout = FALSE;
 #endif
 
 //for scanning the script part of an NIS
@@ -208,8 +208,8 @@ real32 nisCurrentTime = REALlyBig;              //current time for subsequent ev
 nisheader *testHeader;
 nisplaying *testPlaying = 0;
 taskhandle nisTaskHandle;
-bool nisTaskToPause = FALSE;                    //task to be paused at end of loading
-bool nisTaskToResume = FALSE;                   //task to be resumed at end of loading
+bool32 nisTaskToPause = FALSE;                    //task to be paused at end of loading
+bool32 nisTaskToResume = FALSE;                   //task to be resumed at end of loading
 
 nisplaying *thisNisPlaying = NULL;
 nisheader *thisNisHeader = NULL;
@@ -232,7 +232,7 @@ real32 nisTextScrollDistance = 0.0f;
 //information for zooming the camera and fading in the scissor window
 real32 nisCameraCutTime = 0.0f;
 real32 nisCameraCutStage2 = -1.0f;
-bool nisCameraCutOut = FALSE;
+bool32 nisCameraCutOut = FALSE;
 tcb nisCameraParams[NIS_NCameraKeys] =
 {                                               //b-spline parameters
     {0.8f, 0.0f, 0.0f},
@@ -252,16 +252,16 @@ real32 nisScissorFade = 0.0f;                   //current fade amount (0..1)
 real32 nisBlackFade = 0.0f;                     //the current fade level (0 = normal, 1 = fully faded out)
 real32 nisBlackFadeDest = 0.0f;                 //what we're fading to
 real32 nisBlackFadeRate = 0.0f;                 //at what speed
-bool nisFullyScissored = FALSE;                 //is scissor fully opaque?
-bool bCameraFocussed;                           //set to TRUE if the camera was focussed on command of the script file
-bool bPerfectFocusComputed;                     //set to TRUE when nisBlendCameraEndPoint called
-bool nisSeeking = FALSE;                        //set to TRUE during seeks
-bool nisNewNISStarted = FALSE;                  //set to TRUE when a new NIS is started by an event
+bool32 nisFullyScissored = FALSE;                 //is scissor fully opaque?
+bool32 bCameraFocussed;                           //set to TRUE if the camera was focussed on command of the script file
+bool32 bPerfectFocusComputed;                     //set to TRUE when nisBlendCameraEndPoint called
+bool32 nisSeeking = FALSE;                        //set to TRUE during seeks
+bool32 nisNewNISStarted = FALSE;                  //set to TRUE when a new NIS is started by an event
 real32 nisPreviousCameraDistance = 10.0f;       //zoom distance of the camera when the NIS started
 
 //music playing stuffs.
 real32 nisPreviousSFXVolume, nisPreviousSpeechVolume, nisPreviousMusicVolume;
-bool nisMusicPlaying = FALSE;
+bool32 nisMusicPlaying = FALSE;
 //for pausing/hiding the universe
 bool8 nisUniversePause = FALSE;
 bool8 nisUniverseHidden = FALSE;
@@ -1446,7 +1446,7 @@ void nisSeek(nisplaying *NIS, real32 seekTime)
     Ship *newShip = NULL;
     vector position, startVector;
     real32 seekAmount = 0.0;
-    bool seekRelative;
+    bool32 seekRelative;
     splinecurve *curve;
 /*
     vector xyz, xyzTemp, rot;
@@ -1644,7 +1644,7 @@ void nisObjectHierarchyMatrixCompute(objectmotion *paths, sdword index, matrix *
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void nisPause(bool bPause)
+void nisPause(bool32 bPause)
 {
     nisPaused = bPause;
 }
@@ -5111,7 +5111,7 @@ void nisDelete(nisheader *header)
                         if not found
     Return      : TRUE if found, FALSE otherwise
 ----------------------------------------------------------------------------*/
-bool nisShipStartPosition(vector *destVector, matrix *destMatrix, nisheader *header, ShipRace race, ShipType type, sdword instance)
+bool32 nisShipStartPosition(vector *destVector, matrix *destMatrix, nisheader *header, ShipRace race, ShipType type, sdword instance)
 {
     spaceobjpath *path;
     sdword index, firstIndex = -1;

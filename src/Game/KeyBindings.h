@@ -84,7 +84,7 @@ void kbRestoreSavedSettings(void);
 void kbSaveSettings(void);
 
 udword kbKeyBoundToCommand(udword command);
-bool kbCommandKeyIsHit(udword command);
+bool32 kbCommandKeyIsHit(udword command);
 
 void kbInitKeyBindings(void);
 

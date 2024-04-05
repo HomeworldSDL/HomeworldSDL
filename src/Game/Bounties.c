@@ -35,7 +35,7 @@ sdword getPlayerBountyRender(Player *player)
     return(player->bounty);
 }
 //called ONLY deterministically...
-void calculatePlayerBounties()
+void calculatePlayerBounties(void)
 {
     real32 worth[MAX_MULTIPLAYER_PLAYERS];
     real32 shipworth[MAX_MULTIPLAYER_PLAYERS];

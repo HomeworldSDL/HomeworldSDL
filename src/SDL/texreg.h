@@ -321,17 +321,17 @@ extern char *trDetailColorNames[];
 extern char *trOtherLayerNames[];
 extern char *trAllLayerNames[];
 #if TR_DEBUG_TEXTURES
-extern bool trSpecialTextures;
+extern bool32 trSpecialTextures;
 #endif
 extern sdword texLinearFiltering;               //enable bi-linear filtering
 
 extern real32 trBaseColorScalar;
 extern real32 trStripeColorScalar;
 
-extern bool trNoPalettes;
+extern bool32 trNoPalettes;
 
 #if TR_NIL_TEXTURE
-extern bool GLOBAL_NO_TEXTURES;
+extern bool32 GLOBAL_NO_TEXTURES;
 #endif
 
 /*=============================================================================
@@ -368,7 +368,7 @@ void trMakeCurrent(trhandle handle);
 //functions for directly manipulating textures, without having to go through
 //the texture registry
 udword trPalettedTextureCreate(ubyte *data, color *palette, sdword width, sdword height);
-udword trRGBTextureCreate(color *data, sdword width, sdword height, bool useAlpha);
+udword trRGBTextureCreate(color *data, sdword width, sdword height, bool32 useAlpha);
 void trRGBTextureUpdate(udword handle, color *data, sdword width, sdword height);
 void trPalettedTextureMakeCurrent(udword handle, color *palette);
 void trRGBTextureMakeCurrent(udword handle);
@@ -379,9 +379,9 @@ void trBufferColorRGB(color *dest, color *source, ubyte *teamEffect0, ubyte *tea
 //misc utility functions
 void trFilterEnable(sdword bEnable);
 texreg *trStructureGet(trhandle handle);
-color *trImageScale(color *data, sdword width, sdword height, sdword newWidth, sdword newHeight, bool bFree);
-ubyte *trImageScaleIndexed(ubyte *data, sdword width, sdword height, sdword newWidth, sdword newHeight, bool bFree);
-void trSetAllPending(bool freeNoPal);
+color *trImageScale(color *data, sdword width, sdword height, sdword newWidth, sdword newHeight, bool32 bFree);
+ubyte *trImageScaleIndexed(ubyte *data, sdword width, sdword height, sdword newWidth, sdword newHeight, bool32 bFree);
+void trSetAllPending(bool32 freeNoPal);
 void trTextureUsageList(char *fileName);
 sdword trColorsEqual(trcolorinfo *info, sdword textureIndex);
 

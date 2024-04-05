@@ -164,7 +164,7 @@ real32 collCheckRectLine(SpaceObjRotImp *obj1,vector *univpoint,vector *univdir,
     real32 largestMaxT;
     sdword i;
     sdword whichPlane;
-    bool inside;
+    bool32 inside;
 
     *collSide = -1;
 
@@ -287,7 +287,7 @@ real32 collCheckRectLine(SpaceObjRotImp *obj1,vector *univpoint,vector *univdir,
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool collCheckRectPoint(SpaceObjRotImp *obj1,vector *point)
+bool32 collCheckRectPoint(SpaceObjRotImp *obj1,vector *point)
 {
     vector rect0;
     vector rect6;
@@ -360,7 +360,7 @@ bool collCheckRectPoint(SpaceObjRotImp *obj1,vector *point)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool collCheckRectInRect(SpaceObjRotImp *obj1,SpaceObjRotImp *obj2)
+bool32 collCheckRectInRect(SpaceObjRotImp *obj1,SpaceObjRotImp *obj2)
 {
     vector rect0;
     vector rect6;
@@ -375,7 +375,7 @@ bool collCheckRectInRect(SpaceObjRotImp *obj1,SpaceObjRotImp *obj2)
     vector obj2point;
 
     udword i;
-    bool pointinside = FALSE;
+    bool32 pointinside = FALSE;
 
     matGetVectFromMatrixCol1(upvector,obj1->rotinfo.coordsys);
     matGetVectFromMatrixCol2(rightvector,obj1->rotinfo.coordsys);
@@ -441,7 +441,7 @@ bool collCheckRectInRect(SpaceObjRotImp *obj1,SpaceObjRotImp *obj2)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool collCheckRectBumpCollision(SpaceObjRotImp *obj1,SpaceObjRotImp *obj2)
+bool32 collCheckRectBumpCollision(SpaceObjRotImp *obj1,SpaceObjRotImp *obj2)
 {
     sdword collSide;
     vector sourcePosition;
@@ -584,7 +584,7 @@ void collUpdateObjsInCollBlobs(void)
     }
 }
 
-bool kamikazeCheck(SpaceObjRotImpTarg *obj1, SpaceObjRotImpTarg *obj2)
+bool32 kamikazeCheck(SpaceObjRotImpTarg *obj1, SpaceObjRotImpTarg *obj2)
 {
     real32 damage1,damage2;
     sdword ret = FALSE;
@@ -681,7 +681,7 @@ bool kamikazeCheck(SpaceObjRotImpTarg *obj1, SpaceObjRotImpTarg *obj2)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void collCheckShipShipColl(blob *thisBlob,bool checkSmallShips)
+void collCheckShipShipColl(blob *thisBlob,bool32 checkSmallShips)
 {
     sdword obj1index = 0;
     Ship *obj1;
@@ -1631,7 +1631,7 @@ nextobj1:
     Return      : TRUE if path is clear, FALSE if obscured
     todo: must check if target is closer than a "hit"
 ----------------------------------------------------------------------------*/
-bool collCheckLineOfSight(Ship* source, Ship* target, vector* sourcePosition, vector* direction)
+bool32 collCheckLineOfSight(Ship* source, Ship* target, vector* sourcePosition, vector* direction)
 {
     sdword i, collSide;
     real32 length;
@@ -1961,7 +1961,7 @@ void collCheckBulletTargetColl(blob *thisBlob)
 
     real32 distcheck;
 
-    bool deletebulletflag;
+    bool32 deletebulletflag;
 
     real32 collideLineDist;
 

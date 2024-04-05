@@ -99,7 +99,7 @@ sdword mrRenderMainScreen = TRUE;
 //camera for main screen
 Camera *mrCamera = NULL;
 
-bool mrWhiteOut = FALSE;
+bool32 mrWhiteOut = FALSE;
 real32 mrWhiteOutT = 0.0f;
 
 //rectangle of currently dragged selection
@@ -119,15 +119,15 @@ sdword mrMouseMovementClickLimit = MR_MouseMovementClickLimit;
 regionhandle ghMainRegion = NULL;
 
 //tactical overlay on/off flag
-bool mrDrawTactical = FALSE, mrSaveTactical = FALSE;
+bool32 mrDrawTactical = FALSE, mrSaveTactical = FALSE;
 
 //help info screen up or not
-bool helpinfoactive = FALSE;
+bool32 helpinfoactive = FALSE;
 
 regionhandle helpinforegion;
 
 //debug for turning off enemy AI
-bool mrNoAI = FALSE;
+bool32 mrNoAI = FALSE;
 
 //fonthandle for Big Font
 static fonthandle mrBigFont = 0;
@@ -268,7 +268,7 @@ mrKeyFunction[] =
 TypeOfFormation mrNewFormation = NO_FORMATION;  //index of current formation we're selecting
 char *mrFormationName = NULL;                   //if non-NULL, we're in the changing formations state
 real32 mrFormationTime;                         //time a particular formation was set
-bool   mrDrawFormation=FALSE;
+bool32   mrDrawFormation=FALSE;
 real32 mrDrawFormationTime=0.0;
 fonthandle mrFormationFont = FONT_InvalidFontHandle;
 
@@ -283,7 +283,7 @@ extern sdword popupTextNumLines;
 sdword playerClickedOn=-1;
 
 //for handling bot z-bandbox and just pressing z
-bool mrSpecialBandBox;
+bool32 mrSpecialBandBox;
 
 //for double-press number keys to focus on ships
 real32 mrNumberDoublePressTime = MR_NumberDoublePressTime;
@@ -296,10 +296,10 @@ sdword mrFastMoveShipClickX = MR_FastMoveShipClickX;
 sdword mrFastMoveShipClickY = MR_FastMoveShipClickY;
 
 #if MR_CAN_FOCUS_ROIDS
-bool mrCanFocusRoids = FALSE;
+bool32 mrCanFocusRoids = FALSE;
 #endif
 
-bool mrMenuDontDisappear = FALSE;       //forces the context menus to stay on the screen
+bool32 mrMenuDontDisappear = FALSE;       //forces the context menus to stay on the screen
 
 #define TIMEOUT_TIME 15.0 // timer for the printing of player dropped messages
 
@@ -319,7 +319,7 @@ void mrSetTheFormation(TypeOfFormation formationtype);
 =============================================================================*/
 
 static udword originalMrFilter;
-bool   mrDisabled = FALSE;
+bool32   mrDisabled = FALSE;
 
 void mrDisable(void)
 {
@@ -351,7 +351,7 @@ void mrEnable(void)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool mrNeedProbeHack(void)
+bool32 mrNeedProbeHack(void)
 {
     if(selSelected.numShips == 1)
     {
@@ -405,7 +405,7 @@ void mrRemoveAllProbesFromSelection()
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool salCapCorvetteInSelection(SelectCommand *selection)
+bool32 salCapCorvetteInSelection(SelectCommand *selection)
 {
     sdword i;
 
@@ -937,14 +937,14 @@ void mrRetire(char *string, featom *atom)
 }
 
 
-void mrUpdateHyperspaceStatus(bool goForLaunch)
+void mrUpdateHyperspaceStatus(bool32 goForLaunch)
 {
 }
 
 
 void mrHyperspace(char *string, featom *atom)
 {
-    extern bool uicButtonReleased;
+    extern bool32 uicButtonReleased;
     if (FEFIRSTCALL(atom))
     {
         //...
@@ -1128,7 +1128,7 @@ void mrSelectRectBuild(rectangle *dest, sdword anchorX, sdword anchorY)
     Return      : TRUE if successful
 ----------------------------------------------------------------------------*/
 /*
-bool mrSelectionUndo(sdword userID, ubyte *userData, sdword length)
+bool32 mrSelectionUndo(sdword userID, ubyte *userData, sdword length)
 {
     selSelectionCopy((MaxAnySelection *)&selSelected, (MaxAnySelection *)userData);
     ioUpdateShipTotals();
@@ -1144,7 +1144,7 @@ bool mrSelectionUndo(sdword userID, ubyte *userData, sdword length)
     Return      :
 ----------------------------------------------------------------------------*/
 /*
-bool mrHotKeyAssignUndo(sdword userID, ubyte *userData, sdword length)
+bool32 mrHotKeyAssignUndo(sdword userID, ubyte *userData, sdword length)
 {
     selHotKeyNumbersSet(&selHotKeyGroup[userID], SEL_InvalidHotKey);
     selSelectionCopy((MaxAnySelection *)&selHotKeyGroup[userID], (MaxAnySelection *)userData);
@@ -1160,7 +1160,7 @@ bool mrHotKeyAssignUndo(sdword userID, ubyte *userData, sdword length)
     Outputs     :
     Return      : we can bandbox at all
 ----------------------------------------------------------------------------*/
-bool mrCanZBandBox(bool *bFriendlies, bool *bEnemies)
+bool32 mrCanZBandBox(bool32 *bFriendlies, bool32 *bEnemies)
 {
     sdword index ;
     ShipStaticInfo *shipstatic;
@@ -1204,7 +1204,7 @@ void mrNULL(void)
 //drag the selection box
 void mrSelectHold(void)
 {
-    bool bFriendlies, bEnemies;
+    bool32 bFriendlies, bEnemies;
     MaxSelection tempSelection;
 
     if (abs(mouseCursorX() - mrOldMouseX) >= selClickBoxWidth ||
@@ -1396,7 +1396,7 @@ void mrScanDebugCodes(sdword ID);
 #endif
 void gpStartInGameEscapeMenu(void);
 
-bool NoModifierKeyPressed(void)
+bool32 NoModifierKeyPressed(void)
 {
     return !(keyIsHit(SHIFTKEY) || keyIsHit(CONTROLKEY) || keyIsHit(ALTKEY) || keyIsHit(RALTKEY));
 }
@@ -1464,7 +1464,7 @@ void mrSetTheFormation(TypeOfFormation formationtype)
 #define MR_NumberMothershipTypes    8
 ubyte mrMothershipShipTypes[] = {Carrier, Mothership, P1Mothership, P2Mothership, P3Megaship, FloatingCity, ResearchStation, JunkYardHQ, 0};
 Ship *mrMothershipPtr = NULL;
-bool mrMothershipInFocus(Ship *mothership)
+bool32 mrMothershipInFocus(Ship *mothership)
 {
     FocusCommand *focus;
 
@@ -1493,7 +1493,7 @@ Ship *mrNextMothershipPtr(Ship *mothership)
 {
     Node *shipNode;
     Ship *ship, *startingShip;
-    bool bFirstShip = TRUE;
+    bool32 bFirstShip = TRUE;
     sdword count = 0;
 
     if (mothership == NULL)
@@ -1698,7 +1698,7 @@ void mrKeyPress(sdword ID)
 #endif
                 if (selSelected.numShips != 0)
                 {
-                    bool bReinforced;
+                    bool32 bReinforced;
 //                    selHotKeyNumbersSet(&selHotKeyGroup[ID - FIRSTNUMKEY], (uword)SEL_InvalidHotKey);
 
                     tutGameMessage("KB_GroupAssign");
@@ -3175,7 +3175,7 @@ void mrRightClickMenu(void)
 #if MR_TEST_HPB
 #define MR_ROTATE_SCALAR        0.007f
 extern sdword madTestHPBIndex;
-bool mrTestHPBMode = FALSE;
+bool32 mrTestHPBMode = FALSE;
 real32 mrHeading, mrPitch, mrBank;
 void mrHeadingPitchHold(void)
 {
@@ -3247,7 +3247,7 @@ void mrFormationShips(MaxSelection *selection, Ship *ship)
 {
     SelectCommand *formSelection;
     MaxSelection selectedInFormation;
-    bool parade, groupselect = FALSE;
+    bool32 parade, groupselect = FALSE;
     //sdword i;
 
     if (ship->shiptype == Probe)
@@ -3366,8 +3366,8 @@ void mrObjectClick(Ship *ship)
     ProtectCommandMax6 protectOne;
     AttackCommandMax6 attackOne;
     MaxSelection tempSelection;
-    bool bFriendlies, bEnemies;
-    bool bForceAttackEnemies = FALSE;
+    bool32 bFriendlies, bEnemies;
+    bool32 bForceAttackEnemies = FALSE;
 
 //    dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
     if (guardKeyIsHit() && ship->objtype == OBJ_ShipType) {
@@ -3645,7 +3645,7 @@ regularEnemyCase:
 udword mrRegionProcess(regionhandle reg, sdword ID, udword event, udword data)
 {
     Ship *ship = NULL;
-    bool bFriendlies, bEnemies;
+    bool32 bFriendlies, bEnemies;
     MaxSelection tempSelection;
 
 
@@ -4256,7 +4256,7 @@ void mrBigMessageDraw(void)
 #define TO_MOVETO_ENDCIRCLE_RADIUS      TW_MOVETO_ENDCIRCLE_RADIUS
 
 //a kludgy global variable
-bool pulse_at_beginning = FALSE;
+bool32 pulse_at_beginning = FALSE;
 
 /*-----------------------------------------------------------------------------
     Name        : toDrawPulsedLine
@@ -4269,13 +4269,13 @@ bool pulse_at_beginning = FALSE;
     Outputs     : See "description"
     Return      : void
 ----------------------------------------------------------------------------*/
-bool toDrawPulsedLine(vector linestart, vector lineend, real32 pulsesize, color linecolor, color pulsecolor)
+bool32 toDrawPulsedLine(vector linestart, vector lineend, real32 pulsesize, color linecolor, color pulsecolor)
 {
     static real32 lasttime = 0.0, pulsestartfraction = 0.0;
     real32 distance, pulsedistance, fadesize;
     vector dirvect, pulsestart, pulseend, fadestart, fadeend;
-    bool pulse_at_end = FALSE;
-    bool draw_pulse_beg = TRUE, draw_fadein = FALSE, draw_fadeout = FALSE;
+    bool32 pulse_at_end = FALSE;
+    bool32 draw_pulse_beg = TRUE, draw_fadein = FALSE, draw_fadeout = FALSE;
 
     pulse_at_beginning = FALSE;
 
@@ -4417,7 +4417,7 @@ bool toDrawPulsedLine(vector linestart, vector lineend, real32 pulsesize, color 
     Outputs     : See "description"
     Return      : void
 ----------------------------------------------------------------------------*/
-void toDrawMoveToEndCircle(ShipPtr ship, bool pulse, color linecolor, color pulsecolor)
+void toDrawMoveToEndCircle(ShipPtr ship, bool32 pulse, color linecolor, color pulsecolor)
 {
     if (pulse)
     {
@@ -4445,7 +4445,7 @@ void toDrawMoveToLine(ShipPtr ship, color linecolor, color pulsecolor)
     vector shipfront, shipright, dirfrontproj, dirrightproj, dirvect, dirproj,
            zero = {0,0,0}, negdir;
     real32 distance, pulsesize, shipradius;
-    bool pulse = FALSE;
+    bool32 pulse = FALSE;
 
     //initialize a bunch of vectors and distances
     shipradius  = ship->magnitudeSquared*ship->staticinfo->staticheader.staticCollInfo.approxcollspheresize;
@@ -4586,7 +4586,7 @@ void toMoveLineDraw(ShipPtr ship, real32 scale)
 {
     vector temp1;
     real32 temp2;
-    bool   primEnabled;
+    bool32   primEnabled;
     color  linecolor;
     color  pulsecolor;
 
@@ -5393,7 +5393,7 @@ sdword mrFrameCounter = 0;
 void mrRegionDraw(regionhandle reg)
 {
     udword shiftBits;
-    static bool mrClearRenderEverything = FALSE;
+    static bool32 mrClearRenderEverything = FALSE;
     sdword index;
 
     if (singlePlayerGame)
@@ -5790,7 +5790,7 @@ void mrShipDied(Ship *ship)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void mrTacticalOverlayState(bool bTactical)
+void mrTacticalOverlayState(bool32 bTactical)
 {
     if (kbKeyBoundToCommand(kbTACTICAL_OVERLAY)==CAPSLOCKKEY)
     {
@@ -5813,7 +5813,7 @@ void mrAllTechnology(void)
     rmInitializeResearchStruct(universe.curPlayerPtr,TRUE,TECH_ALLTECHNOLOGY);
 }
 
-extern bool cmCheapShips;
+extern bool32 cmCheapShips;
 void mrCheapShips(void)
 {
     cmCheapShips = !cmCheapShips;
@@ -5841,7 +5841,7 @@ void mrAsteroids(void)
     mrTradeStuffTest(NULL, NULL);
 }
 
-bool gMosaic = 0;
+bool32 gMosaic = 0;
 void mrBackground(void)
 {
     gMosaic = !gMosaic;
@@ -5892,12 +5892,12 @@ sdword mrDebugPointer;
 
 
 
-bool mrPlayerHasCheated = FALSE;
+bool32 mrPlayerHasCheated = FALSE;
 
 void mrScanDebugCodes(sdword ID)
 {
     sdword i,j,k;
-    bool match;
+    bool32 match;
 
     mrDebugPointer = (mrDebugPointer+1) & (MR_DEBUG_SIZE-1);
     mrDebugKeyBuffer[mrDebugPointer] = ID;

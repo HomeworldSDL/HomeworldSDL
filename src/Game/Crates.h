@@ -11,9 +11,9 @@
 #include "SpaceObj.h"
       
 //prototypes      
-void cratesUpdate();    
+void cratesUpdate(void);
 void cratesReportCratePlacement(Derelict *crate);
-void crateInit();
+void crateInit(void);
 
        
 #endif //CRATES_H 

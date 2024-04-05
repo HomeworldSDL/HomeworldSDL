@@ -28,7 +28,7 @@ typedef struct btgHeader
     sdword  pageWidth, pageHeight;
     sdword  mRed, mGreen, mBlue;
     sdword  mBGRed, mBGGreen, mBGBlue;
-    bool    bVerts, bPolys, bStars, bOutlines, bBlends;
+    bool32    bVerts, bPolys, bStars, bOutlines, bBlends;
     sdword  renderMode;
 } btgHeader;
 

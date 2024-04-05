@@ -292,7 +292,7 @@ void FixCooperatingTeamDiedCB(AITeam *team)
     Outputs     : Deallocates memory being used by the team, modifies a few structures
     Return      : void
 ----------------------------------------------------------------------------*/
-void aitDestroy(struct AIPlayer *aiplayer, AITeam *team, bool removeAllReferencesToTeam)
+void aitDestroy(struct AIPlayer *aiplayer, AITeam *team, bool32 removeAllReferencesToTeam)
 {
     sdword i = 0;
     sdword foundteam = -1;
@@ -492,7 +492,7 @@ void aitResourceDied(struct AIPlayer *aiplayer, Resource *resource)
     Outputs     : Move some ships around the selection
     Return      : TRUE if a leader is found
 ----------------------------------------------------------------------------*/
-bool aitCheckForLeaderAndMoveToFront(AITeam *team)
+bool32 aitCheckForLeaderAndMoveToFront(AITeam *team)
 {
     ShipPtr ship;
     udword i;
@@ -520,7 +520,7 @@ bool aitCheckForLeaderAndMoveToFront(AITeam *team)
     Outputs     :
     Return      : TRUE if the team is being watched
 ----------------------------------------------------------------------------*/
-bool aitCheckAmIBeingWatched(AITeam *team, SelectCommand *sel)
+bool32 aitCheckAmIBeingWatched(AITeam *team, SelectCommand *sel)
 {
     if (bitTest(team->teamFlags, TEAM_AmIBeingWatched))
     {
@@ -830,7 +830,7 @@ void aitMoveSwarmersToNewPod(AITeam *defenseTeam, AITeam *podTeam)
     Outputs     :
     Return      : void
 ----------------------------------------------------------------------------*/
-bool aitAllDefenseSwarmersFull(void)
+bool32 aitAllDefenseSwarmersFull(void)
 {
     udword i;
 
@@ -852,7 +852,7 @@ bool aitAllDefenseSwarmersFull(void)
 //
 // returns TRUE if removed ship
 //
-bool aitRemoveShip(AITeam *team, ShipPtr ship)
+bool32 aitRemoveShip(AITeam *team, ShipPtr ship)
 {
     return growSelectRemoveShip(&team->shipList,ship);
 }
@@ -1312,7 +1312,7 @@ sdword aitCountTeamsWaitingForShips(TeamType type)
 
 
 
-bool aitTeamIsDone(AITeam *team)
+bool32 aitTeamIsDone(AITeam *team)
 {
     if ((team->curMove == NULL) || (team->curMove->type == MOVE_DONE))
     {
@@ -1332,7 +1332,7 @@ bool aitTeamIsDone(AITeam *team)
     Outputs     :
     Return      : TRUE if team is being a slacker
 ----------------------------------------------------------------------------*/
-bool aitTeamIsIdle(AITeam *team)
+bool32 aitTeamIsIdle(AITeam *team)
 {
     if ((team->curMove == NULL) ||
         (team->curMove->type == MOVE_DONE) ||
@@ -1355,7 +1355,7 @@ bool aitTeamIsIdle(AITeam *team)
     Outputs     :
     Return      : TRUE if the team is guarding
 ----------------------------------------------------------------------------*/
-bool aitTeamIsGuarding(AITeam *team)
+bool32 aitTeamIsGuarding(AITeam *team)
 {
     AIMoveTypes moveType;
 
@@ -1382,7 +1382,7 @@ bool aitTeamIsGuarding(AITeam *team)
     Outputs     :
     Return      : TRUE if the team is attacking
 ----------------------------------------------------------------------------*/
-bool aitTeamIsAttacking(AITeam *team)
+bool32 aitTeamIsAttacking(AITeam *team)
 {
     AIMoveTypes moveType;
 
@@ -1409,7 +1409,7 @@ bool aitTeamIsAttacking(AITeam *team)
     Outputs     :
     Return      : TRUE if the team isn't defending the mothership
 ----------------------------------------------------------------------------*/
-bool aitTeamIsntDefendingMothership(AITeam *team, SelectCommand *enemyships)
+bool32 aitTeamIsntDefendingMothership(AITeam *team, SelectCommand *enemyships)
 {
     if (team->curMove != NULL)
     {
@@ -1446,7 +1446,7 @@ bool aitTeamIsntDefendingMothership(AITeam *team, SelectCommand *enemyships)
     Outputs     :
     Return      : TRUE if the team has finished moving
 ----------------------------------------------------------------------------*/
-bool aitTeamIsFinishedMoving(AITeam *team, vector destination, real32 range)
+bool32 aitTeamIsFinishedMoving(AITeam *team, vector destination, real32 range)
 {
     vector current_location;
     real32 avg_size;
@@ -1475,7 +1475,7 @@ bool aitTeamIsFinishedMoving(AITeam *team, vector destination, real32 range)
     Outputs     :
     Return      : TRUE if the team is special op'ing
 ----------------------------------------------------------------------------*/
-bool aitTeamIsDoingSpecialOp(AITeam *team)
+bool32 aitTeamIsDoingSpecialOp(AITeam *team)
 {
 //    dbgAssertOrIgnore(aitTeamShipTypeIs(MinelayerCorvette, team));
 
@@ -1492,7 +1492,7 @@ bool aitTeamIsDoingSpecialOp(AITeam *team)
 
 
 
-bool aitAnyTeamOfPlayerAttackingThisShip(struct AIPlayer *aiplayer,Ship *ship)
+bool32 aitAnyTeamOfPlayerAttackingThisShip(struct AIPlayer *aiplayer,Ship *ship)
 {
     sdword i;
     Node *node;
@@ -1538,7 +1538,7 @@ bool aitAnyTeamOfPlayerAttackingThisShip(struct AIPlayer *aiplayer,Ship *ship)
     Outputs     :
     Return      : True if the team is in range
 ----------------------------------------------------------------------------*/
-bool aitTeamIsInRange(AITeam *team, ShipPtr ship, real32 time)
+bool32 aitTeamIsInRange(AITeam *team, ShipPtr ship, real32 time)
 {
     real32 timesq = time*time, distsq, teamvelsq;
 
@@ -1577,7 +1577,7 @@ bool aitTeamIsInRange(AITeam *team, ShipPtr ship, real32 time)
     Outputs     :
     Return      : TRUE if the team is in range
 ----------------------------------------------------------------------------*/
-bool aitTeamIsInMothershipRange(AITeam *team)
+bool32 aitTeamIsInMothershipRange(AITeam *team)
 {
     ShipPtr mothership = team->aiplayerowner->player->PlayerMothership;
 
@@ -1621,7 +1621,7 @@ void aitRecallGuardTeam(AITeam *team)
     Outputs     :
     Return      : TRUE or FALSE (see description)
 ----------------------------------------------------------------------------*/
-bool aitNeedStrikeSupport(udword minstr)
+bool32 aitNeedStrikeSupport(udword minstr)
 {
     udword tally = 0, i;
     AITeam *team;
@@ -1697,12 +1697,12 @@ void aitMakeTeamSupportShips(AITeam *team, SelectCommand *ships)
     Outputs     :
     Return      : TRUE if the team needs help
 ----------------------------------------------------------------------------*/
-bool aitCheckIfOtherDefTeamAnsweringSignalNeedsHelp(AITeam *team, SelectCommand *ships)
+bool32 aitCheckIfOtherDefTeamAnsweringSignalNeedsHelp(AITeam *team, SelectCommand *ships)
 {
     udword i;
     AITeamMove *move;
     SelectCommand *teams = NULL;
-    bool return_value = TRUE;
+    bool32 return_value = TRUE;
 
     for (i = 0; i < aiCurrentAIPlayer->numGuardTeams; i++)
     {
@@ -1775,7 +1775,7 @@ void aitSetTeamHomoHetero(AITeam *team)
     Outputs     : Sets some flags
     Return      : TRUE if the team is homogenous
 ----------------------------------------------------------------------------*/
-bool aitTeamHomogenous(AITeam *team)
+bool32 aitTeamHomogenous(AITeam *team)
 {
     if (bitTest(team->teamFlags, TEAM_HOMOGENEOUS))
     {
@@ -1910,7 +1910,7 @@ AITeam *aitFindMostValuable(udword valueness)
     Outputs     :
     Return      : TRUE if the team isn't cooperating with another cloak team
 ----------------------------------------------------------------------------*/
-bool aitTeamIsntCoopWithAnotherTeam_Cloak(AITeam *testteam)
+bool32 aitTeamIsntCoopWithAnotherTeam_Cloak(AITeam *testteam)
 {
     udword i;
     AITeam *team;
@@ -1938,7 +1938,7 @@ bool aitTeamIsntCoopWithAnotherTeam_Cloak(AITeam *testteam)
     Outputs     :
     Return      : TRUE if the team isn't cooperating with another cloak team
 ----------------------------------------------------------------------------*/
-bool aitTeamIsntCoopWithAnotherTeam_GravWell(AITeam *testteam)
+bool32 aitTeamIsntCoopWithAnotherTeam_GravWell(AITeam *testteam)
 {
     udword i;
     AITeam *team;
@@ -2520,7 +2520,7 @@ void SaveThisAITeam(AITeam *team)
     if (team->msgQueue) SaveMsgQueue(team->msgQueue);
 }
 
-AITeam *LoadThisAITeam()
+AITeam *LoadThisAITeam(void)
 {
     SaveChunk *chunk;
     AITeam *team;

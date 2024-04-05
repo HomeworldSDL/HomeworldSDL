@@ -148,27 +148,27 @@ typedef void (*demplayfinished)(void);                      //function called at
 /*=============================================================================
     Data:
 =============================================================================*/
-extern bool demDemoRecording;
-extern bool demDemoPlaying;
-extern bool wasDemoPlaying;
+extern bool32 demDemoRecording;
+extern bool32 demDemoPlaying;
+extern bool32 wasDemoPlaying;
 extern char demDemoFilename[128];
 extern taskhandle demDemoTask;
 extern sdword nDemoPlays, nUnivUpdates;
 #if DEM_AUTO_DEMO
-extern bool demAutoDemo;
+extern bool32 demAutoDemo;
 extern real32 demAutoDemoWaitTime;
 #endif
 #if DEM_CHECKSUM
-extern bool demChecksumError;
+extern bool32 demChecksumError;
 extern char demChecksumString[DEM_ChecksumLength];
 #endif
 
 #if DEM_INTERRUPTABLE
-extern bool demPlaybackInterrupted;
+extern bool32 demPlaybackInterrupted;
 #endif
 
 #if DEM_FAKE_RENDER_SWITCH
-extern bool demFakeRenders;                     //fake renders on by default
+extern bool32 demFakeRenders;                     //fake renders on by default
 #endif
 
 /*=============================================================================

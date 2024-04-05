@@ -38,7 +38,7 @@
 extern uword opKeyDetour;
 extern char opKeymap[OP_KEYMAPSIZE];
 
-extern bool opReloading;
+extern bool32 opReloading;
 extern sdword opNoPalMB;
 extern sdword opMusicVol;
 extern sdword opSFXVol;
@@ -58,13 +58,13 @@ extern sdword opBattleChatter;
 extern sdword opEffectsVal;
 extern sdword opBrightnessVal;
 extern udword opDetailThresholdVal;
-extern bool opCustomEffectsToggled;
+extern bool32 opCustomEffectsToggled;
 extern sdword opNoLODVal;
 extern sdword opNumChannels;
 extern sdword opAutoChannel;
 extern sdword opSoundQuality;
 
-extern bool   opTimerActive;
+extern bool32   opTimerActive;
 extern real32 opTimerStart;
 extern real32 opTimerLength;
 
@@ -112,7 +112,7 @@ void opUpdateSettings(void);
 char *opKeyToNiceString(keyindex key);
 keyindex opKeyTranslate(keyindex key);
 void opKeyAssign(uword func, keyindex key);
-bool opValidKey(keyindex key);
+bool32 opValidKey(keyindex key);
 void opDefineThisKey(keyindex key);
 void opKeyboardLoad(void);
 udword opMusicVolumeProcess(regionhandle reg, sdword ID, udword event, udword data);

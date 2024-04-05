@@ -138,10 +138,10 @@ sdword cmSelectRightAdjust = 0;
 =============================================================================*/
 static sdword cmRenderEverythingCounter;
 
-bool cmPaletted;
+bool32 cmPaletted;
 
 #if CM_CHEAP_SHIPS
-bool cmCheapShips = FALSE;
+bool32 cmCheapShips = FALSE;
 #endif
 
 void cmDeterministicStartup(void);
@@ -263,7 +263,7 @@ KeysToShips cmShipTypes[]=
 
 };
 
-bool cmPrintHotKey = FALSE;
+bool32 cmPrintHotKey = FALSE;
 
 
 
@@ -567,7 +567,7 @@ color cmCapsExceededTextColor = CM_CapsExceededTextColor;
 udword cmRefundRatio = CM_RefundRatio;
 real32 cmFloatRefundRatio = CM_FloatRefundRatio;
 
-bool cmIoSaveState;
+bool32 cmIoSaveState;
 
 udword cmShipTexture[MAX_RACES][NUM_CMTEXTURES] =
 {
@@ -660,9 +660,9 @@ extern real32 mgAccTime;
 // Fix for unit caps in internet game ...
 sdword shiplagtotals[TOTAL_NUM_SHIPS];
 
-bool cmReallyPausedAll = FALSE;
+bool32 cmReallyPausedAll = FALSE;
 
-bool cmActive=FALSE;
+bool32 cmActive=FALSE;
 
 typedef struct cmDetermProgress_t
 {
@@ -677,7 +677,7 @@ typedef struct cmDetermProgress_t
     sdword   ticksLeft;
     sdword   playerIndex;
     ShipPtr  creator;
-    bool     paused;
+    bool32     paused;
 } cmDetermProgress_t;
 
 LinkedList cmDetermProgress;
@@ -715,7 +715,7 @@ sdword cmMaxJobsPerClass[NUM_CLASSES] =
 void updateShipView(void)
 {
     udword index;
-    bool   set=TRUE;
+    bool32   set=TRUE;
 
     if (curshipview == DefaultShip)
     {
@@ -779,7 +779,7 @@ shipinprogress *cmSIP(udword index)
 }
 
 
-void cmWheelNegative()
+void cmWheelNegative(void)
 {
     sdword ui = (sdword)cmUpperIndex-3;
 
@@ -788,7 +788,7 @@ void cmWheelNegative()
     cmUpperIndex = (uword)ui;
 }
 
-void cmWheelPositive()
+void cmWheelPositive(void)
 {
     sdword ui = (sdword)cmUpperIndex + 3;
 
@@ -971,7 +971,7 @@ shipsinprogress *cmFindFactory(struct Ship *ship)
     return NULL;
 }
 
-void cmAddFactory(struct Ship *ship,bool canBuildBigShips)
+void cmAddFactory(struct Ship *ship,bool32 canBuildBigShips)
 {
     shipsinprogress *sinprogress;
 
@@ -1099,7 +1099,7 @@ void cmRemoveFactory(struct Ship *ship)
     cmFillInCarrierXs();
 }
 
-static bool resourcesHaveBeenAboveBefore = TRUE;
+static bool32 resourcesHaveBeenAboveBefore = TRUE;
 
 // This is not really a task anymore.
 void cmBuildTaskFunction(void)
@@ -1509,7 +1509,7 @@ void cmConnectorDraw(featom *atom, regionhandle region)
     Return      : TRUE or FALSE
 ----------------------------------------------------------------------------*/
 /*
-bool cmShipDisabled(ShipType type)
+bool32 cmShipDisabled(ShipType type)
 {
     sdword index;
 
@@ -1644,8 +1644,8 @@ void cmClose(char *string, featom *atom)
 void cmBuildShips(char *string, featom *atom)
 {
     sdword index;
-    bool builtSomething = FALSE;
-    bool capShipBuilt = FALSE;
+    bool32 builtSomething = FALSE;
+    bool32 capShipBuilt = FALSE;
 
     if((tutorial==TUTORIAL_ONLY) && !tutEnable.bBuildBuildShips)
         return;
@@ -1720,7 +1720,7 @@ void cmCancelJobs(char *string, featom *atom)
     sdword index, jobCount;
     shipinprogress *progress;
     sdword refund/*,totalSpent*/;
-    bool   canceled=FALSE;
+    bool32   canceled=FALSE;
 
     if((tutorial==TUTORIAL_ONLY) && !tutEnable.bBuildCancelJobs)
         return;
@@ -1812,7 +1812,7 @@ void cmPauseJobs(char *string, featom *atom)
 {
     sdword index;
     shipinprogress *progress;
-    bool allpaused = TRUE, changed=FALSE;
+    bool32 allpaused = TRUE, changed=FALSE;
 
     //speechEventFleet(COMM_F_Const_CancelAll, 0, universe.curPlayerIndex);   // later change to ConstructionCancel
 
@@ -1885,7 +1885,7 @@ void cmShipCostsDraw(featom *atom, regionhandle region)
 {
     sdword x, y, index;
     rectangle *rect = &region->rect;
-    bool        newline=FALSE;
+    bool32        newline=FALSE;
     color c;
     shipsinprogress *factory;
     shipinprogress *progress;
@@ -2001,7 +2001,7 @@ sdword cmSelectShipType(regionhandle region, sdword yClicked)
 {
     sdword index = 0, y = 0, numlines = 0, startind = 0;
     fonthandle currentFont;
-    bool newline = FALSE;
+    bool32 newline = FALSE;
 
     currentFont = fontMakeCurrent(cmDefaultFont);
 
@@ -2102,20 +2102,20 @@ ShipClass cmClassCapClassRemap(ShipType shipType, ShipClass shipClass)
     Outputs     :
     Return      : TRUE if we can build it, false otherwise
 ----------------------------------------------------------------------------*/
-bool cmClassCapCanCreateShip(ShipType shipType, shipsinprogress *factory, shipavailable *cmShipsAvail)
+bool32 cmClassCapCanCreateShip(ShipType shipType, shipsinprogress *factory, shipavailable *cmShipsAvail)
 {
     ShipStaticInfo *shipStaticInfo;
     ShipClass shipClass;
     ShipRace shipRace;
     sdword index, nInThisClass;
-    bool shipsQueuedUp[TOTAL_NUM_SHIPS];
+    bool32 shipsQueuedUp[TOTAL_NUM_SHIPS];
 
     shipStaticInfo = GetShipStaticInfo(shipType, factory->ship->shiprace);//get static info
     shipClass = cmClassCapClassRemap(shipType, shipStaticInfo->shipclass); //get ship class
     shipRace = factory->ship->playerowner->race;            //get race of player who owns ship, not race of ship
 
     //clear out list of queued ships
-    memset(shipsQueuedUp, 0, TOTAL_NUM_SHIPS * sizeof(bool));
+    memset(shipsQueuedUp, 0, TOTAL_NUM_SHIPS * sizeof(bool32));
 
     //find all ships of same class queued up for construction
     for (index = nInThisClass = 0; cmShipsAvail[index].nJobs != -1; index++)
@@ -2176,12 +2176,12 @@ bool cmClassCapCanCreateShip(ShipType shipType, shipsinprogress *factory, shipav
     return(nInThisClass < cmMaxJobsPerClass[shipClass]);
 }
 
-bool cmIncrement(shipsinprogress *factory, uword index)
+bool32 cmIncrement(shipsinprogress *factory, uword index)
 {
     shipinprogress *progress;
-    bool flag = FALSE;
+    bool32 flag = FALSE;
 /*
-    bool disabled;
+    bool32 disabled;
 
     //ctrl = add 5?
 
@@ -2233,10 +2233,10 @@ bool cmIncrement(shipsinprogress *factory, uword index)
 
 
 
-bool cmDecrement(shipsinprogress *factory, uword index)
+bool32 cmDecrement(shipsinprogress *factory, uword index)
 {
     shipinprogress *progress;
-    bool flag = TRUE, skip = FALSE;
+    bool32 flag = TRUE, skip = FALSE;
 
     //ctrl = add 5?
 
@@ -2440,10 +2440,10 @@ sdword cmLeftArrowProcess(regionhandle region, sdword ID, udword event, udword d
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void cmDrawArrow(regionhandle region, bool leftArrow)
+void cmDrawArrow(regionhandle region, bool32 leftArrow)
 {
     sdword y, index, numlines, startind=0;
-    bool newline = FALSE;
+    bool32 newline = FALSE;
     rectangle *rect = &region->rect;
     triangle tri;
     sdword width = rect->x1 - rect->x0 - 4;
@@ -2596,7 +2596,7 @@ void cmShipNumbersDraw(featom *atom, regionhandle region)
 {
     sdword x, y, index, numShips;
     rectangle *rect = &region->rect;
-    bool newline = FALSE;
+    bool32 newline = FALSE;
     color c;
     shipsinprogress *factory;
     shipinprogress *progress;
@@ -2854,7 +2854,7 @@ void cmShipInfoDraw(featom *atom, regionhandle region)
     shipsinprogress *factory  = NULL;
     shipinprogress  *progress = NULL;
     fonthandle currentFont;
-    bool       newline = FALSE;
+    bool32       newline = FALSE;
     sdword     numlines = 0, startind = 0;
 
     if (cmRenderEverythingCounter > 0)
@@ -3193,7 +3193,7 @@ void cmTotalShipsDraw(featom *atom, regionhandle region)
     fontMakeCurrent(oldfont);
 }
 
-bool cmCanBuildShipType(Ship *factoryship,ShipType shiptype,bool checkResearch)
+bool32 cmCanBuildShipType(Ship *factoryship,ShipType shiptype,bool32 checkResearch)
 {
     ShipStaticInfo *factorystatic;
     shipavailable *shipsavail;
@@ -3935,12 +3935,12 @@ uword cmShipTypeToKey(ShipType ship)
 
 //detoured keypresses:
 
-bool cmBuildHotKey(keyindex key, bool shift)
+bool32 cmBuildHotKey(keyindex key, bool32 shift)
 {
     shipinprogress *progress;
     uword index;
     uword skey;
-    bool buildhotkey = FALSE;
+    bool32 buildhotkey = FALSE;
     ShipType ship;
 
     if (((key>=AKEY) && (key<=ZKEY) &&
@@ -4053,9 +4053,9 @@ void cmDeterministicBuildDisplay(void)
     }
 }
 
-bool cmDeterministicSanityCheck(cmDetermProgress_t* dprog)
+bool32 cmDeterministicSanityCheck(cmDetermProgress_t* dprog)
 {
-    bool rval = TRUE;
+    bool32 rval = TRUE;
     Player* player = &universe.players[dprog->playerIndex];
 
     //check race
@@ -4200,7 +4200,7 @@ void cmDeterministicBuildCancel(ShipType shipType, ShipRace shipRace, sdword pla
 }
 
 void cmDeterministicBuildPause(
-    bool pause, ShipType shipType, ShipRace shipRace, sdword playerIndex, ShipPtr creator)
+    bool32 pause, ShipType shipType, ShipRace shipRace, sdword playerIndex, ShipPtr creator)
 {
     Node* node;
     cmDetermProgress_t* dprog;
@@ -4401,7 +4401,7 @@ void Save_shipsinprogress(shipsinprogress *sinprogress)
     memFree(chunk);
 }
 
-void SaveConsMgr()
+void SaveConsMgr(void)
 {
     sdword num = listofShipsInProgress.num;
     sdword cur = 0;
@@ -4441,7 +4441,7 @@ void SaveConsMgr()
     }
 }
 
-shipsinprogress *Load_shipsinprogress()
+shipsinprogress *Load_shipsinprogress(void)
 {
     SaveChunk *chunk;
     shipsinprogress *sinprogress;
@@ -4525,7 +4525,7 @@ void LoadConsMgrDetermListCB(LinkedList *list)
 
 #define BUILD_OPTIONAL_FLAG     0xb11db11d
 
-void SaveConsMgrDetermOptional()
+void SaveConsMgrDetermOptional(void)
 {
     if (cmDetermProgress.num == 0)
     {
@@ -4537,7 +4537,7 @@ void SaveConsMgrDetermOptional()
     SaveLinkedListOfStuff(&cmDetermProgress,SaveConsMgrDetermListCB);
 }
 
-void LoadConsMgrDetermOptional()
+void LoadConsMgrDetermOptional(void)
 {
     sdword optional;
 

@@ -100,14 +100,14 @@ static sdword JustInit;
 static sdword localbar;
 
 // Pixels and info about the background image chosen
-static bool hrBackgroundInitFrame = 0;
+static bool32 hrBackgroundInitFrame = 0;
 static long hrBackgroundDirty = 0;
-bool hrBackgroundReinit = FALSE;
+bool32 hrBackgroundReinit = FALSE;
 static long hrBackXSize, hrBackYSize;
 static GLfloat hrBackXFrac, hrBackYFrac;
 static GLuint hrBackgroundTexture = 0;
 
-static bool hrScaleMissionLoadingScreens = HR_SCALE_MISSION_LOADING_SCREENS;
+static bool32 hrScaleMissionLoadingScreens = HR_SCALE_MISSION_LOADING_SCREENS;
 
 static regionhandle hrDecRegion;
 
@@ -122,7 +122,7 @@ fonthandle      playernamefont=0;
 color           hrBackBarColor=HR_BackBarColor;
 color           hrChatTextColor=HR_ChatTextColor;
 
-bool            PlayersAlreadyDrawnDropped[MAX_MULTIPLAYER_PLAYERS];
+bool32            PlayersAlreadyDrawnDropped[MAX_MULTIPLAYER_PLAYERS];
 
 textentryhandle ChatTextEntryBox = NULL;
 
@@ -152,7 +152,7 @@ region horseCrapRegion =
     NULL                       // atom;
 };
 
-bool hrRunning=FALSE;
+bool32 hrRunning=FALSE;
 
 ChatPacket chathistory[NUM_CHAT_LINES];
 
@@ -189,7 +189,7 @@ fecallback hrCallBack[] =
     {NULL,          NULL}
 };
 
-void hrDirtyProgressBar()
+void hrDirtyProgressBar(void)
 {
     if (hrRunning)
     {
@@ -203,7 +203,7 @@ void hrDirtyProgressBar()
     }
 }
 
-void hrDirtyChatBox()
+void hrDirtyChatBox(void)
 {
     if (hrRunning)
     {
@@ -242,7 +242,7 @@ void hrDrawPlayersProgress(featom *atom, regionhandle region)
     rectangle outline;
     real32 percent;
     fonthandle currentfont;
-    bool droppedOut;
+    bool32 droppedOut;
 
     hrProgressRegion = region;
 
@@ -876,8 +876,8 @@ void hrDrawBackground(void)
 
         sdword oldTex = rndTextureEnable(TRUE);
         udword oldMode = rndTextureEnvironment(RTE_Replace);
-        bool cull = glIsEnabled(GL_CULL_FACE) ? TRUE : FALSE;
-        bool blend = glIsEnabled(GL_BLEND) ? TRUE : FALSE;
+        bool32 cull = glIsEnabled(GL_CULL_FACE) ? TRUE : FALSE;
+        bool32 blend = glIsEnabled(GL_BLEND) ? TRUE : FALSE;
         glDisable(GL_CULL_FACE);
         glEnable(GL_BLEND);
 
@@ -996,7 +996,7 @@ extern bool8 etgHasBeenStarted;
 void horseGetNumBars(HorseRaceBars *horsebars)
 {
     sdword i;
-    bool enablebar[MAX_POSSIBLE_NUM_BARS];
+    bool32 enablebar[MAX_POSSIBLE_NUM_BARS];
     real32 totalperc;
 
     dbgAssertOrIgnore(horseTotalNumBars.numBars > 0);
@@ -1061,7 +1061,7 @@ void horseGetNumBars(HorseRaceBars *horsebars)
     }
 }
 
-void horseRaceInit()
+void horseRaceInit(void)
 {
     udword i;
     horseGetNumBars(&horseBarInfo);
@@ -1115,7 +1115,7 @@ void horseRaceInit()
     hrBackgroundReinit = FALSE;
 }
 
-void horseRaceShutdown()
+void horseRaceShutdown(void)
 {
     sdword i;
 
@@ -1144,7 +1144,7 @@ void horseRaceShutdown()
     ChatTextEntryBox = NULL;
 }
 
-void horseRaceWaitForNetworkGameStartShutdown()
+void horseRaceWaitForNetworkGameStartShutdown(void)
 {
     if (multiPlayerGame)
     {
@@ -1187,7 +1187,7 @@ void HorseRaceBeginBar(uword barnum)
     }
 }
 
-extern void mousePoll();
+extern void mousePoll(void);
 extern udword regRegionProcess(regionhandle reg, udword mask);
 extern sdword regProcessingRegions;
 extern sdword regRenderEventIndex;
@@ -1200,7 +1200,7 @@ void hrUncleanDecorative(void)
     }
 }
 
-void horseRaceRender()
+void horseRaceRender(void)
 {
     SDL_Event e;
 
@@ -1420,14 +1420,14 @@ real32 horseRaceGetPacketPercent(real32 barPercent)
     return percent;
 }
 
-bool HorseRaceNext(real32 percent)
+bool32 HorseRaceNext(real32 percent)
 {
     Uint32 lp;
     HorsePacket packet;
     real32 temptime;
     udword i;
     sdword dontrenderhack = FALSE;
-    bool sendhrpackethack = FALSE;
+    bool32 sendhrpackethack = FALSE;
 //    static real32 lastper = 0.0f;
     static sdword modulusCounter = 0;
 
@@ -1542,7 +1542,7 @@ bool HorseRaceNext(real32 percent)
 void hrProcessPacket(struct ChatPacket *packet)
 {
     sdword  i;
-    bool    done=FALSE;
+    bool32    done=FALSE;
 
     for (i=0;i<NUM_CHAT_LINES;i++)
     {

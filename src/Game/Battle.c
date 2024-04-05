@@ -853,7 +853,7 @@ sdword battleChatterAttempt(sdword linkTo, sdword event, Ship *ship, sdword vari
     Outputs     :
     Return      : TRUE if it's OK to chatter at this time.
 ----------------------------------------------------------------------------*/
-bool battleCanChatterAtThisTime(sdword event, Ship *ship)
+bool32 battleCanChatterAtThisTime(sdword event, Ship *ship)
 {
     battleevent *chat;
     double timeSinceLastSpoken, result, distance;
@@ -1086,7 +1086,7 @@ Ship *battleMouthPieceFindAnother(Ship *firstMouthPiece, Ship **ships, sdword nu
     Outputs     :
     Return      : TRUE if the ship is on the tail
 ----------------------------------------------------------------------------*/
-bool battleShipOnMyTail(Ship *meShip, Ship *badGuyShip)
+bool32 battleShipOnMyTail(Ship *meShip, Ship *badGuyShip)
 {
     vector temp, bogeyPosition;
     matrix transpose;
@@ -1194,7 +1194,7 @@ void battlePingEvaluateNoEnemies(void *voidPing, battleping *battlePing)
     sdword handle;
     sdword index;
     Ship *ship;
-    bool bFriendlyFire = FALSE;
+    bool32 bFriendlyFire = FALSE;
 
     //do a per-ship scan for some events
     for (index = 0; index < battlePing->nShips; index++)

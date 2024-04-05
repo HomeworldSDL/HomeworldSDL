@@ -133,7 +133,7 @@ typedef struct
     sdword totalSize;                           //size of this structure, bindings, motion curves and the whole bit
     udword flags;                               //flags for this animation
     sdword nCurrentAnim;                        //animation we're currently on, or MAD_NoAnimation for none
-    bool   bPaused;                             //TRUE when the animation is paused
+    bool32   bPaused;                             //TRUE when the animation is paused
     real32 startTime;                           //time the animation starts at
     real32 time;                                //time within the animation, from starttime to endtime inclusive
     real32 timeElapsed;                         //time elapsed since last rendered
@@ -198,12 +198,12 @@ madheader *madFileLoad(char *fileName);
 void madHeaderDelete(madheader *header);
 
 //make ship local bindings for mesh animation
-void madAnimBindingsDupe(struct Ship *ship, struct ShipStaticInfo *staticInfo,bool LoadingGame);
+void madAnimBindingsDupe(struct Ship *ship, struct ShipStaticInfo *staticInfo,bool32 LoadingGame);
 
 //play an animation
 void madAnimationStart(struct Ship *ship, sdword animNumber);
-void madAnimationPause(struct Ship *ship, bool bFreeze);
-bool madAnimationUpdate(struct Ship *ship, real32 timeElapsed);
+void madAnimationPause(struct Ship *ship, bool32 bFreeze);
+bool32 madAnimationUpdate(struct Ship *ship, real32 timeElapsed);
 void madAnimationStop(struct Ship *ship);
 
 //find things in animations

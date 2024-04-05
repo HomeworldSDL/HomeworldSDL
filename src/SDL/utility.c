@@ -143,7 +143,7 @@
     #include "debugwnd.h"
 #endif
 
-extern bool debugScreenshots;
+extern bool32 debugScreenshots;
 
 // #define REG_MAGIC_STR  "D657E436967616D4"   // used for CD-checking code
 
@@ -163,17 +163,13 @@ extern udword aviPlayIntros;
     Outputs     :
     Return      : TRUE if the browser was started OK, FALSE otherwise
 ----------------------------------------------------------------------------*/
-bool utyBrowserExec(char *URL)
-{
-    return FALSE;
-}
-
+bool32 utyBrowserExec(char *URL) { return FALSE; }
 
 //
 //  for bigfiles
 //
-extern bool CompareBigfiles;
-extern bool IgnoreBigfiles;
+extern bool32 CompareBigfiles;
+extern bool32 IgnoreBigfiles;
 extern bigTOC mainTOC;
 extern bigTOC updateTOC;
 extern FILE *updateFP;     // for NULL checking
@@ -184,13 +180,13 @@ extern unsigned char *updateNewerAvailable;
     Data:
 =============================================================================*/
 
-bool utilPlayingIntro = FALSE;
+bool32 utilPlayingIntro = FALSE;
 
 void *utyMemoryHeap;
 char errorString[UTY_ErrorStringLength];
 
 // used to skip the tutorial warning after you have played a non tutorial mission
-bool needtutorial=TRUE;
+bool32 needtutorial = TRUE;
 
 //data for the timing of tasks
 Uint32 utyTimerDivisor;
@@ -253,7 +249,7 @@ char *utyFrontEndFiles[] =
 
 void scriptSetHomeworldCRC(char *directory,char *field,void *dataToFillIn);
 
-bool onlygetfirstcrc = FALSE;
+bool32 onlygetfirstcrc = FALSE;
 
 scriptEntry WonStuffSet[] =
 {
@@ -266,13 +262,13 @@ scriptEntry WonStuffSet[] =
 taskhandle utyRenderTask;
 
 //TRUE if tutorial savegame check is not to be performed
-static bool forceSP = FALSE;
+static bool32 forceSP = FALSE;
 
 //global flag for demo functionality
 #if defined (HW_GAME_DEMO) || defined(HW_GAME_RAIDER_RETREAT)
-bool utyPlugScreens = FALSE;
+bool32 utyPlugScreens = FALSE;
 #endif
-bool utyCreditsSequence = FALSE;
+bool32 utyCreditsSequence = FALSE;
 
 //front-end callback functions
 void utySinglePlayerOptions(char *name, featom *atom);
@@ -954,7 +950,7 @@ void utyOptionsFileWrite(void)
         }
         else if (utyOptionsList[index].setVarCB == scriptSetBool) {
             fprintf(f, "%s    %s\n", utyOptionsList[index].name,
-                *((bool *)utyOptionsList[index].dataPtr) ? "TRUE" : "FALSE");
+                    *((bool32 *)utyOptionsList[index].dataPtr) ? "TRUE" : "FALSE");
         }
     }
     
@@ -971,8 +967,8 @@ void utyOptionsFileWrite(void)
 ----------------------------------------------------------------------------*/
 color utyBaseColor;
 color utyStripeColor;
-bool  utyShipsAlwaysUseOwnerColors = FALSE;
-//bool utyColorsPicked = FALSE;
+bool32 utyShipsAlwaysUseOwnerColors = FALSE;
+// bool32 utyColorsPicked = FALSE;
 
 void utyPickColors(char *name, featom *atom)
 {
@@ -1410,7 +1406,7 @@ void utyLanguageToggle(char* name, featom* atom)
 //    spScenarioPick(NULL);//!!! make some real pointer
 //}
 
-extern bool nisScreenStarted;
+extern bool32 nisScreenStarted;
 void utyHideMenuOrGotoQuitGame(char *name, featom *atom)
 {
 /*
@@ -2432,8 +2428,7 @@ void utyDemoFinishedCB(void)
     Return      : TRUE - don't try this again, dag nabbit!
                   FALSE - we'd like to try this again later.
 ----------------------------------------------------------------------------*/
-bool utyDemoAutoPlay(udword num, void* data, struct BabyCallBack* baby)
-{
+bool32 utyDemoAutoPlay(udword num, void *data, struct BabyCallBack *baby) {
     sdword index, attempt, chosen;
     char *names[DEM_NumberNames];
     char string[256];
@@ -3065,7 +3060,7 @@ void utyGameQuit(char *name, featom *atom)
 ----------------------------------------------------------------------------*/
 void utyGameQuitToMain(char *name, featom *atom)
 {
-    bool networkgame=multiPlayerGame;
+    bool32 networkgame = multiPlayerGame;
     dbgMessagef("Quit to main menu!");
 
     feAllScreensDelete();
@@ -3975,7 +3970,7 @@ char *utyGameSystemsInit(void)
     if (enableAVI)
     {
         SDL_Event e;
-        bool gotMsg;
+        bool32 gotMsg;
         sdword intro;
 
         utilPlayingIntro = TRUE;
@@ -4313,7 +4308,7 @@ char* utyGameSystemsPreShutdown(void)
     if (utyTest(SSA_MemoryHeap))
     {
 #ifdef _WIN32
-        bool result = VirtualFree(utyMemoryHeap, 0, MEM_RELEASE);
+        bool32 result = VirtualFree(utyMemoryHeap, 0, MEM_RELEASE);
         dbgAssertOrIgnore(result);
 #else
         dbgAssertAlwaysDo(munmap(utyMemoryHeap, 0) != -1);
@@ -4660,7 +4655,7 @@ char *utyGameSystemsShutdown(void)
     if (utyTest(SSA_MemoryHeap))
     {
 #ifdef _WIN32
-        bool result;
+        bool32 result;
         result = VirtualFree(utyMemoryHeap, 0, MEM_RELEASE);
         dbgAssertOrIgnore(result);
 #elif defined(__aarch64__)
@@ -4793,8 +4788,7 @@ void utyClientRectGet(rectangle *rect)
     Outputs     :
     Return      : void
 ----------------------------------------------------------------------------*/
-void utyForceTopmost(bool bTopMost)
-{
+void utyForceTopmost(bool32 bTopMost) {
 #if 0
     SetWindowPos(ghMainWindow, bTopMost ? HWND_TOPMOST : HWND_NOTOPMOST,
         0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOSENDCHANGING);
@@ -4898,8 +4892,7 @@ void utyDoubleClick(void)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool utyChangeResolution(sdword width, sdword height, sdword depth)
-{
+bool32 utyChangeResolution(sdword width, sdword height, sdword depth) {
     if (!utyTest(SSA_Render))
     {
         return FALSE;
@@ -5053,10 +5046,7 @@ void utyToggleKeyStatesRestore(void)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool utyCapsLockToggleState(void)
-{
-    return SDL_GetModState() & KMOD_CAPS;
-}
+bool32 utyCapsLockToggleState(void) { return SDL_GetModState() & KMOD_CAPS; }
 
 void utyStartDroppedDialog(sdword playernum)
 {

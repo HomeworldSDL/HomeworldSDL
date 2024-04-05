@@ -113,7 +113,7 @@ sdword          lookupforlist[TOTAL_NUM_SHIPS + 1];
 color ioListTextColor     = IO_ListTextColor;
 color ioSelectedTextColor = IO_SelectedTextColor;
 
-bool            ioRunning=TRUE;
+bool32            ioRunning=TRUE;
 
 /*=============================================================================
     Logic:
@@ -125,7 +125,7 @@ udword ioListClick(regionhandle reg, sdword ID, udword event, udword data);
 // Draw callback for list of ships selected
 void ioShipListDraw(regionhandle region);
 
-bool crapthing(udword num, void *data, struct BabyCallBack *baby)
+bool32 crapthing(udword num, void *data, struct BabyCallBack *baby)
 {
     ioUpdateShipTotals();
 
@@ -168,11 +168,11 @@ void ioShipListDraw(regionhandle region)
     fontMakeCurrent(oldfont);
 }
 
-void ioSetSelection(bool shiftrelease)
+void ioSetSelection(bool32 shiftrelease)
 {
     MaxSelection temp;
     sdword       index;
-    bool         ships=FALSE;
+    bool32         ships=FALSE;
 
     temp.numShips = 0;
 
@@ -255,10 +255,10 @@ void ioUpdateShipTotals(void)
     }
 }
 
-bool ioDisable(void)
+bool32 ioDisable(void)
 {
     sdword index;
-    bool   save;
+    bool32   save;
 
     save = ioRunning;
     ioRunning = FALSE;

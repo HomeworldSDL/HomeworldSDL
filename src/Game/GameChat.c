@@ -87,14 +87,14 @@ fescreen       *gcScreenHandle=NULL;
 rectangle       textentrypos;
 
 // boolean indicating if the game chatting system is running or not.
-bool            gcRunning=FALSE;
+bool32            gcRunning=FALSE;
 
 // booleans to indicate if the game chatting system is accepting text at the moment or not.
-bool            InChatMode=FALSE;
+bool32            InChatMode=FALSE;
 sdword          MessageToAllies;
-bool            ViewingBuffer=FALSE;
+bool32            ViewingBuffer=FALSE;
 
-//bool            reset=FALSE;
+//bool32            reset=FALSE;
 
 fonthandle      chathistoryfont=0;
 char            chathistoryfontname[64]="default.hff";
@@ -316,7 +316,7 @@ void gcAddChatItemToList(chathistory *chat)
     Outputs     :
     Return      : void
 ----------------------------------------------------------------------------*/
-void gcChatEntryStart(bool toAllies)
+void gcChatEntryStart(bool32 toAllies)
 {
     InChatMode = TRUE;
     if (toAllies)
@@ -351,7 +351,7 @@ sdword gcParseChatEntry(char *message)
     udword      i,nummatches,index;
     sdword      userindex=-1;
     char        toname[64], ampremoved[64];
-    bool        done=FALSE;
+    bool32        done=FALSE;
 
     if (message[0]!='/') return(-1);
 
@@ -551,7 +551,7 @@ void gcInGameChatEntry(char *name, featom *atom)
     Outputs     :
     Return      : void
 ----------------------------------------------------------------------------*/
-bool gcScrollDownAuto(udword num, void *data, struct BabyCallBack *baby)
+bool32 gcScrollDownAuto(udword num, void *data, struct BabyCallBack *baby)
 {
     if (curPosition != NULL)
     {

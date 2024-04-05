@@ -62,7 +62,7 @@ void univupdateClose();
 
 void univupdateCloseAllObjectsAndMissionSpheres();
 
-bool univUpdate(real32 phystimeelapsed);
+bool32 univUpdate(real32 phystimeelapsed);
 
 void univRotateObjYaw(SpaceObjRot *robj,real32 rot);
 void univRotateObjPitch(SpaceObjRot *robj,real32 rot);
@@ -114,7 +114,7 @@ Resource *univFindNearestResource(Ship *ship,real32 volumeRadius,vector *volumeP
 void univRemoveObjFromRenderList(SpaceObj *spaceobj);
 void univAddObjToRenderListIf(SpaceObj *newobj,SpaceObj *ifobj);
 void univAddObjToRenderList(SpaceObj *newobj);
-bool univSpaceObjInRenderList(SpaceObj *spaceobj);
+bool32 univSpaceObjInRenderList(SpaceObj *spaceobj);
 
 #define univRemoveObjFromMinorRenderList univRemoveObjFromRenderList
 #define univSpaceObjInMinorRenderList univSpaceObjInRenderList
@@ -127,14 +127,14 @@ void univUpdateRenderList();
 void univUpdateMinorRenderList();
 
 Ship *univFindShipIAmInside(Ship *me);
-bool univAmIInsideThisShip(Ship *me,Ship *ship);
+bool32 univAmIInsideThisShip(Ship *me,Ship *ship);
 
-Ship *ShipIDtoShip(ShipID shipID,bool considerInsideShips);
+Ship *ShipIDtoShip(ShipID shipID,bool32 considerInsideShips);
 ResourcePtr ResourceIDtoResourcePtr(ResourceID resourceID);
 MissilePtr MissileIDtoMissilePtr(MissileID missileID);
 DerelictPtr DerelictIDToDerelictPtr(DerelictID derelictID);
 
-void univInitSpaceObjPosRot(SpaceObj *obj,vector *position,bool randomOrientation);
+void univInitSpaceObjPosRot(SpaceObj *obj,vector *position,bool32 randomOrientation);
 void univUpdateObjRotInfo(SpaceObjRot *robj);
 
 void AddResourceToDeleteResourceList(Resource *resource);
@@ -153,7 +153,7 @@ Derelict *univAddHyperspaceGateAsDerelict(hvector *posAndRotation);
 
 void ObjectsCollided(SpaceObjRotImpTarg *obj1,SpaceObjRotImpTarg *obj2,real32 colldist,vector *distvector,real32 dist,real32 distsquared);
 void ApplyDamageToCollidingObjects(SpaceObjRotImpTarg *obj1,SpaceObjRotImpTarg *obj2,vector *distvector,real32 dist);
-bool ApplyDamageToTarget(SpaceObjRotImpTarg *target,real32 damagetaken,GunSoundType soundType,sdword damageHow,sdword playerIndex);
+bool32 ApplyDamageToTarget(SpaceObjRotImpTarg *target,real32 damagetaken,GunSoundType soundType,sdword damageHow,sdword playerIndex);
 
 void univBulletCollidedWithTarget(SpaceObjRotImpTarg *target,StaticHeader *targetstaticheader,Bullet *bullet,real32 collideLineDist,sdword collSide);
 void univMissileCollidedWithTarget(SpaceObjRotImpTarg *target,StaticHeader *targetstaticheader,Missile *missile,real32 collideLineDist,sdword collSide);
@@ -176,7 +176,7 @@ void univResetNewGimbleGun(Gun *gun);
 
 void InitializeNavLights(Ship *newship);
 
-bool univFindBackupMothership(struct Player *player);
+bool32 univFindBackupMothership(struct Player *player);
 
 // fast id table lookup stuff
 void univInitFastNetworkIDLookups(void);
@@ -189,7 +189,7 @@ void SaveIDToPtrTable(IDToPtrTable *table);
 
 void ApplyCareenRotationDirectly(Ship *ship);
 
-bool univObjectOutsideWorld(SpaceObj *obj);
+bool32 univObjectOutsideWorld(SpaceObj *obj);
 
 void univKillOtherPlayersIfDead(Ship *ship);
 

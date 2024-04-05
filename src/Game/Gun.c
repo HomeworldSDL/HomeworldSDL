@@ -62,7 +62,7 @@ real32 gunRecoilTable[GUN_RecoilTableLength + 1];
     Outputs     :
     Return      : returns TRUE if gun can shoot
 ----------------------------------------------------------------------------*/
-bool gunCanShoot(Ship *ship, Gun *gun)
+bool32 gunCanShoot(Ship *ship, Gun *gun)
 {
     GunStatic *gunstatic = gun->gunstatic;
     CommandToDo *command = getShipAndItsCommand(&universe.mainCommandLayer,ship);
@@ -253,7 +253,7 @@ void gunUpdateSlave(Gun *gun, GunInfo *guns, sdword iSlaveDriver)
     Outputs     :
     Return      : TRUE if gun oriented as desired
 ----------------------------------------------------------------------------*/
-bool gunOrientGimbleGun(Ship *ship,Gun *gun,SpaceObjRotImpTarg *target)
+bool32 gunOrientGimbleGun(Ship *ship,Gun *gun,SpaceObjRotImpTarg *target)
 {
     GunStatic *gunstatic = gun->gunstatic;
     vector targetInWorldCoordSys;
@@ -268,7 +268,7 @@ bool gunOrientGimbleGun(Ship *ship,Gun *gun,SpaceObjRotImpTarg *target)
     real32 turnangle;
     real32 desiredanglespeed;
 
-    bool updateguncoordsys;
+    bool32 updateguncoordsys;
 
     if (bitTest(ship->flags, SOF_NISShip))
     {
@@ -1230,14 +1230,14 @@ void gunShoot(Ship *ship, Gun *gun, SpaceObjRotImpTarg *target)
                   any fixed guns.  trajectory is required only for ships that have
                   fixed guns.
 ----------------------------------------------------------------------------*/
-bool gunShootGunsAtTarget(Ship *ship,SpaceObjRotImpTarg *target,real32 range,vector *trajectory)
+bool32 gunShootGunsAtTarget(Ship *ship,SpaceObjRotImpTarg *target,real32 range,vector *trajectory)
 {
     GunInfo *gunInfo = ship->gunInfo;
     sdword numGuns;
     Gun *gun;
     sdword i;
     vector shipheading;
-    bool shotguns = FALSE;
+    bool32 shotguns = FALSE;
     GunStatic *gunstatic;
     real32 dotprod;
     real32 bonus;
@@ -1373,14 +1373,14 @@ bool gunShootGunsAtTarget(Ship *ship,SpaceObjRotImpTarg *target,real32 range,vec
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool gunShootGunsAtMultipleTargets(Ship *ship)
+bool32 gunShootGunsAtMultipleTargets(Ship *ship)
 {
     GunInfo *gunInfo = ship->gunInfo;
     sdword numGuns = gunInfo->numGuns;
     Gun *gun;
     sdword i;
     vector shipheading;
-    bool shotguns = FALSE;
+    bool32 shotguns = FALSE;
     GunStatic *gunstatic;
     real32 dotprod;
     AttackTargets *attackTargets = ship->attackvars.multipleAttackTargets;
@@ -1503,12 +1503,12 @@ bool gunShootGunsAtMultipleTargets(Ship *ship)
     Outputs     : computes and fills in the gun matrix.
     Return      : true = matrix updated
 ----------------------------------------------------------------------------*/
-bool gunMatrixUpdate(udword flags, hmatrix *startMatrix, hmatrix *matrix, void *data, smemsize ID)
+bool32 gunMatrixUpdate(udword flags, hmatrix *startMatrix, hmatrix *matrix, void *data, smemsize ID)
 {
     Ship *ship;
     Gun *gun;
     GunStatic *gunstatic;
-    bool bRecoil;
+    bool32 bRecoil;
     vector recoilVector;
 
     ship = (Ship *)ID;
@@ -1741,7 +1741,7 @@ void gunShutdown(void)
 
 #if GUN_TUNE_MODE
 
-bool gunTuningMode = FALSE;
+bool32 gunTuningMode = FALSE;
 sdword tuningGun = 0;
 
 void gunTuneGun(Ship *ship)
@@ -1749,7 +1749,7 @@ void gunTuneGun(Ship *ship)
     GunInfo *gunInfo = ship->gunInfo;
     Gun *gun;
     GunStatic *gunstatic;
-    bool updateguncoordsys = FALSE;
+    bool32 updateguncoordsys = FALSE;
 
     if (gunInfo == NULL)
     {

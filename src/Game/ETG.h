@@ -407,7 +407,7 @@ typedef struct _etgfunctioncall_
 #endif
     udword nParameters;                         //number of parameters to pass
     memsize returnValue;                         //variable to assign return value to, if any
-    bool passThis;                              //shall we pass a reference to this effect?
+    bool32 passThis;                              //shall we pass a reference to this effect?
     struct
     {
         udword type;                            //type of parameter, see above
@@ -614,8 +614,8 @@ extern sdword etgBigDeathFactor[NUM_RACES][NUM_CLASSES];
 extern sdword etgBigDeathFactorDerelict[NUM_DERELICTTYPES];
 extern ubyte etgDeathModeByGunType[];
 extern sdword etgEffectsEnabled;
-extern bool etgErrorRecoverable;
-extern bool etgErrorEncountered;
+extern bool32 etgErrorRecoverable;
+extern bool32 etgErrorEncountered;
 
 
 //variables for ETG user tweaks:
@@ -624,10 +624,10 @@ extern real32 etgSoftwareScalarHit;             //scale certain effects down whe
 extern real32 etgSoftwareScalarFire;            //scale certain effects down when in software mode.
 extern sdword etgHistoryScalar;                 //from etgHistoryScalarMin to 256 inclusive
 extern sdword etgHistoryScalarMin;
-extern bool   etgDamageEffectsEnabled;
-extern bool   etgHitEffectsEnabled;
-extern bool   etgFireEffectsEnabled;
-extern bool   etgBulletEffectsEnabled;
+extern bool32   etgDamageEffectsEnabled;
+extern bool32   etgHitEffectsEnabled;
+extern bool32   etgFireEffectsEnabled;
+extern bool32   etgBulletEffectsEnabled;
 
 /*=============================================================================
     Macros:
@@ -656,18 +656,18 @@ void etgFixupUV(void);
 
 //load in an effect template from an effect file and then delete.
 etgeffectstatic *etgEffectCodeLoad(char *fileName);
-etgeffectstatic *etgEffectStaticFind(char *name, bool bRegister);
-void etgEffectCodeDelete(etgeffectstatic *stat, bool bFullDelete);
+etgeffectstatic *etgEffectStaticFind(char *name, bool32 bRegister);
+void etgEffectCodeDelete(etgeffectstatic *stat, bool32 bFullDelete);
 
 //create effects
 void etgEffectCodeStart(struct etgeffectstatic *stat, struct Effect *effect, sdword nParams, ...);
 void etgEffectDelete(struct Effect *effect);
 void *etgEffectCreate(etgeffectstatic *stat, void *owner, vector *pos, vector *vel, matrix *coordsys, real32 nLips, udword flags, sdword nParams, ...);
-bool etgFrequencyExceeded(etgeffectstatic *stat);
+bool32 etgFrequencyExceeded(etgeffectstatic *stat);
 void etgHistoryRegisterFunction(etgeffectstatic *stat);
 
 //update effects
-bool etgEffectUpdate(struct Effect *effect, real32 timeElapsed);
+bool32 etgEffectUpdate(struct Effect *effect, real32 timeElapsed);
 void etgEffectDraw(struct Effect *effect);
 void etgShipDied(struct Ship *deadDuck);
 sdword etgDeleteEffectsOwnedBy(struct Ship *owner);

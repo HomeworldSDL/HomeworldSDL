@@ -681,7 +681,7 @@ void madLinkInCloseDoor(Ship *ship)
     Return      :
 ----------------------------------------------------------------------------*/
 
-bool madLinkInGetDoorInfo(Ship *ship, matrix *coordsys, vector *position)
+bool32 madLinkInGetDoorInfo(Ship *ship, matrix *coordsys, vector *position)
 {
     sdword madIndex, gunIndex;
     vector positiont;

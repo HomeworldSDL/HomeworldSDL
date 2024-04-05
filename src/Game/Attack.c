@@ -44,7 +44,7 @@ scriptStructEntry AttackSideStepParametersScriptTable[] =
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool needToGoToSameVerticalPlane(Ship *ship,SpaceObjRotImpTarg *target, real32 tolerance, real32 speedToleranceSqr)
+bool32 needToGoToSameVerticalPlane(Ship *ship,SpaceObjRotImpTarg *target, real32 tolerance, real32 speedToleranceSqr)
 {
     real32 ydist,speedSqr;
 
@@ -279,7 +279,7 @@ void attackStraightForward(Ship *ship,SpaceObjRotImpTarg *target,real32 gunRange
     real32 dist;
     real32 range;
     real32 temp;
-    bool shootguns = FALSE;
+    bool32 shootguns = FALSE;
     CommandToDo *targetCommand;
 
 
@@ -413,7 +413,7 @@ void attackSideStep(Ship *ship,SpaceObjRotImpTarg *target,AttackSideStep *attack
     real32 dist;
     real32 range;
     real32 temp;
-    bool didshoot;
+    bool32 didshoot;
     ShipStaticInfo *shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;
 
     switch (ship->aistateattack)

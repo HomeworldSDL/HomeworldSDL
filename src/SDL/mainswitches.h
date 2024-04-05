@@ -10,67 +10,67 @@
 #endif
 
 //command-line switches and parameters
-extern bool DebugWindow;
+extern bool32 DebugWindow;
 extern sdword MemoryHeapSize;
-extern bool mouseClipped;
-extern bool startupClipMouse;
-extern bool showFrontEnd;
-extern bool enableSFX;
-extern bool enableSpeech;
-extern bool reverseStereo;
-extern bool useWaveout;
-extern bool useDSound;
-extern bool coopDSound;
-extern bool noDefaultComputerPlayer;
+extern bool32 mouseClipped;
+extern bool32 startupClipMouse;
+extern bool32 showFrontEnd;
+extern bool32 enableSFX;
+extern bool32 enableSpeech;
+extern bool32 reverseStereo;
+extern bool32 useWaveout;
+extern bool32 useDSound;
+extern bool32 coopDSound;
+extern bool32 noDefaultComputerPlayer;
 extern bool8 ComputerPlayerEnabled[MAX_MULTIPLAYER_PLAYERS];
 extern udword ComputerPlayerLevel[MAX_MULTIPLAYER_PLAYERS];
-extern bool gatherStats;
+extern bool32 gatherStats;
 
-extern bool showStatsFight;
+extern bool32 showStatsFight;
 extern udword showStatsFightI;
 extern udword showStatsFightJ;
 
-extern bool showStatsFancyFight;
+extern bool32 showStatsFancyFight;
 extern char showStatsFancyFightScriptFile[50];
 
 extern sdword GiveAllTechnology;
 
 #ifdef DEBUG_TACTICS
-    extern bool tacticsOn;
+    extern bool32 tacticsOn;
 #endif
-extern bool noRetreat;
+extern bool32 noRetreat;
 
-extern bool recordPackets;
-extern bool playPackets;
-extern bool recordplayPacketsInGame;
-extern bool recordFakeSendPackets;
+extern bool32 recordPackets;
+extern bool32 playPackets;
+extern bool32 recordplayPacketsInGame;
+extern bool32 recordFakeSendPackets;
 #define MAX_RECORDPACKETFILENAME_STRLEN 50
 extern char recordPacketFileName[MAX_RECORDPACKETFILENAME_STRLEN];
 extern char recordPacketSaveFileName[MAX_RECORDPACKETFILENAME_STRLEN];
 
-extern bool noAuthorization;
+extern bool32 noAuthorization;
 
-extern bool mainCDCheckEnabled;
+extern bool32 mainCDCheckEnabled;
 
-extern bool SecretWON;
-extern bool forceLAN;
+extern bool32 SecretWON;
+extern bool32 forceLAN;
 
-extern bool ShortCircuitWON;
+extern bool32 ShortCircuitWON;
 
 extern char versionString[];
 extern char networkVersion[];
 extern char languageVersion[];
 extern char minorBuildVersion[];
 
-extern bool autoSaveDebug;
+extern bool32 autoSaveDebug;
 
-extern bool determCompPlayer;
+extern bool32 determCompPlayer;
 
-extern bool bkDisableKeyRemap;
+extern bool32 bkDisableKeyRemap;
 
-extern bool debugPacketRecord;
+extern bool32 debugPacketRecord;
 
-extern bool pilotView;
+extern bool32 pilotView;
 
 #endif
 

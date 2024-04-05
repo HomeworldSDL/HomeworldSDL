@@ -19,22 +19,22 @@ struct CommandLayer;
 void ChangeSingleShipToCollectResource(struct CommandToDo *command);
 
 // returns TRUE if resource is already being targeted for harvesting
-bool ResourceAlreadyBeingHarvested(struct CommandLayer *comlayer,struct CommandToDo *IAmThisCommand,Resource *resource);
+bool32 ResourceAlreadyBeingHarvested(struct CommandLayer *comlayer,struct CommandToDo *IAmThisCommand,Resource *resource);
 
 // returns TRUE if resource is moving too fast to be harvested
-bool ResourceMovingTooFast(Resource *resource);
+bool32 ResourceMovingTooFast(Resource *resource);
 
-bool processCollectResource(struct CommandToDo *collecttodo);
+bool32 processCollectResource(struct CommandToDo *collecttodo);
 
 void TurnHarvestEffectOff(Ship *ship);
 
 void TurnOffAnyResourcingEffects(struct CommandToDo *todo);
 
-bool AsteroidTakesDamage(Asteroid *asteroid,sdword damagetaken,bool targetWasAlive);
+bool32 AsteroidTakesDamage(Asteroid *asteroid,sdword damagetaken,bool32 targetWasAlive);
 
-bool DustCloudTakesDamage(DustCloud* dustcloud, sdword damagetaken, bool targetWasAlive);
+bool32 DustCloudTakesDamage(DustCloud* dustcloud, sdword damagetaken, bool32 targetWasAlive);
 
-void DustCloudChargesUp(DustCloud* dustcloud, sdword damagetaken, bool targetWasAlive);
+void DustCloudChargesUp(DustCloud* dustcloud, sdword damagetaken, bool32 targetWasAlive);
 
 void BreakAsteroidUp(Asteroid *asteroid);
 
@@ -43,7 +43,7 @@ void HandleDustCloudScaling(DustCloud* dustcloud);
 void PreFix_ShipXHarvestsResourceY(Ship *ship);
 void Fix_ShipXHarvestsResourceY(Ship *ship);
 
-void R1ResourcerAttacksShip(struct Ship *ship,struct SpaceObjRotImpTarg *target,bool passiveAttacking);
+void R1ResourcerAttacksShip(struct Ship *ship,struct SpaceObjRotImpTarg *target,bool32 passiveAttacking);
 void removeResourcerFromAttacking(Ship *ship);
 
 extern real32 ASTEROIDBREAK_LO_ROTATE;

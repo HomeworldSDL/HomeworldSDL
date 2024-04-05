@@ -27,8 +27,8 @@ sword camJoyRightAscension = 0;
 bool8 wheel_up   = FALSE;
 bool8 wheel_down = FALSE;
 
-bool  zoomOutNow = FALSE;
-bool  zoomInNow  = FALSE;
+bool32  zoomOutNow = FALSE;
+bool32  zoomInNow  = FALSE;
 
 bool8 useSlowWheelZoomIn = FALSE;
 
@@ -300,7 +300,7 @@ real32 cameraMinimumZoom(Camera* camera)
     Outputs     : camera->distance is set
     Return      :
 ----------------------------------------------------------------------------*/
-void cameraZoom(Camera *camera,real32 zoomfactor, bool EnforceShipDistances)
+void cameraZoom(Camera *camera,real32 zoomfactor, bool32 EnforceShipDistances)
 {
     real32 minZoom;
 
@@ -336,7 +336,7 @@ void cameraZoom(Camera *camera,real32 zoomfactor, bool EnforceShipDistances)
     Return      : returns a mask of user actions performed
                   0x01 = moved  0x02 = zoomed
 ----------------------------------------------------------------------------*/
-sdword cameraControl(Camera *camera, bool EnforceShipDistances)
+sdword cameraControl(Camera *camera, bool32 EnforceShipDistances)
 {
     sdword UserAction = 0;
 

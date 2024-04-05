@@ -141,7 +141,7 @@ void InitShipForResourceCollection(Ship *ship,Resource *resource);
     Outputs     :
     Return      : returns TRUE if resource is moving too fast to be harvested
 ----------------------------------------------------------------------------*/
-bool ResourceMovingTooFast(Resource *resource)
+bool32 ResourceMovingTooFast(Resource *resource)
 {
     real32 maxvelocitychase = MAX_RESOURCE_VELOCITY_TO_CHASE;
 
@@ -170,7 +170,7 @@ bool ResourceMovingTooFast(Resource *resource)
     Outputs     :
     Return      : returns TRUE if resource is already being targeted for harvesting
 ----------------------------------------------------------------------------*/
-bool ResourceAlreadyBeingHarvested(struct CommandLayer *comlayer,struct CommandToDo *IAmThisCommand,Resource *resource)
+bool32 ResourceAlreadyBeingHarvested(struct CommandLayer *comlayer,struct CommandToDo *IAmThisCommand,Resource *resource)
 {
     Node *curnode = comlayer->todolist.head;
     ResourceStaticInfo *resourcestaticinfo = resource->staticinfo;
@@ -419,7 +419,7 @@ void HandleNebulaScaling(Nebula* nebula)
     Outputs     :
     Return      : returns TRUE if should delete dustcloud
 ----------------------------------------------------------------------------*/
-bool DustCloudTakesDamage(DustCloud* dustcloud, sdword damagetaken, bool targetWasAlive)
+bool32 DustCloudTakesDamage(DustCloud* dustcloud, sdword damagetaken, bool32 targetWasAlive)
 {
     sdword RUdamage;
 
@@ -455,7 +455,7 @@ bool DustCloudTakesDamage(DustCloud* dustcloud, sdword damagetaken, bool targetW
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void DustCloudChargesUp(DustCloud* dustcloud, sdword damagetaken, bool targetWasAlive)
+void DustCloudChargesUp(DustCloud* dustcloud, sdword damagetaken, bool32 targetWasAlive)
 {
     cloudSystem* csys = (cloudSystem*)dustcloud->stub;
 
@@ -536,7 +536,7 @@ void BreakAsteroidUp(Asteroid *asteroid)
     Outputs     :
     Return      : returns TRUE if should delete asteroid
 ----------------------------------------------------------------------------*/
-bool AsteroidTakesDamage(Asteroid *asteroid,sdword damagetaken,bool targetWasAlive)
+bool32 AsteroidTakesDamage(Asteroid *asteroid,sdword damagetaken,bool32 targetWasAlive)
 {
     sdword RUdamage;
 
@@ -572,12 +572,12 @@ bool AsteroidTakesDamage(Asteroid *asteroid,sdword damagetaken,bool targetWasAli
     Outputs     :
     Return      : TRUE if ship collected resource
 ----------------------------------------------------------------------------*/
-bool CollectResources(Ship *ship,Resource *resource)
+bool32 CollectResources(Ship *ship,Resource *resource)
 {
     ShipStaticInfo *shipstatic;
     sdword eat;
 
-    bool resourceWasAlive;
+    bool32 resourceWasAlive;
 
     dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
 
@@ -1018,7 +1018,7 @@ void Fix_ShipXHarvestsResourceY(Ship *ship)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool processCollectResource(struct CommandToDo *collecttodo)
+bool32 processCollectResource(struct CommandToDo *collecttodo)
 {
     Resource *resource  = collecttodo->collect.resource;
     Ship     *ship      = collecttodo->selection->ShipPtr[0];
@@ -1128,7 +1128,7 @@ letsdock:
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void R1ResourcerAttacksShip(struct Ship *ship,struct SpaceObjRotImpTarg *target,bool passiveAttacking)
+void R1ResourcerAttacksShip(struct Ship *ship,struct SpaceObjRotImpTarg *target,bool32 passiveAttacking)
 {
     vector trajectory;
     real32 range;

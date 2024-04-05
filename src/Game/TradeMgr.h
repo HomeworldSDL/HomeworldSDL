@@ -56,7 +56,7 @@ typedef enum {
 
 
 extern udword tmTechForSale[TM_NUM_TECHS];
-extern bool tmCheaptechs;
+extern bool32 tmCheaptechs;
 extern sword tmTechResearchable[TM_NUM_TECHS];
 
 
@@ -94,11 +94,11 @@ void SetBaseTechnologyCost(char *techname, sdword cost);
 
 
 void tmEnableTraderGUI(void);
-bool tmTraderGUIActive(void);
+bool32 tmTraderGUIActive(void);
 void tmSetDialog(sdword phrasenum, char *sentence);
 void tmSetPriceScale(udword percent);
 uword tmGetPriceScale(void);
-void tmSetTradeDisabled(bool trade);
+void tmSetTradeDisabled(bool32 trade);
 
 // Save Game stuff
 void tmSave(void);
@@ -137,7 +137,7 @@ typedef struct
 wkTradeType;
 
 extern wkTradeType wkTradeShips[WK_MAX_SHIPS];
-extern bool wkTradeStuffActive;
+extern bool32 wkTradeStuffActive;
 void mrTradeStuffTest(sdword *a, sdword *b);
 void wkTradeUpdate(void);
 

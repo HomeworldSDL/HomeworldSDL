@@ -51,10 +51,10 @@ scriptEntry AITrackTweaks[] =
     Outputs     :
     Return      : Returns TRUE if ship is stablized
 ----------------------------------------------------------------------------*/
-bool aitrackIsStabilizeShip(Ship *ship)
+bool32 aitrackIsStabilizeShip(Ship *ship)
 {
     vector heading,up,right;
-    bool stabilizedpitch;
+    bool32 stabilizedpitch;
     real32 rotx = ship->rotinfo.rotspeed.x;
 
     matGetVectFromMatrixCol3(heading,ship->rotinfo.coordsys);
@@ -85,7 +85,7 @@ bool aitrackIsStabilizeShip(Ship *ship)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool aitrackStabilizeGuidance(SpaceObjRotImpTargGuidance *ship)
+bool32 aitrackStabilizeGuidance(SpaceObjRotImpTargGuidance *ship)
 {
     real32 rotx = ship->rotinfo.rotspeed.x;
     real32 roty = ship->rotinfo.rotspeed.y;
@@ -95,7 +95,7 @@ bool aitrackStabilizeGuidance(SpaceObjRotImpTargGuidance *ship)
     vector right;
     real32 rotstr;
     real32 oneovertime;
-    bool stabilizedpitch;
+    bool32 stabilizedpitch;
 
     StaticInfoHealthGuidance *shipstaticinfo;
 
@@ -207,7 +207,7 @@ bool aitrackStabilizeGuidance(SpaceObjRotImpTargGuidance *ship)
     Outputs     :
     Return      : returns TRUE if rotation is zero
 ----------------------------------------------------------------------------*/
-bool aitrackIsZeroRotation(Ship *ship)
+bool32 aitrackIsZeroRotation(Ship *ship)
 {
     real32 rotx = ship->rotinfo.rotspeed.x;
     real32 roty = ship->rotinfo.rotspeed.y;
@@ -232,7 +232,7 @@ bool aitrackIsZeroRotation(Ship *ship)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool aitrackZeroRotationAnywhere(Ship *ship)
+bool32 aitrackZeroRotationAnywhere(Ship *ship)
 {
     real32 rotx = ship->rotinfo.rotspeed.x;
     real32 roty = ship->rotinfo.rotspeed.y;
@@ -302,7 +302,7 @@ bool aitrackZeroRotationAnywhere(Ship *ship)
     Outputs     :
     Return      : TRUE if heading has been successfully tracked.
 ----------------------------------------------------------------------------*/
-bool aitrackHeadingAndUp(Ship *ship,vector *desiredHeading,vector *desiredUp,real32 accuracy)
+bool32 aitrackHeadingAndUp(Ship *ship,vector *desiredHeading,vector *desiredUp,real32 accuracy)
 {
     ShipStaticInfo *shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;
 
@@ -456,7 +456,7 @@ bool aitrackHeadingAndUp(Ship *ship,vector *desiredHeading,vector *desiredUp,rea
     Outputs     :
     Return      : TRUE if heading has been successfully tracked.
 ----------------------------------------------------------------------------*/
-bool aitrackHeadingFunc(SpaceObjRotImpTargGuidance *ship,vector *desiredHeading,real32 accuracy,real32 upaccuracy,real32 sinbank,udword flags)
+bool32 aitrackHeadingFunc(SpaceObjRotImpTargGuidance *ship,vector *desiredHeading,real32 accuracy,real32 upaccuracy,real32 sinbank,udword flags)
 {
     StaticInfoHealthGuidance *shipstaticinfo = ship->staticinfo;
 
@@ -635,7 +635,7 @@ bool aitrackHeadingFunc(SpaceObjRotImpTargGuidance *ship,vector *desiredHeading,
     return FALSE;
 }
 
-bool aitrackHeadingWithBankPitchFunc(Ship *ship,vector *desiredHeading,real32 accuracy,real32 sinbank,real32 pitchdescend,real32 pitchturn,udword flags)
+bool32 aitrackHeadingWithBankPitchFunc(Ship *ship,vector *desiredHeading,real32 accuracy,real32 sinbank,real32 pitchdescend,real32 pitchturn,udword flags)
 {
     vector curheading;
     vector desheading;
@@ -756,7 +756,7 @@ bool aitrackHeadingWithBankPitchFunc(Ship *ship,vector *desiredHeading,real32 ac
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool aitrackRightVector(Ship *ship,vector *desiredRightVector,real32 accuracy)
+bool32 aitrackRightVector(Ship *ship,vector *desiredRightVector,real32 accuracy)
 {
     ShipStaticInfo *shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;
 
@@ -1017,7 +1017,7 @@ void aitrackVelocityVectorGuidance(SpaceObjRotImpTargGuidance *ship,vector *desi
     Outputs     :
     Return      : returns TRUE if ship has stopped drifting
 ----------------------------------------------------------------------------*/
-bool aitrackIsZeroVelocity(Ship *ship)
+bool32 aitrackIsZeroVelocity(Ship *ship)
 {
     vector shipVelocity;
 
@@ -1035,7 +1035,7 @@ bool aitrackIsZeroVelocity(Ship *ship)
     }
 }
 
-bool aitrackZeroForwardVelocity(Ship *ship)
+bool32 aitrackZeroForwardVelocity(Ship *ship)
 {
     ShipStaticInfo *shipstaticinfo = ship->staticinfo;
     real32 thruststr;
@@ -1074,7 +1074,7 @@ bool aitrackZeroForwardVelocity(Ship *ship)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool aitrackZeroVelocity(Ship *ship)
+bool32 aitrackZeroVelocity(Ship *ship)
 {
     vector shipVelocity;
     vector shipVelocityInShipCoordSys;
@@ -1142,7 +1142,7 @@ bool aitrackZeroVelocity(Ship *ship)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool aitrackSteadyShipDriftOnly(Ship *ship)
+bool32 aitrackSteadyShipDriftOnly(Ship *ship)
 {
     if (aitrackZeroVelocity(ship))
     {
@@ -1162,7 +1162,7 @@ bool aitrackSteadyShipDriftOnly(Ship *ship)
     Outputs     :
     Return      : returns TRUE if ship is steady anywhere (not necessarily oriented up)
 ----------------------------------------------------------------------------*/
-bool aitrackIsShipSteadyAnywhere(Ship *ship)
+bool32 aitrackIsShipSteadyAnywhere(Ship *ship)
 {
     return (aitrackIsZeroRotation(ship) & aitrackIsZeroVelocity(ship));
 }
@@ -1174,10 +1174,10 @@ bool aitrackIsShipSteadyAnywhere(Ship *ship)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool aitrackSteadyShipAnywhere(Ship *ship)
+bool32 aitrackSteadyShipAnywhere(Ship *ship)
 {
-    bool stabilized = aitrackZeroRotationAnywhere(ship);
-    bool zerovel = aitrackZeroVelocity(ship);
+    bool32 stabilized = aitrackZeroRotationAnywhere(ship);
+    bool32 zerovel = aitrackZeroVelocity(ship);
 
     if (stabilized && zerovel)
     {
@@ -1197,7 +1197,7 @@ bool aitrackSteadyShipAnywhere(Ship *ship)
     Outputs     :
     Return      : returns TRUE if ship is steady
 ----------------------------------------------------------------------------*/
-bool aitrackIsShipSteady(Ship *ship)
+bool32 aitrackIsShipSteady(Ship *ship)
 {
     return (aitrackIsStabilizeShip(ship) & aitrackIsZeroVelocity(ship));
 }
@@ -1209,10 +1209,10 @@ bool aitrackIsShipSteady(Ship *ship)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool aitrackSteadyShip(Ship *ship)
+bool32 aitrackSteadyShip(Ship *ship)
 {
-    bool stabilized = aitrackStabilizeShip(ship);
-    bool zerovel = aitrackZeroVelocity(ship);
+    bool32 stabilized = aitrackStabilizeShip(ship);
+    bool32 zerovel = aitrackZeroVelocity(ship);
 
     if (stabilized && zerovel)
     {
@@ -1326,7 +1326,7 @@ void aitrackForceHeading(Ship *ship, vector *heading, vector *upvector)
     Outputs     :
     Return      : TRUE if ship has reached destination (or is close enough)
 ----------------------------------------------------------------------------*/
-bool MoveReachedDestinationVariable(Ship *ship,vector *destination,real32 bounds)
+bool32 MoveReachedDestinationVariable(Ship *ship,vector *destination,real32 bounds)
 {
     vector lefttogo;
     real32 negbounds = -bounds;
@@ -1375,7 +1375,7 @@ real32 MoveLeftToGo(Ship *ship,vector *destination)
     Outputs     : none
     Return      : void
 ----------------------------------------------------------------------------*/
-bool aitrackRotationSpeed(Ship *ship, real32 desiredrotspeed, uword track)
+bool32 aitrackRotationSpeed(Ship *ship, real32 desiredrotspeed, uword track)
 {
     real32 rotstr      = 0.0;
     real32 oneovertime = 0.0;

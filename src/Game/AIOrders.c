@@ -791,7 +791,7 @@ void aioCreateTakeoutMothershipFast(struct AITeam *team,Ship *mothership)
     bitSet(team->teamFlags, TEAM_Hyperspaceable);
 }
 
-void aioCreateTakeoutMothershipBig(struct AITeam *team,Ship *mothership, bool ForceBig)
+void aioCreateTakeoutMothershipBig(struct AITeam *team,Ship *mothership, bool32 ForceBig)
 {
     AlternativeShips alternatives1,alternatives2;
 //    SelectCommand *selectone;
@@ -1055,7 +1055,7 @@ void aioCreateTakeoutTarget(struct AITeam *team,Ship *target)
     ShipStaticInfo *shipsToBuy;
     sdword numShipsToBuy;
     SelectCommand *selectone;
-    bool goodEnough;
+    bool32 goodEnough;
     AITeamMove *attackmove;
 
     // check reserves first:
@@ -1162,7 +1162,7 @@ void aioCreateFancyTakeoutTarget(struct AITeam *team,Ship *target)
     ShipStaticInfo *shipsToBuy;
     sdword numShipsToBuy;
     SelectCommand *selectone;
-    bool goodEnough;
+    bool32 goodEnough;
     AITeam *secondaryteam;
     SelectCommand *nearbydangerousships;
     AITeamMove *move;

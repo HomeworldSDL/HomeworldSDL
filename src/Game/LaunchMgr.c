@@ -71,10 +71,10 @@ extern udword strCurLanguage;
 
 static sdword lmRenderEverythingCounter;
 
-bool lmActive = FALSE;
+bool32 lmActive = FALSE;
 
 extern ShipType svShipType;
-bool lmPaletted;
+bool32 lmPaletted;
 
 LaunchShipsAvailable shipsavailable[LM_CORVETTE_SPACER+1];
 
@@ -108,9 +108,9 @@ sdword PrintOrder[LM_NUMSHIPS + 1] = {
     -1, // sentinel value
 };
 
-// This is a bool that is TRUE if the ship is in the printlist. dynamically calculated
+// This is a bool32 that is TRUE if the ship is in the printlist. dynamically calculated
 // based on the PrintOrder
-bool lmShipInList[TOTAL_NUM_SHIPS];
+bool32 lmShipInList[TOTAL_NUM_SHIPS];
 
 
 // callback functions for the launch GUI
@@ -183,7 +183,7 @@ color lmAvailableColor          = LM_AvailableColor;
 
 //variables for selection etc...
 
-bool lmIoSaveState;
+bool32 lmIoSaveState;
 
 
 Ship *lmCarrierX[NUM_LMCARRIERS] = { NULL, NULL, NULL, NULL };
@@ -235,7 +235,7 @@ ShipType lmcurshipview=DefaultShip;
 void lmUpdateShipView(void)
 {
     udword index;
-    bool   set=TRUE;
+    bool32   set=TRUE;
     listitemhandle listitem;
 
     if (lmcurshipview == DefaultShip)
@@ -594,7 +594,7 @@ void lmClose(char *string, featom *atom)
     svClose();
 }
 
-void lmCloseIfOpen()
+void lmCloseIfOpen(void)
 {
     if (lmBaseRegion)
     {
@@ -819,7 +819,7 @@ void lmShipsToLaunchDraw(char *string, featom *atom)
 {
     fonthandle      oldfont;
     sdword          index;
-    bool            is_corv=FALSE, is_fight=FALSE;
+    bool32            is_corv=FALSE, is_fight=FALSE;
 
     if (FEFIRSTCALL(atom))
     {
@@ -1504,7 +1504,7 @@ void lmUpdateShipsInside(void)
     sdword      index;
     sdword      shipnum=-1;
     listitemhandle listitem;
-    bool            is_corv=FALSE, is_fight=FALSE;
+    bool32            is_corv=FALSE, is_fight=FALSE;
 
     if (lmBaseRegion!=NULL)
     {
@@ -1749,7 +1749,7 @@ void lmReLaunch(Ship *newship)
     sdword      index;
     sdword      shipnum=-1;
     listitemhandle listitem;
-    bool            is_corv=FALSE, is_fight=FALSE;
+    bool32            is_corv=FALSE, is_fight=FALSE;
 
     launchship = newship;
 

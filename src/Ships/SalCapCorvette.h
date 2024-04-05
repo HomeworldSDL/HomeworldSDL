@@ -48,8 +48,8 @@ typedef struct
 extern CustShipHeader JunkYardDawgHeader;
 extern CustShipHeader SalCapCorvetteHeader;
 
-bool DropTargetInShip(Ship *dockwith,sdword *targetDepotState, SpaceObjRotImpTargGuidanceShipDerelict *target,sdword *dockindex);
-bool isThereAnotherTargetForMe(Ship *ship,SelectAnyCommand *targets);
+bool32 DropTargetInShip(Ship *dockwith,sdword *targetDepotState, SpaceObjRotImpTargGuidanceShipDerelict *target,sdword *dockindex);
+bool32 isThereAnotherTargetForMe(Ship *ship,SelectAnyCommand *targets);
 void salCapCleanUpCloakingTarget(Ship *ship, Ship *shiptoremove);
 void salCapClearTechBool();
 void SalCapDropTarget(Ship *ship);

@@ -27,8 +27,8 @@ typedef struct
     Bullet *bullet;
     Bullet *laser;
     real32 CoolDownTime;
-    bool CoolDown;
-    bool LaserDead;
+    bool32 CoolDown;
+    bool32 LaserDead;
 } DefenseStruct;
 
 typedef struct
@@ -355,7 +355,7 @@ void defensefightertargetbullet(Ship *ship, Bullet *bullettotarget)
     Return      :  TRUE if bullet is being targetted, FALSE otherwise
 ----------------------------------------------------------------------------*/
 
-bool isbulletbeingtargeted(Ship *ship, Bullet *bullet)
+bool32 isbulletbeingtargeted(Ship *ship, Bullet *bullet)
 {
    DefenseFighterSpec *spec = (DefenseFighterSpec *)ship->ShipSpecifics;
    Node *bulletnode;
@@ -387,7 +387,7 @@ return(FALSE);
     Return      : TRUE if bullet is infront of ship
 ----------------------------------------------------------------------------*/
 
-bool defensefighterCheckInFront(Ship *ship, Bullet *bullet)
+bool32 defensefighterCheckInFront(Ship *ship, Bullet *bullet)
 {
     vector shipheading; //ship velocity
     vector shiptobullet;
@@ -513,11 +513,11 @@ void DefenseFighterDestroyedABullet(Ship *ship, Bullet *bullet, Bullet *laser)
     //Ship *bulletowner = bullet->owner;
     //real32 massovertime;
     //vector recoil;
-    //bool shipWasAlive;
+    //bool32 shipWasAlive;
     //etgeffectstatic *stat;
     //sdword LOD;
     //vector LOF;
-    //bool fatalHit;
+    //bool32 fatalHit;
     //vector hitlocation;
     //real32 floatDamage;
     //udword intDamage;
@@ -928,7 +928,7 @@ void DefenseFighterDied(Ship *ship)
     }
 }
 
-bool DefenseFighterSpecialActivate(Ship *ship)
+bool32 DefenseFighterSpecialActivate(Ship *ship)
 {
     DefenseFighterSpec *spec = (DefenseFighterSpec *)ship->ShipSpecifics;
 
@@ -970,7 +970,7 @@ void DefenseFighterAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdist)
     }
 }
 
-void DefenseFighterPassiveAttack(Ship *ship,Ship *target,bool rotate)
+void DefenseFighterPassiveAttack(Ship *ship,Ship *target,bool32 rotate)
 {
     vector heading;
     if(!rotate)

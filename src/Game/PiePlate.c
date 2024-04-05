@@ -98,11 +98,11 @@ color moveLineColor = colWhite;
 
 
 #if PIE_VISUALIZE_EXTENTS
-bool pieVisualizeExtents = FALSE;
+bool32 pieVisualizeExtents = FALSE;
 #endif
 
 vector pieScreen0, pieScreen1;
-bool pieOnScreen = FALSE;
+bool32 pieOnScreen = FALSE;
 extern real32 smZoomMax;
 
 /*=============================================================================
@@ -166,7 +166,7 @@ sdword pieCircleSegmentsCompute(real32 screenRadius)
     Outputs     : Just sets piePointSpecMode to idle
     Return      : void
 ----------------------------------------------------------------------------*/
-bool pieCancelPointSpecMode(sdword userID, ubyte *userData, sdword length)
+bool32 pieCancelPointSpecMode(sdword userID, ubyte *userData, sdword length)
 {
     if (piePointSpecMode != PSM_Idle)
     {
@@ -284,7 +284,7 @@ sdword pieMousePosSet3D(hmatrix *modelView, hmatrix *projection, vector *mouse3D
     Outputs     :
     Return      : TRUE if both points will be in the same place on-screen
 ----------------------------------------------------------------------------*/
-bool pieSameOnScreenPoint(hmatrix *modelView, hmatrix *projection, vector *world0, vector *world1)
+bool32 pieSameOnScreenPoint(hmatrix *modelView, hmatrix *projection, vector *world0, vector *world1)
 {
     sdword x0, x1, y0, y1;
     hvector world, camera, screen;
@@ -387,7 +387,7 @@ void pieDistanceReadoutDraw(vector *movepoint, vector *origin, color c)
     fonthandle fhSave;
     color ruReadoutColour = colBlack;
     hmatrix modelview, projection;
-    bool depthOn;
+    bool32 depthOn;
     char dist_str[20],ru_str[20];
 
     dist_x = movepoint->x - origin->x;
@@ -458,7 +458,7 @@ void pieDistanceReadoutDraw(vector *movepoint, vector *origin, color c)
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
     glLoadIdentity();
-    depthOn = (bool)glIsEnabled(GL_DEPTH_TEST);
+    depthOn = (bool32)glIsEnabled(GL_DEPTH_TEST);
     if (depthOn) glDisable(GL_DEPTH_TEST);
 
     //using the mousecursor position to position the distance readout is more
@@ -525,7 +525,7 @@ void pieAllShipsToPiePlateDraw(real32 distance)
     vector planePoint, shipPoint;//, innerPoint;
     real32 length;
     real32 closestDistance = REALlyBig;
-    bool bHeightPointDrawn   = FALSE,
+    bool32 bHeightPointDrawn   = FALSE,
          bClosestHeightDrawn = FALSE;
     ShipPtr closestShip = NULL;
     color c;
@@ -697,7 +697,7 @@ void pieScreenSizeOfCircleCompute(vector *position, real32 inRadius, real32 *out
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool pieNeedSpecialAttackAndMoveColor()
+bool32 pieNeedSpecialAttackAndMoveColor(void)
 {
     sdword i,j;
     CommandToDo *command;
@@ -758,7 +758,7 @@ void pieMovementCursorDraw(real32 distance)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool pieDestinationInGunRangeOfTargets()
+bool32 pieDestinationInGunRangeOfTargets(void)
 {
     sdword i,j;
     vector distvec;
@@ -897,7 +897,7 @@ void piePlaneDraw(real32 distance)
     Return      : TRUE if a valid intersection found, FALSE otherwise
 ----------------------------------------------------------------------------*/
 #define SGN(x)      ((x) < 0.0f ? -1.0f : 1.0f)
-bool pieMovePointClipToLimits(real32 sizeX, real32 sizeY, real32 sizeZ, vector *pointA, vector *pointB)
+bool32 pieMovePointClipToLimits(real32 sizeX, real32 sizeY, real32 sizeZ, vector *pointA, vector *pointB)
 {
     real32 discriminant;
     real32 dx, dy, drSquared, rSquared, D, DSquared;

@@ -148,7 +148,7 @@ scriptEntry subScriptTable[] =
     Outputs     :
     Return      : returns TRUE if any subtitle cards are on the screen
 ----------------------------------------------------------------------------*/
-bool subAnyCardsOnScreen(void)
+bool32 subAnyCardsOnScreen(void)
 {
     sdword index;
 
@@ -341,7 +341,7 @@ void subThemeFadeSet(char *directory, char *field, void *dataToFillIn)
     }
     dbgAssertOrIgnore(fadeTime >= 0.0f && fadeTime < 80.0f);
 #endif
-    if ((bool)dataToFillIn == FALSE)
+    if ((bool32)dataToFillIn == FALSE)
     {
         subTheme[iTheme].fadeIn = fadeTime;
     }

@@ -24,7 +24,7 @@ static real32 alodIdealScaleFactor;
 static real32 alodMaxScaleFactor;
 static real32 alodMinScaleFactor;
 static real32 alodScaleFactorDelta = 0.008f;
-static bool   alodAmPanicking;
+static bool32   alodAmPanicking;
 
 static real32 alodFastMinScale = 0.2f;
 static real32 alodFastMaxScale = 1.2f;
@@ -46,7 +46,7 @@ typedef enum
 } alodState_t;
 
 static alodState_t alodState;
-static bool alodEnabled;
+static bool32 alodEnabled;
 
 sdword alodDownDelta = 0;
 
@@ -222,7 +222,7 @@ void alodIncPolys(udword polys)
     Outputs     : alodEnabled is set to enable
     Return      :
 ----------------------------------------------------------------------------*/
-void alodEnable(bool enable)
+void alodEnable(bool32 enable)
 {
     alodEnabled = enable;
 }
@@ -247,7 +247,7 @@ udword alodGetPolys(void)
     Outputs     : TRUE if panicking, FALSE otherwise
     Return      :
 ----------------------------------------------------------------------------*/
-bool alodGetPanic(void)
+bool32 alodGetPanic(void)
 {
     return alodAmPanicking;
 }
@@ -259,7 +259,7 @@ bool alodGetPanic(void)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void alodSetPanic(bool panic)
+void alodSetPanic(bool32 panic)
 {
     alodAmPanicking = panic;
 }

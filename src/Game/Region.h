@@ -171,7 +171,7 @@ extern udword regRegionFrameDrawCount;
     Data:
 =============================================================================*/
 extern region regRootRegion;
-extern bool regKeysFocussed;
+extern bool32 regKeysFocussed;
 
 /*=============================================================================
     Macros:
@@ -241,7 +241,7 @@ regionhandle regKeySiblingAlloc(regionhandle sibling, smemsize ID, udword filter
 void regRegionDelete(regionhandle region);
 
 //adjust region links (usually only used by region allocation/deletion functions)
-bool regRegionInside(regionhandle needle, regionhandle haystack);
+bool32 regRegionInside(regionhandle needle, regionhandle haystack);
 void regChildInsert(regionhandle regionToInsert, regionhandle parent);
 void regSiblingInsert(regionhandle regionToInsert, regionhandle sibling);
 void regMoveLinkChild(regionhandle regionToMove, regionhandle newParent);

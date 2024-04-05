@@ -27,8 +27,8 @@ typedef struct
 {
     real32 aiattacklast;        // time stamp for spin up and down time count
     real32 aifirestarttime;     // time stamp for start of firing
-    bool   spining;
-    bool   steady;
+    bool32   spining;
+    bool32   steady;
 } P2MultiBeamFrigateSpec;
 
 typedef struct
@@ -42,7 +42,7 @@ typedef struct
 
 P2MultiBeamFrigateStatics P2MultiBeamFrigateStatic;
 
-void P2MultiBeamFrigateAttackDoAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdist,bool PassiveAttack);
+void P2MultiBeamFrigateAttackDoAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdist,bool32 PassiveAttack);
 void P2MultiBeamFrigateFire(Ship *ship,SpaceObjRotImpTarg *target);
 
 scriptStructEntry P2MultiBeamFrigateScriptTable[] =
@@ -86,7 +86,7 @@ void P2MultiBeamFrigateAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdi
 	P2MultiBeamFrigateAttackDoAttack(ship,target,maxdist,FALSE);
 }
 
-void P2MultiBeamFrigateAttackDoAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdist,bool PassiveAttack)
+void P2MultiBeamFrigateAttackDoAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdist,bool32 PassiveAttack)
 
 {
     ShipStaticInfo *shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;
@@ -167,7 +167,7 @@ void P2MultiBeamFrigateFire(Ship *ship,SpaceObjRotImpTarg *target)
     }
 }
 
-void P2MultiBeamFrigateAttackPassive(Ship *ship,Ship *target,bool rotate)
+void P2MultiBeamFrigateAttackPassive(Ship *ship,Ship *target,bool32 rotate)
 {
     ShipStaticInfo            *shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;
     P2MultiBeamFrigateSpec    *spec     = (P2MultiBeamFrigateSpec *)ship->ShipSpecifics;

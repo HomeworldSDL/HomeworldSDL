@@ -30,7 +30,7 @@ color R2BulletColor;
 
 extern real32 cmFloatRefundRatio;
 
-bool shipsRetaliate = TRUE;
+bool32 shipsRetaliate = TRUE;
 real32 RETALIATE_ZONE = 1000.0f;
 
 real32 BLAST_CONSTANT = 100000.0f;

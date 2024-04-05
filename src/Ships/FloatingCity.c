@@ -46,9 +46,9 @@ void FloatingCityAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdist)
     attackStraightForward(ship,target,floatingcitystat->floatingcityGunRange[ship->tacticstype],floatingcitystat->floatingcityTooCloseRange[ship->tacticstype]);
 }
 
-void FloatingCityAttackPassive(Ship *ship,Ship *target,bool rotate)
+void FloatingCityAttackPassive(Ship *ship,Ship *target,bool32 rotate)
 {
-    if ((rotate) & ((bool)((ShipStaticInfo *)(ship->staticinfo))->rotateToRetaliate))
+    if ((rotate) & ((bool32)((ShipStaticInfo *)(ship->staticinfo))->rotateToRetaliate))
     {
         attackPassiveRotate(ship,target);
     }

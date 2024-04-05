@@ -61,7 +61,7 @@ scriptEntry DamageTweaks[] =
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void dmgStartup()
+void dmgStartup(void)
 {
     //nothing here
 }
@@ -73,7 +73,7 @@ void dmgStartup()
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void dmgShutdown()
+void dmgShutdown(void)
 {
     //nothing here
 }
@@ -465,7 +465,7 @@ void dmgShipThink(Ship* ship)
     ShipSinglePlayerGameInfo* ssinfo;
     ShipClass shipClass;
     real32 maxhealth, health, healthRatio;
-    extern bool gShowDamage;
+    extern bool32 gShowDamage;
 
     if (!gShowDamage)
     {

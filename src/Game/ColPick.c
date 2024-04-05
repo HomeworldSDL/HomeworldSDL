@@ -110,7 +110,7 @@ sdword cpStripeHue, cpStripeSaturation, cpStripeValue;
 color *cpPBaseColor = &utyBaseColor;
 color *cpPStripeColor = &utyStripeColor;
 //ShipRace *cpPRace;
-bool   cpColorsPicked = FALSE;
+bool32   cpColorsPicked = FALSE;
 
 //region handles for the interactive user regions
 regionhandle cpHueSaturationRegion = NULL, cpValueRegion = NULL;
@@ -411,7 +411,7 @@ void cpPreviewImagePrepare(void)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void cpDirtyPreviewImage()
+void cpDirtyPreviewImage(void)
 {
     sdword i;
 

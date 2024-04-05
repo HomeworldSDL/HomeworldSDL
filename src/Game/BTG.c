@@ -36,7 +36,7 @@
 
 #define M_PI_F 3.1415926535f
 
-static bool useVBO = FALSE;
+static bool32 useVBO = FALSE;
 
 static ubyte lastbg[4] = {255,255,255,0};
 
@@ -124,7 +124,7 @@ typedef struct tagTGAFileHeader
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void btgStartup()
+void btgStartup(void)
 {
     btgReset();
     useVBO = glCheckExtension("GL_ARB_vertex_buffer_object");
@@ -137,7 +137,7 @@ void btgStartup()
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void btgReset()
+void btgReset(void)
 {
     sdword numStars;
 
@@ -225,7 +225,7 @@ void btgReset()
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void btgShutdown()
+void btgShutdown(void)
 {
     btgReset();
 }
@@ -391,7 +391,7 @@ void btgGetTexture(char* filename, udword* thandle, sdword* width, sdword* heigh
     Outputs     :
     Return      : TRUE or FALSE (in or not in list)
 ----------------------------------------------------------------------------*/
-bool btgTexInList(char* filename)
+bool32 btgTexInList(char* filename)
 {
     starTex* ptex;
 
@@ -1120,7 +1120,7 @@ void btgConvertStar(btgTransStar* out, udword nVert)
     Outputs     : btgTransVerts, btgTransStars are allocated and initialized
     Return      :
 ----------------------------------------------------------------------------*/
-void btgConvertVerts()
+void btgConvertVerts(void)
 {
     udword          nVert, nPoly, index;
     btgTransVertex* pTransVert;
@@ -1197,7 +1197,7 @@ void btgVertexColor(udword nVert)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void btgColorVertices()
+void btgColorVertices(void)
 {
     btgVertex* pVert;
     btgTransVertex* transVert;
@@ -1234,7 +1234,7 @@ void btgSetColourMultiplier(real32 t)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void btgRender()
+void btgRender(void)
 {
     udword nStar;
     sdword lightOn, index;
@@ -1244,7 +1244,7 @@ void btgRender()
     static sdword lastFade = 255;
 
 #if MR_KEYBOARD_CHEATS
-    extern bool gMosaic;
+    extern bool32 gMosaic;
 #endif
 
     if (btgHead == NULL)

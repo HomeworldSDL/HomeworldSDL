@@ -66,10 +66,10 @@ splinecurve;
     Functions:
 =============================================================================*/
 
-void bsStartup();
-void bsShutdown();
+void bsStartup(void);
+void bsShutdown(void);
 
-splinecurve *bsCurveStart(sdword nPoints, real32 *points, real32 *times, tcb *params, bool bAlloc);
+splinecurve *bsCurveStart(sdword nPoints, real32 *points, real32 *times, tcb *params, bool32 bAlloc);
 void bsCurveStartPrealloced(splinecurve *curve, sdword nPoints, real32 *values, real32 *times, tcb *params);
 void bsCurveRestart(splinecurve *curve);
 real32 bsCurveUpdate(splinecurve *curve, real32 timeElapsed);

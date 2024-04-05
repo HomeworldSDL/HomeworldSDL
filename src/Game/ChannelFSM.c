@@ -40,7 +40,7 @@ char   channeldesctry[MAX_CHANNEL_DESCRIPTION_LEN];
 
 // functions to start the state machine
 
-bool cCreateChannel(wchar_t *name, wchar_t *desc)
+bool32 cCreateChannel(wchar_t *name, wchar_t *desc)
 {
     //titanCreateDirectory(name, desc);
 
@@ -52,7 +52,7 @@ bool cCreateChannel(wchar_t *name, wchar_t *desc)
     return(FALSE);
 }
 
-bool cJoinChannelRequest(wchar_t *name, wchar_t *desc)
+bool32 cJoinChannelRequest(wchar_t *name, wchar_t *desc)
 {
     SetChannel(name,desc);
     if (cChannelFSMState != CS_Idle)
@@ -69,7 +69,7 @@ bool cJoinChannelRequest(wchar_t *name, wchar_t *desc)
     return(FALSE);
 }
 
-bool cJoinADefaultRoom(void)
+bool32 cJoinADefaultRoom(void)
 {
     ChannelPassword[0] = 0;
     if (cChannelFSMState != CS_Idle)
@@ -86,13 +86,13 @@ bool cJoinADefaultRoom(void)
     return(FALSE);
 }
 
-bool cCreateGame(wchar_t *name)
+bool32 cCreateGame(wchar_t *name)
 {
 
     return(FALSE);
 }
 
-bool cStartTitan(void)
+bool32 cStartTitan(void)
 {
     if (cChannelFSMState != CS_Idle)
     {
@@ -159,8 +159,8 @@ sdword FindADefaultRoom(void)
     // first iteration match both language and someone criteria
     // second iteration just language criteria
     // third iteration no criteria
-    bool languagecriteria[FIND_DEFAULT_ROOM_TRIES] = { TRUE, TRUE,  FALSE };
-    bool someonecriteria[FIND_DEFAULT_ROOM_TRIES] =  { TRUE, FALSE, FALSE };
+    bool32 languagecriteria[FIND_DEFAULT_ROOM_TRIES] = { TRUE, TRUE,  FALSE };
+    bool32 someonecriteria[FIND_DEFAULT_ROOM_TRIES] =  { TRUE, FALSE, FALSE };
 
     tpchannel *tc;
 

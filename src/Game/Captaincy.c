@@ -45,7 +45,7 @@ extern Uint32 utyTimerDivisor;
 
 typedef struct TimeoutTimer
 {
-    bool enabled;
+    bool32 enabled;
     Uint32 timerLast;
     udword timeoutTicks;
 } TimeoutTimer;
@@ -67,11 +67,11 @@ sdword TimedOutWaitingForPauseAcksGiveUpAfterNumTimes = 2;
 
 TimeoutTimer timeoutTimers[NUMBER_TIMEOUTTIMERS];
 
-bool transferCaptaincyDisabled = FALSE;
+bool32 transferCaptaincyDisabled = FALSE;
 
 udword pausedNextPacketToReceive[MAX_MULTIPLAYER_PLAYERS] = { 0,0,0,0,0,0,0,0 };
 
-bool printCaptainMessage = FALSE;
+bool32 printCaptainMessage = FALSE;
 
 void AcknowledgeNewCaptain(sdword newcaptainIndex);
 
@@ -91,7 +91,7 @@ void captaincyLogInit(void)
     }
 }
 
-void resetPausedNextPacketToReceive()
+void resetPausedNextPacketToReceive(void)
 {
     sdword i;
 
@@ -101,7 +101,7 @@ void resetPausedNextPacketToReceive()
     }
 }
 
-void captaincyLog(bool echotoscreen,char *format, ...)
+void captaincyLog(bool32 echotoscreen,char *format, ...)
 {
     char buffer[200];
     va_list argList;
@@ -383,7 +383,7 @@ void IBecomeCaptain(void)
 #define STATE_WAIT_FOR_PAUSE_ACKS   3
 #define STATE_PAUSED                4
 
-void TransitionToSTATE_NORMAL(bool tellUser)
+void TransitionToSTATE_NORMAL(bool32 tellUser)
 {
     captaincyLog(tellUser,"Cap:Transition to state normal");
     captainTransferState = STATE_NORMAL;
@@ -392,7 +392,7 @@ void TransitionToSTATE_NORMAL(bool tellUser)
     resetPausedNextPacketToReceive();
 }
 
-void TransitionToSTATE_WAITFOR_PROPOSALS()
+void TransitionToSTATE_WAITFOR_PROPOSALS(void)
 {
     captaincyLog(FALSE,"Cap:Transition to state wait for proposals");
     captainTransferState = STATE_WAITFOR_PROPOSALS;
@@ -400,20 +400,20 @@ void TransitionToSTATE_WAITFOR_PROPOSALS()
     ProposeNewCaptain();
 }
 
-void TransitionToSTATE_GOT_PROPOSAL_FOR_ME()
+void TransitionToSTATE_GOT_PROPOSAL_FOR_ME(void)
 {
     captaincyLog(FALSE,"Cap:Transition to state Got proposal for me");
     captainTransferState = STATE_GOT_PROPOSAL_FOR_ME;
 }
 
-void TransitionToSTATE_WAIT_FOR_PAUSE_ACKS()
+void TransitionToSTATE_WAIT_FOR_PAUSE_ACKS(void)
 {
     captaincyLog(FALSE,"Cap:Transition to state Wait for pause acks");
     captainTransferState = STATE_WAIT_FOR_PAUSE_ACKS;
     TimeoutTimerStart(TWAITFORPAUSEACKS,TWAITFORPAUSEACKS_Timeout);
 }
 
-void TransitionToSTATE_PAUSED()
+void TransitionToSTATE_PAUSED(void)
 {
     captaincyLog(FALSE,"Cap:Transition to state Paused");
     captainTransferState = STATE_PAUSED;
@@ -449,7 +449,7 @@ void SendSyncPacketsToAllOtherPlayersTillCaughtUp(void)
             sdword j;
             HWPacketHeader *packet;
             udword size;
-            bool gotit;
+            bool32 gotit;
 
             for (j=pausedNextPacketToReceive[i];j<pausedNextPacketToReceive[sigsPlayerIndex];j++)
             {
@@ -469,7 +469,7 @@ void SendSyncPacketsToAllOtherPlayersTillCaughtUp(void)
     }
 }
 
-bool IHaveEqualOrLatestSyncPacket(void)
+bool32 IHaveEqualOrLatestSyncPacket(void)
 {
     sdword i;
 

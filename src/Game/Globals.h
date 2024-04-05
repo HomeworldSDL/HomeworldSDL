@@ -60,7 +60,7 @@ typedef struct
 
 typedef struct
 {
-    bool messageOn;
+    bool32 messageOn;
     char message[MAX_BIGMESSAGE_LENGTH];
 } bMessageType;
 
@@ -73,45 +73,45 @@ extern sdword vecNormalizeCounter;
 #endif
 
 extern udword startingGameState;
-extern bool HaveSentNonCaptainReadyPacket;
+extern bool32 HaveSentNonCaptainReadyPacket;
 
-extern bool gameIsRunning;
-extern bool multiPlayerGame;
-extern bool multiPlayerGameUnderWay;
+extern bool32 gameIsRunning;
+extern bool32 multiPlayerGame;
+extern bool32 multiPlayerGameUnderWay;
 
-extern bool singlePlayerGame;
-extern bool objectivesShown;
+extern bool32 singlePlayerGame;
+extern bool32 objectivesShown;
 
 #define TUTORIAL_ONLY           1
 #define TUTORIAL_SINGLEPLAYER   2
 extern sdword tutorial;
-extern bool tutorialdone;
+extern bool32 tutorialdone;
 
 #define PLAYER_QUIT             6
 #define PLAYER_DROPPED_OUT      7
-extern bool playersReadyToGo[MAX_MULTIPLAYER_PLAYERS];
+extern bool32 playersReadyToGo[MAX_MULTIPLAYER_PLAYERS];
 
 #define playerHasDroppedOutOrQuit(index) ((playersReadyToGo[index] == PLAYER_DROPPED_OUT) || (playersReadyToGo[index] == PLAYER_QUIT))
 
 extern uword numPlayers;
 extern uword curPlayer;
 
-extern bool startingGame;
-//extern bool nisEnabled;
+extern bool32 startingGame;
+//extern bool32 nisEnabled;
 
 extern void *gMessageMutex;
 extern gMessageType gMessage[MAX_MESSAGES+1];
 
 extern bMessageType bMessage[MAX_BIGMESSAGES];
 
-extern bool smSensorsActive;
+extern bool32 smSensorsActive;
 
 extern udword logEnable;
 extern char logFilePath[];
 
 
 #ifdef GOD_LIKE_SYNC_CHECKING
-extern bool syncDumpOn;
+extern bool32 syncDumpOn;
 extern sdword syncDumpWindowSize;
 extern sdword syncDumpGranularity;
 extern sdword syncDumpWindowPos;
@@ -119,10 +119,10 @@ extern sdword syncDumpGranTrack;
 #endif
 
 #ifdef DEBUG_GAME_STATS
-extern bool statLogOn;
+extern bool32 statLogOn;
 #endif
 
-extern bool smGhostMode;
+extern bool32 smGhostMode;
 
 extern char playerNames[MAX_MULTIPLAYER_PLAYERS][MAX_PERSONAL_NAME_LEN];
 
@@ -135,15 +135,15 @@ extern sdword captainProposal;
 extern sdword captainTransferState;
 extern sdword receiveSyncPacketsFrom;
 
-extern bool hrAbortLoadingGame;
+extern bool32 hrAbortLoadingGame;
 
-extern bool explicitlyRequestingPackets;
+extern bool32 explicitlyRequestingPackets;
 extern udword explicitlyRequestingFrom;
 extern udword explicitlyRequestingTo;
 
 extern bool8 ComputerPlayerOn[MAX_MULTIPLAYER_PLAYERS];
 
-extern bool startRecordingGameWhenSafe;
+extern bool32 startRecordingGameWhenSafe;
 
 /*=============================================================================
     Public Macros:
@@ -157,11 +157,11 @@ extern bool startRecordingGameWhenSafe;
     Functions:
 =============================================================================*/
 
-void globalsResetFunc(bool firstTime);
+void globalsResetFunc(bool32 firstTime);
 #define globalsReset()  globalsResetFunc(0)
 #define globalsInit() globalsResetFunc(1)
 
-void globalsClose();
+void globalsClose(void);
 
 #endif
 

@@ -105,13 +105,13 @@ real32 subMessageReturnedFalseTime = 0;
 
 // need some closing stuff for kas - global variables need to be
 // made NULL etc.
-void kasClose()
+void kasClose(void)
 {
     kasUnpausedTeam = NULL;
     subMessageReturnedFalseTime = 0.0f;
 }
 
-void kasInit()
+void kasInit(void)
 {
     subMessageReturnedFalseTime = 0.0f;
 }
@@ -1161,7 +1161,7 @@ void SaveKasSelection(KasSelection *kasselection)
     SaveGrowSelection(&kasselection->shipList);
 }
 
-KasSelection *LoadKasSelection()
+KasSelection *LoadKasSelection(void)
 {
     KasSelection *kasselection = LoadStructureOfSize(sizeof(KasSelection));
     LoadGrowSelectionAndFix(&kasselection->shipList);
@@ -1174,7 +1174,7 @@ void SaveLabelledPath(LabelledPath *labelledpath)
     SavePath(labelledpath->path);
 }
 
-LabelledPath *LoadLabelledPath()
+LabelledPath *LoadLabelledPath(void)
 {
     LabelledPath *labelledpath = LoadStructureOfSize(sizeof(LabelledPath));
     labelledpath->path = LoadPath();
@@ -1187,7 +1187,7 @@ void SaveLabelledVector(LabelledVector *labelledvector)
     SaveStructureOfSize(labelledvector->hvector,sizeof(hvector));
 }
 
-LabelledVector *LoadLabelledVector()
+LabelledVector *LoadLabelledVector(void)
 {
     LabelledVector *labelledvector = LoadStructureOfSize(sizeof(LabelledVector));
     labelledvector->hvector = LoadStructureOfSize(sizeof(hvector));
@@ -1200,7 +1200,7 @@ void SaveLabelledVolume(LabelledVolume *labelledvolume)
     SaveStructureOfSize(labelledvolume->volume,sizeof(Volume));
 }
 
-LabelledVolume *LoadLabelledVolume()
+LabelledVolume *LoadLabelledVolume(void)
 {
     LabelledVolume *labelledvolume = LoadStructureOfSize(sizeof(LabelledVolume));
     labelledvolume->volume = LoadStructureOfSize(sizeof(Volume));

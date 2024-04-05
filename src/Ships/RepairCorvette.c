@@ -94,9 +94,9 @@ void RepairCorvetteAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdist)
     attackSideStep(ship,target,&spec->attacksidestep,&corvstat->sidestepParameters);
 }
 
-void RepairCorvetteAttackPassive(Ship *ship,Ship *target,bool rotate)
+void RepairCorvetteAttackPassive(Ship *ship,Ship *target,bool32 rotate)
 {
-    if ((rotate) & ((bool)((ShipStaticInfo *)(ship->staticinfo))->rotateToRetaliate))
+    if ((rotate) & ((bool32)((ShipStaticInfo *)(ship->staticinfo))->rotateToRetaliate))
     {
         attackPassiveRotate(ship,target);
     }
@@ -266,7 +266,7 @@ void ModifyRepairEffect(Effect *effect,Ship *ship,vector *trajectory,real32 dist
 
 //function will return the most heavily damaged target in the list, OR
 //if all are fully healthy, it will return the FIRST target in the list
-bool areAllHealthy(Ship *ship,SelectAnyCommand *targets)
+bool32 areAllHealthy(Ship *ship,SelectAnyCommand *targets)
 {
     sdword i;
     for(i=0;i<targets->numTargets;i++)
@@ -278,7 +278,7 @@ bool areAllHealthy(Ship *ship,SelectAnyCommand *targets)
     }
     return (TRUE);
 }
-bool refuelRepairShips(Ship *ship, SelectAnyCommand *targets,real32 rangetoRefuel)
+bool32 refuelRepairShips(Ship *ship, SelectAnyCommand *targets,real32 rangetoRefuel)
 {
     //remove unwantedships from this selection
     //optimize by doing only once for this ship
@@ -518,7 +518,7 @@ void RepairCorvette_Fix(Ship *ship)
     #pragma warning( 2 : 4047)      // turn back on "different levels of indirection warning"
 #endif
 
-bool RepairCorvetteSpecialTarget(Ship *ship,void *custom)
+bool32 RepairCorvetteSpecialTarget(Ship *ship,void *custom)
 {
     RepairCorvetteStatics *stat = (RepairCorvetteStatics *)ship->staticinfo->custstatinfo;
     SelectAnyCommand *targets;

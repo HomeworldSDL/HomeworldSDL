@@ -37,7 +37,7 @@ static real32 shDockScalarRed, shDockScalarGreen, shDockScalarBlue;
 static real32 shSpecularDefault[3] = {11.0f, 2.0f, 4.0f};
 static real32 shSpecularExponent[3] = {11.0f, 2.0f, 4.0f};
 
-static bool shNormalize = TRUE;
+static bool32 shNormalize = TRUE;
 
 static real32 shGammaAdjust;
 static real32 shBrightness;
@@ -755,7 +755,7 @@ void shSpecularColour(
     real32 nx, ny, nz;
     real32 alpha, nDotVP;
     real32 fade;
-    extern bool bFade;
+    extern bool32 bFade;
     extern real32 meshFadeAlpha;
 
     fade = bFade ? meshFadeAlpha : 1.0f;

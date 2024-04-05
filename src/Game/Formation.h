@@ -53,24 +53,24 @@ typedef udword TypeOfFormation;
 typedef struct
 {
     TypeOfFormation formationtype;
-    bool formationLocked;            //flag indicating status of formation
+    bool32 formationLocked;            //flag indicating status of formation
     matrix coordsys;
     //fix later to make these bit masks
     sdword tacticalState;            //loose or tight
     real32 tacticsUpdate;            //time formation was updated..so it is only updated once per univupdate
-    bool flipselectionfixed;        //flag to indicate a certain state of the formation
-    bool needFix;                   //another state flag for formation
-    bool enders;                    //flag set if formation has been 'modified' to include target at center...should fix later and put in sphere specifics
+    bool32 flipselectionfixed;        //flag to indicate a certain state of the formation
+    bool32 needFix;                   //another state flag for formation
+    bool32 enders;                    //flag set if formation has been 'modified' to include target at center...should fix later and put in sphere specifics
     real32 travelvel;               // formation's travel velocity
     real32 percentmaxspeed;         // how much error is in formation positioning
     bool16 flagTravelSlowestShip;
     bool16 doneInitialAttack;
     udword sortorder;
     //for the tactical overlay
-    bool pulse;
+    bool32 pulse;
     sdword flipState;               //variable used to determine that flipped state of the formation <if it has been flipped or not during a combat turnaround>
     void *formationSpecificInfo;    // if you use this, first sdword of custom structure should be size of structure
-//    bool formAroundProtectedShip;
+//    bool32 formAroundProtectedShip;
 } FormationCommand;
 
 /*=============================================================================
@@ -144,12 +144,12 @@ typedef struct
 struct CommandLayer;
 
 struct CommandToDo *CreateMilitaryGroupAroundShip(struct CommandLayer *comlayer,ShipPtr ship,ShipPtr aroundShip);
-void processMilitaryParadeToDo(struct CommandToDo *command,bool passiveAttacked);
+void processMilitaryParadeToDo(struct CommandToDo *command,bool32 passiveAttacked);
 void AddShipToMilitaryGroup(ShipPtr ship,struct CommandToDo *militaryGroup);
 void RemoveShipFromMilitaryParade(Ship *shiptoremove,MilitaryParadeCommand *militaryParade);
 void FreeMilitaryParadeContents(MilitaryParadeCommand *militaryParade);
 void setMilitaryParade(struct CommandToDo *command);
-bool shipInMilitaryParade(ShipPtr ship);
+bool32 shipInMilitaryParade(ShipPtr ship);
 void paradeSetTweakables();
 
 /*=============================================================================
@@ -174,13 +174,13 @@ TypeOfFormation NiceStrToTypeOfFormation(char *str);
 void formationContentHasChanged(struct CommandToDo *command);
 void formationTypeHasChanged(struct CommandToDo *command);
 void formationArrangeOptimum(struct CommandToDo *formationtodo);
-void processFormationToDo(struct CommandToDo *formationtodo,bool steadyFormation,bool passiveAttacked);
+void processFormationToDo(struct CommandToDo *formationtodo,bool32 steadyFormation,bool32 passiveAttacked);
 void setFormationToDo(struct CommandToDo *formationtodo);
 
 void freeSphereStaticInfo(struct SphereStaticInfo *sphereStaticInfo);
 struct SphereStaticInfo *createSphereStaticInfo(void);
 
-void formationWingmanTrackLeader(struct Ship *ship,struct Ship *leader,bool rotate);
+void formationWingmanTrackLeader(struct Ship *ship,struct Ship *leader,bool32 rotate);
 
 void FillInShipFormationStuff(Ship *ship,struct CommandToDo *formationcommand);
 

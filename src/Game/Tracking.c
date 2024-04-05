@@ -22,7 +22,7 @@
 =============================================================================*/
 trackvalue trkValue[TRK_NumberTracks];
 sdword trkTrackIndex = 0;
-bool trkTrackingVisual = FALSE;
+bool32 trkTrackingVisual = FALSE;
 
 struct
 {

@@ -119,10 +119,10 @@ extern color TM_CantAffordTextColor;
     Data:
 =============================================================================*/
 
-bool tmCheapTechs = TRUE;
+bool32 tmCheapTechs = TRUE;
 
-bool tmTradeDisabled = FALSE;
-bool tmTradeActive = FALSE;
+bool32 tmTradeDisabled = FALSE;
+bool32 tmTradeActive = FALSE;
 
 char        oldtline[650], tline[650];
 
@@ -201,7 +201,7 @@ sword tmTechSelected = -1;
 
 wkTradeType wkTradeShips[WK_MAX_SHIPS];
 wkTradeType *wkTradeControlShip;
-bool wkTradeStuffActive;
+bool32 wkTradeStuffActive;
 
 extern char* TechImagePaths[];
 
@@ -230,7 +230,7 @@ TechnologyType  tmCurTechTexture = -1;
 udword          tmLabTexture[MAX_RACES] = { TR_InvalidInternalHandle, TR_InvalidInternalHandle };
 lifheader      *tmLabImage[MAX_RACES] = { NULL, NULL };
 
-bool tmIoSaveState;
+bool32 tmIoSaveState;
 
 /*=============================================================================
     Data to save:
@@ -458,7 +458,7 @@ void tmCostListDraw(featom *atom, regionhandle region)
     udword price;
     sdword x, y, index;
     rectangle *rect = &region->rect;
-    bool        newline=FALSE;
+    bool32        newline=FALSE;
     color c;
     fonthandle currentFont;
     sdword  numlines;
@@ -538,7 +538,7 @@ sdword tmSelectTechType(regionhandle region, sdword yClicked)
 {
     sdword index, y, numlines, startind;
     fonthandle currentFont;
-    bool newline = FALSE;
+    bool32 newline = FALSE;
 
     currentFont = fontMakeCurrent(tmTechListFont);
 
@@ -644,7 +644,7 @@ void tmTechListDraw(featom *atom, regionhandle region)
     sdword x, y, index;
     color c;
     fonthandle currentFont;
-    bool       newline = FALSE;
+    bool32       newline = FALSE;
     sdword     numlines, buyable=0;
     sdword     price;
 
@@ -787,7 +787,7 @@ void tmDialogDraw(featom *atom, regionhandle region)
     sdword      x,y, width;
     char       *pos, *oldpos;
     char        stringtoprint[650];
-    bool        justified, done;
+    bool32        justified, done;
     fonthandle oldfont;
 
     char tmKASMissing[] = "Hello there, fellow space travellers!  Until somebdoy gives me some new lines in KAS, that is all I can say.";
@@ -859,7 +859,7 @@ void tmTechInfoDraw(featom *atom, regionhandle region)
     sdword      x,y, width;
     char       *pos, *oldpos;
     char        stringtoprint[650];
-    bool        justified, done;
+    bool32        justified, done;
 
     tmTechInfoRegion = region;
 
@@ -1155,7 +1155,7 @@ void tmTechImageDraw(featom *atom, regionhandle region)
     }
 }
 
-bool tmFirstWordNULL(char *s)
+bool32 tmFirstWordNULL(char *s)
 {
     char line[100];
 
@@ -1170,7 +1170,7 @@ bool tmFirstWordNULL(char *s)
 sdword tmDrawTextBlock(char *s, sdword x, sdword y, sdword width, sdword height, color c)
 {
     char *oldpos;
-    bool justified, done;
+    bool32 justified, done;
 
     if(tmFirstWordNULL(s))
         return(y);
@@ -1240,7 +1240,7 @@ void tmTechInit(void)
 // - should also be called by anyone else who updates the tech tree
 // - all for single player game
 
-extern bool rmGUIActive;
+extern bool32 rmGUIActive;
 void rmUpdateTechList(void);
 
 void AllowPlayerToResearch(char *techname)
@@ -1306,7 +1306,7 @@ void tmEnableTraderGUI(void)
     mrTradeStuff(NULL, NULL);
 }
 
-bool tmTraderGUIActive(void)
+bool32 tmTraderGUIActive(void)
 {
     return tmTradeActive;
 }
@@ -1331,7 +1331,7 @@ uword tmGetPriceScale(void)
     return tmPriceScale;
 }
 
-void tmSetTradeDisabled(bool trade)
+void tmSetTradeDisabled(bool32 trade)
 {
     tmTradeDisabled = trade;
 }

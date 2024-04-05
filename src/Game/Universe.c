@@ -63,7 +63,7 @@
 
 
 
-extern bool cheapShips;
+extern bool32 cheapShips;
 
 extern real32 GLOBAL_SHIP_HEALTH_MODIFIER;
 extern real32 GLOBAL_SHIP_SPEED_MODIFIER;
@@ -100,13 +100,13 @@ real32 maxMineCollSphereSize;
 meshdata *defaultmesh = NULL;
 
 ubyte turboTimeCompressionFactor = 8;  // same as Homeworld Cataclysm
-bool universeTurbo = FALSE;
-bool universePause = FALSE;
+bool32 universeTurbo = FALSE;
+bool32 universePause = FALSE;
 
 sdword cdMaxShipsAllowed;            // max number of ships allowed
 sdword cdLimitCaps[TOTAL_NUM_SHIPS]; // max number of ships per player allowed
 sdword cdClassCaps[NUM_CLASSES];     // max number of ships per class allowed
-bool   cdEnabled=TRUE;               // flag specifying whether unit caps enabled
+bool32   cdEnabled=TRUE;               // flag specifying whether unit caps enabled
 
 uword RacesAllowedForGivenShip[TOTAL_NUM_SHIPS] =
 {
@@ -166,10 +166,10 @@ uword RacesAllowedForGivenShip[TOTAL_NUM_SHIPS] =
     Traders_VALID                        //JunkYardHQ
 };
 
-bool universeForceDefaultShip = FALSE;   //flag for forcing ships to be loaded as rave borgs
+bool32 universeForceDefaultShip = FALSE;   //flag for forcing ships to be loaded as rave borgs
 
 #if UNIV_SHIP_LOADFREE_LOG
-bool univLoadFreeLog = FALSE;
+bool32 univLoadFreeLog = FALSE;
 #endif
 
 /*=============================================================================
@@ -1959,7 +1959,7 @@ void InitStatMineInfo(MissileStaticInfo *mineStatInfo,ShipRace race)
     Outputs     :
     Return      : returns TRUE if ship is a strikecraft
 ----------------------------------------------------------------------------*/
-bool isStrikeCraft(ShipType shiptype)
+bool32 isStrikeCraft(ShipType shiptype)
 {
     switch (shiptype)
     {
@@ -2001,7 +2001,7 @@ void InitStatShipInfo(ShipStaticInfo *statinfo,ShipType type,ShipRace race)
     char fullshipname[160];
     char *shiptypestr;
     sdword i;
-    bool stubbedOut;
+    bool32 stubbedOut;
 
     statinfo->shiptype = type;
     statinfo->shiprace = race;
@@ -4294,7 +4294,7 @@ void unitCapDeleteShip(Ship *ship, Player *player)
                   FLASE if ship will exceed limit caps
     Return      : bool8
 -----------------------------------------------------------------------------*/
-bool unitCapCanCreateShip(ShipType ship, shipsinprogress *factory, shipavailable *cmShipsAvail)
+bool32 unitCapCanCreateShip(ShipType ship, shipsinprogress *factory, shipavailable *cmShipsAvail)
 {
     Player *player=factory->ship->playerowner;
     shipsinprogress *allfactories=(shipsinprogress *)factory->node.belongto->head;
@@ -4792,7 +4792,7 @@ sdword gameStatsGetShipClass(sdword nShipType)
 #define isPlayerIndexCmptPlayer(i)  ((i) >= tpGameCreated.numPlayers)
 
 // this function checks the bounds for RUs
-bool verifyGameStatsResUnitsBounds(FILE *pStatsFile,sdword nPlayerNum,sdword nResourceUnits)
+bool32 verifyGameStatsResUnitsBounds(FILE *pStatsFile,sdword nPlayerNum,sdword nResourceUnits)
 {
     // check for single player game
     if(singlePlayerGame) return(TRUE);
@@ -4811,7 +4811,7 @@ bool verifyGameStatsResUnitsBounds(FILE *pStatsFile,sdword nPlayerNum,sdword nRe
 }
 
 // this function checks the totals for RUs
-bool verifyGameStatsResUnitsTotals(FILE *pStatsFile,sdword nPlayerNum)
+bool32 verifyGameStatsResUnitsTotals(FILE *pStatsFile,sdword nPlayerNum)
 {
     sdword nStartingResources=0;
 
@@ -4853,7 +4853,7 @@ bool verifyGameStatsResUnitsTotals(FILE *pStatsFile,sdword nPlayerNum)
 }
 
 // this function checks the bounds for the number of ships (based on the number of players)
-bool verifyGameStatsShipsBounds(FILE *pStatsFile,sdword nPlayerNum,sdword nNumShips,sdword nNumPlayers)
+bool32 verifyGameStatsShipsBounds(FILE *pStatsFile,sdword nPlayerNum,sdword nNumShips,sdword nNumPlayers)
 {
     // check for single player game
     if(singlePlayerGame) return(TRUE);
@@ -4872,7 +4872,7 @@ bool verifyGameStatsShipsBounds(FILE *pStatsFile,sdword nPlayerNum,sdword nNumSh
 }
 
 // this function checks the ship cost totals
-bool verifyGameStatsShipCostTotals(FILE *pStatsFile,sdword nPlayerNum)
+bool32 verifyGameStatsShipCostTotals(FILE *pStatsFile,sdword nPlayerNum)
 {
     ShipStaticInfo *pInfo;
 
@@ -4934,7 +4934,7 @@ bool verifyGameStatsShipCostTotals(FILE *pStatsFile,sdword nPlayerNum)
 }
 
 // this function checks the total number of ships acquired
-bool verifyGameStatsShipsAcquiredTotals(FILE *pStatsFile,sdword nPlayerNum)
+bool32 verifyGameStatsShipsAcquiredTotals(FILE *pStatsFile,sdword nPlayerNum)
 {
     sdword n,nShipTotal,nClassTotal;
 
@@ -4981,7 +4981,7 @@ bool verifyGameStatsShipsAcquiredTotals(FILE *pStatsFile,sdword nPlayerNum)
 }
 
 // this function checks the total number of ships killed
-bool verifyGameStatsShipsKilledTotals(FILE *pStatsFile,sdword nPlayerNum)
+bool32 verifyGameStatsShipsKilledTotals(FILE *pStatsFile,sdword nPlayerNum)
 {
     sdword n,nShipTotal,nClassTotal;
 
@@ -5028,7 +5028,7 @@ bool verifyGameStatsShipsKilledTotals(FILE *pStatsFile,sdword nPlayerNum)
 }
 
 // this function checks the total number of ships lost
-bool verifyGameStatsShipsLostTotals(FILE *pStatsFile,sdword nPlayerNum)
+bool32 verifyGameStatsShipsLostTotals(FILE *pStatsFile,sdword nPlayerNum)
 {
     sdword n,nShipTotal,nClassTotal;
 
@@ -5075,7 +5075,7 @@ bool verifyGameStatsShipsLostTotals(FILE *pStatsFile,sdword nPlayerNum)
 }
 
 // this function checks the number of ships acquired per class
-bool verifyGameStatsShipsAcquiredClassTotals(FILE *pStatsFile,sdword nPlayerNum,sdword nShipClass)
+bool32 verifyGameStatsShipsAcquiredClassTotals(FILE *pStatsFile,sdword nPlayerNum,sdword nShipClass)
 {
     sdword n,nShipTotal,nActualClass;
 
@@ -5114,7 +5114,7 @@ bool verifyGameStatsShipsAcquiredClassTotals(FILE *pStatsFile,sdword nPlayerNum,
 }
 
 // this function checks the number of ships killed per class
-bool verifyGameStatsShipsKilledClassTotals(FILE *pStatsFile,sdword nPlayerNum,sdword nShipClass)
+bool32 verifyGameStatsShipsKilledClassTotals(FILE *pStatsFile,sdword nPlayerNum,sdword nShipClass)
 {
     sdword n,nShipTotal,nActualClass;
 
@@ -5153,7 +5153,7 @@ bool verifyGameStatsShipsKilledClassTotals(FILE *pStatsFile,sdword nPlayerNum,sd
 }
 
 // this function checks the number of ships lost per class
-bool verifyGameStatsShipsLostClassTotals(FILE *pStatsFile,sdword nPlayerNum,sdword nShipClass)
+bool32 verifyGameStatsShipsLostClassTotals(FILE *pStatsFile,sdword nPlayerNum,sdword nShipClass)
 {
     sdword n,nShipTotal,nActualClass;
 

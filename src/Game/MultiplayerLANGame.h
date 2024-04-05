@@ -103,7 +103,7 @@ typedef struct LANAdvert_GameHere {
 
 typedef struct LANAdvert_ChatMsg {
     LANAdvertHeader header;
-    bool whispered;
+    bool32 whispered;
     char chatFrom[MAX_PERSONAL_NAME_LEN];
     char whisperToWhoPersonalName[MAX_PERSONAL_NAME_LEN];
     char chatstring[MAX_CHATSTRING_LENGTH];
@@ -185,7 +185,7 @@ lgqueuegameplayerinfo;
     Function Prototypes:
 =============================================================================*/
 
-void lgStartMultiPlayerLANGameScreens(regionhandle region, sdword ID, udword event, udword data, bool AlreadyLoggedIn);
+void lgStartMultiPlayerLANGameScreens(regionhandle region, sdword ID, udword event, udword data, bool32 AlreadyLoggedIn);
 void lgShutdownMultiPlayerGameScreens(void);
 
 void lgDisplayMessage(char *message);
@@ -201,7 +201,7 @@ void lgNotifyGameDisolved(void);
 void lgStartup(void);
 void lgShutdown(void);
 
-void mgShowScreen(sdword screennum, bool disappear);
+void mgShowScreen(sdword screennum, bool32 disappear);
 
 //misc stuff MultiPlayerGame.c needs
 void lgCreateGameNow(char *name, featom *atom);
@@ -216,7 +216,7 @@ void lgGoPassword(char *name, featom *atom);
     Data:
 =============================================================================*/
 
-extern bool lgRunning;
+extern bool32 lgRunning;
 
 // = {"","","","",0,0,0,0,0,0,0,0,0,0};
 extern CaptainGameInfo tpGameCreated;

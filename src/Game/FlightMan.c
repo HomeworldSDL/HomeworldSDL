@@ -305,7 +305,7 @@ scriptEntry FlightmanTweaks[] =
 =============================================================================*/
 
 typedef void (*FlightmanSpecificInit) (Ship *ship,smemsize flags);
-typedef bool (*FlightmanSpecificExecute) (Ship *ship);
+typedef bool32 (*FlightmanSpecificExecute) (Ship *ship);
 typedef void (*FlightmanSpecificClose) (Ship *ship);
 
 /*=============================================================================
@@ -361,7 +361,7 @@ void flightmanTest()
     Flight maneuver utilities
 =============================================================================*/
 
-bool flightmanPitchDown(Ship *ship,real32 *totalAngleRotated,real32 degreesToRotate,real32 maxrotspeed,real32 rotaccelmodifier)
+bool32 flightmanPitchDown(Ship *ship,real32 *totalAngleRotated,real32 degreesToRotate,real32 maxrotspeed,real32 rotaccelmodifier)
 {
     real32 rotspeedy = ship->rotinfo.rotspeed.y;
     *totalAngleRotated += universe.phystimeelapsed * rotspeedy;
@@ -380,7 +380,7 @@ bool flightmanPitchDown(Ship *ship,real32 *totalAngleRotated,real32 degreesToRot
     }
 }
 
-bool flightmanPitchUp(Ship *ship,real32 *totalAngleRotated,real32 degreesToRotate,real32 maxrotspeed,real32 rotaccelmodifier)
+bool32 flightmanPitchUp(Ship *ship,real32 *totalAngleRotated,real32 degreesToRotate,real32 maxrotspeed,real32 rotaccelmodifier)
 {
     real32 rotspeedy = ship->rotinfo.rotspeed.y;
     *totalAngleRotated += universe.phystimeelapsed * rotspeedy;
@@ -399,7 +399,7 @@ bool flightmanPitchUp(Ship *ship,real32 *totalAngleRotated,real32 degreesToRotat
     }
 }
 
-bool flightmanRollRight(Ship *ship,real32 *totalAngleRotated,real32 degreesToRotate,real32 maxrotspeed,real32 rotaccelmodifier)
+bool32 flightmanRollRight(Ship *ship,real32 *totalAngleRotated,real32 degreesToRotate,real32 maxrotspeed,real32 rotaccelmodifier)
 {
     real32 rotspeedz = ship->rotinfo.rotspeed.z;
     *totalAngleRotated += universe.phystimeelapsed * rotspeedz;
@@ -418,7 +418,7 @@ bool flightmanRollRight(Ship *ship,real32 *totalAngleRotated,real32 degreesToRot
     }
 }
 
-bool flightmanRollLeft(Ship *ship,real32 *totalAngleRotated,real32 degreesToRotate,real32 maxrotspeed,real32 rotaccelmodifier)
+bool32 flightmanRollLeft(Ship *ship,real32 *totalAngleRotated,real32 degreesToRotate,real32 maxrotspeed,real32 rotaccelmodifier)
 {
     real32 rotspeedz = ship->rotinfo.rotspeed.z;
     *totalAngleRotated += universe.phystimeelapsed * rotspeedz;
@@ -437,7 +437,7 @@ bool flightmanRollLeft(Ship *ship,real32 *totalAngleRotated,real32 degreesToRota
     }
 }
 
-bool flightmanYawRight(Ship *ship,real32 *totalAngleRotated,real32 degreesToRotate,real32 maxrotspeed,real32 rotaccelmodifier)
+bool32 flightmanYawRight(Ship *ship,real32 *totalAngleRotated,real32 degreesToRotate,real32 maxrotspeed,real32 rotaccelmodifier)
 {
     real32 rotspeedx = ship->rotinfo.rotspeed.x;
     *totalAngleRotated += universe.phystimeelapsed * rotspeedx;
@@ -456,7 +456,7 @@ bool flightmanYawRight(Ship *ship,real32 *totalAngleRotated,real32 degreesToRota
     }
 }
 
-bool flightmanYawLeft(Ship *ship,real32 *totalAngleRotated,real32 degreesToRotate,real32 maxrotspeed,real32 rotaccelmodifier)
+bool32 flightmanYawLeft(Ship *ship,real32 *totalAngleRotated,real32 degreesToRotate,real32 maxrotspeed,real32 rotaccelmodifier)
 {
     real32 rotspeedx = ship->rotinfo.rotspeed.x;
     *totalAngleRotated += universe.phystimeelapsed * rotspeedx;
@@ -475,7 +475,7 @@ bool flightmanYawLeft(Ship *ship,real32 *totalAngleRotated,real32 degreesToRotat
     }
 }
 
-bool flightmanStabilizePitch(Ship *ship)
+bool32 flightmanStabilizePitch(Ship *ship)
 {
     ShipStaticInfo *shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;
     real32 rotspeedy = ship->rotinfo.rotspeed.y;
@@ -497,7 +497,7 @@ bool flightmanStabilizePitch(Ship *ship)
     return TRUE;
 }
 
-bool flightmanStabilizeRoll(Ship *ship)
+bool32 flightmanStabilizeRoll(Ship *ship)
 {
     ShipStaticInfo *shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;
     real32 rotspeedz = ship->rotinfo.rotspeed.z;
@@ -519,7 +519,7 @@ bool flightmanStabilizeRoll(Ship *ship)
     return TRUE;
 }
 
-bool flightmanStabilizeYaw(Ship *ship)
+bool32 flightmanStabilizeYaw(Ship *ship)
 {
     ShipStaticInfo *shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;
     real32 rotspeedx = ship->rotinfo.rotspeed.x;
@@ -549,7 +549,7 @@ bool flightmanStabilizeYaw(Ship *ship)
     Do nothing flight maneuver
 =============================================================================*/
 
-bool flightmanDoNothingExecute(Ship *ship)
+bool32 flightmanDoNothingExecute(Ship *ship)
 {
     dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_DONOTHING);
     return TRUE;
@@ -587,7 +587,7 @@ void flightmanFlipTurnInit(Ship *ship,smemsize flags)
     flipturninfo->rollleft = flags & 1;
 }
 
-bool flightmanFlipTurnExecute(Ship *ship)
+bool32 flightmanFlipTurnExecute(Ship *ship)
 {
     FlipTurnInfo *flipturninfo;
 
@@ -670,7 +670,7 @@ void flightmanCorkscrewInit(Ship *ship,smemsize flags)
     corkscrewinfo->finishedfliptimestamp = 0.0f;
 }
 
-bool flightmanCorkscrewExecute(Ship *ship)
+bool32 flightmanCorkscrewExecute(Ship *ship)
 {
     CorkscrewInfo *corkscrewinfo;
 
@@ -700,8 +700,8 @@ typedef struct
     sdword size;
     real32 totalpitchrotated;
     real32 totalrollrotated;
-    bool inverted;
-    bool rollleft;
+    bool32 inverted;
+    bool32 rollleft;
 } ImmelmanInfo;
 
 void flightmanImmelmanInit(Ship *ship,smemsize flags)
@@ -723,10 +723,10 @@ void flightmanImmelmanInit(Ship *ship,smemsize flags)
     immelmaninfo->totalrollrotated = 0.0f;
 }
 
-bool flightmanImmelmanExecute(Ship *ship)
+bool32 flightmanImmelmanExecute(Ship *ship)
 {
     ImmelmanInfo *immelmaninfo;
-    bool result;
+    bool32 result;
 
     dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_IMMELMAN);
     immelmaninfo = (ImmelmanInfo *)ship->flightmanInfo;
@@ -808,10 +808,10 @@ void flightmanSplitSInit(Ship *ship,smemsize flags)
     splitsinfo->inverted = (bool16)(flags & 2);
 }
 
-bool flightmanSplitSExecute(Ship *ship)
+bool32 flightmanSplitSExecute(Ship *ship)
 {
     SplitSInfo *splitsinfo;
-    bool result;
+    bool32 result;
 
     dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_SPLIT_S);
     splitsinfo = (SplitSInfo *)ship->flightmanInfo;
@@ -874,7 +874,7 @@ typedef struct
     sdword size;
     real32 totalpitchrotated;
     real32 totalrollrotated;
-    bool rollleft;
+    bool32 rollleft;
 } HardBankInfo;
 
 void flightmanHardBankInit(Ship *ship,smemsize flags)
@@ -896,10 +896,10 @@ void flightmanHardBankInit(Ship *ship,smemsize flags)
     hardbankinfo->rollleft = flags & 1;
 }
 
-bool flightmanHardBankExecute(Ship *ship)
+bool32 flightmanHardBankExecute(Ship *ship)
 {
     HardBankInfo *hardbankinfo;
-    bool result;
+    bool32 result;
 
     dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_HARDBANK);
     hardbankinfo = (HardBankInfo *)ship->flightmanInfo;
@@ -951,7 +951,7 @@ typedef struct
     sdword size;
     real32 totalpitchrotated;
     real32 totalrollrotated;
-    bool rollleft;
+    bool32 rollleft;
 } SoftBankInfo;
 
 void flightmanSoftBankInit(Ship *ship,smemsize flags)
@@ -973,10 +973,10 @@ void flightmanSoftBankInit(Ship *ship,smemsize flags)
     softbankinfo->rollleft = flags & SOFTBANK_LEFT;
 }
 
-bool flightmanSoftBankExecute(Ship *ship)
+bool32 flightmanSoftBankExecute(Ship *ship)
 {
     SoftBankInfo *softbankinfo;
-    bool result;
+    bool32 result;
 
     dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_SOFTBANK);
     softbankinfo = (SoftBankInfo *)ship->flightmanInfo;
@@ -1034,7 +1034,7 @@ typedef struct
 void flightmanSlalomInit(Ship *ship,smemsize flags)
 {
     SlalomInfo *slalominfo;
-    bool rightdirection;
+    bool32 rightdirection;
     sdword i;
     vector position;
     vector heading;
@@ -1102,7 +1102,7 @@ void flightmanSlalomInit(Ship *ship,smemsize flags)
     slalominfo->timestamp = universe.totaltimeelapsed;
 }
 
-bool flightmanSlalomExecute(Ship *ship)
+bool32 flightmanSlalomExecute(Ship *ship)
 {
     SlalomInfo *slalominfo;
     vector *curwaypoint;
@@ -1186,7 +1186,7 @@ void flightmanSandwichInit(Ship *ship,smemsize flags)
     sandwichinfo->timestamp = universe.totaltimeelapsed;
 }
 
-bool flightmanSandwichExecute(Ship *ship)
+bool32 flightmanSandwichExecute(Ship *ship)
 {
     SandwichInfo *sandwichinfo = (SandwichInfo *)ship->flightmanInfo;
     dbgAssertOrIgnore(sandwichinfo->size == sizeof(SandwichInfo));
@@ -1215,7 +1215,7 @@ typedef struct
 {
     sdword size;
     real32 totalrotated;
-    bool rollleft;
+    bool32 rollleft;
 } RollInfo;
 
 void flightmanBarrelRollInit(Ship *ship,smemsize flags)
@@ -1236,7 +1236,7 @@ void flightmanBarrelRollInit(Ship *ship,smemsize flags)
     barrelrollinfo->rollleft = flags & 1;
 }
 
-bool flightmanBarrelRollExecute(Ship *ship)
+bool32 flightmanBarrelRollExecute(Ship *ship)
 {
     RollInfo *barrelrollinfo;
 
@@ -1280,7 +1280,7 @@ void flightmanSwarmerBRollInit(Ship *ship,smemsize flags)
     sbrollinfo->rollleft = flags & 1;
 }
 
-bool flightmanSwarmerBRollExecute(Ship *ship)
+bool32 flightmanSwarmerBRollExecute(Ship *ship)
 {
     RollInfo *sbrollinfo;
 
@@ -1324,7 +1324,7 @@ void flightmanRoll180Init(Ship *ship,smemsize flags)
     rollinfo->rollleft = flags & 1;
 }
 
-bool flightmanRoll180Execute(Ship *ship)
+bool32 flightmanRoll180Execute(Ship *ship)
 {
     RollInfo *rollinfo;
 
@@ -1362,7 +1362,7 @@ void flightmanBRollOutInit(Ship *ship,smemsize flags)
     rollinfo->rollleft = FALSE;
 }
 
-bool flightmanBRollOutExecute(Ship *ship)
+bool32 flightmanBRollOutExecute(Ship *ship)
 {
     RollInfo *rollinfo;
 
@@ -1392,7 +1392,7 @@ typedef struct
     real32 totalrotated;
     real32 amount_to_rotate;
     real32 increment;
-    bool rollleft;
+    bool32 rollleft;
 } EndoverInfo;
 
 void flightmanEndoverInit(Ship *ship,smemsize flags)
@@ -1415,7 +1415,7 @@ void flightmanEndoverInit(Ship *ship,smemsize flags)
     rollinfo->increment = ENDOVER_MAXROTSPEED;
 }
 
-bool flightmanEndoverExecute(Ship *ship)
+bool32 flightmanEndoverExecute(Ship *ship)
 {
     EndoverInfo *rollinfo;
 
@@ -1455,7 +1455,7 @@ void flightmanCelebFlipInit(Ship *ship,smemsize flags)
     cfinfo->rollleft = FALSE;
 }
 
-bool flightmanCelebFlipExecute(Ship *ship)
+bool32 flightmanCelebFlipExecute(Ship *ship)
 {
     RollInfo *cfinfo;
 
@@ -1498,7 +1498,7 @@ void flightmanWhipStrafeInit(Ship *ship,smemsize flags)
 //    whipstrafeinfo->totalpitchrotated = 0.0f;
 }
 
-bool flightmanWhipStrafeExecute(Ship *ship)
+bool32 flightmanWhipStrafeExecute(Ship *ship)
 {
     WhipStrafeInfo *whipstrafeinfo;
     ShipStaticInfo *shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;
@@ -1551,7 +1551,7 @@ typedef struct
     sdword size;
     real32 totalrollrotated;
     real32 upsidedowntimestamp;
-    bool rollleft;
+    bool32 rollleft;
 } RollAwayInfo;
 
 void flightmanRollAwayInit(Ship *ship,smemsize flags)
@@ -1573,10 +1573,10 @@ void flightmanRollAwayInit(Ship *ship,smemsize flags)
     rollawayinfo->rollleft = flags & 1;
 }
 
-bool flightmanRollAwayExecute(Ship *ship)
+bool32 flightmanRollAwayExecute(Ship *ship)
 {
     RollAwayInfo *rollawayinfo;
-    bool result;
+    bool32 result;
 
     dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_ROLLAWAY);
     rollawayinfo = (RollAwayInfo *)ship->flightmanInfo;
@@ -1647,7 +1647,7 @@ typedef struct
     sdword size;
     real32 totalpitchrotated;
     real32 totalrollrotated;
-    bool rollleft;
+    bool32 rollleft;
 } SplitSEvasiveInfo;
 
 void flightmanSplitSEvasiveInit(Ship *ship,smemsize flags)
@@ -1669,10 +1669,10 @@ void flightmanSplitSEvasiveInit(Ship *ship,smemsize flags)
     splitsevasiveinfo->rollleft = flags & 1;
 }
 
-bool flightmanSplitSEvasiveExecute(Ship *ship)
+bool32 flightmanSplitSEvasiveExecute(Ship *ship)
 {
     SplitSEvasiveInfo *splitsevasiveinfo;
-    bool result;
+    bool32 result;
 
     dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_SPLITS_EVASIVE);
     splitsevasiveinfo = (SplitSEvasiveInfo *)ship->flightmanInfo;
@@ -1770,7 +1770,7 @@ void flightmanHiYoYoInit(Ship *ship,smemsize flags)
     hiyoyoinfo->totalpitchrotated = 0.0f;
 }
 
-bool flightmanHiYoYoExecute(Ship *ship)
+bool32 flightmanHiYoYoExecute(Ship *ship)
 {
     HiYoYoInfo *hiyoyoinfo;
 
@@ -1864,7 +1864,7 @@ void flightmanLoYoYoInit(Ship *ship,smemsize flags)
     loyoyoinfo->totalpitchrotated = 0.0f;
 }
 
-bool flightmanLoYoYoExecute(Ship *ship)
+bool32 flightmanLoYoYoExecute(Ship *ship)
 {
     LoYoYoInfo *loyoyoinfo;
 
@@ -1946,8 +1946,8 @@ typedef struct
     real32 totalpitchrotated;
     real32 totalyawrotated;
     real32 timestamp;
-    bool rollleft;
-    bool yawleft;
+    bool32 rollleft;
+    bool32 yawleft;
 } SideStepInfo;
 
 void flightmanSideStepInit(Ship *ship,smemsize flags)
@@ -1972,11 +1972,11 @@ void flightmanSideStepInit(Ship *ship,smemsize flags)
     sidestepinfo->yawleft = flags & 2;
 }
 
-bool flightmanSideStepExecute(Ship *ship)
+bool32 flightmanSideStepExecute(Ship *ship)
 {
     SideStepInfo *sidestepinfo;
-    bool result;
-    bool pitchresult;
+    bool32 result;
+    bool32 pitchresult;
 
     dbgAssertOrIgnore(ship->flightman == FLIGHTMAN_SIDESTEP);
     sidestepinfo = (SideStepInfo *)ship->flightmanInfo;
@@ -2131,7 +2131,7 @@ void flightmanClose(Ship *ship)
     ship->tacticsTalk = 0;
 }
 
-bool flightmanExecute(Ship *ship)
+bool32 flightmanExecute(Ship *ship)
 {
     dbgAssertOrIgnore(ship->flightman < NUM_FLIGHTMANEUVERS);
     if (ship->flightman == FLIGHTMAN_NULL)
@@ -2250,7 +2250,7 @@ udword flightmanGetRandom(FlightManProb *prob,udword flightmanSubtype)
     return FLIGHTMAN_DONOTHING;
 }
 
-bool flightmanTestRandom(FlightManProb *prob,udword flightmanSubtype,udword flightman)
+bool32 flightmanTestRandom(FlightManProb *prob,udword flightmanSubtype,udword flightman)
 {
     udword sumtotal;
     udword randnum;

@@ -97,7 +97,7 @@ typedef struct
     real32 fadeIn;                              //duration of fade in from black, if any
     real32 fadeOut;                             //duration of fade out to black, if any
     color c;                                    //color of text card
-    bool bDropShadow;
+    bool32 bDropShadow;
     fonthandle font;                            //font to draw in
     sdword x, y;                                //where to draw the text
 //    sword margin;                               //margin for use with multi-line text
@@ -177,7 +177,7 @@ void subTexturesReset(void);
 void subShutdown(void);
 void subRegionsRescale(void);
 
-bool subAnyCardsOnScreen(void);
+bool32 subAnyCardsOnScreen(void);
 
 sdword subTitleAdd(sdword actor, sdword speechEvent, char *text, sdword length, real32 time);
 

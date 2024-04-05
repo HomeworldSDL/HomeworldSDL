@@ -95,12 +95,12 @@ sdword tbTextMarginY = 1;
 fonthandle tbButtonCaptionFont = 0;                 //font for use with buttons
 fonthandle tbObjectiveFont = 0;
 
-bool tbDisable = FALSE;
+bool32 tbDisable = FALSE;
 
-bool tbForceTaskbarVar = FALSE;
+bool32 tbForceTaskbarVar = FALSE;
 
-bool tbTaskBarActive = FALSE;
-//bool mommyblink;
+bool32 tbTaskBarActive = FALSE;
+//bool32 mommyblink;
 
 BabyCallBack    *tbRefreshBaby=NULL;
 
@@ -108,7 +108,7 @@ listwindowhandle tbListWindow = NULL;
 regionhandle tbListWindowRegion = NULL;
 
 void tbListWindowInit(char *name, featom *atom);
-bool tbRefreshBabyFunction(udword num, void *data, struct BabyCallBack *baby);
+bool32 tbRefreshBabyFunction(udword num, void *data, struct BabyCallBack *baby);
 
 void tbMothershipIndicator(featom *atom, regionhandle region);
 void tbMovingIndicator(featom *atom, regionhandle region);
@@ -284,7 +284,7 @@ udword tbBumperProcess(regionhandle region, smemsize ID, udword event, udword da
 // warning - I use tbBumperRegion just as a holder so that some region is
 //           actually passed into the callback function.  tbBumperProcess
 //           doesn't seem to do anything with the region parameter for now.
-void tbForceTaskbar(bool On)
+void tbForceTaskbar(bool32 On)
 {
     tbForceTaskbarVar = TRUE;
 
@@ -934,7 +934,7 @@ void tbObjectivesListAddItem(ubyte *data)
     char         *chopstrings[6];
     Node         *search;
     uiclistitem  *listitem;
-    bool          secondfound=FALSE;
+    bool32          secondfound=FALSE;
     rectangle     rect;
 
     dbgAssertOrIgnore(strlen(objective->description) <= TBL_MaxCharsPerLine*3);
@@ -1358,7 +1358,7 @@ void tbShips(featom *atom, regionhandle region)
     fontMakeCurrent(oldfont);
 }
 
-bool tbRefreshBabyFunction(udword num, void *data, struct BabyCallBack *baby)
+bool32 tbRefreshBabyFunction(udword num, void *data, struct BabyCallBack *baby)
 {
     if (!tbTaskBarActive) return (TRUE);
 

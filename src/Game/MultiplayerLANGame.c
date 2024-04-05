@@ -106,8 +106,8 @@ tpscenario lgMyGameInfo;
 fibfileheader  *lgScreensHandle = NULL;
 
 // This flag is returned from the refresh task, will be changed when the observation server goes into effect.
-bool            lgdonerefreshing  = TRUE;
-bool            lgCreatingNetworkGame = FALSE;
+bool32            lgdonerefreshing  = TRUE;
+bool32            lgCreatingNetworkGame = FALSE;
 
 // tweakable fonthandles.
 fonthandle lgListOfGamesFont=0;
@@ -200,8 +200,8 @@ extern LinkedList  listofplayersold;
 // this holds all of the history for the game chat window
 extern LinkedList  listofgamechatinfo;
 
-extern bool gamestarted;
-bool        lgnewscreen       = FALSE;
+extern bool32 gamestarted;
+bool32        lgnewscreen       = FALSE;
 
 // Queue for transferring packets between threads.
 Queue       lgThreadTransfer;
@@ -223,12 +223,12 @@ sdword  lgChannelNameWidth  = 258;
 
 
 // is the multiplayer game screens running.
-bool lgRunning=FALSE;
+bool32 lgRunning=FALSE;
 
 // used for starting a screen in a separate thread.
 extern sdword screenaskedfor;
 //sdword lgScreensAdded=0;
-bool   lghideallscreens=TRUE;
+bool32   lghideallscreens=TRUE;
 
 // type of query asked for from titan.
 sdword lgQueryType=-1;
@@ -296,7 +296,7 @@ void lgBackFromPassword             (char *name, featom *atom);
 void lgSeeDetails                   (char *name, featom *atom);
 void lgJoinGame                     (char *name, featom *atom);
 void lgListOfGamesInit              (char *name, featom *atom);
-//bool lgRefresh                        (udword num, void *data, struct BabyCallBack *baby);
+//bool32 lgRefresh                        (udword num, void *data, struct BabyCallBack *baby);
 
 // Callbacks for the waiting for game screens.
 void lgGameChatWindowInit           (char *name, featom *atom);
@@ -437,7 +437,7 @@ fedrawcallback lgDrawCallback[] =
 
 // void lgProcessCallBacksTask(void);
 
-void mgGameTypeScriptInit();
+void mgGameTypeScriptInit(void);
   // use mgGameTypeScriptInit() instead of making a brand
   // new copy called lgGameTypeScriptInit()
 
@@ -466,11 +466,11 @@ void lgDrawProtocal(featom *atom, regionhandle region)
 // a private message.  It has to search through two different lists of users, depending
 // on whether it is in game chat or the room chat that they are typing in.
 
-void *lgParseChatEntry(char *messageorig, bool preGameChat)
+void *lgParseChatEntry(char *messageorig, bool32 preGameChat)
 {
     udword      i,nummatches;
     char        toname[64], ampremoved[64], messagetmp[280], *message;
-    bool        done=FALSE;
+    bool32        done=FALSE;
     Node       *walk=NULL;
     userlist   *user, *matched=NULL;
     gameplayerinfo *guser, *gmatched=NULL;
@@ -1193,7 +1193,7 @@ void lgJoinGame(char*name,featom*atom)
 // the following functions are all callbacks to do with list windows
 
 // callback for sorting the game list window
-bool lgListOfGamesCompare(void *firststruct,void *secondstruct)
+bool32 lgListOfGamesCompare(void *firststruct,void *secondstruct)
 {
 #ifndef _MACOSX_FIX_LAN
     sdword i;
@@ -1410,8 +1410,8 @@ void lgListOfGamesItemDraw(rectangle *rect, listitemhandle data)
     color       c;
     fonthandle  oldfont;
     lggamelist   *gameinfo = (lggamelist *)data->data;
-    bool gameinprogress = gameinfo->game.directoryCustomInfo.flag & GAME_IN_PROGRESS;
-    bool diffversion = (!CheckNetworkVersionCompatibility(gameinfo->game.directoryCustomInfo.versionInfo));
+    bool32 gameinprogress = gameinfo->game.directoryCustomInfo.flag & GAME_IN_PROGRESS;
+    bool32 diffversion = (!CheckNetworkVersionCompatibility(gameinfo->game.directoryCustomInfo.versionInfo));
 
 #ifndef _MACOSX_FIX_LAN
     udword passwordlen;
@@ -1895,7 +1895,7 @@ void lgCurrentGameDraw(featom *atom, regionhandle region)
 
 regionhandle lgNumCompPlayerReg     = NULL;
 
-void lgDirtyNumPlayerRegions()
+void lgDirtyNumPlayerRegions(void)
 {
     if (lgNumCompPlayerReg!=NULL)
     {
@@ -2147,7 +2147,7 @@ void lgBackToConnection(char *name, featom *atom)
 
 void lgYesQuitWON(char *name, featom *atom)
 {
-    bool waitforshutdown = FALSE;
+    bool32 waitforshutdown = FALSE;
     //LoggedIn=FALSE;
 
     if (WaitingForGame)
@@ -2789,7 +2789,7 @@ DEFINE_TASK(lgProcessCallBacksTask)
     Startup the multiplayer game screens and display the connection screen:
 =============================================================================*/
 
-void lgStartMultiPlayerLANGameScreens(regionhandle region, sdword ID, udword event, udword data, bool AlreadylgLoggedIn)
+void lgStartMultiPlayerLANGameScreens(regionhandle region, sdword ID, udword event, udword data, bool32 AlreadylgLoggedIn)
 {
     if (FEFIRSTCALL(((featom *)ID)))
     {

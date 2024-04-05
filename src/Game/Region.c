@@ -85,7 +85,7 @@ sdword regAllocCounter = 0;
 
 udword regRegionFrameDrawCount=0;
 
-bool regKeysFocussed = FALSE;
+bool32 regKeysFocussed = FALSE;
 
 /*=============================================================================
     Private functions:
@@ -310,7 +310,7 @@ regionhandle child;
     Outputs     :
     Return      : TRUE (on) or FALSE (not on)
 ----------------------------------------------------------------------------*/
-bool regPointOnRegion(sdword x, sdword y, regionhandle region)
+bool32 regPointOnRegion(sdword x, sdword y, regionhandle region)
 {
     rectangle* r = &region->rect;
     if (x >= r->x0 && x <= r->x1 &&
@@ -332,7 +332,7 @@ bool regPointOnRegion(sdword x, sdword y, regionhandle region)
     Outputs     :
     Return      : TRUE or FALSE
 ----------------------------------------------------------------------------*/
-bool regRegionInside(regionhandle needle, regionhandle haystack)
+bool32 regRegionInside(regionhandle needle, regionhandle haystack)
 {
 #define TOTALLY_INSIDE      0
 #if TOTALLY_INSIDE
@@ -436,7 +436,7 @@ void regDirtySiblingsInside(regionhandle region)
     Outputs     :
     Return      : 0 (no overlap) or 1 (overlap)
 ----------------------------------------------------------------------------*/
-bool regDoRegionsOverlap(regionhandle a, regionhandle b)
+bool32 regDoRegionsOverlap(regionhandle a, regionhandle b)
 {
     rectangle c;
 
@@ -812,7 +812,7 @@ udword regRegionProcess(regionhandle reg, udword mask)
     if (regStatus(RSF_KeyCapture))
     {                                                       //if region has input forcus for keyboard
         sdword iKey;
-        bool bShift;
+        bool32 bShift;
 
         while ((iKey = keyBufferedKeyGet(&bShift)) != 0)
         {

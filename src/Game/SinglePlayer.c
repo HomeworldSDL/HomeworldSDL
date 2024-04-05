@@ -141,14 +141,14 @@ extern sdword mrKASSkipFactor;
 
 extern fonthandle selGroupFont0;
 
-bool hyperspaceAtEndOfSinglePlayerNIS = FALSE;
-bool hyperspaceOverride               = FALSE;
-bool singlePlayerGameLoadNewLevelFlag = FALSE;
-bool singlePlayerHyperspacingInto     = FALSE;
-bool spHoldHyperspaceWindow           = FALSE;
-bool spBinkPlay                       = FALSE;
-bool triggerNIS                       = FALSE;
-bool spCollectResourcesAtEndOfMission = FALSE;
+bool32 hyperspaceAtEndOfSinglePlayerNIS = FALSE;
+bool32 hyperspaceOverride               = FALSE;
+bool32 singlePlayerGameLoadNewLevelFlag = FALSE;
+bool32 singlePlayerHyperspacingInto     = FALSE;
+bool32 spHoldHyperspaceWindow           = FALSE;
+bool32 spBinkPlay                       = FALSE;
+bool32 triggerNIS                       = FALSE;
+bool32 spCollectResourcesAtEndOfMission = FALSE;
 
 real32 spFleetModifier = 0.0f;
 real32 spFleetStr      = 0.0f;
@@ -169,7 +169,7 @@ char spMissionsFile[32] = "";
 
 SinglePlayerGameInfo singlePlayerGameInfo;
 
-bool HYPERSPACE_MOTHERSHIP_ALWAYS_ARRIVES_FIRST = TRUE;
+bool32 HYPERSPACE_MOTHERSHIP_ALWAYS_ARRIVES_FIRST = TRUE;
 
 real32 HS_CLIPT_NEG_FINISH                      =      0.9f;
 real32 HS_CLIPT_NEG_SCALAR                      =      0.33f;
@@ -218,8 +218,8 @@ static udword convertMissionToSequenceIndex(MissionEnum mission);
 static MissionEnum spGetAdjacentMission(sbyte direction);
 
 static void singlePlayerKasMissionStart(MissionEnum missionnum);
-static void singlePlayerNISNamesGet(char **nisname, char **scriptname, bool *centreMothership, sdword nisNumber);
-static void singlePlayerStartNis(char *nis, char *script, bool centre, hvector *positionAndAngle);
+static void singlePlayerNISNamesGet(char **nisname, char **scriptname, bool32 *centreMothership, sdword nisNumber);
+static void singlePlayerStartNis(char *nis, char *script, bool32 centre, hvector *positionAndAngle);
 
 static void spAbortHyperspaceCB(char *string, featom *atom);
 static void spGoNowHyperspaceCB(char *string, featom *atom);
@@ -421,7 +421,7 @@ void GetMissionsDirAndFile(MissionEnum mission)
     }
 }
 
-bool GetPointOfName(hvector *point,char *name)
+bool32 GetPointOfName(hvector *point,char *name)
 {
     hvector *vectptr = kasVectorPtr(name);
 
@@ -437,7 +437,7 @@ bool GetPointOfName(hvector *point,char *name)
     }
 }
 
-bool GetStartPointPlayer(hvector *startpoint)
+bool32 GetStartPointPlayer(hvector *startpoint)
 {
     return GetPointOfName(startpoint,"StartPointPlayer");
 }
@@ -863,7 +863,7 @@ void TellShipsToDockForHyperspace()
     }
 }
 
-bool AreNotInParadeConstraint(Ship *ship)
+bool32 AreNotInParadeConstraint(Ship *ship)
 {
     if (ship->specialFlags & SPECIAL_SinglePlayerInParade)
     {
@@ -1079,7 +1079,7 @@ void AddShipToHyperspace(Ship *ship)
     }
 }
 
-bool NoneDoing(udword state)
+bool32 NoneDoing(udword state)
 {
     Node* objnode;
     Ship* ship;
@@ -1105,7 +1105,7 @@ bool NoneDoing(udword state)
     return TRUE;
 }
 
-bool AllDoingExceptMe(udword state, Ship* me)
+bool32 AllDoingExceptMe(udword state, Ship* me)
 {
     Node* objnode;
     Ship* ship;
@@ -1134,7 +1134,7 @@ bool AllDoingExceptMe(udword state, Ship* me)
     return TRUE;
 }
 
-bool NoneDoingHS(udword state)
+bool32 NoneDoingHS(udword state)
 {
     InsideShip* insideship;
     Node* objnode;
@@ -1176,9 +1176,9 @@ void InstantlyHyperspaceOut(Ship *ship,Ship *mothership)
     }
 }
 
-bool UpdateHyperspacingShip(Ship *ship,bool midLevel)
+bool32 UpdateHyperspacingShip(Ship *ship,bool32 midLevel)
 {
-    bool hyperspacedout = FALSE;
+    bool32 hyperspacedout = FALSE;
     ShipSinglePlayerGameInfo *shipSinglePlayerGameInfo = ship->shipSinglePlayerGameInfo;
     static sdword hsSFXHandle = -1;
 
@@ -1305,12 +1305,12 @@ bool UpdateHyperspacingShip(Ship *ship,bool midLevel)
     return hyperspacedout;
 }
 
-bool UpdateHyperspacingShips(void)
+bool32 UpdateHyperspacingShips(void)
 {
     Node *objnode;
     Ship *ship;
-    bool shipsAllHyperspacedAway = TRUE;
-    bool result;
+    bool32 shipsAllHyperspacedAway = TRUE;
+    bool32 result;
 
     objnode = universe.ShipList.head;
     while (objnode != NULL)
@@ -1342,12 +1342,12 @@ bool UpdateHyperspacingShips(void)
     return shipsAllHyperspacedAway;
 }
 
-bool OrientHyperspacingShips(void)
+bool32 OrientHyperspacingShips(void)
 {
     Node *objnode;
     Ship *ship;
     vector mothershipheading;
-    bool shipsoriented = TRUE;
+    bool32 shipsoriented = TRUE;
     Ship *mothership = universe.curPlayerPtr->PlayerMothership;
     udword shipsNotInHyperspaceRange = 0;
 
@@ -1475,10 +1475,10 @@ void CalculateArrivingTimesForShips()
     }
 }
 
-bool UpdateArrivingShip(Ship *ship,hvector *topoint,bool midLevel)
+bool32 UpdateArrivingShip(Ship *ship,hvector *topoint,bool32 midLevel)
 {
     ShipSinglePlayerGameInfo *shipSinglePlayerGameInfo = ship->shipSinglePlayerGameInfo;
-    bool thisShipArrived = FALSE;
+    bool32 thisShipArrived = FALSE;
 
     dbgAssertOrIgnore(shipSinglePlayerGameInfo);
 
@@ -1660,12 +1660,12 @@ bool UpdateArrivingShip(Ship *ship,hvector *topoint,bool midLevel)
     return thisShipArrived;
 }
 
-bool UpdateArrivingShips()
+bool32 UpdateArrivingShips()
 {
     InsideShip *insideShip;
     Ship *ship;
     Node *node = singlePlayerGameInfo.ShipsInHyperspace.head;
-    bool allShipsArrived = TRUE;
+    bool32 allShipsArrived = TRUE;
     hvector startpoint;
 
     GetStartPointPlayer(&startpoint);
@@ -1786,7 +1786,7 @@ void GetShipsClampedTo(Ship *clampedto,GrowSelection *clampedships)
     }
 }
 
-bool ShipAlreadyHyperspaceOut(Ship *ship)
+bool32 ShipAlreadyHyperspaceOut(Ship *ship)
 {
     if ((ship->flags & SOF_Hyperspace) ||
         ShipInSelection(singlePlayerGameInfo.ShipsToHyperspace.selection,ship))
@@ -2106,7 +2106,7 @@ void spTaskBarHyperspaceCB(struct taskbutton *button, ubyte *userData)
     spHyperspaceButtonPushed();
 }
 
-void singlePlayerPostInit(bool loadingSaveGame)
+void singlePlayerPostInit(bool32 loadingSaveGame)
 {
     if (!loadingSaveGame)
     {
@@ -2237,7 +2237,7 @@ void CleanupHyperspacingShipsThatDidntHyperspace()
     }
 }
 
-void CleanupHyperspacingShips(bool FreeShips,bool cleanupAllPlayersShips)
+void CleanupHyperspacingShips(bool32 FreeShips,bool32 cleanupAllPlayersShips)
 {
     InsideShip *insideShip;
     Ship *ship;
@@ -2345,7 +2345,7 @@ void singlePlayerGameCleanup(void)
 
 void UpdateMidLevelHyperspacingShips()
 {
-    bool addedShipToHyperspace = FALSE;
+    bool32 addedShipToHyperspace = FALSE;
     sdword i;
 
     // update any mid-level hyperspacing away ships
@@ -2412,7 +2412,7 @@ void singlePlayerGameUpdate()
         {
             hvector startpoint;
             char *nis, *script;
-            bool centre;
+            bool32 centre;
 
             GetStartPointPlayer(&startpoint);
             singlePlayerNISNamesGet(&nis, &script, &centre, value);
@@ -2500,7 +2500,7 @@ void singlePlayerGameUpdate()
         case HYPERSPACE_SHIPSLEAVING:
             if (singlePlayerGameInfo.hyperspaceSubState == FOCUSING_ON_MOTHERSHIP)
             {
-                bool shipsoriented = OrientHyperspacingShips();
+                bool32 shipsoriented = OrientHyperspacingShips();
                 if ((universe.totaltimeelapsed >= singlePlayerGameInfo.hyperspaceTimeStamp) && (shipsoriented))
                 {
                     CalculateHyperspaceTimesForShips();
@@ -2653,7 +2653,7 @@ void singlePlayerGameUpdate()
                 {
                     hvector startpoint;
                     char *nis, *script;
-                    bool centre;
+                    bool32 centre;
 
                     GetStartPointPlayer(&startpoint);
                     singlePlayerNISNamesGet(&nis, &script, &centre, singlePlayerGameInfo.onLoadPlayNIS);
@@ -3169,7 +3169,7 @@ bool8 nisPlayRelativeToMothership[NUMBER_SINGLEPLAYER_NIS] =
 
 void singlePlayerNisStoppedCB(void)
 {
-    bool savefirstlevel = FALSE;
+    bool32 savefirstlevel = FALSE;
     AIVar *var;
     char bufferstr[30];
 
@@ -3239,7 +3239,7 @@ void singlePlayerNisStoppedCB(void)
                   centreMothership - TRUE if the NIS is to be centred about player's mothership
     Return      : void
 ----------------------------------------------------------------------------*/
-void singlePlayerNISNamesGet(char **nisname, char **scriptname, bool *centreMothership, sdword nisNumber)
+void singlePlayerNISNamesGet(char **nisname, char **scriptname, bool32 *centreMothership, sdword nisNumber)
 {
     singlePlayerNisNumber = nisNumber;
     nisNumber--;
@@ -3257,7 +3257,7 @@ void singlePlayerNISNamesGet(char **nisname, char **scriptname, bool *centreMoth
         *scriptname = nisR2Names[nisNumber][1];
     }
     singlePlayerNISName = *nisname;
-    *centreMothership = (bool)nisPlayRelativeToMothership[nisNumber];
+    *centreMothership = (bool32)nisPlayRelativeToMothership[nisNumber];
 }
 
 /*-----------------------------------------------------------------------------
@@ -3269,7 +3269,7 @@ void singlePlayerNISNamesGet(char **nisname, char **scriptname, bool *centreMoth
                   scriptname - name of nis script file
     Return      : TRUE if the NIS can be played properly
 ----------------------------------------------------------------------------*/
-bool singlePlayerNISletNamesGet(char **nisname, char **scriptname, sdword nisletNumber)
+bool32 singlePlayerNISletNamesGet(char **nisname, char **scriptname, sdword nisletNumber)
 {
     sdword missionNumber, insertNumber;
     static char nisFileName[16];
@@ -3331,7 +3331,7 @@ bool singlePlayerNISletNamesGet(char **nisname, char **scriptname, sdword nislet
     Outputs     :
     Return      : void
 ----------------------------------------------------------------------------*/
-void singlePlayerStartNis(char *nisname, char *scriptname, bool centreMothership, hvector *positionAndAngle)
+void singlePlayerStartNis(char *nisname, char *scriptname, bool32 centreMothership, hvector *positionAndAngle)
 {
     matrix thisIdentityMatrix;
     vector position;
@@ -3342,7 +3342,7 @@ void singlePlayerStartNis(char *nisname, char *scriptname, bool centreMothership
     matrix motherMatrix;
     vector tempvec;
     Ship *nisCentreShip = NULL;
-    bool centreShipFound = FALSE;
+    bool32 centreShipFound = FALSE;
     GrowSelection *nisSelection;
     ShipRace raceOfCentreShip = R1;
     ShipType typeOfCentreShip = ShipType_Uninitialized;
@@ -3801,7 +3801,7 @@ void singlePlayerStartGame(void)
 {
     hvector startPoint;
     char *nis, *script;
-    bool centre;
+    bool32 centre;
 
     universe.players[1].resourceUnits = 0;
 
@@ -3857,7 +3857,7 @@ void singlePlayerNextLevel(void)
 {
     hvector startnisAt = { 0.0f, 0.0f, 0.0f, 0.0f };
     char *nis, *script;
-    bool centre;
+    bool32 centre;
 
     if (spGetCurrentMission() == MISSION_16_HIIGARA)
     {
@@ -4029,7 +4029,7 @@ void spNISletTestAttempt(sdword index)
     Outputs     : position - position for the camera's eye point
     Return      : TRUE if the camera position could be computed, FALSE otherwise
 ----------------------------------------------------------------------------*/
-bool spFindCameraAttitude(vector *position)
+bool32 spFindCameraAttitude(vector *position)
 {
     hvector *hPosition = kasVectorPtrIfExists(SP_CAMERA_POINT_NAME);
 

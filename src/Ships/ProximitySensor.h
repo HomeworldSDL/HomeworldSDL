@@ -43,6 +43,6 @@ extern color ProximitySensorBlipColor;
 extern CustShipHeader ProximitySensorHeader;
 
 void proxInFocusSelection(SelectCommand *focus);
-bool proximityCanPlayerSeeShip(Player *player,Ship *shipInQuestion);
+bool32 proximityCanPlayerSeeShip(Player *player,Ship *shipInQuestion);
 
 #endif

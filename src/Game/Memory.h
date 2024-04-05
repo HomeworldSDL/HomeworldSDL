@@ -287,7 +287,7 @@ typedef void (memgrowthfreecallback)(void *heap);//callback for freeing growth h
 extern sdword memNumberWalks;
 extern sdword memNumberAllocs;
 extern char memStatString[256];
-extern bool memStatsLogging;
+extern bool32 memStatsLogging;
 extern taskhandle memStatsTaskHandle;
 DECLARE_TASK(memStatsTaskFunction);
 extern memcookiename memStatsCookieNames[MS_NumberCookieNames];

@@ -338,7 +338,7 @@ TechnologyType StrToTechType(char *tech)
     Description : checks to see if the passed in tech is currently being researched.
     Inputs      : tech
     Outputs     : true false
-    Return      : bool
+    Return      : bool32
 ----------------------------------------------------------------------------*/
 ResearchTopic *Researching(Player *player, TechnologyType tech)
 {
@@ -382,9 +382,9 @@ void   rmAddTechToPlayer(struct Player *player, udword techlevel)
     Description : returns true if player has tech needed to build that ship.
     Inputs      : player
     Outputs     : true/false
-    Return      : bool
+    Return      : bool32
 ----------------------------------------------------------------------------*/
-bool rmCanBuildShip(Player *player, ShipType type)
+bool32 rmCanBuildShip(Player *player, ShipType type)
 {
     if (bitTest(player->researchinfo.techstat->TechNeededToBuildShip[type], RM_Disabled))
     {
@@ -564,7 +564,7 @@ void rmUpdateResearch(void)
     ResearchTopic      *topic;
     Node               *walk;
     LinkedList          deletelist;
-    bool                shipcanbuild[STD_LAST_SHIP];
+    bool32                shipcanbuild[STD_LAST_SHIP];
 
     listInit(&deletelist);
 
@@ -791,13 +791,13 @@ sdword rmTechRequiredForShip(Player *player, ShipType type)
     Outputs     : none
     Return      : void
 ----------------------------------------------------------------------------*/
-bool rmResearchTechForShip(struct Player *player, ShipType type)
+bool32 rmResearchTechForShip(struct Player *player, ShipType type)
 {
     udword numtech, techneeded;
     sdword freelab;
     sdword techtoresearch = -1;
     sdword i;
-    bool researching = FALSE;
+    bool32 researching = FALSE;
 
     numtech = rmTechRequiredForShip(player, type);
 
@@ -933,7 +933,7 @@ void rmInitializeResearchStatics(struct Player *player)
     Outputs     : none
     Return      : void
 ----------------------------------------------------------------------------*/
-void rmInitializeResearchStruct(Player *player, bool candoresearch, sdword techlevel)
+void rmInitializeResearchStruct(Player *player, bool32 candoresearch, sdword techlevel)
 {
     sdword index;
 
@@ -1032,7 +1032,7 @@ void rmAPIShutdown(void)
 void rmRemoveUnneededTech(TechStatics *techstat)
 {
     udword i,j,k, tech, techtmp;
-    bool   notneeded;
+    bool32   notneeded;
 
     //
 
@@ -1087,7 +1087,7 @@ void rmRemoveAllUnneededTech(void)
     Outputs     : none
     Return      : none
 ----------------------------------------------------------------------------*/
-void rmEnableShip(ShipRace race, ShipType ship, bool bEnabled)
+void rmEnableShip(ShipRace race, ShipType ship, bool32 bEnabled)
 {
     udword flag = bEnabled ? 0 : RM_Disabled;
 

@@ -66,9 +66,9 @@ void P3StandardShipAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdist)
     attackStraightForward(ship,target,shipstat->shipGunRange[ship->tacticstype],shipstat->shipTooCloseRange[ship->tacticstype]);
 }
 
-void P3StandardShipAttackPassive(Ship *ship,Ship *target,bool rotate)
+void P3StandardShipAttackPassive(Ship *ship,Ship *target,bool32 rotate)
 {
-    if ((rotate) & ((bool)((ShipStaticInfo *)(ship->staticinfo))->rotateToRetaliate))
+    if ((rotate) & ((bool32)((ShipStaticInfo *)(ship->staticinfo))->rotateToRetaliate))
     {
         attackPassiveRotate(ship,target);
     }

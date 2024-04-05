@@ -94,7 +94,7 @@ void fontIndexToBitPlaneUpsideDown(ubyte *dest, ubyte *source, sdword width, sdw
     }
 }
 
-void fontCharacterCreate(sdword x, sdword y, sdword width, sdword height, ubyte *source, ubyte *dest, sdword sourceWidth, sdword sourceHeight, bool antialias)
+void fontCharacterCreate(sdword x, sdword y, sdword width, sdword height, ubyte *source, ubyte *dest, sdword sourceWidth, sdword sourceHeight, bool32 antialias)
 {
     sdword line;
 
@@ -467,7 +467,7 @@ static GLuint lastGLHandle;
     Outputs     :
     Return      : TRUE or FALSE
 ----------------------------------------------------------------------------*/
-bool glfontDisplayCharacter(fontheader* font, char ch, sdword x, sdword y, color c)
+bool32 glfontDisplayCharacter(fontheader* font, char ch, sdword x, sdword y, color c)
 {
 #define VERT(S,T,X,Y) \
     glTexCoord2f((real32)(S), (real32)(T)); \
@@ -541,15 +541,15 @@ bool glfontDisplayCharacter(fontheader* font, char ch, sdword x, sdword y, color
     Outputs     :
     Return      : TRUE or FALSE (success or failure)
 ----------------------------------------------------------------------------*/
-bool glfontDisplayString(fontheader* font, char* string, sdword x, sdword y, color c)
+bool32 glfontDisplayString(fontheader* font, char* string, sdword x, sdword y, color c)
 {
     char* charp;
     glfontheader* glfont;
     glfontcharacter* character;
     charheader* fcharacter;
     sdword sx, sy;
-    bool texOn, blendOn, alphatestOn;
-    bool rval;
+    bool32 texOn, blendOn, alphatestOn;
+    bool32 rval;
     sdword brights[3];
     color bright, colour;
 
@@ -576,8 +576,8 @@ bool glfontDisplayString(fontheader* font, char* string, sdword x, sdword y, col
     trClearCurrent();
     lastGLHandle = 0;
     texOn = rndTextureEnable(TRUE);
-    blendOn = (bool)glIsEnabled(GL_BLEND);
-    alphatestOn = (bool)glIsEnabled(GL_ALPHA_TEST);
+    blendOn = (bool32)glIsEnabled(GL_BLEND);
+    alphatestOn = (bool32)glIsEnabled(GL_ALPHA_TEST);
     if (!blendOn) glEnable(GL_BLEND);
     if (alphatestOn) glDisable(GL_ALPHA_TEST);
     rndAdditiveBlends(FALSE);
@@ -743,7 +743,7 @@ fontheader *fontLoad(char *fileName)
     charfileheader *pFileCharacter;
     sdword sizeTotal, size, sizeUsed;
     ubyte *bitmapBase;
-    bool antialias;
+    bool32 antialias;
 
     antialias = TRUE;
 

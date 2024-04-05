@@ -48,9 +48,9 @@ void MultiGunCorvetteAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdist
     attackSideStep(ship,target,&spec->attacksidestep,&corvstat->sidestepParameters);
 }
 
-void MultiGunCorvetteAttackPassive(Ship *ship,Ship *target,bool rotate)
+void MultiGunCorvetteAttackPassive(Ship *ship,Ship *target,bool32 rotate)
 {
-    if ((rotate) & ((bool)((ShipStaticInfo *)(ship->staticinfo))->rotateToRetaliate))
+    if ((rotate) & ((bool32)((ShipStaticInfo *)(ship->staticinfo))->rotateToRetaliate))
     {
         attackPassiveRotate(ship,target);
     }

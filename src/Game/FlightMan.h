@@ -80,11 +80,11 @@ void scriptSetFlightManEvasiveFrontCB(char *directory,char *field,void *dataToFi
 void scriptSetFlightManEvasivePureCB(char *directory,char *field,void *dataToFillIn);
 
 udword flightmanGetRandom(FlightManProb *prob,udword flightmanSubtype);
-bool flightmanTestRandom(FlightManProb *prob,udword flightmanSubtype,udword flightman);
+bool32 flightmanTestRandom(FlightManProb *prob,udword flightmanSubtype,udword flightman);
 
 void flightmanInitFunc(Ship *ship,udword flightman,smemsize flags);
 
-bool flightmanExecute(Ship *ship);
+bool32 flightmanExecute(Ship *ship);
 void flightmanClose(Ship *ship);
 
 #define flightmanInit(ship,flightman) flightmanInitFunc(ship,flightman,-1)

@@ -335,7 +335,7 @@ void ferShutdown(void);
 
 //draw a textured box
 void ferDrawBoxRegion(rectangle dimensions, drawtype textures,
-                       drawtype glow, LinkedList *cutouts, bool bUseAlpha);
+                       drawtype glow, LinkedList *cutouts, bool32 bUseAlpha);
 
 //draw UI Elements
 void ferDrawButton(rectangle dimensions, ferbuttonstate);

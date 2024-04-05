@@ -50,9 +50,9 @@ void P2AdvanceSwarmerAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdist
     attackSideStep(ship,target,&spec->attacksidestep,&corvstat->sidestepParameters);
 }
 
-void P2AdvanceSwarmerAttackPassive(Ship *ship,Ship *target,bool rotate)
+void P2AdvanceSwarmerAttackPassive(Ship *ship,Ship *target,bool32 rotate)
 {
-    if ((rotate) & ((bool)((ShipStaticInfo *)(ship->staticinfo))->rotateToRetaliate))
+    if ((rotate) & ((bool32)((ShipStaticInfo *)(ship->staticinfo))->rotateToRetaliate))
     {
         attackPassiveRotate(ship,target);
     }

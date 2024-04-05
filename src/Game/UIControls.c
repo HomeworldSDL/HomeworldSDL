@@ -91,8 +91,8 @@ void uicHorizSliderDraw(regionhandle reg);
 void uicVertSliderDraw(regionhandle reg);
 udword uicDragButtonProcess(regionhandle region, smemsize ID, udword event, udword data);
 
-bool uicClearCurrent(regionhandle reg);
-void uicSetCurrent(regionhandle reg, bool bUserInput);
+bool32 uicClearCurrent(regionhandle reg);
+void uicSetCurrent(regionhandle reg, bool32 bUserInput);
 void uicLimitTabstop(sdword num_buttons);
 
 //global variables to pass drag information
@@ -1511,7 +1511,7 @@ sdword uicListWindowMargin = 6;
 /*=============================================================================
     Mouse/Keyboard focus:
 =============================================================================*/
-bool   uicMouseFocus = TRUE;
+bool32   uicMouseFocus = TRUE;
 sdword uicMouseSavedX = 0, uicMouseSavedY = 0;
 
 #define UIC_MOUSE_MOVED_X   (uicMouseSavedX != mouseCursorXPosition)
@@ -1655,7 +1655,7 @@ void uicButtonDraw(regionhandle reg)
     Note        : can call user function with any region message if filter set
                     up properly.
 ----------------------------------------------------------------------------*/
-bool uicButtonReleased = FALSE;
+bool32 uicButtonReleased = FALSE;
 udword uicButtonProcess(regionhandle region, smemsize ID, udword event, udword data)
 {
     udword mask = 0;
@@ -3421,7 +3421,7 @@ void uicVertSliderDraw(regionhandle reg)
     Outputs     :
     Return      : TRUE if cursor needed repositioning.
 ----------------------------------------------------------------------------*/
-bool uicRepositionText(textentryhandle entry, bool jumpReposition)
+bool32 uicRepositionText(textentryhandle entry, bool32 jumpReposition)
 {
     sdword length;
     fonthandle fhSave;
@@ -3459,7 +3459,7 @@ bool uicRepositionText(textentryhandle entry, bool jumpReposition)
     Outputs     : inserts the character at the current point of typing.
     Return      : TRUE if the character was inserted correctly.
 ----------------------------------------------------------------------------*/
-bool uicInsertCharacter(textentryhandle entry, udword character)
+bool32 uicInsertCharacter(textentryhandle entry, udword character)
 {
     sdword index;
     regVerify(&entry->reg);
@@ -3495,7 +3495,7 @@ bool uicInsertCharacter(textentryhandle entry, udword character)
     Outputs     :
     Return      : TRUE if the character was deleted properly
 ----------------------------------------------------------------------------*/
-bool uicBackspaceCharacter(textentryhandle entry)
+bool32 uicBackspaceCharacter(textentryhandle entry)
 {
     sdword index;
     regVerify(&entry->reg);
@@ -3519,7 +3519,7 @@ bool uicBackspaceCharacter(textentryhandle entry)
     Outputs     :
     Return      : TRUE if the character was deleted properly
 ----------------------------------------------------------------------------*/
-bool uicDeleteCharacter(textentryhandle entry)
+bool32 uicDeleteCharacter(textentryhandle entry)
 {
     sdword index;
     regVerify(&entry->reg);
@@ -3568,7 +3568,7 @@ sdword uicCursorMoveRelative(textentryhandle entry, sdword amount)
     Outputs     :
     Return      : TRUE if the cursor was moved.
 ----------------------------------------------------------------------------*/
-bool uicCursorWordLeft(textentryhandle entry)
+bool32 uicCursorWordLeft(textentryhandle entry)
 {
     if (entry->iCharacter == 0)
     {                                                       //if can't move left
@@ -3603,7 +3603,7 @@ bool uicCursorWordLeft(textentryhandle entry)
     Outputs     :
     Return      : TRUE if the cursor was moved.
 ----------------------------------------------------------------------------*/
-bool uicCursorWordRight(textentryhandle entry)
+bool32 uicCursorWordRight(textentryhandle entry)
 {
     sdword length = strlen(entry->textBuffer);
     if (entry->iCharacter >= length - 1)
@@ -3647,7 +3647,7 @@ udword uicTextEntryProcess(regionhandle reg, smemsize ID, udword event, udword d
     featom *atom = (featom *)reg->userID;
     regionhandle tabRegion;
     udword mask = 0;
-    bool bShift = bitTest(data, RF_ShiftBit);
+    bool32 bShift = bitTest(data, RF_ShiftBit);
     int keyname;
 
     bitClear(data, RF_ShiftBit);
@@ -4680,7 +4680,7 @@ void uicListRemoveAllItems(listwindowhandle listwindow)
 void uicListRemoveItem(listwindowhandle listwindow, listitemhandle item)
 {
     Node           *walk,*count;
-    bool            found=FALSE;
+    bool32            found=FALSE;
     listitemhandle  iteminfo, newpos;
     sdword          i, relativecount;
 
@@ -5181,7 +5181,7 @@ enum tagFIBAtomFlagsff uicFindButtonType(struct tagRegion *reg)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool uicClearCurrent(regionhandle reg)
+bool32 uicClearCurrent(regionhandle reg)
 {
     regionhandle        temp=NULL;
     textentryhandle     entry;
@@ -5264,7 +5264,7 @@ bool uicClearCurrent(regionhandle reg)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void uicSetCurrent(regionhandle reg, bool bUserInput)
+void uicSetCurrent(regionhandle reg, bool32 bUserInput)
 {
     listwindowhandle listwindow;
     featom          *atom, *radio;

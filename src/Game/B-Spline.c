@@ -89,7 +89,7 @@ void bsShutdown(void)
                   this arrays passed are previously allocated by this function
                   and are of valid length.
 ----------------------------------------------------------------------------*/
-splinecurve *bsCurveStart(sdword nPoints, real32 *points, real32 *times, tcb *params, bool bAlloc)
+splinecurve *bsCurveStart(sdword nPoints, real32 *points, real32 *times, tcb *params, bool32 bAlloc)
 {
     splinecurve *curve;
     sdword size;

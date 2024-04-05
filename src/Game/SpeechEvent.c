@@ -123,7 +123,7 @@ typedef struct
     sdword      status;     // status of this speech channel
     sdword      nextevent;  // index into the queue of the next event
 
-    bool        locked;     // set when deleting a bunch of stuff so another event doesn't play
+    bool32        locked;     // set when deleting a bunch of stuff so another event doesn't play
 
     real32      timeover;   // what time will this event be over (approx)
 
@@ -169,7 +169,7 @@ smemsize  speechfilehandle;
 
 sdword  numSinglePlayerEvents;
 
-bool    MoShipMoving[MAX_MULTIPLAYER_PLAYERS] = {FALSE};
+bool32    MoShipMoving[MAX_MULTIPLAYER_PLAYERS] = {FALSE};
 
 ubyte   *pspeechstream;
 
@@ -250,19 +250,19 @@ char musicHeaderName[] = "HW_Music.wxh";
 #endif
 
 /* externs */
-extern bool soundpaused;
+extern bool32 soundpaused;
 
 /* global volume settings */
 extern real32 volSpeech;
 extern real32 volMusic;
 extern real32 volNIS;
-extern bool bVolMusicNoFade;
+extern bool32 bVolMusicNoFade;
 
 /* global speech settings */
-extern bool bActorOn[];
-extern bool bCommandsOn;
-extern bool bStatusOn;
-extern bool bChatterOn;
+extern bool32 bActorOn[];
+extern bool32 bCommandsOn;
+extern bool32 bStatusOn;
+extern bool32 bChatterOn;
 
 extern sdword actorFlagsEnabled;
 
@@ -270,9 +270,9 @@ extern real32 nearestShipDistance;
 extern real32 musicVolFactor;
 extern real32 battleMusicVolFactor;
 extern real32 musicInactiveFactor;
-extern bool nearestShipMoving;
+extern bool32 nearestShipMoving;
 
-extern bool FalkosFuckedUpTutorialFlag;
+extern bool32 FalkosFuckedUpTutorialFlag;
 
 /*=============================================================================
     Scripts
@@ -760,7 +760,7 @@ void speechPlayQueue(SPEECHQUEUE *pSQueue, sdword streamchannel)
     STREAMDELAY *pdelay = NULL;
     void *ppatch = NULL;
     sword level = 0;
-    bool bookend = FALSE;
+    bool32 bookend = FALSE;
     ShipClass shipclass = 0;
 
     real32 vol = (real32)SOUND_VOL_MAX;
@@ -1675,7 +1675,7 @@ sdword speechEventQueue(void *object, sdword event, sdword var, sdword variation
     Outputs     :
     Return      :   SOUND_OK (0) if successful, SOUND_ERR (-1) if not
 ----------------------------------------------------------------------------*/
-sdword speechEventStop(sdword handle, real32 fadetime, bool addstatic)
+sdword speechEventStop(sdword handle, real32 fadetime, bool32 addstatic)
 {
     /* is this event still playing? */
     /* are there any events linked to this one in the queue? */
@@ -1792,7 +1792,7 @@ sdword SEreorderqueue(SPEECHQUEUE *pSQueue)
 {
     sdword i;
     sdword highpriority = 0;
-    bool bSomethingQueued = FALSE;
+    bool32 bSomethingQueued = FALSE;
     /* need to get the next event */
 
     SEcleanqueue(pSQueue);
@@ -1926,7 +1926,7 @@ sdword speechEventPlay(void *object, sdword event, sdword var, sdword playernum,
     SpaceObj *spaceobject;
     ShipStaticInfo *shipstatic;
     sdword curstream = SOUND_ERR;
-    bool bookend = FALSE;
+    bool32 bookend = FALSE;
     ShipClass shipclass = 0;
 
     if (!enableSpeech)
@@ -2106,7 +2106,7 @@ sdword speechEventPlay(void *object, sdword event, sdword var, sdword playernum,
 }
 
 
-sdword SEspeechevent(sdword stream, sdword actor, sdword event, sdword var, sword vol, sword pan, double dist, float damageratio, sdword setVariation, bool bookend, ShipClass shipclass)
+sdword SEspeechevent(sdword stream, sdword actor, sdword event, sdword var, sword vol, sword pan, double dist, float damageratio, sdword setVariation, bool32 bookend, ShipClass shipclass)
 {
     udword duration = 0;
     udword variation = 0;
@@ -2364,7 +2364,7 @@ sdword SEselectactor(void)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool speechEventAttack(void)
+bool32 speechEventAttack(void)
 {
     sdword objtype,
             i;
@@ -2373,7 +2373,7 @@ bool speechEventAttack(void)
             numEnemies = 0,
             resourceTypes = 0,
             numResources = 0;
-    static bool lastreturn;
+    static bool32 lastreturn;
 
     if (keyIsHit(SHIFTKEY))
     {

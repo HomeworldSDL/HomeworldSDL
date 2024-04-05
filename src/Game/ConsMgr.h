@@ -53,7 +53,7 @@ typedef struct
 {
     Node node;
     struct Ship *ship;
-    bool canBuildBigShips;
+    bool32 canBuildBigShips;
     shipinprogress progress[TOTAL_STD_SHIPS];
 }
 shipsinprogress;
@@ -97,17 +97,17 @@ extern sdword cmNumPlayersCarriers;
 
 
 #if CM_CHEAP_SHIPS
-extern bool cmCheapShips;
+extern bool32 cmCheapShips;
 #endif
 
 #define CM_SHIFT 256
 
 extern KeysToShips cmShipTypes[];
-extern bool cmPrintHotKey;
+extern bool32 cmPrintHotKey;
 
 extern sdword shiplagtotals[TOTAL_NUM_SHIPS];
 
-extern bool cmActive;
+extern bool32 cmActive;
 
 extern sdword cmMaxJobsPerClass[NUM_CLASSES];
 
@@ -130,14 +130,14 @@ sdword cmConstructionBegin(regionhandle region, smemsize ID, udword event, udwor
 //start a new build job
 void cmBuildJobsAdd(shipsinprogress *factory, ShipStaticInfo *info, sdword index);
 
-void cmAddFactory(struct Ship *ship,bool canBuildBigShips);
+void cmAddFactory(struct Ship *ship,bool32 canBuildBigShips);
 void cmRemoveFactory(struct Ship *ship);
 
 void cmCloseIfOpen(void);
 
-bool cmCanBuildShipType(Ship *factoryship,ShipType shiptype,bool checkResearch);
+bool32 cmCanBuildShipType(Ship *factoryship,ShipType shiptype,bool32 checkResearch);
 
-bool cmBuildHotKey(keyindex key, bool shift);
+bool32 cmBuildHotKey(keyindex key, bool32 shift);
 ShipType cmKeyToShipType(uword key);
 uword cmShipTypeToKey(ShipType ship);
 
@@ -160,7 +160,7 @@ void cmDeterministicReset(void);
 // Not really a task anymore.
 void cmBuildTaskFunction(void);
 
-void LoadConsMgrDetermOptional();
-void SaveConsMgrDetermOptional();
+void LoadConsMgrDetermOptional(void);
+void SaveConsMgrDetermOptional(void);
 
 #endif

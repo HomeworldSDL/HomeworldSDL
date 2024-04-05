@@ -87,7 +87,7 @@ udword scenarioTexture = TR_InvalidInternalHandle;
 sdword spTextureWidth, spTextureHeight;
 ubyte* spTextureData = NULL;
 
-bool spPickerStarted = FALSE;
+bool32 spPickerStarted = FALSE;
 
 #define SCP_TEXTURE_INSET 3
 
@@ -109,7 +109,7 @@ sdword spNDescriptionLines = 0;                 //number of text description lin
 char **spDescriptionLines = NULL;               //the actual lines
 char *spDescription = NULL;                     //the actual description (may be chopped)
 fonthandle spDescriptionFont = FONT_InvalidFontHandle;//font to print in
-bool spDescriptionShadow = FALSE;                      //print with a dropshadow?
+bool32 spDescriptionShadow = FALSE;                      //print with a dropshadow?
 color spDescriptionColor = colWhite;            //print in what color?
 GameType *gameTypeFromDescription = NULL;
 static void spMissionDescriptionSet(char *directory,char *field,void *dataToFillIn);
@@ -211,7 +211,7 @@ void spScenarioNameDraw(featom *atom, regionhandle region)
 {
     fonthandle fhSave;
     char scenarioName[128];
-    bool useDisplayName = FALSE;
+    bool32 useDisplayName = FALSE;
     unsigned int i;
 
     rectangle *r = &region->rect;
@@ -749,7 +749,7 @@ void spScenarioPick(char *dest)
     spPickerStarted = TRUE;
 }
 
-bool spSelectionValid(sdword candidate)
+bool32 spSelectionValid(sdword candidate)
 {
     if (tpGameCreated.numPlayers + tpGameCreated.numComputers > spScenarios[candidate].maxplayers)
     {
@@ -904,7 +904,7 @@ void spFindMap(char *MapName)
 void spGetScenarioDetails(char* bitmapFile, char *textFile, char *scenarioFile)
 {
     sdword i;
-    bool foundBitmap = FALSE, foundText = FALSE;
+    bool32 foundBitmap = FALSE, foundText = FALSE;
 
     for (i = 2; i<=MAX_MULTIPLAYER_PLAYERS; i++)
     {

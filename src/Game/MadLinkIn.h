@@ -33,7 +33,7 @@ void madLinkInCloseSpecialShip(Ship *ship);
 
 void madLinkInOpenDoor(Ship *ship);
 void madLinkInCloseDoor(Ship *ship);
-bool madLinkInGetDoorInfo(Ship *ship, matrix *coordsys, vector *position);
+bool32 madLinkInGetDoorInfo(Ship *ship, matrix *coordsys, vector *position);
 
 #endif
 

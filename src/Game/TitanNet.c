@@ -63,7 +63,7 @@ long CONNECT_TIMEOUT = 8000;
 
 #define VALIDVERSIONS_MAXLEN 2000
 
-bool HaveValidVersions = FALSE;
+bool32 HaveValidVersions = FALSE;
 char ValidVersions[VALIDVERSIONS_MAXLEN] = "";
 
 /*=============================================================================
@@ -367,7 +367,7 @@ void titanGameEnded(void)
     Outputs     : none
     Return      : void
 ----------------------------------------------------------------------------*/
-void titanGameDisolved(bool shutdown)
+void titanGameDisolved(bool32 shutdown)
 {
     if (shutdown)
     {
@@ -463,7 +463,7 @@ void titanUpdateGameDataCB(const void *blob,unsigned short bloblen)
         mgUpdateGameInfo();
 }
 
-bool titanKickPlayer(udword i)
+bool32 titanKickPlayer(udword i)
 {
 #ifndef _MACOSX_FIX_LAN
     unsigned long j;
@@ -527,7 +527,7 @@ unsigned long titanLeaveGameReceivedCB(Address *address,const void *blob,unsigne
 {
 #ifndef _MACOSX_FIX_LAN
     unsigned long i,j;
-    bool       found=FALSE;
+    bool32       found=FALSE;
     DirectoryCustomInfoMax buildDirectoryCustomInfo;
 
     if (!GameCreator)
@@ -774,7 +774,7 @@ void captainGameStartCB(void)
         mgShutdownMultiPlayerGameScreens();
 }
 
-void titanUpdatePlayer(bool captain)
+void titanUpdatePlayer(bool32 captain)
 {
     PlayerJoinInfo pInfo;
 
@@ -869,7 +869,7 @@ void titanGotValidVersionStrings(char *vversions)
     HaveValidVersions = TRUE;
 }
 
-bool VersionFoundInValidVersions(char *myversion)
+bool32 VersionFoundInValidVersions(char *myversion)
 {
     char copyValidVersions[VALIDVERSIONS_MAXLEN];
     char *strtokptr;
@@ -894,7 +894,7 @@ bool VersionFoundInValidVersions(char *myversion)
     return FALSE;
 }
 
-bool titanCheckValidVersion(char *myversion)
+bool32 titanCheckValidVersion(char *myversion)
 {
     if (ShortCircuitWON) return(TRUE);
 
@@ -911,7 +911,7 @@ bool titanCheckValidVersion(char *myversion)
     return FALSE;
 }
 
-bool CheckNetworkVersionCompatibility(char *netversion)
+bool32 CheckNetworkVersionCompatibility(char *netversion)
 {
     if (strcasecmp(netversion,networkVersion) == 0)
         return TRUE;

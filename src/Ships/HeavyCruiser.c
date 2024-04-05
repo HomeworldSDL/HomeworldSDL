@@ -46,9 +46,9 @@ void HeavyCruiserAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdist)
     attackStraightForward(ship,target,heavycruiserstat->heavycruiserGunRange[ship->tacticstype],heavycruiserstat->heavycruiserTooCloseRange[ship->tacticstype]);
 }
 
-void HeavyCruiserAttackPassive(Ship *ship,Ship *target,bool rotate)
+void HeavyCruiserAttackPassive(Ship *ship,Ship *target,bool32 rotate)
 {
-    if ((rotate) & ((bool)((ShipStaticInfo *)(ship->staticinfo))->rotateToRetaliate))
+    if ((rotate) & ((bool32)((ShipStaticInfo *)(ship->staticinfo))->rotateToRetaliate))
     {
         attackPassiveRotate(ship,target);
     }

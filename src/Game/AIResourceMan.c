@@ -196,7 +196,7 @@ void airClose(AIPlayer *aiplayer)
     Outputs     :
     Return      : TRUE if the ship was found and removed
 ----------------------------------------------------------------------------*/
-bool airShipDied(AIPlayer *aiplayer,ShipPtr ship)
+bool32 airShipDied(AIPlayer *aiplayer,ShipPtr ship)
 {
 //    if ((ship->playerowner == aiplayer->player) || (ship->attributes & ATTRIBUTES_Defector)) // do all checks for defector
 //    {
@@ -316,7 +316,7 @@ void airAddedResourceCollector(Ship *ship)
     }
 }
 
-bool FindBestPlaceForAdvanceSupportFrigate(vector *destination)
+bool32 FindBestPlaceForAdvanceSupportFrigate(vector *destination)
 {
     Ship *myMothership = aiCurrentAIPlayer->player->PlayerMothership;
     Ship *enemyMothership = aiuFindEnemyMothership(aiCurrentAIPlayer->player);
@@ -518,7 +518,7 @@ void airAddNewShip(Ship *ship)
     Outputs     :
     Return      : Returns TRUE if current AI player can build ships of shiptype
 ----------------------------------------------------------------------------*/
-bool aiuCanBuildShipType(ShipType shiptype,bool scriptteam)
+bool32 aiuCanBuildShipType(ShipType shiptype,bool32 scriptteam)
 {
     Ship *playerMothership = aiCurrentAIPlayer->player->PlayerMothership;
     ShipStaticInfo *teststatic;
@@ -686,7 +686,7 @@ void airProcessSpecialTeams(void)
     Outputs     :
     Return      : Whether or not a new resourcer has been requested at high priority
 ----------------------------------------------------------------------------*/
-bool airDumbResourcerRequests(void)
+bool32 airDumbResourcerRequests(void)
 {
     if (aiCurrentAIPlayer->ResourcersToBuild)
     {
@@ -718,7 +718,7 @@ bool airDumbResourcerRequests(void)
     Outputs     :
     Return      : Whether or not a new research ship has been requested at high priority
 ----------------------------------------------------------------------------*/
-bool airDumbResearchRequests(bool *requestedResearch)
+bool32 airDumbResearchRequests(bool32 *requestedResearch)
 {
     if (aiCurrentAIPlayer->ResearchersToBuild)
     {
@@ -761,7 +761,7 @@ bool airDumbResearchRequests(bool *requestedResearch)
     Outputs     :
     Return      : Whether or not a new research ship has been requested at high priority
 ----------------------------------------------------------------------------*/
-bool airSmartResearchRequests(bool *requestedResearch)
+bool32 airSmartResearchRequests(bool32 *requestedResearch)
 {
     if (aiCurrentAIPlayer->TechnologyDeficit > 0)
     {
@@ -809,7 +809,7 @@ bool airSmartResearchRequests(bool *requestedResearch)
 void airResourceManager(void)
 {
     sdword cashGenerated;
-    bool requestedSomething = FALSE, requestedResearch = FALSE;
+    bool32 requestedSomething = FALSE, requestedResearch = FALSE;
 
     // Update continuously updated variables
 

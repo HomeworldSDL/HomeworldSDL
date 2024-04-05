@@ -55,21 +55,21 @@ void RemoveShipFromLaunching(Ship *ship);
 void RemoveShipFromDocking(Ship *ship);
 
 void dockPrepareSingleShipForLaunch(Ship *ship,Ship *dockship);
-void dockChangeSingleShipToDock(struct CommandToDo *command,Ship *ship,Ship *dock,bool wasHarvesting,DockType dockType);
+void dockChangeSingleShipToDock(struct CommandToDo *command,Ship *ship,Ship *dock,bool32 wasHarvesting,DockType dockType);
 void DockCleanup(struct CommandToDo *docktodo);
 void LaunchCleanup(struct CommandToDo *launchtodo);
-bool processDockToDo(struct CommandToDo *docktodo);
+bool32 processDockToDo(struct CommandToDo *docktodo);
 
-bool ShipWithinDockRange(Ship *ship,Ship *target);
+bool32 ShipWithinDockRange(Ship *ship,Ship *target);
 Ship *FindNearestShipToDockAt(Ship *ship,DockType dockType);
 
 // specific docking for certain ships
-bool LaunchShipFromDDDF(Ship *ship,Ship *dockwith);
-bool DroneDocksAtDDDF(struct Ship *ship,struct Ship *dockwith);
+bool32 LaunchShipFromDDDF(Ship *ship,Ship *dockwith);
+bool32 DroneDocksAtDDDF(struct Ship *ship,struct Ship *dockwith);
 void dockPrepareDroneForDocking(Ship *ship,Ship *dockship);
 
-bool ShipIsRefuelingAtCarrierMother(struct Ship *ship);
-bool ShipIsWaitingForSoftLaunch(struct Ship *ship);
+bool32 ShipIsRefuelingAtCarrierMother(struct Ship *ship);
+bool32 ShipIsWaitingForSoftLaunch(struct Ship *ship);
 Ship *FindAnotherResearchShiptoDockWith(Ship *ship);
 void dockMakeMaster(Ship *master);
 void dockAddSlave(Ship *master, Ship *slave);

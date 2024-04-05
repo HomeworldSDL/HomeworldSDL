@@ -97,11 +97,11 @@ extern void (*piePlaneDrawCallback)(real32 distance);
 
 #if PIE_VISUALIZE_VERTICAL
 extern vector pieScreen0, pieScreen1;
-extern bool pieOnScreen;
+extern bool32 pieOnScreen;
 #endif //PIE_VISUALIZE_VERTICAL
 
 #if PIE_VISUALIZE_EXTENTS
-extern bool pieVisualizeExtents;
+extern bool32 pieVisualizeExtents;
 #endif
 
 
@@ -121,7 +121,7 @@ void piePointModeToggle(sdword bOn);
 
 void pieStartup(void);
 
-bool pieMovePointClipToLimits(real32 sizeX, real32 sizeY, real32 sizeZ, vector *pointA, vector *pointB);
+bool32 pieMovePointClipToLimits(real32 sizeX, real32 sizeY, real32 sizeZ, vector *pointA, vector *pointB);
 sdword pieCircleSegmentsCompute(real32 screenRadius);
 
 #endif

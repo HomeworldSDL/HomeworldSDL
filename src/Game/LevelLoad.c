@@ -156,7 +156,7 @@ static void scriptSetShipsToBeNeeded   (char *directory, char *field, void *data
 static void scriptSetDerelictToBeNeeded(char *directory, char *field, void *dataToFillIn);
 static void scriptPreMissionSphereCB   (char *directory, char *field, void *dataToFillIn);
 
-bool AnyShipOverlapsAsteroid(vector *position,AsteroidType asteroidtype);
+bool32 AnyShipOverlapsAsteroid(vector *position,AsteroidType asteroidtype);
 
 scriptEntry MissionPreloadScriptTable[] =
 {
@@ -191,8 +191,8 @@ scriptEntry MissionPreloadScriptTablePass2[] =
     END_SCRIPT_ENTRY
 };
 
-bool needR1CapitalShip = FALSE;
-bool needR2CapitalShip = FALSE;
+bool32 needR1CapitalShip = FALSE;
+bool32 needR2CapitalShip = FALSE;
 
 scriptStructEntry MissionPreloadMissphereTable[] =
 {
@@ -202,7 +202,7 @@ scriptStructEntry MissionPreloadMissphereTable[] =
     END_SCRIPT_STRUCT_ENTRY
 };
 
-bool missionman = FALSE;
+bool32 missionman = FALSE;
 
 /*=============================================================================
     Functions:
@@ -283,7 +283,7 @@ static void GetResourceDistribution(ResourceDistribution *resourceDistribution,c
     }
 }
 
-udword GetRandomResourceType(ResourceDistribution *resourceDistribution,bool regrowing)
+udword GetRandomResourceType(ResourceDistribution *resourceDistribution,bool32 regrowing)
 {
     udword randnum;
     udword i;
@@ -359,7 +359,7 @@ void AddRandomVelocityDirection(SpaceObj *obj,vector *direction,real32 avgVel,re
     SET_MOVING_LINEARLY(obj->posinfo.isMoving);
 }
 
-bool AddResourceToVolumeAtPosition(struct ResourceVolume *volume,bool regrowing,vector *position)
+bool32 AddResourceToVolumeAtPosition(struct ResourceVolume *volume,bool32 regrowing,vector *position)
 {
     switch (volume->resourceObjType)
     {
@@ -442,7 +442,7 @@ bool AddResourceToVolumeAtPosition(struct ResourceVolume *volume,bool regrowing,
     return TRUE;
 }
 
-bool AddResourceToRectangle(struct ResourceVolume *rectangle,bool regrowing)
+bool32 AddResourceToRectangle(struct ResourceVolume *rectangle,bool32 regrowing)
 {
     real32 width = rectangle->radius;
     real32 length = rectangle->length;
@@ -490,7 +490,7 @@ static void AddRectangle(ResourceVolume *rectangle)
     }
 }
 
-bool AddResourceToCylinder(struct ResourceVolume *cylinder,bool regrowing)
+bool32 AddResourceToCylinder(struct ResourceVolume *cylinder,bool32 regrowing)
 {
     real32 rotabouty = cylinder->roty;
     real32 rotaboutz = cylinder->rotz;
@@ -544,7 +544,7 @@ static void AddCylinder(ResourceVolume *cylinder)
     }
 }
 
-bool AddResourceToSphere(struct ResourceVolume *sphere,bool regrowing)
+bool32 AddResourceToSphere(struct ResourceVolume *sphere,bool32 regrowing)
 {
     real32 diameter;
     real32 radius;
@@ -874,7 +874,7 @@ ShipType GetAppropriateShipTypeForRace(ShipType request,ShipRace shiprace)
         ship->colorScheme = (MAX_MULTIPLAYER_PLAYERS-1);                                \
     }
 
-bool isCapturableCapitalShip(ShipType shiptype)
+bool32 isCapturableCapitalShip(ShipType shiptype)
 {
     switch (shiptype)
     {
@@ -896,7 +896,7 @@ bool isCapturableCapitalShip(ShipType shiptype)
     return FALSE;
 }
 
-bool PlayerDoesntHaveCapturableCapitalShip(Player *player)
+bool32 PlayerDoesntHaveCapturableCapitalShip(Player *player)
 {
     Node *node;
     Ship *ship;
@@ -964,8 +964,8 @@ static void scriptSetShipsCB(char *directory,char *field,void *dataToFillIn)
     MissionSphereInfo *missionSphereInfo = (MissionSphereInfo *)dataToFillIn;
     Ship *ship;
     Player *player = &universe.players[missionSphereInfo->playerNumber];
-    bool paradeFormation = FALSE;
-    bool useAsMothership = FALSE;
+    bool32 paradeFormation = FALSE;
+    bool32 useAsMothership = FALSE;
     AITeam *teamp = NULL;
     udword fieldStart;
     sdword colorScheme = -1;
@@ -1745,7 +1745,7 @@ static void scriptPreMissionSphereCB(char *directory,char *field,void *dataToFil
 }
 
 #define MAXLINENEED 50
-bool isLevelMissionManGenerated(char *directory,char *filename)
+bool32 isLevelMissionManGenerated(char *directory,char *filename)
 {
     filehandle fh;
     char line[MAXLINENEED];
@@ -1901,7 +1901,7 @@ static void llExcludeShip(char *directory,char *field,void *dataToFillIn)
         type = StrToShipType(string);
         dbgAssertOrIgnore(type != 0xffffffff);
         SetInfoNeededForShipAndRelatedStaticInfo(type,race,(bool8)(size_t)dataToFillIn);
-        rmEnableShip(race, type, (bool)dataToFillIn);
+        rmEnableShip(race, type, (bool32)dataToFillIn);
     }
 }
 
@@ -2299,7 +2299,7 @@ void levelPreInit(char *directory,char *pickedMission)
     }
 }
 
-void TryToFindMothershipsForPlayers()
+void TryToFindMothershipsForPlayers(void)
 {
     sdword i;
     Player *player;
@@ -2388,7 +2388,7 @@ void levelStartNext(char *directory,char *pickedMission)
     TryToFindMothershipsForPlayers();
 }
 
-bool AnyShipOverlapsAsteroid(vector *position,AsteroidType asteroidtype)
+bool32 AnyShipOverlapsAsteroid(vector *position,AsteroidType asteroidtype)
 {
     Node *node;
     Ship *ship;

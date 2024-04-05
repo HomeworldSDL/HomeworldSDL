@@ -65,7 +65,7 @@ extern sdword SFX_AMBIENT_VOLUME;
 extern sdword SFX_NIS_MAX_ENGINES;
 extern sdword SFX_NIS_MIN_CAPSHIPS;
 extern real32 SFX_MAX_ENGINE_RANGE;
-extern bool   SFX_CAPSHIPS_ALWAYS_ON;
+extern bool32   SFX_CAPSHIPS_ALWAYS_ON;
 extern sdword SFX_MAX_AMBIENT;
 extern real32 SFX_FLOAT_VELOCITY;
 extern real32 SFX_NIS_FLOAT_VELOCITY;
@@ -76,7 +76,7 @@ extern sword  SFX_HYPERSPACE_VOLUME;
 extern real32 SFX_DAMAGERATIO_LIGHT;
 extern real32 SFX_DAMAGERATIO_MEDIUM;
 extern real32 SFX_DAMAGERATIO_HEAVY;
-extern bool   SFX_DAMAGERATIO_ENABLE;
+extern bool32   SFX_DAMAGERATIO_ENABLE;
 
 extern real32 SFX_CARDIOD_FACTOR;
 extern real32 SFX_CARDIOD_MIN;
@@ -92,12 +92,12 @@ extern real32 CORVETTE_VELOCITY_SCALE;
 extern real32 FIGHTER_DOPPLER_SCALE;
 extern sdword FIGHTER_DOPPLER_LOW;
 extern sdword FIGHTER_DOPPLER_HIGH;
-extern bool   FIGHTER_DOPPLER_USEVELOCITY;
+extern bool32   FIGHTER_DOPPLER_USEVELOCITY;
 
 extern real32 CORVETTE_DOPPLER_SCALE;
 extern sdword CORVETTE_DOPPLER_LOW;
 extern sdword CORVETTE_DOPPLER_HIGH;
-extern bool   CORVETTE_DOPPLER_USEVELOCITY;
+extern bool32   CORVETTE_DOPPLER_USEVELOCITY;
 
 extern real32 SPEECH_VOL_FACTOR;
 extern sword  SPEECH_VOL_LOW;
@@ -122,7 +122,7 @@ extern real32 SPEECH_DISOBEY_FORCEDATTACK;
 
 extern real32 SPEECH_MIN_PERCEPTABLE_VOL;
 extern real32 SPEECH_AMBIENT_LEVEL;
-extern bool   SPEECH_AMBIENT_ENABLE;
+extern bool32   SPEECH_AMBIENT_ENABLE;
 
 extern real32 SPEECH_STIKEDAMAGE_MULT;
 extern real32 SPEECH_CAPDAMAGE_MULT;
@@ -154,14 +154,14 @@ void SEupdateShipRange(void);
 
 sword SEcalcenginevol(sdword shipclass, real32 distance);
 sword SEcalcvol(sdword shipclass, real32 distance);
-bool SEinrange(sdword shipclass, real32 distance);
-bool SEinrangeSqr(sdword shipclass, real32 distancesqr);
+bool32 SEinrange(sdword shipclass, real32 distance);
+bool32 SEinrangeSqr(sdword shipclass, real32 distancesqr);
 sword SEequalize(sdword objtype, real32 distance, real32 *eq);
 void SEeq(sdword objtype, real32 distance, real32 *eq);
-void SEstopengine(Ship *ship, bool stopnow);
+void SEstopengine(Ship *ship, bool32 stopnow);
 void SEloadbank(void);
 sdword SEselectactor(void);
-sdword SEspeechevent(sdword stream, sdword actor, sdword event, sdword var, sword vol, sword pan, double dist, float damageratio, sdword setVariation, bool bookend, ShipClass shipclass);
+sdword SEspeechevent(sdword stream, sdword actor, sdword event, sdword var, sword vol, sword pan, double dist, float damageratio, sdword setVariation, bool32 bookend, ShipClass shipclass);
 sword SEgetAngleToCamera(Ship *ship);
 sdword GetPatch(SFXLUT *lut, sdword object, sdword event);
 real32 SEsilence(void);

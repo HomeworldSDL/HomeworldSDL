@@ -152,8 +152,8 @@ void mouseDisable(void);
 void mouseEnable(void);
 
 //click special callbacks
-bool mouseLDoubleClick(void);
-bool mouseDoubleClickCheck(void);
+bool32 mouseLDoubleClick(void);
+bool32 mouseDoubleClickCheck(void);
 void mouseLClick(void);
 void mouseClickShipDied(ShipPtr deadship);
 

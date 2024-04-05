@@ -54,13 +54,13 @@ void recPackPlayInit(void);
 void recPackPlayClose(void);
 void recPackPlayInGameInit(void);
 void recPackInGameStartCB(char *filename);
-void recPackInGameStartCBSafeToStart();
+void recPackInGameStartCBSafeToStart(void);
 void recPackInGameStopCB(void);
 
 extern char OrigRecordPacketFileName[];
 
 #ifdef GOD_LIKE_SYNC_CHECKING
-void syncDebugDump(char *filename,sdword counter,bool save);
+void syncDebugDump(char *filename,sdword counter,bool32 save);
 void industrialStrengthSyncDebugging(sdword FrameNumber);
 void netcheckIndustrialChecksum();
 void netReceivedSyncFromNonCaptain(void *checksums,udword frame,udword playerIndex);

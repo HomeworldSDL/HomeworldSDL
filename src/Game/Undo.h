@@ -12,7 +12,7 @@
 
 // INTERFACE -------------------------------------------------------------------
 
-typedef bool (*undofunc)(sdword userID, ubyte *userData, sdword length);
+typedef bool32 (*undofunc)(sdword userID, ubyte *userData, sdword length);
 
 typedef struct undoinfo
 {

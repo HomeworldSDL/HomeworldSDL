@@ -41,8 +41,8 @@ void aishipGetTrajectoryWithAngleCorrection(Ship *ship,SpaceObjRotImpTarg *targe
 
 udword aishipFlyToPointAvoidingObjsFunc(Ship *ship,vector *destination,udword aishipflags,real32 limitvel,vector *withVel);
 
-bool aishipGuideMissile(Missile *missile);
-bool aishipGuideMine(Missile *mine);
+bool32 aishipGuideMissile(Missile *missile);
+bool32 aishipGuideMine(Missile *mine);
 
 real32 GetCollSizeInDirection(SpaceObjRotImp *obj,vector dir);
 
@@ -66,7 +66,7 @@ Ship *getShipNearObjTok(SpaceObjRotImpTarg *obj, real32 range);
     Data:
 =============================================================================*/
 
-extern bool aishipTempDisableAvoiding;
+extern bool32 aishipTempDisableAvoiding;
 
 /*=============================================================================
     Tweakable Constants:
@@ -87,13 +87,13 @@ extern real32 AVOID_OBJ_PADDING_SCALE;
 
 typedef struct AIshipStats
 {
-    bool isValid;
-    bool isDisplayable;
+    bool32 isValid;
+    bool32 isDisplayable;
     sdword state;
     sdword avoidedWalks;
     sdword avoidedConsidered;
     real32 distanceToCollision;
-    bool passingOnRight;
+    bool32 passingOnRight;
     vector passingOnRightVec;
     sdword repulsenum;
     vector repulse;

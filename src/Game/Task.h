@@ -69,7 +69,7 @@ typedef struct
 taskdata;
 
 struct BabyCallBack;
-typedef bool (*babyFuncCB)(udword num, void *data, struct BabyCallBack *baby);    //callback function
+typedef bool32 (*babyFuncCB)(udword num, void *data, struct BabyCallBack *baby);    //callback function
 
 typedef struct BabyCallBack
 {

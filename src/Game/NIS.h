@@ -420,14 +420,14 @@ typedef spaceobjpath_disk lightpath_disk;
 /*=============================================================================
     Data:
 =============================================================================*/
-extern bool nisIsRunning;
-extern bool nisCaptureCamera;
+extern bool32 nisIsRunning;
+extern bool32 nisCaptureCamera;
 extern Camera *nisCamera;
 extern taskhandle nisTaskHandle;
 #if NIS_PRINT_INFO
 extern char nisInfoString[256];
-extern bool nisPrintInfo;
-extern bool nisNoLockout;
+extern bool32 nisPrintInfo;
+extern bool32 nisNoLockout;
 #endif
 #if NIS_TEST
 extern nisplaying *testPlaying;
@@ -438,7 +438,7 @@ extern nisheader *thisNisHeader;
 extern nisDoneCB thisNisDoneCB;
 extern sdword nisTextCardIndex;
 
-extern bool nisFullyScissored;                  //is scissor fully opaque?
+extern bool32 nisFullyScissored;                  //is scissor fully opaque?
 extern real32 nisScissorFade;                   //current fade amount (0..1)
 extern real32 nisScissorFadeIn;                 //duration of fade in/out
 extern real32 nisScissorFadeOut;                //duration of fade in/out
@@ -483,12 +483,12 @@ real32 nisUpdate(nisplaying *NIS, real32 timeElapsed);
 void nisObjectEulerToMatrix(matrix *coordsys, vector *rotVector);
 void nisShipEulerToMatrix(matrix *coordsys, vector *rotVector);
 void nisStop(nisplaying *NIS);
-void nisPause(bool bPause);
+void nisPause(bool32 bPause);
 
 void nisGoToEnd(nisplaying *NIS);
 
 //utility functions for others to use
-bool nisShipStartPosition(vector *destVector, matrix *destMatrix, nisheader *header, ShipRace race, ShipType type, sdword instance);
+bool32 nisShipStartPosition(vector *destVector, matrix *destMatrix, nisheader *header, ShipRace race, ShipType type, sdword instance);
 void nisRotateAboutVector(real32* m, vector* axis, real32 radians);
 void nisTextCardListDraw(void);
 void nisRemoveMissileReference(Missile *missile);

@@ -63,7 +63,7 @@
     Data:
 =============================================================================*/
 //data exported for the benefit of other modules with similar functionality
-extern bool mrWhiteOut;
+extern bool32 mrWhiteOut;
 extern real32 mrWhiteOutT;
 extern sdword mrRenderMainScreen;
 extern sdword mrOldMouseX, mrOldMouseY;
@@ -82,16 +82,16 @@ extern void (*mrHoldRight)(void);
 
 extern char *mrMenuItemByTactic[];
 
-extern bool helpinfoactive;
+extern bool32 helpinfoactive;
 
 extern real32 mrNumberDoublePressTime;
 extern sdword mrLastKeyPressed;
 extern real32 mrLastKeyTime;
 
-extern bool mrDisabled;
+extern bool32 mrDisabled;
 
 #if MR_CAN_FOCUS_ROIDS
-extern bool mrCanFocusRoids;
+extern bool32 mrCanFocusRoids;
 #endif
 
 /*=============================================================================
@@ -126,7 +126,7 @@ void mrInfo(char *string, featom *atom);
 void mrCancel(char *string, featom *atom);
 void mrScuttle(char *string, featom *atom);
 void mrRetire(char *string, featom *atom);
-void mrUpdateHyperspaceStatus(bool goForLaunch);
+void mrUpdateHyperspaceStatus(bool32 goForLaunch);
 void mrHyperspace(char *string, featom *atom);
 void mrLaunch(char *string, featom *atom);
 void mrResearch(char *string, featom *atom);
@@ -148,13 +148,13 @@ void mrDisable(void);
 void mrNULL(void);
 void mrSelectHold(void);
 void mrShipDied(Ship *ship);
-void mrTacticalOverlayState(bool bTactical);
+void mrTacticalOverlayState(bool32 bTactical);
 
 void bigmessageDisplay(char *msg,sdword position);
 void bigmessageErase(sdword position);
 
 //probe hack functions
-bool mrNeedProbeHack(void);
+bool32 mrNeedProbeHack(void);
 void mrProbeHack();
 void mrRemoveAllProbesFromSelection();
 

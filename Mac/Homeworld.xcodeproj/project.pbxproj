@@ -12,6 +12,8 @@
 		2A0FC99A2AADF3020077F592 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A0FC9952AADEF830077F592 /* SDL2.framework */; };
 		2A33B4C02AA1FCB30067FBDC /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E8607613487BD10079E9AB /* OpenGL.framework */; };
 		2A33B4C22AA1FCB50067FBDC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		2A7BDF182BB9C7DB00C9FCF1 /* Transformer.c in Sources */ = {isa = PBXBuildFile; fileRef = 3CFB01762B5C69DC00B89E6B /* Transformer.c */; };
+		2A7BDF192BB9C7DB00C9FCF1 /* Transformer.h in Sources */ = {isa = PBXBuildFile; fileRef = 3CFB01752B5C69DC00B89E6B /* Transformer.h */; };
 		2AA6D5A12AA8FE1B00C00360 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AA6D5A02AA8FE1A00C00360 /* OpenGL.framework */; };
 		2AF203152AB0D40D0018711B /* File_Mac.c in Sources */ = {isa = PBXBuildFile; fileRef = 2AF203142AB0D28C0018711B /* File_Mac.c */; };
 		2AF203162AB0D41A0018711B /* File_Mac.c in Sources */ = {isa = PBXBuildFile; fileRef = 2AF203142AB0D28C0018711B /* File_Mac.c */; };
@@ -1776,8 +1778,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 35CC221F0955C2E100504293 /* Build configuration list for PBXNativeTarget "Raider Retreat" */;
 			buildPhases = (
-				35BE70E007937E0B00AEFC3C /* ShellScript */,
-				2AA6D5A32AA8FEC500C00360 /* ShellScript */,
 				3516C942077C41B0001AA863 /* Resources */,
 				3516C946077C41B0001AA863 /* Sources */,
 				3516CA6A077C41B0001AA863 /* Frameworks */,
@@ -1866,23 +1866,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2AA6D5A32AA8FEC500C00360 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n#Compile HomeworldSDL.big into repo root\ncd ../tools/biggie\n./biggie-macOS-compile.sh\ncd ../../HomeworldSDL_big\n./convert_directory_to_big_file\n";
-		};
 		3507D813079955A400F093F4 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 12;
@@ -1912,94 +1895,6 @@
 			shellPath = /bin/zsh;
 			shellScript = "# force the shell; XCode really likes sh regardless of configuration\n/bin/zsh\n\ncase \"${BUILD_STYLE}\" in\n\n    Deployment)\n\n        # copy in the SDL framework\n        mkdir -p ./build/Deployment/Raider\\ Retreat.app/Contents/Frameworks\n        cp -pR /Library/Frameworks/SDL.framework ./build/Deployment/Raider\\ Retreat.app/Contents/Frameworks\n\n        # remove the SDL framework headers (and associated symlink)\n        rm -f  ./build/Deployment/Raider\\ Retreat.app/Contents/Frameworks/SDL.framework/Headers\n        rm -rf ./build/Deployment/Raider\\ Retreat.app/Contents/Frameworks/SDL.framework/Versions/Current/Headers\n\n        # rename InfoPlist.strings files correctly\n        # (why doesn't XCode do this when the 'Info.plist File' is set?)\n        find ./build/Deployment/Raider\\ Retreat.app/Contents/Resources/*.lproj -name RaiderRetreatPlist.strings -execdir mv {} InfoPlist.strings \\;\n\n        # clean up any Subversion files that may have been pulled in\n        find ./build/Deployment/Raider\\ Retreat.app/ -name '.svn' -exec rm -rf {} \\;\n\n        # clean up Mac OS X .DS_Store folder files\n        find ./build/Deployment/Raider\\ Retreat.app/ -name '.DS_Store' -exec rm {} \\;\n\n        # end of case condition\n        ;;\n\nesac\n";
 		};
-		35BE70E007937E0B00AEFC3C /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			comments = "This script ensures that kas2c is compiled and then converts the mission.kas files into their equivalent .c and .h files prior to full compilation of the project.";
-			files = (
-			);
-			inputPaths = (
-				../src/Missions/SinglePlayer/Mission01.kas,
-				../src/Missions/SinglePlayer/Mission02.kas,
-				../src/Missions/SinglePlayer/Mission03.kas,
-				../src/Missions/SinglePlayer/Mission04.kas,
-				../src/Missions/SinglePlayer/Mission05.kas,
-				../src/Missions/SinglePlayer/Mission06.kas,
-				../src/Missions/SinglePlayer/Mission07.kas,
-				../src/Missions/SinglePlayer/Mission08.kas,
-				../src/Missions/SinglePlayer/Mission09.kas,
-				../src/Missions/SinglePlayer/Mission10.kas,
-				../src/Missions/SinglePlayer/Mission11.kas,
-				../src/Missions/SinglePlayer/Mission12.kas,
-				../src/Missions/SinglePlayer/Mission13.kas,
-				../src/Missions/SinglePlayer/Mission14.kas,
-				../src/Missions/SinglePlayer/Mission15.kas,
-				../src/Missions/SinglePlayer/Mission16.kas,
-				../src/Missions/SinglePlayer/Swarmer.kash,
-				../src/Missions/SinglePlayer/Utilities.kash,
-				../src/Missions/Tutorials/Tutorial1.kas,
-				../src/Missions/SinglePlayer/Mission05_OEM.kas,
-			);
-			outputPaths = (
-				../src/Missions/Generated/Mission01.c,
-				../src/Missions/Generated/Mission01.func.c,
-				../src/Missions/Generated/Mission01.h,
-				../src/Missions/Generated/Mission02.c,
-				../src/Missions/Generated/Mission02.func.c,
-				../src/Missions/Generated/Mission02.h,
-				../src/Missions/Generated/Mission03.c,
-				../src/Missions/Generated/Mission03.func.c,
-				../src/Missions/Generated/Mission03.h,
-				../src/Missions/Generated/Mission04.c,
-				../src/Missions/Generated/Mission04.func.c,
-				../src/Missions/Generated/Mission04.h,
-				../src/Missions/Generated/Mission05.c,
-				../src/Missions/Generated/Mission05.func.c,
-				../src/Missions/Generated/Mission05.h,
-				../src/Missions/Generated/Mission06.c,
-				../src/Missions/Generated/Mission06.func.c,
-				../src/Missions/Generated/Mission06.h,
-				../src/Missions/Generated/Mission07.c,
-				../src/Missions/Generated/Mission07.func.c,
-				../src/Missions/Generated/Mission07.h,
-				../src/Missions/Generated/Mission08.c,
-				../src/Missions/Generated/Mission08.func.c,
-				../src/Missions/Generated/Mission08.h,
-				../src/Missions/Generated/Mission09.c,
-				../src/Missions/Generated/Mission09.func.c,
-				../src/Missions/Generated/Mission09.h,
-				../src/Missions/Generated/Mission10.c,
-				../src/Missions/Generated/Mission10.func.c,
-				../src/Missions/Generated/Mission10.h,
-				../src/Missions/Generated/Mission11.c,
-				../src/Missions/Generated/Mission11.func.c,
-				../src/Missions/Generated/Mission11.h,
-				../src/Missions/Generated/Mission12.c,
-				../src/Missions/Generated/Mission12.func.c,
-				../src/Missions/Generated/Mission12.h,
-				../src/Missions/Generated/Mission13.c,
-				../src/Missions/Generated/Mission13.func.c,
-				../src/Missions/Generated/Mission13.h,
-				../src/Missions/Generated/Mission14.c,
-				../src/Missions/Generated/Mission14.func.c,
-				../src/Missions/Generated/Mission14.h,
-				../src/Missions/Generated/Mission15.c,
-				../src/Missions/Generated/Mission15.func.c,
-				../src/Missions/Generated/Mission15.h,
-				../src/Missions/Generated/Mission16.c,
-				../src/Missions/Generated/Mission16.func.c,
-				../src/Missions/Generated/Mission16.h,
-				../src/Missions/Generated/Tutorial1.c,
-				../src/Missions/Generated/Tutorial1.func.c,
-				../src/Missions/Generated/Tutorial1.h,
-				../src/Missions/Generated/Mission05_OEM.c,
-				../src/Missions/Generated/Mission05_OEM.func.c,
-				../src/Missions/Generated/Mission05_OEM.h,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/zsh;
-			shellScript = "# force the shell; XCode really likes sh regardless of configuration\n/bin/zsh\n\n# now compile the *.kas mission files\ncd ../src/Missions\n\nfor Y in SinglePlayer Tutorials\ndo\n    # change to the .kas folders in turn\n    cd $Y\n\n    for X in *.kas\n    do\n        # get the mission name\n        `/bin/echo $X | /usr/bin/awk -F '\\.' '{print \"export MISSION=\" $1}'`\n\n        # use gcc's preprocessor to produce the input for kas2c; the grep -v is\n        # to strip a gcc #pragma that kas2c cannot cope with\n        /usr/bin/gcc -E -x c $MISSION.kas | /usr/bin/grep -v \\#pragma > $MISSION.kp\n\n        # produce the actual mission .h and .c files\n        ../../../tools/kas2c/kas2c $MISSION.kp $MISSION.c $MISSION.h $MISSION.func.c\n    done\n\n    # move the .h and .c files to the Generated folder\n    mv *.h *.c ../Generated\n\n    # clean up the intermediate .kp files\n    rm *.kp\n\n    # return to src/Missions root\n    cd ..\n\ndone\n";
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -2007,6 +1902,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A7BDF182BB9C7DB00C9FCF1 /* Transformer.c in Sources */,
+				2A7BDF192BB9C7DB00C9FCF1 /* Transformer.h in Sources */,
 				2AF203162AB0D41A0018711B /* File_Mac.c in Sources */,
 				3516C948077C41B0001AA863 /* AIAttackMan.c in Sources */,
 				3516C949077C41B0001AA863 /* AIDefenseMan.c in Sources */,

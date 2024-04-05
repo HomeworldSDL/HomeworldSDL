@@ -112,7 +112,7 @@ tasklistitem;
 #define TBDISABLE_SENSORS_USE       2
 #define TBDISABLE_TRADEMGR_USE      4
 //exported variable
-extern bool tbDisable;
+extern bool32 tbDisable;
 
 /*=============================================================================
     Functions:
@@ -142,6 +142,6 @@ void tbObjectivesListCleanUp(void);
 void tbSensorsHook(void);
 
 //bump up the taskbar
-void tbForceTaskbar(bool On);
+void tbForceTaskbar(bool32 On);
 
 #endif

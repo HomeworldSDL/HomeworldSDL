@@ -13,8 +13,8 @@
 
 typedef struct TTimer
 {
-    bool enabled;
-    bool timedOut;
+    bool32 enabled;
+    bool32 timedOut;
     sqword timerLast;
     udword timeoutTicks;
 } TTimer;
@@ -22,10 +22,10 @@ typedef struct TTimer
 void TTimerInit(TTimer *timer);
 void TTimerClose(TTimer *timer);
 void TTimerDisable(TTimer *timer);
-bool TTimerUpdate(TTimer *timer);
+bool32 TTimerUpdate(TTimer *timer);
 void TTimerReset(TTimer *timer);
 void TTimerStart(TTimer *timer,real32 timeout);
-bool TTimerIsTimedOut(TTimer *timer);
+bool32 TTimerIsTimedOut(TTimer *timer);
 
 void GetRawTime(sqword *time);
 

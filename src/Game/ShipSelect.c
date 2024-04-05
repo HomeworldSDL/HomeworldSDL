@@ -75,7 +75,7 @@ void AddSpaceObjToSelectionAfterIndex(SpaceObj *obj,SpaceObjSelection *selection
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool RemoveSpaceObjFromSelectionPreserveOrder(SpaceObjSelection *selection,SpaceObj *obj)
+bool32 RemoveSpaceObjFromSelectionPreserveOrder(SpaceObjSelection *selection,SpaceObj *obj)
 {
     sdword i;
     sdword numSpaceObjs = selection->numSpaceObjs;
@@ -105,10 +105,10 @@ bool RemoveSpaceObjFromSelectionPreserveOrder(SpaceObjSelection *selection,Space
     Outputs     :
     Return      : Returns TRUE if any target was removed
 ----------------------------------------------------------------------------*/
-bool clRemoveTargetFromSelection(SelectAnyCommand *selection,TargetPtr removeTargetPtr)
+bool32 clRemoveTargetFromSelection(SelectAnyCommand *selection,TargetPtr removeTargetPtr)
 {
     sdword i;
-    bool removedAny = FALSE;
+    bool32 removedAny = FALSE;
 
     if (selection == NULL) {
         return FALSE;
@@ -140,7 +140,7 @@ bool clRemoveTargetFromSelection(SelectAnyCommand *selection,TargetPtr removeTar
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool ShipInSelection(SelectCommand *selection,Ship *ship)
+bool32 ShipInSelection(SelectCommand *selection,Ship *ship)
 {
     sdword i;
 
@@ -226,7 +226,7 @@ void MakeShipsNotIncludeTheseShips(SelectCommand *selection,SelectCommand *these
     Outputs     :
     Return      : returns true if any ships in theseShips are in selection
 ----------------------------------------------------------------------------*/
-bool AnyOfTheseShipsAreInSelection(SelectCommand *theseShips,SelectCommand *selection)
+bool32 AnyOfTheseShipsAreInSelection(SelectCommand *theseShips,SelectCommand *selection)
 {
     sdword i,j;
     ShipPtr thisShip;
@@ -254,7 +254,7 @@ bool AnyOfTheseShipsAreInSelection(SelectCommand *theseShips,SelectCommand *sele
     Outputs     :
     Return      : returns true if all of these ships are in selection
 ----------------------------------------------------------------------------*/
-bool TheseShipsAreInSelection(SelectCommand *theseShips,SelectCommand *selection)
+bool32 TheseShipsAreInSelection(SelectCommand *theseShips,SelectCommand *selection)
 {
     sdword i;
     sdword numShips = theseShips->numShips;
@@ -283,12 +283,12 @@ bool TheseShipsAreInSelection(SelectCommand *theseShips,SelectCommand *selection
     Outputs     :
     Return      : true if selection1 and selection2 are focusing on the same ships
 ----------------------------------------------------------------------------*/
-bool SelectionsAreEquivalent(SelectCommand *selection1,SelectCommand *selection2)
+bool32 SelectionsAreEquivalent(SelectCommand *selection1,SelectCommand *selection2)
 {
     sdword i,j;
     sdword numShips = selection1->numShips;
     ShipPtr matchship;
-    bool matched;
+    bool32 matched;
 
     if (numShips != selection2->numShips)
     {
@@ -326,7 +326,7 @@ bool SelectionsAreEquivalent(SelectCommand *selection1,SelectCommand *selection2
     Outputs     :
     Return      : true if selection1 and selection2 are the same
 ----------------------------------------------------------------------------*/
-bool SelectionsAreTotallyEquivalent(SelectCommand *selection1,SelectCommand *selection2)
+bool32 SelectionsAreTotallyEquivalent(SelectCommand *selection1,SelectCommand *selection2)
 {
     sdword numShips = selection1->numShips;
     sdword i;
@@ -354,7 +354,7 @@ bool SelectionsAreTotallyEquivalent(SelectCommand *selection1,SelectCommand *sel
     Outputs     :
     Return      : returns TRUE if ship is attack capable
 ----------------------------------------------------------------------------*/
-bool isShipAttackCapable(Ship *ship)
+bool32 isShipAttackCapable(Ship *ship)
 {
     if (ship->staticinfo->custshipheader.CustShipAttack == NULL)
     {
@@ -373,7 +373,7 @@ bool isShipAttackCapable(Ship *ship)
     Outputs     :
     Return      : returns TRUE if all ships are attack capable
 ----------------------------------------------------------------------------*/
-bool AreAllShipsAttackCapable(SelectCommand *selection)
+bool32 AreAllShipsAttackCapable(SelectCommand *selection)
 {
     sdword i;
     ShipStaticInfo *shipstatic;
@@ -397,7 +397,7 @@ bool AreAllShipsAttackCapable(SelectCommand *selection)
     Outputs     :
     Return      : returns TRUE if any ships are attack capable
 ----------------------------------------------------------------------------*/
-bool AreAnyShipsAttackCapable(SelectCommand *selection)
+bool32 AreAnyShipsAttackCapable(SelectCommand *selection)
 {
     sdword i;
     ShipStaticInfo *shipstatic;
@@ -421,7 +421,7 @@ bool AreAnyShipsAttackCapable(SelectCommand *selection)
     Outputs     :
     Return      : returns TRUE if ship is attack capable
 ----------------------------------------------------------------------------*/
-bool isShipPassiveAttackCapable(Ship *ship)
+bool32 isShipPassiveAttackCapable(Ship *ship)
 {
     if (ship->staticinfo->custshipheader.CustShipAttackPassive == NULL)
     {
@@ -440,7 +440,7 @@ bool isShipPassiveAttackCapable(Ship *ship)
     Outputs     :
     Return      : returns TRUE if all ships are attack capable
 ----------------------------------------------------------------------------*/
-bool AreAllShipsPassiveAttackCapable(SelectCommand *selection)
+bool32 AreAllShipsPassiveAttackCapable(SelectCommand *selection)
 {
     sdword i;
     ShipStaticInfo *shipstatic;
@@ -464,7 +464,7 @@ bool AreAllShipsPassiveAttackCapable(SelectCommand *selection)
     Outputs     :
     Return      : returns TRUE if any ships are attack capable
 ----------------------------------------------------------------------------*/
-bool AreAnyShipsPassiveAttackCapable(SelectCommand *selection)
+bool32 AreAnyShipsPassiveAttackCapable(SelectCommand *selection)
 {
     sdword i;
     ShipStaticInfo *shipstatic;
@@ -533,7 +533,7 @@ sdword MakeShipsAttackCapable(SelectCommand *dest, SelectCommand *source)
     Outputs     :
     Return      : returns TRUE if ship can harvest
 ----------------------------------------------------------------------------*/
-bool ShipCanHarvest(ShipStaticInfo *shipstatic)
+bool32 ShipCanHarvest(ShipStaticInfo *shipstatic)
 {
     if (shipstatic->shiptype == ResourceCollector)
     {
@@ -592,7 +592,7 @@ sdword MakeShipsHarvestCapable(SelectCommand *dest, SelectCommand *source)
     Outputs     :
     Return      : returns TRUE if ship is capable of guarding
 ----------------------------------------------------------------------------*/
-bool ShipCanGuard(ShipStaticInfo *shipstatic)
+bool32 ShipCanGuard(ShipStaticInfo *shipstatic)
 {
     if (shipstatic->shiptype == Mothership)
     {
@@ -834,7 +834,7 @@ void MakeShipsSpecialActivateCapable(SelectCommand *selection)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void MakeShipsSpecialTargetCapable(SelectCommand *selection, bool bFriendlies)
+void MakeShipsSpecialTargetCapable(SelectCommand *selection, bool32 bFriendlies)
 {
     sdword i;
     ShipStaticInfo *shipstatic;
@@ -874,7 +874,7 @@ void MakeShipsSpecialTargetCapable(SelectCommand *selection, bool bFriendlies)
     }
 }
 
-bool AreShipsMobile(SelectCommand *selection)
+bool32 AreShipsMobile(SelectCommand *selection)
 {
     sdword i;
     ShipStaticInfo *shipstatic;
@@ -1040,7 +1040,7 @@ void MakeShipsOnlyFollowConstraints(SelectCommand *selection,ShipConstraintsCB s
     Outputs     :
     Return      : Returns TRUE if all ships in selection follow shipConstraintsCB
 ----------------------------------------------------------------------------*/
-bool DoAllShipsFollowConstraints(SelectCommand *selection,ShipConstraintsCB shipConstraintsCB)
+bool32 DoAllShipsFollowConstraints(SelectCommand *selection,ShipConstraintsCB shipConstraintsCB)
 {
     sdword i;
 
@@ -1062,7 +1062,7 @@ bool DoAllShipsFollowConstraints(SelectCommand *selection,ShipConstraintsCB ship
     Outputs     :
     Return      : Returns TRUE if any ships in selection follow shipConstraintsCB
 ----------------------------------------------------------------------------*/
-bool DoAnyShipsFollowConstraints(SelectCommand *selection,ShipConstraintsCB shipConstraintsCB)
+bool32 DoAnyShipsFollowConstraints(SelectCommand *selection,ShipConstraintsCB shipConstraintsCB)
 {
     sdword i;
 
@@ -1900,7 +1900,7 @@ void growSelectAddShip(GrowSelection *growSelect,Ship *ship)
     growSelect->selection->numShips += 1;
 }
 
-bool growSelectRemoveShip(GrowSelection *growSelect,Ship *ship)
+bool32 growSelectRemoveShip(GrowSelection *growSelect,Ship *ship)
 {
     return clRemoveShipFromSelection(growSelect->selection,ship);
 }
@@ -1944,7 +1944,7 @@ void growSelectAddShipNoDuplication(GrowSelection *growSelect, Ship *ship)
 }
 
 
-bool MakeSelectionKamikazeCapable(SelectCommand *selection)
+bool32 MakeSelectionKamikazeCapable(SelectCommand *selection)
 {
     sdword i;
 

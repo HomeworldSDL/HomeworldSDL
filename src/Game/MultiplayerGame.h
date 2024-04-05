@@ -282,10 +282,10 @@ typedef struct
 
 struct ChatPacket;
 
-void mgStartMultiPlayerGameScreens(regionhandle region, sdword ID, udword event, udword data, bool AlreadyLoggedIn);
+void mgStartMultiPlayerGameScreens(regionhandle region, sdword ID, udword event, udword data, bool32 AlreadyLoggedIn);
 void mgShutdownMultiPlayerGameScreens(void);
 
-void mgFailedToConnectToChannel(bool existing);
+void mgFailedToConnectToChannel(bool32 existing);
 
 void mgDisplayMessage(char *message);
 
@@ -307,23 +307,23 @@ void mgSetGameType(char *gameName);
 
 void mgScreensDisappear(void);
 
-bool mgAccelerator(void);
+bool32 mgAccelerator(void);
 void mgAcceleratorRelease(void);
 
 void LockMutex(void *mutex);
 void UnLockMutex(void *mutex);
-void *gameCreateMutex();            // no windows handles, etc, required!
+void *gameCreateMutex(void);            // no windows handles, etc, required!
 void gameCloseMutex(void *mutex);
 
 void titanJoinGameRequest(tpscenario *gametojoin);
 
-bool mgInvalidGameName();
+bool32 mgInvalidGameName(void);
 
-bool mgInvalidGamePassword();
+bool32 mgInvalidGamePassword(void);
 
 void mgPrepareMessageBox(char *string1,char *string2);
 
-bool mgIsPlayerInList(LinkedList *list, gameplayerinfo *find);
+bool32 mgIsPlayerInList(LinkedList *list, gameplayerinfo *find);
 
 void GeneralMessageBox(char *string1,char *string2);        // designed for external use
 
@@ -335,7 +335,7 @@ void mgBackuptpGameCreated(void);
 void mgRestoretpGameCreated(void);
 void mgResetNamePassword(void);
 
-bool mgIsUserBanned(char *name);
+bool32 mgIsUserBanned(char *name);
 
 /*=============================================================================
     Data:
@@ -348,7 +348,7 @@ extern int LanProtocalsValid;
 
 extern int LanProtocalButton;
 
-extern bool mgRunning;
+extern bool32 mgRunning;
 
 // N    P   M   D   u   p        nc  sf  bs  sr   ii    ia     lt    la   ad  ab  p     f
 //= {L"", L"", "", "", 0,  {0,0,0},  0,  1,  3,   1, 1440, 2000, 19200, 2000, 50, 50, 0, 22058};

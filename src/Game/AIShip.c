@@ -35,7 +35,7 @@
 
 #define VELFACTOR 0
 
-bool isCapitalShipStaticOrBig(ShipStaticInfo *shipstatic);
+bool32 isCapitalShipStaticOrBig(ShipStaticInfo *shipstatic);
 
 /*=============================================================================
     AIShip Stats (optional)
@@ -49,7 +49,7 @@ AIshipStats aishipStats = { 0,0,0,0,0,0.0f, 0, {0.0f, 0.0f, 0.0f } };
     Data
 =============================================================================*/
 
-bool aishipTempDisableAvoiding = FALSE;
+bool32 aishipTempDisableAvoiding = FALSE;
 
 /*=============================================================================
     Private Function declarations:
@@ -127,7 +127,7 @@ real32 AVOID_MIN_VEL = 1.0f;
 
 real32 DONTUSEVELOCITYPRED_IFBELOW = 1000.0f;
 
-bool DO_AVOID_OBJS = TRUE;
+bool32 DO_AVOID_OBJS = TRUE;
 
 
 // pre-calculated constants:
@@ -609,7 +609,7 @@ sdword rowShipCanGetOutOfWayOfMe(Ship *ship,Ship *me)
     Outputs     :
     Return      : returns TRUE if original point is clear
 ----------------------------------------------------------------------------*/
-bool rowOriginalPointIsClear(Ship *ship)
+bool32 rowOriginalPointIsClear(Ship *ship)
 {
     real32 avoidcollsize;
     real32 avoidcollpad;
@@ -915,7 +915,7 @@ udword aishipFlyToPointAvoidingObjsFunc(Ship *ship,vector *destination,udword ai
     real32 destToObjDist;
     vector destToObjNorm;
 
-    bool rowEnabled;
+    bool32 rowEnabled;
 
     CommandToDo *shipcommand = ship->command;
 
@@ -1256,7 +1256,7 @@ passagain:
                 if (shipstaticinfo->staticheader.rightOfWay > avoidobj->staticinfo->staticheader.rightOfWay)
                 {
                     // We have right of way:
-                    bool dontBotherAvoiding = TRUE;
+                    bool32 dontBotherAvoiding = TRUE;
 
                     if (avoidobj->flags & SOF_Hide)
                     {
@@ -1307,7 +1307,7 @@ passagain:
                     }
                     else if (avoidobj->objtype == OBJ_AsteroidType)
                     {
-                        bool takingItOut = FALSE;
+                        bool32 takingItOut = FALSE;
 
                         // later tell ship to blow up asteroid in way?
                         if (isCapitalShipStatic(shipstaticinfo) && (ship->shiptype != Carrier) && (ship->shiptype != Mothership))
@@ -1824,7 +1824,7 @@ gottargettrajectory:
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool shouldMissileLoseTarget(Missile *missile)
+bool32 shouldMissileLoseTarget(Missile *missile)
 {
     real32 rannum;
     real32 prob;
@@ -1888,7 +1888,7 @@ bool shouldMissileLoseTarget(Missile *missile)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool aishipGuideMissile(Missile *missile)
+bool32 aishipGuideMissile(Missile *missile)
 {
     SpaceObjRotImpTarg *target = missile->target;
     vector heading;
@@ -1943,7 +1943,7 @@ bool aishipGuideMissile(Missile *missile)
     }
 }
 
-bool aishipFlyMineToTarget(Missile *mine,SpaceObjRotImpTarg *target)
+bool32 aishipFlyMineToTarget(Missile *mine,SpaceObjRotImpTarg *target)
 {
     MissileStaticInfo *minestaticinfo = (MissileStaticInfo *)mine->staticinfo;
     vector desiredVel;
@@ -2023,7 +2023,7 @@ bool aishipFlyMineToTarget(Missile *mine,SpaceObjRotImpTarg *target)
     return(TRUE);
 }
 
-bool aishipslowminewithFriction(Missile *mine, real32 fric)
+bool32 aishipslowminewithFriction(Missile *mine, real32 fric)
 {
     if(isBetweenInclusive(mine->posinfo.velocity.x,-1.0f,1.0f) &&
         isBetweenInclusive(mine->posinfo.velocity.y,-1.0f,1.0f) &&
@@ -2255,7 +2255,7 @@ Ship *aishipmineaquiretarget(Missile *mine)
 }
 
 // If it is time, it orders a search for a target
-bool mine_do_search(Missile *mine)
+bool32 mine_do_search(Missile *mine)
 {
     if(UNIVERSE_WOODPECKER(MINE_DO_SEARCH_MASK, mine->missileID.missileNumber & MINE_DO_SEARCH_MASK))
     {   //only do a check ever MINE_DO_SEARCH_MASKth frame...much quicker!
@@ -2278,7 +2278,7 @@ bool mine_do_search(Missile *mine)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool aishipGuideMine(Missile *mine)
+bool32 aishipGuideMine(Missile *mine)
 {
     //Ship *ship;
     MissileStaticInfo *minestaticinfo = (MissileStaticInfo *)mine->staticinfo;

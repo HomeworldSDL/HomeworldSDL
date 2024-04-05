@@ -42,7 +42,7 @@ typedef struct LinkedList
 #define UNINITIALISED_LINKED_LIST  {NULL, NULL, 0}
 
 //  this function should return true if firststruct > secondstruct for ascending order
-typedef bool (*MergeSortCompareCb)(void *firststruct,void *secondstruct);
+typedef bool32 (*MergeSortCompareCb)(void *firststruct,void *secondstruct);
 
 
 #define listGetStructOfNode(node)       (void *)((node)->structptr)

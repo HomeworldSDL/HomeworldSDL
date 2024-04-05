@@ -47,11 +47,11 @@
     Definitions:
 =============================================================================*/
 
-bool   opTimerActive = FALSE;
+bool32   opTimerActive = FALSE;
 real32 opTimerStart;
 real32 opTimerLength = 22.0f;
 
-bool opReloading = FALSE;
+bool32 opReloading = FALSE;
 
 static char lastDev[64] = "";
 
@@ -91,7 +91,7 @@ sdword speechEventCleanup(void);
 
 #if(0)
 
-bool smoothiesactive = FALSE;
+bool32 smoothiesactive = FALSE;
 
 real32 smoothmusicvol;
 real32 smoothsfxvol;
@@ -114,7 +114,7 @@ region *nchannelsregion;
 Smoothie *SmoothieArray[NUM_SMOOTHIES];
 
 
-bool opSmoothiesBabyFunction(udword num, void *data, struct BabyCallBack *baby);
+bool32 opSmoothiesBabyFunction(udword num, void *data, struct BabyCallBack *baby);
 void AddSmoothie(Smoothie *smoo);
 void RemoveSmoothie(Smoothie *smoo);
 void DoSmoothies(void);
@@ -153,8 +153,8 @@ void opRenderListLoad(void);
     Data:
 =============================================================================*/
 
-bool opCustomEffectsToggled;
-bool opEqualizerToggled;
+bool32 opCustomEffectsToggled;
+bool32 opEqualizerToggled;
 
 sword opKeySelected=-1;
 sword opKeyBeingDefined=-1;
@@ -364,7 +364,7 @@ fonthandle opKeyboardFont;
 
 //use #define to modify a variable directly without modifying function
 
-extern void mgDrawArrow(regionhandle region, bool leftArrow, bool human);
+extern void mgDrawArrow(regionhandle region, bool32 leftArrow, bool32 human);
 
 sdword opNoPalMaxMB = 128;
 sdword opNoPalMinMB = 16;
@@ -598,7 +598,7 @@ void opKeyboardDraw(featom *atom, regionhandle region)
     rectangle rect = region->rect, select;
     color c;
     fonthandle currentFont;
-    bool hl = FALSE;
+    bool32 hl = FALSE;
 
     keyboardregion = region;
 
@@ -748,7 +748,7 @@ udword opSelectKey(regionhandle region, sdword ID, udword event, udword data)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool opHighlightBabyFunction(udword num, void* data, struct BabyCallBack* baby)
+bool32 opHighlightBabyFunction(udword num, void* data, struct BabyCallBack* baby)
 {
     sdword i;
 
@@ -839,7 +839,7 @@ void opKeyAssign(uword func, keyindex key)
 {
     uword i;
     sword oldfunc = -1;
-    bool oldfuncsecondkey = FALSE;
+    bool32 oldfuncsecondkey = FALSE;
 
 
     //find function key was previously assigned to
@@ -965,7 +965,7 @@ char* opKeyToNiceString(keyindex key)
     Outputs     :
     Return      :
 -------------------------------------------------------------------------------*/
-bool opValidKey(keyindex key)
+bool32 opValidKey(keyindex key)
 {
     sdword i;
 
@@ -1039,7 +1039,7 @@ char ConvertSliderToAIPlayerDifficulty(sdword sliderval)
     return AI_ADVANCED;
 }
 
-bool opResHackSupported(void)
+bool32 opResHackSupported(void)
 {
     rmode* mode;
     int width, height, depth;
@@ -1063,7 +1063,7 @@ bool opResHackSupported(void)
     return FALSE;
 }
 
-bool opResResSupported(opres* res)
+bool32 opResResSupported(opres* res)
 {
     rdevice* dev;
     rmode* mode;
@@ -1090,7 +1090,7 @@ bool opResResSupported(opres* res)
     return FALSE;
 }
 
-bool opResChanged(void)
+bool32 opResChanged(void)
 {
     if (opSaveMAIN_WindowWidth  != MAIN_WindowWidth ||
         opSaveMAIN_WindowHeight != MAIN_WindowHeight ||
@@ -1345,7 +1345,7 @@ real32 normalizeSmoothie(sdword val)
     return fval;
 }
 
-void opUpdateAudioSettings()
+void opUpdateAudioSettings(void)
 {
     sdword min, max;
 
@@ -1365,7 +1365,7 @@ void opUpdateAudioSettings()
     soundMixerSetMode(opSoundQuality);
 }
 
-void opRestoreSavedEqualizerSettings()
+void opRestoreSavedEqualizerSettings(void)
 {
     sdword i;
 
@@ -1380,7 +1380,7 @@ void opRestoreSavedEqualizerSettings()
     soundEventMasterEQ((real32*)opEQReal);
 }
 
-void opRestoreSavedCustomEffectsSettings()
+void opRestoreSavedCustomEffectsSettings(void)
 {
     opEffectsVal = opSaveEffectsVal;
     texLinearFiltering = savetexLinearFiltering;
@@ -1397,7 +1397,7 @@ void opRestoreSavedCustomEffectsSettings()
     etgBulletEffectsEnabled = saveBulletEffects;
 }
 
-void opRestoreSavedSettings()
+void opRestoreSavedSettings(void)
 {
     //copy audio back
 
@@ -1606,10 +1606,10 @@ void EqualizerSmoothieCallback(real32 data, Smoothie* smoo)
 #endif
 
 /*
-void soundEventSetActor(sdword actornum, bool bOn);
+void soundEventSetActor(sdword actornum, bool32 bOn);
     actornum is 1, 2 or 3
     bOn is TRUE if checked FALSE if not
-void soundEventVocalSettings(bool bCommandsOn, bool bStatusOn, bool bChatterOn);
+void soundEventVocalSettings(bool32 bCommandsOn, bool32 bStatusOn, bool32 bChatterOn);
  */
 
 void opOptionsSaveEqualizerSettings(void)
@@ -3457,7 +3457,7 @@ void DoSmoothies(void)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool opSmoothiesBabyFunction(udword num, void* data, struct BabyCallBack* baby)
+bool32 opSmoothiesBabyFunction(udword num, void* data, struct BabyCallBack* baby)
 {
     DoSmoothies();
     return !smoothiesactive;

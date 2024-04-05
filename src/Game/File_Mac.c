@@ -51,9 +51,9 @@
 struct stat fileStat;
 
 // bigfile externs -- options and structures from bigfile.c
-extern bool IgnoreBigfiles;
-extern bool CompareBigfiles;
-extern bool LogFileLoads;
+extern bool32 IgnoreBigfiles;
+extern bool32 CompareBigfiles;
+extern bool32 LogFileLoads;
 
 /*=============================================================================
     Data:
@@ -476,7 +476,7 @@ static bool8 fileNameCorrectCase (char* fileName)
 		char filespec[PATH_MAX + 1];
 		struct _finddata_t findData;
 		long hFile;
-		bool foundResult;
+		bool32 foundResult;
 #else
 		struct dirent* pEntry;
 		DIR* pDir;
@@ -1034,7 +1034,7 @@ sdword fileSave(char *_fileName, void *address, sdword length)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool fileExistsInBigFile(char *fileName)
+bool32 fileExistsInBigFile(char *fileName)
 {
     udword fileIndex = 0;
     bigFileConfiguration *whereFound = NULL;
@@ -1050,7 +1050,7 @@ bool fileExistsInBigFile(char *fileName)
     Outputs     : ..
     Return      : TRUE if file found, FALSE otherwise
 ----------------------------------------------------------------------------*/
-bool fileExists(char *_fileName, udword flags)
+bool32 fileExists(char *_fileName, udword flags)
 {
     char *fileName;
 
@@ -1146,9 +1146,9 @@ filehandle fileOpen(char *_fileName, udword flags)
     char *fileName;
     char localPath[PATH_MAX] = "";
     filehandle fh;
-    bool usingBigfile    = FALSE;
-    bool firstBufUse     = FALSE;
-    bool localFileExists = FALSE;
+    bool32 usingBigfile    = FALSE;
+    bool32 firstBufUse     = FALSE;
+    bool32 localFileExists = FALSE;
     int expandedSize, storedSize;
     BitFile *bitFile;
 
@@ -1904,7 +1904,7 @@ char *filePathPrepend(char *fileName, udword flags)
     return filePathTempBuffer;
 }
 
-bool fileCDROMPathSet(char *path)
+bool32 fileCDROMPathSet(char *path)
 {
 #ifdef _WIN32
     char message[80];
@@ -1925,13 +1925,13 @@ void fileHomeworldDataPathSet(char *path)
     filePathMaxBufferSet(fileHomeworldDataPath, path);
 }
 
-bool fileOverrideBigPathSet(char *path)
+bool32 fileOverrideBigPathSet(char *path)
 {
     filePathMaxBufferSet(fileOverrideBigPath, path);
     return TRUE;
 }
 
-bool fileUserSettingsPathSet(char *path)
+bool32 fileUserSettingsPathSet(char *path)
 {
     filePathMaxBufferSet(fileUserSettingsPath, path);
     return TRUE;

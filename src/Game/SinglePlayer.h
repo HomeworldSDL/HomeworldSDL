@@ -108,7 +108,7 @@ typedef struct
 {
     MissionEnum currentMission;
     sdword onCompletePlayNIS;
-    bool onCompleteHyperspace;
+    bool32 onCompleteHyperspace;
 
     sdword onLoadPlayNIS;
 
@@ -123,11 +123,11 @@ typedef struct
     sdword resourceUnitsCollected;
 
     GrowSelection ShipsToHyperspace;
-    bool giveComputerFleetControl;
-    bool asteroid0sCanMove;
+    bool32 giveComputerFleetControl;
+    bool32 asteroid0sCanMove;
 
-    bool playerCanHyperspace;
-    bool hyperspaceFails;
+    bool32 playerCanHyperspace;
+    bool32 hyperspaceFails;
 
 } SinglePlayerGameInfo;             // later save this data structure
 
@@ -145,9 +145,9 @@ typedef enum
 
 typedef struct ShipSinglePlayerGameInfo
 {
-    bool midlevelHyperspaceIn;
-    bool midlevelHyperspaceOut;
-    bool staticHyperspaceGate;
+    bool32 midlevelHyperspaceIn;
+    bool32 midlevelHyperspaceOut;
+    bool32 staticHyperspaceGate;
     hvector midlevelHyperspaceTo;
     struct Effect* hyperspaceEffect;
 
@@ -165,10 +165,10 @@ typedef struct ShipSinglePlayerGameInfo
 } ShipSinglePlayerGameInfo;
 
 extern SinglePlayerGameInfo singlePlayerGameInfo;
-extern bool singlePlayerGameLoadNewLevelFlag;
-extern bool hyperspaceFails;
-extern bool singlePlayerHyperspacingInto;
-extern bool spCollectResourcesAtEndOfMission;
+extern bool32 singlePlayerGameLoadNewLevelFlag;
+extern bool32 hyperspaceFails;
+extern bool32 singlePlayerHyperspacingInto;
+extern bool32 spCollectResourcesAtEndOfMission;
 
 void spHyperspaceButtonPushed(void);
 
@@ -179,7 +179,7 @@ void spHyperspaceSelectionOutStatic(SelectCommand *selection);
 
 void spResetMissionSequenceToBeginning(void);
 void singlePlayerInit(void);
-void singlePlayerPostInit(bool loadingSaveGame);
+void singlePlayerPostInit(bool32 loadingSaveGame);
 void singlePlayerClose(void);
 void singlePlayerSetMissionAttributes(char *directory,char *filename);
 
@@ -209,8 +209,8 @@ void GetMissionsDirAndFile(MissionEnum mission);
 
 void spMainScreen();
 
-bool GetStartPointPlayer(hvector *startpoint);
-bool GetPointOfName(hvector *point,char *name);
+bool32 GetStartPointPlayer(hvector *startpoint);
+bool32 GetPointOfName(hvector *point,char *name);
 
 ShipSinglePlayerGameInfo *spNewShipSinglePlayerGameInfo();
 
@@ -238,8 +238,8 @@ const void** MissionEnumToFunctionList(MissionEnum mission);
 void spNISletTestAttempt(sdword index);
 #endif
 
-bool singlePlayerNISletNamesGet(char **nisname, char **scriptname, sdword nisletNumber);
-bool spFindCameraAttitude(vector *position);
+bool32 singlePlayerNISletNamesGet(char **nisname, char **scriptname, sdword nisletNumber);
+bool32 spFindCameraAttitude(vector *position);
 
 void UpdateMidLevelHyperspacingShips();
 
@@ -259,7 +259,7 @@ extern char spMissionsFile[];
 extern real32 spFleetModifier;
 
 extern real32 spHyperspaceDelay;
-extern bool   spHoldHyperspaceWindow;
+extern bool32   spHoldHyperspaceWindow;
 
 extern real32 HYPERSPACEGATE_HEALTH;
 extern real32 HYPERSPACEGATE_WIDTH;

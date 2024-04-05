@@ -49,7 +49,7 @@
 
 
 //hack to get the speech to work when game is paused
-bool FalkosFuckedUpTutorialFlag = FALSE;
+bool32 FalkosFuckedUpTutorialFlag = FALSE;
 
 // Function declarations
 void utySinglePlayerGameStart(char *name, featom *atom);
@@ -79,7 +79,7 @@ rectangle *tutPointerShipHealthRect;
 rectangle *tutPointerShipGroupRect;
 //list of named tutorial pointers
 static tutpointer tutPointer[TUT_NumberPointers];
-bool tutPointersDrawnThisFrame = FALSE;
+bool32 tutPointersDrawnThisFrame = FALSE;
 
 
 static sdword  tutTextPosX, tutTextPosY;
@@ -619,7 +619,7 @@ void tutLoadTutorialGame(void)
 
 void tutTutorial1(char *name, featom *atom)
 {
-    static bool beginning;
+    static bool32 beginning;
 
     if (FEFIRSTCALL(atom))
     {
@@ -855,7 +855,7 @@ void tutRemoveAllPointers(void)
 }
 
 // This function sets the current text display position and size
-void tutSetTextDisplayBox(sdword x, sdword y, sdword width, sdword height, bool bScale)
+void tutSetTextDisplayBox(sdword x, sdword y, sdword width, sdword height, bool32 bScale)
 {
     if(bScale)
     {
@@ -1032,7 +1032,7 @@ void tutHideText(void)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool tutIsspace(char c)
+bool32 tutIsspace(char c)
 {
     if (c==' '||c=='\n')
     {
@@ -1990,7 +1990,7 @@ long    StrIndex, TokenIndex;
     }
 }
 
-void tutBuilderSetRestrictions(char *pShipTypes, bool bRestricted)
+void tutBuilderSetRestrictions(char *pShipTypes, bool32 bRestricted)
 {
 ShipType    st;
 char    szToken[256];
@@ -2085,16 +2085,16 @@ void tutGameMessage(char *eventName)
     }
 }
 
-bool tutGameSentMessage(char *eventNames)
+bool32 tutGameSentMessage(char *eventNames)
 {
-    bool in_queue = tutGameMessageInQueue(eventNames);
+    bool32 in_queue = tutGameMessageInQueue(eventNames);
 
     tutResetGameMessageQueue();
     
     return in_queue;
 }
 
-bool tutGameMessageInQueue(char *eventNames)
+bool32 tutGameMessageInQueue(char *eventNames)
 {
     udword  i;
     char    szToken[256];

@@ -119,7 +119,7 @@ typedef struct CommandLayer
     Data:
 =============================================================================*/
 #if CL_TEXTFEEDBACK
-extern bool enableTextFeedback;
+extern bool32 enableTextFeedback;
 #endif
 
 /*=============================================================================
@@ -162,14 +162,14 @@ void clSetResearch(udword type, udword playernum, udword labnum, udword tech);
 void clDeterministicBuild(udword command, CommandLayer* comlayer, sdword numShips, ShipType shipType, ShipRace shipRace, uword playerIndex, ShipPtr creator);
 
 // does ship have to launch
-bool ShipHasToLaunch(Ship *InsideShip, Ship *ship);
+bool32 ShipHasToLaunch(Ship *InsideShip, Ship *ship);
 
 // launch functions
 void LaunchAllInternalShipsOfPlayerThatMustBeLaunched(struct Player *player);
 sdword LaunchAllInternalShipsOfPlayer(struct Player *player, udword carriermask);
 
 // checks if can ChangeOrderToPassiveAttack
-bool canChangeOrderToPassiveAttack(CommandToDo *alreadycommand,AttackCommand *attack);
+bool32 canChangeOrderToPassiveAttack(CommandToDo *alreadycommand,AttackCommand *attack);
 
 // changes order to passive attack
 // WARNING: Must call canChangeOrderToPassiveAttack to see if you can call this
@@ -183,7 +183,7 @@ void ChangeOrderToMove(CommandToDo *alreadycommand,vector from,vector to);
 
 // Returns allocated command containing the ship
 CommandToDo *getShipAndItsCommand(CommandLayer *comlayer,ShipPtr ship);
-SelectCommand *getShipAndItsCommandSelection(CommandLayer *comlayer,ShipPtr ship,bool *parade);
+SelectCommand *getShipAndItsCommandSelection(CommandLayer *comlayer,ShipPtr ship,bool32 *parade);
 
 // Returns allocated command containing the ship and its formation
 CommandToDo *getShipAndItsFormationCommand(CommandLayer *comlayer,ShipPtr ship);
@@ -192,7 +192,7 @@ CommandToDo *getShipAndItsFormationCommand(CommandLayer *comlayer,ShipPtr ship);
 SelectCommand *getShipAndItsFormation(CommandLayer *comlayer,ShipPtr ship);
 
 // returns TRUE if searchfor is in comlayer
-bool CommandInCommandLayer(CommandLayer *comlayer,CommandToDo *searchfor);
+bool32 CommandInCommandLayer(CommandLayer *comlayer,CommandToDo *searchfor);
 
 // Call this function to see if this selection is already in formation
 TypeOfFormation clSelectionAlreadyInFormation(CommandLayer *comlayer,SelectCommand *selectcom);
@@ -242,10 +242,10 @@ void removeShipsFromDockingWithThisShip(Ship *ship);
 void RemoveShipFromAttacking(Ship *ship);
 
 // Initializes ship's AI state variables
-void InitShipAI(Ship *ship,bool fresh);
+void InitShipAI(Ship *ship,bool32 fresh);
 
 // Initializes selection ships AI state variables
-void InitShipsForAI(SelectCommand *selection,bool fresh);
+void InitShipsForAI(SelectCommand *selection,bool32 fresh);
 
 // clears any protecting in command
 void ClearProtecting(CommandToDo *command);
@@ -279,8 +279,8 @@ void fixFlipTurnSelection(SelectCommand *selection,SelectCommand *global);
 CommandToDo *GetMilitaryGroupAroundShip(CommandLayer *comlayer,Ship *aroundShip);
 
 // call whenever creating a new command in command layer or ships changing their command
-void PrepareShipsForCommand(CommandToDo *command,bool rowClear);
-void PrepareOneShipForCommand(Ship *ship,CommandToDo *command,bool rowClear);
+void PrepareShipsForCommand(CommandToDo *command,bool32 rowClear);
+void PrepareOneShipForCommand(Ship *ship,CommandToDo *command,bool32 rowClear);
 
 // call whenever removing command
 void RemoveShipsFromCommand(CommandToDo *command);
@@ -296,7 +296,7 @@ void FillInCarrierMothershipInfo(struct Player *player,Ship **mothership,Ship *c
 void clCancelAllLaunchOrdersFromPlayer(struct Player *player);
 
 // tells ship to stay nearby protectThisShip - actual logic for attack if protectThisShip being attacked not in this routine
-void protectShip(Ship *ship,Ship *protectThisShip,bool passiveAttacked);
+void protectShip(Ship *ship,Ship *protectThisShip,bool32 passiveAttacked);
 
 /*=============================================================================
     Data:

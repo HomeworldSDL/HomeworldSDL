@@ -18,7 +18,7 @@
 #include "Stats.h"
 
 
-bool aitAnyTeamOfPlayerGuardingThisShip(struct AIPlayer *aiplayer,Ship *ship)
+bool32 aitAnyTeamOfPlayerGuardingThisShip(struct AIPlayer *aiplayer,Ship *ship)
 {
     sdword i;
     Node *node;
@@ -862,9 +862,9 @@ void aidTeamDied(AIPlayer *aiplayer, AITeam *team)
     }
 }
 
-bool aidShipDied(AIPlayer *aiplayer, ShipPtr ship)
+bool32 aidShipDied(AIPlayer *aiplayer, ShipPtr ship)
 {
-    bool return_value = FALSE;
+    bool32 return_value = FALSE;
 
     if ((aiplayer->aidProximitySensors) &&
         (clRemoveShipFromSelection(aiplayer->aidProximitySensors, ship)))

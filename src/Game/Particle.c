@@ -58,7 +58,7 @@ typedef struct alternate_s
 static alternate_t alternates[PART_NUM_ALTERNATES];
 
 static GLfloat illumSave[4];
-static bool wasStippled;
+static bool32 wasStippled;
 
 //function called for each particle created
 void (*partCreateCallback)(sdword userValue, ubyte *userData) = NULL;
@@ -154,12 +154,12 @@ typedef struct
     real32  gbiasDist;
     real32  bbiasDist;
     //flags
-    bool    specularOnly;
-    bool    stippleAlpha;
-    bool    noDepthWrite;
-    bool    additiveBlends;
-    bool    pseudoBillboard;
-    bool    trueBillboard;
+    bool32    specularOnly;
+    bool32    stippleAlpha;
+    bool32    noDepthWrite;
+    bool32    additiveBlends;
+    bool32    pseudoBillboard;
+    bool32    trueBillboard;
 } particleAttribs;
 
 particleAttribs defaultParticleAttribs =
@@ -319,7 +319,7 @@ void partShutdown(void)
     Outputs     : pat is filled with defaultParticleAttribs
     Return      :
 ----------------------------------------------------------------------------*/
-void partSetDefaults()
+void partSetDefaults(void)
 {
     memcpy(&pat, &defaultParticleAttribs, sizeof(particleAttribs));
 }
@@ -418,7 +418,7 @@ void partCircleSolid3(vector *centre, real32 radius, sdword nSlices, color c)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void partBillboardEnable(vector *v, bool isWorldspace)
+void partBillboardEnable(vector *v, bool32 isWorldspace)
 {
     if (isWorldspace)
     {
@@ -445,7 +445,7 @@ void partBillboardEnable(vector *v, bool isWorldspace)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void partBillboardDisable()
+void partBillboardDisable(void)
 {
     //disable billboarding
     rndBillboardDisable();
@@ -458,7 +458,7 @@ void partBillboardDisable()
     Outputs     : global illumSave contains parameters
     Return      :
 ----------------------------------------------------------------------------*/
-void storeIllum()
+void storeIllum(void)
 {
     glGetFloatv(GL_LIGHT_MODEL_AMBIENT, illumSave);
 }
@@ -490,7 +490,7 @@ void handleIllum(particle *p)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void restoreIllum()
+void restoreIllum(void)
 {
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, illumSave);
 }
@@ -535,7 +535,7 @@ void partPerformHacking(matrix* partMat, vector particleTranslation)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void partFilter(bool on)
+void partFilter(bool32 on)
 {
     if (on)
     {
@@ -653,7 +653,7 @@ void partBindAlternate(trhandle tex)
 ----------------------------------------------------------------------------*/
 udword partRenderBillSystem(udword n, particle* p, udword flags,
                             vector particleTranslation, udword uv[2][2],
-                            billSystem* bpart, bool isWorldspace)
+                            billSystem* bpart, bool32 isWorldspace)
 {
     udword i, hits;
     vector pos;
@@ -859,7 +859,7 @@ AGAIN1:
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void partMeshMaterialPrepare(particle *p, trhandle currentTex, materialentry *material, bool alpha)
+void partMeshMaterialPrepare(particle *p, trhandle currentTex, materialentry *material, bool32 alpha)
 {
     texreg *reg;
     GLfloat attribs[4];
@@ -930,7 +930,7 @@ void calcBillboardMatrixNotWorld(matrix* mat, vector* pos)
     //nothing here
 }
 
-void undoBillboardMatrix()
+void undoBillboardMatrix(void)
 {
     //nothing here
 }
@@ -1050,7 +1050,7 @@ void calcPseudoBillboardMatrixNotWorld(matrix* mat, vector* pos, particle* p, me
     glMultMatrixf((GLfloat*)&hmatResult);
 }
 
-void undoPseudoBillboardMatrix()
+void undoPseudoBillboardMatrix(void)
 {
     //ASSERT: MatrixMode == MODELVIEW
     glPopMatrix();
@@ -1065,7 +1065,7 @@ void undoPseudoBillboardMatrix()
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void partMeshOrient(particle* p, bool bRescaleNormal, meshSystem* meshPart)
+void partMeshOrient(particle* p, bool32 bRescaleNormal, meshSystem* meshPart)
 {
     vector velocity;
     hmatrix velHMatrix;
@@ -1187,7 +1187,7 @@ udword partRenderMeshSystem(udword n, particle *p, udword flags, trhandle tex, m
     materialentry *materialList;
     real32 frac;
     trhandle currentTex = tex;
-    bool hsColor;
+    bool32 hsColor;
     extern bool8 g_SpecHack;
 
     glColor3ub(200,200,200);
@@ -1417,8 +1417,8 @@ udword partRenderLineSystem(udword n, particle *p, udword flags)
 {
     udword i, hits;
     vector pos;
-    bool texEnabled, lightEnabled;
-    bool alpha = FALSE;
+    bool32 texEnabled, lightEnabled;
+    bool32 alpha = FALSE;
     GLfloat linewidth;
 
     glGetFloatv(GL_LINE_WIDTH, &linewidth);
@@ -1521,7 +1521,7 @@ udword partRenderLineSystem(udword n, particle *p, udword flags)
 udword partRenderCubeSystem(udword n, particle *p, udword flags)
 {
     udword i, hits;
-    bool alpha = FALSE;
+    bool32 alpha = FALSE;
 
     if (bitTest(flags, PART_ALPHA))
     {
@@ -1567,9 +1567,9 @@ udword partRenderCubeSystem(udword n, particle *p, udword flags)
 udword partRenderPointSystem(udword n, particle *p, udword flags)
 {
     udword i, hits;
-    bool alpha = FALSE;
+    bool32 alpha = FALSE;
 
-    bool texEnabled, lightEnabled;
+    bool32 texEnabled, lightEnabled;
     GLfloat pointsize;
 
     texEnabled = rndTextureEnable(FALSE);
@@ -1638,7 +1638,7 @@ void partRenderSystem(psysPtr psys)
     particle *p = NULL;
     udword hits;
     sdword wasLit;
-    bool isWorldspace;
+    bool32 isWorldspace;
     vector position;
 
     billSystem* billPart;
@@ -2135,7 +2135,7 @@ bool8 partUpdateSystem(psysPtr psys, real32 dt, vector* velvec)
     particle *p = NULL;
     udword n, i, hits;
     vector rvec;
-    bool draggin;
+    bool32 draggin;
 
     pp = (billSystem*)psys;      //default assumption
     n = pp->n;
@@ -2276,7 +2276,7 @@ bool8 partUpdateSystem(psysPtr psys, real32 dt, vector* velvec)
     return((bool8)((hits == 0) ? TRUE : FALSE));
 }
 
-bool g_Billboarded;
+bool32 g_Billboarded;
 
 real64 randomAngle(udword a)
 {
@@ -2405,12 +2405,12 @@ vector partMakePosition(real32 offsetLOF, real32 offsetR, real32 offsetTheta,
 ----------------------------------------------------------------------------*/
 void partFillGenericParticles(udword n, psysPtr psys,
                               udword headerlength, udword dist,
-                              bool isWorldspace)
+                              bool32 isWorldspace)
 {
     udword i, pos, size;
     vector rvec;
     particle *p;
-    bool alpha = FALSE;
+    bool32 alpha = FALSE;
 
     if (bitTest(pat.flags, PART_ALPHA))
         alpha = TRUE;
@@ -2641,9 +2641,9 @@ psysPtr partCreationHelper(particleType t, udword n, udword dist)
     meshSystem  *mesh;
     billSystem  *bill;
     udword len;
-    bool isWorldspace;
+    bool32 isWorldspace;
 
-    isWorldspace = (bool)bitTest(pat.flags, PART_WORLDSPACE);
+    isWorldspace = (bool32)bitTest(pat.flags, PART_WORLDSPACE);
 
     g_Billboarded = FALSE;
     switch (t)
@@ -2883,7 +2883,7 @@ void partModifyMesh(psysPtr psys, meshdata *mesh)
     }
 }
 
-void partModifyLighting(psysPtr psys, bool lit)
+void partModifyLighting(psysPtr psys, bool32 lit)
 {
     udword i;
     particle *p = (particle*)(psys + partHeaderSize(psys));
@@ -3222,7 +3222,7 @@ void partModifyLoopFlag(psysPtr psys, bool8 willLoop)
     }
 }
 
-void partModifySpecular(psysPtr psys, bool spec)
+void partModifySpecular(psysPtr psys, bool32 spec)
 {
     udword i;
     particle* p;
@@ -3245,7 +3245,7 @@ void partModifySpecular(psysPtr psys, bool spec)
     }
 }
 
-void partModifyStipple(psysPtr psys, bool stip)
+void partModifyStipple(psysPtr psys, bool32 stip)
 {
     udword i;
     particle* p;
@@ -3268,7 +3268,7 @@ void partModifyStipple(psysPtr psys, bool stip)
     }
 }
 
-void partModifyNoDepthWrite(psysPtr psys, bool noWrite)
+void partModifyNoDepthWrite(psysPtr psys, bool32 noWrite)
 {
     udword i;
     particle* p;
@@ -3291,7 +3291,7 @@ void partModifyNoDepthWrite(psysPtr psys, bool noWrite)
     }
 }
 
-void partModifyAdditiveBlends(psysPtr psys, bool add)
+void partModifyAdditiveBlends(psysPtr psys, bool32 add)
 {
     udword i;
     particle* p;
@@ -3314,7 +3314,7 @@ void partModifyAdditiveBlends(psysPtr psys, bool add)
     }
 }
 
-void partModifyPseudoBillboard(psysPtr psys, bool bill)
+void partModifyPseudoBillboard(psysPtr psys, bool32 bill)
 {
     udword i;
     particle* p;
@@ -3337,7 +3337,7 @@ void partModifyPseudoBillboard(psysPtr psys, bool bill)
     }
 }
 
-void partModifyTrueBillboard(psysPtr psys, bool bill)
+void partModifyTrueBillboard(psysPtr psys, bool32 bill)
 {
     udword i;
     particle* p;
@@ -3749,7 +3749,7 @@ void partSetDeltaColorADist(real32 r, real32 g, real32 b, real32 a)
     bitSet(pat.flags, PART_ALPHA);
 }
 
-void partSetLighting(bool l)
+void partSetLighting(bool32 l)
 {
     pat.lit = (bool8)l;
 }
@@ -3828,32 +3828,32 @@ void partSetColorBiasDist(real32 drb, real32 dgb, real32 dbb)
     pat.bbiasDist = dbb;
 }
 
-void partSetSpecular(bool spec)
+void partSetSpecular(bool32 spec)
 {
     pat.specularOnly = spec;
 }
 
-void partSetStipple(bool stip)
+void partSetStipple(bool32 stip)
 {
     pat.stippleAlpha = stip;
 }
 
-void partSetNoDepthWrite(bool noWrite)
+void partSetNoDepthWrite(bool32 noWrite)
 {
     pat.noDepthWrite = noWrite;
 }
 
-void partSetAdditiveBlends(bool add)
+void partSetAdditiveBlends(bool32 add)
 {
     pat.additiveBlends = add;
 }
 
-void partSetPseudoBillboard(bool bill)
+void partSetPseudoBillboard(bool32 bill)
 {
     pat.pseudoBillboard = bill;
 }
 
-void partSetTrueBillboard(bool bill)
+void partSetTrueBillboard(bool32 bill)
 {
     pat.trueBillboard = bill;
 }

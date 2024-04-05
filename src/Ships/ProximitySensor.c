@@ -24,7 +24,7 @@ ProximitySensorStatics ProximitySensorStaticRace1;
 ProximitySensorStatics ProximitySensorStaticRace2;
 
 sdword proxGetBlipRadius(Ship *ship);
-bool proxShouldDrawOverlay(Ship *ship);
+bool32 proxShouldDrawOverlay(Ship *ship);
 udword proxBlipColor(Ship *ship);
 sdword proxBlipThickness(Ship *ship);
 
@@ -75,7 +75,7 @@ void proxInFocusSelection(SelectCommand *focus)
     }
 }
 
-bool proxShouldDrawOverlay(Ship *ship)
+bool32 proxShouldDrawOverlay(Ship *ship)
 {
     ProximitySensorSpec *spec = (ProximitySensorSpec *)ship->ShipSpecifics;
     if(ship->playerowner == universe.curPlayerPtr)      //draw because it is local players...
@@ -163,7 +163,7 @@ void proximityPlayerCantSeeShip(Ship *ship,Ship *enemy)
     Return      :
 ----------------------------------------------------------------------------*/
 
-bool proximityCanPlayerSeeShip(Player *player,Ship *shipInQuestion)
+bool32 proximityCanPlayerSeeShip(Player *player,Ship *shipInQuestion)
 {
     sdword mask = 0x01;
     if(player == NULL)
@@ -186,11 +186,11 @@ bool proximityCanPlayerSeeShip(Player *player,Ship *shipInQuestion)
     Return      : TRUE if enemy ships nearby
 ----------------------------------------------------------------------------*/
 
-bool DetectShips(Ship *ship)
+bool32 DetectShips(Ship *ship)
 {
     Ship *enemy;
     vector dist;
-    bool returnval;
+    bool32 returnval;
     ProximitySensorStatics *proximitysensorstatics;
     SelectCommand *selection;
     sdword numShips;
@@ -245,7 +245,7 @@ sdword proxGetBlipRadius(Ship *ship)
     Outputs     :
     Return      : TRUE if the ping times out.
 ----------------------------------------------------------------------------*/
-bool ProximitySensorPingTimeout(struct ping *hellaPing, SpaceObj *user, char *userData, bool bRemoveReferences)
+bool32 ProximitySensorPingTimeout(struct ping *hellaPing, SpaceObj *user, char *userData, bool32 bRemoveReferences)
 {
     ProximitySensorSpec *spec = (ProximitySensorSpec *)((Ship *)user)->ShipSpecifics;
 

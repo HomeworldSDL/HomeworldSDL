@@ -37,14 +37,14 @@
     Functions:
 =============================================================================*/
 
-bool gunCanShoot(Ship *ship, Gun *gun);
-bool gunOrientGimbleGun(Ship *ship,Gun *gun,SpaceObjRotImpTarg *target);
+bool32 gunCanShoot(Ship *ship, Gun *gun);
+bool32 gunOrientGimbleGun(Ship *ship,Gun *gun,SpaceObjRotImpTarg *target);
 void missileShoot(Ship *ship,Gun *gun,SpaceObjRotImpTarg *target);
 void gunShoot(Ship *ship,Gun *gun, SpaceObjRotImpTarg *target);
-bool gunShootGunsAtTarget(Ship *ship,SpaceObjRotImpTarg *target,real32 range,vector *trajectory);
-bool gunShootGunsAtMultipleTargets(Ship *ship);
+bool32 gunShootGunsAtTarget(Ship *ship,SpaceObjRotImpTarg *target,real32 range,vector *trajectory);
+bool32 gunShootGunsAtMultipleTargets(Ship *ship);
 
-bool gunMatrixUpdate(udword flags, hmatrix *startMatrix, hmatrix *matrix, void *data, smemsize ID);
+bool32 gunMatrixUpdate(udword flags, hmatrix *startMatrix, hmatrix *matrix, void *data, smemsize ID);
 
 #if RND_VISUALIZATION
 void gunDrawGunInfo(Ship *ship);
@@ -74,7 +74,7 @@ void gunTuneGun(Ship *ship);
 =============================================================================*/
 
 #if GUN_TUNE_MODE
-extern bool gunTuningMode;
+extern bool32 gunTuningMode;
 extern sdword tuningGun;
 #endif
 

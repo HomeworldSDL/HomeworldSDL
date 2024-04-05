@@ -57,8 +57,8 @@ typedef struct HorseRaceBars
     data:
 =============================================================================*/
 
-extern bool hrRunning;
-extern bool hrBackgroundReinit;
+extern bool32 hrRunning;
+extern bool32 hrBackgroundReinit;
 
 extern HorseStatus horseracestatus;
 
@@ -73,6 +73,6 @@ void hrProcessPacket(ChatPacket *packet);
 void recievedHorsePacketCB(ubyte *packet,udword sizeofpacket);
 
 void HorseRaceBeginBar(uword barnum);
-bool HorseRaceNext(real32 percent);
+bool32 HorseRaceNext(real32 percent);
 
 #endif

@@ -205,8 +205,8 @@ extern real32 keyLastTimeHit;
 =============================================================================*/
 void keyInit(void);
 void keyClose(void);
-bool keyAnyKeyHit(void);
-bool keyAnyKeyStuck(void);
+bool32 keyAnyKeyHit(void);
+bool32 keyAnyKeyStuck(void);
 void keyClearAll(void);
 void keyClearAllStuckKeys(void);
 
@@ -216,8 +216,8 @@ void keyPressUp(udword key);
 void keyRepeat(udword key);
 
 //functions for buffered keystrokes
-udword keyBufferedKeyGet(bool *bShift);
-void keyBufferAdd(udword key, bool bShift);
+udword keyBufferedKeyGet(bool32 *bShift);
+void keyBufferAdd(udword key, bool32 bShift);
 void keyBufferClear(void);
 
 udword keyGermanToEnglish(udword virtkey);

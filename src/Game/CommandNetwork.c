@@ -63,7 +63,7 @@ TTimer AliveTimeoutTimers[MAX_MULTIPLAYER_PLAYERS];
 ubyte AliveStatuses[MAX_MULTIPLAYER_PLAYERS];
 bool8 HaveKilledPlayerDueToDropout[MAX_MULTIPLAYER_PLAYERS];
 
-bool KeepAliveCalledFirstTime = FALSE;
+bool32 KeepAliveCalledFirstTime = FALSE;
 
 // variables for printing out the message when a player has dropped out
 udword numPlayerDropped = 0;
@@ -74,7 +74,7 @@ real32 printTimeout = 0.0f;
     Private functions:
 =============================================================================*/
 
-void KeepAliveStartTimers();
+void KeepAliveStartTimers(void);
 void receivedIAmAlivePacket(HWPacketHeader *packet,udword sizeofPacket);
 void receivedAliveStatusPacket(AliveStatusPacket *packet,udword sizeofPacket);
 
@@ -186,7 +186,7 @@ void ReceivedRequestSyncPacketsPacketCB(ubyte *packet,udword sizeofPacket)
     udword i;
     HWPacketHeader *sendpacket;
     udword sendpacketsize;
-    bool gotit;
+    bool32 gotit;
     uword sendto;
 
     dbgAssertOrIgnore(((HWPacketHeader *)packet)->type == PACKETTYPE_REQUESTSYNCPKTS);
@@ -241,10 +241,10 @@ void ReceivedTransferCaptaincyPacketCB(ubyte *packet,udword sizeofPacket)
     UnLockQueue(&ProcessCaptaincyPktQ);
 }
 
-bool checkPlayersReady(void)
+bool32 checkPlayersReady(void)
 {
     sdword i;
-    bool ready = TRUE;
+    bool32 ready = TRUE;
 
     dbgAssertOrIgnore((IAmCaptain) && (!multiPlayerGameUnderWay));
 
@@ -262,7 +262,7 @@ bool checkPlayersReady(void)
     return ready;
 }
 
-void PlayerDroppedOut(udword player,bool timedOut)
+void PlayerDroppedOut(udword player,bool32 timedOut)
 {
     if (player < sigsNumPlayers)
     {
@@ -472,13 +472,13 @@ void SetTargetID(TargetID *targetID,SpaceObjRotImpTarg *target)
     Outputs     :
     Return      : returns the allocated SelectCommand.  Caller must free it when done.
 ----------------------------------------------------------------------------*/
-SelectCommand *convertNetSelectionToSelectCommand(NetSelection *netselection,bool considerInsideShips,uword from)
+SelectCommand *convertNetSelectionToSelectCommand(NetSelection *netselection,bool32 considerInsideShips,uword from)
 {
     udword numShips = netselection->numShips;
     udword selectCommandSize = sizeofSelectCommand(numShips);
     SelectCommand *selectCommand;
-    bool someShipsDied = FALSE;
-    bool someShipsOrderedByWrongPlayer = FALSE;
+    bool32 someShipsDied = FALSE;
+    bool32 someShipsOrderedByWrongPlayer = FALSE;
     udword i;
     uword shipPlayerIndex;
 
@@ -535,7 +535,7 @@ AttackCommand *convertNetAttackSelectionToAttackCommand(NetAttackSelection *neta
     udword numTargets = netattackselection->numTargets;
     udword attackCommandSize = sizeofAttackCommand(numTargets);
     AttackCommand *attackCommand;
-    bool someTargetsDied = FALSE;
+    bool32 someTargetsDied = FALSE;
     udword i;
     TargetID targetID;
     ShipID shipID;
@@ -603,7 +603,7 @@ AttackCommand *convertNetAttackSelectionToAttackCommand(NetAttackSelection *neta
     Outputs     :
     Return      : TRUE if packet memory should be freed.
 ----------------------------------------------------------------------------*/
-bool packetSendToCaptain(ubyte *packet,udword sizeofPacket)
+bool32 packetSendToCaptain(ubyte *packet,udword sizeofPacket)
 {
     dbgAssertOrIgnore(((HWPacketHeader *)packet)->type == PACKETTYPE_COMMAND);
 
@@ -642,7 +642,7 @@ bool packetSendToCaptain(ubyte *packet,udword sizeofPacket)
     Outputs     :
     Return      : TRUE if packet memory should be freed
 ----------------------------------------------------------------------------*/
-bool packetBroadcastSync(ubyte *packet,udword sizeofPacket)
+bool32 packetBroadcastSync(ubyte *packet,udword sizeofPacket)
 {
     dbgAssertOrIgnore(((HWPacketHeader *)packet)->type == PACKETTYPE_SYNC);
     dbgAssertOrIgnore(IAmCaptain);
@@ -1843,7 +1843,7 @@ void EnterIntoLastSyncPktsQ(udword frame,HWPacketHeader *packet,udword length)
     lastSyncPktsQ.head = (lastSyncPktsQ.head+1) & LastSyncPktsQ_MASK;
 }
 
-bool GetSyncPktFromLastSyncPktsQ(udword frame,HWPacketHeader **packet,udword *size)
+bool32 GetSyncPktFromLastSyncPktsQ(udword frame,HWPacketHeader **packet,udword *size)
 {
     sdword i;
 
@@ -2487,9 +2487,9 @@ void CaptaincyChangedNotify(void)
     Keep Alive functions
 =============================================================================*/
 
-void UpdateDroppedOutStatuses();
-void SendKeepAlivePacket();
-void BroadcastAliveStatusPacket();
+void UpdateDroppedOutStatuses(void);
+void SendKeepAlivePacket(void);
+void BroadcastAliveStatusPacket(void);
 
 void KeepAliveReset(void)
 {
@@ -2536,7 +2536,7 @@ void KeepAliveStartTimers(void)
     UnLockMutex(AliveTimeoutStatusesMutex);
 }
 
-void KillAnyDroppedOutPlayers()
+void KillAnyDroppedOutPlayers(void)
 {
     sdword i,j;
     udword killmask = 0;
@@ -2706,7 +2706,7 @@ void KeepAliveUpdate(void)
     }
 }
 
-void SendKeepAlivePacket()
+void SendKeepAlivePacket(void)
 {
     HWPacketHeader packet;
 
@@ -2721,7 +2721,7 @@ void SendKeepAlivePacket()
     titanSendPointMessage(captainIndex,(ubyte *)&packet,sizeof(HWPacketHeader));
 }
 
-void BroadcastAliveStatusPacket()
+void BroadcastAliveStatusPacket(void)
 {
     AliveStatusPacket packet;
 
@@ -2798,7 +2798,7 @@ void receivedIAmAlivePacket(HWPacketHeader *packet,udword sizeofPacket)
 void clPlayerDropped(udword playerMask,udword verify)
 {
     sdword i;
-    bool aPlayerDied = FALSE;
+    bool32 aPlayerDied = FALSE;
 
     if ((playerMask ^ verify) != KILLDROPPEDOUTPLAYER_VERIFY)
     {

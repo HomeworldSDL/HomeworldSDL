@@ -353,7 +353,7 @@ ping *pingFindByFunction(pingeval evaluate)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool pingListSortCallback(void *firststruct,void *secondstruct)
+bool32 pingListSortCallback(void *firststruct,void *secondstruct)
 {
     if (((ping *)(firststruct))->cameraDistanceSquared > ((ping *)(secondstruct))->cameraDistanceSquared)
     {
@@ -392,7 +392,7 @@ void pingListDraw(Camera *camera, hmatrix *modelView, hmatrix *projection, recta
     static real32 lastBattlePing = REALlyBig;
     static real32 lastHyperspacePing = REALlyBig;
     static real32 lastNewshipPing = REALlyBig;
-    bool pingset;
+    bool32 pingset;
 
     //start by sorting the ping list from farthest to nearest
     thisNode = pingList.head;
@@ -563,7 +563,7 @@ void pingListDraw(Camera *camera, hmatrix *modelView, hmatrix *projection, recta
     Outputs     :
     Return      : TRUE if the ping times out.
 ----------------------------------------------------------------------------*/
-bool pingAnomalyPingTimeout(struct ping *hellaPing, SpaceObj *user, char *userData, bool bRemoveReferences)
+bool32 pingAnomalyPingTimeout(struct ping *hellaPing, SpaceObj *user, char *userData, bool32 bRemoveReferences)
 {
     SelectCommand *selection;
     real32 dummySize;
@@ -767,7 +767,7 @@ void pingAllPingsDelete(void)
     Outputs     :
     Return      : TRUE if it's a player ship in a battle
 ----------------------------------------------------------------------------*/
-bool pingBattleBlobCriteria(blob *superBlob, SpaceObj *obj)
+bool32 pingBattleBlobCriteria(blob *superBlob, SpaceObj *obj)
 {
     if (obj->objtype != OBJ_ShipType)
     {
@@ -802,7 +802,7 @@ bool pingBattleBlobCriteria(blob *superBlob, SpaceObj *obj)
     Outputs     : Battle sound code will be performed here.
     Return      : TRUE, or maybe false, depending on the mood
 ----------------------------------------------------------------------------*/
-bool pingBattlePingEvaluate(struct ping *hellaPing, SpaceObj *user, char *userData, bool bRemoveReferences)
+bool32 pingBattlePingEvaluate(struct ping *hellaPing, SpaceObj *user, char *userData, bool32 bRemoveReferences)
 {
     sdword index;
     Ship **thisShip;
@@ -1000,7 +1000,7 @@ shipAlreadyInSelection:;
     Return      : TRUE because this function should only be called when the
                     ping times out
 ----------------------------------------------------------------------------*/
-bool pingNewShipCallback(struct ping *hellaPing, SpaceObj *user, char *userData, bool bRemoveReferences)
+bool32 pingNewShipCallback(struct ping *hellaPing, SpaceObj *user, char *userData, bool32 bRemoveReferences)
 {
     return(TRUE);
 }

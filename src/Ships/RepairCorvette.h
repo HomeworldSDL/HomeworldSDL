@@ -33,7 +33,7 @@ typedef struct
 
 extern CustShipHeader RepairCorvetteHeader;
 
-bool refuelRepairShips(Ship *ship, SelectAnyCommand *targets, real32 rangetoRefuel);
+bool32 refuelRepairShips(Ship *ship, SelectAnyCommand *targets, real32 rangetoRefuel);
 void RepairCorvetteOrderChanged(Ship *ship);
 void stopRepairEffect(Ship *ship);
 

@@ -112,7 +112,7 @@ typedef struct
 }
 tutpointer;
 
-extern bool tutPointersDrawnThisFrame;
+extern bool32 tutPointersDrawnThisFrame;
 
 /*=============================================================================
     Functions:
@@ -152,7 +152,7 @@ void tutRemoveAllPointers(void);
 void tutRemoveAllPointers(void);
 void tutDrawTextPointers(rectangle *pRect);
 
-void tutSetTextDisplayBox(sdword x, sdword y, sdword width, sdword height, bool bScale);
+void tutSetTextDisplayBox(sdword x, sdword y, sdword width, sdword height, bool32 bScale);
 void tutSetTextDisplayBoxToSubtitleRegion(void);
 void tutShowText(char *szText);
 void tutHideText(void);
@@ -174,7 +174,7 @@ void tutEnableEverything(void);
 void tutDisableEverything(void);
 void tutSetEnableFlags(char *pFlagString, long Val);
 
-void tutBuilderSetRestrictions(char *pShipTypes, bool bRestricted);
+void tutBuilderSetRestrictions(char *pShipTypes, bool32 bRestricted);
 void tutBuilderRestrictAll(void);
 void tutBuilderRestrictNone(void);
 
@@ -183,8 +183,8 @@ sdword tutIsBuildShipRestricted(sdword shipType);
 sdword tutSelectedContainsShipTypes(char *pShipTypes);
 
 void tutGameMessage(char *commandName);
-bool tutGameSentMessage(char *commandName);
-bool tutGameMessageInQueue(char *commandNames);
+bool32 tutGameSentMessage(char *commandName);
+bool32 tutGameMessageInQueue(char *commandNames);
 void tutResetGameMessageQueue(void);
 sdword tutContextMenuDisplayedForShipType(char *pShipType);
 void  tutResetContextMenuShipTypeTest(void);

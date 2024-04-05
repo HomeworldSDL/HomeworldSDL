@@ -139,7 +139,7 @@ void godSyncShutDown()
 //pass in FALSE to generate another frame and keep it in memory
 //pass in TRUE to write the whole memory dump to disk without
 //generating a new snapshot
-void syncDebugDump(char *filename1,sdword counter,bool save)
+void syncDebugDump(char *filename1,sdword counter,bool32 save)
 {
     filehandle syncFH;
     FILE *syncFP = NULL;
@@ -480,7 +480,7 @@ void netcheckIndustrialChecksum()
 
 void netReceivedSyncFromNonCaptain(void *checksums,udword frame,udword playerIndex)
 {
-    bool BREAK=FALSE;
+    bool32 BREAK=FALSE;
     sdword num = frame & GOD_NUMBER_CHECKSUMS_REMEMBERED_MASK;
 
     if(godnetsyncchecksums[num].randcheck != ((GodSyncCheckSums *)checksums)->randcheck)
@@ -546,7 +546,7 @@ void recPackInGameStartCB(char *filename)
     startRecordingGameWhenSafe = TRUE;
 }
 
-void recPackInGameStartCBSafeToStart()
+void recPackInGameStartCBSafeToStart(void)
 {
     // clear file
     fileDelete(recordPacketSaveFileName);
@@ -587,7 +587,7 @@ void recPackInGameStopCB(void)
     recordplayPacketsInGame = FALSE;
 }
 
-void recPackRecordSaveHeader();
+void recPackRecordSaveHeader(void);
 
 void recPackRecordInit(void)
 {
@@ -604,7 +604,7 @@ void recPackRecordInit(void)
 }
 
 #define HEADERCHECK 0x44414548
-void recPackRecordSaveHeader()
+void recPackRecordSaveHeader(void)
 {
     udword size = sizeof(CaptainGameInfo);
     udword validcheck = HEADERCHECK;
@@ -684,7 +684,7 @@ tryagain:
     return packet;
 }
 
-bool recPackPlayLoadHeader()
+bool32 recPackPlayLoadHeader(void)
 {
     udword size;
     udword validcheck;

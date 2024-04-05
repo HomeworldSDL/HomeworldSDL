@@ -52,13 +52,13 @@
 /*=============================================================================
     Data:
 =============================================================================*/
-extern bool mrMenuDontDisappear;  //TRUE if the menu shouldn't disappear
+extern bool32 mrMenuDontDisappear;  //TRUE if the menu shouldn't disappear
 
 //TRUE if a blank screen is to be skipped by not flipping buffers
 sdword feDontFlush = FALSE;
 
 //global variable indicating total redraw should occur
-bool feRenderEverything = TRUE;
+bool32 feRenderEverything = TRUE;
 
 //list of front end callbacks
 sdword feNumberCallbacks = FE_NumberCallbacks;
@@ -150,7 +150,7 @@ void uicTestTextEntry(char *name, featom *atom)
     Outputs     : Searches the feCallback list for a match and executes match
     Return      : void
 ----------------------------------------------------------------------------*/
-void feFunctionExecute(char *name, featom *atom, bool firstcall)
+void feFunctionExecute(char *name, featom *atom, bool32 firstcall)
 {
     sdword index;
 
@@ -1168,7 +1168,7 @@ udword feBaseRegionDrag(regionhandle region, sdword ID, udword event, udword dat
                     atom and regChildAlloc for a base 'dummy' region.
     Return      : Pointer to base 'dummy' region
 ----------------------------------------------------------------------------*/
-regionhandle feRegionsAdd(regionhandle parent, fescreen *screen, bool moveToFront)
+regionhandle feRegionsAdd(regionhandle parent, fescreen *screen, bool32 moveToFront)
 {
     sdword index;
     regionhandle baseRegion, region;
@@ -1645,7 +1645,7 @@ void feResRescaleBackground(featom* atom)
     Outputs     :
     Return      : TRUE or FALSE
 ----------------------------------------------------------------------------*/
-bool fePointOnScreen(sdword x, sdword y)
+bool32 fePointOnScreen(sdword x, sdword y)
 {
     if ((x >= 0) &&
         (y >= 0) &&
@@ -1667,7 +1667,7 @@ bool fePointOnScreen(sdword x, sdword y)
     Outputs     :
     Return      : TRUE or FALSE
 ----------------------------------------------------------------------------*/
-bool feAtomOnScreen(featom* atom)
+bool32 feAtomOnScreen(featom* atom)
 {
     if (fePointOnScreen(atom->x, atom->y) ||
         fePointOnScreen(atom->x + atom->width, atom->y) ||
@@ -1842,7 +1842,7 @@ fibfileheader *feScreensLoad(char *fileName)
     fibfileheader *header;
     fescreen *screen;
     sdword screenIndex, index;
-    bool menuItemsPresent;
+    bool32 menuItemsPresent;
 
 #ifdef _X86_64
     feScreensLoadAndConvertTo64Bit(fileName, (void **)&loadAddress);
@@ -2132,11 +2132,11 @@ sdword feDrawCallbackAddMultiple(fedrawcallback *table)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool feAllScreensReposition(void)
+bool32 feAllScreensReposition(void)
 {
     sdword index, a;
     fescreen* screen;
-    bool hasMenus;
+    bool32 hasMenus;
     featom* atom;
 
     for (index = 0; index < feScreenIndex; index++)
@@ -3377,7 +3377,7 @@ regionhandle feRegionFindByFunction(char *name)
     Outputs     : natin
     Return      :
 ----------------------------------------------------------------------------*/
-regionhandle feFindRadioButtonRegion(regionhandle temp, bool selected)
+regionhandle feFindRadioButtonRegion(regionhandle temp, bool32 selected)
 {
     featom *atom;
 

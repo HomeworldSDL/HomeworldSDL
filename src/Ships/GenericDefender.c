@@ -24,7 +24,7 @@
 #define DEBUG_DEFENDER 0
 
 //local prototypes
-bool kamikazeAttack(Ship *ship,SelectAnyCommand *targets);
+bool32 kamikazeAttack(Ship *ship,SelectAnyCommand *targets);
 
 typedef struct
 {
@@ -184,9 +184,9 @@ circleAlreadyCalculatedTrajectory:
 //    attackStraightForward(ship,target,newrange,defenderstat->tooCloseRange[ship->tacticstype]);
 }
 
-void GenericDefenderAttackPassive(Ship *ship,Ship *target,bool rotate)
+void GenericDefenderAttackPassive(Ship *ship,Ship *target,bool32 rotate)
 {
-    if ((rotate) & ((bool)((ShipStaticInfo *)(ship->staticinfo))->rotateToRetaliate))
+    if ((rotate) & ((bool32)((ShipStaticInfo *)(ship->staticinfo))->rotateToRetaliate))
     {
         attackPassiveRotate(ship,target);
     }

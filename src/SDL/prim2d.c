@@ -441,7 +441,7 @@ void primErrorMessagePrintFunction(char *file, sdword line)
 ----------------------------------------------------------------------------*/
 void primLine2(sdword x0, sdword y0, sdword x1, sdword y1, color c)
 {
-    bool blendon;
+    bool32 blendon;
 
     blendon = glIsEnabled(GL_BLEND);
     if (!blendon) glEnable(GL_BLEND);
@@ -503,7 +503,7 @@ void primLineThick2(sdword x0, sdword y0, sdword x1, sdword y1, sdword thickness
     Note        : Must be matched with a primLineLoopEnd2 and have only
                     primLineLoopPoint calls inbetween
 ----------------------------------------------------------------------------*/
-static bool LLblendon;
+static bool32 LLblendon;
 static GLfloat LLlinewidth;
 void primLineLoopStart2(sdword thickness, color c)
 {
@@ -624,7 +624,7 @@ void primSeriesOfRects(rectangle *rect, uword width,
 ----------------------------------------------------------------------------*/
 void primBeveledRectSolid(rectangle *rect, color c, uword xb, uword yb)
 {
-    bool cull;
+    bool32 cull;
 
     cull = glIsEnabled(GL_CULL_FACE) ? TRUE : FALSE;
     glDisable(GL_CULL_FACE);
@@ -900,7 +900,7 @@ void primCircleSolid2(sdword x, sdword y, sdword rad, sdword nSlices, color c)
     double theta;
     vector centre;
     real32 radiusX, radiusY;
-    bool cull;
+    bool32 cull;
 
     cull = glIsEnabled(GL_CULL_FACE) ? TRUE : FALSE;
 

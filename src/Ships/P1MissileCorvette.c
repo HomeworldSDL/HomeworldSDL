@@ -81,9 +81,9 @@ void P1MissileCorvetteAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdis
     attackSideStep(ship,target,&spec->attacksidestep,&corvstat->sidestepParameters);
 }
 
-void P1MissileCorvetteAttackPassive(Ship *ship,Ship *target,bool rotate)
+void P1MissileCorvetteAttackPassive(Ship *ship,Ship *target,bool32 rotate)
 {
-    if ((rotate) & ((bool)((ShipStaticInfo *)(ship->staticinfo))->rotateToRetaliate))
+    if ((rotate) & ((bool32)((ShipStaticInfo *)(ship->staticinfo))->rotateToRetaliate))
     {
         attackPassiveRotate(ship,target);
     }
@@ -138,7 +138,7 @@ void P1MissileCorvetteHousekeep(Ship *ship)
     }
 }
 
-bool P1MissileCorvetteSpecialTarget(Ship *ship,void *custom)
+bool32 P1MissileCorvetteSpecialTarget(Ship *ship,void *custom)
 {
     SelectAnyCommand *targets;
     sdword i;
@@ -150,7 +150,7 @@ bool P1MissileCorvetteSpecialTarget(Ship *ship,void *custom)
     ShipStaticInfo *shipstaticinfo;
     P1MissileCorvetteSpec *spec;
     P1MissileCorvetteStatics *mcorvettestat;
-    bool firedSomeMissiles;
+    bool32 firedSomeMissiles;
 
     spec = (P1MissileCorvetteSpec *)ship->ShipSpecifics;
     shipstaticinfo = (ShipStaticInfo *)ship->staticinfo;

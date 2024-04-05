@@ -17,9 +17,9 @@ void collUpdateCollRectangle(SpaceObjRotImp *irobj);
 void collDrawCollisionInfo(SpaceObjRotImp *irobj);
 void collZeroRectInfo(StaticCollInfo *staticCollInfo);
 real32 collCheckRectLine(SpaceObjRotImp *obj1,vector *univpoint,vector *univdir,real32 linelength,sdword *collSide);
-bool collCheckRectPoint(SpaceObjRotImp *obj1,vector *point);
-bool collCheckRectInRect(SpaceObjRotImp *obj1,SpaceObjRotImp *obj2);
-bool collCheckLineOfSight(Ship* source, Ship* target, vector* sourcePosition, vector* direction);
+bool32 collCheckRectPoint(SpaceObjRotImp *obj1,vector *point);
+bool32 collCheckRectInRect(SpaceObjRotImp *obj1,SpaceObjRotImp *obj2);
+bool32 collCheckLineOfSight(Ship* source, Ship* target, vector* sourcePosition, vector* direction);
 
 #define collAddSpaceObjToCollBlobs(obj) bobAddObjToNearestBlob(&universe.collBlobList,obj)
 #define collAddSpaceObjToSpecificBlob(tblob,tobj) bobAddObjToSpecificBlob(tblob,tobj)

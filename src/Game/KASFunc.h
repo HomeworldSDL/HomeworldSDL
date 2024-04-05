@@ -135,7 +135,7 @@ void kasfTeamSkillSet(sdword skillLevel);
 sdword kasfTeamSkillGet(void);
 
 void kasfDisablePlayerHyperspace(void);
-void kasfHoldHyperspaceWindow(bool hold);
+void kasfHoldHyperspaceWindow(bool32 hold);
 void kasfTeamHyperspaceIn(hvector *destination);
 void kasfTeamHyperspaceInNear(hvector *destination, sdword distance);
 void kasfTeamHyperspaceOut(void);
@@ -188,14 +188,14 @@ sdword kasfUnderAttackElsewhere(struct AITeam *otherTeam, GrowSelection *attacke
 sdword kasfShipsCountType(GrowSelection *ships, char *shipType);
 
 void kasfDock(struct AITeam *withTeam);
-void kasfDockSupport();
+void kasfDockSupport(void);
 void kasfDockSupportWith(struct AITeam * withTeam);
 void kasfShipsDockSupportWith(GrowSelection *ships, GrowSelection *withShips);
 void kasfDockStay(struct AITeam * withTeam);
 void kasfShipsDockStay(GrowSelection *ships, GrowSelection *withShips);
 void kasfDockStayMothership(void);
 void kasfDockInstant(struct AITeam * withTeam);
-void kasfLaunch();
+void kasfLaunch(void);
 
 sdword kasfTeamDocking(void);
 sdword kasfTeamDockedReadyForLaunch(void);
@@ -349,7 +349,7 @@ void kasfTutCameraFocusDerelictType(char *derelictType);
 void kasfTutCameraFocusFar(GrowSelection *ships);
 void kasfTutCameraFocusCancel(void);
 
-void kasfDisablePlayer(bool toggle);
+void kasfDisablePlayer(bool32 toggle);
 
 sdword kasfTutShipsInView(GrowSelection *ships);
 sdword kasfTutShipsTactics(GrowSelection *ships);

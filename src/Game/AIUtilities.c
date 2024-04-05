@@ -51,8 +51,8 @@ typedef struct
     udword         goodGuystrength;
     udword         goodGuyvalue;
     udword         goodGuyResourcers;
-    bool           visibility;
-    bool           mothership;  //whether or not there is a mothership in this blob
+    bool32           visibility;
+    bool32           mothership;  //whether or not there is a mothership in this blob
     SelectCommand *blobShips;   //level 2 information
 } aiblob;
 
@@ -241,7 +241,7 @@ vector aiuFindRangeStandoffPoint(vector destination, vector location, real32 ran
     Outputs     : Allocates memory for the path structure
     Return      : Pointer to the new path
 ----------------------------------------------------------------------------*/
-Path *aiuCreatePathStruct(udword numPoints, bool closed)
+Path *aiuCreatePathStruct(udword numPoints, bool32 closed)
 {
     udword i;
     vector initVec = {-REALlyBig, -REALlyBig, -REALlyBig};
@@ -294,7 +294,7 @@ void aiuAddPointToPath(vector point, udword pointnum, Path *path)
     Outputs     :
     Return      : TRUE if point A is in front of point B
 ----------------------------------------------------------------------------*/
-bool aiuPointIsInFront(vector a, vector b, vector c)
+bool32 aiuPointIsInFront(vector a, vector b, vector c)
 {
     vector abvect, cbvect;
 
@@ -312,7 +312,7 @@ bool aiuPointIsInFront(vector a, vector b, vector c)
     Outputs     : Creates a new path
     Return      : the new path
 ----------------------------------------------------------------------------*/
-Path *aiuGenerateCircularPath(udword num_points, vector center, real32 radius, bool closed)
+Path *aiuGenerateCircularPath(udword num_points, vector center, real32 radius, bool32 closed)
 {
     udword i;
     double theta = 0.0;
@@ -364,7 +364,7 @@ void aiuMoveShipSelection(MaxSelection *dest, MaxSelection *source, udword num)
     Outputs     :
     Return      : void
 ----------------------------------------------------------------------------*/
-bool aiuAlreadyHasShipType(ShipType shiptype, udword num)
+bool32 aiuAlreadyHasShipType(ShipType shiptype, udword num)
 {
     SelectCommand *newships = aiCurrentAIPlayer->newships.selection;
     udword i;
@@ -396,7 +396,7 @@ bool aiuAlreadyHasShipType(ShipType shiptype, udword num)
     Outputs     : Creates a bunch of moves if needed
     Return      : TRUE if the team is sent off for a rescue
 ----------------------------------------------------------------------------*/
-bool aiuRescueShip(ShipPtr ship, struct AITeam *team)
+bool32 aiuRescueShip(ShipPtr ship, struct AITeam *team)
 {
     SelectCommand *enemyShips;
     AITeamMove *newMove, *thisMove = team->curMove;
@@ -496,7 +496,7 @@ ShipPtr aiuRescueShipType(SelectCommand *selection, struct AITeam *team, ShipTyp
     Outputs     : Creates a bunch of moves if needed
     Return      : TRUE if the team is sent off for taking out
 ----------------------------------------------------------------------------*/
-bool aiuTakeoutShip(ShipPtr ship, struct AITeam *team)
+bool32 aiuTakeoutShip(ShipPtr ship, struct AITeam *team)
 {
     SelectCommand *enemyShips;
     AITeamMove *newMove, *thisMove = team->curMove;
@@ -583,7 +583,7 @@ ShipPtr aiuTakeoutShipType(SelectCommand *selection, struct AITeam *team, ShipTy
     Outputs     :
     Return      : TRUE if the ships are no longer attacking
 ----------------------------------------------------------------------------*/
-bool aiuShipsNoLongerAttacking(SelectCommand *ships)
+bool32 aiuShipsNoLongerAttacking(SelectCommand *ships)
 {
     CommandToDo *command;
     udword i;
@@ -609,7 +609,7 @@ bool aiuShipsNoLongerAttacking(SelectCommand *ships)
     Outputs     :
     Return      : TRUE if "ship" is an enemy mothership
 ----------------------------------------------------------------------------*/
-bool aiuShipIsAnEnemyMothership(Ship *ship)
+bool32 aiuShipIsAnEnemyMothership(Ship *ship)
 {
     Player *aiplayerplayer = aiCurrentAIPlayer->player;
 
@@ -629,7 +629,7 @@ bool aiuShipIsAnEnemyMothership(Ship *ship)
     Outputs     :
     Return      : TRUE if "ship" isn't an enemy mothership
 ----------------------------------------------------------------------------*/
-bool aiuShipIsntAnEnemyMothership(Ship *ship)                          //aialliance
+bool32 aiuShipIsntAnEnemyMothership(Ship *ship)                          //aialliance
 {
     return (!aiuShipIsAnEnemyMothership(ship));
 }
@@ -643,7 +643,7 @@ bool aiuShipIsntAnEnemyMothership(Ship *ship)                          //aiallia
     Outputs     :
     Return      : TRUE if any of the selected ships are capital ships
 ----------------------------------------------------------------------------*/
-bool aiuAnyShipsAreCapitalShips(SelectCommand *ships)
+bool32 aiuAnyShipsAreCapitalShips(SelectCommand *ships)
 {
     sdword i;
 
@@ -665,7 +665,7 @@ bool aiuAnyShipsAreCapitalShips(SelectCommand *ships)
     Outputs     :
     Return      : void
 ----------------------------------------------------------------------------*/
-bool aiuShipIsFighter(Ship *ship)
+bool32 aiuShipIsFighter(Ship *ship)
 {
     return (ship->staticinfo->shipclass == CLASS_Fighter);
 }
@@ -678,7 +678,7 @@ bool aiuShipIsFighter(Ship *ship)
     Outputs     :
     Return      : TRUE if the ship is no good against fighters
 ----------------------------------------------------------------------------*/
-bool aiuShipNotGoodAgainstFighters(Ship *ship)
+bool32 aiuShipNotGoodAgainstFighters(Ship *ship)
 {
     switch (ship->shiptype)
     {
@@ -707,7 +707,7 @@ bool aiuShipNotGoodAgainstFighters(Ship *ship)
     Outputs     :
     Return      : TRUE if the selection is not good at killing the target
 ----------------------------------------------------------------------------*/
-bool aiuSelectionNotGoodAtKillingTheseTargets(SelectCommand *selection, SelectCommand *targets, real32 strengthratio)
+bool32 aiuSelectionNotGoodAtKillingTheseTargets(SelectCommand *selection, SelectCommand *targets, real32 strengthratio)
 {
     real32 strength = 0;
 
@@ -738,7 +738,7 @@ bool aiuSelectionNotGoodAtKillingTheseTargets(SelectCommand *selection, SelectCo
     Outputs     :
     Return      : TRUE if one of the ships are hidden
 ----------------------------------------------------------------------------*/
-bool aiuShipsAreHidden(SelectCommand *selection)
+bool32 aiuShipsAreHidden(SelectCommand *selection)
 {
     udword i;
 
@@ -807,7 +807,7 @@ udword aiuFilterSelectableShips(SelectCommand *selection, MaxSelection *filtered
     Outputs     :
     Return      : TRUE if one of the ships isn't selectable
 ----------------------------------------------------------------------------*/
-bool aiuShipsArentTargetable(SelectCommand *selection)
+bool32 aiuShipsArentTargetable(SelectCommand *selection)
 {
     udword i;
 
@@ -830,7 +830,7 @@ bool aiuShipsArentTargetable(SelectCommand *selection)
     Outputs     :
     Return      : Returns TRUE if ship is a dangerous ship
 ----------------------------------------------------------------------------*/
-bool aiuIsShipDangerous(Ship *ship)
+bool32 aiuIsShipDangerous(Ship *ship)
 {
     ShipStaticInfo *shipstatic = ship->staticinfo;
 
@@ -854,7 +854,7 @@ bool aiuIsShipDangerous(Ship *ship)
             }
             break;
         case CLASS_Corvette:
-            if ((shipstatic->shiptype == RepairCorvette))
+            if (shipstatic->shiptype == RepairCorvette)
             {
                 return FALSE;
             }
@@ -887,7 +887,7 @@ bool aiuIsShipDangerous(Ship *ship)
     Outputs     :
     Return      : TRUE if the ship is a primary enemy
 ----------------------------------------------------------------------------*/
-bool aiuIsShipPrimaryEnemy(Ship *ship)
+bool32 aiuIsShipPrimaryEnemy(Ship *ship)
 {
     if (ship->playerowner == aiCurrentAIPlayer->primaryEnemyPlayer)
     {
@@ -1032,7 +1032,7 @@ SelectCommand *aiuEnemyShipsInMothershipBlob(void)
 ----------------------------------------------------------------------------*/
 void aiuMakeShipsOnlyDangerousToMothership(SelectCommand *ships)
 {
-    bool dangerous = FALSE;
+    bool32 dangerous = FALSE;
     udword i;
 
     for (i = 0; i < ships->numShips; dangerous = FALSE)
@@ -1230,7 +1230,7 @@ vector aiuFindEnemyMothershipCoords(Player *player)
     Outputs     :
     Return      : TRUE if the ships are close to an enemy mothership
 ----------------------------------------------------------------------------*/
-bool aiuShipsCloseToEnemyMothership(Player *player, SelectCommand *ships, real32 dist)
+bool32 aiuShipsCloseToEnemyMothership(Player *player, SelectCommand *ships, real32 dist)
 {
     blob *shipblob;
     udword numShipsInBlob, i;
@@ -1403,7 +1403,7 @@ Path *aiuGeneratePatrolPath(udword patroltype)
 SelectCommand *aiuFindUnarmedUndefendedEnemyShips(void)
 {
     sdword i, j;
-    bool protection_found = FALSE;
+    bool32 protection_found = FALSE;
     SelectCommand *unprotected_ships = NULL, *blobShipsPtr;
     udword blob_shipclass;
     ShipPtr blobship;
@@ -1647,7 +1647,7 @@ vector aiuFindResourceControllerDestination(void)
     Outputs     :
     Return      : TRUE if the destination is fine
 ----------------------------------------------------------------------------*/
-bool aiuDestinationNotNearOtherMothership(vector destination, real32 radiussq)
+bool32 aiuDestinationNotNearOtherMothership(vector destination, real32 radiussq)
 {
     Node *node;
     Ship *ship;
@@ -1749,7 +1749,7 @@ ShipPtr aiuGetClosestShip(SelectCommand *selection, ShipPtr ship)
     Outputs     :
     Return      : TRUE if the ship is a vulnerable good guy ship
 ----------------------------------------------------------------------------*/
-bool aiuShipIsVulnerableGoodGuy(ShipPtr ship)
+bool32 aiuShipIsVulnerableGoodGuy(ShipPtr ship)
 {
     ShipType shiptype = ship->shiptype;
     ShipClass shipclass = ship->staticinfo->shipclass;
@@ -1777,7 +1777,7 @@ bool aiuShipIsVulnerableGoodGuy(ShipPtr ship)
     Outputs     :
     Return      : TRUE if the ship is a large vulnerable good guy ship
 ----------------------------------------------------------------------------*/
-bool aiuShipIsLargeVulnerableGoodGuy(ShipPtr ship)
+bool32 aiuShipIsLargeVulnerableGoodGuy(ShipPtr ship)
 {
     ShipType shiptype = ship->shiptype;
 
@@ -2436,7 +2436,7 @@ SelectCommand *aiuFindSwarmerTarget(AITeam *team)
     Outputs     :
     Return      : Selection of ships to attack
 ----------------------------------------------------------------------------*/
-SelectCommand *aiuFindSwarmTargets(SelectCommand *teamShips, udword numTargets, bool harass)
+SelectCommand *aiuFindSwarmTargets(SelectCommand *teamShips, udword numTargets, bool32 harass)
 {
     SelectCommand *returnShips;
     SelectCommand *blobShips;
@@ -2511,7 +2511,7 @@ SelectCommand *aiuFindSwarmTargets(SelectCommand *teamShips, udword numTargets, 
     Outputs     :
     Return      : TRUE if the point is in the sphere of influence
 ----------------------------------------------------------------------------*/
-bool aiuPointWithinSphereOfInfluence(vector point)
+bool32 aiuPointWithinSphereOfInfluence(vector point)
 {
     vector center;
     real32 radiussq;
@@ -2597,7 +2597,7 @@ SelectCommand *aiuFindLeadShipInSphereOfInfluence(vector centre, real32 radiussq
     Outputs     :
     Return      : True if a ship is decloaking within the sphere of influence
 ----------------------------------------------------------------------------*/
-bool aiuFindDecloakedShipInSphereOfInfluence(void)
+bool32 aiuFindDecloakedShipInSphereOfInfluence(void)
 {
     udword i, j;
     SelectCommand *temp_sel;
@@ -2922,7 +2922,7 @@ ResourceSelection *aiuFindResourcesInVolume(Volume volume)
     Outputs     :
     Return      : TRUE if the resourcer is busy
 ----------------------------------------------------------------------------*/
-bool aiuShipIsResourcingOrSomething(ShipPtr ship)
+bool32 aiuShipIsResourcingOrSomething(ShipPtr ship)
 {
     return ((ship->rcstate1) ||
             (ship->rcstate2) ||
@@ -3089,7 +3089,7 @@ real32 aiuRateBlobForResourcing(blob *thisBlob)
     Outputs     :
     Return      : TRUE if the best resource blob was found
 ----------------------------------------------------------------------------*/
-bool aiuFindBestResourceBlob(vector *destination)
+bool32 aiuFindBestResourceBlob(vector *destination)
 {
     Node *blobnode = universe.collBlobList.head;
     blob *thisBlob;
@@ -3166,7 +3166,7 @@ blob *aiuFindNearestResourceBlob(SelectCommand *ships)
     Outputs     :
     Return      : The aiblob
 ----------------------------------------------------------------------------*/
-struct aiblob *aiuFindShipsAIBlob(SelectCommand *ships, bool retentive)
+struct aiblob *aiuFindShipsAIBlob(SelectCommand *ships, bool32 retentive)
 {
     udword i;
 
@@ -3251,7 +3251,7 @@ struct aiblob *aiuFindShipAIBlob(ShipPtr ship)
     Outputs     :
     Return      : TRUE if the enemy ship is visible
 ----------------------------------------------------------------------------*/
-bool aiuEnemyShipIsVisible(ShipPtr ship)
+bool32 aiuEnemyShipIsVisible(ShipPtr ship)
 {
     aiblob *shipblob;
 
@@ -3320,7 +3320,7 @@ real32 aiuFindMinimumGunRangeSquared(SelectCommand *ships)
     Outputs     :
     Return      : TRUE if the ships are in gun range
 ----------------------------------------------------------------------------*/
-bool aiuShipsInGunRangeOfTargets(SelectCommand *selection)
+bool32 aiuShipsInGunRangeOfTargets(SelectCommand *selection)
 {
 //    real32 minrange, dummy, distSqr;
 //    vector midselection1, distvec;
@@ -3447,7 +3447,7 @@ void aiuCheckRequestQueue(AIPlayer *aiplayer, Node *node,
 extern sdword cdMaxShipsAllowed;
 extern sdword cdLimitCaps[TOTAL_NUM_SHIPS];
 extern sdword cdClassCaps[NUM_CLASSES];
-extern bool   cdEnabled;
+extern bool32   cdEnabled;
 udword aiuUnitCapCanBuildShip(AIPlayer *aiplayer, ShipType shiptype, sdword numShips)
 {
     sdword shiptotal = 0, classtotal = 0, typetotal = 0, shipcount = 0;
@@ -3648,7 +3648,7 @@ udword aiuUnitCapCanBuildShip(AIPlayer *aiplayer, ShipType shiptype, sdword numS
     Outputs     : Finds a target to have it's ass kicked
     Return      : Whether the target is visible or not
 ----------------------------------------------------------------------------*/
-bool aiuFindArmadaTarget(vector *dest_target, SelectCommand **sel_target, SelectCommand *team_sel)
+bool32 aiuFindArmadaTarget(vector *dest_target, SelectCommand **sel_target, SelectCommand *team_sel)
 {
     aiblob *blob, *best_blob = NULL, *mothership_blob = NULL;
     udword i/*, best_num_ships*/;
@@ -3782,7 +3782,7 @@ void aiuSetAttackSingleTarget(SelectCommand *attackers, SelectCommand *target)
 void aiuFindPriorityTarget(SelectCommand *attackers, SelectCommand *targets)
 {
     MaxSelection tempsel;	//temporary selection
-	bool capship = FALSE;
+	bool32 capship = FALSE;
 	
 	// split depending on the attacker type to select specific targets
 	switch (attackers->ShipPtr[0]->shiptype)
@@ -4099,7 +4099,7 @@ void aiuSwarmDock(SelectCommand *ships, SelectCommand *pods)
 ----------------------------------------------------------------------------*/
 
 
-bool aiuWrapAttack(SelectCommand *attackers, SelectCommand *targets)
+bool32 aiuWrapAttack(SelectCommand *attackers, SelectCommand *targets)
 {
     MaxSelection filtered;
 
@@ -4124,7 +4124,7 @@ bool aiuWrapAttack(SelectCommand *attackers, SelectCommand *targets)
 }
 
 
-bool aiuWrapMove(SelectCommand *ships, vector destination)
+bool32 aiuWrapMove(SelectCommand *ships, vector destination)
 {
     MaxSelection filtered;
 
@@ -4138,7 +4138,7 @@ bool aiuWrapMove(SelectCommand *ships, vector destination)
     return FALSE;
 }
 
-bool aiuWrapDock(SelectCommand *ships, DockType docktype, ShipPtr dockwith)
+bool32 aiuWrapDock(SelectCommand *ships, DockType docktype, ShipPtr dockwith)
 {
     MaxSelection filtered;
 
@@ -4164,7 +4164,7 @@ bool aiuWrapDock(SelectCommand *ships, DockType docktype, ShipPtr dockwith)
     return FALSE;
 }
 
-bool aiuKasWrapFormation(SelectCommand *ships, TypeOfFormation formation)
+bool32 aiuKasWrapFormation(SelectCommand *ships, TypeOfFormation formation)
 {
     MaxSelection filtered;
 
@@ -4178,7 +4178,7 @@ bool aiuKasWrapFormation(SelectCommand *ships, TypeOfFormation formation)
     return FALSE;
 }
 
-bool aiuWrapFormation(SelectCommand *ships, TypeOfFormation formation)
+bool32 aiuWrapFormation(SelectCommand *ships, TypeOfFormation formation)
 {
     MaxSelection filtered;
 
@@ -4192,7 +4192,7 @@ bool aiuWrapFormation(SelectCommand *ships, TypeOfFormation formation)
     return FALSE;
 }
 
-bool aiuWrapProtect(SelectCommand *ships, SelectCommand *shipstoguard)
+bool32 aiuWrapProtect(SelectCommand *ships, SelectCommand *shipstoguard)
 {
     MaxSelection filtered, guardfiltered;
 
@@ -4209,7 +4209,7 @@ bool aiuWrapProtect(SelectCommand *ships, SelectCommand *shipstoguard)
 }
 
 
-bool aiuWrapSpecial(SelectCommand *ships, SelectCommand *targets)
+bool32 aiuWrapSpecial(SelectCommand *ships, SelectCommand *targets)
 {
     MaxSelection filtered;
 
@@ -4226,7 +4226,7 @@ bool aiuWrapSpecial(SelectCommand *ships, SelectCommand *targets)
 }
 
 
-bool aiuWrapCollectResource(SelectCommand *ships, ResourcePtr resource)
+bool32 aiuWrapCollectResource(SelectCommand *ships, ResourcePtr resource)
 {
     MaxSelection filtered;
 
@@ -4240,7 +4240,7 @@ bool aiuWrapCollectResource(SelectCommand *ships, ResourcePtr resource)
     return FALSE;
 }
 
-bool aiuWrapSetTactics(SelectCommand *ships, TacticsType tactics)
+bool32 aiuWrapSetTactics(SelectCommand *ships, TacticsType tactics)
 {
     MaxSelection filtered;
 
@@ -4254,7 +4254,7 @@ bool aiuWrapSetTactics(SelectCommand *ships, TacticsType tactics)
     return FALSE;
 }
 
-bool aiuWrapSetKamikaze(SelectCommand *ships)
+bool32 aiuWrapSetKamikaze(SelectCommand *ships)
 {
     MaxSelection filtered;
 
@@ -4268,7 +4268,7 @@ bool aiuWrapSetKamikaze(SelectCommand *ships)
     return FALSE;
 }
 
-bool aiuWrapHalt(SelectCommand *ships)
+bool32 aiuWrapHalt(SelectCommand *ships)
 {
     MaxSelection filtered;
 
@@ -4282,7 +4282,7 @@ bool aiuWrapHalt(SelectCommand *ships)
     return FALSE;
 }
 
-bool aiuWrapScuttle(SelectCommand *ships)
+bool32 aiuWrapScuttle(SelectCommand *ships)
 {
     MaxSelection filtered;
 
@@ -4372,9 +4372,9 @@ void aiuChangePrimaryEnemy(AIPlayer *aiplayer)
     Outputs     : May change the aicurrentAIPlayer->alertflags
     Return      : Whether the status has changed
 ----------------------------------------------------------------------------*/
-bool aiuFindCloakersInEnemyShipsIAmAwareOf(bool Red_Alert)
+bool32 aiuFindCloakersInEnemyShipsIAmAwareOf(bool32 Red_Alert)
 {
-    bool change = FALSE;
+    bool32 change = FALSE;
 
     if (bitTest(aiCurrentAIPlayer->AlertStatus, ALERT_CLOAK_RED))
     {
@@ -4477,7 +4477,7 @@ void aiuFillInArrays(blob_array *goodGuy_blob_array, blob_array *enemy_blob_arra
     Node *blobnode = universe.collBlobList.head;
     ShipPtr ship;
     udword i;
-    bool enemyFound = FALSE, goodGuyFound = FALSE, myMothershipFound = FALSE;
+    bool32 enemyFound = FALSE, goodGuyFound = FALSE, myMothershipFound = FALSE;
 
     //go through the list of blobs
     while (blobnode != NULL)
@@ -4600,7 +4600,7 @@ void aiuRateBlobs(Player *player)
     udword goodGuystrength, goodGuyvalue;
     udword tempstrength, tempvalue;
     udword goodGuyResourcers;
-    bool   mothership;
+    bool32   mothership;
     SelectCommand *ships;
     ShipPtr ship;
     Player *shipplayer;

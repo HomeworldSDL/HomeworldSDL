@@ -49,8 +49,8 @@ extern gpgame *gpGames;             //list of available games
 extern sdword gpCurrentSelected;    //current game index, if OK is pressed
 extern char   *gpTextEntryName;     //text box entry name
 
-extern bool gpLoadSinglePlayerGame;
-extern bool gpLoadTutorial;
+extern bool32 gpLoadSinglePlayerGame;
+extern bool32 gpLoadTutorial;
 
 extern char TutorialSavedGamesPath[];
 
@@ -70,10 +70,10 @@ void gpGamePick(char *dest);
 void gpDonePicking(char *name, featom *atom);
 void gpBackPicking(char *name, featom *atom);
 
-bool gpQuickSave(void);
-bool gpQuickLoad(void);
+bool32 gpQuickSave(void);
+bool32 gpQuickLoad(void);
 
-bool gpGetGameName(char *name, featom *atom, char *filename);
+bool32 gpGetGameName(char *name, featom *atom, char *filename);
 
 sdword gpCountTrainingSavegames(void);
 

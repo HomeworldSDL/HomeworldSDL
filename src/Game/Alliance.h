@@ -22,8 +22,8 @@ void allianceBreakWith(udword playerindex);
 void allianceFormRequestRecievedCB(ChatPacket *packet);
 void allianceSetAlliance(udword AllianceType, uword playerone, uword playertwo);
 
-bool allianceIsShipAlly(Ship *ship, Player *player);
-bool allianceArePlayersAllied(Player *playerone, Player *playertwo);
+bool32 allianceIsShipAlly(Ship *ship, Player *player);
+bool32 allianceArePlayersAllied(Player *playerone, Player *playertwo);
 
 void allianceBreakAll(void);
 

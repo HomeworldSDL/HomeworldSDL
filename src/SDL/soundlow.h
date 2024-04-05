@@ -154,20 +154,20 @@ void soundPanicReset(void);	// mixer.c
 
 /* functions */
 //sdword soundinit(HWND hWnd, sdword mode);
-sdword soundinit(bool mode);
+sdword soundinit(bool32 mode);
 //sdword soundreinit(HWND hWnd);
 sdword soundreinit();
 void soundrestore(void);
 void soundclose(void);
 void soundupdate(void);
 
-void soundpause(bool bPause);
-void sounddeactivate(bool bDeactivate);
+void soundpause(bool32 bPause);
+void sounddeactivate(bool32 bDeactivate);
 
 sword soundloadpatch(char *pszFileName, sword looped);
 udword soundbankadd(void *bankaddress);
 
-sdword soundplayFPRVL(sword patnum, real32 freq, sword pan, sdword priority, sword vol, bool startatloop);
+sdword soundplayFPRVL(sword patnum, real32 freq, sword pan, sdword priority, sword vol, bool32 startatloop);
 
 sdword soundvolumeF(sdword handle, sword vol, real32 fadetime);
 #define soundvolume(a, b)		soundvolumeF(a, b, 0)
@@ -178,7 +178,7 @@ sdword soundpanF(sdword handle, sword pan, real32 fadetime);
 sdword soundfrequency(sdword handle, real32 freq);
 sdword soundequalize(sdword handle, real32 *eq);
 
-void soundstopallSFX(real32 fadetime, bool stopStreams);
+void soundstopallSFX(real32 fadetime, bool32 stopStreams);
 #define soundstopall(a)		soundstopallSFX(a, TRUE)
 sdword soundstop(sdword handle, real32 fade);
 
@@ -186,9 +186,9 @@ sdword soundrestart(sdword handle);
 
 sdword soundshipheading(sdword handle, sword heading, sdword highband, sdword lowband, real32 velfactor, real32 shipfactor);
 
-bool soundover(sdword handle);
+bool32 soundover(sdword handle);
 
-void soundSetMasterEQ(sdword startband, sdword endband, bool increment);
+void soundSetMasterEQ(sdword startband, sdword endband, bool32 increment);
 void soundResetMasterEQ(void);
 
 
@@ -205,7 +205,7 @@ udword soundgettick(void);
 #define soundplayPRVL(a, b, c, d, e)	soundplayFPRVL(a, (real32)SOUND_DEFAULT, b, c, d, e)
 
 
-sdword splayFPRVL(void *bankaddress, sdword patnum, real32 *eq, real32 freq, sword pan, sdword priority, sword vol, bool startatloop, bool fadein, bool mute);
+sdword splayFPRVL(void *bankaddress, sdword patnum, real32 *eq, real32 freq, sword pan, sdword priority, sword vol, bool32 startatloop, bool32 fadein, bool32 mute);
 
 #define splay(f, a)			splayFPRVL(f, a, NULL, (real32)SOUND_DEFAULT, SOUND_PAN_CENTER, SOUND_DEFAULT, SOUND_DEFAULT, FALSE, TRUE, FALSE)
 #define splayV(f, a, b)		splayFPRVL(f, a, NULL, (real32)SOUND_DEFAULT, SOUND_PAN_CENTER, SOUND_DEFAULT, b, FALSE, TRUE, FALSE)
@@ -225,7 +225,7 @@ sdword soundstreaminit(void *pstreamer, sdword size, sdword numstreams, streampr
 udword soundstreamopenfile(char *pszStreamFile, smemsize *handle);
 sdword soundstreamcreatebuffer(void *pstreambuffer, sdword size, uword bitrate);
 
-sdword soundstreamqueuePatch(sdword streamhandle, smemsize filehandle, smemsize offset, udword flags, sword vol, sword pan, sword numchannels, sword bitrate, EFFECT *peffect, STREAMEQ *pEQ, STREAMDELAY *pdelay, void *pmixpatch, sdword level, real32 silence, real32 fadetime, sdword actornum, sdword speechEvent, bool bWait);
+sdword soundstreamqueuePatch(sdword streamhandle, smemsize filehandle, smemsize offset, udword flags, sword vol, sword pan, sword numchannels, sword bitrate, EFFECT *peffect, STREAMEQ *pEQ, STREAMDELAY *pdelay, void *pmixpatch, sdword level, real32 silence, real32 fadetime, sdword actornum, sdword speechEvent, bool32 bWait);
 #define soundstreamqueue(a, b, c, d, e, f, g, h, i, j, k, l)	soundstreamqueuePatch(a, b, c, d, e, f, g, h, i, j, k, NULL, SOUND_VOL_MIN, 0.0, 0.0, -1, l, FALSE)
 #define soundstreamqueuefade(a, b, c, d, e, f, g, h, i, j, k, l)	soundstreamqueuePatch(a, b, c, d, e, f, g, h, i, j, k, NULL, SOUND_VOL_MIN, 0.0, l, -1, -1, FALSE)
 #define soundstreamqueueSilence(a, b, c, d, e, f, g, h, i, j)	soundstreamqueuePatch(a, SOUND_DEFAULT, SOUND_DEFAULT, b, c, d, e, f, g, h, i, NULL, SOUND_DEFAULT, j, 0.0, -1, -1, FALSE)

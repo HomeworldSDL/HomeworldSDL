@@ -119,7 +119,7 @@ void MothershipAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdist)
     attackPassive(ship,(Ship *)target);  // Typecast to prevent warning, attackPassive will handle SpaceObjRotImpTarg
 }
 
-void MothershipAttackPassive(Ship *ship,Ship *target,bool rotate)
+void MothershipAttackPassive(Ship *ship,Ship *target,bool32 rotate)
 {
     attackPassive(ship,target);
 }
@@ -372,7 +372,7 @@ void WriteDockTimer(ubyte *docktimer,udword newvalue)
     docktimer[2] = (newvalue>>16) & 255;
 }
 
-bool NoShipUsingThisDockPoint(Ship *ship,DockStaticPoint *dockpoint)
+bool32 NoShipUsingThisDockPoint(Ship *ship,DockStaticPoint *dockpoint)
 {
     // walk the command layer to make sure no one is using this dockpoint
 
@@ -415,7 +415,7 @@ void MothershipHouseKeep(Ship *ship)
 {
     MothershipSpec *spec = (MothershipSpec *)ship->ShipSpecifics;
     sdword i;
-    bool droppingTargets = FALSE;
+    bool32 droppingTargets = FALSE;
 
     for(i=0;i<MAX_NUM_DROP;i++)
     {

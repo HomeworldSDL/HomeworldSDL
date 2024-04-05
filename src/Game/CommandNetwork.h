@@ -548,11 +548,11 @@ void SendChatPacketPacket(ChatPacket *packet, udword sizeofpacket,udword users);
 void InitLastSyncPktsQ(void);
 void CloseLastSyncPktsQ(void);
 void ResetLastSyncPktsQ(void);
-bool GetSyncPktFromLastSyncPktsQ(udword frame,HWPacketHeader **packet,udword *size);
+bool32 GetSyncPktFromLastSyncPktsQ(udword frame,HWPacketHeader **packet,udword *size);
 
-bool checkPlayersReady(void);
+bool32 checkPlayersReady(void);
 
-void PlayerDroppedOut(udword player,bool timedOut);
+void PlayerDroppedOut(udword player,bool32 timedOut);
 void PlayerInGameQuited(udword player);
 
 void CaptaincyChangedNotify(void);

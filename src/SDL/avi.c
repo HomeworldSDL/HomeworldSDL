@@ -47,13 +47,13 @@
 =============================================================================*/
 
 
-extern bool fullScreen;
+extern bool32 fullScreen;
 extern void* ghMainWindow;
 extern int MAIN_WindowWidth;
 extern int MAIN_WindowHeight;
-extern bool systemActive;
+extern bool32 systemActive;
 
-bool g_bMoreFrames;
+bool32 g_bMoreFrames;
 
 int aviDonePlaying = 1;
 int aviIsPlaying = 0;
@@ -590,7 +590,7 @@ int aviStop(void)
 }
 
 
-bool aviPlay(char* filename)
+bool32 aviPlay(char* filename)
 {
 #if AVI_VERBOSE_LEVEL >= 2
 dbgMessage("aviPlay:Entering");

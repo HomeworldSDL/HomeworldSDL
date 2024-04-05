@@ -23,7 +23,7 @@
 
 #define AIPLAYER_LOG_FILE_NAME "aiplayerlog.txt"
 
-bool aiplayerLogEnable = FALSE;
+bool32 aiplayerLogEnable = FALSE;
 AIPlayer *aiCurrentAIPlayer;
 uword aiIndex;
 
@@ -514,7 +514,7 @@ void aiplayerChooseEnemies(udword num_players, udword num_human, udword num_comp
     {
         //choose a random player as enemy
         udword enemy = randyrandombetween(RANDOM_AI_PLAYER, 0, (num_players-1));
-        bool done    = FALSE;
+        bool32 done    = FALSE;
         giveup = 0;
 
         while (!done)
@@ -574,7 +574,7 @@ void aiplayerChooseEnemies(udword num_players, udword num_human, udword num_comp
     for (i=0;i<numloops;i++)
     {
         udword enemy = randyrandombetween(RANDOM_AI_PLAYER, 0, (num_human-1));
-        bool done = FALSE;
+        bool32 done = FALSE;
         giveup = 0;
 
         slot  = 0;
@@ -612,7 +612,7 @@ void aiplayerChooseEnemies(udword num_players, udword num_human, udword num_comp
     {
         udword enemy = randyrandombetween(RANDOM_AI_PLAYER, 0, (num_human-1));
         udword slot = 0;
-        bool done = FALSE;
+        bool32 done = FALSE;
         giveup = 0;
 
         while (!done)
@@ -685,7 +685,7 @@ void aiplayerStartup(udword num_players, udword num_human_players, udword num_co
     aiplayerChooseEnemies(num_players, num_human_players, num_comp_players);
 }
 
-void aiplayerShutdown()
+void aiplayerShutdown(void)
 {
     // ONLY close global module stuff such as log files here
     aivarShutdown();
@@ -823,7 +823,7 @@ void aiplayerPlay(AIPlayer *aiplayer)
     universe.aiplayerProcessing = FALSE;
 }
 
-extern bool mrNoAI;
+extern bool32 mrNoAI;
 
 void aiplayerUpdateAll(void)
 {
@@ -956,7 +956,7 @@ void aiplayerPlayerDied(Player *player)
     Ship *ship;
     udword DeadPlayerIndex = player->playerIndex, num_living_humans=0, num_humans=0, maxopponents=0, tempcnt=0, num_remaining_players=0;
     udword slot, newslot, i, j;
-    bool done;
+    bool32 done;
     sdword giveup;
 
     if (DeadPlayerIndex == MAX_MULTIPLAYER_PLAYERS)
@@ -996,7 +996,7 @@ void aiplayerPlayerDied(Player *player)
         {
             if (universe.players[i].playerState == PLAYER_ALIVE)
             {
-                bool done = FALSE;
+                bool32 done = FALSE;
                 giveup = 0;
                 slot = 0;
 
@@ -1101,7 +1101,7 @@ void aiplayerPlayerDied(Player *player)
         {
             //find the enemy for a non-bigot
             udword enemy = randyrandombetween(RANDOM_AI_PLAYER, 0, (universe.numPlayers-1));
-            bool done    = FALSE, loop = FALSE;
+            bool32 done    = FALSE, loop = FALSE;
             giveup = 0;
 
             while (!done)

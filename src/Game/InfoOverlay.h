@@ -35,22 +35,22 @@ typedef struct
 typedef struct
 {
     regionhandle  region;
-    bool          inlist;
+    bool32          inlist;
     ShipListInfo *listinfo;
 } ShipOverlayInfo;
 
-extern bool ioRunning;
+extern bool32 ioRunning;
 
 
 /*=============================================================================
     Function Prototypes:
 =============================================================================*/
 
-void ioSetSelection(bool shiftrelease);
+void ioSetSelection(bool32 shiftrelease);
 void ioUpdateShipTotals(void);
 
 void ioEnable(void);
-bool ioDisable(void);
+bool32 ioDisable(void);
 
 void ioStartup(void);
 void ioShutdown(void);

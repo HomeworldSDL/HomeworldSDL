@@ -15,7 +15,7 @@ void airResourceManager(void);
 void airInit(AIPlayer *aiplayer);
 void airClose(AIPlayer *aiplayer);
 
-bool airShipDied(AIPlayer *aiplayer, ShipPtr ship);
+bool32 airShipDied(AIPlayer *aiplayer, ShipPtr ship);
 void airTeamDied(AIPlayer *aiplayer, AITeam *team);
 
 sdword NumberOfEasilyAccesibleRUs(Player *player);

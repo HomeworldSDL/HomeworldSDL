@@ -82,7 +82,7 @@ scriptStructEntry MinelayerCorvetteStaticScriptTable[] =
     END_SCRIPT_STRUCT_ENTRY
 };
 
-bool MinelayerCorvetteStaticMineDrop(Ship *ship,SpaceObjRotImpTarg *target);
+bool32 MinelayerCorvetteStaticMineDrop(Ship *ship,SpaceObjRotImpTarg *target);
 
 
 void MinelayerCorvetteStaticInit(char *directory,char *filename,struct ShipStaticInfo *statinfo)
@@ -448,7 +448,7 @@ void MinelayerCorvetteAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdis
     MineLayerAttackRun(ship,target,&spec->attacksidestep,&corvstat->sidestepParameters);
 }
 
-bool MinelayerCorvetteStaticMineDrop(Ship *ship,SpaceObjRotImpTarg *target)
+bool32 MinelayerCorvetteStaticMineDrop(Ship *ship,SpaceObjRotImpTarg *target)
 {
     MinelayerCorvetteStatics *minelayercorvettestatics;
     MinelayerCorvetteSpec *spec = (MinelayerCorvetteSpec *)ship->ShipSpecifics;
@@ -628,7 +628,7 @@ bool MinelayerCorvetteStaticMineDrop(Ship *ship,SpaceObjRotImpTarg *target)
 }
 
 
-bool MinelayerCorvetteSpecialActivate(Ship *ship)
+bool32 MinelayerCorvetteSpecialActivate(Ship *ship)
 {
     return(MinelayerCorvetteStaticMineDrop(ship,NULL));
 }

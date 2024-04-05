@@ -26,7 +26,7 @@ void DroneStaticInit(char *directory,char *filename,struct ShipStaticInfo *stati
     statinfo->custstatinfo = dronestat;
 }
 
-void DroneAttackPassive(Ship *ship,Ship *target,bool rotate)
+void DroneAttackPassive(Ship *ship,Ship *target,bool32 rotate)
 {
     DroneSpec *spec = (DroneSpec *)ship->ShipSpecifics;
 
@@ -35,7 +35,7 @@ void DroneAttackPassive(Ship *ship,Ship *target,bool rotate)
         return;     // only allow fully launched drones to shoot
     }
 
-    if ((rotate) & ((bool)((ShipStaticInfo *)(ship->staticinfo))->rotateToRetaliate))
+    if ((rotate) & ((bool32)((ShipStaticInfo *)(ship->staticinfo))->rotateToRetaliate))
     {
         attackPassiveRotate(ship,target);
     }

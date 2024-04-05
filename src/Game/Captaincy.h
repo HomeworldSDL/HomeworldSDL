@@ -48,12 +48,12 @@ void TimeoutTimerUpdateAll(void);
 void GiveUpCaptaincy(void);
 
 void captaincyLogInit(void);
-void captaincyLog(bool echotoscreen, char *format, ...);
+void captaincyLog(bool32 echotoscreen, char *format, ...);
 
 
-extern bool transferCaptaincyDisabled;
-extern bool captaincyLogEnable;
-extern bool printCaptainMessage;
+extern bool32 transferCaptaincyDisabled;
+extern bool32 captaincyLogEnable;
+extern bool32 printCaptainMessage;
 
 extern real32 T1_Timeout;
 extern real32 T2_Timeout;

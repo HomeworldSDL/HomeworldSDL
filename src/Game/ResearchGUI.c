@@ -114,7 +114,7 @@ static sdword rmRenderEverythingCounter;
 
 double chop_temp;
 
-bool rmPaletted;
+bool32 rmPaletted;
 
 fonthandle rmTechListFont=0;
 fonthandle rmTechInfoFont=0;
@@ -335,7 +335,7 @@ sdword rmCurIndex=-1;
 TechnologyType  techinfo=-1;
 
 // is TRUE if GUI is active FALSE otherwise.
-bool rmGUIActive=FALSE;
+bool32 rmGUIActive=FALSE;
 
 // List of lab buttons
 LabPrintList labbuttons[NUM_RESEARCHLABS];
@@ -353,12 +353,12 @@ lifheader      *rmLabImage[MAX_RACES] = { NULL, NULL };
 real32          marqueetime=0.0;
 real32          marqueepos=0;
 
-bool rmExtendedInfoActive = FALSE;
+bool32 rmExtendedInfoActive = FALSE;
 
-bool rmIoSaveState;
+bool32 rmIoSaveState;
 
 uword researchingthistopic;
-bool multipleresearchersselected;
+bool32 multipleresearchersselected;
 ResearchTopic *multipleresearchtopic;
 /*=============================================================================
     Function Prototypes:
@@ -372,7 +372,7 @@ void   SelectTechWindow(void);
     Functions:
 =============================================================================*/
 
-void rmDirtyTechInfo()
+void rmDirtyTechInfo(void)
 {
     if (rmTechBriefRegion != NULL)
     {
@@ -397,7 +397,7 @@ void rmDirtyTechInfo()
     }
 }
 
-void rmDirtyTechList()
+void rmDirtyTechList(void)
 {
     if (rmTechListRegion != NULL)
     {
@@ -548,7 +548,7 @@ void rmClearAllLabs(char *string, featom *atom)
 void rmClearSelectedLab(char *string, featom *atom)
 {
     sdword index;
-   bool halted = FALSE;
+   bool32 halted = FALSE;
 
     for (index=0; index<NUM_RESEARCHLABS; index++)
     {
@@ -581,7 +581,7 @@ void rmClearSelectedLab(char *string, featom *atom)
 void rmResearchItem(char *string, featom *atom)
 {
     sdword          index;
-    bool            found=FALSE;
+    bool32            found=FALSE;
     TechPrintList  *tech;
 
     if (rmTechListWindowHandle->CurLineSelected!=NULL)
@@ -713,7 +713,7 @@ void rmExitMenu(char *string, featom *atom)
     techinfo = -1;
 }
 
-void rmCloseIfOpen()
+void rmCloseIfOpen(void)
 {
     if (rmBaseRegion)
     {
@@ -940,7 +940,7 @@ void SelectTechWindow(void)
     listitemhandle  item;
 
     Node           *walk,*count;
-    bool            found=FALSE;
+    bool32            found=FALSE;
     listitemhandle  iteminfo, newpos;
     sdword          i, relativecount;
 
@@ -1380,7 +1380,7 @@ char *getShipBuild(char *dest)
     TechStatics        *techstat = researchinfo->techstat;
     sdword              hastech = researchinfo->HasTechnology;
     sdword              index;
-    bool                first=TRUE;
+    bool32                first=TRUE;
 
     for (index=0;index<STD_LAST_SHIP;index++)
     {
@@ -1470,7 +1470,7 @@ void rmTechInfoDraw(regionhandle region)
     char       *pos, *oldpos;
     char        oldline[100], line[100];
     char        stringtoprint[650];
-    bool        justified, done;
+    bool32        justified, done;
 
     //rmTechInfoRegion = region;
 
@@ -1582,7 +1582,7 @@ void rmTechBriefDraw(featom *atom, regionhandle region)
     //char       *pos, *oldpos;
     //char        oldline[100], line[100];
     //char        stringtoprint[650];
-    //bool        justified, done;
+    //bool32        justified, done;
 
     rmTechBriefRegion = region;
     rect = region->rect;
@@ -2240,9 +2240,9 @@ sdword rmResearchGUIBegin(regionhandle region, smemsize ID, udword event, udword
     Description : rerturns true if a ship needs the technology specified.
     Inputs      : techstatics
     Outputs     : TRUE/FALSE
-    Return      : bool
+    Return      : bool32
 ----------------------------------------------------------------------------*/
-bool ShipsNeedTech(TechStatics *techstat, TechnologyType tech)
+bool32 ShipsNeedTech(TechStatics *techstat, TechnologyType tech)
 {
     sdword index;
 

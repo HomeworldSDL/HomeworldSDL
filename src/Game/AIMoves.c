@@ -504,7 +504,7 @@ void aimInsertMove(AITeam *team, struct AITeamMove *newMove)
 void aimMoveSplitShipDied(AITeam *team, AITeamMove *move, ShipPtr ship)
 {
     sdword i;
-    bool found = FALSE;
+    bool32 found = FALSE;
 
     if (move->params.movesplit.ships)
     {
@@ -2521,7 +2521,7 @@ sdword aimProcessArmada(AITeam *team)
     MaxSelection hyperspace;
 //    vector dest_target;
 //    SelectCommand *sel_target;
-//    bool visibility;
+//    bool32 visibility;
 
     //choose good target
     //if unknown, send recon mission to check out
@@ -3813,7 +3813,7 @@ void aimPreFix_Intercept(AITeamMove *move)
     Outputs     : Creates a new move
     Return      : the new move
 ----------------------------------------------------------------------------*/
-AITeamMove *aimCreateMoveToNoAdd(AITeam *team, vector destination, real32 limiter, udword type, TypeOfFormation formation, TacticsType tactics, bool wait, bool remove)
+AITeamMove *aimCreateMoveToNoAdd(AITeam *team, vector destination, real32 limiter, udword type, TypeOfFormation formation, TacticsType tactics, bool32 wait, bool32 remove)
 {
     AITeamMove *newMove = (AITeamMove *)memAlloc(sizeof(AITeamMove), "movemoveto", 0);
 
@@ -3827,7 +3827,7 @@ AITeamMove *aimCreateMoveToNoAdd(AITeam *team, vector destination, real32 limite
     return newMove;
 }
 
-AITeamMove *aimCreateMoveTo(AITeam *team, vector destination, real32 limiter, udword type, TypeOfFormation formation, TacticsType tactics, bool wait, bool remove)
+AITeamMove *aimCreateMoveTo(AITeam *team, vector destination, real32 limiter, udword type, TypeOfFormation formation, TacticsType tactics, bool32 wait, bool32 remove)
 {
     AITeamMove *newMove;
 
@@ -4017,7 +4017,7 @@ void aimFix_AdvancedAttack(AITeamMove *move)
     Outputs     : Creates a new move
     Return      : The new move
 ----------------------------------------------------------------------------*/
-AITeamMove *aimCreateMoveAttackNoAdd(AITeam *team, SelectCommand *targets, bool Advanced, TypeOfFormation formation, TacticsType tactics, bool8 wait, bool8 remove)
+AITeamMove *aimCreateMoveAttackNoAdd(AITeam *team, SelectCommand *targets, bool32 Advanced, TypeOfFormation formation, TacticsType tactics, bool8 wait, bool8 remove)
 {
     AITeamMove *newMove;
 
@@ -4034,7 +4034,7 @@ AITeamMove *aimCreateMoveAttackNoAdd(AITeam *team, SelectCommand *targets, bool 
     }
     return newMove;
 }
-AITeamMove *aimCreateMoveAttack(AITeam *team, SelectCommand *targets, bool Advanced, TypeOfFormation formation, TacticsType tactics, bool8 wait, bool8 remove)
+AITeamMove *aimCreateMoveAttack(AITeam *team, SelectCommand *targets, bool32 Advanced, TypeOfFormation formation, TacticsType tactics, bool8 wait, bool8 remove)
 {
     AITeamMove *newMove;
 
@@ -4494,7 +4494,7 @@ void aimLoad_Support(AITeamMove *move)
     Outputs     : Creates a new move
     Return      : the new move
 ----------------------------------------------------------------------------*/
-AITeamMove *aimCreateActiveReconNoAdd(AITeam *team, bool EnemyRecon, TypeOfFormation formation,
+AITeamMove *aimCreateActiveReconNoAdd(AITeam *team, bool32 EnemyRecon, TypeOfFormation formation,
                                       TacticsType tactics, bool8 wait, bool8 remove)
 {
     AITeamMove *newMove = (AITeamMove *)memAlloc(sizeof(AITeamMove), "actrecon", 0);
@@ -4509,7 +4509,7 @@ AITeamMove *aimCreateActiveReconNoAdd(AITeam *team, bool EnemyRecon, TypeOfForma
     return newMove;
 }
 
-AITeamMove *aimCreateActiveRecon(AITeam *team, bool EnemyRecon, TypeOfFormation formation,
+AITeamMove *aimCreateActiveRecon(AITeam *team, bool32 EnemyRecon, TypeOfFormation formation,
                                  TacticsType tactics, bool8 wait, bool8 remove)
 {
     AITeamMove *newMove;

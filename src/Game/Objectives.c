@@ -104,10 +104,10 @@ FleetIntelligence *fleetIntelligenceCreate(char *description, bool8 showOnce)
     return fleetIntelligence;
 }
 
-Objective *objectiveAndFleetIntelligenceCreate(char *label, char *briefDescription, char* fullDescription, bool8 showOnce, bool primary)
+Objective *objectiveAndFleetIntelligenceCreate(char *label, char *briefDescription, char* fullDescription, bool8 showOnce, bool32 primary)
 {
     Objective *objective;
-    bool hyperspace;
+    bool32 hyperspace;
 
     if (objectiveFind(label))
     {
@@ -570,7 +570,7 @@ void SaveObjective(Objective *objective)
     Save_String(objective->description);
 }
 
-Objective *LoadObjective()
+Objective *LoadObjective(void)
 {
     SaveChunk *chunk;
     Objective *objective;

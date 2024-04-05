@@ -130,7 +130,7 @@ typedef struct
 void growSelectAddShip(GrowSelection *growSelect,Ship *ship);
 
 // Returns TRUE if obj was removed
-bool growSelectRemoveShip(GrowSelection *growSelect,Ship *ship);
+bool32 growSelectRemoveShip(GrowSelection *growSelect,Ship *ship);
 
 // Removes ship at index index from growSelect
 void growSelectRemoveShipIndex(GrowSelection *growSelect,sdword index);
@@ -154,10 +154,10 @@ void AddSpaceObjToSelectionBeforeIndex(SpaceObj *obj,SpaceObjSelection *selectio
 void AddSpaceObjToSelectionAfterIndex(SpaceObj *obj,SpaceObjSelection *selection,sdword index);
 
 // Returns TRUE if obj was removed
-bool RemoveSpaceObjFromSelectionPreserveOrder(SpaceObjSelection *selection,SpaceObj *obj);
+bool32 RemoveSpaceObjFromSelectionPreserveOrder(SpaceObjSelection *selection,SpaceObj *obj);
 
 // Returns TRUE if ship is in selection
-bool ShipInSelection(SelectCommand *selection,Ship *ship);
+bool32 ShipInSelection(SelectCommand *selection,Ship *ship);
 
 // Returns number if ShipType "type"  in selection
 udword ShiptypeInSelection(SelectCommand *selection, ShipType type);
@@ -167,21 +167,21 @@ ShipPtr FindFirstInstanceOfShipType(SelectCommand *selection, ShipType type);
 
 // Does not delete entry - just removes reference to it.
 // Returns TRUE if any ship was removed
-bool clRemoveTargetFromSelection(SelectAnyCommand *selection,TargetPtr removeTargetPtr);
+bool32 clRemoveTargetFromSelection(SelectAnyCommand *selection,TargetPtr removeTargetPtr);
 
 #define clRemoveShipFromSelection(sel,ship) clRemoveTargetFromSelection((SelectAnyCommand *)(sel),(TargetPtr)ship)
 
 // returns true if any ships in theseShips are in selection
-bool AnyOfTheseShipsAreInSelection(SelectCommand *theseShips,SelectCommand *selection);
+bool32 AnyOfTheseShipsAreInSelection(SelectCommand *theseShips,SelectCommand *selection);
 
 // returns true if all of these ships are in selection
-bool TheseShipsAreInSelection(SelectCommand *theseShips,SelectCommand *selection);
+bool32 TheseShipsAreInSelection(SelectCommand *theseShips,SelectCommand *selection);
 
 // returns true if selections 1 and 2 are equivalent (ignores order)
-bool SelectionsAreEquivalent(SelectCommand *selection1,SelectCommand *selection2);
+bool32 SelectionsAreEquivalent(SelectCommand *selection1,SelectCommand *selection2);
 
 // returns true if selections 1 and 2 are equivalent (including order)
-bool SelectionsAreTotallyEquivalent(SelectCommand *selection1,SelectCommand *selection2);
+bool32 SelectionsAreTotallyEquivalent(SelectCommand *selection1,SelectCommand *selection2);
 
 // Makes sure that ships in selection do not include theseships
 void MakeShipsNotIncludeTheseShips(SelectCommand *selection,SelectCommand *theseships);
@@ -190,7 +190,7 @@ void MakeShipsNotIncludeTheseShips(SelectCommand *selection,SelectCommand *these
 void MakeTargetsNotIncludeMissiles(SelectAnyCommand *selection);
 
 // Returns true if ship can harvest
-bool ShipCanHarvest(ShipStaticInfo *shipstatic);
+bool32 ShipCanHarvest(ShipStaticInfo *shipstatic);
 
 // Makes targets all be within range of comparewith, but don't include comparewith
 void MakeTargetsOnlyBeWithinRangeAndNotIncludeMe(SelectAnyCommand *selection,SpaceObjRotImpTarg *comparewith,real32 range);
@@ -204,13 +204,13 @@ void MakeTargetsOnlyNonForceAttackTargets(SelectAnyCommand *selection,struct Pla
 // Makes targets only be salvageable ships/derelicts
 void MakeTargetsSalvageable(SelectAnyCommand *selection,struct Player *curplayer);
 
-typedef bool (*ShipConstraintsCB)(Ship *ship);
+typedef bool32 (*ShipConstraintsCB)(Ship *ship);
 // Makes sure that all ships in selection follow shipConstraintsCB
 void MakeShipsOnlyFollowConstraints(SelectCommand *selection,ShipConstraintsCB shipConstraintsCB);
 // Returns TRUE if any ships in selection follow shipConstraintsCB
-bool DoAnyShipsFollowConstraints(SelectCommand *selection,ShipConstraintsCB shipConstraintsCB);
+bool32 DoAnyShipsFollowConstraints(SelectCommand *selection,ShipConstraintsCB shipConstraintsCB);
 // Returns TRUE if all ships in selection follow shipConstraintsCB
-bool DoAllShipsFollowConstraints(SelectCommand *selection,ShipConstraintsCB shipConstraintsCB);
+bool32 DoAllShipsFollowConstraints(SelectCommand *selection,ShipConstraintsCB shipConstraintsCB);
 
 // Makes sure that ships in selection are friendly ships (are curplayer's ships)
 void MakeShipsFriendlyShips(SelectCommand *selection,struct Player *curplayer);
@@ -226,22 +226,22 @@ sdword MakeShipsAttackCapable(SelectCommand *dest, SelectCommand *source);
 //void MakeShipsAttackCapable(SelectCommand *selection);
 
 // Returns TRUE if all ships are attack capable
-bool AreAllShipsAttackCapable(SelectCommand *selection);
+bool32 AreAllShipsAttackCapable(SelectCommand *selection);
 
 // returns TRUE if any ships are attack capable
-bool AreAnyShipsAttackCapable(SelectCommand *selection);
+bool32 AreAnyShipsAttackCapable(SelectCommand *selection);
 
 // Returns TRUE if ship is attack capable
-bool isShipAttackCapable(Ship *ship);
+bool32 isShipAttackCapable(Ship *ship);
 
 // Returns TRUE if all ships are attack capable
-bool AreAllShipsPassiveAttackCapable(SelectCommand *selection);
+bool32 AreAllShipsPassiveAttackCapable(SelectCommand *selection);
 
 // returns TRUE if any ships are attack capable
-bool AreAnyShipsPassiveAttackCapable(SelectCommand *selection);
+bool32 AreAnyShipsPassiveAttackCapable(SelectCommand *selection);
 
 // Returns TRUE if ship is attack capable
-bool isShipPassiveAttackCapable(Ship *ship);
+bool32 isShipPassiveAttackCapable(Ship *ship);
 
 // Makes sure that ships are guard capable
 void MakeShipsGuardCapable(SelectCommand *selection);
@@ -250,11 +250,11 @@ void MakeShipsGuardCapable(SelectCommand *selection);
 void MakeShipsSpecialActivateCapable(SelectCommand *selection);
 
 // Makes sure the ships have special targeting capability
-void MakeShipsSpecialTargetCapable(SelectCommand *selection, bool bFriendlies);
+void MakeShipsSpecialTargetCapable(SelectCommand *selection, bool32 bFriendlies);
 
 // Makes sure that ships are mobile
 void MakeShipsMobile(SelectCommand *selection);
-bool AreShipsMobile(SelectCommand *selection);
+bool32 AreShipsMobile(SelectCommand *selection);
 
 // Makes sure ships aren't capital ships
 void MakeShipsNonCapital(SelectCommand *selection);
@@ -289,7 +289,7 @@ void makeShipsFormationCapable(SelectCommand *selection);
 void makeShipsNotIncludeSinglePlayerMotherships(SelectCommand *selection);
 
 //Removes non Kamikazeable ships
-bool MakeSelectionKamikazeCapable(SelectCommand *selection);
+bool32 MakeSelectionKamikazeCapable(SelectCommand *selection);
 
 //remove any ships not allowed to hyperspace
 void makeSelectionHyperspaceCapable(SelectCommand *selection);

@@ -15,7 +15,7 @@
 AITeam *aiaSendRecon(SelectCommand *ships);
 void aiaAttackManager(void);
 void aiaProcessSpecialTeams(void);
-bool aiaShipDied(AIPlayer *aiplayer, ShipPtr ship);
+bool32 aiaShipDied(AIPlayer *aiplayer, ShipPtr ship);
 void aiaTeamDied(AIPlayer *aiplayer, AITeam *team);
 
 void aiaP2AttackManager(void);

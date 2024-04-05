@@ -14,7 +14,7 @@
 #include "Universe.h"
 #include "Volume.h"
 
-bool ShipAlreadyHyperspaceOut(Ship *ship);      // don't include singleplayer.h, just this
+bool32 ShipAlreadyHyperspaceOut(Ship *ship);      // don't include singleplayer.h, just this
 
 /*=============================================================================
     Macros:
@@ -94,7 +94,7 @@ bool ShipAlreadyHyperspaceOut(Ship *ship);      // don't include singleplayer.h,
 typedef struct Path
 {
     udword numPoints;
-    bool   closed;
+    bool32   closed;
     vector point[1];
 } Path;
 
@@ -121,7 +121,7 @@ real32 aiuFindDistanceSquared(vector point1, vector point2);
 vector aiuFindRangeStandoffPoint(vector destination, vector location, real32 range);
 
 //creates a path struct with every point at (-REALlyBig, -REALlyBig, -REALlyBig)
-Path *aiuCreatePathStruct(udword numPoints, bool closed);
+Path *aiuCreatePathStruct(udword numPoints, bool32 closed);
 
 // allocates memory for and returns a new path (a perfect copy of the existing path)
 Path *aiuPathDupe(Path *existing);
@@ -129,7 +129,7 @@ Path *aiuPathDupe(Path *existing);
 //adds a point to a path
 void aiuAddPointToPath(vector point, udword pointnum, Path *path);
 
-Path *aiuGenerateCircularPath(udword num_points, vector center, real32 radius, bool closed);
+Path *aiuGenerateCircularPath(udword num_points, vector center, real32 radius, bool32 closed);
 
 /*-----------------------------------------------------------------------------
     General Utility Functions:
@@ -142,40 +142,40 @@ void aiuMoveShipSelection(MaxSelection *dest, MaxSelection *source, udword num);
 struct AITeam;
 
 //rescues (reinforces) a certain ship
-bool aiuRescueShip(ShipPtr ship, struct AITeam *team);
+bool32 aiuRescueShip(ShipPtr ship, struct AITeam *team);
 
 //rescues (reinforces) a certain shiptype within the selection
 ShipPtr aiuRescueShipType(SelectCommand *selection, struct AITeam *team, ShipType type);
 
 //takes out a specific ship
-bool aiuTakeoutShip(ShipPtr ship, struct AITeam *team);
+bool32 aiuTakeoutShip(ShipPtr ship, struct AITeam *team);
 
 //takes out a shiptype within a selection
 ShipPtr aiuTakeoutShipType(SelectCommand *selection, struct AITeam *team, ShipType type);
 
 //finds out if the ships are no longer attacking
-bool aiuShipsNoLongerAttacking(SelectCommand *selection);
+bool32 aiuShipsNoLongerAttacking(SelectCommand *selection);
 
 //finds out if the ship is an enemy mothership
-bool aiuShipIsAnEnemyMothership(Ship *ship);
+bool32 aiuShipIsAnEnemyMothership(Ship *ship);
 
 //finds out if a ship is not an enemy mothership
-bool aiuShipIsntAnEnemyMothership(Ship *ship);
+bool32 aiuShipIsntAnEnemyMothership(Ship *ship);
 
 //finds out if any of the selection of ships is a capital ship
-bool aiuAnyShipsAreCapitalShips(SelectCommand *ships);
+bool32 aiuAnyShipsAreCapitalShips(SelectCommand *ships);
 
 //finds out if the ship is a fighter
-bool aiuShipIsFighter(Ship *ship);
+bool32 aiuShipIsFighter(Ship *ship);
 
 //finds out if the ship are not good against fighters
-bool aiuShipNotGoodAgainstFighters(Ship *ship);
+bool32 aiuShipNotGoodAgainstFighters(Ship *ship);
 
 //function name pretty self explanatory
-bool aiuSelectionNotGoodAtKillingTheseTargets(SelectCommand *selection, SelectCommand *targets, real32 strengthratio);
+bool32 aiuSelectionNotGoodAtKillingTheseTargets(SelectCommand *selection, SelectCommand *targets, real32 strengthratio);
 
 //finds out if any of the selection of ships is hidden
-bool aiuShipsAreHidden(SelectCommand *selection);
+bool32 aiuShipsAreHidden(SelectCommand *selection);
 
 //filters out any ship that is disabled
 udword aiuFilterDisabledShips(SelectCommand *selection, MaxSelection *filtered);
@@ -184,13 +184,13 @@ udword aiuFilterDisabledShips(SelectCommand *selection, MaxSelection *filtered);
 udword aiuFilterSelectableShips(SelectCommand *selection, MaxSelection *filtered);
 
 //tells whether any of the selection of ships isn't targetable
-bool aiuShipsArentTargetable(SelectCommand *selection);
+bool32 aiuShipsArentTargetable(SelectCommand *selection);
 
 //returns TRUE if ship is a dangerous ship
-bool aiuIsShipDangerous(Ship *ship);
+bool32 aiuIsShipDangerous(Ship *ship);
 
 //returns TRUE if the ship is a primary enemy
-bool aiuIsShipPrimaryEnemy(Ship *ship);
+bool32 aiuIsShipPrimaryEnemy(Ship *ship);
 
 void aiuRateShip(udword *strength, udword *value, ShipPtr ship);
 
@@ -213,7 +213,7 @@ void aiuMakeShipsOnlyDangerousToMothership(SelectCommand *enemyships);
 vector aiuFindEnemyMothershipCoords(Player *player);
 
 //returns TRUE if ships are less than dist away from the current players' enemy mothership
-bool aiuShipsCloseToEnemyMothership(Player *player, SelectCommand *ships, real32 dist);
+bool32 aiuShipsCloseToEnemyMothership(Player *player, SelectCommand *ships, real32 dist);
 
 //finds the safest point a given distance away from the center of the
 //selected ships
@@ -238,7 +238,7 @@ SelectCommand *aiuFindResourceCollectors(void);
 vector aiuFindResourceControllerDestination(void);
 
 //makes sure no other mothership is moving towards or near this destination
-bool aiuDestinationNotNearOtherMothership(vector destination, real32 radiussq);
+bool32 aiuDestinationNotNearOtherMothership(vector destination, real32 radiussq);
 
 //finds the slowest ship in the selection
 real32 aiuFindSlowestShipMaxSpeed(SelectCommand *ships);
@@ -281,10 +281,10 @@ SelectCommand *aiuFindCaptureTarget(SelectCommand *capturingShips);
 SelectCommand *aiuFindSwarmerTarget(struct AITeam *team);
 
 //finds targets for the P2 swarmers
-SelectCommand *aiuFindSwarmTargets(SelectCommand *teamShips, udword numTargets, bool harass);
+SelectCommand *aiuFindSwarmTargets(SelectCommand *teamShips, udword numTargets, bool32 harass);
 
 //finds out if a point is within the sphere of influence
-bool aiuPointWithinSphereOfInfluence(vector point);
+bool32 aiuPointWithinSphereOfInfluence(vector point);
 
 //finds one ship in a group of ships within the computer player's sphere of influence
 SelectCommand *aiuFindLeadShipInSphereOfInfluence(vector centre, real32 radiussq);
@@ -299,7 +299,7 @@ vector aiuFindStandoffOfNextNearestEnemyBlobIn(ShipPtr source, ShipPtr holder);
 ResourceSelection *aiuFindResourcesInVolume(Volume volume);
 
 //returns true if resourcer is busy
-bool aiuShipIsResourcingOrSomething(ShipPtr ship);
+bool32 aiuShipIsResourcingOrSomething(ShipPtr ship);
 
 //returns the best resource for the ship to harvest
 Resource *aiuFindBestResource(Resource **biggetsResource, ShipPtr ship, ResourceSelection *resources);
@@ -308,20 +308,20 @@ Resource *aiuFindBestResource(Resource **biggetsResource, ShipPtr ship, Resource
 real32 aiuRateBlobForResourcing(blob *thisBlob);
 
 //finds the best blob to collect resources
-bool aiuFindBestResourceBlob(vector *destination);
+bool32 aiuFindBestResourceBlob(vector *destination);
 
 //finds the nearest resource blob
 blob *aiuFindNearestResourceBlob(SelectCommand *ships);
 
 //find the aiblob the ship is in
 //returns NULL if the ships are not in the same blob if retentive == TRUE
-struct aiblob *aiuFindShipsAIBlob(SelectCommand *ships, bool retentive);
+struct aiblob *aiuFindShipsAIBlob(SelectCommand *ships, bool32 retentive);
 
 //same as above, but for one ship (doesn't return NULL)
 struct aiblob *aiuFindShipAIBlob(ShipPtr ship);
 
 //returns TRUE if the enemy ship is visible
-bool aiuEnemyShipIsVisible(ShipPtr ship);
+bool32 aiuEnemyShipIsVisible(ShipPtr ship);
 
 //returns the smallest gun range distance among the armed ships in "ships"
 //    Note: This function scales the minimum gun ranges to work better
@@ -329,7 +329,7 @@ bool aiuEnemyShipIsVisible(ShipPtr ship);
 real32 aiuFindMinimumGunRangeSquared(SelectCommand *ships);
 
 //returns TRUE if the ships in selection 1 are in gun range of their attack targets
-bool aiuShipsInGunRangeOfTargets(SelectCommand *selection1);
+bool32 aiuShipsInGunRangeOfTargets(SelectCommand *selection1);
 
 //returns the number of ships an aiplayer can build according to unit caps
 udword aiuUnitCapCanBuildShip(struct AIPlayer *aiplayer, ShipType shiptype, sdword numShips);
@@ -337,7 +337,7 @@ udword aiuUnitCapCanBuildShip(struct AIPlayer *aiplayer, ShipType shiptype, sdwo
 /*-----------------------------------------------------------------------------
     Armada Functions:
 -----------------------------------------------------------------------------*/
-bool aiuFindArmadaTarget(vector *dest, SelectCommand **sel_target, SelectCommand *team_ships);
+bool32 aiuFindArmadaTarget(vector *dest, SelectCommand **sel_target, SelectCommand *team_ships);
 
 /*-----------------------------------------------------------------------------
     Wrap Functions:
@@ -351,20 +351,20 @@ void aiuSplitAttack(SelectCommand *attackers, SelectCommand *targets);
 //special swarm dock command
 void aiuSwarmDock(SelectCommand *ships, SelectCommand *Pods);
 
-bool aiuWrapAttack(SelectCommand *attackers, SelectCommand *targets);
-bool aiuWrapMove(SelectCommand *ships, vector destination);
-bool aiuWrapDock(SelectCommand *ships, DockType docktype, ShipPtr dockwith);
-bool aiuWrapFormation(SelectCommand *ships, TypeOfFormation formation);
-bool aiuWrapProtect(SelectCommand *ships, SelectCommand *shipstoguard);
-bool aiuWrapSpecial(SelectCommand *ships, SelectCommand *targets);
-bool aiuWrapCollectResource(SelectCommand *ships, ResourcePtr resource);
-bool aiuWrapSetTactics(SelectCommand *ships, TacticsType tactics);
-bool aiuWrapHalt(SelectCommand *ships);
-bool aiuWrapScuttle(SelectCommand *ships);
-bool aiuWrapSetKamikaze(SelectCommand *ships);
+bool32 aiuWrapAttack(SelectCommand *attackers, SelectCommand *targets);
+bool32 aiuWrapMove(SelectCommand *ships, vector destination);
+bool32 aiuWrapDock(SelectCommand *ships, DockType docktype, ShipPtr dockwith);
+bool32 aiuWrapFormation(SelectCommand *ships, TypeOfFormation formation);
+bool32 aiuWrapProtect(SelectCommand *ships, SelectCommand *shipstoguard);
+bool32 aiuWrapSpecial(SelectCommand *ships, SelectCommand *targets);
+bool32 aiuWrapCollectResource(SelectCommand *ships, ResourcePtr resource);
+bool32 aiuWrapSetTactics(SelectCommand *ships, TacticsType tactics);
+bool32 aiuWrapHalt(SelectCommand *ships);
+bool32 aiuWrapScuttle(SelectCommand *ships);
+bool32 aiuWrapSetKamikaze(SelectCommand *ships);
 
 // like aiuWrapFormation, except doesn't filter out hidden ships
-bool aiuKasWrapFormation(SelectCommand *ships, TypeOfFormation formation);
+bool32 aiuKasWrapFormation(SelectCommand *ships, TypeOfFormation formation);
 
 //gets the collision blob of the selection of ships
 blob *aiuWrapGetCollBlob(SelectCommand *ships);
@@ -376,14 +376,14 @@ blob *aiuWrapGetCollBlob(SelectCommand *ships);
 void aiuChangePrimaryEnemy(struct AIPlayer *aiplayer);
 
 //finds cloak capable ships in the gathered enemy statistics
-bool aiuFindCloakersInEnemyShipsIAmAwareOf(bool Red_Alert);
+bool32 aiuFindCloakersInEnemyShipsIAmAwareOf(bool32 Red_Alert);
 
 
 /*-----------------------------------------------------------------------------
     Blob Utility Functions:
 -----------------------------------------------------------------------------*/
 //returns the number of enemy blobs
-udword aiuGetNumEnemyBlobs();
+udword aiuGetNumEnemyBlobs(void);
 
 //fills the EnemyShipsIAmAwareOf arrays in the aiplayer struct
 void aiuUpdateKnowledgeOfEnemyShips(struct AIPlayer *aiplayer);
@@ -396,9 +396,9 @@ void aiuCreateBlobArrays(Player *player);
 void aiuDeleteBlobArrays(void);
 
 // Returns TRUE if current AI player can build ships of shiptype
-bool aiuCanBuildShipType(ShipType shiptype,bool scriptteam);
+bool32 aiuCanBuildShipType(ShipType shiptype,bool32 scriptteam);
 
 // Returns TRUE if current AI player already has num ships of shiptype
-bool aiuAlreadyHasShipType(ShipType shiptype, udword num);
+bool32 aiuAlreadyHasShipType(ShipType shiptype, udword num);
 
 #endif

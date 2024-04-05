@@ -35,7 +35,7 @@ typedef struct
 	real32	timeLastStatus;
 
 	sdword	burstHandle;
-	bool	burstfiring;
+	bool32	burstfiring;
 
 	sdword	gunHandle;
 	void	*gun;

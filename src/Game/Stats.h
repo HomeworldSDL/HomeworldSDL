@@ -50,7 +50,7 @@ extern FightStats FightStatsTable[NUM_SHIPS_TO_GATHER_STATS_FOR][NUM_SHIPS_TO_GA
 extern FightStatsSum FightStatsColumnSum[NUM_SHIPS_TO_GATHER_STATS_FOR];
 extern FightStatsSum FightStatsRowSum[NUM_SHIPS_TO_GATHER_STATS_FOR];
 
-extern bool ShowFancyFights;
+extern bool32 ShowFancyFights;
 
 /*=============================================================================
     Functions:
@@ -70,14 +70,14 @@ real32 statsGetShipKillRatingAgainstShip(ShipStaticInfo *thisShip,ShipStaticInfo
 real32 statsGetOverallRURating(ShipStaticInfo *shipstatic);
 real32 statsGetOverallKillRating(ShipStaticInfo *shipstatic);
 
-typedef bool (*statShipConstraintsCB)(ShipStaticInfo *shipstatic);
-//typedef bool (*ShipConstraintsCB)(Ship *ship);
-bool ShipConstraintsNoneCB(Ship *ship);
-bool statShipConstraintsNoneCB(ShipStaticInfo *shipstatic);
-bool statShipConstraintsFrigatesOrWorseCB(ShipStaticInfo *shipstatic);
-bool statShipConstraintsFrigatesOrBetterCB(ShipStaticInfo *shipstatic);
-bool statShipConstraintsFightingShipsCB(ShipStaticInfo *shipstatic);
-bool statShipConstraintsCarrierFightingShipsCB(ShipStaticInfo *shipstatic);
+typedef bool32 (*statShipConstraintsCB)(ShipStaticInfo *shipstatic);
+//typedef bool32 (*ShipConstraintsCB)(Ship *ship);
+bool32 ShipConstraintsNoneCB(Ship *ship);
+bool32 statShipConstraintsNoneCB(ShipStaticInfo *shipstatic);
+bool32 statShipConstraintsFrigatesOrWorseCB(ShipStaticInfo *shipstatic);
+bool32 statShipConstraintsFrigatesOrBetterCB(ShipStaticInfo *shipstatic);
+bool32 statShipConstraintsFightingShipsCB(ShipStaticInfo *shipstatic);
+bool32 statShipConstraintsCarrierFightingShipsCB(ShipStaticInfo *shipstatic);
 
 real32 statsGetKillRatingAgainstFleet(ShipStaticInfo *shipstatic,SelectCommand *fleet);
 real32 statsGetRURatingAgainstFleet(ShipStaticInfo *shipstatic,SelectCommand *fleet);
@@ -103,8 +103,8 @@ real32 statsGetRelativeFleetStrengths(SelectCommand *fleet1,SelectCommand *fleet
 // strength of ship against fleet strength, e.g. targetstatic strength / fleet1 strength
 real32 statsGetRelativeFleetStrengthAgainstShip(SelectCommand *fleet1,ShipStaticInfo *targetstatic);
 
-SelectCommand *statsBestShipsToUseToKillTarget(SelectCommand *freeships,ShipStaticInfo *targetstatic,bool *goodEnough);
-SelectCommand *statsBestShipsToUseToKillFleet(SelectCommand *freeships,SelectCommand *targetFleet,bool *goodEnough);
+SelectCommand *statsBestShipsToUseToKillTarget(SelectCommand *freeships,ShipStaticInfo *targetstatic,bool32 *goodEnough);
+SelectCommand *statsBestShipsToUseToKillFleet(SelectCommand *freeships,SelectCommand *targetFleet,bool32 *goodEnough);
 
 // returns a selection of ships which are efficient for killer to kill
 // efficiencyFactor should be < 1, and the lower it is, the more ships killer will think it can take out

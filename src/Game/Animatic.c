@@ -28,7 +28,7 @@ static sdword g_frame;
 
 #ifdef HW_ENABLE_MOVIES
 static sdword g_displayFrame;
-static bool   g_cleared;
+static bool32   g_cleared;
 #endif
 
 typedef struct
@@ -93,7 +93,7 @@ extern HDC hGLDeviceContext;
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void animBinkSetup(bool on)
+void animBinkSetup(bool32 on)
 {
     static GLint matrixMode;
     static GLfloat projection[16];
@@ -285,7 +285,7 @@ void animBinkEnd(void)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void animAviSetup(bool on)
+void animAviSetup(bool32 on)
 {
     static GLint matrixMode;
     static GLfloat projection[16];
@@ -389,7 +389,7 @@ void animAviEnd(void)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void animSubtitlesSetup(bool on)
+void animSubtitlesSetup(bool32 on)
 {
     static GLint matrixMode;
     static GLfloat projection[16];
@@ -486,7 +486,7 @@ void animSubtitlesDraw(void)
 ----------------------------------------------------------------------------*/
 //#ifdef _WIN32
 //void animAviDisplay(binkDisplayCallback_proc callback)
-void animAviDisplay()
+void animAviDisplay(void)
 {
     //sdword xOfs, yOfs;
     int xOfs, yOfs;
@@ -685,10 +685,10 @@ void animShutdown(void)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool animBinkPlay(sdword a, sdword b)
+bool32 animBinkPlay(sdword a, sdword b)
 {
 #if 0 /* One more time...BINK!@#1 */
-    bool rval;
+    bool32 rval;
     char filename[1024], scriptname[1024];
     void animBinkEnd(void);
     extern sdword trLitPaletteBits;
@@ -766,13 +766,13 @@ bool animBinkPlay(sdword a, sdword b)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool animAviPlay(sdword a, sdword b)
+bool32 animAviPlay(sdword a, sdword b)
 {
 #if AVI_VERBOSE_LEVEL >= 2
     dbgMessage("animAviPlay: Entering");
 #endif
 
-    bool rval = TRUE;
+    bool32 rval = TRUE;
 
 #ifdef HW_ENABLE_MOVIES
 

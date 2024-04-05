@@ -60,7 +60,7 @@ void soundEventClose(void);				/* Shuts down the mixer and frees resources, any 
 void soundEventReset(void);				/* Shuts down the mixer but does not free resources, soundevent calls will continue to work */
 void soundEventUpdate(void);			/* Update function that does panning, volume, etc for objects in the universe */
 void soundEventInitStruct(SOUNDEVENT *pseStruct);	/* initializes a SOUNDEVENT structure for use, all ships have a SOUNDEVENT structure */
-void soundEventPause(bool bPause);		/* Shuts down or restore the mixer */
+void soundEventPause(bool32 bPause);		/* Shuts down or restore the mixer */
 void soundEventReloadVolumes(void);
 void soundEventShutdown(void);
 void soundEventRestart(void);
@@ -94,7 +94,7 @@ void speechEventUpdate(void);			/* Update function so that speech continues to s
 //#define speechEvent(a,b,c)				speechEventPlay(a, b, c, SOUND_NOTINITED, SOUND_NOTINITED)
 //#define speechEventVar(a, b, c, d)		speechEventPlay(a, b, c, SOUND_NOTINITED, d)
 
-bool speechEventAttack(void);
+bool32 speechEventAttack(void);
 void speechEventUnderAttack(Ship *target);
 
 sdword speechEventQueue(void *object, sdword event, sdword var, sdword variation, sdword actornum, sdword playernum, sdword linkto, real32 timeout, sword volume);
@@ -106,7 +106,7 @@ sdword speechEventQueue(void *object, sdword event, sdword var, sdword variation
 #define speechEventVar(a, b, c, d)	speechEventQueue(a, b, c, d, -1, -1, -1, 0.0f, -1)
 
 sdword speechEventRemoveShip(Ship *pShip);
-sdword speechEventStop(sdword handle, real32 fadetime, bool addstatic);
+sdword speechEventStop(sdword handle, real32 fadetime, bool32 addstatic);
 sdword speechEventStopAllSpecific(real32 fadetime, sdword speechType);
 #define speechEventStopAll(ft)		speechEventStopAllSpecific(ft, SPEECH_TYPE_SINGLE_PLAYER)
 sdword speechEventActorStop(udword actorMask, real32 fadetime);
@@ -138,10 +138,10 @@ void soundEventMusicMasterVol(real32);
 void soundEventMusicVolNOW(real32 level);
 void soundEventMusicMasterVolNOW(real32 level);
 void soundEventMasterEQ(real32 *pmasterEQ);
-void soundEventSetActor(sdword actornum, bool bOn);
-void soundEventVocalSettings(bool bCommands, bool bStatus, bool bChatter);
+void soundEventSetActor(sdword actornum, bool32 bOn);
+void soundEventVocalSettings(bool32 bCommands, bool32 bStatus, bool32 bChatter);
 void soundEventGetVolume(real32 *sfxvol, real32 *speechvol, real32 *musicvol);
 void soundEventHearActor(sdword actornum);
-void soundEventSetActorFlag(sdword actorflag, bool bOn);
+void soundEventSetActorFlag(sdword actorflag, bool32 bOn);
 
 #endif

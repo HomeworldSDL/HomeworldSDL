@@ -138,7 +138,7 @@ typedef struct uicbutton
     color contentColor, borderColor;            //colors of button
     fescreen *screen;                           //optional front-end atom pointer
     sdword clickX, clickY;                      //where the mouse was clicked to start dragging (only for drag buttons)
-    bool bDragged;                              //was this button ever dragged?
+    bool32 bDragged;                              //was this button ever dragged?
 }
 uicbutton;
 
@@ -153,7 +153,7 @@ typedef struct uicslider
     color contentColor, borderColor;            //colors of button
     fescreen *screen;                           //optional front-end atom pointer
     sdword clickX, clickY;                      //where the mouse was clicked to start dragging (only for drag buttons)
-    bool bDragged;                              //was this button ever dragged?
+    bool32 bDragged;                              //was this button ever dragged?
     udword value;                               //current value of slider
     udword maxvalue;                            //max value of slider
     sdword ID;                                  //for a bunch of of sliders
@@ -242,7 +242,7 @@ typedef struct uiclistwindow
     listtitlebardraw    titledraw;              // function called when the title bar needs to be drawn
                                                 // data for the list items callbacks etc.
     sdword              sorttype;               // info for sorting the list, useful if the list can be sorted in multiple ways.
-    bool                sortOrder;
+    bool32                sortOrder;
     sdword              itemheight;             // height of each items in pixels, the max number of items on screen at once is calculated dynamically
     LinkedList          listofitems;            // linked list of items in the list
     listitemdraw        itemdraw;               // function called to draw each item, if 10 items onscreen, it is called 10 times.
@@ -325,8 +325,8 @@ udword uicEndProcess(struct tagRegion *reg, sdword num_buttons, udword event, ud
 //utility functions for front end navigation
 regionhandle uicFindFlag(regionhandle find, udword flag, uword type);
 regionhandle uicFindTabstop(regionhandle find);
-void uicSetCurrent(regionhandle reg, bool bUserInput);
-bool uicClearCurrent(regionhandle reg);
+void uicSetCurrent(regionhandle reg, bool32 bUserInput);
+bool32 uicClearCurrent(regionhandle reg);
 
 
 //adjust attributes of the basic control
@@ -335,7 +335,7 @@ void uicTextEntrySet(textentryhandle entry, char *text, sdword cursorPos);
 void uicTextEntryGet(textentryhandle entry, char *dest, sdword maxLength);
 void uicTextBufferResize(textentryhandle entry, sdword size);
 void uicTextEntryCleanUp(textentryhandle entry);
-bool uicBackspaceCharacter(textentryhandle entry);
+bool32 uicBackspaceCharacter(textentryhandle entry);
 
 // adjust attributes and manage the list window control
 void uicListWindowInit(listwindowhandle     listwindow,

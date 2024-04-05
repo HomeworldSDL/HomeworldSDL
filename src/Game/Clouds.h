@@ -121,8 +121,8 @@ lightning* cloudNewLightning(void* system, real32 radius);
 
 //------------ lightning
 
-lhandle cloudGetFreshLightningHandle();
-lightning* cloudGetFreshLightning();
+lhandle cloudGetFreshLightningHandle(void);
+lightning* cloudGetFreshLightning(void);
 void cloudInitLightning(lightning* l);
 void cloudInitLightningHandle(lhandle handle);
 lightning* cloudLightningFromHandle(lhandle handle);

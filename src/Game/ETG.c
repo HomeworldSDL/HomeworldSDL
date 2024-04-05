@@ -67,8 +67,8 @@ sdword etgEventLoadCount = 0;
 //sdword etgEventIndex = 0;
 
 //data for error recovery during ETG parsing
-bool etgErrorRecoverable = FALSE;
-bool etgErrorEncountered = FALSE;
+bool32 etgErrorRecoverable = FALSE;
+bool32 etgErrorEncountered = FALSE;
 #define PARSEERROR      (etgErrorRecoverable && etgErrorEncountered)
 
 /*-----------------------------------------------------------------------------
@@ -367,7 +367,7 @@ void etgEffOffsetSpin(real32 newVal);
 void etgEffOffsetTime(real32 newVal);
 void etgEffOffsetDrag(Effect *effect, real32 newVal);
 void etgEffDrag(real32 newDrag);
-void etgEffAttachParent(bool attach);
+void etgEffAttachParent(bool32 attach);
 void etgEffSpin(real32 spin);
 void etgEffDeltaSpin(real32 deltaSpin);
 void etgEffDefaults(void);
@@ -806,7 +806,7 @@ struct
     real32 offsetSpin;
     real32 offsetTime;
     real32 drag;
-    bool   attachParent;
+    bool32   attachParent;
     real32 spin;
     real32 deltaSpin;
 }
@@ -851,10 +851,10 @@ real32 etgSoftwareScalarHit = ETG_SoftwareScalarHit;//scale down hits, deflectio
 real32 etgSoftwareScalarFire = ETG_SoftwareScalarFire;//scale down muzzle flash effects
 sdword etgHistoryScalar = 256;                  //scale down the number of effects at the user's command
 sdword etgHistoryScalarMin = ETG_HistoryScalarMin;//minimum frequency scale-down
-bool   etgDamageEffectsEnabled = TRUE;          //damage effects on
-bool   etgHitEffectsEnabled = TRUE;             //hit effects on
-bool   etgFireEffectsEnabled = TRUE;            //muzzle flash effects on
-bool   etgBulletEffectsEnabled = TRUE;          //bullet effects on
+bool32   etgDamageEffectsEnabled = TRUE;          //damage effects on
+bool32   etgHitEffectsEnabled = TRUE;             //hit effects on
+bool32   etgFireEffectsEnabled = TRUE;            //muzzle flash effects on
+bool32   etgBulletEffectsEnabled = TRUE;          //bullet effects on
 
 /*=============================================================================
     Functions:
@@ -1484,7 +1484,7 @@ udword etgEffectTest(regionhandle reg, sdword ID, udword event, udword data)
     Outputs     :
     Return      : TRUE if we've profiled enough already
 ----------------------------------------------------------------------------*/
-bool etgEffectProfileBaby(udword ID, void *data, struct BabyCallBack *baby)
+bool32 etgEffectProfileBaby(udword ID, void *data, struct BabyCallBack *baby)
 {
     if (etgTestKey[ID].iTime <= 0)
     {
@@ -1941,7 +1941,7 @@ typedef struct
     //udword etgCodeOffset;
     //udword etgCodeLength;
     ubyte *etgVariables;
-    bool etgDeleteFlag;
+    bool32 etgDeleteFlag;
 }
 etgeffectstack;
 etgeffectstack etgExecStack;//[ETG_ExecStackDepth];
@@ -2087,7 +2087,7 @@ void etgEffectDelete(Effect *effect)
                     the effect static structure itself.
     Return      : void
 ----------------------------------------------------------------------------*/
-void etgEffectCodeDelete(etgeffectstatic *stat, bool bFullDelete)
+void etgEffectCodeDelete(etgeffectstatic *stat, bool32 bFullDelete)
 {
     if (bFullDelete)
     {
@@ -2161,7 +2161,7 @@ void etgEffectCodeDelete(etgeffectstatic *stat, bool bFullDelete)
 ----------------------------------------------------------------------------*/
 real32 etgTimeElapsed;
 real32 etgTotalTimeElapsed;
-bool etgEffectUpdate(Effect *effect, real32 timeElapsed)
+bool32 etgEffectUpdate(Effect *effect, real32 timeElapsed)
 {
     etgeffectstatic *stat = (etgeffectstatic *)effect->staticinfo;
     matrix tempMatrix, rotMatrix;
@@ -2593,7 +2593,7 @@ char *etgParametersIsolate(char *string, sdword offset)
                     with a given name to be loaded in later.
     Return      : pointer to effect, or NULL if not already registered
 ----------------------------------------------------------------------------*/
-etgeffectstatic *etgEffectStaticFind(char *name, bool bRegister)
+etgeffectstatic *etgEffectStaticFind(char *name, bool32 bRegister)
 {
     sdword index;
     etgeffectstatic *newStatic;
@@ -2666,13 +2666,13 @@ etgeffectstatic *etgEffectStaticFind(char *name, bool bRegister)
                     it in length.
     Return      : TRUE if a processor function found
 ----------------------------------------------------------------------------*/
-bool etgOpcodeScan(struct etgeffectstatic *stat, char *string, ubyte *dest, sdword *destLength)
+bool32 etgOpcodeScan(struct etgeffectstatic *stat, char *string, ubyte *dest, sdword *destLength)
 {
     sdword index;
     sdword strLength;
     char *start, *params;
     char returnValue[STRING_LENGTH];
-    bool bReturnValue;
+    bool32 bReturnValue;
 
     //find return value name, if any
     if ((start = strstr(string, "<-")) != NULL)             //if found an assignment sign
@@ -2748,7 +2748,7 @@ bool etgOpcodeScan(struct etgeffectstatic *stat, char *string, ubyte *dest, sdwo
     Outputs     :
     Return      : TRUE if a number, false otherwise
 ----------------------------------------------------------------------------*/
-bool etgIsNumber(char *number)
+bool32 etgIsNumber(char *number)
 {
     while (*number)
     {
@@ -2821,7 +2821,7 @@ color etgColorScan(char *string)
     Outputs     : Creates an opcode if one found and stores the length in *destLength
     Return      : TRUE if a scanned properly, FALSE if found
 ----------------------------------------------------------------------------*/
-bool etgVarCopyScan(struct etgeffectstatic *stat, char *string, ubyte *dest, sdword *destLength)
+bool32 etgVarCopyScan(struct etgeffectstatic *stat, char *string, ubyte *dest, sdword *destLength)
 {
     char *rValue, *lValue, *parser;
     etgvariablecopy *opcode = (etgvariablecopy *)dest;
@@ -2932,14 +2932,14 @@ bool etgVarCopyScan(struct etgeffectstatic *stat, char *string, ubyte *dest, sdw
     Outputs     : Creates an opcode if one found and stores the length in *destLength
     Return      : TRUE if a function found, FALSE if not found
 ----------------------------------------------------------------------------*/
-bool etgFunctionCallScan(struct etgeffectstatic *stat, char *string, ubyte *dest, sdword *destLength)
+bool32 etgFunctionCallScan(struct etgeffectstatic *stat, char *string, ubyte *dest, sdword *destLength)
 {
     sdword index, varIndex;
     sdword strLength, nScanned;
     udword constant, offset;
     char *start, *params, *param, *parser;
     char returnValue[STRING_LENGTH];
-    bool bReturnValue;
+    bool32 bReturnValue;
     etgfunctioncall *opcode = (etgfunctioncall *)dest;
     etgvarentry *variable;
 
@@ -2969,7 +2969,7 @@ bool etgFunctionCallScan(struct etgeffectstatic *stat, char *string, ubyte *dest
         {
             opcode->opcode = EOP_Function;
             opcode->function = etgFunctionTable[index].function;
-            opcode->passThis = (bool)etgFunctionTable[index].passThis;
+            opcode->passThis = (bool32)etgFunctionTable[index].passThis;
             opcode->returnValue = MINUS1;
             opcode->nParameters = 0;
             //isolate and set the parameter template
@@ -3220,7 +3220,7 @@ void etgNestPop(sdword newOffset)
     Outputs     : fills in the next entry in the variable name table
     Return      : length of name table
 ----------------------------------------------------------------------------*/
-sdword etgNewVariableCreate(char *name, etgeffectstatic *stat, sdword type, bool bInitial, memsize initial, sdword size)
+sdword etgNewVariableCreate(char *name, etgeffectstatic *stat, sdword type, bool32 bInitial, memsize initial, sdword size)
 {
 #if ETG_ERROR_CHECKING
     sdword index;
@@ -3771,7 +3771,7 @@ sdword etgForceVisibleSet(struct etgeffectstatic *stat, ubyte *dest, char *opcod
     Return      : pointer to assignment value (35 in above example), or NULL
                     if no initial value.
 ----------------------------------------------------------------------------*/
-char *etgParseVariable(char *params, bool *bSetInitial)
+char *etgParseVariable(char *params, bool32 *bSetInitial)
 {
     char *start, *end;
     if ((start = end = strchr(params, '=')) == NULL)
@@ -3808,7 +3808,7 @@ sdword etgNewInteger(struct etgeffectstatic *stat, ubyte *dest, char *opcode, ch
 {
     memsize initial;
     sdword nScanned;
-    bool bSetInitial;
+    bool32 bSetInitial;
     char *start;
 
     if (etgParseMode == EPM_Constant)
@@ -3866,7 +3866,7 @@ sdword etgNewInteger(struct etgeffectstatic *stat, ubyte *dest, char *opcode, ch
 sdword etgNewRGB(struct etgeffectstatic *stat, ubyte *dest, char *opcode, char *params, char *ret)
 {
     udword initial;
-    bool bSetInitial;
+    bool32 bSetInitial;
     char *start;
 
 #if ETG_ERROR_CHECKING
@@ -3889,7 +3889,7 @@ sdword etgNewRGB(struct etgeffectstatic *stat, ubyte *dest, char *opcode, char *
 sdword etgNewRGBA(struct etgeffectstatic *stat, ubyte *dest, char *opcode, char *params, char *ret)
 {
     udword initial;
-    bool bSetInitial;
+    bool32 bSetInitial;
     char *start;
 
 #if ETG_ERROR_CHECKING
@@ -4226,7 +4226,7 @@ sdword etgNewFloat(struct etgeffectstatic *stat, ubyte *dest, char *opcode, char
 {
     udword initial;
     sdword nScanned;
-    bool bSetInitial;
+    bool32 bSetInitial;
     char *start;
 
     if (etgParseMode == EPM_Constant)
@@ -7577,7 +7577,7 @@ void etgHistoryRegisterFunction(etgeffectstatic *stat)
     Return      : TRUE if the effect should not be played because it's max frequency
                     is exceeded.
 ----------------------------------------------------------------------------*/
-bool etgFrequencyExceeded(etgeffectstatic *stat)
+bool32 etgFrequencyExceeded(etgeffectstatic *stat)
 {
     sdword index, max, count = 0, countThisSecond = 0;
     real32 *historyList;
@@ -7784,7 +7784,7 @@ void etgEffDrag(real32 newDrag)
 {
     etgEffOffset.drag = 1.0f - newDrag;
 }
-void etgEffAttachParent(bool attach)
+void etgEffAttachParent(bool32 attach)
 {
     etgEffOffset.attachParent = attach;
 }

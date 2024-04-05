@@ -471,7 +471,7 @@ sdword aieCheckHealthLow(AITeam *team)
     sdword i;
     real32 maxHealth = 0.0;
     real32 actualHealth = 0.0;
-    bool watchIndividual = team->curMove->events.healthLow.watchIndividual;
+    bool32 watchIndividual = team->curMove->events.healthLow.watchIndividual;
 
     for (i = 0; i < team->shipList.selection->numShips; ++i)
     {
@@ -505,7 +505,7 @@ sdword aieCheckHealthHigh(AITeam *team)
     sdword i;
     real32 maxHealth = 0;
     real32 actualHealth = 0;
-    bool watchIndividual = team->curMove->events.healthHigh.watchIndividual;
+    bool32 watchIndividual = team->curMove->events.healthHigh.watchIndividual;
 
     for (i = 0; i < team->shipList.selection->numShips; ++i)
     {
@@ -571,7 +571,7 @@ sdword aieCheckFuelLow(AITeam *team)
     sdword i;
     real32 maxFuel = 0.0;
     real32 actualFuel = 0.0;
-    bool watchIndividual = team->curMove->events.fuelLow.watchIndividual;
+    bool32 watchIndividual = team->curMove->events.fuelLow.watchIndividual;
 
     for (i = 0; i < team->shipList.selection->numShips; ++i)
     {
@@ -605,7 +605,7 @@ sdword aieCheckFuelHigh(AITeam *team)
     sdword i;
     real32 maxFuel = 0.0;
     real32 actualFuel = 0.0;
-    bool watchIndividual = team->curMove->events.fuelHigh.watchIndividual;
+    bool32 watchIndividual = team->curMove->events.fuelHigh.watchIndividual;
 
     for (i = 0; i < team->shipList.selection->numShips; ++i)
     {

@@ -17,7 +17,7 @@ typedef struct
     sdword CloakOn;
     real32 CloakStatus;
     LinkedList CloakList;
-    bool CloakLowWarning;
+    bool32 CloakLowWarning;
 } CloakGeneratorSpec;
 
 typedef struct

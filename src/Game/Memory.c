@@ -43,7 +43,7 @@ sdword memNumberWalks;
 sdword memNumberAllocs;
 sdword memAllocPool;
 char memStatString[256];
-bool memStatsLogging;
+bool32 memStatsLogging;
 taskhandle memStatsTaskHandle = 0xffffffff;
 memcookiename memStatsCookieNames[MS_NumberCookieNames];
 #endif
@@ -294,7 +294,7 @@ sdword memStartup(void *heapStart, sdword heapSize, memgrowcallback grow)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void memPoolReset(mempool *pool, void *heapStart, sdword heapSize, bool bSmallHeaps)
+void memPoolReset(mempool *pool, void *heapStart, sdword heapSize, bool32 bSmallHeaps)
 {
     ubyte *poolData;
 #if MEM_SMALL_BLOCK_HEAP

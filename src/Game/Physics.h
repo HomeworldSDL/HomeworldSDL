@@ -24,7 +24,7 @@
 void physApplyForceToObj(SpaceObj *obj,real32 force,uword transdir);
 void physApplyRotToObj(SpaceObjRot *obj,real32 torque,uword rotdir);
 void physUpdateObjPosVel(SpaceObj *obj,real32 phystimeelapsed);
-bool physUpdateBulletPosVel(Bullet *bullet,real32 phystimeelapsed);
+bool32 physUpdateBulletPosVel(Bullet *bullet,real32 phystimeelapsed);
 
 void physUpdateObjPosVelShip(Ship *obj,real32 phystimeelapsed);
 void physUpdateObjPosVelDerelicts(Derelict *obj,real32 phystimeelapsed);

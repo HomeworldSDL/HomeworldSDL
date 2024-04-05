@@ -124,7 +124,7 @@ udword formationSortType[NO_FORMATION] =
 //prototypes!
 void formationArrageCrazyOptimum(CommandToDo *formationcommand);
 
-bool isCapitalShipStaticOrBig(ShipStaticInfo *shipstatic)
+bool32 isCapitalShipStaticOrBig(ShipStaticInfo *shipstatic)
 {
     if (isCapitalShipStatic(shipstatic))
     {
@@ -457,7 +457,7 @@ SphereTableEntry *findSphereTableEntry(sdword numShips)
     Return      :
 ----------------------------------------------------------------------------*/
 
-bool sphere_special_proximity_solution(Ship *centreship, SelectCommand *selection)
+bool32 sphere_special_proximity_solution(Ship *centreship, SelectCommand *selection)
 {
    sdword i;
    for(i=1;i<selection->numShips;i++)
@@ -813,7 +813,7 @@ void formationSpecificsSphere(CommandToDo *command)
         }                                                                                                                                                   \
     }
 
-void formationWingmanTrackLeader(struct Ship *ship,struct Ship *leader,bool rotate)
+void formationWingmanTrackLeader(struct Ship *ship,struct Ship *leader,bool32 rotate)
 {
     ShipStaticInfo *shipstatic = (ShipStaticInfo *)ship->staticinfo;
     vector heading;
@@ -861,7 +861,7 @@ void formationWingmanTrackLeader(struct Ship *ship,struct Ship *leader,bool rota
 }
 
 //function to determine if selection contains nothing but proximity sensors
-bool need_Proximity_Sensor_Solution(SelectCommand *selection)
+bool32 need_Proximity_Sensor_Solution(SelectCommand *selection)
 {
    sdword i;
    for(i=0;i<selection->numShips;i++)
@@ -878,7 +878,7 @@ bool need_Proximity_Sensor_Solution(SelectCommand *selection)
 }
 
 //function to determine if selection contains nothing but Target Drones
-bool need_TargetDrone_Solution(SelectCommand *selection)
+bool32 need_TargetDrone_Solution(SelectCommand *selection)
 {
    sdword i;
    for(i=0;i<selection->numShips;i++)
@@ -969,7 +969,7 @@ void setFormationToDo(struct CommandToDo *formationtodo)
     }
 }
 
-void processFormationToDo(struct CommandToDo *formationtodo,bool steadyFormation,bool passiveAttacked)
+void processFormationToDo(struct CommandToDo *formationtodo,bool32 steadyFormation,bool32 passiveAttacked)
 {
     sdword i;
     SelectCommand *selection = formationtodo->selection;
@@ -978,13 +978,13 @@ void processFormationToDo(struct CommandToDo *formationtodo,bool steadyFormation
     matrix *coordsys;
     vector position;
     vector desiredposition;
-    bool dontrotate;
+    bool32 dontrotate;
     Ship *ship;
     ShipStaticInfo *shipstatic;
     vector heading;
     real32 error = 0;
     vector errorvect;
-    bool calcError = (UNIVERSE_WOODPECKER(FORMATION_ERROR_CALCULATE_RATE, FORMATION_ERROR_CALCULATE_FRAME));
+    bool32 calcError = (UNIVERSE_WOODPECKER(FORMATION_ERROR_CALCULATE_RATE, FORMATION_ERROR_CALCULATE_FRAME));
     // write to leader->formationcommand instead of formationtodo - formationtodo might be a fakeCommand from delegateCommand
     CommandToDo *formationtomodify = leader->formationcommand;
 
@@ -1022,7 +1022,7 @@ void processFormationToDo(struct CommandToDo *formationtodo,bool steadyFormation
             {
                 ship = selection->ShipPtr[i];
                 shipstatic = (ShipStaticInfo *)ship->staticinfo;
-                dontrotate = (passiveAttacked & (bool)shipstatic->rotateToRetaliate);
+                dontrotate = (passiveAttacked & (bool32)shipstatic->rotateToRetaliate);
                 ship->shipidle = FALSE;
 
                 matMultiplyMatByVec(&desiredposition,coordsys,&ship->formationOffset);
@@ -1064,7 +1064,7 @@ void processFormationToDo(struct CommandToDo *formationtodo,bool steadyFormation
 
         case SPHERE_FORMATION:
         {
-            bool protectsurround = FALSE;
+            bool32 protectsurround = FALSE;
 
             if (leader->shiptype == Drone)
             {
@@ -1121,7 +1121,7 @@ void processFormationToDo(struct CommandToDo *formationtodo,bool steadyFormation
             {
                 ship = selection->ShipPtr[i];
                 shipstatic = (ShipStaticInfo *)ship->staticinfo;
-                dontrotate = (passiveAttacked & (bool)shipstatic->rotateToRetaliate);
+                dontrotate = (passiveAttacked & (bool32)shipstatic->rotateToRetaliate);
                 if ((i & 7) != 0)
                 {
                     ship->shipidle = FALSE;     // don't see shipidle for every 8th ship, and never set the 0th ship's shipidle
@@ -2007,7 +2007,7 @@ void formationArrageCrazyOptimum(CommandToDo *formationcommand)
     sdword *shipWantsPosition;
     sdword *shipGetsPosition;
     sdword *positionTaken;
-    bool redo = FALSE;
+    bool32 redo = FALSE;
 
     matrix *coordsys;
     //vector center = {0.0f,0.0f,0.0f};
@@ -2768,7 +2768,7 @@ void paradeSetTweakables()
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void processMilitaryParadeToDo(struct CommandToDo *command,bool passiveAttacked)
+void processMilitaryParadeToDo(struct CommandToDo *command,bool32 passiveAttacked)
 {
     MilitaryParadeCommand *militaryParade = command->militaryParade;
     Ship *leader = militaryParade->aroundShip;
@@ -2784,9 +2784,9 @@ void processMilitaryParadeToDo(struct CommandToDo *command,bool passiveAttacked)
     vector positionchange;
     Ship *ship;
     ShipStaticInfo *shipstatic;
-    bool dontrotate;
-    bool firstShipOfSlot;
-    bool steadyFormation = TRUE;
+    bool32 dontrotate;
+    bool32 firstShipOfSlot;
+    bool32 steadyFormation = TRUE;
 
     dbgAssertOrIgnore(paradeType >= 0);
     dbgAssertOrIgnore(paradeType < NUMBER_PARADE_TYPES);
@@ -2852,7 +2852,7 @@ void processMilitaryParadeToDo(struct CommandToDo *command,bool passiveAttacked)
             if (ship != NULL)
             {
                 shipstatic = (ShipStaticInfo *)ship->staticinfo;
-                dontrotate = (passiveAttacked & (bool)shipstatic->rotateToRetaliate);
+                dontrotate = (passiveAttacked & (bool32)shipstatic->rotateToRetaliate);
                 if(ship->shiptype == ResearchShip)
                 {
                     //special case for research ship
@@ -2914,7 +2914,7 @@ void processMilitaryParadeToDo(struct CommandToDo *command,bool passiveAttacked)
                 {
                     real32 tmpdistaway = MoveLeftToGo(ship,&positionat);
                     udword tmpuseflags = AISHIP_PointInDirectionFlying | AISHIP_FastAsPossible;
-                    bool trackheading = FALSE;
+                    bool32 trackheading = FALSE;
 
                     if (thisslotinfo->facedirection)
                     {
@@ -2991,7 +2991,7 @@ dontmovecloser:;
     }
 }
 
-bool shipInMilitaryParade(ShipPtr ship)
+bool32 shipInMilitaryParade(ShipPtr ship)
 {
     CommandToDo *command = getShipAndItsCommand(&universe.mainCommandLayer,ship);
     if (command == NULL)

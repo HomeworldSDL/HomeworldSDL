@@ -66,7 +66,7 @@ ranstream;
     #define ranRandom(i)  ranRandomFn(i, NULL, 0)
     #define gamerand()    ranRandomFn(RANDOM_GAME, __FILE__, __LINE__)
     
-    extern bool ranCallerDebug;
+    extern bool32 ranCallerDebug;
 #else
     #define ranRandomFnSimple  ranRandomFn
     udword  ranRandomFn(sdword ranIndex);

@@ -11,12 +11,12 @@ Copyright Relic Entertainment, Inc.  All rights reserved.
 
 #include "SpaceObj.h"
 
-void hsStart(Ship* ship, real32 cliptDelta, bool into, bool displayEffect);
-void hsContinue(Ship* ship, bool displayEffect);
-void hsEnd(Ship* ship, bool displayEffect);
+void hsStart(Ship* ship, real32 cliptDelta, bool32 into, bool32 displayEffect);
+void hsContinue(Ship* ship, bool32 displayEffect);
+void hsEnd(Ship* ship, bool32 displayEffect);
 void hsUpdate(Ship* ship);
 void hsFinish(Ship* ship);
-bool hsShouldDisplayEffect(Ship* ship);
+bool32 hsShouldDisplayEffect(Ship* ship);
 
 #define HS_STATIC_ACTIVE        1
 #define HS_STATIC_COLLAPSING    2
@@ -26,7 +26,7 @@ bool hsShouldDisplayEffect(Ship* ship);
 
 typedef struct hsStaticGate
 {
-    bool   active;
+    bool32   active;
     vector position;
     real32 rotation;
     sdword state;
@@ -44,7 +44,7 @@ void hsStaticReset(void);   //level reset (clear structs)
 void hsStaticDestroy(hvector*); //destroy a gate
 void hsSetStaticData(sdword size, ubyte* data); //set static gate data (for loading)
 void hsStaticRender(void);  //render all static gates
-void hsNoGate(bool state);
+void hsNoGate(bool32 state);
 
 void SaveHyperspaceGates(void);
 void LoadHyperspaceGates(void);

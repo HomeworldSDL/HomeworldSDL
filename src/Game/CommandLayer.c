@@ -57,14 +57,14 @@ static void AttackCleanup(struct CommandToDo *attacktodo);
 static AttackTargets *allocateMultipleAttackTargets(Ship *ship);
 static void pickMultipleAttackTargets(Ship *ship,AttackCommand *attack);
 void ChangeOrderToHalt(CommandToDo *alreadycommand);
-bool processMoveToDo(CommandToDo *movetodo,bool passiveAttacked);
-bool processMpHyperspaceingToDo(CommandToDo *movetodo);
-bool processMoveLeaderToDo(CommandToDo *movetodo,bool passiveAttacked);
+bool32 processMoveToDo(CommandToDo *movetodo,bool32 passiveAttacked);
+bool32 processMpHyperspaceingToDo(CommandToDo *movetodo);
+bool32 processMoveLeaderToDo(CommandToDo *movetodo,bool32 passiveAttacked);
 void clMoveThese(CommandLayer *comlayer,SelectCommand *selectcom,vector from,vector to);
 void clMpHyperspaceThese(CommandLayer *comlayer,SelectCommand *selectcom,vector from,vector to);
-bool isSelectionExclusivlyStrikeCraft(SelectCommand *selection);
-bool isSelectionExclusivlyStrikeCraftorNoMoveAndAttackShips(SelectCommand *selection);
-bool selectionHasSwarmers(SelectCommand *selection);
+bool32 isSelectionExclusivlyStrikeCraft(SelectCommand *selection);
+bool32 isSelectionExclusivlyStrikeCraftorNoMoveAndAttackShips(SelectCommand *selection);
+bool32 selectionHasSwarmers(SelectCommand *selection);
 void removeShipFromMpHyperspaceing(Ship *ship);
 
 /*=============================================================================
@@ -104,7 +104,7 @@ extern sdword FIGHTER_BREAK_ANGLE_MAX;
 extern sdword FIGHTER_BREAK_VERTICAL_ANGLE_MIN;
 extern sdword FIGHTER_BREAK_VERTICAL_ANGLE_MAX;
 
-extern bool BombersUseBombingRun;
+extern bool32 BombersUseBombingRun;
 
 extern real32 FLY_INTO_WORLD_PERCENT_DIST;
 
@@ -179,7 +179,7 @@ void RemoveShipFromCommand(Ship *ship)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void PrepareShipsForCommand(CommandToDo *command,bool rowClear)
+void PrepareShipsForCommand(CommandToDo *command,bool32 rowClear)
 {
     sdword i;
     SelectCommand *selection = command->selection;
@@ -204,7 +204,7 @@ void PrepareShipsForCommand(CommandToDo *command,bool rowClear)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void PrepareOneShipForCommand(Ship *ship,CommandToDo *command,bool rowClear)
+void PrepareOneShipForCommand(Ship *ship,CommandToDo *command,bool32 rowClear)
 {
     ship->command = command;
     if ((rowClear) && (ship->specialFlags & SPECIAL_rowGettingOutOfWay))
@@ -221,7 +221,7 @@ void PrepareOneShipForCommand(Ship *ship,CommandToDo *command,bool rowClear)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void InitShipsForAI(SelectCommand *selection,bool fresh)
+void InitShipsForAI(SelectCommand *selection,bool32 fresh)
 {
     sdword i;
     Ship *ship;
@@ -236,7 +236,7 @@ void InitShipsForAI(SelectCommand *selection,bool fresh)
     }
 }
 
-void InitShipsForAIDontResetAttack(SelectCommand *selection,bool fresh)
+void InitShipsForAIDontResetAttack(SelectCommand *selection,bool32 fresh)
 {
     sdword i;
     Ship *ship;
@@ -289,7 +289,7 @@ real32 getRangeToClosestTarget(CommandToDo *command)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void InitShipAI(Ship *ship,bool fresh)
+void InitShipAI(Ship *ship,bool32 fresh)
 {
     ship->aistate = 0;
     ship->aistateattack = 0;
@@ -305,14 +305,14 @@ void InitShipAI(Ship *ship,bool fresh)
     Return      :
 ----------------------------------------------------------------------------*/
 #define COLLECTOR_STEADY_DIST   3000.0f
-void protectShip(Ship *ship,Ship *protectThisShip,bool passiveAttacked)
+void protectShip(Ship *ship,Ship *protectThisShip,bool32 passiveAttacked)
 {
     vector diff;
     real32 dist;
     real32 desiredrange;
     real32 shipSize = ((ShipStaticInfo *)(ship->staticinfo))->staticheader.staticCollInfo.collspheresize;
     real32 protectThisShipSize = ((ShipStaticInfo *)(protectThisShip->staticinfo))->staticheader.staticCollInfo.collspheresize;
-    bool dontrotate;
+    bool32 dontrotate;
     vector protectPoint = protectThisShip->posinfo.position;
     vector heading;
 
@@ -343,7 +343,7 @@ void protectShip(Ship *ship,Ship *protectThisShip,bool passiveAttacked)
 
 //    ship->shipidle = FALSE;
 
-    dontrotate = ((passiveAttacked) & (bool)((ShipStaticInfo *)ship->staticinfo)->rotateToRetaliate);
+    dontrotate = ((passiveAttacked) & (bool32)((ShipStaticInfo *)ship->staticinfo)->rotateToRetaliate);
 
     if (ship->shiptype == DDDFrigate)
     {
@@ -424,20 +424,20 @@ juststeady:
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void protectShipsAvg(Ship *ship,ProtectCommand *protectShips,bool passiveAttacked)
+void protectShipsAvg(Ship *ship,ProtectCommand *protectShips,bool32 passiveAttacked)
 {
     vector diff;
     real32 dist;
     real32 desiredrange;
     real32 shipSize = ((ShipStaticInfo *)(ship->staticinfo))->staticheader.staticCollInfo.collspheresize;
-    bool dontrotate;
+    bool32 dontrotate;
     sdword numShips = protectShips->numShips;
     vector temp,guardposition;
     sdword i;
     vector protectShipsAvgVel;
     real32 realtemp;
     real32 minx,maxx,miny,maxy,minz,maxz;
-    bool anyshipdockingwithme;
+    bool32 anyshipdockingwithme;
 
     dbgAssertOrIgnore(numShips > 1);
 
@@ -485,7 +485,7 @@ void protectShipsAvg(Ship *ship,ProtectCommand *protectShips,bool passiveAttacke
 
 //    ship->shipidle = FALSE;
 
-    dontrotate = ((passiveAttacked) & (bool)((ShipStaticInfo *)ship->staticinfo)->rotateToRetaliate);
+    dontrotate = ((passiveAttacked) & (bool32)((ShipStaticInfo *)ship->staticinfo)->rotateToRetaliate);
 
     if (ship->shiptype == DDDFrigate)
     {
@@ -576,7 +576,7 @@ juststeady:
     Outputs     :
     Return      : returns TRUE if ship has finished launching
 ----------------------------------------------------------------------------*/
-bool processLaunchShipToDo(CommandToDo *launchtodo)
+bool32 processLaunchShipToDo(CommandToDo *launchtodo)
 {
     Ship *ship = launchtodo->selection->ShipPtr[0];
     Ship *receiverShip = launchtodo->launchship.receiverShip;
@@ -634,7 +634,7 @@ bool processLaunchShipToDo(CommandToDo *launchtodo)
     }
 }
 
-bool isThisShipThreateningMe(SpaceObjRotImpTarg *target,Ship *me)
+bool32 isThisShipThreateningMe(SpaceObjRotImpTarg *target,Ship *me)
 {
     SpecificAttackVars *targetattackvars;
     Ship *targetsLeader;
@@ -728,7 +728,7 @@ SpaceObjRotImpTarg *FindNewThreateningTarget(Ship *ship,AttackCommand *attack,Sp
     Outputs     :
     Return      : returns TRUE if enemy is behind me
 ----------------------------------------------------------------------------*/
-bool EnemyIsBehindMe(SpaceObjRotImpTarg *enemy,Ship *me)
+bool32 EnemyIsBehindMe(SpaceObjRotImpTarg *enemy,Ship *me)
 {
     vector myheading;
     vector enemytome;
@@ -754,14 +754,14 @@ bool EnemyIsBehindMe(SpaceObjRotImpTarg *enemy,Ship *me)
     Outputs     :
     Return      : returns TRUE if special has been completed
 ----------------------------------------------------------------------------*/
-bool processSpecialToDo(CommandToDo *todo)
+bool32 processSpecialToDo(CommandToDo *todo)
 {
     SelectCommand *selection = todo->selection;
     sdword numShips = selection->numShips;
     Ship *ship;
     ShipStaticInfo *shipstaticinfo;
-    bool alldone = TRUE;
-    bool shipdone;
+    bool32 alldone = TRUE;
+    bool32 shipdone;
     sdword i;
 
     dbgAssertOrIgnore(numShips > 0);
@@ -815,18 +815,18 @@ bool processSpecialToDo(CommandToDo *todo)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool processHaltToDo(CommandToDo *command,bool passiveAttacked)
+bool32 processHaltToDo(CommandToDo *command,bool32 passiveAttacked)
 {
     SelectCommand *selection = command->selection;
     sdword numShips = selection->numShips;
-    bool done = TRUE;
+    bool32 done = TRUE;
     sdword i;
     Ship *ship;
 
     for (i=0;i<numShips;i++)
     {
         ship = selection->ShipPtr[i];
-        if ((passiveAttacked) & (bool)((ShipStaticInfo *)ship->staticinfo)->rotateToRetaliate)
+        if ((passiveAttacked) & (bool32)((ShipStaticInfo *)ship->staticinfo)->rotateToRetaliate)
         {
             done &= aitrackSteadyShipDriftOnly(ship);
         }
@@ -846,7 +846,7 @@ bool processHaltToDo(CommandToDo *command,bool passiveAttacked)
     Outputs     :
     Return      : returns TRUE if ships being attacked are out of selection's passive attack range
 ----------------------------------------------------------------------------*/
-bool ShipsInPassiveAttackRange(SelectCommand *selection,AttackCommand *attack)
+bool32 ShipsInPassiveAttackRange(SelectCommand *selection,AttackCommand *attack)
 {
     sdword numShips = selection->numShips;
     sdword numShipsToAttack = attack->numTargets;
@@ -856,7 +856,7 @@ bool ShipsInPassiveAttackRange(SelectCommand *selection,AttackCommand *attack)
     vector diff;
     real32 retaliateZone;
     real32 negRetaliateZone;
-    bool aShipInRange = FALSE;
+    bool32 aShipInRange = FALSE;
     real32 temp;
 
     dbgAssertOrIgnore(numShips > 0);
@@ -895,7 +895,7 @@ bool ShipsInPassiveAttackRange(SelectCommand *selection,AttackCommand *attack)
     Outputs     :
     Return      : returns TRUE if passive attack has been completed
 ----------------------------------------------------------------------------*/
-bool processPassiveAttackToDo(CommandToDo *attacktodo)
+bool32 processPassiveAttackToDo(CommandToDo *attacktodo)
 {
     SelectCommand *selection = attacktodo->selection;
     AttackCommand *attack = attacktodo->attack;
@@ -906,7 +906,7 @@ bool processPassiveAttackToDo(CommandToDo *attacktodo)
     SpecificAttackVars *attackvars;
     SpaceObjRotImpTarg *target;
     sdword i;
-    bool rotate;
+    bool32 rotate;
 
     dbgAssertOrIgnore(numShips > 0);
 
@@ -989,7 +989,7 @@ bool processPassiveAttackToDo(CommandToDo *attacktodo)
     Outputs     :
     Return      : returns TRUE if attack has been completed
 ----------------------------------------------------------------------------*/
-bool processAttackToDo(CommandToDo *attacktodo)
+bool32 processAttackToDo(CommandToDo *attacktodo)
 {
     sdword i;
     SelectCommand *selection = attacktodo->selection;
@@ -999,11 +999,11 @@ bool processAttackToDo(CommandToDo *attacktodo)
     Ship *ship;
     ShipStaticInfo *shipstaticinfo;
     SpecificAttackVars *attackvars;
-    bool alldone;
+    bool32 alldone;
     SpaceObjRotImpTarg *target;
     udword checkbogeyrate;
     SpaceObjRotImpTarg *newtarget;
-    bool fighterpair;
+    bool32 fighterpair;
     udword flightman;
     Ship *myLeader;
     sdword attackAndMoving;
@@ -1155,7 +1155,7 @@ bool processAttackToDo(CommandToDo *attacktodo)
             if ((myLeader = attackvars->myLeaderIs) != NULL)
             {
                 SpaceObjRotImpTarg *myLeaderTarget;
-                bool shouldrotate = TRUE;
+                bool32 shouldrotate = TRUE;
 
                 dbgAssertOrIgnore(attackvars->myWingmanIs == NULL);
 
@@ -1537,7 +1537,7 @@ void formGroups(SelectCommand *selection,SelectCommand *selectionDefenders,Selec
 #define CAPITALS        12
 #define CORVETTES       13
 
-bool delegateCommand(CommandToDo *attacktodo,sdword group,sdword doform, SelectCommand *globalselection)
+bool32 delegateCommand(CommandToDo *attacktodo,sdword group,sdword doform, SelectCommand *globalselection)
 {
     sdword i;
     SelectCommand *selection = attacktodo->selection;
@@ -1554,7 +1554,7 @@ bool delegateCommand(CommandToDo *attacktodo,sdword group,sdword doform, SelectC
     Ship *formationLeader;
     vector leadhead,othervec;
     real32 maxdist;
-    bool attackAndMoving;
+    bool32 attackAndMoving;
 
     formationLeader = selection->ShipPtr[0];   //set leader ship
 
@@ -1663,7 +1663,7 @@ bool delegateCommand(CommandToDo *attacktodo,sdword group,sdword doform, SelectC
                     }
                     ship->formationcommand->formation.needFix = FALSE;
 
-                    //negate this bool value so the formation status is uptodate.
+                    //negate this bool32 value so the formation status is uptodate.
                     ship->formationcommand->formation.flipState = !ship->formationcommand->formation.flipState;
                 }
             }
@@ -2041,7 +2041,7 @@ bool delegateCommand(CommandToDo *attacktodo,sdword group,sdword doform, SelectC
     Return      : returns TRUE if ships target is out of gun range
 ----------------------------------------------------------------------------*/
 
-bool targetIsntNearShip(Ship *ship,SpaceObjRotImpTarg *target)
+bool32 targetIsntNearShip(Ship *ship,SpaceObjRotImpTarg *target)
 {
     vector distvect;
     real32 dist;
@@ -2060,7 +2060,7 @@ bool targetIsntNearShip(Ship *ship,SpaceObjRotImpTarg *target)
     Outputs     :
     Return      : returns TRUE if attack has been completed
 ----------------------------------------------------------------------------*/
-bool processAttackToDoInFormation(CommandToDo *attacktodo)
+bool32 processAttackToDoInFormation(CommandToDo *attacktodo)
 {
     sdword donness = 0;
     CommandToDo fakeCommand;
@@ -2068,14 +2068,14 @@ bool processAttackToDoInFormation(CommandToDo *attacktodo)
     AttackCommand *attack = attacktodo->attack;
     sdword numShipsToAttack = attack->numTargets;
     SelectCommand *selection = attacktodo->selection;
-    bool alldone;
+    bool32 alldone;
     ShipStaticInfo *shipstaticinfo = NULL;
     Ship *ship = NULL;
     SpaceObjRotImpTarg *target = NULL;
     SpaceObjRotImpTarg *leadertarget = NULL;
     sdword i;
     sdword should = TRUE;
-    bool focusfire = FALSE;
+    bool32 focusfire = FALSE;
 
     SpecificAttackVars *attackvars;
 
@@ -2317,7 +2317,7 @@ bool processAttackToDoInFormation(CommandToDo *attacktodo)
     Outputs     :
     Return      : TRUE if the ping times out.
 ----------------------------------------------------------------------------*/
-bool hyperspaceOutPingTimeOut(struct ping *hellaPing, SpaceObj *user, ubyte *userData, bool bRemoveReferences)
+bool32 hyperspaceOutPingTimeOut(struct ping *hellaPing, SpaceObj *user, ubyte *userData, bool32 bRemoveReferences)
 {
     if (bRemoveReferences)
     {
@@ -2344,7 +2344,7 @@ bool hyperspaceOutPingTimeOut(struct ping *hellaPing, SpaceObj *user, ubyte *use
     Outputs     :
     Return      : TRUE if the ping times out.
 ----------------------------------------------------------------------------*/
- bool hyperspaceInPingTimeOut(struct ping *hellaPing, SpaceObj *user, ubyte *userData, bool bRemoveReferences)
+ bool32 hyperspaceInPingTimeOut(struct ping *hellaPing, SpaceObj *user, ubyte *userData, bool32 bRemoveReferences)
 {
     if (bRemoveReferences)
     {
@@ -2361,7 +2361,7 @@ bool hyperspaceOutPingTimeOut(struct ping *hellaPing, SpaceObj *user, ubyte *use
     return(FALSE);
 }
 
-bool needToWaitForThisShip(Ship *ship)
+bool32 needToWaitForThisShip(Ship *ship)
 {
     Node *node;
     CommandToDo *command;
@@ -2449,14 +2449,14 @@ bool needToWaitForThisShip(Ship *ship)
 ----------------------------------------------------------------------------*/
 #define HW_ETHER_WAIT       TW_MULTIPLAYER_HYPERSPACE_WAIT_IN_ETHER_TIME
 
-bool processMpHyperspaceingToDo(CommandToDo *movetodo)
+bool32 processMpHyperspaceingToDo(CommandToDo *movetodo)
 {
     sdword i,j,donehsflag;
     vector shipheading,othervector;
     real32 dotproduct;
     real32 timefraction;
     sdword shipslice;
-    bool dontgoyet=FALSE;
+    bool32 dontgoyet=FALSE;
     for(i=0;i<movetodo->selection->numShips;i++)
     {
        SET_MOVING_LINEARLY(movetodo->selection->ShipPtr[i]->posinfo.isMoving);
@@ -2708,18 +2708,18 @@ real32 hyperspaceCost(real32 distance,SelectCommand *selection)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool processMoveToDo(CommandToDo *movetodo,bool passiveAttacked)
+bool32 processMoveToDo(CommandToDo *movetodo,bool32 passiveAttacked)
 {
     sdword i;
     SelectCommand *selection = movetodo->selection;
     sdword numShips = selection->numShips;
     Ship *ship;
-    bool thisShipDone;
-    bool allDone = TRUE;
+    bool32 thisShipDone;
+    bool32 allDone = TRUE;
     ShipStaticInfo *shipstatic;
     udword aiflags;
     sdword j;
-    bool dontrotate;
+    bool32 dontrotate;
     real32 MOVE_ARRIVE_TOLERANCE;
 
     dbgAssertOrIgnore(numShips > 0);
@@ -2737,7 +2737,7 @@ bool processMoveToDo(CommandToDo *movetodo,bool passiveAttacked)
             }
             else
             {
-                dontrotate = (passiveAttacked & (bool)shipstatic->rotateToRetaliate);
+                dontrotate = (passiveAttacked & (bool32)shipstatic->rotateToRetaliate);
             }
         }
         else
@@ -2748,7 +2748,7 @@ bool processMoveToDo(CommandToDo *movetodo,bool passiveAttacked)
             }
             else
             {
-                dontrotate = (passiveAttacked & (bool)shipstatic->rotateToRetaliate);
+                dontrotate = (passiveAttacked & (bool32)shipstatic->rotateToRetaliate);
             }
         }
 
@@ -2835,12 +2835,12 @@ state1:
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool processMoveLeaderToDo(CommandToDo *movetodo,bool passiveAttacked)
+bool32 processMoveLeaderToDo(CommandToDo *movetodo,bool32 passiveAttacked)
 {
     Ship *ship;
     SelectCommand *selection = movetodo->selection;
     ShipStaticInfo *shipstatic;
-    bool dontrotate;
+    bool32 dontrotate;
     udword aiflags;
     sdword j;
     udword moveresult;
@@ -2859,12 +2859,12 @@ bool processMoveLeaderToDo(CommandToDo *movetodo,bool passiveAttacked)
         }
         else
         {
-            dontrotate = (passiveAttacked & (bool)shipstatic->rotateToRetaliate);
+            dontrotate = (passiveAttacked & (bool32)shipstatic->rotateToRetaliate);
         }
     }
     else
     {
-        dontrotate = (passiveAttacked & (bool)shipstatic->rotateToRetaliate);
+        dontrotate = (passiveAttacked & (bool32)shipstatic->rotateToRetaliate);
     }
 
     switch (ship->aistatecommand)
@@ -3845,7 +3845,7 @@ void RemoveShipFromBeingTargeted(CommandLayer *comlayer,ShipPtr shiptoremove,udw
             {
                 SelectCommand *selection = todo->selection;
                 sdword numShips = selection->numShips;
-                bool removefromdocking;
+                bool32 removefromdocking;
                 Ship *ship;
                 sdword i;
                 for (i=0;i<numShips;i++)
@@ -4214,7 +4214,7 @@ CommandToDo *IsSelectionAlreadyDoingSomething(CommandLayer *comlayer,SelectComma
 }
 
 //returns TRUE if a strike craft is in the selection <corvette or fighter>
-bool selectionHasStrikeCraft(SelectCommand *selection)
+bool32 selectionHasStrikeCraft(SelectCommand *selection)
 {
     sdword i;
 
@@ -4229,7 +4229,7 @@ bool selectionHasStrikeCraft(SelectCommand *selection)
     return FALSE;
 }
 
-bool isSelectionExclusivlyStrikeCraft(SelectCommand *selection)
+bool32 isSelectionExclusivlyStrikeCraft(SelectCommand *selection)
 {
     sdword i;
 
@@ -4244,7 +4244,7 @@ bool isSelectionExclusivlyStrikeCraft(SelectCommand *selection)
     return TRUE;
 }
 
-bool isSelectionExclusivlyStrikeCraftorNoMoveAndAttackShips(SelectCommand *selection)
+bool32 isSelectionExclusivlyStrikeCraftorNoMoveAndAttackShips(SelectCommand *selection)
 {
     sdword i;
 
@@ -4260,7 +4260,7 @@ bool isSelectionExclusivlyStrikeCraftorNoMoveAndAttackShips(SelectCommand *selec
     return TRUE;
 }
 
-bool selectionHasSwarmers(SelectCommand *selection)
+bool32 selectionHasSwarmers(SelectCommand *selection)
 {
     sdword i;
     Ship *ship;
@@ -4319,7 +4319,7 @@ void CalculateMoveToPoints(SelectCommand *selection,vector from,vector to)
 {
     sdword numShips = selection->numShips;
     ShipMoveCalcs stackMoveCalcs[NUM_STACK_MOVECALCS];
-    bool moveCalcsAllocated = FALSE;
+    bool32 moveCalcsAllocated = FALSE;
     ShipMoveCalcs *movecalcs;
     sdword i;
     vector d,r;
@@ -4409,7 +4409,7 @@ void CalculateMoveToPoints(SelectCommand *selection,vector from,vector to)
         memFree(movecalcs);
     }
 }
-bool selectionHasOtherForceNoAttackAndMoveShips(SelectCommand *selection)
+bool32 selectionHasOtherForceNoAttackAndMoveShips(SelectCommand *selection)
 {
     sdword i;
     for(i=0;i<selection->numShips;i++)
@@ -4620,7 +4620,7 @@ void clMoveThese(CommandLayer *comlayer,SelectCommand *selectcom,vector from,vec
                     MaxSelection tempSelection;
                     MaxAnySelection targetSelection;
                     TypeOfFormation formation = NO_FORMATION;
-                    bool needFormation;
+                    bool32 needFormation;
                     sdword j;
 
                     tempSelection.numShips = 0;
@@ -5155,7 +5155,7 @@ void AttackCleanup(struct CommandToDo *attacktodo)
     sdword i;
     SelectCommand *selection = attacktodo->selection;
     sdword numShips = selection->numShips;
-    bool clearmove = TRUE;
+    bool32 clearmove = TRUE;
 
     if (bitTest(attacktodo->ordertype.attributes,COMMAND_MASK_ATTACKING_AND_MOVING))
     {
@@ -5708,7 +5708,7 @@ typedef struct
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void InitExtraAttackInfo(SelectCommand *selection,AttackCommand *attack,bool findwingmen)
+void InitExtraAttackInfo(SelectCommand *selection,AttackCommand *attack,bool32 findwingmen)
 {
     sdword numShips = selection->numShips;
     sdword numTargetsToAttack = attack->numTargets;
@@ -5728,7 +5728,7 @@ void InitExtraAttackInfo(SelectCommand *selection,AttackCommand *attack,bool fin
     vector diff;
     real32 temp;
     Ship *leader = selection->ShipPtr[0];
-    bool focusfire = FALSE;
+    bool32 focusfire = FALSE;
 
     dbgAssertOrIgnore(numShips > 0);
     dbgAssertOrIgnore(numTargetsToAttack > 0);
@@ -5878,7 +5878,7 @@ void ChangeOrderToAttack(CommandToDo *alreadycommand,AttackCommand *attackcom)
     AttackCommand *attack;
     udword sizeofattack;
     SelectCommand *selection = alreadycommand->selection;
-    bool dontresetattack = FALSE;
+    bool32 dontresetattack = FALSE;
 
     if (alreadycommand->ordertype.attributes & COMMAND_MASK_PASSIVE_ATTACKING)
     {
@@ -6125,7 +6125,7 @@ void clAttack(CommandLayer *comlayer,SelectCommand *selectcom,AttackCommand *att
     Outputs     :
     Return      : returns TRUE if alreadycommand can passive attack
 ----------------------------------------------------------------------------*/
-bool canChangeOrderToPassiveAttack(CommandToDo *alreadycommand,AttackCommand *attack)
+bool32 canChangeOrderToPassiveAttack(CommandToDo *alreadycommand,AttackCommand *attack)
 {
     if (alreadycommand->ordertype.attributes & COMMAND_MASK_HOLDING_PATTERN)
     {
@@ -6372,7 +6372,7 @@ void ChangeOrderToSpecial(CommandToDo *alreadycommand,SpecialCommand *targets)
     PrepareShipsForCommand(alreadycommand,TRUE);
 }
 
-bool ShipsAreSalCapCorvettes(Ship *ship)
+bool32 ShipsAreSalCapCorvettes(Ship *ship)
 {
     if (ship->shiptype == SalCapCorvette)
     {
@@ -6837,7 +6837,7 @@ void clHalt(CommandLayer *comlayer,SelectCommand *selectcom)
     sdword numShips = selectcom->numShips;
     sdword i;
     Ship *ship;
-    bool stoppassiveattacking;
+    bool32 stoppassiveattacking;
 
     if (numShips == 0)
     {
@@ -7196,7 +7196,7 @@ sdword LaunchAllInternalShipsOfPlayer(struct Player *player, udword carriermask)
 void clAutoLaunch(udword OnOff,udword playerIndex)
 {
     Player *player = &universe.players[playerIndex];
-    bool speechevent = FALSE;
+    bool32 speechevent = FALSE;
     sdword i;
     udword bit = BIT0;
 
@@ -7252,7 +7252,7 @@ void clSetResearch(udword type, udword playernum, udword labnum, udword tech)
     }
 }
 
-bool ShipHasToLaunch(Ship *InsideShip, Ship *ship)
+bool32 ShipHasToLaunch(Ship *InsideShip, Ship *ship)
 {
     if (singlePlayerGame)
     {
@@ -7399,7 +7399,7 @@ Ship *clCreateShip(CommandLayer *comlayer,ShipType shipType,ShipRace shipRace,uw
     Outputs     :
     Return      : TRUE if command is done
 ----------------------------------------------------------------------------*/
-bool processBuildingShipToDo(CommandToDo *command)
+bool32 processBuildingShipToDo(CommandToDo *command)
 {
     Player *player;
     Ship *creator;
@@ -7529,14 +7529,14 @@ void clBuildShip(CommandLayer *comlayer,ShipType shipType,ShipRace shipRace,uwor
     Return      : returns TRUE if terminating condition was finding that shipsWereGuarding are directly or
                   indirectly guarding us - returns FALSE if terminating condition is we can't find any more ships we're guarding
 ----------------------------------------------------------------------------*/
-bool FindShipsWereGuarding(CommandToDo *originalus,SelectCommand *us,GrowSelection *shipsWereGuarding,sdword iteration)
+bool32 FindShipsWereGuarding(CommandToDo *originalus,SelectCommand *us,GrowSelection *shipsWereGuarding,sdword iteration)
 {
     sdword i,j;
     sdword usnumShips = us->numShips;
     Ship *ship;
     CommandToDo *shipcommand;
     GrowSelection newshipsWereGuarding;
-    bool result;
+    bool32 result;
 
     if (iteration > 10)
     {
@@ -7792,7 +7792,7 @@ void AddShipToFormationGroup(ShipPtr ship,CommandToDo *group)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool thereareothercompatibleresearchships(Ship *ship)
+bool32 thereareothercompatibleresearchships(Ship *ship)
 {
     Node *resnode;
     Ship *resship;
@@ -7967,7 +7967,7 @@ void clShipDied(CommandLayer *comlayer,ShipPtr deadship)
     Outputs     :
     Return      : returns TRUE if ship within attack range of target
 ----------------------------------------------------------------------------*/
-bool TargetWithinAttackRange(Ship *ship,SpaceObjRotImpTarg *target)
+bool32 TargetWithinAttackRange(Ship *ship,SpaceObjRotImpTarg *target)
 {
     vector trajectory;
     real32 range;
@@ -8049,8 +8049,8 @@ void putCapitalsInSelection(MaxSelection *dst,MaxSelection *src)
 
 void clHoldingPattern(CommandLayer *comlayer,CommandToDo *command)
 {
-    bool needToPassiveAttack = FALSE;
-    bool needToProtect = FALSE;
+    bool32 needToPassiveAttack = FALSE;
+    bool32 needToProtect = FALSE;
     MaxSelection passiveAttackSelection;
     MaxSelection protectSelection;
     MaxSelection fighters,corvettes,capitals;
@@ -8154,7 +8154,7 @@ void clHoldingPattern(CommandLayer *comlayer,CommandToDo *command)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool salCapCorvettesInSelectionCantDoFormation(SelectCommand *selection)
+bool32 salCapCorvettesInSelectionCantDoFormation(SelectCommand *selection)
 {
     sdword i;
 
@@ -8177,7 +8177,7 @@ bool salCapCorvettesInSelectionCantDoFormation(SelectCommand *selection)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool processHoldingPattern(CommandToDo *command,SelectCommand *selection)
+bool32 processHoldingPattern(CommandToDo *command,SelectCommand *selection)
 {
     sdword i,count;
     vector destination,heading,right;
@@ -8226,8 +8226,8 @@ void clProcess(CommandLayer *comlayer)
     Node *curnode = comlayer->todolist.head;
     CommandToDo *command;
     Node *nextnode;
-    bool passiveAttacked;
-    bool done;
+    bool32 passiveAttacked;
+    bool32 done;
 
     Ship *ship;
     Ship *target;
@@ -8481,7 +8481,7 @@ processdock:
                     }
 
                     ship = command->selection->ShipPtr[0];
-                    if ((passiveAttacked) & (bool)((ShipStaticInfo *)ship->staticinfo)->rotateToRetaliate)
+                    if ((passiveAttacked) & (bool32)((ShipStaticInfo *)ship->staticinfo)->rotateToRetaliate)
                     {
                         done = aitrackSteadyShipDriftOnly(ship);
                     }
@@ -8553,7 +8553,7 @@ processdock:
                         else
                         {
                             ship = command->selection->ShipPtr[0];
-                            if ((passiveAttacked) & (bool)((ShipStaticInfo *)ship->staticinfo)->rotateToRetaliate)
+                            if ((passiveAttacked) & (bool32)((ShipStaticInfo *)ship->staticinfo)->rotateToRetaliate)
                             {
                                 //if(ship->tacticstype != Evasive)
                                     aitrackSteadyShipDriftOnly(ship);
@@ -8974,7 +8974,7 @@ processdock:
                             bitClear(command->ordertype.attributes,COMMAND_MASK_HOLDING_PATTERN);
 
                             ship = command->selection->ShipPtr[0];
-                            if ((bool)((ShipStaticInfo *)ship->staticinfo)->rotateToRetaliate)
+                            if ((bool32)((ShipStaticInfo *)ship->staticinfo)->rotateToRetaliate)
                             {
                                 if(ship->tacticstype != Evasive)
                                     aitrackSteadyShipDriftOnly(ship);
@@ -9119,7 +9119,7 @@ CommandToDo *getShipAndItsCommand(CommandLayer *comlayer,ShipPtr ship)
     Outputs     :
     Return      : Returns allocated command containing the ship
 ----------------------------------------------------------------------------*/
-SelectCommand *getShipAndItsCommandSelection(CommandLayer *comlayer,ShipPtr ship,bool *parade)
+SelectCommand *getShipAndItsCommandSelection(CommandLayer *comlayer,ShipPtr ship,bool32 *parade)
 {
     CommandToDo *command = getShipAndItsCommand(comlayer,ship);
     SelectCommand *returnselect;
@@ -9257,7 +9257,7 @@ SelectCommand *getShipAndItsFormation(CommandLayer *comlayer,ShipPtr ship)
     Outputs     :
     Return      : returns TRUE if searchfor is in comlayer
 ----------------------------------------------------------------------------*/
-bool CommandInCommandLayer(CommandLayer *comlayer,CommandToDo *searchfor)
+bool32 CommandInCommandLayer(CommandLayer *comlayer,CommandToDo *searchfor)
 {
     Node *curnode = comlayer->todolist.head;
     CommandToDo *command;
@@ -9393,7 +9393,7 @@ void clChecksum(void)
         {
             header = makenetcheckHeader('F','O','R','M');
             fwrite(&header,sizeof(header),1,netlogfile);
-            fwrite(&command->formation,sizeof(TypeOfFormation)+sizeof(bool),1,netlogfile);
+            fwrite(&command->formation,sizeof(TypeOfFormation)+sizeof(bool32),1,netlogfile);
             fwrite(&command->formation.tacticalState,44,1,netlogfile);
         }
 

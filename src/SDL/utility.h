@@ -128,7 +128,7 @@ extern ShipRace whichRaceSelected;
 
 extern color utyBaseColor;
 extern color utyStripeColor;
-extern bool  utyShipsAlwaysUseOwnerColors;
+extern bool32  utyShipsAlwaysUseOwnerColors;
 
 extern char utyName[MAX_PERSONAL_NAME_LEN];
 extern char utyPassword[MAX_PERSONAL_NAME_LEN];
@@ -139,9 +139,9 @@ extern char dirfile[];
 extern udword utyNFrameTicks;
 extern taskhandle utyRenderTask;
 #if defined (HW_GAME_DEMO) || defined (HW_GAME_RAIDER_RETREAT)
-extern bool utyPlugScreens;
+extern bool32 utyPlugScreens;
 #endif
-extern bool utyCreditsSequence;
+extern bool32 utyCreditsSequence;
 
 extern bool8 utyStartedBits[SSA_NumberBits];
 
@@ -174,7 +174,7 @@ void utyTaskTimerClear(void);                   //cancels all previous task time
 //get client rect in screen coords
 void utyClientRectGet(rectangle *rect);
 void utyMouseButtonsClear(void);
-void utyForceTopmost(bool bTopMost);
+void utyForceTopmost(bool32 bTopMost);
 
 //clip the mouse
 void utyClipMouse(sdword clip);
@@ -194,15 +194,15 @@ void utyDoubleClick(void);
 void utyLoadSinglePlayerGameGivenFilename(char *filename);
 void utyLoadMultiPlayerGameGivenFilename(char *filename);
 
-bool utyChangeResolution(sdword width, sdword height, sdword depth);
+bool32 utyChangeResolution(sdword width, sdword height, sdword depth);
 
-bool utyBrowserExec(char *URL);
+bool32 utyBrowserExec(char *URL);
 void utyGetFirstCDPath(char *szPath);
 
 //toggle key things
 void utyToggleKeyStatesSave(void);
 void utyToggleKeyStatesRestore(void);
-bool utyCapsLockToggleState(void);
+bool32 utyCapsLockToggleState(void);
 
 // Start the player dropped dialog box.
 void utyStartDroppedDialog(sdword playernum);

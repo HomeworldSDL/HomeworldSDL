@@ -97,10 +97,10 @@ extern real32 rndAspectRatio;                                      //aspect rati
 extern bool8  rndFogOn;
 extern hmatrix rndCameraMatrix;
 extern hmatrix rndProjectionMatrix;
-extern bool rndNormalization;
-extern bool rndTakeScreenshot;
+extern bool32 rndNormalization;
+extern bool32 rndTakeScreenshot;
 extern udword rndLightingEnabled;
-extern bool rndScissorEnabled;
+extern bool32 rndScissorEnabled;
 
 #if RND_POLY_STATS
 extern sdword rndDisplayPolyStats;
@@ -119,14 +119,14 @@ extern renderfunction rndMainViewRender;
 
 //startup/shutdown the rendering module.
 sdword rndInit(rndinitdata *initData);
-sdword rndSmallInit(rndinitdata* initData, bool GL);
+sdword rndSmallInit(rndinitdata* initData, bool32 GL);
 void rndClose(void);
 
 //render a mission sphere using a specific camera.  Or don't render; it's your call.
 void rndMainViewRenderFunction(Camera *camera);             //normal rendering mode
 void rndMainViewRenderNothingFunction(Camera *camera);      //don't do anything; just return
 void rndMainViewAllButRenderFunction(Camera *camera);       //compute selection info but don't render
-void rndBackgroundRender(real32 radius, Camera *camera, bool bDrawStars);
+void rndBackgroundRender(real32 radius, Camera *camera, bool32 bDrawStars);
 
 //main render task
 DECLARE_TASK(rndRenderTask);
@@ -164,12 +164,12 @@ void rndFlush(void);
 
 //render utility functions
 void rndRenderAHomeworld(void* camera, void *world);
-bool rndShipVisible(SpaceObj* spaceobj, Camera* camera);
-bool rndShipVisibleUsingCoordSys(SpaceObj* spaceobj, Camera* camera);
-void rndDrawScissorBars(bool scissorEnabled);
+bool32 rndShipVisible(SpaceObj* spaceobj, Camera* camera);
+bool32 rndShipVisibleUsingCoordSys(SpaceObj* spaceobj, Camera* camera);
+void rndDrawScissorBars(bool32 scissorEnabled);
 
 #if RND_GL_STATE_DEBUG
-extern bool rndGLStateSaving;
+extern bool32 rndGLStateSaving;
 void rndGLStateLogFunction(char *location);
 #define rndGLStateLog(s) if (rndGLStateSaving) rndGLStateLogFunction(s);
 #else

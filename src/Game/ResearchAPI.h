@@ -107,7 +107,7 @@ typedef struct
 typedef struct
 {
     udword       HasTechnology;         // what tech this player has
-    bool         CanDoResearch;         // are they allowed to do research
+    bool32         CanDoResearch;         // are they allowed to do research
     TechStatics *techstat;              // statics for that technology
     LinkedList   listoftopics;          // list of topics being researched for this player
     ResearchLab  researchlabs[NUM_RESEARCHLABS];  // list of labs for this player
@@ -148,21 +148,21 @@ void rmGiveTechToPlayerByType(struct Player *player, TechnologyType techtype);
 
 void   rmAddTechToPlayer(struct Player *player, udword techlevel);
 sdword rmFindFreeLab(struct Player *player);
-bool   rmCanBuildShip(struct Player *player, ShipType type);
+bool32   rmCanBuildShip(struct Player *player, ShipType type);
 //void   rmResearchTechForShip(struct Player *player, ShipType type);
 void   rmClearResearchlab(struct Player *player, sdword labnumber);
 void   rmAssignPlayersLabToResearch(struct Player *player, sdword labnumber, TechnologyType tech);
 void   rmDeactivateLab(struct Player *player);
 void   rmActivateFreeLab(struct Player *player);
 void   rmUpdateResearch(void);
-void   rmInitializeResearchStruct(struct Player *player, bool candoresearch, sdword techlevel);
+void   rmInitializeResearchStruct(struct Player *player, bool32 candoresearch, sdword techlevel);
 
 sdword rmTechRequiredForShip(struct Player *player, ShipType type);
-bool   rmResearchTechForShip(struct Player *player, ShipType type);
+bool32   rmResearchTechForShip(struct Player *player, ShipType type);
 
 void rmInitializeResearchStatics(struct Player *player);
 
-void rmEnableShip(ShipRace race, ShipType ship, bool bEnabled);
+void rmEnableShip(ShipRace race, ShipType ship, bool32 bEnabled);
 void rmRemoveAllUnneededTech(void);
 void rmResetStaticInfo(void);
 

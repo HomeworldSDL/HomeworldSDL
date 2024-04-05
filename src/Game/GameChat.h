@@ -29,11 +29,11 @@ typedef struct chathistory
 }
 chathistory;
 
-extern bool gcRunning;
-extern bool ViewingBuffer;
+extern bool32 gcRunning;
+extern bool32 ViewingBuffer;
 
 void gcRemoveAmpersands(char *dest, char *source);
-void gcChatEntryStart(bool toAllies);
+void gcChatEntryStart(bool32 toAllies);
 void gcRUTransferStart(uword playertosendto);
 void gcProcessGameChatPacket(struct ChatPacket *packet);
 void gcProcessGameTextMessage(char *message, udword col);

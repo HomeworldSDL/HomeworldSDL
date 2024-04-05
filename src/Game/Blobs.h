@@ -148,7 +148,7 @@ typedef struct BlobProperties
     real32 bobRadiusCombineMargin;
 } BlobProperties;
 
-typedef bool (*subblobcallback)(blob *superblob, SpaceObj *obj);
+typedef bool32 (*subblobcallback)(blob *superblob, SpaceObj *obj);
 
 /*=============================================================================
     Macros:
@@ -168,7 +168,7 @@ void bobListCreate(BlobProperties *blobProperties, LinkedList *list, udword play
 void bobSubBlobListCreate(BlobProperties *blobProperties, LinkedList *list, blob *superBlob, subblobcallback criteria);
 void bobListUpdate(LinkedList *list);
 void bobListDelete(LinkedList *list);
-bool bobListSortCallback(void *firststruct,void *secondstruct);
+bool32 bobListSortCallback(void *firststruct,void *secondstruct);
 
 blob *bobFindNearestBlobToObject(LinkedList *list,SpaceObj *obj,real32 *returndistsqr);
 void bobAddObjToNearestBlob(LinkedList *list,SpaceObj *obj);
@@ -182,14 +182,14 @@ void bobUpdateObjsInBlobCollInfo(blob *thisBlob);
 
 void bobObjectListMedian(vector *dest, real32 *destRadius, sdword nObjects, SpaceObj **objects);
 
-void bobInitProperties();
-void bobResetProperties();
+void bobInitProperties(void);
+void bobResetProperties(void);
 
 #if BOB_STATS
 typedef struct BobStats
 {
-    bool statsValid;
-    bool subBlobs;
+    bool32 statsValid;
+    bool32 subBlobs;
     sqword timeStart;
     sqword timeStop;
     sqword timeDuration;

@@ -16,9 +16,9 @@ void aifFleetCommand(void);
 void aifInit(AIPlayer *aiplayer);
 void aifClose(void);
 
-void aifTeamDied(AIPlayer *aiplayer, AITeam *team, bool removeAllReferencesToTeam);
+void aifTeamDied(AIPlayer *aiplayer, AITeam *team, bool32 removeAllReferencesToTeam);
 
-bool aifShipDied(AIPlayer *aiplayer, ShipPtr ship);
+bool32 aifShipDied(AIPlayer *aiplayer, ShipPtr ship);
 
 void aifResourceManRequestsShipsCB(ShipType shiptype, sdword number, sdword priority);
 void aifAttackManRequestsShipsCB(ShipType shiptype, sdword number, sdword priority);

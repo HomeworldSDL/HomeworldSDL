@@ -43,13 +43,13 @@ sdword SNDgetchannel(sword patchnum, sdword priority);
 CHANNEL channels[SOUND_MAX_VOICES];
 sword numpatches = 0;
 sdword	lasthandle = 0;
-bool soundinited = FALSE;
+bool32 soundinited = FALSE;
 BANK *bank;
 PATCH *patches;
 sdword channelsinuse = 0;
 real32 masterEQ[FQ_SIZE];
-bool bSoundPaused = FALSE;
-bool bSoundDeactivated = FALSE;
+bool32 bSoundPaused = FALSE;
+bool32 bSoundDeactivated = FALSE;
 
 sdword numbanks = 0;
 sdword numchans[4] = {0,0,0,0};
@@ -151,7 +151,7 @@ void soundPanic(void)
 }
 
 // Called by main.c on before and after[Alt]-[Tab]
-void sounddeactivate(bool bDeactivate)
+void sounddeactivate(bool32 bDeactivate)
 {
 	/* set flag */
 	if (soundinited)
@@ -189,7 +189,7 @@ extern void soundfeedercb(void *userdata, Uint8 *stream, int len);
 	Outputs		:
 	Return		:
 ----------------------------------------------------------------------------*/
-sdword soundinit(bool mode)
+sdword soundinit(bool32 mode)
 {
 #ifdef _MACOSX_FIX_SOUND
 	return SOUND_ERR;
@@ -290,7 +290,7 @@ void soundrestore(void)
 }
 
 
-void soundpause(bool bPause)
+void soundpause(bool32 bPause)
 {
 	if (soundinited)
 	{
@@ -323,7 +323,7 @@ void soundpause(bool bPause)
 	}
 }
 
-void soundstopallSFX(real32 fadetime, bool stopStreams)
+void soundstopallSFX(real32 fadetime, bool32 stopStreams)
 {
 	sdword i;
 
@@ -483,7 +483,7 @@ udword soundbankadd(void *bankaddress)
 	Outputs		:
 	Return		:
 ----------------------------------------------------------------------------*/	
-bool soundover(sdword handle)
+bool32 soundover(sdword handle)
 {
 	CHANNEL *pchan;
 
@@ -520,7 +520,7 @@ bool soundover(sdword handle)
 	Outputs		:
 	Return		:
 ----------------------------------------------------------------------------*/	
-sdword soundplayFPRVL(sword patnum, real32 freq, sword pan, sdword priority, sword vol, bool startatloop)
+sdword soundplayFPRVL(sword patnum, real32 freq, sword pan, sdword priority, sword vol, bool32 startatloop)
 {
 	PATCH	*ppatch;
 	CHANNEL	*pchan;
@@ -1309,7 +1309,7 @@ void SNDcalcvolpan(CHANNEL *pchan)
 	Outputs		:
 	Return		:
 ----------------------------------------------------------------------------*/	
-sdword splayFPRVL(void *bankaddress, sdword patnum, real32 *eq, real32 freq, sword pan, sdword priority, sword vol, bool startatloop, bool fadein, bool mute)
+sdword splayFPRVL(void *bankaddress, sdword patnum, real32 *eq, real32 freq, sword pan, sdword priority, sword vol, bool32 startatloop, bool32 fadein, bool32 mute)
 {
 	PATCH	*ppatch;
 	CHANNEL	*pchan;

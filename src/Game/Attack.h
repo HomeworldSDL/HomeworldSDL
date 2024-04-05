@@ -21,7 +21,7 @@ typedef struct
 {
     real32 repositionTime;
     real32 circleRange;
-    bool fullMovementFreedom;
+    bool32 fullMovementFreedom;
 } AttackSideStepParameters;
 
 void attackPassiveRotate(Ship *ship,Ship *target);

@@ -29,7 +29,7 @@ static real32 fogColor[4];
 
 static GLuint _counter = 0;
 
-static bool useVBO = FALSE;
+static bool32 useVBO = FALSE;
 
 bool8  dontNebulate;
 real32 g_FogSum = 0.0f;
@@ -143,7 +143,7 @@ scriptEntry CloudTweaks[] =
 lightning _lightnings[MAX_LIGHTNINGS];
 
 //return a fresh lightning handle
-lhandle cloudGetFreshLightningHandle()
+lhandle cloudGetFreshLightningHandle(void)
 {
     udword i;
 
@@ -158,7 +158,7 @@ lhandle cloudGetFreshLightningHandle()
 }
 
 //return a fresh lightning structure
-lightning* cloudGetFreshLightning()
+lightning* cloudGetFreshLightning(void)
 {
     lhandle handle = cloudGetFreshLightningHandle();
     return (handle == 0) ? NULL : &_lightnings[handle];
@@ -329,7 +329,7 @@ void ellipsoid_render(ellipseObject* ellipse, real32 radius)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void ellipsoid_free()
+void ellipsoid_free(void)
 {
     udword i;
 
@@ -775,7 +775,7 @@ real32 cloudRealDist(real32 n, real32 d)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void cloudStartup()
+void cloudStartup(void)
 {
     useVBO = glCheckExtension("GL_ARB_vertex_buffer_object");
 
@@ -803,7 +803,7 @@ void cloudStartup()
 }
 
 //convenience
-void _clearcolorUniverse()
+void _clearcolorUniverse(void)
 {
     color c = universe.backgroundColor;
     if (!smSensorsActive)
@@ -819,7 +819,7 @@ void _clearcolorUniverse()
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void cloudReset()
+void cloudReset(void)
 {
     _clearcolorUniverse();
     rndFogOn = FALSE;
@@ -946,7 +946,7 @@ void cloudPointInSphere(vector* point, real32 radius)
     vecMultiplyByScalar(*point, cloudRealDist(0.75f * radius, 0.4f * radius));
 }
 
-real32 cloudLightningDeviation()
+real32 cloudLightningDeviation(void)
 {
     return(0.54f * ((real32)(ranRandom(RANDOM_CLOUDS) % 100) - 50.0f));
 }
@@ -1050,7 +1050,7 @@ void cloudRenderSystem(cloudSystem* system, sdword lod)
     vector origin = {0.0f, 0.0f, 0.0f};
     color cloudColor = system->cloudColor;
     udword i;
-    bool fogOn;
+    bool32 fogOn;
     GLfloat attrib[4];
     extern real32 meshFadeAlpha;
 
@@ -1591,7 +1591,7 @@ void cloudUpdateSystem(cloudSystem* system)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void cloudSetFog()
+void cloudSetFog(void)
 {
     Node* node;
     SpaceObj* spaceobj;

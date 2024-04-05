@@ -67,7 +67,7 @@ void scriptSetSwordCB(char *directory,char *field,void *dataToFillIn);
 void scriptSetUwordCB(char *directory,char *field,void *dataToFillIn);
 void scriptSetSdwordCB(char *directory,char *field,void *dataToFillIn);
 void scriptSetUdwordCB(char *directory,char *field,void *dataToFillIn);
-bool scriptStringToBool(char *boolString);
+bool32 scriptStringToBool(char *boolString);
 void scriptSetBool8(char *directory,char *field,void *dataToFillIn);
 void scriptSetBool(char *directory,char *field,void *dataToFillIn);
 void scriptSetBitUdword(char *directory,char *field,void *dataToFillIn);

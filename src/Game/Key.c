@@ -78,8 +78,8 @@ udword leftModSide(udword key){
 ----------------------------------------------------------------------------*/
 void keyPressDown(udword key)
 {
-	bool bypass = FALSE;
-	bool shift = FALSE;
+	bool32 bypass = FALSE;
+	bool32 shift = FALSE;
 	keyScanType originalKey;
 
     /* Game not specific about left or right Shift/Ctrl/Alt key, so neither
@@ -210,7 +210,7 @@ void keyPressUp(udword key)
     Outputs     : ..
     Return      : nonzero if any key pressed
 ----------------------------------------------------------------------------*/
-bool keyAnyKeyHit(void)
+bool32 keyAnyKeyHit(void)
 {
     int i;
     keyScanType keyhit = { 0,0,0 };
@@ -218,7 +218,7 @@ bool keyAnyKeyHit(void)
     for (i=0;i<KEY_TOTAL_KEYS;i++)
         keyhit.keypressed |= keyScanCode[i].keypressed;
 
-    return (bool)keyhit.keypressed;
+    return (bool32)keyhit.keypressed;
 }
 
 /*-----------------------------------------------------------------------------
@@ -228,7 +228,7 @@ bool keyAnyKeyHit(void)
     Outputs     : ..
     Return      : nonzero if any key pressed
 ----------------------------------------------------------------------------*/
-bool keyAnyKeyStuck(void)
+bool32 keyAnyKeyStuck(void)
 {
     int i;
     keyScanType keyhit = { 0,0,0 };
@@ -239,7 +239,7 @@ bool keyAnyKeyStuck(void)
         keySaveScan[i].keystick = keyScanCode[i].keystick = 0;
     }
 
-    return (bool)keyhit.keystick;
+    return (bool32)keyhit.keystick;
 }
 
 /*-----------------------------------------------------------------------------
@@ -287,7 +287,7 @@ void keyClearAllStuckKeys(void)
                   This function will return the shifted status of the key if
                     shift was pressed at the time this key was hit.
 ----------------------------------------------------------------------------*/
-udword keyBufferedKeyGet(bool *bShift)
+udword keyBufferedKeyGet(bool32 *bShift)
 {
     udword keyToReturn, index;
 
@@ -320,7 +320,7 @@ udword keyBufferedKeyGet(bool *bShift)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void keyBufferAdd(udword key, bool bShift)
+void keyBufferAdd(udword key, bool32 bShift)
 {
     int i;
 

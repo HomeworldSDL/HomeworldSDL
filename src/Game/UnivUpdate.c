@@ -80,7 +80,7 @@ IDToPtrTable MissileIDToPtr;
 void setSalvageInfo(SpaceObjRotImpTargGuidanceShipDerelict *object);
 
 
-static void MakeExplosionRockBumpables(Ship *ship,bool scuttle);
+static void MakeExplosionRockBumpables(Ship *ship,bool32 scuttle);
 void pointExplosionInSpace(vector *position,real32 blastRadius,real32 maxDamage,sdword playerIndex);
 
 void univCheckShipState(Ship *ship);
@@ -91,7 +91,7 @@ void univMinorSetupShipForControl(Ship *ship);
 Private data
 ******************************************************************************/
 
-bool gameIsEnding=FALSE;
+bool32 gameIsEnding=FALSE;
 
 /*=============================================================================
     Tweakables
@@ -216,7 +216,7 @@ void univRotateObjRoll(SpaceObjRot *robj,real32 rot)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void univInitSpaceObjPosRot(SpaceObj *obj,vector *position,bool randomOrientation)
+void univInitSpaceObjPosRot(SpaceObj *obj,vector *position,bool32 randomOrientation)
 {
     memset(&(obj->posinfo),0,sizeof(obj->posinfo));
     obj->posinfo.position = *position;
@@ -437,7 +437,7 @@ void univResetFastNetworkIDLookups(void)
     Return      :
     Notes       : Later optimize this routine (perhaps use a table look-up)
 ----------------------------------------------------------------------------*/
-Ship *ShipIDtoShip(ShipID shipID,bool considerInsideShips)
+Ship *ShipIDtoShip(ShipID shipID,bool32 considerInsideShips)
 {
     Ship *ship = (Ship *)IDToPtrTableIDToObj(&ShipIDToPtr,shipID.shipNumber);
 
@@ -505,7 +505,7 @@ Ship *univFindShipIAmInside(Ship *me)
     Outputs     :
     Return      : returns TRUE if me ship is inside ship
 ----------------------------------------------------------------------------*/
-bool univAmIInsideThisShip(Ship *me,Ship *ship)
+bool32 univAmIInsideThisShip(Ship *me,Ship *ship)
 {
     if (ship->shipsInsideMe)
     {
@@ -1698,7 +1698,7 @@ void univUpdateAllPosVelBullets()
     Node *bulletnode = universe.BulletList.head;
     Node *deletenode;
     Bullet *bullet;
-    bool addEffect = FALSE;
+    bool32 addEffect = FALSE;
     etglod *etgLOD;
     sdword LOD;
     etgeffectstatic *stat;
@@ -1821,7 +1821,7 @@ void univUpdateAllPosVelMissiles()
 {
     Node *misnode = universe.MissileList.head;
     Missile *missile;
-    bool deleteflag;
+    bool32 deleteflag;
 
     while (misnode != NULL)
     {
@@ -2422,7 +2422,7 @@ void ApplyDamageToCollidingObjects(SpaceObjRotImpTarg *obj1,SpaceObjRotImpTarg *
     ApplyDamageToTarget(obj2,damage2,0,DEATH_Killed_By_Collision,99);
 }
 
-bool ObjectsHaveCollidedLately(SpaceObjRotImpTarg *obj1,SpaceObjRotImpTarg *obj2)
+bool32 ObjectsHaveCollidedLately(SpaceObjRotImpTarg *obj1,SpaceObjRotImpTarg *obj2)
 {
     if ( ((universe.totaltimeelapsed - obj1->lasttimecollided) < COLLISION_CLEAR_TIME) &&
          ((universe.totaltimeelapsed - obj2->lasttimecollided) < COLLISION_CLEAR_TIME) )
@@ -2434,7 +2434,7 @@ bool ObjectsHaveCollidedLately(SpaceObjRotImpTarg *obj1,SpaceObjRotImpTarg *obj2
     return FALSE;
 }
 
-bool ShouldDoGlancingCollision(SpaceObjRotImpTarg *fastobj,real32 fastobjvelmag2,SpaceObjRotImpTarg *slowobj,real32 slowobjvelmag2)
+bool32 ShouldDoGlancingCollision(SpaceObjRotImpTarg *fastobj,real32 fastobjvelmag2,SpaceObjRotImpTarg *slowobj,real32 slowobjvelmag2)
 {
     // don't do glancing collision for kamikaze stuff
     if(fastobj->objtype == OBJ_ShipType)
@@ -2804,7 +2804,7 @@ void ApplyRockToTarget(SpaceObjRotImpTarg *target,real32 projectilemass)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void MakeExplosionRockBumpables(Ship *ship,bool scuttle)
+void MakeExplosionRockBumpables(Ship *ship,bool32 scuttle)
 {
     Node *objnode = universe.ImpactableList.head;
     ShipStaticInfo *shipstatic = ship->staticinfo;
@@ -2909,9 +2909,9 @@ nextnode:
     Outputs     :
     Return      : returns TRUE if damage was fatal damage
 ----------------------------------------------------------------------------*/
-bool ApplyDamageToTarget(SpaceObjRotImpTarg *target,real32 damagetaken,GunSoundType soundType,sdword damageHow,sdword playerIndex)
+bool32 ApplyDamageToTarget(SpaceObjRotImpTarg *target,real32 damagetaken,GunSoundType soundType,sdword damageHow,sdword playerIndex)
 {
-    bool targetWasAlive = ((target->flags & SOF_Dead) == 0);
+    bool32 targetWasAlive = ((target->flags & SOF_Dead) == 0);
     real32 previousHealth = target->health;
     real32 maxHealth;
 
@@ -3113,7 +3113,7 @@ void univBulletCollidedWithTarget(SpaceObjRotImpTarg *target,StaticHeader *targe
     etgeffectstatic *stat;
     sdword LOD;
     vector LOF;
-    bool fatalHit;
+    bool32 fatalHit;
     vector hitLocation;
     matrix hitCoordsys;
     real32 floatDamage;
@@ -3284,7 +3284,7 @@ void univMissileCollidedWithTarget(SpaceObjRotImpTarg *target,StaticHeader *targ
     vector recoil;
     etgeffectstatic *stat;
     sdword LOD;
-    bool fatalHit;
+    bool32 fatalHit;
     real32 floatDamage;
     udword intDamage;
     vector missileheading;
@@ -4166,7 +4166,7 @@ void CheckPlayerWin(void)
         if((!singlePlayerGame) && (tpGameCreated.flag & MG_AlliedVictory))
         {
             sdword ally = -1;
-            bool alliedvictory = TRUE;
+            bool32 alliedvictory = TRUE;
             //all living players on same team?
             //find allies of first player, make sure all other living players
             // are allies
@@ -4298,7 +4298,7 @@ void DeclarePlayerWin(void)
     Outputs     :
     Return      : TRUE if a backup was found
 ----------------------------------------------------------------------------*/
-bool univFindBackupMothership(struct Player *player)
+bool32 univFindBackupMothership(struct Player *player)
 {
     Node *shipnode = universe.ShipList.head;
     Ship *ship;
@@ -4330,7 +4330,7 @@ bool univFindBackupMothership(struct Player *player)
 
 void univKillOtherPlayersIfDead(Ship *ship)
 {
-    bool aplayerdied=FALSE;
+    bool32 aplayerdied=FALSE;
     sdword i;
     //for (i=0;i<universe.numPlayers;i++)
     //{
@@ -4581,7 +4581,7 @@ void univDeleteDeadResources()
     Outputs     :
     Return      : TRUE if an effect for deleting the derelict was played
 ----------------------------------------------------------------------------*/
-bool DeleteDeadDerelict(Derelict *derelict, sdword deathBy)
+bool32 DeleteDeadDerelict(Derelict *derelict, sdword deathBy)
 {
     Effect *effect;
     etgeffectstatic *explosion = NULL;
@@ -4759,7 +4759,7 @@ void DeleteDeadMissile(Missile *missile, sdword deathBy)
 {
     etgeffectstatic *stat;
     sdword LOD;
-    bool fatalHit;
+    bool32 fatalHit;
     real32 floatDamage;
     udword intDamage;
     vector hitLocation;
@@ -4893,7 +4893,7 @@ nextnode:
     *numAsteroid0s = numasteroid0s;
 }
 
-bool univObjectOutsideWorld(SpaceObj *obj)
+bool32 univObjectOutsideWorld(SpaceObj *obj)
 {
     vector pos = obj->posinfo.position;
     vector oldpos = pos;
@@ -5899,7 +5899,7 @@ void univCheckShipState(Ship *ship)
 
     if (ship->autostabilizeship && !bitTest(ship->flags, SOF_Disabled|SOF_Hide|SOF_Hyperspace|SOF_NISShip|SOF_Crazy) && !bitTest(ship->attributes,ATTRIBUTES_DontApplyFriction) && (ship->shiptype != Drone))
     {
-        bool isShipSteady;
+        bool32 isShipSteady;
 
         if (ship->shiptype == MiningBase)
             isShipSteady = aitrackIsShipSteadyAnywhere(ship);       // don't care about orientation up
@@ -6850,7 +6850,7 @@ void univRegrowAsteroids()
     Outputs     :
     Return      : returns TRUE if the SpaceObj is in the render list
 ----------------------------------------------------------------------------*/
-bool univSpaceObjInRenderList(SpaceObj *spaceobj)
+bool32 univSpaceObjInRenderList(SpaceObj *spaceobj)
 {
     if (spaceobj->renderlink.belongto != NULL)
     {
@@ -7030,7 +7030,7 @@ void univUpdateRenderList()
     vector lookatposition;
     vector eyeposition;
     real32 distsqr;
-    static bool limited = FALSE;
+    static bool32 limited = FALSE;
     static real32 limits[NUM_CLASSES];
     LinkedList sortFrontList;
 
@@ -7278,7 +7278,7 @@ void univCheckRegrowResources(void)
     Outputs     :
     Return      : TRUE if done (game over)
 ----------------------------------------------------------------------------*/
-bool univUpdate(real32 phystimeelapsed)
+bool32 univUpdate(real32 phystimeelapsed)
 {
 #ifdef _WIN32
 #define TMP_SAVEDGAMES_PATH "SavedGames\\"

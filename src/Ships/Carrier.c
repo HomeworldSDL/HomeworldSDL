@@ -71,12 +71,12 @@ void CarrierAttack(Ship *ship,SpaceObjRotImpTarg *target,real32 maxdist)
     attackStraightForward(ship,target,carrstat->carrierGunRange[ship->tacticstype],carrstat->carrierTooCloseRange[ship->tacticstype]);
 }
 
-void CarrierAttackPassive(Ship *ship,Ship *target,bool rotate)
+void CarrierAttackPassive(Ship *ship,Ship *target,bool32 rotate)
 {
     attackPassive(ship,target);
 }
 
-bool CarrierSpecialTarget(Ship *ship,void *custom)
+bool32 CarrierSpecialTarget(Ship *ship,void *custom)
 {
     CarrierStatics *cstat = (CarrierStatics *)ship->staticinfo->custstatinfo;
     SelectAnyCommand *targets;

@@ -28,7 +28,7 @@ void TTimerDisable(TTimer *timer)
     timer->enabled = FALSE;
 }
 
-bool TTimerUpdate(TTimer *timer)
+bool32 TTimerUpdate(TTimer *timer)
 {
     Uint32 timerval;
     Uint32 difference;
@@ -58,7 +58,7 @@ bool TTimerUpdate(TTimer *timer)
     return FALSE;
 }
 
-bool TTimerIsTimedOut(TTimer *timer)
+bool32 TTimerIsTimedOut(TTimer *timer)
 {
     if (!timer->enabled)
     {

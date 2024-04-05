@@ -48,9 +48,9 @@ extern CustShipHeader GenericInterceptorHeader;
 extern CustShipHeader TargetDroneHeader;
 
 void GenericInterceptorAttack(Ship *ship, SpaceObjRotImpTarg *target, real32 maxdist);
-bool GenericInterceptorCanFire(Ship *ship, SpaceObjRotImpTarg *target, vector *trajectory, real32 triggerHappy);
+bool32 GenericInterceptorCanFire(Ship *ship, SpaceObjRotImpTarg *target, vector *trajectory, real32 triggerHappy);
 FlightManProb *GenericInterceptorGetFlightManProb(Ship *ship, SpaceObjRotImpTarg *target);
-bool InterceptorInRange(Ship *ship, SpaceObjRotImpTarg *target);
+bool32 InterceptorInRange(Ship *ship, SpaceObjRotImpTarg *target);
 void SpawnCloakingEffect(Ship *ship, etglod *etgLOD);
 
 #endif

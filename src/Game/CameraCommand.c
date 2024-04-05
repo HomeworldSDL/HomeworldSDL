@@ -128,9 +128,9 @@ scriptEntry CameraCommandTweaks[] =
 
 // This is the stuff for the camera collapse functions
 
-bool ccCameraTimeoutOverride  = FALSE;
+bool32 ccCameraTimeoutOverride  = FALSE;
 
-bool ccFocusIsLegalToFocusOn(CameraStackEntry *entry)
+bool32 ccFocusIsLegalToFocusOn(CameraStackEntry *entry)
 {
 struct Player *pPlayer;
 FocusCommand   *pFocus;
@@ -175,7 +175,7 @@ vector   Vect, LookAt;
     return(FALSE);
 }
 
-bool ccFocusIsLegal(CameraStackEntry *entry)
+bool32 ccFocusIsLegal(CameraStackEntry *entry)
 {
     if (ccFocusIsLegalToFocusOn(entry))
     {
@@ -641,7 +641,7 @@ void CameraChase(CameraCommand *cameracommand,real32 zoomfactor)
 {
     Camera *desired = &currentCameraStackEntry(cameracommand)->remembercam;
     vector targetvelocity;
-    bool dontUseVelocityPredInChase = FALSE;
+    bool32 dontUseVelocityPredInChase = FALSE;
     long  Frames, IndZoom, IndAng;
     vector deLookVector;
     
@@ -1002,7 +1002,7 @@ void ccReset(CameraCommand *cameracommand)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void ccFocusGeneral(CameraCommand *cameracommand,FocusCommand *focuscom, bool bCloseUp)
+void ccFocusGeneral(CameraCommand *cameracommand,FocusCommand *focuscom, bool32 bCloseUp)
 {
     CameraStackEntry *oldentry;
     CameraStackEntry *entry;
@@ -1200,7 +1200,7 @@ void ccFocusFar(CameraCommand *cameracommand,FocusCommand *focuscom, Camera *cur
     Return      : TRUE if successful, FALSE if not able to do the operation because
                   focustocopy wasn't focused on any ships.
 ----------------------------------------------------------------------------*/
-bool ccFocusExact(CameraCommand *cameracommand,CameraCommand *focustocopy)
+bool32 ccFocusExact(CameraCommand *cameracommand,CameraCommand *focustocopy)
 {
     FocusCommand *currentfocus = currentFocus(focustocopy);
 
@@ -1383,7 +1383,7 @@ void ccForwardFocus(CameraCommand *cameracommand)
     Outputs     :
     Return      : TRUE if there were ships to focus on, FALSE otherwise
 ----------------------------------------------------------------------------*/
-bool ccFocusOnFleet(CameraCommand *cameracommand)
+bool32 ccFocusOnFleet(CameraCommand *cameracommand)
 {
     uword numShips = 0;
     uword i;

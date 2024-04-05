@@ -46,7 +46,7 @@ void aioCreateHarass(struct AITeam *team);
 void aioCreateTakeoutMothershipFast(struct AITeam *team,Ship *mothership);
 void aioCreateTakeoutMothershipGuard(struct AITeam *team,Ship *mothership);
 void aioCreateTakeoutMothershipHuge(struct AITeam *team, Ship *mothership);
-void aioCreateTakeoutMothershipBig(struct AITeam *team,Ship *mothership, bool ForceBig);
+void aioCreateTakeoutMothershipBig(struct AITeam *team,Ship *mothership, bool32 ForceBig);
 void aioCreateTakeoutTargetsWithCurrentTeam(struct AITeam *team,SelectCommand *targets);
 void aioCreateTakeoutTargetWithCurrentTeam(struct AITeam *team,Ship *ship);
 void aioCreateFancyTakeoutTarget(struct AITeam *team,Ship *target);
@@ -69,7 +69,7 @@ void aioCreateMultiBeamAttack(struct AITeam *team);
 void aioCreateP2MothershipAttack(struct AITeam *team);
 
 void aioCreateTakeoutMothershipFast(struct AITeam *team,Ship *mothership);
-void aioCreateTakeoutMothershipBig(struct AITeam *team,Ship *mothership, bool ForceBig);
+void aioCreateTakeoutMothershipBig(struct AITeam *team,Ship *mothership, bool32 ForceBig);
 void aioCreateTakeoutMothershipHuge(struct AITeam *team,Ship *mothership);
 void aioCreateTakeoutMothershipGuard(struct AITeam *team,Ship *mothership);
 void aioCreateTakeoutTargetsWithCurrentTeam(struct AITeam *team,SelectCommand *targets);

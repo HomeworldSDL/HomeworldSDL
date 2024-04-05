@@ -152,8 +152,8 @@ void tacticsDoDodge(Ship *ship);
 //sdword tacticsGetFormationOptimalState(SelectCommand *selection);
 void tacticsUpdate(Ship *ship);
 
-void tacticsDelegateAttackCommand(Ship *ship,CommandToDo *command, AttackCommand *attack, bool gettingRocked,bool doingSomething);
-void tacticsDelegateSingleAttack(Ship *ship,CommandLayer *comlayer,SelectCommand *selectone,AttackCommand *attack, bool gettingRocked);
+void tacticsDelegateAttackCommand(Ship *ship,CommandToDo *command, AttackCommand *attack, bool32 gettingRocked,bool32 doingSomething);
+void tacticsDelegateSingleAttack(Ship *ship,CommandLayer *comlayer,SelectCommand *selectone,AttackCommand *attack, bool32 gettingRocked);
 void tacticsReportMove(CommandLayer *comlayer,SelectCommand *selection);
 
 
@@ -162,14 +162,14 @@ void tacticsGlobalUpdate();
 void tacticsAttackCommandVoided(CommandToDo *command);
 
 real32 tacticsMaxDistToTarget(SelectCommand *selection,SpaceObjRotImpTarg *target);
-bool tacticsCheckGuardConditionsDuringAttack(struct CommandToDo *command);
+bool32 tacticsCheckGuardConditionsDuringAttack(struct CommandToDo *command);
 real32 tacticsGetShipsMaxVelocity(Ship *ship);
 
-bool tacticsAreStrikeCraftInSelection(SelectCommand *selection);
+bool32 tacticsAreStrikeCraftInSelection(SelectCommand *selection);
 
 //TRUE if shipA has retreated from shipB, only valid for time that
 //shipsB is on lookout for shipA (maybe 90seconds?  tunable)
-bool tacticsHasShipRetreatedFromShip(Ship *shipA, Ship *shipB);
+bool32 tacticsHasShipRetreatedFromShip(Ship *shipA, Ship *shipB);
 
 void tacticsMakeShipsNotLookForOtherShips(SelectCommand *selection);
 

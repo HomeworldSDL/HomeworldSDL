@@ -70,9 +70,9 @@ void aifClose(void)
     Outputs     :
     Return      : TRUE if the ship was found and removed
 ----------------------------------------------------------------------------*/
-bool aifShipDied(AIPlayer *aiplayer,ShipPtr ship)
+bool32 aifShipDied(AIPlayer *aiplayer,ShipPtr ship)
 {
-    bool return_value = FALSE;
+    bool32 return_value = FALSE;
 
     if (ship->playerowner == aiplayer->player &&
         (ship->shiptype == Carrier || ship->shiptype == Mothership))
@@ -747,7 +747,7 @@ void RemoveTeamFromTeamWaitingQ(LinkedList *TeamWaitingQ,AITeam *team)
     }
 }
 
-void aifTeamDied(AIPlayer *aiplayer,AITeam *team, bool removeAllReferencesToTeam)
+void aifTeamDied(AIPlayer *aiplayer,AITeam *team, bool32 removeAllReferencesToTeam)
 {
     sdword i, j;
     MsgQueue *msgQP;
@@ -791,7 +791,7 @@ void aifTeamDied(AIPlayer *aiplayer,AITeam *team, bool removeAllReferencesToTeam
     }
 }
 
-bool checkAddToTeam(LinkedList *TeamWaitingQ,Ship *ship)
+bool32 checkAddToTeam(LinkedList *TeamWaitingQ,Ship *ship)
 {
     Node *node = TeamWaitingQ->head;
     TeamWaitingForTheseShips *teamWaiting;
@@ -1252,7 +1252,7 @@ void aifP2FleetCommand(void)
 void aifFleetCommand(void)
 {
     Player *player = aiCurrentAIPlayer->player;
-    bool hasFleetControl = (singlePlayerGame) ? singlePlayerGameInfo.giveComputerFleetControl : TRUE;
+    bool32 hasFleetControl = (singlePlayerGame) ? singlePlayerGameInfo.giveComputerFleetControl : TRUE;
 
     aiIndex = aiCurrentAIPlayer->player->playerIndex;
 

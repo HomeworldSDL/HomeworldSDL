@@ -90,7 +90,7 @@ scriptEntry cratesScriptTable[] =
 #define CRATE_MONEY 1
 #define CRATE_RESEARCH 2
 
-void cratesPlaceCrateSelectivly();
+void cratesPlaceCrateSelectivly(void);
 void cratesReportCratePlacement(Derelict *crate);
 void cratesPlayerFoundACrate(Derelict *crate, Player *player);
 void cratesGetBestCrateLocation(vector *location);
@@ -124,7 +124,7 @@ void cratesScanForPlayersNearCrateAndReward(Derelict *crate)
     }
 }
 
-void cratesPlaceCrateSelectivly()
+void cratesPlaceCrateSelectivly(void)
 {
     vector location;
     Derelict *crate;
@@ -316,7 +316,7 @@ sdword NUM_IN_CLASSES[NUM_CLASSES];
 
 
 
-sdword getShipClass()
+sdword getShipClass(void)
 {
     real32 prob;
     prob = frandombetween(0.0,1.0f);
@@ -652,7 +652,7 @@ void cratesGetBestCrateLocation(vector *location)
 
 
 
-void cratesUpdate()
+void cratesUpdate(void)
 {
     Derelict *crate;
     Node *node;
@@ -762,7 +762,7 @@ void expireCrate(Derelict *crate)
 
 }
 
-void crateInit()
+void crateInit(void)
 {
     sdword i;
     for(i=0;i<=StandardFrigate;i++)

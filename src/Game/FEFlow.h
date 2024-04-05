@@ -309,13 +309,13 @@ extern udword feTabStop;
 extern festackentry feStack[FE_StackDepth];     //actual stack data
 extern sdword feStackIndex;                     //index of CURRENT screen on stack
 extern fescreen *feTempMenuScreen;
-extern bool   feSavingMouseCursor;
-extern bool   feRenderEverything;
+extern bool32   feSavingMouseCursor;
+extern bool32   feRenderEverything;
 extern sdword feMenuLevel;
 extern sdword feDontFlush;
 
 #if FEF_TEXTURES_DISABLABLE
-extern bool fetEnableTextures;
+extern bool32 fetEnableTextures;
 #endif
 
 /*=============================================================================
@@ -354,7 +354,7 @@ sdword feStartup(void);
 void feReset(void);
 void feShutdown(void);
 
-void feFunctionExecute(char *name, featom *atom, bool firstcall);
+void feFunctionExecute(char *name, featom *atom, bool32 firstcall);
 
 //load in a front end screen
 fibfileheader *feScreensLoad(char *fileName);
@@ -406,8 +406,8 @@ void feToggleButtonSet(char *name, sdword bPressed);
 //misc...
 void feScreenDisappear(char *string, featom *atom);
 void feMenuDisappear(char *string, featom *atom);
-regionhandle feRegionsAdd(regionhandle parent, fescreen *screen, bool moveToFront);
-regionhandle feFindRadioButtonRegion(regionhandle temp, bool selected);
+regionhandle feRegionsAdd(regionhandle parent, fescreen *screen, bool32 moveToFront);
+regionhandle feFindRadioButtonRegion(regionhandle temp, bool32 selected);
 
 struct uiclistwindow;
 void feWheelNegative(struct uiclistwindow *listwindow);
@@ -422,7 +422,7 @@ sdword feResRepositionCentredY(sdword y);
 sdword feResRepositionScaledX(sdword x);
 sdword feResRepositionScaledY(sdword y);
 
-bool feAllScreensReposition(void);
+bool32 feAllScreensReposition(void);
 
 udword feButtonProcess(regionhandle region, smemsize ID, udword event, udword data);
 

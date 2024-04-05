@@ -82,7 +82,7 @@ void ResearchShipInit(Ship *ship)
 
 }
 
-bool ship_is_moving(Ship *ship)
+bool32 ship_is_moving(Ship *ship)
 {
     CommandToDo *commy = getShipAndItsCommand(&universe.mainCommandLayer,ship);
     if(commy != NULL)
@@ -163,7 +163,7 @@ void ResearchShipHouseKeep(Ship *ship)
     SelectCommand selection;
     vector up,destination,desiredheading,newup;
     vector univup = {0.0f,0.0f,1.0f};
-    bool InParadeandMoving = FALSE;
+    bool32 InParadeandMoving = FALSE;
     matrix rot_matrix,tmpmat,rotmat;
     real32 radangle;
     ResearchShipStatics *researchshipstatics;

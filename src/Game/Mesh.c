@@ -68,13 +68,13 @@ sdword visibleDirection = 0;
 sdword visibleWhich = 0;
 sdword visibleSegment = 0;
 real32 visibleUV[3][2];
-bool g_SpecificPoly = FALSE;
+bool32 g_SpecificPoly = FALSE;
 
 void meshSpecObjectRender(polygonobject *object, materialentry *materials, sdword iColorScheme);
 
-bool gSelfIllum;
+bool32 gSelfIllum;
 
-bool bFade = FALSE;
+bool32 bFade = FALSE;
 real32 meshFadeAlpha = 1.0f;
 
 bool8 g_NoMatSwitch = FALSE;
@@ -82,8 +82,8 @@ bool8 g_ReplaceHack = FALSE;
 bool8 g_WireframeHack = FALSE;
 bool8 g_SpecHack = FALSE;
 bool8 g_HiddenRemoval = TRUE;
-bool  g_Points = FALSE;
-bool  g_Output = FALSE;
+bool32  g_Points = FALSE;
+bool32  g_Output = FALSE;
 
 static sdword specIndex;
 static ubyte specColour[4];
@@ -110,11 +110,11 @@ trcolorinfo meshRace2Colors = {colRGB(17, 17, 145), colRGB(209, 28, 139)};
 void (*meshCurrentMaterial)(materialentry *material, sdword iColorScheme) = meshCurrentMaterialDefault;
 
 #if MESH_SURFACE_NAME_DEBUG
-bool gTestTexture = FALSE;
+bool32 gTestTexture = FALSE;
 #endif
 
 #if MESH_MORPH_DEBUG
-bool meshMorphDebug = FALSE;
+bool32 meshMorphDebug = FALSE;
 struct
 {
     color from, to;
@@ -375,7 +375,7 @@ void meshTextureNameToPath(char *out, char *mesh, char *tex)
     for (i = 0; (out[i] = toupper(out[i])); i++) { }
 }
 
-bool meshStringContainsPeriod(char* s)
+bool32 meshStringContainsPeriod(char* s)
 {
     sdword i;
 
@@ -427,7 +427,7 @@ void meshPagedName(char* outFileName, char* inFileName)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool meshPagedVersionExists(char* fileName)
+bool32 meshPagedVersionExists(char* fileName)
 {
     char pagedName[1024];
 
@@ -853,8 +853,8 @@ meshdata *meshLoad(char *inFileName)
 	int polysDoneCount = 0;
 #endif
 
-    bool allowPacking;
-    bool newFormat;
+    bool32 allowPacking;
+    bool32 newFormat;
 
     char  pagedName[1024];
     char* fileName;
@@ -1744,7 +1744,7 @@ void meshObjectPoints(polygonobject* object, materialentry* materials, sdword iC
     sdword iPoly;
     vertexentry* vertexList;
     polyentry* polygon;
-    bool lightOn, texOn;
+    bool32 lightOn, texOn;
 
     vertexList = object->pVertexList;
     polygon = object->pPolygonList;
@@ -1783,7 +1783,7 @@ void meshObjectRender(polygonobject *object, materialentry *materials, sdword iC
     sdword currentMaterial = -1;
     GLenum mode = GL_SMOOTH;
     sdword lightOn = FALSE;
-    bool enableBlend;
+    bool32 enableBlend;
 
     glShadeModel(mode);
 
@@ -2235,7 +2235,7 @@ void meshMorphedObjectRender(
     color  morphLineColor1, morphLineColor2;
     GLboolean texEnabled, lightEnabled, blendEnabled;
 #endif
-    bool lightOn = FALSE;
+    bool32 lightOn = FALSE;
     real32 modelview[16], modelviewInv[16];
 
     dbgAssertOrIgnore(object1->nVertices == object2->nVertices);
@@ -2741,7 +2741,7 @@ mhbinding *meshConcatByUserData(hmatrix *dest, hmatrix *destNC, mhbinding *bindi
     Outputs     : dest - where to store the concatenated matrix.
     Return      : TRUE if found, FALSE otherwise
 ----------------------------------------------------------------------------*/
-bool meshFindHierarchyMatrixByUserData(hmatrix *dest, hmatrix *destNC, mhbinding *binding, void *userData)
+bool32 meshFindHierarchyMatrixByUserData(hmatrix *dest, hmatrix *destNC, mhbinding *binding, void *userData)
 {
     polygonobject *object;
 
@@ -2868,7 +2868,7 @@ mhbinding *meshBindingFindByName(mhbinding *startBinding, mhbinding *list, meshd
     Outputs     :
     Return      : TRUE means to stop walking the list
 ----------------------------------------------------------------------------*/
-bool meshHierarchyWalkR(meshdata *mesh, polygonobject *object, meshcallback preCallback, meshcallback postCallback)
+bool32 meshHierarchyWalkR(meshdata *mesh, polygonobject *object, meshcallback preCallback, meshcallback postCallback)
 {
     polygonobject *daughter;
 

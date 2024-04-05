@@ -61,9 +61,9 @@ void cameraInit(Camera *camera,real32 distance);
 void cameraJoystickReset(void);
 void cameraRotAngle(Camera *camera,real32 angle);
 void cameraRotDeclination(Camera *camera,real32 declination);
-void cameraZoom(Camera *camera,real32 zoomfactor, bool EnforceShipDistances);
+void cameraZoom(Camera *camera,real32 zoomfactor, bool32 EnforceShipDistances);
 void cameraSetEyePosition(Camera *camera);
-sdword cameraControl(Camera *camera,bool EnforceShipDistances);
+sdword cameraControl(Camera *camera,bool32 EnforceShipDistances);
 void cameraCopyPositionInfo(Camera *dst,Camera *src);
 void cameraChangeLookatpoint(Camera *camera,vector *newlookatpoint);
 void cameraRotateAbout(Camera *camera,vector about,real32 deg);
@@ -117,8 +117,8 @@ extern sword camJoyRightAscension;
 extern bool8 wheel_up;
 extern bool8 wheel_down;
 
-extern bool zoomOutNow;
-extern bool zoomInNow;
+extern bool32 zoomOutNow;
+extern bool32 zoomInNow;
 
 extern bool8 useSlowWheelZoomIn;
 

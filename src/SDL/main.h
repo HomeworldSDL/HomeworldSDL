@@ -63,10 +63,10 @@
 //structure for command-line parsing
 typedef struct
 {
-    //bool visible;                               //is this option visible by using '/?'?
+    //bool32 visible;                               //is this option visible by using '/?'?
     udword flags;                               //flags for this entry.  See above for possible values.
     char *parameter;                            //parameter string (begins with a slash)
-    bool (*function)(char *string);             //function to call, NULL if none.  Called after variable is set.
+    bool32 (*function)(char *string);             //function to call, NULL if none.  Called after variable is set.
     void *variableToModify;                     //variable to modify, NULL if none
     udword valueToSet;                          //value to set variable to
     char *helpString;                           //string printed in help screen
@@ -87,18 +87,18 @@ extern udword initialSensorLevel;
 extern sdword enableTrails;
 extern sdword showBackgrounds;
 
-extern bool mainRasterSkip;
+extern bool32 mainRasterSkip;
 
-extern bool mainSafeGL;
+extern bool32 mainSafeGL;
 
-extern bool mainForceKatmai;
-extern bool mainAllowKatmai;
-extern bool mainAllowPacking;
-extern bool mainOnlyPacking;
+extern bool32 mainForceKatmai;
+extern bool32 mainAllowKatmai;
+extern bool32 mainAllowPacking;
+extern bool32 mainOnlyPacking;
 
-extern bool fullScreen;
+extern bool32 fullScreen;
 
-extern bool enableAVI;
+extern bool32 enableAVI;
 
 extern sdword mainReinitRenderer;
 
@@ -111,8 +111,8 @@ extern sdword mainWindowWidth;
 extern sdword mainWindowHeight;
 extern sdword mainWindowDepth;
 
-extern bool mainNoPerspective;
-extern bool systemActive;
+extern bool32 mainNoPerspective;
+extern bool32 systemActive;
 
 /*=============================================================================
     Functions:
@@ -130,12 +130,12 @@ void utyOptionsFileRead(void);
 void utyOptionsFileWrite(void);
 
 //renderer swapping functions
-bool mainLoadGL(char* data);
-bool mainLoadRGL(void);
-bool mainLoadParticularRGL(char* device, char* data);
+bool32 mainLoadGL(char* data);
+bool32 mainLoadRGL(void);
+bool32 mainLoadParticularRGL(char* device, char* data);
 sdword mainActiveRenderer(void);
-bool mainReinitRGL(void);
-bool mainShutdownRenderer(void);
+bool32 mainReinitRGL(void);
+bool32 mainShutdownRenderer(void);
 
 void mainSaveRender(void);
 void mainRestoreRender(void);

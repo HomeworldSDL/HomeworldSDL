@@ -45,7 +45,7 @@ void objectiveLoad(void);
 // *fullDescription is the text found in the fleet intelligence window
 // The fullDescription pointer can be NULL
 // showOnce forces Fleet Intelligence to be drawn once and then deleted
-Objective *objectiveAndFleetIntelligenceCreate(char *label, char *briefDescription, char* fullDescription, bool8 showOnce, bool primary);
+Objective *objectiveAndFleetIntelligenceCreate(char *label, char *briefDescription, char* fullDescription, bool8 showOnce, bool32 primary);
 
 // Called independently if you wish to show fleet intelligence only once and right away
 FleetIntelligence *fleetIntelligenceCreate(char *description, bool8 showOnce);

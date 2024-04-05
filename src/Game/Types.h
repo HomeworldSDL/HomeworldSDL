@@ -70,10 +70,7 @@ typedef sdword	smemsize;
 typedef real32  memrealsize;
 #endif
 
-#ifndef bool                 // was: __cplusplus
-typedef udword  bool;
-#endif
-
+typedef udword  bool32;
 typedef sbyte   bool8;
 typedef sword   bool16;
 

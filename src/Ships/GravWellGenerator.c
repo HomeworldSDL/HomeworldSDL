@@ -150,7 +150,7 @@ void GravWellGeneratorDied(Ship *ship)
     listDeleteAll(&spec->GravList);        //delete the list
 }
 
-bool gravwellIsShipStuckForHyperspaceing(Ship *ship)
+bool32 gravwellIsShipStuckForHyperspaceing(Ship *ship)
 {
     //multiplayer game...lets test if in grav well..if we are, we'll pause and let us get pummeled!
     Ship *posShip;
@@ -245,7 +245,7 @@ void turnoffGravwell(Ship *ship)
         }
     }
 }
-bool GravWellGeneratorSpecialActivate(Ship *ship)
+bool32 GravWellGeneratorSpecialActivate(Ship *ship)
 {
     sdword LOD;
     etglod *etgLOD;
@@ -324,7 +324,7 @@ void GravWellGeneratorJustDisabled(Ship *ship)
     }
 }
 
-bool ShipInGravField(Ship *ship, Ship *objinquestion)
+bool32 ShipInGravField(Ship *ship, Ship *objinquestion)
 {
     GravWellGeneratorSpec *spec = (GravWellGeneratorSpec *)ship->ShipSpecifics;
     Node *gravnode;

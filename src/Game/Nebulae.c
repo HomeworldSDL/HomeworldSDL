@@ -69,7 +69,7 @@ ubyte nebColor[4];
 // DATA
 // -----
 
-static bool _bright = TRUE;
+static bool32 _bright = TRUE;
 
 static ubyte TENDRILALPHA = 163;
 
@@ -205,7 +205,7 @@ void nebHomogenize(hvector* h)
     h->z *= oneOverW;
 }
 
-static void _clearcolorUniverse()
+static void _clearcolorUniverse(void)
 {
     color c = universe.backgroundColor;
     if (!smSensorsActive)
@@ -222,7 +222,7 @@ static void _clearcolorUniverse()
 // FUNCTIONS
 // -----
 
-void nebColorInit()
+void nebColorInit(void)
 {
     nebFogColor[0] = NEB_FOG_RED;
     nebFogColor[1] = NEB_FOG_GREEN;
@@ -238,7 +238,7 @@ void nebColorInit()
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void nebStartup()
+void nebStartup(void)
 {
     sdword i;
 
@@ -268,7 +268,7 @@ void nebStartup()
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void nebReset()
+void nebReset(void)
 {
     ranParametersReset(RANDOM_NEBULAE);
     nebShutdown();
@@ -283,7 +283,7 @@ void nebReset()
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void nebShutdown()
+void nebShutdown(void)
 {
     sdword i;
 
@@ -1762,8 +1762,8 @@ void nebNewNeb(struct Nebula* neb)
 ----------------------------------------------------------------------------*/
 sdword nebLOD(nebChunk* chunka, nebChunk* chunkb)
 {
-    bool a = univSpaceObjInRenderList((SpaceObj*)chunka->spaceobj);
-    bool b = univSpaceObjInRenderList((SpaceObj*)chunkb->spaceobj);
+    bool32 a = univSpaceObjInRenderList((SpaceObj*)chunka->spaceobj);
+    bool32 b = univSpaceObjInRenderList((SpaceObj*)chunkb->spaceobj);
 
     return (a || b) ? 0 : 1;
 }
@@ -1965,7 +1965,7 @@ void nebColourTendril(nebTendril* tendril, sdword lod)
     Outputs     :
     Return      : TRUE or FALSE, depending
 ----------------------------------------------------------------------------*/
-bool nebIsClipped(nebTendril* tendril)
+bool32 nebIsClipped(nebTendril* tendril)
 {
     vector veye, vobj;
     vecSub(veye, mrCamera->eyeposition, mrCamera->lookatpoint);
@@ -2002,7 +2002,7 @@ void nebRenderNebula(nebulae_t* neb)
     udword i;
     nebChunk* chunk;
     nebTendril* tendril;
-    bool fogOn, atOn, cullOff;
+    bool32 fogOn, atOn, cullOff;
     real32 maxDist;
 
     if (neb->numTendrils == 0 || smSensorsActive)
@@ -2239,7 +2239,7 @@ static real32 nebradius = NEB_CHUNK_RADIUS*2.0f;
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void nebSetFog()
+void nebSetFog(void)
 {
     Node* node;
     SpaceObj* spaceobj;

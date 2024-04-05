@@ -102,22 +102,22 @@ public:
     // Send a packet to a client
     void SendPacketTo(Address* theAddressP, unsigned char titanMsgType,
                       const void* thePacket, unsigned short theLen,
-                      bool appendSeqNum = false, int theSeqNum = 0);
+                      bool32 appendSeqNum = false, int theSeqNum = 0);
 
     // Authentication stuff
-    void Authenticate(const string &loginName, const string &password, const string &theNewPassword, bool CreateAccount);
+    void Authenticate(const string &loginName, const string &password, const string &theNewPassword, bool32 CreateAccount);
 
 
     // Routing Server stuff
-    unsigned long StartRoutingServer(const wchar_t* theChannelName, const wchar_t* theChannelDescription, const wchar_t* thePassword, bool isGameServer,unsigned char *routingaddress);
+    unsigned long StartRoutingServer(const wchar_t* theChannelName, const wchar_t* theChannelDescription, const wchar_t* thePassword, bool32 isGameServer,unsigned char *routingaddress);
     void RegisterRoutingServer(void);
     void HandleRoutingRegisterReply(WONMisc::SocketPipe* thePipeP, const WONMsg::SmallMessage& theMsgR);
-    void ConnectToRoutingServer(wstring theUserName, const wchar_t* thePassword, int theServer, bool reconnect = false);
+    void ConnectToRoutingServer(wstring theUserName, const wchar_t* thePassword, int theServer, bool32 reconnect = false);
     void CloseRoutingServerConnection(int theServer);
-    void RoutingSendChatBroadcast(unsigned short theSize, const unsigned char* theDataP, int theServer = 0, bool appendSeqNum = false, int theSeqNum = 0);
-    void RoutingSendChatWhisper(unsigned long* theIds, unsigned short theNumIds, unsigned short theSize, const unsigned char* theDataP, bool addSeqNum =false, int theSeqNum =0);
-    void RoutingSendDataBroadcast(unsigned short theSize, const unsigned char* theDataP, int theServer = 0, bool appendSeqNum = false, int theSeqNum = 0);
-    void RoutingSendData(WONMsg::ClientId theId, unsigned short theSize, const unsigned char* theDataP, int theServer = 0, bool appendSeqNum = false, int theSeqNum = 0);
+    void RoutingSendChatBroadcast(unsigned short theSize, const unsigned char* theDataP, int theServer = 0, bool32 appendSeqNum = false, int theSeqNum = 0);
+    void RoutingSendChatWhisper(unsigned long* theIds, unsigned short theNumIds, unsigned short theSize, const unsigned char* theDataP, bool32 addSeqNum =false, int theSeqNum =0);
+    void RoutingSendDataBroadcast(unsigned short theSize, const unsigned char* theDataP, int theServer = 0, bool32 appendSeqNum = false, int theSeqNum = 0);
+    void RoutingSendData(WONMsg::ClientId theId, unsigned short theSize, const unsigned char* theDataP, int theServer = 0, bool32 appendSeqNum = false, int theSeqNum = 0);
 
     void SetGameKey(unsigned char *key);
     const unsigned char *GetGameKey(void);
@@ -126,8 +126,8 @@ public:
     int GetPatch(const char *theFilename,const char *saveFileName);
     static void GetPatch(void *theArgs);
 
-    bool CheckStartingGame(unsigned char *routingaddress);
-    bool BehindFirewall(void);
+    bool32 CheckStartingGame(unsigned char *routingaddress);
+    bool32 BehindFirewall(void);
     void LeaveGameNotify(void);
     Address GetMyPingAddress(void);
 
@@ -141,20 +141,20 @@ public:
     void OnFinalLobbyExit(void);
     void OnCaptainStartedGame(void);
     void CreateMediaMetrixEditControl(void);
-    static bool TitanInterface::SaveWonstuff();
+    static bool32 TitanInterface::SaveWonstuff();
 private:
-    bool mUseRoutingServer; // Are we using a routing server for game communication?
-    bool mUseOldScheme; // Old
-    bool mLaunched;
-    bool mBehindFirewall;
-    bool mIsGameServer; // is the Routing Server that we're starting a game server (true) or a chat server (false)
-    bool mAmCaptain;
-    bool mRoutingReconnect[2];
+    bool32 mUseRoutingServer; // Are we using a routing server for game communication?
+    bool32 mUseOldScheme; // Old
+    bool32 mLaunched;
+    bool32 mBehindFirewall;
+    bool32 mIsGameServer; // is the Routing Server that we're starting a game server (true) or a chat server (false)
+    bool32 mAmCaptain;
+    bool32 mRoutingReconnect[2];
     int mRoutingReconnectNum[2];
-    bool mLoggedInToRoutingServer[2];
-    bool mHaveConnectedToAChatServer;
-    bool mGameDisconnectWasVoluntary;
-    bool mFailFactOverDirectly;
+    bool32 mLoggedInToRoutingServer[2];
+    bool32 mHaveConnectedToAChatServer;
+    bool32 mGameDisconnectWasVoluntary;
+    bool32 mFailFactOverDirectly;
     int mCaptainReconnectNum;
     HWND mMediaMetrixHWND; // MediaMetrix edit control HANDLE
 
@@ -207,9 +207,9 @@ private:
     int mNumPingTrials;
 
     ClientToPipe               mClientMap;     // Client connections
-    bool                       mCloseRequest;  // Shutdown requested?
+    bool32                       mCloseRequest;  // Shutdown requested?
     IpType                     mIpType;        // ip or ipx
-    bool                       mIsLan;         // is this a lan game
+    bool32                       mIsLan;         // is this a lan game
     WONMisc::EasySocket::SocketType     mDatagramType;  // IPX or UDP
     WONMisc::EasySocket::SocketType     mStreamType;    // SPX or TCP
 
@@ -219,7 +219,7 @@ private:
     WONAuth::Auth1PublicKeyBlock *mPublicKeyBlock;          // Auth public key block
     WONAuth::Auth1Certificate *mCertificate;                        // Auth certificate
     time_t mAuthDeltaTime;                                                      // Difference from auth server clock
-    bool mNeedToAuthenticateAfterGettingAuthDirectory;
+    bool32 mNeedToAuthenticateAfterGettingAuthDirectory;
 
     WONCrypt::BFSymmetricKey *mAuthSessionKey;
     WONCrypt::BFSymmetricKey *mDirSessionKey;
@@ -254,12 +254,12 @@ private:
     std::string mLoginName;
     std::string mPassword;
     std::string mNewPassword;
-    bool mCreateAccount;
+    bool32 mCreateAccount;
 
     WONMsg::SMsgFactStartProcessUnicode mStartProcessMsg;
     WONMsg::MMsgRoutingRegisterClient   mRouteRegisterMsg;
     WONMsg::SMsgCommRegisterRequest     mRegisterRoutingServerMsg;
-    bool                                mNeedToRegisterRoutingServer;
+    bool32                                mNeedToRegisterRoutingServer;
 
     unsigned long FACTSERVER_NUM;
     unsigned long AUTHSERVER_NUM;
@@ -272,7 +272,7 @@ private:
 
     // For Routing Server
     WONMsg::ClientId mMyClientId[2];                   // client id of the local user
-    bool           mHaveReceivedInitialUserList;  // Initial list of users here?
+    bool32           mHaveReceivedInitialUserList;  // Initial list of users here?
     SOCKADDR_IN    mRoutingAddress[2];               // Routing server address
     std::deque<unsigned char> mWaitingRequestQueue[2]; // queue of messages (message types) waiting for StatusReply messages
     WONCrypt::BFSymmetricKey mGameKey; // stored on Routing Server when you create a game
@@ -290,7 +290,7 @@ private:
     void HandleWaitCmd(WONMisc::PipeCmd* theCmdP);
     void HandleAcceptCmd(WONMisc::SocketPipe* thePipeP, WONMisc::PipeCmd* theCmdP);
     void HandleCloseCmd(WONMisc::SocketPipe* thePipeP);
-    void HandleRecvCmd(WONMisc::SocketPipe* thePipeP, WONMisc::PipeCmd* theCmdP, bool pipeClosed);
+    void HandleRecvCmd(WONMisc::SocketPipe* thePipeP, WONMisc::PipeCmd* theCmdP, bool32 pipeClosed);
     void HandleTitanMsg(WONMisc::SocketPipe* thePipeP, const char* theBufP, unsigned long theLen);
     void HandleSmallMsg(WONMisc::SocketPipe* thePipeP, const char* theBufP, unsigned long theLen);
     void HandleMiniMsg(WONMisc::SocketPipe* thePipeP, const char* theBufP, unsigned long theLen);
@@ -326,8 +326,8 @@ private:
     void AuthFailOver(void);
     void ResetAuthFailOver(void);
 
-    bool ReadLoginKey(char *theKey);
-    void WriteLoginKey(char *theKey, bool useOldNewLoginKey = false);
+    bool32 ReadLoginKey(char *theKey);
+    void WriteLoginKey(char *theKey, bool32 useOldNewLoginKey = false);
 
     void AuthHandleGetPubKeysReply(const WONMsg::TMessage &theMsg);
     void AuthGetPubKeyBlock(void);
@@ -341,13 +341,13 @@ private:
     void PeerHandleMiniChallenge(WONMisc::SocketPipe** thePipeP, const WONMsg::MiniMessage& theMsgR);
     void PeerHandleMiniComplete(WONMisc::SocketPipe** thePipeP, const WONMsg::MiniMessage& theMsgR);
 
-    bool EncryptMessage(const WONMsg::BaseMessage &theInMsg, WONMsg::BaseMessage &theOutMsg, const WONCrypt::BFSymmetricKey &theKey, unsigned short theSessionId, unsigned short *theSeqNum);
-//  bool EncryptTMessage(const WONMsg::BaseMessage &theInMsg, WONMsg::BaseMessage &theOutMsg, const WONCrypt::BFSymmetricKey &theKey, unsigned short theSessionId, unsigned short *theSeqNum);
-    bool EncryptNonTMessage(const WONMsg::BaseMessage &theInMsg, WONMsg::BaseMessage &theOutMsg, const WONCrypt::BFSymmetricKey &theKey, unsigned short theSessionId, unsigned short *theSeqNum);
+    bool32 EncryptMessage(const WONMsg::BaseMessage &theInMsg, WONMsg::BaseMessage &theOutMsg, const WONCrypt::BFSymmetricKey &theKey, unsigned short theSessionId, unsigned short *theSeqNum);
+//  bool32 EncryptTMessage(const WONMsg::BaseMessage &theInMsg, WONMsg::BaseMessage &theOutMsg, const WONCrypt::BFSymmetricKey &theKey, unsigned short theSessionId, unsigned short *theSeqNum);
+    bool32 EncryptNonTMessage(const WONMsg::BaseMessage &theInMsg, WONMsg::BaseMessage &theOutMsg, const WONCrypt::BFSymmetricKey &theKey, unsigned short theSessionId, unsigned short *theSeqNum);
 
-    bool DecryptMessage(const char *theBuf, unsigned long theLen, WONMsg::BaseMessage &theOutMsg, WONMisc::SocketPipe **thePipePP);
-//  bool DecryptTMessage(const char *theBuf, unsigned long theLen, WONMsg::BaseMessage &theOutMsg, WONMisc::SocketPipe **thePipePP);
-    bool DecryptNonTMessage(const char *theBuf, unsigned long theLen, WONMsg::BaseMessage &theOutMsg, WONMisc::SocketPipe **thePipePP);
+    bool32 DecryptMessage(const char *theBuf, unsigned long theLen, WONMsg::BaseMessage &theOutMsg, WONMisc::SocketPipe **thePipePP);
+//  bool32 DecryptTMessage(const char *theBuf, unsigned long theLen, WONMsg::BaseMessage &theOutMsg, WONMisc::SocketPipe **thePipePP);
+    bool32 DecryptNonTMessage(const char *theBuf, unsigned long theLen, WONMsg::BaseMessage &theOutMsg, WONMisc::SocketPipe **thePipePP);
 
 //  void HandleGetNumUsersReply(WONMisc::SocketPipe *thePipeP, const WONMsg::MiniMessage& theMsgR);
 
@@ -374,7 +374,7 @@ private:
 
     // Event Server stuff
     unsigned long mEventTag;
-    bool          mHasLobbyEnterEventBeenSent;
+    bool32          mHasLobbyEnterEventBeenSent;
     time_t        mLobbyEnterTime;
     time_t        mGameStartTime;
     void RecordEvent(unsigned short theEventType);
@@ -410,12 +410,12 @@ private:
     void BuildAddress(SOCKADDR_IN& theAddrR, unsigned char buffer[]);
     const char* PrintAddress(SOCKADDR_IN& theAddrR);
     const char* PrintAddress(const WONCommon::RawBuffer& theSixBytes);
-    bool SendMsg(WONMisc::SocketPipe* thePipeP, const WONMsg::BaseMessage& theMsgR, unsigned char theLengthFieldSize = 0);
+    bool32 SendMsg(WONMisc::SocketPipe* thePipeP, const WONMsg::BaseMessage& theMsgR, unsigned char theLengthFieldSize = 0);
     unsigned long GetLengthFieldSize(const WONMsg::BaseMessage& theMsgR);
 
     unsigned long GetLocalIPAddress(void);
 
-    bool EncryptAndSendRoutingMsg(const WONMsg::BaseMessage &theMsgR, int theServer);
+    bool32 EncryptAndSendRoutingMsg(const WONMsg::BaseMessage &theMsgR, int theServer);
 
     WONMisc::SocketPipe* ConnectTo(const SOCKADDR& theDest, WONMisc::EasySocket::SocketType theType=WONMisc::EasySocket::TCP, WONMisc::RecvLengthPrefixType thePrefixType=WONMisc::ptUnsignedLong);
     WONMisc::SocketPipe* ConnectTo(const Address& theDest, WONMisc::EasySocket::SocketType theType=WONMisc::EasySocket::TCP, WONMisc::RecvLengthPrefixType thePrefixType=WONMisc::ptUnsignedLong);
@@ -423,9 +423,9 @@ private:
     WONMisc::SocketPipe* ConnectAndSend(const SOCKADDR_IN& theDest, const WONMsg::BaseMessage& theMsgR, WONMisc::EasySocket::SocketType theType=WONMisc::EasySocket::TCP, WONMisc::RecvLengthPrefixType thePrefixType=WONMisc::ptUnsignedLong);
     WONMisc::SocketPipe* ConnectAndSend(const Address& theDest, const WONMsg::BaseMessage& theMsgR, WONMisc::EasySocket::SocketType theType=WONMisc::EasySocket::TCP, WONMisc::RecvLengthPrefixType thePrefixType=WONMisc::ptUnsignedLong);
 
-    static unsigned long GetHashSection(bool restart, unsigned char** theUnhashedBufP, unsigned char digest[MD5_HASH_SIZE]);
+    static unsigned long GetHashSection(bool32 restart, unsigned char** theUnhashedBufP, unsigned char digest[MD5_HASH_SIZE]);
     static void TitanInterface::ShortCircuitChallengeResponse(unsigned char* theSeed, unsigned char* theChallengeResponseP);
-    static bool TitanInterface::ReadFromWonstuff(bool restart, unsigned char* theBufferP);
+    static bool32 TitanInterface::ReadFromWonstuff(bool32 restart, unsigned char* theBufferP);
 };
 
 #endif

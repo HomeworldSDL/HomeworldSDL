@@ -255,12 +255,12 @@ void battlePingEvaluate(void *thisPing, battleping *battlePing);
 void battlePingEvaluateNoFriendlies(void *voidPing, battleping *battlePing);
 void battlePingEvaluateNoEnemies(void *voidPing, battleping *battlePing);
 
-bool battleCanChatterAtThisTime(sdword event, Ship *ship);
+bool32 battleCanChatterAtThisTime(sdword event, Ship *ship);
 sdword battleChatterAttempt(sdword linkTo, sdword event, Ship *ship, sdword variable);
 sdword battleChatterFleetAttempt(sdword linkTo, sdword event, sdword variable, vector *where);
 Ship *battleMouthPieceFindAnother(Ship *firstMouthPiece, Ship **ships, sdword numShips);
 Ship *battleMouthPieceFind(Ship **ships, sdword numShips);
-bool battleShipOnMyTail(Ship *meShip, Ship *badGuyShip);
+bool32 battleShipOnMyTail(Ship *meShip, Ship *badGuyShip);
 void battleAccountForLosses(Ship *ship, battleping *battlePing);
 void battleChatterFrequencySet(sdword freq100);
 void battleShipDyingWithTimeToScream(Ship *ship);

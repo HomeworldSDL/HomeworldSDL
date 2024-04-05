@@ -489,9 +489,9 @@ void allianceBreakAll(void)
     Description : Returns true if you are allied with a ship.
     Inputs      : ship, playerptr
     Outputs     : true, false
-    Return      : bool
+    Return      : bool32
 ----------------------------------------------------------------------------*/
-bool allianceIsShipAlly(Ship *ship, Player *player)
+bool32 allianceIsShipAlly(Ship *ship, Player *player)
 {
     if ((ship->playerowner == player) || (bitTest(ship->attributes, ATTRIBUTES_Defector)))
     {
@@ -506,9 +506,9 @@ bool allianceIsShipAlly(Ship *ship, Player *player)
     Description : Returns true if these two players are alied.
     Inputs      : ship, playerptr
     Outputs     : true, false
-    Return      : bool
+    Return      : bool32
 ----------------------------------------------------------------------------*/
-bool allianceArePlayersAllied(Player *playerone, Player *playertwo)
+bool32 allianceArePlayersAllied(Player *playerone, Player *playertwo)
 {
     if (playerone == playertwo)
     {

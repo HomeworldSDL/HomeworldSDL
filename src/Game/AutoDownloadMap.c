@@ -36,7 +36,7 @@ typedef struct AutoDownloadMapInfo
     sdword numPlayers;
     sdword minPlayers;      // min players map can support
     sdword maxPlayers;      // max players map can support
-    bool needAutoDownload;
+    bool32 needAutoDownload;
     sdword numFilesSent;
     sdword numFilesAutodownloaded;      // only has meaning if you are the one downloading
     sdword totalFilesToAutodownload;    // only has meaning if you are the one downloading
@@ -56,12 +56,12 @@ FilePacket *CreateFilePacket(char *dirname,char *filename,sdword filecontentssiz
     Functions:
 =============================================================================*/
 
-void autodownloadmapStartup()
+void autodownloadmapStartup(void)
 {
     memset(&autodownloadmapInfo,0,sizeof(autodownloadmapInfo));
 }
 
-void autodownloadmapShutdown()
+void autodownloadmapShutdown(void)
 {
     if (autodownloadmapInfo.fileOfMapInfo)
     {
@@ -72,7 +72,7 @@ void autodownloadmapShutdown()
     memset(&autodownloadmapInfo,0,sizeof(autodownloadmapInfo));
 }
 
-void autodownloadmapReset()
+void autodownloadmapReset(void)
 {
     autodownloadmapShutdown();
 }
@@ -83,7 +83,7 @@ void GetExactMapDirNames(sdword num)
     sprintf(autodownloadmapInfo.exactdirname,autodownloadmapInfo.dirname,num);
 }
 
-bool autodownloadmapBuiltIn()
+bool32 autodownloadmapBuiltIn(void)
 {
     char fullfile[200];
 
@@ -127,7 +127,7 @@ void autodownloadmapGotMapName(char *mapname,sdword numPlayers,sdword minPlayers
     }
 }
 
-bool autodownloadmapRequired()
+bool32 autodownloadmapRequired(void)
 {
     return autodownloadmapInfo.needAutoDownload;
 }
@@ -259,7 +259,7 @@ void SendFile(char *dirname,char *filename,sdword fileSize)
     titanSendBroadcastMessage((ubyte *)pkt,sizeofFilePacketGivenPacket(pkt));
 }
 
-bool autodownloadmapSendAFile(void)
+bool32 autodownloadmapSendAFile(void)
 {
     sdword i = autodownloadmapInfo.numFilesSent;
 
@@ -289,7 +289,7 @@ void autodownloadmapSendAllFiles(void)
     }
 }
 
-bool autodownloadmapReceivedAllFiles()
+bool32 autodownloadmapReceivedAllFiles(void)
 {
     if (autodownloadmapInfo.numFilesAutodownloaded == 0)
     {
@@ -304,7 +304,7 @@ bool autodownloadmapReceivedAllFiles()
     return FALSE;
 }
 
-real32 autodownloadmapPercentReceivedFiles()
+real32 autodownloadmapPercentReceivedFiles(void)
 {
     if (autodownloadmapInfo.numFilesAutodownloaded == 0)
     {
@@ -314,7 +314,7 @@ real32 autodownloadmapPercentReceivedFiles()
     return (real32)autodownloadmapInfo.numFilesAutodownloaded / (real32)autodownloadmapInfo.totalFilesToAutodownload;
 }
 
-real32 autodownloadmapPercentSentFiles()
+real32 autodownloadmapPercentSentFiles(void)
 {
     if (autodownloadmapInfo.numFilesSent == 0)
     {
@@ -445,7 +445,7 @@ void receivedFilePacketCB(ubyte *packet,udword sizeofPacket)
 #undef fpacket
 }
 
-void autodownloadmapPrintStatusStart()
+void autodownloadmapPrintStatusStart(void)
 {
     if (sigsPlayerIndex == 0)
     {

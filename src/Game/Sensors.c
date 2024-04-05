@@ -85,7 +85,7 @@ void smToggleSensorsLevel(void);
     Data:
 =============================================================================*/
 //set this to TRUE if you want it to be the Fleet Intel version of the SM
-bool smFleetIntel = FALSE;
+bool32 smFleetIntel = FALSE;
 
 //toggles for what to display
 Camera smCamera;
@@ -94,7 +94,7 @@ Camera smTempCamera;
 sdword smTacticalOverlay = FALSE;
 sdword smResources = TRUE;
 sdword smNonResources = TRUE;
-bool smFocusOnMothershipOnClose = FALSE;
+bool32 smFocusOnMothershipOnClose = FALSE;
 
 //arrays of stars for quick star rendering
 extern ubyte* stararray;
@@ -141,9 +141,9 @@ real32 smFOW_DustGasK4;
 real32 smFOWBlobUpdateTime = SM_FOWBlobUpdateTime;
 
 //global flag which says the sensors manager is active
-bool smSensorsActive = FALSE;
+bool32 smSensorsActive = FALSE;
 
-bool smSensorsDisable = FALSE;
+bool32 smSensorsDisable = FALSE;
 
 //for updating blobs
 sdword smRenderCount;
@@ -173,8 +173,8 @@ rectangle smSelectionRect;
 blob *closestBlob = NULL;
 blob *probeBlob = NULL;
 //for enabling 'ghost mode' after a player dies
-bool smGhostMode = FALSE;
-bool ioSaveState;
+bool32 smGhostMode = FALSE;
+bool32 ioSaveState;
 
 //option for fuzzy sensors blobs
 sdword smFuzzyBlobs = TRUE;
@@ -188,7 +188,7 @@ color smCurrentWorldPlaneColor;
 real32 smCurrentCameraDistance;
 
 //switch for 'instant' transitions to sensors manager
-bool smInstantTransition = FALSE;
+bool32 smInstantTransition = FALSE;
 real32 smCurrentZoomLength;
 real32 smCurrentMainViewZoomLength;
 
@@ -199,7 +199,7 @@ sdword smTickTextIndex;
 //for panning the world plane about whilley-nilley
 vector smCameraLookatPoint = {0.0f, 0.0f, 0.0f};
 vector smCameraLookVelocity = {0.0f, 0.0f, 0.0f};
-bool smCentreWorldPlane = FALSE;
+bool32 smCentreWorldPlane = FALSE;
 
 //info for sorting the blobs
 blob **smBlobSortList = NULL;
@@ -218,7 +218,7 @@ typedef struct
     vector location;
     color  color;
     real32 fade;
-    bool   ping;
+    bool32   ping;
 } weirdStruct;
 
 static weirdStruct smWeird[NUM_WEIRD_POINTS];
@@ -570,7 +570,7 @@ ticklod smTickMarkInfo[SM_NumberTickMarkSpacings] =
 ----------------------------------------------------------------------------*/
 static real32 smTickFactorX[4] = {0.0f, 1.0f, 0.0f, -1.0f};
 static real32 smTickFactorY[4] = {1.0f, 0.0f, -1.0f, 0.0f};
-void smWorldPlaneDraw(vector *centre, bool bDrawSpokes, color c)
+void smWorldPlaneDraw(vector *centre, bool32 bDrawSpokes, color c)
 {
     real32 radius = smCamera.distance * smWorldPlaneDistanceFactor;
     real32 tickExtent = radius * smTickExtentFactor;
@@ -684,7 +684,7 @@ void smHorizonLineDraw(void *voidCam, hmatrix *modelView, hmatrix *projection, r
     real32 x, y, radius;
     vector startPoint, horizPoint, endPoint;
     real32 angle, degAngle;
-    bool isEnabled = FALSE;
+    bool32 isEnabled = FALSE;
     sdword nPrintfed;
     fonthandle oldFont = fontCurrentGet();
 //    distance = smCurrentCameraDistance; //!!!
@@ -819,7 +819,7 @@ void smBlobDrawClear(Camera *camera, blob *thisBlob, hmatrix *modelView, hmatrix
     lod *level;
     hmatrix coordMatrixForGL;
     ShipStaticInfo *shipStaticInfo;
-    bool bFlashOn;
+    bool32 bFlashOn;
     SpaceObjSelection *blobObjects = thisBlob->blobObjects;
     real32 radius;
     hvector objectPos, cameraSpace, screenSpace;
@@ -919,7 +919,7 @@ void smBlobDrawClear(Camera *camera, blob *thisBlob, hmatrix *modelView, hmatrix
 
                                 if (rndShipVisible(obj, camera))
                                 {
-                                    bool wireOn;
+                                    bool32 wireOn;
                                     extern bool8 g_WireframeHack;
 
                                     wireOn = g_WireframeHack;
@@ -1116,7 +1116,7 @@ justRenderAsDot:
 
                         if (rndShipVisible(obj, camera))
                         {
-                            bool wireOn;
+                            bool32 wireOn;
                             extern bool8 g_WireframeHack;
 
                             wireOn = g_WireframeHack;
@@ -1372,7 +1372,7 @@ void smSensorWeirdnessInit(void)
     Outputs     :
     Return      : TRUE if it's an enemy ship or a foggy resource
 ----------------------------------------------------------------------------*/
-bool smEnemyFogOfWarBlobCallback(blob *superBlob, SpaceObj *obj)
+bool32 smEnemyFogOfWarBlobCallback(blob *superBlob, SpaceObj *obj)
 {
     switch (obj->objtype)
     {
@@ -1748,8 +1748,8 @@ blob *smBlobsDraw(Camera *camera, LinkedList *list, hmatrix *modelView, hmatrix 
 #if BOB_VERBOSE_LEVEL >= 2
     sdword nBlobs = 0;
 #endif
-    bool bClosestMove = FALSE;      // used for playing the tick sound when a blob is highligted
-    static bool bPlayedSound;       // ditto
+    bool32 bClosestMove = FALSE;      // used for playing the tick sound when a blob is highligted
+    static bool32 bPlayedSound;       // ditto
     sdword carrierHalfWidth = 0, mothershipHalfWidth = 0;
     char *carrier = NULL, *mothership = NULL;
     fonthandle oldFont = 0;
@@ -2153,7 +2153,7 @@ real32 smLookFactorGet(real32 current, real32 range)
     Outputs     :
     Return      : void
 ----------------------------------------------------------------------------*/
-void smZoomUpdate(real32 current, real32 range, bool bUpdateCamera)
+void smZoomUpdate(real32 current, real32 range, bool32 bUpdateCamera)
 {
     real32 scrollFactor;
     real32 eyeFactor;
@@ -2342,7 +2342,7 @@ void smAllBlobsPiePlateDraw(real32 distance)
 {
     Node *node;
     blob *thisBlob;
-    bool dohackloop = TRUE;
+    bool32 dohackloop = TRUE;
     real32 closestDistance = REALlyBig, length;
     vector mouse_pos,tempvec;
     real32 tempreal;
@@ -2533,7 +2533,7 @@ void smPlayerNamesDraw(rectangle *viewportRect)
         if (universe.players[index].playerState==PLAYER_ALIVE)
         {
             sdword x;
-            bool playerhasdroppedOutOrQuit = playerHasDroppedOutOrQuit(index);
+            bool32 playerhasdroppedOutOrQuit = playerHasDroppedOutOrQuit(index);
 
             c = teColorSchemes[index].textureColor.base;
             if (playerhasdroppedOutOrQuit)
@@ -3618,7 +3618,7 @@ void smDispatch(char *name, featom *atom)
     feToggleButtonSet(name, piePointSpecMode != PSM_Idle);
 }
 
-void smUpdateHyperspaceStatus(bool goForLaunch)
+void smUpdateHyperspaceStatus(bool32 goForLaunch)
 {
     mrUpdateHyperspaceStatus(goForLaunch);
 

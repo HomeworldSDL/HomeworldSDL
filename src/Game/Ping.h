@@ -76,7 +76,7 @@
 
 struct ping;
 
-typedef bool (*pingeval)(struct ping *hellaPing, SpaceObj *user, char *userData, bool bRemoveReferences);
+typedef bool32 (*pingeval)(struct ping *hellaPing, SpaceObj *user, char *userData, bool32 bRemoveReferences);
 //structure of a ping
 typedef struct ping
 {

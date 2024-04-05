@@ -15,7 +15,7 @@
 #include "Types.h"
 #include "Vector.h"
 
-void partFilter(bool on);
+void partFilter(bool32 on);
 
 #ifdef HW_BUILD_FOR_DEBUGGING
 #define PART_Debug
@@ -215,7 +215,7 @@ extern real32 partNLips;
 void partStartup(void);
 void partShutdown(void);
 
-void partSetDefaults();
+void partSetDefaults(void);
 void partRenderSystem(psysPtr psys);
 bool8 partUpdateSystem(psysPtr psys, real32 dt, vector* velvec);    //TRUE if system died, FALSE otherwise
 psysPtr partCreateSystem(particleType t, udword n);
@@ -231,7 +231,7 @@ void partModifyExponent(psysPtr psys, real32 exponent);
 
 void partModifyDrag(psysPtr psys, real32 d);
 void partModifyMesh(psysPtr psys, meshdata *mesh);
-void partModifyLighting(psysPtr psys, bool lit);
+void partModifyLighting(psysPtr psys, bool32 lit);
 void partModifyIllum(psysPtr psys, real32 illum);
 void partModifyDeltaIllum(psysPtr psys, real32 deltaIllum);
 void partModifyTexture(psysPtr psys, trhandle tex,
@@ -261,12 +261,12 @@ void partModifyLoopFlag(psysPtr psys, bool8 willLoop);
 void partModifyBillPosition(psysPtr psys, vector* pos);
 
 //flag modifiers
-void partModifySpecular(psysPtr psys, bool spec);
-void partModifyStipple(psysPtr psys, bool stip);
-void partModifyNoDepthWrite(psysPtr psys, bool noWrite);
-void partModifyAdditiveBlends(psysPtr psys, bool add);
-void partModifyPseudoBillboard(psysPtr psys, bool bill);
-void partModifyTrueBillboard(psysPtr psys, bool bill);
+void partModifySpecular(psysPtr psys, bool32 spec);
+void partModifyStipple(psysPtr psys, bool32 stip);
+void partModifyNoDepthWrite(psysPtr psys, bool32 noWrite);
+void partModifyAdditiveBlends(psysPtr psys, bool32 add);
+void partModifyPseudoBillboard(psysPtr psys, bool32 bill);
+void partModifyTrueBillboard(psysPtr psys, bool32 bill);
 //0 - normal, 1 - additive, 2 - stipple
 void partModifyAlphaMode(psysPtr psys, udword mode);
 void partModifyColorScheme(psysPtr psys, sdword colorScheme);
@@ -349,7 +349,7 @@ void partSetDeltaColorDist(real32 r, real32 g, real32 b);
 void partSetDeltaColorA(real32 r, real32 g, real32 b, real32 a);
 void partSetDeltaColorADist(real32 r, real32 g, real32 b, real32 a);
 
-void partSetLighting(bool l);
+void partSetLighting(bool32 l);
 void partSetIllum(real32 n);
 void partSetIllumDist(real32 n);
 void partSetDeltaIllum(real32 n);
@@ -367,12 +367,12 @@ void partSetDeltaLengthDist(real32 d);
 void partSetColorBias(real32 rb, real32 gb, real32 bb);
 void partSetColorBiasDist(real32 drb, real32 dgb, real32 dbb);
 
-void partSetSpecular(bool spec);
-void partSetStipple(bool stip);
-void partSetNoDepthWrite(bool noWrite);
-void partSetAdditiveBlends(bool add);
-void partSetPseudoBillboard(bool bill);
-void partSetTrueBillboard(bool bill);
+void partSetSpecular(bool32 spec);
+void partSetStipple(bool32 stip);
+void partSetNoDepthWrite(bool32 noWrite);
+void partSetAdditiveBlends(bool32 add);
+void partSetPseudoBillboard(bool32 bill);
+void partSetTrueBillboard(bool32 bill);
 void partSetAlphaMode(udword mode);     //0 - normal, 1 - additive, 2 - stippled
 void partSetColorScheme(sdword colorScheme);
 

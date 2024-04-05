@@ -12,7 +12,7 @@
 #include "AIPlayer.h"
 
 void aidDefenseManager(void);
-bool aidShipDied(AIPlayer *aiplayer, ShipPtr ship);
+bool32 aidShipDied(AIPlayer *aiplayer, ShipPtr ship);
 void aidTeamDied(AIPlayer *aiplayer, AITeam *team);
 
 void aidInit(AIPlayer *aiplayer);

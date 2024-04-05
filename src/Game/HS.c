@@ -38,9 +38,9 @@ Copyright Relic Entertainment, Inc.  All rights reserved.
 //guaranteed to be at least 1 gate when the singleplayer game is running
 static sdword hsStaticNumGates = 0;
 static hsStaticGate* hsStaticData = NULL;
-static bool hsGateState = TRUE;
+static bool32 hsGateState = TRUE;
 
-void hsRectangle(vector* origin, real32 rightlength, real32 uplength, ubyte alpha, bool outline, color c);
+void hsRectangle(vector* origin, real32 rightlength, real32 uplength, ubyte alpha, bool32 outline, color c);
 
 /*-----------------------------------------------------------------------------
     Name        : hsStartup
@@ -49,7 +49,7 @@ void hsRectangle(vector* origin, real32 rightlength, real32 uplength, ubyte alph
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void hsStartup()
+void hsStartup(void)
 {
     //nothing here
 }
@@ -61,7 +61,7 @@ void hsStartup()
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void hsShutdown()
+void hsShutdown(void)
 {
     //nothing here
 }
@@ -125,10 +125,10 @@ void hsOrientEffect(Ship* ship)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-bool hsShouldDisplayEffect(Ship* ship)
+bool32 hsShouldDisplayEffect(Ship* ship)
 {
     Ship* host;
-    bool  displayEffect;
+    bool32  displayEffect;
 
     if (ship->clampInfo != NULL)
     {
@@ -157,7 +157,7 @@ bool hsShouldDisplayEffect(Ship* ship)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void hsStart(Ship* ship, real32 cliptDelta, bool into, bool displayEffect)
+void hsStart(Ship* ship, real32 cliptDelta, bool32 into, bool32 displayEffect)
 {
     ShipSinglePlayerGameInfo* ssinfo = ship->shipSinglePlayerGameInfo;
     StaticCollInfo* sinfo = &ship->staticinfo->staticheader.staticCollInfo;
@@ -268,7 +268,7 @@ void hsGetEquation(Ship* ship, GLdouble equation[])
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void hsContinue(Ship* ship, bool displayEffect)
+void hsContinue(Ship* ship, bool32 displayEffect)
 {
 #ifdef HW_ENABLE_GLES
     GLfloat equation[4] = {0.0, 0.0, 1.0, 0.0};
@@ -407,7 +407,7 @@ void hsContinue(Ship* ship, bool displayEffect)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void hsRectangle(vector* origin, real32 rightlength, real32 uplength, ubyte alpha, bool outline, color c)
+void hsRectangle(vector* origin, real32 rightlength, real32 uplength, ubyte alpha, bool32 outline, color c)
 {
     real32 rlen = HS_DIST_2 * uplength;
     real32 ulen = HS_DIST_2 * rightlength;
@@ -608,13 +608,13 @@ noupdateHSMPOUT:
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void hsEnd(Ship* ship, bool displayEffect)
+void hsEnd(Ship* ship, bool32 displayEffect)
 {
     vector origin = {0.0f, 0.0f, 0.0f};
     StaticCollInfo* sinfo = &ship->staticinfo->staticheader.staticCollInfo;
     real32 t;
     ShipSinglePlayerGameInfo* ssinfo = ship->shipSinglePlayerGameInfo;
-    bool lightEnabled, hasEffect;
+    bool32 lightEnabled, hasEffect;
     hmatrix hcoordsys;
     color c;
 
@@ -790,7 +790,7 @@ void hsStaticReset(void)
 }
 
 //whether a label denotes a gate
-bool hsIsStaticGate(char* label)
+bool32 hsIsStaticGate(char* label)
 {
     return ((tolower(label[0]) == 'g') &&
             (tolower(label[1]) == 'a') &&
@@ -885,7 +885,7 @@ void hsStaticDestroy(hvector* point)
 ----------------------------------------------------------------------------*/
 void hsStaticGateRender(hsStaticGate* gate)
 {
-    bool lightEnabled;
+    bool32 lightEnabled;
     Derelict* derelict;
     hmatrix hmat;
     vector origin = { 0.0f, 0.0f, 0.0f };
@@ -1013,7 +1013,7 @@ Derelict *GetHyperspaceGateFromVector(vector *compare)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void hsNoGate(bool state)
+void hsNoGate(bool32 state)
 {
     hsGateState = !state;
 }
@@ -1067,7 +1067,7 @@ void hsSetStaticData(sdword size, ubyte* data)
     hsStaticNumGates = size / sizeof(hsStaticGate);
 }
 
-void SaveHyperspaceGates()
+void SaveHyperspaceGates(void)
 {
     sdword size;
     ubyte* data;
@@ -1091,7 +1091,7 @@ void SaveHyperspaceGates()
     memFree(data);
 }
 
-void LoadHyperspaceGates()
+void LoadHyperspaceGates(void)
 {
     ubyte* data;
     sdword size;

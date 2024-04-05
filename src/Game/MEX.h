@@ -148,7 +148,7 @@ void *mexGetChunk(void *mex,char *type,char *name);
 
 void *mexLoad(char *filename);
 void mexFree(void *mex);
-bool mexVerify(void *mex);
+bool32 mexVerify(void *mex);
 
 ResNozzleStatic *mexGetResNozzleStatic(void *mex);
 RepairNozzleStatic *mexGetRepairNozzleStatic(void *mex);

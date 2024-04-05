@@ -216,7 +216,7 @@ meshdata;
 
 //hierarchy binding information
 struct shipbindings;
-typedef bool (*mhbindingfunction)(udword flags, hmatrix *startMatrix, hmatrix *matrix, void *data, smemsize ID);
+typedef bool32 (*mhbindingfunction)(udword flags, hmatrix *startMatrix, hmatrix *matrix, void *data, smemsize ID);
 typedef void (*mhhelperfunction)(meshdata *mesh, struct shipbindings *bindings, sdword currentLOD);
 typedef struct
 {
@@ -253,7 +253,7 @@ typedef struct shipbindings
 shipbindings;
 
 //mesh hierarchy walking callback
-typedef bool (*meshcallback)(meshdata *mesh, polygonobject *object, sdword iObject);
+typedef bool32 (*meshcallback)(meshdata *mesh, polygonobject *object, sdword iObject);
 
 
 typedef struct tagGeoFileHeader_disk
@@ -331,11 +331,11 @@ materialentry_disk;
 extern sdword meshTotalMaterials;
 extern sdword meshMaterialChanges;
 extern char meshMaterialStatsString[100];
-extern bool usingShader;
+extern bool32 usingShader;
 #endif //MESH_MATERIAL_STATS
 
 #if MESH_MORPH_DEBUG
-extern bool meshMorphDebug;
+extern bool32 meshMorphDebug;
 #endif
 
 /*=============================================================================
@@ -356,7 +356,7 @@ meshdata *meshLoad(char *fileName);
 void meshFree(meshdata *mesh);
 void meshRecolorize(meshdata *mesh);
 void meshFixupUV(meshdata* mesh);
-bool meshPagedVersionExists(char* fileName);
+bool32 meshPagedVersionExists(char* fileName);
 
 //render a specific mesh
 sdword meshRender(meshdata *mesh, sdword iColorScheme);
@@ -378,7 +378,7 @@ mhbinding *meshBindingListCreate(meshdata *mesh);
 void meshBindingListDelete(mhbinding *list);
 mhbinding *meshBindingFindByName(mhbinding *startBinding, mhbinding *list, meshdata *data, char *name);
 sdword meshBindingIndexFindByName(mhbinding *list, meshdata *mesh, char *name);
-bool meshFindHierarchyMatrixByUserData(hmatrix *dest, hmatrix *destNC, mhbinding *bindings, void *userData);
+bool32 meshFindHierarchyMatrixByUserData(hmatrix *dest, hmatrix *destNC, mhbinding *bindings, void *userData);
 void meshHierarchyWalk(meshdata *mesh, meshcallback preMesh, meshcallback postCallback);
 
 void meshSetFade(real32 fade);

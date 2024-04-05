@@ -155,7 +155,7 @@ static FUNC_ITEM *lookup(FUNC_ITEM key)
 
 /* ----- */
 
-static void read_token()
+static void read_token(void)
 /* Read the next token from the input string. The last token read is
    cur_token, while str_token is the token as a string. For example, reading
    from the string the number 12.3371, cur_token is DIGIT, str_token is
@@ -303,13 +303,13 @@ static void read_token()
 
 /* ----- */
 
-static double expression();
-static double multiply();
-static double factor();
+static double expression(void);
+static double multiply(void);
+static double factor(void);
 
 /* ----- */
 
-static double logical_expression()
+static double logical_expression(void)
 {
 
   double e1, e2;
@@ -362,7 +362,7 @@ static double logical_expression()
 
 /* ----- */
 
-static double expression()
+static double expression(void)
 /* This function evaluates expressions. In case of an error, it aborts
    without looking for possible other errors. In order to check ALL the
    possible errors (e.g. syntax), use evalSyntaxOK(). */
@@ -406,7 +406,7 @@ static double expression()
 
 /* ----- */
 
-static double multiply()
+static double multiply(void)
 /* Evaluate * and / */
 {
 
@@ -446,7 +446,7 @@ static double multiply()
 
 /* ----- */
 
-static double factor()
+static double factor(void)
 /* Return a factor */
 {
 
@@ -728,13 +728,13 @@ double evalEvaluate(char *str, ERR_TYPE *err)
 
 /* Functions for checking the syntax of input string */
 
-static void check_expr();
-static void check_mult();
-static void check_fact();
+static void check_expr(void);
+static void check_mult(void);
+static void check_fact(void);
 
 /* ----- */
 
-void check_log_expr()
+void check_log_expr(void)
 {
 
   check_expr();
@@ -754,7 +754,7 @@ void check_log_expr()
 
 /* ----- */
 
-void check_expr()
+void check_expr(void)
 /* Used to verify the syntax in str */
 {
 
@@ -777,7 +777,7 @@ void check_expr()
 
 /* ----- */
 
-static void check_mult()
+static void check_mult(void)
 /* Check * and / */
 {
 
@@ -796,7 +796,7 @@ static void check_mult()
 
 /* ----- */
 
-static void check_fact()
+static void check_fact(void)
 {
 
   if (cur_token == EOL) {

@@ -27,7 +27,7 @@ extern "C" {
 #endif
 
 
-extern bool utilPlayingIntro;
+extern bool32 utilPlayingIntro;
 
 
 /*=============================================================================
@@ -36,7 +36,7 @@ extern bool utilPlayingIntro;
 
 
 int aviInit(void);
-bool aviPlay(char* filename);
+bool32 aviPlay(char* filename);
 int aviStop(void);
 int aviCleanup(void);
 void aviIntroPlay(void);

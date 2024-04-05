@@ -22,10 +22,10 @@ void alodSetTargetPolys(udword targetPolys, udword polyDelta);
 void alodGetTargetPolys(udword* targetPolys, udword* polyDelta);
 void alodSetPolys(udword polys);
 void alodIncPolys(udword polys);
-void alodEnable(bool enable);
+void alodEnable(bool32 enable);
 void alodAdjustScaleFactor(void);
 udword alodGetPolys(void);
-bool alodGetPanic(void);
-void alodSetPanic(bool panic);
+bool32 alodGetPanic(void);
+void alodSetPanic(bool32 panic);
 
 #endif

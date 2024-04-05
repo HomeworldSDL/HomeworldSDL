@@ -76,7 +76,7 @@ regionhandle svMassRegion      = NULL;
 fonthandle svShipViewFont = 0;
 fonthandle svShipStatFont = 0;
 
-bool ReZoom=TRUE;
+bool32 ReZoom=TRUE;
 
 real32 savecamMouseX = 0.0f;
 
@@ -314,7 +314,7 @@ void svShipViewRender(featom* atom, regionhandle region)
     sdword x, y;
     keyindex key;
     char* keystring;
-    bool resetRender = FALSE;
+    bool32 resetRender = FALSE;
     char    temp[100];
 
     // facilitates smooth transition between auto/manual rotation of ship

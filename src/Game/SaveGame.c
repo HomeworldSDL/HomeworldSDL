@@ -44,8 +44,8 @@
 #include "UnivUpdate.h"
 #include "utility.h"
 
-void SaveConsMgr();
-void LoadConsMgr();
+void SaveConsMgr(void);
+void LoadConsMgr(void);
 
 #ifdef _WIN32_FIX_ME
  #pragma warning( 4 : 4047)      // turns off "different levels of indirection warning"
@@ -71,20 +71,20 @@ sdword supportedVersionNumbers[] = {
 
 void RegisterAllBlobs(void);
 void RegisterAllSpaceObjs(void);
-void LoadAllBlobs();
-void SaveAllBlobs();
-void FixAllBlobs();
+void LoadAllBlobs(void);
+void SaveAllBlobs(void);
+void FixAllBlobs(void);
 void SaveBlob(blob *tblob);
 blob *LoadBlob(void);
 void FixBlob(blob *tblob);
-void SaveAllSpaceObjs();
-void LoadAllSpaceObjs();
-void FixAllSpaceObjs();
-SpaceObj *LoadSpaceObj();
+void SaveAllSpaceObjs(void);
+void LoadAllSpaceObjs(void);
+void FixAllSpaceObjs(void);
+SpaceObj *LoadSpaceObj(void);
 void FixSpaceObj(SpaceObj *obj);
 void SaveSpaceObj(SpaceObj *obj);
-void LoadUniverse();
-void SaveUniverse();
+void LoadUniverse(void);
+void SaveUniverse(void);
 
 typedef void (*ListAddCB)(LinkedList *list,SpaceObj *obj);
 
@@ -99,7 +99,7 @@ extern sdword actorFlagsEnabled;
     Functions:
 =============================================================================*/
 
-void SpaceObjRegistryInit()
+void SpaceObjRegistryInit(void)
 {
     Node* objnode = universe.ShipList.head;
     while (objnode != NULL)
@@ -111,7 +111,7 @@ void SpaceObjRegistryInit()
     growSelectInit(&SpaceObjRegistry);
 }
 
-void SpaceObjRegistryClose()
+void SpaceObjRegistryClose(void)
 {
     growSelectClose(&SpaceObjRegistry);
 }
@@ -228,12 +228,12 @@ TargetPtr SpaceObjRegistryGetTarget(sdword id)
     return NULL;
 }
 
-void BlobRegistryInit()
+void BlobRegistryInit(void)
 {
     growSelectInit(&BlobRegistry);
 }
 
-void BlobRegistryClose()
+void BlobRegistryClose(void)
 {
     growSelectClose(&BlobRegistry);
 }
@@ -260,7 +260,7 @@ void BlobRegistryRegister(blob *tblob)
     growSelectAddShip(&BlobRegistry,(Ship *)tblob);
 }
 
-sdword BlobRegistryGetIDWrapper(blob *tblob, bool check_valid_id)
+sdword BlobRegistryGetIDWrapper(blob *tblob, bool32 check_valid_id)
 {
     if (tblob != NULL)
     {
@@ -334,7 +334,7 @@ SaveChunk *CreateChunk(TypeOfSaveChunk type,sdword contentsSize,void *contents)
     return chunk;
 }
 
-SaveChunk *LoadNextChunk()
+SaveChunk *LoadNextChunk(void)
 {
     SaveChunk readchunk;
     sdword num;
@@ -362,7 +362,7 @@ SaveChunk *LoadNextChunk()
     return returnchunk;
 }
 
-SaveChunk *LoadNextChunkSafe()
+SaveChunk *LoadNextChunkSafe(void)
 {
     SaveChunk readchunk;
     sdword num;
@@ -411,7 +411,7 @@ void SaveInfoNumber(sdword info)
     memFree(chunk);
 }
 
-sdword LoadInfoNumber()
+sdword LoadInfoNumber(void)
 {
     SaveChunk *chunk;
     sdword num;
@@ -425,7 +425,7 @@ sdword LoadInfoNumber()
     return num;
 }
 
-bool LoadInfoNumberOptional(sdword *info)
+bool32 LoadInfoNumberOptional(sdword *info)
 {
     SaveChunk *chunk;
 
@@ -443,12 +443,12 @@ bool LoadInfoNumberOptional(sdword *info)
     return TRUE;
 }
 
-void SaveMissionNumber()
+void SaveMissionNumber(void)
 {
     SaveInfoNumber(spGetCurrentMission());
 }
 
-void LoadMissionNumber()
+void LoadMissionNumber(void)
 {
     MissionEnum saveGameMissionEnum = MISSION_ENUM_NOT_INITIALISED;
     sdword saveGameMissionReference = LoadInfoNumber();
@@ -673,7 +673,7 @@ void LoadPreGameInfo(void)
     Outputs     :
     Return      : TRUE on success
 ----------------------------------------------------------------------------*/
-bool SaveGame(char *filename)
+bool32 SaveGame(char *filename)
 {
     sdword i;
 
@@ -971,7 +971,7 @@ nextnode:
     }
 }
 
-void SaveAllBlobs()
+void SaveAllBlobs(void)
 {
     sdword numBlobs = BlobRegistry.selection->numShips;
     sdword i;
@@ -990,7 +990,7 @@ void SaveAllBlobs()
     memFree(chunk);
 }
 
-void LoadAllBlobs()
+void LoadAllBlobs(void)
 {
     SaveChunk *infochunk;
     sdword numBlobs;
@@ -1011,7 +1011,7 @@ void LoadAllBlobs()
     }
 }
 
-void FixAllBlobs()
+void FixAllBlobs(void)
 {
     sdword numBlobs = BlobRegistry.selection->numShips;
     sdword i;
@@ -1100,7 +1100,7 @@ void FixBlob(blob *tblob)
     if (tblob->blobObjects != NULL) FixSelection((SpaceObjSelection *)tblob->blobObjects);
 }
 
-void SaveAllSpaceObjs()
+void SaveAllSpaceObjs(void)
 {
     sdword numObjs = SpaceObjRegistry.selection->numShips;
     sdword i;
@@ -1118,7 +1118,7 @@ void SaveAllSpaceObjs()
     memFree(chunk);
 }
 
-void LoadAllSpaceObjs()
+void LoadAllSpaceObjs(void)
 {
     SaveChunk *infochunk;
     sdword numObjs;
@@ -1139,7 +1139,7 @@ void LoadAllSpaceObjs()
     }
 }
 
-void FixAllSpaceObjs()
+void FixAllSpaceObjs(void)
 {
     sdword numObjs = SpaceObjRegistry.selection->numShips;
     sdword i;
@@ -1168,7 +1168,7 @@ void SaveAttackTargets(AttackTargets *multipleAttackTargets)
     memFree(chunk);
 }
 
-AttackTargets *LoadAttackTargets()
+AttackTargets *LoadAttackTargets(void)
 {
     AttackTargets *loadedAttackTargets;
     AttackTargets *originalAttackTargets;
@@ -1516,7 +1516,7 @@ void SaveStructureWithSize(void *structure)
     memFree(chunk);
 }
 
-void *LoadStructureWithSize()
+void *LoadStructureWithSize(void)
 {
     SaveChunk *chunk;
     void *chunkcontents;
@@ -2665,7 +2665,7 @@ void FixSpaceObj(SpaceObj *obj)
     }
 }
 
-SpaceObj *LoadSpaceObj()
+SpaceObj *LoadSpaceObj(void)
 {
     SaveChunk *chunk;
 
@@ -3949,7 +3949,7 @@ void SaveRetreatList(LinkedList *list)
     dbgAssertOrIgnore(cur == num);
 }
 
-RetreatAtom *LoadRetreatAtom()
+RetreatAtom *LoadRetreatAtom(void)
 {
     SaveChunk *chunk;
     RetreatAtom *retreat;
@@ -4027,7 +4027,7 @@ void SaveAttackMemory(LinkedList *list)
     dbgAssertOrIgnore(cur == num);
 }
 
-AttackAtom *LoadAttackAtom()
+AttackAtom *LoadAttackAtom(void)
 {
     SaveChunk *chunk;
     AttackAtom *attackAtom;
@@ -4088,7 +4088,7 @@ void LoadResourceVolumeCB(LinkedList *list)
     listAddNode(list,&resvol->link,resvol);
 }
 
-void SaveUniverse()
+void SaveUniverse(void)
 {
     SaveChunk *chunk;
     Universe *savecontents;
@@ -4163,7 +4163,7 @@ void FillOutCollBlobList(LinkedList *list)
     }
 }
 
-void LoadUniverse()
+void LoadUniverse(void)
 {
     SaveChunk *chunk;
     sdword i;

@@ -409,7 +409,7 @@ void lightParseHSF(char* fileName)
     lightSetNumLights(numLights);
 }
 
-void lightSetLighting()
+void lightSetLighting(void)
 {
     if (currentLight == NULL)
     {

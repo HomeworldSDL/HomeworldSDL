@@ -51,7 +51,7 @@ typedef struct {
     Functions
 =============================================================================*/
 //  to fill in table of labelled mission layout entities
-void kasLabelsInit();
+void kasLabelsInit(void);
 //void kasLabelledAITeamAdd(char *label);
 Path *kasLabelledPathAdd(char *label, sdword numPoints, sdword closed);
 hvector *kasLabelledVectorAdd(char *label, real32 x, real32 y, real32 z,real32 w);
@@ -97,8 +97,8 @@ void kasDebugDraw(void);
 
 void kasTeamDied(struct AITeam *team);
 
-void kasClose();
-void kasInit();
+void kasClose(void);
+void kasInit(void);
 
 // Save Game Stuff
 void kasSave(void);

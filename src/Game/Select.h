@@ -172,14 +172,14 @@ void selSelectionAddSingleShip(MaxSelection *dest, Ship *ship);
 //void selSelectionAddSingleShip(Ship *ship);
 void selSelectionRemoveSingleShip(MaxSelection *dest, Ship *ship);
 sdword selShipInSelection(ShipPtr *shipList, sdword nShips, ShipPtr ship);
-bool selShipsInSelection(MaxSelection *dest, MaxSelection *list);
+bool32 selShipsInSelection(MaxSelection *dest, MaxSelection *list);
 
 //selections by mouse dragging
-void selRectDragFunction(Node *startNode, Camera *camera, rectangle *rect, SpaceObjRotImpTarg **destList, sdword *destCount, sdword playerSpecific, bool selectAnything, bool bAttack);
+void selRectDragFunction(Node *startNode, Camera *camera, rectangle *rect, SpaceObjRotImpTarg **destList, sdword *destCount, sdword playerSpecific, bool32 selectAnything, bool32 bAttack);
 void selRectDragAddFunction(Node *startNode, Camera *camera, rectangle *rect);
 
 //selection by mouse click (on release)
-Ship *selSelectionClick(Node *listhead, Camera *camera, sdword x, sdword y, bool bIncludeDerelicts, bool bIncludeResources);
+Ship *selSelectionClick(Node *listhead, Camera *camera, sdword x, sdword y, bool32 bIncludeDerelicts, bool32 bIncludeResources);
 SpaceObj *selClickFromArray(SpaceObj **list, sdword length, sdword x, sdword y);
 
 //selections by key
@@ -199,7 +199,7 @@ void selSelectionDimensions(hmatrix *modelView, hmatrix *projection, SelectComma
 
 //selection manipulation
 sdword selSelectionCopy(MaxAnySelection *dest, MaxAnySelection *source);
-bool selSelectionIsReinforced(MaxAnySelection *dest, MaxAnySelection *source);
+bool32 selSelectionIsReinforced(MaxAnySelection *dest, MaxAnySelection *source);
 sdword selSelectionCopyByClass(MaxSelection *dest, MaxSelection *source, ShipClass classMask);
 sdword selSelectionCopyByType(MaxSelection *dest, MaxSelection *source, ShipType typeMask);
 sdword selHotKeyNumbersSet(sdword group);

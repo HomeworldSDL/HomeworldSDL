@@ -89,7 +89,7 @@ typedef struct
     dbgAssertOrIgnore(c);                       \
     dbgAssertOrIgnore((c)->type == (t));
 
-bool SaveGame(char *filename);
+bool32 SaveGame(char *filename);
 void LoadGame(char *filename);
 void PreLoadGame(char *filename);
 
@@ -151,7 +151,7 @@ void Load_StringToAddress(char *addr);
 
 sdword VerifySaveFile(char *filename);
 
-bool LoadInfoNumberOptional(sdword *info);
+bool32 LoadInfoNumberOptional(sdword *info);
 SaveChunk *LoadNextChunkSafe();
 
 #endif

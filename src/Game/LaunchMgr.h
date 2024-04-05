@@ -45,7 +45,7 @@ typedef struct
 }
 LaunchShipsAvailable;
 
-extern bool lmActive;
+extern bool32 lmActive;
 
 
 /*=============================================================================
