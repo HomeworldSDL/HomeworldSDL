@@ -843,7 +843,6 @@ AGAIN1:
     glDepthMask(GL_TRUE);
     glDisable(GL_BLEND);
 
-    partFilter(FALSE);
     rndAdditiveBlends(FALSE);
     return hits;
 }
