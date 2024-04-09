@@ -8,5 +8,8 @@
     },
     "[nix]": {
         "editor.formatOnSaveMode": "file",
-    }
+    },
+    "clangd.arguments": [
+        "-header-insertion=never"
+    ]
 }
