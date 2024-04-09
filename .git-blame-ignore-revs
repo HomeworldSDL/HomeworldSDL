@@ -1,0 +1,8 @@
+# What is this file and how to use it?
+# It's used to make reformatting commits transparent in the blame history.
+# You just have to add it to your project-level config by running the following command in this repo:
+# `git config blame.ignoreRevsFile .git-blame-ignore-revs`
+
+
+# Unify line endings
+4a70feb7372efcda02a89dc1a48f89bedbb7fd1f
