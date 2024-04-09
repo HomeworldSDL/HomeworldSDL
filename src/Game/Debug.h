@@ -29,13 +29,17 @@
     #define DBG_Loc  NULL, 0
 #endif
 
+#define forcedDbgAssert(expr)                                                                                          \
+    if (!(expr)) {                                                                                                     \
+        dbgFatalf(DBG_Loc, "Assertion of (%s) failed.", #expr);                                                        \
+    }
 
 #if DBG_ASSERT
-    #define dbgAssertOrIgnore(expr) if (!(expr)) { dbgFatalf(DBG_Loc, "Assertion of (%s) failed.", #expr); }
-    #define dbgAssertAlwaysDo(expr) dbgAssertOrIgnore(expr)
+#define dbgAssertOrIgnore(expr) forcedDbgAssert(expr)
+#define dbgAssertAlwaysDo(expr) dbgAssertOrIgnore(expr)
 #else
-    #define dbgAssertOrIgnore(expr) ((void)0)
-    #define dbgAssertAlwaysDo(expr) (expr)
+#define dbgAssertOrIgnore(expr) ((void)0)
+#define dbgAssertAlwaysDo(expr) (expr)
 #endif
 
 
