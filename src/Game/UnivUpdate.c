@@ -1747,6 +1747,16 @@ void univUpdateAllPosVelBullets()
                         listDeleteNode(&effect->objlink);
                         addEffect = TRUE;
                     }
+
+                    /**
+                     * That's all fun and games until the bullet is a defense fighter laser. Those actually have *two*
+                     * effects (the beam and the flash) and we don't have any back-pointer to the flash effect. We could
+                     * go through the render list to find which effect still has `bullet` as its owner, but since we'll
+                     * go through that list anyway when rendering, I'm just adding a check there and leaving the effect
+                     * to be freed automatically.
+                     *
+                     * Gitlab #30 "Segfault on defense fighter laser" - Thibault Lemaire - 2024-04-10 - 2 of 3
+                     */
                 }
                 bulletnode = bulletnode->next;
 
@@ -1803,6 +1813,8 @@ void univUpdateAllPosVelBullets()
                 listRemoveNode(&bullet->bulletlink);
                 univRemoveObjFromRenderList(((SpaceObj *)bullet));
                 listDeleteNode(&bullet->objlink);
+                bullet->owner = NULL;
+
                 continue;
             }
         }

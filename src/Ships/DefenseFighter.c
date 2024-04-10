@@ -112,7 +112,6 @@ void defensefightertargetbullet(Ship *ship, Bullet *bullettotarget)
     etgeffectstatic *stat;
     etglod *etgLOD;
     sdword LOD;
-    Effect *newEffect;
 
     dbgAssertOrIgnore(ship->shiptype == DefenseFighter);
 
@@ -251,8 +250,16 @@ void defensefightertargetbullet(Ship *ship, Bullet *bullettotarget)
 #else
     if (stat != NULL && etgFireEffectsEnabled && !etgFrequencyExceeded(stat))
 #endif
-    {                                                       //if there is a gun fire effect
-        newEffect = etgEffectCreate(stat, laser, NULL, NULL, NULL, 1.0f, EAF_AllButNLips, 1, intDamage);
+    {
+        /** Spawn a gun fire effect (nozzle flash)
+         *
+         * This new effect is spawned with `.owner = laser` but `Bullet` only has room for a *single* `.effect`
+         * back-pointer which is already occupied by the beam effect. So when `laser` is deleted, we're out of luck to
+         * find this effect to update/delete it.
+         *
+         * Gitlab #30 "Segfault on defense fighter laser" - Thibault Lemaire - 2024-04-10 - 1 of 3
+         */
+        etgEffectCreate(stat, laser, NULL, NULL, NULL, 1.0f, EAF_AllButNLips, 1, intDamage);
     }
 /*
 //spawn bullet hitting effect

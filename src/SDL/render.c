@@ -159,8 +159,7 @@ PFNGLTEXSTORAGE2DPROC glTexStorage2D = 0;
 PFNGLGENERATEMIPMAPPROC glGenerateMipmap = 0;
 #endif
 
-
-static const char *gl_extensions = 0;
+static char const* gl_extensions = 0;
 
 static bool32 useVBO = FALSE;
 static GLuint vboStars;
@@ -1037,18 +1036,18 @@ bool32 setupPixelFormat()
 	return TRUE;
 }
 
-int glCheckExtension(const char *ext) {
-    bool32 gotext = gl_extensions && strstr(gl_extensions, ext) != NULL;
-    if (strcmp(ext, "GL_ARB_vertex_buffer_object") == 0) {
+int glCheckExtension(char const* ext) {
+        bool32 gotext = gl_extensions && strstr(gl_extensions, ext) != NULL;
+        if (strcmp(ext, "GL_ARB_vertex_buffer_object") == 0) {
 #ifdef HW_ENABLE_GLES
         /* part of the standard in GLES */
         return 1;
 #else
         return gotext && glBindBuffer && glDeleteBuffers && glGenBuffers && glBufferData && glBufferSubData;
 #endif
-    } else if (strcmp(ext, "GL_OES_draw_texture") == 0) {
+        } else if (strcmp(ext, "GL_OES_draw_texture") == 0) {
         return gotext;
-    }
+        }
     return gotext;
 }
 
@@ -2332,6 +2331,44 @@ void rndMainViewAllButRenderFunction(Camera *camera)
     ;
 }
 
+static enum WhetherToDraw {
+    Draw = 1,
+    DontDraw = 0,
+};
+
+static enum WhetherToDraw onRenderEffect(Effect* effect) {
+    SpaceObj const* const effectowner = (SpaceObj const*)effect->owner;
+    if (effectowner == NULL) return Draw;
+    if (effectowner->objtype != OBJ_BulletType) return Draw;
+
+    // effect is owned by a bullet
+    Bullet const* const bullet = (Bullet const*)effectowner;
+    if (bullet->bulletType == BULLET_Beam && bullet->timelived <= UNIVERSE_UPDATE_PERIOD) {
+        return DontDraw;
+    }
+
+    if (bullet->bulletType != BULLET_Laser) return Draw;
+
+    /** Effect is owned by a defense fighter laser beam
+     *
+     * If we are rendering the nozzle flash effect, we can't know if the owner is still valid, so just skip to drawing
+     * and let the beam effect do the dereferencing for length adjustments (plus, we wouldn't want to do that twice).
+     *
+     * Gitlab #30 "Segfault on defense fighter laser" - Thibault Lemaire - 2024-04-10 - 3 of 3
+     */
+    if (bullet->effect != effect) return Draw;
+
+    // Effect is the laser beam
+    // bullet update 'feature' to draw laser to bullet
+    defenseFighterAdjustLaser(bullet);
+
+    // TODO: What length problem?
+    // Comment from 1997: "luke suggested fix to laser length problem"
+    etgEffectUpdate(effect, 0.0f);
+
+    return Draw;
+}
+
 /*-----------------------------------------------------------------------------
     Name        : rndMainViewRenderFunction
     Description : Render a mission sphere as referenced by a specific camera.
@@ -2356,10 +2393,9 @@ void rndMainViewRenderFunction(Camera *camera)
     ShipStaticInfo *shipStaticInfo;
     sdword playerIndex;
     hmatrix coordMatrixForGL;
-//    matrix scaledMatrix;
-//    real32 scaleFactor;
-//    meshdata *worldMesh;
-    Effect *effect;
+    // matrix scaledMatrix;
+    // real32 scaleFactor;
+    // meshdata *worldMesh;
     static sdword shipTrails;
 #if SHOW_TRAIL_STATS
     extern sdword trailsUpdated, trailsNotUpdated;
@@ -2580,32 +2616,12 @@ dontdraw:
                     rndLightingEnable(TRUE);
                 }
                 break;
-            case OBJ_EffectType:                            //if type effect
-                effect = (Effect *)spaceobj;                    //get effect pointer
-                if(effect->owner != NULL)
-                {
-                    SpaceObj *effectowner = (SpaceObj *)effect->owner;
-                    if(effectowner->objtype == OBJ_BulletType)
-                    {
-                        //effect is owned by a bullet
-                        if(((Bullet *) effectowner)->bulletType == BULLET_Laser)
-                        {
-                        //effect is owned by a defense fighter laser beam
-                        defenseFighterAdjustLaser(((Bullet *) effectowner));
-                        etgEffectUpdate(effect, 0.0f);                        //luke suggested fix to laser length problem
-                        }
-                        else if(((Bullet *) effectowner)->bulletType == BULLET_Beam)
-                        {
-                            if(((Bullet *)effectowner)->timelived <= UNIVERSE_UPDATE_PERIOD)
-                            {
-                            goto dontdraw2;
-                            }
-                        }
-                    }
+            case OBJ_EffectType: { // if type effect
+                Effect* effect = (Effect*)spaceobj;
+                if (onRenderEffect(effect) == Draw) {
+                    etgEffectDraw(effect);
                 }
-                etgEffectDraw(effect);
-dontdraw2:;
-                break;
+            } break;
             case OBJ_ShipType:
                 if (spaceobj->staticinfo->staticheader.LOD != NULL)
                 {
