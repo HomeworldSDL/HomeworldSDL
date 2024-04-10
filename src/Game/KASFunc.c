@@ -4283,6 +4283,7 @@ void kasfSpawnEffect(GrowSelection *ships, char *effectName, sdword parameter)
         floatParameter = ((ShipStaticInfo *)((*shipPtr)->staticinfo))->staticheader.staticCollInfo.collspheresize;
         intSize = Real32ToUdword(floatParameter);            //get the size
 
+        dbgAssertOrIgnore((**shipPtr).objtype != OBJ_BulletType);
         etgEffectCreate(lastEffect, *shipPtr, NULL, NULL, NULL, 0.0f, EAF_Full, 2, SCALECAST(intSize), SCALECAST(intParameter));
     }
 }

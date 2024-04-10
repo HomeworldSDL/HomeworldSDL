@@ -114,18 +114,8 @@ void defensefightertargetbullet(Ship *ship, Bullet *bullettotarget)
     sdword LOD;
     Effect *newEffect;
 
-#ifdef HW_BUILD_FOR_DEBUGGING
-/*    dbgMessagef("B: %d %x %x %f %f %f %x %f %x",universe.univUpdateCounter,
-                                    bullettotarget->flags,
-                                    bullettotarget->owner,
-                                    bullettotarget->timelived,
-                                    bullettotarget->damage,
-                bullettotarget->damageFull,
-                bullettotarget->SpecialEffectFlag,
-                bullettotarget->BulletSpeed,
-                bullettotarget);
-*/
-#endif
+    dbgAssertOrIgnore(ship->shiptype == DefenseFighter);
+
     gun = &ship->gunInfo->guns[0];
     gunstatic = gun->gunstatic;
     shipstatic = (ShipStaticInfo *)ship->staticinfo;
@@ -263,7 +253,6 @@ void defensefightertargetbullet(Ship *ship, Bullet *bullettotarget)
 #endif
     {                                                       //if there is a gun fire effect
         newEffect = etgEffectCreate(stat, laser, NULL, NULL, NULL, 1.0f, EAF_AllButNLips, 1, intDamage);
-//        univAddObjToRenderListIf((SpaceObj *)newEffect,(SpaceObj *)ship);     // add to render list if parent ship is in render list
     }
 /*
 //spawn bullet hitting effect
@@ -358,7 +347,7 @@ void defensefightertargetbullet(Ship *ship, Bullet *bullettotarget)
 bool32 isbulletbeingtargeted(Ship *ship, Bullet *bullet)
 {
    DefenseFighterSpec *spec = (DefenseFighterSpec *)ship->ShipSpecifics;
-   Node *bulletnode;
+   Node const* bulletnode;
    DefenseStruct *defensestruct;
 
    bulletnode = spec->DefenseList.head;
@@ -570,7 +559,7 @@ void DefenseFighterHouseKeep(Ship *ship)
 {
     DefenseFighterSpec *spec = (DefenseFighterSpec *)ship->ShipSpecifics;
     DefenseFighterStatics *defensefighterstatics;
-    Node *bulletnode;
+    Node const* bulletnode;
     Node *tempnode;
     DefenseStruct *defensestruct;
     vector seperationvector;
@@ -778,8 +767,8 @@ void defenseFighterAdjustLaser(Bullet *laser)
 {       //calculates laser direction n' such for rendering...
     DefenseFighterSpec *spec;
  //   DefenseFighterStatics *defensefighterstatics;
-    Node *bulletnode;
-    DefenseStruct *defensestruct;
+    Node const* bulletnode;
+    DefenseStruct const* defensestruct;
     Ship *ship;
 
     vector tempvec;
@@ -793,10 +782,12 @@ void defenseFighterAdjustLaser(Bullet *laser)
 
     ship = laser->owner;
 
+    dbgAssertOrIgnore(ship->gunInfo != NULL);
     gun = &ship->gunInfo->guns[0];
     gunstatic = gun->gunstatic;
 
-
+    dbgAssertOrIgnore(ship->shiptype == DefenseFighter);
+    dbgAssertOrIgnore(ship->sizeofShipSpecifics == sizeof(DefenseFighterSpec));
     spec= (DefenseFighterSpec *)ship->ShipSpecifics;
 
 //    defensefighterstatics = (DefenseFighterStatics *) ((ShipStaticInfo *)(ship->staticinfo))->custstatinfo;
@@ -805,7 +796,7 @@ void defenseFighterAdjustLaser(Bullet *laser)
 
     while (bulletnode != NULL)
     {   //as long as theres a bullet to deal with
-        defensestruct = (DefenseStruct *)listGetStructOfNode(bulletnode);
+        defensestruct = bulletnode->structptr;
         if(defensestruct->LaserDead == TRUE)
         {
             bulletnode = bulletnode->next;
@@ -854,7 +845,7 @@ void defenseFighterAdjustLaser(Bullet *laser)
 void DefenseFighterBulletRemoval(Bullet *bullettogoByeBye)
 {
     Node *shipnode = universe.ShipList.head;
-    Node *defnode;
+    Node const* defnode;
     Ship *ship;
     DefenseFighterSpec *spec;
     DefenseStruct *defstruct;
@@ -898,8 +889,8 @@ void DefenseFighterBulletRemoval(Bullet *bullettogoByeBye)
 void DefenseFighterDied(Ship *ship)
 {
     DefenseFighterSpec *spec = (DefenseFighterSpec *)ship->ShipSpecifics;
-    Node *bulletnode;
-    Node *tempnode;
+    Node const* bulletnode;
+    Node const* tempnode;
     DefenseStruct *defensestruct;
 
     bulletnode = spec->DefenseList.head;
@@ -1002,7 +993,7 @@ void SaveDefenseStruct(DefenseStruct *defenseStruct)
 void DefenseFighter_Save(Ship *ship)
 {
     DefenseFighterSpec *spec = (DefenseFighterSpec *)ship->ShipSpecifics;
-    Node *node = spec->DefenseList.head;
+    Node const* node = spec->DefenseList.head;
     sdword cur = 0;
 
     SaveInfoNumber(spec->DefenseList.num);
@@ -1054,7 +1045,7 @@ void DefenseFighter_Load(Ship *ship)
 void DefenseFighter_Fix(Ship *ship)
 {
     DefenseFighterSpec *spec = (DefenseFighterSpec *)ship->ShipSpecifics;
-    Node *node = spec->DefenseList.head;
+    Node const* node = spec->DefenseList.head;
     DefenseStruct *defenseStruct;
 
     while (node != NULL)

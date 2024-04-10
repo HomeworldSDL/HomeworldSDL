@@ -7428,8 +7428,8 @@ void etgCreateEffects(Effect *effect, etgeffectstatic *stat, sdword number, sdwo
     Outputs     :
     Return      : Newly allocated and started effect.
 ----------------------------------------------------------------------------*/
-void *etgEffectCreate(etgeffectstatic *stat, void *owner, vector *pos, vector *vel, matrix *coordsys, real32 nLips, udword flags, sdword nParams, ...)
-{
+Effect* etgEffectCreate(etgeffectstatic* stat, Ship* owner, vector* pos, vector* vel, matrix* coordsys, real32 nLips,
+                        udword flags, sdword nParams, ...) {
     sdword index;
     va_list argList;
     smemsize arg[ETG_NumberParameters];
@@ -7542,7 +7542,8 @@ void *etgEffectCreate(etgeffectstatic *stat, void *owner, vector *pos, vector *v
     {                                                       //make it sort forward, if applicable
         bitSet(newEffect->flags, SOF_AlwaysSortFront);
     }
-    return(newEffect);
+
+    return newEffect;
 }
 
 /*-----------------------------------------------------------------------------

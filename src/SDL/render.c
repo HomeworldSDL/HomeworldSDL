@@ -2551,6 +2551,7 @@ void rndMainViewRenderFunction(Camera *camera)
     while (objnode != NULL)
     {
         spaceobj = (SpaceObj *)listGetStructOfNode(objnode);
+        dbgAssertOrIgnore(spaceobj->renderlink.belongto != NULL);
 
         g_WireframeHack = FALSE;
         rndPerspectiveCorrection(FALSE);

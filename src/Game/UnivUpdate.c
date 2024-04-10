@@ -1512,6 +1512,7 @@ Ship *univCreateShip(ShipType shiptype,ShipRace shiprace,vector *shippos,struct 
     }
     else
     {
+        dbgAssertOrIgnore(newship->shiptype != DefenseFighter);
         newship->gunInfo = NULL;
     }
 
@@ -1695,8 +1696,7 @@ void univUpdateAllPosVelMinorObjs()
 ----------------------------------------------------------------------------*/
 void univUpdateAllPosVelBullets()
 {
-    Node *bulletnode = universe.BulletList.head;
-    Node *deletenode;
+    Node* bulletnode = universe.BulletList.head;
     Bullet *bullet;
     bool32 addEffect = FALSE;
     etglod *etgLOD;
@@ -1748,7 +1748,6 @@ void univUpdateAllPosVelBullets()
                         addEffect = TRUE;
                     }
                 }
-                deletenode = bulletnode;
                 bulletnode = bulletnode->next;
 
                 if(bullet->bulletType == BULLET_SpecialBurst)

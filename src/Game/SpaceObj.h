@@ -1604,7 +1604,7 @@ typedef struct                                  // Bullet object
     GunSoundType soundType;
     real32 timelived;
     real32 totallifetime;
-    Ship *owner;                                // pointer to bullet's owner
+    Ship const* owner;                          // pointer to bullet's owner
     Gun *gunowner;                              // pointer to bullet's gun from which it was fired
     SpaceObjRotImpTarg *target;                 // target of bullet
     color bulletColor;                          // race of player who shot bullet

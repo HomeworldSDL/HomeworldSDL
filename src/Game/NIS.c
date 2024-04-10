@@ -2353,6 +2353,7 @@ void nisObjectShow(nisplaying *NIS, nisevent *event)
         {
             stat = (etgeffectstatic *)NIS->header->objectPath[event->shipID].type;
             univAddObjToRenderList(obj);                    //temp. add this object to render list
+            dbgAssertOrIgnore(obj->objtype != OBJ_BulletType);
             newEffect = etgEffectCreate(stat, obj, NULL, NULL, NULL, 1.0f, EAF_AllButNLips, 0);
             univRemoveObjFromRenderList(obj);               //don't leave this dummy object in the render list
             obj->staticinfo = (StaticInfo *)newEffect;      //store reference to effect in unused member of the spaceobj structure

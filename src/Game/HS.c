@@ -210,6 +210,7 @@ void hsStart(Ship* ship, real32 cliptDelta, bool32 into, bool32 displayEffect)
             floatDepthScale = 0.25f * sinfo->forwardlength;
             intDepthScale = Real32ToSdword(floatDepthScale);
 
+            dbgAssertOrIgnore(ship->objtype != OBJ_BulletType);
             effect = etgEffectCreate(stat, ship,
                                      &location,
                                      &ship->posinfo.velocity,

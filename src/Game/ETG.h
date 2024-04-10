@@ -662,7 +662,8 @@ void etgEffectCodeDelete(etgeffectstatic *stat, bool32 bFullDelete);
 //create effects
 void etgEffectCodeStart(struct etgeffectstatic *stat, struct Effect *effect, sdword nParams, ...);
 void etgEffectDelete(struct Effect *effect);
-void *etgEffectCreate(etgeffectstatic *stat, void *owner, vector *pos, vector *vel, matrix *coordsys, real32 nLips, udword flags, sdword nParams, ...);
+struct Effect* etgEffectCreate(etgeffectstatic* stat, struct Ship* owner, vector* pos, vector* vel, matrix* coordsys,
+                               real32 nLips, udword flags, sdword nParams, ...);
 bool32 etgFrequencyExceeded(etgeffectstatic *stat);
 void etgHistoryRegisterFunction(etgeffectstatic *stat);
 
