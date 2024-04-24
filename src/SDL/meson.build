@@ -30,6 +30,6 @@ lib_sdl = static_library('hw_sdl',
                          src_sdl,
                          c_args: c_args,
                          dependencies: [dep_sdl],
-                         include_directories: ['../Game', '../Ships', '../ThirdParty/CRC'])
+                         include_directories: ['../Game', '../Ships', '../ThirdParty/CRC', '../ThirdParty/stb'])
 
 inc_src_sdl = include_directories('.')

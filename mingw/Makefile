@@ -55,11 +55,12 @@ COMMONFLAGS = -MMD \
               -I ../src/ThirdParty/CRC/ \
               -I ../src/ThirdParty/LZSS/ \
               -I ../src/ThirdParty/Titan/ \
+              -I ../src/ThirdParty/stb/ \
               -I .
 
 EMXX = gcc
 EMXXFLAGS = $(COMMONFLAGS) -O0 -ggdb3 `sdl2-config --cflags` -mconsole
-EMXXLINK = -O0 -ggdb3 -lSDL2main -lSDL2 -lSDL2_image `sdl2-config --libs` -lopengl32 -mconsole
+EMXXLINK = -O0 -ggdb3 -lSDL2main -lSDL2 `sdl2-config --libs` -lopengl32 -mconsole
 
 
 KAS2CFLAGS = -O0 -ggdb3 `sdl2-config --cflags` -lSDL2main -lSDL2 `sdl2-config --libs` -mconsole

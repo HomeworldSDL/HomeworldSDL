@@ -7,11 +7,7 @@
 =============================================================================*/
 
 #include <SDL2/SDL.h>
-#ifdef __APPLE__
-#include <SDL2_image/SDL_image.h>
-#else
-#include <SDL2/SDL_image.h>
-#endif
+#include "stb_image.h"
 
 #include "HorseRace.h"
 
@@ -748,6 +744,7 @@ void hrInitBackground(void)
     filehandle handle;
     ubyte *fileData;
     udword i;
+    int width, height, channels;
 
     getcwd(CurDir, PATH_MAX);
 
@@ -769,11 +766,10 @@ void hrInitBackground(void)
     {
         uint32_t fileSize = fileLoadAlloc(hrImageName, (void**)&fileData, 0);
 
-        SDL_RWops *rwOp = SDL_RWFromMem(fileData, fileSize);
-        SDL_Surface *surface = IMG_Load_RW(rwOp, 0);
+        unsigned char *pixels = stbi_load_from_memory(fileData, fileSize, &width, &height, &channels, 3);
         
-        hrBackXSize = surface->w;
-        hrBackYSize = surface->h;
+        hrBackXSize = width;
+        hrBackYSize = height;
 
         glGenTextures(1, &hrBackgroundTexture);
         trClearCurrent();
@@ -783,10 +779,9 @@ void hrInitBackground(void)
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, hrBackXSize, hrBackYSize,
-                    0, GL_RGB, GL_UNSIGNED_BYTE, surface->pixels);
+                    0, GL_RGB, GL_UNSIGNED_BYTE, pixels);
         
-        SDL_RWclose(rwOp);
-        SDL_FreeSurface(surface);
+        stbi_image_free(pixels);
         memFree(fileData);
         
         hrBackXFrac = 1.0f;

@@ -6,11 +6,7 @@
     Copyright Relic Entertainment, Inc.  All rights reserved.
 =============================================================================*/
 #include <SDL2/SDL.h>
-#ifdef __APPLE__
-#include <SDL2_image/SDL_image.h>
-#else
-#include <SDL2/SDL_image.h>
-#endif
+#include "stb_image.h"
 
 #include "PlugScreen.h"
 
@@ -341,6 +337,7 @@ void psImageLoad(psimage *destImage, char *directory, char *imageName)
     color quiltBuffer[PS_QuiltPieceHeight * PS_QuiltPieceWidth];
     char fileName[80];
     sdword bFilterSave;
+    int width, height, channels;
 
     strcpy(fileName, directory);                            //prepare file name
     if (bitTest(psGlobalFlags, PMF_LanguageSpecific))
@@ -351,15 +348,14 @@ void psImageLoad(psimage *destImage, char *directory, char *imageName)
 
     uint32_t fileSize = fileLoadAlloc(fileName, (void**)&fileData, 0);
 
-    SDL_RWops *rwOp = SDL_RWFromMem(fileData, fileSize);
-    SDL_Surface *surface = IMG_Load_RW(rwOp, 0);
-                                                            //alloc a buffer to load the image to
-    imageBuffer = surface->pixels;
+    unsigned char *pixels = stbi_load_from_memory(fileData, fileSize, &width, &height, &channels, 3);
 
-    destImage->width = surface->w;
-    destImage->height = surface->h;
+                                                            //alloc a buffer to load the image to
+    imageBuffer = pixels;
+
+    destImage->width = width;
+    destImage->height = height;
     
-    SDL_RWclose(rwOp);
     memFree(fileData);
 
     bFilterSave = texLinearFiltering;
@@ -396,7 +392,7 @@ void psImageLoad(psimage *destImage, char *directory, char *imageName)
         }
     }
     texLinearFiltering = bFilterSave;
-    SDL_FreeSurface(surface);
+    stbi_image_free(pixels);
 }
 
 /*-----------------------------------------------------------------------------

@@ -12,7 +12,6 @@ dep_sdl = dependency('sdl2')
 base_deps = [
 	dependency('gl'),
 	dep_sdl,
-	dependency('SDL2_image'),
 	meson.get_compiler('c').find_library('m', required: false),
 ]
 

@@ -7,11 +7,11 @@
 // =============================================================================
 
 #include <SDL2/SDL.h>
-#ifdef __APPLE__
-#include <SDL2_image/SDL_image.h>
-#else
-#include <SDL2/SDL_image.h>
-#endif
+
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include "stb_image_write.h"        
 
 #include "screenshot.h"
 
@@ -119,11 +119,7 @@ static void _ssSaveScreenshot(ubyte* buf, const char* targetFilename)
     }
     free(pTempLine);
 
-    SDL_Surface *surface = SDL_CreateRGBSurfaceFrom(buf, MAIN_WindowWidth, MAIN_WindowHeight, 24, 3 * MAIN_WindowWidth, 0x0000FF, 0x00FF00, 0xFF0000, 0);
-    
-    IMG_SaveJPG(surface, fname, 100);
-    
-    SDL_FreeSurface(surface);
+    stbi_write_jpg(fname, MAIN_WindowWidth, MAIN_WindowHeight, 3, buf, 100);
 }
 
 

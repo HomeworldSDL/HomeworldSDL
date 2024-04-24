@@ -1,0 +1,1 @@
+inc_src_third_party_stb = include_directories('.')
