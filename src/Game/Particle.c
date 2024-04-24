@@ -1182,6 +1182,7 @@ udword partRenderMeshSystem(udword n, particle *p, udword flags, trhandle tex, m
     udword i, hits;
     meshdata* mesh;
     meshdata* mesh2;
+    polyentry *polyList;
     materialentry *materialList;
     real32 frac;
     trhandle currentTex = tex;
@@ -1362,15 +1363,16 @@ udword partRenderMeshSystem(udword n, particle *p, udword flags, trhandle tex, m
 
                 glDisable(GL_RESCALE_NORMAL);
                 glEnable(GL_NORMALIZE);
+                polyList = ((meshAnim*)p->mstruct)->mesh->object[0].pPolygonList;
                 materialList = ((meshAnim*)p->mstruct)->mesh->localMaterial;
                 if (currentTex != TR_Invalid)
                 {                                           //if there is a texture
                     partMeshMaterialPrepare(p, currentTex, &materialList[0], bitTest(flags, PART_ALPHA));
-                    meshMorphedObjectRenderTex(&mesh->object[0], &mesh2->object[0], materialList, frac, p->colorScheme);
+                    meshMorphedObjectRenderTex(&mesh->object[0], &mesh2->object[0], polyList, materialList, frac, p->colorScheme);
                 }
                 else
                 {                                           //morphed mesh, mo texture
-                    meshMorphedObjectRender(&mesh->object[0], &mesh2->object[0], materialList, frac, p->colorScheme);
+                    meshMorphedObjectRender(&mesh->object[0], &mesh2->object[0], polyList, materialList, frac, p->colorScheme);
                 }
                 glDisable(GL_NORMALIZE);
             }

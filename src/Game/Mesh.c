@@ -2430,23 +2430,12 @@ void meshLerpNormal(vector* c, normalentry* a, normalentry* b, real32 frac)
     c->z = ofrac * a->z + frac * b->z;
 }
 
-real32 lerp(real32 a, real32 b, real32 frac)
-{
-    real32 ofrac;
-
-    ofrac = 1.0f - frac;
-
-    return ofrac * a + frac * b;
-}
-
 /*-----------------------------------------------------------------------------
     Name        : meshMorphedObjectRender
     Description : Render a mesh object morphed between two endpoint objects
     Inputs      : object1, object2 - objects being lerped between
-                  (uvPolys - polygons to get the u/v coordinates from.  Must be
+                  uvPolys - polygons to get the u/v coordinates from.  Must be
                     exactly the same as the polygon objects.
-                  NOTE: UVs are now also interpolated to avoid issues with 
-                  geometry that does not follow the above advice.)
                   materials - material list for this object.
                   frac - how much of object2 to use.
                   iColorScheme - color scheme to render in, if any
@@ -2455,14 +2444,13 @@ real32 lerp(real32 a, real32 b, real32 frac)
     Note        : use object1's stuff, but lerp to object2
 ----------------------------------------------------------------------------*/
 void meshMorphedObjectRender(
-    polygonobject* object1, polygonobject* object2,
+    polygonobject* object1, polygonobject* object2, polyentry *uvPolys,
     materialentry* materials, real32 frac, sdword iColorScheme)
 {
     sdword iPoly;
     vertexentry* vertexList1;
     vertexentry* vertexList2;
     polyentry*   polygon;
-    polyentry*   polygon2;
     polyentry*   uvPolygon;
     normalentry* normalList1;
     normalentry* normalList2;
@@ -2495,7 +2483,7 @@ void meshMorphedObjectRender(
     normalList1 = object1->pNormalList;
     normalList2 = object2->pNormalList;
     polygon = object1->pPolygonList;
-    polygon2 = object2->pPolygonList;
+    uvPolygon = uvPolys;
     glBegin(GL_TRIANGLES);
 
     for (iPoly = 0; iPoly < object1->nPolygons; iPoly++)
@@ -2642,11 +2630,11 @@ void meshMorphedObjectRender(
                 if (g_SpecHack) meshMorphedSpecColour(&normal, modelview, modelviewInv);
                 glNormal3f(normal.x, normal.y, normal.z);
 
-                glTexCoord2f(lerp(polygon->s0, polygon2->s0, frac), lerp(polygon->t0, polygon2->t0, frac));
+                glTexCoord2f(uvPolygon->s0, uvPolygon->t0);
                 glVertex3fv((GLfloat*)&vert0);
-                glTexCoord2f(lerp(polygon->s1, polygon2->s1, frac), lerp(polygon->t1, polygon2->t1, frac));
+                glTexCoord2f(uvPolygon->s1, uvPolygon->t1);
                 glVertex3fv((GLfloat*)&vert1);
-                glTexCoord2f(lerp(polygon->s2, polygon2->s2, frac), lerp(polygon->t2, polygon2->t2, frac));
+                glTexCoord2f(uvPolygon->s2, uvPolygon->t2);
                 glVertex3fv((GLfloat*)&vert2);
 #if RND_POLY_STATS
                 rndNumberPolys++;
@@ -2697,7 +2685,7 @@ void meshMorphedObjectRender(
                                &normalList2[vertexList2[polygon->iV0].iVertexNormal], frac);
                 if (g_SpecHack) meshMorphedSpecColour(&normal, modelview, modelviewInv);
                 glNormal3f(normal.x, normal.y, normal.z);
-                glTexCoord2f(lerp(polygon->s0, polygon2->s0, frac), lerp(polygon->t0, polygon2->t0, frac));
+                glTexCoord2f(uvPolygon->s0, uvPolygon->t0);
                 glVertex3fv((GLfloat*)&vert0);
 
                 dbgAssertOrIgnore(vertexList1[polygon->iV1].iVertexNormal != UWORD_Max);
@@ -2705,7 +2693,7 @@ void meshMorphedObjectRender(
                                &normalList2[vertexList2[polygon->iV1].iVertexNormal], frac);
                 if (g_SpecHack) meshMorphedSpecColour(&normal, modelview, modelviewInv);
                 glNormal3f(normal.x, normal.y, normal.z);
-                glTexCoord2f(lerp(polygon->s1, polygon2->s1, frac), lerp(polygon->t1, polygon2->t1, frac));
+                glTexCoord2f(uvPolygon->s1, uvPolygon->t1);
                 glVertex3fv((GLfloat*)&vert1);
 
                 dbgAssertOrIgnore(vertexList1[polygon->iV2].iVertexNormal != UWORD_Max);
@@ -2713,7 +2701,7 @@ void meshMorphedObjectRender(
                                &normalList2[vertexList2[polygon->iV2].iVertexNormal], frac);
                 if (g_SpecHack) meshMorphedSpecColour(&normal, modelview, modelviewInv);
                 glNormal3f(normal.x, normal.y, normal.z);
-                glTexCoord2f(lerp(polygon->s2, polygon2->s2, frac), lerp(polygon->t2, polygon2->t2, frac));
+                glTexCoord2f(uvPolygon->s2, uvPolygon->t2);
                 glVertex3fv((GLfloat*)&vert2);
 #if RND_POLY_STATS
                 rndNumberPolys++;
@@ -2728,7 +2716,7 @@ void meshMorphedObjectRender(
                 break;
         }
         polygon++;
-        polygon2++;
+        uvPolygon++;
     }
     glEnd();
 
@@ -2746,6 +2734,8 @@ void meshMorphedObjectRender(
     Description : Render a morphed mesh object, lerping between two meshes with
                     a single texture map.
     Inputs      : object1, object2 - objects being lerped between
+                  uvPolys - polygons to get the u/v coordinates from.  Must be
+                    exactly the same as the polygon objects.
                   materials - material list for this object.
                   frac - how much of object2 to use.
                   iColorScheme - color scheme to render in, or 0 if none.
@@ -2753,12 +2743,12 @@ void meshMorphedObjectRender(
     Return      : void
 ----------------------------------------------------------------------------*/
 void meshMorphedObjectRenderTex(polygonobject* object1, polygonobject* object2,
-                                materialentry* material,
+                                polyentry *uvPolys, materialentry* material,
                                 real32 frac, sdword iColorScheme)
 {
 //    dbgMessagef("meshCurrentMaterialTex O1: 0x%lx O2: 0x%lx", object1,object2); // Something very bad was happening here. :(
     meshCurrentMaterial = meshCurrentMaterialTex;
-    meshMorphedObjectRender(object1, object2, material, frac, 0);
+    meshMorphedObjectRender(object1, object2, uvPolys, material, frac, 0);
     meshCurrentMaterial = meshCurrentMaterialDefault;
 }
 

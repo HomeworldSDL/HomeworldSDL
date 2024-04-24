@@ -361,10 +361,10 @@ bool32 meshPagedVersionExists(char* fileName);
 //render a specific mesh
 sdword meshRender(meshdata *mesh, sdword iColorScheme);
 void meshMorphedObjectRender(
-    polygonobject* object1, polygonobject* object2,
+    polygonobject* object1, polygonobject* object2, polyentry *uvPolys,
     materialentry* materials, real32 frac, sdword iColorScheme);
 void meshMorphedObjectRenderTex(polygonobject* object1, polygonobject* object2,
-                                materialentry* material,
+                                polyentry *uvPolys, materialentry* material,
                                 real32 frac, sdword iColorScheme);
 void meshRenderShipHierarchy(shipbindings *bindings, sdword currentLOD, meshdata *mesh, sdword iColorScheme);
 void meshObjectRender(polygonobject *object, materialentry *materials, sdword iColorScheme);
