@@ -25,11 +25,11 @@
 
 #define TEST_LIGHTNING 0
 
+static ubyte gCloudColor[4];
+
 static real32 fogColor[4];
 
 static GLuint _counter = 0;
-
-static bool32 useVBO = FALSE;
 
 bool8  dontNebulate;
 real32 g_FogSum = 0.0f;
@@ -253,6 +253,20 @@ static sdword n_max = 0;
 static slot* table = NULL;
 static vertex* octant = NULL;
 
+#define SetP(p,px,py,pz) \
+    { \
+        (p).x = px; \
+        (p).y = py; \
+        (p).z = pz; \
+    }
+
+#if 0
+#define SetV(v,px,py,pz,nx,ny,nz) \
+    { \
+        SetP((v)->p,px,py,pz); \
+        SetP((v)->n,nx,ny,nz); \
+    }
+#else
 void SetV(vertex* v, real32 x, real32 y, real32 z,
           real32 nx, real32 ny, real32 nz)
 {
@@ -273,6 +287,7 @@ void SetV(vertex* v, real32 x, real32 y, real32 z,
     v->n.y = ny;
     v->n.z = nz;
 }
+#endif
 
 #define SetF(f,i0,i1,i2) \
     { \
@@ -293,33 +308,134 @@ void ellipsoid_render(ellipseObject* ellipse, real32 radius)
 {
     alodIncPolys(ellipse->nf / 2);
 
-    glEnable(GL_RESCALE_NORMAL);
-    glPushMatrix();
+    {
+        sdword f, i, vert[3];
+        real32 x, y, z;
+        real32 modelview[16], modelviewInv[16];
+        vector vertex;
+        sdword lightOn;
+        GLubyte colour[4];
 
-    glScalef(radius, radius, radius);
+        lightOn = rndLightingEnable(FALSE);
 
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glEnableClientState(GL_NORMAL_ARRAY);
+        glGetFloatv(GL_MODELVIEW_MATRIX, modelview);
+        shInvertMatrix(modelviewInv, modelview);
 
-    if (useVBO) {
-        glBindBuffer(GL_ARRAY_BUFFER, ellipse->vb);
-        glVertexPointer(3, GL_FLOAT, sizeof(vertex), 0);
-        glNormalPointer(GL_FLOAT, sizeof(vertex), (GLubyte*)sizeof(point));
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ellipse->fb);
-        glDrawElements(GL_TRIANGLES, ellipse->nf * 3, GL_UNSIGNED_SHORT, 0);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-    } else {
-        glVertexPointer(3, GL_FLOAT, sizeof(vertex), (GLubyte*)ellipse->v);
-        glNormalPointer(GL_FLOAT, sizeof(vertex), ((GLubyte*)ellipse->v) + sizeof(point));
-        glDrawElements(GL_TRIANGLES, ellipse->nf * 3, GL_UNSIGNED_SHORT, ellipse->f);
+        glShadeModel(GL_SMOOTH);
+        
+        glBegin(GL_TRIANGLES);
+
+        for (f = 0; f < ellipse->nf; f++)
+        {
+            vert[0] = ellipse->f[f].v0;
+            vert[1] = ellipse->f[f].v1;
+            vert[2] = ellipse->f[f].v2;
+
+            for (i = 0; i < 3; i++)
+            {
+                glNormal3fv((GLfloat*)&ellipse->v[vert[i]].n);
+
+                x = ellipse->v[vert[i]].p.x * radius;
+                y = ellipse->v[vert[i]].p.y * radius;
+                z = ellipse->v[vert[i]].p.z * radius;
+
+                vertex.x = x;
+                vertex.y = y;
+                vertex.z = z;
+                colour[0] = gCloudColor[0];
+                colour[1] = gCloudColor[1];
+                colour[2] = gCloudColor[2];
+                colour[3] = gCloudColor[3];
+                shSpecularColour(0, 0, &vertex, (vector*)&ellipse->v[vert[i]].n,
+                                 colour, modelview, modelviewInv);
+                glColor4ub(colour[0], colour[1], colour[2], colour[3]);
+
+                glVertex3f(x, y, z);
+
+#if RND_POLY_STATS
+                rndNumberPolys++;
+                rndNumberSmoothed++;
+#endif
+            }
+        }
+
+        glEnd();
+        rndLightingEnable(lightOn);
+    }
+}
+
+/*-----------------------------------------------------------------------------
+    Name        : ellipsoid_render_as
+    Description : renders an ellipseObject structure at given radius as points at
+                  provided translation
+    Inputs      : ellipse - the ellipse object to render
+                  what - GL_TRIANGLES or GL_POINTS
+                  offset - add this to vertex position
+    Outputs     : draws an appropriate shape
+    Return      :
+----------------------------------------------------------------------------*/
+void ellipsoid_render_as(ellipseObject* ellipse, int what, vector* offset)
+{
+    sdword f, i, vert[3];
+    real32 x, y, z;
+
+    glBegin(what);
+
+    for (f = 0; f < ellipse->nf; f++)
+    {
+        vert[0] = ellipse->f[f].v0;
+        vert[1] = ellipse->f[f].v1;
+        vert[2] = ellipse->f[f].v2;
+
+        for (i = 0; i < 3; i++)
+        {
+            glNormal3fv((GLfloat*)&ellipse->v[vert[i]].n);
+
+            x = ellipse->v[vert[i]].p.x + offset->x;
+            y = ellipse->v[vert[i]].p.y + offset->y;
+            z = ellipse->v[vert[i]].p.z + offset->z;
+            glVertex3f(x, y, z);
+
+#if RND_POLY_STATS
+            rndNumberPolys++;
+            rndNumberSmoothed++;
+#endif
+        }
     }
 
-    glDisableClientState(GL_VERTEX_ARRAY);
-    glDisableClientState(GL_NORMAL_ARRAY);
+    glEnd();
+}
 
-    glPopMatrix();
-    glDisable(GL_RESCALE_NORMAL);
+void ellipsoid_render_as_radii(ellipseObject* ellipse, int what, vector* offset, real32 ra, real32 rb, real32 rc)
+{
+    sdword f, i, vert[3];
+    real32 x, y, z;
+
+    glBegin(what);
+
+    for (f = 0; f < ellipse->nf; f++)
+    {
+        vert[0] = ellipse->f[f].v0;
+        vert[1] = ellipse->f[f].v1;
+        vert[2] = ellipse->f[f].v2;
+
+        for (i = 0; i < 3; i++)
+        {
+            glNormal3fv((GLfloat*)&ellipse->v[vert[i]].n);
+
+            x = ra * ellipse->v[vert[i]].p.x + offset->x;
+            y = rb * ellipse->v[vert[i]].p.y + offset->y;
+            z = rc * ellipse->v[vert[i]].p.z + offset->z;
+            glVertex3f(x, y, z);
+
+#if RND_POLY_STATS
+            rndNumberPolys++;
+            rndNumberSmoothed++;
+#endif
+        }
+    }
+
+    glEnd();
 }
 
 /*-----------------------------------------------------------------------------
@@ -348,38 +464,23 @@ void ellipsoid_free(void)
     {
         if (ellipseLOD[i].v)
         {
-            if (useVBO) {
-                glDeleteBuffers(1, &ellipseLOD[i].vb);
-                glDeleteBuffers(1, &ellipseLOD[i].fb);
-            } else {
-                memFree(ellipseLOD[i].v);
-                memFree(ellipseLOD[i].f);
-            }
+            memFree(ellipseLOD[i].v);
+            memFree(ellipseLOD[i].f);
             ellipseLOD[i].v = NULL;
             ellipseLOD[i].f = NULL;
         }
         if (genericEllipse[i].v)
         {
-            if (useVBO) {
-                glDeleteBuffers(1, &genericEllipse[i].vb);
-                glDeleteBuffers(1, &genericEllipse[i].fb);
-            } else {
-                memFree(genericEllipse[i].v);
-                memFree(genericEllipse[i].f);
-            }
+            memFree(genericEllipse[i].v);
+            memFree(genericEllipse[i].f);
             genericEllipse[i].v = NULL;
             genericEllipse[i].f = NULL;
         }
     }
     if (ellipseLOD[4].v)
     {
-        if (useVBO) {
-            glDeleteBuffers(1, &ellipseLOD[4].vb);
-            glDeleteBuffers(1, &ellipseLOD[4].fb);
-        } else {
-            memFree(ellipseLOD[4].v);
-            memFree(ellipseLOD[4].f);
-        }
+        memFree(ellipseLOD[4].v);
+        memFree(ellipseLOD[4].f);
         ellipseLOD[4].v = NULL;
         ellipseLOD[4].f = NULL;
     }
@@ -716,19 +817,6 @@ void ellipsoid_seq(ellipseObject* ellipsoid, sdword n, real32 a, real32 b, real3
             }
         }
     }
-
-    if (useVBO) {
-        glGenBuffers(1, &ellipsoid->vb);
-        glBindBuffer(GL_ARRAY_BUFFER, ellipsoid->vb);
-        glBufferData(GL_ARRAY_BUFFER, ellipsoid->nv * sizeof(vertex), ellipsoid->v, GL_STATIC_DRAW);
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-        glGenBuffers(1, &ellipsoid->fb);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ellipsoid->fb);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, ellipsoid->nf * sizeof(face), ellipsoid->f, GL_STATIC_DRAW);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-        memFree(ellipsoid->v);
-        memFree(ellipsoid->f);
-    }
 }
 
 /*
@@ -777,8 +865,6 @@ real32 cloudRealDist(real32 n, real32 d)
 ----------------------------------------------------------------------------*/
 void cloudStartup(void)
 {
-    useVBO = glCheckExtension("GL_ARB_vertex_buffer_object");
-
     fogColor[0] = DUSTCLOUD_FOG_RED;
     fogColor[1] = DUSTCLOUD_FOG_GREEN;
     fogColor[2] = DUSTCLOUD_FOG_BLUE;
@@ -786,7 +872,7 @@ void cloudStartup(void)
 
     dontNebulate = FALSE;
 
-    glFogf(GL_FOG_MODE, GL_LINEAR);
+    glFogi(GL_FOG_MODE, GL_LINEAR);
 
     ellipsoid_init(5);
     ellipsoid_seq(&ellipseLOD[0], 5, 1.0f, 1.0f, 1.0f);
@@ -844,10 +930,11 @@ void cloudShutdown()
     Name        : cloudCreateSystem
     Description : creates a new cloud system
     Inputs      : radius - radius of the sphere
+                  variance - randomness parameter
     Outputs     :
     Return      : new cloudSystem, with not much initialized
 ----------------------------------------------------------------------------*/
-cloudSystem* cloudCreateSystem(real32 radius)
+cloudSystem* cloudCreateSystem(real32 radius, real32 variance)
 {
     udword i;
     cloudSystem* system = memAlloc(sizeof(cloudSystem), "cloud system", NonVolatile);
@@ -951,6 +1038,18 @@ real32 cloudLightningDeviation(void)
     return(0.54f * ((real32)(ranRandom(RANDOM_CLOUDS) % 100) - 50.0f));
 }
 
+void cloudGetVcross(vector* from, vector* to, vector* vcross)
+{
+    vector veye, vseg;
+
+    vecSub(veye, *from, mrCamera->eyeposition);
+    vecSub(vseg, *to, *from);
+    vecNormalize(&veye);
+    vecNormalize(&vseg);
+    vecCrossProduct(*vcross, vseg, veye);
+    vecNormalize(vcross);
+}
+
 /*-----------------------------------------------------------------------------
     Name        : cloudRenderLightning
     Description : renders a lightning effect between 2 points
@@ -961,42 +1060,127 @@ real32 cloudLightningDeviation(void)
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void cloudGenerateLightning(vector *from, vector *to) {
-    sdword gap = (sdword)(to - from) / 2;
-    vector *mid = from + gap;
+void cloudRenderLightning(vector* pa, vector* pb, udword depth, sdword lod, vector* vcross)
+{
+    vector from, to, mid;
+    real32 width;
 
-    mid->x = (from->x + to->x) * 0.5f + cloudLightningDeviation();
-    mid->y = (from->y + to->y) * 0.5f + cloudLightningDeviation();
-    mid->z = (from->z + to->z) * 0.5f + cloudLightningDeviation();
-
-    if (gap > 1) {
-        cloudGenerateLightning(from, mid);
-        cloudGenerateLightning(mid, to);
+    switch (lod)
+    {
+    case 0:
+    case 1:
+        width = CLOUD_LIGHTNING_WIDTH_UPCLOSE;
+        break;
+    case 2:
+    case 3:
+        width = CLOUD_LIGHTNING_WIDTH_FARAWAY;
+        break;
+    default:
+        width = 0.0f;
     }
-}
 
-void cloudRenderLightning(vector* pa, vector* pb, udword depth, sdword lod) {
-#if _MSC_VER
-    vector *lightning = (vector *)malloc(depth * sizeof(vector));
-#else
-    vector lightning[depth];
-#endif
-    real32 width = 12.0f / (real32)(lod + 1);
-    real32 alpha = width / 10.0f;
-    if (width > 3.0f) alpha = 1.0f;
-    memcpy(&lightning[0], pa, sizeof(vector));
-    memcpy(&lightning[depth - 1], pb, sizeof(vector));
-    cloudGenerateLightning(&lightning[0], &lightning[depth - 1]);
-    glEnable(GL_BLEND);
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glVertexPointer(3, GL_FLOAT, 0, lightning);
-    glLineWidth(width);
-    glColor4f(CLOUD_LIGHTNING_FRINGE_RED, CLOUD_LIGHTNING_FRINGE_GREEN, CLOUD_LIGHTNING_FRINGE_BLUE, CLOUD_LIGHTNING_FRINGE_ALPHA * alpha);
-    glDrawArrays(GL_LINE_STRIP, 0, depth);
-    glLineWidth(width / 3.0f);
-    glColor4f(CLOUD_LIGHTNING_MAIN_RED, CLOUD_LIGHTNING_MAIN_GREEN, CLOUD_LIGHTNING_MAIN_BLUE, CLOUD_LIGHTNING_MAIN_ALPHA * alpha);
-    glDrawArrays(GL_LINE_STRIP, 0, depth);
-    glDisableClientState(GL_VERTEX_ARRAY);
+    from = *pa;
+    to = *pb;
+
+    mid.x = (from.x + to.x)*0.5f + cloudLightningDeviation();
+    mid.y = (from.y + to.y)*0.5f + cloudLightningDeviation();
+    mid.z = (from.z + to.z)*0.5f + cloudLightningDeviation();
+
+    if (depth == 0)
+    {
+        if (width == 0.0f)
+        {
+            glColor3f(CLOUD_LIGHTNING_LINE_RED, CLOUD_LIGHTNING_LINE_GREEN, CLOUD_LIGHTNING_LINE_BLUE);
+            glBegin(GL_LINES);
+            glVertex3fv((real32*)&from);
+            glVertex3fv((real32*)&mid);
+            glVertex3fv((real32*)&mid);
+            glVertex3fv((real32*)&to);
+            glEnd();
+        }
+        else
+        {
+            vector fromHi, midHi, toHi;
+            vector _from, _mid, _to;
+            vector subAmount;
+
+            // ----
+
+            vecScalarMultiply(fromHi, *vcross, CLOUD_LIGHTNING_FRINGE_SCALAR * width);
+            vecAddTo(fromHi, from);
+
+            vecScalarMultiply(midHi, *vcross,
+                CLOUD_LIGHTNING_FRINGE_SCALAR * CLOUD_LIGHTNING_MIDPOINT_SCALAR * width);
+            vecAddTo(midHi, mid);
+
+            vecScalarMultiply(toHi, *vcross, CLOUD_LIGHTNING_FRINGE_SCALAR * width);
+            vecAddTo(toHi, to);
+
+            _from = from;
+            _mid = mid;
+            _to = to;
+            vecScalarMultiply(subAmount, *vcross, (CLOUD_LIGHTNING_FRINGE_SCALAR - 1.0f) * width);
+            vecSubFrom(_from, subAmount);
+            vecSubFrom(_mid, subAmount);
+            vecSubFrom(_to, subAmount);
+
+            glColor4f(CLOUD_LIGHTNING_FRINGE_RED, CLOUD_LIGHTNING_FRINGE_GREEN,
+                      CLOUD_LIGHTNING_FRINGE_BLUE, CLOUD_LIGHTNING_FRINGE_ALPHA);
+            glEnable(GL_BLEND);
+            glDisable(GL_CULL_FACE);
+
+            glBegin(GL_QUADS);
+
+            glVertex3fv((GLfloat*)&_from);
+            glVertex3fv((GLfloat*)&fromHi);
+            glVertex3fv((GLfloat*)&midHi);
+            glVertex3fv((GLfloat*)&_mid);
+
+            glVertex3fv((GLfloat*)&_mid);
+            glVertex3fv((GLfloat*)&midHi);
+            glVertex3fv((GLfloat*)&toHi);
+            glVertex3fv((GLfloat*)&_to);
+
+            glEnd();
+
+            // ----
+
+            vecScalarMultiply(fromHi, *vcross, width);
+            vecAddTo(fromHi, from);
+
+            vecScalarMultiply(midHi, *vcross, CLOUD_LIGHTNING_MIDPOINT_SCALAR * width);
+            vecAddTo(midHi, mid);
+
+            vecScalarMultiply(toHi, *vcross, width);
+            vecAddTo(toHi, to);
+            glColor4f(CLOUD_LIGHTNING_MAIN_RED, CLOUD_LIGHTNING_MAIN_GREEN,
+                      CLOUD_LIGHTNING_MAIN_BLUE, CLOUD_LIGHTNING_MAIN_ALPHA);
+
+            glBegin(GL_QUADS);
+
+            glVertex3fv((GLfloat*)&from);
+            glVertex3fv((GLfloat*)&fromHi);
+            glVertex3fv((GLfloat*)&midHi);
+            glVertex3fv((GLfloat*)&mid);
+
+            glVertex3fv((GLfloat*)&mid);
+            glVertex3fv((GLfloat*)&midHi);
+            glVertex3fv((GLfloat*)&toHi);
+            glVertex3fv((GLfloat*)&to);
+
+            glEnd();
+
+            // ----
+
+            glEnable(GL_CULL_FACE);
+            glDisable(GL_BLEND);
+        }
+    }
+    else
+    {
+        cloudRenderLightning(&from, &mid, depth-1, lod, vcross);
+        cloudRenderLightning(&mid, &to, depth-1, lod, vcross);
+    }
 }
 
 bool8 cloudHasLightning(cloudSystem* system)
@@ -1039,20 +1223,20 @@ color cloudBrighten(color c, real32 charge)
 /*-----------------------------------------------------------------------------
     Name        : cloudRenderSystem
     Description : renders (displays) a cloud system
-    Inputs      : system - the cloud system
+    Inputs      : mesh - no longer used
+                  system - the cloud system
                   lod - lod to render at
     Outputs     :
     Return      :
 ----------------------------------------------------------------------------*/
-void cloudRenderSystem(cloudSystem* system, sdword lod)
+void cloudRenderSystem(void* mesh, cloudSystem* system, sdword lod)
 {
     GLfloat radius;
     vector origin = {0.0f, 0.0f, 0.0f};
     color cloudColor = system->cloudColor;
     udword i;
     bool32 fogOn;
-    GLfloat attrib[4];
-    extern real32 meshFadeAlpha;
+    extern vector g_RndPosition;
 
     if (system == NULL)
     {
@@ -1069,11 +1253,11 @@ void cloudRenderSystem(cloudSystem* system, sdword lod)
         return;
     }
 
-    glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
+    glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
     rndTextureEnable(FALSE);
     glShadeModel(GL_SMOOTH);
     glEnable(GL_BLEND);
-    rndAdditiveBlends(TRUE);
+    rndAdditiveBlends(FALSE);
 
     glDepthMask(GL_FALSE);
 
@@ -1082,34 +1266,33 @@ void cloudRenderSystem(cloudSystem* system, sdword lod)
         cloudColor = cloudBrighten(cloudColor, system->charge);
     }
 
-    attrib[0] = 0.0f;
-    attrib[1] = 0.0f;
-    attrib[2] = 0.0f;
-    attrib[3] = 0.0f;
-    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, attrib);
-    attrib[3] = 0.5f * meshFadeAlpha;
-    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, attrib);
-    attrib[0] = (GLfloat)colRed(cloudColor) / 255.0f;
-    attrib[1] = (GLfloat)colGreen(cloudColor) / 255.0f;
-    attrib[2] = (GLfloat)colBlue(cloudColor) / 255.0f;
-    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, attrib);
-    attrib[0] = 11.0f;
-    glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, attrib);
+    {
+        GLubyte alpha;
+        alpha = 127;
+
+        gCloudColor[0] = colRed(cloudColor);
+        gCloudColor[1] = colGreen(cloudColor);
+        gCloudColor[2] = colBlue(cloudColor);
+        gCloudColor[3] = alpha;
+        glColor4ub(gCloudColor[0], gCloudColor[1], gCloudColor[2], gCloudColor[3]);
+    }
 
     switch (lod)
     {
     case 0:
-        //ellipsoid_render(&ellipseLOD[0], radius);
-        //break;
+//            ellipsoid_render(&ellipseLOD[0], radius);
+//            break;
     case 1:
-        //ellipsoid_render(&ellipseLOD[1], radius);
-        //break;
+//            ellipsoid_render(&ellipseLOD[1], radius);
+//            break;
     case 2:
-        //ellipsoid_render(&ellipseLOD[2], radius);
-        //break;
+        ellipsoid_render(&ellipseLOD[2], radius);
+        break;
     default:
-        ellipsoid_render(&ellipseLOD[0], radius);
+        ellipsoid_render(&ellipseLOD[3], radius);
     }
+
+    glDisable(GL_BLEND);
 
     rndLightingEnable(FALSE);
 
@@ -1135,18 +1318,20 @@ void cloudRenderSystem(cloudSystem* system, sdword lod)
         distance = fsqrt(vecMagnitudeSquared(distvec));
 
         //lod for lightning jaggies
-        if (distance > CLOUD_LDT0) depth = 17;
-        else if (distance > CLOUD_LDT1) depth = 9;
-        else depth = 5;
+        if (distance > CLOUD_LDT0) depth = 3;
+        else if (distance > CLOUD_LDT1) depth = 2;
+        else depth = 1;
 
-        rndAdditiveBlends(TRUE);
-        glEnable(GL_BLEND);
-        cloudRenderLightning(&pointA, &pointB, depth, lod);
+        {
+            vector vcross;
+            cloudGetVcross(&pointA, &pointB, &vcross);
+            rndAdditiveBlends(TRUE);
+            cloudRenderLightning(&pointA, &pointB, depth, lod, &vcross);
+        }
     }
 
     glDepthMask(GL_TRUE);
     rndLightingEnable(TRUE);
-    glDisable(GL_BLEND);
     rndAdditiveBlends(FALSE);
     if (fogOn) glEnable(GL_FOG);
 }
@@ -1165,18 +1350,20 @@ void cloudRenderAndUpdateLightning(lightning* l, sdword lod)
     distance = vecMagnitudeSquared(distvec);
     distance = fsqrt(distance);
 
-    if (distance > CLOUD_LDT0) depth = 17;
-    else if (distance > CLOUD_LDT1) depth = 9;
-    else depth = 5;
+    if (distance > CLOUD_LDT0) depth = 3;
+    else if (distance > CLOUD_LDT1) depth = 2;
+    else depth = 1;
 
     rndTextureEnable(FALSE);
     glShadeModel(GL_SMOOTH);
     rndLightingEnable(FALSE);
     glDepthMask(GL_FALSE);
 
-    rndAdditiveBlends(TRUE);
-    glEnable(GL_BLEND);
-    cloudRenderLightning(&pointA, &pointB, depth, lod);
+    {
+        vector vcross;
+        cloudGetVcross(&pointA, &pointB, &vcross);
+        cloudRenderLightning(&pointA, &pointB, depth, lod, &vcross);
+    }
 
     glDepthMask(GL_TRUE);
     rndLightingEnable(TRUE);
@@ -1411,9 +1598,7 @@ void cloudUpdateSystem(cloudSystem* system)
 
     thresh = (udword)(system->charge * 20.0f);
 
-#if TEST_LIGHTNING == 0
     if (bitTest(system->flags, LIGHTNING_DISCHARGING))
-#endif
     {
         //system is discharging, clear the flag and reset the charge
         bitClear(system->flags, LIGHTNING_DISCHARGING);

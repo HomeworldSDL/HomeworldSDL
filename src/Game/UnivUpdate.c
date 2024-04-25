@@ -959,7 +959,7 @@ DustCloud *univAddDustCloud(DustCloudType dustcloudtype,vector *cloudpos)
     newCloud->scaling = 1.0f;
     newCloud->health = newCloud->staticinfo->maxhealth;
     newCloud->collInfo.precise = NULL;
-    newCloud->stub = (void*)cloudCreateSystem(newCloud->staticinfo->staticheader.staticCollInfo.collspheresize);
+    newCloud->stub = (void*)cloudCreateSystem(newCloud->staticinfo->staticheader.staticCollInfo.collspheresize, 0.1f);
     {
         cloudSystem* csys = (cloudSystem*)newCloud->stub;
         csys->position = &newCloud->posinfo.position;

@@ -1199,14 +1199,17 @@ void nebGetTendrilVert(nebTendril* tendril, sdword whichVert, sdword lod, vector
 ----------------------------------------------------------------------------*/
 void nebColourAdjust(vector* vert, vector* norm, real32* m, real32* minv)
 {
-    ubyte color[4];
+    if (usingShader)
+    {
+        ubyte color[4];
 
-    color[0] = nebColor[0];
-    color[1] = nebColor[1];
-    color[2] = nebColor[2];
-    color[3] = nebColor[3];
-    shSpecularColour(1, 0, vert, norm, color, m, minv);
-    glColor4ub(color[0], color[1], color[2], color[3]);
+        color[0] = nebColor[0];
+        color[1] = nebColor[1];
+        color[2] = nebColor[2];
+        color[3] = nebColor[3];
+        shSpecularColour(1, 0, vert, norm, color, m, minv);
+        glColor4ub(color[0], color[1], color[2], color[3]);
+    }
 }
 
 /*-----------------------------------------------------------------------------
@@ -1243,8 +1246,11 @@ void nebDrawChunk2(nebChunk* chunk, sdword lod)
 
     real32 m[16], minv[16];
 
-    glGetFloatv(GL_MODELVIEW_MATRIX, m);
-    shInvertMatrix(minv, m);
+    if (usingShader)
+    {
+        glGetFloatv(GL_MODELVIEW_MATRIX, m);
+        shInvertMatrix(minv, m);
+    }
 
     dbgAssertOrIgnore(chunk != NULL);
 
@@ -1395,8 +1401,11 @@ void nebDrawTendril(nebTendril* tendril, sdword lod)
 
     real32 m[16], minv[16];
 
-    glGetFloatv(GL_MODELVIEW_MATRIX, m);
-    shInvertMatrix(minv, m);
+    if (usingShader)
+    {
+        glGetFloatv(GL_MODELVIEW_MATRIX, m);
+        shInvertMatrix(minv, m);
+    }
 
     dPosA = tendril->a->dPos;
     dPosB = tendril->b->dPos;
@@ -2016,7 +2025,7 @@ void nebRenderNebula(nebulae_t* neb)
     atOn = glIsEnabled(GL_ALPHA_TEST);
     cullOff = !glIsEnabled(GL_CULL_FACE);
 
-    glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
+    glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
     if (fogOn) glDisable(GL_FOG);
 
     rndLightingEnable(FALSE);
@@ -2092,7 +2101,10 @@ void nebRenderNebula(nebulae_t* neb)
     if (atOn) glEnable(GL_ALPHA_TEST);
     if (cullOff) glDisable(GL_CULL_FACE);
 
-    rndLightingEnable(TRUE);
+    if (usingShader)
+    {
+        rndLightingEnable(TRUE);
+    }
 }
 
 /*-----------------------------------------------------------------------------

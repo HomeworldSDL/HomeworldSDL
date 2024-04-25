@@ -851,19 +851,35 @@ void trailDrawCapitalGlow(shiptrail* trail, sdword LOD)
 
     if (trail->style == 4 || trail->style == 5)
     {
-        meshSetSpecular(2,
-                        (ubyte)TRAIL_GLOW_1_RED,
-                        (ubyte)TRAIL_GLOW_1_GREEN,
-                        (ubyte)TRAIL_GLOW_1_BLUE,
-                        160);
+        if (usingShader)
+        {
+            meshSetSpecular(2,
+                            (ubyte)TRAIL_GLOW_1_RED,
+                            (ubyte)TRAIL_GLOW_1_GREEN,
+                            (ubyte)TRAIL_GLOW_1_BLUE,
+                            160);
+        }
+        else
+        {
+            glColor4ub((GLubyte)TRAIL_GLOW_1_RED, (GLubyte)TRAIL_GLOW_1_GREEN,
+                       (GLubyte)TRAIL_GLOW_1_BLUE, 160);
+        }
     }
     else
     {
-        meshSetSpecular(2,
-                        (ubyte)TRAIL_GLOW_2_RED,
-                        (ubyte)TRAIL_GLOW_2_GREEN,
-                        (ubyte)TRAIL_GLOW_2_BLUE,
-                        160);
+        if (usingShader)
+        {
+            meshSetSpecular(2,
+                            (ubyte)TRAIL_GLOW_2_RED,
+                            (ubyte)TRAIL_GLOW_2_GREEN,
+                            (ubyte)TRAIL_GLOW_2_BLUE,
+                            160);
+        }
+        else
+        {
+            glColor4ub((GLubyte)TRAIL_GLOW_2_RED, (GLubyte)TRAIL_GLOW_2_GREEN,
+                       (GLubyte)TRAIL_GLOW_2_BLUE, 160);
+        }
     }
 
     glPushMatrix();
@@ -943,7 +959,10 @@ void trailDrawCapitalGlow(shiptrail* trail, sdword LOD)
 
     g_NoMatSwitch = TRUE;
     glEnable(GL_NORMALIZE);
-    shSetExponent(2, trail->exponent);
+    if (usingShader)
+    {
+        shSetExponent(2, trail->exponent);
+    }
 
     glShadeModel(GL_SMOOTH);
 
@@ -1054,8 +1073,10 @@ void trailDrawCapitalGlow(shiptrail* trail, sdword LOD)
     rndAdditiveBlends(FALSE);
     glPopMatrix();
 
-    meshSetSpecular(-1, 0, 0, 0, 0);
+    if (usingShader)
+        meshSetSpecular(-1, 0, 0, 0, 0);
 }
+
 
 /*-----------------------------------------------------------------------------
     Name        : trailDrawBillboardedSquareThingz
@@ -1574,7 +1595,7 @@ void trailLineBillboard(
     glDisable(GL_CULL_FACE);
     glDepthMask(GL_FALSE);
 
-    alpha = (ubyte)(127.0f * meshFadeAlpha);
+    alpha = usingShader ? (ubyte)(127.0f * meshFadeAlpha) : 127;
 
     glBegin(GL_QUADS);
     if (i == 0)
@@ -1666,8 +1687,13 @@ void trailLineSequence(sdword LOD, sdword n, vector vectors[], color* segmentArr
     color c;
     ubyte alpha;
 
-    alpha = (ubyte)((real32)alpha * meshFadeAlpha);
+    alpha = 163;
     glEnable(GL_BLEND);
+
+    if (usingShader)
+    {
+        alpha = (ubyte)((real32)alpha * meshFadeAlpha);
+    }
 
     if (LOD == 3)
     {

@@ -3085,7 +3085,7 @@ dontdraw:
                             case OBJ_DustType:
                                 rndFade(spaceobj, camera);
                                 meshRenders++;
-                                cloudRenderSystem(((DustCloud*)spaceobj)->stub, spaceobj->currentLOD);
+                                cloudRenderSystem((void*)level->pData, ((DustCloud*)spaceobj)->stub, spaceobj->currentLOD);
 //                                shipsAtLOD[spaceobj->currentLOD]++;
                                 rndUnFade();
                                 break;
