@@ -66,7 +66,15 @@
 #define NIS_OneKeyframe             5
 #define NIS_FirstKeyFrame           2
 #define NIS_FrameRate               30.0f
-#define NIS_LetterHeight            (MAIN_WindowHeight / 8)  // 16:9 widescreen on 4:3 screen (Mantis #55)
+
+// Use 1.85:1 aspect ratio for screens with aspect ratio below 1.5:1, e.g. 4:3. This is what the original game does.
+// For anything higher, e.g. typical 16:9 screens, use 2.39:1 aspect ratio.
+// And in case someone has a very wide monitor, e.g. 21:9, use a minimal letter boxing height of 1/15 of the screen height.
+#define NIS_LetterHeight            max( (((float)MAIN_WindowWidth/(float)MAIN_WindowHeight) < 1.5f) ? \
+                                         ((MAIN_WindowHeight - MAIN_WindowWidth * 20 / 37) / 2) : \
+                                         ((MAIN_WindowHeight - MAIN_WindowWidth * 100 / 239) / 2), \
+                                         MAIN_WindowHeight / 15)
+
 #define NIS_HeaderExtra             64          //extra amount of RAM at the end of a header
 #define NIS_LookScalar              10000.0f
 
