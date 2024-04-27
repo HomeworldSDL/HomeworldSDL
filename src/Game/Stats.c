@@ -1726,6 +1726,7 @@ sdword statsNumShipsNeededToKillTarget(ShipStaticInfo *shipstatic,ShipStaticInfo
 {
     real32 killratio = statsGetShipKillRatingAgainstShip(shipstatic,targetstatic);
     real32 num;
+    sdword num_ships = 0;
 
     if (killratio >= 1)
     {
@@ -1736,13 +1737,24 @@ sdword statsNumShipsNeededToKillTarget(ShipStaticInfo *shipstatic,ShipStaticInfo
         num = 1.0f / killratio;
     }
 
-    return ((sdword)(num * statsOverkillfactor));
+    // Ensure that after casting to sdword, we don't get a negative number (-2147483648)
+    // which can happen if killratio is very small/close to 0 and we get an infty for num.
+    // Probably caused by a ship for which there is no entry in the ship vs ship stats table.
+    num_ships = ((sdword)(num * statsOverkillfactor));
+
+    if (num_ships < 0)
+    {
+        num_ships = 0;
+    }
+
+    return num_ships;
 }
 
 sdword statsNumShipsNeededToKillFleet(ShipStaticInfo *shipstatic,SelectCommand *targetFleet)
 {
     real32 killratio = statsGetKillRatingAgainstFleet(shipstatic,targetFleet);
     real32 num;
+    sdword num_ships = 0;
 
     if (killratio == 0.0f)
     {
@@ -1757,7 +1769,17 @@ sdword statsNumShipsNeededToKillFleet(ShipStaticInfo *shipstatic,SelectCommand *
         num = 1.0f / killratio;
     }
 
-    return (((sdword)(num * statsOverkillfactor)));
+    // Ensure that after casting to sdword, we don't get a negative number (-2147483648)
+    // which can happen if killratio is very small/close to 0 and we get an infty for num.
+    // Probably caused by a ship for which there is no entry in the ship vs ship stats table.
+    num_ships = ((sdword)(num * statsOverkillfactor));
+
+    if (num_ships < 0)
+    {
+        num_ships = 0;
+    }
+
+    return num_ships;
 }
 
 // strength of fleet2 against fleet1, e.g. fleet2/fleet1

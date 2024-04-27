@@ -364,7 +364,7 @@ void aioCreateReinforcements(AITeam *team, AITeam *reinforceteam, ShipType shipt
 {
     aiplayerLog((aiIndex, "%x Issuing Reinforcements Order", team));
 
-    if (num)
+    if (num > 0)
     {
         if (alternatives)
         {
