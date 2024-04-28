@@ -127,7 +127,7 @@ typedef struct tagTGAFileHeader
 void btgStartup(void)
 {
     btgReset();
-    useVBO = glCheckExtension("GL_ARB_vertex_buffer_object");
+    useVBO = FALSE; //glCheckExtension("GL_ARB_vertex_buffer_object");
 }
 
 /*-----------------------------------------------------------------------------
@@ -877,10 +877,8 @@ void btgLoad(char* filename)
     btgIndices = (uword*)memAlloc(3 * btgHead->numPolys * sizeof(uword), "btg indices", NonVolatile);
     if (useVBO) glGenBuffers(1, &vboIndices);
 
-#ifndef _WIN32_FIXME
     //spherically project things, blend colours, &c
     btgConvertVerts();
-#endif
 }
 
 /*-----------------------------------------------------------------------------
@@ -1174,6 +1172,27 @@ void btgConvertVerts(void)
 }
 
 /*-----------------------------------------------------------------------------
+    Name        : btgBlendColour
+    Description : blend a colour to the current background colour
+    Inputs      :
+    Outputs     :
+    Return      :
+----------------------------------------------------------------------------*/
+void btgBlendColour(
+    GLubyte* dr, GLubyte* dg, GLubyte* db, sdword sr, sdword sg, sdword sb, sdword sa)
+{
+    *dr = (GLubyte)((sr * sa) >> 8);
+    *dg = (GLubyte)((sg * sa) >> 8);
+    *db = (GLubyte)((sb * sa) >> 8);
+    if (sa < 252)
+    {
+        if (*dr < _bgByte[0]) *dr = _bgByte[0];
+        if (*dg < _bgByte[1]) *dg = _bgByte[1];
+        if (*db < _bgByte[2]) *db = _bgByte[2];
+    }
+}
+
+/*-----------------------------------------------------------------------------
     Name        : btgVertexColor
     Description : sets the GL's colour from a btg vertex
     Inputs      : nVert - index of vertex in the big array
@@ -1202,15 +1221,18 @@ void btgColorVertices(void)
     btgVertex* pVert;
     btgTransVertex* transVert;
     udword nVert;
+    GLubyte r, g, b, a;
 
     for (nVert = 0, pVert = btgVerts, transVert = btgTransVerts;
          nVert < btgHead->numVerts;
          nVert++, pVert++, transVert++)
     {
-        transVert->red = pVert->red;
-        transVert->green = pVert->green;
-        transVert->blue = pVert->blue;
-        transVert->alpha = (pVert->alpha * pVert->brightness * btgFade) >> 16;
+        a = (pVert->alpha * pVert->brightness * btgFade) >> 16;
+        btgBlendColour(&r, &g, &b, pVert->red, pVert->green, pVert->blue, a);
+        transVert->red = r;
+        transVert->green = g;
+        transVert->blue = b;
+        transVert->alpha = 255;
     }
 }
 
@@ -1277,7 +1299,7 @@ void btgRender(void)
     glDisable(GL_DEPTH_TEST);
     glDisable(GL_CULL_FACE);
     glDisable(GL_TEXTURE_2D);
-    glEnable(GL_BLEND);
+    glDisable(GL_BLEND);
     rndAdditiveBlends(FALSE);
 
     if (useVBO) glBindBuffer(GL_ARRAY_BUFFER, vboTransVerts);
@@ -1289,9 +1311,9 @@ void btgRender(void)
         {
             btgFade = 255;
         }
-#ifndef _WIN32_FIXME
+
         btgColorVertices();
-#endif
+
         if (useVBO) glBufferData(GL_ARRAY_BUFFER, btgHead->numVerts * sizeof(btgTransVertex), btgTransVerts, GL_STATIC_DRAW);
         *dlast = *dnext;
         lastFade = btgFade;
@@ -1316,6 +1338,7 @@ void btgRender(void)
 
     //stars
     rndPerspectiveCorrection(FALSE);
+    glEnable(GL_BLEND);
     rndAdditiveBlends(TRUE);
 
     trClearCurrent();
