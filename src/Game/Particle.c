@@ -1355,6 +1355,10 @@ udword partRenderMeshSystem(udword n, particle *p, udword flags, trhandle tex, m
             {                                               //else there is a morph animation
                 mesh2 = partMeshNextMesh(meshPart, p);
               /* it will catch stuff like 0x9cce2641ffffffff on 64-bit... but source of 32/64 should really be found and fixed */
+              if ( (0xffffffff == ((memsize)mesh & 0xffffffff)) || (0x7fffffff == ((memsize)mesh & 0x7fffffff))) {
+                dbgMessagef("partRenderMeshSystem: Got mesh with suspected flag: %d",mesh);
+                return 0; //kill the render system
+              }
               if ( (0xffffffff == ((memsize)mesh2 & 0xffffffff)) || (0x7fffffff == ((memsize)mesh2 & 0x7fffffff))) {
                 dbgMessagef("partRenderMeshSystem: Got mesh2 with suspected flag: %d",mesh2);
                 return 0; //kill the render system
