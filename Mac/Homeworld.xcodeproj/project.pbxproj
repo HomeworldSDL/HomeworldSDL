@@ -10,6 +10,8 @@
 		2A0FC9972AADEF8D0077F592 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A0FC9952AADEF830077F592 /* SDL2.framework */; };
 		2A0FC9982AADEF8D0077F592 /* SDL2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2A0FC9952AADEF830077F592 /* SDL2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2A0FC99A2AADF3020077F592 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A0FC9952AADEF830077F592 /* SDL2.framework */; };
+		2A236E1E2BF3FD9900DD3509 /* meson.build in Resources */ = {isa = PBXBuildFile; fileRef = 2A236E1A2BF3FD9900DD3509 /* meson.build */; };
+		2A236E1F2BF3FD9900DD3509 /* meson.build in Resources */ = {isa = PBXBuildFile; fileRef = 2A236E1A2BF3FD9900DD3509 /* meson.build */; };
 		2A33B4C02AA1FCB30067FBDC /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E8607613487BD10079E9AB /* OpenGL.framework */; };
 		2A33B4C22AA1FCB50067FBDC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		2A7BDF182BB9C7DB00C9FCF1 /* Transformer.c in Sources */ = {isa = PBXBuildFile; fileRef = 3CFB01762B5C69DC00B89E6B /* Transformer.c */; };
@@ -306,10 +308,6 @@
 		35FE5B290B17CB2300D6E944 /* LZSS.c in Sources */ = {isa = PBXBuildFile; fileRef = 35FE5B240B17CB2200D6E944 /* LZSS.c */; };
 		35FE5B2C0B17CB2300D6E944 /* BitIO.c in Sources */ = {isa = PBXBuildFile; fileRef = 35FE5B220B17CB2200D6E944 /* BitIO.c */; };
 		35FE5B2E0B17CB2300D6E944 /* LZSS.c in Sources */ = {isa = PBXBuildFile; fileRef = 35FE5B240B17CB2200D6E944 /* LZSS.c */; };
-		3CB1157D2B335ED500371B43 /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CB1157C2B335ED500371B43 /* SDL2_image.framework */; };
-		3CB115832B3360F000371B43 /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CB1157C2B335ED500371B43 /* SDL2_image.framework */; };
-		3CB115842B3360F000371B43 /* SDL2_image.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3CB1157C2B335ED500371B43 /* SDL2_image.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3CB115892B33624200371B43 /* SDL2_image.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3CB115872B33624200371B43 /* SDL2_image.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3CB1158A2B33624200371B43 /* SDL2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3CB115882B33624200371B43 /* SDL2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3CFB01772B5C6E6500B89E6B /* Transformer.c in Sources */ = {isa = PBXBuildFile; fileRef = 3CFB01762B5C69DC00B89E6B /* Transformer.c */; };
 		9030AF94066D5D2C00B32218 /* avi.c in Sources */ = {isa = PBXBuildFile; fileRef = 9030AF92066D5D2C00B32218 /* avi.c */; };
@@ -515,7 +513,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				3CB115892B33624200371B43 /* SDL2_image.framework in Embed Frameworks */,
 				3CB1158A2B33624200371B43 /* SDL2.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -528,7 +525,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				2A0FC9982AADEF8D0077F592 /* SDL2.framework in Embed Frameworks */,
-				3CB115842B3360F000371B43 /* SDL2_image.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -538,6 +534,9 @@
 /* Begin PBXFileReference section */
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		2A0FC9952AADEF830077F592 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL2.framework; sourceTree = "<group>"; };
+		2A236E1A2BF3FD9900DD3509 /* meson.build */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = meson.build; sourceTree = "<group>"; };
+		2A236E1B2BF3FD9900DD3509 /* stb_image_write.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image_write.h; sourceTree = "<group>"; };
+		2A236E1C2BF3FD9900DD3509 /* stb_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image.h; sourceTree = "<group>"; };
 		2A33B4C42AA2002A0067FBDC /* Homeworld.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Homeworld.entitlements; sourceTree = "<group>"; };
 		2A58F0A52AA1A28B001D2C18 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/HomeworldPlist.strings; sourceTree = "<group>"; };
 		2A58F0A62AA1A28C001D2C18 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/RaiderRetreatPlist.strings; sourceTree = "<group>"; };
@@ -646,7 +645,6 @@
 		35FE5B240B17CB2200D6E944 /* LZSS.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = LZSS.c; sourceTree = "<group>"; };
 		35FE5B250B17CB2200D6E944 /* LZSS.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = LZSS.h; sourceTree = "<group>"; };
 		3CB1157C2B335ED500371B43 /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL2_image.framework; sourceTree = "<group>"; };
-		3CB115872B33624200371B43 /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL2_image.framework; sourceTree = "<group>"; };
 		3CB115882B33624200371B43 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL2.framework; sourceTree = "<group>"; };
 		3CFB01752B5C69DC00B89E6B /* Transformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Transformer.h; sourceTree = "<group>"; };
 		3CFB01762B5C69DC00B89E6B /* Transformer.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Transformer.c; sourceTree = "<group>"; };
@@ -1076,7 +1074,6 @@
 				2A0FC9972AADEF8D0077F592 /* SDL2.framework in Frameworks */,
 				3516CA6B077C41B0001AA863 /* Cocoa.framework in Frameworks */,
 				2AA6D5A12AA8FE1B00C00360 /* OpenGL.framework in Frameworks */,
-				3CB115832B3360F000371B43 /* SDL2_image.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1087,7 +1084,6 @@
 				2A0FC99A2AADF3020077F592 /* SDL2.framework in Frameworks */,
 				2A33B4C02AA1FCB30067FBDC /* OpenGL.framework in Frameworks */,
 				2A33B4C22AA1FCB50067FBDC /* Cocoa.framework in Frameworks */,
-				3CB1157D2B335ED500371B43 /* SDL2_image.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1115,7 +1111,6 @@
 		29B97314FDCFA39411CA2CEA /* Homeworld */ = {
 			isa = PBXGroup;
 			children = (
-				3CB115872B33624200371B43 /* SDL2_image.framework */,
 				3CB115882B33624200371B43 /* SDL2.framework */,
 				2AA6D5A22AA8FE2600C00360 /* Raider Retreat.entitlements */,
 				2A33B4C42AA2002A0067FBDC /* Homeworld.entitlements */,
@@ -1159,6 +1154,16 @@
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2A236E1D2BF3FD9900DD3509 /* stb */ = {
+			isa = PBXGroup;
+			children = (
+				2A236E1A2BF3FD9900DD3509 /* meson.build */,
+				2A236E1B2BF3FD9900DD3509 /* stb_image_write.h */,
+				2A236E1C2BF3FD9900DD3509 /* stb_image.h */,
+			);
+			path = stb;
 			sourceTree = "<group>";
 		};
 		3580380B0B18679B00D47728 /* CRC */ = {
@@ -1278,6 +1283,7 @@
 		35CD34AF0B13ADEE0064A20B /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				2A236E1D2BF3FD9900DD3509 /* stb */,
 				3580380B0B18679B00D47728 /* CRC */,
 				35FE5B210B17CB2200D6E944 /* LZSS */,
 				35CD358D0B13B0E00064A20B /* Titan */,
@@ -1851,6 +1857,7 @@
 			files = (
 				35CCC93109662605009D918D /* RaiderRetreatPlist.strings in Resources */,
 				35B1D7F20ABD43BD002214BE /* RaiderRetreat.icns in Resources */,
+				2A236E1F2BF3FD9900DD3509 /* meson.build in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1860,6 +1867,7 @@
 			files = (
 				35CCC930096625FD009D918D /* HomeworldPlist.strings in Resources */,
 				35B1D7F00ABD43B0002214BE /* Homeworld.icns in Resources */,
+				2A236E1E2BF3FD9900DD3509 /* meson.build in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
