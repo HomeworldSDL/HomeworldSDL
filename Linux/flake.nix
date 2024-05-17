@@ -25,6 +25,7 @@
           python3
           ninja
           gdb
+          ffmpeg
           nixpkgs-fmt
         ];
         # With --enable-sanitizers dlopen() fails to find libs. This is used by SDL2 to open the sound library (pipewire), and by libglvnd to open the vendor-specific OpenGL driver

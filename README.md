@@ -45,9 +45,9 @@ This section is intended as a quick checklist to make sure you have everything n
     > sha256: c71b07758ee7696b3a19c1d75c946cbd68830e03b30cd3c2888f2f6d22b7c976
 - [ ] `HW_Comp.vce`  
     > sha256: 15c4b988adb09b0969b0dc288b21ddc10ca9d42a2064d15b46b53dcf02fc2e44
-
 - [ ] `HW_Music.wxd`  
     > sha256: b909c2cdbc8c8db67be168f6005bf8e8facaa9857263b16d186c824a0c4eed4f
+- [ ] `Movies` (This folder is optional, you will simply not have the pencil-style cutscenes in the campaign)
 
 #### Remaster (2015)
 
@@ -55,9 +55,9 @@ This section is intended as a quick checklist to make sure you have everything n
     > sha256: e38c0528c1d4bd9d9195d26d5231ae29bef18f57d9bd1fe2eed33fb2b9b172a8
 - [ ] `HW_Comp.vce`  
     > sha256: 15c4b988adb09b0969b0dc288b21ddc10ca9d42a2064d15b46b53dcf02fc2e44
-
 - [ ] `HW_Music.wxd`  
     > sha256: 48f93c07bf718c56c20727aba12f06baf13d4d11d1c7185d2d2153543834e454
+- [ ] `Movies` (This folder is optional, you will simply not have the pencil-style cutscenes in the campaign)
 
 ## Setting up the assets folder
 

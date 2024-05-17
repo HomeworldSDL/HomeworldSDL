@@ -39,6 +39,7 @@
     #include <libavformat/avformat.h>
     #include <libavcodec/avcodec.h>
     #include <libswscale/swscale.h>
+    #define ALIGN 32
 #endif
 
 
@@ -68,6 +69,9 @@ AVCodecContext  *pCodecCtx     = NULL;
 AVStream        *streamPointer = NULL;
 AVCodec         *pCodec        = NULL;
 AVFrame         *pFrame        = NULL;
+AVDictionary    **opts         = NULL;
+AVCodecParameters *pCodecpar   = NULL;
+AVCodecParserContext *parser   = NULL;
 #endif
 
 int aviMovieExpandFactor = 1;
@@ -177,13 +181,13 @@ static void Draw_Stretch (int x, int y, int w, int h, int cols, int rows, char *
     while (tex_width < cols) tex_width <<= 1;
     while (tex_height < rows) tex_height <<= 1;
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
     glEnable(GL_TEXTURE_2D);
 
     if (!texinit) {
-        unsigned int i;
+        //unsigned int i;
         unsigned char blank[tex_width*tex_height*3];
         memset(blank, 0, tex_width*tex_height*3);
 
@@ -191,27 +195,58 @@ static void Draw_Stretch (int x, int y, int w, int h, int cols, int rows, char *
         glBindTexture(GL_TEXTURE_2D, strtex);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, tex_width, tex_height, 0, GL_RGB, GL_UNSIGNED_BYTE, blank);
         texinit = 1;
+    } else {
+        // In principle we don't need the else case but for some reason doing
+        // the glTexImage2D call and immediately after the glTexSubImage2D call causes
+        // a single frame flicker.
+        // We loose the very first video frame we start to play.
+        glBindTexture(GL_TEXTURE_2D, strtex);
+        glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, cols, rows, GL_RGB, GL_UNSIGNED_BYTE, data);
+
+        glBegin (GL_QUADS);
+        glTexCoord2f (0.0f, (GLfloat)rows/tex_height);
+        glVertex2f (x, y);
+        glTexCoord2f ((GLfloat)cols/tex_width, (GLfloat)rows/tex_height);
+        glVertex2f (x+w, y);
+        glTexCoord2f ((GLfloat)cols/tex_width, 0.0f);
+        glVertex2f (x+w, y+h);
+        glTexCoord2f (0.0f, 0.0f);
+        glVertex2f (x, y+h);
+        glEnd ();
     }
-
-    glBindTexture(GL_TEXTURE_2D, strtex);
-    glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, cols, rows, GL_RGB, GL_UNSIGNED_BYTE, data);
-
-    glBegin (GL_QUADS);
-    glTexCoord2f (0.0f, (GLfloat)rows/tex_height);
-    glVertex2f (x, y);
-    glTexCoord2f ((GLfloat)cols/tex_width, (GLfloat)rows/tex_height);
-    glVertex2f (x+w, y);
-    glTexCoord2f ((GLfloat)cols/tex_width, 0.0f);
-    glVertex2f (x+w, y+h);
-    glTexCoord2f (0.0f, 0.0f);
-    glVertex2f (x, y+h);
-    glEnd ();
 }
 
-void aviDisplayFrame( AVPicture *pFrameRGB, int w, int h )
+void aviDisplayFrame( AVFrame *pFrameRGB, int w, int h )
 {
     animAviSetup(TRUE);
-    Draw_Stretch(0, 0, MAIN_WindowWidth, MAIN_WindowHeight, w, h, pFrameRGB->data[0]);
+
+    // lets keep the aspect ratio of the video and draw it centered with max height or width
+    float contentAspect = 1.85f; // actual video content aspect ratio without the letter boxing
+    float videoAspect = (float)w / (float)h;
+    float screenAspect = (float)MAIN_WindowWidth / (float)MAIN_WindowHeight;
+
+    int imageHeight, imageWidth;
+
+    if (screenAspect >= contentAspect)
+    {
+        // screen is wider than the video content
+        // make use of full screen height by getting rid of the letter boxing and maintain the contents 1.85f aspect ratio
+        float rescaleFactor = contentAspect / videoAspect;
+        imageHeight = (int)(MAIN_WindowHeight * rescaleFactor);
+        imageWidth = (int)(MAIN_WindowHeight * videoAspect * rescaleFactor);
+    }
+    else
+    {
+        // screen is taller than the video content, use full screen width
+        imageHeight = (int)(MAIN_WindowWidth / videoAspect);
+        imageWidth = (int)(MAIN_WindowWidth);
+    }
+
+    int x = (MAIN_WindowWidth - imageWidth) / 2;
+    int y = (MAIN_WindowHeight - imageHeight) / 2;
+
+    Draw_Stretch(x, y, imageWidth, imageHeight, w, h, pFrameRGB->data[0]);
+
     animAviSetup(FALSE);
 }
 
@@ -237,6 +272,21 @@ void aviSubUpdate(void) {
             {
                 subTimeElapsed = &universe.totaltimeelapsed;
             }
+
+            // disable dropshadow for movie subtitles since they are somehow buggy
+            // and it seems like they were supposed to be drawn differently
+            // TODO: figure out why it is buggy
+            
+            subcard *card;
+            int index2;
+            for (index2 = 0, card = subRegion[index].card; index2 < subRegion[index].cardIndex; index2++, card++)
+            {
+                if (card->bDropShadow)
+                {
+                    card->bDropShadow = FALSE;
+                }
+            }
+
             subTitlesDraw(&subRegion[index]);
         }
     }
@@ -256,34 +306,33 @@ dbgMessage("aviPlayLoop:");
     int numBytes;
     int frameFinished;
     int event_res = 0;
-#if AVI_VERBOSE_LEVEL >= 2
-    Uint32 start_time = SDL_GetTicks();
-#endif
-    Uint32 last_time = SDL_GetTicks();
+    Uint32 start_time;
     SDL_Event e;
     char * buffer;
 //    AVFrame *pFrameRGB;
-    AVPicture *pPictureRGB;
-    AVPicture PictureRGB;
+    AVFrame *pPictureRGB;
+    AVFrame PictureRGB;
     static AVPacket packet;
 
     pPictureRGB=&PictureRGB;
 
     static struct SwsContext *img_convert_ctx = NULL;
 
-    numBytes=avpicture_get_size(PIX_FMT_RGB24, pCodecCtx->width, pCodecCtx->height);
+    numBytes=av_image_get_buffer_size(AV_PIX_FMT_RGB24, pCodecCtx->width, pCodecCtx->height, ALIGN);
 #if AVI_VERBOSE_LEVEL >= 2
 dbgMessagef("aviPlayLoop: numBytes= %d, width=%d height=%d", numBytes, pCodecCtx->width, pCodecCtx->height);
 #endif
 
     buffer = av_malloc(numBytes );
 
-    avpicture_fill(pPictureRGB, buffer, PIX_FMT_RGB24, pCodecCtx->width, pCodecCtx->height);
+    av_image_fill_arrays(pPictureRGB->data, pPictureRGB->linesize, buffer, AV_PIX_FMT_RGB24, pCodecCtx->width, pCodecCtx->height, ALIGN);
 
     if (img_convert_ctx == NULL){
-        img_convert_ctx = sws_getContext(pCodecCtx->width, pCodecCtx->height, pCodecCtx->pix_fmt, pCodecCtx->width, pCodecCtx->height, PIX_FMT_RGB24, SWS_BICUBIC, NULL, NULL, NULL);
+        img_convert_ctx = sws_getContext(pCodecCtx->width, pCodecCtx->height, pCodecCtx->pix_fmt, pCodecCtx->width, pCodecCtx->height, AV_PIX_FMT_RGB24, SWS_BICUBIC, NULL, NULL, NULL);
         
     }
+
+    start_time = SDL_GetTicks();
 
     while(av_read_frame(pFormatCtx, &packet)>=0) {
 
@@ -293,26 +342,22 @@ dbgMessagef("aviPlayLoop: stream_index=%d, videoStream=%d", packet.stream_index,
 
 // avcodec_decode_video has been depreciated in preference for avcodec_decode_video2
 //        avcodec_decode_video(pCodecCtx, pFrame, &frameFinished, packet.data, packet.size);
-        avcodec_decode_video2(pCodecCtx, pFrame, &frameFinished, &packet);
+        //avcodec_decode_video2(pCodecCtx, pFrame, &frameFinished, &packet);
+        avcodec_send_packet(pCodecCtx, &packet);
+        //avcodec_receive_frame(pCodecCtx, pFrame);
 
 #if AVI_VERBOSE_LEVEL >= 100
 dbgMessagef("aviPlayLoop: frameFinished=%d  packet.data=%x   packet.size=%d ", frameFinished, packet.data, packet.size);
 #endif
 
-        if(frameFinished) {
-            // Convert the image from its native format to RGB
-//            img_convert(pPictureRGB, PIX_FMT_RGB24,
-//                (AVPicture*)pFrame, pCodecCtx->pix_fmt, pCodecCtx->width,
-//                pCodecCtx->height);
+
+        if(avcodec_receive_frame(pCodecCtx, pFrame)==0) {
+
             sws_scale(img_convert_ctx, pFrame->data,pFrame->linesize, 0, pCodecCtx->height, pPictureRGB->data,pPictureRGB->linesize);
             
-
             animAviDecode(frame);
 
-            while (SDL_GetTicks() - last_time < 67)
-                SDL_Delay(1);
-            last_time = SDL_GetTicks();
-
+            soundEventUpdate();
             speechEventUpdate();   //Keep this it works. :)
             rndClearToBlack();
 
@@ -329,8 +374,12 @@ dbgMessagef("aviPlayLoop: frameFinished=%d  packet.data=%x   packet.size=%d ", f
             }
 
             frame++;
+
+            // Videos are played at 15 fps, try to keep framse in sync to that
+            while (SDL_GetTicks() < (start_time + ((frame * 1000) / 15)))
+                SDL_Delay(1);
         }
-        av_free_packet(&packet);
+        av_packet_unref(&packet);
 
     }
 
@@ -366,93 +415,66 @@ int aviStart(char* filename)
     }
 
 #if AVI_VERBOSE_LEVEL >= 2
-av_dump_format(pFormatCtx, 0, filename, 0);
-#endif
-
-    // Identify if there's a problem with the aligned variables.
-
-#if AVI_VERBOSE_LEVEL >= 2
-dbgMessagef("sizeof  AVFormatContext = %d",sizeof(AVFormatContext));
-#endif
-
-#ifndef _X86_64 // Really, really, really must redo this. It's hideous. :(
-    if ((sizeof(AVFormatContext) == 3976 ) || (sizeof(AVFormatContext) == 3960 )
-			|| (sizeof(AVFormatContext) == 1336 ) ){   //alligned variables 
-	alignDoubleSet = 1;
-    }
-    else {                                   // 3964 should be un-aligned
-        alignDoubleSet = 0;
-    }
-
-    if (*((ubyte*)pFormatCtx+92) == 1) {      // This tests for how the libffmpeg was compiled.
-        ffmpegAlign = 0;                     // There should only be one stream.
-    }
+    av_dump_format(pFormatCtx, 0, filename, 0);
 #endif
 
 #if AVI_VERBOSE_LEVEL >= 2
-dbgMessagef("alignDoubleSet = %d",alignDoubleSet );
-dbgMessagef("ffmpegAlign = %d",ffmpegAlign );
+    dbgMessagef("sizeof  AVFormatContext = %d",sizeof(AVFormatContext));
 #endif
 
-//  There Should only be one stream. So skip the stream test.
 
-//    for(i=0; i<pFormatCtx->nb_streams; i++) {
-//        streamPointer=pFormatCtx->streams[i];
-//    }
-//    if(streamPointer->codec->codec_type==CODEC_TYPE_VIDEO) {
+    avformat_find_stream_info(pFormatCtx, NULL);
+
+    videoStream = av_find_best_stream(pFormatCtx, AVMEDIA_TYPE_VIDEO, -1, -1, &pCodec, 0);
 
 #if AVI_VERBOSE_LEVEL >= 3
-dbgMessagef("aviStart: Found Video Stream= %d.", i);
+    dbgMessagef("aviStart: Found Video Stream= %d.", i);
 #endif
-
-//        videoStream=i;
-//        i+=pFormatCtx->nb_streams; // get out of the loop!
-//    }
-
-    videoStream=i;
 
     if(videoStream==-1) {
         dbgMessage("aviStart: No Video Stream found");
         return FALSE;
     }
 
-    if ( (alignDoubleSet ^  ffmpegAlign ) == 0 ){   //should be the same
 
-#if AVI_VERBOSE_LEVEL >= 3
-dbgMessage("same");
-#endif
+/*
+    pCodecpar = pFormatCtx->streams[0]->codecpar;
 
-#ifdef _X86_64
-        pCodecCtx=pFormatCtx->streams[0]->codec;
-#else
-        pCodecCtx=pFormatCtx->streams[videoStream]->codec;
-#endif
-    }
-    else {
 
-#if AVI_VERBOSE_LEVEL >= 3
-dbgMessage("different");
-#endif
-        streamPointer=pFormatCtx->nb_streams;
-        pCodecCtx=streamPointer->codec;   //This is not the best way to do this, but works.
-    }
+    pCodecpar->width=640;   //mpeg4 does not give this in bitstream
+    pCodecpar->height=480;  //whatever that means
+    pCodec=avcodec_find_decoder(pCodecpar->codec_id);
+    parser = av_parser_init(pCodec->id);
+    pCodecCtx = avcodec_alloc_context3(pCodec);
+    pCodecCtx->width=640;
+    pCodecCtx->height=480;
+    pCodecCtx->pix_fmt=AV_PIX_FMT_YUV420P;  //manually set the pixel format from ffplay output
+*/
+    pCodecCtx = avcodec_alloc_context3(pCodec);
+
+    int ret;
+    char error[64];
+    if( ( ret = avcodec_parameters_to_context( pCodecCtx, pFormatCtx->streams[videoStream]->codecpar ) ) < 0 )
+	{
+		av_strerror( ret, error, sizeof( error ) );
+		dbgMessagef( "idCinematic: Failed to create video codec context from codec parameters with error: %s\n", error );
+	}
 
 #if AVI_VERBOSE_LEVEL >= 2
-dbgMessagef("aviStart: Codec required: %d.", pCodecCtx->codec_id);
-dbgMessagef("aviStart: Pix Format: %d.", pCodecCtx->pix_fmt);
-// dbgMessagef("Frame Rate: %d/%d", pCodecCtx->frame_rate, pCodecCtx->frame_rate_base);
+    dbgMessagef("aviStart: Codec required: %d.", pFormatCtx->streams[videoStream]->codecpar->codec_id);
+    //dbgMessagef("aviStart: Pix Format: %d.", pFormatCtx->streams[videoStream]->codecpar->pix_fmt);
+    //dbgMessagef("Frame Rate: %d/%d", pCodecCtx->frame_rate, pCodecCtx->frame_rate_base);
 #endif
 
 // Find the decoder for the video stream
 
-    pCodec=avcodec_find_decoder(pCodecCtx->codec_id);
     if(pCodec==NULL) {
         dbgMessage("Unable to find decoder.");
         return FALSE;
     }
 
 #if AVI_VERBOSE_LEVEL >= 2
-dbgMessagef("aviStart: Codec required: %s.", pCodec->name);
+    dbgMessagef("aviStart: Codec required: %s.", pCodec->name);
 #endif
 
 /* this results in corrupted video */
@@ -462,66 +484,17 @@ dbgMessagef("aviStart: Codec required: %s.", pCodec->name);
     }*/
 
 // Open codec
-    if(avcodec_open(pCodecCtx, pCodec)<0) {
-        dbgMessage("Unable to open Codec");
+    if( ( ret = avcodec_open2(pCodecCtx, pCodec, NULL) ) < 0 )
+	{
+		av_strerror( ret, error, sizeof( error ) );
+		dbgMessagef( "Cannot open video decoder with error: %s\n", error );
+		dbgMessage("Unable to open Codec");
         return FALSE;
-    }
+	}
 
-    pFrame=avcodec_alloc_frame();
+    pFrame=av_frame_alloc();    //what does this do?
+                                //this is the last line in this function....
 
-
-/*   I've Left this in for Reference. Remove it later?   Aunxx
-    HRESULT Res;
-
-    //initialize the AVI library
-    AVIFileInit();
-
-    Res = AVIStreamOpenFromFile(&g_VidStream, filename, streamtypeVIDEO, 0, OF_READ, NULL);
-    if (!aviVerifyResult(Res))
-    {
-        return FALSE;
-    }
-
-    g_pFrame = AVIStreamGetFrameOpen(g_VidStream, NULL);
-    if (g_pFrame == NULL)
-    {
-        return FALSE;
-    }
-
-    Res = AVIStreamInfo(g_VidStream, &g_VidStreamInfo, sizeof(AVISTREAMINFO));
-    if (!aviVerifyResult(Res))
-    {
-        return FALSE;
-    }
-
-    //now grab the audio stream and its info
-    Res = AVIStreamOpenFromFile(&g_AudStream, filename, streamtypeAUDIO, 0, OF_READ, NULL);
-    if (!aviVerifyResult(Res))
-    {
-        return FALSE;
-    }
-
-    Res = AVIStreamInfo(g_AudStream, &g_AudStreamInfo, sizeof(AVISTREAMINFO));
-    if (!aviVerifyResult(Res))
-    {
-        return FALSE;
-    }
-
-    //convert the "rate and scale" values into meaningful numbers
-    g_FramesPerSec  = (double)g_VidStreamInfo.dwRate / (double)g_VidStreamInfo.dwScale;
-    g_SamplesPerSec = (double)g_AudStreamInfo.dwRate / (double)g_AudStreamInfo.dwScale;
-
-	//check for compressed audio
-	if((g_SamplesPerSec == (double)WAVE_SAMPLERATE)
-		&& (g_AudStreamInfo.dwRate == WAVE_SAMPLERATE*(WAVE_BITSAMPLE/8)*WAVE_NUMCHAN)
-		&& (g_AudStreamInfo.dwScale == (WAVE_BITSAMPLE/8)*WAVE_NUMCHAN))
-			aviHasAudio = TRUE;
-
-    //init the frame and sample numbers
-
-    g_dwCurrFrame  = 0;
-    g_dwCurrSample = 0;
-*/
 
 #endif // HW_ENABLE_MOVIES
     //so good so far
@@ -561,7 +534,7 @@ int aviGetSamples(void* pBuf, long* pNumSamples, long nBufSize)
 void aviFileExit (void){
 
 #ifdef HW_ENABLE_MOVIES
-    av_close_input_file(pFormatCtx);
+    avformat_close_input(&pFormatCtx);
 #endif
 
 }
@@ -631,9 +604,9 @@ dbgMessage("aviPlay:Entering");
 int aviInit()
 {
 
-#ifdef HW_ENABLE_MOVIES
-    av_register_all();
-#endif
+//#ifdef HW_ENABLE_MOVIES
+    //av_register_all(); //can be ignored in ffmpeg 4+
+//#endif
 
     return 1;
 
@@ -669,9 +642,9 @@ void aviIntroPlay()
                 /*binkPlay("Movies\\sierra.bik", NULL, NULL, S_RGB555, TRUE, ANIM00_Sierra);*/
                 if (aviPlayIntros) {
 #ifdef _WIN32
-                    aviPlay("Movies\\sierra.avi");
+                    aviPlay("Movies\\sierra.bik");
 #else
-                    aviPlay("Movies/sierra.avi");
+                    aviPlay("Movies/sierra.bik");
 #endif
 //                intro++;
                 }
@@ -680,9 +653,9 @@ void aviIntroPlay()
                 /*binkPlay("Movies\\relicintro.bik", NULL, NULL, S_RGB555, TRUE, ANIM00_Relic);*/
                 if (aviPlayIntros) {
 #ifdef _WIN32
-                    aviPlay("Movies\\relicintro.avi");
+                    aviPlay("Movies\\relicintro.bik");
 #else
-                    aviPlay("Movies/relicintro.avi");
+                    aviPlay("Movies/relicintro.bik");
 #endif
 //                    intro++;
                   }

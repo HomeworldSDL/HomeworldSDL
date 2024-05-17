@@ -805,10 +805,10 @@ bool32 animAviPlay(sdword a, sdword b)
         }
 
 #ifdef _WIN32
-        sprintf(filename, "Movies\\%s.avi", animlisting[a].filename);
+        sprintf(filename, "Movies\\%s.bik", animlisting[a].filename);
         sprintf(scriptname, "Movies\\%s.script", animlisting[a].filename);
 #else
-        sprintf(filename, "Movies/%s.avi", animlisting[a].filename);
+        sprintf(filename, "Movies/%s.bik", animlisting[a].filename);
         sprintf(scriptname, "Movies/%s.script", animlisting[a].filename);
 #endif
         animScriptHeader = animLoadNISScript(scriptname);

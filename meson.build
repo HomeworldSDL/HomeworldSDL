@@ -4,7 +4,7 @@ project('homeworld',
         default_options: ['warning_level=3', 'c_std=c17', 'b_sanitize=address,undefined'])
 
 if get_option('b_sanitize') != 'none'
-	warning('Building with memory sanitizers on. If linking fails, pass "-Db_sanitize=none" to `meson setup`.')
+	warning('Building with memory sanitizers on. If linking fails, try disabling them with `meson configure -Db_sanitize=none`.')
 endif
 
 dep_sdl = dependency('sdl2')
@@ -50,6 +50,19 @@ if get_option('debug') and get_option('debug_asserts')
 else
 	c_args = c_base_args + '-DHW_BUILD_FOR_DISTRIBUTION'
 endif
+
+if get_option('movies')
+	warning('Building with video cutscenes support. This requires a handful of extra dependencies (usually provided by FFMPEG). Disable with `meson configure -Dmovies=false`')
+
+	base_deps += [
+		dependency('libavutil'),
+		dependency('libswscale'),
+		dependency('libavcodec'),
+		dependency('libavformat')
+	]
+	c_args += ['-DHW_ENABLE_MOVIES']
+endif
+
 
 subdir('tools')
 subdir('src')

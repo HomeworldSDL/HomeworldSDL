@@ -1,1 +1,2 @@
 option('debug_asserts', type: 'boolean', value: true, description: 'Toggle HW_BUILD_FOR_DEBUGGING. This flag causes slight behaviour changes, and so may get in the way when trying to reproduce a bug that happens in release builds.')
+option('movies', type: 'boolean', value: true, description: 'Toggle HW_ENABLE_MOVIES. Enable support for bink video cutscenes playback. Note that this requires additional dependencies (usually provided by FFMPEG).')
