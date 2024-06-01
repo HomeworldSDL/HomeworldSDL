@@ -392,6 +392,7 @@ void pingListDraw(Camera *camera, hmatrix *modelView, hmatrix *projection, recta
     static real32 lastBattlePing = REALlyBig;
     static real32 lastHyperspacePing = REALlyBig;
     static real32 lastNewshipPing = REALlyBig;
+    static real32 lastUniverseTime = 0;
     bool32 pingset;
 
     //start by sorting the ping list from farthest to nearest
@@ -418,6 +419,12 @@ void pingListDraw(Camera *camera, hmatrix *modelView, hmatrix *projection, recta
     thisNode = pingList.head;
 
     pingset = FALSE;
+    
+    if (lastUniverseTime == universe.totaltimeelapsed)
+    {   
+        // make sure we only emit one ping sound per univers time step!
+        pingset = TRUE;
+    }
 
     while (thisNode != NULL)
     {                                                       //scan all pings
@@ -452,6 +459,7 @@ void pingListDraw(Camera *camera, hmatrix *modelView, hmatrix *projection, recta
                                 soundEvent(NULL, UI_SensorsPing);
                                 pingset = TRUE;
                                 lastAnomolyPing = pingSize;
+                                lastUniverseTime = universe.totaltimeelapsed;
                             }
                             break;
                         case PTOM_Battle:
@@ -460,6 +468,7 @@ void pingListDraw(Camera *camera, hmatrix *modelView, hmatrix *projection, recta
                                 soundEvent(NULL, UI_PingBattle);
                                 pingset = TRUE;
                                 lastBattlePing = pingSize;
+                                lastUniverseTime = universe.totaltimeelapsed;
                             }
                             break;
                         case PTOM_Hyperspace:
@@ -468,6 +477,7 @@ void pingListDraw(Camera *camera, hmatrix *modelView, hmatrix *projection, recta
                                 soundEvent(NULL, UI_PingHyperspace);
                                 pingset = TRUE;
                                 lastHyperspacePing = pingSize;
+                                lastUniverseTime = universe.totaltimeelapsed;
                             }
                             break;
                         case PTOM_Proximity:
@@ -476,6 +486,7 @@ void pingListDraw(Camera *camera, hmatrix *modelView, hmatrix *projection, recta
                                 soundEvent(NULL, UI_PingProximity);
                                 pingset = TRUE;
                                 lastProximityPing = pingSize;
+                                lastUniverseTime = universe.totaltimeelapsed;
                             }
                             break;
                         case PTOM_NewShips:
@@ -484,6 +495,7 @@ void pingListDraw(Camera *camera, hmatrix *modelView, hmatrix *projection, recta
                                 soundEvent(NULL, UI_PingNewShips);
                                 pingset = TRUE;
                                 lastNewshipPing = pingSize;
+                                lastUniverseTime = universe.totaltimeelapsed;
                             }
                             break;
                         default:
