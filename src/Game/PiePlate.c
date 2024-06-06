@@ -419,7 +419,7 @@ void pieDistanceReadoutDraw(vector *movepoint, vector *origin, color c)
         {
             ruReadoutColour = TW_RU_READOUT_COLOR_BAD;
         }
-		else
+        else
         {
             ruReadoutColour =  TW_RU_READOUT_COLOR_GOOD;
         }
@@ -998,7 +998,7 @@ void piePointSpecDraw(void)
 {
     vector world0, world1;
     vector highPoint, lowPoint;
-    GLfloat modelView[16], projection[16];
+    GLdouble modelView[16], projection[16];
     hmatrix modelViewF, projectionF;
     real32 distance, deltaX, deltaY;
     real32 oldPointSpecZ, slope, b;
@@ -1054,9 +1054,9 @@ void piePointSpecDraw(void)
     }
 
     windowHeightMinusOne = (real32)(MAIN_WindowHeight - 1);
-
-    glGetFloatv(GL_PROJECTION_MATRIX, projection);
-    glGetFloatv(GL_MODELVIEW_MATRIX, modelView);           //get the matrices
+    
+    glGetDoublev(GL_PROJECTION_MATRIX, projection);
+    glGetDoublev(GL_MODELVIEW_MATRIX, modelView);           //get the matrices
 
     world0.x = mrCamera->eyeposition.x - selCentrePoint.x;
     world0.y = mrCamera->eyeposition.y - selCentrePoint.y;
@@ -1108,11 +1108,9 @@ void piePointSpecDraw(void)
                 {                                               //if mouse off bottom of line
                     mousePositionSet(mouseCursorX(), (sdword)(windowHeightMinusOne - pieScreen0.y));
                 }
-#ifndef _LINUX_FIX_ME
                 slope = (pieScreen0.x - pieScreen1.x) / (pieScreen1.y - pieScreen0.y);
                 b = pieScreen1.x - slope * (windowHeightMinusOne - pieScreen1.y);
                 mousePositionSet((sdword)(slope * mouseCursorY() + b), mouseCursorY());
-#endif
 
                 //mouse position was adjusted; recompute mouse location in world space
                 pieWorldLocationCompute(&world0, &world1, &eyeMagnitude);
