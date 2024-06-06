@@ -1011,6 +1011,8 @@ bool32 setupPixelFormat()
         return FALSE;
 #endif
 
+    SDL_GL_SetSwapInterval(1);
+
     SDL_GL_MakeCurrent(sdlwindow, glcontext);
 
 	SDL_ShowCursor(SDL_DISABLE);
@@ -4691,5 +4693,4 @@ void rndFlush(void)
 #else
     SDL_GL_SwapWindow(sdlwindow);
 #endif
-    SDL_Delay(1);
 }
