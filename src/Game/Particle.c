@@ -1995,8 +1995,10 @@ int is_final_tex(trhandle tex)
       return 1;
     }
     if (0x7fffffff == (tex & 0x7fffffff)) { 
+#ifdef HW_BUILD_FOR_DEBUGGING
       /* it will catch stuff like 0x9cce2641ffffffff on 64-bit... but source of 32/64 should really be found and fixed */
-      dbgWarningf("Particle.c",2149, "is_final_tex got invalid tex pointer 0x%lx - trying to work around", tex);
+      dbgWarningf("Particle.c",2000, "is_final_tex got invalid tex pointer 0x%lx - trying to work around", tex);
+#endif
       return 1;
     }
     if (tex >= TR_RegistrySize) { dbgFatalf(DBG_Loc, "tex handle 0x%lx is broken in is_final_tex, unable to continue", tex); }
