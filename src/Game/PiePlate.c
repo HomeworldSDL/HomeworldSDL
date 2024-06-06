@@ -1313,6 +1313,7 @@ void piePointModeToggle(sdword bOn)
         if (!keyIsHit(CONTROLKEY))
         {
             tutGameMessage("Game_MoveZ");
+            mouseClipToRect(NULL);
             piePointSpecMode = PSM_Z;
             if (piePointSpecZ == 0.0f)
             {                                               //if height point not yet specified
