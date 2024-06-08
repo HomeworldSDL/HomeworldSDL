@@ -1997,7 +1997,7 @@ int is_final_tex(trhandle tex)
     if (0x7fffffff == (tex & 0x7fffffff)) { 
 #ifdef HW_BUILD_FOR_DEBUGGING
       /* it will catch stuff like 0x9cce2641ffffffff on 64-bit... but source of 32/64 should really be found and fixed */
-      dbgWarningf("Particle.c",2000, "is_final_tex got invalid tex pointer 0x%lx - trying to work around", tex);
+      dbgWarningf(__FILE__,__LINE__, "is_final_tex got invalid tex pointer 0x%lx - trying to work around", tex);
 #endif
       return 1;
     }
