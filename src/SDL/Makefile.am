@@ -6,7 +6,7 @@ AM_CFLAGS = -Wall -fno-strict-aliasing -Wextra
 
 noinst_LIBRARIES = libhw_SDL.a
 libhw_SDL_a_SOURCES = avi.c avi.h dct.h debugwnd.h devstats.h font.c font.h fqcodec.h fqeffect.h fquant.h glinc.h main.c main.h mainrgn.c mainrgn.h mainswitches.h mixfft.c mixfft.h mouse.c mouse.h NetworkInterface.c NetworkInterface.h prim2d.c prim2d.h prim3d.c prim3d.h Queue.c Queue.h regkey.h render.c render.h resource.h rglu.c rglu.h rinit.c rinit.h screenshot.c screenshot.h smixer.c soundcmn.h soundlow.c soundlow.h sstream.c standard_library.h texreg.c texreg.h TimeoutTimer.c TimeoutTimer.h Titan.c Titan.h TitanInterfaceC.h TitanInterfaceC.c utility.c utility.h
-libhw_SDL_a_CPPFLAGS = -I$(top_srcdir)/src/Game -I$(top_srcdir)/src/ThirdParty/CRC -I$(top_srcdir)/src/Ships
+libhw_SDL_a_CPPFLAGS = -I$(top_srcdir)/src/Game -I$(top_srcdir)/src/ThirdParty/CRC -I$(top_srcdir)/src/Ships -I$(top_srcdir)/src/ThirdParty/stb
 
 # Some extra features if using Win32
 if PLATFORM_WIN32
