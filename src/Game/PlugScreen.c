@@ -711,7 +711,7 @@ void psModeBegin(char *directory, udword modeFlags)
 void psModeEnd(void)
 {
     psDirectory[0] = 0;
-    //taskStop(psRenderTask);
+    taskPause(psRenderTask);
     taskResume(utyRenderTask);
     psCurrentScreenDelete();
     mouseEnable();
