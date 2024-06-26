@@ -3648,7 +3648,7 @@ udword uicTextEntryProcess(regionhandle reg, smemsize ID, udword event, udword d
     regionhandle tabRegion;
     udword mask = 0;
     bool32 bShift = bitTest(data, RF_ShiftBit);
-    int keyname;
+    SDL_Keycode keycode;
 
     bitClear(data, RF_ShiftBit);
 
@@ -3725,244 +3725,247 @@ udword uicTextEntryProcess(regionhandle reg, smemsize ID, udword event, udword d
                     }
                     break;
                 default:
-                    keyname = (int)(SDL_GetKeyName(SDL_GetKeyFromScancode(data))[0]);
-                    switch (strCurKeyboardLanguage)
+                    keycode = SDL_GetKeyFromScancode(data);
+                    if (keycode >= 0 && keycode < KEY_TOTAL_KEYS)
                     {
-                        case languageEnglish:
-                            if (bitTest(entry->textflags,UICTE_NumberEntry))
-                            {
-                                if ( (data >= FIRSTNUMKEY) && (data <= FIRSTNUMKEY+10) )
+                        switch (strCurKeyboardLanguage)
+                        {
+                            case languageEnglish:
+                                if (bitTest(entry->textflags,UICTE_NumberEntry))
                                 {
-                                    uicInsertCharacter(entry, uicKeyEntryTable[keyname].regularKey);
-                                }
-                                if ( (data >= FIRSTNUMPADKEY) && (data <= FIRSTNUMPADKEY+10) )
-                                {
-                                    uicInsertCharacter(entry, uicKeyEntryTable[keyname].regularKey);
-                                }
-                            }
-                            else
-                            {
-                                if (bShift)
-                                {
-                                    if (uicKeyEntryTable[keyname].shiftKey)
+                                    if ( (data >= FIRSTNUMKEY) && (data <= FIRSTNUMKEY+10) )
                                     {
-                                        if ( (bitTest(entry->textflags, UICTE_UserNameEntry)) &&
-                                             (data != SPACEKEY) )
+                                        uicInsertCharacter(entry, uicKeyEntryTable[keycode].regularKey);
+                                    }
+                                    if ( (data >= FIRSTNUMPADKEY) && (data <= FIRSTNUMPADKEY+10) )
+                                    {
+                                        uicInsertCharacter(entry, uicKeyEntryTable[keycode].regularKey);
+                                    }
+                                }
+                                else
+                                {
+                                    if (bShift)
+                                    {
+                                        if (uicKeyEntryTable[keycode].shiftKey)
                                         {
-                                            uicInsertCharacter(entry, uicKeyEntryTable[keyname].shiftKey);
+                                            if ( (bitTest(entry->textflags, UICTE_UserNameEntry)) &&
+                                                 (data != SPACEKEY) )
+                                            {
+                                                uicInsertCharacter(entry, uicKeyEntryTable[keycode].shiftKey);
+                                            }
+                                            else
+                                                uicInsertCharacter(entry, uicKeyEntryTable[keycode].shiftKey);
+                                        }
+                                    }
+                                    else if (uicKeyEntryTable[keycode].regularKey)
+                                    {
+                                        if (bitTest(entry->textflags, UICTE_UserNameEntry))
+                                        {
+                                            if (data != SPACEKEY) uicInsertCharacter(entry, uicKeyEntryTable[keycode].regularKey);
                                         }
                                         else
-                                            uicInsertCharacter(entry, uicKeyEntryTable[keyname].shiftKey);
+                                            uicInsertCharacter(entry, uicKeyEntryTable[keycode].regularKey);
                                     }
                                 }
-                                else if (uicKeyEntryTable[keyname].regularKey)
+    
+                                if (bitTest(entry->textflags, UICTE_ChatTextEntry))
                                 {
-                                    if (bitTest(entry->textflags, UICTE_UserNameEntry))
+                                    entry->message = CM_KeyPressed;
+                                    feFunctionExecute(atom->name, atom, FALSE);
+                                }
+            #if UIC_VERBOSE_LEVEL >= 2
+                                dbgMessagef(" (unprocessed)");
+            #endif
+                            break;
+                            case languageFrench:
+                                if (bitTest(entry->textflags,UICTE_NumberEntry))
+                                {
+                                    if ( (data >= FIRSTNUMKEY) && (data <= FIRSTNUMKEY+10) )
                                     {
-                                        if (data != SPACEKEY) uicInsertCharacter(entry, uicKeyEntryTable[keyname].regularKey);
+                                        uicInsertCharacter(entry, uicFrenchKeyEntryTable[keycode].regularKey);
                                     }
-                                    else
-                                        uicInsertCharacter(entry, uicKeyEntryTable[keyname].regularKey);
-                                }
-                            }
-
-                            if (bitTest(entry->textflags, UICTE_ChatTextEntry))
-                            {
-                                entry->message = CM_KeyPressed;
-                                feFunctionExecute(atom->name, atom, FALSE);
-                            }
-        #if UIC_VERBOSE_LEVEL >= 2
-                            dbgMessagef(" (unprocessed)");
-        #endif
-                        break;
-                        case languageFrench:
-                            if (bitTest(entry->textflags,UICTE_NumberEntry))
-                            {
-                                if ( (data >= FIRSTNUMKEY) && (data <= FIRSTNUMKEY+10) )
-                                {
-                                    uicInsertCharacter(entry, uicFrenchKeyEntryTable[keyname].regularKey);
-                                }
-                                if ( (data >= FIRSTNUMPADKEY) && (data <= FIRSTNUMPADKEY+10) )
-                                {
-                                    uicInsertCharacter(entry, uicFrenchKeyEntryTable[keyname].regularKey);
-                                }
-                            }
-                            else
-                            {
-                                if (bShift)
-                                {
-                                    if (uicFrenchKeyEntryTable[keyname].shiftKey)
+                                    if ( (data >= FIRSTNUMPADKEY) && (data <= FIRSTNUMPADKEY+10) )
                                     {
-                                        if ( (bitTest(entry->textflags, UICTE_UserNameEntry)) &&
-                                             (data != SPACEKEY) )
+                                        uicInsertCharacter(entry, uicFrenchKeyEntryTable[keycode].regularKey);
+                                    }
+                                }
+                                else
+                                {
+                                    if (bShift)
+                                    {
+                                        if (uicFrenchKeyEntryTable[keycode].shiftKey)
                                         {
-                                            uicInsertCharacter(entry, uicFrenchKeyEntryTable[keyname].shiftKey);
+                                            if ( (bitTest(entry->textflags, UICTE_UserNameEntry)) &&
+                                                 (data != SPACEKEY) )
+                                            {
+                                                uicInsertCharacter(entry, uicFrenchKeyEntryTable[keycode].shiftKey);
+                                            }
+                                            else
+                                                uicInsertCharacter(entry, uicFrenchKeyEntryTable[keycode].shiftKey);
+                                        }
+                                    }
+                                    else if (uicFrenchKeyEntryTable[keycode].regularKey)
+                                    {
+                                        if (bitTest(entry->textflags, UICTE_UserNameEntry))
+                                        {
+                                            if (data != SPACEKEY) uicInsertCharacter(entry, uicFrenchKeyEntryTable[keycode].regularKey);
                                         }
                                         else
-                                            uicInsertCharacter(entry, uicFrenchKeyEntryTable[keyname].shiftKey);
+                                            uicInsertCharacter(entry, uicFrenchKeyEntryTable[keycode].regularKey);
                                     }
                                 }
-                                else if (uicFrenchKeyEntryTable[keyname].regularKey)
+    
+                                if (bitTest(entry->textflags, UICTE_ChatTextEntry))
                                 {
-                                    if (bitTest(entry->textflags, UICTE_UserNameEntry))
+                                    entry->message = CM_KeyPressed;
+                                    feFunctionExecute(atom->name, atom, FALSE);
+                                }
+            #if UIC_VERBOSE_LEVEL >= 2
+                                dbgMessagef(" (unprocessed)");
+            #endif
+                            break;
+                            case languageGerman:
+                                if (bitTest(entry->textflags,UICTE_NumberEntry))
+                                {
+                                    if ( (data >= FIRSTNUMKEY) && (data <= FIRSTNUMKEY+10) )
                                     {
-                                        if (data != SPACEKEY) uicInsertCharacter(entry, uicFrenchKeyEntryTable[keyname].regularKey);
+                                        uicInsertCharacter(entry, uicGermanKeyEntryTable[keycode].regularKey);
                                     }
-                                    else
-                                        uicInsertCharacter(entry, uicFrenchKeyEntryTable[keyname].regularKey);
-                                }
-                            }
-
-                            if (bitTest(entry->textflags, UICTE_ChatTextEntry))
-                            {
-                                entry->message = CM_KeyPressed;
-                                feFunctionExecute(atom->name, atom, FALSE);
-                            }
-        #if UIC_VERBOSE_LEVEL >= 2
-                            dbgMessagef(" (unprocessed)");
-        #endif
-                        break;
-                        case languageGerman:
-                            if (bitTest(entry->textflags,UICTE_NumberEntry))
-                            {
-                                if ( (data >= FIRSTNUMKEY) && (data <= FIRSTNUMKEY+10) )
-                                {
-                                    uicInsertCharacter(entry, uicGermanKeyEntryTable[keyname].regularKey);
-                                }
-                                if ( (data >= FIRSTNUMPADKEY) && (data <= FIRSTNUMPADKEY+10) )
-                                {
-                                    uicInsertCharacter(entry, uicGermanKeyEntryTable[keyname].regularKey);
-                                }
-                            }
-                            else
-                            {
-                                if (bShift)
-                                {
-                                    if (uicGermanKeyEntryTable[keyname].shiftKey)
+                                    if ( (data >= FIRSTNUMPADKEY) && (data <= FIRSTNUMPADKEY+10) )
                                     {
-                                        if ( (bitTest(entry->textflags, UICTE_UserNameEntry)) &&
-                                             (data != SPACEKEY) )
+                                        uicInsertCharacter(entry, uicGermanKeyEntryTable[keycode].regularKey);
+                                    }
+                                }
+                                else
+                                {
+                                    if (bShift)
+                                    {
+                                        if (uicGermanKeyEntryTable[keycode].shiftKey)
                                         {
-                                            uicInsertCharacter(entry, uicGermanKeyEntryTable[keyname].shiftKey);
+                                            if ( (bitTest(entry->textflags, UICTE_UserNameEntry)) &&
+                                                 (data != SPACEKEY) )
+                                            {
+                                                uicInsertCharacter(entry, uicGermanKeyEntryTable[keycode].shiftKey);
+                                            }
+                                            else
+                                                uicInsertCharacter(entry, uicGermanKeyEntryTable[keycode].shiftKey);
+                                        }
+                                    }
+                                    else if (uicGermanKeyEntryTable[keycode].regularKey)
+                                    {
+                                        if (bitTest(entry->textflags, UICTE_UserNameEntry))
+                                        {
+                                            if (data != SPACEKEY) uicInsertCharacter(entry, uicGermanKeyEntryTable[keycode].regularKey);
                                         }
                                         else
-                                            uicInsertCharacter(entry, uicGermanKeyEntryTable[keyname].shiftKey);
+                                            uicInsertCharacter(entry, uicGermanKeyEntryTable[keycode].regularKey);
                                     }
                                 }
-                                else if (uicGermanKeyEntryTable[keyname].regularKey)
+    
+                                if (bitTest(entry->textflags, UICTE_ChatTextEntry))
                                 {
-                                    if (bitTest(entry->textflags, UICTE_UserNameEntry))
+                                    entry->message = CM_KeyPressed;
+                                    feFunctionExecute(atom->name, atom, FALSE);
+                                }
+            #if UIC_VERBOSE_LEVEL >= 2
+                                dbgMessagef(" (unprocessed)");
+            #endif
+                            break;
+                            case languageSpanish:
+                                if (bitTest(entry->textflags,UICTE_NumberEntry))
+                                {
+                                    if ( (data >= FIRSTNUMKEY) && (data <= FIRSTNUMKEY+10) )
                                     {
-                                        if (data != SPACEKEY) uicInsertCharacter(entry, uicGermanKeyEntryTable[keyname].regularKey);
+                                        uicInsertCharacter(entry, uicSpanishKeyEntryTable[keycode].regularKey);
                                     }
-                                    else
-                                        uicInsertCharacter(entry, uicGermanKeyEntryTable[keyname].regularKey);
-                                }
-                            }
-
-                            if (bitTest(entry->textflags, UICTE_ChatTextEntry))
-                            {
-                                entry->message = CM_KeyPressed;
-                                feFunctionExecute(atom->name, atom, FALSE);
-                            }
-        #if UIC_VERBOSE_LEVEL >= 2
-                            dbgMessagef(" (unprocessed)");
-        #endif
-                        break;
-                        case languageSpanish:
-                            if (bitTest(entry->textflags,UICTE_NumberEntry))
-                            {
-                                if ( (data >= FIRSTNUMKEY) && (data <= FIRSTNUMKEY+10) )
-                                {
-                                    uicInsertCharacter(entry, uicSpanishKeyEntryTable[keyname].regularKey);
-                                }
-                                if ( (data >= FIRSTNUMPADKEY) && (data <= FIRSTNUMPADKEY+10) )
-                                {
-                                    uicInsertCharacter(entry, uicSpanishKeyEntryTable[keyname].regularKey);
-                                }
-                            }
-                            else
-                            {
-                                if (bShift)
-                                {
-                                    if (uicSpanishKeyEntryTable[keyname].shiftKey)
+                                    if ( (data >= FIRSTNUMPADKEY) && (data <= FIRSTNUMPADKEY+10) )
                                     {
-                                        if ( (bitTest(entry->textflags, UICTE_UserNameEntry)) &&
-                                             (data != SPACEKEY) )
+                                        uicInsertCharacter(entry, uicSpanishKeyEntryTable[keycode].regularKey);
+                                    }
+                                }
+                                else
+                                {
+                                    if (bShift)
+                                    {
+                                        if (uicSpanishKeyEntryTable[keycode].shiftKey)
                                         {
-                                            uicInsertCharacter(entry, uicSpanishKeyEntryTable[keyname].shiftKey);
+                                            if ( (bitTest(entry->textflags, UICTE_UserNameEntry)) &&
+                                                 (data != SPACEKEY) )
+                                            {
+                                                uicInsertCharacter(entry, uicSpanishKeyEntryTable[keycode].shiftKey);
+                                            }
+                                            else
+                                                uicInsertCharacter(entry, uicSpanishKeyEntryTable[keycode].shiftKey);
+                                        }
+                                    }
+                                    else if (uicSpanishKeyEntryTable[keycode].regularKey)
+                                    {
+                                        if (bitTest(entry->textflags, UICTE_UserNameEntry))
+                                        {
+                                            if (data != SPACEKEY) uicInsertCharacter(entry, uicSpanishKeyEntryTable[keycode].regularKey);
                                         }
                                         else
-                                            uicInsertCharacter(entry, uicSpanishKeyEntryTable[keyname].shiftKey);
+                                            uicInsertCharacter(entry, uicSpanishKeyEntryTable[keycode].regularKey);
                                     }
                                 }
-                                else if (uicSpanishKeyEntryTable[keyname].regularKey)
+    
+                                if (bitTest(entry->textflags, UICTE_ChatTextEntry))
                                 {
-                                    if (bitTest(entry->textflags, UICTE_UserNameEntry))
+                                    entry->message = CM_KeyPressed;
+                                    feFunctionExecute(atom->name, atom, FALSE);
+                                }
+            #if UIC_VERBOSE_LEVEL >= 2
+                                dbgMessagef(" (unprocessed)");
+            #endif
+                            break;
+                            case languageItalian:
+                                if (bitTest(entry->textflags,UICTE_NumberEntry))
+                                {
+                                    if ( (data >= FIRSTNUMKEY) && (data <= FIRSTNUMKEY+10) )
                                     {
-                                        if (data != SPACEKEY) uicInsertCharacter(entry, uicSpanishKeyEntryTable[keyname].regularKey);
+                                        uicInsertCharacter(entry, uicItalianKeyEntryTable[keycode].regularKey);
                                     }
-                                    else
-                                        uicInsertCharacter(entry, uicSpanishKeyEntryTable[keyname].regularKey);
-                                }
-                            }
-
-                            if (bitTest(entry->textflags, UICTE_ChatTextEntry))
-                            {
-                                entry->message = CM_KeyPressed;
-                                feFunctionExecute(atom->name, atom, FALSE);
-                            }
-        #if UIC_VERBOSE_LEVEL >= 2
-                            dbgMessagef(" (unprocessed)");
-        #endif
-                        break;
-                        case languageItalian:
-                            if (bitTest(entry->textflags,UICTE_NumberEntry))
-                            {
-                                if ( (data >= FIRSTNUMKEY) && (data <= FIRSTNUMKEY+10) )
-                                {
-                                    uicInsertCharacter(entry, uicItalianKeyEntryTable[keyname].regularKey);
-                                }
-                                if ( (data >= FIRSTNUMPADKEY) && (data <= FIRSTNUMPADKEY+10) )
-                                {
-                                    uicInsertCharacter(entry, uicItalianKeyEntryTable[keyname].regularKey);
-                                }
-                            }
-                            else
-                            {
-                                if (bShift)
-                                {
-                                    if (uicItalianKeyEntryTable[keyname].shiftKey)
+                                    if ( (data >= FIRSTNUMPADKEY) && (data <= FIRSTNUMPADKEY+10) )
                                     {
-                                        if ( (bitTest(entry->textflags, UICTE_UserNameEntry)) &&
-                                             (data != SPACEKEY) )
+                                        uicInsertCharacter(entry, uicItalianKeyEntryTable[keycode].regularKey);
+                                    }
+                                }
+                                else
+                                {
+                                    if (bShift)
+                                    {
+                                        if (uicItalianKeyEntryTable[keycode].shiftKey)
                                         {
-                                            uicInsertCharacter(entry, uicItalianKeyEntryTable[keyname].shiftKey);
+                                            if ( (bitTest(entry->textflags, UICTE_UserNameEntry)) &&
+                                                 (data != SPACEKEY) )
+                                            {
+                                                uicInsertCharacter(entry, uicItalianKeyEntryTable[keycode].shiftKey);
+                                            }
+                                            else
+                                                uicInsertCharacter(entry, uicItalianKeyEntryTable[keycode].shiftKey);
+                                        }
+                                    }
+                                    else if (uicItalianKeyEntryTable[keycode].regularKey)
+                                    {
+                                        if (bitTest(entry->textflags, UICTE_UserNameEntry))
+                                        {
+                                            if (data != SPACEKEY) uicInsertCharacter(entry, uicItalianKeyEntryTable[keycode].regularKey);
                                         }
                                         else
-                                            uicInsertCharacter(entry, uicItalianKeyEntryTable[keyname].shiftKey);
+                                            uicInsertCharacter(entry, uicItalianKeyEntryTable[keycode].regularKey);
                                     }
                                 }
-                                else if (uicItalianKeyEntryTable[keyname].regularKey)
+    
+                                if (bitTest(entry->textflags, UICTE_ChatTextEntry))
                                 {
-                                    if (bitTest(entry->textflags, UICTE_UserNameEntry))
-                                    {
-                                        if (data != SPACEKEY) uicInsertCharacter(entry, uicItalianKeyEntryTable[keyname].regularKey);
-                                    }
-                                    else
-                                        uicInsertCharacter(entry, uicItalianKeyEntryTable[keyname].regularKey);
+                                    entry->message = CM_KeyPressed;
+                                    feFunctionExecute(atom->name, atom, FALSE);
                                 }
-                            }
-
-                            if (bitTest(entry->textflags, UICTE_ChatTextEntry))
-                            {
-                                entry->message = CM_KeyPressed;
-                                feFunctionExecute(atom->name, atom, FALSE);
-                            }
-        #if UIC_VERBOSE_LEVEL >= 2
-                            dbgMessagef(" (unprocessed)");
-        #endif
-                        break;
+            #if UIC_VERBOSE_LEVEL >= 2
+                                dbgMessagef(" (unprocessed)");
+            #endif
+                            break;
+                        }
                     }
             }
             break;
