@@ -117,13 +117,13 @@ void runShipEffect(Ship *ship)
          {
              udword colSizeDword;
              dbgAssertOrIgnore(ship->objtype == OBJ_ShipType);
-             colSizeDword = TreatAsUdword(((ShipStaticInfo *)(ship->staticinfo))->staticheader.staticCollInfo.collspheresize);
+             colSizeDword = Real32ToUdword(((ShipStaticInfo *)(ship->staticinfo))->staticheader.staticCollInfo.collspheresize);
              etgEffectCreate(stat, ship, &ship->posinfo.position, &ship->posinfo.velocity, &ship->rotinfo.coordsys, ship->magnitudeSquared, EAF_Full, 1, colSizeDword);
 			 {
 				real32 realtemp;
 				udword temp;
 				temp = etgFRandom(gravwellEffectLifeLow,gravwellEffectLifeHigh);
-				realtemp = *((real32 *)(&temp));
+				realtemp = UdwordToReal32(temp);
 				ship->gravwellTimeEffect = universe.totaltimeelapsed + realtemp;
 			 }
          }

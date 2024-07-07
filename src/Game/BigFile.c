@@ -2717,7 +2717,7 @@ void bigFilesystemCompare(char *baseDirectory, char *directory)
     udword fileNum;
     udword bigfile_i = 0;
     static udword compared = 0;
-    static udword numOverriddenLocal[NUMBER_CONFIGURED_BIG_FILES] = {0,0,0};
+    static udword numOverriddenLocal[NUMBER_CONFIGURED_BIG_FILES] = {0};
 
     if (IgnoreBigfiles || !CompareBigfiles)
     {

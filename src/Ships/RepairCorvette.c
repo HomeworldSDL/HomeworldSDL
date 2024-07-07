@@ -174,8 +174,8 @@ void startRepairEffect(Ship *ship,SpaceObjRotImpTarg *target,vector *trajectory,
 
     matCreateCoordSysFromHeading(&coordsys,trajectory);
 
-    intLength = TreatAsUdword(distance);
-    intWidth = TreatAsUdword(targetRadius);
+    intLength = Real32ToUdword(distance);
+    intWidth = Real32ToUdword(targetRadius);
 
     vecAddTo(repairBeamPosition,ship->posinfo.position);
 

@@ -19,10 +19,6 @@
 #define SND_LOOP            0x0008  /* loop the sound until next sndPlaySound */
 #define SND_NOSTOP          0x0010  /* don't stop any currently playing sound */
 
-#define SND_NOWAIT	0x00002000L /* don't wait if the driver is busy */
-#define SND_ALIAS       0x00010000L /* name is a registry alias */
-#define SND_ALIAS_ID	0x00110000L /* alias is a predefined ID */
-
 #define SOUND_MAX_VOICES	32		// Maximum number of voices
 #define SOUND_DEF_VOICES	16		// Default number of voices
 #define SOUND_MIN_VOICES	8		// Minimum number of voices

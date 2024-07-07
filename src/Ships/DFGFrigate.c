@@ -124,7 +124,7 @@ void univDFGFieldEffect(Ship *ship, Bullet *bullet,real32 totaltimeelapsed)
 //            matCreateCoordSysFromHeading(&newCoordsys,&shiptobullet);
             floatDamage = (real32)bullet->damage;
             floatDamage *= ship->magnitudeSquared;
-            intDamage = TreatAsUdword(floatDamage);
+            intDamage = Real32ToUdword(floatDamage);
             etgEffectCreate(stat, ship, &bullet->posinfo.position, NULL, &tmpmatrix, ship->magnitudeSquared, EAF_Velocity | EAF_NLips, 1, intDamage);
         }
     }

@@ -411,6 +411,17 @@ void etgDepthWriteResolve(struct etgeffectstatic *stat, etgfunctioncall *call);
 
 
 #ifdef GENERIC_ETGCALLFUNCTION
+#undef funcEntryn
+#undef funcEntry0
+#undef funcEntry1
+#undef funcEntry2
+#undef funcEntry3
+#undef funcEntry4
+#undef funcEntry5
+#undef funcEntry6
+#undef funcEntry7
+#undef funcEntry8
+
 #define funcEntryn(name, ret, function)                                      {name, function, wrap_##function, ret, (ubyte)FALSE, ETG_VariableParams}
 #define funcEntry0(name, ret, function)                                      {name, function, wrap_##function, ret, (ubyte)FALSE, NULL, 0, {0,0,0,0,0,0,0,0,0}}
 #define funcEntry1(name, ret, function, p0)                                  {name, function, wrap_##function, ret, (ubyte)FALSE, NULL, 1, {p0}}
@@ -421,6 +432,17 @@ void etgDepthWriteResolve(struct etgeffectstatic *stat, etgfunctioncall *call);
 #define funcEntry6(name, ret, function, p0, p1, p2, p3, p4, p5)              {name, function, wrap_##function, ret, (ubyte)FALSE, NULL, 6, {p0, p1, p2, p3, p4, p5}}
 #define funcEntry7(name, ret, function, p0, p1, p2, p3, p4, p5, p6)          {name, function, wrap_##function, ret, (ubyte)FALSE, NULL, 7, {p0, p1, p2, p3, p4, p5, p6}}
 #define funcEntry8(name, ret, function, p0, p1, p2, p3, p4, p5, p6, p7)      {name, function, wrap_##function, ret, (ubyte)FALSE, NULL, 7, {p0, p1, p2, p3, p4, p5, p6, p7}}
+
+#undef funcEntryThisn
+#undef funcEntryThis0
+#undef funcEntryThis1
+#undef funcEntryThis2
+#undef funcEntryThis3
+#undef funcEntryThis4
+#undef funcEntryThis5
+#undef funcEntryThis6
+#undef funcEntryThis7
+#undef funcEntryThis8
 
 #define funcEntryThisn(name, ret, function)                                  {name, function, wrap_##function, ret, (ubyte)TRUE,  ETG_VariableParams}
 #define funcEntryThis0(name, ret, function)                                  {name, function, wrap_##function, ret, (ubyte)TRUE,  NULL, 0, {0,0,0,0,0,0,0,0,0}}
@@ -433,8 +455,14 @@ void etgDepthWriteResolve(struct etgeffectstatic *stat, etgfunctioncall *call);
 #define funcEntryThis7(name, ret, function, p0, p1, p2, p3, p4, p5, p6)      {name, function, wrap_##function, ret, (ubyte)TRUE,  NULL, 7, {p0, p1, p2, p3, p4, p5, p6}}
 #define funcEntryThis8(name, ret, function, p0, p1, p2, p3, p4, p5, p6, p7)  {name, function, wrap_##function, ret, (ubyte)TRUE,  NULL, 7, {p0, p1, p2, p3, p4, p5, p6, p7}}
 
+#undef funcEntryR1
+#undef funcEntryR2
+
 #define funcEntryR1(name, ret, function, p0, resolve)                        {name, function, wrap_##function, ret, (ubyte)FALSE, resolve, 1, {p0}}
 #define funcEntryR2(name, ret, function, p0, p1, resolve)                    {name, function, wrap_##function, ret, (ubyte)FALSE, resolve, 2, {p0, p1}}
+
+#undef funcEntryThisR1
+#undef funcEntryThisR2
 
 #define funcEntryThisR1(name, ret, function, p0, resolve)                    {name, function, wrap_##function, ret, (ubyte)TRUE,  resolve, 1, {p0}}
 #define funcEntryThisR2(name, ret, function, p0, p1, resolve)                {name, function, wrap_##function, ret, (ubyte)TRUE,  resolve, 2, {p0, p1}}
@@ -8021,7 +8049,7 @@ udword etgFloat2Int(real32 f)
 udword etgInt2Float(sdword f)
 {
     real32 retVal = (real32)f;
-    return(TreatAsUdword(retVal));
+    return Real32ToUdword(retVal);
 }
 
 udword etgInts2Color(sdword red, sdword green, sdword blue)

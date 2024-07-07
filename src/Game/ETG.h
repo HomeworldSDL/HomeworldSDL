@@ -465,7 +465,8 @@ typedef struct
 }
 opfunctionentry;
 
-#define END_OP_FUNCTION_ENTRY  {NULL, NULL, 0, 0, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0}}
+#define END_OP_FUNCTION_ENTRY                                                                                          \
+    { 0 }
 
 //entry in a variable-name list for this effect
 typedef struct

@@ -170,9 +170,9 @@ void defensefightertargetbullet(Ship *ship, Bullet *bullettotarget)
 
     //Laser effect...
     floatDamage = (real32)laser->damage;
-    intDamage = TreatAsUdword(floatDamage);
-    intVelocity = TreatAsUdword(gunstatic->bulletspeed);
-    intLength = TreatAsUdword(gunstatic->bulletlength);
+    intDamage = Real32ToUdword(floatDamage);
+    intVelocity = Real32ToUdword(gunstatic->bulletspeed);
+    intLength = Real32ToUdword(gunstatic->bulletlength);
     //create an effect for bullet, if applicable
 
     etgLOD = etgGunEventTable[shipstatic->shiprace][gunstatic->gunsoundtype][EGT_GunBullet];//get pointer to bullet effect

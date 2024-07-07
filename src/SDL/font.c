@@ -681,9 +681,9 @@ sdword fontLoadAndConvertTo64Bit(char *fileName, void** loadAddress)
 
     oldlength = fileLoadAlloc(fileName, (void **)&oldrootptr, NonVolatile);
 
-    oldfontfileheader = oldptr = oldrootptr;  
+    oldfontfileheader = oldptr = oldrootptr;
 
-    newfontfileheader = newptr = newrootptr = newrootptr = memAlloc(2 * oldlength, "font 64bit conversion", 0);
+    newfontfileheader = newptr = newrootptr = memAlloc(2 * oldlength, "font 64bit conversion", 0);
     memset(newrootptr, 0,2*oldlength);
 
     strncpy(newfontfileheader->identification, oldfontfileheader->identification, 8);

@@ -1,3 +1,5 @@
+#pragma once
+
 #define get_EVT_Constant(n)      do_get_arg(effect, stat, opcode, n)
 #define get_EVT_ConstLabel(n)    do_get_arg(effect, stat, opcode, n)
 #define get_EVT_VarLabel(n)      do_get_arg(effect, stat, opcode, n)

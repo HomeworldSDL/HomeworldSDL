@@ -15,11 +15,56 @@ base_deps = [
 	meson.get_compiler('c').find_library('m', required: false),
 ]
 
-c_base_args = ['-DHW_GAME_HOMEWORLD']
-c_base_args += ['-DHAVE_CONFIG_H', '-D_REENTRANT']
-#c_base_args += '-Wno-unused-variable'
-#c_base_args += '-Wno-unused-parameter'
-c_base_args += '-w'
+c_base_args = [
+	'-DHW_GAME_HOMEWORLD',
+	'-DHAVE_CONFIG_H',
+	'-D_REENTRANT',
+
+	# Treat all warnings as errors. We want all new code to be as safe & clean as possible
+	'-Werror',
+
+	# Ignore existing issues in the codebase
+	# TODO: re-enable them one by one to fix them
+	'-Wno-address', # 2 occurrences
+	'-Wno-cast-function-type',
+	'-Wno-discarded-qualifiers',
+	'-Wno-enum-conversion', # 1 occurrence
+	'-Wno-empty-body',
+	'-Wno-format-security',
+	'-Wno-format-zero-length',
+	'-Wno-format',
+	'-Wno-implicit-fallthrough',
+	'-Wno-implicit-function-declaration',
+	'-Wno-incompatible-pointer-types',
+	'-Wno-int-conversion', # 6 occurrences
+	'-Wno-int-in-bool-context',
+	'-Wno-int-to-pointer-cast',
+	'-Wno-logical-not-parentheses',
+	'-Wno-maybe-uninitialized',
+	'-Wno-missing-field-initializers', # 1 occurrence
+	'-Wno-misleading-indentation', # 2 occurrences
+	'-Wno-multistatement-macros',
+	'-Wno-parentheses',
+	'-Wno-pedantic',
+	'-Wno-pointer-arith',
+	'-Wno-pointer-to-int-cast',
+	'-Wno-restrict',
+	'-Wno-sign-compare',
+	'-Wno-stringop-overflow',
+	'-Wno-stringop-overread',
+	'-Wno-type-limits',
+	'-Wno-unused-but-set-parameter',
+	'-Wno-unused-but-set-variable',
+	'-Wno-unused-function',
+	'-Wno-unused-parameter',
+	'-Wno-unused-value',
+	'-Wno-unused-variable',
+
+	# TODO: Windows mingw build issues
+	'-Wno-array-bounds',
+	'-Wno-deprecated-declarations',
+	'-Wno-stringop-truncation',
+]
 
 if build_machine.cpu_family() == 'x86_64'
 	c_base_args += ['-D_X86_64', '-D_X86_64_FIX_ME', '-DGENERIC_ETGCALLFUNCTION']

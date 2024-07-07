@@ -701,19 +701,19 @@ sdword meshLoadAndConvertTo64Bit(char *fileName, void** loadAddress)
         newpolobj[i].nPolygons = oldpolobj[i].nPolygons;
         newpolobj[i].localMatrix = oldpolobj[i].localMatrix;
 
-        if (oldpolobj[i].pDaughter != NULL){
+        if (oldpolobj[i].pDaughter != 0) {
             newpolobj[i].pDaughter = ( oldpolobj[i].pDaughter - sizeof(GeoFileHeader_disk)) /
                  sizeof(struct polygonobject_disk) * sizeof(struct polygonobject) + sizeof(GeoFileHeader);
         }
-        if (oldpolobj[i].pMother != NULL){
+        if (oldpolobj[i].pMother != 0) {
             newpolobj[i].pMother = ( oldpolobj[i].pMother - sizeof(GeoFileHeader_disk)) /
                  sizeof(struct polygonobject_disk) * sizeof(struct polygonobject) + sizeof(GeoFileHeader);
         }
-        if (oldpolobj[i].pSister != NULL){
+        if (oldpolobj[i].pSister != 0) {
             newpolobj[i].pSister = ( oldpolobj[i].pSister - sizeof(GeoFileHeader_disk)) /
                  sizeof(struct polygonobject_disk) * sizeof(struct polygonobject) + sizeof(GeoFileHeader);
         }
-    
+
         newptr += sizeof(struct polygonobject);
         offset += sizeof(struct polygonobject);
 
@@ -788,13 +788,13 @@ sdword meshLoadAndConvertTo64Bit(char *fileName, void** loadAddress)
     }
         
     for (i=0; i < numPolygons; i++) {
-        if (oldpolobj[i].pName != NULL) {
-         strcpy(newptr, oldbase + oldpolobj[i].pName);
-         loopsize=strlen(oldbase + oldpolobj[i].pName) + 1;
-         newpolobj[i].pName = offset;
+        if (oldpolobj[i].pName != 0) {
+            strcpy(newptr, oldbase + oldpolobj[i].pName);
+            loopsize = strlen(oldbase + oldpolobj[i].pName) + 1;
+            newpolobj[i].pName = offset;
 
-         newptr += loopsize;
-         offset += loopsize;  
+            newptr += loopsize;
+            offset += loopsize;
         }
     }
 
@@ -1247,8 +1247,8 @@ void meshRecolorize(meshdata *mesh)
     for (index = 0; index < mesh->nLocalMaterials + mesh->nPublicMaterials; index++)
     {                                                       //for all materials in mesh
         //3 states of this member:TR_Invalid, pointer to list of texture handles or 0 (no texture)
-        if (mesh->localMaterial[index].texture != TR_Invalid && mesh->localMaterial[index].texture != 0)
-        {                                                   //if textured material
+        if (mesh->localMaterial[index].texture != (trhandle*)TR_Invalid &&
+            mesh->localMaterial[index].texture != 0) { // if textured material
             if (!mesh->localMaterial[index].bTexturesRegistered)
             {                                               //if textures were never registered properly
                 meshTextureNameToPath(fullName, mesh->fileName, (char *)mesh->localMaterial[index].texture);

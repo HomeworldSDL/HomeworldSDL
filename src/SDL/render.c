@@ -2333,7 +2333,7 @@ void rndMainViewAllButRenderFunction(Camera *camera)
     ;
 }
 
-static enum WhetherToDraw {
+enum WhetherToDraw {
     Draw = 1,
     DontDraw = 0,
 };
@@ -2344,7 +2344,7 @@ static enum WhetherToDraw onRenderEffect(Effect* effect) {
     if (effectowner->objtype != OBJ_BulletType) return Draw;
 
     // effect is owned by a bullet
-    Bullet const* const bullet = (Bullet const*)effectowner;
+    Bullet* const bullet = (Bullet const*)effectowner;
     if (bullet->bulletType == BULLET_Beam && bullet->timelived <= UNIVERSE_UPDATE_PERIOD) {
         return DontDraw;
     }
