@@ -1716,6 +1716,113 @@ real32 gunShipFirePower(ShipStaticInfo *info, TacticsType tactics)
 }
 
 /*-----------------------------------------------------------------------------
+    Name        : gunResetGimbleGun
+    Description : Reset desired gun to initial position
+    Inputs      : gun which should reset it position, reset speed factor
+    Outputs     :
+    Return      : TRUE = gun on initial position
+----------------------------------------------------------------------------*/
+bool32 gunResetGimbleGun(Gun *gun, float angleSpeedFactor)
+{
+    bool32 updateguncoordsys = FALSE;
+    GunStatic *gunstatic = gun->gunstatic;
+    real32 maxAngleSpeed = gunstatic->maxanglespeed * universe.phystimeelapsed * angleSpeedFactor;
+    real32 maxDeclinationSpeed = gunstatic->maxdeclinationspeed * universe.phystimeelapsed * angleSpeedFactor;
+
+    if (gunstatic->guntype == GUN_NewGimble)
+    {
+        if (gun->angle > 0.0f)
+        {
+            gun->angle -= maxAngleSpeed;
+            if (gun->angle < 0.0f)
+            {
+                gun->angle = 0.0f;
+            }
+            updateguncoordsys = TRUE;
+        }
+        else if (gun->angle < 0.0f)
+        {
+            gun->angle += maxAngleSpeed;
+            if (gun->angle > 0.0f)
+            {
+                gun->angle = 0.0f;
+            }
+            updateguncoordsys = TRUE;
+        }
+
+        if (gun->declination > 0.0f)
+        {
+            gun->declination -= maxDeclinationSpeed;
+            if (gun->declination < 0.0f)
+            {
+                gun->declination = 0.0f;
+            }
+            updateguncoordsys = TRUE;
+        }
+        else if (gun->declination < 0.0f)
+        {
+            gun->declination += maxDeclinationSpeed;
+            if (gun->declination > 0.0f)
+            {
+                gun->declination = 0.0f;
+            }
+            updateguncoordsys = TRUE;
+        }
+        if (updateguncoordsys)
+        {
+            gunNewGimbleUpdateCoordSys(gun, gunstatic);
+        }
+
+        return (gun->angle == 0.0f) && (gun->declination == 0.0f);
+    }
+    else
+    {
+        return TRUE;
+    }
+}
+
+/*-----------------------------------------------------------------------------
+    Name        : gunResetGimbleGuns
+    Description : Reset all guns of the ship to initial position
+    Inputs      : ship which should reset its guns
+    Outputs     :
+    Return      : TRUE = all guns on initial position
+----------------------------------------------------------------------------*/
+bool32 gunResetGimbleGuns(Ship *ship)
+{
+    bool32 oriented = TRUE;
+    GunInfo *gunInfo = ship->gunInfo;
+    sdword numGuns;
+    sdword i;
+    Gun *gun;
+
+    if (gunInfo == NULL)
+    {
+        return oriented;
+    }
+
+    for (i = 0; i < gunInfo->numGuns; i++)
+    {
+        gun = &gunInfo->guns[i];
+        if (gunResetGimbleGun(gun, GUN_ResetAngleSpeedFactor))
+        {
+            soundEventStop(gun->gimblehandle);
+            gun->gimblehandle = -1;
+        }
+        else
+        {
+            if (gun->gimblehandle < 0)
+            {
+                gun->gimblehandle = soundEventPlay(ship, Gun_WeaponMove, gun);
+            }
+            oriented = FALSE;
+        }
+    }
+
+    return oriented;
+}
+
+/*-----------------------------------------------------------------------------
     Name        : gunStartup
     Description : Start the gun module
     Inputs      :

@@ -32,6 +32,7 @@
 #define GUN_RecoilTime    0.05f
 #define GUN_OneOverTime   20.0f
 #define ONEPLUS_HIGH_TIME   1.05f
+#define GUN_ResetAngleSpeedFactor 0.10f
 
 /*=============================================================================
     Functions:
@@ -56,6 +57,8 @@ void gunGetGunPositionInWorld(vector *positionInWorldCoordSys,matrix *coordsys,G
 //compute firepower
 real32 gunFirePower(GunStatic *gunStatic, TacticsType tactics, real32 *fireTime);
 real32 gunShipFirePower(ShipStaticInfo *info, TacticsType tactics);
+
+bool32 gunResetGimbleGuns(Ship *ship);
 
 void gunStartup(void);
 void gunShutdown(void);

@@ -1144,10 +1144,13 @@ bool32 aitrackZeroVelocity(Ship *ship)
 ----------------------------------------------------------------------------*/
 bool32 aitrackSteadyShipDriftOnly(Ship *ship)
 {
-    if (aitrackZeroVelocity(ship))
+    bool32 zerovel = aitrackZeroVelocity(ship);
+    bool32 gunswerereset = gunResetGimbleGuns(ship);
+
+    if (zerovel)
     {
         aitrackForceZeroVelocity(ship);
-        return TRUE;
+        return gunswerereset;
     }
     else
     {
@@ -1178,11 +1181,12 @@ bool32 aitrackSteadyShipAnywhere(Ship *ship)
 {
     bool32 stabilized = aitrackZeroRotationAnywhere(ship);
     bool32 zerovel = aitrackZeroVelocity(ship);
+    bool32 gunswerereset = stabilized && gunResetGimbleGuns(ship);
 
     if (stabilized && zerovel)
     {
-        aitrackForceSteadyShip(ship);
-        return TRUE;
+         aitrackForceSteadyShip(ship);
+         return gunswerereset;
     }
     else
     {
@@ -1213,11 +1217,12 @@ bool32 aitrackSteadyShip(Ship *ship)
 {
     bool32 stabilized = aitrackStabilizeShip(ship);
     bool32 zerovel = aitrackZeroVelocity(ship);
+    bool32 gunswerereset = stabilized && gunResetGimbleGuns(ship);
 
     if (stabilized && zerovel)
     {
         aitrackForceSteadyShip(ship);
-        return TRUE;
+        return gunswerereset;
     }
     else
     {
