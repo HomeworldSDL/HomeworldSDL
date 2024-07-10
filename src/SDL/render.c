@@ -985,9 +985,7 @@ bool32 setupPixelFormat()
 	while (!(sdlwindow=SDL_CreateWindow("HomeworldSDL", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
 		MAIN_WindowWidth, MAIN_WindowHeight, flags)))
 	{
-	    fprintf (stderr, "Couldn't set %dx MSAA video mode: %s\n", MSAA, SDL_GetError ());
-	    
-        if (MSAA == 2)
+        if (MSAA < 2)
         {
             SDL_GL_SetAttribute( SDL_GL_MULTISAMPLEBUFFERS, 0 );
             SDL_GL_SetAttribute( SDL_GL_MULTISAMPLESAMPLES, 0 );
@@ -1000,6 +998,8 @@ bool32 setupPixelFormat()
                     return FALSE;
             }
         }
+
+	    fprintf (stderr, "Couldn't set %dx MSAA video mode: %s\n", MSAA, SDL_GetError ());
 
         MSAA /= 2;
         
