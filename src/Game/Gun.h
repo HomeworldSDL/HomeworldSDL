@@ -76,6 +76,8 @@ void gunTuneGun(Ship *ship);
     Variables:
 =============================================================================*/
 
+extern bool32 vanillaGunsMode;
+
 #if GUN_TUNE_MODE
 extern bool32 gunTuningMode;
 extern sdword tuningGun;

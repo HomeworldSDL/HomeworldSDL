@@ -17,6 +17,8 @@
 
 #define DEBUG_AITRACK 0
 
+extern bool32 vanillaGunsMode;
+
 /*=============================================================================
     Tweakables
 =============================================================================*/
@@ -1145,12 +1147,16 @@ bool32 aitrackZeroVelocity(Ship *ship)
 bool32 aitrackSteadyShipDriftOnly(Ship *ship)
 {
     bool32 zerovel = aitrackZeroVelocity(ship);
-    bool32 gunswerereset = gunResetGimbleGuns(ship);
+    bool32 gunswerereset = !vanillaGunsMode && gunResetGimbleGuns(ship);
 
     if (zerovel)
     {
         aitrackForceZeroVelocity(ship);
-        return gunswerereset;
+        if (!vanillaGunsMode)
+        {
+            return gunswerereset;
+        }
+        return TRUE;
     }
     else
     {
@@ -1181,12 +1187,16 @@ bool32 aitrackSteadyShipAnywhere(Ship *ship)
 {
     bool32 stabilized = aitrackZeroRotationAnywhere(ship);
     bool32 zerovel = aitrackZeroVelocity(ship);
-    bool32 gunswerereset = stabilized && gunResetGimbleGuns(ship);
+    bool32 gunswerereset = !vanillaGunsMode && stabilized && gunResetGimbleGuns(ship);
 
     if (stabilized && zerovel)
     {
-         aitrackForceSteadyShip(ship);
-         return gunswerereset;
+        aitrackForceSteadyShip(ship);
+        if (!vanillaGunsMode)
+        {
+            return gunswerereset;
+        }
+        return TRUE;
     }
     else
     {
@@ -1217,12 +1227,16 @@ bool32 aitrackSteadyShip(Ship *ship)
 {
     bool32 stabilized = aitrackStabilizeShip(ship);
     bool32 zerovel = aitrackZeroVelocity(ship);
-    bool32 gunswerereset = stabilized && gunResetGimbleGuns(ship);
+    bool32 gunswerereset = !vanillaGunsMode && stabilized && gunResetGimbleGuns(ship);
 
     if (stabilized && zerovel)
     {
         aitrackForceSteadyShip(ship);
-        return gunswerereset;
+        if (!vanillaGunsMode)
+        {
+            return gunswerereset;
+        }
+        return TRUE;
     }
     else
     {

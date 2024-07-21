@@ -50,6 +50,7 @@
     Data:
 =============================================================================*/
 real32 gunRecoilTable[GUN_RecoilTableLength + 1];
+bool32 vanillaGunsMode = FALSE;
 
 /*=============================================================================
     Functions:
@@ -1832,6 +1833,7 @@ bool32 gunResetGimbleGuns(Ship *ship)
 void gunStartup(void)
 {
     gunRecoilTableCompute();
+    vanillaGunsMode = vanillaMode;
 }
 
 /*-----------------------------------------------------------------------------

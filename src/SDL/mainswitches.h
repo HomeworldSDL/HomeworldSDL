@@ -72,5 +72,7 @@ extern bool32 debugPacketRecord;
 
 extern bool32 pilotView;
 
+extern bool32 vanillaMode;
+
 #endif
 
