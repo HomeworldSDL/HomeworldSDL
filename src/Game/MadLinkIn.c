@@ -25,24 +25,6 @@
 #define DEBUG_MESH_ANIMATIONS  0
 
 //Variables in ship structure to support mesh animations (amongst others)
-//
-//    udword madAnimationFlags;        //general purpose flags for mad animations
-//    real32 madAnimationTime;        //general purpose variable for counting
-//    udword cuedAnimation[MAD_MAX_CUEABLE];            //Animation index waiting in the wings to be played
-
-/*-----------------------------------------------------------------------------
-    Name        : madLinkInInit
-    Description : Loads in mad script file
-    Inputs      :
-    Outputs     :
-    Return      :
-----------------------------------------------------------------------------*/
-void madLinkInInit()
-{
-
-}
-
-
 //    udword madAnimationFlags;        //general purpose flags for mad animations
 //    real32 madAnimationTime;        //general purpose variable for counting
 //    udword cuedAnimation[MAD_MAX_CUEABLE];            //Animation index waiting in the wings to be played

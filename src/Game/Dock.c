@@ -562,7 +562,7 @@ bool32 ThisShipCanDockWith(Ship *ship,Ship *dockwith,DockType dockType)
                 {
                     if(dockwith->staticinfo->canReceiveShipsForRetire)
                     {
-                        if((dockwith->shiptype == ship->shiptype))
+                        if(dockwith->shiptype == ship->shiptype)
                             return FALSE;
 
                         if(shipRetireNeedsMothership(ship))

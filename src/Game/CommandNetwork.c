@@ -2738,7 +2738,7 @@ void BroadcastAliveStatusPacket(void)
     titanSendBroadcastMessage((ubyte *)&packet,sizeof(packet));     // send to everyone else
 }
 
-void UpdateDroppedOutStatuses()
+void UpdateDroppedOutStatuses(void)
 {
     sdword i;
 

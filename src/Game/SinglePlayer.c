@@ -212,7 +212,7 @@ real32 SUBMESSAGE_SAFETY_TIMEOUT                =     15.0f;
 real32 spHyperspaceDelay                        =      0.0f;
 
 
-static sdword WarpToLevelEnabled();
+static sdword WarpToLevelEnabled(void);
 static udword convertMissionToSequenceIndex(MissionEnum mission);
 
 static MissionEnum spGetAdjacentMission(sbyte direction);
@@ -365,17 +365,17 @@ void spSetCurrentMission(MissionEnum mission)
         = convertMissionToSequenceIndex(mission);
 }
 
-MissionEnum spGetPreviousMission()
+MissionEnum spGetPreviousMission(void)
 {
     return spGetAdjacentMission(-1);
 }
 
-MissionEnum spGetCurrentMission()
+MissionEnum spGetCurrentMission(void)
 {
     return singlePlayerGameInfo.currentMission;
 }
 
-MissionEnum spGetNextMission()
+MissionEnum spGetNextMission(void)
 {
     return spGetAdjacentMission(+1);
 }
@@ -664,7 +664,7 @@ void SetFleetModifier(sdword level,GetStrengthOfFleet getStrengthOfFleetFunc)
 //    speechEventFleet(STAT_F_Hyper_TakingOff, 0, universe.curPlayerIndex);
 //}
 
-void TellShipsToAbortDockForHyperspace()
+void TellShipsToAbortDockForHyperspace(void)
 {
     SelectCommand *selectAll;
 
@@ -778,7 +778,7 @@ void spShipsDockedDrawCB(featom *atom, regionhandle region)
     fontMakeCurrent(fhSave);
 }
 
-void CalculateRollCall()
+void CalculateRollCall(void)
 {
     Node *objnode = universe.ShipList.head;
     Ship *ship;
@@ -825,7 +825,7 @@ void CalculateRollCall()
 
 }
 
-void TellShipsToDockForHyperspace()
+void TellShipsToDockForHyperspace(void)
 {
     Node *objnode;
     Ship *ship;
@@ -900,7 +900,7 @@ void MakeShipsNotIncludeLaunchingShips(SelectCommand *selection)
     }
 
 }
-void TellHyperspacingShipsToReady()
+void TellHyperspacingShipsToReady(void)
 {
     SelectCommand *selectAll;
     sdword i;
@@ -953,7 +953,7 @@ sdword HyperspaceRollCallBegin(regionhandle region, sdword ID, udword event, udw
     return 0;
 }
 
-ShipSinglePlayerGameInfo *spNewShipSinglePlayerGameInfo()
+ShipSinglePlayerGameInfo *spNewShipSinglePlayerGameInfo(void)
 {
     ShipSinglePlayerGameInfo *newone = memAlloc(sizeof(ShipSinglePlayerGameInfo),"shipsingleGame",0);
     memset(newone,0,sizeof(*newone));
@@ -1447,7 +1447,7 @@ void PutShipOutsideAt(Ship *ship,vector *createat,vector *createvelocity,real32 
     }
 }
 
-void CalculateArrivingTimesForShips()
+void CalculateArrivingTimesForShips(void)
 {
     InsideShip *insideShip;
     Ship *ship;
@@ -1660,7 +1660,7 @@ bool32 UpdateArrivingShip(Ship *ship,hvector *topoint,bool32 midLevel)
     return thisShipArrived;
 }
 
-bool32 UpdateArrivingShips()
+bool32 UpdateArrivingShips(void)
 {
     InsideShip *insideShip;
     Ship *ship;
@@ -1958,7 +1958,7 @@ void singlePlayerInit(void)
 
 static udword spLockoutFlags = 0;
 
-void spMainScreen()
+void spMainScreen(void)
 {
     if (smSensorsActive)
     {
@@ -2004,7 +2004,7 @@ void spMainScreenAndLockout(udword flags)
     spLockout(flags);
 }
 
-void spUnlockout()
+void spUnlockout(void)
 {
 //comment out the rest of this function to use NIS debugging keys
     smSensorsDisable = FALSE;
@@ -2215,7 +2215,7 @@ void CleanupHyperspacingShip(Ship *ship)
     ship->shipSinglePlayerGameInfo->shipHyperspaceState = SHIPHYPERSPACE_NONE;
 }
 
-void CleanupHyperspacingShipsThatDidntHyperspace()
+void CleanupHyperspacingShipsThatDidntHyperspace(void)
 {
     Node *objnode;
     Ship *ship;
@@ -2343,7 +2343,7 @@ void singlePlayerGameCleanup(void)
     }
 }
 
-void UpdateMidLevelHyperspacingShips()
+void UpdateMidLevelHyperspacingShips(void)
 {
     bool32 addedShipToHyperspace = FALSE;
     sdword i;
@@ -2396,7 +2396,7 @@ void UpdateMidLevelHyperspacingShips()
     }
 }
 
-void singlePlayerGameUpdate()
+void singlePlayerGameUpdate(void)
 {
     AIVar *tgui;
     AIVar *nisVariable = aivarFindAnyFSM("PlayNis");
@@ -2704,7 +2704,7 @@ static void SetOnMissionCompleteInfo(char *directory,char *field,void *dataToFil
     }
 }
 
-void DeleteAllRemainingShips()
+void DeleteAllRemainingShips(void)
 {
     Ship *ship;
     Node *node = universe.ShipList.head;
@@ -2720,7 +2720,7 @@ void DeleteAllRemainingShips()
     }
 }
 
-void DeleteAnyMidLevelHyperspacingShips()
+void DeleteAnyMidLevelHyperspacingShips(void)
 {
     Node *node = singlePlayerGameInfo.ShipsInHyperspace.head;
     Node *nextnode;
@@ -3509,7 +3509,7 @@ void FindShipsOfShipTypeOfPlayer(GrowSelection *growselect,ShipType shiptype,Pla
 
 #define MAXLINENEED 100
 
-sdword WarpToLevelEnabled()
+sdword WarpToLevelEnabled(void)
 {
     filehandle fh;
     char line[MAXLINENEED];

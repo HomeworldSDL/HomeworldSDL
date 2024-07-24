@@ -2745,7 +2745,7 @@ void scriptSetSlotInfoCB(char *directory,char *field,void *dataToFillIn)
     sscanf(field,"%f %f %f %f %f %f %d",&slotInfo->upoffset,&slotInfo->rightoffset,&slotInfo->headingoffset,&slotInfo->upspacing,&slotInfo->rightspacing,&slotInfo->headingspacing,&slotInfo->facedirection);
 }
 
-void paradeSetTweakables()
+void paradeSetTweakables(void)
 {
     memset(&paradeTypeInfos[PARADE_R1MOTHERSHIP],0,sizeof(ParadeTypeInfo));
     memset(&paradeTypeInfos[PARADE_R2MOTHERSHIP],0,sizeof(ParadeTypeInfo));

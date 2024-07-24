@@ -2210,14 +2210,14 @@ int bigView(char *bigFilename, int consoleOutput)
             printf("                  ------------  ------------  -----\n");
             if (totalCompressed == totalExpanded)
             {
-                PrettyFilesize(totalExpanded, pRealSize),
+                PrettyFilesize(totalExpanded, pRealSize);
                 strcpy(pStoredSize, "");
                 strcpy(pRatio, "  na ");
             }
             else
             {
-                PrettyFilesize(totalCompressed, pStoredSize),
-                PrettyFilesize(totalExpanded, pRealSize),
+                PrettyFilesize(totalCompressed, pStoredSize);
+                PrettyFilesize(totalExpanded, pRealSize);
                 sprintf(pRatio, "%05.3f",
                     (totalExpanded ? (float)totalCompressed/(float)totalExpanded : 0.0));
             }

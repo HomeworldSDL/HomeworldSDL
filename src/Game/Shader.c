@@ -149,14 +149,14 @@ void shShutdown(void)
 }
 
 //increase "gamma" (brightness)
-void shGammaUp()
+void shGammaUp(void)
 {
     shGammaAdjust += 0.05f;
     shBrightness = shGammaAdjust * 127.0f;
 }
 
 //decrease "gamma" (brightness)
-void shGammaDown()
+void shGammaDown(void)
 {
     shGammaAdjust -= 0.05f;
     if (shGammaAdjust < 0.0f)
@@ -167,7 +167,7 @@ void shGammaDown()
 }
 
 //reset "gamma" (brightness) to default
-void shGammaReset()
+void shGammaReset(void)
 {
     shGammaAdjust = 0.15f;
     shBrightness = shGammaAdjust * 127.0f;

@@ -185,7 +185,7 @@ void singlePlayerSetMissionAttributes(char *directory,char *filename);
 
 void singlePlayerGameCleanup(void);
 
-void singlePlayerGameUpdate();
+void singlePlayerGameUpdate(void);
 void singlePlayerLoadNewLevel(void);
 void singlePlayerStartGame(void);
 void singlePlayerNextLevel(void);
@@ -207,12 +207,12 @@ MissionEnum spGetNextMission    (void);
 
 void GetMissionsDirAndFile(MissionEnum mission);
 
-void spMainScreen();
+void spMainScreen(void);
 
 bool32 GetStartPointPlayer(hvector *startpoint);
 bool32 GetPointOfName(hvector *point,char *name);
 
-ShipSinglePlayerGameInfo *spNewShipSinglePlayerGameInfo();
+ShipSinglePlayerGameInfo *spNewShipSinglePlayerGameInfo(void);
 
 // flags for spLockout
 #define SPLOCKOUT_MOUSE     1
@@ -220,10 +220,10 @@ ShipSinglePlayerGameInfo *spNewShipSinglePlayerGameInfo();
 #define SPLOCKOUT_DESELECT  4
 #define SPLOCKOUT_EVERYTHING    (SPLOCKOUT_MOUSE+SPLOCKOUT_MR+SPLOCKOUT_DESELECT)
 
-void spMainScreen();
+void spMainScreen(void);
 void spLockout(udword flags);
 void spMainScreenAndLockout(udword flags);
-void spUnlockout();
+void spUnlockout(void);
 
 void LoadSinglePlayerGame(void);
 void SaveSinglePlayerGame(void);
@@ -241,7 +241,7 @@ void spNISletTestAttempt(sdword index);
 bool32 singlePlayerNISletNamesGet(char **nisname, char **scriptname, sdword nisletNumber);
 bool32 spFindCameraAttitude(vector *position);
 
-void UpdateMidLevelHyperspacingShips();
+void UpdateMidLevelHyperspacingShips(void);
 
 void singlePlayerPreLoadCheck(void);
 

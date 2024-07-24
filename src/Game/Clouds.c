@@ -734,11 +734,13 @@ void ellipsoid_seq(ellipseObject* ellipsoid, sdword n, real32 a, real32 b, real3
 
     /* Generate triangular faces of the ellipsoid. */
     f = ellipsoid->f;
-    kv = 0, kw = 1;
+    kv = 0;
+    kw = 1;
 
     for (i = 0; i < n; i++)
     {
-        kv0 = kv, kw0 = kw;
+        kv0 = kv;
+        kw0 = kw;
 
         for (ko = 1; ko <= 3; ko++)                /* the 1st, 2nd, 3rd octants */
         {
@@ -779,7 +781,8 @@ void ellipsoid_seq(ellipseObject* ellipsoid, sdword n, real32 a, real32 b, real3
 
     for (; --i >= 0;)
     {
-        kv0 = kv, kw0 = kw;
+        kv0 = kv;
+        kw0 = kw;
         for (ko = 5; ko <= 7; ko++)                /* the 5th, 6th, 7th octants */
         {
             for (j = i;; j--)

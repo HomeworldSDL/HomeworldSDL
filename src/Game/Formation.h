@@ -150,7 +150,7 @@ void RemoveShipFromMilitaryParade(Ship *shiptoremove,MilitaryParadeCommand *mili
 void FreeMilitaryParadeContents(MilitaryParadeCommand *militaryParade);
 void setMilitaryParade(struct CommandToDo *command);
 bool32 shipInMilitaryParade(ShipPtr ship);
-void paradeSetTweakables();
+void paradeSetTweakables(void);
 
 /*=============================================================================
     Macros:

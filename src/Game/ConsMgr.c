@@ -4465,7 +4465,7 @@ shipsinprogress *Load_shipsinprogress(void)
     return sinprogress;
 }
 
-void LoadConsMgr()
+void LoadConsMgr(void)
 {
     sdword num;
     sdword i;

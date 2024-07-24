@@ -416,9 +416,16 @@ void bobUpdateExtraCollBobInfo(LinkedList *list)
         // create blob ship, resource, derelict, bullet, missile, and target lists for efficiency
 
         // 1st pass: figure out # of ship, resource, derelict, bullet, missile, and targets
-        numShips = 0, numResources = 0, numDerelicts = 0, numBullets = 0;
-        numMissileMissiles = 0, numMissileMines = 0, numSmallTargets = 0, numBigTargets = 0;
-        numBigShips = 0, numSmallShips = 0;
+        numShips = 0;
+        numResources = 0;
+        numDerelicts = 0;
+        numBullets = 0;
+        numMissileMissiles = 0;
+        numMissileMines = 0;
+        numSmallTargets = 0;
+        numBigTargets = 0;
+        numBigShips = 0;
+        numSmallShips = 0;
         for (i=0;i<blobObjects->numSpaceObjs;i++)
         {
             spaceobj = blobObjects->SpaceObjPtr[i];
