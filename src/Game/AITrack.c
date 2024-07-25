@@ -9,6 +9,7 @@
 
 #include "AITrack.h"
 
+#include "Gun.h"
 #include "AIShip.h"
 #include "FastMath.h"
 #include "Physics.h"
@@ -16,8 +17,6 @@
 #include "Universe.h"
 
 #define DEBUG_AITRACK 0
-
-extern bool32 vanillaGunsMode;
 
 /*=============================================================================
     Tweakables
