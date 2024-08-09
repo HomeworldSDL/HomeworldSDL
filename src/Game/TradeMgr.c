@@ -606,6 +606,8 @@ sdword tmSelectAvailable(regionhandle region, sdword ID, udword event, udword da
 
     dbgMessagef("Selected %i",index);
 
+    if (index < 0) return 0;
+
     price = (tmTechPrice[index] * tmPriceScale) / 100;
 
     if ( (event == RPE_PressLeft) && (index!=-1) )
