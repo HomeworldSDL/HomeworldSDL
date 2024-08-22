@@ -252,7 +252,7 @@ void CheckValidTacticsClass(TacticsType tactic,ShipClass shipclass,char *field)
 }
 #endif
 
-void scriptSetReal32CB_ARRAY(char *directory, char *field, void *dataToFillIn)
+void scriptSetReal32CB_ARRAY(char *directory, char *field, real32 *dataToFillIn)
 {
     char tactic_buffer[32];
     char class_buffer[64];
@@ -272,11 +272,11 @@ void scriptSetReal32CB_ARRAY(char *directory, char *field, void *dataToFillIn)
     CheckValidTacticsClass(tactic,shipclass,field);
 #endif
 
-    dataToFillIn = (tactic * (NUM_CLASSES + 1)) + shipclass + (real32*)dataToFillIn;
-    *((real32*)dataToFillIn) = value;
+    dataToFillIn += (tactic * (NUM_CLASSES + 1)) + shipclass;
+    *dataToFillIn = value;
 }
 
-void scriptSetShipProbCB(char *directory, char *field, void *dataToFillIn)
+void scriptSetShipProbCB(char *directory, char *field, real32 *dataToFillIn)
 {
     char shipname[64];
     real32 prob;
@@ -286,9 +286,8 @@ void scriptSetShipProbCB(char *directory, char *field, void *dataToFillIn)
 
     shiptype = StrToShipType(shipname);
 
-    char *charPtr = (char *)dataToFillIn;
-    charPtr += shiptype;
-    *((real32 *)charPtr) = prob;
+    dataToFillIn += shiptype;
+    *dataToFillIn = prob;
 }
 
 void scriptSetHyperspaceCostCB(char *directory, char *field, void *dataToFillIn)
@@ -336,12 +335,10 @@ void scriptSetSpecialDoorOffsetCB(char *directory, char *field, void *dataToFill
     mstatic->specialDoorOffset[race][shiptype].y = offsetZ;
     mstatic->specialDoorOrientationHeading[race][shiptype] = headingSdword;
     mstatic->specialDoorOrientationUp[race][shiptype] = upSdword;
-
-
 }
 
 
-void scriptSetShipGroupSizeCB(char *directory, char *field, void *dataToFillIn)
+void scriptSetShipGroupSizeCB(char *directory, char *field, sdword *dataToFillIn)
 {
     char shipname[64];
     sdword numingroup;
@@ -351,9 +348,8 @@ void scriptSetShipGroupSizeCB(char *directory, char *field, void *dataToFillIn)
 
     shiptype = StrToShipType(shipname);
 
-    char *charPtr = (char *)dataToFillIn;
-    charPtr += shiptype;
-    *((real32 *)charPtr) = numingroup;
+    dataToFillIn += shiptype;
+    *dataToFillIn = numingroup;
 }
 
 
@@ -496,7 +492,7 @@ void scriptSetCosAngSqrCB(char *directory,char *field,void *dataToFillIn)
     *((real32 *)dataToFillIn) = cosine*cosine;
 }
 
-void scriptSetCosAngCB_ARRAY(char *directory, char *field, void *dataToFillIn)
+void scriptSetCosAngCB_ARRAY(char *directory, char *field, real32 *dataToFillIn)
 {
     char tactic_buffer[32];
     char class_buffer[64];
@@ -516,8 +512,8 @@ void scriptSetCosAngCB_ARRAY(char *directory, char *field, void *dataToFillIn)
     CheckValidTacticsClass(tactic,shipclass,field);
 #endif
 
-    dataToFillIn = (tactic * (NUM_CLASSES + 1)) + shipclass + (real32*)dataToFillIn;
-    *(real32*)dataToFillIn = (real32)cos(DEG_TO_RAD(value));
+    dataToFillIn += (tactic * (NUM_CLASSES + 1)) + shipclass;
+    *dataToFillIn = (real32)cos(DEG_TO_RAD(value));
 }
 
 void scriptSetSinAngCB(char *directory,char *field,void *dataToFillIn)
