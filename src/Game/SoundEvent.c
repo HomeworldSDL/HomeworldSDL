@@ -2620,7 +2620,7 @@ void loadbankAndConvertTo64Bit(char *fileName, void** loadAddress)
     memset (newbase, 0 ,2*oldLength);
   
 
-    newHeader->id, oldHeader->id;
+    newHeader->id = oldHeader->id;
     newHeader->checksum = oldHeader->checksum;
     newHeader->numpatches = oldHeader->numpatches;
 
