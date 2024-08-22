@@ -64,6 +64,9 @@ c_base_args = [
 	'-Wno-array-bounds',
 	'-Wno-deprecated-declarations',
 	'-Wno-stringop-truncation',
+
+	# TODO: Linux gcc 13.2.0
+	'-Wno-unused-result',
 ]
 
 if build_machine.cpu_family() == 'x86_64'
