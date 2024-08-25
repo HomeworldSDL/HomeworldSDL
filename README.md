@@ -2,9 +2,7 @@
 
 📣 **Play in your browser!** Try our experimental wasm port here: [Gardens of Kadesh]
 
-Source port of Homeworld 1 for Linux & macOS.
-
-🛈 Not playing on Linux or macOS? Check out our central [Homeworld SDL] hub.
+Source port of Homeworld 1 to modern systems (Linux, Windows, macOS).
 
 [Homeworld] is a 3D space real-time strategy game released in 1999.
 It's source code was [released in 2003] by [Relic Entertainment], allowing a small but dedicated community of fans to port it to [SDL], enabling native versions for Linux, MacOS, and more recently, web browsers.
