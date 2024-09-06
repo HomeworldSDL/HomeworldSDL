@@ -1451,7 +1451,6 @@ void cmStartup(void)
     textureRect.x1 = rect.x1-SP_TEXTURE_INSET;
     textureRect.y1 = rect.y1-SP_TEXTURE_INSET;
 
-    rndPerspectiveCorrection(FALSE);
     primRectSolidTextured2(&textureRect);
     */
 }
@@ -3782,7 +3781,6 @@ void cmDrawShipImage(regionhandle region, sdword shipID)
         trRGBTextureMakeCurrent(cmShipTexture[universe.curPlayerPtr->race][usetexture]);
     }
 
-    rndPerspectiveCorrection(FALSE);
     primRectSolidTextured2(&rect);
     
 }

@@ -1525,7 +1525,6 @@ void tutDrawNextButtonFunction(regionhandle reg)
     else
         trRGBTextureMakeCurrent(tutTexture[TUT_NEXT_OFF]);
 
-    rndPerspectiveCorrection(FALSE);
 //  glEnable(GL_BLEND);
     primRectSolidTextured2(&reg->rect);
 //  glDisable(GL_BLEND);
@@ -1649,7 +1648,6 @@ void tutDrawBackButtonFunction(regionhandle reg)
             trRGBTextureMakeCurrent(tutTexture[TUT_REST_OFF]);
     }
 
-    rndPerspectiveCorrection(FALSE);
 //  glEnable(GL_BLEND);
     primRectSolidTextured2(&reg->rect);
 //  glDisable(GL_BLEND);
@@ -1782,7 +1780,6 @@ long    x, y;
         Index = szImageIndexList[i];
 
         trRGBTextureMakeCurrent(tutTexture[Index]);
-        rndPerspectiveCorrection(FALSE);
         rect.x0 = x + (64 * i);
         rect.y0 = y;
         rect.x1 = x + (64 * i) + 64;

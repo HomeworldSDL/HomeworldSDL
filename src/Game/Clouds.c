@@ -1093,11 +1093,17 @@ void cloudRenderLightning(vector* pa, vector* pb, udword depth, sdword lod, vect
     {
         if (width == 0.0f)
         {
-            glColor3f(CLOUD_LIGHTNING_LINE_RED, CLOUD_LIGHTNING_LINE_GREEN, CLOUD_LIGHTNING_LINE_BLUE);
             glBegin(GL_LINES);
+            glColor3f(CLOUD_LIGHTNING_LINE_RED, CLOUD_LIGHTNING_LINE_GREEN, CLOUD_LIGHTNING_LINE_BLUE);
             glVertex3fv((real32*)&from);
+            
+            glColor3f(CLOUD_LIGHTNING_LINE_RED, CLOUD_LIGHTNING_LINE_GREEN, CLOUD_LIGHTNING_LINE_BLUE);
             glVertex3fv((real32*)&mid);
+            
+            glColor3f(CLOUD_LIGHTNING_LINE_RED, CLOUD_LIGHTNING_LINE_GREEN, CLOUD_LIGHTNING_LINE_BLUE);
             glVertex3fv((real32*)&mid);
+            
+            glColor3f(CLOUD_LIGHTNING_LINE_RED, CLOUD_LIGHTNING_LINE_GREEN, CLOUD_LIGHTNING_LINE_BLUE);
             glVertex3fv((real32*)&to);
             glEnd();
         }
@@ -1132,15 +1138,22 @@ void cloudRenderLightning(vector* pa, vector* pb, udword depth, sdword lod, vect
             glEnable(GL_BLEND);
             glDisable(GL_CULL_FACE);
 
-            glBegin(GL_QUADS);
+            glBegin(GL_TRIANGLES);
 
             glVertex3fv((GLfloat*)&_from);
             glVertex3fv((GLfloat*)&fromHi);
             glVertex3fv((GLfloat*)&midHi);
+
+            glVertex3fv((GLfloat*)&_from);
+            glVertex3fv((GLfloat*)&midHi);
             glVertex3fv((GLfloat*)&_mid);
+
 
             glVertex3fv((GLfloat*)&_mid);
             glVertex3fv((GLfloat*)&midHi);
+            glVertex3fv((GLfloat*)&toHi);
+
+            glVertex3fv((GLfloat*)&_mid);
             glVertex3fv((GLfloat*)&toHi);
             glVertex3fv((GLfloat*)&_to);
 
@@ -1159,15 +1172,22 @@ void cloudRenderLightning(vector* pa, vector* pb, udword depth, sdword lod, vect
             glColor4f(CLOUD_LIGHTNING_MAIN_RED, CLOUD_LIGHTNING_MAIN_GREEN,
                       CLOUD_LIGHTNING_MAIN_BLUE, CLOUD_LIGHTNING_MAIN_ALPHA);
 
-            glBegin(GL_QUADS);
+            glBegin(GL_TRIANGLES);
 
             glVertex3fv((GLfloat*)&from);
             glVertex3fv((GLfloat*)&fromHi);
             glVertex3fv((GLfloat*)&midHi);
+
+            glVertex3fv((GLfloat*)&from);
+            glVertex3fv((GLfloat*)&midHi);
             glVertex3fv((GLfloat*)&mid);
+
 
             glVertex3fv((GLfloat*)&mid);
             glVertex3fv((GLfloat*)&midHi);
+            glVertex3fv((GLfloat*)&toHi);
+
+            glVertex3fv((GLfloat*)&mid);
             glVertex3fv((GLfloat*)&toHi);
             glVertex3fv((GLfloat*)&to);
 
@@ -1256,7 +1276,7 @@ void cloudRenderSystem(void* mesh, cloudSystem* system, sdword lod)
         return;
     }
 
-    glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
+    glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
     rndTextureEnable(FALSE);
     glShadeModel(GL_SMOOTH);
     glEnable(GL_BLEND);

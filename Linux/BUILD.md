@@ -108,6 +108,8 @@ ln -srv compile_commands.json ..
 [LLVM's Sanitizers] are a powerful suite of tools for memory debugging.
 They can detect and help debug many kinds of invalid or dangerous memory handling patterns (like buffer overflows, use after free, or leaks).
 
+[LLVM's Sanitizers]: https://clang.llvm.org/docs/AddressSanitizer.html
+
 #### With Meson
 
 The `address` and `undefined` sanitizers are enabled by default.
@@ -121,4 +123,33 @@ You can build a debug version of the game that includes those sanitizers with
 ../configure --enable-sanitizers
 ```
 
-[LLVM's Sanitizers]: https://clang.llvm.org/docs/AddressSanitizer.html
+## Cross-compiling to wasm32-emscripten
+
+You need to have emscripten installed and enable your installed emsdk tools in your current shell environment.
+(If you're using the nix shell, you can skip this step)
+
+```sh
+source emsdk_env.sh
+```
+
+Then copy the necessary Homeworld demo assets (HomeworldDL.big, DL_demo.vce, DL_Music.wxd and ideally the Update.big from the Homeworld 1.05 Update) to the wasm/demo_assets/ folder.
+
+Now you can setup meson for cross-compiling to wasm32 using emscripten:
+
+```sh
+meson setup --cross-file ../wasm32-emscripten.meson-cross-build-definition.txt -Db_sanitize=none -Dmovies=false build.emscripten ..
+```
+
+Now switch to the created build.emscripten folder and compile:
+
+```sh
+cd build.emscripten
+meson compile
+```
+
+To automatically open the compiled wasm32 binaries in the browser using the provided index.html one can use the mini webserver provided with emscripten:
+```sh
+emrun .
+```
+
+

@@ -88,10 +88,12 @@ void primModeClearFunction2(void)
 ----------------------------------------------------------------------------*/
 void primTriSolid2(triangle *tri, color c)
 {
-    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glBegin(GL_TRIANGLES);
+    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glVertex2f(primScreenToGLX(tri->x0), primScreenToGLY(tri->y0));
+    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glVertex2f(primScreenToGLX(tri->x1), primScreenToGLY(tri->y1));
+    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glVertex2f(primScreenToGLX(tri->x2), primScreenToGLY(tri->y2));
     glEnd();
 }
@@ -109,11 +111,13 @@ void primTriOutline2(triangle *tri, sdword thickness, color c)
 {
     GLfloat linewidth;
     glGetFloatv(GL_LINE_WIDTH, &linewidth);
-    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glLineWidth((GLfloat)thickness);
     glBegin(GL_LINE_LOOP);
+    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glVertex2f(primScreenToGLX(tri->x0), primScreenToGLY(tri->y0));
+    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glVertex2f(primScreenToGLX(tri->x1), primScreenToGLY(tri->y1));
+    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glVertex2f(primScreenToGLX(tri->x2), primScreenToGLY(tri->y2));
     glEnd();
     glLineWidth(linewidth);
@@ -131,16 +135,18 @@ void primTriOutline2(triangle *tri, sdword thickness, color c)
     glVertex2f(primScreenToGLX(X), primScreenToGLY(Y));
 void primRectSolidTextured2(rectangle *rect)
 {
-    glColor3ub(255, 255, 255);
-
     rndTextureEnvironment(RTE_Replace);
     rndTextureEnable(TRUE);
 
-    glBegin(GL_QUADS);
+    glBegin(GL_TRIANGLE_STRIP);
+    glColor3ub(255, 255, 255);
     COORD(0.0f, 0.0f, rect->x0, rect->y0);
+    glColor3ub(255, 255, 255);
     COORD(0.0f, 1.0f, rect->x0, rect->y1 - 1);
-    COORD(1.0f, 1.0f, rect->x1, rect->y1 - 1);
+    glColor3ub(255, 255, 255);
     COORD(1.0f, 0.0f, rect->x1, rect->y0);
+    glColor3ub(255, 255, 255);
+    COORD(1.0f, 1.0f, rect->x1, rect->y1 - 1);
     glEnd();
 
     rndTextureEnable(FALSE);
@@ -148,16 +154,18 @@ void primRectSolidTextured2(rectangle *rect)
 }
 void primRectSolidTexturedFullRect2(rectangle *rect)
 {
-    glColor3ub(255, 255, 255);
-
     rndTextureEnvironment(RTE_Replace);
     rndTextureEnable(TRUE);
 
-    glBegin(GL_QUADS);
+    glBegin(GL_TRIANGLE_STRIP);
+    glColor3ub(255, 255, 255);
     COORD(0.0f, 0.0f, rect->x0, rect->y0);
+    glColor3ub(255, 255, 255);
     COORD(0.0f, 1.0f, rect->x0, rect->y1);
-    COORD(1.0f, 1.0f, rect->x1, rect->y1);
+    glColor3ub(255, 255, 255);
     COORD(1.0f, 0.0f, rect->x1, rect->y0);
+    glColor3ub(255, 255, 255);
+    COORD(1.0f, 1.0f, rect->x1, rect->y1);
     glEnd();
 
     rndTextureEnable(FALSE);
@@ -165,15 +173,17 @@ void primRectSolidTexturedFullRect2(rectangle *rect)
 }
 void primRectSolidTexturedFullRectC2(rectangle *rect, color c)
 {
-    glColor4ub(colRed(c), colGreen(c), colBlue(c), colAlpha(c));
-
     rndTextureEnable(TRUE);
 
-    glBegin(GL_QUADS);
+    glBegin(GL_TRIANGLE_STRIP);
+    glColor4ub(colRed(c), colGreen(c), colBlue(c), colAlpha(c));
     COORD(0.0f, 0.0f, rect->x0, rect->y0);
+    glColor4ub(colRed(c), colGreen(c), colBlue(c), colAlpha(c));
     COORD(0.0f, 1.0f, rect->x0, rect->y1);
-    COORD(1.0f, 1.0f, rect->x1, rect->y1);
+    glColor4ub(colRed(c), colGreen(c), colBlue(c), colAlpha(c));
     COORD(1.0f, 0.0f, rect->x1, rect->y0);
+    glColor4ub(colRed(c), colGreen(c), colBlue(c), colAlpha(c));
+    COORD(1.0f, 1.0f, rect->x1, rect->y1);
     glEnd();
 
     rndTextureEnable(FALSE);
@@ -190,12 +200,15 @@ void primRectSolidTexturedFullRectC2(rectangle *rect, color c)
 ----------------------------------------------------------------------------*/
 void primRectSolid2(rectangle *rect, color c)
 {
+    glBegin(GL_TRIANGLE_STRIP);
     glColor4ub(colRed(c), colGreen(c), colBlue(c), colAlpha(c));
-    glBegin(GL_QUADS);
     glVertex2f(primScreenToGLX(rect->x0), primScreenToGLY(rect->y0));
+    glColor4ub(colRed(c), colGreen(c), colBlue(c), colAlpha(c));
     glVertex2f(primScreenToGLX(rect->x0), primScreenToGLY(rect->y1));
-    glVertex2f(primScreenToGLX(rect->x1), primScreenToGLY(rect->y1));
+    glColor4ub(colRed(c), colGreen(c), colBlue(c), colAlpha(c));
     glVertex2f(primScreenToGLX(rect->x1), primScreenToGLY(rect->y0));
+    glColor4ub(colRed(c), colGreen(c), colBlue(c), colAlpha(c));
+    glVertex2f(primScreenToGLX(rect->x1), primScreenToGLY(rect->y1));
     glEnd(); 
 }
 
@@ -213,12 +226,15 @@ void primRectTranslucent2(rectangle* rect, color c)
 
     blendOn = glIsEnabled(GL_BLEND);
     if (!blendOn) glEnable(GL_BLEND);
+    glBegin(GL_TRIANGLE_STRIP);
     glColor4ub(colRed(c), colGreen(c), colBlue(c), colAlpha(c));
-    glBegin(GL_QUADS);
     glVertex2f(primScreenToGLX(rect->x0), primScreenToGLY(rect->y0));
+    glColor4ub(colRed(c), colGreen(c), colBlue(c), colAlpha(c));
     glVertex2f(primScreenToGLX(rect->x0), primScreenToGLY(rect->y1));
-    glVertex2f(primScreenToGLX(rect->x1), primScreenToGLY(rect->y1));
+    glColor4ub(colRed(c), colGreen(c), colBlue(c), colAlpha(c));
     glVertex2f(primScreenToGLX(rect->x1), primScreenToGLY(rect->y0));
+    glColor4ub(colRed(c), colGreen(c), colBlue(c), colAlpha(c));
+    glVertex2f(primScreenToGLX(rect->x1), primScreenToGLY(rect->y1));
     glEnd();
     
     if (!blendOn) glDisable(GL_BLEND);
@@ -239,13 +255,16 @@ void primRectOutline2(rectangle *rect, sdword thickness, color c)
     GLfloat linewidth;
     glGetFloatv(GL_LINE_WIDTH, &linewidth);
 
-    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glLineWidth((GLfloat)thickness);
 
     glBegin(GL_LINE_LOOP);
+    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glVertex2f(primScreenToGLX(rect->x0), primScreenToGLY(rect->y0));
+    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glVertex2f(primScreenToGLX(rect->x1), primScreenToGLY(rect->y0));
+    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glVertex2f(primScreenToGLX(rect->x1), primScreenToGLY(bottom));
+    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glVertex2f(primScreenToGLX(rect->x0), primScreenToGLY(bottom));
     glEnd();
 
@@ -264,7 +283,7 @@ void primRectShaded2(rectangle *rect, color *c)
 {
     glShadeModel(GL_SMOOTH);
 
-    glBegin(GL_QUADS);
+    glBegin(GL_TRIANGLE_STRIP);
 
     glColor3ub(colRed(c[0]), colGreen(c[0]), colBlue(c[0]));
     glVertex2f(primScreenToGLX(rect->x0), primScreenToGLY(rect->y0));
@@ -272,11 +291,11 @@ void primRectShaded2(rectangle *rect, color *c)
     glColor3ub(colRed(c[1]), colGreen(c[1]), colBlue(c[1]));
     glVertex2f(primScreenToGLX(rect->x0), primScreenToGLY(rect->y1));
 
-    glColor3ub(colRed(c[2]), colGreen(c[2]), colBlue(c[2]));
-    glVertex2f(primScreenToGLX(rect->x1), primScreenToGLY(rect->y1));
-
     glColor3ub(colRed(c[3]), colGreen(c[3]), colBlue(c[3]));
     glVertex2f(primScreenToGLX(rect->x1), primScreenToGLY(rect->y0));
+
+    glColor3ub(colRed(c[2]), colGreen(c[2]), colBlue(c[2]));
+    glVertex2f(primScreenToGLX(rect->x1), primScreenToGLY(rect->y1));
 
     glEnd();
 }
@@ -354,13 +373,13 @@ void primOvalArcOutline2(oval *o, real32 radStart, real32 radEnd, sdword thickne
     segment = (sdword)(radStart * (real32)segments / (2.0f * PI));//get starting segment
     endSegment = (sdword)(radEnd * (real32)segments / (2.0f * PI) - 0.01f);//get ending segment
 
-    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glLineWidth((GLfloat)thickness);
     glBegin(GL_LINE_STRIP);
 
     x = centreX + (real32)sin((double)radStart) * width;    //first vertex
     y = centreY + (real32)cos((double)radStart) * height;
- 
+    
+    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glVertex2f(x, y);
     
     segment++;
@@ -372,6 +391,7 @@ void primOvalArcOutline2(oval *o, real32 radStart, real32 radEnd, sdword thickne
         x = centreX + (real32)sin((double)angle) * width;
         y = centreY + (real32)cos((double)angle) * height;
 
+        glColor3ub(colRed(c), colGreen(c), colBlue(c));
         glVertex2f(x, y);
         
         angle += angleInc;                                  //update angle
@@ -379,6 +399,7 @@ void primOvalArcOutline2(oval *o, real32 radStart, real32 radEnd, sdword thickne
     x = centreX + (real32)sin((double)radEnd) * width;
     y = centreY + (real32)cos((double)radEnd) * height;
 
+    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glVertex2f(x, y);                                       //draw last vertex
     
     glEnd();
@@ -398,11 +419,12 @@ void primGLCircleOutline2(real32 x, real32 y, real32 radius, sdword nSegments, c
     double angle, angleInc = 2.0 * PI / (double)nSegments;
     real32 radiusY = radius * MAIN_WindowWidth / MAIN_WindowHeight;
 
-    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glBegin(GL_LINE_STRIP);
+    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glVertex2f(x, y + radiusY);
     for (index = 0, angle = angleInc; index <= nSegments; index++, angle += angleInc)
     {
+        glColor3ub(colRed(c), colGreen(c), colBlue(c));
         glVertex2f(x + (real32)sin(angle) * radius, y + (real32)cos(angle) * radiusY);
     }
     glEnd();
@@ -445,9 +467,10 @@ void primLine2(sdword x0, sdword y0, sdword x1, sdword y1, color c)
     blendon = glIsEnabled(GL_BLEND);
     if (!blendon) glEnable(GL_BLEND);
     glEnable(GL_LINE_SMOOTH);
-    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glBegin(GL_LINES);
+    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glVertex2f(primScreenToGLX(x0), primScreenToGLY(y0));
+    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glVertex2f(primScreenToGLX(x1), primScreenToGLY(y1));
     glEnd();
     glDisable(GL_LINE_SMOOTH);
@@ -464,9 +487,10 @@ void primLine2(sdword x0, sdword y0, sdword x1, sdword y1, color c)
 ----------------------------------------------------------------------------*/
 void primNonAALine2(sdword x0, sdword y0, sdword x1, sdword y1, color c)
 {
-    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glBegin(GL_LINES);
+    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glVertex2f(primScreenToGLX(x0), primScreenToGLY(y0));
+    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glVertex2f(primScreenToGLX(x1), primScreenToGLY(y1));
     glEnd();
 }
@@ -485,9 +509,10 @@ void primLineThick2(sdword x0, sdword y0, sdword x1, sdword y1, sdword thickness
     GLfloat linewidth;
     glGetFloatv(GL_LINE_WIDTH, &linewidth);
     glLineWidth((GLfloat)thickness);
-    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glBegin(GL_LINES);
+    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glVertex2f(primScreenToGLX(x0), primScreenToGLY(y0));
+    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glVertex2f(primScreenToGLX(x1), primScreenToGLY(y1));
     glEnd();
     glLineWidth(linewidth);
@@ -627,8 +652,10 @@ void primBeveledRectSolid(rectangle *rect, color c, uword xb, uword yb)
 
     cull = glIsEnabled(GL_CULL_FACE) ? TRUE : FALSE;
     glDisable(GL_CULL_FACE);
-    glBegin(GL_POLYGON);
+
     glColor3ub(colRed(c), colGreen(c), colBlue(c));
+    glBegin(GL_TRIANGLE_FAN);
+    glVertex2f(SX((X0 + X1)/2.0), SY((Y0 + Y1)/2.0));
     glVertex2f(SX(X0+xb), SY(Y0));
     glVertex2f(SX(X1-xb), SY(Y0));
     glVertex2f(SX(X1), SY(Y0+yb));
@@ -637,11 +664,14 @@ void primBeveledRectSolid(rectangle *rect, color c, uword xb, uword yb)
     glVertex2f(SX(X0+xb), SY(Y1));
     glVertex2f(SX(X0), SY(Y1-yb));
     glVertex2f(SX(X0), SY(Y0+yb));
+    glVertex2f(SX(X0+xb), SY(Y0));
     glEnd();
+
     if (cull)
     {
         glEnable(GL_CULL_FACE);
     }
+
 }
 
 /*-----------------------------------------------------------------------------
@@ -980,9 +1010,11 @@ void primCircleBorder(sdword x, sdword y, sdword radInner, sdword radOuter, sdwo
     for (index = 0; index < nSlices; index++)
     {
         glBegin(GL_TRIANGLE_FAN);
+        
         glColor4ub(red, green, blue, 255);
-
         glVertex2f(x0, y0);                                 //2 common points
+
+        glColor4ub(red, green, blue, 255);
         glVertex2f(centreX, centreY);
 
         sinTheta = (real32)sin(theta);
@@ -990,13 +1022,17 @@ void primCircleBorder(sdword x, sdword y, sdword radInner, sdword radOuter, sdwo
 
         x0 = centreX + sinTheta * radXInner;
         y0 = centreY + cosTheta * radYInner;
+
+        glColor4ub(red, green, blue, 255);
         glVertex2f(x0, y0);                                 //complete
-        glColor4ub(red, green, blue, 0);
 
         x1 = centreX + sinTheta * radXOuter;
         y1 = centreY + cosTheta * radYOuter;
 
+        glColor4ub(red, green, blue, 0);
         glVertex2f(x1, y1);                                 //complete
+        
+        glColor4ub(red, green, blue, 0);
         glVertex2f(x2, y2);
         x2 = x1;
         y2 = y1;

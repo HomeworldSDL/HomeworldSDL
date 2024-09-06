@@ -7,7 +7,6 @@
 #include "utility.h"
 
 #include <ctype.h>
-#include <limits.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -4226,12 +4225,14 @@ DONE_INTROS:
 //    }
 
 #ifdef HW_GAME_DEMO
+#ifndef __EMSCRIPTEN__
     if (enableAVI)
     {
         primModeSetFunction2();
         psModeBegin("Plugscreens\\", PMF_CanSkip);
         psScreenStart("SierraIntro.plug");
     }
+#endif
 #endif
     if (demDemoRecording)
     {                                                       //if recording a demo
@@ -4898,6 +4899,11 @@ bool32 utyChangeResolution(sdword width, sdword height, sdword depth) {
         return FALSE;
     }
 
+#ifdef __EMSCRIPTEN__
+    rndAspectRatio = (GLfloat)width/(GLfloat)height;
+    glViewport(0, 0, width, height);
+#endif
+
     ghMainRegion->rect.x1 = width;
     ghMainRegion->rect.y1 = height;
 
@@ -4943,7 +4949,7 @@ void utyToggleKeyStatesRestore(void)
 {
     SDL_Keymod target = 0;
     const Uint8* state = SDL_GetKeyboardState(NULL);
-#if !defined(_WIN32) && !defined(_MACOSX)
+#if !defined(_WIN32) && !defined(_MACOSX) && !defined(__EMSCRIPTEN__)
     SDL_SysWMinfo info;
     SDL_VERSION(&info.version);
     SDL_GetWindowWMInfo(sdlwindow,&info);
@@ -4969,7 +4975,7 @@ void utyToggleKeyStatesRestore(void)
 
         // Simulate a key release
         keybd_event( VK_CAPITAL, 0x45, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, 0);
-#elif !defined(_MACOSX)
+#elif !defined(_MACOSX) && !defined(__EMSCRIPTEN__)
         xe.xkey.keycode = XKeysymToKeycode(info.info.x11.display, XK_Caps_Lock);
 
         // Simulate a key press
@@ -4992,7 +4998,7 @@ void utyToggleKeyStatesRestore(void)
 
         // Simulate a key release
         keybd_event( VK_SCROLL, 0x45, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, 0);
-#elif !defined(_MACOSX)
+#elif !defined(_MACOSX) && !defined(__EMSCRIPTEN__)
         xe.xkey.keycode = XKeysymToKeycode(info.info.x11.display, XK_Scroll_Lock);
 
         // Simulate a key press
@@ -5014,7 +5020,7 @@ void utyToggleKeyStatesRestore(void)
 
         // Simulate a key release
         keybd_event( VK_NUMLOCK, 0x45, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, 0);
-#elif !defined(_MACOSX)
+#elif !defined(_MACOSX) && !defined(__EMSCRIPTEN__)
         xe.xkey.keycode = XKeysymToKeycode(info.info.x11.display, XK_Num_Lock);
 
         // Simulate a key press

@@ -203,15 +203,15 @@ static void Draw_Stretch (int x, int y, int w, int h, int cols, int rows, char *
         glBindTexture(GL_TEXTURE_2D, strtex);
         glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, cols, rows, GL_RGB, GL_UNSIGNED_BYTE, data);
 
-        glBegin (GL_QUADS);
+        glBegin (GL_TRIANGLE_STRIP);
         glTexCoord2f (0.0f, (GLfloat)rows/tex_height);
         glVertex2f (x, y);
         glTexCoord2f ((GLfloat)cols/tex_width, (GLfloat)rows/tex_height);
         glVertex2f (x+w, y);
-        glTexCoord2f ((GLfloat)cols/tex_width, 0.0f);
-        glVertex2f (x+w, y+h);
         glTexCoord2f (0.0f, 0.0f);
         glVertex2f (x, y+h);
+        glTexCoord2f ((GLfloat)cols/tex_width, 0.0f);
+        glVertex2f (x+w, y+h);
         glEnd ();
     }
 }

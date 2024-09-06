@@ -1072,24 +1072,26 @@ void mouseDraw(void)
 
             glColor3ub(255,255,255);
 
-            glBegin(GL_QUADS);
+            glBegin(GL_TRIANGLE_STRIP);
             glTexCoord2f(0.0f, 0.0f);
             glVertex2f(SX(mouseCursorXPosition), SY(mouseCursorYPosition));
             glTexCoord2f(0.0f, 1.0f);
             glVertex2f(SX(mouseCursorXPosition), SY(mouseCursorYPosition + texture->height));
-            glTexCoord2f(1.0f, 1.0f);
-            glVertex2f(SX(mouseCursorXPosition + texture->width), SY(mouseCursorYPosition + texture->height));
             glTexCoord2f(1.0f, 0.0f);
             glVertex2f(SX(mouseCursorXPosition + texture->width), SY(mouseCursorYPosition));
+            glTexCoord2f(1.0f, 1.0f);
+            glVertex2f(SX(mouseCursorXPosition + texture->width), SY(mouseCursorYPosition + texture->height));
             glEnd();
 
             rndTextureEnable(texOn);
         }
         else
-        {
+        {   
+#ifndef __EMSCRIPTEN__
             glRasterPos2f(primScreenToGLX(mouseCursorXPosition),
                           primScreenToGLY(mouseCursorYPosition + texture->height));
             glDrawPixels(texture->width, texture->height, GL_RGBA, GL_UNSIGNED_BYTE, texture->data);
+#endif
         }
     }
     else

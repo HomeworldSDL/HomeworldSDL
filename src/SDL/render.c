@@ -150,6 +150,8 @@ static EGLSurface egl_surface = EGL_NO_SURFACE;
 static EGLContext egl_context = EGL_NO_CONTEXT;
 static EGLConfig egl_config;
 #else
+
+#ifndef __EMSCRIPTEN__
 PFNGLBINDBUFFERPROC glBindBuffer = 0;
 PFNGLDELETEBUFFERSPROC glDeleteBuffers = 0;
 PFNGLGENBUFFERSPROC glGenBuffers = 0;
@@ -157,6 +159,7 @@ PFNGLBUFFERDATAPROC glBufferData = 0;
 PFNGLBUFFERSUBDATAPROC glBufferSubData = 0;
 PFNGLTEXSTORAGE2DPROC glTexStorage2D = 0;
 PFNGLGENERATEMIPMAPPROC glGenerateMipmap = 0;
+#endif
 #endif
 
 static char const* gl_extensions = 0;
@@ -189,7 +192,6 @@ udword rndTextureEnviron = RTE_Modulate;
 bool32 rndAdditiveBlending   = FALSE;
 bool32 rndLightingEnabled    = TRUE;
 bool32 rndNormalization      = FALSE;
-bool32 rndPerspectiveCorrect = FALSE;
 bool32 rndScissorEnabled     = FALSE;
 bool32 rndTextureEnabled     = FALSE;
 
@@ -901,21 +903,16 @@ bool32 setupPixelFormat()
 #ifndef HW_ENABLE_GLES
     /* Set attributes. */
     SDL_GL_SetAttribute(SDL_GL_BUFFER_SIZE,  MAIN_WindowDepth);
-    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE,   16);
+    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE,   24);
     SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 0);
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 #endif
 
-#ifdef __APPLE__
-#ifndef HW_BUILD_FOR_DEBUGGING
-        flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
-#elif defined HW_BUILD_FOR_DEBUGGING
+#ifndef __EMSCRIPTEN__
     if (/* main */ fullScreen)
         flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
-#endif
 #else
-    if (/* main */ fullScreen)
-        flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
+    flags |= SDL_WINDOW_RESIZABLE;
 #endif
 
 #ifdef HW_ENABLE_GLES
@@ -1022,6 +1019,7 @@ bool32 setupPixelFormat()
 	lastDepth  = MAIN_WindowDepth;
 	lastFull   = fullScreen;
 
+#ifndef __EMSCRIPTEN__
     glBindBuffer = SDL_GL_GetProcAddress("glBindBuffer");
     glDeleteBuffers = SDL_GL_GetProcAddress("glDeleteBuffers");
     glGenBuffers = SDL_GL_GetProcAddress("glGenBuffers");
@@ -1029,6 +1027,7 @@ bool32 setupPixelFormat()
     glBufferSubData = SDL_GL_GetProcAddress("glBufferSubData");
     glTexStorage2D = SDL_GL_GetProcAddress("glTexStorage2D");
     glGenerateMipmap = SDL_GL_GetProcAddress("glGenerateMipmap");
+#endif
 
     gl_extensions = glGetString(GL_EXTENSIONS);
     printf("GL Extensions:\n%s\n", gl_extensions);
@@ -2592,7 +2591,6 @@ void rndMainViewRenderFunction(Camera *camera)
         dbgAssertOrIgnore(spaceobj->renderlink.belongto != NULL);
 
         g_WireframeHack = FALSE;
-        rndPerspectiveCorrection(FALSE);
 
         switch (spaceobj->objtype)
         {
@@ -2768,11 +2766,6 @@ dontdraw:
 
                                     if (!result)
                                     {
-                                        if (spaceobj->currentLOD == 0)
-                                        {
-                                            rndPerspectiveCorrection(TRUE);
-                                        }
-
                                         meshRenders++;
 
                                         if (rndInsideShip(spaceobj, camera))
@@ -2870,8 +2863,6 @@ dontdraw:
                                             }
                                             spaceobj->renderedLODs |= (1 << spaceobj->currentLOD);
 
-                                            rndPerspectiveCorrection(FALSE);
-
                                             //navlights
                                             if (!bitTest(spaceobj->flags, SOF_Cloaked))
                                             {
@@ -2968,8 +2959,6 @@ dontdraw:
                                 }
                             }
                         }
-
-                        rndPerspectiveCorrection(FALSE);
 
                         rndFade(spaceobj, camera);
                         if (!bitTest(spaceobj->flags, SOF_Cloaked) || (((Ship*)spaceobj)->playerowner == universe.curPlayerPtr) || proximityCanPlayerSeeShip(universe.curPlayerPtr,(Ship*)spaceobj))
@@ -3103,10 +3092,6 @@ renderDefault:
                                 {
                                     rndFade(spaceobj, camera);
 
-                                    if (spaceobj->currentLOD == 0)
-                                    {
-                                        rndPerspectiveCorrection(TRUE);
-                                    }
                                     rndGLStateLog("Before Derelict");
                                     meshRenders++;
                                     meshRender((meshdata *)level->pData,colorScheme);
@@ -3118,7 +3103,6 @@ renderDefault:
                                         RenderNAVLights((Ship*)spaceobj);
                                     }
 
-                                    rndPerspectiveCorrection(FALSE);
 #if DEBUG_VERBOSE_SHIP_STATS
                                     if (rndDisplayFrameRate)
                                     {
@@ -3228,8 +3212,6 @@ renderDefault:
     hsStaticRender();
 
     alodAdjustScaleFactor();
-
-    rndPerspectiveCorrection(FALSE);
 
     nebRender();
 
@@ -3736,15 +3718,22 @@ void rndDrawScissorBars(bool32 scissorEnabled)
         dbgAssertOrIgnore(!nisFullyScissored || !scissorEnabled);
         dbgAssertOrIgnore((nisScissorFade > 0.0f && nisScissorFade <= 1.0f) || !scissorEnabled);
         glColor3f(MR_LetterboxGrey);
-        glBegin(GL_QUADS);
+        glBegin(GL_TRIANGLES);
         //top grey part
         glVertex2f(primScreenToGLX(MAIN_WindowWidth), primScreenToGLY(0));
         glVertex2f(primScreenToGLX(-1), primScreenToGLY(0));
         glVertex2f(primScreenToGLX(-1), GLy);
+        
+        glVertex2f(primScreenToGLX(MAIN_WindowWidth), primScreenToGLY(0));
+        glVertex2f(primScreenToGLX(-1), GLy);
         glVertex2f(primScreenToGLX(MAIN_WindowWidth), GLy);
+        
         //bottom scissor part
         glVertex2f(primScreenToGLX(-1), oneGLy);
         glVertex2f(primScreenToGLX(-1), primScreenToGLY(MAIN_WindowHeight));
+        glVertex2f(primScreenToGLX(MAIN_WindowWidth), primScreenToGLY(MAIN_WindowHeight));
+        
+        glVertex2f(primScreenToGLX(-1), oneGLy);
         glVertex2f(primScreenToGLX(MAIN_WindowWidth), primScreenToGLY(MAIN_WindowHeight));
         glVertex2f(primScreenToGLX(MAIN_WindowWidth), oneGLy);
         glEnd();
@@ -3752,15 +3741,22 @@ void rndDrawScissorBars(bool32 scissorEnabled)
         glEnable(GL_BLEND);
         glColor4f(0.0f, 0.0f, 0.0f, nisScissorFade);
     }
-    glBegin(GL_QUADS);
+    glBegin(GL_TRIANGLES);
     //top scissor part
     glVertex2f(primScreenToGLX(-1), primScreenToGLY(0));
     glVertex2f(primScreenToGLX(-1), GLy);
     glVertex2f(primScreenToGLX(MAIN_WindowWidth), GLy);
+    
+    glVertex2f(primScreenToGLX(-1), primScreenToGLY(0));
+    glVertex2f(primScreenToGLX(MAIN_WindowWidth), GLy);
     glVertex2f(primScreenToGLX(MAIN_WindowWidth), primScreenToGLY(0));
+    
     //bottom scissor part
     glVertex2f(primScreenToGLX(-1), oneGLy);
     glVertex2f(primScreenToGLX(-1), primScreenToGLY(MAIN_WindowHeight));
+    glVertex2f(primScreenToGLX(MAIN_WindowWidth), primScreenToGLY(MAIN_WindowHeight));
+    
+    glVertex2f(primScreenToGLX(-1), oneGLy);
     glVertex2f(primScreenToGLX(MAIN_WindowWidth), primScreenToGLY(MAIN_WindowHeight));
     glVertex2f(primScreenToGLX(MAIN_WindowWidth), oneGLy);
     glEnd();
@@ -4140,55 +4136,6 @@ udword rndTextureEnvironment(udword textureMode)
 }
 
 /*-----------------------------------------------------------------------------
-    Name        : rndPerspectiveCorrection
-    Description : provides a hint to the GL as to whether to perspectively correct textures
-    Inputs      : bEnable - TRUE enables (NICEST), FALSE disables (FASTEST)
-    Outputs     : may toggle rndPerspectiveCorrect
-    Return      : previous status
-----------------------------------------------------------------------------*/
-sdword rndPerspectiveCorrection(sdword bEnable)
-{
-    sdword oldStatus = rndPerspectiveCorrect;
-#if USE_RND_HINT
-    if (rndHint > 0)
-    {
-        if (rndHint == 1)
-        {
-            glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-            rndPerspectiveCorrect = TRUE;
-        }
-        else
-        {
-            glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST);
-            rndPerspectiveCorrect = FALSE;
-        }
-        return(oldStatus);
-    }
-#endif
-    if (mainNoPerspective)
-    {
-        return(oldStatus);
-    }
-    if (bEnable)
-    {
-        if (!rndPerspectiveCorrect)
-        {
-            glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-            rndPerspectiveCorrect = TRUE;
-        }
-    }
-    else
-    {
-        if (rndPerspectiveCorrect)
-        {
-            glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST);
-            rndPerspectiveCorrect = FALSE;
-        }
-    }
-    return(oldStatus);
-}
-
-/*-----------------------------------------------------------------------------
     Name        : rndNormalizeEnable
     Description : enables or disables normalization
     Inputs      : bEnable - TRUE enables, FALSE disables
@@ -4466,16 +4413,6 @@ void rndResetGLState(void)
         glDisable(GL_NORMALIZE);
     }
     rndNormalizeEnable(rndNormalization);
-
-        if (rndPerspectiveCorrect)
-    {
-        glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-    }
-    else
-    {
-        glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST);
-    }
-    rndPerspectiveCorrection(rndPerspectiveCorrect);
     
     rndTextureEnvironment(RTE_Modulate);
 

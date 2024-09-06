@@ -416,6 +416,10 @@ void hsRectangle(vector* origin, real32 rightlength, real32 uplength, ubyte alph
                      origin->x + rlen, origin->y + ulen, origin->z,
                      origin->x - rlen, origin->y - ulen, origin->z,
                      origin->x + rlen, origin->y - ulen, origin->z };
+    real32 v2[12] = {origin->x - rlen, origin->y + ulen, origin->z,
+                     origin->x + rlen, origin->y + ulen, origin->z,
+                     origin->x + rlen, origin->y - ulen, origin->z,
+                     origin->x - rlen, origin->y - ulen, origin->z};
     ubyte red = colRed(c);
     ubyte green = colGreen(c);
     ubyte blue = colBlue(c);
@@ -430,7 +434,8 @@ void hsRectangle(vector* origin, real32 rightlength, real32 uplength, ubyte alph
         ubyte l[4] = { 0, 1, 3, 2 };
         glLineWidth(2.0f);
         glColor4ub((ubyte)(red + 40), (ubyte)(green + 40), blue, alpha);
-        glDrawElements(GL_LINE_LOOP, 4, GL_UNSIGNED_BYTE, l);
+        glVertexPointer(3, GL_FLOAT, 0, v2);
+        glDrawArrays(GL_LINE_LOOP, 0, 4);
         glLineWidth(1.0f);
     }
 

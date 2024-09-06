@@ -123,7 +123,7 @@ void ActivateMe(void);
 void DeactivateMe(void);
 
 // Event handler.
-sdword HandleEvent (const SDL_Event* pEvent);
+void HandleEvent(SDL_Event const* pEvent);
 
 //load/save options from disk
 void utyOptionsFileRead(void);

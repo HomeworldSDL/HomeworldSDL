@@ -507,7 +507,7 @@ bool32 glfontDisplayCharacter(fontheader* font, char ch, sdword x, sdword y, col
         glBindTexture(GL_TEXTURE_2D, page->glhandle);
     }
     glColor3ub(colRed(c), colGreen(c), colBlue(c));
-    glBegin(GL_QUADS);
+    glBegin(GL_TRIANGLE_STRIP);
 
     VERT(sBegin, tEnd,
          x + fcharacter->offsetX,
@@ -515,12 +515,12 @@ bool32 glfontDisplayCharacter(fontheader* font, char ch, sdword x, sdword y, col
     VERT(sBegin, tBegin,
          x + fcharacter->offsetX,
          y + fcharacter->offsetY + fcharacter->height);
-    VERT(sEnd, tBegin,
-         x + fcharacter->offsetX + fcharacter->width,
-         y + fcharacter->offsetY + fcharacter->height);
     VERT(sEnd, tEnd,
          x + fcharacter->offsetX + fcharacter->width,
          y + fcharacter->offsetY);
+    VERT(sEnd, tBegin,
+         x + fcharacter->offsetX + fcharacter->width,
+         y + fcharacter->offsetY + fcharacter->height);
 
     glEnd();
 
@@ -581,7 +581,6 @@ bool32 glfontDisplayString(fontheader* font, char* string, sdword x, sdword y, c
     if (!blendOn) glEnable(GL_BLEND);
     if (alphatestOn) glDisable(GL_ALPHA_TEST);
     rndAdditiveBlends(FALSE);
-    rndPerspectiveCorrection(FALSE);
     glShadeModel(GL_FLAT);
     rndTextureEnvironment(RTE_Modulate);
 
@@ -1213,10 +1212,12 @@ sdword fontPrintN(sdword x, sdword y, color c, char *string, sdword maxCharacter
             goto noDraw;
         }
 
+#ifndef __EMSCRIPTEN__
         glRasterPos2f(primScreenToGLX(x + character->offsetX),
                       primScreenToGLY(y + fontCurrentFont->fullHeight + character->offsetY - clip));
 
         glDrawPixels(character->width, character->height - clip, GL_RGB8, GL_UNSIGNED_BYTE, character->bitmap);
+#endif
 
 noDraw:
         x += character->width + fontCurrentFont->spacing;   //update screen location

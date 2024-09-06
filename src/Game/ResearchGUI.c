@@ -828,7 +828,6 @@ void rmDrawLabButton(LabPrintList *labprint, regionhandle region)
             trRGBTextureMakeCurrent(rmLabTexture[universe.curPlayerPtr->race]);
         }
 
-        rndPerspectiveCorrection(FALSE);
         primRectSolidTextured2(&rect);
         break;
 
@@ -848,7 +847,6 @@ void rmDrawLabButton(LabPrintList *labprint, regionhandle region)
             trRGBTextureMakeCurrent(rmLabTexture[universe.curPlayerPtr->race]);
         }
 
-        rndPerspectiveCorrection(FALSE);
         primRectSolidTextured2(&rect);
         
         // compute progress bar length
@@ -908,7 +906,6 @@ void rmDrawLabButton(LabPrintList *labprint, regionhandle region)
                 trRGBTextureMakeCurrent(rmLabTexture[universe.curPlayerPtr->race]);
             }
 
-            rndPerspectiveCorrection(FALSE);
             primRectSolidTextured2(&rect);
             break;
 
@@ -1714,7 +1711,6 @@ void rmTechImageDraw(featom *atom, regionhandle region)
                     textureRect.x1 = region->rect.x1-RM_TEXTURE_INSET;
                     textureRect.y1 = region->rect.y1-RM_TEXTURE_INSET;
 
-                    rndPerspectiveCorrection(FALSE);
                     primRectSolidTextured2(&textureRect);
                     
                     if (rmExtendedInfoActive)
@@ -1765,7 +1761,6 @@ void rmTechImageDraw(featom *atom, regionhandle region)
         textureRect.x1 = region->rect.x1 - RM_TEXTURE_INSET;
         textureRect.y1 = region->rect.y1 - RM_TEXTURE_INSET;
 
-        rndPerspectiveCorrection(FALSE);
         primRectSolidTextured2(&textureRect);
         
         if (rmExtendedInfoActive)

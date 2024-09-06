@@ -9,7 +9,6 @@
 #include "glinc.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <limits.h>
 #include "Debug.h"
 #include "Memory.h"
 #include "Twiddle.h"
@@ -150,7 +149,7 @@ void trStartup(void)
     trNoPalStartup();                                       //must come before trReset
     trReset();                                              //reset the newly-allocated texture registry
 
-    glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST);
+    //(GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST);
 }
 
 /*-----------------------------------------------------------------------------

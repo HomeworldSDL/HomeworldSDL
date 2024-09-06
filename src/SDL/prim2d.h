@@ -15,7 +15,7 @@
 /*=============================================================================
     Functions:
 =============================================================================*/
-#ifdef HW_BUILD_FOR_DEBUGGING
+#if defined(HW_BUILD_FOR_DEBUGGING) && !defined(__EMSCRIPTEN__)
 
 #define PRIM_ERROR_CHECKING     1               //general error checking
 

@@ -5,7 +5,6 @@
     Updated August 1998 by Darren Stone - added bigfile support
 =============================================================================*/
 
-#include <limits.h>
 #include <stdarg.h>
 #include <stdlib.h>
 #include <string.h>

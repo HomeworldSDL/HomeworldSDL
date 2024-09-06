@@ -2567,7 +2567,7 @@ void singlePlayerGameUpdate(void)
 // was: HW_COMPUTER_GAMING_WORLD_DEMO but the standard demo
 // had a short single player campaign surely? If not get rid of this
 #ifdef HW_GAME_DEMO
-                    if (spGetCurrentMission() == MISSION_2_OUTSKIRTS_OF_KHARAK)
+                    if (spGetCurrentMission() == MISSION_2_OUTSKIRTS_OF_KHARAK_SYSTEM)
                     {
                         universe.quittime = universe.totaltimeelapsed;
                         utyPlugScreens = TRUE;

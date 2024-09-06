@@ -2026,6 +2026,15 @@ void InitStatShipInfo(ShipStaticInfo *statinfo,ShipType type,ShipRace race)
     strcpy(fullshipname,directory);
     strcat(fullshipname,shipname);
 
+#ifdef HW_GAME_DEMO
+    // The demo assets don't contain everything necessary for these ships, disable them
+    if ( (strcmp(shipname, "CloakedFighter.shp") == 0) || (strcmp(shipname, "MinelayerCorvette.shp") == 0) ) {
+        SetInfoNeededForShipAndRelatedStaticInfo(type,race,FALSE);
+        rmEnableShip(race, type, FALSE);
+        return;
+    }
+#endif
+
     if (!fileExists(fullshipname,0) || universeForceDefaultShip)
     {
         //we now disable this ship if we can't find it...

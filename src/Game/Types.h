@@ -22,14 +22,6 @@
     #endif
 #endif
 
-// PATH_MAX is Homeworld's standard #define for stating
-// "maximum length of a filesystem path string".
-#ifdef __APPLE__
-    #include <sys/syslimits.h>
-#elif defined linux
-    #include <limits.h>
-#endif
-
 /*-----------------------------------------------------------------------------
     Warning turn ons:
 -----------------------------------------------------------------------------*/

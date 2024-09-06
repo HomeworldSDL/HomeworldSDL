@@ -215,6 +215,13 @@ static inline void glVertex3fv(const GLfloat *v) {
 
 #else
 
+#ifdef __EMSCRIPTEN__
+
+#include <GL/glew.h>
+#include <SDL2/SDL_opengl.h>
+
+#else
+
 #include <SDL2/SDL_opengl.h>
 
 extern PFNGLBINDBUFFERPROC glBindBuffer;
@@ -224,6 +231,8 @@ extern PFNGLBUFFERDATAPROC glBufferData;
 extern PFNGLBUFFERSUBDATAPROC glBufferSubData;
 extern PFNGLTEXSTORAGE2DPROC glTexStorage2D;
 extern PFNGLGENERATEMIPMAPPROC glGenerateMipmap;
+
+#endif
 
 #endif
 

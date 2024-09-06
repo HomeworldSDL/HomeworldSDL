@@ -1169,7 +1169,6 @@ void lmDrawShipImage(regionhandle region, smemsize shipID)
         trRGBTextureMakeCurrent(lmShipTexture[universe.curPlayerPtr->race][usetexture]);
     }
 
-    rndPerspectiveCorrection(FALSE);
     primRectSolidTextured2(&rect);
 }
 

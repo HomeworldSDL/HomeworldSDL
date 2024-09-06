@@ -1931,10 +1931,14 @@ void meshObjectRender(polygonobject *object, materialentry *materials, sdword iC
             case MPM_Flat:
                 dbgAssertOrIgnore(polygon->iFaceNormal != UWORD_Max);
                 normal = &normalList[polygon->iFaceNormal];
+                
                 glNormal3f(normal->x, normal->y, normal->z);
-
                 glVertex3fv((GLfloat*)&vertexList[polygon->iV0].x);
+                
+                glNormal3f(normal->x, normal->y, normal->z);
                 glVertex3fv((GLfloat*)&vertexList[polygon->iV1].x);
+                
+                glNormal3f(normal->x, normal->y, normal->z);
                 glVertex3fv((GLfloat*)&vertexList[polygon->iV2].x);
 
 #if RND_POLY_STATS
@@ -1945,13 +1949,14 @@ void meshObjectRender(polygonobject *object, materialentry *materials, sdword iC
                 dbgAssertOrIgnore(polygon->iFaceNormal != UWORD_Max);
                 normal = &normalList[polygon->iFaceNormal];
                 glNormal3f(normal->x, normal->y, normal->z);
-
                 glTexCoord2f(polygon->s0, polygon->t0);
                 glVertex3fv((GLfloat*)&vertexList[polygon->iV0].x);
 
+                glNormal3f(normal->x, normal->y, normal->z);
                 glTexCoord2f(polygon->s1, polygon->t1);
                 glVertex3fv((GLfloat*)&vertexList[polygon->iV1].x);
 
+                glNormal3f(normal->x, normal->y, normal->z);
                 glTexCoord2f(polygon->s2, polygon->t2);
                 glVertex3fv((GLfloat*)&vertexList[polygon->iV2].x);
 
@@ -2025,7 +2030,7 @@ void meshObjectRender(polygonobject *object, materialentry *materials, sdword iC
     glEnd();                                            //done drawing these triangles
 
     glShadeModel(GL_SMOOTH);
-    if (!usingShader) glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
+    if (!usingShader) glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
 
     if (enableBlend)
     {
@@ -2087,6 +2092,9 @@ void meshDisableVertexArrays(void)
 ----------------------------------------------------------------------------*/
 void meshObjectRenderLit(polygonobject *object, materialentry *materials, sdword iColorScheme)
 {
+#ifdef __EMSCRIPTEN__
+    meshObjectRender(object, materials, iColorScheme);
+#else
     sdword iPoly;
     vertexentry *vertexList;
     polyentry *polygon;
@@ -2229,7 +2237,7 @@ void meshObjectRenderLit(polygonobject *object, materialentry *materials, sdword
     meshDisableVertexArrays();
 
     glShadeModel(GL_SMOOTH);
-    if (!usingShader) glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
+    if (!usingShader) glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
 
     if (bFade)
     {
@@ -2237,6 +2245,7 @@ void meshObjectRenderLit(polygonobject *object, materialentry *materials, sdword
     }
 
     rndLightingEnable(TRUE); //shader
+#endif
 }
 
 /*-----------------------------------------------------------------------------
@@ -2610,9 +2619,12 @@ void meshMorphedObjectRender(
                 meshLerpNormal(&normal, &normalList1[polygon->iFaceNormal], &normalList2[polygon->iFaceNormal], frac);
                 if (g_SpecHack) meshMorphedSpecColour(&normal, modelview, modelviewInv);
                 glNormal3f(normal.x, normal.y, normal.z);
-
                 glVertex3fv((GLfloat*)&vert0);
+
+                glNormal3f(normal.x, normal.y, normal.z);
                 glVertex3fv((GLfloat*)&vert1);
+
+                glNormal3f(normal.x, normal.y, normal.z);
                 glVertex3fv((GLfloat*)&vert2);
 #if RND_POLY_STATS
                 rndNumberPolys++;
@@ -2629,11 +2641,14 @@ void meshMorphedObjectRender(
                 meshLerpNormal(&normal, &normalList1[polygon->iFaceNormal], &normalList2[polygon->iFaceNormal], frac);
                 if (g_SpecHack) meshMorphedSpecColour(&normal, modelview, modelviewInv);
                 glNormal3f(normal.x, normal.y, normal.z);
-
                 glTexCoord2f(uvPolygon->s0, uvPolygon->t0);
                 glVertex3fv((GLfloat*)&vert0);
+                
+                glNormal3f(normal.x, normal.y, normal.z);
                 glTexCoord2f(uvPolygon->s1, uvPolygon->t1);
                 glVertex3fv((GLfloat*)&vert1);
+                
+                glNormal3f(normal.x, normal.y, normal.z);
                 glTexCoord2f(uvPolygon->s2, uvPolygon->t2);
                 glVertex3fv((GLfloat*)&vert2);
 #if RND_POLY_STATS

@@ -1272,13 +1272,16 @@ void subTitlesDraw(subregion *region)
     if ((!mrRenderMainScreen && !smFleetIntel) && region == &subRegion[STR_LetterboxBar])
     {                                                       //if some full screen gui is up
         rndTextureEnable(FALSE);
-        glColor4f(0.0f, 0.0f, 0.0f, 0.0f);
-        glBegin(GL_QUADS);
+        glBegin(GL_TRIANGLE_STRIP);
         //top scissor part
+        glColor4f(0.0f, 0.0f, 0.0f, 0.0f);
         glVertex2f(primScreenToGLX(-1), primScreenToGLY(0));
+        glColor4f(0.0f, 0.0f, 0.0f, 0.0f);
         glVertex2f(primScreenToGLX(-1), primScreenToGLY(NIS_LetterHeight));
-        glVertex2f(primScreenToGLX(MAIN_WindowWidth), primScreenToGLY(NIS_LetterHeight));
+        glColor4f(0.0f, 0.0f, 0.0f, 0.0f);
         glVertex2f(primScreenToGLX(MAIN_WindowWidth), primScreenToGLY(0));
+        glColor4f(0.0f, 0.0f, 0.0f, 0.0f);
+        glVertex2f(primScreenToGLX(MAIN_WindowWidth), primScreenToGLY(NIS_LetterHeight));
         glEnd();
         //ferDrawBoxRegion(region->rect, ferMediumTextures, ferInternalGlow, NULL, FALSE);
     }

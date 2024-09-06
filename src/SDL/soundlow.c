@@ -20,7 +20,7 @@
 
 #define EQ_STEP			0.1
 
-#ifdef _WIN32
+#if defined(_WIN32) || defined(__EMSCRIPTEN__)
 #define SDL_BUFFERSIZE  4*FQ_SIZE
 #else
 #define SDL_BUFFERSIZE  FQ_SIZE
@@ -33,7 +33,7 @@ typedef struct
 } BANKPOINTERS;
 
 /* function in speechevent.c that needs to be called when shutting down */
-void musicEventUpdateVolume(void);
+sdword musicEventUpdateVolume(void);
 
 /* internal functions */
 sdword SNDgetchannel(sword patchnum, sdword priority);

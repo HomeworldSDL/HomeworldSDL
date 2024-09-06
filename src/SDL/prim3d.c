@@ -56,9 +56,10 @@ void primLine3(vector *p1, vector *p2, color c)
     glEnable(GL_LINE_SMOOTH);
     rndAdditiveBlends(FALSE);
 
-    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glBegin(GL_LINES);
+    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glVertex3fv((const GLfloat *)p1);
+    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glVertex3fv((const GLfloat *)p2);
     glEnd();
 
@@ -83,21 +84,23 @@ void primCircleSolid3(vector *centre, real32 radius, sdword nSlices, color c)
     GLfloat v[3];
     double theta;
 
-    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     v[0] = centre->x;
     v[1] = centre->y;
     v[2] = centre->z;
     glBegin(GL_TRIANGLE_FAN);
+    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glVertex3fv(v);                                          //centre vertex
     for (index = 0, theta = 0.0; index < nSlices; index++)
     {
         v[0] = centre->x + (real32)(sin(theta)) * radius;
         v[1] = centre->y + (real32)(cos(theta)) * radius;
         theta += 2.0 * PI / (double)nSlices;
+        glColor3ub(colRed(c), colGreen(c), colBlue(c));
         glVertex3fv(v);                                      //vertex on outer rim
     }
     v[0] = centre->x;
     v[1] = centre->y + radius;
+    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glVertex3fv(v);                                          //final vertex on outer rim
     glEnd();
 }
@@ -115,21 +118,23 @@ void primCircleSolid3Fade(vector *centre, real32 radius, sdword nSlices, color c
         rndAdditiveBlends(FALSE);
     }
 
-    glColor4ub(colRed(c), colGreen(c), colBlue(c), (ubyte)(fade * 255.0f));
     v[0] = centre->x;
     v[1] = centre->y;
     v[2] = centre->z;
     glBegin(GL_TRIANGLE_FAN);
+    glColor4ub(colRed(c), colGreen(c), colBlue(c), (ubyte)(fade * 255.0f));
     glVertex3fv(v);                                          //centre vertex
     for (index = 0, theta = 0.0; index < nSlices; index++)
     {
         v[0] = centre->x + (real32)(sin(theta)) * radius;
         v[1] = centre->y + (real32)(cos(theta)) * radius;
         theta += 2.0 * PI / (double)nSlices;
+        glColor4ub(colRed(c), colGreen(c), colBlue(c), (ubyte)(fade * 255.0f));
         glVertex3fv(v);                                      //vertex on outer rim
     }
     v[0] = centre->x;
     v[1] = centre->y + radius;
+    glColor4ub(colRed(c), colGreen(c), colBlue(c), (ubyte)(fade * 255.0f));
     glVertex3fv(v);                                          //final vertex on outer rim
     glEnd();
 
@@ -235,7 +240,6 @@ void primCircleOutline3(vector *centre, real32 radius, sdword nSlices,
         nSpokes = nSlices / nSpokes;
     }
 
-    glColor3ub(colRed(color), colGreen(color), colBlue(color));
     c[0] = centre->x;                                       //compute centre point
     c[1] = centre->y;
     c[2] = centre->z;
@@ -258,6 +262,7 @@ void primCircleOutline3(vector *centre, real32 radius, sdword nSlices,
             {
                 rim[1] = centre->y + vec_ptr->y * radius;
                 rim[2] = centre->z + vec_ptr->z * radius;
+                glColor3ub(colRed(color), colGreen(color), colBlue(color));
                 glVertex3fv(rim);                                   //vertex on rim
             }
             glEnd();
@@ -271,7 +276,9 @@ void primCircleOutline3(vector *centre, real32 radius, sdword nSlices,
                 {
                     rim[1] = centre->y + vec_ptr->y * radius;
                     rim[2] = centre->z + vec_ptr->z * radius;
+                    glColor3ub(colRed(color), colGreen(color), colBlue(color));
                     glVertex3fv(c);
+                    glColor3ub(colRed(color), colGreen(color), colBlue(color));
                     glVertex3fv(rim);
                 }
                 glEnd();
@@ -287,6 +294,7 @@ void primCircleOutline3(vector *centre, real32 radius, sdword nSlices,
             {
                 rim[0] = centre->x + vec_ptr->x * radius;
                 rim[2] = centre->z + vec_ptr->z * radius;
+                glColor3ub(colRed(color), colGreen(color), colBlue(color));
                 glVertex3fv(rim);                                   //vertex on rim
             }
             glEnd();
@@ -300,7 +308,9 @@ void primCircleOutline3(vector *centre, real32 radius, sdword nSlices,
                 {
                     rim[0] = centre->x + vec_ptr->x * radius;
                     rim[2] = centre->z + vec_ptr->z * radius;
+                    glColor3ub(colRed(color), colGreen(color), colBlue(color));
                     glVertex3fv(c);
+                    glColor3ub(colRed(color), colGreen(color), colBlue(color));
                     glVertex3fv(rim);
                 }
                 glEnd();
@@ -316,6 +326,7 @@ void primCircleOutline3(vector *centre, real32 radius, sdword nSlices,
             {
                 rim[0] = centre->x + vec_ptr->x * radius;
                 rim[1] = centre->y + vec_ptr->y * radius;
+                glColor3ub(colRed(color), colGreen(color), colBlue(color));
                 glVertex3fv(rim);                                   //vertex on rim
             }
             glEnd();
@@ -329,7 +340,9 @@ void primCircleOutline3(vector *centre, real32 radius, sdword nSlices,
                 {
                     rim[0] = centre->x + vec_ptr->x * radius;
                     rim[1] = centre->y + vec_ptr->y * radius;
+                    glColor3ub(colRed(color), colGreen(color), colBlue(color));
                     glVertex3fv(c);
+                    glColor3ub(colRed(color), colGreen(color), colBlue(color));
                     glVertex3fv(rim);
                 }
                 glEnd();
@@ -403,7 +416,6 @@ void primEllipseOutlineZ(vector *centre, real32 rx, real32 ry, sdword nSegments,
 
     theta = 0.0f;
     thetaDelta = 2.0 * PI / (double)nSegments;
-    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     x = centre->x;
     y = centre->y;
     rim[2] = centre->z;
@@ -412,6 +424,7 @@ void primEllipseOutlineZ(vector *centre, real32 rx, real32 ry, sdword nSegments,
     {
         rim[0] = x + (real32)sin(theta) * rx;
         rim[1] = y + (real32)cos(theta) * ry;
+        glColor3ub(colRed(c), colGreen(c), colBlue(c));
         glVertex3fv(rim);
         theta += thetaDelta;
     }
@@ -428,8 +441,8 @@ void primEllipseOutlineZ(vector *centre, real32 rx, real32 ry, sdword nSegments,
 ----------------------------------------------------------------------------*/
 void primPoint3(vector *p1, color c)
 {
-    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glBegin(GL_POINTS);
+    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glVertex3f(p1->x, p1->y, p1->z);                        //!!! no size
     glEnd();
 }
@@ -511,8 +524,8 @@ void primEndPointSize3Fade(void)
 void primPointSize3(vector *p1, real32 size, color c)
 {
     glPointSize(size);
-    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glBegin(GL_POINTS);
+    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glVertex3f(p1->x, p1->y, p1->z);                        //!!! no size
     glEnd();
     glPointSize(1.0f);
@@ -528,8 +541,8 @@ void primPointSize3Fade(vector *p1, real32 size, color c, real32 fade)
     }
 
     glPointSize(size);
-    glColor4ub(colRed(c), colGreen(c), colBlue(c), (ubyte)(fade * 255.0f));
     glBegin(GL_POINTS);
+    glColor4ub(colRed(c), colGreen(c), colBlue(c), (ubyte)(fade * 255.0f));
     glVertex3f(p1->x, p1->y, p1->z);                        //!!! no size
     glEnd();
     glPointSize(1.0f);
@@ -558,28 +571,59 @@ static void primSolidTexture3_multi(vector* p1, real32 size, color c, trhandle t
         rndAdditiveBlends(TRUE);
     }
 
-    glBegin(GL_QUADS);
+    glBegin(GL_TRIANGLES);
 
     glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glTexCoord2f(0.0f, 0.0f);
     glVertex3f(p1->x-halfsize, p1->y-halfsize, 0.0f);
+    
+    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glTexCoord2f(1.0f, 0.0f);
     glVertex3f(p1->x+halfsize, p1->y-halfsize, 0.0f);
+    
+    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glTexCoord2f(1.0f, 1.0f);
     glVertex3f(p1->x+halfsize, p1->y+halfsize, 0.0f);
+
+
+    glColor3ub(colRed(c), colGreen(c), colBlue(c));
+    glTexCoord2f(0.0f, 0.0f);
+    glVertex3f(p1->x-halfsize, p1->y-halfsize, 0.0f);
+
+    glColor3ub(colRed(c), colGreen(c), colBlue(c));
+    glTexCoord2f(1.0f, 1.0f);
+    glVertex3f(p1->x+halfsize, p1->y+halfsize, 0.0f);
+
+    glColor3ub(colRed(c), colGreen(c), colBlue(c));
     glTexCoord2f(0.0f, 1.0f);
     glVertex3f(p1->x-halfsize, p1->y+halfsize, 0.0f);
+
+
 
     glColor3ub(172, 172, 172);
     glTexCoord2f(0.0f, 0.0f);
     glVertex3f(p1->x-halfsize, p1->y-halfsize, 0.0f);
+    
+    glColor3ub(172, 172, 172);
     glTexCoord2f(1.0f, 0.0f);
     glVertex3f(p1->x+halfsize, p1->y-halfsize, 0.0f);
+    
+    glColor3ub(172, 172, 172);
     glTexCoord2f(1.0f, 1.0f);
     glVertex3f(p1->x+halfsize, p1->y+halfsize, 0.0f);
+
+
+    glColor3ub(172, 172, 172);
+    glTexCoord2f(0.0f, 0.0f);
+    glVertex3f(p1->x-halfsize, p1->y-halfsize, 0.0f);
+
+    glColor3ub(172, 172, 172);
+    glTexCoord2f(1.0f, 1.0f);
+    glVertex3f(p1->x+halfsize, p1->y+halfsize, 0.0f);
+
+    glColor3ub(172, 172, 172);
     glTexCoord2f(0.0f, 1.0f);
     glVertex3f(p1->x-halfsize, p1->y+halfsize, 0.0f);
-
 
     glEnd();
 
@@ -620,17 +664,22 @@ void primSolidTexture3(vector *p1, real32 size, color c, trhandle tex)
     biasGreen = colReal32(colGreen(c));
     biasBlue = colReal32(colBlue(c));
 
+    glBegin(GL_TRIANGLE_STRIP);
     glColor3f(biasRed, biasGreen, biasBlue);
-
-    glBegin(GL_QUADS);
     glTexCoord2f(0.0f, 0.0f);
     glVertex3f(p1->x-halfsize, p1->y-halfsize, 0.0f);
+
+    glColor3f(biasRed, biasGreen, biasBlue);
     glTexCoord2f(1.0f, 0.0f);
     glVertex3f(p1->x+halfsize, p1->y-halfsize, 0.0f);
-    glTexCoord2f(1.0f, 1.0f);
-    glVertex3f(p1->x+halfsize, p1->y+halfsize, 0.0f);
+
+    glColor3f(biasRed, biasGreen, biasBlue);
     glTexCoord2f(0.0f, 1.0f);
     glVertex3f(p1->x-halfsize, p1->y+halfsize, 0.0f);
+
+    glColor3f(biasRed, biasGreen, biasBlue);
+    glTexCoord2f(1.0f, 1.0f);
+    glVertex3f(p1->x+halfsize, p1->y+halfsize, 0.0f);
     glEnd();
 
     glDisable(GL_BLEND);
@@ -659,17 +708,22 @@ void primSolidTexture3Fade(vector *p1, real32 size, color c, trhandle tex, real3
    biasGreen = colReal32(colGreen(c));
    biasBlue = colReal32(colBlue(c));
 
+   glBegin(GL_TRIANGLE_STRIP);
    glColor4f(biasRed, biasGreen, biasBlue, fade);
-
-   glBegin(GL_QUADS);
    glTexCoord2f(0.0f, 0.0f);
    glVertex3f(p1->x-halfsize, p1->y-halfsize, 0.0f);
+
+   glColor4f(biasRed, biasGreen, biasBlue, fade);
    glTexCoord2f(1.0f, 0.0f);
    glVertex3f(p1->x+halfsize, p1->y-halfsize, 0.0f);
-   glTexCoord2f(1.0f, 1.0f);
-   glVertex3f(p1->x+halfsize, p1->y+halfsize, 0.0f);
+
+   glColor4f(biasRed, biasGreen, biasBlue, fade);
    glTexCoord2f(0.0f, 1.0f);
    glVertex3f(p1->x-halfsize, p1->y+halfsize, 0.0f);
+
+   glColor4f(biasRed, biasGreen, biasBlue, fade);
+   glTexCoord2f(1.0f, 1.0f);
+   glVertex3f(p1->x+halfsize, p1->y+halfsize, 0.0f);
    glEnd();
 
    glDisable(GL_BLEND);

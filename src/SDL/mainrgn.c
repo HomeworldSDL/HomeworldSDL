@@ -1325,6 +1325,7 @@ void mrCameraMotion(void)
     }
     else
     {
+#ifndef __EMSCRIPTEN__
         if (mouseCursorX() != MAIN_WindowWidth / 2 ||
         mouseCursorY() != MAIN_WindowHeight / 2)
         {
@@ -1334,7 +1335,18 @@ void mrCameraMotion(void)
             camMouseY = MAIN_WindowHeight / 2 - mouseCursorY();
             mousePositionSet(MAIN_WindowWidth / 2, MAIN_WindowHeight / 2);
         }
-
+#else
+        sdword mouseCursorXshifted = mrOldMouseX - mouseCursorX();
+        sdword mouseCursorYshifted = mrOldMouseY - mouseCursorY();
+        if (mouseCursorXshifted != 0 || mouseCursorYshifted != 0)
+        {
+            mrMouseHasMoved += abs(mouseCursorXshifted) + abs(mouseCursorYshifted);
+            camMouseX = mouseCursorXshifted;
+            camMouseY = mouseCursorYshifted;
+            mrOldMouseX = mouseCursorX();
+            mrOldMouseY = mouseCursorY();
+        }
+#endif
     }
 }
 
@@ -4369,7 +4381,9 @@ bool32 toDrawPulsedLine(vector linestart, vector lineend, real32 pulsesize, colo
             //draw the fadein
             if (draw_fadein)
             {
+                glColor3ub(colRed(linecolor), colGreen(linecolor), colBlue(linecolor));
                 glVertex3fv((GLfloat *)&fadestart);
+                glColor3ub(colRed(linecolor), colGreen(linecolor), colBlue(linecolor));
                 glVertex3fv((GLfloat *)&fadestart);
             }
             glColor3ub(colRed(pulsecolor), colGreen(pulsecolor), colBlue(pulsecolor));
@@ -4380,27 +4394,33 @@ bool32 toDrawPulsedLine(vector linestart, vector lineend, real32 pulsesize, colo
         {
             glColor3ub(colRed(pulsecolor), colGreen(pulsecolor), colBlue(pulsecolor));
             glVertex3fv((GLfloat *)&linestart);
+            glColor3ub(colRed(pulsecolor), colGreen(pulsecolor), colBlue(pulsecolor));
             glVertex3fv((GLfloat *)&pulsestart);
         }
 
         //draw the pulse
+        glColor3ub(colRed(pulsecolor), colGreen(pulsecolor), colBlue(pulsecolor));
         glVertex3fv((GLfloat *)&pulsestart);
 
         if (!pulse_at_end)
         {
+            glColor3ub(colRed(pulsecolor), colGreen(pulsecolor), colBlue(pulsecolor));
             glVertex3fv((GLfloat *)&pulseend);
 
             //draw the line from the pulse to the end of the line
+            glColor3ub(colRed(pulsecolor), colGreen(pulsecolor), colBlue(pulsecolor));
             glVertex3fv((GLfloat *)&pulseend);
-            glColor3ub(colRed(linecolor), colGreen(linecolor), colBlue(linecolor));
 
             //draw the fadeout
             if (draw_fadeout)
             {
+                glColor3ub(colRed(linecolor), colGreen(linecolor), colBlue(linecolor));
                 glVertex3fv((GLfloat *)&fadeend);
+                glColor3ub(colRed(linecolor), colGreen(linecolor), colBlue(linecolor));
                 glVertex3fv((GLfloat *)&fadeend);
             }
         }
+        glColor3ub(colRed(pulsecolor), colGreen(pulsecolor), colBlue(pulsecolor));
         glVertex3fv((GLfloat *)&lineend);
     }
     glEnd();
@@ -4523,6 +4543,7 @@ void toDrawMoveFromLine(ShipPtr ship)
         //draw the line from the ship to the pulse
         glColor3ub(colRed(TO_MOVE_LINE_COLOR), colGreen(TO_MOVE_LINE_COLOR), colBlue(TO_MOVE_LINE_COLOR));
         glVertex3fv((GLfloat *)&shipback);
+        glColor3ub(colRed(TO_MOVE_LINE_COLOR), colGreen(TO_MOVE_LINE_COLOR), colBlue(TO_MOVE_LINE_COLOR));
         glVertex3fv((GLfloat *)&ship->moveFrom);
     }
     glEnd();
@@ -4955,6 +4976,7 @@ void toPulse1(vector linestart, vector lineend, real32 pulsesize, color pulsecol
     {
         glColor3ub(colRed(pulsecolor), colGreen(pulsecolor), colBlue(pulsecolor));
         glVertex3fv((GLfloat *)&pulsestart);
+        glColor3ub(colRed(pulsecolor), colGreen(pulsecolor), colBlue(pulsecolor));
         glVertex3fv((GLfloat *)&pulseend);
 
     }
@@ -5162,6 +5184,7 @@ void toPulse2(vector linestart, vector lineend, real32 pulsesize, color pulsecol
     {
         glColor3ub(colRed(pulsecolor), colGreen(pulsecolor), colBlue(pulsecolor));
         glVertex3fv((GLfloat *)&pulsestart);
+        glColor3ub(colRed(pulsecolor), colGreen(pulsecolor), colBlue(pulsecolor));
         glVertex3fv((GLfloat *)&pulseend);
 
     }
@@ -5669,12 +5692,15 @@ void mrRegionDraw(regionhandle reg)
             y = NIS_LetterHeight;
         }
         glEnable(GL_BLEND);
+        glBegin(GL_TRIANGLE_STRIP);
         glColor4f(0.0f, 0.0f, 0.0f, nisBlackFade);
-        glBegin(GL_QUADS);
         glVertex2f(primScreenToGLX(-1), primScreenToGLY(y - NIS_EXCESSSCISSORMARGIN));
+        glColor4f(0.0f, 0.0f, 0.0f, nisBlackFade);
         glVertex2f(primScreenToGLX(-1), primScreenToGLY(MAIN_WindowHeight - y + NIS_EXCESSSCISSORMARGIN));
-        glVertex2f(primScreenToGLX(MAIN_WindowWidth), primScreenToGLY(MAIN_WindowHeight - y + NIS_EXCESSSCISSORMARGIN));
+        glColor4f(0.0f, 0.0f, 0.0f, nisBlackFade);
         glVertex2f(primScreenToGLX(MAIN_WindowWidth), primScreenToGLY(y - NIS_EXCESSSCISSORMARGIN));
+        glColor4f(0.0f, 0.0f, 0.0f, nisBlackFade);
+        glVertex2f(primScreenToGLX(MAIN_WindowWidth), primScreenToGLY(MAIN_WindowHeight - y + NIS_EXCESSSCISSORMARGIN));
         glEnd();
         glDisable(GL_BLEND);
     }

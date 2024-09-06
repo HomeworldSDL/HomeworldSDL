@@ -10,7 +10,6 @@
 
 #include <ctype.h>
 #include <float.h>
-#include <limits.h>
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
@@ -5384,7 +5383,7 @@ void nisStaticDraw(nisstatic *snow)
             glEnable(GL_BLEND);
         }
         rndGLStateLog("Textured Static");
-        glBegin(GL_QUADS);
+        glBegin(GL_TRIANGLES);
         while (nLines)
         {
             y0 = frandyrandombetween(RANDOM_STATIC, top, bottom);
@@ -5400,10 +5399,21 @@ void nisStaticDraw(nisstatic *snow)
 
             glTexCoord2f(s0, t0);
             glVertex2f(x0, y1);
+
+            glTexCoord2f(s0, t0);
             glVertex2f(x0, y0);
 
             glTexCoord2f(s1, t0);
             glVertex2f(x1, y0);
+
+
+            glTexCoord2f(s0, t0);
+            glVertex2f(x0, y1);
+
+            glTexCoord2f(s1, t0);
+            glVertex2f(x1, y0);
+
+            glTexCoord2f(s1, t0);
             glVertex2f(x1, y1);
 
         }
@@ -5438,6 +5448,7 @@ void nisStaticDraw(nisstatic *snow)
             nLines--;
             glColor4f(red, green, blue, alpha);
             glVertex2f(x0, y0);
+            glColor4f(red, green, blue, alpha);
             glVertex2f(x1, y0);
         }
     }

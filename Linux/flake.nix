@@ -27,9 +27,10 @@
           gdb
           ffmpeg
           nixpkgs-fmt
+          emscripten
         ];
         # With --enable-sanitizers dlopen() fails to find libs. This is used by SDL2 to open the sound library (pipewire), and by libglvnd to open the vendor-specific OpenGL driver
-        LD_LIBRARY_PATH = "${pipewire.lib}/lib;/run/opengl-driver/lib";
+        LD_LIBRARY_PATH = "${pipewire}/lib;/run/opengl-driver/lib";
         # The (wrapped) gcc provided by this nix env has source fortifications enabled because its the same gcc that's used to compile nix packages.
         # However we are in a dev build env and we'd like to have sanitizers enabled. They require `-O0` which is incompatible with source fortification
         # `error: #warning _FORTIFY_SOURCE requires compiling with optimization (-O)`

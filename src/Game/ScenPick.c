@@ -21,7 +21,6 @@
 #endif
 
 #include <ctype.h>
-#include <limits.h>
 #include "Debug.h"
 #include "File.h"
 #include "Memory.h"
@@ -1161,7 +1160,6 @@ void spScenarioBitmap(featom *atom, regionhandle region)
     if (scenarioTexture != TR_InvalidInternalHandle)
     {
         trRGBTextureMakeCurrent(scenarioTexture);
-        rndPerspectiveCorrection(FALSE);
         primRectSolidTextured2(&textureRect);               //draw the bitmap
         feStaticRectangleDraw(region);                      //draw a border
     }

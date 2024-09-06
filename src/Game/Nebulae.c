@@ -1311,7 +1311,7 @@ void nebDrawChunk2(nebChunk* chunk, sdword lod)
         nebGetTendrilNormal(ta, ia1, lod, &norma1);
         nebGetTendrilNormal(tb, ib1, lod, &normb1);
 
-        glBegin(GL_QUADS);
+        glBegin(GL_TRIANGLE_STRIP);
 
         COLOUR(cola);
         glNormal3f(norma0.x, norma0.y, norma0.z);
@@ -1323,15 +1323,15 @@ void nebDrawChunk2(nebChunk* chunk, sdword lod)
         nebColourAdjust(&vertb0, &normb0, m, minv);
         glVertex3fv((GLfloat*)&vertb0);
 
-        COLOUR(colb);
-        glNormal3f(normb1.x, normb1.y, normb1.z);
-        nebColourAdjust(&vertb1, &normb1, m, minv);
-        glVertex3fv((GLfloat*)&vertb1);
-
         COLOUR(cola);
         glNormal3f(norma1.x, norma1.y, norma1.z);
         nebColourAdjust(&verta1, &norma1, m, minv);
         glVertex3fv((GLfloat*)&verta1);
+
+        COLOUR(colb);
+        glNormal3f(normb1.x, normb1.y, normb1.z);
+        nebColourAdjust(&vertb1, &normb1, m, minv);
+        glVertex3fv((GLfloat*)&vertb1);
 
         glEnd();
     }
@@ -1410,7 +1410,7 @@ void nebDrawTendril(nebTendril* tendril, sdword lod)
     dPosA = tendril->a->dPos;
     dPosB = tendril->b->dPos;
 
-    glBegin(GL_QUADS);
+    glBegin(GL_TRIANGLES);
     for (j = 1; j <= tendril->lod[lod].stacks; j++)
     {
         for (i = 0; i < tendril->lod[lod].slices; i++)
@@ -1446,6 +1446,37 @@ void nebDrawTendril(nebTendril* tendril, sdword lod)
             TENDRILCOLOR(tendril,colAlpha(tendril->colour));
 
             t = (i+1) % tendril->lod[lod].slices;
+
+            nebGetTendrilNormal(tendril, j*tendril->lod[lod].slices + t, lod, &norm);
+            glNormal3f(norm.x, norm.y, norm.z);
+            nebGetTendrilVert(tendril, j*tendril->lod[lod].slices + t, lod, &vert);
+            if (j == tendril->lod[lod].stacks)
+            {
+                vecAddTo(vert, dPosB);
+                if (bitTest(tendril->flags, NEB_TENDRIL_TRAILING))
+                {
+                    TENDRILCOLOR(tendril,0);
+                }
+            }
+            nebColourAdjust(&vert, &norm, m, minv);
+            glVertex3fv((GLfloat*)&vert);
+            TENDRILCOLOR(tendril,colAlpha(tendril->colour));
+
+
+            nebGetTendrilNormal(tendril, (j-1)*tendril->lod[lod].slices + i, lod, &norm);
+            glNormal3f(norm.x, norm.y, norm.z);
+            nebGetTendrilVert(tendril, (j-1)*tendril->lod[lod].slices + i, lod, &vert);
+            if (j == 1)
+            {
+                vecAddTo(vert, dPosA);
+                if (bitTest(tendril->flags, NEB_TENDRIL_LEADING))
+                {
+                    TENDRILCOLOR(tendril,0);
+                }
+            }
+            nebColourAdjust(&vert, &norm, m, minv);
+            glVertex3fv((GLfloat*)&vert);
+            TENDRILCOLOR(tendril,colAlpha(tendril->colour));
 
             nebGetTendrilNormal(tendril, j*tendril->lod[lod].slices + t, lod, &norm);
             glNormal3f(norm.x, norm.y, norm.z);
@@ -2025,7 +2056,7 @@ void nebRenderNebula(nebulae_t* neb)
     atOn = glIsEnabled(GL_ALPHA_TEST);
     cullOff = !glIsEnabled(GL_CULL_FACE);
 
-    glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
+    glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
     if (fogOn) glDisable(GL_FOG);
 
     rndLightingEnable(FALSE);

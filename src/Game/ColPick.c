@@ -941,7 +941,6 @@ void cpPreviewImageDraw(featom *atom, regionhandle region)
         cpPreviewImagePrepare();
     }
     trPalettedTextureMakeCurrent(cpPreviewTexture, cpPreviewTexturePalette);
-    rndPerspectiveCorrection(FALSE);
     primRectSolidTextured2(&region->rect);
     primRectOutline2(&region->rect, atom->borderWidth, atom->borderColor);
 #endif
@@ -982,7 +981,6 @@ void cpHueSaturationDraw(featom *atom, regionhandle region)
     }
 
     trRGBTextureMakeCurrent(cpHueSatTexture);
-    rndPerspectiveCorrection(FALSE);
     primRectSolidTextured2(&region->rect);
     
     primLine2(region->rect.x0, region->rect.y1-1, region->rect.x1, region->rect.y1-1, atom->borderColor);

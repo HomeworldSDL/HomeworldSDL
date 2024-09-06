@@ -472,8 +472,6 @@ void svShipViewRender(featom* atom, regionhandle region)
     glClear(GL_DEPTH_BUFFER_BIT);
     glDisable(GL_SCISSOR_TEST);
 
-    rndPerspectiveCorrection(TRUE);
-
     //svCamera.lookatpoint.x = -info->staticheader.staticCollInfo.collsphereoffset.z * scale;
     //svCamera.lookatpoint.y = -info->staticheader.staticCollInfo.collsphereoffset.x * scale;
     //svCamera.lookatpoint.z = -info->staticheader.staticCollInfo.collsphereoffset.y * scale;
@@ -565,7 +563,6 @@ void svShipViewRender(featom* atom, regionhandle region)
     glViewport(viewPort[0], viewPort[1], viewPort[2], viewPort[3]);
 
     rndLightingEnable(FALSE);
-    rndPerspectiveCorrection(FALSE);
 
     x = rect->x0 + 2 + SV_ViewMargin;
     y = rect->y0 + 2 + SV_ViewMargin;

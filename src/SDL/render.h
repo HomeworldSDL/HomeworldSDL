@@ -139,7 +139,6 @@ sdword rndTextureEnable(sdword bEnable);
 void rndBillboardEnable(vector *centre);
 void rndBillboardDisable(void);
 udword rndTextureEnvironment(udword mode);
-sdword rndPerspectiveCorrection(sdword bEnable);
 sdword rndNormalizeEnable(sdword bEnable);
 sdword rndAdditiveBlends(sdword bAdditive);
 sdword rndMaterialfv(sdword face, sdword pname, real32* params);

@@ -1411,7 +1411,7 @@ void trailLinePyramid(
     glEnable(GL_BLEND);
     glDepthMask(GL_FALSE);
 
-    glBegin(GL_QUADS);
+    glBegin(GL_TRIANGLES);
     //a
     COLx(c,PYRAMID_ALPHA_LO);
     VERT(a1);
@@ -1419,28 +1419,54 @@ void trailLinePyramid(
     VERT(b1);
     COLx(cb,PYRAMID_ALPHA_HI);
     VERT(b0hi);
+
+    COLx(c,PYRAMID_ALPHA_LO);
+    VERT(a1);
+    COLx(cb,PYRAMID_ALPHA_HI);
+    VERT(b0hi);
     COLx(c,PYRAMID_ALPHA_HI);
     VERT(a0hi);
+    
     //b
+    COLx(c,PYRAMID_ALPHA_HI);
     VERT(a0hi);
     COLx(cb,PYRAMID_ALPHA_HI);
     VERT(b0hi);
     COLx(cb,PYRAMID_ALPHA_LO);
     VERT(b2);
+
+    COLx(c,PYRAMID_ALPHA_HI);
+    VERT(a0hi);
+    COLx(cb,PYRAMID_ALPHA_LO);
+    VERT(b2);
     COLx(c,PYRAMID_ALPHA_LO);
     VERT(a2);
+    
     //c
+    COLx(c,PYRAMID_ALPHA_LO);
     VERT(a2);
     COLx(cb,PYRAMID_ALPHA_LO);
     VERT(b2);
     COLx(cb,PYRAMID_ALPHA_HI);
     VERT(b0lo);
+
+    COLx(c,PYRAMID_ALPHA_LO);
+    VERT(a2);
+    COLx(cb,PYRAMID_ALPHA_HI);
+    VERT(b0lo);
     COLx(c,PYRAMID_ALPHA_HI);
     VERT(a0lo);
+    
     //d
+    COLx(c,PYRAMID_ALPHA_HI);
     VERT(a0lo);
     COLx(cb,PYRAMID_ALPHA_HI);
     VERT(b0lo);
+    COLx(cb,PYRAMID_ALPHA_LO);
+    VERT(b1);
+
+    COLx(c,PYRAMID_ALPHA_HI);
+    VERT(a0lo);
     COLx(cb,PYRAMID_ALPHA_LO);
     VERT(b1);
     COLx(c,PYRAMID_ALPHA_LO);
@@ -1528,14 +1554,15 @@ void trailLineFuzzySheath(sdword LOD, sdword i, vector* vectora, vector* vectorb
     glDisable(GL_CULL_FACE);
     glDepthMask(GL_FALSE);
 
-    glBegin(GL_QUADS);
+    glBegin(GL_TRIANGLE_STRIP);
     COLx(c, PYRAMID_ALPHA_MID);
     VERT(a1);
     COLx(cb, PYRAMID_ALPHA_MID);
     VERT(b1);
-    VERT(b2);
     COLx(c, PYRAMID_ALPHA_MID);
     VERT(a2);
+    COLx(cb, PYRAMID_ALPHA_MID);
+    VERT(b2);
     glEnd();
 
     glDisable(GL_BLEND);
@@ -1597,7 +1624,7 @@ void trailLineBillboard(
 
     alpha = usingShader ? (ubyte)(127.0f * meshFadeAlpha) : 127;
 
-    glBegin(GL_QUADS);
+    glBegin(GL_TRIANGLE_STRIP);
     if (i == 0)
     {
         cb = c;
@@ -1609,10 +1636,12 @@ void trailLineBillboard(
     }
     COLx(cb,alpha);
     VERT(from);
+    COLx(cb,alpha);
     VERT(fromHi);
     COLx(c,alpha);
-    VERT(toHi);
     VERT(to);
+    COLx(c,alpha);
+    VERT(toHi);
     glEnd();
 
     glEnable(GL_CULL_FACE);

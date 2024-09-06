@@ -8,7 +8,6 @@
 
 #include "SaveGame.h"
 
-#include <limits.h>
 #include <string.h>
 
 #include "AIPlayer.h"
@@ -43,6 +42,10 @@
 #include "Universe.h"
 #include "UnivUpdate.h"
 #include "utility.h"
+
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#endif
 
 void SaveConsMgr(void);
 void LoadConsMgr(void);
@@ -738,6 +741,15 @@ bool32 SaveGame(char *filename)
 
     fileClose(savefile);
     savefile = 0;
+
+#ifdef __EMSCRIPTEN__
+    EM_ASM(
+        FS.syncfs(function (err) {
+            if (err) console.log("FS.syncfs error when saving game: " + err);
+        });
+    );
+#endif
+
 
     if (savefilestatus)
     {

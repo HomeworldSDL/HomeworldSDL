@@ -5,7 +5,6 @@
         Created June 1997 by Luke Moloney.
 ============================================================================*/
 
-#include <limits.h> // for PATH_MAX
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -67,6 +66,10 @@
     #include <windows.h>
     #include <winreg.h>
     #include "debugwnd.h"
+#endif
+
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
 #endif
 
 
@@ -1679,12 +1682,8 @@ udword keyLanguageTranslate(udword wParam)
     Name        : HandleEvent
     Description : SDL event handling for the application
     Inputs      : pEvent - Pointer to the event to handle
-    Outputs     :
-    Return      : Result of event handling (based on the event)
 ----------------------------------------------------------------------------*/
-//long FAR PASCAL WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
-sdword HandleEvent (const SDL_Event* pEvent)
-{
+void HandleEvent(SDL_Event const* pEvent) {
     extern bool32 utilPlayingIntro;
 
     /* Mouse button press times for double-click support. */
@@ -1710,9 +1709,7 @@ sdword HandleEvent (const SDL_Event* pEvent)
                 {
                     ActivateMe();
                 }
-            }
-            else
-                return 0;
+            } else return;
         case SDL_APP_WILLENTERBACKGROUND:
             if (systemActive == TRUE)
             {                                               //we're being deactivated
@@ -1724,9 +1721,7 @@ sdword HandleEvent (const SDL_Event* pEvent)
                 {
                     DeactivateMe();
                 }
-            }
-            else
-                return 0;                                   //per documentation
+            } else return; // per documentation
 
         case SDL_KEYUP:                                     //keys up/down
             switch (pEvent->key.keysym.sym)
@@ -1768,7 +1763,7 @@ sdword HandleEvent (const SDL_Event* pEvent)
                 default:
                     keyPressUp(keyLanguageTranslate(pEvent->key.keysym.scancode));//keyPressUp(KeyMapFromWindows(wParam));
             }
-            return 0;
+            return;
 
         case SDL_KEYDOWN:
             /*
@@ -1780,11 +1775,11 @@ sdword HandleEvent (const SDL_Event* pEvent)
             */
             keyPressDown(keyLanguageTranslate(pEvent->key.keysym.scancode));
             //keyPressDown(KeyMapFromWindows(wParam));
-            return 0;
+            return;
 
         case SDL_USEREVENT:
             CommandProcess(pEvent->user.code);
-            return 0;
+            return;
 
         case SDL_MOUSEBUTTONDOWN:
             if (!mouseDisabled)
@@ -1940,10 +1935,9 @@ sdword HandleEvent (const SDL_Event* pEvent)
             {
                 mainActuallyQuit = TRUE;
             }
-            return 0;
+            return;
     }
 
-    return 0;
 } // WindowProc
 
 /*-----------------------------------------------------------------------------
@@ -2038,30 +2032,83 @@ void mainCleanupAfterVideo(void)
     }
 }
 
-/*-----------------------------------------------------------------------------
-    Name        : WinMain
-    Description : Entry point to the game
-    Inputs      :
-        hInstance       - instance handle for application
-        hPrevInstance   - warning! does nothing under Win32!
-        commandLine     - un-tokenized command line string
-        nCmdShow        - run state (minimized etc.)
-    Outputs     :
-    Return      : Exit code (Windows provides an intelligible number)
-----------------------------------------------------------------------------*/
-/*
-int PASCAL WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance,
-                        LPSTR commandLine, int nCmdShow)
-*/
+void main_loop() {
+    SDL_Event event;
+    while (SDL_PollEvent(&event)) {
+        HandleEvent(&event);
+
+        if (event.type == SDL_WINDOWEVENT) {
+            if (event.window.event == SDL_WINDOWEVENT_RESIZED) {
+                printf("Resolution change: %d %d\n", event.window.data1, event.window.data2);
+                if ((event.window.data1 > 320) && (event.window.data2 > 240))
+                {
+                    MAIN_WindowWidth = event.window.data1;
+                    MAIN_WindowHeight = event.window.data2;
+                    (void)utyChangeResolution(MAIN_WindowWidth, MAIN_WindowHeight, MAIN_WindowDepth);
+                }
+            }
+        }
+
+        if (event.type == SDL_QUIT) {
+            SDL_Quit();
+        }
+    }
+
+    utyTasksDispatch(); // execute all tasks
+
+    if (opTimerActive) {
+        if (taskTimeElapsed > (opTimerStart + opTimerLength)) {
+            opTimerExpired();
+        }
+    }
+}
+
+#ifdef __EMSCRIPTEN__
 int main (int argc, char* argv[])
 {
-    static char *errorString = NULL;
+        // create persistent storage
+        EM_ASM(
+            // Make a directory other than '/'
+            FS.mkdir('/home/web_user/.homeworld/');
+            FS.mkdir('/home/web_user/.homeworld/SavedGames/');
+            FS.mkdir('/home/web_user/.homeworldDownloadable/');
+            FS.mkdir('/home/web_user/.homeworldDownloadable/SavedGames/');
+            FS.mkdir('/assets/');
+
+            // Then mount with IDBFS type
+            FS.mount(IDBFS, {}, '/home/web_user/.homeworld/SavedGames/');
+            FS.mount(IDBFS, {}, '/home/web_user/.homeworldDownloadable/SavedGames/');
+            FS.mount(IDBFS, {}, '/assets/');
+
+            // create symlinks to assets
+            FS.symlink('/assets/Homeworld.big', 'Homeworld.big');
+            FS.symlink('/assets/HW_Comp.vce', 'HW_Comp.vce');
+            FS.symlink('/assets/HW_Music.wxd', 'HW_Music.wxd');
+
+            // Then sync
+            FS.syncfs(true, function (err) {
+                if (err) console.log("FS.syncfs error " + err);
+
+                // continue with main after filesystem is synced
+                Module._main_postinit(0, 0);
+            });
+
+        );
+}
+
+int EMSCRIPTEN_KEEPALIVE main_postinit(int argc, char* argv[]) {
+  // file system sync is now complete
+  // continue on
+
+#else
+int main (int argc, char* argv[])
+{
+#endif
+    static char* errorString = NULL;
 #ifdef _WIN32
     static HANDLE hMapping;
 #endif
     static bool32 preInit;
-    SDL_Event e;
-    int event_res = 0;
 
 #ifdef _WIN32
     //check to see if a copy of the program already running and just exit if so.
@@ -2193,42 +2240,41 @@ int main (int argc, char* argv[])
         }
     }
 
-    if (errorString == NULL)
-    {
+    if (errorString == NULL) {
         preInit = FALSE;
+
+#ifdef __EMSCRIPTEN__
+        // 0 fps means to use requestAnimationFrame; non-0 means to use setTimeout.
+        emscripten_set_main_loop(main_loop, 0, 1);
+#else
+
         bool32 breakMainLoop = FALSE;
 
-        while (TRUE)
-        {
+        while (TRUE) {
             // Give sound a break :)
             SDL_Delay(0);
 
-            while (SDL_PollEvent(&e))
-            {
-                event_res = HandleEvent(&e);
+            SDL_Event event;
+            while (SDL_PollEvent(&event)) {
+                HandleEvent(&event);
 
-                if (e.type == SDL_QUIT) {
-                    breakMainLoop = TRUE;
+                if (event.type == SDL_QUIT) {
+                    SDL_Quit();
                     break;
                 }
             }
-            if (breakMainLoop) break;
 
-            utyTasksDispatch();                         //execute all tasks
+            utyTasksDispatch(); // execute all tasks
 
-            if (opTimerActive)
-            {
-                if (taskTimeElapsed > (opTimerStart + opTimerLength))
-                {
+            if (opTimerActive) {
+                if (taskTimeElapsed > (opTimerStart + opTimerLength)) {
                     opTimerExpired();
                 }
             }
         }
-    }
-    else
-    {                                                       //some error on startup, either from preInit or Init()
-        if (preInit)
-        {
+#endif
+    } else { // some error on startup, either from preInit or Init()
+        if (preInit) {
             (void)utyGameSystemsPreShutdown();
         }
         fprintf(stderr, "%s\n", errorString);
@@ -2241,5 +2287,5 @@ int main (int argc, char* argv[])
         SDL_Quit();
     }
 
-    return event_res;
-} /* WinMain */
+    return 0;
+}

@@ -9,6 +9,7 @@
 #define ___FILE_H
 
 #include <stdio.h>
+#include <limits.h>
 
 #ifdef __FreeBSD__
 #include <sys/syslimits.h>

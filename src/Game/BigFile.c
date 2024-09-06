@@ -10,7 +10,6 @@
    Unfortunately POSIX does not define a way to test whether a system is
    POSIX-compatible. */
 #include <fnmatch.h>
-#include <limits.h>
 #else
 #include <sys/stat.h>
 #endif

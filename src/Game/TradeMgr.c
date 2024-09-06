@@ -1100,7 +1100,6 @@ void tmTechImageDraw(featom *atom, regionhandle region)
                     textureRect.x1=region->rect.x1-TM_TEXTURE_INSET;
                     textureRect.y1=region->rect.y1-TM_TEXTURE_INSET;
 
-                    rndPerspectiveCorrection(FALSE);
                     primRectSolidTextured2(&textureRect);
 
                     //if(tmExtendedInfoActive)
@@ -1151,7 +1150,6 @@ void tmTechImageDraw(featom *atom, regionhandle region)
         textureRect.x1=region->rect.x1-TM_TEXTURE_INSET;
         textureRect.y1=region->rect.y1-TM_TEXTURE_INSET;
 
-        rndPerspectiveCorrection(FALSE);
         primRectSolidTextured2(&textureRect);
     }
 }

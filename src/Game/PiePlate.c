@@ -998,7 +998,7 @@ void piePointSpecDraw(void)
 {
     vector world0, world1;
     vector highPoint, lowPoint;
-    GLdouble modelView[16], projection[16];
+    GLfloat modelView[16], projection[16];
     hmatrix modelViewF, projectionF;
     real32 distance, deltaX, deltaY;
     real32 oldPointSpecZ, slope, b;
@@ -1055,8 +1055,8 @@ void piePointSpecDraw(void)
 
     windowHeightMinusOne = (real32)(MAIN_WindowHeight - 1);
     
-    glGetDoublev(GL_PROJECTION_MATRIX, projection);
-    glGetDoublev(GL_MODELVIEW_MATRIX, modelView);           //get the matrices
+    glGetFloatv(GL_PROJECTION_MATRIX, projection);
+    glGetFloatv(GL_MODELVIEW_MATRIX, modelView);           //get the matrices
 
     world0.x = mrCamera->eyeposition.x - selCentrePoint.x;
     world0.y = mrCamera->eyeposition.y - selCentrePoint.y;

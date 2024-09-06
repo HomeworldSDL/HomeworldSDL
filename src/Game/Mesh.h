@@ -31,7 +31,7 @@
 #define MESH_ERROR_CHECKING     1               //general error checking
 #define MESH_ANAL_CHECKING      1               //extra-anal error checking
 #define MESH_RETAIN_FILENAMES   1               //keep a copy of the fileName
-#define MESH_MORPH_DEBUG        1               //debug morph render code
+#define MESH_MORPH_DEBUG        0               //debug morph render code
 
 #else
 
