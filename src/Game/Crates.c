@@ -79,8 +79,8 @@ scriptEntry cratesScriptTable[] =
     makeEntry(CrateClassProbCLASS_NonCombat,scriptSetReal32CB),
     makeEntry(CRATE_EXPIRY_TIME,scriptSetReal32CB),
 
-    {"shipProbability", scriptSetShipProbCB, SHIP_PROBS },
-    {"shipGroupSize", scriptSetShipGroupSizeCB, NUM_IN_GROUPS },
+    {"shipProbability", (void(*)(char *,char *,void*))scriptSetShipProbCB, SHIP_PROBS },
+    {"shipGroupSize", (void(*)(char *,char *,void*))scriptSetShipGroupSizeCB, NUM_IN_GROUPS },
 
     END_SCRIPT_ENTRY
 };

@@ -145,12 +145,12 @@ scriptStructEntry LIStaticScriptTable[] =
     { "flightmanEvasiveBehind", (void(*)(char *,char *,void*))scriptSetFlightManEvasiveBehindCB,   &(GenericInterceptorStatic.flightmanProb),      &(GenericInterceptorStatic) },
     { "flightmanEvasiveFront",  (void(*)(char *,char *,void*))scriptSetFlightManEvasiveFrontCB,    &(GenericInterceptorStatic.flightmanProb),      &(GenericInterceptorStatic) },
     { "flightmanEvasivePure",   (void(*)(char *,char *,void*))scriptSetFlightManEvasivePureCB,     &(GenericInterceptorStatic.flightmanProb),      &(GenericInterceptorStatic) },
-    { "maxFlyAwayDist",         scriptSetReal32CB_ARRAY,             &(GenericInterceptorStatic.maxFlyAwayDist),     &(GenericInterceptorStatic) },
-    { "breakRange",             scriptSetReal32CB_ARRAY,             &(GenericInterceptorStatic.breakRange),         &(GenericInterceptorStatic) },
-    { "flyPastDist",            scriptSetReal32CB_ARRAY,             &(GenericInterceptorStatic.flyPastDist),        &(GenericInterceptorStatic) },
-    { "triggerHappy",           scriptSetCosAngCB_ARRAY,             &(GenericInterceptorStatic.triggerHappy),       &(GenericInterceptorStatic) },
-    { "faceTargetAccuracy",     scriptSetCosAngCB_ARRAY,             &(GenericInterceptorStatic.faceTargetAccuracy), &(GenericInterceptorStatic) },
-    { "maxAttackTime",          scriptSetReal32CB_ARRAY,             &(GenericInterceptorStatic.maxAttackTime),      &(GenericInterceptorStatic) },
+    { "maxFlyAwayDist",         (void(*)(char *,char *,void*))scriptSetReal32CB_ARRAY,             &(GenericInterceptorStatic.maxFlyAwayDist),     &(GenericInterceptorStatic) },
+    { "breakRange",             (void(*)(char *,char *,void*))scriptSetReal32CB_ARRAY,             &(GenericInterceptorStatic.breakRange),         &(GenericInterceptorStatic) },
+    { "flyPastDist",            (void(*)(char *,char *,void*))scriptSetReal32CB_ARRAY,             &(GenericInterceptorStatic.flyPastDist),        &(GenericInterceptorStatic) },
+    { "triggerHappy",           (void(*)(char *,char *,void*))scriptSetCosAngCB_ARRAY,             &(GenericInterceptorStatic.triggerHappy),       &(GenericInterceptorStatic) },
+    { "faceTargetAccuracy",     (void(*)(char *,char *,void*))scriptSetCosAngCB_ARRAY,             &(GenericInterceptorStatic.faceTargetAccuracy), &(GenericInterceptorStatic) },
+    { "maxAttackTime",          (void(*)(char *,char *,void*))scriptSetReal32CB_ARRAY,             &(GenericInterceptorStatic.maxAttackTime),      &(GenericInterceptorStatic) },
 
     END_SCRIPT_STRUCT_ENTRY
 };
