@@ -20,6 +20,8 @@ pages:
     - meson compile
     - mkdir ../../public
     - cp -r *.wasm* *.js *.html *.data ../../public
+    # https://github.com/gzuidhof/coi-serviceworker
+    - cp ../../wasm/coi-serviceworker.min.js ../../public
 
   publish: public
   artifacts:
