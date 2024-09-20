@@ -132,12 +132,10 @@ You need to have emscripten installed and enable your installed emsdk tools in y
 source emsdk_env.sh
 ```
 
-Then copy the necessary Homeworld demo assets (HomeworldDL.big, DL_demo.vce, DL_Music.wxd and ideally the Update.big from the Homeworld 1.05 Update) to the wasm/demo_assets/ folder.
-
 Now you can setup meson for cross-compiling to wasm32 using emscripten:
 
 ```sh
-meson setup --cross-file ../wasm32-emscripten.meson-cross-build-definition.txt -Db_sanitize=none -Dmovies=false build.emscripten ..
+meson setup --cross-file ../wasm/wasm32-emscripten.meson-cross-build-definition.txt -Db_sanitize=none -Dmovies=false build.emscripten ..
 ```
 
 Now switch to the created build.emscripten folder and compile:
@@ -150,6 +148,12 @@ meson compile
 To automatically open the compiled wasm32 binaries in the browser using the provided index.html one can use the mini webserver provided with emscripten:
 ```sh
 emrun .
+```
+
+### Building the Docker image used in the CI
+
+```sh
+docker load < $(nix build --no-link --print-out-paths .#ci-docker-image)
 ```
 
 

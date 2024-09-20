@@ -9,11 +9,15 @@ endif
 
 dep_sdl = dependency('sdl2')
 
-base_deps = [
-	dependency('gl'),
-	dep_sdl,
-	meson.get_compiler('c').find_library('m', required: false),
-]
+base_deps = [ ]
+
+if host_machine.system() != 'emscripten'
+	base_deps += [
+		dependency('gl'),
+		dep_sdl,
+		meson.get_compiler('c').find_library('m', required: false),
+	]
+endif
 
 c_base_args = [
 	'-DHAVE_CONFIG_H',
@@ -113,7 +117,7 @@ elif host_machine.system() == 'darwin'
 elif host_machine.system() == 'windows'
 	c_base_args += ['-D_LINUX_FIX_ME', '-D_GNU_SOURCE', '-D_WIN32', '-DWIN32', '-DWINDOWS']
 elif host_machine.system() == 'emscripten'
-	base_deps += [dependency('x11')]
+	base_deps += [subproject('demo-assets').get_variable('demo_assets_dep')]
 	c_base_args += ['-D_LINUX_FIX_ME', '-D_GNU_SOURCE']
 endif
 
@@ -155,15 +159,12 @@ if host_machine.system() == 'emscripten'
 		'-s', 'ALLOW_MEMORY_GROWTH=1',
 		'--use-preload-plugins',
 
-		'--preload-file', '../../wasm/demo_assets@/',
+		'--preload-file', '../../subprojects/demo-assets-1.05/assets@/',
 		'-o', 'homeworld.html',
 	]
 
-
-	dep_sdl = []
-
-    add_global_arguments(emscripten_compile_args, language: ['c', 'cpp'])
-    add_global_link_arguments(emscripten_link_args, language: ['c', 'cpp'])
+    add_project_arguments(emscripten_compile_args, language: ['c', 'cpp'])
+    add_project_link_arguments(emscripten_link_args, language: ['c', 'cpp'])
 endif
 
 

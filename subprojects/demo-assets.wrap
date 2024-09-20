@@ -1,0 +1,5 @@
+[wrap-file]
+directory = demo-assets-1.05
+source_url = https://gitlab.com/gardens-of-kadesh/demo-assets/-/archive/1.05/demo-assets-1.05.tar.gz
+source_filename = demo-assets-1.05.tar.gz
+source_hash = aa4df87ab95688970d91eb37b6a7ce8b69c5bf6f7ee963f75c098a4c1fb1f03d

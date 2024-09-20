@@ -1,21 +1,20 @@
-# Tenhauser Gate
+# Gardens of Kadesh
 
-📣 **Play in your browser!** Try our experimental wasm port here: [Gardens of Kadesh]
+[📣 **Play the demo in your browser!**][wasm-demo] (Will download ~70MiB of data. You need a good internet connection.)
 
-Source port of Homeworld 1 to modern systems (Linux, Windows, macOS).
+Source port of Homeworld 1 to modern systems (Linux, Windows, macOS, and web browsers).
 
 [Homeworld] is a 3D space real-time strategy game released in 1999.
 It's source code was [released in 2003] by [Relic Entertainment], allowing a small but dedicated community of fans to port it to [SDL], enabling native versions for Linux, MacOS, and more recently, web browsers.
 
 💬 Join our [matrix space]
 
+[wasm-demo]: https://gardens-of-kadesh.gitlab.io/gardens-of-kadesh/
 [matrix space]: https://matrix.to/#/#homeworld-sdl:matrix.org
-[Homeworld SDL]: https://github.com/HomeworldSDL/HomeworldSDL
 [SDL]: https://en.wikipedia.org/wiki/Simple_DirectMedia_Layer
 [Homeworld]: https://en.wikipedia.org/wiki/Homeworld
 [released in 2003]: http://www.insidemacgames.com/news/story.php?ArticleID=8516
 [Relic Entertainment]: https://www.relic.com/
-[Gardens of Kadesh]: https://gardensofkadesh.github.io/
 
 
 ## Requirements
@@ -80,27 +79,15 @@ Open the game installation folder (usually `~/.wine/drive_c/Sierra/Homeworld`). 
 
 ##### Steam
 
-After installing the game, you should find the [required assets](#asset-checklist) in `~/.local/share/Steam/steamapps/common/Homeworld/Homeworld1Classic/Data`. Put them to `$ASSETS_FOLDER`.
+After installing [the game][store_page], you should find the [required assets](#asset-checklist) in `~/.local/share/Steam/steamapps/common/Homeworld/Homeworld1Classic/Data`. Put them to `$ASSETS_FOLDER`.
+
+[store_page]: https://store.steampowered.com/app/244160/Homeworld_Remastered_Collection/
 
 ## Compiling from source
 
 ### Linux
 
-If you have [Nix] installed, just run:
-
-```sh
-HW_Data=$ASSETS_FOLDER nix run --impure 'git+https://gitlab.com/homeworldsdl/TenhauserGate.git?dir=Linux#i-am-not-on-nixos'
-```
-
-Or if you are on NixOS:
-
-```sh
-HW_Data=$ASSETS_FOLDER nix run 'git+https://gitlab.com/homeworldsdl/TenhauserGate.git?dir=Linux'
-```
-
-Nix will download everything it needs, build the HomeworldSDL source code, then run the resulting binary.
-
-If you don't have Nix installed, please refer to [`Linux/BUILD.md`](Linux/BUILD.md)
+Please refer to [`Linux/BUILD.md`](Linux/BUILD.md)
 
 #### Game is slow/crashes
 
@@ -122,8 +109,6 @@ meson setup --buildtype=release -Db_sanitize=none build.fast
 Please refer to [`Mac/BUILD.md`](Mac/BUILD.md).
 
 To setup either the data from the original or remaster.  Please place the data assets into 'Library/Application Support/Homeworld' or, if you are using Raider Retreat, place them in the same destination folder except to use 'Raider Retreat' instead of 'Homeworld'.
-
-[Nix]: https://nixos.org/nix/
 
 ## Running the game for the first time
 
@@ -160,7 +145,7 @@ Once the game has launched, you need to:
 
 If you want to know more about this project (and see some screenshots!), please head over to the [wiki].
 
-[wiki]: https://gitlab.com/ThibaultLemaire/HomeworldSDL/wikis/home
+[wiki]: https://gitlab.com/gardens-of-kadesh/gardens-of-kadesh/wikis/home
 
-[releases]: https://gitlab.com/ThibaultLemaire/HomeworldSDL/-/releases
+[releases]: https://gitlab.com/gardens-of-kadesh/gardens-of-kadesh/-/releases
 [the official 1.05 patch]: https://www.homeworldaccess.net/infusions/downloads/downloads.php?file_id=35

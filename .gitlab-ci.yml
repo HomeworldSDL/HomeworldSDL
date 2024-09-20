@@ -1,0 +1,27 @@
+pages:
+  rules:
+   # Run on all tags (but only on tags)
+   - if: "$CI_COMMIT_TAG"
+     when: always
+
+  image: $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/emscripten-build-env
+
+  cache:
+    paths:
+      - Linux/build.emscripten
+
+  script:
+    - meson setup --reconfigure --cross-file wasm/wasm32-emscripten.meson-cross-build-definition.txt -Dbuildtype=release -Db_sanitize=none -Dmovies=false Linux/build.emscripten .
+    - cd Linux/build.emscripten
+    - export EM_CACHE=$(pwd)/cache
+    # The docker image has no /tmp dir
+    # https://github.com/llvm/llvm-project/blob/b530eeea5e7697d58af2adac66c8b86c79e649bb/llvm/lib/Support/Unix/Path.inc#L1427
+    - export TMP=$(pwd)
+    - meson compile
+    - mkdir ../../public
+    - cp -r *.wasm* *.js *.html *.data ../../public
+
+  publish: public
+  artifacts:
+    paths:
+    - public

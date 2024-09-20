@@ -64,6 +64,32 @@
       ${nixGL.packages.x86_64-linux.default}/bin/nixGL ${self.packages.x86_64-linux.default}/bin/homeworld
     '';
 
+    ci-docker-image = with nixpkgs.legacyPackages.x86_64-linux;
+      dockerTools.buildLayeredImage {
+        name = "registry.gitlab.com/gardens-of-kadesh/gardens-of-kadesh/emscripten-build-env";
+        tag = "latest";
+
+        contents = [
+          busybox
+          meson
+          pkg-config
+          ninja
+          emscripten
+          gcc
+          yacc
+          flex
+          # Root certificates for HTTPS, so emscripten can download SDL2
+          dockerTools.caCertificates
+        ];
+
+        config = {
+          Env = [
+            "PKG_CONFIG_PATH=${SDL2.dev}/lib/pkgconfig"
+          ];
+          Cmd = [ "/bin/sh" ];
+        };
+      };
+
     apps.x86_64-linux.default = {
       type = "app";
       program = "${self.packages.x86_64-linux.default}/bin/homeworld";
