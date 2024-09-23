@@ -1283,10 +1283,7 @@ void btgRender(void)
 #else
     glShadeModel(GL_SMOOTH);
 #endif
-    _bgColor[0] = colReal32(colRed(universe.backgroundColor));
-    _bgColor[1] = colReal32(colGreen(universe.backgroundColor));
-    _bgColor[2] = colReal32(colBlue(universe.backgroundColor));
-    _bgColor[3] = colReal32(colAlpha(universe.backgroundColor));
+    rndGetClearColor(_bgColor);
     for (index = 0; index < 4; index++)
     {
         _bgByte[index] = (GLubyte)(_bgColor[index] * 255.0f);

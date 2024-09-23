@@ -9,6 +9,7 @@
 #ifndef ___RENDER_H
 #define ___RENDER_H
 
+#include "glinc.h"
 #include "Camera.h"
 #include "Color.h"
 #include "Matrix.h"
@@ -101,6 +102,7 @@ extern bool32 rndNormalization;
 extern bool32 rndTakeScreenshot;
 extern udword rndLightingEnabled;
 extern bool32 rndScissorEnabled;
+extern GLfloat rndClearColor[4];
 
 #if RND_POLY_STATS
 extern sdword rndDisplayPolyStats;
@@ -143,6 +145,7 @@ sdword rndNormalizeEnable(sdword bEnable);
 sdword rndAdditiveBlends(sdword bAdditive);
 sdword rndMaterialfv(sdword face, sdword pname, real32* params);
 void rndSetClearColor(color c);
+void rndGetClearColor(GLfloat c[4]);
 
 real32 rndComputeOverlap(Ship* ship, real32 scalar);
 

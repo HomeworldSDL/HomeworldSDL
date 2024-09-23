@@ -184,6 +184,8 @@ real32 rndAspectRatio;                                      //aspect ratio of re
 static sdword rndFillCounter = 0;
 static color rndFillColour = 0;
 
+GLfloat rndClearColor[4];
+
 //callback functions optionally called during rendering a mission sphere
 rendercallback rndPreObjectCallback = NULL, rndPostObjectCallback = NULL;
 
@@ -4377,10 +4379,23 @@ void rndSetScreenFill(sdword count, color c)
 ----------------------------------------------------------------------------*/
 void rndSetClearColor(color c)
 {
+    rndClearColor[0] = colReal32(colRed(c));
+    rndClearColor[1] = colReal32(colGreen(c));
+    rndClearColor[2] = colReal32(colBlue(c));
+    rndClearColor[3] = 1.0f;
+
     glClearColor(colReal32(colRed(c)),
                     colReal32(colGreen(c)),
                     colReal32(colBlue(c)),
                     1.0f);
+}
+
+void rndGetClearColor(GLfloat c[4])
+{
+    c[0] = rndClearColor[0];
+    c[1] = rndClearColor[1];
+    c[2] = rndClearColor[2];
+    c[3] = rndClearColor[3];
 }
 
 /*-----------------------------------------------------------------------------
