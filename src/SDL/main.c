@@ -1766,15 +1766,14 @@ void HandleEvent(SDL_Event const* pEvent) {
             return;
 
         case SDL_KEYDOWN:
-            /*
-            if (lParam & BIT30)
-            {                                               //if it's a repeating key
-                //keyRepeat(KeyMapFromWindows(wParam));
-                keyRepeat(keyLanguageTranslate(wParam));
+            if (pEvent->key.repeat != 0) //if it's a repeating key
+            {
+                keyRepeat(keyLanguageTranslate(pEvent->key.keysym.scancode));
             }
-            */
-            keyPressDown(keyLanguageTranslate(pEvent->key.keysym.scancode));
-            //keyPressDown(KeyMapFromWindows(wParam));
+            else                         //else it's a freshly-pressed key
+            {
+                keyPressDown(keyLanguageTranslate(pEvent->key.keysym.scancode));
+            }
             return;
 
         case SDL_USEREVENT:
