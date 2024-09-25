@@ -61,7 +61,6 @@
 #include "Universe.h"
 
 #ifdef _WIN32
-    #define WIN32_LEAN_AND_MEAN
     #define strcasecmp _stricmp
     #include <windows.h>
     #include <winreg.h>
