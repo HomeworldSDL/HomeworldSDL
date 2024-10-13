@@ -1,3 +1,11 @@
+# Homeworld SDL
+
+🚧📢 **PROJECT MOVED: HomeworldSDL is now [Gardens of Kadesh] !**
+
+**This repo is only a mirror. You have been warned.**
+
+[Gardens of Kadesh]: https://gardens-of-kadesh.gitlab.io
+
 # Gardens of Kadesh
 
 [📣 **Play the demo in your browser!**][wasm-demo] (Will download ~70MiB of data. You need a good internet connection.)
